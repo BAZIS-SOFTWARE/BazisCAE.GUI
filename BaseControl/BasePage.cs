@@ -891,10 +891,10 @@ namespace BaseControl
 
         public virtual void UnBlockInterface()
         {
-            var stdToolStr = FindToolStrip<StandartToolStrip>();
-            stdToolStr.Enabled = true;
+            var toolStr = FindToolStrip<StandartToolStrip>();
+            toolStr.Enabled = true;
 
-            foreach (ToolStripButton item in stdToolStr.Items)
+            foreach (ToolStripButton item in toolStr.Items)
                 item.Enabled = true;
         }  
 

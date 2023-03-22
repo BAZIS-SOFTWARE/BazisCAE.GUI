@@ -57,8 +57,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Geometry.dll</HintPath>
     </Reference>
-    <Reference Include="GMSH_Importer">
-      <HintPath>..\..\..\BazisXN\GMSH_Importer(inp)\bin\Release\GMSH_Importer.dll</HintPath>
+    <Reference Include="GMSH_Importer, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\GMSH_Importer.dll</HintPath>
     </Reference>
     <Reference Include="Model, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

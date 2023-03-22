@@ -25,13 +25,24 @@ namespace HeatTreatmentControlSolution
 
         private void HtTaskToolStrip_advisorStatusChanged(object arg1, AdvisorEventArgs arg2)
         {
-            if (arg2.Status)
+            if (!arg2.Status)
             {
                 var taskAdv = new HeatTreatmentAdvisor() { Dock = DockStyle.Fill, Name = "ТО" };
 
                 CreateAdvisor(taskAdv);
             }
             else DeleteAdvisor();
+        }
+
+        public override void UnBlockInterface()
+        {
+            base.UnBlockInterface();
+
+            var toolStr = FindToolStrip<HeatTreatmentTasksToolStrip>();
+            toolStr.Enabled = true;
+
+            foreach (ToolStripButton item in toolStr.Items)
+                item.Enabled = true;
         }
 
         public override ToolStripMenuItem CreateTasksInterface()
