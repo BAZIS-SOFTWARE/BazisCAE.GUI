@@ -148,7 +148,7 @@ namespace BaseForm
 
             pictureBox.Hide();
 
-            if (licToken.LicenseState)
+            if (licToken.Answer == "можно")
                 StartLicensing(licToken, module);
 
             else StartLisenceForm(licToken.Request);
@@ -254,8 +254,6 @@ namespace BaseForm
         {
             var licToken = new LicenseToken();
 
-            licToken.Request = request;
-
             connectionContr = new ConnectionController.Controller();
             var local = Environment.GetEnvironmentVariable("BazisLocal", EnvironmentVariableTarget.Machine);
             var net = Environment.GetEnvironmentVariable("BazisNet", EnvironmentVariableTarget.Machine);
@@ -263,12 +261,10 @@ namespace BaseForm
             {
                 var localToken = new LocalToken() 
                 { 
-                    Path = local 
+                    Path = local,
+                    Request = request
                 };
                 connectionContr.RequestLocakKey(localToken);
-                if (localToken.Answer == "можно")
-                    licToken.LicenseState = true;
-                else licToken.LicenseState = false;
 
                 licToken = localToken;
             }
@@ -277,13 +273,11 @@ namespace BaseForm
                 var netToken = new NetToken() 
                 {
                     IPAddress = IPAddress.Parse(net.Split(':')[0]),
-                    Port = int.Parse(net.Split(':')[1])
+                    Port = int.Parse(net.Split(':')[1]),
+                    Request = request
                 };
 
                 connectionContr.RequestServer(netToken);
-                if (netToken.Answer == "можно")
-                    licToken.LicenseState = true;
-                else licToken.LicenseState = false;
 
                 licToken = netToken;
             }

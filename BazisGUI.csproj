@@ -53,15 +53,21 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DataBaseController">
-      <HintPath>DataBases\bin\Release\DataBaseController.dll</HintPath>
+    <Reference Include="DataBaseController, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\DataBaseController.dll</HintPath>
     </Reference>
-    <Reference Include="DataBaseInterface">
-      <HintPath>DataBases\bin\Release\DataBaseInterface.dll</HintPath>
+    <Reference Include="DataBaseInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\DataBaseInterface.dll</HintPath>
     </Reference>
-    <Reference Include="DataBases">
-      <HintPath>DataBases\bin\Release\DataBases.dll</HintPath>
+    <Reference Include="DataBases, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\DataBases.dll</HintPath>
     </Reference>
     <Reference Include="Model">
       <HintPath>Libs\Model.dll</HintPath>
@@ -148,6 +154,7 @@
     <EmbeddedResource Include="SettingsControl\SettingsControl.resx">
       <DependentUpon>SettingsControl.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="Help\ПО Bazis. Руководство пользователя.chm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

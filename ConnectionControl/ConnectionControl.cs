@@ -1,5 +1,6 @@
 ﻿using ConnectionController;
 using System;
+using System.Diagnostics;
 using System.Net;
 using System.Windows.Forms;
 
@@ -97,26 +98,30 @@ namespace ConnectionControl
             var value = string.Empty;
 
             // If necessary, create it.
+            var process = new Process();
+            var startInfo = new ProcessStartInfo
+            {
+                WindowStyle = ProcessWindowStyle.Normal,
+                FileName = "cmd.exe",
+                Verb = "runas",
+                ErrorDialog = true
+            };
+            process.StartInfo = startInfo;
 
-                if (rbtLocalLic.Checked)
-                {
-                    value = "BazisLocal";
-                    Environment.SetEnvironmentVariable(value, txbKey.Text);
-                }
+            if (rbtLocalLic.Checked)
+                startInfo.Arguments = $@"/C setx /m BazisLocal {txbKey.Text}";
 
-                else
-                {
-                    value = "BazisNet";
-                    Environment.SetEnvironmentVariable(value, $"{txbServerAdress.Text}:{txbPort.Text}");
-                }
+            else
+                startInfo.Arguments = $@"/C setx /m BazisNet ""{txbServerAdress.Text}:{txbPort.Text}""";
 
+            process.Start();
             // checking
 
             if (rbtLocalLic.Checked)
                 value = Environment.GetEnvironmentVariable("BazisLocal");
             else value = Environment.GetEnvironmentVariable("BazisNet");
 
-            if(value != null | value != "")
+            if (value != null | value != "")
                 lblStatus.Text = "Настройки сохранены";
             else lblStatus.Text = "Ошибка сохранения!";
         }
