@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Measuring
+namespace BaseControl
 {
     public partial class MeasuringSet : UserControl
     {

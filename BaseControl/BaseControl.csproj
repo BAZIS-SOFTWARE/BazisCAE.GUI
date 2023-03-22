@@ -108,11 +108,22 @@
     <Compile Include="BasePage.Designer.cs">
       <DependentUpon>BasePage.cs</DependentUpon>
     </Compile>
+    <Compile Include="MeasureEventArgs.cs" />
+    <Compile Include="MeasuringSet.cs" />
+    <Compile Include="MeasuringSet.designer.cs">
+      <DependentUpon>MeasuringSet.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SelectInDirectionEventArgs.cs" />
+    <Compile Include="SelectInPlainEventArgs.cs" />
+    <Compile Include="SelectionSet.cs" />
+    <Compile Include="SelectionSet.designer.cs">
+      <DependentUpon>SelectionSet.cs</DependentUpon>
     </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
@@ -120,20 +131,16 @@
     <EmbeddedResource Include="BasePage.resx">
       <DependentUpon>BasePage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MeasuringSet.resx">
+      <DependentUpon>MeasuringSet.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="AdvanceSelector\AdvanceSelector.csproj">
-      <Project>{85c7a9e7-868c-4d3a-a468-bb56843e1b66}</Project>
-      <Name>AdvanceSelector</Name>
-    </ProjectReference>
-    <ProjectReference Include="Measuring\Measuring.csproj">
-      <Project>{3fab4c41-b81b-4443-a05d-eb5de5eba014}</Project>
-      <Name>Measuring</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="SelectionSet.resx">
+      <DependentUpon>SelectionSet.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

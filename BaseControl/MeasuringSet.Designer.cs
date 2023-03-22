@@ -1,4 +1,4 @@
-﻿namespace Measuring
+﻿namespace BaseControl
 {
     partial class MeasuringSet
     {

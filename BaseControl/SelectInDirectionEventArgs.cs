@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Selector
+namespace BaseControl
 {
     public class SelectInDirectionEventArgs : EventArgs
     {

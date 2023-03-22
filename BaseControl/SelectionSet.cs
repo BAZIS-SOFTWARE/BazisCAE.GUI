@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Selector
+namespace BaseControl
 {
     public partial class SelectionSet: UserControl
     {

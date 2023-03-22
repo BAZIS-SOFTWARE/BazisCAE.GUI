@@ -1,13 +1,10 @@
-﻿using PrFunctionLib;
-using PrModel;
-using PrModel.Mesh;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrBaseFormControl
+namespace BaseControl
 {
     public class MeasureDistanceEventArgs : MeasureEventArgs
     {

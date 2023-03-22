@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Measuring
+namespace BaseControl
 {
 
     public enum MeasureKind

@@ -1,4 +1,4 @@
-﻿namespace Selector
+﻿namespace BaseControl
 {
     partial class SelectionSet
     {
