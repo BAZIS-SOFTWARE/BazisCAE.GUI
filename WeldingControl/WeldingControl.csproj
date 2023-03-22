@@ -51,7 +51,7 @@
   <ItemGroup>
     <Reference Include="AdvisorControls, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BazisXN\AdvisorControls\bin\Release\AdvisorControls.dll</HintPath>
+      <HintPath>..\Libs\AdvisorControls.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -63,8 +63,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="ToolStrips">
-      <HintPath>..\..\BazisXN\ToolStrips\bin\Release\ToolStrips.dll</HintPath>
+    <Reference Include="ToolStrips, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\ToolStrips.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

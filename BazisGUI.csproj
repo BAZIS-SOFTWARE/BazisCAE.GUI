@@ -78,9 +78,9 @@
     <Reference Include="Project">
       <HintPath>Libs\Project.dll</HintPath>
     </Reference>
-    <Reference Include="Scene, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Scene, Version=2.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\BazisXN\Scene\bin\Release\Scene.dll</HintPath>
+      <HintPath>Libs\Scene.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">

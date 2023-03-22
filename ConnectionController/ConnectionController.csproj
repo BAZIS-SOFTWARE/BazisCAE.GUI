@@ -50,9 +50,9 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LicenseData, Version=1.5.3.155, Culture=neutral, PublicKeyToken=4046bfcfc1f7b487, processorArchitecture=MSIL">
+    <Reference Include="LicenseData, Version=1.5.3.200, Culture=neutral, PublicKeyToken=4046bfcfc1f7b487, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\BazisXN\LicenseSystem\LicenseGenerationSolution\LicenseData\bin\Release\LicenseData.dll</HintPath>
+      <HintPath>..\Libs\LicenseData.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
