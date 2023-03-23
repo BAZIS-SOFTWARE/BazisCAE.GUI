@@ -12,7 +12,7 @@ namespace BaseControl
         MeasureKind measureKind;
         public MeasuringSet()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
 
         private void Rbtn_Click(object sender, EventArgs e)
@@ -23,9 +23,9 @@ namespace BaseControl
                     measureKind = MeasureKind.DistanceNodeToNode;
                 else measureKind = MeasureKind.DistanceNodeToNode;
             }
-            else if(rbtVolume.Checked)
+            else if (rbtVolume.Checked)
                 measureKind = MeasureKind.Volume;
-            else if(rbtSquare.Checked)
+            else if (rbtSquare.Checked)
                 measureKind = MeasureKind.Square;
             else measureKind = MeasureKind.Path;
 

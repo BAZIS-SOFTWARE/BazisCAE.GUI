@@ -108,7 +108,7 @@
             // 
             // txbAngle
             // 
-            this.txbAngle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txbAngle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbAngle.Location = new System.Drawing.Point(64, 26);
             this.txbAngle.Margin = new System.Windows.Forms.Padding(3, 15, 15, 3);

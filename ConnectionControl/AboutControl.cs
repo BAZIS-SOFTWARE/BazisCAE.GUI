@@ -19,25 +19,26 @@ namespace ConnectionControl
         {
             //Get license information from license file
 
-            var serverLine = ConfigurationManager.AppSettings.Get("Net");
-            var keyLine = ConfigurationManager.AppSettings.Get("Local");
+            var local = Environment.GetEnvironmentVariable("BazisLocal", EnvironmentVariableTarget.Machine);
+            var net = Environment.GetEnvironmentVariable("BazisNet", EnvironmentVariableTarget.Machine);
 
             var connectionController = new Controller();
 
             try
             {
                 //Load lic file
-                if (keyLine != null)
+                if (local != null)
                 {                    
-                    var licInfo = connectionController.InfoLocakKey(keyLine);
+                    var licInfo = connectionController.InfoLocakKey(local);
 
                     lblCompanyName.Text = licInfo[0];
-                    lblProductKey.Text = licInfo[1];
-                    lblKeyInfo.Text = licInfo[2];
-                    lblLicenseKind.Text = "Локальная";                   
+
+                    lblKeyInfo.Text = "";
+                    for (int i = 1; i < licInfo.Length; i++)
+                        lblKeyInfo.Text += $"{licInfo[i]}\n";               
                 }
-                if(serverLine != null)
-                    lblLicenseKind.Text = $"Сетевая : {serverLine}";
+                if(net != null)
+                    lblKeyInfo.Text = $"Сетевая : {net}";
 
             }
             catch (Exception ex)

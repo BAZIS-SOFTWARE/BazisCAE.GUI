@@ -110,10 +110,6 @@
       <DependentUpon>BasePage.cs</DependentUpon>
     </Compile>
     <Compile Include="MeasureEventArgs.cs" />
-    <Compile Include="MeasuringSet.cs" />
-    <Compile Include="MeasuringSet.designer.cs">
-      <DependentUpon>MeasuringSet.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -122,8 +118,16 @@
     </Compile>
     <Compile Include="SelectInDirectionEventArgs.cs" />
     <Compile Include="SelectInPlainEventArgs.cs" />
-    <Compile Include="SelectionSet.cs" />
-    <Compile Include="SelectionSet.designer.cs">
+    <Compile Include="MeasuringSet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MeasuringSet.Designer.cs">
+      <DependentUpon>MeasuringSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectionSet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SelectionSet.Designer.cs">
       <DependentUpon>SelectionSet.cs</DependentUpon>
     </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
@@ -132,15 +136,9 @@
     <EmbeddedResource Include="BasePage.resx">
       <DependentUpon>BasePage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MeasuringSet.resx">
-      <DependentUpon>MeasuringSet.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectionSet.resx">
-      <DependentUpon>SelectionSet.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

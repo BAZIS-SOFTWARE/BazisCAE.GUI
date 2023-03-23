@@ -87,7 +87,7 @@
             // 
             // cmbMeasureObjects
             // 
-            this.cmbMeasureObjects.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cmbMeasureObjects.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbMeasureObjects.FormattingEnabled = true;
             this.cmbMeasureObjects.Items.AddRange(new object[] {

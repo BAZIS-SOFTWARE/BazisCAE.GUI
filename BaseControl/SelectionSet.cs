@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace BaseControl
 {
-    public partial class SelectionSet: UserControl
+    public partial class SelectionSet : UserControl
     {
         public event Action<object, SelectInDirectionEventArgs> SelectInDirection;
         public event Action<object, SelectInPlainEventArgs> SelectInPlain;
@@ -25,12 +25,12 @@ namespace BaseControl
         private void btnSelect_Click(object sender, EventArgs e)
         {
             if (rbtInDirection.Checked)
-                SelectInDirection(this, new SelectInDirectionEventArgs("Узлы",chbChangeDirection.Checked));
+                SelectInDirection(this, new SelectInDirectionEventArgs("Узлы", chbChangeDirection.Checked));
             else if (rbtInPlain.Checked)
-                if(rbtNodes.Checked)
-                    SelectInPlain(this, new SelectInPlainEventArgs("Узлы",float.Parse(txbAngle.Text)));
+                if (rbtNodes.Checked)
+                    SelectInPlain(this, new SelectInPlainEventArgs("Узлы", float.Parse(txbAngle.Text)));
                 else
-                    SelectInPlain(this, new SelectInPlainEventArgs("Элементы",float.Parse(txbAngle.Text)));
+                    SelectInPlain(this, new SelectInPlainEventArgs("Элементы", float.Parse(txbAngle.Text)));
         }
 
         private void rbtNodes_Click(object sender, EventArgs e)
