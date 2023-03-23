@@ -79,10 +79,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="ToolStrips, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\ToolStrips.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelPage.cs">
@@ -103,6 +99,10 @@
     <ProjectReference Include="..\BaseControl\BaseControl.csproj">
       <Project>{e5c49662-b9c7-4b1b-9734-1ff03da9fcc0}</Project>
       <Name>BaseControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToolStrips\ToolStrips.csproj">
+      <Project>{740e63b0-14c9-41eb-b883-0f7077817174}</Project>
+      <Name>ToolStrips</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
