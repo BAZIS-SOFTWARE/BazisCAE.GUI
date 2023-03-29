@@ -24,6 +24,7 @@ using System.Threading;
 
 namespace BaseForm
 {
+
     public partial class BaseForm : Form
     {
         //private System.Windows.Forms.Timer connectTimer = new System.Windows.Forms.Timer();
@@ -189,8 +190,12 @@ namespace BaseForm
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
-                    Invoke(new Action(() => { Application.ExitThread(); }));
+                    if(ex is ThreadAbortException != true)
+                    {
+                        MessageBox.Show(ex.Message);
+                        Invoke(new Action(() => { Application.ExitThread(); }));
+                    }
+
                 }
             });
             serverConnectionThread.Start();
@@ -279,7 +284,7 @@ namespace BaseForm
 
         public LicenseToken CheckLicense(string request)
         {
-            var licToken = new LicenseToken() { Request = request };
+            var licToken = new LicenseToken() { Request = request + " Взять"};
 
             connectionContr = new ConnectionController.Controller();
             var net = Environment.GetEnvironmentVariable("BazisServerPath", EnvironmentVariableTarget.Machine);

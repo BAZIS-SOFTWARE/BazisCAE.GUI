@@ -57,6 +57,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ConnectionController, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\ConnectionController.dll</HintPath>
+    </Reference>
     <Reference Include="DataBaseController, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\DataBaseController.dll</HintPath>
@@ -188,10 +192,6 @@
     <ProjectReference Include="BaseControl\BaseControl.csproj">
       <Project>{e5c49662-b9c7-4b1b-9734-1ff03da9fcc0}</Project>
       <Name>BaseControl</Name>
-    </ProjectReference>
-    <ProjectReference Include="ConnectionController\ConnectionController.csproj">
-      <Project>{2008d871-bf61-47db-98d4-a4738fb19a5c}</Project>
-      <Name>ConnectionController</Name>
     </ProjectReference>
     <ProjectReference Include="ConnectionControl\ConnectionControl.csproj">
       <Project>{623ce9fc-e0e2-4644-9f69-75e0f394546f}</Project>

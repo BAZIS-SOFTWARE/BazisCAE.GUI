@@ -1,7 +1,9 @@
 ﻿
 using ConnectionController;
+using LicenseData;
+using Newtonsoft.Json;
 using System;
-using System.Configuration;
+using System.Net;
 using System.Windows.Forms;
 
 namespace ConnectionControl
@@ -19,26 +21,33 @@ namespace ConnectionControl
         {
             //Get license information from license file
 
-            var local = Environment.GetEnvironmentVariable("BazisLocal", EnvironmentVariableTarget.Machine);
-            var net = Environment.GetEnvironmentVariable("BazisNet", EnvironmentVariableTarget.Machine);
+            var net = Environment.GetEnvironmentVariable("BazisServerPath", EnvironmentVariableTarget.Machine);
 
             var connectionController = new Controller();
 
             try
             {
                 //Load lic file
-                if (local != null)
-                {                    
-                    var licInfo = connectionController.InfoLocakKey(local);
+                if (net != null)
+                {
+                    var ip = net.Split(':');
+                    var token = new LicenseToken()
+                    {
+                        IPAddress = IPAddress.Parse(ip[0]),
+                        Port = int.Parse(ip[1]),
+                        Request = "CheckLicenseInfo"
+                    };
 
-                    lblCompanyName.Text = licInfo[0];
+                    connectionController.RequestServer(token);
+
+                    var licInfo = JsonConvert.DeserializeObject<LicenseInfo>(token.Answer);
+
+                    lblCompanyName.Text = licInfo.CompanyName;
 
                     lblKeyInfo.Text = "";
-                    for (int i = 1; i < licInfo.Length; i++)
-                        lblKeyInfo.Text += $"{licInfo[i]}\n";               
+                    foreach (var keyInfo in licInfo)
+                        lblKeyInfo.Text += $"{keyInfo}\n";               
                 }
-                if(net != null)
-                    lblKeyInfo.Text = $"Сетевая : {net}";
 
             }
             catch (Exception ex)

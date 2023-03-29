@@ -10,26 +10,6 @@ namespace ConnectionController
 {
     public class Controller
     {
-        public string[] InfoLocakKey(string keyPath)
-        {
-            if (!(File.Exists(keyPath)))
-                throw new Exception("Не найден файл лицензии!");
-            else
-            {
-                var keyManager = new LicenseManager();
-                var licInfo = keyManager.Load(keyPath);
-
-                var info = new List<string>();
-
-                foreach (var keyInfo in licInfo)
-                    info.Add(keyInfo.ToString());
-
-                info.Insert(0,licInfo.CompanyName);
-
-                return info.ToArray();
-            }
-        }  
-
         public void RequestServer(LicenseToken token)
         {
             var tcpClient = new TcpClient();
