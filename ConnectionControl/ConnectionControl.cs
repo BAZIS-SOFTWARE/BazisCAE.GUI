@@ -79,12 +79,12 @@ namespace ConnectionControl
                     {
                         IPAddress = ip,
                         Port = port,
-                        Request = cmbAction.Text
+                        Request = cmbAction.Text + " Взять"
                     };
                     connectionController.RequestServer(netToken);
                     licToken = netToken;
                 }
-                
+                lblStatus.Text = licToken.Answer;
                 LicenseActionEvent(licToken);
             }
             catch (Exception ex)

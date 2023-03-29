@@ -20,12 +20,13 @@ using ConnectionController;
 using BazisGUI.SettingsControl;
 using System.Diagnostics;
 using System.Reflection;
+using System.Threading;
 
 namespace BaseForm
 {
     public partial class BaseForm : Form
     {
-        private System.Windows.Forms.Timer connectTimer = new System.Windows.Forms.Timer();
+        //private System.Windows.Forms.Timer connectTimer = new System.Windows.Forms.Timer();
         ProjectData project;
         private string activePage;
         private List<ToolStripMenuItem> activeMenuItems = new List<ToolStripMenuItem>();
@@ -39,6 +40,8 @@ namespace BaseForm
         EventHandler openProjectEventHandler = null;
         EventHandler showNavigatorEventHandler = null;
         EventHandler showConsoleEventHandler = null;
+        private Thread serverConnectionThread;
+        private bool moduleWork;
 
         public Controller connectionContr { get; private set; }
 
@@ -47,7 +50,7 @@ namespace BaseForm
             InitializeComponent();
             project = new ProjectData("newProject", Application.StartupPath);
             activePage = "none";
-            connectTimer.Interval = 500;
+            //connectTimer.Interval = 500;
         }
 
         private void построениеСетки_Click(object sender, EventArgs e)
@@ -161,12 +164,37 @@ namespace BaseForm
             module.UnBlockInterface();
             if (licToken is NetToken netToken)
             {
-                connectTimer.Stop();
-                connectTimer.Tick += (ar1, ar2) =>
+                netToken.Request = netToken.Request.Replace("Взять", "Работа");
+
+
+                if (serverConnectionThread != null)
                 {
-                    connectionContr.RequestServer(netToken);
-                };
-                connectTimer.Start();
+                    serverConnectionThread.Abort();
+
+                    while (true)
+                        if (!serverConnectionThread.IsAlive)
+                            break;
+                }
+
+
+                serverConnectionThread = new Thread(() =>
+                {
+                    try
+                    {
+                        while (true)
+                        {
+                            Thread.Sleep(5000);
+                            connectionContr.RequestServer(netToken);
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);                     
+                        Invoke(new Action(() => { Application.ExitThread(); }));
+                    }
+                });
+                serverConnectionThread.Start();
             }
         }
 
@@ -252,11 +280,11 @@ namespace BaseForm
 
         public LicenseToken CheckLicense(string request)
         {
-            var licToken = new LicenseToken();
+            var licToken = new LicenseToken() { Request = request };
 
             connectionContr = new ConnectionController.Controller();
             var local = Environment.GetEnvironmentVariable("BazisLocal", EnvironmentVariableTarget.Machine);
-            var net = Environment.GetEnvironmentVariable("BazisNet", EnvironmentVariableTarget.Machine);
+            var net = Environment.GetEnvironmentVariable("BazisServerPath", EnvironmentVariableTarget.Machine);
             if (local != null)
             {
                 var localToken = new LocalToken() 
@@ -270,16 +298,23 @@ namespace BaseForm
             }
             else if (net != null)
             {
-                var netToken = new NetToken() 
+                try
                 {
-                    IPAddress = IPAddress.Parse(net.Split(':')[0]),
-                    Port = int.Parse(net.Split(':')[1]),
-                    Request = request
-                };
+                    var netToken = new NetToken()
+                    {
+                        IPAddress = IPAddress.Parse(net.Split(':')[0]),
+                        Port = int.Parse(net.Split(':')[1]),
+                        Request = request
+                    };
 
-                connectionContr.RequestServer(netToken);
+                    connectionContr.RequestServer(netToken);
 
-                licToken = netToken;
+                    licToken = netToken;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
 
             return licToken;
@@ -411,6 +446,23 @@ namespace BaseForm
                 };
                 form.Controls.Add(control);
                 form.ShowDialog();
+            }
+        }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void BaseForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (serverConnectionThread != null)
+            {
+                serverConnectionThread.Abort();
+
+                while (true)
+                    if (!serverConnectionThread.IsAlive)
+                        break;
             }
         }
     }
