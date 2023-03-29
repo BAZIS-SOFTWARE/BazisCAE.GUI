@@ -19,8 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResultControl", "ResultCont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionControl", "ConnectionControl\ConnectionControl.csproj", "{623CE9FC-E0E2-4644-9F69-75E0F394546F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionController", "ConnectionController\ConnectionController.csproj", "{2008D871-BF61-47DB-98D4-A4738FB19A5C}"
-EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{FCD9F643-34E8-48D7-B57E-97400F118E98}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolStrips", "ToolStrips\ToolStrips.csproj", "{740E63B0-14C9-41EB-B883-0F7077817174}"
@@ -99,14 +97,6 @@ Global
 		{623CE9FC-E0E2-4644-9F69-75E0F394546F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{623CE9FC-E0E2-4644-9F69-75E0F394546F}.Release|x64.ActiveCfg = Release|x64
 		{623CE9FC-E0E2-4644-9F69-75E0F394546F}.Release|x64.Build.0 = Release|x64
-		{2008D871-BF61-47DB-98D4-A4738FB19A5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2008D871-BF61-47DB-98D4-A4738FB19A5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2008D871-BF61-47DB-98D4-A4738FB19A5C}.Debug|x64.ActiveCfg = Debug|x64
-		{2008D871-BF61-47DB-98D4-A4738FB19A5C}.Debug|x64.Build.0 = Debug|x64
-		{2008D871-BF61-47DB-98D4-A4738FB19A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2008D871-BF61-47DB-98D4-A4738FB19A5C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2008D871-BF61-47DB-98D4-A4738FB19A5C}.Release|x64.ActiveCfg = Release|x64
-		{2008D871-BF61-47DB-98D4-A4738FB19A5C}.Release|x64.Build.0 = Release|x64
 		{FCD9F643-34E8-48D7-B57E-97400F118E98}.Debug|Any CPU.ActiveCfg = Debug
 		{FCD9F643-34E8-48D7-B57E-97400F118E98}.Debug|x64.ActiveCfg = Debug
 		{FCD9F643-34E8-48D7-B57E-97400F118E98}.Release|Any CPU.ActiveCfg = Release

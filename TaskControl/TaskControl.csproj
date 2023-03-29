@@ -63,7 +63,7 @@
     </Reference>
     <Reference Include="Console, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\BazisXN\Console\bin\Release\Console.dll</HintPath>
+      <HintPath>..\Libs\Console.dll</HintPath>
     </Reference>
     <Reference Include="DataBaseInterface">
       <HintPath>..\..\DataBases\bin\Release\DataBaseInterface.dll</HintPath>
@@ -73,27 +73,27 @@
     </Reference>
     <Reference Include="Functions, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\BazisXN\Functions\bin\Release\Functions.dll</HintPath>
+      <HintPath>..\Libs\Functions.dll</HintPath>
     </Reference>
     <Reference Include="Geometry, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\BazisXN\Geometry\PrGeometry\bin\Release\Geometry.dll</HintPath>
+      <HintPath>..\Libs\Geometry.dll</HintPath>
     </Reference>
     <Reference Include="Model, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\BazisXN\ModelSolution\bin\Release\Model.dll</HintPath>
+      <HintPath>..\Libs\Model.dll</HintPath>
     </Reference>
     <Reference Include="Project, Version=1.0.1.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\BazisXN\Project\bin\Release\Project.dll</HintPath>
+      <HintPath>..\Libs\Project.dll</HintPath>
     </Reference>
     <Reference Include="ProjectController, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\BazisXN\Project\ProjectController\bin\Release\ProjectController.dll</HintPath>
+      <HintPath>..\Libs\ProjectController.dll</HintPath>
     </Reference>
     <Reference Include="Scene, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\BazisXN\Scene\bin\Release\Scene.dll</HintPath>
+      <HintPath>..\Libs\Scene.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
