@@ -8,6 +8,7 @@ namespace ConnectionControl
 {
     public partial class ConnectionControl : UserControl
     {
+        IPAddress ip;
         public void AddAction(string action)
         {
             cmbAction.Items.Add(action);
@@ -29,61 +30,31 @@ namespace ConnectionControl
         {
             if (rbtLocalLic.Checked)
             {
-                txbKey.Enabled = true;
-
                 txbServerAdress.Enabled = false;
-                txbPort.Enabled = false;
+                txbServerAdress.Text = "127.0.0.1";
             }
             if (rbtNetLic.Checked)
             {
-                txbKey.Enabled = false;
-
                 txbServerAdress.Enabled = true;
-                txbPort.Enabled = true;
             }
-        }
-
-        private void txbKey_Click(object sender, EventArgs e)
-        {
-            var openDialog = new OpenFileDialog();
-
-            if (openDialog.ShowDialog(this) == DialogResult.Cancel)
-                return;
-
-            txbKey.Text = openDialog.FileName;
-        }       
+        }    
 
         private void btnApply_Click(object sender, EventArgs e)
         {
             try
             {
-                var licToken = new LicenseToken();
+                var port = int.Parse(txbPort.Text);
+                var request = cmbAction.Text + " Взять";
+                var ip = IPAddress.Parse(txbServerAdress.Text);
 
-                if (rbtLocalLic.Checked)
+                var licToken = new LicenseToken()
                 {
-                    var locToken = new LocalToken()
-                    {
-                        Path = txbKey.Text,
-                        Request = cmbAction.Text
-                    };
-                    connectionController.RequestLocakKey(locToken);
-                    licToken = locToken;
-                }
+                    Request = request,
+                    IPAddress = ip,
+                    Port = port
+                };
 
-                else if (rbtNetLic.Checked)
-                {
-                    var ip = IPAddress.Parse(txbServerAdress.Text);
-                    var port = int.Parse(txbPort.Text);
-
-                    var netToken = new NetToken()
-                    {
-                        IPAddress = ip,
-                        Port = port,
-                        Request = cmbAction.Text + " Взять"
-                    };
-                    connectionController.RequestServer(netToken);
-                    licToken = netToken;
-                }
+                connectionController.RequestServer(licToken);
                 lblStatus.Text = licToken.Answer;
                 LicenseActionEvent(licToken);
             }
@@ -108,18 +79,12 @@ namespace ConnectionControl
             };
             process.StartInfo = startInfo;
 
-            if (rbtLocalLic.Checked)
-                startInfo.Arguments = $@"/C setx /m BazisLocal {txbKey.Text}";
-
-            else
-                startInfo.Arguments = $@"/C setx /m BazisNet ""{txbServerAdress.Text}:{txbPort.Text}""";
+            startInfo.Arguments = $@"/C setx /m BazisServerPath ""{txbServerAdress.Text}:{txbPort.Text}""";
 
             process.Start();
             // checking
 
-            if (rbtLocalLic.Checked)
-                value = Environment.GetEnvironmentVariable("BazisLocal");
-            else value = Environment.GetEnvironmentVariable("BazisNet");
+            value = Environment.GetEnvironmentVariable("BazisServerPath");
 
             if (value != null | value != "")
                 lblStatus.Text = "Настройки сохранены";

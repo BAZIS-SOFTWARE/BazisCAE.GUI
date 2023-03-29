@@ -162,40 +162,39 @@ namespace BaseForm
             сохранитьToolStripMenuItem.Enabled = true;
             сохранитькакToolStripMenuItem.Enabled = true;
             module.UnBlockInterface();
-            if (licToken is NetToken netToken)
+
+            licToken.Request = licToken.Request.Replace("Взять", "Работа");
+
+
+            if (serverConnectionThread != null)
             {
-                netToken.Request = netToken.Request.Replace("Взять", "Работа");
+                serverConnectionThread.Abort();
 
-
-                if (serverConnectionThread != null)
-                {
-                    serverConnectionThread.Abort();
-
-                    while (true)
-                        if (!serverConnectionThread.IsAlive)
-                            break;
-                }
-
-
-                serverConnectionThread = new Thread(() =>
-                {
-                    try
-                    {
-                        while (true)
-                        {
-                            Thread.Sleep(5000);
-                            connectionContr.RequestServer(netToken);
-                        }
-
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);                     
-                        Invoke(new Action(() => { Application.ExitThread(); }));
-                    }
-                });
-                serverConnectionThread.Start();
+                while (true)
+                    if (!serverConnectionThread.IsAlive)
+                        break;
             }
+
+
+            serverConnectionThread = new Thread(() =>
+            {
+                try
+                {
+                    while (true)
+                    {
+                        Thread.Sleep(5000);
+                        connectionContr.RequestServer(licToken);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    Invoke(new Action(() => { Application.ExitThread(); }));
+                }
+            });
+            serverConnectionThread.Start();
+
         }
 
         private void SetGeneralSettings(BasePage module)
@@ -283,33 +282,15 @@ namespace BaseForm
             var licToken = new LicenseToken() { Request = request };
 
             connectionContr = new ConnectionController.Controller();
-            var local = Environment.GetEnvironmentVariable("BazisLocal", EnvironmentVariableTarget.Machine);
             var net = Environment.GetEnvironmentVariable("BazisServerPath", EnvironmentVariableTarget.Machine);
-            if (local != null)
-            {
-                var localToken = new LocalToken() 
-                { 
-                    Path = local,
-                    Request = request
-                };
-                connectionContr.RequestLocakKey(localToken);
-
-                licToken = localToken;
-            }
-            else if (net != null)
+            
+            if (net != null)
             {
                 try
                 {
-                    var netToken = new NetToken()
-                    {
-                        IPAddress = IPAddress.Parse(net.Split(':')[0]),
-                        Port = int.Parse(net.Split(':')[1]),
-                        Request = request
-                    };
-
-                    connectionContr.RequestServer(netToken);
-
-                    licToken = netToken;
+                    licToken.IPAddress = IPAddress.Parse(net.Split(':')[0]);
+                    licToken.Port = int.Parse(net.Split(':')[1]);
+                    connectionContr.RequestServer(licToken);
                 }
                 catch (Exception ex)
                 {

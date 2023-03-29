@@ -28,50 +28,9 @@ namespace ConnectionController
 
                 return info.ToArray();
             }
-        }
+        }  
 
-        public void RequestLocakKey(LocalToken token)
-        {
-            if (!(File.Exists(token.Path)))
-                throw new Exception("Не найден файл лицензии!");
-            else
-            {
-                var licManager = new LicenseManager();
-
-                var licInfo = licManager.Load(token.Path);
-
-                if (token.Request == "Weld" |
-                    token.Request == "HeatTreatment" |
-                    token.Request == "Mesh" |
-                    token.Request == "Result")
-                {
-                    var module = licManager.ParseModule(token.Request);
-                    token.Answer = licInfo.Find(module) != null ? "можно" : "нельзя";
-                }
-                else if(token.Request == "ThermalSolver" |
-                    token.Request == "MechanicalSolver" |
-                    token.Request == "ChemicalSolver" |
-                    token.Request == "HardnessSolver"
-                    )
-                {
-                    var module = licManager.ParseModule(token.Request);
-                    var keyInfo = licInfo.Find(module);
-                    if (keyInfo != null)
-                    {
-                        if (keyInfo.Edition == Edition.Professional)
-                            token.Answer = "можно 20000000";
-                        else if (keyInfo.Edition == Edition.Study)
-                            token.Answer = "можно 30000";
-                        else token.Answer = "можно 10000";
-                    }
-                    else token.Answer = "нельзя";
-                }
-
-                else token.Answer = "Не зарегистрированный запрос";
-            }
-        }
-
-        public void RequestServer(NetToken token)
+        public void RequestServer(LicenseToken token)
         {
             var tcpClient = new TcpClient();
 
