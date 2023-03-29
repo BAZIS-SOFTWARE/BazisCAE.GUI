@@ -42,7 +42,6 @@ namespace BaseForm
         EventHandler showNavigatorEventHandler = null;
         EventHandler showConsoleEventHandler = null;
         private Thread serverConnectionThread;
-        private bool moduleWork;
 
         public Controller connectionContr { get; private set; }
 
