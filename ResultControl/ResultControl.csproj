@@ -54,37 +54,37 @@
       <HintPath>..\Libs\ColorSlider.dll</HintPath>
     </Reference>
     <Reference Include="Console">
-      <HintPath>..\..\..\BazisXN\Console\bin\Release\Console.dll</HintPath>
+      <HintPath>..\Libs\Console.dll</HintPath>
     </Reference>
     <Reference Include="Functions">
-      <HintPath>..\..\..\BazisXN\Functions\bin\Release\Functions.dll</HintPath>
+      <HintPath>..\Libs\Functions.dll</HintPath>
     </Reference>
     <Reference Include="Geometry">
-      <HintPath>..\..\..\BazisXN\Geometry\PrGeometry\bin\Release\Geometry.dll</HintPath>
+      <HintPath>..\Libs\Geometry.dll</HintPath>
     </Reference>
     <Reference Include="Graph">
-      <HintPath>..\..\..\BazisXN\Graph\bin\Release\Graph.dll</HintPath>
+      <HintPath>..\Libs\Graph.dll</HintPath>
     </Reference>
     <Reference Include="Model">
-      <HintPath>..\..\..\BazisXN\ModelSolution\bin\Release\Model.dll</HintPath>
+      <HintPath>..\Libs\Model.dll</HintPath>
     </Reference>
     <Reference Include="ModelController">
-      <HintPath>..\..\..\BazisXN\ModelSolution\ModelController\bin\Release\ModelController.dll</HintPath>
+      <HintPath>..\Libs\ModelController.dll</HintPath>
     </Reference>
     <Reference Include="Project">
-      <HintPath>..\..\..\BazisXN\Project\bin\Release\Project.dll</HintPath>
+      <HintPath>..\Libs\Project.dll</HintPath>
     </Reference>
     <Reference Include="ProjectController">
-      <HintPath>..\..\..\BazisXN\Project\ProjectController\bin\Release\ProjectController.dll</HintPath>
+      <HintPath>..\Libs\ProjectController.dll</HintPath>
     </Reference>
     <Reference Include="ProjectInterface">
-      <HintPath>..\..\..\BazisXN\Project\ProjectInterface\bin\Release\ProjectInterface.dll</HintPath>
+      <HintPath>..\Libs\ProjectInterface.dll</HintPath>
     </Reference>
     <Reference Include="Scene">
-      <HintPath>..\..\..\BazisXN\Scene\bin\Release\Scene.dll</HintPath>
+      <HintPath>..\Libs\Scene.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface">
-      <HintPath>..\..\..\BazisXN\Scene\SceneInterface\bin\Release\SceneInterface.dll</HintPath>
+      <HintPath>..\Libs\SceneInterface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

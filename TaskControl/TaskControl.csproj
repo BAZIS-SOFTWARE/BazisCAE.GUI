@@ -65,13 +65,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Console.dll</HintPath>
     </Reference>
-    <Reference Include="DataBaseInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="DataBaseInterface">
       <HintPath>..\Libs\DataBaseInterface.dll</HintPath>
     </Reference>
-    <Reference Include="DataBases, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\DataBases.dll</HintPath>
+    <Reference Include="DataBases">
+      <HintPath>..\..\DataBases\bin\Release\DataBases.dll</HintPath>
     </Reference>
     <Reference Include="Functions, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

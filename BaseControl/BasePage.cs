@@ -54,8 +54,6 @@ namespace BaseControl
         public BasePage()
         {
             InitializeComponent();
-
-
         }
 
         public void SceneInitialization()
