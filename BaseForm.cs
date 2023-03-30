@@ -307,7 +307,7 @@ namespace BaseForm
 
         private void StartLisenceForm(string request)
         {
-            var form = new Form() { Name = "checkForm", Text = "Лицензирование", ShowIcon = false, Size = new Size(500, 315) };
+            var form = new Form() { Name = "checkForm", Text = "Лицензирование", ShowIcon = false, Size = new Size(450, 250) };
             var control = new ConnectionControl.ConnectionControl() { Dock = DockStyle.Fill };
 
             control.AddAction(request);
