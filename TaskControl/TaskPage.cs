@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BaseControl;
-using ToolStrips;
 using AdvisorControls;
 using ProjectController;
 using BasicAdvisorControls.Interfaces;
@@ -23,7 +20,6 @@ using System.Threading;
 using System.Diagnostics;
 using DataBaseInterface;
 using System.IO;
-using DataBases;
 using System.Reflection;
 
 namespace TaskControl

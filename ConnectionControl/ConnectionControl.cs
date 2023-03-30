@@ -9,9 +9,10 @@ namespace ConnectionControl
     public partial class ConnectionControl : UserControl
     {
         IPAddress ip;
+        string action;
         public void AddAction(string action)
         {
-            cmbAction.Items.Add(action);
+            this.action = action;
         }
 
         Controller connectionController;
@@ -44,23 +45,22 @@ namespace ConnectionControl
             try
             {
                 var port = int.Parse(txbPort.Text);
-                var request = cmbAction.Text + " Взять";
                 var ip = IPAddress.Parse(txbServerAdress.Text);
 
                 var licToken = new LicenseToken()
                 {
-                    Request = request,
+                    Request = action,
                     IPAddress = ip,
                     Port = port
                 };
 
                 connectionController.RequestServer(licToken);
-                lblStatus.Text = licToken.Answer;
+                lblAnswer.Text = licToken.Answer;
                 LicenseActionEvent(licToken);
             }
             catch (Exception ex)
             {
-                lblStatus.Text = ex.Message;
+                lblAnswer.Text = ex.Message;
             }
         }
 
@@ -87,8 +87,8 @@ namespace ConnectionControl
             value = Environment.GetEnvironmentVariable("BazisServerPath");
 
             if (value != null | value != "")
-                lblStatus.Text = "Настройки сохранены";
-            else lblStatus.Text = "Ошибка сохранения!";
+                lblAnswer.Text = "Настройки сохранены";
+            else lblAnswer.Text = "Ошибка сохранения!";
         }
 
         private void cmbAction_SelectedIndexChanged(object sender, EventArgs e)
