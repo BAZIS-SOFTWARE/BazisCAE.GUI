@@ -39,6 +39,7 @@ namespace ModelControl
                 { "Узлы",nodesObjsIndex},
                 { "Элементы3D",elementsObjsIndex},
                 { "Элементы2D",elementsObjsIndex},
+                { "Элементы1D",elementsObjsIndex}
             };
 
             var meshToolStrip = new MeshToolStrip();
