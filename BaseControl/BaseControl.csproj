@@ -74,13 +74,13 @@
       <HintPath>..\Libs\ModelInterface.dll</HintPath>
     </Reference>
     <Reference Include="Project">
-      <HintPath>..\..\..\BazisXN\Project\bin\Release\Project.dll</HintPath>
+      <HintPath>..\Libs\Project.dll</HintPath>
     </Reference>
     <Reference Include="ProjectController">
-      <HintPath>..\..\..\BazisXN\Project\ProjectController\bin\Release\ProjectController.dll</HintPath>
+      <HintPath>..\Libs\ProjectController.dll</HintPath>
     </Reference>
     <Reference Include="ProjectInterface">
-      <HintPath>..\..\..\BazisXN\Project\ProjectInterface\bin\Release\ProjectInterface.dll</HintPath>
+      <HintPath>..\Libs\ProjectInterface.dll</HintPath>
     </Reference>
     <Reference Include="Scene, Version=2.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
