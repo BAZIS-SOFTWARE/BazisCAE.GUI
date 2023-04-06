@@ -513,7 +513,7 @@ namespace ModelControl
             else rootNode = node;
         }
 
-        private async void EditGroup_Click(object sender, EventArgs e)
+        private async void EditGroup_Click(object sender, EventArgs e) //
         {
             //ChangeGroupEvent(this, new GroupEvArgs(treeView.SelectedNode.Name, treeView.SelectedNode.Index));
 
@@ -562,7 +562,7 @@ namespace ModelControl
 
             var message = "измените группу, добавив или удалив объекты, и нажмите на кнопку Enter или нажмите кнопку ESC";
 
-            await AsyncMthodContainer(actConfirm, actBreak, message);
+            await AsyncMethodContainer(actConfirm, actBreak, message);
         }
 
         private void InfoGroup_Click(object sender, EventArgs e)

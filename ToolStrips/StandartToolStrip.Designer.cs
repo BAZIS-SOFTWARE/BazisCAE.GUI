@@ -39,7 +39,6 @@
             // 
             this.btnCreateNewProject.AutoSize = false;
             this.btnCreateNewProject.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnCreateNewProject.Enabled = false;
             this.btnCreateNewProject.Image = ((System.Drawing.Image)(resources.GetObject("btnCreateNewProject.Image")));
             this.btnCreateNewProject.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnCreateNewProject.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -53,7 +52,6 @@
             // 
             this.btnOpenProject.AutoSize = false;
             this.btnOpenProject.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnOpenProject.Enabled = false;
             this.btnOpenProject.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenProject.Image")));
             this.btnOpenProject.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnOpenProject.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -67,7 +65,6 @@
             // 
             this.btnSaveProject.AutoSize = false;
             this.btnSaveProject.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSaveProject.Enabled = false;
             this.btnSaveProject.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveProject.Image")));
             this.btnSaveProject.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnSaveProject.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -81,7 +78,6 @@
             // 
             this.btnImportMesh.AutoSize = false;
             this.btnImportMesh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnImportMesh.Enabled = false;
             this.btnImportMesh.Image = ((System.Drawing.Image)(resources.GetObject("btnImportMesh.Image")));
             this.btnImportMesh.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnImportMesh.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -94,7 +90,6 @@
             // StandartToolStrip
             // 
             this.Dock = System.Windows.Forms.DockStyle.None;
-            this.Enabled = false;
             this.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnCreateNewProject,
             this.btnOpenProject,

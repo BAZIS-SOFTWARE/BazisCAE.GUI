@@ -21,6 +21,8 @@ using Model.GroupsData;
 using Scene.Events;
 using ModelController;
 using System.Diagnostics;
+using CrossSectionFront;
+using CrossSection_lib;
 
 namespace BaseControl
 {
@@ -524,6 +526,22 @@ namespace BaseControl
                     form.Controls.Add(measuringControl);
                     form.Show();
                 }
+
+                else if (e.ClickedItem.Tag.ToString() == "1")
+                {
+                    sceneControl.SelectionType = "Узлы";
+                    var form = new Form() { Name = "CrossSectionForm", Text = "Построить сечение", ShowIcon = false, Size = new Size(268, 203) };
+                    form.TopMost = true;
+                    
+                    var crossSection = new CrossSectionControl() { Dock = DockStyle.Fill };
+                    form.Controls.Add(crossSection);
+
+                    crossSection.CreatePlaneFromTextArgs += CrossSection_CreatePlane;
+                    crossSection.CreatePlaneFromNodesArgs += CrossSection_CreatePlaneFromNodesArgs;
+                    
+                    form.Show();
+                }
+
                 else if (e.ClickedItem.Tag.ToString() == "2")
                 {
                     var scrShot = CreateScreenShot();
@@ -542,10 +560,86 @@ namespace BaseControl
                         form.Close();
                         btn.Checked = true;
                     }
-
                 }
-
             }
+        }
+
+        private void CrossSection_CreatePlaneFromNodesArgs(object arg1, CreatePlaneFromNodesArgs arg2)
+        {
+            int counter = 0;
+            ModelData modelData = new ModelData();
+            List<Node> tempNodes = new List<Node>();
+            var elems3D = project.Model.ObjectData.FindMany("Элементы3D").Cast<Element3D>().ToList();
+
+            var selObjsNumbers = sceneControl.GetSelectedObjects().ToArray();
+            if (selObjsNumbers.Length != 3)
+            {
+                consoleControl.PrintInfo("Ошибка, выбрано неверное количество узлов", Color.Red);
+            }
+            var p0 = (Node)project.Model.ObjectData.Find(selObjsNumbers[selObjsNumbers.Length - 3]);
+            var p1 = (Node)project.Model.ObjectData.Find(selObjsNumbers[selObjsNumbers.Length - 2]);
+            var p2 = (Node)project.Model.ObjectData.Find(selObjsNumbers[selObjsNumbers.Length - 1]);
+
+            var plane = new Plane(p0.Position, p1.Position, p2.Position);
+
+            var getCrossPoints = new GetCrossPoints();
+            Dictionary<int, List<Point3D>> dic = getCrossPoints.CreateCrossNodes(elems3D, plane);
+
+            foreach (var element in dic.Values)
+            {
+                if (element.Count > 0)
+                {
+                    for (int i = 0; i < element.Count; i++)
+                    {
+                        tempNodes.Add(new Node(counter, element[i]));
+                        tempNodes.Last().MasterColor = Color.Red;
+                        counter++;
+                    }
+                }
+            }
+            modelData.ObjectData.AddRange(tempNodes);
+            var presenter = new ModelScenePresentator(modelData);
+            sceneControl.SetPresentor(presenter);
+            sceneControl.PlugVBObjects();
+            sceneControl.DisplayObjects();
+        }
+
+        private void CrossSection_CreatePlane(object arg1, CreatePlaneFromTextArgs arg2)
+        {
+            int counter = 0;
+            List<Node> tempNodes = new List<Node>();
+
+            var elems3D = project.Model.ObjectData.FindMany("Элементы3D").Cast<Element3D>().ToList();
+            var plane = new Plane(arg2.point1, arg2.point2,arg2.point3);
+
+            var getCrossPoints = new GetCrossPoints();
+            Dictionary<int, List<Point3D>> dic = getCrossPoints.CreateCrossNodes(elems3D, plane);
+
+            foreach (var element in dic.Values)
+            {
+                if (element.Count > 0)
+                {
+                    for (int i = 0; i < element.Count; i++)
+                    {
+                        tempNodes.Add(new Node(counter, element[i]));
+                        tempNodes.Last().MasterColor = Color.Red;
+                        counter++;
+                    }
+                }
+            }
+            ClearAllDataOnScene();
+            ModelData modelData = new ModelData();
+
+            modelData.ObjectData.AddRange(tempNodes);
+            var presenter = new ModelScenePresentator(modelData);
+
+            sceneControl.SetPresentor(presenter);
+            sceneControl.CreateVBObjects("Узлы");
+            
+            sceneControl.PlugVBObjects();
+            sceneControl.DisplayObjects();
+            
+
         }
 
         private void MeasuringControl_MakeMeasureEvent(object arg1, MeasureEventArgs arg2)
@@ -779,7 +873,7 @@ namespace BaseControl
             action.Invoke(process, new EventArgs());
         }
 
-        public async Task AsyncMthodContainer(Func<bool> actConfirm, Action actBreak, string cmdMessage)
+        public async Task AsyncMethodContainer(Func<bool> actConfirm, Action actBreak, string cmdMessage)
         {
             Invoke(new Action(() => { lblInputCmd.Text = cmdMessage; }));
             await System.Threading.Tasks.Task.Run(() =>
