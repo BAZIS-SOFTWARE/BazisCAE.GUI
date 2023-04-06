@@ -31,10 +31,12 @@
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Название проекта :", 0, 0);
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Путь :", 0, 0);
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Сведения :", 0, 0);
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Вид :");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BasePage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblInputCmd = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.webPageLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.grbNavigator = new System.Windows.Forms.Panel();
@@ -45,7 +47,6 @@
             this.sceneControl = new Scene.SceneControl();
             this.grbConsole = new System.Windows.Forms.Panel();
             this.consoleControl = new Console.ConsoleControl();
-            this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
@@ -107,6 +108,13 @@
             this.lblInputCmd.Name = "lblInputCmd";
             this.lblInputCmd.Size = new System.Drawing.Size(376, 17);
             this.lblInputCmd.Text = "Начните работу с загрузки проекта или импорта сеточной модели";
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(445, 17);
+            this.lblVersion.Spring = true;
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // webPageLabel
             // 
@@ -171,10 +179,13 @@
             treeNode3.Name = "сведения";
             treeNode3.SelectedImageIndex = 0;
             treeNode3.Text = "Сведения :";
+            treeNode4.Name = "вид";
+            treeNode4.Text = "Вид :";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2,
-            treeNode3});
+            treeNode3,
+            treeNode4});
             this.treeView.Size = new System.Drawing.Size(317, 574);
             this.treeView.TabIndex = 1;
             // 
@@ -270,13 +281,6 @@
             this.consoleControl.Name = "consoleControl";
             this.consoleControl.Size = new System.Drawing.Size(601, 117);
             this.consoleControl.TabIndex = 4;
-            // 
-            // lblVersion
-            // 
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(414, 17);
-            this.lblVersion.Spring = true;
-            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // BasePage
             // 

@@ -378,6 +378,10 @@ namespace BaseControl
             treeView.Nodes[2].Text = "Сведения : " + project.Comments;
             treeView.Nodes[2].ImageIndex = ProjectInfoIndex;
             treeView.Nodes[2].SelectedImageIndex = ProjectInfoIndex;
+
+            treeView.Nodes[3].Text = "Вид : " + project.TaskType;
+            treeView.Nodes[3].ImageIndex = ProjectInfoIndex;
+            treeView.Nodes[3].SelectedImageIndex = ProjectInfoIndex;
         }
 
         public void ClearAllDataOnScene()

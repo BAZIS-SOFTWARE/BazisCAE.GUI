@@ -313,17 +313,11 @@ namespace TaskControl
         public void SetProjectTaskDataInfo()
         {
             TreeView.BeginUpdate();
+
+            TreeView.Nodes["вид"].Text = "Вид : " + Project.TaskType;
+
             TreeView.Nodes["Данные"].Expand();
             TreeView.Nodes["Данные"].Nodes.Clear();
-
-            var taskTypeNode = new TreeNode()
-            {
-                Name = "видЗадачи",
-                Text = "Вид задачи : " + Project.TaskType,
-                ImageIndex = 2,
-                SelectedImageIndex = 2,
-                Tag = "3.1"
-            };
 
             foreach (var data in Project.TaskData)
             {
@@ -370,9 +364,9 @@ namespace TaskControl
             else Project.SetTaskType(TaskType.Volume);
 
 
-            PresentProjectTaskDataOnAdvisor(activeTask);
+            //PresentProjectTaskDataOnAdvisor(activeTask);
 
-            var presentator = new ProjTreePresenter(Project);
+            //var presentator = new ProjTreePresenter(Project);
             SetProjectTaskDataInfo();
         }
 
