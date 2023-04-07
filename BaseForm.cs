@@ -1,26 +1,26 @@
-﻿using BaseControl;
+﻿
 using BazisGUI.AboutProgramControl;
-using ConnectionControl;
 using DataBaseController;
-using HeatTreatmentControlSolution;
-using ModelControl;
 using Newtonsoft.Json;
 using Project;
-using ResultControl;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using TaskControl;
-using WeldingControlSolution;
 using System.Net;
 using ConnectionController;
 using BazisGUI.SettingsControl;
 using System.Diagnostics;
-using System.Reflection;
 using System.Threading;
+using HeatTreatmentModule;
+using BaseModule;
+using WeldingModule;
+using ConnectionModule;
+using TaskModule;
+using ResultModule;
+using ModelModule;
 
 namespace BaseForm
 {
@@ -308,7 +308,7 @@ namespace BaseForm
         private void StartLisenceForm(string request)
         {
             var form = new Form() { Name = "checkForm", Text = "Лицензирование", ShowIcon = false, Size = new Size(450, 250) };
-            var control = new ConnectionControl.ConnectionControl() { Dock = DockStyle.Fill };
+            var control = new ConnectionControl() { Dock = DockStyle.Fill };
 
             control.AddAction(request);
             control.LicenseActionEvent += (ar1) => 
@@ -417,7 +417,7 @@ namespace BaseForm
             if (controls.Length > 0)
             {
                 var form = new Form() { Name = "checkForm", Text = "Лицензирование", ShowIcon = false, Size = new Size(500, 315) };
-                var control = new ConnectionControl.ConnectionControl() { Dock = DockStyle.Fill };
+                var control = new ConnectionControl() { Dock = DockStyle.Fill };
 
                 control.AddAction(activePage);
                 control.LicenseActionEvent += (ar1) =>
