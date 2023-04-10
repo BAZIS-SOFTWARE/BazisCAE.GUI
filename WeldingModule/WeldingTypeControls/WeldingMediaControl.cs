@@ -1,26 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Data;
-using System.Linq;
 using System.Windows.Forms;
-using System.IO;
-using System.Threading;
-using System.Reflection;
-using BasicAdvisorControls;
-using System.Data.Common;
-using BasicAdvisorControls.Interfaces;
+using TaskModule.BasicAdvisorControls.BasicControls;
+using TaskModule.BasicAdvisorControls.Interfaces;
 
-namespace AdvisorControls
+namespace WeldingModule.WeldingTypeControls
 {
-    public partial class MediaControl : CheckedGridViewAdviserControl, INodesGroupControl, IElmentsGroupsControl, IFunctionsRelatedControl
+    public partial class WeldingMediaControl : CheckedGridViewAdviserControl, INodesGroupControl, IElmentsGroupsControl, IFunctionsRelatedControl
     {
         //int selectedRowIndex;
         //private string inEventID;
 
         enum Column : int { plane, node = 0, function, mediaTemp, bodyTemp, startTime, stopTime };
 
-        public MediaControl()
+        public WeldingMediaControl()
         {
             InitializeComponent();
             DataName = "Среда";

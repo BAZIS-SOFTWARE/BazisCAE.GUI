@@ -1,4 +1,4 @@
-﻿namespace AdvisorControls
+﻿namespace TaskModule.BasicAdvisorControls
 {
     partial class LoadControl
     {

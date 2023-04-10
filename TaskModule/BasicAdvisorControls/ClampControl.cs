@@ -5,10 +5,10 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using BasicAdvisorControls;
-using BasicAdvisorControls.Interfaces;
+using TaskModule.BasicAdvisorControls.BasicControls;
+using TaskModule.BasicAdvisorControls.Interfaces;
 
-namespace AdvisorControls
+namespace TaskModule.BasicAdvisorControls
 {
     public partial class ClampControl : CheckedGridViewAdviserControl, INodesGroupControl, IFunctionsRelatedControl
     {

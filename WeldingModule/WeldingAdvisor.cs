@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using BasicAdvisorControls.Interfaces;
+using TaskModule.BasicAdvisorControls.Events;
+using TaskModule.BasicTaskAdvisor;
 
-namespace AdvisorControls
+namespace WeldingModule
 {
     public partial class WeldingAdvisor : TaskAdvisor
     {

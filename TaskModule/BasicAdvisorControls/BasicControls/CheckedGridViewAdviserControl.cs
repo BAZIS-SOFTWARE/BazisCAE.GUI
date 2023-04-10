@@ -6,12 +6,13 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Threading;
-using BasicAdvisorControls.Interfaces;
+using TaskModule.BasicAdvisorControls.Interfaces;
 using System.IO;
 using System.Globalization;
 using MB.Controls;
+using TaskModule.BasicAdvisorControls.Events;
 
-namespace BasicAdvisorControls
+namespace TaskModule.BasicAdvisorControls.BasicControls
 {
     public enum CheckState : int { start, pause, continuation };
     public partial class CheckedGridViewAdviserControl : GridViewAdviserControl, ICheckGridViewControl

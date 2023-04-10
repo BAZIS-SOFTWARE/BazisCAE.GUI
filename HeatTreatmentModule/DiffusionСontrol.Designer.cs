@@ -1,4 +1,4 @@
-﻿namespace AdvisorControls
+﻿namespace HeatTreatmentModule
 {
     partial class DiffusionСontrol
     {

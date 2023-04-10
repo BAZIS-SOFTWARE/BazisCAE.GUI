@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Windows.Forms;
-using System.Threading;
-using BasicAdvisorControls;
 using System.Globalization;
-using BasicAdvisorControls.Interfaces;
 using System.Drawing;
 using System.ComponentModel;
+using TaskModule.BasicAdvisorControls.BasicControls;
+using TaskModule.BasicAdvisorControls.Interfaces;
 
-namespace AdvisorControls
+namespace TaskModule.BasicAdvisorControls
 {
     public partial class MaterialsControl : CheckedGridViewAdviserControl, IElmentsGroupsControl, IMaterialsRelatedControl
     {

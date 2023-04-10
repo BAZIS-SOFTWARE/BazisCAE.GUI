@@ -1,8 +1,8 @@
-﻿using System.Drawing;
+﻿using MB.Controls;
 
-namespace AdvisorControls
+namespace HeatTreatmentModule
 {
-    partial class MediaControl
+    partial class HTMediaControl
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -31,13 +31,13 @@ namespace AdvisorControls
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MediaControl));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HTMediaControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new System.Windows.Forms.GroupBox();
+            this.cmbMedFunc = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txbMediaTemp = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbFunc = new System.Windows.Forms.ComboBox();
+            this.cmbExchFunc = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbEl = new System.Windows.Forms.ComboBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
@@ -49,7 +49,7 @@ namespace AdvisorControls
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnStopCheck = new System.Windows.Forms.Button();
-            this.btnCheckVelocity = new MB.Controls.ColorSlider();
+            this.checkVelocitySlider = new ColorSlider();
             this.btnCheckDinamic = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -60,20 +60,13 @@ namespace AdvisorControls
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnAddNewRow = new System.Windows.Forms.Button();
             this.txbStartTime = new System.Windows.Forms.TextBox();
-            this.grbTermoCycle = new System.Windows.Forms.GroupBox();
-            this.cmbTermoCycle = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.cmbNode = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.termoRadioButton = new System.Windows.Forms.RadioButton();
             this.heatFlowRadioButton = new System.Windows.Forms.RadioButton();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.grbHeatFlux.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.grbTermoCycle.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,29 +75,28 @@ namespace AdvisorControls
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.grbHeatFlux, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.dataGridView, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.grbTermoCycle, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.dataGridView, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.groupBox4, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 13F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(400, 594);
-            this.tableLayoutPanel1.TabIndex = 19;
+            this.tableLayoutPanel1.TabIndex = 20;
             // 
             // grbHeatFlux
             // 
             this.grbHeatFlux.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.grbHeatFlux.Controls.Add(this.cmbMedFunc);
             this.grbHeatFlux.Controls.Add(this.label5);
-            this.grbHeatFlux.Controls.Add(this.txbMediaTemp);
             this.grbHeatFlux.Controls.Add(this.label2);
-            this.grbHeatFlux.Controls.Add(this.cmbFunc);
+            this.grbHeatFlux.Controls.Add(this.cmbExchFunc);
             this.grbHeatFlux.Controls.Add(this.label1);
             this.grbHeatFlux.Controls.Add(this.cmbEl);
             this.grbHeatFlux.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -116,28 +108,26 @@ namespace AdvisorControls
             this.grbHeatFlux.TabIndex = 18;
             this.grbHeatFlux.TabStop = false;
             this.grbHeatFlux.Text = "Параметры теплового потока";
-            this.grbHeatFlux.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbTask_MouseClick);
-            this.grbHeatFlux.Paint += new System.Windows.Forms.PaintEventHandler(this.grbTask_Paint);
+            // 
+            // cmbMedFunc
+            // 
+            this.cmbMedFunc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbMedFunc.FormattingEnabled = true;
+            this.cmbMedFunc.Location = new System.Drawing.Point(171, 84);
+            this.cmbMedFunc.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.cmbMedFunc.Name = "cmbMedFunc";
+            this.cmbMedFunc.Size = new System.Drawing.Size(201, 21);
+            this.cmbMedFunc.TabIndex = 23;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(9, 87);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(126, 13);
+            this.label5.Size = new System.Drawing.Size(156, 13);
             this.label5.TabIndex = 22;
-            this.label5.Text = "Температура среды, °C";
-            // 
-            // txbMediaTemp
-            // 
-            this.txbMediaTemp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbMediaTemp.BackColor = System.Drawing.SystemColors.Window;
-            this.txbMediaTemp.Location = new System.Drawing.Point(171, 84);
-            this.txbMediaTemp.Margin = new System.Windows.Forms.Padding(3, 3, 28, 10);
-            this.txbMediaTemp.Name = "txbMediaTemp";
-            this.txbMediaTemp.Size = new System.Drawing.Size(201, 20);
-            this.txbMediaTemp.TabIndex = 21;
+            this.label5.Text = "Температура среды, °C - сек.";
             // 
             // label2
             // 
@@ -148,16 +138,16 @@ namespace AdvisorControls
             this.label2.TabIndex = 20;
             this.label2.Text = "Группа элементов";
             // 
-            // cmbFunc
+            // cmbExchFunc
             // 
-            this.cmbFunc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cmbExchFunc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbFunc.FormattingEnabled = true;
-            this.cmbFunc.Location = new System.Drawing.Point(171, 57);
-            this.cmbFunc.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
-            this.cmbFunc.Name = "cmbFunc";
-            this.cmbFunc.Size = new System.Drawing.Size(201, 21);
-            this.cmbFunc.TabIndex = 17;
+            this.cmbExchFunc.FormattingEnabled = true;
+            this.cmbExchFunc.Location = new System.Drawing.Point(171, 57);
+            this.cmbExchFunc.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.cmbExchFunc.Name = "cmbExchFunc";
+            this.cmbExchFunc.Size = new System.Drawing.Size(201, 21);
+            this.cmbExchFunc.TabIndex = 17;
             // 
             // label1
             // 
@@ -203,15 +193,12 @@ namespace AdvisorControls
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 401);
+            this.dataGridView.Location = new System.Drawing.Point(1, 302);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(398, 192);
+            this.dataGridView.Size = new System.Drawing.Size(398, 291);
             this.dataGridView.TabIndex = 14;
-            this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
-            this.dataGridView.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dataGridView_SortCompare);
-            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
             // 
             // elGroupColumn
             // 
@@ -254,7 +241,7 @@ namespace AdvisorControls
             this.groupBox1.AutoSize = true;
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.btnStopCheck);
-            this.groupBox1.Controls.Add(this.btnCheckVelocity);
+            this.groupBox1.Controls.Add(this.checkVelocitySlider);
             this.groupBox1.Controls.Add(this.btnCheckDinamic);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
@@ -267,7 +254,7 @@ namespace AdvisorControls
             this.groupBox1.Controls.Add(this.txbStartTime);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(1, 289);
+            this.groupBox1.Location = new System.Drawing.Point(1, 190);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
@@ -287,29 +274,27 @@ namespace AdvisorControls
             this.btnStopCheck.TabIndex = 52;
             this.btnStopCheck.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnStopCheck.UseVisualStyleBackColor = true;
-            this.btnStopCheck.Click += new System.EventHandler(this.StopChecking_Click);
             // 
-            // btnCheckVelocity
+            // checkVelocitySlider
             // 
-            this.btnCheckVelocity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.checkVelocitySlider.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCheckVelocity.BackColor = System.Drawing.Color.Transparent;
-            this.btnCheckVelocity.BarInnerColor = System.Drawing.Color.Gold;
-            this.btnCheckVelocity.BarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.btnCheckVelocity.BorderRoundRectSize = new System.Drawing.Size(8, 8);
-            this.btnCheckVelocity.LargeChange = ((uint)(5u));
-            this.btnCheckVelocity.Location = new System.Drawing.Point(237, 71);
-            this.btnCheckVelocity.Margin = new System.Windows.Forms.Padding(3, 3, 28, 0);
-            this.btnCheckVelocity.Maximum = 10;
-            this.btnCheckVelocity.Minimum = 1;
-            this.btnCheckVelocity.Name = "btnCheckVelocity";
-            this.btnCheckVelocity.Size = new System.Drawing.Size(135, 26);
-            this.btnCheckVelocity.SmallChange = ((uint)(1u));
-            this.btnCheckVelocity.TabIndex = 51;
-            this.btnCheckVelocity.Text = "colorSlider";
-            this.btnCheckVelocity.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
-            this.btnCheckVelocity.Value = 1;
-            this.btnCheckVelocity.Scroll += new System.Windows.Forms.ScrollEventHandler(this.CheckVelocitySlider_Scroll);
+            this.checkVelocitySlider.BackColor = System.Drawing.Color.Transparent;
+            this.checkVelocitySlider.BarInnerColor = System.Drawing.Color.Gold;
+            this.checkVelocitySlider.BarOuterColor = System.Drawing.Color.DarkGoldenrod;
+            this.checkVelocitySlider.BorderRoundRectSize = new System.Drawing.Size(8, 8);
+            this.checkVelocitySlider.LargeChange = ((uint)(5u));
+            this.checkVelocitySlider.Location = new System.Drawing.Point(237, 71);
+            this.checkVelocitySlider.Margin = new System.Windows.Forms.Padding(3, 3, 28, 0);
+            this.checkVelocitySlider.Maximum = 10;
+            this.checkVelocitySlider.Minimum = 1;
+            this.checkVelocitySlider.Name = "checkVelocitySlider";
+            this.checkVelocitySlider.Size = new System.Drawing.Size(135, 26);
+            this.checkVelocitySlider.SmallChange = ((uint)(1u));
+            this.checkVelocitySlider.TabIndex = 51;
+            this.checkVelocitySlider.Text = "colorSlider";
+            this.checkVelocitySlider.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
+            this.checkVelocitySlider.Value = 1;
             // 
             // btnCheckDinamic
             // 
@@ -323,7 +308,6 @@ namespace AdvisorControls
             this.btnCheckDinamic.TabIndex = 50;
             this.btnCheckDinamic.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCheckDinamic.UseVisualStyleBackColor = true;
-            this.btnCheckDinamic.Click += new System.EventHandler(this.StartChecking_Click);
             // 
             // label4
             // 
@@ -364,7 +348,6 @@ namespace AdvisorControls
             this.btnHideAll.TabIndex = 13;
             this.btnHideAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnHideAll.UseVisualStyleBackColor = true;
-            this.btnHideAll.Click += new System.EventHandler(this.HideAllDataButton_Click);
             // 
             // btnShowAll
             // 
@@ -377,7 +360,6 @@ namespace AdvisorControls
             this.btnShowAll.TabIndex = 13;
             this.btnShowAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnShowAll.UseVisualStyleBackColor = true;
-            this.btnShowAll.Click += new System.EventHandler(this.ShowDataButton_Click);
             // 
             // btnRefresh
             // 
@@ -391,7 +373,6 @@ namespace AdvisorControls
             this.btnRefresh.TabIndex = 13;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // btnClearAll
             // 
@@ -404,7 +385,6 @@ namespace AdvisorControls
             this.btnClearAll.TabIndex = 13;
             this.btnClearAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnClearAll.UseVisualStyleBackColor = true;
-            this.btnClearAll.Click += new System.EventHandler(this.ClearAllDataButton_Click);
             // 
             // btnAddNewRow
             // 
@@ -417,7 +397,6 @@ namespace AdvisorControls
             this.btnAddNewRow.TabIndex = 13;
             this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewRow.UseVisualStyleBackColor = true;
-            this.btnAddNewRow.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // txbStartTime
             // 
@@ -428,67 +407,6 @@ namespace AdvisorControls
             this.txbStartTime.Name = "txbStartTime";
             this.txbStartTime.Size = new System.Drawing.Size(201, 20);
             this.txbStartTime.TabIndex = 0;
-            // 
-            // grbTermoCycle
-            // 
-            this.grbTermoCycle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.grbTermoCycle.Controls.Add(this.cmbTermoCycle);
-            this.grbTermoCycle.Controls.Add(this.label7);
-            this.grbTermoCycle.Controls.Add(this.label6);
-            this.grbTermoCycle.Controls.Add(this.cmbNode);
-            this.grbTermoCycle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbTermoCycle.Location = new System.Drawing.Point(1, 190);
-            this.grbTermoCycle.Margin = new System.Windows.Forms.Padding(1);
-            this.grbTermoCycle.Name = "grbTermoCycle";
-            this.grbTermoCycle.Padding = new System.Windows.Forms.Padding(0);
-            this.grbTermoCycle.Size = new System.Drawing.Size(398, 97);
-            this.grbTermoCycle.TabIndex = 20;
-            this.grbTermoCycle.TabStop = false;
-            this.grbTermoCycle.Text = "Параметры термоцикла";
-            this.grbTermoCycle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbTask_MouseClick);
-            this.grbTermoCycle.Paint += new System.Windows.Forms.PaintEventHandler(this.grbTask_Paint);
-            // 
-            // cmbTermoCycle
-            // 
-            this.cmbTermoCycle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbTermoCycle.FormattingEnabled = true;
-            this.cmbTermoCycle.Location = new System.Drawing.Point(171, 57);
-            this.cmbTermoCycle.Margin = new System.Windows.Forms.Padding(3, 3, 28, 10);
-            this.cmbTermoCycle.Name = "cmbTermoCycle";
-            this.cmbTermoCycle.Size = new System.Drawing.Size(201, 21);
-            this.cmbTermoCycle.TabIndex = 26;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 33);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(74, 13);
-            this.label7.TabIndex = 25;
-            this.label7.Text = "Группа узлов";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 60);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(121, 13);
-            this.label6.TabIndex = 24;
-            this.label6.Text = "Функция, F(t), °С - сек.";
-            // 
-            // cmbNode
-            // 
-            this.cmbNode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbNode.FormattingEnabled = true;
-            this.cmbNode.Items.AddRange(new object[] {
-            "node"});
-            this.cmbNode.Location = new System.Drawing.Point(171, 30);
-            this.cmbNode.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
-            this.cmbNode.Name = "cmbNode";
-            this.cmbNode.Size = new System.Drawing.Size(201, 21);
-            this.cmbNode.TabIndex = 19;
             // 
             // groupBox4
             // 
@@ -503,19 +421,18 @@ namespace AdvisorControls
             this.groupBox4.Size = new System.Drawing.Size(398, 61);
             this.groupBox4.TabIndex = 21;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Вид условия";
+            this.groupBox4.Text = "Вид термообработки";
             // 
             // termoRadioButton
             // 
             this.termoRadioButton.AutoSize = true;
             this.termoRadioButton.Location = new System.Drawing.Point(122, 28);
             this.termoRadioButton.Name = "termoRadioButton";
-            this.termoRadioButton.Size = new System.Drawing.Size(82, 17);
+            this.termoRadioButton.Size = new System.Drawing.Size(62, 17);
             this.termoRadioButton.TabIndex = 21;
             this.termoRadioButton.TabStop = true;
-            this.termoRadioButton.Text = "Термоцикл";
+            this.termoRadioButton.Text = "Нагрев";
             this.termoRadioButton.UseVisualStyleBackColor = true;
-            this.termoRadioButton.CheckedChanged += new System.EventHandler(this.termocycleRadioButton_CheckedChanged);
             // 
             // heatFlowRadioButton
             // 
@@ -523,24 +440,19 @@ namespace AdvisorControls
             this.heatFlowRadioButton.Location = new System.Drawing.Point(10, 28);
             this.heatFlowRadioButton.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
             this.heatFlowRadioButton.Name = "heatFlowRadioButton";
-            this.heatFlowRadioButton.Size = new System.Drawing.Size(106, 17);
+            this.heatFlowRadioButton.Size = new System.Drawing.Size(68, 17);
             this.heatFlowRadioButton.TabIndex = 20;
             this.heatFlowRadioButton.TabStop = true;
-            this.heatFlowRadioButton.Text = "Тепловой поток";
+            this.heatFlowRadioButton.Text = "Закалка";
             this.heatFlowRadioButton.UseVisualStyleBackColor = true;
-            this.heatFlowRadioButton.CheckedChanged += new System.EventHandler(this.mediaRadioButton_CheckedChanged);
             // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "openFileDialog";
-            // 
-            // MediaControl
+            // HTMediaControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
             this.MinimumSize = new System.Drawing.Size(300, 300);
-            this.Name = "MediaControl";
+            this.Name = "HTMediaControl";
             this.Size = new System.Drawing.Size(400, 594);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -549,8 +461,6 @@ namespace AdvisorControls
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.grbTermoCycle.ResumeLayout(false);
-            this.grbTermoCycle.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
@@ -562,39 +472,33 @@ namespace AdvisorControls
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox grbHeatFlux;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txbMediaTemp;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cmbFunc;
+        private System.Windows.Forms.ComboBox cmbExchFunc;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbEl;
         private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txbStopTime;
-        private System.Windows.Forms.Button btnAddNewRow;
-        private System.Windows.Forms.TextBox txbStartTime;
-        private System.Windows.Forms.GroupBox grbTermoCycle;
-        private System.Windows.Forms.ComboBox cmbTermoCycle;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cmbNode;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.RadioButton termoRadioButton;
-        private System.Windows.Forms.RadioButton heatFlowRadioButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn elGroupColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn matColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn startColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn stopColumn;
-        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnStopCheck;
+        private MB.Controls.ColorSlider checkVelocitySlider;
+        private System.Windows.Forms.Button btnCheckDinamic;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txbStopTime;
         private System.Windows.Forms.Button btnHideAll;
         private System.Windows.Forms.Button btnShowAll;
-        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnClearAll;
-        private System.Windows.Forms.Button btnStopCheck;
-        private MB.Controls.ColorSlider btnCheckVelocity;
-        private System.Windows.Forms.Button btnCheckDinamic;
+        private System.Windows.Forms.Button btnAddNewRow;
+        private System.Windows.Forms.TextBox txbStartTime;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.RadioButton termoRadioButton;
+        private System.Windows.Forms.RadioButton heatFlowRadioButton;
+        private System.Windows.Forms.ComboBox cmbMedFunc;
     }
 }

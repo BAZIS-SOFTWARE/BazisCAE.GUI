@@ -1,4 +1,4 @@
-﻿namespace AdvisorControls
+﻿namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
     partial class TaskPlannerControl
     {

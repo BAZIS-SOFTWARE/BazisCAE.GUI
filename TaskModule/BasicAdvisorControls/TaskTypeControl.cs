@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace AdvisorControls
+namespace TaskModule.BasicAdvisorControls
 {
 
     public partial class TaskTypeControl : UserControl

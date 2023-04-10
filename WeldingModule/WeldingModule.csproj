@@ -49,9 +49,13 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AdvisorControls, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ColorSlider, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\AdvisorControls.dll</HintPath>
+      <HintPath>..\Libs\ColorSlider.dll</HintPath>
+    </Reference>
+    <Reference Include="Functions, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Functions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -66,17 +70,64 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WeldingAdvisor.cs" />
+    <Compile Include="WeldingAdvisor.Designer.cs">
+      <DependentUpon>WeldingAdvisor.cs</DependentUpon>
+    </Compile>
     <Compile Include="WeldingPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WeldingPage.Designer.cs">
       <DependentUpon>WeldingPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="WeldingTypeControls\ArcWeldingControl.cs" />
+    <Compile Include="WeldingTypeControls\ArcWeldingControl.designer.cs">
+      <DependentUpon>ArcWeldingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WeldingTypeControls\FSWeldingControl.cs" />
+    <Compile Include="WeldingTypeControls\FSWeldingControl.designer.cs">
+      <DependentUpon>FSWeldingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WeldingTypeControls\LWeldingControl.cs" />
+    <Compile Include="WeldingTypeControls\LWeldingControl.Designer.cs">
+      <DependentUpon>LWeldingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WeldingTypeControls\WeldingMediaControl.cs" />
+    <Compile Include="WeldingTypeControls\WeldingMediaControl.designer.cs">
+      <DependentUpon>WeldingMediaControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WeldingTypeControls\WeldContainerCntrEventArgs.cs" />
+    <Compile Include="WeldingTypeControls\WeldContainerControl.cs" />
+    <Compile Include="WeldingTypeControls\WeldContainerControl.Designer.cs">
+      <DependentUpon>WeldContainerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WeldingTypeControls\WeldingControl.cs" />
+    <Compile Include="WeldingTypeControls\WeldingControl.designer.cs">
+      <DependentUpon>WeldingControl.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="WeldingAdvisor.resx">
+      <DependentUpon>WeldingAdvisor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WeldingPage.resx">
       <DependentUpon>WeldingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WeldingTypeControls\ArcWeldingControl.resx">
+      <DependentUpon>ArcWeldingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WeldingTypeControls\FSWeldingControl.resx">
+      <DependentUpon>FSWeldingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WeldingTypeControls\LWeldingControl.resx">
+      <DependentUpon>LWeldingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WeldingTypeControls\WeldingMediaControl.resx">
+      <DependentUpon>WeldingMediaControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WeldingTypeControls\WeldingControl.resx">
+      <DependentUpon>WeldingControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

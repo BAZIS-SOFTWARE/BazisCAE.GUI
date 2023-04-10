@@ -1,12 +1,13 @@
-﻿using BasicAdvisorControls;
-using BasicAdvisorControls.Interfaces;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using TaskModule.BasicAdvisorControls.BasicControls;
+using TaskModule.BasicAdvisorControls.Interfaces;
 
-namespace AdvisorControls
+namespace HeatTreatmentModule
 {
     public partial class HTMediaControl : CheckedGridViewAdviserControl, IElmentsGroupsControl, IFunctionsRelatedControl
     {

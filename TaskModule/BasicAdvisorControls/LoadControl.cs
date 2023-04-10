@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Threading;
-using BasicAdvisorControls;
 using System.Globalization;
-using BasicAdvisorControls.Interfaces;
 using System.ComponentModel;
 using System.Drawing;
+using TaskModule.BasicAdvisorControls.BasicControls;
+using TaskModule.BasicAdvisorControls.Interfaces;
 
-namespace AdvisorControls
+namespace TaskModule.BasicAdvisorControls
 {
     public partial class LoadControl : CheckedGridViewAdviserControl, INodesGroupControl, IFunctionsRelatedControl
     {

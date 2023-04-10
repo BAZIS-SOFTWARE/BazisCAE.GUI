@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using BasicAdvisorControls.Interfaces;
+using TaskModule.BasicAdvisorControls.Events;
+using TaskModule.BasicAdvisorControls.Interfaces;
 
-namespace BasicAdvisorControls
+namespace TaskModule.BasicAdvisorControls.BasicControls
 {
 
     public partial class GridViewAdviserControl : UserControl, IDataNamedControl, IGridViewControl
@@ -107,7 +108,7 @@ namespace BasicAdvisorControls
             return str;
         }
 
-        public virtual void Set_DataGridLines(List<string> lines)
+        public virtual void Set_DataGridLines(IEnumerable<string> lines)
         {
             var gridView = GetDataGrid;
 

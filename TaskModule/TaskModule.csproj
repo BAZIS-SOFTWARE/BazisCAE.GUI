@@ -49,17 +49,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AdvisorControls, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ColorSlider, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\AdvisorControls.dll</HintPath>
-    </Reference>
-    <Reference Include="AdvisorInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\AdvisorInterface.dll</HintPath>
-    </Reference>
-    <Reference Include="BasicAdvisorControls, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\BasicAdvisorControls.dll</HintPath>
+      <HintPath>..\Libs\ColorSlider.dll</HintPath>
     </Reference>
     <Reference Include="Console, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -107,6 +99,67 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasicAdvisorControls\BasicControls\CheckedGridViewAdviserControl.cs" />
+    <Compile Include="BasicAdvisorControls\BasicControls\CheckedGridViewAdviserControl.Designer.cs">
+      <DependentUpon>CheckedGridViewAdviserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasicAdvisorControls\BasicControls\GridViewAdviserControl.cs" />
+    <Compile Include="BasicAdvisorControls\BasicControls\GridViewAdviserControl.Designer.cs">
+      <DependentUpon>GridViewAdviserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasicAdvisorControls\ClampControl.cs" />
+    <Compile Include="BasicAdvisorControls\ClampControl.Designer.cs">
+      <DependentUpon>ClampControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasicAdvisorControls\Events\AddDataEventArgs.cs" />
+    <Compile Include="BasicAdvisorControls\Events\ChangeDataEventArgs.cs" />
+    <Compile Include="BasicAdvisorControls\Events\ChangeTaskTypeEventArgs.cs" />
+    <Compile Include="BasicAdvisorControls\Events\CheckDataEventArgs.cs" />
+    <Compile Include="BasicAdvisorControls\Events\DeleteAllDataEventArgs.cs" />
+    <Compile Include="BasicAdvisorControls\Events\DeleteDataEventArgs.cs" />
+    <Compile Include="BasicAdvisorControls\Events\HideDataEventArgs.cs" />
+    <Compile Include="BasicAdvisorControls\Events\RefreshDataEventArgs.cs" />
+    <Compile Include="BasicAdvisorControls\Events\ShowDataEventArgs.cs" />
+    <Compile Include="BasicAdvisorControls\Interfaces\ICheckGridViewControl.cs" />
+    <Compile Include="BasicAdvisorControls\Interfaces\IDataNamedControl.cs" />
+    <Compile Include="BasicAdvisorControls\Interfaces\IElmentsGroupsControl.cs" />
+    <Compile Include="BasicAdvisorControls\Interfaces\IFunctionsRelatedControl.cs" />
+    <Compile Include="BasicAdvisorControls\Interfaces\IGridViewControl.cs" />
+    <Compile Include="BasicAdvisorControls\Interfaces\IMaterialsRelatedControl.cs" />
+    <Compile Include="BasicAdvisorControls\Interfaces\INodesGroupControl.cs" />
+    <Compile Include="BasicAdvisorControls\LoadControl.cs" />
+    <Compile Include="BasicAdvisorControls\LoadControl.designer.cs">
+      <DependentUpon>LoadControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasicAdvisorControls\MaterialsControl.cs" />
+    <Compile Include="BasicAdvisorControls\MaterialsControl.designer.cs">
+      <DependentUpon>MaterialsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\FileSettingsIO.cs" />
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\HeatTaskControl.cs" />
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\HeatTaskControl.Designer.cs">
+      <DependentUpon>HeatTaskControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\MechTaskControl.cs" />
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\MechTaskControl.Designer.cs">
+      <DependentUpon>MechTaskControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskControl.cs" />
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskControl.Designer.cs">
+      <DependentUpon>TaskControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl1.5.310.cs" />
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl1.5.310.Designer.cs">
+      <DependentUpon>TaskPlannerControl1.5.310.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasicAdvisorControls\TaskTypeControl.cs" />
+    <Compile Include="BasicAdvisorControls\TaskTypeControl.Designer.cs">
+      <DependentUpon>TaskTypeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasicTaskAdvisor\TaskAdvisor.cs" />
+    <Compile Include="BasicTaskAdvisor\TaskAdvisor.Designer.cs">
+      <DependentUpon>TaskAdvisor.cs</DependentUpon>
+    </Compile>
     <Compile Include="TaskPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -117,6 +170,36 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BasicAdvisorControls\BasicControls\CheckedGridViewAdviserControl.resx">
+      <DependentUpon>CheckedGridViewAdviserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BasicAdvisorControls\BasicControls\GridViewAdviserControl.resx">
+      <DependentUpon>GridViewAdviserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BasicAdvisorControls\ClampControl.resx">
+      <DependentUpon>ClampControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BasicAdvisorControls\LoadControl.resx">
+      <DependentUpon>LoadControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BasicAdvisorControls\MaterialsControl.resx">
+      <DependentUpon>MaterialsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BasicAdvisorControls\TaskPlannerControls\HeatTaskControl.resx">
+      <DependentUpon>HeatTaskControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BasicAdvisorControls\TaskPlannerControls\MechTaskControl.resx">
+      <DependentUpon>MechTaskControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl1.5.310.resx">
+      <DependentUpon>TaskPlannerControl1.5.310.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BasicAdvisorControls\TaskTypeControl.resx">
+      <DependentUpon>TaskTypeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BasicTaskAdvisor\TaskAdvisor.resx">
+      <DependentUpon>TaskAdvisor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TaskPage.resx">
       <DependentUpon>TaskPage.cs</DependentUpon>
     </EmbeddedResource>

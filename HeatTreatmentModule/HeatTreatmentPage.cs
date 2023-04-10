@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using TaskModule;
 using ToolStrips;
 using AdvisorControls;
+using TaskModule.BasicTaskAdvisor;
 
 namespace HeatTreatmentModule
 {

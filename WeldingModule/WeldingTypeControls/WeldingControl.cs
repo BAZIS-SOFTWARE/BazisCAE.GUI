@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using System.Threading;
-using System.Reflection;
-using AdvisorControls.WeldingTypeControls;
-using BasicAdvisorControls;
-using System.Globalization;
-using BasicAdvisorControls.Interfaces;
+using TaskModule.BasicAdvisorControls.BasicControls;
+using TaskModule.BasicAdvisorControls.Interfaces;
 
-namespace AdvisorControls
+namespace WeldingModule.WeldingTypeControls
 {
     public partial class WeldingControl : CheckedGridViewAdviserControl, INodesGroupControl,IElmentsGroupsControl,IFunctionsRelatedControl
     {

@@ -49,9 +49,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AdvisorControls, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ColorSlider, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\AdvisorControls.dll</HintPath>
+      <HintPath>..\Libs\ColorSlider.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -65,18 +65,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DiffusionСontrol.cs" />
+    <Compile Include="DiffusionСontrol.Designer.cs">
+      <DependentUpon>DiffusionСontrol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HeatTreatmentAdvisor.cs" />
+    <Compile Include="HeatTreatmentAdvisor.Designer.cs">
+      <DependentUpon>HeatTreatmentAdvisor.cs</DependentUpon>
+    </Compile>
     <Compile Include="HeatTreatmentPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="HeatTreatmentPage.Designer.cs">
       <DependentUpon>HeatTreatmentPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="HTMediaControl.cs" />
+    <Compile Include="HTMediaControl.designer.cs">
+      <DependentUpon>HTMediaControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DiffusionСontrol.resx">
+      <DependentUpon>DiffusionСontrol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HeatTreatmentAdvisor.resx">
+      <DependentUpon>HeatTreatmentAdvisor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HeatTreatmentPage.resx">
       <DependentUpon>HeatTreatmentPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HTMediaControl.resx">
+      <DependentUpon>HTMediaControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

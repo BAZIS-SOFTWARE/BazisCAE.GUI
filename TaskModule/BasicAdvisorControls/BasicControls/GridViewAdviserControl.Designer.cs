@@ -1,4 +1,4 @@
-﻿namespace BasicAdvisorControls
+﻿namespace TaskModule.BasicAdvisorControls.BasicControls
 {
     partial class GridViewAdviserControl
     {

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using TaskModule.BasicAdvisorControls.Events;
 
-namespace BasicAdvisorControls.Interfaces
+namespace TaskModule.BasicAdvisorControls.Interfaces
 {
     public interface IGridViewControl : IDataNamedControl
     {
@@ -27,7 +25,7 @@ namespace BasicAdvisorControls.Interfaces
 
         string Get_DataGridFillLine(int ind);
 
-        void Set_DataGridLines(List<string> lines);
+        void Set_DataGridLines(IEnumerable<string> lines);
 
         int CountSelectedRow { get; }
         int CurentSelectedRowIndex { get; }

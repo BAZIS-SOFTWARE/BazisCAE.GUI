@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BasicAdvisorControls
+namespace TaskModule.BasicAdvisorControls.Events
 {
     public class RefreshDataEventArgs : EventArgs
     {

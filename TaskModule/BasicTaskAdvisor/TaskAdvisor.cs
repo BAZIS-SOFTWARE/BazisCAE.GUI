@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using BasicAdvisorControls.Interfaces;
 using Functions.Search;
-using BasicAdvisorControls;
-using AdvisorInterface;
+using TaskModule.BasicAdvisorControls;
+using Project;
+using System.Linq;
+using TaskModule.BasicAdvisorControls.BasicControls;
+using TaskModule.BasicAdvisorControls.Interfaces;
+using TaskModule.BasicAdvisorControls.Events;
 
-namespace AdvisorControls
+namespace TaskModule.BasicTaskAdvisor
 {
     public partial class TaskAdvisor : UserControl
     {
@@ -35,12 +38,7 @@ namespace AdvisorControls
             get
             {
                 var searched = new List<TaskTypeControl>();
-
-                if(this is WeldingAdvisor weldingAdvisor)
-                    RecursiveSearch.AllTypedControls(weldingAdvisor, searched);
-                else if (this is HeatTreatmentAdvisor heatTreatmentAdvisor)
-                    RecursiveSearch.AllTypedControls(heatTreatmentAdvisor, searched);
-
+                RecursiveSearch.AllTypedControls(this, searched);
                 return searched[0];
             }
         }
@@ -50,24 +48,15 @@ namespace AdvisorControls
             get
             {
                 var searched = new List<TabControl>();
-
-                if (this is WeldingAdvisor weldingAdvisor)
-                    RecursiveSearch.AllTypedControls(weldingAdvisor, searched);
-                else if (this is HeatTreatmentAdvisor heatTreatmentAdvisor)
-                    RecursiveSearch.AllTypedControls(heatTreatmentAdvisor, searched);
-
                 RecursiveSearch.AllTypedControls(this, searched);
 
                 return searched[0];
             }
-        }
+        }     
 
-     
-
-        public void SetProjectData(IProjectAdvisorPresenter presenter)
+        public void SetProjectData(ProjectData project)
         {
-            var taskType = presenter.TaskTypeInfo;
-
+            var taskType = project.TaskType.ToString();
             taskTypeControl.SetTaskType(taskType);
 
             foreach (TabPage tabPage in tabControl.Controls)
@@ -75,24 +64,31 @@ namespace AdvisorControls
                 foreach (Control control in tabPage.Controls)
                 {
                     if (control is INodesGroupControl nGrControl)
-                        nGrControl.Fill_nGroups(presenter.GetModelGroupInfo("Узлы"));
+                        nGrControl.Fill_nGroups(project.Model.GroupData.FindMany("Узлы").Select(x => x.GroupName).ToList());
 
                     if (control is IElmentsGroupsControl eGrControl)
                         if (taskType == "Plain" | taskType == "AxiPlain")
                         {
 
-                            eGrControl.Fill_eGroups(taskType, "Элементы1D", presenter.GetModelGroupInfo("Элементы1D"));
-                            eGrControl.Fill_eGroups(taskType, "Элементы2D", presenter.GetModelGroupInfo("Элементы2D"));
+                            eGrControl.Fill_eGroups(taskType, 
+                                "Элементы1D", project.Model.GroupData.FindMany("Элементы1D").Select(x => x.GroupName).ToList());
+                            eGrControl.Fill_eGroups(taskType, 
+                                "Элементы2D", project.Model.GroupData.FindMany("Элементы2D").Select(x => x.GroupName).ToList());
                         }
                         else
                         {
-                            eGrControl.Fill_eGroups(taskType, "Элементы2D", presenter.GetModelGroupInfo("Элементы2D"));
-                            eGrControl.Fill_eGroups(taskType, "Элементы3D", presenter.GetModelGroupInfo("Элементы3D"));
+                            eGrControl.Fill_eGroups(taskType,
+                                "Элементы2D", project.Model.GroupData.FindMany("Элементы2D").Select(x => x.GroupName).ToList());
+                            eGrControl.Fill_eGroups(taskType,
+                                "Элементы3D", project.Model.GroupData.FindMany("Элементы3D").Select(x => x.GroupName).ToList());
                         }
 
                     if (control is GridViewAdviserControl grvControl)
                     {
-                        grvControl.Set_DataGridLines(presenter.FindTaskDataInfo(grvControl.DataName));
+                        var data = project.TaskData.GetAllData().
+                            Where(x => x.Name == grvControl.DataName).
+                            Select(x => x.ToString());
+                        grvControl.Set_DataGridLines(data);
                     }
                 }
             }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BasicAdvisorControls.Interfaces
+namespace TaskModule.BasicAdvisorControls.Interfaces
 {
     public interface IDataNamedControl
     {

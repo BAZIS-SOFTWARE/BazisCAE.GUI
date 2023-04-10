@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BasicAdvisorControls.Interfaces
+namespace TaskModule.BasicAdvisorControls.Events
 {
     public class HideDataEventArgs : EventArgs
     {

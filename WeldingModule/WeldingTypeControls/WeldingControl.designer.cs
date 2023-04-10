@@ -1,4 +1,4 @@
-﻿namespace AdvisorControls
+﻿namespace WeldingModule.WeldingTypeControls
 {
     partial class WeldingControl
     {

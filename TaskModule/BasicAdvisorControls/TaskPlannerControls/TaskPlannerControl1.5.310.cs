@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Threading;
 using System.IO;
 using System.Reflection;
 using AdvisorControls.TaskPlannerControls;
-using BasicAdvisorControls;
-using BasicAdvisorControls.Interfaces;
-using Functions.Search;
 using System.Globalization;
 using System.ComponentModel;
+using TaskModule.BasicAdvisorControls.BasicControls;
 
-namespace AdvisorControls
+namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
     public partial class TaskPlannerControl : GridViewAdviserControl
     {

@@ -1,4 +1,9 @@
-﻿namespace AdvisorControls
+﻿using TaskModule.BasicAdvisorControls;
+using TaskModule.BasicAdvisorControls.BasicControls;
+using TaskModule.BasicAdvisorControls.Events;
+using TaskModule.BasicAdvisorControls.TaskPlannerControls;
+
+namespace HeatTreatmentModule
 {
     partial class HeatTreatmentAdvisor
     {
@@ -32,19 +37,19 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HeatTreatmentAdvisor));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.pdgTaskType = new System.Windows.Forms.TabPage();
-            this.taskTypeControl1 = new AdvisorControls.TaskTypeControl();
+            this.taskTypeControl1 = new TaskTypeControl();
             this.pdgMaterials = new System.Windows.Forms.TabPage();
-            this.materialsControl1 = new AdvisorControls.MaterialsControl();
+            this.materialsControl1 = new MaterialsControl();
             this.pdgHT = new System.Windows.Forms.TabPage();
-            this.htMediaControl1 = new AdvisorControls.HTMediaControl();
+            this.htMediaControl1 = new HTMediaControl();
             this.pdgDiffusion = new System.Windows.Forms.TabPage();
             this.diffusion_control = new DiffusionСontrol();
             this.pdgClamps = new System.Windows.Forms.TabPage();
-            this.clampControl1 = new AdvisorControls.ClampControl();
+            this.clampControl1 = new ClampControl();
             this.pdgLoad = new System.Windows.Forms.TabPage();
-            this.loadControl1 = new AdvisorControls.LoadControl();
+            this.loadControl1 = new LoadControl();
             this.pdgPlanner = new System.Windows.Forms.TabPage();
-            this.taskPlannerControl1 = new AdvisorControls.TaskPlannerControl();
+            this.taskPlannerControl1 = new TaskPlannerControl();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.tabControl1.SuspendLayout();
             this.pdgTaskType.SuspendLayout();
@@ -124,7 +129,7 @@
             this.materialsControl1.CheckCurrentTime = 0F;
             this.materialsControl1.CheckDinamicButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.CheckDinamicButtonImage")));
             this.materialsControl1.CheckStartTime = 0F;
-            this.materialsControl1.CheckState = BasicAdvisorControls.CheckState.start;
+            this.materialsControl1.CheckState = CheckState.start;
             this.materialsControl1.CheckStepTime = 0;
             this.materialsControl1.CheckStopTime = 0F;
             this.materialsControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.ClearButtonImage")));
@@ -143,13 +148,13 @@
             this.materialsControl1.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
             this.materialsControl1.StopCheckingButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.StopCheckingButtonImage")));
             this.materialsControl1.TabIndex = 0;
-            this.materialsControl1.ShowDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.ShowDataEventArgs>(this.Control_ShowDataEvent);
-            this.materialsControl1.HideDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.HideDataEventArgs>(this.Control_HideDataEvent);
-            this.materialsControl1.CheckDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.CheckDataEventArgs>(this.Control_CheckDataEvent);
-            this.materialsControl1.AddDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.AddDataEventArgs>(this.Control_AddDataEvent);
-            this.materialsControl1.DeleteDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
-            this.materialsControl1.DeleteAllDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
-            this.materialsControl1.ChangeDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            this.materialsControl1.ShowDataEvent += new System.Action<object, ShowDataEventArgs>(this.Control_ShowDataEvent);
+            this.materialsControl1.HideDataEvent += new System.Action<object, HideDataEventArgs>(this.Control_HideDataEvent);
+            this.materialsControl1.CheckDataEvent += new System.Action<object, CheckDataEventArgs>(this.Control_CheckDataEvent);
+            this.materialsControl1.AddDataEvent += new System.Action<object, AddDataEventArgs>(this.Control_AddDataEvent);
+            this.materialsControl1.DeleteDataEvent += new System.Action<object, DeleteDataEventArgs>(this.Control_DeleteDataEvent);
+            this.materialsControl1.DeleteAllDataEvent += new System.Action<object, DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
+            this.materialsControl1.ChangeDataEvent += new System.Action<object, ChangeDataEventArgs>(this.Control_ChangeDataEvent);
             // 
             // pdgHT
             // 
@@ -169,7 +174,7 @@
             this.htMediaControl1.CheckCurrentTime = 0F;
             this.htMediaControl1.CheckDinamicButtonImage = ((System.Drawing.Image)(resources.GetObject("htMediaControl1.CheckDinamicButtonImage")));
             this.htMediaControl1.CheckStartTime = 0F;
-            this.htMediaControl1.CheckState = BasicAdvisorControls.CheckState.start;
+            this.htMediaControl1.CheckState = CheckState.start;
             this.htMediaControl1.CheckStepTime = 0;
             this.htMediaControl1.CheckStopTime = 0F;
             this.htMediaControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("htMediaControl1.ClearButtonImage")));
@@ -188,13 +193,13 @@
             this.htMediaControl1.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
             this.htMediaControl1.StopCheckingButtonImage = ((System.Drawing.Image)(resources.GetObject("htMediaControl1.StopCheckingButtonImage")));
             this.htMediaControl1.TabIndex = 0;
-            this.htMediaControl1.ShowDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.ShowDataEventArgs>(this.Control_ShowDataEvent);
-            this.htMediaControl1.HideDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.HideDataEventArgs>(this.Control_HideDataEvent);
-            this.htMediaControl1.CheckDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.CheckDataEventArgs>(this.Control_CheckDataEvent);
-            this.htMediaControl1.AddDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.AddDataEventArgs>(this.Control_AddDataEvent);
-            this.htMediaControl1.DeleteDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
-            this.htMediaControl1.DeleteAllDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
-            this.htMediaControl1.ChangeDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            this.htMediaControl1.ShowDataEvent += new System.Action<object, ShowDataEventArgs>(this.Control_ShowDataEvent);
+            this.htMediaControl1.HideDataEvent += new System.Action<object, HideDataEventArgs>(this.Control_HideDataEvent);
+            this.htMediaControl1.CheckDataEvent += new System.Action<object, CheckDataEventArgs>(this.Control_CheckDataEvent);
+            this.htMediaControl1.AddDataEvent += new System.Action<object, AddDataEventArgs>(this.Control_AddDataEvent);
+            this.htMediaControl1.DeleteDataEvent += new System.Action<object, DeleteDataEventArgs>(this.Control_DeleteDataEvent);
+            this.htMediaControl1.DeleteAllDataEvent += new System.Action<object, DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
+            this.htMediaControl1.ChangeDataEvent += new System.Action<object, ChangeDataEventArgs>(this.Control_ChangeDataEvent);
             // 
             // pdgDiffusion
             // 
@@ -215,7 +220,7 @@
             this.diffusion_control.CheckCurrentTime = 0F;
             this.diffusion_control.CheckDinamicButtonImage = ((System.Drawing.Image)(resources.GetObject("diffusion_control1.CheckDinamicButtonImage")));
             this.diffusion_control.CheckStartTime = 0F;
-            this.diffusion_control.CheckState = BasicAdvisorControls.CheckState.start;
+            this.diffusion_control.CheckState = CheckState.start;
             this.diffusion_control.CheckStepTime = 0;
             this.diffusion_control.CheckStopTime = 0F;
             this.diffusion_control.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("diffusion_control1.ClearButtonImage")));
@@ -255,7 +260,7 @@
             this.clampControl1.CheckCurrentTime = 0F;
             this.clampControl1.CheckDinamicButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl1.CheckDinamicButtonImage")));
             this.clampControl1.CheckStartTime = 0F;
-            this.clampControl1.CheckState = BasicAdvisorControls.CheckState.start;
+            this.clampControl1.CheckState = CheckState.start;
             this.clampControl1.CheckStepTime = 0;
             this.clampControl1.CheckStopTime = 0F;
             this.clampControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl1.ClearButtonImage")));
@@ -274,13 +279,13 @@
             this.clampControl1.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
             this.clampControl1.StopCheckingButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl1.StopCheckingButtonImage")));
             this.clampControl1.TabIndex = 0;
-            this.clampControl1.ShowDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.ShowDataEventArgs>(this.Control_ShowDataEvent);
-            this.clampControl1.HideDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.HideDataEventArgs>(this.Control_HideDataEvent);
-            this.clampControl1.CheckDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.CheckDataEventArgs>(this.Control_CheckDataEvent);
-            this.clampControl1.AddDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.AddDataEventArgs>(this.Control_AddDataEvent);
-            this.clampControl1.DeleteDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
-            this.clampControl1.DeleteAllDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
-            this.clampControl1.ChangeDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            this.clampControl1.ShowDataEvent += new System.Action<object, ShowDataEventArgs>(this.Control_ShowDataEvent);
+            this.clampControl1.HideDataEvent += new System.Action<object, HideDataEventArgs>(this.Control_HideDataEvent);
+            this.clampControl1.CheckDataEvent += new System.Action<object, CheckDataEventArgs>(this.Control_CheckDataEvent);
+            this.clampControl1.AddDataEvent += new System.Action<object, AddDataEventArgs>(this.Control_AddDataEvent);
+            this.clampControl1.DeleteDataEvent += new System.Action<object, DeleteDataEventArgs>(this.Control_DeleteDataEvent);
+            this.clampControl1.DeleteAllDataEvent += new System.Action<object, DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
+            this.clampControl1.ChangeDataEvent += new System.Action<object, ChangeDataEventArgs>(this.Control_ChangeDataEvent);
             // 
             // pdgLoad
             // 
@@ -300,7 +305,7 @@
             this.loadControl1.CheckCurrentTime = 0F;
             this.loadControl1.CheckDinamicButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.CheckDinamicButtonImage")));
             this.loadControl1.CheckStartTime = 0F;
-            this.loadControl1.CheckState = BasicAdvisorControls.CheckState.start;
+            this.loadControl1.CheckState = CheckState.start;
             this.loadControl1.CheckStepTime = 0;
             this.loadControl1.CheckStopTime = 0F;
             this.loadControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.ClearButtonImage")));
@@ -319,13 +324,13 @@
             this.loadControl1.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
             this.loadControl1.StopCheckingButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.StopCheckingButtonImage")));
             this.loadControl1.TabIndex = 0;
-            this.loadControl1.ShowDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.ShowDataEventArgs>(this.Control_ShowDataEvent);
-            this.loadControl1.HideDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.HideDataEventArgs>(this.Control_HideDataEvent);
-            this.loadControl1.CheckDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.CheckDataEventArgs>(this.Control_CheckDataEvent);
-            this.loadControl1.AddDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.AddDataEventArgs>(this.Control_AddDataEvent);
-            this.loadControl1.DeleteDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
-            this.loadControl1.DeleteAllDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
-            this.loadControl1.ChangeDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            this.loadControl1.ShowDataEvent += new System.Action<object, ShowDataEventArgs>(this.Control_ShowDataEvent);
+            this.loadControl1.HideDataEvent += new System.Action<object, HideDataEventArgs>(this.Control_HideDataEvent);
+            this.loadControl1.CheckDataEvent += new System.Action<object, CheckDataEventArgs>(this.Control_CheckDataEvent);
+            this.loadControl1.AddDataEvent += new System.Action<object, AddDataEventArgs>(this.Control_AddDataEvent);
+            this.loadControl1.DeleteDataEvent += new System.Action<object, DeleteDataEventArgs>(this.Control_DeleteDataEvent);
+            this.loadControl1.DeleteAllDataEvent += new System.Action<object, DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
+            this.loadControl1.ChangeDataEvent += new System.Action<object, ChangeDataEventArgs>(this.Control_ChangeDataEvent);
             // 
             // pdgPlanner
             // 
@@ -355,10 +360,10 @@
             this.taskPlannerControl1.AddDataUseTaskConditionsEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_AddDataUseTaskConditionsEvent);
             this.taskPlannerControl1.StartComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StartComputationEvent);
             this.taskPlannerControl1.StopComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StopComputationEvent);
-            this.taskPlannerControl1.AddDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.AddDataEventArgs>(this.Control_AddDataEvent);
-            this.taskPlannerControl1.DeleteDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
-            this.taskPlannerControl1.DeleteAllDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
-            this.taskPlannerControl1.ChangeDataEvent += new System.Action<object, BasicAdvisorControls.Interfaces.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            this.taskPlannerControl1.AddDataEvent += new System.Action<object, AddDataEventArgs>(this.Control_AddDataEvent);
+            this.taskPlannerControl1.DeleteDataEvent += new System.Action<object, DeleteDataEventArgs>(this.Control_DeleteDataEvent);
+            this.taskPlannerControl1.DeleteAllDataEvent += new System.Action<object, DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
+            this.taskPlannerControl1.ChangeDataEvent += new System.Action<object, ChangeDataEventArgs>(this.Control_ChangeDataEvent);
             // 
             // imageList
             // 

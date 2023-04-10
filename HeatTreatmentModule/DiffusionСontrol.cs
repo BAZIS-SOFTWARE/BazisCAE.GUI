@@ -1,18 +1,13 @@
-﻿using BasicAdvisorControls.Interfaces;
-using BasicAdvisorControls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
-using System.Reflection.Emit;
+using TaskModule.BasicAdvisorControls.BasicControls;
+using TaskModule.BasicAdvisorControls.Interfaces;
 
-namespace AdvisorControls
+namespace HeatTreatmentModule
 {
     public partial class DiffusionСontrol : CheckedGridViewAdviserControl, IElmentsGroupsControl, IFunctionsRelatedControl
     {

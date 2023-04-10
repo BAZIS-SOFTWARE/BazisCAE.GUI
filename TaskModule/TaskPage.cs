@@ -6,9 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BaseModule;
-using AdvisorControls;
 using ProjectController;
-using BasicAdvisorControls.Interfaces;
 using Project.Interfaces;
 using Scene;
 using Project.TasksData;
@@ -21,6 +19,8 @@ using System.Diagnostics;
 using DataBaseInterface;
 using System.IO;
 using System.Reflection;
+using TaskModule.BasicTaskAdvisor;
+using TaskModule.BasicAdvisorControls.Events;
 
 namespace TaskModule
 {
@@ -256,9 +256,7 @@ namespace TaskModule
                     }
                 }
 
-
-                var advPresenter = new AdvisorPresenter(Project);
-                taskAdv.SetProjectData(advPresenter);
+                taskAdv.SetProjectData(Project);
 
                 PresentProjectTaskDataOnAdvisor(activeTask);
             }
@@ -376,8 +374,8 @@ namespace TaskModule
             if (taskForm != null)
             {
                 var taskAdvisor = (TaskAdvisor)taskForm.Controls[0];
-                var advPresenter = new AdvisorPresenter(Project);
-                taskAdvisor.SetProjectData(advPresenter);
+                //var advPresenter = new AdvisorPresenter(Project);
+                taskAdvisor.SetProjectData(Project);
             }
         }
 
