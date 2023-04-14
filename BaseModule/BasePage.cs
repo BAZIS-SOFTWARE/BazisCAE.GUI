@@ -533,15 +533,25 @@ namespace BaseModule
                 else if (e.ClickedItem.Tag.ToString() == "1")
                 {
                     sceneControl.SelectionType = "Узлы";
-                    var form = new Form() { Name = "CrossSectionForm", Text = "Построить сечение", ShowIcon = false, Size = new Size(268, 203) };
-                    form.TopMost = true;
-                    
+                    var form = new Form() 
+                    { Name = "CrossSectionForm", 
+                        Text = "Построить сечение", 
+                        ShowIcon = false, 
+                        Size = new Size(268, 203),
+                        TopMost = true
+                };
+  
                     var crossSection = new CrossSectionControl() { Dock = DockStyle.Fill };
                     form.Controls.Add(crossSection);
 
                     crossSection.CreatePlaneFromTextArgs += CrossSection_CreatePlane;
                     crossSection.CreatePlaneFromNodesArgs += CrossSection_CreatePlaneFromNodesArgs;
-                    
+
+                    form.FormClosed += (ar1, ar2) =>
+                    {
+                        //if (crossSection.Show)
+                    };
+
                     form.Show();
                 }
 
