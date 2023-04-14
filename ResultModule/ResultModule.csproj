@@ -77,9 +77,6 @@
     <Reference Include="ProjectController">
       <HintPath>..\Libs\ProjectController.dll</HintPath>
     </Reference>
-    <Reference Include="ProjectInterface">
-      <HintPath>..\Libs\ProjectInterface.dll</HintPath>
-    </Reference>
     <Reference Include="Scene">
       <HintPath>..\Libs\Scene.dll</HintPath>
     </Reference>

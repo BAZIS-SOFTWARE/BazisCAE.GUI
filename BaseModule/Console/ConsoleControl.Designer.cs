@@ -227,7 +227,7 @@
             // tscIn.ContentPanel
             // 
             this.tscIn.ContentPanel.Controls.Add(this.inputRichTextBox);
-            this.tscIn.ContentPanel.Size = new System.Drawing.Size(442, 327);
+            this.tscIn.ContentPanel.Size = new System.Drawing.Size(441, 327);
             this.tscIn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tscIn.LeftToolStripPanelVisible = false;
             this.tscIn.Location = new System.Drawing.Point(0, 0);
@@ -253,7 +253,7 @@
             this.inputRichTextBox.Location = new System.Drawing.Point(0, 0);
             this.inputRichTextBox.Margin = new System.Windows.Forms.Padding(1);
             this.inputRichTextBox.Name = "inputRichTextBox";
-            this.inputRichTextBox.Size = new System.Drawing.Size(442, 327);
+            this.inputRichTextBox.Size = new System.Drawing.Size(441, 327);
             this.inputRichTextBox.TabIndex = 3;
             this.inputRichTextBox.Text = "введите команду...";
             // 
@@ -268,7 +268,7 @@
             this.tlsIn.Location = new System.Drawing.Point(0, 0);
             this.tlsIn.Name = "tlsIn";
             this.tlsIn.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tlsIn.Size = new System.Drawing.Size(31, 327);
+            this.tlsIn.Size = new System.Drawing.Size(32, 327);
             this.tlsIn.Stretch = true;
             this.tlsIn.TabIndex = 0;
             this.tlsIn.Text = "Командная строка";

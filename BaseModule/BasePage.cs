@@ -15,7 +15,6 @@ using Model.Interfaces;
 using System.IO;
 using ProjectController.IO;
 using ModelController.IO;
-using GMSH_Importer;
 using ModelController.MeshObjsUtility;
 using Model.GroupsData;
 using Scene.Events;
@@ -306,7 +305,7 @@ namespace BaseModule
             }
             else if (ext == ".inp")
             {
-                var loader = new Import_Mesh();
+                var loader = new LoadModelFromGMSHTextFile();
                 loader.LoadEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
 
                 var modelINP = loader.Load(dialog.FileName);
@@ -723,14 +722,14 @@ namespace BaseModule
 
                 else if (arg2.ClickedItem.Tag.ToString() == "1")
                 {
-                    sceneControl.DrawInsideSurface = true;
+                    sceneControl.DrawInsideObjects = true;
                     PresentAllModelObjectsOnScene();
                     consoleControl.PrintInfo("Показаны все объекты", Color.Black);
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "2")
                 {
-                    sceneControl.DrawInsideSurface = false;
+                    sceneControl.DrawInsideObjects = false;
                     PresentAllModelObjectsOnScene();
                     consoleControl.PrintInfo("Скрыты внутренние объекты", Color.Black);
                 }
