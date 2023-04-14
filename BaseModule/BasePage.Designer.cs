@@ -128,7 +128,7 @@ namespace BaseModule
             this.webPageLabel.Size = new System.Drawing.Size(101, 17);
             this.webPageLabel.Text = "www.bazisnet.ru";
             this.webPageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.webPageLabel.Click += new System.EventHandler(this.webPageLabel_Click);
+            this.webPageLabel.Click += new System.EventHandler(this.WebPageLabel_Click);
             // 
             // splitContainer1
             // 
@@ -258,7 +258,7 @@ namespace BaseModule
             this.sceneControl.CreateMeshGroupEvent += new System.Action<object, Scene.Events.CreateGroupEventArgs>(this.sceneControl_CreateMeshGroupEvent);
             this.sceneControl.DeleteSelectionEvent += new System.Action<object, System.EventArgs>(this.sceneControl_DeleteSelectionEvent);
             this.sceneControl.CreateVBObjectsEvent += new System.Action<object, Scene.Events.VBOPresenterEventArgs>(this.sceneControl_CreateVBObjectsEvent);
-            this.sceneControl.MessageEvent += new System.Action<object, Scene.Events.MessageEventArgs>(this.sceneControl_MessageEvent);
+            this.sceneControl.MessageEvent += new System.Action<object, Scene.Events.MessageEventArgs>(this.SceneControl_MessageEvent);
             // 
             // grbConsole
             // 

@@ -21,8 +21,7 @@ using Scene.Events;
 using ModelController;
 using System.Diagnostics;
 using BaseModule.Console;
-using CrossSectionFront;
-using CrossSection_lib;
+using BaseModule.CrossSection;
 
 namespace BaseModule
 {
@@ -568,7 +567,7 @@ namespace BaseModule
             }
         }
 
-        private void CrossSection_CreatePlaneFromNodesArgs(object arg1, CreatePlaneFromNodesArgs arg2)
+        private void CrossSection_CreatePlaneFromNodesArgs(object arg1)
         {
             int counter = 0;
             ModelData modelData = new ModelData();
@@ -956,12 +955,12 @@ namespace BaseModule
             }
         }
 
-        private void sceneControl_MessageEvent(object arg1, MessageEventArgs arg2)
+        private void SceneControl_MessageEvent(object arg1, MessageEventArgs arg2)
         {
             consoleControl.PrintInfo(arg2.Message, Color.Red);
         }
 
-        private void webPageLabel_Click(object sender, EventArgs e)
+        private void WebPageLabel_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(webPageLabel.Text); //где path это путь к сайту
         }

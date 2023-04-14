@@ -1,24 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Model;
-using ModelController;
 using Geometry;
-using Scene;
-using BaseControl;
 
-namespace CrossSectionFront
+namespace BaseModule.CrossSection
 {
     public partial class CrossSectionControl : UserControl
     {
         public event Action<object, CreatePlaneFromTextArgs> CreatePlaneFromTextArgs;
-        public event Action<object, CreatePlaneFromNodesArgs> CreatePlaneFromNodesArgs;
+        public event Action<object> CreatePlaneFromNodesArgs;
         public CrossSectionControl()
         {
             InitializeComponent();
@@ -46,21 +36,21 @@ namespace CrossSectionFront
             
         }
 
-        public void rbtXY_CheckedChanged(object sender, EventArgs e)
+        public void RbtXY_CheckedChanged(object sender, EventArgs e)
         {
             txbPoint1.Text = "0;0;0";
             txbPoint2.Text = "1;0;0";
             txbPoint3.Text = "0;1;0";
         }
 
-        public void rbtXZ_CheckedChanged(object sender, EventArgs e)
+        public void RbtXZ_CheckedChanged(object sender, EventArgs e)
         {
             txbPoint1.Text = "0;0;0";
             txbPoint2.Text = "1;0;0";
             txbPoint3.Text = "0;0;1";
         }
 
-        public void rbtYZ_CheckedChanged(object sender, EventArgs e)
+        public void RbtYZ_CheckedChanged(object sender, EventArgs e)
         {
             txbPoint1.Text = "0;0;0";
             txbPoint2.Text = "0;1;0";
@@ -89,7 +79,7 @@ namespace CrossSectionFront
             }
             else if (chbSelectPoints.Checked == true)
             {
-                CreatePlaneFromNodesArgs(this, new CreatePlaneFromNodesArgs());
+                CreatePlaneFromNodesArgs(this);
             }
         }
 

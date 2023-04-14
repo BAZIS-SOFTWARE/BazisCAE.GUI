@@ -65,6 +65,7 @@
             // 
             this.btnSaveProject.AutoSize = false;
             this.btnSaveProject.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSaveProject.Enabled = false;
             this.btnSaveProject.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveProject.Image")));
             this.btnSaveProject.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnSaveProject.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -78,6 +79,7 @@
             // 
             this.btnImportMesh.AutoSize = false;
             this.btnImportMesh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnImportMesh.Enabled = false;
             this.btnImportMesh.Image = ((System.Drawing.Image)(resources.GetObject("btnImportMesh.Image")));
             this.btnImportMesh.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnImportMesh.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;

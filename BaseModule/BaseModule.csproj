@@ -116,6 +116,12 @@
     <Compile Include="Console\ConsoleControl.Designer.cs">
       <DependentUpon>ConsoleControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="CrossSection\CreatePlaneFromTextArgs.cs" />
+    <Compile Include="CrossSection\CrossSectionControl.cs" />
+    <Compile Include="CrossSection\CrossSectionControl.Designer.cs">
+      <DependentUpon>CrossSectionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CrossSection\GetCrossPoints.cs" />
     <Compile Include="MeasureEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -145,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Console\ConsoleControl.resx">
       <DependentUpon>ConsoleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrossSection\CrossSectionControl.resx">
+      <DependentUpon>CrossSectionControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

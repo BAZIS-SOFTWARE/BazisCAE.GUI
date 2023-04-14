@@ -5,7 +5,6 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BaseModule;
 using ProjectController;
 using Project.Interfaces;
 using Scene;
@@ -21,6 +20,7 @@ using System.IO;
 using System.Reflection;
 using TaskModule.BasicTaskAdvisor;
 using TaskModule.BasicAdvisorControls.Events;
+using BaseModule;
 
 namespace TaskModule
 {

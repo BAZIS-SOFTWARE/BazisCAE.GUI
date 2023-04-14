@@ -1,4 +1,4 @@
-﻿namespace CrossSectionFront
+﻿namespace BaseModule.CrossSection
 {
     partial class CrossSectionControl
     {
@@ -149,7 +149,7 @@
             this.rbtXY.TabStop = true;
             this.rbtXY.Text = "XY";
             this.rbtXY.UseVisualStyleBackColor = true;
-            this.rbtXY.CheckedChanged += new System.EventHandler(this.rbtXY_CheckedChanged);
+            this.rbtXY.CheckedChanged += new System.EventHandler(this.RbtXY_CheckedChanged);
             // 
             // rbtXZ
             // 
@@ -162,7 +162,7 @@
             this.rbtXZ.TabStop = true;
             this.rbtXZ.Text = "XZ";
             this.rbtXZ.UseVisualStyleBackColor = true;
-            this.rbtXZ.CheckedChanged += new System.EventHandler(this.rbtXZ_CheckedChanged);
+            this.rbtXZ.CheckedChanged += new System.EventHandler(this.RbtXZ_CheckedChanged);
             // 
             // rbtYZ
             // 
@@ -175,7 +175,7 @@
             this.rbtYZ.TabStop = true;
             this.rbtYZ.Text = "YZ";
             this.rbtYZ.UseVisualStyleBackColor = true;
-            this.rbtYZ.CheckedChanged += new System.EventHandler(this.rbtYZ_CheckedChanged);
+            this.rbtYZ.CheckedChanged += new System.EventHandler(this.RbtYZ_CheckedChanged);
             // 
             // tableLayoutPanel3
             // 
