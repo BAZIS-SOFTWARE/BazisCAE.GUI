@@ -5,19 +5,19 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BazisGUI", "BazisGUI.csproj", "{A4E6398C-244E-4655-AEA7-5A9B606586C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseControl", "BaseControl\BaseControl.csproj", "{E5C49662-B9C7-4B1B-9734-1FF03DA9FCC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseModule", "BaseModule\BaseModule.csproj", "{E5C49662-B9C7-4B1B-9734-1FF03DA9FCC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelControl", "ModelControl\ModelControl.csproj", "{986F99D5-CC42-41F8-A5D4-97DE97D7EA64}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelModule", "ModelModule\ModelModule.csproj", "{986F99D5-CC42-41F8-A5D4-97DE97D7EA64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskControl", "TaskControl\TaskControl.csproj", "{11954439-9966-4648-A776-7CE642FE21F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskModule", "TaskModule\TaskModule.csproj", "{11954439-9966-4648-A776-7CE642FE21F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeatTreatmentControl", "HeatTreatmentControl\HeatTreatmentControl.csproj", "{D41916A3-5730-49E9-9F6B-781A50159348}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeatTreatmentModule", "HeatTreatmentModule\HeatTreatmentModule.csproj", "{D41916A3-5730-49E9-9F6B-781A50159348}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeldingControl", "WeldingControl\WeldingControl.csproj", "{37BC05DD-286B-4BBC-B21B-C5E7F1054A51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeldingModule", "WeldingModule\WeldingModule.csproj", "{37BC05DD-286B-4BBC-B21B-C5E7F1054A51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResultControl", "ResultControl\ResultControl.csproj", "{80D9E902-D51F-4A78-828C-987AB7F0A578}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResultModule", "ResultModule\ResultModule.csproj", "{80D9E902-D51F-4A78-828C-987AB7F0A578}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionControl", "ConnectionControl\ConnectionControl.csproj", "{623CE9FC-E0E2-4644-9F69-75E0F394546F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionModule", "ConnectionModule\ConnectionModule.csproj", "{623CE9FC-E0E2-4644-9F69-75E0F394546F}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{FCD9F643-34E8-48D7-B57E-97400F118E98}"
 EndProject

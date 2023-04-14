@@ -201,33 +201,33 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="BaseControl\BaseControl.csproj">
+    <ProjectReference Include="BaseModule\BaseModule.csproj">
       <Project>{e5c49662-b9c7-4b1b-9734-1ff03da9fcc0}</Project>
-      <Name>BaseControl</Name>
+      <Name>BaseModule</Name>
     </ProjectReference>
-    <ProjectReference Include="ConnectionControl\ConnectionControl.csproj">
+    <ProjectReference Include="ConnectionModule\ConnectionModule.csproj">
       <Project>{623ce9fc-e0e2-4644-9f69-75e0f394546f}</Project>
-      <Name>ConnectionControl</Name>
+      <Name>ConnectionModule</Name>
     </ProjectReference>
-    <ProjectReference Include="HeatTreatmentControl\HeatTreatmentControl.csproj">
+    <ProjectReference Include="HeatTreatmentModule\HeatTreatmentModule.csproj">
       <Project>{d41916a3-5730-49e9-9f6b-781a50159348}</Project>
-      <Name>HeatTreatmentControl</Name>
+      <Name>HeatTreatmentModule</Name>
     </ProjectReference>
-    <ProjectReference Include="ModelControl\ModelControl.csproj">
+    <ProjectReference Include="ModelModule\ModelModule.csproj">
       <Project>{986f99d5-cc42-41f8-a5d4-97de97d7ea64}</Project>
-      <Name>ModelControl</Name>
+      <Name>ModelModule</Name>
     </ProjectReference>
-    <ProjectReference Include="ResultControl\ResultControl.csproj">
+    <ProjectReference Include="ResultModule\ResultModule.csproj">
       <Project>{80d9e902-d51f-4a78-828c-987ab7f0a578}</Project>
-      <Name>ResultControl</Name>
+      <Name>ResultModule</Name>
     </ProjectReference>
-    <ProjectReference Include="TaskControl\TaskControl.csproj">
+    <ProjectReference Include="TaskModule\TaskModule.csproj">
       <Project>{11954439-9966-4648-a776-7ce642fe21f3}</Project>
-      <Name>TaskControl</Name>
+      <Name>TaskModule</Name>
     </ProjectReference>
-    <ProjectReference Include="WeldingControl\WeldingControl.csproj">
+    <ProjectReference Include="WeldingModule\WeldingModule.csproj">
       <Project>{37bc05dd-286b-4bbc-b21b-c5e7f1054a51}</Project>
-      <Name>WeldingControl</Name>
+      <Name>WeldingModule</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
