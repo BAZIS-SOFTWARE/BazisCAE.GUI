@@ -80,15 +80,21 @@
     <Compile Include="WeldingPage.Designer.cs">
       <DependentUpon>WeldingPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="WeldingTypeControls\ArcWeldingControl.cs" />
+    <Compile Include="WeldingTypeControls\ArcWeldingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="WeldingTypeControls\ArcWeldingControl.designer.cs">
       <DependentUpon>ArcWeldingControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="WeldingTypeControls\FSWeldingControl.cs" />
+    <Compile Include="WeldingTypeControls\FSWeldingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="WeldingTypeControls\FSWeldingControl.designer.cs">
       <DependentUpon>FSWeldingControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="WeldingTypeControls\LWeldingControl.cs" />
+    <Compile Include="WeldingTypeControls\LWeldingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="WeldingTypeControls\LWeldingControl.Designer.cs">
       <DependentUpon>LWeldingControl.cs</DependentUpon>
     </Compile>
@@ -97,7 +103,9 @@
       <DependentUpon>WeldingMediaControl.cs</DependentUpon>
     </Compile>
     <Compile Include="WeldingTypeControls\WeldContainerCntrEventArgs.cs" />
-    <Compile Include="WeldingTypeControls\WeldContainerControl.cs" />
+    <Compile Include="WeldingTypeControls\WeldContainerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="WeldingTypeControls\WeldContainerControl.Designer.cs">
       <DependentUpon>WeldContainerControl.cs</DependentUpon>
     </Compile>

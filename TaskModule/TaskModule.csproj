@@ -99,15 +99,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicAdvisorControls\BasicControls\CheckedGridViewAdviserControl.cs" />
+    <Compile Include="BasicAdvisorControls\BasicControls\CheckedGridViewAdviserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="BasicAdvisorControls\BasicControls\CheckedGridViewAdviserControl.Designer.cs">
       <DependentUpon>CheckedGridViewAdviserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="BasicAdvisorControls\BasicControls\GridViewAdviserControl.cs" />
+    <Compile Include="BasicAdvisorControls\BasicControls\GridViewAdviserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="BasicAdvisorControls\BasicControls\GridViewAdviserControl.Designer.cs">
       <DependentUpon>GridViewAdviserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="BasicAdvisorControls\ClampControl.cs" />
+    <Compile Include="BasicAdvisorControls\ClampControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="BasicAdvisorControls\ClampControl.Designer.cs">
       <DependentUpon>ClampControl.cs</DependentUpon>
     </Compile>
@@ -127,36 +133,52 @@
     <Compile Include="BasicAdvisorControls\Interfaces\IGridViewControl.cs" />
     <Compile Include="BasicAdvisorControls\Interfaces\IMaterialsRelatedControl.cs" />
     <Compile Include="BasicAdvisorControls\Interfaces\INodesGroupControl.cs" />
-    <Compile Include="BasicAdvisorControls\LoadControl.cs" />
+    <Compile Include="BasicAdvisorControls\LoadControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="BasicAdvisorControls\LoadControl.designer.cs">
       <DependentUpon>LoadControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="BasicAdvisorControls\MaterialsControl.cs" />
+    <Compile Include="BasicAdvisorControls\MaterialsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="BasicAdvisorControls\MaterialsControl.designer.cs">
       <DependentUpon>MaterialsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="BasicAdvisorControls\TaskPlannerControls\FileSettingsIO.cs" />
-    <Compile Include="BasicAdvisorControls\TaskPlannerControls\HeatTaskControl.cs" />
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\HeatTaskControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="BasicAdvisorControls\TaskPlannerControls\HeatTaskControl.Designer.cs">
       <DependentUpon>HeatTaskControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="BasicAdvisorControls\TaskPlannerControls\MechTaskControl.cs" />
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\MechTaskControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="BasicAdvisorControls\TaskPlannerControls\MechTaskControl.Designer.cs">
       <DependentUpon>MechTaskControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskControl.cs" />
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskControl.Designer.cs">
       <DependentUpon>TaskControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl1.5.310.cs" />
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl1.5.310.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl1.5.310.Designer.cs">
       <DependentUpon>TaskPlannerControl1.5.310.cs</DependentUpon>
     </Compile>
-    <Compile Include="BasicAdvisorControls\TaskTypeControl.cs" />
+    <Compile Include="BasicAdvisorControls\TaskTypeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="BasicAdvisorControls\TaskTypeControl.Designer.cs">
       <DependentUpon>TaskTypeControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="BasicTaskAdvisor\TaskAdvisor.cs" />
+    <Compile Include="BasicTaskAdvisor\TaskAdvisor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="BasicTaskAdvisor\TaskAdvisor.Designer.cs">
       <DependentUpon>TaskAdvisor.cs</DependentUpon>
     </Compile>
@@ -205,10 +227,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BaseModule\BaseModule.csproj">
-      <Project>{e5c49662-b9c7-4b1b-9734-1ff03da9fcc0}</Project>
-      <Name>BaseModule</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ToolStrips\ToolStrips.csproj">
       <Project>{740e63b0-14c9-41eb-b883-0f7077817174}</Project>
       <Name>ToolStrips</Name>
