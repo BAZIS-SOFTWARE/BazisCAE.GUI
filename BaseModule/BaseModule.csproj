@@ -53,9 +53,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Functions.dll</HintPath>
     </Reference>
-    <Reference Include="CrossSection_lib">
-      <HintPath>..\..\CrossSectionFront\bin\Release\CrossSection_lib.dll</HintPath>
-    </Reference>
     <Reference Include="Geometry, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Geometry.dll</HintPath>
@@ -67,6 +64,9 @@
     <Reference Include="ModelController, Version=1.0.3.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ModelController.dll</HintPath>
+    </Reference>
+    <Reference Include="ModelParcer">
+      <HintPath>..\Libs\ModelParcer.dll</HintPath>
     </Reference>
     <Reference Include="Project">
       <HintPath>..\Libs\Project.dll</HintPath>
