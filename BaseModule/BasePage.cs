@@ -23,6 +23,7 @@ using System.Diagnostics;
 using BaseModule.Console;
 using BaseModule.CrossSection;
 using ModelParcer;
+using ModelController.ModelScenePresentator;
 
 namespace BaseModule
 {
@@ -218,7 +219,6 @@ namespace BaseModule
 
         private void PaintCloseRectangle(Control control, PaintEventArgs e)
         {
-            var textSize = TextRenderer.MeasureText(control.Text, this.Font).Width;
             var locRect = new Point(control.Width - 16, 3);
             Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 1);
             var rect = new Rectangle(locRect, new Size(8, 8));
@@ -230,7 +230,7 @@ namespace BaseModule
         private void grbNavigator_MouseClick(object sender, MouseEventArgs e)
         {
             var grb = (Panel)sender;
-            var textSize = TextRenderer.MeasureText(grb.Text, this.Font).Width;
+
             if (e.Location.X > grb.Width - 16 & e.Location.X < grb.Width - 8 && e.Location.Y <= 10)
                 splitContainer1.Panel1Collapsed = true;
         }
@@ -238,7 +238,7 @@ namespace BaseModule
         private void grbConsole_MouseClick(object sender, MouseEventArgs e)
         {
             var grb = (Panel)sender;
-            var textSize = TextRenderer.MeasureText(grb.Text, this.Font).Width;
+  
             if (e.Location.X > grb.Width - 16 & e.Location.X < grb.Width - 8 && e.Location.Y <= 10)
                 splitContainer2.Panel2Collapsed = true;
         }

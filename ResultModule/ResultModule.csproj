@@ -56,20 +56,23 @@
     <Reference Include="Console">
       <HintPath>..\Libs\Console.dll</HintPath>
     </Reference>
-    <Reference Include="Functions">
-      <HintPath>..\Libs\Functions.dll</HintPath>
+    <Reference Include="Functions, Version=1.0.1.30, Culture=neutral, PublicKeyToken=65fde98421b2fc88, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bazis.Functions.1.0.1\lib\net48\Functions.dll</HintPath>
     </Reference>
-    <Reference Include="Geometry">
-      <HintPath>..\Libs\Geometry.dll</HintPath>
+    <Reference Include="Geometry, Version=2.0.2.10, Culture=neutral, PublicKeyToken=cadb58b3f6b10f0c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bazis.Geometry.2.0.2\lib\net48\Geometry.dll</HintPath>
     </Reference>
     <Reference Include="Graph">
       <HintPath>..\Libs\Graph.dll</HintPath>
     </Reference>
-    <Reference Include="Model">
-      <HintPath>..\Libs\Model.dll</HintPath>
+    <Reference Include="Model, Version=1.0.3.50, Culture=neutral, PublicKeyToken=2804256ee81d4535, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bazis.ModelSolution.1.0.5\lib\net48\Model.dll</HintPath>
     </Reference>
-    <Reference Include="ModelController">
-      <HintPath>..\Libs\ModelController.dll</HintPath>
+    <Reference Include="ModelController, Version=1.0.5.10, Culture=neutral, PublicKeyToken=2804256ee81d4535, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bazis.ModelSolution.1.0.5\lib\net48\ModelController.dll</HintPath>
+    </Reference>
+    <Reference Include="ModelParcer, Version=1.0.1.0, Culture=neutral, PublicKeyToken=2804256ee81d4535, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bazis.ModelSolution.1.0.5\lib\net48\ModelParcer.dll</HintPath>
     </Reference>
     <Reference Include="Project">
       <HintPath>..\Libs\Project.dll</HintPath>
@@ -77,11 +80,13 @@
     <Reference Include="ProjectController">
       <HintPath>..\Libs\ProjectController.dll</HintPath>
     </Reference>
-    <Reference Include="Scene">
-      <HintPath>..\Libs\Scene.dll</HintPath>
+    <Reference Include="Scene, Version=2.0.2.0, Culture=neutral, PublicKeyToken=19779f7b74b7d539, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Bazis.SceneSolution.2.0.4\lib\net48\Scene.dll</HintPath>
     </Reference>
-    <Reference Include="SceneInterface">
-      <HintPath>..\Libs\SceneInterface.dll</HintPath>
+    <Reference Include="SceneInterface, Version=1.0.1.10, Culture=neutral, PublicKeyToken=f4632fed43ef5153, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Bazis.SceneSolution.2.0.2\lib\net48\SceneInterface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -164,6 +169,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Animation.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
