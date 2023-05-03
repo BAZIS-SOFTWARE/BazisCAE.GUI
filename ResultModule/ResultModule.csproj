@@ -84,9 +84,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Bazis.SceneSolution.2.0.4\lib\net48\Scene.dll</HintPath>
     </Reference>
-    <Reference Include="SceneInterface, Version=1.0.1.10, Culture=neutral, PublicKeyToken=f4632fed43ef5153, processorArchitecture=MSIL">
+    <Reference Include="SceneInterface, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bazis.SceneSolution.2.0.2\lib\net48\SceneInterface.dll</HintPath>
+      <HintPath>..\packages\SceneInterface.1.0.1.10\lib\net48\SceneInterface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
