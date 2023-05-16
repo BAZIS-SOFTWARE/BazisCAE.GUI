@@ -249,7 +249,7 @@ namespace BaseModule
             this.sceneControl.RotationAngle = 2.5F;
             this.sceneControl.RotationAxis = Scene.ViewAxis.XYZ;
             this.sceneControl.SelectionColor = System.Drawing.Color.GreenYellow;
-            this.sceneControl.SelectionType = "Узлы";
+            this.sceneControl.SelectedObjectsName = "Узлы";
             this.sceneControl.Size = new System.Drawing.Size(601, 435);
             this.sceneControl.TabIndex = 2;
             this.sceneControl.TitleColor = System.Drawing.Color.Black;
@@ -257,7 +257,7 @@ namespace BaseModule
             this.sceneControl.InfoObjectsEvent += new System.Action<object, Scene.InfoObjectsEventArgs>(this.sceneControl_InfoObjectsEvent);
             this.sceneControl.CreateMeshGroupEvent += new System.Action<object, Scene.Events.CreateGroupEventArgs>(this.sceneControl_CreateMeshGroupEvent);
             this.sceneControl.DeleteSelectionEvent += new System.Action<object, System.EventArgs>(this.sceneControl_DeleteSelectionEvent);
-            this.sceneControl.CreateVBObjectsEvent += new System.Action<object, Scene.Events.VBOPresenterEventArgs>(this.sceneControl_CreateVBObjectsEvent);
+            //this.sceneControl.CreateVBObjectsEvent += new System.Action<object, Scene.Events.VBOPresenterEventArgs>(this.sceneControl_CreateVBObjectsEvent);
             this.sceneControl.MessageEvent += new System.Action<object, Scene.Events.MessageEventArgs>(this.SceneControl_MessageEvent);
             // 
             // grbConsole

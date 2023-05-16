@@ -65,6 +65,7 @@ namespace BaseModule
 
             sceneControl.BringToFront();
             sceneControl.Initialization();
+            sceneControl.SetPresentorEvent += (ar1, ar2) => { };
 
             PresentProjectOnTree();
 
@@ -396,7 +397,7 @@ namespace BaseModule
 
         private void SelectToolStrip_SelectObjectEvent(object arg1, SelectObjectEventArgs arg2)
         {
-            sceneControl.SelectionType = arg2.ObjsType;
+            sceneControl.SelectedObjectsName = arg2.ObjsType;
 
             sceneControl.SetBackColorToAll_VBObjects();
             sceneControl.DisplayObjects();
@@ -474,7 +475,7 @@ namespace BaseModule
                     selector.SelectInPlane<Element2D>(arg2.Angle, element.Number, sceneControl.SelectionColor);
                 }
             }
-            sceneControl.ChangeColorsVBObjects(sceneControl.SelectionType);
+            sceneControl.ChangeColorsVBObjects(sceneControl.SelectedObjectsName);
 
             sceneControl.DisplayObjects();
 
@@ -497,7 +498,7 @@ namespace BaseModule
                     {
                         selector.SelectInDirecion<Element3D>(10, objs[objs.Length - 1], objs[objs.Length - 2], sceneControl.SelectionColor);
                     }
-                    sceneControl.ChangeColorsVBObjects(sceneControl.SelectionType);
+                    sceneControl.ChangeColorsVBObjects(sceneControl.SelectedObjectsName);
 
                     sceneControl.DisplayObjects();
                 }
@@ -533,7 +534,7 @@ namespace BaseModule
 
                 else if (e.ClickedItem.Tag.ToString() == "1")
                 {
-                    sceneControl.SelectionType = "Узлы";
+                    sceneControl.SelectedObjectsName = "Узлы";
                     var form = new Form() 
                     { Name = "CrossSectionForm", 
                         Text = "Построить сечение", 
@@ -932,7 +933,7 @@ namespace BaseModule
         public virtual void sceneControl_DeleteSelectionEvent(object arg1, EventArgs arg2)
         {
             var selectedObjects = sceneControl.GetSelectedObjects();
-            var selectionType = sceneControl.SelectionType;
+            var selectionType = sceneControl.SelectedObjectsName;
 
             project.Model.ObjectData.RemoveRange(selectionType, selectedObjects);
 

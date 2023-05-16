@@ -54,7 +54,6 @@
       <HintPath>..\Libs\ColorSlider.dll</HintPath>
     </Reference>
     <Reference Include="Functions, Version=1.0.1.40, Culture=neutral, PublicKeyToken=65fde98421b2fc88, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Bazis.Functions.1.0.2\lib\net48\Functions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -154,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

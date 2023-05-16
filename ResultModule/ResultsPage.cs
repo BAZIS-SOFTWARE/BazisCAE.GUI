@@ -7,6 +7,8 @@ using Project.Interfaces;
 using ProjectController.IO;
 using ProjectController.Presenters;
 using ProjectController.Presenters.ScenePresenters;
+using ProjectController.Presenters.ScenePresenters.Interfaces;
+using ProjectController.SceneResultPresenters;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -56,11 +58,16 @@ namespace ResultModule
 
             resItems = new Dictionary<string, List<float>>();
 
-            scale = new RainbowScale(4, 1, 0, 10);
-            scale.Coord_X = 70; scale.Coord_X = 140;
+            scale = new RainbowScale(4, 1, 0, 10)
+            {
+                Coord_X = 70,
+                Coord_Y = 140
+            };
 
-            var resToolStrip = new ResultsToolStrip();
-            resToolStrip.Renderer = new BtnToolStrRender();
+            var resToolStrip = new ResultsToolStrip
+            {
+                Renderer = new BtnToolStrRender()
+            };
             resToolStrip.ItemClicked += ResultsToolStrip_ItemClicked;
 
             AddToolStrip(resToolStrip);
@@ -213,7 +220,7 @@ namespace ResultModule
                 }
             };
 
-            var icon = new Icon(typeof(ScalePage), "Scale.ico");
+            var icon = ResultControl.Properties.Resources.Scale;
             var scForm = new Form() { TopMost = true, Icon = icon, Size = scPage.Size };
             scForm.Controls.Add(scPage);
             scForm.Show();
@@ -255,7 +262,7 @@ namespace ResultModule
 
             grPage.SetResultsItems(resItems);
 
-            var icon = new Icon(typeof(GraphCreationPage), "Graph.ico");
+            var icon = ResultControl.Properties.Resources.Graph;
             var scForm = new Form() { TopMost = true, Icon = icon, Size = grPage.Size };
             scForm.Controls.Add(grPage);
             scForm.Show();
@@ -271,7 +278,7 @@ namespace ResultModule
                 else ConsoleControl.PrintInfo("Выберите результаты для отображения!", Color.Red);
             };
             anPage.SetResultsItems(resItems);
-            var icon = new Icon(typeof(AnimationPage), "Animation.ico");
+            var icon = ResultControl.Properties.Resources.Animation;
             var scForm = new Form() { TopMost = true, Icon = icon, Size = anPage.Size };
             scForm.Controls.Add(anPage);
             scForm.Show();
@@ -404,97 +411,101 @@ namespace ResultModule
             
         }
 
-        private void CreatePathGraph(string resKind, string objsType,float time)
+        private void CreatePathGraph(string resKind, string objsType, float time)
         {
 
-                var selNode = TreeView.SelectedNode;
-                var resDes = selNode.Name;
+            var selNode = TreeView.SelectedNode;
+            var resDes = selNode.Name;
 
-                var result = Project.ResultData.FindByTime(resKind, time);
+            var result = Project.ResultData.FindByTime(resKind, time);
 
-                var objs = SceneControl.GetSelectedObjects().Select(x => Project.Model.ObjectData.Find(x)).ToList();
-                objs.SortByDistance();
+            var objs = SceneControl.GetSelectedObjects().Select(x => Project.Model.ObjectData.Find(x)).ToList();
+            objs.SortByDistance();
 
-                var pathPoints = new List<Point3D>();
-                var path = 0.0f;
-                var grPoints = new List<SimpleGraphPoint>();
+            var pathPoints = new List<Point3D>();
+            var path = 0.0f;
+            var grPoints = new List<SimpleGraphPoint>();
 
-                if (result != null)
-                    foreach (var obj in objs)
-                    {
-                        var res = 0.0f;
-                        if (objsType == "Узлы")
-                            res = result.GetNodeValue(obj.Number, resDes);
-                        else res = result.GetElementValue(obj.Number, resDes);
-
-                        var point = obj.CalcCentralPoint();
-
-                        var delta = new Point3D();
-                        if (pathPoints.Count > 0)
-                            delta = point.Sub(pathPoints.Last());
-                        path += Vector.GetVectorLenght(delta);
-
-                        pathPoints.Add(obj.CalcCentralPoint());
-
-                        var grPoint = new SimpleGraphPoint(path, res);
-                        grPoints.Add(grPoint);
-                    }
-
-                if (grPoints.Count != 0)
+            if (result != null)
+                foreach (var obj in objs)
                 {
-                    var grData = new GraphData(resDes, Color.Orange, false, "Путь", resDes, grPoints.ToArray());
-                    var grContainer = new GraphContainer();
+                    var res = 0.0f;
+                    if (objsType == "Узлы")
+                        res = result.GetNodeValue(obj.Number, resDes);
+                    else res = result.GetElementValue(obj.Number, resDes);
 
-                    grContainer.CreateGraphObj(resDes, new List<GraphData>() { grData });
-                    grContainer.Dock = DockStyle.Fill;
-                    var form = new Form();
-                    form.TopMost = true;
-                    form.Controls.Add(grContainer);
-                    form.Show();
+                    var point = obj.CalcCentralPoint();
+
+                    var delta = new Point3D();
+                    if (pathPoints.Count > 0)
+                        delta = point.Sub(pathPoints.Last());
+                    path += Vector.GetVectorLenght(delta);
+
+                    pathPoints.Add(obj.CalcCentralPoint());
+
+                    var grPoint = new SimpleGraphPoint(path, res);
+                    grPoints.Add(grPoint);
                 }
-            
+
+            if (grPoints.Count != 0)
+            {
+                var grData = new GraphData(resDes, Color.Orange, false, "Путь", resDes, grPoints.ToArray());
+                var grContainer = new GraphContainer();
+
+                grContainer.CreateGraphObj(resDes, new List<GraphData>() { grData });
+                grContainer.Dock = DockStyle.Fill;
+                var form = new Form
+                {
+                    TopMost = true
+                };
+                form.Controls.Add(grContainer);
+                form.Show();
+            }
+
         }
 
         private void CreateTimeGraph(string resKind, string objsType)
         {
 
-                var selNode = TreeView.SelectedNode;
-                var resDes = selNode.Name;
+            var selNode = TreeView.SelectedNode;
+            var resDes = selNode.Name;
 
-                var results = Project.ResultData.FindByTaskKind(resKind);
-                var grDataAr = new List<GraphData>();
+            var results = Project.ResultData.FindByTaskKind(resKind);
+            var grDataAr = new List<GraphData>();
 
 
-                foreach (var objNumber in SceneControl.GetSelectedObjects())
+            foreach (var objNumber in SceneControl.GetSelectedObjects())
+            {
+                var grPoints = new List<SimpleGraphPoint>();
+
+                foreach (var result in results)
                 {
-                    var grPoints = new List<SimpleGraphPoint>();
+                    var res = 0.0f;
+                    if (objsType == "Узлы")
+                        res = result.GetNodeValue(objNumber, resDes);
+                    else res = result.GetElementValue(objNumber, resDes);
 
-                    foreach (var result in results)
-                    {
-                        var res = 0.0f;
-                        if (objsType == "Узлы")
-                            res = result.GetNodeValue(objNumber, resDes);
-                        else res = result.GetElementValue(objNumber, resDes);
-
-                        var grPoint = new SimpleGraphPoint(result.Time, res);
-                        grPoints.Add(grPoint);
-                    }
-                    var grData = new GraphData(resDes, Color.Orange, false, "Время", resDes, grPoints.ToArray());
-                    grDataAr.Add(grData);
+                    var grPoint = new SimpleGraphPoint(result.Time, res);
+                    grPoints.Add(grPoint);
                 }
+                var grData = new GraphData(resDes, Color.Orange, false, "Время", resDes, grPoints.ToArray());
+                grDataAr.Add(grData);
+            }
 
-                var grContainer = new GraphContainer();
+            var grContainer = new GraphContainer();
 
-                if (grDataAr.Count != 0)
+            if (grDataAr.Count != 0)
+            {
+                grContainer.CreateGraphObj(resDes, grDataAr);
+                grContainer.Dock = DockStyle.Fill;
+                var form = new Form
                 {
-                    grContainer.CreateGraphObj(resDes, grDataAr);
-                    grContainer.Dock = DockStyle.Fill;
-                    var form = new Form();
-                    form.TopMost = true;
-                    form.Controls.Add(grContainer);
-                    form.Show();
-                }
-                       
+                    TopMost = true
+                };
+                form.Controls.Add(grContainer);
+                form.Show();
+            }
+
         }
 
         private void LoadResults(string fileName)

@@ -527,7 +527,7 @@ namespace TaskModule
 
             foreach (var point in modelObj.GetPoints())
             {
-                var scl = 10 * (1.0f / SceneControl.Height * 1.0f / SceneControl.GetScaleFactor());
+                var scl = 10 * (1.0f / SceneControl.Height * 1.0f / SceneControl.ScaleFactor);
                 vector = vector.Mult(scl);
                 SceneControl.CreateLine(point, point.Sum(vector), color);
                 SceneControl.CreateLine(point, point.Sub(vector), color);
@@ -644,7 +644,7 @@ namespace TaskModule
                 PrintCommand("задайте вектор, выбрав 3 точки, и нажмите на кнопку Enter или нажмите кнопку ESC");
                 var confirm = false;
                 var breaker = false;
-                SceneControl.SelectionType = "Узлы";
+                SceneControl.SelectedObjectsName = "Узлы";
 
                 var func = taskParamsCalculator.SetDirection(taskStr);
 
