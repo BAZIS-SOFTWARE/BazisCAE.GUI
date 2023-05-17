@@ -93,6 +93,21 @@ namespace BaseModule
             }
         }
 
+        public Color SceneBackGroundColor
+        {
+            set { sceneControl.BackGroundColor = value; }
+        }
+
+        public Color SceneSelectionColor
+        {
+            set { sceneControl.SelectionColor = value; }
+        }
+
+        public void SceneRedraw()
+        {
+            sceneControl.DisplayObjects();
+        }
+
         public SceneControl SceneControl
         {
             get

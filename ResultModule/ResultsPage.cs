@@ -4,6 +4,7 @@ using Graph;
 using Model;
 using ModelController.ModelScenePresentator;
 using Project.Interfaces;
+using Project.TasksData.Functions;
 using ProjectController.IO;
 using ProjectController.Presenters;
 using ProjectController.Presenters.ScenePresenters;
@@ -31,20 +32,17 @@ namespace ResultModule
         private int nodesObjsIndex = 3;
         private int elementsObjsIndex = 4;
 
-        public IEnumerable<Color> ColorRange()
-        {
-            return scale.ColorRange();
-        }
-
-        public IEnumerable<float[]> ValueRange()
-        {
-            return scale.ValueRange();
-        }
         public ResultPage()
         {
             InitializeComponent();
 
             TreeView.ImageList = treeNodesImageList;
+
+            scale = new RainbowScale(4, 1, 0, 10)
+            {
+                Coord_X = 70,
+                Coord_Y = 140
+            };
 
             ProjectInfoIndex = 2;
             CollapseIndex = 0;
@@ -57,12 +55,6 @@ namespace ResultModule
             };
 
             resItems = new Dictionary<string, List<float>>();
-
-            scale = new RainbowScale(4, 1, 0, 10)
-            {
-                Coord_X = 70,
-                Coord_Y = 140
-            };
 
             var resToolStrip = new ResultsToolStrip
             {
@@ -176,9 +168,9 @@ namespace ResultModule
             var scPage = new ScalePage() { Dock = DockStyle.Fill };
             scPage.SetScaleSetting += (ar1, ar2) =>
             {
-                scale.FillInputRange(ar2.Max, ar2.Min, ar2.Range, ar2.Precision);
+                scale.FillRange(ar2.Precision,ar2.Max, ar2.Min, ar2.Range);
 
-                if(showScale)
+                if (showScale)
                 {
                     CreateScale();
                     SceneControl.DisplayObjects();
@@ -373,42 +365,50 @@ namespace ResultModule
             HideResults();
 
             Project.ResultData.Clear();
-            TreeView.Nodes[3].Nodes.Clear();
+            TreeView.Nodes[4].Nodes.Clear();
         }
 
         private void ShowResults(float time, string resKind, int scaleFactor)
         {
-
             //var timeStr = rtbTimeSteps.Lines[resIndex];
 
-                var selNode = TreeView.SelectedNode;
-                var resDes = selNode.Name;
+            var selNode = TreeView.SelectedNode;
+            var resDes = selNode.Name;
 
-                var result = Project.ResultData.FindByTime(resKind, time);
+            var result = Project.ResultData.FindByTime(resKind, time);
 
-                var scenePresentor = new ScenePresenter(Project);
-                var elements = Project.Model.ObjectData.FindMany<Element>().ToArray();
-                var colorRanges = scale.ColorRange().ToArray();
-                var valueRanges = scale.ValueRange().ToArray();
-                scenePresentor.SetFieldCreator(new GradientFieldsCreator(elements, valueRanges, colorRanges, scaleFactor));
+            var scenePresentor = new ScenePresenter(Project);
+            var elements = Project.Model.ObjectData.FindMany<Element>().ToArray();
+            var colorRanges = scale.ColorRange().ToArray();
+            var valueRanges = scale.ValueRange().ToArray();
+            scenePresentor.SetFieldCreator(new GradientFieldsCreator(elements, valueRanges, colorRanges, scaleFactor));
 
-                var resDesc = TreeView.SelectedNode.Name;
-                var objsType = TreeView.SelectedNode.Parent.Name;
-                var resultSurfaces = scenePresentor.CreateFieldObjects(result, objsType, resDes);
+            var resDesc = TreeView.SelectedNode.Name;
+            var objsType = TreeView.SelectedNode.Parent.Name;
+            var resultSurfaces = scenePresentor.CreateFieldObjects(result, objsType, resDes);
 
-                if (showResultValue)
-                    ShowResultValue(objsType, resDes, result);
+            if (showResultValue)
+                ShowResultValue(objsType, resDes, result);
 
-                SceneControl.DeleteAllVBObjects();
+            SceneControl.DeleteAllVBObjects();
 
-                var resultModel = new ModelData();
-                resultModel.ObjectData.AddRange(resultSurfaces);
-                var presenter = new ModelScenePresentator(resultModel);
-                SceneControl.SetPresentor(presenter);
+            var resultModel = new ModelData();
+            resultModel.ObjectData.AddRange(resultSurfaces);
+            var presenter = new ModelScenePresentator(resultModel);
 
-                PresentModelObjectsOnScene("Поверхность");
-                SceneControl.DisplayObjects();
-            
+            //presenter.HideInsideObjects("Поверхность");
+
+            //var inds = presenter.CreateVBOIndexes("Поверхность");
+            //var ptrs = presenter.CreateVBOPointers("Поверхность", inds.Item1);
+            //var coords = presenter.CreateVBOVertexes("Поверхность", inds.Item2, "координаты");
+            //var colors = presenter.CreateVBOVertexes("Поверхность", inds.Item2, "цвет");
+            //var normals = presenter.CreateVBOVertexes("Поверхность", inds.Item2, "нормаль");
+
+            SceneControl.SetPresentor(presenter);
+
+            PresentModelObjectsOnScene("Поверхность");
+            SceneControl.DisplayObjects();
+
         }
 
         private void CreatePathGraph(string resKind, string objsType, float time)
@@ -569,7 +569,7 @@ namespace ResultModule
             CreateTreeNodesResDesc(elemSchema, elemsNode, elementsObjsIndex);
             resNode.Nodes.Add(elemsNode);
 
-            TreeView.Nodes[3].Nodes.Add(resNode);
+            TreeView.Nodes[4].Nodes.Add(resNode);
         }
 
         public void CreateTreeNodesResDesc(List<string> resultSchema, TreeNode treeNode, int picIndex)

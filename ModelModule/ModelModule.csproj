@@ -54,29 +54,32 @@
       <HintPath>..\Libs\Console.dll</HintPath>
     </Reference>
     <Reference Include="Functions, Version=1.0.1.40, Culture=neutral, PublicKeyToken=65fde98421b2fc88, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bazis.SceneSolution.2.0.6\lib\net48\Functions.dll</HintPath>
+      <HintPath>..\packages\Bazis.SceneSolution.2.0.8\lib\net48\Functions.dll</HintPath>
     </Reference>
     <Reference Include="Geometry, Version=2.0.3.30, Culture=neutral, PublicKeyToken=cadb58b3f6b10f0c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bazis.SceneSolution.2.0.6\lib\net48\Geometry.dll</HintPath>
+      <HintPath>..\packages\Bazis.SceneSolution.2.0.8\lib\net48\Geometry.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bazis.SceneSolution.2.0.6\lib\net48\MathNet.Numerics.dll</HintPath>
+      <HintPath>..\packages\Bazis.SceneSolution.2.0.8\lib\net48\MathNet.Numerics.dll</HintPath>
     </Reference>
-    <Reference Include="Model, Version=1.0.5.10, Culture=neutral, PublicKeyToken=2804256ee81d4535, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bazis.ModelSolution.1.2.0\lib\net48\Model.dll</HintPath>
+    <Reference Include="Model, Version=1.0.5.20, Culture=neutral, PublicKeyToken=2804256ee81d4535, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bazis.ModelSolution.1.2.2\lib\net48\Model.dll</HintPath>
     </Reference>
-    <Reference Include="ModelController, Version=1.0.7.30, Culture=neutral, PublicKeyToken=2804256ee81d4535, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bazis.ModelSolution.1.2.0\lib\net48\ModelController.dll</HintPath>
+    <Reference Include="ModelController, Version=1.0.7.40, Culture=neutral, PublicKeyToken=2804256ee81d4535, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bazis.ModelSolution.1.2.2\lib\net48\ModelController.dll</HintPath>
     </Reference>
     <Reference Include="ModelParcer, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bazis.ModelSolution.1.2.0\lib\net48\ModelParcer.dll</HintPath>
+      <HintPath>..\packages\Bazis.ModelSolution.1.2.2\lib\net48\ModelParcer.dll</HintPath>
     </Reference>
     <Reference Include="Project, Version=1.0.1.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Project.dll</HintPath>
     </Reference>
-    <Reference Include="Scene, Version=2.0.2.10, Culture=neutral, PublicKeyToken=19779f7b74b7d539, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bazis.SceneSolution.2.0.6\lib\net48\Scene.dll</HintPath>
+    <Reference Include="Scene, Version=2.0.2.20, Culture=neutral, PublicKeyToken=19779f7b74b7d539, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bazis.SceneSolution.2.0.8\lib\net48\Scene.dll</HintPath>
+    </Reference>
+    <Reference Include="SceneInterface, Version=1.0.2.10, Culture=neutral, PublicKeyToken=f4632fed43ef5153, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bazis.SceneSolution.2.0.8\lib\net48\SceneInterface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -89,10 +92,10 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Tao.OpenGl, Version=2.1.0.12, Culture=neutral, PublicKeyToken=1ca010269a4501ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bazis.SceneSolution.2.0.6\lib\net48\Tao.OpenGl.dll</HintPath>
+      <HintPath>..\packages\Bazis.SceneSolution.2.0.8\lib\net48\Tao.OpenGl.dll</HintPath>
     </Reference>
     <Reference Include="Tao.Platform.Windows, Version=1.0.0.5, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bazis.SceneSolution.2.0.6\lib\net48\Tao.Platform.Windows.dll</HintPath>
+      <HintPath>..\packages\Bazis.SceneSolution.2.0.8\lib\net48\Tao.Platform.Windows.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
