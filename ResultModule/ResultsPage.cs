@@ -396,14 +396,6 @@ namespace ResultModule
             resultModel.ObjectData.AddRange(resultSurfaces);
             var presenter = new ModelScenePresentator(resultModel);
 
-            //presenter.HideInsideObjects("Поверхность");
-
-            //var inds = presenter.CreateVBOIndexes("Поверхность");
-            //var ptrs = presenter.CreateVBOPointers("Поверхность", inds.Item1);
-            //var coords = presenter.CreateVBOVertexes("Поверхность", inds.Item2, "координаты");
-            //var colors = presenter.CreateVBOVertexes("Поверхность", inds.Item2, "цвет");
-            //var normals = presenter.CreateVBOVertexes("Поверхность", inds.Item2, "нормаль");
-
             SceneControl.SetPresentor(presenter);
 
             PresentModelObjectsOnScene("Поверхность");
