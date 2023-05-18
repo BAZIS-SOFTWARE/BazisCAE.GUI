@@ -296,10 +296,43 @@ namespace BaseModule
             }
             else if (e.ClickedItem.Tag.ToString() == "4")
             {
-                var filterMesh = "Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
-"GMSH(*.inp*)|*.inp";
-                LoadProjectData(filterMesh);
+                var filterMesh = "Visual-Mesh ESI Group(*.ASC)|*.ASC" +
+"GMSH(*.inp*)|*.inp" + "ANSYS(*.cdb*)|*.cdb";
+                ImportModelData(filterMesh);
             }
+        }
+
+        private void ImportModelData(string filterMesh)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = filterMesh;
+            if (dialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            project = new ProjectData("newProject", Environment.CurrentDirectory);
+            consoleControl.PrintInfo("Создан новый проект", Color.Black);
+
+            var ext = Path.GetExtension(dialog.FileName);
+
+            IModelLoader loader;
+
+            if (ext == ".inp")
+                loader = new LoadModelFromGMSHTextFile();
+            else if (ext == ".ASC")
+                loader = new LoadModelFromASCIITextFile();
+            else
+                loader = new LoadModelFromCDBTextFile();
+
+            loader.LoadEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
+
+            var model = loader.Load(dialog.FileName);
+            project.Model.Load(model);
+
+            lblInputCmd.Text = string.Empty;
+
+            ChangeProjectDataEvent(this, project);
+
+            SceneInitialization();
         }
 
         public void LoadProjectData(string extFilter)
@@ -313,6 +346,7 @@ namespace BaseModule
             consoleControl.PrintInfo("Создан новый проект", Color.Black);
 
             var ext = Path.GetExtension(dialog.FileName);
+
             if (ext == ".bpf")
             {
                 var loader = new LoadProjectFromTextFormat();
