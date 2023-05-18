@@ -267,6 +267,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_59D453B3EEEC467DBFD1CBEAC791DC54"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_5B79448AC9D3EA054D276AEA7C0E1D63"
         "OwnerKey" = "8:_0017C27F44095F6B25D3362548DB443E"
         "MsmSig" = "8:_UNDEFINED"
@@ -1661,6 +1667,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_59D453B3EEEC467DBFD1CBEAC791DC54"
+            {
+            "SourcePath" = "8:..\\Mesh\\mesh.exe"
+            "TargetName" = "8:mesh.exe"
+            "Tag" = "8:"
+            "Folder" = "8:_82A90498F81743969E2D1E23673AE515"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5B79448AC9D3EA054D276AEA7C0E1D63"
             {
             "AssemblyRegister" = "3:1"
@@ -2658,6 +2684,28 @@
                         {
                         }
                     }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_82A90498F81743969E2D1E23673AE515"
+                    {
+                    "Name" = "8:Mesh"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_BFD9A6737DE642418608D2ACDDD1062B"
+                        "Folders"
+                        {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_37998331992848629AC8FA750A09881C"
+                            {
+                            "Name" = "8:Examples"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_E3E68481BA8B453CB981DE83C8CFD425"
+                                "Folders"
+                                {
+                                }
+                            }
+                        }
+                    }
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_D1E434C130BE42E1AEE8D65AF0642946"
                     {
                     "Name" = "8:Functions"
@@ -2697,9 +2745,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:BazisGUI"
+        "ProductName" = "8:BazisPrePost4.2.11"
         "ProductCode" = "8:{29C43FB6-1A58-493A-878A-BE0C2661ACE3}"
-        "PackageCode" = "8:{DE279249-B8F9-455A-BB81-CB7C4B7DAAA7}"
+        "PackageCode" = "8:{7E1F637A-EF50-4B06-B966-24FE077D2E59}"
         "UpgradeCode" = "8:{EC70CA7D-5269-48C2-8303-35B88678576C}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -2710,7 +2758,7 @@
         "Manufacturer" = "8:BazisSoftware"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://bazisnet.ru"
-        "Title" = "8:BazisGUISetupX64"
+        "Title" = "8:BazisPrePostSetupX64"
         "Subject" = "8:"
         "ARPCONTACT" = "8:BazisSoftware"
         "Keywords" = "8:Bazis"
@@ -2830,7 +2878,7 @@
             "Target" = "8:_BF4D7BBFFA9E4DA99F69DE33F9EE8C44"
             "Folder" = "8:_DC43988AE86A49B58196946504894CA1"
             "WorkingFolder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
-            "Icon" = "8:"
+            "Icon" = "8:_36496BEECE6846DC8627C6958184D8BF"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_EE6F751DA23A4CF5969C52EF2802C287"
@@ -3262,7 +3310,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BF4D7BBFFA9E4DA99F69DE33F9EE8C44"
             {
-            "SourcePath" = "8:..\\obj\\x64\\Release\\BazisGUI.exe"
+            "SourcePath" = "8:..\\obj\\x64\\Debug\\BazisGUI.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"

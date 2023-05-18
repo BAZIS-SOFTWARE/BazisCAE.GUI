@@ -10,6 +10,7 @@ using System.Threading;
 using System.Reflection;
 using BaseModule.Console.Events;
 using Functions.Parser;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace BaseModule.Console
 {
@@ -264,11 +265,6 @@ namespace BaseModule.Console
             }
         }
 
-        public void PrintFile(string str, string path)
-        {
-
-        }
-
         public void PrintInfo(string str, Color color)
         {
             if (ShowTaskInfo)
@@ -307,11 +303,6 @@ namespace BaseModule.Console
             rtxbOut.SelectionStart = pos;
             rtxbOut.SelectionLength = 0;
             rtxbOut.SelectionColor = Color.Black;
-        }
-
-        private void ChooseAll_Click(object sender, EventArgs e)
-        {
-            rtxbOut.SelectAll();
         }
 
         private void inputRichTextBox_KeyUp(object sender, KeyEventArgs e)
@@ -438,11 +429,6 @@ namespace BaseModule.Console
             rtxbOut.AppendText(sessionPath);
         }
 
-        public void SetFocus()
-        {
-            rtxbOut.Focus();
-        }
-
         private void btnStartMacro_Click(object sender, EventArgs e)
         {
             try
@@ -479,21 +465,7 @@ namespace BaseModule.Console
                 trd = null;
             }
         }
-
-        private void btnProjInfo_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnMeshInfo_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnResInfo_Click(object sender, EventArgs e)
-        {
-
-        }
+      
 
         private void rtxbOut_LinkClicked(object sender, LinkClickedEventArgs e)
         {
@@ -504,25 +476,6 @@ namespace BaseModule.Console
             catch (Exception)
             {
             }
-        }
-
-        private void btnCompInfo_CheckedChanged(object sender, EventArgs e)
-        {
-            //var btn = (ToolStripButton)sender;
-
-            //if (btn.Checked)
-            //    ShowTaskInfo = true;
-            //else
-
-            //{
-            //    ShowTaskInfo = false;
-
-            //    rtxbOut.Clear();
-            //    var sessionPath = GetSessionLogPath;
-            //    Encoding win1251 = Encoding.GetEncoding("windows-1251");
-            //    var lines = File.ReadAllLines(sessionPath, win1251);
-            //    rtxbOut.Lines = lines;
-            //}
         }
 
         private void inputRichTextBox_Leave(object sender, EventArgs e)
@@ -563,6 +516,16 @@ namespace BaseModule.Console
                 var res = lines.Where(x => x.Length > 0).ToArray();
                 rtxbOut.Lines = res;
             }
+        }
+
+        private void btnBackGroundInfo_Click(object sender, EventArgs e)
+        {
+            var colorDialog = new ColorDialog();
+
+            if (colorDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            rtxbOut.BackColor = colorDialog.Color;
         }
     }
 }

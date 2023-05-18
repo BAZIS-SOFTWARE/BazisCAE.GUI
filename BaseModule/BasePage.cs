@@ -296,8 +296,10 @@ namespace BaseModule
             }
             else if (e.ClickedItem.Tag.ToString() == "4")
             {
-                var filterMesh = "Visual-Mesh ESI Group(*.ASC)|*.ASC" +
-"GMSH(*.inp*)|*.inp" + "ANSYS(*.cdb*)|*.cdb";
+                var filterMesh = 
+                    "Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
+                    "GMSH(*.inp*)|*.inp|" + 
+                    "ANSYS(*.cdb*)|*.cdb";
                 ImportModelData(filterMesh);
             }
         }

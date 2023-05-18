@@ -38,7 +38,7 @@
             this.tlscOut = new System.Windows.Forms.ToolStripContainer();
             this.rtxbOut = new System.Windows.Forms.RichTextBox();
             this.tlsOut = new System.Windows.Forms.ToolStrip();
-            this.btnCompInfo = new System.Windows.Forms.ToolStripButton();
+            this.btnBackGroundInfo = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.tscIn = new System.Windows.Forms.ToolStripContainer();
             this.inputRichTextBox = new System.Windows.Forms.RichTextBox();
@@ -180,13 +180,14 @@
             this.rtxbOut.TabIndex = 2;
             this.rtxbOut.Text = "";
             this.rtxbOut.WordWrap = false;
+            this.rtxbOut.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtxbOut_LinkClicked);
             // 
             // tlsOut
             // 
             this.tlsOut.Dock = System.Windows.Forms.DockStyle.None;
             this.tlsOut.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tlsOut.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnCompInfo,
+            this.btnBackGroundInfo,
             this.toolStripButton1});
             this.tlsOut.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.tlsOut.Location = new System.Drawing.Point(0, 0);
@@ -198,27 +199,30 @@
             this.tlsOut.Text = "Вывод";
             this.tlsOut.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical90;
             // 
-            // btnCompInfo
+            // btnBackGroundInfo
             // 
-            this.btnCompInfo.AutoSize = false;
-            this.btnCompInfo.CheckOnClick = true;
-            this.btnCompInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnCompInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnCompInfo.Image")));
-            this.btnCompInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCompInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnCompInfo.Name = "btnCompInfo";
-            this.btnCompInfo.Size = new System.Drawing.Size(35, 20);
-            this.btnCompInfo.Text = "События решения";
+            this.btnBackGroundInfo.AutoSize = false;
+            this.btnBackGroundInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnBackGroundInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnBackGroundInfo.Image")));
+            this.btnBackGroundInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBackGroundInfo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnBackGroundInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnBackGroundInfo.Name = "btnBackGroundInfo";
+            this.btnBackGroundInfo.Size = new System.Drawing.Size(35, 20);
+            this.btnBackGroundInfo.Text = "Изменить фон";
+            this.btnBackGroundInfo.Click += new System.EventHandler(this.btnBackGroundInfo_Click);
             // 
             // toolStripButton1
             // 
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(34, 20);
             this.toolStripButton1.Text = "btnClearAll";
+            this.toolStripButton1.Click += new System.EventHandler(this.ClearAll_Click);
             // 
             // tscIn
             // 
@@ -227,7 +231,7 @@
             // tscIn.ContentPanel
             // 
             this.tscIn.ContentPanel.Controls.Add(this.inputRichTextBox);
-            this.tscIn.ContentPanel.Size = new System.Drawing.Size(441, 327);
+            this.tscIn.ContentPanel.Size = new System.Drawing.Size(442, 327);
             this.tscIn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tscIn.LeftToolStripPanelVisible = false;
             this.tscIn.Location = new System.Drawing.Point(0, 0);
@@ -253,9 +257,12 @@
             this.inputRichTextBox.Location = new System.Drawing.Point(0, 0);
             this.inputRichTextBox.Margin = new System.Windows.Forms.Padding(1);
             this.inputRichTextBox.Name = "inputRichTextBox";
-            this.inputRichTextBox.Size = new System.Drawing.Size(441, 327);
+            this.inputRichTextBox.Size = new System.Drawing.Size(442, 327);
             this.inputRichTextBox.TabIndex = 3;
             this.inputRichTextBox.Text = "введите команду...";
+            this.inputRichTextBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.inputRichTextBox_MouseClick);
+            this.inputRichTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.inputRichTextBox_KeyUp);
+            this.inputRichTextBox.Leave += new System.EventHandler(this.inputRichTextBox_Leave);
             // 
             // tlsIn
             // 
@@ -268,7 +275,7 @@
             this.tlsIn.Location = new System.Drawing.Point(0, 0);
             this.tlsIn.Name = "tlsIn";
             this.tlsIn.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tlsIn.Size = new System.Drawing.Size(32, 327);
+            this.tlsIn.Size = new System.Drawing.Size(31, 327);
             this.tlsIn.Stretch = true;
             this.tlsIn.TabIndex = 0;
             this.tlsIn.Text = "Командная строка";
@@ -302,6 +309,7 @@
             this.btnDictionary.Size = new System.Drawing.Size(30, 27);
             this.btnDictionary.Text = "Словарь команд";
             this.btnDictionary.ToolTipText = "Словарь команд";
+            this.btnDictionary.ButtonClick += new System.EventHandler(this.btnDictionary_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -561,8 +569,9 @@
             this.btnStartMacro.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnStartMacro.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnStartMacro.Name = "btnStartMacro";
-            this.btnStartMacro.Size = new System.Drawing.Size(30, 20);
+            this.btnStartMacro.Size = new System.Drawing.Size(29, 20);
             this.btnStartMacro.Text = "Старт макрос";
+            this.btnStartMacro.Click += new System.EventHandler(this.btnStartMacro_Click);
             // 
             // ConsoleControl
             // 
@@ -604,7 +613,7 @@
         private System.Windows.Forms.ToolStripContainer tlscOut;
         private System.Windows.Forms.RichTextBox rtxbOut;
         public System.Windows.Forms.ToolStrip tlsOut;
-        private System.Windows.Forms.ToolStripButton btnCompInfo;
+        private System.Windows.Forms.ToolStripButton btnBackGroundInfo;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripContainer tscIn;
         private System.Windows.Forms.RichTextBox inputRichTextBox;
