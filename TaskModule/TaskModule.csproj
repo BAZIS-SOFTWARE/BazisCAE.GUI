@@ -284,6 +284,8 @@
     <Content Include="Resources\LineThickness2.ico" />
     <Content Include="Resources\Show_table.bmp" />
     <Content Include="Resources\Show_value.bmp" />
+    <EmbeddedResource Include="Материалы.ico" />
+    <EmbeddedResource Include="Функции.ico" />
     <EmbeddedResource Include="BasicAdvisorControls\Resources\Pause.ico" />
     <EmbeddedResource Include="BasicAdvisorControls\Resources\StartCheck.ico" />
     <Content Include="Tao.OpenGl.dll" />

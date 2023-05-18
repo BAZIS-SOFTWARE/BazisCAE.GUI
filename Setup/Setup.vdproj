@@ -213,6 +213,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_4409F1D910D349728045C58D8CC2A43F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_44B1235DA29D4074B460B6A58012E147"
         "OwnerKey" = "8:_E23BF59214A823B0B19D4BD305340E06"
         "MsmSig" = "8:_UNDEFINED"
@@ -423,6 +429,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_720FA9A936584D6BB4E2D5F2AF878CE5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_78C9A7E97B0F371F69123A2A8DD55CB2"
         "OwnerKey" = "8:_EBC54AA99D8689B25A1CE9A76CD974F4"
         "MsmSig" = "8:_UNDEFINED"
@@ -513,6 +525,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_8A00BAF2182C4FBF9CC6A299C48BA1EF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_93091AD19761DD5AD569BB436D223F64"
         "OwnerKey" = "8:_78C9A7E97B0F371F69123A2A8DD55CB2"
         "MsmSig" = "8:_UNDEFINED"
@@ -533,6 +551,12 @@
         {
         "MsmKey" = "8:_93091AD19761DD5AD569BB436D223F64"
         "OwnerKey" = "8:_BF4D7BBFFA9E4DA99F69DE33F9EE8C44"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9B7AE6BDE7AF4A13B1F05CE82E93F5C0"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1477,6 +1501,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4409F1D910D349728045C58D8CC2A43F"
+            {
+            "SourcePath" = "8:..\\Functions\\functions.txt"
+            "TargetName" = "8:functions.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_D1E434C130BE42E1AEE8D65AF0642946"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_44B1235DA29D4074B460B6A58012E147"
             {
             "AssemblyRegister" = "3:1"
@@ -1838,6 +1882,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_720FA9A936584D6BB4E2D5F2AF878CE5"
+            {
+            "SourcePath" = "8:..\\Functions\\functions_draft.txt"
+            "TargetName" = "8:functions_draft.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_D1E434C130BE42E1AEE8D65AF0642946"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_78C9A7E97B0F371F69123A2A8DD55CB2"
             {
             "AssemblyRegister" = "3:1"
@@ -1993,6 +2057,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8A00BAF2182C4FBF9CC6A299C48BA1EF"
+            {
+            "SourcePath" = "8:..\\Materials\\materials.txt"
+            "TargetName" = "8:materials.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_165B5CC7B486452D86FB1790B789B641"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_93091AD19761DD5AD569BB436D223F64"
             {
             "AssemblyRegister" = "3:1"
@@ -2022,6 +2106,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9B7AE6BDE7AF4A13B1F05CE82E93F5C0"
+            {
+            "SourcePath" = "8:..\\Materials\\materials_draft.txt"
+            "TargetName" = "8:materials_draft.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_165B5CC7B486452D86FB1790B789B641"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9F27BAA4C94E4E2097840202AFE93C06"
@@ -2578,6 +2682,28 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_165B5CC7B486452D86FB1790B789B641"
+                    {
+                    "Name" = "8:Materials"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_62F248B4BD0843069632E15772B89B7D"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_D1E434C130BE42E1AEE8D65AF0642946"
+                    {
+                    "Name" = "8:Functions"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_90C84D98293C4128954CE883F246B78F"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_DC43988AE86A49B58196946504894CA1"
@@ -2728,9 +2854,37 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_30B1B53970ED4091B5F5D849A518ED00"
+            {
+            "Name" = "8:Bazis_4.2.10"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_BF4D7BBFFA9E4DA99F69DE33F9EE8C44"
+            "Folder" = "8:_DC43988AE86A49B58196946504894CA1"
+            "WorkingFolder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_EE6F751DA23A4CF5969C52EF2802C287"
+            {
+            "Name" = "8:Bazis_4.2.10"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_BF4D7BBFFA9E4DA99F69DE33F9EE8C44"
+            "Folder" = "8:_79C2669022E649E4972582DACECCA7EE"
+            "WorkingFolder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
+            "Icon" = "8:_36496BEECE6846DC8627C6958184D8BF"
+            "Feature" = "8:"
+            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_FC8E2AC25DC147CD85F38DD70A5EF02D"
             {
-            "Name" = "8:Bazis_4.2.0"
+            "Name" = "8:Bazis_4.2.10"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"

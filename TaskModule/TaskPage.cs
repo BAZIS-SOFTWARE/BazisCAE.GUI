@@ -21,6 +21,7 @@ using System.Reflection;
 using TaskModule.BasicTaskAdvisor;
 using TaskModule.BasicAdvisorControls.Events;
 using BaseModule;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace TaskModule
 {
@@ -156,11 +157,24 @@ namespace TaskModule
                 dataBasePage.Load(dataFiles[0]);
 
             var name = string.Empty;
-
+            Icon icon;
+            Stream iconStream;
+            var assembly = Assembly.GetExecutingAssembly();
             if (pageName == "materials")
+            {
                 name = "База материалов";
-            else name = "База функций";
-            var form = new Form() { Name = name, TopMost = true, Size = dataBasePage.Size };
+                iconStream = assembly.GetManifestResourceStream("TaskModule.Материалы.ico");
+            }
+
+            else
+            {
+                name = "База функций";
+                iconStream = assembly.GetManifestResourceStream("TaskModule.Функции.ico");
+            }
+
+            icon = new Icon(iconStream);
+
+            var form = new Form() { Name = name, TopMost = true, Size = dataBasePage.Size,Icon = icon };
             form.Controls.Add(dataBasePage);
             form.Show();
         }

@@ -312,6 +312,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 var stream = assembly.GetManifestResourceStream("TaskModule.BasicAdvisorControls.Resources.open.ico");
                 var im = new Bitmap(stream);
 
+
                 var w = im.Width;
                 var h = im.Height;
                 var x = e.CellBounds.Left + im.Width / 2;
