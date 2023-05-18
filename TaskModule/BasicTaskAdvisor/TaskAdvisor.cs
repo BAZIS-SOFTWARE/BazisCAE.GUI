@@ -87,7 +87,7 @@ namespace TaskModule.BasicTaskAdvisor
                     {
                         var data = project.TaskData.GetAllData().
                             Where(x => x.Name == grvControl.DataName).
-                            Select(x => x.ToString());
+                            Select(x => x.GetInfo);
                         grvControl.Set_DataGridLines(data);
                     }
                 }

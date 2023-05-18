@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{80D9E902-D51F-4A78-828C-987AB7F0A578}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>ResultControl</RootNamespace>
-    <AssemblyName>ResultControl</AssemblyName>
+    <RootNamespace>ResultModule</RootNamespace>
+    <AssemblyName>ResultModule</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -57,16 +57,16 @@
       <HintPath>..\Libs\Console.dll</HintPath>
     </Reference>
     <Reference Include="Functions, Version=1.0.1.40, Culture=neutral, PublicKeyToken=65fde98421b2fc88, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bazis.SceneSolution.2.0.8\lib\net48\Functions.dll</HintPath>
+      <HintPath>..\packages\Bazis.SceneSolution.2.1.1\lib\net48\Functions.dll</HintPath>
     </Reference>
     <Reference Include="Geometry, Version=2.0.3.30, Culture=neutral, PublicKeyToken=cadb58b3f6b10f0c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bazis.SceneSolution.2.0.8\lib\net48\Geometry.dll</HintPath>
+      <HintPath>..\packages\Bazis.SceneSolution.2.1.1\lib\net48\Geometry.dll</HintPath>
     </Reference>
-    <Reference Include="Graph">
-      <HintPath>..\Libs\Graph.dll</HintPath>
+    <Reference Include="Graph, Version=1.0.1.20, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Graph.1.0.1.20\lib\net48\Graph.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bazis.SceneSolution.2.0.8\lib\net48\MathNet.Numerics.dll</HintPath>
+      <HintPath>..\packages\Bazis.SceneSolution.2.1.1\lib\net48\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="Model, Version=1.0.5.20, Culture=neutral, PublicKeyToken=2804256ee81d4535, processorArchitecture=MSIL">
       <HintPath>..\packages\Bazis.ModelSolution.1.2.2\lib\net48\Model.dll</HintPath>
@@ -83,11 +83,11 @@
     <Reference Include="ProjectController">
       <HintPath>..\Libs\ProjectController.dll</HintPath>
     </Reference>
-    <Reference Include="Scene, Version=2.0.2.20, Culture=neutral, PublicKeyToken=19779f7b74b7d539, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bazis.SceneSolution.2.0.8\lib\net48\Scene.dll</HintPath>
+    <Reference Include="Scene, Version=2.0.2.30, Culture=neutral, PublicKeyToken=19779f7b74b7d539, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bazis.SceneSolution.2.1.1\lib\net48\Scene.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface, Version=1.0.2.10, Culture=neutral, PublicKeyToken=f4632fed43ef5153, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bazis.SceneSolution.2.0.8\lib\net48\SceneInterface.dll</HintPath>
+      <HintPath>..\packages\Bazis.SceneSolution.2.1.1\lib\net48\SceneInterface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -100,10 +100,10 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Tao.OpenGl, Version=2.1.0.12, Culture=neutral, PublicKeyToken=1ca010269a4501ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bazis.SceneSolution.2.0.8\lib\net48\Tao.OpenGl.dll</HintPath>
+      <HintPath>..\packages\Bazis.SceneSolution.2.1.1\lib\net48\Tao.OpenGl.dll</HintPath>
     </Reference>
     <Reference Include="Tao.Platform.Windows, Version=1.0.0.5, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bazis.SceneSolution.2.0.8\lib\net48\Tao.Platform.Windows.dll</HintPath>
+      <HintPath>..\packages\Bazis.SceneSolution.2.1.1\lib\net48\Tao.Platform.Windows.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +189,27 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Graph_icons\AllLineThickness.ico" />
+    <Content Include="Graph_icons\CCT.png" />
+    <Content Include="Graph_icons\dashButton.Image.png" />
+    <Content Include="Graph_icons\ExportToBuffer.png" />
+    <Content Include="Graph_icons\HT.png" />
+    <Content Include="Graph_icons\Left_Velocity.ico" />
+    <Content Include="Graph_icons\lineButton.Image.png" />
+    <Content Include="Graph_icons\LineThickness0.ico" />
+    <Content Include="Graph_icons\LineThickness1.ico" />
+    <Content Include="Graph_icons\LineThickness2.ico" />
+    <Content Include="Graph_icons\Right_Velocity.ico" />
+    <Content Include="Graph_icons\Show_table.bmp" />
+    <Content Include="Graph_icons\Show_value.bmp" />
+    <Content Include="Resources\AllLineThickness.ico" />
+    <Content Include="Resources\dashButton.Image.png" />
+    <Content Include="Resources\lineButton.Image.png" />
+    <Content Include="Resources\LineThickness0.ico" />
+    <Content Include="Resources\LineThickness1.ico" />
+    <Content Include="Resources\LineThickness2.ico" />
+    <Content Include="Resources\Show_table.bmp" />
+    <Content Include="Resources\Show_value.bmp" />
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
   </ItemGroup>

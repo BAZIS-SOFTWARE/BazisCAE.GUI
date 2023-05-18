@@ -94,19 +94,19 @@ namespace TaskModule.BasicAdvisorControls.BasicControls
             var checkButton = buttonList.Find(x => x.Name == "btnCheckDinamic");
 
             var assembly = Assembly.GetExecutingAssembly();
-            var res = assembly.GetManifestResourceNames();
+            //var res = assembly.GetManifestResourceNames();
             Stream stream;
             if (CheckState == CheckState.start)
             {
-                stream = assembly.GetManifestResourceStream("BasicAdvisorControls.Resources.StartCheck.ico");
+                stream = assembly.GetManifestResourceStream("TaskModule.BasicAdvisorControls.Resources.StartCheck.ico");
             }
             else if(CheckState == CheckState.pause)
             {
-                stream = assembly.GetManifestResourceStream("BasicAdvisorControls.Resources.Pause.ico");
+                stream = assembly.GetManifestResourceStream("TaskModule.BasicAdvisorControls.Resources.Pause.ico");
             }
             else
             {
-                stream = assembly.GetManifestResourceStream("BasicAdvisorControls.Resources.StartCheck.ico");
+                stream = assembly.GetManifestResourceStream("TaskModule.BasicAdvisorControls.Resources.StartCheck.ico");
             }
             checkButton.Image = Image.FromStream(stream);
         }

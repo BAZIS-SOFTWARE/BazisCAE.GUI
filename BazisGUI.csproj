@@ -62,16 +62,16 @@
       <HintPath>Libs\ConnectionController.dll</HintPath>
     </Reference>
     <Reference Include="DataBaseController, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\DataBaseController.dll</HintPath>
+      <HintPath>packages\DataBases.1.0.1.20\lib\net48\DataBaseController.dll</HintPath>
     </Reference>
     <Reference Include="DataBaseInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\DataBaseInterface.dll</HintPath>
+      <HintPath>packages\DataBases.1.0.1.20\lib\net48\DataBaseInterface.dll</HintPath>
     </Reference>
-    <Reference Include="DataBases, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\DataBases.dll</HintPath>
+    <Reference Include="DataBases, Version=1.0.1.20, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\DataBases.1.0.1.20\lib\net48\DataBases.dll</HintPath>
+    </Reference>
+    <Reference Include="Graph, Version=1.0.1.20, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Graph.1.0.1.20\lib\net48\Graph.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -174,21 +174,35 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutProgramControl\AboutBanner.jpg" />
-    <Content Include="Functions\functions.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Functions\functions_draft.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Materials\materials.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Materials\materials_draft.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Functions\functions.txt" />
+    <Content Include="Functions\functions_draft.txt" />
+    <Content Include="Functions\functions_save.txt" />
+    <Content Include="Graph_icons\AllLineThickness.ico" />
+    <Content Include="Graph_icons\CCT.png" />
+    <Content Include="Graph_icons\dashButton.Image.png" />
+    <Content Include="Graph_icons\ExportToBuffer.png" />
+    <Content Include="Graph_icons\HT.png" />
+    <Content Include="Graph_icons\Left_Velocity.ico" />
+    <Content Include="Graph_icons\lineButton.Image.png" />
+    <Content Include="Graph_icons\LineThickness0.ico" />
+    <Content Include="Graph_icons\LineThickness1.ico" />
+    <Content Include="Graph_icons\LineThickness2.ico" />
+    <Content Include="Graph_icons\Right_Velocity.ico" />
+    <Content Include="Graph_icons\Show_table.bmp" />
+    <Content Include="Graph_icons\Show_value.bmp" />
+    <Content Include="Materials\materials.txt" />
+    <Content Include="Materials\materials_draft.txt" />
     <Content Include="Mesh\mesh.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\AllLineThickness.ico" />
+    <Content Include="Resources\dashButton.Image.png" />
+    <Content Include="Resources\lineButton.Image.png" />
+    <Content Include="Resources\LineThickness0.ico" />
+    <Content Include="Resources\LineThickness1.ico" />
+    <Content Include="Resources\LineThickness2.ico" />
+    <Content Include="Resources\Show_table.bmp" />
+    <Content Include="Resources\Show_value.bmp" />
     <Content Include="Solver\setupWithoutLicense_x64.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

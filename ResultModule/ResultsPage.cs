@@ -10,6 +10,7 @@ using ProjectController.Presenters;
 using ProjectController.Presenters.ScenePresenters;
 using ProjectController.Presenters.ScenePresenters.Interfaces;
 using ProjectController.SceneResultPresenters;
+using Scene;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -212,7 +213,7 @@ namespace ResultModule
                 }
             };
 
-            var icon = ResultControl.Properties.Resources.Scale;
+            var icon = ResultModule.Properties.Resources.Scale;
             var scForm = new Form() { TopMost = true, Icon = icon, Size = scPage.Size };
             scForm.Controls.Add(scPage);
             scForm.Show();
@@ -254,7 +255,7 @@ namespace ResultModule
 
             grPage.SetResultsItems(resItems);
 
-            var icon = ResultControl.Properties.Resources.Graph;
+            var icon = ResultModule.Properties.Resources.Graph;
             var scForm = new Form() { TopMost = true, Icon = icon, Size = grPage.Size };
             scForm.Controls.Add(grPage);
             scForm.Show();
@@ -270,7 +271,7 @@ namespace ResultModule
                 else ConsoleControl.PrintInfo("Выберите результаты для отображения!", Color.Red);
             };
             anPage.SetResultsItems(resItems);
-            var icon = ResultControl.Properties.Resources.Animation;
+            var icon = ResultModule.Properties.Resources.Animation;
             var scForm = new Form() { TopMost = true, Icon = icon, Size = anPage.Size };
             scForm.Controls.Add(anPage);
             scForm.Show();
@@ -397,8 +398,12 @@ namespace ResultModule
             var presenter = new ModelScenePresentator(resultModel);
 
             SceneControl.SetPresentor(presenter);
-
             PresentModelObjectsOnScene("Поверхность");
+
+            SceneControl.UnPlugVBObjects();
+            SceneControl.ChangeViewModeVBObjects("Поверхность", Scene.VBO.ObjView.Surface);
+            SceneControl.PlugVBObjects();
+
             SceneControl.DisplayObjects();
 
         }

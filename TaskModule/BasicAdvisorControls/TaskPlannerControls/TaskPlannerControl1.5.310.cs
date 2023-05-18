@@ -308,7 +308,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
                 var assembly = Assembly.GetExecutingAssembly();
-                var stream = assembly.GetManifestResourceStream("AdvisorControls.Resources.open.ico");
+
+                var stream = assembly.GetManifestResourceStream("TaskModule.BasicAdvisorControls.Resources.open.ico");
                 var im = new Bitmap(stream);
 
                 var w = im.Width;

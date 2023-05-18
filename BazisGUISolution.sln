@@ -23,8 +23,6 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolStrips", "ToolStrips\ToolStrips.csproj", "{740E63B0-14C9-41EB-B883-0F7077817174}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{992CCFBD-5D9E-4BA9-92B8-56EEB2ED097D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,14 +108,6 @@ Global
 		{740E63B0-14C9-41EB-B883-0F7077817174}.Release|Any CPU.Build.0 = Release|Any CPU
 		{740E63B0-14C9-41EB-B883-0F7077817174}.Release|x64.ActiveCfg = Release|Any CPU
 		{740E63B0-14C9-41EB-B883-0F7077817174}.Release|x64.Build.0 = Release|Any CPU
-		{992CCFBD-5D9E-4BA9-92B8-56EEB2ED097D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{992CCFBD-5D9E-4BA9-92B8-56EEB2ED097D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{992CCFBD-5D9E-4BA9-92B8-56EEB2ED097D}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{992CCFBD-5D9E-4BA9-92B8-56EEB2ED097D}.Debug|x64.Build.0 = Debug|Any CPU
-		{992CCFBD-5D9E-4BA9-92B8-56EEB2ED097D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{992CCFBD-5D9E-4BA9-92B8-56EEB2ED097D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{992CCFBD-5D9E-4BA9-92B8-56EEB2ED097D}.Release|x64.ActiveCfg = Release|Any CPU
-		{992CCFBD-5D9E-4BA9-92B8-56EEB2ED097D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
