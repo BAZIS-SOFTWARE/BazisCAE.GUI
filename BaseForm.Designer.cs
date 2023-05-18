@@ -145,6 +145,7 @@
             // 
             // сварка
             // 
+            this.сварка.Image = ((System.Drawing.Image)(resources.GetObject("сварка.Image")));
             this.сварка.Name = "сварка";
             this.сварка.Size = new System.Drawing.Size(183, 22);
             this.сварка.Text = "Сварка";
@@ -152,6 +153,7 @@
             // 
             // термообработка
             // 
+            this.термообработка.Image = ((System.Drawing.Image)(resources.GetObject("термообработка.Image")));
             this.термообработка.Name = "термообработка";
             this.термообработка.Size = new System.Drawing.Size(183, 22);
             this.термообработка.Text = "Термообработка";
