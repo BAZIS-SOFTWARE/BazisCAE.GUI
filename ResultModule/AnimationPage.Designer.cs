@@ -323,6 +323,7 @@
             this.txbDelayTime.Name = "txbDelayTime";
             this.txbDelayTime.Size = new System.Drawing.Size(85, 20);
             this.txbDelayTime.TabIndex = 5;
+            this.txbDelayTime.Text = "100";
             this.txbDelayTime.Leave += new System.EventHandler(this.txbDelayTime_Leave);
             // 
             // label2

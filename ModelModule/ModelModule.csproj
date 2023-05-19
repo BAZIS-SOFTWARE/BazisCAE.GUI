@@ -71,9 +71,8 @@
     <Reference Include="ModelParcer, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Bazis.ModelSolution.1.2.2\lib\net48\ModelParcer.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=1.0.1.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Project.dll</HintPath>
+    <Reference Include="Project, Version=1.0.2.10, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.1.0.2.10\lib\net48\Project.dll</HintPath>
     </Reference>
     <Reference Include="Scene, Version=2.0.2.30, Culture=neutral, PublicKeyToken=19779f7b74b7d539, processorArchitecture=MSIL">
       <HintPath>..\packages\Bazis.SceneSolution.2.1.1\lib\net48\Scene.dll</HintPath>

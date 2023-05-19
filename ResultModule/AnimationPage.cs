@@ -67,6 +67,7 @@ namespace ResultModule
         private void btnPlayResults_Click(object sender, EventArgs e)
         {
             var timer = new System.Windows.Forms.Timer();
+
             timer.Interval = int.Parse(txbDelayTime.Text);
             var ind = 0;
 
@@ -80,9 +81,10 @@ namespace ResultModule
                         timer.Stop();
                     else
                     {
+                        var testArr = richTextBox.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
                         colorSlider.Value = ind;
                         MarkTimeStep(ind);
-                        var time = float.Parse(richTextBox.SelectedText);
+                        var time = float.Parse(testArr[ind]);
                         ShowResultEvent(this, new ShowResultEventArgs(cmbResultNames.SelectedItem.ToString(),time,scaleFactor));
                     }
                     ind++;
@@ -116,9 +118,9 @@ namespace ResultModule
         {
             int res;
 
-            if(!int.TryParse(txbDelayTime.Text,out res) || int.Parse(txbDelayTime.Text) < 0)
+            if(!int.TryParse(txbDelayTime.Text,out res) || int.Parse(txbDelayTime.Text) <= 0)
             {
-                txbDelayTime.Text = "0";
+                txbDelayTime.Text = "100";
                 MessageBox.Show("Некорректный ввод!");
             }
         }
