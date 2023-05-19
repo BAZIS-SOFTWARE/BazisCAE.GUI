@@ -103,7 +103,7 @@ namespace BaseForm
                 taskPage.SolverPath = settingsConfig.SolverPath;
 
                 module = taskPage;
-                licToken = CheckLicense("Weld");
+                licToken = GetLicense("Weld");
             }
 
             else if (moduleName == "HeatTreatment")
@@ -117,19 +117,19 @@ namespace BaseForm
                 taskPage.SolverPath = settingsConfig.SolverPath;
 
                 module = taskPage;
-                licToken = CheckLicense("HeatTreatment");
+                licToken = GetLicense("HeatTreatment");
             }
 
             else if (moduleName == "Result")
             {
                 module = new ResultPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
-                licToken = CheckLicense("Result");
+                licToken = GetLicense("Result");
             }
 
             else
             {
                 module = new ModelPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
-                licToken = CheckLicense("Mesh");
+                licToken = GetLicense("Mesh");
             }
             
             module.ChangeProjectDataEvent += (object ar1, ProjectData ar2) => { project = ar2; };
@@ -182,7 +182,7 @@ namespace BaseForm
                 {
                     while (true)
                     {
-                        Thread.Sleep(5000);
+                        Thread.Sleep(2500);
                         connectionContr.RequestServer(licToken);
                     }
 
@@ -281,7 +281,7 @@ namespace BaseForm
             form.ShowDialog();
         }
 
-        public LicenseToken CheckLicense(string request)
+        public LicenseToken GetLicense(string request)
         {
             var licToken = new LicenseToken() { Request = request + " Взять"};
 
