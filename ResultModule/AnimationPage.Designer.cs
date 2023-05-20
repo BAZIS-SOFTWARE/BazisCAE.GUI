@@ -340,6 +340,8 @@
             // 
             this.chbDelTempScrs.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.chbDelTempScrs.AutoSize = true;
+            this.chbDelTempScrs.Checked = true;
+            this.chbDelTempScrs.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chbDelTempScrs.Location = new System.Drawing.Point(225, 131);
             this.chbDelTempScrs.Name = "chbDelTempScrs";
             this.chbDelTempScrs.Size = new System.Drawing.Size(15, 14);

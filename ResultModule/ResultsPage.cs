@@ -1,6 +1,10 @@
-﻿using BaseModule;
+﻿using AnimatedGif;
+using BaseModule;
 using Geometry;
+using Gif.Components;
 using Graph;
+using MathNet.Numerics;
+using MB.Controls;
 using Model;
 using ModelController.ModelScenePresentator;
 using Project.Interfaces;
@@ -11,12 +15,16 @@ using ProjectController.Presenters.ScenePresenters;
 using ProjectController.Presenters.ScenePresenters.Interfaces;
 using ProjectController.SceneResultPresenters;
 using Scene;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using ToolStrips;
+using static System.Net.Mime.MediaTypeNames;
+using Image = System.Drawing.Image;
 
 namespace ResultModule
 {
@@ -26,6 +34,8 @@ namespace ResultModule
         //private int scaleFactor;
         private bool showResultValue;
         private bool showScale;
+
+        List<Bitmap> imagesBuffer;
 
         Dictionary<string, int> imgDict;
         Dictionary<string,List<float>> resItems;
@@ -270,11 +280,96 @@ namespace ResultModule
                     ShowResults(ar2.Time, ar2.ResultKind, ar2.ScaleFactor);
                 else ConsoleControl.PrintInfo("Выберите результаты для отображения!", Color.Red);
             };
+
+            anPage.CreateGIFAnimationEvent += CreateGIFAnimation;
+            anPage.SaveScreenShotEvent += (ar1) => { CreateScreenShot(ar1); };
             anPage.SetResultsItems(resItems);
+
             var icon = ResultModule.Properties.Resources.Animation;
             var scForm = new Form() { TopMost = true, Icon = icon, Size = anPage.Size };
             scForm.Controls.Add(anPage);
             scForm.Show();
+        }
+
+        private void CreateGIFAnimation(object sender, CreateAnimationEventArgs args)
+        {
+            try
+            {
+                //you should replace filepath
+
+                var search = string.Format("screenShot_*");
+                var imagesPaths = Directory.GetFiles(Project.Path, search);
+                Sort(imagesPaths);
+
+                String outputFilePath = $@"{Project.Path}\results.gif";
+
+                AnimatedGifEncoder e = new AnimatedGifEncoder();
+
+                e.Start(outputFilePath);
+                e.SetDelay(args.DelayTime);
+                //-1:no repeat,0:always repeat
+                e.SetRepeat(0);
+
+                for (int i = 0; i < imagesPaths.Length; i++)
+                {
+                    var bmpImage = Image.FromFile(imagesPaths[i]);
+                    e.AddFrame(bmpImage);
+                    var total = ((i / (float)imagesPaths.Length) * 100).ToString("#.##");
+                    ConsoleControl.PrintInfo($@"Создание GIF анимации {total}", Color.Black);
+                }
+                e.Finish();
+                ConsoleControl.PrintInfo("GIF анимация создана", Color.Green);
+
+                //delete temp scrShots
+
+                foreach (var image in imagesPaths)
+                    File.Delete(image);
+
+            }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
+        }
+
+        public void Sort(string[] anArray)
+        {
+            //Основной цикл (количество повторений равно количеству элементов массива)
+            for (int i = 0; i < anArray.Length; i++)
+            {
+                //Вложенный цикл (количество повторений, равно количеству элементов массива минус 1 и минус количество выполненных повторений основного цикла)
+                for (int j = 0; j < anArray.Length - 1 - i; j++)
+                {
+                    var chrs_a = anArray[j].Where(x => char.IsDigit(x)).ToArray();
+                    var str_a = string.Join("", chrs_a);
+
+                    var chrs_b = anArray[j + 1].Where(x => char.IsDigit(x)).ToArray();
+                    var str_b = string.Join("", chrs_b);
+
+                    var a = int.Parse(str_a);
+                    var b = int.Parse(str_b);
+                    //Если элемент массива с индексом j больше следующего за ним элемента
+                    if (a > b)
+                    {
+                        var tmp = anArray[j];
+                        anArray[j] = anArray[j + 1];
+                        anArray[j + 1] = tmp;
+                    }
+                }
+            }
+        }
+
+        //Вспомогательный метод, "меняет местами" два элемента
+        public static void Swap(ref int aFirstArg, ref int aSecondArg)
+        {
+            //Временная (вспомогательная) переменная, хранит значение первого элемента
+            int tmpParam = aFirstArg;
+
+            //Первый аргумент получил значение второго
+            aFirstArg = aSecondArg;
+
+            //Второй аргумент, получил сохраненное ранее значение первого
+            aSecondArg = tmpParam;
         }
 
         private void ShowValue(bool state)
@@ -405,7 +500,6 @@ namespace ResultModule
             SceneControl.PlugVBObjects();
 
             SceneControl.DisplayObjects();
-
         }
 
         private void CreatePathGraph(string resKind, string objsType, float time)

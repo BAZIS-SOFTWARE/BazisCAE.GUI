@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
+using static System.Net.Mime.MediaTypeNames;
+using System.IO;
 
 namespace ResultModule
 {
@@ -15,6 +17,7 @@ namespace ResultModule
     {
         public event Action<object, CreateAnimationEventArgs> CreateGIFAnimationEvent;
         public event Action<object, ShowResultEventArgs> ShowResultEvent;
+        public event Action<string> SaveScreenShotEvent;
         public AnimationPage()
         {
             InitializeComponent();
@@ -66,6 +69,11 @@ namespace ResultModule
 
         private void btnPlayResults_Click(object sender, EventArgs e)
         {
+            PlayResults(false);
+        }
+
+        private void PlayResults(bool makeGifAnimation)
+        {
             var timer = new System.Windows.Forms.Timer();
 
             timer.Interval = int.Parse(txbDelayTime.Text);
@@ -78,20 +86,30 @@ namespace ResultModule
                 new Action<object, EventArgs>((s, a) =>
                 {
                     if (ind > maxInd)
+                    {
                         timer.Stop();
+
+                        if (makeGifAnimation)
+                            CreateGIFAnimationEvent(this, new CreateAnimationEventArgs(chbDelTempScrs.Checked, timer.Interval));
+                    }
+
                     else
                     {
                         var testArr = richTextBox.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
                         colorSlider.Value = ind;
                         MarkTimeStep(ind);
                         var time = float.Parse(testArr[ind]);
-                        ShowResultEvent(this, new ShowResultEventArgs(cmbResultNames.SelectedItem.ToString(),time,scaleFactor));
+                        ShowResultEvent(this, new ShowResultEventArgs(cmbResultNames.SelectedItem.ToString(), time, scaleFactor));
+
+                        if (makeGifAnimation)
+                            SaveScreenShotEvent($@"screenShot_{ind}");
                     }
                     ind++;
                 })
                 );
             timer.Start();
         }
+
 
         private void btnMoveToStart_Click(object sender, EventArgs e)
         {
@@ -107,11 +125,6 @@ namespace ResultModule
             colorSlider.Value = 0;
             foreach (var time in times)
                 richTextBox.AppendText($"{time}\n");
-        }
-
-        private void btnCreateAnimation_Click(object sender, EventArgs e)
-        {
-                CreateGIFAnimationEvent(this, new CreateAnimationEventArgs(chbDelTempScrs.Checked, int.Parse(txbDelayTime.Text)));
         }
 
         private void txbDelayTime_Leave(object sender, EventArgs e)
@@ -175,6 +188,11 @@ namespace ResultModule
             var scaleFactor = int.Parse(txbScale.Text);
             var time = float.Parse(richTextBox.Lines[index]);
             ShowResultEvent(this, new ShowResultEventArgs(cmbResultNames.SelectedItem.ToString(), time, scaleFactor));
+        }
+
+        private void btnCreateAnimation_Click(object sender, EventArgs e)
+        {
+            PlayResults(true);
         }
     }
 }

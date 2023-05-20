@@ -202,7 +202,19 @@ namespace BaseModule
             {
                 SearchControl(ctrlChild, controls);
             }
-        }      
+        }
+
+        public void CreateScreenShot(string fileName)
+        {
+            this.BringToFront();
+            var bmpPicture = new Bitmap(SceneControl.Width, SceneControl.Height);
+            var gr = Graphics.FromImage(bmpPicture);
+            var pos = SceneControl.PointToScreen(Point.Empty);
+            var size = new Size(SceneControl.Size.Width - 5, SceneControl.Size.Height - 5);
+            gr.CopyFromScreen(pos, Point.Empty, size);
+
+            bmpPicture.Save($@"{Project.Path}\{fileName}.bmp");
+        }
 
         public void PrintCommand(string message)
         {

@@ -370,7 +370,7 @@ namespace BaseForm
 
         private void BaseForm_Load(object sender, EventArgs e)
         {
-            KillAlreadyLaunchdExamples();
+            //KillAlreadyLaunchdExamples();
             LoadConfig();
         }
 
