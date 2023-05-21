@@ -12,13 +12,13 @@ namespace ResultModule
         public float Max { get; }
         public float Min { get; }
         public int Precision { get; }
-        public int Range { get; }
-        public ScaleEventArgs(string max, string min, string precision, string range)
+        public decimal Range { get; }
+        public ScaleEventArgs(string max, string min, string precision, decimal range)
         {
             Max = float.Parse(max);
             Min = float.Parse(min);
             Precision = int.Parse(precision);
-            Range = int.Parse(range);
+            Range = range;
         }       
     }
 }

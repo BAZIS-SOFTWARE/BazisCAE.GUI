@@ -40,7 +40,12 @@ namespace ResultModule
                 MessageBox.Show("Некорректный ввод!");
                 txbMax.Text = "0";
             }
-            else SetScaleSetting(this, new ScaleEventArgs(txbMax.Text,txbMin.Text,updPrecision.Text, updIntervals.Text));
+            else
+            {
+                if(chbShowScale.Checked)
+                    SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
+            }
+
         }
 
         private void txbMin_Leave(object sender, EventArgs e)
@@ -51,7 +56,12 @@ namespace ResultModule
                 MessageBox.Show("Некорректный ввод!");
                 txbMin.Text = "0";
             }
-            else SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Text));
+            else
+            {
+                if (chbShowScale.Checked)
+                    SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
+            }
+
         }
 
         private void upd_YCoord_Leave(object sender, EventArgs e)
@@ -62,27 +72,35 @@ namespace ResultModule
                 MessageBox.Show("Некорректный ввод!");
                 upd_YCoord.Text = "0";
             }
-            else SetY_PositionEvent(this, res);
+            else
+            {
+                if (chbShowScale.Checked)
+                    SetY_PositionEvent(this, res);
+            }
         }
 
         private void updPrecision_ValueChanged(object sender, EventArgs e)
         {
-            SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Text));
+            if (chbShowScale.Checked)
+                SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
         }
 
         private void updIntervals_ValueChanged(object sender, EventArgs e)
         {
-            SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Text));
+            if (chbShowScale.Checked)
+                SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
         }
 
         private void upd_XCoord_ValueChanged(object sender, EventArgs e)
         {
-            SetX_PositionEvent(this, upd_XCoord.Value);
+            if (chbShowScale.Checked)
+                SetX_PositionEvent(this, upd_XCoord.Value);
         }
 
         private void upd_YCoord_ValueChanged(object sender, EventArgs e)
         {
-            SetY_PositionEvent(this, upd_YCoord.Value);
+            if (chbShowScale.Checked)
+                SetY_PositionEvent(this, upd_YCoord.Value);
         }
     }
 }

@@ -82,7 +82,7 @@ namespace BaseModule
 
         public void AddToolStrip(ToolStrip toolStrip)
         {
-            toolStripContainer.TopToolStripPanel.Join(toolStrip, 1);
+            toolStripContainer.TopToolStripPanel.Join(toolStrip, 0);
         }
 
         public TreeView TreeView
@@ -202,6 +202,16 @@ namespace BaseModule
             {
                 SearchControl(ctrlChild, controls);
             }
+        }
+
+        public Form FindOpenedForm(string formName)
+        {
+            foreach (Form form in Application.OpenForms)
+            {
+                if (form.Name == formName)
+                    return form;
+            }
+            return null;
         }
 
         public void CreateScreenShot(string fileName)

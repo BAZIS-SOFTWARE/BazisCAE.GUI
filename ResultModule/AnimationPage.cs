@@ -10,14 +10,16 @@ using System.Windows.Forms;
 using System.Globalization;
 using static System.Net.Mime.MediaTypeNames;
 using System.IO;
+using Geometry;
 
 namespace ResultModule
 {
-    public partial class AnimationPage: UserControl
+    public partial class AnimationPage : UserControl
     {
         public event Action<object, CreateAnimationEventArgs> CreateGIFAnimationEvent;
         public event Action<object, ShowResultEventArgs> ShowResultEvent;
         public event Action<string> SaveScreenShotEvent;
+
         public AnimationPage()
         {
             InitializeComponent();
@@ -118,6 +120,7 @@ namespace ResultModule
 
         private void cmbResultNames_SelectedIndexChanged(object sender, EventArgs e)
         {
+            playerPanel.Enabled = true;
             var times = resItems[cmbResultNames.SelectedItem.ToString()];
 
             richTextBox.Clear();
@@ -193,6 +196,12 @@ namespace ResultModule
         private void btnCreateAnimation_Click(object sender, EventArgs e)
         {
             PlayResults(true);
+        }
+
+        internal void Clear()
+        {
+            playerPanel.Enabled = false;
+            richTextBox.Clear();
         }
     }
 }

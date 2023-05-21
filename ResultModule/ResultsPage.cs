@@ -4,6 +4,7 @@ using Geometry;
 using Gif.Components;
 using Graph;
 using MathNet.Numerics;
+using MathNet.Numerics.Providers.LinearAlgebra;
 using MB.Controls;
 using Model;
 using ModelController.ModelScenePresentator;
@@ -23,7 +24,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using ToolStrips;
-using static System.Net.Mime.MediaTypeNames;
+//using static System.Net.Mime.MediaTypeNames;
 using Image = System.Drawing.Image;
 
 namespace ResultModule
@@ -31,17 +32,16 @@ namespace ResultModule
     public partial class ResultPage: BasePage
     {
         IScale scale;
-        //private int scaleFactor;
+        
         private bool showResultValue;
-        private bool showScale;
-
-        List<Bitmap> imagesBuffer;
 
         Dictionary<string, int> imgDict;
         Dictionary<string,List<float>> resItems;
 
         private int nodesObjsIndex = 3;
         private int elementsObjsIndex = 4;
+        private ScalePage scPage;
+        private AnimationPage anPage;
 
         public ResultPage()
         {
@@ -84,7 +84,7 @@ namespace ResultModule
 
         public override void CreateMenuInterface()
         {
-              AddToolStripMenuItem(CreateResultsInterface());
+            AddToolStripMenuItem(CreateResultsInterface());
         }
 
         private ToolStripMenuItem CreateResultsInterface()
@@ -142,7 +142,10 @@ namespace ResultModule
                 Text = "Показать анимацию"
             };
 
-            showAnimationResultsMenuItem.Click += (ar1, ar2) => { ShowAnimation(); };
+            showAnimationResultsMenuItem.Click += (ar1, ar2) => 
+            {
+                    ShowAnimation(); 
+            };
 
             ToolStripMenuItem createGraphResultsMenuItem = new ToolStripMenuItem()
             {
@@ -158,7 +161,10 @@ namespace ResultModule
                 Text = "Показать шкалу"
             };
 
-            showScaleResultsMenuItem.Click += (ar1, ar2) => { ShowScale(); };
+            showScaleResultsMenuItem.Click += (ar1, ar2) => 
+            { 
+                    ShowScale(); 
+            };
 
             resultsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             clearResultsMenuItem,
@@ -176,55 +182,52 @@ namespace ResultModule
 
         private void ShowScale()
         {
-            var scPage = new ScalePage() { Dock = DockStyle.Fill };
+            scPage = new ScalePage() { Dock = DockStyle.Fill };
             scPage.SetScaleSetting += (ar1, ar2) =>
             {
-                scale.FillRange(ar2.Precision,ar2.Max, ar2.Min, ar2.Range);
+                scale.FillRange(ar2.Precision, ar2.Max, ar2.Min, ar2.Range);
 
-                if (showScale)
-                {
-                    CreateScale();
-                    SceneControl.DisplayObjects();
-                }
+                CreateScale();
+                SceneControl.DisplayObjects();
+
             };
             scPage.ShowScaleEvent += (ar1, ar2) =>
             {
                 if (ar2)
                 {
-                    showScale = true;
                     CreateScale();
                 }
 
                 else
                 {
-                    showScale = false;
                     SceneControl.UnPlugGeometryObj("CreateScaleObject");
                 }
 
                 SceneControl.DisplayObjects();
             };
-            scPage.SetX_PositionEvent += (ar1, ar2) => {
+            scPage.SetX_PositionEvent += (ar1, ar2) =>
+            {
                 scale.Coord_X = (int)ar2;
 
-                if (showScale)
-                {
-                    CreateScale();
-                    SceneControl.DisplayObjects();
-                }
+                CreateScale();
+                SceneControl.DisplayObjects();
+
                 SceneControl.DisplayObjects();
             };
-            scPage.SetY_PositionEvent += (ar1, ar2) => {
+            scPage.SetY_PositionEvent += (ar1, ar2) =>
+            {
                 scale.Coord_Y = (int)ar2;
 
-                if (showScale)
-                {
-                    CreateScale();
-                    SceneControl.DisplayObjects();
-                }
+                CreateScale();
+                SceneControl.DisplayObjects();
+
             };
 
             var icon = ResultModule.Properties.Resources.Scale;
-            var scForm = new Form() { TopMost = true, Icon = icon, Size = scPage.Size };
+            var scForm = new Form() { TopMost = true, Icon = icon, Size = scPage.Size, Name = "Scale", Text = "Шкала значений" };
+            scForm.FormClosed += (ar1, ar2) => 
+            { scPage = null; SceneControl.UnPlugGeometryObj("CreateScaleObject"); };
+
             scForm.Controls.Add(scPage);
             scForm.Show();
         }
@@ -273,7 +276,7 @@ namespace ResultModule
 
         private void ShowAnimation()
         {
-            var anPage = new AnimationPage() { Dock = DockStyle.Fill };
+            anPage = new AnimationPage() { Dock = DockStyle.Fill };
             anPage.ShowResultEvent += (ar1, ar2) =>
             {
                 if (TreeView.SelectedNode?.Level == 3)
@@ -286,10 +289,14 @@ namespace ResultModule
             anPage.SetResultsItems(resItems);
 
             var icon = ResultModule.Properties.Resources.Animation;
-            var scForm = new Form() { TopMost = true, Icon = icon, Size = anPage.Size };
-            scForm.Controls.Add(anPage);
-            scForm.Show();
+            var anForm = new Form() { TopMost = true, Icon = icon, Size = anPage.Size, Name = "Animation", Text = "Анимация" };
+            
+            anForm.FormClosed += (ar1,ar2) =>{ anPage = null; };
+            anForm.Controls.Add(anPage);
+            anForm.Show();
         }
+
+
 
         private void CreateGIFAnimation(object sender, CreateAnimationEventArgs args)
         {
@@ -299,7 +306,7 @@ namespace ResultModule
 
                 var search = string.Format("screenShot_*");
                 var imagesPaths = Directory.GetFiles(Project.Path, search);
-                Sort(imagesPaths);
+                SortCharNumberStrings(imagesPaths);
 
                 String outputFilePath = $@"{Project.Path}\results.gif";
 
@@ -312,10 +319,16 @@ namespace ResultModule
 
                 for (int i = 0; i < imagesPaths.Length; i++)
                 {
-                    var bmpImage = Image.FromFile(imagesPaths[i]);
-                    e.AddFrame(bmpImage);
-                    var total = ((i / (float)imagesPaths.Length) * 100).ToString("#.##");
-                    ConsoleControl.PrintInfo($@"Создание GIF анимации {total}", Color.Black);
+                    using (var stream = new FileStream(imagesPaths[i], FileMode.Open))
+                    {
+                        var bmpImage = Image.FromStream(stream);
+
+                        //var bmpImage = Image.FromFile(imagesPaths[i]);
+                        e.AddFrame(bmpImage);
+                        var total = ((i / (float)imagesPaths.Length) * 100).ToString("#.##");
+                        ConsoleControl.PrintInfo($@"Создание GIF анимации {total}%", Color.Black);
+                    }
+
                 }
                 e.Finish();
                 ConsoleControl.PrintInfo("GIF анимация создана", Color.Green);
@@ -332,7 +345,7 @@ namespace ResultModule
             }
         }
 
-        public void Sort(string[] anArray)
+        public void SortCharNumberStrings(string[] anArray)
         {
             //Основной цикл (количество повторений равно количеству элементов массива)
             for (int i = 0; i < anArray.Length; i++)
@@ -434,7 +447,8 @@ namespace ResultModule
             }
             else if (e.ClickedItem.Tag.ToString() == "5")
             {
-                ShowAnimation();
+                if (anPage == null)
+                    ShowAnimation();
 
             }
             else if (e.ClickedItem.Tag.ToString() == "6")
@@ -443,7 +457,8 @@ namespace ResultModule
             }
             else if (e.ClickedItem.Tag.ToString() == "7")
             {
-                ShowScale();
+                if (scPage == null)
+                    ShowScale();
             }
         }
 
@@ -625,6 +640,8 @@ namespace ResultModule
             var elemSchema = results[0].GetDataSchema("elements");
 
             PresentResultsOnTree(resName, nodeSchema, elemSchema);
+
+            anPage?.Clear();
         }
 
         private void PresentResultsOnTree(string resName, List<string> nodeSchema, List<string> elemSchema)

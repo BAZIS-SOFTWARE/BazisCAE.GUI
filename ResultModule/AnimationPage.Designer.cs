@@ -32,7 +32,7 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.playerPanel = new System.Windows.Forms.Panel();
             this.incrButton = new System.Windows.Forms.Button();
             this.decrButton = new System.Windows.Forms.Button();
             this.btnMoveToFinish = new System.Windows.Forms.Button();
@@ -55,7 +55,7 @@
             this.tableLayoutPanel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.playerPanel.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -96,7 +96,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.14712F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.85288F));
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.playerPanel, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.txbScale, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -108,20 +108,21 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(401, 102);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // panel1
+            // playerPanel
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.panel1, 3);
-            this.panel1.Controls.Add(this.incrButton);
-            this.panel1.Controls.Add(this.decrButton);
-            this.panel1.Controls.Add(this.btnMoveToFinish);
-            this.panel1.Controls.Add(this.btnPlayResults);
-            this.panel1.Controls.Add(this.btnMoveToStart);
-            this.panel1.Controls.Add(this.colorSlider);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(395, 45);
-            this.panel1.TabIndex = 0;
+            this.tableLayoutPanel1.SetColumnSpan(this.playerPanel, 3);
+            this.playerPanel.Controls.Add(this.incrButton);
+            this.playerPanel.Controls.Add(this.decrButton);
+            this.playerPanel.Controls.Add(this.btnMoveToFinish);
+            this.playerPanel.Controls.Add(this.btnPlayResults);
+            this.playerPanel.Controls.Add(this.btnMoveToStart);
+            this.playerPanel.Controls.Add(this.colorSlider);
+            this.playerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.playerPanel.Enabled = false;
+            this.playerPanel.Location = new System.Drawing.Point(3, 3);
+            this.playerPanel.Name = "playerPanel";
+            this.playerPanel.Size = new System.Drawing.Size(395, 45);
+            this.playerPanel.TabIndex = 0;
             // 
             // incrButton
             // 
@@ -370,7 +371,7 @@
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.panel1.ResumeLayout(false);
+            this.playerPanel.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -385,7 +386,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel playerPanel;
         private System.Windows.Forms.Button incrButton;
         private System.Windows.Forms.Button decrButton;
         private System.Windows.Forms.Button btnMoveToFinish;
