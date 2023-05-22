@@ -166,11 +166,6 @@ namespace BaseModule
             return default(T);
         }
 
-        public void FindVersion(string version)
-        {
-            lblVersion.Text = version;
-        }
-
         public void SetVersion(string version)
         {
             lblVersion.Text = version;

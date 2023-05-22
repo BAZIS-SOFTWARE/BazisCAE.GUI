@@ -67,10 +67,6 @@ namespace TaskModule
 
             solverStatusLabel = new ToolStripStatusLabel() { Name = "solverStatus"};
             list[0].Items.Add(solverStatusLabel);
-
-            var ver = Assembly.GetExecutingAssembly().GetName().Version;
-            var verStr = "Версия " + $"{ver.Major}.{ver.Minor}.{ver.Build}";
-            SetVersion(verStr);
         }
 
         public override void CreateMenuInterface()

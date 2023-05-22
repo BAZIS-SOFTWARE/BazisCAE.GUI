@@ -47,10 +47,6 @@ namespace ModelModule
             meshToolStrip.ItemClicked += MeshToolStrip_ItemClicked;
             
             AddToolStrip(meshToolStrip);
-
-            var ver = Assembly.GetExecutingAssembly().GetName().Version;
-            var verStr = "Версия " + $"{ver.Major}.{ver.Minor}.{ver.Build}";
-            SetVersion(verStr);
         }
 
         public override void CreateMenuInterface()

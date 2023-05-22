@@ -21,6 +21,7 @@ using ConnectionModule;
 using TaskModule;
 using ResultModule;
 using ModelModule;
+using System.Reflection;
 
 namespace BaseForm
 {
@@ -131,6 +132,10 @@ namespace BaseForm
                 module = new ModelPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
                 licToken = GetLicense("Mesh");
             }
+
+            var ver = Assembly.GetExecutingAssembly().GetName().Version;
+            var verStr = "Версия " + $"{ver.Major}.{ver.Minor}.{ver.Build}";
+            module.SetVersion(verStr);
             
             module.ChangeProjectDataEvent += (object ar1, ProjectData ar2) => { project = ar2; };
 
@@ -182,7 +187,7 @@ namespace BaseForm
                 {
                     while (true)
                     {
-                        Thread.Sleep(2500);
+                        Thread.Sleep(2000);
                         connectionContr.RequestServer(licToken);
                     }
 

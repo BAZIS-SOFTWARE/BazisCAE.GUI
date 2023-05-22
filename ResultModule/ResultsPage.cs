@@ -76,10 +76,6 @@ namespace ResultModule
             AddToolStrip(resToolStrip);
 
             TreeView.Nodes.Add(new TreeNode("Результаты", 0, 0) { Name = "Результаты" });
-
-            var ver = Assembly.GetExecutingAssembly().GetName().Version;
-            var verStr = "Версия " + $"{ver.Major}.{ver.Minor}.{ver.Build}";
-            SetVersion(verStr);
         }
 
         public override void CreateMenuInterface()
