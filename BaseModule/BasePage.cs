@@ -226,6 +226,13 @@ namespace BaseModule
             lblInputCmd.Text = message;
         }
 
+        public void ViewStateObjects(string objsType)
+        {
+            sceneControl.UnPlugVBObjects();
+            sceneControl.ChangeViewStateVBObjects(objsType); 
+            sceneControl.PlugVBObjects();
+        }
+
         public void PresentModelObjectsOnScene(string objectsType)
         {
             sceneControl.UnPlugVBObjects();

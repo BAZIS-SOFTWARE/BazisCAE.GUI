@@ -187,7 +187,7 @@ namespace BaseForm
                 {
                     while (true)
                     {
-                        Thread.Sleep(2000);
+                        Thread.Sleep(1500);
                         connectionContr.RequestServer(licToken);
                     }
 

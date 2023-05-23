@@ -248,15 +248,16 @@ namespace BaseModule
             this.sceneControl.Name = "sceneControl";
             this.sceneControl.RotationAngle = 2.5F;
             this.sceneControl.RotationAxis = Scene.ViewAxis.XYZ;
-            this.sceneControl.SelectedObjectsName = "Узлы";
-            this.sceneControl.SelectionColor = System.Drawing.Color.GreenYellow;
+            this.sceneControl.SelectedObjectsName = "";
+            this.sceneControl.SelectionColor = System.Drawing.Color.LawnGreen;
             this.sceneControl.Size = new System.Drawing.Size(601, 435);
-            this.sceneControl.TabIndex = 2;
+            this.sceneControl.TabIndex = 4;
             this.sceneControl.TitleColor = System.Drawing.Color.Black;
             this.sceneControl.TitleText = "";
             this.sceneControl.InfoObjectsEvent += new System.Action<object, Scene.InfoObjectsEventArgs>(this.sceneControl_InfoObjectsEvent);
             this.sceneControl.CreateMeshGroupEvent += new System.Action<object, Scene.Events.CreateGroupEventArgs>(this.sceneControl_CreateMeshGroupEvent);
             this.sceneControl.DeleteSelectionEvent += new System.Action<object, System.EventArgs>(this.sceneControl_DeleteSelectionEvent);
+            this.sceneControl.SetPresentorEvent += new System.Action<object, Scene.Events.VBOPresenterEventArgs>(this.sceneControl_CreateVBObjectsEvent);
             this.sceneControl.MessageEvent += new System.Action<object, Scene.Events.MessageEventArgs>(this.SceneControl_MessageEvent);
             // 
             // grbConsole
@@ -328,7 +329,8 @@ namespace BaseModule
         private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.Panel grbScene;
         private System.Windows.Forms.PictureBox pctScreenSaver;
-        private Scene.SceneControl sceneControl;
+        //private Scene.SceneControl sceneControl;
         private System.Windows.Forms.ToolStripStatusLabel lblVersion;
+        private Scene.SceneControl sceneControl;
     }
 }

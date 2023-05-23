@@ -14,6 +14,11 @@ using Scene.Events;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using Scene;
+using Model.Interfaces;
+using static System.Windows.Forms.AxHost;
+using ProjectController.Presenters;
+using ModelController.ModelScenePresentator;
 
 namespace ModelModule
 {
@@ -125,6 +130,9 @@ namespace ModelModule
                 var boundaryElements2D = creator.Create(startNumber);
 
                 Project.Model.ObjectData.AddRange(boundaryElements2D);
+
+                var presentor = new ModelScenePresentator(Project.Model);
+                SceneControl.SetPresentor(presentor);
 
                 PresentAllModelObjectsOnScene();
                 PresentModelOnSelectToolStrip();
@@ -345,55 +353,44 @@ namespace ModelModule
 
         private void ShowGroup_Click(object sender, EventArgs e)
         {
-            if (TreeView.SelectedNode != null)
-                ViewStateGroup(TreeView.SelectedNode.Name, TreeView.SelectedNode.Index, true);
+            var group = Project.Model.GroupData[TreeView.SelectedNode.Index];
 
-            PresentModelObjectsOnScene(TreeView.SelectedNode.Name);
+            foreach (var number in group.ObjsNumbers)
+                Project.Model.ObjectData.Find(number).ViewState = true;
+
+            ViewStateObjects(TreeView.SelectedNode.Name);
             SceneControl.DisplayObjects();
         }
 
         private void HideGroup_Click(object sender, EventArgs e)
         {
-            ViewStateGroup(TreeView.SelectedNode.Name, TreeView.SelectedNode.Index, false);
+            var group = Project.Model.GroupData[TreeView.SelectedNode.Index];
 
-            PresentModelObjectsOnScene(TreeView.SelectedNode.Name);
+            foreach (var number in group.ObjsNumbers)
+                Project.Model.ObjectData.Find(number).ViewState = false;
+
+            ViewStateObjects(TreeView.SelectedNode.Name);
             SceneControl.DisplayObjects();
         }
 
         private void ShowObjects_Click(object sender, EventArgs e)
         {
-            if (TreeView.SelectedNode != null)
-                ViewStateObjects(TreeView.SelectedNode.Name, true);
+            var modelObjects = Project.Model.ObjectData.FindMany(TreeView.SelectedNode.Name);
+            foreach (var modelObject in modelObjects)
+                modelObject.ViewState = true;
 
-            PresentModelObjectsOnScene(TreeView.SelectedNode.Name);
+            ViewStateObjects(TreeView.SelectedNode.Name);
             SceneControl.DisplayObjects();
         }
 
         private void HideObjects_Click(object sender, EventArgs e)
         {
-            ViewStateObjects(TreeView.SelectedNode.Name, false);
-
-            PresentModelObjectsOnScene(TreeView.SelectedNode.Name);
-            SceneControl.DisplayObjects();
-        }
-
-        private void ViewStateObjects(string objsType, bool state)
-        {
-            var modelObjects = Project.Model.ObjectData.FindMany(objsType).ToArray();
+            var modelObjects = Project.Model.ObjectData.FindMany(TreeView.SelectedNode.Name);
             foreach (var modelObject in modelObjects)
-            {
-                modelObject.ViewState = state;
-            }
-        }
+                modelObject.ViewState = false;
 
-        private void ViewStateGroup(string objsType, int groupIndex, bool state)
-        {
-            var group = Project.Model.GroupData[groupIndex];
-
-            foreach (var number in group.ObjsNumbers)
-                Project.Model.ObjectData.Find(number).ViewState = state;
-
-            var modelObjects = Project.Model.ObjectData.FindMany(group.ObjType).ToArray();
+            ViewStateObjects(TreeView.SelectedNode.Name);
+            SceneControl.DisplayObjects();
         }
 
         private void HideAllObjects_Click(object sender, EventArgs e)
@@ -486,17 +483,21 @@ namespace ModelModule
         {
             Project.Model.ObjectData.RemoveRange(objsType);
 
-            var searchGroups = Project.Model.GroupData.FindMany(objsType).ToArray();
+            var searchGroups = Project.Model.GroupData.FindMany(objsType);
 
             foreach (var searchGroup in searchGroups)
             {
                 Project.Model.GroupData.Remove(searchGroup);
             }
 
-            var selectToolStrip = FindToolStrip<SelectToolStrip>();
 
+
+            var selectToolStrip = FindToolStrip<SelectToolStrip>();          
             selectToolStrip.RemoveObjectsType(objsType);
             SetModelGroupInfo();
+
+            var presentor = new ModelScenePresentator(Project.Model);
+            SceneControl.SetPresentor(presentor);
 
             PresentAllModelObjectsOnScene();
             SceneControl.DisplayObjects();
