@@ -5,11 +5,9 @@ using Graph;
 using Model;
 using ModelController.ModelScenePresentator;
 using Project.Interfaces;
-using ProjectController.IO;
-using ProjectController.Presenters;
-using ProjectController.Presenters.ScenePresenters;
-using ProjectController.Presenters.ScenePresenters.Interfaces;
-using ProjectController.SceneResultPresenters;
+using Project.IO;
+using ResultsData.ScenePresenter;
+using ResultsData.ScenePresenter.Interfaces;
 using Scene;
 using System;
 using System.Collections.Generic;
@@ -478,7 +476,7 @@ namespace ResultModule
 
             var result = Project.ResultData.FindByTime(resKind, time);
 
-            var scenePresentor = new ScenePresenter(Project);
+            var scenePresentor = new FieldCreator(Project);
             var elements = Project.Model.ObjectData.FindMany<Element>().ToArray();
             var colorRanges = scale.ColorRange().ToArray();
             var valueRanges = scale.ValueRange().ToArray();

@@ -5,7 +5,6 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ProjectController;
 using Project.Interfaces;
 using Scene;
 using Project.TasksData;
@@ -15,13 +14,13 @@ using Geometry;
 using Functions.Parser;
 using System.Threading;
 using System.Diagnostics;
-using DataBaseInterface;
 using System.IO;
 using System.Reflection;
 using TaskModule.BasicTaskAdvisor;
 using TaskModule.BasicAdvisorControls.Events;
 using BaseModule;
-using System.Runtime.InteropServices.ComTypes;
+using DataBaseController.Interfaces;
+using DataBaseController;
 
 namespace TaskModule
 {
@@ -67,6 +66,12 @@ namespace TaskModule
 
             solverStatusLabel = new ToolStripStatusLabel() { Name = "solverStatus"};
             list[0].Items.Add(solverStatusLabel);
+
+            MatDataLoader = new LoadMaterialDataBaseFromTextFormat();
+            FunDataLoader = new LoadFunctionDataBaseFromTextFormat();
+            MatDataSaver = new SaveMaterialDataBaseToTextFormat();
+            FunDataSaver = new SaveFunctionDataBaseToTextFormat();
+            DataInformer = new DataBaseInformer();
         }
 
         public override void CreateMenuInterface()

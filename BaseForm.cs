@@ -1,27 +1,26 @@
 ﻿
+using BaseModule;
 using BazisGUI.AboutProgramControl;
-using DataBaseController;
+using BazisGUI.SettingsControl;
+using ConnectionController;
+using ConnectionModule;
+using HeatTreatmentModule;
+using ModelModule;
 using Newtonsoft.Json;
 using Project;
+using ResultModule;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using System.Net;
-using ConnectionController;
-using BazisGUI.SettingsControl;
-using System.Diagnostics;
-using System.Threading;
-using HeatTreatmentModule;
-using BaseModule;
-using WeldingModule;
-using ConnectionModule;
-using TaskModule;
-using ResultModule;
-using ModelModule;
 using System.Reflection;
+using System.Threading;
+using System.Windows.Forms;
+using TaskModule;
+using WeldingModule;
 
 namespace BaseForm
 {
@@ -96,11 +95,6 @@ namespace BaseForm
             if (moduleName == "Weld")
             {
                 var taskPage = new WeldingPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
-                taskPage.MatDataLoader = new LoadMaterialDataBaseFromTextFormat();
-                taskPage.FunDataLoader = new LoadFunctionDataBaseFromTextFormat();
-                taskPage.MatDataSaver = new SaveMaterialDataBaseToTextFormat();
-                taskPage.FunDataSaver = new SaveFunctionDataBaseToTextFormat();
-                taskPage.DataInformer = new DataBaseInformer();
                 taskPage.SolverPath = settingsConfig.SolverPath;
 
                 module = taskPage;
@@ -110,11 +104,6 @@ namespace BaseForm
             else if (moduleName == "HeatTreatment")
             {
                 var taskPage = new HeatTreatmentPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
-                taskPage.MatDataLoader = new LoadMaterialDataBaseFromTextFormat();
-                taskPage.FunDataLoader = new LoadFunctionDataBaseFromTextFormat();
-                taskPage.MatDataSaver = new SaveMaterialDataBaseToTextFormat();
-                taskPage.FunDataSaver = new SaveFunctionDataBaseToTextFormat();
-                taskPage.DataInformer = new DataBaseInformer();
                 taskPage.SolverPath = settingsConfig.SolverPath;
 
                 module = taskPage;
@@ -156,6 +145,8 @@ namespace BaseForm
 
             pictureBox.Hide();
 
+            DisconnectWithServer();
+
             if (licToken.Answer == "можно")
                 StartLicensing(licToken, module);
 
@@ -170,31 +161,20 @@ namespace BaseForm
 
             licToken.Request = licToken.Request.Replace("Взять", "Работа");
 
-
-            if (serverConnectionThread != null)
-            {
-                serverConnectionThread.Abort();
-
-                while (true)
-                    if (!serverConnectionThread.IsAlive)
-                        break;
-            }
-
-
             serverConnectionThread = new Thread(() =>
             {
                 try
                 {
                     while (true)
                     {
-                        Thread.Sleep(1500);
+                        Thread.Sleep(2000);
                         connectionContr.RequestServer(licToken);
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    if(ex is ThreadAbortException != true)
+                    if (ex is ThreadAbortException != true)
                     {
                         MessageBox.Show(ex.Message);
                         Invoke(new Action(() => { Application.ExitThread(); }));
@@ -204,6 +184,18 @@ namespace BaseForm
             });
             serverConnectionThread.Start();
 
+        }
+
+        private void DisconnectWithServer()
+        {
+            if (serverConnectionThread != null)
+            {
+                serverConnectionThread.Abort();
+
+                while (true)
+                    if (!serverConnectionThread.IsAlive)
+                        break;
+            }
         }
 
         private void SetGeneralSettings(BasePage module)

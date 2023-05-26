@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using ToolStrips;
-using AdvisorControls;
 using TaskModule;
 using TaskModule.BasicTaskAdvisor;
 
