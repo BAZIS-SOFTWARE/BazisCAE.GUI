@@ -5,6 +5,7 @@ using BazisGUI.SettingsControl;
 using ConnectionController;
 using ConnectionModule;
 using HeatTreatmentModule;
+using LicenseData;
 using ModelModule;
 using Newtonsoft.Json;
 using Project;
@@ -43,14 +44,23 @@ namespace BaseForm
         EventHandler showConsoleEventHandler = null;
         private Thread serverConnectionThread;
 
-        public Controller connectionContr { get; private set; }
+        public Controller serverConnection { get; private set; }
 
         public BaseForm()
         {
             InitializeComponent();
             project = new ProjectData("newProject", Application.StartupPath);
             activePage = "none";
-            //connectTimer.Interval = 500;
+
+            var net = Environment.GetEnvironmentVariable("BazisServerPath", EnvironmentVariableTarget.Machine);
+
+            if (net != null)
+            {
+                var iPAddress = IPAddress.Parse(net.Split(':')[0]);
+                var port = int.Parse(net.Split(':')[1]);
+                serverConnection = new ConnectionController.Controller(iPAddress, port);
+            }
+            else serverConnection = new ConnectionController.Controller(IPAddress.Loopback, 8001);
         }
 
         private void построениеСетки_Click(object sender, EventArgs e)
@@ -83,7 +93,8 @@ namespace BaseForm
 
         private void AddModule(string moduleName)
         {
-            var licToken = new LicenseToken();
+            DisconnectWithServer(activePage);
+
             toolStripContainer.ContentPanel.Controls.RemoveByKey(activePage);
 
             activePage = moduleName;
@@ -98,7 +109,6 @@ namespace BaseForm
                 taskPage.SolverPath = settingsConfig.SolverPath;
 
                 module = taskPage;
-                licToken = GetLicense("Weld");
             }
 
             else if (moduleName == "HeatTreatment")
@@ -107,25 +117,22 @@ namespace BaseForm
                 taskPage.SolverPath = settingsConfig.SolverPath;
 
                 module = taskPage;
-                licToken = GetLicense("HeatTreatment");
             }
 
             else if (moduleName == "Result")
             {
                 module = new ResultPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
-                licToken = GetLicense("Result");
             }
 
             else
             {
                 module = new ModelPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
-                licToken = GetLicense("Mesh");
             }
 
             var ver = Assembly.GetExecutingAssembly().GetName().Version;
             var verStr = "Версия " + $"{ver.Major}.{ver.Minor}.{ver.Build}";
             module.SetVersion(verStr);
-            
+
             module.ChangeProjectDataEvent += (object ar1, ProjectData ar2) => { project = ar2; };
 
             SingMenuItemsEvents(module);
@@ -145,21 +152,20 @@ namespace BaseForm
 
             pictureBox.Hide();
 
-            DisconnectWithServer();
 
-            if (licToken.Answer == "можно")
-                StartLicensing(licToken, module);
+            var answer = serverConnection.RequestServer(moduleName + " Взять");
 
-            else StartLisenceForm(licToken.Request);
+            if (answer == "можно")
+                StartLicensing(moduleName, module);
+            else StartLisenceForm();
+
         }
 
-        private void StartLicensing(LicenseToken licToken, BasePage module)
+        private void StartLicensing(string moduleName, BasePage module)
         {
             сохранитьToolStripMenuItem.Enabled = true;
             сохранитькакToolStripMenuItem.Enabled = true;
             module.UnBlockInterface();
-
-            licToken.Request = licToken.Request.Replace("Взять", "Работа");
 
             serverConnectionThread = new Thread(() =>
             {
@@ -167,8 +173,11 @@ namespace BaseForm
                 {
                     while (true)
                     {
-                        Thread.Sleep(2000);
-                        connectionContr.RequestServer(licToken);
+                        lock (serverConnection)
+                        {
+                            serverConnection.RequestServer(moduleName + " Работа");
+                        }
+                        Thread.Sleep(5000);
                     }
 
                 }
@@ -186,15 +195,19 @@ namespace BaseForm
 
         }
 
-        private void DisconnectWithServer()
+        private void DisconnectWithServer(string module)
         {
             if (serverConnectionThread != null)
             {
-                serverConnectionThread.Abort();
-
                 while (true)
-                    if (!serverConnectionThread.IsAlive)
+                {
+                    if (serverConnectionThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
+                        serverConnectionThread.Abort();
+                    if (serverConnectionThread.ThreadState == System.Threading.ThreadState.Aborted)
                         break;
+                }
+
+                serverConnection.RequestServer(module + " Отдать");
             }
         }
 
@@ -274,50 +287,42 @@ namespace BaseForm
             form.TopMost = true;
             var control = new AboutControl { Dock = DockStyle.Fill };
 
+            try
+            {
+                var answer = serverConnection.RequestServer("CheckLicenseInfo");
+                var licInfo = JsonConvert.DeserializeObject<LicenseInfo>(answer);
+
+                foreach (var keyInfo in licInfo)
+                    control.KeysInfo += $"{keyInfo}\n";
+
+                control.OwnerInfo = licInfo.CompanyName;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
             form.Controls.Add(control);
             form.ShowDialog();
         }
 
-        public LicenseToken GetLicense(string request)
-        {
-            var licToken = new LicenseToken() { Request = request + " Взять"};
-
-            connectionContr = new ConnectionController.Controller();
-            var net = Environment.GetEnvironmentVariable("BazisServerPath", EnvironmentVariableTarget.Machine);
-            
-            if (net != null)
-            {
-                try
-                {
-                    licToken.IPAddress = IPAddress.Parse(net.Split(':')[0]);
-                    licToken.Port = int.Parse(net.Split(':')[1]);
-                    connectionContr.RequestServer(licToken);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-
-            return licToken;
-        }
-
-        private void StartLisenceForm(string request)
+        private void StartLisenceForm()
         {
             var form = new Form() { Name = "checkForm", Text = "Лицензирование", ShowIcon = false, Size = new Size(450, 250) };
             var control = new ConnectionControl() { Dock = DockStyle.Fill };
 
-            control.AddAction(request);
-            control.LicenseActionEvent += (ar1) => 
+            control.LicenseActionEvent += (ar1,ar2) => 
             {
-                if(ar1.Answer == "можно")
+                var controls = toolStripContainer.ContentPanel.Controls.Find(activePage, false);
+                if(controls.Length > 0)
                 {
-                    var controls = toolStripContainer.ContentPanel.Controls.Find(activePage, false);
+                    serverConnection = new Controller(ar1, ar2);
+                    var answer = serverConnection.RequestServer(activePage + " Взять");
 
-                    if (controls.Length > 0)
+                    if (answer == "можно")
                     {
                         var page = (BasePage)controls[0];
-                        StartLicensing(ar1, page);
+                        StartLicensing(activePage, page);
                     }
                 }
             };
@@ -410,25 +415,7 @@ namespace BaseForm
 
         private void получитьЛицензиюMenuItem_Click(object sender, EventArgs e)
         {
-            var controls = toolStripContainer.ContentPanel.Controls.Find(activePage, false);
-            if (controls.Length > 0)
-            {
-                var form = new Form() { Name = "checkForm", Text = "Лицензирование", ShowIcon = false, Size = new Size(500, 315) };
-                var control = new ConnectionControl() { Dock = DockStyle.Fill };
-
-                control.AddAction(activePage);
-                control.LicenseActionEvent += (ar1) =>
-                {
-                    if (ar1.Answer == "можно")
-                    {
-
-                        var page = (BasePage)controls[0];
-                        StartLicensing(ar1, page);
-                    }
-                };
-                form.Controls.Add(control);
-                form.ShowDialog();
-            }
+            StartLisenceForm();
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)

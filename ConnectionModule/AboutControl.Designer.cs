@@ -80,7 +80,6 @@
             this.Controls.Add(this.label1);
             this.Name = "AboutControl";
             this.Size = new System.Drawing.Size(454, 201);
-            this.Load += new System.EventHandler(this.frmAbout_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

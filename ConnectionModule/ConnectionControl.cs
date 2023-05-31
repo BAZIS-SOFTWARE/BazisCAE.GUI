@@ -1,5 +1,4 @@
-﻿using ConnectionController;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Net;
 using System.Windows.Forms;
@@ -8,24 +7,14 @@ namespace ConnectionModule
 {
     public partial class ConnectionControl : UserControl
     {
-        IPAddress ip;
-        string action;
-        public void AddAction(string action)
-        {
-            this.action = action;
-        }
-
-        Controller connectionController;
-
         public ConnectionControl()
         {
             InitializeComponent();
-            connectionController = new Controller();
         }
 
 
         //public event Action<object, StartLicenseEventArgs> SaveLicenseSettingsEvent;
-        public event Action<LicenseToken> LicenseActionEvent;
+        public event Action<IPAddress,int> LicenseActionEvent;
 
         private void rbt_CheckedChanged(object sender, EventArgs e)
         {
@@ -47,16 +36,7 @@ namespace ConnectionModule
                 var port = int.Parse(txbPort.Text);
                 var ip = IPAddress.Parse(txbServerAdress.Text);
 
-                var licToken = new LicenseToken()
-                {
-                    Request = action,
-                    IPAddress = ip,
-                    Port = port
-                };
-
-                connectionController.RequestServer(licToken);
-                lblAnswer.Text = licToken.Answer;
-                LicenseActionEvent(licToken);
+                LicenseActionEvent(ip,port);
             }
             catch (Exception ex)
             {

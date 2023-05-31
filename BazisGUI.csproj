@@ -61,11 +61,24 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\ConnectionController.dll</HintPath>
     </Reference>
+    <Reference Include="LicenseData, Version=1.5.4.10, Culture=neutral, PublicKeyToken=4046bfcfc1f7b487, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\LicenseData.dll</HintPath>
+    </Reference>
+    <Reference Include="Model, Version=1.0.6.70, Culture=neutral, PublicKeyToken=2804256ee81d4535, processorArchitecture=MSIL">
+      <HintPath>packages\Model.1.0.6.70\lib\net48\Model.dll</HintPath>
+    </Reference>
+    <Reference Include="ModelController, Version=1.0.8.70, Culture=neutral, PublicKeyToken=2804256ee81d4535, processorArchitecture=MSIL">
+      <HintPath>packages\Model.1.0.6.70\lib\net48\ModelController.dll</HintPath>
+    </Reference>
+    <Reference Include="ModelParcer, Version=1.0.2.20, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Model.1.0.6.70\lib\net48\ModelParcer.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=1.0.3.30, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
-      <HintPath>packages\Project.1.0.3.30\lib\net48\Project.dll</HintPath>
+    <Reference Include="Project, Version=1.0.4.50, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
+      <HintPath>packages\Project.1.0.4.50\lib\net48\Project.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">

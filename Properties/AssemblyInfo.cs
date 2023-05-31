@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
 [assembly: AssemblyTitle("BazisGUI")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Graphical interface")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("BAZIS SOFTWARE")]
 [assembly: AssemblyProduct("BazisGUI")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("BAZIS")]
 [assembly: AssemblyCulture("")]
 
 // Установка значения False для параметра ComVisible делает типы в этой сборке невидимыми
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // Можно задать все значения или принять номер сборки и номер редакции по умолчанию.
 // используя "*", как показано ниже:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.2.12.0")]
-[assembly: AssemblyFileVersion("4.2.12.0")]
+[assembly: AssemblyVersion("4.2.13.0")]
+[assembly: AssemblyFileVersion("4.2.13.0")]
