@@ -52,15 +52,29 @@ namespace BaseForm
             project = new ProjectData("newProject", Application.StartupPath);
             activePage = "none";
 
+            GetServerConnection();
+        }
+
+        private void GetServerConnection()
+        {
             var net = Environment.GetEnvironmentVariable("BazisServerPath", EnvironmentVariableTarget.Machine);
 
             if (net != null)
             {
                 var iPAddress = IPAddress.Parse(net.Split(':')[0]);
                 var port = int.Parse(net.Split(':')[1]);
+                MessageBox.Show($"Адресс подключения: {iPAddress}, порт: {port}");
                 serverConnection = new ConnectionController.Controller(iPAddress, port);
             }
-            else serverConnection = new ConnectionController.Controller(IPAddress.Loopback, 8001);
+            else
+            {
+                MessageBox.Show
+                    (
+                    $@"Адресс подключения: {IPAddress.Loopback}, порт: {8001}\n
+                                Внимание! Не найдена переменная среды ""BazisServerPath"""
+                    );
+                serverConnection = new ConnectionController.Controller(IPAddress.Loopback, 8001);
+            }
         }
 
         private void построениеСетки_Click(object sender, EventArgs e)
@@ -93,7 +107,7 @@ namespace BaseForm
 
         private void AddModule(string moduleName)
         {
-            DisconnectWithServer(activePage);
+            DisconnectWithServer();
 
             toolStripContainer.ContentPanel.Controls.RemoveByKey(activePage);
 
@@ -195,7 +209,7 @@ namespace BaseForm
 
         }
 
-        private void DisconnectWithServer(string module)
+        private void DisconnectWithServer()
         {
             if (serverConnectionThread != null)
             {
@@ -207,7 +221,7 @@ namespace BaseForm
                         break;
                 }
 
-                serverConnection.RequestServer(module + " Отдать");
+                serverConnection.RequestServer(activePage + " Отдать");
             }
         }
 
