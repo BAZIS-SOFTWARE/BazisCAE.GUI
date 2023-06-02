@@ -44,7 +44,7 @@ namespace BaseForm
         EventHandler showConsoleEventHandler = null;
         private Thread serverConnectionThread;
 
-        public Controller serverConnection { get; private set; }
+        Controller serverConnection { get; set; }
 
         public BaseForm()
         {

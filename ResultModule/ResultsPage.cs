@@ -6,8 +6,9 @@ using Model;
 using ModelController.ModelScenePresentator;
 using Project.Interfaces;
 using Project.IO;
-using ResultsData.ScenePresenter;
-using ResultsData.ScenePresenter.Interfaces;
+using Project.ResultsData;
+using Project.ResultsData.ScenePresenter;
+using Project.ResultsData.ScenePresenter.Interfaces;
 using Scene;
 using System;
 using System.Collections.Generic;
@@ -68,6 +69,12 @@ namespace ResultModule
             AddToolStrip(resToolStrip);
 
             TreeView.Nodes.Add(new TreeNode("Результаты", 0, 0) { Name = "Результаты" });
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            PresentResultsOnTree(Project.ResultData);
         }
 
         public override void CreateMenuInterface()
@@ -617,55 +624,59 @@ namespace ResultModule
             var results = resultsLoader.Load(fileName);
             Project.ResultData.AddRange(results);
 
-            var times = results.Select(x => x.Time);
-            var minTime = times.First();
-            var maxTime = times.Last();
-            var resName = $"{results[0].TaskKind}_{minTime}_{maxTime}";
-
-            resItems.Add(resName, times.ToList());
-
-            var nodeSchema = results[0].GetDataSchema("nodes");
-            var elemSchema = results[0].GetDataSchema("elements");
-
-            PresentResultsOnTree(resName, nodeSchema, elemSchema);
+            PresentResultsOnTree(results);
 
             anPage?.Clear();
         }
 
-        private void PresentResultsOnTree(string resName, List<string> nodeSchema, List<string> elemSchema)
+        public void PresentResultsOnTree(IEnumerable<Result> results)
         {
-            var resNode = new TreeNode()
+            if(results.Count() > 0)
             {
-                Text = resName,
-                Name = resName,
-                ImageIndex = CollapseIndex,
-                SelectedImageIndex = CollapseIndex,
-                Tag = "3"
-            };
+                var times = results.Select(x => x.Time);
 
-            var nodesNode = new TreeNode()
-            {
-                Text = "Узлы",
-                Name = "Узлы",
-                ImageIndex = CollapseIndex,
-                SelectedImageIndex = CollapseIndex,
-                Tag = "3.1"
-            };
-            CreateTreeNodesResDesc(nodeSchema, nodesNode, nodesObjsIndex);
-            resNode.Nodes.Add(nodesNode);
+                var minTime = times.First();
+                var maxTime = times.Last();
+                var resName = $"{results.First().TaskKind}_{minTime}_{maxTime}";
 
-            var elemsNode = new TreeNode()
-            {
-                Text = "Элементы",
-                Name = "Элементы",
-                ImageIndex = CollapseIndex,
-                SelectedImageIndex = CollapseIndex,
-                Tag = "3.1"
-            };
-            CreateTreeNodesResDesc(elemSchema, elemsNode, elementsObjsIndex);
-            resNode.Nodes.Add(elemsNode);
+                resItems.Add(resName, times.ToList());
 
-            TreeView.Nodes[4].Nodes.Add(resNode);
+                var nodeSchema = results.First().GetDataSchema("nodes");
+                var elemSchema = results.First().GetDataSchema("elements");
+
+                var resNode = new TreeNode()
+                {
+                    Text = resName,
+                    Name = resName,
+                    ImageIndex = CollapseIndex,
+                    SelectedImageIndex = CollapseIndex,
+                    Tag = "3"
+                };
+
+                var nodesNode = new TreeNode()
+                {
+                    Text = "Узлы",
+                    Name = "Узлы",
+                    ImageIndex = CollapseIndex,
+                    SelectedImageIndex = CollapseIndex,
+                    Tag = "3.1"
+                };
+                CreateTreeNodesResDesc(nodeSchema, nodesNode, nodesObjsIndex);
+                resNode.Nodes.Add(nodesNode);
+
+                var elemsNode = new TreeNode()
+                {
+                    Text = "Элементы",
+                    Name = "Элементы",
+                    ImageIndex = CollapseIndex,
+                    SelectedImageIndex = CollapseIndex,
+                    Tag = "3.1"
+                };
+                CreateTreeNodesResDesc(elemSchema, elemsNode, elementsObjsIndex);
+                resNode.Nodes.Add(elemsNode);
+
+                TreeView.Nodes[4].Nodes.Add(resNode);
+            }            
         }
 
         public void CreateTreeNodesResDesc(List<string> resultSchema, TreeNode treeNode, int picIndex)
