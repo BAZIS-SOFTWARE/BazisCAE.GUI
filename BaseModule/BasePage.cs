@@ -619,8 +619,34 @@ namespace BaseModule
                     var crossSection = new CrossSectionControl() { Dock = DockStyle.Fill };
                     form.Controls.Add(crossSection);
 
-                    crossSection.CreatePlaneFromTextArgs += CrossSection_CreatePlane;
-                    crossSection.CreatePlaneFromNodesArgs += CrossSection_CreatePlaneFromNodesArgs;
+                    crossSection.CreatePlaneFromTextArgs += (ar1,ar2) =>
+                    {
+                        var elems3D = project.Model.ObjectData.FindMany("Элементы3D").Cast<Element3D>().ToList();
+                        var surfaces = CreateSectionSurfaces(elems3D, ar2.point1, ar2.point2, ar2.point3);
+
+                        PresentCrossSection(surfaces);
+                    };
+                    crossSection.CreatePlaneFromNodesArgs += (ar1) =>
+                    {
+                        var selObjsNumbers = sceneControl.GetSelectedObjects().ToArray();
+                        if (selObjsNumbers.Length < 3)
+                        {
+                            consoleControl.PrintInfo("Ошибка, выбрано неверное количество узлов", Color.Red);
+                            return;
+                        }
+
+                        var p0 = project.Model.ObjectData.Find(selObjsNumbers[0]);
+                        var p1 = project.Model.ObjectData.Find(selObjsNumbers[1]);
+                        var p2 = project.Model.ObjectData.Find(selObjsNumbers[2]);
+
+                        var elems3D = project.Model.ObjectData.FindMany<Element3D>().ToList();
+
+                        var surfaces = CreateSectionSurfaces(
+                            elems3D, p0.CalcCentralPoint(),
+                            p1.CalcCentralPoint(),
+                            p2.CalcCentralPoint());
+                        PresentCrossSection(surfaces);
+                    };
 
                     form.FormClosed += (ar1, ar2) =>
                     {
@@ -654,80 +680,67 @@ namespace BaseModule
 
         private void CrossSection_CreatePlaneFromNodesArgs(object arg1)
         {
-            int counter = 0;
-            ModelData modelData = new ModelData();
-            List<Node> tempNodes = new List<Node>();
-            var elems3D = project.Model.ObjectData.FindMany("Элементы3D").Cast<Element3D>().ToList();
-
             var selObjsNumbers = sceneControl.GetSelectedObjects().ToArray();
-            if (selObjsNumbers.Length != 3)
+            if (selObjsNumbers.Length < 3)
             {
                 consoleControl.PrintInfo("Ошибка, выбрано неверное количество узлов", Color.Red);
+                return;
             }
-            var p0 = (Node)project.Model.ObjectData.Find(selObjsNumbers[selObjsNumbers.Length - 3]);
-            var p1 = (Node)project.Model.ObjectData.Find(selObjsNumbers[selObjsNumbers.Length - 2]);
-            var p2 = (Node)project.Model.ObjectData.Find(selObjsNumbers[selObjsNumbers.Length - 1]);
+                
+            var p0 = project.Model.ObjectData.Find(selObjsNumbers[0]);
+            var p1 = project.Model.ObjectData.Find(selObjsNumbers[1]);
+            var p2 = project.Model.ObjectData.Find(selObjsNumbers[2]);
 
-            var plane = new Plane(p0.Position, p1.Position, p2.Position);
+            var elems3D = project.Model.ObjectData.FindMany("Элементы3D").Cast<Element3D>().ToList();
 
-            var getCrossPoints = new GetCrossPoints();
-            Dictionary<int, List<Point3D>> dic = getCrossPoints.CreateCrossNodes(elems3D, plane);
+            var surfaces = CreateSectionSurfaces(
+                elems3D, p0.CalcCentralPoint(),
+                p1.CalcCentralPoint(), 
+                p2.CalcCentralPoint());
 
-            foreach (var element in dic.Values)
-            {
-                if (element.Count > 0)
-                {
-                    for (int i = 0; i < element.Count; i++)
-                    {
-                        tempNodes.Add(new Node(counter, element[i]));
-                        tempNodes.Last().MasterColor = Color.Red;
-                        counter++;
-                    }
-                }
-            }
-            modelData.ObjectData.AddRange(tempNodes);
+            ClearAllDataOnScene();
+            var modelData = new ModelData();
+
+            foreach (var surface in surfaces)
+                modelData.ObjectData.Add(surface.Value);
+
             var presenter = new ModelScenePresentator(modelData);
             sceneControl.SetPresentor(presenter);
-            sceneControl.PlugVBObjects();
+        }
+
+        private void CrossSection_CreatePlaneFromText(object arg1, CreatePlaneFromTextArgs arg2)
+        {
+
+        }
+
+        public virtual void PresentCrossSection(Dictionary<int, Surface> surfaces)
+        {
+            ClearAllDataOnScene();
+            var modelData = new ModelData();
+
+            foreach (var surface in surfaces)
+                modelData.ObjectData.Add(surface.Value);
+
+            var presenter = new ModelScenePresentator(modelData);
+
+            var inds = presenter.CreateVBOIndexes("Поверхность");
+            var ptrs = presenter.CreateVBOPointers("Поверхность", inds.Item1);
+            var coords = presenter.CreateVBOVertexes("Поверхность", inds.Item2, "координаты");
+            var colors = presenter.CreateVBOVertexes("Поверхность", inds.Item3, "цвет");
+            var normals = presenter.CreateVBOVertexes("Поверхность", inds.Item2, "нормаль");
+            var edges = presenter.CreateVBOEdges("Поверхность", inds.Item4);
+
+            sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors,normals, edges,"crossSection");
             sceneControl.DisplayObjects();
         }
 
-        private void CrossSection_CreatePlane(object arg1, CreatePlaneFromTextArgs arg2)
+        public Dictionary<int, Surface> CreateSectionSurfaces(List<Element3D> elems3D, Point3D p0, Point3D p1, Point3D p2)
         {
-            int counter = 0;
-            List<Node> tempNodes = new List<Node>();
+            var plane = new Plane(p0, p1, p2);
 
-            var elems3D = project.Model.ObjectData.FindMany("Элементы3D").Cast<Element3D>().ToList();
-            var plane = new Plane(arg2.point1, arg2.point2,arg2.point3);
+            var sectionMaker = new ModelController.MeshObjsUtility.CrossSection();
 
-            var getCrossPoints = new GetCrossPoints();
-            Dictionary<int, List<Point3D>> dic = getCrossPoints.CreateCrossNodes(elems3D, plane);
-
-            foreach (var element in dic.Values)
-            {
-                if (element.Count > 0)
-                {
-                    for (int i = 0; i < element.Count; i++)
-                    {
-                        tempNodes.Add(new Node(counter, element[i]));
-                        tempNodes.Last().MasterColor = Color.Red;
-                        counter++;
-                    }
-                }
-            }
-            ClearAllDataOnScene();
-            ModelData modelData = new ModelData();
-
-            modelData.ObjectData.AddRange(tempNodes);
-            var presenter = new ModelScenePresentator(modelData);
-
-            sceneControl.SetPresentor(presenter);
-            sceneControl.CreateVBObjects("Узлы");
-            
-            sceneControl.PlugVBObjects();
-            sceneControl.DisplayObjects();
-            
-
+            return sectionMaker.GetSectionSurfaces(elems3D, plane);
         }
 
         private void MeasuringControl_MakeMeasureEvent(object arg1, MeasureEventArgs arg2)
