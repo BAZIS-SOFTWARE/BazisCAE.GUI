@@ -676,42 +676,7 @@ namespace BaseModule
                     }
                 }
             }
-        }
-
-        private void CrossSection_CreatePlaneFromNodesArgs(object arg1)
-        {
-            var selObjsNumbers = sceneControl.GetSelectedObjects().ToArray();
-            if (selObjsNumbers.Length < 3)
-            {
-                consoleControl.PrintInfo("Ошибка, выбрано неверное количество узлов", Color.Red);
-                return;
-            }
-                
-            var p0 = project.Model.ObjectData.Find(selObjsNumbers[0]);
-            var p1 = project.Model.ObjectData.Find(selObjsNumbers[1]);
-            var p2 = project.Model.ObjectData.Find(selObjsNumbers[2]);
-
-            var elems3D = project.Model.ObjectData.FindMany("Элементы3D").Cast<Element3D>().ToList();
-
-            var surfaces = CreateSectionSurfaces(
-                elems3D, p0.CalcCentralPoint(),
-                p1.CalcCentralPoint(), 
-                p2.CalcCentralPoint());
-
-            ClearAllDataOnScene();
-            var modelData = new ModelData();
-
-            foreach (var surface in surfaces)
-                modelData.ObjectData.Add(surface.Value);
-
-            var presenter = new ModelScenePresentator(modelData);
-            sceneControl.SetPresentor(presenter);
-        }
-
-        private void CrossSection_CreatePlaneFromText(object arg1, CreatePlaneFromTextArgs arg2)
-        {
-
-        }
+        }     
 
         public virtual void PresentCrossSection(Dictionary<int, Surface> surfaces)
         {
