@@ -30,6 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GraphCreationPage));
             this.pnlGraph = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.rbtNodes = new System.Windows.Forms.RadioButton();
+            this.label6 = new System.Windows.Forms.Label();
+            this.rbtElements = new System.Windows.Forms.RadioButton();
+            this.label3 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.btnCreatePlot = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
@@ -39,31 +45,25 @@
             this.comboBox = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.rbtPath = new System.Windows.Forms.RadioButton();
-            this.rbtTime = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
+            this.rbtTime = new System.Windows.Forms.RadioButton();
+            this.rbtPath = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.rbtNodes = new System.Windows.Forms.RadioButton();
-            this.label6 = new System.Windows.Forms.Label();
-            this.rbtElements = new System.Windows.Forms.RadioButton();
-            this.label3 = new System.Windows.Forms.Label();
             this.pnlGraph.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlGraph
             // 
             this.pnlGraph.ColumnCount = 6;
-            this.pnlGraph.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.pnlGraph.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.pnlGraph.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.pnlGraph.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.pnlGraph.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 83F));
+            this.pnlGraph.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 67F));
+            this.pnlGraph.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
+            this.pnlGraph.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79F));
             this.pnlGraph.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.pnlGraph.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.pnlGraph.Controls.Add(this.groupBox2, 0, 1);
@@ -83,11 +83,91 @@
             this.pnlGraph.Size = new System.Drawing.Size(450, 441);
             this.pnlGraph.TabIndex = 37;
             // 
+            // groupBox2
+            // 
+            this.pnlGraph.SetColumnSpan(this.groupBox2, 4);
+            this.groupBox2.Controls.Add(this.tableLayoutPanel2);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(3, 150);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(294, 141);
+            this.groupBox2.TabIndex = 51;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Тип элементов";
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 4;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.99338F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.00662F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.tableLayoutPanel2.Controls.Add(this.rbtNodes, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label6, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.rbtElements, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label3, 3, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(288, 122);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // rbtNodes
+            // 
+            this.rbtNodes.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.rbtNodes.AutoSize = true;
+            this.rbtNodes.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbtNodes.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbtNodes.Location = new System.Drawing.Point(63, 54);
+            this.rbtNodes.Margin = new System.Windows.Forms.Padding(0);
+            this.rbtNodes.Name = "rbtNodes";
+            this.rbtNodes.Size = new System.Drawing.Size(14, 13);
+            this.rbtNodes.TabIndex = 33;
+            this.rbtNodes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbtNodes.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(77, 54);
+            this.label6.Margin = new System.Windows.Forms.Padding(0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 36;
+            this.label6.Text = "Узлы";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // rbtElements
+            // 
+            this.rbtElements.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.rbtElements.AutoSize = true;
+            this.rbtElements.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbtElements.Location = new System.Drawing.Point(201, 54);
+            this.rbtElements.Margin = new System.Windows.Forms.Padding(0);
+            this.rbtElements.Name = "rbtElements";
+            this.rbtElements.Size = new System.Drawing.Size(14, 13);
+            this.rbtElements.TabIndex = 42;
+            this.rbtElements.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(215, 54);
+            this.label3.Margin = new System.Windows.Forms.Padding(0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(59, 13);
+            this.label3.TabIndex = 43;
+            this.label3.Text = "Элементы";
+            // 
             // label19
             // 
             this.label19.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(166, 361);
+            this.label19.Location = new System.Drawing.Point(157, 361);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(61, 13);
             this.label19.TabIndex = 48;
@@ -98,10 +178,10 @@
             this.btnCreatePlot.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnCreatePlot.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnCreatePlot.Image = ((System.Drawing.Image)(resources.GetObject("btnCreatePlot.Image")));
-            this.btnCreatePlot.Location = new System.Drawing.Point(252, 354);
+            this.btnCreatePlot.Location = new System.Drawing.Point(244, 351);
             this.btnCreatePlot.Margin = new System.Windows.Forms.Padding(0);
             this.btnCreatePlot.Name = "btnCreatePlot";
-            this.btnCreatePlot.Size = new System.Drawing.Size(26, 26);
+            this.btnCreatePlot.Size = new System.Drawing.Size(32, 32);
             this.btnCreatePlot.TabIndex = 31;
             this.btnCreatePlot.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCreatePlot.UseVisualStyleBackColor = true;
@@ -111,22 +191,21 @@
             // 
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(7, 361);
+            this.label16.Location = new System.Drawing.Point(26, 354);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(90, 13);
+            this.label16.Size = new System.Drawing.Size(54, 26);
             this.label16.TabIndex = 47;
             this.label16.Text = "Выбрать объект";
             // 
             // btnSelectObjs
             // 
             this.btnSelectObjs.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnSelectObjs.AutoSize = true;
             this.btnSelectObjs.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnSelectObjs.Image = ((System.Drawing.Image)(resources.GetObject("btnSelectObjs.Image")));
-            this.btnSelectObjs.Location = new System.Drawing.Point(112, 354);
+            this.btnSelectObjs.Location = new System.Drawing.Point(100, 351);
             this.btnSelectObjs.Margin = new System.Windows.Forms.Padding(0);
             this.btnSelectObjs.Name = "btnSelectObjs";
-            this.btnSelectObjs.Size = new System.Drawing.Size(26, 26);
+            this.btnSelectObjs.Size = new System.Drawing.Size(32, 32);
             this.btnSelectObjs.TabIndex = 34;
             this.btnSelectObjs.UseVisualStyleBackColor = true;
             this.btnSelectObjs.Click += new System.EventHandler(this.btnSelectObjs_Click);
@@ -186,7 +265,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 61F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 73F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.rbtTime, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.rbtPath, 2, 0);
@@ -198,6 +277,30 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(288, 122);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Location = new System.Drawing.Point(80, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 122);
+            this.label1.TabIndex = 50;
+            this.label1.Text = "Время";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // rbtTime
+            // 
+            this.rbtTime.AutoSize = true;
+            this.rbtTime.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.rbtTime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rbtTime.Location = new System.Drawing.Point(0, 0);
+            this.rbtTime.Margin = new System.Windows.Forms.Padding(0);
+            this.rbtTime.Name = "rbtTime";
+            this.rbtTime.Size = new System.Drawing.Size(77, 122);
+            this.rbtTime.TabIndex = 49;
+            this.rbtTime.UseVisualStyleBackColor = true;
+            this.rbtTime.Click += new System.EventHandler(this.rbtTime_Click);
             // 
             // rbtPath
             // 
@@ -213,30 +316,6 @@
             this.rbtPath.UseVisualStyleBackColor = true;
             this.rbtPath.Click += new System.EventHandler(this.rbtPath_Click);
             // 
-            // rbtTime
-            // 
-            this.rbtTime.AutoSize = true;
-            this.rbtTime.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rbtTime.Location = new System.Drawing.Point(0, 0);
-            this.rbtTime.Margin = new System.Windows.Forms.Padding(0);
-            this.rbtTime.Name = "rbtTime";
-            this.rbtTime.Size = new System.Drawing.Size(77, 122);
-            this.rbtTime.TabIndex = 49;
-            this.rbtTime.UseVisualStyleBackColor = true;
-            this.rbtTime.Click += new System.EventHandler(this.rbtTime_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(80, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 122);
-            this.label1.TabIndex = 50;
-            this.label1.Text = "Время";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // label2
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -248,86 +327,6 @@
             this.label2.TabIndex = 51;
             this.label2.Text = "Путь";
             // 
-            // groupBox2
-            // 
-            this.pnlGraph.SetColumnSpan(this.groupBox2, 4);
-            this.groupBox2.Controls.Add(this.tableLayoutPanel2);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(3, 150);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(294, 141);
-            this.groupBox2.TabIndex = 51;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Тип элементов";
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 4;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.99338F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.00662F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
-            this.tableLayoutPanel2.Controls.Add(this.rbtNodes, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label6, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.rbtElements, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label3, 3, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(288, 122);
-            this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // rbtNodes
-            // 
-            this.rbtNodes.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.rbtNodes.AutoSize = true;
-            this.rbtNodes.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtNodes.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtNodes.Location = new System.Drawing.Point(63, 54);
-            this.rbtNodes.Margin = new System.Windows.Forms.Padding(0);
-            this.rbtNodes.Name = "rbtNodes";
-            this.rbtNodes.Size = new System.Drawing.Size(14, 13);
-            this.rbtNodes.TabIndex = 33;
-            this.rbtNodes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtNodes.UseVisualStyleBackColor = true;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(77, 54);
-            this.label6.Margin = new System.Windows.Forms.Padding(0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
-            this.label6.TabIndex = 36;
-            this.label6.Text = "Узлы";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // rbtElements
-            // 
-            this.rbtElements.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.rbtElements.AutoSize = true;
-            this.rbtElements.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtElements.Location = new System.Drawing.Point(202, 54);
-            this.rbtElements.Margin = new System.Windows.Forms.Padding(0);
-            this.rbtElements.Name = "rbtElements";
-            this.rbtElements.Size = new System.Drawing.Size(14, 13);
-            this.rbtElements.TabIndex = 42;
-            this.rbtElements.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(216, 54);
-            this.label3.Margin = new System.Windows.Forms.Padding(0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 13);
-            this.label3.TabIndex = 43;
-            this.label3.Text = "Элементы";
-            // 
             // GraphCreationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -337,13 +336,13 @@
             this.Size = new System.Drawing.Size(450, 441);
             this.pnlGraph.ResumeLayout(false);
             this.pnlGraph.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }

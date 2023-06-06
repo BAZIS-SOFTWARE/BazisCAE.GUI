@@ -33,8 +33,8 @@
             this.rbtElements = new System.Windows.Forms.RadioButton();
             this.chbChangeDirection = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.txbAngle = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnSelect = new System.Windows.Forms.Button();
             this.rbtInPlain = new System.Windows.Forms.RadioButton();
             this.rbtInDirection = new System.Windows.Forms.RadioButton();
@@ -97,6 +97,16 @@
             this.panel1.Size = new System.Drawing.Size(304, 124);
             this.panel1.TabIndex = 9;
             // 
+            // txbAngle
+            // 
+            this.txbAngle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbAngle.Location = new System.Drawing.Point(64, 26);
+            this.txbAngle.Margin = new System.Windows.Forms.Padding(3, 15, 15, 3);
+            this.txbAngle.Name = "txbAngle";
+            this.txbAngle.Size = new System.Drawing.Size(217, 20);
+            this.txbAngle.TabIndex = 6;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -106,25 +116,14 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "Угол";
             // 
-            // txbAngle
-            // 
-            this.txbAngle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbAngle.Location = new System.Drawing.Point(64, 26);
-            this.txbAngle.Margin = new System.Windows.Forms.Padding(3, 15, 15, 3);
-            this.txbAngle.Name = "txbAngle";
-            this.txbAngle.Size = new System.Drawing.Size(217, 20);
-            this.txbAngle.TabIndex = 6;
-            // 
             // btnSelect
             // 
             this.btnSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelect.AutoSize = true;
             this.btnSelect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnSelect.Image = ((System.Drawing.Image)(resources.GetObject("btnSelect.Image")));
             this.btnSelect.Location = new System.Drawing.Point(243, 62);
             this.btnSelect.Name = "btnSelect";
-            this.btnSelect.Size = new System.Drawing.Size(38, 38);
+            this.btnSelect.Size = new System.Drawing.Size(32, 32);
             this.btnSelect.TabIndex = 3;
             this.btnSelect.UseVisualStyleBackColor = true;
             this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);

@@ -327,10 +327,10 @@ namespace ModelModule
         private void ShowAllObjects_Click(object sender, EventArgs e)
         {
             foreach (var obj in Project.Model.ObjectData)
-            {
                 obj.ViewState = true;
-            }
-            PresentAllModelObjectsOnScene();
+
+            foreach (var objsName in SceneControl.GetVBObjsName())
+                ShowVBObjects(objsName);
             SceneControl.DisplayObjects();
         }
 
@@ -354,7 +354,7 @@ namespace ModelModule
             foreach (var number in group.ObjsNumbers)
                 Project.Model.ObjectData.Find(number).ViewState = true;
 
-            ViewStateObjects(TreeView.SelectedNode.Name);
+            PresentModelObjectsOnScene(TreeView.SelectedNode.Name);
             SceneControl.DisplayObjects();
         }
 
@@ -365,7 +365,7 @@ namespace ModelModule
             foreach (var number in group.ObjsNumbers)
                 Project.Model.ObjectData.Find(number).ViewState = false;
 
-            ViewStateObjects(TreeView.SelectedNode.Name);
+            PresentModelObjectsOnScene(TreeView.SelectedNode.Name);
             SceneControl.DisplayObjects();
         }
 
@@ -375,7 +375,7 @@ namespace ModelModule
             foreach (var modelObject in modelObjects)
                 modelObject.ViewState = true;
 
-            ViewStateObjects(TreeView.SelectedNode.Name);
+            ShowVBObjects(TreeView.SelectedNode.Name);
             SceneControl.DisplayObjects();
         }
 
@@ -385,18 +385,18 @@ namespace ModelModule
             foreach (var modelObject in modelObjects)
                 modelObject.ViewState = false;
 
-            ViewStateObjects(TreeView.SelectedNode.Name);
+            HideVBOjects(TreeView.SelectedNode.Name);
             SceneControl.DisplayObjects();
         }
 
         private void HideAllObjects_Click(object sender, EventArgs e)
         {
             foreach (var obj in Project.Model.ObjectData)
-            {
                 obj.ViewState = false;
-            }
 
-            PresentAllModelObjectsOnScene();
+            foreach (var objsName in SceneControl.GetVBObjsName())
+                HideVBOjects(objsName);
+
             SceneControl.DisplayObjects();
         }
 

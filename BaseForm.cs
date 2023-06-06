@@ -191,7 +191,7 @@ namespace BaseForm
                         {
                             serverConnection.RequestServer(moduleName + " Работа");
                         }
-                        Thread.Sleep(5000);
+                        Thread.Sleep(3000);
                     }
 
                 }

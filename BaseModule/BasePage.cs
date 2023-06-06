@@ -224,10 +224,10 @@ namespace BaseModule
             lblInputCmd.Text = message;
         }
 
-        public void ViewStateObjects(string objsType)
+        public void ShowVBObjects(string objsName)
         {
             sceneControl.UnPlugVBObjects();
-            sceneControl.ChangeViewStateVBObjects(objsType); 
+            sceneControl.ShowVBObjects(objsName); 
             sceneControl.PlugVBObjects();
         }
 
@@ -468,6 +468,33 @@ namespace BaseModule
             sceneControl.DeleteAllVBObjects();
         }
 
+        public void HideAllDataOnScene()
+        {
+            sceneControl.UnPlugVBObjects();
+            sceneControl.UnPlugGeometryObjs();
+            sceneControl.UnPlugDisplayText3D();
+
+            foreach (var objName in sceneControl.GetVBObjsName())
+                sceneControl.HideVBObjects(objName);           
+        }
+
+        public void HideVBOjects(string objName)
+        {
+            sceneControl.UnPlugVBObjects();
+            sceneControl.HideVBObjects(objName);
+            sceneControl.PlugVBObjects();
+        }
+
+        public void ShowAllDataOnScene()
+        {
+            sceneControl.UnPlugVBObjects();
+            sceneControl.UnPlugGeometryObjs();
+            sceneControl.UnPlugDisplayText3D();
+
+            foreach (var objName in sceneControl.GetVBObjsName())
+                sceneControl.ShowVBObjects(objName);
+        }
+
         private void SelectToolStrip_SelectObjectEvent(object arg1, SelectObjectEventArgs arg2)
         {
             sceneControl.SelectedObjectsName = arg2.ObjsType;
@@ -621,36 +648,57 @@ namespace BaseModule
 
                     crossSection.CreatePlaneFromTextArgs += (ar1,ar2) =>
                     {
-                        var elems3D = project.Model.ObjectData.FindMany("Элементы3D").Cast<Element3D>().ToList();
-                        var surfaces = CreateSectionSurfaces(elems3D, ar2.point1, ar2.point2, ar2.point3);
+                        try
+                        {
+                            var elems3D = project.Model.ObjectData.FindMany("Элементы3D").Cast<Element3D>().ToList();
+                            var surfaces = CreateSectionSurfaces(elems3D, ar2.point1, ar2.point2, ar2.point3);
 
-                        PresentCrossSection(surfaces);
+                            PresentCrossSection(surfaces, "crossSection");
+
+                        }
+                        catch (Exception ex)
+                        {
+                            ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                        }
                     };
                     crossSection.CreatePlaneFromNodesArgs += (ar1) =>
                     {
-                        var selObjsNumbers = sceneControl.GetSelectedObjects().ToArray();
-                        if (selObjsNumbers.Length < 3)
+                        try
                         {
-                            consoleControl.PrintInfo("Ошибка, выбрано неверное количество узлов", Color.Red);
-                            return;
+                            var selObjsNumbers = sceneControl.GetSelectedObjects().ToArray();
+                            if (selObjsNumbers.Length < 3)
+                            {
+                                consoleControl.PrintInfo("Ошибка, выбрано неверное количество узлов", Color.Red);
+                                return;
+                            }
+
+                            var p0 = project.Model.ObjectData.Find(selObjsNumbers[0]);
+                            var p1 = project.Model.ObjectData.Find(selObjsNumbers[1]);
+                            var p2 = project.Model.ObjectData.Find(selObjsNumbers[2]);
+
+                            var elems3D = project.Model.ObjectData.FindMany<Element3D>().ToList();
+
+                            var surfaces = CreateSectionSurfaces(
+                                elems3D, p0.CalcCentralPoint(),
+                                p1.CalcCentralPoint(),
+                                p2.CalcCentralPoint());
+                            PresentCrossSection(surfaces, "crossSection");
+
                         }
-
-                        var p0 = project.Model.ObjectData.Find(selObjsNumbers[0]);
-                        var p1 = project.Model.ObjectData.Find(selObjsNumbers[1]);
-                        var p2 = project.Model.ObjectData.Find(selObjsNumbers[2]);
-
-                        var elems3D = project.Model.ObjectData.FindMany<Element3D>().ToList();
-
-                        var surfaces = CreateSectionSurfaces(
-                            elems3D, p0.CalcCentralPoint(),
-                            p1.CalcCentralPoint(),
-                            p2.CalcCentralPoint());
-                        PresentCrossSection(surfaces);
+                        catch (Exception ex)
+                        {
+                            ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                        }
                     };
 
                     form.FormClosed += (ar1, ar2) =>
                     {
-                        //if (crossSection.Show)
+                        SceneControl.UnPlugVBObjects();
+                        SceneControl.DeleteVBObjects("crossSection");
+
+                        SceneControl.PlugVBObjects();
+
+                        PresentAllModelObjectsOnScene();
                     };
 
                     form.Show();
@@ -678,7 +726,7 @@ namespace BaseModule
             }
         }     
 
-        public virtual void PresentCrossSection(Dictionary<int, Surface> surfaces)
+        public virtual void PresentCrossSection(Dictionary<int, Surface> surfaces, string name)
         {
             ClearAllDataOnScene();
             var modelData = new ModelData();
@@ -695,7 +743,9 @@ namespace BaseModule
             var normals = presenter.CreateVBOVertexes("Поверхность", inds.Item2, "нормаль");
             var edges = presenter.CreateVBOEdges("Поверхность", inds.Item4);
 
-            sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors,normals, edges,"crossSection");
+            sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors,normals, edges, name);
+            SceneControl.UnPlugVBObjects();
+            SceneControl.PlugVBObjects();
             sceneControl.DisplayObjects();
         }
 
@@ -894,7 +944,7 @@ namespace BaseModule
                 {
                     sceneControl.UnPlugVBObjects();
 
-                    foreach (var objsType in sceneControl.GetVBObjsTypes())
+                    foreach (var objsType in sceneControl.GetVBObjsName())
                         if (objsType != "Узлы")
                             sceneControl.ChangeViewModeVBObjects(objsType, Scene.VBO.ObjView.LinesSurface);
 
@@ -905,7 +955,7 @@ namespace BaseModule
                 {
                     sceneControl.UnPlugVBObjects();
 
-                    foreach (var objsType in sceneControl.GetVBObjsTypes())
+                    foreach (var objsType in sceneControl.GetVBObjsName())
                         if (objsType != "Узлы")
                             sceneControl.ChangeViewModeVBObjects(objsType, Scene.VBO.ObjView.Lines);
 
@@ -916,7 +966,7 @@ namespace BaseModule
                 {
                     sceneControl.UnPlugVBObjects();
 
-                    foreach (var objsType in sceneControl.GetVBObjsTypes())
+                    foreach (var objsType in sceneControl.GetVBObjsName())
                         if (objsType != "Узлы")
                             sceneControl.ChangeViewModeVBObjects(objsType, Scene.VBO.ObjView.Surface);
 
