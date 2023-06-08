@@ -63,7 +63,7 @@ namespace BaseForm
             {
                 var iPAddress = IPAddress.Parse(net.Split(':')[0]);
                 var port = int.Parse(net.Split(':')[1]);
-                MessageBox.Show($"Адресс подключения: {iPAddress}, порт: {port}");
+
                 serverConnection = new ConnectionController.Controller(iPAddress, port);
             }
             else
@@ -107,7 +107,7 @@ namespace BaseForm
 
         private void AddModule(string moduleName)
         {
-            DisconnectWithServer();
+            DisconnectWithServer(true);
 
             toolStripContainer.ContentPanel.Controls.RemoveByKey(activePage);
 
@@ -189,14 +189,20 @@ namespace BaseForm
                     {
                         lock (serverConnection)
                         {
-                            serverConnection.RequestServer(moduleName + " Работа");
+                            var answer = serverConnection.RequestServer(moduleName + " Работа");
+                            if(answer == "Остановка")
+                            {
+                                DisconnectWithServer(false);
+                                MessageBox.Show("Внимание! Лицензирование прервано. Зайдите в модуль заново.");
+                            }    
+                                
                         }
                         Thread.Sleep(3000);
                     }
 
                 }
                 catch (Exception ex)
-                {
+                {                   
                     if (ex is ThreadAbortException != true)
                     {
                         MessageBox.Show(ex.Message);
@@ -209,7 +215,7 @@ namespace BaseForm
 
         }
 
-        private void DisconnectWithServer()
+        private void DisconnectWithServer(bool revertLicense)
         {
             if (serverConnectionThread != null)
             {
@@ -221,7 +227,8 @@ namespace BaseForm
                         break;
                 }
 
-                serverConnection.RequestServer(activePage + " Отдать");
+                if(revertLicense)
+                    serverConnection.RequestServer(activePage + " Отдать");
             }
         }
 
@@ -305,11 +312,17 @@ namespace BaseForm
             {
                 var answer = serverConnection.RequestServer("CheckLicenseInfo");
                 var licInfo = JsonConvert.DeserializeObject<LicenseInfo>(answer);
+                
+                if(licInfo != null)
+                {
+                    control.KeysInfo = string.Empty;
 
-                foreach (var keyInfo in licInfo)
-                    control.KeysInfo += $"{keyInfo}\n";
+                foreach (var key in licInfo.Keys)
+                        control.KeysInfo += $"{key}\n";
 
-                control.OwnerInfo = licInfo.CompanyName;
+                    control.OwnerInfo = licInfo.Company;
+                }
+                control.AdressInfo = $"{serverConnection.IPAddress} : {serverConnection.Port}";
             }
             catch (Exception ex)
             {

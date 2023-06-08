@@ -167,21 +167,27 @@ namespace BaseModule
             // 
             this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView.Indent = 19;
+            this.treeView.ItemHeight = 18;
             this.treeView.Location = new System.Drawing.Point(0, 15);
             this.treeView.Name = "treeView";
             treeNode1.ImageIndex = 0;
             treeNode1.Name = "названиеПроекта";
             treeNode1.SelectedImageIndex = 0;
+            treeNode1.Tag = "0";
             treeNode1.Text = "Название проекта :";
             treeNode2.ImageIndex = 0;
             treeNode2.Name = "путь";
             treeNode2.SelectedImageIndex = 0;
+            treeNode2.Tag = "1";
             treeNode2.Text = "Путь :";
             treeNode3.ImageIndex = 0;
             treeNode3.Name = "сведения";
             treeNode3.SelectedImageIndex = 0;
+            treeNode3.Tag = "2";
             treeNode3.Text = "Сведения :";
             treeNode4.Name = "вид";
+            treeNode4.Tag = "3";
             treeNode4.Text = "Вид :";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,

@@ -155,5 +155,10 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Arc_new.png" />
+    <EmbeddedResource Include="FSW_new.jpg" />
+    <EmbeddedResource Include="LW.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

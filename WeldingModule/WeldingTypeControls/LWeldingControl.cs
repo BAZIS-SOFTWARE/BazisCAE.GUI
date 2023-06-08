@@ -43,7 +43,7 @@ namespace WeldingModule.WeldingTypeControls
 
         private void btnInfo_Click(object sender, EventArgs e)
         {
-            CreatePictureBox("AdvisorControls.Resources.LW.png", new Point(Width / 2, btnInfo.Location.Y));            
+            CreatePictureBox("WeldingModule.LW.png", new Point(Width / 2, btnInfo.Location.Y));            
         }
     }
     

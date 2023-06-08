@@ -25,12 +25,12 @@ namespace ModelModule
         private int nodesObjsIndex = 3;
         private int elementsObjsIndex = 4;
 
+
         public ModelPage()
         {
             InitializeComponent();
 
-            TreeView.ImageList = treeNodesImageList;
-
+            TreeView.ImageList = treeNodesImageList_16x16;
             ProjectInfoIndex = 2;
             CollapseIndex = 0;
             ExpandIndex = 1;
@@ -171,8 +171,8 @@ namespace ModelModule
 
         public void SetModelObjsInfo()
         {
-
             TreeView.BeginUpdate();
+
             TreeView.Nodes["объекты"].Expand();
 
             TreeView.Nodes["объекты"].Nodes.Clear();
@@ -180,7 +180,6 @@ namespace ModelModule
                 CreateNewObjectsNode(objInfo);
 
             TreeView.EndUpdate();
-
         }
 
         public void SetModelGroupInfo()
@@ -191,7 +190,7 @@ namespace ModelModule
             TreeView.Nodes["группыОбъектов"].Nodes.Clear();
 
             foreach (var grInfo in GetGroupsInfo())
-                CreateNewModelGroupNode(grInfo);
+                CreateNewGroupNode(grInfo);
 
             TreeView.EndUpdate();
         }
@@ -204,15 +203,16 @@ namespace ModelModule
                 Name = objInfo.Key,
                 Text = string.Format("{0} : {1}", objInfo.Key, objInfo.Value.Count),
 
-                ImageIndex = imgDict[objInfo.Key],
-                SelectedImageIndex = imgDict[objInfo.Key],
-                Tag = "3.1"
+                ImageIndex = imgDict[objInfo.Key] == 3 ? 5 : 6,
+                SelectedImageIndex = imgDict[objInfo.Key] == 3 ? 5 : 6,               
+     
+                Tag = "4.1"
             };
 
             TreeView.Nodes["объекты"].Nodes.Add(trNode);
         }
 
-        private void CreateNewModelGroupNode(KeyValuePair<string, string> grInfo)
+        private void CreateNewGroupNode(KeyValuePair<string, string> grInfo)
         {
             var trNode = new TreeNode()
             {
@@ -220,7 +220,7 @@ namespace ModelModule
                 Name = grInfo.Value,
                 ImageIndex = imgDict[grInfo.Value],
                 SelectedImageIndex = imgDict[grInfo.Value],
-                Tag = "4.1"
+                Tag = "5.1"
             };
             TreeView.Nodes["группыОбъектов"].Nodes.Add(trNode);
 
@@ -252,7 +252,7 @@ namespace ModelModule
             }
             else
             {
-                if (e.Node.Tag.ToString() == "4.1")
+                if (e.Node.Tag.ToString() == "5.1")
                     SelectGroup(e.Node.Text);
             }
             TreeView.SelectedNode = e.Node;
@@ -369,21 +369,29 @@ namespace ModelModule
             SceneControl.DisplayObjects();
         }
 
-        private void ShowObjects_Click(object sender, EventArgs e)
+        public void ShowObjects_Click(object sender, EventArgs e)
         {
             var modelObjects = Project.Model.ObjectData.FindMany(TreeView.SelectedNode.Name);
             foreach (var modelObject in modelObjects)
                 modelObject.ViewState = true;
 
+            PresentModelObjectsOnScene(TreeView.SelectedNode.Name);
+            SceneControl.DisplayObjects();
+        }
+
+        private void SwitchOnObjects_Click(object sender, EventArgs e)
+        {
+            TreeView.SelectedNode.ImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
+            TreeView.SelectedNode.SelectedImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
+            
             ShowVBObjects(TreeView.SelectedNode.Name);
             SceneControl.DisplayObjects();
         }
 
-        private void HideObjects_Click(object sender, EventArgs e)
+        private void SwitchOffObjects_Click(object sender, EventArgs e)
         {
-            var modelObjects = Project.Model.ObjectData.FindMany(TreeView.SelectedNode.Name);
-            foreach (var modelObject in modelObjects)
-                modelObject.ViewState = false;
+            TreeView.SelectedNode.ImageIndex = imgDict[TreeView.SelectedNode.Name];
+            TreeView.SelectedNode.SelectedImageIndex = imgDict[TreeView.SelectedNode.Name];
 
             HideVBOjects(TreeView.SelectedNode.Name);
             SceneControl.DisplayObjects();
@@ -479,7 +487,7 @@ namespace ModelModule
         {
             Project.Model.ObjectData.RemoveRange(objsType);
 
-            var searchGroups = Project.Model.GroupData.FindMany(objsType);
+            var searchGroups = Project.Model.GroupData.FindMany(objsType).ToArray();
 
             foreach (var searchGroup in searchGroups)
             {
@@ -523,14 +531,14 @@ namespace ModelModule
             SceneControl.ChangeColorsVBObjects(group.ObjType);
             SceneControl.DisplayObjects();
 
-            var actConfirm = new Func<bool>(() =>
+            var actConfirm = new Func<Tuple<bool,object>>(() =>
             {
                 if (SceneControl.GetSelectedObjects().Count() == 0)
                 {
                     Invoke(new Action(() => {
                         ConsoleControl.PrintInfo("Не выбран ни один объект!", Color.Black);
                     }));
-                    return false;
+                    return new Tuple<bool, object>(false, new object());
                 }
                 else
                 {
@@ -541,7 +549,7 @@ namespace ModelModule
                         ConsoleControl.PrintInfo("Группа изменена успешно", Color.Green);
                         PrintCommand("");
                     }));
-                    return true;
+                    return new Tuple<bool, object>(true, new object());
                 }
             });
 
@@ -588,7 +596,7 @@ namespace ModelModule
                 ImageIndex = CollapseIndex,
                 SelectedImageIndex = CollapseIndex,
                 ContextMenuStrip = objects_MenuStrip,
-                Tag = "3"
+                Tag = "4"
             };
             TreeView.Nodes.Add(objsNode);
             var objGrpsNode = new TreeNode()
@@ -598,7 +606,7 @@ namespace ModelModule
                 ImageIndex = CollapseIndex,
                 SelectedImageIndex = CollapseIndex,
                 ContextMenuStrip = objects_MenuStrip,
-                Tag = "4"
+                Tag = "5"
             };
             TreeView.Nodes.Add(objGrpsNode);
 

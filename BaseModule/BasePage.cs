@@ -693,9 +693,11 @@ namespace BaseModule
 
                     form.FormClosed += (ar1, ar2) =>
                     {
+                        btn.Checked = false;
+                        lblInputCmd.Text = "";
+
                         SceneControl.UnPlugVBObjects();
                         SceneControl.DeleteVBObjects("crossSection");
-
                         SceneControl.PlugVBObjects();
 
                         PresentAllModelObjectsOnScene();
@@ -758,48 +760,151 @@ namespace BaseModule
             return sectionMaker.GetSectionSurfaces(elems3D, plane);
         }
 
-        private void MeasuringControl_MakeMeasureEvent(object arg1, MeasureEventArgs arg2)
+        private async void MeasuringControl_MakeMeasureEvent(object arg1, MeasureEventArgs arg2)
         {
-            var selObjsNumbers = sceneControl.GetSelectedObjects().ToArray();
-            switch (arg2.Kind)
+            try
             {
-                case MeasureKind.DistanceNodeToNode:
-
-                    if (selObjsNumbers.Length > 1)
-                    {
-                        var p0 = (Node)project.Model.ObjectData.Find(selObjsNumbers[selObjsNumbers.Length - 2]);
-                        var p1 = (Node)project.Model.ObjectData.Find(selObjsNumbers[selObjsNumbers.Length - 1]);
-                        var line = new Line(p0.Position, p1.Position);
-                        sceneControl.CreateDistance(line);
-                        sceneControl.DisplayObjects();
-                    }
-                    else consoleControl.PrintInfo("Узлы не выбраны", Color.Red);
-                    break;
-                case MeasureKind.DistanceNodeToPlane:
-                    break;
-                case MeasureKind.Path:
-                    break;
-                case MeasureKind.Square:
-                    var square = 0.0f;
-                    foreach (var selObjsNumber in selObjsNumbers)
-                    {
-                        var sObj = (ISurfaceObject)project.Model.ObjectData.Find(selObjsNumber);
-                        square += sObj.GetSurface().First().CalcSquare();
-                    }
-                    consoleControl.PrintInfo(string.Format("Площадь : {0}", square), Color.Black);
-                    break;
-                case MeasureKind.Volume:
-                    var vol = 0.0f;
-                    foreach (var selObjsNumber in selObjsNumbers)
-                    {
-                        var e3DObj = (IElement3D)project.Model.ObjectData.Find(selObjsNumber);
-                        vol += e3DObj.CalcVolume();
-                    }
-                    consoleControl.PrintInfo(string.Format("Объем : {0}", vol), Color.Black);
-                    break;
-                default:
-                    break;
+                switch (arg2.Kind)
+                {
+                    case MeasureKind.DistanceNodeToNode:
+                        {
+                            var selObjsNumbers = sceneControl.GetSelectedObjects();
+                            if (selObjsNumbers.Count() > 1)
+                            {
+                                var nodes = selObjsNumbers.Select(x => (Node)project.Model.ObjectData.Find(x));
+                                var p0 = nodes.First();
+                                var p1 = nodes.Last();
+                                var line = new Line(p0.Position, p1.Position);
+                                sceneControl.CreateDistance(line);
+                                sceneControl.DisplayObjects();
+                            }
+                            else consoleControl.PrintInfo("Узлы не выбраны", Color.Red);
+                            break;
+                        }
+                    case MeasureKind.DistanceNodeToPlane:
+                        {
+                            PressedKey = Keys.None;
+                            var plane = CreateSurfaceAsync();
+                            await plane;
+                            var node = SelectNodeAsync();
+                            await node;
+                            var calcDistance = new CalcDistance();
+                            var line = calcDistance.DistanceBetweenPlaneAndNode(plane.Result, node.Result);
+                            SceneControl.CreateDistance(line);
+                            SceneControl.DisplayObjects();
+                            break;
+                        }
+                    case MeasureKind.Path:
+                        break;
+                    case MeasureKind.Square:
+                        var square = 0.0f;
+                        foreach (var selObjsNumber in sceneControl.GetSelectedObjects())
+                        {
+                            var sObj = (ISurfaceObject)project.Model.ObjectData.Find(selObjsNumber);
+                            square += sObj.GetSurface().First().CalcSquare();
+                        }
+                        consoleControl.PrintInfo(string.Format("Площадь : {0}", square), Color.Black);
+                        break;
+                    case MeasureKind.Volume:
+                        var vol = 0.0f;
+                        foreach (var selObjsNumber in sceneControl.GetSelectedObjects())
+                        {
+                            var e3DObj = (IElement3D)project.Model.ObjectData.Find(selObjsNumber);
+                            vol += e3DObj.CalcVolume();
+                        }
+                        consoleControl.PrintInfo(string.Format("Объем : {0}", vol), Color.Black);
+                        break;
+                    default:
+                        break;
+                }
             }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
+        }
+
+        private async Task<Node> SelectNodeAsync()
+        {
+            var actBreak = new Action(() =>
+            {
+                Invoke(new Action(() =>
+                {
+                    ConsoleControl.PrintInfo("Операция отменена", Color.Black);
+                    PrintCommand("");
+                }));
+            });
+
+            var message = "Выберите узел и нажмите на кнопку Enter или нажмите кнопку ESC";
+
+            var actPointConfirm = new Func<Tuple<bool, object>>(() =>
+            {
+                var selObjsNumbers = sceneControl.GetSelectedObjects();
+                if (selObjsNumbers.Count() == 0)
+                {
+                    Invoke(new Action(() =>
+                    {
+                        ConsoleControl.PrintInfo("Не выбран ни один узел!", Color.Orange);
+                    }));
+                    return new Tuple<bool, object>(false, new object());
+                }
+                else
+                {
+                    var node = project.Model.ObjectData.Find(selObjsNumbers.First());
+                    Invoke(new Action(() =>
+                    {
+                        ConsoleControl.PrintInfo($"Выбран узел {node.Number}", Color.Green);
+                        PrintCommand("");
+                    }));
+                    return new Tuple<bool, object>(true, node);
+                }
+            });
+
+            var pointAwait = AsyncMethodContainer(actPointConfirm, actBreak, message);
+            await pointAwait;
+            return (Node)pointAwait.Result;
+        }
+
+        private async Task<Plane> CreateSurfaceAsync()
+        {
+            var actBreak = new Action(() =>
+            {
+                Invoke(new Action(() =>
+                {
+                    ConsoleControl.PrintInfo("Операция отменена", Color.Black);
+                    PrintCommand("");
+                }));
+            });
+            var message = "Задайте поверхность, выбрав три узла, и нажмите на кнопку Enter или нажмите кнопку ESC";
+            var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
+            {
+                var selObjsNumbers = sceneControl.GetSelectedObjects().ToArray();
+                if (SceneControl.GetSelectedObjects().Count() < 3)
+                {
+                    Invoke(new Action(() =>
+                    {
+                        ConsoleControl.PrintInfo("Выберите три узла!", Color.Orange);
+                    }));
+                    return new Tuple<bool, object>(false, new object());
+                }
+                else
+                {
+                    var p0 = project.Model.ObjectData.Find(selObjsNumbers[0]);
+                    var p1 = project.Model.ObjectData.Find(selObjsNumbers[1]);
+                    var p2 = project.Model.ObjectData.Find(selObjsNumbers[2]);
+
+                    var plane = new Plane(p0.CalcCentralPoint(), p1.CalcCentralPoint(), p2.CalcCentralPoint());
+                    Invoke(new Action(() =>
+                    {
+                        ConsoleControl.PrintInfo("Задана плоскость", Color.Green);
+                        PrintCommand("");
+                    }));
+                    return new Tuple<bool, object>(true, plane);
+                }
+            });
+            var surfaceAwait = AsyncMethodContainer(actSurfaceConfirm, actBreak, message);
+            await surfaceAwait;
+            return (Plane)surfaceAwait.Result;
         }
 
         private void MeasuringControl_PreparingMeasureEvent(object arg1, MeasureEventArgs arg2)
@@ -813,17 +918,18 @@ namespace BaseModule
             {
                 case MeasureKind.DistanceNodeToNode:
                     selectToolStrip.SelectObjectsType = "Узлы";
-                    lblInputCmd.Text = "Выберите два узла...";
+                    lblInputCmd.Text = "Выберите два узла";
                     break;
                 case MeasureKind.DistanceNodeToPlane:
+                    lblInputCmd.Text = "Создайте поверхность и выберите узел";
                     break;
                 case MeasureKind.Path:
                     selectToolStrip.SelectObjectsType = "Узлы";
-                    lblInputCmd.Text = "Выберите узлы...";
+                    lblInputCmd.Text = "Выберите узлы";
                     break;
                 case MeasureKind.Square:
                     selectToolStrip.SelectObjectsType = "Элементы2D";
-                    lblInputCmd.Text = "Выберите элементы 2D или поверхности...";
+                    lblInputCmd.Text = "Выберите элементы 2D или поверхности";
                     break;
                 case MeasureKind.Volume:
                     selectToolStrip.SelectObjectsType = "Элементы3D";
@@ -989,8 +1095,10 @@ namespace BaseModule
             action.Invoke(process, new EventArgs());
         }
 
-        public async Task AsyncMethodContainer(Func<bool> actConfirm, Action actBreak, string cmdMessage)
+        public async Task<object> AsyncMethodContainer(Func<Tuple<bool,object>> actConfirm, Action actBreak, string cmdMessage)
         {
+            var resObject = new object();
+ 
             Invoke(new Action(() => { lblInputCmd.Text = cmdMessage; }));
             await System.Threading.Tasks.Task.Run(() =>
             {
@@ -998,8 +1106,9 @@ namespace BaseModule
                 {
                     if (PressedKey == Keys.Enter)
                     {
-                        var res = actConfirm.Invoke();
-                        if (res)
+                        var resAction = actConfirm.Invoke();
+                        if (resAction.Item1)
+                            resObject = resAction.Item2;
                             break;
                     }
                     if (PressedKey == Keys.Escape)
@@ -1010,6 +1119,7 @@ namespace BaseModule
                 }
                 PressedKey = Keys.None;
             });
+            return resObject;
         }
 
         public virtual void sceneControl_CreateMeshGroupEvent(object arg1, Scene.Events.CreateGroupEventArgs arg2)

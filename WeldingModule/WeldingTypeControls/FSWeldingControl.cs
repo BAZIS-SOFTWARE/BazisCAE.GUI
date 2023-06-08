@@ -61,7 +61,7 @@ namespace WeldingModule.WeldingTypeControls
 
         private void btnInfo_Click(object sender, EventArgs e)
         {
-            CreatePictureBox("AdvisorControls.Resources.FSW_new.jpg", new Point(Width / 2, btnInfo.Location.Y));           
+            CreatePictureBox("WeldingModule.FSW_new.jpg", new Point(Width / 2, btnInfo.Location.Y));           
         }
     }
 }

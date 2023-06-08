@@ -21,7 +21,7 @@ namespace BaseModule
             {
                 if (cmbMeasureObjects.SelectedIndex == 0)
                     measureKind = MeasureKind.DistanceNodeToNode;
-                else measureKind = MeasureKind.DistanceNodeToNode;
+                else measureKind = MeasureKind.DistanceNodeToPlane;
             }
             else if (rbtVolume.Checked)
                 measureKind = MeasureKind.Volume;
