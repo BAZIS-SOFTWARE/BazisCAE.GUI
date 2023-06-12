@@ -116,7 +116,6 @@
             0,
             0,
             0});
-            this.upd_YCoord.ValueChanged += new System.EventHandler(this.upd_YCoord_ValueChanged);
             this.upd_YCoord.Leave += new System.EventHandler(this.upd_YCoord_Leave);
             // 
             // label4
@@ -159,8 +158,7 @@
             0,
             0,
             0});
-            this.upd_XCoord.ValueChanged += new System.EventHandler(this.upd_XCoord_ValueChanged);
-            this.upd_XCoord.VisibleChanged += new System.EventHandler(this.upd_XCoord_ValueChanged);
+            this.upd_XCoord.Leave += new System.EventHandler(this.upd_XCoord_Leave);
             // 
             // updIntervals
             // 
@@ -185,7 +183,7 @@
             0,
             0,
             0});
-            this.updIntervals.ValueChanged += new System.EventHandler(this.updIntervals_ValueChanged);
+            this.updIntervals.Leave += new System.EventHandler(this.updIntervals_Leave);
             // 
             // label9
             // 
@@ -280,7 +278,7 @@
             0,
             0,
             0});
-            this.updPrecision.ValueChanged += new System.EventHandler(this.updPrecision_ValueChanged);
+            this.updPrecision.Leave += new System.EventHandler(this.updPrecision_Leave);
             // 
             // ScalePage
             // 

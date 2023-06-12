@@ -326,11 +326,13 @@ namespace ModelModule
 
         private void ShowAllObjects_Click(object sender, EventArgs e)
         {
-            foreach (var obj in Project.Model.ObjectData)
-                obj.ViewState = true;
-
             foreach (var objsName in SceneControl.GetVBObjsName())
+            {
                 ShowVBObjects(objsName);
+                TreeView.Nodes[4].Nodes[objsName].ImageIndex = imgDict[objsName] == 3 ? 5 : 6;
+                TreeView.Nodes[4].Nodes[objsName].SelectedImageIndex = imgDict[objsName] == 3 ? 5 : 6;
+            }
+
             SceneControl.DisplayObjects();
         }
 
@@ -342,6 +344,9 @@ namespace ModelModule
                 {
                     Project.Model.ObjectData.Find(objNumber).ViewState = true;
                 }
+
+                TreeView.Nodes[4].Nodes[TreeView.SelectedNode.Name].ImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
+                TreeView.Nodes[4].Nodes[TreeView.SelectedNode.Name].SelectedImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
             }
             PresentAllModelObjectsOnScene();
             SceneControl.DisplayObjects();
@@ -355,6 +360,10 @@ namespace ModelModule
                 Project.Model.ObjectData.Find(number).ViewState = true;
 
             PresentModelObjectsOnScene(TreeView.SelectedNode.Name);
+
+            TreeView.Nodes[4].Nodes[TreeView.SelectedNode.Name].ImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
+            TreeView.Nodes[4].Nodes[TreeView.SelectedNode.Name].SelectedImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
+
             SceneControl.DisplayObjects();
         }
 
@@ -376,6 +385,10 @@ namespace ModelModule
                 modelObject.ViewState = true;
 
             PresentModelObjectsOnScene(TreeView.SelectedNode.Name);
+
+            TreeView.SelectedNode.ImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
+            TreeView.SelectedNode.SelectedImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
+
             SceneControl.DisplayObjects();
         }
 
@@ -399,11 +412,13 @@ namespace ModelModule
 
         private void HideAllObjects_Click(object sender, EventArgs e)
         {
-            foreach (var obj in Project.Model.ObjectData)
-                obj.ViewState = false;
-
             foreach (var objsName in SceneControl.GetVBObjsName())
+            {
+                TreeView.Nodes[4].Nodes[objsName].ImageIndex = imgDict[objsName];
+                TreeView.Nodes[4].Nodes[objsName].SelectedImageIndex = imgDict[objsName];
+
                 HideVBOjects(objsName);
+            }
 
             SceneControl.DisplayObjects();
         }

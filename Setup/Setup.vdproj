@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_0072FFC4654140ABB42744F8BDC19C6B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_0F4752E57F554FFCE2AA233AAD559FE3"
         "OwnerKey" = "8:_70DC38AD9BC97B8B978A019A708E0552"
         "MsmSig" = "8:_UNDEFINED"
@@ -82,6 +88,12 @@
         "Entry"
         {
         "MsmKey" = "8:_12B2ABCAC9BB43A290167F06046DE76E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_17404E9D0AE546CEAD4E704CEDB4D6D6"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -225,7 +237,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_36496BEECE6846DC8627C6958184D8BF"
+        "MsmKey" = "8:_3702A48A7DB2402C83E8C54612AF37E7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -525,8 +537,20 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_9DDB1FDCEA02479DA1831810F250DFF2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_9F27BAA4C94E4E2097840202AFE93C06"
         "OwnerKey" = "8:_BF4D7BBFFA9E4DA99F69DE33F9EE8C44"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A0B8C9C4A3044C28B0EE98B3B43F8A15"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -747,6 +771,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_D26BED4D692849579458C8C0E2306D0F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D5B7A25E6BD248039AE150F78B607D1A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_DB2CF8E71441E15041B4F3B4E057DCF9"
         "OwnerKey" = "8:_70DC38AD9BC97B8B978A019A708E0552"
         "MsmSig" = "8:_UNDEFINED"
@@ -755,6 +791,12 @@
         {
         "MsmKey" = "8:_DB2CF8E71441E15041B4F3B4E057DCF9"
         "OwnerKey" = "8:_BF4D7BBFFA9E4DA99F69DE33F9EE8C44"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E69BEF0C4A504E5A94DC83D5B0CA1E97"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -809,6 +851,12 @@
         {
         "MsmKey" = "8:_F906653BBE7E805FE300CF5AF855DC6B"
         "OwnerKey" = "8:_AC168D527DE6C889B65C6ED23291D414"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FCD35C96C4F242718BD1D32117AB8CDE"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1109,7 +1157,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\Setup.msi"
+        "OutputFilename" = "8:Release\\GUISetup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -1164,11 +1212,31 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0072FFC4654140ABB42744F8BDC19C6B"
+            {
+            "SourcePath" = "8:..\\Help\\ПО Bazis. Руководство пользователя.chm"
+            "TargetName" = "8:ПО Bazis. Руководство пользователя.chm"
+            "Tag" = "8:"
+            "Folder" = "8:_D038A6EC588A4A65BAB327E0DFC39BC8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0F4752E57F554FFCE2AA233AAD559FE3"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Geometry, Version=2.0.3.30, Culture=neutral, PublicKeyToken=cadb58b3f6b10f0c, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Geometry, Version=2.0.5.30, Culture=neutral, PublicKeyToken=cadb58b3f6b10f0c, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_0F4752E57F554FFCE2AA233AAD559FE3"
@@ -1246,6 +1314,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_17404E9D0AE546CEAD4E704CEDB4D6D6"
+            {
+            "SourcePath" = "8:C:\\BazisComponents\\Ico\\IconShort_16.ico"
+            "TargetName" = "8:IconShort_16.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_21863DFB28A6766D32CDA32704E80D4C"
             {
             "AssemblyRegister" = "3:1"
@@ -1253,11 +1341,6 @@
             "AssemblyAsmDisplayName" = "8:ModelController, Version=1.0.9.30, Culture=neutral, PublicKeyToken=2804256ee81d4535, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_21863DFB28A6766D32CDA32704E80D4C"
-                    {
-                    "Name" = "8:ModelController.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ModelController.dll"
             "TargetName" = "8:"
@@ -1494,12 +1577,12 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_36496BEECE6846DC8627C6958184D8BF"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3702A48A7DB2402C83E8C54612AF37E7"
             {
-            "SourcePath" = "8:..\\IcomShort_16.ico"
-            "TargetName" = "8:IcomShort_16.ico"
+            "SourcePath" = "8:C:\\BazisComponents\\ProjectSolution\\Examples\\3D\\TestProjTerm\\overlapJoint\\overlap.bpf"
+            "TargetName" = "8:overlap.bpf"
             "Tag" = "8:"
-            "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
+            "Folder" = "8:_12BD942E39274BECB67AD70DECAE0F08"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1753,7 +1836,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:SceneInterface, Version=1.0.3.20, Culture=neutral, PublicKeyToken=f4632fed43ef5153, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:SceneInterface, Version=1.0.3.50, Culture=neutral, PublicKeyToken=f4632fed43ef5153, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_5B79448AC9D3EA054D276AEA7C0E1D63"
@@ -1908,7 +1991,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DataBases, Version=1.0.1.50, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DataBases, Version=1.0.1.60, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_718CA4C525B28D7A012F4B1C729CA336"
@@ -2055,11 +2138,6 @@
             "AssemblyAsmDisplayName" = "8:Model, Version=1.0.7.10, Culture=neutral, PublicKeyToken=2804256ee81d4535, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_89314ED6EDC21D4A7D3BDB4D4227AAD8"
-                    {
-                    "Name" = "8:Model.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Model.dll"
             "TargetName" = "8:"
@@ -2130,6 +2208,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9DDB1FDCEA02479DA1831810F250DFF2"
+            {
+            "SourcePath" = "8:C:\\BazisComponents\\ProjectSolution\\Examples\\3D\\TestProjTernMech\\tjoint\\functions.txt"
+            "TargetName" = "8:functions.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_A62766B7958A4FEBA8AAC2CA0BE61C93"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9F27BAA4C94E4E2097840202AFE93C06"
             {
             "AssemblyRegister" = "3:1"
@@ -2159,6 +2257,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A0B8C9C4A3044C28B0EE98B3B43F8A15"
+            {
+            "SourcePath" = "8:C:\\BazisComponents\\Ico\\IconShort_32.ico"
+            "TargetName" = "8:IconShort_32.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A914B2080B145A73A6B0EFA57D2BA9B0"
@@ -2267,7 +2385,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Scene, Version=2.0.4.10, Culture=neutral, PublicKeyToken=19779f7b74b7d539, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Scene, Version=2.0.4.70, Culture=neutral, PublicKeyToken=19779f7b74b7d539, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_B5485452D28D8FCCDE1CB1CA95EAF315"
@@ -2453,7 +2571,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Graph, Version=1.0.1.20, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Graph, Version=1.0.1.30, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_CFF4005D41370299D5C3707D7CF5F76E"
@@ -2480,6 +2598,46 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D26BED4D692849579458C8C0E2306D0F"
+            {
+            "SourcePath" = "8:C:\\BazisComponents\\ProjectSolution\\Examples\\3D\\TestProjTerm\\overlapJoint\\functions.txt"
+            "TargetName" = "8:functions.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_12BD942E39274BECB67AD70DECAE0F08"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D5B7A25E6BD248039AE150F78B607D1A"
+            {
+            "SourcePath" = "8:C:\\BazisComponents\\ProjectSolution\\Examples\\3D\\TestProjTernMech\\tjoint\\tjoint.bpf"
+            "TargetName" = "8:tjoint.bpf"
+            "Tag" = "8:"
+            "Folder" = "8:_A62766B7958A4FEBA8AAC2CA0BE61C93"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DB2CF8E71441E15041B4F3B4E057DCF9"
             {
             "AssemblyRegister" = "3:1"
@@ -2487,11 +2645,6 @@
             "AssemblyAsmDisplayName" = "8:ModelParcer, Version=1.0.2.20, Culture=neutral, PublicKeyToken=2804256ee81d4535, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_DB2CF8E71441E15041B4F3B4E057DCF9"
-                    {
-                    "Name" = "8:ModelParcer.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ModelParcer.dll"
             "TargetName" = "8:"
@@ -2509,6 +2662,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E69BEF0C4A504E5A94DC83D5B0CA1E97"
+            {
+            "SourcePath" = "8:C:\\BazisComponents\\ProjectSolution\\Examples\\3D\\TestProjTernMech\\tjoint\\materials.txt"
+            "TargetName" = "8:materials.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_A62766B7958A4FEBA8AAC2CA0BE61C93"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EB36C003A8C74573AAB9A10C8040F396"
@@ -2549,11 +2722,6 @@
             "AssemblyAsmDisplayName" = "8:Project, Version=1.0.5.10, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_EF1CDE093B351C501A0D18156C0535A1"
-                    {
-                    "Name" = "8:Project.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Project.dll"
             "TargetName" = "8:"
@@ -2635,6 +2803,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FCD35C96C4F242718BD1D32117AB8CDE"
+            {
+            "SourcePath" = "8:C:\\BazisComponents\\ProjectSolution\\Examples\\3D\\TestProjTerm\\overlapJoint\\materials.txt"
+            "TargetName" = "8:materials.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_12BD942E39274BECB67AD70DECAE0F08"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -2671,6 +2859,50 @@
                     "Property" = "8:_62F248B4BD0843069632E15772B89B7D"
                         "Folders"
                         {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_22ECE833999F48B3B7218D2D30DFA884"
+                    {
+                    "Name" = "8:Project"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_203D20B6E65740A4BD38AF0D05C7C3A1"
+                        "Folders"
+                        {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_A80E3BAF3DCB4C60A6F0A6351C26C9C2"
+                            {
+                            "Name" = "8:Examples"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_68B9B1903DC94F6EAEAA928F3EFE9CA9"
+                                "Folders"
+                                {
+                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_12BD942E39274BECB67AD70DECAE0F08"
+                                    {
+                                    "Name" = "8:Thermal"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "Property" = "8:_06B6A0D3AFA3459DBA64D46CC0E33837"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
+                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_A62766B7958A4FEBA8AAC2CA0BE61C93"
+                                    {
+                                    "Name" = "8:ThermalMechanical"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "Property" = "8:_C8B013634CC04B64AC98A7A7B9AA9175"
+                                        "Folders"
+                                        {
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_82A90498F81743969E2D1E23673AE515"
@@ -2717,6 +2949,17 @@
                             }
                         }
                     }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_D038A6EC588A4A65BAB327E0DFC39BC8"
+                    {
+                    "Name" = "8:Help"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_EFA8947EB0CE45029253A8C1A37EB1C5"
+                        "Folders"
+                        {
+                        }
+                    }
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_D1E434C130BE42E1AEE8D65AF0642946"
                     {
                     "Name" = "8:Functions"
@@ -2756,16 +2999,16 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:BazisPrePost4.2.15"
-        "ProductCode" = "8:{7E0871D8-DA66-4275-9C56-E5CF172D18CC}"
-        "PackageCode" = "8:{8A5CBF80-0010-4E18-8425-691642B2F482}"
+        "ProductName" = "8:BazisPrePost4.2.16"
+        "ProductCode" = "8:{6F25BFA5-AE4B-478F-8B80-690E2568FB7E}"
+        "PackageCode" = "8:{C52287B0-95AD-4734-81A8-35A3D225374F}"
         "UpgradeCode" = "8:{EC70CA7D-5269-48C2-8303-35B88678576C}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:4.2.15"
+        "ProductVersion" = "8:4.2.16"
         "Manufacturer" = "8:BazisSoftware"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://bazisnet.ru"
@@ -2775,7 +3018,7 @@
         "Keywords" = "8:Bazis"
         "ARPCOMMENTS" = "8:Windows x64"
         "ARPURLINFOABOUT" = "8:https://bazisnet.ru"
-        "ARPPRODUCTICON" = "8:_36496BEECE6846DC8627C6958184D8BF"
+        "ARPPRODUCTICON" = "8:_17404E9D0AE546CEAD4E704CEDB4D6D6"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -2880,7 +3123,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_30B1B53970ED4091B5F5D849A518ED00"
             {
-            "Name" = "8:Bazis_4.2.15"
+            "Name" = "8:Bazis_4.2.16"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -2889,12 +3132,12 @@
             "Target" = "8:_BF4D7BBFFA9E4DA99F69DE33F9EE8C44"
             "Folder" = "8:_DC43988AE86A49B58196946504894CA1"
             "WorkingFolder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
-            "Icon" = "8:_36496BEECE6846DC8627C6958184D8BF"
+            "Icon" = "8:_17404E9D0AE546CEAD4E704CEDB4D6D6"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_EE6F751DA23A4CF5969C52EF2802C287"
             {
-            "Name" = "8:Bazis_4.2.15"
+            "Name" = "8:Bazis_4.2.16"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -2903,12 +3146,12 @@
             "Target" = "8:_BF4D7BBFFA9E4DA99F69DE33F9EE8C44"
             "Folder" = "8:_79C2669022E649E4972582DACECCA7EE"
             "WorkingFolder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
-            "Icon" = "8:_36496BEECE6846DC8627C6958184D8BF"
+            "Icon" = "8:_A0B8C9C4A3044C28B0EE98B3B43F8A15"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_FC8E2AC25DC147CD85F38DD70A5EF02D"
             {
-            "Name" = "8:Bazis_4.2.15"
+            "Name" = "8:Bazis_4.2.16"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -2917,7 +3160,7 @@
             "Target" = "8:_BF4D7BBFFA9E4DA99F69DE33F9EE8C44"
             "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
             "WorkingFolder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
-            "Icon" = "8:_36496BEECE6846DC8627C6958184D8BF"
+            "Icon" = "8:_A0B8C9C4A3044C28B0EE98B3B43F8A15"
             "Feature" = "8:"
             }
         }

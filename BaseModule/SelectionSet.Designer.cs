@@ -106,6 +106,7 @@
             this.txbAngle.Name = "txbAngle";
             this.txbAngle.Size = new System.Drawing.Size(217, 20);
             this.txbAngle.TabIndex = 6;
+            this.txbAngle.Text = "5";
             // 
             // label1
             // 

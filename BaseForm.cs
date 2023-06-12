@@ -36,7 +36,9 @@ namespace BaseForm
         SettingsConfig settingsConfig = new SettingsConfig()
         {
             BackGroudColor = Color.White,
-            SelectionColor = Color.GreenYellow
+            SelectionColor = Color.GreenYellow,
+            Transparency = true,
+            Lighting = true
         };
 
         EventHandler openProjectEventHandler = null;
@@ -236,6 +238,8 @@ namespace BaseForm
         {
             module.SceneBackGroundColor = settingsConfig.BackGroudColor;
             module.SceneSelectionColor = settingsConfig.SelectionColor;
+            module.SceneTransparency = settingsConfig.Transparency;
+            module.SceneLighting = settingsConfig.Lighting;
         }
 
         private void SingMenuItemsEvents(BasePage module)
@@ -369,6 +373,8 @@ namespace BaseForm
                 settingsConfig.BackGroudColor = ar.BackGroudColor;
                 settingsConfig.SelectionColor = ar.SelectionColor;
                 settingsConfig.SolverPath = ar.SolverPath;
+                settingsConfig.Lighting = ar.Lighting;
+                settingsConfig.Transparency = ar.Transparency;
 
                 var controls = toolStripContainer.ContentPanel.Controls.Find(activePage, false);
 
@@ -377,6 +383,8 @@ namespace BaseForm
                     var basePage = (BasePage)controls[0];
                     basePage.SceneBackGroundColor = ar.BackGroudColor;
                     basePage.SceneSelectionColor = ar.SelectionColor;
+                    basePage.SceneTransparency = ar.Transparency;
+                    basePage.SceneLighting = ar.Lighting;
 
                     if (basePage is TaskPage taskPage)
                         taskPage.SolverPath = ar.SolverPath;

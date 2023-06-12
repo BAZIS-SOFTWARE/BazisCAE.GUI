@@ -28,8 +28,8 @@ namespace WeldingModule
             if (!arg2.Status)
             {
                 var taskAdv = new WeldingAdvisor() { Dock = DockStyle.Fill, Name = "Сварка" };
-
-                CreateAdvisor(taskAdv);
+                var icon = WeldingModule.Properties.Resources.Welding;
+                CreateAdvisor(taskAdv, icon);
             }
             else DeleteAdvisor();
         }
@@ -58,7 +58,11 @@ namespace WeldingModule
                 taskAdv = new WeldingAdvisor() { Dock = DockStyle.Fill, Name = "Сварка" };
 
                 if (weldingMenuItem.Checked)
-                    CreateAdvisor(taskAdv);
+                {
+                    var icon = WeldingModule.Properties.Resources.Welding;
+                    CreateAdvisor(taskAdv, icon);
+                }
+
                 else DeleteAdvisor();
             };
 

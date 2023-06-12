@@ -24,6 +24,38 @@ namespace ResultModule
             InitializeComponent();
         }
 
+        public float Max
+        {
+            set { txbMax.Text = value.ToString(); }
+        }
+
+        public float Min
+        {
+            set { txbMin.Text = value.ToString(); }
+        }
+
+        public decimal Intervals
+        {
+            set { updIntervals.Value = value; }
+        }
+
+        public decimal Precision
+        {
+            set { updPrecision.Value = value; }
+        }
+
+        public int X_Coord
+        {
+            set { upd_XCoord.Value = value; }
+        }
+
+        public int Y_Coord
+        {
+            set { upd_YCoord.Value = value; }
+        }
+
+
+
         private void chbShowScale_Click(object sender, EventArgs e)
         {
             if(chbShowScale.Checked)
@@ -42,8 +74,10 @@ namespace ResultModule
             }
             else
             {
-                if(chbShowScale.Checked)
-                    SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
+                SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
+                
+                if (chbShowScale.Checked)
+                    ShowScaleEvent(this, true);
             }
 
         }
@@ -58,49 +92,44 @@ namespace ResultModule
             }
             else
             {
+                SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
+
                 if (chbShowScale.Checked)
-                    SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
+                    ShowScaleEvent(this, true);
             }
 
+        }     
+
+        private void updPrecision_Leave(object sender, EventArgs e)
+        {
+            SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
+
+            if (chbShowScale.Checked)
+                ShowScaleEvent(this, true);
+        }
+
+        private void updIntervals_Leave(object sender, EventArgs e)
+        {
+            SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
+
+            if (chbShowScale.Checked)
+                ShowScaleEvent(this, true);
+        }
+
+        private void upd_XCoord_Leave(object sender, EventArgs e)
+        {
+            SetX_PositionEvent(this, upd_XCoord.Value);
+
+            if (chbShowScale.Checked)
+                ShowScaleEvent(this, true);
         }
 
         private void upd_YCoord_Leave(object sender, EventArgs e)
         {
-            var res = 0;
-            if (!int.TryParse(upd_YCoord.Text, out res))
-            {
-                MessageBox.Show("Некорректный ввод!");
-                upd_YCoord.Text = "0";
-            }
-            else
-            {
-                if (chbShowScale.Checked)
-                    SetY_PositionEvent(this, res);
-            }
-        }
+            SetY_PositionEvent(this, upd_YCoord.Value);
 
-        private void updPrecision_ValueChanged(object sender, EventArgs e)
-        {
             if (chbShowScale.Checked)
-                SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
-        }
-
-        private void updIntervals_ValueChanged(object sender, EventArgs e)
-        {
-            if (chbShowScale.Checked)
-                SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
-        }
-
-        private void upd_XCoord_ValueChanged(object sender, EventArgs e)
-        {
-            if (chbShowScale.Checked)
-                SetX_PositionEvent(this, upd_XCoord.Value);
-        }
-
-        private void upd_YCoord_ValueChanged(object sender, EventArgs e)
-        {
-            if (chbShowScale.Checked)
-                SetY_PositionEvent(this, upd_YCoord.Value);
+                ShowScaleEvent(this, true);
         }
     }
 }

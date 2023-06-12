@@ -40,6 +40,10 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.button2 = new System.Windows.Forms.Button();
             this.lblSolverPath = new System.Windows.Forms.Label();
+            this.chbTransparency = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.chbLighting = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -64,7 +68,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(300, 163);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(300, 219);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox1
@@ -76,7 +80,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(294, 75);
+            this.groupBox1.Size = new System.Drawing.Size(294, 131);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Настройки сцены";
@@ -87,18 +91,24 @@
             this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.44296F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.55705F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.55704F));
+            this.tableLayoutPanel2.Controls.Add(this.chbLighting, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.label2, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.panelBackGroundColor, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.btnBackGroundColor, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.btnSelectColor, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panelSelectionColor, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.chbTransparency, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowCount = 4;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(288, 56);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(288, 112);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // panelBackGroundColor
@@ -112,7 +122,6 @@
             // 
             // btnBackGroundColor
             // 
-            this.btnBackGroundColor.AutoEllipsis = true;
             this.btnBackGroundColor.AutoSize = true;
             this.btnBackGroundColor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnBackGroundColor.Location = new System.Drawing.Point(3, 31);
@@ -126,7 +135,6 @@
             // 
             // btnSelectColor
             // 
-            this.btnSelectColor.AutoEllipsis = true;
             this.btnSelectColor.AutoSize = true;
             this.btnSelectColor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSelectColor.Location = new System.Drawing.Point(3, 3);
@@ -150,7 +158,7 @@
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(201, 138);
+            this.button1.Location = new System.Drawing.Point(201, 194);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(96, 22);
             this.button1.TabIndex = 1;
@@ -165,7 +173,7 @@
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox2, 2);
             this.groupBox2.Controls.Add(this.tableLayoutPanel3);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(3, 84);
+            this.groupBox2.Location = new System.Drawing.Point(3, 140);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(294, 48);
             this.groupBox2.TabIndex = 2;
@@ -212,6 +220,46 @@
             this.lblSolverPath.TabIndex = 6;
             this.lblSolverPath.Text = "?";
             // 
+            // chbTransparency
+            // 
+            this.chbTransparency.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.chbTransparency.AutoSize = true;
+            this.chbTransparency.Location = new System.Drawing.Point(232, 63);
+            this.chbTransparency.Name = "chbTransparency";
+            this.chbTransparency.Size = new System.Drawing.Size(15, 14);
+            this.chbTransparency.TabIndex = 5;
+            this.chbTransparency.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(56, 63);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(79, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Прозрачность";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(62, 91);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(66, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Освещение";
+            // 
+            // chbLighting
+            // 
+            this.chbLighting.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.chbLighting.AutoSize = true;
+            this.chbLighting.Location = new System.Drawing.Point(232, 91);
+            this.chbLighting.Name = "chbLighting";
+            this.chbLighting.Size = new System.Drawing.Size(15, 14);
+            this.chbLighting.TabIndex = 8;
+            this.chbLighting.UseVisualStyleBackColor = true;
+            // 
             // SettingsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,7 +269,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.MaximumSize = new System.Drawing.Size(300, 0);
             this.Name = "SettingsControl";
-            this.Size = new System.Drawing.Size(300, 163);
+            this.Size = new System.Drawing.Size(300, 219);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -251,5 +299,9 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label lblSolverPath;
+        private System.Windows.Forms.CheckBox chbLighting;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox chbTransparency;
+        private System.Windows.Forms.Label label1;
     }
 }

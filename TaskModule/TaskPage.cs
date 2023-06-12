@@ -161,9 +161,12 @@ namespace TaskModule
             Icon icon;
             Stream iconStream;
             var assembly = Assembly.GetExecutingAssembly();
+
+    
+
             if (pageName == "materials")
             {
-                name = "База материалов";
+                name = "База материалов";                
                 iconStream = assembly.GetManifestResourceStream("TaskModule.Материалы.ico");
             }
 
@@ -186,7 +189,7 @@ namespace TaskModule
             activeTask = "";
         }
 
-        public void CreateAdvisor(TaskAdvisor taskAdv)
+        public void CreateAdvisor(TaskAdvisor taskAdv, Icon icon)
         {
             if (activeTask != "")
             {
@@ -200,7 +203,7 @@ namespace TaskModule
             else
             {
                 activeTask = taskAdv.Name;
-                var form = new Form() { Text = activeTask, Name = activeTask, TopMost = true, Size = taskAdv.Size };
+                var form = new Form() { Text = activeTask, Name = activeTask, TopMost = true, Size = taskAdv.Size,Icon = icon };
                 form.FormClosed += (ar1, ar2) =>
                 {
                     if (ar2.CloseReason == CloseReason.UserClosing)
@@ -227,6 +230,7 @@ namespace TaskModule
                 taskAdv.ShowDataEvent += TaskAdvisor_ShowDataEvent;
                 taskAdv.ChangeDataEvent += TaskAdvisor_ChangeDataEvent;
                 taskAdv.StartComputationEvent += TaskAdvisor_StartComputationEvent;
+                taskAdv.StopComputationEvent += TaskAdv_StopComputationEvent;
                 taskAdv.Select2DAxiEvent += TaskAdvisor_ChangeTaskTypeEvent;
                 taskAdv.Select2DPlaneEvent += TaskAdvisor_ChangeTaskTypeEvent;
                 taskAdv.Select3DEvent += TaskAdvisor_ChangeTaskTypeEvent;
@@ -274,6 +278,26 @@ namespace TaskModule
                 taskAdv.SetProjectData(Project);
 
                 PresentProjectTaskDataOnAdvisor(activeTask);
+            }
+        }
+
+        private void TaskAdv_StopComputationEvent(object arg1, EventArgs arg2)
+        {
+            var runProc = Process.GetProcessesByName("BazisSolver");
+
+            if (runProc.Length != 0)
+            {
+                var process = new Process();
+                var startInfo = new ProcessStartInfo
+                {
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    FileName = "cmd.exe",
+                    //Arguments = $"/C sc stop BazisSolver",
+                    Arguments = $"/C taskkill /pid {runProc[0].Id} /f",
+                    Verb = "runas"
+                };
+                process.StartInfo = startInfo;
+                process.Start();
             }
         }
 
@@ -462,7 +486,7 @@ namespace TaskModule
                     else if (data[index].Kind == DataKind.Clamp | data[index].Kind == DataKind.Load)
                         modelObj.MasterColor = Color.FromArgb(255, 0, 0);
                     else if (data[index].Kind == DataKind.Heat)
-                        modelObj.MasterColor = Color.FromArgb(155, 255, 0);
+                        modelObj.MasterColor = Color.FromArgb(125,155, 255, 0);
 
                     if (data[index].Direction != "*")
                         DisplayDirection(data[index].StartTime, data[index], modelObj);
@@ -581,7 +605,7 @@ namespace TaskModule
                         else if (data.Kind == DataKind.Clamp | data.Kind == DataKind.Load)
                             modelObj.MasterColor = Color.FromArgb(255, 0, 0);
                         else if (data.Kind == DataKind.Heat)
-                            modelObj.MasterColor = Color.FromArgb(155, 255, 0);
+                            modelObj.MasterColor = Color.FromArgb(125,155, 255, 0);
 
                         //PresentProjectTaskDataOnScene(arg2.Time, data, modelObj);
                         if (data.Direction != "*")

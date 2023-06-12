@@ -78,14 +78,14 @@
             // 
             this.скрытьОбъектMenuItem.Name = "скрытьОбъектMenuItem";
             this.скрытьОбъектMenuItem.Size = new System.Drawing.Size(145, 22);
-            this.скрытьОбъектMenuItem.Text = "Скрыть";
+            this.скрытьОбъектMenuItem.Text = "Погасить";
             this.скрытьОбъектMenuItem.Click += new System.EventHandler(this.SwitchOffObjects_Click);
             // 
             // показатьОбъектMenuItem
             // 
             this.показатьОбъектMenuItem.Name = "показатьОбъектMenuItem";
             this.показатьОбъектMenuItem.Size = new System.Drawing.Size(145, 22);
-            this.показатьОбъектMenuItem.Text = "Показать";
+            this.показатьОбъектMenuItem.Text = "Отобразить";
             this.показатьОбъектMenuItem.Click += new System.EventHandler(this.SwitchOnObjects_Click);
             // 
             // object_MenuStrip
@@ -115,15 +115,15 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(124, 22);
-            this.toolStripMenuItem2.Text = "Скрыть";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(138, 22);
+            this.toolStripMenuItem2.Text = "Погасить";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.HideAllObjects_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(124, 22);
-            this.toolStripMenuItem3.Text = "Показать";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(138, 22);
+            this.toolStripMenuItem3.Text = "Отобразить";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.ShowAllObjects_Click);
             // 
             // objects_MenuStrip
@@ -133,7 +133,7 @@
             this.toolStripMenuItem2,
             this.toolStripMenuItem3});
             this.objects_MenuStrip.Name = "lv0_MenuStrip";
-            this.objects_MenuStrip.Size = new System.Drawing.Size(125, 70);
+            this.objects_MenuStrip.Size = new System.Drawing.Size(139, 70);
             // 
             // toolStripMenuItem10
             // 

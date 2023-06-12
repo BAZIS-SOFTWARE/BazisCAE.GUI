@@ -17,24 +17,29 @@ namespace BaseModule
 
         private void Rbtn_Click(object sender, EventArgs e)
         {
-            if (rbtnDistance.Checked)
-            {
-                if (cmbMeasureObjects.SelectedIndex == 0)
-                    measureKind = MeasureKind.DistanceNodeToNode;
-                else measureKind = MeasureKind.DistanceNodeToPlane;
-            }
-            else if (rbtVolume.Checked)
+            if (rbtVolume.Checked)
                 measureKind = MeasureKind.Volume;
             else if (rbtSquare.Checked)
                 measureKind = MeasureKind.Square;
-            else measureKind = MeasureKind.Path;
-
-            PreparingMeasureEvent(this, new MeasureEventArgs(measureKind));
+            else if (rbtnPath.Checked)
+                measureKind = MeasureKind.Path;
+            else measureKind = MeasureKind.None;
+                PreparingMeasureEvent(this, new MeasureEventArgs(measureKind));
         }
 
         private void btnMeasure_Click(object sender, EventArgs e)
         {
             MakeMeasureEvent(this, new MeasureEventArgs(measureKind));
+        }
+
+        private void cmbMeasureObjects_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbMeasureObjects.SelectedIndex == 0)
+                measureKind = MeasureKind.DistanceNodeToNode;
+            else if (cmbMeasureObjects.SelectedIndex == 1)
+                measureKind = MeasureKind.DistanceNodeToPlane;           
+
+            PreparingMeasureEvent(this, new MeasureEventArgs(measureKind));
         }
     }
 }

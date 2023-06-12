@@ -21,6 +21,8 @@ namespace BazisGUI.SettingsControl
             panelBackGroundColor.BackColor = settingsConfig.BackGroudColor;
             panelSelectionColor.BackColor = settingsConfig.SelectionColor;
             lblSolverPath.Text = settingsConfig.SolverPath;
+            chbLighting.Checked = settingsConfig.Lighting;
+            chbTransparency.Checked = settingsConfig.Transparency;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -30,7 +32,9 @@ namespace BazisGUI.SettingsControl
             {
                 BackGroudColor = panelBackGroundColor.BackColor,
                 SelectionColor = panelSelectionColor.BackColor,
-                SolverPath = lblSolverPath.Text
+                SolverPath = lblSolverPath.Text,
+                Lighting = chbLighting.Checked,
+                Transparency = chbTransparency.Checked
             };
 
             

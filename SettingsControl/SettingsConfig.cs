@@ -10,5 +10,7 @@ namespace BazisGUI.SettingsControl
         public Color SelectionColor;
         public Color BackGroudColor;
         public string SolverPath;
+        public bool Lighting;
+        public bool Transparency;
     }
 }

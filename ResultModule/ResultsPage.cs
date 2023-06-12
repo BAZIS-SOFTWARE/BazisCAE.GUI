@@ -17,6 +17,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using ToolStrips;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 //using static System.Net.Mime.MediaTypeNames;
 using Image = System.Drawing.Image;
 
@@ -42,11 +43,7 @@ namespace ResultModule
 
             TreeView.ImageList = treeNodesImageList;
 
-            scale = new RainbowScale(4, 1, 0, 10)
-            {
-                Coord_X = 70,
-                Coord_Y = 140
-            };
+            scale = new RainbowScale(1, 0, 10);
 
             ProjectInfoIndex = 2;
             CollapseIndex = 0;
@@ -178,13 +175,19 @@ namespace ResultModule
         private void ShowScale()
         {
             scPage = new ScalePage() { Dock = DockStyle.Fill };
+
+            scPage.Max = scale.MaxValue;
+            scPage.Min = scale.MinValue;
+
+            scPage.Precision = scale.Precision;
+
+            scPage.X_Coord = scale.Coord_X;
+            scPage.Y_Coord = scale.Coord_Y;
+
             scPage.SetScaleSetting += (ar1, ar2) =>
             {
-                scale.FillRange(ar2.Precision, ar2.Max, ar2.Min, ar2.Range);
-
-                CreateScale();
-                SceneControl.DisplayObjects();
-
+                scale.Precision = ar2.Precision;
+                scale.FillRange(ar2.Max, ar2.Min, ar2.Range);
             };
             scPage.ShowScaleEvent += (ar1, ar2) =>
             {
@@ -203,21 +206,12 @@ namespace ResultModule
             scPage.SetX_PositionEvent += (ar1, ar2) =>
             {
                 scale.Coord_X = (int)ar2;
-
-                CreateScale();
-                SceneControl.DisplayObjects();
-
-                SceneControl.DisplayObjects();
             };
             scPage.SetY_PositionEvent += (ar1, ar2) =>
             {
                 scale.Coord_Y = (int)ar2;
-
-                CreateScale();
-                SceneControl.DisplayObjects();
-
             };
-
+            
             var icon = ResultModule.Properties.Resources.Scale;
             var scForm = new Form() { TopMost = true, Icon = icon, Size = scPage.Size, Name = "Scale", Text = "Шкала значений" };
             scForm.FormClosed += (ar1, ar2) => 

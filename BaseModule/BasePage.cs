@@ -19,9 +19,9 @@ using Scene.Events;
 using System.Diagnostics;
 using BaseModule.Console;
 using BaseModule.CrossSection;
-using ModelParcer;
 using ModelController.ModelScenePresentator;
 using Project.IO;
+using Model.ModelParcer;
 
 namespace BaseModule
 {
@@ -120,6 +120,15 @@ namespace BaseModule
             {
                 return consoleControl;
             }
+        }
+
+        public bool SceneTransparency 
+        {
+            set { sceneControl.IsBlending = value; }
+        }
+        public bool SceneLighting
+        {
+            set { sceneControl.IsLighting = value; }
         }
 
         public IEnumerable<ToolStripMenuItem> GetToolStripMenuItems()
@@ -550,34 +559,42 @@ namespace BaseModule
 
         private void SelectionControl_SelectInPlain(object arg1, SelectInPlainEventArgs arg2)
         {
-            var selector = new SelectionHelper(project.Model.ObjectData);
-
-            var objs = sceneControl.GetSelectedObjects().ToArray();
-            var selectToolStrip = FindToolStrip<SelectToolStrip>();
-
-            if (selectToolStrip.SelectObjectsType == "Узлы")
+            try
             {
-                if (objs.Length > 2)
-                {
-                    var n1 = (Node)project.Model.ObjectData.Find(objs[0]);
-                    var n2 = (Node)project.Model.ObjectData.Find(objs[1]);
-                    var n3 = (Node)project.Model.ObjectData.Find(objs[2]);
+                var selector = new SelectionHelper(project.Model.ObjectData);
 
-                    var plane = new Plane(n1.Position, n2.Position, n3.Position);
-                    selector.SelectInPlane<Node>(plane, sceneControl.SelectionColor);
+                var objs = sceneControl.GetSelectedObjects().ToArray();
+                var selectToolStrip = FindToolStrip<SelectToolStrip>();
+
+                if (selectToolStrip.SelectObjectsType == "Узлы")
+                {
+                    if (objs.Length > 2)
+                    {
+                        var n1 = (Node)project.Model.ObjectData.Find(objs[0]);
+                        var n2 = (Node)project.Model.ObjectData.Find(objs[1]);
+                        var n3 = (Node)project.Model.ObjectData.Find(objs[2]);
+
+                        var plane = new Plane(n1.Position, n2.Position, n3.Position);
+                        selector.SelectInPlane<Node>(plane, sceneControl.SelectionColor);
+                    }
                 }
+                else
+                {
+                    if (objs.Length > 0)
+                    {
+                        var element = project.Model.ObjectData.Find(objs.Last());
+                        selector.SelectInPlane<Element2D>(arg2.Angle, element.Number, sceneControl.SelectionColor);
+                    }
+                }
+                sceneControl.ChangeColorsVBObjects(sceneControl.SelectedObjectsName);
+
+                sceneControl.DisplayObjects();
+
             }
-            else
+            catch (Exception ex)
             {
-                if (objs.Length > 0)
-                {
-                    var element = project.Model.ObjectData.Find(objs.Last());
-                    selector.SelectInPlane<Element2D>(arg2.Angle, element.Number, sceneControl.SelectionColor);
-                }
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
-            sceneControl.ChangeColorsVBObjects(sceneControl.SelectedObjectsName);
-
-            sceneControl.DisplayObjects();
 
         }
 
@@ -627,7 +644,7 @@ namespace BaseModule
 
                     var measuringControl = new MeasuringSet() { Dock = DockStyle.Fill };
                     measuringControl.PreparingMeasureEvent += MeasuringControl_PreparingMeasureEvent;
-                    measuringControl.MakeMeasureEvent += MeasuringControl_MakeMeasureEvent; ;
+                    measuringControl.MakeMeasureEvent += MeasuringControl_MakeMeasureEvent;
                     form.Controls.Add(measuringControl);
                     form.Show();
                 }

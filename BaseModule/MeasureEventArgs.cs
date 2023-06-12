@@ -9,7 +9,8 @@ namespace BaseModule
         DistanceNodeToPlane,
         Path,
         Square,
-        Volume
+        Volume,
+        None
     }
     public class MeasureEventArgs : EventArgs
     {
