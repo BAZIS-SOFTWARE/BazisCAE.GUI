@@ -670,6 +670,9 @@ namespace BaseModule
                             var elems3D = project.Model.ObjectData.FindMany("Элементы3D").Cast<Element3D>().ToList();
                             var surfaces = CreateSectionSurfaces(elems3D, ar2.point1, ar2.point2, ar2.point3);
 
+
+                            if (ar2.ShowModel == false)
+                                ClearAllDataOnScene();
                             PresentCrossSection(surfaces, "crossSection");
 
                         }
@@ -678,7 +681,7 @@ namespace BaseModule
                             ConsoleControl.PrintInfo(ex.Message, Color.Red);
                         }
                     };
-                    crossSection.CreatePlaneFromNodesArgs += (ar1) =>
+                    crossSection.CreatePlaneFromNodesArgs += (ar1,ar2) =>
                     {
                         try
                         {
@@ -699,6 +702,10 @@ namespace BaseModule
                                 elems3D, p0.CalcCentralPoint(),
                                 p1.CalcCentralPoint(),
                                 p2.CalcCentralPoint());
+
+                            if (ar2 == false)
+                                ClearAllDataOnScene();
+
                             PresentCrossSection(surfaces, "crossSection");
 
                         }
@@ -747,7 +754,6 @@ namespace BaseModule
 
         public virtual void PresentCrossSection(Dictionary<int, Surface> surfaces, string name)
         {
-            ClearAllDataOnScene();
             var modelData = new ModelData();
 
             foreach (var surface in surfaces)
@@ -763,7 +769,7 @@ namespace BaseModule
             var edges = presenter.CreateVBOEdges("Поверхность", inds.Item4);
 
             sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors,normals, edges, name);
-            SceneControl.UnPlugVBObjects();
+            //SceneControl.UnPlugVBObjects();
             SceneControl.PlugVBObjects();
             sceneControl.DisplayObjects();
         }

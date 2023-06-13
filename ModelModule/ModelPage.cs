@@ -118,7 +118,7 @@ namespace ModelModule
         {
             var els3D = Project.Model.ObjectData.FindMany<Element3D>();
 
-            if(els3D != null)
+            if(els3D.Count() != 0)
             {
                 var creator = new Extract2DFrom3D(els3D.ToArray());
 

@@ -70,7 +70,7 @@
             // 
             // chbSelectPoints
             // 
-            this.chbSelectPoints.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.chbSelectPoints.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.chbSelectPoints.AutoSize = true;
             this.chbSelectPoints.Location = new System.Drawing.Point(76, 102);

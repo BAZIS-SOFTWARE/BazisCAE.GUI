@@ -1,14 +1,21 @@
-﻿using System;
+﻿using Geometry;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using Geometry;
 
 namespace BaseModule.CrossSection
 {
     public partial class CrossSectionControl : UserControl
     {
         public event Action<object, CreatePlaneFromTextArgs> CreatePlaneFromTextArgs;
-        public event Action<object> CreatePlaneFromNodesArgs;
+    
+        public event Action<object,bool> CreatePlaneFromNodesArgs;
         public CrossSectionControl()
         {
             InitializeComponent();
@@ -33,7 +40,7 @@ namespace BaseModule.CrossSection
                 rbtXZ.Enabled = false;
                 rbtYZ.Enabled = false;
             }
-            
+
         }
 
         public void RbtXY_CheckedChanged(object sender, EventArgs e)
@@ -75,17 +82,17 @@ namespace BaseModule.CrossSection
                 Point3D point2 = new Point3D(float.Parse(p2[0]), float.Parse(p2[1]), float.Parse(p2[2]));
                 Point3D point3 = new Point3D(float.Parse(p3[0]), float.Parse(p3[1]), float.Parse(p3[2]));
 
-                CreatePlaneFromTextArgs(this, new CreatePlaneFromTextArgs(point1, point2, point3));
+                CreatePlaneFromTextArgs(this, new CreatePlaneFromTextArgs(point1, point2, point3, chbShowModel.Checked));
             }
             else if (chbSelectPoints.Checked == true)
             {
-                CreatePlaneFromNodesArgs(this);
+                CreatePlaneFromNodesArgs(this,chbShowModel.Checked);
             }
         }
 
         public void chbShowModel_CheckedChanged(object sender, EventArgs e)
-        { 
-                
+        {
+
         }
     }
 }
