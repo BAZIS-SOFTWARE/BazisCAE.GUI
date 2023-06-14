@@ -212,12 +212,12 @@ namespace TaskModule.BasicTaskAdvisor
                 g.FillRectangle(Brushes.Gray, e.Bounds);
 
                 _TextBrush = new SolidBrush(System.Drawing.Color.White);
-                g.DrawImage(tabControl.ImageList.Images[_TabPage.ImageIndex], new Point(e.Bounds.X + 5, e.Bounds.Y + 5));
+                g.DrawImage(tabControl.ImageList.Images[_TabPage.ImageIndex], new Point(e.Bounds.X + 5, e.Bounds.Y + 7));
             }
             else
             {
                 _TextBrush = new System.Drawing.SolidBrush(e.ForeColor);
-                g.DrawImage(tabControl.ImageList.Images[_TabPage.ImageIndex], new Point(e.Bounds.X + 1, e.Bounds.Y + 3));
+                g.DrawImage(tabControl.ImageList.Images[_TabPage.ImageIndex], new Point(e.Bounds.X + 1, e.Bounds.Y + 5));
             }
             g.DrawString(tabControl.TabPages[e.Index].Text, _TabFont, _TextBrush,
         new PointF(

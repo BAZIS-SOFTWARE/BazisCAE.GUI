@@ -4,7 +4,7 @@ using BazisGUI.AboutProgramControl;
 using BazisGUI.SettingsControl;
 using ConnectionController;
 using ConnectionModule;
-using HeatTreatmentModule;
+using TaskModule.HeatTreatmentModule;
 using LicenseData;
 using ModelModule;
 using Newtonsoft.Json;
@@ -21,7 +21,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using TaskModule;
-using WeldingModule;
+using TaskModule.WeldingModule;
 
 namespace BaseForm
 {

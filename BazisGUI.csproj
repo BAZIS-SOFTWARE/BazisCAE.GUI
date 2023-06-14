@@ -188,10 +188,6 @@
       <Project>{623ce9fc-e0e2-4644-9f69-75e0f394546f}</Project>
       <Name>ConnectionModule</Name>
     </ProjectReference>
-    <ProjectReference Include="HeatTreatmentModule\HeatTreatmentModule.csproj">
-      <Project>{d41916a3-5730-49e9-9f6b-781a50159348}</Project>
-      <Name>HeatTreatmentModule</Name>
-    </ProjectReference>
     <ProjectReference Include="ModelModule\ModelModule.csproj">
       <Project>{986f99d5-cc42-41f8-a5d4-97de97d7ea64}</Project>
       <Name>ModelModule</Name>
@@ -203,10 +199,6 @@
     <ProjectReference Include="TaskModule\TaskModule.csproj">
       <Project>{11954439-9966-4648-a776-7ce642fe21f3}</Project>
       <Name>TaskModule</Name>
-    </ProjectReference>
-    <ProjectReference Include="WeldingModule\WeldingModule.csproj">
-      <Project>{37bc05dd-286b-4bbc-b21b-c5e7f1054a51}</Project>
-      <Name>WeldingModule</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

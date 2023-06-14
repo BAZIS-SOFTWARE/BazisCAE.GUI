@@ -37,7 +37,6 @@
             this.btnHeatTreatment.AutoSize = false;
             this.btnHeatTreatment.CheckOnClick = true;
             this.btnHeatTreatment.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnHeatTreatment.Enabled = false;
             this.btnHeatTreatment.Image = ((System.Drawing.Image)(resources.GetObject("btnHeatTreatment.Image")));
             this.btnHeatTreatment.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnHeatTreatment.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;

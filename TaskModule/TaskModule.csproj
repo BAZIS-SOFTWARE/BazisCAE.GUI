@@ -182,6 +182,24 @@
     <Compile Include="BasicTaskAdvisor\TaskAdvisor.Designer.cs">
       <DependentUpon>TaskAdvisor.cs</DependentUpon>
     </Compile>
+    <Compile Include="HeatTreatmentModule\DiffusionСontrol.cs" />
+    <Compile Include="HeatTreatmentModule\DiffusionСontrol.Designer.cs">
+      <DependentUpon>DiffusionСontrol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HeatTreatmentModule\HeatTreatmentPage.cs" />
+    <Compile Include="HeatTreatmentModule\HeatTreatmentPage.Designer.cs">
+      <DependentUpon>HeatTreatmentPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HeatTreatmentModule\HTMediaControl.cs" />
+    <Compile Include="HeatTreatmentModule\HTMediaControl.designer.cs">
+      <DependentUpon>HTMediaControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HeatTreatmentModule\HeatTreatmentAdvisor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HeatTreatmentModule\HeatTreatmentAdvisor.Designer.cs">
+      <DependentUpon>HeatTreatmentAdvisor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -194,6 +212,41 @@
       <DependentUpon>TaskPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WeldingModule\WeldingPage.cs" />
+    <Compile Include="WeldingModule\WeldingPage.Designer.cs">
+      <DependentUpon>WeldingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WeldingModule\WeldingTypeControls\ArcWeldingControl.cs" />
+    <Compile Include="WeldingModule\WeldingTypeControls\ArcWeldingControl.designer.cs">
+      <DependentUpon>ArcWeldingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WeldingModule\WeldingTypeControls\FSWeldingControl.cs" />
+    <Compile Include="WeldingModule\WeldingTypeControls\FSWeldingControl.designer.cs">
+      <DependentUpon>FSWeldingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WeldingModule\WeldingTypeControls\LWeldingControl.cs" />
+    <Compile Include="WeldingModule\WeldingTypeControls\LWeldingControl.Designer.cs">
+      <DependentUpon>LWeldingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WeldingModule\WeldingAdvisor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WeldingModule\WeldingAdvisor.Designer.cs">
+      <DependentUpon>WeldingAdvisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WeldingModule\WeldingTypeControls\WeldContainerCntrEventArgs.cs" />
+    <Compile Include="WeldingModule\WeldingTypeControls\WeldContainerControl.cs" />
+    <Compile Include="WeldingModule\WeldingTypeControls\WeldContainerControl.Designer.cs">
+      <DependentUpon>WeldContainerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WeldingModule\WeldingTypeControls\WeldingControl.cs" />
+    <Compile Include="WeldingModule\WeldingTypeControls\WeldingControl.designer.cs">
+      <DependentUpon>WeldingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WeldingModule\WeldingTypeControls\WeldingMediaControl.cs" />
+    <Compile Include="WeldingModule\WeldingTypeControls\WeldingMediaControl.designer.cs">
+      <DependentUpon>WeldingMediaControl.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +280,18 @@
     <EmbeddedResource Include="BasicTaskAdvisor\TaskAdvisor.resx">
       <DependentUpon>TaskAdvisor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HeatTreatmentModule\DiffusionСontrol.resx">
+      <DependentUpon>DiffusionСontrol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HeatTreatmentModule\HeatTreatmentAdvisor.resx">
+      <DependentUpon>HeatTreatmentAdvisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HeatTreatmentModule\HeatTreatmentPage.resx">
+      <DependentUpon>HeatTreatmentPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HeatTreatmentModule\HTMediaControl.resx">
+      <DependentUpon>HTMediaControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -249,8 +314,12 @@
     <None Include="app.config" />
     <EmbeddedResource Include="BasicAdvisorControls\Resources\open.ico" />
     <None Include="packages.config" />
+    <None Include="WeldingModule\packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="BasicAdvisorControls\Resources\AxiSymTask.png" />
+    <None Include="BasicAdvisorControls\Resources\PlainTask.png" />
+    <None Include="BasicAdvisorControls\Resources\VolTask.png" />
     <Content Include="Functions\functions.txt" />
     <Content Include="Functions\functions_draft.txt" />
     <Content Include="Functions\functions_save.txt" />
@@ -267,13 +336,26 @@
     <Content Include="Graph_icons\Right_Velocity.ico" />
     <Content Include="Graph_icons\Show_table.bmp" />
     <Content Include="Graph_icons\Show_value.bmp" />
+    <Content Include="HeatTreatmentModule\HT.ico" />
+    <Content Include="HeatTreatmentModule\Icon.bmp" />
     <Content Include="Materials\materials.txt" />
     <Content Include="Materials\materials_draft.txt" />
+    <None Include="Resources\Add.ico" />
     <Content Include="Resources\AllLineThickness.ico" />
+    <None Include="Resources\Arc_new.png" />
     <Content Include="Resources\dashButton.Image.png" />
+    <None Include="Resources\delete.ico" />
+    <None Include="Resources\HideAll.png" />
+    <None Include="Resources\Pause.ico" />
+    <None Include="Resources\Refresh.png" />
+    <None Include="Resources\ShowAll.png" />
+    <None Include="Resources\StartCheck.ico" />
+    <None Include="Resources\Stop.ico" />
+    <None Include="Resources\FSW_new.jpg" />
+    <None Include="Resources\LW.png" />
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
-    <None Include="Resources\Icon.ico" />
+    <EmbeddedResource Include="WeldingModule\Icon.bmp" />
     <None Include="Resources\HT.ico" />
     <Content Include="Resources\lineButton.Image.png" />
     <Content Include="Resources\LineThickness0.ico" />
@@ -282,6 +364,27 @@
     <Content Include="Resources\Show_table.bmp" />
     <Content Include="Resources\Show_value.bmp" />
     <None Include="Resources\Welding.ico" />
+    <EmbeddedResource Include="WeldingModule\WeldingPage.resx">
+      <DependentUpon>WeldingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WeldingModule\WeldingTypeControls\ArcWeldingControl.resx">
+      <DependentUpon>ArcWeldingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WeldingModule\WeldingTypeControls\FSWeldingControl.resx">
+      <DependentUpon>FSWeldingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WeldingModule\WeldingTypeControls\LWeldingControl.resx">
+      <DependentUpon>LWeldingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WeldingModule\WeldingAdvisor.resx">
+      <DependentUpon>WeldingAdvisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WeldingModule\WeldingTypeControls\WeldingControl.resx">
+      <DependentUpon>WeldingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WeldingModule\WeldingTypeControls\WeldingMediaControl.resx">
+      <DependentUpon>WeldingMediaControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Материалы.ico" />
     <EmbeddedResource Include="Функции.ico" />
     <EmbeddedResource Include="BasicAdvisorControls\Resources\Pause.ico" />
