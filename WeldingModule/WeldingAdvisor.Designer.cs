@@ -43,7 +43,9 @@ namespace WeldingModule
             this.pdgMaterials = new System.Windows.Forms.TabPage();
             this.materialsControl1 = new TaskModule.BasicAdvisorControls.MaterialsControl();
             this.pgMedia = new System.Windows.Forms.TabPage();
+            this.mediaControl1 = new WeldingModule.WeldingTypeControls.WeldingMediaControl();
             this.pdgWelding = new System.Windows.Forms.TabPage();
+            this.weldingControl1 = new WeldingModule.WeldingTypeControls.WeldingControl();
             this.pdgClamps = new System.Windows.Forms.TabPage();
             this.clampControl = new TaskModule.BasicAdvisorControls.ClampControl();
             this.pdgLoad = new System.Windows.Forms.TabPage();
@@ -51,8 +53,6 @@ namespace WeldingModule
             this.pdgPlanner = new System.Windows.Forms.TabPage();
             this.taskPlannerControl1 = new TaskModule.BasicAdvisorControls.TaskPlannerControls.TaskPlannerControl();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
-            this.mediaControl1 = new WeldingModule.WeldingTypeControls.WeldingMediaControl();
-            this.weldingControl1 = new WeldingModule.WeldingTypeControls.WeldingControl();
             this.tabControl1.SuspendLayout();
             this.pdgTaskType.SuspendLayout();
             this.pdgMaterials.SuspendLayout();
@@ -126,30 +126,30 @@ namespace WeldingModule
             // 
             // materialsControl1
             // 
-            this.materialsControl1.AddButtonImage = null;
+            this.materialsControl1.AddButtonImage = global::WeldingModule.Properties.Resources.Add;
             this.materialsControl1.AutoScroll = true;
             this.materialsControl1.AutoSize = true;
             this.materialsControl1.CheckCurrentTime = 0F;
-            this.materialsControl1.CheckDinamicButtonImage = null;
+            this.materialsControl1.CheckDinamicButtonImage = global::WeldingModule.Properties.Resources.StartCheck;
             this.materialsControl1.CheckStartTime = 0F;
             this.materialsControl1.CheckState = TaskModule.BasicAdvisorControls.BasicControls.CheckState.start;
             this.materialsControl1.CheckStepTime = 0;
             this.materialsControl1.CheckStopTime = 0F;
-            this.materialsControl1.ClearButtonImage = null;
+            this.materialsControl1.ClearButtonImage = global::WeldingModule.Properties.Resources.delete;
             this.materialsControl1.CurentSelectedRowInfo = null;
             this.materialsControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.materialsControl1.HideAllButtonImage = null;
+            this.materialsControl1.HideAllButtonImage = global::WeldingModule.Properties.Resources.HideAll;
             this.materialsControl1.Location = new System.Drawing.Point(3, 3);
             this.materialsControl1.MinimumSize = new System.Drawing.Size(300, 300);
             this.materialsControl1.Name = "materialsControl1";
-            this.materialsControl1.RefreshButtonImage = null;
-            this.materialsControl1.ShowAllButtonImage = null;
+            this.materialsControl1.RefreshButtonImage = global::WeldingModule.Properties.Resources.Refresh;
+            this.materialsControl1.ShowAllButtonImage = global::WeldingModule.Properties.Resources.ShowAll;
             this.materialsControl1.Size = new System.Drawing.Size(661, 413);
             this.materialsControl1.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.materialsControl1.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.materialsControl1.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
             this.materialsControl1.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
-            this.materialsControl1.StopCheckingButtonImage = null;
+            this.materialsControl1.StopCheckingButtonImage = global::WeldingModule.Properties.Resources.Stop;
             this.materialsControl1.TabIndex = 0;
             this.materialsControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.materialsControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -169,155 +169,6 @@ namespace WeldingModule
             this.pgMedia.Size = new System.Drawing.Size(667, 419);
             this.pgMedia.TabIndex = 4;
             this.pgMedia.Text = "Среда";
-            // 
-            // pdgWelding
-            // 
-            this.pdgWelding.Controls.Add(this.weldingControl1);
-            this.pdgWelding.ImageIndex = 3;
-            this.pdgWelding.Location = new System.Drawing.Point(4, 34);
-            this.pdgWelding.Name = "pdgWelding";
-            this.pdgWelding.Size = new System.Drawing.Size(667, 419);
-            this.pdgWelding.TabIndex = 3;
-            this.pdgWelding.Text = "Вид сварки";
-            this.pdgWelding.UseVisualStyleBackColor = true;
-            // 
-            // pdgClamps
-            // 
-            this.pdgClamps.BackColor = System.Drawing.SystemColors.Control;
-            this.pdgClamps.Controls.Add(this.clampControl);
-            this.pdgClamps.ImageIndex = 4;
-            this.pdgClamps.Location = new System.Drawing.Point(4, 34);
-            this.pdgClamps.Name = "pdgClamps";
-            this.pdgClamps.Padding = new System.Windows.Forms.Padding(3);
-            this.pdgClamps.Size = new System.Drawing.Size(667, 419);
-            this.pdgClamps.TabIndex = 0;
-            this.pdgClamps.Text = "Закрепления";
-            // 
-            // clampControl
-            // 
-            this.clampControl.AddButtonImage = null;
-            this.clampControl.AutoScroll = true;
-            this.clampControl.AutoSize = true;
-            this.clampControl.CheckCurrentTime = 0F;
-            this.clampControl.CheckDinamicButtonImage = null;
-            this.clampControl.CheckStartTime = 0F;
-            this.clampControl.CheckState = TaskModule.BasicAdvisorControls.BasicControls.CheckState.start;
-            this.clampControl.CheckStepTime = 0;
-            this.clampControl.CheckStopTime = 0F;
-            this.clampControl.ClearButtonImage = null;
-            this.clampControl.CurentSelectedRowInfo = null;
-            this.clampControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clampControl.HideAllButtonImage = null;
-            this.clampControl.Location = new System.Drawing.Point(3, 3);
-            this.clampControl.MinimumSize = new System.Drawing.Size(300, 300);
-            this.clampControl.Name = "clampControl";
-            this.clampControl.RefreshButtonImage = null;
-            this.clampControl.ShowAllButtonImage = null;
-            this.clampControl.Size = new System.Drawing.Size(661, 413);
-            this.clampControl.SliderBarInnerColor = System.Drawing.Color.Gold;
-            this.clampControl.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.clampControl.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
-            this.clampControl.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
-            this.clampControl.StopCheckingButtonImage = null;
-            this.clampControl.TabIndex = 0;
-            this.clampControl.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
-            this.clampControl.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
-            this.clampControl.CheckDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.CheckDataEventArgs>(this.Control_CheckDataEvent);
-            this.clampControl.AddDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
-            this.clampControl.DeleteDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
-            this.clampControl.DeleteAllDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
-            this.clampControl.ChangeDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
-            // 
-            // pdgLoad
-            // 
-            this.pdgLoad.Controls.Add(this.loadControl1);
-            this.pdgLoad.ImageIndex = 5;
-            this.pdgLoad.Location = new System.Drawing.Point(4, 34);
-            this.pdgLoad.Name = "pdgLoad";
-            this.pdgLoad.Size = new System.Drawing.Size(667, 419);
-            this.pdgLoad.TabIndex = 2;
-            this.pdgLoad.Text = "Нагрузки";
-            this.pdgLoad.UseVisualStyleBackColor = true;
-            // 
-            // loadControl1
-            // 
-            this.loadControl1.AddButtonImage = null;
-            this.loadControl1.BackColor = System.Drawing.SystemColors.Control;
-            this.loadControl1.CheckCurrentTime = 0F;
-            this.loadControl1.CheckDinamicButtonImage = null;
-            this.loadControl1.CheckStartTime = 0F;
-            this.loadControl1.CheckState = TaskModule.BasicAdvisorControls.BasicControls.CheckState.start;
-            this.loadControl1.CheckStepTime = 0;
-            this.loadControl1.CheckStopTime = 0F;
-            this.loadControl1.ClearButtonImage = null;
-            this.loadControl1.CurentSelectedRowInfo = null;
-            this.loadControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.loadControl1.HideAllButtonImage = null;
-            this.loadControl1.Location = new System.Drawing.Point(0, 0);
-            this.loadControl1.MinimumSize = new System.Drawing.Size(300, 300);
-            this.loadControl1.Name = "loadControl1";
-            this.loadControl1.RefreshButtonImage = null;
-            this.loadControl1.ShowAllButtonImage = null;
-            this.loadControl1.Size = new System.Drawing.Size(667, 419);
-            this.loadControl1.SliderBarInnerColor = System.Drawing.Color.Gold;
-            this.loadControl1.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.loadControl1.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
-            this.loadControl1.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
-            this.loadControl1.StopCheckingButtonImage = null;
-            this.loadControl1.TabIndex = 0;
-            this.loadControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
-            this.loadControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
-            this.loadControl1.CheckDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.CheckDataEventArgs>(this.Control_CheckDataEvent);
-            this.loadControl1.AddDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
-            this.loadControl1.DeleteDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
-            this.loadControl1.DeleteAllDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
-            this.loadControl1.ChangeDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
-            // 
-            // pdgPlanner
-            // 
-            this.pdgPlanner.BackColor = System.Drawing.SystemColors.Control;
-            this.pdgPlanner.Controls.Add(this.taskPlannerControl1);
-            this.pdgPlanner.ImageIndex = 6;
-            this.pdgPlanner.Location = new System.Drawing.Point(4, 34);
-            this.pdgPlanner.Name = "pdgPlanner";
-            this.pdgPlanner.Padding = new System.Windows.Forms.Padding(3);
-            this.pdgPlanner.Size = new System.Drawing.Size(667, 419);
-            this.pdgPlanner.TabIndex = 6;
-            this.pdgPlanner.Text = "Планировщик";
-            // 
-            // taskPlannerControl1
-            // 
-            this.taskPlannerControl1.AddButtonImage = null;
-            this.taskPlannerControl1.AutoScroll = true;
-            this.taskPlannerControl1.ClearButtonImage = null;
-            this.taskPlannerControl1.CurentSelectedRowInfo = null;
-            this.taskPlannerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.taskPlannerControl1.Location = new System.Drawing.Point(3, 3);
-            this.taskPlannerControl1.MinimumSize = new System.Drawing.Size(400, 700);
-            this.taskPlannerControl1.Name = "taskPlannerControl1";
-            this.taskPlannerControl1.RefreshButtonImage = null;
-            this.taskPlannerControl1.Size = new System.Drawing.Size(661, 700);
-            this.taskPlannerControl1.TabIndex = 0;
-            this.taskPlannerControl1.AddDataUseTaskConditionsEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_AddDataUseTaskConditionsEvent);
-            this.taskPlannerControl1.StartComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StartComputationEvent);
-            this.taskPlannerControl1.StopComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StopComputationEvent);
-            this.taskPlannerControl1.AddDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
-            this.taskPlannerControl1.DeleteDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
-            this.taskPlannerControl1.DeleteAllDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
-            this.taskPlannerControl1.ChangeDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
-            // 
-            // imageList
-            // 
-            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
-            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList.Images.SetKeyName(0, "Num1.png");
-            this.imageList.Images.SetKeyName(1, "Num2.png");
-            this.imageList.Images.SetKeyName(2, "Num3.png");
-            this.imageList.Images.SetKeyName(3, "Num4.png");
-            this.imageList.Images.SetKeyName(4, "Num5.png");
-            this.imageList.Images.SetKeyName(5, "Num6.png");
-            this.imageList.Images.SetKeyName(6, "Num7.png");
-            this.imageList.Images.SetKeyName(7, "Num8.png");
             // 
             // mediaControl1
             // 
@@ -340,6 +191,17 @@ namespace WeldingModule
             this.mediaControl1.DeleteDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
             this.mediaControl1.DeleteAllDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
             this.mediaControl1.ChangeDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            // 
+            // pdgWelding
+            // 
+            this.pdgWelding.Controls.Add(this.weldingControl1);
+            this.pdgWelding.ImageIndex = 3;
+            this.pdgWelding.Location = new System.Drawing.Point(4, 34);
+            this.pdgWelding.Name = "pdgWelding";
+            this.pdgWelding.Size = new System.Drawing.Size(667, 419);
+            this.pdgWelding.TabIndex = 3;
+            this.pdgWelding.Text = "Вид сварки";
+            this.pdgWelding.UseVisualStyleBackColor = true;
             // 
             // weldingControl1
             // 
@@ -364,6 +226,144 @@ namespace WeldingModule
             this.weldingControl1.DeleteDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
             this.weldingControl1.DeleteAllDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
             this.weldingControl1.ChangeDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            // 
+            // pdgClamps
+            // 
+            this.pdgClamps.BackColor = System.Drawing.SystemColors.Control;
+            this.pdgClamps.Controls.Add(this.clampControl);
+            this.pdgClamps.ImageIndex = 4;
+            this.pdgClamps.Location = new System.Drawing.Point(4, 34);
+            this.pdgClamps.Name = "pdgClamps";
+            this.pdgClamps.Padding = new System.Windows.Forms.Padding(3);
+            this.pdgClamps.Size = new System.Drawing.Size(667, 419);
+            this.pdgClamps.TabIndex = 0;
+            this.pdgClamps.Text = "Закрепления";
+            // 
+            // clampControl
+            // 
+            this.clampControl.AddButtonImage = global::WeldingModule.Properties.Resources.Add;
+            this.clampControl.AutoScroll = true;
+            this.clampControl.AutoSize = true;
+            this.clampControl.CheckCurrentTime = 0F;
+            this.clampControl.CheckDinamicButtonImage = global::WeldingModule.Properties.Resources.StartCheck;
+            this.clampControl.CheckStartTime = 0F;
+            this.clampControl.CheckState = TaskModule.BasicAdvisorControls.BasicControls.CheckState.start;
+            this.clampControl.CheckStepTime = 0;
+            this.clampControl.CheckStopTime = 0F;
+            this.clampControl.ClearButtonImage = global::WeldingModule.Properties.Resources.delete;
+            this.clampControl.CurentSelectedRowInfo = null;
+            this.clampControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clampControl.HideAllButtonImage = global::WeldingModule.Properties.Resources.HideAll;
+            this.clampControl.Location = new System.Drawing.Point(3, 3);
+            this.clampControl.MinimumSize = new System.Drawing.Size(300, 300);
+            this.clampControl.Name = "clampControl";
+            this.clampControl.RefreshButtonImage = global::WeldingModule.Properties.Resources.Refresh;
+            this.clampControl.ShowAllButtonImage = global::WeldingModule.Properties.Resources.ShowAll;
+            this.clampControl.Size = new System.Drawing.Size(661, 413);
+            this.clampControl.SliderBarInnerColor = System.Drawing.Color.Gold;
+            this.clampControl.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
+            this.clampControl.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
+            this.clampControl.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.clampControl.StopCheckingButtonImage = global::WeldingModule.Properties.Resources.Stop;
+            this.clampControl.TabIndex = 0;
+            this.clampControl.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
+            this.clampControl.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
+            this.clampControl.CheckDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.CheckDataEventArgs>(this.Control_CheckDataEvent);
+            this.clampControl.AddDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
+            this.clampControl.DeleteDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
+            this.clampControl.DeleteAllDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
+            this.clampControl.ChangeDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            // 
+            // pdgLoad
+            // 
+            this.pdgLoad.Controls.Add(this.loadControl1);
+            this.pdgLoad.ImageIndex = 5;
+            this.pdgLoad.Location = new System.Drawing.Point(4, 34);
+            this.pdgLoad.Name = "pdgLoad";
+            this.pdgLoad.Size = new System.Drawing.Size(667, 419);
+            this.pdgLoad.TabIndex = 2;
+            this.pdgLoad.Text = "Нагрузки";
+            this.pdgLoad.UseVisualStyleBackColor = true;
+            // 
+            // loadControl1
+            // 
+            this.loadControl1.AddButtonImage = global::WeldingModule.Properties.Resources.Add;
+            this.loadControl1.BackColor = System.Drawing.SystemColors.Control;
+            this.loadControl1.CheckCurrentTime = 0F;
+            this.loadControl1.CheckDinamicButtonImage = global::WeldingModule.Properties.Resources.StartCheck;
+            this.loadControl1.CheckStartTime = 0F;
+            this.loadControl1.CheckState = TaskModule.BasicAdvisorControls.BasicControls.CheckState.start;
+            this.loadControl1.CheckStepTime = 0;
+            this.loadControl1.CheckStopTime = 0F;
+            this.loadControl1.ClearButtonImage = global::WeldingModule.Properties.Resources.delete;
+            this.loadControl1.CurentSelectedRowInfo = null;
+            this.loadControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.loadControl1.HideAllButtonImage = global::WeldingModule.Properties.Resources.HideAll;
+            this.loadControl1.Location = new System.Drawing.Point(0, 0);
+            this.loadControl1.MinimumSize = new System.Drawing.Size(300, 300);
+            this.loadControl1.Name = "loadControl1";
+            this.loadControl1.RefreshButtonImage = global::WeldingModule.Properties.Resources.Refresh;
+            this.loadControl1.ShowAllButtonImage = global::WeldingModule.Properties.Resources.ShowAll;
+            this.loadControl1.Size = new System.Drawing.Size(667, 419);
+            this.loadControl1.SliderBarInnerColor = System.Drawing.Color.Gold;
+            this.loadControl1.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
+            this.loadControl1.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
+            this.loadControl1.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.loadControl1.StopCheckingButtonImage = global::WeldingModule.Properties.Resources.Stop;
+            this.loadControl1.TabIndex = 0;
+            this.loadControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
+            this.loadControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
+            this.loadControl1.CheckDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.CheckDataEventArgs>(this.Control_CheckDataEvent);
+            this.loadControl1.AddDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
+            this.loadControl1.DeleteDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
+            this.loadControl1.DeleteAllDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
+            this.loadControl1.ChangeDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            // 
+            // pdgPlanner
+            // 
+            this.pdgPlanner.BackColor = System.Drawing.SystemColors.Control;
+            this.pdgPlanner.Controls.Add(this.taskPlannerControl1);
+            this.pdgPlanner.ImageIndex = 6;
+            this.pdgPlanner.Location = new System.Drawing.Point(4, 34);
+            this.pdgPlanner.Name = "pdgPlanner";
+            this.pdgPlanner.Padding = new System.Windows.Forms.Padding(3);
+            this.pdgPlanner.Size = new System.Drawing.Size(667, 419);
+            this.pdgPlanner.TabIndex = 6;
+            this.pdgPlanner.Text = "Планировщик";
+            // 
+            // taskPlannerControl1
+            // 
+            this.taskPlannerControl1.AddButtonImage = global::WeldingModule.Properties.Resources.Add;
+            this.taskPlannerControl1.AutoScroll = true;
+            this.taskPlannerControl1.ClearButtonImage = global::WeldingModule.Properties.Resources.delete;
+            this.taskPlannerControl1.CurentSelectedRowInfo = null;
+            this.taskPlannerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.taskPlannerControl1.Location = new System.Drawing.Point(3, 3);
+            this.taskPlannerControl1.MinimumSize = new System.Drawing.Size(400, 700);
+            this.taskPlannerControl1.Name = "taskPlannerControl1";
+            this.taskPlannerControl1.RefreshButtonImage = global::WeldingModule.Properties.Resources.Refresh;
+            this.taskPlannerControl1.Size = new System.Drawing.Size(661, 700);
+            this.taskPlannerControl1.TabIndex = 0;
+            this.taskPlannerControl1.AddDataUseTaskConditionsEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_AddDataUseTaskConditionsEvent);
+            this.taskPlannerControl1.StartComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StartComputationEvent);
+            this.taskPlannerControl1.StopComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StopComputationEvent);
+            this.taskPlannerControl1.AddDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
+            this.taskPlannerControl1.DeleteDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
+            this.taskPlannerControl1.DeleteAllDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
+            this.taskPlannerControl1.ChangeDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            // 
+            // imageList
+            // 
+            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList.Images.SetKeyName(0, "Num1.png");
+            this.imageList.Images.SetKeyName(1, "Num2.png");
+            this.imageList.Images.SetKeyName(2, "Num3.png");
+            this.imageList.Images.SetKeyName(3, "Num4.png");
+            this.imageList.Images.SetKeyName(4, "Num5.png");
+            this.imageList.Images.SetKeyName(5, "Num6.png");
+            this.imageList.Images.SetKeyName(6, "Num7.png");
+            this.imageList.Images.SetKeyName(7, "Num8.png");
             // 
             // WeldingAdvisor
             // 

@@ -104,6 +104,10 @@
     <Compile Include="WeldingTypeControls\LWeldingControl.Designer.cs">
       <DependentUpon>LWeldingControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="WeldingTypeControls\WeldingControl.cs" />
+    <Compile Include="WeldingTypeControls\WeldingControl.designer.cs">
+      <DependentUpon>WeldingControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="WeldingTypeControls\WeldingMediaControl.cs" />
     <Compile Include="WeldingTypeControls\WeldingMediaControl.designer.cs">
       <DependentUpon>WeldingMediaControl.cs</DependentUpon>
@@ -114,10 +118,6 @@
     </Compile>
     <Compile Include="WeldingTypeControls\WeldContainerControl.Designer.cs">
       <DependentUpon>WeldContainerControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WeldingTypeControls\WeldingControl.cs" />
-    <Compile Include="WeldingTypeControls\WeldingControl.designer.cs">
-      <DependentUpon>WeldingControl.cs</DependentUpon>
     </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
@@ -141,11 +141,11 @@
     <EmbeddedResource Include="WeldingTypeControls\LWeldingControl.resx">
       <DependentUpon>LWeldingControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WeldingTypeControls\WeldingMediaControl.resx">
-      <DependentUpon>WeldingMediaControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="WeldingTypeControls\WeldingControl.resx">
       <DependentUpon>WeldingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WeldingTypeControls\WeldingMediaControl.resx">
+      <DependentUpon>WeldingMediaControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -172,7 +172,31 @@
     <EmbeddedResource Include="LW.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Welding.ico" />
+    <None Include="Resources\Welding.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pause.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StartCheck.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stop.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HideAll.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ShowAll.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
