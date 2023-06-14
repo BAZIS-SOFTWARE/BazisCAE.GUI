@@ -74,7 +74,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="WeldingAdvisor.cs" />
+    <Compile Include="WeldingAdvisor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="WeldingAdvisor.Designer.cs">
       <DependentUpon>WeldingAdvisor.cs</DependentUpon>
     </Compile>

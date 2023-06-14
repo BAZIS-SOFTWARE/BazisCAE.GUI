@@ -1,13 +1,17 @@
-﻿using System;
+﻿
+using System;
 using System.Windows.Forms;
+using TaskModule.BasicAdvisorControls;
+using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Events;
+using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using TaskModule.BasicTaskAdvisor;
+using WeldingModule.WeldingTypeControls;
 
 namespace WeldingModule
 {
     public partial class WeldingAdvisor : TaskAdvisor
     {
-
         public WeldingAdvisor()
         {
             InitializeComponent();
@@ -83,6 +87,5 @@ namespace WeldingModule
         {
             base.TabControl_DrawItem(sender, e);
         }
-
     }
 }
