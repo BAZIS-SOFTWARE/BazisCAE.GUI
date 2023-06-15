@@ -233,29 +233,19 @@ namespace BaseModule
             lblInputCmd.Text = message;
         }
 
-        public void ShowVBObjects(string objsName)
-        {
-            sceneControl.UnPlugVBObjects();
-            sceneControl.ShowVBObjects(objsName); 
-            sceneControl.PlugVBObjects();
-        }
-
-        public void PresentModelObjectsOnScene(string objectsType)
-        {
-            sceneControl.UnPlugVBObjects();
-            sceneControl.DeleteVBObjects(objectsType);
-
-            sceneControl.CreateVBObjects(objectsType);
-            sceneControl.PlugVBObjects();
-        }
+        //public void CreateModelObjectsOnScene(string objectsType)
+        //{
+        //    sceneControl.CreateVBObjects(objectsType);
+        //    sceneControl.ShowVBObject(objectsType);
+        //}
 
         public void PresentAllModelObjectsOnScene()
         {
-            sceneControl.UnPlugVBObjects();
+            sceneControl.HideAllVBObjects();
             sceneControl.DeleteAllVBObjects();
 
             sceneControl.CreateVBObjects();
-            sceneControl.PlugVBObjects();
+            sceneControl.ShowAllVBObjects();
         }
 
         private void grbNavigator_Paint(object sender, PaintEventArgs e)
@@ -470,38 +460,28 @@ namespace BaseModule
         }
 
         public void ClearAllDataOnScene()
-        {
-            sceneControl.UnPlugVBObjects();
-            sceneControl.UnPlugGeometryObjs();
-            sceneControl.UnPlugDisplayText3D();
+        { 
+            sceneControl.HideAllGeometryObjs();
+            sceneControl.HideAllVBObjects();
             sceneControl.DeleteAllVBObjects();
         }
 
         public void HideAllDataOnScene()
         {
-            sceneControl.UnPlugVBObjects();
-            sceneControl.UnPlugGeometryObjs();
-            sceneControl.UnPlugDisplayText3D();
-
-            foreach (var objName in sceneControl.GetVBObjsName())
-                sceneControl.HideVBObjects(objName);           
+            sceneControl.HideAllGeometryObjs();
+            sceneControl.HideAllVBObjects();
+            sceneControl.HideDisplayText2D();
+            sceneControl.HideDisplayText3D();         
         }
 
         public void HideVBOjects(string objName)
         {
-            sceneControl.UnPlugVBObjects();
-            sceneControl.HideVBObjects(objName);
-            sceneControl.PlugVBObjects();
+            sceneControl.HideVBObject(objName);
         }
 
         public void ShowAllDataOnScene()
         {
-            sceneControl.UnPlugVBObjects();
-            sceneControl.UnPlugGeometryObjs();
-            sceneControl.UnPlugDisplayText3D();
-
-            foreach (var objName in sceneControl.GetVBObjsName())
-                sceneControl.ShowVBObjects(objName);
+            sceneControl.ShowAllVBObjects();
         }
 
         private void SelectToolStrip_SelectObjectEvent(object arg1, SelectObjectEventArgs arg2)
@@ -720,11 +700,10 @@ namespace BaseModule
                         btn.Checked = false;
                         lblInputCmd.Text = "";
 
-                        SceneControl.UnPlugVBObjects();
+                        SceneControl.HideVBObject("crossSection");
                         SceneControl.DeleteVBObjects("crossSection");
-                        SceneControl.PlugVBObjects();
 
-                        PresentAllModelObjectsOnScene();
+                        SceneControl.ShowAllVBObjects();
                     };
 
                     form.Show();
@@ -769,8 +748,8 @@ namespace BaseModule
             var edges = presenter.CreateVBOEdges("Поверхность", inds.Item4);
 
             sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors,normals, edges, name);
-            //SceneControl.UnPlugVBObjects();
-            SceneControl.PlugVBObjects();
+ 
+            SceneControl.ShowVBObject(name);
             sceneControl.DisplayObjects();
         }
 
@@ -932,7 +911,7 @@ namespace BaseModule
 
         private void MeasuringControl_PreparingMeasureEvent(object arg1, MeasureEventArgs arg2)
         {
-            sceneControl.UnPlugGeometryObjs();
+            sceneControl.HideAllGeometryObjs();
             sceneControl.DisplayObjects();
 
             var selectToolStrip = FindToolStrip<SelectToolStrip>();
@@ -1071,35 +1050,35 @@ namespace BaseModule
 
                 else if (arg2.ClickedItem.Tag.ToString() == "3")
                 {
-                    sceneControl.UnPlugVBObjects();
+                    sceneControl.HideAllVBObjects();
 
                     foreach (var objsType in sceneControl.GetVBObjsName())
                         if (objsType != "Узлы")
                             sceneControl.ChangeViewModeVBObjects(objsType, Scene.VBO.ObjView.LinesSurface);
 
-                    sceneControl.PlugVBObjects();
+                    sceneControl.ShowAllVBObjects();
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "4")
                 {
-                    sceneControl.UnPlugVBObjects();
+                    sceneControl.HideAllVBObjects();
 
                     foreach (var objsType in sceneControl.GetVBObjsName())
                         if (objsType != "Узлы")
                             sceneControl.ChangeViewModeVBObjects(objsType, Scene.VBO.ObjView.Lines);
 
-                    sceneControl.PlugVBObjects();
+                    sceneControl.ShowAllVBObjects();
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "5")
                 {
-                    sceneControl.UnPlugVBObjects();
+                    sceneControl.HideAllVBObjects();
 
                     foreach (var objsType in sceneControl.GetVBObjsName())
                         if (objsType != "Узлы")
                             sceneControl.ChangeViewModeVBObjects(objsType, Scene.VBO.ObjView.Surface);
 
-                    sceneControl.PlugVBObjects();
+                    sceneControl.ShowAllVBObjects();
                 }
                 sceneControl.DisplayObjects();
             }

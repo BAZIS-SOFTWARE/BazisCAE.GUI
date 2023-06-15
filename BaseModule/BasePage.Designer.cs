@@ -196,6 +196,8 @@ namespace BaseModule
             treeNode4});
             this.treeView.Size = new System.Drawing.Size(317, 574);
             this.treeView.TabIndex = 1;
+            this.treeView.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.TreeView_AfterCollapse);
+            this.treeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.TreeView_AfterExpand);
             // 
             // splitContainer2
             // 
@@ -246,7 +248,6 @@ namespace BaseModule
             // 
             this.sceneControl.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.sceneControl.BackGroundColor = System.Drawing.Color.White;
-            this.sceneControl.DisplayRadioButtons = false;
             this.sceneControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sceneControl.ForeColor = System.Drawing.SystemColors.ControlText;
             this.sceneControl.IsLighting = true;

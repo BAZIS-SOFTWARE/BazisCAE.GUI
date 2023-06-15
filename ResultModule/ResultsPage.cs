@@ -198,7 +198,7 @@ namespace ResultModule
 
                 else
                 {
-                    SceneControl.UnPlugGeometryObj("CreateScaleObject");
+                    SceneControl.HideGeometryObj("CreateScaleObject");
                 }
 
                 SceneControl.DisplayObjects();
@@ -215,7 +215,7 @@ namespace ResultModule
             var icon = ResultModule.Properties.Resources.Scale;
             var scForm = new Form() { TopMost = true, Icon = icon, Size = scPage.Size, Name = "Scale", Text = "Шкала значений" };
             scForm.FormClosed += (ar1, ar2) => 
-            { scPage = null; SceneControl.UnPlugGeometryObj("CreateScaleObject"); };
+            { scPage = null; SceneControl.HideGeometryObj("CreateScaleObject"); };
 
             scForm.Controls.Add(scPage);
             scForm.Show();
@@ -381,7 +381,7 @@ namespace ResultModule
             else
             {
                 showResultValue = false;
-                SceneControl.UnPlugDisplayText3D();
+                SceneControl.HideDisplayText3D();
             }
         }
 
@@ -497,12 +497,10 @@ namespace ResultModule
             var presenter = new ModelScenePresentator(resultModel);
 
             SceneControl.SetPresentor(presenter);
-            PresentModelObjectsOnScene("Поверхность");
 
-            SceneControl.UnPlugVBObjects();
+            SceneControl.CreateVBObjects("Поверхность");
             SceneControl.ChangeViewModeVBObjects("Поверхность", Scene.VBO.ObjView.Surface);
-            SceneControl.PlugVBObjects();
-
+            SceneControl.ShowVBObject("Поверхность");
             SceneControl.DisplayObjects();
         }
 
@@ -691,7 +689,7 @@ namespace ResultModule
 
         public void CreateScale()
         {
-            SceneControl.UnPlugGeometryObj("CreateScaleObject");
+            SceneControl.HideGeometryObj("CreateScaleObject");
             if(TreeView.SelectedNode?.Level == 3)
             {
                 var title = TreeView.SelectedNode.Parent.Name;
@@ -706,7 +704,7 @@ namespace ResultModule
 
         private void ShowResultValue(string objsType, string resDescription, Project.ResultsData.Result result)
         {
-            SceneControl.UnPlugDisplayText3D();
+            SceneControl.HideDisplayText3D();
 
             foreach (var obj in Project.Model.ObjectData.FindMany(objsType))
             {

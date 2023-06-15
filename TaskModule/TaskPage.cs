@@ -464,7 +464,7 @@ namespace TaskModule
 
         public void TaskAdvisor_ShowDataEvent(object arg1, ShowDataEventArgs arg2)
         {
-            SceneControl.UnPlugGeometryObjs();
+            SceneControl.HideAllGeometryObjs();
             var data = Project.TaskData.Find(arg2.DataName).
                 Select(x => (IValuableData)x).ToArray();
 
@@ -576,14 +576,14 @@ namespace TaskModule
 
         public void TaskAdvisor_HideDataEvent(object arg1, HideDataEventArgs arg2)
         {
-            SceneControl.UnPlugGeometryObjs();
-            SceneControl.UnPlugDisplayText3D();
+            SceneControl.HideAllGeometryObjs();
+            SceneControl.HideDisplayText3D();
             SceneControl.DisplayObjects();
         }
 
         public void TaskAdvisor_CheckDataEvent(object arg1, CheckDataEventArgs arg2)
         {
-            SceneControl.UnPlugGeometryObjs();
+            SceneControl.HideAllGeometryObjs();
             var selectedData = Project.TaskData.Find(arg2.DataName).Select(x => (IValuableData)x);
             foreach (var data in selectedData)
             {

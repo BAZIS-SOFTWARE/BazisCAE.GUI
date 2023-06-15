@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.IO;
 using Scene;
 using ModelController.ModelScenePresentator;
+using Model.Interfaces;
 
 namespace ModelModule
 {
@@ -237,9 +238,41 @@ namespace ModelModule
             TreeView.SelectedNode.BeginEdit();
         }
 
-        private void TsiCreateNodeGroup_Click(object sender, EventArgs e)
+        private void ShowGroupWithNodes_Click(object sender, EventArgs e)
         {
-            //CreateGroupEvent(this, new GroupEvArgs(treeView.SelectedNode.Name, treeView.SelectedNode.Index));
+            var group = Project.Model.GroupData[TreeView.SelectedNode.Index];
+
+            foreach (var number in group.ObjsNumbers)
+            {
+                var obj = (IElement)Project.Model.ObjectData.Find(number);
+                obj.ViewState = true;
+
+                foreach (var node in obj.GetNodes())
+                    node.ViewState = true;
+
+            }
+
+            if (SceneControl.IsVBObjectShown("Узлы"))
+                SceneControl.HideVBObject("Узлы");
+            SceneControl.DeleteVBObjects("Узлы");
+
+            SceneControl.CreateVBObjects("Узлы");
+            SceneControl.ShowVBObject("Узлы");
+
+            TreeView.Nodes[4].Nodes["Узлы"].ImageIndex = 5;
+            TreeView.Nodes[4].Nodes["Узлы"].SelectedImageIndex = 5;
+
+            if (SceneControl.IsVBObjectShown(TreeView.SelectedNode.Name))
+                SceneControl.HideVBObject(TreeView.SelectedNode.Name);
+            SceneControl.DeleteVBObjects(TreeView.SelectedNode.Name);
+
+            SceneControl.CreateVBObjects(TreeView.SelectedNode.Name);
+            SceneControl.ShowVBObject(TreeView.SelectedNode.Name);
+
+            TreeView.Nodes[4].Nodes[TreeView.SelectedNode.Name].ImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
+            TreeView.Nodes[4].Nodes[TreeView.SelectedNode.Name].SelectedImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
+
+            SceneControl.DisplayObjects();
         }     
 
         private void TreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -324,18 +357,6 @@ namespace ModelModule
 
         }
 
-        private void ShowAllObjects_Click(object sender, EventArgs e)
-        {
-            foreach (var objsName in SceneControl.GetVBObjsName())
-            {
-                ShowVBObjects(objsName);
-                TreeView.Nodes[4].Nodes[objsName].ImageIndex = imgDict[objsName] == 3 ? 5 : 6;
-                TreeView.Nodes[4].Nodes[objsName].SelectedImageIndex = imgDict[objsName] == 3 ? 5 : 6;
-            }
-
-            SceneControl.DisplayObjects();
-        }
-
         private void ShowAllGroups_Click(object sender, EventArgs e)
         {
             foreach (var group in Project.Model.GroupData)
@@ -345,24 +366,29 @@ namespace ModelModule
                     Project.Model.ObjectData.Find(objNumber).ViewState = true;
                 }
 
-                TreeView.Nodes[4].Nodes[TreeView.SelectedNode.Name].ImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
-                TreeView.Nodes[4].Nodes[TreeView.SelectedNode.Name].SelectedImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
+                TreeView.Nodes[4].Nodes[group.ObjType].ImageIndex = imgDict[group.ObjType] == 3 ? 5 : 6;
+                TreeView.Nodes[4].Nodes[group.ObjType].SelectedImageIndex = imgDict[group.ObjType] == 3 ? 5 : 6;
             }
             PresentAllModelObjectsOnScene();
             SceneControl.DisplayObjects();
         }
 
         private void ShowGroup_Click(object sender, EventArgs e)
-        {
+        {           
             var group = Project.Model.GroupData[TreeView.SelectedNode.Index];
 
             foreach (var number in group.ObjsNumbers)
                 Project.Model.ObjectData.Find(number).ViewState = true;
 
-            PresentModelObjectsOnScene(TreeView.SelectedNode.Name);
+            if (SceneControl.IsVBObjectShown(group.ObjType))
+                SceneControl.HideVBObject(group.ObjType);
+            SceneControl.DeleteVBObjects(group.ObjType);
 
-            TreeView.Nodes[4].Nodes[TreeView.SelectedNode.Name].ImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
-            TreeView.Nodes[4].Nodes[TreeView.SelectedNode.Name].SelectedImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
+            SceneControl.CreateVBObjects(group.ObjType);
+            SceneControl.ShowVBObject(group.ObjType);
+
+            TreeView.Nodes[4].Nodes[group.ObjType].ImageIndex = imgDict[group.ObjType] == 3 ? 5 : 6;
+            TreeView.Nodes[4].Nodes[group.ObjType].SelectedImageIndex = imgDict[group.ObjType] == 3 ? 5 : 6;
 
             SceneControl.DisplayObjects();
         }
@@ -374,7 +400,13 @@ namespace ModelModule
             foreach (var number in group.ObjsNumbers)
                 Project.Model.ObjectData.Find(number).ViewState = false;
 
-            PresentModelObjectsOnScene(TreeView.SelectedNode.Name);
+            if (SceneControl.IsVBObjectShown(group.ObjType))
+                SceneControl.HideVBObject(group.ObjType);
+            SceneControl.DeleteVBObjects(group.ObjType);
+
+            SceneControl.CreateVBObjects(group.ObjType);
+            SceneControl.ShowVBObject(group.ObjType);
+
             SceneControl.DisplayObjects();
         }
 
@@ -384,10 +416,28 @@ namespace ModelModule
             foreach (var modelObject in modelObjects)
                 modelObject.ViewState = true;
 
-            PresentModelObjectsOnScene(TreeView.SelectedNode.Name);
+            if(SceneControl.IsVBObjectShown(TreeView.SelectedNode.Name))
+                SceneControl.HideVBObject(TreeView.SelectedNode.Name);
+            SceneControl.DeleteVBObjects(TreeView.SelectedNode.Name);
+
+            SceneControl.CreateVBObjects(TreeView.SelectedNode.Name);
+            SceneControl.ShowVBObject(TreeView.SelectedNode.Name);
 
             TreeView.SelectedNode.ImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
             TreeView.SelectedNode.SelectedImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
+
+            SceneControl.DisplayObjects();
+        }
+
+        private void SwitchAllObjects_Click(object sender, EventArgs e)
+        {
+            foreach (var objsName in SceneControl.GetVBObjsName())
+            {
+                SceneControl.ShowVBObject(objsName);
+
+                TreeView.Nodes[4].Nodes[objsName].ImageIndex = imgDict[objsName] == 3 ? 5 : 6;
+                TreeView.Nodes[4].Nodes[objsName].SelectedImageIndex = imgDict[objsName] == 3 ? 5 : 6;
+            }
 
             SceneControl.DisplayObjects();
         }
@@ -396,8 +446,8 @@ namespace ModelModule
         {
             TreeView.SelectedNode.ImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
             TreeView.SelectedNode.SelectedImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
-            
-            ShowVBObjects(TreeView.SelectedNode.Name);
+
+            SceneControl.ShowVBObject(TreeView.SelectedNode.Name);
             SceneControl.DisplayObjects();
         }
 
@@ -410,14 +460,15 @@ namespace ModelModule
             SceneControl.DisplayObjects();
         }
 
-        private void HideAllObjects_Click(object sender, EventArgs e)
+        private void SwitchOffAllObjects_Click(object sender, EventArgs e)
         {
             foreach (var objsName in SceneControl.GetVBObjsName())
             {
                 TreeView.Nodes[4].Nodes[objsName].ImageIndex = imgDict[objsName];
                 TreeView.Nodes[4].Nodes[objsName].SelectedImageIndex = imgDict[objsName];
 
-                HideVBOjects(objsName);
+                if(SceneControl.IsVBObjectShown(objsName))
+                    HideVBOjects(objsName);
             }
 
             SceneControl.DisplayObjects();
@@ -475,7 +526,7 @@ namespace ModelModule
             DeleteAllGroups();
         }
 
-        private void DelObject_Click(object sender, EventArgs e)
+        private void DelObjects_Click(object sender, EventArgs e)
         {
             DeleteObjects(TreeView.SelectedNode.Name);
             TreeView.Nodes["объекты"].Nodes.Remove(TreeView.SelectedNode);
@@ -620,7 +671,7 @@ namespace ModelModule
                 Name = "группыОбъектов",
                 ImageIndex = CollapseIndex,
                 SelectedImageIndex = CollapseIndex,
-                ContextMenuStrip = objects_MenuStrip,
+                ContextMenuStrip = groups_MenuStrip,
                 Tag = "5"
             };
             TreeView.Nodes.Add(objGrpsNode);
@@ -644,6 +695,20 @@ namespace ModelModule
             SetModelGroupInfo();
         }
 
+        private void HideObjects_Click(object sender, EventArgs e)
+        {
+            var modelObjects = Project.Model.ObjectData.FindMany(TreeView.SelectedNode.Name);
+            foreach (var modelObject in modelObjects)
+                modelObject.ViewState = false;
 
+            if (SceneControl.IsVBObjectShown(TreeView.SelectedNode.Name))
+                SceneControl.HideVBObject(TreeView.SelectedNode.Name);
+            SceneControl.DeleteVBObjects(TreeView.SelectedNode.Name);
+
+            SceneControl.CreateVBObjects(TreeView.SelectedNode.Name);
+            SceneControl.ShowVBObject(TreeView.SelectedNode.Name);
+
+            SceneControl.DisplayObjects();
+        }
     }
 }
