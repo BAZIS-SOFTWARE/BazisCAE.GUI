@@ -182,14 +182,14 @@
             // опрограммеToolStripMenuItem
             // 
             this.опрограммеToolStripMenuItem.Name = "опрограммеToolStripMenuItem";
-            this.опрограммеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.опрограммеToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.опрограммеToolStripMenuItem.Text = "&О программе...";
             this.опрограммеToolStripMenuItem.Click += new System.EventHandler(this.опрограммеToolStripMenuItem_Click);
             // 
             // новостиВерсииToolStripMenuItem
             // 
             this.новостиВерсииToolStripMenuItem.Name = "новостиВерсииToolStripMenuItem";
-            this.новостиВерсииToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.новостиВерсииToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.новостиВерсииToolStripMenuItem.Text = "Новости версии";
             this.новостиВерсииToolStripMenuItem.Click += new System.EventHandler(this.новостиВерсииToolStripMenuItem_Click);
             // 
@@ -292,19 +292,19 @@
             // 
             this.showNavigatorMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("showNavigatorMenuItem.Image")));
             this.showNavigatorMenuItem.Name = "showNavigatorMenuItem";
-            this.showNavigatorMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showNavigatorMenuItem.Size = new System.Drawing.Size(132, 22);
             this.showNavigatorMenuItem.Text = "Навигатор";
             // 
             // showConsoleMenuItem
             // 
             this.showConsoleMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("showConsoleMenuItem.Image")));
             this.showConsoleMenuItem.Name = "showConsoleMenuItem";
-            this.showConsoleMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showConsoleMenuItem.Size = new System.Drawing.Size(132, 22);
             this.showConsoleMenuItem.Text = "Консоль";
             // 
             // настройкиToolStripMenuItem
             // 
-            this.настройкиToolStripMenuItem.Image = global::BazisGUI.Properties.Resources.settings;
+            this.настройкиToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("настройкиToolStripMenuItem.Image")));
             this.настройкиToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
             this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(95, 24);
@@ -315,7 +315,7 @@
             // 
             this.содержаниеToolStripMenuItem.Image = global::BazisGUI.Properties.Resources.helpContent;
             this.содержаниеToolStripMenuItem.Name = "содержаниеToolStripMenuItem";
-            this.содержаниеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.содержаниеToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.содержаниеToolStripMenuItem.Text = "&Содержание";
             this.содержаниеToolStripMenuItem.Click += new System.EventHandler(this.содержаниеToolStripMenuItem_Click);
             // 
