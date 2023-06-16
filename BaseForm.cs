@@ -116,12 +116,9 @@ namespace BaseForm
             сохранитьToolStripMenuItem.Enabled = false;
             сохранитькакToolStripMenuItem.Enabled = false;
 
-            toolStripContainer.ContentPanel.Controls.RemoveByKey(activePage);
+            CloseActivePageChildControld();
 
             activePage = moduleName;
-
-            foreach (var activeMenuItem in activeMenuItems)
-                menuStrip.Items.Remove(activeMenuItem);
 
             BasePage module;
             if (moduleName == "Weld")
@@ -180,6 +177,22 @@ namespace BaseForm
                 StartLicensing(moduleName, module);
             else StartLisenceForm();
 
+        }
+
+        private void CloseActivePageChildControld()
+        {
+            toolStripContainer.ContentPanel.Controls.RemoveByKey(activePage);
+
+            var openForms = Application.OpenForms.Cast<Form>().ToArray();
+
+            foreach (Form form in openForms)
+            {
+                if (!form.Name.Equals(this.Name))
+                    form.Close();
+            }
+
+            foreach (var activeMenuItem in activeMenuItems)
+                menuStrip.Items.Remove(activeMenuItem);
         }
 
         private void StartLicensing(string moduleName, BasePage module)
