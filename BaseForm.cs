@@ -168,7 +168,7 @@ namespace BaseForm
                 activeMenuItems.Add(menuItem);
             }
 
-            pictureBox.Hide();
+            tableLayoutPanel.Hide();
 
 
             var answer = serverConnection.RequestServer(moduleName + " Взять");
@@ -501,6 +501,11 @@ namespace BaseForm
 
         private void новостиВерсииToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ShowReleaseNotes();
+        }
+
+        private static void ShowReleaseNotes()
+        {
             var form = new Form() { Name = "newsForm", Text = "Новости версии", ShowIcon = false, Size = new Size(555, 283) };
             form.TopMost = true;
             var helpFile = Directory.GetFiles(Application.StartupPath, "ReleaseNotes.pdf", SearchOption.AllDirectories);
@@ -508,6 +513,11 @@ namespace BaseForm
             if (helpFile.Count() != 0)
                 Help.ShowHelp(form, helpFile[0]);
             else MessageBox.Show("Отсутствует файл!");
+        }
+
+        private void releaseNoteslinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ShowReleaseNotes();
         }
     }
 }

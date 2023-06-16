@@ -79,6 +79,7 @@
             this.btnVolumeNodes.Size = new System.Drawing.Size(36, 50);
             this.btnVolumeNodes.Tag = "1";
             this.btnVolumeNodes.Text = "Показать все узлы";
+            this.btnVolumeNodes.ToolTipText = "Показать все поверхности";
             // 
             // btnBoundaryContours
             // 
@@ -118,6 +119,7 @@
             this.btnSurfaceNodes.Size = new System.Drawing.Size(36, 50);
             this.btnSurfaceNodes.Tag = "2";
             this.btnSurfaceNodes.Text = "Показать узлы на открытых поверхностях";
+            this.btnSurfaceNodes.ToolTipText = "Показать открытые поверхности";
             // 
             // btnElementsFrames
             // 

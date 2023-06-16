@@ -59,7 +59,7 @@ namespace BaseModule
 
         public void SceneInitialization()
         {
-            pctScreenSaver.Hide();
+            //pctScreenSaver.Hide();
 
             sceneControl.BringToFront();
             sceneControl.Initialization();
@@ -79,8 +79,8 @@ namespace BaseModule
         }
 
         public void AddToolStrip(ToolStrip toolStrip)
-        {
-            toolStripContainer.TopToolStripPanel.Join(toolStrip, 0);
+        {          
+            toolStripContainer.TopToolStripPanel.Join(toolStrip);
         }
 
         public TreeView TreeView
@@ -1241,11 +1241,11 @@ namespace BaseModule
             var displayToolStrip = new DisplayToolStrip();
             var instrumentalToolStrip = new InstrumentToolStrip();
 
-            toolStripContainer.TopToolStripPanel.Join(selectToolStrip, 1);
-            toolStripContainer.TopToolStripPanel.Join(displayToolStrip, 1);
-            toolStripContainer.TopToolStripPanel.Join(viewToolStrip, 1);
-            toolStripContainer.TopToolStripPanel.Join(instrumentalToolStrip, 1);
-            toolStripContainer.TopToolStripPanel.Join(standartToolStrip, 1);
+            toolStripContainer.TopToolStripPanel.Join(selectToolStrip, 0);
+            toolStripContainer.TopToolStripPanel.Join(displayToolStrip, 0);
+            toolStripContainer.TopToolStripPanel.Join(viewToolStrip, 0);
+            toolStripContainer.TopToolStripPanel.Join(instrumentalToolStrip, 0);
+            toolStripContainer.TopToolStripPanel.Join(standartToolStrip, 0);
 
             standartToolStrip.Renderer = new ToolStrips.BtnToolStrRender();
             standartToolStrip.ItemClicked += StandartToolStrip_ItemClicked;

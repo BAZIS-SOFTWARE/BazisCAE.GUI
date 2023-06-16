@@ -30,11 +30,10 @@ namespace BaseModule
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Название проекта :", 0, 0);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Путь :", 0, 0);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Сведения :", 0, 0);
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Вид :");
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BasePage));
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Название проекта :", 0, 0);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Путь :", 0, 0);
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Сведения :", 0, 0);
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Вид :");
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblInputCmd = new System.Windows.Forms.ToolStripStatusLabel();
@@ -45,7 +44,6 @@ namespace BaseModule
             this.treeView = new System.Windows.Forms.TreeView();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.grbScene = new System.Windows.Forms.Panel();
-            this.pctScreenSaver = new System.Windows.Forms.PictureBox();
             this.sceneControl = new Scene.SceneControl();
             this.grbConsole = new System.Windows.Forms.Panel();
             this.consoleControl = new BaseModule.Console.ConsoleControl();
@@ -63,7 +61,6 @@ namespace BaseModule
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.grbScene.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pctScreenSaver)).BeginInit();
             this.grbConsole.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -171,29 +168,29 @@ namespace BaseModule
             this.treeView.ItemHeight = 18;
             this.treeView.Location = new System.Drawing.Point(0, 15);
             this.treeView.Name = "treeView";
-            treeNode1.ImageIndex = 0;
-            treeNode1.Name = "названиеПроекта";
-            treeNode1.SelectedImageIndex = 0;
-            treeNode1.Tag = "0";
-            treeNode1.Text = "Название проекта :";
-            treeNode2.ImageIndex = 0;
-            treeNode2.Name = "путь";
-            treeNode2.SelectedImageIndex = 0;
-            treeNode2.Tag = "1";
-            treeNode2.Text = "Путь :";
-            treeNode3.ImageIndex = 0;
-            treeNode3.Name = "сведения";
-            treeNode3.SelectedImageIndex = 0;
-            treeNode3.Tag = "2";
-            treeNode3.Text = "Сведения :";
-            treeNode4.Name = "вид";
-            treeNode4.Tag = "3";
-            treeNode4.Text = "Вид :";
+            treeNode5.ImageIndex = 0;
+            treeNode5.Name = "названиеПроекта";
+            treeNode5.SelectedImageIndex = 0;
+            treeNode5.Tag = "0";
+            treeNode5.Text = "Название проекта :";
+            treeNode6.ImageIndex = 0;
+            treeNode6.Name = "путь";
+            treeNode6.SelectedImageIndex = 0;
+            treeNode6.Tag = "1";
+            treeNode6.Text = "Путь :";
+            treeNode7.ImageIndex = 0;
+            treeNode7.Name = "сведения";
+            treeNode7.SelectedImageIndex = 0;
+            treeNode7.Tag = "2";
+            treeNode7.Text = "Сведения :";
+            treeNode8.Name = "вид";
+            treeNode8.Tag = "3";
+            treeNode8.Text = "Вид :";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4});
+            treeNode5,
+            treeNode6,
+            treeNode7,
+            treeNode8});
             this.treeView.Size = new System.Drawing.Size(317, 574);
             this.treeView.TabIndex = 1;
             this.treeView.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.TreeView_AfterCollapse);
@@ -222,7 +219,6 @@ namespace BaseModule
             // 
             this.grbScene.BackColor = System.Drawing.Color.Silver;
             this.grbScene.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.grbScene.Controls.Add(this.pctScreenSaver);
             this.grbScene.Controls.Add(this.sceneControl);
             this.grbScene.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbScene.Location = new System.Drawing.Point(0, 0);
@@ -232,24 +228,13 @@ namespace BaseModule
             this.grbScene.TabIndex = 0;
             this.grbScene.Paint += new System.Windows.Forms.PaintEventHandler(this.grbScene_Paint);
             // 
-            // pctScreenSaver
-            // 
-            this.pctScreenSaver.BackColor = System.Drawing.Color.White;
-            this.pctScreenSaver.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pctScreenSaver.Image = ((System.Drawing.Image)(resources.GetObject("pctScreenSaver.Image")));
-            this.pctScreenSaver.Location = new System.Drawing.Point(0, 15);
-            this.pctScreenSaver.Name = "pctScreenSaver";
-            this.pctScreenSaver.Size = new System.Drawing.Size(601, 435);
-            this.pctScreenSaver.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pctScreenSaver.TabIndex = 3;
-            this.pctScreenSaver.TabStop = false;
-            // 
             // sceneControl
             // 
             this.sceneControl.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.sceneControl.BackGroundColor = System.Drawing.Color.White;
             this.sceneControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sceneControl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.sceneControl.IsBlending = true;
             this.sceneControl.IsLighting = true;
             this.sceneControl.Location = new System.Drawing.Point(0, 15);
             this.sceneControl.Name = "sceneControl";
@@ -316,7 +301,6 @@ namespace BaseModule
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.grbScene.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pctScreenSaver)).EndInit();
             this.grbConsole.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -335,7 +319,6 @@ namespace BaseModule
         private System.Windows.Forms.Panel grbNavigator;
         private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.Panel grbScene;
-        private System.Windows.Forms.PictureBox pctScreenSaver;
         //private Scene.SceneControl sceneControl;
         private System.Windows.Forms.ToolStripStatusLabel lblVersion;
         private Scene.SceneControl sceneControl;

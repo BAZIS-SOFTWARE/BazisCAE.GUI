@@ -2898,16 +2898,16 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:BazisPrePost4.2.19"
-        "ProductCode" = "8:{5B8A06D7-42F1-4AE4-BA27-97F62F598C9D}"
-        "PackageCode" = "8:{46B4B221-160A-4595-AD92-3496C543C5DC}"
+        "ProductName" = "8:BazisPrePost4.2.20"
+        "ProductCode" = "8:{FAE7D391-D8FC-4D5C-BC34-EB0A4256931F}"
+        "PackageCode" = "8:{2FAC4740-06A1-46A7-BEE7-098D825A467F}"
         "UpgradeCode" = "8:{B6CE3573-0A6F-4654-B604-218137EC41B2}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:4.2.19"
+        "ProductVersion" = "8:4.2.20"
         "Manufacturer" = "8:BazisSoftware"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://bazisnet.ru"
@@ -3022,7 +3022,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_30B1B53970ED4091B5F5D849A518ED00"
             {
-            "Name" = "8:Bazis_4.2.19"
+            "Name" = "8:Bazis_4.2.20"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -3036,7 +3036,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_EE6F751DA23A4CF5969C52EF2802C287"
             {
-            "Name" = "8:Bazis_4.2.19"
+            "Name" = "8:Bazis_4.2.20"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -3050,7 +3050,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_FC8E2AC25DC147CD85F38DD70A5EF02D"
             {
-            "Name" = "8:Bazis_4.2.19"
+            "Name" = "8:Bazis_4.2.20"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
