@@ -45,6 +45,9 @@ namespace BaseForm
         EventHandler showNavigatorEventHandler = null;
         EventHandler showConsoleEventHandler = null;
         private Thread serverConnectionThread;
+        EventHandler createProjectEventHandler = null;
+        EventHandler saveProjectEventHandler = null;
+        EventHandler saveAsProjectEventHandler = null;
 
         Controller serverConnection { get; set; }
 
@@ -110,6 +113,8 @@ namespace BaseForm
         private void AddModule(string moduleName)
         {
             DisconnectWithServer(true);
+            сохранитьToolStripMenuItem.Enabled = false;
+            сохранитькакToolStripMenuItem.Enabled = false;
 
             toolStripContainer.ContentPanel.Controls.RemoveByKey(activePage);
 
@@ -244,10 +249,21 @@ namespace BaseForm
 
         private void SingMenuItemsEvents(BasePage module)
         {
-            // singup to open project click
+            создатьToolStripMenuItem.Click -= createProjectEventHandler;
+            createProjectEventHandler = (ar1, ar2) => { module.CreateNewProject(); };
+            создатьToolStripMenuItem.Click += createProjectEventHandler;
+
             открытьToolStripMenuItem.Click -= openProjectEventHandler;
             openProjectEventHandler = (ar1, ar2) => { module.LoadProjectData("Bazis project file(*.bpf)|*.bpf|" + "All files(*.*)|*.*"); };
             открытьToolStripMenuItem.Click += openProjectEventHandler;
+
+            сохранитьToolStripMenuItem.Click -= saveProjectEventHandler;
+            saveProjectEventHandler = (ar1, ar2) => { module.SaveProjectData(); };
+            сохранитьToolStripMenuItem.Click += saveProjectEventHandler;
+
+            сохранитьToolStripMenuItem.Click -= saveAsProjectEventHandler;
+            saveAsProjectEventHandler = (ar1, ar2) => { module.SaveAsProjectData("bpf"); };
+            сохранитьToolStripMenuItem.Click += saveAsProjectEventHandler;
 
             // singup to show navigator click
             showNavigatorMenuItem.Click -= showNavigatorEventHandler;
@@ -468,6 +484,17 @@ namespace BaseForm
                     if (!serverConnectionThread.IsAlive)
                         break;
             }
+        }
+
+        private void новостиВерсииToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new Form() { Name = "newsForm", Text = "Новости версии", ShowIcon = false, Size = new Size(555, 283) };
+            form.TopMost = true;
+            var helpFile = Directory.GetFiles(Application.StartupPath, "ReleaseNotes.pdf", SearchOption.AllDirectories);
+
+            if (helpFile.Count() != 0)
+                Help.ShowHelp(form, helpFile[0]);
+            else MessageBox.Show("Отсутствует файл!");
         }
     }
 }

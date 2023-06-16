@@ -490,6 +490,7 @@ namespace ResultModule
             if (showResultValue)
                 ShowResultValue(objsType, resDes, result);
 
+            SceneControl.HideAllVBObjects();
             SceneControl.DeleteAllVBObjects();
 
             var resultModel = new ModelData();

@@ -163,7 +163,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Solver\SetupSolverWithoutLicense_x64.msi">
+    <None Include="ReleaseNotes\ReleaseNotes.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -175,9 +175,13 @@
     <Content Include="Mesh\mesh.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Solver\setupWithoutLicense_x64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="Resources\console.bmp" />
+    <None Include="Resources\helpContent.bmp" />
+    <None Include="Resources\navigator.bmp" />
+    <None Include="Resources\settings.bmp" />
+    <None Include="Resources\console.png" />
+    <None Include="Resources\navigator.png" />
+    <None Include="Resources\settings.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="BaseModule\BaseModule.csproj">

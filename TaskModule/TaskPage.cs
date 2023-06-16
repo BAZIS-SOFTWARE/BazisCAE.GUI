@@ -178,7 +178,7 @@ namespace TaskModule
 
             icon = new Icon(iconStream);
 
-            var form = new Form() { Name = name, TopMost = true, Size = dataBasePage.Size,Icon = icon };
+            var form = new Form() { Name = name, Text = name,TopMost = true, Size = dataBasePage.Size,Icon = icon };
             form.Controls.Add(dataBasePage);
             form.Show();
         }
@@ -318,7 +318,7 @@ namespace TaskModule
         {
             try
             {
-                if (!SaveProjectData("bpf"))
+                if (!SaveAsProjectData("bpf"))
                     return;
                 MatDataSaver.SaveDataBase(MatDataSet, string.Format(@"{0}\materials.txt", Project.Path));
                 FunDataSaver.SaveDataBase(FunDataSet, string.Format(@"{0}\functions.txt", Project.Path));

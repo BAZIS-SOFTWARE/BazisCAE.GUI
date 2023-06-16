@@ -63,7 +63,7 @@ namespace BaseModule
 
             sceneControl.BringToFront();
             sceneControl.Initialization();
-            sceneControl.SetPresentorEvent += (ar1, ar2) => { };
+            sceneControl.SetPresentorEvent += (ar1, ar2) => {};
 
             PresentProjectOnTree();
 
@@ -284,15 +284,7 @@ namespace BaseModule
         {
             if (e.ClickedItem.Tag.ToString() == "0")
             {
-                project = new ProjectData("newProject", Environment.CurrentDirectory);
-                consoleControl.PrintInfo("Создан новый проект", Color.Black);
-
-                PresentProjectOnTree();
-                PresentModelOnSelectToolStrip();
-                ClearAllDataOnScene();
-                sceneControl.DisplayObjects();
-
-                lblInputCmd.Text = "Начните работу с загрузки проекта или импорта сеточной модели";
+                CreateNewProject();
             }
 
             else if (e.ClickedItem.Tag.ToString() == "1")
@@ -303,7 +295,7 @@ namespace BaseModule
             }
             else if (e.ClickedItem.Tag.ToString() == "2")
             {
-                SaveProjectData("bpf");
+                SaveAsProjectData("bpf");
             }
             else if (e.ClickedItem.Tag.ToString() == "3")
             {
@@ -323,6 +315,19 @@ namespace BaseModule
                     "ANSYS(*.cdb*)|*.cdb";
                 ImportModelData(filterMesh);
             }
+        }
+
+        public void CreateNewProject()
+        {
+            project = new ProjectData("newProject", Environment.CurrentDirectory);
+            consoleControl.PrintInfo("Создан новый проект", Color.Black);
+
+            PresentProjectOnTree();
+            PresentModelOnSelectToolStrip();
+            ClearAllDataOnScene();
+            sceneControl.DisplayObjects();
+
+            lblInputCmd.Text = "Начните работу с загрузки проекта или импорта сеточной модели";
         }
 
         private void ImportModelData(string filterMesh)
@@ -402,7 +407,7 @@ namespace BaseModule
             SceneInitialization();
         }
 
-        public bool SaveProjectData(string extFilter)
+        public bool SaveAsProjectData(string extFilter)
         {
             SaveFileDialog saveDialog = new SaveFileDialog();
 
@@ -414,15 +419,21 @@ namespace BaseModule
             project.Name = Path.GetFileName(saveDialog.FileName);
             saveDialog.Dispose();
 
-            var saver = new SaveProjectTextFormat();
-            saver.SaveEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
-            saver.Save(project);
+            SaveProjectData();
 
             PresentProjectOnTree();
             sceneControl.DisplayObjects();
 
-            consoleControl.PrintInfo("Проект сохранен в " + project.Path, Color.Black);
             return true;
+        }
+
+        public void SaveProjectData()
+        {
+            var saver = new SaveProjectTextFormat();
+            saver.SaveEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
+            saver.Save(project);
+
+            consoleControl.PrintInfo("Проект сохранен в " + project.Path, Color.Black);
         }
 
         public void PresentModelOnSelectToolStrip()
