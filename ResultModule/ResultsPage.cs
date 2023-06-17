@@ -77,6 +77,7 @@ namespace ResultModule
         public override void CreateMenuInterface()
         {
             AddToolStripMenuItem(CreateResultsInterface());
+            base.CreateMenuInterface();
         }
 
         private ToolStripMenuItem CreateResultsInterface()

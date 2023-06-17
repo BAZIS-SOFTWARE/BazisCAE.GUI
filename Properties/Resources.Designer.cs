@@ -63,29 +63,9 @@ namespace BazisGUI.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap console {
-            get {
-                object obj = ResourceManager.GetObject("console", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap helpContent {
             get {
                 object obj = ResourceManager.GetObject("helpContent", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap navigator {
-            get {
-                object obj = ResourceManager.GetObject("navigator", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

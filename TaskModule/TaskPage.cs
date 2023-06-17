@@ -75,10 +75,10 @@ namespace TaskModule
         }
 
         public override void CreateMenuInterface()
-        {           
+        {
             AddToolStripMenuItem(CreateDataBaseInterface());
             AddToolStripMenuItem(CreateTasksInterface());
-
+            base.CreateMenuInterface();
         }
 
         public virtual ToolStripMenuItem CreateTasksInterface()

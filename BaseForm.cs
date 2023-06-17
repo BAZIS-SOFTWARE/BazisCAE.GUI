@@ -41,13 +41,7 @@ namespace BaseForm
             Lighting = true
         };
 
-        EventHandler openProjectEventHandler = null;
-        EventHandler showNavigatorEventHandler = null;
-        EventHandler showConsoleEventHandler = null;
         private Thread serverConnectionThread;
-        EventHandler createProjectEventHandler = null;
-        EventHandler saveProjectEventHandler = null;
-        EventHandler saveAsProjectEventHandler = null;
 
         Controller serverConnection { get; set; }
 
@@ -113,8 +107,6 @@ namespace BaseForm
         private void AddModule(string moduleName)
         {
             DisconnectWithServer(true);
-            сохранитьToolStripMenuItem.Enabled = false;
-            сохранитькакToolStripMenuItem.Enabled = false;
 
             CloseActivePageChildControld();
 
@@ -153,7 +145,6 @@ namespace BaseForm
 
             module.ChangeProjectDataEvent += (object ar1, ProjectData ar2) => { project = ar2; };
 
-            SingMenuItemsEvents(module);
             SetGeneralSettings(module);
 
             toolStripContainer.ContentPanel.Controls.Add(module);
@@ -197,8 +188,8 @@ namespace BaseForm
 
         private void StartLicensing(string moduleName, BasePage module)
         {
-            сохранитьToolStripMenuItem.Enabled = true;
-            сохранитькакToolStripMenuItem.Enabled = true;
+            //сохранитьToolStripMenuItem.Enabled = true;
+            //сохранитькакToolStripMenuItem.Enabled = true;
             module.UnBlockInterface();
 
             serverConnectionThread = new Thread(() =>
@@ -258,35 +249,6 @@ namespace BaseForm
             module.SceneSelectionColor = settingsConfig.SelectionColor;
             module.SceneTransparency = settingsConfig.Transparency;
             module.SceneLighting = settingsConfig.Lighting;
-        }
-
-        private void SingMenuItemsEvents(BasePage module)
-        {
-            создатьToolStripMenuItem.Click -= createProjectEventHandler;
-            createProjectEventHandler = (ar1, ar2) => { module.CreateNewProject(); };
-            создатьToolStripMenuItem.Click += createProjectEventHandler;
-
-            открытьToolStripMenuItem.Click -= openProjectEventHandler;
-            openProjectEventHandler = (ar1, ar2) => { module.LoadProjectData("Bazis project file(*.bpf)|*.bpf|" + "All files(*.*)|*.*"); };
-            открытьToolStripMenuItem.Click += openProjectEventHandler;
-
-            сохранитьToolStripMenuItem.Click -= saveProjectEventHandler;
-            saveProjectEventHandler = (ar1, ar2) => { module.SaveProjectData(); };
-            сохранитьToolStripMenuItem.Click += saveProjectEventHandler;
-
-            сохранитьToolStripMenuItem.Click -= saveAsProjectEventHandler;
-            saveAsProjectEventHandler = (ar1, ar2) => { module.SaveAsProjectData("bpf"); };
-            сохранитьToolStripMenuItem.Click += saveAsProjectEventHandler;
-
-            // singup to show navigator click
-            showNavigatorMenuItem.Click -= showNavigatorEventHandler;
-            showNavigatorEventHandler = (ar1, ar2) => { module.ShowNavigator(); };
-            showNavigatorMenuItem.Click += showNavigatorEventHandler;
-
-            // singup to show console click
-            showConsoleMenuItem.Click -= showConsoleEventHandler;
-            showConsoleEventHandler = (ar1, ar2) => { module.ShowConsole(); };
-            showConsoleMenuItem.Click += showConsoleEventHandler;
         }
 
         private void BaseForm_KeyDown(object sender, KeyEventArgs e)
@@ -480,11 +442,6 @@ namespace BaseForm
         private void получитьЛицензиюMenuItem_Click(object sender, EventArgs e)
         {
             StartLisenceForm();
-        }
-
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
         }
 
         private void BaseForm_FormClosed(object sender, FormClosedEventArgs e)

@@ -169,6 +169,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\console.bmp" />
+    <None Include="Resources\navigator.bmp" />
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
   </ItemGroup>

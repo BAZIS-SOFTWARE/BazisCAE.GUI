@@ -54,6 +54,7 @@ namespace ModelModule
         public override void CreateMenuInterface()
         {
             AddToolStripMenuItem(AddMeshInterface());
+            base.CreateMenuInterface();
         }
 
         private ToolStripMenuItem AddMeshInterface()

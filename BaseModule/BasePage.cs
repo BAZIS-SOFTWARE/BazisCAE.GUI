@@ -22,6 +22,8 @@ using BaseModule.CrossSection;
 using ModelController.ModelScenePresentator;
 using Project.IO;
 using Model.ModelParcer;
+using BaseModule.Properties;
+using System.Resources;
 
 namespace BaseModule
 {
@@ -146,7 +148,141 @@ namespace BaseModule
 
         public virtual void CreateMenuInterface()
         {
-            throw new Exception("Интерфейс не реализован!");
+            AddToolStripMenuItem(AddViewInterface());
+            AddToolStripMenuItem(AddFileInterface());
+        }
+
+        private ToolStripMenuItem AddFileInterface()
+        {
+
+            var файлToolStripMenuItem = new ToolStripMenuItem();
+            var создатьToolStripMenuItem = new ToolStripMenuItem();
+            var открытьToolStripMenuItem = new ToolStripMenuItem();
+            var toolStripSeparator = new ToolStripSeparator();
+            var сохранитьToolStripMenuItem = new ToolStripMenuItem();
+            var сохранитькакToolStripMenuItem = new ToolStripMenuItem();
+            var toolStripSeparator1 = new ToolStripSeparator();
+            var toolStripSeparator2 = new ToolStripSeparator();
+            var выходToolStripMenuItem = new ToolStripMenuItem();
+            // 
+            // файлToolStripMenuItem
+            // 
+            файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            создатьToolStripMenuItem,
+            открытьToolStripMenuItem,
+            toolStripSeparator,
+            сохранитьToolStripMenuItem,
+            сохранитькакToolStripMenuItem,
+            toolStripSeparator1,
+            toolStripSeparator2,
+            выходToolStripMenuItem});
+            файлToolStripMenuItem.Name = "файлToolStripMenuItem";
+            файлToolStripMenuItem.Size = new System.Drawing.Size(48, 24);
+            файлToolStripMenuItem.Text = "&Файл";
+            // 
+            // создатьToolStripMenuItem
+            // 
+            //создатьToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("создатьToolStripMenuItem.Image")));
+            создатьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            создатьToolStripMenuItem.Name = "создатьToolStripMenuItem";
+            создатьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            создатьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            создатьToolStripMenuItem.Text = "&Создать";
+            // 
+            // открытьToolStripMenuItem
+            // 
+            //открытьToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("открытьToolStripMenuItem.Image")));
+            открытьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
+            открытьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            открытьToolStripMenuItem.Text = "&Открыть";
+            // 
+            // toolStripSeparator
+            // 
+            toolStripSeparator.Name = "toolStripSeparator";
+            toolStripSeparator.Size = new System.Drawing.Size(177, 6);
+            // 
+            // сохранитьToolStripMenuItem
+            // 
+            сохранитьToolStripMenuItem.Enabled = false;
+            //сохранитьToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("сохранитьToolStripMenuItem.Image")));
+            сохранитьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
+            сохранитьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            сохранитьToolStripMenuItem.Text = "&Сохранить";
+            // 
+            // сохранитькакToolStripMenuItem
+            // 
+            сохранитькакToolStripMenuItem.Enabled = false;
+            сохранитькакToolStripMenuItem.Name = "сохранитькакToolStripMenuItem";
+            сохранитькакToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            сохранитькакToolStripMenuItem.Text = "Сохранить &как";
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            // 
+            // выходToolStripMenuItem
+            // 
+            выходToolStripMenuItem.Name = "выходToolStripMenuItem";
+            выходToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            выходToolStripMenuItem.Text = "Вы&ход";
+            
+            выходToolStripMenuItem.Click += (ar1, ar2) => { Application.Exit(); };
+            создатьToolStripMenuItem.Click += (ar1, ar2) => { CreateNewProject(); };
+            открытьToolStripMenuItem.Click += (ar1, ar2) => { LoadProjectData("Bazis project file(*.bpf)|*.bpf|" + "All files(*.*)|*.*"); };
+            сохранитьToolStripMenuItem.Click += (ar1, ar2) => { SaveProjectData(); };
+            сохранитьToolStripMenuItem.Click += (ar1, ar2) => { SaveAsProjectData("bpf"); };
+
+            return файлToolStripMenuItem;
+        }
+
+        private ToolStripMenuItem AddViewInterface()
+        {
+
+        var видToolStripMenuItem = new ToolStripMenuItem();
+        var showNavigatorMenuItem = new ToolStripMenuItem();
+        var showConsoleMenuItem = new ToolStripMenuItem();
+
+            // 
+            // видToolStripMenuItem
+            // 
+            видToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            showNavigatorMenuItem,
+            showConsoleMenuItem});
+            видToolStripMenuItem.Name = "видToolStripMenuItem";
+            видToolStripMenuItem.Size = new System.Drawing.Size(39, 24);
+            видToolStripMenuItem.Text = "Вид";
+            // 
+            // showNavigatorMenuItem
+            // 
+            showNavigatorMenuItem.Image = BaseModule.Properties.Resources.navigator;
+            showNavigatorMenuItem.Name = "showNavigatorMenuItem";
+            showNavigatorMenuItem.Size = new System.Drawing.Size(180, 22);
+            showNavigatorMenuItem.Text = "Навигатор";
+            // 
+            // showConsoleMenuItem
+            // 
+            showConsoleMenuItem.Image = BaseModule.Properties.Resources.console;
+            showConsoleMenuItem.Name = "showConsoleMenuItem";
+            showConsoleMenuItem.Size = new System.Drawing.Size(180, 22);
+            showConsoleMenuItem.Text = "Консоль";
+
+            // singup to show navigator click
+            showNavigatorMenuItem.Click += (ar1, ar2) => { ShowNavigator(); };
+
+            // singup to show console click
+            showConsoleMenuItem.Click += (ar1, ar2) => { ShowConsole(); };
+
+            return видToolStripMenuItem;
         }
 
         private void TreeView_AfterExpand(object sender, TreeViewEventArgs e)
