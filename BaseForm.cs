@@ -106,7 +106,7 @@ namespace BaseForm
 
         private void AddModule(string moduleName)
         {
-            DisconnectWithServer(true);
+            DisconnectWithServer();
 
             CloseActivePageChildControld();
 
@@ -155,7 +155,7 @@ namespace BaseForm
 
             foreach (var menuItem in module.GetToolStripMenuItems())
             {
-                menuStrip.Items.Insert(2, menuItem);
+                menuStrip.Items.Insert(1, menuItem);
                 activeMenuItems.Add(menuItem);
             }
 
@@ -201,10 +201,9 @@ namespace BaseForm
                         lock (serverConnection)
                         {
                             var answer = serverConnection.RequestServer(moduleName + " Работа");
-                            if(answer == "Остановка")
+                            if(answer != "Работай")
                             {
-                                DisconnectWithServer(false);
-                                MessageBox.Show("Внимание! Лицензирование прервано. Зайдите в модуль заново.");
+                                throw new AccidentServerDisconnectionException();  
                             }    
                                 
                         }
@@ -213,32 +212,38 @@ namespace BaseForm
 
                 }
                 catch (Exception ex)
-                {                   
-                    if (ex is ThreadAbortException != true)
+                {
+                    if(ex is AccidentServerDisconnectionException)
                     {
-                        MessageBox.Show(ex.Message);
-                        Invoke(new Action(() => { Application.ExitThread(); }));
+                        Invoke(new Action(() =>
+                        {
+                            MessageBox.Show(this, "Внимание! Лицензирование прервано. Приложение будет закрыто. Проверьте сервер лицензий.");
+                            Application.ExitThread();
+                        }));
                     }
-
                 }
             });
             serverConnectionThread.Start();
 
         }
 
-        private void DisconnectWithServer(bool revertLicense)
+        private void DisconnectWithServer()
         {
             if (serverConnectionThread != null)
             {
                 while (true)
                 {
-                    if (serverConnectionThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
+                    if (serverConnectionThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin |
+                        serverConnectionThread.ThreadState == System.Threading.ThreadState.Running                       
+                        )
                         serverConnectionThread.Abort();
-                    if (serverConnectionThread.ThreadState == System.Threading.ThreadState.Aborted)
+                    if (serverConnectionThread.ThreadState == System.Threading.ThreadState.Aborted |
+                        serverConnectionThread.ThreadState == System.Threading.ThreadState.Stopped
+                        )
                         break;
                 }
 
-                if(revertLicense)
+                //if(revertLicense)
                     serverConnection.RequestServer(activePage + " Отдать");
             }
         }

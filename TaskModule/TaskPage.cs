@@ -196,9 +196,10 @@ namespace TaskModule
                 ConsoleControl.PrintInfo($"Закройте мастер постановки задачи {activeTask}", Color.Red);
 
                 foreach (var item in GetToolStripMenuItems())
-                    foreach (ToolStripMenuItem dropItem in item.DropDownItems)
-                        if (dropItem.Name == taskAdv.Name)
-                            dropItem.Checked = false;
+                    foreach (var dropItem in item.DropDownItems)
+                        if(dropItem is ToolStripMenuItem tls)
+                            if (tls.Name == taskAdv.Name)
+                                tls.Checked = false;
             }
             else
             {
@@ -214,8 +215,9 @@ namespace TaskModule
                             item.Checked = false;
 
                         foreach (var item in GetToolStripMenuItems())
-                            foreach (ToolStripMenuItem dropItem in item.DropDownItems)
-                                dropItem.Checked = false;
+                            foreach (var dropItem in item.DropDownItems)
+                                if (dropItem is ToolStripMenuItem tls)
+                                    tls.Checked = false;
                     }
                     activeTask = "";
                 };

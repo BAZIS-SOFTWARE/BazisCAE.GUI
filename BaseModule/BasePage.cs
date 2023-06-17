@@ -207,7 +207,6 @@ namespace BaseModule
             // сохранитьToolStripMenuItem
             // 
             сохранитьToolStripMenuItem.Enabled = false;
-            сохранитьToolStripMenuItem.Image = Resources.save.ToBitmap();
             сохранитьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
             сохранитьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
@@ -217,6 +216,7 @@ namespace BaseModule
             // сохранитькакToolStripMenuItem
             // 
             сохранитькакToolStripMenuItem.Enabled = false;
+            сохранитькакToolStripMenuItem.Image = Resources.save.ToBitmap();
             сохранитькакToolStripMenuItem.Name = "сохранитькакToolStripMenuItem";
             сохранитькакToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             сохранитькакToolStripMenuItem.Text = "Сохранить &как";
@@ -241,7 +241,7 @@ namespace BaseModule
             создатьToolStripMenuItem.Click += (ar1, ar2) => { CreateNewProject(); };
             открытьToolStripMenuItem.Click += (ar1, ar2) => { LoadProjectData("Bazis project file(*.bpf)|*.bpf|" + "All files(*.*)|*.*"); };
             сохранитьToolStripMenuItem.Click += (ar1, ar2) => { SaveProjectData(); };
-            сохранитьToolStripMenuItem.Click += (ar1, ar2) => { SaveAsProjectData("bpf"); };
+            сохранитькакToolStripMenuItem.Click += (ar1, ar2) => { SaveAsProjectData("bpf"); };
 
             return файлToolStripMenuItem;
         }
