@@ -24,6 +24,7 @@ using Project.IO;
 using Model.ModelParcer;
 using BaseModule.Properties;
 using System.Resources;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace BaseModule
 {
@@ -182,7 +183,7 @@ namespace BaseModule
             // 
             // создатьToolStripMenuItem
             // 
-            //создатьToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("создатьToolStripMenuItem.Image")));
+            создатьToolStripMenuItem.Image = Resources.create.ToBitmap();
             создатьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             создатьToolStripMenuItem.Name = "создатьToolStripMenuItem";
             создатьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
@@ -191,7 +192,7 @@ namespace BaseModule
             // 
             // открытьToolStripMenuItem
             // 
-            //открытьToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("открытьToolStripMenuItem.Image")));
+            открытьToolStripMenuItem.Image = Resources.open.ToBitmap();
             открытьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
             открытьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
@@ -206,7 +207,7 @@ namespace BaseModule
             // сохранитьToolStripMenuItem
             // 
             сохранитьToolStripMenuItem.Enabled = false;
-            //сохранитьToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("сохранитьToolStripMenuItem.Image")));
+            сохранитьToolStripMenuItem.Image = Resources.save.ToBitmap();
             сохранитьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
             сохранитьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
@@ -1362,6 +1363,13 @@ namespace BaseModule
 
             foreach (ToolStripButton item in toolStr.Items)
                 item.Enabled = true;
+
+            var items = menuItems.Find(x => x.Name == "файлToolStripMenuItem");
+
+            foreach (var item in items.DropDownItems)
+                if (item is ToolStripMenuItem tsmItem)
+                    tsmItem.Enabled = true;
+            
         }  
 
         private void BasePage_Load(object sender, EventArgs e)

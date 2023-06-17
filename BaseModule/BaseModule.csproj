@@ -171,6 +171,9 @@
   <ItemGroup>
     <None Include="Resources\console.bmp" />
     <None Include="Resources\navigator.bmp" />
+    <None Include="Resources\create.ico" />
+    <None Include="Resources\open.ico" />
+    <None Include="Resources\save.ico" />
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
   </ItemGroup>
