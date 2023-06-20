@@ -74,8 +74,8 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=1.0.5.40, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
-      <HintPath>packages\Project.1.0.5.40\lib\net48\Project.dll</HintPath>
+    <Reference Include="Project, Version=1.0.5.60, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
+      <HintPath>packages\Project.1.0.5.60\lib\net48\Project.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -175,12 +175,7 @@
     <Content Include="Mesh\mesh.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\console.bmp" />
     <None Include="Resources\helpContent.bmp" />
-    <None Include="Resources\navigator.bmp" />
-    <None Include="Resources\settings.bmp" />
-    <None Include="Resources\console.png" />
-    <None Include="Resources\navigator.png" />
     <None Include="Resources\settings.png" />
   </ItemGroup>
   <ItemGroup>

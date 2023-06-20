@@ -30,7 +30,7 @@ namespace ResultModule
         private bool showResultValue;
 
         Dictionary<string, int> imgDict;
-        Dictionary<string,List<float>> resItems;
+        //Dictionary<string,List<float>> resItems;
 
         private int nodesObjsIndex = 3;
         private int elementsObjsIndex = 4;
@@ -55,7 +55,7 @@ namespace ResultModule
                 { "Элементы",elementsObjsIndex},
             };
 
-            resItems = new Dictionary<string, List<float>>();
+            //resItems = new Dictionary<string, List<float>>();
 
             var resToolStrip = new ResultsToolStrip
             {
@@ -71,7 +71,12 @@ namespace ResultModule
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            PresentResultsOnTree(Project.ResultData);
+            var resKinds = Project.ResultData.GetResultKinds();
+            foreach (var resKind in resKinds)
+            {
+                var results = Project.ResultData.FindByTaskKind(resKind);
+                PresentResultsOnTree(results);
+            }
         }
 
         public override void CreateMenuInterface()
@@ -256,7 +261,15 @@ namespace ResultModule
                 }
             };
 
-            grPage.SetResultsItems(resItems);
+            var resKinds = Project.ResultData.GetResultKinds();
+            var resDic = new Dictionary<string, List<float>>();
+            foreach (var resKind in resKinds)
+            {
+                resDic.Add(resKind.ToString(), new List<float>());
+                var resTimes = Project.ResultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
+                resDic[resKind.ToString()] = resTimes;
+            }
+            grPage.SetResultsItems(resDic);
 
             var icon = ResultModule.Properties.Resources.Graph;
             var scForm = new Form() { TopMost = true, Icon = icon, Size = grPage.Size };
@@ -276,7 +289,17 @@ namespace ResultModule
 
             anPage.CreateGIFAnimationEvent += CreateGIFAnimation;
             anPage.SaveScreenShotEvent += (ar1) => { CreateScreenShot(ar1); };
-            anPage.SetResultsItems(resItems);
+
+            var resKinds = Project.ResultData.GetResultKinds();
+            var resDic = new Dictionary<string, List<float>>();
+            foreach (var resKind in resKinds)
+            {
+                resDic.Add(resKind.ToString(), new List<float>());
+                var resTimes = Project.ResultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
+                resDic[resKind.ToString()] = resTimes;
+            }
+
+            anPage.SetResultsItems(resDic);
 
             var icon = ResultModule.Properties.Resources.Animation;
             var anForm = new Form() { TopMost = true, Icon = icon, Size = anPage.Size, Name = "Animation", Text = "Анимация" };
@@ -409,7 +432,9 @@ namespace ResultModule
 
             if (newProjDialog.ShowDialog() == DialogResult.Cancel)
                 return;
-            resItems.Clear();
+            //resItems.Clear();
+            Project.ResultData.Clear();
+            TreeView.Nodes[4].Nodes.Clear();
             LoadResults(newProjDialog.FileName);
         }
 
@@ -616,61 +641,60 @@ namespace ResultModule
 
             resultsLoader.LoadEvent += (ar1, ar2) => { ConsoleControl.PrintInfo(ar2.Message, Color.Black); };
             var results = resultsLoader.Load(fileName);
-            Project.ResultData.AddRange(results);
 
-            PresentResultsOnTree(results);
+            if (results.Count() == 0)
+            {
+                ConsoleControl.PrintInfo("База данных не содержит результатов!", Color.Red);
+                return;
+            }
 
-            anPage?.Clear();
+            Project.ResultData.AddRange(results, new ResultsComparer());
+            
+            var resKind = results.First().TaskKind.ToString();
+
+            if (TreeView.Nodes[4].Nodes.Find(resKind, false).Count() == 0)
+                PresentResultsOnTree(results);
+            
+            anPage?.Clear();          
         }
 
         public void PresentResultsOnTree(IEnumerable<Result> results)
         {
-            if(results.Count() > 0)
+            var nodeSchema = results.First().GetDataSchema("nodes");
+            var elemSchema = results.First().GetDataSchema("elements");
+            var resultsName = results.First().TaskKind.ToString();
+            var resNode = new TreeNode()
             {
-                var times = results.Select(x => x.Time);
+                Text = resultsName,
+                Name = resultsName,
+                ImageIndex = CollapseIndex,
+                SelectedImageIndex = CollapseIndex,
+                Tag = "3"
+            };
 
-                var minTime = times.First();
-                var maxTime = times.Last();
-                var resName = $"{results.First().TaskKind}_{minTime}_{maxTime}";
+            var nodesNode = new TreeNode()
+            {
+                Text = "Узлы",
+                Name = "Узлы",
+                ImageIndex = CollapseIndex,
+                SelectedImageIndex = CollapseIndex,
+                Tag = "3.1"
+            };
+            CreateTreeNodesResDesc(nodeSchema, nodesNode, nodesObjsIndex);
+            resNode.Nodes.Add(nodesNode);
 
-                resItems.Add(resName, times.ToList());
+            var elemsNode = new TreeNode()
+            {
+                Text = "Элементы",
+                Name = "Элементы",
+                ImageIndex = CollapseIndex,
+                SelectedImageIndex = CollapseIndex,
+                Tag = "3.1"
+            };
+            CreateTreeNodesResDesc(elemSchema, elemsNode, elementsObjsIndex);
+            resNode.Nodes.Add(elemsNode);
 
-                var nodeSchema = results.First().GetDataSchema("nodes");
-                var elemSchema = results.First().GetDataSchema("elements");
-
-                var resNode = new TreeNode()
-                {
-                    Text = resName,
-                    Name = resName,
-                    ImageIndex = CollapseIndex,
-                    SelectedImageIndex = CollapseIndex,
-                    Tag = "3"
-                };
-
-                var nodesNode = new TreeNode()
-                {
-                    Text = "Узлы",
-                    Name = "Узлы",
-                    ImageIndex = CollapseIndex,
-                    SelectedImageIndex = CollapseIndex,
-                    Tag = "3.1"
-                };
-                CreateTreeNodesResDesc(nodeSchema, nodesNode, nodesObjsIndex);
-                resNode.Nodes.Add(nodesNode);
-
-                var elemsNode = new TreeNode()
-                {
-                    Text = "Элементы",
-                    Name = "Элементы",
-                    ImageIndex = CollapseIndex,
-                    SelectedImageIndex = CollapseIndex,
-                    Tag = "3.1"
-                };
-                CreateTreeNodesResDesc(elemSchema, elemsNode, elementsObjsIndex);
-                resNode.Nodes.Add(elemsNode);
-
-                TreeView.Nodes[4].Nodes.Add(resNode);
-            }            
+            TreeView.Nodes[4].Nodes.Add(resNode);
         }
 
         public void CreateTreeNodesResDesc(List<string> resultSchema, TreeNode treeNode, int picIndex)

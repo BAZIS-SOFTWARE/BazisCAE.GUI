@@ -249,6 +249,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_4EA6B2D65717E5A999A90A412169C9AC"
+        "OwnerKey" = "8:_C730924EBBFB4AF99E6D96FDF1274578"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_54EC20F55B590876AB2FD2B09413C269"
         "OwnerKey" = "8:_BF4D7BBFFA9E4DA99F69DE33F9EE8C44"
         "MsmSig" = "8:_UNDEFINED"
@@ -615,6 +621,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C730924EBBFB4AF99E6D96FDF1274578"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C824B006D6AF715483AFDC4DD83BA210"
         "OwnerKey" = "8:_2354F2D0B33A9E61BE9F620314F8DF5B"
         "MsmSig" = "8:_UNDEFINED"
@@ -796,6 +808,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C730924EBBFB4AF99E6D96FDF1274578"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_916747916FD28523597E67193C326B66"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -880,12 +898,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4EA6B2D65717E5A999A90A412169C9AC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_EB36C003A8C74573AAB9A10C8040F396"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -899,6 +911,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_2C249F67F30E4F25AEFC2358AD025FC5"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_4EA6B2D65717E5A999A90A412169C9AC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1099,6 +1117,20 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_1D03EA7FE85C4CFCBCBE8A28FCC2F37E"
+            {
+            "Name" = "8:Основные выходные файлы from InstallerAction (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_C730924EBBFB4AF99E6D96FDF1274578"
+            "FileType" = "3:1"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_0E2A8F76_A6EA_4D0B_8BFC_79E75FC4ACEB"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:/version="
+            }
         }
         "DefaultFeature"
         {
@@ -2625,11 +2657,6 @@
             "AssemblyAsmDisplayName" = "8:Project, Version=1.0.5.40, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F2F1505E336E530235E5166756A7C66F"
-                    {
-                    "Name" = "8:Project.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Project.dll"
             "TargetName" = "8:"
@@ -2898,16 +2925,16 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:BazisPrePost4.2.21"
-        "ProductCode" = "8:{67F47F49-1414-43A7-97BD-2DF4AB5C3AA1}"
-        "PackageCode" = "8:{D65D224D-8E13-40D0-A7A2-824C8BD23F74}"
+        "ProductName" = "8:BazisPrePost4.2.24"
+        "ProductCode" = "8:{76001475-6060-47C6-A66C-FE5F0361AEB8}"
+        "PackageCode" = "8:{E05A31F5-8419-486B-8C9A-397FCBC45517}"
         "UpgradeCode" = "8:{B6CE3573-0A6F-4654-B604-218137EC41B2}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:4.2.21"
+        "ProductVersion" = "8:4.2.24"
         "Manufacturer" = "8:BazisSoftware"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://bazisnet.ru"
@@ -3022,7 +3049,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_30B1B53970ED4091B5F5D849A518ED00"
             {
-            "Name" = "8:Bazis_4.2.21"
+            "Name" = "8:Bazis_4.2.22"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -3036,7 +3063,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_EE6F751DA23A4CF5969C52EF2802C287"
             {
-            "Name" = "8:Bazis_4.2.21"
+            "Name" = "8:Bazis_4.2.22"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -3050,7 +3077,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_FC8E2AC25DC147CD85F38DD70A5EF02D"
             {
-            "Name" = "8:Bazis_4.2.21"
+            "Name" = "8:Bazis_4.2.22"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -3353,7 +3380,7 @@
                 {
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_091F08C32AF94A6CB17D72A6F79CEB9F"
                     {
-                    "Sequence" = "3:300"
+                    "Sequence" = "3:400"
                     "DisplayName" = "8:Подтверждение установки"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
@@ -3375,7 +3402,7 @@
                     }
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_0ACA8E5DCDC048528CE8433D6B5C5633"
                     {
-                    "Sequence" = "3:200"
+                    "Sequence" = "3:300"
                     "DisplayName" = "8:Папка установки"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
@@ -3458,7 +3485,7 @@
                     }
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_D8C0B2582F0346A5A2E0E5D1C0764D4F"
                     {
-                    "Sequence" = "3:110"
+                    "Sequence" = "3:200"
                     "DisplayName" = "8:Лицензионное соглашение"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
@@ -3557,7 +3584,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BF4D7BBFFA9E4DA99F69DE33F9EE8C44"
             {
-            "SourcePath" = "8:..\\obj\\x64\\Debug\\BazisGUI.exe"
+            "SourcePath" = "8:..\\obj\\x64\\Release\\BazisGUI.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
@@ -3578,6 +3605,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{A4E6398C-244E-4655-AEA7-5A9B606586C6}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_C730924EBBFB4AF99E6D96FDF1274578"
+            {
+            "SourcePath" = "8:..\\InstallerAction\\obj\\Release\\InstallerAction.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{C8686866-7FFA-48D5-8816-69D0EBF7A58E}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
