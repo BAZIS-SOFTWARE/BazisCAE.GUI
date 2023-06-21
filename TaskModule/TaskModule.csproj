@@ -53,11 +53,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ColorSlider.dll</HintPath>
     </Reference>
-    <Reference Include="DataBaseController, Version=1.0.1.20, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataBaseController.1.0.1.20\lib\net48\DataBaseController.dll</HintPath>
+    <Reference Include="DataBaseController, Version=1.0.2.10, Culture=neutral, PublicKeyToken=8f3f4c8929d99921, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataBaseController.1.0.2.10\lib\net48\DataBaseController.dll</HintPath>
     </Reference>
-    <Reference Include="DataBases, Version=1.0.1.60, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataBases.1.0.1.60\lib\net48\DataBases.dll</HintPath>
+    <Reference Include="DataBases, Version=1.0.1.70, Culture=neutral, PublicKeyToken=0bb79e55f1a23392, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataBases.1.0.1.70\lib\net48\DataBases.dll</HintPath>
     </Reference>
     <Reference Include="Functions, Version=1.0.1.40, Culture=neutral, PublicKeyToken=65fde98421b2fc88, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -317,11 +317,6 @@
     <None Include="WeldingModule\packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Tao.OpenGl.dll" />
-    <Content Include="Tao.Platform.Windows.dll" />
-    <None Include="BasicAdvisorControls\Resources\AxiSymTask.png" />
-    <None Include="BasicAdvisorControls\Resources\PlainTask.png" />
-    <None Include="BasicAdvisorControls\Resources\VolTask.png" />
     <Content Include="Functions\functions.txt" />
     <Content Include="Functions\functions_draft.txt" />
     <Content Include="Functions\functions_save.txt" />
@@ -338,14 +333,25 @@
     <Content Include="Graph_icons\Right_Velocity.ico" />
     <Content Include="Graph_icons\Show_table.bmp" />
     <Content Include="Graph_icons\Show_value.bmp" />
-    <Content Include="HeatTreatmentModule\HT.ico" />
-    <Content Include="HeatTreatmentModule\Icon.bmp" />
     <Content Include="Materials\materials.txt" />
     <Content Include="Materials\materials_draft.txt" />
-    <None Include="Resources\Add.ico" />
     <Content Include="Resources\AllLineThickness.ico" />
-    <None Include="Resources\Arc_new.png" />
     <Content Include="Resources\dashButton.Image.png" />
+    <Content Include="Resources\lineButton.Image.png" />
+    <Content Include="Resources\LineThickness0.ico" />
+    <Content Include="Resources\LineThickness1.ico" />
+    <Content Include="Resources\LineThickness2.ico" />
+    <Content Include="Resources\Show_table.bmp" />
+    <Content Include="Resources\Show_value.bmp" />
+    <Content Include="Tao.OpenGl.dll" />
+    <Content Include="Tao.Platform.Windows.dll" />
+    <None Include="BasicAdvisorControls\Resources\AxiSymTask.png" />
+    <None Include="BasicAdvisorControls\Resources\PlainTask.png" />
+    <None Include="BasicAdvisorControls\Resources\VolTask.png" />
+    <Content Include="HeatTreatmentModule\HT.ico" />
+    <Content Include="HeatTreatmentModule\Icon.bmp" />
+    <None Include="Resources\Add.ico" />
+    <None Include="Resources\Arc_new.png" />
     <None Include="Resources\delete.ico" />
     <None Include="Resources\HideAll.png" />
     <None Include="Resources\Pause.ico" />
@@ -357,12 +363,6 @@
     <None Include="Resources\LW.png" />
     <EmbeddedResource Include="WeldingModule\Icon.bmp" />
     <None Include="Resources\HT.ico" />
-    <Content Include="Resources\lineButton.Image.png" />
-    <Content Include="Resources\LineThickness0.ico" />
-    <Content Include="Resources\LineThickness1.ico" />
-    <Content Include="Resources\LineThickness2.ico" />
-    <Content Include="Resources\Show_table.bmp" />
-    <Content Include="Resources\Show_value.bmp" />
     <None Include="Resources\Welding.ico" />
     <EmbeddedResource Include="WeldingModule\WeldingPage.resx">
       <DependentUpon>WeldingPage.cs</DependentUpon>
