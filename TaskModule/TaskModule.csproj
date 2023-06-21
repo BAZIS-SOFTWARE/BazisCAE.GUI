@@ -56,8 +56,8 @@
     <Reference Include="DataBaseController, Version=1.0.2.10, Culture=neutral, PublicKeyToken=8f3f4c8929d99921, processorArchitecture=MSIL">
       <HintPath>..\packages\DataBaseController.1.0.2.10\lib\net48\DataBaseController.dll</HintPath>
     </Reference>
-    <Reference Include="DataBases, Version=1.0.1.70, Culture=neutral, PublicKeyToken=0bb79e55f1a23392, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataBases.1.0.1.70\lib\net48\DataBases.dll</HintPath>
+    <Reference Include="DataBases, Version=1.0.1.80, Culture=neutral, PublicKeyToken=0bb79e55f1a23392, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataBases.1.0.1.80\lib\net48\DataBases.dll</HintPath>
     </Reference>
     <Reference Include="Functions, Version=1.0.1.40, Culture=neutral, PublicKeyToken=65fde98421b2fc88, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -66,8 +66,8 @@
     <Reference Include="Geometry, Version=2.0.5.30, Culture=neutral, PublicKeyToken=cadb58b3f6b10f0c, processorArchitecture=MSIL">
       <HintPath>..\packages\Geometry.2.0.5.30\lib\net48\Geometry.dll</HintPath>
     </Reference>
-    <Reference Include="Graph, Version=1.0.1.30, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Graph.1.0.1.30\lib\net48\Graph.dll</HintPath>
+    <Reference Include="Graph, Version=1.0.1.40, Culture=neutral, PublicKeyToken=4d6e483d8ec08dd8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Graph.1.0.1.40\lib\net48\Graph.dll</HintPath>
     </Reference>
     <Reference Include="Model, Version=1.0.7.50, Culture=neutral, PublicKeyToken=2804256ee81d4535, processorArchitecture=MSIL">
       <HintPath>..\packages\Model.1.0.7.50\lib\net48\Model.dll</HintPath>

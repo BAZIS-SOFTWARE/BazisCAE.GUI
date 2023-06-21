@@ -62,8 +62,8 @@
     <Reference Include="Gif.Components">
       <HintPath>..\Libs\Gif.Components.dll</HintPath>
     </Reference>
-    <Reference Include="Graph, Version=1.0.1.30, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Graph.1.0.1.30\lib\net48\Graph.dll</HintPath>
+    <Reference Include="Graph, Version=1.0.1.40, Culture=neutral, PublicKeyToken=4d6e483d8ec08dd8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Graph.1.0.1.40\lib\net48\Graph.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
