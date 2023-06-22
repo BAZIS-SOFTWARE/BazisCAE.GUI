@@ -8,14 +8,11 @@ namespace ResultModule
 {
     public class CreateTimeGraphArgs : EventArgs
     {
-        public CreateTimeGraphArgs(string objsType, string resName)
+        public CreateTimeGraphArgs(string objsType)
         {
             ObjsType = objsType;
 
-            var descr = resName.Split('_');
-            ResultKind = descr[0];
         }
         public string ObjsType { get; }
-        public string ResultKind { get; }
     }
 }

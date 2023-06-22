@@ -44,16 +44,17 @@ namespace ResultModule
 
         private void btnCreatePlot_Click(object sender, EventArgs e)
         {
-            var resName = comboBox.SelectedItem.ToString();
+            
             if (rbtTime.Checked)
             {
                 if (rbtNodes.Checked)
-                    CreateTimeGraphEvent(this, new CreateTimeGraphArgs("Узлы", resName));
-                else CreateTimeGraphEvent(this, new CreateTimeGraphArgs("Элементы", resName));
+                    CreateTimeGraphEvent(this, new CreateTimeGraphArgs("Узлы"));
+                else CreateTimeGraphEvent(this, new CreateTimeGraphArgs("Элементы"));
             }
             else
             {
-                if(richTextBox.Lines.Length > 0)
+                var resName = comboBox.SelectedItem.ToString();
+                if (richTextBox.Lines.Length > 0)
                 {
                     var time = float.Parse(richTextBox.Lines[lineIndex]);
                     if (rbtNodes.Checked)

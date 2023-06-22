@@ -109,5 +109,25 @@ namespace BaseModule.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap switchOn_elems_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("switchOn_elems_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap switchOn_nodes_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("switchOn_nodes_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

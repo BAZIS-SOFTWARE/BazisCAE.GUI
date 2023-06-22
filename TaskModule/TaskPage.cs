@@ -45,20 +45,14 @@ namespace TaskModule
         {
             InitializeComponent();
 
-            TreeView.ImageList = treeNodesImageList;
-
-            ProjectInfoIndex = 2;
-            CollapseIndex = 0;
-            ExpandIndex = 1;
-
             imgDict = new Dictionary<string, int>()
             {
-                { "Материал",3},
-                { "Среда",4},
-                { "Нагрев",5},
-                { "Закрепление",6},
-                { "Нагрузка",7},
-                { "Расчет",8}
+                { "Материал",8},
+                { "Среда",9},
+                { "Нагрев",10},
+                { "Закрепление",11},
+                { "Нагрузка",12},
+                { "Расчет",13}
             };
 
             var list = new List<StatusStrip>();

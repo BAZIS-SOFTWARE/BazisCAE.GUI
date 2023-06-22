@@ -25,11 +25,13 @@ using Model.ModelParcer;
 using BaseModule.Properties;
 using System.Resources;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+using Project.TasksData.Functions;
 
 namespace BaseModule
 {
     public partial class BasePage : UserControl
     {
+        Dictionary<string, int> imgDict;
         private ProjectData project;
         public Action<object, ProjectData> ChangeProjectDataEvent;
 
@@ -45,19 +47,27 @@ namespace BaseModule
 
         [Category("TreeView")]
         [Description("Set imageIndex for expand node")]
-        public int ExpandIndex { get; set; }
+        public int ExpandIndex { get; set; } = 2;
 
         [Category("TreeView")]
         [Description("Set imageIndex for collapse node")]
-        public int CollapseIndex { get; set; }
+        public int CollapseIndex { get; set; } = 1;
 
         [Category("TreeView")]
         [Description("Set imageIndex for project info nodes")]
-        public int ProjectInfoIndex { get; set; }
+        public int ProjectInfoIndex { get; set; } = 0;
 
         public BasePage()
         {
             InitializeComponent();
+
+            imgDict = new Dictionary<string, int>()
+            {
+                { "Узлы",3},
+                { "Элементы3D",4},
+                { "Элементы2D",4},
+                { "Элементы1D",4}
+            };
         }
 
         public void SceneInitialization()
@@ -507,41 +517,26 @@ namespace BaseModule
             if (dialog.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            project = new ProjectData("newProject", Environment.CurrentDirectory);
-            consoleControl.PrintInfo("Создан новый проект", Color.Black);
-
             var ext = Path.GetExtension(dialog.FileName);
 
             if (ext == ".bpf")
             {
+                project = new ProjectData("newProject", Environment.CurrentDirectory);
+                consoleControl.PrintInfo("Создан новый проект", Color.Black);
+
                 var loader = new LoadProjectFromTextFormat();
                 loader.LoadEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
 
                 var projectLoad = loader.Load(dialog.FileName);
                 project.Load(projectLoad);
+
+                lblInputCmd.Text = string.Empty;
+
+                ChangeProjectDataEvent(this, project);
+
+                SceneInitialization();
             }
-            else if (ext == ".inp")
-            {
-                var loader = new LoadModelFromGMSHTextFile();
-                loader.LoadEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
-
-                var modelINP = loader.Load(dialog.FileName);
-                project.Model.Load(modelINP);
-            }
-            else if (ext == ".ASC")
-            {
-                var loader = new LoadModelFromASCIITextFile();
-                loader.LoadEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
-
-                var modelASCII = loader.Load(dialog.FileName);
-                project.Model.Load(modelASCII);
-            }
-
-            lblInputCmd.Text = string.Empty;
-
-            ChangeProjectDataEvent(this, project);
-
-            SceneInitialization();
+            else consoleControl.PrintInfo("Неизвестный формат файла!", Color.Red);
         }
 
         public bool SaveAsProjectData(string extFilter)
@@ -851,7 +846,12 @@ namespace BaseModule
                         SceneControl.HideVBObject("crossSection");
                         SceneControl.DeleteVBObjects("crossSection");
 
-                        SceneControl.ShowAllVBObjects();
+                        if(SceneControl.GetVBObjsName().Count() == 0)
+                        {
+                            SceneControl.CreateVBObjects();
+                            SceneControl.ShowAllVBObjects();
+                        }
+                        SceneControl.DisplayObjects();
                     };
 
                     form.Show();
@@ -1416,6 +1416,20 @@ namespace BaseModule
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
         {
             grbNavigator.Invalidate();
+        }
+
+        private void sceneControl_ShowAllHiddenObjectsEvent(object arg1, EventArgs arg2)
+        {
+            foreach (var objsName in sceneControl.GetVBObjsName())
+            {
+                var nodes = TreeView.Nodes[4].Nodes.Find(objsName, true);
+                if(nodes.Length > 0)
+                {
+                    nodes[0].ImageIndex = imgDict[objsName] == 3 ? 5 : 6;
+                    nodes[0].SelectedImageIndex = imgDict[objsName] == 3 ? 5 : 6;
+                }
+
+            }
         }
     }
 }

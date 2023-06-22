@@ -30,10 +30,12 @@ namespace BaseModule
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Название проекта :", 0, 0);
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Путь :", 0, 0);
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Сведения :", 0, 0);
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Вид :");
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Название проекта :", 0, 0);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Путь :", 0, 0);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Сведения :", 0, 0);
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Вид :");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BasePage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblInputCmd = new System.Windows.Forms.ToolStripStatusLabel();
@@ -47,6 +49,7 @@ namespace BaseModule
             this.sceneControl = new Scene.SceneControl();
             this.grbConsole = new System.Windows.Forms.Panel();
             this.consoleControl = new BaseModule.Console.ConsoleControl();
+            this.treeNodesImageList_16x16 = new System.Windows.Forms.ImageList(this.components);
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
@@ -164,33 +167,36 @@ namespace BaseModule
             // 
             this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView.ImageIndex = 0;
+            this.treeView.ImageList = this.treeNodesImageList_16x16;
             this.treeView.Indent = 19;
             this.treeView.ItemHeight = 18;
             this.treeView.Location = new System.Drawing.Point(0, 15);
             this.treeView.Name = "treeView";
-            treeNode5.ImageIndex = 0;
-            treeNode5.Name = "названиеПроекта";
-            treeNode5.SelectedImageIndex = 0;
-            treeNode5.Tag = "0";
-            treeNode5.Text = "Название проекта :";
-            treeNode6.ImageIndex = 0;
-            treeNode6.Name = "путь";
-            treeNode6.SelectedImageIndex = 0;
-            treeNode6.Tag = "1";
-            treeNode6.Text = "Путь :";
-            treeNode7.ImageIndex = 0;
-            treeNode7.Name = "сведения";
-            treeNode7.SelectedImageIndex = 0;
-            treeNode7.Tag = "2";
-            treeNode7.Text = "Сведения :";
-            treeNode8.Name = "вид";
-            treeNode8.Tag = "3";
-            treeNode8.Text = "Вид :";
+            treeNode1.ImageIndex = 0;
+            treeNode1.Name = "названиеПроекта";
+            treeNode1.SelectedImageIndex = 0;
+            treeNode1.Tag = "0";
+            treeNode1.Text = "Название проекта :";
+            treeNode2.ImageIndex = 0;
+            treeNode2.Name = "путь";
+            treeNode2.SelectedImageIndex = 0;
+            treeNode2.Tag = "1";
+            treeNode2.Text = "Путь :";
+            treeNode3.ImageIndex = 0;
+            treeNode3.Name = "сведения";
+            treeNode3.SelectedImageIndex = 0;
+            treeNode3.Tag = "2";
+            treeNode3.Text = "Сведения :";
+            treeNode4.Name = "вид";
+            treeNode4.Tag = "3";
+            treeNode4.Text = "Вид :";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode5,
-            treeNode6,
-            treeNode7,
-            treeNode8});
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4});
+            this.treeView.SelectedImageIndex = 0;
             this.treeView.Size = new System.Drawing.Size(317, 574);
             this.treeView.TabIndex = 1;
             this.treeView.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.TreeView_AfterCollapse);
@@ -247,6 +253,7 @@ namespace BaseModule
             this.sceneControl.TitleColor = System.Drawing.Color.Black;
             this.sceneControl.TitleText = "";
             this.sceneControl.InfoObjectsEvent += new System.Action<object, Scene.InfoObjectsEventArgs>(this.sceneControl_InfoObjectsEvent);
+            this.sceneControl.ShowAllHiddenObjectsEvent += new System.Action<object, System.EventArgs>(this.sceneControl_ShowAllHiddenObjectsEvent);
             this.sceneControl.CreateMeshGroupEvent += new System.Action<object, Scene.Events.CreateGroupEventArgs>(this.sceneControl_CreateMeshGroupEvent);
             this.sceneControl.DeleteSelectionEvent += new System.Action<object, System.EventArgs>(this.sceneControl_DeleteSelectionEvent);
             this.sceneControl.SetPresentorEvent += new System.Action<object, Scene.Events.VBOPresenterEventArgs>(this.sceneControl_CreateVBObjectsEvent);
@@ -275,6 +282,25 @@ namespace BaseModule
             this.consoleControl.Name = "consoleControl";
             this.consoleControl.Size = new System.Drawing.Size(601, 117);
             this.consoleControl.TabIndex = 4;
+            // 
+            // treeNodesImageList_16x16
+            // 
+            this.treeNodesImageList_16x16.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("treeNodesImageList_16x16.ImageStream")));
+            this.treeNodesImageList_16x16.TransparentColor = System.Drawing.Color.Transparent;
+            this.treeNodesImageList_16x16.Images.SetKeyName(0, "Инфо.bmp");
+            this.treeNodesImageList_16x16.Images.SetKeyName(1, "CloseFolder.png");
+            this.treeNodesImageList_16x16.Images.SetKeyName(2, "OpenFolder.png");
+            this.treeNodesImageList_16x16.Images.SetKeyName(3, "NodeObjs.png");
+            this.treeNodesImageList_16x16.Images.SetKeyName(4, "MeshObjs.png");
+            this.treeNodesImageList_16x16.Images.SetKeyName(5, "switchOn_nodes_16x16.png");
+            this.treeNodesImageList_16x16.Images.SetKeyName(6, "switchOn_elems_16x16.png");
+            this.treeNodesImageList_16x16.Images.SetKeyName(7, "GeomObjs.png");
+            this.treeNodesImageList_16x16.Images.SetKeyName(8, "Материалы.bmp");
+            this.treeNodesImageList_16x16.Images.SetKeyName(9, "Среда.bmp");
+            this.treeNodesImageList_16x16.Images.SetKeyName(10, "Нагрев.bmp");
+            this.treeNodesImageList_16x16.Images.SetKeyName(11, "Закрепление.bmp");
+            this.treeNodesImageList_16x16.Images.SetKeyName(12, "Нагрузки.bmp");
+            this.treeNodesImageList_16x16.Images.SetKeyName(13, "CompInfo.png");
             // 
             // BasePage
             // 
@@ -322,5 +348,6 @@ namespace BaseModule
         //private Scene.SceneControl sceneControl;
         private System.Windows.Forms.ToolStripStatusLabel lblVersion;
         private Scene.SceneControl sceneControl;
+        private System.Windows.Forms.ImageList treeNodesImageList_16x16;
     }
 }

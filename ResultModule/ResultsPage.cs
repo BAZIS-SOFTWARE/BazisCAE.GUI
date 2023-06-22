@@ -32,8 +32,6 @@ namespace ResultModule
         Dictionary<string, int> imgDict;
         //Dictionary<string,List<float>> resItems;
 
-        private int nodesObjsIndex = 3;
-        private int elementsObjsIndex = 4;
         private ScalePage scPage;
         private AnimationPage anPage;
 
@@ -41,18 +39,12 @@ namespace ResultModule
         {
             InitializeComponent();
 
-            TreeView.ImageList = treeNodesImageList;
-
             scale = new RainbowScale(1, 0, 10);
-
-            ProjectInfoIndex = 2;
-            CollapseIndex = 0;
-            ExpandIndex = 1;
 
             imgDict = new Dictionary<string, int>()
             {
-                { "Узлы",nodesObjsIndex},
-                { "Элементы",elementsObjsIndex},
+                { "Узлы",3},
+                { "Элементы",4},
             };
 
             //resItems = new Dictionary<string, List<float>>();
@@ -65,7 +57,7 @@ namespace ResultModule
 
             AddToolStrip(resToolStrip);
 
-            TreeView.Nodes.Add(new TreeNode("Результаты", 0, 0) { Name = "Результаты" });
+            TreeView.Nodes.Add(new TreeNode("Результаты", 1, 1) { Name = "Результаты" });
         }
 
         protected override void OnLoad(EventArgs e)
@@ -228,18 +220,18 @@ namespace ResultModule
         }
 
         private void CreateGraph()
-        {
+        {       
             var grPage = new GraphCreationPage() { Dock = DockStyle.Fill };
             grPage.CreateTimeGraphEvent += (ar1, ar2) =>
             {
                 if (TreeView.SelectedNode?.Level == 3)
-                    CreateTimeGraph(ar2.ResultKind, ar2.ObjsType);
+                    CreateTimeGraph(TreeView.SelectedNode.Parent.Parent.Name, ar2.ObjsType);
                 else ConsoleControl.PrintInfo("Выберите результаты для построения графика!", Color.Red);
             };
             grPage.CreatePathGraphEvent += (ar1, ar2) =>
             {
                 if (TreeView.SelectedNode?.Level == 3)
-                    CreatePathGraph(ar2.ResultKind, ar2.ObjsType, ar2.Time);
+                    CreatePathGraph(TreeView.SelectedNode.Parent.Parent.Name, ar2.ObjsType, ar2.Time);
                 else ConsoleControl.PrintInfo("Выберите результаты для построения графика!", Color.Red);
             };
 
@@ -680,7 +672,7 @@ namespace ResultModule
                 SelectedImageIndex = CollapseIndex,
                 Tag = "3.1"
             };
-            CreateTreeNodesResDesc(nodeSchema, nodesNode, nodesObjsIndex);
+            CreateTreeNodesResDesc(nodeSchema, nodesNode, imgDict["Узлы"]);
             resNode.Nodes.Add(nodesNode);
 
             var elemsNode = new TreeNode()
@@ -691,7 +683,7 @@ namespace ResultModule
                 SelectedImageIndex = CollapseIndex,
                 Tag = "3.1"
             };
-            CreateTreeNodesResDesc(elemSchema, elemsNode, elementsObjsIndex);
+            CreateTreeNodesResDesc(elemSchema, elemsNode, imgDict["Элементы"]);
             resNode.Nodes.Add(elemsNode);
 
             TreeView.Nodes[4].Nodes.Add(resNode);

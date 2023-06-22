@@ -23,25 +23,17 @@ namespace ModelModule
     {
         Dictionary<string, int> imgDict;
 
-        private int nodesObjsIndex = 3;
-        private int elementsObjsIndex = 4;
-
 
         public ModelPage()
         {
             InitializeComponent();
 
-            TreeView.ImageList = treeNodesImageList_16x16;
-            ProjectInfoIndex = 2;
-            CollapseIndex = 0;
-            ExpandIndex = 1;
-
             imgDict = new Dictionary<string, int>()
             {
-                { "Узлы",nodesObjsIndex},
-                { "Элементы3D",elementsObjsIndex},
-                { "Элементы2D",elementsObjsIndex},
-                { "Элементы1D",elementsObjsIndex}
+                { "Узлы",3},
+                { "Элементы3D",4},
+                { "Элементы2D",4},
+                { "Элементы1D",4}
             };
 
             var meshToolStrip = new MeshToolStrip();
@@ -226,7 +218,7 @@ namespace ModelModule
             };
             TreeView.Nodes["группыОбъектов"].Nodes.Add(trNode);
 
-            if (imgDict[grInfo.Value] == nodesObjsIndex)
+            if (grInfo.Value == "Узлы")
                 trNode.ContextMenuStrip = ndGroup_MenuStrip;
             else trNode.ContextMenuStrip = elGroup_MenuStrip;
 
