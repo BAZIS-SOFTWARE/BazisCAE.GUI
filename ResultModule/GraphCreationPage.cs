@@ -70,6 +70,21 @@ namespace ResultModule
             }
         }
 
+        private void MarkTimeStep(int lineIndex)
+        {
+            int startFromIndex = richTextBox.GetFirstCharIndexFromLine(lineIndex);
+            //Получаем длину строки
+            int lineLength = richTextBox.Lines[lineIndex].Length;
+
+            richTextBox.SelectAll();
+            richTextBox.SelectionBackColor = System.Drawing.Color.White;
+            //Выделяем текст с первого символа строки до конца строки
+            richTextBox.Select(startFromIndex, lineLength);
+            //Устанавливаем выделенному тексту оранжевый фон
+            richTextBox.SelectionBackColor = System.Drawing.Color.Orange;
+            richTextBox.Select(startFromIndex, 0);
+        }
+
         private void rbtPath_Click(object sender, EventArgs e)
         {
             if (rbtPath.Checked)
@@ -104,6 +119,7 @@ namespace ResultModule
             int charIndex = richTextBox.GetCharIndexFromPosition(e.Location);
             //Получаем номер строки по знаку
             lineIndex = richTextBox.GetLineFromCharIndex(charIndex);
+            MarkTimeStep(lineIndex);
         }
     }
 }

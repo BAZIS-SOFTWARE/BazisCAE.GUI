@@ -106,9 +106,10 @@ namespace BaseForm
 
         private void AddModule(string moduleName)
         {
+            CloseActivePageChildControls();
+
             DisconnectWithServer();
-            StopLicensing();
-            CloseActivePageChildControld();
+            serverConnection.RequestServer(activePage + " Отдать");
 
             activePage = moduleName;
 
@@ -170,7 +171,7 @@ namespace BaseForm
 
         }
 
-        private void CloseActivePageChildControld()
+        private void CloseActivePageChildControls()
         {
             toolStripContainer.ContentPanel.Controls.RemoveByKey(activePage);
 
@@ -184,11 +185,6 @@ namespace BaseForm
 
             foreach (var activeMenuItem in activeMenuItems)
                 menuStrip.Items.Remove(activeMenuItem);
-        }
-
-        private void StopLicensing()
-        {
-            serverConnection.RequestServer(activePage + " Отдать");
         }
 
         private void StartLicensing(string moduleName, BasePage module)
@@ -347,6 +343,8 @@ namespace BaseForm
                 {
                     serverConnection = new Controller(ar1, ar2);
                     serverConnection.RequestServer(activePage + " Взять");
+
+                    control.LabelAnswer = serverConnection.Answer;
 
                     if (serverConnection.Answer == "можно")
                     {

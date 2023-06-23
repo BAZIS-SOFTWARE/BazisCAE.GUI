@@ -56,6 +56,9 @@
     <Reference Include="Console">
       <HintPath>..\Libs\Console.dll</HintPath>
     </Reference>
+    <Reference Include="CustomOpenFileDialog">
+      <HintPath>..\Libs\CustomOpenFileDialog.dll</HintPath>
+    </Reference>
     <Reference Include="Geometry, Version=2.0.5.30, Culture=neutral, PublicKeyToken=cadb58b3f6b10f0c, processorArchitecture=MSIL">
       <HintPath>..\packages\Geometry.2.0.5.30\lib\net48\Geometry.dll</HintPath>
     </Reference>

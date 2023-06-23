@@ -1,20 +1,27 @@
 ﻿using BaseModule;
+using CustomControls;
+using CustomControls.Controls;
+using CustomControls.OS;
 using Geometry;
 using Gif.Components;
 using Graph;
 using Model;
+using ModelController.MeshObjsUtility;
 using ModelController.ModelScenePresentator;
 using Project.Interfaces;
 using Project.IO;
 using Project.ResultsData;
 using Project.ResultsData.ScenePresenter;
 using Project.ResultsData.ScenePresenter.Interfaces;
+using Project.TasksData;
 using Scene;
+using SceneInterface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using ToolStrips;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -107,7 +114,7 @@ namespace ResultModule
                 Text = "Загрузить результаты"
             };
 
-            loadResultsMenuItem.Click += (ar1, ar2) => { LoadResults(); };
+            loadResultsMenuItem.Click += (ar1, ar2) => { ShowOpenResultsFileDialog(); };
 
             ToolStripMenuItem hideResultsMenuItem = new ToolStripMenuItem()
             {
@@ -264,7 +271,7 @@ namespace ResultModule
             grPage.SetResultsItems(resDic);
 
             var icon = ResultModule.Properties.Resources.Graph;
-            var scForm = new Form() { TopMost = true, Icon = icon, Size = grPage.Size };
+            var scForm = new Form() { TopMost = true, Text = "Построить график",Icon = icon, Size = grPage.Size };
             scForm.Controls.Add(grPage);
             scForm.Show();
         }
@@ -418,16 +425,27 @@ namespace ResultModule
             }
         }
 
-        private void LoadResults()
+        private void ShowOpenResultsFileDialog()
         {
-            OpenFileDialog newProjDialog = new OpenFileDialog();
+            var openDialogEx = new FormOpenFileDialog()
+            {
+                StartLocation = AddonWindowLocation.Right,
+                DefaultViewMode = FolderViewMode.Thumbnails,
+            };
 
-            if (newProjDialog.ShowDialog() == DialogResult.Cancel)
+            openDialogEx.OpenDialog.InitialDirectory = Path.GetFullPath(Application.ExecutablePath);
+            openDialogEx.OpenDialog.AddExtension = true;
+            openDialogEx.AutoSize = false;
+            openDialogEx.StartLocation = AddonWindowLocation.None;
+
+            openDialogEx.OpenDialog.Filter = "Results files (*.db)|*.db";
+
+            if (openDialogEx.ShowDialog(this) == DialogResult.Cancel)
                 return;
             //resItems.Clear();
             Project.ResultData.Clear();
             TreeView.Nodes[4].Nodes.Clear();
-            LoadResults(newProjDialog.FileName);
+            LoadResults(openDialogEx.OpenDialog.FileName, openDialogEx.MergeResults);
         }
 
         private void ResultsToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -442,7 +460,7 @@ namespace ResultModule
             }
             else if (e.ClickedItem.Tag.ToString() == "2")
             {
-                LoadResults();
+                ShowOpenResultsFileDialog();
             }
             else if (e.ClickedItem.Tag.ToString() == "3")
             {
@@ -471,11 +489,7 @@ namespace ResultModule
 
         private void AddResults()
         {
-            var newProjDialog = new OpenFileDialog();
-
-            if (newProjDialog.ShowDialog() == DialogResult.Cancel)
-                return;
-            LoadResults(newProjDialog.FileName);
+            ShowOpenResultsFileDialog();
         }
 
         private void ClearResults()
@@ -493,20 +507,30 @@ namespace ResultModule
             var selNode = TreeView.SelectedNode;
             var resDes = selNode.Name;
 
+            var colorRanges = scale.ColorRange().ToArray();
+            var valueRanges = scale.ValueRange().ToArray();
+
             var result = Project.ResultData.FindByTime(resKind, time);
 
             var scenePresentor = new FieldCreator(Project);
-            var elements = Project.Model.ObjectData.FindMany<Element>().ToArray();
-            var colorRanges = scale.ColorRange().ToArray();
-            var valueRanges = scale.ValueRange().ToArray();
-            scenePresentor.SetFieldCreator(new GradientFieldsCreator(elements, valueRanges, colorRanges, scaleFactor));
+            
+            if(Project.TaskType == TaskType.Volume)
+            {
+                var els3D = Project.Model.ObjectData.FindMany<Element3D>().ToArray();
+                scenePresentor.SetFieldCreator(new GradientFieldsCreator(els3D, valueRanges, colorRanges, scaleFactor));
+            }
+            else
+            {
+                var els2D = Project.Model.ObjectData.FindMany<Element2D>().ToArray();
+                scenePresentor.SetFieldCreator(new GradientFieldsCreator(els2D, valueRanges, colorRanges, scaleFactor));
+            }
 
-            var resDesc = TreeView.SelectedNode.Name;
+            var resName = TreeView.SelectedNode.Name;
             var objsType = TreeView.SelectedNode.Parent.Name;
-            var resultSurfaces = scenePresentor.CreateFieldObjects(result, objsType, resDes);
+            var resultSurfaces = scenePresentor.CreateFieldObjects(result, objsType, resName);
 
             if (showResultValue)
-                ShowResultValue(objsType, resDes, result);
+                ShowResultValue(objsType, resName, result);
 
             SceneControl.HideAllVBObjects();
             SceneControl.DeleteAllVBObjects();
@@ -620,7 +644,7 @@ namespace ResultModule
 
         }
 
-        private void LoadResults(string fileName)
+        private void LoadResults(string fileName,bool mergeRes)
         {
             var dbExtension = System.IO.Path.GetExtension(fileName);
             var pureFileName = System.IO.Path.GetFileNameWithoutExtension(fileName);
@@ -641,13 +665,38 @@ namespace ResultModule
             }
 
             Project.ResultData.AddRange(results, new ResultsComparer());
-            
+
+            if(mergeRes)
+            {
+                ConsoleControl.PrintInfo("Выполняется пересчет результатов с элементов на узлы...", Color.Black);
+                MergeResults(results);
+                ConsoleControl.PrintInfo("Пересчет завершен", Color.Green);
+            }
+                
+
             var resKind = results.First().TaskKind.ToString();
 
             if (TreeView.Nodes[4].Nodes.Find(resKind, false).Count() == 0)
                 PresentResultsOnTree(results);
+
+            anPage?.Clear();
+        }
+
+        private void MergeResults(List<Result> results)
+        {
+            Element[] elements;
+            if (Project.TaskType == TaskType.Volume)
+                elements = Project.Model.ObjectData.FindMany<Element3D>().ToArray();
+            else
+                elements = Project.Model.ObjectData.FindMany<Element2D>().ToArray();
             
-            anPage?.Clear();          
+            var interfaceNodesFinder = new FindInterfacedNodes(elements);
+            var interfaceNodes = interfaceNodesFinder.Find();
+            var mergeResults = new MergeResults(results);
+            var resNames = results[0].GetDataSchema("elements");
+
+            for (int i = 1; i < resNames.Count; i++)
+                mergeResults.Merge(interfaceNodes, resNames[i]);
         }
 
         public void PresentResultsOnTree(IEnumerable<Result> results)
@@ -720,7 +769,7 @@ namespace ResultModule
           scale.Coord_X, scale.Coord_Y, scale.ColorRange().ToArray(), scale.ValueRange().ToList(), "", "");
         }
 
-        private void ShowResultValue(string objsType, string resDescription, Project.ResultsData.Result result)
+        private void ShowResultValue(string objsType, string resName, Project.ResultsData.Result result)
         {
             SceneControl.HideDisplayText3D();
 
@@ -731,8 +780,8 @@ namespace ResultModule
                     var coord = obj.CalcCentralPoint();
                     var res = 0.0f;
                     if (objsType == "Узлы")
-                        res = result.GetNodeValue(obj.Number, resDescription);
-                    else res = result.GetElementValue(obj.Number, resDescription);
+                        res = result.GetNodeValue(obj.Number, resName);
+                    else res = result.GetElementValue(obj.Number, resName);
                     SceneControl.DisplayText3D(res.ToString(), Color.Black, coord);
                 }
             }

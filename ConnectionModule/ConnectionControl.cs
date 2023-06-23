@@ -13,7 +13,8 @@ namespace ConnectionModule
         }
 
 
-        //public event Action<object, StartLicenseEventArgs> SaveLicenseSettingsEvent;
+        public string LabelAnswer { set { lblAnswer.Text = value; } }
+
         public event Action<IPAddress,int> LicenseActionEvent;
 
         private void rbt_CheckedChanged(object sender, EventArgs e)
