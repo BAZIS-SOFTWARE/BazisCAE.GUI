@@ -53,14 +53,20 @@ namespace ResultModule
             }
             else
             {
-                var resName = comboBox.SelectedItem.ToString();
-                if (richTextBox.Lines.Length > 0)
+                if (comboBox.SelectedItem == null)
+                    MessageBox.Show("Выберите время!");
+                else
                 {
-                    var time = float.Parse(richTextBox.Lines[lineIndex]);
-                    if (rbtNodes.Checked)
-                        CreatePathGraphEvent(this, new CreatePathGraphEventArgs("Узлы", resName, time));
-                    else CreatePathGraphEvent(this, new CreatePathGraphEventArgs("Элементы", resName, time));
+                    var resName = comboBox.SelectedItem.ToString();
+                    if (richTextBox.Lines.Length > 0)
+                    {
+                        var time = float.Parse(richTextBox.Lines[lineIndex]);
+                        if (rbtNodes.Checked)
+                            CreatePathGraphEvent(this, new CreatePathGraphEventArgs("Узлы", resName, time));
+                        else CreatePathGraphEvent(this, new CreatePathGraphEventArgs("Элементы", resName, time));
+                    }
                 }
+
             }
         }
 

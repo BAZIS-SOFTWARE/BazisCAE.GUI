@@ -107,7 +107,7 @@ namespace BaseForm
         private void AddModule(string moduleName)
         {
             DisconnectWithServer();
-
+            StopLicensing();
             CloseActivePageChildControld();
 
             activePage = moduleName;
@@ -162,9 +162,9 @@ namespace BaseForm
             tableLayoutPanel.Hide();
 
 
-            var answer = serverConnection.RequestServer(moduleName + " Взять");
+            serverConnection.RequestServer(moduleName + " Взять");
 
-            if (answer == "можно")
+            if (serverConnection.Answer == "можно")
                 StartLicensing(moduleName, module);
             else StartLisenceForm();
 
@@ -186,6 +186,11 @@ namespace BaseForm
                 menuStrip.Items.Remove(activeMenuItem);
         }
 
+        private void StopLicensing()
+        {
+            serverConnection.RequestServer(activePage + " Отдать");
+        }
+
         private void StartLicensing(string moduleName, BasePage module)
         {
             //сохранитьToolStripMenuItem.Enabled = true;
@@ -200,8 +205,8 @@ namespace BaseForm
                     {
                         lock (serverConnection)
                         {
-                            var answer = serverConnection.RequestServer(moduleName + " Работа");
-                            if(answer != "Работай")
+                            serverConnection.RequestServer(moduleName + " Работа");
+                            if(serverConnection.Answer != "Работай")
                             {
                                 throw new AccidentServerDisconnectionException();  
                             }    
@@ -242,9 +247,6 @@ namespace BaseForm
                         )
                         break;
                 }
-
-                //if(revertLicense)
-                    serverConnection.RequestServer(activePage + " Отдать");
             }
         }
 
@@ -310,8 +312,8 @@ namespace BaseForm
 
             try
             {
-                var answer = serverConnection.RequestServer("CheckLicenseInfo");
-                var licInfo = JsonConvert.DeserializeObject<LicenseInfo>(answer);
+                serverConnection.RequestServer("CheckLicenseInfo");
+                var licInfo = JsonConvert.DeserializeObject<LicenseInfo>(serverConnection.Answer);
                 
                 if(licInfo != null)
                 {
@@ -344,9 +346,9 @@ namespace BaseForm
                 if(controls.Length > 0)
                 {
                     serverConnection = new Controller(ar1, ar2);
-                    var answer = serverConnection.RequestServer(activePage + " Взять");
+                    serverConnection.RequestServer(activePage + " Взять");
 
-                    if (answer == "можно")
+                    if (serverConnection.Answer == "можно")
                     {
                         var page = (BasePage)controls[0];
                         StartLicensing(activePage, page);

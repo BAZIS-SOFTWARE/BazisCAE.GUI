@@ -182,6 +182,12 @@
     <Compile Include="BasicTaskAdvisor\TaskAdvisor.Designer.cs">
       <DependentUpon>TaskAdvisor.cs</DependentUpon>
     </Compile>
+    <Compile Include="HeatTreatmentModule\ChemicalTreatmentAdvisor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HeatTreatmentModule\ChemicalTreatmentAdvisor.Designer.cs">
+      <DependentUpon>ChemicalTreatmentAdvisor.cs</DependentUpon>
+    </Compile>
     <Compile Include="HeatTreatmentModule\DiffusionСontrol.cs" />
     <Compile Include="HeatTreatmentModule\DiffusionСontrol.Designer.cs">
       <DependentUpon>DiffusionСontrol.cs</DependentUpon>
@@ -279,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BasicTaskAdvisor\TaskAdvisor.resx">
       <DependentUpon>TaskAdvisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HeatTreatmentModule\ChemicalTreatmentAdvisor.resx">
+      <DependentUpon>ChemicalTreatmentAdvisor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HeatTreatmentModule\DiffusionСontrol.resx">
       <DependentUpon>DiffusionСontrol.cs</DependentUpon>
