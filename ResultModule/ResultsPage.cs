@@ -664,15 +664,14 @@ namespace ResultModule
                 return;
             }
 
-            Project.ResultData.AddRange(results, new ResultsComparer());
-
             if(mergeRes)
             {
-                ConsoleControl.PrintInfo("Выполняется пересчет результатов с элементов на узлы...", Color.Black);
+                ConsoleControl.PrintInfo("Выполняется пересчет результатов с элементов на узлы...", Color.Black);           
                 MergeResults(results);
                 ConsoleControl.PrintInfo("Пересчет завершен", Color.Green);
             }
-                
+
+            Project.ResultData.AddRange(results, new ResultsComparer());
 
             var resKind = results.First().TaskKind.ToString();
 

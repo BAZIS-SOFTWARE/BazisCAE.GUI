@@ -1198,35 +1198,35 @@ namespace BaseModule
 
                 else if (arg2.ClickedItem.Tag.ToString() == "3")
                 {
-                    sceneControl.HideAllVBObjects();
+                    //sceneControl.HideAllVBObjects();
 
-                    foreach (var objsType in sceneControl.GetVBObjsName())
-                        if (objsType != "Узлы")
-                            sceneControl.ChangeViewModeVBObjects(objsType, Scene.VBO.ObjView.LinesSurface);
+                    //foreach (var objsType in sceneControl.GetVBObjsName())
+                    //    if (objsType != "Узлы")
+                    sceneControl.ChangeViewModeVBObjects(sceneControl.SelectedObjectsName, Scene.VBO.ObjView.LinesSurface);
 
-                    sceneControl.ShowAllVBObjects();
+                    //sceneControl.ShowAllVBObjects();
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "4")
                 {
-                    sceneControl.HideAllVBObjects();
+                    //sceneControl.HideAllVBObjects();
 
-                    foreach (var objsType in sceneControl.GetVBObjsName())
-                        if (objsType != "Узлы")
-                            sceneControl.ChangeViewModeVBObjects(objsType, Scene.VBO.ObjView.Lines);
+                    //foreach (var objsType in sceneControl.GetVBObjsName())
+                    //    if (objsType != "Узлы")
+                    sceneControl.ChangeViewModeVBObjects(sceneControl.SelectedObjectsName, Scene.VBO.ObjView.Lines);
 
-                    sceneControl.ShowAllVBObjects();
+                    //sceneControl.ShowAllVBObjects();
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "5")
                 {
-                    sceneControl.HideAllVBObjects();
+                    //sceneControl.HideAllVBObjects();
 
-                    foreach (var objsType in sceneControl.GetVBObjsName())
-                        if (objsType != "Узлы")
-                            sceneControl.ChangeViewModeVBObjects(objsType, Scene.VBO.ObjView.Surface);
+                    //foreach (var objsType in sceneControl.GetVBObjsName())
+                    //    if (objsType != "Узлы")
+                    sceneControl.ChangeViewModeVBObjects(sceneControl.SelectedObjectsName, Scene.VBO.ObjView.Surface);
 
-                    sceneControl.ShowAllVBObjects();
+                    //sceneControl.ShowAllVBObjects();
                 }
                 sceneControl.DisplayObjects();
             }
