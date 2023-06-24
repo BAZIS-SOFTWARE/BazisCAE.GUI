@@ -427,7 +427,7 @@ namespace ResultModule
 
         private void ShowOpenResultsFileDialog()
         {
-            var openDialogEx = new FormOpenFileDialog()
+            var openDialogEx = new OpenFileDialogEx()
             {
                 StartLocation = AddonWindowLocation.Right,
                 DefaultViewMode = FolderViewMode.Thumbnails,
@@ -435,7 +435,9 @@ namespace ResultModule
 
             openDialogEx.OpenDialog.InitialDirectory = Path.GetFullPath(Application.ExecutablePath);
             openDialogEx.OpenDialog.AddExtension = true;
-            openDialogEx.AutoSize = false;
+
+            //openDialogEx.Size = new Size(650,267);
+ 
             openDialogEx.StartLocation = AddonWindowLocation.None;
 
             openDialogEx.OpenDialog.Filter = "Results files (*.db)|*.db";

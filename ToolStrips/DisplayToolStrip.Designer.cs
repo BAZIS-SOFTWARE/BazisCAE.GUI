@@ -38,6 +38,8 @@
             this.btnElementsFrames = new System.Windows.Forms.ToolStripButton();
             this.btnElementsSurfaces = new System.Windows.Forms.ToolStripButton();
             this.btnElementsNormals = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.SuspendLayout();
             // 
             // btnNodeNormals
@@ -160,13 +162,27 @@
             this.btnElementsNormals.Tag = "7";
             this.btnElementsNormals.Text = "Показать нормали элементов";
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.AutoSize = false;
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 50);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.AutoSize = false;
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 50);
+            // 
             // DisplayToolStrip
             // 
             this.Dock = System.Windows.Forms.DockStyle.None;
             this.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnTitleInfo,
+            this.toolStripSeparator2,
             this.btnVolumeNodes,
             this.btnSurfaceNodes,
+            this.toolStripSeparator1,
             this.btnElementsFramesAndSurfaces,
             this.btnElementsFrames,
             this.btnElementsSurfaces,
@@ -189,5 +205,7 @@
         private System.Windows.Forms.ToolStripButton btnElementsFrames;
         private System.Windows.Forms.ToolStripButton btnElementsSurfaces;
         private System.Windows.Forms.ToolStripButton btnElementsNormals;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }

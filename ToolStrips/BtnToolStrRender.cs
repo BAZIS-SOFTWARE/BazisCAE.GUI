@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,33 @@ namespace ToolStrips
 
             e.Graphics.DrawString(sbtn.ToolTipText, _TabFont, SystemBrushes.WindowText,
                 sbtn.Width / 2 - messageSize.Width / 2, sbtn.Height / 2 - messageSize.Height / 1.5f);
+        }
+
+        protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
+        {
+            e.Graphics.DrawLine(Pens.LightGray, new Point(2, 6), new Point(2, 30));
+            //FillRoundedRectangle(e.Graphics, Pens.Gray, Brushes.LightGray,2, 6, 3, 25, 2);
+        }
+
+        public void FillRoundedRectangle(Graphics g, Pen pen, Brush brush, int x, int y, int width, int height, int radius)
+        {
+            Rectangle corner = new Rectangle(x, y, radius, radius);
+            GraphicsPath path = new GraphicsPath();
+            path.AddArc(corner, 180, 90);
+            corner.X = x + width - radius;
+            path.AddArc(corner, 270, 90);
+            corner.Y = y + height - radius;
+            path.AddArc(corner, 0, 90);
+            corner.X = x;
+            path.AddArc(corner, 90, 90);
+            path.CloseFigure();
+
+            g.FillPath(brush, path);
+
+            if (pen != null)
+            {
+                g.DrawPath(pen, path);
+            }
         }
 
         private static void DrawTriangle(int x, int y, ToolStripItemRenderEventArgs e)
