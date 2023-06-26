@@ -594,7 +594,9 @@ namespace ResultModule
                 grContainer.Dock = DockStyle.Fill;
                 var form = new Form
                 {
-                    TopMost = true
+                    TopMost = true,
+                    Icon = ResultModule.Properties.Resources.Graph,
+                    Text = $"График {resDes} - координата"
                 };
                 form.Controls.Add(grContainer);
                 form.Show();
@@ -638,7 +640,9 @@ namespace ResultModule
                 grContainer.Dock = DockStyle.Fill;
                 var form = new Form
                 {
-                    TopMost = true
+                    TopMost = true,
+                    Icon = ResultModule.Properties.Resources.Graph,
+                    Text = $"График {resDes} - время"
                 };
                 form.Controls.Add(grContainer);
                 form.Show();

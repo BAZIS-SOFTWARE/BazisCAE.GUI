@@ -91,18 +91,21 @@
             "Между точкой и плоскостью"});
             this.cmbMeasureObjects.Location = new System.Drawing.Point(126, 3);
             this.cmbMeasureObjects.Name = "cmbMeasureObjects";
-            this.cmbMeasureObjects.Size = new System.Drawing.Size(94, 21);
+            this.cmbMeasureObjects.Size = new System.Drawing.Size(274, 21);
             this.cmbMeasureObjects.TabIndex = 4;
             this.cmbMeasureObjects.SelectedIndexChanged += new System.EventHandler(this.cmbMeasureObjects_SelectedIndexChanged);
             // 
             // btnMeasure
             // 
             this.btnMeasure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMeasure.Location = new System.Drawing.Point(145, 161);
+            this.btnMeasure.AutoSize = true;
+            this.btnMeasure.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnMeasure.Image = global::BaseModule.Properties.Resources.Measure_32x32;
+            this.btnMeasure.Location = new System.Drawing.Point(362, 243);
             this.btnMeasure.Name = "btnMeasure";
-            this.btnMeasure.Size = new System.Drawing.Size(75, 23);
+            this.btnMeasure.Size = new System.Drawing.Size(38, 38);
             this.btnMeasure.TabIndex = 5;
-            this.btnMeasure.Text = "измерить";
+            this.btnMeasure.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnMeasure.UseVisualStyleBackColor = true;
             this.btnMeasure.Click += new System.EventHandler(this.btnMeasure_Click);
             // 
@@ -117,7 +120,7 @@
             this.Controls.Add(this.rbtnPath);
             this.Controls.Add(this.rbtnDistance);
             this.Name = "MeasuringSet";
-            this.Size = new System.Drawing.Size(232, 187);
+            this.Size = new System.Drawing.Size(412, 294);
             this.ResumeLayout(false);
             this.PerformLayout();
 

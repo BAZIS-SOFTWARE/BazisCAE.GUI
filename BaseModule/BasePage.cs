@@ -925,6 +925,9 @@ namespace BaseModule
                                 var p0 = nodes.First();
                                 var p1 = nodes.Last();
                                 var line = new Line(p0.Position, p1.Position);
+
+                                consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
+
                                 sceneControl.CreateDistance(line);
                                 sceneControl.DisplayObjects();
                             }
@@ -940,6 +943,7 @@ namespace BaseModule
                             await node;
                             var calcDistance = new CalcDistance();
                             var line = calcDistance.DistanceBetweenPlaneAndNode(plane.Result, node.Result);
+                            consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
                             SceneControl.CreateDistance(line);
                             SceneControl.DisplayObjects();
                             break;

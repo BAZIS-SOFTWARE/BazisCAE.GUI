@@ -180,6 +180,7 @@
     <None Include="TreeViewPic\switchOn_elems_16x16.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Measure_32x32.png" />
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
   </ItemGroup>
