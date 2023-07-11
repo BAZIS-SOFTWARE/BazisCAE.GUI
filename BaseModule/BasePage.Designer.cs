@@ -44,12 +44,12 @@ namespace BaseModule
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.grbNavigator = new System.Windows.Forms.Panel();
             this.treeView = new System.Windows.Forms.TreeView();
+            this.treeNodesImageList_16x16 = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.grbScene = new System.Windows.Forms.Panel();
             this.sceneControl = new Scene.SceneControl();
             this.grbConsole = new System.Windows.Forms.Panel();
             this.consoleControl = new BaseModule.Console.ConsoleControl();
-            this.treeNodesImageList_16x16 = new System.Windows.Forms.ImageList(this.components);
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
@@ -202,6 +202,25 @@ namespace BaseModule
             this.treeView.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.TreeView_AfterCollapse);
             this.treeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.TreeView_AfterExpand);
             // 
+            // treeNodesImageList_16x16
+            // 
+            this.treeNodesImageList_16x16.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("treeNodesImageList_16x16.ImageStream")));
+            this.treeNodesImageList_16x16.TransparentColor = System.Drawing.Color.Transparent;
+            this.treeNodesImageList_16x16.Images.SetKeyName(0, "Инфо.bmp");
+            this.treeNodesImageList_16x16.Images.SetKeyName(1, "CloseFolder.png");
+            this.treeNodesImageList_16x16.Images.SetKeyName(2, "OpenFolder.png");
+            this.treeNodesImageList_16x16.Images.SetKeyName(3, "NodeObjs.png");
+            this.treeNodesImageList_16x16.Images.SetKeyName(4, "MeshObjs.png");
+            this.treeNodesImageList_16x16.Images.SetKeyName(5, "switchOn_nodes_16x16.png");
+            this.treeNodesImageList_16x16.Images.SetKeyName(6, "switchOn_elems_16x16.png");
+            this.treeNodesImageList_16x16.Images.SetKeyName(7, "GeomObjs.png");
+            this.treeNodesImageList_16x16.Images.SetKeyName(8, "Материалы.bmp");
+            this.treeNodesImageList_16x16.Images.SetKeyName(9, "Среда.bmp");
+            this.treeNodesImageList_16x16.Images.SetKeyName(10, "Нагрев.bmp");
+            this.treeNodesImageList_16x16.Images.SetKeyName(11, "Закрепление.bmp");
+            this.treeNodesImageList_16x16.Images.SetKeyName(12, "Нагрузки.bmp");
+            this.treeNodesImageList_16x16.Images.SetKeyName(13, "CompInfo.png");
+            // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -282,25 +301,7 @@ namespace BaseModule
             this.consoleControl.Name = "consoleControl";
             this.consoleControl.Size = new System.Drawing.Size(601, 117);
             this.consoleControl.TabIndex = 4;
-            // 
-            // treeNodesImageList_16x16
-            // 
-            this.treeNodesImageList_16x16.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("treeNodesImageList_16x16.ImageStream")));
-            this.treeNodesImageList_16x16.TransparentColor = System.Drawing.Color.Transparent;
-            this.treeNodesImageList_16x16.Images.SetKeyName(0, "Инфо.bmp");
-            this.treeNodesImageList_16x16.Images.SetKeyName(1, "CloseFolder.png");
-            this.treeNodesImageList_16x16.Images.SetKeyName(2, "OpenFolder.png");
-            this.treeNodesImageList_16x16.Images.SetKeyName(3, "NodeObjs.png");
-            this.treeNodesImageList_16x16.Images.SetKeyName(4, "MeshObjs.png");
-            this.treeNodesImageList_16x16.Images.SetKeyName(5, "switchOn_nodes_16x16.png");
-            this.treeNodesImageList_16x16.Images.SetKeyName(6, "switchOn_elems_16x16.png");
-            this.treeNodesImageList_16x16.Images.SetKeyName(7, "GeomObjs.png");
-            this.treeNodesImageList_16x16.Images.SetKeyName(8, "Материалы.bmp");
-            this.treeNodesImageList_16x16.Images.SetKeyName(9, "Среда.bmp");
-            this.treeNodesImageList_16x16.Images.SetKeyName(10, "Нагрев.bmp");
-            this.treeNodesImageList_16x16.Images.SetKeyName(11, "Закрепление.bmp");
-            this.treeNodesImageList_16x16.Images.SetKeyName(12, "Нагрузки.bmp");
-            this.treeNodesImageList_16x16.Images.SetKeyName(13, "CompInfo.png");
+            this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
             // 
             // BasePage
             // 

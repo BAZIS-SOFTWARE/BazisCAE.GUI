@@ -219,5 +219,25 @@ namespace TaskModule.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
+        /// </summary>
+        internal static System.Drawing.Icon Материалы {
+            get {
+                object obj = ResourceManager.GetObject("Материалы", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
+        /// </summary>
+        internal static System.Drawing.Icon Функции {
+            get {
+                object obj = ResourceManager.GetObject("Функции", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

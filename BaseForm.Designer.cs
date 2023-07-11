@@ -189,7 +189,7 @@
             this.термообработка.Name = "термообработка";
             this.термообработка.Size = new System.Drawing.Size(183, 22);
             this.термообработка.Text = "Термообработка";
-            this.термообработка.Click += new System.EventHandler(this.термообработка_Click);        
+            this.термообработка.Click += new System.EventHandler(this.термообработка_Click);
             // 
             // настройкиToolStripMenuItem
             // 

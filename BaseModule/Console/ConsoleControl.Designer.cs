@@ -231,7 +231,7 @@
             // tscIn.ContentPanel
             // 
             this.tscIn.ContentPanel.Controls.Add(this.inputRichTextBox);
-            this.tscIn.ContentPanel.Size = new System.Drawing.Size(442, 327);
+            this.tscIn.ContentPanel.Size = new System.Drawing.Size(441, 327);
             this.tscIn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tscIn.LeftToolStripPanelVisible = false;
             this.tscIn.Location = new System.Drawing.Point(0, 0);
@@ -257,7 +257,7 @@
             this.inputRichTextBox.Location = new System.Drawing.Point(0, 0);
             this.inputRichTextBox.Margin = new System.Windows.Forms.Padding(1);
             this.inputRichTextBox.Name = "inputRichTextBox";
-            this.inputRichTextBox.Size = new System.Drawing.Size(442, 327);
+            this.inputRichTextBox.Size = new System.Drawing.Size(441, 327);
             this.inputRichTextBox.TabIndex = 3;
             this.inputRichTextBox.Text = "введите команду...";
             this.inputRichTextBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.inputRichTextBox_MouseClick);
@@ -275,7 +275,7 @@
             this.tlsIn.Location = new System.Drawing.Point(0, 0);
             this.tlsIn.Name = "tlsIn";
             this.tlsIn.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tlsIn.Size = new System.Drawing.Size(31, 327);
+            this.tlsIn.Size = new System.Drawing.Size(32, 327);
             this.tlsIn.Stretch = true;
             this.tlsIn.TabIndex = 0;
             this.tlsIn.Text = "Командная строка";
@@ -322,8 +322,9 @@
             // toolStripMenuItem31
             // 
             this.toolStripMenuItem31.Name = "toolStripMenuItem31";
-            this.toolStripMenuItem31.Size = new System.Drawing.Size(147, 22);
+            this.toolStripMenuItem31.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem31.Text = "Укажите путь";
+            this.toolStripMenuItem31.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -336,20 +337,23 @@
             // toolStripMenuItem23
             // 
             this.toolStripMenuItem23.Name = "toolStripMenuItem23";
-            this.toolStripMenuItem23.Size = new System.Drawing.Size(147, 22);
+            this.toolStripMenuItem23.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem23.Text = "Укажите путь";
+            this.toolStripMenuItem23.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(245, 22);
             this.toolStripMenuItem3.Text = "Новый проект";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(245, 22);
             this.toolStripMenuItem4.Text = "Рассчитать проект";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripComboBox1
             // 
@@ -362,8 +366,9 @@
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(156, 22);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem7.Text = "Укажите метод";
+            this.toolStripMenuItem7.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // tlsChangeModelCoords
             // 
@@ -380,7 +385,7 @@
             this.toolStripMenuItem5.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem8});
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(170, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem5.Text = "Переместить";
             // 
             // toolStripMenuItem8
@@ -388,34 +393,37 @@
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
             this.toolStripMenuItem8.Size = new System.Drawing.Size(194, 22);
             this.toolStripMenuItem8.Text = "Укажите вектор : a,b,c";
+            this.toolStripMenuItem8.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem9});
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(170, 22);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem6.Text = "Повернуть";
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(163, 22);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem9.Text = "Укажите угол : a";
+            this.toolStripMenuItem9.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem17
             // 
             this.toolStripMenuItem17.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem21});
             this.toolStripMenuItem17.Name = "toolStripMenuItem17";
-            this.toolStripMenuItem17.Size = new System.Drawing.Size(170, 22);
+            this.toolStripMenuItem17.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem17.Text = "Масштабировать";
             // 
             // toolStripMenuItem21
             // 
             this.toolStripMenuItem21.Name = "toolStripMenuItem21";
-            this.toolStripMenuItem21.Size = new System.Drawing.Size(178, 22);
+            this.toolStripMenuItem21.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem21.Text = "Укажите фактор : a";
+            this.toolStripMenuItem21.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // tlsChangeObjCoords
             // 
@@ -485,7 +493,7 @@
             this.toolStripMenuItem18.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem22});
             this.toolStripMenuItem18.Name = "toolStripMenuItem18";
-            this.toolStripMenuItem18.Size = new System.Drawing.Size(170, 22);
+            this.toolStripMenuItem18.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem18.Text = "Переместить";
             // 
             // toolStripMenuItem22
@@ -493,40 +501,44 @@
             this.toolStripMenuItem22.Name = "toolStripMenuItem22";
             this.toolStripMenuItem22.Size = new System.Drawing.Size(194, 22);
             this.toolStripMenuItem22.Text = "Укажите вектор : a,b,c";
+            this.toolStripMenuItem22.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem19
             // 
             this.toolStripMenuItem19.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem30});
             this.toolStripMenuItem19.Name = "toolStripMenuItem19";
-            this.toolStripMenuItem19.Size = new System.Drawing.Size(170, 22);
+            this.toolStripMenuItem19.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem19.Text = "Повернуть";
             // 
             // toolStripMenuItem30
             // 
             this.toolStripMenuItem30.Name = "toolStripMenuItem30";
-            this.toolStripMenuItem30.Size = new System.Drawing.Size(163, 22);
+            this.toolStripMenuItem30.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem30.Text = "Укажите угол : a";
+            this.toolStripMenuItem30.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem20
             // 
             this.toolStripMenuItem20.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem29});
             this.toolStripMenuItem20.Name = "toolStripMenuItem20";
-            this.toolStripMenuItem20.Size = new System.Drawing.Size(170, 22);
+            this.toolStripMenuItem20.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem20.Text = "Масштабировать";
             // 
             // toolStripMenuItem29
             // 
             this.toolStripMenuItem29.Name = "toolStripMenuItem29";
-            this.toolStripMenuItem29.Size = new System.Drawing.Size(178, 22);
+            this.toolStripMenuItem29.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem29.Text = "Укажите фактор : a";
+            this.toolStripMenuItem29.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // tlsFindFreeNodes
             // 
             this.tlsFindFreeNodes.Name = "tlsFindFreeNodes";
             this.tlsFindFreeNodes.Size = new System.Drawing.Size(245, 22);
             this.tlsFindFreeNodes.Text = "Найти свободные узлы";
+            this.tlsFindFreeNodes.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // tlsFindObj
             // 
@@ -539,8 +551,9 @@
             // toolStripMenuItem25
             // 
             this.toolStripMenuItem25.Name = "toolStripMenuItem25";
-            this.toolStripMenuItem25.Size = new System.Drawing.Size(174, 22);
+            this.toolStripMenuItem25.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem25.Text = "Укажите номер : a";
+            this.toolStripMenuItem25.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem26
             // 
@@ -553,14 +566,16 @@
             // tlsFindCoincidentNodes
             // 
             this.tlsFindCoincidentNodes.Name = "tlsFindCoincidentNodes";
-            this.tlsFindCoincidentNodes.Size = new System.Drawing.Size(102, 22);
+            this.tlsFindCoincidentNodes.Size = new System.Drawing.Size(180, 22);
             this.tlsFindCoincidentNodes.Text = "Узлы";
+            this.tlsFindCoincidentNodes.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem10
             // 
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
             this.toolStripMenuItem10.Size = new System.Drawing.Size(245, 22);
             this.toolStripMenuItem10.Text = "Выход";
+            this.toolStripMenuItem10.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // btnStartMacro
             // 
@@ -569,7 +584,7 @@
             this.btnStartMacro.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnStartMacro.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnStartMacro.Name = "btnStartMacro";
-            this.btnStartMacro.Size = new System.Drawing.Size(29, 20);
+            this.btnStartMacro.Size = new System.Drawing.Size(30, 20);
             this.btnStartMacro.Text = "Старт макрос";
             this.btnStartMacro.Click += new System.EventHandler(this.btnStartMacro_Click);
             // 

@@ -21,6 +21,8 @@ using TaskModule.BasicAdvisorControls.Events;
 using BaseModule;
 using DataBaseController.Interfaces;
 using DataBaseController;
+using DataBases;
+using System.Xml.Linq;
 
 namespace TaskModule
 {
@@ -111,18 +113,9 @@ namespace TaskModule
             funDataMenuItem
             });
 
-            matDataMenuItem.Click += (ar1, ar2) => { LoadDataBasePage("materials"); };
-            funDataMenuItem.Click += (ar1, ar2) => { LoadDataBasePage("functions"); };
-
-            return dataBaseMenuItem;
-        }
-
-        public void LoadDataBasePage(string pageName)
-        {
-            var dataBasePage = new DataBases.DataBasePage();
-            if (pageName == "materials")
+            matDataMenuItem.Click += (ar1, ar2) => 
             {
-                var matBasePage = new DataBases.MaterialsDataBasePage();
+                var matBasePage = new DataBases.MaterialsDataBasePage() {  Dock = DockStyle.Fill };
                 matBasePage.LoadEvent += () => { MatDataSet = matBasePage.DataSet; };
 
                 var matFiles = Directory.GetFiles(Project.Path, "materials.txt", SearchOption.AllDirectories);
@@ -130,12 +123,15 @@ namespace TaskModule
                 if (matFiles.Length > 0)
                     matBasePage.Load(matFiles[0]);
 
-                dataBasePage = matBasePage;
-            }
-
-            else
+                var icon = TaskModule.Properties.Resources.Материалы;
+                var name = "База материалов";
+                var form = new Form() { Name = name, Text = name, TopMost = true, Size = matBasePage.Size, Icon = icon };
+                form.Controls.Add(matBasePage);
+                form.Show();
+            };
+            funDataMenuItem.Click += (ar1, ar2) => 
             {
-                var funBasePage = new DataBases.FunctionDataBasePage();
+                var funBasePage = new DataBases.FunctionDataBasePage() { Dock = DockStyle.Fill };
                 funBasePage.LoadEvent += () => { FunDataSet = funBasePage.DataSet; };
 
                 var funFiles = Directory.GetFiles(Project.Path, "functions.txt", SearchOption.AllDirectories);
@@ -143,39 +139,15 @@ namespace TaskModule
                 if (funFiles.Length > 0)
                     funBasePage.Load(funFiles[0]);
 
+                var icon = TaskModule.Properties.Resources.Функции;
+                var name = "База функций";
+                var form = new Form() { Name = name, Text = name, TopMost = true, Size = funBasePage.Size, Icon = icon };
+                form.Controls.Add(funBasePage);
+                form.Show();
+            };
 
-                dataBasePage = funBasePage;
-            }
-
-            var dataFiles = Directory.GetFiles(Application.StartupPath, $"{pageName}.txt", SearchOption.AllDirectories);
-            if (dataFiles.Length > 0)
-                dataBasePage.Load(dataFiles[0]);
-
-            var name = string.Empty;
-            Icon icon;
-            Stream iconStream;
-            var assembly = Assembly.GetExecutingAssembly();
-
-    
-
-            if (pageName == "materials")
-            {
-                name = "База материалов";                
-                iconStream = assembly.GetManifestResourceStream("TaskModule.Материалы.ico");
-            }
-
-            else
-            {
-                name = "База функций";
-                iconStream = assembly.GetManifestResourceStream("TaskModule.Функции.ico");
-            }
-
-            icon = new Icon(iconStream);
-
-            var form = new Form() { Name = name, Text = name,TopMost = true, Size = dataBasePage.Size,Icon = icon };
-            form.Controls.Add(dataBasePage);
-            form.Show();
-        }
+            return dataBaseMenuItem;
+        }      
 
         public void DeleteAdvisor()
         {
@@ -439,7 +411,7 @@ namespace TaskModule
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                ConsoleControl.PrintInfo($"{ex.Message}:{ex.InnerException}", Color.Red);
             }
 
         }

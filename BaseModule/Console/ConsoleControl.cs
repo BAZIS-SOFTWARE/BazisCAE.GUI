@@ -156,7 +156,7 @@ namespace BaseModule.Console
             grb.Height = heigth + gap;
         }
 
-        private void NewItem_Click(object obj, EventArgs args)
+        public void NewItem_Click(object obj, EventArgs args)
         {
             var tstb = (ToolStripMenuItem)obj;
             if (inputRichTextBox.Text == "введите команду...")

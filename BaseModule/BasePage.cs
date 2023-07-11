@@ -26,6 +26,7 @@ using BaseModule.Properties;
 using System.Resources;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 using Project.TasksData.Functions;
+using BaseModule.Console.Events;
 
 namespace BaseModule
 {
@@ -1433,6 +1434,62 @@ namespace BaseModule
                     nodes[0].SelectedImageIndex = imgDict[objsName] == 3 ? 5 : 6;
                 }
 
+            }
+        }
+
+        public async void ConsoleControl_InEvent(object arg1, EventArgs arg2)
+        {
+            try
+            {
+                if (arg2 is ModelFindFreeNodesEventArgs freeNodesEventArgs)
+                {
+                    var finder = new FreeNodesFinder(project.Model.ObjectData);
+                    var freeNodes = finder.Find<Element>();
+                }
+                else if (arg2 is ModelFindCoincidentsNodesEventArgs coincidentNodesEventArgs)
+                {
+                    Invoke(new Action(() => { consoleControl.PrintInfo("Выполняется поиск совпадающих узлов сетки...", Color.Black); }));
+                    var coincidentFinder = new FindCoincidentObjects(project.Model.ObjectData, 0.001f);
+                    coincidentFinder.ProgressEvent += (ar1, ar2) =>
+                    {
+                        Invoke(new Action(() => { consoleControl.PrintInfo(string.Format("{0:00}%", ar2 * 100), Color.Black); }));
+                    };
+                    var coincidentNodes = coincidentFinder.Find<Node>();
+
+                    Invoke(new Action(() => { consoleControl.PrintInfo($"Найдено {coincidentNodes.Where(x => x.Count > 2).Count()} совпадений", Color.Black); }));
+                    Invoke(new Action(() =>
+                    {
+                        PresentAllModelObjectsOnScene();
+                        sceneControl.DisplayObjects();
+                    }));
+                    var actConfirm = new Func<Tuple<bool, object>>(() =>
+                    {
+                        var merge = new MergeObjects(project.Model.ObjectData);
+                        merge.Merge<Node>(coincidentNodes);
+
+                        Invoke(new Action(() =>
+                        {
+                            PresentProjectOnTree();
+                            consoleControl.PrintInfo("Узлы слиты", Color.Green);
+                            lblInputCmd.Text = "";
+                        }));
+                        return new Tuple<bool, object>(true,new object());
+                    });
+
+                    var actBreak = new Action(() =>
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            consoleControl.PrintInfo("Операция отменена", Color.Black);
+                            lblInputCmd.Text = "";
+                        }));
+                    });
+                    await AsyncMethodContainer(actConfirm, actBreak, $"Нажмите {"Enter"} для слияния, {"Esc"} для отмены");
+                }
+            }
+            catch (Exception ex)
+            {
+                Invoke(new Action(() => { consoleControl.PrintInfo(ex.Message, Color.Red); }));
             }
         }
     }

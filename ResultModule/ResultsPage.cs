@@ -106,7 +106,7 @@ namespace ResultModule
                 Text = "Добавить результаты"
             };
 
-            addResultsMenuItem.Click += (ar1, ar2) => { AddResults(); };
+            addResultsMenuItem.Click += (ar1, ar2) => { ShowOpenResultsFileDialog(true); };
 
             ToolStripMenuItem loadResultsMenuItem = new ToolStripMenuItem()
             {
@@ -114,7 +114,7 @@ namespace ResultModule
                 Text = "Загрузить результаты"
             };
 
-            loadResultsMenuItem.Click += (ar1, ar2) => { ShowOpenResultsFileDialog(); };
+            loadResultsMenuItem.Click += (ar1, ar2) => { ShowOpenResultsFileDialog(false); };
 
             ToolStripMenuItem hideResultsMenuItem = new ToolStripMenuItem()
             {
@@ -425,12 +425,13 @@ namespace ResultModule
             }
         }
 
-        private void ShowOpenResultsFileDialog()
+        private void ShowOpenResultsFileDialog(bool addRes)
         {
             var openDialogEx = new OpenFileDialogEx()
             {
                 StartLocation = AddonWindowLocation.Right,
                 DefaultViewMode = FolderViewMode.Thumbnails,
+                MergeResults = false
             };
 
             openDialogEx.OpenDialog.InitialDirectory = Path.GetFullPath(Application.ExecutablePath);
@@ -445,9 +446,8 @@ namespace ResultModule
             if (openDialogEx.ShowDialog(this) == DialogResult.Cancel)
                 return;
             //resItems.Clear();
-            Project.ResultData.Clear();
-            TreeView.Nodes[4].Nodes.Clear();
-            LoadResults(openDialogEx.OpenDialog.FileName, openDialogEx.MergeResults);
+
+            LoadResults(openDialogEx.OpenDialog.FileName, openDialogEx.MergeResults, addRes);
         }
 
         private void ResultsToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -458,11 +458,11 @@ namespace ResultModule
             }
             else if (e.ClickedItem.Tag.ToString() == "1")
             {
-                AddResults();
+                ShowOpenResultsFileDialog(true);
             }
             else if (e.ClickedItem.Tag.ToString() == "2")
             {
-                ShowOpenResultsFileDialog();
+                ShowOpenResultsFileDialog(false);
             }
             else if (e.ClickedItem.Tag.ToString() == "3")
             {
@@ -487,11 +487,6 @@ namespace ResultModule
                 if (scPage == null)
                     ShowScale();
             }
-        }
-
-        private void AddResults()
-        {
-            ShowOpenResultsFileDialog();
         }
 
         private void ClearResults()
@@ -650,7 +645,7 @@ namespace ResultModule
 
         }
 
-        private void LoadResults(string fileName,bool mergeRes)
+        private void LoadResults(string fileName,bool mergeRes, bool addRes)
         {
             var dbExtension = System.IO.Path.GetExtension(fileName);
             var pureFileName = System.IO.Path.GetFileNameWithoutExtension(fileName);
@@ -675,6 +670,12 @@ namespace ResultModule
                 ConsoleControl.PrintInfo("Выполняется пересчет результатов с элементов на узлы...", Color.Black);           
                 MergeResults(results);
                 ConsoleControl.PrintInfo("Пересчет завершен", Color.Green);
+            }
+
+            if(!addRes)
+            {
+                Project.ResultData.Clear();
+                TreeView.Nodes[4].Nodes.Clear();
             }
 
             Project.ResultData.AddRange(results, new ResultsComparer());

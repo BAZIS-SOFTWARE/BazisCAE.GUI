@@ -56,6 +56,18 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>BazisGUIKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>IconShort_32.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ConnectionController, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -150,6 +162,7 @@
       <DependentUpon>SettingsControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
+    <None Include="BazisGUIKey.snk" />
     <None Include="Help\ПО Bazis. Руководство пользователя.chm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -172,6 +185,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutProgramControl\AboutBanner.jpg" />
+    <Content Include="IconShort_16.ico" />
+    <Content Include="IconShort_32.ico" />
     <Content Include="Mesh\mesh.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
