@@ -191,7 +191,7 @@ namespace BaseForm
         {
             //сохранитьToolStripMenuItem.Enabled = true;
             //сохранитькакToolStripMenuItem.Enabled = true;
-            module.UnBlockInterface();
+            module.UnBlockInterface(true);
 
             serverConnectionThread = new Thread(() =>
             {
@@ -218,8 +218,9 @@ namespace BaseForm
                     {
                         Invoke(new Action(() =>
                         {
-                            MessageBox.Show(this, "Внимание! Лицензирование прервано. Приложение будет закрыто. Проверьте сервер лицензий.");
-                            Application.ExitThread();
+                            MessageBox.Show(this, "Внимание! Лицензирование прервано. Приложение будет заблокировано. Проверьте сервер лицензий.");
+                            //Application.ExitThread();
+                            module.UnBlockInterface(false);
                         }));
                     }
                 }

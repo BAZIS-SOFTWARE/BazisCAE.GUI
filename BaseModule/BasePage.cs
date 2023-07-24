@@ -23,10 +23,11 @@ using ModelController.ModelScenePresentator;
 using Project.IO;
 using Model.ModelParcer;
 using BaseModule.Properties;
-using System.Resources;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
-using Project.TasksData.Functions;
+//using System.Resources;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+//using Project.TasksData.Functions;
 using BaseModule.Console.Events;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BaseModule
 {
@@ -97,7 +98,7 @@ namespace BaseModule
             toolStripContainer.TopToolStripPanel.Join(toolStrip);
         }
 
-        public TreeView TreeView
+        public System.Windows.Forms.TreeView TreeView
         {
             get
             {
@@ -445,16 +446,16 @@ namespace BaseModule
             {
                 SaveAsProjectData("bpf");
             }
-            else if (e.ClickedItem.Tag.ToString() == "3")
-            {
-                var form = new Form() { Name = "helpForm", Text = "Справка", ShowIcon = false, Size = new Size(555, 283) };
-                form.TopMost = true;
-                var helpFile = Directory.GetFiles(Application.StartupPath, "ПО Bazis. Руководство пользователя.chm", SearchOption.AllDirectories);
+            //else if (e.ClickedItem.Tag.ToString() == "3")
+            //{
+            //    var form = new Form() { Name = "helpForm", Text = "Справка", ShowIcon = false, Size = new Size(555, 283) };
+            //    form.TopMost = true;
+            //    var helpFile = Directory.GetFiles(Application.StartupPath, "ПО Bazis. Руководство пользователя.chm", SearchOption.AllDirectories);
 
-                if (helpFile.Count() != 0)
-                    Help.ShowHelp(form, helpFile[0]);
-                else MessageBox.Show("Отсутствует файл справки!");
-            }
+            //    if (helpFile.Count() != 0)
+            //        Help.ShowHelp(form, helpFile[0]);
+            //    else MessageBox.Show("Отсутствует файл справки!");
+            //}
             else if (e.ClickedItem.Tag.ToString() == "4")
             {
                 var filterMesh = 
@@ -616,11 +617,6 @@ namespace BaseModule
             sceneControl.HideAllVBObjects();
             sceneControl.HideDisplayText2D();
             sceneControl.HideDisplayText3D();         
-        }
-
-        public void HideVBOjects(string objName)
-        {
-            sceneControl.HideVBObject(objName);
         }
 
         public void ShowAllDataOnScene()
@@ -1205,9 +1201,8 @@ namespace BaseModule
                 {
                     //sceneControl.HideAllVBObjects();
 
-                    //foreach (var objsType in sceneControl.GetVBObjsName())
-                    //    if (objsType != "Узлы")
-                    sceneControl.ChangeViewModeVBObjects(sceneControl.SelectedObjectsName, Scene.VBO.ObjView.LinesSurface);
+                    foreach (var objsType in sceneControl.GetVBObjsName())
+                            sceneControl.ChangeViewModeVBObjects(objsType, Scene.VBO.ObjView.LinesSurface);
 
                     //sceneControl.ShowAllVBObjects();
                 }
@@ -1216,9 +1211,8 @@ namespace BaseModule
                 {
                     //sceneControl.HideAllVBObjects();
 
-                    //foreach (var objsType in sceneControl.GetVBObjsName())
-                    //    if (objsType != "Узлы")
-                    sceneControl.ChangeViewModeVBObjects(sceneControl.SelectedObjectsName, Scene.VBO.ObjView.Lines);
+                    foreach (var objsType in sceneControl.GetVBObjsName())
+                            sceneControl.ChangeViewModeVBObjects(objsType, Scene.VBO.ObjView.Lines);
 
                     //sceneControl.ShowAllVBObjects();
                 }
@@ -1227,9 +1221,8 @@ namespace BaseModule
                 {
                     //sceneControl.HideAllVBObjects();
 
-                    //foreach (var objsType in sceneControl.GetVBObjsName())
-                    //    if (objsType != "Узлы")
-                    sceneControl.ChangeViewModeVBObjects(sceneControl.SelectedObjectsName, Scene.VBO.ObjView.Surface);
+                    foreach (var objsType in sceneControl.GetVBObjsName())
+                            sceneControl.ChangeViewModeVBObjects(objsType, Scene.VBO.ObjView.Surface);
 
                     //sceneControl.ShowAllVBObjects();
                 }
@@ -1361,19 +1354,25 @@ namespace BaseModule
         }
 
 
-        public virtual void UnBlockInterface()
+        public virtual void UnBlockInterface(bool status)
         {
             var toolStr = FindToolStrip<StandartToolStrip>();
-            toolStr.Enabled = true;
+            //toolStr.Enabled = true;
 
-            foreach (ToolStripButton item in toolStr.Items)
-                item.Enabled = true;
+            toolStr.Items[2].Enabled = status;
+            toolStr.Items[3].Enabled = status;
+
+            //foreach (ToolStripButton item in toolStr.Items)
+            //    item.Enabled = true;
 
             var items = menuItems.Find(x => x.Name == "файлToolStripMenuItem");
 
-            foreach (var item in items.DropDownItems)
-                if (item is ToolStripMenuItem tsmItem)
-                    tsmItem.Enabled = true;
+            items.DropDownItems[3].Enabled = status;
+            items.DropDownItems[4].Enabled = status;
+
+            //foreach (var item in items.DropDownItems)
+            //    if (item is ToolStripMenuItem tsmItem)
+            //        tsmItem.Enabled = true;
             
         }  
 
@@ -1437,6 +1436,44 @@ namespace BaseModule
             }
         }
 
+        public void SwitchOffObjects(string objsName)
+        {
+            treeView.Nodes[4].Nodes[objsName].ImageIndex = imgDict[objsName];
+            treeView.Nodes[4].Nodes[objsName].SelectedImageIndex = imgDict[objsName];
+            sceneControl.HideVBObject(objsName);
+        }
+
+        public void SwitchOffAllObjects()
+        {
+            foreach (var objsName in sceneControl.GetVBObjsName())
+            {
+                treeView.Nodes[4].Nodes[objsName].ImageIndex = imgDict[objsName];
+                treeView.Nodes[4].Nodes[objsName].SelectedImageIndex = imgDict[objsName];
+
+                if (sceneControl.IsVBObjectShown(objsName))
+                    sceneControl.HideVBObject(objsName);
+            }
+        }
+
+        public void SwitchAllObjects()
+        {
+            foreach (var objsName in sceneControl.GetVBObjsName())
+            {
+                sceneControl.ShowVBObject(objsName);
+
+                treeView.Nodes[4].Nodes[objsName].ImageIndex = imgDict[objsName] == 3 ? 5 : 6;
+                treeView.Nodes[4].Nodes[objsName].SelectedImageIndex = imgDict[objsName] == 3 ? 5 : 6;
+            }
+        }
+
+        public void SwitchOnObjects(string objsName)
+        {
+            treeView.Nodes[4].Nodes[objsName].ImageIndex = imgDict[objsName] == 3 ? 5 : 6;
+            treeView.Nodes[4].Nodes[objsName].SelectedImageIndex = imgDict[objsName] == 3 ? 5 : 6;
+
+            sceneControl.ShowVBObject(objsName);
+        }
+
         public async void ConsoleControl_InEvent(object arg1, EventArgs arg2)
         {
             try
@@ -1445,6 +1482,25 @@ namespace BaseModule
                 {
                     var finder = new FreeNodesFinder(project.Model.ObjectData);
                     var freeNodes = finder.Find<Element>();
+
+                    Invoke(new Action(() => 
+                    { 
+                        consoleControl.PrintInfo($"Найдено {freeNodes.Count()} свободных узлов", Color.Black);
+
+                        foreach (var modelObject in Project.Model.ObjectData.FindMany("Узлы"))
+                            modelObject.ViewState = false;
+
+                        foreach (var freeNode in freeNodes)
+                            Project.Model.ObjectData.Find(freeNode).ViewState = true;
+
+                        SwitchOffAllObjects();
+
+                        sceneControl.DeleteVBObjects("Узлы");
+                        sceneControl.CreateVBObjects("Узлы");
+
+                        SwitchOnObjects("Узлы");
+                        sceneControl.DisplayObjects();
+                    }));
                 }
                 else if (arg2 is ModelFindCoincidentsNodesEventArgs coincidentNodesEventArgs)
                 {

@@ -35,16 +35,16 @@ namespace TaskModule.HeatTreatmentModule
             else DeleteAdvisor();
         }
 
-        public override void UnBlockInterface()
-        {
-            base.UnBlockInterface();
+        //public override void UnBlockInterface(bool status)
+        //{
+        //    base.UnBlockInterface(status);
 
-            var toolStr = FindToolStrip<HeatTreatmentTasksToolStrip>();
-            toolStr.Enabled = true;
+        //    var toolStr = FindToolStrip<HeatTreatmentTasksToolStrip>();
+        //    toolStr.Enabled = true;
 
-            foreach (ToolStripButton item in toolStr.Items)
-                item.Enabled = true;
-        }
+        //    foreach (ToolStripButton item in toolStr.Items)
+        //        item.Enabled = true;
+        //}
 
         public override ToolStripMenuItem CreateTasksInterface()
         {

@@ -424,46 +424,25 @@ namespace ModelModule
 
         private void SwitchAllObjects_Click(object sender, EventArgs e)
         {
-            foreach (var objsName in SceneControl.GetVBObjsName())
-            {
-                SceneControl.ShowVBObject(objsName);
-
-                TreeView.Nodes[4].Nodes[objsName].ImageIndex = imgDict[objsName] == 3 ? 5 : 6;
-                TreeView.Nodes[4].Nodes[objsName].SelectedImageIndex = imgDict[objsName] == 3 ? 5 : 6;
-            }
-
+            SwitchAllObjects();
             SceneControl.DisplayObjects();
         }
 
         private void SwitchOnObjects_Click(object sender, EventArgs e)
         {
-            TreeView.SelectedNode.ImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
-            TreeView.SelectedNode.SelectedImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
-
-            SceneControl.ShowVBObject(TreeView.SelectedNode.Name);
+            SwitchOnObjects(TreeView.SelectedNode.Name);
             SceneControl.DisplayObjects();
         }
 
         private void SwitchOffObjects_Click(object sender, EventArgs e)
         {
-            TreeView.SelectedNode.ImageIndex = imgDict[TreeView.SelectedNode.Name];
-            TreeView.SelectedNode.SelectedImageIndex = imgDict[TreeView.SelectedNode.Name];
-
-            HideVBOjects(TreeView.SelectedNode.Name);
+            SwitchOffObjects(TreeView.SelectedNode.Name);
             SceneControl.DisplayObjects();
         }
 
         private void SwitchOffAllObjects_Click(object sender, EventArgs e)
         {
-            foreach (var objsName in SceneControl.GetVBObjsName())
-            {
-                TreeView.Nodes[4].Nodes[objsName].ImageIndex = imgDict[objsName];
-                TreeView.Nodes[4].Nodes[objsName].SelectedImageIndex = imgDict[objsName];
-
-                if(SceneControl.IsVBObjectShown(objsName))
-                    HideVBOjects(objsName);
-            }
-
+            SwitchOffAllObjects();
             SceneControl.DisplayObjects();
         }
 
@@ -701,6 +680,24 @@ namespace ModelModule
             SceneControl.CreateVBObjects(TreeView.SelectedNode.Name);
             SceneControl.ShowVBObject(TreeView.SelectedNode.Name);
 
+            SceneControl.DisplayObjects();
+        }
+
+        private void ребраToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SceneControl.ChangeViewModeVBObjects(TreeView.SelectedNode.Name, Scene.VBO.ObjView.Lines);
+            SceneControl.DisplayObjects();
+        }
+
+        private void поверхностиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SceneControl.ChangeViewModeVBObjects(TreeView.SelectedNode.Name, Scene.VBO.ObjView.Surface);
+            SceneControl.DisplayObjects();
+        }
+
+        private void ребраИПоверхностиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SceneControl.ChangeViewModeVBObjects(TreeView.SelectedNode.Name, Scene.VBO.ObjView.LinesSurface);
             SceneControl.DisplayObjects();
         }
     }
