@@ -28,6 +28,8 @@ using BaseModule.Properties;
 //using Project.TasksData.Functions;
 using BaseModule.Console.Events;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Project.Interfaces;
+using Project.TasksData;
 
 namespace BaseModule
 {
@@ -368,10 +370,10 @@ namespace BaseModule
         public void CreateScreenShot(string fileName)
         {
             this.BringToFront();
-            var bmpPicture = new Bitmap(SceneControl.Width, SceneControl.Height);
+            var bmpPicture = new Bitmap(sceneControl.Width, sceneControl.Height);
             var gr = Graphics.FromImage(bmpPicture);
-            var pos = SceneControl.PointToScreen(Point.Empty);
-            var size = new Size(SceneControl.Size.Width - 5, SceneControl.Size.Height - 5);
+            var pos = sceneControl.PointToScreen(Point.Empty);
+            var size = new Size(sceneControl.Size.Width - 5, sceneControl.Size.Height - 5);
             gr.CopyFromScreen(pos, Point.Empty, size);
 
             bmpPicture.Save($@"{Project.Path}\{fileName}.bmp");
@@ -602,6 +604,223 @@ namespace BaseModule
             treeView.Nodes[3].Text = "Вид : " + project.TaskType;
             treeView.Nodes[3].ImageIndex = ProjectInfoIndex;
             treeView.Nodes[3].SelectedImageIndex = ProjectInfoIndex;
+
+            treeView.Nodes[4].Text = "Объекты";
+            treeView.Nodes[4].ImageIndex = CollapseIndex;
+            treeView.Nodes[4].SelectedImageIndex = CollapseIndex;
+            treeView.Nodes[4].ContextMenuStrip = objects_MenuStrip;
+            treeView.Nodes[4].Tag = 4;
+
+            treeView.Nodes[5].Text = "Группы объектов";
+            treeView.Nodes[5].ImageIndex = CollapseIndex;
+            treeView.Nodes[5].SelectedImageIndex = CollapseIndex;
+            treeView.Nodes[5].ContextMenuStrip = groups_MenuStrip;
+            treeView.Nodes[5].Tag = 5;
+
+            treeView.BeforeLabelEdit += TreeView_BeforeLabelEdit;
+            treeView.AfterLabelEdit += TreeView_AfterLabelEdit;
+            TreeView.NodeMouseClick += TreeView_NodeMouseClick;
+
+            treeView.Nodes.RemoveByKey("объекты");
+            treeView.Nodes.RemoveByKey("группыОбъектов");
+
+            var objsNode = new TreeNode()
+            {
+                Text = "Объекты",
+                Name = "объекты",
+                ImageIndex = CollapseIndex,
+                SelectedImageIndex = CollapseIndex,
+                ContextMenuStrip = objects_MenuStrip,
+                Tag = "4"
+            };
+            TreeView.Nodes.Add(objsNode);
+            var objGrpsNode = new TreeNode()
+            {
+                Text = "Группы объектов",
+                Name = "группыОбъектов",
+                ImageIndex = CollapseIndex,
+                SelectedImageIndex = CollapseIndex,
+                ContextMenuStrip = groups_MenuStrip,
+                Tag = "5"
+            };
+            TreeView.Nodes.Add(objGrpsNode);
+
+            SetModelObjsInfo();
+            SetModelGroupInfo();
+        }
+
+        private void SelectGroup(string groupName)
+        {
+            try
+            {
+                sceneControl.SetBackColorToAll_VBObjects();
+
+                var group = Project.Model.GroupData.Find(groupName);
+
+                foreach (var objNumber in group.ObjsNumbers)
+                    Project.Model.ObjectData.Find(objNumber).MasterColor = Color.FromArgb(255, 0, 0);
+
+                sceneControl.ChangeColorsVBObjects(group.ObjType);
+
+                sceneControl.DisplayObjects();
+            }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
+        }
+
+
+
+        private void RenameGroup(string newName, string oldName)
+        {
+            var gr = Project.Model.GroupData.Find(oldName);
+            if (gr != null)
+            {
+                gr.GroupName = newName;
+                foreach (var data in Project.TaskData)
+                {
+                    var dataStr = data.GetInfo;
+                    if (dataStr.Contains(oldName))
+                    {
+                        dataStr = dataStr.Replace(oldName, newName);
+                        data.SetInfo(dataStr);
+                    }
+                }
+            }
+
+        }
+
+        private void TreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+
+            if (e.Button == MouseButtons.Right)
+            {
+                if (e.Node.ContextMenuStrip != null)
+                    e.Node.ContextMenuStrip.Show(e.Location);
+            }
+            else
+            {
+                if (e.Node.Tag.ToString() == "5.1")
+                    SelectGroup(e.Node.Text);
+            }
+            TreeView.SelectedNode = e.Node;
+        }
+
+        private void TreeView_BeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
+        {
+            if (!TreeView.LabelEdit)
+                e.CancelEdit = true;
+        }
+
+        private void TreeView_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
+        {
+            if (e.Label == null | e.Label.Contains(" ") == true)
+                e.CancelEdit = true;
+            else
+            {
+                var parentNode = TreeView.SelectedNode.Parent;
+
+                var newName = e.Label;
+                var oldName = e.Node.Text;
+
+                if (parentNode.Name == "группыОбъектов")
+                {
+                    RenameGroup(newName, oldName);
+                }
+            }
+
+            TreeView.LabelEdit = false;
+        }
+
+        public void SetModelObjsInfo()
+        {
+            treeView.BeginUpdate();
+
+            treeView.Nodes["объекты"].Expand();
+
+            TreeView.Nodes["объекты"].Nodes.Clear();
+            foreach (var objInfo in GetObjectsInfo())
+                CreateNewObjectsNode(objInfo);
+
+            TreeView.EndUpdate();
+        }
+
+        public void SetModelGroupInfo()
+        {
+            treeView.BeginUpdate();
+            treeView.Nodes["группыОбъектов"].Expand();
+
+            treeView.Nodes["группыОбъектов"].Nodes.Clear();
+
+            foreach (var grInfo in GetGroupsInfo())
+                CreateNewGroupNode(grInfo);
+
+            treeView.EndUpdate();
+        }
+
+        public IEnumerable<KeyValuePair<string, List<string>>> GetObjectsInfo()
+        {
+            if (Project != null)
+            {
+                var objTypes = Project.Model.ObjectData.GetObjectTypes();
+                foreach (var objType in objTypes)
+                {
+                    var objKinds = new List<string>();
+                    foreach (var obj in Project.Model.ObjectData.FindMany(objType))
+                    {
+                        objKinds.Add(obj.ObjKind.ToString());
+                    }
+                    yield return new KeyValuePair<string, List<string>>(objType, objKinds);
+                }
+            }
+
+        }
+
+
+        public IEnumerable<KeyValuePair<string, string>> GetGroupsInfo()
+        {
+            if (Project != null)
+                foreach (var group in Project.Model.GroupData)
+                {
+                    yield return new KeyValuePair<string, string>(group.GroupName, group.ObjType);
+                }
+        }
+
+        public void CreateNewObjectsNode(KeyValuePair<string, List<string>> objInfo)
+        {
+            var trNode = new TreeNode()
+            {
+                ContextMenuStrip = object_MenuStrip,
+                Name = objInfo.Key,
+                Text = string.Format("{0} : {1}", objInfo.Key, objInfo.Value.Count),
+
+                ImageIndex = imgDict[objInfo.Key] == 3 ? 5 : 6,
+                SelectedImageIndex = imgDict[objInfo.Key] == 3 ? 5 : 6,
+
+                Tag = "4.1"
+            };
+
+            treeView.Nodes["объекты"].Nodes.Add(trNode);
+        }
+
+        public void CreateNewGroupNode(KeyValuePair<string, string> grInfo)
+        {
+            var trNode = new TreeNode()
+            {
+                Text = grInfo.Key,
+                Name = grInfo.Value,
+                ImageIndex = imgDict[grInfo.Value],
+                SelectedImageIndex = imgDict[grInfo.Value],
+                Tag = "5.1"
+            };
+            TreeView.Nodes["группыОбъектов"].Nodes.Add(trNode);
+
+            if (grInfo.Value == "Узлы")
+                trNode.ContextMenuStrip = ndGroup_MenuStrip;
+            else trNode.ContextMenuStrip = elGroup_MenuStrip;
+
+
         }
 
         public void ClearAllDataOnScene()
@@ -840,15 +1059,15 @@ namespace BaseModule
                         btn.Checked = false;
                         lblInputCmd.Text = "";
 
-                        SceneControl.HideVBObject("crossSection");
-                        SceneControl.DeleteVBObjects("crossSection");
+                        sceneControl.HideVBObject("crossSection");
+                        sceneControl.DeleteVBObjects("crossSection");
 
-                        if(SceneControl.GetVBObjsName().Count() == 0)
+                        if(sceneControl.GetVBObjsName().Count() == 0)
                         {
-                            SceneControl.CreateVBObjects();
-                            SceneControl.ShowAllVBObjects();
+                            sceneControl.CreateVBObjects();
+                            sceneControl.ShowAllVBObjects();
                         }
-                        SceneControl.DisplayObjects();
+                        sceneControl.DisplayObjects();
                     };
 
                     form.Show();
@@ -893,8 +1112,8 @@ namespace BaseModule
             var edges = presenter.CreateVBOEdges("Поверхность", inds.Item4);
 
             sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors,normals, edges, name);
- 
-            SceneControl.ShowVBObject(name);
+
+            sceneControl.ShowVBObject(name);
             sceneControl.DisplayObjects();
         }
 
@@ -941,8 +1160,8 @@ namespace BaseModule
                             var calcDistance = new CalcDistance();
                             var line = calcDistance.DistanceBetweenPlaneAndNode(plane.Result, node.Result);
                             consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
-                            SceneControl.CreateDistance(line);
-                            SceneControl.DisplayObjects();
+                            sceneControl.CreateDistance(line);
+                            sceneControl.DisplayObjects();
                             break;
                         }
                     case MeasureKind.Path:
@@ -1030,7 +1249,7 @@ namespace BaseModule
             var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
             {
                 var selObjsNumbers = sceneControl.GetSelectedObjects().ToArray();
-                if (SceneControl.GetSelectedObjects().Count() < 3)
+                if (sceneControl.GetSelectedObjects().Count() < 3)
                 {
                     Invoke(new Action(() =>
                     {
@@ -1282,6 +1501,8 @@ namespace BaseModule
 
             sceneControl.SetBackColorToAll_VBObjects();
             sceneControl.DisplayObjects();
+
+            SetModelGroupInfo();
         }
 
         private void sceneControl_CreateVBObjectsEvent(object arg1, Scene.Events.VBOPresenterEventArgs arg2)
@@ -1309,6 +1530,9 @@ namespace BaseModule
             PresentModelOnSelectToolStrip();
             sceneControl.SetBackColorToAll_VBObjects();
             sceneControl.DisplayObjects();
+
+            SetModelObjsInfo();
+            SetModelGroupInfo();
         }
 
         private void sceneControl_InfoObjectsEvent(object arg1, Scene.InfoObjectsEventArgs arg2)
@@ -1440,29 +1664,15 @@ namespace BaseModule
         {
             treeView.Nodes[4].Nodes[objsName].ImageIndex = imgDict[objsName];
             treeView.Nodes[4].Nodes[objsName].SelectedImageIndex = imgDict[objsName];
-            sceneControl.HideVBObject(objsName);
+            if (sceneControl.IsVBObjectShown(objsName))
+                sceneControl.HideVBObject(objsName);
         }
 
         public void SwitchOffAllObjects()
         {
             foreach (var objsName in sceneControl.GetVBObjsName())
             {
-                treeView.Nodes[4].Nodes[objsName].ImageIndex = imgDict[objsName];
-                treeView.Nodes[4].Nodes[objsName].SelectedImageIndex = imgDict[objsName];
-
-                if (sceneControl.IsVBObjectShown(objsName))
-                    sceneControl.HideVBObject(objsName);
-            }
-        }
-
-        public void SwitchAllObjects()
-        {
-            foreach (var objsName in sceneControl.GetVBObjsName())
-            {
-                sceneControl.ShowVBObject(objsName);
-
-                treeView.Nodes[4].Nodes[objsName].ImageIndex = imgDict[objsName] == 3 ? 5 : 6;
-                treeView.Nodes[4].Nodes[objsName].SelectedImageIndex = imgDict[objsName] == 3 ? 5 : 6;
+                SwitchOffObjects(objsName);
             }
         }
 
@@ -1547,6 +1757,334 @@ namespace BaseModule
             {
                 Invoke(new Action(() => { consoleControl.PrintInfo(ex.Message, Color.Red); }));
             }
+        }
+
+        private void HideObjects_Click(object sender, EventArgs e)
+        {
+            var modelObjects = Project.Model.ObjectData.FindMany(TreeView.SelectedNode.Name);
+            foreach (var modelObject in modelObjects)
+                modelObject.ViewState = false;
+
+            if (sceneControl.IsVBObjectShown(TreeView.SelectedNode.Name))
+                sceneControl.HideVBObject(TreeView.SelectedNode.Name);
+            sceneControl.DeleteVBObjects(TreeView.SelectedNode.Name);
+
+            sceneControl.CreateVBObjects(TreeView.SelectedNode.Name);
+            sceneControl.ShowVBObject(TreeView.SelectedNode.Name);
+
+            sceneControl.DisplayObjects();
+        }
+
+        private void ребраToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sceneControl.ChangeViewModeVBObjects(TreeView.SelectedNode.Name, Scene.VBO.ObjView.Lines);
+            sceneControl.DisplayObjects();
+        }
+
+        private void поверхностиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sceneControl.ChangeViewModeVBObjects(TreeView.SelectedNode.Name, Scene.VBO.ObjView.Surface);
+            sceneControl.DisplayObjects();
+        }
+
+        private void ребраИПоверхностиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sceneControl.ChangeViewModeVBObjects(TreeView.SelectedNode.Name, Scene.VBO.ObjView.LinesSurface);
+            sceneControl.DisplayObjects();
+        }
+        private void InfoGroup_Click(object sender, EventArgs e)
+        {
+            var group = Project.Model.GroupData[TreeView.SelectedNode.Index];
+            consoleControl.PrintInfo(group.ToString(), Color.Black);
+        }
+
+        private async void EditGroup_Click(object sender, EventArgs e) //
+        {
+            //ChangeGroupEvent(this, new GroupEvArgs(treeView.SelectedNode.Name, treeView.SelectedNode.Index));
+
+            var group = Project.Model.GroupData.Find(TreeView.SelectedNode.Text);
+            var selToolStrip = FindToolStrip<SelectToolStrip>();
+            selToolStrip.SelectObjectsType = group.ObjType;
+
+            //SelectToolStrip.SelectObjectsType = group.ObjType;
+
+            foreach (var objNumber in group.ObjsNumbers)
+                Project.Model.ObjectData.Find(objNumber).MasterColor = sceneControl.SelectionColor;
+
+            sceneControl.ChangeColorsVBObjects(group.ObjType);
+            sceneControl.DisplayObjects();
+
+            var actConfirm = new Func<Tuple<bool, object>>(() =>
+            {
+                if (sceneControl.GetSelectedObjects().Count() == 0)
+                {
+                    Invoke(new Action(() => {
+                        ConsoleControl.PrintInfo("Не выбран ни один объект!", Color.Black);
+                    }));
+                    return new Tuple<bool, object>(false, new object());
+                }
+                else
+                {
+                    group.Clear();
+                    group.AddRange(sceneControl.GetSelectedObjects());
+                    Project.Model.GroupData.Add(group);
+                    Invoke(new Action(() => {
+                        consoleControl.PrintInfo("Группа изменена успешно", Color.Green);
+                        PrintCommand("");
+                    }));
+                    return new Tuple<bool, object>(true, new object());
+                }
+            });
+
+            var actBreak = new Action(() =>
+            {
+                Invoke(new Action(() =>
+                {
+                    consoleControl.PrintInfo("Операция отменена", Color.Black);
+                    PrintCommand("");
+                }));
+            });
+
+            var message = "измените группу, добавив или удалив объекты, и нажмите на кнопку Enter или нажмите кнопку ESC";
+
+            await AsyncMethodContainer(actConfirm, actBreak, message);
+        }
+
+        private void RenameGroup_Click(object sender, EventArgs e)
+        {
+            TreeView.LabelEdit = true;
+            TreeView.SelectedNode.BeginEdit();
+        }
+
+        private void ShowGroupWithNodes_Click(object sender, EventArgs e)
+        {
+            var group = Project.Model.GroupData[TreeView.SelectedNode.Index];
+
+            foreach (var number in group.ObjsNumbers)
+            {
+                var obj = (IElement)Project.Model.ObjectData.Find(number);
+                obj.ViewState = true;
+
+                foreach (var node in obj.GetNodes())
+                    node.ViewState = true;
+
+            }
+
+            if (sceneControl.IsVBObjectShown("Узлы"))
+                sceneControl.HideVBObject("Узлы");
+            sceneControl.DeleteVBObjects("Узлы");
+
+            sceneControl.CreateVBObjects("Узлы");
+            sceneControl.ShowVBObject("Узлы");
+
+            TreeView.Nodes[4].Nodes["Узлы"].ImageIndex = 5;
+            TreeView.Nodes[4].Nodes["Узлы"].SelectedImageIndex = 5;
+
+            if (sceneControl.IsVBObjectShown(TreeView.SelectedNode.Name))
+                sceneControl.HideVBObject(TreeView.SelectedNode.Name);
+            sceneControl.DeleteVBObjects(TreeView.SelectedNode.Name);
+
+            sceneControl.CreateVBObjects(TreeView.SelectedNode.Name);
+            sceneControl.ShowVBObject(TreeView.SelectedNode.Name);
+
+            TreeView.Nodes[4].Nodes[TreeView.SelectedNode.Name].ImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
+            TreeView.Nodes[4].Nodes[TreeView.SelectedNode.Name].SelectedImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
+
+            sceneControl.DisplayObjects();
+        }
+
+        private void ShowAllGroups_Click(object sender, EventArgs e)
+        {
+            foreach (var group in Project.Model.GroupData)
+            {
+                foreach (var objNumber in group)
+                {
+                    Project.Model.ObjectData.Find(objNumber).ViewState = true;
+                }
+
+                TreeView.Nodes[4].Nodes[group.ObjType].ImageIndex = imgDict[group.ObjType] == 3 ? 5 : 6;
+                TreeView.Nodes[4].Nodes[group.ObjType].SelectedImageIndex = imgDict[group.ObjType] == 3 ? 5 : 6;
+            }
+            PresentAllModelObjectsOnScene();
+            sceneControl.DisplayObjects();
+        }
+
+        private void ShowGroup_Click(object sender, EventArgs e)
+        {
+            var group = Project.Model.GroupData[TreeView.SelectedNode.Index];
+
+            foreach (var number in group.ObjsNumbers)
+                Project.Model.ObjectData.Find(number).ViewState = true;
+
+            if (sceneControl.IsVBObjectShown(group.ObjType))
+                sceneControl.HideVBObject(group.ObjType);
+            sceneControl.DeleteVBObjects(group.ObjType);
+
+            sceneControl.CreateVBObjects(group.ObjType);
+            sceneControl.ShowVBObject(group.ObjType);
+
+            TreeView.Nodes[4].Nodes[group.ObjType].ImageIndex = imgDict[group.ObjType] == 3 ? 5 : 6;
+            TreeView.Nodes[4].Nodes[group.ObjType].SelectedImageIndex = imgDict[group.ObjType] == 3 ? 5 : 6;
+
+            sceneControl.DisplayObjects();
+        }
+
+        private void HideGroup_Click(object sender, EventArgs e)
+        {
+            var group = Project.Model.GroupData[TreeView.SelectedNode.Index];
+
+            foreach (var number in group.ObjsNumbers)
+                Project.Model.ObjectData.Find(number).ViewState = false;
+
+            if (sceneControl.IsVBObjectShown(group.ObjType))
+                sceneControl.HideVBObject(group.ObjType);
+            sceneControl.DeleteVBObjects(group.ObjType);
+
+            sceneControl.CreateVBObjects(group.ObjType);
+            sceneControl.ShowVBObject(group.ObjType);
+
+            sceneControl.DisplayObjects();
+        }
+
+        public void ShowObjects_Click(object sender, EventArgs e)
+        {
+            var modelObjects = Project.Model.ObjectData.FindMany(TreeView.SelectedNode.Name);
+            foreach (var modelObject in modelObjects)
+                modelObject.ViewState = true;
+
+            if (sceneControl.IsVBObjectShown(TreeView.SelectedNode.Name))
+                sceneControl.HideVBObject(TreeView.SelectedNode.Name);
+            sceneControl.DeleteVBObjects(TreeView.SelectedNode.Name);
+
+            sceneControl.CreateVBObjects(TreeView.SelectedNode.Name);
+            sceneControl.ShowVBObject(TreeView.SelectedNode.Name);
+
+            TreeView.SelectedNode.ImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
+            TreeView.SelectedNode.SelectedImageIndex = imgDict[TreeView.SelectedNode.Name] == 3 ? 5 : 6;
+
+            sceneControl.DisplayObjects();
+        }
+
+        private void SwitchOnAllObjects_Click(object sender, EventArgs e)
+        {
+            foreach (var objsName in sceneControl.GetVBObjsName())
+            {
+                SwitchOnObjects(objsName);
+            }
+            sceneControl.DisplayObjects();
+        }
+
+        private void SwitchOnObjects_Click(object sender, EventArgs e)
+        {
+            SwitchOnObjects(TreeView.SelectedNode.Name);
+            sceneControl.DisplayObjects();
+        }
+
+        private void SwitchOffObjects_Click(object sender, EventArgs e)
+        {
+            SwitchOffObjects(TreeView.SelectedNode.Name);
+            sceneControl.DisplayObjects();
+        }
+
+        private void SwitchOffAllObjects_Click(object sender, EventArgs e)
+        {
+            SwitchOffAllObjects();
+            sceneControl.DisplayObjects();
+        }
+
+
+
+        private void HideAllGroups_Click(object sender, EventArgs e)
+        {
+            foreach (var group in Project.Model.GroupData)
+            {
+                foreach (var objNumber in group)
+                {
+                    Project.Model.ObjectData.Find(objNumber).ViewState = false;
+                }
+            }
+
+            PresentAllModelObjectsOnScene();
+            sceneControl.DisplayObjects();
+        }
+
+        private void DelAllObjects_Click(object sender, EventArgs e)
+        {
+            TreeView.SelectedNode.Nodes.Clear();
+
+            foreach (var obj in Project.Model.ObjectData)
+                obj.ExistState = false;
+            DeleteAllGroups();
+
+            PresentAllModelObjectsOnScene();
+            sceneControl.DisplayObjects();
+        }
+
+        private void DelAllGroups_Click(object sender, EventArgs e)
+        {
+            TreeView.SelectedNode.Nodes.Clear();
+            DeleteAllGroups();
+        }
+
+        private void DeleteAllGroups()
+        {
+            var valData = Project.TaskData.Where(x => x is IValuableData).Select(x => (IValuableData)x).ToList();
+            foreach (var group in Project.Model.GroupData)
+            {
+                var selData = valData.Where(x => x.GroupName == group.GroupName);
+
+                foreach (Data data in selData)
+                    Project.TaskData.Remove(data);
+            }
+
+            Project.Model.GroupData.Clear();
+        }
+
+        private void DelObjects_Click(object sender, EventArgs e)
+        {
+            DeleteObjects(TreeView.SelectedNode.Name);
+            TreeView.Nodes["объекты"].Nodes.Remove(TreeView.SelectedNode);
+        }
+
+        private void DelGroup_Click(object sender, EventArgs e)
+        {
+            DeleteGroup(TreeView.SelectedNode.Name, TreeView.SelectedNode.Index);
+            TreeView.Nodes["группыОбъектов"].Nodes.Remove(TreeView.SelectedNode);
+        }
+
+        private void DeleteGroup(string objsType, int groupIndex)
+        {
+            Project.Model.GroupData.RemoveAt(groupIndex);
+
+            var valData = Project.TaskData.Where(x => x is IValuableData).Select(x => (IValuableData)x).
+                Where(x => x.GroupName == objsType).ToArray();
+
+            foreach (Data data in valData)
+                Project.TaskData.Remove(data);
+        }
+
+        private void DeleteObjects(string objsType)
+        {
+            Project.Model.ObjectData.RemoveRange(objsType);
+
+            var searchGroups = Project.Model.GroupData.FindMany(objsType).ToArray();
+
+            foreach (var searchGroup in searchGroups)
+            {
+                Project.Model.GroupData.Remove(searchGroup);
+            }
+
+
+
+            var selectToolStrip = FindToolStrip<SelectToolStrip>();
+            selectToolStrip.RemoveObjectsType(objsType);
+            SetModelGroupInfo();
+
+            var presentor = new ModelScenePresentator(Project.Model);
+            sceneControl.SetPresentor(presentor);
+
+            PresentAllModelObjectsOnScene();
+            sceneControl.DisplayObjects();
         }
     }
 }
