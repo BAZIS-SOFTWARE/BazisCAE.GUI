@@ -605,45 +605,9 @@ namespace BaseModule
             treeView.Nodes[3].ImageIndex = ProjectInfoIndex;
             treeView.Nodes[3].SelectedImageIndex = ProjectInfoIndex;
 
-            treeView.Nodes[4].Text = "Объекты";
-            treeView.Nodes[4].ImageIndex = CollapseIndex;
-            treeView.Nodes[4].SelectedImageIndex = CollapseIndex;
-            treeView.Nodes[4].ContextMenuStrip = objects_MenuStrip;
-            treeView.Nodes[4].Tag = 4;
-
-            treeView.Nodes[5].Text = "Группы объектов";
-            treeView.Nodes[5].ImageIndex = CollapseIndex;
-            treeView.Nodes[5].SelectedImageIndex = CollapseIndex;
-            treeView.Nodes[5].ContextMenuStrip = groups_MenuStrip;
-            treeView.Nodes[5].Tag = 5;
-
             treeView.BeforeLabelEdit += TreeView_BeforeLabelEdit;
             treeView.AfterLabelEdit += TreeView_AfterLabelEdit;
             TreeView.NodeMouseClick += TreeView_NodeMouseClick;
-
-            treeView.Nodes.RemoveByKey("объекты");
-            treeView.Nodes.RemoveByKey("группыОбъектов");
-
-            var objsNode = new TreeNode()
-            {
-                Text = "Объекты",
-                Name = "объекты",
-                ImageIndex = CollapseIndex,
-                SelectedImageIndex = CollapseIndex,
-                ContextMenuStrip = objects_MenuStrip,
-                Tag = "4"
-            };
-            TreeView.Nodes.Add(objsNode);
-            var objGrpsNode = new TreeNode()
-            {
-                Text = "Группы объектов",
-                Name = "группыОбъектов",
-                ImageIndex = CollapseIndex,
-                SelectedImageIndex = CollapseIndex,
-                ContextMenuStrip = groups_MenuStrip,
-                Tag = "5"
-            };
-            TreeView.Nodes.Add(objGrpsNode);
 
             SetModelObjsInfo();
             SetModelGroupInfo();

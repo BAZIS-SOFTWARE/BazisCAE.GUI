@@ -183,6 +183,16 @@
     <None Include="TreeViewPic\switchOn_elems_16x16.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="TreeViewPic\ConsoleMenu\Delete.png" />
+    <None Include="TreeViewPic\ConsoleMenu\Del.ico" />
+    <None Include="TreeViewPic\ConsoleMenu\SwitchOn.png" />
+    <None Include="TreeViewPic\ConsoleMenu\SwitchOff.png" />
+    <None Include="TreeViewPic\ConsoleMenu\Show.bmp" />
+    <None Include="TreeViewPic\ConsoleMenu\Rename.png" />
+    <None Include="TreeViewPic\ConsoleMenu\NodeFromElemGroup.png" />
+    <None Include="TreeViewPic\ConsoleMenu\Info.bmp" />
+    <None Include="TreeViewPic\ConsoleMenu\Hide.bmp" />
+    <None Include="TreeViewPic\ConsoleMenu\Edit.png" />
     <None Include="Resources\Measure_32x32.png" />
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
