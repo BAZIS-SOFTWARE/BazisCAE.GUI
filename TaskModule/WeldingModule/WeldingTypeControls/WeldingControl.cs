@@ -1,16 +1,28 @@
-﻿using System;
+﻿using PlayerControl;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Globalization;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.BasicControls;
+using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
-    public partial class WeldingControl : CheckedGridViewAdviserControl, INodesGroupControl,IElmentsGroupsControl,IFunctionsRelatedControl
+    public partial class WeldingControl : CheckedGridViewAdviserControl, INodesGroupControl, IElmentsGroupsControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
-
         List<string> funcs = new List<string>();
+
+        public event Action<object, ShowDataEventArgs> ShowDataEvent;
+        public event Action<object, HideDataEventArgs> HideDataEvent;
+        public event Action<object, CheckDataEventArgs> CheckDataEvent;
+
         enum Column : int { weldingType = 0, weldingArea, startTime, stopTime, movingReferenceFrame };
 
         public override string Traj
@@ -106,7 +118,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 grbWeldRegime.Controls.Clear();
                 grbWeldRegime.Controls.Add(wcc);
 
-                wcc.InputData(value.Split(';'));                
+                wcc.InputData(value.Split(';'));
             }
         }
 
@@ -188,12 +200,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             var taskStrAr = new List<string>();
 
-            var trajData= GetTrajectoryData();
+            var trajData = GetTrajectoryData();
 
             if (chbShifting.Checked)
             {
                 CheckShiftingInput();
-                trajData = trajData + ";" + 
+                trajData = trajData + ";" +
                     string.Format($"{txbShiftX.Text}|{txbShiftY.Text}|{txbShiftZ.Text}|{txbAngle.Text}");
             }
 
@@ -218,8 +230,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 taskStrAr.Add("\"" + taskStr + "\"");
             }
 
-            return  string.Join(" ", taskStrAr);
-        }       
+            return string.Join(" ", taskStrAr);
+        }
 
         public override void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -256,38 +268,50 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             {
                 MessageBox.Show(ex.Message);
             }
- 
+
         }
 
-        public override void ShowDataButton_Click(object sender, EventArgs e)
+        private void player_StartCheckingEvent(object obj)
         {
-            base.ShowDataButton_Click(sender, e);
+            var gridViewList = new List<DataGridView>();
+            SearchControls(this, gridViewList);
+
+            var checkStopTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+       .Max(r => Convert.ToSingle(r.Cells["stopColumn"].Value, CultureInfo.InvariantCulture));
+
+            var checkStartTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+                        .Min(r => Convert.ToSingle(r.Cells["startColumn"].Value, CultureInfo.InvariantCulture));
+
+            player.StartValue = (int)checkStartTime;
+            player.StopValue = (int)checkStopTime;
         }
 
-
-        public override void StartChecking_Click(object sender, EventArgs e)
+        private void player_CheckingEvent(object arg1, float arg2)
         {
-            base.StartChecking_Click(sender, e);
+            CheckDataEvent(this, new BasicAdvisorControls.Events.CheckDataEventArgs(DataName, arg2));
         }
 
-        public override void StopChecking_Click(object sender, EventArgs e)
+        private void player_StopCheckingEvent(object obj)
         {
-            base.StopChecking_Click(sender, e);
+            HideDataEvent(this, new HideDataEventArgs(DataName));
         }
 
-        public override void HideAllDataButton_Click(object sender, EventArgs e)
+        public void ShowDataButton_Click(object sender, EventArgs e)
         {
-            base.HideAllDataButton_Click(sender, e);
+            if (CountSelectedRow > 0)
+            {
+                ShowDataEvent(this, new ShowDataEventArgs(DataName, GetSelectedRowIndexes().ToList()));
+            }
+        }
+
+        public void HideAllDataButton_Click(object sender, EventArgs e)
+        {
+            HideDataEvent(this, new HideDataEventArgs(DataName));
         }
 
         public override void ClearAllDataButton_Click(object sender, EventArgs e)
         {
             base.ClearAllDataButton_Click(sender, e);
-        }
-
-        public override void CheckVelocitySlider_Scroll(object sender, ScrollEventArgs e)
-        {
-            base.CheckVelocitySlider_Scroll(sender, e);
         }
 
 
@@ -336,7 +360,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             base.RefreshButton_Click(sender, e);
 
             btnRefresh.Enabled = false;
-   
+
         }
 
         private void dataGridView_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
@@ -348,7 +372,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             if (chbEnergyCalibration.Checked)
             {
-                    cmbEnergyCalibration.Enabled = true;                
+                cmbEnergyCalibration.Enabled = true;
             }
             else
             {
@@ -374,8 +398,5 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 txbAngle.Enabled = false;
             }
         }
-
-
     }
-    
 }

@@ -11,6 +11,7 @@ using System.Globalization;
 using static System.Net.Mime.MediaTypeNames;
 using System.IO;
 using Geometry;
+using PlayerControl;
 
 namespace ResultModule
 {
@@ -42,32 +43,32 @@ namespace ResultModule
             cmbResultNames.Items.Clear();
         }
 
-        private void incrButton_Click(object sender, EventArgs e)
-        {
-            var val = colorSlider.Value;
-            var setVal = val + 1;
-            if (setVal <= colorSlider.Maximum)
-            {
-                colorSlider.Value = setVal;
-                ShowResults(colorSlider.Value);
-            }
-        }
+        //private void incrButton_Click(object sender, EventArgs e)
+        //{
+        //    var val = colorSlider.Value;
+        //    var setVal = val + 1;
+        //    if (setVal <= colorSlider.Maximum)
+        //    {
+        //        colorSlider.Value = setVal;
+        //        ShowResults(colorSlider.Value);
+        //    }
+        //}
 
-        private void decrButton_Click(object sender, EventArgs e)
-        {
-            var val = colorSlider.Value;
-            var setVal = val - 1;
-            if (setVal >= colorSlider.Minimum)
-            {
-                colorSlider.Value = setVal;
-                ShowResults(colorSlider.Value);
-            }
-        }
+        //private void decrButton_Click(object sender, EventArgs e)
+        //{
+        //    var val = colorSlider.Value;
+        //    var setVal = val - 1;
+        //    if (setVal >= colorSlider.Minimum)
+        //    {
+        //        colorSlider.Value = setVal;
+        //        ShowResults(colorSlider.Value);
+        //    }
+        //}
 
-        private void btnMoveToFinish_Click(object sender, EventArgs e)
-        {
-            colorSlider.Value = colorSlider.Maximum;
-        }
+        //private void btnMoveToFinish_Click(object sender, EventArgs e)
+        //{
+        //    colorSlider.Value = colorSlider.Maximum;
+        //}
 
         private void btnPlayResults_Click(object sender, EventArgs e)
         {
@@ -82,7 +83,7 @@ namespace ResultModule
             var ind = 0;
 
             var scaleFactor = int.Parse(txbScale.Text);
-            var maxInd = colorSlider.Maximum;
+            var maxInd = player.StopValue;
             timer.Tick += new EventHandler
                 (
                 new Action<object, EventArgs>((s, a) =>
@@ -98,7 +99,7 @@ namespace ResultModule
                     else
                     {
                         var testArr = richTextBox.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-                        colorSlider.Value = ind;
+                        //playerControl.CheckStartTime = ind;
                         MarkTimeStep(ind);
                         var time = float.Parse(testArr[ind]);
                         ShowResultEvent(this, new ShowResultEventArgs(cmbResultNames.SelectedItem.ToString(), time, scaleFactor));
@@ -113,10 +114,10 @@ namespace ResultModule
         }
 
 
-        private void btnMoveToStart_Click(object sender, EventArgs e)
-        {
-            colorSlider.Value = colorSlider.Minimum;
-        }
+        //private void btnMoveToStart_Click(object sender, EventArgs e)
+        //{
+        //    colorSlider.Value = colorSlider.Minimum;
+        //}
 
         private void cmbResultNames_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -124,8 +125,12 @@ namespace ResultModule
             var times = resItems[cmbResultNames.SelectedItem.ToString()];
 
             richTextBox.Clear();
-            colorSlider.Maximum = times.Count() - 1;
-            colorSlider.Value = 0;
+            if(times.Count() > 1)
+                player.StopValue = times.Count() - 1;
+            else if(times.Count() == 1)
+                player.StartValue = 1;
+
+            player.CurrentValue = 0;
             foreach (var time in times)
                 richTextBox.AppendText($"{time}\n");
         }
@@ -150,7 +155,8 @@ namespace ResultModule
                 //Получаем номер строки по знаку
                 var lineIndex = richTextBox.GetLineFromCharIndex(charIndex);
 
-                colorSlider.Value = lineIndex;
+                //playerControl.CheckCurrentTime = lineIndex;
+                //colorSlider.Value = lineIndex;
                 ShowResults(lineIndex);
 
                 //Получаем номер индекса, который стоит 1-м в строке
@@ -202,6 +208,34 @@ namespace ResultModule
         {
             playerPanel.Enabled = false;
             richTextBox.Clear();
+        }
+
+        private void playerControl_CheckingEvent(object arg1, float arg2)
+        {
+
+        }
+
+        private void playerControl_StartCheckingEvent(object obj)
+        {
+            PlayResults(false);
+
+       //     var gridViewList = new List<DataGridView>();
+       //     SearchControls(this, gridViewList);
+
+       //     var checkStopTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+       //.Max(r => Convert.ToSingle(r.Cells["stopColumn"].Value, CultureInfo.InvariantCulture));
+
+       //     var checkStartTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+       //                 .Min(r => Convert.ToSingle(r.Cells["startColumn"].Value, CultureInfo.InvariantCulture));
+
+       //     player.CheckStartTime = checkStartTime;
+       //     player.CheckStopTime = checkStopTime;
+       //     player.CheckCurrentTime = checkStartTime;
+        }
+
+        private void playerControl_StopCheckingEvent(object obj)
+        {
+
         }
     }
 }

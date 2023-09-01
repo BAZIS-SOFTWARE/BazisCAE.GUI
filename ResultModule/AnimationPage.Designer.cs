@@ -1,4 +1,6 @@
-﻿namespace ResultModule
+﻿using PlayerControl;
+
+namespace ResultModule
 {
     partial class AnimationPage
     {
@@ -33,12 +35,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.playerPanel = new System.Windows.Forms.Panel();
-            this.incrButton = new System.Windows.Forms.Button();
-            this.decrButton = new System.Windows.Forms.Button();
-            this.btnMoveToFinish = new System.Windows.Forms.Button();
-            this.btnPlayResults = new System.Windows.Forms.Button();
-            this.btnMoveToStart = new System.Windows.Forms.Button();
-            this.colorSlider = new MB.Controls.ColorSlider();
+            this.player = new PlayerControl.Player();
             this.txbScale = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -111,12 +108,7 @@
             // playerPanel
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.playerPanel, 3);
-            this.playerPanel.Controls.Add(this.incrButton);
-            this.playerPanel.Controls.Add(this.decrButton);
-            this.playerPanel.Controls.Add(this.btnMoveToFinish);
-            this.playerPanel.Controls.Add(this.btnPlayResults);
-            this.playerPanel.Controls.Add(this.btnMoveToStart);
-            this.playerPanel.Controls.Add(this.colorSlider);
+            this.playerPanel.Controls.Add(this.player);
             this.playerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.playerPanel.Enabled = false;
             this.playerPanel.Location = new System.Drawing.Point(3, 3);
@@ -124,85 +116,26 @@
             this.playerPanel.Size = new System.Drawing.Size(395, 45);
             this.playerPanel.TabIndex = 0;
             // 
-            // incrButton
+            // player
             // 
-            this.incrButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.incrButton.BackColor = System.Drawing.SystemColors.Control;
-            this.incrButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.incrButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.incrButton.Image = ((System.Drawing.Image)(resources.GetObject("incrButton.Image")));
-            this.incrButton.Location = new System.Drawing.Point(361, 16);
-            this.incrButton.Margin = new System.Windows.Forms.Padding(0);
-            this.incrButton.Name = "incrButton";
-            this.incrButton.Size = new System.Drawing.Size(15, 15);
-            this.incrButton.TabIndex = 45;
-            this.incrButton.UseVisualStyleBackColor = false;
-            this.incrButton.Click += new System.EventHandler(this.incrButton_Click);
-            // 
-            // decrButton
-            // 
-            this.decrButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.decrButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.decrButton.Image = ((System.Drawing.Image)(resources.GetObject("decrButton.Image")));
-            this.decrButton.Location = new System.Drawing.Point(110, 16);
-            this.decrButton.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
-            this.decrButton.Name = "decrButton";
-            this.decrButton.Size = new System.Drawing.Size(15, 14);
-            this.decrButton.TabIndex = 44;
-            this.decrButton.UseVisualStyleBackColor = true;
-            this.decrButton.Click += new System.EventHandler(this.decrButton_Click);
-            // 
-            // btnMoveToFinish
-            // 
-            this.btnMoveToFinish.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveToFinish.Image")));
-            this.btnMoveToFinish.Location = new System.Drawing.Point(76, 12);
-            this.btnMoveToFinish.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.btnMoveToFinish.Name = "btnMoveToFinish";
-            this.btnMoveToFinish.Size = new System.Drawing.Size(28, 26);
-            this.btnMoveToFinish.TabIndex = 47;
-            this.btnMoveToFinish.UseVisualStyleBackColor = true;
-            this.btnMoveToFinish.Click += new System.EventHandler(this.btnMoveToFinish_Click);
-            // 
-            // btnPlayResults
-            // 
-            this.btnPlayResults.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayResults.Image")));
-            this.btnPlayResults.Location = new System.Drawing.Point(48, 12);
-            this.btnPlayResults.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
-            this.btnPlayResults.Name = "btnPlayResults";
-            this.btnPlayResults.Size = new System.Drawing.Size(27, 26);
-            this.btnPlayResults.TabIndex = 48;
-            this.btnPlayResults.UseVisualStyleBackColor = true;
-            this.btnPlayResults.Click += new System.EventHandler(this.btnPlayResults_Click);
-            // 
-            // btnMoveToStart
-            // 
-            this.btnMoveToStart.Image = ((System.Drawing.Image)(resources.GetObject("btnMoveToStart.Image")));
-            this.btnMoveToStart.Location = new System.Drawing.Point(21, 12);
-            this.btnMoveToStart.Margin = new System.Windows.Forms.Padding(3, 3, 1, 3);
-            this.btnMoveToStart.Name = "btnMoveToStart";
-            this.btnMoveToStart.Size = new System.Drawing.Size(26, 26);
-            this.btnMoveToStart.TabIndex = 49;
-            this.btnMoveToStart.UseVisualStyleBackColor = true;
-            this.btnMoveToStart.Click += new System.EventHandler(this.btnMoveToStart_Click);
-            // 
-            // colorSlider
-            // 
-            this.colorSlider.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.colorSlider.BackColor = System.Drawing.Color.Transparent;
-            this.colorSlider.BarInnerColor = System.Drawing.Color.Gold;
-            this.colorSlider.BarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.colorSlider.BorderRoundRectSize = new System.Drawing.Size(8, 8);
-            this.colorSlider.LargeChange = ((uint)(5u));
-            this.colorSlider.Location = new System.Drawing.Point(125, 8);
-            this.colorSlider.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.colorSlider.Name = "colorSlider";
-            this.colorSlider.Size = new System.Drawing.Size(236, 30);
-            this.colorSlider.SmallChange = ((uint)(1u));
-            this.colorSlider.TabIndex = 50;
-            this.colorSlider.Text = "colorSlider";
-            this.colorSlider.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
-            this.colorSlider.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ColorSlider_Scroll);
+            this.player.AutoSize = true;
+            this.player.CheckState = PlayerControl.CheckState.start;
+            this.player.CurrentValue = 0;
+            this.player.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.player.Location = new System.Drawing.Point(0, 0);
+            this.player.MinimumSize = new System.Drawing.Size(215, 45);
+            this.player.Name = "player";
+            this.player.Size = new System.Drawing.Size(395, 45);
+            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
+            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
+            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
+            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.player.StartValue = 0;
+            this.player.StopValue = 100;
+            this.player.TabIndex = 0;
+            this.player.CheckingEvent += new System.Action<object, float>(this.playerControl_CheckingEvent);
+            this.player.StopCheckingEvent += new System.Action<object>(this.playerControl_StopCheckingEvent);
+            this.player.StartCheckingEvent += new System.Action<object>(this.playerControl_StartCheckingEvent);
             // 
             // txbScale
             // 
@@ -372,6 +305,7 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.playerPanel.ResumeLayout(false);
+            this.playerPanel.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -387,12 +321,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel playerPanel;
-        private System.Windows.Forms.Button incrButton;
-        private System.Windows.Forms.Button decrButton;
-        private System.Windows.Forms.Button btnMoveToFinish;
-        private System.Windows.Forms.Button btnPlayResults;
-        private System.Windows.Forms.Button btnMoveToStart;
-        private MB.Controls.ColorSlider colorSlider;
         private System.Windows.Forms.TextBox txbScale;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -406,5 +334,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chbDelTempScrs;
         private System.Windows.Forms.Label label3;
+        private Player player;
     }
 }

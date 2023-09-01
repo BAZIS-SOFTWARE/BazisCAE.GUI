@@ -25,7 +25,7 @@ namespace TaskModule.BasicTaskAdvisor
         public event Action<object, ChangeTaskTypeEventArgs> Select2DPlaneEvent;
         public event Action<object, ChangeTaskTypeEventArgs> Select2DAxiEvent;
         public event Action<object, ChangeTaskTypeEventArgs> Select3DEvent;
-        public event Action<object, EventArgs> StartComputationEvent;
+        public event Action<object, string> StartComputationEvent;
         public event Action<object, EventArgs> StopComputationEvent;
         public event Action<object, EventArgs> AddDataUseTaskConditionsEvent;
 
@@ -85,6 +85,8 @@ namespace TaskModule.BasicTaskAdvisor
 
                     if (control is GridViewAdviserControl grvControl)
                     {
+                        grvControl.WorkingDirectory = project.Path;
+
                         var data = project.TaskData.GetAllData().
                             Where(x => x.Name == grvControl.DataName).
                             Select(x => x.GetInfo);
@@ -118,7 +120,7 @@ namespace TaskModule.BasicTaskAdvisor
             }
         }
 
-        public virtual void TaskPlannerControl1_StartComputationEvent(object arg1, EventArgs arg2)
+        public virtual void TaskPlannerControl1_StartComputationEvent(object arg1, string arg2)
         {
             StartComputationEvent(this, arg2);
         }

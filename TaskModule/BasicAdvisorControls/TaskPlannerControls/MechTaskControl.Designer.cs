@@ -54,6 +54,8 @@
             this.txbMaxDSi = new System.Windows.Forms.TextBox();
             this.txbMaxDUt = new System.Windows.Forms.TextBox();
             this.txbMaxDUi = new System.Windows.Forms.TextBox();
+            this.rbtFunction = new System.Windows.Forms.RadioButton();
+            this.rbtParam = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // label4
@@ -248,10 +250,10 @@
             this.txbInitTemp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbInitTemp.BackColor = System.Drawing.SystemColors.Window;
-            this.txbInitTemp.Location = new System.Drawing.Point(208, 109);
+            this.txbInitTemp.Location = new System.Drawing.Point(367, 109);
             this.txbInitTemp.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbInitTemp.Name = "txbInitTemp";
-            this.txbInitTemp.Size = new System.Drawing.Size(519, 20);
+            this.txbInitTemp.Size = new System.Drawing.Size(360, 20);
             this.txbInitTemp.TabIndex = 105;
             this.txbInitTemp.Text = "20";
             this.txbInitTemp.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
@@ -262,9 +264,9 @@
             this.label2.Location = new System.Drawing.Point(10, 112);
             this.label2.Margin = new System.Windows.Forms.Padding(7, 10, 3, 10);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(147, 13);
+            this.label2.Size = new System.Drawing.Size(91, 13);
             this.label2.TabIndex = 106;
-            this.label2.Text = "Начальная температура, С°";
+            this.label2.Text = "Температура, С°";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // maxDStCheBox
@@ -391,12 +393,36 @@
             this.txbMaxDUi.Text = "0.0005";
             this.txbMaxDUi.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
+            // rbtFunction
+            // 
+            this.rbtFunction.AutoSize = true;
+            this.rbtFunction.Location = new System.Drawing.Point(290, 110);
+            this.rbtFunction.Name = "rbtFunction";
+            this.rbtFunction.Size = new System.Drawing.Size(71, 17);
+            this.rbtFunction.TabIndex = 122;
+            this.rbtFunction.TabStop = true;
+            this.rbtFunction.Text = "Функция";
+            this.rbtFunction.UseVisualStyleBackColor = true;
+            // 
+            // rbtParam
+            // 
+            this.rbtParam.AutoSize = true;
+            this.rbtParam.Location = new System.Drawing.Point(208, 110);
+            this.rbtParam.Name = "rbtParam";
+            this.rbtParam.Size = new System.Drawing.Size(76, 17);
+            this.rbtParam.TabIndex = 121;
+            this.rbtParam.TabStop = true;
+            this.rbtParam.Text = "Параметр";
+            this.rbtParam.UseVisualStyleBackColor = true;
+            // 
             // MechTaskControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.rbtFunction);
+            this.Controls.Add(this.rbtParam);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmbPriority);
             this.Controls.Add(this.label3);
@@ -458,5 +484,7 @@
         private System.Windows.Forms.TextBox txbMaxDSi;
         private System.Windows.Forms.TextBox txbMaxDUt;
         private System.Windows.Forms.TextBox txbMaxDUi;
+        private System.Windows.Forms.RadioButton rbtFunction;
+        private System.Windows.Forms.RadioButton rbtParam;
     }
 }

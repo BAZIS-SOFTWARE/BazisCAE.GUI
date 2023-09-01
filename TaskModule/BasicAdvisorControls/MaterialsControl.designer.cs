@@ -36,9 +36,7 @@
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnStopCheck = new System.Windows.Forms.Button();
-            this.CheckVelocitySlider = new MB.Controls.ColorSlider();
-            this.btnCheckDinamic = new System.Windows.Forms.Button();
+            this.player = new PlayerControl.Player();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txbStopTime = new System.Windows.Forms.TextBox();
@@ -71,11 +69,11 @@
             this.startColumn,
             this.stopColumn});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 207);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(1);
+            this.dataGridView.Location = new System.Drawing.Point(1, 224);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(776, 391);
+            this.dataGridView.Size = new System.Drawing.Size(776, 374);
             this.dataGridView.TabIndex = 14;
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
@@ -125,9 +123,7 @@
             // 
             this.groupBox1.AutoSize = true;
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Controls.Add(this.btnStopCheck);
-            this.groupBox1.Controls.Add(this.CheckVelocitySlider);
-            this.groupBox1.Controls.Add(this.btnCheckDinamic);
+            this.groupBox1.Controls.Add(this.player);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txbStopTime);
@@ -140,62 +136,35 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Location = new System.Drawing.Point(1, 97);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(776, 108);
+            this.groupBox1.Size = new System.Drawing.Size(776, 127);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Время действия";
             // 
-            // btnStopCheck
+            // player
             // 
-            this.btnStopCheck.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnStopCheck.Image = ((System.Drawing.Image)(resources.GetObject("btnStopCheck.Image")));
-            this.btnStopCheck.Location = new System.Drawing.Point(205, 69);
-            this.btnStopCheck.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.btnStopCheck.Name = "btnStopCheck";
-            this.btnStopCheck.Size = new System.Drawing.Size(27, 26);
-            this.btnStopCheck.TabIndex = 49;
-            this.btnStopCheck.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnStopCheck.UseVisualStyleBackColor = true;
-            this.btnStopCheck.Click += new System.EventHandler(this.StopChecking_Click);
-            // 
-            // CheckVelocitySlider
-            // 
-            this.CheckVelocitySlider.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.CheckVelocitySlider.BackColor = System.Drawing.Color.Transparent;
-            this.CheckVelocitySlider.BarInnerColor = System.Drawing.Color.Gold;
-            this.CheckVelocitySlider.BarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.CheckVelocitySlider.BorderRoundRectSize = new System.Drawing.Size(8, 8);
-            this.CheckVelocitySlider.LargeChange = ((uint)(5u));
-            this.CheckVelocitySlider.Location = new System.Drawing.Point(238, 69);
-            this.CheckVelocitySlider.Margin = new System.Windows.Forms.Padding(3, 3, 28, 0);
-            this.CheckVelocitySlider.Maximum = 10;
-            this.CheckVelocitySlider.Minimum = 1;
-            this.CheckVelocitySlider.Name = "CheckVelocitySlider";
-            this.CheckVelocitySlider.Size = new System.Drawing.Size(510, 26);
-            this.CheckVelocitySlider.SmallChange = ((uint)(1u));
-            this.CheckVelocitySlider.TabIndex = 48;
-            this.CheckVelocitySlider.Text = "colorSlider";
-            this.CheckVelocitySlider.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
-            this.CheckVelocitySlider.Value = 1;
-            this.CheckVelocitySlider.Scroll += new System.Windows.Forms.ScrollEventHandler(this.CheckVelocitySlider_Scroll);
-            // 
-            // btnCheckDinamic
-            // 
-            this.btnCheckDinamic.AutoSize = true;
-            this.btnCheckDinamic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnCheckDinamic.Image = ((System.Drawing.Image)(resources.GetObject("btnCheckDinamic.Image")));
-            this.btnCheckDinamic.Location = new System.Drawing.Point(172, 69);
-            this.btnCheckDinamic.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.btnCheckDinamic.Name = "btnCheckDinamic";
-            this.btnCheckDinamic.Size = new System.Drawing.Size(27, 26);
-            this.btnCheckDinamic.TabIndex = 47;
-            this.btnCheckDinamic.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCheckDinamic.UseVisualStyleBackColor = true;
-            this.btnCheckDinamic.Click += new System.EventHandler(this.StartChecking_Click);
+            this.player.CheckState = PlayerControl.CheckState.start;
+            this.player.CurrentValue = 0;
+            this.player.Location = new System.Drawing.Point(172, 69);
+            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.player.MinimumSize = new System.Drawing.Size(215, 45);
+            this.player.Name = "player";
+            this.player.Size = new System.Drawing.Size(576, 45);
+            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
+            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
+            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
+            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.player.StartValue = 0;
+            this.player.StopValue = 100;
+            this.player.TabIndex = 50;
+            this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
+            this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
+            this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
             // 
             // label4
             // 
@@ -407,12 +376,10 @@
         private System.Windows.Forms.Button btnHideAll;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Button btnClearAll;
-        private System.Windows.Forms.Button btnStopCheck;
-        private MB.Controls.ColorSlider CheckVelocitySlider;
-        private System.Windows.Forms.Button btnCheckDinamic;
         private System.Windows.Forms.DataGridViewTextBoxColumn elGroupColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn matColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn startColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn stopColumn;
+        private PlayerControl.Player player;
     }
 }

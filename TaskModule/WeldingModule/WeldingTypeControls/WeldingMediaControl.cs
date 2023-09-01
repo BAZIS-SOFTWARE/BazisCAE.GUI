@@ -1,27 +1,36 @@
-﻿using System;
+﻿using PlayerControl;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.BasicControls;
+using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
-    public partial class WeldingMediaControl : CheckedGridViewAdviserControl, INodesGroupControl, IElmentsGroupsControl, IFunctionsRelatedControl
+    public partial class WeldingMediaControl : CheckedGridViewAdviserControl, INodesGroupControl, IElmentsGroupsControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
-        //int selectedRowIndex;
-        //private string inEventID;
-
         enum Column : int { plane, node = 0, function, mediaTemp, bodyTemp, startTime, stopTime };
 
         public WeldingMediaControl()
         {
             InitializeComponent();
             DataName = "Среда";
-            
+
         }
 
         public override string DataName { get; }
+
+        public event Action<object, ShowDataEventArgs> ShowDataEvent;
+        public event Action<object, HideDataEventArgs> HideDataEvent;
+        public event Action<object, CheckDataEventArgs> CheckDataEvent;
 
         public void Fill_nGroups(List<string> nGroups)
         {
@@ -119,7 +128,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             txbStopTime.Text = dataGridView[(int)Column.stopTime, CurentSelectedRowIndex].Value.ToString();
 
             btnRefresh.Enabled = true;
-        }        
+        }
 
         public void Add_Functions(List<string> functions)
         {
@@ -127,10 +136,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             cmbTermoCycle.Items.Clear();
             foreach (var function in functions)
             {
-                    cmbFunc.Items.Add(function);
-                    cmbTermoCycle.Items.Add(function);               
+                cmbFunc.Items.Add(function);
+                cmbTermoCycle.Items.Add(function);
             }
-        }     
+        }
 
         private void mediaRadioButton_CheckedChanged(object sender, EventArgs e)
         {
@@ -169,16 +178,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 MessageBox.Show(ex.Message);
             }
 
-        }
-
-        public override void ShowDataButton_Click(object sender, EventArgs e)
-        {
-            base.ShowDataButton_Click(sender, e);
-        }
-
-        public override void HideAllDataButton_Click(object sender, EventArgs e)
-        {
-            base.HideAllDataButton_Click(sender, e);
         }
 
         private void txbDraftFunction_Enter(object sender, EventArgs e)
@@ -269,24 +268,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             base.DataGridView_UserDeletingRow(sender, e);
         }
 
-        public override void CheckVelocitySlider_Scroll(object sender, ScrollEventArgs e)
-        {
-            base.CheckVelocitySlider_Scroll(sender, e);
-        }
-
         public override void ClearAllDataButton_Click(object sender, EventArgs e)
         {
             base.ClearAllDataButton_Click(sender, e);
-        }
-
-        public override void StartChecking_Click(object sender, EventArgs e)
-        {
-            base.StartChecking_Click(sender, e);
-        }
-
-        public override void StopChecking_Click(object sender, EventArgs e)
-        {
-            base.StopChecking_Click(sender, e);
         }
 
         private void dataGridView_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
@@ -308,6 +292,44 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             //        dataGridView.Rows[e.RowIndex2].Cells["ID"].Value.ToString());
             //}
             e.Handled = true;
+        }
+
+        private void player_StartCheckingEvent(object obj)
+        {
+            var gridViewList = new List<DataGridView>();
+            SearchControls(this, gridViewList);
+
+            var checkStopTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+       .Max(r => Convert.ToSingle(r.Cells["stopColumn"].Value, CultureInfo.InvariantCulture));
+
+            var checkStartTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+                        .Min(r => Convert.ToSingle(r.Cells["startColumn"].Value, CultureInfo.InvariantCulture));
+
+            player.StartValue = (int)checkStartTime;
+            player.StopValue = (int)checkStopTime;
+        }
+
+        private void player_CheckingEvent(object arg1, float arg2)
+        {
+            CheckDataEvent(this, new BasicAdvisorControls.Events.CheckDataEventArgs(DataName, arg2));
+        }
+
+        private void player_StopCheckingEvent(object obj)
+        {
+            HideDataEvent(this, new HideDataEventArgs(DataName));
+        }
+
+        public void ShowDataButton_Click(object sender, EventArgs e)
+        {
+            if (CountSelectedRow > 0)
+            {
+                ShowDataEvent(this, new ShowDataEventArgs(DataName, GetSelectedRowIndexes().ToList()));
+            }
+        }
+
+        public void HideAllDataButton_Click(object sender, EventArgs e)
+        {
+            HideDataEvent(this, new HideDataEventArgs(DataName));
         }
     }
 }

@@ -13,7 +13,7 @@ namespace TaskModule.WeldingModule
             InitializeComponent();
         }
 
-        public override void TaskPlannerControl1_StartComputationEvent(object arg1, EventArgs arg2)
+        public override void TaskPlannerControl1_StartComputationEvent(object arg1, string arg2)
         {
             base.TaskPlannerControl1_StartComputationEvent(arg1, arg2);
         }

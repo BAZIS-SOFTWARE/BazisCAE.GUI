@@ -13,6 +13,6 @@ namespace TaskModule.BasicAdvisorControls.Interfaces
         void ShowDataButton_Click(object sender, EventArgs e);
         void HideAllDataButton_Click(object sender, EventArgs e);
 
-        void CheckVelocitySlider_Scroll(object sender, ScrollEventArgs e);
+        //void CheckVelocitySlider_Scroll(object sender, ScrollEventArgs e);
     }
 }

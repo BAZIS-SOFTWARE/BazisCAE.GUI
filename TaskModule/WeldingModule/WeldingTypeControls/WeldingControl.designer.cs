@@ -28,28 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WeldingControl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.player = new PlayerControl.Player();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.chbEnergyCalibration = new System.Windows.Forms.CheckBox();
             this.chbShifting = new System.Windows.Forms.CheckBox();
-            this.btnStopChecking = new System.Windows.Forms.Button();
-            this.colorSlider = new MB.Controls.ColorSlider();
             this.txbStartTime = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbStopPoint = new System.Windows.Forms.ComboBox();
             this.cmbStartPoint = new System.Windows.Forms.ComboBox();
             this.btnHide = new System.Windows.Forms.Button();
             this.btnShow = new System.Windows.Forms.Button();
-            this.btnCheckDinamic = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.addRowButton = new System.Windows.Forms.Button();
+            this.txbAngle = new System.Windows.Forms.TextBox();
+            this.txbShiftZ = new System.Windows.Forms.TextBox();
+            this.txbShiftY = new System.Windows.Forms.TextBox();
             this.txbShiftX = new System.Windows.Forms.TextBox();
             this.txbVelosity = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -73,13 +77,6 @@
             this.cmbWeldZone = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.grbWeldRegime = new System.Windows.Forms.GroupBox();
-            this.txbShiftY = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txbShiftZ = new System.Windows.Forms.TextBox();
-            this.txbAngle = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -112,6 +109,7 @@
             // groupBox1
             // 
             this.groupBox1.AutoSize = true;
+            this.groupBox1.Controls.Add(this.player);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label10);
@@ -119,15 +117,12 @@
             this.groupBox1.Controls.Add(this.btnClearAll);
             this.groupBox1.Controls.Add(this.chbEnergyCalibration);
             this.groupBox1.Controls.Add(this.chbShifting);
-            this.groupBox1.Controls.Add(this.btnStopChecking);
-            this.groupBox1.Controls.Add(this.colorSlider);
             this.groupBox1.Controls.Add(this.txbStartTime);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.cmbStopPoint);
             this.groupBox1.Controls.Add(this.cmbStartPoint);
             this.groupBox1.Controls.Add(this.btnHide);
             this.groupBox1.Controls.Add(this.btnShow);
-            this.groupBox1.Controls.Add(this.btnCheckDinamic);
             this.groupBox1.Controls.Add(this.btnRefresh);
             this.groupBox1.Controls.Add(this.addRowButton);
             this.groupBox1.Controls.Add(this.txbAngle);
@@ -145,19 +140,79 @@
             this.groupBox1.Controls.Add(this.cmbTraj);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(1, 117);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
             this.groupBox1.MinimumSize = new System.Drawing.Size(300, 250);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(571, 281);
+            this.groupBox1.Size = new System.Drawing.Size(571, 300);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры движения";
             // 
+            // player
+            // 
+            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.player.CheckState = PlayerControl.CheckState.start;
+            this.player.CurrentValue = 0;
+            this.player.Location = new System.Drawing.Point(178, 242);
+            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.player.MinimumSize = new System.Drawing.Size(215, 45);
+            this.player.Name = "player";
+            this.player.Size = new System.Drawing.Size(366, 45);
+            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
+            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
+            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
+            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.player.StartValue = 0;
+            this.player.StopValue = 100;
+            this.player.TabIndex = 54;
+            this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
+            this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
+            this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(413, 162);
+            this.label11.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(32, 13);
+            this.label11.TabIndex = 53;
+            this.label11.Text = "Угол";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(259, 162);
+            this.label8.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(20, 13);
+            this.label8.TabIndex = 53;
+            this.label8.Text = "dY";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(335, 162);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(20, 13);
+            this.label10.TabIndex = 53;
+            this.label10.Text = "dZ";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(181, 162);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(20, 13);
+            this.label5.TabIndex = 53;
+            this.label5.Text = "dX";
+            // 
             // btnClearAll
             // 
             this.btnClearAll.AutoSize = true;
-            this.btnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAll.Image")));
+            this.btnClearAll.Image = global::TaskModule.Properties.Resources.delete;
             this.btnClearAll.Location = new System.Drawing.Point(44, 242);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";
@@ -188,41 +243,6 @@
             this.chbShifting.Text = "Положение источника";
             this.chbShifting.UseVisualStyleBackColor = true;
             this.chbShifting.CheckedChanged += new System.EventHandler(this.ChbShifting_CheckedChanged);
-            // 
-            // btnStopChecking
-            // 
-            this.btnStopChecking.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnStopChecking.Image = ((System.Drawing.Image)(resources.GetObject("btnStopChecking.Image")));
-            this.btnStopChecking.Location = new System.Drawing.Point(212, 242);
-            this.btnStopChecking.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.btnStopChecking.Name = "btnStopChecking";
-            this.btnStopChecking.Size = new System.Drawing.Size(28, 26);
-            this.btnStopChecking.TabIndex = 46;
-            this.btnStopChecking.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnStopChecking.UseVisualStyleBackColor = true;
-            this.btnStopChecking.Click += new System.EventHandler(this.StopChecking_Click);
-            // 
-            // colorSlider
-            // 
-            this.colorSlider.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.colorSlider.BackColor = System.Drawing.Color.Transparent;
-            this.colorSlider.BarInnerColor = System.Drawing.Color.Gold;
-            this.colorSlider.BarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.colorSlider.BorderRoundRectSize = new System.Drawing.Size(8, 8);
-            this.colorSlider.LargeChange = ((uint)(5u));
-            this.colorSlider.Location = new System.Drawing.Point(246, 242);
-            this.colorSlider.Margin = new System.Windows.Forms.Padding(3, 3, 28, 0);
-            this.colorSlider.Maximum = 10;
-            this.colorSlider.Minimum = 1;
-            this.colorSlider.Name = "colorSlider";
-            this.colorSlider.Size = new System.Drawing.Size(298, 26);
-            this.colorSlider.SmallChange = ((uint)(1u));
-            this.colorSlider.TabIndex = 45;
-            this.colorSlider.Text = "colorSlider";
-            this.colorSlider.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
-            this.colorSlider.Value = 1;
-            this.colorSlider.Scroll += new System.Windows.Forms.ScrollEventHandler(this.CheckVelocitySlider_Scroll);
             // 
             // txbStartTime
             // 
@@ -269,7 +289,7 @@
             // 
             this.btnHide.AutoSize = true;
             this.btnHide.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnHide.Image = ((System.Drawing.Image)(resources.GetObject("btnHide.Image")));
+            this.btnHide.Image = global::TaskModule.Properties.Resources.HideAll;
             this.btnHide.Location = new System.Drawing.Point(144, 242);
             this.btnHide.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.btnHide.Name = "btnHide";
@@ -283,7 +303,7 @@
             // 
             this.btnShow.AutoSize = true;
             this.btnShow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnShow.Image = ((System.Drawing.Image)(resources.GetObject("btnShow.Image")));
+            this.btnShow.Image = global::TaskModule.Properties.Resources.ShowAll;
             this.btnShow.Location = new System.Drawing.Point(110, 242);
             this.btnShow.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShow.Name = "btnShow";
@@ -293,27 +313,13 @@
             this.btnShow.UseVisualStyleBackColor = true;
             this.btnShow.Click += new System.EventHandler(this.ShowDataButton_Click);
             // 
-            // btnCheckDinamic
-            // 
-            this.btnCheckDinamic.AutoSize = true;
-            this.btnCheckDinamic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnCheckDinamic.Image = ((System.Drawing.Image)(resources.GetObject("btnCheckDinamic.Image")));
-            this.btnCheckDinamic.Location = new System.Drawing.Point(178, 242);
-            this.btnCheckDinamic.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.btnCheckDinamic.Name = "btnCheckDinamic";
-            this.btnCheckDinamic.Size = new System.Drawing.Size(28, 26);
-            this.btnCheckDinamic.TabIndex = 39;
-            this.btnCheckDinamic.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCheckDinamic.UseVisualStyleBackColor = true;
-            this.btnCheckDinamic.Click += new System.EventHandler(this.StartChecking_Click);
-            // 
             // btnRefresh
             // 
             this.btnRefresh.AutoSize = true;
             this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnRefresh.Enabled = false;
-            this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
+            this.btnRefresh.Image = global::TaskModule.Properties.Resources.Refresh;
             this.btnRefresh.Location = new System.Drawing.Point(76, 242);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
@@ -328,7 +334,7 @@
             this.addRowButton.AutoSize = true;
             this.addRowButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.addRowButton.Cursor = System.Windows.Forms.Cursors.Default;
-            this.addRowButton.Image = ((System.Drawing.Image)(resources.GetObject("addRowButton.Image")));
+            this.addRowButton.Image = global::TaskModule.Properties.Resources.Add;
             this.addRowButton.Location = new System.Drawing.Point(10, 242);
             this.addRowButton.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.addRowButton.Name = "addRowButton";
@@ -337,6 +343,36 @@
             this.addRowButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.addRowButton.UseVisualStyleBackColor = true;
             this.addRowButton.Click += new System.EventHandler(this.AddButton_Click);
+            // 
+            // txbAngle
+            // 
+            this.txbAngle.Enabled = false;
+            this.txbAngle.Location = new System.Drawing.Point(451, 159);
+            this.txbAngle.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbAngle.Name = "txbAngle";
+            this.txbAngle.Size = new System.Drawing.Size(45, 20);
+            this.txbAngle.TabIndex = 31;
+            this.txbAngle.Text = "0";
+            // 
+            // txbShiftZ
+            // 
+            this.txbShiftZ.Enabled = false;
+            this.txbShiftZ.Location = new System.Drawing.Point(359, 159);
+            this.txbShiftZ.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbShiftZ.Name = "txbShiftZ";
+            this.txbShiftZ.Size = new System.Drawing.Size(45, 20);
+            this.txbShiftZ.TabIndex = 31;
+            this.txbShiftZ.Text = "0";
+            // 
+            // txbShiftY
+            // 
+            this.txbShiftY.Enabled = false;
+            this.txbShiftY.Location = new System.Drawing.Point(281, 159);
+            this.txbShiftY.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbShiftY.Name = "txbShiftY";
+            this.txbShiftY.Size = new System.Drawing.Size(45, 20);
+            this.txbShiftY.TabIndex = 31;
+            this.txbShiftY.Text = "0";
             // 
             // txbShiftX
             // 
@@ -441,15 +477,15 @@
             // 
             this.dataGridView.AllowUserToAddRows = false;
             this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle16.NullValue = " ";
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.NullValue = " ";
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ИсточникСварки,
@@ -457,34 +493,34 @@
             this.startColumn,
             this.stopColumn,
             this.ПараметрыДвижения});
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle13;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 400);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(1);
+            this.dataGridView.Location = new System.Drawing.Point(1, 417);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridView.RowHeadersWidth = 20;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.Size = new System.Drawing.Size(571, 237);
+            this.dataGridView.Size = new System.Drawing.Size(571, 220);
             this.dataGridView.TabIndex = 25;
             this.dataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView_DefaultValuesNeeded);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -512,8 +548,8 @@
             // stopColumn
             // 
             this.stopColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle17.NullValue = "0";
-            this.stopColumn.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle12.NullValue = "0";
+            this.stopColumn.DefaultCellStyle = dataGridViewCellStyle12;
             this.stopColumn.HeaderText = "Стоп";
             this.stopColumn.Name = "stopColumn";
             this.stopColumn.ReadOnly = true;
@@ -619,74 +655,6 @@
             this.grbWeldRegime.TabStop = false;
             this.grbWeldRegime.Text = "Источник сварки";
             // 
-            // txbShiftY
-            // 
-            this.txbShiftY.Enabled = false;
-            this.txbShiftY.Location = new System.Drawing.Point(281, 159);
-            this.txbShiftY.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
-            this.txbShiftY.Name = "txbShiftY";
-            this.txbShiftY.Size = new System.Drawing.Size(45, 20);
-            this.txbShiftY.TabIndex = 31;
-            this.txbShiftY.Text = "0";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(181, 162);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(20, 13);
-            this.label5.TabIndex = 53;
-            this.label5.Text = "dX";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(259, 162);
-            this.label8.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(20, 13);
-            this.label8.TabIndex = 53;
-            this.label8.Text = "dY";
-            // 
-            // txbShiftZ
-            // 
-            this.txbShiftZ.Enabled = false;
-            this.txbShiftZ.Location = new System.Drawing.Point(359, 159);
-            this.txbShiftZ.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
-            this.txbShiftZ.Name = "txbShiftZ";
-            this.txbShiftZ.Size = new System.Drawing.Size(45, 20);
-            this.txbShiftZ.TabIndex = 31;
-            this.txbShiftZ.Text = "0";
-            // 
-            // txbAngle
-            // 
-            this.txbAngle.Enabled = false;
-            this.txbAngle.Location = new System.Drawing.Point(451, 159);
-            this.txbAngle.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
-            this.txbAngle.Name = "txbAngle";
-            this.txbAngle.Size = new System.Drawing.Size(45, 20);
-            this.txbAngle.TabIndex = 31;
-            this.txbAngle.Text = "0";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(335, 162);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(20, 13);
-            this.label10.TabIndex = 53;
-            this.label10.Text = "dZ";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(413, 162);
-            this.label11.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(32, 13);
-            this.label11.TabIndex = 53;
-            this.label11.Text = "Угол";
-            // 
             // WeldingControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -717,7 +685,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cmbStopPoint;
         private System.Windows.Forms.ComboBox cmbStartPoint;
-        private System.Windows.Forms.Button btnCheckDinamic;
         private System.Windows.Forms.Button addRowButton;
         private System.Windows.Forms.TextBox txbVelosity;
         private System.Windows.Forms.Label label7;
@@ -727,8 +694,6 @@
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox grbWeldRegime;
         private System.Windows.Forms.GroupBox groupBox3;
-        private MB.Controls.ColorSlider colorSlider;
-        private System.Windows.Forms.Button btnStopChecking;
         private System.Windows.Forms.RadioButton rbtFSW;
         private System.Windows.Forms.RadioButton rbtARC;
         private System.Windows.Forms.Button btnRefresh;
@@ -755,5 +720,6 @@
         private System.Windows.Forms.TextBox txbAngle;
         private System.Windows.Forms.TextBox txbShiftZ;
         private System.Windows.Forms.TextBox txbShiftY;
+        private PlayerControl.Player player;
     }
 }

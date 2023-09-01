@@ -152,6 +152,9 @@ namespace BaseForm
 
             module.CreateMenuInterface();
             module.SceneInitialization();
+            module.PresentProjectOnTree();
+            module.PresentModelOnSelectToolStrip();
+
             activeMenuItems.Clear();
 
             foreach (var menuItem in module.GetToolStripMenuItems())

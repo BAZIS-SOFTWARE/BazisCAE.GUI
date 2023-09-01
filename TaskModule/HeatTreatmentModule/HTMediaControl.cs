@@ -1,15 +1,21 @@
-﻿
+﻿using PlayerControl;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.BasicControls;
+using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.HeatTreatmentModule
 {
-    public partial class HTMediaControl : CheckedGridViewAdviserControl, IElmentsGroupsControl, IFunctionsRelatedControl
+    public partial class HTMediaControl : CheckedGridViewAdviserControl, IElmentsGroupsControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
         [Category("Images")]
         [Description("Set image for add button")]
@@ -49,54 +55,7 @@ namespace TaskModule.HeatTreatmentModule
         {
             get { return btnHideAll.Image; }
             set { btnHideAll.Image = value; }
-        }
-
-        [Category("Images")]
-        [Description("Set image for check in dinamic button")]
-        public Image CheckDinamicButtonImage
-        {
-            get { return btnCheckDinamic.Image; }
-            set { btnCheckDinamic.Image = value; }
-        }
-
-        [Category("Images")]
-        [Description("Set image for stop check button")]
-        public Image StopCheckingButtonImage
-        {
-            get { return btnStopCheck.Image; }
-            set { btnStopCheck.Image = value; }
-        }
-
-        [Category("Colors")]
-        [Description("Set color for bar inner slider")]
-        public Color SliderBarInnerColor
-        {
-            get { return checkVelocitySlider.BarInnerColor; }
-            set { checkVelocitySlider.BarInnerColor = value; }
-        }
-        [Category("Colors")]
-        [Description("Set color for bar outer slider")]
-        public Color SliderBarOuterColor
-        {
-            get { return checkVelocitySlider.BarOuterColor; }
-            set { checkVelocitySlider.BarOuterColor = value; }
-        }
-
-        [Category("Colors")]
-        [Description("Set color for elapsed inner slider")]
-        public Color SliderElapsedInnerColor
-        {
-            get { return checkVelocitySlider.ElapsedInnerColor; }
-            set { checkVelocitySlider.ElapsedInnerColor = value; }
-        }
-
-        [Category("Colors")]
-        [Description("Set color for elapsed outer slider")]
-        public Color SliderElapsedOuterColor
-        {
-            get { return checkVelocitySlider.ElapsedOuterColor; }
-            set { checkVelocitySlider.ElapsedOuterColor = value; }
-        }
+        }      
 
         enum Column : int { plane, node = 0, function, mediaTemp, bodyTemp, startTime, stopTime };
 
@@ -109,6 +68,9 @@ namespace TaskModule.HeatTreatmentModule
 
         public override string DataName { get; }
 
+        public event Action<object, ShowDataEventArgs> ShowDataEvent;
+        public event Action<object, HideDataEventArgs> HideDataEvent;
+        public event Action<object, CheckDataEventArgs> CheckDataEvent;
 
         public void Fill_eGroups(string taskType, string elemType, List<string> groupNames)
         {
@@ -161,14 +123,17 @@ namespace TaskModule.HeatTreatmentModule
             }
         }
 
-        public override void ShowDataButton_Click(object sender, EventArgs e)
+        public void ShowDataButton_Click(object sender, EventArgs e)
         {
-            base.ShowDataButton_Click(sender, e);
+            if (CountSelectedRow > 0)
+            {
+                ShowDataEvent(this, new ShowDataEventArgs(DataName, GetSelectedRowIndexes().ToList()));
+            }
         }
 
-        public override void HideAllDataButton_Click(object sender, EventArgs e)
+        public void HideAllDataButton_Click(object sender, EventArgs e)
         {
-            base.HideAllDataButton_Click(sender, e);
+            HideDataEvent(this, new HideDataEventArgs(DataName));
         }
 
 
@@ -177,24 +142,34 @@ namespace TaskModule.HeatTreatmentModule
             base.DataGridView_UserDeletingRow(sender, e);
         }
 
-        public override void CheckVelocitySlider_Scroll(object sender, ScrollEventArgs e)
-        {
-            base.CheckVelocitySlider_Scroll(sender, e);
-        }
-
         public override void ClearAllDataButton_Click(object sender, EventArgs e)
         {
             base.ClearAllDataButton_Click(sender, e);
         }
 
-        public override void StartChecking_Click(object sender, EventArgs e)
+        private void player_StartCheckingEvent(object obj)
         {
-            base.StartChecking_Click(sender, e);
+            var gridViewList = new List<DataGridView>();
+            SearchControls(this, gridViewList);
+
+            var checkStopTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+       .Max(r => Convert.ToSingle(r.Cells["stopColumn"].Value, CultureInfo.InvariantCulture));
+
+            var checkStartTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+                        .Min(r => Convert.ToSingle(r.Cells["startColumn"].Value, CultureInfo.InvariantCulture));
+
+            player.StartValue = (int)checkStartTime;
+            player.StopValue = (int)checkStopTime;
         }
 
-        public override void StopChecking_Click(object sender, EventArgs e)
+        private void player_CheckingEvent(object arg1, float arg2)
         {
-            base.StopChecking_Click(sender, e);
+            CheckDataEvent(this, new BasicAdvisorControls.Events.CheckDataEventArgs(DataName, arg2));
+        }
+
+        private void player_StopCheckingEvent(object obj)
+        {
+            HideDataEvent(this, new HideDataEventArgs(DataName));
         }
     }
 }

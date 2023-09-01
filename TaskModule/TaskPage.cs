@@ -5,24 +5,23 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Project.Interfaces;
-using Scene;
-using Project.TasksData;
-using Model;
 using System.Globalization;
-using Geometry;
-using Functions.Parser;
 using System.Threading;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using TaskModule.BasicTaskAdvisor;
 using TaskModule.BasicAdvisorControls.Events;
 using BaseModule;
-using DataBaseController.Interfaces;
-using DataBaseController;
-using DataBases;
-using System.Xml.Linq;
+using Project.TasksData;
+using Project.Interfaces;
+using Geometry;
+using Model;
+using Functions.Parser;
+using DataBaseController.MaterialData;
+using DataBaseController.FunctionData;
+using Newtonsoft.Json;
+using ToolStrips;
+using SceneInterface;
 
 namespace TaskModule
 {
@@ -31,14 +30,14 @@ namespace TaskModule
         string activeTask  = String.Empty;
         public string SolverPath { get; set; }
 
-        public DataSet MatDataSet { get; set; }
-        public DataSet FunDataSet { get; set; }
-        public IDataInformer DataInformer { get; set; }
-        public ILoader MatDataLoader { get; set; }
-        public ILoader FunDataLoader { get; set; }
+        public MaterialDBData MatData { get; set; }
+        public FunctionDBData FunData { get; set; }
+        //public IDataInformer DataInformer { get; set; }
+        //public ILoader MatDataLoader { get; set; }
+        //public ILoader FunDataLoader { get; set; }
 
-        public ISaver MatDataSaver { get; set; }
-        public ISaver FunDataSaver { get; set; }
+        //public ISaver MatDataSaver { get; set; }
+        //public ISaver FunDataSaver { get; set; }
 
         private ToolStripStatusLabel solverStatusLabel;
         private Dictionary<string, int> imgDict;
@@ -63,11 +62,11 @@ namespace TaskModule
             solverStatusLabel = new ToolStripStatusLabel() { Name = "solverStatus"};
             list[0].Items.Add(solverStatusLabel);
 
-            MatDataLoader = new LoadMaterialDataBaseFromTextFormat();
-            FunDataLoader = new LoadFunctionDataBaseFromTextFormat();
-            MatDataSaver = new SaveMaterialDataBaseToTextFormat();
-            FunDataSaver = new SaveFunctionDataBaseToTextFormat();
-            DataInformer = new DataBaseInformer();
+            //MatDataLoader = new LoadMaterialDataBaseFromTextFormat();
+            //FunDataLoader = new LoadFunctionDataBaseFromTextFormat();
+            //MatDataSaver = new SaveMaterialDataBaseToTextFormat();
+            //FunDataSaver = new SaveFunctionDataBaseToTextFormat();
+            //DataInformer = new DataBaseInformer();
         }
 
         public override void CreateMenuInterface()
@@ -115,13 +114,13 @@ namespace TaskModule
 
             matDataMenuItem.Click += (ar1, ar2) => 
             {
-                var matBasePage = new DataBases.MaterialsDataBasePage() {  Dock = DockStyle.Fill };
-                matBasePage.LoadEvent += () => { MatDataSet = matBasePage.DataSet; };
+                var matBasePage = new DataBasesGUI.MaterialsDataBasePage() {  Dock = DockStyle.Fill };
+                matBasePage.LoadEvent += () => { MatData = matBasePage.Materials; };
 
-                var matFiles = Directory.GetFiles(Project.Path, "materials.txt", SearchOption.AllDirectories);
+                var matFiles = Directory.GetFiles(Project.Path, "materials.jsf", SearchOption.AllDirectories);
 
                 if (matFiles.Length > 0)
-                    matBasePage.Load(matFiles[0]);
+                    matBasePage.Load(matFiles[0],false);
 
                 var icon = TaskModule.Properties.Resources.Материалы;
                 var name = "База материалов";
@@ -131,13 +130,13 @@ namespace TaskModule
             };
             funDataMenuItem.Click += (ar1, ar2) => 
             {
-                var funBasePage = new DataBases.FunctionDataBasePage() { Dock = DockStyle.Fill };
-                funBasePage.LoadEvent += () => { FunDataSet = funBasePage.DataSet; };
+                var funBasePage = new DataBasesGUI.FunctionDataBasePage() { Dock = DockStyle.Fill };
+                funBasePage.LoadEvent += () => { FunData = funBasePage.Functions; };
 
-                var funFiles = Directory.GetFiles(Project.Path, "functions.txt", SearchOption.AllDirectories);
+                var funFiles = Directory.GetFiles(Project.Path, "functions.jsf", SearchOption.AllDirectories);
 
                 if (funFiles.Length > 0)
-                    funBasePage.Load(funFiles[0]);
+                    funBasePage.Load(funFiles[0], false);
 
                 var icon = TaskModule.Properties.Resources.Функции;
                 var name = "База функций";
@@ -203,44 +202,23 @@ namespace TaskModule
                 taskAdv.Select2DPlaneEvent += TaskAdvisor_ChangeTaskTypeEvent;
                 taskAdv.Select3DEvent += TaskAdvisor_ChangeTaskTypeEvent;
 
-                if (MatDataSet != null)
+                if (MatData != null | 
+                    TryGetDataInfo(Project.Path, "materials.jsf") |
+                    TryGetDataInfo(Application.StartupPath, "materials.jsf")
+                    )
                 {
-                    var names = DataInformer.GetDataNames(MatDataSet);
+                    var names = MatData.Keys.ToList();
                     taskAdv.SetMaterialData(names);
                 }
-                else
+
+
+                if (FunData != null |
+                    TryGetDataInfo(Project.Path, "functions.jsf") |
+                    TryGetDataInfo(Application.StartupPath, "functions.jsf")
+                    )
                 {
-                    if (GetDataInfo(Project.Path, "materials.txt"))
-                    {
-                        var names = DataInformer.GetDataNames(MatDataSet);
-                        taskAdv.SetMaterialData(names);
-                    }
-
-                    else if (GetDataInfo(Application.StartupPath, "materials.txt"))
-                    {
-                        var names = DataInformer.GetDataNames(MatDataSet);
-                        taskAdv.SetMaterialData(names);
-                    }
-                }
-
-
-                if (FunDataSet != null)
-                {
-                    var names = DataInformer.GetDataNames(FunDataSet);
+                    var names = FunData.Keys.ToList();
                     taskAdv.SetFunctionData(names);
-                }
-                else
-                {
-                    if (GetDataInfo(Project.Path, "functions.txt"))
-                    {
-                        var names = DataInformer.GetDataNames(FunDataSet);
-                        taskAdv.SetFunctionData(names);
-                    }
-                    else if (GetDataInfo(Application.StartupPath, "functions.txt"))
-                    {
-                        var names = DataInformer.GetDataNames(FunDataSet);
-                        taskAdv.SetFunctionData(names);
-                    }
                 }
 
                 taskAdv.SetProjectData(Project);
@@ -269,35 +247,58 @@ namespace TaskModule
             }
         }
 
-        private bool GetDataInfo(string path, string fileName)
+        private bool TryGetDataInfo(string path, string fileName)
         {
             var res = Directory.GetFiles(path, fileName, SearchOption.AllDirectories);
             if (res.Count() > 0)
             {
-                if (fileName == "materials.txt")
-                    MatDataSet = MatDataLoader.LoadDataBase(res[0]);
-                else FunDataSet = FunDataLoader.LoadDataBase(res[0]);
+                var settingsSerializer = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto,
+                    Formatting = Formatting.Indented,
+                };
+
+                var fullName = $@"{path}\{fileName}";
+
+                if (fileName == "materials.jsf")
+                {
+                    MatData = JsonConvert.DeserializeObject<MaterialDBData>
+    (File.ReadAllText(fullName), settingsSerializer);
+                }
+
+                else
+                {
+                    FunData = JsonConvert.DeserializeObject<FunctionDBData>
+    (File.ReadAllText(fullName), settingsSerializer);
+                }
                 return true;
             }
             else return false;
         }
 
-        public void TaskAdvisor_StartComputationEvent(object arg1, EventArgs arg2)
+        public void TaskAdvisor_StartComputationEvent(object arg1, string arg2)
         {
             try
             {
-                if (!SaveAsProjectData("bpf"))
-                    return;
-                MatDataSaver.SaveDataBase(MatDataSet, string.Format(@"{0}\materials.txt", Project.Path));
-                FunDataSaver.SaveDataBase(FunDataSet, string.Format(@"{0}\functions.txt", Project.Path));
+                Project.Path = arg2;
+                SaveProjectData();
+
+                var settingsSerializer = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto,
+                    Formatting = Formatting.Indented
+                };
+                var matStr = JsonConvert.SerializeObject(MatData, settingsSerializer);
+                File.WriteAllText(@"{Project.Path}\materials.jsf", matStr);
+
+                var funStr = JsonConvert.SerializeObject(FunData, settingsSerializer);
+                File.WriteAllText(@"{Project.Path}\functions.jsf", funStr);
 
                 var myProcess = new Process();
 
                 myProcess.StartInfo.FileName = $@"{SolverPath}\BazisSolver.exe";
 
                 var projStr = string.Format(@"{0}\{1}", Project.Path, Project.Name);
-                var matStr = string.Format(@"{0}\{1}", Project.Path, "materials.txt");
-                var funStr = string.Format(@"{0}\{1}", Project.Path, "functions.txt");
                 var argStr = string.Join(" ", new string[] { projStr, matStr, funStr });
 
                 myProcess.StartInfo.Arguments = argStr;
@@ -459,9 +460,8 @@ namespace TaskModule
                     if (data[index].Direction != "*")
                         DisplayDirection(data[index].StartTime, data[index], modelObj);
                 }
-                //var modelObjs = Project.Model.ObjectData.FindObjs(group.ObjType);
-                //var presenter = new ModelScenePresentator(modelObjs.ToArray());
-                SceneControl.ChangeColorsVBObjects(group.ObjType);
+
+                SetObjColor(group.ObjType);
 
             }
             SceneControl.DisplayObjects();
@@ -534,10 +534,7 @@ namespace TaskModule
 
             foreach (var point in modelObj.GetPoints())
             {
-                var scl = 10 * (1.0f / SceneControl.Height * 1.0f / SceneControl.ScaleFactor);
-                vector = vector.Mult(scl);
-                SceneControl.CreateLine(point, point.Sum(vector), color);
-                SceneControl.CreateLine(point, point.Sub(vector), color);
+                SceneControl.CreateLine(point, vector,10, color);
                 SceneControl.DisplayText3D(data.CalcValue(time, point).ToString(), Color.FromArgb(0, 0, 0), point);
             }
         }
@@ -581,7 +578,8 @@ namespace TaskModule
                     }
                     //var modelObjs = Project.Model.ObjectData.FindObjs(group.ObjType);
                     //var presenter = new ModelScenePresentator(modelObjs.ToArray());
-                    SceneControl.ChangeColorsVBObjects(group.ObjType);
+                    SetObjColor(group.ObjType);
+
                     SceneControl.DisplayObjects();
                 }
 
@@ -607,7 +605,11 @@ namespace TaskModule
                 foreach (var taskStr in taskStrAr)
                 {
                     if (arg2.DataName == "Расчет")
+                    {
+
                         Project.TaskData.Add(new CompData(taskStr));
+                    }
+
                     else
                     {
                         var setTaskStr = SetTaskDataAsync("setDirection", taskStr);
@@ -651,7 +653,9 @@ namespace TaskModule
                 PrintCommand("задайте вектор, выбрав 3 точки, и нажмите на кнопку Enter или нажмите кнопку ESC");
                 var confirm = false;
                 var breaker = false;
-                SceneControl.SelectedObjectsName = "Узлы";
+
+                var selectToolStrip = FindToolStrip<SelectToolStrip>();
+                selectToolStrip.SelectObjectsType = "Узлы";
 
                 var func = taskParamsCalculator.SetDirection(taskStr);
 

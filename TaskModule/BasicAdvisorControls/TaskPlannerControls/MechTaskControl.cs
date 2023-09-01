@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Project.TasksData;
+using Project.TasksData.TaskParameters;
+using System;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -18,31 +20,48 @@ namespace AdvisorControls.TaskPlannerControls
             cmbSolver.SelectedIndex = 1;
         }
 
-        public override string CollectData()
+        public override GeneralParameters CollectData()
         {
-            var str = String.Format(CultureInfo.InvariantCulture,"{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11}",
-                txbMaxDUt.Text, txbMaxDUi.Text, txbMaxDSt.Text, 
-                txbMaxDSi.Text, txbInitTemp.Text,  txbIters.Text, txbSaveRate.Text,
-                cmbSolver.Text, txbSolverIterations.Text, txbPrecision.Text, txbRelaxation.Text,cmbPriority.Text);
+            var mechParameters = new TermalParameters();
 
-            return str;
+            mechParameters.ConvergenceSettings.DYmt = Convert.ToSingle(txbMaxDSt.Text);
+            mechParameters.ConvergenceSettings.DYmi = Convert.ToSingle(txbMaxDSi.Text);
+
+            mechParameters.ConvergenceSettings.DXmt = Convert.ToSingle(txbMaxDUt.Text);
+            mechParameters.ConvergenceSettings.DXmi = Convert.ToSingle(txbMaxDUi.Text);
+
+            mechParameters.ConvergenceSettings.Iterations = Convert.ToInt32(txbIters.Text);
+
+            mechParameters.InitTemp = Convert.ToSingle(txbInitTemp.Text);
+            mechParameters.SaveRate = Convert.ToInt32(txbSaveRate.Text);
+
+            mechParameters.SolverSettings.Solver = cmbSolver.Text;
+            mechParameters.SolverSettings.MaxIter = Convert.ToInt32(txbSolverIterations.Text);
+            mechParameters.SolverSettings.Precision = Convert.ToSingle(txbPrecision.Text);
+            mechParameters.SolverSettings.Relaxation = Convert.ToSingle(txbRelaxation.Text);
+            mechParameters.SolverSettings.Priority = cmbPriority.Text;
+
+            return mechParameters;
         }
 
-        public override void InputData(string[] inputData)
+        public override void InputData(GeneralParameters parameters)
         {
-            txbMaxDUt.Text = inputData[0];
-            txbMaxDUi.Text = inputData[1];
-            txbMaxDSt.Text = inputData[2];
-            txbMaxDSi.Text = inputData[3];
-            txbInitTemp.Text = inputData[4];
-            txbIters.Text = inputData[5];
-            txbSaveRate.Text = inputData[6];
+            base.InputData(parameters);
+            var termalParameters = (TermalParameters)parameters;
+            txbMaxDSt.Text = termalParameters.ConvergenceSettings.DYmt.ToString();
+            txbMaxDSi.Text = termalParameters.ConvergenceSettings.DYmi.ToString();
+            txbMaxDUt.Text = termalParameters.ConvergenceSettings.DXmt.ToString();
+            txbMaxDUi.Text = termalParameters.ConvergenceSettings.DXmi.ToString();
+            txbIters.Text = termalParameters.ConvergenceSettings.Iterations.ToString();
 
-            cmbPriority.Text = inputData[11];
-            cmbSolver.Text = inputData[7];
-            txbSolverIterations.Text = inputData[8];
-            txbPrecision.Text = inputData[9];
-            txbRelaxation.Text = inputData[10];
+            txbSaveRate.Text = termalParameters.SaveRate.ToString();
+            txbInitTemp.Text = termalParameters.InitTemp.ToString();
+
+            cmbSolver.Text = termalParameters.SolverSettings.Solver;
+            txbSolverIterations.Text = termalParameters.SolverSettings.MaxIter.ToString();
+            txbPrecision.Text = termalParameters.SolverSettings.Precision.ToString();
+            txbRelaxation.Text = termalParameters.SolverSettings.Relaxation.ToString();
+            cmbPriority.Text = termalParameters.SolverSettings.Priority.ToString();
         }
 
         public override void AllTextBox_TextChanged(object sender, EventArgs e)

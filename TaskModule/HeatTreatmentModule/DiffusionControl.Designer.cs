@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DiffusionСontrol));
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.ClmnElem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ClmnDiffCoef = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,9 +37,7 @@
             this.ClmnStop = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.CheckVelocitySlider = new MB.Controls.ColorSlider();
-            this.btnStopCheck = new System.Windows.Forms.Button();
-            this.btnCheckDinamic = new System.Windows.Forms.Button();
+            this.player = new PlayerControl.Player();
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -92,10 +89,11 @@
             this.ClmStart,
             this.ClmnStop});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(3, 418);
+            this.dataGridView.Location = new System.Drawing.Point(1, 400);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(613, 224);
+            this.dataGridView.Size = new System.Drawing.Size(617, 244);
             this.dataGridView.TabIndex = 0;
             this.dataGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -160,10 +158,10 @@
             this.tableLayoutPanel1.MinimumSize = new System.Drawing.Size(400, 400);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 180F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 124F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(619, 645);
             this.tableLayoutPanel1.TabIndex = 0;
@@ -171,9 +169,8 @@
             // groupBox3
             // 
             this.groupBox3.AutoSize = true;
-            this.groupBox3.Controls.Add(this.CheckVelocitySlider);
-            this.groupBox3.Controls.Add(this.btnStopCheck);
-            this.groupBox3.Controls.Add(this.btnCheckDinamic);
+            this.groupBox3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox3.Controls.Add(this.player);
             this.groupBox3.Controls.Add(this.btnHideAll);
             this.groupBox3.Controls.Add(this.btnShowAll);
             this.groupBox3.Controls.Add(this.btnRefresh);
@@ -184,58 +181,40 @@
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(3, 294);
+            this.groupBox3.Location = new System.Drawing.Point(1, 263);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(613, 118);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.groupBox3.Size = new System.Drawing.Size(617, 137);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Время действия";
             // 
-            // CheckVelocitySlider
+            // player
             // 
-            this.CheckVelocitySlider.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.CheckVelocitySlider.BackColor = System.Drawing.Color.Transparent;
-            this.CheckVelocitySlider.BarInnerColor = System.Drawing.Color.Gold;
-            this.CheckVelocitySlider.BarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.CheckVelocitySlider.BorderRoundRectSize = new System.Drawing.Size(8, 8);
-            this.CheckVelocitySlider.LargeChange = ((uint)(5u));
-            this.CheckVelocitySlider.Location = new System.Drawing.Point(229, 79);
-            this.CheckVelocitySlider.Margin = new System.Windows.Forms.Padding(3, 3, 28, 0);
-            this.CheckVelocitySlider.Maximum = 5000;
-            this.CheckVelocitySlider.Minimum = 1;
-            this.CheckVelocitySlider.Name = "CheckVelocitySlider";
-            this.CheckVelocitySlider.Size = new System.Drawing.Size(365, 26);
-            this.CheckVelocitySlider.SmallChange = ((uint)(1u));
-            this.CheckVelocitySlider.TabIndex = 49;
-            this.CheckVelocitySlider.Text = "colorSlider";
-            this.CheckVelocitySlider.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
-            this.CheckVelocitySlider.Value = 500;
-            this.CheckVelocitySlider.Scroll += new System.Windows.Forms.ScrollEventHandler(this.CheckVelocitySlider_Scroll);
-            // 
-            // btnStopCheck
-            // 
-            this.btnStopCheck.Image = ((System.Drawing.Image)(resources.GetObject("btnStopCheck.Image")));
-            this.btnStopCheck.Location = new System.Drawing.Point(197, 79);
-            this.btnStopCheck.Name = "btnStopCheck";
-            this.btnStopCheck.Size = new System.Drawing.Size(26, 26);
-            this.btnStopCheck.TabIndex = 15;
-            this.btnStopCheck.UseVisualStyleBackColor = true;
-            this.btnStopCheck.Click += new System.EventHandler(this.StopChecking_Click);
-            // 
-            // btnCheckDinamic
-            // 
-            this.btnCheckDinamic.Image = ((System.Drawing.Image)(resources.GetObject("btnCheckDinamic.Image")));
-            this.btnCheckDinamic.Location = new System.Drawing.Point(165, 79);
-            this.btnCheckDinamic.Name = "btnCheckDinamic";
-            this.btnCheckDinamic.Size = new System.Drawing.Size(26, 26);
-            this.btnCheckDinamic.TabIndex = 14;
-            this.btnCheckDinamic.UseVisualStyleBackColor = true;
-            this.btnCheckDinamic.Click += new System.EventHandler(this.StartChecking_Click);
+            this.player.CheckState = PlayerControl.CheckState.start;
+            this.player.CurrentValue = 0;
+            this.player.Location = new System.Drawing.Point(165, 79);
+            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.player.MinimumSize = new System.Drawing.Size(215, 45);
+            this.player.Name = "player";
+            this.player.Size = new System.Drawing.Size(429, 45);
+            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
+            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
+            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
+            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.player.StartValue = 0;
+            this.player.StopValue = 100;
+            this.player.TabIndex = 14;
+            this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
+            this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
+            this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
             // 
             // btnHideAll
             // 
-            this.btnHideAll.Image = ((System.Drawing.Image)(resources.GetObject("btnHideAll.Image")));
+            this.btnHideAll.Image = global::TaskModule.Properties.Resources.HideAll;
             this.btnHideAll.Location = new System.Drawing.Point(133, 79);
             this.btnHideAll.Name = "btnHideAll";
             this.btnHideAll.Size = new System.Drawing.Size(26, 26);
@@ -245,7 +224,7 @@
             // 
             // btnShowAll
             // 
-            this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
+            this.btnShowAll.Image = global::TaskModule.Properties.Resources.ShowAll;
             this.btnShowAll.Location = new System.Drawing.Point(101, 79);
             this.btnShowAll.Name = "btnShowAll";
             this.btnShowAll.Size = new System.Drawing.Size(26, 26);
@@ -255,7 +234,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
+            this.btnRefresh.Image = global::TaskModule.Properties.Resources.Refresh;
             this.btnRefresh.Location = new System.Drawing.Point(69, 79);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(26, 26);
@@ -265,7 +244,7 @@
             // 
             // btnClearAll
             // 
-            this.btnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAll.Image")));
+            this.btnClearAll.Image = global::TaskModule.Properties.Resources.delete;
             this.btnClearAll.Location = new System.Drawing.Point(37, 79);
             this.btnClearAll.Name = "btnClearAll";
             this.btnClearAll.Size = new System.Drawing.Size(26, 26);
@@ -275,7 +254,7 @@
             // 
             // btnAddNewRow
             // 
-            this.btnAddNewRow.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewRow.Image")));
+            this.btnAddNewRow.Image = global::TaskModule.Properties.Resources.Add;
             this.btnAddNewRow.Location = new System.Drawing.Point(5, 79);
             this.btnAddNewRow.Name = "btnAddNewRow";
             this.btnAddNewRow.Size = new System.Drawing.Size(26, 26);
@@ -287,18 +266,18 @@
             // 
             this.txbStop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbStop.Location = new System.Drawing.Point(154, 45);
+            this.txbStop.Location = new System.Drawing.Point(165, 45);
             this.txbStop.Name = "txbStop";
-            this.txbStop.Size = new System.Drawing.Size(436, 20);
+            this.txbStop.Size = new System.Drawing.Size(429, 20);
             this.txbStop.TabIndex = 6;
             // 
             // txbStart
             // 
             this.txbStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbStart.Location = new System.Drawing.Point(154, 21);
+            this.txbStart.Location = new System.Drawing.Point(165, 21);
             this.txbStart.Name = "txbStart";
-            this.txbStart.Size = new System.Drawing.Size(435, 20);
+            this.txbStart.Size = new System.Drawing.Size(429, 20);
             this.txbStart.TabIndex = 5;
             // 
             // label6
@@ -337,10 +316,11 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(3, 114);
+            this.groupBox2.Location = new System.Drawing.Point(1, 72);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox2.MinimumSize = new System.Drawing.Size(400, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(613, 174);
+            this.groupBox2.Size = new System.Drawing.Size(617, 189);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Параметры";
@@ -349,9 +329,9 @@
             // 
             this.txbDiffCoefNitro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbDiffCoefNitro.Location = new System.Drawing.Point(154, 70);
+            this.txbDiffCoefNitro.Location = new System.Drawing.Point(165, 70);
             this.txbDiffCoefNitro.Name = "txbDiffCoefNitro";
-            this.txbDiffCoefNitro.Size = new System.Drawing.Size(436, 20);
+            this.txbDiffCoefNitro.Size = new System.Drawing.Size(429, 20);
             this.txbDiffCoefNitro.TabIndex = 20;
             // 
             // label9
@@ -367,18 +347,18 @@
             // 
             this.txbConcentrNitro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbConcentrNitro.Location = new System.Drawing.Point(154, 96);
+            this.txbConcentrNitro.Location = new System.Drawing.Point(165, 96);
             this.txbConcentrNitro.Name = "txbConcentrNitro";
-            this.txbConcentrNitro.Size = new System.Drawing.Size(435, 20);
+            this.txbConcentrNitro.Size = new System.Drawing.Size(429, 20);
             this.txbConcentrNitro.TabIndex = 18;
             // 
             // txbConcentrCarbon
             // 
             this.txbConcentrCarbon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbConcentrCarbon.Location = new System.Drawing.Point(154, 44);
+            this.txbConcentrCarbon.Location = new System.Drawing.Point(165, 44);
             this.txbConcentrCarbon.Name = "txbConcentrCarbon";
-            this.txbConcentrCarbon.Size = new System.Drawing.Size(436, 20);
+            this.txbConcentrCarbon.Size = new System.Drawing.Size(429, 20);
             this.txbConcentrCarbon.TabIndex = 17;
             // 
             // label8
@@ -393,7 +373,7 @@
             // rbtFunction
             // 
             this.rbtFunction.AutoSize = true;
-            this.rbtFunction.Location = new System.Drawing.Point(236, 122);
+            this.rbtFunction.Location = new System.Drawing.Point(247, 122);
             this.rbtFunction.Name = "rbtFunction";
             this.rbtFunction.Size = new System.Drawing.Size(71, 17);
             this.rbtFunction.TabIndex = 11;
@@ -405,7 +385,7 @@
             // rbtParam
             // 
             this.rbtParam.AutoSize = true;
-            this.rbtParam.Location = new System.Drawing.Point(154, 122);
+            this.rbtParam.Location = new System.Drawing.Point(165, 122);
             this.rbtParam.Name = "rbtParam";
             this.rbtParam.Size = new System.Drawing.Size(76, 17);
             this.rbtParam.TabIndex = 10;
@@ -419,9 +399,9 @@
             this.cmbEl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbEl.FormattingEnabled = true;
-            this.cmbEl.Location = new System.Drawing.Point(154, 149);
+            this.cmbEl.Location = new System.Drawing.Point(165, 149);
             this.cmbEl.Name = "cmbEl";
-            this.cmbEl.Size = new System.Drawing.Size(436, 21);
+            this.cmbEl.Size = new System.Drawing.Size(429, 21);
             this.cmbEl.TabIndex = 9;
             // 
             // cmbTempreture
@@ -429,18 +409,18 @@
             this.cmbTempreture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbTempreture.FormattingEnabled = true;
-            this.cmbTempreture.Location = new System.Drawing.Point(313, 122);
+            this.cmbTempreture.Location = new System.Drawing.Point(324, 122);
             this.cmbTempreture.Name = "cmbTempreture";
-            this.cmbTempreture.Size = new System.Drawing.Size(276, 21);
+            this.cmbTempreture.Size = new System.Drawing.Size(270, 21);
             this.cmbTempreture.TabIndex = 8;
             // 
             // txbDiffCoefCarbon
             // 
             this.txbDiffCoefCarbon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbDiffCoefCarbon.Location = new System.Drawing.Point(154, 19);
+            this.txbDiffCoefCarbon.Location = new System.Drawing.Point(165, 19);
             this.txbDiffCoefCarbon.Name = "txbDiffCoefCarbon";
-            this.txbDiffCoefCarbon.Size = new System.Drawing.Size(436, 20);
+            this.txbDiffCoefCarbon.Size = new System.Drawing.Size(429, 20);
             this.txbDiffCoefCarbon.TabIndex = 4;
             // 
             // label4
@@ -486,9 +466,10 @@
             this.groupBox1.Controls.Add(this.rbtCarburization);
             this.groupBox1.Controls.Add(this.rbtNitritization);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Location = new System.Drawing.Point(1, 1);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(613, 55);
+            this.groupBox1.Size = new System.Drawing.Size(617, 19);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Вид процесса";
@@ -499,7 +480,7 @@
             this.rbtNitrocarburizing.Dock = System.Windows.Forms.DockStyle.Left;
             this.rbtNitrocarburizing.Location = new System.Drawing.Point(188, 16);
             this.rbtNitrocarburizing.Name = "rbtNitrocarburizing";
-            this.rbtNitrocarburizing.Size = new System.Drawing.Size(117, 36);
+            this.rbtNitrocarburizing.Size = new System.Drawing.Size(117, 0);
             this.rbtNitrocarburizing.TabIndex = 6;
             this.rbtNitrocarburizing.TabStop = true;
             this.rbtNitrocarburizing.Text = "Нитроцементация";
@@ -512,7 +493,7 @@
             this.rbtCarburization.Dock = System.Windows.Forms.DockStyle.Left;
             this.rbtCarburization.Location = new System.Drawing.Point(100, 16);
             this.rbtCarburization.Name = "rbtCarburization";
-            this.rbtCarburization.Size = new System.Drawing.Size(88, 36);
+            this.rbtCarburization.Size = new System.Drawing.Size(88, 0);
             this.rbtCarburization.TabIndex = 5;
             this.rbtCarburization.TabStop = true;
             this.rbtCarburization.Text = "Цементация";
@@ -525,7 +506,7 @@
             this.rbtNitritization.Dock = System.Windows.Forms.DockStyle.Left;
             this.rbtNitritization.Location = new System.Drawing.Point(3, 16);
             this.rbtNitritization.Name = "rbtNitritization";
-            this.rbtNitritization.Size = new System.Drawing.Size(97, 36);
+            this.rbtNitritization.Size = new System.Drawing.Size(97, 0);
             this.rbtNitritization.TabIndex = 4;
             this.rbtNitritization.TabStop = true;
             this.rbtNitritization.Text = "Азотирование";
@@ -537,9 +518,10 @@
             this.groupBox4.Controls.Add(this.rbtAlphaFe);
             this.groupBox4.Controls.Add(this.rbtGammaFe);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(3, 64);
+            this.groupBox4.Location = new System.Drawing.Point(1, 22);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(613, 44);
+            this.groupBox4.Size = new System.Drawing.Size(617, 48);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Материал";
@@ -550,7 +532,7 @@
             this.rbtAlphaFe.Dock = System.Windows.Forms.DockStyle.Left;
             this.rbtAlphaFe.Location = new System.Drawing.Point(3, 16);
             this.rbtAlphaFe.Name = "rbtAlphaFe";
-            this.rbtAlphaFe.Size = new System.Drawing.Size(47, 25);
+            this.rbtAlphaFe.Size = new System.Drawing.Size(47, 29);
             this.rbtAlphaFe.TabIndex = 15;
             this.rbtAlphaFe.TabStop = true;
             this.rbtAlphaFe.Text = "α Fe";
@@ -613,9 +595,6 @@
         private System.Windows.Forms.RadioButton rbtFunction;
         private System.Windows.Forms.RadioButton rbtParam;
         private System.Windows.Forms.GroupBox groupBox3;
-        private MB.Controls.ColorSlider CheckVelocitySlider;
-        private System.Windows.Forms.Button btnStopCheck;
-        private System.Windows.Forms.Button btnCheckDinamic;
         private System.Windows.Forms.Button btnHideAll;
         private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.Button btnRefresh;
@@ -639,5 +618,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ClmnTherm;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClmStart;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClmnStop;
+        private PlayerControl.Player player;
     }
 }

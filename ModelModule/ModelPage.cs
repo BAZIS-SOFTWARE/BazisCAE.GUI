@@ -8,33 +8,28 @@ using BaseModule;
 using ToolStrips;
 using Model;
 using ModelController.MeshObjsCreator;
-using Project.Interfaces;
-using Project.TasksData;
-using Scene.Events;
 using System.Diagnostics;
 using System.IO;
-using Scene;
 using ModelController.ModelScenePresentator;
-using Model.Interfaces;
 
 namespace ModelModule
 {
     public partial class ModelPage: BasePage
     {
-        Dictionary<string, int> imgDict;
+        //Dictionary<string, int> imgDict;
 
 
-        public ModelPage()
+        public ModelPage() : base()
         {
             InitializeComponent();
 
-            imgDict = new Dictionary<string, int>()
-            {
-                { "Узлы",3},
-                { "Элементы3D",4},
-                { "Элементы2D",4},
-                { "Элементы1D",4}
-            };
+            //imgDict = new Dictionary<string, int>()
+            //{
+            //    { "Узлы",3},
+            //    { "Элементы3D",4},
+            //    { "Элементы2D",4},
+            //    { "Элементы1D",4}
+            //};
 
             var meshToolStrip = new MeshToolStrip();
             meshToolStrip.Renderer = new BtnToolStrRender();
@@ -121,10 +116,15 @@ namespace ModelModule
 
                 Project.Model.ObjectData.AddRange(boundaryElements2D);
 
-                var presentor = new ModelScenePresentator(Project.Model);
-                SceneControl.SetPresentor(presentor);
+                ModelPresenter = new ModelScenePresentator(Project.Model);
 
-                PresentAllModelObjectsOnScene();
+                ClearAllDataOnScene();
+
+                foreach (var item in ModelPresenter.Keys)
+                    PresentDataToScene(item);
+
+                SceneControl.DisplayObjects();
+
                 PresentModelOnSelectToolStrip();
                 SetModelObjsInfo();
 
@@ -143,13 +143,6 @@ namespace ModelModule
         //    if (node.Parent != null)
         //        FindRootParentNode(node.Parent, ref rootNode);
         //    else rootNode = node;
-        //}
-
-         
-
-        private void ModelPage_Load(object sender, EventArgs e)
-        {
-            PresentProjectOnTree();
-        }      
+        //}      
     }
 }

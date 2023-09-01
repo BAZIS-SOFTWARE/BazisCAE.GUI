@@ -127,12 +127,6 @@ namespace TaskModule.WeldingModule
             this.materialsControl1.AddButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.AddButtonImage")));
             this.materialsControl1.AutoScroll = true;
             this.materialsControl1.AutoSize = true;
-            this.materialsControl1.CheckCurrentTime = 0F;
-            this.materialsControl1.CheckDinamicButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.CheckDinamicButtonImage")));
-            this.materialsControl1.CheckStartTime = 0F;
-            this.materialsControl1.CheckState = TaskModule.BasicAdvisorControls.BasicControls.CheckState.start;
-            this.materialsControl1.CheckStepTime = 0;
-            this.materialsControl1.CheckStopTime = 0F;
             this.materialsControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.ClearButtonImage")));
             this.materialsControl1.CurentSelectedRowInfo = null;
             this.materialsControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -143,11 +137,6 @@ namespace TaskModule.WeldingModule
             this.materialsControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.RefreshButtonImage")));
             this.materialsControl1.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.ShowAllButtonImage")));
             this.materialsControl1.Size = new System.Drawing.Size(675, 578);
-            this.materialsControl1.SliderBarInnerColor = System.Drawing.Color.Gold;
-            this.materialsControl1.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.materialsControl1.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
-            this.materialsControl1.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
-            this.materialsControl1.StopCheckingButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.StopCheckingButtonImage")));
             this.materialsControl1.TabIndex = 0;
             this.materialsControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.materialsControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -170,11 +159,6 @@ namespace TaskModule.WeldingModule
             // 
             // mediaControl1
             // 
-            this.mediaControl1.CheckCurrentTime = 0F;
-            this.mediaControl1.CheckStartTime = 0F;
-            this.mediaControl1.CheckState = TaskModule.BasicAdvisorControls.BasicControls.CheckState.start;
-            this.mediaControl1.CheckStepTime = 0;
-            this.mediaControl1.CheckStopTime = 0F;
             this.mediaControl1.CurentSelectedRowInfo = null;
             this.mediaControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mediaControl1.Location = new System.Drawing.Point(0, 0);
@@ -205,11 +189,6 @@ namespace TaskModule.WeldingModule
             // 
             this.weldingControl1.AutoScroll = true;
             this.weldingControl1.BackColor = System.Drawing.SystemColors.Control;
-            this.weldingControl1.CheckCurrentTime = 0F;
-            this.weldingControl1.CheckStartTime = 0F;
-            this.weldingControl1.CheckState = TaskModule.BasicAdvisorControls.BasicControls.CheckState.start;
-            this.weldingControl1.CheckStepTime = 0;
-            this.weldingControl1.CheckStopTime = 0F;
             this.weldingControl1.CurentSelectedRowInfo = null;
             this.weldingControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.weldingControl1.Location = new System.Drawing.Point(0, 0);
@@ -242,12 +221,6 @@ namespace TaskModule.WeldingModule
             this.clampControl.AddButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl.AddButtonImage")));
             this.clampControl.AutoScroll = true;
             this.clampControl.AutoSize = true;
-            this.clampControl.CheckCurrentTime = 0F;
-            this.clampControl.CheckDinamicButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl.CheckDinamicButtonImage")));
-            this.clampControl.CheckStartTime = 0F;
-            this.clampControl.CheckState = TaskModule.BasicAdvisorControls.BasicControls.CheckState.start;
-            this.clampControl.CheckStepTime = 0;
-            this.clampControl.CheckStopTime = 0F;
             this.clampControl.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl.ClearButtonImage")));
             this.clampControl.CurentSelectedRowInfo = null;
             this.clampControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -258,11 +231,6 @@ namespace TaskModule.WeldingModule
             this.clampControl.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl.RefreshButtonImage")));
             this.clampControl.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl.ShowAllButtonImage")));
             this.clampControl.Size = new System.Drawing.Size(675, 578);
-            this.clampControl.SliderBarInnerColor = System.Drawing.Color.Gold;
-            this.clampControl.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.clampControl.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
-            this.clampControl.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
-            this.clampControl.StopCheckingButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl.StopCheckingButtonImage")));
             this.clampControl.TabIndex = 0;
             this.clampControl.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.clampControl.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -287,12 +255,6 @@ namespace TaskModule.WeldingModule
             // 
             this.loadControl1.AddButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.AddButtonImage")));
             this.loadControl1.BackColor = System.Drawing.SystemColors.Control;
-            this.loadControl1.CheckCurrentTime = 0F;
-            this.loadControl1.CheckDinamicButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.CheckDinamicButtonImage")));
-            this.loadControl1.CheckStartTime = 0F;
-            this.loadControl1.CheckState = TaskModule.BasicAdvisorControls.BasicControls.CheckState.start;
-            this.loadControl1.CheckStepTime = 0;
-            this.loadControl1.CheckStopTime = 0F;
             this.loadControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.ClearButtonImage")));
             this.loadControl1.CurentSelectedRowInfo = null;
             this.loadControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -303,11 +265,6 @@ namespace TaskModule.WeldingModule
             this.loadControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.RefreshButtonImage")));
             this.loadControl1.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.ShowAllButtonImage")));
             this.loadControl1.Size = new System.Drawing.Size(681, 584);
-            this.loadControl1.SliderBarInnerColor = System.Drawing.Color.Gold;
-            this.loadControl1.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.loadControl1.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
-            this.loadControl1.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
-            this.loadControl1.StopCheckingButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.StopCheckingButtonImage")));
             this.loadControl1.TabIndex = 0;
             this.loadControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.loadControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -343,7 +300,7 @@ namespace TaskModule.WeldingModule
             this.taskPlannerControl1.Size = new System.Drawing.Size(686, 700);
             this.taskPlannerControl1.TabIndex = 0;
             this.taskPlannerControl1.AddDataUseTaskConditionsEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_AddDataUseTaskConditionsEvent);
-            this.taskPlannerControl1.StartComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StartComputationEvent);
+            this.taskPlannerControl1.StartComputationEvent += TaskPlannerControl1_StartComputationEvent;
             this.taskPlannerControl1.StopComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StopComputationEvent);
             this.taskPlannerControl1.AddDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             this.taskPlannerControl1.DeleteDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);

@@ -36,7 +36,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "ModelPage";
             this.Size = new System.Drawing.Size(1005, 642);
-            this.Load += new System.EventHandler(this.ModelPage_Load);
             this.ResumeLayout(false);
 
         }

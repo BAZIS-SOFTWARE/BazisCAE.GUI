@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Project.TasksData;
+using Project.TasksData.TaskParameters;
+using System;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -17,27 +19,40 @@ namespace AdvisorControls.TaskPlannerControls
             cmbSolver.SelectedIndex = 1;
         }
 
-        public override string CollectData()
+        public override void InputData(GeneralParameters parameters)
         {
-            var str = String.Format(CultureInfo.InvariantCulture,"{0};*;*;*;{1};{2};{3};{4};{5};{6};{7};{8}",
-            txbDTtMax.Text, txbInitTemp.Text,  txbIters.Text, txbSaveRate.Text,
-            cmbSolver.Text, txbSolverIterations.Text, txbPrecision.Text, txbRelaxation.Text, cmbPriority.Text);
+            base.InputData(parameters);
+            var termalParameters = (TermalParameters)parameters;
+            txbDTtMax.Text = termalParameters.ConvergenceSettings.DYmt.ToString();          
+            txbIters.Text = termalParameters.ConvergenceSettings.Iterations.ToString();
 
-            return str;
+            txbSaveRate.Text = termalParameters.SaveRate.ToString();
+            txbInitTemp.Text = termalParameters.InitTemp.ToString();
+
+            cmbSolver.Text = termalParameters.SolverSettings.Solver;
+            txbSolverIterations.Text = termalParameters.SolverSettings.MaxIter.ToString();
+            txbPrecision.Text = termalParameters.SolverSettings.Precision.ToString();
+            txbRelaxation.Text = termalParameters.SolverSettings.Relaxation.ToString();
+            cmbPriority.Text = termalParameters.SolverSettings.Priority.ToString();
         }
 
-        public override void InputData(string[] inputData)
+        public override GeneralParameters CollectData()
         {
-            txbDTtMax.Text = inputData[0];
-            txbInitTemp.Text = inputData[4];
-            txbIters.Text = inputData[5];
-            txbSaveRate.Text = inputData[6];
+            var termalParameters = new TermalParameters();
 
-            cmbSolver.Text = inputData[7];
-            txbSolverIterations.Text = inputData[8];
-            txbPrecision.Text = inputData[9];
-            txbRelaxation.Text = inputData[10];
-            cmbPriority.Text = inputData[11];
+            termalParameters.ConvergenceSettings.DYmt = Convert.ToSingle(txbDTtMax.Text);
+            termalParameters.ConvergenceSettings.Iterations = Convert.ToInt32(txbIters.Text);
+            
+            termalParameters.InitTemp = Convert.ToSingle(txbInitTemp.Text);
+            termalParameters.SaveRate = Convert.ToInt32(txbSaveRate.Text);
+
+            termalParameters.SolverSettings.Solver = cmbSolver.Text;
+            termalParameters.SolverSettings.MaxIter = Convert.ToInt32(txbSolverIterations.Text);
+            termalParameters.SolverSettings.Precision = Convert.ToSingle(txbPrecision.Text);
+            termalParameters.SolverSettings.Relaxation = Convert.ToSingle(txbRelaxation.Text);
+            termalParameters.SolverSettings.Priority = cmbPriority.Text;
+
+            return termalParameters;
         }
 
         public override void AllTextBox_TextChanged(object sender, EventArgs e)

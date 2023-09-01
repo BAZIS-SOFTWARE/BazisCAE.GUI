@@ -6,10 +6,12 @@ using System.ComponentModel;
 using System.Drawing;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Interfaces;
+using System.Linq;
+using TaskModule.BasicAdvisorControls.Events;
 
 namespace TaskModule.BasicAdvisorControls
 {
-    public partial class LoadControl : CheckedGridViewAdviserControl, INodesGroupControl, IFunctionsRelatedControl
+    public partial class LoadControl : CheckedGridViewAdviserControl, INodesGroupControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
         [Category("Images")]
         [Description("Set image for add button")]
@@ -50,53 +52,7 @@ namespace TaskModule.BasicAdvisorControls
             get { return btnHideAll.Image; }
             set { btnHideAll.Image = value; }
         }
-
-        [Category("Images")]
-        [Description("Set image for check in dinamic button")]
-        public Image CheckDinamicButtonImage
-        {
-            get { return btnCheckDinamic.Image; }
-            set { btnCheckDinamic.Image = value; }
-        }
-
-        [Category("Images")]
-        [Description("Set image for stop check button")]
-        public Image StopCheckingButtonImage
-        {
-            get { return btnStopCheck.Image; }
-            set { btnStopCheck.Image = value; }
-        }
-
-        [Category("Colors")]
-        [Description("Set color for bar inner slider")]
-        public Color SliderBarInnerColor
-        {
-            get { return checkVelocitySlider.BarInnerColor; }
-            set { checkVelocitySlider.BarInnerColor = value; }
-        }
-        [Category("Colors")]
-        [Description("Set color for bar outer slider")]
-        public Color SliderBarOuterColor
-        {
-            get { return checkVelocitySlider.BarOuterColor; }
-            set { checkVelocitySlider.BarOuterColor = value; }
-        }
-
-        [Category("Colors")]
-        [Description("Set color for elapsed inner slider")]
-        public Color SliderElapsedInnerColor
-        {
-            get { return checkVelocitySlider.ElapsedInnerColor; }
-            set { checkVelocitySlider.ElapsedInnerColor = value; }
-        }
-
-        [Category("Colors")]
-        [Description("Set color for elapsed outer slider")]
-        public Color SliderElapsedOuterColor
-        {
-            get { return checkVelocitySlider.ElapsedOuterColor; }
-            set { checkVelocitySlider.ElapsedOuterColor = value; }
-        }
+        
         enum Column : int { node, direction,kind, function, startTime, stopTime };
         enum Kind : int { force, pressure, displacement };
 
@@ -107,6 +63,10 @@ namespace TaskModule.BasicAdvisorControls
         }
 
         public override string DataName { get; }
+
+        public event Action<object, ShowDataEventArgs> ShowDataEvent;
+        public event Action<object, HideDataEventArgs> HideDataEvent;
+        public event Action<object, CheckDataEventArgs> CheckDataEvent;
 
         public void Fill_nGroups(List<string> groups)
         {
@@ -197,28 +157,16 @@ namespace TaskModule.BasicAdvisorControls
             return string.Join(" ", taskStrAr);
         }
 
-        public override void ShowDataButton_Click(object sender, EventArgs e)
+        public void ShowDataButton_Click(object sender, EventArgs e)
         {
-            base.ShowDataButton_Click(sender, e);
+            if (CountSelectedRow > 0)
+            {
+                ShowDataEvent(this, new ShowDataEventArgs(DataName, GetSelectedRowIndexes().ToList()));
+            }
         }
-        public override void HideAllDataButton_Click(object sender, EventArgs e)
+        public void HideAllDataButton_Click(object sender, EventArgs e)
         {
-            base.HideAllDataButton_Click(sender, e);
-        }
-
-        public override void CheckVelocitySlider_Scroll(object sender, ScrollEventArgs e)
-        {
-            base.CheckVelocitySlider_Scroll(sender, e);
-        }
-
-        public override void StartChecking_Click(object sender, EventArgs e)
-        {
-            base.StartChecking_Click(sender, e);
-        }
-
-        public override void StopChecking_Click(object sender, EventArgs e)
-        {
-            base.StopChecking_Click(sender, e);
+            HideDataEvent(this, new HideDataEventArgs(DataName));
         }
 
         public override void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -278,6 +226,31 @@ namespace TaskModule.BasicAdvisorControls
         public override void ClearAllDataButton_Click(object sender, EventArgs e)
         {
             base.ClearAllDataButton_Click(sender, e);
+        }
+
+        private void player_CheckingEvent(object arg1, float arg2)
+        {
+            CheckDataEvent(this, new BasicAdvisorControls.Events.CheckDataEventArgs(DataName, arg2));
+        }
+
+        private void player_StartCheckingEvent(object obj)
+        {
+            var gridViewList = new List<DataGridView>();
+            SearchControls(this, gridViewList);
+
+            var checkStopTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+       .Max(r => Convert.ToSingle(r.Cells["stopColumn"].Value, CultureInfo.InvariantCulture));
+
+            var checkStartTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+                        .Min(r => Convert.ToSingle(r.Cells["startColumn"].Value, CultureInfo.InvariantCulture));
+
+            player.StartValue = (int)checkStartTime;
+            player.StopValue = (int)checkStopTime;
+        }
+
+        private void player_StopCheckingEvent(object obj)
+        {
+            HideDataEvent(this, new HideDataEventArgs(DataName));
         }
     }
 }
