@@ -133,16 +133,6 @@ namespace ModelModule
             else
                 ConsoleControl.PrintInfo("Модель не содержит объемных элементов!", Color.Red);
 
-        }      
-
-        
-
-
-        //private void FindRootParentNode(TreeNode node, ref TreeNode rootNode)
-        //{
-        //    if (node.Parent != null)
-        //        FindRootParentNode(node.Parent, ref rootNode);
-        //    else rootNode = node;
-        //}      
+        }           
     }
 }

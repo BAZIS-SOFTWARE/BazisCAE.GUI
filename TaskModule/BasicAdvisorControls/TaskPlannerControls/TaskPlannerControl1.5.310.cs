@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using Project.ResultsData;
 using System.Threading;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
@@ -45,7 +46,17 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         }
         [Category("General")]
         [Description("Set path for computation")]
-        public string Path { get; set; }
+        public string Path 
+        { 
+            get
+            {
+                return txbComputationFolder.Text;
+            }
+            set
+            {
+                txbComputationFolder.Text = value;
+            }
+        }
 
         public event Action<object,EventArgs> AddDataUseTaskConditionsEvent;
         public event Action<object, string> StartComputationEvent;
@@ -277,36 +288,51 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         {
             try
             {
-            var tParam = Get_TaskSettings(taskKind);
-            tParam.TimeSettings.StartTime = Convert.ToSingle(txbStartTime.Text);
-            tParam.TimeSettings.StopTime = Convert.ToSingle(txbStopTime.Text);
-            tParam.TimeSettings.MinTimeStep = Convert.ToSingle(txbMinStep.Text);
-            tParam.TimeSettings.MaxTimeStep = Convert.ToSingle(txbMaxStep.Text);
+                var parameters = Get_TaskSettings(taskKind);
+                parameters.TimeSettings.StartTime = Convert.ToSingle(txbStartTime.Text);
+                parameters.TimeSettings.StopTime = Convert.ToSingle(txbStopTime.Text);
+                parameters.TimeSettings.InitTimeStep = Convert.ToSingle(txbStartStep.Text);
+                parameters.TimeSettings.MinTimeStep = Convert.ToSingle(txbMinStep.Text);
+                parameters.TimeSettings.MaxTimeStep = Convert.ToSingle(txbMaxStep.Text);
 
-            var parameters = Get_TaskSettings(taskKind);
+                var settingsSerializer = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto,
+                    Formatting = Formatting.Indented
+                };
 
-            var settingsSerializer = new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto,
-                Formatting = Formatting.Indented
-            };
+                if (chbFurtherComp.Checked)
+                    parameters.RestartFile = $@"{Path}\{taskKind}_*_*_{parameters.TimeSettings.StartTime}.db";
 
-            var tsfStr = String.Empty;
-            if (taskKind == TaskKind.термическая)
-                tsfStr = JsonConvert.SerializeObject((TermalParameters)parameters, settingsSerializer);
-            else if (taskKind == TaskKind.механическая)
-                tsfStr = JsonConvert.SerializeObject((MechanicalParameters)parameters, settingsSerializer);
-            else
-                tsfStr = JsonConvert.SerializeObject(parameters, settingsSerializer);
+                var tsfStr = String.Empty;
+                if (taskKind == TaskKind.термическая)
+                    tsfStr = JsonConvert.SerializeObject((TermalParameters)parameters, settingsSerializer);
 
-            var tsfFileName = $"{taskKind}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
+                else if (taskKind == TaskKind.механическая)
+                {
+                    var mechParameters = (MechanicalParameters)parameters;
 
-            File.WriteAllText(tsfFileName, tsfStr);
+                    if (chbLinkedCalc.Checked)
+                        if (chbTermoTask.Checked)
+                        {
+                            var termFile = $@"{Path}\термическая_*_{parameters.TimeSettings.StartTime}_{parameters.TimeSettings.StopTime}.db";
+                            mechParameters.ThermalFile = termFile;
+                        }
+
+                    tsfStr = JsonConvert.SerializeObject(mechParameters, settingsSerializer);
+                }
+
+                else
+                    tsfStr = JsonConvert.SerializeObject(parameters, settingsSerializer);
+
+                var tsfFileName = $"{taskKind}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
+
+                File.WriteAllText($@"{Path}\{tsfFileName}", tsfStr);
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message,"Ошибка",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -508,14 +534,14 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             e.Cancel = true;
         }
 
-        private void txbComputationFolder_MouseClick(object sender, MouseEventArgs e)
+        private void btnComputationFolder_Click(object sender, EventArgs e)
         {
             var openDialog = new FolderBrowserDialog();
 
             if (openDialog.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            Path = openDialog.SelectedPath;
+            txbComputationFolder.Text = openDialog.SelectedPath;
         }
     }
 }

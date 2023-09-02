@@ -121,7 +121,7 @@
   <data name="btnClearAllTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wAAADsABataJCQAAAFtJREFUOE/Ni8ENwCAMxLL/Bp2WgnSURLjHs7V0j8hO/It2RRvTuWH9lG/RyW9B
+        vgAADr4B6kKxwAAAAFtJREFUOE/Ni8ENwCAMxLL/Bp2WgnSURLjHs7V0j8hO/It2RRvTuWH9lG/RyW9B
         jpx7oMhNbxUKacoZeshT5qHHMWkPPeYpY+iBprxCoZveFi5yrmBl5+S/IOIGPKYIOujdzLMAAAAASUVO
         RK5CYII=
 </value>
@@ -142,7 +142,7 @@
   <data name="btnAddNewTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wAAADsABataJCQAAACxJREFUOE9joBlwOMDwHxlDhYkHI80AdMXEYqj2YWEANkCSYmxg1ABiAQMDABBr
+        vgAADr4B6kKxwAAAACxJREFUOE9joBlwOMDwHxlDhYkHI80AdMXEYqj2YWEANkCSYmxg1ABiAQMDABBr
         v6G/1Jc4AAAAAElFTkSuQmCC
 </value>
   </data>

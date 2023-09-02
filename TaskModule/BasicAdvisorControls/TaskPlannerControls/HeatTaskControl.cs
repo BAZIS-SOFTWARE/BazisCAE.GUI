@@ -40,7 +40,12 @@ namespace AdvisorControls.TaskPlannerControls
         {
             var termalParameters = new TermalParameters();
 
-            termalParameters.ConvergenceSettings.DYmt = Convert.ToSingle(txbDTtMax.Text);
+            if (chbDTtMax.Checked)
+            {
+                termalParameters.ConvergenceSettings.Is_Swithed_DXmt = true;
+                termalParameters.ConvergenceSettings.DXmt = Convert.ToSingle(txbDTtMax.Text);
+            }
+           
             termalParameters.ConvergenceSettings.Iterations = Convert.ToInt32(txbIters.Text);
             
             termalParameters.InitTemp = Convert.ToSingle(txbInitTemp.Text);
@@ -83,11 +88,7 @@ namespace AdvisorControls.TaskPlannerControls
 
         public override void Txb_EnabledChanged(object sender, EventArgs e)
         {
-            if(sender is TextBox txb)
-            {
-                if (txb.Enabled == false)
-                    txb.Text = "*";
-            }
+            base.Txb_EnabledChanged(sender, e);
         }
     }
 }

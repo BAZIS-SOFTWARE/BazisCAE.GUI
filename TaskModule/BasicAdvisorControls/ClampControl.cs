@@ -56,7 +56,7 @@ namespace TaskModule.BasicAdvisorControls
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
-
+                
         enum Column : int { node, kind, direction, function,startTime, stopTime };
         //enum Kind : int { rigid, elastic = 1, contact, simmetry = 2 };
 
@@ -265,14 +265,17 @@ namespace TaskModule.BasicAdvisorControls
             var gridViewList = new List<DataGridView>();
             SearchControls(this, gridViewList);
 
-            var checkStopTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
-       .Max(r => Convert.ToSingle(r.Cells["stopColumn"].Value, CultureInfo.InvariantCulture));
+            if (gridViewList[0].Rows.Count > 0)
+            {
+                var checkStopTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+.Max(r => Convert.ToSingle(r.Cells[(int)Column.stopTime].Value, CultureInfo.InvariantCulture));
 
-            var checkStartTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
-                        .Min(r => Convert.ToSingle(r.Cells["startColumn"].Value, CultureInfo.InvariantCulture));
+                var checkStartTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+                            .Min(r => Convert.ToSingle(r.Cells[(int)Column.startTime].Value, CultureInfo.InvariantCulture));
 
-            player.StartValue = (int)checkStartTime;
-            player.StopValue = (int)checkStopTime;
+                player.StartValue = (int)checkStartTime;
+                player.StopValue = (int)checkStopTime;
+            }
         }
 
         private void player_CheckingEvent(object arg1, float arg2)

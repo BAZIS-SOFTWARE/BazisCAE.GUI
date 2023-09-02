@@ -8,6 +8,6 @@ namespace TaskModule.BasicAdvisorControls.Interfaces
 {
     public interface IElmentsGroupsControl
     {
-        void Fill_eGroups(string taskType, string elemType, List<string> groupNames);
+        void Fill_eGroups(List<string> groupNames);
     }
 }

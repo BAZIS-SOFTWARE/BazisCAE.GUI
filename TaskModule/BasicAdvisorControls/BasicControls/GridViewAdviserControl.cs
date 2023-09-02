@@ -14,8 +14,6 @@ namespace TaskModule.BasicAdvisorControls.BasicControls
             InitializeComponent();
         }
 
-        public string WorkingDirectory { get; set; }
-
         public int CountSelectedRow { get { return GetDataGrid.SelectedRows.Count; } }
 
         public int CurentSelectedRowIndex

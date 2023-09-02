@@ -47,7 +47,7 @@ namespace AdvisorControls.TaskPlannerControls
             if (sender is TextBox txb)
             {
                 if (txb.Enabled == false)
-                    txb.Text = "*";
+                    txb.Text = "0";
             }
         }
     }

@@ -62,14 +62,15 @@
             this.chbLinkedCalc = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.Kind = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Settings = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Time = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.grbTaskSettings = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btnComputationFolder = new System.Windows.Forms.Button();
             this.txbComputationFolder = new System.Windows.Forms.TextBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.Kind = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Settings = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Time = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.chbFurtherComp = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -122,12 +123,12 @@
             this.groupBox2.Controls.Add(this.txbStopTime);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(1, 170);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(1);
+            this.groupBox2.Location = new System.Drawing.Point(1, 172);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
             this.groupBox2.MinimumSize = new System.Drawing.Size(300, 0);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox2.Size = new System.Drawing.Size(598, 219);
+            this.groupBox2.Size = new System.Drawing.Size(598, 217);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Временные параметры";
@@ -136,7 +137,7 @@
             // 
             this.StopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.StopButton.AutoSize = true;
-            this.StopButton.Location = new System.Drawing.Point(505, 177);
+            this.StopButton.Location = new System.Drawing.Point(505, 175);
             this.StopButton.Margin = new System.Windows.Forms.Padding(1);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(67, 28);
@@ -164,7 +165,7 @@
             // 
             this.StartButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.StartButton.AutoSize = true;
-            this.StartButton.Location = new System.Drawing.Point(437, 177);
+            this.StartButton.Location = new System.Drawing.Point(437, 175);
             this.StartButton.Margin = new System.Windows.Forms.Padding(1);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(66, 28);
@@ -340,6 +341,7 @@
             // groupBox3
             // 
             this.groupBox3.AutoSize = true;
+            this.groupBox3.Controls.Add(this.chbFurtherComp);
             this.groupBox3.Controls.Add(this.cmbHardnessTask);
             this.groupBox3.Controls.Add(this.lblMechTask);
             this.groupBox3.Controls.Add(this.lblHardness);
@@ -354,7 +356,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox3.Size = new System.Drawing.Size(598, 85);
+            this.groupBox3.Size = new System.Drawing.Size(598, 87);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Выбор задачи";
@@ -475,10 +477,10 @@
             // 
             this.groupBox1.Controls.Add(this.dataGridView);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(1, 391);
+            this.groupBox1.Location = new System.Drawing.Point(1, 390);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(598, 455);
+            this.groupBox1.Size = new System.Drawing.Size(598, 456);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Список задач";
@@ -520,7 +522,7 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView.Size = new System.Drawing.Size(592, 436);
+            this.dataGridView.Size = new System.Drawing.Size(592, 437);
             this.dataGridView.TabIndex = 0;
             this.dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellClick);
             this.dataGridView.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView_CellPainting);
@@ -528,11 +530,37 @@
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
             // 
+            // Kind
+            // 
+            this.Kind.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Kind.HeaderText = "Вид";
+            this.Kind.Name = "Kind";
+            this.Kind.ReadOnly = true;
+            this.Kind.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Kind.Width = 32;
+            // 
+            // Settings
+            // 
+            this.Settings.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.Settings.HeaderText = "Настройки";
+            this.Settings.Name = "Settings";
+            this.Settings.ReadOnly = true;
+            this.Settings.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Settings.Width = 300;
+            // 
+            // Time
+            // 
+            this.Time.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Time.HeaderText = "Статус";
+            this.Time.Name = "Time";
+            this.Time.ReadOnly = true;
+            this.Time.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
             // grbTaskSettings
             // 
             this.grbTaskSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.grbTaskSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbTaskSettings.Location = new System.Drawing.Point(1, 153);
+            this.grbTaskSettings.Location = new System.Drawing.Point(1, 155);
             this.grbTaskSettings.Margin = new System.Windows.Forms.Padding(1);
             this.grbTaskSettings.MinimumSize = new System.Drawing.Size(0, 15);
             this.grbTaskSettings.Name = "grbTaskSettings";
@@ -540,7 +568,7 @@
             this.grbTaskSettings.Size = new System.Drawing.Size(598, 15);
             this.grbTaskSettings.TabIndex = 13;
             this.grbTaskSettings.TabStop = false;
-            this.grbTaskSettings.Text = "Настройки задачи";
+            this.grbTaskSettings.Text = "Настройки расчета";
             this.grbTaskSettings.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbTask_MouseClick);
             this.grbTaskSettings.Paint += new System.Windows.Forms.PaintEventHandler(this.grbTask_Paint);
             // 
@@ -571,6 +599,7 @@
             this.btnComputationFolder.TabIndex = 54;
             this.btnComputationFolder.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnComputationFolder.UseVisualStyleBackColor = true;
+            this.btnComputationFolder.Click += new System.EventHandler(this.btnComputationFolder_Click);
             // 
             // txbComputationFolder
             // 
@@ -578,37 +607,20 @@
             this.txbComputationFolder.Name = "txbComputationFolder";
             this.txbComputationFolder.Size = new System.Drawing.Size(528, 20);
             this.txbComputationFolder.TabIndex = 0;
-            this.txbComputationFolder.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txbComputationFolder_MouseClick);
             // 
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog";
             // 
-            // Kind
+            // chbFurtherComp
             // 
-            this.Kind.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Kind.HeaderText = "Вид";
-            this.Kind.Name = "Kind";
-            this.Kind.ReadOnly = true;
-            this.Kind.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Kind.Width = 32;
-            // 
-            // Settings
-            // 
-            this.Settings.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.Settings.HeaderText = "Настройки";
-            this.Settings.Name = "Settings";
-            this.Settings.ReadOnly = true;
-            this.Settings.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Settings.Width = 300;
-            // 
-            // Time
-            // 
-            this.Time.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Time.HeaderText = "Статус";
-            this.Time.Name = "Time";
-            this.Time.ReadOnly = true;
-            this.Time.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.chbFurtherComp.AutoSize = true;
+            this.chbFurtherComp.Location = new System.Drawing.Point(311, 54);
+            this.chbFurtherComp.Name = "chbFurtherComp";
+            this.chbFurtherComp.Size = new System.Drawing.Size(126, 17);
+            this.chbFurtherComp.TabIndex = 77;
+            this.chbFurtherComp.Text = "Продолжить расчет";
+            this.chbFurtherComp.UseVisualStyleBackColor = true;
             // 
             // TaskPlannerControl
             // 
@@ -673,5 +685,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Kind;
         private System.Windows.Forms.DataGridViewButtonColumn Settings;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Time;
+        private System.Windows.Forms.CheckBox chbFurtherComp;
     }
 }

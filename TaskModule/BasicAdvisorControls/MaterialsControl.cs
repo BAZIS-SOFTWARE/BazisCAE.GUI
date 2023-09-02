@@ -87,14 +87,17 @@ namespace TaskModule.BasicAdvisorControls
             var gridViewList = new List<DataGridView>();
             SearchControls(this, gridViewList);
 
-            var checkStopTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
-       .Max(r => Convert.ToSingle(r.Cells[(int)Column.stopTime].Value, CultureInfo.InvariantCulture));
+            if (gridViewList[0].Rows.Count > 0)
+            {
+                var checkStopTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+           .Max(r => Convert.ToSingle(r.Cells[(int)Column.stopTime].Value, CultureInfo.InvariantCulture));
 
-            var checkStartTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
-                        .Min(r => Convert.ToSingle(r.Cells[(int)Column.startTime].Value, CultureInfo.InvariantCulture));
+                var checkStartTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+                            .Min(r => Convert.ToSingle(r.Cells[(int)Column.startTime].Value, CultureInfo.InvariantCulture));
 
-            player.StartValue = (int)checkStartTime;
-            player.StopValue = (int)checkStopTime;
+                player.StartValue = (int)checkStartTime;
+                player.StopValue = (int)checkStopTime;
+            }
         }
 
         private void player_CheckingEvent(object arg1, float arg2)
@@ -177,29 +180,12 @@ namespace TaskModule.BasicAdvisorControls
             HideDataEvent(this, new HideDataEventArgs(DataName));
         }
 
-        public void Fill_eGroups(string taskType, string elemType, List<string> groupNames)
+        public void Fill_eGroups(List<string> groupNames)
         {
-            if (taskType == "Plain" | taskType == "AxiPlain")
-            {
-                if(elemType == "Элементы2D")
-                {
-                    cmbEl.Items.Clear();
+            cmbEl.Items.Clear();
 
-                    foreach (var eGroup in groupNames)
-                        cmbEl.Items.Add(eGroup);
-                }
-            }
-            else
-            {
-                if (elemType == "Элементы3D")
-                {
-                    cmbEl.Items.Clear();
-
-                    foreach (var eGroup in groupNames)
-                        cmbEl.Items.Add(eGroup);
-                }
-            }
-
+            foreach (var eGroup in groupNames)
+                cmbEl.Items.Add(eGroup);
         }
 
 

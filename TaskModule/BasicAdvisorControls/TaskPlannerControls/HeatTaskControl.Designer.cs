@@ -44,7 +44,7 @@
             this.lblSaveRateTM = new System.Windows.Forms.Label();
             this.txbInitTemp = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.maxDTtCheBox = new System.Windows.Forms.CheckBox();
+            this.chbDTtMax = new System.Windows.Forms.CheckBox();
             this.txbDTtMax = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
@@ -259,18 +259,18 @@
             this.label2.Text = "Начальная температура, С°";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // maxDTtCheBox
+            // chbDTtMax
             // 
-            this.maxDTtCheBox.AutoSize = true;
-            this.maxDTtCheBox.Checked = true;
-            this.maxDTtCheBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.maxDTtCheBox.Enabled = false;
-            this.maxDTtCheBox.Location = new System.Drawing.Point(9, 7);
-            this.maxDTtCheBox.Name = "maxDTtCheBox";
-            this.maxDTtCheBox.Size = new System.Drawing.Size(188, 17);
-            this.maxDTtCheBox.TabIndex = 108;
-            this.maxDTtCheBox.Text = "Макс. температура (dTt max), C°";
-            this.maxDTtCheBox.UseVisualStyleBackColor = true;
+            this.chbDTtMax.AutoSize = true;
+            this.chbDTtMax.Checked = true;
+            this.chbDTtMax.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbDTtMax.Enabled = false;
+            this.chbDTtMax.Location = new System.Drawing.Point(9, 7);
+            this.chbDTtMax.Name = "chbDTtMax";
+            this.chbDTtMax.Size = new System.Drawing.Size(188, 17);
+            this.chbDTtMax.TabIndex = 108;
+            this.chbDTtMax.Text = "Макс. температура (dTt max), C°";
+            this.chbDTtMax.UseVisualStyleBackColor = true;
             // 
             // txbDTtMax
             // 
@@ -307,7 +307,7 @@
             this.Controls.Add(this.lblSaveRateTM);
             this.Controls.Add(this.txbInitTemp);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.maxDTtCheBox);
+            this.Controls.Add(this.chbDTtMax);
             this.Controls.Add(this.txbDTtMax);
             this.Name = "HeatTaskControl";
             this.Size = new System.Drawing.Size(755, 240);
@@ -334,7 +334,7 @@
         private System.Windows.Forms.Label lblSaveRateTM;
         private System.Windows.Forms.TextBox txbInitTemp;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox maxDTtCheBox;
+        private System.Windows.Forms.CheckBox chbDTtMax;
         private System.Windows.Forms.TextBox txbDTtMax;
     }
 }

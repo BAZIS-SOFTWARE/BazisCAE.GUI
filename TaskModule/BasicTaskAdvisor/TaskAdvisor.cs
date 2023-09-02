@@ -9,6 +9,7 @@ using System.Linq;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Interfaces;
 using TaskModule.BasicAdvisorControls.Events;
+using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 
 namespace TaskModule.BasicTaskAdvisor
 {
@@ -70,22 +71,19 @@ namespace TaskModule.BasicTaskAdvisor
                         if (taskType == "Plain" | taskType == "AxiPlain")
                         {
 
-                            eGrControl.Fill_eGroups(taskType, 
-                                "Элементы1D", project.Model.GroupData.FindMany("Элементы1D").Select(x => x.GroupName).ToList());
-                            eGrControl.Fill_eGroups(taskType, 
-                                "Элементы2D", project.Model.GroupData.FindMany("Элементы2D").Select(x => x.GroupName).ToList());
+                            eGrControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы1D").Select(x => x.GroupName).ToList());
+                            eGrControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы2D").Select(x => x.GroupName).ToList());
                         }
                         else
                         {
-                            eGrControl.Fill_eGroups(taskType,
-                                "Элементы2D", project.Model.GroupData.FindMany("Элементы2D").Select(x => x.GroupName).ToList());
-                            eGrControl.Fill_eGroups(taskType,
-                                "Элементы3D", project.Model.GroupData.FindMany("Элементы3D").Select(x => x.GroupName).ToList());
+                            eGrControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы2D").Select(x => x.GroupName).ToList());
+                            eGrControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы3D").Select(x => x.GroupName).ToList());
                         }
 
                     if (control is GridViewAdviserControl grvControl)
                     {
-                        grvControl.WorkingDirectory = project.Path;
+                        if(grvControl is TaskPlannerControl taskPlannerControl)
+                            taskPlannerControl.Path = project.Path;
 
                         var data = project.TaskData.GetAllData().
                             Where(x => x.Name == grvControl.DataName).

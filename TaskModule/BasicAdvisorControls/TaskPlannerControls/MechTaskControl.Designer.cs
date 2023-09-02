@@ -42,20 +42,18 @@
             this.maxTMIter = new System.Windows.Forms.Label();
             this.txbSaveRate = new System.Windows.Forms.TextBox();
             this.lblSaveRateTM = new System.Windows.Forms.Label();
-            this.txbInitTemp = new System.Windows.Forms.TextBox();
+            this.txbBodyTemp = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.maxDStCheBox = new System.Windows.Forms.CheckBox();
-            this.maxDSiCheBox = new System.Windows.Forms.CheckBox();
-            this.maxDUtCheBox = new System.Windows.Forms.CheckBox();
-            this.maxDUiCheBox = new System.Windows.Forms.CheckBox();
+            this.chbDStMax = new System.Windows.Forms.CheckBox();
+            this.chbDSiMax = new System.Windows.Forms.CheckBox();
+            this.chbDUtMax = new System.Windows.Forms.CheckBox();
+            this.chbDUiMax = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.txbMaxDSt = new System.Windows.Forms.TextBox();
             this.txbMaxDSi = new System.Windows.Forms.TextBox();
             this.txbMaxDUt = new System.Windows.Forms.TextBox();
             this.txbMaxDUi = new System.Windows.Forms.TextBox();
-            this.rbtFunction = new System.Windows.Forms.RadioButton();
-            this.rbtParam = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // label4
@@ -245,18 +243,18 @@
             this.lblSaveRateTM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblSaveRateTM.UseWaitCursor = true;
             // 
-            // txbInitTemp
+            // txbBodyTemp
             // 
-            this.txbInitTemp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txbBodyTemp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbInitTemp.BackColor = System.Drawing.SystemColors.Window;
-            this.txbInitTemp.Location = new System.Drawing.Point(367, 109);
-            this.txbInitTemp.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
-            this.txbInitTemp.Name = "txbInitTemp";
-            this.txbInitTemp.Size = new System.Drawing.Size(360, 20);
-            this.txbInitTemp.TabIndex = 105;
-            this.txbInitTemp.Text = "20";
-            this.txbInitTemp.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
+            this.txbBodyTemp.BackColor = System.Drawing.SystemColors.Window;
+            this.txbBodyTemp.Location = new System.Drawing.Point(208, 109);
+            this.txbBodyTemp.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbBodyTemp.Name = "txbBodyTemp";
+            this.txbBodyTemp.Size = new System.Drawing.Size(519, 20);
+            this.txbBodyTemp.TabIndex = 105;
+            this.txbBodyTemp.Text = "20";
+            this.txbBodyTemp.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
             // label2
             // 
@@ -269,51 +267,51 @@
             this.label2.Text = "Температура, С°";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // maxDStCheBox
+            // chbDStMax
             // 
-            this.maxDStCheBox.AutoSize = true;
-            this.maxDStCheBox.Location = new System.Drawing.Point(9, 85);
-            this.maxDStCheBox.Name = "maxDStCheBox";
-            this.maxDStCheBox.Size = new System.Drawing.Size(182, 17);
-            this.maxDStCheBox.TabIndex = 104;
-            this.maxDStCheBox.Text = "Макс. напряжений (dSt max), %";
-            this.maxDStCheBox.UseVisualStyleBackColor = true;
-            this.maxDStCheBox.CheckedChanged += new System.EventHandler(this.CheBox_CheckedChanged);
+            this.chbDStMax.AutoSize = true;
+            this.chbDStMax.Location = new System.Drawing.Point(9, 85);
+            this.chbDStMax.Name = "chbDStMax";
+            this.chbDStMax.Size = new System.Drawing.Size(182, 17);
+            this.chbDStMax.TabIndex = 104;
+            this.chbDStMax.Text = "Макс. напряжений (dSt max), %";
+            this.chbDStMax.UseVisualStyleBackColor = true;
+            this.chbDStMax.CheckedChanged += new System.EventHandler(this.CheBox_CheckedChanged);
             // 
-            // maxDSiCheBox
+            // chbDSiMax
             // 
-            this.maxDSiCheBox.AutoSize = true;
-            this.maxDSiCheBox.Location = new System.Drawing.Point(9, 59);
-            this.maxDSiCheBox.Name = "maxDSiCheBox";
-            this.maxDSiCheBox.Size = new System.Drawing.Size(181, 17);
-            this.maxDSiCheBox.TabIndex = 103;
-            this.maxDSiCheBox.Text = "Макс. напряжений (dSi max), %";
-            this.maxDSiCheBox.UseVisualStyleBackColor = true;
-            this.maxDSiCheBox.CheckedChanged += new System.EventHandler(this.CheBox_CheckedChanged);
+            this.chbDSiMax.AutoSize = true;
+            this.chbDSiMax.Location = new System.Drawing.Point(9, 59);
+            this.chbDSiMax.Name = "chbDSiMax";
+            this.chbDSiMax.Size = new System.Drawing.Size(181, 17);
+            this.chbDSiMax.TabIndex = 103;
+            this.chbDSiMax.Text = "Макс. напряжений (dSi max), %";
+            this.chbDSiMax.UseVisualStyleBackColor = true;
+            this.chbDSiMax.CheckedChanged += new System.EventHandler(this.CheBox_CheckedChanged);
             // 
-            // maxDUtCheBox
+            // chbDUtMax
             // 
-            this.maxDUtCheBox.AutoSize = true;
-            this.maxDUtCheBox.Location = new System.Drawing.Point(9, 33);
-            this.maxDUtCheBox.Name = "maxDUtCheBox";
-            this.maxDUtCheBox.Size = new System.Drawing.Size(178, 17);
-            this.maxDUtCheBox.TabIndex = 102;
-            this.maxDUtCheBox.Text = "Макс. перемещения (dUt max)";
-            this.maxDUtCheBox.UseVisualStyleBackColor = true;
-            this.maxDUtCheBox.CheckedChanged += new System.EventHandler(this.CheBox_CheckedChanged);
+            this.chbDUtMax.AutoSize = true;
+            this.chbDUtMax.Location = new System.Drawing.Point(9, 33);
+            this.chbDUtMax.Name = "chbDUtMax";
+            this.chbDUtMax.Size = new System.Drawing.Size(178, 17);
+            this.chbDUtMax.TabIndex = 102;
+            this.chbDUtMax.Text = "Макс. перемещения (dUt max)";
+            this.chbDUtMax.UseVisualStyleBackColor = true;
+            this.chbDUtMax.CheckedChanged += new System.EventHandler(this.CheBox_CheckedChanged);
             // 
-            // maxDUiCheBox
+            // chbDUiMax
             // 
-            this.maxDUiCheBox.AutoSize = true;
-            this.maxDUiCheBox.Checked = true;
-            this.maxDUiCheBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.maxDUiCheBox.Enabled = false;
-            this.maxDUiCheBox.Location = new System.Drawing.Point(9, 7);
-            this.maxDUiCheBox.Name = "maxDUiCheBox";
-            this.maxDUiCheBox.Size = new System.Drawing.Size(177, 17);
-            this.maxDUiCheBox.TabIndex = 101;
-            this.maxDUiCheBox.Text = "Макс. перемещений (dUi max)";
-            this.maxDUiCheBox.UseVisualStyleBackColor = true;
+            this.chbDUiMax.AutoSize = true;
+            this.chbDUiMax.Checked = true;
+            this.chbDUiMax.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbDUiMax.Enabled = false;
+            this.chbDUiMax.Location = new System.Drawing.Point(9, 7);
+            this.chbDUiMax.Name = "chbDUiMax";
+            this.chbDUiMax.Size = new System.Drawing.Size(177, 17);
+            this.chbDUiMax.TabIndex = 101;
+            this.chbDUiMax.Text = "Макс. перемещений (dUi max)";
+            this.chbDUiMax.UseVisualStyleBackColor = true;
             // 
             // label13
             // 
@@ -393,36 +391,12 @@
             this.txbMaxDUi.Text = "0.0005";
             this.txbMaxDUi.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
-            // rbtFunction
-            // 
-            this.rbtFunction.AutoSize = true;
-            this.rbtFunction.Location = new System.Drawing.Point(290, 110);
-            this.rbtFunction.Name = "rbtFunction";
-            this.rbtFunction.Size = new System.Drawing.Size(71, 17);
-            this.rbtFunction.TabIndex = 122;
-            this.rbtFunction.TabStop = true;
-            this.rbtFunction.Text = "Функция";
-            this.rbtFunction.UseVisualStyleBackColor = true;
-            // 
-            // rbtParam
-            // 
-            this.rbtParam.AutoSize = true;
-            this.rbtParam.Location = new System.Drawing.Point(208, 110);
-            this.rbtParam.Name = "rbtParam";
-            this.rbtParam.Size = new System.Drawing.Size(76, 17);
-            this.rbtParam.TabIndex = 121;
-            this.rbtParam.TabStop = true;
-            this.rbtParam.Text = "Параметр";
-            this.rbtParam.UseVisualStyleBackColor = true;
-            // 
             // MechTaskControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.rbtFunction);
-            this.Controls.Add(this.rbtParam);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmbPriority);
             this.Controls.Add(this.label3);
@@ -437,12 +411,12 @@
             this.Controls.Add(this.maxTMIter);
             this.Controls.Add(this.txbSaveRate);
             this.Controls.Add(this.lblSaveRateTM);
-            this.Controls.Add(this.txbInitTemp);
+            this.Controls.Add(this.txbBodyTemp);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.maxDStCheBox);
-            this.Controls.Add(this.maxDSiCheBox);
-            this.Controls.Add(this.maxDUtCheBox);
-            this.Controls.Add(this.maxDUiCheBox);
+            this.Controls.Add(this.chbDStMax);
+            this.Controls.Add(this.chbDSiMax);
+            this.Controls.Add(this.chbDUtMax);
+            this.Controls.Add(this.chbDUiMax);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txbMaxDSt);
@@ -472,19 +446,17 @@
         private System.Windows.Forms.Label maxTMIter;
         private System.Windows.Forms.TextBox txbSaveRate;
         private System.Windows.Forms.Label lblSaveRateTM;
-        private System.Windows.Forms.TextBox txbInitTemp;
+        private System.Windows.Forms.TextBox txbBodyTemp;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox maxDStCheBox;
-        private System.Windows.Forms.CheckBox maxDSiCheBox;
-        private System.Windows.Forms.CheckBox maxDUtCheBox;
-        private System.Windows.Forms.CheckBox maxDUiCheBox;
+        private System.Windows.Forms.CheckBox chbDStMax;
+        private System.Windows.Forms.CheckBox chbDSiMax;
+        private System.Windows.Forms.CheckBox chbDUtMax;
+        private System.Windows.Forms.CheckBox chbDUiMax;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txbMaxDSt;
         private System.Windows.Forms.TextBox txbMaxDSi;
         private System.Windows.Forms.TextBox txbMaxDUt;
         private System.Windows.Forms.TextBox txbMaxDUi;
-        private System.Windows.Forms.RadioButton rbtFunction;
-        private System.Windows.Forms.RadioButton rbtParam;
     }
 }

@@ -134,28 +134,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             }
         }
 
-        public void Fill_eGroups(string taskType, string elemType, List<string> groupNames)
+        public void Fill_eGroups(List<string> groupNames)
         {
-            if (taskType == "Plain" | taskType == "AxiPlain")
-            {
-                if (elemType == "Элементы2D")
-                {
-                    cmbWeldZone.Items.Clear();
+            cmbWeldZone.Items.Clear();
 
-                    foreach (var eGroup in groupNames)
-                        cmbWeldZone.Items.Add(eGroup);
-                }
-            }
-            else
-            {
-                if (elemType == "Элементы3D")
-                {
-                    cmbWeldZone.Items.Clear();
-
-                    foreach (var eGroup in groupNames)
-                        cmbWeldZone.Items.Add(eGroup);
-                }
-            }
+            foreach (var eGroup in groupNames)
+                cmbWeldZone.Items.Add(eGroup);
         }
 
         public void Fill_nGroups(List<string> nGroups)
@@ -276,14 +260,18 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             var gridViewList = new List<DataGridView>();
             SearchControls(this, gridViewList);
 
-            var checkStopTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
-       .Max(r => Convert.ToSingle(r.Cells["stopColumn"].Value, CultureInfo.InvariantCulture));
+            if (gridViewList[0].Rows.Count > 0)
+            {
+                var checkStopTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+           .Max(r => Convert.ToSingle(r.Cells[(int)Column.stopTime].Value, CultureInfo.InvariantCulture));
 
-            var checkStartTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
-                        .Min(r => Convert.ToSingle(r.Cells["startColumn"].Value, CultureInfo.InvariantCulture));
+                var checkStartTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+                            .Min(r => Convert.ToSingle(r.Cells[(int)Column.startTime].Value, CultureInfo.InvariantCulture));
 
-            player.StartValue = (int)checkStartTime;
-            player.StopValue = (int)checkStopTime;
+                player.StartValue = (int)checkStartTime;
+                player.StopValue = (int)checkStopTime;
+            }
+
         }
 
         private void player_CheckingEvent(object arg1, float arg2)

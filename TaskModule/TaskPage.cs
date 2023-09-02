@@ -22,6 +22,7 @@ using DataBaseController.FunctionData;
 using Newtonsoft.Json;
 using ToolStrips;
 using SceneInterface;
+using Model.Interfaces;
 
 namespace TaskModule
 {
@@ -444,9 +445,11 @@ namespace TaskModule
                 if (data[index].MovedFrameFunction != null)
                     DisplayMRF(data[index].StartTime, data[index]);
 
+                var presentor = ModelPresenter[group.ObjType];
+
                 foreach (var objNumber in group.ObjsNumbers)
-                {
-                    var modelObj = Project.Model.ObjectData.Find(objNumber);
+                {                   
+                    var modelObj = presentor.FindObj(objNumber);
 
                     if (data[index].Kind == DataKind.Mat)
                         modelObj.MasterColor = Color.FromArgb(255, 255, 0);
@@ -461,7 +464,11 @@ namespace TaskModule
                         DisplayDirection(data[index].StartTime, data[index], modelObj);
                 }
 
-                SetObjColor(group.ObjType);
+                var vboObjs = SceneControl.FindVBObj(group.ObjType);
+                var colors = presentor.CreateVertexes(vboObjs.ColorLength, "цвет");
+                vboObjs.PointsColors = colors;
+
+                //SetVBObjColor(group.ObjType);
 
             }
             SceneControl.DisplayObjects();
@@ -497,7 +504,7 @@ namespace TaskModule
             }
         }
 
-        private void DisplayDirection(float time, IValuableData data, ModelObject modelObj)
+        private void DisplayDirection(float time, IValuableData data, IModelObject modelObj)
         {
             var vector = new Point3D();
             Color color;
@@ -558,10 +565,11 @@ namespace TaskModule
                         DisplayMRF(arg2.Time, data);
 
                     var group = Project.Model.GroupData.Find(data.GroupName);
+                    var presentor = ModelPresenter[group.ObjType];
 
                     foreach (var objNumber in group.ObjsNumbers)
                     {
-                        var modelObj = Project.Model.ObjectData.Find(objNumber);
+                        var modelObj = presentor.FindObj(objNumber);
 
                         if (data.Kind == DataKind.Mat)
                             modelObj.MasterColor = Color.FromArgb(255, 255, 0);
@@ -576,9 +584,9 @@ namespace TaskModule
                         if (data.Direction != "*")
                             DisplayDirection(arg2.Time, data, modelObj);
                     }
-                    //var modelObjs = Project.Model.ObjectData.FindObjs(group.ObjType);
-                    //var presenter = new ModelScenePresentator(modelObjs.ToArray());
-                    SetObjColor(group.ObjType);
+                    var vboObjs = SceneControl.FindVBObj(group.ObjType);
+                    var colors = presentor.CreateVertexes(vboObjs.ColorLength, "цвет");
+                    vboObjs.PointsColors = colors;
 
                     SceneControl.DisplayObjects();
                 }

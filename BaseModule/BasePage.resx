@@ -124,7 +124,7 @@
   <data name="toolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAU
-        bQAAFG0BBuKsuwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADzSURBVDhPpZI9
+        bAAAFGwB1KVOXwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADzSURBVDhPpZI9
         DsIwDIXNwo06cA/UBSQEKqpgRQghBjogwcAB2hyBI7aFYOfXSTPwMzw1fu+zVSUGKeVfSprfyBcPGMsG
         9rKGJQcCCciQKRRrPB6uMJRGV+f7PEe/VbmAo/U9UMMEw84MIFUsm2Pds6y0mQY8OMWQDzmhCtSTeXdE
         R+kBpAYWUcPLnQXcYj4onOg+BGvUOqfYgaFUwyFqpmGbFDswEKyiRn8WsI75oEDoEjVs8btjXo/ejPe4
@@ -146,7 +146,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAi
-        FQAAAk1TRnQBSQFMAgEBDgEAARABAQEQAQEBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        FQAAAk1TRnQBSQFMAgEBDgEAAWABAQFgAQEBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAAUADAAEBAQABCAYAARAYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -245,7 +245,7 @@
   <data name="toolStripMenuItem16.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAU
-        bQAAFG0BBuKsuwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADzSURBVDhPpZI9
+        bAAAFGwB1KVOXwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADzSURBVDhPpZI9
         DsIwDIXNwo06cA/UBSQEKqpgRQghBjogwcAB2hyBI7aFYOfXSTPwMzw1fu+zVSUGKeVfSprfyBcPGMsG
         9rKGJQcCCciQKRRrPB6uMJRGV+f7PEe/VbmAo/U9UMMEw84MIFUsm2Pds6y0mQY8OMWQDzmhCtSTeXdE
         R+kBpAYWUcPLnQXcYj4onOg+BGvUOqfYgaFUwyFqpmGbFDswEKyiRn8WsI75oEDoEjVs8btjXo/ejPe4
@@ -259,7 +259,7 @@
   <data name="удалитьОбъектMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAU
-        bQAAFG0BBuKsuwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADzSURBVDhPpZI9
+        bAAAFGwB1KVOXwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADzSURBVDhPpZI9
         DsIwDIXNwo06cA/UBSQEKqpgRQghBjogwcAB2hyBI7aFYOfXSTPwMzw1fu+zVSUGKeVfSprfyBcPGMsG
         9rKGJQcCCciQKRRrPB6uMJRGV+f7PEe/VbmAo/U9UMMEw84MIFUsm2Pds6y0mQY8OMWQDzmhCtSTeXdE
         R+kBpAYWUcPLnQXcYj4onOg+BGvUOqfYgaFUwyFqpmGbFDswEKyiRn8WsI75oEDoEjVs8btjXo/ejPe4
@@ -268,12 +268,12 @@
 </value>
   </data>
   <metadata name="ndGroup_MenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>783, 56</value>
+    <value>145, 97</value>
   </metadata>
   <data name="toolStripMenuItem4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAU
-        cgAAFHIBOTgSawAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADzSURBVDhPpZI9
+        bAAAFGwB1KVOXwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADzSURBVDhPpZI9
         DsIwDIXNwo06cA/UBSQEKqpgRQghBjogwcAB2hyBI7aFYOfXSTPwMzw1fu+zVSUGKeVfSprfyBcPGMsG
         9rKGJQcCCciQKRRrPB6uMJRGV+f7PEe/VbmAo/U9UMMEw84MIFUsm2Pds6y0mQY8OMWQDzmhCtSTeXdE
         R+kBpAYWUcPLnQXcYj4onOg+BGvUOqfYgaFUwyFqpmGbFDswEKyiRn8WsI75oEDoEjVs8btjXo/ejPe4
@@ -282,14 +282,14 @@
 </value>
   </data>
   <metadata name="contextMenuImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>945, 56</value>
+    <value>792, 56</value>
   </metadata>
   <data name="contextMenuImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAA+
-        DQAAAk1TRnQBSQFMAgEBBgEAAVgBAgFYAQIBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        DQAAAk1TRnQBSQFMAgEBBgEAAagBAgGoAQIBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAASADAAEBAQABCAYAAQgYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA

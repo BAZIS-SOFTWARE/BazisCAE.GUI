@@ -317,28 +317,12 @@ namespace TaskModule.HeatTreatmentModule
             cmbTempreture.Text = "";
         }
 
-        public void Fill_eGroups(string taskType, string elemType, List<string> groupNames)
+        public void Fill_eGroups(List<string> groupNames)
         {
-            if (taskType == "Plain" | taskType == "AxiPlain")
-            {
-                if (elemType == "Элементы1D")
-                {
-                    cmbEl.Items.Clear();
+            cmbEl.Items.Clear();
 
-                    foreach (var eGroup in groupNames)
-                        cmbEl.Items.Add(eGroup);
-                }
-            }
-            else
-            {
-                if (elemType == "Элементы2D")
-                {
-                    cmbEl.Items.Clear();
-
-                    foreach (var eGroup in groupNames)
-                        cmbEl.Items.Add(eGroup);
-                }
-            }
+            foreach (var eGroup in groupNames)
+                cmbEl.Items.Add(eGroup);
         }
 
         public void Add_Functions(List<string> functions)

@@ -33,12 +33,12 @@ namespace BaseModule
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BasePage));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Название проекта :", 0, 0);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Путь :", 0, 0);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Сведения :", 0, 0);
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Вид :");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Объекты", 1, 1);
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Группы объектов", 1, 1);
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Название проекта :", 0, 0);
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Путь :", 0, 0);
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Сведения :", 0, 0);
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Вид :");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Объекты", 1, 1);
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Группы объектов", 1, 1);
             this.objects_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,7 +60,6 @@ namespace BaseModule
             this.grbScene = new System.Windows.Forms.Panel();
             this.sceneControl = new Scene.SceneControl();
             this.grbConsole = new System.Windows.Forms.Panel();
-            this.consoleControl = new BaseModule.Console.ConsoleControl();
             this.elGroup_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem17 = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,8 +70,6 @@ namespace BaseModule
             this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripMenuItem();
             this.object_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.удалитьОбъектMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.скрытьОбъектMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.отобразитьОбъектMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.показатьОбъектMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.скрытьMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отображениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,6 +84,7 @@ namespace BaseModule
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuImageList = new System.Windows.Forms.ImageList(this.components);
+            this.consoleControl = new BaseModule.Console.ConsoleControl();
             this.objects_MenuStrip.SuspendLayout();
             this.groups_MenuStrip.SuspendLayout();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
@@ -116,32 +114,31 @@ namespace BaseModule
             this.toolStripMenuItem2,
             this.toolStripMenuItem3});
             this.objects_MenuStrip.Name = "lv0_MenuStrip";
-            this.objects_MenuStrip.Size = new System.Drawing.Size(139, 70);
-            this.objects_MenuStrip.Click += new System.EventHandler(this.DelAllObjects_Click);
+            this.objects_MenuStrip.Size = new System.Drawing.Size(125, 70);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
             this.toolStripMenuItem1.Text = "Удалить";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.DelAllObjects_Click);
             // 
             // toolStripMenuItem2
             // 
-            this.toolStripMenuItem2.Image = global::BaseModule.Properties.Resources.SwitchOff;
+            this.toolStripMenuItem2.Image = global::BaseModule.Properties.Resources.Hide;
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(138, 22);
-            this.toolStripMenuItem2.Text = "Погасить";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.SwitchOffAllObjects_Click);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(124, 22);
+            this.toolStripMenuItem2.Text = "Скрыть";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.HideAllObjects_Click);
             // 
             // toolStripMenuItem3
             // 
-            this.toolStripMenuItem3.Image = global::BaseModule.Properties.Resources.SwitchOn;
+            this.toolStripMenuItem3.Image = global::BaseModule.Properties.Resources.Show;
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(138, 22);
-            this.toolStripMenuItem3.Text = "Отобразить";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.SwitchOnAllObjects_Click);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(124, 22);
+            this.toolStripMenuItem3.Text = "Показать";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.ShowAllObjects_Click);
             // 
             // groups_MenuStrip
             // 
@@ -282,43 +279,43 @@ namespace BaseModule
             this.treeView.ItemHeight = 18;
             this.treeView.Location = new System.Drawing.Point(0, 15);
             this.treeView.Name = "treeView";
-            treeNode1.ImageIndex = 0;
-            treeNode1.Name = "названиеПроекта";
-            treeNode1.SelectedImageIndex = 0;
-            treeNode1.Tag = "0";
-            treeNode1.Text = "Название проекта :";
-            treeNode2.ImageIndex = 0;
-            treeNode2.Name = "путь";
-            treeNode2.SelectedImageIndex = 0;
-            treeNode2.Tag = "1";
-            treeNode2.Text = "Путь :";
-            treeNode3.ImageIndex = 0;
-            treeNode3.Name = "сведения";
-            treeNode3.SelectedImageIndex = 0;
-            treeNode3.Tag = "2";
-            treeNode3.Text = "Сведения :";
-            treeNode4.Name = "вид";
-            treeNode4.Tag = "3";
-            treeNode4.Text = "Вид :";
-            treeNode5.ContextMenuStrip = this.objects_MenuStrip;
-            treeNode5.ImageIndex = 1;
-            treeNode5.Name = "объекты";
-            treeNode5.SelectedImageIndex = 1;
-            treeNode5.Tag = "4";
-            treeNode5.Text = "Объекты";
-            treeNode6.ContextMenuStrip = this.groups_MenuStrip;
-            treeNode6.ImageIndex = 1;
-            treeNode6.Name = "группыОбъектов";
-            treeNode6.SelectedImageIndex = 1;
-            treeNode6.Tag = "5";
-            treeNode6.Text = "Группы объектов";
+            treeNode7.ImageIndex = 0;
+            treeNode7.Name = "названиеПроекта";
+            treeNode7.SelectedImageIndex = 0;
+            treeNode7.Tag = "0";
+            treeNode7.Text = "Название проекта :";
+            treeNode8.ImageIndex = 0;
+            treeNode8.Name = "путь";
+            treeNode8.SelectedImageIndex = 0;
+            treeNode8.Tag = "1";
+            treeNode8.Text = "Путь :";
+            treeNode9.ImageIndex = 0;
+            treeNode9.Name = "сведения";
+            treeNode9.SelectedImageIndex = 0;
+            treeNode9.Tag = "2";
+            treeNode9.Text = "Сведения :";
+            treeNode10.Name = "вид";
+            treeNode10.Tag = "3";
+            treeNode10.Text = "Вид :";
+            treeNode11.ContextMenuStrip = this.objects_MenuStrip;
+            treeNode11.ImageIndex = 1;
+            treeNode11.Name = "объекты";
+            treeNode11.SelectedImageIndex = 1;
+            treeNode11.Tag = "4";
+            treeNode11.Text = "Объекты";
+            treeNode12.ContextMenuStrip = this.groups_MenuStrip;
+            treeNode12.ImageIndex = 1;
+            treeNode12.Name = "группыОбъектов";
+            treeNode12.SelectedImageIndex = 1;
+            treeNode12.Tag = "5";
+            treeNode12.Text = "Группы объектов";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6});
+            treeNode7,
+            treeNode8,
+            treeNode9,
+            treeNode10,
+            treeNode11,
+            treeNode12});
             this.treeView.SelectedImageIndex = 0;
             this.treeView.Size = new System.Drawing.Size(317, 574);
             this.treeView.TabIndex = 1;
@@ -395,7 +392,10 @@ namespace BaseModule
             this.sceneControl.TitleText = "";
             this.sceneControl.InfoObjectsEvent += new System.Action<object, System.EventArgs>(this.sceneControl_InfoObjectsEvent);
             this.sceneControl.SelectObjectsEvent += new System.Action<object, Scene.Events.SelectObjectsEventArgs>(this.sceneControl_SelectObjectsEvent);
+            this.sceneControl.SetBackColorEvent += new System.Action<object, System.EventArgs>(this.sceneControl_SetBackColorEvent);
             this.sceneControl.ShowAllHiddenObjectsEvent += new System.Action<object, System.EventArgs>(this.sceneControl_ShowAllHiddenObjectsEvent);
+            this.sceneControl.HideSelectedObjectsEvent += new System.Action<object, System.EventArgs>(this.sceneControl_HideSelectedObjectsEvent);
+            this.sceneControl.CreateMeshGroupEvent += new System.Action<object, System.EventArgs>(this.sceneControl_CreateMeshGroupEvent);
             this.sceneControl.DeleteSelectionEvent += new System.Action<object, System.EventArgs>(this.sceneControl_DeleteSelectionEvent);
             this.sceneControl.MessageEvent += new System.Action<object, Scene.Events.MessageEventArgs>(this.sceneControl_MessageEvent);
             // 
@@ -411,18 +411,6 @@ namespace BaseModule
             this.grbConsole.Size = new System.Drawing.Size(603, 134);
             this.grbConsole.TabIndex = 0;
             this.grbConsole.Paint += new System.Windows.Forms.PaintEventHandler(this.grbConsole_Paint);
-            // 
-            // consoleControl
-            // 
-            this.consoleControl.BackColor = System.Drawing.SystemColors.Control;
-            this.consoleControl.CheckPrintElemsInfo = false;
-            this.consoleControl.CheckPrintNodesInfo = false;
-            this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.consoleControl.Location = new System.Drawing.Point(0, 15);
-            this.consoleControl.Name = "consoleControl";
-            this.consoleControl.Size = new System.Drawing.Size(601, 117);
-            this.consoleControl.TabIndex = 4;
-            this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
             // 
             // elGroup_MenuStrip
             // 
@@ -497,13 +485,11 @@ namespace BaseModule
             // 
             this.object_MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.удалитьОбъектMenuItem,
-            this.скрытьОбъектMenuItem,
-            this.отобразитьОбъектMenuItem,
             this.показатьОбъектMenuItem,
             this.скрытьMenuItem,
             this.отображениеToolStripMenuItem});
             this.object_MenuStrip.Name = "lv0_MenuStrip";
-            this.object_MenuStrip.Size = new System.Drawing.Size(151, 136);
+            this.object_MenuStrip.Size = new System.Drawing.Size(151, 92);
             // 
             // удалитьОбъектMenuItem
             // 
@@ -512,22 +498,6 @@ namespace BaseModule
             this.удалитьОбъектMenuItem.Size = new System.Drawing.Size(150, 22);
             this.удалитьОбъектMenuItem.Text = "Удалить";
             this.удалитьОбъектMenuItem.Click += new System.EventHandler(this.DelObjects_Click);
-            // 
-            // скрытьОбъектMenuItem
-            // 
-            this.скрытьОбъектMenuItem.Image = global::BaseModule.Properties.Resources.SwitchOff;
-            this.скрытьОбъектMenuItem.Name = "скрытьОбъектMenuItem";
-            this.скрытьОбъектMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.скрытьОбъектMenuItem.Text = "Погасить";
-            this.скрытьОбъектMenuItem.Click += new System.EventHandler(this.SwitchOffObjects_Click);
-            // 
-            // отобразитьОбъектMenuItem
-            // 
-            this.отобразитьОбъектMenuItem.Image = global::BaseModule.Properties.Resources.SwitchOn;
-            this.отобразитьОбъектMenuItem.Name = "отобразитьОбъектMenuItem";
-            this.отобразитьОбъектMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.отобразитьОбъектMenuItem.Text = "Отобразить";
-            this.отобразитьОбъектMenuItem.Click += new System.EventHandler(this.SwitchOnObjects_Click);
             // 
             // показатьОбъектMenuItem
             // 
@@ -647,6 +617,18 @@ namespace BaseModule
             this.contextMenuImageList.Images.SetKeyName(4, "Rename.png");
             this.contextMenuImageList.Images.SetKeyName(5, "Info.bmp");
             // 
+            // consoleControl
+            // 
+            this.consoleControl.BackColor = System.Drawing.SystemColors.Control;
+            this.consoleControl.CheckPrintElemsInfo = false;
+            this.consoleControl.CheckPrintNodesInfo = false;
+            this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.consoleControl.Location = new System.Drawing.Point(0, 15);
+            this.consoleControl.Name = "consoleControl";
+            this.consoleControl.Size = new System.Drawing.Size(601, 117);
+            this.consoleControl.TabIndex = 4;
+            this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
+            // 
             // BasePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -709,8 +691,6 @@ namespace BaseModule
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem22;
         private System.Windows.Forms.ContextMenuStrip object_MenuStrip;
         private System.Windows.Forms.ToolStripMenuItem удалитьОбъектMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem скрытьОбъектMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem отобразитьОбъектMenuItem;
         private System.Windows.Forms.ToolStripMenuItem показатьОбъектMenuItem;
         private System.Windows.Forms.ToolStripMenuItem скрытьMenuItem;
         private System.Windows.Forms.ToolStripMenuItem отображениеToolStripMenuItem;
