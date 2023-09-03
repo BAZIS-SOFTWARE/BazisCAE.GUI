@@ -1,17 +1,16 @@
-﻿using Newtonsoft.Json;
-using Project.TasksData;
+﻿using AdvisorControls.TaskPlannerControls;
 using Project.TasksData.TaskParameters;
+using Project.TasksData;
 using System;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using System.IO;
 
-namespace AdvisorControls.TaskPlannerControls
+namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
-    public partial class HeatTaskControl : TaskControl
+    public partial class ChemTaskControl : TaskControl
     {
-        public HeatTaskControl()
+        public ChemTaskControl()
         {
             InitializeComponent();
         }
@@ -24,43 +23,43 @@ namespace AdvisorControls.TaskPlannerControls
 
         public override void InputData(GeneralParameters parameters)
         {
-            var termalParameters = (TermalParameters)parameters;
+            base.InputData(parameters);
+            var chemicalParameters = (ChemicalParameters)parameters;
+            txbDTtMax.Text = chemicalParameters.ConvergenceSettings.DYmt.ToString();
+            txbIters.Text = chemicalParameters.ConvergenceSettings.Iterations.ToString();
 
-            txbDTtMax.Text = termalParameters.ConvergenceSettings.DYmt.ToString();          
-            txbIters.Text = termalParameters.ConvergenceSettings.Iterations.ToString();
+            txbSaveRate.Text = chemicalParameters.SaveRate.ToString();
+            txbInitConcentration.Text = chemicalParameters.InitConcentration.ToString();
 
-            txbSaveRate.Text = termalParameters.SaveRate.ToString();
-            txbInitTemp.Text = termalParameters.InitTemp.ToString();
-
-            cmbSolver.Text = termalParameters.SolverSettings.Solver;
-            txbSolverIterations.Text = termalParameters.SolverSettings.MaxIter.ToString();
-            txbPrecision.Text = termalParameters.SolverSettings.Precision.ToString();
-            txbRelaxation.Text = termalParameters.SolverSettings.Relaxation.ToString();
-            cmbPriority.Text = termalParameters.SolverSettings.Priority.ToString();
+            cmbSolver.Text = chemicalParameters.SolverSettings.Solver;
+            txbSolverIterations.Text = chemicalParameters.SolverSettings.MaxIter.ToString();
+            txbPrecision.Text = chemicalParameters.SolverSettings.Precision.ToString();
+            txbRelaxation.Text = chemicalParameters.SolverSettings.Relaxation.ToString();
+            cmbPriority.Text = chemicalParameters.SolverSettings.Priority.ToString();
         }
 
         public override GeneralParameters CollectData()
         {
-            var termalParameters = new TermalParameters();
+            var chemicalParameters = new ChemicalParameters();
 
             if (chbDTtMax.Checked)
             {
-                termalParameters.ConvergenceSettings.Is_Switched_DXmt = true;
-                termalParameters.ConvergenceSettings.DXmt = Convert.ToSingle(txbDTtMax.Text);
+                chemicalParameters.ConvergenceSettings.Is_Switched_DXmt = true;
+                chemicalParameters.ConvergenceSettings.DXmt = Convert.ToSingle(txbDTtMax.Text);
             }
-           
-            termalParameters.ConvergenceSettings.Iterations = Convert.ToInt32(txbIters.Text);
-            
-            termalParameters.InitTemp = Convert.ToSingle(txbInitTemp.Text);
-            termalParameters.SaveRate = Convert.ToInt32(txbSaveRate.Text);
 
-            termalParameters.SolverSettings.Solver = cmbSolver.Text;
-            termalParameters.SolverSettings.MaxIter = Convert.ToInt32(txbSolverIterations.Text);
-            termalParameters.SolverSettings.Precision = Convert.ToSingle(txbPrecision.Text);
-            termalParameters.SolverSettings.Relaxation = Convert.ToSingle(txbRelaxation.Text);
-            termalParameters.SolverSettings.Priority = cmbPriority.Text;
+            chemicalParameters.ConvergenceSettings.Iterations = Convert.ToInt32(txbIters.Text);
 
-            return termalParameters;
+            chemicalParameters.InitConcentration = Convert.ToSingle(txbInitConcentration.Text);
+            chemicalParameters.SaveRate = Convert.ToInt32(txbSaveRate.Text);
+
+            chemicalParameters.SolverSettings.Solver = cmbSolver.Text;
+            chemicalParameters.SolverSettings.MaxIter = Convert.ToInt32(txbSolverIterations.Text);
+            chemicalParameters.SolverSettings.Precision = Convert.ToSingle(txbPrecision.Text);
+            chemicalParameters.SolverSettings.Relaxation = Convert.ToSingle(txbRelaxation.Text);
+            chemicalParameters.SolverSettings.Priority = cmbPriority.Text;
+
+            return chemicalParameters;
         }
 
         public override void AllTextBox_TextChanged(object sender, EventArgs e)
@@ -84,6 +83,9 @@ namespace AdvisorControls.TaskPlannerControls
                     txbRelaxation.Enabled = true;
                     txbSolverIterations.Enabled = true;
                 }
+
+
+            base.AllTextBox_TextChanged(sender, e);
         }
 
         public override void Txb_EnabledChanged(object sender, EventArgs e)
@@ -105,9 +107,8 @@ namespace AdvisorControls.TaskPlannerControls
                     Formatting = Newtonsoft.Json.Formatting.Indented
                 };
 
-                var parameters = JsonConvert.DeserializeObject<TermalParameters>
+                var parameters = JsonConvert.DeserializeObject<ChemicalParameters>
     (File.ReadAllText(dialog.FileName), settingsSerializer);
-
                 InputData(parameters);
 
             }

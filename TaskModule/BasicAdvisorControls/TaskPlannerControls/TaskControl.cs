@@ -38,8 +38,7 @@ namespace AdvisorControls.TaskPlannerControls
 
         public virtual void AllTextBox_TextChanged(object sender, EventArgs e)
         {
-            //var sourceData = CollectData();
-            //ChangeDataEvent(this, new EventArgs());
+            throw new NotImplementedException("Не реализован метод!");
         }
 
         public virtual void Txb_EnabledChanged(object sender, EventArgs e)

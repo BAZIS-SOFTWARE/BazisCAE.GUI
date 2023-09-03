@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
-using System.Reflection;
 using AdvisorControls.TaskPlannerControls;
 using System.Globalization;
 using System.ComponentModel;
@@ -11,11 +9,8 @@ using TaskModule.BasicAdvisorControls.BasicControls;
 using Newtonsoft.Json;
 using Project.TasksData.TaskParameters;
 using Project.TasksData;
-using System.Threading.Tasks;
-using System.Configuration;
-using Project.ResultsData;
 using System.Threading;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using System.Reflection;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
@@ -46,17 +41,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         }
         [Category("General")]
         [Description("Set path for computation")]
-        public string Path 
-        { 
-            get
-            {
-                return txbComputationFolder.Text;
-            }
-            set
-            {
-                txbComputationFolder.Text = value;
-            }
-        }
+        public string Path { get; set; }
 
         public event Action<object,EventArgs> AddDataUseTaskConditionsEvent;
         public event Action<object, string> StartComputationEvent;
@@ -67,6 +52,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         HeatTaskControl cntrHeatTask;
         MechTaskControl cntrMechTask;
+        ChemTaskControl cntrChemTask;
 
         public TaskPlannerControl()
         {
@@ -75,12 +61,15 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
   
             cntrHeatTask = new HeatTaskControl() { Dock = DockStyle.Fill };
             cntrMechTask = new MechTaskControl() { Dock = DockStyle.Fill };
+            cntrChemTask = new ChemTaskControl() { Dock = DockStyle.Fill };
 
             cntrHeatTask.ChangeDataEvent += Cntrw_InEvent;
             cntrMechTask.ChangeDataEvent += Cntrw_InEvent;
+            cntrChemTask.ChangeDataEvent += Cntrw_InEvent;
 
             cntrHeatTask.SetSolver(1);
             cntrMechTask.SetSolver(1);
+            cntrChemTask.SetSolver(1);
         }
 
         public override string DataName { get; }
@@ -134,7 +123,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 if (control is UserControl uControl)
                     foreach (Control cntr in uControl.Controls)
                     {
-                        if (cntr is TextBox txb | cntr is ComboBox cmb)
+                        if (cntr is TextBox txb | cntr is ComboBox cmb | cntr is Button)
                         {
                             heigth = heigth + cntr.Size.Height;
                             gap = gap + 6;
@@ -159,89 +148,71 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         public override void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var taskTime = dataGridView[(int)Column.status, e.RowIndex].Value.ToString();
-
-            var strTime = taskTime.Split(';');
-            txbStartTime.Text = strTime[0];
-            txbStopTime.Text = strTime[1];
-            txbStartStep.Text = strTime[2];
-            txbMinStep.Text = strTime[3];
-            txbMaxStep.Text = strTime[4];
-
-            var taskSettings = dataGridView[(int)Column.settings, e.RowIndex].Value.ToString();
-
-            Set_TaskCntrData(taskSettings, e.RowIndex);
-
-            GetChildControlExpandHeight(grbTaskSettings);
-
-
-            btnRefresh.Enabled = true; ;
-        }      
-
-        private void DataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
             try
             {
-                if (e.ColumnIndex == 1)
-                {
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        StreamReader myStream = new StreamReader(openFileDialog.OpenFile());
-                        var settingsFileName = openFileDialog.FileName;
+                var taskKind = dataGridView[(int)Column.kind, e.RowIndex].Value.ToString();
 
-                        var taskSettings = FileSettingsIO.ReadFromFile(settingsFileName);
+                var taskSettings = dataGridView[(int)Column.settings, e.RowIndex].Value.ToString();
 
-                        Set_TaskCntrData(taskSettings,e.RowIndex);
+                Set_TaskSettings(taskKind, taskSettings, e.RowIndex);
 
-                        GetChildControlExpandHeight(grbTaskSettings);
-                        
+                btnRefresh.Enabled = true;
 
-                        myStream.Dispose();
-                        btnRefresh.Enabled = true;
-                    }
-                }             
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-        }
+        }      
 
-        private void Set_TaskCntrData(string fileSettings, int rowInd)
+        private void Set_TaskSettings(string taskKind, string fileSettings, int rowInd)
         {         
-            var taskKind = dataGridView[(int)Column.kind, rowInd].Value.ToString();
             //var taskParams = new TaskParameters(path); //read from file.txt
             var filePath = $@"{Path}\{fileSettings}";
 
             var settingsSerializer = new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto,
-                Formatting = Formatting.Indented
+                Formatting = Newtonsoft.Json.Formatting.Indented
             };
 
             grbTaskSettings.Controls.Clear();
+
+            GeneralParameters parameters;
             if (taskKind == "термическая")
             {
                 chbTermoTask.Checked = true;
-                var desParamsTerm = JsonConvert.DeserializeObject<TermalParameters>
+                parameters = JsonConvert.DeserializeObject<TermalParameters>
 (File.ReadAllText(filePath), settingsSerializer);
-                cntrHeatTask.InputData(desParamsTerm);
+                cntrHeatTask.InputData(parameters);
                 cntrHeatTask.BringToFront();
                 grbTaskSettings.Controls.Add(cntrHeatTask);
             }
             else if (taskKind == "механическая")
             {
                 chbMechTask.Checked = true;
-                var desParamsMech = JsonConvert.DeserializeObject<MechanicalParameters>
+                parameters = JsonConvert.DeserializeObject<MechanicalParameters>
 (File.ReadAllText(filePath), settingsSerializer);
-                cntrMechTask.InputData(desParamsMech);
+                cntrMechTask.InputData(parameters);
                 cntrMechTask.BringToFront();
                 grbTaskSettings.Controls.Add(cntrMechTask);
             }
             else
             {
                 chbChemicalTask.Checked = true;
+                parameters = JsonConvert.DeserializeObject<ChemicalParameters>
+(File.ReadAllText(filePath), settingsSerializer);
+                cntrChemTask.InputData(parameters);
+                cntrChemTask.BringToFront();
+                grbTaskSettings.Controls.Add(cntrChemTask);
             }
+
+
+            txbStartTime.Text = parameters.TimeSettings.StartTime.ToString();
+            txbStopTime.Text = parameters.TimeSettings.StopTime.ToString();
+            txbStartStep.Text = parameters.TimeSettings.InitTimeStep.ToString();
+            txbMinStep.Text = parameters.TimeSettings.MinTimeStep.ToString();
+            txbMaxStep.Text = parameters.TimeSettings.MaxTimeStep.ToString();
         }
 
         private GeneralParameters Get_TaskSettings(TaskKind kind)
@@ -255,26 +226,19 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         {
             try
             {
-                if(chbChemicalTask.Checked)
-                {
-                    GenerateTsfFile(TaskKind.химическая);
-                    CurentSelectedRowInfo = AddRowInfo(TaskKind.химическая);
-                    base.RefreshButton_Click(sender, e);
-                }
-                Thread.Sleep(100);
-                if (chbTermoTask.Checked)
-                {
-                    GenerateTsfFile(TaskKind.термическая);
-                    CurentSelectedRowInfo = AddRowInfo(TaskKind.термическая);
-                    base.RefreshButton_Click(sender, e);
-                }
-                Thread.Sleep(100);
-                if (chbMechTask.Checked)
-                {
-                    GenerateTsfFile(TaskKind.механическая);
-                    CurentSelectedRowInfo = AddRowInfo(TaskKind.механическая);
-                    base.RefreshButton_Click(sender, e);
-                }
+                var status = dataGridView[(int)Column.status, CurentSelectedRowIndex].Value.ToString();
+
+                TaskStatus taskStatus;
+                Enum.TryParse(status, out taskStatus);
+
+                var kind = dataGridView[(int)Column.kind, CurentSelectedRowIndex].Value.ToString();
+
+                TaskKind taskKind;
+                Enum.TryParse(kind, out taskKind);
+
+                GenerateTsfFile(taskKind);
+                CurentSelectedRowInfo = AddRowInfo(taskKind, taskStatus);
+                base.RefreshButton_Click(sender, e);
 
                 btnRefresh.Enabled = false;
             }
@@ -298,7 +262,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 var settingsSerializer = new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.Auto,
-                    Formatting = Formatting.Indented
+                    Formatting = Newtonsoft.Json.Formatting.Indented
                 };
 
                 if (chbFurtherComp.Checked)
@@ -345,21 +309,21 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 if (chbChemicalTask.Checked)
                 {
                     GenerateTsfFile(TaskKind.химическая);
-                    CurentSelectedRowInfo = AddRowInfo(TaskKind.химическая);
+                    CurentSelectedRowInfo = AddRowInfo(TaskKind.химическая, TaskStatus.выполнить);
                     base.AddButton_Click(this, new EventArgs());
                 }
                 Thread.Sleep(100);
                 if (chbTermoTask.Checked)
                 {
                     GenerateTsfFile(TaskKind.термическая);
-                    CurentSelectedRowInfo = AddRowInfo(TaskKind.термическая);
+                    CurentSelectedRowInfo = AddRowInfo(TaskKind.термическая, TaskStatus.выполнить);
                     base.AddButton_Click(this, new EventArgs());
                 }
                 Thread.Sleep(100);
                 if (chbMechTask.Checked)
                 {
                     GenerateTsfFile(TaskKind.механическая);
-                    CurentSelectedRowInfo = AddRowInfo(TaskKind.механическая);
+                    CurentSelectedRowInfo = AddRowInfo(TaskKind.механическая, TaskStatus.выполнить);
                     base.AddButton_Click(this, new EventArgs());
                 }
             
@@ -370,12 +334,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         }
 
-        private string AddRowInfo(TaskKind taskKind)
+        private string AddRowInfo(TaskKind taskKind, TaskStatus status)
         {
             var tsfFileName = $"{taskKind}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
-            var tStr = $"{taskKind} {tsfFileName} {Project.TasksData.TaskStatus.выполнить}";
 
-            return tStr;
+            return $"\"{taskKind} {tsfFileName} {status}\"";
         }
 
         public override void ClearAllDataButton_Click(object sender, EventArgs e)
@@ -394,41 +357,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 txb.Text = "0";
             }
-        }
-
-        
-
-        private void dataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-            if (e.RowIndex >= 0 & e.ColumnIndex == 1)
-            {
-                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-
-                var assembly = Assembly.GetExecutingAssembly();
-
-                var stream = assembly.GetManifestResourceStream("TaskModule.BasicAdvisorControls.Resources.open.ico");
-                var im = new Bitmap(stream);
-
-
-                var w = im.Width;
-                var h = im.Height;
-                var x = e.CellBounds.Left + im.Width / 2;
-                var y = e.CellBounds.Top + (e.CellBounds.Height - h) / 2;
-
-                var loc = new Point(e.CellBounds.Location.X + 1, e.CellBounds.Location.Y + 1);
-                var size = new Size(e.CellBounds.Width - 4, e.CellBounds.Height - 4);
-                var rec = new Rectangle(loc, size);
-                var brush = new SolidBrush(Color.LightGray);
-                e.Graphics.FillRectangle(brush, rec);
-                e.Graphics.DrawImage(im, new Rectangle(x, y, w, h));
-
-                e.Graphics.DrawString(e.Value.ToString(), this.Font, new SolidBrush(Color.Black),
-                    new Point(x + w, y));
-                e.Handled = true;
-            }
-
-        }
+        }      
 
         private void chbTaskKind_CheckedChange(object sender, EventArgs e)
         {
@@ -534,14 +463,25 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             e.Cancel = true;
         }
 
-        private void btnComputationFolder_Click(object sender, EventArgs e)
+        private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            var openDialog = new FolderBrowserDialog();
+            try
+            {
+                if (e.ColumnIndex == 2)
+                {
+                    dataGridView.Rows[e.RowIndex].Selected = true;
 
-            if (openDialog.ShowDialog() == DialogResult.Cancel)
-                return;
-
-            txbComputationFolder.Text = openDialog.SelectedPath;
+                    if (dataGridView[e.ColumnIndex, CurentSelectedRowIndex].Value.ToString() == TaskStatus.выполнить.ToString())
+                        dataGridView[e.ColumnIndex, CurentSelectedRowIndex].Value = TaskStatus.пропустить.ToString();
+                    else
+                        dataGridView[e.ColumnIndex, CurentSelectedRowIndex].Value = TaskStatus.выполнить.ToString();
+                }
+                btnRefresh.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

@@ -54,6 +54,9 @@
             this.txbMaxDSi = new System.Windows.Forms.TextBox();
             this.txbMaxDUt = new System.Windows.Forms.TextBox();
             this.txbMaxDUi = new System.Windows.Forms.TextBox();
+            this.lblFileParameters = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.btnLoadParameters = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label4
@@ -113,6 +116,7 @@
             this.cmbSolver.Name = "cmbSolver";
             this.cmbSolver.Size = new System.Drawing.Size(519, 21);
             this.cmbSolver.TabIndex = 118;
+            this.cmbSolver.Text = "SOR_iterative";
             this.cmbSolver.SelectedIndexChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
             // label12
@@ -131,13 +135,12 @@
             this.txbRelaxation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbRelaxation.BackColor = System.Drawing.SystemColors.Window;
-            this.txbRelaxation.Enabled = false;
             this.txbRelaxation.Location = new System.Drawing.Point(208, 266);
             this.txbRelaxation.Margin = new System.Windows.Forms.Padding(3, 3, 27, 3);
             this.txbRelaxation.Name = "txbRelaxation";
             this.txbRelaxation.Size = new System.Drawing.Size(520, 20);
             this.txbRelaxation.TabIndex = 111;
-            this.txbRelaxation.Text = "*";
+            this.txbRelaxation.Text = "1.25";
             this.txbRelaxation.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
             this.txbRelaxation.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
@@ -146,13 +149,12 @@
             this.txbPrecision.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbPrecision.BackColor = System.Drawing.SystemColors.Window;
-            this.txbPrecision.Enabled = false;
             this.txbPrecision.Location = new System.Drawing.Point(208, 240);
             this.txbPrecision.Margin = new System.Windows.Forms.Padding(3, 3, 27, 3);
             this.txbPrecision.Name = "txbPrecision";
             this.txbPrecision.Size = new System.Drawing.Size(519, 20);
             this.txbPrecision.TabIndex = 112;
-            this.txbPrecision.Text = "*";
+            this.txbPrecision.Text = "0.0001";
             this.txbPrecision.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
             this.txbPrecision.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
@@ -172,13 +174,12 @@
             this.txbSolverIterations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbSolverIterations.BackColor = System.Drawing.SystemColors.Window;
-            this.txbSolverIterations.Enabled = false;
             this.txbSolverIterations.Location = new System.Drawing.Point(208, 214);
             this.txbSolverIterations.Margin = new System.Windows.Forms.Padding(3, 3, 27, 3);
             this.txbSolverIterations.Name = "txbSolverIterations";
             this.txbSolverIterations.Size = new System.Drawing.Size(519, 20);
             this.txbSolverIterations.TabIndex = 113;
-            this.txbSolverIterations.Text = "*";
+            this.txbSolverIterations.Text = "100";
             this.txbSolverIterations.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
             this.txbSolverIterations.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
@@ -344,7 +345,7 @@
             this.txbMaxDSt.Name = "txbMaxDSt";
             this.txbMaxDSt.Size = new System.Drawing.Size(519, 20);
             this.txbMaxDSt.TabIndex = 98;
-            this.txbMaxDSt.Text = "*";
+            this.txbMaxDSt.Text = "0";
             this.txbMaxDSt.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
             this.txbMaxDSt.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
@@ -359,7 +360,7 @@
             this.txbMaxDSi.Name = "txbMaxDSi";
             this.txbMaxDSi.Size = new System.Drawing.Size(519, 20);
             this.txbMaxDSi.TabIndex = 97;
-            this.txbMaxDSi.Text = "*";
+            this.txbMaxDSi.Text = "0";
             this.txbMaxDSi.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
             this.txbMaxDSi.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
@@ -374,7 +375,7 @@
             this.txbMaxDUt.Name = "txbMaxDUt";
             this.txbMaxDUt.Size = new System.Drawing.Size(519, 20);
             this.txbMaxDUt.TabIndex = 96;
-            this.txbMaxDUt.Text = "*";
+            this.txbMaxDUt.Text = "0";
             this.txbMaxDUt.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
             this.txbMaxDUt.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
@@ -391,12 +392,50 @@
             this.txbMaxDUi.Text = "0.0005";
             this.txbMaxDUi.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
+            // lblFileParameters
+            // 
+            this.lblFileParameters.AutoSize = true;
+            this.lblFileParameters.Location = new System.Drawing.Point(236, 326);
+            this.lblFileParameters.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
+            this.lblFileParameters.Name = "lblFileParameters";
+            this.lblFileParameters.Size = new System.Drawing.Size(165, 13);
+            this.lblFileParameters.TabIndex = 128;
+            this.lblFileParameters.Text = "Выберите файл с настройками";
+            this.lblFileParameters.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(10, 326);
+            this.label5.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(109, 13);
+            this.label5.TabIndex = 127;
+            this.label5.Text = "Загрузить из файла";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnLoadParameters
+            // 
+            this.btnLoadParameters.AutoSize = true;
+            this.btnLoadParameters.Image = global::TaskModule.Properties.Resources.ComputationFolder;
+            this.btnLoadParameters.Location = new System.Drawing.Point(208, 319);
+            this.btnLoadParameters.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.btnLoadParameters.Name = "btnLoadParameters";
+            this.btnLoadParameters.Size = new System.Drawing.Size(26, 26);
+            this.btnLoadParameters.TabIndex = 126;
+            this.btnLoadParameters.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnLoadParameters.UseVisualStyleBackColor = true;
+            this.btnLoadParameters.Click += new System.EventHandler(this.btnLoadParameters_Click);
+            // 
             // MechTaskControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.lblFileParameters);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.btnLoadParameters);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmbPriority);
             this.Controls.Add(this.label3);
@@ -424,7 +463,7 @@
             this.Controls.Add(this.txbMaxDUt);
             this.Controls.Add(this.txbMaxDUi);
             this.Name = "MechTaskControl";
-            this.Size = new System.Drawing.Size(755, 318);
+            this.Size = new System.Drawing.Size(755, 349);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -458,5 +497,8 @@
         private System.Windows.Forms.TextBox txbMaxDSi;
         private System.Windows.Forms.TextBox txbMaxDUt;
         private System.Windows.Forms.TextBox txbMaxDUi;
+        private System.Windows.Forms.Label lblFileParameters;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnLoadParameters;
     }
 }

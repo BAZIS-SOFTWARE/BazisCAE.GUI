@@ -614,7 +614,6 @@ namespace TaskModule
                 {
                     if (arg2.DataName == "Расчет")
                     {
-
                         Project.TaskData.Add(new CompData(taskStr));
                     }
 

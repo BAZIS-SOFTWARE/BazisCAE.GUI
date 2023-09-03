@@ -1,7 +1,9 @@
-﻿using Project.TasksData;
+﻿using Newtonsoft.Json;
+using Project.TasksData;
 using Project.TasksData.TaskParameters;
 using System;
 using System.Globalization;
+using System.IO;
 using System.Windows.Forms;
 
 namespace AdvisorControls.TaskPlannerControls
@@ -26,29 +28,29 @@ namespace AdvisorControls.TaskPlannerControls
 
             if(chbDUiMax.Checked)
             {
-                mechParameters.ConvergenceSettings.Is_Swithed_DXmi = true;
+                mechParameters.ConvergenceSettings.Is_Switched_DXmi = true;
                 mechParameters.ConvergenceSettings.DXmi = Convert.ToSingle(txbMaxDUi.Text);
             }
 
             if (chbDUtMax.Checked)
             {
-                mechParameters.ConvergenceSettings.Is_Swithed_DXmt = true;
+                mechParameters.ConvergenceSettings.Is_Switched_DXmt = true;
                 mechParameters.ConvergenceSettings.DXmt = Convert.ToSingle(txbMaxDUt.Text);
             }
             if (chbDSiMax.Checked)
             {
-                mechParameters.ConvergenceSettings.Is_Swithed_DYmi = true;
+                mechParameters.ConvergenceSettings.Is_Switched_DYmi = true;
                 mechParameters.ConvergenceSettings.DYmi = Convert.ToSingle(txbMaxDSi.Text);
             }
             if (chbDStMax.Checked)
             {
-                mechParameters.ConvergenceSettings.Is_Swithed_DYmt = true;
+                mechParameters.ConvergenceSettings.Is_Switched_DYmt = true;
                 mechParameters.ConvergenceSettings.DYmt = Convert.ToSingle(txbMaxDSt.Text);
             }
 
             mechParameters.ConvergenceSettings.Iterations = Convert.ToInt32(txbIters.Text);
 
-            mechParameters.ConstTemp = Convert.ToSingle(txbBodyTemp.Text);
+            mechParameters.BodyTemp = Convert.ToSingle(txbBodyTemp.Text);
             mechParameters.SaveRate = Convert.ToInt32(txbSaveRate.Text);
 
             mechParameters.SolverSettings.Solver = cmbSolver.Text;
@@ -62,7 +64,7 @@ namespace AdvisorControls.TaskPlannerControls
 
         public override void InputData(GeneralParameters parameters)
         {
-            var mechParameters = (TermalParameters)parameters;
+            var mechParameters = (MechanicalParameters)parameters;
             txbMaxDSt.Text = mechParameters.ConvergenceSettings.DYmt.ToString();
             txbMaxDSi.Text = mechParameters.ConvergenceSettings.DYmi.ToString();
             txbMaxDUt.Text = mechParameters.ConvergenceSettings.DXmt.ToString();
@@ -70,7 +72,7 @@ namespace AdvisorControls.TaskPlannerControls
             txbIters.Text = mechParameters.ConvergenceSettings.Iterations.ToString();
 
             txbSaveRate.Text = mechParameters.SaveRate.ToString();
-            txbBodyTemp.Text = mechParameters.InitTemp.ToString();
+            txbBodyTemp.Text = mechParameters.BodyTemp.ToString();
 
             cmbSolver.Text = mechParameters.SolverSettings.Solver;
             txbSolverIterations.Text = mechParameters.SolverSettings.MaxIter.ToString();
@@ -123,7 +125,7 @@ namespace AdvisorControls.TaskPlannerControls
                 }
                 else
                 {
-                    txbMaxDUt.Text = "*";
+                    txbMaxDUt.Text = "0";
                     txbMaxDUt.Enabled = false;
                 }
             if (chb == chbDStMax)
@@ -134,7 +136,7 @@ namespace AdvisorControls.TaskPlannerControls
                 }
                 else
                 {
-                    txbMaxDSt.Text = "*";
+                    txbMaxDSt.Text = "0";
                     txbMaxDSt.Enabled = false;
                 }
             if (chb == chbDSiMax)
@@ -145,10 +147,36 @@ namespace AdvisorControls.TaskPlannerControls
                 }
                 else
                 {
-                    txbMaxDSi.Text = "*";
+                    txbMaxDSi.Text = "0";
                     txbMaxDSi.Enabled = false;
                 }
 
+        }
+
+        private void btnLoadParameters_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                var dialog = new OpenFileDialog();
+
+                if (dialog.ShowDialog() == DialogResult.Cancel)
+                    return;
+                var settingsSerializer = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto,
+                    Formatting = Newtonsoft.Json.Formatting.Indented
+                };
+
+                var parameters = JsonConvert.DeserializeObject<MechanicalParameters>
+    (File.ReadAllText(dialog.FileName), settingsSerializer);
+                InputData(parameters);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

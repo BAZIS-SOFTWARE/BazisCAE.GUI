@@ -46,6 +46,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.chbDTtMax = new System.Windows.Forms.CheckBox();
             this.txbDTtMax = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblFileParameters = new System.Windows.Forms.Label();
+            this.btnLoadParameters = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label4
@@ -105,6 +108,7 @@
             this.cmbSolver.Name = "cmbSolver";
             this.cmbSolver.Size = new System.Drawing.Size(519, 21);
             this.cmbSolver.TabIndex = 120;
+            this.cmbSolver.Text = "SOR_iterative";
             this.cmbSolver.SelectedIndexChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
             // label12
@@ -123,13 +127,12 @@
             this.txbRelaxation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbRelaxation.BackColor = System.Drawing.SystemColors.Window;
-            this.txbRelaxation.Enabled = false;
             this.txbRelaxation.Location = new System.Drawing.Point(208, 188);
             this.txbRelaxation.Margin = new System.Windows.Forms.Padding(3, 3, 27, 3);
             this.txbRelaxation.Name = "txbRelaxation";
             this.txbRelaxation.Size = new System.Drawing.Size(519, 20);
             this.txbRelaxation.TabIndex = 113;
-            this.txbRelaxation.Text = "*";
+            this.txbRelaxation.Text = "1.05";
             this.txbRelaxation.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
             this.txbRelaxation.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
@@ -138,13 +141,12 @@
             this.txbPrecision.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbPrecision.BackColor = System.Drawing.SystemColors.Window;
-            this.txbPrecision.Enabled = false;
             this.txbPrecision.Location = new System.Drawing.Point(208, 162);
             this.txbPrecision.Margin = new System.Windows.Forms.Padding(3, 3, 27, 3);
             this.txbPrecision.Name = "txbPrecision";
             this.txbPrecision.Size = new System.Drawing.Size(519, 20);
             this.txbPrecision.TabIndex = 114;
-            this.txbPrecision.Text = "*";
+            this.txbPrecision.Text = "0.01";
             this.txbPrecision.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
             this.txbPrecision.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
@@ -164,13 +166,12 @@
             this.txbSolverIterations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbSolverIterations.BackColor = System.Drawing.SystemColors.Window;
-            this.txbSolverIterations.Enabled = false;
             this.txbSolverIterations.Location = new System.Drawing.Point(208, 136);
             this.txbSolverIterations.Margin = new System.Windows.Forms.Padding(3, 3, 27, 3);
             this.txbSolverIterations.Name = "txbSolverIterations";
             this.txbSolverIterations.Size = new System.Drawing.Size(519, 20);
             this.txbSolverIterations.TabIndex = 115;
-            this.txbSolverIterations.Text = "*";
+            this.txbSolverIterations.Text = "100";
             this.txbSolverIterations.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
             this.txbSolverIterations.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
@@ -266,6 +267,7 @@
             this.chbDTtMax.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chbDTtMax.Enabled = false;
             this.chbDTtMax.Location = new System.Drawing.Point(9, 7);
+            this.chbDTtMax.Margin = new System.Windows.Forms.Padding(10, 7, 3, 3);
             this.chbDTtMax.Name = "chbDTtMax";
             this.chbDTtMax.Size = new System.Drawing.Size(188, 17);
             this.chbDTtMax.TabIndex = 108;
@@ -285,12 +287,50 @@
             this.txbDTtMax.Text = "1500";
             this.txbDTtMax.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(10, 248);
+            this.label5.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(109, 13);
+            this.label5.TabIndex = 124;
+            this.label5.Text = "Загрузить из файла";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblFileParameters
+            // 
+            this.lblFileParameters.AutoSize = true;
+            this.lblFileParameters.Location = new System.Drawing.Point(236, 248);
+            this.lblFileParameters.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
+            this.lblFileParameters.Name = "lblFileParameters";
+            this.lblFileParameters.Size = new System.Drawing.Size(165, 13);
+            this.lblFileParameters.TabIndex = 125;
+            this.lblFileParameters.Text = "Выберите файл с настройками";
+            this.lblFileParameters.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnLoadParameters
+            // 
+            this.btnLoadParameters.AutoSize = true;
+            this.btnLoadParameters.Image = global::TaskModule.Properties.Resources.ComputationFolder;
+            this.btnLoadParameters.Location = new System.Drawing.Point(208, 241);
+            this.btnLoadParameters.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.btnLoadParameters.Name = "btnLoadParameters";
+            this.btnLoadParameters.Size = new System.Drawing.Size(26, 26);
+            this.btnLoadParameters.TabIndex = 123;
+            this.btnLoadParameters.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnLoadParameters.UseVisualStyleBackColor = true;
+            this.btnLoadParameters.Click += new System.EventHandler(this.btnLoadParameters_Click);
+            // 
             // HeatTaskControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.lblFileParameters);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.btnLoadParameters);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmbPriority);
             this.Controls.Add(this.label3);
@@ -310,7 +350,7 @@
             this.Controls.Add(this.chbDTtMax);
             this.Controls.Add(this.txbDTtMax);
             this.Name = "HeatTaskControl";
-            this.Size = new System.Drawing.Size(755, 240);
+            this.Size = new System.Drawing.Size(755, 271);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -336,5 +376,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chbDTtMax;
         private System.Windows.Forms.TextBox txbDTtMax;
+        private System.Windows.Forms.Button btnLoadParameters;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblFileParameters;
     }
 }
