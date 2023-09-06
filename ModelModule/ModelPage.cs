@@ -71,13 +71,27 @@ namespace ModelModule
             boundaryElements2DMenuItem.Click += (ar1, ar2) => { CreateBoundaryElements2D();};
            
             meshGeneratorMenuItem.Click += (ar1, ar2) => {
-                var meshFolder = Directory.GetFiles(Application.StartupPath, "Mesh.exe", SearchOption.AllDirectories);
+                var gmshControl = new GmshControl();
+                var gmshForm = new Form()
+                {
+                    TopMost = true,
+                    ShowIcon = false,
+                    ClientSize = gmshControl.Size,
+                    MaximizeBox = false,
+                    MinimizeBox = false,
+                    FormBorderStyle = FormBorderStyle.FixedSingle
+                };
+                gmshControl.Tag = this;
+                gmshForm.Controls.Add(gmshControl);
+                gmshControl.Dock = DockStyle.Fill;
+                gmshForm.Show();
+                /*var meshFolder = Directory.GetFiles(Application.StartupPath, "Mesh.exe", SearchOption.AllDirectories);
                 if (meshFolder.Length > 0)
                 {
                     var myProcess = new Process();
                     myProcess.StartInfo.FileName = meshFolder[0];
                     myProcess.Start();
-                };
+                };*/
             };
 
             return meshMenuItem;

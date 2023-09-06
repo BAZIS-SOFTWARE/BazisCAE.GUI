@@ -55,6 +55,9 @@
     <Reference Include="Geometry, Version=2.0.5.50, Culture=neutral, PublicKeyToken=cadb58b3f6b10f0c, processorArchitecture=MSIL">
       <HintPath>..\packages\Geometry.2.0.5.50\lib\net48\Geometry.dll</HintPath>
     </Reference>
+    <Reference Include="GmshApi">
+      <HintPath>..\packages\GmshApi.1.0.2.13\lib\net48\GmshApi.dll</HintPath>
+    </Reference>
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
     </Reference>
@@ -70,8 +73,8 @@
     <Reference Include="Octree, Version=2.1.10.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.10\lib\net48\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=1.0.6.20, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.1.0.6.20\lib\net48\Project.dll</HintPath>
+    <Reference Include="Project, Version=1.0.6.21, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.1.0.6.21\lib\net48\Project.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface, Version=1.0.14.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
       <HintPath>..\packages\SceneInterface.1.0.14\lib\net48\SceneInterface.dll</HintPath>
@@ -103,9 +106,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="GmshControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GmshControl.Designer.cs">
+      <DependentUpon>GmshControl.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="GmshControl.resx">
+      <DependentUpon>GmshControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ModelPage.resx">
       <DependentUpon>ModelPage.cs</DependentUpon>
     </EmbeddedResource>

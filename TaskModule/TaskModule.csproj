@@ -199,7 +199,9 @@
     <Compile Include="HeatTreatmentModule\ChemicalTreatmentAdvisor.Designer.cs">
       <DependentUpon>ChemicalTreatmentAdvisor.cs</DependentUpon>
     </Compile>
-    <Compile Include="HeatTreatmentModule\HeatTreatmentPage.cs" />
+    <Compile Include="HeatTreatmentModule\HeatTreatmentPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="HeatTreatmentModule\HeatTreatmentPage.Designer.cs">
       <DependentUpon>HeatTreatmentPage.cs</DependentUpon>
     </Compile>
@@ -233,19 +235,27 @@
       <DependentUpon>TaskPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WeldingModule\WeldingPage.cs" />
+    <Compile Include="WeldingModule\WeldingPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="WeldingModule\WeldingPage.Designer.cs">
       <DependentUpon>WeldingPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="WeldingModule\WeldingTypeControls\ArcWeldingControl.cs" />
+    <Compile Include="WeldingModule\WeldingTypeControls\ArcWeldingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="WeldingModule\WeldingTypeControls\ArcWeldingControl.designer.cs">
       <DependentUpon>ArcWeldingControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="WeldingModule\WeldingTypeControls\FSWeldingControl.cs" />
+    <Compile Include="WeldingModule\WeldingTypeControls\FSWeldingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="WeldingModule\WeldingTypeControls\FSWeldingControl.designer.cs">
       <DependentUpon>FSWeldingControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="WeldingModule\WeldingTypeControls\LWeldingControl.cs" />
+    <Compile Include="WeldingModule\WeldingTypeControls\LWeldingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="WeldingModule\WeldingTypeControls\LWeldingControl.Designer.cs">
       <DependentUpon>LWeldingControl.cs</DependentUpon>
     </Compile>
@@ -256,7 +266,9 @@
       <DependentUpon>WeldingAdvisor.cs</DependentUpon>
     </Compile>
     <Compile Include="WeldingModule\WeldingTypeControls\WeldContainerCntrEventArgs.cs" />
-    <Compile Include="WeldingModule\WeldingTypeControls\WeldContainerControl.cs" />
+    <Compile Include="WeldingModule\WeldingTypeControls\WeldContainerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="WeldingModule\WeldingTypeControls\WeldContainerControl.Designer.cs">
       <DependentUpon>WeldContainerControl.cs</DependentUpon>
     </Compile>
