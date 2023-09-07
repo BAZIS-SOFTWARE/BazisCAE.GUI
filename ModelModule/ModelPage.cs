@@ -78,20 +78,12 @@ namespace ModelModule
                     ShowIcon = false,
                     ClientSize = gmshControl.Size,
                     MaximizeBox = false,
-                    MinimizeBox = false,
                     FormBorderStyle = FormBorderStyle.FixedSingle
                 };
                 gmshControl.Tag = this;
                 gmshForm.Controls.Add(gmshControl);
                 gmshControl.Dock = DockStyle.Fill;
                 gmshForm.Show();
-                /*var meshFolder = Directory.GetFiles(Application.StartupPath, "Mesh.exe", SearchOption.AllDirectories);
-                if (meshFolder.Length > 0)
-                {
-                    var myProcess = new Process();
-                    myProcess.StartInfo.FileName = meshFolder[0];
-                    myProcess.Start();
-                };*/
             };
 
             return meshMenuItem;
@@ -105,15 +97,21 @@ namespace ModelModule
             }
             else if(e.ClickedItem.Tag.ToString() == "1")
             {
-                var mesher = Directory.GetFiles(Application.StartupPath, "mesh.exe", SearchOption.AllDirectories);
-
-                if(mesher.Length > 0)
+                var gmshControl = new GmshControl();
+                var gmshForm = new Form()
                 {
-                    var myProcess = new Process();
-                    myProcess.StartInfo.FileName = mesher[0];
-                    myProcess.Start();
-                }
-
+                    TopMost = true,
+                    ShowIcon = false,
+                    ClientSize = gmshControl.Size,
+                    MaximizeBox = false,
+                    FormBorderStyle = FormBorderStyle.FixedSingle
+                };
+                gmshControl.updateModelData += UpdateModelData;
+                gmshControl.redrawScene += RedrawScene;
+                gmshControl.showErrorMessage += ShowErrorMessage;
+                gmshForm.Controls.Add(gmshControl);
+                gmshControl.Dock = DockStyle.Fill;
+                gmshForm.Show();
             }
         }
 
@@ -147,6 +145,20 @@ namespace ModelModule
             else
                 ConsoleControl.PrintInfo("Модель не содержит объемных элементов!", Color.Red);
 
-        }           
+        }
+
+        private void UpdateModelData(ModelData data) => ModelPresenter = new ModelScenePresentator(data);
+        
+        private void ShowErrorMessage(string message) => ConsoleControl.PrintInfo(message, Color.Red);
+        
+        private void RedrawScene(bool fitOnScreen, string objType)
+        {
+            ClearAllDataOnScene();
+            if (!string.IsNullOrEmpty(objType))
+                PresentDataToScene(objType);
+            if (fitOnScreen)
+                SceneControl.FitObjectsToScreen();
+            SceneControl.DisplayObjects();
+        }
     }
 }

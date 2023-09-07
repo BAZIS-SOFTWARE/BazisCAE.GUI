@@ -3,11 +3,12 @@ using GmshApi.Api;
 using Model;
 using Model.Interfaces;
 using ModelController.ModelScenePresentator;
-using Project.TasksData;
 using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using System.Drawing;
+using SceneInterface;
 
 namespace ModelModule
 {
@@ -19,7 +20,9 @@ namespace ModelModule
         private TreeNode selectedNode;
         private MeshField field;
 
-        public event Action<object, ModelData> updateModelData;
+        public event Action<ModelData> updateModelData;
+        public event Action<string> showErrorMessage;
+        public event Action<bool, string> redrawScene;
 
         public GmshControl()
         {
@@ -44,6 +47,7 @@ namespace ModelModule
         private void GenerateGeometry(bool fitOnScreen = true)
         {
             modelData.Clear();
+            mesh = geometry.Generate(1);
             FillModelDataGeometry();
             ClearGeometryTree();
             ClearMeshTree();
@@ -54,36 +58,21 @@ namespace ModelModule
             ShowHideMeshControls(false);
             ShowHideVolumeBox(false);
             ShowHideVolumeControls(false);
-            RedrawModel(fitOnScreen, "Элементы1D");
-        }
-
-        private void RedrawModel(bool fitOnScreen, params string[] objTypes)
-        {
-            var grandParent = Tag as ModelPage;
-            var scene = grandParent.SceneControl;
-            grandParent.ModelPresenter = new ModelScenePresentator(modelData);
-            if (modelData.ObjectData.Count > 0)
-                foreach (var type in objTypes)
-                    grandParent.PresentDataToScene(type);
-            if (fitOnScreen)
-                scene.FitObjectsToScreen();
-            scene.DisplayObjects();
-        }
-
-        private void ClearAllVBO()
-        {
-            var grandParent = Tag as ModelPage;
-            grandParent.ClearAllDataOnScene();
+            redrawScene?.Invoke(fitOnScreen, "Элементы1D");
         }
 
         private void GenerateMesh()
         {
-            modelData.Clear();
-            ClearAllVBO();
-            ClearVolumesTree();
-            ClearMeshTree();
             geometry.Generate(1);
             mesh = geometry.Generate(2);
+            if (mesh == null)
+            {
+                showErrorMessage?.Invoke("Невозможно сгенерировать сетку проверьте скрипт-файл");
+                return;
+            }
+            modelData.Clear();
+            ClearVolumesTree();
+            ClearMeshTree();
             FillModelDataMesh();
             FillMeshTreeView();
             ShowHideMeshControls(true);
@@ -92,38 +81,37 @@ namespace ModelModule
                 ShowHideVolumeBox(true);
                 ShowHideVolumeControls(false);
             }
-            RedrawModel(false, "Элементы2D");
+            redrawScene?.Invoke(false, "Элементы2D");
         }
 
         private void GenerateVolumes()
         {
-            modelData.Clear();
-            ClearAllVBO();
-            ClearVolumesTree();
             mesh = geometry.Generate(3);
+            if (mesh == null)
+            {
+                GenerateError("Невозможно сгенерировать объемы проверьте скрипт-файл");
+                return;
+            }
+            modelData.Clear();
+            ClearVolumesTree();
             FillModelDataVolumes();
             FillVolumesTreeView();
             ShowHideVolumeControls(true);
-            RedrawModel(false, "Элементы3D");
+            redrawScene?.Invoke(false, "Элементы3D");
         }
 
         private void OnDeleteGeometry(object sender, EventArgs e)
         {
             modelData.Clear();
-            ClearAllVBO();
             ClearAllTrees();
             ShowHideGeometryControls(false);
             ShowHideVolumeBox(false);
             ShowHideMeshBox(false);
-            RedrawModel(false);
+            redrawScene?.Invoke(false,"");
             geometry.Dispose();
         }
 
-        private void OnDeleteMesh(object sender, EventArgs e) 
-        {
-            ClearAllVBO();
-            GenerateGeometry(false);
-        }
+        private void OnDeleteMesh(object sender, EventArgs e) => GenerateGeometry(false);
 
         private void OnDeleteVolume(object sender, EventArgs e) => GenerateMesh();
 
@@ -131,6 +119,7 @@ namespace ModelModule
         {
             modelData.ObjectData.AddRange(geometry.GetControlPoints());
             modelData.ObjectData.AddRange(geometry.GetElements1D());
+            updateModelData?.Invoke(modelData);
         }
 
         private void FillModelDataMesh()
@@ -138,11 +127,13 @@ namespace ModelModule
             modelData.ObjectData.AddRange(mesh.GetNodes());
             modelData.ObjectData.AddRange(mesh.GetElement1D());
             modelData.ObjectData.AddRange(mesh.GetElement2D());
+            updateModelData?.Invoke(modelData);
         }
 
         private void FillModelDataVolumes()
         {
             modelData.ObjectData.AddRange(mesh.GetElement3D());
+            updateModelData?.Invoke(modelData);
         }
 
         private void ClearGeometryTree() => entTree.Nodes.Clear();
@@ -160,7 +151,6 @@ namespace ModelModule
         {
             if (loadFileDialog.ShowDialog() == DialogResult.OK)
             {
-                ClearAllVBO();
                 geometry = new GeometryObject(loadFileDialog.FileName);
                 GmshWrapperModel.ModelSetCurrent(geometry.Id.ToString());
                 field = new MeshField(MeshFieldType.BoundaryLayer);
@@ -189,33 +179,32 @@ namespace ModelModule
                                                         Triangulation2DAlgorithm.FrontalDelaunay,
                                                         Triangulation2DAlgorithm.FrontalDelaunayQuad
                                                        };
-            mesh?.ChangeTriangulationAlgorithm2D(algo[choice.SelectedIndex]);
+            var mesh = geometry.Generate(0);
+            mesh.ChangeTriangulationAlgorithm2D(algo[choice.SelectedIndex]);
         }
 
         private void OnRefine(object sender, EventArgs e)
         {
             modelData.Clear();
-            ClearAllVBO();
             ClearVolumesTree();
             ClearMeshTree();
             mesh.RefineMesh();
             FillModelDataMesh();
             FillMeshTreeView();
             ShowHideVolumeControls(false);
-            RedrawModel(false, "Элементы2D");
+            redrawScene?.Invoke(false, "Элементы2D");
         }
 
         private void OnQuadrangulate(object sender, EventArgs e)
         {
             modelData.Clear();
-            ClearAllVBO();
             ClearVolumesTree();
             ClearMeshTree();
             mesh.QuadrangulateMesh();
             FillModelDataMesh();
             FillMeshTreeView();
             ShowHideVolumeControls(false);
-            RedrawModel(false, "Элементы2D");
+            redrawScene?.Invoke(false, "Элементы2D");
         }
 
         private void FillGeometryTreeView()
@@ -307,21 +296,19 @@ namespace ModelModule
                     var number = Int32.Parse(keyInfo[1]);
                     if (selectedNode.Text.Contains("Треугольник") || selectedNode.Text.Contains("Квад"))
                     {
-                        ClearAllVBO();
                         modelData.Clear();
                         elemsTree.Nodes.Remove(selectedNode);
                         mesh.RemoveElements2D(new int[] { number });
                     }
                     else if (selectedNode.Text.Contains("Поверхность"))
                     {
-                        ClearAllVBO();
                         modelData.Clear();
                         var surface = mesh.GetSurfaceById(number).ToArray();
                         mesh.RemoveSurfaceById(number);
                     }
                     modelData.ObjectData.AddRange(mesh.GetElement2D());
                     elemsTree.Nodes.Remove(selectedNode);
-                    RedrawModel(false,"Элементы2D");
+                    redrawScene?.Invoke(false,"Элементы2D");
                 }
             }
         }
@@ -435,9 +422,15 @@ namespace ModelModule
             return radio[0];
         }
 
+        private void GenerateError(string message)
+        {
+            showErrorMessage?.Invoke(message);
+            OnExit(this, null);
+        }
+
         private void OnExit(object sender, EventArgs e)
         {
-            updateModelData?.Invoke(this, modelData);
+            updateModelData?.Invoke(modelData);
             this.ParentForm.Close();
         }
     }

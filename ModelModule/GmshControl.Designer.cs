@@ -1,4 +1,6 @@
-﻿namespace ModelModule
+﻿using GmshApi;
+using GmshApi.Api;
+namespace ModelModule
 {
     partial class GmshControl
     {
@@ -17,6 +19,7 @@
             {
                 components.Dispose();
             }
+            GmshWrapperConnection.Finalize();
             base.Dispose(disposing);
         }
 
@@ -74,13 +77,6 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.geometryLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.loadModelBox = new System.Windows.Forms.GroupBox();
-            this.geoDelBtn = new System.Windows.Forms.Button();
-            this.geoLoadBtn = new System.Windows.Forms.Button();
-            this.geoElBox = new System.Windows.Forms.GroupBox();
-            this.elementsLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.geometryPage = new System.Windows.Forms.TabPage();
-            this.gmshTab = new System.Windows.Forms.TabControl();
             this.filterBox = new System.Windows.Forms.TabControl();
             this.boundFilter = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -120,6 +116,13 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.sizeFar = new System.Windows.Forms.TextBox();
+            this.loadModelBox = new System.Windows.Forms.GroupBox();
+            this.geoDelBtn = new System.Windows.Forms.Button();
+            this.geoLoadBtn = new System.Windows.Forms.Button();
+            this.geoElBox = new System.Windows.Forms.GroupBox();
+            this.elementsLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.geometryPage = new System.Windows.Forms.TabPage();
+            this.gmshTab = new System.Windows.Forms.TabControl();
             this.meshGenBox.SuspendLayout();
             this.meshLayout.SuspendLayout();
             this.meshElBox.SuspendLayout();
@@ -140,11 +143,6 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.geometryLayout.SuspendLayout();
-            this.loadModelBox.SuspendLayout();
-            this.geoElBox.SuspendLayout();
-            this.elementsLayout.SuspendLayout();
-            this.geometryPage.SuspendLayout();
-            this.gmshTab.SuspendLayout();
             this.filterBox.SuspendLayout();
             this.boundFilter.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -154,6 +152,11 @@
             this.groupBox2.SuspendLayout();
             this.flagsBetaPnl.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.loadModelBox.SuspendLayout();
+            this.geoElBox.SuspendLayout();
+            this.elementsLayout.SuspendLayout();
+            this.geometryPage.SuspendLayout();
+            this.gmshTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // meshDelBtn
@@ -735,103 +738,11 @@
             this.geometryLayout.Size = new System.Drawing.Size(486, 947);
             this.geometryLayout.TabIndex = 0;
             // 
-            // loadModelBox
-            // 
-            this.loadModelBox.Controls.Add(this.geoDelBtn);
-            this.loadModelBox.Controls.Add(this.geoLoadBtn);
-            this.loadModelBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.loadModelBox.Location = new System.Drawing.Point(3, 2);
-            this.loadModelBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.loadModelBox.Name = "loadModelBox";
-            this.loadModelBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.loadModelBox.Size = new System.Drawing.Size(480, 57);
-            this.loadModelBox.TabIndex = 1;
-            this.loadModelBox.TabStop = false;
-            this.loadModelBox.Text = "Загрузка";
-            // 
-            // geoDelBtn
-            // 
-            this.geoDelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.geoDelBtn.Enabled = false;
-            this.geoDelBtn.Location = new System.Drawing.Point(328, 22);
-            this.geoDelBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.geoDelBtn.Name = "geoDelBtn";
-            this.geoDelBtn.Size = new System.Drawing.Size(120, 32);
-            this.geoDelBtn.TabIndex = 1;
-            this.geoDelBtn.Text = "Удалить";
-            this.geoDelBtn.UseVisualStyleBackColor = true;
-            this.geoDelBtn.Click += new System.EventHandler(this.OnDeleteGeometry);
-            // 
-            // geoLoadBtn
-            // 
-            this.geoLoadBtn.Location = new System.Drawing.Point(35, 22);
-            this.geoLoadBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.geoLoadBtn.Name = "geoLoadBtn";
-            this.geoLoadBtn.Size = new System.Drawing.Size(120, 32);
-            this.geoLoadBtn.TabIndex = 0;
-            this.geoLoadBtn.Text = "Загрузить";
-            this.geoLoadBtn.UseVisualStyleBackColor = true;
-            this.geoLoadBtn.Click += new System.EventHandler(this.OnLoadFile);
-            // 
-            // geoElBox
-            // 
-            this.geoElBox.Controls.Add(this.elementsLayout);
-            this.geoElBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.geoElBox.Enabled = false;
-            this.geoElBox.Location = new System.Drawing.Point(3, 63);
-            this.geoElBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.geoElBox.Name = "geoElBox";
-            this.geoElBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.geoElBox.Size = new System.Drawing.Size(480, 329);
-            this.geoElBox.TabIndex = 3;
-            this.geoElBox.TabStop = false;
-            this.geoElBox.Text = "Элементы геометрии";
-            // 
-            // elementsLayout
-            // 
-            this.elementsLayout.ColumnCount = 2;
-            this.elementsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.0107F));
-            this.elementsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.9893F));
-            this.elementsLayout.Controls.Add(this.entTree, 0, 0);
-            this.elementsLayout.Controls.Add(this.tableLayoutPanel3, 1, 0);
-            this.elementsLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.elementsLayout.Location = new System.Drawing.Point(3, 17);
-            this.elementsLayout.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.elementsLayout.Name = "elementsLayout";
-            this.elementsLayout.RowCount = 1;
-            this.elementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.elementsLayout.Size = new System.Drawing.Size(474, 310);
-            this.elementsLayout.TabIndex = 0;
-            // 
-            // geometryPage
-            // 
-            this.geometryPage.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.geometryPage.Controls.Add(this.geometryLayout);
-            this.geometryPage.Location = new System.Drawing.Point(4, 25);
-            this.geometryPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.geometryPage.Name = "geometryPage";
-            this.geometryPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.geometryPage.Size = new System.Drawing.Size(492, 951);
-            this.geometryPage.TabIndex = 0;
-            this.geometryPage.Text = "CAD";
-            // 
-            // gmshTab
-            // 
-            this.gmshTab.Controls.Add(this.geometryPage);
-            this.gmshTab.Controls.Add(this.meshPage);
-            this.gmshTab.Controls.Add(this.volumePage);
-            this.gmshTab.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gmshTab.Location = new System.Drawing.Point(0, 0);
-            this.gmshTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gmshTab.Name = "gmshTab";
-            this.gmshTab.SelectedIndex = 0;
-            this.gmshTab.Size = new System.Drawing.Size(500, 980);
-            this.gmshTab.TabIndex = 1;
-            // 
             // filterBox
             // 
             this.filterBox.Controls.Add(this.boundFilter);
             this.filterBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filterBox.Enabled = false;
             this.filterBox.Location = new System.Drawing.Point(3, 396);
             this.filterBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.filterBox.Name = "filterBox";
@@ -1277,6 +1188,99 @@
             this.sizeFar.Tag = "SizeFar 1,0";
             this.sizeFar.Text = "1.0";
             // 
+            // loadModelBox
+            // 
+            this.loadModelBox.Controls.Add(this.geoDelBtn);
+            this.loadModelBox.Controls.Add(this.geoLoadBtn);
+            this.loadModelBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.loadModelBox.Location = new System.Drawing.Point(3, 2);
+            this.loadModelBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.loadModelBox.Name = "loadModelBox";
+            this.loadModelBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.loadModelBox.Size = new System.Drawing.Size(480, 57);
+            this.loadModelBox.TabIndex = 1;
+            this.loadModelBox.TabStop = false;
+            this.loadModelBox.Text = "Загрузка";
+            // 
+            // geoDelBtn
+            // 
+            this.geoDelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.geoDelBtn.Enabled = false;
+            this.geoDelBtn.Location = new System.Drawing.Point(328, 22);
+            this.geoDelBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.geoDelBtn.Name = "geoDelBtn";
+            this.geoDelBtn.Size = new System.Drawing.Size(120, 32);
+            this.geoDelBtn.TabIndex = 1;
+            this.geoDelBtn.Text = "Удалить";
+            this.geoDelBtn.UseVisualStyleBackColor = true;
+            this.geoDelBtn.Click += new System.EventHandler(this.OnDeleteGeometry);
+            // 
+            // geoLoadBtn
+            // 
+            this.geoLoadBtn.Location = new System.Drawing.Point(35, 22);
+            this.geoLoadBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.geoLoadBtn.Name = "geoLoadBtn";
+            this.geoLoadBtn.Size = new System.Drawing.Size(120, 32);
+            this.geoLoadBtn.TabIndex = 0;
+            this.geoLoadBtn.Text = "Загрузить";
+            this.geoLoadBtn.UseVisualStyleBackColor = true;
+            this.geoLoadBtn.Click += new System.EventHandler(this.OnLoadFile);
+            // 
+            // geoElBox
+            // 
+            this.geoElBox.Controls.Add(this.elementsLayout);
+            this.geoElBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.geoElBox.Enabled = false;
+            this.geoElBox.Location = new System.Drawing.Point(3, 63);
+            this.geoElBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.geoElBox.Name = "geoElBox";
+            this.geoElBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.geoElBox.Size = new System.Drawing.Size(480, 329);
+            this.geoElBox.TabIndex = 3;
+            this.geoElBox.TabStop = false;
+            this.geoElBox.Text = "Элементы геометрии";
+            // 
+            // elementsLayout
+            // 
+            this.elementsLayout.ColumnCount = 2;
+            this.elementsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.0107F));
+            this.elementsLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.9893F));
+            this.elementsLayout.Controls.Add(this.entTree, 0, 0);
+            this.elementsLayout.Controls.Add(this.tableLayoutPanel3, 1, 0);
+            this.elementsLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.elementsLayout.Location = new System.Drawing.Point(3, 17);
+            this.elementsLayout.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.elementsLayout.Name = "elementsLayout";
+            this.elementsLayout.RowCount = 1;
+            this.elementsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.elementsLayout.Size = new System.Drawing.Size(474, 310);
+            this.elementsLayout.TabIndex = 0;
+            // 
+            // geometryPage
+            // 
+            this.geometryPage.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.geometryPage.Controls.Add(this.geometryLayout);
+            this.geometryPage.Location = new System.Drawing.Point(4, 25);
+            this.geometryPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.geometryPage.Name = "geometryPage";
+            this.geometryPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.geometryPage.Size = new System.Drawing.Size(492, 951);
+            this.geometryPage.TabIndex = 0;
+            this.geometryPage.Text = "CAD";
+            // 
+            // gmshTab
+            // 
+            this.gmshTab.Controls.Add(this.geometryPage);
+            this.gmshTab.Controls.Add(this.meshPage);
+            this.gmshTab.Controls.Add(this.volumePage);
+            this.gmshTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gmshTab.Location = new System.Drawing.Point(0, 0);
+            this.gmshTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gmshTab.Name = "gmshTab";
+            this.gmshTab.SelectedIndex = 0;
+            this.gmshTab.Size = new System.Drawing.Size(500, 980);
+            this.gmshTab.TabIndex = 1;
+            // 
             // GmshControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1308,11 +1312,6 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.geometryLayout.ResumeLayout(false);
-            this.loadModelBox.ResumeLayout(false);
-            this.geoElBox.ResumeLayout(false);
-            this.elementsLayout.ResumeLayout(false);
-            this.geometryPage.ResumeLayout(false);
-            this.gmshTab.ResumeLayout(false);
             this.filterBox.ResumeLayout(false);
             this.boundFilter.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -1328,6 +1327,11 @@
             this.flagsBetaPnl.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.loadModelBox.ResumeLayout(false);
+            this.geoElBox.ResumeLayout(false);
+            this.elementsLayout.ResumeLayout(false);
+            this.geometryPage.ResumeLayout(false);
+            this.gmshTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
