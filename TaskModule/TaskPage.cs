@@ -277,30 +277,32 @@ namespace TaskModule
             else return false;
         }
 
-        public void TaskAdvisor_StartComputationEvent(object arg1, string arg2)
+        public void TaskAdvisor_StartComputationEvent(object arg1, EventArgs arg2)
         {
             try
             {
-                Project.Path = arg2;
-                SaveProjectData();
+                if (!SaveAsProjectData("bpf"))
+                    return;
 
                 var settingsSerializer = new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.Auto,
                     Formatting = Formatting.Indented
                 };
+                var matPath = $@"{Project.Path}\materials.jsf";
                 var matStr = JsonConvert.SerializeObject(MatData, settingsSerializer);
-                File.WriteAllText(@"{Project.Path}\materials.jsf", matStr);
+                File.WriteAllText(matPath, matStr);
 
+                var funPath = $@"{Project.Path}\functions.jsf";
                 var funStr = JsonConvert.SerializeObject(FunData, settingsSerializer);
-                File.WriteAllText(@"{Project.Path}\functions.jsf", funStr);
+                File.WriteAllText(funPath, funStr);
 
                 var myProcess = new Process();
 
                 myProcess.StartInfo.FileName = $@"{SolverPath}\BazisSolver.exe";
 
-                var projStr = string.Format(@"{0}\{1}", Project.Path, Project.Name);
-                var argStr = string.Join(" ", new string[] { projStr, matStr, funStr });
+                var projPath = $@"{Project.Path}\{Project.Name}";
+                var argStr = string.Join(" ", new string[] { projPath, matPath, funPath });
 
                 myProcess.StartInfo.Arguments = argStr;
                 myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
@@ -542,7 +544,7 @@ namespace TaskModule
             foreach (var point in modelObj.GetPoints())
             {
                 SceneControl.CreateLine(point, vector,10, color);
-                SceneControl.DisplayText3D(data.CalcValue(time, point).ToString(), Color.FromArgb(0, 0, 0), point);
+                //SceneControl.DisplayText3D(data.CalcValue(time, point).ToString(), Color.FromArgb(0, 0, 0), point);
             }
         }
 

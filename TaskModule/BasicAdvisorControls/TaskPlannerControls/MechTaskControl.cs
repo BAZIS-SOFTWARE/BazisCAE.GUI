@@ -50,7 +50,7 @@ namespace AdvisorControls.TaskPlannerControls
 
             mechParameters.ConvergenceSettings.Iterations = Convert.ToInt32(txbIters.Text);
 
-            mechParameters.BodyTemp = Convert.ToSingle(txbBodyTemp.Text);
+            mechParameters.InitTemp = Convert.ToSingle(txbBodyTemp.Text);
             mechParameters.SaveRate = Convert.ToInt32(txbSaveRate.Text);
 
             mechParameters.SolverSettings.Solver = cmbSolver.Text;
@@ -72,7 +72,7 @@ namespace AdvisorControls.TaskPlannerControls
             txbIters.Text = mechParameters.ConvergenceSettings.Iterations.ToString();
 
             txbSaveRate.Text = mechParameters.SaveRate.ToString();
-            txbBodyTemp.Text = mechParameters.BodyTemp.ToString();
+            txbBodyTemp.Text = mechParameters.InitTemp.ToString();
 
             cmbSolver.Text = mechParameters.SolverSettings.Solver;
             txbSolverIterations.Text = mechParameters.SolverSettings.MaxIter.ToString();

@@ -27,8 +27,9 @@ using BaseModule.Console.Events;
 using Project.Interfaces;
 using Project.TasksData;
 using SceneInterface;
-using ModelController.ModelScenePresentator.GlObjsPresenters;
-using System.Data.Odbc;
+using Newtonsoft.Json;
+using Project.ResultsData;
+using Project.TasksData.TaskParameters;
 
 namespace BaseModule
 {
@@ -99,21 +100,6 @@ namespace BaseModule
             {
                 return treeView;
             }
-        }
-
-        public Color SceneBackGroundColor
-        {
-            set { sceneControl.BackGroundColor = value; }
-        }
-
-        public Color SceneSelectionColor
-        {
-            set { sceneControl.SelectionColor = value; }
-        }
-
-        public void SceneRedraw()
-        {
-            sceneControl.DisplayObjects();
         }
 
         public ISceneControl SceneControl
@@ -595,8 +581,24 @@ namespace BaseModule
 
             if (saveDialog.ShowDialog() == DialogResult.Cancel)
                 return false;
-            project.Path = Path.GetDirectoryName(saveDialog.FileName);
+
+            var path = Path.GetDirectoryName(saveDialog.FileName);
             project.Name = Path.GetFileName(saveDialog.FileName);
+
+            var compData = project.TaskData.Find("Расчет");
+
+            if (project.Path != path)
+                foreach (CompData data in compData)
+                {
+                    var oldfilePath = $@"{project.Path}\{data.FileParameters}";
+                    var newfilePath = $@"{path}\{data.FileParameters}";
+
+                    File.Create(newfilePath).Close();
+                    File.Copy(oldfilePath, newfilePath, true);
+                }
+
+            project.Path = path;
+
             saveDialog.Dispose();
 
             SaveProjectData();

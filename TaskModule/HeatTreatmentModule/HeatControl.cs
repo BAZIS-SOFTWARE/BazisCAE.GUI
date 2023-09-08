@@ -9,13 +9,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.HeatTreatmentModule
 {
-    public partial class HTMediaControl : CheckedGridViewAdviserControl, IElmentsGroupsControl, IFunctionsRelatedControl, ICheckGridViewControl
+    public partial class HeatControl : CheckedGridViewAdviserControl, IElmentsGroupsControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
         [Category("Images")]
         [Description("Set image for add button")]
@@ -57,9 +58,9 @@ namespace TaskModule.HeatTreatmentModule
             set { btnHideAll.Image = value; }
         }      
 
-        enum Column : int { plane, node = 0, function, mediaTemp, bodyTemp, startTime, stopTime };
+        enum Column : int { kind,plane, function, mediaTemp, startTime, stopTime };
 
-        public HTMediaControl()
+        public HeatControl()
         {
             InitializeComponent();
             DataName = "Среда";
@@ -84,9 +85,14 @@ namespace TaskModule.HeatTreatmentModule
         {
             var dataList = new List<string>();
 
+            if (rbtHeatColling.Checked)
+                dataList.Add(rbtHeatColling.Text);
+            else
+                dataList.Add(rbtTempering.Text);
+
             dataList.Add(cmbEl.Text);
             dataList.Add(cmbExchFunc.Text);
-            dataList.Add(cmbMedFunc.Text);
+            dataList.Add(cmbTempFunc.Text);
             dataList.Add("*");
 
             dataList.Add(txbStartTime.Text);
@@ -99,12 +105,70 @@ namespace TaskModule.HeatTreatmentModule
         public void Add_Functions(List<string> functions)
         {
             cmbExchFunc.Items.Clear();
-            cmbMedFunc.Items.Clear();
+            cmbTempFunc.Items.Clear();
             foreach (var function in functions)
             {
                 cmbExchFunc.Items.Add(function);
-                cmbMedFunc.Items.Add(function);
+                cmbTempFunc.Items.Add(function);
             }
+        }
+
+        public override void AddButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CurentSelectedRowInfo = AddRowInfo();
+                base.AddButton_Click(sender, e);
+
+                btnRefresh.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public override void RefreshButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CurentSelectedRowInfo = AddRowInfo();
+                base.RefreshButton_Click(sender, e);
+                btnRefresh.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public override void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var medTempFunc = dataGridView[(int)Column.mediaTemp, CurentSelectedRowIndex].Value.ToString();
+            cmbTempFunc.Text = medTempFunc;
+
+            cmbEl.Text = dataGridView[(int)Column.plane, CurentSelectedRowIndex].Value.ToString();
+            cmbExchFunc.Text = dataGridView[(int)Column.function, CurentSelectedRowIndex].Value.ToString();
+
+
+            var procType = dataGridView[(int)Column.kind, CurentSelectedRowIndex].Value.ToString();
+
+            if (procType == "Охлаждение/Нагрев")
+                rbtHeatColling.Checked = true;
+            else
+                rbtTempering.Checked = true;
+
+            txbStartTime.Text = dataGridView[(int)Column.startTime, CurentSelectedRowIndex].Value.ToString();
+            txbStopTime.Text = dataGridView[(int)Column.stopTime, CurentSelectedRowIndex].Value.ToString();
+
+            btnRefresh.Enabled = true;
+        }
+
+        public override void ClearAllDataButton_Click(object sender, EventArgs e)
+        {
+            base.ClearAllDataButton_Click(sender, e);
+            int rowIndex = dataGridView.CurrentCell.RowIndex;
+            dataGridView.Rows.RemoveAt(rowIndex);
         }
 
         public void ShowDataButton_Click(object sender, EventArgs e)
@@ -124,11 +188,6 @@ namespace TaskModule.HeatTreatmentModule
         public override void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             base.DataGridView_UserDeletingRow(sender, e);
-        }
-
-        public override void ClearAllDataButton_Click(object sender, EventArgs e)
-        {
-            base.ClearAllDataButton_Click(sender, e);
         }
 
         private void player_StartCheckingEvent(object obj)

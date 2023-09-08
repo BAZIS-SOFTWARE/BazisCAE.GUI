@@ -44,7 +44,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         public string Path { get; set; }
 
         public event Action<object,EventArgs> AddDataUseTaskConditionsEvent;
-        public event Action<object, string> StartComputationEvent;
+        public event Action<object, EventArgs> StartComputationEvent;
         public event Action<object, EventArgs> StopComputationEvent;
 
         enum Column : int { kind, settings, status };
@@ -81,7 +81,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            StartComputationEvent(this, Path);
+            StartComputationEvent(this, new EventArgs());
         }                 
 
         private void grbTask_Paint(object sender, PaintEventArgs e)

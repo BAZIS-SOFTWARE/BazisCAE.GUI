@@ -41,7 +41,7 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgMaterials = new System.Windows.Forms.TabPage();
             this.materialsControl1 = new TaskModule.BasicAdvisorControls.MaterialsControl();
             this.pdgHT = new System.Windows.Forms.TabPage();
-            this.htMediaControl1 = new TaskModule.HeatTreatmentModule.HTMediaControl();
+            this.htMediaControl1 = new TaskModule.HeatTreatmentModule.HeatControl();
             this.pdgClamps = new System.Windows.Forms.TabPage();
             this.clampControl1 = new TaskModule.BasicAdvisorControls.ClampControl();
             this.pdgLoad = new System.Windows.Forms.TabPage();
@@ -326,7 +326,7 @@ namespace TaskModule.HeatTreatmentModule
         private LoadControl loadControl1;
         private System.Windows.Forms.TabPage pdgPlanner;
         private TaskPlannerControl taskPlannerControl1;
-        private HTMediaControl htMediaControl1;
+        private HeatControl htMediaControl1;
         private System.Windows.Forms.ImageList imageList;
     }
 }

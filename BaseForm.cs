@@ -252,8 +252,8 @@ namespace BaseForm
 
         private void SetGeneralSettings(BasePage module)
         {
-            module.SceneBackGroundColor = settingsConfig.BackGroudColor;
-            module.SceneSelectionColor = settingsConfig.SelectionColor;
+            module.SceneControl.BackGroundColor = settingsConfig.BackGroudColor;
+            module.SceneControl.SelectionColor = settingsConfig.SelectionColor;
             module.SceneTransparency = settingsConfig.Transparency;
             module.SceneLighting = settingsConfig.Lighting;
         }
@@ -381,14 +381,14 @@ namespace BaseForm
                 if (controls.Length > 0)
                 {
                     var basePage = (BasePage)controls[0];
-                    basePage.SceneBackGroundColor = ar.BackGroudColor;
-                    basePage.SceneSelectionColor = ar.SelectionColor;
+                    basePage.SceneControl.BackGroundColor = ar.BackGroudColor;
+                    basePage.SceneControl.SelectionColor = ar.SelectionColor;
                     basePage.SceneTransparency = ar.Transparency;
                     basePage.SceneLighting = ar.Lighting;
 
                     if (basePage is TaskPage taskPage)
                         taskPage.SolverPath = ar.SolverPath;
-                    basePage.SceneRedraw();
+                    basePage.SceneControl.DisplayObjects();
                 }
             };
             var form = new Form() {

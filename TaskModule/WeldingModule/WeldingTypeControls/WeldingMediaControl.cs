@@ -68,7 +68,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             var dataList = new List<string>();
 
-            if (heatFlowRadioButton.Checked)
+            dataList.Add("Охлаждение/Нагрев");
+
+            if (rbtHeatFlow.Checked)
             {
                 dataList.Add(cmbEl.Text);
                 dataList.Add(cmbFunc.Text);
@@ -98,14 +100,14 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             {
                 cmbNode.Text = dataGridView[(int)Column.node, CurentSelectedRowIndex].Value.ToString();
                 cmbTermoCycle.Text = dataGridView[(int)Column.bodyTemp, CurentSelectedRowIndex].Value.ToString();
-                termoRadioButton.Checked = true;
+                rbtTermoCycle.Checked = true;
             }
             else
             {
                 cmbEl.Text = dataGridView[(int)Column.plane, CurentSelectedRowIndex].Value.ToString();
                 cmbFunc.Text = dataGridView[(int)Column.function, CurentSelectedRowIndex].Value.ToString();
                 txbMediaTemp.Text = dataGridView[(int)Column.mediaTemp, CurentSelectedRowIndex].Value.ToString();
-                heatFlowRadioButton.Checked = true;
+                rbtHeatFlow.Checked = true;
             }
 
             txbStartTime.Text = dataGridView[(int)Column.startTime, CurentSelectedRowIndex].Value.ToString();
