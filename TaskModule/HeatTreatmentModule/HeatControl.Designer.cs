@@ -30,7 +30,7 @@ namespace TaskModule.HeatTreatmentModule
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new System.Windows.Forms.GroupBox();
             this.cmbTempFunc = new System.Windows.Forms.ComboBox();
@@ -97,7 +97,7 @@ namespace TaskModule.HeatTreatmentModule
             this.grbHeatFlux.Controls.Add(this.label1);
             this.grbHeatFlux.Controls.Add(this.cmbEl);
             this.grbHeatFlux.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbHeatFlux.Location = new System.Drawing.Point(1, 64);
+            this.grbHeatFlux.Location = new System.Drawing.Point(1, 77);
             this.grbHeatFlux.Margin = new System.Windows.Forms.Padding(1);
             this.grbHeatFlux.Name = "grbHeatFlux";
             this.grbHeatFlux.Padding = new System.Windows.Forms.Padding(0);
@@ -180,22 +180,24 @@ namespace TaskModule.HeatTreatmentModule
             this.Column1,
             this.startColumn,
             this.stopColumn});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.NullValue = " ";
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.NullValue = " ";
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 319);
+            this.dataGridView.Location = new System.Drawing.Point(1, 332);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(531, 282);
+            this.dataGridView.Size = new System.Drawing.Size(531, 269);
             this.dataGridView.TabIndex = 14;
+            this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
+            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
             // 
             // processColumn
             // 
@@ -249,7 +251,7 @@ namespace TaskModule.HeatTreatmentModule
             this.groupBox1.Controls.Add(this.txbStartTime);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(1, 190);
+            this.groupBox1.Location = new System.Drawing.Point(1, 203);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
@@ -396,7 +398,7 @@ namespace TaskModule.HeatTreatmentModule
             this.groupBox4.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox4.Size = new System.Drawing.Size(531, 61);
+            this.groupBox4.Size = new System.Drawing.Size(531, 74);
             this.groupBox4.TabIndex = 21;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Вид термообработки";
@@ -404,11 +406,11 @@ namespace TaskModule.HeatTreatmentModule
             // rbtTempering
             // 
             this.rbtTempering.AutoSize = true;
-            this.rbtTempering.Location = new System.Drawing.Point(146, 28);
+            this.rbtTempering.Location = new System.Drawing.Point(171, 28);
             this.rbtTempering.Name = "rbtTempering";
-            this.rbtTempering.Size = new System.Drawing.Size(78, 17);
+            this.rbtTempering.Size = new System.Drawing.Size(154, 30);
             this.rbtTempering.TabIndex = 21;
-            this.rbtTempering.Text = "Выдержка";
+            this.rbtTempering.Text = "Выдержка\r\n(отпуск, отжиг, старение)";
             this.rbtTempering.UseVisualStyleBackColor = true;
             // 
             // rbtHeatColling
@@ -418,10 +420,10 @@ namespace TaskModule.HeatTreatmentModule
             this.rbtHeatColling.Location = new System.Drawing.Point(10, 28);
             this.rbtHeatColling.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
             this.rbtHeatColling.Name = "rbtHeatColling";
-            this.rbtHeatColling.Size = new System.Drawing.Size(130, 17);
+            this.rbtHeatColling.Size = new System.Drawing.Size(153, 30);
             this.rbtHeatColling.TabIndex = 20;
             this.rbtHeatColling.TabStop = true;
-            this.rbtHeatColling.Text = "Нагрев/Охлаждение";
+            this.rbtHeatColling.Text = "Охлаждение/Нагрев \r\n(нормализация, закалка)";
             this.rbtHeatColling.UseVisualStyleBackColor = true;
             // 
             // HeatControl

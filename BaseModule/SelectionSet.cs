@@ -25,7 +25,7 @@ namespace BaseModule
         private void btnSelect_Click(object sender, EventArgs e)
         {
             if (rbtInDirection.Checked)
-                SelectInDirection(this, new SelectInDirectionEventArgs("Узлы", chbChangeDirection.Checked));
+                SelectInDirection(this, new SelectInDirectionEventArgs("Узлы", chbChangeDirection.Checked, float.Parse(txbAngle.Text)));
             else if (rbtInPlain.Checked)
                 if (rbtNodes.Checked)
                     SelectInPlain(this, new SelectInPlainEventArgs("Узлы", float.Parse(txbAngle.Text)));

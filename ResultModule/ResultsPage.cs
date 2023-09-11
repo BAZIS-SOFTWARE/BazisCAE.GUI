@@ -74,17 +74,6 @@ namespace ResultModule
             TreeView.Nodes.Find("Результаты", false)[0].Nodes.Clear();
         }
 
-        //protected override void OnLoad(EventArgs e)
-        //{
-        //    base.OnLoad(e);
-        //    var resKinds = Project.ResultData.GetResultKinds();
-        //    foreach (var resKind in resKinds)
-        //    {
-        //        var results = Project.ResultData.FindByTaskKind(resKind);
-        //        PresentResultsOnTree(results);
-        //    }
-        //}
-
         public override void CreateMenuInterface()
         {
             AddToolStripMenuItem(CreateResultsInterface());
@@ -472,9 +461,13 @@ namespace ResultModule
         {
             if(e.ClickedItem.Tag.ToString() == "0")
             {
-                ClearAllDataOnScene();
-                ModelPresenter.Remove("Поверхности");
-                ModelPresenter.Remove("Линии");
+                ModelPresenter = new ModelScenePresentator(Project.Model);
+
+                foreach (var item in ModelPresenter.Keys)
+                    PresentDataToScene(item);
+
+                SceneControl.DisplayObjects();
+
                 Project.ResultData.Clear();
                 TreeView.Nodes[6].Nodes.Clear();
             }
@@ -489,8 +482,13 @@ namespace ResultModule
             else if (e.ClickedItem.Tag.ToString() == "3")
             {
                 ClearAllDataOnScene();
-                ModelPresenter.Remove("Поверхности");
-                ModelPresenter.Remove("Линии");
+
+                ModelPresenter = new ModelScenePresentator(Project.Model);
+
+                foreach (var item in ModelPresenter.Keys)
+                    PresentDataToScene(item);
+
+                SceneControl.DisplayObjects();
             }
             else if (e.ClickedItem.Tag.ToString() == "4")
             {
@@ -512,14 +510,6 @@ namespace ResultModule
                     ShowScale();
             }
         }
-
-        //private void ClearResults()
-        //{
-        //    ClearResults();
-
-        //    Project.ResultData.Clear();
-        //    TreeView.Nodes[6].Nodes.Clear();
-        //}
 
         private void ShowResults(float time, string resKind, int scaleFactor)
         {
@@ -550,7 +540,9 @@ namespace ResultModule
             var objsType = TreeView.SelectedNode.Parent.Name;
             var resultSurfaces = fieldCreator.CreateFieldObjects(result, objsType, resName);
 
-            ClearAllDataOnScene();
+            SceneControl.HideDisplayText2D();
+            SceneControl.HideDisplayText3D();
+            SceneControl.DeleteAllVBObjects();
 
             if (showResultValue)
                 ShowResultValue(objsType, resName, result);
@@ -565,7 +557,7 @@ namespace ResultModule
             foreach (var item in ModelPresenter.Keys)
                 PresentDataToScene(item);
 
-            SceneControl.ChangeViewModeVBObjects("Поверхность", ObjView.Surface);
+            SceneControl.ChangeViewModeVBObjects("Поверхности", ObjView.Surface);
 
             SceneControl.DisplayObjects();
         }

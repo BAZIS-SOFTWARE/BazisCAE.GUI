@@ -86,14 +86,13 @@ namespace TaskModule.HeatTreatmentModule
             var dataList = new List<string>();
 
             if (rbtHeatColling.Checked)
-                dataList.Add(rbtHeatColling.Text);
+                dataList.Add("Охлаждение/Нагрев");
             else
-                dataList.Add(rbtTempering.Text);
+                dataList.Add("Выдержка");
 
             dataList.Add(cmbEl.Text);
             dataList.Add(cmbExchFunc.Text);
             dataList.Add(cmbTempFunc.Text);
-            dataList.Add("*");
 
             dataList.Add(txbStartTime.Text);
             dataList.Add(txbStopTime.Text);
@@ -167,8 +166,6 @@ namespace TaskModule.HeatTreatmentModule
         public override void ClearAllDataButton_Click(object sender, EventArgs e)
         {
             base.ClearAllDataButton_Click(sender, e);
-            int rowIndex = dataGridView.CurrentCell.RowIndex;
-            dataGridView.Rows.RemoveAt(rowIndex);
         }
 
         public void ShowDataButton_Click(object sender, EventArgs e)

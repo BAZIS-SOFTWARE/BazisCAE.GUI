@@ -65,6 +65,11 @@
             this.cmbRef = new System.Windows.Forms.ComboBox();
             this.cmbTraj = new System.Windows.Forms.ComboBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.видСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ОбластьСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ПараметрыДвижения = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.rbtLW = new System.Windows.Forms.RadioButton();
             this.rbtFSW = new System.Windows.Forms.RadioButton();
@@ -72,11 +77,6 @@
             this.cmbWeldZone = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.grbWeldRegime = new System.Windows.Forms.GroupBox();
-            this.видСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ОбластьСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ПараметрыДвижения = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -109,6 +109,7 @@
             // groupBox1
             // 
             this.groupBox1.AutoSize = true;
+            this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox1.Controls.Add(this.player);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label8);
@@ -139,9 +140,8 @@
             this.groupBox1.Controls.Add(this.cmbRef);
             this.groupBox1.Controls.Add(this.cmbTraj);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(1, 115);
+            this.groupBox1.Location = new System.Drawing.Point(1, 117);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
-            this.groupBox1.MinimumSize = new System.Drawing.Size(300, 250);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
             this.groupBox1.Size = new System.Drawing.Size(571, 300);
@@ -153,7 +153,6 @@
             // 
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.player.AutoSize = true;
             this.player.CheckState = PlayerControl.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(178, 242);
@@ -504,7 +503,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 415);
+            this.dataGridView.Location = new System.Drawing.Point(1, 417);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
@@ -522,11 +521,46 @@
             this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.Size = new System.Drawing.Size(571, 222);
+            this.dataGridView.Size = new System.Drawing.Size(571, 220);
             this.dataGridView.TabIndex = 25;
             this.dataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView_DefaultValuesNeeded);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
+            // 
+            // видСварки
+            // 
+            this.видСварки.HeaderText = "Вид сварки";
+            this.видСварки.Name = "видСварки";
+            this.видСварки.ReadOnly = true;
+            this.видСварки.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // ОбластьСварки
+            // 
+            this.ОбластьСварки.HeaderText = "Область сварки";
+            this.ОбластьСварки.Name = "ОбластьСварки";
+            this.ОбластьСварки.ReadOnly = true;
+            // 
+            // startColumn
+            // 
+            this.startColumn.HeaderText = "Старт";
+            this.startColumn.Name = "startColumn";
+            this.startColumn.ReadOnly = true;
+            // 
+            // stopColumn
+            // 
+            this.stopColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.NullValue = "0";
+            this.stopColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.stopColumn.HeaderText = "Стоп";
+            this.stopColumn.Name = "stopColumn";
+            this.stopColumn.ReadOnly = true;
+            // 
+            // ПараметрыДвижения
+            // 
+            this.ПараметрыДвижения.HeaderText = "Параметры движения";
+            this.ПараметрыДвижения.Name = "ПараметрыДвижения";
+            this.ПараметрыДвижения.ReadOnly = true;
+            this.ПараметрыДвижения.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // groupBox3
             // 
@@ -617,45 +651,10 @@
             this.grbWeldRegime.MinimumSize = new System.Drawing.Size(0, 15);
             this.grbWeldRegime.Name = "grbWeldRegime";
             this.grbWeldRegime.Padding = new System.Windows.Forms.Padding(2);
-            this.grbWeldRegime.Size = new System.Drawing.Size(571, 15);
+            this.grbWeldRegime.Size = new System.Drawing.Size(571, 17);
             this.grbWeldRegime.TabIndex = 30;
             this.grbWeldRegime.TabStop = false;
             this.grbWeldRegime.Text = "Источник сварки";
-            // 
-            // видСварки
-            // 
-            this.видСварки.HeaderText = "Вид сварки";
-            this.видСварки.Name = "видСварки";
-            this.видСварки.ReadOnly = true;
-            this.видСварки.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // ОбластьСварки
-            // 
-            this.ОбластьСварки.HeaderText = "Область сварки";
-            this.ОбластьСварки.Name = "ОбластьСварки";
-            this.ОбластьСварки.ReadOnly = true;
-            // 
-            // startColumn
-            // 
-            this.startColumn.HeaderText = "Старт";
-            this.startColumn.Name = "startColumn";
-            this.startColumn.ReadOnly = true;
-            // 
-            // stopColumn
-            // 
-            this.stopColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.NullValue = "0";
-            this.stopColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.stopColumn.HeaderText = "Стоп";
-            this.stopColumn.Name = "stopColumn";
-            this.stopColumn.ReadOnly = true;
-            // 
-            // ПараметрыДвижения
-            // 
-            this.ПараметрыДвижения.HeaderText = "Параметры движения";
-            this.ПараметрыДвижения.Name = "ПараметрыДвижения";
-            this.ПараметрыДвижения.ReadOnly = true;
-            this.ПараметрыДвижения.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // WeldingControl
             // 

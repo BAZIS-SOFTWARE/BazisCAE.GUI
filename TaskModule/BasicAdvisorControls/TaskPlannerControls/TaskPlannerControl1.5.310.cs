@@ -11,6 +11,7 @@ using Project.TasksData.TaskParameters;
 using Project.TasksData;
 using System.Threading;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
@@ -253,6 +254,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             try
             {
                 var parameters = Get_TaskSettings(taskKind);
+
+                parameters.TermalProcesses = new List<string>() { "Охлаждение", "Нагрев" };
+
                 parameters.TimeSettings.StartTime = Convert.ToSingle(txbStartTime.Text);
                 parameters.TimeSettings.StopTime = Convert.ToSingle(txbStopTime.Text);
                 parameters.TimeSettings.InitTimeStep = Convert.ToSingle(txbStartStep.Text);
@@ -289,7 +293,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 else
                     tsfStr = JsonConvert.SerializeObject(parameters, settingsSerializer);
 
-                var tsfFileName = $"{taskKind}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
+                var tsfFileName = $"{taskKind}_{dataGridView.RowCount}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
 
                 File.WriteAllText($@"{Path}\{tsfFileName}", tsfStr);
 
@@ -336,7 +340,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         private string AddRowInfo(TaskKind taskKind, TaskStatus status)
         {
-            var tsfFileName = $"{taskKind}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
+            var tsfFileName = $"{taskKind}_{dataGridView.RowCount}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
 
             return $"\"{taskKind} {tsfFileName} {status}\"";
         }

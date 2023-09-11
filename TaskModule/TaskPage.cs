@@ -170,7 +170,7 @@ namespace TaskModule
             else
             {
                 activeTask = taskAdv.Name;
-                var form = new Form() { Text = activeTask, Name = activeTask, TopMost = true, Size = taskAdv.Size,Icon = icon };
+                var form = new Form() { Text = activeTask, Name = activeTask, TopMost = true, Size = taskAdv.Size, Icon = icon };
                 form.FormClosed += (ar1, ar2) =>
                 {
                     if (ar2.CloseReason == CloseReason.UserClosing)
@@ -325,7 +325,6 @@ namespace TaskModule
 
             TreeView.Nodes["вид"].Text = "Вид : " + Project.TaskType;
 
-            TreeView.Nodes["Данные"].Expand();
             TreeView.Nodes["Данные"].Nodes.Clear();
 
             foreach (var data in Project.TaskData)
@@ -343,6 +342,7 @@ namespace TaskModule
             }
 
             TreeView.EndUpdate();
+            TreeView.Nodes["Данные"].Expand();
         }
 
         public override void PresentProjectOnTree()
@@ -359,6 +359,7 @@ namespace TaskModule
                 SelectedImageIndex = CollapseIndex,
                 Tag = "3"
             };
+
             TreeView.Nodes.Add(objsNode);
 
             SetProjectTaskDataInfo();
@@ -543,7 +544,10 @@ namespace TaskModule
 
             foreach (var point in modelObj.GetPoints())
             {
-                SceneControl.CreateLine(point, vector,10, color);
+                var scl = 10 * (1.0f / Height * 1.0f / SceneControl.ScaleFactor);
+                vector = vector.Mult(scl);
+                var p1 = point.Sum(vector);
+                SceneControl.CreateLine(point, p1, color);
                 //SceneControl.DisplayText3D(data.CalcValue(time, point).ToString(), Color.FromArgb(0, 0, 0), point);
             }
         }
@@ -552,6 +556,7 @@ namespace TaskModule
         {
             SceneControl.HideAllGeometryObjs();
             SceneControl.HideDisplayText3D();
+            SetBackColorToAllObjects();
             SceneControl.DisplayObjects();
         }
 

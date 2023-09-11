@@ -86,6 +86,7 @@
             // btnBoundaryContours
             // 
             this.btnBoundaryContours.AutoSize = false;
+            this.btnBoundaryContours.CheckOnClick = true;
             this.btnBoundaryContours.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnBoundaryContours.Image = ((System.Drawing.Image)(resources.GetObject("btnBoundaryContours.Image")));
             this.btnBoundaryContours.ImageAlign = System.Drawing.ContentAlignment.TopCenter;

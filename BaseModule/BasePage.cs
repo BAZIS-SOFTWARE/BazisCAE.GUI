@@ -30,6 +30,9 @@ using SceneInterface;
 using Newtonsoft.Json;
 using Project.ResultsData;
 using Project.TasksData.TaskParameters;
+using Model.Utilities;
+using ModelController.ModelScenePresentator.GlObjsPresenters;
+using System.Xml.Linq;
 
 namespace BaseModule
 {
@@ -377,7 +380,7 @@ namespace BaseModule
             var edges = ModelPresenter.CreateVBOEdges(objsType, inds.Item4);
 
 
-            if (objsType == "Элементы2D" | objsType == "Элементы3D")
+            if (objsType == "Элементы2D" | objsType == "Элементы3D" | objsType == "Поверхности")
             {
                 sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsType);
             }
@@ -931,11 +934,11 @@ namespace BaseModule
                 {
                     if (!arg2.Reverse)
                     {
-                        selectHelper.SelectInDirection<Element3D>(10, objs[objs.Length - 2].Number, objs[objs.Length - 1].Number, sceneControl.SelectionColor);
+                        var search = selectHelper.SelectInDirection<Element3D>(arg2.Angle, objs[objs.Length - 2].Number, objs[objs.Length - 1].Number, sceneControl.SelectionColor);
                     }
                     else
                     {
-                        selectHelper.SelectInDirection<Element3D>(10, objs[objs.Length - 1].Number, objs[objs.Length - 2].Number, sceneControl.SelectionColor);
+                        selectHelper.SelectInDirection<Element3D>(arg2.Angle, objs[objs.Length - 1].Number, objs[objs.Length - 2].Number, sceneControl.SelectionColor);
                     }
                     var vboObjs = sceneControl.FindVBObj(selectStrip.SelectObjectsType);
                     var colors = objsPresenter.CreateVertexes(vboObjs.ColorLength, "цвет");
@@ -1405,7 +1408,43 @@ namespace BaseModule
                 }
                 else if (arg2.ClickedItem.Tag.ToString() == "8")
                 {
-                    //sceneControl.ShowBoundaries();
+                    var btn = (ToolStripButton)arg2.ClickedItem;
+                    if (!btn.Checked)
+                    {
+                        var boundaryCreator = new FindBoundaryEdges(Project.Model);
+                        var lines = boundaryCreator.Find();
+                        var nodes = Project.Model.ObjectData.FindMany<Node>().ToArray();
+
+                        var curves = new List<Curve>();
+
+                        var counter = 0;
+                        foreach (var item in lines)
+                        {
+                            var numbers = item.Split(' ');
+                            var po = Convert.ToInt32(numbers[0]);
+                            var p1 = Convert.ToInt32(numbers[1]);
+                            var node0 = ObjectsFinder.Find(nodes, po);
+                            var node1 = ObjectsFinder.Find(nodes, p1);
+                            var curve = new Curve(counter, new Node[] { node0, node1 })
+                            { MasterColor = Color.Red };
+                            curves.Add(curve);
+                            counter++;
+                        }
+ 
+                        var linePresenter = new LineObjsPresenter(curves.ToArray());
+
+                        var inds = linePresenter.CreateIndexes();
+                        var ptrs = linePresenter.CreatePointers(inds.Item1);
+                        var coords = linePresenter.CreateVertexes(inds.Item2, "координаты");
+                        var colors = linePresenter.CreateVertexes(inds.Item3, "цвет");
+                        var normals = linePresenter.CreateVertexes(inds.Item2, "нормаль");
+                        var edges = linePresenter.CreateEdgeFlags(inds.Item4);
+
+                        sceneControl.CreateLineVBObjects(ptrs, coords, colors, normals, edges, "Boundary");                
+                    }
+                    else sceneControl.DeleteVBObjects("Boundary");
+
+                    sceneControl.DisplayObjects();
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "1")

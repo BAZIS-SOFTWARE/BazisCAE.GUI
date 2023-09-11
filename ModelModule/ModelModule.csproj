@@ -58,11 +58,11 @@
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
     </Reference>
-    <Reference Include="Model, Version=1.0.8.28, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelController.1.0.10.24\lib\net48\Model.dll</HintPath>
+    <Reference Include="Model, Version=1.0.8.34, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelController.1.0.10.28\lib\net48\Model.dll</HintPath>
     </Reference>
-    <Reference Include="ModelController, Version=1.0.10.24, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelController.1.0.10.24\lib\net48\ModelController.dll</HintPath>
+    <Reference Include="ModelController, Version=1.0.10.28, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelController.1.0.10.28\lib\net48\ModelController.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -70,11 +70,11 @@
     <Reference Include="Octree, Version=2.1.10.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.10\lib\net48\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=1.0.7.58, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.1.0.7.58\lib\net48\Project.dll</HintPath>
+    <Reference Include="Project, Version=1.0.7.96, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.1.0.7.96\lib\net48\Project.dll</HintPath>
     </Reference>
-    <Reference Include="SceneInterface, Version=1.0.14.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
-      <HintPath>..\packages\SceneInterface.1.0.14\lib\net48\SceneInterface.dll</HintPath>
+    <Reference Include="SceneInterface, Version=1.0.15.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
+      <HintPath>..\packages\SceneInterface.1.0.15\lib\net48\SceneInterface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
