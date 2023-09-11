@@ -793,6 +793,7 @@ namespace ModelModule
             this.betaBox.Controls.Add(this.nbLayers);
             this.betaBox.Controls.Add(this.label4);
             this.betaBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.betaBox.Enabled = false;
             this.betaBox.Location = new System.Drawing.Point(3, 421);
             this.betaBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.betaBox.Name = "betaBox";
@@ -812,6 +813,7 @@ namespace ModelModule
             this.beta.TabIndex = 3;
             this.beta.Tag = "Beta 1,01";
             this.beta.Text = "1,01";
+            this.beta.Validated += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // label5
             // 
@@ -832,6 +834,7 @@ namespace ModelModule
             this.nbLayers.TabIndex = 1;
             this.nbLayers.Tag = "NbLayers 10";
             this.nbLayers.Text = "10";
+            this.nbLayers.Validated += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // label4
             // 
@@ -869,6 +872,7 @@ namespace ModelModule
             this.fanPointsSizesList.Size = new System.Drawing.Size(131, 22);
             this.fanPointsSizesList.TabIndex = 8;
             this.fanPointsSizesList.Tag = "FanPointsSizesList";
+            this.fanPointsSizesList.Validated += new System.EventHandler(this.OnFilterListEnter);
             // 
             // label8
             // 
@@ -889,6 +893,7 @@ namespace ModelModule
             this.anisoMax.TabIndex = 4;
             this.anisoMax.Tag = "AnisoMax 10000000000";
             this.anisoMax.Text = "10000000000";
+            this.anisoMax.Validated += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // label6
             // 
@@ -917,6 +922,7 @@ namespace ModelModule
             this.fanPointsList.Size = new System.Drawing.Size(131, 22);
             this.fanPointsList.TabIndex = 6;
             this.fanPointsList.Tag = "FanPointsList";
+            this.fanPointsList.Validated += new System.EventHandler(this.OnFilterListEnter);
             // 
             // layersBox
             // 
@@ -944,6 +950,7 @@ namespace ModelModule
             this.ratio.TabIndex = 10;
             this.ratio.Tag = "Ratio 1,1";
             this.ratio.Text = "1,1";
+            this.ratio.Validated += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // thickness
             // 
@@ -955,6 +962,7 @@ namespace ModelModule
             this.thickness.TabIndex = 9;
             this.thickness.Tag = "Thickness 0,01";
             this.thickness.Text = "0,01";
+            this.thickness.Validated += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // label10
             // 
@@ -1001,6 +1009,7 @@ namespace ModelModule
             this.excludedSurfacesList.Size = new System.Drawing.Size(131, 22);
             this.excludedSurfacesList.TabIndex = 8;
             this.excludedSurfacesList.Tag = "ExcludedSurfacesList";
+            this.excludedSurfacesList.Validated += new System.EventHandler(this.OnFilterListEnter);
             // 
             // curvesList
             // 
@@ -1011,6 +1020,7 @@ namespace ModelModule
             this.curvesList.Size = new System.Drawing.Size(131, 22);
             this.curvesList.TabIndex = 6;
             this.curvesList.Tag = "CurvesList";
+            this.curvesList.Validated += new System.EventHandler(this.OnFilterListEnter);
             // 
             // label12
             // 
@@ -1039,6 +1049,7 @@ namespace ModelModule
             this.pointsList.Size = new System.Drawing.Size(131, 22);
             this.pointsList.TabIndex = 4;
             this.pointsList.Tag = "PointsList";
+            this.pointsList.Validated += new System.EventHandler(this.OnFilterListEnter);
             // 
             // label13
             // 
@@ -1072,6 +1083,7 @@ namespace ModelModule
             this.addFilter.TabIndex = 3;
             this.addFilter.Text = "Добавить";
             this.addFilter.UseVisualStyleBackColor = true;
+            this.addFilter.Click += new System.EventHandler(this.OnAddBoundFilter);
             // 
             // quads
             // 
@@ -1084,6 +1096,7 @@ namespace ModelModule
             this.quads.Tag = "Quads";
             this.quads.Text = "Генерировать квады";
             this.quads.UseVisualStyleBackColor = true;
+            this.quads.Click += new System.EventHandler(this.OnBoundFilterCheck);
             // 
             // intersectMetrics
             // 
@@ -1098,6 +1111,7 @@ namespace ModelModule
             this.intersectMetrics.Tag = "IntersectMetrics";
             this.intersectMetrics.Text = "Пересеч метрик поверхн";
             this.intersectMetrics.UseVisualStyleBackColor = true;
+            this.intersectMetrics.Click += new System.EventHandler(this.OnBoundFilterCheck);
             // 
             // betaLaw
             // 
@@ -1110,6 +1124,7 @@ namespace ModelModule
             this.betaLaw.Tag = "BetaLaw";
             this.betaLaw.Text = "Закон бета";
             this.betaLaw.UseVisualStyleBackColor = true;
+            this.betaLaw.Click += new System.EventHandler(this.OnBoundFilterCheck);
             // 
             // groupBox1
             // 
@@ -1138,6 +1153,7 @@ namespace ModelModule
             this.sizesList.Size = new System.Drawing.Size(131, 22);
             this.sizesList.TabIndex = 13;
             this.sizesList.Tag = "SizesList";
+            this.sizesList.Validated += new System.EventHandler(this.OnFilterListEnter);
             // 
             // size
             // 
@@ -1149,6 +1165,7 @@ namespace ModelModule
             this.size.TabIndex = 9;
             this.size.Tag = "Size 0,1";
             this.size.Text = "0,1";
+            this.size.Validated += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // label16
             // 
@@ -1187,6 +1204,7 @@ namespace ModelModule
             this.sizeFar.TabIndex = 10;
             this.sizeFar.Tag = "SizeFar 1,0";
             this.sizeFar.Text = "1.0";
+            this.sizeFar.Validated += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // loadModelBox
             // 

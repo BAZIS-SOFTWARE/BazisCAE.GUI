@@ -80,7 +80,9 @@ namespace ModelModule
                     MaximizeBox = false,
                     FormBorderStyle = FormBorderStyle.FixedSingle
                 };
-                gmshControl.Tag = this;
+                gmshControl.updateModelData += UpdateModelData;
+                gmshControl.redrawScene += RedrawScene;
+                gmshControl.showErrorMessage += ShowErrorMessage;
                 gmshForm.Controls.Add(gmshControl);
                 gmshControl.Dock = DockStyle.Fill;
                 gmshForm.Show();

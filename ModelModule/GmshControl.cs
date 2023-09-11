@@ -58,16 +58,17 @@ namespace ModelModule
             ShowHideMeshControls(false);
             ShowHideVolumeBox(false);
             ShowHideVolumeControls(false);
-            redrawScene?.Invoke(fitOnScreen, "Элементы1D");
+            redrawScene.Invoke(fitOnScreen, "Элементы1D");
         }
 
         private void GenerateMesh()
         {
             geometry.Generate(1);
             mesh = geometry.Generate(2);
-            if (mesh == null)
+            if(mesh == null)
             {
-                showErrorMessage?.Invoke("Невозможно сгенерировать сетку проверьте скрипт-файл");
+                var message = GmshWrapperGeneral.LoggerGetLastError();
+                showErrorMessage?.Invoke(message);
                 return;
             }
             modelData.Clear();
@@ -87,11 +88,6 @@ namespace ModelModule
         private void GenerateVolumes()
         {
             mesh = geometry.Generate(3);
-            if (mesh == null)
-            {
-                GenerateError("Невозможно сгенерировать объемы проверьте скрипт-файл");
-                return;
-            }
             modelData.Clear();
             ClearVolumesTree();
             FillModelDataVolumes();
@@ -152,7 +148,6 @@ namespace ModelModule
             if (loadFileDialog.ShowDialog() == DialogResult.OK)
             {
                 geometry = new GeometryObject(loadFileDialog.FileName);
-                GmshWrapperModel.ModelSetCurrent(geometry.Id.ToString());
                 field = new MeshField(MeshFieldType.BoundaryLayer);
                 GenerateGeometry();
             }
@@ -297,16 +292,16 @@ namespace ModelModule
                     if (selectedNode.Text.Contains("Треугольник") || selectedNode.Text.Contains("Квад"))
                     {
                         modelData.Clear();
-                        elemsTree.Nodes.Remove(selectedNode);
                         mesh.RemoveElements2D(new int[] { number });
+                        FillModelDataMesh();
                     }
                     else if (selectedNode.Text.Contains("Поверхность"))
                     {
                         modelData.Clear();
                         var surface = mesh.GetSurfaceById(number).ToArray();
                         mesh.RemoveSurfaceById(number);
+                        FillModelDataMesh();
                     }
-                    modelData.ObjectData.AddRange(mesh.GetElement2D());
                     elemsTree.Nodes.Remove(selectedNode);
                     redrawScene?.Invoke(false,"Элементы2D");
                 }
@@ -422,16 +417,19 @@ namespace ModelModule
             return radio[0];
         }
 
-        private void GenerateError(string message)
-        {
-            showErrorMessage?.Invoke(message);
-            OnExit(this, null);
-        }
-
         private void OnExit(object sender, EventArgs e)
         {
             updateModelData?.Invoke(modelData);
             this.ParentForm.Close();
         }
+
+        /*private void OnDeleteFilter(object sender, EventArgs e)
+        {
+            if(field != null)
+            {
+                geometry.RemoveField(field.Tag);
+                field = null;
+            }
+        }*/
     }
 }
