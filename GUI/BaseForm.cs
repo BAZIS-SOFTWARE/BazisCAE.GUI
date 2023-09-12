@@ -1,11 +1,6 @@
 ﻿
 using BaseModule;
-using BazisGUI.AboutProgramControl;
-using BazisGUI.SettingsControl;
-using ConnectionController;
-using ConnectionModule;
 using TaskModule.HeatTreatmentModule;
-using LicenseData;
 using ModelModule;
 using Newtonsoft.Json;
 using Project;
@@ -22,8 +17,11 @@ using System.Threading;
 using System.Windows.Forms;
 using TaskModule;
 using TaskModule.WeldingModule;
+using ClientLogic;
+using LicenseInfo;
+using ConnectionModule;
 
-namespace BaseForm
+namespace BazisGUI
 {
 
     public partial class BaseForm : Form
@@ -43,7 +41,7 @@ namespace BaseForm
 
         private Thread serverConnectionThread;
 
-        Controller serverConnection { get; set; }
+        ClientController serverConnection { get; set; }
 
         public BaseForm()
         {
@@ -63,7 +61,7 @@ namespace BaseForm
                 var iPAddress = IPAddress.Parse(net.Split(':')[0]);
                 var port = int.Parse(net.Split(':')[1]);
 
-                serverConnection = new ConnectionController.Controller(iPAddress, port);
+                serverConnection = new ClientController(iPAddress, port);
             }
             else
             {
@@ -72,7 +70,7 @@ namespace BaseForm
                     $@"Адресс подключения: {IPAddress.Loopback}, порт: {8001}\n
                                 Внимание! Не найдена переменная среды ""BazisServerPath"""
                     );
-                serverConnection = new ConnectionController.Controller(IPAddress.Loopback, 8001);
+                serverConnection = new ClientController(IPAddress.Loopback, 8001);
             }
         }
 
@@ -308,12 +306,12 @@ namespace BaseForm
         {
             var form = new Form() { Name = "aboutLicenseForm", Text = "Информация о лицензии", ShowIcon = false, Size = new Size(555, 283) };
             form.TopMost = true;
-            var control = new AboutControl { Dock = DockStyle.Fill };
+            var control = new AboutLicenseControl { Dock = DockStyle.Fill };
 
             try
             {
                 serverConnection.RequestServer("CheckLicenseInfo");
-                var licInfo = JsonConvert.DeserializeObject<LicenseInfo>(serverConnection.Answer);
+                var licInfo = JsonConvert.DeserializeObject<License>(serverConnection.Answer);
                 
                 if(licInfo != null)
                 {
@@ -338,14 +336,14 @@ namespace BaseForm
         private void StartLisenceForm()
         {
             var form = new Form() { Name = "checkForm", Text = "Лицензирование", ShowIcon = false, Size = new Size(450, 250) };
-            var control = new ConnectionControl() { Dock = DockStyle.Fill };
+            var control = new ClientControl() { Dock = DockStyle.Fill };
 
             control.LicenseActionEvent += (ar1,ar2) => 
             {
                 var controls = toolStripContainer.ContentPanel.Controls.Find(activePage, false);
                 if(controls.Length > 0)
                 {
-                    serverConnection = new Controller(ar1, ar2);
+                    serverConnection = new ClientController(ar1, ar2);
                     serverConnection.RequestServer(activePage + " Взять");
 
                     control.LabelAnswer = serverConnection.Answer;

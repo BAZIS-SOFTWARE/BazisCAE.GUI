@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace BazisGUI.SettingsControl
+namespace BazisGUI
 {
     [Serializable]
     public class SettingsConfig

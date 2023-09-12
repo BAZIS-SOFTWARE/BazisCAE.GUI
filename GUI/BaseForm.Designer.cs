@@ -1,4 +1,4 @@
-﻿namespace BaseForm
+﻿namespace BazisGUI
 {
     partial class BaseForm
     {
@@ -212,7 +212,7 @@
             // 
             // содержаниеToolStripMenuItem
             // 
-            this.содержаниеToolStripMenuItem.Image = global::BazisGUI.Properties.Resources.helpContent;
+            //this.содержаниеToolStripMenuItem.Image = global::BazisGUI.Properties.Resources.helpContent;
             this.содержаниеToolStripMenuItem.Name = "содержаниеToolStripMenuItem";
             this.содержаниеToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.содержаниеToolStripMenuItem.Text = "&Содержание";

@@ -1,4 +1,4 @@
-﻿namespace BazisGUI.SettingsControl
+﻿namespace BazisGUI
 {
     partial class SettingsControl
     {

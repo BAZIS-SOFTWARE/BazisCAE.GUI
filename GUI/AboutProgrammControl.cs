@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace BazisGUI.AboutProgramControl
+namespace BazisGUI
 {
     public partial class AboutProgrammControl : UserControl
     {

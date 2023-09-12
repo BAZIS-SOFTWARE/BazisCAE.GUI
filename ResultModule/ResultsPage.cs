@@ -63,8 +63,22 @@ namespace ResultModule
             resToolStrip.ItemClicked += ResultsToolStrip_ItemClicked;
 
             AddToolStrip(resToolStrip);
+        }
 
-            TreeView.Nodes.Add(new TreeNode("Результаты", 1, 1) { Name = "Результаты",Tag = 6 });
+        public override void PresentProjectOnTree()
+        {
+            base.PresentProjectOnTree();       
+
+            TreeView.Nodes.RemoveByKey("Результаты");
+
+            TreeView.Nodes.Add(new TreeNode("Результаты", 1, 1) { Name = "Результаты", Tag = 6 });
+
+            var resKinds = Project.ResultData.GetResultKinds();
+            foreach (var resKind in resKinds)
+            {
+                var results = Project.ResultData.FindByTaskKind(resKind);
+                PresentResultsOnTree(results);
+            }
         }
 
         public override void LoadProjectData(string extFilter)

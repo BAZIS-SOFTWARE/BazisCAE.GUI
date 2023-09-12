@@ -1,4 +1,4 @@
-﻿namespace BazisGUI.AboutProgramControl
+﻿namespace BazisGUI
 {
     partial class AboutProgrammControl
     {

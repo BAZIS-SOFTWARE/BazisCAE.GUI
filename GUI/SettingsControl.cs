@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.IO;
 
-namespace BazisGUI.SettingsControl
+namespace BazisGUI
 {
     public partial class SettingsControl : UserControl
     {
