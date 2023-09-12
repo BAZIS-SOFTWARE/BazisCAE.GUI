@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ToolStrips
+namespace BaseModule.ToolStrips
 {
-    public class BtnToolStrRender: ToolStripProfessionalRenderer
+    public class BaseToolStrRender: ToolStripProfessionalRenderer
     {
         protected override void OnRenderSplitButtonBackground(ToolStripItemRenderEventArgs e)
         {

@@ -1,4 +1,4 @@
-﻿namespace ToolStrips
+﻿namespace BaseModule.ToolStrips
 {
     partial class SelectToolStrip
     {

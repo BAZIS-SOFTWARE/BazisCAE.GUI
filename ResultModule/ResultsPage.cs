@@ -1,4 +1,5 @@
 ﻿using BaseModule;
+using BaseModule.ToolStrips;
 using CustomControls;
 using CustomControls.Controls;
 using CustomControls.OS;
@@ -58,7 +59,7 @@ namespace ResultModule
 
             var resToolStrip = new ResultsToolStrip
             {
-                Renderer = new BtnToolStrRender()
+                Renderer = new BaseToolStrRender()
             };
             resToolStrip.ItemClicked += ResultsToolStrip_ItemClicked;
 

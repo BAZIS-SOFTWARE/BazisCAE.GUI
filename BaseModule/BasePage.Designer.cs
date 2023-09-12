@@ -1,5 +1,7 @@
 ﻿using BaseModule.Console;
+using BaseModule.ToolStrips;
 using SceneInterface;
+using ToolStrips;
 
 namespace BaseModule
 {
@@ -85,6 +87,9 @@ namespace BaseModule
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuImageList = new System.Windows.Forms.ImageList(this.components);
             this.consoleControl = new BaseModule.Console.ConsoleControl();
+            displayToolStrip = new DisplayToolStrip();
+            selectToolStrip = new SelectToolStrip();
+
             this.objects_MenuStrip.SuspendLayout();
             this.groups_MenuStrip.SuspendLayout();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
@@ -713,5 +718,7 @@ namespace BaseModule
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
         private System.Windows.Forms.ImageList contextMenuImageList;
+        DisplayToolStrip displayToolStrip;
+        SelectToolStrip selectToolStrip;
     }
 }

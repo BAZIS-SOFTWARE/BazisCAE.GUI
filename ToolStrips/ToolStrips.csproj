@@ -43,31 +43,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvisorEventArgs.cs" />
-    <Compile Include="BtnToolStrRender.cs" />
     <Compile Include="CompoToolStrip.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CompoToolStrip.Designer.cs">
       <DependentUpon>CompoToolStrip.cs</DependentUpon>
     </Compile>
-    <Compile Include="DisplayToolStrip.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DisplayToolStrip.Designer.cs">
-      <DependentUpon>DisplayToolStrip.cs</DependentUpon>
-    </Compile>
     <Compile Include="MeshEventArgs.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="SelectObjectEventArgs.cs" />
-    <Compile Include="SelectToolStrip.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SelectToolStrip.Designer.cs">
-      <DependentUpon>SelectToolStrip.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StandartToolStrip.cs">
@@ -119,18 +105,12 @@
     <EmbeddedResource Include="CompoToolStrip.resx">
       <DependentUpon>CompoToolStrip.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DisplayToolStrip.resx">
-      <DependentUpon>DisplayToolStrip.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="InstrumentToolStrip.resx">
       <DependentUpon>InstrumentToolStrip.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectToolStrip.resx">
-      <DependentUpon>SelectToolStrip.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StandartToolStrip.resx">
       <DependentUpon>StandartToolStrip.cs</DependentUpon>

@@ -11,6 +11,7 @@ using ModelController.MeshObjsCreator;
 using System.Diagnostics;
 using System.IO;
 using ModelController.ModelScenePresentator;
+using BaseModule.ToolStrips;
 
 namespace ModelModule
 {
@@ -32,7 +33,7 @@ namespace ModelModule
             //};
 
             var meshToolStrip = new MeshToolStrip();
-            meshToolStrip.Renderer = new BtnToolStrRender();
+            meshToolStrip.Renderer = new BaseToolStrRender();
             meshToolStrip.ItemClicked += MeshToolStrip_ItemClicked;
             
             AddToolStrip(meshToolStrip);

@@ -4,6 +4,7 @@ using TaskModule;
 using ToolStrips;
 using AdvisorControls;
 using TaskModule.BasicTaskAdvisor;
+using BaseModule.ToolStrips;
 
 namespace TaskModule.HeatTreatmentModule
 {
@@ -18,7 +19,7 @@ namespace TaskModule.HeatTreatmentModule
         {
 
             var htTaskToolStrip = new HeatTreatmentTasksToolStrip() { Name = "ТО" };
-            htTaskToolStrip.Renderer = new BtnToolStrRender();
+            htTaskToolStrip.Renderer = new BaseToolStrRender();
             htTaskToolStrip.advisorStatusChanged += HtTaskToolStrip_advisorStatusChanged;
 
             AddToolStrip(htTaskToolStrip);

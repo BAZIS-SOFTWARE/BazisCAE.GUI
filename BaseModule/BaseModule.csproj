@@ -107,7 +107,7 @@
     <Compile Include="BasePage.Designer.cs">
       <DependentUpon>BasePage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Console\BtnToolStrRender.cs" />
+    <Compile Include="Console\ConsoleToolStrRender.cs" />
     <Compile Include="Console\Events\ExitAppEventArgs.cs" />
     <Compile Include="Console\Events\LoadProjectEventArgs.cs" />
     <Compile Include="Console\Events\ModelFindCoincidentsNodesEventArgs.cs" />
@@ -151,6 +151,20 @@
     <Compile Include="SelectionSet.Designer.cs">
       <DependentUpon>SelectionSet.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToolStrips\BaseToolStrRender.cs" />
+    <Compile Include="ToolStrips\DisplayToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToolStrips\DisplayToolStrip.Designer.cs">
+      <DependentUpon>DisplayToolStrip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolStrips\SelectObjectEventArgs.cs" />
+    <Compile Include="ToolStrips\SelectToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToolStrips\SelectToolStrip.Designer.cs">
+      <DependentUpon>SelectToolStrip.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +183,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SelectionSet.resx">
       <DependentUpon>SelectionSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolStrips\DisplayToolStrip.resx">
+      <DependentUpon>DisplayToolStrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolStrips\SelectToolStrip.resx">
+      <DependentUpon>SelectToolStrip.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

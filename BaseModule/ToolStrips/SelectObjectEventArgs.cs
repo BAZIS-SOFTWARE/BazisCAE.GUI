@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ToolStrips
+namespace BaseModule.ToolStrips
 {
     public class SelectObjectEventArgs : EventArgs
     {

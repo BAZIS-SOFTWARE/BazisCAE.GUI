@@ -668,8 +668,7 @@ namespace TaskModule
                 var confirm = false;
                 var breaker = false;
 
-                var selectToolStrip = FindToolStrip<SelectToolStrip>();
-                selectToolStrip.SelectObjectsType = "Узлы";
+                SelectToolStrip.SelectObjectsType = "Узлы";
 
                 var func = taskParamsCalculator.SetDirection(taskStr);
 

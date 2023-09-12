@@ -117,8 +117,8 @@ namespace BaseModule.Console
         public ConsoleControl()
         {
             InitializeComponent();
-            tlsOut.Renderer = new BtnToolStrRender();
-            tlsIn.Renderer = new BtnToolStrRender();
+            tlsOut.Renderer = new ConsoleToolStrRender();
+            tlsIn.Renderer = new ConsoleToolStrRender();
 
             var path = " > Текущая сессия ";
 

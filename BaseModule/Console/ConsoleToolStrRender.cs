@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace BaseModule.Console
 {
-    public class BtnToolStrRender : ToolStripRenderer
+    public class ConsoleToolStrRender : ToolStripRenderer
     {
         protected override void OnRenderButtonBackground(ToolStripItemRenderEventArgs e)
         {

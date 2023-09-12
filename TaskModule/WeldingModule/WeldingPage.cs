@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using ToolStrips;
 using TaskModule;
 using TaskModule.BasicTaskAdvisor;
+using BaseModule.ToolStrips;
 
 namespace TaskModule.WeldingModule
 {
@@ -17,7 +18,7 @@ namespace TaskModule.WeldingModule
         {
             
             var weldingTaskToolStrip = new WeldingTasksToolStrip() { Name = "Сварка" };
-            weldingTaskToolStrip.Renderer = new BtnToolStrRender();
+            weldingTaskToolStrip.Renderer = new BaseToolStrRender();
             weldingTaskToolStrip.advisorStatusChanged += WeldingTaskToolStrip_advisorStatusChanged;
 
             AddToolStrip(weldingTaskToolStrip);

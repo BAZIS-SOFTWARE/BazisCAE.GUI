@@ -19,7 +19,7 @@ using TaskModule;
 using TaskModule.WeldingModule;
 using ClientLogic;
 using LicenseInfo;
-using ConnectionModule;
+using ClientGUI;
 
 namespace BazisGUI
 {
