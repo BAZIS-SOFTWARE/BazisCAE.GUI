@@ -123,6 +123,7 @@ namespace ModelModule
             this.elementsLayout = new System.Windows.Forms.TableLayoutPanel();
             this.geometryPage = new System.Windows.Forms.TabPage();
             this.gmshTab = new System.Windows.Forms.TabControl();
+            this.delFilter = new System.Windows.Forms.Button();
             this.meshGenBox.SuspendLayout();
             this.meshLayout.SuspendLayout();
             this.meshElBox.SuspendLayout();
@@ -1062,6 +1063,7 @@ namespace ModelModule
             // 
             // flagsBetaPnl
             // 
+            this.flagsBetaPnl.Controls.Add(this.delFilter);
             this.flagsBetaPnl.Controls.Add(this.addFilter);
             this.flagsBetaPnl.Controls.Add(this.quads);
             this.flagsBetaPnl.Controls.Add(this.intersectMetrics);
@@ -1076,10 +1078,10 @@ namespace ModelModule
             // addFilter
             // 
             this.addFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.addFilter.Location = new System.Drawing.Point(303, 32);
+            this.addFilter.Location = new System.Drawing.Point(325, 32);
             this.addFilter.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addFilter.Name = "addFilter";
-            this.addFilter.Size = new System.Drawing.Size(141, 32);
+            this.addFilter.Size = new System.Drawing.Size(120, 32);
             this.addFilter.TabIndex = 3;
             this.addFilter.Text = "Добавить";
             this.addFilter.UseVisualStyleBackColor = true;
@@ -1299,6 +1301,18 @@ namespace ModelModule
             this.gmshTab.Size = new System.Drawing.Size(500, 980);
             this.gmshTab.TabIndex = 1;
             // 
+            // delFilter
+            // 
+            this.delFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.delFilter.Location = new System.Drawing.Point(188, 32);
+            this.delFilter.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.delFilter.Name = "delFilter";
+            this.delFilter.Size = new System.Drawing.Size(120, 32);
+            this.delFilter.TabIndex = 4;
+            this.delFilter.Text = "Удалить";
+            this.delFilter.UseVisualStyleBackColor = true;
+            this.delFilter.Click += new System.EventHandler(this.OnRemoveFilter);
+            // 
             // GmshControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1447,5 +1461,6 @@ namespace ModelModule
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox sizeFar;
+        private System.Windows.Forms.Button delFilter;
     }
 }

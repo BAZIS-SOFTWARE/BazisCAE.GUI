@@ -149,15 +149,21 @@ namespace ModelModule
 
         }
 
-        private void UpdateModelData(ModelData data) => ModelPresenter = new ModelScenePresentator(data);
+        private void UpdateModelData(ModelData data)
+        {
+            ModelPresenter = new ModelScenePresentator(data);
+            Project.Model.Clear();
+            Project.Model.ObjectData.AddRange(data.ObjectData);
+            PresentModelOnSelectToolStrip();
+        }
         
         private void ShowErrorMessage(string message) => ConsoleControl.PrintInfo(message, Color.Red);
         
-        private void RedrawScene(bool fitOnScreen, string objType)
+        private void RedrawScene(bool fitOnScreen, string[] objType)
         {
             ClearAllDataOnScene();
-            if (!string.IsNullOrEmpty(objType))
-                PresentDataToScene(objType);
+            for(var i = 0; i < objType.Length; ++i)
+                PresentDataToScene(objType[i]);
             if (fitOnScreen)
                 SceneControl.FitObjectsToScreen();
             SceneControl.DisplayObjects();

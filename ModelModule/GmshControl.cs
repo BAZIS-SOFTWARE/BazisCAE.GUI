@@ -22,7 +22,7 @@ namespace ModelModule
 
         public event Action<ModelData> updateModelData;
         public event Action<string> showErrorMessage;
-        public event Action<bool, string> redrawScene;
+        public event Action<bool, string[]> redrawScene;
 
         public GmshControl()
         {
@@ -58,7 +58,7 @@ namespace ModelModule
             ShowHideMeshControls(false);
             ShowHideVolumeBox(false);
             ShowHideVolumeControls(false);
-            redrawScene.Invoke(fitOnScreen, "Элементы1D");
+            redrawScene.Invoke(fitOnScreen, new string[] { "Узлы", "Элементы1D" });
         }
 
         private void GenerateMesh()
@@ -82,7 +82,7 @@ namespace ModelModule
                 ShowHideVolumeBox(true);
                 ShowHideVolumeControls(false);
             }
-            redrawScene?.Invoke(false, "Элементы2D");
+            redrawScene?.Invoke(false, new string[] { "Узлы", "Элементы1D", "Элементы2D" });
         }
 
         private void GenerateVolumes()
@@ -93,7 +93,7 @@ namespace ModelModule
             FillModelDataVolumes();
             FillVolumesTreeView();
             ShowHideVolumeControls(true);
-            redrawScene?.Invoke(false, "Элементы3D");
+            redrawScene?.Invoke(false, new string[] {"Узлы", "Элементы1D", /*"Элементы2D",*/ "Элементы3D" });
         }
 
         private void OnDeleteGeometry(object sender, EventArgs e)
@@ -103,7 +103,7 @@ namespace ModelModule
             ShowHideGeometryControls(false);
             ShowHideVolumeBox(false);
             ShowHideMeshBox(false);
-            redrawScene?.Invoke(false,"");
+            redrawScene?.Invoke(false,new string[0]);
             geometry.Dispose();
         }
 
@@ -128,6 +128,9 @@ namespace ModelModule
 
         private void FillModelDataVolumes()
         {
+            modelData.ObjectData.AddRange(mesh.GetNodes());
+            modelData.ObjectData.AddRange(mesh.GetElement1D());
+            //modelData.ObjectData.AddRange(mesh.GetElement2D());
             modelData.ObjectData.AddRange(mesh.GetElement3D());
             updateModelData?.Invoke(modelData);
         }
@@ -148,6 +151,7 @@ namespace ModelModule
             if (loadFileDialog.ShowDialog() == DialogResult.OK)
             {
                 geometry = new GeometryObject(loadFileDialog.FileName);
+                geometry.RemoveField(field);
                 field = new MeshField(MeshFieldType.BoundaryLayer);
                 GenerateGeometry();
             }
@@ -187,7 +191,7 @@ namespace ModelModule
             FillModelDataMesh();
             FillMeshTreeView();
             ShowHideVolumeControls(false);
-            redrawScene?.Invoke(false, "Элементы2D");
+            redrawScene?.Invoke(false, new string[] {"Узлы", "Элементы1D", "Элементы2D" });
         }
 
         private void OnQuadrangulate(object sender, EventArgs e)
@@ -199,7 +203,7 @@ namespace ModelModule
             FillModelDataMesh();
             FillMeshTreeView();
             ShowHideVolumeControls(false);
-            redrawScene?.Invoke(false, "Элементы2D");
+            redrawScene?.Invoke(false,new string[] {"Узлы", "Элементы1D", "Элементы2D" });
         }
 
         private void FillGeometryTreeView()
@@ -303,7 +307,7 @@ namespace ModelModule
                         FillModelDataMesh();
                     }
                     elemsTree.Nodes.Remove(selectedNode);
-                    redrawScene?.Invoke(false,"Элементы2D");
+                    redrawScene?.Invoke(false,new string[] { "Узлы", "Элементы1D", "Элементы2D" });
                 }
             }
         }
@@ -336,7 +340,7 @@ namespace ModelModule
         private void GetListValuesFromGUI(TextBox control)
         {
             var tag = control.Tag.ToString();
-            var data = control.Text.Split(' ');
+            var data = control.Text.Split(' ',',');
             var values = new double[data.Length];
             for (var i = 0; i < data.Length; ++i)
             {
@@ -423,13 +427,13 @@ namespace ModelModule
             this.ParentForm.Close();
         }
 
-        /*private void OnDeleteFilter(object sender, EventArgs e)
+        private void OnRemoveFilter(object sender, EventArgs e)
         {
-            if(field != null)
+            if (field != null)
             {
+                field.SetDisplayFieldType(DisplayFieldType.BackgroundMesh);
                 geometry.RemoveField(field.Tag);
-                field = null;
             }
-        }*/
+        }
     }
 }

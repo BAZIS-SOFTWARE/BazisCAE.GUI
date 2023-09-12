@@ -73,8 +73,8 @@
     <Reference Include="Octree, Version=2.1.10.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.10\lib\net48\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=1.0.6.21, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.1.0.6.21\lib\net48\Project.dll</HintPath>
+    <Reference Include="Project, Version=1.0.6.22, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.1.0.6.22\lib\net48\Project.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface, Version=1.0.14.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
       <HintPath>..\packages\SceneInterface.1.0.14\lib\net48\SceneInterface.dll</HintPath>
