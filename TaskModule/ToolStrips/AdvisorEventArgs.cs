@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ToolStrips
+namespace TaskModule.ToolStrips
 {
     public class AdvisorEventArgs : EventArgs
     {

@@ -1,4 +1,4 @@
-﻿namespace ToolStrips
+﻿namespace ModelModule.ToolStrips
 {
     partial class MeshToolStrip
     {

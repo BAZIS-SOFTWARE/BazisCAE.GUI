@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ToolStrips
+namespace BaseModule.ToolStrips
 {
     public partial class StandartToolStrip : ToolStrip
     {

@@ -5,6 +5,7 @@ using ToolStrips;
 using AdvisorControls;
 using TaskModule.BasicTaskAdvisor;
 using BaseModule.ToolStrips;
+using TaskModule.ToolStrips;
 
 namespace TaskModule.HeatTreatmentModule
 {

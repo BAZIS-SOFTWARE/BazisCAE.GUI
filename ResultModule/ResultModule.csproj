@@ -146,6 +146,10 @@
       <DependentUpon>ScalePage.cs</DependentUpon>
     </Compile>
     <Compile Include="ShowResultEventArgs.cs" />
+    <Compile Include="ToolStrips\ResultsToolStrip.cs" />
+    <Compile Include="ToolStrips\ResultsToolStrip.Designer.cs">
+      <DependentUpon>ResultsToolStrip.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +171,9 @@
       <DependentUpon>ScalePage.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ToolStrips\ResultsToolStrip.resx">
+      <DependentUpon>ResultsToolStrip.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseModule\BaseModule.csproj">
@@ -176,10 +183,6 @@
     <ProjectReference Include="..\TaskModule\TaskModule.csproj">
       <Project>{11954439-9966-4648-A776-7CE642FE21F3}</Project>
       <Name>TaskModule</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ToolStrips\ToolStrips.csproj">
-      <Project>{740e63b0-14c9-41eb-b883-0f7077817174}</Project>
-      <Name>ToolStrips</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

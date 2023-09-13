@@ -1,4 +1,4 @@
-﻿namespace ToolStrips
+﻿namespace ResultModule.ToolStrips
 {
     partial class ResultsToolStrip
     {

@@ -103,6 +103,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ToolStrips\MeshToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToolStrips\MeshToolStrip.Designer.cs">
+      <DependentUpon>MeshToolStrip.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -114,15 +120,14 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="ToolStrips\MeshToolStrip.resx">
+      <DependentUpon>MeshToolStrip.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseModule\BaseModule.csproj">
       <Project>{e5c49662-b9c7-4b1b-9734-1ff03da9fcc0}</Project>
       <Name>BaseModule</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ToolStrips\ToolStrips.csproj">
-      <Project>{740e63b0-14c9-41eb-b883-0f7077817174}</Project>
-      <Name>ToolStrips</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

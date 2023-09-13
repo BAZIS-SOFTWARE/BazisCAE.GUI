@@ -8,17 +8,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ToolStrips
+namespace ModelModule.ToolStrips
 {
-    public partial class ViewToolStrip : ToolStrip
+    public partial class MeshToolStrip : ToolStrip
     {
-        public ViewToolStrip()
+        [Description("Set selectionHelper image")]
+        [Category("General properties")]
+        public Image BoundaryElementsImage
+        {
+            get { return btnBoundaryElements2D.Image; }
+            set { btnBoundaryElements2D.Image = value; }
+        }
+
+        public MeshToolStrip()
         {
             InitializeComponent();
         }
 
-
-        private void ViewToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void MeshToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             var checkBtn = (ToolStripButton)e.ClickedItem;
 

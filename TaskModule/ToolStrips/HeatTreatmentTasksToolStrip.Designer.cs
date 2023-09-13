@@ -1,4 +1,4 @@
-﻿namespace ToolStrips
+﻿namespace TaskModule.ToolStrips
 {
     partial class HeatTreatmentTasksToolStrip
     {

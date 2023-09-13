@@ -7,9 +7,11 @@ namespace BaseModule.CrossSection
 {
     public partial class CrossSectionControl : UserControl
     {
-        public event Action<object, CreatePlaneFromTextArgs> CreatePlaneFromTextArgs;
+        public event Action<object, CreatePlaneFromTextArgs> CreateCrossFromTextArgs;
     
-        public event Action<object,bool> CreatePlaneFromNodesArgs;
+        public event Action CreateCrossFromNodesEvent;
+        public event Action RemoveCrossEvent;
+        public event Action SelectNodesEvent;
         public CrossSectionControl()
         {
             InitializeComponent();
@@ -33,6 +35,8 @@ namespace BaseModule.CrossSection
                 rbtXY.Enabled = false;
                 rbtXZ.Enabled = false;
                 rbtYZ.Enabled = false;
+
+                SelectNodesEvent();
             }
 
         }
@@ -64,7 +68,7 @@ namespace BaseModule.CrossSection
                 throw new Exception("Неверно заданы координаты плоскости");
         }
 
-        public void btnCreatePlane_Click_1(object sender, EventArgs e)
+        public void btnCreatePlane_Click(object sender, EventArgs e)
         {
             if (chbSelectPoints.Checked == false)
             {
@@ -76,17 +80,18 @@ namespace BaseModule.CrossSection
                 Point3D point2 = new Point3D(float.Parse(p2[0]), float.Parse(p2[1]), float.Parse(p2[2]));
                 Point3D point3 = new Point3D(float.Parse(p3[0]), float.Parse(p3[1]), float.Parse(p3[2]));
 
-                CreatePlaneFromTextArgs(this, new CreatePlaneFromTextArgs(point1, point2, point3, chbShowModel.Checked));
+                CreateCrossFromTextArgs(this, new CreatePlaneFromTextArgs(point1, point2, point3));
             }
             else if (chbSelectPoints.Checked == true)
             {
-                CreatePlaneFromNodesArgs(this,chbShowModel.Checked);
+                CreateCrossFromNodesEvent();
             }
         }
 
-        public void chbShowModel_CheckedChanged(object sender, EventArgs e)
-        {
 
+        private void btnRemoveCross_Click(object sender, EventArgs e)
+        {
+            RemoveCrossEvent();
         }
     }
 }

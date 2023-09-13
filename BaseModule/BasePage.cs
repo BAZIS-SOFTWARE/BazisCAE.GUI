@@ -62,7 +62,11 @@ namespace BaseModule
         [Description("Set imageIndex for project info nodes")]
         public int ProjectInfoIndex { get; set; } = 0;
 
-        public SelectToolStrip SelectToolStrip { get { return selectToolStrip; } }
+        public string SelectedObjects 
+        {
+            get { return selectToolStrip.SelectObjectsType; }
+            set { selectToolStrip.SelectObjectsType = value; }
+        }
 
         public BasePage()
         {
@@ -401,10 +405,14 @@ namespace BaseModule
                     modelObject.SetBackColor();
 
                 var vboObjs = sceneControl.FindVBObj(presentor.Key);
-                var colors = presentor.Value.CreateVertexes(vboObjs.ColorLength, "цвет");
-                vboObjs.PointsColors = colors;
-            }
 
+                if(vboObjs != null)
+                {
+                    var colors = presentor.Value.CreateVertexes(vboObjs.ColorLength, "цвет");
+                    vboObjs.PointsColors = colors;
+                }
+
+            }
         }
 
         private void grbNavigator_Paint(object sender, PaintEventArgs e)
@@ -963,6 +971,9 @@ namespace BaseModule
                     {
                         btn.Checked = false;
                         lblInputCmd.Text = "";
+                        sceneControl.HideAllGeometryObjs();
+                        sceneControl.HideDisplayText3D();
+                        sceneControl.DisplayObjects();
                     };
 
                     var measuringControl = new MeasuringSet() { Dock = DockStyle.Fill };
@@ -974,28 +985,27 @@ namespace BaseModule
 
                 else if (e.ClickedItem.Tag.ToString() == "1")
                 {
-                    var form = new Form() 
-                    { Name = "CrossSectionForm", 
-                        Text = "Построить сечение", 
-                        ShowIcon = false, 
-                        Size = new Size(268, 203),
-                        TopMost = true
-                };
+                    var form = new Form() { Name = "CrossSectionForm", Text = "Построить сечение", ShowIcon = false,  Size = new Size(268, 203),TopMost = true};
   
                     var crossSection = new CrossSectionControl() { Dock = DockStyle.Fill };
                     form.Controls.Add(crossSection);
 
-                    crossSection.CreatePlaneFromTextArgs += (ar1,ar2) =>
+                    crossSection.RemoveCrossEvent += () => 
+                    {
+                        sceneControl.DeleteVBObjects("crossSection");
+                        sceneControl.DisplayObjects();
+                    };
+
+                    crossSection.SelectNodesEvent += () => { selectToolStrip.SelectObjectsType = "Узлы"; };
+
+                    crossSection.CreateCrossFromTextArgs += (ar1,ar2) =>
                     {
                         try
                         {
                             var elems3D = project.Model.ObjectData.FindMany("Элементы3D").Cast<Element3D>().ToList();
                             var surfaces = CreateSectionSurfaces(elems3D, ar2.point1, ar2.point2, ar2.point3);
 
-
-                            if (ar2.ShowModel == false)
-                                ClearAllDataOnScene();
-                            PresentCrossSection(surfaces, "crossSection");
+                            PresentCrossSection(surfaces);
 
                         }
                         catch (Exception ex)
@@ -1003,7 +1013,7 @@ namespace BaseModule
                             ConsoleControl.PrintInfo(ex.Message, Color.Red);
                         }
                     };
-                    crossSection.CreatePlaneFromNodesArgs += (ar1,ar2) =>
+                    crossSection.CreateCrossFromNodesEvent += () =>
                     {
                         try
                         {
@@ -1026,10 +1036,7 @@ namespace BaseModule
                                 p1.CalcCentralPoint(),
                                 p2.CalcCentralPoint());
 
-                            if (ar2 == false)
-                                ClearAllDataOnScene();
-
-                            PresentCrossSection(surfaces, "crossSection");
+                            PresentCrossSection(surfaces);
 
                         }
                         catch (Exception ex)
@@ -1077,25 +1084,20 @@ namespace BaseModule
                     }
                 }
             }
-        }     
+        }
 
-        public virtual void PresentCrossSection(Dictionary<int, Surface> surfaces, string name)
+        public virtual void PresentCrossSection(Dictionary<int, Surface> surfaces)
         {
-            var modelData = new ModelData();
+            var presenter = new SurfaceObjsPresenter(surfaces.Values.Select(x => (ISurfaceObject)x).ToArray());
 
-            foreach (var surface in surfaces)
-                modelData.ObjectData.Add(surface.Value);
+            var inds = presenter.CreateIndexes();
+            var ptrs = presenter.CreatePointers(inds.Item1);
+            var coords = presenter.CreateVertexes(inds.Item2, "координаты");
+            var colors = presenter.CreateVertexes(inds.Item3, "цвет");
+            var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
+            var edges = presenter.CreateEdgeFlags(inds.Item4);
 
-            var presenter = new ModelScenePresentator(modelData);
-
-            var inds = presenter.CreateVBOIndexes("Поверхность");
-            var ptrs = presenter.CreateVBOPointers("Поверхность", inds.Item1);
-            var coords = presenter.CreateVBOVertexes("Поверхность", inds.Item2, "координаты");
-            var colors = presenter.CreateVBOVertexes("Поверхность", inds.Item3, "цвет");
-            var normals = presenter.CreateVBOVertexes("Поверхность", inds.Item2, "нормаль");
-            var edges = presenter.CreateVBOEdges("Поверхность", inds.Item4);
-
-            sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors,normals, edges, name);
+            sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors,normals, edges, "crossSection");
             sceneControl.DisplayObjects();
         }
 
@@ -1139,6 +1141,16 @@ namespace BaseModule
                             PressedKey = Keys.None;
                             var plane = CreateSurfaceAsync();
                             await plane;
+
+                            var nodesPresentor = ModelPresenter["Узлы"];
+                            foreach (var _node in nodesPresentor.GetObjs())
+                                _node.SetBackColor();
+
+                            var vboObjs = sceneControl.FindVBObj("Узлы");
+                            var colors = nodesPresentor.CreateVertexes(vboObjs.ColorLength, "цвет");
+                            vboObjs.PointsColors = colors;
+                            sceneControl.DisplayObjects();
+
                             var node = SelectNodeAsync();
                             await node;
                             var calcDistance = new CalcDistance();
@@ -1279,6 +1291,7 @@ namespace BaseModule
         private void MeasuringControl_PreparingMeasureEvent(object arg1, MeasureEventArgs arg2)
         {
             sceneControl.HideAllGeometryObjs();
+            sceneControl.HideDisplayText3D();
             sceneControl.DisplayObjects();
 
             switch (arg2.Kind)
@@ -1678,9 +1691,6 @@ namespace BaseModule
             displayToolStrip.Renderer = new BaseToolStrRender();
             displayToolStrip.ItemClicked += DisplayToolStrip_ItemClick;
 
-            var standartToolStrip = new StandartToolStrip();
-            var viewToolStrip = new ViewToolStrip();             
-            var instrumentalToolStrip = new InstrumentToolStrip();
 
             toolStripContainer.TopToolStripPanel.Join(selectToolStrip, 0);
             toolStripContainer.TopToolStripPanel.Join(displayToolStrip, 0);
@@ -2281,6 +2291,7 @@ namespace BaseModule
         private void sceneControl_SetBackColorEvent(object arg1, EventArgs arg2)
         {
             SetBackColorToAllObjects();
+            sceneControl.HideDisplayText3D();
             sceneControl.DisplayObjects();
         }
     }

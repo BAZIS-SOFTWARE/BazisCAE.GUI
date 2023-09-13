@@ -89,6 +89,9 @@ namespace BaseModule
             this.consoleControl = new BaseModule.Console.ConsoleControl();
             displayToolStrip = new DisplayToolStrip();
             selectToolStrip = new SelectToolStrip();
+            standartToolStrip = new StandartToolStrip();
+            viewToolStrip = new ViewToolStrip();
+            instrumentalToolStrip = new InstrumentToolStrip();
 
             this.objects_MenuStrip.SuspendLayout();
             this.groups_MenuStrip.SuspendLayout();
@@ -720,5 +723,8 @@ namespace BaseModule
         private System.Windows.Forms.ImageList contextMenuImageList;
         DisplayToolStrip displayToolStrip;
         SelectToolStrip selectToolStrip;
+        StandartToolStrip standartToolStrip;
+        ViewToolStrip viewToolStrip;
+        InstrumentToolStrip instrumentalToolStrip;
     }
 }

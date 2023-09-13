@@ -16,6 +16,7 @@ using Project.ResultsData;
 using Project.ResultsData.ScenePresenter;
 using Project.ResultsData.ScenePresenter.Interfaces;
 using Project.TasksData;
+using ResultModule.ToolStrips;
 using SceneInterface;
 using System;
 using System.Collections.Generic;

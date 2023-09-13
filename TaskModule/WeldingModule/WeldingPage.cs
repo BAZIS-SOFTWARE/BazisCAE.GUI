@@ -4,6 +4,7 @@ using ToolStrips;
 using TaskModule;
 using TaskModule.BasicTaskAdvisor;
 using BaseModule.ToolStrips;
+using TaskModule.ToolStrips;
 
 namespace TaskModule.WeldingModule
 {

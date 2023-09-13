@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ToolStrips
+namespace TaskModule.ToolStrips
 {
     public partial class HeatTreatmentTasksToolStrip : ToolStrip
     {

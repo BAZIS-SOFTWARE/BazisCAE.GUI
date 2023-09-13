@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.IO;
 using ModelController.ModelScenePresentator;
 using BaseModule.ToolStrips;
+using ModelModule.ToolStrips;
 
 namespace ModelModule
 {
