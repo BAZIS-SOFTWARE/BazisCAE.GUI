@@ -57,7 +57,7 @@ namespace TaskModule.BasicAdvisorControls
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
                 
-        enum Column : int { node, kind, direction, function,startTime, stopTime };
+        enum Column : int { node,kind, direction, function,startTime, stopTime };
         //enum Kind : int { rigid, elastic = 1, contact, simmetry = 2 };
 
         //bool IsRowSelected { get; set; }
@@ -180,26 +180,26 @@ namespace TaskModule.BasicAdvisorControls
             var taskStrAr = new List<string>();
 
             var stiffnessFunc = string.Empty;
-            if (cmbStiffnessFunc.Enabled)
-                stiffnessFunc = cmbStiffnessFunc.SelectedItem.ToString();
+            if (cmbStiffnessFunc.Text != "")
+                stiffnessFunc = cmbStiffnessFunc.Text;
             else stiffnessFunc = "*";
 
             var direction = string.Empty;
             if (chbX.Enabled & chbX.Checked)
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture,"\"{0} {1} X {2} {3} {4} *\"", 
-                    cmbNodeGr.Text, cmbKind.Text, stiffnessFunc,txbStartTime.Text,txbStopTime.Text));
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture,"\"{0} {1} X {2} {3} {4} *\"",
+                    cmbNodeGr.Text,cmbKind.Text, stiffnessFunc,txbStartTime.Text,txbStopTime.Text));
 
             if (chbY.Enabled & chbY.Checked)
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Y {2} {3} {4} *\"", 
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Y {2} {3} {4} *\"",
                     cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
 
             if (chbZ.Enabled & chbZ.Checked)
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Z {2} {3} {4} *\"", 
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Z {2} {3} {4} *\"",
                     cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
 
             if (chbLRF.Checked)
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture,"\"{0} {1} LRF {2} {3} {4} *\"", 
-                    cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture,"\"{0} {1} LRF {2} {3} {4} *\"",
+                     cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
 
             return string.Join(" ", taskStrAr);
         }

@@ -93,8 +93,8 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=1.0.7.96, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.1.0.7.96\lib\net48\Project.dll</HintPath>
+    <Reference Include="Project, Version=1.0.8.61, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.1.0.8.61\lib\net48\Project.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface, Version=1.0.15.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
       <HintPath>..\packages\SceneInterface.1.0.15\lib\net48\SceneInterface.dll</HintPath>
@@ -207,6 +207,7 @@
     <Content Include="Mesh\mesh.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\ScreenSaver.png" />
     <None Include="Resources\helpContent.bmp" />
     <None Include="Resources\settings.png" />
   </ItemGroup>

@@ -53,7 +53,7 @@ namespace TaskModule.BasicAdvisorControls
             set { btnHideAll.Image = value; }
         }
         
-        enum Column : int { node, direction,kind, function, startTime, stopTime };
+        enum Column : int { node, kind, direction, function, startTime, stopTime };
         enum Kind : int { force, pressure, displacement };
 
         public LoadControl()
@@ -132,27 +132,27 @@ namespace TaskModule.BasicAdvisorControls
         {
             var taskStrAr = new List<string>();
 
-            var stiffnessFunc = string.Empty;
-            if (cmbLoadFunction.Enabled)
-                stiffnessFunc = cmbLoadFunction.SelectedItem.ToString();
-            else stiffnessFunc = "*";
+            var loadFunc = string.Empty;
+            if (cmbLoadFunction.Text != "")
+                loadFunc = cmbLoadFunction.Text;
+            else loadFunc = "*";
 
             var direction = string.Empty;
             if (chbX.Enabled & chbX.Checked)
                 taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} X {2} {3} {4} *\"",
-                    cmbGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
+                    cmbGr.Text, cmbKind.Text, loadFunc, txbStartTime.Text, txbStopTime.Text));
 
             if (chbY.Enabled & chbY.Checked)
                 taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Y {2} {3} {4} *\"",
-                    cmbGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
+                    cmbGr.Text, cmbKind.Text, loadFunc, txbStartTime.Text, txbStopTime.Text));
 
             if (chbZ.Enabled & chbZ.Checked)
                 taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Z {2} {3} {4} *\"",
-                    cmbGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
+                    cmbGr.Text, cmbKind.Text, loadFunc, txbStartTime.Text, txbStopTime.Text));
 
             if (chbLRF.Checked)
                 taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} LRF {2} {3} {4} *\"",
-                    cmbGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
+                    cmbGr.Text, cmbKind.Text, loadFunc, txbStartTime.Text, txbStopTime.Text));
 
             return string.Join(" ", taskStrAr);
         }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using ToolStrips;
-using TaskModule;
 using TaskModule.BasicTaskAdvisor;
 using BaseModule.ToolStrips;
 using TaskModule.ToolStrips;

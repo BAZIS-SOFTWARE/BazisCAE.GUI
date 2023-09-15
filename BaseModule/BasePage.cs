@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Scene;
-using ToolStrips;
 using Project;
 using Model;
 using Geometry;
@@ -659,10 +658,6 @@ namespace BaseModule
             treeView.Nodes[3].Text = "Вид : " + project.TaskType;
             treeView.Nodes[3].ImageIndex = ProjectInfoIndex;
             treeView.Nodes[3].SelectedImageIndex = ProjectInfoIndex;
-
-            treeView.BeforeLabelEdit += treeView_BeforeLabelEdit;
-            treeView.AfterLabelEdit += treeView_AfterLabelEdit;
-            treeView.NodeMouseClick += treeView_NodeMouseClick;
 
             SetModelObjsInfo();
             SetModelGroupInfo();
@@ -2175,16 +2170,19 @@ namespace BaseModule
 
         private void DelGroup_Click(object sender, EventArgs e)
         {
-            DeleteGroup(treeView.SelectedNode.Name, treeView.SelectedNode.Index);
+            var groupName = treeView.SelectedNode.Text;
+            var groupIndex = treeView.SelectedNode.Index;
             treeView.Nodes["группыОбъектов"].Nodes.Remove(treeView.SelectedNode);
+            DeleteGroup(groupName, groupIndex);
+            PresentProjectOnTree();
         }
 
-        private void DeleteGroup(string objsType, int groupIndex)
+        private void DeleteGroup(string groupName, int groupIndex)
         {
             Project.Model.GroupData.RemoveAt(groupIndex);
 
             var valData = Project.TaskData.Where(x => x is IValuableData).Select(x => (IValuableData)x).
-                Where(x => x.GroupName == objsType).ToArray();
+                Where(x => x.GroupName == groupName).ToArray();
 
             foreach (Data data in valData)
                 Project.TaskData.Remove(data);

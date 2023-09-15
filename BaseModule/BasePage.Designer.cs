@@ -1,7 +1,5 @@
 ﻿using BaseModule.Console;
 using BaseModule.ToolStrips;
-using SceneInterface;
-using ToolStrips;
 
 namespace BaseModule
 {
@@ -35,12 +33,12 @@ namespace BaseModule
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BasePage));
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Название проекта :", 0, 0);
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Путь :", 0, 0);
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Сведения :", 0, 0);
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Вид :");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Объекты", 1, 1);
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Группы объектов", 1, 1);
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Название проекта :", 0, 0);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Путь :", 0, 0);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Сведения :", 0, 0);
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Вид :");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Объекты", 1, 1);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Группы объектов", 1, 1);
             this.objects_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,6 +60,7 @@ namespace BaseModule
             this.grbScene = new System.Windows.Forms.Panel();
             this.sceneControl = new Scene.SceneControl();
             this.grbConsole = new System.Windows.Forms.Panel();
+            this.consoleControl = new BaseModule.Console.ConsoleControl();
             this.elGroup_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem17 = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,13 +85,11 @@ namespace BaseModule
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuImageList = new System.Windows.Forms.ImageList(this.components);
-            this.consoleControl = new BaseModule.Console.ConsoleControl();
-            displayToolStrip = new DisplayToolStrip();
-            selectToolStrip = new SelectToolStrip();
-            standartToolStrip = new StandartToolStrip();
-            viewToolStrip = new ViewToolStrip();
-            instrumentalToolStrip = new InstrumentToolStrip();
-
+            this.displayToolStrip = new BaseModule.ToolStrips.DisplayToolStrip();
+            this.selectToolStrip = new BaseModule.ToolStrips.SelectToolStrip();
+            this.standartToolStrip = new BaseModule.ToolStrips.StandartToolStrip();
+            this.viewToolStrip = new BaseModule.ToolStrips.ViewToolStrip();
+            this.instrumentalToolStrip = new BaseModule.ToolStrips.InstrumentToolStrip();
             this.objects_MenuStrip.SuspendLayout();
             this.groups_MenuStrip.SuspendLayout();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
@@ -287,48 +284,51 @@ namespace BaseModule
             this.treeView.ItemHeight = 18;
             this.treeView.Location = new System.Drawing.Point(0, 15);
             this.treeView.Name = "treeView";
-            treeNode7.ImageIndex = 0;
-            treeNode7.Name = "названиеПроекта";
-            treeNode7.SelectedImageIndex = 0;
-            treeNode7.Tag = "0";
-            treeNode7.Text = "Название проекта :";
-            treeNode8.ImageIndex = 0;
-            treeNode8.Name = "путь";
-            treeNode8.SelectedImageIndex = 0;
-            treeNode8.Tag = "1";
-            treeNode8.Text = "Путь :";
-            treeNode9.ImageIndex = 0;
-            treeNode9.Name = "сведения";
-            treeNode9.SelectedImageIndex = 0;
-            treeNode9.Tag = "2";
-            treeNode9.Text = "Сведения :";
-            treeNode10.Name = "вид";
-            treeNode10.Tag = "3";
-            treeNode10.Text = "Вид :";
-            treeNode11.ContextMenuStrip = this.objects_MenuStrip;
-            treeNode11.ImageIndex = 1;
-            treeNode11.Name = "объекты";
-            treeNode11.SelectedImageIndex = 1;
-            treeNode11.Tag = "4";
-            treeNode11.Text = "Объекты";
-            treeNode12.ContextMenuStrip = this.groups_MenuStrip;
-            treeNode12.ImageIndex = 1;
-            treeNode12.Name = "группыОбъектов";
-            treeNode12.SelectedImageIndex = 1;
-            treeNode12.Tag = "5";
-            treeNode12.Text = "Группы объектов";
+            treeNode1.ImageIndex = 0;
+            treeNode1.Name = "названиеПроекта";
+            treeNode1.SelectedImageIndex = 0;
+            treeNode1.Tag = "0";
+            treeNode1.Text = "Название проекта :";
+            treeNode2.ImageIndex = 0;
+            treeNode2.Name = "путь";
+            treeNode2.SelectedImageIndex = 0;
+            treeNode2.Tag = "1";
+            treeNode2.Text = "Путь :";
+            treeNode3.ImageIndex = 0;
+            treeNode3.Name = "сведения";
+            treeNode3.SelectedImageIndex = 0;
+            treeNode3.Tag = "2";
+            treeNode3.Text = "Сведения :";
+            treeNode4.Name = "вид";
+            treeNode4.Tag = "3";
+            treeNode4.Text = "Вид :";
+            treeNode5.ContextMenuStrip = this.objects_MenuStrip;
+            treeNode5.ImageIndex = 1;
+            treeNode5.Name = "объекты";
+            treeNode5.SelectedImageIndex = 1;
+            treeNode5.Tag = "4";
+            treeNode5.Text = "Объекты";
+            treeNode6.ContextMenuStrip = this.groups_MenuStrip;
+            treeNode6.ImageIndex = 1;
+            treeNode6.Name = "группыОбъектов";
+            treeNode6.SelectedImageIndex = 1;
+            treeNode6.Tag = "5";
+            treeNode6.Text = "Группы объектов";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode8,
-            treeNode9,
-            treeNode10,
-            treeNode11,
-            treeNode12});
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6});
             this.treeView.SelectedImageIndex = 0;
             this.treeView.Size = new System.Drawing.Size(317, 574);
             this.treeView.TabIndex = 1;
+            this.treeView.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_BeforeLabelEdit);
+            this.treeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_AfterLabelEdit);
             this.treeView.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.TreeView_AfterCollapse);
             this.treeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.TreeView_AfterExpand);
+            this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_NodeMouseClick);
             // 
             // treeNodesImageList_16x16
             // 
@@ -419,6 +419,18 @@ namespace BaseModule
             this.grbConsole.Size = new System.Drawing.Size(603, 134);
             this.grbConsole.TabIndex = 0;
             this.grbConsole.Paint += new System.Windows.Forms.PaintEventHandler(this.grbConsole_Paint);
+            // 
+            // consoleControl
+            // 
+            this.consoleControl.BackColor = System.Drawing.SystemColors.Control;
+            this.consoleControl.CheckPrintElemsInfo = false;
+            this.consoleControl.CheckPrintNodesInfo = false;
+            this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.consoleControl.Location = new System.Drawing.Point(0, 15);
+            this.consoleControl.Name = "consoleControl";
+            this.consoleControl.Size = new System.Drawing.Size(601, 117);
+            this.consoleControl.TabIndex = 4;
+            this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
             // 
             // elGroup_MenuStrip
             // 
@@ -625,17 +637,58 @@ namespace BaseModule
             this.contextMenuImageList.Images.SetKeyName(4, "Rename.png");
             this.contextMenuImageList.Images.SetKeyName(5, "Info.bmp");
             // 
-            // consoleControl
+            // displayToolStrip
             // 
-            this.consoleControl.BackColor = System.Drawing.SystemColors.Control;
-            this.consoleControl.CheckPrintElemsInfo = false;
-            this.consoleControl.CheckPrintNodesInfo = false;
-            this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.consoleControl.Location = new System.Drawing.Point(0, 15);
-            this.consoleControl.Name = "consoleControl";
-            this.consoleControl.Size = new System.Drawing.Size(601, 117);
-            this.consoleControl.TabIndex = 4;
-            this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
+            this.displayToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.displayToolStrip.Location = new System.Drawing.Point(0, 0);
+            this.displayToolStrip.Name = "displayToolStrip";
+            this.displayToolStrip.Size = new System.Drawing.Size(100, 25);
+            this.displayToolStrip.TabIndex = 0;
+            this.displayToolStrip.Text = "Отображение";
+            // 
+            // selectToolStrip
+            // 
+            this.selectToolStrip.AllowDrop = true;
+            this.selectToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.selectToolStrip.ElementsImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.ElementsImage")));
+            this.selectToolStrip.Font = new System.Drawing.Font("Segoe UI", 7F);
+            this.selectToolStrip.GeomsImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.GeomsImage")));
+            this.selectToolStrip.HelperImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.HelperImage")));
+            this.selectToolStrip.Location = new System.Drawing.Point(0, 0);
+            this.selectToolStrip.Name = "selectToolStrip";
+            this.selectToolStrip.NodeImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.NodeImage")));
+            this.selectToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.selectToolStrip.SelectObjectsType = "Выберите объект";
+            this.selectToolStrip.Size = new System.Drawing.Size(800, 55);
+            this.selectToolStrip.TabIndex = 0;
+            this.selectToolStrip.Text = "Выбор";
+            // 
+            // standartToolStrip
+            // 
+            this.standartToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.standartToolStrip.Location = new System.Drawing.Point(0, 0);
+            this.standartToolStrip.Name = "standartToolStrip";
+            this.standartToolStrip.Size = new System.Drawing.Size(100, 25);
+            this.standartToolStrip.TabIndex = 0;
+            this.standartToolStrip.Text = "Стандартные элементы";
+            // 
+            // viewToolStrip
+            // 
+            this.viewToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.viewToolStrip.Location = new System.Drawing.Point(0, 0);
+            this.viewToolStrip.Name = "viewToolStrip";
+            this.viewToolStrip.Size = new System.Drawing.Size(100, 25);
+            this.viewToolStrip.TabIndex = 0;
+            this.viewToolStrip.Text = "Вид";
+            // 
+            // instrumentalToolStrip
+            // 
+            this.instrumentalToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.instrumentalToolStrip.Location = new System.Drawing.Point(0, 0);
+            this.instrumentalToolStrip.Name = "instrumentalToolStrip";
+            this.instrumentalToolStrip.Size = new System.Drawing.Size(100, 25);
+            this.instrumentalToolStrip.TabIndex = 0;
+            this.instrumentalToolStrip.Text = "Инструменты";
             // 
             // BasePage
             // 

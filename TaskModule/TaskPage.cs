@@ -20,8 +20,6 @@ using Functions.Parser;
 using DataBaseController.MaterialData;
 using DataBaseController.FunctionData;
 using Newtonsoft.Json;
-using ToolStrips;
-using SceneInterface;
 using Model.Interfaces;
 
 namespace TaskModule
@@ -203,20 +201,14 @@ namespace TaskModule
                 taskAdv.Select2DPlaneEvent += TaskAdvisor_ChangeTaskTypeEvent;
                 taskAdv.Select3DEvent += TaskAdvisor_ChangeTaskTypeEvent;
 
-                if (MatData != null | 
-                    TryGetDataInfo(Project.Path, "materials.jsf") |
-                    TryGetDataInfo(Application.StartupPath, "materials.jsf")
-                    )
+                if (MatData != null | TryGetDataInfo(Project.Path, "materials.jsf"))
                 {
                     var names = MatData.Keys.ToList();
                     taskAdv.SetMaterialData(names);
                 }
 
 
-                if (FunData != null |
-                    TryGetDataInfo(Project.Path, "functions.jsf") |
-                    TryGetDataInfo(Application.StartupPath, "functions.jsf")
-                    )
+                if (FunData != null | TryGetDataInfo(Project.Path, "functions.jsf"))
                 {
                     var names = FunData.Keys.ToList();
                     taskAdv.SetFunctionData(names);
@@ -259,7 +251,7 @@ namespace TaskModule
                     Formatting = Formatting.Indented,
                 };
 
-                var fullName = $@"{path}\{fileName}";
+                var fullName = res[0];
 
                 if (fileName == "materials.jsf")
                 {

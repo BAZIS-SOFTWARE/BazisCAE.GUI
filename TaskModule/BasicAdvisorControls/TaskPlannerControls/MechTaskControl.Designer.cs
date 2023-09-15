@@ -44,25 +44,24 @@
             this.lblSaveRateTM = new System.Windows.Forms.Label();
             this.txbBodyTemp = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.chbDStMax = new System.Windows.Forms.CheckBox();
-            this.chbDSiMax = new System.Windows.Forms.CheckBox();
-            this.chbDUtMax = new System.Windows.Forms.CheckBox();
-            this.chbDUiMax = new System.Windows.Forms.CheckBox();
+            this.chbUMax = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.txbMaxDSt = new System.Windows.Forms.TextBox();
-            this.txbMaxDSi = new System.Windows.Forms.TextBox();
-            this.txbMaxDUt = new System.Windows.Forms.TextBox();
-            this.txbMaxDUi = new System.Windows.Forms.TextBox();
+            this.txbMaxSiSt = new System.Windows.Forms.TextBox();
+            this.txbMaxU = new System.Windows.Forms.TextBox();
+            this.txbMaxDU = new System.Windows.Forms.TextBox();
             this.lblFileParameters = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.btnLoadParameters = new System.Windows.Forms.Button();
+            this.chbPlastisity = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 243);
+            this.label4.Location = new System.Drawing.Point(9, 245);
             this.label4.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(130, 13);
@@ -83,10 +82,10 @@
             "ВышеСреднего",
             "Высокий",
             "Наивысший"});
-            this.cmbPriority.Location = new System.Drawing.Point(208, 292);
+            this.cmbPriority.Location = new System.Drawing.Point(207, 294);
             this.cmbPriority.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbPriority.Name = "cmbPriority";
-            this.cmbPriority.Size = new System.Drawing.Size(520, 21);
+            this.cmbPriority.Size = new System.Drawing.Size(465, 21);
             this.cmbPriority.TabIndex = 120;
             this.cmbPriority.Text = "Наивысший";
             this.cmbPriority.SelectedIndexChanged += new System.EventHandler(this.AllTextBox_TextChanged);
@@ -94,7 +93,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 190);
+            this.label3.Location = new System.Drawing.Point(9, 192);
             this.label3.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(103, 13);
@@ -111,10 +110,10 @@
             "Gauss_direct",
             "SOR_iterative",
             "CG_iterative"});
-            this.cmbSolver.Location = new System.Drawing.Point(208, 187);
+            this.cmbSolver.Location = new System.Drawing.Point(207, 189);
             this.cmbSolver.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbSolver.Name = "cmbSolver";
-            this.cmbSolver.Size = new System.Drawing.Size(519, 21);
+            this.cmbSolver.Size = new System.Drawing.Size(464, 21);
             this.cmbSolver.TabIndex = 118;
             this.cmbSolver.Text = "SOR_iterative";
             this.cmbSolver.SelectedIndexChanged += new System.EventHandler(this.AllTextBox_TextChanged);
@@ -122,7 +121,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(10, 295);
+            this.label12.Location = new System.Drawing.Point(9, 297);
             this.label12.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(61, 13);
@@ -135,10 +134,10 @@
             this.txbRelaxation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbRelaxation.BackColor = System.Drawing.SystemColors.Window;
-            this.txbRelaxation.Location = new System.Drawing.Point(208, 266);
+            this.txbRelaxation.Location = new System.Drawing.Point(207, 268);
             this.txbRelaxation.Margin = new System.Windows.Forms.Padding(3, 3, 27, 3);
             this.txbRelaxation.Name = "txbRelaxation";
-            this.txbRelaxation.Size = new System.Drawing.Size(520, 20);
+            this.txbRelaxation.Size = new System.Drawing.Size(465, 20);
             this.txbRelaxation.TabIndex = 111;
             this.txbRelaxation.Text = "1.25";
             this.txbRelaxation.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
@@ -149,10 +148,10 @@
             this.txbPrecision.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbPrecision.BackColor = System.Drawing.SystemColors.Window;
-            this.txbPrecision.Location = new System.Drawing.Point(208, 240);
+            this.txbPrecision.Location = new System.Drawing.Point(207, 242);
             this.txbPrecision.Margin = new System.Windows.Forms.Padding(3, 3, 27, 3);
             this.txbPrecision.Name = "txbPrecision";
-            this.txbPrecision.Size = new System.Drawing.Size(519, 20);
+            this.txbPrecision.Size = new System.Drawing.Size(464, 20);
             this.txbPrecision.TabIndex = 112;
             this.txbPrecision.Text = "0.0001";
             this.txbPrecision.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
@@ -161,7 +160,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 217);
+            this.label1.Location = new System.Drawing.Point(9, 219);
             this.label1.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(138, 13);
@@ -174,10 +173,10 @@
             this.txbSolverIterations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbSolverIterations.BackColor = System.Drawing.SystemColors.Window;
-            this.txbSolverIterations.Location = new System.Drawing.Point(208, 214);
+            this.txbSolverIterations.Location = new System.Drawing.Point(207, 216);
             this.txbSolverIterations.Margin = new System.Windows.Forms.Padding(3, 3, 27, 3);
             this.txbSolverIterations.Name = "txbSolverIterations";
-            this.txbSolverIterations.Size = new System.Drawing.Size(519, 20);
+            this.txbSolverIterations.Size = new System.Drawing.Size(464, 20);
             this.txbSolverIterations.TabIndex = 113;
             this.txbSolverIterations.Text = "100";
             this.txbSolverIterations.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
@@ -186,7 +185,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 269);
+            this.label7.Location = new System.Drawing.Point(9, 271);
             this.label7.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(117, 13);
@@ -199,10 +198,10 @@
             this.txbIters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbIters.BackColor = System.Drawing.SystemColors.Window;
-            this.txbIters.Location = new System.Drawing.Point(208, 135);
+            this.txbIters.Location = new System.Drawing.Point(207, 137);
             this.txbIters.Margin = new System.Windows.Forms.Padding(3, 3, 27, 3);
             this.txbIters.Name = "txbIters";
-            this.txbIters.Size = new System.Drawing.Size(519, 20);
+            this.txbIters.Size = new System.Drawing.Size(464, 20);
             this.txbIters.TabIndex = 107;
             this.txbIters.Text = "25";
             this.txbIters.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
@@ -210,7 +209,7 @@
             // maxTMIter
             // 
             this.maxTMIter.AutoSize = true;
-            this.maxTMIter.Location = new System.Drawing.Point(10, 138);
+            this.maxTMIter.Location = new System.Drawing.Point(9, 140);
             this.maxTMIter.Margin = new System.Windows.Forms.Padding(7, 28, 3, 10);
             this.maxTMIter.Name = "maxTMIter";
             this.maxTMIter.Size = new System.Drawing.Size(134, 13);
@@ -224,10 +223,10 @@
             this.txbSaveRate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbSaveRate.BackColor = System.Drawing.SystemColors.Window;
-            this.txbSaveRate.Location = new System.Drawing.Point(208, 161);
+            this.txbSaveRate.Location = new System.Drawing.Point(207, 163);
             this.txbSaveRate.Margin = new System.Windows.Forms.Padding(3, 3, 27, 3);
             this.txbSaveRate.Name = "txbSaveRate";
-            this.txbSaveRate.Size = new System.Drawing.Size(519, 20);
+            this.txbSaveRate.Size = new System.Drawing.Size(464, 20);
             this.txbSaveRate.TabIndex = 109;
             this.txbSaveRate.Text = "5";
             this.txbSaveRate.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
@@ -235,7 +234,7 @@
             // lblSaveRateTM
             // 
             this.lblSaveRateTM.AutoSize = true;
-            this.lblSaveRateTM.Location = new System.Drawing.Point(10, 164);
+            this.lblSaveRateTM.Location = new System.Drawing.Point(9, 166);
             this.lblSaveRateTM.Margin = new System.Windows.Forms.Padding(7, 28, 3, 10);
             this.lblSaveRateTM.Name = "lblSaveRateTM";
             this.lblSaveRateTM.Size = new System.Drawing.Size(136, 13);
@@ -249,10 +248,10 @@
             this.txbBodyTemp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbBodyTemp.BackColor = System.Drawing.SystemColors.Window;
-            this.txbBodyTemp.Location = new System.Drawing.Point(208, 109);
+            this.txbBodyTemp.Location = new System.Drawing.Point(207, 111);
             this.txbBodyTemp.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbBodyTemp.Name = "txbBodyTemp";
-            this.txbBodyTemp.Size = new System.Drawing.Size(519, 20);
+            this.txbBodyTemp.Size = new System.Drawing.Size(464, 20);
             this.txbBodyTemp.TabIndex = 105;
             this.txbBodyTemp.Text = "20";
             this.txbBodyTemp.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
@@ -260,7 +259,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 112);
+            this.label2.Location = new System.Drawing.Point(9, 114);
             this.label2.Margin = new System.Windows.Forms.Padding(7, 10, 3, 10);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(91, 13);
@@ -268,56 +267,21 @@
             this.label2.Text = "Температура, С°";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // chbDStMax
+            // chbUMax
             // 
-            this.chbDStMax.AutoSize = true;
-            this.chbDStMax.Location = new System.Drawing.Point(9, 85);
-            this.chbDStMax.Name = "chbDStMax";
-            this.chbDStMax.Size = new System.Drawing.Size(182, 17);
-            this.chbDStMax.TabIndex = 104;
-            this.chbDStMax.Text = "Макс. напряжений (dSt max), %";
-            this.chbDStMax.UseVisualStyleBackColor = true;
-            this.chbDStMax.CheckedChanged += new System.EventHandler(this.CheBox_CheckedChanged);
-            // 
-            // chbDSiMax
-            // 
-            this.chbDSiMax.AutoSize = true;
-            this.chbDSiMax.Location = new System.Drawing.Point(9, 59);
-            this.chbDSiMax.Name = "chbDSiMax";
-            this.chbDSiMax.Size = new System.Drawing.Size(181, 17);
-            this.chbDSiMax.TabIndex = 103;
-            this.chbDSiMax.Text = "Макс. напряжений (dSi max), %";
-            this.chbDSiMax.UseVisualStyleBackColor = true;
-            this.chbDSiMax.CheckedChanged += new System.EventHandler(this.CheBox_CheckedChanged);
-            // 
-            // chbDUtMax
-            // 
-            this.chbDUtMax.AutoSize = true;
-            this.chbDUtMax.Location = new System.Drawing.Point(9, 33);
-            this.chbDUtMax.Name = "chbDUtMax";
-            this.chbDUtMax.Size = new System.Drawing.Size(178, 17);
-            this.chbDUtMax.TabIndex = 102;
-            this.chbDUtMax.Text = "Макс. перемещения (dUt max)";
-            this.chbDUtMax.UseVisualStyleBackColor = true;
-            this.chbDUtMax.CheckedChanged += new System.EventHandler(this.CheBox_CheckedChanged);
-            // 
-            // chbDUiMax
-            // 
-            this.chbDUiMax.AutoSize = true;
-            this.chbDUiMax.Checked = true;
-            this.chbDUiMax.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbDUiMax.Enabled = false;
-            this.chbDUiMax.Location = new System.Drawing.Point(9, 7);
-            this.chbDUiMax.Name = "chbDUiMax";
-            this.chbDUiMax.Size = new System.Drawing.Size(177, 17);
-            this.chbDUiMax.TabIndex = 101;
-            this.chbDUiMax.Text = "Макс. перемещений (dUi max)";
-            this.chbDUiMax.UseVisualStyleBackColor = true;
+            this.chbUMax.AutoSize = true;
+            this.chbUMax.Location = new System.Drawing.Point(8, 61);
+            this.chbUMax.Name = "chbUMax";
+            this.chbUMax.Size = new System.Drawing.Size(159, 17);
+            this.chbUMax.TabIndex = 102;
+            this.chbUMax.Text = "Макс. перемещения U, >0";
+            this.chbUMax.UseVisualStyleBackColor = true;
+            this.chbUMax.CheckedChanged += new System.EventHandler(this.chbUMax_CheckedChanged);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(7, 86);
+            this.label13.Location = new System.Drawing.Point(7, 68);
             this.label13.Margin = new System.Windows.Forms.Padding(7, 10, 3, 10);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(0, 13);
@@ -327,75 +291,59 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(7, 34);
+            this.label10.Location = new System.Drawing.Point(7, 19);
             this.label10.Margin = new System.Windows.Forms.Padding(7, 10, 3, 10);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(0, 13);
             this.label10.TabIndex = 99;
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txbMaxDSt
+            // txbMaxSiSt
             // 
-            this.txbMaxDSt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txbMaxSiSt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbMaxDSt.BackColor = System.Drawing.SystemColors.Window;
-            this.txbMaxDSt.Enabled = false;
-            this.txbMaxDSt.Location = new System.Drawing.Point(208, 83);
-            this.txbMaxDSt.Margin = new System.Windows.Forms.Padding(3, 3, 27, 3);
-            this.txbMaxDSt.Name = "txbMaxDSt";
-            this.txbMaxDSt.Size = new System.Drawing.Size(519, 20);
-            this.txbMaxDSt.TabIndex = 98;
-            this.txbMaxDSt.Text = "0";
-            this.txbMaxDSt.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
-            this.txbMaxDSt.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
+            this.txbMaxSiSt.BackColor = System.Drawing.SystemColors.Window;
+            this.txbMaxSiSt.Enabled = false;
+            this.txbMaxSiSt.Location = new System.Drawing.Point(207, 85);
+            this.txbMaxSiSt.Margin = new System.Windows.Forms.Padding(3, 3, 27, 3);
+            this.txbMaxSiSt.Name = "txbMaxSiSt";
+            this.txbMaxSiSt.Size = new System.Drawing.Size(464, 20);
+            this.txbMaxSiSt.TabIndex = 97;
+            this.txbMaxSiSt.Text = "1.25";
+            this.txbMaxSiSt.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
-            // txbMaxDSi
+            // txbMaxU
             // 
-            this.txbMaxDSi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txbMaxU.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbMaxDSi.BackColor = System.Drawing.SystemColors.Window;
-            this.txbMaxDSi.Enabled = false;
-            this.txbMaxDSi.Location = new System.Drawing.Point(208, 57);
-            this.txbMaxDSi.Margin = new System.Windows.Forms.Padding(3, 3, 27, 3);
-            this.txbMaxDSi.Name = "txbMaxDSi";
-            this.txbMaxDSi.Size = new System.Drawing.Size(519, 20);
-            this.txbMaxDSi.TabIndex = 97;
-            this.txbMaxDSi.Text = "0";
-            this.txbMaxDSi.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
-            this.txbMaxDSi.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
+            this.txbMaxU.BackColor = System.Drawing.SystemColors.Window;
+            this.txbMaxU.Enabled = false;
+            this.txbMaxU.Location = new System.Drawing.Point(207, 59);
+            this.txbMaxU.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbMaxU.Name = "txbMaxU";
+            this.txbMaxU.Size = new System.Drawing.Size(464, 20);
+            this.txbMaxU.TabIndex = 96;
+            this.txbMaxU.Text = "0.05";
+            this.txbMaxU.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
-            // txbMaxDUt
+            // txbMaxDU
             // 
-            this.txbMaxDUt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txbMaxDU.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbMaxDUt.BackColor = System.Drawing.SystemColors.Window;
-            this.txbMaxDUt.Enabled = false;
-            this.txbMaxDUt.Location = new System.Drawing.Point(208, 31);
-            this.txbMaxDUt.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
-            this.txbMaxDUt.Name = "txbMaxDUt";
-            this.txbMaxDUt.Size = new System.Drawing.Size(519, 20);
-            this.txbMaxDUt.TabIndex = 96;
-            this.txbMaxDUt.Text = "0";
-            this.txbMaxDUt.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
-            this.txbMaxDUt.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
-            // 
-            // txbMaxDUi
-            // 
-            this.txbMaxDUi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbMaxDUi.BackColor = System.Drawing.SystemColors.Window;
-            this.txbMaxDUi.Location = new System.Drawing.Point(208, 5);
-            this.txbMaxDUi.Margin = new System.Windows.Forms.Padding(3, 5, 28, 3);
-            this.txbMaxDUi.Name = "txbMaxDUi";
-            this.txbMaxDUi.Size = new System.Drawing.Size(520, 20);
-            this.txbMaxDUi.TabIndex = 95;
-            this.txbMaxDUi.Text = "0.0005";
-            this.txbMaxDUi.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
+            this.txbMaxDU.BackColor = System.Drawing.SystemColors.Window;
+            this.txbMaxDU.Enabled = false;
+            this.txbMaxDU.Location = new System.Drawing.Point(207, 33);
+            this.txbMaxDU.Margin = new System.Windows.Forms.Padding(3, 5, 28, 3);
+            this.txbMaxDU.Name = "txbMaxDU";
+            this.txbMaxDU.Size = new System.Drawing.Size(465, 20);
+            this.txbMaxDU.TabIndex = 95;
+            this.txbMaxDU.Text = "0.0005";
+            this.txbMaxDU.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
             // lblFileParameters
             // 
             this.lblFileParameters.AutoSize = true;
-            this.lblFileParameters.Location = new System.Drawing.Point(236, 326);
+            this.lblFileParameters.Location = new System.Drawing.Point(235, 328);
             this.lblFileParameters.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
             this.lblFileParameters.Name = "lblFileParameters";
             this.lblFileParameters.Size = new System.Drawing.Size(165, 13);
@@ -406,7 +354,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 326);
+            this.label5.Location = new System.Drawing.Point(9, 328);
             this.label5.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(109, 13);
@@ -418,7 +366,7 @@
             // 
             this.btnLoadParameters.AutoSize = true;
             this.btnLoadParameters.Image = global::TaskModule.Properties.Resources.ComputationFolder;
-            this.btnLoadParameters.Location = new System.Drawing.Point(208, 319);
+            this.btnLoadParameters.Location = new System.Drawing.Point(207, 321);
             this.btnLoadParameters.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.btnLoadParameters.Name = "btnLoadParameters";
             this.btnLoadParameters.Size = new System.Drawing.Size(26, 26);
@@ -427,12 +375,46 @@
             this.btnLoadParameters.UseVisualStyleBackColor = true;
             this.btnLoadParameters.Click += new System.EventHandler(this.btnLoadParameters_Click);
             // 
+            // chbPlastisity
+            // 
+            this.chbPlastisity.AutoSize = true;
+            this.chbPlastisity.Checked = true;
+            this.chbPlastisity.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbPlastisity.Location = new System.Drawing.Point(8, 7);
+            this.chbPlastisity.Name = "chbPlastisity";
+            this.chbPlastisity.Size = new System.Drawing.Size(189, 17);
+            this.chbPlastisity.TabIndex = 130;
+            this.chbPlastisity.Text = "Учет пластических деформаций";
+            this.chbPlastisity.UseVisualStyleBackColor = true;
+            this.chbPlastisity.CheckedChanged += new System.EventHandler(this.chbPlastisity_CheckedChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 36);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(117, 13);
+            this.label6.TabIndex = 131;
+            this.label6.Text = "Макс. разница dU, >0";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(9, 88);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(140, 13);
+            this.label8.TabIndex = 132;
+            this.label8.Text = "Макс. отношение Si/St, >1";
+            // 
             // MechTaskControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.chbPlastisity);
             this.Controls.Add(this.lblFileParameters);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnLoadParameters);
@@ -452,18 +434,14 @@
             this.Controls.Add(this.lblSaveRateTM);
             this.Controls.Add(this.txbBodyTemp);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.chbDStMax);
-            this.Controls.Add(this.chbDSiMax);
-            this.Controls.Add(this.chbDUtMax);
-            this.Controls.Add(this.chbDUiMax);
+            this.Controls.Add(this.chbUMax);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.txbMaxDSt);
-            this.Controls.Add(this.txbMaxDSi);
-            this.Controls.Add(this.txbMaxDUt);
-            this.Controls.Add(this.txbMaxDUi);
+            this.Controls.Add(this.txbMaxSiSt);
+            this.Controls.Add(this.txbMaxU);
+            this.Controls.Add(this.txbMaxDU);
             this.Name = "MechTaskControl";
-            this.Size = new System.Drawing.Size(755, 349);
+            this.Size = new System.Drawing.Size(700, 351);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -487,18 +465,17 @@
         private System.Windows.Forms.Label lblSaveRateTM;
         private System.Windows.Forms.TextBox txbBodyTemp;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox chbDStMax;
-        private System.Windows.Forms.CheckBox chbDSiMax;
-        private System.Windows.Forms.CheckBox chbDUtMax;
-        private System.Windows.Forms.CheckBox chbDUiMax;
+        private System.Windows.Forms.CheckBox chbUMax;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txbMaxDSt;
-        private System.Windows.Forms.TextBox txbMaxDSi;
-        private System.Windows.Forms.TextBox txbMaxDUt;
-        private System.Windows.Forms.TextBox txbMaxDUi;
+        private System.Windows.Forms.TextBox txbMaxSiSt;
+        private System.Windows.Forms.TextBox txbMaxU;
+        private System.Windows.Forms.TextBox txbMaxDU;
         private System.Windows.Forms.Label lblFileParameters;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnLoadParameters;
+        private System.Windows.Forms.CheckBox chbPlastisity;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label8;
     }
 }

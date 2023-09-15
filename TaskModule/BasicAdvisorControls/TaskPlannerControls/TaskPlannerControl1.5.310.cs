@@ -237,8 +237,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 TaskKind taskKind;
                 Enum.TryParse(kind, out taskKind);
 
-                GenerateTsfFile(taskKind);
-                CurentSelectedRowInfo = AddRowInfo(taskKind, taskStatus);
+                GenerateTsfFile(taskKind, CurentSelectedRowIndex);
+                CurentSelectedRowInfo = AddRowInfo(taskKind, taskStatus, CurentSelectedRowIndex);
                 base.RefreshButton_Click(sender, e);
 
                 btnRefresh.Enabled = false;
@@ -249,7 +249,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             }
         }
 
-        private void GenerateTsfFile(TaskKind taskKind)
+        private void GenerateTsfFile(TaskKind taskKind, int taskIndex)
         {
             try
             {
@@ -293,7 +293,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 else
                     tsfStr = JsonConvert.SerializeObject(parameters, settingsSerializer);
 
-                var tsfFileName = $"{taskKind}_{dataGridView.RowCount}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
+                var tsfFileName = $"{taskKind}_{taskIndex}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
 
                 File.WriteAllText($@"{Path}\{tsfFileName}", tsfStr);
 
@@ -312,22 +312,22 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 if (chbChemicalTask.Checked)
                 {
-                    GenerateTsfFile(TaskKind.химическая);
-                    CurentSelectedRowInfo = AddRowInfo(TaskKind.химическая, TaskStatus.выполнить);
+                    GenerateTsfFile(TaskKind.химическая, CountRows);
+                    CurentSelectedRowInfo = AddRowInfo(TaskKind.химическая, TaskStatus.выполнить, CountRows);
                     base.AddButton_Click(this, new EventArgs());
                 }
                 Thread.Sleep(100);
                 if (chbTermoTask.Checked)
                 {
-                    GenerateTsfFile(TaskKind.термическая);
-                    CurentSelectedRowInfo = AddRowInfo(TaskKind.термическая, TaskStatus.выполнить);
+                    GenerateTsfFile(TaskKind.термическая, CountRows);
+                    CurentSelectedRowInfo = AddRowInfo(TaskKind.термическая, TaskStatus.выполнить, CountRows);
                     base.AddButton_Click(this, new EventArgs());
                 }
                 Thread.Sleep(100);
                 if (chbMechTask.Checked)
                 {
-                    GenerateTsfFile(TaskKind.механическая);
-                    CurentSelectedRowInfo = AddRowInfo(TaskKind.механическая, TaskStatus.выполнить);
+                    GenerateTsfFile(TaskKind.механическая, CountRows);
+                    CurentSelectedRowInfo = AddRowInfo(TaskKind.механическая, TaskStatus.выполнить, CountRows);
                     base.AddButton_Click(this, new EventArgs());
                 }
             
@@ -338,9 +338,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         }
 
-        private string AddRowInfo(TaskKind taskKind, TaskStatus status)
+        private string AddRowInfo(TaskKind taskKind, TaskStatus status, int taskInd)
         {
-            var tsfFileName = $"{taskKind}_{dataGridView.RowCount}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
+            var tsfFileName = $"{taskKind}_{taskInd}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
 
             return $"\"{taskKind} {tsfFileName} {status}\"";
         }

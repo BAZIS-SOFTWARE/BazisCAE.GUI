@@ -42,12 +42,6 @@
             this.txbStopTime = new System.Windows.Forms.TextBox();
             this.txbStartTime = new System.Windows.Forms.TextBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chbLRF = new System.Windows.Forms.CheckBox();
             this.cmbGr = new System.Windows.Forms.ComboBox();
@@ -60,6 +54,12 @@
             this.chbX = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -112,6 +112,7 @@
             // 
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.player.AutoSize = true;
             this.player.CheckState = PlayerControl.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(170, 77);
@@ -123,6 +124,7 @@
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
             this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.player.SpeedValue = 500;
             this.player.StartValue = 0;
             this.player.StopValue = 100;
             this.player.TabIndex = 20;
@@ -258,42 +260,6 @@
             this.dataGridView.Size = new System.Drawing.Size(559, 221);
             this.dataGridView.TabIndex = 23;
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "Группа объектов";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "Вид";
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            // 
-            // Column12
-            // 
-            this.Column12.HeaderText = "Направление";
-            this.Column12.Name = "Column12";
-            this.Column12.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Функция";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // startColumn
-            // 
-            this.startColumn.HeaderText = "Старт";
-            this.startColumn.Name = "startColumn";
-            this.startColumn.ReadOnly = true;
-            // 
-            // stopColumn
-            // 
-            this.stopColumn.HeaderText = "Стоп";
-            this.stopColumn.Name = "stopColumn";
-            this.stopColumn.ReadOnly = true;
             // 
             // groupBox1
             // 
@@ -446,6 +412,42 @@
             this.label6.TabIndex = 38;
             this.label6.Text = "Направление";
             // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Группа объектов";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "Вид";
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "Направление";
+            this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Функция";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // startColumn
+            // 
+            this.startColumn.HeaderText = "Старт";
+            this.startColumn.Name = "startColumn";
+            this.startColumn.ReadOnly = true;
+            // 
+            // stopColumn
+            // 
+            this.stopColumn.HeaderText = "Стоп";
+            this.stopColumn.Name = "stopColumn";
+            this.stopColumn.ReadOnly = true;
+            // 
             // LoadControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -490,12 +492,12 @@
         private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.CheckBox chbLRF;
+        private PlayerControl.Player player;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn startColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn stopColumn;
-        private PlayerControl.Player player;
     }
 }

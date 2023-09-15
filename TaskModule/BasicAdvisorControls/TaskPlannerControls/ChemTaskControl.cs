@@ -25,8 +25,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         {
             base.InputData(parameters);
             var chemicalParameters = (ChemicalParameters)parameters;
-            txbDTtMax.Text = chemicalParameters.ConvergenceSettings.DYmt.ToString();
-            txbIters.Text = chemicalParameters.ConvergenceSettings.Iterations.ToString();
+            txbDTtMax.Text = chemicalParameters.ChemicalConvergence.Cm.ToString();
+            txbIters.Text = chemicalParameters.Iterations.ToString();
 
             txbSaveRate.Text = chemicalParameters.SaveRate.ToString();
             txbInitConcentration.Text = chemicalParameters.InitConcentration.ToString();
@@ -44,11 +44,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
             if (chbDTtMax.Checked)
             {
-                chemicalParameters.ConvergenceSettings.Is_Switched_DXmt = true;
-                chemicalParameters.ConvergenceSettings.DXmt = Convert.ToSingle(txbDTtMax.Text);
+                chemicalParameters.ChemicalConvergence.Is_Switched_Cm = true;
+                chemicalParameters.ChemicalConvergence.Cm = Convert.ToSingle(txbDTtMax.Text);
             }
 
-            chemicalParameters.ConvergenceSettings.Iterations = Convert.ToInt32(txbIters.Text);
+            chemicalParameters.Iterations = Convert.ToInt32(txbIters.Text);
 
             chemicalParameters.InitConcentration = Convert.ToSingle(txbInitConcentration.Text);
             chemicalParameters.SaveRate = Convert.ToInt32(txbSaveRate.Text);

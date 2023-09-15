@@ -98,7 +98,7 @@
             // 
             this.pictureBox.BackColor = System.Drawing.Color.White;
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox.Image")));
+            this.pictureBox.Image = global::BazisGUI.Properties.Resources.ScreenSaver;
             this.pictureBox.Location = new System.Drawing.Point(3, 3);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(819, 366);
@@ -212,7 +212,6 @@
             // 
             // содержаниеToolStripMenuItem
             // 
-            //this.содержаниеToolStripMenuItem.Image = global::BazisGUI.Properties.Resources.helpContent;
             this.содержаниеToolStripMenuItem.Name = "содержаниеToolStripMenuItem";
             this.содержаниеToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.содержаниеToolStripMenuItem.Text = "&Содержание";
