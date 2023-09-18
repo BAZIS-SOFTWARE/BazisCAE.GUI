@@ -29,6 +29,7 @@ using SceneInterface;
 using Model.Utilities;
 using ModelController.ModelScenePresentator.GlObjsPresenters;
 using BaseModule.ToolStrips;
+using MathNet.Numerics.LinearAlgebra.Factorization;
 
 namespace BaseModule
 {
@@ -370,7 +371,6 @@ namespace BaseModule
 
         public void PresentDataToScene(string objsType)
         {
-
             if (!sceneControl.DrawInsideObjects)
                 ModelPresenter.HideInsideObjects(objsType);
 
@@ -1426,7 +1426,7 @@ namespace BaseModule
                             curves.Add(curve);
                             counter++;
                         }
- 
+
                         var linePresenter = new LineObjsPresenter(curves.ToArray());
 
                         var inds = linePresenter.CreateIndexes();
@@ -1436,28 +1436,47 @@ namespace BaseModule
                         var normals = linePresenter.CreateVertexes(inds.Item2, "нормаль");
                         var edges = linePresenter.CreateEdgeFlags(inds.Item4);
 
-                        sceneControl.CreateLineVBObjects(ptrs, coords, colors, normals, edges, "Boundary");                
+                        sceneControl.CreateLineVBObjects(ptrs, coords, colors, normals, edges, "Boundary");
                     }
                     else sceneControl.DeleteVBObjects("Boundary");
-
-                    sceneControl.DisplayObjects();
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "1")
                 {
                     sceneControl.DrawInsideObjects = true;
-                    sceneControl.DeleteAllVBObjects();
-                    foreach (var objType in ModelPresenter.Keys)
-                        PresentDataToScene(objType);
+
+                    if (ModelPresenter.ContainsKey("Элементы3D"))
+                    {
+                        var vbobj = sceneControl.FindVBObj("Элементы3D");
+                        var viewMode = vbobj.ViewMode;
+
+                        sceneControl.DeleteVBObjects("Элементы3D");
+
+                        foreach (var item in ModelPresenter["Элементы3D"].GetObjs())
+                            if (item.ViewState)
+                                item.ViewState = true;
+
+                        PresentDataToScene("Элементы3D");
+                        sceneControl.ChangeViewModeVBObjects("Элементы3D", viewMode);
+                    }
+    
                     consoleControl.PrintInfo("Показаны все объекты", Color.Black);
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "2")
                 {
                     sceneControl.DrawInsideObjects = false;
-                    sceneControl.DeleteAllVBObjects();
-                    foreach (var objType in ModelPresenter.Keys)
-                        PresentDataToScene(objType);
+
+                    if (ModelPresenter.ContainsKey("Элементы3D"))
+                    {
+                        var vbobj = sceneControl.FindVBObj("Элементы3D");
+                        var viewMode = vbobj.ViewMode;
+
+                        sceneControl.DeleteVBObjects("Элементы3D");
+                        PresentDataToScene("Элементы3D");
+                        sceneControl.ChangeViewModeVBObjects("Элементы3D", viewMode);
+                    }
+  
                     consoleControl.PrintInfo("Скрыты внутренние объекты", Color.Black);
                 }
 
@@ -1466,7 +1485,7 @@ namespace BaseModule
                     //sceneControl.HideAllVBObjects();
 
                     foreach (var objsType in sceneControl.GetVBObjsName())
-                            sceneControl.ChangeViewModeVBObjects(objsType, ObjView.LinesSurface);
+                        sceneControl.ChangeViewModeVBObjects(objsType, ObjView.LinesSurface);
 
                     //sceneControl.ShowAllVBObjects();
                 }
@@ -1476,7 +1495,7 @@ namespace BaseModule
                     //sceneControl.HideAllVBObjects();
 
                     foreach (var objsType in sceneControl.GetVBObjsName())
-                            sceneControl.ChangeViewModeVBObjects(objsType, ObjView.Lines);
+                        sceneControl.ChangeViewModeVBObjects(objsType, ObjView.Lines);
 
                     //sceneControl.ShowAllVBObjects();
                 }
@@ -1486,7 +1505,7 @@ namespace BaseModule
                     //sceneControl.HideAllVBObjects();
 
                     foreach (var objsType in sceneControl.GetVBObjsName())
-                            sceneControl.ChangeViewModeVBObjects(objsType, ObjView.Surface);
+                        sceneControl.ChangeViewModeVBObjects(objsType, ObjView.Surface);
 
                     //sceneControl.ShowAllVBObjects();
                 }
@@ -2190,21 +2209,17 @@ namespace BaseModule
 
         private void DeleteObjects(string objsType)
         {
+            sceneControl.DeleteVBObjects(objsType);
+            ModelPresenter.Remove(objsType);
             Project.Model.ObjectData.RemoveRange(objsType);
 
             var searchGroups = Project.Model.GroupData.FindMany(objsType).ToArray();
 
             foreach (var searchGroup in searchGroups)
-            {
                 Project.Model.GroupData.Remove(searchGroup);
-            }
+
             selectToolStrip.RemoveObjectsType(objsType);
             SetModelGroupInfo();
-
-            ModelPresenter = new ModelScenePresentator(Project.Model);
-
-            foreach (var objType in ModelPresenter.Keys)
-                PresentDataToScene(objType);
 
             sceneControl.DisplayObjects();
         }

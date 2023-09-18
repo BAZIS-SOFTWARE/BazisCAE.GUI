@@ -2758,16 +2758,16 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:BazisPrePost4.3.22"
-        "ProductCode" = "8:{AC17B62E-2ABF-4069-AACD-573EB9C727C6}"
-        "PackageCode" = "8:{FE1271AF-C9C4-4F15-9198-2FEB35ADCA42}"
+        "ProductName" = "8:BazisPrePost4.3.24"
+        "ProductCode" = "8:{D09E823A-7731-4278-B48F-FFA30D795AFE}"
+        "PackageCode" = "8:{23D68191-DB87-41F3-8A24-732D9924E51D}"
         "UpgradeCode" = "8:{B6CE3573-0A6F-4654-B604-218137EC41B2}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:4.3.22"
+        "ProductVersion" = "8:4.3.24"
         "Manufacturer" = "8:BazisSoftware"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://bazisnet.ru"
@@ -2882,7 +2882,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1A2433EF309E419B8F4F6933C77FC129"
             {
-            "Name" = "8:Bazis4.3.22"
+            "Name" = "8:Bazis4.3.24"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -2896,7 +2896,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_4917F2FB37E54A03AB40CA41418560A7"
             {
-            "Name" = "8:Bazis4.3.22"
+            "Name" = "8:Bazis4.3.24"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -2910,7 +2910,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D00A68A6A7764DC98A13162EE8042CE5"
             {
-            "Name" = "8:Bazis4.3.22"
+            "Name" = "8:Bazis4.3.24"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
