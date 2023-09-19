@@ -124,7 +124,8 @@ namespace ModelModule
                 SceneControl.DisplayObjects();
 
                 PresentModelOnSelectToolStrip();
-                SetModelObjsInfo();
+
+                CreateNewObjectsNode("Элементы2D", ModelPresenter["Элементы2D"].Count());          
 
                 ConsoleControl.PrintInfo("Созданы 2D элементы", Color.Black);
             }

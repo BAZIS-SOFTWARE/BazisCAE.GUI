@@ -1,5 +1,7 @@
 ﻿
 
+using System.Windows.Forms;
+
 namespace TaskModule
 {
     partial class TaskPage
@@ -62,5 +64,6 @@ namespace TaskModule
 
         private BaseModule.BasePage basePage1;
         private System.Windows.Forms.ImageList treeNodesImageList;
+        //ToolStrip taskToolStrip;
     }
 }

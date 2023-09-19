@@ -63,15 +63,15 @@ namespace ResultModule
             resToolStrip.ItemClicked += ResultsToolStrip_ItemClicked;
 
             AddToolStrip(resToolStrip);
+
+            TreeView.Nodes.Add(new TreeNode("Результаты", 1, 1) { Name = "Результаты", Tag = 6 });
         }
 
         public override void PresentProjectOnTree()
         {
-            base.PresentProjectOnTree();       
+            base.PresentProjectOnTree();
 
-            TreeView.Nodes.RemoveByKey("Результаты");
-
-            TreeView.Nodes.Add(new TreeNode("Результаты", 1, 1) { Name = "Результаты", Tag = 6 });
+            TreeView.Nodes["Результаты"].Nodes.Clear();       
 
             var resKinds = Project.ResultData.GetResultKinds();
             foreach (var resKind in resKinds)
@@ -287,13 +287,7 @@ namespace ResultModule
                 foreach (var item in ModelPresenter.Keys)
                     PresentDataToScene(item);
 
-                var selectToolStrip = FindToolStrip<SelectToolStrip>();
-
-                foreach (var objsType in selectToolStrip.GetObjsTypes())
-                {
-                    if (objsType == ar)
-                        selectToolStrip.SelectObjectsType = objsType;
-                }
+                SelectedObjects = ar;
 
                 SceneControl.DisplayObjects();
             };
@@ -584,8 +578,7 @@ namespace ResultModule
 
             var result = Project.ResultData.FindByTime(resKind, time);
 
-            var selectStrip = FindToolStrip<SelectToolStrip>();
-            var objsPresenter = ModelPresenter[selectStrip.SelectObjectsType];
+            var objsPresenter = ModelPresenter[SelectedObjects];
 
             var objs = objsPresenter.GetObjs(SceneControl.SelectionColor).ToList();
             objs.SortByDistance();
@@ -643,8 +636,7 @@ namespace ResultModule
             var results = Project.ResultData.FindByTaskKind(resKind);
             var grDataAr = new List<GraphData>();
 
-            var selectStrip = FindToolStrip<SelectToolStrip>();
-            var objsPresenter = ModelPresenter[selectStrip.SelectObjectsType];
+            var objsPresenter = ModelPresenter[SelectedObjects];
 
             foreach (var obj in objsPresenter.GetObjs(SceneControl.SelectionColor))
             {

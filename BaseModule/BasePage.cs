@@ -29,7 +29,6 @@ using SceneInterface;
 using Model.Utilities;
 using ModelController.ModelScenePresentator.GlObjsPresenters;
 using BaseModule.ToolStrips;
-using MathNet.Numerics.LinearAlgebra.Factorization;
 
 namespace BaseModule
 {
@@ -40,7 +39,7 @@ namespace BaseModule
         public Action<object, ProjectData> ChangeProjectDataEvent;
         public ModelScenePresentator ModelPresenter { get; set; }
 
-        List<ToolStripMenuItem> menuItems;
+        List<ToolStripMenuItem> menuItems = new List<ToolStripMenuItem>();
 
         public Keys PressedKey { get; set; }
 
@@ -297,33 +296,9 @@ namespace BaseModule
             e.Node.SelectedImageIndex = CollapseIndex;
         }
 
-        public T FindToolStrip<T>()
-        {
-            var toolStripContainer = new List<ToolStripContainer>();
-            SearchControl(this, toolStripContainer);
-            foreach (var item in toolStripContainer?[0].TopToolStripPanel.Controls)
-            {
-                if (item is T selectToolStrip)
-                    return selectToolStrip;
-            }
-            return default(T);
-        }
-
         public void SetVersion(string version)
         {
             lblVersion.Text = version;
-        }
-
-        public ToolStrip FindToolStrip(string name)
-        {
-            var toolStripContainer = new List<ToolStripContainer>();
-            SearchControl(this, toolStripContainer);
-            foreach (var item in toolStripContainer?[0].TopToolStripPanel.Controls)
-            {
-                if (item is ToolStrip toolStrip && toolStrip.Name == name)
-                    return toolStrip;
-            }
-            return null;
         }
 
         public void SearchControl<T>(Control ctrl, List<T> controls) where T : Control
@@ -463,22 +438,13 @@ namespace BaseModule
             {
                 SaveAsProjectData("bpf");
             }
-            //else if (e.ClickedItem.Tag.ToString() == "3")
-            //{
-            //    var form = new Form() { Name = "helpForm", Text = "Справка", ShowIcon = false, Size = new Size(555, 283) };
-            //    form.TopMost = true;
-            //    var helpFile = Directory.GetFiles(Application.StartupPath, "ПО Bazis. Руководство пользователя.chm", SearchOption.AllDirectories);
-
-            //    if (helpFile.Count() != 0)
-            //        Help.ShowHelp(form, helpFile[0]);
-            //    else MessageBox.Show("Отсутствует файл справки!");
-            //}
             else if (e.ClickedItem.Tag.ToString() == "4")
             {
                 var filterMesh = 
                     "Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
                     "GMSH(*.inp*)|*.inp|" + 
-                    "ANSYS(*.cdb*)|*.cdb";
+                    "ANSYS(*.cdb*)|*.cdb" +
+                    "SOLOMIA(*.dat*)|*.dat";
                 ImportModelData(filterMesh);
             }
         }
@@ -516,6 +482,8 @@ namespace BaseModule
                 loader = new LoadModelFromGMSHTextFile();
             else if (ext == ".ASC")
                 loader = new LoadModelFromASCIITextFile();
+            else if (ext == "data")
+                loader = new LoadModelFromSalomeFile();
             else
                 loader = new LoadModelFromCDBTextFile();
 
@@ -659,8 +627,21 @@ namespace BaseModule
             treeView.Nodes[3].ImageIndex = ProjectInfoIndex;
             treeView.Nodes[3].SelectedImageIndex = ProjectInfoIndex;
 
-            SetModelObjsInfo();
-            SetModelGroupInfo();
+            treeView.BeginUpdate();
+
+            treeView.Nodes["объекты"].Expand();
+            treeView.Nodes["объекты"].Nodes.Clear();
+
+            foreach (var objInfo in ModelPresenter)
+                CreateNewObjectsNode(objInfo.Key, objInfo.Value.Count());
+
+            treeView.Nodes["группыОбъектов"].Expand();
+            treeView.Nodes["группыОбъектов"].Nodes.Clear();
+
+            foreach (var group in Project.Model.GroupData)
+                CreateNewGroupNode(group.GroupName, group.ObjType);
+
+            treeView.EndUpdate();
         }
 
         private void SelectGroup(string groupName)
@@ -754,32 +735,6 @@ namespace BaseModule
             treeView.LabelEdit = false;
         }
 
-        public void SetModelObjsInfo()
-        {
-            treeView.BeginUpdate();
-
-            treeView.Nodes["объекты"].Expand();
-
-            treeView.Nodes["объекты"].Nodes.Clear();
-            foreach (var objInfo in ModelPresenter)
-                CreateNewObjectsNode(objInfo.Key,objInfo.Value.Count());
-
-            treeView.EndUpdate();
-        }
-
-        public void SetModelGroupInfo()
-        {
-            treeView.BeginUpdate();
-            treeView.Nodes["группыОбъектов"].Expand();
-
-            treeView.Nodes["группыОбъектов"].Nodes.Clear();
-
-            foreach (var group in Project.Model.GroupData)
-                CreateNewGroupNode(group.GroupName,group.ObjType);
-
-            treeView.EndUpdate();
-        } 
-
         public void CreateNewObjectsNode(string objsType, int objsCount)
         {
             var trNode = new TreeNode()
@@ -795,25 +750,6 @@ namespace BaseModule
             };
 
             treeView.Nodes["объекты"].Nodes.Add(trNode);
-        }
-
-        public void CreateNewGroupNode(string grName, string objsType)
-        {
-            var trNode = new TreeNode()
-            {
-                Text = grName,
-                Name = objsType,
-                ImageIndex = imgDict[objsType],
-                SelectedImageIndex = imgDict[objsType],
-                Tag = "5.1"
-            };
-            treeView.Nodes["группыОбъектов"].Nodes.Add(trNode);
-
-            if (objsType == "Узлы")
-                trNode.ContextMenuStrip = ndGroup_MenuStrip;
-            else trNode.ContextMenuStrip = elGroup_MenuStrip;
-
-
         }
 
         public void ClearAllDataOnScene()
@@ -1581,7 +1517,8 @@ namespace BaseModule
 
                     sceneControl.DisplayObjects();
 
-                    SetModelGroupInfo();
+                    CreateNewGroupNode(group.GroupName, group.ObjType);
+                    //SetModelGroupInfo();
                 }
             }
                   
@@ -1593,19 +1530,7 @@ namespace BaseModule
             var selObjs = objsPresenter.GetObjs(sceneControl.SelectionColor);
 
             foreach (var selObj in selObjs)
-                selObj.ExistState = false;
-
-            project.Model.ObjectData.Clear();
-
-            var groups = project.Model.GroupData.FindMany(selectToolStrip.SelectObjectsType);
-
-            var objsNumbers = selObjs.Select(x => x.Number);
-            foreach (var group in groups)
-            {
-                var exceptNumbers = group.ObjsNumbers.Except(objsNumbers).ToArray();
-                group.Clear();
-                group.AddRange(exceptNumbers);
-            }
+                selObj.ExistState = false;         
 
             var vbObj = sceneControl.FindVBObj(selectToolStrip.SelectObjectsType);
             var viewMode = vbObj.ViewMode;
@@ -1616,9 +1541,6 @@ namespace BaseModule
 
             sceneControl.ChangeViewModeVBObjects(selectToolStrip.SelectObjectsType, viewMode);
             sceneControl.DisplayObjects();
-
-            SetModelObjsInfo();
-            SetModelGroupInfo();
         }
 
         private void sceneControl_InfoObjectsEvent(object arg1, EventArgs arg2)
@@ -1669,11 +1591,11 @@ namespace BaseModule
 
         public virtual void UnBlockInterface(bool status)
         {
-            var toolStr = FindToolStrip<StandartToolStrip>();
+            //var toolStr = FindToolStrip<StandartToolStrip>();
             //toolStr.Enabled = true;
 
-            toolStr.Items[2].Enabled = status;
-            toolStr.Items[3].Enabled = status;
+            standartToolStrip.Items[2].Enabled = status;
+            standartToolStrip.Items[3].Enabled = status;
 
             //foreach (ToolStripButton item in toolStr.Items)
             //    item.Enabled = true;
@@ -1693,7 +1615,7 @@ namespace BaseModule
         {
             ModelPresenter = new ModelScenePresentator(project.Model);
 
-            menuItems = new List<ToolStripMenuItem>();
+            //menuItems = new List<ToolStripMenuItem>();
 
             grbNavigator.MouseClick += grbNavigator_MouseClick;
             grbConsole.MouseClick += grbConsole_MouseClick;
@@ -1730,6 +1652,8 @@ namespace BaseModule
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
         {
             grbNavigator.Invalidate();
+
+            SetLblInputCmb();
         }
 
         private void sceneControl_ShowAllHiddenObjectsEvent(object arg1, EventArgs arg2)
@@ -2183,45 +2107,77 @@ namespace BaseModule
 
         private void DelObjects_Click(object sender, EventArgs e)
         {
-            DeleteObjects(treeView.SelectedNode.Name);
+            sceneControl.DeleteVBObjects(treeView.SelectedNode.Name);
+            ModelPresenter.Remove(treeView.SelectedNode.Name);
+            //Project.Model.ObjectData.RemoveRange(treeView.SelectedNode.Name);
+            selectToolStrip.RemoveObjectsType(treeView.SelectedNode.Name);
+
+            var searchGroups = Project.Model.GroupData.FindMany(treeView.SelectedNode.Name).ToArray();
+
+            DelGroups(searchGroups);
+
             treeView.Nodes["объекты"].Nodes.Remove(treeView.SelectedNode);
+            sceneControl.DisplayObjects();
         }
 
-        private void DelGroup_Click(object sender, EventArgs e)
+        private void DelGroups(Group[] groups)
         {
-            var groupName = treeView.SelectedNode.Text;
-            var groupIndex = treeView.SelectedNode.Index;
-            treeView.Nodes["группыОбъектов"].Nodes.Remove(treeView.SelectedNode);
-            DeleteGroup(groupName, groupIndex);
-            PresentProjectOnTree();
+            foreach (var group in groups)
+            {
+                DelGroup(group);
+            }
         }
 
-        private void DeleteGroup(string groupName, int groupIndex)
+        public virtual void DelGroup(Group group)
         {
-            Project.Model.GroupData.RemoveAt(groupIndex);
+            var index = Project.Model.GroupData.IndexOf(group);
+            Project.Model.GroupData.RemoveAt(index);
+
+            treeView.Nodes["группыОбъектов"].Nodes.RemoveAt(index);
 
             var valData = Project.TaskData.Where(x => x is IValuableData).Select(x => (IValuableData)x).
-                Where(x => x.GroupName == groupName).ToArray();
+Where(x => x.GroupName == group.GroupName).ToArray();
 
             foreach (Data data in valData)
                 Project.TaskData.Remove(data);
         }
 
-        private void DeleteObjects(string objsType)
+        public void DelGroup_Click(object sender, EventArgs e)
         {
-            sceneControl.DeleteVBObjects(objsType);
-            ModelPresenter.Remove(objsType);
-            Project.Model.ObjectData.RemoveRange(objsType);
+            var groupIndex = treeView.SelectedNode.Index;
 
-            var searchGroups = Project.Model.GroupData.FindMany(objsType).ToArray();
+            DelGroup(Project.Model.GroupData.Find(groupIndex));
 
-            foreach (var searchGroup in searchGroups)
-                Project.Model.GroupData.Remove(searchGroup);
+            treeView.Nodes["группыОбъектов"].Nodes.Remove(treeView.SelectedNode);
+        }
 
-            selectToolStrip.RemoveObjectsType(objsType);
-            SetModelGroupInfo();
+        public TreeNode CreateNewObjectsNode(string name, string text, int imgInd, int selInd)
+        {
+            return new TreeNode()
+            {
+                Name = name,
+                Text = text,
+                ImageIndex = imgInd,
+                SelectedImageIndex = selInd,
+                Tag = "3.1"
+            };
+        }
 
-            sceneControl.DisplayObjects();
+        public void CreateNewGroupNode(string grName, string objsType)
+        {
+            var trNode = new TreeNode()
+            {
+                Text = grName,
+                Name = objsType,
+                ImageIndex = imgDict[objsType],
+                SelectedImageIndex = imgDict[objsType],
+                Tag = "5.1"
+            };
+            treeView.Nodes["группыОбъектов"].Nodes.Add(trNode);
+
+            if (objsType == "Узлы")
+                trNode.ContextMenuStrip = ndGroup_MenuStrip;
+            else trNode.ContextMenuStrip = elGroup_MenuStrip;
         }
 
         private void sceneControl_SelectObjectsEvent(object arg1, SelectObjectsEventArgs arg2)
@@ -2306,6 +2262,18 @@ namespace BaseModule
             SetBackColorToAllObjects();
             sceneControl.HideDisplayText3D();
             sceneControl.DisplayObjects();
+        }
+
+        private void lblInputCmd_TextChanged(object sender, EventArgs e)
+        {
+            SetLblInputCmb();
+        }
+
+        public void SetLblInputCmb()
+        {
+            var messageSize = treeView.CreateGraphics().MeasureString(lblInputCmd.Text, Font);
+            var size = grbNavigator.Width + (int)messageSize.Width + 20;
+            lblInputCmd.Width = size;
         }
     }
 }

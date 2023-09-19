@@ -217,15 +217,18 @@ namespace BaseModule
             // 
             // lblInputCmd
             // 
+            this.lblInputCmd.AutoSize = false;
             this.lblInputCmd.BackColor = System.Drawing.SystemColors.Control;
             this.lblInputCmd.Name = "lblInputCmd";
             this.lblInputCmd.Size = new System.Drawing.Size(376, 17);
             this.lblInputCmd.Text = "Начните работу с загрузки проекта или импорта сеточной модели";
+            this.lblInputCmd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblInputCmd.TextChanged += new System.EventHandler(this.lblInputCmd_TextChanged);
             // 
             // lblVersion
             // 
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(445, 17);
+            this.lblVersion.Size = new System.Drawing.Size(414, 17);
             this.lblVersion.Spring = true;
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 

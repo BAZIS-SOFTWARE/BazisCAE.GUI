@@ -152,6 +152,7 @@ namespace BazisGUI
             module.SceneInitialization();
             module.PresentProjectOnTree();
             module.PresentModelOnSelectToolStrip();
+            module.SetLblInputCmb();
 
             activeMenuItems.Clear();
 

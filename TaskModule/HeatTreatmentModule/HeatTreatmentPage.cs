@@ -16,7 +16,7 @@ namespace TaskModule.HeatTreatmentModule
         private void HtPage_Load(object sender, EventArgs e)
         {
 
-            var htTaskToolStrip = new HeatTreatmentTasksToolStrip() { Name = "ТО" };
+            var htTaskToolStrip = new HeatTreatmentTasksToolStrip() { Name = "Термообработка" };
             htTaskToolStrip.Renderer = new BaseToolStrRender();
             htTaskToolStrip.advisorStatusChanged += HtTaskToolStrip_advisorStatusChanged;
 
@@ -27,23 +27,18 @@ namespace TaskModule.HeatTreatmentModule
         {
             if (!arg2.Status)
             {
-                var taskAdv = new HeatTreatmentAdvisor() { Dock = DockStyle.Fill, Name = "ТО" };
+                var taskAdv = new HeatTreatmentAdvisor() { Dock = DockStyle.Fill, Name = "Термообработка" };
                 var icon = TaskModule.Properties.Resources.HT;
                 CreateAdvisor(taskAdv,icon);
             }
             else DeleteAdvisor();
         }
 
-        //public override void UnBlockInterface(bool status)
-        //{
-        //    base.UnBlockInterface(status);
-
-        //    var toolStr = FindToolStrip<HeatTreatmentTasksToolStrip>();
-        //    toolStr.Enabled = true;
-
-        //    foreach (ToolStripButton item in toolStr.Items)
-        //        item.Enabled = true;
-        //}
+        public override void UnCheckToolStripButtons()
+        {
+            foreach (ToolStripButton item in heatTreatmentTasksToolStrip.Items)
+                item.Checked = false;
+        }
 
         public override ToolStripMenuItem CreateTasksInterface()
         {
@@ -51,8 +46,8 @@ namespace TaskModule.HeatTreatmentModule
 
             ToolStripMenuItem htMenuItem = new ToolStripMenuItem()
             {
-                Name = "ТО",
-                Text = "ТО",
+                Name = "Термообработка",
+                Text = "Термообработка",
                 CheckOnClick = true
             };
 
@@ -66,7 +61,7 @@ namespace TaskModule.HeatTreatmentModule
                 var taskAdv = new TaskAdvisor();
 
 
-                taskAdv = new HeatTreatmentAdvisor() { Dock = DockStyle.Fill, Name = "ТО" };
+                taskAdv = new HeatTreatmentAdvisor() { Dock = DockStyle.Fill, Name = "Термообработка" };
 
                 if (htMenuItem.Checked)
                 {

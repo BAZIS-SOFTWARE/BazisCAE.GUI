@@ -21,6 +21,8 @@ using DataBaseController.MaterialData;
 using DataBaseController.FunctionData;
 using Newtonsoft.Json;
 using Model.Interfaces;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Model.GroupsData;
 
 namespace TaskModule
 {
@@ -61,11 +63,16 @@ namespace TaskModule
             solverStatusLabel = new ToolStripStatusLabel() { Name = "solverStatus"};
             list[0].Items.Add(solverStatusLabel);
 
-            //MatDataLoader = new LoadMaterialDataBaseFromTextFormat();
-            //FunDataLoader = new LoadFunctionDataBaseFromTextFormat();
-            //MatDataSaver = new SaveMaterialDataBaseToTextFormat();
-            //FunDataSaver = new SaveFunctionDataBaseToTextFormat();
-            //DataInformer = new DataBaseInformer();
+            var objsNode = new TreeNode()
+            {
+                Text = "Данные",
+                Name = "Данные",
+                ImageIndex = CollapseIndex,
+                SelectedImageIndex = CollapseIndex,
+                Tag = "3"
+            };
+
+            TreeView.Nodes.Add(objsNode);
         }
 
         public override void CreateMenuInterface()
@@ -153,71 +160,62 @@ namespace TaskModule
             activeTask = "";
         }
 
+        public virtual void UnCheckToolStripButtons()
+        {
+            throw new Exception("Метод не реализован");
+        }
+
         public void CreateAdvisor(TaskAdvisor taskAdv, Icon icon)
         {
-            if (activeTask != "")
+            activeTask = taskAdv.Name;
+            var form = new Form() { Text = activeTask, Name = activeTask, TopMost = true, Size = taskAdv.Size, Icon = icon };
+            form.FormClosed += (ar1, ar2) =>
             {
-                ConsoleControl.PrintInfo($"Закройте мастер постановки задачи {activeTask}", Color.Red);
+                if (ar2.CloseReason == CloseReason.UserClosing)
+                {
+                    //var taskToolStrip = FindToolStrip(activeTask);
 
-                foreach (var item in GetToolStripMenuItems())
-                    foreach (var dropItem in item.DropDownItems)
-                        if(dropItem is ToolStripMenuItem tls)
-                            if (tls.Name == taskAdv.Name)
+                    UnCheckToolStripButtons();
+
+                    foreach (var item in GetToolStripMenuItems())
+                        foreach (var dropItem in item.DropDownItems)
+                            if (dropItem is ToolStripMenuItem tls)
                                 tls.Checked = false;
-            }
-            else
+                }
+                activeTask = "";
+            };
+            form.Controls.Add(taskAdv);
+            form.Show();
+
+            taskAdv.AddDataEvent += TaskAdvisor_AddDataEvent;
+            taskAdv.DeleteDataEvent += TaskAdvisor_DeleteDataEvent;
+            taskAdv.DeleteAllDataEvent += TaskAdvisor_DeleteAllDataEvent;
+            taskAdv.CheckDataEvent += TaskAdvisor_CheckDataEvent;
+            taskAdv.HideDataEvent += TaskAdvisor_HideDataEvent;
+            taskAdv.ShowDataEvent += TaskAdvisor_ShowDataEvent;
+            taskAdv.ChangeDataEvent += TaskAdvisor_ChangeDataEvent;
+            taskAdv.StartComputationEvent += TaskAdvisor_StartComputationEvent;
+            taskAdv.StopComputationEvent += TaskAdv_StopComputationEvent;
+            taskAdv.Select2DAxiEvent += TaskAdvisor_ChangeTaskTypeEvent;
+            taskAdv.Select2DPlaneEvent += TaskAdvisor_ChangeTaskTypeEvent;
+            taskAdv.Select3DEvent += TaskAdvisor_ChangeTaskTypeEvent;
+
+            if (MatData != null | TryGetDataInfo(Project.Path, "materials.jsf"))
             {
-                activeTask = taskAdv.Name;
-                var form = new Form() { Text = activeTask, Name = activeTask, TopMost = true, Size = taskAdv.Size, Icon = icon };
-                form.FormClosed += (ar1, ar2) =>
-                {
-                    if (ar2.CloseReason == CloseReason.UserClosing)
-                    {
-                        var taskToolStrip = FindToolStrip(activeTask);
-
-                        foreach (ToolStripButton item in taskToolStrip.Items)
-                            item.Checked = false;
-
-                        foreach (var item in GetToolStripMenuItems())
-                            foreach (var dropItem in item.DropDownItems)
-                                if (dropItem is ToolStripMenuItem tls)
-                                    tls.Checked = false;
-                    }
-                    activeTask = "";
-                };
-                form.Controls.Add(taskAdv);
-                form.Show();
-
-                taskAdv.AddDataEvent += TaskAdvisor_AddDataEvent;
-                taskAdv.DeleteDataEvent += TaskAdvisor_DeleteDataEvent;
-                taskAdv.DeleteAllDataEvent += TaskAdvisor_DeleteAllDataEvent;
-                taskAdv.CheckDataEvent += TaskAdvisor_CheckDataEvent;
-                taskAdv.HideDataEvent += TaskAdvisor_HideDataEvent;
-                taskAdv.ShowDataEvent += TaskAdvisor_ShowDataEvent;
-                taskAdv.ChangeDataEvent += TaskAdvisor_ChangeDataEvent;
-                taskAdv.StartComputationEvent += TaskAdvisor_StartComputationEvent;
-                taskAdv.StopComputationEvent += TaskAdv_StopComputationEvent;
-                taskAdv.Select2DAxiEvent += TaskAdvisor_ChangeTaskTypeEvent;
-                taskAdv.Select2DPlaneEvent += TaskAdvisor_ChangeTaskTypeEvent;
-                taskAdv.Select3DEvent += TaskAdvisor_ChangeTaskTypeEvent;
-
-                if (MatData != null | TryGetDataInfo(Project.Path, "materials.jsf"))
-                {
-                    var names = MatData.Keys.ToList();
-                    taskAdv.SetMaterialData(names);
-                }
-
-
-                if (FunData != null | TryGetDataInfo(Project.Path, "functions.jsf"))
-                {
-                    var names = FunData.Keys.ToList();
-                    taskAdv.SetFunctionData(names);
-                }
-
-                taskAdv.SetProjectData(Project);
-
-                PresentProjectTaskDataOnAdvisor(activeTask);
+                var names = MatData.Keys.ToList();
+                taskAdv.SetMaterialData(names);
             }
+
+
+            if (FunData != null | TryGetDataInfo(Project.Path, "functions.jsf"))
+            {
+                var names = FunData.Keys.ToList();
+                taskAdv.SetFunctionData(names);
+            }
+
+            taskAdv.SetProjectData(Project);
+
+            PresentProjectTaskDataOnAdvisor(activeTask);
         }
 
         private void TaskAdv_StopComputationEvent(object arg1, EventArgs arg2)
@@ -311,50 +309,31 @@ namespace TaskModule
             }
         }
 
-        public void SetProjectTaskDataInfo()
+        public override void DelGroup(Group group)
         {
-            TreeView.BeginUpdate();
+            var treeNodes = TreeView.Nodes["Данные"].Nodes.Cast<TreeNode>().Where(x => x.Text.Contains(group.GroupName)).ToArray();
+            foreach (var node in treeNodes)
+                TreeView.Nodes["Данные"].Nodes.Remove(node);
 
-            TreeView.Nodes["вид"].Text = "Вид : " + Project.TaskType;
-
-            TreeView.Nodes["Данные"].Nodes.Clear();
-
-            foreach (var data in Project.TaskData)
-            {
-                var node = new TreeNode()
-                {
-                    Name = data.ToString(),
-                    Text = data.ToString(),
-                    ImageIndex = imgDict[data.Name],
-                    SelectedImageIndex = imgDict[data.Name],
-                    Tag = "3.1"
-                };
-
-                TreeView.Nodes["Данные"].Nodes.Add(node);
-            }
-
-            TreeView.EndUpdate();
-            TreeView.Nodes["Данные"].Expand();
+            base.DelGroup(group);
         }
 
         public override void PresentProjectOnTree()
         {
             base.PresentProjectOnTree();
 
-            TreeView.Nodes.RemoveByKey("Данные");
+            TreeView.BeginUpdate();
 
-            var objsNode = new TreeNode()
+            TreeView.Nodes["Данные"].Nodes.Clear();
+            foreach (var data in Project.TaskData)
             {
-                Text = "Данные",
-                Name = "Данные",
-                ImageIndex = CollapseIndex,
-                SelectedImageIndex = CollapseIndex,
-                Tag = "3"
-            };
+                var node = CreateNewObjectsNode(data.ToString(), data.ToString(), imgDict[data.Name], imgDict[data.Name]);
 
-            TreeView.Nodes.Add(objsNode);
+                TreeView.Nodes["Данные"].Nodes.Add(node);
+            }
 
-            SetProjectTaskDataInfo();
+            TreeView.EndUpdate();
+            TreeView.Nodes["Данные"].Expand();
         }
 
         public void TaskAdvisor_ChangeTaskTypeEvent(object arg1, ChangeTaskTypeEventArgs arg2)
@@ -365,11 +344,7 @@ namespace TaskModule
                 Project.SetTaskType(TaskType.AxiPlain);
             else Project.SetTaskType(TaskType.Volume);
 
-
-            //PresentProjectTaskDataOnAdvisor(activeTask);
-
-            //var presentator = new ProjTreePresenter(Project);
-            SetProjectTaskDataInfo();
+            TreeView.Nodes[3].Text = "Вид : " + Project.TaskType;
         }
 
         public void PresentProjectTaskDataOnAdvisor(string taskName)
@@ -404,7 +379,9 @@ namespace TaskModule
                 else dataArray[arg2.Index].SetInfo(taskStrAr[0]);
 
                 PresentProjectTaskDataOnAdvisor(activeTask);
-                PresentProjectOnTree();
+
+                TreeView.Nodes["Данные"].Nodes[arg2.Index].Text = arg2.DataInfo;
+                //PresentProjectOnTree();
             }
             catch (Exception ex)
             {
@@ -420,10 +397,12 @@ namespace TaskModule
             foreach (var data in dataArray)
             {
                 Project.TaskData.Remove(data);
+                TreeView.Nodes["Данные"].Nodes.RemoveByKey(data.ToString());
             }
 
             PresentProjectTaskDataOnAdvisor(activeTask);
-            PresentProjectOnTree();
+
+            //PresentProjectOnTree();
 
         }
 
@@ -589,7 +568,6 @@ namespace TaskModule
 
                     SceneControl.DisplayObjects();
                 }
-
             }
 
         }
@@ -600,7 +578,8 @@ namespace TaskModule
 
             Project.TaskData.Remove(dataArray[arg2.Index]);
 
-            PresentProjectOnTree();
+            TreeView.Nodes["Данные"].Nodes.RemoveAt(arg2.Index);
+            //PresentProjectOnTree();
         }
 
         public async void TaskAdvisor_AddDataEvent(object arg1, AddDataEventArgs arg2)
@@ -637,7 +616,11 @@ namespace TaskModule
                 }
 
                 PresentProjectTaskDataOnAdvisor(activeTask);
-                PresentProjectOnTree();
+
+                var node = CreateNewObjectsNode(arg2.DataInfo, arg2.DataInfo, imgDict[arg2.DataName], imgDict[arg2.DataName]);
+
+                TreeView.Nodes["Данные"].Nodes.Add(node);
+                //PresentProjectOnTree();
 
             }
             catch (Exception ex)

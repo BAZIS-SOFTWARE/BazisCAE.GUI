@@ -1,4 +1,6 @@
-﻿namespace TaskModule.HeatTreatmentModule
+﻿using TaskModule.ToolStrips;
+
+namespace TaskModule.HeatTreatmentModule
 {
     partial class HeatTreatmentPage
     {
@@ -39,8 +41,12 @@
             this.Load += new System.EventHandler(this.HtPage_Load);
             this.ResumeLayout(false);
 
-        }
 
+
+  
+
+        }
+        HeatTreatmentTasksToolStrip heatTreatmentTasksToolStrip = new HeatTreatmentTasksToolStrip() { Name = "ТО" };
         #endregion
     }
 }
