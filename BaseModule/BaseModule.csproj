@@ -70,14 +70,14 @@
     <Reference Include="Octree, Version=2.1.10.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.10\lib\net48\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=1.0.8.84, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.1.0.8.84\lib\net48\Project.dll</HintPath>
+    <Reference Include="Project, Version=1.0.9.8, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.1.0.9.8\lib\net48\Project.dll</HintPath>
     </Reference>
-    <Reference Include="Scene, Version=2.0.7.75, Culture=neutral, PublicKeyToken=19779f7b74b7d539, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.7.75\lib\net48\Scene.dll</HintPath>
+    <Reference Include="Scene, Version=2.0.7.76, Culture=neutral, PublicKeyToken=19779f7b74b7d539, processorArchitecture=MSIL">
+      <HintPath>..\packages\Scene.2.0.7.76\lib\net48\Scene.dll</HintPath>
     </Reference>
-    <Reference Include="SceneInterface, Version=1.0.15.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.7.75\lib\net48\SceneInterface.dll</HintPath>
+    <Reference Include="SceneInterface, Version=1.0.16.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Scene.2.0.7.76\lib\net48\SceneInterface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -94,10 +94,10 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Tao.OpenGl, Version=2.1.0.12, Culture=neutral, PublicKeyToken=1ca010269a4501ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.7.75\lib\net48\Tao.OpenGl.dll</HintPath>
+      <HintPath>..\packages\Scene.2.0.7.76\lib\net48\Tao.OpenGl.dll</HintPath>
     </Reference>
     <Reference Include="Tao.Platform.Windows, Version=1.0.0.5, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.7.75\lib\net48\Tao.Platform.Windows.dll</HintPath>
+      <HintPath>..\packages\Scene.2.0.7.76\lib\net48\Tao.Platform.Windows.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +183,12 @@
     <Compile Include="ToolStrips\ViewToolStrip.Designer.cs">
       <DependentUpon>ViewToolStrip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Navigator\NavigatorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Navigator\NavigatorControl.Designer.cs">
+      <DependentUpon>NavigatorControl.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +203,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MeasuringSet.resx">
       <DependentUpon>MeasuringSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Navigator\NavigatorControl.resx">
+      <DependentUpon>NavigatorControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

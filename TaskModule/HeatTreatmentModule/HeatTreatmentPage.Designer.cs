@@ -46,7 +46,7 @@ namespace TaskModule.HeatTreatmentModule
   
 
         }
-        HeatTreatmentTasksToolStrip heatTreatmentTasksToolStrip = new HeatTreatmentTasksToolStrip() { Name = "ТО" };
+        HeatTreatmentTasksToolStrip heatTreatmentTasksToolStrip = new HeatTreatmentTasksToolStrip() { Name = "Термообработка" };
         #endregion
     }
 }

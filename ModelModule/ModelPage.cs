@@ -9,6 +9,8 @@ using System.IO;
 using ModelController.ModelScenePresentator;
 using BaseModule.ToolStrips;
 using ModelModule.ToolStrips;
+using SceneInterface;
+using BaseModule.Navigator;
 
 namespace ModelModule
 {
@@ -116,17 +118,20 @@ namespace ModelModule
 
                 ModelPresenter = new ModelScenePresentator(Project.Model);
 
-                ClearAllDataOnScene();
+                SceneControl.HideAllGeometryObjs();
+                SceneControl.HideDisplayText2D();
+                SceneControl.HideDisplayText3D();
 
-                foreach (var item in ModelPresenter.Keys)
-                    PresentDataToScene(item);
+                SceneControl.DeleteVBObjects("Элементы2D");
+                PresentDataToScene("Элементы2D");
 
                 SceneControl.DisplayObjects();
 
                 PresentModelOnSelectToolStrip();
 
-                CreateNewObjectsNode("Элементы2D", ModelPresenter["Элементы2D"].Count());          
-
+                NavigatorControl.TreeView.Nodes["группыОбъектов"].Nodes.RemoveByKey("Элементы2D");
+                NavigatorControl.CreateChildNode("группыОбъектов", "Элементы2D", $"Элементы2D : {boundaryElements2D.Length}","5.1");
+                
                 ConsoleControl.PrintInfo("Созданы 2D элементы", Color.Black);
             }
             else

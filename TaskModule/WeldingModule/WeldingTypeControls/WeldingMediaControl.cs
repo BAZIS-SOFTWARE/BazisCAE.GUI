@@ -17,7 +17,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 {
     public partial class WeldingMediaControl : CheckedGridViewAdviserControl, INodesGroupControl, IElmentsGroupsControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
-        enum Column : int { plane, node = 0, function, mediaTemp, bodyTemp, startTime, stopTime };
+        enum Column : int { objects = 1, function, mediaTemp, startTime, stopTime };
 
         public WeldingMediaControl()
         {
@@ -75,12 +75,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 dataList.Add(cmbEl.Text);
                 dataList.Add(cmbFunc.Text);
                 dataList.Add(txbMediaTemp.Text);
-                dataList.Add("*");
             }
             else
             {
                 dataList.Add(cmbNode.Text);
-                dataList.Add("*");
                 dataList.Add("*");
                 dataList.Add(cmbTermoCycle.Text);
             }
@@ -94,17 +92,17 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var bodyTemp = dataGridView[(int)Column.bodyTemp, e.RowIndex].Value.ToString();
+            var function = dataGridView[(int)Column.function, e.RowIndex].Value.ToString();
 
-            if (bodyTemp != "*")
+            if (function == "*")
             {
-                cmbNode.Text = dataGridView[(int)Column.node, CurentSelectedRowIndex].Value.ToString();
-                cmbTermoCycle.Text = dataGridView[(int)Column.bodyTemp, CurentSelectedRowIndex].Value.ToString();
+                cmbNode.Text = dataGridView[(int)Column.objects, CurentSelectedRowIndex].Value.ToString();
+                cmbTermoCycle.Text = dataGridView[(int)Column.mediaTemp, CurentSelectedRowIndex].Value.ToString();
                 rbtTermoCycle.Checked = true;
             }
             else
             {
-                cmbEl.Text = dataGridView[(int)Column.plane, CurentSelectedRowIndex].Value.ToString();
+                cmbEl.Text = dataGridView[(int)Column.objects, CurentSelectedRowIndex].Value.ToString();
                 cmbFunc.Text = dataGridView[(int)Column.function, CurentSelectedRowIndex].Value.ToString();
                 txbMediaTemp.Text = dataGridView[(int)Column.mediaTemp, CurentSelectedRowIndex].Value.ToString();
                 rbtHeatFlow.Checked = true;

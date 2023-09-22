@@ -253,8 +253,8 @@ namespace BazisGUI
         {
             module.SceneControl.BackGroundColor = settingsConfig.BackGroudColor;
             module.SceneControl.SelectionColor = settingsConfig.SelectionColor;
-            module.SceneTransparency = settingsConfig.Transparency;
-            module.SceneLighting = settingsConfig.Lighting;
+            module.SceneControl.IsBlending = settingsConfig.Transparency;
+            module.SceneControl.IsLighting = settingsConfig.Lighting;
         }
 
         private void BaseForm_KeyDown(object sender, KeyEventArgs e)
@@ -382,8 +382,8 @@ namespace BazisGUI
                     var basePage = (BasePage)controls[0];
                     basePage.SceneControl.BackGroundColor = ar.BackGroudColor;
                     basePage.SceneControl.SelectionColor = ar.SelectionColor;
-                    basePage.SceneTransparency = ar.Transparency;
-                    basePage.SceneLighting = ar.Lighting;
+                    basePage.SceneControl.IsBlending = ar.Transparency;
+                    basePage.SceneControl.IsLighting = ar.Lighting;
 
                     if (basePage is TaskPage taskPage)
                         taskPage.SolverPath = ar.SolverPath;

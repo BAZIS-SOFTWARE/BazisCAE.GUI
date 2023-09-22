@@ -23,6 +23,7 @@ using Newtonsoft.Json;
 using Model.Interfaces;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Model.GroupsData;
+using BaseModule.Navigator;
 
 namespace TaskModule
 {
@@ -41,21 +42,10 @@ namespace TaskModule
         //public ISaver FunDataSaver { get; set; }
 
         private ToolStripStatusLabel solverStatusLabel;
-        private Dictionary<string, int> imgDict;
 
         public TaskPage()
         {
             InitializeComponent();
-
-            imgDict = new Dictionary<string, int>()
-            {
-                { "Материал",8},
-                { "Среда",9},
-                { "Нагрев",10},
-                { "Закрепление",11},
-                { "Нагрузка",12},
-                { "Расчет",13}
-            };
 
             var list = new List<StatusStrip>();
             SearchControl(this, list);          
@@ -63,16 +53,8 @@ namespace TaskModule
             solverStatusLabel = new ToolStripStatusLabel() { Name = "solverStatus"};
             list[0].Items.Add(solverStatusLabel);
 
-            var objsNode = new TreeNode()
-            {
-                Text = "Данные",
-                Name = "Данные",
-                ImageIndex = CollapseIndex,
-                SelectedImageIndex = CollapseIndex,
-                Tag = "3"
-            };
-
-            TreeView.Nodes.Add(objsNode);
+            var taskNode = new TreeNode("Данные", 1, 1) { Name = "Данные", Tag = "6" };
+            NavigatorControl.TreeView.Nodes.Add(taskNode);
         }
 
         public override void CreateMenuInterface()
@@ -309,31 +291,20 @@ namespace TaskModule
             }
         }
 
-        public override void DelGroup(Group group)
-        {
-            var treeNodes = TreeView.Nodes["Данные"].Nodes.Cast<TreeNode>().Where(x => x.Text.Contains(group.GroupName)).ToArray();
-            foreach (var node in treeNodes)
-                TreeView.Nodes["Данные"].Nodes.Remove(node);
-
-            base.DelGroup(group);
-        }
-
         public override void PresentProjectOnTree()
         {
             base.PresentProjectOnTree();
 
-            TreeView.BeginUpdate();
+            NavigatorControl.TreeView.BeginUpdate();
 
-            TreeView.Nodes["Данные"].Nodes.Clear();
+            NavigatorControl.TreeView.Nodes["Данные"].Nodes.Clear();
             foreach (var data in Project.TaskData)
             {
-                var node = CreateNewObjectsNode(data.ToString(), data.ToString(), imgDict[data.Name], imgDict[data.Name]);
-
-                TreeView.Nodes["Данные"].Nodes.Add(node);
+                NavigatorControl.CreateChildNode("Данные",data.Name, data.ToString(), "6.1");
             }
 
-            TreeView.EndUpdate();
-            TreeView.Nodes["Данные"].Expand();
+            NavigatorControl.TreeView.EndUpdate();
+            NavigatorControl.TreeView.Nodes["Данные"].Expand();
         }
 
         public void TaskAdvisor_ChangeTaskTypeEvent(object arg1, ChangeTaskTypeEventArgs arg2)
@@ -344,7 +315,7 @@ namespace TaskModule
                 Project.SetTaskType(TaskType.AxiPlain);
             else Project.SetTaskType(TaskType.Volume);
 
-            TreeView.Nodes[3].Text = "Вид : " + Project.TaskType;
+            NavigatorControl.TreeView.Nodes[3].Text = "Вид : " + Project.TaskType;
         }
 
         public void PresentProjectTaskDataOnAdvisor(string taskName)
@@ -380,7 +351,8 @@ namespace TaskModule
 
                 PresentProjectTaskDataOnAdvisor(activeTask);
 
-                TreeView.Nodes["Данные"].Nodes[arg2.Index].Text = arg2.DataInfo;
+                var dataIndex = Project.TaskData.IndexOf(dataArray[arg2.Index]);
+                NavigatorControl.TreeView.Nodes["Данные"].Nodes[dataIndex].Text = dataArray[arg2.Index].ToString();
                 //PresentProjectOnTree();
             }
             catch (Exception ex)
@@ -396,14 +368,13 @@ namespace TaskModule
 
             foreach (var data in dataArray)
             {
+                var index = Project.TaskData.IndexOf(data);
+                NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
+
                 Project.TaskData.Remove(data);
-                TreeView.Nodes["Данные"].Nodes.RemoveByKey(data.ToString());
             }
 
             PresentProjectTaskDataOnAdvisor(activeTask);
-
-            //PresentProjectOnTree();
-
         }
 
         public void TaskAdvisor_ShowDataEvent(object arg1, ShowDataEventArgs arg2)
@@ -576,9 +547,13 @@ namespace TaskModule
         {
             var dataArray = Project.TaskData.Find(arg2.DataName).ToArray();
 
+            var index = Project.TaskData.IndexOf(dataArray[arg2.Index]);
+            NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
+
             Project.TaskData.Remove(dataArray[arg2.Index]);
 
-            TreeView.Nodes["Данные"].Nodes.RemoveAt(arg2.Index);
+            
+
             //PresentProjectOnTree();
         }
 
@@ -617,11 +592,7 @@ namespace TaskModule
 
                 PresentProjectTaskDataOnAdvisor(activeTask);
 
-                var node = CreateNewObjectsNode(arg2.DataInfo, arg2.DataInfo, imgDict[arg2.DataName], imgDict[arg2.DataName]);
-
-                TreeView.Nodes["Данные"].Nodes.Add(node);
-                //PresentProjectOnTree();
-
+                NavigatorControl.CreateChildNode("Данные", arg2.DataName, $"{arg2.DataName} : {taskStrAr[0]}", "6.1");
             }
             catch (Exception ex)
             {

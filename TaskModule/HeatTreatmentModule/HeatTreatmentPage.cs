@@ -16,11 +16,11 @@ namespace TaskModule.HeatTreatmentModule
         private void HtPage_Load(object sender, EventArgs e)
         {
 
-            var htTaskToolStrip = new HeatTreatmentTasksToolStrip() { Name = "Термообработка" };
-            htTaskToolStrip.Renderer = new BaseToolStrRender();
-            htTaskToolStrip.advisorStatusChanged += HtTaskToolStrip_advisorStatusChanged;
+            //var htTaskToolStrip = new HeatTreatmentTasksToolStrip() { Name = "Термообработка" };
+            heatTreatmentTasksToolStrip.Renderer = new BaseToolStrRender();
+            heatTreatmentTasksToolStrip.advisorStatusChanged += HtTaskToolStrip_advisorStatusChanged;
 
-            AddToolStrip(htTaskToolStrip);
+            AddToolStrip(heatTreatmentTasksToolStrip);
         }
 
         private void HtTaskToolStrip_advisorStatusChanged(object arg1, AdvisorEventArgs arg2)
