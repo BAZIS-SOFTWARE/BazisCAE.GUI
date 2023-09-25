@@ -32,12 +32,6 @@ namespace TaskModule
 
         public MaterialDBData MatData { get; set; }
         public FunctionDBData FunData { get; set; }
-        //public IDataInformer DataInformer { get; set; }
-        //public ILoader MatDataLoader { get; set; }
-        //public ILoader FunDataLoader { get; set; }
-
-        //public ISaver MatDataSaver { get; set; }
-        //public ISaver FunDataSaver { get; set; }
 
         private ToolStripStatusLabel solverStatusLabel;
 
@@ -53,6 +47,8 @@ namespace TaskModule
 
             var taskNode = new TreeNode("Данные", 1, 1) { Name = "Данные", Tag = "6" };
             NavigatorControl.TreeView.Nodes.Add(taskNode);
+
+            ChangeProjectDataEvent += (ar1, ar2) => { PresentProjectTaskDataOnAdvisor(); };
         }
 
         public override void CreateMenuInterface()
@@ -195,7 +191,7 @@ namespace TaskModule
 
             taskAdv.SetProjectData(Project);
 
-            PresentProjectTaskDataOnAdvisor(activeTask);
+            PresentProjectTaskDataOnAdvisor();
         }
 
         private void TaskAdv_StopComputationEvent(object arg1, EventArgs arg2)
@@ -303,6 +299,8 @@ namespace TaskModule
 
             NavigatorControl.TreeView.EndUpdate();
             NavigatorControl.TreeView.Nodes["Данные"].Expand();
+
+            //PresentProjectTaskDataOnAdvisor(activeTask);
         }
 
         public void TaskAdvisor_ChangeTaskTypeEvent(object arg1, ChangeTaskTypeEventArgs arg2)
@@ -315,10 +313,10 @@ namespace TaskModule
 
             NavigatorControl.TreeView.Nodes[3].Text = "Вид : " + Project.TaskType;
 
-            PresentProjectTaskDataOnAdvisor(activeTask);
+            PresentProjectTaskDataOnAdvisor();
         }
 
-        public void PresentProjectTaskDataOnAdvisor(string taskName)
+        public void PresentProjectTaskDataOnAdvisor()
         {
             var taskForm = Application.OpenForms[activeTask];
             if (taskForm != null)
@@ -349,7 +347,7 @@ namespace TaskModule
                 }
                 else dataArray[arg2.Index].SetInfo(taskStrAr[0]);
 
-                PresentProjectTaskDataOnAdvisor(activeTask);
+                PresentProjectTaskDataOnAdvisor();
 
                 var dataIndex = Project.TaskData.IndexOf(dataArray[arg2.Index]);
                 NavigatorControl.TreeView.Nodes["Данные"].Nodes[dataIndex].Text = dataArray[arg2.Index].ToString();
@@ -374,7 +372,7 @@ namespace TaskModule
                 Project.TaskData.Remove(data);
             }
 
-            PresentProjectTaskDataOnAdvisor(activeTask);
+            PresentProjectTaskDataOnAdvisor();
         }
 
         public void TaskAdvisor_ShowDataEvent(object arg1, ShowDataEventArgs arg2)
@@ -590,7 +588,7 @@ namespace TaskModule
                     }
                 }
 
-                PresentProjectTaskDataOnAdvisor(activeTask);
+                PresentProjectTaskDataOnAdvisor();
 
                 NavigatorControl.CreateChildNode("Данные", arg2.DataName, $"{arg2.DataName} : {taskStrAr[0]}", "6.1");
             }

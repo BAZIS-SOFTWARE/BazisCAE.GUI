@@ -403,12 +403,12 @@ namespace BaseModule
             }
             else if (e.ClickedItem.Tag.ToString() == "4")
             {
-                var filterMesh = 
+                var filterMesh =
+                    "All files(*.*)|*.*|" +
                     "Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
                     "GMSH(*.inp*)|*.inp|" + 
                     "ANSYS(*.cdb*)|*.cdb|" +
-                    "SOLOMIA(*.dat*)|*.dat|" +
-                    "All files(*.*) | *.* ";
+                    "SOLOMIA(*.dat*)|*.dat";
                 ImportModelData(filterMesh);
             }
         }
@@ -416,6 +416,9 @@ namespace BaseModule
         public void CreateNewProject()
         {
             project = new ProjectData("newProject", Environment.CurrentDirectory);
+
+
+
             ModelPresenter = new ModelScenePresentator(project.Model);
 
             consoleControl.PrintInfo("Создан новый проект", Color.Black);
@@ -1358,6 +1361,8 @@ namespace BaseModule
                 group.AddRange(objsNumbs);
                 project.Model.GroupData.Add(group);
 
+                ChangeProjectDataEvent(this, project);
+
                 consoleControl.PrintInfo(string.Format("Создана новая группа {0}", name), Color.Black);
 
                 foreach (var selObj in selObjs)
@@ -1370,7 +1375,6 @@ namespace BaseModule
                 sceneControl.DisplayObjects();
 
                 navigator.CreateChildNode("группыОбъектов", group.ObjType, group.GroupName, "5.1");
-                //SetModelGroupInfo();
             }
         }
 
@@ -1700,6 +1704,8 @@ Where(x => x.GroupName == group.GroupName).ToArray();
 
             foreach (Data data in valData)
                 Project.TaskData.Remove(data);
+
+            ChangeProjectDataEvent?.Invoke(this, Project);
         }
 
         private void navigator_DelObjectsEvent(string objs)
@@ -1909,6 +1915,7 @@ Where(x => x.GroupName == group.GroupName).ToArray();
                         data.SetInfo(dataStr);
                     }
                 }
+                ChangeProjectDataEvent?.Invoke(this, Project);
             }
 
         }
