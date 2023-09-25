@@ -212,7 +212,7 @@ namespace BaseModule
             
             выходToolStripMenuItem.Click += (ar1, ar2) => { Application.Exit(); };
             создатьToolStripMenuItem.Click += (ar1, ar2) => { CreateNewProject(); };
-            открытьToolStripMenuItem.Click += (ar1, ar2) => { LoadProjectData("Bazis project file(*.bpf)|*.bpf|" + "All files(*.*)|*.*"); };
+            открытьToolStripMenuItem.Click += (ar1, ar2) => { LoadProjectData("Bazis project file(*.bpf)|*.bpf|All files(*.*)|*.*"); };
             сохранитьToolStripMenuItem.Click += (ar1, ar2) => { SaveProjectData(); };
             сохранитькакToolStripMenuItem.Click += (ar1, ar2) => { SaveAsProjectData("bpf"); };
 
@@ -407,7 +407,8 @@ namespace BaseModule
                     "Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
                     "GMSH(*.inp*)|*.inp|" + 
                     "ANSYS(*.cdb*)|*.cdb|" +
-                    "SOLOMIA(*.dat*)|*.dat";
+                    "SOLOMIA(*.dat*)|*.dat|" +
+                    "All files(*.*) | *.* ";
                 ImportModelData(filterMesh);
             }
         }

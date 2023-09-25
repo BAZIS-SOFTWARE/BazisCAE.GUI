@@ -131,11 +131,13 @@
     <Compile Include="BasicAdvisorControls\Events\HideDataEventArgs.cs" />
     <Compile Include="BasicAdvisorControls\Events\RefreshDataEventArgs.cs" />
     <Compile Include="BasicAdvisorControls\Events\ShowDataEventArgs.cs" />
+    <Compile Include="BasicAdvisorControls\Interfaces\IBoundaryControl.cs" />
     <Compile Include="BasicAdvisorControls\Interfaces\ICheckGridViewControl.cs" />
     <Compile Include="BasicAdvisorControls\Interfaces\IDataNamedControl.cs" />
     <Compile Include="BasicAdvisorControls\Interfaces\IElmentsGroupsControl.cs" />
     <Compile Include="BasicAdvisorControls\Interfaces\IFunctionsRelatedControl.cs" />
     <Compile Include="BasicAdvisorControls\Interfaces\IGridViewControl.cs" />
+    <Compile Include="BasicAdvisorControls\Interfaces\ILoadControl.cs" />
     <Compile Include="BasicAdvisorControls\Interfaces\IMaterialsRelatedControl.cs" />
     <Compile Include="BasicAdvisorControls\Interfaces\INodesGroupControl.cs" />
     <Compile Include="BasicAdvisorControls\LoadControl.cs">

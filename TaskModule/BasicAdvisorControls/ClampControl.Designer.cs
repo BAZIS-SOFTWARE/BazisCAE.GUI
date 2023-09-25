@@ -44,6 +44,12 @@
             this.btnAddNewRow = new System.Windows.Forms.Button();
             this.txbStartTime = new System.Windows.Forms.TextBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmbNodeGr = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -57,12 +63,6 @@
             this.chbZ = new System.Windows.Forms.CheckBox();
             this.chbY = new System.Windows.Forms.CheckBox();
             this.chbX = new System.Windows.Forms.CheckBox();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -282,6 +282,52 @@
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
             // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Группа узлов";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            this.Column9.ToolTipText = "Название группы";
+            this.Column9.Width = 95;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "Вид";
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            this.Column10.ToolTipText = "Вид условия";
+            this.Column10.Width = 95;
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "Направление";
+            this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
+            this.Column12.Width = 95;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Функция";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.ToolTipText = "Функция f(U)";
+            // 
+            // startColumn
+            // 
+            this.startColumn.HeaderText = "Старт";
+            this.startColumn.Name = "startColumn";
+            this.startColumn.ReadOnly = true;
+            this.startColumn.ToolTipText = "Сек.";
+            this.startColumn.Width = 95;
+            // 
+            // stopColumn
+            // 
+            this.stopColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.stopColumn.HeaderText = "Стоп";
+            this.stopColumn.Name = "stopColumn";
+            this.stopColumn.ReadOnly = true;
+            this.stopColumn.ToolTipText = "Сек.";
+            // 
             // groupBox1
             // 
             this.groupBox1.AutoSize = true;
@@ -399,7 +445,7 @@
             // chbLRF
             // 
             this.chbLRF.AutoSize = true;
-            this.chbLRF.Location = new System.Drawing.Point(317, 34);
+            this.chbLRF.Location = new System.Drawing.Point(287, 34);
             this.chbLRF.Name = "chbLRF";
             this.chbLRF.Size = new System.Drawing.Size(100, 17);
             this.chbLRF.TabIndex = 0;
@@ -411,7 +457,7 @@
             // chbZ
             // 
             this.chbZ.AutoSize = true;
-            this.chbZ.Location = new System.Drawing.Point(278, 34);
+            this.chbZ.Location = new System.Drawing.Point(248, 34);
             this.chbZ.Name = "chbZ";
             this.chbZ.Size = new System.Drawing.Size(33, 17);
             this.chbZ.TabIndex = 0;
@@ -423,7 +469,7 @@
             // chbY
             // 
             this.chbY.AutoSize = true;
-            this.chbY.Location = new System.Drawing.Point(239, 34);
+            this.chbY.Location = new System.Drawing.Point(209, 34);
             this.chbY.Name = "chbY";
             this.chbY.Size = new System.Drawing.Size(33, 17);
             this.chbY.TabIndex = 0;
@@ -435,7 +481,7 @@
             // chbX
             // 
             this.chbX.AutoSize = true;
-            this.chbX.Location = new System.Drawing.Point(200, 34);
+            this.chbX.Location = new System.Drawing.Point(170, 34);
             this.chbX.Name = "chbX";
             this.chbX.Size = new System.Drawing.Size(33, 17);
             this.chbX.TabIndex = 0;
@@ -443,52 +489,6 @@
             this.chbX.Text = "X";
             this.chbX.UseVisualStyleBackColor = true;
             this.chbX.CheckedChanged += new System.EventHandler(this.ChbDirection_CheckedChanged);
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "Группа узлов";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            this.Column9.ToolTipText = "Название группы";
-            this.Column9.Width = 95;
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "Вид";
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            this.Column10.ToolTipText = "Вид условия";
-            this.Column10.Width = 95;
-            // 
-            // Column12
-            // 
-            this.Column12.HeaderText = "Направление";
-            this.Column12.Name = "Column12";
-            this.Column12.ReadOnly = true;
-            this.Column12.Width = 95;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Функция";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.ToolTipText = "Функция f(U)";
-            // 
-            // startColumn
-            // 
-            this.startColumn.HeaderText = "Старт";
-            this.startColumn.Name = "startColumn";
-            this.startColumn.ReadOnly = true;
-            this.startColumn.ToolTipText = "Сек.";
-            this.startColumn.Width = 95;
-            // 
-            // stopColumn
-            // 
-            this.stopColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.stopColumn.HeaderText = "Стоп";
-            this.stopColumn.Name = "stopColumn";
-            this.stopColumn.ReadOnly = true;
-            this.stopColumn.ToolTipText = "Сек.";
             // 
             // ClampControl
             // 

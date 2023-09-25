@@ -11,7 +11,7 @@ using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.BasicAdvisorControls
 {
-    public partial class ClampControl : CheckedGridViewAdviserControl, INodesGroupControl, IFunctionsRelatedControl, ICheckGridViewControl
+    public partial class ClampControl : CheckedGridViewAdviserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
         [Category("Images")]
         [Description("Set image for add button")]
@@ -288,9 +288,9 @@ namespace TaskModule.BasicAdvisorControls
             HideDataEvent(this, new HideDataEventArgs(DataName));
         }
 
-        //public override void CheckVelocitySlider_Scroll(object sender, ScrollEventArgs e)
-        //{
-        //    base.CheckVelocitySlider_Scroll(sender, e);
-        //}
+        public void Fill_eGroups(List<string> groupNames)
+        {
+            //throw new Exception("Метод не реализован!");
+        }
     }
 }

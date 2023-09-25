@@ -11,7 +11,7 @@ using TaskModule.BasicAdvisorControls.Events;
 
 namespace TaskModule.BasicAdvisorControls
 {
-    public partial class LoadControl : CheckedGridViewAdviserControl, INodesGroupControl, IFunctionsRelatedControl, ICheckGridViewControl
+    public partial class LoadControl : CheckedGridViewAdviserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
         [Category("Images")]
         [Description("Set image for add button")]
@@ -254,6 +254,11 @@ namespace TaskModule.BasicAdvisorControls
         private void player_StopCheckingEvent(object obj)
         {
             HideDataEvent(this, new HideDataEventArgs(DataName));
+        }
+
+        public void Fill_eGroups(List<string> groupNames)
+        {
+            //throw new Exception("Метод не реализован!");
         }
     }
 }

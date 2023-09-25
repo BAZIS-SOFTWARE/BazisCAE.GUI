@@ -21,8 +21,6 @@ using DataBaseController.MaterialData;
 using DataBaseController.FunctionData;
 using Newtonsoft.Json;
 using Model.Interfaces;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Model.GroupsData;
 using BaseModule.Navigator;
 
 namespace TaskModule
@@ -316,6 +314,8 @@ namespace TaskModule
             else Project.SetTaskType(TaskType.Volume);
 
             NavigatorControl.TreeView.Nodes[3].Text = "Вид : " + Project.TaskType;
+
+            PresentProjectTaskDataOnAdvisor(activeTask);
         }
 
         public void PresentProjectTaskDataOnAdvisor(string taskName)

@@ -1,4 +1,5 @@
 ﻿using PlayerControl;
+using Project.TasksData;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +16,7 @@ using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
-    public partial class WeldingMediaControl : CheckedGridViewAdviserControl, INodesGroupControl, IElmentsGroupsControl, IFunctionsRelatedControl, ICheckGridViewControl
+    public partial class WeldingMediaControl : CheckedGridViewAdviserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
         enum Column : int { objects = 1, function, mediaTemp, startTime, stopTime };
 

@@ -11,7 +11,7 @@ using TaskModule.BasicAdvisorControls.Events;
 
 namespace TaskModule.BasicAdvisorControls
 {
-    public partial class MaterialsControl : CheckedGridViewAdviserControl, IElmentsGroupsControl, IMaterialsRelatedControl, ICheckGridViewControl
+    public partial class MaterialsControl : CheckedGridViewAdviserControl, IMaterialsRelatedControl, ICheckGridViewControl
     {
         [Category("Images")]
         [Description("Set image for add button")]

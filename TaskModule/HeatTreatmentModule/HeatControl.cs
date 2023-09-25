@@ -16,7 +16,7 @@ using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.HeatTreatmentModule
 {
-    public partial class HeatControl : CheckedGridViewAdviserControl, IElmentsGroupsControl, IFunctionsRelatedControl, ICheckGridViewControl
+    public partial class HeatControl : CheckedGridViewAdviserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
         [Category("Images")]
         [Description("Set image for add button")]
@@ -214,6 +214,11 @@ namespace TaskModule.HeatTreatmentModule
         private void player_StopCheckingEvent(object obj)
         {
             HideDataEvent(this, new HideDataEventArgs(DataName));
+        }
+
+        public void Fill_nGroups(List<string> groupNames)
+        {
+            //throw new Exception("Метод не реализован!");
         }
     }
 }

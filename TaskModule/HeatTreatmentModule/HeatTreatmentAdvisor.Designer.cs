@@ -73,7 +73,7 @@ namespace TaskModule.HeatTreatmentModule
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(881, 479);
+            this.tabControl1.Size = new System.Drawing.Size(700, 600);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.TabControl_DrawItem);
             // 
@@ -85,7 +85,7 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgTaskType.Location = new System.Drawing.Point(4, 34);
             this.pdgTaskType.Name = "pdgTaskType";
             this.pdgTaskType.Padding = new System.Windows.Forms.Padding(3);
-            this.pdgTaskType.Size = new System.Drawing.Size(873, 441);
+            this.pdgTaskType.Size = new System.Drawing.Size(692, 562);
             this.pdgTaskType.TabIndex = 1;
             this.pdgTaskType.Text = "Тип задачи";
             // 
@@ -97,7 +97,7 @@ namespace TaskModule.HeatTreatmentModule
             this.taskTypeControl1.Margin = new System.Windows.Forms.Padding(0);
             this.taskTypeControl1.MinimumSize = new System.Drawing.Size(400, 0);
             this.taskTypeControl1.Name = "taskTypeControl1";
-            this.taskTypeControl1.Size = new System.Drawing.Size(867, 435);
+            this.taskTypeControl1.Size = new System.Drawing.Size(686, 556);
             this.taskTypeControl1.TabIndex = 0;
             this.taskTypeControl1.Task2DAxiImage = global::TaskModule.Properties.Resources.PlainTask;
             this.taskTypeControl1.Task2DImage = global::TaskModule.Properties.Resources.AxiSymTask;
@@ -114,7 +114,7 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgMaterials.Location = new System.Drawing.Point(4, 34);
             this.pdgMaterials.Name = "pdgMaterials";
             this.pdgMaterials.Padding = new System.Windows.Forms.Padding(3);
-            this.pdgMaterials.Size = new System.Drawing.Size(873, 441);
+            this.pdgMaterials.Size = new System.Drawing.Size(692, 562);
             this.pdgMaterials.TabIndex = 2;
             this.pdgMaterials.Text = "Материалы";
             // 
@@ -132,7 +132,7 @@ namespace TaskModule.HeatTreatmentModule
             this.materialsControl1.Name = "materialsControl1";
             this.materialsControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.RefreshButtonImage")));
             this.materialsControl1.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.ShowAllButtonImage")));
-            this.materialsControl1.Size = new System.Drawing.Size(867, 435);
+            this.materialsControl1.Size = new System.Drawing.Size(686, 556);
             this.materialsControl1.TabIndex = 0;
             this.materialsControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.materialsControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -150,7 +150,7 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgHT.Location = new System.Drawing.Point(4, 34);
             this.pdgHT.Name = "pdgHT";
             this.pdgHT.Padding = new System.Windows.Forms.Padding(3);
-            this.pdgHT.Size = new System.Drawing.Size(873, 441);
+            this.pdgHT.Size = new System.Drawing.Size(692, 562);
             this.pdgHT.TabIndex = 3;
             this.pdgHT.Text = "ТО";
             // 
@@ -166,7 +166,7 @@ namespace TaskModule.HeatTreatmentModule
             this.htMediaControl1.Name = "htMediaControl1";
             this.htMediaControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("htMediaControl1.RefreshButtonImage")));
             this.htMediaControl1.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("htMediaControl1.ShowAllButtonImage")));
-            this.htMediaControl1.Size = new System.Drawing.Size(867, 435);
+            this.htMediaControl1.Size = new System.Drawing.Size(686, 556);
             this.htMediaControl1.TabIndex = 0;
             this.htMediaControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.htMediaControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -180,11 +180,11 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.pdgClamps.BackColor = System.Drawing.SystemColors.Control;
             this.pdgClamps.Controls.Add(this.clampControl1);
-            this.pdgClamps.ImageIndex = 4;
+            this.pdgClamps.ImageIndex = 3;
             this.pdgClamps.Location = new System.Drawing.Point(4, 34);
             this.pdgClamps.Name = "pdgClamps";
             this.pdgClamps.Padding = new System.Windows.Forms.Padding(3);
-            this.pdgClamps.Size = new System.Drawing.Size(873, 441);
+            this.pdgClamps.Size = new System.Drawing.Size(692, 562);
             this.pdgClamps.TabIndex = 5;
             this.pdgClamps.Text = "Закрепления";
             // 
@@ -202,7 +202,7 @@ namespace TaskModule.HeatTreatmentModule
             this.clampControl1.Name = "clampControl1";
             this.clampControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl1.RefreshButtonImage")));
             this.clampControl1.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl1.ShowAllButtonImage")));
-            this.clampControl1.Size = new System.Drawing.Size(867, 435);
+            this.clampControl1.Size = new System.Drawing.Size(686, 556);
             this.clampControl1.TabIndex = 0;
             this.clampControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.clampControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -216,11 +216,11 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.pdgLoad.BackColor = System.Drawing.SystemColors.Control;
             this.pdgLoad.Controls.Add(this.loadControl1);
-            this.pdgLoad.ImageIndex = 5;
+            this.pdgLoad.ImageIndex = 4;
             this.pdgLoad.Location = new System.Drawing.Point(4, 34);
             this.pdgLoad.Name = "pdgLoad";
             this.pdgLoad.Padding = new System.Windows.Forms.Padding(3);
-            this.pdgLoad.Size = new System.Drawing.Size(873, 441);
+            this.pdgLoad.Size = new System.Drawing.Size(692, 562);
             this.pdgLoad.TabIndex = 6;
             this.pdgLoad.Text = "Нагрузки";
             // 
@@ -236,7 +236,7 @@ namespace TaskModule.HeatTreatmentModule
             this.loadControl1.Name = "loadControl1";
             this.loadControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.RefreshButtonImage")));
             this.loadControl1.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.ShowAllButtonImage")));
-            this.loadControl1.Size = new System.Drawing.Size(867, 435);
+            this.loadControl1.Size = new System.Drawing.Size(686, 556);
             this.loadControl1.TabIndex = 0;
             this.loadControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.loadControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -250,11 +250,11 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.pdgPlanner.BackColor = System.Drawing.SystemColors.Control;
             this.pdgPlanner.Controls.Add(this.taskPlannerControl1);
-            this.pdgPlanner.ImageIndex = 6;
+            this.pdgPlanner.ImageIndex = 5;
             this.pdgPlanner.Location = new System.Drawing.Point(4, 34);
             this.pdgPlanner.Name = "pdgPlanner";
             this.pdgPlanner.Padding = new System.Windows.Forms.Padding(3);
-            this.pdgPlanner.Size = new System.Drawing.Size(873, 441);
+            this.pdgPlanner.Size = new System.Drawing.Size(692, 562);
             this.pdgPlanner.TabIndex = 7;
             this.pdgPlanner.Text = "Планировщик";
             // 
@@ -268,11 +268,11 @@ namespace TaskModule.HeatTreatmentModule
             this.taskPlannerControl1.Location = new System.Drawing.Point(3, 3);
             this.taskPlannerControl1.MinimumSize = new System.Drawing.Size(400, 700);
             this.taskPlannerControl1.Name = "taskPlannerControl1";
+            this.taskPlannerControl1.Path = null;
             this.taskPlannerControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.RefreshButtonImage")));
-            this.taskPlannerControl1.Size = new System.Drawing.Size(867, 700);
+            this.taskPlannerControl1.Size = new System.Drawing.Size(686, 700);
             this.taskPlannerControl1.TabIndex = 0;
             this.taskPlannerControl1.AddDataUseTaskConditionsEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_AddDataUseTaskConditionsEvent);
-            this.taskPlannerControl1.StartComputationEvent += TaskPlannerControl1_StartComputationEvent;
             this.taskPlannerControl1.StopComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StopComputationEvent);
             this.taskPlannerControl1.AddDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             this.taskPlannerControl1.DeleteDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
@@ -298,7 +298,7 @@ namespace TaskModule.HeatTreatmentModule
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tabControl1);
             this.Name = "HeatTreatmentAdvisor";
-            this.Size = new System.Drawing.Size(881, 479);
+            this.Size = new System.Drawing.Size(700, 600);
             this.tabControl1.ResumeLayout(false);
             this.pdgTaskType.ResumeLayout(false);
             this.pdgMaterials.ResumeLayout(false);

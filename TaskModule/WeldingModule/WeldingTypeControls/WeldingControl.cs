@@ -15,7 +15,7 @@ using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
-    public partial class WeldingControl : CheckedGridViewAdviserControl, INodesGroupControl, IElmentsGroupsControl, IFunctionsRelatedControl, ICheckGridViewControl
+    public partial class WeldingControl : CheckedGridViewAdviserControl, ILoadControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
         List<string> funcs = new List<string>();
 

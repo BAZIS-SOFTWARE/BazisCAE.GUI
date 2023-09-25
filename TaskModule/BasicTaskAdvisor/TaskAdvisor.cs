@@ -63,33 +63,40 @@ namespace TaskModule.BasicTaskAdvisor
             foreach (TabPage tabPage in tabControl.Controls)
             {
                 foreach (Control control in tabPage.Controls)
-                {
-                    if (control is INodesGroupControl nGrControl)
-                        nGrControl.Fill_nGroups(project.Model.GroupData.FindMany("Узлы").Select(x => x.GroupName).ToList());
-
-                    if (control is IElmentsGroupsControl eGrControl)
-                        if (taskType == "Plain" | taskType == "AxiPlain")
-                        {
-
-                            eGrControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы1D").Select(x => x.GroupName).ToList());
-                            eGrControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы2D").Select(x => x.GroupName).ToList());
-                        }
-                        else
-                        {
-                            eGrControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы2D").Select(x => x.GroupName).ToList());
-                            eGrControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы3D").Select(x => x.GroupName).ToList());
-                        }
-
-                    if (control is GridViewAdviserControl grvControl)
+                {   
+                    if(control is GridViewAdviserControl gvControl)
                     {
-                        if(grvControl is TaskPlannerControl taskPlannerControl)
+                        var data = project.TaskData.
+    Where(x => x.Name == gvControl.DataName).
+    Select(x => x.GetInfo);
+                        if (control is ILoadControl loadControl)
+                        {
+                            loadControl.Fill_nGroups(project.Model.GroupData.FindMany("Узлы").Select(x => x.GroupName).ToList());
+                            if (taskType == "Plain" | taskType == "AxiPlain")
+                                loadControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы2D").Select(x => x.GroupName).ToList());
+                            else
+                                loadControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы3D").Select(x => x.GroupName).ToList());
+                        }
+                        else if (control is IBoundaryControl boundaryControl)
+                        {
+                            boundaryControl.Fill_nGroups(project.Model.GroupData.FindMany("Узлы").Select(x => x.GroupName).ToList());
+                            if (taskType == "Plain" | taskType == "AxiPlain")
+                                boundaryControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы1D").Select(x => x.GroupName).ToList());
+                            else
+                                boundaryControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы2D").Select(x => x.GroupName).ToList());
+                        }
+                        else if (control is IMaterialsRelatedControl materialsRelatedControl)
+                            if (taskType == "Plain" | taskType == "AxiPlain")
+                                materialsRelatedControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы2D").Select(x => x.GroupName).ToList());
+                            else
+                                materialsRelatedControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы3D").Select(x => x.GroupName).ToList());
+
+                        else if (control is TaskPlannerControl taskPlannerControl)
                             taskPlannerControl.Path = project.Path;
 
-                        var data = project.TaskData.
-                            Where(x => x.Name == grvControl.DataName).
-                            Select(x => x.GetInfo);
-                        grvControl.Set_DataGridLines(data);
+                        gvControl.Set_DataGridLines(data);
                     }
+     
                 }
             }
         }
