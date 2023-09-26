@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace BaseModule.Navigator
 {
+    public enum ViewRegime : int { ribbers, surfaces, ribbersSurfaces };
     public partial class NavigatorControl : UserControl
     {
-        public enum ViewRegime : int { ribbers,surfaces,ribbersSurfaces};
         Dictionary<string, int> imgDict;
 
         [Category("treeView")]

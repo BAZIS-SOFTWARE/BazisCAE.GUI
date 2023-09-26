@@ -29,8 +29,6 @@ using SceneInterface;
 using Model.Utilities;
 using ModelController.ModelScenePresentator.GlObjsPresenters;
 using BaseModule.ToolStrips;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static BaseModule.Navigator.NavigatorControl;
 using BaseModule.Navigator;
 
 namespace BaseModule
@@ -1623,23 +1621,27 @@ namespace BaseModule
 
             for (int i = 0; i < objsPresenter.Count(); i++)
             {
-                var scrPoints = new Point2D[objsPresenter[i].NumberOfPoints];
-                var scnPoints = new Point3D[objsPresenter[i].NumberOfPoints];
-
-                var pointCounter = 0;
-                foreach (var point in objsPresenter[i].GetPoints())
+                if(objsPresenter[i].ViewState)
                 {
-                    var scnPoint = camera.GetSceenCoord(point);
-                    scnPoints[pointCounter] = scnPoint;
+                    var scrPoints = new Point2D[objsPresenter[i].NumberOfPoints];
+                    var scnPoints = new Point3D[objsPresenter[i].NumberOfPoints];
 
-                    var scrPoint = camera.GetScreenCoord(scnPoint);
-                    scrPoints[pointCounter] = scrPoint;
+                    var pointCounter = 0;
+                    foreach (var point in objsPresenter[i].GetPoints())
+                    {
+                        var scnPoint = camera.GetSceenCoord(point);
+                        scnPoints[pointCounter] = scnPoint;
 
-                    pointCounter++;
+                        var scrPoint = camera.GetScreenCoord(scnPoint);
+                        scrPoints[pointCounter] = scrPoint;
+
+                        pointCounter++;
+                    }
+
+                    if (selectionBox.IsPointsInside(scrPoints))
+                        selections.Add(i, objsPresenter[i].CalcCentralPoint());
                 }
 
-                if (selectionBox.IsPointsInside(scrPoints))
-                    selections.Add(i, objsPresenter[i].CalcCentralPoint());
             }
             return selections;
         }

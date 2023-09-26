@@ -306,42 +306,55 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (chbAddByTaskConditions.Checked)
-                AddDataUseTaskConditionsEvent?.Invoke(this, new EventArgs());
-            else
+            try
             {
-                if (chbChemicalTask.Checked)
+                if (chbAddByTaskConditions.Checked)
+                    AddDataUseTaskConditionsEvent?.Invoke(this, new EventArgs());
+                else
                 {
-                    GenerateTsfFile(TaskKind.химическая, CountRows);
-                    CurentSelectedRowInfo = AddRowInfo(TaskKind.химическая, TaskStatus.выполнить, CountRows);
-                    base.AddButton_Click(this, new EventArgs());
+                    if (chbChemicalTask.Checked)
+                    {
+                        CurentSelectedRowInfo = AddRowInfo(TaskKind.химическая, TaskStatus.выполнить, CountRows);
+                        GenerateTsfFile(TaskKind.химическая, CountRows);
+                        base.AddButton_Click(this, new EventArgs());
+                    }
+                    Thread.Sleep(100);
+                    if (chbTermoTask.Checked)
+                    {
+                        CurentSelectedRowInfo = AddRowInfo(TaskKind.термическая, TaskStatus.выполнить, CountRows);
+                        GenerateTsfFile(TaskKind.термическая, CountRows);
+                        base.AddButton_Click(this, new EventArgs());
+                    }
+                    Thread.Sleep(100);
+                    if (chbMechTask.Checked)
+                    {
+                        CurentSelectedRowInfo = AddRowInfo(TaskKind.механическая, TaskStatus.выполнить, CountRows);
+                        GenerateTsfFile(TaskKind.механическая, CountRows);
+                        base.AddButton_Click(this, new EventArgs());
+                    }
+
+                    var temp = txbStopTime.Text;
+                    txbStartTime.Text = temp;
                 }
-                Thread.Sleep(100);
-                if (chbTermoTask.Checked)
-                {
-                    GenerateTsfFile(TaskKind.термическая, CountRows);
-                    CurentSelectedRowInfo = AddRowInfo(TaskKind.термическая, TaskStatus.выполнить, CountRows);
-                    base.AddButton_Click(this, new EventArgs());
-                }
-                Thread.Sleep(100);
-                if (chbMechTask.Checked)
-                {
-                    GenerateTsfFile(TaskKind.механическая, CountRows);
-                    CurentSelectedRowInfo = AddRowInfo(TaskKind.механическая, TaskStatus.выполнить, CountRows);
-                    base.AddButton_Click(this, new EventArgs());
-                }
-            
-                var temp = txbStopTime.Text;
-                txbStartTime.Text = temp;
+                btnRefresh.Enabled = false;
             }
-            btnRefresh.Enabled = false;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
 
         }
 
         private string AddRowInfo(TaskKind taskKind, TaskStatus status, int taskInd)
         {
-            var tsfFileName = $"{taskKind}_{taskInd}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
+            if (txbStartTime.Text == "")
+                throw new Exception("Время старта не указано");
 
+            if (txbStopTime.Text == "")
+                throw new Exception("Время окончания не указано");
+
+            var tsfFileName = $"{taskKind}_{taskInd}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
             return $"\"{taskKind} {tsfFileName} {status}\"";
         }
 
