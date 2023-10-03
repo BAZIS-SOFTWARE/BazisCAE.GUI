@@ -55,6 +55,9 @@
     <Reference Include="Geometry, Version=2.0.5.50, Culture=neutral, PublicKeyToken=cadb58b3f6b10f0c, processorArchitecture=MSIL">
       <HintPath>..\packages\Geometry.2.0.5.50\lib\net48\Geometry.dll</HintPath>
     </Reference>
+    <Reference Include="GmshApi">
+      <HintPath>..\packages\GmshApi.1.0.2.13\lib\net48\GmshApi.dll</HintPath>
+    </Reference>
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
     </Reference>
@@ -112,6 +115,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="GmshControl.resx">
+      <DependentUpon>GmshControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ModelPage.resx">
       <DependentUpon>ModelPage.cs</DependentUpon>
     </EmbeddedResource>
