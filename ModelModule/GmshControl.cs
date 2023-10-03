@@ -67,8 +67,8 @@ namespace ModelModule
             mesh = geometry.Generate(2);
             if(mesh == null)
             {
-                var message = GmshWrapperGeneral.LoggerGetLastError();
-                showErrorMessage?.Invoke(message);
+                //var message = GmshWrapperGeneral.LoggerGetLastError();
+                showErrorMessage?.Invoke("");
                 return;
             }
             modelData.Clear();

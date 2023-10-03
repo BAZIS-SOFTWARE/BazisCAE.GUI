@@ -30,7 +30,7 @@ namespace TaskModule.HeatTreatmentModule
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new System.Windows.Forms.GroupBox();
             this.cmbTempFunc = new System.Windows.Forms.ComboBox();
@@ -58,8 +58,8 @@ namespace TaskModule.HeatTreatmentModule
             this.btnAddNewRow = new System.Windows.Forms.Button();
             this.txbStartTime = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.rbtTempering = new System.Windows.Forms.RadioButton();
-            this.rbtHeatColling = new System.Windows.Forms.RadioButton();
+            this.cmbProcKinds = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.grbHeatFlux.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -97,14 +97,14 @@ namespace TaskModule.HeatTreatmentModule
             this.grbHeatFlux.Controls.Add(this.label1);
             this.grbHeatFlux.Controls.Add(this.cmbEl);
             this.grbHeatFlux.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbHeatFlux.Location = new System.Drawing.Point(1, 77);
+            this.grbHeatFlux.Location = new System.Drawing.Point(1, 68);
             this.grbHeatFlux.Margin = new System.Windows.Forms.Padding(1);
             this.grbHeatFlux.Name = "grbHeatFlux";
             this.grbHeatFlux.Padding = new System.Windows.Forms.Padding(0);
             this.grbHeatFlux.Size = new System.Drawing.Size(531, 124);
             this.grbHeatFlux.TabIndex = 18;
             this.grbHeatFlux.TabStop = false;
-            this.grbHeatFlux.Text = "Параметры теплового потока";
+            this.grbHeatFlux.Text = "Параметры процесса";
             // 
             // cmbTempFunc
             // 
@@ -122,9 +122,9 @@ namespace TaskModule.HeatTreatmentModule
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(9, 87);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(156, 13);
+            this.label5.Size = new System.Drawing.Size(126, 13);
             this.label5.TabIndex = 22;
-            this.label5.Text = "Температура среды, °C - сек.";
+            this.label5.Text = "Температура среды, °C";
             // 
             // label2
             // 
@@ -180,21 +180,21 @@ namespace TaskModule.HeatTreatmentModule
             this.Column1,
             this.startColumn,
             this.stopColumn});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.NullValue = " ";
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.NullValue = " ";
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 332);
+            this.dataGridView.Location = new System.Drawing.Point(1, 323);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(531, 269);
+            this.dataGridView.Size = new System.Drawing.Size(531, 278);
             this.dataGridView.TabIndex = 14;
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
@@ -251,7 +251,7 @@ namespace TaskModule.HeatTreatmentModule
             this.groupBox1.Controls.Add(this.txbStartTime);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(1, 203);
+            this.groupBox1.Location = new System.Drawing.Point(1, 194);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
@@ -391,40 +391,43 @@ namespace TaskModule.HeatTreatmentModule
             // groupBox4
             // 
             this.groupBox4.AutoSize = true;
-            this.groupBox4.Controls.Add(this.rbtTempering);
-            this.groupBox4.Controls.Add(this.rbtHeatColling);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.cmbProcKinds);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(1, 1);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox4.Size = new System.Drawing.Size(531, 74);
+            this.groupBox4.Size = new System.Drawing.Size(531, 65);
             this.groupBox4.TabIndex = 21;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Вид термообработки";
+            this.groupBox4.Text = "Выбор процесса";
             // 
-            // rbtTempering
+            // cmbProcKinds
             // 
-            this.rbtTempering.AutoSize = true;
-            this.rbtTempering.Location = new System.Drawing.Point(171, 28);
-            this.rbtTempering.Name = "rbtTempering";
-            this.rbtTempering.Size = new System.Drawing.Size(154, 30);
-            this.rbtTempering.TabIndex = 21;
-            this.rbtTempering.Text = "Выдержка\r\n(отпуск, отжиг, старение)";
-            this.rbtTempering.UseVisualStyleBackColor = true;
+            this.cmbProcKinds.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbProcKinds.FormattingEnabled = true;
+            this.cmbProcKinds.Items.AddRange(new object[] {
+            "Нагрев",
+            "Закалка",
+            "Отпуск",
+            "Отжиг",
+            "Старение"});
+            this.cmbProcKinds.Location = new System.Drawing.Point(171, 28);
+            this.cmbProcKinds.Margin = new System.Windows.Forms.Padding(3, 15, 28, 3);
+            this.cmbProcKinds.Name = "cmbProcKinds";
+            this.cmbProcKinds.Size = new System.Drawing.Size(334, 21);
+            this.cmbProcKinds.TabIndex = 19;
             // 
-            // rbtHeatColling
+            // label6
             // 
-            this.rbtHeatColling.AutoSize = true;
-            this.rbtHeatColling.Checked = true;
-            this.rbtHeatColling.Location = new System.Drawing.Point(10, 28);
-            this.rbtHeatColling.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
-            this.rbtHeatColling.Name = "rbtHeatColling";
-            this.rbtHeatColling.Size = new System.Drawing.Size(153, 30);
-            this.rbtHeatColling.TabIndex = 20;
-            this.rbtHeatColling.TabStop = true;
-            this.rbtHeatColling.Text = "Охлаждение/Нагрев \r\n(нормализация, закалка)";
-            this.rbtHeatColling.UseVisualStyleBackColor = true;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 31);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(77, 13);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Вид процесса";
             // 
             // HeatControl
             // 
@@ -468,8 +471,6 @@ namespace TaskModule.HeatTreatmentModule
         private System.Windows.Forms.Button btnAddNewRow;
         private System.Windows.Forms.TextBox txbStartTime;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.RadioButton rbtTempering;
-        private System.Windows.Forms.RadioButton rbtHeatColling;
         private System.Windows.Forms.ComboBox cmbTempFunc;
         private PlayerControl.Player player;
         private System.Windows.Forms.DataGridViewTextBoxColumn processColumn;
@@ -478,5 +479,7 @@ namespace TaskModule.HeatTreatmentModule
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn startColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn stopColumn;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cmbProcKinds;
     }
 }

@@ -8,6 +8,7 @@ using Geometry;
 using Gif.Components;
 using Graph;
 using Model;
+using Model.ObjectsSorters;
 using ModelController.MeshObjsUtility;
 using ModelController.ModelScenePresentator;
 using ModelController.ModelScenePresentator.GlObjsPresenters;

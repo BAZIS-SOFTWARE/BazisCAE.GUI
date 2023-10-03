@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Scene;
 using Project;
 using Model;
 using Geometry;
@@ -26,10 +24,11 @@ using BaseModule.Console.Events;
 using Project.Interfaces;
 using Project.TasksData;
 using SceneInterface;
-using Model.Utilities;
 using ModelController.ModelScenePresentator.GlObjsPresenters;
 using BaseModule.ToolStrips;
 using BaseModule.Navigator;
+using Model.ObjectsFinders;
+using Model.ObjectsComparers;
 
 namespace BaseModule
 {
@@ -909,7 +908,7 @@ namespace BaseModule
                                 var nodes = objs.Select(x => (Node)x);
                                 var p0 = nodes.First();
                                 var p1 = nodes.Last();
-                                var line = new Line(p0.Position, p1.Position);
+                                var line = new Segment3D(p0.Position, p1.Position);
 
                                 consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
 
@@ -936,8 +935,8 @@ namespace BaseModule
 
                             var node = SelectNodeAsync();
                             await node;
-                            var calcDistance = new CalcDistance();
-                            var line = calcDistance.DistanceBetweenPlaneAndNode(plane.Result, node.Result);
+                            var proj = node.Result.Position.GetPointProectionOnPlane(plane.Result);
+                            var line = new Segment3D(node.Result.Position, proj);
                             consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
                             sceneControl.CreateDistance(line);
                             sceneControl.DisplayObjects();
@@ -1199,7 +1198,7 @@ namespace BaseModule
                         var lines = boundaryCreator.Find();
                         var nodes = Project.Model.ObjectData.FindMany<Node>().ToArray();
 
-                        var curves = new List<Curve>();
+                        var curves = new List<Line>();
 
                         var counter = 0;
                         foreach (var item in lines)
@@ -1207,9 +1206,9 @@ namespace BaseModule
                             var numbers = item.Split(' ');
                             var po = Convert.ToInt32(numbers[0]);
                             var p1 = Convert.ToInt32(numbers[1]);
-                            var node0 = ObjectsFinder.Find(nodes, po);
-                            var node1 = ObjectsFinder.Find(nodes, p1);
-                            var curve = new Curve(counter, new Node[] { node0, node1 })
+                            var node0 = ByNumberFinder.Find(nodes, po);
+                            var node1 = ByNumberFinder.Find(nodes, p1);
+                            var curve = new Line(counter, new Node[] { node0, node1 })
                             { MasterColor = Color.Red };
                             curves.Add(curve);
                             counter++;
@@ -1355,8 +1354,7 @@ namespace BaseModule
                 var name = $"{selectToolStrip.SelectObjectsType}_{project.Model.GroupData.Count + 1}";
                 var group = new Group(name, selectToolStrip.SelectObjectsType);
 
-                var objsNumbs = selObjs.Select(x => x.Number);
-                group.AddRange(objsNumbs);
+                group.AddRange(selObjs);
                 project.Model.GroupData.Add(group);
 
                 ChangeProjectDataEvent(this, project);
@@ -1385,7 +1383,24 @@ namespace BaseModule
             var selObjs = objsPresenter.GetObjs(sceneControl.SelectionColor);
 
             foreach (var selObj in selObjs)
-                selObj.ExistState = false;         
+                selObj.ExistState = false;
+
+            var groups = Project.Model.GroupData.FindMany(selectToolStrip.SelectObjectsType);
+
+            foreach (var group in groups)
+            {
+                var exObjs = group.Where(x => x.ExistState == true).ToArray();
+
+                if(exObjs.Count() != group.Count)
+                {
+                    group.Clear();
+                    if (exObjs.Length > 0)
+                        group.AddRange(exObjs);
+                }
+            }
+
+            Project.Model.ObjectData.ClearRemoved();
+            ModelPresenter = new ModelScenePresentator(Project.Model);
 
             var vbObj = sceneControl.FindVBObj(selectToolStrip.SelectObjectsType);
             var viewMode = vbObj.ViewMode;
@@ -1396,6 +1411,8 @@ namespace BaseModule
 
             sceneControl.ChangeViewModeVBObjects(selectToolStrip.SelectObjectsType, viewMode);
             sceneControl.DisplayObjects();
+
+            PresentProjectOnTree();
         }
 
         private void sceneControl_InfoObjectsEvent(object arg1, EventArgs arg2)
@@ -1612,7 +1629,7 @@ namespace BaseModule
             }
         }
 
-        public Dictionary<int, Point3D> SearchObjects(string objType, SelectionBox selectionBox)
+        public Dictionary<int, Point3D> SearchObjects(string objType, RectangleBox selectionBox)
         {
             var camera = sceneControl.Camera;
 
@@ -1714,7 +1731,7 @@ Where(x => x.GroupName == group.GroupName).ToArray();
         {
             sceneControl.DeleteVBObjects(objs);
             ModelPresenter.Remove(objs);
-            //Project.Model.ObjectData.RemoveRange(treeView.SelectedNode.Name);
+            Project.Model.ObjectData.RemoveRange(objs);
             selectToolStrip.RemoveObjectsType(objs);
 
             sceneControl.DisplayObjects();
@@ -1728,8 +1745,8 @@ Where(x => x.GroupName == group.GroupName).ToArray();
             var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
             //SelectToolStrip.SelectObjectsType = group.ObjType;
 
-            foreach (var objNumber in group.ObjsNumbers)
-                objsPresenter.FindObj(objNumber).MasterColor = sceneControl.SelectionColor;
+            foreach (var iobj in group)
+                iobj.MasterColor = sceneControl.SelectionColor;
 
             var vboObjs = sceneControl.FindVBObj(selectToolStrip.SelectObjectsType);
             var colors = objsPresenter.CreateVertexes(vboObjs.ColorLength, "цвет");
@@ -1749,8 +1766,8 @@ Where(x => x.GroupName == group.GroupName).ToArray();
                 else
                 {
                     group.Clear();
-                    var objsNumbs = objsPresenter.GetObjs(sceneControl.SelectionColor).Select(x => x.Number);
-                    group.AddRange(objsNumbs);
+                    var objs = objsPresenter.GetObjs(sceneControl.SelectionColor);
+                    group.AddRange(objs);
                     Project.Model.GroupData.Add(group);
                     Invoke(new Action(() => {
                         consoleControl.PrintInfo("Группа изменена успешно", Color.Green);
@@ -1778,9 +1795,9 @@ Where(x => x.GroupName == group.GroupName).ToArray();
         {
             foreach (var group in Project.Model.GroupData)
             {
-                foreach (var objNumber in group)
+                foreach (var iobj in group)
                 {
-                    Project.Model.ObjectData.Find(objNumber).ViewState = false;
+                    iobj.ViewState = false;
                 }
             }
 
@@ -1840,8 +1857,8 @@ Where(x => x.GroupName == group.GroupName).ToArray();
         {
             var group = Project.Model.GroupData[obj];
 
-            foreach (var number in group.ObjsNumbers)
-                ModelPresenter[group.ObjType].FindObj(number).ViewState = false;
+            foreach (var iobj in group)
+                iobj.ViewState = false;
 
             var vbobj = sceneControl.FindVBObj(group.ObjType);
             var viewMode = vbobj.ViewMode;
@@ -1931,8 +1948,8 @@ Where(x => x.GroupName == group.GroupName).ToArray();
                 var group = Project.Model.GroupData.Find(obj);
 
                 var presenter = ModelPresenter[group.ObjType];
-                foreach (var objNumber in group.ObjsNumbers)
-                    presenter.FindObj(objNumber).MasterColor = Color.FromArgb(255, 0, 0);
+                foreach (var iobj in group)
+                    iobj.MasterColor = Color.FromArgb(255, 0, 0);
 
                 var vboObjs = sceneControl.FindVBObj(group.ObjType);
                 var colors = presenter.CreateVertexes(vboObjs.ColorLength, "цвет");
@@ -1950,9 +1967,9 @@ Where(x => x.GroupName == group.GroupName).ToArray();
         {
             foreach (var group in Project.Model.GroupData)
             {
-                foreach (var number in group)
+                foreach (var iobj in group)
                 {
-                    ModelPresenter[group.ObjType].FindObj(number).ViewState = true;
+                    iobj.ViewState = true;
                 }
             }
 
@@ -1973,8 +1990,8 @@ Where(x => x.GroupName == group.GroupName).ToArray();
         {
             var group = Project.Model.GroupData[obj];
 
-            foreach (var number in group.ObjsNumbers)
-                ModelPresenter[group.ObjType].FindObj(number).ViewState = true;
+            foreach (var iobj in group)
+                iobj.ViewState = true;
 
 
             var vbobj = sceneControl.FindVBObj(group.ObjType);
@@ -2011,9 +2028,9 @@ Where(x => x.GroupName == group.GroupName).ToArray();
         {
             var group = Project.Model.GroupData[obj];
 
-            foreach (var number in group.ObjsNumbers)
+            foreach (var iobj in group)
             {
-                var elem = (IElement)ModelPresenter[group.ObjType].FindObj(number);
+                var elem = (IElement)iobj;
                 elem.ViewState = true;
 
                 foreach (var node in elem.GetNodes())

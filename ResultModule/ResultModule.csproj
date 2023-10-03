@@ -58,8 +58,8 @@
     <Reference Include="CustomOpenFileDialog">
       <HintPath>..\Libs\CustomOpenFileDialog.dll</HintPath>
     </Reference>
-    <Reference Include="Geometry, Version=2.0.5.50, Culture=neutral, PublicKeyToken=cadb58b3f6b10f0c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Geometry.2.0.5.50\lib\net48\Geometry.dll</HintPath>
+    <Reference Include="Geometry, Version=2.0.5.82, Culture=neutral, PublicKeyToken=cadb58b3f6b10f0c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Geometry.2.0.5.82\lib\net48\Geometry.dll</HintPath>
     </Reference>
     <Reference Include="Gif.Components">
       <HintPath>..\Libs\Gif.Components.dll</HintPath>
@@ -71,11 +71,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net5.0\MathNet.Numerics.dll</HintPath>
     </Reference>
-    <Reference Include="Model, Version=1.0.8.40, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelController.1.0.10.30\lib\net48\Model.dll</HintPath>
+    <Reference Include="Model, Version=1.0.8.96, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelController.1.0.10.70\lib\net48\Model.dll</HintPath>
     </Reference>
-    <Reference Include="ModelController, Version=1.0.10.30, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelController.1.0.10.30\lib\net48\ModelController.dll</HintPath>
+    <Reference Include="ModelController, Version=1.0.10.70, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelController.1.0.10.70\lib\net48\ModelController.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -86,8 +86,8 @@
     <Reference Include="PlayerControl, Version=1.0.0.25, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PlayerControl.1.0.0.25\lib\net48\PlayerControl.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=1.0.9.8, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.1.0.9.8\lib\net48\Project.dll</HintPath>
+    <Reference Include="Project, Version=1.0.9.87, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.1.0.9.87\lib\net48\Project.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface, Version=1.0.16.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
       <HintPath>..\packages\SceneInterface.1.0.16\lib\net48\SceneInterface.dll</HintPath>

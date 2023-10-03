@@ -83,20 +83,21 @@ namespace TaskModule.HeatTreatmentModule
 
         private string AddRowInfo()
         {
-            var dataList = new List<string>();
+            if (cmbProcKinds.Text == "")
+                throw new Exception("Выберите процесс!");
 
-            if (rbtHeatColling.Checked)
-                dataList.Add("Охлаждение/Нагрев");
-            else
-                dataList.Add("Выдержка");
+            var dataList = new List<string>
+            {
+                cmbProcKinds.Text,
 
-            dataList.Add(cmbEl.Text);
-            dataList.Add(cmbExchFunc.Text);
-            dataList.Add(cmbTempFunc.Text);
+                cmbEl.Text,
+                cmbExchFunc.Text,
+                cmbTempFunc.Text,
 
-            dataList.Add(txbStartTime.Text);
-            dataList.Add(txbStopTime.Text);
-            dataList.Add("*");
+                txbStartTime.Text,
+                txbStopTime.Text,
+                "*"
+            };
 
             return "\"" + string.Join(" ", dataList) + "\"";
         }
@@ -152,10 +153,7 @@ namespace TaskModule.HeatTreatmentModule
 
             var procType = dataGridView[(int)Column.kind, CurentSelectedRowIndex].Value.ToString();
 
-            if (procType == "Охлаждение/Нагрев")
-                rbtHeatColling.Checked = true;
-            else
-                rbtTempering.Checked = true;
+            cmbProcKinds.Text = procType;
 
             txbStartTime.Text = dataGridView[(int)Column.startTime, CurentSelectedRowIndex].Value.ToString();
             txbStopTime.Text = dataGridView[(int)Column.stopTime, CurentSelectedRowIndex].Value.ToString();

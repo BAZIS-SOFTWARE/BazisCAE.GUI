@@ -125,7 +125,7 @@ namespace TaskModule.BasicTaskAdvisor
             }
         }
 
-        public virtual void TaskPlannerControl1_StartComputationEvent(object arg1, EventArgs arg2)
+        public virtual void TaskPlannerControl_StartComputationEvent(object arg1, EventArgs arg2)
         {
             StartComputationEvent(this, arg2);
         }

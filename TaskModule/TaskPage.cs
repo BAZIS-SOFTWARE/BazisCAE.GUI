@@ -390,21 +390,19 @@ namespace TaskModule
 
                 var presentor = ModelPresenter[group.ObjType];
 
-                foreach (var objNumber in group.ObjsNumbers)
+                foreach (var iobj in group)
                 {                   
-                    var modelObj = presentor.FindObj(objNumber);
-
                     if (data[index].Kind == DataKind.Mat)
-                        modelObj.MasterColor = Color.FromArgb(255, 255, 0);
+                        iobj.MasterColor = Color.FromArgb(255, 255, 0);
                     else if (data[index].Kind == DataKind.Med)
-                        modelObj.MasterColor = Color.FromArgb(255, 155, 0);
+                        iobj.MasterColor = Color.FromArgb(255, 155, 0);
                     else if (data[index].Kind == DataKind.Clamp | data[index].Kind == DataKind.Load)
-                        modelObj.MasterColor = Color.FromArgb(255, 0, 0);
+                        iobj.MasterColor = Color.FromArgb(255, 0, 0);
                     else if (data[index].Kind == DataKind.Heat)
-                        modelObj.MasterColor = Color.FromArgb(125,155, 255, 0);
+                        iobj.MasterColor = Color.FromArgb(125,155, 255, 0);
 
                     if (data[index].Direction != "*")
-                        DisplayDirection(data[index].StartTime, data[index], modelObj);
+                        DisplayDirection(data[index].StartTime, data[index], iobj);
                 }
 
                 var vboObjs = SceneControl.FindVBObj(group.ObjType);
@@ -422,12 +420,12 @@ namespace TaskModule
             float[] geomParam;
 
             var baseLineGr = Project.Model.GroupData.Find(data.MovedFrameFunction.BaseLine.Name);
-            var baseNodes = baseLineGr.ObjsNumbers.Select(x => (Node)Project.Model.ObjectData.Find(x));
+            var baseNodes = baseLineGr.Select(x => (Node)x);
             var basePoints = baseNodes.Select(x => x.Position).ToArray();
             data.MovedFrameFunction.BaseLine.SetPoints(basePoints);
 
             var refLineGr = Project.Model.GroupData.Find(data.MovedFrameFunction.RefLine.Name);
-            var refNodes = refLineGr.ObjsNumbers.Select(x => (Node)Project.Model.ObjectData.Find(x));
+            var refNodes = refLineGr.Select(x => (Node)x);
             var refPoints = refNodes.Select(x => x.Position).ToArray();
             data.MovedFrameFunction.RefLine.SetPoints(refPoints);
 
@@ -514,22 +512,20 @@ namespace TaskModule
                     var group = Project.Model.GroupData.Find(data.GroupName);
                     var presentor = ModelPresenter[group.ObjType];
 
-                    foreach (var objNumber in group.ObjsNumbers)
+                    foreach (var iobj in group)
                     {
-                        var modelObj = presentor.FindObj(objNumber);
-
                         if (data.Kind == DataKind.Mat)
-                            modelObj.MasterColor = Color.FromArgb(255, 255, 0);
+                            iobj.MasterColor = Color.FromArgb(255, 255, 0);
                         else if (data.Kind == DataKind.Med)
-                            modelObj.MasterColor = Color.FromArgb(255, 155, 0);
+                            iobj.MasterColor = Color.FromArgb(255, 155, 0);
                         else if (data.Kind == DataKind.Clamp | data.Kind == DataKind.Load)
-                            modelObj.MasterColor = Color.FromArgb(255, 0, 0);
+                            iobj.MasterColor = Color.FromArgb(255, 0, 0);
                         else if (data.Kind == DataKind.Heat)
-                            modelObj.MasterColor = Color.FromArgb(125,155, 255, 0);
+                            iobj.MasterColor = Color.FromArgb(125,155, 255, 0);
 
                         //PresentProjectTaskDataOnScene(arg2.Time, data, modelObj);
                         if (data.Direction != "*")
-                            DisplayDirection(arg2.Time, data, modelObj);
+                            DisplayDirection(arg2.Time, data, iobj);
                     }
                     var vboObjs = SceneControl.FindVBObj(group.ObjType);
                     var colors = presentor.CreateVertexes(vboObjs.ColorLength, "цвет");

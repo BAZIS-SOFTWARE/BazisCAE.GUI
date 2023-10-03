@@ -143,8 +143,8 @@ namespace ModelModule
 
                 PresentModelOnSelectToolStrip();
 
-                NavigatorControl.TreeView.Nodes["группыОбъектов"].Nodes.RemoveByKey("Элементы2D");
-                NavigatorControl.CreateChildNode("группыОбъектов", "Элементы2D", $"Элементы2D : {boundaryElements2D.Length}","5.1");
+                NavigatorControl.TreeView.Nodes["объекты"].Nodes.RemoveByKey("Элементы2D");
+                NavigatorControl.CreateChildNode("объекты", "Элементы2D", $"Элементы2D : {boundaryElements2D.Length}","4.1");
                 
                 ConsoleControl.PrintInfo("Созданы 2D элементы", Color.Black);
             }
