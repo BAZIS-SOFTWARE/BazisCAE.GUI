@@ -83,7 +83,7 @@ namespace BazisGUI.SettingsControl
 
         private void OnChange(object sender, EventArgs e)
         {
-            label2.Text = (trackBar1.Value * 0.1f).ToString();
+            label2.Text = (colorSlider1.Value * 0.1f).ToString();
         }
 
         private void OnPaint(object sender, PaintEventArgs e) => e.Graphics.FillEllipse(ballBrush, ballBounds);

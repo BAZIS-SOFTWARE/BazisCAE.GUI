@@ -33,10 +33,9 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.colorSlider1 = new MB.Controls.ColorSlider();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -69,9 +68,9 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.colorSlider1);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.trackBar1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(5, 300);
             this.panel2.Margin = new System.Windows.Forms.Padding(5);
@@ -99,18 +98,24 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Интенсивность освещения:";
             // 
-            // trackBar1
+            // colorSlider1
             // 
-            this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.colorSlider1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBar1.Location = new System.Drawing.Point(20, 46);
-            this.trackBar1.Maximum = 1000;
-            this.trackBar1.Minimum = -1000;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(289, 56);
-            this.trackBar1.TabIndex = 0;
-            this.trackBar1.ValueChanged += new System.EventHandler(this.OnChange);
+            this.colorSlider1.BackColor = System.Drawing.Color.Transparent;
+            this.colorSlider1.BorderRoundRectSize = new System.Drawing.Size(8, 8);
+            this.colorSlider1.LargeChange = ((uint)(5u));
+            this.colorSlider1.Location = new System.Drawing.Point(14, 47);
+            this.colorSlider1.Maximum = 1000;
+            this.colorSlider1.Minimum = -1000;
+            this.colorSlider1.Name = "colorSlider1";
+            this.colorSlider1.Size = new System.Drawing.Size(301, 40);
+            this.colorSlider1.SmallChange = ((uint)(1u));
+            this.colorSlider1.TabIndex = 3;
+            this.colorSlider1.Text = "colorSlider1";
+            this.colorSlider1.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
+            this.colorSlider1.Value = 0;
             // 
             // LightingControl
             // 
@@ -124,7 +129,6 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -134,8 +138,8 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private MB.Controls.ColorSlider colorSlider1;
     }
 }

@@ -69,6 +69,10 @@
     <ApplicationIcon>IconShort_32.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ColorSlider, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\ColorSlider.1.0.0.15\lib\net48\ColorSlider.dll</HintPath>
+    </Reference>
     <Reference Include="ConnectionController, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\ConnectionController.dll</HintPath>
