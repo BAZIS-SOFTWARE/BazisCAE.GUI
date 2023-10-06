@@ -65,6 +65,16 @@ namespace BazisGUI.SettingsControl
             panelSelectionColor.BackColor = dialog.Color;
         }
 
+        private void btnSelectGroupColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog dialog = new ColorDialog();
+
+            if (dialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            panelSelectionGroupColor.BackColor = dialog.Color;
+        }
+
         private void btnBackGroundColor_Click(object sender, EventArgs e)
         {
             ColorDialog dialog = new ColorDialog();
