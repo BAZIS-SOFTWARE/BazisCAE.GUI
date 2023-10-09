@@ -50,13 +50,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Functions, Version=1.0.2.24, Culture=neutral, PublicKeyToken=65fde98421b2fc88, processorArchitecture=MSIL">
-      <HintPath>..\packages\Functions.1.0.2.24\lib\net48\Functions.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Functions.1.0.2.31\lib\net48\Functions.dll</HintPath>
     </Reference>
     <Reference Include="Geometry, Version=2.0.5.50, Culture=neutral, PublicKeyToken=cadb58b3f6b10f0c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Geometry.2.0.5.50\lib\net48\Geometry.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Geometry.2.0.6.4\lib\net48\Geometry.dll</HintPath>
     </Reference>
-    <Reference Include="GmshApi">
-      <HintPath>..\packages\GmshApi.1.0.2.13\lib\net48\GmshApi.dll</HintPath>
+    <Reference Include="GmshApi, Version=1.0.2.13, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\GmshApi.1.0.2.17\GmshApi.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>

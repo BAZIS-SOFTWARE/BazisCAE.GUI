@@ -1,5 +1,6 @@
-﻿using GmshApi;
-using GmshApi.Api;
+﻿using GmshApi.GmshController;
+using GmshApi.GmshKernel;
+//using GmshApi.Api;
 using Model;
 using Model.Interfaces;
 using ModelController.ModelScenePresentator;
@@ -14,15 +15,20 @@ namespace ModelModule
 {
     public partial class GmshControl : UserControl
     {
-        private GeometryObject geometry;
-        private MeshObject mesh;
+        private GmshController controller;
+        
+        //private GeometryObject geometry;
+        //private MeshObject mesh;
         private ModelData modelData;
         private TreeNode selectedNode;
-        private MeshField field;
+        //private MeshField field;
 
         public event Action<ModelData> updateModelData;
         public event Action<string> showErrorMessage;
         public event Action<bool, string[]> redrawScene;
+
+        private string CurrentModel { get; set; }
+
 
         public GmshControl()
         {
@@ -31,7 +37,7 @@ namespace ModelModule
 
         private void OnLoad(object sender, EventArgs e)
         {
-            geometry = new GeometryObject();
+            controller = new GmshController(@"..\..\..\..\packages\gmsh.dll");
             modelData = new ModelData();
             algoChoice.SelectedIndex = 3;
         }
@@ -46,43 +52,48 @@ namespace ModelModule
         private void ShowHideVolumeBox(bool show) => volumeBox.Enabled = show;
         private void GenerateGeometry(bool fitOnScreen = true)
         {
+            var ierr = 0;
             modelData.Clear();
-            mesh = geometry.Generate(1);
-            FillModelDataGeometry();
-            ClearGeometryTree();
-            ClearMeshTree();
-            ClearVolumesTree();
-            FillGeometryTreeView();
-            ShowHideGeometryControls(true);
-            ShowHideMeshBox(true);
-            ShowHideMeshControls(false);
-            ShowHideVolumeBox(false);
-            ShowHideVolumeControls(false);
-            redrawScene.Invoke(fitOnScreen, new string[] { "Узлы", "Элементы1D" });
+            controller.gmshModelMeshGenerate(1, ref ierr);
+            if (ierr == 1)
+                showErrorMessage.Invoke("Ошибка при генерации геометрии, проверьте файл-скрипт");
+            else if(FillModelDataGeometry())
+            {
+                ClearGeometryTree();
+                ClearMeshTree();
+                ClearVolumesTree();
+                FillGeometryTreeView();
+                ShowHideGeometryControls(true);
+                ShowHideMeshBox(true);
+                ShowHideMeshControls(false);
+                ShowHideVolumeBox(false);
+                ShowHideVolumeControls(false);
+                redrawScene.Invoke(fitOnScreen, new string[] { "Узлы", "Элементы1D" });
+            }
         }
 
         private void GenerateMesh()
         {
-            geometry.Generate(1);
-            mesh = geometry.Generate(2);
-            if(mesh == null)
+            var ierr = 0;
+            controller.gmshModelMeshGenerate(1, ref ierr);
+            controller.gmshModelMeshGenerate(2, ref ierr);
+            if (ierr == 1)
+                showErrorMessage?.Invoke("Ошибка при генерации сетки, проверьте найтроки и фильтры геометрии");
+            else
             {
-                var message = GmshWrapperGeneral.LoggerGetLastError();
-                showErrorMessage?.Invoke(message);
-                return;
+                modelData.Clear();
+                ClearVolumesTree();
+                ClearMeshTree();
+                FillModelDataMesh();
+                FillMeshTreeView();
+                ShowHideMeshControls(true);
+                if (geometry.GetMaxDimension() > 2)
+                {
+                    ShowHideVolumeBox(true);
+                    ShowHideVolumeControls(false);
+                }
+                redrawScene?.Invoke(false, new string[] { "Узлы", "Элементы1D", "Элементы2D" });
             }
-            modelData.Clear();
-            ClearVolumesTree();
-            ClearMeshTree();
-            FillModelDataMesh();
-            FillMeshTreeView();
-            ShowHideMeshControls(true);
-            if (geometry.GetMaxDimension() > 2)
-            {
-                ShowHideVolumeBox(true);
-                ShowHideVolumeControls(false);
-            }
-            redrawScene?.Invoke(false, new string[] { "Узлы", "Элементы1D", "Элементы2D" });
         }
 
         private void GenerateVolumes()
@@ -111,11 +122,25 @@ namespace ModelModule
 
         private void OnDeleteVolume(object sender, EventArgs e) => GenerateMesh();
 
-        private void FillModelDataGeometry()
+        private bool FillModelDataGeometry()
         {
-            modelData.ObjectData.AddRange(geometry.GetControlPoints());
-            modelData.ObjectData.AddRange(geometry.GetElements1D());
+            int[] dimTags;
+            if (controller.ModelGetGeometryEntities(out dimTags, 0))
+                modelData.ObjectData.AddRange(controller.CreateGeometryEntities(ObjKind.Point, dimTags));
+            else
+            {
+                showErrorMessage.Invoke("Ошибка, невозможно получить геометрические сущности, проверьте файл-скрипт");
+                return false;
+            }
+            if (controller.ModelGetGeometryEntities(out dimTags, 1))
+                modelData.ObjectData.AddRange(controller.CreateGeometryEntities(ObjKind.Curve, dimTags));
+            else
+            {
+                showErrorMessage.Invoke("Ошибка, невозможно получить геометрические сущности, проверьте файл-скрипт");
+                return false;
+            }
             updateModelData?.Invoke(modelData);
+            return true;
         }
 
         private void FillModelDataMesh()
@@ -150,10 +175,15 @@ namespace ModelModule
         {
             if (loadFileDialog.ShowDialog() == DialogResult.OK)
             {
-                geometry = new GeometryObject(loadFileDialog.FileName);
-                geometry.RemoveField(field);
-                field = new MeshField(MeshFieldType.BoundaryLayer);
+                var ierr = 0;
+                controller.gmshOpen(loadFileDialog.FileName, ref ierr);
+                if (ierr == 1)
+                    showErrorMessage.Invoke("Файл не найден");
                 GenerateGeometry();
+                //geometry = new GeometryObject(loadFileDialog.FileName);
+                //geometry.RemoveField(field);
+                //field = new MeshField(MeshFieldType.BoundaryLayer);
+                //GenerateGeometry();
             }
         }
 
@@ -209,18 +239,18 @@ namespace ModelModule
         private void FillGeometryTreeView()
         {
             entTree.Nodes.Clear();
-            var entities = geometry.GetEntities(-1);
-            for (var i = 1; i < entities.Length; i += 2)
+            int[] dimTags;
+            controller.ModelGetGeometryEntities(out dimTags, 0);
+            for (var i = 1; i < dimTags.Length; i += 2)
             {
-                var dim = entities[i - 1];
-                if (dim == 0)
-                    AddTreeNode(entTree.Nodes, "Контрольные узлы", "Контрольный узел " + entities[i].ToString());
-                else if (dim == 1)
-                    AddTreeNode(entTree.Nodes, "Кривые", "Кривая " + entities[i].ToString());
-                else if (dim == 2)
-                    AddTreeNode(entTree.Nodes, "Поверхности", "Поверхность " + entities[i].ToString());
-                else if (dim == 3)
-                    AddTreeNode(entTree.Nodes, "Объемы", "Объем " + entities[i].ToString());
+                if (dimTags[i - 1] == 0)
+                    AddTreeNode(entTree.Nodes, "Контрольные узлы", "Контрольный узел " + dimTags[i].ToString());
+                else if (dimTags[i - 1] == 1)
+                    AddTreeNode(entTree.Nodes, "Кривые", "Кривая " + dimTags[i].ToString());
+                else if (dimTags[i - 1] == 2)
+                    AddTreeNode(entTree.Nodes, "Поверхности", "Поверхность " + dimTags[i].ToString());
+                else if (dimTags[i - 1] == 3)
+                    AddTreeNode(entTree.Nodes, "Объемы", "Объем " + dimTags[i].ToString());
             }
         }
 
