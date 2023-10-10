@@ -10,6 +10,11 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Drawing;
 using SceneInterface;
+using Project.TasksData;
+using System.Collections.Generic;
+using Project.Interfaces;
+using MathNet.Numerics.Distributions;
+using System.Collections.ObjectModel;
 
 namespace ModelModule
 {
@@ -72,22 +77,17 @@ namespace ModelModule
             }
         }
 
-        private void GenerateMesh()
+        private void UpdateMesh()
         {
-            var ierr = 0;
-            controller.gmshModelMeshGenerate(1, ref ierr);
-            controller.gmshModelMeshGenerate(2, ref ierr);
-            if (ierr == 1)
-                showErrorMessage?.Invoke("Ошибка при генерации сетки, проверьте найтроки и фильтры геометрии");
-            else
+            if (FillModelDataMesh())
             {
-                modelData.Clear();
+                var ierr = 0;
                 ClearVolumesTree();
                 ClearMeshTree();
-                FillModelDataMesh();
                 FillMeshTreeView();
                 ShowHideMeshControls(true);
-                if (geometry.GetMaxDimension() > 2)
+                var dim = controller.gmshModelGetDimension(ref ierr);
+                if (dim > 2)
                 {
                     ShowHideVolumeBox(true);
                     ShowHideVolumeControls(false);
@@ -96,68 +96,147 @@ namespace ModelModule
             }
         }
 
-        private void GenerateVolumes()
+        private void UpdateVolumes()
         {
-            mesh = geometry.Generate(3);
-            modelData.Clear();
-            ClearVolumesTree();
-            FillModelDataVolumes();
-            FillVolumesTreeView();
-            ShowHideVolumeControls(true);
-            redrawScene?.Invoke(false, new string[] {"Узлы", "Элементы1D", /*"Элементы2D",*/ "Элементы3D" });
+            if (FillModelDataVolumes())
+            {
+                ClearVolumesTree();
+                FillVolumesTreeView();
+                ShowHideVolumeControls(true);
+                redrawScene?.Invoke(false, new string[] { "Узлы", "Элементы1D", "Элементы2D", "Элементы3D" });
+            }
         }
 
-        private void OnDeleteGeometry(object sender, EventArgs e)
+        private void RemoveGeometry()
         {
+            var ierr = 0;
+            controller.gmshModelMeshClear(new int[0], IntPtr.Zero, ref ierr);
             modelData.Clear();
+            updateModelData?.Invoke(modelData);
             ClearAllTrees();
             ShowHideGeometryControls(false);
             ShowHideVolumeBox(false);
             ShowHideMeshBox(false);
-            redrawScene?.Invoke(false,new string[0]);
-            geometry.Dispose();
+            redrawScene?.Invoke(false, new string[0]);
+            controller.gmshModelRemove(ref ierr);
+            if (ierr == 1)
+                showErrorMessage?.Invoke("Ошибка при удалении модели, невозможно удалить модель");
         }
 
-        private void OnDeleteMesh(object sender, EventArgs e) => GenerateGeometry(false);
+        private void GenerateMesh()
+        {
+            var ierr = 0;
+            controller.gmshModelMeshGenerate(1, ref ierr);
+            controller.gmshModelMeshGenerate(2, ref ierr);
+            if (ierr == 1)
+                showErrorMessage?.Invoke("Ошибка при генерации сетки, проверьте настройки и фильтры геометрии");
+            else
+                UpdateMesh();
+        }
+
+        private void GenerateVolumes()
+        {
+            var ierr = 0;
+            controller.gmshModelMeshGenerate(3, ref ierr);
+            if (ierr == 1)
+                showErrorMessage?.Invoke("Ошибка при генерации сетки, проверьте настройки и фильтры геометрии");
+            else
+                UpdateVolumes();
+        }
+
+        private void OnDeleteGeometry(object sender, EventArgs e) => RemoveGeometry();
+
+        private void OnDeleteMesh(object sender, EventArgs e)
+        {
+            var ierr = 0;
+            controller.gmshModelMeshClear(new int[] { 3, -1 }, (IntPtr) 2, ref ierr);
+            controller.gmshModelMeshClear(new int[] { 2, -1 }, (IntPtr)2, ref ierr);
+            int[] dimTags;
+            modelData.ObjectData.RemoveRange("Узлы");
+            modelData.ObjectData.RemoveRange("Элементы2D");
+            modelData.ObjectData.RemoveRange("Элементы3D");
+            if (controller.ModelGetGeometryEntities(out dimTags, 0))
+                modelData.ObjectData.AddRange(controller.CreateGeometryEntities(ObjKind.Point, dimTags));
+            updateModelData?.Invoke(modelData);
+            ShowHideMeshBox(true);
+            ShowHideMeshControls(false);
+            ShowHideVolumeBox(false);
+            ShowHideVolumeControls(false);
+            redrawScene.Invoke(false, new string[] { "Узлы", "Элементы1D" });
+        }
 
         private void OnDeleteVolume(object sender, EventArgs e) => GenerateMesh();
 
         private bool FillModelDataGeometry()
         {
             int[] dimTags;
+            List<ModelObject> cPoints, curves;
             if (controller.ModelGetGeometryEntities(out dimTags, 0))
-                modelData.ObjectData.AddRange(controller.CreateGeometryEntities(ObjKind.Point, dimTags));
+                cPoints = controller.CreateGeometryEntities(ObjKind.Point, dimTags);
             else
             {
-                showErrorMessage.Invoke("Ошибка, невозможно получить геометрические сущности, проверьте файл-скрипт");
+                showErrorMessage.Invoke("Ошибка, невозможно получить контрольные точки, проверьте файл-скрипт");
                 return false;
             }
             if (controller.ModelGetGeometryEntities(out dimTags, 1))
-                modelData.ObjectData.AddRange(controller.CreateGeometryEntities(ObjKind.Curve, dimTags));
+                curves = controller.CreateGeometryEntities(ObjKind.Curve, dimTags);
             else
             {
-                showErrorMessage.Invoke("Ошибка, невозможно получить геометрические сущности, проверьте файл-скрипт");
+                showErrorMessage.Invoke("Ошибка, невозможно получить кривые, проверьте файл-скрипт");
                 return false;
             }
+            modelData.ObjectData.RemoveRange("Узлы");
+            modelData.ObjectData.RemoveRange("Элементы1D");
+            modelData.ObjectData.AddRange(cPoints);
+            modelData.ObjectData.AddRange(curves);
             updateModelData?.Invoke(modelData);
             return true;
         }
 
-        private void FillModelDataMesh()
+        private bool FillModelDataMesh()
         {
-            modelData.ObjectData.AddRange(mesh.GetNodes());
-            modelData.ObjectData.AddRange(mesh.GetElement1D());
-            modelData.ObjectData.AddRange(mesh.GetElement2D());
+            var status = true;
+            var nodesData = controller.GetNodes(ref status);
+            if (!status)
+            {
+                showErrorMessage.Invoke("Ошибка, невозможно получить узлы модели");
+                return status;
+            }
+            var meshData = controller.GetMeshEntities(2, -1, ref status);
+            if (!status)
+            {
+                showErrorMessage.Invoke("Ошибка, невозможно получить Элементы2D модели");
+                return status;
+            }
+            modelData.ObjectData.RemoveRange("Узлы");
+            modelData.ObjectData.RemoveRange("Элементы2D");
+            modelData.ObjectData.AddRange(nodesData);
+            modelData.ObjectData.AddRange(meshData);
             updateModelData?.Invoke(modelData);
+            return true;
         }
 
-        private void FillModelDataVolumes()
+        private bool FillModelDataVolumes()
         {
-            modelData.ObjectData.AddRange(mesh.GetNodes());
-            modelData.ObjectData.AddRange(mesh.GetElement1D());
-            //modelData.ObjectData.AddRange(mesh.GetElement2D());
-            modelData.ObjectData.AddRange(mesh.GetElement3D());
+            var status = true;
+            var nodes = controller.GetNodes(ref status);
+            if (!status)
+            {
+                showErrorMessage.Invoke("Ошибка, невозможно получить узлы модели");
+                return status;
+            }
+            var volumesData = controller.GetMeshEntities(3,-1, ref status);
+            if (!status)
+            {
+                showErrorMessage.Invoke("Ошибка, невозможно получить Элементы3D модели");
+                return status;
+            }
+            modelData.ObjectData.RemoveRange("Узлы");
+            modelData.ObjectData.RemoveRange("Элементы3D");
+            modelData.ObjectData.AddRange(nodes);
+            modelData.ObjectData.AddRange(volumesData);
             updateModelData?.Invoke(modelData);
+            return status;
         }
 
         private void ClearGeometryTree() => entTree.Nodes.Clear();
@@ -192,48 +271,64 @@ namespace ModelModule
 
         private void OnDencityChange(object sender, EventArgs e)
         {
+            var ierr = 0;
             var result = 0.0;
-            if (mesh == null)
-                mesh = geometry.Generate(0);
-            if (Double.TryParse(meshDensityValue.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out result)) 
-                mesh.Density = result;
+            if (Double.TryParse(meshDensityValue.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
+            {
+                controller.gmshOptionSetNumber("Mesh.MeshSizeFactor", result, ref ierr);
+                if(ierr == 1)
+                    showErrorMessage.Invoke("Ошибка, невозможно установить заданую плотность сетки");
+            }
         }
 
         private void OnAlgorithmChoice(object sender, EventArgs e)
         {
+            var ierr = 0;
             var choice = sender as ComboBox;
-            var algo = new Triangulation2DAlgorithm[] { Triangulation2DAlgorithm.MeshAdapt,
-                                                        Triangulation2DAlgorithm.Automatic,
-                                                        Triangulation2DAlgorithm.Delaunay,
-                                                        Triangulation2DAlgorithm.FrontalDelaunay,
-                                                        Triangulation2DAlgorithm.FrontalDelaunayQuad
-                                                       };
-            var mesh = geometry.Generate(0);
-            mesh.ChangeTriangulationAlgorithm2D(algo[choice.SelectedIndex]);
+            var algo = new double[] { 1, 2, 5, 6, 8 };
+            controller.gmshOptionSetNumber("Mesh.Algorithm", algo[choice.SelectedIndex], ref ierr);
+            if (ierr == 1)
+                showErrorMessage.Invoke("Ошибка, невозможно установить заданый алгоритм");
         }
 
         private void OnRefine(object sender, EventArgs e)
         {
-            modelData.Clear();
-            ClearVolumesTree();
-            ClearMeshTree();
-            mesh.RefineMesh();
-            FillModelDataMesh();
-            FillMeshTreeView();
-            ShowHideVolumeControls(false);
-            redrawScene?.Invoke(false, new string[] {"Узлы", "Элементы1D", "Элементы2D" });
+            var ierr = 0;
+            controller.gmshModelMeshRefine(ref ierr);
+            if (ierr == 1)
+                showErrorMessage.Invoke("Ошибка, невозможно уплотнить сетку");
+            else
+            {
+                controller.gmshModelMeshClear(new int[] { 3, -1 }, (IntPtr)2, ref ierr);
+                if (FillModelDataMesh())
+                {
+                    ClearVolumesTree();
+                    ClearMeshTree();
+                    FillMeshTreeView();
+                    ShowHideVolumeControls(false);
+                    redrawScene?.Invoke(false, new string[] { "Узлы", "Элементы1D", "Элементы2D" });
+                }
+            }
         }
 
         private void OnQuadrangulate(object sender, EventArgs e)
         {
-            modelData.Clear();
-            ClearVolumesTree();
-            ClearMeshTree();
-            mesh.QuadrangulateMesh();
-            FillModelDataMesh();
-            FillMeshTreeView();
-            ShowHideVolumeControls(false);
-            redrawScene?.Invoke(false,new string[] {"Узлы", "Элементы1D", "Элементы2D" });
+            var ierr = 0;
+            controller.gmshModelMeshRecombine(ref ierr);
+            if (ierr == 1)
+                showErrorMessage.Invoke("Ошибка, невозможно трансформировать сетку");
+            else
+            {
+                controller.gmshModelMeshClear(new int[] { 3, -1 }, (IntPtr)2, ref ierr);
+                if (FillModelDataMesh())
+                {
+                    ClearVolumesTree();
+                    ClearMeshTree();
+                    FillMeshTreeView();
+                    ShowHideVolumeControls(false);
+                    redrawScene?.Invoke(false, new string[] { "Узлы", "Элементы1D", "Элементы2D" });
+                }
+            }
         }
 
         private void FillGeometryTreeView()
@@ -254,33 +349,57 @@ namespace ModelModule
             }
         }
 
-        private void FillMeshTreeView()
+        private bool FillMeshTreeView()
         {
-            foreach (var data in modelData.ObjectData)
+            int[] dimTags;
+            controller.ModelGetGeometryEntities(out dimTags, 2);
+            int[] elementTypes;
+            long[][] elementTags, nodeTags;
+            for (var i = 1; i < dimTags.Length; i += 2)
             {
-                if (data.ObjKind == ObjKind.Node)
-                    AddTreeNode(elemsTree.Nodes, "Узлы", "Узел " + data.Number.ToString());
-                else if (data.ObjKind == ObjKind.Beam)
-                    AddTreeNode(elemsTree.Nodes, "Линии", "Линия " + data.Number.ToString());
-            }
-            var entities = geometry.GetEntities(2);
-            for (var i = 1; i < entities.Length; i += 2)
-            {
-                ElementInfo[] elemInfo;
-                long[][] elemTags, nodeTags;
-                var surfaceTag = entities[i];
-                var surfaceId = "Поверхность " + surfaceTag.ToString();
-                AddTreeNode(elemsTree.Nodes, "Поверхности", surfaceId);
-                mesh.GetElementsInfo(2, surfaceTag, out elemInfo, out elemTags, out nodeTags);
-                for (var j = 0; j < elemInfo.Length; ++j)
+                if(!controller.ModelMeshGetElements(2, dimTags[i], out elementTypes, out elementTags, out nodeTags))
                 {
-                    var faceType = elemInfo[j].elementName.Contains("Triangle") ? "Треугольник " : "Квад ";
-                    for (var k = 0; k < elemTags[0].Length; ++k)
+                    showErrorMessage.Invoke($"Ошибка, невозможно получить информацию об элементе {dimTags[i]}");
+                    return false;
+                }
+                var surfKey = "Поверхности";
+                var surfChild = "Поверхность " + dimTags[i].ToString();
+                AddTreeNode(elemsTree.Nodes, surfKey, surfChild);
+                var currentSurface = elemsTree.Nodes[surfKey].Nodes[surfChild];
+                for (var j = 0; j < elementTypes.Length; ++j)
+                {
+                    string elemKey, elemChild;
+                    DetectMeshElement(elementTypes[j], out elemKey, out elemChild);
+                    var elements = elementTags[j];
+                    var nodesCount = elementTypes[j] + 1;
+                    for (var k = 0L; k < elements.Length; ++k)
                     {
-                        var treeCol = elemsTree.Nodes["Поверхности"].Nodes;
-                        AddTreeNode(treeCol, surfaceId, faceType + elemTags[0][k].ToString());
+                        var elemTag = elements[k];
+                        var currentElement = elemChild + elemTag.ToString();
+                        AddTreeNode(currentSurface.Nodes, elemKey, currentElement);
+                        var currentType = currentSurface.Nodes[elemKey].Nodes[currentElement];
+                        for (var l = 0; l < nodesCount; ++l)
+                        {
+                            var nodeTag = "Узел " + nodeTags[j][k * nodesCount + l].ToString();
+                            currentType.Nodes.Add(nodeTag, nodeTag);
+                        }
                     }
                 }
+            }
+            return true;
+        }
+
+        private void DetectMeshElement(int element, out string key, out string child)
+        {
+            if (element == 2)
+            {
+                key = "Треугольники";
+                child = "Треугольник ";
+            }
+            else
+            {
+                key = "Квады";
+                child = "Квад ";
             }
         }
 
@@ -317,14 +436,38 @@ namespace ModelModule
 
         private void OnDeleteElement(object sender, EventArgs e)
         {
+            var keyInfo = selectedNode.Text.Split(' ');
             if (selectedNode != null)
             {
-                var keyInfo = selectedNode.Text.Split(' ');
+                ObjKind kind = ObjKind.ElementSurface;
+                if (selectedNode.Text.Contains("Треугольник"))
+                    kind = ObjKind.Triangle;
+                else if (selectedNode.Text.Contains("Квад"))
+                    kind = ObjKind.Quad;
+                else if (selectedNode.Text.Contains("Поверхности"))
+                {
+                    var ierr = 0;
+                    controller.gmshModelMeshClear(new int[0], IntPtr.Zero, ref ierr);
+
+
+                }
+                if (kind == ObjKind.Triangle || kind == ObjKind.Quad && keyInfo.Length > 1)
+                {
+                    var number = Int32.Parse(keyInfo[1]);
+                    RemoveById(kind, number);
+                }
+
+
+
+                //Int32.Parse(keyInfo[1]);
+
+                /*
                 if (keyInfo.Length > 1)
                 {
                     var number = Int32.Parse(keyInfo[1]);
                     if (selectedNode.Text.Contains("Треугольник") || selectedNode.Text.Contains("Квад"))
                     {
+                        modelData.ObjectData.FindMany(ObjKind.)
                         modelData.Clear();
                         mesh.RemoveElements2D(new int[] { number });
                         FillModelDataMesh();
@@ -338,9 +481,40 @@ namespace ModelModule
                     }
                     elemsTree.Nodes.Remove(selectedNode);
                     redrawScene?.Invoke(false,new string[] { "Узлы", "Элементы1D", "Элементы2D" });
+                }*/
+            }
+        }
+
+        private void RemoveById(ObjKind kind, int id)
+        {
+            var element = modelData.ObjectData.FindMany(kind).Where(v => v.Number == id).First();
+            modelData.ObjectData.Remove(element);
+            controller.DeleteMeshElements(new long[] { id });
+        }
+
+        private void RemoveByRange(long[] id)
+        {
+            modelData.ObjectData.RemoveRange("Элементы2D");
+            if(controller.DeleteMeshElements(id))
+            {
+                if(FillModelDataMesh())
+                {
+                    var ierr = 0;
+                    ClearVolumesTree();
+                    ClearMeshTree();
+                    FillMeshTreeView();
+                    ShowHideMeshControls(true);
+                    var dim = controller.gmshModelGetDimension(ref ierr);
+                    if (dim > 2)
+                    {
+                        ShowHideVolumeBox(true);
+                        ShowHideVolumeControls(false);
+                    }
+                    redrawScene?.Invoke(false, new string[] { "Узлы", "Элементы1D", "Элементы2D" });
                 }
             }
         }
+
 
         private void OnAddBoundFilter(object sender, EventArgs e)
         {
