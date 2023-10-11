@@ -15,18 +15,18 @@ using System.Collections.Generic;
 using Project.Interfaces;
 using MathNet.Numerics.Distributions;
 using System.Collections.ObjectModel;
+using MathNet.Numerics;
 
 namespace ModelModule
 {
     public partial class GmshControl : UserControl
     {
         private GmshController controller;
-        
-        //private GeometryObject geometry;
-        //private MeshObject mesh;
+        private int boundFieldTag;
+        private int boundViewTag;
+       
         private ModelData modelData;
         private TreeNode selectedNode;
-        //private MeshField field;
 
         public event Action<ModelData> updateModelData;
         public event Action<string> showErrorMessage;
@@ -492,59 +492,64 @@ namespace ModelModule
             controller.DeleteMeshElements(new long[] { id });
         }
 
-        private void RemoveByRange(long[] id)
-        {
-            modelData.ObjectData.RemoveRange("Элементы2D");
-            if(controller.DeleteMeshElements(id))
-            {
-                if(FillModelDataMesh())
-                {
-                    var ierr = 0;
-                    ClearVolumesTree();
-                    ClearMeshTree();
-                    FillMeshTreeView();
-                    ShowHideMeshControls(true);
-                    var dim = controller.gmshModelGetDimension(ref ierr);
-                    if (dim > 2)
-                    {
-                        ShowHideVolumeBox(true);
-                        ShowHideVolumeControls(false);
-                    }
-                    redrawScene?.Invoke(false, new string[] { "Узлы", "Элементы1D", "Элементы2D" });
-                }
-            }
-        }
-
-
         private void OnAddBoundFilter(object sender, EventArgs e)
         {
-            GetBoundaryFilterFromGUI();
-            geometry.AddField(field);
-            field.SetDisplayFieldType(DisplayFieldType.BoundaryLayer);
+            var ierr = 0;
+            int[] list;
+            controller.ModelMeshFieldList(out list);
+            if (Array.Find(list, v => v == boundFieldTag) == default)
+            {
+                var field = controller.gmshModelMeshFieldAdd("BoundaryLayer", 1, ref ierr);
+                if (ierr == 1)
+                {
+                    showErrorMessage.Invoke("Ошибка, невозможно создать граничный фильтр");
+                    return;
+                }
+                else
+                {
+                    boundFieldTag = 1;
+                    controller.gmshModelMeshFieldSetAsBoundaryLayer(boundFieldTag, ref ierr);
+                    if (ierr == 1)
+                    {
+                        showErrorMessage.Invoke("Ошибка, невозможно установить в слой текущий фильтр");
+                        return;
+                    }
+                }
+            }
+            chkBeta.Enabled = chkQuad.Enabled = chkMetrics.Enabled = true;
+            grpFieldGeneral.Enabled = grpFieldSize.Enabled = true;
+            grpFieldLayer.Enabled = grpFieldFan.Enabled = true;
+        }
+
+        private void OnRemoveBoundFilter(object sender, EventArgs e)
+        {
+            var ierr = 0;
+            controller.gmshModelMeshFieldRemove(boundFieldTag, ref ierr);
+            if (ierr == 1)
+                showErrorMessage($"Ошибка, невозможно удалить фильтр с идентификатором {boundFieldTag}");
+            chkBeta.Enabled = chkQuad.Enabled = chkMetrics.Enabled = false;
+            grpFieldGeneral.Enabled = grpFieldSize.Enabled = false;
+            grpFieldLayer.Enabled = grpFieldFan.Enabled = false;
         }
 
         private void OnBoundFilterCheck(object sender, EventArgs e)
         {
-            var check = sender as CheckBox;
-            GetValueFromCheckbox(check);
+            var control = sender as CheckBox;
+            var tag = control.Tag.ToString();
+            var value = Convert.ToDouble(control.Checked);
+            if (tag == "BetaLaw")
+                grpFieldBeta.Enabled = control.Checked;
+            var ierr = 0;
+            controller.gmshModelMeshFieldSetNumber(boundFieldTag, tag, value, ref ierr);
+            if (ierr == 1)
+                showErrorMessage.Invoke("Ошибка, невозможно установить заданные значения фильтра");
         }
 
         private void OnFilterListEnter(object sender, EventArgs e)
         {
-            var text = sender as TextBox;
-            GetListValuesFromGUI(text);
-        }
-
-        private void OnFilterValueEnter(object sender, EventArgs e)
-        {
-            var text = sender as TextBox;
-            GetValueFromGUI(text);
-        }
-
-        private void GetListValuesFromGUI(TextBox control)
-        {
+            var control = sender as TextBox;
             var tag = control.Tag.ToString();
-            var data = control.Text.Split(' ',',');
+            var data = control.Text.Split(' ', ',');
             var values = new double[data.Length];
             for (var i = 0; i < data.Length; ++i)
             {
@@ -552,73 +557,64 @@ namespace ModelModule
                 if (!Double.TryParse(data[i], out value))
                 {
                     control.Text = "";
-                    values = Array.Empty<double>();
-                    break;
+                    showErrorMessage.Invoke("Ошибка, проверьте настройки ввода фильтра");
+                    return;
                 }
                 values[i] = value;
             }
-            field.SetOptionValues(tag, values);
+            var ierr = 0;
+            controller.gmshModelMeshFieldSetNumbers(boundFieldTag, tag, values, (IntPtr)values.Length, ref ierr);
+            if (ierr == 1)
+            {
+                control.Text = "";
+                showErrorMessage.Invoke("Ошибка, невозможно установить заданные значения фильтра");
+            }
         }
 
-        private void GetValueFromGUI(TextBox control)
+        private void OnFilterValueEnter(object sender, EventArgs e)
         {
+            var control = sender as TextBox;
             var optValue = control.Tag.ToString().Split(' ');
             var value = 0.0;
             if (!Double.TryParse(control.Text, out value))
             {
-                control.Text = optValue[1];
+                showErrorMessage.Invoke("Ошибка, невозможно прочитать значение, проверьте поле ввода фильтра");
                 value = Double.Parse(optValue[1]);
+                return;
             }
-            field.SetOptionValue(optValue[0], value);
-        }
-
-        private void GetValueFromCheckbox(CheckBox check)
-        {
-            var tag = check.Tag.ToString();
-            var value = Convert.ToDouble(check.Checked);
-            if (tag == "BetaLaw")
-                betaBox.Enabled = check.Checked;
-            field.SetOptionValue(tag, value);
-        }
-
-        private void GetBoundaryFilterFromGUI()
-        {
-            var lists = new TextBox[] { pointsList, curvesList, excludedSurfacesList, sizesList, fanPointsList, fanPointsSizesList };
-            var values = new TextBox[] { size, sizeFar, thickness, ratio, anisoMax, nbLayers, beta };
-            var checks = new CheckBox[] { betaLaw, intersectMetrics, quads };
-            for (var i = 0; i < lists.Length; ++i)
-                GetListValuesFromGUI(lists[i]);
-            for (var i = 0; i < values.Length; ++i)
-                GetValueFromGUI(values[i]);
-            for (var i = 0; i < checks.Length; ++i)
-                GetValueFromCheckbox(checks[i]);
+            var ierr = 0;
+            controller.gmshModelMeshFieldSetNumber(boundFieldTag, optValue[0], value, ref ierr);
+            if(ierr == 1)
+            {
+                control.Text = optValue[1];
+                showErrorMessage.Invoke("Ошибка, невозможно установить заданные значения фильтра");
+            }
         }
 
         private void OnTransfiniteCurve(object sender, EventArgs e)
         {
             var nPoints = 0;
             var coef = 0.0;
-            var statusCoef = Double.TryParse(algoCoef.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out coef);
-            var statusNPoints = Int32.TryParse(algoNPoints.Text, out nPoints);
-            if (statusCoef && statusNPoints && selectedNode != null)
+            if (!Double.TryParse(algoCoef.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out coef) ||
+                !Int32.TryParse(algoNPoints.Text, out nPoints))
             {
-                if (nPoints < 3)
-                    algoNPoints.Text = "";
-                else
-                {
-                    var idCurve = Int32.Parse(selectedNode.Text.Split(' ')[1]);
-                    var mesh = geometry.Generate(0);
-                    var checkedRadio = GetCheckedRadioButton();
-                    var trAlgo = (TransfiniteAlgorithm)Enum.Parse(typeof(TransfiniteAlgorithm),
-                                  checkedRadio.Tag.ToString());
-                    mesh.SetMeshPointsOnCurve(nPoints, trAlgo, coef, idCurve);
-                }
+                showErrorMessage.Invoke("Ошибка, проверьте правильность ввода уточнения кривых");
+                return;
+            }
+            if (nPoints < 3)
+                algoNPoints.Text = "";
+            else
+            {
+                var tag= Int32.Parse(selectedNode.Text.Split(' ')[1]);
+                var checkedRadio = GetCheckedRadioButton();
+                var ierr = 0;
+                controller.gmshModelMeshSetTransfiniteCurve(tag, nPoints, checkedRadio.Text , coef, ref ierr);
             }
         }
 
         private RadioButton GetCheckedRadioButton()
         {
-            var radio = new RadioButton[] { progAlgo, bumpAlgo, betaAlgo };
+            var radio = new RadioButton[] { rbtnProgressive, rbtnBump, rbtnBeta };
             for (var i = 0; i < radio.Length; ++i)
                 if (radio[i].Checked)
                     return radio[i];
@@ -629,15 +625,6 @@ namespace ModelModule
         {
             updateModelData?.Invoke(modelData);
             this.ParentForm.Close();
-        }
-
-        private void OnRemoveFilter(object sender, EventArgs e)
-        {
-            if (field != null)
-            {
-                field.SetDisplayFieldType(DisplayFieldType.BackgroundMesh);
-                geometry.RemoveField(field.Tag);
-            }
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using GmshApi;
-using GmshApi.Api;
 namespace ModelModule
 {
     partial class GmshControl
@@ -19,7 +18,6 @@ namespace ModelModule
             {
                 components.Dispose();
             }
-            GmshWrapperConnection.Finalize();
             base.Dispose(disposing);
         }
 
@@ -53,11 +51,11 @@ namespace ModelModule
             this.panel3 = new System.Windows.Forms.Panel();
             this.algoCoef = new System.Windows.Forms.TextBox();
             this.algoNPoints = new System.Windows.Forms.TextBox();
-            this.progAlgo = new System.Windows.Forms.RadioButton();
+            this.rbtnProgressive = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
-            this.bumpAlgo = new System.Windows.Forms.RadioButton();
+            this.rbtnBump = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
-            this.betaAlgo = new System.Windows.Forms.RadioButton();
+            this.rbtnBeta = new System.Windows.Forms.RadioButton();
             this.algoBox = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.pointsControlBox = new System.Windows.Forms.GroupBox();
@@ -80,42 +78,43 @@ namespace ModelModule
             this.filterBox = new System.Windows.Forms.TabControl();
             this.boundFilter = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.betaBox = new System.Windows.Forms.GroupBox();
-            this.beta = new System.Windows.Forms.TextBox();
+            this.grpFieldBeta = new System.Windows.Forms.GroupBox();
+            this.txtBetaCoef = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.nbLayers = new System.Windows.Forms.TextBox();
+            this.txtBetaLayers = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.fanBox = new System.Windows.Forms.GroupBox();
-            this.fanPointsSizesList = new System.Windows.Forms.TextBox();
+            this.grpFieldFan = new System.Windows.Forms.GroupBox();
+            this.txtFanListSize = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.anisoMax = new System.Windows.Forms.TextBox();
+            this.txtFanAngle = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.fanPointsList = new System.Windows.Forms.TextBox();
-            this.layersBox = new System.Windows.Forms.GroupBox();
-            this.ratio = new System.Windows.Forms.TextBox();
-            this.thickness = new System.Windows.Forms.TextBox();
+            this.txtFanListPoints = new System.Windows.Forms.TextBox();
+            this.grpFieldLayer = new System.Windows.Forms.GroupBox();
+            this.txtLayerRatio = new System.Windows.Forms.TextBox();
+            this.txtLayerThickness = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.excludedSurfacesList = new System.Windows.Forms.TextBox();
-            this.curvesList = new System.Windows.Forms.TextBox();
+            this.grpFieldGeneral = new System.Windows.Forms.GroupBox();
+            this.txtGenListSurfaces = new System.Windows.Forms.TextBox();
+            this.txtGenListCurves = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.pointsList = new System.Windows.Forms.TextBox();
+            this.txtGenListPoints = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.flagsBetaPnl = new System.Windows.Forms.Panel();
-            this.addFilter = new System.Windows.Forms.Button();
-            this.quads = new System.Windows.Forms.CheckBox();
-            this.intersectMetrics = new System.Windows.Forms.CheckBox();
-            this.betaLaw = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.sizesList = new System.Windows.Forms.TextBox();
-            this.size = new System.Windows.Forms.TextBox();
+            this.pnlFieldInit = new System.Windows.Forms.Panel();
+            this.btnFieldDelete = new System.Windows.Forms.Button();
+            this.btnFieldAdd = new System.Windows.Forms.Button();
+            this.chkQuad = new System.Windows.Forms.CheckBox();
+            this.chkMetrics = new System.Windows.Forms.CheckBox();
+            this.chkBeta = new System.Windows.Forms.CheckBox();
+            this.grpFieldSize = new System.Windows.Forms.GroupBox();
+            this.txtSizeListPoints = new System.Windows.Forms.TextBox();
+            this.txtSizeListNear = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.sizeFar = new System.Windows.Forms.TextBox();
+            this.txtSizeListFar = new System.Windows.Forms.TextBox();
             this.loadModelBox = new System.Windows.Forms.GroupBox();
             this.geoDelBtn = new System.Windows.Forms.Button();
             this.geoLoadBtn = new System.Windows.Forms.Button();
@@ -123,7 +122,6 @@ namespace ModelModule
             this.elementsLayout = new System.Windows.Forms.TableLayoutPanel();
             this.geometryPage = new System.Windows.Forms.TabPage();
             this.gmshTab = new System.Windows.Forms.TabControl();
-            this.delFilter = new System.Windows.Forms.Button();
             this.meshGenBox.SuspendLayout();
             this.meshLayout.SuspendLayout();
             this.meshElBox.SuspendLayout();
@@ -147,12 +145,12 @@ namespace ModelModule
             this.filterBox.SuspendLayout();
             this.boundFilter.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.betaBox.SuspendLayout();
-            this.fanBox.SuspendLayout();
-            this.layersBox.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.flagsBetaPnl.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.grpFieldBeta.SuspendLayout();
+            this.grpFieldFan.SuspendLayout();
+            this.grpFieldLayer.SuspendLayout();
+            this.grpFieldGeneral.SuspendLayout();
+            this.pnlFieldInit.SuspendLayout();
+            this.grpFieldSize.SuspendLayout();
             this.loadModelBox.SuspendLayout();
             this.geoElBox.SuspendLayout();
             this.elementsLayout.SuspendLayout();
@@ -435,20 +433,20 @@ namespace ModelModule
             this.algoNPoints.Tag = "algoNPoints";
             this.algoNPoints.Validated += new System.EventHandler(this.OnTransfiniteCurve);
             // 
-            // progAlgo
+            // rbtnProgressive
             // 
-            this.progAlgo.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.progAlgo.AutoSize = true;
-            this.progAlgo.Checked = true;
-            this.progAlgo.Location = new System.Drawing.Point(43, 22);
-            this.progAlgo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.progAlgo.Name = "progAlgo";
-            this.progAlgo.Size = new System.Drawing.Size(101, 20);
-            this.progAlgo.TabIndex = 0;
-            this.progAlgo.TabStop = true;
-            this.progAlgo.Tag = "Progressive";
-            this.progAlgo.Text = "Progressive";
-            this.progAlgo.UseVisualStyleBackColor = true;
+            this.rbtnProgressive.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.rbtnProgressive.AutoSize = true;
+            this.rbtnProgressive.Checked = true;
+            this.rbtnProgressive.Location = new System.Drawing.Point(43, 22);
+            this.rbtnProgressive.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.rbtnProgressive.Name = "rbtnProgressive";
+            this.rbtnProgressive.Size = new System.Drawing.Size(101, 20);
+            this.rbtnProgressive.TabIndex = 0;
+            this.rbtnProgressive.TabStop = true;
+            this.rbtnProgressive.Tag = "Progressive";
+            this.rbtnProgressive.Text = "Progressive";
+            this.rbtnProgressive.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -459,18 +457,18 @@ namespace ModelModule
             this.label2.TabIndex = 8;
             this.label2.Text = "Число точек:";
             // 
-            // bumpAlgo
+            // rbtnBump
             // 
-            this.bumpAlgo.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.bumpAlgo.AutoSize = true;
-            this.bumpAlgo.Location = new System.Drawing.Point(43, 53);
-            this.bumpAlgo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.bumpAlgo.Name = "bumpAlgo";
-            this.bumpAlgo.Size = new System.Drawing.Size(63, 20);
-            this.bumpAlgo.TabIndex = 1;
-            this.bumpAlgo.Tag = "Bump";
-            this.bumpAlgo.Text = "Bump";
-            this.bumpAlgo.UseVisualStyleBackColor = true;
+            this.rbtnBump.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.rbtnBump.AutoSize = true;
+            this.rbtnBump.Location = new System.Drawing.Point(43, 53);
+            this.rbtnBump.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.rbtnBump.Name = "rbtnBump";
+            this.rbtnBump.Size = new System.Drawing.Size(63, 20);
+            this.rbtnBump.TabIndex = 1;
+            this.rbtnBump.Tag = "Bump";
+            this.rbtnBump.Text = "Bump";
+            this.rbtnBump.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
@@ -482,28 +480,28 @@ namespace ModelModule
             this.label3.TabIndex = 3;
             this.label3.Text = "Коэффициент:";
             // 
-            // betaAlgo
+            // rbtnBeta
             // 
-            this.betaAlgo.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.betaAlgo.AutoSize = true;
-            this.betaAlgo.Location = new System.Drawing.Point(43, 85);
-            this.betaAlgo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.betaAlgo.Name = "betaAlgo";
-            this.betaAlgo.Size = new System.Drawing.Size(56, 20);
-            this.betaAlgo.TabIndex = 2;
-            this.betaAlgo.Tag = "Beta";
-            this.betaAlgo.Text = "Beta";
-            this.betaAlgo.UseVisualStyleBackColor = true;
+            this.rbtnBeta.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.rbtnBeta.AutoSize = true;
+            this.rbtnBeta.Location = new System.Drawing.Point(43, 85);
+            this.rbtnBeta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.rbtnBeta.Name = "rbtnBeta";
+            this.rbtnBeta.Size = new System.Drawing.Size(56, 20);
+            this.rbtnBeta.TabIndex = 2;
+            this.rbtnBeta.Tag = "Beta";
+            this.rbtnBeta.Text = "Beta";
+            this.rbtnBeta.UseVisualStyleBackColor = true;
             // 
             // algoBox
             // 
             this.algoBox.Controls.Add(this.algoCoef);
             this.algoBox.Controls.Add(this.algoNPoints);
-            this.algoBox.Controls.Add(this.progAlgo);
+            this.algoBox.Controls.Add(this.rbtnProgressive);
             this.algoBox.Controls.Add(this.label2);
-            this.algoBox.Controls.Add(this.bumpAlgo);
+            this.algoBox.Controls.Add(this.rbtnBump);
             this.algoBox.Controls.Add(this.label3);
-            this.algoBox.Controls.Add(this.betaAlgo);
+            this.algoBox.Controls.Add(this.rbtnBeta);
             this.algoBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.algoBox.Location = new System.Drawing.Point(3, 2);
             this.algoBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -767,12 +765,12 @@ namespace ModelModule
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.betaBox, 0, 5);
-            this.tableLayoutPanel2.Controls.Add(this.fanBox, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.layersBox, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.groupBox2, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.flagsBetaPnl, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.groupBox1, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.grpFieldBeta, 0, 5);
+            this.tableLayoutPanel2.Controls.Add(this.grpFieldFan, 0, 4);
+            this.tableLayoutPanel2.Controls.Add(this.grpFieldLayer, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.grpFieldGeneral, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.pnlFieldInit, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.grpFieldSize, 0, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 2);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -787,34 +785,34 @@ namespace ModelModule
             this.tableLayoutPanel2.Size = new System.Drawing.Size(466, 516);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
-            // betaBox
+            // grpFieldBeta
             // 
-            this.betaBox.Controls.Add(this.beta);
-            this.betaBox.Controls.Add(this.label5);
-            this.betaBox.Controls.Add(this.nbLayers);
-            this.betaBox.Controls.Add(this.label4);
-            this.betaBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.betaBox.Enabled = false;
-            this.betaBox.Location = new System.Drawing.Point(3, 421);
-            this.betaBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.betaBox.Name = "betaBox";
-            this.betaBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.betaBox.Size = new System.Drawing.Size(460, 93);
-            this.betaBox.TabIndex = 13;
-            this.betaBox.TabStop = false;
-            this.betaBox.Text = "Закон бета";
+            this.grpFieldBeta.Controls.Add(this.txtBetaCoef);
+            this.grpFieldBeta.Controls.Add(this.label5);
+            this.grpFieldBeta.Controls.Add(this.txtBetaLayers);
+            this.grpFieldBeta.Controls.Add(this.label4);
+            this.grpFieldBeta.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpFieldBeta.Enabled = false;
+            this.grpFieldBeta.Location = new System.Drawing.Point(3, 421);
+            this.grpFieldBeta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpFieldBeta.Name = "grpFieldBeta";
+            this.grpFieldBeta.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpFieldBeta.Size = new System.Drawing.Size(460, 93);
+            this.grpFieldBeta.TabIndex = 13;
+            this.grpFieldBeta.TabStop = false;
+            this.grpFieldBeta.Text = "Закон бета";
             // 
-            // beta
+            // txtBetaCoef
             // 
-            this.beta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.beta.Location = new System.Drawing.Point(317, 42);
-            this.beta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.beta.Name = "beta";
-            this.beta.Size = new System.Drawing.Size(131, 22);
-            this.beta.TabIndex = 3;
-            this.beta.Tag = "Beta 1,01";
-            this.beta.Text = "1,01";
-            this.beta.Validated += new System.EventHandler(this.OnFilterValueEnter);
+            this.txtBetaCoef.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBetaCoef.Location = new System.Drawing.Point(317, 42);
+            this.txtBetaCoef.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtBetaCoef.Name = "txtBetaCoef";
+            this.txtBetaCoef.Size = new System.Drawing.Size(131, 22);
+            this.txtBetaCoef.TabIndex = 3;
+            this.txtBetaCoef.Tag = "Beta 1,01";
+            this.txtBetaCoef.Text = "1,01";
+            this.txtBetaCoef.Validated += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // label5
             // 
@@ -826,16 +824,16 @@ namespace ModelModule
             this.label5.TabIndex = 2;
             this.label5.Text = "Коэффициент:";
             // 
-            // nbLayers
+            // txtBetaLayers
             // 
-            this.nbLayers.Location = new System.Drawing.Point(11, 42);
-            this.nbLayers.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nbLayers.Name = "nbLayers";
-            this.nbLayers.Size = new System.Drawing.Size(131, 22);
-            this.nbLayers.TabIndex = 1;
-            this.nbLayers.Tag = "NbLayers 10";
-            this.nbLayers.Text = "10";
-            this.nbLayers.Validated += new System.EventHandler(this.OnFilterValueEnter);
+            this.txtBetaLayers.Location = new System.Drawing.Point(11, 42);
+            this.txtBetaLayers.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtBetaLayers.Name = "txtBetaLayers";
+            this.txtBetaLayers.Size = new System.Drawing.Size(131, 22);
+            this.txtBetaLayers.TabIndex = 1;
+            this.txtBetaLayers.Tag = "NbLayers 10";
+            this.txtBetaLayers.Text = "10";
+            this.txtBetaLayers.Validated += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // label4
             // 
@@ -846,34 +844,35 @@ namespace ModelModule
             this.label4.TabIndex = 0;
             this.label4.Text = "Количество слоев:";
             // 
-            // fanBox
+            // grpFieldFan
             // 
-            this.fanBox.Controls.Add(this.fanPointsSizesList);
-            this.fanBox.Controls.Add(this.label8);
-            this.fanBox.Controls.Add(this.anisoMax);
-            this.fanBox.Controls.Add(this.label6);
-            this.fanBox.Controls.Add(this.label7);
-            this.fanBox.Controls.Add(this.fanPointsList);
-            this.fanBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fanBox.Location = new System.Drawing.Point(3, 330);
-            this.fanBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.fanBox.Name = "fanBox";
-            this.fanBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.fanBox.Size = new System.Drawing.Size(460, 87);
-            this.fanBox.TabIndex = 11;
-            this.fanBox.TabStop = false;
-            this.fanBox.Text = "Настройки скруглений:";
+            this.grpFieldFan.Controls.Add(this.txtFanListSize);
+            this.grpFieldFan.Controls.Add(this.label8);
+            this.grpFieldFan.Controls.Add(this.txtFanAngle);
+            this.grpFieldFan.Controls.Add(this.label6);
+            this.grpFieldFan.Controls.Add(this.label7);
+            this.grpFieldFan.Controls.Add(this.txtFanListPoints);
+            this.grpFieldFan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpFieldFan.Enabled = false;
+            this.grpFieldFan.Location = new System.Drawing.Point(3, 330);
+            this.grpFieldFan.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpFieldFan.Name = "grpFieldFan";
+            this.grpFieldFan.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpFieldFan.Size = new System.Drawing.Size(460, 87);
+            this.grpFieldFan.TabIndex = 11;
+            this.grpFieldFan.TabStop = false;
+            this.grpFieldFan.Text = "Настройки скруглений:";
             // 
-            // fanPointsSizesList
+            // txtFanListSize
             // 
-            this.fanPointsSizesList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.fanPointsSizesList.Location = new System.Drawing.Point(317, 54);
-            this.fanPointsSizesList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.fanPointsSizesList.Name = "fanPointsSizesList";
-            this.fanPointsSizesList.Size = new System.Drawing.Size(131, 22);
-            this.fanPointsSizesList.TabIndex = 8;
-            this.fanPointsSizesList.Tag = "FanPointsSizesList";
-            this.fanPointsSizesList.Validated += new System.EventHandler(this.OnFilterListEnter);
+            this.txtFanListSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFanListSize.Location = new System.Drawing.Point(317, 54);
+            this.txtFanListSize.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtFanListSize.Name = "txtFanListSize";
+            this.txtFanListSize.Size = new System.Drawing.Size(131, 22);
+            this.txtFanListSize.TabIndex = 8;
+            this.txtFanListSize.Tag = "FanPointsSizesList";
+            this.txtFanListSize.Validated += new System.EventHandler(this.OnFilterListEnter);
             // 
             // label8
             // 
@@ -884,17 +883,17 @@ namespace ModelModule
             this.label8.TabIndex = 4;
             this.label8.Text = "Пороговый угол:";
             // 
-            // anisoMax
+            // txtFanAngle
             // 
-            this.anisoMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.anisoMax.Location = new System.Drawing.Point(18, 54);
-            this.anisoMax.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.anisoMax.Name = "anisoMax";
-            this.anisoMax.Size = new System.Drawing.Size(131, 22);
-            this.anisoMax.TabIndex = 4;
-            this.anisoMax.Tag = "AnisoMax 10000000000";
-            this.anisoMax.Text = "10000000000";
-            this.anisoMax.Validated += new System.EventHandler(this.OnFilterValueEnter);
+            this.txtFanAngle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFanAngle.Location = new System.Drawing.Point(18, 54);
+            this.txtFanAngle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtFanAngle.Name = "txtFanAngle";
+            this.txtFanAngle.Size = new System.Drawing.Size(131, 22);
+            this.txtFanAngle.TabIndex = 4;
+            this.txtFanAngle.Tag = "AnisoMax 10000000000";
+            this.txtFanAngle.Text = "10000000000";
+            this.txtFanAngle.Validated += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // label6
             // 
@@ -914,56 +913,57 @@ namespace ModelModule
             this.label7.TabIndex = 5;
             this.label7.Text = "Список точек:";
             // 
-            // fanPointsList
+            // txtFanListPoints
             // 
-            this.fanPointsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.fanPointsList.Location = new System.Drawing.Point(165, 54);
-            this.fanPointsList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.fanPointsList.Name = "fanPointsList";
-            this.fanPointsList.Size = new System.Drawing.Size(131, 22);
-            this.fanPointsList.TabIndex = 6;
-            this.fanPointsList.Tag = "FanPointsList";
-            this.fanPointsList.Validated += new System.EventHandler(this.OnFilterListEnter);
+            this.txtFanListPoints.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFanListPoints.Location = new System.Drawing.Point(165, 54);
+            this.txtFanListPoints.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtFanListPoints.Name = "txtFanListPoints";
+            this.txtFanListPoints.Size = new System.Drawing.Size(131, 22);
+            this.txtFanListPoints.TabIndex = 6;
+            this.txtFanListPoints.Tag = "FanPointsList";
+            this.txtFanListPoints.Validated += new System.EventHandler(this.OnFilterListEnter);
             // 
-            // layersBox
+            // grpFieldLayer
             // 
-            this.layersBox.Controls.Add(this.ratio);
-            this.layersBox.Controls.Add(this.thickness);
-            this.layersBox.Controls.Add(this.label10);
-            this.layersBox.Controls.Add(this.label9);
-            this.layersBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.layersBox.Location = new System.Drawing.Point(3, 248);
-            this.layersBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.layersBox.Name = "layersBox";
-            this.layersBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.layersBox.Size = new System.Drawing.Size(460, 78);
-            this.layersBox.TabIndex = 10;
-            this.layersBox.TabStop = false;
-            this.layersBox.Text = "Настройки слоев:";
+            this.grpFieldLayer.Controls.Add(this.txtLayerRatio);
+            this.grpFieldLayer.Controls.Add(this.txtLayerThickness);
+            this.grpFieldLayer.Controls.Add(this.label10);
+            this.grpFieldLayer.Controls.Add(this.label9);
+            this.grpFieldLayer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpFieldLayer.Enabled = false;
+            this.grpFieldLayer.Location = new System.Drawing.Point(3, 248);
+            this.grpFieldLayer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpFieldLayer.Name = "grpFieldLayer";
+            this.grpFieldLayer.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpFieldLayer.Size = new System.Drawing.Size(460, 78);
+            this.grpFieldLayer.TabIndex = 10;
+            this.grpFieldLayer.TabStop = false;
+            this.grpFieldLayer.Text = "Настройки слоев:";
             // 
-            // ratio
+            // txtLayerRatio
             // 
-            this.ratio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ratio.Location = new System.Drawing.Point(317, 44);
-            this.ratio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ratio.Name = "ratio";
-            this.ratio.Size = new System.Drawing.Size(131, 22);
-            this.ratio.TabIndex = 10;
-            this.ratio.Tag = "Ratio 1,1";
-            this.ratio.Text = "1,1";
-            this.ratio.Validated += new System.EventHandler(this.OnFilterValueEnter);
+            this.txtLayerRatio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLayerRatio.Location = new System.Drawing.Point(317, 44);
+            this.txtLayerRatio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtLayerRatio.Name = "txtLayerRatio";
+            this.txtLayerRatio.Size = new System.Drawing.Size(131, 22);
+            this.txtLayerRatio.TabIndex = 10;
+            this.txtLayerRatio.Tag = "Ratio 1,1";
+            this.txtLayerRatio.Text = "1,1";
+            this.txtLayerRatio.Validated += new System.EventHandler(this.OnFilterValueEnter);
             // 
-            // thickness
+            // txtLayerThickness
             // 
-            this.thickness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.thickness.Location = new System.Drawing.Point(18, 44);
-            this.thickness.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.thickness.Name = "thickness";
-            this.thickness.Size = new System.Drawing.Size(131, 22);
-            this.thickness.TabIndex = 9;
-            this.thickness.Tag = "Thickness 0,01";
-            this.thickness.Text = "0,01";
-            this.thickness.Validated += new System.EventHandler(this.OnFilterValueEnter);
+            this.txtLayerThickness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLayerThickness.Location = new System.Drawing.Point(18, 44);
+            this.txtLayerThickness.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtLayerThickness.Name = "txtLayerThickness";
+            this.txtLayerThickness.Size = new System.Drawing.Size(131, 22);
+            this.txtLayerThickness.TabIndex = 9;
+            this.txtLayerThickness.Tag = "Thickness 0,01";
+            this.txtLayerThickness.Text = "0,01";
+            this.txtLayerThickness.Validated += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // label10
             // 
@@ -983,45 +983,46 @@ namespace ModelModule
             this.label9.TabIndex = 11;
             this.label9.Text = "Соотнош. размеров:";
             // 
-            // groupBox2
+            // grpFieldGeneral
             // 
-            this.groupBox2.Controls.Add(this.excludedSurfacesList);
-            this.groupBox2.Controls.Add(this.curvesList);
-            this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.pointsList);
-            this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(3, 80);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(460, 80);
-            this.groupBox2.TabIndex = 9;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Общие настройки:";
+            this.grpFieldGeneral.Controls.Add(this.txtGenListSurfaces);
+            this.grpFieldGeneral.Controls.Add(this.txtGenListCurves);
+            this.grpFieldGeneral.Controls.Add(this.label12);
+            this.grpFieldGeneral.Controls.Add(this.label11);
+            this.grpFieldGeneral.Controls.Add(this.txtGenListPoints);
+            this.grpFieldGeneral.Controls.Add(this.label13);
+            this.grpFieldGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpFieldGeneral.Enabled = false;
+            this.grpFieldGeneral.Location = new System.Drawing.Point(3, 80);
+            this.grpFieldGeneral.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpFieldGeneral.Name = "grpFieldGeneral";
+            this.grpFieldGeneral.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpFieldGeneral.Size = new System.Drawing.Size(460, 80);
+            this.grpFieldGeneral.TabIndex = 9;
+            this.grpFieldGeneral.TabStop = false;
+            this.grpFieldGeneral.Text = "Общие настройки:";
             // 
-            // excludedSurfacesList
+            // txtGenListSurfaces
             // 
-            this.excludedSurfacesList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.excludedSurfacesList.Location = new System.Drawing.Point(317, 47);
-            this.excludedSurfacesList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.excludedSurfacesList.Name = "excludedSurfacesList";
-            this.excludedSurfacesList.Size = new System.Drawing.Size(131, 22);
-            this.excludedSurfacesList.TabIndex = 8;
-            this.excludedSurfacesList.Tag = "ExcludedSurfacesList";
-            this.excludedSurfacesList.Validated += new System.EventHandler(this.OnFilterListEnter);
+            this.txtGenListSurfaces.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtGenListSurfaces.Location = new System.Drawing.Point(317, 47);
+            this.txtGenListSurfaces.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtGenListSurfaces.Name = "txtGenListSurfaces";
+            this.txtGenListSurfaces.Size = new System.Drawing.Size(131, 22);
+            this.txtGenListSurfaces.TabIndex = 8;
+            this.txtGenListSurfaces.Tag = "ExcludedSurfacesList";
+            this.txtGenListSurfaces.Validated += new System.EventHandler(this.OnFilterListEnter);
             // 
-            // curvesList
+            // txtGenListCurves
             // 
-            this.curvesList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.curvesList.Location = new System.Drawing.Point(165, 47);
-            this.curvesList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.curvesList.Name = "curvesList";
-            this.curvesList.Size = new System.Drawing.Size(131, 22);
-            this.curvesList.TabIndex = 6;
-            this.curvesList.Tag = "CurvesList";
-            this.curvesList.Validated += new System.EventHandler(this.OnFilterListEnter);
+            this.txtGenListCurves.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtGenListCurves.Location = new System.Drawing.Point(165, 47);
+            this.txtGenListCurves.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtGenListCurves.Name = "txtGenListCurves";
+            this.txtGenListCurves.Size = new System.Drawing.Size(131, 22);
+            this.txtGenListCurves.TabIndex = 6;
+            this.txtGenListCurves.Tag = "CurvesList";
+            this.txtGenListCurves.Validated += new System.EventHandler(this.OnFilterListEnter);
             // 
             // label12
             // 
@@ -1041,16 +1042,16 @@ namespace ModelModule
             this.label11.TabIndex = 7;
             this.label11.Text = "Список искл. поверхн:";
             // 
-            // pointsList
+            // txtGenListPoints
             // 
-            this.pointsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pointsList.Location = new System.Drawing.Point(18, 47);
-            this.pointsList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pointsList.Name = "pointsList";
-            this.pointsList.Size = new System.Drawing.Size(131, 22);
-            this.pointsList.TabIndex = 4;
-            this.pointsList.Tag = "PointsList";
-            this.pointsList.Validated += new System.EventHandler(this.OnFilterListEnter);
+            this.txtGenListPoints.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtGenListPoints.Location = new System.Drawing.Point(18, 47);
+            this.txtGenListPoints.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtGenListPoints.Name = "txtGenListPoints";
+            this.txtGenListPoints.Size = new System.Drawing.Size(131, 22);
+            this.txtGenListPoints.TabIndex = 4;
+            this.txtGenListPoints.Tag = "PointsList";
+            this.txtGenListPoints.Validated += new System.EventHandler(this.OnFilterListEnter);
             // 
             // label13
             // 
@@ -1061,113 +1062,130 @@ namespace ModelModule
             this.label13.TabIndex = 4;
             this.label13.Text = "Список точек:";
             // 
-            // flagsBetaPnl
+            // pnlFieldInit
             // 
-            this.flagsBetaPnl.Controls.Add(this.delFilter);
-            this.flagsBetaPnl.Controls.Add(this.addFilter);
-            this.flagsBetaPnl.Controls.Add(this.quads);
-            this.flagsBetaPnl.Controls.Add(this.intersectMetrics);
-            this.flagsBetaPnl.Controls.Add(this.betaLaw);
-            this.flagsBetaPnl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flagsBetaPnl.Location = new System.Drawing.Point(3, 2);
-            this.flagsBetaPnl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.flagsBetaPnl.Name = "flagsBetaPnl";
-            this.flagsBetaPnl.Size = new System.Drawing.Size(460, 74);
-            this.flagsBetaPnl.TabIndex = 3;
+            this.pnlFieldInit.Controls.Add(this.btnFieldDelete);
+            this.pnlFieldInit.Controls.Add(this.btnFieldAdd);
+            this.pnlFieldInit.Controls.Add(this.chkQuad);
+            this.pnlFieldInit.Controls.Add(this.chkMetrics);
+            this.pnlFieldInit.Controls.Add(this.chkBeta);
+            this.pnlFieldInit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlFieldInit.Location = new System.Drawing.Point(3, 2);
+            this.pnlFieldInit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pnlFieldInit.Name = "pnlFieldInit";
+            this.pnlFieldInit.Size = new System.Drawing.Size(460, 74);
+            this.pnlFieldInit.TabIndex = 3;
             // 
-            // addFilter
+            // btnFieldDelete
             // 
-            this.addFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.addFilter.Location = new System.Drawing.Point(325, 32);
-            this.addFilter.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.addFilter.Name = "addFilter";
-            this.addFilter.Size = new System.Drawing.Size(120, 32);
-            this.addFilter.TabIndex = 3;
-            this.addFilter.Text = "Добавить";
-            this.addFilter.UseVisualStyleBackColor = true;
-            this.addFilter.Click += new System.EventHandler(this.OnAddBoundFilter);
+            this.btnFieldDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFieldDelete.Enabled = false;
+            this.btnFieldDelete.Location = new System.Drawing.Point(188, 32);
+            this.btnFieldDelete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnFieldDelete.Name = "btnFieldDelete";
+            this.btnFieldDelete.Size = new System.Drawing.Size(120, 32);
+            this.btnFieldDelete.TabIndex = 4;
+            this.btnFieldDelete.Text = "Удалить";
+            this.btnFieldDelete.UseVisualStyleBackColor = true;
+            this.btnFieldDelete.Click += new System.EventHandler(this.OnRemoveBoundFilter);
             // 
-            // quads
+            // btnFieldAdd
             // 
-            this.quads.AutoSize = true;
-            this.quads.Location = new System.Drawing.Point(15, 37);
-            this.quads.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.quads.Name = "quads";
-            this.quads.Size = new System.Drawing.Size(165, 20);
-            this.quads.TabIndex = 2;
-            this.quads.Tag = "Quads";
-            this.quads.Text = "Генерировать квады";
-            this.quads.UseVisualStyleBackColor = true;
-            this.quads.Click += new System.EventHandler(this.OnBoundFilterCheck);
+            this.btnFieldAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFieldAdd.Location = new System.Drawing.Point(325, 32);
+            this.btnFieldAdd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnFieldAdd.Name = "btnFieldAdd";
+            this.btnFieldAdd.Size = new System.Drawing.Size(120, 32);
+            this.btnFieldAdd.TabIndex = 3;
+            this.btnFieldAdd.Text = "Добавить";
+            this.btnFieldAdd.UseVisualStyleBackColor = true;
+            this.btnFieldAdd.Click += new System.EventHandler(this.OnAddBoundFilter);
             // 
-            // intersectMetrics
+            // chkQuad
             // 
-            this.intersectMetrics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.intersectMetrics.AutoSize = true;
-            this.intersectMetrics.Location = new System.Drawing.Point(255, 7);
-            this.intersectMetrics.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.intersectMetrics.Name = "intersectMetrics";
-            this.intersectMetrics.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.intersectMetrics.Size = new System.Drawing.Size(193, 20);
-            this.intersectMetrics.TabIndex = 1;
-            this.intersectMetrics.Tag = "IntersectMetrics";
-            this.intersectMetrics.Text = "Пересеч метрик поверхн";
-            this.intersectMetrics.UseVisualStyleBackColor = true;
-            this.intersectMetrics.Click += new System.EventHandler(this.OnBoundFilterCheck);
+            this.chkQuad.AutoSize = true;
+            this.chkQuad.Enabled = false;
+            this.chkQuad.Location = new System.Drawing.Point(15, 37);
+            this.chkQuad.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.chkQuad.Name = "chkQuad";
+            this.chkQuad.Size = new System.Drawing.Size(165, 20);
+            this.chkQuad.TabIndex = 2;
+            this.chkQuad.Tag = "Quads";
+            this.chkQuad.Text = "Генерировать квады";
+            this.chkQuad.UseVisualStyleBackColor = true;
+            this.chkQuad.Click += new System.EventHandler(this.OnBoundFilterCheck);
             // 
-            // betaLaw
+            // chkMetrics
             // 
-            this.betaLaw.AutoSize = true;
-            this.betaLaw.Location = new System.Drawing.Point(15, 7);
-            this.betaLaw.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.betaLaw.Name = "betaLaw";
-            this.betaLaw.Size = new System.Drawing.Size(103, 20);
-            this.betaLaw.TabIndex = 0;
-            this.betaLaw.Tag = "BetaLaw";
-            this.betaLaw.Text = "Закон бета";
-            this.betaLaw.UseVisualStyleBackColor = true;
-            this.betaLaw.Click += new System.EventHandler(this.OnBoundFilterCheck);
+            this.chkMetrics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkMetrics.AutoSize = true;
+            this.chkMetrics.Enabled = false;
+            this.chkMetrics.Location = new System.Drawing.Point(255, 7);
+            this.chkMetrics.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.chkMetrics.Name = "chkMetrics";
+            this.chkMetrics.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chkMetrics.Size = new System.Drawing.Size(193, 20);
+            this.chkMetrics.TabIndex = 1;
+            this.chkMetrics.Tag = "IntersectMetrics";
+            this.chkMetrics.Text = "Пересеч метрик поверхн";
+            this.chkMetrics.UseVisualStyleBackColor = true;
+            this.chkMetrics.Click += new System.EventHandler(this.OnBoundFilterCheck);
             // 
-            // groupBox1
+            // chkBeta
             // 
-            this.groupBox1.Controls.Add(this.sizesList);
-            this.groupBox1.Controls.Add(this.size);
-            this.groupBox1.Controls.Add(this.label16);
-            this.groupBox1.Controls.Add(this.label14);
-            this.groupBox1.Controls.Add(this.label15);
-            this.groupBox1.Controls.Add(this.sizeFar);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 164);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(460, 80);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Настройки размеров:";
+            this.chkBeta.AutoSize = true;
+            this.chkBeta.Enabled = false;
+            this.chkBeta.Location = new System.Drawing.Point(15, 7);
+            this.chkBeta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.chkBeta.Name = "chkBeta";
+            this.chkBeta.Size = new System.Drawing.Size(103, 20);
+            this.chkBeta.TabIndex = 0;
+            this.chkBeta.Tag = "BetaLaw";
+            this.chkBeta.Text = "Закон бета";
+            this.chkBeta.UseVisualStyleBackColor = true;
+            this.chkBeta.Click += new System.EventHandler(this.OnBoundFilterCheck);
             // 
-            // sizesList
+            // grpFieldSize
             // 
-            this.sizesList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.sizesList.Location = new System.Drawing.Point(317, 44);
-            this.sizesList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.sizesList.Name = "sizesList";
-            this.sizesList.Size = new System.Drawing.Size(131, 22);
-            this.sizesList.TabIndex = 13;
-            this.sizesList.Tag = "SizesList";
-            this.sizesList.Validated += new System.EventHandler(this.OnFilterListEnter);
+            this.grpFieldSize.Controls.Add(this.txtSizeListPoints);
+            this.grpFieldSize.Controls.Add(this.txtSizeListNear);
+            this.grpFieldSize.Controls.Add(this.label16);
+            this.grpFieldSize.Controls.Add(this.label14);
+            this.grpFieldSize.Controls.Add(this.label15);
+            this.grpFieldSize.Controls.Add(this.txtSizeListFar);
+            this.grpFieldSize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpFieldSize.Enabled = false;
+            this.grpFieldSize.Location = new System.Drawing.Point(3, 164);
+            this.grpFieldSize.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpFieldSize.Name = "grpFieldSize";
+            this.grpFieldSize.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.grpFieldSize.Size = new System.Drawing.Size(460, 80);
+            this.grpFieldSize.TabIndex = 8;
+            this.grpFieldSize.TabStop = false;
+            this.grpFieldSize.Text = "Настройки размеров:";
             // 
-            // size
+            // txtSizeListPoints
             // 
-            this.size.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.size.Location = new System.Drawing.Point(18, 44);
-            this.size.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.size.Name = "size";
-            this.size.Size = new System.Drawing.Size(131, 22);
-            this.size.TabIndex = 9;
-            this.size.Tag = "Size 0,1";
-            this.size.Text = "0,1";
-            this.size.Validated += new System.EventHandler(this.OnFilterValueEnter);
+            this.txtSizeListPoints.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSizeListPoints.Location = new System.Drawing.Point(317, 44);
+            this.txtSizeListPoints.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtSizeListPoints.Name = "txtSizeListPoints";
+            this.txtSizeListPoints.Size = new System.Drawing.Size(131, 22);
+            this.txtSizeListPoints.TabIndex = 13;
+            this.txtSizeListPoints.Tag = "SizesList";
+            this.txtSizeListPoints.Validated += new System.EventHandler(this.OnFilterListEnter);
+            // 
+            // txtSizeListNear
+            // 
+            this.txtSizeListNear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSizeListNear.Location = new System.Drawing.Point(18, 44);
+            this.txtSizeListNear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtSizeListNear.Name = "txtSizeListNear";
+            this.txtSizeListNear.Size = new System.Drawing.Size(131, 22);
+            this.txtSizeListNear.TabIndex = 9;
+            this.txtSizeListNear.Tag = "Size 0,1";
+            this.txtSizeListNear.Text = "0,1";
+            this.txtSizeListNear.Validated += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // label16
             // 
@@ -1196,17 +1214,17 @@ namespace ModelModule
             this.label15.TabIndex = 11;
             this.label15.Text = "Вдали от кривых:";
             // 
-            // sizeFar
+            // txtSizeListFar
             // 
-            this.sizeFar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.sizeFar.Location = new System.Drawing.Point(165, 44);
-            this.sizeFar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.sizeFar.Name = "sizeFar";
-            this.sizeFar.Size = new System.Drawing.Size(131, 22);
-            this.sizeFar.TabIndex = 10;
-            this.sizeFar.Tag = "SizeFar 1,0";
-            this.sizeFar.Text = "1.0";
-            this.sizeFar.Validated += new System.EventHandler(this.OnFilterValueEnter);
+            this.txtSizeListFar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSizeListFar.Location = new System.Drawing.Point(165, 44);
+            this.txtSizeListFar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtSizeListFar.Name = "txtSizeListFar";
+            this.txtSizeListFar.Size = new System.Drawing.Size(131, 22);
+            this.txtSizeListFar.TabIndex = 10;
+            this.txtSizeListFar.Tag = "SizeFar 1,0";
+            this.txtSizeListFar.Text = "1.0";
+            this.txtSizeListFar.Validated += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // loadModelBox
             // 
@@ -1301,18 +1319,6 @@ namespace ModelModule
             this.gmshTab.Size = new System.Drawing.Size(500, 980);
             this.gmshTab.TabIndex = 1;
             // 
-            // delFilter
-            // 
-            this.delFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.delFilter.Location = new System.Drawing.Point(188, 32);
-            this.delFilter.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.delFilter.Name = "delFilter";
-            this.delFilter.Size = new System.Drawing.Size(120, 32);
-            this.delFilter.TabIndex = 4;
-            this.delFilter.Text = "Удалить";
-            this.delFilter.UseVisualStyleBackColor = true;
-            this.delFilter.Click += new System.EventHandler(this.OnRemoveFilter);
-            // 
             // GmshControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1347,18 +1353,18 @@ namespace ModelModule
             this.filterBox.ResumeLayout(false);
             this.boundFilter.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.betaBox.ResumeLayout(false);
-            this.betaBox.PerformLayout();
-            this.fanBox.ResumeLayout(false);
-            this.fanBox.PerformLayout();
-            this.layersBox.ResumeLayout(false);
-            this.layersBox.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.flagsBetaPnl.ResumeLayout(false);
-            this.flagsBetaPnl.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grpFieldBeta.ResumeLayout(false);
+            this.grpFieldBeta.PerformLayout();
+            this.grpFieldFan.ResumeLayout(false);
+            this.grpFieldFan.PerformLayout();
+            this.grpFieldLayer.ResumeLayout(false);
+            this.grpFieldLayer.PerformLayout();
+            this.grpFieldGeneral.ResumeLayout(false);
+            this.grpFieldGeneral.PerformLayout();
+            this.pnlFieldInit.ResumeLayout(false);
+            this.pnlFieldInit.PerformLayout();
+            this.grpFieldSize.ResumeLayout(false);
+            this.grpFieldSize.PerformLayout();
             this.loadModelBox.ResumeLayout(false);
             this.geoElBox.ResumeLayout(false);
             this.elementsLayout.ResumeLayout(false);
@@ -1391,11 +1397,11 @@ namespace ModelModule
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox algoCoef;
         private System.Windows.Forms.TextBox algoNPoints;
-        private System.Windows.Forms.RadioButton progAlgo;
+        private System.Windows.Forms.RadioButton rbtnProgressive;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton bumpAlgo;
+        private System.Windows.Forms.RadioButton rbtnBump;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.RadioButton betaAlgo;
+        private System.Windows.Forms.RadioButton rbtnBeta;
         private System.Windows.Forms.GroupBox algoBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.GroupBox pointsControlBox;
@@ -1425,42 +1431,42 @@ namespace ModelModule
         private System.Windows.Forms.TabControl filterBox;
         private System.Windows.Forms.TabPage boundFilter;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.GroupBox betaBox;
-        private System.Windows.Forms.TextBox beta;
+        private System.Windows.Forms.GroupBox grpFieldBeta;
+        private System.Windows.Forms.TextBox txtBetaCoef;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox nbLayers;
+        private System.Windows.Forms.TextBox txtBetaLayers;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox fanBox;
-        private System.Windows.Forms.TextBox fanPointsSizesList;
+        private System.Windows.Forms.GroupBox grpFieldFan;
+        private System.Windows.Forms.TextBox txtFanListSize;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox anisoMax;
+        private System.Windows.Forms.TextBox txtFanAngle;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox fanPointsList;
-        private System.Windows.Forms.GroupBox layersBox;
-        private System.Windows.Forms.TextBox ratio;
-        private System.Windows.Forms.TextBox thickness;
+        private System.Windows.Forms.TextBox txtFanListPoints;
+        private System.Windows.Forms.GroupBox grpFieldLayer;
+        private System.Windows.Forms.TextBox txtLayerRatio;
+        private System.Windows.Forms.TextBox txtLayerThickness;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox excludedSurfacesList;
-        private System.Windows.Forms.TextBox curvesList;
+        private System.Windows.Forms.GroupBox grpFieldGeneral;
+        private System.Windows.Forms.TextBox txtGenListSurfaces;
+        private System.Windows.Forms.TextBox txtGenListCurves;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox pointsList;
+        private System.Windows.Forms.TextBox txtGenListPoints;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Panel flagsBetaPnl;
-        private System.Windows.Forms.Button addFilter;
-        private System.Windows.Forms.CheckBox quads;
-        private System.Windows.Forms.CheckBox intersectMetrics;
-        private System.Windows.Forms.CheckBox betaLaw;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox sizesList;
-        private System.Windows.Forms.TextBox size;
+        private System.Windows.Forms.Panel pnlFieldInit;
+        private System.Windows.Forms.Button btnFieldAdd;
+        private System.Windows.Forms.CheckBox chkQuad;
+        private System.Windows.Forms.CheckBox chkMetrics;
+        private System.Windows.Forms.CheckBox chkBeta;
+        private System.Windows.Forms.GroupBox grpFieldSize;
+        private System.Windows.Forms.TextBox txtSizeListPoints;
+        private System.Windows.Forms.TextBox txtSizeListNear;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox sizeFar;
-        private System.Windows.Forms.Button delFilter;
+        private System.Windows.Forms.TextBox txtSizeListFar;
+        private System.Windows.Forms.Button btnFieldDelete;
     }
 }
