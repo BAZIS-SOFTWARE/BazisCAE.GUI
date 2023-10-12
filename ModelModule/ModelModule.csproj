@@ -115,6 +115,24 @@
     <Compile Include="GmshControl.Designer.cs">
       <DependentUpon>GmshControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="SurfaceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SurfaceControl.Designer.cs">
+      <DependentUpon>SurfaceControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl1.Designer.cs">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CurveControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CurveControl.Designer.cs">
+      <DependentUpon>CurveControl.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +146,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SurfaceControl.resx">
+      <DependentUpon>SurfaceControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl1.resx">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CurveControl.resx">
+      <DependentUpon>CurveControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
