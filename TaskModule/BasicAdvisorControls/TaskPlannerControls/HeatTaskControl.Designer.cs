@@ -265,7 +265,6 @@
             this.chbDTtMax.AutoSize = true;
             this.chbDTtMax.Checked = true;
             this.chbDTtMax.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbDTtMax.Enabled = false;
             this.chbDTtMax.Location = new System.Drawing.Point(9, 7);
             this.chbDTtMax.Margin = new System.Windows.Forms.Padding(10, 7, 3, 3);
             this.chbDTtMax.Name = "chbDTtMax";
@@ -273,6 +272,7 @@
             this.chbDTtMax.TabIndex = 108;
             this.chbDTtMax.Text = "Макс. температура (dTt max), C°";
             this.chbDTtMax.UseVisualStyleBackColor = true;
+            this.chbDTtMax.CheckedChanged += new System.EventHandler(this.chbDTtMax_CheckedChanged);
             // 
             // txbDTtMax
             // 

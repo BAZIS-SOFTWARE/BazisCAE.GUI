@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using Functions.Search;
 using TaskModule.BasicAdvisorControls;
 using Project;
 using System.Linq;
@@ -26,7 +25,7 @@ namespace TaskModule.BasicTaskAdvisor
         public event Action<object, ChangeTaskTypeEventArgs> Select2DPlaneEvent;
         public event Action<object, ChangeTaskTypeEventArgs> Select2DAxiEvent;
         public event Action<object, ChangeTaskTypeEventArgs> Select3DEvent;
-        public event Action<object, string> StartComputationEvent;
+        public event Action<object, EventArgs> StartComputationEvent;
         public event Action<object, EventArgs> StopComputationEvent;
         public event Action<object, EventArgs> AddDataUseTaskConditionsEvent;
 
@@ -38,9 +37,9 @@ namespace TaskModule.BasicTaskAdvisor
         TaskTypeControl taskTypeControl {
             get
             {
-                var searched = new List<TaskTypeControl>();
-                RecursiveSearch.AllTypedControls(this, searched);
-                return searched[0];
+                var tabControls = Controls.Cast<Control>().
+                    Where(x => x.GetType() == typeof(TaskTypeControl));
+                return (TaskTypeControl)tabControls.First();
             }
         }
 
@@ -48,10 +47,10 @@ namespace TaskModule.BasicTaskAdvisor
         {
             get
             {
-                var searched = new List<TabControl>();
-                RecursiveSearch.AllTypedControls(this, searched);
+                var tabControls = Controls.Cast<Control>().
+                    Where(x => x.GetType() == typeof(TabControl));
 
-                return searched[0];
+                return (TabControl)tabControls.First();
             }
         }     
 
@@ -63,33 +62,40 @@ namespace TaskModule.BasicTaskAdvisor
             foreach (TabPage tabPage in tabControl.Controls)
             {
                 foreach (Control control in tabPage.Controls)
-                {
-                    if (control is INodesGroupControl nGrControl)
-                        nGrControl.Fill_nGroups(project.Model.GroupData.FindMany("Узлы").Select(x => x.GroupName).ToList());
-
-                    if (control is IElmentsGroupsControl eGrControl)
-                        if (taskType == "Plain" | taskType == "AxiPlain")
-                        {
-
-                            eGrControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы1D").Select(x => x.GroupName).ToList());
-                            eGrControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы2D").Select(x => x.GroupName).ToList());
-                        }
-                        else
-                        {
-                            eGrControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы2D").Select(x => x.GroupName).ToList());
-                            eGrControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы3D").Select(x => x.GroupName).ToList());
-                        }
-
-                    if (control is GridViewAdviserControl grvControl)
+                {   
+                    if(control is GridViewAdviserControl gvControl)
                     {
-                        if(grvControl is TaskPlannerControl taskPlannerControl)
+                        var data = project.TaskData.
+    Where(x => x.Name == gvControl.DataName).
+    Select(x => x.GetInfo);
+                        if (control is ILoadControl loadControl)
+                        {
+                            loadControl.Fill_nGroups(project.Model.GroupData.FindMany("Узлы").Select(x => x.GroupName).ToList());
+                            if (taskType == "Plain" | taskType == "AxiPlain")
+                                loadControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы2D").Select(x => x.GroupName).ToList());
+                            else
+                                loadControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы3D").Select(x => x.GroupName).ToList());
+                        }
+                        else if (control is IBoundaryControl boundaryControl)
+                        {
+                            boundaryControl.Fill_nGroups(project.Model.GroupData.FindMany("Узлы").Select(x => x.GroupName).ToList());
+                            if (taskType == "Plain" | taskType == "AxiPlain")
+                                boundaryControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы1D").Select(x => x.GroupName).ToList());
+                            else
+                                boundaryControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы2D").Select(x => x.GroupName).ToList());
+                        }
+                        else if (control is IMaterialsRelatedControl materialsRelatedControl)
+                            if (taskType == "Plain" | taskType == "AxiPlain")
+                                materialsRelatedControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы2D").Select(x => x.GroupName).ToList());
+                            else
+                                materialsRelatedControl.Fill_eGroups(project.Model.GroupData.FindMany("Элементы3D").Select(x => x.GroupName).ToList());
+
+                        else if (control is TaskPlannerControl taskPlannerControl)
                             taskPlannerControl.Path = project.Path;
 
-                        var data = project.TaskData.GetAllData().
-                            Where(x => x.Name == grvControl.DataName).
-                            Select(x => x.GetInfo);
-                        grvControl.Set_DataGridLines(data);
+                        gvControl.Set_DataGridLines(data);
                     }
+     
                 }
             }
         }
@@ -118,7 +124,7 @@ namespace TaskModule.BasicTaskAdvisor
             }
         }
 
-        public virtual void TaskPlannerControl1_StartComputationEvent(object arg1, string arg2)
+        public virtual void TaskPlannerControl_StartComputationEvent(object arg1, EventArgs arg2)
         {
             StartComputationEvent(this, arg2);
         }

@@ -8,10 +8,13 @@ namespace BaseModule
 
         public bool Reverse { get; }
 
-        public SelectInDirectionEventArgs(string objsType, bool reverse)
+        public float Angle { get; }
+
+        public SelectInDirectionEventArgs(string objsType, bool reverse, float angle)
         {
             ObjsType = objsType;
             Reverse = reverse;
+            Angle = angle;
         }
     }
 }

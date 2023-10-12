@@ -26,8 +26,11 @@ namespace AdvisorControls.TaskPlannerControls
         {
             var termalParameters = (TermalParameters)parameters;
 
-            txbDTtMax.Text = termalParameters.ConvergenceSettings.DYmt.ToString();          
-            txbIters.Text = termalParameters.ConvergenceSettings.Iterations.ToString();
+            if (termalParameters.TermalConvergence.Is_Switched_Tm)
+                chbDTtMax.Checked = true;
+
+            txbDTtMax.Text = termalParameters.TermalConvergence.Tm.ToString();          
+            txbIters.Text = termalParameters.Iterations.ToString();
 
             txbSaveRate.Text = termalParameters.SaveRate.ToString();
             txbInitTemp.Text = termalParameters.InitTemp.ToString();
@@ -45,11 +48,11 @@ namespace AdvisorControls.TaskPlannerControls
 
             if (chbDTtMax.Checked)
             {
-                termalParameters.ConvergenceSettings.Is_Switched_DXmt = true;
-                termalParameters.ConvergenceSettings.DXmt = Convert.ToSingle(txbDTtMax.Text);
+                termalParameters.TermalConvergence.Is_Switched_Tm = true;
+                termalParameters.TermalConvergence.Tm = Convert.ToSingle(txbDTtMax.Text);
             }
            
-            termalParameters.ConvergenceSettings.Iterations = Convert.ToInt32(txbIters.Text);
+            termalParameters.Iterations = Convert.ToInt32(txbIters.Text);
             
             termalParameters.InitTemp = Convert.ToSingle(txbInitTemp.Text);
             termalParameters.SaveRate = Convert.ToInt32(txbSaveRate.Text);
@@ -115,6 +118,14 @@ namespace AdvisorControls.TaskPlannerControls
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void chbDTtMax_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chbDTtMax.Checked)
+                txbDTtMax.Enabled = true;
+            else
+                txbDTtMax.Enabled = false;
         }
     }
 }

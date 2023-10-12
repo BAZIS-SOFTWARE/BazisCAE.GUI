@@ -1,30 +1,26 @@
 ﻿using BaseModule;
-using CustomControls;
+using BaseModule.Navigator;
+using BaseModule.ToolStrips;
 using CustomControls.Controls;
 using CustomControls.OS;
 using Geometry;
 using Gif.Components;
 using Graph;
 using Model;
-using ModelController.MeshObjsUtility;
-using ModelController.ModelScenePresentator;
-using ModelController.ModelScenePresentator.GlObjsPresenters;
-using Project.Interfaces;
-using Project.IO;
+using Model.ObjectsSorters;
 using Project.ResultsData;
-using Project.ResultsData.ScenePresenter;
-using Project.ResultsData.ScenePresenter.Interfaces;
 using Project.TasksData;
+using ResultModule.ToolStrips;
+using Results.IO;
+using Results.ScenePresenter;
+using Results.ScenePresenter.Interfaces;
 using SceneInterface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
-using ToolStrips;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 //using static System.Net.Mime.MediaTypeNames;
 using Image = System.Drawing.Image;
 
@@ -36,9 +32,6 @@ namespace ResultModule
         
         private bool showResultValue;
 
-        Dictionary<string, int> imgDict;
-        //Dictionary<string,List<float>> resItems;
-
         private ScalePage scPage;
         private AnimationPage anPage;
 
@@ -48,42 +41,37 @@ namespace ResultModule
 
             scale = new RainbowScale(1, 0, 10);
 
-            imgDict = new Dictionary<string, int>()
-            {
-                { "Узлы",3},
-                { "Элементы",4},
-            };
-
-            //resItems = new Dictionary<string, List<float>>();
-
             var resToolStrip = new ResultsToolStrip
             {
-                Renderer = new BtnToolStrRender()
+                Renderer = new BaseToolStrRender()
             };
             resToolStrip.ItemClicked += ResultsToolStrip_ItemClicked;
 
             AddToolStrip(resToolStrip);
 
-            TreeView.Nodes.Add(new TreeNode("Результаты", 1, 1) { Name = "Результаты",Tag = 6 });
+            NavigatorControl.TreeView.Nodes.Add(new TreeNode("Результаты", 1, 1) { Name = "Результаты", Tag = 6 });
+        }
+
+        public override void PresentProjectOnTree()
+        {
+            base.PresentProjectOnTree();
+
+            NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Clear();       
+
+            var resKinds = Project.ResultData.GetResultKinds();
+            foreach (var resKind in resKinds)
+            {
+                var results = Project.ResultData.FindByTaskKind(resKind);
+                PresentResultsOnTree(results);
+            }
         }
 
         public override void LoadProjectData(string extFilter)
         {
             base.LoadProjectData(extFilter);
 
-            TreeView.Nodes.Find("Результаты", false)[0].Nodes.Clear();
+            NavigatorControl.TreeView.Nodes.Find("Результаты", false)[0].Nodes.Clear();
         }
-
-        //protected override void OnLoad(EventArgs e)
-        //{
-        //    base.OnLoad(e);
-        //    var resKinds = Project.ResultData.GetResultKinds();
-        //    foreach (var resKind in resKinds)
-        //    {
-        //        var results = Project.ResultData.FindByTaskKind(resKind);
-        //        PresentResultsOnTree(results);
-        //    }
-        //}
 
         public override void CreateMenuInterface()
         {
@@ -108,12 +96,11 @@ namespace ResultModule
             clearResultsMenuItem.Click += (ar1, ar2) => 
             {
                 Project.ResultData.Clear();
-                TreeView.Nodes[6].Nodes.Clear();
+                NavigatorControl.TreeView.Nodes[6].Nodes.Clear();
 
                 ClearAllDataOnScene();
-                ModelPresenter.Clear();
 
-                ModelPresenter = new ModelScenePresentator(Project.Model);
+                ModelController.CreateModelPresenter(Project.Model);
 
                 foreach (var item in ModelPresenter.Keys)
                     PresentDataToScene(item);
@@ -146,9 +133,8 @@ namespace ResultModule
             hideResultsMenuItem.Click += (ar1, ar2) => 
             {
                 ClearAllDataOnScene();
-                ModelPresenter.Clear();
 
-                ModelPresenter = new ModelScenePresentator(Project.Model);
+                ModelController.CreateModelPresenter(Project.Model);
 
                 foreach (var item in ModelPresenter.Keys)
                     PresentDataToScene(item);
@@ -263,34 +249,27 @@ namespace ResultModule
             var grPage = new GraphCreationPage() { Dock = DockStyle.Fill };
             grPage.CreateTimeGraphEvent += (ar1, ar2) =>
             {
-                if (TreeView.SelectedNode?.Level == 3)
-                    CreateTimeGraph(TreeView.SelectedNode.Parent.Parent.Name, ar2.ObjsType);
+                if (NavigatorControl.TreeView.SelectedNode?.Level == 3)
+                    CreateTimeGraph(NavigatorControl.TreeView.SelectedNode.Parent.Parent.Name, ar2.ObjsType);
                 else ConsoleControl.PrintInfo("Выберите результаты для построения графика!", Color.Red);
             };
             grPage.CreatePathGraphEvent += (ar1, ar2) =>
             {
-                if (TreeView.SelectedNode?.Level == 3)
-                    CreatePathGraph(TreeView.SelectedNode.Parent.Parent.Name, ar2.ObjsType, ar2.Time);
+                if (NavigatorControl.TreeView.SelectedNode?.Level == 3)
+                    CreatePathGraph(NavigatorControl.TreeView.SelectedNode.Parent.Parent.Name, ar2.ObjsType, ar2.Time);
                 else ConsoleControl.PrintInfo("Выберите результаты для построения графика!", Color.Red);
             };
 
             grPage.SelectObjectsEvent += (ar) => 
             {
                 ClearAllDataOnScene();
-                ModelPresenter.Clear();
 
-                ModelPresenter = new ModelScenePresentator(Project.Model);
+                ModelController.CreateModelPresenter(Project.Model);
 
                 foreach (var item in ModelPresenter.Keys)
                     PresentDataToScene(item);
 
-                var selectToolStrip = FindToolStrip<SelectToolStrip>();
-
-                foreach (var objsType in selectToolStrip.GetObjsTypes())
-                {
-                    if (objsType == ar)
-                        selectToolStrip.SelectObjectsType = objsType;
-                }
+                SelectedObjects = ar;
 
                 SceneControl.DisplayObjects();
             };
@@ -316,7 +295,7 @@ namespace ResultModule
             anPage = new AnimationPage() { Dock = DockStyle.Fill };
             anPage.ShowResultEvent += (ar1, ar2) =>
             {
-                if (TreeView.SelectedNode?.Level == 3)
+                if (NavigatorControl.TreeView.SelectedNode?.Level == 2)
                     ShowResults(ar2.Time, ar2.ResultKind, ar2.ScaleFactor);
                 else ConsoleControl.PrintInfo("Выберите результаты для отображения!", Color.Red);
             };
@@ -472,11 +451,15 @@ namespace ResultModule
         {
             if(e.ClickedItem.Tag.ToString() == "0")
             {
-                ClearAllDataOnScene();
-                ModelPresenter.Remove("Поверхности");
-                ModelPresenter.Remove("Линии");
+                ModelController.CreateModelPresenter(Project.Model);
+
+                foreach (var item in ModelPresenter.Keys)
+                    PresentDataToScene(item);
+
+                SceneControl.DisplayObjects();
+
                 Project.ResultData.Clear();
-                TreeView.Nodes[6].Nodes.Clear();
+                NavigatorControl.TreeView.Nodes[6].Nodes.Clear();
             }
             else if (e.ClickedItem.Tag.ToString() == "1")
             {
@@ -489,8 +472,13 @@ namespace ResultModule
             else if (e.ClickedItem.Tag.ToString() == "3")
             {
                 ClearAllDataOnScene();
-                ModelPresenter.Remove("Поверхности");
-                ModelPresenter.Remove("Линии");
+
+                ModelController.CreateModelPresenter(Project.Model);
+
+                foreach (var item in ModelPresenter.Keys)
+                    PresentDataToScene(item);
+
+                SceneControl.DisplayObjects();
             }
             else if (e.ClickedItem.Tag.ToString() == "4")
             {
@@ -513,19 +501,11 @@ namespace ResultModule
             }
         }
 
-        //private void ClearResults()
-        //{
-        //    ClearResults();
-
-        //    Project.ResultData.Clear();
-        //    TreeView.Nodes[6].Nodes.Clear();
-        //}
-
         private void ShowResults(float time, string resKind, int scaleFactor)
         {
             //var timeStr = rtbTimeSteps.Lines[resIndex];
 
-            var selNode = TreeView.SelectedNode;
+            var selNode = NavigatorControl.TreeView.SelectedNode;
             var resDes = selNode.Name;
 
             var colorRanges = scale.ColorRange().ToArray();
@@ -533,7 +513,7 @@ namespace ResultModule
 
             var result = Project.ResultData.FindByTime(resKind, time);
 
-            var fieldCreator = new FieldCreator(Project);
+            var fieldCreator = new FieldCreator();
             
             if(Project.TaskType == TaskType.Volume)
             {
@@ -546,11 +526,13 @@ namespace ResultModule
                 fieldCreator.SetFieldCreator(new GradientFieldsCreator(els2D, valueRanges, colorRanges, scaleFactor));
             }
 
-            var resName = TreeView.SelectedNode.Name;
-            var objsType = TreeView.SelectedNode.Parent.Name;
+            var resName = NavigatorControl.TreeView.SelectedNode.Name;
+            var objsType = NavigatorControl.TreeView.SelectedNode.Parent.Name.Remove(0,10);
             var resultSurfaces = fieldCreator.CreateFieldObjects(result, objsType, resName);
 
-            ClearAllDataOnScene();
+            SceneControl.HideDisplayText2D();
+            SceneControl.HideDisplayText3D();
+            SceneControl.DeleteAllVBObjects();
 
             if (showResultValue)
                 ShowResultValue(objsType, resName, result);
@@ -560,12 +542,12 @@ namespace ResultModule
             var resultModel = new ModelData();
             resultModel.ObjectData.AddRange(resultSurfaces);
 
-            ModelPresenter = new ModelScenePresentator(resultModel);
+            ModelController.CreateModelPresenter(resultModel);
 
             foreach (var item in ModelPresenter.Keys)
                 PresentDataToScene(item);
 
-            SceneControl.ChangeViewModeVBObjects("Поверхность", ObjView.Surface);
+            SceneControl.ChangeViewModeVBObjects("Поверхности", ObjView.Surface);
 
             SceneControl.DisplayObjects();
         }
@@ -573,13 +555,12 @@ namespace ResultModule
         private void CreatePathGraph(string resKind, string objsType, float time)
         {
 
-            var selNode = TreeView.SelectedNode;
+            var selNode = NavigatorControl.TreeView.SelectedNode;
             var resDes = selNode.Name;
 
             var result = Project.ResultData.FindByTime(resKind, time);
 
-            var selectStrip = FindToolStrip<SelectToolStrip>();
-            var objsPresenter = ModelPresenter[selectStrip.SelectObjectsType];
+            var objsPresenter = ModelPresenter[SelectedObjects];
 
             var objs = objsPresenter.GetObjs(SceneControl.SelectionColor).ToList();
             objs.SortByDistance();
@@ -631,14 +612,13 @@ namespace ResultModule
         private void CreateTimeGraph(string resKind, string objsType)
         {
 
-            var selNode = TreeView.SelectedNode;
+            var selNode = NavigatorControl.TreeView.SelectedNode;
             var resDes = selNode.Name;
 
             var results = Project.ResultData.FindByTaskKind(resKind);
             var grDataAr = new List<GraphData>();
 
-            var selectStrip = FindToolStrip<SelectToolStrip>();
-            var objsPresenter = ModelPresenter[selectStrip.SelectObjectsType];
+            var objsPresenter = ModelPresenter[SelectedObjects];
 
             foreach (var obj in objsPresenter.GetObjs(SceneControl.SelectionColor))
             {
@@ -706,14 +686,14 @@ namespace ResultModule
             if(!addRes)
             {
                 Project.ResultData.Clear();
-                TreeView.Nodes[6].Nodes.Clear();
+                NavigatorControl.TreeView.Nodes[6].Nodes.Clear();
             }
 
             Project.ResultData.AddRange(results, new ResultsComparer());
 
             var resKind = results.First().TaskKind.ToString();
 
-            if (TreeView.Nodes[6].Nodes.Find(resKind, false).Count() == 0)
+            if (NavigatorControl.TreeView.Nodes[6].Nodes.Find(resKind, false).Count() == 0)
                 PresentResultsOnTree(results);
 
             anPage?.Clear();
@@ -727,8 +707,8 @@ namespace ResultModule
             else
                 elements = Project.Model.ObjectData.FindMany<Element2D>().ToArray();
             
-            var interfaceNodesFinder = new FindInterfacedNodes(elements);
-            var interfaceNodes = interfaceNodesFinder.Find();
+            var interfaceNodes = ModelController.InterfacedNodesFinder.Find(elements);
+
             var mergeResults = new MergeResults(results);
             var resNames = results[0].GetDataSchema("elements");
 
@@ -740,64 +720,30 @@ namespace ResultModule
         {
             var nodeSchema = results.First().GetDataSchema("nodes");
             var elemSchema = results.First().GetDataSchema("elements");
-            var resultsName = results.First().TaskKind.ToString();
-            var resNode = new TreeNode()
-            {
-                Text = resultsName,
-                Name = resultsName,
-                ImageIndex = CollapseIndex,
-                SelectedImageIndex = CollapseIndex,
-                Tag = "6"
-            };
 
-            var nodesNode = new TreeNode()
-            {
-                Text = "Узлы",
-                Name = "Узлы",
-                ImageIndex = CollapseIndex,
-                SelectedImageIndex = CollapseIndex,
-                Tag = "6.1"
-            };
-            CreateTreeNodesResDesc(nodeSchema, nodesNode, imgDict["Узлы"]);
-            resNode.Nodes.Add(nodesNode);
+            var nodeNode = new TreeNode("РезультатыУзлы", 1, 1) { Name = "РезультатыУзлы", Tag = "6.1"};             
+            NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(nodeNode);
+            var elemNode = new TreeNode("РезультатыЭлементы", 1, 1) { Name = "РезультатыЭлементы", Tag = "6.1" };
+            NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(elemNode);
 
-            var elemsNode = new TreeNode()
+            foreach (var desc in nodeSchema)
             {
-                Text = "Элементы",
-                Name = "Элементы",
-                ImageIndex = CollapseIndex,
-                SelectedImageIndex = CollapseIndex,
-                Tag = "6.1"
-            };
-            CreateTreeNodesResDesc(elemSchema, elemsNode, imgDict["Элементы"]);
-            resNode.Nodes.Add(elemsNode);
+                NavigatorControl.CreateChildNode("РезультатыУзлы", desc, desc, "6.1.1");
+            }
 
-            TreeView.Nodes[6].Nodes.Add(resNode);
-        }
-
-        public void CreateTreeNodesResDesc(List<string> resultSchema, TreeNode treeNode, int picIndex)
-        {
-            foreach (var desc in resultSchema)
+            foreach (var desc in elemSchema)
             {
-                var node = new TreeNode()
-                {
-                    Text = desc,
-                    Name = desc,
-                    ImageIndex = picIndex,
-                    SelectedImageIndex = picIndex,
-                    Tag = "6.1.1"
-                };
-                treeNode.Nodes.Add(node);
+                NavigatorControl.CreateChildNode("РезультатыЭлементы", desc, desc, "6.1.1");
             }
         }
 
         public void CreateScale()
         {
             SceneControl.HideGeometryObj("CreateScaleObject");
-            if(TreeView.SelectedNode?.Level == 3)
+            if(NavigatorControl.TreeView.SelectedNode?.Level == 3)
             {
-                var title = TreeView.SelectedNode.Parent.Name;
-                var comments = TreeView.SelectedNode.Name;
+                var title = NavigatorControl.TreeView.SelectedNode.Parent.Name;
+                var comments = NavigatorControl.TreeView.SelectedNode.Name;
                 SceneControl.CreateScaleObject(
           scale.Coord_X, scale.Coord_Y, scale.ColorRange().ToArray(), scale.ValueRange().ToList(), title, comments);
             }

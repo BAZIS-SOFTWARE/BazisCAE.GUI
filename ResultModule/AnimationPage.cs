@@ -12,6 +12,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System.IO;
 using Geometry;
 using PlayerControl;
+using Project.TasksData.Functions;
 
 namespace ResultModule
 {
@@ -27,6 +28,8 @@ namespace ResultModule
         }
 
         Dictionary<string, List<float>> resItems;
+
+        public bool MakeGifAnimation { get; private set; } = false;
 
         public void SetResultsItems(Dictionary<string, List<float>> resItems)
         {
@@ -70,48 +73,43 @@ namespace ResultModule
         //    colorSlider.Value = colorSlider.Maximum;
         //}
 
-        private void btnPlayResults_Click(object sender, EventArgs e)
-        {
-            PlayResults(false);
-        }
+        //private void PlayResults(bool makeGifAnimation)
+        //{
+        //    var timer = new System.Windows.Forms.Timer();
 
-        private void PlayResults(bool makeGifAnimation)
-        {
-            var timer = new System.Windows.Forms.Timer();
+        //    timer.Interval = int.Parse(txbDelayTime.Text);
+        //    var ind = 0;
 
-            timer.Interval = int.Parse(txbDelayTime.Text);
-            var ind = 0;
+        //    var scaleFactor = int.Parse(txbScale.Text);
+        //    var maxInd = player.StopValue;
+        //    timer.Tick += new EventHandler
+        //        (
+        //        new Action<object, EventArgs>((s, a) =>
+        //        {
+        //            if (ind > maxInd)
+        //            {
+        //                timer.Stop();
 
-            var scaleFactor = int.Parse(txbScale.Text);
-            var maxInd = player.StopValue;
-            timer.Tick += new EventHandler
-                (
-                new Action<object, EventArgs>((s, a) =>
-                {
-                    if (ind > maxInd)
-                    {
-                        timer.Stop();
+        //                if (makeGifAnimation)
+        //                    CreateGIFAnimationEvent(this, new CreateAnimationEventArgs(chbDelTempScrs.Checked, timer.Interval));
+        //            }
 
-                        if (makeGifAnimation)
-                            CreateGIFAnimationEvent(this, new CreateAnimationEventArgs(chbDelTempScrs.Checked, timer.Interval));
-                    }
+        //            else
+        //            {
+        //                var testArr = richTextBox.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+        //                //player.StartValue = ind;
+        //                MarkTimeStep(ind);
+        //                var time = float.Parse(testArr[ind]);
+        //                ShowResultEvent(this, new ShowResultEventArgs(cmbResultNames.SelectedItem.ToString(), time, scaleFactor));
 
-                    else
-                    {
-                        var testArr = richTextBox.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-                        //playerControl.CheckStartTime = ind;
-                        MarkTimeStep(ind);
-                        var time = float.Parse(testArr[ind]);
-                        ShowResultEvent(this, new ShowResultEventArgs(cmbResultNames.SelectedItem.ToString(), time, scaleFactor));
-
-                        if (makeGifAnimation)
-                            SaveScreenShotEvent($@"screenShot_{ind}");
-                    }
-                    ind++;
-                })
-                );
-            timer.Start();
-        }
+        //                if (makeGifAnimation)
+        //                    SaveScreenShotEvent($@"screenShot_{ind}");
+        //            }
+        //            ind++;
+        //        })
+        //        );
+        //    timer.Start();
+        //}
 
 
         //private void btnMoveToStart_Click(object sender, EventArgs e)
@@ -122,15 +120,10 @@ namespace ResultModule
         private void cmbResultNames_SelectedIndexChanged(object sender, EventArgs e)
         {
             playerPanel.Enabled = true;
+            richTextBox.Clear();
+
             var times = resItems[cmbResultNames.SelectedItem.ToString()];
 
-            richTextBox.Clear();
-            if(times.Count() > 1)
-                player.StopValue = times.Count() - 1;
-            else if(times.Count() == 1)
-                player.StartValue = 1;
-
-            player.CurrentValue = 0;
             foreach (var time in times)
                 richTextBox.AppendText($"{time}\n");
         }
@@ -155,8 +148,8 @@ namespace ResultModule
                 //Получаем номер строки по знаку
                 var lineIndex = richTextBox.GetLineFromCharIndex(charIndex);
 
-                //playerControl.CheckCurrentTime = lineIndex;
-                //colorSlider.Value = lineIndex;
+                player.CurrentValue = lineIndex;
+
                 ShowResults(lineIndex);
 
                 //Получаем номер индекса, который стоит 1-м в строке
@@ -201,7 +194,8 @@ namespace ResultModule
 
         private void btnCreateAnimation_Click(object sender, EventArgs e)
         {
-            PlayResults(true);
+            MakeGifAnimation = true;
+            player.StartChecking_Click(this, new EventArgs());
         }
 
         internal void Clear()
@@ -212,30 +206,39 @@ namespace ResultModule
 
         private void playerControl_CheckingEvent(object arg1, float arg2)
         {
+            MarkTimeStep((int)arg2);
+            var scaleFactor = int.Parse(txbScale.Text);
 
+            var times = resItems[cmbResultNames.SelectedItem.ToString()];
+            
+            ShowResultEvent(this, new ShowResultEventArgs(cmbResultNames.SelectedItem.ToString(), times[(int)arg2], scaleFactor));
+
+            if (MakeGifAnimation)
+                SaveScreenShotEvent($@"screenShot_{arg2}");
         }
 
         private void playerControl_StartCheckingEvent(object obj)
         {
-            PlayResults(false);
+            //PlayResults(false);
+            player.SpeedValue = int.Parse(txbDelayTime.Text);
 
-       //     var gridViewList = new List<DataGridView>();
-       //     SearchControls(this, gridViewList);
+            var times = resItems[cmbResultNames.SelectedItem.ToString()];
 
-       //     var checkStopTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
-       //.Max(r => Convert.ToSingle(r.Cells["stopColumn"].Value, CultureInfo.InvariantCulture));
-
-       //     var checkStartTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
-       //                 .Min(r => Convert.ToSingle(r.Cells["startColumn"].Value, CultureInfo.InvariantCulture));
-
-       //     player.CheckStartTime = checkStartTime;
-       //     player.CheckStopTime = checkStopTime;
-       //     player.CheckCurrentTime = checkStartTime;
+            if (times.Count() > 1)
+                player.StopValue = times.Count() - 1;
+            else if (times.Count() == 1)
+                player.StartValue = 0;
         }
 
         private void playerControl_StopCheckingEvent(object obj)
         {
-
+            if (MakeGifAnimation)
+            {
+                var delay = int.Parse(txbDelayTime.Text);
+                CreateGIFAnimationEvent(this, new CreateAnimationEventArgs(chbDelTempScrs.Checked, delay));
+                MakeGifAnimation = false;
+            }
+                
         }
     }
 }

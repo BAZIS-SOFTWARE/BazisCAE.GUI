@@ -15,7 +15,7 @@ using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.HeatTreatmentModule
 {
-    public partial class DiffusionСontrol : CheckedGridViewAdviserControl, IElmentsGroupsControl, IFunctionsRelatedControl, ICheckGridViewControl
+    public partial class DiffusionСontrol : CheckedGridViewAdviserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
 
         [Category("Images")]
@@ -332,6 +332,11 @@ namespace TaskModule.HeatTreatmentModule
             {
                 cmbTempreture.Items.Add(function);
             }
+        }
+
+        public void Fill_nGroups(List<string> groupNames)
+        {
+            throw new Exception("Метод не реализован!");
         }
     }
 }

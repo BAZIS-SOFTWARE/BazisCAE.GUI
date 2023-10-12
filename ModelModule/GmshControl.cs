@@ -81,19 +81,22 @@ namespace ModelModule
         {
             if (FillModelDataMesh())
             {
-                var ierr = 0;
-                ClearVolumesTree();
-                ClearMeshTree();
-                FillMeshTreeView();
-                ShowHideMeshControls(true);
-                var dim = controller.gmshModelGetDimension(ref ierr);
-                if (dim > 2)
-                {
-                    ShowHideVolumeBox(true);
-                    ShowHideVolumeControls(false);
-                }
-                redrawScene?.Invoke(false, new string[] { "Узлы", "Элементы1D", "Элементы2D" });
+                //var message = GmshWrapperGeneral.LoggerGetLastError();
+                showErrorMessage?.Invoke("");
+                return;
             }
+            modelData.Clear();
+            ClearVolumesTree();
+            ClearMeshTree();
+            FillModelDataMesh();
+            FillMeshTreeView();
+            ShowHideMeshControls(true);
+            if (geometry.GetMaxDimension() > 2)
+            {
+                ShowHideVolumeBox(true);
+                ShowHideVolumeControls(false);
+            }
+            redrawScene?.Invoke(false, new string[] { "Узлы", "Элементы1D", "Элементы2D" });
         }
 
         private void UpdateVolumes()

@@ -194,6 +194,7 @@
             // 
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.player.AutoSize = true;
             this.player.CheckState = PlayerControl.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(165, 79);
@@ -205,6 +206,7 @@
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
             this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.player.SpeedValue = 500;
             this.player.StartValue = 0;
             this.player.StopValue = 100;
             this.player.TabIndex = 14;
@@ -529,10 +531,9 @@
             // rbtAlphaFe
             // 
             this.rbtAlphaFe.AutoSize = true;
-            this.rbtAlphaFe.Dock = System.Windows.Forms.DockStyle.Left;
-            this.rbtAlphaFe.Location = new System.Drawing.Point(3, 16);
+            this.rbtAlphaFe.Location = new System.Drawing.Point(9, 22);
             this.rbtAlphaFe.Name = "rbtAlphaFe";
-            this.rbtAlphaFe.Size = new System.Drawing.Size(47, 29);
+            this.rbtAlphaFe.Size = new System.Drawing.Size(47, 17);
             this.rbtAlphaFe.TabIndex = 15;
             this.rbtAlphaFe.TabStop = true;
             this.rbtAlphaFe.Text = "α Fe";
@@ -542,7 +543,7 @@
             // rbtGammaFe
             // 
             this.rbtGammaFe.AutoSize = true;
-            this.rbtGammaFe.Location = new System.Drawing.Point(100, 20);
+            this.rbtGammaFe.Location = new System.Drawing.Point(62, 22);
             this.rbtGammaFe.Name = "rbtGammaFe";
             this.rbtGammaFe.Size = new System.Drawing.Size(46, 17);
             this.rbtGammaFe.TabIndex = 15;

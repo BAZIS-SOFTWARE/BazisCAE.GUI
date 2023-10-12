@@ -26,31 +26,23 @@ namespace AdvisorControls.TaskPlannerControls
         {
             var mechParameters = new MechanicalParameters();
 
-            if(chbDUiMax.Checked)
+            if (chbUMax.Checked)
             {
-                mechParameters.ConvergenceSettings.Is_Switched_DXmi = true;
-                mechParameters.ConvergenceSettings.DXmi = Convert.ToSingle(txbMaxDUi.Text);
+                mechParameters.MechanicalConvergence.Is_Switched_Um = true;
+                mechParameters.MechanicalConvergence.Um = Convert.ToSingle(txbMaxU.Text);
             }
 
-            if (chbDUtMax.Checked)
-            {
-                mechParameters.ConvergenceSettings.Is_Switched_DXmt = true;
-                mechParameters.ConvergenceSettings.DXmt = Convert.ToSingle(txbMaxDUt.Text);
-            }
-            if (chbDSiMax.Checked)
-            {
-                mechParameters.ConvergenceSettings.Is_Switched_DYmi = true;
-                mechParameters.ConvergenceSettings.DYmi = Convert.ToSingle(txbMaxDSi.Text);
-            }
-            if (chbDStMax.Checked)
-            {
-                mechParameters.ConvergenceSettings.Is_Switched_DYmt = true;
-                mechParameters.ConvergenceSettings.DYmt = Convert.ToSingle(txbMaxDSt.Text);
-            }
+            mechParameters.MechanicalConvergence.DUm = Convert.ToSingle(txbMaxDU.Text);
+            mechParameters.MechanicalConvergence.SiStm = Convert.ToSingle(txbMaxSiSt.Text);
 
-            mechParameters.ConvergenceSettings.Iterations = Convert.ToInt32(txbIters.Text);
+            mechParameters.Iterations = Convert.ToInt32(txbIters.Text);
 
-            //mechParameters.BodyTemp = Convert.ToSingle(txbBodyTemp.Text);
+            mechParameters.MechanicalConvergence.Is_Physically_NonLinear = true;
+            mechParameters.MechanicalConvergence.MaterialPlasticityCoeff = 0.5f;
+
+            mechParameters.MechanicalConvergence.PlasticityCriterion = Convert.ToSingle(txbMaxSiSt.Text);
+
+            mechParameters.InitTemp = Convert.ToSingle(txbBodyTemp.Text);
             mechParameters.SaveRate = Convert.ToInt32(txbSaveRate.Text);
 
             mechParameters.SolverSettings.Solver = cmbSolver.Text;
@@ -65,14 +57,21 @@ namespace AdvisorControls.TaskPlannerControls
         public override void InputData(GeneralParameters parameters)
         {
             var mechParameters = (MechanicalParameters)parameters;
-            txbMaxDSt.Text = mechParameters.ConvergenceSettings.DYmt.ToString();
-            txbMaxDSi.Text = mechParameters.ConvergenceSettings.DYmi.ToString();
-            txbMaxDUt.Text = mechParameters.ConvergenceSettings.DXmt.ToString();
-            txbMaxDUi.Text = mechParameters.ConvergenceSettings.DXmi.ToString();
-            txbIters.Text = mechParameters.ConvergenceSettings.Iterations.ToString();
+
+            if (mechParameters.MechanicalConvergence.Is_Physically_NonLinear)
+                chbPlastisity.Checked = true;
+
+            if (mechParameters.MechanicalConvergence.Is_Switched_Um)
+                chbUMax.Checked = true;
+
+            txbMaxSiSt.Text = mechParameters.MechanicalConvergence.SiStm.ToString();
+
+            txbMaxU.Text = mechParameters.MechanicalConvergence.Um.ToString();
+            txbMaxDU.Text = mechParameters.MechanicalConvergence.DUm.ToString();
+            txbIters.Text = mechParameters.Iterations.ToString();
 
             txbSaveRate.Text = mechParameters.SaveRate.ToString();
-            //txbBodyTemp.Text = mechParameters.BodyTemp.ToString();
+            txbBodyTemp.Text = mechParameters.InitTemp.ToString();
 
             cmbSolver.Text = mechParameters.SolverSettings.Solver;
             txbSolverIterations.Text = mechParameters.SolverSettings.MaxIter.ToString();
@@ -103,54 +102,11 @@ namespace AdvisorControls.TaskPlannerControls
                     txbRelaxation.Enabled = true;
                     txbSolverIterations.Enabled = true;
                 }
-
-            base.AllTextBox_TextChanged(sender, e);
         }
 
         public override void Txb_EnabledChanged(object sender, EventArgs e)
         {
             base.Txb_EnabledChanged(sender, e);
-        }
-
-
-        private void CheBox_CheckedChanged(object sender, EventArgs e)
-        {
-            var chb = sender as CheckBox;
-
-            if (chb == chbDUtMax)
-                if (chb.Checked)
-                {
-                    txbMaxDUt.Text = "10";
-                    txbMaxDUt.Enabled = true;
-                }
-                else
-                {
-                    txbMaxDUt.Text = "0";
-                    txbMaxDUt.Enabled = false;
-                }
-            if (chb == chbDStMax)
-                if (chb.Checked)
-                {
-                    txbMaxDSt.Text = "50";
-                    txbMaxDSt.Enabled = true;
-                }
-                else
-                {
-                    txbMaxDSt.Text = "0";
-                    txbMaxDSt.Enabled = false;
-                }
-            if (chb == chbDSiMax)
-                if (chb.Checked)
-                {
-                    txbMaxDSi.Text = "5";
-                    txbMaxDSi.Enabled = true;
-                }
-                else
-                {
-                    txbMaxDSi.Text = "0";
-                    txbMaxDSi.Enabled = false;
-                }
-
         }
 
         private void btnLoadParameters_Click(object sender, EventArgs e)
@@ -177,6 +133,32 @@ namespace AdvisorControls.TaskPlannerControls
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void chbPlastisity_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chbPlastisity.Checked)
+            {
+                chbUMax.Checked = true;
+                chbUMax.Enabled = true;
+                txbMaxDU.Enabled = true; 
+                txbMaxSiSt.Enabled = true;
+            }
+            else
+            {
+                chbUMax.Checked = false;
+                chbUMax.Enabled = false;
+                txbMaxDU.Enabled = false;
+                txbMaxSiSt.Enabled = false;
+            }
+        }
+
+        private void chbUMax_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chbUMax.Checked)
+                txbMaxU.Enabled = true;
+            else
+                txbMaxU.Enabled = false;
         }
     }
 }

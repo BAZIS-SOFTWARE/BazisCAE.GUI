@@ -1,13 +1,8 @@
-﻿using PlayerControl;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Events;
@@ -15,7 +10,7 @@ using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
-    public partial class WeldingControl : CheckedGridViewAdviserControl, INodesGroupControl, IElmentsGroupsControl, IFunctionsRelatedControl, ICheckGridViewControl
+    public partial class WeldingControl : CheckedGridViewAdviserControl, ILoadControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
         List<string> funcs = new List<string>();
 
@@ -74,21 +69,24 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             {
                 if (rbtARC.Checked)
                 {
-                    var controls = new List<ArcWeldingControl>();
-                    Functions.Search.RecursiveSearch.AllTypedControls(grbWeldRegime, controls);
-                    return controls[0].CollectData();
+                    var arcControl = (ArcWeldingControl)Controls.Cast<Control>().
+      Where(x => x.GetType() == typeof(ArcWeldingControl)).First();
+
+                    return arcControl.CollectData();
                 }
                 else if (rbtFSW.Checked)
                 {
-                    var controls = new List<FSWeldingControl>();
-                    Functions.Search.RecursiveSearch.AllTypedControls(grbWeldRegime, controls);
-                    return controls[0].CollectData();
+                    var fswControl = (FSWeldingControl)Controls.Cast<Control>().
+Where(x => x.GetType() == typeof(FSWeldingControl)).First();
+
+                    return fswControl.CollectData();
                 }
                 else if (rbtLW.Checked)
                 {
-                    var controls = new List<LWeldingControl>();
-                    Functions.Search.RecursiveSearch.AllTypedControls(grbWeldRegime, controls);
-                    return controls[0].CollectData();
+                    var lwControl = (LWeldingControl)Controls.Cast<Control>().
+Where(x => x.GetType() == typeof(LWeldingControl)).First();
+
+                    return lwControl.CollectData();
                 }
                 else return null;
             }

@@ -11,6 +11,7 @@ using Project.TasksData.TaskParameters;
 using Project.TasksData;
 using System.Threading;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
@@ -44,7 +45,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         public string Path { get; set; }
 
         public event Action<object,EventArgs> AddDataUseTaskConditionsEvent;
-        public event Action<object, string> StartComputationEvent;
+        public event Action<object, EventArgs> StartComputationEvent;
         public event Action<object, EventArgs> StopComputationEvent;
 
         enum Column : int { kind, settings, status };
@@ -81,7 +82,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            StartComputationEvent(this, Path);
+            StartComputationEvent(this, new EventArgs());
         }                 
 
         private void grbTask_Paint(object sender, PaintEventArgs e)
@@ -236,8 +237,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 TaskKind taskKind;
                 Enum.TryParse(kind, out taskKind);
 
-                GenerateTsfFile(taskKind);
-                CurentSelectedRowInfo = AddRowInfo(taskKind, taskStatus);
+                GenerateTsfFile(taskKind, CurentSelectedRowIndex);
+                CurentSelectedRowInfo = AddRowInfo(taskKind, taskStatus, CurentSelectedRowIndex);
                 base.RefreshButton_Click(sender, e);
 
                 btnRefresh.Enabled = false;
@@ -248,11 +249,14 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             }
         }
 
-        private void GenerateTsfFile(TaskKind taskKind)
+        private bool GenerateTsfFile(TaskKind taskKind, int taskIndex)
         {
             try
             {
                 var parameters = Get_TaskSettings(taskKind);
+
+                parameters.TermalProcesses = new List<string>() { "Охлаждение", "Нагрев" };
+
                 parameters.TimeSettings.StartTime = Convert.ToSingle(txbStartTime.Text);
                 parameters.TimeSettings.StopTime = Convert.ToSingle(txbStopTime.Text);
                 parameters.TimeSettings.InitTimeStep = Convert.ToSingle(txbStartStep.Text);
@@ -289,55 +293,74 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 else
                     tsfStr = JsonConvert.SerializeObject(parameters, settingsSerializer);
 
-                var tsfFileName = $"{taskKind}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
+                var tsfFileName = $"{taskKind}_{taskIndex}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
 
                 File.WriteAllText($@"{Path}\{tsfFileName}", tsfStr);
+
+                return true;
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (chbAddByTaskConditions.Checked)
-                AddDataUseTaskConditionsEvent?.Invoke(this, new EventArgs());
-            else
+            try
             {
-                if (chbChemicalTask.Checked)
+                if (chbAddByTaskConditions.Checked)
+                    AddDataUseTaskConditionsEvent?.Invoke(this, new EventArgs());
+                else
                 {
-                    GenerateTsfFile(TaskKind.химическая);
-                    CurentSelectedRowInfo = AddRowInfo(TaskKind.химическая, TaskStatus.выполнить);
-                    base.AddButton_Click(this, new EventArgs());
+                    var isTsfFileCreated = false;
+                    if (chbChemicalTask.Checked)
+                    {
+                        CurentSelectedRowInfo = AddRowInfo(TaskKind.химическая, TaskStatus.выполнить, CountRows);
+                        isTsfFileCreated = GenerateTsfFile(TaskKind.химическая, CountRows);
+                    }
+                    Thread.Sleep(100);
+                    if (chbTermoTask.Checked)
+                    {
+                        CurentSelectedRowInfo = AddRowInfo(TaskKind.термическая, TaskStatus.выполнить, CountRows);
+                        isTsfFileCreated = GenerateTsfFile(TaskKind.термическая, CountRows);
+                    }
+                    Thread.Sleep(100);
+                    if (chbMechTask.Checked)
+                    {
+                        CurentSelectedRowInfo = AddRowInfo(TaskKind.механическая, TaskStatus.выполнить, CountRows);
+                        isTsfFileCreated = GenerateTsfFile(TaskKind.механическая, CountRows);
+
+                    }
+                    if(isTsfFileCreated)
+                    {
+                        base.AddButton_Click(this, new EventArgs());
+                        var temp = txbStopTime.Text;
+                        txbStartTime.Text = temp;
+                    }
+
                 }
-                Thread.Sleep(100);
-                if (chbTermoTask.Checked)
-                {
-                    GenerateTsfFile(TaskKind.термическая);
-                    CurentSelectedRowInfo = AddRowInfo(TaskKind.термическая, TaskStatus.выполнить);
-                    base.AddButton_Click(this, new EventArgs());
-                }
-                Thread.Sleep(100);
-                if (chbMechTask.Checked)
-                {
-                    GenerateTsfFile(TaskKind.механическая);
-                    CurentSelectedRowInfo = AddRowInfo(TaskKind.механическая, TaskStatus.выполнить);
-                    base.AddButton_Click(this, new EventArgs());
-                }
-            
-                var temp = txbStopTime.Text;
-                txbStartTime.Text = temp;
+                btnRefresh.Enabled = false;
             }
-            btnRefresh.Enabled = false;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
 
         }
 
-        private string AddRowInfo(TaskKind taskKind, TaskStatus status)
+        private string AddRowInfo(TaskKind taskKind, TaskStatus status, int taskInd)
         {
-            var tsfFileName = $"{taskKind}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
+            if (txbStartTime.Text == "")
+                throw new Exception("Время старта не указано");
 
+            if (txbStopTime.Text == "")
+                throw new Exception("Время окончания не указано");
+
+            var tsfFileName = $"{taskKind}_{taskInd}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
             return $"\"{taskKind} {tsfFileName} {status}\"";
         }
 

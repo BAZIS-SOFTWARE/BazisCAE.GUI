@@ -20,9 +20,8 @@ using Functions.Parser;
 using DataBaseController.MaterialData;
 using DataBaseController.FunctionData;
 using Newtonsoft.Json;
-using ToolStrips;
-using SceneInterface;
 using Model.Interfaces;
+using BaseModule.Navigator;
 
 namespace TaskModule
 {
@@ -33,29 +32,12 @@ namespace TaskModule
 
         public MaterialDBData MatData { get; set; }
         public FunctionDBData FunData { get; set; }
-        //public IDataInformer DataInformer { get; set; }
-        //public ILoader MatDataLoader { get; set; }
-        //public ILoader FunDataLoader { get; set; }
-
-        //public ISaver MatDataSaver { get; set; }
-        //public ISaver FunDataSaver { get; set; }
 
         private ToolStripStatusLabel solverStatusLabel;
-        private Dictionary<string, int> imgDict;
 
         public TaskPage()
         {
             InitializeComponent();
-
-            imgDict = new Dictionary<string, int>()
-            {
-                { "Материал",8},
-                { "Среда",9},
-                { "Нагрев",10},
-                { "Закрепление",11},
-                { "Нагрузка",12},
-                { "Расчет",13}
-            };
 
             var list = new List<StatusStrip>();
             SearchControl(this, list);          
@@ -63,11 +45,10 @@ namespace TaskModule
             solverStatusLabel = new ToolStripStatusLabel() { Name = "solverStatus"};
             list[0].Items.Add(solverStatusLabel);
 
-            //MatDataLoader = new LoadMaterialDataBaseFromTextFormat();
-            //FunDataLoader = new LoadFunctionDataBaseFromTextFormat();
-            //MatDataSaver = new SaveMaterialDataBaseToTextFormat();
-            //FunDataSaver = new SaveFunctionDataBaseToTextFormat();
-            //DataInformer = new DataBaseInformer();
+            var taskNode = new TreeNode("Данные", 1, 1) { Name = "Данные", Tag = "6" };
+            NavigatorControl.TreeView.Nodes.Add(taskNode);
+
+            ChangeProjectDataEvent += (ar1, ar2) => { PresentProjectTaskDataOnAdvisor(); };
         }
 
         public override void CreateMenuInterface()
@@ -155,77 +136,62 @@ namespace TaskModule
             activeTask = "";
         }
 
+        public virtual void UnCheckToolStripButtons()
+        {
+            throw new Exception("Метод не реализован");
+        }
+
         public void CreateAdvisor(TaskAdvisor taskAdv, Icon icon)
         {
-            if (activeTask != "")
+            activeTask = taskAdv.Name;
+            var form = new Form() { Text = activeTask, Name = activeTask, TopMost = true, Size = taskAdv.Size, Icon = icon };
+            form.FormClosed += (ar1, ar2) =>
             {
-                ConsoleControl.PrintInfo($"Закройте мастер постановки задачи {activeTask}", Color.Red);
+                if (ar2.CloseReason == CloseReason.UserClosing)
+                {
+                    //var taskToolStrip = FindToolStrip(activeTask);
 
-                foreach (var item in GetToolStripMenuItems())
-                    foreach (var dropItem in item.DropDownItems)
-                        if(dropItem is ToolStripMenuItem tls)
-                            if (tls.Name == taskAdv.Name)
+                    UnCheckToolStripButtons();
+
+                    foreach (var item in GetToolStripMenuItems())
+                        foreach (var dropItem in item.DropDownItems)
+                            if (dropItem is ToolStripMenuItem tls)
                                 tls.Checked = false;
-            }
-            else
+                }
+                activeTask = "";
+            };
+            form.Controls.Add(taskAdv);
+            form.Show();
+
+            taskAdv.AddDataEvent += TaskAdvisor_AddDataEvent;
+            taskAdv.DeleteDataEvent += TaskAdvisor_DeleteDataEvent;
+            taskAdv.DeleteAllDataEvent += TaskAdvisor_DeleteAllDataEvent;
+            taskAdv.CheckDataEvent += TaskAdvisor_CheckDataEvent;
+            taskAdv.HideDataEvent += TaskAdvisor_HideDataEvent;
+            taskAdv.ShowDataEvent += TaskAdvisor_ShowDataEvent;
+            taskAdv.ChangeDataEvent += TaskAdvisor_ChangeDataEvent;
+            taskAdv.StartComputationEvent += TaskAdvisor_StartComputationEvent;
+            taskAdv.StopComputationEvent += TaskAdv_StopComputationEvent;
+            taskAdv.Select2DAxiEvent += TaskAdvisor_ChangeTaskTypeEvent;
+            taskAdv.Select2DPlaneEvent += TaskAdvisor_ChangeTaskTypeEvent;
+            taskAdv.Select3DEvent += TaskAdvisor_ChangeTaskTypeEvent;
+
+            if (MatData != null | TryGetDataInfo(Project.Path, "materials.jsf"))
             {
-                activeTask = taskAdv.Name;
-                var form = new Form() { Text = activeTask, Name = activeTask, TopMost = true, Size = taskAdv.Size,Icon = icon };
-                form.FormClosed += (ar1, ar2) =>
-                {
-                    if (ar2.CloseReason == CloseReason.UserClosing)
-                    {
-                        var taskToolStrip = FindToolStrip(activeTask);
-
-                        foreach (ToolStripButton item in taskToolStrip.Items)
-                            item.Checked = false;
-
-                        foreach (var item in GetToolStripMenuItems())
-                            foreach (var dropItem in item.DropDownItems)
-                                if (dropItem is ToolStripMenuItem tls)
-                                    tls.Checked = false;
-                    }
-                    activeTask = "";
-                };
-                form.Controls.Add(taskAdv);
-                form.Show();
-
-                taskAdv.AddDataEvent += TaskAdvisor_AddDataEvent;
-                taskAdv.DeleteDataEvent += TaskAdvisor_DeleteDataEvent;
-                taskAdv.DeleteAllDataEvent += TaskAdvisor_DeleteAllDataEvent;
-                taskAdv.CheckDataEvent += TaskAdvisor_CheckDataEvent;
-                taskAdv.HideDataEvent += TaskAdvisor_HideDataEvent;
-                taskAdv.ShowDataEvent += TaskAdvisor_ShowDataEvent;
-                taskAdv.ChangeDataEvent += TaskAdvisor_ChangeDataEvent;
-                taskAdv.StartComputationEvent += TaskAdvisor_StartComputationEvent;
-                taskAdv.StopComputationEvent += TaskAdv_StopComputationEvent;
-                taskAdv.Select2DAxiEvent += TaskAdvisor_ChangeTaskTypeEvent;
-                taskAdv.Select2DPlaneEvent += TaskAdvisor_ChangeTaskTypeEvent;
-                taskAdv.Select3DEvent += TaskAdvisor_ChangeTaskTypeEvent;
-
-                if (MatData != null | 
-                    TryGetDataInfo(Project.Path, "materials.jsf") |
-                    TryGetDataInfo(Application.StartupPath, "materials.jsf")
-                    )
-                {
-                    var names = MatData.Keys.ToList();
-                    taskAdv.SetMaterialData(names);
-                }
-
-
-                if (FunData != null |
-                    TryGetDataInfo(Project.Path, "functions.jsf") |
-                    TryGetDataInfo(Application.StartupPath, "functions.jsf")
-                    )
-                {
-                    var names = FunData.Keys.ToList();
-                    taskAdv.SetFunctionData(names);
-                }
-
-                taskAdv.SetProjectData(Project);
-
-                PresentProjectTaskDataOnAdvisor(activeTask);
+                var names = MatData.Keys.ToList();
+                taskAdv.SetMaterialData(names);
             }
+
+
+            if (FunData != null | TryGetDataInfo(Project.Path, "functions.jsf"))
+            {
+                var names = FunData.Keys.ToList();
+                taskAdv.SetFunctionData(names);
+            }
+
+            taskAdv.SetProjectData(Project);
+
+            PresentProjectTaskDataOnAdvisor();
         }
 
         private void TaskAdv_StopComputationEvent(object arg1, EventArgs arg2)
@@ -259,7 +225,7 @@ namespace TaskModule
                     Formatting = Formatting.Indented,
                 };
 
-                var fullName = $@"{path}\{fileName}";
+                var fullName = res[0];
 
                 if (fileName == "materials.jsf")
                 {
@@ -277,30 +243,32 @@ namespace TaskModule
             else return false;
         }
 
-        public void TaskAdvisor_StartComputationEvent(object arg1, string arg2)
+        public void TaskAdvisor_StartComputationEvent(object arg1, EventArgs arg2)
         {
             try
             {
-                Project.Path = arg2;
-                SaveProjectData();
+                if (!SaveAsProjectData("bpf"))
+                    return;
 
                 var settingsSerializer = new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.Auto,
                     Formatting = Formatting.Indented
                 };
+                var matPath = $@"{Project.Path}\materials.jsf";
                 var matStr = JsonConvert.SerializeObject(MatData, settingsSerializer);
-                File.WriteAllText(@"{Project.Path}\materials.jsf", matStr);
+                File.WriteAllText(matPath, matStr);
 
+                var funPath = $@"{Project.Path}\functions.jsf";
                 var funStr = JsonConvert.SerializeObject(FunData, settingsSerializer);
-                File.WriteAllText(@"{Project.Path}\functions.jsf", funStr);
+                File.WriteAllText(funPath, funStr);
 
                 var myProcess = new Process();
 
                 myProcess.StartInfo.FileName = $@"{SolverPath}\BazisSolver.exe";
 
-                var projStr = string.Format(@"{0}\{1}", Project.Path, Project.Name);
-                var argStr = string.Join(" ", new string[] { projStr, matStr, funStr });
+                var projPath = $@"{Project.Path}\{Project.Name}";
+                var argStr = string.Join(" ", new string[] { projPath, matPath, funPath });
 
                 myProcess.StartInfo.Arguments = argStr;
                 myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
@@ -317,49 +285,22 @@ namespace TaskModule
             }
         }
 
-        public void SetProjectTaskDataInfo()
-        {
-            TreeView.BeginUpdate();
-
-            TreeView.Nodes["вид"].Text = "Вид : " + Project.TaskType;
-
-            TreeView.Nodes["Данные"].Expand();
-            TreeView.Nodes["Данные"].Nodes.Clear();
-
-            foreach (var data in Project.TaskData)
-            {
-                var node = new TreeNode()
-                {
-                    Name = data.ToString(),
-                    Text = data.ToString(),
-                    ImageIndex = imgDict[data.Name],
-                    SelectedImageIndex = imgDict[data.Name],
-                    Tag = "3.1"
-                };
-
-                TreeView.Nodes["Данные"].Nodes.Add(node);
-            }
-
-            TreeView.EndUpdate();
-        }
-
         public override void PresentProjectOnTree()
         {
             base.PresentProjectOnTree();
 
-            TreeView.Nodes.RemoveByKey("Данные");
+            NavigatorControl.TreeView.BeginUpdate();
 
-            var objsNode = new TreeNode()
+            NavigatorControl.TreeView.Nodes["Данные"].Nodes.Clear();
+            foreach (var data in Project.TaskData)
             {
-                Text = "Данные",
-                Name = "Данные",
-                ImageIndex = CollapseIndex,
-                SelectedImageIndex = CollapseIndex,
-                Tag = "3"
-            };
-            TreeView.Nodes.Add(objsNode);
+                NavigatorControl.CreateChildNode("Данные",data.Name, data.ToString(), "6.1");
+            }
 
-            SetProjectTaskDataInfo();
+            NavigatorControl.TreeView.EndUpdate();
+            NavigatorControl.TreeView.Nodes["Данные"].Expand();
+
+            //PresentProjectTaskDataOnAdvisor(activeTask);
         }
 
         public void TaskAdvisor_ChangeTaskTypeEvent(object arg1, ChangeTaskTypeEventArgs arg2)
@@ -370,14 +311,12 @@ namespace TaskModule
                 Project.SetTaskType(TaskType.AxiPlain);
             else Project.SetTaskType(TaskType.Volume);
 
+            NavigatorControl.TreeView.Nodes[3].Text = "Вид : " + Project.TaskType;
 
-            //PresentProjectTaskDataOnAdvisor(activeTask);
-
-            //var presentator = new ProjTreePresenter(Project);
-            SetProjectTaskDataInfo();
+            PresentProjectTaskDataOnAdvisor();
         }
 
-        public void PresentProjectTaskDataOnAdvisor(string taskName)
+        public void PresentProjectTaskDataOnAdvisor()
         {
             var taskForm = Application.OpenForms[activeTask];
             if (taskForm != null)
@@ -408,8 +347,11 @@ namespace TaskModule
                 }
                 else dataArray[arg2.Index].SetInfo(taskStrAr[0]);
 
-                PresentProjectTaskDataOnAdvisor(activeTask);
-                PresentProjectOnTree();
+                PresentProjectTaskDataOnAdvisor();
+
+                var dataIndex = Project.TaskData.IndexOf(dataArray[arg2.Index]);
+                NavigatorControl.TreeView.Nodes["Данные"].Nodes[dataIndex].Text = dataArray[arg2.Index].ToString();
+                //PresentProjectOnTree();
             }
             catch (Exception ex)
             {
@@ -424,12 +366,13 @@ namespace TaskModule
 
             foreach (var data in dataArray)
             {
+                var index = Project.TaskData.IndexOf(data);
+                NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
+
                 Project.TaskData.Remove(data);
             }
 
-            PresentProjectTaskDataOnAdvisor(activeTask);
-            PresentProjectOnTree();
-
+            PresentProjectTaskDataOnAdvisor();
         }
 
         public void TaskAdvisor_ShowDataEvent(object arg1, ShowDataEventArgs arg2)
@@ -447,21 +390,19 @@ namespace TaskModule
 
                 var presentor = ModelPresenter[group.ObjType];
 
-                foreach (var objNumber in group.ObjsNumbers)
+                foreach (var iobj in group)
                 {                   
-                    var modelObj = presentor.FindObj(objNumber);
-
                     if (data[index].Kind == DataKind.Mat)
-                        modelObj.MasterColor = Color.FromArgb(255, 255, 0);
+                        iobj.MasterColor = Color.FromArgb(255, 255, 0);
                     else if (data[index].Kind == DataKind.Med)
-                        modelObj.MasterColor = Color.FromArgb(255, 155, 0);
+                        iobj.MasterColor = Color.FromArgb(255, 155, 0);
                     else if (data[index].Kind == DataKind.Clamp | data[index].Kind == DataKind.Load)
-                        modelObj.MasterColor = Color.FromArgb(255, 0, 0);
+                        iobj.MasterColor = Color.FromArgb(255, 0, 0);
                     else if (data[index].Kind == DataKind.Heat)
-                        modelObj.MasterColor = Color.FromArgb(125,155, 255, 0);
+                        iobj.MasterColor = Color.FromArgb(125,155, 255, 0);
 
                     if (data[index].Direction != "*")
-                        DisplayDirection(data[index].StartTime, data[index], modelObj);
+                        DisplayDirection(data[index].StartTime, data[index], iobj);
                 }
 
                 var vboObjs = SceneControl.FindVBObj(group.ObjType);
@@ -479,12 +420,12 @@ namespace TaskModule
             float[] geomParam;
 
             var baseLineGr = Project.Model.GroupData.Find(data.MovedFrameFunction.BaseLine.Name);
-            var baseNodes = baseLineGr.ObjsNumbers.Select(x => (Node)Project.Model.ObjectData.Find(x));
+            var baseNodes = baseLineGr.Select(x => (Node)x);
             var basePoints = baseNodes.Select(x => x.Position).ToArray();
             data.MovedFrameFunction.BaseLine.SetPoints(basePoints);
 
             var refLineGr = Project.Model.GroupData.Find(data.MovedFrameFunction.RefLine.Name);
-            var refNodes = refLineGr.ObjsNumbers.Select(x => (Node)Project.Model.ObjectData.Find(x));
+            var refNodes = refLineGr.Select(x => (Node)x);
             var refPoints = refNodes.Select(x => x.Position).ToArray();
             data.MovedFrameFunction.RefLine.SetPoints(refPoints);
 
@@ -541,8 +482,11 @@ namespace TaskModule
 
             foreach (var point in modelObj.GetPoints())
             {
-                SceneControl.CreateLine(point, vector,10, color);
-                SceneControl.DisplayText3D(data.CalcValue(time, point).ToString(), Color.FromArgb(0, 0, 0), point);
+                var scl = 10 * (1.0f / Height * 1.0f / SceneControl.ScaleFactor);
+                vector = vector.Mult(scl);
+                var p1 = point.Sum(vector);
+                SceneControl.CreateLine(point, p1, color);
+                //SceneControl.DisplayText3D(data.CalcValue(time, point).ToString(), Color.FromArgb(0, 0, 0), point);
             }
         }
 
@@ -550,6 +494,7 @@ namespace TaskModule
         {
             SceneControl.HideAllGeometryObjs();
             SceneControl.HideDisplayText3D();
+            SetBackColorToAllObjects();
             SceneControl.DisplayObjects();
         }
 
@@ -567,22 +512,20 @@ namespace TaskModule
                     var group = Project.Model.GroupData.Find(data.GroupName);
                     var presentor = ModelPresenter[group.ObjType];
 
-                    foreach (var objNumber in group.ObjsNumbers)
+                    foreach (var iobj in group)
                     {
-                        var modelObj = presentor.FindObj(objNumber);
-
                         if (data.Kind == DataKind.Mat)
-                            modelObj.MasterColor = Color.FromArgb(255, 255, 0);
+                            iobj.MasterColor = Color.FromArgb(255, 255, 0);
                         else if (data.Kind == DataKind.Med)
-                            modelObj.MasterColor = Color.FromArgb(255, 155, 0);
+                            iobj.MasterColor = Color.FromArgb(255, 155, 0);
                         else if (data.Kind == DataKind.Clamp | data.Kind == DataKind.Load)
-                            modelObj.MasterColor = Color.FromArgb(255, 0, 0);
+                            iobj.MasterColor = Color.FromArgb(255, 0, 0);
                         else if (data.Kind == DataKind.Heat)
-                            modelObj.MasterColor = Color.FromArgb(125,155, 255, 0);
+                            iobj.MasterColor = Color.FromArgb(125,155, 255, 0);
 
                         //PresentProjectTaskDataOnScene(arg2.Time, data, modelObj);
                         if (data.Direction != "*")
-                            DisplayDirection(arg2.Time, data, modelObj);
+                            DisplayDirection(arg2.Time, data, iobj);
                     }
                     var vboObjs = SceneControl.FindVBObj(group.ObjType);
                     var colors = presentor.CreateVertexes(vboObjs.ColorLength, "цвет");
@@ -590,7 +533,6 @@ namespace TaskModule
 
                     SceneControl.DisplayObjects();
                 }
-
             }
 
         }
@@ -599,9 +541,14 @@ namespace TaskModule
         {
             var dataArray = Project.TaskData.Find(arg2.DataName).ToArray();
 
+            var index = Project.TaskData.IndexOf(dataArray[arg2.Index]);
+            NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
+
             Project.TaskData.Remove(dataArray[arg2.Index]);
 
-            PresentProjectOnTree();
+            
+
+            //PresentProjectOnTree();
         }
 
         public async void TaskAdvisor_AddDataEvent(object arg1, AddDataEventArgs arg2)
@@ -637,9 +584,9 @@ namespace TaskModule
                     }
                 }
 
-                PresentProjectTaskDataOnAdvisor(activeTask);
-                PresentProjectOnTree();
+                PresentProjectTaskDataOnAdvisor();
 
+                NavigatorControl.CreateChildNode("Данные", arg2.DataName, $"{arg2.DataName} : {taskStrAr[0]}", "6.1");
             }
             catch (Exception ex)
             {
@@ -661,8 +608,7 @@ namespace TaskModule
                 var confirm = false;
                 var breaker = false;
 
-                var selectToolStrip = FindToolStrip<SelectToolStrip>();
-                selectToolStrip.SelectObjectsType = "Узлы";
+                SelectedObjects = "Узлы";
 
                 var func = taskParamsCalculator.SetDirection(taskStr);
 

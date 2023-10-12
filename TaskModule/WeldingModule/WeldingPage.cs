@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using ToolStrips;
-using TaskModule;
 using TaskModule.BasicTaskAdvisor;
+using BaseModule.ToolStrips;
+using TaskModule.ToolStrips;
 
 namespace TaskModule.WeldingModule
 {
@@ -13,11 +13,15 @@ namespace TaskModule.WeldingModule
             InitializeComponent();
         }
 
-        private void WeldingPage_Load(object sender, EventArgs e)
+        public override void UnCheckToolStripButtons()
         {
-            
-            var weldingTaskToolStrip = new WeldingTasksToolStrip() { Name = "Сварка" };
-            weldingTaskToolStrip.Renderer = new BtnToolStrRender();
+            foreach (ToolStripButton item in weldingTaskToolStrip.Items)
+                item.Checked = false;
+        }
+
+        private void WeldingPage_Load(object sender, EventArgs e)
+        {           
+            weldingTaskToolStrip.Renderer = new BaseToolStrRender();
             weldingTaskToolStrip.advisorStatusChanged += WeldingTaskToolStrip_advisorStatusChanged;
 
             AddToolStrip(weldingTaskToolStrip);

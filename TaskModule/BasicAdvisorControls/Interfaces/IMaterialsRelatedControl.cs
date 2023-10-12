@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaskModule.BasicAdvisorControls.Interfaces
 {
-    public interface IMaterialsRelatedControl
+    public interface IMaterialsRelatedControl : IElmentsGroupsControl
     {
         void Add_Materials(List<string> materials);
     }

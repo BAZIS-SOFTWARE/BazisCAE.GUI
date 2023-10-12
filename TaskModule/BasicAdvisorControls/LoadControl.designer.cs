@@ -112,6 +112,7 @@
             // 
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.player.AutoSize = true;
             this.player.CheckState = PlayerControl.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(170, 77);
@@ -123,6 +124,7 @@
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
             this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.player.SpeedValue = 500;
             this.player.StartValue = 0;
             this.player.StopValue = 100;
             this.player.TabIndex = 20;
@@ -324,7 +326,7 @@
             // chbLRF
             // 
             this.chbLRF.AutoSize = true;
-            this.chbLRF.Location = new System.Drawing.Point(347, 61);
+            this.chbLRF.Location = new System.Drawing.Point(287, 61);
             this.chbLRF.Name = "chbLRF";
             this.chbLRF.Size = new System.Drawing.Size(100, 17);
             this.chbLRF.TabIndex = 44;
@@ -390,7 +392,7 @@
             // chbZ
             // 
             this.chbZ.AutoSize = true;
-            this.chbZ.Location = new System.Drawing.Point(308, 61);
+            this.chbZ.Location = new System.Drawing.Point(248, 61);
             this.chbZ.Margin = new System.Windows.Forms.Padding(3, 7, 3, 3);
             this.chbZ.Name = "chbZ";
             this.chbZ.Size = new System.Drawing.Size(33, 17);
@@ -403,7 +405,7 @@
             // chbY
             // 
             this.chbY.AutoSize = true;
-            this.chbY.Location = new System.Drawing.Point(269, 61);
+            this.chbY.Location = new System.Drawing.Point(209, 61);
             this.chbY.Margin = new System.Windows.Forms.Padding(3, 7, 3, 3);
             this.chbY.Name = "chbY";
             this.chbY.Size = new System.Drawing.Size(33, 17);
@@ -416,7 +418,7 @@
             // chbX
             // 
             this.chbX.AutoSize = true;
-            this.chbX.Location = new System.Drawing.Point(230, 61);
+            this.chbX.Location = new System.Drawing.Point(170, 61);
             this.chbX.Margin = new System.Windows.Forms.Padding(3, 7, 3, 3);
             this.chbX.Name = "chbX";
             this.chbX.Size = new System.Drawing.Size(33, 17);
@@ -490,12 +492,12 @@
         private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.CheckBox chbLRF;
+        private PlayerControl.Player player;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn startColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn stopColumn;
-        private PlayerControl.Player player;
     }
 }

@@ -49,26 +49,24 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Functions, Version=1.0.2.24, Culture=neutral, PublicKeyToken=65fde98421b2fc88, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Functions.1.0.2.31\lib\net48\Functions.dll</HintPath>
+    <Reference Include="Functions, Version=1.0.2.43, Culture=neutral, PublicKeyToken=65fde98421b2fc88, processorArchitecture=MSIL">
+      <HintPath>..\packages\Functions.1.0.2.43\lib\net48\Functions.dll</HintPath>
     </Reference>
-    <Reference Include="Geometry, Version=2.0.5.50, Culture=neutral, PublicKeyToken=cadb58b3f6b10f0c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Geometry.2.0.6.4\lib\net48\Geometry.dll</HintPath>
+    <Reference Include="Geometry, Version=2.0.7.8, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Geometry.2.0.7.8\lib\net48\Geometry.dll</HintPath>
     </Reference>
-    <Reference Include="GmshApi, Version=1.0.2.13, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\GmshApi.1.0.2.17\GmshApi.dll</HintPath>
+    <Reference Include="GmshApi, Version=1.0.2.39, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
+      <HintPath>..\packages\GmshApi.1.0.2.39\lib\net48\GmshApi.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
     </Reference>
-    <Reference Include="Model, Version=1.0.8.28, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelController.1.0.10.24\lib\net48\Model.dll</HintPath>
+    <Reference Include="Model, Version=1.0.8.96, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Model.1.0.9.22\lib\net48\Model.dll</HintPath>
     </Reference>
-    <Reference Include="ModelController, Version=1.0.10.24, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelController.1.0.10.24\lib\net48\ModelController.dll</HintPath>
+    <Reference Include="ModelControllerInterfaces, Version=1.0.0.9, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelControllerInterfaces.1.0.0.9\lib\net48\ModelControllerInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -76,11 +74,11 @@
     <Reference Include="Octree, Version=2.1.10.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.10\lib\net48\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=1.0.6.22, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.1.0.6.22\lib\net48\Project.dll</HintPath>
+    <Reference Include="Project, Version=1.0.10.41, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.1.0.10.41\lib\net48\Project.dll</HintPath>
     </Reference>
-    <Reference Include="SceneInterface, Version=1.0.14.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
-      <HintPath>..\packages\SceneInterface.1.0.14\lib\net48\SceneInterface.dll</HintPath>
+    <Reference Include="SceneInterface, Version=1.0.17.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
+      <HintPath>..\packages\SceneInterface.1.0.17\lib\net48\SceneInterface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -109,11 +107,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="GmshControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="ToolStrips\MeshToolStrip.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GmshControl.Designer.cs">
-      <DependentUpon>GmshControl.cs</DependentUpon>
+    <Compile Include="ToolStrips\MeshToolStrip.Designer.cs">
+      <DependentUpon>MeshToolStrip.cs</DependentUpon>
     </Compile>
     <Compile Include="SurfaceControl.cs">
       <SubType>UserControl</SubType>
@@ -136,9 +134,6 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GmshControl.resx">
-      <DependentUpon>GmshControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ModelPage.resx">
       <DependentUpon>ModelPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,24 +142,14 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="SurfaceControl.resx">
-      <DependentUpon>SurfaceControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControl1.resx">
-      <DependentUpon>UserControl1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CurveControl.resx">
-      <DependentUpon>CurveControl.cs</DependentUpon>
+    <EmbeddedResource Include="ToolStrips\MeshToolStrip.resx">
+      <DependentUpon>MeshToolStrip.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseModule\BaseModule.csproj">
       <Project>{e5c49662-b9c7-4b1b-9734-1ff03da9fcc0}</Project>
       <Name>BaseModule</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ToolStrips\ToolStrips.csproj">
-      <Project>{740e63b0-14c9-41eb-b883-0f7077817174}</Project>
-      <Name>ToolStrips</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

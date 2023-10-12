@@ -1,4 +1,6 @@
-﻿namespace TaskModule.WeldingModule
+﻿using TaskModule.ToolStrips;
+
+namespace TaskModule.WeldingModule
 {
     partial class WeldingPage
     {
@@ -38,8 +40,9 @@
             this.Load += new System.EventHandler(this.WeldingPage_Load);
             this.ResumeLayout(false);
 
-        }
 
+        }
+        WeldingTasksToolStrip weldingTaskToolStrip = new WeldingTasksToolStrip() { Name = "Сварка" };
         #endregion
     }
 }

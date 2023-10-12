@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Data;
+﻿using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using BaseModule;
-using ToolStrips;
+using BaseModule.ToolStrips;
+using ModelModule.ToolStrips;
+using BaseModule.Navigator;
 using Model;
-using ModelController.MeshObjsCreator;
-using System.Diagnostics;
-using System.IO;
-using ModelController.ModelScenePresentator;
+using ModelControllerInterfaces;
 
 namespace ModelModule
 {
@@ -32,7 +28,7 @@ namespace ModelModule
             //};
 
             var meshToolStrip = new MeshToolStrip();
-            meshToolStrip.Renderer = new BtnToolStrRender();
+            meshToolStrip.Renderer = new BaseToolStrRender();
             meshToolStrip.ItemClicked += MeshToolStrip_ItemClicked;
             
             AddToolStrip(meshToolStrip);
@@ -71,21 +67,21 @@ namespace ModelModule
             boundaryElements2DMenuItem.Click += (ar1, ar2) => { CreateBoundaryElements2D();};
            
             meshGeneratorMenuItem.Click += (ar1, ar2) => {
-                var gmshControl = new GmshControl();
-                var gmshForm = new Form()
-                {
-                    TopMost = true,
-                    ShowIcon = false,
-                    ClientSize = gmshControl.Size,
-                    MaximizeBox = false,
-                    FormBorderStyle = FormBorderStyle.FixedSingle
-                };
-                gmshControl.updateModelData += UpdateModelData;
-                gmshControl.redrawScene += RedrawScene;
-                gmshControl.showErrorMessage += ShowErrorMessage;
-                gmshForm.Controls.Add(gmshControl);
-                gmshControl.Dock = DockStyle.Fill;
-                gmshForm.Show();
+                //var gmshControl = new GmshControl();
+                //var gmshForm = new Form()
+                //{
+                //    TopMost = true,
+                //    ShowIcon = false,
+                //    ClientSize = gmshControl.Size,
+                //    MaximizeBox = false,
+                //    FormBorderStyle = FormBorderStyle.FixedSingle
+                //};
+                //gmshControl.updateModelData += UpdateModelData;
+                //gmshControl.redrawScene += RedrawScene;
+                //gmshControl.showErrorMessage += ShowErrorMessage;
+                //gmshForm.Controls.Add(gmshControl);
+                //gmshControl.Dock = DockStyle.Fill;
+                //gmshForm.Show();
             };
 
             return meshMenuItem;
@@ -99,21 +95,21 @@ namespace ModelModule
             }
             else if(e.ClickedItem.Tag.ToString() == "1")
             {
-                var gmshControl = new GmshControl();
-                var gmshForm = new Form()
-                {
-                    TopMost = true,
-                    ShowIcon = false,
-                    ClientSize = gmshControl.Size,
-                    MaximizeBox = false,
-                    FormBorderStyle = FormBorderStyle.FixedSingle
-                };
-                gmshControl.updateModelData += UpdateModelData;
-                gmshControl.redrawScene += RedrawScene;
-                gmshControl.showErrorMessage += ShowErrorMessage;
-                gmshForm.Controls.Add(gmshControl);
-                gmshControl.Dock = DockStyle.Fill;
-                gmshForm.Show();
+                //var gmshControl = new GmshControl();
+                //var gmshForm = new Form()
+                //{
+                //    TopMost = true,
+                //    ShowIcon = false,
+                //    ClientSize = gmshControl.Size,
+                //    MaximizeBox = false,
+                //    FormBorderStyle = FormBorderStyle.FixedSingle
+                //};
+                //gmshControl.updateModelData += UpdateModelData;
+                //gmshControl.redrawScene += RedrawScene;
+                //gmshControl.showErrorMessage += ShowErrorMessage;
+                //gmshForm.Controls.Add(gmshControl);
+                //gmshControl.Dock = DockStyle.Fill;
+                //gmshForm.Show();
             }
         }
 
@@ -122,26 +118,30 @@ namespace ModelModule
             var els3D = Project.Model.ObjectData.FindMany<Element3D>();
 
             if(els3D.Count() != 0)
-            {
-                var creator = new Extract2DFrom3D(els3D.ToArray());
-
+            {           
                 var startNumber = Project.Model.ObjectData.GetLastObjNumber() + 1;
-                var boundaryElements2D = creator.Create(startNumber);
+                var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber,els3D.ToArray());
 
                 Project.Model.ObjectData.AddRange(boundaryElements2D);
 
-                ModelPresenter = new ModelScenePresentator(Project.Model);
+                ModelPresenter.Remove("Элементы2D");
+                var presenter = ModelPresenter.CreatePresenter(boundaryElements2D);
+                ModelPresenter.Add("Элементы2D", presenter);
 
-                ClearAllDataOnScene();
+                SceneControl.HideAllGeometryObjs();
+                SceneControl.HideDisplayText2D();
+                SceneControl.HideDisplayText3D();
 
-                foreach (var item in ModelPresenter.Keys)
-                    PresentDataToScene(item);
+                SceneControl.DeleteVBObjects("Элементы2D");
+                PresentDataToScene("Элементы2D");
 
                 SceneControl.DisplayObjects();
 
                 PresentModelOnSelectToolStrip();
-                SetModelObjsInfo();
 
+                NavigatorControl.TreeView.Nodes["объекты"].Nodes.RemoveByKey("Элементы2D");
+                NavigatorControl.CreateChildNode("объекты", "Элементы2D", $"Элементы2D : {boundaryElements2D.Length}","4.1");
+                
                 ConsoleControl.PrintInfo("Созданы 2D элементы", Color.Black);
             }
             else
@@ -151,8 +151,7 @@ namespace ModelModule
 
         private void UpdateModelData(ModelData data)
         {
-            ModelPresenter = new ModelScenePresentator(data);
-            Project.Model.Clear();
+            Project.ClearAllData();
             Project.Model.ObjectData.AddRange(data.ObjectData);
             PresentModelOnSelectToolStrip();
         }
