@@ -7,10 +7,12 @@ namespace BazisGUI
     [Serializable]
     public class SettingsConfig
     {
-        public Color SelectionColor;
+        public Color SelectObjectColor;
+        public Color SelectGroupColor;
         public Color BackGroudColor;
         public string SolverPath;
         public bool Lighting;
         public bool Transparency;
+
     }
 }

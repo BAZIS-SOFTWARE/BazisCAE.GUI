@@ -34,7 +34,7 @@ namespace BazisGUI
         SettingsConfig settingsConfig = new SettingsConfig()
         {
             BackGroudColor = Color.White,
-            SelectionColor = Color.GreenYellow,
+            SelectObjectColor = Color.GreenYellow,
             Transparency = true,
             Lighting = true
         };
@@ -252,7 +252,7 @@ namespace BazisGUI
         private void SetGeneralSettings(BasePage module)
         {
             module.SceneControl.BackGroundColor = settingsConfig.BackGroudColor;
-            module.SceneControl.SelectionColor = settingsConfig.SelectionColor;
+            module.SceneControl.SelectionColor = settingsConfig.SelectObjectColor;
             module.SceneControl.IsBlending = settingsConfig.Transparency;
             module.SceneControl.IsLighting = settingsConfig.Lighting;
         }
@@ -370,7 +370,7 @@ namespace BazisGUI
             settings.SaveSettingsEvent += (ar) =>
             {
                 settingsConfig.BackGroudColor = ar.BackGroudColor;
-                settingsConfig.SelectionColor = ar.SelectionColor;
+                settingsConfig.SelectObjectColor = ar.SelectObjectColor;
                 settingsConfig.SolverPath = ar.SolverPath;
                 settingsConfig.Lighting = ar.Lighting;
                 settingsConfig.Transparency = ar.Transparency;
@@ -381,7 +381,7 @@ namespace BazisGUI
                 {
                     var basePage = (BasePage)controls[0];
                     basePage.SceneControl.BackGroundColor = ar.BackGroudColor;
-                    basePage.SceneControl.SelectionColor = ar.SelectionColor;
+                    basePage.SceneControl.SelectionColor = ar.SelectObjectColor;
                     basePage.SceneControl.IsBlending = ar.Transparency;
                     basePage.SceneControl.IsLighting = ar.Lighting;
 
@@ -441,7 +441,7 @@ namespace BazisGUI
                 if (settingsConfig != null)
                 {
                     this.settingsConfig.BackGroudColor = settingsConfig.BackGroudColor;
-                    this.settingsConfig.SelectionColor = settingsConfig.SelectionColor;
+                    this.settingsConfig.SelectObjectColor = settingsConfig.SelectObjectColor;
                     this.settingsConfig.SolverPath = settingsConfig.SolverPath;
                 }
             }

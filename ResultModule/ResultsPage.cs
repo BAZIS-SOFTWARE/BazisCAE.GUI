@@ -707,7 +707,7 @@ namespace ResultModule
             else
                 elements = Project.Model.ObjectData.FindMany<Element2D>().ToArray();
             
-            var interfaceNodes = ModelController.FindInterfacedNodes(elements);
+            var interfaceNodes = ModelController.InterfacedNodesFinder.Find(elements);
 
             var mergeResults = new MergeResults(results);
             var resNames = results[0].GetDataSchema("elements");

@@ -120,7 +120,7 @@ namespace ModelModule
             if(els3D.Count() != 0)
             {           
                 var startNumber = Project.Model.ObjectData.GetLastObjNumber() + 1;
-                var boundaryElements2D = ModelController.Extract2DFrom3D(startNumber,els3D.ToArray());
+                var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber,els3D.ToArray());
 
                 Project.Model.ObjectData.AddRange(boundaryElements2D);
 
