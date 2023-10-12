@@ -2,15 +2,11 @@
 using System.Linq;
 using System.Windows.Forms;
 using BaseModule;
-using Model;
-using ModelController.MeshObjsCreator;
-using System.Diagnostics;
-using System.IO;
-using ModelController.ModelScenePresentator;
 using BaseModule.ToolStrips;
 using ModelModule.ToolStrips;
-using SceneInterface;
 using BaseModule.Navigator;
+using Model;
+using ModelControllerInterfaces;
 
 namespace ModelModule
 {
@@ -71,21 +67,21 @@ namespace ModelModule
             boundaryElements2DMenuItem.Click += (ar1, ar2) => { CreateBoundaryElements2D();};
            
             meshGeneratorMenuItem.Click += (ar1, ar2) => {
-                var gmshControl = new GmshControl();
-                var gmshForm = new Form()
-                {
-                    TopMost = true,
-                    ShowIcon = false,
-                    ClientSize = gmshControl.Size,
-                    MaximizeBox = false,
-                    FormBorderStyle = FormBorderStyle.FixedSingle
-                };
-                gmshControl.updateModelData += UpdateModelData;
-                gmshControl.redrawScene += RedrawScene;
-                gmshControl.showErrorMessage += ShowErrorMessage;
-                gmshForm.Controls.Add(gmshControl);
-                gmshControl.Dock = DockStyle.Fill;
-                gmshForm.Show();
+                //var gmshControl = new GmshControl();
+                //var gmshForm = new Form()
+                //{
+                //    TopMost = true,
+                //    ShowIcon = false,
+                //    ClientSize = gmshControl.Size,
+                //    MaximizeBox = false,
+                //    FormBorderStyle = FormBorderStyle.FixedSingle
+                //};
+                //gmshControl.updateModelData += UpdateModelData;
+                //gmshControl.redrawScene += RedrawScene;
+                //gmshControl.showErrorMessage += ShowErrorMessage;
+                //gmshForm.Controls.Add(gmshControl);
+                //gmshControl.Dock = DockStyle.Fill;
+                //gmshForm.Show();
             };
 
             return meshMenuItem;
@@ -99,21 +95,21 @@ namespace ModelModule
             }
             else if(e.ClickedItem.Tag.ToString() == "1")
             {
-                var gmshControl = new GmshControl();
-                var gmshForm = new Form()
-                {
-                    TopMost = true,
-                    ShowIcon = false,
-                    ClientSize = gmshControl.Size,
-                    MaximizeBox = false,
-                    FormBorderStyle = FormBorderStyle.FixedSingle
-                };
-                gmshControl.updateModelData += UpdateModelData;
-                gmshControl.redrawScene += RedrawScene;
-                gmshControl.showErrorMessage += ShowErrorMessage;
-                gmshForm.Controls.Add(gmshControl);
-                gmshControl.Dock = DockStyle.Fill;
-                gmshForm.Show();
+                //var gmshControl = new GmshControl();
+                //var gmshForm = new Form()
+                //{
+                //    TopMost = true,
+                //    ShowIcon = false,
+                //    ClientSize = gmshControl.Size,
+                //    MaximizeBox = false,
+                //    FormBorderStyle = FormBorderStyle.FixedSingle
+                //};
+                //gmshControl.updateModelData += UpdateModelData;
+                //gmshControl.redrawScene += RedrawScene;
+                //gmshControl.showErrorMessage += ShowErrorMessage;
+                //gmshForm.Controls.Add(gmshControl);
+                //gmshControl.Dock = DockStyle.Fill;
+                //gmshForm.Show();
             }
         }
 
@@ -122,15 +118,15 @@ namespace ModelModule
             var els3D = Project.Model.ObjectData.FindMany<Element3D>();
 
             if(els3D.Count() != 0)
-            {
-                var creator = new Extract2DFrom3D(els3D.ToArray());
-
+            {           
                 var startNumber = Project.Model.ObjectData.GetLastObjNumber() + 1;
-                var boundaryElements2D = creator.Create(startNumber);
+                var boundaryElements2D = ModelController.Extract2DFrom3D(startNumber,els3D.ToArray());
 
                 Project.Model.ObjectData.AddRange(boundaryElements2D);
 
-                ModelPresenter = new ModelScenePresentator(Project.Model);
+                ModelPresenter.Remove("Элементы2D");
+                var presenter = ModelPresenter.CreatePresenter(boundaryElements2D);
+                ModelPresenter.Add("Элементы2D", presenter);
 
                 SceneControl.HideAllGeometryObjs();
                 SceneControl.HideDisplayText2D();
@@ -155,8 +151,7 @@ namespace ModelModule
 
         private void UpdateModelData(ModelData data)
         {
-            ModelPresenter = new ModelScenePresentator(data);
-            Project.Model.Clear();
+            Project.ClearAllData();
             Project.Model.ObjectData.AddRange(data.ObjectData);
             PresentModelOnSelectToolStrip();
         }

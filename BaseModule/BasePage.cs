@@ -24,11 +24,11 @@ using BaseModule.Console.Events;
 using Project.Interfaces;
 using Project.TasksData;
 using SceneInterface;
-using ModelController.ModelScenePresentator.GlObjsPresenters;
 using BaseModule.ToolStrips;
 using BaseModule.Navigator;
 using Model.ObjectsFinders;
-using Model.ObjectsComparers;
+using ModelController.ModelScenePresentator.GlObjsPresenters;
+using ModelControllerInterfaces;
 
 namespace BaseModule
 {
@@ -36,7 +36,13 @@ namespace BaseModule
     {
         private ProjectData project;
         public Action<object, ProjectData> ChangeProjectDataEvent;
-        public ModelScenePresentator ModelPresenter { get; set; }
+
+        public IModelController ModelController { get; set; } = new ModelController.ModelController();
+
+        public IModelScenePresenter ModelPresenter 
+        { 
+            get { return ModelController.ModelPresentor; } 
+        }
 
         List<ToolStripMenuItem> menuItems = new List<ToolStripMenuItem>();
 
@@ -66,7 +72,7 @@ namespace BaseModule
 
             ClearAllDataOnScene();
 
-            ModelPresenter = new ModelScenePresentator(project.Model);
+            ModelController.CreateModelPresenter(project.Model);
 
             foreach (var item in ModelPresenter)
                 PresentDataToScene(item.Key);
@@ -414,9 +420,7 @@ namespace BaseModule
         {
             project = new ProjectData("newProject", Environment.CurrentDirectory);
 
-
-
-            ModelPresenter = new ModelScenePresentator(project.Model);
+            ModelController.CreateModelPresenter(project.Model);
 
             consoleControl.PrintInfo("Создан новый проект", Color.Black);
 
@@ -460,7 +464,7 @@ namespace BaseModule
 
             ChangeProjectDataEvent(this, project);
 
-            ModelPresenter = new ModelScenePresentator(project.Model);
+            ModelController.CreateModelPresenter(project.Model);
 
             PresentProjectOnTree();
             PresentModelOnSelectToolStrip();
@@ -494,7 +498,7 @@ namespace BaseModule
 
                     ChangeProjectDataEvent(this, project);
 
-                    ModelPresenter = new ModelScenePresentator(project.Model);
+                    ModelController.CreateModelPresenter(project.Model);
 
                     PresentProjectOnTree();
                     PresentModelOnSelectToolStrip();
@@ -1400,7 +1404,8 @@ namespace BaseModule
             }
 
             Project.Model.ObjectData.ClearRemoved();
-            ModelPresenter = new ModelScenePresentator(Project.Model);
+            
+            ModelController.CreateModelPresenter(Project.Model);
 
             var vbObj = sceneControl.FindVBObj(selectToolStrip.SelectObjectsType);
             var viewMode = vbObj.ViewMode;

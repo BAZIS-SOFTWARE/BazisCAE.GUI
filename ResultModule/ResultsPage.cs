@@ -1,7 +1,6 @@
 ﻿using BaseModule;
 using BaseModule.Navigator;
 using BaseModule.ToolStrips;
-using CustomControls;
 using CustomControls.Controls;
 using CustomControls.OS;
 using Geometry;
@@ -9,16 +8,12 @@ using Gif.Components;
 using Graph;
 using Model;
 using Model.ObjectsSorters;
-using ModelController.MeshObjsUtility;
-using ModelController.ModelScenePresentator;
-using ModelController.ModelScenePresentator.GlObjsPresenters;
-using Project.Interfaces;
-using Project.IO;
 using Project.ResultsData;
-using Project.ResultsData.ScenePresenter;
-using Project.ResultsData.ScenePresenter.Interfaces;
 using Project.TasksData;
 using ResultModule.ToolStrips;
+using Results.IO;
+using Results.ScenePresenter;
+using Results.ScenePresenter.Interfaces;
 using SceneInterface;
 using System;
 using System.Collections.Generic;
@@ -26,7 +21,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 //using static System.Net.Mime.MediaTypeNames;
 using Image = System.Drawing.Image;
 
@@ -105,9 +99,8 @@ namespace ResultModule
                 NavigatorControl.TreeView.Nodes[6].Nodes.Clear();
 
                 ClearAllDataOnScene();
-                ModelPresenter.Clear();
 
-                ModelPresenter = new ModelScenePresentator(Project.Model);
+                ModelController.CreateModelPresenter(Project.Model);
 
                 foreach (var item in ModelPresenter.Keys)
                     PresentDataToScene(item);
@@ -140,9 +133,8 @@ namespace ResultModule
             hideResultsMenuItem.Click += (ar1, ar2) => 
             {
                 ClearAllDataOnScene();
-                ModelPresenter.Clear();
 
-                ModelPresenter = new ModelScenePresentator(Project.Model);
+                ModelController.CreateModelPresenter(Project.Model);
 
                 foreach (var item in ModelPresenter.Keys)
                     PresentDataToScene(item);
@@ -271,9 +263,8 @@ namespace ResultModule
             grPage.SelectObjectsEvent += (ar) => 
             {
                 ClearAllDataOnScene();
-                ModelPresenter.Clear();
 
-                ModelPresenter = new ModelScenePresentator(Project.Model);
+                ModelController.CreateModelPresenter(Project.Model);
 
                 foreach (var item in ModelPresenter.Keys)
                     PresentDataToScene(item);
@@ -460,7 +451,7 @@ namespace ResultModule
         {
             if(e.ClickedItem.Tag.ToString() == "0")
             {
-                ModelPresenter = new ModelScenePresentator(Project.Model);
+                ModelController.CreateModelPresenter(Project.Model);
 
                 foreach (var item in ModelPresenter.Keys)
                     PresentDataToScene(item);
@@ -482,7 +473,7 @@ namespace ResultModule
             {
                 ClearAllDataOnScene();
 
-                ModelPresenter = new ModelScenePresentator(Project.Model);
+                ModelController.CreateModelPresenter(Project.Model);
 
                 foreach (var item in ModelPresenter.Keys)
                     PresentDataToScene(item);
@@ -522,7 +513,7 @@ namespace ResultModule
 
             var result = Project.ResultData.FindByTime(resKind, time);
 
-            var fieldCreator = new FieldCreator(Project);
+            var fieldCreator = new FieldCreator();
             
             if(Project.TaskType == TaskType.Volume)
             {
@@ -551,7 +542,7 @@ namespace ResultModule
             var resultModel = new ModelData();
             resultModel.ObjectData.AddRange(resultSurfaces);
 
-            ModelPresenter = new ModelScenePresentator(resultModel);
+            ModelController.CreateModelPresenter(resultModel);
 
             foreach (var item in ModelPresenter.Keys)
                 PresentDataToScene(item);
@@ -716,8 +707,8 @@ namespace ResultModule
             else
                 elements = Project.Model.ObjectData.FindMany<Element2D>().ToArray();
             
-            var interfaceNodesFinder = new FindInterfacedNodes(elements);
-            var interfaceNodes = interfaceNodesFinder.Find();
+            var interfaceNodes = ModelController.FindInterfacedNodes(elements);
+
             var mergeResults = new MergeResults(results);
             var resNames = results[0].GetDataSchema("elements");
 

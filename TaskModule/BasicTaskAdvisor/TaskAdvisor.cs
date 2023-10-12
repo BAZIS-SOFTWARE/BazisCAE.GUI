@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using Functions.Search;
 using TaskModule.BasicAdvisorControls;
 using Project;
 using System.Linq;
@@ -38,9 +37,9 @@ namespace TaskModule.BasicTaskAdvisor
         TaskTypeControl taskTypeControl {
             get
             {
-                var searched = new List<TaskTypeControl>();
-                RecursiveSearch.AllTypedControls(this, searched);
-                return searched[0];
+                var tabControls = Controls.Cast<Control>().
+                    Where(x => x.GetType() == typeof(TaskTypeControl));
+                return (TaskTypeControl)tabControls.First();
             }
         }
 
@@ -48,10 +47,10 @@ namespace TaskModule.BasicTaskAdvisor
         {
             get
             {
-                var searched = new List<TabControl>();
-                RecursiveSearch.AllTypedControls(this, searched);
+                var tabControls = Controls.Cast<Control>().
+                    Where(x => x.GetType() == typeof(TabControl));
 
-                return searched[0];
+                return (TabControl)tabControls.First();
             }
         }     
 

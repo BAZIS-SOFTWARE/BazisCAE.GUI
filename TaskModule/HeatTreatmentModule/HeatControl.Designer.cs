@@ -30,7 +30,7 @@ namespace TaskModule.HeatTreatmentModule
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new System.Windows.Forms.GroupBox();
             this.cmbTempFunc = new System.Windows.Forms.ComboBox();
@@ -58,8 +58,8 @@ namespace TaskModule.HeatTreatmentModule
             this.btnAddNewRow = new System.Windows.Forms.Button();
             this.txbStartTime = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.cmbProcKinds = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.cmbProcKinds = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.grbHeatFlux.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -180,15 +180,15 @@ namespace TaskModule.HeatTreatmentModule
             this.Column1,
             this.startColumn,
             this.stopColumn});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.NullValue = " ";
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.NullValue = " ";
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.Location = new System.Drawing.Point(1, 323);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
@@ -403,23 +403,6 @@ namespace TaskModule.HeatTreatmentModule
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Выбор процесса";
             // 
-            // cmbProcKinds
-            // 
-            this.cmbProcKinds.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbProcKinds.FormattingEnabled = true;
-            this.cmbProcKinds.Items.AddRange(new object[] {
-            "Нагрев",
-            "Закалка",
-            "Отпуск",
-            "Отжиг",
-            "Старение"});
-            this.cmbProcKinds.Location = new System.Drawing.Point(171, 28);
-            this.cmbProcKinds.Margin = new System.Windows.Forms.Padding(3, 15, 28, 3);
-            this.cmbProcKinds.Name = "cmbProcKinds";
-            this.cmbProcKinds.Size = new System.Drawing.Size(334, 21);
-            this.cmbProcKinds.TabIndex = 19;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -428,6 +411,21 @@ namespace TaskModule.HeatTreatmentModule
             this.label6.Size = new System.Drawing.Size(77, 13);
             this.label6.TabIndex = 21;
             this.label6.Text = "Вид процесса";
+            // 
+            // cmbProcKinds
+            // 
+            this.cmbProcKinds.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbProcKinds.FormattingEnabled = true;
+            this.cmbProcKinds.Items.AddRange(new object[] {
+            "Нагрев",
+            "Охлаждение",
+            "Выдержка"});
+            this.cmbProcKinds.Location = new System.Drawing.Point(171, 28);
+            this.cmbProcKinds.Margin = new System.Windows.Forms.Padding(3, 15, 28, 3);
+            this.cmbProcKinds.Name = "cmbProcKinds";
+            this.cmbProcKinds.Size = new System.Drawing.Size(334, 21);
+            this.cmbProcKinds.TabIndex = 19;
             // 
             // HeatControl
             // 

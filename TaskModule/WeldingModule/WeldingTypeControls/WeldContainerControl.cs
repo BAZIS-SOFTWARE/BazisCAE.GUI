@@ -39,10 +39,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public void CreatePictureBox(Bitmap image, Point location)
         {
-            var cntrList = new List<PictureBox>();
-            RecursiveSearch.AllTypedControls(this, cntrList);
+            var picBoxes = Controls.Cast<Control>().
+    Where(x => x.GetType() == typeof(PictureBox));
 
-            if (cntrList.Count == 0)
+            if (picBoxes.Count() == 0)
             {
                 var pxb = new PictureBox()
                 {
@@ -61,7 +61,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             }
             else
             {
-                var pxb = cntrList[0] as PictureBox;
+                var pxb = picBoxes.First() as PictureBox;
                 Controls.Remove(pxb);
                 //release memory by disposing
                 pxb.Dispose();

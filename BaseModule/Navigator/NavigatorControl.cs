@@ -290,8 +290,8 @@ namespace BaseModule.Navigator
         {
             var groupIndex = treeView.SelectedNode.Index;
 
-            treeView.SelectedNode.ImageIndex = imgDict[treeView.SelectedNode.Name] == 3 ? 5 : 6;
-            treeView.SelectedNode.SelectedImageIndex = imgDict[treeView.SelectedNode.Name] == 3 ? 5 : 6;
+            treeView.SelectedNode.ImageIndex = imgDict[treeView.SelectedNode.Name];
+            treeView.SelectedNode.SelectedImageIndex = imgDict[treeView.SelectedNode.Name];
 
             ShowGroupEvent?.Invoke(groupIndex);
         }

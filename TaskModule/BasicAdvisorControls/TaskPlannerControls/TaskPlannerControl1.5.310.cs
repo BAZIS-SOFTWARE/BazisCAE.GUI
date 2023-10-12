@@ -249,7 +249,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             }
         }
 
-        private void GenerateTsfFile(TaskKind taskKind, int taskIndex)
+        private bool GenerateTsfFile(TaskKind taskKind, int taskIndex)
         {
             try
             {
@@ -297,10 +297,13 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
                 File.WriteAllText($@"{Path}\{tsfFileName}", tsfStr);
 
+                return true;
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }
 
@@ -312,29 +315,32 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                     AddDataUseTaskConditionsEvent?.Invoke(this, new EventArgs());
                 else
                 {
+                    var isTsfFileCreated = false;
                     if (chbChemicalTask.Checked)
                     {
                         CurentSelectedRowInfo = AddRowInfo(TaskKind.химическая, TaskStatus.выполнить, CountRows);
-                        GenerateTsfFile(TaskKind.химическая, CountRows);
-                        base.AddButton_Click(this, new EventArgs());
+                        isTsfFileCreated = GenerateTsfFile(TaskKind.химическая, CountRows);
                     }
                     Thread.Sleep(100);
                     if (chbTermoTask.Checked)
                     {
                         CurentSelectedRowInfo = AddRowInfo(TaskKind.термическая, TaskStatus.выполнить, CountRows);
-                        GenerateTsfFile(TaskKind.термическая, CountRows);
-                        base.AddButton_Click(this, new EventArgs());
+                        isTsfFileCreated = GenerateTsfFile(TaskKind.термическая, CountRows);
                     }
                     Thread.Sleep(100);
                     if (chbMechTask.Checked)
                     {
                         CurentSelectedRowInfo = AddRowInfo(TaskKind.механическая, TaskStatus.выполнить, CountRows);
-                        GenerateTsfFile(TaskKind.механическая, CountRows);
+                        isTsfFileCreated = GenerateTsfFile(TaskKind.механическая, CountRows);
+
+                    }
+                    if(isTsfFileCreated)
+                    {
                         base.AddButton_Click(this, new EventArgs());
+                        var temp = txbStopTime.Text;
+                        txbStartTime.Text = temp;
                     }
 
-                    var temp = txbStopTime.Text;
-                    txbStartTime.Text = temp;
                 }
                 btnRefresh.Enabled = false;
             }
