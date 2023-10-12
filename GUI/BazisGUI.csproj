@@ -150,11 +150,17 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsConfig.cs" />
-    <Compile Include="SettingsControl.cs">
+    <Compile Include="SettingsControls\SettingsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SettingsControl.Designer.cs">
+    <Compile Include="SettingsControls\SettingsControl.Designer.cs">
       <DependentUpon>SettingsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsControls\LightingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SettingsControls\LightingControl.Designer.cs">
+      <DependentUpon>LightingControl.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AboutLicenseControl.resx">
       <DependentUpon>AboutLicenseControl.cs</DependentUpon>
@@ -175,7 +181,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SettingsControl.resx">
+    <EmbeddedResource Include="SettingsControls\SettingsControl.resx">
       <DependentUpon>SettingsControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
