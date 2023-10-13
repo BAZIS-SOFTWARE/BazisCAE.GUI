@@ -20,6 +20,7 @@ using TaskModule.WeldingModule;
 using ClientLogic;
 using LicenseInfo;
 using ClientGUI;
+using BazisGUI.SettingsControls;
 
 namespace BazisGUI
 {
@@ -366,38 +367,75 @@ namespace BazisGUI
             var settings = new SettingsControl() { Dock = DockStyle.Fill };
 
             settings.SetSettings(settingsConfig);
-
+            
             settings.SaveSettingsEvent += (ar) =>
             {
-                settingsConfig.BackGroudColor = ar.BackGroudColor;
-                settingsConfig.SelectObjectColor = ar.SelectObjectColor;
-                settingsConfig.SolverPath = ar.SolverPath;
-                settingsConfig.Lighting = ar.Lighting;
-                settingsConfig.Transparency = ar.Transparency;
-
-                var controls = toolStripContainer.ContentPanel.Controls.Find(activePage, false);
-
-                if (controls.Length > 0)
-                {
-                    var basePage = (BasePage)controls[0];
-                    basePage.SceneControl.BackGroundColor = ar.BackGroudColor;
-                    basePage.SceneControl.SelectionColor = ar.SelectObjectColor;
-                    basePage.SceneControl.IsBlending = ar.Transparency;
-                    basePage.SceneControl.IsLighting = ar.Lighting;
-
-                    if (basePage is TaskPage taskPage)
-                        taskPage.SolverPath = ar.SolverPath;
-                    basePage.SceneControl.DisplayObjects();
-                }
+                settingsConfig = ar;
             };
+
+            var controls = toolStripContainer.ContentPanel.Controls.Find(activePage, false);
+
+            if (controls.Length > 0)
+            {
+                var basePage = (BasePage)controls[0];
+                settings.SetSelectionGroupColorEvent += (ar) => basePage.SelectionGroupColor = ar;
+                settings.SetSelectionObjectColorEvent += (ar) => 
+                basePage.SceneControl.SelectionColor = ar;
+
+                settings.SetSolverPathEvent += (ar) =>
+                {
+                    if (basePage is TaskPage taskPage)
+                        taskPage.SolverPath = ar;
+                };
+                settings.SetBackGroundColorEvent += (ar) =>
+                {
+                    basePage.SceneControl.BackGroundColor = ar;
+                    basePage.SceneControl.DisplayObjects();
+                };
+ 
+
+                settings.SetLightingEvent += (ar) =>
+                {
+                    basePage.SceneControl.IsLighting = ar;
+                    basePage.SceneControl.DisplayObjects();
+                };
+
+                settings.SetTransparencyEvent += (ar) =>
+                {
+                    basePage.SceneControl.IsBlending = ar;
+                    basePage.SceneControl.DisplayObjects();
+                };
+
+                settings.SetLightingIntensityEvent += (ar) =>
+                {
+                    basePage.SceneControl.LightAttenuation = 1 - ar / 100.0f;
+                    basePage.SceneControl.DisplayObjects();
+                };
+ 
+
+                settings.SetLighterPositionEvent += (ar) =>
+                {
+                    var kx = (float)(basePage.SceneControl.SceneWidth / settings.Width);
+                    var ky = (float)(basePage.SceneControl.SceneHeight / settings.Height);
+
+                    var x = ar.X * kx;
+                    var y = ar.Y * ky;
+
+                    basePage.SceneControl.LightTranslateX = x;
+                    basePage.SceneControl.LightTranslateY = y;
+
+                    basePage.SceneControl.DisplayObjects();
+                };
+            }
+                 
             var form = new Form() {
                 Name = "settings",
                 Text = "Настройки",
                 TopMost = true,
                 ShowIcon = false,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
-                AutoSize = true,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink               
+                Width = 350,
+                Height = 465
             };
 
             form.Controls.Add(settings);
@@ -440,9 +478,7 @@ namespace BazisGUI
                 var settingsConfig =(SettingsConfig)JsonConvert.DeserializeObject(settings, typeof(SettingsConfig));
                 if (settingsConfig != null)
                 {
-                    this.settingsConfig.BackGroudColor = settingsConfig.BackGroudColor;
-                    this.settingsConfig.SelectObjectColor = settingsConfig.SelectObjectColor;
-                    this.settingsConfig.SolverPath = settingsConfig.SolverPath;
+                    this.settingsConfig = settingsConfig;
                 }
             }
         }

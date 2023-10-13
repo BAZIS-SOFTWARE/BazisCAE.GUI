@@ -14,8 +14,9 @@ namespace BazisGUI.SettingsControls
 {
     public partial class LightingControl : UserControl
     {
-        private Point ballPosition;
-        private int ballRadius;
+        public Action<Point> SetBallPositionEvent;
+        public Point BallPosition { get; set; } = new Point(0, 0);
+        private int ballRadius = 5;
         private Rectangle ballBounds;
         private bool isPointInsideBall;
         private bool isMouseDownState;
@@ -24,20 +25,21 @@ namespace BazisGUI.SettingsControls
 
         public LightingControl()
         {
+            DoubleBuffered = true;
             InitializeComponent();
         }
 
         private void OnLoad(object sender, EventArgs e)
         {
-            var initX = panel1.Width / 2;
-            var initY = panel1.Height / 2;
-            ballPosition = new Point(initX, initY);
-            ballRadius = 5;
             ballBounds.Width = 2 * ballRadius;
             ballBounds.Height = 2 * ballRadius;
-            UpdateBounds(initX, initY);
+
+            ballBounds.X = panel.Width / 2 + BallPosition.X - ballRadius;
+            ballBounds.Y = panel.Height / 2 - BallPosition.Y - ballRadius;
+
             isPointInsideBall = false;
             isMouseDownState = false;
+
             ballBrush = new SolidBrush(Color.Black);
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
                      ControlStyles.AllPaintingInWmPaint, true);
@@ -49,16 +51,16 @@ namespace BazisGUI.SettingsControls
             if (isPointInsideBall)
             {
                 var status = false;
-                if (e.X - ballRadius > 0 && e.X + ballRadius < panel1.Width)
+                if (e.X - ballRadius > 0 && e.X + ballRadius < panel.Width)
                     status = true;
-                if (e.Y - ballRadius >= 0 && e.Y + ballRadius <= panel1.Height && status == true)
+                if (e.Y - ballRadius >= 0 && e.Y + ballRadius <= panel.Height && status == true)
                 {
-                    ballPosition.X = e.X;
-                    ballPosition.Y = e.Y;
-                    UpdateBounds(e.X, e.Y);
-                    panel1.Invalidate();
-                    //SceneControl Set Lighting Vector component.X, component.Y
-                    //Redraw scene control;
+                    BallPosition = new Point(e.X - (Width / 2), -e.Y + (Height / 2));
+
+                    ballBounds.X = e.X - ballRadius;
+                    ballBounds.Y = e.Y - ballRadius;
+
+                    panel.Invalidate();
                 }
             }
         }
@@ -67,9 +69,9 @@ namespace BazisGUI.SettingsControls
         {
             if (!isMouseDownState)
             {
-                var xDif = e.X - ballPosition.X;
+                var xDif = e.X - (Width / 2) - BallPosition.X;
                 var xPow = xDif * xDif;
-                var yDif = e.Y - ballPosition.Y;
+                var yDif = -e.Y + (Height / 2) - BallPosition.Y;
                 var yPow = yDif * yDif;
                 if (xPow + yPow <= ballRadius * ballRadius)
                     isPointInsideBall = true;
@@ -81,19 +83,19 @@ namespace BazisGUI.SettingsControls
         {
             isPointInsideBall = false;
             isMouseDownState = false;
+
+            SetBallPositionEvent(BallPosition);
         }
 
-        private void OnChange(object sender, EventArgs e)
+        private void OnPaint(object sender, PaintEventArgs e)
         {
-            label2.Text = (trackBar1.Value * 0.1f).ToString();
+            e.Graphics.FillEllipse(ballBrush, ballBounds);
         }
 
-        private void OnPaint(object sender, PaintEventArgs e) => e.Graphics.FillEllipse(ballBrush, ballBounds);
-
-        private void UpdateBounds(int x, int y)
+        private void panel_MouseLeave(object sender, EventArgs e)
         {
-            ballBounds.X = x - ballRadius;
-            ballBounds.Y = y - ballRadius;
+            isPointInsideBall = false;
+            isMouseDownState = false;
         }
     }
 }

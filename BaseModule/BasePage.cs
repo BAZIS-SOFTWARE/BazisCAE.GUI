@@ -54,6 +54,9 @@ namespace BaseModule
             set { project = value; }
         }
 
+        public Color SelectionGroupColor { get; set; }
+
+
         public string SelectedObjects 
         {
             get { return selectToolStrip.SelectObjectsType; }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace BazisGUI
+namespace BazisGUI.SettingsControls
 {
     [Serializable]
     public class SettingsConfig
@@ -12,6 +12,8 @@ namespace BazisGUI
         public Color BackGroudColor;
         public string SolverPath;
         public bool Lighting;
+        public int LightingIntensity;
+        public Point LighterPosition;
         public bool Transparency;
 
     }
