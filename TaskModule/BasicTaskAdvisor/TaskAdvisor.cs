@@ -9,6 +9,7 @@ using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Interfaces;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.TaskPlannerControls;
+using BaseModule.Utilities;
 
 namespace TaskModule.BasicTaskAdvisor
 {
@@ -37,9 +38,9 @@ namespace TaskModule.BasicTaskAdvisor
         TaskTypeControl taskTypeControl {
             get
             {
-                var tabControls = Controls.Cast<Control>().
-                    Where(x => x.GetType() == typeof(TaskTypeControl));
-                return (TaskTypeControl)tabControls.First();
+                var cntrs = new List<TaskTypeControl>();
+                RecursiveSearchControls.AllTypedControls(this, cntrs);
+                return cntrs.First();
             }
         }
 
@@ -47,10 +48,9 @@ namespace TaskModule.BasicTaskAdvisor
         {
             get
             {
-                var tabControls = Controls.Cast<Control>().
-                    Where(x => x.GetType() == typeof(TabControl));
-
-                return (TabControl)tabControls.First();
+                var cntrs = new List<TabControl>();
+                RecursiveSearchControls.AllTypedControls(this, cntrs);
+                return cntrs.First();
             }
         }     
 

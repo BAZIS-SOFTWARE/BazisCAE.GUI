@@ -194,6 +194,7 @@
     <Compile Include="Navigator\NavigatorControl.Designer.cs">
       <DependentUpon>NavigatorControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\RecursiveSearchControls.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -267,5 +268,6 @@
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
