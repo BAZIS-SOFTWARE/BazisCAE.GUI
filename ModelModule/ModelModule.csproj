@@ -55,8 +55,8 @@
     <Reference Include="Geometry, Version=2.0.7.8, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
       <HintPath>..\packages\Geometry.2.0.7.8\lib\net48\Geometry.dll</HintPath>
     </Reference>
-    <Reference Include="GmshApi, Version=1.0.2.39, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
-      <HintPath>..\packages\GmshApi.1.0.2.39\lib\net48\GmshApi.dll</HintPath>
+    <Reference Include="GmshApi, Version=1.0.2.40, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
+      <HintPath>..\packages\GmshApi.1.0.2.40\lib\net48\GmshApi.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
