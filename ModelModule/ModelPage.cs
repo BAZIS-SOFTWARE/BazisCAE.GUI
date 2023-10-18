@@ -123,19 +123,19 @@ namespace ModelModule
                 var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber,els3D.ToArray());
 
                 Project.Model.ObjectData.AddRange(boundaryElements2D);
-
+                
                 ModelPresenter.Remove("Элементы2D");
-                var presenter = ModelPresenter.CreatePresenter(boundaryElements2D);
+                var presenter = ModelPresenter.CreateSurfaceObjectsPresenter(boundaryElements2D);
                 ModelPresenter.Add("Элементы2D", presenter);
 
-                SceneControl.HideAllGeometryObjs();
-                SceneControl.HideDisplayText2D();
-                SceneControl.HideDisplayText3D();
+                SceneInterface.HideAllGeometryObjs();
+                SceneInterface.HideDisplayText2D();
+                SceneInterface.HideDisplayText3D();
 
-                SceneControl.DeleteVBObjects("Элементы2D");
-                PresentDataToScene("Элементы2D");
+                SceneInterface.DeleteVBObjects("Элементы2D");
+                PresentObjectsToScene("Элементы2D", presenter);
 
-                SceneControl.DisplayObjects();
+                SceneInterface.DisplayObjects();
 
                 PresentModelOnSelectToolStrip();
 
@@ -162,10 +162,10 @@ namespace ModelModule
         {
             ClearAllDataOnScene();
             for(var i = 0; i < objType.Length; ++i)
-                PresentDataToScene(objType[i]);
+                PresentObjectsToScene(objType[i], ModelPresenter[objType[i]]);
             if (fitOnScreen)
-                SceneControl.FitObjectsToScreen();
-            SceneControl.DisplayObjects();
+                SceneInterface.FitObjectsToScreen();
+            SceneInterface.DisplayObjects();
         }
     }
 }

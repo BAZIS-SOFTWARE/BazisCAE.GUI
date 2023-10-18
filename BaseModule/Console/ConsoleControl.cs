@@ -53,6 +53,8 @@ namespace BaseModule.Console
 
         public bool ShowTaskInfo { get; private set; }
 
+        public event Action ConsolePanelCollapseEvent;
+
         int SessionNumber
         {
             get;
@@ -117,6 +119,11 @@ namespace BaseModule.Console
         public ConsoleControl()
         {
             InitializeComponent();
+
+            typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic |
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).
+                SetValue(grbConsole, true, null);
+
             tlsOut.Renderer = new ConsoleToolStrRender();
             tlsIn.Renderer = new ConsoleToolStrRender();
 
@@ -526,6 +533,34 @@ namespace BaseModule.Console
                 return;
 
             rtxbOut.BackColor = colorDialog.Color;
+        }
+
+        private void grbConsole_Paint(object sender, PaintEventArgs e)
+        {
+            var control = (Control)sender;
+            e.Graphics.DrawString("Консоль", Font, new SolidBrush(System.Drawing.Color.Black), 16, 0);
+            PaintCloseRectangle(control, e);
+        }
+
+        private void PaintCloseRectangle(Control control, PaintEventArgs e)
+        {
+            var locRect = new Point(control.Width - 16, 3);
+            Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 1);
+            var rect = new Rectangle(locRect, new Size(8, 8));
+
+            e.Graphics.DrawRectangle(blackPen, rect);
+            e.Graphics.DrawString("х", Font, new SolidBrush(System.Drawing.Color.Black), control.Width - 16, 0);
+        }
+
+        private void grbConsole_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Location.X > grbConsole.Width - 16 & e.Location.X < grbConsole.Width - 8 && e.Location.Y <= 10)
+                ConsolePanelCollapseEvent?.Invoke();
+        }
+
+        private void grbConsole_Resize(object sender, EventArgs e)
+        {
+            grbConsole.Invalidate();
         }
     }
 }

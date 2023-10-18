@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -47,11 +48,15 @@ namespace BaseModule.Navigator
         public event Action<string, ViewRegime> ChangeObjectsViewEvent;
         public event Action<string> HideObjectsEvent;
         public event Action<string> DelObjectsEvent;
+        public event Action NavigatorPanelCollapseEvent;
         public NavigatorControl()
         {
             InitializeComponent();
+            typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | 
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).
+                SetValue(grbNavigator, true, null);     
 
-            imgDict = new Dictionary<string, int>()
+        imgDict = new Dictionary<string, int>()
             {
                 { "Узлы",3},
                 { "Элементы3D",4},
@@ -417,6 +422,33 @@ namespace BaseModule.Navigator
         public void ребраИПоверхностиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeObjectsViewEvent?.Invoke(treeView.SelectedNode.Name, ViewRegime.ribbersSurfaces);
+        }
+
+        private void grbNavigator_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawString("Навигатор", Font, new SolidBrush(System.Drawing.Color.Black), 16, 0);
+            PaintCloseRectangle((Control)sender, e);
+        }
+
+        private void PaintCloseRectangle(Control control, PaintEventArgs e)
+        {
+            var locRect = new Point(control.Width - 16, 3);
+            Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 1);
+            var rect = new Rectangle(locRect, new Size(8, 8));
+
+            e.Graphics.DrawRectangle(blackPen, rect);
+            e.Graphics.DrawString("х", Font, new SolidBrush(System.Drawing.Color.Black), control.Width - 16, 0);
+        }
+
+        private void grbNavigator_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Location.X > grbNavigator.Width - 16 & e.Location.X < grbNavigator.Width - 8 && e.Location.Y <= 10)
+                NavigatorPanelCollapseEvent?.Invoke();
+        }
+
+        private void grbNavigator_Resize(object sender, EventArgs e)
+        {
+            grbNavigator.Invalidate();
         }
     }
 }

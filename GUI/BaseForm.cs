@@ -252,10 +252,11 @@ namespace BazisGUI
 
         private void SetGeneralSettings(BasePage module)
         {
-            module.SceneControl.BackGroundColor = settingsConfig.BackGroudColor;
-            module.SceneControl.SelectionColor = settingsConfig.SelectObjectColor;
-            module.SceneControl.IsBlending = settingsConfig.Transparency;
-            module.SceneControl.IsLighting = settingsConfig.Lighting;
+            module.SceneInterface.BackGroundColor = settingsConfig.BackGroudColor;
+            module.SceneInterface.SelectionColor = settingsConfig.SelectObjectColor;
+            module.SceneInterface.IsBlending = settingsConfig.Transparency;
+            module.SceneInterface.IsLighting = settingsConfig.Lighting;
+            module.SelectionGroupColor = settingsConfig.SelectGroupColor;
         }
 
         private void BaseForm_KeyDown(object sender, KeyEventArgs e)
@@ -380,7 +381,7 @@ namespace BazisGUI
                 var basePage = (BasePage)controls[0];
                 settings.SetSelectionGroupColorEvent += (ar) => basePage.SelectionGroupColor = ar;
                 settings.SetSelectionObjectColorEvent += (ar) => 
-                basePage.SceneControl.SelectionColor = ar;
+                basePage.SceneInterface.SelectionColor = ar;
 
                 settings.SetSolverPathEvent += (ar) =>
                 {
@@ -389,42 +390,42 @@ namespace BazisGUI
                 };
                 settings.SetBackGroundColorEvent += (ar) =>
                 {
-                    basePage.SceneControl.BackGroundColor = ar;
-                    basePage.SceneControl.DisplayObjects();
+                    basePage.SceneInterface.BackGroundColor = ar;
+                    basePage.SceneInterface.DisplayObjects();
                 };
  
 
                 settings.SetLightingEvent += (ar) =>
                 {
-                    basePage.SceneControl.IsLighting = ar;
-                    basePage.SceneControl.DisplayObjects();
+                    basePage.SceneInterface.IsLighting = ar;
+                    basePage.SceneInterface.DisplayObjects();
                 };
 
                 settings.SetTransparencyEvent += (ar) =>
                 {
-                    basePage.SceneControl.IsBlending = ar;
-                    basePage.SceneControl.DisplayObjects();
+                    basePage.SceneInterface.IsBlending = ar;
+                    basePage.SceneInterface.DisplayObjects();
                 };
 
                 settings.SetLightingIntensityEvent += (ar) =>
                 {
-                    basePage.SceneControl.LightAttenuation = 1 - ar / 100.0f;
-                    basePage.SceneControl.DisplayObjects();
+                    basePage.SceneInterface.LightAttenuation = 1 - ar / 100.0f;
+                    basePage.SceneInterface.DisplayObjects();
                 };
  
 
                 settings.SetLighterPositionEvent += (ar) =>
                 {
-                    var kx = (float)(basePage.SceneControl.SceneWidth / settings.Width);
-                    var ky = (float)(basePage.SceneControl.SceneHeight / settings.Height);
+                    var kx = (float)(basePage.SceneInterface.SceneWidth / settings.Width);
+                    var ky = (float)(basePage.SceneInterface.SceneHeight / settings.Height);
 
                     var x = ar.X * kx;
                     var y = ar.Y * ky;
 
-                    basePage.SceneControl.LightTranslateX = x;
-                    basePage.SceneControl.LightTranslateY = y;
+                    basePage.SceneInterface.LightTranslateX = x;
+                    basePage.SceneInterface.LightTranslateY = y;
 
-                    basePage.SceneControl.DisplayObjects();
+                    basePage.SceneInterface.DisplayObjects();
                 };
             }
                  

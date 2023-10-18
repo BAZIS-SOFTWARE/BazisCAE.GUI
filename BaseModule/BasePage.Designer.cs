@@ -34,39 +34,32 @@ namespace BaseModule
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BasePage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.lblInputCmd = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.webPageLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.grbNavigator = new System.Windows.Forms.Panel();
             this.navigator = new BaseModule.Navigator.NavigatorControl();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.grbScene = new System.Windows.Forms.Panel();
-            this.sceneControl = new Scene.SceneControl();
-            this.grbConsole = new System.Windows.Forms.Panel();
             this.consoleControl = new BaseModule.Console.ConsoleControl();
             this.standartToolStrip = new BaseModule.ToolStrips.StandartToolStrip();
             this.instrumentalToolStrip = new BaseModule.ToolStrips.InstrumentToolStrip();
             this.viewToolStrip = new BaseModule.ToolStrips.ViewToolStrip();
             this.displayToolStrip = new BaseModule.ToolStrips.DisplayToolStrip();
             this.selectToolStrip = new BaseModule.ToolStrips.SelectToolStrip();
+            this.sceneExControl = new BaseModule.SceneEx.SceneExControl();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
-            this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.grbNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            this.grbScene.SuspendLayout();
-            this.grbConsole.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripContainer
@@ -74,14 +67,14 @@ namespace BaseModule
             // 
             // toolStripContainer.BottomToolStripPanel
             // 
-            this.toolStripContainer.BottomToolStripPanel.Controls.Add(this.statusStrip1);
+            this.toolStripContainer.BottomToolStripPanel.Controls.Add(this.statusStrip);
             // 
             // toolStripContainer.ContentPanel
             // 
             this.toolStripContainer.ContentPanel.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainer1);
             this.toolStripContainer.ContentPanel.Padding = new System.Windows.Forms.Padding(5);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1318, 467);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1318, 601);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer.Name = "toolStripContainer";
@@ -93,35 +86,35 @@ namespace BaseModule
             // 
             this.toolStripContainer.TopToolStripPanel.BackColor = System.Drawing.SystemColors.Control;
             // 
-            // statusStrip1
+            // statusStrip
             // 
-            this.statusStrip1.BackColor = System.Drawing.SystemColors.Control;
-            this.statusStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusStrip.BackColor = System.Drawing.SystemColors.Control;
+            this.statusStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblInputCmd,
             this.lblVersion,
             this.webPageLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 0);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1318, 22);
-            this.statusStrip1.TabIndex = 0;
+            this.statusStrip.Location = new System.Drawing.Point(0, 0);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(1318, 22);
+            this.statusStrip.TabIndex = 0;
             // 
             // lblInputCmd
             // 
             this.lblInputCmd.AutoSize = false;
             this.lblInputCmd.BackColor = System.Drawing.SystemColors.Control;
             this.lblInputCmd.Name = "lblInputCmd";
-            this.lblInputCmd.Size = new System.Drawing.Size(376, 17);
+            this.lblInputCmd.Size = new System.Drawing.Size(1102, 17);
+            this.lblInputCmd.Spring = true;
             this.lblInputCmd.Text = "Начните работу с загрузки проекта или импорта сеточной модели";
-            this.lblInputCmd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblInputCmd.TextChanged += new System.EventHandler(this.lblInputCmd_TextChanged);
             // 
             // lblVersion
             // 
+            this.lblVersion.AutoSize = false;
+            this.lblVersion.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(826, 17);
-            this.lblVersion.Spring = true;
-            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblVersion.Size = new System.Drawing.Size(100, 17);
             // 
             // webPageLabel
             // 
@@ -144,39 +137,27 @@ namespace BaseModule
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.grbNavigator);
+            this.splitContainer1.Panel1.Controls.Add(this.navigator);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1308, 457);
+            this.splitContainer1.Size = new System.Drawing.Size(1308, 591);
             this.splitContainer1.SplitterDistance = 450;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 0;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
-            // grbNavigator
-            // 
-            this.grbNavigator.BackColor = System.Drawing.Color.Silver;
-            this.grbNavigator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.grbNavigator.Controls.Add(this.navigator);
-            this.grbNavigator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbNavigator.Location = new System.Drawing.Point(0, 0);
-            this.grbNavigator.Name = "grbNavigator";
-            this.grbNavigator.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.grbNavigator.Size = new System.Drawing.Size(450, 457);
-            this.grbNavigator.TabIndex = 0;
-            this.grbNavigator.Paint += new System.Windows.Forms.PaintEventHandler(this.grbNavigator_Paint);
-            // 
             // navigator
             // 
+            this.navigator.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.navigator.CollapseIndex = 1;
             this.navigator.Dock = System.Windows.Forms.DockStyle.Fill;
             this.navigator.ExpandIndex = 2;
-            this.navigator.Location = new System.Drawing.Point(0, 15);
+            this.navigator.Location = new System.Drawing.Point(0, 0);
             this.navigator.Name = "navigator";
             this.navigator.ProjectInfoIndex = 0;
-            this.navigator.Size = new System.Drawing.Size(448, 440);
+            this.navigator.Size = new System.Drawing.Size(450, 591);
             this.navigator.TabIndex = 0;
             this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
             this.navigator.SelectGroupEvent += new System.Action<string>(this.navigator_SelectGroupEvent);
@@ -204,67 +185,15 @@ namespace BaseModule
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.grbScene);
+            this.splitContainer2.Panel1.Controls.Add(this.sceneExControl);
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.grbConsole);
-            this.splitContainer2.Size = new System.Drawing.Size(853, 457);
-            this.splitContainer2.SplitterDistance = 348;
+            this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
+            this.splitContainer2.Size = new System.Drawing.Size(853, 591);
+            this.splitContainer2.SplitterDistance = 450;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
-            // 
-            // grbScene
-            // 
-            this.grbScene.BackColor = System.Drawing.Color.Silver;
-            this.grbScene.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.grbScene.Controls.Add(this.sceneControl);
-            this.grbScene.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbScene.Location = new System.Drawing.Point(0, 0);
-            this.grbScene.Name = "grbScene";
-            this.grbScene.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.grbScene.Size = new System.Drawing.Size(853, 348);
-            this.grbScene.TabIndex = 0;
-            this.grbScene.Paint += new System.Windows.Forms.PaintEventHandler(this.grbScene_Paint);
-            // 
-            // sceneControl
-            // 
-            this.sceneControl.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.sceneControl.BackGroundColor = System.Drawing.Color.White;
-            this.sceneControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sceneControl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.sceneControl.IsBlending = true;
-            this.sceneControl.IsLighting = true;
-            this.sceneControl.Location = new System.Drawing.Point(0, 15);
-            this.sceneControl.Name = "sceneControl";
-            this.sceneControl.RotationAngle = 2.5F;
-            this.sceneControl.RotationAxis = SceneInterface.ViewAxis.XYZ;
-            this.sceneControl.SelectionColor = System.Drawing.Color.LawnGreen;
-            this.sceneControl.Size = new System.Drawing.Size(851, 331);
-            this.sceneControl.TabIndex = 4;
-            this.sceneControl.TitleColor = System.Drawing.Color.Black;
-            this.sceneControl.TitleText = "";
-            this.sceneControl.InfoObjectsEvent += new System.Action<object, System.EventArgs>(this.sceneControl_InfoObjectsEvent);
-            this.sceneControl.SelectObjectsEvent += new System.Action<object, Scene.Events.SelectObjectsEventArgs>(this.sceneControl_SelectObjectsEvent);
-            this.sceneControl.SetBackColorEvent += new System.Action<object, System.EventArgs>(this.sceneControl_SetBackColorEvent);
-            this.sceneControl.ShowAllHiddenObjectsEvent += new System.Action<object, System.EventArgs>(this.sceneControl_ShowAllHiddenObjectsEvent);
-            this.sceneControl.HideSelectedObjectsEvent += new System.Action<object, System.EventArgs>(this.sceneControl_HideSelectedObjectsEvent);
-            this.sceneControl.CreateMeshGroupEvent += new System.Action<object, System.EventArgs>(this.sceneControl_CreateMeshGroupEvent);
-            this.sceneControl.DeleteSelectionEvent += new System.Action<object, System.EventArgs>(this.sceneControl_DeleteSelectionEvent);
-            this.sceneControl.MessageEvent += new System.Action<object, Scene.Events.MessageEventArgs>(this.sceneControl_MessageEvent);
-            // 
-            // grbConsole
-            // 
-            this.grbConsole.BackColor = System.Drawing.Color.Silver;
-            this.grbConsole.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.grbConsole.Controls.Add(this.consoleControl);
-            this.grbConsole.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbConsole.Location = new System.Drawing.Point(0, 0);
-            this.grbConsole.Name = "grbConsole";
-            this.grbConsole.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.grbConsole.Size = new System.Drawing.Size(853, 104);
-            this.grbConsole.TabIndex = 0;
-            this.grbConsole.Paint += new System.Windows.Forms.PaintEventHandler(this.grbConsole_Paint);
             // 
             // consoleControl
             // 
@@ -272,9 +201,9 @@ namespace BaseModule
             this.consoleControl.CheckPrintElemsInfo = false;
             this.consoleControl.CheckPrintNodesInfo = false;
             this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.consoleControl.Location = new System.Drawing.Point(0, 15);
+            this.consoleControl.Location = new System.Drawing.Point(0, 0);
             this.consoleControl.Name = "consoleControl";
-            this.consoleControl.Size = new System.Drawing.Size(851, 87);
+            this.consoleControl.Size = new System.Drawing.Size(853, 136);
             this.consoleControl.TabIndex = 4;
             this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
             // 
@@ -337,6 +266,14 @@ namespace BaseModule
             this.selectToolStrip.SelectObjectEvent += new System.Action<object, BaseModule.ToolStrips.SelectObjectEventArgs>(this.SelectToolStrip_SelectObjectEvent);
             this.selectToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.SelectToolStrip_ItemClicked);
             // 
+            // sceneExControl
+            // 
+            this.sceneExControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sceneExControl.Location = new System.Drawing.Point(0, 0);
+            this.sceneExControl.Name = "sceneExControl";
+            this.sceneExControl.Size = new System.Drawing.Size(853, 450);
+            this.sceneExControl.TabIndex = 0;
+            // 
             // BasePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -348,23 +285,18 @@ namespace BaseModule
             this.toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
             this.toolStripContainer.BottomToolStripPanel.PerformLayout();
             this.toolStripContainer.ContentPanel.ResumeLayout(false);
-            this.toolStripContainer.TopToolStripPanel.ResumeLayout(false);
-            this.toolStripContainer.TopToolStripPanel.PerformLayout();
             this.toolStripContainer.ResumeLayout(false);
             this.toolStripContainer.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.grbNavigator.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            this.grbScene.ResumeLayout(false);
-            this.grbConsole.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -372,23 +304,20 @@ namespace BaseModule
         #endregion
 
         private System.Windows.Forms.ToolStripContainer toolStripContainer;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel lblInputCmd;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.ToolStripStatusLabel webPageLabel;
-        private System.Windows.Forms.Panel grbConsole;
         private ConsoleControl consoleControl;
-        private System.Windows.Forms.Panel grbNavigator;
-        private System.Windows.Forms.Panel grbScene;
         //private Scene.SceneControl sceneControl;
         private System.Windows.Forms.ToolStripStatusLabel lblVersion;
-        private Scene.SceneControl sceneControl;
         DisplayToolStrip displayToolStrip;
         SelectToolStrip selectToolStrip;
         StandartToolStrip standartToolStrip;
         ViewToolStrip viewToolStrip;
         InstrumentToolStrip instrumentalToolStrip;
         private Navigator.NavigatorControl navigator;
+        private SceneEx.SceneExControl sceneExControl;
     }
 }
