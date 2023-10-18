@@ -39,15 +39,15 @@ namespace BaseModule
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.webPageLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.navigator = new BaseModule.Navigator.NavigatorControl();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.navigator = new BaseModule.Navigator.NavigatorControl();
+            this.sceneExControl = new BaseModule.SceneEx.SceneExControl();
             this.consoleControl = new BaseModule.Console.ConsoleControl();
             this.standartToolStrip = new BaseModule.ToolStrips.StandartToolStrip();
             this.instrumentalToolStrip = new BaseModule.ToolStrips.InstrumentToolStrip();
             this.viewToolStrip = new BaseModule.ToolStrips.ViewToolStrip();
             this.displayToolStrip = new BaseModule.ToolStrips.DisplayToolStrip();
             this.selectToolStrip = new BaseModule.ToolStrips.SelectToolStrip();
-            this.sceneExControl = new BaseModule.SceneEx.SceneExControl();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
@@ -103,8 +103,10 @@ namespace BaseModule
             // 
             this.lblInputCmd.AutoSize = false;
             this.lblInputCmd.BackColor = System.Drawing.SystemColors.Control;
+            this.lblInputCmd.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.lblInputCmd.Margin = new System.Windows.Forms.Padding(5, 3, 0, 2);
             this.lblInputCmd.Name = "lblInputCmd";
-            this.lblInputCmd.Size = new System.Drawing.Size(1102, 17);
+            this.lblInputCmd.Size = new System.Drawing.Size(1097, 17);
             this.lblInputCmd.Spring = true;
             this.lblInputCmd.Text = "Начните работу с загрузки проекта или импорта сеточной модели";
             this.lblInputCmd.TextChanged += new System.EventHandler(this.lblInputCmd_TextChanged);
@@ -148,6 +150,25 @@ namespace BaseModule
             this.splitContainer1.TabIndex = 0;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.sceneExControl);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
+            this.splitContainer2.Size = new System.Drawing.Size(853, 591);
+            this.splitContainer2.SplitterDistance = 450;
+            this.splitContainer2.SplitterWidth = 5;
+            this.splitContainer2.TabIndex = 0;
+            // 
             // navigator
             // 
             this.navigator.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -176,24 +197,23 @@ namespace BaseModule
             this.navigator.HideObjectsEvent += new System.Action<string>(this.navigator_HideObjectsEvent);
             this.navigator.DelObjectsEvent += new System.Action<string>(this.navigator_DelObjectsEvent);
             // 
-            // splitContainer2
+            // sceneExControl
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.sceneExControl);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
-            this.splitContainer2.Size = new System.Drawing.Size(853, 591);
-            this.splitContainer2.SplitterDistance = 450;
-            this.splitContainer2.SplitterWidth = 5;
-            this.splitContainer2.TabIndex = 0;
+            this.sceneExControl.BackColor = System.Drawing.Color.Transparent;
+            this.sceneExControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.sceneExControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sceneExControl.Location = new System.Drawing.Point(0, 0);
+            this.sceneExControl.Name = "sceneExControl";
+            this.sceneExControl.Size = new System.Drawing.Size(853, 450);
+            this.sceneExControl.TabIndex = 0;
+            this.sceneExControl.CreateMeshGroupEvent += new System.Action(this.SceneControl_CreateMeshGroupEvent);
+            this.sceneExControl.DeleteSelectionEvent += new System.Action(this.SceneControl_DeleteSelectionEvent);
+            this.sceneExControl.HideSelectedObjectsEvent += new System.Action(this.SceneControl_HideSelectedObjectsEvent);
+            this.sceneExControl.InfoObjectsEvent += new System.Action(this.SceneControl_InfoObjectsEvent);
+            this.sceneExControl.MessageEvent += new System.Action<object, Scene.Events.MessageEventArgs>(this.SceneControl_MessageEvent);
+            this.sceneExControl.SelectObjectsEvent += new System.Action<object, Scene.Events.SelectObjectsEventArgs>(this.SceneControl_SelectObjectsEvent);
+            this.sceneExControl.SetBackColorEvent += new System.Action(this.SceneControl_SetBackColorEvent);
+            this.sceneExControl.ShowAllHiddenObjectsEvent += new System.Action(this.SceneControl_ShowAllHiddenObjectsEvent);
             // 
             // consoleControl
             // 
@@ -265,14 +285,6 @@ namespace BaseModule
             this.selectToolStrip.Text = "Выбор";
             this.selectToolStrip.SelectObjectEvent += new System.Action<object, BaseModule.ToolStrips.SelectObjectEventArgs>(this.SelectToolStrip_SelectObjectEvent);
             this.selectToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.SelectToolStrip_ItemClicked);
-            // 
-            // sceneExControl
-            // 
-            this.sceneExControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sceneExControl.Location = new System.Drawing.Point(0, 0);
-            this.sceneExControl.Name = "sceneExControl";
-            this.sceneExControl.Size = new System.Drawing.Size(853, 450);
-            this.sceneExControl.TabIndex = 0;
             // 
             // BasePage
             // 

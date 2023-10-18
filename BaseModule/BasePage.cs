@@ -1324,7 +1324,7 @@ namespace BaseModule
             return resObject;
         }
 
-        public virtual void SceneControl_CreateMeshGroupEvent(object arg1, EventArgs arg2)
+        public virtual void SceneControl_CreateMeshGroupEvent()
         {
             if (!ModelPresenter.ContainsKey(selectToolStrip.SelectObjectsType))
                 return;
@@ -1358,7 +1358,7 @@ namespace BaseModule
             }
         }
 
-        public virtual void SceneControl_DeleteSelectionEvent(object arg1, EventArgs arg2)
+        public virtual void SceneControl_DeleteSelectionEvent()
         {
             if (!ModelPresenter.ContainsKey(selectToolStrip.SelectObjectsType))
                 return;
@@ -1403,7 +1403,7 @@ namespace BaseModule
             PresentProjectOnTree();
         }
 
-        private void SceneControl_InfoObjectsEvent(object arg1, EventArgs arg2)
+        private void SceneControl_InfoObjectsEvent()
         {
             try
             {
@@ -1424,6 +1424,85 @@ namespace BaseModule
         private void SceneControl_MessageEvent(object arg1, MessageEventArgs arg2)
         {
             consoleControl.PrintInfo(arg2.Message, Color.Red);
+        }
+
+        private void SceneControl_SelectObjectsEvent(object arg1, SelectObjectsEventArgs arg2)
+        {
+            if (ModelPresenter.ContainsKey(selectToolStrip.SelectObjectsType))
+            {
+                var selection = SearchObjects(selectToolStrip.SelectObjectsType, arg2.SelectionBox);
+
+                if (arg2.IsSorted & selection.Count > 0)
+                {
+                    var near = selection.OrderByDescending(x => x.CalcCentralPoint()._z).Last();
+                    near.SetBackColor();
+                }
+                else
+                {
+                    foreach (var obj in selection)
+                        if (arg2.IsSelected)
+                            obj.MasterColor = SceneControl.SelectionColor;
+                        else
+                            obj.SetBackColor();
+                }
+
+
+                var vboObjs = SceneControl.FindVBObj(selectToolStrip.SelectObjectsType);
+
+                var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
+                var colors = objsPresenter.CreateVertexes(vboObjs.ColorLength, "цвет");
+                vboObjs.PointsColors = colors;
+
+                SceneControl.DisplayObjects();
+            }
+        }
+
+        private void SceneControl_ShowAllHiddenObjectsEvent()
+        {
+            ShowAllObjects();
+
+            foreach (var item in ModelPresenter)
+                navigator.ShowObjectsNode(item.Key);
+
+            SceneControl.DisplayObjects();
+        }
+
+        private void SceneControl_HideSelectedObjectsEvent()
+        {
+            if (!ModelPresenter.ContainsKey(selectToolStrip.SelectObjectsType))
+                return;
+
+            var presentor = ModelPresenter[selectToolStrip.SelectObjectsType];
+
+            var hideObjects = 0;
+            foreach (var obj in presentor)
+            {
+                if (obj.MasterColor == SceneControl.SelectionColor)
+                    obj.ViewState = false;
+
+                if (!obj.ViewState)
+                    hideObjects++;
+            }
+
+            if (hideObjects == presentor.Count())
+                navigator.HideObjectsNode(selectToolStrip.SelectObjectsType);
+
+            var vbObj = SceneControl.FindVBObj(selectToolStrip.SelectObjectsType);
+            var viewMode = vbObj.ViewMode;
+
+            SceneControl.DeleteVBObjects(selectToolStrip.SelectObjectsType);
+            var vbObj1 = SceneControl.FindVBObj(selectToolStrip.SelectObjectsType);
+            PresentObjectsToScene(selectToolStrip.SelectObjectsType, presentor);
+
+            SceneControl.ChangeViewModeVBObjects(selectToolStrip.SelectObjectsType, viewMode);
+            SceneControl.DisplayObjects();
+        }
+
+        private void SceneControl_SetBackColorEvent()
+        {
+            SetBackColorToAllObjects();
+            SceneControl.HideDisplayText3D();
+            SceneControl.DisplayObjects();
         }
 
         private void WebPageLabel_Click(object sender, EventArgs e)
@@ -1498,15 +1577,7 @@ namespace BaseModule
             SetLblInputCmb();
         }
 
-        private void SceneControl_ShowAllHiddenObjectsEvent(object arg1, EventArgs arg2)
-        {
-            ShowAllObjects();
-
-            foreach (var item in ModelPresenter)
-                navigator.ShowObjectsNode(item.Key);
-
-            SceneControl.DisplayObjects();
-        }
+        
 
         public async void ConsoleControl_InEvent(object arg1, EventArgs arg2)
         {
@@ -1580,36 +1651,7 @@ namespace BaseModule
             }
         }
 
-        private void SceneControl_SelectObjectsEvent(object arg1, SelectObjectsEventArgs arg2)
-        {
-            if (ModelPresenter.ContainsKey(selectToolStrip.SelectObjectsType))
-            {
-                var selection = SearchObjects(selectToolStrip.SelectObjectsType, arg2.SelectionBox);
-
-                if (arg2.IsSorted & selection.Count > 0)
-                {
-                    var near = selection.OrderByDescending(x => x.CalcCentralPoint()._z).Last();
-                    near.SetBackColor();
-                }
-                else
-                {
-                    foreach (var obj in selection)
-                        if (arg2.IsSelected)
-                            obj.MasterColor = SceneControl.SelectionColor;
-                        else
-                            obj.SetBackColor();
-                }
-
-
-                var vboObjs = SceneControl.FindVBObj(selectToolStrip.SelectObjectsType);
-
-                var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
-                var colors = objsPresenter.CreateVertexes(vboObjs.ColorLength, "цвет");
-                vboObjs.PointsColors = colors;
-
-                SceneControl.DisplayObjects();
-            }
-        }
+        
 
         public List<IModelObject> SearchObjects(string objType, RectangleBox selectionBox)
         {
@@ -1645,43 +1687,7 @@ namespace BaseModule
             return selections;
         }
 
-        private void SceneControl_HideSelectedObjectsEvent(object arg1, EventArgs arg2)
-        {
-            if (!ModelPresenter.ContainsKey(selectToolStrip.SelectObjectsType))
-                return;
-
-            var presentor = ModelPresenter[selectToolStrip.SelectObjectsType];
-
-            var hideObjects = 0;
-            foreach (var obj in presentor)
-            {
-                if (obj.MasterColor == SceneControl.SelectionColor)
-                    obj.ViewState = false;
-                
-                if(!obj.ViewState)
-                    hideObjects++;
-            }
-
-            if (hideObjects == presentor.Count())
-                navigator.HideObjectsNode(selectToolStrip.SelectObjectsType);
-
-            var vbObj = SceneControl.FindVBObj(selectToolStrip.SelectObjectsType);
-            var viewMode = vbObj.ViewMode;
-
-            SceneControl.DeleteVBObjects(selectToolStrip.SelectObjectsType);
-            var vbObj1 = SceneControl.FindVBObj(selectToolStrip.SelectObjectsType);
-            PresentObjectsToScene(selectToolStrip.SelectObjectsType, presentor);
-
-            SceneControl.ChangeViewModeVBObjects(selectToolStrip.SelectObjectsType, viewMode);
-            SceneControl.DisplayObjects();
-        }
-
-        private void SceneControl_SetBackColorEvent(object arg1, EventArgs arg2)
-        {
-            SetBackColorToAllObjects();
-            SceneControl.HideDisplayText3D();
-            SceneControl.DisplayObjects();
-        }
+        
 
         private void lblInputCmd_TextChanged(object sender, EventArgs e)
         {
