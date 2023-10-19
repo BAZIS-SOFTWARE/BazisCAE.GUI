@@ -43,7 +43,7 @@ namespace TaskModule
             SearchControl(this, list);          
 
             solverStatusLabel = new ToolStripStatusLabel() { Name = "solverStatus"};
-            list[0].Items.Add(solverStatusLabel);
+            list[0].Items.Insert(1,solverStatusLabel);
 
             var taskNode = new TreeNode("Данные", 1, 1) { Name = "Данные", Tag = "6" };
             NavigatorControl.TreeView.Nodes.Add(taskNode);
@@ -247,8 +247,11 @@ namespace TaskModule
         {
             try
             {
-                if (!SaveAsProjectData("bpf"))
-                    return;
+                var answer = MessageBox.Show("Смена папки проекта", "Перед началом расчета рекомендуется сменить папку проекта", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                
+                if(answer == DialogResult.Yes)
+                    if (!SaveAsProjectData("bpf"))
+                        return;
 
                 var settingsSerializer = new JsonSerializerSettings
                 {
@@ -300,7 +303,7 @@ namespace TaskModule
             NavigatorControl.TreeView.EndUpdate();
             NavigatorControl.TreeView.Nodes["Данные"].Expand();
 
-            //PresentProjectTaskDataOnAdvisor(activeTask);
+            PresentProjectTaskDataOnAdvisor();
         }
 
         public void TaskAdvisor_ChangeTaskTypeEvent(object arg1, ChangeTaskTypeEventArgs arg2)
