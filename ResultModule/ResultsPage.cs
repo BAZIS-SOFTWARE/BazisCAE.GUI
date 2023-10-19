@@ -106,7 +106,7 @@ namespace ResultModule
                 foreach (var item in ModelPresenter)
                     PresentObjectsToScene(item.Key,item.Value);
 
-                SceneInterface.DisplayObjects();
+                SceneControl.DisplayObjects();
             };
 
             ToolStripMenuItem addResultsMenuItem = new ToolStripMenuItem()
@@ -140,7 +140,7 @@ namespace ResultModule
                 foreach (var item in ModelPresenter)
                     PresentObjectsToScene(item.Key, item.Value);
 
-                SceneInterface.DisplayObjects();
+                SceneControl.DisplayObjects();
             };
 
             ToolStripMenuItem showValueResultsMenuItem = new ToolStripMenuItem()
@@ -222,10 +222,10 @@ namespace ResultModule
 
                 else
                 {
-                    SceneInterface.HideGeometryObj("CreateScaleObject");
+                    SceneControl.HideGeometryObj("CreateScaleObject");
                 }
 
-                SceneInterface.DisplayObjects();
+                SceneControl.DisplayObjects();
             };
             scPage.SetX_PositionEvent += (ar1, ar2) =>
             {
@@ -239,7 +239,7 @@ namespace ResultModule
             var icon = ResultModule.Properties.Resources.Scale;
             var scForm = new Form() { TopMost = true, Icon = icon, Size = scPage.Size, Name = "Scale", Text = "Шкала значений" };
             scForm.FormClosed += (ar1, ar2) => 
-            { scPage = null; SceneInterface.HideGeometryObj("CreateScaleObject"); };
+            { scPage = null; SceneControl.HideGeometryObj("CreateScaleObject"); };
 
             scForm.Controls.Add(scPage);
             scForm.Show();
@@ -270,7 +270,7 @@ namespace ResultModule
 
                 SelectedObjects = ar;
 
-                SceneInterface.DisplayObjects();
+                SceneControl.DisplayObjects();
             };
 
             var resKinds = Project.ResultData.GetResultKinds();
@@ -417,7 +417,7 @@ namespace ResultModule
             else
             {
                 showResultValue = false;
-                SceneInterface.HideDisplayText3D();
+                SceneControl.HideDisplayText3D();
             }
         }
 
@@ -455,7 +455,7 @@ namespace ResultModule
                 foreach (var item in ModelPresenter)
                     PresentObjectsToScene(item.Key, item.Value);
 
-                SceneInterface.DisplayObjects();
+                SceneControl.DisplayObjects();
 
                 Project.ResultData.Clear();
                 NavigatorControl.TreeView.Nodes[6].Nodes.Clear();
@@ -477,7 +477,7 @@ namespace ResultModule
                 foreach (var item in ModelPresenter)
                     PresentObjectsToScene(item.Key, item.Value);
 
-                SceneInterface.DisplayObjects();
+                SceneControl.DisplayObjects();
             }
             else if (e.ClickedItem.Tag.ToString() == "4")
             {
@@ -514,7 +514,9 @@ namespace ResultModule
             
             var fieldCreator = new GradientFieldsCreator(valueRanges, colorRanges, scaleFactor);
 
-            ClearAllDataOnScene();
+            SceneControl.HideDisplayText2D();
+            SceneControl.HideDisplayText3D();
+            SceneControl.DeleteAllVBObjects();
 
             if (Project.TaskType == TaskType.Volume)
             {
@@ -536,9 +538,9 @@ namespace ResultModule
             if (showResultValue)
                 ShowResultValue(objsType, resName, result);
 
-            SceneInterface.ChangeViewModeVBObjects("Результаты", ObjView.Surface);
+            SceneControl.ChangeViewModeVBObjects("Результаты", ObjView.Surface);
 
-            SceneInterface.DisplayObjects();
+            SceneControl.DisplayObjects();
         }
 
         private void CreatePathGraph(string resKind, string objsType, float time)
@@ -551,7 +553,7 @@ namespace ResultModule
 
             var objsPresenter = ModelPresenter[SelectedObjects];
 
-            var objs = objsPresenter.Where(x => x.MasterColor == SceneInterface.SelectionColor).ToList();
+            var objs = objsPresenter.Where(x => x.MasterColor == SceneControl.SelectionColor).ToList();
             objs.SortByDistance();
 
             var pathPoints = new List<Point3D>();
@@ -608,7 +610,7 @@ namespace ResultModule
             var grDataAr = new List<GraphData>();
 
             var objsPresenter = ModelPresenter[SelectedObjects];
-            var objs = objsPresenter.Where(x => x.MasterColor == SceneInterface.SelectionColor).ToList();
+            var objs = objsPresenter.Where(x => x.MasterColor == SceneControl.SelectionColor).ToList();
             foreach (var obj in objs)
             {
                 var grPoints = new List<GraphPoint>();
@@ -728,16 +730,16 @@ namespace ResultModule
 
         public void CreateScale()
         {
-            SceneInterface.HideGeometryObj("CreateScaleObject");
+            SceneControl.HideGeometryObj("CreateScaleObject");
             if(NavigatorControl.TreeView.SelectedNode?.Level == 3)
             {
                 var title = NavigatorControl.TreeView.SelectedNode.Parent.Name;
                 var comments = NavigatorControl.TreeView.SelectedNode.Name;
-                SceneInterface.CreateScaleObject(
+                SceneControl.CreateScaleObject(
           scale.Coord_X, scale.Coord_Y, scale.ColorRange().ToArray(), scale.ValueRange().ToList(), title, comments);
             }
             else
-                SceneInterface.CreateScaleObject(
+                SceneControl.CreateScaleObject(
           scale.Coord_X, scale.Coord_Y, scale.ColorRange().ToArray(), scale.ValueRange().ToList(), "", "");
         }
 
@@ -745,14 +747,14 @@ namespace ResultModule
         {
             foreach (var obj in Project.Model.ObjectData.FindMany(objsType))
             {
-                if (obj.MasterColor == SceneInterface.SelectionColor)
+                if (obj.MasterColor == SceneControl.SelectionColor)
                 {
                     var coord = obj.CalcCentralPoint();
                     var res = 0.0f;
                     if (objsType == "Узлы")
                         res = result.GetNodeValue(obj.Number, resName);
                     else res = result.GetElementValue(obj.Number, resName);
-                    SceneInterface.DisplayText3D(res.ToString(), Color.Black, coord);
+                    SceneControl.DisplayText3D(res.ToString(), Color.Black, coord);
                 }
             }
         }

@@ -377,7 +377,7 @@ namespace TaskModule
 
         public void TaskAdvisor_ShowDataEvent(object arg1, ShowDataEventArgs arg2)
         {
-            SceneInterface.HideAllGeometryObjs();
+            SceneControl.HideAllGeometryObjs();
             var data = Project.TaskData.Find(arg2.DataName).
                 Select(x => (IValuableData)x).ToArray();
 
@@ -405,14 +405,14 @@ namespace TaskModule
                         DisplayDirection(data[index].StartTime, data[index], iobj);
                 }
 
-                var vboObjs = SceneInterface.FindVBObj(group.ObjType);
+                var vboObjs = SceneControl.FindVBObj(group.ObjType);
                 var colors = presentor.CreateVertexes(vboObjs.ColorLength, "цвет");
                 vboObjs.PointsColors = colors;
 
                 //SetVBObjColor(group.ObjType);
 
             }
-            SceneInterface.DisplayObjects();
+            SceneControl.DisplayObjects();
         }
 
         private void DisplayMRF(float time, IValuableData data)
@@ -430,18 +430,18 @@ namespace TaskModule
             data.MovedFrameFunction.RefLine.SetPoints(refPoints);
 
             var frame = data.MovedFrameFunction.CalcFrame(time);
-            SceneInterface.CreateLocalFrame(frame);
-            SceneInterface.CreatePath(basePoints);
+            SceneControl.CreateLocalFrame(frame);
+            SceneControl.CreatePath(basePoints);
 
             if (data.MovedFrameFunction.FunctionType == "Sphere")
             {
                 geomParam = data.MovedFrameFunction.GetGeometryParameters();
-                SceneInterface.CreateSphere(geomParam[0], frame);
+                SceneControl.CreateSphere(geomParam[0], frame);
             }
             else if (data.MovedFrameFunction.FunctionType == "Cillindrical")
             {
                 geomParam = data.MovedFrameFunction.GetGeometryParameters();
-                SceneInterface.CreateConus(geomParam[0], geomParam[1], geomParam[2], frame);
+                SceneControl.CreateConus(geomParam[0], geomParam[1], geomParam[2], frame);
             }
         }
 
@@ -482,25 +482,25 @@ namespace TaskModule
 
             foreach (var point in modelObj.GetPoints())
             {
-                var scl = 10 * (1.0f / Height * 1.0f / SceneInterface.ScaleFactor);
+                var scl = 10 * (1.0f / Height * 1.0f / SceneControl.ScaleFactor);
                 vector = vector.Mult(scl);
                 var p1 = point.Sum(vector);
-                SceneInterface.CreateLine(point, p1, color);
+                SceneControl.CreateLine(point, p1, color);
                 //SceneControl.DisplayText3D(data.CalcValue(time, point).ToString(), Color.FromArgb(0, 0, 0), point);
             }
         }
 
         public void TaskAdvisor_HideDataEvent(object arg1, HideDataEventArgs arg2)
         {
-            SceneInterface.HideAllGeometryObjs();
-            SceneInterface.HideDisplayText3D();
+            SceneControl.HideAllGeometryObjs();
+            SceneControl.HideDisplayText3D();
             SetBackColorToAllObjects();
-            SceneInterface.DisplayObjects();
+            SceneControl.DisplayObjects();
         }
 
         public void TaskAdvisor_CheckDataEvent(object arg1, CheckDataEventArgs arg2)
         {
-            SceneInterface.HideAllGeometryObjs();
+            SceneControl.HideAllGeometryObjs();
             var selectedData = Project.TaskData.Find(arg2.DataName).Select(x => (IValuableData)x);
             foreach (var data in selectedData)
             {
@@ -527,11 +527,11 @@ namespace TaskModule
                         if (data.Direction != "*")
                             DisplayDirection(arg2.Time, data, iobj);
                     }
-                    var vboObjs = SceneInterface.FindVBObj(group.ObjType);
+                    var vboObjs = SceneControl.FindVBObj(group.ObjType);
                     var colors = presentor.CreateVertexes(vboObjs.ColorLength, "цвет");
                     vboObjs.PointsColors = colors;
 
-                    SceneInterface.DisplayObjects();
+                    SceneControl.DisplayObjects();
                 }
             }
 

@@ -120,9 +120,15 @@ namespace ResultModule
         private void cmbResultNames_SelectedIndexChanged(object sender, EventArgs e)
         {
             playerPanel.Enabled = true;
-            richTextBox.Clear();
 
             var times = resItems[cmbResultNames.SelectedItem.ToString()];
+
+            if (times.Count() > 1)
+                player.StopValue = times.Count() - 1;
+            else if (times.Count() == 1)
+                player.StartValue = 0;
+
+            richTextBox.Clear();
 
             foreach (var time in times)
                 richTextBox.AppendText($"{time}\n");

@@ -537,19 +537,38 @@ namespace BaseModule.Console
 
         private void grbConsole_Paint(object sender, PaintEventArgs e)
         {
-            var control = (Control)sender;
-            e.Graphics.DrawString("Консоль", Font, new SolidBrush(System.Drawing.Color.Black), 16, 0);
-            PaintCloseRectangle(control, e);
+            PaintCloseRectangle(e);
+            PaintLine(e);
+            PaintName(e);
         }
 
-        private void PaintCloseRectangle(Control control, PaintEventArgs e)
+        private void PaintName(PaintEventArgs e)
         {
-            var locRect = new Point(control.Width - 16, 3);
+            var locRect = new Point(15, 3);
+            var size = e.Graphics.MeasureString("Консоль", this.Font);
+            var rect = new Rectangle(locRect, new Size((int)size.Width, 8));
+            e.Graphics.FillRectangle(new SolidBrush(System.Drawing.Color.Silver), rect);
+            e.Graphics.DrawString("Консоль", Font, new SolidBrush(System.Drawing.Color.Black), 16, 0);
+        }
+
+        private void PaintCloseRectangle(PaintEventArgs e)
+        {
+            var locRect = new Point(Width - 16, 3);
             Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 1);
             var rect = new Rectangle(locRect, new Size(8, 8));
 
             e.Graphics.DrawRectangle(blackPen, rect);
-            e.Graphics.DrawString("х", Font, new SolidBrush(System.Drawing.Color.Black), control.Width - 16, 0);
+            e.Graphics.DrawString("х", Font, new SolidBrush(System.Drawing.Color.Black),
+                Width - 16, 0);
+        }
+
+        private void PaintLine(PaintEventArgs e)
+        {
+            Pen grPen = new Pen(Color.LightGray, 1);
+
+            var p0 = new Point(5, 7);
+            var p1 = new Point(Width - 20, 7);
+            e.Graphics.DrawLine(grPen, p0, p1);
         }
 
         private void grbConsole_MouseClick(object sender, MouseEventArgs e)

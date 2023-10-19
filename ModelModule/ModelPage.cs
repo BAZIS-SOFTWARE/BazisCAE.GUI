@@ -128,14 +128,14 @@ namespace ModelModule
                 var presenter = ModelPresenter.CreateSurfaceObjectsPresenter(boundaryElements2D);
                 ModelPresenter.Add("Элементы2D", presenter);
 
-                SceneInterface.HideAllGeometryObjs();
-                SceneInterface.HideDisplayText2D();
-                SceneInterface.HideDisplayText3D();
+                SceneControl.HideAllGeometryObjs();
+                SceneControl.HideDisplayText2D();
+                SceneControl.HideDisplayText3D();
 
-                SceneInterface.DeleteVBObjects("Элементы2D");
+                SceneControl.DeleteVBObjects("Элементы2D");
                 PresentObjectsToScene("Элементы2D", presenter);
 
-                SceneInterface.DisplayObjects();
+                SceneControl.DisplayObjects();
 
                 PresentModelOnSelectToolStrip();
 
@@ -164,8 +164,8 @@ namespace ModelModule
             for(var i = 0; i < objType.Length; ++i)
                 PresentObjectsToScene(objType[i], ModelPresenter[objType[i]]);
             if (fitOnScreen)
-                SceneInterface.FitObjectsToScreen();
-            SceneInterface.DisplayObjects();
+                SceneControl.FitObjectsToScreen();
+            SceneControl.DisplayObjects();
         }
     }
 }
