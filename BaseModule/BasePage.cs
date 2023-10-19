@@ -1426,7 +1426,7 @@ namespace BaseModule
 
                 if (arg2.IsSorted & selection.Count > 0)
                 {
-                    var near = selection.OrderByDescending(x => x.CalcCentralPoint()._z).First;
+                    var near = selection.OrderByDescending(x => x.CalcCentralPoint()._z).First();
                     if (arg2.IsSelected)
                         near.MasterColor = sceneControl.SelectionColor;
                     else
