@@ -69,21 +69,21 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             {
                 if (rbtARC.Checked)
                 {
-                    var arcControl = (ArcWeldingControl)Controls.Cast<Control>().
+                    var arcControl = (ArcWeldingControl)grbWeldRegime.Controls.Cast<Control>().
       Where(x => x.GetType() == typeof(ArcWeldingControl)).First();
 
                     return arcControl.CollectData();
                 }
                 else if (rbtFSW.Checked)
                 {
-                    var fswControl = (FSWeldingControl)Controls.Cast<Control>().
+                    var fswControl = (FSWeldingControl)grbWeldRegime.Controls.Cast<Control>().
 Where(x => x.GetType() == typeof(FSWeldingControl)).First();
 
                     return fswControl.CollectData();
                 }
                 else if (rbtLW.Checked)
                 {
-                    var lwControl = (LWeldingControl)Controls.Cast<Control>().
+                    var lwControl = (LWeldingControl)grbWeldRegime.Controls.Cast<Control>().
 Where(x => x.GetType() == typeof(LWeldingControl)).First();
 
                     return lwControl.CollectData();

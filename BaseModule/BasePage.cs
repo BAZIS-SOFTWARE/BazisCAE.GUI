@@ -31,6 +31,7 @@ using ModelController.ModelScenePresentator;
 using ModelController.ModelScenePresentator.GlObjsPresenters;
 using Scene;
 using Scene.VBO;
+using Newtonsoft.Json;
 
 namespace BaseModule
 {
@@ -218,7 +219,18 @@ namespace BaseModule
             создатьToolStripMenuItem.Click += (ar1, ar2) => { CreateNewProject(); };
             открытьToolStripMenuItem.Click += (ar1, ar2) => { LoadProjectData("Bazis project file(*.bpf)|*.bpf|All files(*.*)|*.*"); };
             сохранитьToolStripMenuItem.Click += (ar1, ar2) => { SaveProjectData(); };
-            сохранитькакToolStripMenuItem.Click += (ar1, ar2) => { SaveAsProjectData("bpf"); };
+            сохранитькакToolStripMenuItem.Click += (ar1, ar2) => 
+            {
+                using (SaveFileDialog saveDialog = new SaveFileDialog())
+                {
+                    saveDialog.DefaultExt = "bpf";
+
+                    if (saveDialog.ShowDialog() == DialogResult.Cancel)
+                        return;
+                    SaveAsProjectData(saveDialog.FileName);
+                }
+                PresentProjectOnTree();
+            };
 
             return файлToolStripMenuItem;
         }
@@ -375,7 +387,15 @@ namespace BaseModule
             }
             else if (e.ClickedItem.Tag.ToString() == "2")
             {
-                SaveAsProjectData("bpf");
+                using (SaveFileDialog saveDialog = new SaveFileDialog())
+                {
+                    saveDialog.DefaultExt = "bpf";
+
+                    if (saveDialog.ShowDialog() == DialogResult.Cancel)
+                        return;
+                    SaveAsProjectData(saveDialog.FileName);
+                }
+                PresentProjectOnTree();
             }
             else if (e.ClickedItem.Tag.ToString() == "4")
             {
@@ -491,43 +511,31 @@ namespace BaseModule
             }
         }
 
-        public bool SaveAsProjectData(string extFilter)
+        public virtual void SaveAsProjectData(string path)
         {
-            SaveFileDialog saveDialog = new SaveFileDialog();
+            var folder = Path.GetDirectoryName(path);
 
-            saveDialog.DefaultExt = extFilter;
+            project.Name = Path.GetFileName(path);
 
-            if (saveDialog.ShowDialog() == DialogResult.Cancel)
-                return false;
+                var compData = project.TaskData.Find("Расчет");
 
-            var path = Path.GetDirectoryName(saveDialog.FileName);
-            project.Name = Path.GetFileName(saveDialog.FileName);
-
-            var compData = project.TaskData.Find("Расчет");
-
-            if (project.Path != path)
-                foreach (CompData data in compData)
+                if (project.Path != folder)
                 {
-                    var oldfilePath = $@"{project.Path}\{data.FileParameters}";
-                    var newfilePath = $@"{path}\{data.FileParameters}";
+                    foreach (CompData data in compData)
+                    {
+                        var oldfilePath = $@"{project.Path}\{data.FileParameters}";
+                        var newfilePath = $@"{folder}\{data.FileParameters}";
 
-                    File.Create(newfilePath).Close();
-                    File.Copy(oldfilePath, newfilePath, true);
+                        File.Create(newfilePath).Close();
+                        File.Copy(oldfilePath, newfilePath, true);
+                    }
                 }
-
-            project.Path = path;
-
-            saveDialog.Dispose();
-
+                project.Path = folder;
+            
             SaveProjectData();
-
-            PresentProjectOnTree();
-            sceneControl.DisplayObjects();
-
-            return true;
         }
 
-        public void SaveProjectData()
+        public virtual void SaveProjectData()
         {
             var saver = new SaveProjectTextFormat();
             saver.SaveEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };

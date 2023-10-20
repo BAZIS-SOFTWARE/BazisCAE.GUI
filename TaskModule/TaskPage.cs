@@ -99,10 +99,9 @@ namespace TaskModule
                 var matBasePage = new DataBasesGUI.MaterialsDataBasePage() {  Dock = DockStyle.Fill };
                 matBasePage.LoadEvent += () => { MatData = matBasePage.Materials; };
 
-                var matFiles = Directory.GetFiles(Project.Path, "materials.jsf", SearchOption.AllDirectories);
-
-                if (matFiles.Length > 0)
-                    matBasePage.Load(matFiles[0],false);
+                if (!TryLoadDataBase("materials.jsf"))
+                    MessageBox.Show("Проверьте папку установки!", "Ошибка загрузки базы материалов", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 var icon = TaskModule.Properties.Resources.Материалы;
                 var name = "База материалов";
@@ -115,10 +114,9 @@ namespace TaskModule
                 var funBasePage = new DataBasesGUI.FunctionDataBasePage() { Dock = DockStyle.Fill };
                 funBasePage.LoadEvent += () => { FunData = funBasePage.Functions; };
 
-                var funFiles = Directory.GetFiles(Project.Path, "functions.jsf", SearchOption.AllDirectories);
-
-                if (funFiles.Length > 0)
-                    funBasePage.Load(funFiles[0], false);
+                if (!TryLoadDataBase("functions.jsf"))
+                    MessageBox.Show("Проверьте папку установки!", "Ошибка загрузки базы функций",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 var icon = TaskModule.Properties.Resources.Функции;
                 var name = "База функций";
@@ -176,14 +174,14 @@ namespace TaskModule
             taskAdv.Select2DPlaneEvent += TaskAdvisor_ChangeTaskTypeEvent;
             taskAdv.Select3DEvent += TaskAdvisor_ChangeTaskTypeEvent;
 
-            if (MatData != null | TryGetDataInfo(Project.Path, "materials.jsf"))
+            if (MatData != null | TryLoadDataBase("materials.jsf"))
             {
                 var names = MatData.Keys.ToList();
                 taskAdv.SetMaterialData(names);
             }
 
 
-            if (FunData != null | TryGetDataInfo(Project.Path, "functions.jsf"))
+            if (FunData != null | TryLoadDataBase("functions.jsf"))
             {
                 var names = FunData.Keys.ToList();
                 taskAdv.SetFunctionData(names);
@@ -214,33 +212,64 @@ namespace TaskModule
             }
         }
 
-        private bool TryGetDataInfo(string path, string fileName)
+        private bool TryLoadDataBase(string fileName)
         {
-            var res = Directory.GetFiles(path, fileName, SearchOption.AllDirectories);
-            if (res.Count() > 0)
+            
+            var resProjFolder = Directory.GetFiles(Project.Path, fileName, SearchOption.AllDirectories);
+            if (resProjFolder.Count() > 0)
             {
-                var settingsSerializer = new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.Auto,
-                    Formatting = Formatting.Indented,
-                };
-
-                var fullName = res[0];
-
-                if (fileName == "materials.jsf")
-                {
-                    MatData = JsonConvert.DeserializeObject<MaterialDBData>
-    (File.ReadAllText(fullName), settingsSerializer);
-                }
-
-                else
-                {
-                    FunData = JsonConvert.DeserializeObject<FunctionDBData>
-    (File.ReadAllText(fullName), settingsSerializer);
-                }
+                LoadDataBase(fileName, Project.Path);
                 return true;
             }
-            else return false;
+
+            var folder = Path.GetDirectoryName(Application.ExecutablePath);
+            var resAppFolder = Directory.GetFiles(folder, fileName, SearchOption.AllDirectories);
+            if (resAppFolder.Count() > 0)
+            {
+                LoadDataBase(fileName, folder);
+                return true;
+            }
+
+            return false;
+        }
+
+        private void LoadDataBase(string dbFileName, string dbPath)
+        {
+            var settingsSerializer = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Formatting.Indented,
+            };
+
+            if (dbFileName == "materials.jsf")
+            {
+                MatData = JsonConvert.DeserializeObject<MaterialDBData>
+(File.ReadAllText($@"{dbPath}\{dbFileName}"), settingsSerializer);
+            }
+
+            else
+            {
+                FunData = JsonConvert.DeserializeObject<FunctionDBData>
+(File.ReadAllText($@"{dbPath}\{dbFileName}"), settingsSerializer);
+            }
+        }
+
+        public override void SaveProjectData()
+        {
+            base.SaveProjectData();
+
+            var settingsSerializer = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Formatting.Indented
+            };
+            var matPath = $@"{Project.Path}\materials.jsf";
+            var matStr = JsonConvert.SerializeObject(MatData, settingsSerializer);
+            File.WriteAllText(matPath, matStr);
+
+            var funPath = $@"{Project.Path}\functions.jsf";
+            var funStr = JsonConvert.SerializeObject(FunData, settingsSerializer);
+            File.WriteAllText(funPath, funStr);
         }
 
         public void TaskAdvisor_StartComputationEvent(object arg1, EventArgs arg2)
@@ -251,29 +280,24 @@ namespace TaskModule
 
                 if (answer == DialogResult.Yes)
                 {
-                    if (!SaveAsProjectData("bpf"))
-                        return;
+                    using (SaveFileDialog saveDialog = new SaveFileDialog())
+                    {
+                        saveDialog.DefaultExt = "bpf";
+
+                        if (saveDialog.ShowDialog() == DialogResult.Cancel)
+                            return;
+                        SaveAsProjectData(saveDialog.FileName);
+                    }
                 }
                 else SaveProjectData();
-
-                var settingsSerializer = new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.Auto,
-                    Formatting = Formatting.Indented
-                };
-                var matPath = $@"{Project.Path}\materials.jsf";
-                var matStr = JsonConvert.SerializeObject(MatData, settingsSerializer);
-                File.WriteAllText(matPath, matStr);
-
-                var funPath = $@"{Project.Path}\functions.jsf";
-                var funStr = JsonConvert.SerializeObject(FunData, settingsSerializer);
-                File.WriteAllText(funPath, funStr);
 
                 var myProcess = new Process();
 
                 myProcess.StartInfo.FileName = $@"{SolverPath}\BazisSolver.exe";
 
                 var projPath = $@"{Project.Path}\{Project.Name}";
+                var matPath = $@"{Project.Path}\materials.jsf";
+                var funPath = $@"{Project.Path}\functions.jsf";
                 var argStr = string.Join(" ", new string[] { projPath, matPath, funPath });
 
                 myProcess.StartInfo.Arguments = argStr;
