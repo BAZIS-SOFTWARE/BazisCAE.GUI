@@ -248,10 +248,13 @@ namespace TaskModule
             try
             {
                 var answer = MessageBox.Show("Смена папки проекта", "Перед началом расчета рекомендуется сменить папку проекта", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                
-                if(answer == DialogResult.Yes)
+
+                if (answer == DialogResult.Yes)
+                {
                     if (!SaveAsProjectData("bpf"))
                         return;
+                }
+                else SaveProjectData();
 
                 var settingsSerializer = new JsonSerializerSettings
                 {
