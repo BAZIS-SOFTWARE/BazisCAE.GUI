@@ -427,42 +427,50 @@ namespace BaseModule
 
         private void ImportModelData(string filterMesh)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = filterMesh;
-            if (dialog.ShowDialog() == DialogResult.Cancel)
-                return;
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = filterMesh;
+                if (dialog.ShowDialog() == DialogResult.Cancel)
+                    return;
 
-            project = new ProjectData("newProject", Environment.CurrentDirectory);
-            consoleControl.PrintInfo("Создан новый проект", Color.Black);
+                project = new ProjectData("newProject", Environment.CurrentDirectory);
+                consoleControl.PrintInfo("Создан новый проект", Color.Black);
 
-            var ext = Path.GetExtension(dialog.FileName);
+                var ext = Path.GetExtension(dialog.FileName);
 
-            IModelLoader loader;
+                IModelLoader loader;
 
-            if (ext == ".inp")
-                loader = new LoadModelFromGMSHTextFile();
-            else if (ext == ".ASC")
-                loader = new LoadModelFromASCIITextFile();
-            else if (ext == ".dat")
-                loader = new LoadModelFromSalomeFile();
-            else
-                loader = new LoadModelFromCDBTextFile();
+                if (ext == ".inp")
+                    loader = new LoadModelFromGMSHTextFile();
+                else if (ext == ".ASC")
+                    loader = new LoadModelFromASCIITextFile();
+                else if (ext == ".dat")
+                    loader = new LoadModelFromSalomeFile();
+                else
+                    loader = new LoadModelFromCDBTextFile();
 
-            loader.LoadEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
+                loader.LoadEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
 
-            var model = loader.Load(dialog.FileName);
-            project.Model.Load(model);
+                var model = loader.Load(dialog.FileName);
+                project.Model.Load(model);
 
-            lblInputCmd.Text = string.Empty;
+                lblInputCmd.Text = string.Empty;
 
-            ChangeProjectDataEvent(this, project);
+                ChangeProjectDataEvent(this, project);
 
-            ModelPresenter = new ModelScenePresentator(project.Model.ObjectData);
+                ModelPresenter = new ModelScenePresentator(project.Model.ObjectData);
 
-            PresentProjectOnTree();
-            PresentModelOnSelectToolStrip();
+                PresentProjectOnTree();
+                PresentModelOnSelectToolStrip();
 
-            SceneInitialization();
+                SceneInitialization();
+
+            }
+            catch (Exception ex)
+            {
+                consoleControl.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
         public virtual void LoadProjectData(string extFilter)
@@ -1577,7 +1585,7 @@ namespace BaseModule
         {
             navigator.Invalidate();
 
-            SetLblInputCmb();
+            //SetLblInputCmb();
         }
 
         
@@ -2098,6 +2106,57 @@ Where(x => x.GroupName == group.GroupName).ToArray();
             sceneControl.ChangeViewModeVBObjects(group.ObjType, viewMode);  
 
             sceneControl.DisplayObjects();
+        }
+
+        private void splitContainer1_Paint(object sender, PaintEventArgs e)
+        {
+            var locRect = new Point(splitContainer1.Panel1.Width - 1, splitContainer2.Panel1.Height / 2);
+            var rect = new Rectangle(locRect, new Size(5, 50));
+            e.Graphics.DrawRectangle(Pens.DarkGray, rect);
+
+            var x = splitContainer1.Panel1.Width;
+            var y = splitContainer2.Panel1.Height / 2;
+
+            var points = new Point[]
+            {
+                        new Point(x + 4, y + 24),
+                        new Point(x + 1, y + 27),
+                        new Point(x + 4, y + 31)
+            };
+            e.Graphics.FillPolygon(Brushes.Black, points);
+
+        }
+
+        private void splitContainer1_MouseClick(object sender, MouseEventArgs e)
+        {
+            var x = splitContainer1.Panel1.Width;
+            var y = splitContainer2.Panel1.Height / 2;
+
+            if (e.Location.X > x & e.Location.X < x + splitContainer1.SplitterWidth &&
+                e.Location.Y > y & e.Location.Y < y + 50)
+            {
+                splitContainer1.SplitterDistance -= 15;
+            }
+
+  
+        }
+
+        private void splitContainer2_Paint(object sender, PaintEventArgs e)
+        {
+            var locRect = new Point(splitContainer2.Panel1.Width / 2, splitContainer2.Panel1.Height - 1);
+            var rect = new Rectangle(locRect, new Size(50, 5));
+            e.Graphics.DrawRectangle(Pens.DarkGray, rect);
+
+            var x = splitContainer2.Panel1.Width / 2;
+            var y = splitContainer2.Panel1.Height;
+
+            var points = new Point[]
+            {
+                        new Point(x + 20, y),
+                        new Point(x + 26, y),
+                        new Point(x + 23, y + 3)
+            };
+            e.Graphics.FillPolygon(Brushes.Black, points);
         }
     }
 }

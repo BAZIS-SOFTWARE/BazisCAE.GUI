@@ -145,10 +145,13 @@ namespace BaseModule
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(1308, 591);
-            this.splitContainer1.SplitterDistance = 450;
+            this.splitContainer1.SplitterDistance = 389;
+            this.splitContainer1.SplitterIncrement = 15;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 0;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
+            this.splitContainer1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Paint);
+            this.splitContainer1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.splitContainer1_MouseClick);
             // 
             // navigator
             // 
@@ -159,7 +162,7 @@ namespace BaseModule
             this.navigator.Location = new System.Drawing.Point(0, 0);
             this.navigator.Name = "navigator";
             this.navigator.ProjectInfoIndex = 0;
-            this.navigator.Size = new System.Drawing.Size(450, 591);
+            this.navigator.Size = new System.Drawing.Size(389, 591);
             this.navigator.TabIndex = 0;
             this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
             this.navigator.SelectGroupEvent += new System.Action<string>(this.navigator_SelectGroupEvent);
@@ -188,17 +191,20 @@ namespace BaseModule
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.Controls.Add(this.sceneControl);
+            this.splitContainer2.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
-            this.splitContainer2.Size = new System.Drawing.Size(853, 591);
-            this.splitContainer2.SplitterDistance = 450;
+            this.splitContainer2.Size = new System.Drawing.Size(914, 591);
+            this.splitContainer2.SplitterDistance = 449;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
+            this.splitContainer2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Paint);
             // 
             // sceneControl
             // 
+            this.sceneControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.sceneControl.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.sceneControl.BackGroundColor = System.Drawing.Color.Green;
             this.sceneControl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -209,11 +215,12 @@ namespace BaseModule
             this.sceneControl.LightTranslateY = 0F;
             this.sceneControl.LightTranslateZ = 0F;
             this.sceneControl.Location = new System.Drawing.Point(0, 0);
+            this.sceneControl.Margin = new System.Windows.Forms.Padding(0);
             this.sceneControl.Name = "sceneControl";
             this.sceneControl.RotationAngle = 2.5F;
             this.sceneControl.RotationAxis = SceneInterface.ViewAxis.XYZ;
             this.sceneControl.SelectionColor = System.Drawing.Color.Green;
-            this.sceneControl.Size = new System.Drawing.Size(853, 450);
+            this.sceneControl.Size = new System.Drawing.Size(914, 448);
             this.sceneControl.TabIndex = 0;
             this.sceneControl.TitleColor = System.Drawing.Color.Black;
             this.sceneControl.TitleText = "";
@@ -228,13 +235,14 @@ namespace BaseModule
             // 
             // consoleControl
             // 
+            this.consoleControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.consoleControl.BackColor = System.Drawing.SystemColors.Control;
             this.consoleControl.CheckPrintElemsInfo = false;
             this.consoleControl.CheckPrintNodesInfo = false;
             this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.consoleControl.Location = new System.Drawing.Point(0, 0);
             this.consoleControl.Name = "consoleControl";
-            this.consoleControl.Size = new System.Drawing.Size(853, 136);
+            this.consoleControl.Size = new System.Drawing.Size(914, 137);
             this.consoleControl.TabIndex = 4;
             this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
             // 
