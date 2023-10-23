@@ -22,6 +22,7 @@ using DataBaseController.FunctionData;
 using Newtonsoft.Json;
 using Model.Interfaces;
 using BaseModule.Navigator;
+using DataBasesGUI;
 
 namespace TaskModule
 {
@@ -99,9 +100,13 @@ namespace TaskModule
                 var matBasePage = new DataBasesGUI.MaterialsDataBasePage() {  Dock = DockStyle.Fill };
                 matBasePage.LoadEvent += () => { MatData = matBasePage.Materials; };
 
-                if (!TryLoadDataBase("materials.jsf"))
-                    MessageBox.Show("Проверьте папку установки!", "Ошибка загрузки базы материалов", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (TryLoadDataBase("materials.jsf"))
+                    matBasePage.Load($@"{Project.Path}\materials.jsf", false);
+                else
+                {
+                    MessageBox.Show("Проверьте папку установки!", "Ошибка загрузки базы материалов",
+MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 var icon = TaskModule.Properties.Resources.Материалы;
                 var name = "База материалов";
@@ -111,12 +116,16 @@ namespace TaskModule
             };
             funDataMenuItem.Click += (ar1, ar2) => 
             {
-                var funBasePage = new DataBasesGUI.FunctionDataBasePage() { Dock = DockStyle.Fill };
+                var funBasePage = new FunctionDataBasePage() { Dock = DockStyle.Fill };
                 funBasePage.LoadEvent += () => { FunData = funBasePage.Functions; };
 
-                if (!TryLoadDataBase("functions.jsf"))
+                if (TryLoadDataBase("functions.jsf"))
+                    funBasePage.Load($@"{Project.Path}\functions.jsf", false);
+                else
+                {
                     MessageBox.Show("Проверьте папку установки!", "Ошибка загрузки базы функций",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 var icon = TaskModule.Properties.Resources.Функции;
                 var name = "База функций";
@@ -214,23 +223,22 @@ namespace TaskModule
 
         private bool TryLoadDataBase(string fileName)
         {
-            
-            var resProjFolder = Directory.GetFiles(Project.Path, fileName, SearchOption.AllDirectories);
-            if (resProjFolder.Count() > 0)
+            var appFolder = Path.GetDirectoryName(Application.ExecutablePath);
+            if (Directory.GetFiles(Project.Path, fileName, SearchOption.AllDirectories).
+                Count() > 0)
             {
                 LoadDataBase(fileName, Project.Path);
                 return true;
             }
 
-            var folder = Path.GetDirectoryName(Application.ExecutablePath);
-            var resAppFolder = Directory.GetFiles(folder, fileName, SearchOption.AllDirectories);
-            if (resAppFolder.Count() > 0)
+            else if(Directory.GetFiles(appFolder, fileName, SearchOption.AllDirectories).
+                Count() > 0)
             {
-                LoadDataBase(fileName, folder);
+                LoadDataBase(fileName, appFolder);
                 return true;
             }
-
-            return false;
+            else 
+                return false;
         }
 
         private void LoadDataBase(string dbFileName, string dbPath)

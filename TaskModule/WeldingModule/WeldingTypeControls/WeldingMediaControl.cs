@@ -69,7 +69,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             var dataList = new List<string>();
 
-            dataList.Add("Охлаждение/Нагрев");
+            dataList.Add("Охлаждение");
 
             if (rbtHeatFlow.Checked)
             {
