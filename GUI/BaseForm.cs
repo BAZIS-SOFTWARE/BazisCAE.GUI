@@ -21,6 +21,7 @@ using ClientLogic;
 using LicenseInfo;
 using ClientGUI;
 using BazisGUI.SettingsControls;
+using Project.IO;
 
 namespace BazisGUI
 {
@@ -143,9 +144,18 @@ namespace BazisGUI
             var verStr = "Версия " + $"{ver.Major}.{ver.Minor}.{ver.Build}";
             module.SetVersion(verStr);
 
-            module.ChangeProjectDataEvent += (object ar1, ProjectData ar2) => { project = ar2; };
+            project.Loader = new LoadProjectFromTextFormat();
+            project.Loader.LoadEvent += (ar1, ar2) =>
+            { 
+                module.ConsoleControl.PrintInfo(ar2.Message, Color.Black); 
+            };
+            project.Saver = new SaveProjectTextFormat();
+            project.Saver.SaveEvent += (ar1, ar2) =>
+            {
+                module.ConsoleControl.PrintInfo(ar2.Message, Color.Black);
+            };
 
-            SetGeneralSettings(module);
+                SetGeneralSettings(module);
 
             toolStripContainer.ContentPanel.Controls.Add(module);
 

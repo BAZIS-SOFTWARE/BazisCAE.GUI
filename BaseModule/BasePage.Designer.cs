@@ -201,6 +201,7 @@ namespace BaseModule
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
             this.splitContainer2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Paint);
+            this.splitContainer2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.splitContainer2_MouseClick);
             // 
             // sceneControl
             // 

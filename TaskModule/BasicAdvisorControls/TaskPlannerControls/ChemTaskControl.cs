@@ -1,10 +1,9 @@
 ﻿using AdvisorControls.TaskPlannerControls;
-using Project.TasksData.TaskParameters;
-using Project.TasksData;
 using System;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.IO;
+using Tasks.TaskParameters;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {

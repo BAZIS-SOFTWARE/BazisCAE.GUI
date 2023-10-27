@@ -12,17 +12,19 @@ using System.IO;
 using TaskModule.BasicTaskAdvisor;
 using TaskModule.BasicAdvisorControls.Events;
 using BaseModule;
-using Project.TasksData;
-using Project.Interfaces;
-using Geometry;
-using Model;
 using Functions.Parser;
 using DataBaseController.MaterialData;
 using DataBaseController.FunctionData;
 using Newtonsoft.Json;
-using Model.Interfaces;
 using BaseModule.Navigator;
 using DataBasesGUI;
+using ProjectInterfaces;
+using Model.Interfaces;
+using Geometry;
+using Model;
+using Tasks;
+using ProjectInterfaces.Tasks;
+using Tasks.IO;
 
 namespace TaskModule
 {
@@ -49,7 +51,7 @@ namespace TaskModule
             var taskNode = new TreeNode("Данные", 1, 1) { Name = "Данные", Tag = "6" };
             NavigatorControl.TreeView.Nodes.Add(taskNode);
 
-            ChangeProjectDataEvent += (ar1, ar2) => { GetTaskAdvisor()?.SetProjectData(Project); };
+            ChangeProjectDataEvent += () => { GetTaskAdvisor()?.SetProjectData(Project); };
         }
 
         public override void CreateMenuInterface()
@@ -103,13 +105,23 @@ namespace TaskModule
                     MatData = matBasePage.Materials;
                     GetTaskAdvisor()?.SetMaterialData(MatData.Keys.ToList());
                 };
-                var matDBPath = FindPathDataBase("materials.jsf");
-                if (matDBPath != null)
-                    matBasePage.Load($@"{matDBPath}\materials.jsf", false);
+
+                if (MatData != null)
+                    matBasePage.Load(MatData, false);
                 else
                 {
-                    MessageBox.Show("Проверьте папку проета или папку установки!", "Ошибка загрузки базы материалов",
-MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    var matDBPath = FindPathDataBase("materials.jsf");
+                    if (matDBPath != null)
+                    {
+                        var link  = $@"{matDBPath}\materials.jsf";
+                        matBasePage.Load(link, false);
+                        MatData = matBasePage.Materials;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Проверьте папку проета или папку установки!", "Ошибка загрузки базы материалов",
+    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
 
                 var icon = TaskModule.Properties.Resources.Материалы;
@@ -123,13 +135,21 @@ MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 var funBasePage = new FunctionDataBasePage() { Dock = DockStyle.Fill };
                 funBasePage.LoadEvent += () => { FunData = funBasePage.Functions; };
 
-                var funDBPath = FindPathDataBase("functions.jsf");
-                if (funDBPath != null)
-                    funBasePage.Load($@"{funDBPath}\functions.jsf", false);
+                if (FunData != null)
+                    funBasePage.Load(FunData, false);
                 else
                 {
-                    MessageBox.Show("Проверьте папку проета или папку установки!", "Ошибка загрузки базы функций",
-MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    var funDBPath = FindPathDataBase("functions.jsf");
+                    if (funDBPath != null)
+                    {
+                        funBasePage.Load($@"{funDBPath}\functions.jsf", false);
+                        FunData = funBasePage.Functions;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Проверьте папку проета или папку установки!", "Ошибка загрузки базы функций",
+    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
 
                 var icon = TaskModule.Properties.Resources.Функции;
@@ -199,7 +219,11 @@ MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 if (matDBPath != null)
                 {
                     LoadDataBase("materials.jsf", matDBPath);
-                    taskAdv.SetMaterialData(MatData.Keys.ToList());
+                    if(MatData != null)
+                        taskAdv.SetMaterialData(MatData.Keys.ToList());
+                    else
+                        MessageBox.Show("База данных пустая или повреждена!", "Ошибка загрузки базы материалов",
+MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
 
@@ -216,7 +240,11 @@ MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 if (funDBPath != null)
                 {
                     LoadDataBase("functions.jsf", funDBPath);
-                    taskAdv.SetFunctionData(FunData.Keys.ToList());
+                    if(FunData != null)
+                        taskAdv.SetFunctionData(FunData?.Keys.ToList());
+                    else
+                        MessageBox.Show("База данных пустая или повреждена!", "Ошибка загрузки базы функций",
+MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
 
@@ -350,10 +378,12 @@ MessageBoxButtons.OK, MessageBoxIcon.Warning);
             NavigatorControl.TreeView.BeginUpdate();
 
             NavigatorControl.TreeView.Nodes["Данные"].Nodes.Clear();
-            foreach (var data in Project.TaskData)
-            {
-                NavigatorControl.CreateChildNode("Данные",data.Name, data.ToString(), "6.1");
-            }
+
+            //if (Project.TaskData != null)
+                foreach (var data in Project.TaskData)
+                {
+                    NavigatorControl.CreateChildNode("Данные", data.Name, data.ToString(), "6.1");
+                }
 
             NavigatorControl.TreeView.EndUpdate();
             NavigatorControl.TreeView.Nodes["Данные"].Expand();
@@ -364,10 +394,10 @@ MessageBoxButtons.OK, MessageBoxIcon.Warning);
         public void TaskAdvisor_ChangeTaskTypeEvent(object arg1, ChangeTaskTypeEventArgs arg2)
         {
             if (arg2.Index == 0)
-                Project.SetTaskType(TaskType.Plain);
+                Project.TaskType = TaskType.Plain;
             else if (arg2.Index == 1)
-                Project.SetTaskType(TaskType.AxiPlain);
-            else Project.SetTaskType(TaskType.Volume);
+                Project.TaskType = TaskType.AxiPlain;
+            else Project.TaskType = TaskType.Volume;
 
             NavigatorControl.TreeView.Nodes[3].Text = "Вид : " + Project.TaskType;
 
@@ -711,6 +741,27 @@ MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
 
             return taskStr;
-        }       
+        }
+
+        private void TaskPage_Load(object sender, EventArgs e)
+        {
+            if(Project.TaskData == null)
+                Project.TaskData = new TaskData();
+        }
+
+        public override bool LoadProjectData(string extFilter)
+        {
+            var resu = base.LoadProjectData(extFilter);
+
+            if (resu)
+            {
+                var taskDataLoader = new LoadTaskDataTextFormat();
+
+                var taskData = taskDataLoader.Load($@"{Project.Path}\{Project.Name}");
+                Project.TaskData = taskData;
+                return true;
+            }
+            else return false;
+        }
     }
 }

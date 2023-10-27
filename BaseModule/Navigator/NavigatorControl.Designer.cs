@@ -444,6 +444,7 @@
             // 
             // NavigatorControl
             // 
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.grbNavigator);
             this.Name = "NavigatorControl";
             this.Size = new System.Drawing.Size(225, 342);

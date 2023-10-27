@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls;
-using Project;
 using System.Linq;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Interfaces;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using BaseModule.Utilities;
+using ProjectInterfaces;
 
 namespace TaskModule.BasicTaskAdvisor
 {
@@ -54,7 +54,7 @@ namespace TaskModule.BasicTaskAdvisor
             }
         }     
 
-        public void SetProjectData(ProjectData project)
+        public void SetProjectData(IProjectData project)
         {
             var taskType = project.TaskType.ToString();
             taskTypeControl.SetTaskType(taskType);

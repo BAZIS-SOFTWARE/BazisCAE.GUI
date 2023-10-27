@@ -1,18 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Globalization;
-using static System.Net.Mime.MediaTypeNames;
-using System.IO;
-using Geometry;
-using PlayerControl;
-using Project.TasksData.Functions;
 
 namespace ResultModule
 {

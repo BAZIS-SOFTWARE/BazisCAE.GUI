@@ -38,12 +38,11 @@
             this.tlscOut = new System.Windows.Forms.ToolStripContainer();
             this.rtxbOut = new System.Windows.Forms.RichTextBox();
             this.tlsOut = new System.Windows.Forms.ToolStrip();
+            this.btnBackGroundInfo = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.tscIn = new System.Windows.Forms.ToolStripContainer();
             this.inputRichTextBox = new System.Windows.Forms.RichTextBox();
             this.tlsIn = new System.Windows.Forms.ToolStrip();
-            this.grbConsole = new System.Windows.Forms.Panel();
-            this.btnBackGroundInfo = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.btnDictionary = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem31 = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,6 +80,7 @@
             this.tlsFindCoincidentNodes = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
             this.btnStartMacro = new System.Windows.Forms.ToolStripButton();
+            this.grbConsole = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -203,6 +203,31 @@
             this.tlsOut.Text = "Вывод";
             this.tlsOut.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical90;
             // 
+            // btnBackGroundInfo
+            // 
+            this.btnBackGroundInfo.AutoSize = false;
+            this.btnBackGroundInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnBackGroundInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnBackGroundInfo.Image")));
+            this.btnBackGroundInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBackGroundInfo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnBackGroundInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnBackGroundInfo.Name = "btnBackGroundInfo";
+            this.btnBackGroundInfo.Size = new System.Drawing.Size(35, 20);
+            this.btnBackGroundInfo.Text = "Изменить фон";
+            this.btnBackGroundInfo.Click += new System.EventHandler(this.btnBackGroundInfo_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(34, 20);
+            this.toolStripButton1.Text = "btnClearAll";
+            this.toolStripButton1.Click += new System.EventHandler(this.ClearAll_Click);
+            // 
             // tscIn
             // 
             this.tscIn.BottomToolStripPanelVisible = false;
@@ -260,46 +285,6 @@
             this.tlsIn.TabIndex = 0;
             this.tlsIn.Text = "Командная строка";
             this.tlsIn.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical90;
-            // 
-            // grbConsole
-            // 
-            this.grbConsole.BackColor = System.Drawing.Color.Silver;
-            this.grbConsole.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.grbConsole.Controls.Add(this.splitContainer2);
-            this.grbConsole.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbConsole.Location = new System.Drawing.Point(0, 0);
-            this.grbConsole.Name = "grbConsole";
-            this.grbConsole.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.grbConsole.Size = new System.Drawing.Size(883, 327);
-            this.grbConsole.TabIndex = 6;
-            this.grbConsole.Paint += new System.Windows.Forms.PaintEventHandler(this.grbConsole_Paint);
-            this.grbConsole.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbConsole_MouseClick);
-            this.grbConsole.Resize += new System.EventHandler(this.grbConsole_Resize);
-            // 
-            // btnBackGroundInfo
-            // 
-            this.btnBackGroundInfo.AutoSize = false;
-            this.btnBackGroundInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnBackGroundInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnBackGroundInfo.Image")));
-            this.btnBackGroundInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBackGroundInfo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnBackGroundInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnBackGroundInfo.Name = "btnBackGroundInfo";
-            this.btnBackGroundInfo.Size = new System.Drawing.Size(35, 20);
-            this.btnBackGroundInfo.Text = "Изменить фон";
-            this.btnBackGroundInfo.Click += new System.EventHandler(this.btnBackGroundInfo_Click);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(34, 20);
-            this.toolStripButton1.Text = "btnClearAll";
-            this.toolStripButton1.Click += new System.EventHandler(this.ClearAll_Click);
             // 
             // btnDictionary
             // 
@@ -608,10 +593,26 @@
             this.btnStartMacro.Text = "Старт макрос";
             this.btnStartMacro.Click += new System.EventHandler(this.btnStartMacro_Click);
             // 
+            // grbConsole
+            // 
+            this.grbConsole.BackColor = System.Drawing.Color.Silver;
+            this.grbConsole.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.grbConsole.Controls.Add(this.splitContainer2);
+            this.grbConsole.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grbConsole.Location = new System.Drawing.Point(0, 0);
+            this.grbConsole.Name = "grbConsole";
+            this.grbConsole.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.grbConsole.Size = new System.Drawing.Size(883, 327);
+            this.grbConsole.TabIndex = 6;
+            this.grbConsole.Paint += new System.Windows.Forms.PaintEventHandler(this.grbConsole_Paint);
+            this.grbConsole.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbConsole_MouseClick);
+            this.grbConsole.Resize += new System.EventHandler(this.grbConsole_Resize);
+            // 
             // ConsoleControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.grbConsole);
             this.Name = "ConsoleControl";
             this.Size = new System.Drawing.Size(883, 327);

@@ -1,11 +1,8 @@
 ﻿using Newtonsoft.Json;
-using Project.TasksData;
-using Project.TasksData.TaskParameters;
 using System;
-using System.Configuration;
-using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
+using Tasks.TaskParameters;
 
 namespace AdvisorControls.TaskPlannerControls
 {

@@ -5,7 +5,6 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Project;
 using Model;
 using Geometry;
 using Model.Interfaces;
@@ -16,29 +15,25 @@ using Scene.Events;
 using System.Diagnostics;
 using BaseModule.Console;
 using BaseModule.CrossSection;
-using Project.IO;
 using Model.IO;
 using BaseModule.Properties;
 using BaseModule.Console.Events;
-using Project.Interfaces;
-using Project.TasksData;
+using ProjectInterfaces;
 using SceneInterface;
 using BaseModule.ToolStrips;
 using BaseModule.Navigator;
 using Model.ObjectsFinders;
 using ModelControllerInterfaces;
 using ModelController.ModelScenePresentator;
-using ModelController.ModelScenePresentator.GlObjsPresenters;
-using Scene;
-using Scene.VBO;
-using Newtonsoft.Json;
+using ProjectInterfaces.Tasks;
+using ProjectInterfaces.IO;
 
 namespace BaseModule
 {
     public partial class BasePage : UserControl
     {
-        private ProjectData project;
-        public Action<object, ProjectData> ChangeProjectDataEvent;
+        public Action ChangeProjectDataEvent;
+        public Action CreateProjectDataEvent;
 
         public IModelController ModelController { get; set; } = new ModelController.ModelController();
 
@@ -48,11 +43,7 @@ namespace BaseModule
 
         public Keys PressedKey { get; set; }
 
-        public ProjectData Project
-        {
-            get { return project; }
-            set { project = value; }
-        }
+        public IProjectData Project { get; set; }
 
         public Color SelectionGroupColor { get; set; }
 
@@ -217,7 +208,14 @@ namespace BaseModule
             
             выходToolStripMenuItem.Click += (ar1, ar2) => { Application.Exit(); };
             создатьToolStripMenuItem.Click += (ar1, ar2) => { CreateNewProject(); };
-            открытьToolStripMenuItem.Click += (ar1, ar2) => { LoadProjectData("Bazis project file(*.bpf)|*.bpf|All files(*.*)|*.*"); };
+            открытьToolStripMenuItem.Click += (ar1, ar2) => 
+            { 
+                LoadProjectData("Bazis project file(*.bpf)|*.bpf|All files(*.*)|*.*");
+                ChangeProjectDataEvent?.Invoke();
+                PresentProjectOnTree();
+                PresentModelOnSelectToolStrip();
+                SceneInitialization();
+            };
             сохранитьToolStripMenuItem.Click += (ar1, ar2) => { SaveProjectData(); };
             сохранитькакToolStripMenuItem.Click += (ar1, ar2) => 
             {
@@ -384,6 +382,10 @@ namespace BaseModule
                 var filterProject = "Bazis project file(*.bpf)|*.bpf|" +
             "All files(*.*)|*.*";
                 LoadProjectData(filterProject);
+                ChangeProjectDataEvent?.Invoke();
+                PresentProjectOnTree();
+                PresentModelOnSelectToolStrip();
+                SceneInitialization();
             }
             else if (e.ClickedItem.Tag.ToString() == "2")
             {
@@ -411,11 +413,15 @@ namespace BaseModule
 
         public void CreateNewProject()
         {
-            project = new ProjectData("newProject", Environment.CurrentDirectory);
+            Project.ClearAllData();
+            Project.Name = "newProject";
+            Project.Path = Environment.CurrentDirectory;
 
-            ModelPresenter = new ModelScenePresentator(project.Model.ObjectData);
+            ModelPresenter = new ModelScenePresentator(Project.Model.ObjectData);
 
             consoleControl.PrintInfo("Создан новый проект", Color.Black);
+
+
 
             PresentProjectOnTree();
             PresentModelOnSelectToolStrip();
@@ -434,7 +440,10 @@ namespace BaseModule
                 if (dialog.ShowDialog() == DialogResult.Cancel)
                     return;
 
-                project = new ProjectData("newProject", Environment.CurrentDirectory);
+                Project.ClearAllData();
+                Project.Name = "newProject";
+                Project.Path = Environment.CurrentDirectory;
+
                 consoleControl.PrintInfo("Создан новый проект", Color.Black);
 
                 var ext = Path.GetExtension(dialog.FileName);
@@ -453,13 +462,13 @@ namespace BaseModule
                 loader.LoadEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
 
                 var model = loader.Load(dialog.FileName);
-                project.Model.Load(model);
+                Project.Model.Load(model);
 
                 lblInputCmd.Text = string.Empty;
 
-                ChangeProjectDataEvent(this, project);
+                ChangeProjectDataEvent?.Invoke();
 
-                ModelPresenter = new ModelScenePresentator(project.Model.ObjectData);
+                ModelPresenter = new ModelScenePresentator(Project.Model.ObjectData);
 
                 PresentProjectOnTree();
                 PresentModelOnSelectToolStrip();
@@ -473,49 +482,37 @@ namespace BaseModule
             }
         }
 
-        public virtual void LoadProjectData(string extFilter)
+        public virtual bool LoadProjectData(string extFilter)
         {
             try
             {
                 OpenFileDialog dialog = new OpenFileDialog();
                 dialog.Filter = extFilter;
                 if (dialog.ShowDialog() == DialogResult.Cancel)
-                    return;
+                    return false;
 
                 var ext = Path.GetExtension(dialog.FileName);
 
                 if (ext == ".bpf")
                 {
-                    project = new ProjectData("newProject", Environment.CurrentDirectory);
                     consoleControl.PrintInfo("Создан новый проект", Color.Black);
 
-                    var loader = new LoadProjectFromTextFormat();
-                    loader.LoadEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
-
-                    var projectLoad = loader.Load(dialog.FileName);
-                    project.Load(projectLoad);
-
+                    Project.Load(dialog.FileName);
+                    ModelPresenter = new ModelScenePresentator(Project.Model.ObjectData);
                     lblInputCmd.Text = string.Empty;
-
-                    ChangeProjectDataEvent(this, project);
-
-                    ModelPresenter = new ModelScenePresentator(project.Model.ObjectData);
-
-                    PresentProjectOnTree();
-                    PresentModelOnSelectToolStrip();
-
-                    SceneInitialization();
+                    return true;
                 }
                 else
                 {
                     consoleControl.PrintInfo("Неизвестный формат файла!", Color.Red);
-                    return;
+                    return false; 
                 }
 
             }
             catch (Exception ex)
             {
                 consoleControl.PrintInfo(ex.Message, Color.Red);
+                return false;
             }
         }
 
@@ -523,40 +520,38 @@ namespace BaseModule
         {
             var folder = Path.GetDirectoryName(path);
 
-            project.Name = Path.GetFileName(path);
+            Project.Name = Path.GetFileName(path);
 
-                var compData = project.TaskData.Find("Расчет");
+                var compData = Project.TaskData.Find("Расчет");
 
-                if (project.Path != folder)
+                if (Project.Path != folder)
                 {
-                    foreach (CompData data in compData)
+                    foreach (ICompData data in compData)
                     {
-                        var oldfilePath = $@"{project.Path}\{data.FileParameters}";
+                        var oldfilePath = $@"{Project.Path}\{data.FileParameters}";
                         var newfilePath = $@"{folder}\{data.FileParameters}";
 
                         File.Create(newfilePath).Close();
                         File.Copy(oldfilePath, newfilePath, true);
                     }
                 }
-                project.Path = folder;
+            Project.Path = folder;
             
             SaveProjectData();
         }
 
         public virtual void SaveProjectData()
         {
-            var saver = new SaveProjectTextFormat();
-            saver.SaveEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
-            saver.Save(project);
+            Project.Save();
 
-            consoleControl.PrintInfo("Проект сохранен в " + project.Path, Color.Black);
+            consoleControl.PrintInfo("Проект сохранен в " + Project.Path, Color.Black);
         }
 
         public void PresentModelOnSelectToolStrip()
         {
             selectToolStrip.Clear();
 
-            var objTypes = project.Model.ObjectData.GetObjectTypes();
+            var objTypes = Project.Model.ObjectData.GetObjectTypes();
 
             foreach (var objType in objTypes)
             {
@@ -566,12 +561,12 @@ namespace BaseModule
 
         public virtual void PresentProjectOnTree()
         {
-            sceneControl.TitleText = project.Name;
+            sceneControl.TitleText = Project.Name;
 
-            navigator.SetProjectTitleInfo("названиеПроекта", "Название : " + project.Name);
-            navigator.SetProjectTitleInfo("путь", "Путь : " + project.Path);
-            navigator.SetProjectTitleInfo("сведения", "Сведения : " + project.Comments);
-            navigator.SetProjectTitleInfo("вид", "Вид: " + project.TaskType);
+            navigator.SetProjectTitleInfo("названиеПроекта", "Название : " + Project.Name);
+            navigator.SetProjectTitleInfo("путь", "Путь : " + Project.Path);
+            navigator.SetProjectTitleInfo("сведения", "Сведения : " + Project.Comments);
+            navigator.SetProjectTitleInfo("вид", "Вид: " + Project.TaskType);
 
             navigator.TreeView.BeginUpdate();
 
@@ -660,7 +655,7 @@ namespace BaseModule
         {
             try
             {
-                var selectHelper = new SelectionHelper(project.Model.ObjectData);
+                var selectHelper = new SelectionHelper(Project.Model.ObjectData);
 
                 var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
 
@@ -705,7 +700,7 @@ namespace BaseModule
         {
             try
             {
-                var selectHelper = new SelectionHelper(project.Model.ObjectData);
+                var selectHelper = new SelectionHelper(Project.Model.ObjectData);
 
                 var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
                 var objs = objsPresenter.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
@@ -777,7 +772,7 @@ namespace BaseModule
                     {
                         try
                         {
-                            var elems3D = project.Model.ObjectData.FindMany("Элементы3D").Cast<Element3D>().ToList();
+                            var elems3D = Project.Model.ObjectData.FindMany("Элементы3D").Cast<Element3D>().ToList();
                             var surfaces = CreateSectionSurfaces(elems3D, ar2.point1, ar2.point2, ar2.point3);
 
                             PresentCrossSection(surfaces);
@@ -804,7 +799,7 @@ namespace BaseModule
                             var p1 = objs[1];
                             var p2 = objs[2];
 
-                            var elems3D = project.Model.ObjectData.FindMany<Element3D>().ToList();
+                            var elems3D = Project.Model.ObjectData.FindMany<Element3D>().ToList();
 
                             var surfaces = CreateSectionSurfaces(
                                 elems3D, p0.CalcCentralPoint(),
@@ -842,8 +837,8 @@ namespace BaseModule
                 else if (e.ClickedItem.Tag.ToString() == "2")
                 {
                     var scrShot = CreateScreenShot();
-                    scrShot.Save(project.Path + "\\screenShot.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
-                    consoleControl.PrintInfo($"Сделан снимок экрана {project.Path}\\screenShot.bmp", Color.Black);
+                    scrShot.Save(Project.Path + "\\screenShot.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
+                    consoleControl.PrintInfo($"Сделан снимок экрана {Project.Path}\\screenShot.bmp", Color.Black);
                 }
             }
             else
@@ -1343,13 +1338,13 @@ namespace BaseModule
 
             if (selObjs.Count() > 0)
             {
-                var name = $"{selectToolStrip.SelectObjectsType}_{project.Model.GroupData.Count + 1}";
+                var name = $"{selectToolStrip.SelectObjectsType}_{Project.Model.GroupData.Count + 1}";
                 var group = new Group(name, selectToolStrip.SelectObjectsType);
 
                 group.AddRange(selObjs);
-                project.Model.GroupData.Add(group);
+                Project.Model.GroupData.Add(group);
 
-                ChangeProjectDataEvent(this, project);
+                ChangeProjectDataEvent?.Invoke();
 
                 consoleControl.PrintInfo(string.Format("Создана новая группа {0}", name), Color.Black);
 
@@ -1584,8 +1579,6 @@ namespace BaseModule
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
         {
             navigator.Invalidate();
-
-            //SetLblInputCmb();
         }
 
         
@@ -1596,7 +1589,7 @@ namespace BaseModule
             {
                 if (arg2 is ModelFindFreeNodesEventArgs freeNodesEventArgs)
                 {
-                    var finder = new FreeNodesFinder(project.Model.ObjectData);
+                    var finder = new FreeNodesFinder(Project.Model.ObjectData);
                     var freeNodes = finder.Find<Element>();
 
                     Invoke(new Action(() => 
@@ -1617,7 +1610,7 @@ namespace BaseModule
                 else if (arg2 is ModelFindCoincidentsNodesEventArgs coincidentNodesEventArgs)
                 {
                     Invoke(new Action(() => { consoleControl.PrintInfo("Выполняется поиск совпадающих узлов сетки...", Color.Black); }));
-                    var coincidentFinder = new FindCoincidentObjects(project.Model.ObjectData, 0.001f);
+                    var coincidentFinder = new FindCoincidentObjects(Project.Model.ObjectData, 0.001f);
                     coincidentFinder.ProgressEvent += (ar1, ar2) =>
                     {
                         Invoke(new Action(() => { consoleControl.PrintInfo(string.Format("{0:00}%", ar2 * 100), Color.Black); }));
@@ -1633,7 +1626,7 @@ namespace BaseModule
                     }));
                     var actConfirm = new Func<Tuple<bool, object>>(() =>
                     {
-                        var merge = new MergeObjects(project.Model.ObjectData);
+                        var merge = new MergeObjects(Project.Model.ObjectData);
                         merge.Merge<Node>(coincidentNodes);
 
                         Invoke(new Action(() =>
@@ -1720,10 +1713,10 @@ namespace BaseModule
             var valData = Project.TaskData.Where(x => x is IValuableData).Select(x => (IValuableData)x).
 Where(x => x.GroupName == group.GroupName).ToArray();
 
-            foreach (Data data in valData)
+            foreach (var data in valData)
                 Project.TaskData.Remove(data);
 
-            ChangeProjectDataEvent?.Invoke(this, Project);
+            ChangeProjectDataEvent?.Invoke();
         }
 
         private void navigator_DelObjectsEvent(string objs)
@@ -1988,7 +1981,7 @@ Where(x => x.GroupName == group.GroupName).ToArray();
                         data.SetInfo(dataStr);
                     }
                 }
-                ChangeProjectDataEvent?.Invoke(this, Project);
+                ChangeProjectDataEvent?.Invoke();
             }
 
         }
@@ -2131,14 +2124,15 @@ Where(x => x.GroupName == group.GroupName).ToArray();
         {
             var x = splitContainer1.Panel1.Width;
             var y = splitContainer2.Panel1.Height / 2;
-
+            
             if (e.Location.X > x & e.Location.X < x + splitContainer1.SplitterWidth &&
                 e.Location.Y > y & e.Location.Y < y + 50)
             {
-                splitContainer1.SplitterDistance -= 15;
+                splitContainer1.IsSplitterFixed = true;
+                splitContainer1.SplitterDistance -= 100;
             }
-
-  
+            else
+                splitContainer1.IsSplitterFixed = false;
         }
 
         private void splitContainer2_Paint(object sender, PaintEventArgs e)
@@ -2152,11 +2146,26 @@ Where(x => x.GroupName == group.GroupName).ToArray();
 
             var points = new Point[]
             {
-                        new Point(x + 20, y),
-                        new Point(x + 26, y),
-                        new Point(x + 23, y + 3)
+                        new Point(x + 21, y),
+                        new Point(x + 27, y),
+                        new Point(x + 24, y + 3)
             };
             e.Graphics.FillPolygon(Brushes.Black, points);
+        }
+
+        private void splitContainer2_MouseClick(object sender, MouseEventArgs e)
+        {
+            var x = splitContainer2.Panel1.Width / 2;
+            var y = splitContainer2.Panel1.Height;
+
+            if (e.Location.X > x & e.Location.X < x + 50 &&
+                e.Location.Y > y - 3 & e.Location.Y < y + 3)
+            {
+                splitContainer2.IsSplitterFixed = true;
+                splitContainer2.SplitterDistance += 50;
+            }
+            else
+                splitContainer2.IsSplitterFixed = false;
         }
     }
 }

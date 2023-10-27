@@ -1194,7 +1194,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ModelController, Version=1.0.10.85, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:ModelController, Version=1.0.10.86, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_0017C27F44095F6B25D3362548DB443E"
@@ -1225,7 +1225,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DataBasesGUI, Version=1.0.2.38, Culture=neutral, PublicKeyToken=0bb79e55f1a23392, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DataBasesGUI, Version=1.0.2.40, Culture=neutral, PublicKeyToken=0bb79e55f1a23392, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_00B282D02B618202E4AB3DDAF5EB8330"
@@ -1432,11 +1432,6 @@
             "AssemblyAsmDisplayName" = "8:Project, Version=1.0.10.46, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_2D6FF4725E3380545312A05C4159EBE9"
-                    {
-                    "Name" = "8:Project.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Project.dll"
             "TargetName" = "8:"
@@ -1593,7 +1588,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Results, Version=1.0.0.21, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Results, Version=1.0.0.22, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_40CF586B66A332A641199A413B144F1C"
@@ -2252,11 +2247,6 @@
             "AssemblyAsmDisplayName" = "8:Model, Version=1.0.9.26, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_959A03DAEA6EB8C3662D93F44E258697"
-                    {
-                    "Name" = "8:Model.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Model.dll"
             "TargetName" = "8:"
@@ -2331,7 +2321,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ModelControllerInterfaces, Version=1.0.0.15, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:ModelControllerInterfaces, Version=1.0.0.16, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_A87CC1DE040124794214EFD5CA72240D"
@@ -3057,16 +3047,16 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:BazisPrePost4.3.64"
-        "ProductCode" = "8:{CA657A2F-9F36-41A3-9B3C-865A180B3B7F}"
-        "PackageCode" = "8:{645DF0B0-9BBB-49EF-B921-3255CD8DD963}"
+        "ProductName" = "8:BazisPrePost4.3.65"
+        "ProductCode" = "8:{4C91347B-3BF0-4A36-B2DF-A40A5E8DBEA4}"
+        "PackageCode" = "8:{F9C10C30-189A-49DB-9314-361E95521E02}"
         "UpgradeCode" = "8:{B6CE3573-0A6F-4654-B604-218137EC41B2}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:4.3.64"
+        "ProductVersion" = "8:4.3.65"
         "Manufacturer" = "8:BazisSoftware"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://bazisnet.ru"

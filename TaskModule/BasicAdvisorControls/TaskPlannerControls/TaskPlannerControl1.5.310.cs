@@ -7,11 +7,10 @@ using System.Globalization;
 using System.ComponentModel;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using Newtonsoft.Json;
-using Project.TasksData.TaskParameters;
-using Project.TasksData;
 using System.Threading;
-using System.Reflection;
 using System.Collections.Generic;
+using Tasks.TaskParameters;
+using ProjectInterfaces.Tasks;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
@@ -320,23 +319,24 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                     {
                         CurentSelectedRowInfo = AddRowInfo(TaskKind.химическая, TaskStatus.выполнить, CountRows);
                         isTsfFileCreated = GenerateTsfFile(TaskKind.химическая, CountRows);
+                        base.AddButton_Click(this, new EventArgs());
                     }
                     Thread.Sleep(100);
                     if (chbTermoTask.Checked)
                     {
                         CurentSelectedRowInfo = AddRowInfo(TaskKind.термическая, TaskStatus.выполнить, CountRows);
                         isTsfFileCreated = GenerateTsfFile(TaskKind.термическая, CountRows);
+                        base.AddButton_Click(this, new EventArgs());
                     }
                     Thread.Sleep(100);
                     if (chbMechTask.Checked)
                     {
                         CurentSelectedRowInfo = AddRowInfo(TaskKind.механическая, TaskStatus.выполнить, CountRows);
                         isTsfFileCreated = GenerateTsfFile(TaskKind.механическая, CountRows);
-
+                        base.AddButton_Click(this, new EventArgs());
                     }
                     if(isTsfFileCreated)
                     {
-                        base.AddButton_Click(this, new EventArgs());
                         var temp = txbStopTime.Text;
                         txbStartTime.Text = temp;
                     }

@@ -6,13 +6,16 @@ using CustomControls.OS;
 using Geometry;
 using Gif.Components;
 using Graph;
+using MathNet.Numerics.Distributions;
 using Model;
 using Model.ObjectsSorters;
-using Project.ResultsData;
-using Project.TasksData;
+using ProjectInterfaces;
+using ProjectInterfaces.IO;
+using ProjectInterfaces.Tasks;
 using ResultModule.ToolStrips;
 using Results;
 using Results.IO;
+using Results.ResultsData;
 using Results.ScenePresenter;
 using Results.ScenePresenter.Interfaces;
 using SceneInterface;
@@ -22,7 +25,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-//using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.AxHost;
 using Image = System.Drawing.Image;
 
 namespace ResultModule
@@ -51,27 +54,45 @@ namespace ResultModule
             AddToolStrip(resToolStrip);
 
             NavigatorControl.TreeView.Nodes.Add(new TreeNode("Результаты", 1, 1) { Name = "Результаты", Tag = 6 });
+
+            var nodeNode = new TreeNode("ПоУзлам", 1, 1) { Name = "ПоУзлам", Tag = "6.1" };
+            NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(nodeNode);
+            var elemNode = new TreeNode("ПоЭлементам", 1, 1) { Name = "ПоЭлементам", Tag = "6.1" };
+            NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(elemNode);
         }
 
         public override void PresentProjectOnTree()
         {
             base.PresentProjectOnTree();
 
-            NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Clear();       
+            NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
+            NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
+            
 
-            var resKinds = Project.ResultData.GetResultKinds();
-            foreach (var resKind in resKinds)
+            if(Project.ResultData != null)
             {
-                var results = Project.ResultData.FindByTaskKind(resKind);
-                PresentResultsOnTree(results);
+                var resKinds = Project.ResultData.GetResultKinds();
+                foreach (var resKind in resKinds)
+                {
+                    var results = Project.ResultData.FindByTaskKind(resKind);
+                    PresentResultsOnTree(results);
+                }
             }
         }
 
-        public override void LoadProjectData(string extFilter)
+        public override bool LoadProjectData(string extFilter)
         {
-            base.LoadProjectData(extFilter);
+            var resu = base.LoadProjectData(extFilter);
 
-            NavigatorControl.TreeView.Nodes.Find("Результаты", false)[0].Nodes.Clear();
+            if (resu)
+            {
+                Project.ResultData = new ResultData();
+
+                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
+                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
+                return true;
+            }
+            else return false;
         }
 
         public override void CreateMenuInterface()
@@ -509,9 +530,22 @@ namespace ResultModule
             var valueRanges = scale.ValueRange().ToArray();
 
             var result = Project.ResultData.FindByTime(resKind, time);
+
             var resName = NavigatorControl.TreeView.SelectedNode.Name;
-            var objsType = NavigatorControl.TreeView.SelectedNode.Parent.Name.Remove(0, 10);
-            
+            var objsType = NavigatorControl.TreeView.SelectedNode.Parent.Name;
+
+            if (objsType == "ПоУзлам")
+            {
+                objsType = "Узлы";
+                GetMaxMin(result, "nodes",resName);
+            }
+
+            else
+            {
+                objsType = "Элементы";
+                GetMaxMin(result, "elements",resName);
+            }
+
             var fieldCreator = new GradientFieldsCreator(valueRanges, colorRanges, scaleFactor);
 
             SceneControl.HideDisplayText2D();
@@ -541,6 +575,14 @@ namespace ResultModule
             SceneControl.ChangeViewModeVBObjects("Результаты", ObjView.Surface);
 
             SceneControl.DisplayObjects();
+        }
+
+        private void GetMaxMin(IResult result, string objsType, string resName)
+        {
+            var max = (float)result.Data.Tables[objsType].Compute($"Max({resName})", "");
+            var min = (float)result.Data.Tables[objsType].Compute($"Min({resName})", "");
+
+            scale.FillRange(max, min, 10);
         }
 
         private void CreatePathGraph(string resKind, string objsType, float time)
@@ -658,39 +700,32 @@ namespace ResultModule
             else
                 resultsLoader = new LoadResultsFileBrfTextFormat();
 
-            resultsLoader.LoadEvent += (ar1, ar2) => { ConsoleControl.PrintInfo(ar2.Message, Color.Black); };
-            var results = resultsLoader.Load(fileName);
-
-            if (results.Count() == 0)
+            if (!addRes)
             {
-                ConsoleControl.PrintInfo("База данных не содержит результатов!", Color.Red);
-                return;
+                Project.ResultData.Clear();
+                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
+                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
             }
 
-            if(mergeRes)
+            foreach (var result in resultsLoader.Load(fileName))
             {
-                ConsoleControl.PrintInfo("Выполняется пересчет результатов с элементов на узлы...", Color.Black);           
-                MergeResults(results);
+                ConsoleControl.PrintInfo(result.ToString(), Color.Black);
+                Project.ResultData.Add(result);
+            }
+
+            if (mergeRes)
+            {
+                ConsoleControl.PrintInfo("Выполняется пересчет результатов с элементов на узлы...", Color.Black);
+                MergeResults(Project.ResultData);
                 ConsoleControl.PrintInfo("Пересчет завершен", Color.Green);
             }
 
-            if(!addRes)
-            {
-                Project.ResultData.Clear();
-                NavigatorControl.TreeView.Nodes[6].Nodes.Clear();
-            }
-
-            Project.ResultData.AddRange(results, new ResultsComparer());
-
-            var resKind = results.First().TaskKind.ToString();
-
-            if (NavigatorControl.TreeView.Nodes[6].Nodes.Find(resKind, false).Count() == 0)
-                PresentResultsOnTree(results);
+            PresentResultsOnTree(Project.ResultData);
 
             anPage?.Clear();
         }
 
-        private void MergeResults(List<Result> results)
+        private void MergeResults(IEnumerable<IResult> results)
         {
             Element[] elements;
             if (Project.TaskType == TaskType.Volume)
@@ -701,30 +736,28 @@ namespace ResultModule
             var interfaceNodes = ModelController.InterfacedNodesFinder.Find(elements);
 
             var mergeResults = new MergeResults(results);
-            var resNames = results[0].GetDataSchema("elements");
+            var resNames = results.First().GetDataSchema("elements");
 
             for (int i = 1; i < resNames.Count; i++)
                 mergeResults.Merge(interfaceNodes, resNames[i]);
         }
 
-        public void PresentResultsOnTree(IEnumerable<Result> results)
+        public void PresentResultsOnTree(IEnumerable<IResult> results)
         {
             var nodeSchema = results.First().GetDataSchema("nodes");
             var elemSchema = results.First().GetDataSchema("elements");
 
-            var nodeNode = new TreeNode("РезультатыУзлы", 1, 1) { Name = "РезультатыУзлы", Tag = "6.1"};             
-            NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(nodeNode);
-            var elemNode = new TreeNode("РезультатыЭлементы", 1, 1) { Name = "РезультатыЭлементы", Tag = "6.1" };
-            NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(elemNode);
-
+            var resultNode = NavigatorControl.TreeView.Nodes["Результаты"];
             foreach (var desc in nodeSchema)
             {
-                NavigatorControl.CreateChildNode("РезультатыУзлы", desc, desc, "6.1.1");
+                if(!resultNode.Nodes["ПоУзлам"].Nodes.ContainsKey(desc))
+                    NavigatorControl.CreateChildNode("ПоУзлам", desc, desc, "6.1.1");
             }
 
             foreach (var desc in elemSchema)
             {
-                NavigatorControl.CreateChildNode("РезультатыЭлементы", desc, desc, "6.1.1");
+                if (!resultNode.Nodes["ПоЭлементам"].Nodes.ContainsKey(desc))
+                    NavigatorControl.CreateChildNode("ПоЭлементам", desc, desc, "6.1.1");
             }
         }
 
@@ -743,7 +776,7 @@ namespace ResultModule
           scale.Coord_X, scale.Coord_Y, scale.ColorRange().ToArray(), scale.ValueRange().ToList(), "", "");
         }
 
-        private void ShowResultValue(string objsType, string resName, Project.ResultsData.Result result)
+        private void ShowResultValue(string objsType, string resName, IResult result)
         {
             foreach (var obj in Project.Model.ObjectData.FindMany(objsType))
             {
@@ -759,5 +792,10 @@ namespace ResultModule
             }
         }
 
+        private void ResultPage_Load(object sender, EventArgs e)
+        {
+            if (Project.ResultData == null)
+                Project.ResultData = new ResultData();
+        }
     }   
 }

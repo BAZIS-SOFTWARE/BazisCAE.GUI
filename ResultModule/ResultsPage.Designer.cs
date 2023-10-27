@@ -49,6 +49,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "ResultPage";
             this.Size = new System.Drawing.Size(895, 558);
+            this.Load += new System.EventHandler(this.ResultPage_Load);
             this.ResumeLayout(false);
 
         }
