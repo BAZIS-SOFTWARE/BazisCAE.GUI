@@ -193,12 +193,6 @@ namespace ResultModule
             player.StartChecking_Click(this, new EventArgs());
         }
 
-        internal void Clear()
-        {
-            playerPanel.Enabled = false;
-            richTextBox.Clear();
-        }
-
         private void playerControl_CheckingEvent(object arg1, float arg2)
         {
             MarkTimeStep((int)arg2);

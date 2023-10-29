@@ -19,9 +19,17 @@ namespace ResultModule
         public event Action<object, decimal> SetX_PositionEvent;
         public event Action<object, decimal> SetY_PositionEvent;
 
+        public event Action<bool> ChangeMaxMinAutoEvent;
+
         public ScalePage()
         {
             InitializeComponent();
+        }
+
+        public bool IsMaxMinAuto
+        {
+            get { return chbMaxMinAuto.Checked; }
+            set { chbMaxMinAuto.Checked = value; }
         }
 
         public float Max
@@ -130,6 +138,11 @@ namespace ResultModule
 
             if (chbShowScale.Checked)
                 ShowScaleEvent(this, true);
+        }
+
+        private void chbMaxMinAuto_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeMaxMinAutoEvent(chbMaxMinAuto.Checked);
         }
     }
 }

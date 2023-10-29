@@ -296,16 +296,6 @@ namespace BaseModule
             }
         }
 
-        public Form FindOpenedForm(string formName)
-        {
-            foreach (Form form in Application.OpenForms)
-            {
-                if (form.Name == formName)
-                    return form;
-            }
-            return null;
-        }
-
         public void CreateScreenShot(string fileName)
         {
             this.BringToFront();

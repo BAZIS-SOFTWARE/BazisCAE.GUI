@@ -35,9 +35,7 @@ namespace ResultModule
         IScale scale;
         
         private bool showResultValue;
-
-        private ScalePage scPage;
-        private AnimationPage anPage;
+        public bool IsScaleMaxMinAuto { get; set; } = true;
 
         public ResultPage()
         {
@@ -219,10 +217,14 @@ namespace ResultModule
 
         private void ShowScale()
         {
-            scPage = new ScalePage() { Dock = DockStyle.Fill };
+            var scPage = new ScalePage() { Dock = DockStyle.Fill };
 
             scPage.Max = scale.MaxValue;
             scPage.Min = scale.MinValue;
+
+            scPage.ChangeMaxMinAutoEvent += (ar) => { IsScaleMaxMinAuto = ar; };
+
+            scPage.IsMaxMinAuto = IsScaleMaxMinAuto;
 
             scPage.Precision = scale.Precision;
 
@@ -259,8 +261,6 @@ namespace ResultModule
             
             var icon = ResultModule.Properties.Resources.Scale;
             var scForm = new Form() { TopMost = true, Icon = icon, Size = scPage.Size, Name = "Scale", Text = "Шкала значений" };
-            scForm.FormClosed += (ar1, ar2) => 
-            { scPage = null; SceneControl.HideGeometryObj("CreateScaleObject"); };
 
             scForm.Controls.Add(scPage);
             scForm.Show();
@@ -312,7 +312,7 @@ namespace ResultModule
 
         private void ShowAnimation()
         {
-            anPage = new AnimationPage() { Dock = DockStyle.Fill };
+            var anPage = new AnimationPage() { Dock = DockStyle.Fill };
             anPage.ShowResultEvent += (ar1, ar2) =>
             {
                 if (NavigatorControl.TreeView.SelectedNode?.Level == 2)
@@ -506,7 +506,7 @@ namespace ResultModule
             }
             else if (e.ClickedItem.Tag.ToString() == "5")
             {
-                if (anPage == null)
+                if (Application.OpenForms["Animation"] == null)
                     ShowAnimation();
 
             }
@@ -516,7 +516,7 @@ namespace ResultModule
             }
             else if (e.ClickedItem.Tag.ToString() == "7")
             {
-                if (scPage == null)
+                if (Application.OpenForms["Scale"] == null)
                     ShowScale();
             }
         }
@@ -535,16 +535,15 @@ namespace ResultModule
             var objsType = NavigatorControl.TreeView.SelectedNode.Parent.Name;
 
             if (objsType == "ПоУзлам")
-            {
                 objsType = "Узлы";
-                GetMaxMin(result, "nodes",resName);
-            }
 
-            else
-            {
-                objsType = "Элементы";
-                GetMaxMin(result, "elements",resName);
-            }
+            else objsType = "Элементы";
+
+            if(IsScaleMaxMinAuto)
+                if(objsType == "Элементы")
+                    SetMaxMinAuto(result, "elements", resName);
+                else
+                    SetMaxMinAuto(result, "nodes", resName);
 
             var fieldCreator = new GradientFieldsCreator(valueRanges, colorRanges, scaleFactor);
 
@@ -577,7 +576,7 @@ namespace ResultModule
             SceneControl.DisplayObjects();
         }
 
-        private void GetMaxMin(IResult result, string objsType, string resName)
+        private void SetMaxMinAuto(IResult result, string objsType, string resName)
         {
             var max = (float)result.Data.Tables[objsType].Compute($"Max({resName})", "");
             var min = (float)result.Data.Tables[objsType].Compute($"Min({resName})", "");
@@ -722,7 +721,7 @@ namespace ResultModule
 
             PresentResultsOnTree(Project.ResultData);
 
-            anPage?.Clear();
+            Application.OpenForms["Animation"]?.Close();
         }
 
         private void MergeResults(IEnumerable<IResult> results)
