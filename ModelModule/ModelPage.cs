@@ -3,7 +3,10 @@ using BaseModule.Navigator;
 using BaseModule.ToolStrips;
 using Model;
 using Model.Interfaces;
+using ModelControllerInterfaces;
 using ModelModule.ToolStrips;
+using SceneInterface;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -13,20 +16,10 @@ namespace ModelModule
 {
     public partial class ModelPage : BasePage
     {
-        //Dictionary<string, int> imgDict;
-
 
         public ModelPage() : base()
         {
             InitializeComponent();
-
-            //imgDict = new Dictionary<string, int>()
-            //{
-            //    { "Узлы",3},
-            //    { "Элементы3D",4},
-            //    { "Элементы2D",4},
-            //    { "Элементы1D",4}
-            //};
 
             var meshToolStrip = new MeshToolStrip();
             meshToolStrip.Renderer = new BaseToolStrRender();
@@ -67,43 +60,34 @@ namespace ModelModule
 
             boundaryElements2DMenuItem.Click += (ar1, ar2) => { CreateBoundaryElements2D(); };
 
-            meshGeneratorMenuItem.Click += (ar1, ar2) => {
-
-                var gmshControl = new GmshControl();
-                var gmshForm = new Form()
-                {
-                    TopMost = true,
-                    ShowIcon = false,
-                    ClientSize = gmshControl.Size,
-                    MaximizeBox = false,
-                    FormBorderStyle = FormBorderStyle.FixedSingle
-                };
-                gmshControl.updatePointData += UpdatePointData;
-                gmshControl.updateLineData += UpdateLineData;
-                gmshControl.updateSurfaceData += UpdateSurfaceData;
-                gmshControl.redrawScene += RedrawScene;
-                gmshControl.showErrorMessage += ShowErrorMessage;
-                gmshForm.Controls.Add(gmshControl);
-                gmshControl.Dock = DockStyle.Fill;
-                gmshForm.Show();
-                //var gmshControl = new GmshControl();
-                //var gmshForm = new Form()
-                //{
-                //    TopMost = true,
-                //    ShowIcon = false,
-                //    ClientSize = gmshControl.Size,
-                //    MaximizeBox = false,
-                //    FormBorderStyle = FormBorderStyle.FixedSingle
-                //};
-                //gmshControl.updateModelData += UpdateModelData;
-                //gmshControl.redrawScene += RedrawScene;
-                //gmshControl.showErrorMessage += ShowErrorMessage;
-                //gmshForm.Controls.Add(gmshControl);
-                //gmshControl.Dock = DockStyle.Fill;
-                //gmshForm.Show();
+            meshGeneratorMenuItem.Click += (ar1, ar2) =>
+            {
+                LoadMeshControl();
             };
 
             return meshMenuItem;
+        }
+
+        private void LoadMeshControl()
+        {
+            var gmshControl = new GmshControl();
+            var gmshForm = new Form()
+            {
+                TopMost = true,
+                ShowIcon = false,
+                ClientSize = gmshControl.Size,
+                MaximizeBox = false,
+                FormBorderStyle = FormBorderStyle.FixedSingle
+            };
+            gmshControl.updatePointData += UpdatePointData;
+            gmshControl.updateLineData += UpdateLineData;
+            gmshControl.updateSurfaceData += UpdateSurfaceData;
+            gmshControl.redrawScene += RedrawScene;
+            gmshControl.showErrorMessage += ShowErrorMessage;
+            gmshControl.ShowObjectsEvent += ShowObjects;
+            gmshForm.Controls.Add(gmshControl);
+            gmshControl.Dock = DockStyle.Fill;
+            gmshForm.Show();
         }
 
         private void MeshToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -114,37 +98,7 @@ namespace ModelModule
             }
             else if (e.ClickedItem.Tag.ToString() == "1")
             {
-                var gmshControl = new GmshControl();
-                var gmshForm = new Form()
-                {
-                    TopMost = true,
-                    ShowIcon = false,
-                    ClientSize = gmshControl.Size,
-                    MaximizeBox = false,
-                    FormBorderStyle = FormBorderStyle.FixedSingle
-                };
-                gmshControl.updatePointData += UpdatePointData;
-                gmshControl.updateLineData += UpdateLineData;
-                gmshControl.updateSurfaceData += UpdateSurfaceData;
-                gmshControl.showErrorMessage += ShowErrorMessage;
-                gmshForm.Controls.Add(gmshControl);
-                gmshControl.Dock = DockStyle.Fill;
-                gmshForm.Show();
-                //var gmshControl = new GmshControl();
-                //var gmshForm = new Form()
-                //{
-                //    TopMost = true,
-                //    ShowIcon = false,
-                //    ClientSize = gmshControl.Size,
-                //    MaximizeBox = false,
-                //    FormBorderStyle = FormBorderStyle.FixedSingle
-                //};
-                //gmshControl.updateModelData += UpdateModelData;
-                //gmshControl.redrawScene += RedrawScene;
-                //gmshControl.showErrorMessage += ShowErrorMessage;
-                //gmshForm.Controls.Add(gmshControl);
-                //gmshControl.Dock = DockStyle.Fill;
-                //gmshForm.Show();
+                LoadMeshControl();
             }
         }
 
@@ -182,6 +136,29 @@ namespace ModelModule
             else
                 ConsoleControl.PrintInfo("Модель не содержит объемных элементов!", Color.Red);
 
+        }
+
+        private void ShowObjects(string objsType, int objNumber)
+        {
+            try
+            {
+                foreach (var obj in Project.Model.ObjectData.FindMany(objsType))
+                {
+                    if (obj.Number == objNumber)
+                        obj.MasterColor = Color.Azure;
+                }
+
+                var vboObjs = SceneControl.FindVBObj(objsType);
+                var colors = ModelPresenter[objsType].CreateVertexes(vboObjs.ColorLength, "цвет");
+                vboObjs.PointsColors = colors;
+
+                SceneControl.DisplayObjects();
+
+            }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
         private bool RemoveFromModelData(string objType, IEnumerable<IModelObject> objects)

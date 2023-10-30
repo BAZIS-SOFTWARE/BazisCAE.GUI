@@ -15,8 +15,8 @@ namespace ModelModule
         private int boundFieldTag;
         private int boundViewTag;
         private TreeNode selectedNode;
-        private Dictionary<int, Tuple<string, string, int>> elementType = new Dictionary<int, Tuple<string, string, int>> 
-                                                            { 
+        private Dictionary<int, Tuple<string, string, int>> elementType = new Dictionary<int, Tuple<string, string, int>>
+                                                            {
                                                                 { 2, Tuple.Create("Треугольники","Треугольник ", 3) },
                                                                 { 3, Tuple.Create("Квады","Квад ", 4) },
                                                                 { 4, Tuple.Create("Тетраэдры","Тетраэдр ", 4) },
@@ -24,7 +24,7 @@ namespace ModelModule
                                                                 { 6, Tuple.Create("Призмы","Призма ", 6) },
                                                                 { 7, Tuple.Create("Пирамиды","Пирамида ", 5) },
                                                             };
-        private Dictionary<int, Tuple <string, string>> geometryType = new Dictionary<int, Tuple<string, string>>
+        private Dictionary<int, Tuple<string, string>> geometryType = new Dictionary<int, Tuple<string, string>>
                                                             {
                                                                 { 3, Tuple.Create("Объем ","Поверхность ") },
                                                                 { 2, Tuple.Create("Поверхность ","Кривая ") },
@@ -35,6 +35,7 @@ namespace ModelModule
         public event Action<string, IEnumerable<IModelObject>> updatePointData;
         public event Action<string, IEnumerable<ILineObject>> updateLineData;
         public event Action<string, IEnumerable<ISurfaceElement>> updateSurfaceData;
+        public event Action<string, int> ShowObjectsEvent;
         public event Action<string> showErrorMessage;
         public event Action<bool> redrawScene;
 
@@ -46,7 +47,7 @@ namespace ModelModule
 
         private void OnLoad(object sender, EventArgs e)
         {
-            controller = new GmshController(@"..\..\..\..\packages\gmsh.dll");
+            controller = new GmshController(@"C:\BazisComponents\ModelSolution\GmshApi\gmsh.dll");
             Disposed += GmshControl_Disposed;
             algoChoice.SelectedIndex = 3;
         }
@@ -61,7 +62,7 @@ namespace ModelModule
 
         private void ShowHideGeometryControls(bool show) => geoDelBtn.Enabled = geoElBox.Enabled = filterBox.Enabled = show;
 
-        private void ShowHideMeshControls(bool show) => meshDelBtn.Enabled = meshElBox.Enabled = 
+        private void ShowHideMeshControls(bool show) => meshDelBtn.Enabled = meshElBox.Enabled =
                                                         meshOpBox.Enabled = elemDelBtn.Enabled = show;
 
         private void ShowHideVolumeControls(bool show) => delVolBtn.Enabled = volElBox.Enabled = show;
@@ -86,12 +87,12 @@ namespace ModelModule
         private void GenerateMesh(bool isRemesh = true)
         {
             var ierr = 0;
-            if(isRemesh)
+            if (isRemesh)
                 controller.gmshModelMeshGenerate(1, ref ierr);
             controller.gmshModelMeshGenerate(2, ref ierr);
             if (ierr == 1)
                 showErrorMessage?.Invoke("Ошибка при генерации сетки, проверьте настройки и фильтры геометрии");
-            else 
+            else
             {
                 updatePointData("Узлы", null);
                 updateSurfaceData.Invoke("Элементы2D", null);
@@ -106,7 +107,7 @@ namespace ModelModule
             controller.gmshModelMeshGenerate(3, ref ierr);
             if (ierr == 1)
                 showErrorMessage?.Invoke("Ошибка при генерации объемов, проверьте настройки и фильтры сетки");
-            else if(FillModelDataMesh(3))
+            else if (FillModelDataMesh(3))
             {
                 //updateModel("Элементы2D", null);//Удаляем Элементы2D после построения 3D элементов ??
                 ClearVolumesTree();
@@ -146,7 +147,7 @@ namespace ModelModule
                 }
             }
             else
-                showErrorMessage.Invoke($"Ошибка, невозможно получить { objMessage }, проверьте файл-скрипт");
+                showErrorMessage.Invoke($"Ошибка, невозможно получить {objMessage}, проверьте файл-скрипт");
             return status;
         }
 
@@ -171,7 +172,7 @@ namespace ModelModule
                     return true;
                 }
             }
-            showErrorMessage.Invoke($"Ошибка, невозможно получить { objType } модели");
+            showErrorMessage.Invoke($"Ошибка, невозможно получить {objType} модели");
             return false;
         }
 
@@ -256,7 +257,7 @@ namespace ModelModule
             if (Double.TryParse(meshDensityValue.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
             {
                 controller.gmshOptionSetNumber("Mesh.MeshSizeFactor", result, ref ierr);
-                if(ierr == 1)
+                if (ierr == 1)
                     showErrorMessage.Invoke("Ошибка, невозможно установить заданую плотность сетки");
             }
         }
@@ -277,13 +278,13 @@ namespace ModelModule
             controller.gmshModelMeshRefine(ref ierr);
             if (ierr == 1)
                 showErrorMessage.Invoke("Ошибка, невозможно уплотнить сетку");
-            else 
+            else
             {
                 updatePointData.Invoke("Узлы", null);
                 updateSurfaceData.Invoke("Элементы2D", null);
                 if (FillModelDataMesh(2))
                     UpdateMeshControlsAndRedraw();
-            }  
+            }
         }
 
         private void OnQuadrangulate(object sender, EventArgs e)
@@ -346,7 +347,7 @@ namespace ModelModule
             long[][] elementTags, nodeTags;
             for (var i = 1; i < dimTags.Length; i += 2)
             {
-                if(!controller.ModelMeshGetElements(dim, dimTags[i], out elementTypes, out elementTags, out nodeTags))
+                if (!controller.ModelMeshGetElements(dim, dimTags[i], out elementTypes, out elementTags, out nodeTags))
                 {
                     showErrorMessage.Invoke($"Ошибка, невозможно получить информацию об элементе {dimTags[i]}");
                     return false;
@@ -390,7 +391,10 @@ namespace ModelModule
             {
                 var keyInfo = selectedNode.Text.Split(' ');
                 pointsControlBox.Enabled = keyInfo[0].Contains("Кривая") ? true : false;
+
+                ShowObjectsEvent("Линия", Convert.ToInt32(keyInfo[1]));
             }
+
         }
 
         private void OnDeleteElement(object sender, EventArgs e)
@@ -404,7 +408,7 @@ namespace ModelModule
                     if (keyInfo.Length == 1)
                         controller.gmshModelMeshClear(new int[0], IntPtr.Zero, ref ierr);
                     else
-                        controller.gmshModelMeshClear(new int[] { 2, Int32.Parse(keyInfo[1]) }, (IntPtr) 2, ref ierr);
+                        controller.gmshModelMeshClear(new int[] { 2, Int32.Parse(keyInfo[1]) }, (IntPtr)2, ref ierr);
                 }
                 else if (keyInfo.Length == 1)
                 {
@@ -515,7 +519,7 @@ namespace ModelModule
             }
             var ierr = 0;
             controller.gmshModelMeshFieldSetNumber(boundFieldTag, optValue[0], value, ref ierr);
-            if(ierr == 1)
+            if (ierr == 1)
                 control.Text = optValue[1];
         }
 
@@ -533,10 +537,10 @@ namespace ModelModule
                 algoNPoints.Text = "";
             else
             {
-                var tag= Int32.Parse(selectedNode.Text.Split(' ')[1]);
+                var tag = Int32.Parse(selectedNode.Text.Split(' ')[1]);
                 var checkedRadio = GetCheckedRadioButton();
                 var ierr = 0;
-                controller.gmshModelMeshSetTransfiniteCurve(tag, nPoints, checkedRadio.Text , coef, ref ierr);
+                controller.gmshModelMeshSetTransfiniteCurve(tag, nPoints, checkedRadio.Text, coef, ref ierr);
             }
         }
 

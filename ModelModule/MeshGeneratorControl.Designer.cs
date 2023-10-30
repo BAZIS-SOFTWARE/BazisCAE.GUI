@@ -1,7 +1,9 @@
 ﻿using GmshApi;
+using System.Windows.Forms;
+
 namespace ModelModule
 {
-    partial class GmshControl
+    partial class GmshControl : UserControl
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
