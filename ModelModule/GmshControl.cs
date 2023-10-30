@@ -1,21 +1,12 @@
 ﻿using GmshApi.GmshController;
-using GmshApi.GmshKernel;
 //using GmshApi.Api;
 using Model;
 using Model.Interfaces;
-using ModelController.ModelScenePresentator;
 using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using System.Drawing;
-using SceneInterface;
-using Project.TasksData;
 using System.Collections.Generic;
-using Project.Interfaces;
-using MathNet.Numerics.Distributions;
-using System.Collections.ObjectModel;
-using MathNet.Numerics;
 
 namespace ModelModule
 {

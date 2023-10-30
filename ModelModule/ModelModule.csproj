@@ -94,6 +94,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GmshControl.cs" />
+    <Compile Include="GmshControl.Designer.cs">
+      <DependentUpon>GmshControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModelPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -118,12 +122,6 @@
     <Compile Include="SurfaceControl.Designer.cs">
       <DependentUpon>SurfaceControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl1.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControl1.Designer.cs">
-      <DependentUpon>UserControl1.cs</DependentUpon>
-    </Compile>
     <Compile Include="CurveControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -133,6 +131,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="GmshControl.resx">
+      <DependentUpon>GmshControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ModelPage.resx">
       <DependentUpon>ModelPage.cs</DependentUpon>
     </EmbeddedResource>
