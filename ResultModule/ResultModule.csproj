@@ -61,8 +61,8 @@
     <Reference Include="Functions, Version=1.0.2.43, Culture=neutral, PublicKeyToken=65fde98421b2fc88, processorArchitecture=MSIL">
       <HintPath>..\packages\Functions.1.0.2.43\lib\net48\Functions.dll</HintPath>
     </Reference>
-    <Reference Include="Geometry, Version=2.0.7.11, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Geometry.2.0.7.11\lib\net48\Geometry.dll</HintPath>
+    <Reference Include="Geometry, Version=2.0.7.12, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Geometry.2.0.7.12\lib\net48\Geometry.dll</HintPath>
     </Reference>
     <Reference Include="Gif.Components">
       <HintPath>..\Libs\Gif.Components.dll</HintPath>
@@ -74,11 +74,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net5.0\MathNet.Numerics.dll</HintPath>
     </Reference>
-    <Reference Include="Model, Version=1.0.9.30, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\Model.1.0.9.30\lib\net48\Model.dll</HintPath>
+    <Reference Include="Model, Version=1.0.9.31, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Model.1.0.9.31\lib\net48\Model.dll</HintPath>
     </Reference>
-    <Reference Include="ModelControllerInterfaces, Version=1.0.0.19, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelControllerInterfaces.1.0.0.19\lib\net48\ModelControllerInterfaces.dll</HintPath>
+    <Reference Include="ModelControllerInterfaces, Version=1.0.0.20, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelControllerInterfaces.1.0.0.20\lib\net48\ModelControllerInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -86,11 +86,11 @@
     <Reference Include="PlayerControl, Version=1.0.0.25, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PlayerControl.1.0.0.25\lib\net48\PlayerControl.dll</HintPath>
     </Reference>
-    <Reference Include="ProjectInterfaces, Version=1.0.12.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjectInterfaces.1.0.12\lib\net48\ProjectInterfaces.dll</HintPath>
+    <Reference Include="ProjectInterfaces, Version=1.0.13.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProjectInterfaces.1.0.13\lib\net48\ProjectInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Results, Version=1.0.0.31, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
-      <HintPath>..\packages\Results.1.0.0.31\lib\net48\Results.dll</HintPath>
+    <Reference Include="Results, Version=1.0.0.32, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
+      <HintPath>..\packages\Results.1.0.0.32\lib\net48\Results.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface, Version=1.0.21.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
       <HintPath>..\packages\SceneInterface.1.0.21\lib\net48\SceneInterface.dll</HintPath>
