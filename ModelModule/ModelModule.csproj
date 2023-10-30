@@ -98,9 +98,7 @@
     <Compile Include="GmshControl.Designer.cs">
       <DependentUpon>GmshControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModelPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ModelPage.cs" />
     <Compile Include="ModelPage.Designer.cs">
       <DependentUpon>ModelPage.cs</DependentUpon>
     </Compile>

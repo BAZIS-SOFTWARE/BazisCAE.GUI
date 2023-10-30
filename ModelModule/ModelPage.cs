@@ -1,16 +1,17 @@
-﻿using System.Drawing;
+﻿using BaseModule;
+using BaseModule.Navigator;
+using BaseModule.ToolStrips;
+using Model;
+using Model.Interfaces;
+using ModelModule.ToolStrips;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using BaseModule;
-using BaseModule.ToolStrips;
-using ModelModule.ToolStrips;
-using BaseModule.Navigator;
-using Model;
-using ModelControllerInterfaces;
 
 namespace ModelModule
 {
-    public partial class ModelPage: BasePage
+    public partial class ModelPage : BasePage
     {
         //Dictionary<string, int> imgDict;
 
@@ -30,7 +31,7 @@ namespace ModelModule
             var meshToolStrip = new MeshToolStrip();
             meshToolStrip.Renderer = new BaseToolStrRender();
             meshToolStrip.ItemClicked += MeshToolStrip_ItemClicked;
-            
+
             AddToolStrip(meshToolStrip);
         }
 
@@ -64,9 +65,27 @@ namespace ModelModule
             boundaryElements2DMenuItem,meshGeneratorMenuItem
             });
 
-            boundaryElements2DMenuItem.Click += (ar1, ar2) => { CreateBoundaryElements2D();};
-           
+            boundaryElements2DMenuItem.Click += (ar1, ar2) => { CreateBoundaryElements2D(); };
+
             meshGeneratorMenuItem.Click += (ar1, ar2) => {
+
+                var gmshControl = new GmshControl();
+                var gmshForm = new Form()
+                {
+                    TopMost = true,
+                    ShowIcon = false,
+                    ClientSize = gmshControl.Size,
+                    MaximizeBox = false,
+                    FormBorderStyle = FormBorderStyle.FixedSingle
+                };
+                gmshControl.updatePointData += UpdatePointData;
+                gmshControl.updateLineData += UpdateLineData;
+                gmshControl.updateSurfaceData += UpdateSurfaceData;
+                gmshControl.redrawScene += RedrawScene;
+                gmshControl.showErrorMessage += ShowErrorMessage;
+                gmshForm.Controls.Add(gmshControl);
+                gmshControl.Dock = DockStyle.Fill;
+                gmshForm.Show();
                 //var gmshControl = new GmshControl();
                 //var gmshForm = new Form()
                 //{
@@ -93,8 +112,24 @@ namespace ModelModule
             {
                 CreateBoundaryElements2D();
             }
-            else if(e.ClickedItem.Tag.ToString() == "1")
+            else if (e.ClickedItem.Tag.ToString() == "1")
             {
+                var gmshControl = new GmshControl();
+                var gmshForm = new Form()
+                {
+                    TopMost = true,
+                    ShowIcon = false,
+                    ClientSize = gmshControl.Size,
+                    MaximizeBox = false,
+                    FormBorderStyle = FormBorderStyle.FixedSingle
+                };
+                gmshControl.updatePointData += UpdatePointData;
+                gmshControl.updateLineData += UpdateLineData;
+                gmshControl.updateSurfaceData += UpdateSurfaceData;
+                gmshControl.showErrorMessage += ShowErrorMessage;
+                gmshForm.Controls.Add(gmshControl);
+                gmshControl.Dock = DockStyle.Fill;
+                gmshForm.Show();
                 //var gmshControl = new GmshControl();
                 //var gmshForm = new Form()
                 //{
@@ -117,13 +152,13 @@ namespace ModelModule
         {
             var els3D = Project.Model.ObjectData.FindMany<Element3D>();
 
-            if(els3D.Count() != 0)
-            {           
+            if (els3D.Count() != 0)
+            {
                 var startNumber = Project.Model.ObjectData.GetLastObjNumber() + 1;
-                var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber,els3D.ToArray());
+                var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
 
                 Project.Model.ObjectData.AddRange(boundaryElements2D);
-                
+
                 ModelPresenter.Remove("Элементы2D");
                 var presenter = ModelPresenter.CreateSurfaceObjectsPresenter(boundaryElements2D);
                 ModelPresenter.Add("Элементы2D", presenter);
@@ -140,8 +175,8 @@ namespace ModelModule
                 PresentModelOnSelectToolStrip();
 
                 NavigatorControl.TreeView.Nodes["объекты"].Nodes.RemoveByKey("Элементы2D");
-                NavigatorControl.CreateChildNode("объекты", "Элементы2D", $"Элементы2D : {boundaryElements2D.Count()}","4.1");
-                
+                NavigatorControl.CreateChildNode("объекты", "Элементы2D", $"Элементы2D : {boundaryElements2D.Count()}", "4.1");
+
                 ConsoleControl.PrintInfo("Созданы 2D элементы", Color.Black);
             }
             else
@@ -149,20 +184,64 @@ namespace ModelModule
 
         }
 
-        private void UpdateModelData(ModelData data)
+        private bool RemoveFromModelData(string objType, IEnumerable<IModelObject> objects)
         {
-            Project.ClearAllData();
-            Project.Model.ObjectData.AddRange(data.ObjectData);
+            var status = false;
+            if (string.IsNullOrEmpty(objType))
+            {
+                Project.Model.ObjectData.Clear();
+                ModelPresenter.Clear();
+                status = true;
+            }
+            else if (objects == null)
+            {
+                Project.Model.ObjectData.RemoveRange(objType);
+                ModelPresenter.Remove(objType);
+                status = true;
+            }
+            return status;
+        }
+
+        private void UpdatePointData(string objType, IEnumerable<IModelObject> objects)
+        {
+            if (!RemoveFromModelData(objType, objects))
+            {
+                Project.Model.ObjectData.AddRange(objects);
+                var presenter = ModelPresenter.CreatePointObjectsPresenter(objects);
+                ModelPresenter.Add(objType, presenter);
+            }
             PresentModelOnSelectToolStrip();
         }
-        
+
+        private void UpdateLineData(string objType, IEnumerable<ILineObject> objects)
+        {
+            if (!RemoveFromModelData(objType, objects))
+            {
+                Project.Model.ObjectData.AddRange(objects);
+                var presenter = ModelPresenter.CreateLineObjectsPresenter(objects);
+                ModelPresenter.Add(objType, presenter);
+            }
+            PresentModelOnSelectToolStrip();
+        }
+
+        private void UpdateSurfaceData(string objType, IEnumerable<ISurfaceElement> objects)
+        {
+            if (!RemoveFromModelData(objType, objects))
+            {
+                Project.Model.ObjectData.AddRange(objects);
+                var presenter = ModelPresenter.CreateSurfaceObjectsPresenter(objects);
+                ModelPresenter.Add(objType, presenter);
+            }
+            PresentModelOnSelectToolStrip();
+        }
+
         private void ShowErrorMessage(string message) => ConsoleControl.PrintInfo(message, Color.Red);
-        
-        private void RedrawScene(bool fitOnScreen, string[] objType)
+
+        private void RedrawScene(bool fitOnScreen)
         {
             ClearAllDataOnScene();
-            for(var i = 0; i < objType.Length; ++i)
-                PresentObjectsToScene(objType[i], ModelPresenter[objType[i]]);
+            foreach (var item in ModelPresenter)
+                PresentObjectsToScene(item.Key, item.Value);
             if (fitOnScreen)
                 SceneControl.FitObjectsToScreen();
             SceneControl.DisplayObjects();
