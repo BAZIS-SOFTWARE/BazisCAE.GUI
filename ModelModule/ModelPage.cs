@@ -2,10 +2,8 @@
 using BaseModule.Navigator;
 using BaseModule.ToolStrips;
 using Model;
-using Model.Interfaces;
-using ModelControllerInterfaces;
+using ModelInterfaces;
 using ModelModule.ToolStrips;
-using SceneInterface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -104,14 +102,14 @@ namespace ModelModule
 
         private void CreateBoundaryElements2D()
         {
-            var els3D = Project.Model.ObjectData.FindMany<Element3D>();
+            var els3D = Project.ModelData.ObjectData.FindMany<Element3D>();
 
             if (els3D.Count() != 0)
             {
-                var startNumber = Project.Model.ObjectData.GetLastObjNumber() + 1;
+                var startNumber = Project.ModelData.ObjectData.GetLastObjNumber() + 1;
                 var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
 
-                Project.Model.ObjectData.AddRange(boundaryElements2D);
+                Project.ModelData.ObjectData.AddRange(boundaryElements2D);
 
                 ModelPresenter.Remove("Элементы2D");
                 var presenter = ModelPresenter.CreateSurfaceObjectsPresenter(boundaryElements2D);
@@ -142,7 +140,7 @@ namespace ModelModule
         {
             try
             {
-                foreach (var obj in Project.Model.ObjectData.FindMany(objsType))
+                foreach (var obj in Project.ModelData.ObjectData.FindMany(objsType))
                 {
                     if (obj.Number == objNumber)
                         obj.MasterColor = Color.Azure;
@@ -166,13 +164,13 @@ namespace ModelModule
             var status = false;
             if (string.IsNullOrEmpty(objType))
             {
-                Project.Model.ObjectData.Clear();
+                Project.ModelData.ObjectData.Clear();
                 ModelPresenter.Clear();
                 status = true;
             }
             else if (objects == null)
             {
-                Project.Model.ObjectData.RemoveRange(objType);
+                Project.ModelData.ObjectData.RemoveRange(objType);
                 ModelPresenter.Remove(objType);
                 status = true;
             }
@@ -183,7 +181,7 @@ namespace ModelModule
         {
             if (!RemoveFromModelData(objType, objects))
             {
-                Project.Model.ObjectData.AddRange(objects);
+                Project.ModelData.ObjectData.AddRange(objects);
                 var presenter = ModelPresenter.CreatePointObjectsPresenter(objects);
                 ModelPresenter.Add(objType, presenter);
             }
@@ -194,7 +192,7 @@ namespace ModelModule
         {
             if (!RemoveFromModelData(objType, objects))
             {
-                Project.Model.ObjectData.AddRange(objects);
+                Project.ModelData.ObjectData.AddRange(objects);
                 var presenter = ModelPresenter.CreateLineObjectsPresenter(objects);
                 ModelPresenter.Add(objType, presenter);
             }
@@ -205,7 +203,7 @@ namespace ModelModule
         {
             if (!RemoveFromModelData(objType, objects))
             {
-                Project.Model.ObjectData.AddRange(objects);
+                Project.ModelData.ObjectData.AddRange(objects);
                 var presenter = ModelPresenter.CreateSurfaceObjectsPresenter(objects);
                 ModelPresenter.Add(objType, presenter);
             }

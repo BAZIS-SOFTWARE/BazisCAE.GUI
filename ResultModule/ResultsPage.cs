@@ -6,9 +6,7 @@ using CustomControls.OS;
 using Geometry;
 using Gif.Components;
 using Graph;
-using MathNet.Numerics.Distributions;
-using Model;
-using Model.ObjectsSorters;
+using ModelInterfaces;
 using ProjectInterfaces;
 using ProjectInterfaces.IO;
 using ProjectInterfaces.Tasks;
@@ -25,7 +23,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Windows.Forms.AxHost;
 using Image = System.Drawing.Image;
 
 namespace ResultModule
@@ -523,6 +520,8 @@ namespace ResultModule
 
         private void ShowResults(float time, string resKind, int scaleFactor)
         {
+            try
+            {
             var selNode = NavigatorControl.TreeView.SelectedNode;
             var resDes = selNode.Name;
 
@@ -553,7 +552,7 @@ namespace ResultModule
 
             if (Project.TaskType == TaskType.Volume)
             {
-                var els3D = Project.Model.ObjectData.FindMany<Element3D>();
+                var els3D = Project.ModelData.ObjectData.FindMany<IElement3D>();
                 var elsResults = fieldCreator.CreateSurfaceObjects(result, objsType, resName, els3D);
 
                 var presenter = ModelPresenter.CreateSurfaceObjectsPresenter(elsResults);
@@ -561,7 +560,7 @@ namespace ResultModule
             }
             else
             {
-                var els2D = Project.Model.ObjectData.FindMany<Element2D>();
+                var els2D = Project.ModelData.ObjectData.FindMany<IElement2D>();
                 var elsResults = fieldCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
 
                 var presenter = ModelPresenter.CreateSurfaceObjectsPresenter(elsResults);
@@ -574,6 +573,12 @@ namespace ResultModule
             SceneControl.ChangeViewModeVBObjects("Результаты", ObjView.Surface);
 
             SceneControl.DisplayObjects();
+
+            }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo($@"Ошибка : {ex.Message},\n Источник : {ex.Source}", Color.Red);
+            }
         }
 
         private void SetMaxMinAuto(IResult result, string objsType, string resName)
@@ -595,7 +600,8 @@ namespace ResultModule
             var objsPresenter = ModelPresenter[SelectedObjects];
 
             var objs = objsPresenter.Where(x => x.MasterColor == SceneControl.SelectionColor).ToList();
-            objs.SortByDistance();
+
+            objs.Sort();
 
             var pathPoints = new List<Point3D>();
             var path = 0.0f;
@@ -726,11 +732,11 @@ namespace ResultModule
 
         private void MergeResults(IEnumerable<IResult> results)
         {
-            Element[] elements;
+            IElement[] elements;
             if (Project.TaskType == TaskType.Volume)
-                elements = Project.Model.ObjectData.FindMany<Element3D>().ToArray();
+                elements = Project.ModelData.ObjectData.FindMany<IElement3D>().ToArray();
             else
-                elements = Project.Model.ObjectData.FindMany<Element2D>().ToArray();
+                elements = Project.ModelData.ObjectData.FindMany<IElement2D>().ToArray();
             
             var interfaceNodes = ModelController.InterfacedNodesFinder.Find(elements);
 
@@ -777,7 +783,7 @@ namespace ResultModule
 
         private void ShowResultValue(string objsType, string resName, IResult result)
         {
-            foreach (var obj in Project.Model.ObjectData.FindMany(objsType))
+            foreach (var obj in Project.ModelData.ObjectData.FindMany(objsType))
             {
                 if (obj.MasterColor == SceneControl.SelectionColor)
                 {

@@ -18,13 +18,11 @@ using DataBaseController.FunctionData;
 using Newtonsoft.Json;
 using BaseModule.Navigator;
 using DataBasesGUI;
-using ProjectInterfaces;
-using Model.Interfaces;
 using Geometry;
-using Model;
 using Tasks;
 using ProjectInterfaces.Tasks;
 using Tasks.IO;
+using ModelInterfaces;
 
 namespace TaskModule
 {
@@ -472,7 +470,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             foreach (var index in arg2.GetDataInfo())
             {
-                var group = Project.Model.GroupData.Find(data[index].GroupName);
+                var group = Project.ModelData.GroupData.Find(data[index].GroupName);
 
                 if (data[index].MovedFrameFunction != null)
                     DisplayMRF(data[index].StartTime, data[index]);
@@ -508,13 +506,13 @@ MessageBoxButtons.OK, MessageBoxIcon.Warning);
         {
             float[] geomParam;
 
-            var baseLineGr = Project.Model.GroupData.Find(data.MovedFrameFunction.BaseLine.Name);
-            var baseNodes = baseLineGr.Select(x => (Node)x);
+            var baseLineGr = Project.ModelData.GroupData.Find(data.MovedFrameFunction.BaseLine.Name);
+            var baseNodes = baseLineGr.Select(x => (INode)x);
             var basePoints = baseNodes.Select(x => x.Position).ToArray();
             data.MovedFrameFunction.BaseLine.SetPoints(basePoints);
 
-            var refLineGr = Project.Model.GroupData.Find(data.MovedFrameFunction.RefLine.Name);
-            var refNodes = refLineGr.Select(x => (Node)x);
+            var refLineGr = Project.ModelData.GroupData.Find(data.MovedFrameFunction.RefLine.Name);
+            var refNodes = refLineGr.Select(x => (INode)x);
             var refPoints = refNodes.Select(x => x.Position).ToArray();
             data.MovedFrameFunction.RefLine.SetPoints(refPoints);
 
@@ -598,7 +596,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     if (data.MovedFrameFunction != null)
                         DisplayMRF(arg2.Time, data);
 
-                    var group = Project.Model.GroupData.Find(data.GroupName);
+                    var group = Project.ModelData.GroupData.Find(data.GroupName);
                     var presentor = ModelPresenter[group.ObjType];
 
                     foreach (var iobj in group)

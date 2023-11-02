@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Model;
 using Geometry;
-using Model.Interfaces;
+using ModelInterfaces;
 using System.IO;
 using ModelController.MeshObjsUtility;
 using Model.GroupsData;
@@ -22,11 +22,10 @@ using ProjectInterfaces;
 using SceneInterface;
 using BaseModule.ToolStrips;
 using BaseModule.Navigator;
-using Model.ObjectsFinders;
 using ModelControllerInterfaces;
 using ModelController.ModelScenePresentator;
 using ProjectInterfaces.Tasks;
-using ProjectInterfaces.IO;
+using ModelInterfaces.ObjectsFinders;
 
 namespace BaseModule
 {
@@ -65,7 +64,7 @@ namespace BaseModule
 
             ClearAllDataOnScene();
 
-            ModelPresenter = new ModelScenePresentator(Project.Model.ObjectData);
+            ModelPresenter = new ModelScenePresentator(Project.ModelData.ObjectData);
 
             foreach (var item in ModelPresenter)
                 PresentObjectsToScene(item.Key,item.Value);
@@ -317,7 +316,7 @@ namespace BaseModule
         {
             if (!sceneControl.DrawInsideObjects & objsName == "Элементы3D")
             {
-                var elms3D = Project.Model.ObjectData.FindMany<Element3D>();
+                var elms3D = Project.ModelData.ObjectData.FindMany<Element3D>();
                 ModelPresenter.HideInsideSurfaces(elms3D);
             }
 
@@ -407,7 +406,7 @@ namespace BaseModule
             Project.Name = "newProject";
             Project.Path = Environment.CurrentDirectory;
 
-            ModelPresenter = new ModelScenePresentator(Project.Model.ObjectData);
+            ModelPresenter = new ModelScenePresentator(Project.ModelData.ObjectData);
 
             consoleControl.PrintInfo("Создан новый проект", Color.Black);
 
@@ -452,13 +451,13 @@ namespace BaseModule
                 loader.LoadEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
 
                 var model = loader.Load(dialog.FileName);
-                Project.Model.Load(model);
+                Project.ModelData.Load(model);
 
                 lblInputCmd.Text = string.Empty;
 
                 ChangeProjectDataEvent?.Invoke();
 
-                ModelPresenter = new ModelScenePresentator(Project.Model.ObjectData);
+                ModelPresenter = new ModelScenePresentator(Project.ModelData.ObjectData);
 
                 PresentProjectOnTree();
                 PresentModelOnSelectToolStrip();
@@ -488,7 +487,7 @@ namespace BaseModule
                     consoleControl.PrintInfo("Создан новый проект", Color.Black);
 
                     Project.Load(dialog.FileName);
-                    ModelPresenter = new ModelScenePresentator(Project.Model.ObjectData);
+                    ModelPresenter = new ModelScenePresentator(Project.ModelData.ObjectData);
                     lblInputCmd.Text = string.Empty;
                     return true;
                 }
@@ -541,7 +540,7 @@ namespace BaseModule
         {
             selectToolStrip.Clear();
 
-            var objTypes = Project.Model.ObjectData.GetObjectTypes();
+            var objTypes = Project.ModelData.ObjectData.GetObjectTypes();
 
             foreach (var objType in objTypes)
             {
@@ -572,7 +571,7 @@ namespace BaseModule
             navigator.TreeView.Nodes["группыОбъектов"].Expand();
             navigator.TreeView.Nodes["группыОбъектов"].Nodes.Clear();
 
-            foreach (var group in Project.Model.GroupData)
+            foreach (var group in Project.ModelData.GroupData)
             {
                 navigator.CreateChildNode("группыОбъектов", group.ObjType,group.GroupName, "5.1");
             }
@@ -645,7 +644,7 @@ namespace BaseModule
         {
             try
             {
-                var selectHelper = new SelectionHelper(Project.Model.ObjectData);
+                var selectHelper = new SelectionHelper(Project.ModelData.ObjectData);
 
                 var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
 
@@ -690,7 +689,7 @@ namespace BaseModule
         {
             try
             {
-                var selectHelper = new SelectionHelper(Project.Model.ObjectData);
+                var selectHelper = new SelectionHelper(Project.ModelData.ObjectData);
 
                 var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
                 var objs = objsPresenter.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
@@ -762,7 +761,7 @@ namespace BaseModule
                     {
                         try
                         {
-                            var elems3D = Project.Model.ObjectData.FindMany("Элементы3D").Cast<Element3D>().ToList();
+                            var elems3D = Project.ModelData.ObjectData.FindMany("Элементы3D").Cast<Element3D>().ToList();
                             var surfaces = CreateSectionSurfaces(elems3D, ar2.point1, ar2.point2, ar2.point3);
 
                             PresentCrossSection(surfaces);
@@ -789,7 +788,7 @@ namespace BaseModule
                             var p1 = objs[1];
                             var p2 = objs[2];
 
-                            var elems3D = Project.Model.ObjectData.FindMany<Element3D>().ToList();
+                            var elems3D = Project.ModelData.ObjectData.FindMany<Element3D>().ToList();
 
                             var surfaces = CreateSectionSurfaces(
                                 elems3D, p0.CalcCentralPoint(),
@@ -1178,9 +1177,9 @@ namespace BaseModule
                     var btn = (ToolStripButton)arg2.ClickedItem;
                     if (!btn.Checked)
                     {
-                        var boundaryCreator = new FindBoundaryEdges(Project.Model);
+                        var boundaryCreator = new FindBoundaryEdges(Project.ModelData);
                         var lines = boundaryCreator.Find();
-                        var nodes = Project.Model.ObjectData.FindMany<Node>().ToArray();
+                        var nodes = Project.ModelData.ObjectData.FindMany<Node>().ToArray();
 
                         var curves = new List<Line>();
 
@@ -1190,8 +1189,8 @@ namespace BaseModule
                             var numbers = item.Split(' ');
                             var po = Convert.ToInt32(numbers[0]);
                             var p1 = Convert.ToInt32(numbers[1]);
-                            var node0 = ByNumberFinder.Find(nodes, po);
-                            var node1 = ByNumberFinder.Find(nodes, p1);
+                            var node0 = nodes.Find(po);
+                            var node1 = nodes.Find(p1);
                             var curve = new Line(counter, new Node[] { node0, node1 })
                             { MasterColor = Color.Red };
                             curves.Add(curve);
@@ -1328,11 +1327,11 @@ namespace BaseModule
 
             if (selObjs.Count() > 0)
             {
-                var name = $"{selectToolStrip.SelectObjectsType}_{Project.Model.GroupData.Count + 1}";
+                var name = $"{selectToolStrip.SelectObjectsType}_{Project.ModelData.GroupData.Count + 1}";
                 var group = new Group(name, selectToolStrip.SelectObjectsType);
 
                 group.AddRange(selObjs);
-                Project.Model.GroupData.Add(group);
+                Project.ModelData.GroupData.Add(group);
 
                 ChangeProjectDataEvent?.Invoke();
 
@@ -1363,7 +1362,7 @@ namespace BaseModule
             foreach (var selObj in selObjs)
                 selObj.ExistState = false;
 
-            var groups = Project.Model.GroupData.FindMany(selectToolStrip.SelectObjectsType);
+            var groups = Project.ModelData.GroupData.FindMany(selectToolStrip.SelectObjectsType);
 
             foreach (var group in groups)
             {
@@ -1377,9 +1376,9 @@ namespace BaseModule
                 }
             }  
 
-            Project.Model.ObjectData.ClearRemoved();
+            Project.ModelData.ObjectData.ClearRemoved();
 
-            ModelPresenter = new ModelScenePresentator(Project.Model.ObjectData);
+            ModelPresenter = new ModelScenePresentator(Project.ModelData.ObjectData);
 
             var vbObj = sceneControl.FindVBObj(selectToolStrip.SelectObjectsType);
             var viewMode = vbObj.ViewMode;
@@ -1531,6 +1530,9 @@ namespace BaseModule
 
         private void BasePage_Load(object sender, EventArgs e)
         {
+            if(Project.ModelData == null)
+                Project.ModelData = new ModelData();
+
             navigator.NavigatorPanelCollapseEvent += () => { splitContainer1.Panel1Collapsed = true; };
             sceneControl.SceneControlExpandEvent += () => 
             { 
@@ -1579,7 +1581,7 @@ namespace BaseModule
             {
                 if (arg2 is ModelFindFreeNodesEventArgs freeNodesEventArgs)
                 {
-                    var finder = new FreeNodesFinder(Project.Model.ObjectData);
+                    var finder = new FreeNodesFinder(Project.ModelData.ObjectData);
                     var freeNodes = finder.Find<Element>();
 
                     Invoke(new Action(() => 
@@ -1589,7 +1591,7 @@ namespace BaseModule
                         HideAllObjects();
 
                         foreach (var freeNode in freeNodes)
-                            Project.Model.ObjectData.Find(freeNode).ViewState = true;
+                            Project.ModelData.ObjectData.Find(freeNode).ViewState = true;
 
                         sceneControl.DeleteVBObjects("Узлы");
                         PresentObjectsToScene("Узлы", ModelPresenter["Узлы"]);
@@ -1600,7 +1602,7 @@ namespace BaseModule
                 else if (arg2 is ModelFindCoincidentsNodesEventArgs coincidentNodesEventArgs)
                 {
                     Invoke(new Action(() => { consoleControl.PrintInfo("Выполняется поиск совпадающих узлов сетки...", Color.Black); }));
-                    var coincidentFinder = new FindCoincidentObjects(Project.Model.ObjectData, 0.001f);
+                    var coincidentFinder = new FindCoincidentObjects(Project.ModelData.ObjectData, 0.001f);
                     coincidentFinder.ProgressEvent += (ar1, ar2) =>
                     {
                         Invoke(new Action(() => { consoleControl.PrintInfo(string.Format("{0:00}%", ar2 * 100), Color.Black); }));
@@ -1616,7 +1618,7 @@ namespace BaseModule
                     }));
                     var actConfirm = new Func<Tuple<bool, object>>(() =>
                     {
-                        var merge = new MergeObjects(Project.Model.ObjectData);
+                        var merge = new MergeObjects(Project.ModelData.ObjectData);
                         merge.Merge<Node>(coincidentNodes);
 
                         Invoke(new Action(() =>
@@ -1697,8 +1699,8 @@ namespace BaseModule
 
         private void navigator_DelGroupEvent(int obj)
         {
-            var group = Project.Model.GroupData[obj];
-            Project.Model.GroupData.Remove(group);
+            var group = Project.ModelData.GroupData[obj];
+            Project.ModelData.GroupData.Remove(group);
 
             var valData = Project.TaskData.Where(x => x is IValuableData).Select(x => (IValuableData)x).
 Where(x => x.GroupName == group.GroupName).ToArray();
@@ -1713,7 +1715,7 @@ Where(x => x.GroupName == group.GroupName).ToArray();
         {
             sceneControl.DeleteVBObjects(objs);
             ModelPresenter.Remove(objs);
-            Project.Model.ObjectData.RemoveRange(objs);
+            Project.ModelData.ObjectData.RemoveRange(objs);
             selectToolStrip.RemoveObjectsType(objs);
 
             sceneControl.DisplayObjects();
@@ -1721,7 +1723,7 @@ Where(x => x.GroupName == group.GroupName).ToArray();
 
         private async void navigator_EditGroupEvent(int obj)
         {
-            var group = Project.Model.GroupData[obj];
+            var group = Project.ModelData.GroupData[obj];
             selectToolStrip.SelectObjectsType = group.ObjType;
 
             var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
@@ -1750,7 +1752,7 @@ Where(x => x.GroupName == group.GroupName).ToArray();
                     group.Clear();
                     var objs = objsPresenter.Where(x => x.MasterColor == sceneControl.SelectionColor); ;
                     group.AddRange(objs);
-                    Project.Model.GroupData.Add(group);
+                    Project.ModelData.GroupData.Add(group);
                     Invoke(new Action(() => {
                         consoleControl.PrintInfo("Группа изменена успешно", Color.Green);
                         PrintCommand("");
@@ -1775,7 +1777,7 @@ Where(x => x.GroupName == group.GroupName).ToArray();
 
         private void navigator_HideAllGroupsEvent()
         {
-            foreach (var group in Project.Model.GroupData)
+            foreach (var group in Project.ModelData.GroupData)
             {
                 foreach (var iobj in group)
                 {
@@ -1847,7 +1849,7 @@ Where(x => x.GroupName == group.GroupName).ToArray();
 
                     if (!sceneControl.DrawInsideObjects & item.Key == "Элементы3D")
                     {
-                        var elms3D = Project.Model.ObjectData.FindMany<Element3D>();
+                        var elms3D = Project.ModelData.ObjectData.FindMany<Element3D>();
                         ModelPresenter.HideInsideSurfaces(elms3D);
                     }
 
@@ -1866,7 +1868,7 @@ Where(x => x.GroupName == group.GroupName).ToArray();
         {
             try
             {
-                var group = Project.Model.GroupData[obj];
+                var group = Project.ModelData.GroupData[obj];
 
                 foreach (var iobj in group)
                     iobj.ViewState = false;
@@ -1893,7 +1895,7 @@ Where(x => x.GroupName == group.GroupName).ToArray();
         {
             try
             {
-                var modelObjects = Project.Model.ObjectData.FindMany(obj);
+                var modelObjects = Project.ModelData.ObjectData.FindMany(obj);
                 foreach (var modelObject in modelObjects)
                     modelObject.ViewState = false;
 
@@ -1952,13 +1954,13 @@ Where(x => x.GroupName == group.GroupName).ToArray();
 
         private void navigator_InfoGroupEvent(int obj)
         {
-            var group = Project.Model.GroupData[obj];
+            var group = Project.ModelData.GroupData[obj];
             consoleControl.PrintInfo(group.ToString(), Color.Black);
         }
 
         private void navigator_RenameGroup(string newName, string oldName)
         {
-            var gr = Project.Model.GroupData.Find(oldName);
+            var gr = Project.ModelData.GroupData.Find(oldName);
             if (gr != null)
             {
                 gr.GroupName = newName;
@@ -1982,7 +1984,7 @@ Where(x => x.GroupName == group.GroupName).ToArray();
             {
                 SetBackColorToAllObjects();
 
-                var group = Project.Model.GroupData.Find(obj);
+                var group = Project.ModelData.GroupData.Find(obj);
 
                 var presenter = ModelPresenter[group.ObjType];
                 foreach (var iobj in group)
@@ -2005,7 +2007,7 @@ Where(x => x.GroupName == group.GroupName).ToArray();
 
         private void navigator_ShowAllGroupsEvent()
         {
-            foreach (var group in Project.Model.GroupData)
+            foreach (var group in Project.ModelData.GroupData)
             {
                 foreach (var iobj in group)
                 {
@@ -2028,7 +2030,7 @@ Where(x => x.GroupName == group.GroupName).ToArray();
 
         private void navigator_ShowGroupEvent(int obj)
         {
-            var group = Project.Model.GroupData[obj];
+            var group = Project.ModelData.GroupData[obj];
 
             foreach (var iobj in group)
                 iobj.ViewState = true;
@@ -2066,7 +2068,7 @@ Where(x => x.GroupName == group.GroupName).ToArray();
 
         private void navigator_ShowGroupWithNodesEvent(int obj)
         {
-            var group = Project.Model.GroupData[obj];
+            var group = Project.ModelData.GroupData[obj];
 
             foreach (var iobj in group)
             {

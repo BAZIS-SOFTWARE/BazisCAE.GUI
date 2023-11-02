@@ -49,6 +49,7 @@ namespace BazisGUI
         {
             InitializeComponent();
             project = new ProjectData("newProject", Application.StartupPath);
+
             activePage = "none";
 
             GetServerConnection();

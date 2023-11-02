@@ -1,6 +1,6 @@
 ﻿using GmshApi.GmshController;
 using Model;
-using Model.Interfaces;
+using ModelInterfaces;
 using System;
 using System.Globalization;
 using System.Windows.Forms;

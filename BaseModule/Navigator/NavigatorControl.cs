@@ -174,8 +174,8 @@ namespace BaseModule.Navigator
             treeView.Nodes[4].Nodes["Узлы"].ImageIndex = 5;
             treeView.Nodes[4].Nodes["Узлы"].SelectedImageIndex = 5;
 
-            treeView.SelectedNode.ImageIndex = imgDict[treeView.SelectedNode.Name] == 3 ? 5 : 6;
-            treeView.SelectedNode.SelectedImageIndex = imgDict[treeView.SelectedNode.Name] == 3 ? 5 : 6;
+            treeView.SelectedNode.ImageIndex = imgDict[treeView.SelectedNode.Name];
+            treeView.SelectedNode.SelectedImageIndex = imgDict[treeView.SelectedNode.Name];
 
             ShowGroupWithNodesEvent?.Invoke(groupIndex);
         }
