@@ -47,7 +47,7 @@ namespace ModelModule
 
         private void OnLoad(object sender, EventArgs e)
         {
-            controller = new GmshController(@"C:\BazisComponents\ModelSolution\GmshApi\gmsh.dll");
+            controller = new GmshController(@"I:\Project\GUI\packages\gmsh.dll");
             Disposed += GmshControl_Disposed;
             algoChoice.SelectedIndex = 3;
         }
