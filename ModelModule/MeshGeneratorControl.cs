@@ -47,7 +47,7 @@ namespace ModelModule
 
         private void OnLoad(object sender, EventArgs e)
         {
-            controller = new GmshController(@"C:\GUI\packages\gmsh.dll");
+            controller = new GmshController(@"C:\BazisComponents\ModelSolution\GmshApi\gmsh.dll");
             Disposed += GmshControl_Disposed;
             algoChoice.SelectedIndex = 3;
         }
@@ -390,9 +390,11 @@ namespace ModelModule
             if (treeView.Tag.ToString().Contains("entTree"))
             {
                 var keyInfo = selectedNode.Text.Split(' ');
-                pointsControlBox.Enabled = keyInfo[0].Contains("Кривая") ? true : false;
-
-                ShowObjectsEvent("Линия", Convert.ToInt32(keyInfo[1]));
+                if(keyInfo[0].Contains("Кривая"))
+                {
+                    pointsControlBox.Enabled =  true;
+                    ShowObjectsEvent("Линия", Convert.ToInt32(keyInfo[1]));
+                }
             }
 
         }

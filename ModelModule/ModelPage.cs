@@ -140,11 +140,11 @@ namespace ModelModule
         {
             try
             {
+                SetBackColorToAllObjects();
+
                 foreach (var obj in Project.ModelData.ObjectData.FindMany(objsType))
-                {
                     if (obj.Number == objNumber)
-                        obj.MasterColor = Color.Green;///Кажется нужно, чтобы цвет брался из SettingControls?
-                }
+                        obj.MasterColor = SceneControl.SelectionColor;///Кажется нужно, чтобы цвет брался из SettingControls?
 
                 var vboObjs = SceneControl.FindVBObj(objsType);
                 var colors = ModelPresenter[objsType].CreateVertexes(vboObjs.ColorLength, "цвет");
