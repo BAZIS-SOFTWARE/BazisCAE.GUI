@@ -143,7 +143,7 @@ namespace ModelModule
                 foreach (var obj in Project.ModelData.ObjectData.FindMany(objsType))
                 {
                     if (obj.Number == objNumber)
-                        obj.MasterColor = Color.Azure;
+                        obj.MasterColor = Color.Green;///Кажется нужно, чтобы цвет брался из SettingControls?
                 }
 
                 var vboObjs = SceneControl.FindVBObj(objsType);
