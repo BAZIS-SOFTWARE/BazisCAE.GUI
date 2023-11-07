@@ -89,7 +89,7 @@
     <Reference Include="ProjectInterfaces, Version=1.0.17.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
       <HintPath>..\packages\ProjectInterfaces.1.0.17\lib\net48\ProjectInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Results, Version=1.0.0.38, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
+    <Reference Include="Results">
       <HintPath>..\packages\Results.1.0.0.38\lib\net48\Results.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface, Version=1.0.22.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
@@ -149,7 +149,9 @@
       <DependentUpon>ScalePage.cs</DependentUpon>
     </Compile>
     <Compile Include="ShowResultEventArgs.cs" />
-    <Compile Include="ToolStrips\ResultsToolStrip.cs" />
+    <Compile Include="ToolStrips\ResultsToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ToolStrips\ResultsToolStrip.Designer.cs">
       <DependentUpon>ResultsToolStrip.cs</DependentUpon>
     </Compile>

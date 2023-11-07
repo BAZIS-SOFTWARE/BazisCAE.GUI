@@ -47,7 +47,7 @@ namespace ModelModule
 
         private void OnLoad(object sender, EventArgs e)
         {
-            controller = new GmshController(@"C:\BazisComponents\ModelSolution\GmshApi\gmsh.dll");
+            controller = new GmshController(@"C:\GUI\packages\gmsh.dll");
             Disposed += GmshControl_Disposed;
             algoChoice.SelectedIndex = 3;
         }
@@ -130,7 +130,7 @@ namespace ModelModule
         {
             int[] dimTags;
             var objMessage = objKind == ObjKind.Point ? "контрольные точки" : "кривые";
-            var objType = objKind == ObjKind.Point ? "Узлы" : "Элементы1D";
+            var objType = objKind == ObjKind.Point ? "Узлы" : "Линия";
             var dim = objKind == ObjKind.Point ? 0 : 1;
             var status = true;
             if (controller.ModelGetGeometryEntities(out dimTags, dim))

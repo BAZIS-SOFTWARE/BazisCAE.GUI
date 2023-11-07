@@ -95,23 +95,23 @@ namespace TaskModule
             funDataMenuItem
             });
 
-            matDataMenuItem.Click += (ar1, ar2) => 
+            matDataMenuItem.Click += (ar1, ar2) =>
             {
-                var matBasePage = new DataBasesGUI.MaterialsDataBasePage() {  Dock = DockStyle.Fill };
-                matBasePage.LoadEvent += () => 
-                { 
+                var matBasePage = new DataBasesGUI.MaterialsDataBasePage() { Dock = DockStyle.Fill };
+                matBasePage.LoadEvent += () =>
+                {
                     MatData = matBasePage.Materials;
                     GetTaskAdvisor()?.SetMaterialData(MatData.Keys.ToList());
                 };
 
                 if (MatData != null)
-                    matBasePage.Load(MatData, false);
+                    matBasePage.Load(/*MatData*/"", false);
                 else
                 {
                     var matDBPath = FindPathDataBase("materials.jsf");
                     if (matDBPath != null)
                     {
-                        var link  = $@"{matDBPath}\materials.jsf";
+                        var link = $@"{matDBPath}\materials.jsf";
                         matBasePage.Load(link, false);
                         MatData = matBasePage.Materials;
                     }
@@ -128,13 +128,13 @@ namespace TaskModule
                 form.Controls.Add(matBasePage);
                 form.Show();
             };
-            funDataMenuItem.Click += (ar1, ar2) => 
+            funDataMenuItem.Click += (ar1, ar2) =>
             {
                 var funBasePage = new FunctionDataBasePage() { Dock = DockStyle.Fill };
                 funBasePage.LoadEvent += () => { FunData = funBasePage.Functions; };
 
                 if (FunData != null)
-                    funBasePage.Load(FunData, false);
+                    funBasePage.Load(/*FunData*/"", false);
                 else
                 {
                     var funDBPath = FindPathDataBase("functions.jsf");

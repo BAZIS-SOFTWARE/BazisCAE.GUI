@@ -52,11 +52,11 @@
     <Reference Include="ColorSlider, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ColorSlider.1.0.0.15\lib\net48\ColorSlider.dll</HintPath>
     </Reference>
-    <Reference Include="DataBaseController, Version=1.0.2.41, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataBasesGUI.1.0.2.40\lib\net48\DataBaseController.dll</HintPath>
+    <Reference Include="DataBaseController">
+      <HintPath>..\packages\DataBasesGUI.1.0.2.38\lib\net48\DataBaseController.dll</HintPath>
     </Reference>
-    <Reference Include="DataBasesGUI, Version=1.0.2.40, Culture=neutral, PublicKeyToken=0bb79e55f1a23392, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataBasesGUI.1.0.2.40\lib\net48\DataBasesGUI.dll</HintPath>
+    <Reference Include="DataBasesGUI">
+      <HintPath>..\packages\DataBasesGUI.1.0.2.38\lib\net48\DataBasesGUI.dll</HintPath>
     </Reference>
     <Reference Include="Functions, Version=1.0.2.43, Culture=neutral, PublicKeyToken=65fde98421b2fc88, processorArchitecture=MSIL">
       <HintPath>..\packages\Functions.1.0.2.43\lib\net48\Functions.dll</HintPath>
@@ -98,7 +98,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tasks, Version=1.0.0.18, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Tasks">
       <HintPath>..\packages\Tasks.1.0.0.18\lib\net48\Tasks.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -249,7 +249,9 @@
     <Compile Include="ToolStrips\WeldingTasksToolStrip.Designer.cs">
       <DependentUpon>WeldingTasksToolStrip.cs</DependentUpon>
     </Compile>
-    <Compile Include="WeldingModule\WeldingPage.cs" />
+    <Compile Include="WeldingModule\WeldingPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="WeldingModule\WeldingPage.Designer.cs">
       <DependentUpon>WeldingPage.cs</DependentUpon>
     </Compile>

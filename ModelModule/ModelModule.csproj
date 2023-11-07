@@ -97,7 +97,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelPage.cs" />
+    <Compile Include="ModelPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ModelPage.Designer.cs">
       <DependentUpon>ModelPage.cs</DependentUpon>
     </Compile>
