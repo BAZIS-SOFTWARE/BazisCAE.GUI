@@ -260,5 +260,10 @@ namespace TaskModule.BasicAdvisorControls
         {
             //throw new Exception("Метод не реализован!");
         }
+
+        private void dataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            base.DataGridView_UserDeletingRow(sender, e);
+        }
     }
 }

@@ -101,9 +101,6 @@
     <Reference Include="Tasks, Version=1.0.0.18, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Tasks.1.0.0.18\lib\net48\Tasks.dll</HintPath>
     </Reference>
-    <Reference Include="WorkingWeek, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WorkingWeek.1.0\lib\net40\WorkingWeek.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicAdvisorControls\BasicControls\CheckedGridViewAdviserControl.cs">
