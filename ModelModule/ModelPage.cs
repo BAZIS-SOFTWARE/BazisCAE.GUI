@@ -2,6 +2,7 @@
 using BaseModule.Navigator;
 using BaseModule.ToolStrips;
 using Model;
+using Model.Elements;
 using ModelInterfaces;
 using ModelModule.ToolStrips;
 using System;
@@ -128,6 +129,7 @@ namespace ModelModule
 
                 NavigatorControl.TreeView.Nodes["объекты"].Nodes.RemoveByKey("Элементы2D");
                 NavigatorControl.CreateChildNode("объекты", "Элементы2D", $"Элементы2D : {boundaryElements2D.Count()}", "4.1");
+                NavigatorControl.ShowObjectsNode("Элементы2D");
 
                 ConsoleControl.PrintInfo("Созданы 2D элементы", Color.Black);
             }

@@ -26,6 +26,7 @@ using ModelControllerInterfaces;
 using ModelController.ModelScenePresentator;
 using ProjectInterfaces.Tasks;
 using ModelInterfaces.ObjectsFinders;
+using Model.Elements;
 
 namespace BaseModule
 {
@@ -440,18 +441,17 @@ namespace BaseModule
                 IModelLoader loader;
 
                 if (ext == ".inp")
-                    loader = new LoadModelFromGMSHTextFile();
+                    Project.ModelData.Loader = new LoadModelFromGMSHTextFile();
                 else if (ext == ".ASC")
-                    loader = new LoadModelFromASCIITextFile();
+                    Project.ModelData.Loader = new LoadModelFromASCIITextFile();
                 else if (ext == ".dat")
-                    loader = new LoadModelFromSalomeFile();
+                    Project.ModelData.Loader = new LoadModelFromSalomeFile();
                 else
-                    loader = new LoadModelFromCDBTextFile();
+                    Project.ModelData.Loader = new LoadModelFromCDBTextFile();
 
-                loader.LoadEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
+                Project.ModelData.Loader.LoadEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
 
-                var model = loader.Load(dialog.FileName);
-                Project.ModelData.Load(model);
+                Project.Load(dialog.FileName);
 
                 lblInputCmd.Text = string.Empty;
 
