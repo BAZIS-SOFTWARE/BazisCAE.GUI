@@ -105,7 +105,7 @@ namespace TaskModule
                 };
 
                 if (MatData != null)
-                    matBasePage.Load(/*MatData*/"", false);
+                    matBasePage.Load(MatData, false);
                 else
                 {
                     var matDBPath = FindPathDataBase("materials.jsf");
@@ -134,7 +134,7 @@ namespace TaskModule
                 funBasePage.LoadEvent += () => { FunData = funBasePage.Functions; };
 
                 if (FunData != null)
-                    funBasePage.Load(/*FunData*/"", false);
+                    funBasePage.Load(FunData, false);
                 else
                 {
                     var funDBPath = FindPathDataBase("functions.jsf");
@@ -669,11 +669,11 @@ MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         else
                             Project.TaskData.Add(new ClampData(setTaskStr.Result));
                     }
+
+                    NavigatorControl.CreateChildNode("Данные", arg2.DataName, $"{arg2.DataName} : {taskStr}", "6.1");
                 }
 
                 GetTaskAdvisor()?.SetProjectData(Project);
-
-                NavigatorControl.CreateChildNode("Данные", arg2.DataName, $"{arg2.DataName} : {taskStrAr[0]}", "6.1");
             }
             catch (Exception ex)
             {
