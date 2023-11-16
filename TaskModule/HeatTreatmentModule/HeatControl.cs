@@ -141,6 +141,22 @@ namespace TaskModule.HeatTreatmentModule
                 CurentSelectedRowInfo = AddRowInfo();
                 base.AddButton_Click(sender, e);
 
+                if (fullCoef.Checked)
+                {
+                    cmbExchFunc.Enabled = true;
+                    convExcFunc.Enabled = false;
+                    StefanBolzmanConst.Enabled = false;
+                    blackRank.Enabled = false;
+                }
+
+                if (radAndConvCoef.Checked)
+                {
+                    cmbExchFunc.Enabled = false;
+                    convExcFunc.Enabled = true;
+                    StefanBolzmanConst.Enabled = true;
+                    blackRank.Enabled = true;
+                }
+
                 btnRefresh.Enabled = false;
             }
             catch (Exception ex)
