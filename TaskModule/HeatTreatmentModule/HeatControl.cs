@@ -143,7 +143,10 @@ namespace TaskModule.HeatTreatmentModule
 
                 if (fullCoef.Checked)
                 {
+                    radAndConvCoef.Checked = false;
+
                     cmbExchFunc.Enabled = true;
+
                     convExcFunc.Enabled = false;
                     StefanBolzmanConst.Enabled = false;
                     blackRank.Enabled = false;
@@ -151,7 +154,10 @@ namespace TaskModule.HeatTreatmentModule
 
                 if (radAndConvCoef.Checked)
                 {
+                    fullCoef.Checked = false;
+
                     cmbExchFunc.Enabled = false;
+
                     convExcFunc.Enabled = true;
                     StefanBolzmanConst.Enabled = true;
                     blackRank.Enabled = true;
