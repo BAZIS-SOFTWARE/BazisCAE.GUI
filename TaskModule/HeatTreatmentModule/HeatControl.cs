@@ -141,28 +141,6 @@ namespace TaskModule.HeatTreatmentModule
                 CurentSelectedRowInfo = AddRowInfo();
                 base.AddButton_Click(sender, e);
 
-                if (fullCoef.Checked)
-                {
-                    radAndConvCoef.Checked = false;
-
-                    cmbExchFunc.Enabled = true;
-
-                    convExcFunc.Enabled = false;
-                    StefanBolzmanConst.Enabled = false;
-                    blackRank.Enabled = false;
-                }
-
-                if (radAndConvCoef.Checked)
-                {
-                    fullCoef.Checked = false;
-
-                    cmbExchFunc.Enabled = false;
-
-                    convExcFunc.Enabled = true;
-                    StefanBolzmanConst.Enabled = true;
-                    blackRank.Enabled = true;
-                }
-
                 btnRefresh.Enabled = false;
             }
             catch (Exception ex)
@@ -260,6 +238,34 @@ namespace TaskModule.HeatTreatmentModule
         public void Fill_nGroups(List<string> groupNames)
         {
             //throw new Exception("Метод не реализован!");
+        }
+
+        private void fullCoef_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radAndConvCoef.Checked)
+            {
+                fullCoef.Checked = false;
+
+                cmbExchFunc.Enabled = false;
+
+                convExcFunc.Enabled = true;
+                StefanBolzmanConst.Enabled = true;
+                blackRank.Enabled = true;
+            }
+        }
+
+        private void radAndConvCoef_CheckedChanged(object sender, EventArgs e)
+        {
+            if (fullCoef.Enabled)
+            {
+                radAndConvCoef.Checked = false;
+
+                cmbExchFunc.Enabled = true;
+
+                convExcFunc.Enabled = false;
+                StefanBolzmanConst.Enabled = false;
+                blackRank.Enabled = false;
+            }
         }
     }
 }
