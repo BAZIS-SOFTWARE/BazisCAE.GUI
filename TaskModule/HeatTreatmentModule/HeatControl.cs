@@ -99,6 +99,13 @@ namespace TaskModule.HeatTreatmentModule
                 "*"
             };
 
+
+            if (radioButton2.Checked)
+            {
+                //.........res
+                //cmbExchFunc = res
+            }
+
             return "\"" + string.Join(" ", dataList) + "\"";
         }
 

@@ -113,7 +113,8 @@ namespace ResultModule
             clearResultsMenuItem.Click += (ar1, ar2) => 
             {
                 Project.ResultData.Clear();
-                NavigatorControl.TreeView.Nodes[6].Nodes.Clear();
+                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
+                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
                 ClearAllDataOnScene();
 
@@ -476,7 +477,9 @@ namespace ResultModule
                 SceneControl.DisplayObjects();
 
                 Project.ResultData.Clear();
-                NavigatorControl.TreeView.Nodes[6].Nodes.Clear();
+
+                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
+                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
             }
             else if (e.ClickedItem.Tag.ToString() == "1")
             {

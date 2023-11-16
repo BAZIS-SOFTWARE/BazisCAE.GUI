@@ -33,6 +33,8 @@ namespace TaskModule.HeatTreatmentModule
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new System.Windows.Forms.GroupBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.cmbTempFunc = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -60,6 +62,12 @@ namespace TaskModule.HeatTreatmentModule
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.cmbProcKinds = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.grbHeatFlux.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -82,15 +90,23 @@ namespace TaskModule.HeatTreatmentModule
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 13F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(533, 602);
             this.tableLayoutPanel1.TabIndex = 20;
             // 
             // grbHeatFlux
             // 
+            this.grbHeatFlux.AutoSize = true;
             this.grbHeatFlux.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.grbHeatFlux.Controls.Add(this.label9);
+            this.grbHeatFlux.Controls.Add(this.textBox3);
+            this.grbHeatFlux.Controls.Add(this.radioButton2);
+            this.grbHeatFlux.Controls.Add(this.radioButton1);
+            this.grbHeatFlux.Controls.Add(this.label7);
+            this.grbHeatFlux.Controls.Add(this.textBox2);
+            this.grbHeatFlux.Controls.Add(this.textBox1);
             this.grbHeatFlux.Controls.Add(this.cmbTempFunc);
+            this.grbHeatFlux.Controls.Add(this.label8);
             this.grbHeatFlux.Controls.Add(this.label5);
             this.grbHeatFlux.Controls.Add(this.label2);
             this.grbHeatFlux.Controls.Add(this.cmbExchFunc);
@@ -101,17 +117,37 @@ namespace TaskModule.HeatTreatmentModule
             this.grbHeatFlux.Margin = new System.Windows.Forms.Padding(1);
             this.grbHeatFlux.Name = "grbHeatFlux";
             this.grbHeatFlux.Padding = new System.Windows.Forms.Padding(0);
-            this.grbHeatFlux.Size = new System.Drawing.Size(531, 124);
+            this.grbHeatFlux.Size = new System.Drawing.Size(531, 222);
             this.grbHeatFlux.TabIndex = 18;
             this.grbHeatFlux.TabStop = false;
             this.grbHeatFlux.Text = "Параметры процесса";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox2.Location = new System.Drawing.Point(170, 133);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(334, 20);
+            this.textBox2.TabIndex = 25;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Location = new System.Drawing.Point(170, 107);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(334, 20);
+            this.textBox1.TabIndex = 24;
             // 
             // cmbTempFunc
             // 
             this.cmbTempFunc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbTempFunc.FormattingEnabled = true;
-            this.cmbTempFunc.Location = new System.Drawing.Point(171, 84);
+            this.cmbTempFunc.Location = new System.Drawing.Point(170, 185);
             this.cmbTempFunc.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbTempFunc.Name = "cmbTempFunc";
             this.cmbTempFunc.Size = new System.Drawing.Size(334, 21);
@@ -120,11 +156,11 @@ namespace TaskModule.HeatTreatmentModule
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 87);
+            this.label5.Location = new System.Drawing.Point(9, 136);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(126, 13);
+            this.label5.Size = new System.Drawing.Size(108, 13);
             this.label5.TabIndex = 22;
-            this.label5.Text = "Температура среды, °C";
+            this.label5.Text = "Стеф. - Больцман, ?";
             // 
             // label2
             // 
@@ -140,7 +176,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbExchFunc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbExchFunc.FormattingEnabled = true;
-            this.cmbExchFunc.Location = new System.Drawing.Point(171, 57);
+            this.cmbExchFunc.Location = new System.Drawing.Point(170, 80);
             this.cmbExchFunc.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbExchFunc.Name = "cmbExchFunc";
             this.cmbExchFunc.Size = new System.Drawing.Size(334, 21);
@@ -149,11 +185,11 @@ namespace TaskModule.HeatTreatmentModule
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 60);
+            this.label1.Location = new System.Drawing.Point(8, 83);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 13);
+            this.label1.Size = new System.Drawing.Size(140, 13);
             this.label1.TabIndex = 19;
-            this.label1.Text = "Коэф. теплоотдачи, Вт/мм2";
+            this.label1.Text = "Полный коэф., Вт/мм2/C°";
             // 
             // cmbEl
             // 
@@ -190,11 +226,11 @@ namespace TaskModule.HeatTreatmentModule
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 323);
+            this.dataGridView.Location = new System.Drawing.Point(1, 421);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(531, 278);
+            this.dataGridView.Size = new System.Drawing.Size(531, 180);
             this.dataGridView.TabIndex = 14;
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
@@ -251,7 +287,7 @@ namespace TaskModule.HeatTreatmentModule
             this.groupBox1.Controls.Add(this.txbStartTime);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(1, 194);
+            this.groupBox1.Location = new System.Drawing.Point(1, 292);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
@@ -427,6 +463,65 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbProcKinds.Size = new System.Drawing.Size(334, 21);
             this.cmbProcKinds.TabIndex = 19;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 110);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(140, 13);
+            this.label7.TabIndex = 26;
+            this.label7.Text = "Конвек. коэф., Вт/мм2/C°";
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(170, 57);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(97, 17);
+            this.radioButton1.TabIndex = 27;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Полный коэф.";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(268, 57);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(191, 17);
+            this.radioButton2.TabIndex = 27;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Лучистый и конвективный коэф.";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(9, 162);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(106, 13);
+            this.label8.TabIndex = 22;
+            this.label8.Text = "Степень черноты, ?";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox3.Location = new System.Drawing.Point(170, 159);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(334, 20);
+            this.textBox3.TabIndex = 28;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(9, 188);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(126, 13);
+            this.label9.TabIndex = 29;
+            this.label9.Text = "Температура среды, С°";
+            // 
             // HeatControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -479,5 +574,13 @@ namespace TaskModule.HeatTreatmentModule
         private System.Windows.Forms.DataGridViewTextBoxColumn stopColumn;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cmbProcKinds;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }
