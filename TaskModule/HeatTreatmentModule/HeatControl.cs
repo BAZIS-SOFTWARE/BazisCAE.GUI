@@ -91,7 +91,6 @@ namespace TaskModule.HeatTreatmentModule
                 cmbProcKinds.Text,
 
                 cmbEl.Text,
-                cmbExchFunc.Text,
                 cmbTempFunc.Text,
 
                 txbStartTime.Text,
@@ -100,11 +99,20 @@ namespace TaskModule.HeatTreatmentModule
             };
 
 
-            if (radioButton2.Checked)
+            if (radAndConvCoef.Checked)
             {
-                //.........res
-                //cmbExchFunc = res
+                float StefanBolzman, BlacknessCoef, convCoef;
+
+                float.TryParse(StefanBolzmanConst.Text, out StefanBolzman);
+                float.TryParse(blackRank.Text, out BlacknessCoef);
+                float.TryParse(convExcFunc.Text, out convCoef);
+
+                var res = convCoef + StefanBolzman * BlacknessCoef;
+                dataList.Add(res.ToString());
             }
+
+            else
+                dataList.Add(cmbExchFunc.Text);
 
             return "\"" + string.Join(" ", dataList) + "\"";
         }
