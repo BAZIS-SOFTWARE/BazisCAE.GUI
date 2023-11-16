@@ -44,11 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GraphicCardChecker.cs">
+    <Compile Include="CreateGlobalVariables.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GraphicCardChecker.Designer.cs">
-      <DependentUpon>GraphicCardChecker.cs</DependentUpon>
+    <Compile Include="CreateGlobalVariables.Designer.cs">
+      <DependentUpon>CreateGlobalVariables.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

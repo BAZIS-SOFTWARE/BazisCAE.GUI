@@ -510,20 +510,6 @@ namespace BaseModule
             var folder = Path.GetDirectoryName(path);
 
             Project.Name = Path.GetFileName(path);
-
-                var compData = Project.TaskData.Find("Расчет");
-
-                if (Project.Path != folder)
-                {
-                    foreach (ICompData data in compData)
-                    {
-                        var oldfilePath = $@"{Project.Path}\{data.FileParameters}";
-                        var newfilePath = $@"{folder}\{data.FileParameters}";
-
-                        File.Create(newfilePath).Close();
-                        File.Copy(oldfilePath, newfilePath, true);
-                    }
-                }
             Project.Path = folder;
             
             SaveProjectData();
@@ -1702,11 +1688,14 @@ namespace BaseModule
             var group = Project.ModelData.GroupData[obj];
             Project.ModelData.GroupData.Remove(group);
 
-            var valData = Project.TaskData.Where(x => x is IValuableData).Select(x => (IValuableData)x).
+            if(Project.TaskData != null)
+            {
+                var valData = Project.TaskData.Where(x => x is IValuableData).Select(x => (IValuableData)x).
 Where(x => x.GroupName == group.GroupName).ToArray();
 
-            foreach (var data in valData)
-                Project.TaskData.Remove(data);
+                foreach (var data in valData)
+                    Project.TaskData.Remove(data);
+            }
 
             ChangeProjectDataEvent?.Invoke();
         }
@@ -1964,15 +1953,17 @@ Where(x => x.GroupName == group.GroupName).ToArray();
             if (gr != null)
             {
                 gr.GroupName = newName;
-                foreach (var data in Project.TaskData)
-                {
-                    var dataStr = data.GetInfo;
-                    if (dataStr.Contains(oldName))
+
+                if (Project.TaskData != null)
+                    foreach (var data in Project.TaskData)
                     {
-                        dataStr = dataStr.Replace(oldName, newName);
-                        data.SetInfo(dataStr);
+                        var dataStr = data.GetInfo;
+                        if (dataStr.Contains(oldName))
+                        {
+                            dataStr = dataStr.Replace(oldName, newName);
+                            data.SetInfo(dataStr);
+                        }
                     }
-                }
                 ChangeProjectDataEvent?.Invoke();
             }
 

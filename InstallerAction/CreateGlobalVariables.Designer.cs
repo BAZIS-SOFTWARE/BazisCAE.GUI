@@ -1,6 +1,6 @@
 ﻿namespace InstallerAction
 {
-    partial class GraphicCardChecker
+    partial class CreateGlobalVariables
     {
         /// <summary>
         /// Обязательная переменная конструктора.

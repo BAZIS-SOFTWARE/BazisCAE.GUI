@@ -303,7 +303,6 @@
             this.txbMaxSiSt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbMaxSiSt.BackColor = System.Drawing.SystemColors.Window;
-            this.txbMaxSiSt.Enabled = false;
             this.txbMaxSiSt.Location = new System.Drawing.Point(207, 85);
             this.txbMaxSiSt.Margin = new System.Windows.Forms.Padding(3, 3, 27, 3);
             this.txbMaxSiSt.Name = "txbMaxSiSt";
@@ -331,7 +330,6 @@
             this.txbMaxDU.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbMaxDU.BackColor = System.Drawing.SystemColors.Window;
-            this.txbMaxDU.Enabled = false;
             this.txbMaxDU.Location = new System.Drawing.Point(207, 33);
             this.txbMaxDU.Margin = new System.Windows.Forms.Padding(3, 5, 28, 3);
             this.txbMaxDU.Name = "txbMaxDU";

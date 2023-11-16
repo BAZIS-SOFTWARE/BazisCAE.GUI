@@ -47,7 +47,20 @@ namespace ModelModule
 
         private void OnLoad(object sender, EventArgs e)
         {
-            controller = new GmshController(@"C:\BazisComponents\ModelSolution\GmshApi\gmsh.dll");
+            var path = Environment.GetEnvironmentVariable("BazisMeshPath", EnvironmentVariableTarget.Machine);
+
+            if (path == null || path == "")
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "All files(*.*)|*.*|" +
+                    "dinamic library(*.dll)|*.dll";
+                if (dialog.ShowDialog() == DialogResult.Cancel)
+                    return;
+                path = dialog.FileName;
+            }
+            else
+                path = $@"{path}\Mesh\gmsh.dll";
+            controller = new GmshController(path);
             Disposed += GmshControl_Disposed;
             algoChoice.SelectedIndex = 3;
         }

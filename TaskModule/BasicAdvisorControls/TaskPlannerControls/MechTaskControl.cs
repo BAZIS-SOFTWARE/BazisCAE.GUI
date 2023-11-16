@@ -137,15 +137,15 @@ namespace AdvisorControls.TaskPlannerControls
         {
             if(chbPlastisity.Checked)
             {
-                chbUMax.Checked = true;
                 chbUMax.Enabled = true;
+                chbUMax.Checked = true;
                 txbMaxDU.Enabled = true; 
                 txbMaxSiSt.Enabled = true;
             }
             else
             {
-                chbUMax.Checked = false;
                 chbUMax.Enabled = false;
+                chbUMax.Checked = false;
                 txbMaxDU.Enabled = false;
                 txbMaxSiSt.Enabled = false;
             }
