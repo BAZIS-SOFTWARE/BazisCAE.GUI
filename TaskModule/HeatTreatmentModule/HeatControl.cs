@@ -103,9 +103,14 @@ namespace TaskModule.HeatTreatmentModule
             {
                 float StefanBolzman, BlacknessCoef, convCoef;
 
-                float.TryParse(StefanBolzmanConst.Text, out StefanBolzman);
-                float.TryParse(blackRank.Text, out BlacknessCoef);
-                float.TryParse(convExcFunc.Text, out convCoef);
+                if (!float.TryParse(StefanBolzmanConst.Text, out StefanBolzman))
+                    throw new Exception("Константа должна быть числом с плавающей точкой");
+
+                if(!float.TryParse(blackRank.Text, out BlacknessCoef))
+                    throw new Exception("Коэффициент черноты должен быть числом с плавающей точкой");
+
+                if (!float.TryParse(convExcFunc.Text, out convCoef))
+                    throw new Exception("Коэффициент конвекционных потерь должен быть рассчитан и записан в виде числа с плавающей точкой");
 
                 var res = convCoef + StefanBolzman * BlacknessCoef;
                 dataList.Add(res.ToString());
@@ -113,6 +118,7 @@ namespace TaskModule.HeatTreatmentModule
 
             else
                 dataList.Add(cmbExchFunc.Text);
+
 
             return "\"" + string.Join(" ", dataList) + "\"";
         }
