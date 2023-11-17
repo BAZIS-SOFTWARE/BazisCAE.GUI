@@ -30,7 +30,7 @@ namespace TaskModule.HeatTreatmentModule
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -138,6 +138,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.blackRank.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.blackRank.Enabled = false;
             this.blackRank.Location = new System.Drawing.Point(227, 196);
             this.blackRank.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.blackRank.Name = "blackRank";
@@ -152,7 +153,6 @@ namespace TaskModule.HeatTreatmentModule
             this.radAndConvCoef.Name = "radAndConvCoef";
             this.radAndConvCoef.Size = new System.Drawing.Size(240, 20);
             this.radAndConvCoef.TabIndex = 27;
-            this.radAndConvCoef.TabStop = true;
             this.radAndConvCoef.Text = "Лучистый и конвективный коэф.";
             this.radAndConvCoef.UseVisualStyleBackColor = true;
             this.radAndConvCoef.CheckedChanged += new System.EventHandler(this.radAndConvCoef_CheckedChanged);
@@ -160,6 +160,7 @@ namespace TaskModule.HeatTreatmentModule
             // fullCoef
             // 
             this.fullCoef.AutoSize = true;
+            this.fullCoef.Checked = true;
             this.fullCoef.Location = new System.Drawing.Point(227, 70);
             this.fullCoef.Margin = new System.Windows.Forms.Padding(4);
             this.fullCoef.Name = "fullCoef";
@@ -184,6 +185,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.StefanBolzmanConst.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.StefanBolzmanConst.Enabled = false;
             this.StefanBolzmanConst.Location = new System.Drawing.Point(227, 164);
             this.StefanBolzmanConst.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.StefanBolzmanConst.Name = "StefanBolzmanConst";
@@ -194,6 +196,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.convExcFunc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.convExcFunc.Enabled = false;
             this.convExcFunc.Location = new System.Drawing.Point(227, 132);
             this.convExcFunc.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.convExcFunc.Name = "convExcFunc";
@@ -287,15 +290,15 @@ namespace TaskModule.HeatTreatmentModule
             this.Column1,
             this.startColumn,
             this.stopColumn});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.NullValue = " ";
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.NullValue = " ";
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.Location = new System.Drawing.Point(1, 518);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);

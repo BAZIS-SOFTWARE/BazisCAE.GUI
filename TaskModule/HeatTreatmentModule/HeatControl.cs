@@ -254,7 +254,7 @@ namespace TaskModule.HeatTreatmentModule
 
         private void radAndConvCoef_CheckedChanged(object sender, EventArgs e)
         {
-            if (fullCoef.Enabled)
+            if (fullCoef.Checked)
             {
                 cmbExchFunc.Enabled = true;
 
