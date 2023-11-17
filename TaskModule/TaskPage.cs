@@ -21,9 +21,7 @@ using DataBasesGUI;
 using Geometry;
 using Tasks;
 using ProjectInterfaces.Tasks;
-using Tasks.IO;
 using ModelInterfaces;
-using System.Xml.Linq;
 
 namespace TaskModule
 {
@@ -98,47 +96,98 @@ namespace TaskModule
 
             matDataMenuItem.Click += (ar1, ar2) =>
             {
-                var matBasePage = new DataBasesGUI.MaterialsDataBasePage() { Dock = DockStyle.Fill };
-                matBasePage.LoadEvent += () =>
+                try
                 {
-                    var matData = matBasePage.Materials;
-                    Project.Materials = matBasePage.DbPath;
-                    GetTaskAdvisor()?.SetMaterialData(matData.Keys.ToList());
-                };
+                    var matBasePage = new MaterialsDataBasePage() { Dock = DockStyle.Fill };
+                    matBasePage.LoadEvent += () =>
+                    {
+                        var matData = matBasePage.Materials;
+                        var copy = false;
+                        if (matBasePage.DbPath != Project.Path)
+                        {
+                            var res = MessageBox.Show("Скопировать текущую базу в папку проекта?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (res == DialogResult.Yes)
+                                copy = CopyFile(matBasePage.DbName, matBasePage.DbPath, Project.Path);
+                        }
 
-                var filePath = FindFileByPath(Project.Materials, "materials.jsf");
-                if (filePath == null)
-                    ConsoleControl.PrintInfo($"База данных materials.jsf не найдена в директории {Project.Materials}", Color.Red);
-                else 
-                    matBasePage.Load($@"{filePath}\materials.jsf",false);
 
-                var icon = TaskModule.Properties.Resources.Материалы;
-                var name = "База материалов";
-                var form = new Form() { Name = name, Text = name, TopMost = true, Size = matBasePage.Size, Icon = icon };
-                form.Controls.Add(matBasePage);
-                form.Show();
+                        if (matBasePage.DbPath == Project.Path | copy)
+                        {
+                            var res = MessageBox.Show("Сделать текущую базу базой проекта?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (res == DialogResult.Yes)
+                            {
+                                Project.Materials = matBasePage.DbName;
+                                PresentProjectOnTree();
+                            }
+
+                        }
+
+                        GetTaskAdvisor()?.SetMaterialData(matData.Keys.ToList());
+                    };
+
+                    var filePath = FindFileByPath(Project.Path, Project.Materials);
+                    if (filePath == null)
+                        ConsoleControl.PrintInfo($"База данных materials.jsf не найдена в директории {Project.Materials}", Color.Red);
+                    else
+                        matBasePage.Load($@"{filePath}\{Project.Materials}", false);
+
+                    var icon = TaskModule.Properties.Resources.Материалы;
+                    var name = "База материалов";
+                    var form = new Form() { Name = name, Text = name, TopMost = true, Size = matBasePage.Size, Icon = icon };
+                    form.Controls.Add(matBasePage);
+                    form.Show();
+
+                }
+                catch (Exception ex)
+                {
+                    ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                }
             };
             funDataMenuItem.Click += (ar1, ar2) =>
             {
-                var funBasePage = new FunctionDataBasePage() { Dock = DockStyle.Fill };
-                funBasePage.LoadEvent += () =>
+                try
                 {
-                    var funData = funBasePage.Functions;
-                    Project.Functions = funBasePage.DbPath;
-                    GetTaskAdvisor()?.SetFunctionData(funData.Keys.ToList());
-                };
+                    var funBasePage = new FunctionDataBasePage() { Dock = DockStyle.Fill };
+                    funBasePage.LoadEvent += () =>
+                    {
+                        var funData = funBasePage.Functions;
+                        var copy = false;
+                        if (funBasePage.DbPath != Project.Path)
+                        {
+                            var res = MessageBox.Show("Скопировать текущую базу в папку проекта?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (res == DialogResult.Yes)
+                                copy = CopyFile(funBasePage.DbName, funBasePage.DbPath, Project.Path);
+                        }
 
-                var filePath = FindFileByPath(Project.Functions, "functions.jsf");
-                if (filePath == null)
-                    ConsoleControl.PrintInfo($"База данных functions.jsf не найдена в директории {Project.Functions}", Color.Red);
-                else
-                    funBasePage.Load($@"{filePath}\functions.jsf", false);
+                        if (funBasePage.DbPath == Project.Path | copy)
+                        {
+                            var res = MessageBox.Show("Сделать текущую базу базой проекта?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (res == DialogResult.Yes)
+                            {
+                                Project.Functions = funBasePage.DbName;
+                                PresentProjectOnTree();
+                            }
+                        }
 
-                var icon = TaskModule.Properties.Resources.Функции;
-                var name = "База функций";
-                var form = new Form() { Name = name, Text = name, TopMost = true, Size = funBasePage.Size, Icon = icon };
-                form.Controls.Add(funBasePage);
-                form.Show();
+                        GetTaskAdvisor()?.SetFunctionData(funData.Keys.ToList());
+                    };
+
+                    var filePath = FindFileByPath(Project.Path, Project.Functions);
+                    if (filePath == null)
+                        ConsoleControl.PrintInfo($"База данных {Project.Functions} не найдена в директории {Project.Path}", Color.Red);
+                    else
+                        funBasePage.Load($@"{filePath}\{Project.Functions}", false);
+
+                    var icon = TaskModule.Properties.Resources.Функции;
+                    var name = "База функций";
+                    var form = new Form() { Name = name, Text = name, TopMost = true, Size = funBasePage.Size, Icon = icon };
+                    form.Controls.Add(funBasePage);
+                    form.Show();
+                }
+                catch (Exception ex)
+                {
+                    ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                }
             };
 
             return dataBaseMenuItem;
@@ -157,61 +206,70 @@ namespace TaskModule
 
         public void CreateAdvisor(TaskAdvisor taskAdv, Icon icon)
         {
-            var appFolder = Path.GetDirectoryName(Application.ExecutablePath);
-            if (appFolder == Project.Path)
+            try
             {
-                MessageBox.Show("Рабочая папка проекта должна отличаться от папки установки программы!");
-                return;
-            }
-
-            activeTask = taskAdv.Name;
-            var form = new Form() { Text = activeTask, Name = activeTask, TopMost = true, Size = taskAdv.Size, Icon = icon };
-            form.FormClosed += (ar1, ar2) =>
-            {
-                if (ar2.CloseReason == CloseReason.UserClosing)
+                var appFolder = Path.GetDirectoryName(Application.ExecutablePath);
+                if (appFolder == Project.Path)
                 {
-
-                    UnCheckToolStripButtons();
-
-                    foreach (var item in GetToolStripMenuItems())
-                        foreach (var dropItem in item.DropDownItems)
-                            if (dropItem is ToolStripMenuItem tls)
-                                tls.Checked = false;
+                    MessageBox.Show("Рабочая папка проекта должна отличаться от папки установки программы!");
+                    return;
                 }
-                activeTask = "";
-            };
-            form.Controls.Add(taskAdv);
-            form.Show();
 
-            taskAdv.AddDataEvent += TaskAdvisor_AddDataEvent;
-            taskAdv.DeleteDataEvent += TaskAdvisor_DeleteDataEvent;
-            taskAdv.DeleteAllDataEvent += TaskAdvisor_DeleteAllDataEvent;
-            taskAdv.CheckDataEvent += TaskAdvisor_CheckDataEvent;
-            taskAdv.HideDataEvent += TaskAdvisor_HideDataEvent;
-            taskAdv.ShowDataEvent += TaskAdvisor_ShowDataEvent;
-            taskAdv.ChangeDataEvent += TaskAdvisor_ChangeDataEvent;
-            taskAdv.StartComputationEvent += TaskAdvisor_StartComputationEvent;
-            taskAdv.StopComputationEvent += TaskAdv_StopComputationEvent;
-            taskAdv.Select2DAxiEvent += TaskAdvisor_ChangeTaskTypeEvent;
-            taskAdv.Select2DPlaneEvent += TaskAdvisor_ChangeTaskTypeEvent;
-            taskAdv.Select3DEvent += TaskAdvisor_ChangeTaskTypeEvent;
+                activeTask = taskAdv.Name;
+                var form = new Form() { Text = activeTask, Name = activeTask, TopMost = true, Size = taskAdv.Size, Icon = icon };
+                form.FormClosed += (ar1, ar2) =>
+                {
+                    if (ar2.CloseReason == CloseReason.UserClosing)
+                    {
 
-            var matDB = GetDataBase<MaterialDBData>("materials.jsf", Project.Materials);
+                        UnCheckToolStripButtons();
 
-            if(matDB == null)
-                ConsoleControl.PrintInfo($"Не загружена база materials.jsf", Color.Red);
-            else
-                taskAdv.SetMaterialData(matDB.Keys.ToList());
+                        foreach (var item in GetToolStripMenuItems())
+                            foreach (var dropItem in item.DropDownItems)
+                                if (dropItem is ToolStripMenuItem tls)
+                                    tls.Checked = false;
+                    }
+                    activeTask = "";
+                };
+                form.Controls.Add(taskAdv);
+                form.Show();
 
-            var funDB = GetDataBase<FunctionDBData>("functions.jsf", Project.Functions);
+                taskAdv.AddDataEvent += TaskAdvisor_AddDataEvent;
+                taskAdv.DeleteDataEvent += TaskAdvisor_DeleteDataEvent;
+                taskAdv.DeleteAllDataEvent += TaskAdvisor_DeleteAllDataEvent;
+                taskAdv.CheckDataEvent += TaskAdvisor_CheckDataEvent;
+                taskAdv.HideDataEvent += TaskAdvisor_HideDataEvent;
+                taskAdv.ShowDataEvent += TaskAdvisor_ShowDataEvent;
+                taskAdv.ChangeDataEvent += TaskAdvisor_ChangeDataEvent;
+                taskAdv.StartComputationEvent += TaskAdvisor_StartComputationEvent;
+                taskAdv.StopComputationEvent += TaskAdv_StopComputationEvent;
+                taskAdv.Select2DAxiEvent += TaskAdvisor_ChangeTaskTypeEvent;
+                taskAdv.Select2DPlaneEvent += TaskAdvisor_ChangeTaskTypeEvent;
+                taskAdv.Select3DEvent += TaskAdvisor_ChangeTaskTypeEvent;
 
-            if (funDB == null)
-                ConsoleControl.PrintInfo($"Не загружена база functions.jsf", Color.Red);
-            else
-                taskAdv.SetFunctionData(funDB.Keys.ToList());
+                var matDB = GetDataBase<MaterialDBData>(Project.Materials, Project.Path);
+
+                if (matDB == null)
+                    ConsoleControl.PrintInfo($"Не загружена база {Project.Materials}", Color.Red);
+                else
+
+                    taskAdv.SetMaterialData(matDB.Keys.ToList());
+
+                var funDB = GetDataBase<FunctionDBData>(Project.Functions, Project.Path);
+
+                if (funDB == null)
+                    ConsoleControl.PrintInfo($"Не загружена база {Project.Functions}", Color.Red);
+                else
+                    taskAdv.SetFunctionData(funDB.Keys.ToList());
 
 
-            taskAdv.SetProjectData(Project);
+                taskAdv.SetProjectData(Project);
+
+            }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
         private T GetDataBase<T>(string dbName, string dbPath)
@@ -225,15 +283,6 @@ namespace TaskModule
  
             else 
                 return LoadDataBase<T>(dbName, dbPath);
-        }
-
-        private void CopyFile(string fileName, string oldFolder, string newFolder)
-        {
-            var oldfilePath = $@"{oldFolder}\{fileName}";
-            var newfilePath = $@"{newFolder}\{fileName}";
-
-            File.Create(newfilePath).Close();
-            File.Copy(oldfilePath, newfilePath, true);
         }
 
         private void TaskAdv_StopComputationEvent(object arg1, EventArgs arg2)
@@ -282,41 +331,6 @@ namespace TaskModule
         public override void SaveProjectData()
         {
             base.SaveProjectData();
-        }
-
-        public override void SaveAsProjectData(string path)
-        {
-            var oldFolder = Project.Path;
-
-            base.SaveAsProjectData(path);
-
-            if (oldFolder != Project.Path)
-            {
-                var oldfilePath = string.Empty;
-                var newfilePath = string.Empty;
-
-                var compData = Project.TaskData.Find("Расчет");
-                foreach (ICompData data in compData)
-                {
-                    oldfilePath = $@"{oldFolder}\{data.FileParameters}";
-                    newfilePath = $@"{Project.Path}\{data.FileParameters}";
-
-                    File.Create(newfilePath).Close();
-                    File.Copy(oldfilePath, newfilePath, true);
-                }
-
-                oldfilePath = $@"{oldFolder}\materials.jsf";
-                newfilePath = $@"{Project.Path}\materials.jsf";
-
-                File.Create(newfilePath).Close();
-                File.Copy(oldfilePath, newfilePath, true);
-
-                oldfilePath = $@"{oldFolder}\functions.jsf";
-                newfilePath = $@"{Project.Path}\functions.jsf";
-
-                File.Create(newfilePath).Close();
-                File.Copy(oldfilePath, newfilePath, true);
-            }
         }
 
         public void TaskAdvisor_StartComputationEvent(object arg1, EventArgs arg2)

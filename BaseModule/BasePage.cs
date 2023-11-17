@@ -405,13 +405,12 @@ namespace BaseModule
         {
             Project.ClearAllData();
             Project.Name = "newProject";
+            Project.Comments = "newComments";
             Project.Path = Environment.CurrentDirectory;
 
             ModelPresenter = new ModelScenePresentator(Project.ModelData.ObjectData);
 
             consoleControl.PrintInfo("Создан новый проект", Color.Black);
-
-
 
             PresentProjectOnTree();
             PresentModelOnSelectToolStrip();
@@ -446,12 +445,14 @@ namespace BaseModule
                     Project.ModelData.Loader = new LoadModelFromASCIITextFile();
                 else if (ext == ".dat")
                     Project.ModelData.Loader = new LoadModelFromSalomeFile();
+                else if(ext == ".stl")
+                    Project.ModelData.Loader = new LoadModelFromSTLFile();
                 else
                     Project.ModelData.Loader = new LoadModelFromCDBTextFile();
 
                 Project.ModelData.Loader.LoadEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
 
-                Project.Load(dialog.FileName);
+                Project.ModelData.Load(dialog.FileName);
 
                 lblInputCmd.Text = string.Empty;
 
@@ -505,13 +506,48 @@ namespace BaseModule
             }
         }
 
+        public bool CopyFile(string fileName, string oldFolder, string newFolder)
+        {
+            var oldfilePath = $@"{oldFolder}\{fileName}";
+
+            if (File.Exists(oldfilePath))
+            {
+                var newfilePath = $@"{newFolder}\{fileName}";
+
+                File.Create(newfilePath).Close();
+                File.Copy(oldfilePath, newfilePath, true);
+                return true;
+            }
+            else return false;
+        }
+
         public virtual void SaveAsProjectData(string path)
         {
-            var folder = Path.GetDirectoryName(path);
+            var newFolder = Path.GetDirectoryName(path);
+            var oldFolder = Project.Path;
 
             Project.Name = Path.GetFileName(path);
-            Project.Path = folder;
-            
+            Project.Path = newFolder;
+
+            if (oldFolder != Project.Path)
+            {
+                var oldfilePath = string.Empty;
+                var newfilePath = string.Empty;
+
+                var compData = Project.TaskData.Find("Расчет");
+                foreach (ICompData data in compData)
+                {
+                    oldfilePath = $@"{oldFolder}\{data.FileParameters}";
+                    newfilePath = $@"{Project.Path}\{data.FileParameters}";
+
+                    File.Create(newfilePath).Close();
+                    File.Copy(oldfilePath, newfilePath, true);
+                }
+
+                CopyFile(Project.Materials, oldFolder, Project.Path);
+                CopyFile(Project.Functions, oldFolder, Project.Path);
+            }
+
             SaveProjectData();
         }
 

@@ -62,6 +62,7 @@ namespace BaseModule.Navigator
                 { "Элементы3D",4},
                 { "Элементы2D",4},
                 { "Элементы1D",4},
+                { "Поверхности",4},
                 { "Материал",8},
                 { "Среда",9},
                 { "Нагрев",10},
@@ -96,9 +97,9 @@ namespace BaseModule.Navigator
             if(root == "объекты")
                 node.ContextMenuStrip = object_MenuStrip;
             else if (root == "группыОбъектов")
-                if (name == "Узлы")
+                if (imgDict[name] == 3)
                     node.ContextMenuStrip = ndGroup_MenuStrip;
-                else if (name == "Элементы1D" | name == "Элементы2D" | name == "Элементы3D")
+                else if (imgDict[name] == 4)
                     node.ContextMenuStrip = elGroup_MenuStrip;
 
             var rootNode = CallNonRecursiveSearch(root);
