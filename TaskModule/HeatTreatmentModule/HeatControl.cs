@@ -91,7 +91,6 @@ namespace TaskModule.HeatTreatmentModule
                 cmbProcKinds.Text,
 
                 cmbEl.Text,
-                cmbExchFunc.Text,
                 cmbTempFunc.Text,
 
                 txbStartTime.Text,
@@ -100,11 +99,26 @@ namespace TaskModule.HeatTreatmentModule
             };
 
 
-            if (radioButton2.Checked)
+            if (radAndConvCoef.Checked)
             {
-                //.........res
-                //cmbExchFunc = res
+                float StefanBolzman, BlacknessCoef, convCoef;
+
+                if (!float.TryParse(StefanBolzmanConst.Text, out StefanBolzman))
+                    throw new Exception("Константа должна быть числом с плавающей точкой");
+
+                if(!float.TryParse(blackRank.Text, out BlacknessCoef))
+                    throw new Exception("Коэффициент черноты должен быть числом с плавающей точкой");
+
+                if (!float.TryParse(convExcFunc.Text, out convCoef))
+                    throw new Exception("Коэффициент конвекционных потерь должен быть рассчитан и записан в виде числа с плавающей точкой");
+
+                var res = convCoef + StefanBolzman * BlacknessCoef;
+                dataList.Add(res.ToString());
             }
+
+            else
+                dataList.Add(cmbExchFunc.Text);
+
 
             return "\"" + string.Join(" ", dataList) + "\"";
         }
@@ -224,6 +238,34 @@ namespace TaskModule.HeatTreatmentModule
         public void Fill_nGroups(List<string> groupNames)
         {
             //throw new Exception("Метод не реализован!");
+        }
+
+        private void fullCoef_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radAndConvCoef.Checked)
+            {
+                fullCoef.Checked = false;
+
+                cmbExchFunc.Enabled = false;
+
+                convExcFunc.Enabled = true;
+                StefanBolzmanConst.Enabled = true;
+                blackRank.Enabled = true;
+            }
+        }
+
+        private void radAndConvCoef_CheckedChanged(object sender, EventArgs e)
+        {
+            if (fullCoef.Enabled)
+            {
+                radAndConvCoef.Checked = false;
+
+                cmbExchFunc.Enabled = true;
+
+                convExcFunc.Enabled = false;
+                StefanBolzmanConst.Enabled = false;
+                blackRank.Enabled = false;
+            }
         }
     }
 }
