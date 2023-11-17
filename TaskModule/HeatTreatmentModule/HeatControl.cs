@@ -86,18 +86,12 @@ namespace TaskModule.HeatTreatmentModule
             if (cmbProcKinds.Text == "")
                 throw new Exception("Выберите процесс!");
 
+            // Order matters
             var dataList = new List<string>
             {
                 cmbProcKinds.Text,
-
-                cmbEl.Text,
-                cmbTempFunc.Text,
-
-                txbStartTime.Text,
-                txbStopTime.Text,
-                "*"
+                cmbEl.Text
             };
-
 
             if (radAndConvCoef.Checked)
             {
@@ -115,9 +109,15 @@ namespace TaskModule.HeatTreatmentModule
                 var res = convCoef + StefanBolzman * BlacknessCoef;
                 dataList.Add(res.ToString());
             }
-
             else
                 dataList.Add(cmbExchFunc.Text);
+
+            dataList.AddRange(new[]{
+                cmbTempFunc.Text,
+                txbStartTime.Text,
+                txbStopTime.Text,
+                "*"
+            });
 
 
             return "\"" + string.Join(" ", dataList) + "\"";
