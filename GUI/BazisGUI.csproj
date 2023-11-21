@@ -105,20 +105,20 @@
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
     </Reference>
-    <Reference Include="ModelInterfaces, Version=1.0.0.19, Culture=neutral, PublicKeyToken=998e39182864f357, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelInterfaces.1.0.0.19\lib\net48\ModelInterfaces.dll</HintPath>
+    <Reference Include="ModelInterfaces, Version=1.0.0.30, Culture=neutral, PublicKeyToken=998e39182864f357, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelInterfaces.1.0.0.30\lib\net48\ModelInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=1.0.10.73, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.1.0.10.73\lib\net48\Project.dll</HintPath>
+    <Reference Include="Project, Version=1.0.10.86, Culture=neutral, PublicKeyToken=497bc9f20a059f86, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.1.0.10.86\lib\net48\Project.dll</HintPath>
     </Reference>
-    <Reference Include="ProjectInterfaces, Version=1.0.21.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjectInterfaces.1.0.21\lib\net48\ProjectInterfaces.dll</HintPath>
+    <Reference Include="ProjectInterfaces, Version=1.0.35.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProjectInterfaces.1.0.35\lib\net48\ProjectInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="SceneInterface, Version=1.0.22.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
-      <HintPath>..\packages\SceneInterface.1.0.22\lib\net48\SceneInterface.dll</HintPath>
+    <Reference Include="SceneInterface, Version=1.0.25.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
+      <HintPath>..\packages\SceneInterface.1.0.25\lib\net48\SceneInterface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">

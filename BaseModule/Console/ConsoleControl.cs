@@ -29,7 +29,8 @@ namespace BaseModule.Console
         FindFreeNodes,
         ChangeModelCoordinates,
         ChangeObjCoordinates,
-        FindCoincident
+        FindCoincident,
+        FindObject
     }
 
     public enum GeomCmd
@@ -73,7 +74,7 @@ namespace BaseModule.Console
             { "Изменить вид",GenCmd.ChangeView},
             { "Найти свободные узлы",GenCmd.FindFreeNodes},
             { "Найти совпадающие",GenCmd.FindCoincident},
-            { "Найти объект",GenCmd.FindFreeNodes},
+            { "Найти объект",GenCmd.FindObject},
             { "Выход",GenCmd.Exit }
         };
 
@@ -376,50 +377,56 @@ namespace BaseModule.Console
 
         private void ExecuteCommand(string line)
         {
-            var cmds = FieldsParserTask.ParseLine(line);
-            if (cmds.Count == 0) throw new Exception("Введите команду!");
-
-            if (!this.genCmds.ContainsKey(cmds[0])) throw new Exception("Не является командой");
-
-            switch (genCmds[cmds[0]])
+            try
             {
-                case GenCmd.LoadProject:
-                    {
+                var cmds = FieldsParserTask.ParseLine(line);
+                if (cmds.Count == 0) throw new Exception("Введите команду!");
+
+                if (!this.genCmds.ContainsKey(cmds[0])) throw new Exception("Не является командой");
+
+                switch (genCmds[cmds[0]])
+                {
+                    case GenCmd.FindObject:
+                        InEvent(this, new FindObjectEventArgs(cmds[1]));
+                        break;
+                    case GenCmd.LoadProject:
                         InEvent(this, new LoadProjectEventArgs(cmds[1]));
-                    }
-                    break;
-                case GenCmd.SaveProject:
-                    {
+                        break;
+                    case GenCmd.SaveProject:
                         InEvent(this, new SaveProjectEventArgs(cmds[1]));
-                    }
-                    break;
-                case GenCmd.NewProject:
-                    break;
-                case GenCmd.ShowResults:
-                    break;
-                case GenCmd.HideResults:
-                    break;
-                case GenCmd.CreateGraph:
-                    break;
-                case GenCmd.RenumberMesh:
-                    InEvent(this, new ModelRenumberEventArgs(cmds[1]));
-                    break;
-                case GenCmd.ChangeModelCoordinates:
-                    InEvent(this, new ModelShiftCoordinateEventArgs(cmds[2]));
-                    break;
-                case GenCmd.FindFreeNodes:
-                    InEvent(this, new ModelFindFreeNodesEventArgs());
-                    break;
-                case GenCmd.FindCoincident:
-                    if (cmds[1] == "Узлы")
-                        InEvent(this, new ModelFindCoincidentsNodesEventArgs());
-                    break;
-                case GenCmd.SolveProject:
-                    InEvent(this, new SolveProjectEventArgs());
-                    break;
-                case GenCmd.Exit:
-                    InEvent(this, new ExitAppEventArgs());
-                    break;
+                        break;
+                    case GenCmd.NewProject:
+                        break;
+                    case GenCmd.ShowResults:
+                        break;
+                    case GenCmd.HideResults:
+                        break;
+                    case GenCmd.CreateGraph:
+                        break;
+                    case GenCmd.RenumberMesh:
+                        InEvent(this, new ModelRenumberEventArgs(cmds[1]));
+                        break;
+                    case GenCmd.ChangeModelCoordinates:
+                        InEvent(this, new ModelShiftCoordinateEventArgs(cmds[2]));
+                        break;
+                    case GenCmd.FindFreeNodes:
+                        InEvent(this, new ModelFindFreeNodesEventArgs());
+                        break;
+                    case GenCmd.FindCoincident:
+                        if (cmds[1] == "Узлы")
+                            InEvent(this, new ModelFindCoincidentsNodesEventArgs());
+                        break;
+                    case GenCmd.SolveProject:
+                        InEvent(this, new SolveProjectEventArgs());
+                        break;
+                    case GenCmd.Exit:
+                        InEvent(this, new ExitAppEventArgs());
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                PrintInfo(ex.Message, Color.Red);
             }
         }
 

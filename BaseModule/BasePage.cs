@@ -27,6 +27,7 @@ using ModelController.ModelScenePresentator;
 using ProjectInterfaces.Tasks;
 using ModelInterfaces.ObjectsFinders;
 using Model.Elements;
+using System.Threading;
 
 namespace BaseModule
 {
@@ -516,6 +517,8 @@ namespace BaseModule
 
                 File.Create(newfilePath).Close();
                 File.Copy(oldfilePath, newfilePath, true);
+
+                ConsoleControl.PrintInfo($"Файл {fileName} скопирован в папку {newFolder}", Color.Green);
                 return true;
             }
             else return false;
@@ -1267,32 +1270,28 @@ namespace BaseModule
 
                 else if (arg2.ClickedItem.Tag.ToString() == "3")
                 {
-                    //sceneControl.HideAllVBObjects();
-
                     foreach (var objsType in sceneControl.GetVBObjsName())
                         sceneControl.ChangeViewModeVBObjects(objsType, ObjView.LinesSurface);
-
-                    //sceneControl.ShowAllVBObjects();
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "4")
                 {
-                    //sceneControl.HideAllVBObjects();
 
                     foreach (var objsType in sceneControl.GetVBObjsName())
                         sceneControl.ChangeViewModeVBObjects(objsType, ObjView.Lines);
-
-                    //sceneControl.ShowAllVBObjects();
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "5")
                 {
-                    //sceneControl.HideAllVBObjects();
-
                     foreach (var objsType in sceneControl.GetVBObjsName())
                         sceneControl.ChangeViewModeVBObjects(objsType, ObjView.Surface);
-
-                    //sceneControl.ShowAllVBObjects();
+                }
+                else if(arg2.ClickedItem.Tag.ToString() == "6")
+                {
+                    var btn = (ToolStripButton)arg2.ClickedItem;
+                    if (!btn.Checked)
+                        SceneControl.DisplayBasis = true;
+                    else SceneControl.DisplayBasis = false;
                 }
                 sceneControl.DisplayObjects();
             }
@@ -1335,6 +1334,7 @@ namespace BaseModule
                 }
                 PressedKey = Keys.None;
             });
+            
             return resObject;
         }
 
@@ -1548,16 +1548,21 @@ namespace BaseModule
             //    if (item is ToolStripMenuItem tsmItem)
             //        tsmItem.Enabled = true;
             
-        }  
+        }
 
         private void BasePage_Load(object sender, EventArgs e)
         {
-            if(Project.ModelData == null)
-                Project.ModelData = new ModelData();
+            if (Project != null)
+            {
+                if (Project.ModelData == null)
+                    Project.ModelData = new ModelData();
+                else if (Project.ModelData.ObjectData.Count > 0)
+                    lblInputCmd.Text = "";
+            }
 
             navigator.NavigatorPanelCollapseEvent += () => { splitContainer1.Panel1Collapsed = true; };
-            sceneControl.SceneControlExpandEvent += () => 
-            { 
+            sceneControl.SceneControlExpandEvent += () =>
+            {
                 splitContainer1.Panel1Collapsed = true;
                 splitContainer2.Panel2Collapsed = true;
             };
@@ -1581,7 +1586,7 @@ namespace BaseModule
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.selectToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.standartToolStrip);
-                         
+
             displayToolStrip.Renderer = new BaseToolStrRender();
             instrumentalToolStrip.Renderer = new BaseToolStrRender();
             standartToolStrip.Renderer = new BaseToolStrRender();
@@ -1620,6 +1625,18 @@ namespace BaseModule
 
                         sceneControl.DisplayObjects();
                     }));
+                }
+                else if(arg2 is FindObjectEventArgs findObjectEventArgs)
+                {
+                    var obj = Project.ModelData.ObjectData.Find((int)findObjectEventArgs.Number);
+
+                    if(obj != null)
+                        obj.MasterColor = SceneControl.SelectionColor;
+
+                    sceneControl.DeleteVBObjects("Узлы");
+                    PresentObjectsToScene("Узлы", ModelPresenter["Узлы"]);
+
+                    sceneControl.DisplayObjects();
                 }
                 else if (arg2 is ModelFindCoincidentsNodesEventArgs coincidentNodesEventArgs)
                 {
@@ -1777,7 +1794,7 @@ Where(x => x.GroupName == group.GroupName).ToArray();
                     group.Clear();
                     var objs = objsPresenter.Where(x => x.MasterColor == sceneControl.SelectionColor); ;
                     group.AddRange(objs);
-                    Project.ModelData.GroupData.Add(group);
+    
                     Invoke(new Action(() => {
                         consoleControl.PrintInfo("Группа изменена успешно", Color.Green);
                         PrintCommand("");
@@ -2001,6 +2018,8 @@ Where(x => x.GroupName == group.GroupName).ToArray();
                         }
                     }
                 ChangeProjectDataEvent?.Invoke();
+                Thread.Sleep(100);
+                //PresentProjectOnTree();
             }
 
         }

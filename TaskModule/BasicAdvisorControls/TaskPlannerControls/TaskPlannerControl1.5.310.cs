@@ -269,7 +269,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 };
 
                 if (chbFurtherComp.Checked)
-                    parameters.RestartFile = $@"{Path}\{taskKind}_*_*_{parameters.TimeSettings.StartTime}.db";
+                    parameters.RestartFile = $@"{taskKind}_*_*_{parameters.TimeSettings.StartTime}.db";
 
                 var tsfStr = String.Empty;
                 if (taskKind == TaskKind.термическая)
@@ -282,7 +282,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                     if (chbLinkedCalc.Checked)
                         if (chbTermoTask.Checked)
                         {
-                            var termFile = $@"{Path}\термическая_*_{parameters.TimeSettings.StartTime}_{parameters.TimeSettings.StopTime}.db";
+                            var termFile = $@"термическая_*_{parameters.TimeSettings.StartTime}_{parameters.TimeSettings.StopTime}.db";
                             mechParameters.ThermalFile = termFile;
                         }
 

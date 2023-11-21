@@ -152,14 +152,14 @@ namespace BaseModule.Navigator
 
         public void ShowObjectsNode(string objsType)
         {
-            treeView.Nodes[4].Nodes[objsType].ImageIndex = imgDict[objsType] == 3 ? 5 : 6;
-            treeView.Nodes[4].Nodes[objsType].SelectedImageIndex = imgDict[objsType] == 3 ? 5 : 6;
+            treeView.Nodes["объекты"].Nodes[objsType].ImageIndex = imgDict[objsType] == 3 ? 5 : 6;
+            treeView.Nodes["объекты"].Nodes[objsType].SelectedImageIndex = imgDict[objsType] == 3 ? 5 : 6;
         }
 
         public void HideObjectsNode(string objsType)
         {
-            treeView.Nodes[4].Nodes[objsType].ImageIndex = imgDict[objsType];
-            treeView.Nodes[4].Nodes[objsType].SelectedImageIndex = imgDict[objsType];
+            treeView.Nodes["объекты"].Nodes[objsType].ImageIndex = imgDict[objsType];
+            treeView.Nodes["объекты"].Nodes[objsType].SelectedImageIndex = imgDict[objsType];
         }
 
         private void RenameGroup_Click(object sender, EventArgs e)
@@ -172,8 +172,8 @@ namespace BaseModule.Navigator
         {
             var groupIndex = treeView.SelectedNode.Index;
 
-            treeView.Nodes[4].Nodes["Узлы"].ImageIndex = 5;
-            treeView.Nodes[4].Nodes["Узлы"].SelectedImageIndex = 5;
+            treeView.Nodes["объекты"].Nodes["Узлы"].ImageIndex = 5;
+            treeView.Nodes["объекты"].Nodes["Узлы"].SelectedImageIndex = 5;
 
             treeView.SelectedNode.ImageIndex = imgDict[treeView.SelectedNode.Name];
             treeView.SelectedNode.SelectedImageIndex = imgDict[treeView.SelectedNode.Name];
@@ -213,7 +213,7 @@ namespace BaseModule.Navigator
 
         private void treeView_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
-            if (e.Label == null || e.Label.Contains(" ") == true)
+            if (e.Label == null || e.Label.Contains(" ") == true || e.Label == "")
                 e.CancelEdit = true;
             else
             {
@@ -228,10 +228,10 @@ namespace BaseModule.Navigator
 
                     var dataNodes = treeView.Nodes.Find("Данные", true);
 
-                    foreach (var node in dataNodes)
+                    foreach (TreeNode node in dataNodes?[0].Nodes)
                     {
                         if (node.Text.Contains(oldName))
-                            node.Text.Replace(oldName, newName);
+                            node.Text = node.Text.Replace(oldName, newName);
                     }
                 }
             }
@@ -343,8 +343,8 @@ namespace BaseModule.Navigator
         {
             var objsName = treeView.SelectedNode.Name;
 
-            treeView.Nodes[4].Nodes[objsName].ImageIndex = imgDict[objsName];
-            treeView.Nodes[4].Nodes[objsName].SelectedImageIndex = imgDict[objsName];
+            treeView.Nodes["объекты"].Nodes[objsName].ImageIndex = imgDict[objsName];
+            treeView.Nodes["объекты"].Nodes[objsName].SelectedImageIndex = imgDict[objsName];
 
             HideObjectsEvent?.Invoke(objsName);
         }

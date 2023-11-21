@@ -43,8 +43,8 @@
             this.txbMin = new System.Windows.Forms.TextBox();
             this.updPrecision = new System.Windows.Forms.NumericUpDown();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.chbMaxMinAuto = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.chbMaxMinAuto = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.upd_YCoord)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.upd_XCoord)).BeginInit();
@@ -282,17 +282,6 @@
             this.panel1.Size = new System.Drawing.Size(207, 69);
             this.panel1.TabIndex = 42;
             // 
-            // chbMaxMinAuto
-            // 
-            this.chbMaxMinAuto.AutoSize = true;
-            this.chbMaxMinAuto.Location = new System.Drawing.Point(15, 25);
-            this.chbMaxMinAuto.Name = "chbMaxMinAuto";
-            this.chbMaxMinAuto.Size = new System.Drawing.Size(112, 17);
-            this.chbMaxMinAuto.TabIndex = 0;
-            this.chbMaxMinAuto.Text = "Задать значения";
-            this.chbMaxMinAuto.UseVisualStyleBackColor = true;
-            this.chbMaxMinAuto.CheckedChanged += new System.EventHandler(this.chbMaxMinAuto_CheckedChanged);
-            // 
             // label2
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -303,6 +292,17 @@
             this.label2.Size = new System.Drawing.Size(27, 13);
             this.label2.TabIndex = 19;
             this.label2.Text = "Max";
+            // 
+            // chbMaxMinAuto
+            // 
+            this.chbMaxMinAuto.AutoSize = true;
+            this.chbMaxMinAuto.Location = new System.Drawing.Point(15, 25);
+            this.chbMaxMinAuto.Name = "chbMaxMinAuto";
+            this.chbMaxMinAuto.Size = new System.Drawing.Size(117, 17);
+            this.chbMaxMinAuto.TabIndex = 0;
+            this.chbMaxMinAuto.Text = "Авто. вычисление";
+            this.chbMaxMinAuto.UseVisualStyleBackColor = true;
+            this.chbMaxMinAuto.CheckedChanged += new System.EventHandler(this.chbMaxMinAuto_CheckedChanged);
             // 
             // ScalePage
             // 

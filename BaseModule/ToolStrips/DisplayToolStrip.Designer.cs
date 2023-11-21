@@ -29,31 +29,30 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayToolStrip));
-            this.btnNodeNormals = new System.Windows.Forms.ToolStripButton();
-            this.btnTitleInfo = new System.Windows.Forms.ToolStripButton();
-            this.btnVolumeNodes = new System.Windows.Forms.ToolStripButton();
-            this.btnBoundaryContours = new System.Windows.Forms.ToolStripButton();
-            this.btnElementsFramesAndSurfaces = new System.Windows.Forms.ToolStripButton();
-            this.btnSurfaceNodes = new System.Windows.Forms.ToolStripButton();
-            this.btnElementsFrames = new System.Windows.Forms.ToolStripButton();
-            this.btnElementsSurfaces = new System.Windows.Forms.ToolStripButton();
-            this.btnElementsNormals = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnTitleInfo = new System.Windows.Forms.ToolStripButton();
+            this.btnVolumeNodes = new System.Windows.Forms.ToolStripButton();
+            this.btnSurfaceNodes = new System.Windows.Forms.ToolStripButton();
+            this.btnElementsFramesAndSurfaces = new System.Windows.Forms.ToolStripButton();
+            this.btnElementsFrames = new System.Windows.Forms.ToolStripButton();
+            this.btnElementsSurfaces = new System.Windows.Forms.ToolStripButton();
+            this.btnShowBasis = new System.Windows.Forms.ToolStripButton();
+            this.btnElementsNormals = new System.Windows.Forms.ToolStripButton();
+            this.btnBoundaryContours = new System.Windows.Forms.ToolStripButton();
             this.SuspendLayout();
             // 
-            // btnNodeNormals
+            // toolStripSeparator1
             // 
-            this.btnNodeNormals.AutoSize = false;
-            this.btnNodeNormals.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnNodeNormals.Image = ((System.Drawing.Image)(resources.GetObject("btnNodeNormals.Image")));
-            this.btnNodeNormals.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnNodeNormals.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnNodeNormals.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnNodeNormals.Name = "btnNodeNormals";
-            this.btnNodeNormals.Size = new System.Drawing.Size(36, 50);
-            this.btnNodeNormals.Tag = "6";
-            this.btnNodeNormals.Text = "Показать нормали узлов";
+            this.toolStripSeparator1.AutoSize = false;
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 50);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.AutoSize = false;
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 50);
             // 
             // btnTitleInfo
             // 
@@ -83,33 +82,6 @@
             this.btnVolumeNodes.Text = "Показать все узлы";
             this.btnVolumeNodes.ToolTipText = "Показать все поверхности";
             // 
-            // btnBoundaryContours
-            // 
-            this.btnBoundaryContours.AutoSize = false;
-            this.btnBoundaryContours.CheckOnClick = true;
-            this.btnBoundaryContours.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnBoundaryContours.Image = ((System.Drawing.Image)(resources.GetObject("btnBoundaryContours.Image")));
-            this.btnBoundaryContours.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnBoundaryContours.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnBoundaryContours.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnBoundaryContours.Name = "btnBoundaryContours";
-            this.btnBoundaryContours.Size = new System.Drawing.Size(36, 50);
-            this.btnBoundaryContours.Tag = "8";
-            this.btnBoundaryContours.Text = "Показать контуры модели";
-            // 
-            // btnElementsFramesAndSurfaces
-            // 
-            this.btnElementsFramesAndSurfaces.AutoSize = false;
-            this.btnElementsFramesAndSurfaces.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnElementsFramesAndSurfaces.Image = ((System.Drawing.Image)(resources.GetObject("btnElementsFramesAndSurfaces.Image")));
-            this.btnElementsFramesAndSurfaces.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnElementsFramesAndSurfaces.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnElementsFramesAndSurfaces.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnElementsFramesAndSurfaces.Name = "btnElementsFramesAndSurfaces";
-            this.btnElementsFramesAndSurfaces.Size = new System.Drawing.Size(36, 50);
-            this.btnElementsFramesAndSurfaces.Tag = "3";
-            this.btnElementsFramesAndSurfaces.Text = "Показать поверхности и ребра элементов";
-            // 
             // btnSurfaceNodes
             // 
             this.btnSurfaceNodes.AutoSize = false;
@@ -123,6 +95,19 @@
             this.btnSurfaceNodes.Tag = "2";
             this.btnSurfaceNodes.Text = "Показать узлы на открытых поверхностях";
             this.btnSurfaceNodes.ToolTipText = "Показать открытые поверхности";
+            // 
+            // btnElementsFramesAndSurfaces
+            // 
+            this.btnElementsFramesAndSurfaces.AutoSize = false;
+            this.btnElementsFramesAndSurfaces.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnElementsFramesAndSurfaces.Image = ((System.Drawing.Image)(resources.GetObject("btnElementsFramesAndSurfaces.Image")));
+            this.btnElementsFramesAndSurfaces.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnElementsFramesAndSurfaces.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnElementsFramesAndSurfaces.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnElementsFramesAndSurfaces.Name = "btnElementsFramesAndSurfaces";
+            this.btnElementsFramesAndSurfaces.Size = new System.Drawing.Size(36, 50);
+            this.btnElementsFramesAndSurfaces.Tag = "3";
+            this.btnElementsFramesAndSurfaces.Text = "Показать поверхности и ребра элементов";
             // 
             // btnElementsFrames
             // 
@@ -150,6 +135,22 @@
             this.btnElementsSurfaces.Tag = "5";
             this.btnElementsSurfaces.Text = "Показать поверхности элементов";
             // 
+            // btnShowBasis
+            // 
+            this.btnShowBasis.AutoSize = false;
+            this.btnShowBasis.Checked = true;
+            this.btnShowBasis.CheckOnClick = true;
+            this.btnShowBasis.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.btnShowBasis.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnShowBasis.Image = global::BaseModule.Properties.Resources.Basis;
+            this.btnShowBasis.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnShowBasis.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnShowBasis.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnShowBasis.Name = "btnShowBasis";
+            this.btnShowBasis.Size = new System.Drawing.Size(36, 50);
+            this.btnShowBasis.Tag = "6";
+            this.btnShowBasis.Text = "Показать базис сцены";
+            // 
             // btnElementsNormals
             // 
             this.btnElementsNormals.AutoSize = false;
@@ -163,17 +164,19 @@
             this.btnElementsNormals.Tag = "7";
             this.btnElementsNormals.Text = "Показать нормали элементов";
             // 
-            // toolStripSeparator1
+            // btnBoundaryContours
             // 
-            this.toolStripSeparator1.AutoSize = false;
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 50);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.AutoSize = false;
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 50);
+            this.btnBoundaryContours.AutoSize = false;
+            this.btnBoundaryContours.CheckOnClick = true;
+            this.btnBoundaryContours.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnBoundaryContours.Image = ((System.Drawing.Image)(resources.GetObject("btnBoundaryContours.Image")));
+            this.btnBoundaryContours.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnBoundaryContours.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnBoundaryContours.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnBoundaryContours.Name = "btnBoundaryContours";
+            this.btnBoundaryContours.Size = new System.Drawing.Size(36, 50);
+            this.btnBoundaryContours.Tag = "8";
+            this.btnBoundaryContours.Text = "Показать контуры модели";
             // 
             // DisplayToolStrip
             // 
@@ -187,7 +190,7 @@
             this.btnElementsFramesAndSurfaces,
             this.btnElementsFrames,
             this.btnElementsSurfaces,
-            this.btnNodeNormals,
+            this.btnShowBasis,
             this.btnElementsNormals,
             this.btnBoundaryContours});
             this.Text = "Отображение";
@@ -197,7 +200,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ToolStripButton btnNodeNormals;
+        private System.Windows.Forms.ToolStripButton btnShowBasis;
         private System.Windows.Forms.ToolStripButton btnTitleInfo;
         private System.Windows.Forms.ToolStripButton btnVolumeNodes;
         private System.Windows.Forms.ToolStripButton btnBoundaryContours;

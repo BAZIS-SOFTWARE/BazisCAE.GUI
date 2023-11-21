@@ -10,6 +10,7 @@ namespace ResultModule
         public event Action<object, CreateAnimationEventArgs> CreateGIFAnimationEvent;
         public event Action<object, ShowResultEventArgs> ShowResultEvent;
         public event Action<string> SaveScreenShotEvent;
+        public event Action<string> SelectResultsEvent;
 
         public AnimationPage()
         {
@@ -33,78 +34,7 @@ namespace ResultModule
         public void ClearResultsItems()
         {
             cmbResultNames.Items.Clear();
-        }
-
-        //private void incrButton_Click(object sender, EventArgs e)
-        //{
-        //    var val = colorSlider.Value;
-        //    var setVal = val + 1;
-        //    if (setVal <= colorSlider.Maximum)
-        //    {
-        //        colorSlider.Value = setVal;
-        //        ShowResults(colorSlider.Value);
-        //    }
-        //}
-
-        //private void decrButton_Click(object sender, EventArgs e)
-        //{
-        //    var val = colorSlider.Value;
-        //    var setVal = val - 1;
-        //    if (setVal >= colorSlider.Minimum)
-        //    {
-        //        colorSlider.Value = setVal;
-        //        ShowResults(colorSlider.Value);
-        //    }
-        //}
-
-        //private void btnMoveToFinish_Click(object sender, EventArgs e)
-        //{
-        //    colorSlider.Value = colorSlider.Maximum;
-        //}
-
-        //private void PlayResults(bool makeGifAnimation)
-        //{
-        //    var timer = new System.Windows.Forms.Timer();
-
-        //    timer.Interval = int.Parse(txbDelayTime.Text);
-        //    var ind = 0;
-
-        //    var scaleFactor = int.Parse(txbScale.Text);
-        //    var maxInd = player.StopValue;
-        //    timer.Tick += new EventHandler
-        //        (
-        //        new Action<object, EventArgs>((s, a) =>
-        //        {
-        //            if (ind > maxInd)
-        //            {
-        //                timer.Stop();
-
-        //                if (makeGifAnimation)
-        //                    CreateGIFAnimationEvent(this, new CreateAnimationEventArgs(chbDelTempScrs.Checked, timer.Interval));
-        //            }
-
-        //            else
-        //            {
-        //                var testArr = richTextBox.Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-        //                //player.StartValue = ind;
-        //                MarkTimeStep(ind);
-        //                var time = float.Parse(testArr[ind]);
-        //                ShowResultEvent(this, new ShowResultEventArgs(cmbResultNames.SelectedItem.ToString(), time, scaleFactor));
-
-        //                if (makeGifAnimation)
-        //                    SaveScreenShotEvent($@"screenShot_{ind}");
-        //            }
-        //            ind++;
-        //        })
-        //        );
-        //    timer.Start();
-        //}
-
-
-        //private void btnMoveToStart_Click(object sender, EventArgs e)
-        //{
-        //    colorSlider.Value = colorSlider.Minimum;
-        //}
+        }        
 
         private void cmbResultNames_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -121,6 +51,8 @@ namespace ResultModule
 
             foreach (var time in times)
                 richTextBox.AppendText($"{time}\n");
+
+            SelectResultsEvent?.Invoke(cmbResultNames.SelectedItem.ToString());
         }
 
         private void txbDelayTime_Leave(object sender, EventArgs e)

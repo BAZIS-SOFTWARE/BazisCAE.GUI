@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Image = System.Drawing.Image;
 
@@ -54,25 +55,6 @@ namespace ResultModule
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(nodeNode);
             var elemNode = new TreeNode("ПоЭлементам", 1, 1) { Name = "ПоЭлементам", Tag = "6.1" };
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(elemNode);
-        }
-
-        public override void PresentProjectOnTree()
-        {
-            base.PresentProjectOnTree();
-
-            NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
-            NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
-            
-
-            if(Project.ResultData != null)
-            {
-                var resKinds = Project.ResultData.GetResultKinds();
-                foreach (var resKind in resKinds)
-                {
-                    var results = Project.ResultData.FindByTaskKind(resKind);
-                    PresentResultsOnTree(results);
-                }
-            }
         }
 
         public override bool LoadProjectData(string extFilter)
@@ -242,7 +224,7 @@ namespace ResultModule
                 }
 
                 else
-                {
+                {                   
                     SceneControl.HideGeometryObj("CreateScaleObject");
                 }
 
@@ -320,6 +302,14 @@ namespace ResultModule
 
             anPage.CreateGIFAnimationEvent += CreateGIFAnimation;
             anPage.SaveScreenShotEvent += (ar1) => { CreateScreenShot(ar1); };
+            anPage.SelectResultsEvent += (ar1) => 
+            {
+                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
+                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
+
+                var res = Project.ResultData.FindByTaskKind(ar1);
+                PresentResultsOnTree(res);
+            };
 
             var resKinds = Project.ResultData.GetResultKinds();
             var resDic = new Dictionary<string, List<float>>();
@@ -416,19 +406,6 @@ namespace ResultModule
             }
         }
 
-        //Вспомогательный метод, "меняет местами" два элемента
-        public static void Swap(ref int aFirstArg, ref int aSecondArg)
-        {
-            //Временная (вспомогательная) переменная, хранит значение первого элемента
-            int tmpParam = aFirstArg;
-
-            //Первый аргумент получил значение второго
-            aFirstArg = aSecondArg;
-
-            //Второй аргумент, получил сохраненное ранее значение первого
-            aSecondArg = tmpParam;
-        }
-
         private void ShowValue(bool state)
         {
             if (state)
@@ -446,7 +423,7 @@ namespace ResultModule
             {
                 StartLocation = AddonWindowLocation.Right,
                 DefaultViewMode = FolderViewMode.Thumbnails,
-                MergeResults = false
+                MergeResults = true
             };
 
             openDialogEx.OpenDialog.InitialDirectory = Path.GetFullPath(Application.ExecutablePath);
@@ -525,57 +502,62 @@ namespace ResultModule
         {
             try
             {
-            var selNode = NavigatorControl.TreeView.SelectedNode;
-            var resDes = selNode.Name;
+                var selNode = NavigatorControl.TreeView.SelectedNode;
+                var resDes = selNode.Name;
 
-            var colorRanges = scale.ColorRange().ToArray();
-            var valueRanges = scale.ValueRange().ToArray();
+                var colorRanges = scale.ColorRange().ToArray();
+                var valueRanges = scale.ValueRange().ToArray();
 
-            var result = Project.ResultData.FindByTime(resKind, time);
+                var result = Project.ResultData.FindByTime(resKind, time);
 
-            var resName = NavigatorControl.TreeView.SelectedNode.Name;
-            var objsType = NavigatorControl.TreeView.SelectedNode.Parent.Name;
+                var resName = NavigatorControl.TreeView.SelectedNode.Name;
+                var objsType = NavigatorControl.TreeView.SelectedNode.Parent.Name;
 
-            if (objsType == "ПоУзлам")
-                objsType = "Узлы";
+                if (objsType == "ПоУзлам")
+                    objsType = "Узлы";
 
-            else objsType = "Элементы";
+                else objsType = "Элементы";
 
-            if(IsScaleMaxMinAuto)
-                if(objsType == "Элементы")
-                    SetMaxMinAuto(result, "elements", resName);
+                if (IsScaleMaxMinAuto)
+                {
+                    if (objsType == "Элементы")
+                        SetMaxMinAuto(result, "elements", resName);
+                    else
+                        SetMaxMinAuto(result, "nodes", resName);
+                    if (SceneControl.FindGeometryObj("CreateScaleObject"))
+                        CreateScale();
+                }
+
+
+                var fieldCreator = new GradientFieldsCreator(valueRanges, colorRanges, scaleFactor);
+
+                SceneControl.HideDisplayText2D();
+                SceneControl.HideDisplayText3D();
+                SceneControl.DeleteAllVBObjects();
+
+                if (Project.TaskType == TaskType.Volume)
+                {
+                    var els3D = Project.ModelData.ObjectData.FindMany<IElement3D>();
+                    var elsResults = fieldCreator.CreateSurfaceObjects(result, objsType, resName, els3D);
+
+                    var presenter = ModelPresenter.CreateSurfaceObjectsPresenter(elsResults);
+                    PresentObjectsToScene("Результаты", presenter);
+                }
                 else
-                    SetMaxMinAuto(result, "nodes", resName);
+                {
+                    var els2D = Project.ModelData.ObjectData.FindMany<IElement2D>();
+                    var elsResults = fieldCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
 
-            var fieldCreator = new GradientFieldsCreator(valueRanges, colorRanges, scaleFactor);
+                    var presenter = ModelPresenter.CreateSurfaceObjectsPresenter(elsResults);
+                    PresentObjectsToScene("Результаты", presenter);
+                }
 
-            SceneControl.HideDisplayText2D();
-            SceneControl.HideDisplayText3D();
-            SceneControl.DeleteAllVBObjects();
+                if (showResultValue)
+                    ShowResultValue(objsType, resName, result);
 
-            if (Project.TaskType == TaskType.Volume)
-            {
-                var els3D = Project.ModelData.ObjectData.FindMany<IElement3D>();
-                var elsResults = fieldCreator.CreateSurfaceObjects(result, objsType, resName, els3D);
+                SceneControl.ChangeViewModeVBObjects("Результаты", ObjView.Surface);
 
-                var presenter = ModelPresenter.CreateSurfaceObjectsPresenter(elsResults);
-                PresentObjectsToScene("Результаты", presenter);
-            }
-            else
-            {
-                var els2D = Project.ModelData.ObjectData.FindMany<IElement2D>();
-                var elsResults = fieldCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
-
-                var presenter = ModelPresenter.CreateSurfaceObjectsPresenter(elsResults);
-                PresentObjectsToScene("Результаты", presenter);
-            }
-
-            if (showResultValue)
-                ShowResultValue(objsType, resName, result);
-
-            SceneControl.ChangeViewModeVBObjects("Результаты", ObjView.Surface);
-
-            SceneControl.DisplayObjects();
+                SceneControl.DisplayObjects();
 
             }
             catch (Exception ex)
@@ -697,7 +679,7 @@ namespace ResultModule
 
         }
 
-        private void LoadResults(string fileName,bool mergeRes, bool addRes)
+        private async void LoadResults(string fileName,bool mergeRes, bool addRes)
         {
             var dbExtension = System.IO.Path.GetExtension(fileName);
             var pureFileName = System.IO.Path.GetFileNameWithoutExtension(fileName);
@@ -708,46 +690,79 @@ namespace ResultModule
             else
                 resultsLoader = new LoadResultsFileBrfTextFormat();
 
-            if (!addRes)
-            {
-                Project.ResultData.Clear();
-                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
-                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
-            }
+            NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
+            NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
-            foreach (var result in resultsLoader.Load(fileName))
-            {
-                ConsoleControl.PrintInfo(result.ToString(), Color.Black);
-                Project.ResultData.Add(result);
-            }
+            if (!addRes)
+                Project.ResultData.Clear();
+
+            Enabled = false;
+            PrintCommand("Выполняется загрузка результатов...");
+            var res = await LoadResultsAsync(fileName, resultsLoader);
+            PrintCommand("");
+            Enabled = true;
 
             if (mergeRes)
             {
-                ConsoleControl.PrintInfo("Выполняется пересчет результатов с элементов на узлы...", Color.Black);
-                MergeResults(Project.ResultData);
+                Enabled = false;
+                PrintCommand("Выполняется пересчет результатов с элементов на узлы...");
+                await MergeResults(res);
                 ConsoleControl.PrintInfo("Пересчет завершен", Color.Green);
+                PrintCommand("");
+                Enabled = true;
             }
 
-            PresentResultsOnTree(Project.ResultData);
+            Project.ResultData.AddRange(res);
 
             Application.OpenForms["Animation"]?.Close();
         }
 
-        private void MergeResults(IEnumerable<IResult> results)
+        private async Task<List<IResult>> LoadResultsAsync(string fileName, IResultsLoader resultsLoader)
+        {
+            var res = new List<IResult>();
+            await Task.Run(new Action(() =>
+            {
+
+                foreach (var result in resultsLoader.Load(fileName))
+                {
+                    Invoke(new Action(() =>
+                    {
+                        ConsoleControl.PrintInfo(result.ToString(), Color.Black);
+                    }));
+
+                    res.Add(result);
+                }
+
+            }));
+            return res;
+        }
+
+        private async Task MergeResults(IEnumerable<IResult> results)
         {
             IElement[] elements;
             if (Project.TaskType == TaskType.Volume)
                 elements = Project.ModelData.ObjectData.FindMany<IElement3D>().ToArray();
             else
                 elements = Project.ModelData.ObjectData.FindMany<IElement2D>().ToArray();
-            
-            var interfaceNodes = ModelController.InterfacedNodesFinder.Find(elements);
 
-            var mergeResults = new MergeResults(results);
-            var resNames = results.First().GetDataSchema("elements");
+            var act = new Action(() =>
+            {
+                var interfaceNodes = ModelController.InterfacedNodesFinder.Find(elements);
+                var mergeResults = new MergeResults(results);
+                var resNames = results.First().GetDataSchema("elements");
 
-            for (int i = 1; i < resNames.Count; i++)
-                mergeResults.Merge(interfaceNodes, resNames[i]);
+                for (int i = 1; i < resNames.Count; i++)
+                {
+                    mergeResults.Merge(interfaceNodes, resNames[i]);
+
+                    Invoke(new Action(() =>
+                    {
+                        ConsoleControl.PrintInfo($"Выполнен пересчет на узлы для {resNames[i]}", Color.Black);
+                    }));
+                }
+            });
+
+            await Task.Run(act);
         }
 
         public void PresentResultsOnTree(IEnumerable<IResult> results)
@@ -758,13 +773,11 @@ namespace ResultModule
             var resultNode = NavigatorControl.TreeView.Nodes["Результаты"];
             foreach (var desc in nodeSchema)
             {
-                if(!resultNode.Nodes["ПоУзлам"].Nodes.ContainsKey(desc))
                     NavigatorControl.CreateChildNode("ПоУзлам", desc, desc, "6.1.1");
             }
 
             foreach (var desc in elemSchema)
             {
-                if (!resultNode.Nodes["ПоЭлементам"].Nodes.ContainsKey(desc))
                     NavigatorControl.CreateChildNode("ПоЭлементам", desc, desc, "6.1.1");
             }
         }

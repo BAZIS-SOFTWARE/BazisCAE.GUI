@@ -101,33 +101,17 @@ namespace TaskModule
                     var matBasePage = new MaterialsDataBasePage() { Dock = DockStyle.Fill };
                     matBasePage.LoadEvent += () =>
                     {
-                        var matData = matBasePage.Materials;
-                        var copy = false;
-                        if (matBasePage.DbPath != Project.Path)
-                        {
-                            var res = MessageBox.Show("Скопировать текущую базу в папку проекта?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                            if (res == DialogResult.Yes)
-                                copy = CopyFile(matBasePage.DbName, matBasePage.DbPath, Project.Path);
-                        }
+                        ChangeMaterialDBEventHandler(matBasePage);
+                    };
 
-
-                        if (matBasePage.DbPath == Project.Path | copy)
-                        {
-                            var res = MessageBox.Show("Сделать текущую базу базой проекта?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                            if (res == DialogResult.Yes)
-                            {
-                                Project.Materials = matBasePage.DbName;
-                                PresentProjectOnTree();
-                            }
-
-                        }
-
-                        GetTaskAdvisor()?.SetMaterialData(matData.Keys.ToList());
+                    matBasePage.SaveEvent += () =>
+                    {
+                        ChangeMaterialDBEventHandler(matBasePage);
                     };
 
                     var filePath = FindFileByPath(Project.Path, Project.Materials);
                     if (filePath == null)
-                        ConsoleControl.PrintInfo($"База данных materials.jsf не найдена в директории {Project.Materials}", Color.Red);
+                        ConsoleControl.PrintInfo($"База данных {Project.Materials} не найдена в директории {Project.Path}", Color.Red);
                     else
                         matBasePage.Load($@"{filePath}\{Project.Materials}", false);
 
@@ -150,26 +134,12 @@ namespace TaskModule
                     var funBasePage = new FunctionDataBasePage() { Dock = DockStyle.Fill };
                     funBasePage.LoadEvent += () =>
                     {
-                        var funData = funBasePage.Functions;
-                        var copy = false;
-                        if (funBasePage.DbPath != Project.Path)
-                        {
-                            var res = MessageBox.Show("Скопировать текущую базу в папку проекта?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                            if (res == DialogResult.Yes)
-                                copy = CopyFile(funBasePage.DbName, funBasePage.DbPath, Project.Path);
-                        }
+                        ChangeFuncDBEventHandler(funBasePage);
+                    };
 
-                        if (funBasePage.DbPath == Project.Path | copy)
-                        {
-                            var res = MessageBox.Show("Сделать текущую базу базой проекта?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                            if (res == DialogResult.Yes)
-                            {
-                                Project.Functions = funBasePage.DbName;
-                                PresentProjectOnTree();
-                            }
-                        }
-
-                        GetTaskAdvisor()?.SetFunctionData(funData.Keys.ToList());
+                    funBasePage.SaveEvent += () =>
+                    {
+                        ChangeFuncDBEventHandler(funBasePage);
                     };
 
                     var filePath = FindFileByPath(Project.Path, Project.Functions);
@@ -191,7 +161,29 @@ namespace TaskModule
             };
 
             return dataBaseMenuItem;
-        }      
+        }
+
+        private void ChangeFuncDBEventHandler(FunctionDataBasePage funBasePage)
+        {
+            if (funBasePage.DbPath != Project.Path)
+                CopyFile(funBasePage.DbName, funBasePage.DbPath, Project.Path);
+
+            Project.Functions = funBasePage.DbName;
+            var funData = funBasePage.Functions;
+            GetTaskAdvisor()?.SetFunctionData(funData.Keys.ToList());
+            PresentProjectOnTree();
+        }
+
+        private void ChangeMaterialDBEventHandler(MaterialsDataBasePage matBasePage)
+        {
+            if (matBasePage.DbPath != Project.Path)
+                CopyFile(matBasePage.DbName, matBasePage.DbPath, Project.Path);
+
+            Project.Materials = matBasePage.DbName;
+            var matData = matBasePage.Materials;
+            GetTaskAdvisor()?.SetMaterialData(matData.Keys.ToList());
+            PresentProjectOnTree();
+        }
 
         public void DeleteAdvisor()
         {
@@ -359,8 +351,8 @@ namespace TaskModule
                 myProcess.StartInfo.FileName = $@"{SolverPath}\BazisSolver.exe";
 
                 var projPath = $@"{Project.Path}\{Project.Name}";
-                var matPath = $@"{Project.Path}\materials.jsf";
-                var funPath = $@"{Project.Path}\functions.jsf";
+                var matPath = $@"{Project.Path}\{Project.Materials}";
+                var funPath = $@"{Project.Path}\{Project.Functions}";
                 var argStr = string.Join(" ", new string[] { projPath, matPath, funPath });
 
                 myProcess.StartInfo.Arguments = argStr;
@@ -386,8 +378,13 @@ namespace TaskModule
 
             NavigatorControl.TreeView.Nodes["Данные"].Nodes.Clear();
 
-            NavigatorControl.CreateChildNode("Данные", "База материалов", Project.Materials, "6.1");
-            NavigatorControl.CreateChildNode("Данные", "База функций", Project.Functions, "6.1");
+            NavigatorControl.TreeView.Nodes.RemoveByKey("База материалов");
+            var matNode = new TreeNode($"База материалов : {Project.Materials}") { Name = "База материалов" };
+            NavigatorControl.TreeView.Nodes.Insert(4, matNode);
+
+            NavigatorControl.TreeView.Nodes.RemoveByKey("База функций");
+            var funNode = new TreeNode($"База функций : {Project.Functions}") { Name = "База функций" };
+            NavigatorControl.TreeView.Nodes.Insert(4, funNode);
 
             foreach (var data in Project.TaskData)
                 {
@@ -518,18 +515,16 @@ namespace TaskModule
             float[] geomParam;
 
             var baseLineGr = Project.ModelData.GroupData.Find(data.MovedFrameFunction.BaseLine.Name);
-            var baseNodes = baseLineGr.Select(x => (INode)x);
-            var basePoints = baseNodes.Select(x => x.Position).ToArray();
+            var basePoints = baseLineGr.Select(x => x.CalcCentralPoint());
             data.MovedFrameFunction.BaseLine.SetPoints(basePoints);
 
             var refLineGr = Project.ModelData.GroupData.Find(data.MovedFrameFunction.RefLine.Name);
-            var refNodes = refLineGr.Select(x => (INode)x);
-            var refPoints = refNodes.Select(x => x.Position).ToArray();
+            var refPoints = refLineGr.Select(x => x.CalcCentralPoint());
             data.MovedFrameFunction.RefLine.SetPoints(refPoints);
 
             var frame = data.MovedFrameFunction.CalcFrame(time);
             SceneControl.CreateLocalFrame(frame);
-            SceneControl.CreatePath(basePoints);
+            SceneControl.CreatePath(basePoints.ToArray());
 
             if (data.MovedFrameFunction.FunctionType == "Sphere")
             {

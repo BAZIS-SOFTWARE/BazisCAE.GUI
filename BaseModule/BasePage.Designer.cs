@@ -1,6 +1,5 @@
 ﻿using BaseModule.Console;
 using BaseModule.ToolStrips;
-using SceneInterface;
 
 namespace BaseModule
 {
@@ -209,8 +208,10 @@ namespace BaseModule
             this.sceneControl.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.sceneControl.BackGroundColor = System.Drawing.Color.Green;
             this.sceneControl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.sceneControl.DisplayBasis = true;
             this.sceneControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sceneControl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.sceneControl.IsSmoothShadow = false;
             this.sceneControl.LightAttenuation = 0F;
             this.sceneControl.LightTranslateX = 0F;
             this.sceneControl.LightTranslateY = 0F;
@@ -221,6 +222,7 @@ namespace BaseModule
             this.sceneControl.RotationAngle = 2.5F;
             this.sceneControl.RotationAxis = SceneInterface.ViewAxis.XYZ;
             this.sceneControl.SelectionColor = System.Drawing.Color.Green;
+            this.sceneControl.ShadowAngle = 0F;
             this.sceneControl.Size = new System.Drawing.Size(914, 448);
             this.sceneControl.TabIndex = 0;
             this.sceneControl.TitleColor = System.Drawing.Color.Black;
