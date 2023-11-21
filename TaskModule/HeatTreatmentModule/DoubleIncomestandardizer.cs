@@ -15,9 +15,7 @@ namespace TaskModule.HeatTreatmentModule
             income = income.Trim();
 
             if (float.TryParse(income, out float number))
-            {
                 return number.ToString($"E{numbersAfterPoint}", CultureInfo.CreateSpecificCulture("en-US"));
-            }
 
             if (income.Contains("^") && income.Contains("*"))
                 return TranslateUnCommonUserInput(income);
