@@ -210,27 +210,11 @@
     <EmbeddedResource Include="SettingsControls\SettingsControl.resx">
       <DependentUpon>SettingsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.manifest" />
-    <None Include="BazisGUIKey.snk" />
-    <None Include="Help\ПО Bazis. Руководство пользователя.chm">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="ReleaseNotes\ReleaseNotes.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutBanner.jpg" />
@@ -239,9 +223,6 @@
     <Content Include="Mesh\mesh.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\ScreenSaver.png" />
-    <None Include="Resources\helpContent.bmp" />
-    <None Include="Resources\settings.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Libs\" />
