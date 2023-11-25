@@ -220,13 +220,8 @@
     <Content Include="AboutBanner.jpg" />
     <Content Include="IconShort_16.ico" />
     <Content Include="IconShort_32.ico" />
-    <Content Include="Mesh\mesh.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Libs\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BaseModule\BaseModule.csproj">
       <Project>{e5c49662-b9c7-4b1b-9734-1ff03da9fcc0}</Project>

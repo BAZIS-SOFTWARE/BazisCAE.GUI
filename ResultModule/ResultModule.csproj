@@ -55,9 +55,6 @@
     <Reference Include="ColorSlider, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ColorSlider.1.0.0.15\lib\net48\ColorSlider.dll</HintPath>
     </Reference>
-    <Reference Include="Console">
-      <HintPath>..\Libs\Console.dll</HintPath>
-    </Reference>
     <Reference Include="CustomOpenFileDialog">
       <HintPath>..\Libs\CustomOpenFileDialog.dll</HintPath>
     </Reference>

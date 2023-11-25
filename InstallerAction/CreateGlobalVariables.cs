@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Configuration.Install;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.Remoting.Contexts;
 using System.Windows.Forms;
 
 namespace InstallerAction
