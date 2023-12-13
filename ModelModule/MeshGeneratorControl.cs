@@ -32,9 +32,9 @@ namespace ModelModule
                                                                 { 0, Tuple.Create("Контрольный узел ","") }
                                                             };
 
-        public event Action<string, IEnumerable<IModelObject>> updatePointData;
-        public event Action<string, IEnumerable<ILineObject<IPoint>> updateLineData;
-        public event Action<string, IEnumerable<ISurfaceElement>> updateSurfaceData;
+        public event Action<ObjType, IEnumerable<IModelObject>> updatePointData;
+        public event Action<ObjType, IEnumerable<ILineObject<IPoint>>> updateLineData;
+        public event Action<ObjType, IEnumerable<ISurfaceElement>> updateSurfaceData;
         public event Action<string, int> ShowObjectsEvent;
         public event Action<string> showErrorMessage;
         public event Action<bool> redrawScene;
@@ -83,7 +83,7 @@ namespace ModelModule
         private void ShowHideVolumeBox(bool show) => volumeBox.Enabled = show;
         private void GenerateGeometry(bool fitOnScreen = true)
         {
-            updateSurfaceData.Invoke("", null);
+            updateSurfaceData.Invoke(ObjType.Поверхность, null);//Удалить всю старую геометрию
             if (FillModelDataGeometry())
             {
                 ClearAllTrees();
@@ -107,8 +107,8 @@ namespace ModelModule
                 showErrorMessage?.Invoke("Ошибка при генерации сетки, проверьте настройки и фильтры геометрии");
             else
             {
-                updatePointData("Узлы", null);
-                updateSurfaceData.Invoke("Элементы2D", null);
+                updatePointData(ObjType.Узел, null);
+                updateSurfaceData.Invoke(ObjType.Элемент2D, null);
                 if (FillModelDataMesh(2))
                     UpdateMeshControlsAndRedraw();
             }
@@ -156,7 +156,7 @@ namespace ModelModule
                 else
                 {
                     var lines = controller.CreateLines(dimTags, ref status);
-                    updateLineData(objType, lines);
+                    updateLineData(objType, (IEnumerable<ILineObject<IPoint>>)lines);//Каст не работает - Exception
                 }
             }
             else
@@ -167,21 +167,23 @@ namespace ModelModule
         private bool UpdateMesh(ObjType objType, int dim)
         {
             var status = false;
-            if (objType == ObjType.Узлы)
+            if (objType == ObjType.Узел)
             {
                 var nodes = controller.GetNodes(ref status);
                 if (status)
                 {
-                    updatePointData(objType.ToString(), nodes);
+                    updatePointData(ObjType.Узел, nodes);
                     return true;
                 }
             }
             else
             {
+                //Если dim == 2 то поверхности 2D, иначе поверхности 3D
                 var mesh = controller.GetMeshEntities(dim, -1, ref status);
                 if (status)
                 {
-                    updateSurfaceData(objType.ToString(), mesh);
+                    ObjType type = dim == 2 ? ObjType.Элемент2D : ObjType.Элемент3D;
+                    updateSurfaceData(type, mesh);
                     return true;
                 }
             }
@@ -208,7 +210,7 @@ namespace ModelModule
         {
             var ierr = 0;
             controller.gmshModelMeshClear(new int[0], IntPtr.Zero, ref ierr);
-            updateSurfaceData.Invoke("", null);
+            updateSurfaceData.Invoke(ObjType.Поверхность, null);//ObjType.Поверхность - указатель удаления всех элементов
             ClearAllTrees();
             ShowHideGeometryControls(false);
             ShowHideVolumeBox(false);
@@ -231,7 +233,7 @@ namespace ModelModule
         {
             var ierr = 0;
             controller.gmshModelMeshClear(new int[] { 3, -1 }, (IntPtr)2, ref ierr);
-            updateSurfaceData.Invoke("Элементы3D", null);
+            updateSurfaceData.Invoke(ObjType.Элемент3D, null);//Удаляем все элементы 3D
             GenerateMesh(false);
         }
 
@@ -293,8 +295,8 @@ namespace ModelModule
                 showErrorMessage.Invoke("Ошибка, невозможно уплотнить сетку");
             else
             {
-                updatePointData.Invoke("Узлы", null);
-                updateSurfaceData.Invoke("Элементы2D", null);
+                updatePointData.Invoke(ObjType.Узел, null);//Удаляем все с типом узел
+                updateSurfaceData.Invoke(ObjType.Элемент2D, null);//Удаляем все с типом элемент2D
                 if (FillModelDataMesh(2))
                     UpdateMeshControlsAndRedraw();
             }
@@ -313,8 +315,8 @@ namespace ModelModule
                     showErrorMessage.Invoke("Ошибка, невозможно трансформировать сетку");
                 else
                 {
-                    updatePointData.Invoke("Узлы", null);
-                    updateSurfaceData.Invoke("Элементы2D", null);
+                    updatePointData.Invoke(ObjType.Узел, null);
+                    updateSurfaceData.Invoke(ObjType.Элемент2D, null);
                     if (FillModelDataMesh(2))
                         UpdateMeshControlsAndRedraw();
                 }
@@ -437,10 +439,10 @@ namespace ModelModule
                 var status = false;
                 var nodes = controller.GetNodes(ref status);//Получаем узлы, если нужно
                 var elems = controller.GetMeshEntities(2, -1, ref status);
-                updatePointData.Invoke("Узлы", null);//Удаляем узлы если нужно
-                updatePointData.Invoke("Узлы", nodes);
-                updateSurfaceData.Invoke("Элементы2D", null);
-                updateSurfaceData.Invoke("Элементы2D", elems);
+                updatePointData.Invoke(ObjType.Узел, null);//Удаляем узлы
+                updatePointData.Invoke(ObjType.Узел, nodes);//Обновляем узлы
+                updateSurfaceData.Invoke(ObjType.Элемент2D, null);//Удаляем элементы 2D
+                updateSurfaceData.Invoke(ObjType.Элемент2D, elems);//Обновляем элементы 2D
                 elemsTree.Nodes.Remove(selectedNode);
                 redrawScene?.Invoke(false);
             }
