@@ -33,7 +33,7 @@ namespace ModelModule
                                                             };
 
         public event Action<string, IEnumerable<IModelObject>> updatePointData;
-        public event Action<string, IEnumerable<ILineObject>> updateLineData;
+        public event Action<string, IEnumerable<ILineObject<IPoint>> updateLineData;
         public event Action<string, IEnumerable<ISurfaceElement>> updateSurfaceData;
         public event Action<string, int> ShowObjectsEvent;
         public event Action<string> showErrorMessage;
@@ -130,25 +130,25 @@ namespace ModelModule
             }
         }
 
-        private bool FillModelDataGeometry() => UpdateGeometry(ObjKind.Point) & UpdateGeometry(ObjKind.Curve);
+        private bool FillModelDataGeometry() => UpdateGeometry(ObjType.Точка) & UpdateGeometry(ObjType.Линия);
 
         private bool FillModelDataMesh(int dim)
         {
-            var nodeStatus = UpdateMesh(ObjType.Узлы, dim);
-            var elemStatus = dim == 2 ? UpdateMesh(ObjType.Элементы2D, dim) : UpdateMesh(ObjType.Элементы3D, dim);
+            var nodeStatus = UpdateMesh(ObjType.Узел, dim);
+            var elemStatus = dim == 2 ? UpdateMesh(ObjType.Элемент2D, dim) : UpdateMesh(ObjType.Элемент3D, dim);
             return nodeStatus & elemStatus;
         }
 
-        private bool UpdateGeometry(ObjKind objKind)
+        private bool UpdateGeometry(ObjType objType)
         {
             int[] dimTags;
-            var objMessage = objKind == ObjKind.Point ? "контрольные точки" : "кривые";
-            var objType = objKind == ObjKind.Point ? "Узлы" : "Линия";
-            var dim = objKind == ObjKind.Point ? 0 : 1;
+            //var objMessage = objType == ObjType.Точка ? "контрольные точки" : "кривые";
+            //var objType = objKind == ObjKind.Point ? "Узлы" : "Линия";
+            var dim = objType == ObjType.Точка ? 0 : 1;
             var status = true;
             if (controller.ModelGetGeometryEntities(out dimTags, dim))
             {
-                if (objKind == ObjKind.Point)
+                if (objType == ObjType.Точка)
                 {
                     var cPoints = controller.CreateControlPoints(dimTags);
                     updatePointData(objType, cPoints);
@@ -160,7 +160,7 @@ namespace ModelModule
                 }
             }
             else
-                showErrorMessage.Invoke($"Ошибка, невозможно получить {objMessage}, проверьте файл-скрипт");
+                showErrorMessage.Invoke($"Ошибка, невозможно получить {objType}, проверьте файл-скрипт");
             return status;
         }
 

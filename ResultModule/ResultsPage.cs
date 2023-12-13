@@ -540,7 +540,7 @@ namespace ResultModule
                     var els3D = Project.ModelData.ObjectData.FindMany<IElement3D>();
                     var elsResults = fieldCreator.CreateSurfaceObjects(result, objsType, resName, els3D);
 
-                    var presenter = ModelPresenter.CreateSurfaceObjectsPresenter(elsResults);
+                    var presenter = ModelPresenter.CreateSurfaceGeometryPresenter(elsResults,false);
                     PresentObjectsToScene("Результаты", presenter);
                 }
                 else
@@ -548,7 +548,7 @@ namespace ResultModule
                     var els2D = Project.ModelData.ObjectData.FindMany<IElement2D>();
                     var elsResults = fieldCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
 
-                    var presenter = ModelPresenter.CreateSurfaceObjectsPresenter(elsResults);
+                    var presenter = ModelPresenter.CreateSurfaceGeometryPresenter(elsResults,false);
                     PresentObjectsToScene("Результаты", presenter);
                 }
 
@@ -600,14 +600,14 @@ namespace ResultModule
                         res = result.GetNodeValue(obj.Number, resDes);
                     else res = result.GetElementValue(obj.Number, resDes);
 
-                    var point = obj.CalcCentralPoint();
+                    var point = obj.CalcCentr();
 
                     var delta = new Point3D();
                     if (pathPoints.Count > 0)
                         delta = point.Sub(pathPoints.Last());
                     path += Vector.GetVectorLenght(delta);
 
-                    pathPoints.Add(obj.CalcCentralPoint());
+                    pathPoints.Add(obj.CalcCentr());
 
                     var grPoint = new GraphPoint(path, res);
                     grPoints.Add(grPoint);
@@ -799,11 +799,17 @@ namespace ResultModule
 
         private void ShowResultValue(string objsType, string resName, IResult result)
         {
-            foreach (var obj in Project.ModelData.ObjectData.FindMany(objsType))
+            IEnumerable<IModelObject> objs;
+            if (objsType == "Узлы")
+                objs = Project.ModelData.ObjectData.FindMany<INode>();
+            else
+                objs = Project.ModelData.ObjectData.FindMany<IElement>();
+
+            foreach (var obj in objs)
             {
                 if (obj.MasterColor == SceneControl.SelectionColor)
                 {
-                    var coord = obj.CalcCentralPoint();
+                    var coord = obj.CalcCentr();
                     var res = 0.0f;
                     if (objsType == "Узлы")
                         res = result.GetNodeValue(obj.Number, resName);

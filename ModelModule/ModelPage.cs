@@ -1,8 +1,7 @@
 ﻿using BaseModule;
 using BaseModule.Navigator;
 using BaseModule.ToolStrips;
-using Model;
-using Model.Elements;
+using Model.MeshObjects;
 using ModelInterfaces;
 using ModelModule.ToolStrips;
 using System;

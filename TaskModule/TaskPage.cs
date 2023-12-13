@@ -483,7 +483,7 @@ namespace TaskModule
                 if (data[index].MovedFrameFunction != null)
                     DisplayMRF(data[index].StartTime, data[index]);
 
-                var presentor = ModelPresenter[group.ObjType];
+                var presentor = ModelPresenter[group.ObjType.ToString()];
 
                 foreach (var iobj in group)
                 {                   
@@ -500,7 +500,7 @@ namespace TaskModule
                         DisplayDirection(data[index].StartTime, data[index], iobj);
                 }
 
-                var vboObjs = SceneControl.FindVBObj(group.ObjType);
+                var vboObjs = SceneControl.FindVBObj(group.ObjType.ToString());
                 var colors = presentor.CreateVertexes(vboObjs.ColorLength, "цвет");
                 vboObjs.PointsColors = colors;
 
@@ -515,11 +515,11 @@ namespace TaskModule
             float[] geomParam;
 
             var baseLineGr = Project.ModelData.GroupData.Find(data.MovedFrameFunction.BaseLine.Name);
-            var basePoints = baseLineGr.Select(x => x.CalcCentralPoint());
+            var basePoints = baseLineGr.Select(x => x.CalcCentr());
             data.MovedFrameFunction.BaseLine.SetPoints(basePoints);
 
             var refLineGr = Project.ModelData.GroupData.Find(data.MovedFrameFunction.RefLine.Name);
-            var refPoints = refLineGr.Select(x => x.CalcCentralPoint());
+            var refPoints = refLineGr.Select(x => x.CalcCentr());
             data.MovedFrameFunction.RefLine.SetPoints(refPoints);
 
             var frame = data.MovedFrameFunction.CalcFrame(time);
@@ -573,7 +573,7 @@ namespace TaskModule
                 color = Color.FromArgb(255, 155, 0);
             }
 
-            foreach (var point in modelObj.GetPoints())
+            foreach (var point in modelObj.GetCoordinates())
             {
                 var scl = 10 * (1.0f / Height * 1.0f / SceneControl.ScaleFactor);
                 vector = vector.Mult(scl);
@@ -603,7 +603,7 @@ namespace TaskModule
                         DisplayMRF(arg2.Time, data);
 
                     var group = Project.ModelData.GroupData.Find(data.GroupName);
-                    var presentor = ModelPresenter[group.ObjType];
+                    var presentor = ModelPresenter[group.ObjType.ToString()];
 
                     foreach (var iobj in group)
                     {
@@ -620,7 +620,7 @@ namespace TaskModule
                         if (data.Direction != "*")
                             DisplayDirection(arg2.Time, data, iobj);
                     }
-                    var vboObjs = SceneControl.FindVBObj(group.ObjType);
+                    var vboObjs = SceneControl.FindVBObj(group.ObjType.ToString());
                     var colors = presentor.CreateVertexes(vboObjs.ColorLength, "цвет");
                     vboObjs.PointsColors = colors;
 
