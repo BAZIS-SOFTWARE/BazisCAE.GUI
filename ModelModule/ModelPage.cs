@@ -1,6 +1,8 @@
 ﻿using BaseModule;
 using BaseModule.Navigator;
 using BaseModule.ToolStrips;
+using Geometry;
+using Model;
 using Model.MeshObjects;
 using ModelInterfaces;
 using ModelModule.ToolStrips;
@@ -106,13 +108,14 @@ namespace ModelModule
 
             if (els3D.Count() != 0)
             {
-                var startNumber = Project.ModelData.ObjectData.GetLastObjNumber() + 1;
+                var startNumber = Project.ModelData.ObjectData.GetLastObj(ObjType.Элемент3D).Number + 1;
                 var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
 
                 Project.ModelData.ObjectData.AddRange(boundaryElements2D);
+                //Project.ModelData.ObjectData.Remove
 
                 ModelPresenter.Remove("Элементы2D");
-                var presenter = ModelPresenter.CreateSurfaceObjectsPresenter(boundaryElements2D);
+                var presenter = ModelPresenter.CreateSurfaceElementsPresenter(boundaryElements2D, false);
                 ModelPresenter.Add("Элементы2D", presenter);
 
                 SceneControl.HideAllGeometryObjs();
@@ -143,7 +146,7 @@ namespace ModelModule
             {
                 SetBackColorToAllObjects();
 
-                foreach (var obj in Project.ModelData.ObjectData.FindMany(objsType))
+                foreach (var obj in Project.ModelData.ObjectData.FindMany<ILineObject<IPoint>>())//Сработает ли это?
                     if (obj.Number == objNumber)
                         obj.MasterColor = SceneControl.SelectionColor;///Кажется нужно, чтобы цвет брался из SettingControls?
 
@@ -160,10 +163,10 @@ namespace ModelModule
             }
         }
 
-        private bool RemoveFromModelData(string objType, IEnumerable<IModelObject> objects)
+        private bool RemoveFromModelData(ObjType objType, IEnumerable<IModelObject> objects)
         {
             var status = false;
-            if (string.IsNullOrEmpty(objType))
+            if (objType == ObjType.Поверхность)
             {
                 Project.ModelData.ObjectData.Clear();
                 ModelPresenter.Clear();
@@ -171,42 +174,42 @@ namespace ModelModule
             }
             else if (objects == null)
             {
-                Project.ModelData.ObjectData.RemoveRange(objType);
-                ModelPresenter.Remove(objType);
+                Project.ModelData.ObjectData.Remove(objType);
+                ModelPresenter.Remove(objType.ToString());
                 status = true;
             }
             return status;
         }
 
-        private void UpdatePointData(string objType, IEnumerable<IModelObject> objects)
+        private void UpdatePointData(ObjType objType, IEnumerable<IModelObject> objects)
         {
             if (!RemoveFromModelData(objType, objects))
             {
                 Project.ModelData.ObjectData.AddRange(objects);
                 var presenter = ModelPresenter.CreatePointObjectsPresenter(objects);
-                ModelPresenter.Add(objType, presenter);
+                ModelPresenter.Add(objType.ToString(), presenter);
             }
             PresentModelOnSelectToolStrip();
         }
 
-        private void UpdateLineData(string objType, IEnumerable<ILineObject> objects)
+        private void UpdateLineData(ObjType objType, IEnumerable<ILineObject<IPoint>> objects)
         {
             if (!RemoveFromModelData(objType, objects))
             {
                 Project.ModelData.ObjectData.AddRange(objects);
-                var presenter = ModelPresenter.CreateLineObjectsPresenter(objects);
-                ModelPresenter.Add(objType, presenter);
+                var presenter = ModelPresenter.CreateGeometryLinePresenter(objects);
+                ModelPresenter.Add(objType.ToString(), presenter);
             }
             PresentModelOnSelectToolStrip();
         }
 
-        private void UpdateSurfaceData(string objType, IEnumerable<ISurfaceElement> objects)
+        private void UpdateSurfaceData(ObjType objType, IEnumerable<ISurfaceElement> objects)
         {
             if (!RemoveFromModelData(objType, objects))
             {
                 Project.ModelData.ObjectData.AddRange(objects);
-                var presenter = ModelPresenter.CreateSurfaceObjectsPresenter(objects);
-                ModelPresenter.Add(objType, presenter);
+                var presenter = ModelPresenter.CreateSurfaceElementsPresenter(objects, false);
+                ModelPresenter.Add(objType.ToString(), presenter);
             }
             PresentModelOnSelectToolStrip();
         }
