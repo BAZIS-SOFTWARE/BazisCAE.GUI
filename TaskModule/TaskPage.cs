@@ -226,6 +226,7 @@ namespace TaskModule
                 form.Controls.Add(taskAdv);
                 form.Show();
 
+                taskAdv.AddDataUseTaskConditionsEvent += TaskAdv_AddDataUseTaskConditionsEvent;
                 taskAdv.AddDataEvent += TaskAdvisor_AddDataEvent;
                 taskAdv.DeleteDataEvent += TaskAdvisor_DeleteDataEvent;
                 taskAdv.DeleteAllDataEvent += TaskAdvisor_DeleteAllDataEvent;
@@ -262,6 +263,13 @@ namespace TaskModule
             {
                 ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        private void TaskAdv_AddDataUseTaskConditionsEvent(object arg1, EventArgs arg2)
+        {
+            //To do
+            // activeTask - вид процесса
+            // Project.TaskData - набор данных задачи
         }
 
         private T GetDataBase<T>(string dbName, string dbPath)
