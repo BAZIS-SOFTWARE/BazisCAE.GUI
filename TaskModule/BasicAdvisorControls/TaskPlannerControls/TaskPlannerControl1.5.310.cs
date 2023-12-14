@@ -11,6 +11,7 @@ using System.Threading;
 using System.Collections.Generic;
 using Tasks.TaskParameters;
 using ProjectInterfaces.Tasks;
+using System.Text.RegularExpressions;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
@@ -366,10 +367,25 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         public override void ClearAllDataButton_Click(object sender, EventArgs e)
         {
+            DeleteAllTsfFilesFromDisk();
             base.ClearAllDataButton_Click(sender, e);
         }
 
-        
+        private void DeleteAllTsfFilesFromDisk()
+        {
+            try
+            {
+                foreach (var file in Directory.GetFiles(Path))
+                {
+                    if (Regex.IsMatch(file, @"(\w*)(\.tsf)"))
+                        File.Delete(file);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"File can't be deleted: {ex.Message}");
+            }
+        }
 
         private void TimeSettingsTextBox_Leave(object sender, EventArgs e)
         {
