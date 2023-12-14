@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.IO;
+using ModelInterfaces.GeometryObjects;
 
 namespace ModelModule
 {
@@ -33,7 +34,7 @@ namespace ModelModule
                                                             };
 
         public event Action<ObjType, IEnumerable<IModelObject>> updatePointData;
-        public event Action<ObjType, IEnumerable<ILineObject<IPoint>>> updateLineData;
+        public event Action<ObjType, IEnumerable<ILineObject<IGeometryPoint>>> updateLineData;
         public event Action<ObjType, IEnumerable<ISurfaceElement>> updateSurfaceData;
         public event Action<string, int> ShowObjectsEvent;
         public event Action<string> showErrorMessage;
@@ -156,7 +157,7 @@ namespace ModelModule
                 else
                 {
                     var lines = controller.CreateLines(dimTags, ref status);
-                    updateLineData(objType, (IEnumerable<ILineObject<IPoint>>)lines);//Каст не работает - Exception
+                    updateLineData(objType, lines);//Каст не работает - Exception
                 }
             }
             else

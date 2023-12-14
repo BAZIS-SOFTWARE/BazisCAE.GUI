@@ -5,6 +5,7 @@ using Geometry;
 using Model;
 using Model.MeshObjects;
 using ModelInterfaces;
+using ModelInterfaces.GeometryObjects;
 using ModelModule.ToolStrips;
 using System;
 using System.Collections.Generic;
@@ -192,7 +193,7 @@ namespace ModelModule
             PresentModelOnSelectToolStrip();
         }
 
-        private void UpdateLineData(ObjType objType, IEnumerable<ILineObject<IPoint>> objects)
+        private void UpdateLineData(ObjType objType, IEnumerable<ILineObject<IGeometryPoint>> objects)
         {
             if (!RemoveFromModelData(objType, objects))
             {
