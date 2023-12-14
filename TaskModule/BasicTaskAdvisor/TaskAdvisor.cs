@@ -188,7 +188,7 @@ namespace TaskModule.BasicTaskAdvisor
 
         public virtual void TaskPlannerControl1_AddDataUseTaskConditionsEvent(object arg1, EventArgs arg2)
         {
-
+            AddDataUseTaskConditionsEvent(this, new EventArgs());
         }
 
 

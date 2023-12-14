@@ -226,6 +226,7 @@ namespace TaskModule
                 form.Controls.Add(taskAdv);
                 form.Show();
 
+                taskAdv.AddDataUseTaskConditionsEvent += TaskAdv_AddDataUseTaskConditionsEvent;
                 taskAdv.AddDataEvent += TaskAdvisor_AddDataEvent;
                 taskAdv.DeleteDataEvent += TaskAdvisor_DeleteDataEvent;
                 taskAdv.DeleteAllDataEvent += TaskAdvisor_DeleteAllDataEvent;
@@ -261,6 +262,30 @@ namespace TaskModule
             catch (Exception ex)
             {
                 ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
+        }
+
+        private void TaskAdv_AddDataUseTaskConditionsEvent(object arg1, EventArgs arg2)
+        {
+            var data = Project.TaskData.Select(x => x as ValuableData).ToList();
+            var processType = ParseProcessTypeFromString(activeTask);
+            TaskDataServices.CalcCompData(data, processType);
+        }
+
+        private ProcessType ParseProcessTypeFromString(string processType)
+        {
+            switch (processType)
+            {
+                case "Термический анализ":
+                    return ProcessType.TermalProcess;
+                case "Механический анализ":
+                    return ProcessType.MechProcess;
+                case "Сварка":
+                    return ProcessType.Welding;
+                case "Термообработка":
+                    return ProcessType.HeatTreatment;
+                default:
+                    throw new ArgumentException($"Переданную строку нельзя идентифицировать как тип процесса");
             }
         }
 
