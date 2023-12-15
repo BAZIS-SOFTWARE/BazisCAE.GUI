@@ -144,6 +144,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         public override void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
+            File.Delete(Path + e.Row.Cells[1]);
             base.DataGridView_UserDeletingRow(sender, e);
         }
 
