@@ -47,8 +47,8 @@ namespace BaseModule.ToolStrips
             InitializeComponent();
 
             btnSplitSelector.DropDownItemClicked += SpbtMethod_DropDownItemClicked;
-            btnNodes.Click += (ar1, ar2) => { SelectObjectsType = "Узлы"; };
-            btnElems.Click += (ar1, ar2) => { SelectObjectsType = "Элементы3D"; };
+            btnNodes.Click += (ar1, ar2) => { SelectObjectsType = "Узел"; };
+            btnElems.Click += (ar1, ar2) => { SelectObjectsType = "Элемент3D"; };
         }
 
         private void SpbtMethod_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
