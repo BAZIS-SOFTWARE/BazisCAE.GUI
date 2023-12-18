@@ -105,17 +105,17 @@
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
     </Reference>
-    <Reference Include="ModelInterfaces, Version=2.0.0.36, Culture=neutral, PublicKeyToken=998e39182864f357, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelInterfaces.2.0.0.36\lib\net48\ModelInterfaces.dll</HintPath>
+    <Reference Include="ModelInterfaces, Version=2.0.0.37, Culture=neutral, PublicKeyToken=998e39182864f357, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelInterfaces.2.0.0.37\lib\net48\ModelInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=2.0.10.89, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.2.0.10.89\lib\net48\Project.dll</HintPath>
+    <Reference Include="Project, Version=2.0.10.90, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.2.0.10.90\lib\net48\Project.dll</HintPath>
     </Reference>
-    <Reference Include="ProjectInterfaces, Version=2.0.38.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjectInterfaces.2.0.38\lib\net48\ProjectInterfaces.dll</HintPath>
+    <Reference Include="ProjectInterfaces, Version=2.0.39.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProjectInterfaces.2.0.39\lib\net48\ProjectInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface, Version=1.0.25.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
       <HintPath>..\packages\SceneInterface.1.0.25\lib\net48\SceneInterface.dll</HintPath>

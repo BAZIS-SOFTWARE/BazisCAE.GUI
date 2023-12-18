@@ -269,7 +269,11 @@ namespace TaskModule
         {
             var data = Project.TaskData.Select(x => x as ValuableData).ToList();
             var processType = ParseProcessTypeFromString(activeTask);
-            TaskDataServices.CalcCompData(data, processType);
+            var compData = TaskDataServices.CalcCompData(data, processType, Project.Path);
+
+            Project.TaskData.AddRange(compData);
+
+            PresentProjectOnTree();
         }
 
         private ProcessType ParseProcessTypeFromString(string processType)

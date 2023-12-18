@@ -1618,8 +1618,9 @@ namespace BaseModule
                         foreach (var freeNode in freeNodes)
                             Project.ModelData.ObjectData.Find(ObjType.Узел,freeNode).ViewState = true;
 
-                        sceneControl.DeleteVBObjects("Узлы");
-                        PresentObjectsToScene("Узлы", ModelPresenter["Узлы"]);
+                        var objsTypeStr = ObjType.Узел.ToString();
+                        sceneControl.DeleteVBObjects(objsTypeStr);
+                        PresentObjectsToScene(objsTypeStr, ModelPresenter[objsTypeStr]);
 
                         sceneControl.DisplayObjects();
                     }));
@@ -1630,9 +1631,11 @@ namespace BaseModule
 
                     if(obj != null)
                         obj.MasterColor = SceneControl.SelectionColor;
+                    
+                    var objsTypeStr = ObjType.Узел.ToString();
 
-                    sceneControl.DeleteVBObjects("Узлы");
-                    PresentObjectsToScene("Узлы", ModelPresenter["Узлы"]);
+                    sceneControl.DeleteVBObjects(objsTypeStr);
+                    PresentObjectsToScene(objsTypeStr, ModelPresenter[objsTypeStr]);
 
                     sceneControl.DisplayObjects();
                 }

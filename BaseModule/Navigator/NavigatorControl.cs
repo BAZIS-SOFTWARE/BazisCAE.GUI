@@ -227,11 +227,12 @@ namespace BaseModule.Navigator
 
                     var dataNodes = treeView.Nodes.Find("Данные", true);
 
-                    foreach (TreeNode node in dataNodes?[0].Nodes)
-                    {
-                        if (node.Text.Contains(oldName))
-                            node.Text = node.Text.Replace(oldName, newName);
-                    }
+                    if (dataNodes.Count() != 0)
+                        foreach (TreeNode node in dataNodes[0].Nodes)
+                        {
+                            if (node.Text.Contains(oldName))
+                                node.Text = node.Text.Replace(oldName, newName);
+                        }
                 }
             }
 
