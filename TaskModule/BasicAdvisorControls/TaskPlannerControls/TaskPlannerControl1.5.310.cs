@@ -390,6 +390,29 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             }
         }
 
+        private void btnLoadParameters_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                EnsureComputationDirectoryCreated();
+                var fbd = new FolderBrowserDialog();
+                string path =Path;
+                if (fbd.ShowDialog() == DialogResult.OK) 
+                    path = fbd.SelectedPath;
+
+                DeleteAllTsfFilesFromDisc(path);
+                foreach (var file in Directory.GetFiles(path))
+                {
+                    if (Regex.IsMatch(file, @"(\w*)(\.tsf)"))
+                        AddToComputationFolder(file);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void EnsureComputationDirectoryCreated()
         {
             if (!Directory.Exists($"{Path}Computation"))
