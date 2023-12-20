@@ -68,7 +68,7 @@ namespace BaseModule
             ClearAllDataOnScene();
 
             ModelPresenter = new ModelScenePresentator(Project.ModelData.ObjectData);
-
+            
             foreach (var item in ModelPresenter)
                 PresentObjectsToScene(item.Key,item.Value);
 
@@ -721,7 +721,7 @@ namespace BaseModule
                 {
                     if (!arg2.Reverse)
                     {
-                        var search = selectHelper.SelectInDirection<Element3D>(arg2.Angle, objs[objs.Length - 2].Number, objs[objs.Length - 1].Number, sceneControl.SelectionColor);
+                        selectHelper.SelectInDirection<Element3D>(arg2.Angle, objs[objs.Length - 2].Number, objs[objs.Length - 1].Number, sceneControl.SelectionColor);
                     }
                     else
                     {
@@ -1765,8 +1765,11 @@ Where(x => x.GroupName == group.GroupName).ToArray();
             sceneControl.DeleteVBObjects(objs);
             var objType = ModelPresenter[objs].First().ObjType;
             ModelPresenter.Remove(objs);
-            Project.ModelData.ObjectData.Remove(objType);
+            Project.ModelData.Remove(objType);
             selectToolStrip.RemoveObjectsType(objs);
+
+            PresentProjectOnTree();
+            
         }
 
         private async void navigator_EditGroupEvent(int obj)
