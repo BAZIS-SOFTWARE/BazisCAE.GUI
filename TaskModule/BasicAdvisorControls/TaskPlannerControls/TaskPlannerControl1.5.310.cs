@@ -44,10 +44,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         [Description("Set path for computation")]
         public string Path { get; set; }
 
-        public event Action<object,EventArgs> AddDataUseTaskConditionsEvent;
+        public event Action<object, EventArgs> AddDataUseTaskConditionsEvent;
         public event Action<object, EventArgs> StartComputationEvent;
         public event Action<object, EventArgs> StopComputationEvent;
-        public event Action<List<string>> GenerateTCFEvent;
 
         enum Column : int { kind, settings, status };
         enum TaskKind : int { химическая, термическая, механическая, твердость };
@@ -60,7 +59,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         {
             InitializeComponent();
             DataName = "Расчет";
-  
+
             cntrHeatTask = new HeatTaskControl() { Dock = DockStyle.Fill };
             cntrMechTask = new MechTaskControl() { Dock = DockStyle.Fill };
             cntrChemTask = new ChemTaskControl() { Dock = DockStyle.Fill };
@@ -84,7 +83,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private void StartButton_Click(object sender, EventArgs e)
         {
             StartComputationEvent(this, new EventArgs());
-        }                 
+        }
+
+        private void btnGenTCF_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
         private void grbTask_Paint(object sender, PaintEventArgs e)
         {
@@ -166,10 +170,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 MessageBox.Show(ex.Message);
             }
-        }      
+        }
 
         private void Set_TaskSettings(string taskKind, string fileSettings, int rowInd)
-        {         
+        {
             //var taskParams = new TaskParameters(path); //read from file.txt
             var filePath = $@"{Path}\{fileSettings}";
 
@@ -340,7 +344,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                         isTsfFileCreated = GenerateTsfFile(TaskKind.механическая, CountRows);
                         base.AddButton_Click(this, new EventArgs());
                     }
-                    if(isTsfFileCreated)
+                    if (isTsfFileCreated)
                     {
                         var temp = txbStopTime.Text;
                         txbStartTime.Text = temp;
@@ -353,7 +357,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
 
         }
 
@@ -396,10 +400,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             try
             {
                 EnsureComputationDirectoryCreated();
+                string path = Path;
                 var fbd = new FolderBrowserDialog();
-                string path =Path;
-                if (fbd.ShowDialog() == DialogResult.OK) 
+                if (fbd.ShowDialog() == DialogResult.OK)
                     path = fbd.SelectedPath;
+                else
+                    return;
 
                 DeleteAllTsfFilesFromDisc(path);
                 foreach (var file in Directory.GetFiles(path))
@@ -408,7 +414,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                         AddToComputationFolder(file);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -417,7 +423,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private void EnsureComputationDirectoryCreated()
         {
             if (!Directory.Exists($"{Path}Computation"))
-                Directory.CreateDirectory($"{Path}Computation");
+                Directory.CreateDirectory($"{Path}\\Computation");
         }
 
         private void AddToComputationFolder(string path)
@@ -436,7 +442,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 txb.Text = "0";
             }
-        }      
+        }
 
         private void chbTaskKind_CheckedChange(object sender, EventArgs e)
         {
@@ -471,7 +477,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             }
         }
 
-        
+
 
         private void chbLinkedCalc_CheckedChanged(object sender, EventArgs e)
         {
@@ -493,12 +499,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
             lblMechTask.BackColor = Color.Transparent;
             lblMechTask.ForeColor = Color.Black;
-   
+
             grbTaskSettings.Controls.Clear();
 
             cntrHeatTask.BringToFront();
             grbTaskSettings.Controls.Add(cntrHeatTask);
-            
+
             GetChildControlExpandHeight(grbTaskSettings);
 
         }
@@ -561,12 +567,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-
-        private void btnGenTCF_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
