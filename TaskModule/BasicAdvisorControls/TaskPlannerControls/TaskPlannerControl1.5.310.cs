@@ -198,6 +198,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 cntrMechTask.InputData(parameters);
                 cntrMechTask.BringToFront();
                 grbTaskSettings.Controls.Add(cntrMechTask);
+                chbLinkedCalc.Checked = !(parameters as MechanicalParameters).TermalProcesses.Equals(string.Empty);
             }
             else
             {
@@ -215,6 +216,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             txbStartStep.Text = parameters.TimeSettings.InitTimeStep.ToString();
             txbMinStep.Text = parameters.TimeSettings.MinTimeStep.ToString();
             txbMaxStep.Text = parameters.TimeSettings.MaxTimeStep.ToString();
+            chbFurtherComp.Checked = !parameters.RestartFile.Equals(string.Empty);
         }
 
         private GeneralParameters Get_TaskSettings(TaskKind kind)
@@ -368,15 +370,15 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         public override void ClearAllDataButton_Click(object sender, EventArgs e)
         {
-            DeleteAllTsfFilesFromDisk();
+            DeleteAllTsfFilesFromDisc(Path);
             base.ClearAllDataButton_Click(sender, e);
         }
 
-        private void DeleteAllTsfFilesFromDisk()
+        private void DeleteAllTsfFilesFromDisc(string path)
         {
             try
             {
-                foreach (var file in Directory.GetFiles(Path))
+                foreach (var file in Directory.GetFiles(path))
                 {
                     if (Regex.IsMatch(file, @"(\w*)(\.tsf)"))
                         File.Delete(file);
@@ -386,6 +388,42 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 MessageBox.Show($"File can't be deleted: {ex.Message}");
             }
+        }
+
+        private void btnLoadParameters_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                EnsureComputationDirectoryCreated();
+                var fbd = new FolderBrowserDialog();
+                string path =Path;
+                if (fbd.ShowDialog() == DialogResult.OK) 
+                    path = fbd.SelectedPath;
+
+                DeleteAllTsfFilesFromDisc(path);
+                foreach (var file in Directory.GetFiles(path))
+                {
+                    if (Regex.IsMatch(file, @"(\w*)(\.tsf)"))
+                        AddToComputationFolder(file);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void EnsureComputationDirectoryCreated()
+        {
+            if (!Directory.Exists($"{Path}Computation"))
+                Directory.CreateDirectory($"{Path}Computation");
+        }
+
+        private void AddToComputationFolder(string path)
+        {
+            var compFolder = $"{Path}Computation";
+            var file = File.ReadAllText(path);
+            File.WriteAllText($"{compFolder}{path.Substring(path.LastIndexOf('\\'))}", file);
         }
 
         private void TimeSettingsTextBox_Leave(object sender, EventArgs e)
