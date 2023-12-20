@@ -400,15 +400,16 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             try
             {
                 EnsureComputationDirectoryCreated();
-                string path = Path;
+                var compDir = Path;
+                string sourceDir;
                 var fbd = new FolderBrowserDialog();
                 if (fbd.ShowDialog() == DialogResult.OK)
-                    path = fbd.SelectedPath;
+                    sourceDir = fbd.SelectedPath;
                 else
                     return;
 
-                DeleteAllTsfFilesFromDisc(path);
-                foreach (var file in Directory.GetFiles(path))
+                DeleteAllTsfFilesFromDisc(compDir);
+                foreach (var file in Directory.GetFiles(sourceDir))
                 {
                     if (Regex.IsMatch(file, @"(\w*)(\.tsf)"))
                         AddToComputationFolder(file);
@@ -422,13 +423,13 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         private void EnsureComputationDirectoryCreated()
         {
-            if (!Directory.Exists($"{Path}Computation"))
+            if (!Directory.Exists($"{Path}\\Computation"))
                 Directory.CreateDirectory($"{Path}\\Computation");
         }
 
         private void AddToComputationFolder(string path)
         {
-            var compFolder = $"{Path}Computation";
+            var compFolder = $"{Path}\\Computation";
             var file = File.ReadAllText(path);
             File.WriteAllText($"{compFolder}{path.Substring(path.LastIndexOf('\\'))}", file);
         }
