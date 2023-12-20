@@ -47,6 +47,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         public event Action<object, EventArgs> AddDataUseTaskConditionsEvent;
         public event Action<object, EventArgs> StartComputationEvent;
         public event Action<object, EventArgs> StopComputationEvent;
+        public event Action<object, EventArgs> GenerateTCFEvent;
 
         enum Column : int { kind, settings, status };
         enum TaskKind : int { химическая, термическая, механическая, твердость };
@@ -87,7 +88,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         private void btnGenTCF_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            GenerateTCFEvent(this, new EventArgs());
         }
 
         private void grbTask_Paint(object sender, PaintEventArgs e)

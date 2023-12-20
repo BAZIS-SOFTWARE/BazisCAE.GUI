@@ -268,8 +268,7 @@ namespace TaskModule
 
         private void TaskAdv_GenerateTCFEvent(List<string> obj)
         {
-            // TO DO
-            throw new NotImplementedException();
+
         }
 
         private void TaskAdv_AddDataUseTaskConditionsEvent(object arg1, EventArgs arg2)
