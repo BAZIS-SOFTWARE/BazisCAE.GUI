@@ -50,9 +50,6 @@
             this.txbMaxSiSt = new System.Windows.Forms.TextBox();
             this.txbMaxU = new System.Windows.Forms.TextBox();
             this.txbMaxDU = new System.Windows.Forms.TextBox();
-            this.lblFileParameters = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.btnLoadParameters = new System.Windows.Forms.Button();
             this.chbPlastisity = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -338,41 +335,6 @@
             this.txbMaxDU.Text = "0.0005";
             this.txbMaxDU.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
-            // lblFileParameters
-            // 
-            this.lblFileParameters.AutoSize = true;
-            this.lblFileParameters.Location = new System.Drawing.Point(235, 328);
-            this.lblFileParameters.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
-            this.lblFileParameters.Name = "lblFileParameters";
-            this.lblFileParameters.Size = new System.Drawing.Size(165, 13);
-            this.lblFileParameters.TabIndex = 128;
-            this.lblFileParameters.Text = "Выберите файл с настройками";
-            this.lblFileParameters.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 328);
-            this.label5.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(109, 13);
-            this.label5.TabIndex = 127;
-            this.label5.Text = "Загрузить из файла";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnLoadParameters
-            // 
-            this.btnLoadParameters.AutoSize = true;
-            this.btnLoadParameters.Image = global::TaskModule.Properties.Resources.ComputationFolder;
-            this.btnLoadParameters.Location = new System.Drawing.Point(207, 321);
-            this.btnLoadParameters.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.btnLoadParameters.Name = "btnLoadParameters";
-            this.btnLoadParameters.Size = new System.Drawing.Size(26, 26);
-            this.btnLoadParameters.TabIndex = 126;
-            this.btnLoadParameters.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnLoadParameters.UseVisualStyleBackColor = true;
-            this.btnLoadParameters.Click += new System.EventHandler(this.btnLoadParameters_Click);
-            // 
             // chbPlastisity
             // 
             this.chbPlastisity.AutoSize = true;
@@ -413,9 +375,6 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.chbPlastisity);
-            this.Controls.Add(this.lblFileParameters);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.btnLoadParameters);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmbPriority);
             this.Controls.Add(this.label3);
@@ -439,7 +398,7 @@
             this.Controls.Add(this.txbMaxU);
             this.Controls.Add(this.txbMaxDU);
             this.Name = "MechTaskControl";
-            this.Size = new System.Drawing.Size(700, 351);
+            this.Size = new System.Drawing.Size(700, 320);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -469,9 +428,6 @@
         private System.Windows.Forms.TextBox txbMaxSiSt;
         private System.Windows.Forms.TextBox txbMaxU;
         private System.Windows.Forms.TextBox txbMaxDU;
-        private System.Windows.Forms.Label lblFileParameters;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button btnLoadParameters;
         private System.Windows.Forms.CheckBox chbPlastisity;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;

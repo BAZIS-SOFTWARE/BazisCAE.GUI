@@ -46,9 +46,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.chbDTtMax = new System.Windows.Forms.CheckBox();
             this.txbDTtMax = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lblFileParameters = new System.Windows.Forms.Label();
-            this.btnLoadParameters = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label4
@@ -287,50 +284,12 @@
             this.txbDTtMax.Text = "1500";
             this.txbDTtMax.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 248);
-            this.label5.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(109, 13);
-            this.label5.TabIndex = 124;
-            this.label5.Text = "Загрузить из файла";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblFileParameters
-            // 
-            this.lblFileParameters.AutoSize = true;
-            this.lblFileParameters.Location = new System.Drawing.Point(236, 248);
-            this.lblFileParameters.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
-            this.lblFileParameters.Name = "lblFileParameters";
-            this.lblFileParameters.Size = new System.Drawing.Size(165, 13);
-            this.lblFileParameters.TabIndex = 125;
-            this.lblFileParameters.Text = "Выберите файл с настройками";
-            this.lblFileParameters.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnLoadParameters
-            // 
-            this.btnLoadParameters.AutoSize = true;
-            this.btnLoadParameters.Image = global::TaskModule.Properties.Resources.ComputationFolder;
-            this.btnLoadParameters.Location = new System.Drawing.Point(208, 241);
-            this.btnLoadParameters.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.btnLoadParameters.Name = "btnLoadParameters";
-            this.btnLoadParameters.Size = new System.Drawing.Size(26, 26);
-            this.btnLoadParameters.TabIndex = 123;
-            this.btnLoadParameters.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnLoadParameters.UseVisualStyleBackColor = true;
-            this.btnLoadParameters.Click += new System.EventHandler(this.btnLoadParameters_Click);
-            // 
             // HeatTaskControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.lblFileParameters);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.btnLoadParameters);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmbPriority);
             this.Controls.Add(this.label3);
@@ -350,7 +309,7 @@
             this.Controls.Add(this.chbDTtMax);
             this.Controls.Add(this.txbDTtMax);
             this.Name = "HeatTaskControl";
-            this.Size = new System.Drawing.Size(755, 271);
+            this.Size = new System.Drawing.Size(755, 240);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -376,8 +335,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chbDTtMax;
         private System.Windows.Forms.TextBox txbDTtMax;
-        private System.Windows.Forms.Button btnLoadParameters;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label lblFileParameters;
     }
 }

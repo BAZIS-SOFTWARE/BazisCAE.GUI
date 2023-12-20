@@ -30,7 +30,6 @@
         {
             this.chbDTtMax = new System.Windows.Forms.CheckBox();
             this.txbDTtMax = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -39,8 +38,6 @@
             this.maxTMIter = new System.Windows.Forms.Label();
             this.lblSaveRateTM = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.lblFileParameters = new System.Windows.Forms.Label();
-            this.btnLoadParameters = new System.Windows.Forms.Button();
             this.cmbPriority = new System.Windows.Forms.ComboBox();
             this.txbRelaxation = new System.Windows.Forms.TextBox();
             this.txbPrecision = new System.Windows.Forms.TextBox();
@@ -75,17 +72,6 @@
             this.txbDTtMax.Size = new System.Drawing.Size(530, 20);
             this.txbDTtMax.TabIndex = 109;
             this.txbDTtMax.Text = "3";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 248);
-            this.label5.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(109, 13);
-            this.label5.TabIndex = 133;
-            this.label5.Text = "Загрузить из файла";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
@@ -176,30 +162,6 @@
             this.label2.TabIndex = 125;
             this.label2.Text = "Начальная концентрация, %";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblFileParameters
-            // 
-            this.lblFileParameters.AutoSize = true;
-            this.lblFileParameters.Location = new System.Drawing.Point(231, 248);
-            this.lblFileParameters.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
-            this.lblFileParameters.Name = "lblFileParameters";
-            this.lblFileParameters.Size = new System.Drawing.Size(165, 13);
-            this.lblFileParameters.TabIndex = 135;
-            this.lblFileParameters.Text = "Выберите файл с настройками";
-            this.lblFileParameters.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnLoadParameters
-            // 
-            this.btnLoadParameters.AutoSize = true;
-            this.btnLoadParameters.Image = global::TaskModule.Properties.Resources.ComputationFolder;
-            this.btnLoadParameters.Location = new System.Drawing.Point(203, 241);
-            this.btnLoadParameters.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.btnLoadParameters.Name = "btnLoadParameters";
-            this.btnLoadParameters.Size = new System.Drawing.Size(26, 26);
-            this.btnLoadParameters.TabIndex = 134;
-            this.btnLoadParameters.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnLoadParameters.UseVisualStyleBackColor = true;
-            this.btnLoadParameters.Click += new System.EventHandler(this.btnLoadParameters_Click);
             // 
             // cmbPriority
             // 
@@ -323,9 +285,6 @@
             this.Controls.Add(this.txbPrecision);
             this.Controls.Add(this.txbRelaxation);
             this.Controls.Add(this.cmbPriority);
-            this.Controls.Add(this.lblFileParameters);
-            this.Controls.Add(this.btnLoadParameters);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label12);
@@ -337,7 +296,7 @@
             this.Controls.Add(this.chbDTtMax);
             this.Controls.Add(this.txbDTtMax);
             this.Name = "ChemTaskControl";
-            this.Size = new System.Drawing.Size(761, 271);
+            this.Size = new System.Drawing.Size(761, 240);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -347,7 +306,6 @@
 
         private System.Windows.Forms.CheckBox chbDTtMax;
         private System.Windows.Forms.TextBox txbDTtMax;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label12;
@@ -356,8 +314,6 @@
         private System.Windows.Forms.Label maxTMIter;
         private System.Windows.Forms.Label lblSaveRateTM;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label lblFileParameters;
-        private System.Windows.Forms.Button btnLoadParameters;
         private System.Windows.Forms.ComboBox cmbPriority;
         private System.Windows.Forms.TextBox txbRelaxation;
         private System.Windows.Forms.TextBox txbPrecision;
