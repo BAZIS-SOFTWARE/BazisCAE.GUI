@@ -198,6 +198,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 cntrMechTask.InputData(parameters);
                 cntrMechTask.BringToFront();
                 grbTaskSettings.Controls.Add(cntrMechTask);
+                chbLinkedCalc.Checked = !(parameters as MechanicalParameters).TermalProcesses.Equals(string.Empty);
             }
             else
             {
@@ -215,6 +216,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             txbStartStep.Text = parameters.TimeSettings.InitTimeStep.ToString();
             txbMinStep.Text = parameters.TimeSettings.MinTimeStep.ToString();
             txbMaxStep.Text = parameters.TimeSettings.MaxTimeStep.ToString();
+            chbFurtherComp.Checked = !parameters.RestartFile.Equals(string.Empty);
         }
 
         private GeneralParameters Get_TaskSettings(TaskKind kind)
