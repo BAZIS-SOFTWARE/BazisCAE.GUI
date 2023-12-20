@@ -47,6 +47,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         public event Action<object,EventArgs> AddDataUseTaskConditionsEvent;
         public event Action<object, EventArgs> StartComputationEvent;
         public event Action<object, EventArgs> StopComputationEvent;
+        public event Action<List<string>> GenerateTCFEvent;
 
         enum Column : int { kind, settings, status };
         enum TaskKind : int { химическая, термическая, механическая, твердость };
@@ -562,10 +563,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             }
         }
 
-        private void btnLoadParameters_Click(object sender, EventArgs e)
-        {
-            //TO DO
-        }
 
         private void btnGenTCF_Click(object sender, EventArgs e)
         {
