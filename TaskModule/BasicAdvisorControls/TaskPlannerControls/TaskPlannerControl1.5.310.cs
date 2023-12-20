@@ -561,5 +561,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void btnLoadParameters_Click(object sender, EventArgs e)
+        {
+            //TO DO
+        }
     }
 }
