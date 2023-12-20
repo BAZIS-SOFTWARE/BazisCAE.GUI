@@ -370,15 +370,15 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         public override void ClearAllDataButton_Click(object sender, EventArgs e)
         {
-            DeleteAllTsfFilesFromDisk();
+            DeleteAllTsfFilesFromDisc(Path);
             base.ClearAllDataButton_Click(sender, e);
         }
 
-        private void DeleteAllTsfFilesFromDisk()
+        private void DeleteAllTsfFilesFromDisc(string path)
         {
             try
             {
-                foreach (var file in Directory.GetFiles(Path))
+                foreach (var file in Directory.GetFiles(path))
                 {
                     if (Regex.IsMatch(file, @"(\w*)(\.tsf)"))
                         File.Delete(file);
@@ -388,6 +388,19 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 MessageBox.Show($"File can't be deleted: {ex.Message}");
             }
+        }
+
+        private void EnsureComputationDirectoryCreated()
+        {
+            if (!Directory.Exists($"{Path}Computation"))
+                Directory.CreateDirectory($"{Path}Computation");
+        }
+
+        private void AddToComputationFolder(string path)
+        {
+            var compFolder = $"{Path}Computation";
+            var file = File.ReadAllText(path);
+            File.WriteAllText($"{compFolder}{path.Substring(path.LastIndexOf('\\'))}", file);
         }
 
         private void TimeSettingsTextBox_Leave(object sender, EventArgs e)
