@@ -226,6 +226,7 @@ namespace TaskModule
                 form.Controls.Add(taskAdv);
                 form.Show();
 
+                taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent;
                 taskAdv.AddDataUseTaskConditionsEvent += TaskAdv_AddDataUseTaskConditionsEvent;
                 taskAdv.AddDataEvent += TaskAdvisor_AddDataEvent;
                 taskAdv.DeleteDataEvent += TaskAdvisor_DeleteDataEvent;
@@ -263,6 +264,12 @@ namespace TaskModule
             {
                 ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        private void TaskAdv_GenerateTCFEvent(List<string> obj)
+        {
+            // TO DO
+            throw new NotImplementedException();
         }
 
         private void TaskAdv_AddDataUseTaskConditionsEvent(object arg1, EventArgs arg2)

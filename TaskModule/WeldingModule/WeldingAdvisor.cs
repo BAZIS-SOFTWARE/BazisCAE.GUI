@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicTaskAdvisor;
@@ -82,6 +83,11 @@ namespace TaskModule.WeldingModule
         public override void TabControl_DrawItem(object sender, DrawItemEventArgs e)
         {
             base.TabControl_DrawItem(sender, e);
+        }
+
+        public override void TaskPlannerControl_GenerateTCFEvent(List<string> arg1)
+        {
+            base.TaskPlannerControl_GenerateTCFEvent(arg1);
         }
     }
 }

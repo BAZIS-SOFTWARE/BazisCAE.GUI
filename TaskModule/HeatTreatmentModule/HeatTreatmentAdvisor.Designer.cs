@@ -162,6 +162,7 @@ namespace TaskModule.HeatTreatmentModule
             this.htMediaControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.htMediaControl1.HideAllButtonImage = ((System.Drawing.Image)(resources.GetObject("htMediaControl1.HideAllButtonImage")));
             this.htMediaControl1.Location = new System.Drawing.Point(3, 3);
+            this.htMediaControl1.Margin = new System.Windows.Forms.Padding(5);
             this.htMediaControl1.MinimumSize = new System.Drawing.Size(300, 300);
             this.htMediaControl1.Name = "htMediaControl1";
             this.htMediaControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("htMediaControl1.RefreshButtonImage")));
@@ -266,6 +267,7 @@ namespace TaskModule.HeatTreatmentModule
             this.taskPlannerControl1.CurentSelectedRowInfo = null;
             this.taskPlannerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.taskPlannerControl1.Location = new System.Drawing.Point(3, 3);
+            this.taskPlannerControl1.Margin = new System.Windows.Forms.Padding(4);
             this.taskPlannerControl1.MinimumSize = new System.Drawing.Size(400, 700);
             this.taskPlannerControl1.Name = "taskPlannerControl1";
             this.taskPlannerControl1.Path = null;

@@ -30,6 +30,7 @@ namespace TaskModule.BasicTaskAdvisor
         public event Action<object, EventArgs> StartComputationEvent;
         public event Action<object, EventArgs> StopComputationEvent;
         public event Action<object, EventArgs> AddDataUseTaskConditionsEvent;
+        public event Action<List<string>> GenerateTCFEvent;
 
         public TaskAdvisor()
         {
@@ -123,6 +124,11 @@ namespace TaskModule.BasicTaskAdvisor
                         functionsRelatedControl.Add_Functions(functionNames);
                 }
             }
+        }
+
+        public virtual void TaskPlannerControl_GenerateTCFEvent(List<string> arg1)
+        {
+            GenerateTCFEvent(arg1);
         }
 
         public virtual void TaskPlannerControl_StartComputationEvent(object arg1, EventArgs arg2)

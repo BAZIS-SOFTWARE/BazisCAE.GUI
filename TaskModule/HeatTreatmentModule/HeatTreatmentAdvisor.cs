@@ -89,5 +89,10 @@ namespace TaskModule.HeatTreatmentModule
         {
             base.TabControl_DrawItem(sender, e);
         }
+
+        public override void TaskPlannerControl_GenerateTCFEvent(List<string> arg1)
+        {
+            base.TaskPlannerControl_GenerateTCFEvent(arg1);
+        }
     }
 }
