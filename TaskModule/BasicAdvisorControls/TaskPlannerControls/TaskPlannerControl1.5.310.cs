@@ -528,5 +528,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         {
             //TO DO
         }
+
+        private void btnGenTCF_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
