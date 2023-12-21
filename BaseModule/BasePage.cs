@@ -566,9 +566,9 @@ namespace BaseModule
         {
             selectToolStrip.Clear();
 
-            foreach (var objType in Project.ModelData.ObjectData.Keys)
+            foreach (var objItem in Project.ModelData.ObjectData)
             {
-                selectToolStrip.AddObjectsType(objType.ToString());
+                selectToolStrip.AddObjectsType(objItem.Key.ToString());
             }
         }
 
