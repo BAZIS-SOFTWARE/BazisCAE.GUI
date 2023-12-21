@@ -22,6 +22,7 @@ using Geometry;
 using Tasks;
 using ProjectInterfaces.Tasks;
 using ModelInterfaces;
+using System.Xml.XPath;
 
 namespace TaskModule
 {
@@ -268,8 +269,14 @@ namespace TaskModule
 
         private void TaskAdv_GenerateTCFEvent(List<string> obj)
         {
-            // TO DO
+            var result = new List<string>();
 
+            result.Append($"{Project.Path}\\{Project.Name}\n");
+            result.Append($"{Project.Path}\\{Project.Materials}\n");
+            result.Append($"{Project.Path}\\{Project.Functions}\n");
+            result.AddRange(obj.Select(x => x+"\n"));
+
+            File.WriteAllText($"{Project.Path}\\Computation\\computation.tcf", result.ToString());
         }
 
         private void TaskAdv_AddDataUseTaskConditionsEvent(object arg1, EventArgs arg2)
