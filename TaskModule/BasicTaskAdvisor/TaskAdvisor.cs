@@ -30,7 +30,7 @@ namespace TaskModule.BasicTaskAdvisor
         public event Action<object, EventArgs> StartComputationEvent;
         public event Action<object, EventArgs> StopComputationEvent;
         public event Action<object, EventArgs> AddDataUseTaskConditionsEvent;
-        public event Action<List<string>> GenerateTCFEvent;
+        public event Action<object, GenerateTCFEventArgs> GenerateTCFEvent;
 
         public TaskAdvisor()
         {
@@ -93,7 +93,7 @@ namespace TaskModule.BasicTaskAdvisor
                                 materialsRelatedControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.GroupName).ToList());
 
                         else if (control is TaskPlannerControl taskPlannerControl)
-                            taskPlannerControl.Path = project.Path;
+                            taskPlannerControl.ProjPath = project.Path;
 
                         gvControl.Set_DataGridLines(data);
                     }
@@ -126,9 +126,9 @@ namespace TaskModule.BasicTaskAdvisor
             }
         }
 
-        public virtual void TaskPlannerControl_GenerateTCFEvent(List<string> arg1)
+        public virtual void TaskPlannerControl_GenerateTCFEvent(object arg1, GenerateTCFEventArgs arg2)
         {
-            GenerateTCFEvent(arg1);
+            GenerateTCFEvent(arg1,arg2);
         }
 
         public virtual void TaskPlannerControl_StartComputationEvent(object arg1, EventArgs arg2)

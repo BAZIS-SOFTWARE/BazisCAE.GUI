@@ -59,6 +59,10 @@ namespace BaseModule.Navigator
         imgDict = new Dictionary<string, int>()
             {
                 { "Узел",3},
+                { "Точка",3},
+                { "Линия",4},
+                { "Фигура2D",4},
+                { "Фигура3D",4},
                 { "Элемент3D",4},
                 { "Элемент2D",4},
                 { "Элемент1D",4},
@@ -68,6 +72,7 @@ namespace BaseModule.Navigator
                 { "Закрепление",11},
                 { "Нагрузка",12},
                 { "Расчет",13}
+
             };
         }
 
@@ -372,36 +377,38 @@ namespace BaseModule.Navigator
 
         public void DelAllObjects_Click(object sender, EventArgs e)
         {
-            foreach (TreeNode item in treeView.Nodes["объекты"].Nodes)
-            {
-                DelObjects(item);
-            }
-            treeView.SelectedNode.Nodes.Clear();
+            DelObjectsEvent?.Invoke("Объект");
+            //foreach (TreeNode item in treeView.Nodes["объекты"].Nodes)
+            //{
+            //    DelObjects(item);
+            //}
+            //treeView.SelectedNode.Nodes.Clear();
         }
 
         public void DelObjects_Click(object sender, EventArgs e)
         {
-            DelObjects(treeView.SelectedNode);
-            treeView.Nodes["объекты"].Nodes.Remove(treeView.SelectedNode);
+            DelObjectsEvent?.Invoke(treeView.SelectedNode.Name);
+            //DelObjects(treeView.SelectedNode);
+            //treeView.Nodes["объекты"].Nodes.Remove(treeView.SelectedNode);
         }
 
-        private void DelObjects(TreeNode treeNode)
-        {
-            DelObjectsEvent?.Invoke(treeNode.Name);
+        //private void DelObjects(TreeNode treeNode)
+        //{
+        //    DelObjectsEvent?.Invoke(treeNode.Name);
 
-            var groupNodes = treeView.Nodes["группыОбъектов"].Nodes.Cast<TreeNode>().
-                Where(x => x.Name == treeNode.Name).ToArray();
+        //    var groupNodes = treeView.Nodes["группыОбъектов"].Nodes.Cast<TreeNode>().
+        //        Where(x => x.Name == treeNode.Name).ToArray();
 
-            foreach (var node in groupNodes)
-            {
-                var index = treeView.Nodes["группыОбъектов"].Nodes.IndexOf(node);
-                DelGroupEvent?.Invoke(index);
+        //    foreach (var node in groupNodes)
+        //    {
+        //        var index = treeView.Nodes["группыОбъектов"].Nodes.IndexOf(node);
+        //        DelGroupEvent?.Invoke(index);
 
-                DeleteTaskDataNodes(node);
+        //        DeleteTaskDataNodes(node);
 
-                treeView.Nodes["группыОбъектов"].Nodes.RemoveAt(index);
-            }
-        }
+        //        treeView.Nodes["группыОбъектов"].Nodes.RemoveAt(index);
+        //    }
+        //}
 
         public void InfoGroup_Click(object sender, EventArgs e)
         {

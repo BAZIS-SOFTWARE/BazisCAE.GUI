@@ -23,6 +23,7 @@ using Tasks;
 using ProjectInterfaces.Tasks;
 using ModelInterfaces;
 using System.Xml.XPath;
+using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 
 namespace TaskModule
 {
@@ -267,14 +268,14 @@ namespace TaskModule
             }
         }
 
-        private void TaskAdv_GenerateTCFEvent(List<string> obj)
+        private void TaskAdv_GenerateTCFEvent(object arg1, GenerateTCFEventArgs arg2)
         {
             var result = new List<string>();
 
             result.Append($"{Project.Path}\\{Project.Name}\n");
             result.Append($"{Project.Path}\\{Project.Materials}\n");
             result.Append($"{Project.Path}\\{Project.Functions}\n");
-            result.AddRange(obj.Select(x => x+"\n"));
+            result.AddRange(arg2.Select(x => x+"\n"));
 
             File.WriteAllText($"{Project.Path}\\Computation\\computation.tcf", result.ToString());
         }
@@ -283,11 +284,15 @@ namespace TaskModule
         {
             var data = Project.TaskData.Select(x => x as ValuableData).ToList();
             var processType = ParseProcessTypeFromString(activeTask);
-            var compData = TaskDataServices.CalcCompData(data, processType, Project.Path);
 
-            Project.TaskData.AddRange(compData);
+            var compDir = $@"{Project.Path}\Computation";
 
-            PresentProjectOnTree();
+            if (!Directory.Exists(compDir))
+                Directory.CreateDirectory(compDir);
+
+            PreProc.CalcCompDataV1(data, processType, compDir);
+
+            ConsoleControl.PrintInfo("Данные задачи сгенерированы", Color.Green);
         }
 
         private ProcessType ParseProcessTypeFromString(string processType)

@@ -109,13 +109,14 @@ namespace ModelModule
 
             if (els3D.Count() != 0)
             {
-                var startNumber = Project.ModelData.ObjectData.GetLastObj(ObjType.Элемент3D).Number + 1;
+                SyncObjsRemove("Элемент2D");
+
+                var startNumber = Project.ModelData.ObjectData.GetLastObjNumber(ObjType.Элемент) + 1;
                 var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
 
-                Project.ModelData.ObjectData.AddRange(boundaryElements2D);
+                Project.ModelData.ObjectData.Add(ObjType.Элемент2D,boundaryElements2D);
                 //Project.ModelData.ObjectData.Remove
 
-                ModelPresenter.Remove("Элементы2D");
                 var presenter = ModelPresenter.CreateSurfaceElementsPresenter(boundaryElements2D, false);
                 ModelPresenter.Add("Элементы2D", presenter);
 
@@ -123,16 +124,17 @@ namespace ModelModule
                 SceneControl.HideDisplayText2D();
                 SceneControl.HideDisplayText3D();
 
-                SceneControl.DeleteVBObjects("Элементы2D");
-                PresentObjectsToScene("Элементы2D", presenter);
+                PresentObjectsToScene("Элемент2D", presenter);
 
                 SceneControl.DisplayObjects();
 
                 PresentModelOnSelectToolStrip();
 
-                NavigatorControl.TreeView.Nodes["объекты"].Nodes.RemoveByKey("Элементы2D");
-                NavigatorControl.CreateChildNode("объекты", "Элементы2D", $"Элементы2D : {boundaryElements2D.Count()}", "4.1");
-                NavigatorControl.ShowObjectsNode("Элементы2D");
+                PresentProjectOnTree();
+
+                //NavigatorControl.TreeView.Nodes["объекты"].Nodes.RemoveByKey("Элементы2D");
+                //NavigatorControl.CreateChildNode("объекты", "Элементы2D", $"Элементы2D : {boundaryElements2D.Count()}", "4.1");
+                //NavigatorControl.ShowObjectsNode("Элементы2D");
 
                 ConsoleControl.PrintInfo("Созданы 2D элементы", Color.Black);
             }
@@ -186,7 +188,7 @@ namespace ModelModule
         {
             if (!RemoveFromModelData(objType, objects))
             {
-                Project.ModelData.ObjectData.AddRange(objects);
+                Project.ModelData.ObjectData[objType].AddRange(objects);
                 var presenter = ModelPresenter.CreatePointObjectsPresenter(objects);
                 ModelPresenter.Add(objType.ToString(), presenter);
             }
@@ -197,7 +199,7 @@ namespace ModelModule
         {
             if (!RemoveFromModelData(objType, objects))
             {
-                Project.ModelData.ObjectData.AddRange(objects);
+                Project.ModelData.ObjectData[objType].AddRange(objects);
                 var presenter = ModelPresenter.CreateGeometryLinePresenter(objects);
                 ModelPresenter.Add(objType.ToString(), presenter);
             }
@@ -208,7 +210,7 @@ namespace ModelModule
         {
             if (!RemoveFromModelData(objType, objects))
             {
-                Project.ModelData.ObjectData.AddRange(objects);
+                Project.ModelData.ObjectData[objType].AddRange(objects);
                 var presenter = ModelPresenter.CreateSurfaceElementsPresenter(objects, false);
                 ModelPresenter.Add(objType.ToString(), presenter);
             }

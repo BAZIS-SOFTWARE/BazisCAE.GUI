@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using Tasks.TaskParameters;
 using ProjectInterfaces.Tasks;
 using System.Text.RegularExpressions;
+using System.Linq;
+using ProjectInterfaces;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
@@ -42,12 +44,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         }
         [Category("General")]
         [Description("Set path for computation")]
-        public string Path { get; set; }
+        public string ProjPath { get; set; }
 
         public event Action<object, EventArgs> AddDataUseTaskConditionsEvent;
         public event Action<object, EventArgs> StartComputationEvent;
         public event Action<object, EventArgs> StopComputationEvent;
-        public event Action<object, EventArgs> GenerateTCFEvent;
+        public event Action<object, GenerateTCFEventArgs> GenerateTCFEvent;
 
         enum Column : int { kind, settings, status };
         enum TaskKind : int { химическая, термическая, механическая, твердость };
@@ -88,7 +90,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         private void btnGenTCF_Click(object sender, EventArgs e)
         {
-            GenerateTCFEvent(this, new EventArgs());
+            var strs = dataGridView.Rows.Cast<string>().ToList();
+            GenerateTCFEvent(this, new GenerateTCFEventArgs(strs));
         }
 
         private void grbTask_Paint(object sender, PaintEventArgs e)
@@ -150,8 +153,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         public override void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            File.Delete(Path + e.Row.Cells[1]);
-            base.DataGridView_UserDeletingRow(sender, e);
+            var file = e.Row.Cells[1].Value.ToString();
+            File.Delete(file);
+            //base.DataGridView_UserDeletingRow(sender, e);
         }
 
         public override void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -176,7 +180,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private void Set_TaskSettings(string taskKind, string fileSettings, int rowInd)
         {
             //var taskParams = new TaskParameters(path); //read from file.txt
-            var filePath = $@"{Path}\{fileSettings}";
+            //var filePath = $@"{ProjPath}\{fileSettings}";
 
             var settingsSerializer = new JsonSerializerSettings
             {
@@ -191,7 +195,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 chbTermoTask.Checked = true;
                 parameters = JsonConvert.DeserializeObject<TermalParameters>
-(File.ReadAllText(filePath), settingsSerializer);
+(File.ReadAllText(fileSettings), settingsSerializer);
                 cntrHeatTask.InputData(parameters);
                 cntrHeatTask.BringToFront();
                 grbTaskSettings.Controls.Add(cntrHeatTask);
@@ -200,7 +204,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 chbMechTask.Checked = true;
                 parameters = JsonConvert.DeserializeObject<MechanicalParameters>
-(File.ReadAllText(filePath), settingsSerializer);
+(File.ReadAllText(fileSettings), settingsSerializer);
                 cntrMechTask.InputData(parameters);
                 cntrMechTask.BringToFront();
                 grbTaskSettings.Controls.Add(cntrMechTask);
@@ -210,7 +214,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 chbChemicalTask.Checked = true;
                 parameters = JsonConvert.DeserializeObject<ChemicalParameters>
-(File.ReadAllText(filePath), settingsSerializer);
+(File.ReadAllText(fileSettings), settingsSerializer);
                 cntrChemTask.InputData(parameters);
                 cntrChemTask.BringToFront();
                 grbTaskSettings.Controls.Add(cntrChemTask);
@@ -246,9 +250,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 TaskKind taskKind;
                 Enum.TryParse(kind, out taskKind);
 
-                GenerateTsfFile(taskKind, CurentSelectedRowIndex);
-                CurentSelectedRowInfo = AddRowInfo(taskKind, taskStatus, CurentSelectedRowIndex);
-                base.RefreshButton_Click(sender, e);
+                var setting = dataGridView[(int)Column.settings, CurentSelectedRowIndex].Value.ToString();
+                var taskInd = int.Parse(Path.GetFileName(setting).Split('_')[1]);
+
+                GenerateTsfFile(taskKind, taskInd);
+                //CurentSelectedRowInfo = AddRowInfo(taskKind, taskStatus, CurentSelectedRowIndex);
+                //base.RefreshButton_Click(sender, e);
 
                 btnRefresh.Enabled = false;
             }
@@ -256,6 +263,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        public override void Set_DataGridLines(IEnumerable<string> lines)
+        {
+            //base.Set_DataGridLines(lines);
         }
 
         private bool GenerateTsfFile(TaskKind taskKind, int taskIndex)
@@ -302,9 +314,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 else
                     tsfStr = JsonConvert.SerializeObject(parameters, settingsSerializer);
 
+
+
+
                 var tsfFileName = $"{taskKind}_{taskIndex}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
 
-                File.WriteAllText($@"{Path}\{tsfFileName}", tsfStr);
+                File.WriteAllText($@"{ProjPath}\{tsfFileName}", tsfStr);
 
                 return true;
 
@@ -376,8 +391,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         public override void ClearAllDataButton_Click(object sender, EventArgs e)
         {
-            DeleteAllTsfFilesFromDisc(Path);
-            base.ClearAllDataButton_Click(sender, e);
+            DeleteAllTsfFilesFromDisc(ProjPath);
+            dataGridView.Rows.Clear();
+            //base.ClearAllDataButton_Click(sender, e);
         }
 
         private void DeleteAllTsfFilesFromDisc(string path)
@@ -400,20 +416,25 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         {
             try
             {
-                EnsureComputationDirectoryCreated();
-                var compDir = Path;
-                string sourceDir;
-                var fbd = new FolderBrowserDialog();
+
+                //string sourceDir;
+                var fbd = new FolderBrowserDialog() { SelectedPath = ProjPath };
                 if (fbd.ShowDialog() == DialogResult.OK)
-                    sourceDir = fbd.SelectedPath;
+                    ProjPath = fbd.SelectedPath;
                 else
                     return;
 
-                DeleteAllTsfFilesFromDisc(compDir);
-                foreach (var file in Directory.GetFiles(sourceDir))
+                //DeleteAllTsfFilesFromDisc(compDir);
+                dataGridView.Rows.Clear();
+
+                foreach (var file in Directory.GetFiles(ProjPath))
                 {
                     if (Regex.IsMatch(file, @"(\w*)(\.tsf)"))
-                        AddToComputationFolder(file);
+                    {
+                        var taskType = Path.GetFileName(file).Split('_')[0];
+                        dataGridView.Rows.Add(new string[] { taskType, file, TaskStatus.выполнить.ToString() });
+                    }
+                        //AddToComputationFolder(file);
                 }
             }
             catch (Exception ex)
@@ -422,15 +443,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             }
         }
 
-        private void EnsureComputationDirectoryCreated()
-        {
-            if (!Directory.Exists($"{Path}\\Computation"))
-                Directory.CreateDirectory($"{Path}\\Computation");
-        }
-
         private void AddToComputationFolder(string path)
         {
-            var compFolder = $"{Path}\\Computation";
+            var compFolder = $"{ProjPath}\\Computation";
             var file = File.ReadAllText(path);
             File.WriteAllText($"{compFolder}{path.Substring(path.LastIndexOf('\\'))}", file);
         }
@@ -569,6 +584,29 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void dataGridView_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            // Try to sort based on the cells in the current column.
+
+            var fstrAr = e.CellValue1.ToString().Split('_');
+            var sstrAr = e.CellValue2.ToString().Split('_');
+
+            if (e.Column.Index == (int)Column.settings)
+            {
+                var fInd = int.Parse(fstrAr[1]);
+                var sInd = int.Parse(sstrAr[1]);
+
+                if (fInd > sInd)
+                    e.SortResult = 1;
+                else if (fInd < sInd)
+                    e.SortResult = -1;
+                else
+                    e.SortResult = 0;
+            }
+
+            e.Handled = true;
         }
     }
 }

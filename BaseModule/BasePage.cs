@@ -586,10 +586,11 @@ namespace BaseModule
             navigator.TreeView.Nodes["объекты"].Expand();
             navigator.TreeView.Nodes["объекты"].Nodes.Clear();
 
-            foreach (var objInfo in ModelPresenter)
+            foreach (var objInfo in Project.ModelData.ObjectData)
             {
-                navigator.CreateChildNode("объекты", objInfo.Key, $"{objInfo.Key} : {objInfo.Value.Count()}", "4.1");
-                navigator.ShowObjectsNode(objInfo.Key);
+                var objType = objInfo.Key.ToString();
+                navigator.CreateChildNode("объекты", objType, $"{objType} : {objInfo.Value.Count()}", "4.1");
+                navigator.ShowObjectsNode(objType);
             }            
 
             navigator.TreeView.Nodes["группыОбъектов"].Expand();
@@ -1232,19 +1233,19 @@ namespace BaseModule
                 {
                     sceneControl.DrawInsideObjects = true;
 
-                    if (ModelPresenter.ContainsKey("Элементы3D"))
+                    if (ModelPresenter.ContainsKey("Элемент3D"))
                     {
-                        var vbobj = sceneControl.FindVBObj("Элементы3D");
+                        var vbobj = sceneControl.FindVBObj("Элемент3D");
                         var viewMode = vbobj.ViewMode;
 
-                        sceneControl.DeleteVBObjects("Элементы3D");
+                        sceneControl.DeleteVBObjects("Элемент3D");
 
-                        foreach (var item in ModelPresenter["Элементы3D"])
+                        foreach (var item in ModelPresenter["Элемент3D"])
                             if (item.ViewState)
                                 item.ViewState = true;
    
-                        PresentObjectsToScene("Элементы3D", ModelPresenter["Элементы3D"]);
-                        sceneControl.ChangeViewModeVBObjects("Элементы3D", viewMode);
+                        PresentObjectsToScene("Элемент3D", ModelPresenter["Элемент3D"]);
+                        sceneControl.ChangeViewModeVBObjects("Элемент3D", viewMode);
                     }
     
                     consoleControl.PrintInfo("Показаны все объекты", Color.Black);
@@ -1254,14 +1255,14 @@ namespace BaseModule
                 {
                     sceneControl.DrawInsideObjects = false;
 
-                    if (ModelPresenter.ContainsKey("Элементы3D"))
+                    if (ModelPresenter.ContainsKey("Элемент3D"))
                     {
-                        var vbobj = sceneControl.FindVBObj("Элементы3D");
+                        var vbobj = sceneControl.FindVBObj("Элемент3D");
                         var viewMode = vbobj.ViewMode;
-                        sceneControl.DeleteVBObjects("Элементы3D");
+                        sceneControl.DeleteVBObjects("Элемент3D");
 
-                        PresentObjectsToScene("Элементы3D", ModelPresenter["Элементы3D"]);
-                        sceneControl.ChangeViewModeVBObjects("Элементы3D", viewMode);
+                        PresentObjectsToScene("Элемент3D", ModelPresenter["Элемент3D"]);
+                        sceneControl.ChangeViewModeVBObjects("Элемент3D", viewMode);
                     }
   
                     consoleControl.PrintInfo("Скрыты внутренние объекты", Color.Black);
@@ -1757,19 +1758,30 @@ Where(x => x.GroupName == group.GroupName).ToArray();
         private void navigator_DelObjectsEvent(string objs)
         {
             SyncObjsRemove(objs);
+            PresentProjectOnTree();
             sceneControl.DisplayObjects();
+
         }
 
         public void SyncObjsRemove(string objs)
         {
-            sceneControl.DeleteVBObjects(objs);
-            var objType = ModelPresenter[objs].First().ObjType;
-            ModelPresenter.Remove(objs);
-            Project.ModelData.Remove(objType);
-            selectToolStrip.RemoveObjectsType(objs);
+            ObjType objType;
+            Enum.TryParse(objs, out objType);
 
-            PresentProjectOnTree();
-            
+            if(objType == ObjType.Объект)
+            {
+                sceneControl.DeleteAllVBObjects();
+                ModelPresenter.Clear();
+                selectToolStrip.Clear();
+            }
+            else
+            {
+                sceneControl.DeleteVBObjects(objs);
+                ModelPresenter.Remove(objs);
+                selectToolStrip.RemoveObjectsType(objs);
+            }
+
+            Project.ModelData.Remove(objType);
         }
 
         private async void navigator_EditGroupEvent(int obj)

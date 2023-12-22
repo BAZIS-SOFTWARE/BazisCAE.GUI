@@ -270,10 +270,11 @@ namespace TaskModule.HeatTreatmentModule
             this.taskPlannerControl1.Margin = new System.Windows.Forms.Padding(4);
             this.taskPlannerControl1.MinimumSize = new System.Drawing.Size(400, 700);
             this.taskPlannerControl1.Name = "taskPlannerControl1";
-            this.taskPlannerControl1.Path = null;
+            this.taskPlannerControl1.ProjPath = null;
             this.taskPlannerControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.RefreshButtonImage")));
             this.taskPlannerControl1.Size = new System.Drawing.Size(686, 700);
             this.taskPlannerControl1.TabIndex = 0;
+            this.taskPlannerControl1.GenerateTCFEvent += new System.Action<object, GenerateTCFEventArgs>(this.TaskPlannerControl_GenerateTCFEvent);
             this.taskPlannerControl1.AddDataUseTaskConditionsEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_AddDataUseTaskConditionsEvent);
             this.taskPlannerControl1.StartComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl_StartComputationEvent);
             this.taskPlannerControl1.StopComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StopComputationEvent);

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.Events;
+using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using TaskModule.BasicTaskAdvisor;
 
 namespace TaskModule.HeatTreatmentModule
@@ -90,9 +91,9 @@ namespace TaskModule.HeatTreatmentModule
             base.TabControl_DrawItem(sender, e);
         }
 
-        public override void TaskPlannerControl_GenerateTCFEvent(List<string> arg1)
+        public override void TaskPlannerControl_GenerateTCFEvent(object sender, GenerateTCFEventArgs e)
         {
-            base.TaskPlannerControl_GenerateTCFEvent(arg1);
+            base.TaskPlannerControl_GenerateTCFEvent(sender,e);
         }
     }
 }

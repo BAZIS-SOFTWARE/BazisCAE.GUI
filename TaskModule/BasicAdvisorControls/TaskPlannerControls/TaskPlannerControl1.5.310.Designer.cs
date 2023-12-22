@@ -68,11 +68,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.chbLinkedCalc = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.grbTaskSettings = new System.Windows.Forms.GroupBox();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.Kind = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Settings = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.grbTaskSettings = new System.Windows.Forms.GroupBox();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -578,7 +578,28 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
             this.dataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView_DataError);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
+            this.dataGridView.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dataGridView_SortCompare);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
+            // 
+            // grbTaskSettings
+            // 
+            this.grbTaskSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.grbTaskSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grbTaskSettings.Location = new System.Drawing.Point(1, 90);
+            this.grbTaskSettings.Margin = new System.Windows.Forms.Padding(1);
+            this.grbTaskSettings.MinimumSize = new System.Drawing.Size(0, 15);
+            this.grbTaskSettings.Name = "grbTaskSettings";
+            this.grbTaskSettings.Padding = new System.Windows.Forms.Padding(2);
+            this.grbTaskSettings.Size = new System.Drawing.Size(598, 15);
+            this.grbTaskSettings.TabIndex = 13;
+            this.grbTaskSettings.TabStop = false;
+            this.grbTaskSettings.Text = "Настройки расчета";
+            this.grbTaskSettings.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbTask_MouseClick);
+            this.grbTaskSettings.Paint += new System.Windows.Forms.PaintEventHandler(this.grbTask_Paint);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
             // 
             // Kind
             // 
@@ -587,8 +608,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.Kind.MinimumWidth = 6;
             this.Kind.Name = "Kind";
             this.Kind.ReadOnly = true;
-            this.Kind.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Kind.Width = 32;
+            this.Kind.Width = 51;
             // 
             // Settings
             // 
@@ -597,7 +617,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.Settings.Name = "Settings";
             this.Settings.ReadOnly = true;
             this.Settings.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Settings.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Settings.Width = 300;
             // 
             // Time
@@ -611,33 +630,13 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.Time.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Time.TrueValue = "выполнить";
             // 
-            // grbTaskSettings
-            // 
-            this.grbTaskSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.grbTaskSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbTaskSettings.Location = new System.Drawing.Point(1, 90);
-            this.grbTaskSettings.Margin = new System.Windows.Forms.Padding(1);
-            this.grbTaskSettings.MinimumSize = new System.Drawing.Size(0, 15);
-            this.grbTaskSettings.Name = "grbTaskSettings";
-            this.grbTaskSettings.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.grbTaskSettings.Size = new System.Drawing.Size(598, 15);
-            this.grbTaskSettings.TabIndex = 13;
-            this.grbTaskSettings.TabStop = false;
-            this.grbTaskSettings.Text = "Настройки расчета";
-            this.grbTaskSettings.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbTask_MouseClick);
-            this.grbTaskSettings.Paint += new System.Windows.Forms.PaintEventHandler(this.grbTask_Paint);
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "openFileDialog";
-            // 
             // TaskPlannerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(400, 700);
             this.Name = "TaskPlannerControl";
             this.Size = new System.Drawing.Size(600, 847);
@@ -688,11 +687,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private System.Windows.Forms.CheckBox cmbHardnessTask;
         private System.Windows.Forms.Label lblHardness;
         private System.Windows.Forms.CheckBox chbFurtherComp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Kind;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Settings;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Time;
         private System.Windows.Forms.Label lblFileParameters;
         private System.Windows.Forms.Button btnLoadParameters;
         private System.Windows.Forms.Button btnGenTCF;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Kind;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Settings;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Time;
     }
 }
