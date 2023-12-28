@@ -1783,10 +1783,14 @@ namespace BaseModule
         private void navigator_DelObjectsEvent(string objs)
         {
             var objType = GetObjType(objs);
-            sceneControl.DeleteVBObjects(objs);
+ 
             Project.ModelData.Remove(objType);
-
             Project.TaskData?.ClearNotExisted(Project.ModelData.GroupData);
+
+            ModelPresenter = new ModelScenePresentator(Project.ModelData.ObjectData);
+            sceneControl.DeleteAllVBObjects();
+            foreach (var item in ModelPresenter)
+                PresentObjectsToScene(item.Key, item.Value);
 
             PresentProjectOnTree();
             sceneControl.DisplayObjects();
