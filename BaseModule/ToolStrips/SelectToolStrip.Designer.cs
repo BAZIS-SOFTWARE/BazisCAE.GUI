@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectToolStrip));
             this.btnNodes = new System.Windows.Forms.ToolStripButton();
             this.btnElems = new System.Windows.Forms.ToolStripButton();
-            this.btnGeom = new System.Windows.Forms.ToolStripButton();
+            this.btnObjs = new System.Windows.Forms.ToolStripButton();
             this.btnSplitSelector = new System.Windows.Forms.ToolStripSplitButton();
             this.btnSelectorHelper = new System.Windows.Forms.ToolStripButton();
             this.SuspendLayout();
@@ -62,18 +62,18 @@
             this.btnElems.Tag = "2";
             this.btnElems.Text = "Выбрать элементы";
             // 
-            // btnGeom
+            // btnObjs
             // 
-            this.btnGeom.AutoSize = false;
-            this.btnGeom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnGeom.Image = ((System.Drawing.Image)(resources.GetObject("btnGeom.Image")));
-            this.btnGeom.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnGeom.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnGeom.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnGeom.Name = "btnGeom";
-            this.btnGeom.Size = new System.Drawing.Size(36, 50);
-            this.btnGeom.Tag = "3";
-            this.btnGeom.Text = "Выбрать геометрию";
+            this.btnObjs.AutoSize = false;
+            this.btnObjs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnObjs.Image = ((System.Drawing.Image)(resources.GetObject("btnObjs.Image")));
+            this.btnObjs.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnObjs.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnObjs.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnObjs.Name = "btnObjs";
+            this.btnObjs.Size = new System.Drawing.Size(36, 50);
+            this.btnObjs.Tag = "3";
+            this.btnObjs.Text = "Выбрать геометрию";
             // 
             // btnSplitSelector
             // 
@@ -113,7 +113,7 @@
             this.btnSplitSelector,
             this.btnNodes,
             this.btnElems,
-            this.btnGeom,
+            this.btnObjs,
             this.btnSelectorHelper});
             this.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.Size = new System.Drawing.Size(800, 55);
@@ -126,7 +126,7 @@
 
         private System.Windows.Forms.ToolStripButton btnNodes;
         private System.Windows.Forms.ToolStripButton btnElems;
-        private System.Windows.Forms.ToolStripButton btnGeom;
+        private System.Windows.Forms.ToolStripButton btnObjs;
         private System.Windows.Forms.ToolStripSplitButton btnSplitSelector;
         private System.Windows.Forms.ToolStripButton btnSelectorHelper;
     }

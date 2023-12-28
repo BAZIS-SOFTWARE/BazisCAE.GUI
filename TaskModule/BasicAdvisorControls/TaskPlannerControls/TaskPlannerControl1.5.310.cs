@@ -90,7 +90,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         private void btnGenTCF_Click(object sender, EventArgs e)
         {
-            var strs = dataGridView.Rows.Cast<string>().ToList();
+            var strs = dataGridView.Rows.Cast<DataGridViewRow>().Select(x => $"{x.Cells[0].Value} {x.Cells[1].Value} {x.Cells[2].Value}").ToList();
             GenerateTCFEvent(this, new GenerateTCFEventArgs(strs));
         }
 
@@ -253,7 +253,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 var setting = dataGridView[(int)Column.settings, CurentSelectedRowIndex].Value.ToString();
                 var taskInd = int.Parse(Path.GetFileName(setting).Split('_')[1]);
 
-                GenerateTsfFile(taskKind, taskInd);
+
+
+                GenerateTsfFile(taskKind, taskInd, ProjPath);
                 //CurentSelectedRowInfo = AddRowInfo(taskKind, taskStatus, CurentSelectedRowIndex);
                 //base.RefreshButton_Click(sender, e);
 
@@ -265,12 +267,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             }
         }
 
-        public override void Set_DataGridLines(IEnumerable<string> lines)
-        {
-            //base.Set_DataGridLines(lines);
-        }
-
-        private bool GenerateTsfFile(TaskKind taskKind, int taskIndex)
+        private bool GenerateTsfFile(TaskKind taskKind, int taskIndex, string path)
         {
             try
             {
@@ -319,7 +316,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
                 var tsfFileName = $"{taskKind}_{taskIndex}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
 
-                File.WriteAllText($@"{ProjPath}\{tsfFileName}", tsfStr);
+                File.WriteAllText($@"{path}\{tsfFileName}", tsfStr);
 
                 return true;
 
@@ -340,25 +337,32 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 else
                 {
                     var isTsfFileCreated = false;
+
+                    ProjPath = $@"{ProjPath}\InputData";
+
+                    if (!Directory.Exists(ProjPath))
+                        Directory.CreateDirectory(ProjPath);
+
                     if (chbChemicalTask.Checked)
                     {
-                        CurentSelectedRowInfo = AddRowInfo(TaskKind.химическая, TaskStatus.выполнить, CountRows);
-                        isTsfFileCreated = GenerateTsfFile(TaskKind.химическая, CountRows);
-                        base.AddButton_Click(this, new EventArgs());
+                        isTsfFileCreated = GenerateTsfFile(TaskKind.химическая, CountRows, ProjPath);
+                        if (isTsfFileCreated)
+                            AddRowInfo(TaskKind.химическая, TaskStatus.выполнить, CountRows);
                     }
                     Thread.Sleep(100);
                     if (chbTermoTask.Checked)
                     {
-                        CurentSelectedRowInfo = AddRowInfo(TaskKind.термическая, TaskStatus.выполнить, CountRows);
-                        isTsfFileCreated = GenerateTsfFile(TaskKind.термическая, CountRows);
-                        base.AddButton_Click(this, new EventArgs());
+                        isTsfFileCreated = GenerateTsfFile(TaskKind.термическая, CountRows, ProjPath);
+                        if (isTsfFileCreated)
+                            AddRowInfo(TaskKind.химическая, TaskStatus.выполнить, CountRows);
                     }
+                    
                     Thread.Sleep(100);
                     if (chbMechTask.Checked)
                     {
-                        CurentSelectedRowInfo = AddRowInfo(TaskKind.механическая, TaskStatus.выполнить, CountRows);
-                        isTsfFileCreated = GenerateTsfFile(TaskKind.механическая, CountRows);
-                        base.AddButton_Click(this, new EventArgs());
+                        isTsfFileCreated = GenerateTsfFile(TaskKind.механическая, CountRows, ProjPath);
+                        if (isTsfFileCreated)
+                            AddRowInfo(TaskKind.механическая, TaskStatus.выполнить, CountRows);
                     }
                     if (isTsfFileCreated)
                     {
@@ -377,7 +381,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         }
 
-        private string AddRowInfo(TaskKind taskKind, TaskStatus status, int taskInd)
+        private void AddRowInfo(TaskKind taskKind, TaskStatus status, int taskInd)
         {
             if (txbStartTime.Text == "")
                 throw new Exception("Время старта не указано");
@@ -386,12 +390,14 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 throw new Exception("Время окончания не указано");
 
             var tsfFileName = $"{taskKind}_{taskInd}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
-            return $"\"{taskKind} {tsfFileName} {status}\"";
+
+            dataGridView.Rows.Add(new string[] { taskKind.ToString(), tsfFileName, status.ToString() });
         }
 
         public override void ClearAllDataButton_Click(object sender, EventArgs e)
         {
             DeleteAllTsfFilesFromDisc(ProjPath);
+
             dataGridView.Rows.Clear();
             //base.ClearAllDataButton_Click(sender, e);
         }
@@ -412,19 +418,27 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             }
         }
 
+        public override void Set_DataGridLines(IEnumerable<string> lines)
+        {
+            dataGridView.Rows.Clear();
+
+            foreach (var line in lines)
+            {
+                var taskType = Path.GetFileName(line).Split('_')[0];
+                dataGridView.Rows.Add(new string[] { taskType, line, TaskStatus.выполнить.ToString() });
+            }
+        }
+
         private void btnLoadParameters_Click(object sender, EventArgs e)
         {
             try
             {
-
-                //string sourceDir;
                 var fbd = new FolderBrowserDialog() { SelectedPath = ProjPath };
                 if (fbd.ShowDialog() == DialogResult.OK)
                     ProjPath = fbd.SelectedPath;
                 else
                     return;
 
-                //DeleteAllTsfFilesFromDisc(compDir);
                 dataGridView.Rows.Clear();
 
                 foreach (var file in Directory.GetFiles(ProjPath))
@@ -434,20 +448,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                         var taskType = Path.GetFileName(file).Split('_')[0];
                         dataGridView.Rows.Add(new string[] { taskType, file, TaskStatus.выполнить.ToString() });
                     }
-                        //AddToComputationFolder(file);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void AddToComputationFolder(string path)
-        {
-            var compFolder = $"{ProjPath}\\Computation";
-            var file = File.ReadAllText(path);
-            File.WriteAllText($"{compFolder}{path.Substring(path.LastIndexOf('\\'))}", file);
         }
 
         private void TimeSettingsTextBox_Leave(object sender, EventArgs e)
@@ -593,6 +599,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             var fstrAr = e.CellValue1.ToString().Split('_');
             var sstrAr = e.CellValue2.ToString().Split('_');
 
+            var fTask = Path.GetFileNameWithoutExtension(fstrAr[0]);
+            var sTask = Path.GetFileNameWithoutExtension(sstrAr[0]);
+
             if (e.Column.Index == (int)Column.settings)
             {
                 var fInd = int.Parse(fstrAr[1]);
@@ -603,7 +612,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 else if (fInd < sInd)
                     e.SortResult = -1;
                 else
-                    e.SortResult = 0;
+                {
+                    e.SortResult = String.Compare(sTask,fTask);
+                }    
             }
 
             e.Handled = true;

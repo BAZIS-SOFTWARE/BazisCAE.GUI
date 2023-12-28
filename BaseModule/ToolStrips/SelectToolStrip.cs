@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelInterfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -29,8 +30,8 @@ namespace BaseModule.ToolStrips
         [Category("General properties")]
         public Image GeomsImage
         {
-            get { return btnGeom.Image; }
-            set { btnGeom.Image = value; }
+            get { return btnObjs.Image; }
+            set { btnObjs.Image = value; }
         }
 
         [Description("Set selectionHelper image")]
@@ -47,8 +48,9 @@ namespace BaseModule.ToolStrips
             InitializeComponent();
 
             btnSplitSelector.DropDownItemClicked += SpbtMethod_DropDownItemClicked;
-            btnNodes.Click += (ar1, ar2) => { SelectObjectsType = "Узел"; };
-            btnElems.Click += (ar1, ar2) => { SelectObjectsType = "Элемент3D"; };
+            btnNodes.Click += (ar1, ar2) => { SelectObjectsType = ObjType.Узел.ToString(); };
+            btnElems.Click += (ar1, ar2) => { SelectObjectsType = ObjType.Элемент.ToString(); };
+            btnObjs.Click += (ar1, ar2) => { SelectObjectsType = ObjType.Объект.ToString(); };
         }
 
         private void SpbtMethod_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -61,14 +63,6 @@ namespace BaseModule.ToolStrips
         public int CountObjsTypes()
         {
             return btnSplitSelector.DropDownItems.Count;
-        }
-
-        public IEnumerable<string> GetObjsTypes()
-        {
-            foreach (ToolStripItem item in btnSplitSelector.DropDownItems)
-            {
-                yield return item.Name;
-            }
         }
 
         public string SelectObjectsType
@@ -94,17 +88,6 @@ namespace BaseModule.ToolStrips
                 btnSplitSelector.DropDownItems.Add(newItem);
             }
 
-        }
-
-        public void Clear()
-        {
-            btnSplitSelector.DropDownItems.Clear();
-            btnSplitSelector.Text = "";
-        }
-
-        public void RemoveObjectsType(string objsName)
-        {
-               btnSplitSelector.DropDownItems.RemoveByKey(objsName);
         }
 
 

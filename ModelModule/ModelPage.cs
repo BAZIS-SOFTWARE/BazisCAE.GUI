@@ -109,7 +109,6 @@ namespace ModelModule
 
             if (els3D.Count() != 0)
             {
-                SyncObjsRemove("Элемент2D");
 
                 var startNumber = Project.ModelData.ObjectData.GetLastObjNumber(ObjType.Элемент) + 1;
                 var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
@@ -188,7 +187,7 @@ namespace ModelModule
         {
             if (!RemoveFromModelData(objType, objects))
             {
-                Project.ModelData.ObjectData[objType].AddRange(objects);
+                Project.ModelData.ObjectData.Add(objType,objects);
                 var presenter = ModelPresenter.CreatePointObjectsPresenter(objects);
                 ModelPresenter.Add(objType.ToString(), presenter);
             }
@@ -199,7 +198,7 @@ namespace ModelModule
         {
             if (!RemoveFromModelData(objType, objects))
             {
-                Project.ModelData.ObjectData[objType].AddRange(objects);
+                Project.ModelData.ObjectData.Add(objType, objects);
                 var presenter = ModelPresenter.CreateGeometryLinePresenter(objects);
                 ModelPresenter.Add(objType.ToString(), presenter);
             }
@@ -210,7 +209,7 @@ namespace ModelModule
         {
             if (!RemoveFromModelData(objType, objects))
             {
-                Project.ModelData.ObjectData[objType].AddRange(objects);
+                Project.ModelData.ObjectData.Add(objType, objects);
                 var presenter = ModelPresenter.CreateSurfaceElementsPresenter(objects, false);
                 ModelPresenter.Add(objType.ToString(), presenter);
             }

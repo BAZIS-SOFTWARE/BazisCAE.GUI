@@ -24,6 +24,7 @@ using ProjectInterfaces.Tasks;
 using ModelInterfaces;
 using System.Xml.XPath;
 using TaskModule.BasicAdvisorControls.TaskPlannerControls;
+using System.Text.RegularExpressions;
 
 namespace TaskModule
 {
@@ -272,27 +273,59 @@ namespace TaskModule
         {
             var result = new List<string>();
 
-            result.Append($"{Project.Path}\\{Project.Name}\n");
-            result.Append($"{Project.Path}\\{Project.Materials}\n");
-            result.Append($"{Project.Path}\\{Project.Functions}\n");
-            result.AddRange(arg2.Select(x => x+"\n"));
+            result.Add($@"\\загрузка сетки и данных");
+            result.Add($@"загрузка");
+            result.Add($@"{Project.Path}\{Project.Name}");
+            result.Add($@"#загрузка");
+            result.Add($@"\\загрузка материалов");
+            result.Add($@"загрузка");
+            result.Add($@"{Project.Path}\{Project.Materials}");
+            result.Add($@"#загрузка");
+            result.Add($@"\\загрузка функций");
+            result.Add($@"загрузка");
+            result.Add($@"{Project.Path}\{Project.Functions}");
+            result.Add($@"#загрузка");
+            result.Add($@"\\расчет задачи");
+            result.AddRange(arg2);
 
-            File.WriteAllText($"{Project.Path}\\Computation\\computation.tcf", result.ToString());
-        }
-
-        private void TaskAdv_AddDataUseTaskConditionsEvent(object arg1, EventArgs arg2)
-        {
-            var data = Project.TaskData.Select(x => x as ValuableData).ToList();
-            var processType = ParseProcessTypeFromString(activeTask);
-
-            var compDir = $@"{Project.Path}\Computation";
+            var compDir = $@"{Project.Path}\ComputationData";
 
             if (!Directory.Exists(compDir))
                 Directory.CreateDirectory(compDir);
 
-            PreProc.CalcCompDataV1(data, processType, compDir);
+            var cmdFile = $@"{compDir}\computation.tcf";
 
-            ConsoleControl.PrintInfo("Данные задачи сгенерированы", Color.Green);
+            result.Add($@"загрузка");
+            File.WriteAllLines(cmdFile, result);
+            result.Add($@"#загрузка");
+
+            ConsoleControl.PrintInfo($"Сформирован командный файл {cmdFile}", Color.Green);
+        }
+
+        private void TaskAdv_AddDataUseTaskConditionsEvent(object arg1, EventArgs arg2)
+        {
+            try
+            {
+                var data = Project.TaskData.Select(x => x as ValuableData).ToList();
+                var processType = ParseProcessTypeFromString(activeTask);
+
+                var inputDir = $@"{Project.Path}\InputData";
+
+                if (!Directory.Exists(inputDir))
+                    Directory.CreateDirectory(inputDir);
+
+                PreProc.CalcCompDataV1(data, processType, inputDir);
+
+                var tsfFiles = Directory.GetFiles(inputDir, "*.tsf");
+                GetTaskAdvisor()?.SetTaskPlannerlData(inputDir,tsfFiles.ToList());
+
+                ConsoleControl.PrintInfo($"Входные Данные задачи сгенерированы в {inputDir}", Color.Green);
+
+            }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
         private ProcessType ParseProcessTypeFromString(string processType)
@@ -443,7 +476,7 @@ namespace TaskModule
             NavigatorControl.TreeView.EndUpdate();
             NavigatorControl.TreeView.Nodes["Данные"].Expand();
 
-            GetTaskAdvisor()?.SetProjectData(Project);
+            //GetTaskAdvisor()?.SetProjectData(Project);
         }
 
         public void TaskAdvisor_ChangeTaskTypeEvent(object arg1, ChangeTaskTypeEventArgs arg2)
@@ -527,7 +560,7 @@ namespace TaskModule
 
             foreach (var index in arg2.GetDataInfo())
             {
-                var group = Project.ModelData.GroupData.Find(data[index].GroupName);
+                var group = data[index].Group;
 
                 if (data[index].MovedFrameFunction != null)
                     DisplayMRF(data[index].StartTime, data[index]);
@@ -651,7 +684,7 @@ namespace TaskModule
                     if (data.MovedFrameFunction != null)
                         DisplayMRF(arg2.Time, data);
 
-                    var group = Project.ModelData.GroupData.Find(data.GroupName);
+                    var group = data.Group;
                     var presentor = ModelPresenter[group.ObjType.ToString()];
 
                     foreach (var iobj in group)
@@ -701,29 +734,21 @@ namespace TaskModule
 
                 foreach (var taskStr in taskStrAr)
                 {
-                    if (arg2.DataName == "Расчет")
-                    {
-                        Project.TaskData.Add(new CompData(taskStr));
-                    }
+                    var setTaskStr = SetTaskDataAsync("setDirection", taskStr);
 
+                    await setTaskStr;
+                    setTaskStr = SetTaskDataAsync("setStopTime", setTaskStr.Result);
+
+                    if (arg2.DataName == "Материал")
+                        Project.TaskData.Add(new MatData(setTaskStr.Result));
+                    else if (arg2.DataName == "Среда")
+                        Project.TaskData.Add(new MediaData(setTaskStr.Result));
+                    else if (arg2.DataName == "Нагрузка")
+                        Project.TaskData.Add(new LoadData(setTaskStr.Result));
+                    else if (arg2.DataName == "Нагрев")
+                        Project.TaskData.Add(new HeatData(setTaskStr.Result));
                     else
-                    {
-                        var setTaskStr = SetTaskDataAsync("setDirection", taskStr);
-
-                        await setTaskStr;
-                        setTaskStr = SetTaskDataAsync("setStopTime", setTaskStr.Result);
-
-                        if (arg2.DataName == "Материал")
-                            Project.TaskData.Add(new MatData(setTaskStr.Result));
-                        else if (arg2.DataName == "Среда")
-                            Project.TaskData.Add(new MediaData(setTaskStr.Result));
-                        else if (arg2.DataName == "Нагрузка")
-                            Project.TaskData.Add(new LoadData(setTaskStr.Result));
-                        else if (arg2.DataName == "Нагрев")
-                            Project.TaskData.Add(new HeatData(setTaskStr.Result));
-                        else
-                            Project.TaskData.Add(new ClampData(setTaskStr.Result));
-                    }
+                        Project.TaskData.Add(new ClampData(setTaskStr.Result));
 
                     NavigatorControl.CreateChildNode("Данные", arg2.DataName, $"{arg2.DataName} : {taskStr}", "6.1");
                 }
@@ -802,16 +827,16 @@ namespace TaskModule
                 Project.TaskData = new TaskData();
         }
 
-        public override bool LoadProjectData(string extFilter)
-        {
-            var resu = base.LoadProjectData(extFilter);
+        //public override bool LoadProjectData(string extFilter)
+        //{
+        //    var resu = base.LoadProjectData(extFilter);
 
-            if (resu)
-            {
-                Project.TaskData.Load($@"{Project.Path}\{Project.Name}");
-                return true;
-            }
-            else return false;
-        }
+        //    if (resu)
+        //    {
+        //        Project.TaskData.Load($@"{Project.Path}\{Project.Name}");
+        //        return true;
+        //    }
+        //    else return false;
+        //}
     }
 }
