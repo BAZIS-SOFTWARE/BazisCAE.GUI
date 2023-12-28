@@ -247,47 +247,55 @@ namespace ResultModule
         }
 
         private void CreateGraph()
-        {       
-            var grPage = new GraphCreationPage() { Dock = DockStyle.Fill };
-            grPage.CreateTimeGraphEvent += (ar1, ar2) =>
+        {
+            try
             {
-                if (NavigatorControl.TreeView.SelectedNode?.Level == 3)
-                    CreateTimeGraph(NavigatorControl.TreeView.SelectedNode.Parent.Parent.Name, ar2.ObjsType);
-                else ConsoleControl.PrintInfo("Выберите результаты для построения графика!", Color.Red);
-            };
-            grPage.CreatePathGraphEvent += (ar1, ar2) =>
-            {
-                if (NavigatorControl.TreeView.SelectedNode?.Level == 3)
-                    CreatePathGraph(NavigatorControl.TreeView.SelectedNode.Parent.Parent.Name, ar2.ObjsType, ar2.Time);
-                else ConsoleControl.PrintInfo("Выберите результаты для построения графика!", Color.Red);
-            };
+                var grPage = new GraphCreationPage() { Dock = DockStyle.Fill };
+                grPage.CreateTimeGraphEvent += (ar1, ar2) =>
+                {
 
-            grPage.SelectObjectsEvent += (ar) => 
-            {
-                ClearAllDataOnScene();
+                    if (NavigatorControl.TreeView.SelectedNode?.Level == 2)
+                        CreateTimeGraph(NavigatorControl.TreeView.SelectedNode.Parent.Parent.Name, ar2.ObjsType);
+                    else ConsoleControl.PrintInfo("Выберите результаты для построения графика!", Color.Red);
+                };
+                grPage.CreatePathGraphEvent += (ar1, ar2) =>
+                {
+                    if (NavigatorControl.TreeView.SelectedNode?.Level == 2)
+                        CreatePathGraph(NavigatorControl.TreeView.SelectedNode.Parent.Parent.Name, ar2.ObjsType, ar2.Time);
+                    else ConsoleControl.PrintInfo("Выберите результаты для построения графика!", Color.Red);
+                };
 
-                foreach (var item in ModelPresenter)
-                    PresentObjectsToScene(item.Key, item.Value);
+                grPage.SelectObjectsEvent += (ar) =>
+                {
+                    ClearAllDataOnScene();
 
-                SelectedObjects = ar;
+                    foreach (var item in ModelPresenter)
+                        PresentObjectsToScene(item.Key, item.Value);
 
-                SceneControl.DisplayObjects();
-            };
+                    SelectedObjects = ar;
 
-            var resKinds = Project.ResultData.GetResultKinds();
-            var resDic = new Dictionary<string, List<float>>();
-            foreach (var resKind in resKinds)
-            {
-                resDic.Add(resKind.ToString(), new List<float>());
-                var resTimes = Project.ResultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
-                resDic[resKind.ToString()] = resTimes;
+                    SceneControl.DisplayObjects();
+                };
+
+                var resKinds = Project.ResultData.GetResultKinds();
+                var resDic = new Dictionary<string, List<float>>();
+                foreach (var resKind in resKinds)
+                {
+                    resDic.Add(resKind.ToString(), new List<float>());
+                    var resTimes = Project.ResultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
+                    resDic[resKind.ToString()] = resTimes;
+                }
+                grPage.SetResultsItems(resDic);
+
+                var icon = ResultModule.Properties.Resources.Graph;
+                var scForm = new Form() { TopMost = true, Text = "Построить график", Icon = icon, Size = grPage.Size };
+                scForm.Controls.Add(grPage);
+                scForm.Show();
             }
-            grPage.SetResultsItems(resDic);
-
-            var icon = ResultModule.Properties.Resources.Graph;
-            var scForm = new Form() { TopMost = true, Text = "Построить график",Icon = icon, Size = grPage.Size };
-            scForm.Controls.Add(grPage);
-            scForm.Show();
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
         private void ShowAnimation()
