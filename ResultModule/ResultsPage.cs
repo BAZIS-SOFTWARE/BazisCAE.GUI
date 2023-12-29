@@ -265,7 +265,7 @@ namespace ResultModule
                     foreach (var item in ModelPresenter)
                         PresentObjectsToScene(item.Key, item.Value);
 
-                    SelectedObjects = ar.ToString();
+                    SelectedObjects = ar;
 
                     SceneControl.DisplayObjects();
                 };
