@@ -48,16 +48,17 @@ namespace BaseModule.ToolStrips
             InitializeComponent();
 
             btnSplitSelector.DropDownItemClicked += SpbtMethod_DropDownItemClicked;
-            btnNodes.Click += (ar1, ar2) => { SelectObjectsType = ObjType.Узел.ToString(); };
-            btnElems.Click += (ar1, ar2) => { SelectObjectsType = ObjType.Элемент.ToString(); };
-            btnObjs.Click += (ar1, ar2) => { SelectObjectsType = ObjType.Объект.ToString(); };
+            btnNodes.Click += (ar1, ar2) => { SelectObjectsType = ObjType.Узел; };
+            btnElems.Click += (ar1, ar2) => { SelectObjectsType = ObjType.Элемент; };
+            btnObjs.Click += (ar1, ar2) => { SelectObjectsType = ObjType.Объект; };
         }
 
         private void SpbtMethod_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             btnSplitSelector.ToolTipText = e.ClickedItem.Text;
 
-            SelectObjectEvent(this, new SelectObjectEventArgs(e.ClickedItem.Text));
+            var objType = GetObjType(e.ClickedItem.Text);
+            SelectObjectEvent(this, new SelectObjectEventArgs(objType));
         }
 
         public int CountObjsTypes()
@@ -65,32 +66,41 @@ namespace BaseModule.ToolStrips
             return btnSplitSelector.DropDownItems.Count;
         }
 
-        public string SelectObjectsType
+        public ObjType SelectObjectsType
         {          
 
-            get { return btnSplitSelector.ToolTipText; }
+            get 
+            {
+                var objType = GetObjType(btnSplitSelector.ToolTipText);
+                return objType; 
+            }
             set
             {
-                if(btnSplitSelector.DropDownItems.ContainsKey(value))
+                if(btnSplitSelector.DropDownItems.ContainsKey(value.ToString()))
                 {
-                    btnSplitSelector.ToolTipText = value;
+                    btnSplitSelector.ToolTipText = value.ToString();
                     Invalidate();
                     SelectObjectEvent(this, new SelectObjectEventArgs(value));
                 }
             }
         }
             
-        public void AddObjectsType(string objsType)
+        public void AddObjectsType(ObjType objsType)
         {
-            if (!btnSplitSelector.DropDownItems.ContainsKey(objsType))
+            if (!btnSplitSelector.DropDownItems.ContainsKey(objsType.ToString()))
             {
-                var newItem = new ToolStripMenuItem(objsType) { Name = objsType };
+                var newItem = new ToolStripMenuItem(objsType.ToString()) { Name = objsType.ToString() };
                 btnSplitSelector.DropDownItems.Add(newItem);
             }
 
         }
 
-
+        public ObjType GetObjType(string objTypeStr)
+        {
+            ObjType objType;
+            Enum.TryParse(objTypeStr, out objType);
+            return objType;
+        }
 
     }
 }

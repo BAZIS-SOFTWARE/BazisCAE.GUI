@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ModelInterfaces;
 
 namespace ResultModule
 {
@@ -15,7 +16,7 @@ namespace ResultModule
         public event Action<object, CreateTimeGraphArgs> CreateTimeGraphEvent;
         public event Action<object, CreatePathGraphEventArgs> CreatePathGraphEvent;
 
-        public event Action<string> SelectObjectsEvent;
+        public event Action<ObjType> SelectObjectsEvent;
 
         public GraphCreationPage()
         {
@@ -38,8 +39,8 @@ namespace ResultModule
         private void btnSelectObjs_Click(object sender, EventArgs e)
         {
             if (rbtNodes.Checked)
-                SelectObjectsEvent("Узлы");
-            else SelectObjectsEvent("Элементы");
+                SelectObjectsEvent(ObjType.Узел);
+            else SelectObjectsEvent(ObjType.Элемент);
         }
 
         private void btnCreatePlot_Click(object sender, EventArgs e)
@@ -48,8 +49,8 @@ namespace ResultModule
             if (rbtTime.Checked)
             {
                 if (rbtNodes.Checked)
-                    CreateTimeGraphEvent(this, new CreateTimeGraphArgs("Узлы"));
-                else CreateTimeGraphEvent(this, new CreateTimeGraphArgs("Элементы"));
+                    CreateTimeGraphEvent(this, new CreateTimeGraphArgs(ObjType.Узел));
+                else CreateTimeGraphEvent(this, new CreateTimeGraphArgs(ObjType.Элемент));
             }
             else
             {
@@ -62,8 +63,8 @@ namespace ResultModule
                     {
                         var time = float.Parse(richTextBox.Lines[lineIndex]);
                         if (rbtNodes.Checked)
-                            CreatePathGraphEvent(this, new CreatePathGraphEventArgs("Узлы", resName, time));
-                        else CreatePathGraphEvent(this, new CreatePathGraphEventArgs("Элементы", resName, time));
+                            CreatePathGraphEvent(this, new CreatePathGraphEventArgs(ObjType.Узел, resName, time));
+                        else CreatePathGraphEvent(this, new CreatePathGraphEventArgs(ObjType.Элемент, resName, time));
                     }
                 }
 

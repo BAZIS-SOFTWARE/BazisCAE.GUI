@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ModelInterfaces;
+using System;
 
 namespace ResultModule
 {
     public class CreateTimeGraphArgs : EventArgs
     {
-        public CreateTimeGraphArgs(string objsType)
+        public CreateTimeGraphArgs(ObjType objsType)
         {
             ObjsType = objsType;
 
         }
-        public string ObjsType { get; }
+        public ObjType ObjsType { get; }
     }
 }

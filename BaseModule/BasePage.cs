@@ -53,7 +53,7 @@ namespace BaseModule
         public Color SelectionGroupColor { get; set; }
 
 
-        public string SelectedObjects 
+        public ObjType SelectedObjects 
         {
             get { return selectToolStrip.SelectObjectsType; }
             set { selectToolStrip.SelectObjectsType = value; }
@@ -567,17 +567,17 @@ namespace BaseModule
 
         public void PresentModelOnSelectToolStrip()
         {
-            selectToolStrip.AddObjectsType(ObjType.Объект.ToString());
-            selectToolStrip.AddObjectsType(ObjType.Точка.ToString());
-            selectToolStrip.AddObjectsType(ObjType.Линия.ToString());
-            selectToolStrip.AddObjectsType(ObjType.Фигура.ToString());
-            selectToolStrip.AddObjectsType(ObjType.Фигура2D.ToString());
-            selectToolStrip.AddObjectsType(ObjType.Фигура3D.ToString());
-            selectToolStrip.AddObjectsType(ObjType.Узел.ToString());
-            selectToolStrip.AddObjectsType(ObjType.Элемент.ToString());
-            selectToolStrip.AddObjectsType(ObjType.Элемент1D.ToString());
-            selectToolStrip.AddObjectsType(ObjType.Элемент2D.ToString());
-            selectToolStrip.AddObjectsType(ObjType.Элемент3D.ToString());
+            selectToolStrip.AddObjectsType(ObjType.Объект);
+            selectToolStrip.AddObjectsType(ObjType.Точка);
+            selectToolStrip.AddObjectsType(ObjType.Линия);
+            selectToolStrip.AddObjectsType(ObjType.Фигура);
+            selectToolStrip.AddObjectsType(ObjType.Фигура2D);
+            selectToolStrip.AddObjectsType(ObjType.Фигура3D);
+            selectToolStrip.AddObjectsType(ObjType.Узел);
+            selectToolStrip.AddObjectsType(ObjType.Элемент);
+            selectToolStrip.AddObjectsType(ObjType.Элемент1D);
+            selectToolStrip.AddObjectsType(ObjType.Элемент2D);
+            selectToolStrip.AddObjectsType(ObjType.Элемент3D);
         }
 
         public virtual void PresentProjectOnTree()
@@ -645,12 +645,12 @@ namespace BaseModule
                         selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
                         selectionControl.SelectNodes += (s1, s2) =>
                         {
-                            selectStrip.SelectObjectsType = "Узлы";
+                            selectStrip.SelectObjectsType = ObjType.Узел;
                             lblInputCmd.Text = "Выберите два узла для направления или три для плоскости";
                         };
                         selectionControl.SelectElements += (s1, s2) =>
                         {
-                            selectStrip.SelectObjectsType = "Элементы2D";
+                            selectStrip.SelectObjectsType = ObjType.Элемент2D;
                             lblInputCmd.Text = "Выберите плоский элемент \"2D\"";
                         };
 
@@ -679,11 +679,9 @@ namespace BaseModule
             {
                 var selectHelper = new SelectionHelper(Project.ModelData.ObjectData);
 
-                var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
+                var objs = Project.ModelData.ObjectData.GetObjects(arg2.ObjsType).Where(x => x.MasterColor == sceneControl.SelectionColor).ToList();
 
-                var objs = objsPresenter.Where(x => x.MasterColor == sceneControl.SelectionColor).ToList();
-
-                if (selectToolStrip.SelectObjectsType == "Узлы")
+                if (arg2.ObjsType == ObjType.Узел)
                 {
                     if (objs.Count > 2)
                     {
@@ -704,9 +702,7 @@ namespace BaseModule
                     }
                 }
 
-                var vboObjs = sceneControl.FindVBObj(selectToolStrip.SelectObjectsType);
-                var colors = objsPresenter.CreateVertexes(vboObjs.ColorLength, "цвет");
-                vboObjs.PointsColors = colors;
+                SetNewSceneColor(arg2.ObjsType.ToString());
 
                 sceneControl.DisplayObjects();
 
@@ -724,21 +720,19 @@ namespace BaseModule
             {
                 var selectHelper = new SelectionHelper(Project.ModelData.ObjectData);
 
-                var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
-                var objs = objsPresenter.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
-                if (objs.Length > 1)
+                var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
+                var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
+                if (selObjs.Length > 1)
                 {
                     if (!arg2.Reverse)
                     {
-                        selectHelper.SelectInDirection<Element3D>(arg2.Angle, objs[objs.Length - 2].Number, objs[objs.Length - 1].Number, sceneControl.SelectionColor);
+                        selectHelper.SelectInDirection<Element3D>(arg2.Angle, selObjs[selObjs.Length - 2].Number, selObjs[selObjs.Length - 1].Number, sceneControl.SelectionColor);
                     }
                     else
                     {
-                        selectHelper.SelectInDirection<Element3D>(arg2.Angle, objs[objs.Length - 1].Number, objs[objs.Length - 2].Number, sceneControl.SelectionColor);
+                        selectHelper.SelectInDirection<Element3D>(arg2.Angle, selObjs[selObjs.Length - 1].Number, selObjs[selObjs.Length - 2].Number, sceneControl.SelectionColor);
                     }
-                    var vboObjs = sceneControl.FindVBObj(selectToolStrip.SelectObjectsType);
-                    var colors = objsPresenter.CreateVertexes(vboObjs.ColorLength, "цвет");
-                    vboObjs.PointsColors = colors;
+                    SetNewSceneColor(selectToolStrip.SelectObjectsType.ToString());
 
                     sceneControl.DisplayObjects();
                 }
@@ -788,7 +782,7 @@ namespace BaseModule
                         sceneControl.DisplayObjects();
                     };
 
-                    crossSection.SelectNodesEvent += () => { selectToolStrip.SelectObjectsType = "Узлы"; };
+                    crossSection.SelectNodesEvent += () => { selectToolStrip.SelectObjectsType = ObjType.Узел; };
 
                     crossSection.CreateCrossFromTextArgs += (ar1,ar2) =>
                     {
@@ -809,17 +803,17 @@ namespace BaseModule
                     {
                         try
                         {
-                            var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
-                            var objs = objsPresenter.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
-                            if (objs.Length < 3)
+                            var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
+                            var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
+                            if (selObjs.Length < 3)
                             {
                                 consoleControl.PrintInfo("Ошибка, выбрано неверное количество узлов", Color.Red);
                                 return;
                             }
 
-                            var p0 = objs[0];
-                            var p1 = objs[1];
-                            var p2 = objs[2];
+                            var p0 = selObjs[0];
+                            var p1 = selObjs[1];
+                            var p2 = selObjs[2];
 
                             var elems3D = Project.ModelData.ObjectData.FindMany<Element3D>().ToList();
 
@@ -910,12 +904,12 @@ namespace BaseModule
                 {
                     case MeasureKind.DistanceNodeToNode:
                         {
-                            var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
-                            var objs = objsPresenter.Where(x => x.MasterColor == sceneControl.SelectionColor).ToList();
+                            var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
+                            var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToList();
 
-                            if (objs.Count() > 1)
+                            if (selObjs.Count() > 1)
                             {
-                                var nodes = objs.Select(x => (Node)x);
+                                var nodes = selObjs.Select(x => (Node)x);
                                 var p0 = nodes.First();
                                 var p1 = nodes.Last();
                                 var line = new Segment3D(p0.Position, p1.Position);
@@ -934,13 +928,12 @@ namespace BaseModule
                             var plane = CreateSurfaceAsync();
                             await plane;
 
-                            var nodesPresentor = ModelPresenter["Узлы"];
-                            foreach (var _node in nodesPresentor)
+                            var nodes = Project.ModelData.ObjectData.GetObjects(ObjType.Узел);
+                            foreach (var _node in nodes)
                                 _node.SetBackColor();
 
-                            var vboObjs = sceneControl.FindVBObj("Узлы");
-                            var colors = nodesPresentor.CreateVertexes(vboObjs.ColorLength, "цвет");
-                            vboObjs.PointsColors = colors;
+                            SetNewSceneColor(ObjType.Узел.ToString());
+
                             sceneControl.DisplayObjects();
 
                             var node = SelectNodeAsync();
@@ -958,11 +951,11 @@ namespace BaseModule
                         {
                             var square = 0.0f;
 
-                            var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
+                            var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
 
-                            var objs = objsPresenter.Where(x => x.MasterColor == sceneControl.SelectionColor);
+                            var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor);
 
-                            foreach (var obj in objs)
+                            foreach (var obj in selObjs)
                             {
                                 var sObj = (ISquare)obj;
                                 square += sObj.CalcSquare();
@@ -975,11 +968,11 @@ namespace BaseModule
                         {
                             var vol = 0.0f;
 
-                            var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
+                            var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
 
-                            var objs = objsPresenter.Where(x => x.MasterColor == sceneControl.SelectionColor);
+                            var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor);
 
-                            foreach (var obj in objs)
+                            foreach (var obj in selObjs)
                             {
                                 var e3DObj = (IElement3D)obj;
                                 vol += e3DObj.CalcVolume();
@@ -1013,11 +1006,11 @@ namespace BaseModule
 
             var actPointConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
+                var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
                 
-                var objs = objsPresenter.Where(x => x.MasterColor == sceneControl.SelectionColor);
+                var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor);
 
-                if (objs.Count() == 0)
+                if (selObjs.Count() == 0)
                 {
                     Invoke(new Action(() =>
                     {
@@ -1027,7 +1020,7 @@ namespace BaseModule
                 }
                 else
                 {
-                    var node = (Node)objs.First();
+                    var node = (Node)selObjs.First();
                     Invoke(new Action(() =>
                     {
                         ConsoleControl.PrintInfo($"Выбран узел {node.Number}", Color.Green);
@@ -1055,8 +1048,8 @@ namespace BaseModule
             var message = "Задайте поверхность, выбрав три узла, и нажмите на кнопку Enter или нажмите кнопку ESC";
             var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
-                var selObjs = objsPresenter.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
+                var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
+                var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
 
                 if (selObjs.Length < 3)
                 {
@@ -1095,22 +1088,22 @@ namespace BaseModule
             switch (arg2.Kind)
             {
                 case MeasureKind.DistanceNodeToNode:
-                    selectToolStrip.SelectObjectsType = ObjType.Узел.ToString();
+                    selectToolStrip.SelectObjectsType = ObjType.Узел;
                     lblInputCmd.Text = "Выберите два узла";
                     break;
                 case MeasureKind.DistanceNodeToPlane:
                     lblInputCmd.Text = "Создайте поверхность и выберите узел";
                     break;
                 case MeasureKind.Path:
-                    selectToolStrip.SelectObjectsType = ObjType.Узел.ToString();
+                    selectToolStrip.SelectObjectsType = ObjType.Узел;
                     lblInputCmd.Text = "Выберите узлы";
                     break;
                 case MeasureKind.Square:
-                    selectToolStrip.SelectObjectsType = ObjType.Элемент2D.ToString();
+                    selectToolStrip.SelectObjectsType = ObjType.Элемент2D;
                     lblInputCmd.Text = "Выберите элементы 2D или поверхности";
                     break;
                 case MeasureKind.Volume:
-                    selectToolStrip.SelectObjectsType = ObjType.Элемент3D.ToString();
+                    selectToolStrip.SelectObjectsType = ObjType.Элемент3D;
                     lblInputCmd.Text = "Выберите элементы 3D";
                     break;
                 default:
@@ -1348,22 +1341,21 @@ namespace BaseModule
 
         public virtual void sceneControl_CreateMeshGroupEvent(object sender, EventArgs arg)
         {
-            var objType = GetObjType(selectToolStrip.SelectObjectsType);
-
-            if(objType == ObjType.Объект | 
-                objType == ObjType.Фигура |
-                objType == ObjType.Элемент)
+            if(selectToolStrip.SelectObjectsType == ObjType.Объект |
+                selectToolStrip.SelectObjectsType == ObjType.Фигура |
+                selectToolStrip.SelectObjectsType == ObjType.Элемент)
             {
                 consoleControl.PrintInfo("Выберите объекты одного типа", Color.Red);
                 return;
             }
 
-            var selObjs = Project.ModelData.ObjectData.GetObjects(objType).Where(x => x.MasterColor == sceneControl.SelectionColor);
+            var selObjs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType).
+                Where(x => x.MasterColor == sceneControl.SelectionColor);
 
             if (selObjs.Count() > 0)
             {
                 var name = $"{selectToolStrip.SelectObjectsType}_{Project.ModelData.GroupData.Count + 1}";
-                var group = new Group(name, objType);
+                var group = new Group(name, selectToolStrip.SelectObjectsType);
 
                 group.AddRange(selObjs);
                 Project.ModelData.GroupData.Add(group);
@@ -1375,7 +1367,7 @@ namespace BaseModule
                 foreach (var selObj in selObjs)
                     selObj.SetBackColor();
 
-                SetNewSceneColor(objType.ToString());
+                SetNewSceneColor(selectToolStrip.SelectObjectsType.ToString());
 
                 sceneControl.DisplayObjects();
 
@@ -1385,9 +1377,8 @@ namespace BaseModule
 
         public virtual void sceneControl_DeleteSelectionEvent(object sender, EventArgs arg)
         {
-            var objType = GetObjType(selectToolStrip.SelectObjectsType);
-
-            var selObjs = Project.ModelData.ObjectData.GetObjects(objType).Where(x => x.MasterColor == sceneControl.SelectionColor);
+            var selObjs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType).
+                Where(x => x.MasterColor == sceneControl.SelectionColor);
 
             foreach (var selObj in selObjs)
                 selObj.ExistState = false;
@@ -1410,8 +1401,8 @@ namespace BaseModule
         {
             try
             {
-                var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
-                var selObjs = objsPresenter.Where(x => x.MasterColor == sceneControl.SelectionColor);
+                var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
+                var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor);
 
                 consoleControl.PrintInfo($"Выбраны {selectToolStrip.SelectObjectsType} {selObjs.Count()}", Color.Black);
 
@@ -1431,31 +1422,29 @@ namespace BaseModule
 
         private void sceneControl_SelectObjectsEvent(object arg1, SelectObjectsEventArgs arg2)
         {
-            var objType = GetObjType(selectToolStrip.SelectObjectsType);
-
-            var selections = SearchObjects(objType, arg2.SelectionBox);
+            var selections = SearchObjects(selectToolStrip.SelectObjectsType, arg2.SelectionBox);
 
             SelectObjects(arg2.IsSelected, arg2.IsSorted, selections);
 
-            if (objType == ObjType.Объект)
+            if (selectToolStrip.SelectObjectsType == ObjType.Объект)
             {
                 var types = Project.ModelData.ObjectData.GetTypes;
                 foreach (var type in types)
                     SetNewSceneColor(type.ToString());
             }
-            else if(objType == ObjType.Элемент)
+            else if(selectToolStrip.SelectObjectsType == ObjType.Элемент)
             {
                 SetNewSceneColor(ObjType.Элемент1D.ToString());
                 SetNewSceneColor(ObjType.Элемент2D.ToString());
                 SetNewSceneColor(ObjType.Элемент3D.ToString());
             }
-            else if (objType == ObjType.Фигура)
+            else if (selectToolStrip.SelectObjectsType == ObjType.Фигура)
             {
                 SetNewSceneColor(ObjType.Фигура2D.ToString());
                 SetNewSceneColor(ObjType.Фигура3D.ToString());
             }
             else 
-                SetNewSceneColor(objType.ToString());
+                SetNewSceneColor(selectToolStrip.SelectObjectsType.ToString());
             
             sceneControl.DisplayObjects();
         }
@@ -1503,33 +1492,31 @@ namespace BaseModule
 
         private void sceneControl_HideSelectedObjectsEvent(object sender, EventArgs arg)
         {
-            var objType = GetObjType(selectToolStrip.SelectObjectsType);
-
-            var selObjs = Project.ModelData.ObjectData.GetObjects(objType).
+            var selObjs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType).
                 Where(x => x.MasterColor == sceneControl.SelectionColor);
 
             foreach (var selObj in selObjs)
                 selObj.ViewState = false;
 
-            if (objType == ObjType.Объект)
+            if (selectToolStrip.SelectObjectsType == ObjType.Объект)
             {
                 var types = Project.ModelData.ObjectData.GetTypes;
                 foreach (var type in types)
                     RepresentObjectsOnScene(type.ToString());
             }
-            else if (objType == ObjType.Элемент)
+            else if (selectToolStrip.SelectObjectsType == ObjType.Элемент)
             {
                 RepresentObjectsOnScene(ObjType.Элемент1D.ToString());
                 RepresentObjectsOnScene(ObjType.Элемент2D.ToString());
                 RepresentObjectsOnScene(ObjType.Элемент3D.ToString());
             }
-            else if (objType == ObjType.Фигура)
+            else if (selectToolStrip.SelectObjectsType == ObjType.Фигура)
             {
                 RepresentObjectsOnScene(ObjType.Фигура2D.ToString());
                 RepresentObjectsOnScene(ObjType.Фигура3D.ToString());
             }
             else
-                RepresentObjectsOnScene(objType.ToString());
+                RepresentObjectsOnScene(selectToolStrip.SelectObjectsType.ToString());
 
             sceneControl.DisplayObjects();
         }
@@ -1782,7 +1769,7 @@ namespace BaseModule
 
         private void navigator_DelObjectsEvent(string objs)
         {
-            var objType = GetObjType(objs);
+            var objType = selectToolStrip.GetObjType(objs);
  
             Project.ModelData.Remove(objType);
             Project.TaskData?.ClearNotExisted(Project.ModelData.GroupData);
@@ -1797,17 +1784,10 @@ namespace BaseModule
 
         }
 
-        public ObjType GetObjType(string objTypeStr)
-        {
-            ObjType objType;
-            Enum.TryParse(objTypeStr, out objType);
-            return objType;
-        }
-
         private async void navigator_EditGroupEvent(int obj)
         {
             var group = Project.ModelData.GroupData[obj];
-            selectToolStrip.SelectObjectsType = group.ObjType.ToString();
+            selectToolStrip.SelectObjectsType = group.ObjType;
 
 
             //SelectToolStrip.SelectObjectsType = group.ObjType;
@@ -1815,7 +1795,7 @@ namespace BaseModule
             foreach (var iobj in group)
                 iobj.MasterColor = sceneControl.SelectionColor;
 
-            SetNewSceneColor(selectToolStrip.SelectObjectsType);
+            SetNewSceneColor(selectToolStrip.SelectObjectsType.ToString());
 
             //var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
             //var vboObjs = sceneControl.FindVBObj(selectToolStrip.SelectObjectsType);
@@ -1826,8 +1806,8 @@ namespace BaseModule
 
             var actConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
-                if (objsPresenter.Where(x => x.MasterColor == sceneControl.SelectionColor).Count() == 0)
+                var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
+                if (objs.Where(x => x.MasterColor == sceneControl.SelectionColor).Count() == 0)
                 {
                     Invoke(new Action(() => {
                         ConsoleControl.PrintInfo("Не выбран ни один объект!", Color.Black);
@@ -1837,7 +1817,7 @@ namespace BaseModule
                 else
                 {
                     group.Clear();
-                    var objs = objsPresenter.Where(x => x.MasterColor == sceneControl.SelectionColor); ;
+          
                     group.AddRange(objs);
     
                     Invoke(new Action(() => {

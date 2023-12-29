@@ -1,13 +1,14 @@
-﻿using System;
+﻿using ModelInterfaces;
+using System;
 
 namespace BaseModule
 {
     public class SelectInPlainEventArgs : EventArgs
     {
-        public string ObjsType { get; }
+        public ObjType ObjsType { get; }
         public float Angle { get; }
 
-        public SelectInPlainEventArgs(string objsType, float angle)
+        public SelectInPlainEventArgs(ObjType objsType, float angle)
         {
             ObjsType = objsType;
             Angle = angle;

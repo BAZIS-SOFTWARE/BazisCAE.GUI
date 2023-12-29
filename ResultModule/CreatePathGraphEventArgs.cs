@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ModelInterfaces;
+using System;
 
 namespace ResultModule
 {
     public class CreatePathGraphEventArgs : EventArgs
     {
-        public CreatePathGraphEventArgs(string objsType, string resName, float time )
+        public CreatePathGraphEventArgs(ObjType objsType, string resName, float time )
         {
             var descr = resName.Split('_');
             ResultKind = descr[0];
@@ -14,7 +15,7 @@ namespace ResultModule
         }
 
         public string ResultKind { get; }
-        public string ObjsType { get; }
+        public ObjType ObjsType { get; }
         public float Time { get; private set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BaseModule.Console;
 using BaseModule.ToolStrips;
+using ModelInterfaces;
 
 namespace BaseModule
 {
@@ -301,7 +302,7 @@ namespace BaseModule
             this.selectToolStrip.Name = "selectToolStrip";
             this.selectToolStrip.NodeImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.NodeImage")));
             this.selectToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.selectToolStrip.SelectObjectsType = "Выберите объект";
+            this.selectToolStrip.SelectObjectsType = ObjType.Объект;
             this.selectToolStrip.Size = new System.Drawing.Size(311, 53);
             this.selectToolStrip.TabIndex = 0;
             this.selectToolStrip.Text = "Выбор";

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using ModelInterfaces;
+using System;
 
 namespace BaseModule.ToolStrips
 {
     public class SelectObjectEventArgs : EventArgs
     {
-        public string ObjsType {get;}
-        public SelectObjectEventArgs(string objsType)
+        public ObjType ObjsType {get;}
+        public SelectObjectEventArgs(ObjType objsType)
         {
             ObjsType = objsType;
         }
