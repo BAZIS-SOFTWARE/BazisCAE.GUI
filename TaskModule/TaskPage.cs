@@ -775,7 +775,7 @@ namespace TaskModule
                 var confirm = false;
                 var breaker = false;
 
-                SelectedObjects = "Узлы";
+                SelectedObjects = ObjType.Узел;
 
                 var func = taskParamsCalculator.SetDirection(taskStr);
 

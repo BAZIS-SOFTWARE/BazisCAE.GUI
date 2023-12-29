@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ModelInterfaces;
 
 namespace BaseModule
 {
@@ -25,12 +26,12 @@ namespace BaseModule
         private void btnSelect_Click(object sender, EventArgs e)
         {
             if (rbtInDirection.Checked)
-                SelectInDirection(this, new SelectInDirectionEventArgs("Узлы", chbChangeDirection.Checked, float.Parse(txbAngle.Text)));
+                SelectInDirection(this, new SelectInDirectionEventArgs(ObjType.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text)));
             else if (rbtInPlain.Checked)
                 if (rbtNodes.Checked)
-                    SelectInPlain(this, new SelectInPlainEventArgs("Узлы", float.Parse(txbAngle.Text)));
+                    SelectInPlain(this, new SelectInPlainEventArgs(ObjType.Узел, float.Parse(txbAngle.Text)));
                 else
-                    SelectInPlain(this, new SelectInPlainEventArgs("Элементы", float.Parse(txbAngle.Text)));
+                    SelectInPlain(this, new SelectInPlainEventArgs(ObjType.Элемент, float.Parse(txbAngle.Text)));
         }
 
         private void rbtNodes_Click(object sender, EventArgs e)

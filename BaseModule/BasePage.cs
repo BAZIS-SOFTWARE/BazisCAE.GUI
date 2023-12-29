@@ -349,19 +349,12 @@ namespace BaseModule
 
         public void SetBackColorToAllObjects()
         {
-            foreach (var presentor in ModelPresenter)
+            foreach (var objs in Project.ModelData.ObjectData)
             {
-                foreach (var modelObject in presentor.Value)
+                foreach (var modelObject in objs.Value)
                     modelObject.SetBackColor();
 
-                var vboObjs = sceneControl.FindVBObj(presentor.Key);
-
-                if(vboObjs != null)
-                {
-                    var colors = presentor.Value.CreateVertexes(vboObjs.ColorLength, "цвет");
-                    vboObjs.PointsColors = colors;
-                }
-
+                SetNewSceneColor(objs.Key.ToString());
             }
         }
 
@@ -1406,8 +1399,8 @@ namespace BaseModule
 
                 consoleControl.PrintInfo($"Выбраны {selectToolStrip.SelectObjectsType} {selObjs.Count()}", Color.Black);
 
-                var numbers = string.Join(" ", selObjs.Select(x => x.Number).ToArray());
-                consoleControl.PrintInfo("Номера : " + numbers, Color.Black);
+                var numbers = string.Join("\n", selObjs.Select(x => x.ToString()).ToArray());
+                consoleControl.PrintInfo(numbers, Color.Black);
             }
             catch (Exception ex)
             {
