@@ -46,13 +46,21 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         [Description("Set path for computation")]
 
         public string ProjPath { get; set; }
-        public string InputDataPath { get 
+        public string InputDataPath 
+        { 
+            get 
             {
-                var path = $@"{ProjPath}\InputData";
-                if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
-                return path;}
+                var inputDataPath = $@"{ProjPath}/InputData";
+                if (!Directory.Exists(inputDataPath))
+                    Directory.CreateDirectory(inputDataPath);
+                return inputDataPath;
             }
+        }
+
+        private void EnsureInputDataDirCreated()
+        {
+            
+        }
 
         public event Action<object, EventArgs> AddDataUseTaskConditionsEvent;
         public event Action<object, EventArgs> StartComputationEvent;
@@ -261,6 +269,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 var setting = dataGridView[(int)Column.settings, CurentSelectedRowIndex].Value.ToString();
                 var taskInd = int.Parse(Path.GetFileName(setting).Split('_')[1]);
 
+                EnsureInputDataDirCreated();
                 GenerateTsfFile(taskKind, taskInd, InputDataPath);
                 //CurentSelectedRowInfo = AddRowInfo(taskKind, taskStatus, CurentSelectedRowIndex);
                 //base.RefreshButton_Click(sender, e);
@@ -338,8 +347,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         {
             try
             {
+                EnsureInputDataDirCreated();
                 if (chbAddByTaskConditions.Checked)
+                {
+                    DeleteAllTsfFilesFromInputDataDir();
                     AddDataUseTaskConditionsEvent?.Invoke(this, new EventArgs());
+                }
                 else
                 {
                     var isTsfFileCreated = false;
@@ -394,17 +407,17 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         public override void ClearAllDataButton_Click(object sender, EventArgs e)
         {
-            DeleteAllTsfFilesFromDisc();
+            DeleteAllTsfFilesFromInputDataDir();
 
             dataGridView.Rows.Clear();
             //base.ClearAllDataButton_Click(sender, e);
         }
 
-        private void DeleteAllTsfFilesFromDisc()
+        private void DeleteAllTsfFilesFromInputDataDir()
         {
             try
             {
-                foreach (var file in Directory.GetFiles(ProjPath))
+                foreach (var file in Directory.GetFiles(InputDataPath))
                 {
                     if (Regex.IsMatch(file, @"(\w*)(\.tsf)"))
                         File.Delete(file);

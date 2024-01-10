@@ -111,17 +111,14 @@ namespace TaskModule.BasicTaskAdvisor
             }
         }
 
-        public void SetTaskPlannerlData(string path, List<string> cmdFiles)
+        public void SetTaskPlannerlData(List<string> cmdFiles)
         {
             foreach (TabPage tabPage in tabControl.Controls)
             {
                 foreach (Control control in tabPage.Controls)
                 {
                     if (control is TaskPlannerControl taskPlannerControl)
-                    {
-                        taskPlannerControl.ProjPath = path;
                         taskPlannerControl.Set_DataGridLines(cmdFiles);
-                    }
 
                 }
             }
