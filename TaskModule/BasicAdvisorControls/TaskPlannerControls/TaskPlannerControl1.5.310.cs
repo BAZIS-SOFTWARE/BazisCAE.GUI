@@ -50,16 +50,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         { 
             get 
             {
-                var inputDataPath = $@"{ProjPath}/InputData";
+                var inputDataPath = $@"{Path.GetFullPath(ProjPath)}/InputData";
                 if (!Directory.Exists(inputDataPath))
                     Directory.CreateDirectory(inputDataPath);
                 return inputDataPath;
             }
-        }
-
-        private void EnsureInputDataDirCreated()
-        {
-            
         }
 
         public event Action<object, EventArgs> AddDataUseTaskConditionsEvent;
@@ -269,7 +264,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 var setting = dataGridView[(int)Column.settings, CurentSelectedRowIndex].Value.ToString();
                 var taskInd = int.Parse(Path.GetFileName(setting).Split('_')[1]);
 
-                EnsureInputDataDirCreated();
                 GenerateTsfFile(taskKind, taskInd, InputDataPath);
                 //CurentSelectedRowInfo = AddRowInfo(taskKind, taskStatus, CurentSelectedRowIndex);
                 //base.RefreshButton_Click(sender, e);
@@ -326,9 +320,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 else
                     tsfStr = JsonConvert.SerializeObject(parameters, settingsSerializer);
 
-
-
-
                 var tsfFileName = $"{taskKind}_{taskIndex}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
 
                 File.WriteAllText($@"{path}\{tsfFileName}", tsfStr);
@@ -347,7 +338,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         {
             try
             {
-                EnsureInputDataDirCreated();
                 if (chbAddByTaskConditions.Checked)
                 {
                     DeleteAllTsfFilesFromInputDataDir();
