@@ -177,7 +177,7 @@ namespace BaseModule
             this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
             this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
             this.navigator.ShowObjectsEvent += new System.Action<string>(this.navigator_ShowObjectsEvent);
-            this.navigator.ChangeObjectsViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeViewModeEvent);
+            this.navigator.ChangeObjectsViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeViewModeEventHandler);
             this.navigator.HideObjectsEvent += new System.Action<string>(this.navigator_HideObjectsEvent);
             this.navigator.DelObjectsEvent += new System.Action<string>(this.navigator_DelObjectsEvent);
             // 

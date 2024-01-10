@@ -565,8 +565,6 @@ namespace TaskModule
                 if (data[index].MovedFrameFunction != null)
                     DisplayMRF(data[index].StartTime, data[index]);
 
-                var presentor = ModelPresenter[group.ObjType.ToString()];
-
                 foreach (var iobj in group)
                 {                   
                     if (data[index].Kind == DataKind.Mat)
@@ -582,9 +580,7 @@ namespace TaskModule
                         DisplayDirection(data[index].StartTime, data[index], iobj);
                 }
 
-                var vboObjs = SceneControl.FindVBObj(group.ObjType.ToString());
-                var colors = presentor.CreateVertexes(vboObjs.ColorLength, "цвет");
-                vboObjs.PointsColors = colors;
+                SetNewSceneColor(group.ObjType.ToString());
 
                 //SetVBObjColor(group.ObjType);
 
@@ -685,7 +681,6 @@ namespace TaskModule
                         DisplayMRF(arg2.Time, data);
 
                     var group = data.Group;
-                    var presentor = ModelPresenter[group.ObjType.ToString()];
 
                     foreach (var iobj in group)
                     {
@@ -702,9 +697,8 @@ namespace TaskModule
                         if (data.Direction != "*")
                             DisplayDirection(arg2.Time, data, iobj);
                     }
-                    var vboObjs = SceneControl.FindVBObj(group.ObjType.ToString());
-                    var colors = presentor.CreateVertexes(vboObjs.ColorLength, "цвет");
-                    vboObjs.PointsColors = colors;
+
+                    SetNewSceneColor(group.ObjType.ToString());
 
                     SceneControl.DisplayObjects();
                 }

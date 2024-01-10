@@ -335,7 +335,12 @@ namespace BaseModule
 
             if (presenter.PresenterType == PresenterType.Surface)
             {
-                sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName);
+                if(presenter.PresenterView == PresenterView.Line)
+                sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.Lines);
+                else if (presenter.PresenterView == PresenterView.LineSurface)
+                    sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.LinesSurface);
+                else
+                    sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.Surface);
             }
 
             else if (presenter.PresenterType == PresenterType.Line)
@@ -456,10 +461,7 @@ namespace BaseModule
 
                 ChangeProjectDataEvent?.Invoke();
 
-                ModelPresenter = new ModelScenePresentator(Project.ModelData.ObjectData);
-
                 PresentProjectOnTree();
-                PresentModelOnSelectToolStrip();
 
                 SceneInitialization();
 
@@ -531,19 +533,6 @@ namespace BaseModule
 
             if (oldFolder != Project.Path)
             {
-                var oldfilePath = string.Empty;
-                var newfilePath = string.Empty;
-
-                //var compData = Project.TaskData.Find("Расчет");
-                //foreach (ICompData data in compData)
-                //{
-                //    oldfilePath = $@"{oldFolder}\{data.FileParameters}";
-                //    newfilePath = $@"{Project.Path}\{data.FileParameters}";
-
-                //    File.Create(newfilePath).Close();
-                //    File.Copy(oldfilePath, newfilePath, true);
-                //}
-
                 CopyFile(Project.Materials, oldFolder, Project.Path);
                 CopyFile(Project.Functions, oldFolder, Project.Path);
             }
@@ -876,7 +865,7 @@ namespace BaseModule
             var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
             var edges = presenter.CreateEdgeFlags(inds.Item4);
 
-            sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors,normals, edges, "crossSection");
+            sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors,normals, edges, "crossSection", ObjView.LinesSurface);
             sceneControl.DisplayObjects();
         }
 
@@ -1376,15 +1365,15 @@ namespace BaseModule
             foreach (var selObj in selObjs)
                 selObj.ExistState = false;
 
-            var types = Project.ModelData.ObjectData.GetTypes;
-            foreach (var type in types)
-                RepresentObjectsOnScene(type.ToString());
-
-            Project.ModelData.ObjectData.ClearNotExisted();
-            Project.ModelData.GroupData.ClearNotExisted();
+            Project.ModelData.ClearNotExisted();
             Project.TaskData?.ClearNotExisted(Project.ModelData.GroupData);
+            ModelPresenter.ClearNotExisted();
 
-            ModelPresenter = new ModelScenePresentator(Project.ModelData.ObjectData);            
+            sceneControl.DeleteAllVBObjects();
+
+            foreach (var item in ModelPresenter)
+                PresentObjectsToScene(item.Key, item.Value);
+
             sceneControl.DisplayObjects();
 
             PresentProjectOnTree();
@@ -1442,7 +1431,7 @@ namespace BaseModule
             sceneControl.DisplayObjects();
         }
 
-        private void SetNewSceneColor(string objsType)
+        public void SetNewSceneColor(string objsType)
         {
             var vboObjs = sceneControl.FindVBObj(objsType);
             if (vboObjs != null & ModelPresenter.ContainsKey(objsType))
@@ -1493,39 +1482,35 @@ namespace BaseModule
 
             if (selectToolStrip.SelectObjectsType == ObjType.Объект)
             {
-                var types = Project.ModelData.ObjectData.GetTypes;
-                foreach (var type in types)
-                    RepresentObjectsOnScene(type.ToString());
+                sceneControl.DeleteAllVBObjects();
+                foreach (var item in ModelPresenter)
+                    PresentObjectsToScene(item.Key, item.Value);
             }
             else if (selectToolStrip.SelectObjectsType == ObjType.Элемент)
             {
-                RepresentObjectsOnScene(ObjType.Элемент1D.ToString());
-                RepresentObjectsOnScene(ObjType.Элемент2D.ToString());
-                RepresentObjectsOnScene(ObjType.Элемент3D.ToString());
+                sceneControl.DeleteVBObjects(ObjType.Элемент1D.ToString());
+                PresentObjectsToScene(ObjType.Элемент1D.ToString(), ModelPresenter[ObjType.Элемент1D.ToString()]);
+                sceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
+                PresentObjectsToScene(ObjType.Элемент2D.ToString(), ModelPresenter[ObjType.Элемент2D.ToString()]);
+                sceneControl.DeleteVBObjects(ObjType.Элемент3D.ToString());
+                PresentObjectsToScene(ObjType.Элемент3D.ToString(), ModelPresenter[ObjType.Элемент3D.ToString()]);
             }
             else if (selectToolStrip.SelectObjectsType == ObjType.Фигура)
             {
-                RepresentObjectsOnScene(ObjType.Фигура2D.ToString());
-                RepresentObjectsOnScene(ObjType.Фигура3D.ToString());
+                sceneControl.DeleteVBObjects(ObjType.Фигура2D.ToString());
+                PresentObjectsToScene(ObjType.Фигура2D.ToString(), ModelPresenter[ObjType.Фигура2D.ToString()]);
+                sceneControl.DeleteVBObjects(ObjType.Фигура3D.ToString());
+                PresentObjectsToScene(ObjType.Фигура3D.ToString(), ModelPresenter[ObjType.Фигура3D.ToString()]);
             }
             else
-                RepresentObjectsOnScene(selectToolStrip.SelectObjectsType.ToString());
+            {
+                var strObjType = selectToolStrip.SelectObjectsType.ToString();
+                sceneControl.DeleteVBObjects(strObjType);
+                PresentObjectsToScene(strObjType, ModelPresenter[strObjType]);
+            }
+
 
             sceneControl.DisplayObjects();
-        }
-
-        private void RepresentObjectsOnScene(string typeStr)
-        {
-            var vbObj = sceneControl.FindVBObj(typeStr);
-            if (vbObj != null)
-            {
-                var viewMode = vbObj.ViewMode;
-                sceneControl.DeleteVBObjects(typeStr);
-
-                var presenter = ModelPresenter[typeStr];
-                PresentObjectsToScene(typeStr, presenter);
-                sceneControl.ChangeViewModeVBObjects(typeStr, viewMode);
-            }
         }
 
         private void sceneControl_SetBackColorEvent(object sender, EventArgs arg)
@@ -1766,8 +1751,8 @@ namespace BaseModule
  
             Project.ModelData.Remove(objType);
             Project.TaskData?.ClearNotExisted(Project.ModelData.GroupData);
+            ModelPresenter.ClearNotExisted();
 
-            ModelPresenter = new ModelScenePresentator(Project.ModelData.ObjectData);
             sceneControl.DeleteAllVBObjects();
             foreach (var item in ModelPresenter)
                 PresentObjectsToScene(item.Key, item.Value);
@@ -1955,19 +1940,14 @@ namespace BaseModule
         {
             try
             {
-                var presenter = ModelPresenter[obj];
-                foreach (var modelObject in presenter)
+                var objType = selectToolStrip.GetObjType(obj);
+
+                foreach (var modelObject in Project.ModelData.ObjectData.GetObjects(objType))
                     modelObject.ViewState = false;
 
-                var vbobj = sceneControl.FindVBObj(obj);
-                if (vbobj == null)
-                    throw new Exception($"Объект {obj} не загружен на сцену!");
-                var viewMode = vbobj.ViewMode;
-
                 sceneControl.DeleteVBObjects(obj);
-                PresentObjectsToScene(obj, presenter);
-                sceneControl.ChangeViewModeVBObjects(obj, viewMode);
 
+                PresentObjectsToScene(obj, ModelPresenter[obj]);
                 sceneControl.DisplayObjects();
             }
             catch (Exception ex)
@@ -1987,24 +1967,17 @@ namespace BaseModule
         {
             try
             {
-                if (ModelPresenter.ContainsKey(obj))
-                {
-                    var presenter = ModelPresenter[obj];
+                var objType = selectToolStrip.GetObjType(obj);
 
-                    foreach (var modelObject in presenter)
-                        modelObject.ViewState = true;
+                foreach (var modelObject in Project.ModelData.ObjectData.GetObjects(objType))
+                    modelObject.ViewState = true;
 
-                    var vbobj = sceneControl.FindVBObj(obj);
-                    if (vbobj == null)
-                        throw new Exception($"Объект {obj} не загружен на сцену!");
-                    var viewMode = vbobj.ViewMode;
+                sceneControl.DeleteVBObjects(obj);
 
-                    sceneControl.DeleteVBObjects(obj);
-                    PresentObjectsToScene(obj, presenter);
-                    sceneControl.ChangeViewModeVBObjects(obj, viewMode);
+                PresentObjectsToScene(obj, ModelPresenter[obj]);
 
-                    sceneControl.DisplayObjects();
-                }
+                sceneControl.DisplayObjects();
+
             }
             catch (Exception ex)
             {
@@ -2040,7 +2013,6 @@ namespace BaseModule
 
                 var group = Project.ModelData.GroupData.Find(obj);
 
-                var presenter = ModelPresenter[group.ObjType.ToString()];
                 foreach (var iobj in group)
                     iobj.MasterColor = SelectionGroupColor;
 
@@ -2066,12 +2038,8 @@ namespace BaseModule
 
             foreach (var item in ModelPresenter)
             {
-                var vbobj = sceneControl.FindVBObj(item.Key);
-                var viewMode = vbobj.ViewMode;
-
                 sceneControl.DeleteVBObjects(item.Key);
                 PresentObjectsToScene(item.Key, item.Value);
-                sceneControl.ChangeViewModeVBObjects(item.Key, viewMode);
             }
 
             sceneControl.DisplayObjects();
@@ -2084,29 +2052,28 @@ namespace BaseModule
             foreach (var iobj in group)
                 iobj.ViewState = true;
 
-
-            var vbobj = sceneControl.FindVBObj(group.ObjType.ToString());
-            var viewMode = vbobj.ViewMode;
-
-            sceneControl.DeleteVBObjects(group.ObjType.ToString());
-            PresentObjectsToScene(group.ObjType.ToString(), ModelPresenter[group.ObjType.ToString()]);
-            sceneControl.ChangeViewModeVBObjects(group.ObjType.ToString(), viewMode);
-
+            var strObjType = group.ObjType.ToString();
+            sceneControl.DeleteVBObjects(strObjType);
+            PresentObjectsToScene(strObjType, ModelPresenter[strObjType]);
             sceneControl.DisplayObjects();
         }
 
-        private void navigator_ChangeViewModeEvent(string objs, ViewRegime viewRegime)
+        private void navigator_ChangeViewModeEventHandler(string objs, ViewRegime viewRegime)
         {
+  
             switch (viewRegime)
             {
                 case ViewRegime.ribbers:
                     sceneControl.ChangeViewModeVBObjects(objs, ObjView.Lines);
+                    ModelPresenter[objs].PresenterView = PresenterView.Line;
                     break;
                 case ViewRegime.surfaces:
                     sceneControl.ChangeViewModeVBObjects(objs, ObjView.Surface);
+                    ModelPresenter[objs].PresenterView = PresenterView.Surface;
                     break;
                 case ViewRegime.ribbersSurfaces:
                     sceneControl.ChangeViewModeVBObjects(objs, ObjView.LinesSurface);
+                    ModelPresenter[objs].PresenterView = PresenterView.LineSurface;
                     break;
                 default:
                     break;
@@ -2129,15 +2096,13 @@ namespace BaseModule
 
             }
 
-            sceneControl.DeleteVBObjects("Узлы");
-            PresentObjectsToScene("Узлы", ModelPresenter["Узлы"]);
 
-            var vbobj = sceneControl.FindVBObj(group.ObjType.ToString());
-            var viewMode = vbobj.ViewMode;
+            sceneControl.DeleteVBObjects(ObjType.Узел.ToString());
+            PresentObjectsToScene(ObjType.Узел.ToString(), ModelPresenter[ObjType.Узел.ToString()]);
 
-            sceneControl.DeleteVBObjects(group.ObjType.ToString());
-            PresentObjectsToScene(group.ObjType.ToString(), ModelPresenter[group.ObjType.ToString()]);
-            sceneControl.ChangeViewModeVBObjects(group.ObjType.ToString(), viewMode);  
+            var strObjType = group.ObjType.ToString();
+            sceneControl.DeleteVBObjects(strObjType);
+            PresentObjectsToScene(strObjType, ModelPresenter[strObjType]);
 
             sceneControl.DisplayObjects();
         }
