@@ -32,6 +32,8 @@ using Model.GeometryObjects;
 using System.Data.Odbc;
 using System.CodeDom;
 using Scene;
+using Functions.Extensions;
+using System.Xml.Linq;
 
 namespace BaseModule
 {
@@ -53,7 +55,7 @@ namespace BaseModule
         public Color SelectionGroupColor { get; set; }
 
 
-        public ObjType SelectedObjects 
+        public ObjType SelectedObjects
         {
             get { return selectToolStrip.SelectObjectsType; }
             set { selectToolStrip.SelectObjectsType = value; }
@@ -71,16 +73,16 @@ namespace BaseModule
             ClearAllDataOnScene();
 
             ModelPresenter = new ModelScenePresentator(Project.ModelData.ObjectData);
-            
+
             foreach (var item in ModelPresenter)
-                PresentObjectsToScene(item.Key,item.Value);
+                PresentObjectsToScene(item.Key, item.Value);
 
             sceneControl.FitObjectsToScreen();
             sceneControl.DisplayObjects();
         }
 
         public void AddToolStrip(ToolStrip toolStrip)
-        {          
+        {
             toolStripContainer.TopToolStripPanel.Join(toolStrip);
         }
 
@@ -210,11 +212,11 @@ namespace BaseModule
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
             выходToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             выходToolStripMenuItem.Text = "Вы&ход";
-            
+
             выходToolStripMenuItem.Click += (ar1, ar2) => { Application.Exit(); };
             создатьToolStripMenuItem.Click += (ar1, ar2) => { CreateNewProject(); };
-            открытьToolStripMenuItem.Click += (ar1, ar2) => 
-            { 
+            открытьToolStripMenuItem.Click += (ar1, ar2) =>
+            {
                 LoadProjectData("Bazis project file(*.bpf)|*.bpf|All files(*.*)|*.*");
                 ChangeProjectDataEvent?.Invoke();
                 PresentProjectOnTree();
@@ -222,7 +224,7 @@ namespace BaseModule
                 SceneInitialization();
             };
             сохранитьToolStripMenuItem.Click += (ar1, ar2) => { SaveProjectData(); };
-            сохранитькакToolStripMenuItem.Click += (ar1, ar2) => 
+            сохранитькакToolStripMenuItem.Click += (ar1, ar2) =>
             {
                 using (SaveFileDialog saveDialog = new SaveFileDialog())
                 {
@@ -241,9 +243,9 @@ namespace BaseModule
         private ToolStripMenuItem AddViewInterface()
         {
 
-        var видToolStripMenuItem = new ToolStripMenuItem();
-        var showNavigatorMenuItem = new ToolStripMenuItem();
-        var showConsoleMenuItem = new ToolStripMenuItem();
+            var видToolStripMenuItem = new ToolStripMenuItem();
+            var showNavigatorMenuItem = new ToolStripMenuItem();
+            var showConsoleMenuItem = new ToolStripMenuItem();
 
             // 
             // видToolStripMenuItem
@@ -270,11 +272,11 @@ namespace BaseModule
             showConsoleMenuItem.Text = "Консоль";
 
             // singup to show navigator click
-            showNavigatorMenuItem.Click += (ar1, ar2) => 
+            showNavigatorMenuItem.Click += (ar1, ar2) =>
             { splitContainer1.Panel1Collapsed = false; };
 
             // singup to show console click
-            showConsoleMenuItem.Click += (ar1, ar2) => 
+            showConsoleMenuItem.Click += (ar1, ar2) =>
             { splitContainer2.Panel2Collapsed = false; };
 
             return видToolStripMenuItem;
@@ -335,8 +337,8 @@ namespace BaseModule
 
             if (presenter.PresenterType == PresenterType.Surface)
             {
-                if(presenter.PresenterView == PresenterView.Line)
-                sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.Lines);
+                if (presenter.PresenterView == PresenterView.Line)
+                    sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.Lines);
                 else if (presenter.PresenterView == PresenterView.LineSurface)
                     sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.LinesSurface);
                 else
@@ -397,7 +399,7 @@ namespace BaseModule
                 var filterMesh =
                     "All files(*.*)|*.*|" +
                     "Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
-                    "GMSH(*.inp*)|*.inp|" + 
+                    "GMSH(*.inp*)|*.inp|" +
                     "ANSYS(*.cdb*)|*.cdb|" +
                     "SOLOMIA(*.dat*)|*.dat";
                 ImportModelData(filterMesh);
@@ -448,7 +450,7 @@ namespace BaseModule
                     Project.ModelData.Loader = new LoadModelFromASCIITextFile();
                 else if (ext == ".dat")
                     Project.ModelData.Loader = new LoadModelFromSalomeFile();
-                else if(ext == ".stl")
+                else if (ext == ".stl")
                     Project.ModelData.Loader = new LoadModelFromSTLFile();
                 else
                     Project.ModelData.Loader = new LoadModelFromCDBTextFile();
@@ -495,7 +497,7 @@ namespace BaseModule
                 else
                 {
                     consoleControl.PrintInfo("Неизвестный формат файла!", Color.Red);
-                    return false; 
+                    return false;
                 }
 
             }
@@ -581,14 +583,14 @@ namespace BaseModule
                 var objType = objInfo.Key.ToString();
                 navigator.CreateChildNode("объекты", objType, $"{objType} : {objInfo.Value.Count()}", "4.1");
                 navigator.ShowObjectsNode(objType);
-            }            
+            }
 
             navigator.TreeView.Nodes["группыОбъектов"].Expand();
             navigator.TreeView.Nodes["группыОбъектов"].Nodes.Clear();
 
             foreach (var group in Project.ModelData.GroupData)
             {
-                navigator.CreateChildNode("группыОбъектов", group.ObjType.ToString(),group.GroupName, "5.1");
+                navigator.CreateChildNode("группыОбъектов", group.ObjType.ToString(), group.GroupName, "5.1");
             }
 
             navigator.TreeView.EndUpdate();
@@ -753,12 +755,12 @@ namespace BaseModule
 
                 else if (e.ClickedItem.Tag.ToString() == "1")
                 {
-                    var form = new Form() { Name = "CrossSectionForm", Text = "Построить сечение", ShowIcon = false,  Size = new Size(268, 203),TopMost = true};
-  
+                    var form = new Form() { Name = "CrossSectionForm", Text = "Построить сечение", ShowIcon = false, Size = new Size(268, 203), TopMost = true };
+
                     var crossSection = new CrossSectionControl() { Dock = DockStyle.Fill };
                     form.Controls.Add(crossSection);
 
-                    crossSection.RemoveCrossEvent += () => 
+                    crossSection.RemoveCrossEvent += () =>
                     {
                         sceneControl.DeleteVBObjects("crossSection");
                         sceneControl.DisplayObjects();
@@ -766,7 +768,7 @@ namespace BaseModule
 
                     crossSection.SelectNodesEvent += () => { selectToolStrip.SelectObjectsType = ObjType.Узел; };
 
-                    crossSection.CreateCrossFromTextArgs += (ar1,ar2) =>
+                    crossSection.CreateCrossFromTextArgs += (ar1, ar2) =>
                     {
                         try
                         {
@@ -820,7 +822,7 @@ namespace BaseModule
 
                         sceneControl.DeleteVBObjects("crossSection");
 
-                        if(sceneControl.GetVBObjsName().Count() == 0)
+                        if (sceneControl.GetVBObjsName().Count() == 0)
                         {
                             sceneControl.DeleteAllVBObjects();
                             foreach (var presenter in ModelPresenter)
@@ -856,7 +858,7 @@ namespace BaseModule
 
         public virtual void PresentCrossSection(List<Figure2D> surfaces)
         {
-            var presenter = ModelPresenter.CreateSurfaceGeometryPresenter(surfaces,false);
+            var presenter = ModelPresenter.CreateSurfaceGeometryPresenter(surfaces, false);
 
             var inds = presenter.CreateIndexes();
             var ptrs = presenter.CreatePointers(inds.Item1);
@@ -865,7 +867,7 @@ namespace BaseModule
             var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
             var edges = presenter.CreateEdgeFlags(inds.Item4);
 
-            sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors,normals, edges, "crossSection", ObjView.LinesSurface);
+            sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, "crossSection", ObjView.LinesSurface);
             sceneControl.DisplayObjects();
         }
 
@@ -906,7 +908,6 @@ namespace BaseModule
                         }
                     case MeasureKind.DistanceNodeToPlane:
                         {
-                            PressedKey = Keys.None;
                             var plane = CreateSurfaceAsync();
                             await plane;
 
@@ -928,6 +929,7 @@ namespace BaseModule
                             break;
                         }
                     case MeasureKind.Path:
+                        await CreatePathAsync(); 
                         break;
                     case MeasureKind.Square:
                         {
@@ -951,7 +953,6 @@ namespace BaseModule
                             var vol = 0.0f;
 
                             var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
-
                             var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor);
 
                             foreach (var obj in selObjs)
@@ -972,6 +973,32 @@ namespace BaseModule
                 ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
+
+        public async Task<List<Node>> CreatePathAsync()
+        {
+            var nodes = new List<Node>();
+
+            PressedKey = Keys.None;
+
+            while (true)
+            {
+                if (PressedKey == Keys.Escape)
+                    break;
+                var node = SelectNodeAsync();
+                await node;
+                nodes.Add(node.Result);
+                node.Result.SetBackColor();
+                if (nodes.Count > 1)
+                {
+                    var line = new Segment3D(nodes[nodes.Count - 1].Position, nodes[nodes.Count - 2].Position);
+                    consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
+                    sceneControl.CreateDistance(line);
+                    sceneControl.DisplayObjects();
+                }
+            }
+            return nodes;
+        }
+
 
         private async Task<Node> SelectNodeAsync()
         {
@@ -1296,7 +1323,7 @@ namespace BaseModule
         public async Task<object> AsyncMethodContainer(Func<Tuple<bool,object>> actConfirm, Action actBreak, string cmdMessage)
         {
             var resObject = new object();
- 
+            PressedKey = Keys.None;
             Invoke(new Action(() => { lblInputCmd.Text = cmdMessage; }));
             await System.Threading.Tasks.Task.Run(() =>
             {
@@ -1446,7 +1473,9 @@ namespace BaseModule
         {
             if (isSorted & selections.Count > 0)
             {
-                var near = selections.OrderByDescending(x => x.CalcCentr()._z).First();
+                var camera = sceneControl.Camera;
+
+                var near = selections.OrderByDescending(x => camera.GetSceenCoord(x.CalcCentr())._z).First();
                 if (isSelected)
                     near.MasterColor = sceneControl.SelectionColor;
                 else
@@ -1745,6 +1774,14 @@ namespace BaseModule
             ChangeProjectDataEvent?.Invoke();
         }
 
+        private void navigator_DelAllGroupsEvent()
+        {
+            Project.ModelData.GroupData.Clear();
+            Project.TaskData?.Clear();
+            PresentProjectOnTree();
+            ChangeProjectDataEvent?.Invoke();
+        }
+
         private void navigator_DelObjectsEvent(string objs)
         {
             var objType = selectToolStrip.GetObjType(objs);
@@ -1785,7 +1822,9 @@ namespace BaseModule
             var actConfirm = new Func<Tuple<bool, object>>(() =>
             {
                 var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
-                if (objs.Where(x => x.MasterColor == sceneControl.SelectionColor).Count() == 0)
+                var selObj = objs.Where(x => x.MasterColor == sceneControl.SelectionColor);
+
+                if (selObj.Count() == 0)
                 {
                     Invoke(new Action(() => {
                         ConsoleControl.PrintInfo("Не выбран ни один объект!", Color.Black);
@@ -1796,7 +1835,7 @@ namespace BaseModule
                 {
                     group.Clear();
           
-                    group.AddRange(objs);
+                    group.AddRange(selObj);
     
                     Invoke(new Action(() => {
                         consoleControl.PrintInfo("Группа изменена успешно", Color.Green);
@@ -1816,7 +1855,7 @@ namespace BaseModule
             });
 
             var message = "измените группу, добавив или удалив объекты, и нажмите на кнопку Enter или нажмите кнопку ESC";
-
+ 
             await AsyncMethodContainer(actConfirm, actBreak, message);
         }
 
@@ -2173,5 +2212,7 @@ namespace BaseModule
             else
                 splitContainer2.IsSplitterFixed = false;
         }
+
+
     }
 }
