@@ -46,13 +46,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         [Description("Set path for computation")]
 
         public string ProjPath { get; set; }
-        public string InputDataPath 
+        string InputDataPath 
         { 
             get 
             {
-                var inputDataPath = $@"{Path.GetFullPath(ProjPath)}/InputData";
-                if (!Directory.Exists(inputDataPath))
-                    Directory.CreateDirectory(inputDataPath);
+                var inputDataPath = $@"{Path.GetFullPath(ProjPath)}\InputData";
                 return inputDataPath;
             }
         }
@@ -322,6 +320,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
                 var tsfFileName = $"{taskKind}_{taskIndex}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
 
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
                 File.WriteAllText($@"{path}\{tsfFileName}", tsfStr);
 
                 return true;
@@ -391,8 +392,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 throw new Exception("Время окончания не указано");
 
             var tsfFileName = $"{taskKind}_{taskInd}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
-
-            dataGridView.Rows.Add(new string[] { taskKind.ToString(), tsfFileName, status.ToString() });
+            
+            dataGridView.Rows.Add(new string[] { taskKind.ToString(), $@"{InputDataPath}\{tsfFileName}", status.ToString() });
         }
 
         public override void ClearAllDataButton_Click(object sender, EventArgs e)
@@ -614,9 +615,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                     e.SortResult = -1;
                 else
                 {
-                    e.SortResult = String.Compare(sTask,fTask);
-                }    
+                    e.SortResult = String.Compare(sTask, fTask);
+                }
             }
+            else e.Handled = false;
 
             e.Handled = true;
         }

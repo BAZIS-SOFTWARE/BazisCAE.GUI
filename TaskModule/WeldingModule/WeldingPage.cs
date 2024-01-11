@@ -33,7 +33,9 @@ namespace TaskModule.WeldingModule
             {
                 var taskAdv = new WeldingAdvisor() { Dock = DockStyle.Fill, Name = "Сварка" };
                 var icon = TaskModule.Properties.Resources.Welding;
-                CreateAdvisor(taskAdv, icon);
+
+                if (GetTaskAdvisor() == null)
+                    CreateAdvisor(taskAdv, icon);
             }
             else DeleteAdvisor();
         }
@@ -64,7 +66,8 @@ namespace TaskModule.WeldingModule
                 if (weldingMenuItem.Checked)
                 {
                     var icon = TaskModule.Properties.Resources.Welding;
-                    CreateAdvisor(taskAdv, icon);
+                    if (GetTaskAdvisor() == null)
+                        CreateAdvisor(taskAdv, icon);
                 }
 
                 else DeleteAdvisor();

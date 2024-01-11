@@ -306,6 +306,8 @@ namespace TaskModule
 
         private void CheckProjectDataBeforeCreationTCF()
         {
+            try
+            {
             if (!File.Exists($@"{Project.Path}\{Project.Name}"))
                 throw new Exception($"В папке проекта {Project.Path} отсутствует файл проекта {Project.Name}. " +
                     $"Верните файл проекта в папку проекта или выберете другой проект");
@@ -317,6 +319,12 @@ namespace TaskModule
             if (!File.Exists($@"{Project.Path}\{Project.Functions}"))
                 throw new Exception($"В папке проекта {Project.Path} отсутствует файл функций {Project.Functions}. " +
                     $"Верните файл функций в папку проекта или выберете другой файл функций");
+
+            }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
         private void TaskAdv_AddDataUseTaskConditionsEvent(object arg1, EventArgs arg2)
