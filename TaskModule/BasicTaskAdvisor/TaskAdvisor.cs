@@ -77,8 +77,6 @@ namespace TaskModule.BasicTaskAdvisor
                                 loadControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.GroupName).ToList());
                             else
                                 loadControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.GroupName).ToList());
-
-                            gvControl.Set_DataGridLines(data);
                         }
                         else if (control is IBoundaryControl boundaryControl)
                         {
@@ -87,8 +85,6 @@ namespace TaskModule.BasicTaskAdvisor
                                 boundaryControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент1D).Select(x => x.GroupName).ToList());
                             else
                                 boundaryControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.GroupName).ToList());
-
-                            gvControl.Set_DataGridLines(data);
                         }
                         else if (control is IMaterialsRelatedControl materialsRelatedControl)
                         {
@@ -96,14 +92,13 @@ namespace TaskModule.BasicTaskAdvisor
                                 materialsRelatedControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.GroupName).ToList());
                             else
                                 materialsRelatedControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.GroupName).ToList());
-
-                            gvControl.Set_DataGridLines(data);
                         }
                             
-
                         else if (control is TaskPlannerControl taskPlannerControl)
+                        {
                             taskPlannerControl.ProjPath = project.Path;
-
+                        }
+                        gvControl.Set_DataGridLines(data);
 
                     }
      

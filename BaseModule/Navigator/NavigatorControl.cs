@@ -1,5 +1,6 @@
 ﻿
 using Model;
+using ModelInterfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,6 +34,7 @@ namespace BaseModule.Navigator
         public event Action<string> SelectGroupEvent;
 
         public event Action<int> DelGroupEvent;
+        public event Action DelAllGroupsEvent;
         public event Action<int> HideGroupEvent;
         public event Action<int> ShowGroupEvent;
         public event Action<int> EditGroupEvent;
@@ -176,8 +178,8 @@ namespace BaseModule.Navigator
         {
             var groupIndex = treeView.SelectedNode.Index;
 
-            treeView.Nodes["объекты"].Nodes["Узлы"].ImageIndex = 5;
-            treeView.Nodes["объекты"].Nodes["Узлы"].SelectedImageIndex = 5;
+            treeView.Nodes["объекты"].Nodes[ObjType.Узел.ToString()].ImageIndex = 5;
+            treeView.Nodes["объекты"].Nodes[ObjType.Узел.ToString()].SelectedImageIndex = 5;
 
             treeView.SelectedNode.ImageIndex = imgDict[treeView.SelectedNode.Name];
             treeView.SelectedNode.SelectedImageIndex = imgDict[treeView.SelectedNode.Name];
@@ -271,23 +273,8 @@ namespace BaseModule.Navigator
 
             DelGroupEvent?.Invoke(groupIndex);
 
-            DeleteTaskDataNodes(treeView.SelectedNode);
-
-            treeView.Nodes["группыОбъектов"].Nodes.RemoveAt(groupIndex);
-        }
-
-        private void DeleteTaskDataNodes(TreeNode selNode)
-        {
-            var dataNodes = treeView.Nodes.Find("Данные", true);
-
-            if (dataNodes.Length > 0)
-            {
-                var selNodes = dataNodes[0].Nodes.Cast<TreeNode>().Where(x => x.Text.Contains(selNode.Text)).ToArray();
-                foreach (var node in selNodes)
-                {
-                    treeView.Nodes["Данные"].Nodes.Remove(node);
-                }
-            }
+            //DeleteTaskDataNodes(treeView.SelectedNode);
+            //treeView.Nodes["группыОбъектов"].Nodes.RemoveAt(groupIndex);
         }
 
         private void HideGroup_Click(object sender, EventArgs e)
@@ -363,26 +350,13 @@ namespace BaseModule.Navigator
 
         public void DelAllGroups_Click(object sender, EventArgs e)
         {
-            var nodes = treeView.Nodes["группыОбъектов"].Nodes.Cast<TreeNode>().ToArray();
-            foreach (var node in nodes)
-            {
-                var index = treeView.Nodes["группыОбъектов"].Nodes.IndexOf(node);
-                DelGroupEvent?.Invoke(index);
-
-                DeleteTaskDataNodes(node);
-
-                treeView.Nodes["группыОбъектов"].Nodes.RemoveAt(index);
-            }
+            treeView.Nodes["группыОбъектов"].Nodes.Clear();
+            DelAllGroupsEvent?.Invoke();
         }
 
         public void DelAllObjects_Click(object sender, EventArgs e)
         {
             DelObjectsEvent?.Invoke("Объект");
-            //foreach (TreeNode item in treeView.Nodes["объекты"].Nodes)
-            //{
-            //    DelObjects(item);
-            //}
-            //treeView.SelectedNode.Nodes.Clear();
         }
 
         public void DelObjects_Click(object sender, EventArgs e)
