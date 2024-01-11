@@ -44,7 +44,18 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         }
         [Category("General")]
         [Description("Set path for computation")]
+
         public string ProjPath { get; set; }
+        public string InputDataPath 
+        { 
+            get 
+            {
+                var inputDataPath = $@"{Path.GetFullPath(ProjPath)}/InputData";
+                if (!Directory.Exists(inputDataPath))
+                    Directory.CreateDirectory(inputDataPath);
+                return inputDataPath;
+            }
+        }
 
         public event Action<object, EventArgs> AddDataUseTaskConditionsEvent;
         public event Action<object, EventArgs> StartComputationEvent;
@@ -253,9 +264,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 var setting = dataGridView[(int)Column.settings, CurentSelectedRowIndex].Value.ToString();
                 var taskInd = int.Parse(Path.GetFileName(setting).Split('_')[1]);
 
-
-
-                GenerateTsfFile(taskKind, taskInd, ProjPath);
+                GenerateTsfFile(taskKind, taskInd, InputDataPath);
                 //CurentSelectedRowInfo = AddRowInfo(taskKind, taskStatus, CurentSelectedRowIndex);
                 //base.RefreshButton_Click(sender, e);
 
@@ -311,9 +320,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 else
                     tsfStr = JsonConvert.SerializeObject(parameters, settingsSerializer);
 
-
-
-
                 var tsfFileName = $"{taskKind}_{taskIndex}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
 
                 File.WriteAllText($@"{path}\{tsfFileName}", tsfStr);
@@ -333,34 +339,31 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             try
             {
                 if (chbAddByTaskConditions.Checked)
+                {
+                    DeleteAllTsfFilesFromInputDataDir();
                     AddDataUseTaskConditionsEvent?.Invoke(this, new EventArgs());
+                }
                 else
                 {
                     var isTsfFileCreated = false;
-
-                    ProjPath = $@"{ProjPath}\InputData";
-
-                    if (!Directory.Exists(ProjPath))
-                        Directory.CreateDirectory(ProjPath);
-
                     if (chbChemicalTask.Checked)
                     {
-                        isTsfFileCreated = GenerateTsfFile(TaskKind.химическая, CountRows, ProjPath);
+                        isTsfFileCreated = GenerateTsfFile(TaskKind.химическая, CountRows, InputDataPath);
                         if (isTsfFileCreated)
                             AddRowInfo(TaskKind.химическая, TaskStatus.выполнить, CountRows);
                     }
                     Thread.Sleep(100);
                     if (chbTermoTask.Checked)
                     {
-                        isTsfFileCreated = GenerateTsfFile(TaskKind.термическая, CountRows, ProjPath);
+                        isTsfFileCreated = GenerateTsfFile(TaskKind.термическая, CountRows, InputDataPath);
                         if (isTsfFileCreated)
-                            AddRowInfo(TaskKind.химическая, TaskStatus.выполнить, CountRows);
+                            AddRowInfo(TaskKind.термическая, TaskStatus.выполнить, CountRows);
                     }
                     
                     Thread.Sleep(100);
                     if (chbMechTask.Checked)
                     {
-                        isTsfFileCreated = GenerateTsfFile(TaskKind.механическая, CountRows, ProjPath);
+                        isTsfFileCreated = GenerateTsfFile(TaskKind.механическая, CountRows, InputDataPath);
                         if (isTsfFileCreated)
                             AddRowInfo(TaskKind.механическая, TaskStatus.выполнить, CountRows);
                     }
@@ -377,8 +380,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         private void AddRowInfo(TaskKind taskKind, TaskStatus status, int taskInd)
@@ -396,17 +397,17 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         public override void ClearAllDataButton_Click(object sender, EventArgs e)
         {
-            DeleteAllTsfFilesFromDisc(ProjPath);
+            DeleteAllTsfFilesFromInputDataDir();
 
             dataGridView.Rows.Clear();
             //base.ClearAllDataButton_Click(sender, e);
         }
 
-        private void DeleteAllTsfFilesFromDisc(string path)
+        private void DeleteAllTsfFilesFromInputDataDir()
         {
             try
             {
-                foreach (var file in Directory.GetFiles(path))
+                foreach (var file in Directory.GetFiles(InputDataPath))
                 {
                     if (Regex.IsMatch(file, @"(\w*)(\.tsf)"))
                         File.Delete(file);

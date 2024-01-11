@@ -70,6 +70,7 @@ namespace TaskModule.BasicTaskAdvisor
                         var data = project.TaskData.
     Where(x => x.Name == gvControl.DataName).
     Select(x => x.GetInfo);
+
                         if (control is ILoadControl loadControl)
                         {
                             loadControl.Fill_nGroups(project.ModelData.GroupData.FindMany(ObjType.Узел).Select(x => x.GroupName).ToList());
@@ -78,6 +79,7 @@ namespace TaskModule.BasicTaskAdvisor
                             else
                                 loadControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.GroupName).ToList());
                         }
+
                         else if (control is IBoundaryControl boundaryControl)
                         {
                             boundaryControl.Fill_nGroups(project.ModelData.GroupData.FindMany(ObjType.Узел).Select(x => x.GroupName).ToList());
@@ -86,6 +88,7 @@ namespace TaskModule.BasicTaskAdvisor
                             else
                                 boundaryControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.GroupName).ToList());
                         }
+
                         else if (control is IMaterialsRelatedControl materialsRelatedControl)
                         {
                             if (taskType == "Plain" | taskType == "AxiPlain")
@@ -93,30 +96,27 @@ namespace TaskModule.BasicTaskAdvisor
                             else
                                 materialsRelatedControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.GroupName).ToList());
                         }
-                            
+
                         else if (control is TaskPlannerControl taskPlannerControl)
                         {
                             taskPlannerControl.ProjPath = project.Path;
+
                         }
                         gvControl.Set_DataGridLines(data);
-
                     }
      
                 }
             }
         }
 
-        public void SetTaskPlannerlData(string path, List<string> cmdFiles)
+        public void SetTaskPlannerlData(List<string> cmdFiles)
         {
             foreach (TabPage tabPage in tabControl.Controls)
             {
                 foreach (Control control in tabPage.Controls)
                 {
                     if (control is TaskPlannerControl taskPlannerControl)
-                    {
-                        taskPlannerControl.ProjPath = path;
                         taskPlannerControl.Set_DataGridLines(cmdFiles);
-                    }
 
                 }
             }

@@ -271,21 +271,23 @@ namespace TaskModule
 
         private void TaskAdv_GenerateTCFEvent(object arg1, GenerateTCFEventArgs arg2)
         {
-            var result = new List<string>();
-
-            result.Add($@"\\загрузка сетки и данных");
-            result.Add($@"загрузка");
-            result.Add($@"{Project.Path}\{Project.Name}");
-            result.Add($@"#загрузка");
-            result.Add($@"\\загрузка материалов");
-            result.Add($@"загрузка");
-            result.Add($@"{Project.Path}\{Project.Materials}");
-            result.Add($@"#загрузка");
-            result.Add($@"\\загрузка функций");
-            result.Add($@"загрузка");
-            result.Add($@"{Project.Path}\{Project.Functions}");
-            result.Add($@"#загрузка");
-            result.Add($@"\\расчет задачи");
+            CheckProjectDataBeforeCreationTCF();
+            var result = new List<string>
+            {
+                $@"\\загрузка сетки и данных",
+                $@"загрузка",
+                $@"{Project.Path}\{Project.Name}",
+                $@"#загрузка",
+                $@"\\загрузка материалов",
+                $@"загрузка",
+                $@"{Project.Path}\{Project.Materials}",
+                $@"#загрузка",
+                $@"\\загрузка функций",
+                $@"загрузка",
+                $@"{Project.Path}\{Project.Functions}",
+                $@"#загрузка",
+                $@"\\расчет задачи"
+            };
             result.AddRange(arg2);
 
             var compDir = $@"{Project.Path}\ComputationData";
@@ -300,6 +302,21 @@ namespace TaskModule
             result.Add($@"#загрузка");
 
             ConsoleControl.PrintInfo($"Сформирован командный файл {cmdFile}", Color.Green);
+        }
+
+        private void CheckProjectDataBeforeCreationTCF()
+        {
+            if (!File.Exists($@"{Project.Path}\{Project.Name}"))
+                throw new Exception($"В папке проекта {Project.Path} отсутствует файл проекта {Project.Name}. " +
+                    $"Верните файл проекта в папку проекта или выберете другой проект");
+
+            if (!File.Exists($@"{Project.Path}\{Project.Materials}"))
+                throw new Exception($"В папке проекта {Project.Path} отсутствует файл материалов {Project.Materials}. " +
+                    $"Верните файл материалов в папку проекта или выберете другой файл материалов");
+
+            if (!File.Exists($@"{Project.Path}\{Project.Functions}"))
+                throw new Exception($"В папке проекта {Project.Path} отсутствует файл функций {Project.Functions}. " +
+                    $"Верните файл функций в папку проекта или выберете другой файл функций");
         }
 
         private void TaskAdv_AddDataUseTaskConditionsEvent(object arg1, EventArgs arg2)
@@ -317,7 +334,7 @@ namespace TaskModule
                 PreProc.CalcCompDataV1(data, processType, inputDir);
 
                 var tsfFiles = Directory.GetFiles(inputDir, "*.tsf");
-                GetTaskAdvisor()?.SetTaskPlannerlData(inputDir,tsfFiles.ToList());
+                GetTaskAdvisor()?.SetTaskPlannerlData(tsfFiles.ToList());
 
                 ConsoleControl.PrintInfo($"Входные Данные задачи сгенерированы в {inputDir}", Color.Green);
 
