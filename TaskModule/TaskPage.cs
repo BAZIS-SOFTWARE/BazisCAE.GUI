@@ -25,6 +25,7 @@ using ModelInterfaces;
 using System.Xml.XPath;
 using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using System.Text.RegularExpressions;
+using ModelInterfaces.ObjectsComparers;
 
 namespace TaskModule
 {
@@ -275,20 +276,20 @@ namespace TaskModule
             var result = new List<string>
             {
                 $@"\\загрузка сетки и данных",
-                $@"загрузка",
-                $@"{Project.Path}\{Project.Name}",
-                $@"#загрузка",
+                $@"загрузить проект {Project.Path}\{Project.Name}",
                 $@"\\загрузка материалов",
-                $@"загрузка",
-                $@"{Project.Path}\{Project.Materials}",
-                $@"#загрузка",
+                $@"загрузить материалы {Project.Path}\{Project.Materials}",
                 $@"\\загрузка функций",
-                $@"загрузка",
-                $@"{Project.Path}\{Project.Functions}",
-                $@"#загрузка",
-                $@"\\расчет задачи"
+                $@"загрузить функции {Project.Path}\{Project.Functions}",
+
             };
-            result.AddRange(arg2);
+            result.Add($@"\\расчет");
+
+            var tasks = new List<string>();
+            foreach (var item in arg2)
+                tasks.Add("расчет " + item);
+
+            result.AddRange(tasks);
 
             var compDir = $@"{Project.Path}\ComputationData";
 
@@ -297,9 +298,7 @@ namespace TaskModule
 
             var cmdFile = $@"{compDir}\computation.tcf";
 
-            result.Add($@"загрузка");
             File.WriteAllLines(cmdFile, result);
-            result.Add($@"#загрузка");
 
             ConsoleControl.PrintInfo($"Сформирован командный файл {cmdFile}", Color.Green);
         }
@@ -436,31 +435,16 @@ namespace TaskModule
         {
             try
             {
-                var answer = MessageBox.Show("Смена папки проекта", "Перед началом расчета рекомендуется сменить папку проекта", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (answer == DialogResult.Yes)
-                {
-                    using (SaveFileDialog saveDialog = new SaveFileDialog())
-                    {
-                        saveDialog.DefaultExt = "bpf";
-
-                        if (saveDialog.ShowDialog() == DialogResult.Cancel)
-                            return;
-
-                        SaveAsProjectData(saveDialog.FileName);
-                        PresentProjectOnTree();
-                    }
-                }
-                else SaveProjectData();
+                SaveProjectData();
 
                 var myProcess = new Process();
 
                 myProcess.StartInfo.FileName = $@"{SolverPath}\BazisSolver.exe";
 
-                var projPath = $@"{Project.Path}\{Project.Name}";
-                var matPath = $@"{Project.Path}\{Project.Materials}";
-                var funPath = $@"{Project.Path}\{Project.Functions}";
-                var argStr = string.Join(" ", new string[] { projPath, matPath, funPath });
+                var compDir = $@"{Project.Path}\ComputationData";
+                var cmdFile = $@"{compDir}\computation.tcf";
+
+                var argStr = string.Join(" ", new string[] { cmdFile });
 
                 myProcess.StartInfo.Arguments = argStr;
                 myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
@@ -537,15 +521,17 @@ namespace TaskModule
 
                 var taskStrAr = FieldsParserTask.ParseLine(arg2.DataInfo);
 
-                if (dataArray[arg2.Index] is IValuableData valuableData)
+                if (dataArray[arg2.Index] is HeatData heatData)
                 {
 
                     var taskStrLRF = SetTaskDataAsync("setDirection", taskStrAr[0]);
 
                     await taskStrLRF;
-                    var taskStrStopTime = SetTaskDataAsync("setStopTime", taskStrLRF.Result);
 
-                    valuableData.SetInfo(taskStrStopTime.Result);
+                    taskStrAr[0] = taskStrAr[0].Replace("*", "0");
+                    heatData.SetInfo(taskStrAr[0]);
+
+                    SetMFF(taskStrAr[0].Split(' ')[4], heatData);
                 }
                 else dataArray[arg2.Index].SetInfo(taskStrAr[0]);
 
@@ -617,17 +603,10 @@ namespace TaskModule
         {
             float[] geomParam;
 
-            var baseLineGr = Project.ModelData.GroupData.Find(data.MovedFrameFunction.BaseLine.Name);
-            var basePoints = baseLineGr.Select(x => x.CalcCentr());
-            data.MovedFrameFunction.BaseLine.SetPoints(basePoints);
-
-            var refLineGr = Project.ModelData.GroupData.Find(data.MovedFrameFunction.RefLine.Name);
-            var refPoints = refLineGr.Select(x => x.CalcCentr());
-            data.MovedFrameFunction.RefLine.SetPoints(refPoints);
-
             var frame = data.MovedFrameFunction.CalcFrame(time);
             SceneControl.CreateLocalFrame(frame);
-            SceneControl.CreatePath(basePoints.ToArray());
+            var trajPoints = data.MovedFrameFunction.BaseLine.Select(x => x.CalcCentr()).ToArray();
+            SceneControl.CreatePath(trajPoints);
 
             if (data.MovedFrameFunction.FunctionType == "Sphere")
             {
@@ -756,18 +735,48 @@ namespace TaskModule
                     var setTaskStr = SetTaskDataAsync("setDirection", taskStr);
 
                     await setTaskStr;
-                    setTaskStr = SetTaskDataAsync("setStopTime", setTaskStr.Result);
 
-                    if (arg2.DataName == "Материал")
-                        Project.TaskData.Add(new MatData(setTaskStr.Result));
+                    var dataAr = setTaskStr.Result;
+
+                    if (arg2.DataName == "Материал" | arg2.DataName == "Материалы")
+                    {
+                        var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[0]);
+                        var data = new MatData(dataAr) { Group = group };
+                        Project.TaskData.Add(data);
+                    }
+
                     else if (arg2.DataName == "Среда")
-                        Project.TaskData.Add(new MediaData(setTaskStr.Result));
+                    {
+                        var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[1]);
+                        var data = new MediaData(dataAr) { Group = group };
+                        Project.TaskData.Add(data);
+                    }
+
                     else if (arg2.DataName == "Нагрузка")
-                        Project.TaskData.Add(new LoadData(setTaskStr.Result));
+                    {
+                        var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[0]);
+                        var data = new LoadData(dataAr) { Group = group };
+                        Project.TaskData.Add(data);
+                    }
+
                     else if (arg2.DataName == "Нагрев")
-                        Project.TaskData.Add(new HeatData(setTaskStr.Result));
-                    else
-                        Project.TaskData.Add(new ClampData(setTaskStr.Result));
+                    {
+                        var subAr = dataAr.Split(' ');
+                        var group = Project.ModelData.GroupData.Find(subAr[1]);
+                        dataAr = dataAr.Replace("*", "0");
+                        var data = new HeatData(dataAr) { Group = group };
+
+                        SetMFF(subAr[4], data);
+
+                        Project.TaskData.Add(data);
+                    }
+
+                    else if (arg2.DataName == "Закрепления" | arg2.DataName == "Закрепление")
+                    {
+                        var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[0]);
+                        var data = new ClampData(dataAr) { Group = group };
+                        Project.TaskData.Add(data);
+                    }
 
                     NavigatorControl.CreateChildNode("Данные", arg2.DataName, $"{arg2.DataName} : {taskStr}", "6.1");
                 }
@@ -778,6 +787,27 @@ namespace TaskModule
             {
                 ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        private void SetMFF(string mffInfo, IValuableData data)
+        {
+            var baseLineGrName = mffInfo.Split(';')[0].Split('|')[0];
+            var refLineGrName = mffInfo.Split(';')[0].Split('|')[1];
+            var stNodesGrName = mffInfo.Split(';')[2];
+            var baseLineGr = Project.ModelData.GroupData.Find(baseLineGrName);
+            var refLineGr = Project.ModelData.GroupData.Find(refLineGrName);
+            var stNodesGr = Project.ModelData.GroupData.Find(stNodesGrName);
+
+            data.MovedFrameFunction.BaseLine = baseLineGr;
+            data.MovedFrameFunction.RefLine = refLineGr;
+            data.MovedFrameFunction.StartPoints = stNodesGr;
+            data.MovedFrameFunction.StopPoints = stNodesGr;
+
+            data.StopTime = data.StartTime + data.MovedFrameFunction.CalcMotionTime();
+            //Check
+            data.MovedFrameFunction.CheckTrajNodes();
+            //Sort
+            data.MovedFrameFunction.SortTrajNodes();
         }
 
         private async Task<string> SetTaskDataAsync(string cmd, string taskStr)
@@ -833,10 +863,6 @@ namespace TaskModule
                     }
                 });
             }
-            else if (cmd == "setStopTime")
-                taskStr = taskParamsCalculator.SetStopTime(taskStr);
-
-
             return taskStr;
         }
 
