@@ -880,6 +880,38 @@ namespace BaseModule
             return sectionMaker.GetSectionSurfaces(elems3D, plane);
         }
 
+        private void MeasuringControl_PreparingMeasureEvent(object arg1, MeasureEventArgs arg2)
+        {
+            sceneControl.HideAllGeometryObjs();
+            sceneControl.HideDisplayText3D();
+            sceneControl.DisplayObjects();
+
+            switch (arg2.Kind)
+            {
+                case MeasureKind.DistanceNodeToNode:
+                    selectToolStrip.SelectObjectsType = ObjType.Узел;
+                    lblInputCmd.Text = "Выберите два узла";
+                    break;
+                case MeasureKind.DistanceNodeToPlane:
+                    lblInputCmd.Text = "Создайте поверхность и выберите узел";
+                    break;
+                case MeasureKind.Path:
+                    selectToolStrip.SelectObjectsType = ObjType.Узел;
+                    lblInputCmd.Text = "Выберите узлы";
+                    break;
+                case MeasureKind.Square:
+                    selectToolStrip.SelectObjectsType = ObjType.Элемент2D;
+                    lblInputCmd.Text = "Выберите элементы 2D или поверхности";
+                    break;
+                case MeasureKind.Volume:
+                    selectToolStrip.SelectObjectsType = ObjType.Элемент3D;
+                    lblInputCmd.Text = "Выберите элементы 3D";
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private async void MeasuringControl_MakeMeasureEvent(object arg1, MeasureEventArgs arg2)
         {
             try
@@ -1044,7 +1076,7 @@ namespace BaseModule
             return (Node)pointAwait.Result;
         }
 
-        private async Task<Plane> CreateSurfaceAsync()
+        public async Task<Plane> CreateSurfaceAsync()
         {
             var actBreak = new Action(() =>
             {
@@ -1086,39 +1118,7 @@ namespace BaseModule
             var surfaceAwait = AsyncMethodContainer(actSurfaceConfirm, actBreak, message);
             await surfaceAwait;
             return (Plane)surfaceAwait.Result;
-        }
-
-        private void MeasuringControl_PreparingMeasureEvent(object arg1, MeasureEventArgs arg2)
-        {
-            sceneControl.HideAllGeometryObjs();
-            sceneControl.HideDisplayText3D();
-            sceneControl.DisplayObjects();
-
-            switch (arg2.Kind)
-            {
-                case MeasureKind.DistanceNodeToNode:
-                    selectToolStrip.SelectObjectsType = ObjType.Узел;
-                    lblInputCmd.Text = "Выберите два узла";
-                    break;
-                case MeasureKind.DistanceNodeToPlane:
-                    lblInputCmd.Text = "Создайте поверхность и выберите узел";
-                    break;
-                case MeasureKind.Path:
-                    selectToolStrip.SelectObjectsType = ObjType.Узел;
-                    lblInputCmd.Text = "Выберите узлы";
-                    break;
-                case MeasureKind.Square:
-                    selectToolStrip.SelectObjectsType = ObjType.Элемент2D;
-                    lblInputCmd.Text = "Выберите элементы 2D или поверхности";
-                    break;
-                case MeasureKind.Volume:
-                    selectToolStrip.SelectObjectsType = ObjType.Элемент3D;
-                    lblInputCmd.Text = "Выберите элементы 3D";
-                    break;
-                default:
-                    break;
-            }
-        }
+        }    
 
         private Image CreateScreenShot()
         {

@@ -26,6 +26,7 @@ using System.Xml.XPath;
 using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using System.Text.RegularExpressions;
 using ModelInterfaces.ObjectsComparers;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TaskModule
 {
@@ -523,10 +524,11 @@ namespace TaskModule
 
                 if (dataArray[arg2.Index] is HeatData heatData)
                 {
+                    //AsyncMethodContainer()
+                    
+                    //var taskStrLRF = SetTaskDataAsync("setDirection", taskStrAr[0]);
 
-                    var taskStrLRF = SetTaskDataAsync("setDirection", taskStrAr[0]);
-
-                    await taskStrLRF;
+                    //await taskStrLRF;
 
                     taskStrAr[0] = taskStrAr[0].Replace("*", "0");
                     heatData.SetInfo(taskStrAr[0]);
@@ -547,6 +549,31 @@ namespace TaskModule
             }
 
         }
+
+//        public Func<string> SetDirection(string taskStr)
+//        {
+//            return new Func<string>(() =>
+//            {
+                
+//                var pointsCoords = project.ModelData.ObjectData.FindMany<INode>().
+//Where(x => x.MasterColor == Color.FromArgb(0, 255, 0)).Select(x => x.Position).ToArray();
+//                if (pointsCoords.Length < 3)
+//                {
+//                    CalculatorEvent(this, new CalculatorEventArgs("Выберите 3 точки!"));
+//                    return taskStr;
+//                }
+//                else
+//                {
+//                    var plane = new Plane(pointsCoords[0], pointsCoords[1], pointsCoords[2]);
+//                    var vector = plane.Normal;
+//                    var normVector = Vector.GetVectorNorm(vector);
+
+//                    CalculatorEvent(this, new CalculatorEventArgs(""));
+
+//                    return taskStr.Replace("LRF", normVector.ToString());
+//                }
+//            });
+//        }
 
         public void TaskAdvisor_DeleteAllDataEvent(object arg1, DeleteAllDataEventArgs arg2)
         {
@@ -730,56 +757,22 @@ namespace TaskModule
             {
                 var taskStrAr = FieldsParserTask.ParseLine(arg2.DataInfo);
 
-                foreach (var taskStr in taskStrAr)
+                if (taskStrAr[0].Contains("LRF"))
                 {
-                    var setTaskStr = SetTaskDataAsync("setDirection", taskStr);
+                    var taskStrLRF = CreateSurfaceAsync();
+                    await taskStrLRF;
+                    var vec = taskStrLRF.Result.Normal;
 
-                    await setTaskStr;
-
-                    var dataAr = setTaskStr.Result;
-
-                    if (arg2.DataName == "Материал" | arg2.DataName == "Материалы")
-                    {
-                        var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[0]);
-                        var data = new MatData(dataAr) { Group = group };
-                        Project.TaskData.Add(data);
-                    }
-
-                    else if (arg2.DataName == "Среда")
-                    {
-                        var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[1]);
-                        var data = new MediaData(dataAr) { Group = group };
-                        Project.TaskData.Add(data);
-                    }
-
-                    else if (arg2.DataName == "Нагрузка")
-                    {
-                        var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[0]);
-                        var data = new LoadData(dataAr) { Group = group };
-                        Project.TaskData.Add(data);
-                    }
-
-                    else if (arg2.DataName == "Нагрев")
-                    {
-                        var subAr = dataAr.Split(' ');
-                        var group = Project.ModelData.GroupData.Find(subAr[1]);
-                        dataAr = dataAr.Replace("*", "0");
-                        var data = new HeatData(dataAr) { Group = group };
-
-                        SetMFF(subAr[4], data);
-
-                        Project.TaskData.Add(data);
-                    }
-
-                    else if (arg2.DataName == "Закрепления" | arg2.DataName == "Закрепление")
-                    {
-                        var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[0]);
-                        var data = new ClampData(dataAr) { Group = group };
-                        Project.TaskData.Add(data);
-                    }
-
-                    NavigatorControl.CreateChildNode("Данные", arg2.DataName, $"{arg2.DataName} : {taskStr}", "6.1");
+                    //TO DO
+                    // Разложить по базису
+                    //
+                    //AddData(arg2, taskStrAr[0]);
+                    //AddData(arg2, taskStrAr[0]);
+                    //AddData(arg2, taskStrAr[0]);
                 }
+
+                else
+                    AddData(arg2, taskStrAr[0]);
 
                 GetTaskAdvisor()?.SetProjectData(Project);
             }
@@ -787,6 +780,53 @@ namespace TaskModule
             {
                 ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        private void AddData(AddDataEventArgs arg2, string taskStr)
+        {
+            var dataAr = taskStr;
+
+            if (arg2.DataName == "Материал" | arg2.DataName == "Материалы")
+            {
+                var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[0]);
+                var data = new MatData(dataAr) { Group = group };
+                Project.TaskData.Add(data);
+            }
+
+            else if (arg2.DataName == "Среда")
+            {
+                var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[1]);
+                var data = new MediaData(dataAr) { Group = group };
+                Project.TaskData.Add(data);
+            }
+
+            else if (arg2.DataName == "Нагрузка")
+            {
+                var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[0]);
+                var data = new LoadData(dataAr) { Group = group };
+                Project.TaskData.Add(data);
+            }
+
+            else if (arg2.DataName == "Нагрев")
+            {
+                var subAr = dataAr.Split(' ');
+                var group = Project.ModelData.GroupData.Find(subAr[1]);
+                dataAr = dataAr.Replace("*", "0");
+                var data = new HeatData(dataAr) { Group = group };
+
+                SetMFF(subAr[4], data);
+
+                Project.TaskData.Add(data);
+            }
+
+            else if (arg2.DataName == "Закрепления" | arg2.DataName == "Закрепление")
+            {
+                var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[0]);
+                var data = new ClampData(dataAr) { Group = group };
+                Project.TaskData.Add(data);
+            }
+
+            NavigatorControl.CreateChildNode("Данные", arg2.DataName, $"{arg2.DataName} : {taskStr}", "6.1");
         }
 
         private void SetMFF(string mffInfo, IValuableData data)
