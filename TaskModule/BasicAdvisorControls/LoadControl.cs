@@ -213,6 +213,11 @@ namespace TaskModule.BasicAdvisorControls
             try
             {
                 CurentSelectedRowInfo = AddRowInfo();
+                if (chbLRF.Checked)
+                {
+                    MessageBox.Show("Нельзя обновить при произвольном закреплении");
+                    return;
+                }
                 base.RefreshButton_Click(sender, e);
 
                 btnRefresh.Enabled = false;
