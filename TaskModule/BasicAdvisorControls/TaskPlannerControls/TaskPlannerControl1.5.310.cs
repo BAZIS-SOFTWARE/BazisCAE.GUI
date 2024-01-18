@@ -596,16 +596,15 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         private void dataGridView_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
-            // Try to sort based on the cells in the current column.
-
-            var fstrAr = e.CellValue1.ToString().Split('_');
-            var sstrAr = e.CellValue2.ToString().Split('_');
-
-            var fTask = Path.GetFileNameWithoutExtension(fstrAr[0]);
-            var sTask = Path.GetFileNameWithoutExtension(sstrAr[0]);
-
             if (e.Column.Index == (int)Column.settings)
             {
+                // Try to sort based on the cells in the current column.
+                var fTask = Path.GetFileNameWithoutExtension(e.CellValue1.ToString());
+                var sTask = Path.GetFileNameWithoutExtension(e.CellValue2.ToString());
+
+                var fstrAr = fTask.Split('_');
+                var sstrAr = sTask.Split('_');
+
                 var fInd = int.Parse(fstrAr[1]);
                 var sInd = int.Parse(sstrAr[1]);
 
