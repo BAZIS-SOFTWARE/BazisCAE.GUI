@@ -33,10 +33,12 @@ namespace ModelModule
         {
             this.meshDelBtn = new System.Windows.Forms.Button();
             this.algoChoice = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.algoLabel = new System.Windows.Forms.Label();
             this.meshDensityValue = new System.Windows.Forms.TextBox();
             this.meshGenBtn = new System.Windows.Forms.Button();
             this.meshGenBox = new System.Windows.Forms.GroupBox();
+            this.meshSaveBtn = new System.Windows.Forms.Button();
+            this.meshLoadBtn = new System.Windows.Forms.Button();
             this.densityLabel = new System.Windows.Forms.Label();
             this.meshLayout = new System.Windows.Forms.TableLayoutPanel();
             this.meshElBox = new System.Windows.Forms.GroupBox();
@@ -118,6 +120,7 @@ namespace ModelModule
             this.label15 = new System.Windows.Forms.Label();
             this.txtSizeListFar = new System.Windows.Forms.TextBox();
             this.loadModelBox = new System.Windows.Forms.GroupBox();
+            this.geoScriptBtn = new System.Windows.Forms.Button();
             this.geoDelBtn = new System.Windows.Forms.Button();
             this.geoLoadBtn = new System.Windows.Forms.Button();
             this.geoElBox = new System.Windows.Forms.GroupBox();
@@ -175,6 +178,7 @@ namespace ModelModule
             // 
             // algoChoice
             // 
+            this.algoChoice.Enabled = false;
             this.algoChoice.FormattingEnabled = true;
             this.algoChoice.Items.AddRange(new object[] {
             "MeshAdapt",
@@ -189,19 +193,21 @@ namespace ModelModule
             this.algoChoice.TabIndex = 8;
             this.algoChoice.SelectedIndexChanged += new System.EventHandler(this.OnAlgorithmChoice);
             // 
-            // label1
+            // algoLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 28);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(193, 16);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Алгоритм построения сетки:";
+            this.algoLabel.AutoSize = true;
+            this.algoLabel.Enabled = false;
+            this.algoLabel.Location = new System.Drawing.Point(4, 28);
+            this.algoLabel.Name = "algoLabel";
+            this.algoLabel.Size = new System.Drawing.Size(193, 16);
+            this.algoLabel.TabIndex = 7;
+            this.algoLabel.Text = "Алгоритм построения сетки:";
             // 
             // meshDensityValue
             // 
             this.meshDensityValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.meshDensityValue.Location = new System.Drawing.Point(7, 81);
+            this.meshDensityValue.Enabled = false;
+            this.meshDensityValue.Location = new System.Drawing.Point(7, 76);
             this.meshDensityValue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.meshDensityValue.Name = "meshDensityValue";
             this.meshDensityValue.Size = new System.Drawing.Size(120, 22);
@@ -212,6 +218,7 @@ namespace ModelModule
             // meshGenBtn
             // 
             this.meshGenBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.meshGenBtn.Enabled = false;
             this.meshGenBtn.Location = new System.Drawing.Point(161, 71);
             this.meshGenBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.meshGenBtn.Name = "meshGenBtn";
@@ -223,28 +230,54 @@ namespace ModelModule
             // 
             // meshGenBox
             // 
+            this.meshGenBox.Controls.Add(this.meshSaveBtn);
+            this.meshGenBox.Controls.Add(this.meshLoadBtn);
             this.meshGenBox.Controls.Add(this.meshDelBtn);
             this.meshGenBox.Controls.Add(this.algoChoice);
-            this.meshGenBox.Controls.Add(this.label1);
+            this.meshGenBox.Controls.Add(this.algoLabel);
             this.meshGenBox.Controls.Add(this.meshDensityValue);
             this.meshGenBox.Controls.Add(this.densityLabel);
             this.meshGenBox.Controls.Add(this.meshGenBtn);
             this.meshGenBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.meshGenBox.Enabled = false;
             this.meshGenBox.Location = new System.Drawing.Point(3, 2);
             this.meshGenBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.meshGenBox.Name = "meshGenBox";
             this.meshGenBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.meshGenBox.Size = new System.Drawing.Size(480, 107);
+            this.meshGenBox.Size = new System.Drawing.Size(480, 151);
             this.meshGenBox.TabIndex = 3;
             this.meshGenBox.TabStop = false;
             this.meshGenBox.Text = "Управление сеткой";
+            // 
+            // meshSaveBtn
+            // 
+            this.meshSaveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.meshSaveBtn.Enabled = false;
+            this.meshSaveBtn.Location = new System.Drawing.Point(323, 115);
+            this.meshSaveBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.meshSaveBtn.Name = "meshSaveBtn";
+            this.meshSaveBtn.Size = new System.Drawing.Size(131, 32);
+            this.meshSaveBtn.TabIndex = 11;
+            this.meshSaveBtn.Text = "Сохранить";
+            this.meshSaveBtn.UseVisualStyleBackColor = true;
+            // 
+            // meshLoadBtn
+            // 
+            this.meshLoadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.meshLoadBtn.Enabled = false;
+            this.meshLoadBtn.Location = new System.Drawing.Point(161, 115);
+            this.meshLoadBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.meshLoadBtn.Name = "meshLoadBtn";
+            this.meshLoadBtn.Size = new System.Drawing.Size(131, 32);
+            this.meshLoadBtn.TabIndex = 10;
+            this.meshLoadBtn.Text = "Загрузить";
+            this.meshLoadBtn.UseVisualStyleBackColor = true;
             // 
             // densityLabel
             // 
             this.densityLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.densityLabel.AutoSize = true;
-            this.densityLabel.Location = new System.Drawing.Point(4, 53);
+            this.densityLabel.Enabled = false;
+            this.densityLabel.Location = new System.Drawing.Point(4, 54);
             this.densityLabel.Name = "densityLabel";
             this.densityLabel.Size = new System.Drawing.Size(135, 16);
             this.densityLabel.TabIndex = 0;
@@ -262,8 +295,8 @@ namespace ModelModule
             this.meshLayout.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.meshLayout.Name = "meshLayout";
             this.meshLayout.RowCount = 3;
-            this.meshLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.72122F));
-            this.meshLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.73601F));
+            this.meshLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.36748F));
+            this.meshLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45.08976F));
             this.meshLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.40376F));
             this.meshLayout.Size = new System.Drawing.Size(486, 947);
             this.meshLayout.TabIndex = 0;
@@ -273,11 +306,11 @@ namespace ModelModule
             this.meshElBox.Controls.Add(this.meshOptLayout);
             this.meshElBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.meshElBox.Enabled = false;
-            this.meshElBox.Location = new System.Drawing.Point(3, 113);
+            this.meshElBox.Location = new System.Drawing.Point(3, 157);
             this.meshElBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.meshElBox.Name = "meshElBox";
             this.meshElBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.meshElBox.Size = new System.Drawing.Size(480, 467);
+            this.meshElBox.Size = new System.Drawing.Size(480, 423);
             this.meshElBox.TabIndex = 5;
             this.meshElBox.TabStop = false;
             this.meshElBox.Text = "Элементы сетки";
@@ -295,7 +328,7 @@ namespace ModelModule
             this.meshOptLayout.Name = "meshOptLayout";
             this.meshOptLayout.RowCount = 1;
             this.meshOptLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.meshOptLayout.Size = new System.Drawing.Size(474, 448);
+            this.meshOptLayout.Size = new System.Drawing.Size(474, 404);
             this.meshOptLayout.TabIndex = 4;
             // 
             // elemsTree
@@ -304,7 +337,7 @@ namespace ModelModule
             this.elemsTree.Location = new System.Drawing.Point(3, 2);
             this.elemsTree.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.elemsTree.Name = "elemsTree";
-            this.elemsTree.Size = new System.Drawing.Size(278, 444);
+            this.elemsTree.Size = new System.Drawing.Size(278, 400);
             this.elemsTree.TabIndex = 0;
             this.elemsTree.Tag = "elemsTree";
             this.elemsTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.OnTreeChange);
@@ -316,12 +349,13 @@ namespace ModelModule
             this.meshElPanel.Location = new System.Drawing.Point(287, 2);
             this.meshElPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.meshElPanel.Name = "meshElPanel";
-            this.meshElPanel.Size = new System.Drawing.Size(184, 444);
+            this.meshElPanel.Size = new System.Drawing.Size(184, 400);
             this.meshElPanel.TabIndex = 1;
             // 
             // elemDelBtn
             // 
-            this.elemDelBtn.Location = new System.Drawing.Point(33, 398);
+            this.elemDelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.elemDelBtn.Location = new System.Drawing.Point(33, 354);
             this.elemDelBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.elemDelBtn.Name = "elemDelBtn";
             this.elemDelBtn.Size = new System.Drawing.Size(131, 32);
@@ -356,15 +390,15 @@ namespace ModelModule
             this.meshExit.TabIndex = 12;
             this.meshExit.Text = "Ок";
             this.meshExit.UseVisualStyleBackColor = true;
-            this.meshExit.Click += new System.EventHandler(this.OnExit);
+            this.meshExit.Click += new System.EventHandler(this.OnSaveData);
             // 
             // quadBtn
             // 
             this.quadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.quadBtn.Location = new System.Drawing.Point(168, 21);
+            this.quadBtn.Location = new System.Drawing.Point(164, 21);
             this.quadBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.quadBtn.Name = "quadBtn";
-            this.quadBtn.Size = new System.Drawing.Size(145, 32);
+            this.quadBtn.Size = new System.Drawing.Size(150, 32);
             this.quadBtn.TabIndex = 11;
             this.quadBtn.Text = "Квадратизировать";
             this.quadBtn.UseVisualStyleBackColor = true;
@@ -567,6 +601,7 @@ namespace ModelModule
             this.volExit.TabIndex = 13;
             this.volExit.Text = "Ок";
             this.volExit.UseVisualStyleBackColor = true;
+            this.volExit.Click += new System.EventHandler(this.OnSaveData);
             // 
             // volDelBtn
             // 
@@ -577,6 +612,7 @@ namespace ModelModule
             this.volDelBtn.TabIndex = 11;
             this.volDelBtn.Text = "Удалить";
             this.volDelBtn.UseVisualStyleBackColor = true;
+            this.volDelBtn.Click += new System.EventHandler(this.OnDeleteVolElement);
             // 
             // volumesTree
             // 
@@ -586,6 +622,8 @@ namespace ModelModule
             this.volumesTree.Name = "volumesTree";
             this.volumesTree.Size = new System.Drawing.Size(282, 426);
             this.volumesTree.TabIndex = 0;
+            this.volumesTree.Tag = "volElemsTree";
+            this.volumesTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.OnTreeChange);
             // 
             // volElPanel
             // 
@@ -813,8 +851,8 @@ namespace ModelModule
             this.txtBetaCoef.Size = new System.Drawing.Size(131, 22);
             this.txtBetaCoef.TabIndex = 3;
             this.txtBetaCoef.Tag = "Beta 1,01";
-            this.txtBetaCoef.Text = "1,01";
-            this.txtBetaCoef.Validated += new System.EventHandler(this.OnFilterValueEnter);
+            this.txtBetaCoef.Text = "1.01";
+            this.txtBetaCoef.TextChanged += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // label5
             // 
@@ -835,7 +873,7 @@ namespace ModelModule
             this.txtBetaLayers.TabIndex = 1;
             this.txtBetaLayers.Tag = "NbLayers 10";
             this.txtBetaLayers.Text = "10";
-            this.txtBetaLayers.Validated += new System.EventHandler(this.OnFilterValueEnter);
+            this.txtBetaLayers.TextChanged += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // label4
             // 
@@ -874,7 +912,7 @@ namespace ModelModule
             this.txtFanListSize.Size = new System.Drawing.Size(131, 22);
             this.txtFanListSize.TabIndex = 8;
             this.txtFanListSize.Tag = "FanPointsSizesList";
-            this.txtFanListSize.Validated += new System.EventHandler(this.OnFilterListEnter);
+            this.txtFanListSize.TextChanged += new System.EventHandler(this.OnFilterListEnter);
             // 
             // label8
             // 
@@ -895,7 +933,7 @@ namespace ModelModule
             this.txtFanAngle.TabIndex = 4;
             this.txtFanAngle.Tag = "AnisoMax 10000000000";
             this.txtFanAngle.Text = "10000000000";
-            this.txtFanAngle.Validated += new System.EventHandler(this.OnFilterValueEnter);
+            this.txtFanAngle.TextChanged += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // label6
             // 
@@ -924,7 +962,7 @@ namespace ModelModule
             this.txtFanListPoints.Size = new System.Drawing.Size(131, 22);
             this.txtFanListPoints.TabIndex = 6;
             this.txtFanListPoints.Tag = "FanPointsList";
-            this.txtFanListPoints.Validated += new System.EventHandler(this.OnFilterListEnter);
+            this.txtFanListPoints.TextChanged += new System.EventHandler(this.OnFilterListEnter);
             // 
             // grpFieldLayer
             // 
@@ -952,8 +990,8 @@ namespace ModelModule
             this.txtLayerRatio.Size = new System.Drawing.Size(131, 22);
             this.txtLayerRatio.TabIndex = 10;
             this.txtLayerRatio.Tag = "Ratio 1,1";
-            this.txtLayerRatio.Text = "1,1";
-            this.txtLayerRatio.Validated += new System.EventHandler(this.OnFilterValueEnter);
+            this.txtLayerRatio.Text = "1.1";
+            this.txtLayerRatio.TextChanged += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // txtLayerThickness
             // 
@@ -964,8 +1002,8 @@ namespace ModelModule
             this.txtLayerThickness.Size = new System.Drawing.Size(131, 22);
             this.txtLayerThickness.TabIndex = 9;
             this.txtLayerThickness.Tag = "Thickness 0,01";
-            this.txtLayerThickness.Text = "0,01";
-            this.txtLayerThickness.Validated += new System.EventHandler(this.OnFilterValueEnter);
+            this.txtLayerThickness.Text = "0.01";
+            this.txtLayerThickness.TextChanged += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // label10
             // 
@@ -1013,7 +1051,7 @@ namespace ModelModule
             this.txtGenListSurfaces.Size = new System.Drawing.Size(131, 22);
             this.txtGenListSurfaces.TabIndex = 8;
             this.txtGenListSurfaces.Tag = "ExcludedSurfacesList";
-            this.txtGenListSurfaces.Validated += new System.EventHandler(this.OnFilterListEnter);
+            this.txtGenListSurfaces.TextChanged += new System.EventHandler(this.OnFilterListEnter);
             // 
             // txtGenListCurves
             // 
@@ -1024,7 +1062,7 @@ namespace ModelModule
             this.txtGenListCurves.Size = new System.Drawing.Size(131, 22);
             this.txtGenListCurves.TabIndex = 6;
             this.txtGenListCurves.Tag = "CurvesList";
-            this.txtGenListCurves.Validated += new System.EventHandler(this.OnFilterListEnter);
+            this.txtGenListCurves.TextChanged += new System.EventHandler(this.OnFilterListEnter);
             // 
             // label12
             // 
@@ -1053,7 +1091,7 @@ namespace ModelModule
             this.txtGenListPoints.Size = new System.Drawing.Size(131, 22);
             this.txtGenListPoints.TabIndex = 4;
             this.txtGenListPoints.Tag = "PointsList";
-            this.txtGenListPoints.Validated += new System.EventHandler(this.OnFilterListEnter);
+            this.txtGenListPoints.TextChanged += new System.EventHandler(this.OnFilterListEnter);
             // 
             // label13
             // 
@@ -1175,7 +1213,7 @@ namespace ModelModule
             this.txtSizeListPoints.Size = new System.Drawing.Size(131, 22);
             this.txtSizeListPoints.TabIndex = 13;
             this.txtSizeListPoints.Tag = "SizesList";
-            this.txtSizeListPoints.Validated += new System.EventHandler(this.OnFilterListEnter);
+            this.txtSizeListPoints.TextChanged += new System.EventHandler(this.OnFilterListEnter);
             // 
             // txtSizeListNear
             // 
@@ -1186,8 +1224,8 @@ namespace ModelModule
             this.txtSizeListNear.Size = new System.Drawing.Size(131, 22);
             this.txtSizeListNear.TabIndex = 9;
             this.txtSizeListNear.Tag = "Size 0,1";
-            this.txtSizeListNear.Text = "0,1";
-            this.txtSizeListNear.Validated += new System.EventHandler(this.OnFilterValueEnter);
+            this.txtSizeListNear.Text = "0.1";
+            this.txtSizeListNear.TextChanged += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // label16
             // 
@@ -1226,10 +1264,11 @@ namespace ModelModule
             this.txtSizeListFar.TabIndex = 10;
             this.txtSizeListFar.Tag = "SizeFar 1,0";
             this.txtSizeListFar.Text = "1.0";
-            this.txtSizeListFar.Validated += new System.EventHandler(this.OnFilterValueEnter);
+            this.txtSizeListFar.TextChanged += new System.EventHandler(this.OnFilterValueEnter);
             // 
             // loadModelBox
             // 
+            this.loadModelBox.Controls.Add(this.geoScriptBtn);
             this.loadModelBox.Controls.Add(this.geoDelBtn);
             this.loadModelBox.Controls.Add(this.geoLoadBtn);
             this.loadModelBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1242,6 +1281,17 @@ namespace ModelModule
             this.loadModelBox.TabStop = false;
             this.loadModelBox.Text = "Загрузка";
             // 
+            // geoScriptBtn
+            // 
+            this.geoScriptBtn.Location = new System.Drawing.Point(166, 22);
+            this.geoScriptBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.geoScriptBtn.Name = "geoScriptBtn";
+            this.geoScriptBtn.Size = new System.Drawing.Size(140, 32);
+            this.geoScriptBtn.TabIndex = 2;
+            this.geoScriptBtn.Text = "Загрузить скрипт";
+            this.geoScriptBtn.UseVisualStyleBackColor = true;
+            this.geoScriptBtn.Click += new System.EventHandler(this.OnLoadFile);
+            // 
             // geoDelBtn
             // 
             this.geoDelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1249,7 +1299,7 @@ namespace ModelModule
             this.geoDelBtn.Location = new System.Drawing.Point(328, 22);
             this.geoDelBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.geoDelBtn.Name = "geoDelBtn";
-            this.geoDelBtn.Size = new System.Drawing.Size(120, 32);
+            this.geoDelBtn.Size = new System.Drawing.Size(140, 32);
             this.geoDelBtn.TabIndex = 1;
             this.geoDelBtn.Text = "Удалить";
             this.geoDelBtn.UseVisualStyleBackColor = true;
@@ -1257,12 +1307,12 @@ namespace ModelModule
             // 
             // geoLoadBtn
             // 
-            this.geoLoadBtn.Location = new System.Drawing.Point(35, 22);
+            this.geoLoadBtn.Location = new System.Drawing.Point(10, 22);
             this.geoLoadBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.geoLoadBtn.Name = "geoLoadBtn";
-            this.geoLoadBtn.Size = new System.Drawing.Size(120, 32);
+            this.geoLoadBtn.Size = new System.Drawing.Size(140, 32);
             this.geoLoadBtn.TabIndex = 0;
-            this.geoLoadBtn.Text = "Загрузить";
+            this.geoLoadBtn.Text = "Загрузить CAD";
             this.geoLoadBtn.UseVisualStyleBackColor = true;
             this.geoLoadBtn.Click += new System.EventHandler(this.OnLoadFile);
             // 
@@ -1379,7 +1429,7 @@ namespace ModelModule
         #endregion
         private System.Windows.Forms.Button meshDelBtn;
         private System.Windows.Forms.ComboBox algoChoice;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label algoLabel;
         private System.Windows.Forms.TextBox meshDensityValue;
         private System.Windows.Forms.Button meshGenBtn;
         private System.Windows.Forms.GroupBox meshGenBox;
@@ -1470,5 +1520,8 @@ namespace ModelModule
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtSizeListFar;
         private System.Windows.Forms.Button btnFieldDelete;
+        private Button geoScriptBtn;
+        private Button meshSaveBtn;
+        private Button meshLoadBtn;
     }
 }
