@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.IO;
 using ModelInterfaces.GeometryObjects;
+using ModelInterfaces.MeshObjects;
 
 namespace ModelModule
 {
@@ -33,7 +34,8 @@ namespace ModelModule
                                                                 { 0, Tuple.Create("Контрольный узел ","") }
                                                             };
 
-        public event Action<ObjType, IEnumerable<IModelObject>> updatePointData;
+        public event Action<ObjType, IEnumerable<IGeometryPoint>> updatePointData;
+        public event Action<ObjType, IEnumerable<INode>> updateNodeData;
         public event Action<ObjType, IEnumerable<ILineObject<IGeometryPoint>>> updateLineData;
         public event Action<ObjType, IEnumerable<ISurfaceElement>> updateSurfaceData;
         public event Action<string, int> ShowObjectsEvent;
@@ -173,7 +175,7 @@ namespace ModelModule
                 var nodes = controller.GetNodes(ref status);
                 if (status)
                 {
-                    updatePointData(ObjType.Узел, nodes);
+                    updateNodeData(ObjType.Узел, nodes);
                     return true;
                 }
             }
@@ -441,7 +443,7 @@ namespace ModelModule
                 var nodes = controller.GetNodes(ref status);//Получаем узлы, если нужно
                 var elems = controller.GetMeshEntities(2, -1, ref status);
                 updatePointData.Invoke(ObjType.Узел, null);//Удаляем узлы
-                updatePointData.Invoke(ObjType.Узел, nodes);//Обновляем узлы
+                updateNodeData.Invoke(ObjType.Узел, nodes);//Обновляем узлы
                 updateSurfaceData.Invoke(ObjType.Элемент2D, null);//Удаляем элементы 2D
                 updateSurfaceData.Invoke(ObjType.Элемент2D, elems);//Обновляем элементы 2D
                 elemsTree.Nodes.Remove(selectedNode);

@@ -7,6 +7,7 @@ using Geometry;
 using Gif.Components;
 using Graph;
 using ModelInterfaces;
+using ModelInterfaces.MeshObjects;
 using ProjectInterfaces;
 using ProjectInterfaces.IO;
 using ProjectInterfaces.Tasks;
@@ -100,10 +101,8 @@ namespace ResultModule
 
                 ClearAllDataOnScene();
 
-                ModelPresenter.Remove("Результаты");
-
-                foreach (var item in ModelPresenter)
-                    PresentObjectsToScene(item.Key,item.Value);
+                foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
+                    PresentObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
 
                 SceneControl.DisplayObjects();
             };
@@ -134,10 +133,8 @@ namespace ResultModule
             {
                 ClearAllDataOnScene();
 
-                ModelPresenter.Remove("Результаты");
-
-                foreach (var item in ModelPresenter)
-                    PresentObjectsToScene(item.Key, item.Value);
+                foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
+                    PresentObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
 
                 SceneControl.DisplayObjects();
             };
@@ -262,8 +259,8 @@ namespace ResultModule
                 {
                     ClearAllDataOnScene();
 
-                    foreach (var item in ModelPresenter)
-                        PresentObjectsToScene(item.Key, item.Value);
+                    foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
+                        PresentObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
 
                     SelectedObjects = ar;
 
@@ -444,10 +441,10 @@ namespace ResultModule
         {
             if(e.ClickedItem.Tag.ToString() == "0")
             {
-                ModelPresenter.Remove("Результаты");
+                SceneControl.DeleteVBObjects(ObjType.Фигура2D.ToString());
 
-                foreach (var item in ModelPresenter)
-                    PresentObjectsToScene(item.Key, item.Value);
+                foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
+                    PresentObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
 
                 SceneControl.DisplayObjects();
 
@@ -468,10 +465,8 @@ namespace ResultModule
             {
                 ClearAllDataOnScene();
 
-                ModelPresenter.Remove("Результаты");
-
-                foreach (var item in ModelPresenter)
-                    PresentObjectsToScene(item.Key, item.Value);
+                foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
+                    PresentObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
 
                 SceneControl.DisplayObjects();
             }
@@ -535,25 +530,26 @@ namespace ResultModule
 
                 if (Project.TaskType == TaskType.Volume)
                 {
-                    var els3D = Project.ModelData.ObjectData.FindMany<IElement3D>();
+                    var els3D = Project.ModelData.ObjectData.E3DCollection;
                     var elsResults = fieldCreator.CreateSurfaceObjects(result, objsType, resName, els3D);
 
-                    var presenter = ModelPresenter.CreateSurfaceGeometryPresenter(elsResults,false);
-                    PresentObjectsToScene("Результаты", presenter);
+                    var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
+ 
+                    PresentObjectsToScene(ObjType.Фигура2D.ToString(), presenter);
                 }
                 else
                 {
-                    var els2D = Project.ModelData.ObjectData.FindMany<IElement2D>();
+                    var els2D = Project.ModelData.ObjectData.E2DCollection;
                     var elsResults = fieldCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
 
-                    var presenter = ModelPresenter.CreateSurfaceGeometryPresenter(elsResults,false);
-                    PresentObjectsToScene("Результаты", presenter);
+                    var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
+                    PresentObjectsToScene(ObjType.Фигура2D.ToString(), presenter);
                 }
 
                 if (showResultValue)
                     ShowResultValue(objsType, resName, result);
 
-                SceneControl.ChangeViewModeVBObjects("Результаты", ObjView.Surface);
+                //SceneControl.ChangeViewModeVBObjects(ObjType.Фигура2D.ToString(), ObjView.Surface);
 
                 SceneControl.DisplayObjects();
 
@@ -767,9 +763,9 @@ namespace ResultModule
         {
             IElement[] elements;
             if (Project.TaskType == TaskType.Volume)
-                elements = Project.ModelData.ObjectData.FindMany<IElement3D>().ToArray();
+                elements = Project.ModelData.ObjectData.E3DCollection.ToArray();
             else
-                elements = Project.ModelData.ObjectData.FindMany<IElement2D>().ToArray();
+                elements = Project.ModelData.ObjectData.E2DCollection.ToArray();
 
             var act = new Action(() =>
             {
@@ -827,9 +823,9 @@ namespace ResultModule
         {
             IEnumerable<IModelObject> objs;
             if (objsType == "Узлы")
-                objs = Project.ModelData.ObjectData.FindMany<INode>();
+                objs = Project.ModelData.ObjectData.NodeCollection;
             else
-                objs = Project.ModelData.ObjectData.FindMany<IElement>();
+                objs = Project.ModelData.ObjectData.GetAllElements();
 
             foreach (var obj in objs)
             {

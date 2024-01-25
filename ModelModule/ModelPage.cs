@@ -6,6 +6,7 @@ using Model;
 using Model.MeshObjects;
 using ModelInterfaces;
 using ModelInterfaces.GeometryObjects;
+using ModelInterfaces.MeshObjects;
 using ModelModule.ToolStrips;
 using System;
 using System.Collections.Generic;
@@ -105,25 +106,23 @@ namespace ModelModule
 
         private void CreateBoundaryElements2D()
         {
-            var els3D = Project.ModelData.ObjectData.FindMany<Element3D>();
+            var els3D = Project.ModelData.ObjectData.E3DCollection;
 
             if (els3D.Count() != 0)
             {
 
-                var startNumber = Project.ModelData.ObjectData.GetLastObjNumber(ObjType.Элемент) + 1;
+                var startNumber = Project.ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
                 var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
 
-                Project.ModelData.ObjectData.Add(ObjType.Элемент2D,boundaryElements2D);
+                Project.ModelData.ObjectData.E2DCollection.AddRange(boundaryElements2D);
                 //Project.ModelData.ObjectData.Remove
-
-                var presenter = ModelPresenter.CreateSurfaceElementsPresenter(boundaryElements2D, false);
-                ModelPresenter.Add("Элементы2D", presenter);
 
                 SceneControl.HideAllGeometryObjs();
                 SceneControl.HideDisplayText2D();
                 SceneControl.HideDisplayText3D();
 
-                PresentObjectsToScene("Элемент2D", presenter);
+
+                PresentObjectsToScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(ObjType.Элемент2D));
 
                 SceneControl.DisplayObjects();
 
@@ -148,16 +147,12 @@ namespace ModelModule
             {
                 SetBackColorToAllObjects();
 
-                foreach (var obj in Project.ModelData.ObjectData.FindMany<ILineObject<IPoint>>())//Сработает ли это?
+                foreach (var obj in Project.ModelData.ObjectData.LineCollection)//Сработает ли это?
                     if (obj.Number == objNumber)
                         obj.MasterColor = SceneControl.SelectionColor;///Кажется нужно, чтобы цвет брался из SettingControls?
 
-                var vboObjs = SceneControl.FindVBObj(objsType);
-                var colors = ModelPresenter[objsType].CreateVertexes(vboObjs.ColorLength, "цвет");
-                vboObjs.PointsColors = colors;
-
+                SetNewSceneColor(ObjType.Линия);
                 SceneControl.DisplayObjects();
-
             }
             catch (Exception ex)
             {
@@ -165,55 +160,25 @@ namespace ModelModule
             }
         }
 
-        private bool RemoveFromModelData(ObjType objType, IEnumerable<IModelObject> objects)
+        private void UpdatePointData(ObjType objType, IEnumerable<IGeometryPoint> objects)
         {
-            var status = false;
-            if (objType == ObjType.Поверхность)
-            {
-                Project.ModelData.ObjectData.Clear();
-                ModelPresenter.Clear();
-                status = true;
-            }
-            else if (objects == null)
-            {
-                Project.ModelData.ObjectData.Remove(objType);
-                ModelPresenter.Remove(objType.ToString());
-                status = true;
-            }
-            return status;
-        }
-
-        private void UpdatePointData(ObjType objType, IEnumerable<IModelObject> objects)
-        {
-            if (!RemoveFromModelData(objType, objects))
-            {
-                Project.ModelData.ObjectData.Add(objType,objects);
-                var presenter = ModelPresenter.CreatePointObjectsPresenter(objects);
-                ModelPresenter.Add(objType.ToString(), presenter);
-            }
-            PresentModelOnSelectToolStrip();
+            Project.ModelData.ObjectData.Clear(objType);
+            Project.ModelData.ObjectData.PointCollection.AddRange(objects);
         }
 
         private void UpdateLineData(ObjType objType, IEnumerable<ILineObject<IGeometryPoint>> objects)
         {
-            if (!RemoveFromModelData(objType, objects))
-            {
-                Project.ModelData.ObjectData.Add(objType, objects);
-                var presenter = ModelPresenter.CreateGeometryLinePresenter(objects);
-                ModelPresenter.Add(objType.ToString(), presenter);
-            }
-            PresentModelOnSelectToolStrip();
+            Project.ModelData.ObjectData.Clear(objType);
+            Project.ModelData.ObjectData.LineCollection.AddRange(objects);
         }
 
         private void UpdateSurfaceData(ObjType objType, IEnumerable<ISurfaceElement> objects)
         {
-            if (!RemoveFromModelData(objType, objects))
-            {
-                Project.ModelData.ObjectData.Add(objType, objects);
-                var presenter = ModelPresenter.CreateSurfaceElementsPresenter(objects, false);
-                ModelPresenter.Add(objType.ToString(), presenter);
-            }
-            PresentModelOnSelectToolStrip();
+            Project.ModelData.ObjectData.Clear(objType);
+            if(objType == ObjType.Элемент2D)
+                Project.ModelData.ObjectData.E2DCollection.AddRange(objects.Select(x => (IElement2D)x));
+            else if (objType == ObjType.Элемент3D)
+                Project.ModelData.ObjectData.E3DCollection.AddRange(objects.Select(x => (IElement3D)x));
         }
 
         private void ShowErrorMessage(string message) => ConsoleControl.PrintInfo(message, Color.Red);
@@ -221,8 +186,8 @@ namespace ModelModule
         private void RedrawScene(bool fitOnScreen)
         {
             ClearAllDataOnScene();
-            foreach (var item in ModelPresenter)
-                PresentObjectsToScene(item.Key, item.Value);
+            foreach (var objsType in Project.ModelData.ObjectData.ObjsTypes)
+                PresentObjectsToScene(objsType.ToString(), CreateObjectsPresentor(objsType));
             if (fitOnScreen)
                 SceneControl.FitObjectsToScreen();
             SceneControl.DisplayObjects();

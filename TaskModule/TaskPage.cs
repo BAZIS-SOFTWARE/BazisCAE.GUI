@@ -618,7 +618,7 @@ namespace TaskModule
                         DisplayDirection(data[index].StartTime, data[index], iobj);
                 }
 
-                SetNewSceneColor(group.ObjType.ToString());
+                SetNewSceneColor(group.ObjType);
 
                 //SetVBObjColor(group.ObjType);
 
@@ -729,7 +729,7 @@ namespace TaskModule
                             DisplayDirection(arg2.Time, data, iobj);
                     }
 
-                    SetNewSceneColor(group.ObjType.ToString());
+                    SetNewSceneColor(group.ObjType);
 
                     SceneControl.DisplayObjects();
                 }
@@ -850,61 +850,61 @@ namespace TaskModule
             data.MovedFrameFunction.SortTrajNodes();
         }
 
-        private async Task<string> SetTaskDataAsync(string cmd, string taskStr)
-        {
-            var taskParamsCalculator = new TaskDataCalculator(Project);
-            taskParamsCalculator.CalculatorEvent += (ar1, ar2) =>
-            {
-                Invoke(new Action(() => { PrintCommand(ar2.Message); }));
-            };
+        //private async Task<string> SetTaskDataAsync(string cmd, string taskStr)
+        //{
+        //    var taskParamsCalculator = new TaskDataCalculator(Project);
+        //    taskParamsCalculator.CalculatorEvent += (ar1, ar2) =>
+        //    {
+        //        Invoke(new Action(() => { PrintCommand(ar2.Message); }));
+        //    };
 
-            if (cmd == "setDirection" & taskStr.Contains("LRF"))
-            {
-                PrintCommand("задайте вектор, выбрав 3 точки, и нажмите на кнопку Enter или нажмите кнопку ESC");
-                var confirm = false;
-                var breaker = false;
+        //    if (cmd == "setDirection" & taskStr.Contains("LRF"))
+        //    {
+        //        PrintCommand("задайте вектор, выбрав 3 точки, и нажмите на кнопку Enter или нажмите кнопку ESC");
+        //        var confirm = false;
+        //        var breaker = false;
 
-                SelectedObjects = ObjType.Узел;
+        //        SelectedObjects = ObjType.Узел;
 
-                var func = taskParamsCalculator.SetDirection(taskStr);
+        //        var func = taskParamsCalculator.SetDirection(taskStr);
 
-                this.KeyDown += delegate (object sender, KeyEventArgs e)
-                {
-                    if (e.KeyCode == Keys.Escape)
-                        breaker = true;
-                    if (e.KeyCode == Keys.Enter)
-                        confirm = true;
-                };
-                await System.Threading.Tasks.Task.Run(() =>
-                {
-                    while (true)
-                    {
-                        if (confirm)
-                        {
-                            var res = func.Invoke();
-                            if (res.Contains("LRF"))
+        //        this.KeyDown += delegate (object sender, KeyEventArgs e)
+        //        {
+        //            if (e.KeyCode == Keys.Escape)
+        //                breaker = true;
+        //            if (e.KeyCode == Keys.Enter)
+        //                confirm = true;
+        //        };
+        //        await System.Threading.Tasks.Task.Run(() =>
+        //        {
+        //            while (true)
+        //            {
+        //                if (confirm)
+        //                {
+        //                    var res = func.Invoke();
+        //                    if (res.Contains("LRF"))
 
-                            {
-                                confirm = false;
-                            }
-                            else
-                            {
-                                Invoke(new Action(() => {
-                                    ConsoleControl.PrintInfo("Операция завершена успешно", Color.Green);
-                                    PrintCommand("");
-                                }));
-                                Thread.Sleep(100);
-                                taskStr = res;
-                                break;
-                            }
-                        }
-                        if (breaker)
-                            break;
-                    }
-                });
-            }
-            return taskStr;
-        }
+        //                    {
+        //                        confirm = false;
+        //                    }
+        //                    else
+        //                    {
+        //                        Invoke(new Action(() => {
+        //                            ConsoleControl.PrintInfo("Операция завершена успешно", Color.Green);
+        //                            PrintCommand("");
+        //                        }));
+        //                        Thread.Sleep(100);
+        //                        taskStr = res;
+        //                        break;
+        //                    }
+        //                }
+        //                if (breaker)
+        //                    break;
+        //            }
+        //        });
+        //    }
+        //    return taskStr;
+        //}
 
         private void TaskPage_Load(object sender, EventArgs e)
         {
