@@ -22,7 +22,6 @@ namespace ModelModule
 {
     public partial class ModelPage : BasePage
     {
-        IObjsPresenter lines;
         public ModelPage() : base()
         {
             InitializeComponent();
@@ -163,7 +162,6 @@ namespace ModelModule
                     var presenter = PresentersCreator.CreateLineObjectsPresenter(data);
                     var colors = presenter.CreateVertexes(vboObjs.ColorLength, "цвет");
                     vboObjs.PointsColors = colors;
-                    //PresentObjectsToScene(objsType, presenter);
                     SceneControl.DisplayObjects();
                 }
             }
