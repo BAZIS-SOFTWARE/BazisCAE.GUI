@@ -13,6 +13,7 @@ using System.Text;
 using Model.MeshObjects;
 using Geometry;
 using ModelInterfaces.MeshObjects;
+using SceneInterface;
 
 namespace ModelModule
 {
@@ -55,7 +56,7 @@ namespace ModelModule
         public event Action<ObjType, IEnumerable<ILineObject<INode>>> updateElement1Data;
         public event Action<ObjType, IEnumerable<ISurfaceElement>> updateSurfaceData;
         public event Action<ObjectsData> saveObjectData;
-        public event Action<IModelObject, IModelObject> ShowObjectsEvent;
+        public event Action<IEnumerable<ILineObject<IGeometryPoint>>, IModelObject> ShowObjectsEvent;
         public event Action<string> showErrorMessage;
         public event Action<bool> redrawScene;
 
@@ -438,10 +439,13 @@ namespace ModelModule
                     pointsControlBox.Enabled = true;
                     IModelObject showObj, resetObj = null;
                     if (lastNode != null && lastNode.Text.Contains("Кривая"))
+                    {
                         resetObj = FindObjectByTreeNode(lastNode);
+                        resetObj.MasterColor = resetObj.InitialColor;
+                    }
                     var keyInfo = selectedNode.Text.Split(' ');
                     showObj = FindObjectByTreeNode(selectedNode);
-                    ShowObjectsEvent(showObj, resetObj);
+                    ShowObjectsEvent(ObjectData.LineCollection, showObj);
                 }
                 else
                     pointsControlBox.Enabled = false;
@@ -449,7 +453,8 @@ namespace ModelModule
             if (lastNode != null && lastNode.Text.Contains("Кривая"))
             {
                 var resetObj = FindObjectByTreeNode(lastNode);
-                ShowObjectsEvent(null, resetObj);
+                resetObj.MasterColor = resetObj.InitialColor;
+                ShowObjectsEvent(ObjectData.LineCollection, resetObj);
             }
         }
         private List<Tuple<int, string, Node[]>> GetElements(int dim, int tags = -1)

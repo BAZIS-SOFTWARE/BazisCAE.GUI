@@ -2,6 +2,7 @@
 using BaseModule.Navigator;
 using BaseModule.ToolStrips;
 using Geometry;
+using MathNet.Numerics.Distributions;
 using Model;
 using Model.MeshObjects;
 using ModelControllerInterfaces;
@@ -9,17 +10,19 @@ using ModelInterfaces;
 using ModelInterfaces.GeometryObjects;
 using ModelInterfaces.MeshObjects;
 using ModelModule.ToolStrips;
+using SceneInterface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace ModelModule
 {
     public partial class ModelPage : BasePage
     {
-
+        IObjsPresenter lines;
         public ModelPage() : base()
         {
             InitializeComponent();
@@ -145,20 +148,24 @@ namespace ModelModule
 
         }
 
-        private void ShowObjects(IModelObject showObj, IModelObject resetObj)
+        private void ShowObjects(IEnumerable<ILineObject<IGeometryPoint>> data, IModelObject changedObj)
         {
             try
             {
-                if (resetObj != null)
-                    resetObj.MasterColor = resetObj.InitialColor;
-                if (showObj != null)
-                    showObj.MasterColor = SceneControl.SelectionColor;
+                if (changedObj != null)
+                    changedObj.MasterColor = SceneControl.SelectionColor;
                 var objsType = ObjType.Линия.ToString();
                 var vboObjs = SceneControl.FindVBObj(objsType);
-                //var colors = ModelPresenter[objsType].CreateVertexes(vboObjs.ColorLength, "цвет");
-                //vboObjs.PointsColors = colors;
+                if (vboObjs != null)
+                {
+                    //SceneControl.DeleteVBObjects(objsType);
 
-                //SceneControl.DisplayObjects();
+                    var presenter = PresentersCreator.CreateLineObjectsPresenter(data);
+                    var colors = presenter.CreateVertexes(vboObjs.ColorLength, "цвет");
+                    vboObjs.PointsColors = colors;
+                    //PresentObjectsToScene(objsType, presenter);
+                    SceneControl.DisplayObjects();
+                }
             }
             catch (Exception ex)
             {
