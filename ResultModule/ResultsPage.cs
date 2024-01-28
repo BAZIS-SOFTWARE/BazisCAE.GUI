@@ -6,6 +6,7 @@ using CustomControls.OS;
 using Geometry;
 using Gif.Components;
 using Graph;
+using ModelControllerInterfaces;
 using ModelInterfaces;
 using ModelInterfaces.MeshObjects;
 using ProjectInterfaces;
@@ -441,7 +442,7 @@ namespace ResultModule
         {
             if(e.ClickedItem.Tag.ToString() == "0")
             {
-                SceneControl.DeleteVBObjects(ObjType.Фигура2D.ToString());
+                SceneControl.DeleteVBObjects("Results");
 
                 foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
                     PresentObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
@@ -535,7 +536,7 @@ namespace ResultModule
 
                     var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
  
-                    PresentObjectsToScene(ObjType.Фигура2D.ToString(), presenter);
+                    PresentObjectsToScene("Results", presenter);
                 }
                 else
                 {
@@ -543,13 +544,13 @@ namespace ResultModule
                     var elsResults = fieldCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
 
                     var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
-                    PresentObjectsToScene(ObjType.Фигура2D.ToString(), presenter);
+                    PresentObjectsToScene("Results", presenter);
                 }
 
                 if (showResultValue)
                     ShowResultValue(objsType, resName, result);
 
-                //SceneControl.ChangeViewModeVBObjects(ObjType.Фигура2D.ToString(), ObjView.Surface);
+                SceneControl.ChangeViewModeVBObjects("Results", ObjView.Surface);
 
                 SceneControl.DisplayObjects();
 
@@ -845,6 +846,7 @@ namespace ResultModule
         {
             if (Project.ResultData == null)
                 Project.ResultData = new ResultData();
+            PresentersCreator.Add("Results", PresenterView.Surface);
         }
     }   
 }
