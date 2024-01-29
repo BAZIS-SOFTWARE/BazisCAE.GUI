@@ -4,6 +4,7 @@ using BaseModule.ToolStrips;
 using Geometry;
 using MathNet.Numerics.Distributions;
 using Model;
+using Model.GeometryObjects;
 using Model.MeshObjects;
 using ModelControllerInterfaces;
 using ModelInterfaces;
@@ -185,7 +186,7 @@ namespace ModelModule
             }
         }
 
-        private void UpdateLineData(ObjType objType, IEnumerable<ILineObject<IGeometryPoint>> objects)
+        private void UpdateLineData(ObjType objType, IEnumerable<Line> objects)
         {
             var obj = objType.ToString();
             if (SceneControl.FindVBObj(obj) != null)
@@ -195,8 +196,6 @@ namespace ModelModule
                 var presenter = PresentersCreator.CreateLineObjectsPresenter(objects);
                 PresentObjectsToScene(obj, presenter);
             }
-            else
-                SceneControl.DeleteAllVBObjects();
         }
 
         private void UpdateElement1Data(ObjType objType, IEnumerable<ILineObject<INode>> objects)

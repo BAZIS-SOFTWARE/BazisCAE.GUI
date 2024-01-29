@@ -11,6 +11,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using Model.MeshObjects;
+using Model.GeometryObjects;
 using Geometry;
 using ModelInterfaces.MeshObjects;
 using SceneInterface;
@@ -52,7 +53,7 @@ namespace ModelModule
         public IObjectsData ObjectData { get; internal set; }
 
         public event Action<ObjType, IEnumerable<IModelObject>> updatePointData;
-        public event Action<ObjType, IEnumerable<ILineObject<IGeometryPoint>>> updateLineData;
+        public event Action<ObjType, IEnumerable<Line>> updateLineData;
         public event Action<ObjType, IEnumerable<ILineObject<INode>>> updateElement1Data;
         public event Action<ObjType, IEnumerable<ISurfaceElement>> updateSurfaceData;
         public event Action<IObjectsData> saveObjectData;
@@ -89,8 +90,35 @@ namespace ModelModule
             algoChoice.SelectedIndex = 3;
         }
 
-        private bool UpdateGeometry(int[] numbers = null)
+        private bool UpdateGeometry(ObjType objType)
         {
+            if (objType == ObjType.Точка)
+            {
+                ObjectData.PointCollection.Clear();
+                int[] dimTags;
+                controller.ModelGetGeometryEntities(out dimTags, 0);
+                var controlPoints = controller.CreateControlPoints(dimTags);
+                if (controlPoints.Count > 0)
+                    ObjectData.PointCollection.AddRange(controlPoints);
+                else
+                    controlPoints = null;
+                updatePointData?.Invoke(ObjType.Точка, controlPoints);
+            }
+            else if (objType == ObjType.Линия)
+            {
+                bool status = false;
+                int[] dimTags;
+                ObjectData.LineCollection.Clear();
+                controller.ModelGetGeometryEntities(out dimTags, 1);
+                var curves = controller.CreateLines(dimTags, ref status);
+                if(curves.Count > 0)
+                    ObjectData.LineCollection.AddRange(curves);
+                else
+                    curves = null;
+                updateLineData?.Invoke(ObjType.Линия, curves);
+            }
+
+            /*
             IEnumerable<ILineObject<IGeometryPoint>> curves = null;
             IEnumerable<IModelObject> cPoints = null;
             if (numbers == null)
@@ -106,17 +134,18 @@ namespace ModelModule
 
             updatePointData?.Invoke(ObjType.Точка, cPoints);
             updateLineData?.Invoke(ObjType.Линия, curves);
-            /*if (cPoints != null)//Не работает
-                ObjectData.PointCollection.AddRange(cPoints);*/
+            if (cPoints != null)//Не работает
+                ObjectData.PointCollection.AddRange(cPoints);
             if (curves != null)
-                ObjectData.LineCollection.AddRange(curves);
+                ObjectData.LineCollection.AddRange(curves);*/
             return true;
         }
 
         private void GenerateGeometry()
         {
             DeleteMesh(false);
-            UpdateGeometry();
+            UpdateGeometry(ObjType.Точка);
+            UpdateGeometry(ObjType.Линия);
             var ierr = 0;
             FillGeometryTreeView();
             if (controller.gmshModelGetDimension(ref ierr) > 1)
@@ -130,7 +159,11 @@ namespace ModelModule
         public void DeleteGeometry(bool redraw = true)
         {
             DeleteMesh(false);
-            UpdateGeometry(new int[0]);
+            var ierr = 0;
+            controller.gmshClear(ref ierr);
+            UpdateGeometry(ObjType.Точка);
+            UpdateGeometry(ObjType.Линия);
+            //UpdateGeometry(new int[0]);//Удалить всю геометрию
             ClearTreeView(1);
             ShowHideGeneralTabControls(2, false);
             ShowHideGeneralTabControls(1, false);
@@ -144,7 +177,12 @@ namespace ModelModule
         private bool DeleteMesh(bool redraw = true)
         {
             var status = true;
-            UpdateSurfaceElements(ObjType.Фигура2D, new int[0]);
+            DeleteSurfaceElements(ObjType.Фигура);
+            UpdateSurfaceElements(ObjType.Узел);
+            UpdateSurfaceElements(ObjType.Элемент1D);
+            UpdateSurfaceElements(ObjType.Элемент2D);
+            UpdateSurfaceElements(ObjType.Элемент3D);
+            //UpdateSurfaceElements(ObjType.Фигура2D, new int[0]);//Удалить все - заменено
             if (volumesTree.Nodes.Count > 0)
             {
                 ClearTreeView(3);
@@ -163,10 +201,10 @@ namespace ModelModule
 
         private void DeleteVolume(bool redraw = true)
         {
-            string error;
             int[] dimTags;
-            controller.ModelGetGeometryEntities(out dimTags, 3);
-            UpdateSurfaceElements(ObjType.Фигура3D, dimTags);
+            DeleteSurfaceElements(ObjType.Элемент3D);
+            UpdateSurfaceElements(ObjType.Узел);
+            UpdateSurfaceElements(ObjType.Элемент3D);
             ClearTreeView(3);
             ShowHideTabControls(3, false);
             if (redraw)
@@ -252,6 +290,11 @@ namespace ModelModule
             controller.LoggerGetLastError(out error);
             if (!String.IsNullOrEmpty(error))
                 showErrorMessage?.Invoke(error);
+            DeleteSurfaceElements(ObjType.Элемент3D);
+            DeleteSurfaceElements(ObjType.Узел);
+            UpdateSurfaceElements(ObjType.Элемент3D);
+            UpdateSurfaceElements(ObjType.Узел);
+            UpdateSurfaceElements(ObjType.Элемент1D);
             UpdateSurfaceElements(ObjType.Элемент2D);
             if (volumesTree.Nodes.Count > 0)
             {
@@ -274,6 +317,7 @@ namespace ModelModule
             if (!String.IsNullOrEmpty(error))
                 showErrorMessage?.Invoke(error);
             UpdateSurfaceElements(ObjType.Элемент3D);
+            UpdateSurfaceElements(ObjType.Узел);
             FillMeshTreeView(volumesTree, 3, "Объемы", "Объем ");
             ShowHideTabControls(3, true);
             redrawScene?.Invoke(false);
@@ -531,11 +575,86 @@ namespace ModelModule
             return elements.Count == 0 ? null : elements;
         }
 
-        private bool UpdateSurfaceElements(ObjType type, int[] numbers = null)
+        private void DeleteElementsByNumbers(int[] dimTags)
+        {
+            var ierr = 0;
+            controller.gmshModelMeshClear(dimTags, (IntPtr)dimTags.Length, ref ierr);
+        }
+
+        private void DeleteSurfaceElements(ObjType type)
+        {
+            var ierr = 0;
+            int[] dimTags = null;
+            var dim = 0;
+            if(type == ObjType.Узел)
+            {
+                dim = 0;
+                controller.ModelGetGeometryEntities(out dimTags, dim);
+            }
+            if (type == ObjType.Элемент1D)//удаляем все 1d элементы
+            {
+                dim = 1;
+                controller.ModelGetGeometryEntities(out dimTags, dim);
+            }
+            else if (type == ObjType.Элемент2D)//удаляем все 2d элементы
+            {
+                dim = 2;
+                controller.ModelGetGeometryEntities(out dimTags, dim);
+            }
+            else if (type == ObjType.Элемент3D)//удаляем все 3d элементы
+            {
+                dim = 3;
+                controller.ModelGetGeometryEntities(out dimTags, dim);
+            }
+            else if (type == ObjType.Фигура)//удаляем всю сетку узлы,1d,2d,3d
+            {
+                dimTags = new int[0];
+            }
+            controller.gmshModelMeshClear(dimTags, (IntPtr)dimTags.Length, ref ierr);
+        }
+
+        private void UpdateSurfaceElements(ObjType type)
         {
             //TO DO
             //Создать метод для удаление любового объекта используя objData.Clear(ObjType)
-
+            if (type == ObjType.Узел)
+            {
+                var status = false;
+                ObjectData.NodeCollection.Clear();
+                var nodes = controller.GetNodes(ref status);
+                if(nodes.Count > 0)
+                    ObjectData.NodeCollection.AddRange(nodes);
+                else
+                    nodes = null;
+                updatePointData?.Invoke(ObjType.Узел, nodes);
+            }
+            else if (type == ObjType.Элемент1D)
+            {
+                ObjectData.E1DCollection.Clear();
+                var elements1D = CreateBeamElements();
+                if(elements1D.Count > 0)
+                    ObjectData.E1DCollection.AddRange(elements1D);
+                else
+                    elements1D = null;
+                updateElement1Data?.Invoke(ObjType.Элемент1D, elements1D);
+            }
+            else if (type == ObjType.Элемент2D)
+            {
+                ObjectData.E2DCollection.Clear();
+                var elements2D = Create2DElements();
+                if(elements2D != null)
+                    ObjectData.E2DCollection.AddRange(elements2D);
+                updateSurfaceData?.Invoke(ObjType.Элемент2D, elements2D);
+            }
+            else if (type == ObjType.Элемент3D)
+            {
+                ObjectData.E3DCollection.Clear();
+                var elements3D = Create3DElements();
+                if(elements3D != null)
+                    ObjectData.E3DCollection.AddRange(elements3D);
+                updateSurfaceData?.Invoke(ObjType.Элемент3D, elements3D);
+            }
+            /*
             var ierr = 0;
             bool status = false;
             var dim = type == ObjType.Элемент2D || type == ObjType.Фигура2D ? 2 : 3;
@@ -589,14 +708,12 @@ namespace ModelModule
                 if (elements1d != null)
                     ObjectData.E1DCollection.AddRange(elements1d);
                 updateElement1Data(ObjType.Элемент1D, elements1d);
-            }
-            return true;
+            }*/
         }
 
         private int[] GetElementsByType(ref string query, int dim, int tag)
         {
             var intType = GetElementTypeByString(ref query);
-            string error;
             int[] elTypes;
             long[][] elTags, nodeTags;
             controller.ModelMeshGetElements(dim, tag, out elTypes, out elTags, out nodeTags);
@@ -662,7 +779,10 @@ namespace ModelModule
                 var dimTags = isNumeric ? new int[] { dim, Int32.Parse(keyData[1]) }
                              : GetElementsByType(ref keyData[0], dim, Int32.Parse(parent.Parent.Text.Split(' ')[1]));
                 elemsTree.Nodes.Remove(parent);
-                UpdateSurfaceElements(delType, dimTags);
+                DeleteElementsByNumbers(dimTags);
+                UpdateSurfaceElements(type);
+                UpdateSurfaceElements(ObjType.Узел);
+                //UpdateSurfaceElements(delType, dimTags);//Удалить только указанные димТагс - заменено
                 redrawScene?.Invoke(false);
             }
         }
