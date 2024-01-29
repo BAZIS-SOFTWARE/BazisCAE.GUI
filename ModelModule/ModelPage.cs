@@ -2,23 +2,26 @@
 using BaseModule.Navigator;
 using BaseModule.ToolStrips;
 using Geometry;
+using MathNet.Numerics.Distributions;
 using Model;
 using Model.MeshObjects;
+using ModelControllerInterfaces;
 using ModelInterfaces;
 using ModelInterfaces.GeometryObjects;
 using ModelInterfaces.MeshObjects;
 using ModelModule.ToolStrips;
+using SceneInterface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace ModelModule
 {
     public partial class ModelPage : BasePage
     {
-
         public ModelPage() : base()
         {
             InitializeComponent();
@@ -83,13 +86,16 @@ namespace ModelModule
             };
             gmshControl.updatePointData += UpdatePointData;
             gmshControl.updateLineData += UpdateLineData;
+            gmshControl.updateElement1Data += UpdateElement1Data;
             gmshControl.updateSurfaceData += UpdateSurfaceData;
+            gmshControl.saveObjectData += (d) => Project.ModelData.SetObjectData(d);
             gmshControl.redrawScene += RedrawScene;
             gmshControl.showErrorMessage += ShowErrorMessage;
             gmshControl.ShowObjectsEvent += ShowObjects;
             gmshForm.Controls.Add(gmshControl);
             gmshControl.Dock = DockStyle.Fill;
             gmshForm.Show();
+            //ModelPresenter.Clear();//Подчищаем Presenter во избежании артефактов
         }
 
         private void MeshToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -141,18 +147,23 @@ namespace ModelModule
 
         }
 
-        private void ShowObjects(string objsType, int objNumber)
+        private void ShowObjects(IEnumerable<ILineObject<IGeometryPoint>> data, IModelObject changedObj)
         {
             try
             {
-                SetBackColorToAllObjects();
+                if (changedObj != null)
+                    changedObj.MasterColor = SceneControl.SelectionColor;
+                var objsType = ObjType.Линия.ToString();
+                var vboObjs = SceneControl.FindVBObj(objsType);
+                if (vboObjs != null)
+                {
+                    //SceneControl.DeleteVBObjects(objsType);
 
-                foreach (var obj in Project.ModelData.ObjectData.LineCollection)//Сработает ли это?
-                    if (obj.Number == objNumber)
-                        obj.MasterColor = SceneControl.SelectionColor;///Кажется нужно, чтобы цвет брался из SettingControls?
-
-                SetNewSceneColor(ObjType.Линия);
-                SceneControl.DisplayObjects();
+                    var presenter = PresentersCreator.CreateLineObjectsPresenter(data);
+                    var colors = presenter.CreateVertexes(vboObjs.ColorLength, "цвет");
+                    vboObjs.PointsColors = colors;
+                    SceneControl.DisplayObjects();
+                }
             }
             catch (Exception ex)
             {
@@ -160,34 +171,61 @@ namespace ModelModule
             }
         }
 
-        private void UpdatePointData(ObjType objType, IEnumerable<IGeometryPoint> objects)
+
+        private void UpdatePointData(ObjType objType, IEnumerable<IModelObject> objects)
         {
-            Project.ModelData.ObjectData.Clear(objType);
-            Project.ModelData.ObjectData.PointCollection.AddRange(objects);
+            var obj = objType.ToString();
+            if (SceneControl.FindVBObj(obj) != null)
+                SceneControl.DeleteVBObjects(obj);
+            if (objects != null)
+            {
+                var presenter = PresentersCreator.CreatePointObjectsPresenter(objects);
+                PresentObjectsToScene(obj, presenter);
+            }
         }
 
         private void UpdateLineData(ObjType objType, IEnumerable<ILineObject<IGeometryPoint>> objects)
         {
-            Project.ModelData.ObjectData.Clear(objType);
-            Project.ModelData.ObjectData.LineCollection.AddRange(objects);
+            var obj = objType.ToString();
+            if (SceneControl.FindVBObj(obj) != null)
+                SceneControl.DeleteVBObjects(obj);
+            if (objects != null)
+            {
+                var presenter = PresentersCreator.CreateLineObjectsPresenter(objects);
+                PresentObjectsToScene(obj, presenter);
+            }
+            else
+                SceneControl.DeleteAllVBObjects();
+        }
+
+        private void UpdateElement1Data(ObjType objType, IEnumerable<ILineObject<INode>> objects)
+        {
+            var obj = objType.ToString();
+            if (SceneControl.FindVBObj(obj) != null)
+                SceneControl.DeleteVBObjects(obj);
+            if (objects != null)
+            {
+                var presenter = PresentersCreator.CreateLineObjectsPresenter(objects);
+                PresentObjectsToScene(obj, presenter);
+            }
         }
 
         private void UpdateSurfaceData(ObjType objType, IEnumerable<ISurfaceElement> objects)
         {
-            Project.ModelData.ObjectData.Clear(objType);
-            if(objType == ObjType.Элемент2D)
-                Project.ModelData.ObjectData.E2DCollection.AddRange(objects.Select(x => (IElement2D)x));
-            else if (objType == ObjType.Элемент3D)
-                Project.ModelData.ObjectData.E3DCollection.AddRange(objects.Select(x => (IElement3D)x));
+            var obj = objType.ToString();
+            if (SceneControl.FindVBObj(obj) != null)
+                SceneControl.DeleteVBObjects(obj);
+            if (objects != null)
+            {
+                var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(objects, objType == ObjType.Элемент3D);
+                PresentObjectsToScene(obj, presenter);
+            }
         }
 
         private void ShowErrorMessage(string message) => ConsoleControl.PrintInfo(message, Color.Red);
 
         private void RedrawScene(bool fitOnScreen)
         {
-            ClearAllDataOnScene();
-            foreach (var objsType in Project.ModelData.ObjectData.ObjsTypes)
-                PresentObjectsToScene(objsType.ToString(), CreateObjectsPresentor(objsType));
             if (fitOnScreen)
                 SceneControl.FitObjectsToScreen();
             SceneControl.DisplayObjects();
