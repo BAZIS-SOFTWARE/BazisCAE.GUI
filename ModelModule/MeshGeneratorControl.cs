@@ -290,17 +290,16 @@ namespace ModelModule
             controller.LoggerGetLastError(out error);
             if (!String.IsNullOrEmpty(error))
                 showErrorMessage?.Invoke(error);
-            DeleteSurfaceElements(ObjType.Элемент3D);
-            DeleteSurfaceElements(ObjType.Узел);
-            UpdateSurfaceElements(ObjType.Элемент3D);
-            UpdateSurfaceElements(ObjType.Узел);
-            UpdateSurfaceElements(ObjType.Элемент1D);
-            UpdateSurfaceElements(ObjType.Элемент2D);
             if (volumesTree.Nodes.Count > 0)
             {
+                DeleteSurfaceElements(ObjType.Элемент3D);
+                UpdateSurfaceElements(ObjType.Элемент3D);
                 ShowHideTabControls(3, false);
                 ClearTreeView(3);
             }
+            UpdateSurfaceElements(ObjType.Узел);
+            UpdateSurfaceElements(ObjType.Элемент1D);
+            UpdateSurfaceElements(ObjType.Элемент2D);
             FillMeshTreeView(elemsTree, 2);
             ShowHideTabControls(2, true);
             if (controller.gmshModelGetDimension(ref ierr) > 2)
@@ -336,7 +335,6 @@ namespace ModelModule
         private void OnAlgorithmChoice(object sender, EventArgs e)
         {
             var ierr = 0;
-            string error;
             var choice = sender as ComboBox;
             var algo = new double[] { 1, 2, 5, 6, 8 };
             controller.gmshOptionSetNumber("Mesh.Algorithm", algo[choice.SelectedIndex], ref ierr);
@@ -345,17 +343,17 @@ namespace ModelModule
         private void OnRefine(object sender, EventArgs e)
         {
             var ierr = 0;
-            string error;
             controller.gmshModelMeshRefine(ref ierr);
-            DeleteSurfaceElements(ObjType.Элемент3D);
-            UpdateSurfaceElements(ObjType.Элемент2D);
-            UpdateSurfaceElements(ObjType.Элемент1D);
-            UpdateSurfaceElements(ObjType.Узел);
             if (volumesTree.Nodes.Count > 0)
             {
+                DeleteSurfaceElements(ObjType.Элемент3D);
+                UpdateSurfaceElements(ObjType.Элемент3D);
                 ShowHideTabControls(3, false);
                 ClearTreeView(3);
             }
+            UpdateSurfaceElements(ObjType.Элемент2D);
+            UpdateSurfaceElements(ObjType.Элемент1D);
+            UpdateSurfaceElements(ObjType.Узел);
             FillMeshTreeView(elemsTree, 2);
             redrawScene?.Invoke(false);
         }
@@ -373,15 +371,16 @@ namespace ModelModule
                 controller.LoggerGetLastError(out error);
                 if (!String.IsNullOrEmpty(error))
                     showErrorMessage?.Invoke(error);
-                DeleteSurfaceElements(ObjType.Элемент3D);
-                UpdateSurfaceElements(ObjType.Элемент2D);
-                UpdateSurfaceElements(ObjType.Элемент1D);
-                UpdateSurfaceElements(ObjType.Узел);
                 if (volumesTree.Nodes.Count > 0)
                 {
+                    DeleteSurfaceElements(ObjType.Элемент3D);
+                    UpdateSurfaceElements(ObjType.Элемент3D);
                     ShowHideTabControls(3, false);
                     ClearTreeView(3);
                 }
+                UpdateSurfaceElements(ObjType.Элемент2D);
+                UpdateSurfaceElements(ObjType.Элемент1D);
+                UpdateSurfaceElements(ObjType.Узел);
                 FillMeshTreeView(elemsTree, 2);
                 redrawScene?.Invoke(false);
             }
