@@ -147,8 +147,8 @@ namespace BazisGUI
 
             project.Loader = new LoadProjectFromTextFormat();
             project.Loader.LoadEvent += (ar1, ar2) =>
-            { 
-                module.ConsoleControl.PrintInfo(ar2.Message, Color.Black); 
+            {
+                module.ConsoleControl.PrintInfo(ar2.Message, Color.Black);
             };
             project.Saver = new SaveProjectTextFormat();
             project.Saver.SaveEvent += (ar1, ar2) =>
@@ -156,7 +156,7 @@ namespace BazisGUI
                 module.ConsoleControl.PrintInfo(ar2.Message, Color.Black);
             };
 
-                SetGeneralSettings(module);
+            SetGeneralSettings(module);
 
             toolStripContainer.ContentPanel.Controls.Add(module);
 
