@@ -94,6 +94,7 @@ namespace ModelModule
             gmshControl.ShowObjectsEvent += ShowObjects;
             gmshForm.Controls.Add(gmshControl);
             gmshControl.Dock = DockStyle.Fill;
+            gmshControl.ObjectData = Project.ModelData.ObjectData;
             gmshForm.Show();
             //ModelPresenter.Clear();//Подчищаем Presenter во избежании артефактов
         }

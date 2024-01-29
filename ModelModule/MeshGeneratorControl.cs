@@ -49,13 +49,13 @@ namespace ModelModule
                                                             };
         public bool SaveObjectData { get; set; }
         public bool IsControllerLoaded { get => controller != null; }
-        public ObjectsData ObjectData { get; private set; }
+        public IObjectsData ObjectData { get; internal set; }
 
         public event Action<ObjType, IEnumerable<IModelObject>> updatePointData;
         public event Action<ObjType, IEnumerable<ILineObject<IGeometryPoint>>> updateLineData;
         public event Action<ObjType, IEnumerable<ILineObject<INode>>> updateElement1Data;
         public event Action<ObjType, IEnumerable<ISurfaceElement>> updateSurfaceData;
-        public event Action<ObjectsData> saveObjectData;
+        public event Action<IObjectsData> saveObjectData;
         public event Action<IEnumerable<ILineObject<IGeometryPoint>>, IModelObject> ShowObjectsEvent;
         public event Action<string> showErrorMessage;
         public event Action<bool> redrawScene;
@@ -102,8 +102,8 @@ namespace ModelModule
                 controller.ModelGetGeometryEntities(out dimTags, 1);
                 curves = controller.CreateLines(dimTags, ref status);
             }
-            ObjectData.PointCollection.Clear();
-            ObjectData.LineCollection.Clear();
+            ObjectData.Clear(ObjType.Объект);
+
             updatePointData?.Invoke(ObjType.Точка, cPoints);
             updateLineData?.Invoke(ObjType.Линия, curves);
             /*if (cPoints != null)//Не работает
@@ -144,7 +144,7 @@ namespace ModelModule
         private bool DeleteMesh(bool redraw = true)
         {
             var status = true;
-            UpdateSurfaceElements(ObjType.Поверхность, new int[0]);
+            UpdateSurfaceElements(ObjType.Фигура2D, new int[0]);
             if (volumesTree.Nodes.Count > 0)
             {
                 ClearTreeView(3);
@@ -533,9 +533,12 @@ namespace ModelModule
 
         private bool UpdateSurfaceElements(ObjType type, int[] numbers = null)
         {
+            //TO DO
+            //Создать метод для удаление любового объекта используя objData.Clear(ObjType)
+
             var ierr = 0;
             bool status = false;
-            var dim = type == ObjType.Элемент2D || type == ObjType.Поверхность ? 2 : 3;
+            var dim = type == ObjType.Элемент2D || type == ObjType.Фигура2D ? 2 : 3;
             var updatedType = dim == 2 ? ObjType.Элемент2D : ObjType.Элемент3D;
             var forceClear = dim == 2 && volumesTree.Nodes.Count > 0;
             if (forceClear)
@@ -548,7 +551,7 @@ namespace ModelModule
             }
             if (numbers != null)//Удаляем сетку по условию
             {
-                if (type == ObjType.Поверхность || type == ObjType.Фигура3D)
+                if (type == ObjType.Фигура2D || type == ObjType.Фигура3D)
                     controller.gmshModelMeshClear(numbers, (IntPtr)numbers.Length, ref ierr);
                 else
                 {
@@ -637,6 +640,9 @@ namespace ModelModule
 
         private void DeleteElement(ObjType type, ObjType baseElement = ObjType.Поверхность)
         {
+            // TO DO 
+            // Может изменить вход на treeNode с которого было вызвано это действие?
+
             var dim = type == ObjType.Элемент2D ? 2 : 3;
             var parent = selectedNode;
             while (parent.Parent != null && parent.Parent.Nodes.Count == 1)
