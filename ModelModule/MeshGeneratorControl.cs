@@ -347,7 +347,10 @@ namespace ModelModule
             var ierr = 0;
             string error;
             controller.gmshModelMeshRefine(ref ierr);
+            DeleteSurfaceElements(ObjType.Элемент3D);
             UpdateSurfaceElements(ObjType.Элемент2D);
+            UpdateSurfaceElements(ObjType.Элемент1D);
+            UpdateSurfaceElements(ObjType.Узел);
             if (volumesTree.Nodes.Count > 0)
             {
                 ShowHideTabControls(3, false);
@@ -370,7 +373,10 @@ namespace ModelModule
                 controller.LoggerGetLastError(out error);
                 if (!String.IsNullOrEmpty(error))
                     showErrorMessage?.Invoke(error);
+                DeleteSurfaceElements(ObjType.Элемент3D);
                 UpdateSurfaceElements(ObjType.Элемент2D);
+                UpdateSurfaceElements(ObjType.Элемент1D);
+                UpdateSurfaceElements(ObjType.Узел);
                 if (volumesTree.Nodes.Count > 0)
                 {
                     ShowHideTabControls(3, false);
@@ -494,7 +500,7 @@ namespace ModelModule
                 else
                     pointsControlBox.Enabled = false;
             }
-            if (lastNode != null && lastNode.Text.Contains("Кривая"))
+            else if (lastNode != null && lastNode.Text.Contains("Кривая"))
             {
                 var resetObj = FindObjectByTreeNode(lastNode);
                 resetObj.MasterColor = resetObj.InitialColor;
