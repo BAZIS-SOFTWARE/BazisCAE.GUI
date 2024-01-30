@@ -54,10 +54,12 @@ namespace ModelModule
         public bool IsControllerLoaded { get => controller != null; }
         public IObjectsData ObjectData { get; internal set; }
 
-        public event Action<ObjType, IEnumerable<IModelObject>> updatePointData;
-        public event Action<ObjType, IEnumerable<Line>> updateLineData;
-        public event Action<ObjType, IEnumerable<ILineObject<INode>>> updateElement1Data;
-        public event Action<ObjType, IEnumerable<ISurfaceElement>> updateSurfaceData;
+        public event Action<ObjType, List<INode>> updatePointData;
+        public event Action<ObjType, List<IGeometryPoint>> updateGeometryPointData;
+        public event Action<ObjType, List<Line>> updateLineData;
+        public event Action<ObjType, List<Beam>> updateElement1Data;
+        public event Action<ObjType, List<IElement2D>> update2DSurfaceData;
+        public event Action<ObjType, List<IElement3D>> update3DSurfaceData;
         public event Action<IObjectsData> saveObjectData;
         public event Action<IEnumerable<ILineObject<IGeometryPoint>>, IModelObject> ShowObjectsEvent;
         public event Action<string> showErrorMessage;
@@ -100,11 +102,9 @@ namespace ModelModule
                 int[] dimTags;
                 controller.ModelGetGeometryEntities(out dimTags, 0);
                 var controlPoints = controller.CreateControlPoints(dimTags);
-                if (controlPoints.Count > 0)
+                if(controlPoints.Count > 0)
                     ObjectData.PointCollection.AddRange(controlPoints);
-                else
-                    controlPoints = null;
-                updatePointData?.Invoke(ObjType.Точка, controlPoints);
+                updateGeometryPointData?.Invoke(ObjType.Точка, controlPoints);
             }
             else if (objType == ObjType.Линия)
             {
@@ -115,8 +115,6 @@ namespace ModelModule
                 var curves = controller.CreateLines(dimTags, ref status);
                 if(curves.Count > 0)
                     ObjectData.LineCollection.AddRange(curves);
-                else
-                    curves = null;
                 updateLineData?.Invoke(ObjType.Линия, curves);
             }
 
@@ -298,6 +296,8 @@ namespace ModelModule
             catch(Exception ex)
             {
                 showErrorMessage?.Invoke(ex.Message);
+                OnSaveData(this, null);
+                return;
             }
             controller.LoggerGetLastError(out error);
             if (!String.IsNullOrEmpty(error))
@@ -319,11 +319,22 @@ namespace ModelModule
             redrawScene?.Invoke(false);
         }
 
+        [HandleProcessCorruptedStateExceptions]
+        [SecurityCritical]
         private void OnGenerateVolume(object sender, EventArgs e)
         {
             var ierr = 0;
             string error;
-            controller.gmshModelMeshGenerate(3, ref ierr);
+            try
+            {
+                controller.gmshModelMeshGenerate(3, ref ierr);
+            }
+            catch (Exception ex)
+            {
+                showErrorMessage?.Invoke(ex.Message);
+                OnSaveData(this, null);
+                return;
+            }
             controller.LoggerGetLastError(out error);
             if (!String.IsNullOrEmpty(error))
                 showErrorMessage?.Invoke(error);
@@ -564,9 +575,9 @@ namespace ModelModule
             return elements;
         }
 
-        private IEnumerable<IElement2D> Create2DElements()
+        private List<IElement2D> Create2DElements()
         {
-            var elements = new List<Element2D>();
+            var elements = new List<IElement2D>();
             foreach (var item in GetElements(2))
             {
                 if(item.Item2.Contains("Triangle"))
@@ -574,12 +585,12 @@ namespace ModelModule
                 else
                     elements.Add(new Quad(item.Item1, item.Item3));
             }
-            return elements.Count == 0 ? null : elements;
+            return elements;
         }
 
-        private IEnumerable<IElement3D> Create3DElements()
+        private List<IElement3D> Create3DElements()
         {
-            var elements = new List<Element3D>();
+            var elements = new List<IElement3D>();
             foreach (var item in GetElements(3))
             {
                 if (item.Item2.Contains("Tetra"))
@@ -589,7 +600,7 @@ namespace ModelModule
                 else
                     elements.Add(new Penta(item.Item1, item.Item3));
             }
-            return elements.Count == 0 ? null : elements;
+            return elements;
         }
 
         private void DeleteElementsByNumbers(int[] dimTags)
@@ -641,8 +652,6 @@ namespace ModelModule
                 var nodes = controller.GetNodes(ref status);
                 if(nodes.Count > 0)
                     ObjectData.NodeCollection.AddRange(nodes);
-                else
-                    nodes = null;
                 updatePointData?.Invoke(ObjType.Узел, nodes);
             }
             else if (type == ObjType.Элемент1D)
@@ -651,25 +660,23 @@ namespace ModelModule
                 var elements1D = CreateBeamElements();
                 if(elements1D.Count > 0)
                     ObjectData.E1DCollection.AddRange(elements1D);
-                else
-                    elements1D = null;
                 updateElement1Data?.Invoke(ObjType.Элемент1D, elements1D);
             }
             else if (type == ObjType.Элемент2D)
             {
                 ObjectData.E2DCollection.Clear();
                 var elements2D = Create2DElements();
-                if(elements2D != null)
+                if(elements2D.Count > 0)
                     ObjectData.E2DCollection.AddRange(elements2D);
-                updateSurfaceData?.Invoke(ObjType.Элемент2D, elements2D);
+                update2DSurfaceData?.Invoke(ObjType.Элемент2D, elements2D);
             }
             else if (type == ObjType.Элемент3D)
             {
                 ObjectData.E3DCollection.Clear();
                 var elements3D = Create3DElements();
-                if(elements3D != null)
+                if(elements3D.Count > 0)
                     ObjectData.E3DCollection.AddRange(elements3D);
-                updateSurfaceData?.Invoke(ObjType.Элемент3D, elements3D);
+                update3DSurfaceData?.Invoke(ObjType.Элемент3D, elements3D);
             }
             /*
             var ierr = 0;

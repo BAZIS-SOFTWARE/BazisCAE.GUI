@@ -85,10 +85,12 @@ namespace ModelModule
                 MaximizeBox = false,
                 FormBorderStyle = FormBorderStyle.FixedSingle
             };
+            gmshControl.updateGeometryPointData += UpdateGeometryPointData;
             gmshControl.updatePointData += UpdatePointData;
             gmshControl.updateLineData += UpdateLineData;
             gmshControl.updateElement1Data += UpdateElement1Data;
-            gmshControl.updateSurfaceData += UpdateSurfaceData;
+            gmshControl.update2DSurfaceData += Update2DSurfaceData;
+            gmshControl.update3DSurfaceData += Update3DSurfaceData;
             gmshControl.saveObjectData += (d) => Project.ModelData.SetObjectData(d);
             gmshControl.redrawScene += RedrawScene;
             gmshControl.showErrorMessage += ShowErrorMessage;
@@ -173,49 +175,73 @@ namespace ModelModule
             }
         }
 
-
-        private void UpdatePointData(ObjType objType, IEnumerable<IModelObject> objects)
+        private void UpdateGeometryPointData(ObjType objType, List<IGeometryPoint> objects)
         {
             var obj = objType.ToString();
             if (SceneControl.FindVBObj(obj) != null)
                 SceneControl.DeleteVBObjects(obj);
-            if (objects != null)
+            if (objects.Count > 0)
             {
                 var presenter = PresentersCreator.CreatePointObjectsPresenter(objects);
                 PresentObjectsToScene(obj, presenter);
             }
         }
 
-        private void UpdateLineData(ObjType objType, IEnumerable<Line> objects)
+
+        private void UpdatePointData(ObjType objType, List<INode> objects)
         {
             var obj = objType.ToString();
             if (SceneControl.FindVBObj(obj) != null)
                 SceneControl.DeleteVBObjects(obj);
-            if (objects != null)
+            if (objects.Count > 0)
+            {
+                var presenter = PresentersCreator.CreatePointObjectsPresenter(objects);
+                PresentObjectsToScene(obj, presenter);
+            }
+        }
+
+        private void UpdateLineData(ObjType objType, List<Line> objects)
+        {
+            var obj = objType.ToString();
+            if (SceneControl.FindVBObj(obj) != null)
+                SceneControl.DeleteVBObjects(obj);
+            if (objects.Count > 0)
             {
                 var presenter = PresentersCreator.CreateLineObjectsPresenter(objects);
                 PresentObjectsToScene(obj, presenter);
             }
         }
 
-        private void UpdateElement1Data(ObjType objType, IEnumerable<ILineObject<INode>> objects)
+        private void UpdateElement1Data(ObjType objType, List<Beam> objects)
         {
             var obj = objType.ToString();
             if (SceneControl.FindVBObj(obj) != null)
                 SceneControl.DeleteVBObjects(obj);
-            if (objects != null)
+            if (objects.Count > 0)
             {
                 var presenter = PresentersCreator.CreateLineObjectsPresenter(objects);
                 PresentObjectsToScene(obj, presenter);
             }
         }
 
-        private void UpdateSurfaceData(ObjType objType, IEnumerable<ISurfaceElement> objects)
+        private void Update2DSurfaceData(ObjType objType, List<IElement2D> objects)
         {
             var obj = objType.ToString();
             if (SceneControl.FindVBObj(obj) != null)
                 SceneControl.DeleteVBObjects(obj);
-            if (objects != null)
+            if (objects.Count > 0)
+            {
+                var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(objects, objType == ObjType.Элемент3D);
+                PresentObjectsToScene(obj, presenter);
+            }
+        }
+
+        private void Update3DSurfaceData(ObjType objType, List<IElement3D> objects)
+        {
+            var obj = objType.ToString();
+            if (SceneControl.FindVBObj(obj) != null)
+                SceneControl.DeleteVBObjects(obj);
+            if (objects.Count > 0)
             {
                 var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(objects, objType == ObjType.Элемент3D);
                 PresentObjectsToScene(obj, presenter);
