@@ -399,7 +399,7 @@ namespace BaseModule
             {
                 foreach (var obj in Project.ModelData.ObjectData.GetObjects(item))
                     obj.SetBackColor();
-                SetNewSceneColor(item);
+                SetObjectsSceneColor(item);
             }
 
         }
@@ -722,7 +722,7 @@ namespace BaseModule
                     }
                 }
 
-                SetNewSceneColor(arg2.ObjsType);
+                SetObjectsSceneColor(arg2.ObjsType);
 
                 sceneControl.DisplayObjects();
 
@@ -753,7 +753,7 @@ namespace BaseModule
                     {
                         selectHelper.SelectInDirection(ObjType.Элемент3D,arg2.Angle, selObjs[selObjs.Length - 1].Number, selObjs[selObjs.Length - 2].Number, sceneControl.SelectionColor);
                     }
-                    SetNewSceneColor(selectToolStrip.SelectObjectsType);
+                    SetObjectsSceneColor(selectToolStrip.SelectObjectsType);
 
                     sceneControl.DisplayObjects();
                 }
@@ -988,7 +988,7 @@ namespace BaseModule
                             foreach (var _node in nodes)
                                 _node.SetBackColor();
 
-                            SetNewSceneColor(ObjType.Узел);
+                            SetObjectsSceneColor(ObjType.Узел);
 
                             sceneControl.DisplayObjects();
 
@@ -1418,7 +1418,7 @@ namespace BaseModule
                 foreach (var selObj in selObjs)
                     selObj.SetBackColor();
 
-                SetNewSceneColor(selectToolStrip.SelectObjectsType);
+                SetObjectsSceneColor(selectToolStrip.SelectObjectsType);
 
                 sceneControl.DisplayObjects();
 
@@ -1485,26 +1485,26 @@ namespace BaseModule
             {
                 var types = Project.ModelData.ObjectData.ObjsTypes;
                 foreach (var type in types)
-                    SetNewSceneColor(type);
+                    SetObjectsSceneColor(type);
             }
             else if(selectToolStrip.SelectObjectsType == ObjType.Элемент)
             {
-                SetNewSceneColor(ObjType.Элемент1D);
-                SetNewSceneColor(ObjType.Элемент2D);
-                SetNewSceneColor(ObjType.Элемент3D);
+                SetObjectsSceneColor(ObjType.Элемент1D);
+                SetObjectsSceneColor(ObjType.Элемент2D);
+                SetObjectsSceneColor(ObjType.Элемент3D);
             }
             else if (selectToolStrip.SelectObjectsType == ObjType.Фигура)
             {
-                SetNewSceneColor(ObjType.Фигура2D);
-                SetNewSceneColor(ObjType.Фигура3D);
+                SetObjectsSceneColor(ObjType.Фигура2D);
+                SetObjectsSceneColor(ObjType.Фигура3D);
             }
             else 
-                SetNewSceneColor(selectToolStrip.SelectObjectsType);
+                SetObjectsSceneColor(selectToolStrip.SelectObjectsType);
             
             sceneControl.DisplayObjects();
         }
 
-        public void SetNewSceneColor(ObjType objsType)
+        public void SetObjectsSceneColor(ObjType objsType)
         {
             var vboObjs = sceneControl.FindVBObj(objsType.ToString());
             if (vboObjs != null)
@@ -1856,7 +1856,7 @@ namespace BaseModule
             foreach (var iobj in group)
                 iobj.MasterColor = sceneControl.SelectionColor;
 
-            SetNewSceneColor(selectToolStrip.SelectObjectsType);
+            SetObjectsSceneColor(selectToolStrip.SelectObjectsType);
 
             //var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
             //var vboObjs = sceneControl.FindVBObj(selectToolStrip.SelectObjectsType);
@@ -2102,7 +2102,7 @@ namespace BaseModule
                 foreach (var iobj in group)
                     iobj.MasterColor = SelectionGroupColor;
 
-                SetNewSceneColor(group.ObjType);
+                SetObjectsSceneColor(group.ObjType);
 
                 sceneControl.DisplayObjects();
             }

@@ -618,7 +618,7 @@ namespace TaskModule
                         DisplayDirection(data[index].StartTime, data[index], iobj);
                 }
 
-                SetNewSceneColor(group.ObjType);
+                SetObjectsSceneColor(group.ObjType);
 
                 //SetVBObjColor(group.ObjType);
 
@@ -729,7 +729,7 @@ namespace TaskModule
                             DisplayDirection(arg2.Time, data, iobj);
                     }
 
-                    SetNewSceneColor(group.ObjType);
+                    SetObjectsSceneColor(group.ObjType);
 
                     SceneControl.DisplayObjects();
                 }

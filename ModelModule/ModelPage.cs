@@ -94,12 +94,20 @@ namespace ModelModule
             gmshControl.saveObjectData += (d) => Project.ModelData.SetObjectData(d);
             gmshControl.redrawScene += RedrawScene;
             gmshControl.showErrorMessage += ShowErrorMessage;
-            gmshControl.ShowObjectsEvent += ShowObjects;
+            gmshControl.ShowObjectsEvent += ShowLines;
+            gmshControl.ResetColorObjectsEvent += GmshControl_ResetColorObjectsEvent;
             gmshForm.Controls.Add(gmshControl);
             gmshControl.Dock = DockStyle.Fill;
             gmshControl.ObjectData = Project.ModelData.ObjectData;
             gmshForm.Show();
             //ModelPresenter.Clear();//Подчищаем Presenter во избежании артефактов
+        }
+
+        private void GmshControl_ResetColorObjectsEvent(ObjType objType, bool obj)
+        {
+            if (obj)
+                foreach (var item in Project.ModelData.ObjectData.GetObjects(objType))
+                    item.SetBackColor();                
         }
 
         private void MeshToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -151,23 +159,13 @@ namespace ModelModule
 
         }
 
-        private void ShowObjects(IEnumerable<ILineObject<IGeometryPoint>> data, IModelObject changedObj)
+        private void ShowLines(int objNumber)
         {
             try
             {
-                if (changedObj != null)
-                    changedObj.MasterColor = SceneControl.SelectionColor;
-                var objsType = ObjType.Линия.ToString();
-                var vboObjs = SceneControl.FindVBObj(objsType);
-                if (vboObjs != null)
-                {
-                    //SceneControl.DeleteVBObjects(objsType);
-
-                    var presenter = PresentersCreator.CreateLineObjectsPresenter(data);
-                    var colors = presenter.CreateVertexes(vboObjs.ColorLength, "цвет");
-                    vboObjs.PointsColors = colors;
-                    SceneControl.DisplayObjects();
-                }
+                Project.ModelData.ObjectData.LineCollection.Find(objNumber).MasterColor 
+                    = SceneControl.SelectionColor;
+                SetObjectsSceneColor(ObjType.Линия);
             }
             catch (Exception ex)
             {
@@ -175,9 +173,9 @@ namespace ModelModule
             }
         }
 
-        private void UpdateGeometryPointData(ObjType objType, List<IGeometryPoint> objects)
+        private void UpdateGeometryPointData(List<IGeometryPoint> objects)
         {
-            var obj = objType.ToString();
+            var obj = ObjType.Точка.ToString();
             if (SceneControl.FindVBObj(obj) != null)
                 SceneControl.DeleteVBObjects(obj);
             if (objects.Count > 0)
@@ -188,9 +186,9 @@ namespace ModelModule
         }
 
 
-        private void UpdatePointData(ObjType objType, List<INode> objects)
+        private void UpdatePointData(List<INode> objects)
         {
-            var obj = objType.ToString();
+            var obj = ObjType.Узел.ToString();
             if (SceneControl.FindVBObj(obj) != null)
                 SceneControl.DeleteVBObjects(obj);
             if (objects.Count > 0)
@@ -200,9 +198,9 @@ namespace ModelModule
             }
         }
 
-        private void UpdateLineData(ObjType objType, List<Line> objects)
+        private void UpdateLineData(List<Line> objects)
         {
-            var obj = objType.ToString();
+            var obj = ObjType.Линия.ToString();
             if (SceneControl.FindVBObj(obj) != null)
                 SceneControl.DeleteVBObjects(obj);
             if (objects.Count > 0)
@@ -212,9 +210,9 @@ namespace ModelModule
             }
         }
 
-        private void UpdateElement1Data(ObjType objType, List<Beam> objects)
+        private void UpdateElement1Data(List<Beam> objects)
         {
-            var obj = objType.ToString();
+            var obj = ObjType.Элемент1D.ToString();
             if (SceneControl.FindVBObj(obj) != null)
                 SceneControl.DeleteVBObjects(obj);
             if (objects.Count > 0)
@@ -224,26 +222,26 @@ namespace ModelModule
             }
         }
 
-        private void Update2DSurfaceData(ObjType objType, List<IElement2D> objects)
+        private void Update2DSurfaceData(List<IElement2D> objects)
         {
-            var obj = objType.ToString();
+            var obj = ObjType.Элемент2D.ToString();
             if (SceneControl.FindVBObj(obj) != null)
                 SceneControl.DeleteVBObjects(obj);
             if (objects.Count > 0)
             {
-                var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(objects, objType == ObjType.Элемент3D);
+                var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(objects,false);
                 PresentObjectsToScene(obj, presenter);
             }
         }
 
-        private void Update3DSurfaceData(ObjType objType, List<IElement3D> objects)
+        private void Update3DSurfaceData(List<IElement3D> objects)
         {
-            var obj = objType.ToString();
+            var obj = ObjType.Элемент3D.ToString();
             if (SceneControl.FindVBObj(obj) != null)
                 SceneControl.DeleteVBObjects(obj);
             if (objects.Count > 0)
             {
-                var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(objects, objType == ObjType.Элемент3D);
+                var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(objects, true);
                 PresentObjectsToScene(obj, presenter);
             }
         }
