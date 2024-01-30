@@ -15,6 +15,8 @@ using Model.GeometryObjects;
 using Geometry;
 using ModelInterfaces.MeshObjects;
 using SceneInterface;
+using System.Runtime.ExceptionServices;
+using System.Security;
 
 namespace ModelModule
 {
@@ -281,12 +283,22 @@ namespace ModelModule
             }
         }
 
+        [HandleProcessCorruptedStateExceptions]
+        [SecurityCritical]
         private void OnGenerateMesh(object sender, EventArgs e)
         {
             var ierr = 0;
             string error;
-            controller.gmshModelMeshGenerate(1, ref ierr);
-            controller.gmshModelMeshGenerate(2, ref ierr);
+            //controller.gmshOptionSetNumber("General.AbortOnError", 0, ref ierr);
+            try
+            {
+                controller.gmshModelMeshGenerate(1, ref ierr);
+                controller.gmshModelMeshGenerate(2, ref ierr);
+            }
+            catch(Exception ex)
+            {
+                showErrorMessage?.Invoke(ex.Message);
+            }
             controller.LoggerGetLastError(out error);
             if (!String.IsNullOrEmpty(error))
                 showErrorMessage?.Invoke(error);
