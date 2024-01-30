@@ -28,7 +28,6 @@ namespace ModelModule
         private GmshController controller;
         private int boundFieldTag;
         private TreeNode selectedNode;
-        private TreeNode lastNode;
         private Dictionary<int, Tuple<string, string>> fundamental = new Dictionary<int, Tuple<string, string>>
         {
             { 2, Tuple.Create("Поверхности","Поверхность") },
@@ -89,7 +88,7 @@ namespace ModelModule
             else
                 path = $@"{path}\Mesh\gmsh.dll";
             controller = new GmshController(path);
-            ObjectData = new ObjectsData();
+            //ObjectData = new ObjectsData();
             var ierr = 0;
             controller.gmshOptionSetNumber("General.AbortOnError", 0, ref ierr);//Запретить поделию Кристофа обваливать Базис
             algoChoice.SelectedIndex = 3;
@@ -502,24 +501,6 @@ namespace ModelModule
 
         private void entTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            var treeView = sender as TreeView;
-            lastNode = selectedNode;
-            selectedNode = e.Node;
-            if (treeView.Tag.ToString().Contains("entTree"))
-            {
-
-                if (selectedNode.Text.Contains("Кривая"))
-                {
-                    pointsControlBox.Enabled = true;
-                    if (lastNode != null && lastNode.Text.Contains("Кривая"))
-                    {
-                        var objInd = FindObjectByTreeNode(lastNode);
-                        ShowObjectsEvent(objInd);
-                    }
-                }
-                else
-                    pointsControlBox.Enabled = false;
-            }
         }
         private List<Tuple<int, string, Node[]>> GetElements(int dim, int tags = -1)
         {
@@ -777,7 +758,7 @@ namespace ModelModule
             // Может изменить вход на treeNode с которого было вызвано это действие?
 
             var dim = type == ObjType.Элемент2D ? 2 : 3;
-            var parent = selectedNode;
+            var parent = type == ObjType.Элемент2D ? elemsTree.SelectedNode : volumesTree.SelectedNode;
             while (parent.Parent != null && parent.Parent.Nodes.Count == 1)
                 parent = parent.Parent;
             if (parent.Text.Contains(fundamental[dim].Item1))
@@ -912,15 +893,28 @@ namespace ModelModule
 
         private void entTree_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
+            //Selected Node в этом эвенте еще содержит старый узел
             var treeView = sender as TreeView;
-            lastNode = selectedNode;
-            selectedNode = e.Node;
-
-            if (lastNode != null && lastNode.Text.Contains("Кривая"))
+            var oldNode = treeView.SelectedNode;
+            var newNode = e.Node;
+            bool redraw = false;
+            if (oldNode != null && oldNode.Text.Contains("Кривая"))
             {
-                var resetObj = FindObjectByTreeNode(lastNode);
-                ResetColorObjectsEvent?.Invoke(ObjType.Линия,true);
+                var resetObj = FindObjectByTreeNode(oldNode);
+                ResetColorObjectsEvent?.Invoke(ObjType.Линия, true);
+                redraw = true;
             }
+            if (newNode.Text.Contains("Кривая"))
+            {
+                pointsControlBox.Enabled = true;
+                var objInd = FindObjectByTreeNode(newNode);
+                ShowObjectsEvent?.Invoke(objInd);
+                redraw = true;
+            }
+            else
+                pointsControlBox.Enabled = false;
+            if (redraw)
+                redrawScene?.Invoke(false);
         }
     }
 }

@@ -106,8 +106,11 @@ namespace ModelModule
         private void GmshControl_ResetColorObjectsEvent(ObjType objType, bool obj)
         {
             if (obj)
+            {
                 foreach (var item in Project.ModelData.ObjectData.GetObjects(objType))
-                    item.SetBackColor();                
+                    item.SetBackColor();
+                SetObjectsSceneColor(ObjType.Линия);
+            }
         }
 
         private void MeshToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
