@@ -45,7 +45,7 @@ namespace BaseModule
 
         public IModelController ModelController { get; set; } = new ModelController.ModelController();
 
-        public IPresentersCreator PresentersCreator { get; set; }
+        public IPresentersCreator PresentersCreator { get; set; } = new PresentersCreator();
 
         List<ToolStripMenuItem> menuItems = new List<ToolStripMenuItem>();
 
@@ -72,8 +72,6 @@ namespace BaseModule
             sceneControl.Initialization();
 
             ClearAllDataOnScene();
-
-            PresentersCreator = new PresentersCreator();
 
             foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
             {

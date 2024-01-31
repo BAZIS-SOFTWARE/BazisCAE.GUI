@@ -57,6 +57,8 @@ namespace ResultModule
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(nodeNode);
             var elemNode = new TreeNode("ПоЭлементам", 1, 1) { Name = "ПоЭлементам", Tag = "6.1" };
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(elemNode);
+
+            PresentersCreator.Add("Results", PresenterView.Surface);
         }
 
         public override bool LoadProjectData(string extFilter)
@@ -846,7 +848,6 @@ namespace ResultModule
         {
             if (Project.ResultData == null)
                 Project.ResultData = new ResultData();
-            PresentersCreator.Add("Results", PresenterView.Surface);
         }
     }   
 }
