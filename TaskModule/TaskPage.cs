@@ -759,16 +759,19 @@ namespace TaskModule
 
                 if (taskStrAr[0].Contains("LRF"))
                 {
+                    var force = 100;
                     var taskStrLRF = CreateSurfaceAsync();
                     await taskStrLRF;
-                    var vec = taskStrLRF.Result.Normal;
+                    //var vec = Vector.GetVectorNorm(taskStrLRF.Result.Normal).Mult(force);
 
-                    //TO DO
-                    // Разложить по базису
-                    //
-                    //AddData(arg2, taskStrAr[0]);
-                    //AddData(arg2, taskStrAr[0]);
-                    //AddData(arg2, taskStrAr[0]);
+                    var strParts = taskStrAr[0].Split(' ');
+                    var pre = string.Join(" ", new[] { strParts[0], strParts[1] });
+                    var post = string.Join(" ", new[] { strParts[3], strParts[4], strParts[5], strParts[6] });
+                    for (var i = 0; i < 3; i++)
+                    {
+                        var strTask = $"{pre} {(char)(88 + i)} {post}";
+                        AddData(arg2, strTask);
+                    }
                 }
 
                 else
