@@ -846,9 +846,9 @@ namespace ModelModule
             var ierr = 0;
             string error;
             controller.gmshModelMeshFieldSetNumber(boundFieldTag, optValue[0], value, ref ierr);
-            controller.LoggerGetLastError(out error);
+            /*controller.LoggerGetLastError(out error);
             if (!String.IsNullOrEmpty(error))
-                showErrorMessage?.Invoke(error);
+                showErrorMessage?.Invoke(error);*/
         }
 
         private void OnTransfiniteCurve(object sender, EventArgs e)
@@ -893,7 +893,6 @@ namespace ModelModule
 
         private void entTree_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
-            //Selected Node в этом эвенте еще содержит старый узел
             var treeView = sender as TreeView;
             var oldNode = treeView.SelectedNode;
             var newNode = e.Node;
