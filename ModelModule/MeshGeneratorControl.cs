@@ -459,29 +459,40 @@ namespace ModelModule
             controller.ModelGetGeometryEntities(out dimTags, dim);
             int[] elementTypes;
             long[][] elementTags, nodeTags;
-            for (var i = 1; i < dimTags.Length; i += 2)
+            var surfNodes = new TreeNode[dimTags.Length / 2];
+            tree.Nodes.Add(generalKey);
+            for (int i = 1, m = 0; i < dimTags.Length; i += 2, ++m)
             {
                 controller.ModelMeshGetElements(dim, dimTags[i], out elementTypes, out elementTags, out nodeTags);
                 var child = generalChild + dimTags[i].ToString();
-                AddTreeNode(tree.Nodes, generalKey, child);
-                var currentSurface = tree.Nodes[generalKey].Nodes[child];
+                surfNodes[m] = new TreeNode(child);
+                //AddTreeNode(tree.Nodes, generalKey, child);//Очень медленно работает добавление узла в циклах, нужно что-то делать
+                var currentSurface = surfNodes[m];
+                //var currentSurface = tree.Nodes[generalKey].Nodes[child];
                 for (var j = 0; j < elementTypes.Length; ++j)
                 {
                     var triple = elementType[elementTypes[j]];//, out elemKey, out elemChild, out points);
                     var elements = elementTags[j];
+                    var elemNodes = new TreeNode[elements.Length];
                     for (var k = 0L; k < elements.Length; ++k)
                     {
                         var elemTag = elements[k];
                         var currentElement = triple.Item2 + elemTag.ToString();
-                        AddTreeNode(currentSurface.Nodes, triple.Item1, currentElement);
-                        var currentType = currentSurface.Nodes[triple.Item1].Nodes[currentElement];
+                        elemNodes[k] = new TreeNode(currentElement);
+                        //AddTreeNode(currentSurface.Nodes, triple.Item1, currentElement);//Очень медленно работает добавление узла в циклах, нужно что-то делать
+                        //var currentType = currentSurface.Nodes[triple.Item1].Nodes[currentElement];
+                        var nodNodes = new TreeNode[triple.Item3];
                         for (var l = 0; l < triple.Item3; ++l)
                         {
                             var nodeTag = "Узел " + nodeTags[j][k * triple.Item3 + l].ToString();
-                            currentType.Nodes.Add(nodeTag, nodeTag);
+                            nodNodes[l] = new TreeNode(nodeTag);
+                            //currentType.Nodes.Add(nodeTag, nodeTag);
                         }
+                        elemNodes[k].Nodes.AddRange(nodNodes);
                     }
+                    currentSurface.Nodes.AddRange(elemNodes);
                 }
+                tree.Nodes[0].Nodes.Add(currentSurface);
             }
         }
 
@@ -501,6 +512,16 @@ namespace ModelModule
 
         private void entTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            if (e.Node.Text.Contains("Кривая"))
+            {
+                pointsControlBox.Enabled = true;
+                var objInd = FindObjectByTreeNode(e.Node);
+                ShowObjectsEvent?.Invoke(objInd);
+                //ПЕРЕГЕНЕРАЦИЯ VBO
+                redrawScene?.Invoke(false);
+            }
+            else
+                pointsControlBox.Enabled = false;
         }
         private List<Tuple<int, string, Node[]>> GetElements(int dim, int tags = -1)
         {
@@ -893,27 +914,11 @@ namespace ModelModule
 
         private void entTree_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
-            var treeView = sender as TreeView;
-            var oldNode = treeView.SelectedNode;
-            var newNode = e.Node;
-            bool redraw = false;
+            var oldNode = entTree.SelectedNode;
             if (oldNode != null && oldNode.Text.Contains("Кривая"))
-            {
-                var resetObj = FindObjectByTreeNode(oldNode);
                 ResetColorObjectsEvent?.Invoke(ObjType.Линия, true);
-                redraw = true;
-            }
-            if (newNode.Text.Contains("Кривая"))
-            {
-                pointsControlBox.Enabled = true;
-                var objInd = FindObjectByTreeNode(newNode);
-                ShowObjectsEvent?.Invoke(objInd);
-                redraw = true;
-            }
             else
                 pointsControlBox.Enabled = false;
-            if (redraw)
-                redrawScene?.Invoke(false);
         }
     }
 }
