@@ -28,7 +28,6 @@ namespace ModelModule
         private GmshController controller;
         private int boundFieldTag;
         private TreeNode selectedNode;
-        private TreeNode lastNode;
         private Dictionary<int, Tuple<string, string>> fundamental = new Dictionary<int, Tuple<string, string>>
         {
             { 2, Tuple.Create("Поверхности","Поверхность") },
@@ -54,13 +53,13 @@ namespace ModelModule
         public bool IsControllerLoaded { get => controller != null; }
         public IObjectsData ObjectData { get; internal set; }
 
-        public event Action<List<INode>> updatePointData;
-        public event Action<List<IGeometryPoint>> updateGeometryPointData;
-        public event Action<List<Line>> updateLineData;
-        public event Action<List<Beam>> updateElement1Data;
-        public event Action<List<IElement2D>> update2DSurfaceData;
-        public event Action<List<IElement3D>> update3DSurfaceData;
-        public event Action<IObjectsData> saveObjectData;
+        public event Action updatePointData;
+        public event Action updateGeometryPointData;
+        public event Action updateLineData;
+        public event Action updateElement1Data;
+        public event Action update2DSurfaceData;
+        public event Action update3DSurfaceData;
+        //public event Action saveObjectData;
         public event Action<int> ShowObjectsEvent;
         public event Action<ObjType,bool> ResetColorObjectsEvent;
         public event Action<string> showErrorMessage;
@@ -89,7 +88,7 @@ namespace ModelModule
             else
                 path = $@"{path}\Mesh\gmsh.dll";
             controller = new GmshController(path);
-            ObjectData = new ObjectsData();
+            //ObjectData = new ObjectsData();
             var ierr = 0;
             controller.gmshOptionSetNumber("General.AbortOnError", 0, ref ierr);//Запретить поделию Кристофа обваливать Базис
             algoChoice.SelectedIndex = 3;
@@ -105,7 +104,7 @@ namespace ModelModule
                 var controlPoints = controller.CreateControlPoints(dimTags);
                 if(controlPoints.Count > 0)
                     ObjectData.PointCollection.AddRange(controlPoints);
-                updateGeometryPointData?.Invoke(controlPoints);
+                updateGeometryPointData?.Invoke();
             }
             else if (objType == ObjType.Линия)
             {
@@ -116,7 +115,7 @@ namespace ModelModule
                 var curves = controller.CreateLines(dimTags, ref status);
                 if(curves.Count > 0)
                     ObjectData.LineCollection.AddRange(curves);
-                updateLineData?.Invoke(curves);
+                updateLineData?.Invoke();
             }
 
             /*
@@ -460,29 +459,42 @@ namespace ModelModule
             controller.ModelGetGeometryEntities(out dimTags, dim);
             int[] elementTypes;
             long[][] elementTags, nodeTags;
-            for (var i = 1; i < dimTags.Length; i += 2)
+            var surfNodes = new TreeNode[dimTags.Length / 2];
+            tree.Nodes.Add(generalKey);
+            for (int i = 1, m = 0; i < dimTags.Length; i += 2, ++m)
             {
                 controller.ModelMeshGetElements(dim, dimTags[i], out elementTypes, out elementTags, out nodeTags);
                 var child = generalChild + dimTags[i].ToString();
-                AddTreeNode(tree.Nodes, generalKey, child);
-                var currentSurface = tree.Nodes[generalKey].Nodes[child];
+                surfNodes[m] = new TreeNode(child);
+                //AddTreeNode(tree.Nodes, generalKey, child);//Очень медленно работает добавление узла в циклах, нужно что-то делать
+                var currentSurface = surfNodes[m];
+                //var currentSurface = tree.Nodes[generalKey].Nodes[child];
                 for (var j = 0; j < elementTypes.Length; ++j)
                 {
                     var triple = elementType[elementTypes[j]];//, out elemKey, out elemChild, out points);
                     var elements = elementTags[j];
+                    var elemBase = new TreeNode(triple.Item1);
+                    var elemNodes = new TreeNode[elements.Length];
                     for (var k = 0L; k < elements.Length; ++k)
                     {
                         var elemTag = elements[k];
                         var currentElement = triple.Item2 + elemTag.ToString();
-                        AddTreeNode(currentSurface.Nodes, triple.Item1, currentElement);
-                        var currentType = currentSurface.Nodes[triple.Item1].Nodes[currentElement];
+                        elemNodes[k] = new TreeNode(currentElement);
+                        //AddTreeNode(currentSurface.Nodes, triple.Item1, currentElement);//Очень медленно работает добавление узла в циклах, нужно что-то делать
+                        //var currentType = currentSurface.Nodes[triple.Item1].Nodes[currentElement];
+                        var nodNodes = new TreeNode[triple.Item3];
                         for (var l = 0; l < triple.Item3; ++l)
                         {
                             var nodeTag = "Узел " + nodeTags[j][k * triple.Item3 + l].ToString();
-                            currentType.Nodes.Add(nodeTag, nodeTag);
+                            nodNodes[l] = new TreeNode(nodeTag);
+                            //currentType.Nodes.Add(nodeTag, nodeTag);
                         }
+                        elemNodes[k].Nodes.AddRange(nodNodes);
                     }
+                    elemBase.Nodes.AddRange(elemNodes);
+                    currentSurface.Nodes.Add(elemBase);
                 }
+                tree.Nodes[0].Nodes.Add(currentSurface);
             }
         }
 
@@ -502,24 +514,15 @@ namespace ModelModule
 
         private void entTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            var treeView = sender as TreeView;
-            lastNode = selectedNode;
-            selectedNode = e.Node;
-            if (treeView.Tag.ToString().Contains("entTree"))
+            if (e.Node.Text.Contains("Кривая"))
             {
-
-                if (selectedNode.Text.Contains("Кривая"))
-                {
-                    pointsControlBox.Enabled = true;
-                    if (lastNode != null && lastNode.Text.Contains("Кривая"))
-                    {
-                        var objInd = FindObjectByTreeNode(lastNode);
-                        ShowObjectsEvent(objInd);
-                    }
-                }
-                else
-                    pointsControlBox.Enabled = false;
+                pointsControlBox.Enabled = true;
+                var objInd = FindObjectByTreeNode(e.Node);
+                ShowObjectsEvent?.Invoke(objInd);
             }
+            else
+                pointsControlBox.Enabled = false;
+            redrawScene?.Invoke(false);
         }
         private List<Tuple<int, string, Node[]>> GetElements(int dim, int tags = -1)
         {
@@ -644,7 +647,7 @@ namespace ModelModule
                 var nodes = controller.GetNodes(ref status);
                 if(nodes.Count > 0)
                     ObjectData.NodeCollection.AddRange(nodes);
-                updatePointData?.Invoke(nodes);
+                updatePointData?.Invoke();
             }
             else if (type == ObjType.Элемент1D)
             {
@@ -652,7 +655,7 @@ namespace ModelModule
                 var elements1D = CreateBeamElements();
                 if(elements1D.Count > 0)
                     ObjectData.E1DCollection.AddRange(elements1D);
-                updateElement1Data?.Invoke(elements1D);
+                updateElement1Data?.Invoke();
             }
             else if (type == ObjType.Элемент2D)
             {
@@ -660,7 +663,7 @@ namespace ModelModule
                 var elements2D = Create2DElements();
                 if(elements2D.Count > 0)
                     ObjectData.E2DCollection.AddRange(elements2D);
-                update2DSurfaceData?.Invoke(elements2D);
+                update2DSurfaceData?.Invoke();
             }
             else if (type == ObjType.Элемент3D)
             {
@@ -668,7 +671,7 @@ namespace ModelModule
                 var elements3D = Create3DElements();
                 if(elements3D.Count > 0)
                     ObjectData.E3DCollection.AddRange(elements3D);
-                update3DSurfaceData?.Invoke( elements3D);
+                update3DSurfaceData?.Invoke();
             }
             /*
             var ierr = 0;
@@ -777,7 +780,7 @@ namespace ModelModule
             // Может изменить вход на treeNode с которого было вызвано это действие?
 
             var dim = type == ObjType.Элемент2D ? 2 : 3;
-            var parent = selectedNode;
+            var parent = type == ObjType.Элемент2D ? elemsTree.SelectedNode : volumesTree.SelectedNode;
             while (parent.Parent != null && parent.Parent.Nodes.Count == 1)
                 parent = parent.Parent;
             if (parent.Text.Contains(fundamental[dim].Item1))
@@ -865,9 +868,9 @@ namespace ModelModule
             var ierr = 0;
             string error;
             controller.gmshModelMeshFieldSetNumber(boundFieldTag, optValue[0], value, ref ierr);
-            controller.LoggerGetLastError(out error);
+            /*controller.LoggerGetLastError(out error);
             if (!String.IsNullOrEmpty(error))
-                showErrorMessage?.Invoke(error);
+                showErrorMessage?.Invoke(error);*/
         }
 
         private void OnTransfiniteCurve(object sender, EventArgs e)
@@ -895,9 +898,7 @@ namespace ModelModule
         {
             if (IsControllerLoaded)
             {
-                if (SaveObjectData)
-                    saveObjectData?.Invoke(ObjectData);
-                else
+                if (!SaveObjectData)
                     DeleteGeometry();
                 var ierr = 0;
                 controller.gmshFinalize(ref ierr);
@@ -912,15 +913,11 @@ namespace ModelModule
 
         private void entTree_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
-            var treeView = sender as TreeView;
-            lastNode = selectedNode;
-            selectedNode = e.Node;
-
-            if (lastNode != null && lastNode.Text.Contains("Кривая"))
-            {
-                var resetObj = FindObjectByTreeNode(lastNode);
-                ResetColorObjectsEvent?.Invoke(ObjType.Линия,true);
-            }
+            var oldNode = entTree.SelectedNode;
+            if (oldNode != null && oldNode.Text.Contains("Кривая"))
+                ResetColorObjectsEvent?.Invoke(ObjType.Линия, true);
+            else
+                pointsControlBox.Enabled = false;
         }
     }
 }
