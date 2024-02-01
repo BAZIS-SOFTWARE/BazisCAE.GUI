@@ -53,13 +53,13 @@ namespace ModelModule
         public bool IsControllerLoaded { get => controller != null; }
         public IObjectsData ObjectData { get; internal set; }
 
-        public event Action<List<INode>> updatePointData;
-        public event Action<List<IGeometryPoint>> updateGeometryPointData;
-        public event Action<List<Line>> updateLineData;
-        public event Action<List<Beam>> updateElement1Data;
-        public event Action<List<IElement2D>> update2DSurfaceData;
-        public event Action<List<IElement3D>> update3DSurfaceData;
-        public event Action<IObjectsData> saveObjectData;
+        public event Action updatePointData;
+        public event Action updateGeometryPointData;
+        public event Action updateLineData;
+        public event Action updateElement1Data;
+        public event Action update2DSurfaceData;
+        public event Action update3DSurfaceData;
+        //public event Action saveObjectData;
         public event Action<int> ShowObjectsEvent;
         public event Action<ObjType,bool> ResetColorObjectsEvent;
         public event Action<string> showErrorMessage;
@@ -104,7 +104,7 @@ namespace ModelModule
                 var controlPoints = controller.CreateControlPoints(dimTags);
                 if(controlPoints.Count > 0)
                     ObjectData.PointCollection.AddRange(controlPoints);
-                updateGeometryPointData?.Invoke(controlPoints);
+                updateGeometryPointData?.Invoke();
             }
             else if (objType == ObjType.Линия)
             {
@@ -115,7 +115,7 @@ namespace ModelModule
                 var curves = controller.CreateLines(dimTags, ref status);
                 if(curves.Count > 0)
                     ObjectData.LineCollection.AddRange(curves);
-                updateLineData?.Invoke(curves);
+                updateLineData?.Invoke();
             }
 
             /*
@@ -473,6 +473,7 @@ namespace ModelModule
                 {
                     var triple = elementType[elementTypes[j]];//, out elemKey, out elemChild, out points);
                     var elements = elementTags[j];
+                    var elemBase = new TreeNode(triple.Item1);
                     var elemNodes = new TreeNode[elements.Length];
                     for (var k = 0L; k < elements.Length; ++k)
                     {
@@ -490,7 +491,8 @@ namespace ModelModule
                         }
                         elemNodes[k].Nodes.AddRange(nodNodes);
                     }
-                    currentSurface.Nodes.AddRange(elemNodes);
+                    elemBase.Nodes.AddRange(elemNodes);
+                    currentSurface.Nodes.Add(elemBase);
                 }
                 tree.Nodes[0].Nodes.Add(currentSurface);
             }
@@ -517,11 +519,10 @@ namespace ModelModule
                 pointsControlBox.Enabled = true;
                 var objInd = FindObjectByTreeNode(e.Node);
                 ShowObjectsEvent?.Invoke(objInd);
-                //ПЕРЕГЕНЕРАЦИЯ VBO
-                redrawScene?.Invoke(false);
             }
             else
                 pointsControlBox.Enabled = false;
+            redrawScene?.Invoke(false);
         }
         private List<Tuple<int, string, Node[]>> GetElements(int dim, int tags = -1)
         {
@@ -646,7 +647,7 @@ namespace ModelModule
                 var nodes = controller.GetNodes(ref status);
                 if(nodes.Count > 0)
                     ObjectData.NodeCollection.AddRange(nodes);
-                updatePointData?.Invoke(nodes);
+                updatePointData?.Invoke();
             }
             else if (type == ObjType.Элемент1D)
             {
@@ -654,7 +655,7 @@ namespace ModelModule
                 var elements1D = CreateBeamElements();
                 if(elements1D.Count > 0)
                     ObjectData.E1DCollection.AddRange(elements1D);
-                updateElement1Data?.Invoke(elements1D);
+                updateElement1Data?.Invoke();
             }
             else if (type == ObjType.Элемент2D)
             {
@@ -662,7 +663,7 @@ namespace ModelModule
                 var elements2D = Create2DElements();
                 if(elements2D.Count > 0)
                     ObjectData.E2DCollection.AddRange(elements2D);
-                update2DSurfaceData?.Invoke(elements2D);
+                update2DSurfaceData?.Invoke();
             }
             else if (type == ObjType.Элемент3D)
             {
@@ -670,7 +671,7 @@ namespace ModelModule
                 var elements3D = Create3DElements();
                 if(elements3D.Count > 0)
                     ObjectData.E3DCollection.AddRange(elements3D);
-                update3DSurfaceData?.Invoke( elements3D);
+                update3DSurfaceData?.Invoke();
             }
             /*
             var ierr = 0;
@@ -897,9 +898,7 @@ namespace ModelModule
         {
             if (IsControllerLoaded)
             {
-                if (SaveObjectData)
-                    saveObjectData?.Invoke(ObjectData);
-                else
+                if (!SaveObjectData)
                     DeleteGeometry();
                 var ierr = 0;
                 controller.gmshFinalize(ref ierr);

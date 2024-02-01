@@ -91,7 +91,7 @@ namespace ModelModule
             gmshControl.updateElement1Data += UpdateElement1Data;
             gmshControl.update2DSurfaceData += Update2DSurfaceData;
             gmshControl.update3DSurfaceData += Update3DSurfaceData;
-            gmshControl.saveObjectData += (d) => Project.ModelData.SetObjectData(d);
+            //gmshControl.saveObjectData += (d) => Project.ModelData.SetObjectData(d);
             gmshControl.redrawScene += RedrawScene;
             gmshControl.showErrorMessage += ShowErrorMessage;
             gmshControl.ShowObjectsEvent += ShowLines;
@@ -110,7 +110,7 @@ namespace ModelModule
                 foreach (var item in Project.ModelData.ObjectData.GetObjects(objType))
                     item.SetBackColor();
                 SetObjectsSceneColor(ObjType.Линия);
-            }
+            }      
         }
 
         private void MeshToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -176,75 +176,81 @@ namespace ModelModule
             }
         }
 
-        private void UpdateGeometryPointData(List<IGeometryPoint> objects)
+        private void UpdateGeometryPointData(/*List<IGeometryPoint> objects*/)
         {
             var obj = ObjType.Точка.ToString();
+            var data = Project.ModelData.ObjectData.PointCollection;
             if (SceneControl.FindVBObj(obj) != null)
                 SceneControl.DeleteVBObjects(obj);
-            if (objects.Count > 0)
+            if (data.Count > 0)
             {
-                var presenter = PresentersCreator.CreatePointObjectsPresenter(objects);
+                var presenter = PresentersCreator.CreatePointObjectsPresenter(data);
                 PresentObjectsToScene(obj, presenter);
             }
         }
 
 
-        private void UpdatePointData(List<INode> objects)
+        private void UpdatePointData(/*List<INode> objects*/)
         {
             var obj = ObjType.Узел.ToString();
+            var data = Project.ModelData.ObjectData.NodeCollection;
             if (SceneControl.FindVBObj(obj) != null)
                 SceneControl.DeleteVBObjects(obj);
-            if (objects.Count > 0)
+            if (data.Count > 0)
             {
-                var presenter = PresentersCreator.CreatePointObjectsPresenter(objects);
+                var presenter = PresentersCreator.CreatePointObjectsPresenter(data);
                 PresentObjectsToScene(obj, presenter);
             }
         }
 
-        private void UpdateLineData(List<Line> objects)
+        private void UpdateLineData(/*List<Line> objects*/)
         {
             var obj = ObjType.Линия.ToString();
+            var data = Project.ModelData.ObjectData.LineCollection;
             if (SceneControl.FindVBObj(obj) != null)
                 SceneControl.DeleteVBObjects(obj);
-            if (objects.Count > 0)
+            if (data.Count > 0)
             {
-                var presenter = PresentersCreator.CreateLineObjectsPresenter(objects);
+                var presenter = PresentersCreator.CreateLineObjectsPresenter(data);
                 PresentObjectsToScene(obj, presenter);
             }
         }
 
-        private void UpdateElement1Data(List<Beam> objects)
+        private void UpdateElement1Data(/*List<Beam> objects*/)
         {
             var obj = ObjType.Элемент1D.ToString();
+            var data = Project.ModelData.ObjectData.E1DCollection;
             if (SceneControl.FindVBObj(obj) != null)
                 SceneControl.DeleteVBObjects(obj);
-            if (objects.Count > 0)
+            if (data.Count > 0)
             {
-                var presenter = PresentersCreator.CreateLineObjectsPresenter(objects);
+                var presenter = PresentersCreator.CreateLineObjectsPresenter(data);
                 PresentObjectsToScene(obj, presenter);
             }
         }
 
-        private void Update2DSurfaceData(List<IElement2D> objects)
+        private void Update2DSurfaceData(/*List<IElement2D> objects*/)
         {
             var obj = ObjType.Элемент2D.ToString();
+            var data = Project.ModelData.ObjectData.E2DCollection;
             if (SceneControl.FindVBObj(obj) != null)
                 SceneControl.DeleteVBObjects(obj);
-            if (objects.Count > 0)
+            if (data.Count > 0)
             {
-                var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(objects,false);
+                var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(data,false);
                 PresentObjectsToScene(obj, presenter);
             }
         }
 
-        private void Update3DSurfaceData(List<IElement3D> objects)
+        private void Update3DSurfaceData(/*List<IElement3D> objects*/)
         {
             var obj = ObjType.Элемент3D.ToString();
+            var data = Project.ModelData.ObjectData.E3DCollection;
             if (SceneControl.FindVBObj(obj) != null)
                 SceneControl.DeleteVBObjects(obj);
-            if (objects.Count > 0)
+            if (data.Count > 0)
             {
-                var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(objects, true);
+                var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(data, true);
                 PresentObjectsToScene(obj, presenter);
             }
         }
