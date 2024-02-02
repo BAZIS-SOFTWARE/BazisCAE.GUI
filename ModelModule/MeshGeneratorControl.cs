@@ -610,6 +610,7 @@ namespace ModelModule
                 dim = 0;
                 controller.ModelGetGeometryEntities(out dimTags, dim);
             }
+
             if (type == ObjType.Элемент1D)//удаляем все 1d элементы
             {
                 dim = 1;

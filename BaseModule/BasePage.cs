@@ -73,14 +73,20 @@ namespace BaseModule
 
             ClearAllDataOnScene();
 
-            foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-            {
-                var presentor = CreateObjectsPresentor(item);
-                PresentObjectsToScene(item.ToString(), presentor);
-            }
+            PresentAllModelObjectsToScene();
 
             sceneControl.FitObjectsToScreen();
             sceneControl.DisplayObjects();
+        }
+
+        public void PresentAllModelObjectsToScene()
+        {
+            foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
+            {
+                var presentor = CreateObjectsPresentor(item);
+                if (presentor.Count() > 0)
+                    PresentObjectsToScene(item.ToString(), presentor);
+            }
         }
 
         public IObjsPresenter CreateObjectsPresentor(ObjType objType)
@@ -1438,11 +1444,7 @@ namespace BaseModule
 
             sceneControl.DeleteAllVBObjects();
 
-            foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-            {
-                var presentor = CreateObjectsPresentor(item);
-                PresentObjectsToScene(item.ToString(),presentor);
-            }
+            PresentAllModelObjectsToScene();
 
 
             sceneControl.DisplayObjects();
@@ -1556,8 +1558,7 @@ namespace BaseModule
             if (selectToolStrip.SelectObjectsType == ObjType.Объект)
             {
                 sceneControl.DeleteAllVBObjects();
-                foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-                    PresentObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
+                PresentAllModelObjectsToScene();
             }
             else if (selectToolStrip.SelectObjectsType == ObjType.Элемент)
             {
@@ -1835,8 +1836,7 @@ namespace BaseModule
             Project.TaskData?.ClearNotExisted(Project.ModelData.GroupData);
 
             sceneControl.DeleteAllVBObjects();
-            foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-                PresentObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
+            PresentAllModelObjectsToScene();
 
             PresentProjectOnTree();
             sceneControl.DisplayObjects();
@@ -1912,16 +1912,8 @@ namespace BaseModule
                     iobj.ViewState = false;
                 }
             }
-
-            foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-            {
-                var vbobj = sceneControl.FindVBObj(item.ToString());
-                var viewMode = vbobj.ViewMode;
-
-                sceneControl.DeleteVBObjects(item.ToString());
-                PresentObjectsToScene(item.ToString(),CreateObjectsPresentor(item));
-                sceneControl.ChangeViewModeVBObjects(item.ToString(), viewMode);
-            }
+            sceneControl.DeleteAllVBObjects();
+            PresentAllModelObjectsToScene();
 
             sceneControl.DisplayObjects();
         }
@@ -1941,16 +1933,8 @@ namespace BaseModule
                 {
                     foreach (var modelObject in Project.ModelData.ObjectData.GetObjects(item))
                         modelObject.ViewState = false;
-
-                    var vbobj = sceneControl.FindVBObj(item.ToString());
-                    if (vbobj == null)
-                        throw new Exception($"Объект {item} не загружен на сцену!");
-                    var viewMode = vbobj.ViewMode;
-
-                    sceneControl.DeleteVBObjects(item.ToString());
-                    PresentObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
-                    sceneControl.ChangeViewModeVBObjects(item.ToString(), viewMode);
                 }
+                sceneControl.DeleteAllVBObjects();
             }
             catch (Exception ex)
             {
@@ -1962,29 +1946,15 @@ namespace BaseModule
         {
             try
             {
+                sceneControl.DeleteAllVBObjects();
+
                 foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
                 {
                     foreach (var modelObject in Project.ModelData.ObjectData.GetObjects(item))
-                        modelObject.ViewState = true;
-
-                    var vbobj = sceneControl.FindVBObj(item.ToString());
-                    if (vbobj == null)
-                        throw new Exception($"Объект {item} не загружен на сцену!");
-                    
-                    var viewMode = vbobj.ViewMode;
-
-   
-                    if (!sceneControl.DrawInsideObjects & item == ObjType.Элемент3D)
-                    {
-                        var volPresenter = (IVolumeObjsPresenter)CreateObjectsPresentor(item);
-                        volPresenter.HideInsideSurfaces();
-                    }
-
-                    sceneControl.DeleteVBObjects(item.ToString());
-                    var presentor = CreateObjectsPresentor(item);
-                    PresentObjectsToScene(item.ToString(), presentor);
-                    sceneControl.ChangeViewModeVBObjects(item.ToString(), viewMode);
+                        modelObject.ViewState = true;                  
                 }
+
+                PresentAllModelObjectsToScene();
 
             }
             catch (Exception ex)
@@ -2120,11 +2090,9 @@ namespace BaseModule
                 }
             }
 
-            foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-            {
-                sceneControl.DeleteVBObjects(item.ToString());
-                PresentObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
-            }
+            sceneControl.DeleteAllVBObjects();
+
+            PresentAllModelObjectsToScene();
 
             sceneControl.DisplayObjects();
         }

@@ -169,8 +169,14 @@ namespace ModelModule
 
         private void UpdateVBO(ObjType objType)
         {
+            var vbo = SceneControl.FindVBObj(objType.ToString());
+
+            if(vbo != null)
+                SceneControl.DeleteVBObjects(objType.ToString());
+
             var presentor = CreateObjectsPresentor(objType);
-            PresentObjectsToScene(objType.ToString(), presentor);
+            if (presentor.Count() > 0)
+                PresentObjectsToScene(objType.ToString(), presentor);               
         }      
 
         private void ShowErrorMessage(string message) => ConsoleControl.PrintInfo(message, Color.Red);
