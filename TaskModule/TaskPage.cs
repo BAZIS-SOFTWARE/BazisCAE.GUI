@@ -30,9 +30,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TaskModule
 {
-    public partial class TaskPage: BasePage
+    public partial class TaskPage : BasePage
     {
-        string activeTask  = String.Empty;
+        string activeTask = String.Empty;
         public string SolverPath { get; set; }
 
         //public MaterialDBData MatData { get; set; }
@@ -45,10 +45,10 @@ namespace TaskModule
             InitializeComponent();
 
             var list = new List<StatusStrip>();
-            SearchControl(this, list);          
+            SearchControl(this, list);
 
-            solverStatusLabel = new ToolStripStatusLabel() { Name = "solverStatus"};
-            list[0].Items.Insert(1,solverStatusLabel);
+            solverStatusLabel = new ToolStripStatusLabel() { Name = "solverStatus" };
+            list[0].Items.Insert(1, solverStatusLabel);
 
             var taskNode = new TreeNode("Данные", 1, 1) { Name = "Данные", Tag = "6" };
             NavigatorControl.TreeView.Nodes.Add(taskNode);
@@ -69,7 +69,7 @@ namespace TaskModule
             {
                 Name = "tasksMenuItem",
                 Text = "Задачи"
-            };    
+            };
 
             return tasksMenuItem;
         }
@@ -308,17 +308,17 @@ namespace TaskModule
         {
             try
             {
-            if (!File.Exists($@"{Project.Path}\{Project.Name}"))
-                throw new Exception($"В папке проекта {Project.Path} отсутствует файл проекта {Project.Name}. " +
-                    $"Верните файл проекта в папку проекта или выберете другой проект");
+                if (!File.Exists($@"{Project.Path}\{Project.Name}"))
+                    throw new Exception($"В папке проекта {Project.Path} отсутствует файл проекта {Project.Name}. " +
+                        $"Верните файл проекта в папку проекта или выберете другой проект");
 
-            if (!File.Exists($@"{Project.Path}\{Project.Materials}"))
-                throw new Exception($"В папке проекта {Project.Path} отсутствует файл материалов {Project.Materials}. " +
-                    $"Верните файл материалов в папку проекта или выберете другой файл материалов");
+                if (!File.Exists($@"{Project.Path}\{Project.Materials}"))
+                    throw new Exception($"В папке проекта {Project.Path} отсутствует файл материалов {Project.Materials}. " +
+                        $"Верните файл материалов в папку проекта или выберете другой файл материалов");
 
-            if (!File.Exists($@"{Project.Path}\{Project.Functions}"))
-                throw new Exception($"В папке проекта {Project.Path} отсутствует файл функций {Project.Functions}. " +
-                    $"Верните файл функций в папку проекта или выберете другой файл функций");
+                if (!File.Exists($@"{Project.Path}\{Project.Functions}"))
+                    throw new Exception($"В папке проекта {Project.Path} отсутствует файл функций {Project.Functions}. " +
+                        $"Верните файл функций в папку проекта или выберете другой файл функций");
 
             }
             catch (Exception ex)
@@ -379,8 +379,8 @@ namespace TaskModule
                 ConsoleControl.PrintInfo($"Не найдена база {dbName} в папке {dbPath}", Color.Red);
                 return default;
             }
- 
-            else 
+
+            else
                 return LoadDataBase<T>(dbName, dbPath);
         }
 
@@ -411,9 +411,9 @@ namespace TaskModule
             {
                 return Path.GetDirectoryName(projFiles[0]);
             }
-            
+
             return null;
-        }      
+        }
 
         private T LoadDataBase<T>(string dbFileName, string dbPath)
         {
@@ -479,9 +479,9 @@ namespace TaskModule
             NavigatorControl.TreeView.Nodes.Insert(4, funNode);
 
             foreach (var data in Project.TaskData)
-                {
-                    NavigatorControl.CreateChildNode("Данные", data.Name, data.ToString(), "6.1");
-                }
+            {
+                NavigatorControl.CreateChildNode("Данные", data.Name, data.ToString(), "6.1");
+            }
 
             NavigatorControl.TreeView.EndUpdate();
             NavigatorControl.TreeView.Nodes["Данные"].Expand();
@@ -525,7 +525,7 @@ namespace TaskModule
                 if (dataArray[arg2.Index] is HeatData heatData)
                 {
                     //AsyncMethodContainer()
-                    
+
                     //var taskStrLRF = SetTaskDataAsync("setDirection", taskStrAr[0]);
 
                     //await taskStrLRF;
@@ -550,30 +550,30 @@ namespace TaskModule
 
         }
 
-//        public Func<string> SetDirection(string taskStr)
-//        {
-//            return new Func<string>(() =>
-//            {
-                
-//                var pointsCoords = project.ModelData.ObjectData.FindMany<INode>().
-//Where(x => x.MasterColor == Color.FromArgb(0, 255, 0)).Select(x => x.Position).ToArray();
-//                if (pointsCoords.Length < 3)
-//                {
-//                    CalculatorEvent(this, new CalculatorEventArgs("Выберите 3 точки!"));
-//                    return taskStr;
-//                }
-//                else
-//                {
-//                    var plane = new Plane(pointsCoords[0], pointsCoords[1], pointsCoords[2]);
-//                    var vector = plane.Normal;
-//                    var normVector = Vector.GetVectorNorm(vector);
+        //        public Func<string> SetDirection(string taskStr)
+        //        {
+        //            return new Func<string>(() =>
+        //            {
 
-//                    CalculatorEvent(this, new CalculatorEventArgs(""));
+        //                var pointsCoords = project.ModelData.ObjectData.FindMany<INode>().
+        //Where(x => x.MasterColor == Color.FromArgb(0, 255, 0)).Select(x => x.Position).ToArray();
+        //                if (pointsCoords.Length < 3)
+        //                {
+        //                    CalculatorEvent(this, new CalculatorEventArgs("Выберите 3 точки!"));
+        //                    return taskStr;
+        //                }
+        //                else
+        //                {
+        //                    var plane = new Plane(pointsCoords[0], pointsCoords[1], pointsCoords[2]);
+        //                    var vector = plane.Normal;
+        //                    var normVector = Vector.GetVectorNorm(vector);
 
-//                    return taskStr.Replace("LRF", normVector.ToString());
-//                }
-//            });
-//        }
+        //                    CalculatorEvent(this, new CalculatorEventArgs(""));
+
+        //                    return taskStr.Replace("LRF", normVector.ToString());
+        //                }
+        //            });
+        //        }
 
         public void TaskAdvisor_DeleteAllDataEvent(object arg1, DeleteAllDataEventArgs arg2)
         {
@@ -604,7 +604,7 @@ namespace TaskModule
                     DisplayMRF(data[index].StartTime, data[index]);
 
                 foreach (var iobj in group)
-                {                   
+                {
                     if (data[index].Kind == DataKind.Mat)
                         iobj.MasterColor = Color.FromArgb(255, 255, 0);
                     else if (data[index].Kind == DataKind.Med)
@@ -612,7 +612,7 @@ namespace TaskModule
                     else if (data[index].Kind == DataKind.Clamp | data[index].Kind == DataKind.Load)
                         iobj.MasterColor = Color.FromArgb(255, 0, 0);
                     else if (data[index].Kind == DataKind.Heat)
-                        iobj.MasterColor = Color.FromArgb(125,155, 255, 0);
+                        iobj.MasterColor = Color.FromArgb(125, 155, 255, 0);
 
                     if (data[index].Direction != "*")
                         DisplayDirection(data[index].StartTime, data[index], iobj);
@@ -722,7 +722,7 @@ namespace TaskModule
                         else if (data.Kind == DataKind.Clamp | data.Kind == DataKind.Load)
                             iobj.MasterColor = Color.FromArgb(255, 0, 0);
                         else if (data.Kind == DataKind.Heat)
-                            iobj.MasterColor = Color.FromArgb(125,155, 255, 0);
+                            iobj.MasterColor = Color.FromArgb(125, 155, 255, 0);
 
                         //PresentProjectTaskDataOnScene(arg2.Time, data, modelObj);
                         if (data.Direction != "*")
@@ -746,7 +746,7 @@ namespace TaskModule
 
             Project.TaskData.Remove(dataArray[arg2.Index]);
 
-            
+
 
             //PresentProjectOnTree();
         }
@@ -761,14 +761,14 @@ namespace TaskModule
                 {
                     var taskStrLRF = CreateSurfaceAsync();
                     await taskStrLRF;
-                    var vec = taskStrLRF.Result.Normal;
 
-                    //TO DO
-                    // Разложить по базису
-                    //
-                    //AddData(arg2, taskStrAr[0]);
-                    //AddData(arg2, taskStrAr[0]);
-                    //AddData(arg2, taskStrAr[0]);
+                    var strParts = taskStrAr[0].Split(' ');
+                    // 1000 is const value for force for now
+                    var func = strParts[3] == "*" ? "1000" : strParts[3];
+                    var pre = string.Join(" ", new[] { strParts[0], strParts[1] });
+                    var post = string.Join(" ", new[] { func, strParts[4], strParts[5], strParts[6] });
+                    for (var i = 0; i < 3; i++)
+                        AddData(arg2, $"{pre} {(char)(88 + i)} {post}");
                 }
 
                 else
@@ -908,7 +908,7 @@ namespace TaskModule
 
         private void TaskPage_Load(object sender, EventArgs e)
         {
-            if(Project.TaskData == null)
+            if (Project.TaskData == null)
                 Project.TaskData = new TaskData();
         }
 
