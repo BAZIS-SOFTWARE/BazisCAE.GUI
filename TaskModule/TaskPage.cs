@@ -759,6 +759,7 @@ namespace TaskModule
 
                 if (taskStrAr[0].Contains("LRF"))
                 {
+                    var force = 100;
                     var taskStrLRF = CreateSurfaceAsync();
                     await taskStrLRF;
 
