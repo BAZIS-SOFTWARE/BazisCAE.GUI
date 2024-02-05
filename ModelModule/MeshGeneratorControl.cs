@@ -345,14 +345,17 @@ namespace ModelModule
                 showErrorMessage?.Invoke(error);
 
             UpdateObjectsData(ObjType.Элемент3D);
-            UpdateObjectsData(ObjType.Узел);
+            if (ObjectData.E3DCollection.Count > 0)//Было ли что-то сгенерировано ?
+            {
+                UpdateObjectsData(ObjType.Узел);
 
-            updateVBOEvent?.Invoke(ObjType.Узел);
-            updateVBOEvent?.Invoke(ObjType.Элемент3D);
+                updateVBOEvent?.Invoke(ObjType.Узел);
+                updateVBOEvent?.Invoke(ObjType.Элемент3D);
 
-            FillMeshTreeView(volumesTree, 3, "Объемы", "Объем ");
-            ShowHideTabControls(3, true);
-            redrawScene?.Invoke(false);
+                FillMeshTreeView(volumesTree, 3, "Объемы", "Объем ");
+                ShowHideTabControls(3, true);
+                redrawScene?.Invoke(false);
+            }
         }
 
         private void OnDencityChange(object sender, EventArgs e)
@@ -620,8 +623,15 @@ namespace ModelModule
             return elements;
         }
 
-        private void DeleteElementsByNumbers(int[] dimTags)
+        private void DeleteElementsByNumbers(int[] dimTags, string keyData)
         {
+            foreach (var element in elementType.Values)
+                if (element.Item1.Contains(keyData))
+                {
+                    var idElems = dimTags.Where((i, v) => (i & 1) == 1).Select(v => (long)v).ToArray();
+                    controller.DeleteMeshElements(idElems);
+                    return;
+                }
             var ierr = 0;
             controller.gmshModelMeshClear(dimTags, (IntPtr)dimTags.Length, ref ierr);
         }
@@ -712,16 +722,6 @@ namespace ModelModule
             return dimTags;
         }
 
-        private bool IsNummericElement(int dim, string nodeKey)
-        {
-            if (nodeKey.Contains(fundamental[dim].Item2))
-                return true;
-            foreach (var element in elementType.Values)
-                if (nodeKey.Contains(element.Item2))
-                    return true;
-            return false;
-        }
-
         private int GetElementTypeByString(ref string query)
         {
             foreach (var entry in elementType)
@@ -764,13 +764,13 @@ namespace ModelModule
             }
             else
             {
-                var isNumeric = IsNummericElement(dim, currentNode.Text);
                 var keyData = currentNode.Text.Split(' ');
-                //var delType = currentNode.Text.Contains(fundamental[dim].Item2) ? baseElement : type;
+                var isNumeric = keyData.Length > 1;
+                //var isNumeric = IsNummericElement(dim, currentNode.Text);
                 var dimTags = isNumeric ? new int[] { dim, Int32.Parse(keyData[1]) }
                              : GetElementsByType(ref keyData[0], dim, Int32.Parse(currentNode.Parent.Text.Split(' ')[1]));
                 elemsTree.Nodes.Remove(currentNode);
-                DeleteElementsByNumbers(dimTags);
+                DeleteElementsByNumbers(dimTags, keyData[0]);
                 UpdateObjectsData(type);
                 UpdateObjectsData(ObjType.Узел);
 
