@@ -760,9 +760,11 @@ namespace ModelModule
                 DeleteElementsByNumbers(dimTags);
                 UpdateObjectsData(type);
                 UpdateObjectsData(ObjType.Узел);
-                //UpdateSurfaceElements(delType, dimTags);//Удалить только указанные димТагс - заменено
-                redrawScene?.Invoke(false);
+
+                updateVBOEvent?.Invoke(type);
+                updateVBOEvent?.Invoke(ObjType.Узел);
             }
+            redrawScene?.Invoke(false);
         }
 
         private void OnAddBoundFilter(object sender, EventArgs e)
