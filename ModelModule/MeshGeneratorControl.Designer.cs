@@ -31,7 +31,7 @@ namespace ModelModule
         /// </summary>
         private void InitializeComponent()
         {
-            this.meshDelBtn = new System.Windows.Forms.Button();
+            this.btnMesh2DDel = new System.Windows.Forms.Button();
             this.algoChoice = new System.Windows.Forms.ComboBox();
             this.algoLabel = new System.Windows.Forms.Label();
             this.meshDensityValue = new System.Windows.Forms.TextBox();
@@ -73,7 +73,7 @@ namespace ModelModule
             this.volElBox = new System.Windows.Forms.GroupBox();
             this.entTree = new System.Windows.Forms.TreeView();
             this.volumeBox = new System.Windows.Forms.GroupBox();
-            this.delVolBtn = new System.Windows.Forms.Button();
+            this.btnMesh3DDel = new System.Windows.Forms.Button();
             this.volGenBtn = new System.Windows.Forms.Button();
             this.volumePage = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -163,18 +163,18 @@ namespace ModelModule
             this.gmshTab.SuspendLayout();
             this.SuspendLayout();
             // 
-            // meshDelBtn
+            // btnMesh2DDel
             // 
-            this.meshDelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.meshDelBtn.Enabled = false;
-            this.meshDelBtn.Location = new System.Drawing.Point(241, 58);
-            this.meshDelBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.meshDelBtn.Name = "meshDelBtn";
-            this.meshDelBtn.Size = new System.Drawing.Size(98, 26);
-            this.meshDelBtn.TabIndex = 9;
-            this.meshDelBtn.Text = "Удалить";
-            this.meshDelBtn.UseVisualStyleBackColor = true;
-            this.meshDelBtn.Click += new System.EventHandler(this.OnDeleteMesh2D);
+            this.btnMesh2DDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMesh2DDel.Enabled = false;
+            this.btnMesh2DDel.Location = new System.Drawing.Point(241, 58);
+            this.btnMesh2DDel.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMesh2DDel.Name = "btnMesh2DDel";
+            this.btnMesh2DDel.Size = new System.Drawing.Size(98, 26);
+            this.btnMesh2DDel.TabIndex = 9;
+            this.btnMesh2DDel.Text = "Удалить";
+            this.btnMesh2DDel.UseVisualStyleBackColor = true;
+            this.btnMesh2DDel.Click += new System.EventHandler(this.OnDeleteMesh2D);
             // 
             // algoChoice
             // 
@@ -233,7 +233,7 @@ namespace ModelModule
             // 
             this.meshGenBox.Controls.Add(this.meshSaveBtn);
             this.meshGenBox.Controls.Add(this.meshLoadBtn);
-            this.meshGenBox.Controls.Add(this.meshDelBtn);
+            this.meshGenBox.Controls.Add(this.btnMesh2DDel);
             this.meshGenBox.Controls.Add(this.algoChoice);
             this.meshGenBox.Controls.Add(this.algoLabel);
             this.meshGenBox.Controls.Add(this.meshDensityValue);
@@ -364,7 +364,7 @@ namespace ModelModule
             this.elemDelBtn.TabIndex = 10;
             this.elemDelBtn.Text = "Удалить";
             this.elemDelBtn.UseVisualStyleBackColor = true;
-            this.elemDelBtn.Click += new System.EventHandler(this.OnDeleteElement);
+            this.elemDelBtn.Click += new System.EventHandler(this.OnDeleteElement2D);
             // 
             // meshOpBox
             // 
@@ -619,7 +619,7 @@ namespace ModelModule
             this.volDelBtn.TabIndex = 11;
             this.volDelBtn.Text = "Удалить";
             this.volDelBtn.UseVisualStyleBackColor = true;
-            this.volDelBtn.Click += new System.EventHandler(this.OnDeleteVolElement);
+            this.volDelBtn.Click += new System.EventHandler(this.OnDeleteElement3D);
             // 
             // volumesTree
             // 
@@ -687,7 +687,7 @@ namespace ModelModule
             // 
             // volumeBox
             // 
-            this.volumeBox.Controls.Add(this.delVolBtn);
+            this.volumeBox.Controls.Add(this.btnMesh3DDel);
             this.volumeBox.Controls.Add(this.volGenBtn);
             this.volumeBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.volumeBox.Enabled = false;
@@ -700,18 +700,18 @@ namespace ModelModule
             this.volumeBox.TabStop = false;
             this.volumeBox.Text = "Управление объемами";
             // 
-            // delVolBtn
+            // btnMesh3DDel
             // 
-            this.delVolBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.delVolBtn.Enabled = false;
-            this.delVolBtn.Location = new System.Drawing.Point(229, 23);
-            this.delVolBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.delVolBtn.Name = "delVolBtn";
-            this.delVolBtn.Size = new System.Drawing.Size(112, 26);
-            this.delVolBtn.TabIndex = 6;
-            this.delVolBtn.Text = "Удалить";
-            this.delVolBtn.UseVisualStyleBackColor = true;
-            this.delVolBtn.Click += new System.EventHandler(this.OnDeleteVolume);
+            this.btnMesh3DDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMesh3DDel.Enabled = false;
+            this.btnMesh3DDel.Location = new System.Drawing.Point(229, 23);
+            this.btnMesh3DDel.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMesh3DDel.Name = "btnMesh3DDel";
+            this.btnMesh3DDel.Size = new System.Drawing.Size(112, 26);
+            this.btnMesh3DDel.TabIndex = 6;
+            this.btnMesh3DDel.Text = "Удалить";
+            this.btnMesh3DDel.UseVisualStyleBackColor = true;
+            this.btnMesh3DDel.Click += new System.EventHandler(this.OnDeleteMesh3D);
             // 
             // volGenBtn
             // 
@@ -1449,7 +1449,7 @@ namespace ModelModule
         }
 
         #endregion
-        private System.Windows.Forms.Button meshDelBtn;
+        private System.Windows.Forms.Button btnMesh2DDel;
         private System.Windows.Forms.ComboBox algoChoice;
         private System.Windows.Forms.Label algoLabel;
         private System.Windows.Forms.TextBox meshDensityValue;
@@ -1489,7 +1489,7 @@ namespace ModelModule
         private System.Windows.Forms.GroupBox volElBox;
         private System.Windows.Forms.TreeView entTree;
         private System.Windows.Forms.GroupBox volumeBox;
-        private System.Windows.Forms.Button delVolBtn;
+        private System.Windows.Forms.Button btnMesh3DDel;
         private System.Windows.Forms.Button volGenBtn;
         private System.Windows.Forms.TabPage volumePage;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;

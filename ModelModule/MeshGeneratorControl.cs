@@ -119,6 +119,8 @@ namespace ModelModule
         private void GenerateGeometry()
         {
             DeleteMesh();
+            UpdateTreeView();
+
             UpdateGeometry(ObjType.Точка);
             UpdateGeometry(ObjType.Линия);
             var ierr = 0;
@@ -130,9 +132,22 @@ namespace ModelModule
             redrawScene?.Invoke(true);
         }
 
+        private void UpdateTreeView()
+        {
+            if (volumesTree.Nodes.Count > 0)
+            {
+                ClearTreeView(3);
+                ShowHideTabControls(3, false);
+            }
+            ShowHideGeneralTabControls(3, false);
+            ClearTreeView(2);
+            ShowHideTabControls(2, false);
+        }
+
         private void OnDeleteGeometry(object sender, EventArgs e)
         {
             DeleteMesh();
+            UpdateTreeView();
             var ierr = 0;
             controller.gmshClear(ref ierr);
             UpdateGeometry(ObjType.Точка);
@@ -148,6 +163,7 @@ namespace ModelModule
         public void DeleteGeometry(bool redraw = true)
         {
             DeleteMesh();
+            UpdateTreeView();
             var ierr = 0;
             controller.gmshClear(ref ierr);
             UpdateGeometry(ObjType.Точка);
@@ -164,6 +180,7 @@ namespace ModelModule
         private void OnDeleteMesh2D(object sender, EventArgs e)
         {
             DeleteMesh();
+            UpdateTreeView();
             redrawScene(false);
         }
 
@@ -179,31 +196,18 @@ namespace ModelModule
             updateVBOEvent?.Invoke(ObjType.Элемент1D);
             updateVBOEvent?.Invoke(ObjType.Элемент2D);
             updateVBOEvent?.Invoke(ObjType.Элемент3D);
-            //UpdateSurfaceElements(ObjType.Фигура2D, new int[0]);//Удалить все - заменено
-            if (volumesTree.Nodes.Count > 0)
-            {
-                ClearTreeView(3);
-                ShowHideTabControls(3, false);
-            }
-            ShowHideGeneralTabControls(3, false);
-            ClearTreeView(2);
-            ShowHideTabControls(2, false);
         }
 
-        private void OnDeleteVolume(object sender, EventArgs e) => DeleteVolume();
-
-        private void DeleteVolume(bool redraw = true)
+        private void OnDeleteMesh3D(object sender, EventArgs e)
         {
             DeleteMeshObjects(ObjType.Элемент3D);
             UpdateObjectsData(ObjType.Узел);
             UpdateObjectsData(ObjType.Элемент3D);
-
             updateVBOEvent?.Invoke(ObjType.Узел);
             updateVBOEvent?.Invoke(ObjType.Элемент3D);
             ClearTreeView(3);
             ShowHideTabControls(3, false);
-            if (redraw)
-                redrawScene.Invoke(false);
+            redrawScene.Invoke(false);
         }
 
         private void ShowHideGeneralTabControls(int dim, bool show = true)
@@ -238,13 +242,13 @@ namespace ModelModule
             }
             else if (dim == 2)
             {
-                meshDelBtn.Enabled = show;
+                btnMesh2DDel.Enabled = show;
                 meshElBox.Enabled = show;
                 meshOpBox.Enabled = show;
             }
             else if (dim == 3)
             {
-                delVolBtn.Enabled = show;
+                btnMesh3DDel.Enabled = show;
                 volElBox.Enabled = show;
             }
         }
@@ -627,7 +631,7 @@ namespace ModelModule
             var ierr = 0;
             int[] dimTags = null;
             var dim = 0;
-            if(type == ObjType.Узел)
+            if(type == ObjType.Узел) //удаляем всю сетку узлы,1d,2d,3d
             {
                 dimTags = new int[0];
                 /*dim = 0;
@@ -649,10 +653,7 @@ namespace ModelModule
                 dim = 3;
                 controller.ModelGetGeometryEntities(out dimTags, dim);
             }
-            //else if (type == ObjType.Узел)//удаляем всю сетку узлы,1d,2d,3d
-            //{
-            //    dimTags = new int[0];
-            //}
+
             controller.gmshModelMeshClear(dimTags, (IntPtr)dimTags.Length, ref ierr);
         }
 
@@ -729,34 +730,46 @@ namespace ModelModule
             return 0;
         }
 
-        private void OnDeleteElement(object sender, EventArgs e) => DeleteElement(ObjType.Элемент2D);
+        private void OnDeleteElement2D(object sender, EventArgs e) => DeleteElement(ObjType.Элемент2D);
 
-        private void OnDeleteVolElement(object sender, EventArgs e) => DeleteElement(ObjType.Элемент3D, ObjType.Фигура3D);
+        private void OnDeleteElement3D(object sender, EventArgs e) => DeleteElement(ObjType.Элемент3D);
 
-        private void DeleteElement(ObjType type, ObjType baseElement = ObjType.Поверхность)
+        private void DeleteElement(ObjType type)
         {
             // TO DO 
             // Может изменить вход на treeNode с которого было вызвано это действие?
 
             var dim = type == ObjType.Элемент2D ? 2 : 3;
-            var parent = type == ObjType.Элемент2D ? elemsTree.SelectedNode : volumesTree.SelectedNode;
-            while (parent.Parent != null && parent.Parent.Nodes.Count == 1)
-                parent = parent.Parent;
-            if (parent.Text.Contains(fundamental[dim].Item1))
+            var currentNode = type == ObjType.Элемент2D ? elemsTree.SelectedNode : volumesTree.SelectedNode;
+            
+            // Ищем одиночные узлы двигаясь вверх по дереву,
+            // пока не встречаем более чем один узел в ветке.
+            while (currentNode.Parent != null && currentNode.Parent.Nodes.Count == 1)
+                currentNode = currentNode.Parent;
+
+            if (currentNode.Text.Contains(fundamental[dim].Item1))
             {
                 if (dim == 2)
+                {
                     DeleteMesh();
+                    UpdateTreeView();
+                }
+
                 else
-                    DeleteVolume();
+                {
+                    DeleteMeshObjects(ObjType.Элемент3D);
+                    UpdateObjectsData(ObjType.Узел);
+                    UpdateObjectsData(ObjType.Элемент3D);
+                }
             }
             else
             {
-                var isNumeric = IsNummericElement(dim, parent.Text);
-                var keyData = parent.Text.Split(' ');
-                var delType = parent.Text.Contains(fundamental[dim].Item2) ? baseElement : type;
+                var isNumeric = IsNummericElement(dim, currentNode.Text);
+                var keyData = currentNode.Text.Split(' ');
+                //var delType = currentNode.Text.Contains(fundamental[dim].Item2) ? baseElement : type;
                 var dimTags = isNumeric ? new int[] { dim, Int32.Parse(keyData[1]) }
-                             : GetElementsByType(ref keyData[0], dim, Int32.Parse(parent.Parent.Text.Split(' ')[1]));
-                elemsTree.Nodes.Remove(parent);
+                             : GetElementsByType(ref keyData[0], dim, Int32.Parse(currentNode.Parent.Text.Split(' ')[1]));
+                elemsTree.Nodes.Remove(currentNode);
                 DeleteElementsByNumbers(dimTags);
                 UpdateObjectsData(type);
                 UpdateObjectsData(ObjType.Узел);
