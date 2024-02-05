@@ -161,7 +161,11 @@ namespace ModelModule
                 redrawScene?.Invoke(true);
         }
 
-        private void OnDeleteMesh2D(object sender, EventArgs e) => DeleteMesh();
+        private void OnDeleteMesh2D(object sender, EventArgs e)
+        {
+            DeleteMesh();
+            redrawScene(false);
+        }
 
         private void DeleteMesh()
         {
@@ -193,6 +197,9 @@ namespace ModelModule
             DeleteMeshObjects(ObjType.Элемент3D);
             UpdateObjectsData(ObjType.Узел);
             UpdateObjectsData(ObjType.Элемент3D);
+
+            updateVBOEvent?.Invoke(ObjType.Узел);
+            updateVBOEvent?.Invoke(ObjType.Элемент3D);
             ClearTreeView(3);
             ShowHideTabControls(3, false);
             if (redraw)
@@ -336,6 +343,9 @@ namespace ModelModule
             UpdateObjectsData(ObjType.Элемент3D);
             UpdateObjectsData(ObjType.Узел);
 
+            updateVBOEvent?.Invoke(ObjType.Узел);
+            updateVBOEvent?.Invoke(ObjType.Элемент3D);
+
             FillMeshTreeView(volumesTree, 3, "Объемы", "Объем ");
             ShowHideTabControls(3, true);
             redrawScene?.Invoke(false);
@@ -367,12 +377,18 @@ namespace ModelModule
             {
                 DeleteMeshObjects(ObjType.Элемент3D);
                 UpdateObjectsData(ObjType.Элемент3D);
+                updateVBOEvent?.Invoke(ObjType.Элемент3D);
                 ShowHideTabControls(3, false);
                 ClearTreeView(3);
             }
             UpdateObjectsData(ObjType.Элемент2D);
             UpdateObjectsData(ObjType.Элемент1D);
             UpdateObjectsData(ObjType.Узел);
+
+            updateVBOEvent?.Invoke(ObjType.Элемент2D);
+            updateVBOEvent?.Invoke(ObjType.Элемент1D);
+            updateVBOEvent?.Invoke(ObjType.Узел);
+            
             FillMeshTreeView(elemsTree, 2);
             redrawScene?.Invoke(false);
         }
@@ -394,12 +410,18 @@ namespace ModelModule
                 {
                     DeleteMeshObjects(ObjType.Элемент3D);
                     UpdateObjectsData(ObjType.Элемент3D);
+                    updateVBOEvent?.Invoke(ObjType.Элемент3D);
                     ShowHideTabControls(3, false);
                     ClearTreeView(3);
                 }
                 UpdateObjectsData(ObjType.Элемент2D);
                 UpdateObjectsData(ObjType.Элемент1D);
                 UpdateObjectsData(ObjType.Узел);
+
+                updateVBOEvent?.Invoke(ObjType.Элемент2D);
+                updateVBOEvent?.Invoke(ObjType.Элемент1D);
+                updateVBOEvent?.Invoke(ObjType.Узел);
+
                 FillMeshTreeView(elemsTree, 2);
                 redrawScene?.Invoke(false);
             }
@@ -607,8 +629,9 @@ namespace ModelModule
             var dim = 0;
             if(type == ObjType.Узел)
             {
-                dim = 0;
-                controller.ModelGetGeometryEntities(out dimTags, dim);
+                dimTags = new int[0];
+                /*dim = 0;
+                controller.ModelGetGeometryEntities(out dimTags, dim);*/
             }
 
             if (type == ObjType.Элемент1D)//удаляем все 1d элементы
@@ -737,9 +760,11 @@ namespace ModelModule
                 DeleteElementsByNumbers(dimTags);
                 UpdateObjectsData(type);
                 UpdateObjectsData(ObjType.Узел);
-                //UpdateSurfaceElements(delType, dimTags);//Удалить только указанные димТагс - заменено
-                redrawScene?.Invoke(false);
+
+                updateVBOEvent?.Invoke(type);
+                updateVBOEvent?.Invoke(ObjType.Узел);
             }
+            redrawScene?.Invoke(false);
         }
 
         private void OnAddBoundFilter(object sender, EventArgs e)
