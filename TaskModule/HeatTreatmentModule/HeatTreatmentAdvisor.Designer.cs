@@ -113,7 +113,6 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgMaterials.ImageIndex = 1;
             this.pdgMaterials.Location = new System.Drawing.Point(4, 34);
             this.pdgMaterials.Name = "pdgMaterials";
-            this.pdgMaterials.Padding = new System.Windows.Forms.Padding(3);
             this.pdgMaterials.Size = new System.Drawing.Size(692, 562);
             this.pdgMaterials.TabIndex = 2;
             this.pdgMaterials.Text = "Материалы";
@@ -127,12 +126,12 @@ namespace TaskModule.HeatTreatmentModule
             this.materialsControl1.CurentSelectedRowInfo = null;
             this.materialsControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialsControl1.HideAllButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.HideAllButtonImage")));
-            this.materialsControl1.Location = new System.Drawing.Point(3, 3);
+            this.materialsControl1.Location = new System.Drawing.Point(0, 0);
             this.materialsControl1.MinimumSize = new System.Drawing.Size(300, 300);
             this.materialsControl1.Name = "materialsControl1";
             this.materialsControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.RefreshButtonImage")));
             this.materialsControl1.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.ShowAllButtonImage")));
-            this.materialsControl1.Size = new System.Drawing.Size(686, 556);
+            this.materialsControl1.Size = new System.Drawing.Size(692, 562);
             this.materialsControl1.TabIndex = 0;
             this.materialsControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.materialsControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -149,7 +148,6 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgHT.ImageIndex = 2;
             this.pdgHT.Location = new System.Drawing.Point(4, 34);
             this.pdgHT.Name = "pdgHT";
-            this.pdgHT.Padding = new System.Windows.Forms.Padding(3);
             this.pdgHT.Size = new System.Drawing.Size(692, 562);
             this.pdgHT.TabIndex = 3;
             this.pdgHT.Text = "ТО";
@@ -161,13 +159,13 @@ namespace TaskModule.HeatTreatmentModule
             this.htMediaControl1.CurentSelectedRowInfo = null;
             this.htMediaControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.htMediaControl1.HideAllButtonImage = ((System.Drawing.Image)(resources.GetObject("htMediaControl1.HideAllButtonImage")));
-            this.htMediaControl1.Location = new System.Drawing.Point(3, 3);
+            this.htMediaControl1.Location = new System.Drawing.Point(0, 0);
             this.htMediaControl1.Margin = new System.Windows.Forms.Padding(5);
             this.htMediaControl1.MinimumSize = new System.Drawing.Size(300, 300);
             this.htMediaControl1.Name = "htMediaControl1";
             this.htMediaControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("htMediaControl1.RefreshButtonImage")));
             this.htMediaControl1.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("htMediaControl1.ShowAllButtonImage")));
-            this.htMediaControl1.Size = new System.Drawing.Size(686, 556);
+            this.htMediaControl1.Size = new System.Drawing.Size(692, 562);
             this.htMediaControl1.TabIndex = 0;
             this.htMediaControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.htMediaControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -184,7 +182,6 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgClamps.ImageIndex = 3;
             this.pdgClamps.Location = new System.Drawing.Point(4, 34);
             this.pdgClamps.Name = "pdgClamps";
-            this.pdgClamps.Padding = new System.Windows.Forms.Padding(3);
             this.pdgClamps.Size = new System.Drawing.Size(692, 562);
             this.pdgClamps.TabIndex = 5;
             this.pdgClamps.Text = "Закрепления";
@@ -198,12 +195,12 @@ namespace TaskModule.HeatTreatmentModule
             this.clampControl1.CurentSelectedRowInfo = null;
             this.clampControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clampControl1.HideAllButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl1.HideAllButtonImage")));
-            this.clampControl1.Location = new System.Drawing.Point(3, 3);
+            this.clampControl1.Location = new System.Drawing.Point(0, 0);
             this.clampControl1.MinimumSize = new System.Drawing.Size(300, 300);
             this.clampControl1.Name = "clampControl1";
             this.clampControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl1.RefreshButtonImage")));
             this.clampControl1.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl1.ShowAllButtonImage")));
-            this.clampControl1.Size = new System.Drawing.Size(686, 556);
+            this.clampControl1.Size = new System.Drawing.Size(692, 562);
             this.clampControl1.TabIndex = 0;
             this.clampControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.clampControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -220,7 +217,6 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgLoad.ImageIndex = 4;
             this.pdgLoad.Location = new System.Drawing.Point(4, 34);
             this.pdgLoad.Name = "pdgLoad";
-            this.pdgLoad.Padding = new System.Windows.Forms.Padding(3);
             this.pdgLoad.Size = new System.Drawing.Size(692, 562);
             this.pdgLoad.TabIndex = 6;
             this.pdgLoad.Text = "Нагрузки";
@@ -232,12 +228,12 @@ namespace TaskModule.HeatTreatmentModule
             this.loadControl1.CurentSelectedRowInfo = null;
             this.loadControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.loadControl1.HideAllButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.HideAllButtonImage")));
-            this.loadControl1.Location = new System.Drawing.Point(3, 3);
+            this.loadControl1.Location = new System.Drawing.Point(0, 0);
             this.loadControl1.MinimumSize = new System.Drawing.Size(300, 300);
             this.loadControl1.Name = "loadControl1";
             this.loadControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.RefreshButtonImage")));
             this.loadControl1.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.ShowAllButtonImage")));
-            this.loadControl1.Size = new System.Drawing.Size(686, 556);
+            this.loadControl1.Size = new System.Drawing.Size(692, 562);
             this.loadControl1.TabIndex = 0;
             this.loadControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.loadControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -254,7 +250,6 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgPlanner.ImageIndex = 5;
             this.pdgPlanner.Location = new System.Drawing.Point(4, 34);
             this.pdgPlanner.Name = "pdgPlanner";
-            this.pdgPlanner.Padding = new System.Windows.Forms.Padding(3);
             this.pdgPlanner.Size = new System.Drawing.Size(692, 562);
             this.pdgPlanner.TabIndex = 7;
             this.pdgPlanner.Text = "Планировщик";
@@ -263,21 +258,22 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.taskPlannerControl1.AddButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.AddButtonImage")));
             this.taskPlannerControl1.AutoScroll = true;
+            this.taskPlannerControl1.AutoSize = true;
             this.taskPlannerControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.ClearButtonImage")));
             this.taskPlannerControl1.CurentSelectedRowInfo = null;
             this.taskPlannerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.taskPlannerControl1.Location = new System.Drawing.Point(3, 3);
+            this.taskPlannerControl1.Location = new System.Drawing.Point(0, 0);
             this.taskPlannerControl1.Margin = new System.Windows.Forms.Padding(4);
             this.taskPlannerControl1.MinimumSize = new System.Drawing.Size(400, 700);
             this.taskPlannerControl1.Name = "taskPlannerControl1";
             this.taskPlannerControl1.ProjPath = null;
             this.taskPlannerControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.RefreshButtonImage")));
-            this.taskPlannerControl1.Size = new System.Drawing.Size(686, 700);
+            this.taskPlannerControl1.Size = new System.Drawing.Size(692, 700);
             this.taskPlannerControl1.TabIndex = 0;
-            this.taskPlannerControl1.GenerateTCFEvent += new System.Action<object, GenerateTCFEventArgs>(this.TaskPlannerControl_GenerateTCFEvent);
             this.taskPlannerControl1.AddDataUseTaskConditionsEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_AddDataUseTaskConditionsEvent);
             this.taskPlannerControl1.StartComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl_StartComputationEvent);
             this.taskPlannerControl1.StopComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StopComputationEvent);
+            this.taskPlannerControl1.GenerateTCFEvent += new System.Action<object, TaskModule.BasicAdvisorControls.TaskPlannerControls.GenerateTCFEventArgs>(this.TaskPlannerControl_GenerateTCFEvent);
             this.taskPlannerControl1.AddDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             this.taskPlannerControl1.DeleteDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
             this.taskPlannerControl1.DeleteAllDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
@@ -312,6 +308,7 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgClamps.PerformLayout();
             this.pdgLoad.ResumeLayout(false);
             this.pdgPlanner.ResumeLayout(false);
+            this.pdgPlanner.PerformLayout();
             this.ResumeLayout(false);
 
         }

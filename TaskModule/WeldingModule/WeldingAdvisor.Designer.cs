@@ -117,7 +117,6 @@ namespace TaskModule.WeldingModule
             this.pdgMaterials.ImageIndex = 1;
             this.pdgMaterials.Location = new System.Drawing.Point(4, 34);
             this.pdgMaterials.Name = "pdgMaterials";
-            this.pdgMaterials.Padding = new System.Windows.Forms.Padding(3);
             this.pdgMaterials.Size = new System.Drawing.Size(692, 562);
             this.pdgMaterials.TabIndex = 1;
             this.pdgMaterials.Text = "Материалы";
@@ -131,12 +130,12 @@ namespace TaskModule.WeldingModule
             this.materialsControl1.CurentSelectedRowInfo = null;
             this.materialsControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialsControl1.HideAllButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.HideAllButtonImage")));
-            this.materialsControl1.Location = new System.Drawing.Point(3, 3);
+            this.materialsControl1.Location = new System.Drawing.Point(0, 0);
             this.materialsControl1.MinimumSize = new System.Drawing.Size(300, 300);
             this.materialsControl1.Name = "materialsControl1";
             this.materialsControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.RefreshButtonImage")));
             this.materialsControl1.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.ShowAllButtonImage")));
-            this.materialsControl1.Size = new System.Drawing.Size(686, 556);
+            this.materialsControl1.Size = new System.Drawing.Size(692, 562);
             this.materialsControl1.TabIndex = 0;
             this.materialsControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.materialsControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -211,7 +210,6 @@ namespace TaskModule.WeldingModule
             this.pdgClamps.ImageIndex = 4;
             this.pdgClamps.Location = new System.Drawing.Point(4, 34);
             this.pdgClamps.Name = "pdgClamps";
-            this.pdgClamps.Padding = new System.Windows.Forms.Padding(3);
             this.pdgClamps.Size = new System.Drawing.Size(692, 562);
             this.pdgClamps.TabIndex = 0;
             this.pdgClamps.Text = "Закрепления";
@@ -225,12 +223,12 @@ namespace TaskModule.WeldingModule
             this.clampControl.CurentSelectedRowInfo = null;
             this.clampControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clampControl.HideAllButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl.HideAllButtonImage")));
-            this.clampControl.Location = new System.Drawing.Point(3, 3);
+            this.clampControl.Location = new System.Drawing.Point(0, 0);
             this.clampControl.MinimumSize = new System.Drawing.Size(300, 300);
             this.clampControl.Name = "clampControl";
             this.clampControl.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl.RefreshButtonImage")));
             this.clampControl.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl.ShowAllButtonImage")));
-            this.clampControl.Size = new System.Drawing.Size(686, 556);
+            this.clampControl.Size = new System.Drawing.Size(692, 562);
             this.clampControl.TabIndex = 0;
             this.clampControl.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.clampControl.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -281,7 +279,6 @@ namespace TaskModule.WeldingModule
             this.pdgPlanner.ImageIndex = 6;
             this.pdgPlanner.Location = new System.Drawing.Point(4, 34);
             this.pdgPlanner.Name = "pdgPlanner";
-            this.pdgPlanner.Padding = new System.Windows.Forms.Padding(3);
             this.pdgPlanner.Size = new System.Drawing.Size(692, 562);
             this.pdgPlanner.TabIndex = 6;
             this.pdgPlanner.Text = "Планировщик";
@@ -290,16 +287,17 @@ namespace TaskModule.WeldingModule
             // 
             this.taskPlannerControl1.AddButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.AddButtonImage")));
             this.taskPlannerControl1.AutoScroll = true;
+            this.taskPlannerControl1.AutoSize = true;
             this.taskPlannerControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.ClearButtonImage")));
             this.taskPlannerControl1.CurentSelectedRowInfo = null;
             this.taskPlannerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.taskPlannerControl1.Location = new System.Drawing.Point(3, 3);
+            this.taskPlannerControl1.Location = new System.Drawing.Point(0, 0);
             this.taskPlannerControl1.Margin = new System.Windows.Forms.Padding(4);
-            this.taskPlannerControl1.MinimumSize = new System.Drawing.Size(400, 700);
+            this.taskPlannerControl1.MinimumSize = new System.Drawing.Size(300, 300);
             this.taskPlannerControl1.Name = "taskPlannerControl1";
             this.taskPlannerControl1.ProjPath = null;
             this.taskPlannerControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.RefreshButtonImage")));
-            this.taskPlannerControl1.Size = new System.Drawing.Size(686, 700);
+            this.taskPlannerControl1.Size = new System.Drawing.Size(692, 562);
             this.taskPlannerControl1.TabIndex = 0;
             this.taskPlannerControl1.AddDataUseTaskConditionsEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_AddDataUseTaskConditionsEvent);
             this.taskPlannerControl1.StartComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl_StartComputationEvent);
@@ -341,6 +339,7 @@ namespace TaskModule.WeldingModule
             this.pdgClamps.PerformLayout();
             this.pdgLoad.ResumeLayout(false);
             this.pdgPlanner.ResumeLayout(false);
+            this.pdgPlanner.PerformLayout();
             this.ResumeLayout(false);
 
         }

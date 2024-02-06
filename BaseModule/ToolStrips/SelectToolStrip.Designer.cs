@@ -74,6 +74,7 @@
             this.btnObjs.Size = new System.Drawing.Size(36, 50);
             this.btnObjs.Tag = "3";
             this.btnObjs.Text = "Выбрать геометрию";
+            this.btnObjs.ToolTipText = "Выбрать объекты";
             // 
             // btnSplitSelector
             // 

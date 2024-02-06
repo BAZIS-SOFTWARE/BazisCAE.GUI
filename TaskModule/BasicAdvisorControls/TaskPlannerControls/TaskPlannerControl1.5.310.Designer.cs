@@ -66,17 +66,15 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.chbTermoTask = new System.Windows.Forms.CheckBox();
             this.chbChemicalTask = new System.Windows.Forms.CheckBox();
             this.chbLinkedCalc = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.grbTaskSettings = new System.Windows.Forms.GroupBox();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Kind = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Settings = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,8 +86,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.groupBox3, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.grbTaskSettings, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.dataGridView, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -99,7 +97,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(600, 847);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(628, 643);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox2
@@ -131,7 +129,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.groupBox2.MinimumSize = new System.Drawing.Size(300, 0);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox2.Size = new System.Drawing.Size(598, 218);
+            this.groupBox2.Size = new System.Drawing.Size(626, 218);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Временные параметры";
@@ -164,7 +162,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.StopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.StopButton.AutoSize = true;
-            this.StopButton.Location = new System.Drawing.Point(506, 175);
+            this.StopButton.Location = new System.Drawing.Point(534, 175);
             this.StopButton.Margin = new System.Windows.Forms.Padding(1);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(67, 28);
@@ -182,7 +180,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbStartStep.Location = new System.Drawing.Point(208, 72);
             this.txbStartStep.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbStartStep.Name = "txbStartStep";
-            this.txbStartStep.Size = new System.Drawing.Size(365, 20);
+            this.txbStartStep.Size = new System.Drawing.Size(393, 20);
             this.txbStartStep.TabIndex = 76;
             this.txbStartStep.Tag = "2";
             this.txbStartStep.Text = "0.1";
@@ -192,7 +190,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.btnGenTCF.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGenTCF.AutoSize = true;
-            this.btnGenTCF.Location = new System.Drawing.Point(355, 175);
+            this.btnGenTCF.Location = new System.Drawing.Point(383, 175);
             this.btnGenTCF.Margin = new System.Windows.Forms.Padding(1);
             this.btnGenTCF.Name = "btnGenTCF";
             this.btnGenTCF.Size = new System.Drawing.Size(81, 28);
@@ -206,7 +204,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.StartButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.StartButton.AutoSize = true;
-            this.StartButton.Location = new System.Drawing.Point(438, 175);
+            this.StartButton.Location = new System.Drawing.Point(466, 175);
             this.StartButton.Margin = new System.Windows.Forms.Padding(1);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(66, 28);
@@ -261,7 +259,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbMaxStep.Location = new System.Drawing.Point(208, 123);
             this.txbMaxStep.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbMaxStep.Name = "txbMaxStep";
-            this.txbMaxStep.Size = new System.Drawing.Size(365, 20);
+            this.txbMaxStep.Size = new System.Drawing.Size(393, 20);
             this.txbMaxStep.TabIndex = 74;
             this.txbMaxStep.Tag = "4";
             this.txbMaxStep.Text = "100";
@@ -275,7 +273,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbMinStep.Location = new System.Drawing.Point(208, 98);
             this.txbMinStep.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbMinStep.Name = "txbMinStep";
-            this.txbMinStep.Size = new System.Drawing.Size(365, 20);
+            this.txbMinStep.Size = new System.Drawing.Size(393, 20);
             this.txbMinStep.TabIndex = 75;
             this.txbMinStep.Tag = "3";
             this.txbMinStep.Text = "0.00001";
@@ -339,7 +337,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbStartTime.Location = new System.Drawing.Point(208, 20);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(365, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(393, 20);
             this.txbStartTime.TabIndex = 44;
             this.txbStartTime.Tag = "0";
             this.txbStartTime.Leave += new System.EventHandler(this.TimeSettingsTextBox_Leave);
@@ -363,7 +361,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbStopTime.Location = new System.Drawing.Point(208, 46);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(365, 20);
+            this.txbStopTime.Size = new System.Drawing.Size(393, 20);
             this.txbStopTime.TabIndex = 40;
             this.txbStopTime.Tag = "1";
             this.txbStopTime.Leave += new System.EventHandler(this.TimeSettingsTextBox_Leave);
@@ -397,7 +395,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.groupBox3.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox3.Size = new System.Drawing.Size(598, 87);
+            this.groupBox3.Size = new System.Drawing.Size(626, 87);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Выбор задачи";
@@ -524,21 +522,26 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.chbLinkedCalc.UseVisualStyleBackColor = false;
             this.chbLinkedCalc.CheckedChanged += new System.EventHandler(this.chbLinkedCalc_CheckedChanged);
             // 
-            // groupBox1
+            // grbTaskSettings
             // 
-            this.groupBox1.Controls.Add(this.dataGridView);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(1, 326);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(598, 520);
-            this.groupBox1.TabIndex = 11;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Список задач";
+            this.grbTaskSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.grbTaskSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grbTaskSettings.Location = new System.Drawing.Point(1, 90);
+            this.grbTaskSettings.Margin = new System.Windows.Forms.Padding(1);
+            this.grbTaskSettings.MinimumSize = new System.Drawing.Size(0, 15);
+            this.grbTaskSettings.Name = "grbTaskSettings";
+            this.grbTaskSettings.Padding = new System.Windows.Forms.Padding(2);
+            this.grbTaskSettings.Size = new System.Drawing.Size(626, 15);
+            this.grbTaskSettings.TabIndex = 13;
+            this.grbTaskSettings.TabStop = false;
+            this.grbTaskSettings.Text = "Настройки расчета";
+            this.grbTaskSettings.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbTask_MouseClick);
+            this.grbTaskSettings.Paint += new System.Windows.Forms.PaintEventHandler(this.grbTask_Paint);
             // 
             // dataGridView
             // 
             this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -561,8 +564,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(3, 16);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(1);
+            this.dataGridView.Location = new System.Drawing.Point(1, 325);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -573,33 +576,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView.Size = new System.Drawing.Size(592, 501);
-            this.dataGridView.TabIndex = 0;
-            this.dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
-            this.dataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView_DataError);
-            this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
-            this.dataGridView.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dataGridView_SortCompare);
-            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
-            // 
-            // grbTaskSettings
-            // 
-            this.grbTaskSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.grbTaskSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbTaskSettings.Location = new System.Drawing.Point(1, 90);
-            this.grbTaskSettings.Margin = new System.Windows.Forms.Padding(1);
-            this.grbTaskSettings.MinimumSize = new System.Drawing.Size(0, 15);
-            this.grbTaskSettings.Name = "grbTaskSettings";
-            this.grbTaskSettings.Padding = new System.Windows.Forms.Padding(2);
-            this.grbTaskSettings.Size = new System.Drawing.Size(598, 15);
-            this.grbTaskSettings.TabIndex = 13;
-            this.grbTaskSettings.TabStop = false;
-            this.grbTaskSettings.Text = "Настройки расчета";
-            this.grbTaskSettings.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbTask_MouseClick);
-            this.grbTaskSettings.Paint += new System.Windows.Forms.PaintEventHandler(this.grbTask_Paint);
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "openFileDialog";
+            this.dataGridView.Size = new System.Drawing.Size(626, 317);
+            this.dataGridView.TabIndex = 14;
             // 
             // Kind
             // 
@@ -617,7 +595,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.Settings.Name = "Settings";
             this.Settings.ReadOnly = true;
             this.Settings.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Settings.Width = 300;
             // 
             // Time
             // 
@@ -630,23 +607,26 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.Time.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Time.TrueValue = "выполнить";
             // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
+            // 
             // TaskPlannerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.AutoSize = true;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.MinimumSize = new System.Drawing.Size(400, 700);
+            this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "TaskPlannerControl";
-            this.Size = new System.Drawing.Size(600, 847);
+            this.Size = new System.Drawing.Size(628, 643);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -664,8 +644,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Button btnAddNewTask;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.CheckBox chbLinkedCalc;
@@ -690,6 +668,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private System.Windows.Forms.Label lblFileParameters;
         private System.Windows.Forms.Button btnLoadParameters;
         private System.Windows.Forms.Button btnGenTCF;
+        private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn Kind;
         private System.Windows.Forms.DataGridViewTextBoxColumn Settings;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Time;
