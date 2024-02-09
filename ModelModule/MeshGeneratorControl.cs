@@ -28,7 +28,7 @@ namespace ModelModule
         private const string scriptTemplates = "Script Files(*.geo)|*.geo";
         private GmshController controller;
         private int boundFieldTag;
-        private TreeNode selectedNode;
+
         private Dictionary<int, Tuple<string, string>> fundamental = new Dictionary<int, Tuple<string, string>>
         {
             { 2, Tuple.Create("Поверхности","Поверхность") },
@@ -853,7 +853,7 @@ namespace ModelModule
             var coef = 0.0;
             if (!Double.TryParse(algoCoef.Text, out coef) || !Int32.TryParse(algoNPoints.Text, out nPoints))
                 return;
-            var tag = Int32.Parse(selectedNode.Text.Split(' ')[1]);
+            var tag = Int32.Parse(entTree.SelectedNode.Text.Split(' ')[1]);
             var checkedRadio = GetCheckedRadioButton();
             var ierr = 0;
             controller.gmshModelMeshSetTransfiniteCurve(tag, nPoints, checkedRadio.Text, coef, ref ierr);

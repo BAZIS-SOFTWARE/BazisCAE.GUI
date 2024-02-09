@@ -336,6 +336,7 @@ namespace ModelModule
             // elemsTree
             // 
             this.elemsTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.elemsTree.FullRowSelect = true;
             this.elemsTree.Location = new System.Drawing.Point(2, 2);
             this.elemsTree.Margin = new System.Windows.Forms.Padding(2);
             this.elemsTree.Name = "elemsTree";
