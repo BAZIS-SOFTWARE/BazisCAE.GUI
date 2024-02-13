@@ -91,12 +91,25 @@ namespace ModelModule
             gmshControl.redrawScene += RedrawScene;
             gmshControl.showErrorMessage += ShowErrorMessage;
             gmshControl.ShowObjectsEvent += ShowLines;
+            gmshControl.showOrHide3dText += ShowOrHide3dText;
             gmshControl.ResetColorObjectsEvent += GmshControl_ResetColorObjectsEvent;
             gmshForm.Controls.Add(gmshControl);
             gmshControl.Dock = DockStyle.Fill;
             gmshControl.ObjectData = Project.ModelData.ObjectData;
             gmshForm.Show();
             //ModelPresenter.Clear();//Подчищаем Presenter во избежании артефактов
+        }
+        /// <summary>
+        /// Показать или спрятать 3д текст (если строка пустая - то прячем текст)
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="point"></param>
+        private void ShowOrHide3dText(string text, Point3D point)
+        {
+            if(text.Length != 0)
+                SceneControl.DisplayText3D(text,Color.Black, point);
+            else
+                SceneControl.HideDisplayText3D();
         }
 
         private void GmshControl_ResetColorObjectsEvent(ObjType objType, bool obj)
