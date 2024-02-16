@@ -18,6 +18,9 @@ using SceneInterface;
 using System.Runtime.ExceptionServices;
 using System.Security;
 using System.Data.Odbc;
+using System.Threading;
+using static System.Net.Mime.MediaTypeNames;
+using System.Drawing;
 
 namespace ModelModule
 {
@@ -55,7 +58,7 @@ namespace ModelModule
         public IObjectsData ObjectData { get; internal set; }
 
         public event Action<ObjType> updateVBOEvent;
-        //public event Action saveObjectData;
+        public event Action<string, Point3D> showOrHide3dText;
         public event Action<int> ShowObjectsEvent;
         public event Action<ObjType,bool> ResetColorObjectsEvent;
         public event Action<string> showErrorMessage;
@@ -523,18 +526,29 @@ namespace ModelModule
             }
         }
 
-        private void AddTreeNode(TreeNodeCollection tree, string key, string childInfo)
-        {
-            if (!tree.ContainsKey(key))
-                tree.Add(key, key);
-            tree[key].Nodes.Add(childInfo, childInfo);
-        }
-
         private int FindObjectByTreeNode(TreeNode node)
         {
             var tokens = node.Text.Split(' ');
-            //return ObjectData.Find(ObjType.Линия, Int32.Parse(tokens[1]));
             return Int32.Parse(tokens[1]);
+        }
+        /// <summary>
+        /// Записывает настройки трансфиниции в элементы управления
+        /// </summary>
+        private void WriteCurveSettingsToControls(string[] attributes)
+        {
+            if(attributes.Length == 0)
+            {
+                rbtnProgressive.Checked = true;
+                algoCoef.Text = "1.0";
+                algoNPoints.Text = string.Empty;
+            }
+            else
+            {
+                var radio = GetSelectedRadioButton(attributes[1]);
+                radio.Checked = true;
+                algoNPoints.Text = attributes[0];
+                algoCoef.Text = attributes[2].Length == 0 ? "1.0" : attributes[2];
+            }
         }
 
         private void entTree_AfterSelect(object sender, TreeViewEventArgs e)
@@ -542,8 +556,10 @@ namespace ModelModule
             if (e.Node.Text.Contains("Кривая"))
             {
                 pointsControlBox.Enabled = true;
-                var objInd = FindObjectByTreeNode(e.Node);
-                ShowObjectsEvent?.Invoke(objInd);
+                var tag = FindObjectByTreeNode(e.Node);
+                var attributes = GetCurrentCurveAttributes(tag);
+                WriteCurveSettingsToControls(attributes);
+                ShowObjectsEvent?.Invoke(tag);
             }
             else
                 pointsControlBox.Enabled = false;
@@ -840,30 +856,61 @@ namespace ModelModule
             if (!Double.TryParse(control.Text, out value))
                 return;
             var ierr = 0;
-            string error;
             controller.gmshModelMeshFieldSetNumber(boundFieldTag, optValue[0], value, ref ierr);
-            /*controller.LoggerGetLastError(out error);
-            if (!String.IsNullOrEmpty(error))
-                showErrorMessage?.Invoke(error);*/
         }
-
-        private void OnTransfiniteCurve(object sender, EventArgs e)
+        /// <summary>
+        /// Получить аттрибуты для текущей выбранной в дереве узлов кривой
+        /// </summary>
+        /// <returns>Аттрибуты кривой</returns>
+        private string[] GetCurrentCurveAttributes(int tag)
         {
-            var nPoints = 0;
-            var coef = 0.0;
-            if (!Double.TryParse(algoCoef.Text, out coef) || !Int32.TryParse(algoNPoints.Text, out nPoints))
-                return;
-            var tag = Int32.Parse(entTree.SelectedNode.Text.Split(' ')[1]);
-            var checkedRadio = GetCheckedRadioButton();
-            var ierr = 0;
-            controller.gmshModelMeshSetTransfiniteCurve(tag, nPoints, checkedRadio.Text, coef, ref ierr);
+            string[] attributes;
+            controller.ModelGetAttribute($"transfinite {tag}", out attributes);
+            return attributes;
         }
-
-        private RadioButton GetCheckedRadioButton()
+        /// <summary>
+        /// Проверить все переданные аттрибуты кривой на пустоту
+        /// </summary>
+        /// <param name="attributes">Аттрибуты кривой</param>
+        /// <returns>true если все аттрибуты заполнены</returns>
+        private bool IsAllAttributesNotEmpty(string[] attributes)
+        {
+            foreach (var attrib in attributes)
+                if (attrib.Length == 0)
+                    return false;
+            return attributes.Length != 0;
+        }
+        /// <summary>
+        /// Задает трансфиницию кривой по идентификатору и аттрибутам
+        /// </summary>
+        /// <param name="tag">Идентификатор кривой</param>
+        /// <param name="attributes">Аттрибуты кривой</param>
+        private void OnTransfiniteCurve(int tag, string[] attributes)
+        {
+            var ierr = 0;
+            var nPoints = (int)Double.Parse(attributes[0]);
+            var coef = Double.Parse(attributes[2]);
+            controller.gmshModelMeshSetTransfiniteCurve(tag, nPoints, attributes[1], coef, ref ierr);
+            if (chkLayoutCurve.Checked)
+            {
+                var radio = GetSelectedRadioButton(attributes[1]);
+                var law = radio.Tag.ToString();
+                var point = GetCenterOfCurve(tag);
+                var text = $"Кривая {tag}: {law} {nPoints}";
+                showOrHide3dText?.Invoke(string.Empty, null);//Очищаем во избежании наслоений
+                showOrHide3dText?.Invoke(text, point);
+                redrawScene?.Invoke(false);
+            }
+        }
+        /// <summary>
+        /// Вернуть RadioButton по параметру аттрибута
+        /// </summary>
+        /// <returns>Выбранный RadioButton</returns>
+        private RadioButton GetSelectedRadioButton(string law)
         {
             var radio = new RadioButton[] { rbtnProgressive, rbtnBump, rbtnBeta };
             for (var i = 0; i < radio.Length; ++i)
-                if (radio[i].Checked)
+                if (radio[i].Text.Contains(law))
                     return radio[i];
             return radio[0];
         }
@@ -872,6 +919,7 @@ namespace ModelModule
         {
             if (IsControllerLoaded)
             {
+                showOrHide3dText?.Invoke(string.Empty, null);
                 if (!SaveObjectData)
                     DeleteGeometry();
                 var ierr = 0;
@@ -889,9 +937,94 @@ namespace ModelModule
         {
             var oldNode = entTree.SelectedNode;
             if (oldNode != null && oldNode.Text.Contains("Кривая"))
+            {
                 ResetColorObjectsEvent?.Invoke(ObjType.Линия, true);
+                showOrHide3dText?.Invoke(string.Empty, null);
+            }
             else
                 pointsControlBox.Enabled = false;
+        }
+        /// <summary>
+        /// Вернуть центр масс текущей выбранной кривой
+        /// </summary>
+        /// <param name="tag">Идентификатор кривой</param>
+        /// <returns>Центр масс</returns>
+        private Point3D GetCenterOfCurve(int tag)
+        {
+            var ierr = 0;
+            double x = 0, y = 0, z = 0;
+            controller.gmshModelOccGetCenterOfMass(1, tag, ref x, ref y, ref z, ref ierr);
+            var point = new Point3D((float)x, (float)y, (float)z);
+            return point;
+        }
+        /// <summary>
+        /// Вызывается при клике "Показать разметку"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnChangeLayout(object sender, EventArgs e)
+        {
+            if(chkLayoutCurve.Checked)
+            {
+                string[] attributes;
+                var tag = FindObjectByTreeNode(entTree.SelectedNode);
+                attributes = GetCurrentCurveAttributes(tag);
+                if (IsAllAttributesNotEmpty(attributes))
+                {
+                    var nPoints = (int)Double.Parse(attributes[0]);
+                    var radio = GetSelectedRadioButton(attributes[1]);
+                    var law = radio.Tag.ToString();
+                    var point = GetCenterOfCurve(tag);
+                    var text = $"Кривая {tag}: {law} {nPoints}";
+                    showOrHide3dText(text, point);
+                }
+            }
+            else
+                showOrHide3dText(string.Empty, null);
+            redrawScene?.Invoke(false);
+        }
+        /// <summary>
+        /// Вызывается при смене закона распределения трансцфиниции
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnLawChange(object sender, EventArgs e)
+        {
+            var ierr = 0;
+            string[] attributes;
+            var control = sender as RadioButton;
+            var tag = FindObjectByTreeNode(entTree.SelectedNode);
+            attributes = GetCurrentCurveAttributes(tag);
+            if (attributes.Length == 0)
+                attributes = new string[] {"","","1.0"};
+            attributes[1] = control.Text;
+            controller.gmshModelSetAttribute($"transfinite {tag}", attributes, (IntPtr)3, ref ierr);
+            if (IsAllAttributesNotEmpty(attributes))
+                OnTransfiniteCurve(tag, attributes);
+        }
+        /// <summary>
+        /// Вызывается при смене коэффициента или числа точек трансфиниции
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTextChanged(object sender, EventArgs e)
+        {
+            var ierr = 0;
+            double data;
+            string[] attributes;
+            var control = sender as TextBox;
+            if (Double.TryParse(control.Text, out data))
+            {
+                var tag = FindObjectByTreeNode(entTree.SelectedNode);
+                attributes = GetCurrentCurveAttributes(tag);
+                if (attributes.Length == 0)
+                    attributes = new string[] {"","Progressive","1.0"};
+                var index = control.Equals(algoNPoints) ? 0 : 2;
+                attributes[index] = control.Text;
+                controller.gmshModelSetAttribute($"transfinite {tag}", attributes, (IntPtr)3, ref ierr);
+                if (IsAllAttributesNotEmpty(attributes))
+                    OnTransfiniteCurve(tag, attributes);
+            }
         }
     }
 }
