@@ -52,7 +52,6 @@ namespace ModelModule
             this.refineBtn = new System.Windows.Forms.Button();
             this.meshPage = new System.Windows.Forms.TabPage();
             this.button6 = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.algoCoef = new System.Windows.Forms.TextBox();
             this.algoNPoints = new System.Windows.Forms.TextBox();
             this.rbtnProgressive = new System.Windows.Forms.RadioButton();
@@ -128,6 +127,7 @@ namespace ModelModule
             this.elementsLayout = new System.Windows.Forms.TableLayoutPanel();
             this.geometryPage = new System.Windows.Forms.TabPage();
             this.gmshTab = new System.Windows.Forms.TabControl();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.meshGenBox.SuspendLayout();
             this.meshLayout.SuspendLayout();
             this.meshElBox.SuspendLayout();
@@ -135,7 +135,6 @@ namespace ModelModule
             this.meshElPanel.SuspendLayout();
             this.meshOpBox.SuspendLayout();
             this.meshPage.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.algoBox.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.pointsControlBox.SuspendLayout();
@@ -432,6 +431,7 @@ namespace ModelModule
             // 
             // button6
             // 
+
             this.button6.Location = new System.Drawing.Point(32, 9);
             this.button6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button6.Name = "button6";
@@ -440,6 +440,7 @@ namespace ModelModule
             this.button6.Text = "Удалить";
             this.button6.UseVisualStyleBackColor = true;
             // 
+
             // panel3
             // 
             this.panel3.Controls.Add(this.button6);
@@ -464,6 +465,7 @@ namespace ModelModule
             // 
             // algoNPoints
             // 
+
             this.algoNPoints.Location = new System.Drawing.Point(43, 179);
             this.algoNPoints.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.algoNPoints.Name = "algoNPoints";
@@ -570,8 +572,8 @@ namespace ModelModule
             // 
             this.tableLayoutPanel4.ColumnCount = 1;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Controls.Add(this.button6, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.algoBox, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.panel3, 0, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 17);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -1392,6 +1394,16 @@ namespace ModelModule
             this.gmshTab.Size = new System.Drawing.Size(500, 980);
             this.gmshTab.TabIndex = 1;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(28, 27);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(86, 17);
+            this.checkBox1.TabIndex = 9;
+            this.checkBox1.Text = "Отобразить";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // GmshControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1410,7 +1422,6 @@ namespace ModelModule
             this.meshElPanel.ResumeLayout(false);
             this.meshOpBox.ResumeLayout(false);
             this.meshPage.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
             this.algoBox.ResumeLayout(false);
             this.algoBox.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
@@ -1468,7 +1479,6 @@ namespace ModelModule
         private System.Windows.Forms.Button refineBtn;
         private System.Windows.Forms.TabPage meshPage;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox algoCoef;
         private System.Windows.Forms.TextBox algoNPoints;
         private System.Windows.Forms.RadioButton rbtnProgressive;
