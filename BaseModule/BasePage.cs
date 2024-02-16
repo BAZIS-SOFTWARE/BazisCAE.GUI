@@ -714,7 +714,7 @@ namespace BaseModule
                         var n3 = (Node)objs[2];
 
                         var plane = new Plane(n1.Position, n2.Position, n3.Position);
-                        selectHelper.SelectInPlane(plane, sceneControl.SelectionColor);
+                        selectHelper.SelectNodeInPlane(plane, sceneControl.SelectionColor);
                     }
                 }
                 else
@@ -722,7 +722,7 @@ namespace BaseModule
                     if (objs.Count > 0)
                     {
                         var element = objs.Last();
-                        selectHelper.SelectInPlane(arg2.Angle, element.Number, sceneControl.SelectionColor);
+                        selectHelper.SelectE2DInPlane(arg2.Angle, element.Number, sceneControl.SelectionColor);
                     }
                 }
 
@@ -750,12 +750,12 @@ namespace BaseModule
                 {
                     if (!arg2.Reverse)
                     {
-                        selectHelper.SelectInDirection(ObjType.Элемент3D,arg2.Angle, selObjs[selObjs.Length - 2].Number, selObjs[selObjs.Length - 1].Number, sceneControl.SelectionColor);
+                        selectHelper.SelectNodeInDirection(arg2.Angle, selObjs[selObjs.Length - 2].Number, selObjs[selObjs.Length - 1].Number, sceneControl.SelectionColor);
                     }
 
                     else
                     {
-                        selectHelper.SelectInDirection(ObjType.Элемент3D,arg2.Angle, selObjs[selObjs.Length - 1].Number, selObjs[selObjs.Length - 2].Number, sceneControl.SelectionColor);
+                        selectHelper.SelectNodeInDirection(arg2.Angle, selObjs[selObjs.Length - 1].Number, selObjs[selObjs.Length - 2].Number, sceneControl.SelectionColor);
                     }
                     SetObjectsSceneColor(selectToolStrip.SelectObjectsType);
 
@@ -814,9 +814,9 @@ namespace BaseModule
                         try
                         {
                             var elems3D = Project.ModelData.ObjectData.E3DCollection;
-                            var surfaces = CreateSectionSurfaces(elems3D, ar2.point1, ar2.point2, ar2.point3);
+                            var surface = CreateSectionSurfaces(elems3D, ar2.point1, ar2.point2, ar2.point3);
 
-                            PresentCrossSection(surfaces.Values.ToList());
+                            PresentCrossSection(surface);
 
                         }
                         catch (Exception ex)
@@ -842,12 +842,12 @@ namespace BaseModule
 
                             var elems3D = Project.ModelData.ObjectData.E3DCollection;
 
-                            var surfaces = CreateSectionSurfaces(
+                            var surface = CreateSectionSurfaces(
                                 elems3D, p0.CalcCentr(),
                                 p1.CalcCentr(),
                                 p2.CalcCentr());
 
-                            PresentCrossSection(surfaces.Values.ToList());
+                            PresentCrossSection(surface);
 
                         }
                         catch (Exception ex)
@@ -901,9 +901,9 @@ namespace BaseModule
             }
         }
 
-        public virtual void PresentCrossSection(List<Figure2D> surfaces)
+        public virtual void PresentCrossSection(SurfaceFigure surface)
         {
-            var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(surfaces, false);
+            var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface }, false);
 
             var inds = presenter.CreateIndexes();
             var ptrs = presenter.CreatePointers(inds.Item1);
@@ -916,7 +916,7 @@ namespace BaseModule
             sceneControl.DisplayObjects();
         }
 
-        public Dictionary<int, Figure2D> CreateSectionSurfaces(IEnumerable<IElement3D> elems3D, Point3D p0, Point3D p1, Point3D p2)
+        public SurfaceFigure CreateSectionSurfaces(IEnumerable<IElement3D> elems3D, Point3D p0, Point3D p1, Point3D p2)
         {
             var plane = new Plane(p0, p1, p2);
 

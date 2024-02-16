@@ -127,7 +127,7 @@ namespace ModelModule
             this.elementsLayout = new System.Windows.Forms.TableLayoutPanel();
             this.geometryPage = new System.Windows.Forms.TabPage();
             this.gmshTab = new System.Windows.Forms.TabControl();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            //this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.meshGenBox.SuspendLayout();
             this.meshLayout.SuspendLayout();
             this.meshElBox.SuspendLayout();
@@ -438,18 +438,7 @@ namespace ModelModule
             this.button6.Size = new System.Drawing.Size(120, 32);
             this.button6.TabIndex = 9;
             this.button6.Text = "Удалить";
-            this.button6.UseVisualStyleBackColor = true;
-            // 
-
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.button6);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 217);
-            this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(194, 74);
-            this.panel3.TabIndex = 0;
+            this.button6.UseVisualStyleBackColor = true;             
             // 
             // algoCoef
             // 
@@ -1393,16 +1382,6 @@ namespace ModelModule
             this.gmshTab.SelectedIndex = 0;
             this.gmshTab.Size = new System.Drawing.Size(500, 980);
             this.gmshTab.TabIndex = 1;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(28, 27);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(86, 17);
-            this.checkBox1.TabIndex = 9;
-            this.checkBox1.Text = "Отобразить";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // GmshControl
             // 
