@@ -18,6 +18,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ModelModule
 {
@@ -102,12 +103,12 @@ namespace ModelModule
         /// <summary>
         /// Показать или спрятать 3д текст (если строка пустая - то прячем текст)
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="point"></param>
-        private void ShowOrHide3dText(string text, Point3D point)
+        /// <param name="list"></param>
+        private void ShowOrHide3dText(List<Tuple<string, Point3D>> list)
         {
-            if(text.Length != 0)
-                SceneControl.DisplayText3D(text,Color.Black, point);
+            if(list != null)
+                foreach(var item in list)
+                    SceneControl.DisplayText3D(item.Item1, Color.Black, item.Item2);
             else
                 SceneControl.HideDisplayText3D();
         }

@@ -59,7 +59,7 @@ namespace ModelModule
         public IObjectsData ObjectData { get; internal set; }
 
         public event Action<ObjType> updateVBOEvent;
-        public event Action<string, Point3D> showOrHide3dText;
+        public event Action<List<Tuple<string,Point3D>>> showOrHide3dText;
         public event Action<int> ShowObjectsEvent;
         public event Action<ObjType,bool> ResetColorObjectsEvent;
         public event Action<string> showErrorMessage;
@@ -888,18 +888,23 @@ namespace ModelModule
         /// <returns>Выбранный RadioButton</returns>
         private RadioButton GetSelectedRadioButton(string law)
         {
-            var radio = new RadioButton[] { rbtnProgressive, rbtnBump, rbtnBeta };
+            if (rbtnBump.Text.Contains(law))
+                return rbtnBump;
+            else if (rbtnBeta.Text.Contains(law))
+                return rbtnBeta;
+            return rbtnProgressive;
+            /*var radio = new RadioButton[] { rbtnProgressive, rbtnBump, rbtnBeta };
             for (var i = 0; i < radio.Length; ++i)
                 if (radio[i].Text.Contains(law))
                     return radio[i];
-            return radio[0];
+            return radio[0];*/
         }
 
         private void OnClosingForm(object sender, FormClosingEventArgs e)
         {
             if (IsControllerLoaded)
             {
-                showOrHide3dText?.Invoke(string.Empty, null);
+                showOrHide3dText?.Invoke(null);
                 if (!SaveObjectData)
                     DeleteGeometry();
                 var ierr = 0;
@@ -940,26 +945,21 @@ namespace ModelModule
         /// <summary>
         /// Показать информацию о кривых
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ShowCurvesInfo()
         {
             // тут нужно перебрать все кривые которые есть в модели и показать их параметры разметки
-            //for (int i = 0; i < length; i++)
-            //{
-            //    string[] attributes;
-            //    var tag = FindObjectByTreeNode(entTree.SelectedNode);
-            //    attributes = GetCurrentCurveAttributes(tag);
-            //    if (IsAllAttributesNotEmpty(attributes))
-            //    {
-            //        var nPoints = (int)Double.Parse(attributes[0]);
-            //        var radio = GetSelectedRadioButton(attributes[1]);
-            //        var law = radio.Tag.ToString();
-            //        var point = GetCenterOfCurve(tag);
-            //        var text = $"Кривая {tag}\n{law} {nPoints}";
-            //        showOrHide3dText(text, point);
-            //    }
-            //}           
+            string[] attribList;
+            controller.ModelGetAttributeNames(out attribList);
+            var list = new List<Tuple<string,Point3D>>(attribList.Length);
+            foreach (var item in attribList)
+            {
+                var tag = Int32.Parse(item.Split(' ')[1]);
+                var attributes = GetCurrentCurveAttributes(tag);
+                var text = $"{attributes[2]} {attributes[1]} {attributes[0]}";
+                var point = GetCenterOfCurve(tag);
+                list.Add(Tuple.Create(text, point));
+            }
+            showOrHide3dText?.Invoke(list);  
         }
 
         private void BtnOK_Click(object sender, EventArgs e)
@@ -969,47 +969,23 @@ namespace ModelModule
             // к выбранной в дереве кривой
 
             var ierr = 0;
-            string[] attributes;
-
             var tag = FindObjectByTreeNode(entTree.SelectedNode);
-            attributes = GetCurrentCurveAttributes(tag);
-            if (attributes.Length == 0)
-                attributes = new string[] { "", "", "1.0" };
-            else
+
+            var attributes = new string[3] { txbAlgoNPoints.Text, rbtnProgressive.Text, algoCoef.Text };
+            if (rbtnBeta.Checked)
+                attributes[1] = rbtnBeta.Text;
+            else if (rbtnBump.Checked)
+                attributes[1] = rbtnBump.Text;
+            double points = 0, coef = 0;
+            if(Double.TryParse(txbAlgoNPoints.Text, out points))//Обязательный TryParse иначе Exсeption по пустому полю
             {
-                if(rbtnBeta.Checked)
-                    attributes[1] = rbtnBeta.Text;
-                else if(rbtnBump.Checked)
-                    attributes[1] = rbtnBump.Text;
-                else attributes[1] = rbtnProgressive.Text;
+                if(Double.TryParse(algoCoef.Text, out coef))//Обязательный TryParse иначе Exсeption по пустому полю
+                {
+                    controller.gmshModelSetAttribute($"transfinite {tag}", attributes, (IntPtr)3, ref ierr);
+                    if (IsAllAttributesNotEmpty(attributes))
+                        controller.gmshModelMeshSetTransfiniteCurve(tag, (int)points, attributes[1], coef, ref ierr);
+                }
             }
-
-            var nPoints = (int)Double.Parse(attributes[0]);
-            var coef = Double.Parse(attributes[2]);
-
-            //А это не дублирование команды?
-            controller.gmshModelSetAttribute($"transfinite {tag}", attributes, (IntPtr)3, ref ierr);
-            if (IsAllAttributesNotEmpty(attributes))
-                controller.gmshModelMeshSetTransfiniteCurve(tag, nPoints, attributes[1], coef, ref ierr);
-
-            /*
-            var ierr = 0;
-            double data;
-            string[] attributes;
-            var control = sender as TextBox;
-            if (Double.TryParse(control.Text, out data))
-            {
-                var tag = FindObjectByTreeNode(entTree.SelectedNode);
-                attributes = GetCurrentCurveAttributes(tag);
-                if (attributes.Length == 0)
-                    attributes = new string[] { "", "Progressive", "1.0" };
-                var index = control.Equals(txbAlgoNPoints) ? 0 : 2;
-                attributes[index] = control.Text;
-                controller.gmshModelSetAttribute($"transfinite {tag}", attributes, (IntPtr)3, ref ierr);
-                if (IsAllAttributesNotEmpty(attributes))
-                    OnTransfiniteCurve(tag, attributes);
-            }
-            */
         }
 
         private void ChbShowCurvesInfo_CheckedChanged(object sender, EventArgs e)
@@ -1017,6 +993,11 @@ namespace ModelModule
             //TO DO
             // При вкл. чекбоксе показать данные о кривых
             // При выкл. чекбоксе скрыть данные о кривых
+            if (chbShowCurvesInfo.Checked)
+                ShowCurvesInfo();
+            else
+                showOrHide3dText?.Invoke(null);
+            redrawScene?.Invoke(false);
         }
     }
 }
