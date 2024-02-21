@@ -21,6 +21,7 @@ using System.Data.Odbc;
 using System.Threading;
 using static System.Net.Mime.MediaTypeNames;
 using System.Drawing;
+using MathNet.Numerics;
 
 namespace ModelModule
 {
@@ -540,13 +541,13 @@ namespace ModelModule
             {
                 rbtnProgressive.Checked = true;
                 algoCoef.Text = "1.0";
-                algoNPoints.Text = string.Empty;
+                txbAlgoNPoints.Text = string.Empty;
             }
             else
             {
                 var radio = GetSelectedRadioButton(attributes[1]);
                 radio.Checked = true;
-                algoNPoints.Text = attributes[0];
+                txbAlgoNPoints.Text = attributes[0];
                 algoCoef.Text = attributes[2].Length == 0 ? "1.0" : attributes[2];
             }
         }
@@ -571,7 +572,7 @@ namespace ModelModule
             int[] elementTypes;
             long[][] elemTags, nodeTags;
             long[] nodesT;
-            double[] coords, parametric;
+            double[] nodesCrds, parametric;
             var elems = new List<Tuple<int,string,Node[]>>();
             if (controller.ModelMeshGetElements(dim, tags, out elementTypes, out elemTags, out nodeTags))
             {
@@ -580,7 +581,7 @@ namespace ModelModule
                     for (int i = 0; i < properties.Length; ++i)
                     {
                         var elements = elemTags[i];
-                        controller.ModelMeshGetNodesByElementType(elementTypes[i], -1, false, out nodesT, out coords, out parametric);
+                        controller.ModelMeshGetNodesByElementType(elementTypes[i], -1, false, out nodesT, out nodesCrds, out parametric);
                         for (var j = 0; j < elements.Length; ++j)
                         {
                             var nodesCount = properties[i].numNodes;
@@ -589,9 +590,9 @@ namespace ModelModule
                             {
                                 var coordStride = j * nodesCount * 3 + k * 3;
                                 var tagStride = j * nodesCount + k;
-                                var x = (float)coords[coordStride + 0];
-                                var y = (float)coords[coordStride + 1];
-                                var z = (float)coords[coordStride + 2];
+                                var x = (float)nodesCrds[coordStride + 0];
+                                var y = (float)nodesCrds[coordStride + 1];
+                                var z = (float)nodesCrds[coordStride + 2];
                                 var point = new Point3D(x, y, z);
                                 nodesPerElem[k] = new Node((int)nodeTags[i][tagStride], point);
                             }
@@ -880,28 +881,7 @@ namespace ModelModule
                     return false;
             return attributes.Length != 0;
         }
-        /// <summary>
-        /// Задает трансфиницию кривой по идентификатору и аттрибутам
-        /// </summary>
-        /// <param name="tag">Идентификатор кривой</param>
-        /// <param name="attributes">Аттрибуты кривой</param>
-        private void OnTransfiniteCurve(int tag, string[] attributes)
-        {
-            var ierr = 0;
-            var nPoints = (int)Double.Parse(attributes[0]);
-            var coef = Double.Parse(attributes[2]);
-            controller.gmshModelMeshSetTransfiniteCurve(tag, nPoints, attributes[1], coef, ref ierr);
-            if (chkLayoutCurve.Checked)
-            {
-                var radio = GetSelectedRadioButton(attributes[1]);
-                var law = radio.Tag.ToString();
-                var point = GetCenterOfCurve(tag);
-                var text = $"Кривая {tag}: {law} {nPoints}";
-                showOrHide3dText?.Invoke(string.Empty, null);//Очищаем во избежании наслоений
-                showOrHide3dText?.Invoke(text, point);
-                redrawScene?.Invoke(false);
-            }
-        }
+
         /// <summary>
         /// Вернуть RadioButton по параметру аттрибута
         /// </summary>
@@ -939,7 +919,7 @@ namespace ModelModule
             if (oldNode != null && oldNode.Text.Contains("Кривая"))
             {
                 ResetColorObjectsEvent?.Invoke(ObjType.Линия, true);
-                showOrHide3dText?.Invoke(string.Empty, null);
+                //showOrHide3dText?.Invoke(string.Empty, null);
             }
             else
                 pointsControlBox.Enabled = false;
@@ -958,57 +938,61 @@ namespace ModelModule
             return point;
         }
         /// <summary>
-        /// Вызывается при клике "Показать разметку"
+        /// Показать информацию о кривых
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnChangeLayout(object sender, EventArgs e)
+        private void ShowCurvesInfo()
         {
-            if(chkLayoutCurve.Checked)
-            {
-                string[] attributes;
-                var tag = FindObjectByTreeNode(entTree.SelectedNode);
-                attributes = GetCurrentCurveAttributes(tag);
-                if (IsAllAttributesNotEmpty(attributes))
-                {
-                    var nPoints = (int)Double.Parse(attributes[0]);
-                    var radio = GetSelectedRadioButton(attributes[1]);
-                    var law = radio.Tag.ToString();
-                    var point = GetCenterOfCurve(tag);
-                    var text = $"Кривая {tag}: {law} {nPoints}";
-                    showOrHide3dText(text, point);
-                }
-            }
-            else
-                showOrHide3dText(string.Empty, null);
-            redrawScene?.Invoke(false);
+            // тут нужно перебрать все кривые которые есть в модели и показать их параметры разметки
+            //for (int i = 0; i < length; i++)
+            //{
+            //    string[] attributes;
+            //    var tag = FindObjectByTreeNode(entTree.SelectedNode);
+            //    attributes = GetCurrentCurveAttributes(tag);
+            //    if (IsAllAttributesNotEmpty(attributes))
+            //    {
+            //        var nPoints = (int)Double.Parse(attributes[0]);
+            //        var radio = GetSelectedRadioButton(attributes[1]);
+            //        var law = radio.Tag.ToString();
+            //        var point = GetCenterOfCurve(tag);
+            //        var text = $"Кривая {tag}\n{law} {nPoints}";
+            //        showOrHide3dText(text, point);
+            //    }
+            //}           
         }
-        /// <summary>
-        /// Вызывается при смене закона распределения трансцфиниции
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnLawChange(object sender, EventArgs e)
+
+        private void BtnOK_Click(object sender, EventArgs e)
         {
+            //TO DO
+            // При нажатии на кнопку значения коэф., типа разметки и кол - ва точек должны присвоиться
+            // к выбранной в дереве кривой
+
             var ierr = 0;
             string[] attributes;
-            var control = sender as RadioButton;
+
             var tag = FindObjectByTreeNode(entTree.SelectedNode);
             attributes = GetCurrentCurveAttributes(tag);
             if (attributes.Length == 0)
-                attributes = new string[] {"","","1.0"};
-            attributes[1] = control.Text;
+                attributes = new string[] { "", "", "1.0" };
+            else
+            {
+                if(rbtnBeta.Checked)
+                    attributes[1] = rbtnBeta.Text;
+                else if(rbtnBump.Checked)
+                    attributes[1] = rbtnBump.Text;
+                else attributes[1] = rbtnProgressive.Text;
+            }
+
+            var nPoints = (int)Double.Parse(attributes[0]);
+            var coef = Double.Parse(attributes[2]);
+
+            //А это не дублирование команды?
             controller.gmshModelSetAttribute($"transfinite {tag}", attributes, (IntPtr)3, ref ierr);
             if (IsAllAttributesNotEmpty(attributes))
-                OnTransfiniteCurve(tag, attributes);
-        }
-        /// <summary>
-        /// Вызывается при смене коэффициента или числа точек трансфиниции
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnTextChanged(object sender, EventArgs e)
-        {
+                controller.gmshModelMeshSetTransfiniteCurve(tag, nPoints, attributes[1], coef, ref ierr);
+
+            /*
             var ierr = 0;
             double data;
             string[] attributes;
@@ -1018,13 +1002,21 @@ namespace ModelModule
                 var tag = FindObjectByTreeNode(entTree.SelectedNode);
                 attributes = GetCurrentCurveAttributes(tag);
                 if (attributes.Length == 0)
-                    attributes = new string[] {"","Progressive","1.0"};
-                var index = control.Equals(algoNPoints) ? 0 : 2;
+                    attributes = new string[] { "", "Progressive", "1.0" };
+                var index = control.Equals(txbAlgoNPoints) ? 0 : 2;
                 attributes[index] = control.Text;
                 controller.gmshModelSetAttribute($"transfinite {tag}", attributes, (IntPtr)3, ref ierr);
                 if (IsAllAttributesNotEmpty(attributes))
                     OnTransfiniteCurve(tag, attributes);
             }
+            */
+        }
+
+        private void ChbShowCurvesInfo_CheckedChanged(object sender, EventArgs e)
+        {
+            //TO DO
+            // При вкл. чекбоксе показать данные о кривых
+            // При выкл. чекбоксе скрыть данные о кривых
         }
     }
 }

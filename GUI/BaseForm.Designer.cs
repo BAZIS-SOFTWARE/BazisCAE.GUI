@@ -100,7 +100,7 @@
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox.Image = global::BazisGUI.Properties.Resources.ScreenSaver;
             this.pictureBox.Location = new System.Drawing.Point(2, 2);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(821, 368);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -173,7 +173,7 @@
             // 
             this.анализРезультатов.Image = ((System.Drawing.Image)(resources.GetObject("анализРезультатов.Image")));
             this.анализРезультатов.Name = "анализРезультатов";
-            this.анализРезультатов.Size = new System.Drawing.Size(187, 26);
+            this.анализРезультатов.Size = new System.Drawing.Size(183, 22);
             this.анализРезультатов.Text = "Анализ результатов";
             this.анализРезультатов.Click += new System.EventHandler(this.анализРезультатов_Click);
             // 
@@ -181,7 +181,7 @@
             // 
             this.сварка.Image = ((System.Drawing.Image)(resources.GetObject("сварка.Image")));
             this.сварка.Name = "сварка";
-            this.сварка.Size = new System.Drawing.Size(187, 26);
+            this.сварка.Size = new System.Drawing.Size(183, 22);
             this.сварка.Text = "Сварка";
             this.сварка.Click += new System.EventHandler(this.сварка_Click);
             // 
@@ -189,16 +189,15 @@
             // 
             this.термообработка.Image = ((System.Drawing.Image)(resources.GetObject("термообработка.Image")));
             this.термообработка.Name = "термообработка";
-            this.термообработка.Size = new System.Drawing.Size(187, 26);
+            this.термообработка.Size = new System.Drawing.Size(183, 22);
             this.термообработка.Text = "Термообработка";
             this.термообработка.Click += new System.EventHandler(this.термообработка_Click);
             // 
             // настройкиToolStripMenuItem
             // 
-            this.настройкиToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("настройкиToolStripMenuItem.Image")));
             this.настройкиToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(95, 24);
+            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(79, 24);
             this.настройкиToolStripMenuItem.Text = "&Настройки";
             this.настройкиToolStripMenuItem.Click += new System.EventHandler(this.настройкиToolStripMenuItem_Click);
             // 

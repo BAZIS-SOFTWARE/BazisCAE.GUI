@@ -498,12 +498,6 @@ namespace ResultModule
         {
             try
             {
-                var selNode = NavigatorControl.TreeView.SelectedNode;
-                var resDes = selNode.Name;
-
-                var colorRanges = scale.ColorRange().ToArray();
-                var valueRanges = scale.ValueRange().ToArray();
-
                 var result = Project.ResultData.FindByTime(resKind, time);
 
                 var resName = NavigatorControl.TreeView.SelectedNode.Name;
@@ -524,6 +518,8 @@ namespace ResultModule
                         CreateScale();
                 }
 
+                var colorRanges = scale.ColorRange().ToArray();
+                var valueRanges = scale.ValueRange().ToArray();
 
                 var fieldCreator = new GradientFieldsCreator(valueRanges, colorRanges, scaleFactor);
 

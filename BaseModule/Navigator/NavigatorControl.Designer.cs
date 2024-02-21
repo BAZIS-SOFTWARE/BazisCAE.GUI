@@ -147,6 +147,7 @@
             // 
             // treeView
             // 
+            this.treeView.BackColor = System.Drawing.SystemColors.Window;
             this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView.FullRowSelect = true;

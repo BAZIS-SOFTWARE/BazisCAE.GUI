@@ -212,6 +212,7 @@ namespace BaseModule
             // navigator
             // 
             this.navigator.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.navigator.BackColor = System.Drawing.SystemColors.Control;
             this.navigator.CollapseIndex = 1;
             this.navigator.Dock = System.Windows.Forms.DockStyle.Fill;
             this.navigator.ExpandIndex = 2;
