@@ -103,8 +103,7 @@ namespace ModelModule
                 controller.ModelGetGeometryEntities(out dimTags, 0);
                 var controlPoints = controller.CreateControlPoints(dimTags);
                 if(controlPoints.Count > 0)
-                    ObjectData.PointCollection.AddRange(controlPoints);
-                updateVBOEvent?.Invoke(ObjType.Точка);
+                    ObjectData.PointCollection.AddRange(controlPoints);  
             }
             else if (objType == ObjType.Линия)
             {
@@ -115,7 +114,6 @@ namespace ModelModule
                 var curves = controller.CreateLines(dimTags, ref status);
                 if(curves.Count > 0)
                     ObjectData.LineCollection.AddRange(curves);
-                updateVBOEvent?.Invoke(ObjType.Линия);
             }
             return true;
         }
@@ -126,7 +124,9 @@ namespace ModelModule
             UpdateTreeView();
 
             UpdateGeometry(ObjType.Точка);
+            updateVBOEvent?.Invoke(ObjType.Точка);
             UpdateGeometry(ObjType.Линия);
+            updateVBOEvent?.Invoke(ObjType.Линия);
             var ierr = 0;
             FillGeometryTreeView();
             if (controller.gmshModelGetDimension(ref ierr) > 1)
@@ -155,7 +155,9 @@ namespace ModelModule
             var ierr = 0;
             controller.gmshClear(ref ierr);
             UpdateGeometry(ObjType.Точка);
+            updateVBOEvent?.Invoke(ObjType.Точка);
             UpdateGeometry(ObjType.Линия);
+            updateVBOEvent?.Invoke(ObjType.Линия);
             //UpdateGeometry(new int[0]);//Удалить всю геометрию
             ClearTreeView(1);
             ShowHideGeneralTabControls(2, false);
@@ -171,7 +173,9 @@ namespace ModelModule
             var ierr = 0;
             controller.gmshClear(ref ierr);
             UpdateGeometry(ObjType.Точка);
+            updateVBOEvent?.Invoke(ObjType.Точка);
             UpdateGeometry(ObjType.Линия);
+            updateVBOEvent?.Invoke(ObjType.Линия);
             //UpdateGeometry(new int[0]);//Удалить всю геометрию
             ClearTreeView(1);
             ShowHideGeneralTabControls(2, false);
@@ -980,7 +984,11 @@ namespace ModelModule
 
         private void chbShowHeatMap_Click(object sender, EventArgs e)
         {
+            //TO DO
 
+            // Создать словарь key - номер кривой, value - кол - во узлов.
+            // Обернуть (создать) словарь классом на базе ShowHeatMapEventArgs : EventArgs
+            // Найти максимальное и минимальное значение кол-ва узлов через OrderBy Max Min.
         }
     }
 }
