@@ -63,6 +63,7 @@ namespace ModelModule
         public event Action<int> ShowObjectsEvent;
         public event Action<ObjType,bool> ResetColorObjectsEvent;
         public event Action<string> showErrorMessage;
+        public event Action<object, ShowHeatMapEventArg> showHeatMapEvent;
         public event Action<bool> redrawScene;
 
 
@@ -989,6 +990,25 @@ namespace ModelModule
             // Создать словарь key - номер кривой, value - кол - во узлов.
             // Обернуть (создать) словарь классом на базе ShowHeatMapEventArgs : EventArgs
             // Найти максимальное и минимальное значение кол-ва узлов через OrderBy Max Min.
+            var heatMap = new Dictionary<int, int>();
+            //1)Добавляем в словарь сначала размеченные кривые
+            string[] attribList;
+            controller.ModelGetAttributeNames(out attribList);
+            foreach (var item in attribList)
+            {
+                var tag = Int32.Parse(item.Split(' ')[1]);
+                var attributes = GetCurrentCurveAttributes(tag);
+                var points = attributes.Length == 3 ? Int32.Parse(attributes[0]) : 0;
+                heatMap.Add(tag, points);
+            }
+            //2)Добавляем в словарь неразмеченные кривые, которых нет в словаре (со значением ноль)
+            int[] dimTags;
+            controller.ModelGetGeometryEntities(out dimTags, 1);
+            for (var i = 1; i < dimTags.Length; i += 2)
+                if (!heatMap.ContainsKey(dimTags[i]))
+                    heatMap.Add(dimTags[i], 0);
+            var sme = new ShowHeatMapEventArg(heatMap);
+            showHeatMapEvent?.Invoke(this, sme);
         }
     }
 }
