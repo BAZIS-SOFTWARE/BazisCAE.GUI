@@ -1417,6 +1417,7 @@ namespace ModelModule
             this.chbShowHeatMap.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.chbShowHeatMap.AutoSize = true;
             this.chbShowHeatMap.Location = new System.Drawing.Point(5, 216);
+            this.chbShowHeatMap.Margin = new System.Windows.Forms.Padding(2);
             this.chbShowHeatMap.Name = "chbShowHeatMap";
             this.chbShowHeatMap.Size = new System.Drawing.Size(157, 17);
             this.chbShowHeatMap.TabIndex = 4;
