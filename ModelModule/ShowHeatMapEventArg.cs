@@ -14,8 +14,8 @@ namespace ModelModule
     {
         Dictionary<int, int> curveDict;
 
-        public int Max {  get { return curveDict.Max().Value; } }
-        public int Min { get { return curveDict.Min().Value; } }
+        public int Max {  get { return curveDict.Max(x => x.Value); } }
+        public int Min { get { return curveDict.Min(x => x.Value); } }
         public ShowHeatMapEventArg(Dictionary<int, int> curveDict) 
         {
             this.curveDict = curveDict.OrderBy(v => v.Value)
