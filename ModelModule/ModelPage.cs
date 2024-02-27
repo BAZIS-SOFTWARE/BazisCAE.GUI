@@ -158,6 +158,7 @@ namespace ModelModule
 
             if (els3D.Count() != 0)
             {
+                SceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
 
                 var startNumber = Project.ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
                 var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
@@ -168,13 +169,9 @@ namespace ModelModule
                 SceneControl.HideDisplayText2D();
                 SceneControl.HideDisplayText3D();
 
-
                 PresentObjectsToScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(ObjType.Элемент2D));
 
                 SceneControl.DisplayObjects();
-
-                PresentModelOnSelectToolStrip();
-
                 PresentProjectOnTree();
 
                 ConsoleControl.PrintInfo("Созданы 2D элементы", Color.Black);
