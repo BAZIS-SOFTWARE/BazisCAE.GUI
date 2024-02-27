@@ -19,6 +19,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.AxHost;
 
 namespace ModelModule
 {
@@ -92,7 +93,13 @@ namespace ModelModule
             gmshControl.redrawScene += RedrawScene;
             gmshControl.showErrorMessage += ShowErrorMessage;
             gmshControl.ShowObjectsEvent += ShowLines;
-            gmshControl.showOrHide3dText += ShowOrHide3dText;
+            gmshControl.hide3dTextEvent += () => 
+            { 
+                SceneControl.HideDisplayText3D();
+                SceneControl.DisplayObjects();
+            };
+            gmshControl.show3dTextEvent += GmshControl_show3dTextEvent;
+            gmshControl.showHeatMapEvent += GmshControl_showHeatMapEvent;
             gmshControl.ResetColorObjectsEvent += GmshControl_ResetColorObjectsEvent;
             gmshForm.Controls.Add(gmshControl);
             gmshControl.Dock = DockStyle.Fill;
@@ -100,18 +107,28 @@ namespace ModelModule
             gmshForm.Show();
             //ModelPresenter.Clear();//Подчищаем Presenter во избежании артефактов
         }
+
+        private void GmshControl_showHeatMapEvent(object arg1, ShowHeatMapEventArgs arg2)
+        {
+            //arg2.
+            //scale = new Project.RainbowScale(1, 0, 10);
+
+            //SceneControl.CreateScaleObject(
+          //scale.Coord_X, scale.Coord_Y, scale.ColorRange().ToArray(), scale.ValueRange().ToList(), "", "");
+        }
+
         /// <summary>
-        /// Показать или спрятать 3д текст (если строка пустая - то прячем текст)
+        /// Показать 3д текст (если строка пустая - то прячем текст)
         /// </summary>
         /// <param name="list"></param>
-        private void ShowOrHide3dText(List<Tuple<string, Point3D>> list)
+        private void GmshControl_show3dTextEvent(object sender,Show3dTextEventArgs args)
         {
-            if(list != null)
-                foreach(var item in list)
-                    SceneControl.DisplayText3D(item.Item1, Color.Black, item.Item2);
-            else
-                SceneControl.HideDisplayText3D();
+            foreach (var item in args)
+                SceneControl.DisplayText3D(item.Item1, Color.Black, item.Item2);
+            SceneControl.DisplayObjects();
         }
+
+
 
         private void GmshControl_ResetColorObjectsEvent(ObjType objType, bool obj)
         {

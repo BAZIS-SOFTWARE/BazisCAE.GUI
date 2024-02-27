@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 namespace ModelModule
 {
     /// <summary>
-    /// Событие для считывания минимального, максимального числа точек трансфиниции кривой
+    /// Событие для считывания минимального, максимального числа точек разметки кривой
     /// </summary>
-    public class ShowHeatMapEventArg : EventArgs
+    public class ShowHeatMapEventArgs : EventArgs
     {
-        Dictionary<int, int> curveDict;
+        Dictionary<int, int> dict;
 
-        public int Max {  get { return curveDict.Max(x => x.Value); } }
-        public int Min { get { return curveDict.Min(x => x.Value); } }
-        public ShowHeatMapEventArg(Dictionary<int, int> curveDict) 
+        public int Max {  get { return dict.Max(x => x.Value); } }
+        public int Min { get { return dict.Min(x => x.Value); } }
+        public ShowHeatMapEventArgs(Dictionary<int, int> dict) 
         {
-            this.curveDict = curveDict.OrderBy(v => v.Value)
+            this.dict = dict.OrderBy(v => v.Value)
                                       .ToDictionary(k => k.Key, v => v.Value);
         }
 
-        public ICollection Keys { get { return curveDict.Keys; } }
-        public ICollection Values { get { return curveDict.Values; } }
+        public ICollection Keys { get { return dict.Keys; } }
+        public ICollection Values { get { return dict.Values; } }
     }
 }

@@ -59,11 +59,13 @@ namespace ModelModule
         public IObjectsData ObjectData { get; internal set; }
 
         public event Action<ObjType> updateVBOEvent;
-        public event Action<List<Tuple<string,Point3D>>> showOrHide3dText;
+        public event Action hide3dTextEvent;
+        public event Action<object, Show3dTextEventArgs> show3dTextEvent;
         public event Action<int> ShowObjectsEvent;
         public event Action<ObjType,bool> ResetColorObjectsEvent;
         public event Action<string> showErrorMessage;
-        public event Action<object, ShowHeatMapEventArg> showHeatMapEvent;
+        public event Action<object, ShowHeatMapEventArgs> showHeatMapEvent;
+        public event Action hideHeatMapEvent;
         public event Action<bool> redrawScene;
 
 
@@ -885,7 +887,7 @@ namespace ModelModule
         {
             if (IsControllerLoaded)
             {
-                showOrHide3dText?.Invoke(null);
+                hide3dTextEvent?.Invoke();
                 if (!SaveObjectData)
                     DeleteGeometry();
                 var ierr = 0;
@@ -905,7 +907,6 @@ namespace ModelModule
             if (oldNode != null && oldNode.Text.Contains("Кривая"))
             {
                 ResetColorObjectsEvent?.Invoke(ObjType.Линия, true);
-                //showOrHide3dText?.Invoke(string.Empty, null);
             }
             else
                 pointsControlBox.Enabled = false;
@@ -943,7 +944,7 @@ namespace ModelModule
                     list.Add(Tuple.Create(text, point));
                 }
             }
-            showOrHide3dText?.Invoke(list);  
+            show3dTextEvent?.Invoke(this,new Show3dTextEventArgs(list));  
         }
 
         private void BtnOK_Click(object sender, EventArgs e)
@@ -968,9 +969,12 @@ namespace ModelModule
             }
 
             if (chbShowCurvesInfo.Checked)
-            {
                 ShowCurvesInfo();
-                redrawScene?.Invoke(false);
+
+            if (chbShowHeatMap.Checked)
+            {
+                var dict = GetCurvesNumbersAndNodes();
+                showHeatMapEvent?.Invoke(this, new ShowHeatMapEventArgs(dict));
             }
         }
 
@@ -979,18 +983,28 @@ namespace ModelModule
             if (chbShowCurvesInfo.Checked)
                 ShowCurvesInfo();
             else
-                showOrHide3dText?.Invoke(null);
+                hide3dTextEvent?.Invoke();
             redrawScene?.Invoke(false);
         }
 
         private void chbShowHeatMap_Click(object sender, EventArgs e)
         {
-            //TO DO
 
-            // Создать словарь key - номер кривой, value - кол - во узлов.
-            // Обернуть (создать) словарь классом на базе ShowHeatMapEventArgs : EventArgs
-            // Найти максимальное и минимальное значение кол-ва узлов через OrderBy Max Min.
-            var heatMap = new Dictionary<int, int>();
+            if (chbShowHeatMap.Checked)
+            {
+                var dict = GetCurvesNumbersAndNodes();
+                showHeatMapEvent?.Invoke(this, new ShowHeatMapEventArgs(dict));
+            }
+            else hideHeatMapEvent?.Invoke();
+
+        }
+        /// <summary>
+        /// GetNodesOnCurves. Where key - curve number, value - nodes on curve
+        /// </summary>
+        /// <returns></returns>
+        private Dictionary<int, int> GetCurvesNumbersAndNodes()
+        {
+            var curveDict = new Dictionary<int, int>();
             //1)Добавляем в словарь сначала размеченные кривые
             string[] attribList;
             controller.ModelGetAttributeNames(out attribList);
@@ -999,16 +1013,15 @@ namespace ModelModule
                 var tag = Int32.Parse(item.Split(' ')[1]);
                 var attributes = GetCurrentCurveAttributes(tag);
                 var points = attributes.Length == 3 ? Int32.Parse(attributes[0]) : 0;
-                heatMap.Add(tag, points);
+                curveDict.Add(tag, points);
             }
             //2)Добавляем в словарь неразмеченные кривые, которых нет в словаре (со значением ноль)
             int[] dimTags;
             controller.ModelGetGeometryEntities(out dimTags, 1);
             for (var i = 1; i < dimTags.Length; i += 2)
-                if (!heatMap.ContainsKey(dimTags[i]))
-                    heatMap.Add(dimTags[i], 0);
-            var sme = new ShowHeatMapEventArg(heatMap);
-            showHeatMapEvent?.Invoke(this, sme);
+                if (!curveDict.ContainsKey(dimTags[i]))
+                    curveDict.Add(dimTags[i], 0);
+            return curveDict;
         }
     }
 }

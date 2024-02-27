@@ -112,6 +112,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Show3dTextEventArgs.cs" />
     <Compile Include="ShowHeatMapEventArg.cs" />
     <Compile Include="ToolStrips\MeshToolStrip.cs">
       <SubType>Component</SubType>
