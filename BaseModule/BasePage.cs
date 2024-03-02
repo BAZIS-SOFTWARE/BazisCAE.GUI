@@ -169,119 +169,7 @@ namespace BaseModule
         public virtual void CreateMenuInterface()
         {
             AddToolStripMenuItem(AddViewInterface());
-            AddToolStripMenuItem(AddFileInterface());
-        }
-
-        private ToolStripMenuItem AddFileInterface()
-        {
-
-            var файлToolStripMenuItem = new ToolStripMenuItem();
-            var создатьToolStripMenuItem = new ToolStripMenuItem();
-            var открытьToolStripMenuItem = new ToolStripMenuItem();
-            var toolStripSeparator = new ToolStripSeparator();
-            var сохранитьToolStripMenuItem = new ToolStripMenuItem();
-            var сохранитькакToolStripMenuItem = new ToolStripMenuItem();
-            var toolStripSeparator1 = new ToolStripSeparator();
-            var toolStripSeparator2 = new ToolStripSeparator();
-            var выходToolStripMenuItem = new ToolStripMenuItem();
-            // 
-            // файлToolStripMenuItem
-            // 
-            файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            создатьToolStripMenuItem,
-            открытьToolStripMenuItem,
-            toolStripSeparator,
-            сохранитьToolStripMenuItem,
-            сохранитькакToolStripMenuItem,
-            toolStripSeparator1,
-            toolStripSeparator2,
-            выходToolStripMenuItem});
-            файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            файлToolStripMenuItem.Size = new System.Drawing.Size(48, 24);
-            файлToolStripMenuItem.Text = "&Файл";
-            // 
-            // создатьToolStripMenuItem
-            // 
-            создатьToolStripMenuItem.Image = Resources.create.ToBitmap();
-            создатьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            создатьToolStripMenuItem.Name = "создатьToolStripMenuItem";
-            создатьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            создатьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            создатьToolStripMenuItem.Text = "&Создать";
-            // 
-            // открытьToolStripMenuItem
-            // 
-            открытьToolStripMenuItem.Image = Resources.open.ToBitmap();
-            открытьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            открытьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            открытьToolStripMenuItem.Text = "&Открыть";
-            // 
-            // toolStripSeparator
-            // 
-            toolStripSeparator.Name = "toolStripSeparator";
-            toolStripSeparator.Size = new System.Drawing.Size(177, 6);
-            // 
-            // сохранитьToolStripMenuItem
-            // 
-            сохранитьToolStripMenuItem.Enabled = false;
-            сохранитьToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            сохранитьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            сохранитьToolStripMenuItem.Text = "&Сохранить";
-            // 
-            // сохранитькакToolStripMenuItem
-            // 
-            сохранитькакToolStripMenuItem.Enabled = false;
-            сохранитькакToolStripMenuItem.Image = Resources.save.ToBitmap();
-            сохранитькакToolStripMenuItem.Name = "сохранитькакToolStripMenuItem";
-            сохранитькакToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            сохранитькакToolStripMenuItem.Text = "Сохранить &как";
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
-            // 
-            // выходToolStripMenuItem
-            // 
-            выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            выходToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            выходToolStripMenuItem.Text = "Вы&ход";
-
-            выходToolStripMenuItem.Click += (ar1, ar2) => { Application.Exit(); };
-            создатьToolStripMenuItem.Click += (ar1, ar2) => { CreateNewProject(); };
-            открытьToolStripMenuItem.Click += (ar1, ar2) =>
-            {
-                LoadProjectData("Bazis project file(*.bpf)|*.bpf|All files(*.*)|*.*");
-                ChangeProjectDataEvent?.Invoke();
-                PresentProjectOnTree();
-                PresentModelOnSelectToolStrip();
-                SceneInitialization();
-            };
-            сохранитьToolStripMenuItem.Click += (ar1, ar2) => { SaveProjectData(); };
-            сохранитькакToolStripMenuItem.Click += (ar1, ar2) =>
-            {
-                using (SaveFileDialog saveDialog = new SaveFileDialog())
-                {
-                    saveDialog.DefaultExt = "bpf";
-
-                    if (saveDialog.ShowDialog() == DialogResult.Cancel)
-                        return;
-                    SaveAsProjectData(saveDialog.FileName);
-                }
-                PresentProjectOnTree();
-            };
-
-            return файлToolStripMenuItem;
-        }
+        }      
 
         private ToolStripMenuItem AddViewInterface()
         {
@@ -406,114 +294,7 @@ namespace BaseModule
                 SetObjectsSceneColor(item);
             }
 
-        }
-
-        private void StandartToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            if (e.ClickedItem.Tag.ToString() == "0")
-            {
-                CreateNewProject();
-            }
-
-            else if (e.ClickedItem.Tag.ToString() == "1")
-            {
-                var filterProject = "Bazis project file(*.bpf)|*.bpf|" +
-            "All files(*.*)|*.*";
-                LoadProjectData(filterProject);
-                ChangeProjectDataEvent?.Invoke();
-                PresentProjectOnTree();
-                PresentModelOnSelectToolStrip();
-                SceneInitialization();
-            }
-            else if (e.ClickedItem.Tag.ToString() == "2")
-            {
-                using (SaveFileDialog saveDialog = new SaveFileDialog())
-                {
-                    saveDialog.DefaultExt = "bpf";
-
-                    if (saveDialog.ShowDialog() == DialogResult.Cancel)
-                        return;
-                    SaveAsProjectData(saveDialog.FileName);
-                }
-                PresentProjectOnTree();
-            }
-            else if (e.ClickedItem.Tag.ToString() == "4")
-            {
-                var filterMesh =
-                    "All files(*.*)|*.*|" +
-                    "Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
-                    "GMSH(*.inp*)|*.inp|" +
-                    "ANSYS(*.cdb*)|*.cdb|" +
-                    "SOLOMIA(*.dat*)|*.dat";
-                ImportModelData(filterMesh);
-            }
-        }
-
-        public void CreateNewProject()
-        {
-            Project.ClearAllData();
-            Project.Name = "newProject";
-            Project.Comments = "newComments";
-            Project.Path = Environment.CurrentDirectory;
-
-            consoleControl.PrintInfo("Создан новый проект", Color.Black);
-
-            PresentProjectOnTree();
-            PresentModelOnSelectToolStrip();
-            ClearAllDataOnScene();
-            sceneControl.DisplayObjects();
-
-            lblInputCmd.Text = "Начните работу с загрузки проекта или импорта сеточной модели";
-        }
-
-        private void ImportModelData(string filterMesh)
-        {
-            try
-            {
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = filterMesh;
-                if (dialog.ShowDialog() == DialogResult.Cancel)
-                    return;
-
-                Project.ClearAllData();
-                Project.Name = "newProject";
-                Project.Path = Environment.CurrentDirectory;
-
-                consoleControl.PrintInfo("Создан новый проект", Color.Black);
-
-                var ext = Path.GetExtension(dialog.FileName);
-
-                IModelLoader loader;
-
-                if (ext == ".inp")
-                    Project.ModelData.Loader = new LoadModelFromGMSHTextFile();
-                else if (ext == ".ASC")
-                    Project.ModelData.Loader = new LoadModelFromASCIITextFile();
-                else if (ext == ".dat")
-                    Project.ModelData.Loader = new LoadModelFromSalomeFile();
-                else if (ext == ".stl")
-                    Project.ModelData.Loader = new LoadModelFromSTLFile();
-                else
-                    Project.ModelData.Loader = new LoadModelFromCDBTextFile();
-
-                Project.ModelData.Loader.LoadEvent += (ar1, ar2) => { consoleControl.PrintInfo(ar2.Message, Color.Black); };
-
-                Project.ModelData.Load(dialog.FileName);
-
-                lblInputCmd.Text = string.Empty;
-
-                ChangeProjectDataEvent?.Invoke();
-
-                PresentProjectOnTree();
-
-                SceneInitialization();
-
-            }
-            catch (Exception ex)
-            {
-                consoleControl.PrintInfo(ex.Message, Color.Red);
-            }
-        }
+        }       
 
         public virtual bool LoadProjectData(string extFilter)
         {
@@ -1648,7 +1429,6 @@ namespace BaseModule
 
             displayToolStrip.Location = new Point(0, 0);
             instrumentalToolStrip.Location = new Point(0, 0);
-            standartToolStrip.Location = new Point(0, 0);
             selectToolStrip.Location = new Point(0, 0);
             viewToolStrip.Location = new Point(0, 0);
             instrumentalToolStrip.Location = new Point(0, 0);
@@ -1657,11 +1437,9 @@ namespace BaseModule
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.instrumentalToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.selectToolStrip);
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.standartToolStrip);
 
             displayToolStrip.Renderer = new BaseToolStrRender();
             instrumentalToolStrip.Renderer = new BaseToolStrRender();
-            standartToolStrip.Renderer = new BaseToolStrRender();
             selectToolStrip.Renderer = new BaseToolStrRender();
             viewToolStrip.Renderer = new BaseToolStrRender();
             instrumentalToolStrip.Renderer = new BaseToolStrRender();
@@ -2226,6 +2004,9 @@ namespace BaseModule
                 splitContainer2.IsSplitterFixed = false;
         }
 
+        private void StandartToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
 
+        }
     }
 }
