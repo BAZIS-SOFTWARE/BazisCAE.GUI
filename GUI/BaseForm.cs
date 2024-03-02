@@ -22,10 +22,7 @@ using LicenseInfo;
 using ClientGUI;
 using BazisGUI.SettingsControls;
 using Project.IO;
-using BaseModule.Console;
-using SceneInterface;
 using ModelInterfaces;
-using Model.IO;
 
 namespace BazisGUI
 {
@@ -54,7 +51,6 @@ namespace BazisGUI
         public BaseForm()
         {
             InitializeComponent();
-            project = new ProjectData("newProject", Application.StartupPath);
 
             activePage = "none";
 
@@ -85,83 +81,66 @@ namespace BazisGUI
 
         private void построениеСетки_Click(object sender, EventArgs e)
         {
-            AddModule("Mesh");
+            if(project != null)
+            {
+                CloseActivePageChildControls();
+
+                DisconnectWithServer();
+                serverConnection.RequestServer(activePage + " Отдать");
+
+                var module = CreateModule("Mesh");
+                AddModule(module);
+            }
+
         }
 
         private void анализРезультатов_Click(object sender, EventArgs e)
         {
-            AddModule("Result");
+            if (project != null)
+            {
+                CloseActivePageChildControls();
+
+                DisconnectWithServer();
+                serverConnection.RequestServer(activePage + " Отдать");
+
+                var module = CreateModule("Result");
+                AddModule(module);
+            }
         }
 
         private void сварка_Click(object sender, EventArgs e)
         {
-            AddModule("Weld");
+            if (project != null)
+            {
+                CloseActivePageChildControls();
+
+                DisconnectWithServer();
+                serverConnection.RequestServer(activePage + " Отдать");
+
+                var module = CreateModule("Weld");
+                AddModule(module);
+            }
         }
 
         private void термообработка_Click(object sender, EventArgs e)
         {
-            AddModule("HeatTreatment");
+            if (project != null)
+            {
+                CloseActivePageChildControls();
+
+                DisconnectWithServer();
+                serverConnection.RequestServer(activePage + " Отдать");
+
+                var module = CreateModule("HeatTreatment");
+                AddModule(module);
+            }
         }
 
-        private void AddModule(string moduleName)
+        private void AddModule(BasePage module)
         {
-            CloseActivePageChildControls();
-
-            DisconnectWithServer();
-            serverConnection.RequestServer(activePage + " Отдать");
-
-            activePage = moduleName;
-
-            if (moduleName == "Weld")
-            {
-                модулиMenuItem.Image = сварка.Image;
-                this.Text = "Сварка";
-
-                var taskPage = new WeldingPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
-                taskPage.SolverPath = settingsConfig.SolverPath;
-
-                module = taskPage;
-            }
-
-            else if (moduleName == "HeatTreatment")
-            {
-                модулиMenuItem.Image = термообработка.Image;
-                this.Text = "Термообработка";
-
-                var taskPage = new HeatTreatmentPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
-                taskPage.SolverPath = settingsConfig.SolverPath;
-
-                module = taskPage;
-            }
-
-            else if (moduleName == "Result")
-            {
-                модулиMenuItem.Image = анализРезультатов.Image;
-                this.Text = "Результаты";
-                module = new ResultPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
-            }
-
-            else
-            {
-                модулиMenuItem.Image = построениеСетки.Image;
-                this.Text = "Сетка";
-                module = new ModelPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
-            }
-
             var ver = Assembly.GetExecutingAssembly().GetName().Version;
             var verStr = "Версия " + $"{ver.Major}.{ver.Minor}.{ver.Build}";
             module.SetVersion(verStr);
-
-            project.Loader = new LoadProjectFromTextFormat();
-            project.Loader.LoadEvent += (ar1, ar2) =>
-            {
-                module.ConsoleControl.PrintInfo(ar2.Message, Color.Black);
-            };
-            project.Saver = new SaveProjectTextFormat();
-            project.Saver.SaveEvent += (ar1, ar2) =>
-            {
-                module.ConsoleControl.PrintInfo(ar2.Message, Color.Black);
-            };
 
             SetGeneralSettings(module);
 
@@ -177,19 +156,59 @@ namespace BazisGUI
 
             foreach (var menuItem in module.GetToolStripMenuItems())
             {
-                menuStrip.Items.Insert(1, menuItem);
+                menuStrip.Items.Insert(2,menuItem);
                 activeMenuItems.Add(menuItem);
             }
 
             tableLayoutPanel.Hide();
 
-
-            serverConnection.RequestServer(moduleName + " Взять");
+            serverConnection.RequestServer(activePage + " Взять");
 
             if (serverConnection.Answer == "можно")
-                StartLicensing(moduleName, module);
+                StartLicensing(activePage, module);
             else StartLisenceForm();
 
+        }
+
+        private BasePage CreateModule(string moduleName)
+        {
+            activePage = moduleName;
+
+            if (moduleName == "Weld")
+            {
+                //модулиMenuItem.Image = сварка.Image;
+                модулиMenuItem.Text = "Сварка";
+
+                var taskPage = new WeldingPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
+                taskPage.SolverPath = settingsConfig.SolverPath;
+
+                return taskPage;
+            }
+
+            else if (moduleName == "HeatTreatment")
+            {
+                //модулиMenuItem.Image = термообработка.Image;
+                модулиMenuItem.Text = "Термообработка";
+
+                var taskPage = new HeatTreatmentPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
+                taskPage.SolverPath = settingsConfig.SolverPath;
+
+                return taskPage;
+            }
+
+            else if (moduleName == "Result")
+            {
+                //модулиMenuItem.Image = анализРезультатов.Image;
+                модулиMenuItem.Text = "Результаты";
+                return new ResultPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
+            }
+
+            else
+            {
+                //модулиMenuItem.Image = построениеСетки.Image;
+                модулиMenuItem.Text = "Сетка";
+                return new ModelPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
+            }
         }
 
         private void CloseActivePageChildControls()
@@ -291,7 +310,7 @@ namespace BazisGUI
 
         private void модулиMenuItem_Paint(object sender, PaintEventArgs e)
         {
-            var x = модулиMenuItem.Width - 6;
+            var x = модулиMenuItem.Width;
             var y = модулиMenuItem.Height / 2;
 
             var points = new Point[]
@@ -540,78 +559,57 @@ namespace BazisGUI
             ShowReleaseNotes();
         }
 
-        private void ImportModelData(string filterMesh)
+        private void CreateNewProject(string folder)
         {
-            try
-            {
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = filterMesh;
-                if (dialog.ShowDialog() == DialogResult.Cancel)
-                    return;
 
-                CreateNewProject();
-
-                var ext = Path.GetExtension(dialog.FileName);
-
-                IModelLoader loader;
-
-                if (ext == ".inp")
-                    project.ModelData.Loader = new LoadModelFromGMSHTextFile();
-                else if (ext == ".ASC")
-                    project.ModelData.Loader = new LoadModelFromASCIITextFile();
-                else if (ext == ".dat")
-                    project.ModelData.Loader = new LoadModelFromSalomeFile();
-                else if (ext == ".stl")
-                    project.ModelData.Loader = new LoadModelFromSTLFile();
-                else
-                    project.ModelData.Loader = new LoadModelFromCDBTextFile();
-
-                project.ModelData.Loader.LoadEvent += (ar1, ar2) =>
-                { module.ConsoleControl.PrintInfo(ar2.Message, Color.Black); };
-
-                project.ModelData.Load(dialog.FileName);
-
-                module.PresentProjectOnTree();
-
-                module.SceneInitialization();
-
-            }
-            catch (Exception ex)
-            {
-                module.ConsoleControl.PrintInfo(ex.Message, Color.Red);
-            }
-        }
-
-        private void CreateNewProject()
-        {
-            project.ClearAllData();
-            project.Name = "newProject";
-            project.Comments = "newComments";
-            project.Path = Environment.CurrentDirectory;
-
-            AddModule("Mesh");
-
-            module.ConsoleControl.PrintInfo("Создан новый проект", Color.Black);
         }
 
         private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateNewProject();
+            var dialog = new FolderBrowserDialog();
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                var folderName = dialog.SelectedPath;
 
-            module.PresentProjectOnTree();
-            module.PresentModelOnSelectToolStrip();
-            module.ClearAllDataOnScene();
-            module.SceneControl.DisplayObjects();
+                CreateNewProject(folderName);
+
+                var module = CreateModule(activePage);
+                AddModule(module);
+
+                module.PresentProjectOnTree();
+                module.PresentModelOnSelectToolStrip();
+                module.ClearAllDataOnScene();
+                module.SceneControl.DisplayObjects();
+            }
         }
 
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var filterProject = "Bazis project file(*.bpf)|*.bpf|" +
-"All files(*.*)|*.*";
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.DefaultExt = "bpf";
+            if (dialog.ShowDialog() == DialogResult.Cancel)
+                return;
 
-            AddModule("Mesh");
+            var path = Path.GetDirectoryName(dialog.FileName);
+            var name = Path.GetFileName(dialog.FileName);
 
-            module.LoadProjectData(filterProject);
+            project = new ProjectData(name, path);
+
+            var module = CreateModule(activePage);
+            AddModule(module);
+
+            project.Loader = new LoadProjectFromTextFormat();
+            project.Loader.LoadEvent += (ar1, ar2) =>
+            {
+                module.ConsoleControl.PrintInfo(ar2.Message, Color.Black);
+            };
+            project.Saver = new SaveProjectTextFormat();
+            project.Saver.SaveEvent += (ar1, ar2) =>
+            {
+                module.ConsoleControl.PrintInfo(ar2.Message, Color.Black);
+            };
+
+            module.LoadProjectData(dialog.FileName);
             module.ChangeProjectDataEvent?.Invoke();
             module.PresentProjectOnTree();
             module.SceneInitialization();
@@ -638,7 +636,16 @@ namespace BazisGUI
     "GMSH(*.inp*)|*.inp|" +
     "ANSYS(*.cdb*)|*.cdb|" +
     "SOLOMIA(*.dat*)|*.dat";
-            ImportModelData(filterMesh);
+
+            CloseActivePageChildControls();
+
+            DisconnectWithServer();
+            serverConnection.RequestServer(activePage + " Отдать");
+
+            var module = CreateModule(activePage);
+            AddModule(module);
+
+            module.ImportMesh(filterMesh);
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)

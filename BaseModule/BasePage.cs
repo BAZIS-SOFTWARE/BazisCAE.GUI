@@ -35,6 +35,7 @@ using Scene;
 using Functions.Extensions;
 using System.Xml.Linq;
 using ModelInterfaces.MeshObjects;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace BaseModule
 {
@@ -88,6 +89,51 @@ namespace BaseModule
                     PresentObjectsToScene(item.ToString(), presentor);
             }
         }
+
+        public void ImportMesh(string filterMesh)
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = filterMesh;
+                if (dialog.ShowDialog() == DialogResult.Cancel)
+                    return;
+
+                Project.ClearAllData();
+                Project.Name = "newProject";
+                Project.Comments = "newComments";
+
+                var folder = Path.GetDirectoryName(dialog.FileName);
+                Project.Path = folder;
+
+                var ext = Path.GetExtension(dialog.FileName);
+
+                if (ext == ".inp")
+                    Project.ModelData.Loader = new LoadModelFromGMSHTextFile();
+                else if (ext == ".ASC")
+                    Project.ModelData.Loader = new LoadModelFromASCIITextFile();
+                else if (ext == ".dat")
+                    Project.ModelData.Loader = new LoadModelFromSalomeFile();
+                else if (ext == ".stl")
+                    Project.ModelData.Loader = new LoadModelFromSTLFile();
+                else
+                    Project.ModelData.Loader = new LoadModelFromCDBTextFile();
+
+                Project.ModelData.Loader.LoadEvent += (ar1, ar2) =>
+                { consoleControl.PrintInfo(ar2.Message, Color.Black); };
+
+                Project.ModelData.Load(dialog.FileName);
+
+                PresentProjectOnTree();
+
+                SceneInitialization();
+            }
+            
+            catch (Exception ex)
+            {
+                consoleControl.PrintInfo(ex.Message, Color.Red);
+            }
+}
 
         public IObjsPresenter CreateObjectsPresentor(ObjType objType)
         {
@@ -296,22 +342,16 @@ namespace BaseModule
 
         }       
 
-        public virtual bool LoadProjectData(string extFilter)
+        public virtual bool LoadProjectData(string fullFileName)
         {
             try
             {
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = extFilter;
-                if (dialog.ShowDialog() == DialogResult.Cancel)
-                    return false;
-
-                var ext = Path.GetExtension(dialog.FileName);
-
+                var ext = Path.GetExtension(fullFileName);
                 if (ext == ".bpf")
                 {
                     consoleControl.PrintInfo("Создан новый проект", Color.Black);
                     Project.ModelData.Loader = new LoadModelFromProjectTextFile();
-                    Project.Load(dialog.FileName);
+                    Project.Load(fullFileName);
                     lblInputCmd.Text = string.Empty;
                     return true;
                 }
@@ -2002,11 +2042,6 @@ namespace BaseModule
             }
             else
                 splitContainer2.IsSplitterFixed = false;
-        }
-
-        private void StandartToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
         }
     }
 }
