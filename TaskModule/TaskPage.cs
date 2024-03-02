@@ -631,19 +631,19 @@ namespace TaskModule
             float[] geomParam;
 
             var frame = data.MovedFrameFunction.CalcFrame(time);
-            SceneControl.CreateLocalFrame(frame);
+            SceneControl.DisplayLocalFrame(frame);
             var trajPoints = data.MovedFrameFunction.BaseLine.Select(x => x.CalcCentr()).ToArray();
-            SceneControl.CreatePath(trajPoints);
+            SceneControl.DisplayPath(trajPoints);
 
             if (data.MovedFrameFunction.FunctionType == "Sphere")
             {
                 geomParam = data.MovedFrameFunction.GetGeometryParameters();
-                SceneControl.CreateSphere(geomParam[0], frame);
+                SceneControl.DisplaySphere(geomParam[0], frame);
             }
             else if (data.MovedFrameFunction.FunctionType == "Cillindrical")
             {
                 geomParam = data.MovedFrameFunction.GetGeometryParameters();
-                SceneControl.CreateConus(geomParam[0], geomParam[1], geomParam[2], frame);
+                SceneControl.DisplayConus(geomParam[0], geomParam[1], geomParam[2], frame);
             }
         }
 
@@ -687,7 +687,7 @@ namespace TaskModule
                 var scl = 10 * (1.0f / Height * 1.0f / SceneControl.ScaleFactor);
                 vector = vector.Mult(scl);
                 var p1 = point.Sum(vector);
-                SceneControl.CreateLine(point, p1, color);
+                SceneControl.DisplayLine(point, p1, color);
                 //SceneControl.DisplayText3D(data.CalcValue(time, point).ToString(), Color.FromArgb(0, 0, 0), point);
             }
         }

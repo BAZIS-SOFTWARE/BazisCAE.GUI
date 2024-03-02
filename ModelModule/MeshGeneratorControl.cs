@@ -59,6 +59,7 @@ namespace ModelModule
         public IObjectsData ObjectData { get; internal set; }
 
         public event Action<ObjType> updateVBOEvent;
+        public event Action updateTreeViewEvent;
         public event Action hide3dTextEvent;
         public event Action<object, Show3dTextEventArgs> show3dTextEvent;
         public event Action<int> ShowObjectsEvent;
@@ -97,7 +98,7 @@ namespace ModelModule
             algoChoice.SelectedIndex = 3;
         }
 
-        private bool UpdateGeometry(ObjType objType)
+        private void UpdateGeometry(ObjType objType)
         {
             if (objType == ObjType.Точка)
             {
@@ -118,13 +119,18 @@ namespace ModelModule
                 if(curves.Count > 0)
                     ObjectData.LineCollection.AddRange(curves);
             }
-            return true;
         }
 
         private void GenerateGeometry()
         {
             DeleteMesh();
-            UpdateTreeView();
+
+            ClearTreeView(3);
+            ShowHideTabControls(3, false);
+            ShowHideGeneralTabControls(3, false);
+
+            ClearTreeView(2);
+            ShowHideTabControls(2, false);
 
             UpdateGeometry(ObjType.Точка);
             updateVBOEvent?.Invoke(ObjType.Точка);
@@ -136,43 +142,29 @@ namespace ModelModule
                 ShowHideGeneralTabControls(2);
             ShowHideGeneralTabControls(1);
             ShowHideTabControls(1);
-            redrawScene?.Invoke(true);
-        }
 
-        private void UpdateTreeView()
-        {
-            if (volumesTree.Nodes.Count > 0)
-            {
-                ClearTreeView(3);
-                ShowHideTabControls(3, false);
-            }
-            ShowHideGeneralTabControls(3, false);
-            ClearTreeView(2);
-            ShowHideTabControls(2, false);
+            redrawScene?.Invoke(true);
+
+            updateTreeViewEvent?.Invoke();
         }
 
         private void OnDeleteGeometry(object sender, EventArgs e)
         {
-            DeleteMesh();
-            UpdateTreeView();
-            var ierr = 0;
-            controller.gmshClear(ref ierr);
-            UpdateGeometry(ObjType.Точка);
-            updateVBOEvent?.Invoke(ObjType.Точка);
-            UpdateGeometry(ObjType.Линия);
-            updateVBOEvent?.Invoke(ObjType.Линия);
-            //UpdateGeometry(new int[0]);//Удалить всю геометрию
-            ClearTreeView(1);
-            ShowHideGeneralTabControls(2, false);
-            ShowHideGeneralTabControls(1, false);
-            ShowHideTabControls(1, false);
-
+            DeleteGeometry();
             redrawScene?.Invoke(true);
+            updateTreeViewEvent?.Invoke();
         }
-        public void DeleteGeometry(bool redraw = true)
+        public void DeleteGeometry()
         {
             DeleteMesh();
-            UpdateTreeView();
+
+            ClearTreeView(3);
+            ShowHideTabControls(3, false);
+            ShowHideGeneralTabControls(3, false);
+
+            ClearTreeView(2);
+            ShowHideTabControls(2, false);
+
             var ierr = 0;
             controller.gmshClear(ref ierr);
             UpdateGeometry(ObjType.Точка);
@@ -184,15 +176,22 @@ namespace ModelModule
             ShowHideGeneralTabControls(2, false);
             ShowHideGeneralTabControls(1, false);
             ShowHideTabControls(1, false);
-            if (redraw)
-                redrawScene?.Invoke(true);
         }
 
         private void OnDeleteMesh2D(object sender, EventArgs e)
         {
             DeleteMesh();
-            UpdateTreeView();
+
+            ClearTreeView(3);
+            ShowHideTabControls(3, false);
+            ShowHideGeneralTabControls(3, false);
+
+            ClearTreeView(2);
+            ShowHideTabControls(2, false);
+
             redrawScene(false);
+
+            updateTreeViewEvent?.Invoke();
         }
 
         private void DeleteMesh()
@@ -219,6 +218,8 @@ namespace ModelModule
             ClearTreeView(3);
             ShowHideTabControls(3, false);
             redrawScene.Invoke(false);
+
+            updateTreeViewEvent?.Invoke();
         }
 
         private void ShowHideGeneralTabControls(int dim, bool show = true)
@@ -267,9 +268,9 @@ namespace ModelModule
         private void ClearTreeView(int dim)
         {
             if (dim == 1)
-                entTree.Nodes.Clear();
+                geomTree.Nodes.Clear();
             else if (dim == 2)
-                elemsTree.Nodes.Clear();
+                surfsTree.Nodes.Clear();
             else if (dim == 3)
                 volumesTree.Nodes.Clear();
         }
@@ -328,11 +329,13 @@ namespace ModelModule
             updateVBOEvent?.Invoke(ObjType.Элемент2D);
             updateVBOEvent?.Invoke(ObjType.Элемент3D);
 
-            FillMeshTreeView(elemsTree, 2);
+            FillMeshTreeView(surfsTree, 2);
             ShowHideTabControls(2, true);
             if (controller.gmshModelGetDimension(ref ierr) > 2)
                 ShowHideGeneralTabControls(3, true);
             redrawScene?.Invoke(false);
+
+            updateTreeViewEvent?.Invoke();
         }
 
         [HandleProcessCorruptedStateExceptions]
@@ -367,6 +370,8 @@ namespace ModelModule
                 ShowHideTabControls(3, true);
                 redrawScene?.Invoke(false);
             }
+
+            updateTreeViewEvent?.Invoke();
         }
 
         private void OnDencityChange(object sender, EventArgs e)
@@ -407,7 +412,7 @@ namespace ModelModule
             updateVBOEvent?.Invoke(ObjType.Элемент1D);
             updateVBOEvent?.Invoke(ObjType.Узел);
             
-            FillMeshTreeView(elemsTree, 2);
+            FillMeshTreeView(surfsTree, 2);
             redrawScene?.Invoke(false);
         }
 
@@ -440,7 +445,7 @@ namespace ModelModule
                 updateVBOEvent?.Invoke(ObjType.Элемент1D);
                 updateVBOEvent?.Invoke(ObjType.Узел);
 
-                FillMeshTreeView(elemsTree, 2);
+                FillMeshTreeView(surfsTree, 2);
                 redrawScene?.Invoke(false);
             }
         }
@@ -476,7 +481,7 @@ namespace ModelModule
                 controller.ModelGetAdjacencies(dim, tag, out upwards, out downwards);
                 var current = nodes[dim][tag];
                 if (upwards.Length == 0)
-                    entTree.Nodes.Add(current);
+                    geomTree.Nodes.Add(current);
                 for (var j = 0; j < upwards.Length; ++j)
                 {
                     var upTag = upwards[j];
@@ -510,12 +515,23 @@ namespace ModelModule
                     var triple = elementType[elementTypes[j]];//, out elemKey, out elemChild, out points);
                     var elements = elementTags[j];
                     var elemBase = new TreeNode(triple.Item1);
+
+                    if (dim == 2)
+                        elemBase.ContextMenuStrip = cmsRemoveMesh2D;
+                    else
+                        elemBase.ContextMenuStrip = cmsRemoveMesh3D;
+
                     var elemNodes = new TreeNode[elements.Length];
                     for (var k = 0L; k < elements.Length; ++k)
                     {
                         var elemTag = elements[k];
                         var currentElement = triple.Item2 + elemTag.ToString();
                         elemNodes[k] = new TreeNode(currentElement);
+
+                        if (dim == 2)
+                            elemNodes[k].ContextMenuStrip = cmsRemoveMesh2D;
+                        else
+                            elemNodes[k].ContextMenuStrip = cmsRemoveMesh3D;
                         //AddTreeNode(currentSurface.Nodes, triple.Item1, currentElement);//Очень медленно работает добавление узла в циклах, нужно что-то делать
                         //var currentType = currentSurface.Nodes[triple.Item1].Nodes[currentElement];
                         var nodNodes = new TreeNode[triple.Item3];
@@ -578,7 +594,8 @@ namespace ModelModule
             else
                 pointsControlBox.Enabled = false;
             redrawScene?.Invoke(false);
-        }
+        }     
+
         private List<Tuple<int, string, Node[]>> GetElements(int dim, int tags = -1)
         {
             ElementProperties[] properties;
@@ -621,7 +638,12 @@ namespace ModelModule
         {
             var elements = new List<Beam>();
             foreach(var item in GetElements(1))
+            {
+                // сформировать  Node [] из ElementProperties
+                // 
                 elements.Add(new Beam(item.Item1, item.Item3));
+            }
+
             return elements;
         }
 
@@ -770,7 +792,7 @@ namespace ModelModule
             // Может изменить вход на treeNode с которого было вызвано это действие?
 
             var dim = type == ObjType.Элемент2D ? 2 : 3;
-            var currentNode = type == ObjType.Элемент2D ? elemsTree.SelectedNode : volumesTree.SelectedNode;
+            var currentNode = type == ObjType.Элемент2D ? surfsTree.SelectedNode : volumesTree.SelectedNode;
             
             // Ищем одиночные узлы двигаясь вверх по дереву,
             // пока не встречаем более чем один узел в ветке.
@@ -782,7 +804,13 @@ namespace ModelModule
                 if (dim == 2)
                 {
                     DeleteMesh();
-                    UpdateTreeView();
+
+                    ClearTreeView(3);
+                    ShowHideTabControls(3, false);
+                    ShowHideGeneralTabControls(3, false);
+
+                    ClearTreeView(2);
+                    ShowHideTabControls(2, false);
                 }
 
                 else
@@ -799,7 +827,7 @@ namespace ModelModule
                 //var isNumeric = IsNummericElement(dim, currentNode.Text);
                 var dimTags = isNumeric ? new int[] { dim, Int32.Parse(keyData[1]) }
                              : GetElementsByType(ref keyData[0], dim, Int32.Parse(currentNode.Parent.Text.Split(' ')[1]));
-                elemsTree.Nodes.Remove(currentNode);
+                surfsTree.Nodes.Remove(currentNode);
                 DeleteElementsByNumbers(dimTags, keyData[0]);
                 UpdateObjectsData(type);
                 UpdateObjectsData(ObjType.Узел);
@@ -889,9 +917,16 @@ namespace ModelModule
             {
                 hide3dTextEvent?.Invoke();
                 if (!SaveObjectData)
+                {
                     DeleteGeometry();
+                    redrawScene?.Invoke(true);
+                }
+
                 var ierr = 0;
                 controller.gmshFinalize(ref ierr);
+
+                updateTreeViewEvent?.Invoke();
+                hideHeatMapEvent?.Invoke();
             };
         }
 
@@ -903,7 +938,7 @@ namespace ModelModule
 
         private void entTree_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
-            var oldNode = entTree.SelectedNode;
+            var oldNode = geomTree.SelectedNode;
             if (oldNode != null && oldNode.Text.Contains("Кривая"))
             {
                 ResetColorObjectsEvent?.Invoke(ObjType.Линия, true);
@@ -937,6 +972,7 @@ namespace ModelModule
             {          
                 var tag = Int32.Parse(item.Split(' ')[1]);
                 var attributes = GetCurrentCurveAttributes(tag);
+
                 if(attributes.Length == 3)
                 {
                     var text = $"{attributes[2]} {attributes[1]} {attributes[0]}";
@@ -950,7 +986,7 @@ namespace ModelModule
         private void BtnOK_Click(object sender, EventArgs e)
         {
             var ierr = 0;
-            var tag = FindObjectByTreeNode(entTree.SelectedNode);
+            var tag = FindObjectByTreeNode(geomTree.SelectedNode);
 
             var attributes = new string[3] { txbAlgoNPoints.Text, rbtnProgressive.Text, algoCoef.Text };
             if (rbtnBeta.Checked)
@@ -1022,6 +1058,11 @@ namespace ModelModule
                 if (!curveDict.ContainsKey(dimTags[i]))
                     curveDict.Add(dimTags[i], 0);
             return curveDict;
+        }
+
+        private void chbShowSurfacesInfo_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

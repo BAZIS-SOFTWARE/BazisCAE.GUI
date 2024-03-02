@@ -82,11 +82,11 @@
     <Reference Include="ProjectInterfaces, Version=3.0.12.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
       <HintPath>..\packages\ProjectInterfaces.3.0.12\lib\net48\ProjectInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Scene, Version=2.0.8.18, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.18\lib\net48\Scene.dll</HintPath>
+    <Reference Include="Scene, Version=2.0.8.20, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Scene.2.0.8.20\lib\net48\Scene.dll</HintPath>
     </Reference>
-    <Reference Include="SceneInterface, Version=1.0.26.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.18\lib\net48\SceneInterface.dll</HintPath>
+    <Reference Include="SceneInterface, Version=1.0.28.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Scene.2.0.8.20\lib\net48\SceneInterface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -103,10 +103,10 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Tao.OpenGl, Version=2.1.0.12, Culture=neutral, PublicKeyToken=1ca010269a4501ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.18\lib\net48\Tao.OpenGl.dll</HintPath>
+      <HintPath>..\packages\Scene.2.0.8.20\lib\net48\Tao.OpenGl.dll</HintPath>
     </Reference>
     <Reference Include="Tao.Platform.Windows, Version=1.0.0.5, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.18\lib\net48\Tao.Platform.Windows.dll</HintPath>
+      <HintPath>..\packages\Scene.2.0.8.20\lib\net48\Tao.Platform.Windows.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

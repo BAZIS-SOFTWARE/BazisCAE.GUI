@@ -1,25 +1,12 @@
 ﻿using BaseModule;
-using BaseModule.Navigator;
 using BaseModule.ToolStrips;
-using Geometry;
-using MathNet.Numerics.Distributions;
-using Model;
-using Model.GeometryObjects;
-using Model.MeshObjects;
-using ModelControllerInterfaces;
 using ModelInterfaces;
-using ModelInterfaces.GeometryObjects;
-using ModelInterfaces.MeshObjects;
 using ModelModule.ToolStrips;
 using SceneInterface;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.AxHost;
 
 namespace ModelModule
 {
@@ -89,7 +76,7 @@ namespace ModelModule
             };
 
             gmshControl.updateVBOEvent += UpdateVBO;
-            //gmshControl.saveObjectData += (d) => Project.ModelData.SetObjectData(d);
+            gmshControl.updateTreeViewEvent += () => { PresentProjectOnTree(); };
             gmshControl.redrawScene += RedrawScene;
             gmshControl.showErrorMessage += ShowErrorMessage;
             gmshControl.ShowObjectsEvent += ShowLines;
@@ -100,6 +87,7 @@ namespace ModelModule
             };
             gmshControl.show3dTextEvent += GmshControl_show3dTextEvent;
             gmshControl.showHeatMapEvent += GmshControl_showHeatMapEvent;
+            gmshControl.hideHeatMapEvent += GmshControl_hideHeatMapEvent;
             gmshControl.ResetColorObjectsEvent += GmshControl_ResetColorObjectsEvent;
             gmshForm.Controls.Add(gmshControl);
             gmshControl.Dock = DockStyle.Fill;
@@ -108,13 +96,41 @@ namespace ModelModule
             //ModelPresenter.Clear();//Подчищаем Presenter во избежании артефактов
         }
 
+        private void GmshControl_hideHeatMapEvent()
+        {
+            SceneControl.HideGeometryObj("DisplaySceneScale");
+
+            foreach (var item in Project.ModelData.ObjectData.LineCollection)
+                item.SetBackColor();
+
+            var linePres = PresentersCreator.CreateLineObjectsPresenter(Project.ModelData.ObjectData.LineCollection);
+            SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
+            PresentObjectsToScene(ObjType.Линия.ToString(), linePres);
+            SceneControl.DisplayObjects();
+        }
+
         private void GmshControl_showHeatMapEvent(object arg1, ShowHeatMapEventArgs arg2)
         {
-            //arg2.
-            //scale = new Project.RainbowScale(1, 0, 10);
+            try
+            {
+                var scale = SceneControl.CreateScaleObject(arg2.Min, arg2.Max, 3, "", "");
+                SceneControl.HideGeometryObj("DisplaySceneScale");
+                SceneControl.DisplaySceneScale(scale, 70, 140);
+                foreach (var item in arg2)
+                {
+                    var color = scale.GetValueColor(item.Value);
+                    Project.ModelData.ObjectData.LineCollection.Find(item.Key).MasterColor = color;
+                }
 
-            //SceneControl.CreateScaleObject(
-          //scale.Coord_X, scale.Coord_Y, scale.ColorRange().ToArray(), scale.ValueRange().ToList(), "", "");
+                var linePres = PresentersCreator.CreateLineObjectsPresenter(Project.ModelData.ObjectData.LineCollection);
+                SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
+                PresentObjectsToScene(ObjType.Линия.ToString(),linePres);
+                SceneControl.DisplayObjects();
+            }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
         /// <summary>

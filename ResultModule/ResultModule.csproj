@@ -92,8 +92,8 @@
     <Reference Include="Results, Version=3.0.0.13, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
       <HintPath>..\packages\Results.3.0.0.13\lib\net48\Results.dll</HintPath>
     </Reference>
-    <Reference Include="SceneInterface, Version=1.0.26.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
-      <HintPath>..\packages\SceneInterface.1.0.26\lib\net48\SceneInterface.dll</HintPath>
+    <Reference Include="SceneInterface, Version=1.0.28.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
+      <HintPath>..\packages\SceneInterface.1.0.28\lib\net48\SceneInterface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -225,7 +225,7 @@ namespace ResultModule
 
                 else
                 {                   
-                    SceneControl.HideGeometryObj("CreateScaleObject");
+                    SceneControl.HideGeometryObj("DisplaySceneScale");
                 }
 
                 SceneControl.DisplayObjects();
@@ -805,17 +805,20 @@ namespace ResultModule
 
         public void CreateScale()
         {
-            SceneControl.HideGeometryObj("CreateScaleObject");
+            SceneControl.HideGeometryObj("DisplaySceneScale");
+            ISceneScale sceneScale;
             if(NavigatorControl.TreeView.SelectedNode?.Level == 3)
             {
                 var title = NavigatorControl.TreeView.SelectedNode.Parent.Name;
                 var comments = NavigatorControl.TreeView.SelectedNode.Name;
-                SceneControl.CreateScaleObject(
-          scale.Coord_X, scale.Coord_Y, scale.ColorRange().ToArray(), scale.ValueRange().ToList(), title, comments);
+                sceneScale = SceneControl.CreateScaleObject(
+          scale.MinValue,scale.MaxValue, scale.ValueRange().Count(), title, comments);
             }
             else
-                SceneControl.CreateScaleObject(
-          scale.Coord_X, scale.Coord_Y, scale.ColorRange().ToArray(), scale.ValueRange().ToList(), "", "");
+                sceneScale = SceneControl.CreateScaleObject(
+          scale.MinValue, scale.MaxValue, scale.ValueRange().Count(), "", "");
+
+            SceneControl.DisplaySceneScale(sceneScale, scale.Coord_X, scale.Coord_X);
         }
 
         private void ShowResultValue(string objsType, string resName, IResult result)

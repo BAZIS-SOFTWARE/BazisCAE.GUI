@@ -10,7 +10,7 @@ namespace ModelModule
     /// <summary>
     /// Событие для считывания минимального, максимального числа точек разметки кривой
     /// </summary>
-    public class ShowHeatMapEventArgs : EventArgs
+    public class ShowHeatMapEventArgs : EventArgs, IEnumerable<KeyValuePair<int,int>>
     {
         Dictionary<int, int> dict;
 
@@ -24,5 +24,18 @@ namespace ModelModule
 
         public ICollection Keys { get { return dict.Keys; } }
         public ICollection Values { get { return dict.Values; } }
+
+        public IEnumerator<KeyValuePair<int, int>> GetEnumerator()
+        {
+            foreach (var item in dict)
+            {
+                yield return item;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

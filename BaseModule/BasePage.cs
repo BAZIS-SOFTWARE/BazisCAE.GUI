@@ -977,7 +977,7 @@ namespace BaseModule
 
                                 consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
 
-                                sceneControl.CreateDistance(line);
+                                sceneControl.DisplayDistance(line);
                                 sceneControl.DisplayObjects();
                             }
                             else consoleControl.PrintInfo("Узлы не выбраны", Color.Red);
@@ -1001,7 +1001,7 @@ namespace BaseModule
                             var proj = node.Result.Position.GetPointProectionOnPlane(plane.Result);
                             var line = new Segment3D(node.Result.Position, proj);
                             consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
-                            sceneControl.CreateDistance(line);
+                            sceneControl.DisplayDistance(line);
                             sceneControl.DisplayObjects();
                             break;
                         }
@@ -1069,7 +1069,7 @@ namespace BaseModule
                 {
                     var line = new Segment3D(nodes[nodes.Count - 1].Position, nodes[nodes.Count - 2].Position);
                     consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
-                    sceneControl.CreateDistance(line);
+                    sceneControl.DisplayDistance(line);
                     sceneControl.DisplayObjects();
                 }
             }
