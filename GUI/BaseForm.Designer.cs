@@ -167,6 +167,7 @@
             this.анализРезультатов,
             this.сварка,
             this.термообработка});
+            this.модулиMenuItem.Enabled = false;
             this.модулиMenuItem.Name = "модулиMenuItem";
             this.модулиMenuItem.Size = new System.Drawing.Size(69, 24);
             this.модулиMenuItem.Text = "Модули  ";
@@ -176,7 +177,7 @@
             // 
             this.построениеСетки.Image = ((System.Drawing.Image)(resources.GetObject("построениеСетки.Image")));
             this.построениеСетки.Name = "построениеСетки";
-            this.построениеСетки.Size = new System.Drawing.Size(183, 22);
+            this.построениеСетки.Size = new System.Drawing.Size(187, 26);
             this.построениеСетки.Text = "Построение сетки";
             this.построениеСетки.Click += new System.EventHandler(this.построениеСетки_Click);
             // 

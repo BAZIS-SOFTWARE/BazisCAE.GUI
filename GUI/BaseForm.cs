@@ -23,6 +23,13 @@ using ClientGUI;
 using BazisGUI.SettingsControls;
 using Project.IO;
 using ModelInterfaces;
+using Model;
+using Tasks;
+using Results.ResultsData;
+using BaseModule.Console;
+using Model.IO;
+using ModelController.ModelScenePresentator;
+using ModelControllerInterfaces;
 
 namespace BazisGUI
 {
@@ -81,45 +88,43 @@ namespace BazisGUI
 
         private void построениеСетки_Click(object sender, EventArgs e)
         {
-            if(project != null)
-            {
-                CloseActivePageChildControls();
+            CloseActivePageChildControls();
 
-                DisconnectWithServer();
-                serverConnection.RequestServer(activePage + " Отдать");
+            DisconnectWithServer();
+            serverConnection.RequestServer(activePage + " Отдать");
 
-                var module = CreateModule("Mesh");
-                AddModule(module);
-            }
+            var module = CreateModule("Mesh");
+            module.ModelController = new ModelController.ModelController();
 
+            AddModule(module);
         }
 
         private void анализРезультатов_Click(object sender, EventArgs e)
         {
-            if (project != null)
-            {
-                CloseActivePageChildControls();
 
-                DisconnectWithServer();
-                serverConnection.RequestServer(activePage + " Отдать");
+            CloseActivePageChildControls();
 
-                var module = CreateModule("Result");
-                AddModule(module);
-            }
+            DisconnectWithServer();
+            serverConnection.RequestServer(activePage + " Отдать");
+
+            var module = CreateModule("Result");
+            module.ModelController = new ModelController.ModelController();
+            module.PresentersCreator.Add("Results", PresenterView.Surface);
+
+            AddModule(module);
         }
 
         private void сварка_Click(object sender, EventArgs e)
         {
-            if (project != null)
-            {
-                CloseActivePageChildControls();
+            CloseActivePageChildControls();
 
-                DisconnectWithServer();
-                serverConnection.RequestServer(activePage + " Отдать");
+            DisconnectWithServer();
+            serverConnection.RequestServer(activePage + " Отдать");
 
-                var module = CreateModule("Weld");
-                AddModule(module);
-            }
+            var module = CreateModule("Weld");
+            module.ModelController = new ModelController.ModelController();
+
+            AddModule(module);
         }
 
         private void термообработка_Click(object sender, EventArgs e)
@@ -132,6 +137,8 @@ namespace BazisGUI
                 serverConnection.RequestServer(activePage + " Отдать");
 
                 var module = CreateModule("HeatTreatment");
+                module.ModelController = new ModelController.ModelController();
+
                 AddModule(module);
             }
         }
@@ -559,60 +566,55 @@ namespace BazisGUI
             ShowReleaseNotes();
         }
 
-        private void CreateNewProject(string folder)
-        {
-
-        }
-
         private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var dialog = new FolderBrowserDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 var folderName = dialog.SelectedPath;
+                
+                project = new ProjectData("newProject", folderName);
 
-                CreateNewProject(folderName);
+                project.ModelData = new ModelData();
+                project.TaskData = new TaskData();
+                project.ResultData = new ResultData();
 
-                var module = CreateModule(activePage);
-                AddModule(module);
-
-                module.PresentProjectOnTree();
-                module.PresentModelOnSelectToolStrip();
-                module.ClearAllDataOnScene();
-                module.SceneControl.DisplayObjects();
+                project.Loader = new LoadProjectFromTextFormat();
+                project.Saver = new SaveProjectTextFormat();
             }
+
+            MessageBox.Show("Создан новый проект");
         }
 
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.DefaultExt = "bpf";
-            if (dialog.ShowDialog() == DialogResult.Cancel)
-                return;
-
-            var path = Path.GetDirectoryName(dialog.FileName);
-            var name = Path.GetFileName(dialog.FileName);
-
-            project = new ProjectData(name, path);
-
-            var module = CreateModule(activePage);
-            AddModule(module);
-
-            project.Loader = new LoadProjectFromTextFormat();
-            project.Loader.LoadEvent += (ar1, ar2) =>
+            try
             {
-                module.ConsoleControl.PrintInfo(ar2.Message, Color.Black);
-            };
-            project.Saver = new SaveProjectTextFormat();
-            project.Saver.SaveEvent += (ar1, ar2) =>
-            {
-                module.ConsoleControl.PrintInfo(ar2.Message, Color.Black);
-            };
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.DefaultExt = "bpf";
+                if (dialog.ShowDialog() == DialogResult.Cancel)
+                    return;
 
-            module.LoadProjectData(dialog.FileName);
-            module.ChangeProjectDataEvent?.Invoke();
-            module.PresentProjectOnTree();
-            module.SceneInitialization();
+                var path = Path.GetDirectoryName(dialog.FileName);
+                var name = Path.GetFileName(dialog.FileName);
+
+                project = new ProjectData(name, path);
+
+                project.ModelData = new ModelData();
+                project.TaskData = new TaskData();
+                project.ResultData = new ResultData();
+
+                project.Loader = new LoadProjectFromTextFormat();
+                project.Saver = new SaveProjectTextFormat();
+
+                project.Load();
+
+                модулиMenuItem.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка");
+            }
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -630,22 +632,50 @@ namespace BazisGUI
 
         private void импортToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var filterMesh =
-    "All files(*.*)|*.*|" +
-    "Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
-    "GMSH(*.inp*)|*.inp|" +
-    "ANSYS(*.cdb*)|*.cdb|" +
-    "SOLOMIA(*.dat*)|*.dat";
+            try
+            {
+                var filterMesh =
+"All files(*.*)|*.*|" +
+"Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
+"GMSH(*.inp*)|*.inp|" +
+"ANSYS(*.cdb*)|*.cdb|" +
+"SOLOMIA(*.dat*)|*.dat";
 
-            CloseActivePageChildControls();
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = filterMesh;
+                if (dialog.ShowDialog() == DialogResult.Cancel)
+                    return;
 
-            DisconnectWithServer();
-            serverConnection.RequestServer(activePage + " Отдать");
+                project.ClearAllData();
+                project.Name = "newProject";
+                project.Comments = "newComments";
 
-            var module = CreateModule(activePage);
-            AddModule(module);
+                var folder = Path.GetDirectoryName(dialog.FileName);
+                project.Path = folder;
 
-            module.ImportMesh(filterMesh);
+                var ext = Path.GetExtension(dialog.FileName);
+
+                if (ext == ".inp")
+                    project.ModelData.Loader = new LoadModelFromGMSHTextFile();
+                else if (ext == ".ASC")
+                    project.ModelData.Loader = new LoadModelFromASCIITextFile();
+                else if (ext == ".dat")
+                    project.ModelData.Loader = new LoadModelFromSalomeFile();
+                else if (ext == ".stl")
+                    project.ModelData.Loader = new LoadModelFromSTLFile();
+                else
+                    project.ModelData.Loader = new LoadModelFromCDBTextFile();
+
+                project.ModelData.Load(dialog.FileName);
+
+                модулиMenuItem.Enabled = true;
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка");
+            }
+
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)

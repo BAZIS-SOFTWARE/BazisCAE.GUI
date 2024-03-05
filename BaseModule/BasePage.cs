@@ -5,17 +5,17 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Model;
+//using Model;
 using Geometry;
 using ModelInterfaces;
 using System.IO;
-using ModelController.MeshObjsUtility;
-using Model.GroupsData;
+//using ModelController.MeshObjsUtility;
+//using Model.GroupsData;
 using Scene.Events;
 using System.Diagnostics;
 using BaseModule.Console;
 using BaseModule.CrossSection;
-using Model.IO;
+//using Model.IO;
 using BaseModule.Properties;
 using BaseModule.Console.Events;
 using ProjectInterfaces;
@@ -23,12 +23,12 @@ using SceneInterface;
 using BaseModule.ToolStrips;
 using BaseModule.Navigator;
 using ModelControllerInterfaces;
-using ModelController.ModelScenePresentator;
+//using ModelController.ModelScenePresentator;
 using ProjectInterfaces.Tasks;
 using ModelInterfaces.ObjectsFinders;
 using System.Threading;
-using Model.MeshObjects;
-using Model.GeometryObjects;
+//using Model.MeshObjects;
+//using Model.GeometryObjects;
 using System.Data.Odbc;
 using System.CodeDom;
 using Scene;
@@ -36,6 +36,7 @@ using Functions.Extensions;
 using System.Xml.Linq;
 using ModelInterfaces.MeshObjects;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using ModelInterfaces.GeometryObjects;
 
 namespace BaseModule
 {
@@ -44,9 +45,12 @@ namespace BaseModule
         public Action ChangeProjectDataEvent;
         public Action CreateProjectDataEvent;
 
-        public IModelController ModelController { get; set; } = new ModelController.ModelController();
+        public IModelController ModelController { get; set; }
 
-        public IPresentersCreator PresentersCreator { get; set; } = new PresentersCreator();
+        public IPresentersCreator PresentersCreator 
+        { 
+            get { return ModelController.PresentersCreator; }
+        }  
 
         List<ToolStripMenuItem> menuItems = new List<ToolStripMenuItem>();
 
@@ -88,52 +92,7 @@ namespace BaseModule
                 if (presentor.Count() > 0)
                     PresentObjectsToScene(item.ToString(), presentor);
             }
-        }
-
-        public void ImportMesh(string filterMesh)
-        {
-            try
-            {
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = filterMesh;
-                if (dialog.ShowDialog() == DialogResult.Cancel)
-                    return;
-
-                Project.ClearAllData();
-                Project.Name = "newProject";
-                Project.Comments = "newComments";
-
-                var folder = Path.GetDirectoryName(dialog.FileName);
-                Project.Path = folder;
-
-                var ext = Path.GetExtension(dialog.FileName);
-
-                if (ext == ".inp")
-                    Project.ModelData.Loader = new LoadModelFromGMSHTextFile();
-                else if (ext == ".ASC")
-                    Project.ModelData.Loader = new LoadModelFromASCIITextFile();
-                else if (ext == ".dat")
-                    Project.ModelData.Loader = new LoadModelFromSalomeFile();
-                else if (ext == ".stl")
-                    Project.ModelData.Loader = new LoadModelFromSTLFile();
-                else
-                    Project.ModelData.Loader = new LoadModelFromCDBTextFile();
-
-                Project.ModelData.Loader.LoadEvent += (ar1, ar2) =>
-                { consoleControl.PrintInfo(ar2.Message, Color.Black); };
-
-                Project.ModelData.Load(dialog.FileName);
-
-                PresentProjectOnTree();
-
-                SceneInitialization();
-            }
-            
-            catch (Exception ex)
-            {
-                consoleControl.PrintInfo(ex.Message, Color.Red);
-            }
-}
+        }  
 
         public IObjsPresenter CreateObjectsPresentor(ObjType objType)
         {
@@ -342,33 +301,6 @@ namespace BaseModule
 
         }       
 
-        public virtual bool LoadProjectData(string fullFileName)
-        {
-            try
-            {
-                var ext = Path.GetExtension(fullFileName);
-                if (ext == ".bpf")
-                {
-                    consoleControl.PrintInfo("Создан новый проект", Color.Black);
-                    Project.ModelData.Loader = new LoadModelFromProjectTextFile();
-                    Project.Load(fullFileName);
-                    lblInputCmd.Text = string.Empty;
-                    return true;
-                }
-                else
-                {
-                    consoleControl.PrintInfo("Неизвестный формат файла!", Color.Red);
-                    return false;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                consoleControl.PrintInfo(ex.Message, Color.Red);
-                return false;
-            }
-        }
-
         public bool CopyFile(string fileName, string oldFolder, string newFolder)
         {
             var oldfilePath = $@"{oldFolder}\{fileName}";
@@ -522,7 +454,7 @@ namespace BaseModule
         {
             try
             {
-                var selectHelper = new SelectionHelper(Project.ModelData.ObjectData);
+                //var selectHelper = new SelectionHelper(Project.ModelData.ObjectData);
 
                 var objs = Project.ModelData.ObjectData.GetObjects(arg2.ObjsType).Where(x => x.MasterColor == sceneControl.SelectionColor).ToList();
 
@@ -530,12 +462,13 @@ namespace BaseModule
                 {
                     if (objs.Count > 2)
                     {
-                        var n1 = (Node)objs[0];
-                        var n2 = (Node)objs[1];
-                        var n3 = (Node)objs[2];
+                        var n1 = (INode)objs[0];
+                        var n2 = (INode)objs[1];
+                        var n3 = (INode)objs[2];
 
                         var plane = new Plane(n1.Position, n2.Position, n3.Position);
-                        selectHelper.SelectNodeInPlane(plane, sceneControl.SelectionColor);
+                        ModelController.SelectionHelper.SelectNodeInPlane(Project.ModelData.ObjectData,
+                            plane, sceneControl.SelectionColor);
                     }
                 }
                 else
@@ -543,7 +476,8 @@ namespace BaseModule
                     if (objs.Count > 0)
                     {
                         var element = objs.Last();
-                        selectHelper.SelectE2DInPlane(arg2.Angle, element.Number, sceneControl.SelectionColor);
+                        ModelController.SelectionHelper.SelectE2DInPlane(Project.ModelData.ObjectData, 
+                            arg2.Angle, element.Number, sceneControl.SelectionColor);
                     }
                 }
 
@@ -563,7 +497,7 @@ namespace BaseModule
         {
             try
             {
-                var selectHelper = new SelectionHelper(Project.ModelData.ObjectData);
+                //var selectHelper = new SelectionHelper(Project.ModelData.ObjectData);
 
                 var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
                 var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
@@ -571,12 +505,14 @@ namespace BaseModule
                 {
                     if (!arg2.Reverse)
                     {
-                        selectHelper.SelectNodeInDirection(arg2.Angle, selObjs[selObjs.Length - 2].Number, selObjs[selObjs.Length - 1].Number, sceneControl.SelectionColor);
+                        ModelController.SelectionHelper.SelectNodeInDirection(Project.ModelData.ObjectData, 
+                            arg2.Angle, selObjs[selObjs.Length - 2].Number, selObjs[selObjs.Length - 1].Number, sceneControl.SelectionColor);
                     }
 
                     else
                     {
-                        selectHelper.SelectNodeInDirection(arg2.Angle, selObjs[selObjs.Length - 1].Number, selObjs[selObjs.Length - 2].Number, sceneControl.SelectionColor);
+                        ModelController.SelectionHelper.SelectNodeInDirection(Project.ModelData.ObjectData, 
+                            arg2.Angle, selObjs[selObjs.Length - 1].Number, selObjs[selObjs.Length - 2].Number, sceneControl.SelectionColor);
                     }
                     SetObjectsSceneColor(selectToolStrip.SelectObjectsType);
 
@@ -722,9 +658,10 @@ namespace BaseModule
             }
         }
 
-        public virtual void PresentCrossSection(SurfaceFigure surface)
+        public virtual void PresentCrossSection(ISurfaceFigure surface)
         {
-            var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface }, false);
+            
+            var presenter = ModelController.PresentersCreator.CreateSurfaceObjectsPresenter(new List<ISurfaceFigure>() { surface }, false);
 
             var inds = presenter.CreateIndexes();
             var ptrs = presenter.CreatePointers(inds.Item1);
@@ -737,13 +674,11 @@ namespace BaseModule
             sceneControl.DisplayObjects();
         }
 
-        public SurfaceFigure CreateSectionSurfaces(IEnumerable<IElement3D> elems3D, Point3D p0, Point3D p1, Point3D p2)
+        public ISurfaceFigure CreateSectionSurfaces(IEnumerable<IElement3D> elems3D, Point3D p0, Point3D p1, Point3D p2)
         {
             var plane = new Plane(p0, p1, p2);
 
-            var sectionMaker = new ModelController.MeshObjsUtility.CrossSection();
-
-            return sectionMaker.GetSectionSurfaces(elems3D, plane);
+            return ModelController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
         }
 
         private void MeasuringControl_PreparingMeasureEvent(object arg1, MeasureEventArgs arg2)
@@ -791,7 +726,7 @@ namespace BaseModule
 
                             if (selObjs.Count() > 1)
                             {
-                                var nodes = selObjs.Select(x => (Node)x);
+                                var nodes = selObjs.Select(x => (INode)x);
                                 var p0 = nodes.First();
                                 var p1 = nodes.Last();
                                 var line = new Segment3D(p0.Position, p1.Position);
@@ -872,9 +807,9 @@ namespace BaseModule
             }
         }
 
-        public async Task<List<Node>> CreatePathAsync()
+        public async Task<List<INode>> CreatePathAsync()
         {
-            var nodes = new List<Node>();
+            var nodes = new List<INode>();
 
             PressedKey = Keys.None;
 
@@ -898,7 +833,7 @@ namespace BaseModule
         }
 
 
-        private async Task<Node> SelectNodeAsync()
+        private async Task<INode> SelectNodeAsync()
         {
             var actBreak = new Action(() =>
             {
@@ -927,7 +862,7 @@ namespace BaseModule
                 }
                 else
                 {
-                    var node = (Node)selObjs.First();
+                    var node = (INode)selObjs.First();
                     Invoke(new Action(() =>
                     {
                         ConsoleControl.PrintInfo($"Выбран узел {node.Number}", Color.Green);
@@ -939,7 +874,7 @@ namespace BaseModule
 
             var pointAwait = AsyncMethodContainer(actPointConfirm, actBreak, message);
             await pointAwait;
-            return (Node)pointAwait.Result;
+            return (INode)pointAwait.Result;
         }
 
         public async Task<Plane> CreateSurfaceAsync()
@@ -1078,27 +1013,9 @@ namespace BaseModule
                     var btn = (ToolStripButton)arg2.ClickedItem;
                     if (!btn.Checked)
                     {
-                        var boundaryCreator = new FindBoundaryEdges(Project.ModelData);
-                        var lines = boundaryCreator.Find();
-                        var nodes = Project.ModelData.ObjectData.NodeCollection.ToArray();
 
-                        var beams = new List<Beam>();
-
-                        var counter = 0;
-                        foreach (var item in lines)
-                        {
-                            var numbers = item.Split(' ');
-                            var po = Convert.ToInt32(numbers[0]);
-                            var p1 = Convert.ToInt32(numbers[1]);
-                            var node0 = nodes.Find(po);
-                            var node1 = nodes.Find(p1);
-                            var beam = new Beam(counter, new INode[] { node0, node1 })
-                            { MasterColor = Color.Red };
-                            beams.Add(beam);
-                            counter++;
-                        }
-
-                        var linePresenter = PresentersCreator.CreateLineObjectsPresenter(beams);
+                        var edges = ModelController.BoundaryEdgesFinder.CreateBoundaryEdges(Project.ModelData);
+                        var linePresenter = PresentersCreator.CreateLineObjectsPresenter(edges);
 
                         PresentObjectsToScene("Boundary", linePresenter);
                     }
@@ -1231,8 +1148,8 @@ namespace BaseModule
             if (selObjs.Count() > 0)
             {
                 var name = $"{selectToolStrip.SelectObjectsType}_{Project.ModelData.GroupData.Count + 1}";
-                var group = new Group(name, selectToolStrip.SelectObjectsType);
-
+                var group = Project.ModelData.GroupData.Create(name, selectToolStrip.SelectObjectsType);
+               
                 group.AddRange(selObjs);
                 Project.ModelData.GroupData.Add(group);
 
@@ -1445,13 +1362,8 @@ namespace BaseModule
 
         private void BasePage_Load(object sender, EventArgs e)
         {
-            if (Project != null)
-            {
-                if (Project.ModelData == null)
-                    Project.ModelData = new ModelData();
-                else if (Project.ModelData.ObjectData.Count(ObjType.Объект) > 0)
-                    lblInputCmd.Text = "";
-            }
+            if (Project.ModelData.ObjectData.Count(ObjType.Объект) > 0)
+                lblInputCmd.Text = "";
 
             navigator.NavigatorPanelCollapseEvent += () => { splitContainer1.Panel1Collapsed = true; };
             sceneControl.SceneControlExpandEvent += () =>
@@ -1498,8 +1410,7 @@ namespace BaseModule
             {
                 if (arg2 is ModelFindFreeNodesEventArgs freeNodesEventArgs)
                 {
-                    var finder = new FreeNodesFinder(Project.ModelData.ObjectData);
-                    var freeNodes = finder.Find();
+                    var freeNodes = ModelController.FreeNodesFinder.Find(Project.ModelData.ObjectData);
 
                     Invoke(new Action(() => 
                     { 
@@ -1534,12 +1445,13 @@ namespace BaseModule
                 else if (arg2 is ModelFindCoincidentsNodesEventArgs coincidentNodesEventArgs)
                 {
                     Invoke(new Action(() => { consoleControl.PrintInfo("Выполняется поиск совпадающих узлов сетки...", Color.Black); }));
-                    var coincidentFinder = new FindCoincidentObjects(Project.ModelData.ObjectData, 0.001f);
-                    coincidentFinder.ProgressEvent += (ar1, ar2) =>
+
+                    ModelController.CoincidentObjectsFinder.ProgressEvent += (ar1, ar2) =>
                     {
                         Invoke(new Action(() => { consoleControl.PrintInfo(string.Format("{0:00}%", ar2 * 100), Color.Black); }));
                     };
-                    var coincidentNodes = coincidentFinder.Find(ObjType.Узел);
+                    var coincidentNodes = ModelController.CoincidentObjectsFinder.Find(
+                        Project.ModelData.ObjectData.GetObjects(ObjType.Узел).ToList(), 0.001f);
 
                     Invoke(new Action(() => { consoleControl.PrintInfo($"Найдено {coincidentNodes.Where(x => x.Count > 2).Count()} совпадений", Color.Black); }));
                     Invoke(new Action(() =>
@@ -1550,8 +1462,8 @@ namespace BaseModule
                     }));
                     var actConfirm = new Func<Tuple<bool, object>>(() =>
                     {
-                        var merge = new MergeObjects(Project.ModelData.ObjectData);
-                        merge.Merge(coincidentNodes, ObjType.Узел);
+                        ModelController.ObjectsMerger.Merge(coincidentNodes, 
+                            Project.ModelData.ObjectData.GetObjects(ObjType.Узел).ToList());
 
                         Invoke(new Action(() =>
                         {

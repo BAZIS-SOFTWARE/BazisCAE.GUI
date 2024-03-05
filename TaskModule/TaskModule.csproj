@@ -70,11 +70,11 @@
     <Reference Include="Graph, Version=1.0.2.22, Culture=neutral, PublicKeyToken=4d6e483d8ec08dd8, processorArchitecture=MSIL">
       <HintPath>..\packages\Graph.1.0.2.22\lib\net48\Graph.dll</HintPath>
     </Reference>
-    <Reference Include="ModelControllerInterfaces, Version=3.0.0.21, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelControllerInterfaces.3.0.0.21\lib\net48\ModelControllerInterfaces.dll</HintPath>
+    <Reference Include="ModelControllerInterfaces, Version=3.0.0.27, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelControllerInterfaces.3.0.0.27\lib\net48\ModelControllerInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ModelInterfaces, Version=3.0.0.15, Culture=neutral, PublicKeyToken=998e39182864f357, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelInterfaces.3.0.0.15\lib\net48\ModelInterfaces.dll</HintPath>
+    <Reference Include="ModelInterfaces, Version=3.0.0.16, Culture=neutral, PublicKeyToken=998e39182864f357, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelInterfaces.3.0.0.16\lib\net48\ModelInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -82,8 +82,8 @@
     <Reference Include="PlayerControl, Version=1.0.0.25, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PlayerControl.1.0.0.25\lib\net48\PlayerControl.dll</HintPath>
     </Reference>
-    <Reference Include="ProjectInterfaces, Version=3.0.12.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjectInterfaces.3.0.12\lib\net48\ProjectInterfaces.dll</HintPath>
+    <Reference Include="ProjectInterfaces, Version=3.0.13.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProjectInterfaces.3.0.13\lib\net48\ProjectInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface, Version=1.0.28.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
       <HintPath>..\packages\SceneInterface.1.0.28\lib\net48\SceneInterface.dll</HintPath>
@@ -101,9 +101,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tasks, Version=3.0.0.12, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tasks.3.0.0.12\lib\net48\Tasks.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicAdvisorControls\BasicControls\CheckedGridViewAdviserControl.cs">

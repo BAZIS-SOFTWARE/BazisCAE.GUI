@@ -13,11 +13,6 @@ using ProjectInterfaces;
 using ProjectInterfaces.IO;
 using ProjectInterfaces.Tasks;
 using ResultModule.ToolStrips;
-using Results;
-using Results.IO;
-using Results.ResultsData;
-using Results.ScenePresenter;
-using Results.ScenePresenter.Interfaces;
 using SceneInterface;
 using System;
 using System.Collections.Generic;
@@ -57,23 +52,6 @@ namespace ResultModule
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(nodeNode);
             var elemNode = new TreeNode("ПоЭлементам", 1, 1) { Name = "ПоЭлементам", Tag = "6.1" };
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(elemNode);
-
-            PresentersCreator.Add("Results", PresenterView.Surface);
-        }
-
-        public override bool LoadProjectData(string extFilter)
-        {
-            var resu = base.LoadProjectData(extFilter);
-
-            if (resu)
-            {
-                Project.ResultData = new ResultData();
-
-                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
-                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
-                return true;
-            }
-            else return false;
         }
 
         public override void CreateMenuInterface()

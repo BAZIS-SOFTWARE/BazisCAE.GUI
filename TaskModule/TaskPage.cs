@@ -19,7 +19,7 @@ using Newtonsoft.Json;
 using BaseModule.Navigator;
 using DataBasesGUI;
 using Geometry;
-using Tasks;
+//using Tasks;
 using ProjectInterfaces.Tasks;
 using ModelInterfaces;
 using System.Xml.XPath;
@@ -331,7 +331,7 @@ namespace TaskModule
         {
             try
             {
-                var data = Project.TaskData.Select(x => x as ValuableData).ToList();
+                var data = Project.TaskData.Select(x => x as IValuableData).ToList();
                 var processType = ParseProcessTypeFromString(activeTask);
 
                 var inputDir = $@"{Project.Path}\InputData";
@@ -522,10 +522,10 @@ namespace TaskModule
 
                 var taskStrAr = FieldsParserTask.ParseLine(arg2.DataInfo);
 
-                if (dataArray[arg2.Index] is HeatData heatData)
+                if (dataArray[arg2.Index] is IValuableData heatData)
                 {
                     //AsyncMethodContainer()
-                    
+
                     //var taskStrLRF = SetTaskDataAsync("setDirection", taskStrAr[0]);
 
                     //await taskStrLRF;
