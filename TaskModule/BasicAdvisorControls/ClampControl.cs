@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Events;
@@ -184,22 +185,28 @@ namespace TaskModule.BasicAdvisorControls
                 stiffnessFunc = cmbStiffnessFunc.Text;
             else stiffnessFunc = "*";
 
-            var direction = string.Empty;
-            if (chbX.Enabled & chbX.Checked)
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture,"\"{0} {1} X {2} {3} {4} *\"",
-                    cmbNodeGr.Text,cmbKind.Text, stiffnessFunc,txbStartTime.Text,txbStopTime.Text));
-
-            if (chbY.Enabled & chbY.Checked)
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Y {2} {3} {4} *\"",
-                    cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
-
-            if (chbZ.Enabled & chbZ.Checked)
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Z {2} {3} {4} *\"",
-                    cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
-
+            var direction = new StringBuilder();
             if (chbLRF.Checked)
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture,"\"{0} {1} LRF {2} {3} {4} *\"",
-                     cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
+                direction.Append("LRF");
+
+            else
+            {
+                var directionBools = new[]
+                {
+                    chbX.Enabled && chbX.Checked,
+                    chbY.Enabled && chbY.Checked,
+                    chbZ.Enabled && chbZ.Checked
+                };
+                // from ascii table take xyz without comporation
+                for (var i = 0; i < 3; i++)
+                    direction.Append(directionBools[i] ? Convert.ToChar(88 + i).ToString() : "");
+            }
+
+            if (direction.Length == 0)
+                throw new Exception("Не выбрано направление");
+
+            taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} {4} {5} *\"",
+                    cmbNodeGr.Text, cmbKind.Text, direction, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
 
             return string.Join(" ", taskStrAr);
         }
