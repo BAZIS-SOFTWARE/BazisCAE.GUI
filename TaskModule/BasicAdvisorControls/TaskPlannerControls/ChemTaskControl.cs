@@ -3,7 +3,7 @@ using System;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.IO;
-using Tasks.TaskParameters;
+using TasksParameters;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {

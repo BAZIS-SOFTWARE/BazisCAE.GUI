@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using Tasks.TaskParameters;
+using TasksParameters;
 
 namespace AdvisorControls.TaskPlannerControls
 {

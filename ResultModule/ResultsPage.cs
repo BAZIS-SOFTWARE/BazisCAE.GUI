@@ -11,6 +11,7 @@ using ModelInterfaces;
 using ModelInterfaces.MeshObjects;
 using ProjectInterfaces;
 using ProjectInterfaces.IO;
+using ProjectInterfaces.Results;
 using ProjectInterfaces.Tasks;
 using ResultModule.ToolStrips;
 using SceneInterface;
@@ -21,22 +22,25 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using Image = System.Drawing.Image;
 
 namespace ResultModule
 {
     public partial class ResultPage: BasePage
     {
-        IScale scale;
+        ISceneScale scale;
+        public event Action<string, bool, bool> LoadResultsEvent;
+        public IResultsController ResultsController { get; set; }
         
         private bool showResultValue;
+
+        private bool showScale = true;
         public bool IsScaleMaxMinAuto { get; set; } = true;
 
         public ResultPage()
         {
             InitializeComponent();
-
-            scale = new RainbowScale(1, 0, 10);
 
             var resToolStrip = new ResultsToolStrip
             {
@@ -156,7 +160,7 @@ namespace ResultModule
 
             showScaleResultsMenuItem.Click += (ar1, ar2) => 
             { 
-                    ShowScale(); 
+                    ShowScalePage(); 
             };
 
             resultsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -173,7 +177,7 @@ namespace ResultModule
             return resultsMenuItem;
         }
 
-        private void ShowScale()
+        private void ShowScalePage()
         {
             var scPage = new ScalePage() { Dock = DockStyle.Fill };
 
@@ -198,11 +202,14 @@ namespace ResultModule
             {
                 if (ar2)
                 {
-                    CreateScale();
+                    scale.Coord_X = scPage.X_Coord;
+                    scale.Coord_Y = scPage.Y_Coord;
+
+                    SceneControl.DisplaySceneScale(scale);
                 }
 
                 else
-                {                   
+                {
                     SceneControl.HideGeometryObj("DisplaySceneScale");
                 }
 
@@ -404,8 +411,6 @@ namespace ResultModule
 
             openDialogEx.OpenDialog.InitialDirectory = Path.GetFullPath(Application.ExecutablePath);
             openDialogEx.OpenDialog.AddExtension = true;
-
-            //openDialogEx.Size = new Size(650,267);
  
             openDialogEx.StartLocation = AddonWindowLocation.None;
 
@@ -413,9 +418,10 @@ namespace ResultModule
 
             if (openDialogEx.ShowDialog(this) == DialogResult.Cancel)
                 return;
-            //resItems.Clear();
+            NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
+            NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
-            LoadResults(openDialogEx.OpenDialog.FileName, openDialogEx.MergeResults, addRes);
+            LoadResultsEvent?.Invoke(openDialogEx.OpenDialog.FileName, openDialogEx.MergeResults, addRes);
         }
 
         private void ResultsToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -468,7 +474,7 @@ namespace ResultModule
             else if (e.ClickedItem.Tag.ToString() == "7")
             {
                 if (Application.OpenForms["Scale"] == null)
-                    ShowScale();
+                    ShowScalePage();
             }
         }
 
@@ -479,27 +485,29 @@ namespace ResultModule
                 var result = Project.ResultData.FindByTime(resKind, time);
 
                 var resName = NavigatorControl.TreeView.SelectedNode.Name;
-                var objsType = NavigatorControl.TreeView.SelectedNode.Parent.Name;
+                var nodeName = NavigatorControl.TreeView.SelectedNode.Parent.Name;
 
-                if (objsType == "ПоУзлам")
-                    objsType = "Узлы";
+                scale.Title = resKind;
+                scale.Info = $"{resName} {time}";
 
-                else objsType = "Элементы";
+                ObjType objsType;
+
+                if (nodeName == "ПоУзлам")
+                    objsType = ObjType.Узел;
+
+                else objsType = ObjType.Элемент;
 
                 if (IsScaleMaxMinAuto)
                 {
-                    if (objsType == "Элементы")
+                    if (objsType == ObjType.Элемент)
                         SetMaxMinAuto(result, "elements", resName);
                     else
                         SetMaxMinAuto(result, "nodes", resName);
-                    if (SceneControl.FindGeometryObj("CreateScaleObject"))
-                        CreateScale();
                 }
 
-                var colorRanges = scale.ColorRange().ToArray();
-                var valueRanges = scale.ValueRange().ToArray();
+                var scaleItems = GetScaleItems();
 
-                var fieldCreator = new GradientFieldsCreator(valueRanges, colorRanges, scaleFactor);
+                ResultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
 
                 SceneControl.HideDisplayText2D();
                 SceneControl.HideDisplayText3D();
@@ -508,7 +516,7 @@ namespace ResultModule
                 if (Project.TaskType == TaskType.Volume)
                 {
                     var els3D = Project.ModelData.ObjectData.E3DCollection;
-                    var elsResults = fieldCreator.CreateSurfaceObjects(result, objsType, resName, els3D);
+                    var elsResults = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els3D);
 
                     var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
  
@@ -517,7 +525,7 @@ namespace ResultModule
                 else
                 {
                     var els2D = Project.ModelData.ObjectData.E2DCollection;
-                    var elsResults = fieldCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
+                    var elsResults = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
 
                     var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
                     PresentObjectsToScene("Results", presenter);
@@ -525,6 +533,13 @@ namespace ResultModule
 
                 if (showResultValue)
                     ShowResultValue(objsType, resName, result);
+
+                if (showScale)
+                {
+                    SceneControl.HideGeometryObj("DisplaySceneScale");
+                    SceneControl.DisplaySceneScale(scale);
+                }
+ 
 
                 SceneControl.ChangeViewModeVBObjects("Results", ObjView.Surface);
 
@@ -535,6 +550,26 @@ namespace ResultModule
             {
                 ConsoleControl.PrintInfo($@"Ошибка : {ex.Message},\n Источник : {ex.Source}", Color.Red);
             }
+        }
+
+        private (ItemRange[], Color[]) GetScaleItems()
+        {
+            var itemRanges = new ItemRange[scale.Count()];
+            var itemColors = new Color[scale.Count()];
+
+            var scaleItems = scale.ToArray();
+
+            for (int i = 0; i < scaleItems.Length; i++)
+            {
+                itemRanges[i] = new ItemRange()
+                {
+                    Max = scaleItems[i].Max,
+                    Min = scaleItems[i].Min
+                };
+
+                itemColors[i] = scaleItems[i].Color;
+            }
+            return (itemRanges, itemColors);
         }
 
         private void SetMaxMinAuto(IResult result, string objsType, string resName)
@@ -676,93 +711,7 @@ namespace ResultModule
                 ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
 
-        }
-
-        private async void LoadResults(string fileName,bool mergeRes, bool addRes)
-        {
-            var dbExtension = System.IO.Path.GetExtension(fileName);
-            var pureFileName = System.IO.Path.GetFileNameWithoutExtension(fileName);
-
-            IResultsLoader resultsLoader;
-            if (dbExtension == ".db")
-                resultsLoader = new LoadResultsFileDB();
-            else
-                resultsLoader = new LoadResultsFileBrfTextFormat();
-
-            NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
-            NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
-
-            if (!addRes)
-                Project.ResultData.Clear();
-
-            Enabled = false;
-            PrintCommand("Выполняется загрузка результатов...");
-            var res = await LoadResultsAsync(fileName, resultsLoader);
-            PrintCommand("");
-            Enabled = true;
-
-            if (mergeRes)
-            {
-                Enabled = false;
-                PrintCommand("Выполняется пересчет результатов с элементов на узлы...");
-                await MergeResults(res);
-                ConsoleControl.PrintInfo("Пересчет завершен", Color.Green);
-                PrintCommand("");
-                Enabled = true;
-            }
-
-            Project.ResultData.AddRange(res);
-
-            Application.OpenForms["Animation"]?.Close();
-        }
-
-        private async Task<List<IResult>> LoadResultsAsync(string fileName, IResultsLoader resultsLoader)
-        {
-            var res = new List<IResult>();
-            await Task.Run(new Action(() =>
-            {
-
-                foreach (var result in resultsLoader.Load(fileName))
-                {
-                    Invoke(new Action(() =>
-                    {
-                        ConsoleControl.PrintInfo(result.ToString(), Color.Black);
-                    }));
-
-                    res.Add(result);
-                }
-
-            }));
-            return res;
-        }
-
-        private async Task MergeResults(IEnumerable<IResult> results)
-        {
-            IElement[] elements;
-            if (Project.TaskType == TaskType.Volume)
-                elements = Project.ModelData.ObjectData.E3DCollection.ToArray();
-            else
-                elements = Project.ModelData.ObjectData.E2DCollection.ToArray();
-
-            var act = new Action(() =>
-            {
-                var interfaceNodes = ModelController.InterfacedNodesFinder.Find(elements);
-                var mergeResults = new MergeResults(results);
-                var resNames = results.First().GetDataSchema("elements");
-
-                for (int i = 1; i < resNames.Count; i++)
-                {
-                    mergeResults.Merge(interfaceNodes, resNames[i]);
-
-                    Invoke(new Action(() =>
-                    {
-                        ConsoleControl.PrintInfo($"Выполнен пересчет на узлы для {resNames[i]}", Color.Black);
-                    }));
-                }
-            });
-
-            await Task.Run(act);
-        }
+        }       
 
         public void PresentResultsOnTree(IEnumerable<IResult> results)
         {
@@ -781,28 +730,78 @@ namespace ResultModule
             }
         }
 
-        public void CreateScale()
+        public async Task<List<IResult>> LoadResultsAsync(string fileName)
         {
-            SceneControl.HideGeometryObj("DisplaySceneScale");
-            ISceneScale sceneScale;
-            if(NavigatorControl.TreeView.SelectedNode?.Level == 3)
+            var res = new List<IResult>();
+            await Task.Run(new Action(() =>
             {
-                var title = NavigatorControl.TreeView.SelectedNode.Parent.Name;
-                var comments = NavigatorControl.TreeView.SelectedNode.Name;
-                sceneScale = SceneControl.CreateScaleObject(
-          scale.MinValue,scale.MaxValue, scale.ValueRange().Count(), title, comments);
-            }
-            else
-                sceneScale = SceneControl.CreateScaleObject(
-          scale.MinValue, scale.MaxValue, scale.ValueRange().Count(), "", "");
 
-            SceneControl.DisplaySceneScale(sceneScale, scale.Coord_X, scale.Coord_X);
+                foreach (var result in Project.ResultData.Loader.Load(fileName))
+                {
+                    Invoke(new Action(() =>
+                    {
+                        ConsoleControl.PrintInfo(result.ToString(), Color.Black);
+                    }));
+
+                    res.Add(result);
+                }
+                ConsoleControl.PrintInfo("Загрузка завершена", Color.Green);
+
+            }));
+            return res;
         }
 
-        private void ShowResultValue(string objsType, string resName, IResult result)
+        public async Task MergeResults(IEnumerable<IResult> results)
+        {
+            IElement[] elements;
+            if (Project.TaskType == TaskType.Volume)
+                elements = Project.ModelData.ObjectData.E3DCollection.ToArray();
+            else
+                elements = Project.ModelData.ObjectData.E2DCollection.ToArray();
+
+            var act = new Action(() =>
+            {
+                
+                var interfaceNodes = ModelController.InterfacedNodesFinder.Find(elements);
+                var resNames = results.First().GetDataSchema("elements");
+
+                for (int i = 1; i < resNames.Count; i++)
+                {
+                    ResultsController.ResultsMerger.Merge(interfaceNodes, resNames[i], results);
+
+                    Invoke(new Action(() =>
+                    {
+                        ConsoleControl.PrintInfo($"Выполнен пересчет на узлы для {resNames[i]}", Color.Black);
+                    }));
+                }
+                ConsoleControl.PrintInfo("Пересчет завершен", Color.Green);
+            });
+
+            await Task.Run(act);
+        }
+
+        //public void CreateScale(float min, float max, int ranges, string title,string comments)
+        //{
+        //    SceneControl.HideGeometryObj("DisplaySceneScale");
+
+        //    if(NavigatorControl.TreeView.SelectedNode?.Level == 3)
+        //    {
+        //        var title = NavigatorControl.TreeView.SelectedNode.Parent.Name;
+        //        var comments = NavigatorControl.TreeView.SelectedNode.Name;
+        //        scale = SceneControl.CreateScaleObject(
+        //  scale.MinValue,scale.MaxValue, scale.Co, title, comments);
+        //    }
+        //    else
+        //        sceneScale = SceneControl.CreateScaleObject(
+        //  scale.MinValue, scale.MaxValue, scale.ValueRange().Count(), "", "");
+
+        //    SceneControl.DisplaySceneScale(sceneScale, scale.Coord_X, scale.Coord_X);
+        //}
+
+        private void ShowResultValue(ObjType objsType, string resName, IResult result)
         {
             IEnumerable<IModelObject> objs;
-            if (objsType == "Узлы")
+            if (objsType == ObjType.Узел)
                 objs = Project.ModelData.ObjectData.NodeCollection;
             else
                 objs = Project.ModelData.ObjectData.GetAllElements();
@@ -813,7 +812,7 @@ namespace ResultModule
                 {
                     var coord = obj.CalcCentr();
                     var res = 0.0f;
-                    if (objsType == "Узлы")
+                    if (objsType == ObjType.Узел)
                         res = result.GetNodeValue(obj.Number, resName);
                     else res = result.GetElementValue(obj.Number, resName);
                     SceneControl.DisplayText3D(res.ToString(), Color.Black, coord);
@@ -823,8 +822,7 @@ namespace ResultModule
 
         private void ResultPage_Load(object sender, EventArgs e)
         {
-            if (Project.ResultData == null)
-                Project.ResultData = new ResultData();
+            scale = SceneControl.CreateScaleObject(0, 1, 2, "", "");
         }
     }   
 }

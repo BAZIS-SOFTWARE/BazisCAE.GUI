@@ -35,6 +35,8 @@ namespace TaskModule
         string activeTask  = String.Empty;
         public string SolverPath { get; set; }
 
+        public IPreProc PreProc { get; set; }
+
         //public MaterialDBData MatData { get; set; }
         //public FunctionDBData FunData { get; set; }
 
@@ -786,45 +788,14 @@ namespace TaskModule
         {
             var dataAr = taskStr;
 
-            if (arg2.DataName == "Материал" | arg2.DataName == "Материалы")
-            {
-                var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[0]);
-                var data = new MatData(dataAr) { Group = group };
-                Project.TaskData.Add(data);
-            }
+            var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[0]);
+            var data = Project.TaskData.Create(arg2.DataName, dataAr, group);
+            var valData = data as IValuableData;
 
-            else if (arg2.DataName == "Среда")
-            {
-                var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[1]);
-                var data = new MediaData(dataAr) { Group = group };
-                Project.TaskData.Add(data);
-            }
+            if (arg2.DataName == "Нагрев")
+                SetMFF(dataAr.Split(' ')[4], valData);
 
-            else if (arg2.DataName == "Нагрузка")
-            {
-                var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[0]);
-                var data = new LoadData(dataAr) { Group = group };
-                Project.TaskData.Add(data);
-            }
-
-            else if (arg2.DataName == "Нагрев")
-            {
-                var subAr = dataAr.Split(' ');
-                var group = Project.ModelData.GroupData.Find(subAr[1]);
-                dataAr = dataAr.Replace("*", "0");
-                var data = new HeatData(dataAr) { Group = group };
-
-                SetMFF(subAr[4], data);
-
-                Project.TaskData.Add(data);
-            }
-
-            else if (arg2.DataName == "Закрепления" | arg2.DataName == "Закрепление")
-            {
-                var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[0]);
-                var data = new ClampData(dataAr) { Group = group };
-                Project.TaskData.Add(data);
-            }
+            Project.TaskData.Add(data);          
 
             NavigatorControl.CreateChildNode("Данные", arg2.DataName, $"{arg2.DataName} : {taskStr}", "6.1");
         }
@@ -905,12 +876,6 @@ namespace TaskModule
         //    }
         //    return taskStr;
         //}
-
-        private void TaskPage_Load(object sender, EventArgs e)
-        {
-            if(Project.TaskData == null)
-                Project.TaskData = new TaskData();
-        }
 
         //public override bool LoadProjectData(string extFilter)
         //{

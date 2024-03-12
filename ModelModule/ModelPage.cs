@@ -1,5 +1,6 @@
 ﻿using BaseModule;
 using BaseModule.ToolStrips;
+using ModelControllerInterfaces.GmshController;
 using ModelInterfaces;
 using ModelModule.ToolStrips;
 using SceneInterface;
@@ -12,6 +13,7 @@ namespace ModelModule
 {
     public partial class ModelPage : BasePage
     {
+        public IGmshController GmshController { get; set; }
         public ModelPage() : base()
         {
             InitializeComponent();
@@ -92,6 +94,7 @@ namespace ModelModule
             gmshForm.Controls.Add(gmshControl);
             gmshControl.Dock = DockStyle.Fill;
             gmshControl.ObjectData = Project.ModelData.ObjectData;
+            gmshControl.GmshController = GmshController;
             gmshForm.Show();
             //ModelPresenter.Clear();//Подчищаем Presenter во избежании артефактов
         }
@@ -115,7 +118,7 @@ namespace ModelModule
             {
                 var scale = SceneControl.CreateScaleObject(arg2.Min, arg2.Max, 3, "", "");
                 SceneControl.HideGeometryObj("DisplaySceneScale");
-                SceneControl.DisplaySceneScale(scale, 70, 140);
+                SceneControl.DisplaySceneScale(scale);
                 foreach (var item in arg2)
                 {
                     var color = scale.GetValueColor(item.Value);

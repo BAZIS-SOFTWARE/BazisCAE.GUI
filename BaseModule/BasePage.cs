@@ -1013,8 +1013,9 @@ namespace BaseModule
                     var btn = (ToolStripButton)arg2.ClickedItem;
                     if (!btn.Checked)
                     {
-
-                        var edges = ModelController.BoundaryEdgesFinder.CreateBoundaryEdges(Project.ModelData);
+                        var surfElems = Project.ModelData.ObjectData.GetAllElements().Select(x => (ISurfaceElement)x);
+                        var linesNodes = ModelController.BoundaryEdgesFinder.Find(surfElems);
+                        var edges = ModelController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes,Project.ModelData);
                         var linePresenter = PresentersCreator.CreateLineObjectsPresenter(edges);
 
                         PresentObjectsToScene("Boundary", linePresenter);

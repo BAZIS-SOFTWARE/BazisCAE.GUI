@@ -34,31 +34,37 @@ namespace ResultModule
 
         public float Max
         {
+            get { return float.Parse(txbMax.Text); }
             set { txbMax.Text = value.ToString(); }
         }
 
         public float Min
         {
+            get { return float.Parse(txbMin.Text); }
             set { txbMin.Text = value.ToString(); }
         }
 
         public decimal Intervals
         {
+            get { return updIntervals.Value; }
             set { updIntervals.Value = value; }
         }
 
         public decimal Precision
         {
+            get { return updPrecision.Value; }
             set { updPrecision.Value = value; }
         }
 
         public int X_Coord
         {
+            get { return (int)upd_XCoord.Value; }
             set { upd_XCoord.Value = value; }
         }
 
         public int Y_Coord
         {
+            get { return (int)upd_YCoord.Value; }
             set { upd_YCoord.Value = value; }
         }
 

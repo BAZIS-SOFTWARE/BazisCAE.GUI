@@ -30,6 +30,15 @@ using BaseModule.Console;
 using Model.IO;
 using ModelController.ModelScenePresentator;
 using ModelControllerInterfaces;
+using BaseModule.Navigator;
+using ProjectInterfaces.IO;
+using Results.IO;
+using ModelInterfaces.MeshObjects;
+using ProjectInterfaces.Tasks;
+using ProjectInterfaces;
+using Results;
+using System.Threading.Tasks;
+using GmshApi.GmshController;
 
 namespace BazisGUI
 {
@@ -93,10 +102,13 @@ namespace BazisGUI
             DisconnectWithServer();
             serverConnection.RequestServer(activePage + " Отдать");
 
-            var module = CreateModule("Mesh");
+            module = CreateModule("Mesh");            
             module.ModelController = new ModelController.ModelController();
 
-            AddModule(module);
+            var meshModule = module as ModelPage;
+            meshModule.GmshController = new GmshController();
+
+            AddModule();
         }
 
         private void анализРезультатов_Click(object sender, EventArgs e)
@@ -108,11 +120,46 @@ namespace BazisGUI
             serverConnection.RequestServer(activePage + " Отдать");
 
             var module = CreateModule("Result");
-            module.ModelController = new ModelController.ModelController();
-            module.PresentersCreator.Add("Results", PresenterView.Surface);
 
-            AddModule(module);
+            var resultModule = module as ResultPage;
+
+            resultModule.ModelController = new ModelController.ModelController();
+            resultModule.PresentersCreator.Add("Results", PresenterView.Surface);
+
+            resultModule.LoadResultsEvent += ResultModule_LoadResultsEvent;
+
+            AddModule();
         }
+
+        private async void ResultModule_LoadResultsEvent(string fileName, bool mergeRes, bool addRes)
+        {
+
+            var dbExtension = System.IO.Path.GetExtension(fileName);
+            var pureFileName = System.IO.Path.GetFileNameWithoutExtension(fileName);
+
+            if (dbExtension == ".db")
+                project.ResultData.Loader = new LoadResultsFileDB();
+            else
+                project.ResultData.Loader = new LoadResultsFileBrfTextFormat();
+
+            var resultModule = module as ResultPage;
+
+            Enabled = false;
+            if (!addRes)
+                project.ResultData.Clear();
+
+            var res = resultModule.LoadResultsAsync(fileName);
+            await res;
+
+            if (mergeRes)
+                await resultModule.MergeResults(res.Result);
+
+            Enabled = true;
+
+            project.ResultData.AddRange(res.Result);
+        }
+
+        
 
         private void сварка_Click(object sender, EventArgs e)
         {
@@ -124,7 +171,11 @@ namespace BazisGUI
             var module = CreateModule("Weld");
             module.ModelController = new ModelController.ModelController();
 
-            AddModule(module);
+            var weldingPage = module as TaskPage;
+
+            weldingPage.PreProc = new PreProc();
+
+            AddModule();
         }
 
         private void термообработка_Click(object sender, EventArgs e)
@@ -139,11 +190,15 @@ namespace BazisGUI
                 var module = CreateModule("HeatTreatment");
                 module.ModelController = new ModelController.ModelController();
 
-                AddModule(module);
+                var htPage = module as TaskPage;
+
+                htPage.PreProc = new PreProc();
+
+                AddModule();
             }
         }
 
-        private void AddModule(BasePage module)
+        private void AddModule()
         {
             var ver = Assembly.GetExecutingAssembly().GetName().Version;
             var verStr = "Версия " + $"{ver.Major}.{ver.Minor}.{ver.Build}";

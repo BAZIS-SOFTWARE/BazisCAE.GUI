@@ -9,11 +9,10 @@ using TaskModule.BasicAdvisorControls.BasicControls;
 using Newtonsoft.Json;
 using System.Threading;
 using System.Collections.Generic;
-using Tasks.TaskParameters;
 using ProjectInterfaces.Tasks;
 using System.Text.RegularExpressions;
 using System.Linq;
-using ProjectInterfaces;
+using TasksParameters;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
