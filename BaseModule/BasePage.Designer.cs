@@ -34,10 +34,6 @@ namespace BaseModule
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BasePage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.lblInputCmd = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
-            this.webPageLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.navigator = new BaseModule.Navigator.NavigatorControl();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -48,10 +44,8 @@ namespace BaseModule
             this.viewToolStrip = new BaseModule.ToolStrips.ViewToolStrip();
             this.displayToolStrip = new BaseModule.ToolStrips.DisplayToolStrip();
             this.selectToolStrip = new BaseModule.ToolStrips.SelectToolStrip();
-            this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
-            this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -65,16 +59,12 @@ namespace BaseModule
             // toolStripContainer
             // 
             // 
-            // toolStripContainer.BottomToolStripPanel
-            // 
-            this.toolStripContainer.BottomToolStripPanel.Controls.Add(this.statusStrip);
-            // 
             // toolStripContainer.ContentPanel
             // 
             this.toolStripContainer.ContentPanel.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainer1);
             this.toolStripContainer.ContentPanel.Padding = new System.Windows.Forms.Padding(5);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1318, 601);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1318, 623);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer.Name = "toolStripContainer";
@@ -85,50 +75,6 @@ namespace BaseModule
             // toolStripContainer.TopToolStripPanel
             // 
             this.toolStripContainer.TopToolStripPanel.BackColor = System.Drawing.SystemColors.Control;
-            // 
-            // statusStrip
-            // 
-            this.statusStrip.BackColor = System.Drawing.SystemColors.Control;
-            this.statusStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblInputCmd,
-            this.lblVersion,
-            this.webPageLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 0);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1318, 22);
-            this.statusStrip.TabIndex = 0;
-            // 
-            // lblInputCmd
-            // 
-            this.lblInputCmd.AutoSize = false;
-            this.lblInputCmd.BackColor = System.Drawing.SystemColors.Control;
-            this.lblInputCmd.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
-            this.lblInputCmd.Margin = new System.Windows.Forms.Padding(5, 3, 0, 2);
-            this.lblInputCmd.Name = "lblInputCmd";
-            this.lblInputCmd.Size = new System.Drawing.Size(1097, 17);
-            this.lblInputCmd.Spring = true;
-            this.lblInputCmd.Text = "Начните работу с загрузки проекта или импорта сеточной модели";
-            this.lblInputCmd.TextChanged += new System.EventHandler(this.lblInputCmd_TextChanged);
-            // 
-            // lblVersion
-            // 
-            this.lblVersion.AutoSize = false;
-            this.lblVersion.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(100, 17);
-            // 
-            // webPageLabel
-            // 
-            this.webPageLabel.BackColor = System.Drawing.SystemColors.Control;
-            this.webPageLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.webPageLabel.IsLink = true;
-            this.webPageLabel.LinkColor = System.Drawing.Color.OrangeRed;
-            this.webPageLabel.Name = "webPageLabel";
-            this.webPageLabel.Size = new System.Drawing.Size(101, 17);
-            this.webPageLabel.Text = "www.bazisnet.ru";
-            this.webPageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.webPageLabel.Click += new System.EventHandler(this.WebPageLabel_Click);
             // 
             // splitContainer1
             // 
@@ -145,7 +91,7 @@ namespace BaseModule
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1308, 591);
+            this.splitContainer1.Size = new System.Drawing.Size(1308, 613);
             this.splitContainer1.SplitterDistance = 389;
             this.splitContainer1.SplitterIncrement = 15;
             this.splitContainer1.SplitterWidth = 5;
@@ -164,7 +110,7 @@ namespace BaseModule
             this.navigator.Location = new System.Drawing.Point(0, 0);
             this.navigator.Name = "navigator";
             this.navigator.ProjectInfoIndex = 0;
-            this.navigator.Size = new System.Drawing.Size(387, 591);
+            this.navigator.Size = new System.Drawing.Size(387, 613);
             this.navigator.TabIndex = 0;
             this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
             this.navigator.SelectGroupEvent += new System.Action<string>(this.navigator_SelectGroupEvent);
@@ -199,8 +145,8 @@ namespace BaseModule
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
-            this.splitContainer2.Size = new System.Drawing.Size(914, 591);
-            this.splitContainer2.SplitterDistance = 449;
+            this.splitContainer2.Size = new System.Drawing.Size(914, 613);
+            this.splitContainer2.SplitterDistance = 465;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
             this.splitContainer2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Paint);
@@ -229,7 +175,7 @@ namespace BaseModule
             this.sceneControl.SelectionColor = System.Drawing.Color.Green;
             this.sceneControl.ShadowAngle = 0F;
             this.sceneControl.ShowSurfaceBackEdges = false;
-            this.sceneControl.Size = new System.Drawing.Size(914, 448);
+            this.sceneControl.Size = new System.Drawing.Size(914, 464);
             this.sceneControl.TabIndex = 0;
             this.sceneControl.TitleColor = System.Drawing.Color.Black;
             this.sceneControl.TitleText = "";
@@ -251,7 +197,7 @@ namespace BaseModule
             this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.consoleControl.Location = new System.Drawing.Point(0, 0);
             this.consoleControl.Name = "consoleControl";
-            this.consoleControl.Size = new System.Drawing.Size(914, 137);
+            this.consoleControl.Size = new System.Drawing.Size(914, 143);
             this.consoleControl.TabIndex = 4;
             this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
             // 
@@ -321,13 +267,9 @@ namespace BaseModule
             this.Name = "BasePage";
             this.Size = new System.Drawing.Size(1318, 648);
             this.Load += new System.EventHandler(this.BasePage_Load);
-            this.toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
-            this.toolStripContainer.BottomToolStripPanel.PerformLayout();
             this.toolStripContainer.ContentPanel.ResumeLayout(false);
             this.toolStripContainer.ResumeLayout(false);
             this.toolStripContainer.PerformLayout();
-            this.statusStrip.ResumeLayout(false);
-            this.statusStrip.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -343,14 +285,9 @@ namespace BaseModule
         #endregion
 
         private System.Windows.Forms.ToolStripContainer toolStripContainer;
-        private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.ToolStripStatusLabel lblInputCmd;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.ToolStripStatusLabel webPageLabel;
         private ConsoleControl consoleControl;
-        //private Scene.SceneControl sceneControl;
-        private System.Windows.Forms.ToolStripStatusLabel lblVersion;
         DisplayToolStrip displayToolStrip;
         SelectToolStrip selectToolStrip;
         StandartToolStrip standartToolStrip;

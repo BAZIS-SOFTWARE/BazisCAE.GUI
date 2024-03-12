@@ -218,11 +218,6 @@ namespace BaseModule
             return видToolStripMenuItem;
         }
 
-        public void SetVersion(string version)
-        {
-            lblVersion.Text = version;
-        }
-
         public void SearchControl<T>(Control ctrl, List<T> controls) where T : Control
         {
             // Работаем только с элементами искомого типа   
@@ -249,11 +244,6 @@ namespace BaseModule
             gr.CopyFromScreen(pos, Point.Empty, size);
 
             bmpPicture.Save($@"{Project.Path}\{fileName}.bmp");
-        }
-
-        public void PrintCommand(string message)
-        {
-            lblInputCmd.Text = message;
         }
 
         public void PresentObjectsToScene(string objsName, IObjsPresenter presenter)
@@ -416,19 +406,19 @@ namespace BaseModule
                         var form = new Form() { Name = "selectForm", Text = "Выбрать", ShowIcon = false, Size = new Size(300, 300) };
                         form.TopMost = true;
 
-                        form.FormClosing += (s1, s2) => { btn.Checked = false; lblInputCmd.Text = ""; };
+                        form.FormClosing += (s1, s2) => { btn.Checked = false; };
                         var selectionControl = new SelectionSet() { Dock = DockStyle.Fill };
                         selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
                         selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
                         selectionControl.SelectNodes += (s1, s2) =>
                         {
                             selectStrip.SelectObjectsType = ObjType.Узел;
-                            lblInputCmd.Text = "Выберите два узла для направления или три для плоскости";
+                            consoleControl.PrintInfo("Выберите два узла для направления или три для плоскости",Color.Black);
                         };
                         selectionControl.SelectElements += (s1, s2) =>
                         {
                             selectStrip.SelectObjectsType = ObjType.Элемент2D;
-                            lblInputCmd.Text = "Выберите плоский элемент \"2D\"";
+                            consoleControl.PrintInfo("Выберите плоский элемент \"2D\"", Color.Black);
                         };
 
                         form.Controls.Add(selectionControl);
@@ -538,7 +528,6 @@ namespace BaseModule
                     form.FormClosed += (s1, s2) =>
                     {
                         btn.Checked = false;
-                        lblInputCmd.Text = "";
                         sceneControl.HideAllGeometryObjs();
                         sceneControl.HideDisplayText3D();
                         sceneControl.DisplayObjects();
@@ -616,7 +605,6 @@ namespace BaseModule
                     form.FormClosed += (ar1, ar2) =>
                     {
                         btn.Checked = false;
-                        lblInputCmd.Text = "";
 
                         sceneControl.DeleteVBObjects("crossSection");
 
@@ -691,22 +679,22 @@ namespace BaseModule
             {
                 case MeasureKind.DistanceNodeToNode:
                     selectToolStrip.SelectObjectsType = ObjType.Узел;
-                    lblInputCmd.Text = "Выберите два узла";
+                    consoleControl.PrintInfo("Выберите два узла",Color.Black);
                     break;
                 case MeasureKind.DistanceNodeToPlane:
-                    lblInputCmd.Text = "Создайте поверхность и выберите узел";
+                    consoleControl.PrintInfo("Создайте поверхность и выберите узел", Color.Black);
                     break;
                 case MeasureKind.Path:
                     selectToolStrip.SelectObjectsType = ObjType.Узел;
-                    lblInputCmd.Text = "Выберите узлы";
+                    consoleControl.PrintInfo("Выберите узлы", Color.Black);
                     break;
                 case MeasureKind.Square:
                     selectToolStrip.SelectObjectsType = ObjType.Элемент2D;
-                    lblInputCmd.Text = "Выберите элементы 2D или поверхности";
+                    consoleControl.PrintInfo("Выберите элементы 2D или поверхности", Color.Black);
                     break;
                 case MeasureKind.Volume:
                     selectToolStrip.SelectObjectsType = ObjType.Элемент3D;
-                    lblInputCmd.Text = "Выберите элементы 3D";
+                    consoleControl.PrintInfo("Выберите элементы 3D", Color.Black);
                     break;
                 default:
                     break;
@@ -840,7 +828,6 @@ namespace BaseModule
                 Invoke(new Action(() =>
                 {
                     ConsoleControl.PrintInfo("Операция отменена", Color.Black);
-                    PrintCommand("");
                 }));
             });
 
@@ -866,7 +853,6 @@ namespace BaseModule
                     Invoke(new Action(() =>
                     {
                         ConsoleControl.PrintInfo($"Выбран узел {node.Number}", Color.Green);
-                        PrintCommand("");
                     }));
                     return new Tuple<bool, object>(true, node);
                 }
@@ -884,7 +870,6 @@ namespace BaseModule
                 Invoke(new Action(() =>
                 {
                     ConsoleControl.PrintInfo("Операция отменена", Color.Black);
-                    PrintCommand("");
                 }));
             });
             var message = "Задайте поверхность, выбрав три узла, и нажмите на кнопку Enter или нажмите кнопку ESC";
@@ -911,7 +896,6 @@ namespace BaseModule
                     Invoke(new Action(() =>
                     {
                         ConsoleControl.PrintInfo("Задана плоскость", Color.Green);
-                        PrintCommand("");
                     }));
                     return new Tuple<bool, object>(true, plane);
                 }
@@ -1109,7 +1093,7 @@ namespace BaseModule
         {
             var resObject = new object();
             PressedKey = Keys.None;
-            Invoke(new Action(() => { lblInputCmd.Text = cmdMessage; }));
+            Invoke(new Action(() => { consoleControl.PrintInfo(cmdMessage,Color.Black); }));
             await System.Threading.Tasks.Task.Run(() =>
             {
                 while (true)
@@ -1333,11 +1317,6 @@ namespace BaseModule
             sceneControl.DisplayObjects();
         }
 
-        private void WebPageLabel_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(webPageLabel.Text); //где path это путь к сайту
-        }
-
 
         public virtual void UnBlockInterface(bool status)
         {
@@ -1350,10 +1329,10 @@ namespace BaseModule
             //foreach (ToolStripButton item in toolStr.Items)
             //    item.Enabled = true;
 
-            var items = menuItems.Find(x => x.Name == "файлToolStripMenuItem");
+            //var items = menuItems.Find(x => x.Name == "файлToolStripMenuItem");
 
-            items.DropDownItems[3].Enabled = status;
-            items.DropDownItems[4].Enabled = status;
+            //items.DropDownItems[3].Enabled = status;
+            //items.DropDownItems[4].Enabled = status;
 
             //foreach (var item in items.DropDownItems)
             //    if (item is ToolStripMenuItem tsmItem)
@@ -1363,9 +1342,6 @@ namespace BaseModule
 
         private void BasePage_Load(object sender, EventArgs e)
         {
-            if (Project.ModelData.ObjectData.Count(ObjType.Объект) > 0)
-                lblInputCmd.Text = "";
-
             navigator.NavigatorPanelCollapseEvent += () => { splitContainer1.Panel1Collapsed = true; };
             sceneControl.SceneControlExpandEvent += () =>
             {
@@ -1470,7 +1446,6 @@ namespace BaseModule
                         {
                             PresentProjectOnTree();
                             consoleControl.PrintInfo("Узлы слиты", Color.Green);
-                            lblInputCmd.Text = "";
                         }));
                         return new Tuple<bool, object>(true,new object());
                     });
@@ -1480,7 +1455,6 @@ namespace BaseModule
                         Invoke(new Action(() =>
                         {
                             consoleControl.PrintInfo("Операция отменена", Color.Black);
-                            lblInputCmd.Text = "";
                         }));
                     });
                     await AsyncMethodContainer(actConfirm, actBreak, $"Нажмите {"Enter"} для слияния, {"Esc"} для отмены");
@@ -1523,20 +1497,6 @@ namespace BaseModule
                 }
             }
             return selections;
-        }
-
-        
-
-        private void lblInputCmd_TextChanged(object sender, EventArgs e)
-        {
-            SetLblInputCmb();
-        }
-
-        public void SetLblInputCmb()
-        {
-            var messageSize = CreateGraphics().MeasureString(lblInputCmd.Text, Font);
-            var size = (Width - (int)messageSize.Width) / 2;
-            lblInputCmd.Width = size;
         }
 
         private void navigator_DelGroupEvent(int obj)
@@ -1614,7 +1574,6 @@ namespace BaseModule
     
                     Invoke(new Action(() => {
                         consoleControl.PrintInfo("Группа изменена успешно", Color.Green);
-                        PrintCommand("");
                     }));
                     return new Tuple<bool, object>(true, new object());
                 }
@@ -1625,7 +1584,6 @@ namespace BaseModule
                 Invoke(new Action(() =>
                 {
                     consoleControl.PrintInfo("Операция отменена", Color.Black);
-                    PrintCommand("");
                 }));
             });
 

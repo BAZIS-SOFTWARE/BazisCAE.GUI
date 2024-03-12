@@ -46,11 +46,11 @@ namespace TaskModule
         {
             InitializeComponent();
 
-            var list = new List<StatusStrip>();
-            SearchControl(this, list);          
+            //var list = new List<StatusStrip>();
+            //SearchControl(this, list);          
 
-            solverStatusLabel = new ToolStripStatusLabel() { Name = "solverStatus"};
-            list[0].Items.Insert(1,solverStatusLabel);
+            //solverStatusLabel = new ToolStripStatusLabel() { Name = "solverStatus"};
+            //list[0].Items.Insert(1,solverStatusLabel);
 
             var taskNode = new TreeNode("Данные", 1, 1) { Name = "Данные", Tag = "6" };
             NavigatorControl.TreeView.Nodes.Add(taskNode);

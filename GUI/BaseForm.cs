@@ -22,22 +22,12 @@ using LicenseInfo;
 using ClientGUI;
 using BazisGUI.SettingsControls;
 using Project.IO;
-using ModelInterfaces;
 using Model;
 using Tasks;
 using Results.ResultsData;
-using BaseModule.Console;
 using Model.IO;
-using ModelController.ModelScenePresentator;
 using ModelControllerInterfaces;
-using BaseModule.Navigator;
-using ProjectInterfaces.IO;
 using Results.IO;
-using ModelInterfaces.MeshObjects;
-using ProjectInterfaces.Tasks;
-using ProjectInterfaces;
-using Results;
-using System.Threading.Tasks;
 using GmshApi.GmshController;
 
 namespace BazisGUI
@@ -119,7 +109,7 @@ namespace BazisGUI
             DisconnectWithServer();
             serverConnection.RequestServer(activePage + " Отдать");
 
-            var module = CreateModule("Result");
+            module = CreateModule("Result");
 
             var resultModule = module as ResultPage;
 
@@ -168,7 +158,7 @@ namespace BazisGUI
             DisconnectWithServer();
             serverConnection.RequestServer(activePage + " Отдать");
 
-            var module = CreateModule("Weld");
+            module = CreateModule("Weld");
             module.ModelController = new ModelController.ModelController();
 
             var weldingPage = module as TaskPage;
@@ -180,30 +170,25 @@ namespace BazisGUI
 
         private void термообработка_Click(object sender, EventArgs e)
         {
-            if (project != null)
-            {
-                CloseActivePageChildControls();
 
-                DisconnectWithServer();
-                serverConnection.RequestServer(activePage + " Отдать");
+            CloseActivePageChildControls();
 
-                var module = CreateModule("HeatTreatment");
-                module.ModelController = new ModelController.ModelController();
+            DisconnectWithServer();
+            serverConnection.RequestServer(activePage + " Отдать");
 
-                var htPage = module as TaskPage;
+            module = CreateModule("HeatTreatment");
+            module.ModelController = new ModelController.ModelController();
 
-                htPage.PreProc = new PreProc();
+            var htPage = module as TaskPage;
 
-                AddModule();
-            }
+            htPage.PreProc = new PreProc();
+
+            AddModule();
+
         }
 
         private void AddModule()
         {
-            var ver = Assembly.GetExecutingAssembly().GetName().Version;
-            var verStr = "Версия " + $"{ver.Major}.{ver.Minor}.{ver.Build}";
-            module.SetVersion(verStr);
-
             SetGeneralSettings(module);
 
             toolStripContainer.ContentPanel.Controls.Add(module);
@@ -212,7 +197,6 @@ namespace BazisGUI
             module.SceneInitialization();
             module.PresentProjectOnTree();
             module.PresentModelOnSelectToolStrip();
-            module.SetLblInputCmb();
 
             activeMenuItems.Clear();
 
@@ -544,7 +528,10 @@ namespace BazisGUI
 
         private void BaseForm_Load(object sender, EventArgs e)
         {
-            //KillAlreadyLaunchdExamples();
+            var ver = Assembly.GetExecutingAssembly().GetName().Version;
+            var verStr = "Версия " + $"{ver.Major}.{ver.Minor}.{ver.Build}";
+            lblVersion.Text = verStr;
+
             LoadConfig();
         }
 
@@ -664,6 +651,8 @@ namespace BazisGUI
 
                 project.Load();
 
+                lblStatus.Text = $"{project.Path}\\{project.Name}";
+
                 модулиMenuItem.Enabled = true;
             }
             catch (Exception ex)
@@ -682,6 +671,8 @@ namespace BazisGUI
                     return;
                 module.SaveAsProjectData(saveDialog.FileName);
             }
+
+            lblStatus.Text = $"{project.Path}\\{project.Name}";
             module.PresentProjectOnTree();
         }
 
@@ -723,6 +714,8 @@ namespace BazisGUI
 
                 project.ModelData.Load(dialog.FileName);
 
+                lblStatus.Text = $"{project.Path}\\{project.Name}";
+
                 модулиMenuItem.Enabled = true;
             }
 
@@ -736,6 +729,11 @@ namespace BazisGUI
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void webPageLabel_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(webPageLabel.Text); //где path это путь к сайту
         }
     }
 }
