@@ -67,6 +67,7 @@ namespace ModelModule
 
         private void LoadMeshControl()
         {
+            SceneControl.IsBlending = false;//Прозрачность пока больше мешает
             var gmshControl = new GmshControl();
             var gmshForm = new Form()
             {
