@@ -593,7 +593,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             }
         }
 
-        private void dataGridView_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        private void DataGridView_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
             if (e.Column.Index == (int)Column.settings)
             {
@@ -604,17 +604,13 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 var fstrAr = fTask.Split('_');
                 var sstrAr = sTask.Split('_');
 
-                var fInd = int.Parse(fstrAr[1]);
-                var sInd = int.Parse(sstrAr[1]);
+                var numbComp = int.Parse(fstrAr[1]).CompareTo(int.Parse(sstrAr[1]));
 
-                if (fInd > sInd)
-                    e.SortResult = 1;
-                else if (fInd < sInd)
-                    e.SortResult = -1;
+                if (numbComp != 0)
+                    e.SortResult = numbComp;
+
                 else
-                {
                     e.SortResult = String.Compare(sTask, fTask);
-                }
             }
             else e.Handled = false;
 
