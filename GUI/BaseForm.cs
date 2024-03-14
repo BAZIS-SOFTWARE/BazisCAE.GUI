@@ -29,6 +29,10 @@ using Model.IO;
 using ModelControllerInterfaces;
 using Results.IO;
 using GmshApi.GmshController;
+using BaseModule.Console;
+using ProjectInterfaces;
+using System.Threading.Tasks;
+using ProjectInterfaces.IO;
 
 namespace BazisGUI
 {
@@ -37,7 +41,7 @@ namespace BazisGUI
     {
         //private System.Windows.Forms.Timer connectTimer = new System.Windows.Forms.Timer();
         ProjectData project;
-        private string activePage;
+        //private string activePage;
         private List<ToolStripMenuItem> activeMenuItems = new List<ToolStripMenuItem>();
         BasePage module;
 
@@ -50,7 +54,7 @@ namespace BazisGUI
             Lighting = true
         };
 
-        private Thread serverConnectionThread;
+        private Thread serverConnectionPing;
 
         ClientController serverConnection { get; set; }
 
@@ -58,7 +62,7 @@ namespace BazisGUI
         {
             InitializeComponent();
 
-            activePage = "none";
+            //activePage = "none";
 
             GetServerConnection();
         }
@@ -87,12 +91,9 @@ namespace BazisGUI
 
         private void построениеСетки_Click(object sender, EventArgs e)
         {
-            CloseActivePageChildControls();
-
             DisconnectWithServer();
-            serverConnection.RequestServer(activePage + " Отдать");
 
-            module = CreateModule("Mesh");            
+            module = CreateModule("Mesh");
             module.ModelController = new ModelController.ModelController();
 
             var meshModule = module as ModelPage;
@@ -101,13 +102,20 @@ namespace BazisGUI
             AddModule();
         }
 
+        private void DisconnectWithServer()
+        {
+            if (module != null)
+            {
+                CloseActivePageChildControls();
+
+                StopServerPing();
+                serverConnection.RequestServer(module.Name + " Отдать");
+            }
+        }
+
         private void анализРезультатов_Click(object sender, EventArgs e)
         {
-
-            CloseActivePageChildControls();
-
             DisconnectWithServer();
-            serverConnection.RequestServer(activePage + " Отдать");
 
             module = CreateModule("Result");
 
@@ -153,10 +161,7 @@ namespace BazisGUI
 
         private void сварка_Click(object sender, EventArgs e)
         {
-            CloseActivePageChildControls();
-
             DisconnectWithServer();
-            serverConnection.RequestServer(activePage + " Отдать");
 
             module = CreateModule("Weld");
             module.ModelController = new ModelController.ModelController();
@@ -170,11 +175,7 @@ namespace BazisGUI
 
         private void термообработка_Click(object sender, EventArgs e)
         {
-
-            CloseActivePageChildControls();
-
             DisconnectWithServer();
-            serverConnection.RequestServer(activePage + " Отдать");
 
             module = CreateModule("HeatTreatment");
             module.ModelController = new ModelController.ModelController();
@@ -208,24 +209,24 @@ namespace BazisGUI
 
             tableLayoutPanel.Hide();
 
-            serverConnection.RequestServer(activePage + " Взять");
+            serverConnection.RequestServer(module.Name + " Взять");
 
             if (serverConnection.Answer == "можно")
-                StartLicensing(activePage, module);
+                StartLicensing();
             else StartLisenceForm();
 
         }
 
         private BasePage CreateModule(string moduleName)
         {
-            activePage = moduleName;
+            //activePage = moduleName;
 
             if (moduleName == "Weld")
             {
                 //модулиMenuItem.Image = сварка.Image;
                 модулиMenuItem.Text = "Сварка";
 
-                var taskPage = new WeldingPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
+                var taskPage = new WeldingPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
                 taskPage.SolverPath = settingsConfig.SolverPath;
 
                 return taskPage;
@@ -236,7 +237,7 @@ namespace BazisGUI
                 //модулиMenuItem.Image = термообработка.Image;
                 модулиMenuItem.Text = "Термообработка";
 
-                var taskPage = new HeatTreatmentPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
+                var taskPage = new HeatTreatmentPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
                 taskPage.SolverPath = settingsConfig.SolverPath;
 
                 return taskPage;
@@ -246,20 +247,20 @@ namespace BazisGUI
             {
                 //модулиMenuItem.Image = анализРезультатов.Image;
                 модулиMenuItem.Text = "Результаты";
-                return new ResultPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
+                return new ResultPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
             }
 
             else
             {
                 //модулиMenuItem.Image = построениеСетки.Image;
                 модулиMenuItem.Text = "Сетка";
-                return new ModelPage() { Dock = DockStyle.Fill, Name = activePage, Project = project };
+                return new ModelPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
             }
         }
 
         private void CloseActivePageChildControls()
         {
-            toolStripContainer.ContentPanel.Controls.RemoveByKey(activePage);
+            toolStripContainer.ContentPanel.Controls.RemoveByKey(module.Name);
 
             var openForms = Application.OpenForms.Cast<Form>().ToArray();
 
@@ -273,13 +274,13 @@ namespace BazisGUI
                 menuStrip.Items.Remove(activeMenuItem);
         }
 
-        private void StartLicensing(string moduleName, BasePage module)
+        private void StartLicensing()
         {
             //сохранитьToolStripMenuItem.Enabled = true;
             //сохранитькакToolStripMenuItem.Enabled = true;
             module.UnBlockInterface(true);
 
-            serverConnectionThread = new Thread(() =>
+            serverConnectionPing = new Thread(() =>
             {
                 try
                 {
@@ -287,7 +288,7 @@ namespace BazisGUI
                     {
                         lock (serverConnection)
                         {
-                            serverConnection.RequestServer(moduleName + " Работа");
+                            serverConnection.RequestServer(module.Name + " Работа");
                             if(serverConnection.Answer != "Работай")
                             {
                                 throw new AccidentServerDisconnectionException();  
@@ -311,22 +312,22 @@ namespace BazisGUI
                     }
                 }
             });
-            serverConnectionThread.Start();
+            serverConnectionPing.Start();
 
         }
 
-        private void DisconnectWithServer()
+        private void StopServerPing()
         {
-            if (serverConnectionThread != null)
+            if (serverConnectionPing != null)
             {
                 while (true)
                 {
-                    if (serverConnectionThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin |
-                        serverConnectionThread.ThreadState == System.Threading.ThreadState.Running                       
+                    if (serverConnectionPing.ThreadState == System.Threading.ThreadState.WaitSleepJoin |
+                        serverConnectionPing.ThreadState == System.Threading.ThreadState.Running                       
                         )
-                        serverConnectionThread.Abort();
-                    if (serverConnectionThread.ThreadState == System.Threading.ThreadState.Aborted |
-                        serverConnectionThread.ThreadState == System.Threading.ThreadState.Stopped
+                        serverConnectionPing.Abort();
+                    if (serverConnectionPing.ThreadState == System.Threading.ThreadState.Aborted |
+                        serverConnectionPing.ThreadState == System.Threading.ThreadState.Stopped
                         )
                         break;
                 }
@@ -344,7 +345,7 @@ namespace BazisGUI
 
         private void BaseForm_KeyDown(object sender, KeyEventArgs e)
         {
-            var controls = toolStripContainer.ContentPanel.Controls.Find(activePage,false);
+            var controls = toolStripContainer.ContentPanel.Controls.Find(module.Name,false);
 
             if(controls.Length > 0)
             {
@@ -426,18 +427,18 @@ namespace BazisGUI
 
             control.LicenseActionEvent += (ar1,ar2) => 
             {
-                var controls = toolStripContainer.ContentPanel.Controls.Find(activePage, false);
-                if(controls.Length > 0)
+                //var controls = toolStripContainer.ContentPanel.Controls.Find(activePage, false);
+                if(module != null)
                 {
                     serverConnection = new ClientController(ar1, ar2);
-                    serverConnection.RequestServer(activePage + " Взять");
+                    serverConnection.RequestServer(module.Name + " Взять");
 
                     control.LabelAnswer = serverConnection.Answer;
 
                     if (serverConnection.Answer == "можно")
                     {
-                        var page = (BasePage)controls[0];
-                        StartLicensing(activePage, page);
+                        //var page = module;
+                        StartLicensing();
                     }
                 }
             };
@@ -457,58 +458,58 @@ namespace BazisGUI
                 settingsConfig = ar;
             };
 
-            var controls = toolStripContainer.ContentPanel.Controls.Find(activePage, false);
+            //var controls = toolStripContainer.ContentPanel.Controls.Find(activePage, false);
 
-            if (controls.Length > 0)
+            if (module != null)
             {
-                var basePage = (BasePage)controls[0];
-                settings.SetSelectionGroupColorEvent += (ar) => basePage.SelectionGroupColor = ar;
-                settings.SetSelectionObjectColorEvent += (ar) => 
-                basePage.SceneControl.SelectionColor = ar;
+                //var basePage = (BasePage)controls[0];
+                settings.SetSelectionGroupColorEvent += (ar) => module.SelectionGroupColor = ar;
+                settings.SetSelectionObjectColorEvent += (ar) =>
+                module.SceneControl.SelectionColor = ar;
 
                 settings.SetSolverPathEvent += (ar) =>
                 {
-                    if (basePage is TaskPage taskPage)
+                    if (module is TaskPage taskPage)
                         taskPage.SolverPath = ar;
                 };
                 settings.SetBackGroundColorEvent += (ar) =>
                 {
-                    basePage.SceneControl.BackGroundColor = ar;
-                    basePage.SceneControl.DisplayObjects();
+                    module.SceneControl.BackGroundColor = ar;
+                    module.SceneControl.DisplayObjects();
                 };
  
 
                 settings.SetLightingEvent += (ar) =>
                 {
-                    basePage.SceneControl.IsLighting = ar;
-                    basePage.SceneControl.DisplayObjects();
+                    module.SceneControl.IsLighting = ar;
+                    module.SceneControl.DisplayObjects();
                 };
 
                 settings.SetTransparencyEvent += (ar) =>
                 {
-                    basePage.SceneControl.IsBlending = ar;
-                    basePage.SceneControl.DisplayObjects();
+                    module.SceneControl.IsBlending = ar;
+                    module.SceneControl.DisplayObjects();
                 };
 
                 settings.SetLightingIntensityEvent += (ar) =>
                 {
-                    basePage.SceneControl.LightAttenuation = 1 - ar / 100.0f;
-                    basePage.SceneControl.DisplayObjects();
+                    module.SceneControl.LightAttenuation = 1 - ar / 100.0f;
+                    module.SceneControl.DisplayObjects();
                 };
  
 
                 settings.SetLighterPositionEvent += (ar) =>
                 {
-                    var kx = (float)(basePage.SceneControl.SceneWidth / settings.Width);
-                    var ky = (float)(basePage.SceneControl.SceneHeight / settings.Height);
+                    var kx = (float)(module.SceneControl.SceneWidth / settings.Width);
+                    var ky = (float)(module.SceneControl.SceneHeight / settings.Height);
 
                     var x = ar.X * kx;
                     var y = ar.Y * ky;
 
-                    basePage.SceneControl.LightTranslateX = x;
-                    basePage.SceneControl.LightTranslateY = y;
+                    module.SceneControl.LightTranslateX = x;
+                    module.SceneControl.LightTranslateY = y;
 
-                    basePage.SceneControl.DisplayObjects();
+                    module.SceneControl.DisplayObjects();
                 };
             }
                  
@@ -577,12 +578,12 @@ namespace BazisGUI
 
         private void BaseForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (serverConnectionThread != null)
+            if (serverConnectionPing != null)
             {
-                serverConnectionThread.Abort();
+                serverConnectionPing.Abort();
 
                 while (true)
-                    if (!serverConnectionThread.IsAlive)
+                    if (!serverConnectionPing.IsAlive)
                         break;
             }
         }
@@ -628,7 +629,7 @@ namespace BazisGUI
             MessageBox.Show("Создан новый проект");
         }
 
-        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -649,7 +650,7 @@ namespace BazisGUI
                 project.Loader = new LoadProjectFromTextFormat();
                 project.Saver = new SaveProjectTextFormat();
 
-                project.Load();
+                await LoadProjectAsync();
 
                 lblStatus.Text = $"{project.Path}\\{project.Name}";
 
@@ -659,6 +660,23 @@ namespace BazisGUI
             {
                 MessageBox.Show(ex.Message, "Ошибка");
             }
+        }
+
+        public async Task LoadProjectAsync()
+        {
+            var res = new List<IResult>();
+            await Task.Run(new Action(() =>
+            {
+                project.Loader.LoadEvent += (ar1, ar2) =>
+                {
+                    Invoke(new Action(() =>
+                    {
+                        lblStatus.Text = ar2.Message;
+                    }));
+                };
+
+                project.Load();           
+            }));
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)

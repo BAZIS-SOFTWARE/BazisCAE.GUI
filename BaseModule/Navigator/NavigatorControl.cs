@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -362,24 +363,6 @@ namespace BaseModule.Navigator
             //treeView.Nodes["объекты"].Nodes.Remove(treeView.SelectedNode);
         }
 
-        //private void DelObjects(TreeNode treeNode)
-        //{
-        //    DelObjectsEvent?.Invoke(treeNode.Name);
-
-        //    var groupNodes = treeView.Nodes["группыОбъектов"].Nodes.Cast<TreeNode>().
-        //        Where(x => x.Name == treeNode.Name).ToArray();
-
-        //    foreach (var node in groupNodes)
-        //    {
-        //        var index = treeView.Nodes["группыОбъектов"].Nodes.IndexOf(node);
-        //        DelGroupEvent?.Invoke(index);
-
-        //        DeleteTaskDataNodes(node);
-
-        //        treeView.Nodes["группыОбъектов"].Nodes.RemoveAt(index);
-        //    }
-        //}
-
         public void InfoGroup_Click(object sender, EventArgs e)
         {
             var groupIndex = treeView.SelectedNode.Index;
@@ -404,9 +387,29 @@ namespace BaseModule.Navigator
 
         private void grbNavigator_Paint(object sender, PaintEventArgs e)
         {
+            PaintHeaderRectangle(e);
             PaintCloseRectangle(e);
-            PaintLine(e);
             PaintName(e);
+        }
+
+        private void PaintHeaderRectangle(PaintEventArgs e)
+        {
+            var locRect = new Point(0, 0);
+
+            var linGrBrush = new LinearGradientBrush(
+   new Point(0, 0),
+   new Point(0, 15),
+   Color.WhiteSmoke,   // Opaque red
+   Color.Silver);  // Opaque blue
+
+            Pen gradPen = new Pen(linGrBrush);
+
+            var rect = new Rectangle(locRect, new Size(Width, 15));
+
+            e.Graphics.FillRectangle(linGrBrush, rect);
+
+            //e.Graphics.DrawRectangle(gradPen, rect);
+
         }
 
         private void PaintName(PaintEventArgs e)
@@ -414,28 +417,21 @@ namespace BaseModule.Navigator
             var locRect = new Point(15, 3);
             var size = e.Graphics.MeasureString("Навигатор", this.Font);
             var rect = new Rectangle(locRect, new Size((int)size.Width, 8));
-            e.Graphics.FillRectangle(new SolidBrush(System.Drawing.Color.Silver), rect);
+            //e.Graphics.FillRectangle(new SolidBrush(System.Drawing.Color.Silver), rect);
             e.Graphics.DrawString("Навигатор", Font, new SolidBrush(System.Drawing.Color.Black), 16, 0);
         }
 
         private void PaintCloseRectangle(PaintEventArgs e)
         {
             var locRect = new Point(Width - 16, 3);
+
             Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 1);
+            
             var rect = new Rectangle(locRect, new Size(8, 8));
 
             e.Graphics.DrawRectangle(blackPen, rect);
             e.Graphics.DrawString("х", Font, new SolidBrush(System.Drawing.Color.Black),
                 Width - 16, 0);
-        }
-
-        private void PaintLine(PaintEventArgs e)
-        {
-            Pen grPen = new Pen(Color.LightGray, 1);
-
-            var p0 = new Point(5, 7);
-            var p1 = new Point(Width - 20, 7);
-            e.Graphics.DrawLine(grPen, p0, p1);
         }
 
         private void grbNavigator_MouseClick(object sender, MouseEventArgs e)

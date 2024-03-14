@@ -595,7 +595,7 @@
             // 
             // grbConsole
             // 
-            this.grbConsole.BackColor = System.Drawing.Color.Silver;
+            this.grbConsole.BackColor = System.Drawing.SystemColors.Control;
             this.grbConsole.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.grbConsole.Controls.Add(this.splitContainer2);
             this.grbConsole.Dock = System.Windows.Forms.DockStyle.Fill;

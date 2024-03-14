@@ -17,12 +17,12 @@ namespace ModelModule
         public ModelPage() : base()
         {
             InitializeComponent();
+        }
 
-            var meshToolStrip = new MeshToolStrip();
-            meshToolStrip.Renderer = new BaseToolStrRender();
-            meshToolStrip.ItemClicked += MeshToolStrip_ItemClicked;
-
-            AddToolStrip(meshToolStrip);
+        public override void UnBlockInterface(bool status)
+        {
+            foreach (var item in GetToolStripMenuItems().Where(x => x.Text == "Сетка"))
+                        item.Enabled = status;
         }
 
         public override void CreateMenuInterface()
@@ -36,7 +36,8 @@ namespace ModelModule
             ToolStripMenuItem meshMenuItem = new ToolStripMenuItem()
             {
                 Name = "meshMenuItem",
-                Text = "Сетка"
+                Text = "Сетка",
+                Enabled = false
             };
 
             ToolStripMenuItem boundaryElements2DMenuItem = new ToolStripMenuItem()
@@ -157,18 +158,6 @@ namespace ModelModule
                     item.SetBackColor();
                 SetObjectsSceneColor(ObjType.Линия);
             }      
-        }
-
-        private void MeshToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            if (e.ClickedItem.Tag.ToString() == "0")
-            {
-                CreateBoundaryElements2D();
-            }
-            else if (e.ClickedItem.Tag.ToString() == "1")
-            {
-                LoadMeshControl();
-            }
         }
 
         private void CreateBoundaryElements2D()

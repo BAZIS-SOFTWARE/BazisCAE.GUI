@@ -113,7 +113,6 @@
             // 
             this.lblStatus.AutoSize = false;
             this.lblStatus.BackColor = System.Drawing.SystemColors.Control;
-            this.lblStatus.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.lblStatus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblStatus.Margin = new System.Windows.Forms.Padding(5, 3, 0, 2);
             this.lblStatus.Name = "lblStatus";

@@ -44,7 +44,6 @@
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
-            this.treeView = new System.Windows.Forms.TreeView();
             this.treeNodesImageList_16x16 = new System.Windows.Forms.ImageList(this.components);
             this.contextMenuImageList = new System.Windows.Forms.ImageList(this.components);
             this.ndGroup_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -70,6 +69,7 @@
             this.toolStripMenuItem20 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem21 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripMenuItem();
+            this.treeView = new System.Windows.Forms.TreeView();
             this.grbNavigator = new System.Windows.Forms.Panel();
             this.objects_MenuStrip.SuspendLayout();
             this.groups_MenuStrip.SuspendLayout();
@@ -144,65 +144,6 @@
             this.toolStripMenuItem12.Size = new System.Drawing.Size(124, 22);
             this.toolStripMenuItem12.Text = "Показать";
             this.toolStripMenuItem12.Click += new System.EventHandler(this.ShowAllGroups_Click);
-            // 
-            // treeView
-            // 
-            this.treeView.BackColor = System.Drawing.SystemColors.Window;
-            this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView.FullRowSelect = true;
-            this.treeView.HideSelection = false;
-            this.treeView.ImageIndex = 0;
-            this.treeView.ImageList = this.treeNodesImageList_16x16;
-            this.treeView.Indent = 19;
-            this.treeView.ItemHeight = 18;
-            this.treeView.Location = new System.Drawing.Point(0, 15);
-            this.treeView.Name = "treeView";
-            treeNode1.ImageIndex = 0;
-            treeNode1.Name = "названиеПроекта";
-            treeNode1.SelectedImageIndex = 0;
-            treeNode1.Tag = "0";
-            treeNode1.Text = "Название проекта :";
-            treeNode2.ImageIndex = 0;
-            treeNode2.Name = "путь";
-            treeNode2.SelectedImageIndex = 0;
-            treeNode2.Tag = "1";
-            treeNode2.Text = "Путь :";
-            treeNode3.ImageIndex = 0;
-            treeNode3.Name = "сведения";
-            treeNode3.SelectedImageIndex = 0;
-            treeNode3.Tag = "2";
-            treeNode3.Text = "Сведения :";
-            treeNode4.Name = "вид";
-            treeNode4.Tag = "3";
-            treeNode4.Text = "Вид :";
-            treeNode5.ContextMenuStrip = this.objects_MenuStrip;
-            treeNode5.ImageIndex = 1;
-            treeNode5.Name = "объекты";
-            treeNode5.SelectedImageIndex = 1;
-            treeNode5.Tag = "4";
-            treeNode5.Text = "Объекты";
-            treeNode6.ContextMenuStrip = this.groups_MenuStrip;
-            treeNode6.ImageIndex = 1;
-            treeNode6.Name = "группыОбъектов";
-            treeNode6.SelectedImageIndex = 1;
-            treeNode6.Tag = "5";
-            treeNode6.Text = "Группы объектов";
-            this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6});
-            this.treeView.SelectedImageIndex = 0;
-            this.treeView.Size = new System.Drawing.Size(223, 325);
-            this.treeView.TabIndex = 2;
-            this.treeView.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_BeforeLabelEdit);
-            this.treeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_AfterLabelEdit);
-            this.treeView.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterCollapse);
-            this.treeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterExpand);
-            this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_NodeMouseClick);
             // 
             // treeNodesImageList_16x16
             // 
@@ -428,9 +369,68 @@
             this.toolStripMenuItem22.Text = "Показать с узлами";
             this.toolStripMenuItem22.Click += new System.EventHandler(this.ShowGroupWithNodes_Click);
             // 
+            // treeView
+            // 
+            this.treeView.BackColor = System.Drawing.SystemColors.Window;
+            this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView.FullRowSelect = true;
+            this.treeView.HideSelection = false;
+            this.treeView.ImageIndex = 0;
+            this.treeView.ImageList = this.treeNodesImageList_16x16;
+            this.treeView.Indent = 19;
+            this.treeView.ItemHeight = 18;
+            this.treeView.Location = new System.Drawing.Point(0, 15);
+            this.treeView.Name = "treeView";
+            treeNode1.ImageIndex = 0;
+            treeNode1.Name = "названиеПроекта";
+            treeNode1.SelectedImageIndex = 0;
+            treeNode1.Tag = "0";
+            treeNode1.Text = "Название проекта :";
+            treeNode2.ImageIndex = 0;
+            treeNode2.Name = "путь";
+            treeNode2.SelectedImageIndex = 0;
+            treeNode2.Tag = "1";
+            treeNode2.Text = "Путь :";
+            treeNode3.ImageIndex = 0;
+            treeNode3.Name = "сведения";
+            treeNode3.SelectedImageIndex = 0;
+            treeNode3.Tag = "2";
+            treeNode3.Text = "Сведения :";
+            treeNode4.Name = "вид";
+            treeNode4.Tag = "3";
+            treeNode4.Text = "Вид :";
+            treeNode5.ContextMenuStrip = this.objects_MenuStrip;
+            treeNode5.ImageIndex = 1;
+            treeNode5.Name = "объекты";
+            treeNode5.SelectedImageIndex = 1;
+            treeNode5.Tag = "4";
+            treeNode5.Text = "Объекты";
+            treeNode6.ContextMenuStrip = this.groups_MenuStrip;
+            treeNode6.ImageIndex = 1;
+            treeNode6.Name = "группыОбъектов";
+            treeNode6.SelectedImageIndex = 1;
+            treeNode6.Tag = "5";
+            treeNode6.Text = "Группы объектов";
+            this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6});
+            this.treeView.SelectedImageIndex = 0;
+            this.treeView.Size = new System.Drawing.Size(223, 325);
+            this.treeView.TabIndex = 2;
+            this.treeView.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_BeforeLabelEdit);
+            this.treeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_AfterLabelEdit);
+            this.treeView.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterCollapse);
+            this.treeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterExpand);
+            this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_NodeMouseClick);
+            // 
             // grbNavigator
             // 
-            this.grbNavigator.BackColor = System.Drawing.Color.Silver;
+            this.grbNavigator.BackColor = System.Drawing.SystemColors.Control;
             this.grbNavigator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.grbNavigator.Controls.Add(this.treeView);
             this.grbNavigator.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -460,8 +460,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.ImageList contextMenuImageList;
         private System.Windows.Forms.ContextMenuStrip ndGroup_MenuStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
@@ -495,6 +493,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem21;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem22;
         private System.Windows.Forms.ImageList treeNodesImageList_16x16;
+        private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.Panel grbNavigator;
     }
 }

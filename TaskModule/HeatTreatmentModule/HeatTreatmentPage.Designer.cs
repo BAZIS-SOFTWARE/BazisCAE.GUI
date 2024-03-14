@@ -38,13 +38,7 @@ namespace TaskModule.HeatTreatmentModule
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "HeatTreatmentPage";
             this.Size = new System.Drawing.Size(800, 450);
-            this.Load += new System.EventHandler(this.HtPage_Load);
             this.ResumeLayout(false);
-
-
-
-  
-
         }
         HeatTreatmentTasksToolStrip heatTreatmentTasksToolStrip = new HeatTreatmentTasksToolStrip() { Name = "Термообработка" };
         #endregion

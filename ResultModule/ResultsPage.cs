@@ -42,14 +42,6 @@ namespace ResultModule
         {
             InitializeComponent();
 
-            var resToolStrip = new ResultsToolStrip
-            {
-                Renderer = new BaseToolStrRender()
-            };
-            resToolStrip.ItemClicked += ResultsToolStrip_ItemClicked;
-
-            AddToolStrip(resToolStrip);
-
             NavigatorControl.TreeView.Nodes.Add(new TreeNode("Результаты", 1, 1) { Name = "Результаты", Tag = 6 });
 
             var nodeNode = new TreeNode("ПоУзлам", 1, 1) { Name = "ПоУзлам", Tag = "6.1" };
@@ -64,12 +56,19 @@ namespace ResultModule
             base.CreateMenuInterface();
         }
 
+        public override void UnBlockInterface(bool status)
+        {
+            foreach (var item in GetToolStripMenuItems().Where(x => x.Text == "Результаты"))
+                item.Enabled = status;
+        }
+
         private ToolStripMenuItem CreateResultsInterface()
         {
             ToolStripMenuItem resultsMenuItem = new ToolStripMenuItem()
             {
                 Name = "resultsMenuItem",
-                Text = "Результаты"
+                Text = "Результаты",
+                Enabled = false
             };
 
             ToolStripMenuItem clearResultsMenuItem = new ToolStripMenuItem()
@@ -200,17 +199,15 @@ namespace ResultModule
             };
             scPage.ShowScaleEvent += (ar1, ar2) =>
             {
+                SceneControl.HideGeometryObj("DisplaySceneScale");
+
                 if (ar2)
                 {
                     scale.Coord_X = scPage.X_Coord;
                     scale.Coord_Y = scPage.Y_Coord;
 
-                    SceneControl.DisplaySceneScale(scale);
-                }
 
-                else
-                {
-                    SceneControl.HideGeometryObj("DisplaySceneScale");
+                    SceneControl.DisplaySceneScale(scale);
                 }
 
                 SceneControl.DisplayObjects();
@@ -422,61 +419,7 @@ namespace ResultModule
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
             LoadResultsEvent?.Invoke(openDialogEx.OpenDialog.FileName, openDialogEx.MergeResults, addRes);
-        }
-
-        private void ResultsToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            if(e.ClickedItem.Tag.ToString() == "0")
-            {
-                SceneControl.DeleteVBObjects("Results");
-
-                foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-                    PresentObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
-
-                SceneControl.DisplayObjects();
-
-                Project.ResultData.Clear();
-
-                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
-                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
-            }
-            else if (e.ClickedItem.Tag.ToString() == "1")
-            {
-                ShowOpenResultsFileDialog(true);
-            }
-            else if (e.ClickedItem.Tag.ToString() == "2")
-            {
-                ShowOpenResultsFileDialog(false);
-            }
-            else if (e.ClickedItem.Tag.ToString() == "3")
-            {
-                ClearAllDataOnScene();
-
-                foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-                    PresentObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
-
-                SceneControl.DisplayObjects();
-            }
-            else if (e.ClickedItem.Tag.ToString() == "4")
-            {
-                ShowValue(e.ClickedItem.Pressed);
-            }
-            else if (e.ClickedItem.Tag.ToString() == "5")
-            {
-                if (Application.OpenForms["Animation"] == null)
-                    ShowAnimation();
-
-            }
-            else if (e.ClickedItem.Tag.ToString() == "6")
-            {
-                CreateGraph();
-            }
-            else if (e.ClickedItem.Tag.ToString() == "7")
-            {
-                if (Application.OpenForms["Scale"] == null)
-                    ShowScalePage();
-            }
-        }
+        }     
 
         private void ShowResults(float time, string resKind, int scaleFactor)
         {
@@ -745,7 +688,11 @@ namespace ResultModule
 
                     res.Add(result);
                 }
-                ConsoleControl.PrintInfo("Загрузка завершена", Color.Green);
+
+                Invoke(new Action(() =>
+                {
+                    ConsoleControl.PrintInfo("Загрузка завершена", Color.Green);
+                }));
 
             }));
             return res;
@@ -774,7 +721,12 @@ namespace ResultModule
                         ConsoleControl.PrintInfo($"Выполнен пересчет на узлы для {resNames[i]}", Color.Black);
                     }));
                 }
-                ConsoleControl.PrintInfo("Пересчет завершен", Color.Green);
+
+                Invoke(new Action(() =>
+                {
+                    ConsoleControl.PrintInfo("Пересчет завершен", Color.Green);
+                }));
+                
             });
 
             await Task.Run(act);

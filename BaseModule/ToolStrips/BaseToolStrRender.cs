@@ -111,20 +111,19 @@ namespace BaseModule.ToolStrips
             
             var gr = e.Graphics;
 
-            Font _TabFont = new Font(FontFamily.GenericSansSerif, (float)13, FontStyle.Regular, GraphicsUnit.Pixel);
-            SizeF messageSize = gr.MeasureString(lbl.Text, _TabFont);
+            var recHeigth = 15;
 
-            lbl.Width = (int)messageSize.Width;
+            var locRect = new Point(0, lbl.Height - recHeigth);
 
-            var xc = lbl.Width / 2 - messageSize.Width / 2;
-            var yc = lbl.Height / 2 - messageSize.Height;
-            PointF p = new PointF(xc, yc);
+            var linGrBrush = new LinearGradientBrush(
+   new Point(0, lbl.Height),
+   new Point(0, lbl.Height + 15),
+   Color.WhiteSmoke,   // Opaque red
+   Color.Silver);  // Opaque blue
 
-            Rectangle rectangle = new Rectangle(0, 0, e.Item.Size.Width - 1, e.Item.Size.Height - 14);
-            gr.FillRectangle(SystemBrushes.ControlLight, rectangle);
-            //gr.DrawLine(Pens.LightGray, new Point(18, lbl.Height - 10), new Point(lbl.Width - 5, lbl.Height - 10));
+            var rect = new Rectangle(locRect, new Size(lbl.Width, 15));
 
-            gr.DrawString(lbl.Text, _TabFont, SystemBrushes.WindowText, p);
+            e.Graphics.FillRectangle(linGrBrush, rect);
 
         }
 
@@ -132,26 +131,31 @@ namespace BaseModule.ToolStrips
         {
             var tls = e.ToolStrip;
 
-            var gr = e.Graphics;
+            if(tls.Text != "")
+            {
+                var gr = e.Graphics;
 
-            Font _TabFont = new Font(FontFamily.GenericSansSerif, (float)11, FontStyle.Regular, GraphicsUnit.Pixel);
-            SizeF messageSize = gr.MeasureString(tls.Text, _TabFont);
-            var xc = tls.Width / 2 - messageSize.Width / 2;
-            var yc = tls.Height - messageSize.Height;
-            PointF p = new PointF(xc, yc);
+                Font _TabFont = new Font(FontFamily.GenericSansSerif, (float)11, FontStyle.Regular, GraphicsUnit.Pixel);
+                SizeF messageSize = gr.MeasureString(tls.Text, _TabFont);
+                var xc = tls.Width / 2 - messageSize.Width / 2;
+                var yc = tls.Height - messageSize.Height;
+                PointF p = new PointF(xc, yc - 2);
 
-            var rectangle = new Rectangle(0, 0, tls.Width, tls.Height);
-            e.Graphics.FillRectangle(SystemBrushes.Control, rectangle);
+                var locRect = new Point(0, (int)yc + 2);
 
-            gr.DrawLine(Pens.LightGray, new Point(18, tls.Height - 10), new Point(tls.Width - 5, tls.Height - 10));
+                var linGrBrush = new LinearGradientBrush(
+       new Point(0, (int)yc),
+       new Point(0, tls.Height),
+       Color.WhiteSmoke,   // Opaque red
+       Color.Silver);  // Opaque blue
 
-            rectangle = new Rectangle((int)xc, (int)yc, (int)messageSize.Width, (int)messageSize.Height);
-            e.Graphics.FillRectangle(SystemBrushes.Control, rectangle);
-            gr.DrawString(tls.Text, _TabFont, SystemBrushes.WindowText, p);
+                var rect = new Rectangle(locRect, new Size(tls.Width, tls.Height));
 
+                e.Graphics.FillRectangle(linGrBrush, rect);
 
+                gr.DrawString(tls.Text, _TabFont, SystemBrushes.WindowText, p);
+            }            
         }
-
         
     }
 }

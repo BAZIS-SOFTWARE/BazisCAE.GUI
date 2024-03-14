@@ -11,6 +11,7 @@ using System.Reflection;
 using BaseModule.Console.Events;
 using Functions.Parser;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using System.Drawing.Drawing2D;
 
 namespace BaseModule.Console
 {
@@ -544,9 +545,29 @@ namespace BaseModule.Console
 
         private void grbConsole_Paint(object sender, PaintEventArgs e)
         {
+            PaintHeaderRectangle(e);
             PaintCloseRectangle(e);
-            PaintLine(e);
             PaintName(e);
+        }
+
+        private void PaintHeaderRectangle(PaintEventArgs e)
+        {
+            var locRect = new Point(0, 0);
+
+            var linGrBrush = new LinearGradientBrush(
+   new Point(0, 0),
+   new Point(0, 15),
+   Color.WhiteSmoke,   // Opaque red
+   Color.Silver);  // Opaque blue
+
+            Pen gradPen = new Pen(linGrBrush);
+
+            var rect = new Rectangle(locRect, new Size(Width, 15));
+
+            e.Graphics.FillRectangle(linGrBrush, rect);
+
+            //e.Graphics.DrawRectangle(gradPen, rect);
+
         }
 
         private void PaintName(PaintEventArgs e)
@@ -554,7 +575,7 @@ namespace BaseModule.Console
             var locRect = new Point(15, 3);
             var size = e.Graphics.MeasureString("Консоль", this.Font);
             var rect = new Rectangle(locRect, new Size((int)size.Width, 8));
-            e.Graphics.FillRectangle(new SolidBrush(System.Drawing.Color.Silver), rect);
+            //e.Graphics.FillRectangle(new SolidBrush(System.Drawing.Color.Silver), rect);
             e.Graphics.DrawString("Консоль", Font, new SolidBrush(System.Drawing.Color.Black), 16, 0);
         }
 
@@ -567,15 +588,6 @@ namespace BaseModule.Console
             e.Graphics.DrawRectangle(blackPen, rect);
             e.Graphics.DrawString("х", Font, new SolidBrush(System.Drawing.Color.Black),
                 Width - 16, 0);
-        }
-
-        private void PaintLine(PaintEventArgs e)
-        {
-            Pen grPen = new Pen(Color.LightGray, 1);
-
-            var p0 = new Point(5, 7);
-            var p1 = new Point(Width - 20, 7);
-            e.Graphics.DrawLine(grPen, p0, p1);
         }
 
         private void grbConsole_MouseClick(object sender, MouseEventArgs e)

@@ -37,6 +37,7 @@ using System.Xml.Linq;
 using ModelInterfaces.MeshObjects;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using ModelInterfaces.GeometryObjects;
+using System.Drawing.Drawing2D;
 
 namespace BaseModule
 {
@@ -1323,8 +1324,8 @@ namespace BaseModule
             //var toolStr = FindToolStrip<StandartToolStrip>();
             //toolStr.Enabled = true;
 
-            standartToolStrip.Items[2].Enabled = status;
-            standartToolStrip.Items[3].Enabled = status;
+            //standartToolStrip.Items[2].Enabled = status;
+            //standartToolStrip.Items[3].Enabled = status;
 
             //foreach (ToolStripButton item in toolStr.Items)
             //    item.Enabled = true;

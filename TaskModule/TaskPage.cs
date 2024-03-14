@@ -70,9 +70,9 @@ namespace TaskModule
             ToolStripMenuItem tasksMenuItem = new ToolStripMenuItem()
             {
                 Name = "tasksMenuItem",
-                Text = "Задачи"
-            };    
-
+                Text = "Задачи",
+                Enabled = false
+            };
             return tasksMenuItem;
         }
 
@@ -201,6 +201,12 @@ namespace TaskModule
         public virtual void UnCheckToolStripButtons()
         {
             throw new Exception("Метод не реализован");
+        }
+
+        public override void UnBlockInterface(bool status)
+        {
+            foreach (var item in GetToolStripMenuItems().Where(x => x.Text == "Задачи"))
+                item.Enabled = status;
         }
 
         public void CreateAdvisor(TaskAdvisor taskAdv, Icon icon)
@@ -820,73 +826,5 @@ namespace TaskModule
             //Sort
             data.MovedFrameFunction.SortTrajNodes();
         }
-
-        //private async Task<string> SetTaskDataAsync(string cmd, string taskStr)
-        //{
-        //    var taskParamsCalculator = new TaskDataCalculator(Project);
-        //    taskParamsCalculator.CalculatorEvent += (ar1, ar2) =>
-        //    {
-        //        Invoke(new Action(() => { PrintCommand(ar2.Message); }));
-        //    };
-
-        //    if (cmd == "setDirection" & taskStr.Contains("LRF"))
-        //    {
-        //        PrintCommand("задайте вектор, выбрав 3 точки, и нажмите на кнопку Enter или нажмите кнопку ESC");
-        //        var confirm = false;
-        //        var breaker = false;
-
-        //        SelectedObjects = ObjType.Узел;
-
-        //        var func = taskParamsCalculator.SetDirection(taskStr);
-
-        //        this.KeyDown += delegate (object sender, KeyEventArgs e)
-        //        {
-        //            if (e.KeyCode == Keys.Escape)
-        //                breaker = true;
-        //            if (e.KeyCode == Keys.Enter)
-        //                confirm = true;
-        //        };
-        //        await System.Threading.Tasks.Task.Run(() =>
-        //        {
-        //            while (true)
-        //            {
-        //                if (confirm)
-        //                {
-        //                    var res = func.Invoke();
-        //                    if (res.Contains("LRF"))
-
-        //                    {
-        //                        confirm = false;
-        //                    }
-        //                    else
-        //                    {
-        //                        Invoke(new Action(() => {
-        //                            ConsoleControl.PrintInfo("Операция завершена успешно", Color.Green);
-        //                            PrintCommand("");
-        //                        }));
-        //                        Thread.Sleep(100);
-        //                        taskStr = res;
-        //                        break;
-        //                    }
-        //                }
-        //                if (breaker)
-        //                    break;
-        //            }
-        //        });
-        //    }
-        //    return taskStr;
-        //}
-
-        //public override bool LoadProjectData(string extFilter)
-        //{
-        //    var resu = base.LoadProjectData(extFilter);
-
-        //    if (resu)
-        //    {
-        //        Project.TaskData.Load($@"{Project.Path}\{Project.Name}");
-        //        return true;
-        //    }
-        //    else return false;
-        //}
     }
 }

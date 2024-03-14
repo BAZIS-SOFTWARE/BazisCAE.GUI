@@ -19,27 +19,6 @@ namespace TaskModule.WeldingModule
                 item.Checked = false;
         }
 
-        private void WeldingPage_Load(object sender, EventArgs e)
-        {           
-            weldingTaskToolStrip.Renderer = new BaseToolStrRender();
-            weldingTaskToolStrip.advisorStatusChanged += WeldingTaskToolStrip_advisorStatusChanged;
-
-            AddToolStrip(weldingTaskToolStrip);
-        }
-
-        private void WeldingTaskToolStrip_advisorStatusChanged(object arg1, AdvisorEventArgs arg2)
-        {
-            if (!arg2.Status)
-            {
-                var taskAdv = new WeldingAdvisor() { Dock = DockStyle.Fill, Name = "Сварка" };
-                var icon = TaskModule.Properties.Resources.Welding;
-
-                if (GetTaskAdvisor() == null)
-                    CreateAdvisor(taskAdv, icon);
-            }
-            else DeleteAdvisor();
-        }
-
         public override ToolStripMenuItem CreateTasksInterface()
         {
             var taskMenuItem = base.CreateTasksInterface();

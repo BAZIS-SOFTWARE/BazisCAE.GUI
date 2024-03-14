@@ -204,6 +204,7 @@ namespace BaseModule
             // standartToolStrip
             // 
             this.standartToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.standartToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.standartToolStrip.Location = new System.Drawing.Point(0, 106);
             this.standartToolStrip.Name = "standartToolStrip";
             this.standartToolStrip.Size = new System.Drawing.Size(156, 53);
@@ -213,6 +214,7 @@ namespace BaseModule
             // instrumentalToolStrip
             // 
             this.instrumentalToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.instrumentalToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.instrumentalToolStrip.Location = new System.Drawing.Point(0, 106);
             this.instrumentalToolStrip.Name = "instrumentalToolStrip";
             this.instrumentalToolStrip.Size = new System.Drawing.Size(120, 53);
@@ -223,6 +225,7 @@ namespace BaseModule
             // viewToolStrip
             // 
             this.viewToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.viewToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.viewToolStrip.Location = new System.Drawing.Point(0, 53);
             this.viewToolStrip.Name = "viewToolStrip";
             this.viewToolStrip.Size = new System.Drawing.Size(336, 53);
@@ -233,6 +236,7 @@ namespace BaseModule
             // displayToolStrip
             // 
             this.displayToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.displayToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.displayToolStrip.Location = new System.Drawing.Point(0, 53);
             this.displayToolStrip.Name = "displayToolStrip";
             this.displayToolStrip.Size = new System.Drawing.Size(348, 53);
@@ -247,6 +251,7 @@ namespace BaseModule
             this.selectToolStrip.ElementsImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.ElementsImage")));
             this.selectToolStrip.Font = new System.Drawing.Font("Segoe UI", 7F);
             this.selectToolStrip.GeomsImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.GeomsImage")));
+            this.selectToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.selectToolStrip.HelperImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.HelperImage")));
             this.selectToolStrip.Location = new System.Drawing.Point(0, 0);
             this.selectToolStrip.Name = "selectToolStrip";
