@@ -117,6 +117,11 @@ namespace ModelModule
         private void GenerateGeometry()
         {
             DeleteMesh();
+            updateVBOEvent?.Invoke(ObjType.Узел);//Обновляем все VBO не связанный с геометрией, т.к могло произойти удаление сетки
+            updateVBOEvent?.Invoke(ObjType.Элемент1D);
+            updateVBOEvent?.Invoke(ObjType.Элемент2D);
+            updateVBOEvent?.Invoke(ObjType.Элемент3D);
+            hide3dTextEvent?.Invoke();//Вызов очистки 3d текста
 
             ClearTreeView(3);
             ShowHideTabControls(3, false);
@@ -129,10 +134,6 @@ namespace ModelModule
             UpdateGeometry(ObjType.Линия);
             updateVBOEvent?.Invoke(ObjType.Точка);
             updateVBOEvent?.Invoke(ObjType.Линия);
-            updateVBOEvent?.Invoke(ObjType.Узел);//Обновляем все VBO, так как могло произойти удаление сетки
-            updateVBOEvent?.Invoke(ObjType.Элемент1D);
-            updateVBOEvent?.Invoke(ObjType.Элемент2D);
-            updateVBOEvent?.Invoke(ObjType.Элемент3D);
             var ierr = 0;
             FillGeometryTreeView();
             if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
@@ -148,6 +149,7 @@ namespace ModelModule
         private void OnDeleteGeometry(object sender, EventArgs e)
         {
             DeleteGeometry();
+            hide3dTextEvent?.Invoke();
             redrawScene?.Invoke(true);
             updateTreeViewEvent?.Invoke();
         }
@@ -295,7 +297,6 @@ namespace ModelModule
             loadFileDialog.Filter = sender.Equals(geoLoadBtn) ? cadTemplates : scriptTemplates;
             if (loadFileDialog.ShowDialog() == DialogResult.OK)
             {
-                //Очистка старой геометрии, и VBO
                 var ierr = 0;
                 GmshController.Clear(ref ierr);
                 GmshController.Open(loadFileDialog.FileName, ref ierr);
@@ -685,17 +686,16 @@ namespace ModelModule
             return 0;
         }
 
-        private void OnDeleteElement2D(object sender, EventArgs e) => DeleteElement(ObjType.Элемент2D);
+        private void OnDeleteElement2D(object sender, EventArgs e) => DeleteElement(surfsTree.SelectedNode);
 
-        private void OnDeleteElement3D(object sender, EventArgs e) => DeleteElement(ObjType.Элемент3D);
+        private void OnDeleteElement3D(object sender, EventArgs e) => DeleteElement(volumesTree.SelectedNode);
 
-        private void DeleteElement(ObjType type)
+        private void DeleteElement(TreeNode currentNode)
         {
             // TO DO 
-            // Может изменить вход на treeNode с которого было вызвано это действие?
-
-            var dim = type == ObjType.Элемент2D ? 2 : 3;
-            var currentNode = type == ObjType.Элемент2D ? surfsTree.SelectedNode : volumesTree.SelectedNode;
+            // Может изменить вход на treeNode с которого было вызвано это действие? - Ок, сделано.
+            var tn = new TreeNode();
+            var dim = currentNode.TreeView.Equals(surfsTree) ? 2 : 3;
             
             // Ищем одиночные узлы двигаясь вверх по дереву,
             // пока не встречаем более чем один узел в ветке.
@@ -734,7 +734,6 @@ namespace ModelModule
             {
                 var keyData = currentNode.Text.Split(' ');
                 var isNumeric = keyData.Length > 1;
-                //var isNumeric = IsNummericElement(dim, currentNode.Text);
                 var dimTags = isNumeric ? new int[] { dim, Int32.Parse(keyData[1]) }
                              : GetElementsByType(ref keyData[0], dim, Int32.Parse(currentNode.Parent.Text.Split(' ')[1]));
                 surfsTree.Nodes.Remove(currentNode);
@@ -866,15 +865,16 @@ namespace ModelModule
                 pointsControlBox.Enabled = false;
         }
         /// <summary>
-        /// Вернуть центр масс текущей выбранной кривой
+        /// Вернуть центр масс текущей геометрической сущности
         /// </summary>
-        /// <param name="tag">Идентификатор кривой</param>
+        /// <param name="dim">Геометрическая размерность</param>
+        /// <param name="tag">Идентификатор геометрической сущности</param>
         /// <returns>Центр масс</returns>
-        private Point3D GetCenterOfCurve(int tag)
+        private Point3D GetCenterOfGeometryEntity(int dim, int tag)
         {
             var ierr = 0;
             double x = 0, y = 0, z = 0;
-            GmshController.ModelOccGetCenterOfMass(1, tag, ref x, ref y, ref z, ref ierr);
+            GmshController.ModelOccGetCenterOfMass(dim, tag, ref x, ref y, ref z, ref ierr);
             var point = new Point3D((float)x, (float)y, (float)z);
             return point;
         }
@@ -895,7 +895,7 @@ namespace ModelModule
                 if(attributes.Length == 3)
                 {
                     var text = $"{attributes[2]} {attributes[1]} {attributes[0]}";
-                    var point = GetCenterOfCurve(tag);
+                    var point = GetCenterOfGeometryEntity(1,tag);
                     list.Add(Tuple.Create(text, point));
                 }
             }
@@ -919,7 +919,12 @@ namespace ModelModule
                 {
                     GmshController.ModelSetAttribute($"transfinite {tag}", attributes, (IntPtr)3, ref ierr);
                     if (attributes.All(x => x.Length != 0))
+                    {
                         GmshController.ModelMeshSetTransfiniteCurve(tag, (int)points, attributes[1], coef, ref ierr);
+                        //Перегенерация сетки, если она присутствовала в момент уплотнения кривой
+                        if (ObjectData.E2DCollection.Count > 0)
+                            OnGenerateMesh2D(sender, EventArgs.Empty);
+                    }
                 }
             }
 
@@ -938,8 +943,11 @@ namespace ModelModule
             if (chbShowCurvesInfo.Checked)
                 ShowCurvesInfo();
             else
-                hide3dTextEvent?.Invoke();
-            redrawScene?.Invoke(false);
+            {
+                hide3dTextEvent?.Invoke();//Прячем весь текст
+                if (chbShowCurvesInfo.Checked)//Рассматриваем случай когда поверхности должны быть отображены
+                    ShowSurfacesInfo();
+            }
         }
 
         private void chbShowHeatMap_Click(object sender, EventArgs e)
@@ -978,10 +986,54 @@ namespace ModelModule
                     curveDict.Add(dimTags[i], 0);
             return curveDict;
         }
+        /*
+        private Point3D GetOffsetPointFromCenter(int dim, int tag, float offset)
+        {
+            var controller = (GmshApi.GmshController.GmshController)GmshController;
+            var ierr = 0;
+            double x = 0, y = 0, z = 0;
+            GmshController.ModelOccGetCenterOfMass(dim, tag, ref x, ref y, ref z, ref ierr);
+            var point = new Point3D((float)x, (float)y, (float)z);
+            double[] parametric, first;
+            controller.ModelGetParametrization(dim, tag, new double[] { x, y, z }, out parametric);
+            controller.ModelGetDerivative(dim, tag, new double[] { parametric[0], parametric[1] }, out first);
+            var du = new Point3D((float)first[0], (float)first[1], (float)first[2]);
+            var dv = new Point3D((float)first[3], (float)first[4], (float)first[5]);
+            var normal = Vector.CrossProd(du, dv);
+            normal = Vector.GetVectorNorm(normal);
+            var scaledNormal = normal.Mult(offset);
+            var potPoint = point.Sum(scaledNormal);
+            return potPoint;
+            var status = controller.gmshModelIsInside(dim, tag, new double[] { potPoint._x, potPoint._y, potPoint._z },
+                                                     (IntPtr)3, 0, ref ierr);
+            return status == 1 ? point.Sub(scaledNormal) : potPoint;
+        }*/
+
+        private void ShowSurfacesInfo()
+        {
+            int[] dimTags;
+            GmshController.ModelGetGeometryEntities(out dimTags, 2);
+            var surfList = new List<Tuple<string, Point3D>>();
+            for (var i = 1; i < dimTags.Length; i += 2)
+            {
+                var point = GetCenterOfGeometryEntity(2, dimTags[i]);
+                //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
+                var text = $"Поверхность {dimTags[i]}";
+                surfList.Add(Tuple.Create(text, point));
+            }
+            show3dTextEvent?.Invoke(this, new Show3dTextEventArgs(surfList));
+        }
 
         private void chbShowSurfacesInfo_Click(object sender, EventArgs e)
         {
-
+            if (chbShowSurfacesInfo.Checked)
+                ShowSurfacesInfo();
+            else
+            {
+                hide3dTextEvent?.Invoke();//Прячем весь текст
+                if (chbShowCurvesInfo.Checked)//Рассматриваем случай когда кривые должны быть отображены
+                    ShowCurvesInfo();
+            }
         }
     }
 }
