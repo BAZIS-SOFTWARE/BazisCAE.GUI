@@ -48,7 +48,7 @@
             this.colorSlider = new MB.Controls.ColorSlider();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.colorSlider1 = new MB.Controls.ColorSlider();
+            this.clslNodes = new MB.Controls.ColorSlider();
             this.colorSlider2 = new MB.Controls.ColorSlider();
             this.colorSlider3 = new MB.Controls.ColorSlider();
             this.colorSlider4 = new MB.Controls.ColorSlider();
@@ -170,7 +170,7 @@
             this.tableLayoutPanel2.Controls.Add(this.lightingControl, 1, 5);
             this.tableLayoutPanel2.Controls.Add(this.colorSlider, 1, 6);
             this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.colorSlider1, 1, 8);
+            this.tableLayoutPanel2.Controls.Add(this.clslNodes, 1, 8);
             this.tableLayoutPanel2.Controls.Add(this.colorSlider2, 1, 9);
             this.tableLayoutPanel2.Controls.Add(this.colorSlider3, 1, 10);
             this.tableLayoutPanel2.Controls.Add(this.colorSlider4, 1, 11);
@@ -349,19 +349,19 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Освещение";
             // 
-            // colorSlider1
+            // clslNodes
             // 
-            this.colorSlider1.BackColor = System.Drawing.Color.Transparent;
-            this.colorSlider1.BorderRoundRectSize = new System.Drawing.Size(8, 8);
-            this.colorSlider1.LargeChange = ((uint)(5u));
-            this.colorSlider1.Location = new System.Drawing.Point(235, 356);
-            this.colorSlider1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.colorSlider1.Name = "colorSlider1";
-            this.colorSlider1.Size = new System.Drawing.Size(109, 25);
-            this.colorSlider1.SmallChange = ((uint)(1u));
-            this.colorSlider1.TabIndex = 14;
-            this.colorSlider1.Text = "colorSlider1";
-            this.colorSlider1.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
+            this.clslNodes.BackColor = System.Drawing.Color.Transparent;
+            this.clslNodes.BorderRoundRectSize = new System.Drawing.Size(8, 8);
+            this.clslNodes.LargeChange = ((uint)(50u));
+            this.clslNodes.Location = new System.Drawing.Point(235, 356);
+            this.clslNodes.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.clslNodes.Name = "clslNodes";
+            this.clslNodes.Size = new System.Drawing.Size(109, 25);
+            this.clslNodes.SmallChange = ((uint)(1u));
+            this.clslNodes.TabIndex = 14;
+            this.clslNodes.Text = "colorSlider1";
+            this.clslNodes.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
             // 
             // colorSlider2
             // 
@@ -525,7 +525,7 @@
         private LightingControl lightingControl;
         private MB.Controls.ColorSlider colorSlider;
         private System.Windows.Forms.Panel panel1;
-        private MB.Controls.ColorSlider colorSlider1;
+        private MB.Controls.ColorSlider clslNodes;
         private MB.Controls.ColorSlider colorSlider2;
         private MB.Controls.ColorSlider colorSlider3;
         private MB.Controls.ColorSlider colorSlider4;
