@@ -128,14 +128,13 @@ namespace ModelModule
         /// <summary>
         /// Обновляет ObjectData данными из GmshController
         /// </summary>
-        /// <param name="update3d"></param>
-        private void UpdateObjectData(bool update3d)
+        private void UpdateObjectData()
         {
             var objs = GmshController.GetMeshObjects();
             ObjectData.NodeCollection.AddRange(objs.Item1);
             ObjectData.E1DCollection.AddRange(objs.Item2);
             ObjectData.E2DCollection.AddRange(objs.Item3);
-            if(update3d)
+            if(objs.Item4.Count > 0)
                 ObjectData.E3DCollection.AddRange(objs.Item4);
         }
 
@@ -236,7 +235,7 @@ namespace ModelModule
             DeleteMeshObjects(ObjType.Элемент3D);
 
             ObjectData.Clear(ObjType.Узел);
-            UpdateObjectData(false);
+            UpdateObjectData();
 
             updateVBOEvent?.Invoke(ObjType.Узел);
             updateVBOEvent?.Invoke(ObjType.Элемент3D);
@@ -345,7 +344,7 @@ namespace ModelModule
                 ClearTreeView(3);
             }
             ObjectData.Clear(ObjType.Узел);
-            UpdateObjectData(false);
+            UpdateObjectData();
 
             UpdateMeshVBO(true);
 
@@ -382,7 +381,7 @@ namespace ModelModule
             if (objs.Item4.Count > 0)//Было ли что-то сгенерировано ?
             {
                 ObjectData.Clear(ObjType.Узел);
-                UpdateObjectData(true);
+                UpdateObjectData();
 
                 updateVBOEvent?.Invoke(ObjType.Узел);
                 updateVBOEvent?.Invoke(ObjType.Элемент3D);
@@ -422,7 +421,7 @@ namespace ModelModule
             ClearTreeView(3);
             ObjectData.Clear(ObjType.Узел);
 
-            UpdateObjectData(false);
+            UpdateObjectData();
 
             UpdateMeshVBO(true);
             
@@ -449,7 +448,7 @@ namespace ModelModule
                 var objs = GmshController.GetMeshObjects();
                 ObjectData.Clear(ObjType.Узел);
 
-                UpdateObjectData(false);
+                UpdateObjectData();
 
                 UpdateMeshVBO(false);
 
