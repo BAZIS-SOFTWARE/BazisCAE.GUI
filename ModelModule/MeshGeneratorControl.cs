@@ -12,6 +12,9 @@ using ModelInterfaces.MeshObjects;
 using System.Runtime.ExceptionServices;
 using System.Security;
 using ModelControllerInterfaces.GmshController;
+using System.Security.Cryptography;
+using System.Xml.Linq;
+using System.Collections.ObjectModel;
 
 namespace ModelModule
 {
@@ -110,10 +113,37 @@ namespace ModelModule
                     ObjectData.LineCollection.AddRange(curves);
             }
         }
+        /// <summary>
+        /// Обновляет VBO-объекты сетки
+        /// </summary>
+        /// <param name="update3d">Обновление 3d элементов</param>
+        private void UpdateMeshVBO(bool update3d)
+        {
+            updateVBOEvent?.Invoke(ObjType.Узел);
+            updateVBOEvent?.Invoke(ObjType.Элемент1D);
+            updateVBOEvent?.Invoke(ObjType.Элемент2D);
+            if(update3d)
+                updateVBOEvent?.Invoke(ObjType.Элемент3D);
+        }
+        /// <summary>
+        /// Обновляет ObjectData данными из GmshController
+        /// </summary>
+        private void UpdateObjectData()
+        {
+            var objs = GmshController.GetMeshObjects();
+            ObjectData.NodeCollection.AddRange(objs.Item1);
+            ObjectData.E1DCollection.AddRange(objs.Item2);
+            ObjectData.E2DCollection.AddRange(objs.Item3);
+            if(objs.Item4.Count > 0)
+                ObjectData.E3DCollection.AddRange(objs.Item4);
+        }
 
         private void GenerateGeometry()
         {
             DeleteMesh();
+            //Обновляем все VBO не связанный с геометрией, т.к могло произойти удаление сетки
+            UpdateMeshVBO(true);
+            hide3dTextEvent?.Invoke();//Вызов очистки 3d текста
 
             ClearTreeView(3);
             ShowHideTabControls(3, false);
@@ -123,8 +153,8 @@ namespace ModelModule
             ShowHideTabControls(2, false);
 
             UpdateGeometry(ObjType.Точка);
-            updateVBOEvent?.Invoke(ObjType.Точка);
             UpdateGeometry(ObjType.Линия);
+            updateVBOEvent?.Invoke(ObjType.Точка);
             updateVBOEvent?.Invoke(ObjType.Линия);
             var ierr = 0;
             FillGeometryTreeView();
@@ -141,6 +171,7 @@ namespace ModelModule
         private void OnDeleteGeometry(object sender, EventArgs e)
         {
             DeleteGeometry();
+            hide3dTextEvent?.Invoke();
             redrawScene?.Invoke(true);
             updateTreeViewEvent?.Invoke();
         }
@@ -158,10 +189,11 @@ namespace ModelModule
             var ierr = 0;
             GmshController.Clear(ref ierr);
             UpdateGeometry(ObjType.Точка);
-            updateVBOEvent?.Invoke(ObjType.Точка);
             UpdateGeometry(ObjType.Линия);
+            updateVBOEvent?.Invoke(ObjType.Точка);
             updateVBOEvent?.Invoke(ObjType.Линия);
-            //UpdateGeometry(new int[0]);//Удалить всю геометрию
+            //Обновляем все VBO, поскольку они могли присутствовать до удаления
+            UpdateMeshVBO(true);
             ClearTreeView(1);
             ShowHideGeneralTabControls(2, false);
             ShowHideGeneralTabControls(1, false);
@@ -179,38 +211,31 @@ namespace ModelModule
             ClearTreeView(2);
             ShowHideTabControls(2, false);
 
+            UpdateMeshVBO(true);
+
             redrawScene(false);
 
             updateTreeViewEvent?.Invoke();
         }
-
+        /// <summary>
+        /// Метод который удаляет только элементы сетки
+        /// </summary>
         private void DeleteMesh()
         {
             DeleteMeshObjects(ObjType.Узел);
-
-            ObjectData.ClearAll();
-            var objs = GmshController.GetMeshObjects();
-            ObjectData.NodeCollection.AddRange(objs.Item1);
-            ObjectData.E1DCollection.AddRange(objs.Item2);
-            ObjectData.E2DCollection.AddRange(objs.Item3);
-            ObjectData.E3DCollection.AddRange(objs.Item4);
-
-            updateVBOEvent?.Invoke(ObjType.Узел);
-            updateVBOEvent?.Invoke(ObjType.Элемент1D);
-            updateVBOEvent?.Invoke(ObjType.Элемент2D);
-            updateVBOEvent?.Invoke(ObjType.Элемент3D);
+            ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
         }
-
+        /// <summary>
+        /// Удаляет только элементы 3D, обновляет VBO, деревья элементов, и пререрисовывает сцену
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnDeleteMesh3D(object sender, EventArgs e)
         {
             DeleteMeshObjects(ObjType.Элемент3D);
 
-            ObjectData.ClearAll();
-            var objs = GmshController.GetMeshObjects();
-            ObjectData.NodeCollection.AddRange(objs.Item1);
-            ObjectData.E1DCollection.AddRange(objs.Item2);
-            ObjectData.E2DCollection.AddRange(objs.Item3);
-            ObjectData.E3DCollection.AddRange(objs.Item4);
+            ObjectData.Clear(ObjType.Узел);
+            UpdateObjectData();
 
             updateVBOEvent?.Invoke(ObjType.Узел);
             updateVBOEvent?.Invoke(ObjType.Элемент3D);
@@ -298,7 +323,6 @@ namespace ModelModule
         {
             var ierr = 0;
             string error;
-            //controller.gmshOptionSetNumber("General.AbortOnError", 0, ref ierr);
             try
             {
                 GmshController.ModelMeshGenerate(1, ref ierr);
@@ -316,19 +340,13 @@ namespace ModelModule
             if (volumesTree.Nodes.Count > 0)
             {
                 DeleteMeshObjects(ObjType.Элемент3D);
-                //UpdateObjectsData(ObjType.Элемент3D);
                 ShowHideTabControls(3, false);
                 ClearTreeView(3);
             }
-            //UpdateObjectsData(ObjType.Узел);
-            //UpdateObjectsData(ObjType.Элемент1D);
-            //UpdateObjectsData(ObjType.Элемент2D);
+            ObjectData.Clear(ObjType.Узел);
+            UpdateObjectData();
 
-            updateVBOEvent?.Invoke(ObjType.Узел);
-            updateVBOEvent?.Invoke(ObjType.Элемент1D);
-            updateVBOEvent?.Invoke(ObjType.Элемент2D);
-            updateVBOEvent?.Invoke(ObjType.Элемент3D);
-
+            UpdateMeshVBO(true);
 
             FillMeshTreeView(surfsTree, 2);
             ShowHideTabControls(2, true);
@@ -359,10 +377,11 @@ namespace ModelModule
             if (!String.IsNullOrEmpty(error))
                 showErrorMessage?.Invoke(error);
 
-            //UpdateObjectsData(ObjType.Элемент3D);
-            if (ObjectData.E3DCollection.Count > 0)//Было ли что-то сгенерировано ?
+            var objs = GmshController.GetMeshObjects();
+            if (objs.Item4.Count > 0)//Было ли что-то сгенерировано ?
             {
-                //UpdateObjectsData(ObjType.Узел);
+                ObjectData.Clear(ObjType.Узел);
+                UpdateObjectData();
 
                 updateVBOEvent?.Invoke(ObjType.Узел);
                 updateVBOEvent?.Invoke(ObjType.Элемент3D);
@@ -397,24 +416,18 @@ namespace ModelModule
         {
             var ierr = 0;
             GmshController.ModelMeshRefine(ref ierr);
-            if (volumesTree.Nodes.Count > 0)
-            {
-                DeleteMeshObjects(ObjType.Элемент3D);
-                //UpdateObjectsData(ObjType.Элемент3D);
-                updateVBOEvent?.Invoke(ObjType.Элемент3D);
-                ShowHideTabControls(3, false);
-                ClearTreeView(3);
-            }
-            //UpdateObjectsData(ObjType.Элемент2D);
-            //UpdateObjectsData(ObjType.Элемент1D);
-            //UpdateObjectsData(ObjType.Узел);
 
-            updateVBOEvent?.Invoke(ObjType.Элемент2D);
-            updateVBOEvent?.Invoke(ObjType.Элемент1D);
-            updateVBOEvent?.Invoke(ObjType.Узел);
+            ShowHideTabControls(3, false);
+            ClearTreeView(3);
+            ObjectData.Clear(ObjType.Узел);
+
+            UpdateObjectData();
+
+            UpdateMeshVBO(true);
             
             FillMeshTreeView(surfsTree, 2);
             redrawScene?.Invoke(false);
+            updateTreeViewEvent?.Invoke();
         }
 
         private void OnQuadrangulate(object sender, EventArgs e)
@@ -430,29 +443,18 @@ namespace ModelModule
                 GmshController.LoggerGetLastError(out error);
                 if (!String.IsNullOrEmpty(error))
                     showErrorMessage?.Invoke(error);
-                if (volumesTree.Nodes.Count > 0)
-                {
-                    DeleteMeshObjects(ObjType.Элемент3D);
-                    //UpdateObjectsData(ObjType.Элемент3D);
-
-
-                    updateVBOEvent?.Invoke(ObjType.Элемент3D);
-                    ShowHideTabControls(3, false);
-                    ClearTreeView(3);
-                }
+                ShowHideTabControls(3, false);
+                ClearTreeView(3);
                 var objs = GmshController.GetMeshObjects();
+                ObjectData.Clear(ObjType.Узел);
 
-                //ObjectData.E3DCollection = 
-            //UpdateObjectsData(ObjType.Элемент2D);
-            //UpdateObjectsData(ObjType.Элемент1D);
-            //UpdateObjectsData(ObjType.Узел);
+                UpdateObjectData();
 
-            updateVBOEvent?.Invoke(ObjType.Элемент2D);
-                updateVBOEvent?.Invoke(ObjType.Элемент1D);
-                updateVBOEvent?.Invoke(ObjType.Узел);
+                UpdateMeshVBO(false);
 
                 FillMeshTreeView(surfsTree, 2);
                 redrawScene?.Invoke(false);
+                updateTreeViewEvent?.Invoke();
             }
         }
 
@@ -513,9 +515,7 @@ namespace ModelModule
                 GmshController.ModelMeshGetElements(dim, dimTags[i], out elementTypes, out elementTags, out nodeTags);
                 var child = generalChild + dimTags[i].ToString();
                 surfNodes[m] = new TreeNode(child);
-                //AddTreeNode(tree.Nodes, generalKey, child);//Очень медленно работает добавление узла в циклах, нужно что-то делать
                 var currentSurface = surfNodes[m];
-                //var currentSurface = tree.Nodes[generalKey].Nodes[child];
                 for (var j = 0; j < elementTypes.Length; ++j)
                 {
                     var triple = elementType[elementTypes[j]];//, out elemKey, out elemChild, out points);
@@ -538,14 +538,11 @@ namespace ModelModule
                             elemNodes[k].ContextMenuStrip = cmsRemoveMesh2D;
                         else
                             elemNodes[k].ContextMenuStrip = cmsRemoveMesh3D;
-                        //AddTreeNode(currentSurface.Nodes, triple.Item1, currentElement);//Очень медленно работает добавление узла в циклах, нужно что-то делать
-                        //var currentType = currentSurface.Nodes[triple.Item1].Nodes[currentElement];
                         var nodNodes = new TreeNode[triple.Item3];
                         for (var l = 0; l < triple.Item3; ++l)
                         {
                             var nodeTag = "Узел " + nodeTags[j][k * triple.Item3 + l].ToString();
                             nodNodes[l] = new TreeNode(nodeTag);
-                            //currentType.Nodes.Add(nodeTag, nodeTag);
                         }
                         elemNodes[k].Nodes.AddRange(nodNodes);
                     }
@@ -600,93 +597,16 @@ namespace ModelModule
             else
                 pointsControlBox.Enabled = false;
             redrawScene?.Invoke(false);
-        }     
-
-        //private List<Tuple<int, string, Node[]>> GetElements(int dim, int tags = -1)
-        //{
-        //    ElementProperties[] properties;
-        //    int[] elementTypes;
-        //    long[][] elemTags, nodeTags;
-        //    long[] nodesT;
-        //    double[] nodesCrds, parametric;
-        //    var elems = new List<Tuple<int,string,Node[]>>();
-        //    if (controller.ModelMeshGetElements(dim, tags, out elementTypes, out elemTags, out nodeTags))
-        //    {
-        //        if (controller.ModelMeshGetElementProperties(elementTypes, out properties))
-        //        {
-        //            for (int i = 0; i < properties.Length; ++i)
-        //            {
-        //                var elements = elemTags[i];
-        //                controller.ModelMeshGetNodesByElementType(elementTypes[i], -1, false, out nodesT, out nodesCrds, out parametric);
-        //                for (var j = 0; j < elements.Length; ++j)
-        //                {
-        //                    var nodesCount = properties[i].numNodes;
-        //                    var nodesPerElem = new Node[nodesCount];
-        //                    for (int k = 0; k < nodesCount; ++k)
-        //                    {
-        //                        var coordStride = j * nodesCount * 3 + k * 3;
-        //                        var tagStride = j * nodesCount + k;
-        //                        var x = (float)nodesCrds[coordStride + 0];
-        //                        var y = (float)nodesCrds[coordStride + 1];
-        //                        var z = (float)nodesCrds[coordStride + 2];
-        //                        var point = new Point3D(x, y, z);
-        //                        nodesPerElem[k] = new Node((int)nodeTags[i][tagStride], point);
-        //                    }
-        //                    elems.Add(Tuple.Create((int)elements[j], properties[i].elementName, nodesPerElem));
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return elems;
-        //}
-
-        //private List<Beam> CreateBeamElements()
-        //{
-        //    var elements = new List<Beam>();
-        //    foreach(var item in GetElements(1))
-        //    {
-        //        // сформировать  Node [] из ElementProperties
-        //        // 
-        //        elements.Add(new Beam(item.Item1, item.Item3));
-        //    }
-
-        //    return elements;
-        //}
-
-        //private List<IElement2D> Create2DElements()
-        //{
-        //    var elements = new List<IElement2D>();
-        //    foreach (var item in GetElements(2))
-        //    {
-        //        if(item.Item2.Contains("Triangle"))
-        //            elements.Add(new Triangle(item.Item1, item.Item3));
-        //        else
-        //            elements.Add(new Quad(item.Item1, item.Item3));
-        //    }
-        //    return elements;
-        //}
-
-        //private List<IElement3D> Create3DElements()
-        //{
-        //    var elements = new List<IElement3D>();
-        //    foreach (var item in GetElements(3))
-        //    {
-        //        if (item.Item2.Contains("Tetra"))
-        //            elements.Add(new Tetra(item.Item1, item.Item3));
-        //        else if (item.Item2.Contains("Hexa"))
-        //            elements.Add(new Hexa(item.Item1, item.Item3));
-        //        else
-        //            elements.Add(new Penta(item.Item1, item.Item3));
-        //    }
-        //    return elements;
-        //}
+        }
 
         private void DeleteElementsByNumbers(int[] dimTags, string keyData)
         {
             foreach (var element in elementType.Values)
                 if (element.Item1.Contains(keyData))
                 {
-                    var idElems = dimTags.Where((i, v) => (i & 1) == 1).Select(v => (long)v).ToArray();
+                    long[] idElems = dimTags.Where((i, v) => (v & 1) == 1)
+                                            .Select(v => (long)v)
+                                            .ToArray();
                     GmshController.DeleteMeshElements(idElems);
                     return;
                 }
@@ -702,10 +622,7 @@ namespace ModelModule
             if(type == ObjType.Узел) //удаляем всю сетку узлы,1d,2d,3d
             {
                 dimTags = new int[0];
-                /*dim = 0;
-                controller.ModelGetGeometryEntities(out dimTags, dim);*/
             }
-
             if (type == ObjType.Элемент1D)//удаляем все 1d элементы
             {
                 dim = 1;
@@ -721,42 +638,8 @@ namespace ModelModule
                 dim = 3;
                 GmshController.ModelGetGeometryEntities(out dimTags, dim);
             }
-
             GmshController.ModelMeshClear(dimTags, (IntPtr)dimTags.Length, ref ierr);
         }
-
-        //private void UpdateObjectsData(ObjType type)
-        //{
-        //    if (type == ObjType.Узел)
-        //    {
-        //        var status = false;
-        //        ObjectData.NodeCollection.Clear();
-        //        var nodes = GmshController.GetNodes(ref status);
-        //        if(nodes.Count > 0)
-        //            ObjectData.NodeCollection.AddRange(nodes);
-        //    }
-        //    else if (type == ObjType.Элемент1D)
-        //    {
-        //        ObjectData.E1DCollection.Clear();
-        //        var elements1D = CreateBeamElements();
-        //        if(elements1D.Count > 0)
-        //            ObjectData.E1DCollection.AddRange(elements1D);
-        //    }
-        //    else if (type == ObjType.Элемент2D)
-        //    {
-        //        ObjectData.E2DCollection.Clear();
-        //        var elements2D = Create2DElements();
-        //        if(elements2D.Count > 0)
-        //            ObjectData.E2DCollection.AddRange(elements2D);
-        //    }
-        //    else if (type == ObjType.Элемент3D)
-        //    {
-        //        ObjectData.E3DCollection.Clear();
-        //        var elements3D = Create3DElements();
-        //        if(elements3D.Count > 0)
-        //            ObjectData.E3DCollection.AddRange(elements3D);
-        //    }           
-        //}
 
         private int[] GetElementsByType(ref string query, int dim, int tag)
         {
@@ -788,17 +671,16 @@ namespace ModelModule
             return 0;
         }
 
-        private void OnDeleteElement2D(object sender, EventArgs e) => DeleteElement(ObjType.Элемент2D);
+        private void OnDeleteElement2D(object sender, EventArgs e) => DeleteElement(surfsTree.SelectedNode);
 
-        private void OnDeleteElement3D(object sender, EventArgs e) => DeleteElement(ObjType.Элемент3D);
+        private void OnDeleteElement3D(object sender, EventArgs e) => DeleteElement(volumesTree.SelectedNode);
 
-        private void DeleteElement(ObjType type)
+        private void DeleteElement(TreeNode currentNode)
         {
             // TO DO 
-            // Может изменить вход на treeNode с которого было вызвано это действие?
-
-            var dim = type == ObjType.Элемент2D ? 2 : 3;
-            var currentNode = type == ObjType.Элемент2D ? surfsTree.SelectedNode : volumesTree.SelectedNode;
+            // Может изменить вход на treeNode с которого было вызвано это действие? - Ок, сделано.
+            var tn = new TreeNode();
+            var dim = currentNode.TreeView.Equals(surfsTree) ? 2 : 3;
             
             // Ищем одиночные узлы двигаясь вверх по дереву,
             // пока не встречаем более чем один узел в ветке.
@@ -807,38 +689,52 @@ namespace ModelModule
 
             if (currentNode.Text.Contains(fundamental[dim].Item1))
             {
+                ClearTreeView(3);
+                ShowHideTabControls(3, false);
                 if (dim == 2)
                 {
                     DeleteMesh();
-
-                    ClearTreeView(3);
-                    ShowHideTabControls(3, false);
                     ShowHideGeneralTabControls(3, false);
-
                     ClearTreeView(2);
                     ShowHideTabControls(2, false);
                 }
-
                 else
                 {
                     DeleteMeshObjects(ObjType.Элемент3D);
+                    ObjectData.Clear(ObjType.Узел);
+                    var objs = GmshController.GetMeshObjects();
+                    if (objs.Item1.Count > 0)
+                        ObjectData.NodeCollection.AddRange(objs.Item1);
+                    if (objs.Item2.Count > 0)
+                        ObjectData.E1DCollection.AddRange(objs.Item2);
+                    if (objs.Item3.Count > 0)
+                        ObjectData.E2DCollection.AddRange(objs.Item3);
                 }
+                UpdateMeshVBO(true);
             }
             else
             {
                 var keyData = currentNode.Text.Split(' ');
                 var isNumeric = keyData.Length > 1;
-                //var isNumeric = IsNummericElement(dim, currentNode.Text);
                 var dimTags = isNumeric ? new int[] { dim, Int32.Parse(keyData[1]) }
                              : GetElementsByType(ref keyData[0], dim, Int32.Parse(currentNode.Parent.Text.Split(' ')[1]));
                 surfsTree.Nodes.Remove(currentNode);
                 DeleteElementsByNumbers(dimTags, keyData[0]);
-                //UpdateObjectsData(type);
-                //UpdateObjectsData(ObjType.Узел);
-
-                updateVBOEvent?.Invoke(type);
-                updateVBOEvent?.Invoke(ObjType.Узел);
+                var objs = GmshController.GetMeshObjects();
+                if (dim == 2)
+                {
+                    ObjectData.Clear(ObjType.Элемент2D);
+                    ObjectData.E2DCollection.AddRange(objs.Item3);
+                    updateVBOEvent?.Invoke(ObjType.Элемент2D);
+                }
+                else
+                {
+                    ObjectData.Clear(ObjType.Элемент3D);
+                    ObjectData.E3DCollection.AddRange(objs.Item4);
+                    updateVBOEvent?.Invoke(ObjType.Элемент3D);
+                }
             }
+            updateTreeViewEvent?.Invoke();
             redrawScene?.Invoke(false);
         }
 
@@ -951,15 +847,16 @@ namespace ModelModule
                 pointsControlBox.Enabled = false;
         }
         /// <summary>
-        /// Вернуть центр масс текущей выбранной кривой
+        /// Вернуть центр масс текущей геометрической сущности
         /// </summary>
-        /// <param name="tag">Идентификатор кривой</param>
+        /// <param name="dim">Геометрическая размерность</param>
+        /// <param name="tag">Идентификатор геометрической сущности</param>
         /// <returns>Центр масс</returns>
-        private Point3D GetCenterOfCurve(int tag)
+        private Point3D GetCenterOfGeometryEntity(int dim, int tag)
         {
             var ierr = 0;
             double x = 0, y = 0, z = 0;
-            GmshController.ModelOccGetCenterOfMass(1, tag, ref x, ref y, ref z, ref ierr);
+            GmshController.ModelOccGetCenterOfMass(dim, tag, ref x, ref y, ref z, ref ierr);
             var point = new Point3D((float)x, (float)y, (float)z);
             return point;
         }
@@ -980,7 +877,7 @@ namespace ModelModule
                 if(attributes.Length == 3)
                 {
                     var text = $"{attributes[2]} {attributes[1]} {attributes[0]}";
-                    var point = GetCenterOfCurve(tag);
+                    var point = GetCenterOfGeometryEntity(1,tag);
                     list.Add(Tuple.Create(text, point));
                 }
             }
@@ -1004,7 +901,12 @@ namespace ModelModule
                 {
                     GmshController.ModelSetAttribute($"transfinite {tag}", attributes, (IntPtr)3, ref ierr);
                     if (attributes.All(x => x.Length != 0))
+                    {
                         GmshController.ModelMeshSetTransfiniteCurve(tag, (int)points, attributes[1], coef, ref ierr);
+                        //Перегенерация сетки, если она присутствовала в момент уплотнения кривой
+                        if (ObjectData.E2DCollection.Count > 0)
+                            OnGenerateMesh2D(sender, EventArgs.Empty);
+                    }
                 }
             }
 
@@ -1023,8 +925,11 @@ namespace ModelModule
             if (chbShowCurvesInfo.Checked)
                 ShowCurvesInfo();
             else
-                hide3dTextEvent?.Invoke();
-            redrawScene?.Invoke(false);
+            {
+                hide3dTextEvent?.Invoke();//Прячем весь текст
+                if (chbShowCurvesInfo.Checked)//Рассматриваем случай когда поверхности должны быть отображены
+                    ShowSurfacesInfo();
+            }
         }
 
         private void chbShowHeatMap_Click(object sender, EventArgs e)
@@ -1063,10 +968,32 @@ namespace ModelModule
                     curveDict.Add(dimTags[i], 0);
             return curveDict;
         }
+        
+        private void ShowSurfacesInfo()
+        {
+            int[] dimTags;
+            GmshController.ModelGetGeometryEntities(out dimTags, 2);
+            var surfList = new List<Tuple<string, Point3D>>();
+            for (var i = 1; i < dimTags.Length; i += 2)
+            {
+                var point = GetCenterOfGeometryEntity(2, dimTags[i]);
+                //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
+                var text = $"Поверхность {dimTags[i]}";
+                surfList.Add(Tuple.Create(text, point));
+            }
+            show3dTextEvent?.Invoke(this, new Show3dTextEventArgs(surfList));
+        }
 
         private void chbShowSurfacesInfo_Click(object sender, EventArgs e)
         {
-
+            if (chbShowSurfacesInfo.Checked)
+                ShowSurfacesInfo();
+            else
+            {
+                hide3dTextEvent?.Invoke();//Прячем весь текст
+                if (chbShowCurvesInfo.Checked)//Рассматриваем случай когда кривые должны быть отображены
+                    ShowCurvesInfo();
+            }
         }
     }
 }
