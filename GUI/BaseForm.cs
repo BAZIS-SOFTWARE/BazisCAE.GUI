@@ -458,73 +458,81 @@ namespace BazisGUI
                 settingsConfig = ar;
             };
 
-            //var controls = toolStripContainer.ContentPanel.Controls.Find(activePage, false);
+            var forms = Application.OpenForms.Cast<Form>().ToList();
+
+            if (forms.Find(x => x.Name == "settings") == null)
+            {
+                var form = new Form()
+                {
+                    Name = "settings",
+                    Text = "Настройки",
+                    TopMost = true,
+                    ShowIcon = false,
+                    FormBorderStyle = FormBorderStyle.FixedDialog,
+                    Width = 350,
+                    Height = 650
+                };
+
+                form.Controls.Add(settings);
+                form.Show();
+            }
 
             if (module != null)
             {
-                //var basePage = (BasePage)controls[0];
-                settings.SetSelectionGroupColorEvent += (ar) => module.SelectionGroupColor = ar;
-                settings.SetSelectionObjectColorEvent += (ar) =>
-                module.SceneControl.SelectionColor = ar;
-
-                settings.SetSolverPathEvent += (ar) =>
-                {
-                    if (module is TaskPage taskPage)
-                        taskPage.SolverPath = ar;
-                };
-                settings.SetBackGroundColorEvent += (ar) =>
-                {
-                    module.SceneControl.BackGroundColor = ar;
-                    module.SceneControl.DisplayObjects();
-                };
- 
-
-                settings.SetLightingEvent += (ar) =>
-                {
-                    module.SceneControl.IsLighting = ar;
-                    module.SceneControl.DisplayObjects();
-                };
-
-                settings.SetTransparencyEvent += (ar) =>
-                {
-                    module.SceneControl.IsBlending = ar;
-                    module.SceneControl.DisplayObjects();
-                };
-
-                settings.SetLightingIntensityEvent += (ar) =>
-                {
-                    module.SceneControl.LightAttenuation = 1 - ar / 100.0f;
-                    module.SceneControl.DisplayObjects();
-                };
- 
-
-                settings.SetLighterPositionEvent += (ar) =>
-                {
-                    var kx = (float)(module.SceneControl.SceneWidth / settings.Width);
-                    var ky = (float)(module.SceneControl.SceneHeight / settings.Height);
-
-                    var x = ar.X * kx;
-                    var y = ar.Y * ky;
-
-                    module.SceneControl.LightTranslateX = x;
-                    module.SceneControl.LightTranslateY = y;
-
-                    module.SceneControl.DisplayObjects();
-                };
+                SetSettingsToModule(settings);
             }
-                 
-            var form = new Form() {
-                Name = "settings",
-                Text = "Настройки",
-                TopMost = true,
-                ShowIcon = false,
-                FormBorderStyle = FormBorderStyle.FixedDialog,
-                Width = 350,
-                Height = 465
+        }
+
+        private void SetSettingsToModule(SettingsControl settings)
+        {
+            settings.SetSelectionGroupColorEvent += (ar) => module.SelectionGroupColor = ar;
+            settings.SetSelectionObjectColorEvent += (ar) =>
+            module.SceneControl.SelectionColor = ar;
+
+            settings.SetSolverPathEvent += (ar) =>
+            {
+                if (module is TaskPage taskPage)
+                    taskPage.SolverPath = ar;
+            };
+            settings.SetBackGroundColorEvent += (ar) =>
+            {
+                module.SceneControl.BackGroundColor = ar;
+                module.SceneControl.DisplayObjects();
             };
 
-            form.Controls.Add(settings);
-            form.Show();
+
+            settings.SetLightingEvent += (ar) =>
+            {
+                module.SceneControl.IsLighting = ar;
+                module.SceneControl.DisplayObjects();
+            };
+
+            settings.SetTransparencyEvent += (ar) =>
+            {
+                module.SceneControl.IsBlending = ar;
+                module.SceneControl.DisplayObjects();
+            };
+
+            settings.SetLightingIntensityEvent += (ar) =>
+            {
+                module.SceneControl.LightAttenuation = 1 - ar / 100.0f;
+                module.SceneControl.DisplayObjects();
+            };
+
+
+            settings.SetLighterPositionEvent += (ar) =>
+            {
+                var kx = (float)(module.SceneControl.SceneWidth / settings.Width);
+                var ky = (float)(module.SceneControl.SceneHeight / settings.Height);
+
+                var x = ar.X * kx;
+                var y = ar.Y * ky;
+
+                module.SceneControl.LightTranslateX = x;
+                module.SceneControl.LightTranslateY = y;
+
+                module.SceneControl.DisplayObjects();
+            };
         }
 
         private void BaseForm_Load(object sender, EventArgs e)

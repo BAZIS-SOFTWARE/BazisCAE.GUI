@@ -991,7 +991,7 @@ namespace BaseModule
 
                     if (!btn.Checked)
                         sceneControl.DisplayTitle();
-                    else sceneControl.UnPlugTitle();
+                    else sceneControl.HideTitle();
                 }
                 else if (arg2.ClickedItem.Tag.ToString() == "8")
                 {

@@ -34,7 +34,7 @@ namespace BazisGUI.SettingsControls
             panelSelectionGroupColor.BackColor = settingsConfig.SelectGroupColor;
             lblSolverPath.Text = settingsConfig.SolverPath;
             chbLighting.Checked = settingsConfig.Lighting;
-            chbTransparency.Checked = settingsConfig.Transparency;
+            chbBackRibbers.Checked = settingsConfig.Transparency;
             lightingControl.BallPosition = settingsConfig.LighterPosition;
             colorSlider.Value = settingsConfig.LightingIntensity;
         }
@@ -52,7 +52,7 @@ namespace BazisGUI.SettingsControls
                 Lighting = chbLighting.Checked,
                 LighterPosition = lightingControl.BallPosition,
                 LightingIntensity = colorSlider.Value,
-                Transparency = chbTransparency.Checked
+                Transparency = chbBackRibbers.Checked
             };
 
             
@@ -123,7 +123,7 @@ namespace BazisGUI.SettingsControls
 
         private void chbTransparency_Click(object sender, EventArgs e)
         {
-            SetTransparencyEvent?.Invoke(chbTransparency.Checked);
+            SetTransparencyEvent?.Invoke(chbBackRibbers.Checked);
         }
 
         private void chbLighting_Click(object sender, EventArgs e)
