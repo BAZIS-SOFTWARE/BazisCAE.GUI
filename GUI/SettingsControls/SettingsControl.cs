@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.IO;
 using System.Drawing;
+using ModelInterfaces;
 
 namespace BazisGUI.SettingsControls
 {
@@ -17,6 +18,7 @@ namespace BazisGUI.SettingsControls
         public Action<int> SetLightingIntensityEvent;
         public Action<Point> SetLighterPositionEvent;
         public Action<bool> SetTransparencyEvent;
+        public Action<ObjType,int> SetTransparencyValueEvent;
         public SettingsControl()
         {
             InitializeComponent();
@@ -34,9 +36,10 @@ namespace BazisGUI.SettingsControls
             panelSelectionGroupColor.BackColor = settingsConfig.SelectGroupColor;
             lblSolverPath.Text = settingsConfig.SolverPath;
             chbLighting.Checked = settingsConfig.Lighting;
-            chbBackRibbers.Checked = settingsConfig.Transparency;
+            chbBackRibbers.Checked = settingsConfig.BackRibbers;
             lightingControl.BallPosition = settingsConfig.LighterPosition;
             colorSlider.Value = settingsConfig.LightingIntensity;
+            chbTransparency.Checked = settingsConfig.Transparency;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -52,7 +55,8 @@ namespace BazisGUI.SettingsControls
                 Lighting = chbLighting.Checked,
                 LighterPosition = lightingControl.BallPosition,
                 LightingIntensity = colorSlider.Value,
-                Transparency = chbBackRibbers.Checked
+                Transparency = chbTransparency.Checked,
+                BackRibbers = chbBackRibbers.Checked
             };
 
             
@@ -121,11 +125,6 @@ namespace BazisGUI.SettingsControls
             SetSolverPathEvent?.Invoke(lblSolverPath.Text);
         }
 
-        private void chbTransparency_Click(object sender, EventArgs e)
-        {
-            SetTransparencyEvent?.Invoke(chbBackRibbers.Checked);
-        }
-
         private void chbLighting_Click(object sender, EventArgs e)
         {
             SetLightingEvent?.Invoke(chbLighting.Checked);
@@ -134,6 +133,36 @@ namespace BazisGUI.SettingsControls
         private void colorSlider_Scroll(object sender, ScrollEventArgs e)
         {
             SetLightingIntensityEvent?.Invoke(e.NewValue);
+        }
+
+        private void chbTransparency_Click(object sender, EventArgs e)
+        {
+            SetTransparencyEvent?.Invoke(chbTransparency.Checked);
+        }
+
+        private void chbBackRibbers_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void clslNodes_ValueChanged(object sender, EventArgs e)
+        {
+            SetTransparencyValueEvent?.Invoke(ObjType.Узел, clslNodes.Value);
+        }
+
+        private void cls1D_ValueChanged(object sender, EventArgs e)
+        {
+            SetTransparencyValueEvent?.Invoke(ObjType.Элемент1D, cls1D.Value);
+        }
+
+        private void cls2D_ValueChanged(object sender, EventArgs e)
+        {
+            SetTransparencyValueEvent?.Invoke(ObjType.Элемент2D, cls2D.Value);
+        }
+
+        private void cls3D_ValueChanged(object sender, EventArgs e)
+        {
+            SetTransparencyValueEvent?.Invoke(ObjType.Элемент3D, cls3D.Value);
         }
     }
 }

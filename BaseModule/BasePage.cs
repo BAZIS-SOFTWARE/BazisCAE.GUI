@@ -91,7 +91,7 @@ namespace BaseModule
             {
                 var presentor = CreateObjectsPresentor(item);
                 if (presentor.Count() > 0)
-                    PresentObjectsToScene(item.ToString(), presentor);
+                    CreateObjectsToScene(item.ToString(), presentor);
             }
         }  
 
@@ -247,7 +247,7 @@ namespace BaseModule
             bmpPicture.Save($@"{Project.Path}\{fileName}.bmp");
         }
 
-        public void PresentObjectsToScene(string objsName, IObjsPresenter presenter)
+        public void CreateObjectsToScene(string objsName, IObjsPresenter presenter)
         {
             if (!sceneControl.DrawInsideObjects & presenter.IsVolumeObjs)
             {
@@ -615,7 +615,7 @@ namespace BaseModule
                             foreach (var objsType in Project.ModelData.ObjectData.ObjsTypes)
                             {
                                 var presentor = CreateObjectsPresentor(objsType);
-                                PresentObjectsToScene(objsType.ToString(), presentor);
+                                CreateObjectsToScene(objsType.ToString(), presentor);
                             }
       
                         }
@@ -1003,7 +1003,7 @@ namespace BaseModule
                         var edges = ModelController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes,Project.ModelData);
                         var linePresenter = PresentersCreator.CreateLineObjectsPresenter(edges);
 
-                        PresentObjectsToScene("Boundary", linePresenter);
+                        CreateObjectsToScene("Boundary", linePresenter);
                     }
                     else sceneControl.DeleteVBObjects("Boundary");
                 }
@@ -1023,7 +1023,7 @@ namespace BaseModule
                                 item.ViewState = true;
 
                         var presentor = CreateObjectsPresentor(ObjType.Элемент3D);
-                        PresentObjectsToScene("Элемент3D", presentor);
+                        CreateObjectsToScene("Элемент3D", presentor);
                         sceneControl.ChangeViewModeVBObjects("Элемент3D", viewMode);
                     }
     
@@ -1041,7 +1041,7 @@ namespace BaseModule
                         sceneControl.DeleteVBObjects("Элемент3D");
 
                         var presentor = CreateObjectsPresentor(ObjType.Элемент3D);
-                        PresentObjectsToScene("Элемент3D", presentor);
+                        CreateObjectsToScene("Элемент3D", presentor);
                         sceneControl.ChangeViewModeVBObjects("Элемент3D", viewMode);
                     }
   
@@ -1287,24 +1287,24 @@ namespace BaseModule
             else if (selectToolStrip.SelectObjectsType == ObjType.Элемент)
             {
                 sceneControl.DeleteVBObjects(ObjType.Элемент1D.ToString());
-                PresentObjectsToScene(ObjType.Элемент1D.ToString(), CreateObjectsPresentor(ObjType.Элемент1D));
+                CreateObjectsToScene(ObjType.Элемент1D.ToString(), CreateObjectsPresentor(ObjType.Элемент1D));
                 sceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
-                PresentObjectsToScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(ObjType.Элемент2D));
+                CreateObjectsToScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(ObjType.Элемент2D));
                 sceneControl.DeleteVBObjects(ObjType.Элемент3D.ToString());
-                PresentObjectsToScene(ObjType.Элемент3D.ToString(), CreateObjectsPresentor(ObjType.Элемент3D));
+                CreateObjectsToScene(ObjType.Элемент3D.ToString(), CreateObjectsPresentor(ObjType.Элемент3D));
             }
             else if (selectToolStrip.SelectObjectsType == ObjType.Фигура)
             {
                 sceneControl.DeleteVBObjects(ObjType.Фигура2D.ToString());
-                PresentObjectsToScene(ObjType.Фигура2D.ToString(), CreateObjectsPresentor(ObjType.Фигура2D));
+                CreateObjectsToScene(ObjType.Фигура2D.ToString(), CreateObjectsPresentor(ObjType.Фигура2D));
                 sceneControl.DeleteVBObjects(ObjType.Фигура3D.ToString());
-                PresentObjectsToScene(ObjType.Фигура3D.ToString(), CreateObjectsPresentor(ObjType.Фигура3D));
+                CreateObjectsToScene(ObjType.Фигура3D.ToString(), CreateObjectsPresentor(ObjType.Фигура3D));
             }
             else
             {
                 var strObjType = selectToolStrip.SelectObjectsType.ToString();
                 sceneControl.DeleteVBObjects(strObjType);
-                PresentObjectsToScene(strObjType, CreateObjectsPresentor(selectToolStrip.SelectObjectsType));
+                CreateObjectsToScene(strObjType, CreateObjectsPresentor(selectToolStrip.SelectObjectsType));
             }
 
 
@@ -1401,7 +1401,7 @@ namespace BaseModule
 
                         var objsTypeStr = ObjType.Узел.ToString();
                         sceneControl.DeleteVBObjects(objsTypeStr);
-                        PresentObjectsToScene(objsTypeStr, CreateObjectsPresentor(ObjType.Узел));
+                        CreateObjectsToScene(objsTypeStr, CreateObjectsPresentor(ObjType.Узел));
 
                         sceneControl.DisplayObjects();
                     }));
@@ -1416,7 +1416,7 @@ namespace BaseModule
                     var objsTypeStr = ObjType.Узел.ToString();
 
                     sceneControl.DeleteVBObjects(objsTypeStr);
-                    PresentObjectsToScene(objsTypeStr, CreateObjectsPresentor(ObjType.Узел));
+                    CreateObjectsToScene(objsTypeStr, CreateObjectsPresentor(ObjType.Узел));
 
                     sceneControl.DisplayObjects();
                 }
@@ -1435,7 +1435,7 @@ namespace BaseModule
                     Invoke(new Action(() =>
                     {
                         foreach (var objType in Project.ModelData.ObjectData.ObjsTypes)
-                            PresentObjectsToScene(objType.ToString(), CreateObjectsPresentor(objType));
+                            CreateObjectsToScene(objType.ToString(), CreateObjectsPresentor(objType));
                         sceneControl.DisplayObjects();
                     }));
                     var actConfirm = new Func<Tuple<bool, object>>(() =>
@@ -1668,7 +1668,7 @@ namespace BaseModule
                 var viewMode = vbobj.ViewMode;
 
                 sceneControl.DeleteVBObjects(group.ObjType.ToString());
-                PresentObjectsToScene(group.ObjType.ToString(), CreateObjectsPresentor(group.ObjType));
+                CreateObjectsToScene(group.ObjType.ToString(), CreateObjectsPresentor(group.ObjType));
                 sceneControl.ChangeViewModeVBObjects(group.ObjType.ToString(), viewMode);
 
                 sceneControl.DisplayObjects();
@@ -1691,7 +1691,7 @@ namespace BaseModule
 
                 sceneControl.DeleteVBObjects(obj);
 
-                PresentObjectsToScene(obj, CreateObjectsPresentor(objType));
+                CreateObjectsToScene(obj, CreateObjectsPresentor(objType));
                 sceneControl.DisplayObjects();
             }
             catch (Exception ex)
@@ -1718,7 +1718,7 @@ namespace BaseModule
 
                 sceneControl.DeleteVBObjects(obj);
 
-                PresentObjectsToScene(obj, CreateObjectsPresentor(objType));
+                CreateObjectsToScene(obj, CreateObjectsPresentor(objType));
 
                 sceneControl.DisplayObjects();
 
@@ -1796,7 +1796,7 @@ namespace BaseModule
 
             var strObjType = group.ObjType.ToString();
             sceneControl.DeleteVBObjects(strObjType);
-            PresentObjectsToScene(strObjType, CreateObjectsPresentor(group.ObjType));
+            CreateObjectsToScene(strObjType, CreateObjectsPresentor(group.ObjType));
             sceneControl.DisplayObjects();
         }
 
@@ -1840,11 +1840,11 @@ namespace BaseModule
 
 
             sceneControl.DeleteVBObjects(ObjType.Узел.ToString());
-            PresentObjectsToScene(ObjType.Узел.ToString(), CreateObjectsPresentor(ObjType.Узел));
+            CreateObjectsToScene(ObjType.Узел.ToString(), CreateObjectsPresentor(ObjType.Узел));
 
             var strObjType = group.ObjType.ToString();
             sceneControl.DeleteVBObjects(strObjType);
-            PresentObjectsToScene(strObjType, CreateObjectsPresentor(group.ObjType));
+            CreateObjectsToScene(strObjType, CreateObjectsPresentor(group.ObjType));
 
             sceneControl.DisplayObjects();
         }

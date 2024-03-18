@@ -49,9 +49,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.clslNodes = new MB.Controls.ColorSlider();
-            this.colorSlider2 = new MB.Controls.ColorSlider();
-            this.colorSlider3 = new MB.Controls.ColorSlider();
-            this.colorSlider4 = new MB.Controls.ColorSlider();
+            this.cls1D = new MB.Controls.ColorSlider();
+            this.cls2D = new MB.Controls.ColorSlider();
+            this.cls3D = new MB.Controls.ColorSlider();
             this.chbTransparency = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -171,9 +171,9 @@
             this.tableLayoutPanel2.Controls.Add(this.colorSlider, 1, 6);
             this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 4);
             this.tableLayoutPanel2.Controls.Add(this.clslNodes, 1, 8);
-            this.tableLayoutPanel2.Controls.Add(this.colorSlider2, 1, 9);
-            this.tableLayoutPanel2.Controls.Add(this.colorSlider3, 1, 10);
-            this.tableLayoutPanel2.Controls.Add(this.colorSlider4, 1, 11);
+            this.tableLayoutPanel2.Controls.Add(this.cls1D, 1, 9);
+            this.tableLayoutPanel2.Controls.Add(this.cls2D, 1, 10);
+            this.tableLayoutPanel2.Controls.Add(this.cls3D, 1, 11);
             this.tableLayoutPanel2.Controls.Add(this.chbTransparency, 1, 7);
             this.tableLayoutPanel2.Controls.Add(this.label3, 0, 7);
             this.tableLayoutPanel2.Controls.Add(this.label4, 0, 8);
@@ -253,7 +253,7 @@
             this.chbBackRibbers.Size = new System.Drawing.Size(15, 14);
             this.chbBackRibbers.TabIndex = 5;
             this.chbBackRibbers.UseVisualStyleBackColor = true;
-            this.chbBackRibbers.Click += new System.EventHandler(this.chbTransparency_Click);
+            this.chbBackRibbers.Click += new System.EventHandler(this.chbBackRibbers_Click);
             // 
             // btnBackGroundColor
             // 
@@ -362,45 +362,49 @@
             this.clslNodes.TabIndex = 14;
             this.clslNodes.Text = "colorSlider1";
             this.clslNodes.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
+            this.clslNodes.ValueChanged += new System.EventHandler(this.clslNodes_ValueChanged);
             // 
-            // colorSlider2
+            // cls1D
             // 
-            this.colorSlider2.BackColor = System.Drawing.Color.Transparent;
-            this.colorSlider2.BorderRoundRectSize = new System.Drawing.Size(8, 8);
-            this.colorSlider2.LargeChange = ((uint)(5u));
-            this.colorSlider2.Location = new System.Drawing.Point(235, 390);
-            this.colorSlider2.Name = "colorSlider2";
-            this.colorSlider2.Size = new System.Drawing.Size(109, 25);
-            this.colorSlider2.SmallChange = ((uint)(1u));
-            this.colorSlider2.TabIndex = 15;
-            this.colorSlider2.Text = "colorSlider2";
-            this.colorSlider2.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
+            this.cls1D.BackColor = System.Drawing.Color.Transparent;
+            this.cls1D.BorderRoundRectSize = new System.Drawing.Size(8, 8);
+            this.cls1D.LargeChange = ((uint)(5u));
+            this.cls1D.Location = new System.Drawing.Point(235, 390);
+            this.cls1D.Name = "cls1D";
+            this.cls1D.Size = new System.Drawing.Size(109, 25);
+            this.cls1D.SmallChange = ((uint)(1u));
+            this.cls1D.TabIndex = 15;
+            this.cls1D.Text = "colorSlider2";
+            this.cls1D.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
+            this.cls1D.ValueChanged += new System.EventHandler(this.cls1D_ValueChanged);
             // 
-            // colorSlider3
+            // cls2D
             // 
-            this.colorSlider3.BackColor = System.Drawing.Color.Transparent;
-            this.colorSlider3.BorderRoundRectSize = new System.Drawing.Size(8, 8);
-            this.colorSlider3.LargeChange = ((uint)(5u));
-            this.colorSlider3.Location = new System.Drawing.Point(235, 426);
-            this.colorSlider3.Name = "colorSlider3";
-            this.colorSlider3.Size = new System.Drawing.Size(109, 25);
-            this.colorSlider3.SmallChange = ((uint)(1u));
-            this.colorSlider3.TabIndex = 16;
-            this.colorSlider3.Text = "colorSlider3";
-            this.colorSlider3.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
+            this.cls2D.BackColor = System.Drawing.Color.Transparent;
+            this.cls2D.BorderRoundRectSize = new System.Drawing.Size(8, 8);
+            this.cls2D.LargeChange = ((uint)(5u));
+            this.cls2D.Location = new System.Drawing.Point(235, 426);
+            this.cls2D.Name = "cls2D";
+            this.cls2D.Size = new System.Drawing.Size(109, 25);
+            this.cls2D.SmallChange = ((uint)(1u));
+            this.cls2D.TabIndex = 16;
+            this.cls2D.Text = "colorSlider3";
+            this.cls2D.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
+            this.cls2D.ValueChanged += new System.EventHandler(this.cls2D_ValueChanged);
             // 
-            // colorSlider4
+            // cls3D
             // 
-            this.colorSlider4.BackColor = System.Drawing.Color.Transparent;
-            this.colorSlider4.BorderRoundRectSize = new System.Drawing.Size(8, 8);
-            this.colorSlider4.LargeChange = ((uint)(5u));
-            this.colorSlider4.Location = new System.Drawing.Point(235, 462);
-            this.colorSlider4.Name = "colorSlider4";
-            this.colorSlider4.Size = new System.Drawing.Size(109, 25);
-            this.colorSlider4.SmallChange = ((uint)(1u));
-            this.colorSlider4.TabIndex = 17;
-            this.colorSlider4.Text = "colorSlider4";
-            this.colorSlider4.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
+            this.cls3D.BackColor = System.Drawing.Color.Transparent;
+            this.cls3D.BorderRoundRectSize = new System.Drawing.Size(8, 8);
+            this.cls3D.LargeChange = ((uint)(5u));
+            this.cls3D.Location = new System.Drawing.Point(235, 462);
+            this.cls3D.Name = "cls3D";
+            this.cls3D.Size = new System.Drawing.Size(109, 25);
+            this.cls3D.SmallChange = ((uint)(1u));
+            this.cls3D.TabIndex = 17;
+            this.cls3D.Text = "colorSlider4";
+            this.cls3D.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
+            this.cls3D.ValueChanged += new System.EventHandler(this.cls3D_ValueChanged);
             // 
             // chbTransparency
             // 
@@ -411,6 +415,7 @@
             this.chbTransparency.Size = new System.Drawing.Size(15, 14);
             this.chbTransparency.TabIndex = 18;
             this.chbTransparency.UseVisualStyleBackColor = true;
+            this.chbTransparency.Click += new System.EventHandler(this.chbTransparency_Click);
             // 
             // label3
             // 
@@ -526,9 +531,9 @@
         private MB.Controls.ColorSlider colorSlider;
         private System.Windows.Forms.Panel panel1;
         private MB.Controls.ColorSlider clslNodes;
-        private MB.Controls.ColorSlider colorSlider2;
-        private MB.Controls.ColorSlider colorSlider3;
-        private MB.Controls.ColorSlider colorSlider4;
+        private MB.Controls.ColorSlider cls1D;
+        private MB.Controls.ColorSlider cls2D;
+        private MB.Controls.ColorSlider cls3D;
         private System.Windows.Forms.CheckBox chbTransparency;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;

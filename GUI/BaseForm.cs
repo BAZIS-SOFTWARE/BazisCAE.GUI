@@ -33,6 +33,7 @@ using BaseModule.Console;
 using ProjectInterfaces;
 using System.Threading.Tasks;
 using ProjectInterfaces.IO;
+using System.Xml.Linq;
 
 namespace BazisGUI
 {
@@ -50,8 +51,9 @@ namespace BazisGUI
         {
             BackGroudColor = Color.White,
             SelectObjectColor = Color.GreenYellow,
-            Transparency = true,
-            Lighting = true
+            Transparency = false,
+            Lighting = true,
+            BackRibbers = false
         };
 
         private Thread serverConnectionPing;
@@ -61,8 +63,6 @@ namespace BazisGUI
         public BaseForm()
         {
             InitializeComponent();
-
-            //activePage = "none";
 
             GetServerConnection();
         }
@@ -422,7 +422,7 @@ namespace BazisGUI
 
         private void StartLisenceForm()
         {
-            var form = new Form() { Name = "checkForm", Text = "Лицензирование", ShowIcon = false, Size = new Size(450, 250) };
+            var form = new Form() { Name = "checkForm", Text = "Лицензирование", ShowIcon = false, Size = new Size(500, 250) };
             var control = new ClientControl() { Dock = DockStyle.Fill };
 
             control.LicenseActionEvent += (ar1,ar2) => 
@@ -510,6 +510,12 @@ namespace BazisGUI
             settings.SetTransparencyEvent += (ar) =>
             {
                 module.SceneControl.IsBlending = ar;
+                module.SceneControl.DisplayObjects();
+            };
+
+            settings.SetTransparencyValueEvent += (ar1,ar2) =>
+            {
+                module.SceneControl.SetTransparency(ar1.ToString(),ar2);
                 module.SceneControl.DisplayObjects();
             };
 
@@ -641,7 +647,10 @@ namespace BazisGUI
         {
             try
             {
+                var filter = "Project file(*.bpf)|*.bpf";
+
                 OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = filter;
                 dialog.DefaultExt = "bpf";
                 if (dialog.ShowDialog() == DialogResult.Cancel)
                     return;
@@ -649,25 +658,37 @@ namespace BazisGUI
                 var path = Path.GetDirectoryName(dialog.FileName);
                 var name = Path.GetFileName(dialog.FileName);
 
-                project = new ProjectData(name, path);
-
-                project.ModelData = new ModelData();
-                project.TaskData = new TaskData();
-                project.ResultData = new ResultData();
-
-                project.Loader = new LoadProjectFromTextFormat();
-                project.Saver = new SaveProjectTextFormat();
+                CreateNewProject(path, name);
 
                 await LoadProjectAsync();
 
                 lblStatus.Text = $"{project.Path}\\{project.Name}";
 
                 модулиMenuItem.Enabled = true;
+
+                if (module != null)
+                {
+                    module.Project = project;
+                    module.SceneInitialization();
+                    module.PresentProjectOnTree();
+                    module.PresentModelOnSelectToolStrip();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка");
             }
+        }
+
+        private void CreateNewProject(string path, string name)
+        {
+            project = new ProjectData(name, path);
+            project.ModelData = new ModelData();
+            project.TaskData = new TaskData();
+            project.ResultData = new ResultData();
+
+            project.Loader = new LoadProjectFromTextFormat();
+            project.Saver = new SaveProjectTextFormat();
         }
 
         public async Task LoadProjectAsync()
@@ -702,11 +723,11 @@ namespace BazisGUI
             module.PresentProjectOnTree();
         }
 
-        private void импортToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void импортToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                var filterMesh =
+                var filter =
 "All files(*.*)|*.*|" +
 "Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
 "GMSH(*.inp*)|*.inp|" +
@@ -714,16 +735,14 @@ namespace BazisGUI
 "SOLOMIA(*.dat*)|*.dat";
 
                 OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = filterMesh;
+                dialog.Filter = filter;
                 if (dialog.ShowDialog() == DialogResult.Cancel)
                     return;
 
-                project.ClearAllData();
-                project.Name = "newProject";
-                project.Comments = "newComments";
+                var path = Path.GetDirectoryName(dialog.FileName);
+                var name = Path.GetFileName(dialog.FileName);
 
-                var folder = Path.GetDirectoryName(dialog.FileName);
-                project.Path = folder;
+                CreateNewProject(path, name);
 
                 var ext = Path.GetExtension(dialog.FileName);
 
@@ -738,11 +757,19 @@ namespace BazisGUI
                 else
                     project.ModelData.Loader = new LoadModelFromCDBTextFile();
 
-                project.ModelData.Load(dialog.FileName);
+                await LoadProjectAsync();
 
                 lblStatus.Text = $"{project.Path}\\{project.Name}";
 
                 модулиMenuItem.Enabled = true;
+
+                if(module != null)
+                {
+                    module.Project = project;
+                    module.SceneInitialization();
+                    module.PresentProjectOnTree();
+                    module.PresentModelOnSelectToolStrip();
+                }
             }
 
             catch (Exception ex)

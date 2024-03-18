@@ -86,7 +86,7 @@ namespace ResultModule
                 ClearAllDataOnScene();
 
                 foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-                    PresentObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
+                    CreateObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
 
                 SceneControl.DisplayObjects();
             };
@@ -118,7 +118,7 @@ namespace ResultModule
                 ClearAllDataOnScene();
 
                 foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-                    PresentObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
+                    CreateObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
 
                 SceneControl.DisplayObjects();
             };
@@ -245,7 +245,7 @@ namespace ResultModule
                     ClearAllDataOnScene();
 
                     foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-                        PresentObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
+                        CreateObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
 
                     SelectedObjects = ar;
 
@@ -463,7 +463,7 @@ namespace ResultModule
 
                     var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
  
-                    PresentObjectsToScene("Results", presenter);
+                    CreateObjectsToScene("Results", presenter);
                 }
                 else
                 {
@@ -471,7 +471,7 @@ namespace ResultModule
                     var elsResults = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
 
                     var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
-                    PresentObjectsToScene("Results", presenter);
+                    CreateObjectsToScene("Results", presenter);
                 }
 
                 if (showResultValue)

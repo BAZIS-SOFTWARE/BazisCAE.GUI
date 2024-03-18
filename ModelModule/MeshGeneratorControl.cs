@@ -52,7 +52,8 @@ namespace ModelModule
         public bool IsControllerLoaded { get => GmshController != null; }
         public IObjectsData ObjectData { get; internal set; }
 
-        public event Action<ObjType> updateVBOEvent;
+        public event Action updateMeshVBOEvent;
+        public event Action updateGeometryVBOEvent;
         public event Action updateTreeViewEvent;
         public event Action hide3dTextEvent;
         public event Action<object, Show3dTextEventArgs> show3dTextEvent;
@@ -84,7 +85,7 @@ namespace ModelModule
                 path = dialog.FileName;
             }
             else
-                path = $@"{path}\Mesh\gmsh.dll";
+                path = $@"{path}";
             GmshController.Load(path);
             //ObjectData = new ObjectsData();
             var ierr = 0;
@@ -117,14 +118,14 @@ namespace ModelModule
         /// Обновляет VBO-объекты сетки
         /// </summary>
         /// <param name="update3d">Обновление 3d элементов</param>
-        private void UpdateMeshVBO(bool update3d)
-        {
-            updateVBOEvent?.Invoke(ObjType.Узел);
-            updateVBOEvent?.Invoke(ObjType.Элемент1D);
-            updateVBOEvent?.Invoke(ObjType.Элемент2D);
-            if(update3d)
-                updateVBOEvent?.Invoke(ObjType.Элемент3D);
-        }
+        //private void UpdateMeshVBO(bool update3d)
+        //{
+        //    updateMeshVBOEvent?.Invoke(ObjType.Узел);
+        //    updateMeshVBOEvent?.Invoke(ObjType.Элемент1D);
+        //    updateMeshVBOEvent?.Invoke(ObjType.Элемент2D);
+        //    if(update3d)
+        //        updateMeshVBOEvent?.Invoke(ObjType.Элемент3D);
+        //}
         /// <summary>
         /// Обновляет ObjectData данными из GmshController
         /// </summary>
@@ -142,7 +143,9 @@ namespace ModelModule
         {
             DeleteMesh();
             //Обновляем все VBO не связанный с геометрией, т.к могло произойти удаление сетки
-            UpdateMeshVBO(true);
+            updateMeshVBOEvent?.Invoke();
+
+            //UpdateMeshVBO(true);
             hide3dTextEvent?.Invoke();//Вызов очистки 3d текста
 
             ClearTreeView(3);
@@ -154,8 +157,11 @@ namespace ModelModule
 
             UpdateGeometry(ObjType.Точка);
             UpdateGeometry(ObjType.Линия);
-            updateVBOEvent?.Invoke(ObjType.Точка);
-            updateVBOEvent?.Invoke(ObjType.Линия);
+
+            updateMeshVBOEvent?.Invoke();
+
+            //updateMeshVBOEvent?.Invoke(ObjType.Точка);
+            //updateMeshVBOEvent?.Invoke(ObjType.Линия);
             var ierr = 0;
             FillGeometryTreeView();
             if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
@@ -190,10 +196,16 @@ namespace ModelModule
             GmshController.Clear(ref ierr);
             UpdateGeometry(ObjType.Точка);
             UpdateGeometry(ObjType.Линия);
-            updateVBOEvent?.Invoke(ObjType.Точка);
-            updateVBOEvent?.Invoke(ObjType.Линия);
+
+            updateGeometryVBOEvent?.Invoke();
+
+            //updateMeshVBOEvent?.Invoke(ObjType.Точка);
+            //updateMeshVBOEvent?.Invoke(ObjType.Линия);
             //Обновляем все VBO, поскольку они могли присутствовать до удаления
-            UpdateMeshVBO(true);
+
+            updateMeshVBOEvent?.Invoke();
+            //UpdateMeshVBO(true);
+
             ClearTreeView(1);
             ShowHideGeneralTabControls(2, false);
             ShowHideGeneralTabControls(1, false);
@@ -211,7 +223,9 @@ namespace ModelModule
             ClearTreeView(2);
             ShowHideTabControls(2, false);
 
-            UpdateMeshVBO(true);
+            updateMeshVBOEvent?.Invoke();
+
+            //UpdateMeshVBO(true);
 
             redrawScene(false);
 
@@ -237,8 +251,10 @@ namespace ModelModule
             ObjectData.Clear(ObjType.Узел);
             UpdateObjectData();
 
-            updateVBOEvent?.Invoke(ObjType.Узел);
-            updateVBOEvent?.Invoke(ObjType.Элемент3D);
+            updateMeshVBOEvent?.Invoke();
+
+            //updateMeshVBOEvent?.Invoke(ObjType.Узел);
+            //updateMeshVBOEvent?.Invoke(ObjType.Элемент3D);
 
             ClearTreeView(3);
             ShowHideTabControls(3, false);
@@ -346,7 +362,9 @@ namespace ModelModule
             ObjectData.Clear(ObjType.Узел);
             UpdateObjectData();
 
-            UpdateMeshVBO(true);
+            updateMeshVBOEvent?.Invoke();
+
+            //UpdateMeshVBO(true);
 
             FillMeshTreeView(surfsTree, 2);
             ShowHideTabControls(2, true);
@@ -383,8 +401,10 @@ namespace ModelModule
                 ObjectData.Clear(ObjType.Узел);
                 UpdateObjectData();
 
-                updateVBOEvent?.Invoke(ObjType.Узел);
-                updateVBOEvent?.Invoke(ObjType.Элемент3D);
+                updateMeshVBOEvent?.Invoke();
+
+                //updateMeshVBOEvent?.Invoke(ObjType.Узел);
+                //updateMeshVBOEvent?.Invoke(ObjType.Элемент3D);
 
                 FillMeshTreeView(volumesTree, 3, "Объемы", "Объем ");
                 ShowHideTabControls(3, true);
@@ -423,7 +443,9 @@ namespace ModelModule
 
             UpdateObjectData();
 
-            UpdateMeshVBO(true);
+            updateMeshVBOEvent?.Invoke();
+
+            //UpdateMeshVBO(true);
             
             FillMeshTreeView(surfsTree, 2);
             redrawScene?.Invoke(false);
@@ -450,7 +472,9 @@ namespace ModelModule
 
                 UpdateObjectData();
 
-                UpdateMeshVBO(false);
+                updateMeshVBOEvent?.Invoke();
+
+                //UpdateMeshVBO(false);
 
                 FillMeshTreeView(surfsTree, 2);
                 redrawScene?.Invoke(false);
@@ -710,7 +734,9 @@ namespace ModelModule
                     if (objs.Item3.Count > 0)
                         ObjectData.E2DCollection.AddRange(objs.Item3);
                 }
-                UpdateMeshVBO(true);
+
+                updateMeshVBOEvent?.Invoke();
+                //UpdateMeshVBO(true);
             }
             else
             {
@@ -725,15 +751,17 @@ namespace ModelModule
                 {
                     ObjectData.Clear(ObjType.Элемент2D);
                     ObjectData.E2DCollection.AddRange(objs.Item3);
-                    updateVBOEvent?.Invoke(ObjType.Элемент2D);
+                    //updateMeshVBOEvent?.Invoke(ObjType.Элемент2D);
                 }
                 else
                 {
                     ObjectData.Clear(ObjType.Элемент3D);
                     ObjectData.E3DCollection.AddRange(objs.Item4);
-                    updateVBOEvent?.Invoke(ObjType.Элемент3D);
+                    //updateMeshVBOEvent?.Invoke(ObjType.Элемент3D);
                 }
             }
+
+            updateMeshVBOEvent?.Invoke();
             updateTreeViewEvent?.Invoke();
             redrawScene?.Invoke(false);
         }

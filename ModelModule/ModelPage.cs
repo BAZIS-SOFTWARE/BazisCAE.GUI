@@ -79,7 +79,8 @@ namespace ModelModule
                 FormBorderStyle = FormBorderStyle.FixedSingle
             };
 
-            gmshControl.updateVBOEvent += UpdateVBO;
+            gmshControl.updateMeshVBOEvent += UpdateMeshVBO;
+            gmshControl.updateGeometryVBOEvent += UpdateGeometryVBO;
             gmshControl.updateTreeViewEvent += () => { PresentProjectOnTree(); };
             gmshControl.redrawScene += RedrawScene;
             gmshControl.showErrorMessage += ShowErrorMessage;
@@ -110,7 +111,7 @@ namespace ModelModule
 
             var linePres = PresentersCreator.CreateLineObjectsPresenter(Project.ModelData.ObjectData.LineCollection);
             SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
-            PresentObjectsToScene(ObjType.Линия.ToString(), linePres);
+            CreateObjectsToScene(ObjType.Линия.ToString(), linePres);
             SceneControl.DisplayObjects();
         }
 
@@ -129,7 +130,7 @@ namespace ModelModule
 
                 var linePres = PresentersCreator.CreateLineObjectsPresenter(Project.ModelData.ObjectData.LineCollection);
                 SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
-                PresentObjectsToScene(ObjType.Линия.ToString(),linePres);
+                CreateObjectsToScene(ObjType.Линия.ToString(),linePres);
                 SceneControl.DisplayObjects();
             }
             catch (Exception ex)
@@ -178,7 +179,7 @@ namespace ModelModule
                 SceneControl.HideDisplayText2D();
                 SceneControl.HideDisplayText3D();
 
-                PresentObjectsToScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(ObjType.Элемент2D));
+                CreateObjectsToScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(ObjType.Элемент2D));
 
                 SceneControl.DisplayObjects();
                 PresentProjectOnTree();
@@ -204,17 +205,31 @@ namespace ModelModule
             }
         }
 
-        private void UpdateVBO(ObjType objType)
+        private void UpdateMeshVBO()
         {
-            var vbo = SceneControl.FindVBObj(objType.ToString());
+            PresentObjects(ObjType.Узел);
+            PresentObjects(ObjType.Элемент1D);
+            PresentObjects(ObjType.Элемент2D);
+            PresentObjects(ObjType.Элемент3D);
+        }
 
-            if(vbo != null)
-                SceneControl.DeleteVBObjects(objType.ToString());
+        private void UpdateGeometryVBO()
+        {
+            PresentObjects(ObjType.Точка);
+            PresentObjects(ObjType.Линия);
+        }
 
-            var presentor = CreateObjectsPresentor(objType);
+        private void PresentObjects(ObjType item)
+        {
+            var vbo = SceneControl.FindVBObj(item.ToString());
+
+            if (vbo != null)
+                SceneControl.DeleteVBObjects(item.ToString());
+
+            var presentor = CreateObjectsPresentor(item);
             if (presentor.Count() > 0)
-                PresentObjectsToScene(objType.ToString(), presentor);               
-        }      
+                CreateObjectsToScene(item.ToString(), presentor);
+        }   
 
         private void ShowErrorMessage(string message) => ConsoleControl.PrintInfo(message, Color.Red);
 
