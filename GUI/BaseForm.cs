@@ -679,12 +679,24 @@ namespace BazisGUI
 
                 модулиMenuItem.Enabled = true;
 
+
                 if (module != null)
                 {
                     module.Project = project;
                     module.SceneInitialization();
                     module.PresentProjectOnTree();
                     module.PresentModelOnSelectToolStrip();
+                }
+
+                else 
+                {
+                    module = CreateModule("Mesh");
+                    module.ModelController = new ModelController.ModelController();
+
+                    var meshModule = module as ModelPage;
+                    meshModule.GmshController = new GmshController();
+
+                    AddModule();
                 }
             }
             catch (Exception ex)

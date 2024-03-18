@@ -55,7 +55,7 @@ namespace TaskModule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.Name = "TaskPage";
-            this.Size = new System.Drawing.Size(713, 495);
+            this.Size = new System.Drawing.Size(1163, 612);
             this.ResumeLayout(false);
 
         }

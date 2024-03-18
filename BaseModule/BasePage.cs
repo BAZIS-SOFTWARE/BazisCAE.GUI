@@ -5,39 +5,21 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-//using Model;
 using Geometry;
 using ModelInterfaces;
-using System.IO;
-//using ModelController.MeshObjsUtility;
-//using Model.GroupsData;
 using Scene.Events;
 using System.Diagnostics;
 using BaseModule.Console;
 using BaseModule.CrossSection;
-//using Model.IO;
-using BaseModule.Properties;
 using BaseModule.Console.Events;
 using ProjectInterfaces;
 using SceneInterface;
 using BaseModule.ToolStrips;
 using BaseModule.Navigator;
 using ModelControllerInterfaces;
-//using ModelController.ModelScenePresentator;
-using ProjectInterfaces.Tasks;
-using ModelInterfaces.ObjectsFinders;
 using System.Threading;
-//using Model.MeshObjects;
-//using Model.GeometryObjects;
-using System.Data.Odbc;
-using System.CodeDom;
-using Scene;
-using Functions.Extensions;
-using System.Xml.Linq;
 using ModelInterfaces.MeshObjects;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using ModelInterfaces.GeometryObjects;
-using System.Drawing.Drawing2D;
 
 namespace BaseModule
 {
@@ -196,14 +178,12 @@ namespace BaseModule
             // 
             // showNavigatorMenuItem
             // 
-            showNavigatorMenuItem.Image = BaseModule.Properties.Resources.navigator;
             showNavigatorMenuItem.Name = "showNavigatorMenuItem";
             showNavigatorMenuItem.Size = new System.Drawing.Size(180, 22);
             showNavigatorMenuItem.Text = "Навигатор";
             // 
             // showConsoleMenuItem
             // 
-            showConsoleMenuItem.Image = BaseModule.Properties.Resources.console;
             showConsoleMenuItem.Name = "showConsoleMenuItem";
             showConsoleMenuItem.Size = new System.Drawing.Size(180, 22);
             showConsoleMenuItem.Text = "Консоль";

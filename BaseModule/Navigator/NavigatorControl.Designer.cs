@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NavigatorControl));
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Название проекта :", 0, 0);
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Путь :", 0, 0);
@@ -36,24 +35,24 @@
             System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Вид :");
             System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Объекты", 1, 1);
             System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Группы объектов", 1, 1);
-            this.objects_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.objects_MenuStrip = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.groups_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.groups_MenuStrip = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
-            this.treeNodesImageList_16x16 = new System.Windows.Forms.ImageList(this.components);
-            this.contextMenuImageList = new System.Windows.Forms.ImageList(this.components);
-            this.ndGroup_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.treeNodesImageList_16x16 = new System.Windows.Forms.ImageList();
+            this.contextMenuImageList = new System.Windows.Forms.ImageList();
+            this.ndGroup_MenuStrip = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
-            this.object_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.object_MenuStrip = new System.Windows.Forms.ContextMenuStrip();
             this.удалитьОбъектMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.показатьОбъектMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.скрытьMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,7 +60,7 @@
             this.ребраToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.поверхностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ребраИПоверхностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.elGroup_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.elGroup_MenuStrip = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem17 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
@@ -420,6 +419,7 @@
             treeNode5,
             treeNode6});
             this.treeView.SelectedImageIndex = 0;
+            this.treeView.ShowLines = false;
             this.treeView.Size = new System.Drawing.Size(223, 325);
             this.treeView.TabIndex = 2;
             this.treeView.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_BeforeLabelEdit);
