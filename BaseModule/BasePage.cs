@@ -292,47 +292,6 @@ namespace BaseModule
 
         }       
 
-        public bool CopyFile(string fileName, string oldFolder, string newFolder)
-        {
-            var oldfilePath = $@"{oldFolder}\{fileName}";
-
-            if (File.Exists(oldfilePath))
-            {
-                var newfilePath = $@"{newFolder}\{fileName}";
-
-                File.Create(newfilePath).Close();
-                File.Copy(oldfilePath, newfilePath, true);
-
-                ConsoleControl.PrintInfo($"Файл {fileName} скопирован в папку {newFolder}", Color.Green);
-                return true;
-            }
-            else return false;
-        }
-
-        public virtual void SaveAsProjectData(string path)
-        {
-            var newFolder = Path.GetDirectoryName(path);
-            var oldFolder = Project.Path;
-
-            Project.Name = Path.GetFileName(path);
-            Project.Path = newFolder;
-
-            if (oldFolder != Project.Path)
-            {
-                CopyFile(Project.Materials, oldFolder, Project.Path);
-                CopyFile(Project.Functions, oldFolder, Project.Path);
-            }
-
-            SaveProjectData();
-        }
-
-        public virtual void SaveProjectData()
-        {
-            Project.Save();
-
-            consoleControl.PrintInfo("Проект сохранен в " + Project.Path, Color.Black);
-        }
-
         public void PresentModelOnSelectToolStrip()
         {
             selectToolStrip.AddObjectsType(ObjType.Объект);

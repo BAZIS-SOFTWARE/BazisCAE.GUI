@@ -27,6 +27,7 @@ using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using System.Text.RegularExpressions;
 using ModelInterfaces.ObjectsComparers;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using BaseModule.Console;
 
 namespace TaskModule
 {
@@ -173,7 +174,7 @@ namespace TaskModule
         private void ChangeFuncDBEventHandler(FunctionDataBasePage funBasePage)
         {
             if (funBasePage.DbPath != Project.Path)
-                CopyFile(funBasePage.DbName, funBasePage.DbPath, Project.Path);
+                Project.CopyFile(funBasePage.DbName, funBasePage.DbPath, Project.Path);
 
             Project.Functions = funBasePage.DbName;
             var funData = funBasePage.Functions;
@@ -184,7 +185,7 @@ namespace TaskModule
         private void ChangeMaterialDBEventHandler(MaterialsDataBasePage matBasePage)
         {
             if (matBasePage.DbPath != Project.Path)
-                CopyFile(matBasePage.DbName, matBasePage.DbPath, Project.Path);
+                Project.CopyFile(matBasePage.DbName, matBasePage.DbPath, Project.Path);
 
             Project.Materials = matBasePage.DbName;
             var matData = matBasePage.Materials;
@@ -435,16 +436,13 @@ namespace TaskModule
 (File.ReadAllText($@"{dbPath}\{dbFileName}"), settingsSerializer);
         }
 
-        public override void SaveProjectData()
-        {
-            base.SaveProjectData();
-        }
-
         public void TaskAdvisor_StartComputationEvent(object arg1, EventArgs arg2)
         {
             try
             {
-                SaveProjectData();
+                Project.Save();
+
+                ConsoleControl.PrintInfo("Проект сохранен в " + Project.Path, Color.Black);
 
                 var myProcess = new Process();
 

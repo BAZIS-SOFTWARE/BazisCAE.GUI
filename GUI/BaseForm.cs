@@ -34,6 +34,7 @@ using ProjectInterfaces;
 using System.Threading.Tasks;
 using ProjectInterfaces.IO;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace BazisGUI
 {
@@ -625,22 +626,34 @@ namespace BazisGUI
 
         private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var dialog = new FolderBrowserDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
+            try
             {
+
+                var dialog = new FolderBrowserDialog();
+                if (dialog.ShowDialog() == DialogResult.Cancel)
+                    return;
+
                 var folderName = dialog.SelectedPath;
-                
-                project = new ProjectData("newProject", folderName);
 
-                project.ModelData = new ModelData();
-                project.TaskData = new TaskData();
-                project.ResultData = new ResultData();
+                CreateNewProject(folderName, "newProject");
 
-                project.Loader = new LoadProjectFromTextFormat();
-                project.Saver = new SaveProjectTextFormat();
+                lblStatus.Text = $"{project.Path}\\{project.Name}";
+
+                модулиMenuItem.Enabled = true;
+
+                if (module != null)
+                {
+                    module.Project = project;
+                    module.SceneInitialization();
+                    module.PresentProjectOnTree();
+                    module.PresentModelOnSelectToolStrip();
+                }
+
             }
-
-            MessageBox.Show("Создан новый проект");
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка");
+            }
         }
 
         private async void открытьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -708,21 +721,6 @@ namespace BazisGUI
             }));
         }
 
-        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (SaveFileDialog saveDialog = new SaveFileDialog())
-            {
-                saveDialog.DefaultExt = "bpf";
-
-                if (saveDialog.ShowDialog() == DialogResult.Cancel)
-                    return;
-                module.SaveAsProjectData(saveDialog.FileName);
-            }
-
-            lblStatus.Text = $"{project.Path}\\{project.Name}";
-            module.PresentProjectOnTree();
-        }
-
         private async void импортToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -787,6 +785,49 @@ namespace BazisGUI
         private void webPageLabel_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(webPageLabel.Text); //где path это путь к сайту
+        }
+
+        private void сохранитькакToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveDialog = new SaveFileDialog())
+            {
+                saveDialog.DefaultExt = "bpf";
+
+                if (saveDialog.ShowDialog() == DialogResult.Cancel)
+                    return;
+
+                if (project == null)
+                    MessageBox.Show("Сначала откройте или создайте новый проект");
+                else
+                {
+                    var newFolder = Path.GetDirectoryName(saveDialog.FileName);
+                    var oldFolder = project.Path;
+
+                    project.Name = Path.GetFileName(saveDialog.FileName);
+                    project.Path = newFolder;
+
+                    if (oldFolder != project.Path)
+                    {
+                        project.CopyFile(project.Materials, oldFolder, project.Path);
+                        project.CopyFile(project.Functions, oldFolder, project.Path);
+                    }
+
+                    project.Save();
+                    module?.ConsoleControl.PrintInfo("Проект сохранен", Color.Black);
+                    lblStatus.Text = $"{project.Path}\\{project.Name}";
+
+                    module?.PresentProjectOnTree();
+                }
+ 
+            }
+
+
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            project?.Save();
+            module?.ConsoleControl.PrintInfo("Проект сохранен", Color.Black);
         }
     }
 }
