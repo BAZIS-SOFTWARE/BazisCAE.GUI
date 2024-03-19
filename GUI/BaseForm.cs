@@ -35,6 +35,8 @@ using System.Threading.Tasks;
 using ProjectInterfaces.IO;
 using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using ProjectInterfaces.Results;
+using Results;
 
 namespace BazisGUI
 {
@@ -122,6 +124,7 @@ namespace BazisGUI
 
             var resultModule = module as ResultPage;
 
+            resultModule.ResultsController = new ResultsController();
             resultModule.ModelController = new ModelController.ModelController();
             resultModule.PresentersCreator.Add("Results", PresenterView.Surface);
 

@@ -41,17 +41,9 @@ namespace TaskModule
         //public MaterialDBData MatData { get; set; }
         //public FunctionDBData FunData { get; set; }
 
-        private ToolStripStatusLabel solverStatusLabel;
-
         public TaskPage()
         {
             InitializeComponent();
-
-            //var list = new List<StatusStrip>();
-            //SearchControl(this, list);          
-
-            //solverStatusLabel = new ToolStripStatusLabel() { Name = "solverStatus"};
-            //list[0].Items.Insert(1,solverStatusLabel);
 
             var taskNode = new TreeNode("Данные", 1, 1) { Name = "Данные", Tag = "6" };
             NavigatorControl.TreeView.Nodes.Add(taskNode);
@@ -446,7 +438,7 @@ namespace TaskModule
 
                 var myProcess = new Process();
 
-                myProcess.StartInfo.FileName = $@"{SolverPath}\BazisSolver.exe";
+                myProcess.StartInfo.FileName = $@"{SolverPath}\TaskSolver.exe";
 
                 var compDir = $@"{Project.Path}\ComputationData";
                 var cmdFile = $@"{compDir}\computation.tcf";
@@ -456,11 +448,6 @@ namespace TaskModule
                 myProcess.StartInfo.Arguments = argStr;
                 myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
                 myProcess.Start();
-
-                Action<object, EventArgs> action = (s1, s2) => { solverStatusLabel.Text = ""; };
-
-                solverStatusLabel.Text = "Идет расчет";
-                WaitProcessAsync(myProcess, action);
             }
             catch (Exception ex)
             {
@@ -636,7 +623,7 @@ namespace TaskModule
         {
             float[] geomParam;
 
-            var frame = data.MovedFrameFunction.CalcFrame(time);
+            var frame = data.MovedFrameFunction.CalcFrame(time - data.StartTime);
             SceneControl.DisplayLocalFrame(frame);
             var trajPoints = data.MovedFrameFunction.BaseLine.Select(x => x.CalcCentr()).ToArray();
             SceneControl.DisplayPath(trajPoints);
@@ -792,7 +779,12 @@ namespace TaskModule
         {
             var dataAr = taskStr;
 
-            var group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[0]);
+            IGroup group;
+            if(arg2.DataName == "Среда" | arg2.DataName == "Нагрев")
+               group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[1]);
+            else
+                group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[0]);
+
             var data = Project.TaskData.Create(arg2.DataName, dataAr, group);
             var valData = data as IValuableData;
 

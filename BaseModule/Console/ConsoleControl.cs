@@ -12,6 +12,7 @@ using BaseModule.Console.Events;
 using Functions.Parser;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using System.Drawing.Drawing2D;
+using Scene;
 
 namespace BaseModule.Console
 {
@@ -428,7 +429,10 @@ namespace BaseModule.Console
             }
             catch (Exception ex)
             {
-                PrintInfo(ex.Message, Color.Red);
+                Invoke(new Action(() =>
+                {
+                    PrintInfo(ex.Message, Color.Red);
+                }));               
             }
         }
 

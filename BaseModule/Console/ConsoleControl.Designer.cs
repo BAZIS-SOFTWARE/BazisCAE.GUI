@@ -555,8 +555,8 @@
             // toolStripMenuItem25
             // 
             this.toolStripMenuItem25.Name = "toolStripMenuItem25";
-            this.toolStripMenuItem25.Size = new System.Drawing.Size(186, 22);
-            this.toolStripMenuItem25.Text = "Тип объекта : номер";
+            this.toolStripMenuItem25.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem25.Text = "тип : номер";
             this.toolStripMenuItem25.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem26

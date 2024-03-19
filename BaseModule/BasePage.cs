@@ -1173,6 +1173,7 @@ namespace BaseModule
             if (vboObjs != null)
             {
                 var objsPresenter = CreateObjectsPresentor(objsType);
+                
                 var colors = objsPresenter.CreateVertexes(vboObjs.ColorLength, "цвет");
                 vboObjs.PointsColors = colors;
             }
@@ -1329,14 +1330,14 @@ namespace BaseModule
                 {
                     var freeNodes = ModelController.FreeNodesFinder.Find(Project.ModelData.ObjectData);
 
-                    Invoke(new Action(() => 
-                    { 
+                    Invoke(new Action(() =>
+                    {
                         consoleControl.PrintInfo($"Найдено {freeNodes.Count()} свободных узлов", Color.Black);
 
                         HideAllObjects();
 
                         foreach (var freeNode in freeNodes)
-                            Project.ModelData.ObjectData.Find(ObjType.Узел,freeNode).ViewState = true;
+                            Project.ModelData.ObjectData.Find(ObjType.Узел, freeNode).ViewState = true;
 
                         var objsTypeStr = ObjType.Узел.ToString();
                         sceneControl.DeleteVBObjects(objsTypeStr);
@@ -1345,19 +1346,22 @@ namespace BaseModule
                         sceneControl.DisplayObjects();
                     }));
                 }
-                else if(arg2 is FindObjectEventArgs findObjectEventArgs)
+                else if (arg2 is FindObjectEventArgs findObjectEventArgs)
                 {
-                    var obj = Project.ModelData.ObjectData.Find(ObjType.Узел,(int)findObjectEventArgs.Number);
+                    Invoke(new Action(() =>
+                    {
+                        var obj = Project.ModelData.ObjectData.Find(findObjectEventArgs.ObjsType, (int)findObjectEventArgs.Number);
 
-                    if(obj != null)
-                        obj.MasterColor = SceneControl.SelectionColor;
-                    
-                    var objsTypeStr = ObjType.Узел.ToString();
-
-                    sceneControl.DeleteVBObjects(objsTypeStr);
-                    CreateObjectsToScene(objsTypeStr, CreateObjectsPresentor(ObjType.Узел));
-
-                    sceneControl.DisplayObjects();
+                        if (obj != null)
+                        {
+                            foreach (var item in Project.ModelData.ObjectData.GetObjects(ObjType.Объект))
+                                item.ViewState = false;
+                            obj.ViewState = true;
+                            ClearAllDataOnScene();
+                            PresentAllModelObjectsToScene();
+                            sceneControl.DisplayObjects();
+                        }
+                    }));
                 }
                 else if (arg2 is ModelFindCoincidentsNodesEventArgs coincidentNodesEventArgs)
                 {
@@ -1379,7 +1383,7 @@ namespace BaseModule
                     }));
                     var actConfirm = new Func<Tuple<bool, object>>(() =>
                     {
-                        ModelController.ObjectsMerger.Merge(coincidentNodes, 
+                        ModelController.ObjectsMerger.Merge(coincidentNodes,
                             Project.ModelData.ObjectData.GetObjects(ObjType.Узел).ToList());
 
                         Invoke(new Action(() =>
@@ -1387,7 +1391,7 @@ namespace BaseModule
                             PresentProjectOnTree();
                             consoleControl.PrintInfo("Узлы слиты", Color.Green);
                         }));
-                        return new Tuple<bool, object>(true,new object());
+                        return new Tuple<bool, object>(true, new object());
                     });
 
                     var actBreak = new Action(() =>

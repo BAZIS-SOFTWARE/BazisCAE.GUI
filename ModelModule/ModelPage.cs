@@ -60,7 +60,17 @@ namespace ModelModule
 
             meshGeneratorMenuItem.Click += (ar1, ar2) =>
             {
-                LoadMeshControl();
+                var res = MessageBox.Show("Вы собираетесь запустить сеточный генератор. При нажатии на кнопку \"OK\" Все данные будут удалены!",
+                    "Внимание!", MessageBoxButtons.OKCancel);
+
+                if(res == DialogResult.OK)
+                {
+                    Project.ClearAllData();
+                    ClearAllDataOnScene();
+                    PresentProjectOnTree();
+                    LoadMeshControl();
+                    SceneControl.DisplayObjects();
+                }
             };
 
             return meshMenuItem;
