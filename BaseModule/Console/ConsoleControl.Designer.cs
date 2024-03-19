@@ -120,7 +120,6 @@
             // 
             // toolStripTextBox1
             // 
-            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
             // 
@@ -235,7 +234,7 @@
             // tscIn.ContentPanel
             // 
             this.tscIn.ContentPanel.Controls.Add(this.inputRichTextBox);
-            this.tscIn.ContentPanel.Size = new System.Drawing.Size(441, 310);
+            this.tscIn.ContentPanel.Size = new System.Drawing.Size(440, 310);
             this.tscIn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tscIn.LeftToolStripPanelVisible = false;
             this.tscIn.Location = new System.Drawing.Point(0, 0);
@@ -261,7 +260,7 @@
             this.inputRichTextBox.Location = new System.Drawing.Point(0, 0);
             this.inputRichTextBox.Margin = new System.Windows.Forms.Padding(1);
             this.inputRichTextBox.Name = "inputRichTextBox";
-            this.inputRichTextBox.Size = new System.Drawing.Size(441, 310);
+            this.inputRichTextBox.Size = new System.Drawing.Size(440, 310);
             this.inputRichTextBox.TabIndex = 3;
             this.inputRichTextBox.Text = "введите команду...";
             this.inputRichTextBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.inputRichTextBox_MouseClick);
@@ -280,7 +279,7 @@
             this.tlsIn.Location = new System.Drawing.Point(0, 0);
             this.tlsIn.Name = "tlsIn";
             this.tlsIn.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tlsIn.Size = new System.Drawing.Size(31, 310);
+            this.tlsIn.Size = new System.Drawing.Size(32, 310);
             this.tlsIn.Stretch = true;
             this.tlsIn.TabIndex = 0;
             this.tlsIn.Text = "Командная строка";
@@ -327,7 +326,7 @@
             // toolStripMenuItem31
             // 
             this.toolStripMenuItem31.Name = "toolStripMenuItem31";
-            this.toolStripMenuItem31.Size = new System.Drawing.Size(147, 22);
+            this.toolStripMenuItem31.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem31.Text = "Укажите путь";
             this.toolStripMenuItem31.Click += new System.EventHandler(this.NewItem_Click);
             // 
@@ -342,7 +341,7 @@
             // toolStripMenuItem23
             // 
             this.toolStripMenuItem23.Name = "toolStripMenuItem23";
-            this.toolStripMenuItem23.Size = new System.Drawing.Size(147, 22);
+            this.toolStripMenuItem23.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem23.Text = "Укажите путь";
             this.toolStripMenuItem23.Click += new System.EventHandler(this.NewItem_Click);
             // 
@@ -371,7 +370,7 @@
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(156, 22);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem7.Text = "Укажите метод";
             this.toolStripMenuItem7.Click += new System.EventHandler(this.NewItem_Click);
             // 
@@ -390,7 +389,7 @@
             this.toolStripMenuItem5.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem8});
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(170, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem5.Text = "Переместить";
             // 
             // toolStripMenuItem8
@@ -405,13 +404,13 @@
             this.toolStripMenuItem6.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem9});
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(170, 22);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem6.Text = "Повернуть";
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(163, 22);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem9.Text = "Укажите угол : a";
             this.toolStripMenuItem9.Click += new System.EventHandler(this.NewItem_Click);
             // 
@@ -420,7 +419,7 @@
             this.toolStripMenuItem17.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem21});
             this.toolStripMenuItem17.Name = "toolStripMenuItem17";
-            this.toolStripMenuItem17.Size = new System.Drawing.Size(170, 22);
+            this.toolStripMenuItem17.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem17.Text = "Масштабировать";
             // 
             // toolStripMenuItem21
@@ -445,7 +444,7 @@
             this.toolStripMenuItem11.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem24});
             this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            this.toolStripMenuItem11.Size = new System.Drawing.Size(170, 22);
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem11.Text = "Переместить";
             // 
             // toolStripMenuItem24
@@ -459,13 +458,13 @@
             this.toolStripMenuItem12.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem27});
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(170, 22);
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem12.Text = "Повернуть";
             // 
             // toolStripMenuItem27
             // 
             this.toolStripMenuItem27.Name = "toolStripMenuItem27";
-            this.toolStripMenuItem27.Size = new System.Drawing.Size(163, 22);
+            this.toolStripMenuItem27.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem27.Text = "Укажите угол : a";
             // 
             // toolStripMenuItem13
@@ -473,13 +472,13 @@
             this.toolStripMenuItem13.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem28});
             this.toolStripMenuItem13.Name = "toolStripMenuItem13";
-            this.toolStripMenuItem13.Size = new System.Drawing.Size(170, 22);
+            this.toolStripMenuItem13.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem13.Text = "Масштабировать";
             // 
             // toolStripMenuItem28
             // 
             this.toolStripMenuItem28.Name = "toolStripMenuItem28";
-            this.toolStripMenuItem28.Size = new System.Drawing.Size(178, 22);
+            this.toolStripMenuItem28.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem28.Text = "Укажите фактор : a";
             // 
             // tlsChangeView
@@ -498,7 +497,7 @@
             this.toolStripMenuItem18.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem22});
             this.toolStripMenuItem18.Name = "toolStripMenuItem18";
-            this.toolStripMenuItem18.Size = new System.Drawing.Size(170, 22);
+            this.toolStripMenuItem18.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem18.Text = "Переместить";
             // 
             // toolStripMenuItem22
@@ -513,7 +512,7 @@
             this.toolStripMenuItem19.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem30});
             this.toolStripMenuItem19.Name = "toolStripMenuItem19";
-            this.toolStripMenuItem19.Size = new System.Drawing.Size(170, 22);
+            this.toolStripMenuItem19.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem19.Text = "Повернуть";
             // 
             // toolStripMenuItem30
@@ -528,7 +527,7 @@
             this.toolStripMenuItem20.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem29});
             this.toolStripMenuItem20.Name = "toolStripMenuItem20";
-            this.toolStripMenuItem20.Size = new System.Drawing.Size(170, 22);
+            this.toolStripMenuItem20.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem20.Text = "Масштабировать";
             // 
             // toolStripMenuItem29
@@ -556,8 +555,8 @@
             // toolStripMenuItem25
             // 
             this.toolStripMenuItem25.Name = "toolStripMenuItem25";
-            this.toolStripMenuItem25.Size = new System.Drawing.Size(174, 22);
-            this.toolStripMenuItem25.Text = "Укажите номер : a";
+            this.toolStripMenuItem25.Size = new System.Drawing.Size(186, 22);
+            this.toolStripMenuItem25.Text = "Тип объекта : номер";
             this.toolStripMenuItem25.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem26
@@ -571,7 +570,7 @@
             // tlsFindCoincidentNodes
             // 
             this.tlsFindCoincidentNodes.Name = "tlsFindCoincidentNodes";
-            this.tlsFindCoincidentNodes.Size = new System.Drawing.Size(102, 22);
+            this.tlsFindCoincidentNodes.Size = new System.Drawing.Size(180, 22);
             this.tlsFindCoincidentNodes.Text = "Узлы";
             this.tlsFindCoincidentNodes.Click += new System.EventHandler(this.NewItem_Click);
             // 

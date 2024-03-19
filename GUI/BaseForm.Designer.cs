@@ -303,7 +303,7 @@
             // 
             this.импортToolStripMenuItem.Name = "импортToolStripMenuItem";
             this.импортToolStripMenuItem.Size = new System.Drawing.Size(185, 26);
-            this.импортToolStripMenuItem.Text = "Импорт";
+            this.импортToolStripMenuItem.Text = "Импорт сетки";
             this.импортToolStripMenuItem.Click += new System.EventHandler(this.импортToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
