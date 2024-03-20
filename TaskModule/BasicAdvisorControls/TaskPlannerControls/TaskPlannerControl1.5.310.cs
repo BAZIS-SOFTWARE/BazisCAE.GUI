@@ -176,6 +176,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
                 Set_TaskSettings(taskKind, taskSettings, e.RowIndex);
 
+                GetChildControlExpandHeight(grbTaskSettings);
+
                 btnRefresh.Enabled = true;
 
             }
@@ -201,31 +203,15 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             GeneralParameters parameters;
             if (taskKind == "термическая")
             {
-                chbTermoTask.Checked = true;
-                parameters = JsonConvert.DeserializeObject<TermalParameters>
-(File.ReadAllText(fileSettings), settingsSerializer);
-                cntrHeatTask.InputData(parameters);
-                cntrHeatTask.BringToFront();
-                grbTaskSettings.Controls.Add(cntrHeatTask);
+                parameters = CreateTermalTaskSettings(fileSettings, settingsSerializer);
             }
             else if (taskKind == "механическая")
             {
-                chbMechTask.Checked = true;
-                parameters = JsonConvert.DeserializeObject<MechanicalParameters>
-(File.ReadAllText(fileSettings), settingsSerializer);
-                cntrMechTask.InputData(parameters);
-                cntrMechTask.BringToFront();
-                grbTaskSettings.Controls.Add(cntrMechTask);
-                chbLinkedCalc.Checked = !(parameters as MechanicalParameters).TermalProcesses.Equals(string.Empty);
+                parameters = CreateMechTaskSettings(fileSettings, settingsSerializer);
             }
             else
             {
-                chbChemicalTask.Checked = true;
-                parameters = JsonConvert.DeserializeObject<ChemicalParameters>
-(File.ReadAllText(fileSettings), settingsSerializer);
-                cntrChemTask.InputData(parameters);
-                cntrChemTask.BringToFront();
-                grbTaskSettings.Controls.Add(cntrChemTask);
+                parameters = CreateChemicalTaskSettings(fileSettings, settingsSerializer);
             }
 
 
@@ -235,6 +221,76 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             txbMinStep.Text = parameters.TimeSettings.MinTimeStep.ToString();
             txbMaxStep.Text = parameters.TimeSettings.MaxTimeStep.ToString();
             chbFurtherComp.Checked = !parameters.RestartFile.Equals(string.Empty);
+        }
+
+        private GeneralParameters CreateChemicalTaskSettings(string fileSettings, JsonSerializerSettings settingsSerializer)
+        {
+            GeneralParameters parameters;
+            chbChemicalTask.Checked = true;
+            parameters = JsonConvert.DeserializeObject<ChemicalParameters>
+(File.ReadAllText(fileSettings), settingsSerializer);
+            cntrChemTask.InputData(parameters);
+            cntrChemTask.BringToFront();
+            grbTaskSettings.Controls.Add(cntrChemTask);
+            return parameters;
+        }
+
+        private GeneralParameters CreateMechTaskSettings(string fileSettings, JsonSerializerSettings settingsSerializer)
+        {
+            GeneralParameters parameters;
+
+            parameters = JsonConvert.DeserializeObject<MechanicalParameters>
+(File.ReadAllText(fileSettings), settingsSerializer);
+            cntrMechTask.InputData(parameters);
+            cntrMechTask.BringToFront();
+            grbTaskSettings.Controls.Add(cntrMechTask);
+
+            var mechPar = parameters as MechanicalParameters;
+
+            if (!mechPar.ThermalFile.Equals(string.Empty))
+            {
+                chbLinkedCalc.Checked = true;
+                chbTermoTask.Checked = true;
+                if (!mechPar.ChemicalFile.Equals(string.Empty))
+                    chbChemicalTask.Checked = true;
+            }
+            else
+            {
+                chbLinkedCalc.Checked = false;
+                chbTermoTask.Checked = false;
+                chbChemicalTask.Checked = false;
+            }
+
+            chbMechTask.Checked = true;
+
+            return parameters;
+        }
+
+        private GeneralParameters CreateTermalTaskSettings(string fileSettings, JsonSerializerSettings settingsSerializer)
+        {
+            GeneralParameters parameters;
+
+            parameters = JsonConvert.DeserializeObject<TermalParameters>
+(File.ReadAllText(fileSettings), settingsSerializer);
+            cntrHeatTask.InputData(parameters);
+            cntrHeatTask.BringToFront();
+            grbTaskSettings.Controls.Add(cntrHeatTask);
+
+            var termPar = parameters as TermalParameters;
+
+            if (!termPar.ChemicalFile.Equals(string.Empty))
+            {
+                chbLinkedCalc.Checked = true;
+                chbChemicalTask.Checked = true;
+            }
+            else
+            {
+                chbLinkedCalc.Checked = false;
+                chbChemicalTask.Checked = false;
+            }
+            chbTermoTask.Checked = true;
+            chbMechTask.Checked = false;
+            return parameters;
         }
 
         private GeneralParameters Get_TaskSettings(TaskKind kind)

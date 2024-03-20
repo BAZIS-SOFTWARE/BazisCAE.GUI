@@ -195,7 +195,7 @@ namespace ResultModule
             scPage.SetScaleSetting += (ar1, ar2) =>
             {
                 scale.Precision = ar2.Precision;
-                scale.FillRange(ar2.Max, ar2.Min, ar2.Range);
+                scale.FillRange(ar2.Min,ar2.Max, ar2.Range);
             };
             scPage.ShowScaleEvent += (ar1, ar2) =>
             {
@@ -221,8 +221,7 @@ namespace ResultModule
                 scale.Coord_Y = (int)ar2;
             };
             
-            var icon = ResultModule.Properties.Resources.Scale;
-            var scForm = new Form() { TopMost = true, Icon = icon, Size = scPage.Size, Name = "Scale", Text = "Шкала значений" };
+            var scForm = new Form() { TopMost = true,Size = scPage.Size, Name = "Scale", Text = "Шкала значений" };
 
             scForm.Controls.Add(scPage);
             scForm.Show();
@@ -451,6 +450,7 @@ namespace ResultModule
                 var scaleItems = GetScaleItems();
 
                 ResultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
+                ResultsController.ResultsFieldsCreator.ScaleFactor = scaleFactor;
 
                 SceneControl.HideDisplayText2D();
                 SceneControl.HideDisplayText3D();
@@ -520,7 +520,7 @@ namespace ResultModule
             var max = (float)result.Data.Tables[objsType].Compute($"Max({resName})", "");
             var min = (float)result.Data.Tables[objsType].Compute($"Min({resName})", "");
 
-            scale.FillRange(max, min, 10);
+            scale.FillRange(min, max, 10);
         }
 
         private void CreatePathGraph(string resKind, ObjType objsType, float time)
@@ -731,24 +731,6 @@ namespace ResultModule
 
             await Task.Run(act);
         }
-
-        //public void CreateScale(float min, float max, int ranges, string title,string comments)
-        //{
-        //    SceneControl.HideGeometryObj("DisplaySceneScale");
-
-        //    if(NavigatorControl.TreeView.SelectedNode?.Level == 3)
-        //    {
-        //        var title = NavigatorControl.TreeView.SelectedNode.Parent.Name;
-        //        var comments = NavigatorControl.TreeView.SelectedNode.Name;
-        //        scale = SceneControl.CreateScaleObject(
-        //  scale.MinValue,scale.MaxValue, scale.Co, title, comments);
-        //    }
-        //    else
-        //        sceneScale = SceneControl.CreateScaleObject(
-        //  scale.MinValue, scale.MaxValue, scale.ValueRange().Count(), "", "");
-
-        //    SceneControl.DisplaySceneScale(sceneScale, scale.Coord_X, scale.Coord_X);
-        //}
 
         private void ShowResultValue(ObjType objsType, string resName, IResult result)
         {
