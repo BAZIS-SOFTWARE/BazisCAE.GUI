@@ -759,12 +759,6 @@ namespace TaskModule
                     AddData(arg2, taskStrAr[0].Replace("LRF", "X"));
                     AddData(arg2, taskStrAr[0].Replace("LRF", "Y"));
                     AddData(arg2, taskStrAr[0].Replace("LRF", "Z"));
-                    //TO DO
-                    // Разложить по базису
-                    //
-                    //AddData(arg2, taskStrAr[0]);
-                    //AddData(arg2, taskStrAr[0]);
-                    //AddData(arg2, taskStrAr[0]);
                 }
 
                 else
