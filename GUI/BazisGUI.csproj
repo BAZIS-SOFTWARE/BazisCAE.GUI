@@ -132,8 +132,8 @@
     <Reference Include="ProjectInterfaces, Version=3.0.20.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
       <HintPath>..\packages\ProjectInterfaces.3.0.20\lib\net48\ProjectInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Results, Version=3.0.0.23, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
-      <HintPath>..\packages\Results.3.0.0.23\lib\net48\Results.dll</HintPath>
+    <Reference Include="Results, Version=3.0.0.24, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
+      <HintPath>..\packages\Results.3.0.0.24\lib\net48\Results.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface, Version=1.0.33.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
       <HintPath>..\packages\SceneInterface.1.0.33\lib\net48\SceneInterface.dll</HintPath>
@@ -171,8 +171,8 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tasks, Version=3.0.0.20, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tasks.3.0.0.20\lib\net48\Tasks.dll</HintPath>
+    <Reference Include="Tasks, Version=3.0.0.21, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tasks.3.0.0.21\lib\net48\Tasks.dll</HintPath>
     </Reference>
     <Reference Include="TasksParameters, Version=1.0.0.11, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TasksParameters.1.0.0.11\lib\net48\TasksParameters.dll</HintPath>
