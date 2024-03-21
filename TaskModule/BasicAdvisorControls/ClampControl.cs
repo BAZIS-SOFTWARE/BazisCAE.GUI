@@ -176,7 +176,6 @@ namespace TaskModule.BasicAdvisorControls
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private string AddRowInfo()

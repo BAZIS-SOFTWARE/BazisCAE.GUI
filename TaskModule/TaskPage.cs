@@ -64,7 +64,7 @@ namespace TaskModule
             {
                 Name = "tasksMenuItem",
                 Text = "Задачи",
-                Enabled = false
+                Enabled = true
             };
             return tasksMenuItem;
         }
@@ -543,30 +543,30 @@ namespace TaskModule
 
         }
 
-//        public Func<string> SetDirection(string taskStr)
-//        {
-//            return new Func<string>(() =>
-//            {
-                
-//                var pointsCoords = project.ModelData.ObjectData.FindMany<INode>().
-//Where(x => x.MasterColor == Color.FromArgb(0, 255, 0)).Select(x => x.Position).ToArray();
-//                if (pointsCoords.Length < 3)
-//                {
-//                    CalculatorEvent(this, new CalculatorEventArgs("Выберите 3 точки!"));
-//                    return taskStr;
-//                }
-//                else
-//                {
-//                    var plane = new Plane(pointsCoords[0], pointsCoords[1], pointsCoords[2]);
-//                    var vector = plane.Normal;
-//                    var normVector = Vector.GetVectorNorm(vector);
+        //public Func<string> SetDirection(string taskStr)
+        //{
+        //    return new Func<string>(() =>
+        //    {
 
-//                    CalculatorEvent(this, new CalculatorEventArgs(""));
+        //        var pointsCoords = Project.ModelData.ObjectData.FindMany().
+        //            Where(x => x.MasterColor == Color.FromArgb(0, 255, 0)).Select(x => new Point3D(x._x, x._y, x._z)).ToArray();
+        //        if (pointsCoords.Length < 3)
+        //        {
+        //            CalculatorEvent(this, new CalculatorEventArgs("Выберите 3 точки!"));
+        //            return taskStr;
+        //        }
+        //        else
+        //        {
+        //            var plane = new Plane(pointsCoords[0], pointsCoords[1], pointsCoords[2]);
+        //            var vector = plane.Normal;
+        //            var normVector = Vector.GetVectorNorm(vector);
 
-//                    return taskStr.Replace("LRF", normVector.ToString());
-//                }
-//            });
-//        }
+        //            CalculatorEvent(this, new CalculatorEventArgs(""));
+
+        //            return taskStr.Replace("LRF", normVector.ToString());
+        //        }
+        //    });
+        //}
 
         public void TaskAdvisor_DeleteAllDataEvent(object arg1, DeleteAllDataEventArgs arg2)
         {
@@ -756,6 +756,9 @@ namespace TaskModule
                     await taskStrLRF;
                     var vec = taskStrLRF.Result.Normal;
 
+                    AddData(arg2, taskStrAr[0].Replace("LRF", "X"));
+                    AddData(arg2, taskStrAr[0].Replace("LRF", "Y"));
+                    AddData(arg2, taskStrAr[0].Replace("LRF", "Z"));
                     //TO DO
                     // Разложить по базису
                     //
