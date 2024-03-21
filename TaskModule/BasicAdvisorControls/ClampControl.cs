@@ -180,33 +180,31 @@ namespace TaskModule.BasicAdvisorControls
         {
             var taskStrAr = new List<string>();
 
-            var stiffnessFunc = string.Empty;
+            string stiffnessFunc;
             if (cmbStiffnessFunc.Text != "")
                 stiffnessFunc = cmbStiffnessFunc.Text;
             else stiffnessFunc = "*";
 
-            var direction = new StringBuilder();
+            var direction = new string[3];
             if (chbLRF.Checked)
                 direction.Append("LRF");
 
             else
             {
-                var directionBools = new[]
-                {
-                    chbX.Enabled && chbX.Checked,
-                    chbY.Enabled && chbY.Checked,
-                    chbZ.Enabled && chbZ.Checked
-                };
-                // from ascii table take xyz without comporation
-                for (var i = 0; i < 3; i++)
-                    direction.Append(directionBools[i] ? Convert.ToChar(88 + i).ToString() : "");
+                if (chbX.Enabled && chbX.Checked)
+                    direction.Append("X");
+                if (chbY.Enabled && chbY.Checked)
+                    direction.Append("Y");
+                if (chbZ.Enabled && chbZ.Checked)
+                    direction.Append("Z");
             }
 
             if (direction.Length == 0)
                 throw new Exception("Не выбрано направление");
 
+            foreach(var d in direction)
             taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} {4} {5} *\"",
-                    cmbNodeGr.Text, cmbKind.Text, direction, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
+                    cmbNodeGr.Text, cmbKind.Text, d, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
 
             return string.Join(" ", taskStrAr);
         }
