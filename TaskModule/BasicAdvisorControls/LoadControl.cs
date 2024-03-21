@@ -117,10 +117,13 @@ namespace TaskModule.BasicAdvisorControls
         {
             try
             {
-                CurentSelectedRowInfo = AddRowInfo();
-                base.AddButton_Click(sender, e);
-
-                btnRefresh.Enabled = false;
+                var rows = AddRowInfo().Split('~');
+                foreach( var row in rows)
+                {
+                    CurentSelectedRowInfo = row;
+                    base.AddButton_Click(sender, e);
+                    btnRefresh.Enabled = false;
+                }
             }
             catch (Exception ex)
             {
@@ -138,28 +141,28 @@ namespace TaskModule.BasicAdvisorControls
                 loadFunc = cmbLoadFunction.Text;
             else loadFunc = "*";
 
-            var direction = new string[3];
+            var direction = new List<string>();
             if (chbLRF.Checked)
-                direction.Append("LRF");
+                direction.Add("LRF");
 
             else
             {
                 if (chbX.Enabled && chbX.Checked)
-                    direction.Append("X");
+                    direction.Add("X");
                 if (chbY.Enabled && chbY.Checked)
-                    direction.Append("Y");
+                    direction.Add("Y");
                 if (chbZ.Enabled && chbZ.Checked)
-                    direction.Append("Z");
+                    direction.Add("Z");
             }
 
-            if (direction.Length == 0)
+            if (direction.Count == 0)
                 throw new Exception("Не выбрано направление");
 
             foreach(var d in direction)
                 taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} {4} {5} *\"",
                      cmbGr.Text, cmbKind.Text, d, loadFunc, txbStartTime.Text, txbStopTime.Text));
 
-            return string.Join(" ", taskStrAr);
+            return string.Join("~", taskStrAr);
         }
 
         public void ShowDataButton_Click(object sender, EventArgs e)
