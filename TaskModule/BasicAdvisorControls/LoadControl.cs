@@ -117,10 +117,13 @@ namespace TaskModule.BasicAdvisorControls
         {
             try
             {
-                CurentSelectedRowInfo = AddRowInfo();
-                base.AddButton_Click(sender, e);
-
-                btnRefresh.Enabled = false;
+                var rows = AddRowInfo().Split('~');
+                foreach( var row in rows)
+                {
+                    CurentSelectedRowInfo = row;
+                    base.AddButton_Click(sender, e);
+                    btnRefresh.Enabled = false;
+                }
             }
             catch (Exception ex)
             {
@@ -133,35 +136,37 @@ namespace TaskModule.BasicAdvisorControls
         {
             var taskStrAr = new List<string>();
 
-            var loadFunc = string.Empty;
+            string loadFunc;
             if (cmbLoadFunction.Text != "")
                 loadFunc = cmbLoadFunction.Text;
             else loadFunc = "*";
 
-            var direction = new StringBuilder();
+            var direction = new List<string>();
             if (chbLRF.Checked)
-                direction.Append("LRF");
+            {
+                if (cmbKind.Text == "Жесткое")
+                    throw new Exception("Произвольное направление не может быть выбрано при жестком закреплении при нагрузке");
+                direction.Add("LRF");
+            }
 
             else
             {
-                var directionBools = new[]
-                {
-                    chbX.Enabled && chbX.Checked,
-                    chbY.Enabled && chbY.Checked,
-                    chbZ.Enabled && chbZ.Checked
-                };
-                // from ascii table take xyz without comporation
-                for (var i = 0; i < 3; i++)
-                    direction.Append(directionBools[i] ? Convert.ToChar(88 + i).ToString() : "");
+                if (chbX.Enabled && chbX.Checked)
+                    direction.Add("X");
+                if (chbY.Enabled && chbY.Checked)
+                    direction.Add("Y");
+                if (chbZ.Enabled && chbZ.Checked)
+                    direction.Add("Z");
             }
 
-            if (direction.Length == 0)
+            if (direction.Count == 0)
                 throw new Exception("Не выбрано направление");
 
-            taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} {4} {5} *\"",
-                     cmbGr.Text, cmbKind.Text, direction, loadFunc, txbStartTime.Text, txbStopTime.Text));
+            foreach(var d in direction)
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} {4} {5} *\"",
+                     cmbGr.Text, cmbKind.Text, d, loadFunc, txbStartTime.Text, txbStopTime.Text));
 
-            return string.Join(" ", taskStrAr);
+            return string.Join("~", taskStrAr);
         }
 
         public void ShowDataButton_Click(object sender, EventArgs e)
