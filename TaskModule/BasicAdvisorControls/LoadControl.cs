@@ -143,7 +143,11 @@ namespace TaskModule.BasicAdvisorControls
 
             var direction = new List<string>();
             if (chbLRF.Checked)
+            {
+                if (cmbKind.Text == "Жесткое")
+                    throw new Exception("Произвольное направление не может быть выбрано при жестком закреплении при нагрузке");
                 direction.Add("LRF");
+            }
 
             else
             {

@@ -64,7 +64,7 @@ namespace TaskModule
             {
                 Name = "tasksMenuItem",
                 Text = "Задачи",
-                Enabled = true
+                Enabled = false
             };
             return tasksMenuItem;
         }

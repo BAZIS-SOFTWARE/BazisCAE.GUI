@@ -188,8 +188,13 @@ namespace TaskModule.BasicAdvisorControls
             else stiffnessFunc = "*";
 
             var direction = new List<string>();
-            if (chbLRF.Checked)
+            if (chbLRF.Checked) 
+            {
+                if (cmbKind.Text == "Жесткое")
+                    throw new Exception("Произвольное направление не может быть выбрано при жестком закреплении");
                 direction.Add("LRF");
+            }
+                
 
             else
             {
