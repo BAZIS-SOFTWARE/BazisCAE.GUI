@@ -86,6 +86,14 @@ namespace TaskModule.BasicAdvisorControls
         {
             var comboBox = (ComboBox)sender;
 
+            if (cmbKind.Text == "Жесткое")
+            {
+                chbLRF.Checked = false;
+                chbLRF.Enabled = false;
+            }
+            else
+                chbLRF.Enabled = true;
+
             if (comboBox.SelectedIndex == 0)
             {
                 cmbStiffnessFunc.Enabled = false;
