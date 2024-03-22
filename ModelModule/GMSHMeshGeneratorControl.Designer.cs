@@ -38,8 +38,6 @@ namespace ModelModule
             this.meshDensityValue = new System.Windows.Forms.TextBox();
             this.mesh2DGenBtn = new System.Windows.Forms.Button();
             this.meshGenBox = new System.Windows.Forms.GroupBox();
-            this.meshSaveBtn = new System.Windows.Forms.Button();
-            this.meshLoadBtn = new System.Windows.Forms.Button();
             this.densityLabel = new System.Windows.Forms.Label();
             this.meshLayout = new System.Windows.Forms.TableLayoutPanel();
             this.meshElBox = new System.Windows.Forms.GroupBox();
@@ -211,7 +209,6 @@ namespace ModelModule
             // mesh2DGenBtn
             // 
             this.mesh2DGenBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.mesh2DGenBtn.Enabled = false;
             this.mesh2DGenBtn.Location = new System.Drawing.Point(160, 58);
             this.mesh2DGenBtn.Margin = new System.Windows.Forms.Padding(2);
             this.mesh2DGenBtn.Name = "mesh2DGenBtn";
@@ -223,8 +220,6 @@ namespace ModelModule
             // 
             // meshGenBox
             // 
-            this.meshGenBox.Controls.Add(this.meshSaveBtn);
-            this.meshGenBox.Controls.Add(this.meshLoadBtn);
             this.meshGenBox.Controls.Add(this.btnMesh2DDel);
             this.meshGenBox.Controls.Add(this.algoChoice);
             this.meshGenBox.Controls.Add(this.algoLabel);
@@ -240,30 +235,6 @@ namespace ModelModule
             this.meshGenBox.TabIndex = 3;
             this.meshGenBox.TabStop = false;
             this.meshGenBox.Text = "Управление сеткой";
-            // 
-            // meshSaveBtn
-            // 
-            this.meshSaveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.meshSaveBtn.Enabled = false;
-            this.meshSaveBtn.Location = new System.Drawing.Point(258, 88);
-            this.meshSaveBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.meshSaveBtn.Name = "meshSaveBtn";
-            this.meshSaveBtn.Size = new System.Drawing.Size(98, 26);
-            this.meshSaveBtn.TabIndex = 11;
-            this.meshSaveBtn.Text = "Сохранить";
-            this.meshSaveBtn.UseVisualStyleBackColor = true;
-            // 
-            // meshLoadBtn
-            // 
-            this.meshLoadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.meshLoadBtn.Enabled = false;
-            this.meshLoadBtn.Location = new System.Drawing.Point(160, 88);
-            this.meshLoadBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.meshLoadBtn.Name = "meshLoadBtn";
-            this.meshLoadBtn.Size = new System.Drawing.Size(94, 26);
-            this.meshLoadBtn.TabIndex = 10;
-            this.meshLoadBtn.Text = "Загрузить";
-            this.meshLoadBtn.UseVisualStyleBackColor = true;
             // 
             // densityLabel
             // 
@@ -1027,7 +998,6 @@ namespace ModelModule
             // 
             this.geoElBox.Controls.Add(this.tableLayoutPanel3);
             this.geoElBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.geoElBox.Enabled = false;
             this.geoElBox.Location = new System.Drawing.Point(2, 2);
             this.geoElBox.Margin = new System.Windows.Forms.Padding(2);
             this.geoElBox.Name = "geoElBox";
@@ -1440,8 +1410,6 @@ namespace ModelModule
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtSizeListFar;
         private System.Windows.Forms.Button btnFieldDelete;
-        private Button meshSaveBtn;
-        private Button meshLoadBtn;
         private TableLayoutPanel tableLayoutPanel3;
         private TreeView geomTree;
         private ContextMenuStrip cmsRemoveMesh2D;

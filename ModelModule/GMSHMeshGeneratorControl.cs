@@ -187,11 +187,7 @@ namespace ModelModule
 
         private void ShowHideTabControls(int dim, bool show = true)
         {
-            if (dim == 1)
-            {
-                geoDelBtn.Enabled = show;
-            }
-            else if (dim == 2)
+            if (dim == 2)
             {
                 btnMesh2DDel.Enabled = show;
                 meshElBox.Enabled = show;
@@ -212,23 +208,6 @@ namespace ModelModule
                 surfsTree.Nodes.Clear();
             else if (dim == 3)
                 volumesTree.Nodes.Clear();
-        }
-
-        private void OnLoadFile(object sender, EventArgs e)
-        {
-            //if (!IsControllerLoaded)
-            //{
-            //    showErrorMessage?.Invoke("Загрузите gmsh.dll");
-            //    return;
-            //}
-            //loadFileDialog.Filter = sender.Equals(geoLoadBtn) ? cadTemplates : scriptTemplates;
-            //if (loadFileDialog.ShowDialog() == DialogResult.OK)
-            //{
-            //    var ierr = 0;
-            //    GmshController.Clear(ref ierr);
-            //    GmshController.Open(loadFileDialog.FileName, ref ierr);
-            //    GenerateGeometry();
-            //}
         }
 
         [HandleProcessCorruptedStateExceptions]

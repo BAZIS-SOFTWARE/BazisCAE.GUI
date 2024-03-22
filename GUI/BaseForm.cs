@@ -887,6 +887,8 @@ namespace BazisGUI
 
                 lblStatus.Text = $"{project.Path}\\{project.Name}";
 
+                модулиMenuItem.Enabled = true;
+
                 UpdateGeometry(ObjType.Точка);
                 UpdateGeometry(ObjType.Линия);
 
