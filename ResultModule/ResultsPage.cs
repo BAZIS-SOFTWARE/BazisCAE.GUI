@@ -1,19 +1,15 @@
 ﻿using BaseModule;
 using BaseModule.Navigator;
-using BaseModule.ToolStrips;
 using CustomControls.Controls;
 using CustomControls.OS;
 using Geometry;
 using Gif.Components;
 using Graph;
-using ModelControllerInterfaces;
 using ModelInterfaces;
 using ModelInterfaces.MeshObjects;
 using ProjectInterfaces;
-using ProjectInterfaces.IO;
 using ProjectInterfaces.Results;
 using ProjectInterfaces.Tasks;
-using ResultModule.ToolStrips;
 using SceneInterface;
 using System;
 using System.Collections.Generic;
@@ -22,7 +18,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using Image = System.Drawing.Image;
 
 namespace ResultModule
@@ -523,7 +518,7 @@ namespace ResultModule
             scale.FillRange(min, max, 10);
         }
 
-        private void CreatePathGraph(string resKind, ObjType objsType, float time)
+        private async void CreatePathGraph(string resKind, ObjType objsType, float time)
         {
             try
             {
@@ -541,10 +536,10 @@ namespace ResultModule
 
                 var result = Project.ResultData.FindByTime(resKind, time);
 
-                var objs = Project.ModelData.ObjectData.GetObjects(objsType).
-                    Where(x => x.MasterColor == SceneControl.SelectionColor).ToList();
+                //var objs = Project.ModelData.ObjectData.GetObjects(objsType).
+                    //Where(x => x.MasterColor == SceneControl.SelectionColor).ToList();
 
-                objs.Sort();
+                var objs = await CreatePathAsync();
 
                 var pathPoints = new List<Point3D>();
                 var path = 0.0f;
@@ -628,10 +623,14 @@ namespace ResultModule
                         var grPoint = new GraphPoint(result.Time, res);
                         grPoints.Add(grPoint);
                     }
-                    var grData = new GraphData(resDes, Color.Orange, "Сек.", resDes, grPoints.ToArray());
+
+                    SceneControl.DisplayText3D($"{objsType}_{obj.Number}", Color.Black, obj.CalcCentr());
+
+                    var grData = new GraphData($"{objsType}_{obj.Number}", Color.Orange, "Сек.", resDes, grPoints.ToArray());
                     grDataAr.Add(grData);
                 }
 
+                SceneControl.DisplayObjects();
                 var grContainer = new GraphContainer();
 
                 if (grDataAr.Count != 0)
