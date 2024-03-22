@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace ModelModule
 {
-    partial class GmshControl : UserControl
+    partial class GMSHMeshGeneratorControl : UserControl
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -100,10 +100,6 @@ namespace ModelModule
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.txtSizeListFar = new System.Windows.Forms.TextBox();
-            this.loadModelBox = new System.Windows.Forms.GroupBox();
-            this.geoScriptBtn = new System.Windows.Forms.Button();
-            this.geoDelBtn = new System.Windows.Forms.Button();
-            this.geoLoadBtn = new System.Windows.Forms.Button();
             this.geoElBox = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.settingsLayout = new System.Windows.Forms.TableLayoutPanel();
@@ -148,7 +144,6 @@ namespace ModelModule
             this.grpFieldGeneral.SuspendLayout();
             this.pnlFieldInit.SuspendLayout();
             this.grpFieldSize.SuspendLayout();
-            this.loadModelBox.SuspendLayout();
             this.geoElBox.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.settingsLayout.SuspendLayout();
@@ -514,16 +509,14 @@ namespace ModelModule
             // 
             this.geometryLayout.ColumnCount = 1;
             this.geometryLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.geometryLayout.Controls.Add(this.filterBox, 0, 2);
-            this.geometryLayout.Controls.Add(this.loadModelBox, 0, 0);
-            this.geometryLayout.Controls.Add(this.geoElBox, 0, 1);
+            this.geometryLayout.Controls.Add(this.filterBox, 0, 1);
+            this.geometryLayout.Controls.Add(this.geoElBox, 0, 0);
             this.geometryLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.geometryLayout.Location = new System.Drawing.Point(2, 2);
             this.geometryLayout.Margin = new System.Windows.Forms.Padding(2);
             this.geometryLayout.Name = "geometryLayout";
-            this.geometryLayout.RowCount = 3;
-            this.geometryLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
-            this.geometryLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 283F));
+            this.geometryLayout.RowCount = 2;
+            this.geometryLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 325F));
             this.geometryLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 271F));
             this.geometryLayout.Size = new System.Drawing.Size(363, 773);
             this.geometryLayout.TabIndex = 0;
@@ -533,11 +526,11 @@ namespace ModelModule
             this.filterBox.Controls.Add(this.boundFilter);
             this.filterBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filterBox.Enabled = false;
-            this.filterBox.Location = new System.Drawing.Point(2, 337);
+            this.filterBox.Location = new System.Drawing.Point(2, 327);
             this.filterBox.Margin = new System.Windows.Forms.Padding(2);
             this.filterBox.Name = "filterBox";
             this.filterBox.SelectedIndex = 0;
-            this.filterBox.Size = new System.Drawing.Size(359, 434);
+            this.filterBox.Size = new System.Drawing.Size(359, 444);
             this.filterBox.TabIndex = 6;
             // 
             // boundFilter
@@ -548,7 +541,7 @@ namespace ModelModule
             this.boundFilter.Margin = new System.Windows.Forms.Padding(2);
             this.boundFilter.Name = "boundFilter";
             this.boundFilter.Padding = new System.Windows.Forms.Padding(2);
-            this.boundFilter.Size = new System.Drawing.Size(351, 408);
+            this.boundFilter.Size = new System.Drawing.Size(351, 418);
             this.boundFilter.TabIndex = 0;
             this.boundFilter.Text = "Граничный";
             // 
@@ -573,7 +566,7 @@ namespace ModelModule
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 67F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 74F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 73F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(347, 404);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(347, 414);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // grpFieldBeta
@@ -588,7 +581,7 @@ namespace ModelModule
             this.grpFieldBeta.Margin = new System.Windows.Forms.Padding(2);
             this.grpFieldBeta.Name = "grpFieldBeta";
             this.grpFieldBeta.Padding = new System.Windows.Forms.Padding(2);
-            this.grpFieldBeta.Size = new System.Drawing.Size(343, 69);
+            this.grpFieldBeta.Size = new System.Drawing.Size(343, 70);
             this.grpFieldBeta.TabIndex = 13;
             this.grpFieldBeta.TabStop = false;
             this.grpFieldBeta.Text = "Закон бета";
@@ -1030,66 +1023,16 @@ namespace ModelModule
             this.txtSizeListFar.Text = "1.0";
             this.txtSizeListFar.TextChanged += new System.EventHandler(this.OnFilterValueEnter);
             // 
-            // loadModelBox
-            // 
-            this.loadModelBox.Controls.Add(this.geoScriptBtn);
-            this.loadModelBox.Controls.Add(this.geoDelBtn);
-            this.loadModelBox.Controls.Add(this.geoLoadBtn);
-            this.loadModelBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.loadModelBox.Location = new System.Drawing.Point(2, 2);
-            this.loadModelBox.Margin = new System.Windows.Forms.Padding(2);
-            this.loadModelBox.Name = "loadModelBox";
-            this.loadModelBox.Padding = new System.Windows.Forms.Padding(2);
-            this.loadModelBox.Size = new System.Drawing.Size(359, 48);
-            this.loadModelBox.TabIndex = 1;
-            this.loadModelBox.TabStop = false;
-            this.loadModelBox.Text = "Загрузка";
-            // 
-            // geoScriptBtn
-            // 
-            this.geoScriptBtn.Location = new System.Drawing.Point(124, 18);
-            this.geoScriptBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.geoScriptBtn.Name = "geoScriptBtn";
-            this.geoScriptBtn.Size = new System.Drawing.Size(105, 26);
-            this.geoScriptBtn.TabIndex = 2;
-            this.geoScriptBtn.Text = "Загрузить скрипт";
-            this.geoScriptBtn.UseVisualStyleBackColor = true;
-            this.geoScriptBtn.Click += new System.EventHandler(this.OnLoadFile);
-            // 
-            // geoDelBtn
-            // 
-            this.geoDelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.geoDelBtn.Enabled = false;
-            this.geoDelBtn.Location = new System.Drawing.Point(245, 18);
-            this.geoDelBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.geoDelBtn.Name = "geoDelBtn";
-            this.geoDelBtn.Size = new System.Drawing.Size(105, 26);
-            this.geoDelBtn.TabIndex = 1;
-            this.geoDelBtn.Text = "Удалить";
-            this.geoDelBtn.UseVisualStyleBackColor = true;
-            this.geoDelBtn.Click += new System.EventHandler(this.OnDeleteGeometry);
-            // 
-            // geoLoadBtn
-            // 
-            this.geoLoadBtn.Location = new System.Drawing.Point(8, 18);
-            this.geoLoadBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.geoLoadBtn.Name = "geoLoadBtn";
-            this.geoLoadBtn.Size = new System.Drawing.Size(105, 26);
-            this.geoLoadBtn.TabIndex = 0;
-            this.geoLoadBtn.Text = "Загрузить CAD";
-            this.geoLoadBtn.UseVisualStyleBackColor = true;
-            this.geoLoadBtn.Click += new System.EventHandler(this.OnLoadFile);
-            // 
             // geoElBox
             // 
             this.geoElBox.Controls.Add(this.tableLayoutPanel3);
             this.geoElBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.geoElBox.Enabled = false;
-            this.geoElBox.Location = new System.Drawing.Point(2, 54);
+            this.geoElBox.Location = new System.Drawing.Point(2, 2);
             this.geoElBox.Margin = new System.Windows.Forms.Padding(2);
             this.geoElBox.Name = "geoElBox";
             this.geoElBox.Padding = new System.Windows.Forms.Padding(2);
-            this.geoElBox.Size = new System.Drawing.Size(359, 279);
+            this.geoElBox.Size = new System.Drawing.Size(359, 321);
             this.geoElBox.TabIndex = 3;
             this.geoElBox.TabStop = false;
             this.geoElBox.Text = "Элементы геометрии";
@@ -1106,7 +1049,7 @@ namespace ModelModule
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(355, 262);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(355, 304);
             this.tableLayoutPanel3.TabIndex = 16;
             // 
             // settingsLayout
@@ -1128,7 +1071,7 @@ namespace ModelModule
             this.settingsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.settingsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.settingsLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.settingsLayout.Size = new System.Drawing.Size(174, 258);
+            this.settingsLayout.Size = new System.Drawing.Size(174, 300);
             this.settingsLayout.TabIndex = 15;
             // 
             // pointsControlBox
@@ -1145,7 +1088,7 @@ namespace ModelModule
             this.pointsControlBox.Margin = new System.Windows.Forms.Padding(2);
             this.pointsControlBox.Name = "pointsControlBox";
             this.pointsControlBox.Padding = new System.Windows.Forms.Padding(2);
-            this.pointsControlBox.Size = new System.Drawing.Size(170, 147);
+            this.pointsControlBox.Size = new System.Drawing.Size(170, 181);
             this.pointsControlBox.TabIndex = 2;
             this.pointsControlBox.TabStop = false;
             this.pointsControlBox.Text = "Разметка кривых";
@@ -1153,7 +1096,7 @@ namespace ModelModule
             // algoCoef
             // 
             this.algoCoef.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.algoCoef.Location = new System.Drawing.Point(11, 89);
+            this.algoCoef.Location = new System.Drawing.Point(11, 106);
             this.algoCoef.Margin = new System.Windows.Forms.Padding(2);
             this.algoCoef.Name = "algoCoef";
             this.algoCoef.Size = new System.Drawing.Size(143, 20);
@@ -1164,7 +1107,7 @@ namespace ModelModule
             // txbAlgoNPoints
             // 
             this.txbAlgoNPoints.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txbAlgoNPoints.Location = new System.Drawing.Point(11, 126);
+            this.txbAlgoNPoints.Location = new System.Drawing.Point(11, 143);
             this.txbAlgoNPoints.Margin = new System.Windows.Forms.Padding(2);
             this.txbAlgoNPoints.Name = "txbAlgoNPoints";
             this.txbAlgoNPoints.Size = new System.Drawing.Size(143, 20);
@@ -1176,7 +1119,7 @@ namespace ModelModule
             this.rbtnProgressive.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.rbtnProgressive.AutoSize = true;
             this.rbtnProgressive.Checked = true;
-            this.rbtnProgressive.Location = new System.Drawing.Point(11, 12);
+            this.rbtnProgressive.Location = new System.Drawing.Point(11, 29);
             this.rbtnProgressive.Margin = new System.Windows.Forms.Padding(2);
             this.rbtnProgressive.Name = "rbtnProgressive";
             this.rbtnProgressive.Size = new System.Drawing.Size(80, 17);
@@ -1190,7 +1133,7 @@ namespace ModelModule
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 111);
+            this.label2.Location = new System.Drawing.Point(29, 128);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 13);
@@ -1201,7 +1144,7 @@ namespace ModelModule
             // 
             this.rbtnBump.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.rbtnBump.AutoSize = true;
-            this.rbtnBump.Location = new System.Drawing.Point(11, 33);
+            this.rbtnBump.Location = new System.Drawing.Point(11, 50);
             this.rbtnBump.Margin = new System.Windows.Forms.Padding(2);
             this.rbtnBump.Name = "rbtnBump";
             this.rbtnBump.Size = new System.Drawing.Size(52, 17);
@@ -1214,7 +1157,7 @@ namespace ModelModule
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(28, 73);
+            this.label3.Location = new System.Drawing.Point(28, 90);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(80, 13);
@@ -1225,7 +1168,7 @@ namespace ModelModule
             // 
             this.rbtnBeta.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.rbtnBeta.AutoSize = true;
-            this.rbtnBeta.Location = new System.Drawing.Point(11, 55);
+            this.rbtnBeta.Location = new System.Drawing.Point(11, 72);
             this.rbtnBeta.Margin = new System.Windows.Forms.Padding(2);
             this.rbtnBeta.Name = "rbtnBeta";
             this.rbtnBeta.Size = new System.Drawing.Size(47, 17);
@@ -1242,17 +1185,17 @@ namespace ModelModule
             this.tableLayoutPanel5.Controls.Add(this.btnDel, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.btnOK, 0, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 154);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 188);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(168, 28);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(168, 36);
             this.tableLayoutPanel5.TabIndex = 3;
             // 
             // btnDel
             // 
             this.btnDel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnDel.Location = new System.Drawing.Point(93, 2);
+            this.btnDel.Location = new System.Drawing.Point(93, 6);
             this.btnDel.Margin = new System.Windows.Forms.Padding(2);
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(60, 24);
@@ -1263,7 +1206,7 @@ namespace ModelModule
             // btnOK
             // 
             this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnOK.Location = new System.Drawing.Point(10, 3);
+            this.btnOK.Location = new System.Drawing.Point(10, 7);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(59, 22);
             this.btnOK.TabIndex = 10;
@@ -1275,7 +1218,7 @@ namespace ModelModule
             // 
             this.chbShowHeatMap.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.chbShowHeatMap.AutoSize = true;
-            this.chbShowHeatMap.Location = new System.Drawing.Point(2, 212);
+            this.chbShowHeatMap.Location = new System.Drawing.Point(2, 254);
             this.chbShowHeatMap.Margin = new System.Windows.Forms.Padding(2);
             this.chbShowHeatMap.Name = "chbShowHeatMap";
             this.chbShowHeatMap.Size = new System.Drawing.Size(166, 17);
@@ -1288,7 +1231,7 @@ namespace ModelModule
             // 
             this.chbShowCurvesInfo.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.chbShowCurvesInfo.AutoSize = true;
-            this.chbShowCurvesInfo.Location = new System.Drawing.Point(2, 188);
+            this.chbShowCurvesInfo.Location = new System.Drawing.Point(2, 230);
             this.chbShowCurvesInfo.Margin = new System.Windows.Forms.Padding(2);
             this.chbShowCurvesInfo.Name = "chbShowCurvesInfo";
             this.chbShowCurvesInfo.Size = new System.Drawing.Size(116, 17);
@@ -1301,7 +1244,7 @@ namespace ModelModule
             // 
             this.chbShowSurfacesInfo.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.chbShowSurfacesInfo.AutoSize = true;
-            this.chbShowSurfacesInfo.Location = new System.Drawing.Point(2, 237);
+            this.chbShowSurfacesInfo.Location = new System.Drawing.Point(2, 279);
             this.chbShowSurfacesInfo.Margin = new System.Windows.Forms.Padding(2);
             this.chbShowSurfacesInfo.Name = "chbShowSurfacesInfo";
             this.chbShowSurfacesInfo.Size = new System.Drawing.Size(142, 17);
@@ -1317,7 +1260,7 @@ namespace ModelModule
             this.geomTree.Location = new System.Drawing.Point(2, 2);
             this.geomTree.Margin = new System.Windows.Forms.Padding(2);
             this.geomTree.Name = "geomTree";
-            this.geomTree.Size = new System.Drawing.Size(173, 258);
+            this.geomTree.Size = new System.Drawing.Size(173, 300);
             this.geomTree.TabIndex = 14;
             this.geomTree.Tag = "entTree";
             this.geomTree.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.entTree_BeforeSelect);
@@ -1376,14 +1319,14 @@ namespace ModelModule
             this.rem2DItem.Text = "Удалить";
             this.rem2DItem.Click += new System.EventHandler(this.OnDeleteElement3D);
             // 
-            // GmshControl
+            // GMSHMeshGeneratorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gmshTab);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(375, 796);
-            this.Name = "GmshControl";
+            this.Name = "GMSHMeshGeneratorControl";
             this.Size = new System.Drawing.Size(375, 803);
             this.Load += new System.EventHandler(this.OnLoad);
             this.meshGenBox.ResumeLayout(false);
@@ -1414,7 +1357,6 @@ namespace ModelModule
             this.pnlFieldInit.PerformLayout();
             this.grpFieldSize.ResumeLayout(false);
             this.grpFieldSize.PerformLayout();
-            this.loadModelBox.ResumeLayout(false);
             this.geoElBox.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.settingsLayout.ResumeLayout(false);
@@ -1455,9 +1397,6 @@ namespace ModelModule
         private System.Windows.Forms.TabPage volumePage;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel geometryLayout;
-        private System.Windows.Forms.GroupBox loadModelBox;
-        private System.Windows.Forms.Button geoDelBtn;
-        private System.Windows.Forms.Button geoLoadBtn;
         private System.Windows.Forms.GroupBox geoElBox;
         private System.Windows.Forms.TabPage geometryPage;
         private System.Windows.Forms.TabControl gmshTab;
@@ -1501,7 +1440,6 @@ namespace ModelModule
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtSizeListFar;
         private System.Windows.Forms.Button btnFieldDelete;
-        private Button geoScriptBtn;
         private Button meshSaveBtn;
         private Button meshLoadBtn;
         private TableLayoutPanel tableLayoutPanel3;

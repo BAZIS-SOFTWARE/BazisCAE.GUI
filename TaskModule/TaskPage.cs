@@ -755,10 +755,29 @@ namespace TaskModule
                     var taskStrLRF = CreateSurfaceAsync();
                     await taskStrLRF;
                     var vec = taskStrLRF.Result.Normal;
+                    var nVec = Vector.GetVectorNorm(vec);
 
-                    AddData(arg2, taskStrAr[0].Replace("LRF", "X"));
-                    AddData(arg2, taskStrAr[0].Replace("LRF", "Y"));
-                    AddData(arg2, taskStrAr[0].Replace("LRF", "Z"));
+                    var ar = taskStrAr[0].Split(' ');
+
+                    var val = float.Parse(ar[3]);
+
+                    var rVec = nVec.Mult(val);
+
+                    //TO DO
+                    ar[2] = "X";
+                    ar[3] = rVec._x.ToString();
+
+                    AddData(arg2, string.Join(" ", ar));
+
+                    ar[2] = "Y";
+                    ar[3] = rVec._y.ToString();
+
+                    AddData(arg2, string.Join(" ", ar));
+
+                    ar[2] = "Z";
+                    ar[3] = rVec._z.ToString();
+
+                    AddData(arg2, string.Join(" ", ar));
                 }
 
                 else

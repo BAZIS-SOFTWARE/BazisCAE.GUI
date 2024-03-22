@@ -18,11 +18,11 @@ using System.Collections.ObjectModel;
 
 namespace ModelModule
 {
-    public partial class GmshControl : UserControl
+    public partial class GMSHMeshGeneratorControl : UserControl
     {
-        private const string cadTemplates = "CAD Files(*.brep; *.stp; *.step; *.igs; *.iges)|" +
-                                                      "*.brep; *.stp; *.step; *.igs; *.iges";
-        private const string scriptTemplates = "Script Files(*.geo)|*.geo";
+        //private const string cadTemplates = "CAD Files(*.brep; *.stp; *.step; *.igs; *.iges)|" +
+        //                                              "*.brep; *.stp; *.step; *.igs; *.iges";
+        //private const string scriptTemplates = "Script Files(*.geo)|*.geo";
         public IGmshController GmshController { get; set; }
 
         private int boundFieldTag;
@@ -65,7 +65,7 @@ namespace ModelModule
         public event Action<bool> redrawScene;
 
 
-        public GmshControl()
+        public GMSHMeshGeneratorControl()
         {
             InitializeComponent();
         }
@@ -73,47 +73,17 @@ namespace ModelModule
         private void OnLoad(object sender, EventArgs e)
         {
             ParentForm.FormClosing += OnClosingForm;
-            var path = Environment.GetEnvironmentVariable("BazisMeshPath", EnvironmentVariableTarget.Machine);
 
-            if (path == null || path == "")
-            {
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = "All files(*.*)|*.*|" +
-                    "dinamic library(*.dll)|*.dll";
-                if (dialog.ShowDialog() == DialogResult.Cancel)
-                    return;
-                path = dialog.FileName;
-            }
-            else
-                path = $@"{path}";
-            GmshController.Load(path);
-            //ObjectData = new ObjectsData();
             var ierr = 0;
-            GmshController.OptionSetNumber("General.AbortOnError", 0, ref ierr);//Запретить поделию Кристофа обваливать Базис
+            FillGeometryTreeView();
+            if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
+                ShowHideGeneralTabControls(2);
+            ShowHideGeneralTabControls(1);
+            ShowHideTabControls(1);
+
             algoChoice.SelectedIndex = 3;
         }
 
-        private void UpdateGeometry(ObjType objType)
-        {
-            if (objType == ObjType.Точка)
-            {
-                ObjectData.PointCollection.Clear();
-                int[] dimTags;
-                GmshController.ModelGetGeometryEntities(out dimTags, 0);
-                var controlPoints = GmshController.CreateControlPoints(dimTags);
-                if(controlPoints.Count > 0)
-                    ObjectData.PointCollection.AddRange(controlPoints);  
-            }
-            else if (objType == ObjType.Линия)
-            {
-                int[] dimTags;
-                ObjectData.LineCollection.Clear();
-                GmshController.ModelGetGeometryEntities(out dimTags, 1);
-                var curves = GmshController.CreateLines(dimTags);
-                if(curves.Count > 0)
-                    ObjectData.LineCollection.AddRange(curves);
-            }
-        }
         /// <summary>
         /// Обновляет VBO-объекты сетки
         /// </summary>
@@ -138,79 +108,7 @@ namespace ModelModule
             if(objs.Item4.Count > 0)
                 ObjectData.E3DCollection.AddRange(objs.Item4);
         }
-
-        private void GenerateGeometry()
-        {
-            DeleteMesh();
-            //Обновляем все VBO не связанный с геометрией, т.к могло произойти удаление сетки
-            updateMeshVBOEvent?.Invoke();
-
-            //UpdateMeshVBO(true);
-            hide3dTextEvent?.Invoke();//Вызов очистки 3d текста
-
-            ClearTreeView(3);
-            ShowHideTabControls(3, false);
-            ShowHideGeneralTabControls(3, false);
-
-            ClearTreeView(2);
-            ShowHideTabControls(2, false);
-
-            UpdateGeometry(ObjType.Точка);
-            UpdateGeometry(ObjType.Линия);
-
-            updateMeshVBOEvent?.Invoke();
-
-            //updateMeshVBOEvent?.Invoke(ObjType.Точка);
-            //updateMeshVBOEvent?.Invoke(ObjType.Линия);
-            var ierr = 0;
-            FillGeometryTreeView();
-            if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
-                ShowHideGeneralTabControls(2);
-            ShowHideGeneralTabControls(1);
-            ShowHideTabControls(1);
-
-            redrawScene?.Invoke(true);
-
-            updateTreeViewEvent?.Invoke();
-        }
-
-        private void OnDeleteGeometry(object sender, EventArgs e)
-        {
-            DeleteGeometry();
-            hide3dTextEvent?.Invoke();
-            redrawScene?.Invoke(true);
-            updateTreeViewEvent?.Invoke();
-        }
-        public void DeleteGeometry()
-        {
-            DeleteMesh();
-
-            ClearTreeView(3);
-            ShowHideTabControls(3, false);
-            ShowHideGeneralTabControls(3, false);
-
-            ClearTreeView(2);
-            ShowHideTabControls(2, false);
-
-            var ierr = 0;
-            GmshController.Clear(ref ierr);
-            UpdateGeometry(ObjType.Точка);
-            UpdateGeometry(ObjType.Линия);
-
-            updateGeometryVBOEvent?.Invoke();
-
-            //updateMeshVBOEvent?.Invoke(ObjType.Точка);
-            //updateMeshVBOEvent?.Invoke(ObjType.Линия);
-            //Обновляем все VBO, поскольку они могли присутствовать до удаления
-
-            updateMeshVBOEvent?.Invoke();
-            //UpdateMeshVBO(true);
-
-            ClearTreeView(1);
-            ShowHideGeneralTabControls(2, false);
-            ShowHideGeneralTabControls(1, false);
-            ShowHideTabControls(1, false);
-        }
+        
 
         private void OnDeleteMesh2D(object sender, EventArgs e)
         {
@@ -236,7 +134,7 @@ namespace ModelModule
         /// </summary>
         private void DeleteMesh()
         {
-            DeleteMeshObjects(ObjType.Узел);
+            DeleteGMSHMeshObjects(ObjType.Узел);
             ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
         }
         /// <summary>
@@ -246,7 +144,7 @@ namespace ModelModule
         /// <param name="e"></param>
         private void OnDeleteMesh3D(object sender, EventArgs e)
         {
-            DeleteMeshObjects(ObjType.Элемент3D);
+            DeleteGMSHMeshObjects(ObjType.Элемент3D);
 
             ObjectData.Clear(ObjType.Узел);
             UpdateObjectData();
@@ -318,19 +216,19 @@ namespace ModelModule
 
         private void OnLoadFile(object sender, EventArgs e)
         {
-            if (!IsControllerLoaded)
-            {
-                showErrorMessage?.Invoke("Загрузите gmsh.dll");
-                return;
-            }
-            loadFileDialog.Filter = sender.Equals(geoLoadBtn) ? cadTemplates : scriptTemplates;
-            if (loadFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                var ierr = 0;
-                GmshController.Clear(ref ierr);
-                GmshController.Open(loadFileDialog.FileName, ref ierr);
-                GenerateGeometry();
-            }
+            //if (!IsControllerLoaded)
+            //{
+            //    showErrorMessage?.Invoke("Загрузите gmsh.dll");
+            //    return;
+            //}
+            //loadFileDialog.Filter = sender.Equals(geoLoadBtn) ? cadTemplates : scriptTemplates;
+            //if (loadFileDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    var ierr = 0;
+            //    GmshController.Clear(ref ierr);
+            //    GmshController.Open(loadFileDialog.FileName, ref ierr);
+            //    GenerateGeometry();
+            //}
         }
 
         [HandleProcessCorruptedStateExceptions]
@@ -355,7 +253,7 @@ namespace ModelModule
                 showErrorMessage?.Invoke(error);
             if (volumesTree.Nodes.Count > 0)
             {
-                DeleteMeshObjects(ObjType.Элемент3D);
+                DeleteGMSHMeshObjects(ObjType.Элемент3D);
                 ShowHideTabControls(3, false);
                 ClearTreeView(3);
             }
@@ -638,7 +536,7 @@ namespace ModelModule
             GmshController.ModelMeshClear(dimTags, (IntPtr)dimTags.Length, ref ierr);
         }
 
-        private void DeleteMeshObjects(ObjType type)
+        private void DeleteGMSHMeshObjects(ObjType type)
         {
             var ierr = 0;
             int[] dimTags = null;
@@ -724,7 +622,7 @@ namespace ModelModule
                 }
                 else
                 {
-                    DeleteMeshObjects(ObjType.Элемент3D);
+                    DeleteGMSHMeshObjects(ObjType.Элемент3D);
                     ObjectData.Clear(ObjType.Узел);
                     var objs = GmshController.GetMeshObjects();
                     if (objs.Item1.Count > 0)
@@ -841,21 +739,15 @@ namespace ModelModule
 
         private void OnClosingForm(object sender, FormClosingEventArgs e)
         {
-            if (IsControllerLoaded)
+            hide3dTextEvent?.Invoke();
+            if (!SaveObjectData)
             {
-                hide3dTextEvent?.Invoke();
-                if (!SaveObjectData)
-                {
-                    DeleteGeometry();
-                    redrawScene?.Invoke(true);
-                }
+                //DeleteGeometry();
+                redrawScene?.Invoke(true);
+            }
 
-                var ierr = 0;
-                GmshController.Finalize(ref ierr);
-
-                updateTreeViewEvent?.Invoke();
-                hideHeatMapEvent?.Invoke();
-            };
+            updateTreeViewEvent?.Invoke();
+            hideHeatMapEvent?.Invoke();
         }
 
         private void OnSaveData(object sender, EventArgs e)

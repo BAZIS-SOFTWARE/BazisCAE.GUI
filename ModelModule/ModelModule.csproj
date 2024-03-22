@@ -61,8 +61,8 @@
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
     </Reference>
-    <Reference Include="ModelControllerInterfaces, Version=3.0.0.34, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelControllerInterfaces.3.0.0.34\lib\net48\ModelControllerInterfaces.dll</HintPath>
+    <Reference Include="ModelControllerInterfaces, Version=3.0.0.35, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelControllerInterfaces.3.0.0.35\lib\net48\ModelControllerInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="ModelInterfaces, Version=3.0.0.19, Culture=neutral, PublicKeyToken=998e39182864f357, processorArchitecture=MSIL">
       <HintPath>..\packages\ModelInterfaces.3.0.0.19\lib\net48\ModelInterfaces.dll</HintPath>
@@ -73,8 +73,8 @@
     <Reference Include="Octree, Version=2.1.10.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.10\lib\net48\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="ProjectInterfaces, Version=3.0.20.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjectInterfaces.3.0.20\lib\net48\ProjectInterfaces.dll</HintPath>
+    <Reference Include="ProjectInterfaces, Version=3.0.21.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProjectInterfaces.3.0.21\lib\net48\ProjectInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface, Version=1.0.33.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
       <HintPath>..\packages\SceneInterface.1.0.33\lib\net48\SceneInterface.dll</HintPath>
@@ -126,17 +126,17 @@
     <Compile Include="CurveControl.Designer.cs">
       <DependentUpon>CurveControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="MeshGeneratorControl.cs">
+    <Compile Include="GMSHMeshGeneratorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MeshGeneratorControl.Designer.cs">
-      <DependentUpon>MeshGeneratorControl.cs</DependentUpon>
+    <Compile Include="GMSHMeshGeneratorControl.Designer.cs">
+      <DependentUpon>GMSHMeshGeneratorControl.cs</DependentUpon>
     </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MeshGeneratorControl.resx">
-      <DependentUpon>MeshGeneratorControl.cs</DependentUpon>
+    <EmbeddedResource Include="GMSHMeshGeneratorControl.resx">
+      <DependentUpon>GMSHMeshGeneratorControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ModelPage.resx">
       <DependentUpon>ModelPage.cs</DependentUpon>

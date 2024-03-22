@@ -141,6 +141,15 @@ namespace TaskModule.BasicAdvisorControls
                 loadFunc = cmbLoadFunction.Text;
             else loadFunc = "*";
 
+            var value = 0.0f;
+            if (loadFunc == "*")
+            {
+                if (!float.TryParse(txbValue.Text, out value))
+                    throw new Exception("Необходимо задать величину нагрузки");
+            }
+            else value = 1;
+  
+
             var direction = new List<string>();
             if (chbLRF.Checked)
             {
@@ -163,8 +172,8 @@ namespace TaskModule.BasicAdvisorControls
                 throw new Exception("Не выбрано направление");
 
             foreach(var d in direction)
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} {4} {5} *\"",
-                     cmbGr.Text, cmbKind.Text, d, loadFunc, txbStartTime.Text, txbStopTime.Text));
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} {4} {5} {6} *\"",
+                     cmbGr.Text, cmbKind.Text, d, value,loadFunc, txbStartTime.Text, txbStopTime.Text));
 
             return string.Join("~", taskStrAr);
         }

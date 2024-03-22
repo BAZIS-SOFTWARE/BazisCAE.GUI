@@ -37,6 +37,7 @@ using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using ProjectInterfaces.Results;
 using Results;
+using ModelInterfaces;
 
 namespace BazisGUI
 {
@@ -48,6 +49,8 @@ namespace BazisGUI
         //private string activePage;
         private List<ToolStripMenuItem> activeMenuItems = new List<ToolStripMenuItem>();
         BasePage module;
+
+        GmshController gmshController;
 
 
         SettingsConfig settingsConfig = new SettingsConfig()
@@ -100,7 +103,7 @@ namespace BazisGUI
             module.ModelController = new ModelController.ModelController();
 
             var meshModule = module as ModelPage;
-            meshModule.GmshController = new GmshController();
+            meshModule.GmshController = gmshController;
 
             AddModule();
         }
@@ -697,7 +700,7 @@ namespace BazisGUI
                     module.ModelController = new ModelController.ModelController();
 
                     var meshModule = module as ModelPage;
-                    meshModule.GmshController = new GmshController();
+                    meshModule.GmshController = gmshController;
 
                     AddModule();
                 }
@@ -736,7 +739,7 @@ namespace BazisGUI
             }));
         }
 
-        private async void импортToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void импортСеткиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -789,7 +792,7 @@ namespace BazisGUI
                     module.ModelController = new ModelController.ModelController();
 
                     var meshModule = module as ModelPage;
-                    meshModule.GmshController = new GmshController();
+                    meshModule.GmshController = gmshController;
 
                     AddModule();
                 }
@@ -853,6 +856,110 @@ namespace BazisGUI
         {
             project?.Save();
             module?.ConsoleControl.PrintInfo("Проект сохранен", Color.Black);
+        }
+
+        private void импортГеометрииToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+
+            var filter =
+"(*.brep*)|*.brep|" +
+"(*.geo*)|*.geo|" +
+"*.stp*)|*.stp|" +
+"(*.step*)|*.step|" +
+"(*.iges*)|*.iges|" +
+"(*.igs*)|*.igs";
+
+            dialog.Filter = filter;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (gmshController == null)
+                    LoadGMSH();
+
+                var ierr = 0;
+                gmshController.Clear(ref ierr);
+                gmshController.Open(dialog.FileName, ref ierr);
+
+                var path = Path.GetDirectoryName(dialog.FileName);
+                var name = Path.GetFileName(dialog.FileName);
+
+                CreateNewProject(path, name);
+
+                lblStatus.Text = $"{project.Path}\\{project.Name}";
+
+                UpdateGeometry(ObjType.Точка);
+                UpdateGeometry(ObjType.Линия);
+
+                if (module != null)
+                {
+                    module.Project = project;
+                    module.SceneInitialization();
+                    module.PresentProjectOnTree();
+                    module.PresentModelOnSelectToolStrip();
+                }
+                else
+                {
+                    module = CreateModule("Mesh");
+                    module.ModelController = new ModelController.ModelController();
+
+                    var meshModule = module as ModelPage;
+                    meshModule.GmshController = gmshController;
+
+                    AddModule();
+                }
+            }
+        }
+
+        private void UpdateGeometry(ObjType objType)
+        {
+            if (objType == ObjType.Точка)
+            {
+                project.ModelData.ObjectData.PointCollection.Clear();
+                int[] dimTags;
+                gmshController.ModelGetGeometryEntities(out dimTags, 0);
+                var controlPoints = gmshController.CreateControlPoints(dimTags);
+                if (controlPoints.Count > 0)
+                    project.ModelData.ObjectData.PointCollection.AddRange(controlPoints);
+            }
+            else if (objType == ObjType.Линия)
+            {
+                int[] dimTags;
+                project.ModelData.ObjectData.LineCollection.Clear();
+                gmshController.ModelGetGeometryEntities(out dimTags, 1);
+                var curves = gmshController.CreateLines(dimTags);
+                if (curves.Count > 0)
+                    project.ModelData.ObjectData.LineCollection.AddRange(curves);
+            }
+        }
+
+        private void LoadGMSH()
+        {
+            FormClosing += OnClosingForm;
+            var path = Environment.GetEnvironmentVariable("BazisMeshPath", EnvironmentVariableTarget.Machine);
+
+            if (path == null || path == "")
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "All files(*.*)|*.*|" +
+                    "dinamic library(*.dll)|*.dll";
+                if (dialog.ShowDialog() == DialogResult.Cancel)
+                    return;
+                path = dialog.FileName;
+            }
+            else
+                path = $@"{path}";
+
+            gmshController = new GmshController();
+            gmshController.Load(path);
+            //ObjectData = new ObjectsData();
+            var ierr = 0;
+            gmshController.OptionSetNumber("General.AbortOnError", 0, ref ierr);//Запретить поделию Кристофа обваливать Базис
+        }
+
+        private void OnClosingForm(object sender, FormClosingEventArgs e)
+        {
+                var ierr = 0;
+                gmshController.Finalize(ref ierr);
         }
     }
 }

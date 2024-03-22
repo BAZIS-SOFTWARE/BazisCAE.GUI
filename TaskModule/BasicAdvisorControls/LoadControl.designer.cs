@@ -42,12 +42,6 @@
             this.txbStopTime = new System.Windows.Forms.TextBox();
             this.txbStartTime = new System.Windows.Forms.TextBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chbLRF = new System.Windows.Forms.CheckBox();
             this.cmbGr = new System.Windows.Forms.ComboBox();
@@ -60,6 +54,15 @@
             this.chbX = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txbValue = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -99,7 +102,7 @@
             this.groupBox3.Controls.Add(this.txbStartTime);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox3.Location = new System.Drawing.Point(1, 151);
+            this.groupBox3.Location = new System.Drawing.Point(1, 177);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
@@ -249,61 +252,28 @@
             this.Column9,
             this.Column10,
             this.Column12,
+            this.valColumn,
             this.Column1,
             this.startColumn,
             this.stopColumn});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 286);
+            this.dataGridView.Location = new System.Drawing.Point(1, 312);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(559, 221);
+            this.dataGridView.Size = new System.Drawing.Size(559, 195);
             this.dataGridView.TabIndex = 23;
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_UserDeletingRow);
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "Группа объектов";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "Вид";
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            // 
-            // Column12
-            // 
-            this.Column12.HeaderText = "Направление";
-            this.Column12.Name = "Column12";
-            this.Column12.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Функция";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // startColumn
-            // 
-            this.startColumn.HeaderText = "Старт";
-            this.startColumn.Name = "startColumn";
-            this.startColumn.ReadOnly = true;
-            // 
-            // stopColumn
-            // 
-            this.stopColumn.HeaderText = "Стоп";
-            this.stopColumn.Name = "stopColumn";
-            this.stopColumn.ReadOnly = true;
             // 
             // groupBox1
             // 
             this.groupBox1.AutoSize = true;
             this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox1.Controls.Add(this.txbValue);
             this.groupBox1.Controls.Add(this.chbLRF);
             this.groupBox1.Controls.Add(this.cmbGr);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.cmbLoadFunction);
@@ -319,7 +289,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(559, 148);
+            this.groupBox1.Size = new System.Drawing.Size(559, 174);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры нагрузки";
@@ -349,7 +319,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 87);
+            this.label1.Location = new System.Drawing.Point(10, 87);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 13);
             this.label1.TabIndex = 42;
@@ -370,7 +340,7 @@
             this.cmbLoadFunction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbLoadFunction.FormattingEnabled = true;
-            this.cmbLoadFunction.Location = new System.Drawing.Point(170, 111);
+            this.cmbLoadFunction.Location = new System.Drawing.Point(170, 137);
             this.cmbLoadFunction.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbLoadFunction.Name = "cmbLoadFunction";
             this.cmbLoadFunction.Size = new System.Drawing.Size(361, 21);
@@ -433,7 +403,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(9, 114);
+            this.label10.Location = new System.Drawing.Point(10, 140);
             this.label10.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(118, 13);
@@ -443,11 +413,72 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 62);
+            this.label6.Location = new System.Drawing.Point(10, 62);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 13);
             this.label6.TabIndex = 38;
             this.label6.Text = "Направление";
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Группа объектов";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "Вид";
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "Направление";
+            this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
+            // 
+            // valColumn
+            // 
+            this.valColumn.HeaderText = "Величина";
+            this.valColumn.Name = "valColumn";
+            this.valColumn.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Функция";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // startColumn
+            // 
+            this.startColumn.HeaderText = "Старт";
+            this.startColumn.Name = "startColumn";
+            this.startColumn.ReadOnly = true;
+            // 
+            // stopColumn
+            // 
+            this.stopColumn.HeaderText = "Стоп";
+            this.stopColumn.Name = "stopColumn";
+            this.stopColumn.ReadOnly = true;
+            // 
+            // txbValue
+            // 
+            this.txbValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbValue.Location = new System.Drawing.Point(170, 111);
+            this.txbValue.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbValue.Name = "txbValue";
+            this.txbValue.Size = new System.Drawing.Size(361, 20);
+            this.txbValue.TabIndex = 45;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(10, 114);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(69, 13);
+            this.label2.TabIndex = 42;
+            this.label2.Text = "Величина, Н";
             // 
             // LoadControl
             // 
@@ -497,8 +528,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn startColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn stopColumn;
+        private System.Windows.Forms.TextBox txbValue;
+        private System.Windows.Forms.Label label2;
     }
 }

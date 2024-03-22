@@ -20,6 +20,7 @@ using ModelControllerInterfaces;
 using System.Threading;
 using ModelInterfaces.MeshObjects;
 using ModelInterfaces.GeometryObjects;
+using ModelControllerInterfaces.GmshController;
 
 namespace BaseModule
 {

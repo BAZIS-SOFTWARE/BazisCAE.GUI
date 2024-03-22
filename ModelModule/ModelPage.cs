@@ -60,15 +60,17 @@ namespace ModelModule
 
             meshGeneratorMenuItem.Click += (ar1, ar2) =>
             {
-                var res = MessageBox.Show("Вы собираетесь запустить сеточный генератор. При нажатии на кнопку \"OK\" Все данные будут удалены!",
+                var res = MessageBox.Show("Вы собираетесь запустить сеточный генератор. При нажатии на кнопку \"OK\" Все данные о задаче будут удалены!",
                     "Внимание!", MessageBoxButtons.OKCancel);
 
                 if(res == DialogResult.OK)
                 {
-                    Project.ClearAllData();
-                    ClearAllDataOnScene();
+                    Project.TaskData.Clear();
+                    SceneControl.HideAllGeometryObjs();
+                    SceneControl.HideDisplayText2D();
+                    SceneControl.HideDisplayText3D();
                     PresentProjectOnTree();
-                    LoadMeshControl();
+                    LoadGMSHMeshControl();
                     SceneControl.DisplayObjects();
                 }
             };
@@ -76,39 +78,46 @@ namespace ModelModule
             return meshMenuItem;
         }
 
-        private void LoadMeshControl()
+        private void LoadGMSHMeshControl()
         {
             //SceneControl.IsBlending = false;//Прозрачность пока больше мешает
-            var gmshControl = new GmshControl();
-            var gmshForm = new Form()
-            {
-                TopMost = true,
-                ShowIcon = false,
-                ClientSize = gmshControl.Size,
-                MaximizeBox = false,
-                FormBorderStyle = FormBorderStyle.FixedSingle
-            };
 
-            gmshControl.updateMeshVBOEvent += UpdateMeshVBO;
-            gmshControl.updateGeometryVBOEvent += UpdateGeometryVBO;
-            gmshControl.updateTreeViewEvent += () => { PresentProjectOnTree(); };
-            gmshControl.redrawScene += RedrawScene;
-            gmshControl.showErrorMessage += ShowErrorMessage;
-            gmshControl.ShowObjectsEvent += ShowLines;
-            gmshControl.hide3dTextEvent += () => 
-            { 
-                SceneControl.HideDisplayText3D();
-                SceneControl.DisplayObjects();
-            };
-            gmshControl.show3dTextEvent += GmshControl_show3dTextEvent;
-            gmshControl.showHeatMapEvent += GmshControl_showHeatMapEvent;
-            gmshControl.hideHeatMapEvent += GmshControl_hideHeatMapEvent;
-            gmshControl.ResetColorObjectsEvent += GmshControl_ResetColorObjectsEvent;
-            gmshForm.Controls.Add(gmshControl);
-            gmshControl.Dock = DockStyle.Fill;
-            gmshControl.ObjectData = Project.ModelData.ObjectData;
-            gmshControl.GmshController = GmshController;
-            gmshForm.Show();
+            if (GmshController == null)
+                MessageBox.Show("Загрузите CAD модель перед запуском генератора сетки!");
+
+            else
+            {
+                var meshGenerator = new GMSHMeshGeneratorControl();
+                var gmshForm = new Form()
+                {
+                    TopMost = true,
+                    ShowIcon = false,
+                    ClientSize = meshGenerator.Size,
+                    MaximizeBox = false,
+                    FormBorderStyle = FormBorderStyle.FixedSingle
+                };
+
+                meshGenerator.updateMeshVBOEvent += UpdateMeshVBO;
+                meshGenerator.updateGeometryVBOEvent += UpdateGeometryVBO;
+                meshGenerator.updateTreeViewEvent += () => { PresentProjectOnTree(); };
+                meshGenerator.redrawScene += RedrawScene;
+                meshGenerator.showErrorMessage += ShowErrorMessage;
+                meshGenerator.ShowObjectsEvent += ShowLines;
+                meshGenerator.hide3dTextEvent += () =>
+                {
+                    SceneControl.HideDisplayText3D();
+                    SceneControl.DisplayObjects();
+                };
+                meshGenerator.show3dTextEvent += GmshControl_show3dTextEvent;
+                meshGenerator.showHeatMapEvent += GmshControl_showHeatMapEvent;
+                meshGenerator.hideHeatMapEvent += GmshControl_hideHeatMapEvent;
+                meshGenerator.ResetColorObjectsEvent += GmshControl_ResetColorObjectsEvent;
+                gmshForm.Controls.Add(meshGenerator);
+                meshGenerator.Dock = DockStyle.Fill;
+                meshGenerator.ObjectData = Project.ModelData.ObjectData;
+                meshGenerator.GmshController = GmshController;
+                gmshForm.Show();
+            }        
             //ModelPresenter.Clear();//Подчищаем Presenter во избежании артефактов
         }
 
