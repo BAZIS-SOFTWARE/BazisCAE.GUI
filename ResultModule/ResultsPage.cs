@@ -246,6 +246,15 @@ namespace ResultModule
                     SceneControl.DisplayObjects();
                 };
 
+                grPage.SelectResultsEvent += (ar) =>
+                {
+                    NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
+                    NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
+
+                    var res = Project.ResultData.FindByTaskKind(ar);
+                    PresentResultsOnTree(res);
+                };
+
                 var resKinds = Project.ResultData.GetResultKinds();
                 var resDic = new Dictionary<string, List<float>>();
                 foreach (var resKind in resKinds)
@@ -279,7 +288,6 @@ namespace ResultModule
             {
                 NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
                 NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
-                NavigatorControl.TreeView.Nodes["Результаты"].Text = ar1;
 
                 var res = Project.ResultData.FindByTaskKind(ar1);
                 PresentResultsOnTree(res);
@@ -536,9 +544,6 @@ namespace ResultModule
 
                 var result = Project.ResultData.FindByTime(resKind, time);
 
-                //var objs = Project.ModelData.ObjectData.GetObjects(objsType).
-                    //Where(x => x.MasterColor == SceneControl.SelectionColor).ToList();
-
                 var objs = await CreatePathAsync();
 
                 var pathPoints = new List<Point3D>();
@@ -571,7 +576,7 @@ namespace ResultModule
                     var grData = new GraphData(resDes, Color.Orange, "мм", resDes, grPoints.ToArray());
                     var grContainer = new GraphContainer();
 
-                    grContainer.CreateGraphObj(resDes, new List<GraphData>() { grData }, new AxisFormat(), new AxisFormat());
+                    grContainer.CreateGraphObj("Результаты по расстоянию", new List<GraphData>() { grData }, new AxisFormat(), new AxisFormat());
                     grContainer.Dock = DockStyle.Fill;
                     var form = new Form
                     {
@@ -635,7 +640,7 @@ namespace ResultModule
 
                 if (grDataAr.Count != 0)
                 {
-                    grContainer.CreateGraphObj(resDes, grDataAr, new AxisFormat(), new AxisFormat());
+                    grContainer.CreateGraphObj("Результаты по времени", grDataAr, new AxisFormat(), new AxisFormat());
                     grContainer.Dock = DockStyle.Fill;
                     var form = new Form
                     {

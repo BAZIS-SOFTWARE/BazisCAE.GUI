@@ -17,6 +17,7 @@ namespace ResultModule
         public event Action<object, CreatePathGraphEventArgs> CreatePathGraphEvent;
 
         public event Action<ObjType> SelectObjectsEvent;
+        public event Action<string> SelectResultsEvent;
 
         public GraphCreationPage()
         {
@@ -113,6 +114,8 @@ namespace ResultModule
             richTextBox.Clear();
             foreach (var time in times)
                 richTextBox.AppendText($"{time}\n");
+
+            SelectResultsEvent?.Invoke(comboBox.SelectedItem.ToString());        
         }
 
         private void richTextBox_MouseClick(object sender, MouseEventArgs e)

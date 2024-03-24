@@ -681,13 +681,18 @@ namespace BaseModule
 
                             sceneControl.DisplayObjects();
 
-                            var node = SelectNodeAsync();
-                            await node;
-                            var proj = node.Result.Position.GetPointProectionOnPlane(plane.Result);
-                            var line = new Segment3D(node.Result.Position, proj);
-                            consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
-                            sceneControl.DisplayDistance(line);
-                            sceneControl.DisplayObjects();
+                            var res = SelectNodeAsync();
+                            await res;
+
+                            if(res.Result is INode node)
+                            {
+                                var proj = node.Position.GetPointProectionOnPlane(plane.Result);
+                                var line = new Segment3D(node.Position, proj);
+                                consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
+                                sceneControl.DisplayDistance(line);
+                                sceneControl.DisplayObjects();
+                            }
+
                             break;
                         }
                     case MeasureKind.Path:
@@ -744,12 +749,16 @@ namespace BaseModule
 
             while (true)
             {
-                if (PressedKey == Keys.Escape)
-                    break;
-                var node = SelectNodeAsync();
-                await node;
-                nodes.Add(node.Result);
-                node.Result.SetBackColor();
+                var res = SelectNodeAsync();
+                await res;
+
+                if (res.Result is INode node)
+                {
+                    nodes.Add(node);
+                    node.SetBackColor();
+                }
+                else break;
+
                 if (nodes.Count > 1)
                 {
                     var line = new Segment3D(nodes[nodes.Count - 1].Position, nodes[nodes.Count - 2].Position);
@@ -762,7 +771,7 @@ namespace BaseModule
         }
 
 
-        private async Task<INode> SelectNodeAsync()
+        private async Task<object> SelectNodeAsync()
         {
             var actBreak = new Action(() =>
             {
@@ -801,7 +810,7 @@ namespace BaseModule
 
             var pointAwait = AsyncMethodContainer(actPointConfirm, actBreak, message);
             await pointAwait;
-            return (INode)pointAwait.Result;
+            return pointAwait.Result;
         }
 
         public async Task<Plane> CreateSurfaceAsync()

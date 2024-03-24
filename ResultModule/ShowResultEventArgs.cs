@@ -7,9 +7,9 @@
 
         public int ScaleFactor { get; }
 
-        public ShowResultEventArgs(string resultName, float time, int scaleFactor)
+        public ShowResultEventArgs(string resultKind, float time, int scaleFactor)
         {
-            var descr = resultName.Split('_');
+            var descr = resultKind.Split('_');
 
             ResultKind = descr[0];
             Time = time;
