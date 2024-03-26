@@ -190,7 +190,7 @@ namespace BaseModule.Console
 
         public void PrintInfo(string str, Color color)
         {
-            rtxbField.AppendText("\n > " + str);
+            rtxbField.AppendText($"\n > {str}");
 
             if (color != Color.Black)
                 HighlightPhrase(str, color);
@@ -247,61 +247,50 @@ namespace BaseModule.Console
         private void ExecuteCommand(string line)
         {
             //TO DO
-            try
+            var cmds = FieldsParserTask.ParseLine(line);
+            if (cmds.Count != 0)
             {
-                var cmds = FieldsParserTask.ParseLine(line);
-                if (cmds.Count != 0)
-                {
-                    if (!this.genCmds.ContainsKey(cmds[0])) throw new Exception("Не является командой");
+                if (!this.genCmds.ContainsKey(cmds[0])) throw new Exception("Не является командой");
 
-                    switch (genCmds[cmds[0]])
-                    {
-                        case GenCmd.FindObject:
-                            InEvent(this, new FindObjectEventArgs(cmds[1]));
-                            break;
-                        case GenCmd.LoadProject:
-                            InEvent(this, new LoadProjectEventArgs(cmds[1]));
-                            break;
-                        case GenCmd.SaveProject:
-                            InEvent(this, new SaveProjectEventArgs(cmds[1]));
-                            break;
-                        case GenCmd.NewProject:
-                            break;
-                        case GenCmd.ShowResults:
-                            break;
-                        case GenCmd.HideResults:
-                            break;
-                        case GenCmd.CreateGraph:
-                            break;
-                        case GenCmd.RenumberMesh:
-                            InEvent(this, new ModelRenumberEventArgs(cmds[1]));
-                            break;
-                        case GenCmd.ChangeModelCoordinates:
-                            InEvent(this, new ModelShiftCoordinateEventArgs(cmds[2]));
-                            break;
-                        case GenCmd.FindFreeNodes:
-                            InEvent(this, new ModelFindFreeNodesEventArgs());
-                            break;
-                        case GenCmd.FindCoincident:
-                            if (cmds[1] == "Узлы")
-                                InEvent(this, new ModelFindCoincidentsNodesEventArgs());
-                            break;
-                        case GenCmd.SolveProject:
-                            InEvent(this, new SolveProjectEventArgs());
-                            break;
-                        case GenCmd.Exit:
-                            InEvent(this, new ExitAppEventArgs());
-                            break;
-                    }
-                }          
-            }
-            catch (Exception ex)
-            {
-                Invoke(new Action(() =>
+                switch (genCmds[cmds[0]])
                 {
-                    PrintInfo(ex.Message, Color.Red);
-                    rtxbField.AppendText("\n");
-                }));               
+                    case GenCmd.FindObject:
+                        InEvent(this, new FindObjectEventArgs(cmds[1]));
+                        break;
+                    case GenCmd.LoadProject:
+                        InEvent(this, new LoadProjectEventArgs(cmds[1]));
+                        break;
+                    case GenCmd.SaveProject:
+                        InEvent(this, new SaveProjectEventArgs(cmds[1]));
+                        break;
+                    case GenCmd.NewProject:
+                        break;
+                    case GenCmd.ShowResults:
+                        break;
+                    case GenCmd.HideResults:
+                        break;
+                    case GenCmd.CreateGraph:
+                        break;
+                    case GenCmd.RenumberMesh:
+                        InEvent(this, new ModelRenumberEventArgs(cmds[1]));
+                        break;
+                    case GenCmd.ChangeModelCoordinates:
+                        InEvent(this, new ModelShiftCoordinateEventArgs(cmds[2]));
+                        break;
+                    case GenCmd.FindFreeNodes:
+                        InEvent(this, new ModelFindFreeNodesEventArgs());
+                        break;
+                    case GenCmd.FindCoincident:
+                        if (cmds[1] == "Узлы")
+                            InEvent(this, new ModelFindCoincidentsNodesEventArgs());
+                        break;
+                    case GenCmd.SolveProject:
+                        InEvent(this, new SolveProjectEventArgs());
+                        break;
+                    case GenCmd.Exit:
+                        InEvent(this, new ExitAppEventArgs());
+                        break;
+                }
             }
         }
 
@@ -440,30 +429,31 @@ namespace BaseModule.Console
             {
                 var cmds = rtxbField.Lines[rtxbField.Lines.Count() - 1];
 
-                trd = new Thread(delegate ()
+                if(cmds.Length != 0)
                 {
-                    try
+                    trd = new Thread(delegate ()
                     {
-                        Invoke(new Action(() => 
+                        try
                         {
-                            ExecuteCommand(cmds); 
-                        }));
-                    }
-                    catch (Exception ex)
-                    {
-                        Invoke(new Action(() =>
-                        {
-                            rtxbField.AppendText("\n < " + ex.Message);
-                            rtxbField.AppendText("\n");
+                            Invoke(new Action(() =>
+                            {
+                                ExecuteCommand(cmds);
+                            }));
                         }
-                            ));
+                        catch (Exception ex)
+                        {
+                            Invoke(new Action(() =>
+                            {
+                                PrintInfo(ex.Message, Color.Red);
+                            }
+                                ));
 
-                    }
-                });
-                trd.Start();
+                        }
+                    });
+                    trd.Start();
 
-                rtxbField.AppendText("\n < " + cmds);
-                rtxbField.AppendText("\n");
+                    rtxbField.AppendText($"\n < {cmds}");
+                }
             }
         }
     }

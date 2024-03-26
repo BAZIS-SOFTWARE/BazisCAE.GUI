@@ -69,11 +69,12 @@
             this.startColumn,
             this.stopColumn});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 224);
+            this.dataGridView.Location = new System.Drawing.Point(1, 271);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(776, 374);
+            this.dataGridView.RowHeadersWidth = 51;
+            this.dataGridView.Size = new System.Drawing.Size(1035, 465);
             this.dataGridView.TabIndex = 14;
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
@@ -81,24 +82,28 @@
             // elGroupColumn
             // 
             this.elGroupColumn.HeaderText = "Группа элементов";
+            this.elGroupColumn.MinimumWidth = 6;
             this.elGroupColumn.Name = "elGroupColumn";
             this.elGroupColumn.ReadOnly = true;
             // 
             // matColumn
             // 
             this.matColumn.HeaderText = "Материал";
+            this.matColumn.MinimumWidth = 6;
             this.matColumn.Name = "matColumn";
             this.matColumn.ReadOnly = true;
             // 
             // startColumn
             // 
             this.startColumn.HeaderText = "Старт";
+            this.startColumn.MinimumWidth = 6;
             this.startColumn.Name = "startColumn";
             this.startColumn.ReadOnly = true;
             // 
             // stopColumn
             // 
             this.stopColumn.HeaderText = "Стоп";
+            this.stopColumn.MinimumWidth = 6;
             this.stopColumn.Name = "stopColumn";
             this.stopColumn.ReadOnly = true;
             // 
@@ -111,12 +116,13 @@
             this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(778, 599);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1037, 737);
             this.tableLayoutPanel1.TabIndex = 17;
             // 
             // groupBox1
@@ -135,11 +141,11 @@
             this.groupBox1.Controls.Add(this.txbStartTime);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(1, 97);
+            this.groupBox1.Location = new System.Drawing.Point(1, 116);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(776, 127);
+            this.groupBox1.Size = new System.Drawing.Size(1035, 155);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Время действия";
@@ -151,11 +157,11 @@
             this.player.AutoSize = true;
             this.player.CheckState = PlayerControl.CheckState.start;
             this.player.CurrentValue = 0;
-            this.player.Location = new System.Drawing.Point(172, 69);
-            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.player.MinimumSize = new System.Drawing.Size(215, 45);
+            this.player.Location = new System.Drawing.Point(229, 85);
+            this.player.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
+            this.player.MinimumSize = new System.Drawing.Size(287, 55);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(576, 45);
+            this.player.Size = new System.Drawing.Size(768, 55);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -171,9 +177,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 48);
+            this.label4.Location = new System.Drawing.Point(12, 59);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(58, 13);
+            this.label4.Size = new System.Drawing.Size(70, 16);
             this.label4.TabIndex = 4;
             this.label4.Text = "Стоп, сек.";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -181,9 +188,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 22);
+            this.label3.Location = new System.Drawing.Point(12, 27);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 13);
+            this.label3.Size = new System.Drawing.Size(77, 16);
             this.label3.TabIndex = 3;
             this.label3.Text = "Старт, сек.";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -192,20 +200,20 @@
             // 
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbStopTime.Location = new System.Drawing.Point(172, 43);
-            this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbStopTime.Location = new System.Drawing.Point(229, 53);
+            this.txbStopTime.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(576, 20);
+            this.txbStopTime.Size = new System.Drawing.Size(767, 22);
             this.txbStopTime.TabIndex = 1;
             // 
             // btnHideAll
             // 
             this.btnHideAll.AutoSize = true;
             this.btnHideAll.Image = ((System.Drawing.Image)(resources.GetObject("btnHideAll.Image")));
-            this.btnHideAll.Location = new System.Drawing.Point(140, 69);
-            this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
+            this.btnHideAll.Location = new System.Drawing.Point(187, 85);
+            this.btnHideAll.Margin = new System.Windows.Forms.Padding(4, 18, 4, 0);
             this.btnHideAll.Name = "btnHideAll";
-            this.btnHideAll.Size = new System.Drawing.Size(26, 26);
+            this.btnHideAll.Size = new System.Drawing.Size(35, 32);
             this.btnHideAll.TabIndex = 13;
             this.btnHideAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnHideAll.UseVisualStyleBackColor = true;
@@ -215,10 +223,10 @@
             // 
             this.btnShowAll.AutoSize = true;
             this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
-            this.btnShowAll.Location = new System.Drawing.Point(107, 69);
-            this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
+            this.btnShowAll.Location = new System.Drawing.Point(143, 85);
+            this.btnShowAll.Margin = new System.Windows.Forms.Padding(4, 18, 4, 0);
             this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(26, 26);
+            this.btnShowAll.Size = new System.Drawing.Size(35, 32);
             this.btnShowAll.TabIndex = 13;
             this.btnShowAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnShowAll.UseVisualStyleBackColor = true;
@@ -229,10 +237,10 @@
             this.btnRefresh.AutoSize = true;
             this.btnRefresh.Enabled = false;
             this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
-            this.btnRefresh.Location = new System.Drawing.Point(76, 69);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
+            this.btnRefresh.Location = new System.Drawing.Point(101, 85);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4, 18, 4, 0);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(26, 26);
+            this.btnRefresh.Size = new System.Drawing.Size(35, 32);
             this.btnRefresh.TabIndex = 13;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -242,10 +250,10 @@
             // 
             this.btnClearAll.AutoSize = true;
             this.btnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAll.Image")));
-            this.btnClearAll.Location = new System.Drawing.Point(44, 69);
-            this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
+            this.btnClearAll.Location = new System.Drawing.Point(59, 85);
+            this.btnClearAll.Margin = new System.Windows.Forms.Padding(4, 18, 4, 0);
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(26, 26);
+            this.btnClearAll.Size = new System.Drawing.Size(35, 32);
             this.btnClearAll.TabIndex = 13;
             this.btnClearAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnClearAll.UseVisualStyleBackColor = true;
@@ -255,10 +263,10 @@
             // 
             this.btnAddNewRow.AutoSize = true;
             this.btnAddNewRow.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewRow.Image")));
-            this.btnAddNewRow.Location = new System.Drawing.Point(11, 69);
-            this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
+            this.btnAddNewRow.Location = new System.Drawing.Point(15, 85);
+            this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(4, 18, 4, 0);
             this.btnAddNewRow.Name = "btnAddNewRow";
-            this.btnAddNewRow.Size = new System.Drawing.Size(26, 26);
+            this.btnAddNewRow.Size = new System.Drawing.Size(35, 32);
             this.btnAddNewRow.TabIndex = 13;
             this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewRow.UseVisualStyleBackColor = true;
@@ -268,10 +276,10 @@
             // 
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbStartTime.Location = new System.Drawing.Point(172, 19);
-            this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbStartTime.Location = new System.Drawing.Point(229, 23);
+            this.txbStartTime.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(576, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(767, 22);
             this.txbStartTime.TabIndex = 0;
             // 
             // groupBox2
@@ -288,7 +296,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox2.Size = new System.Drawing.Size(776, 94);
+            this.groupBox2.Size = new System.Drawing.Size(1035, 113);
             this.groupBox2.TabIndex = 20;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Выбор материала";
@@ -296,9 +304,10 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 33);
+            this.label2.Location = new System.Drawing.Point(12, 41);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 13);
+            this.label2.Size = new System.Drawing.Size(129, 16);
             this.label2.TabIndex = 16;
             this.label2.Text = "Группа элементов";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -308,17 +317,19 @@
             this.cmbMat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbMat.FormattingEnabled = true;
-            this.cmbMat.Location = new System.Drawing.Point(172, 57);
+            this.cmbMat.Location = new System.Drawing.Point(229, 70);
+            this.cmbMat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbMat.Name = "cmbMat";
-            this.cmbMat.Size = new System.Drawing.Size(576, 21);
+            this.cmbMat.Size = new System.Drawing.Size(767, 24);
             this.cmbMat.TabIndex = 13;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 60);
+            this.label1.Location = new System.Drawing.Point(12, 74);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 13);
+            this.label1.Size = new System.Drawing.Size(73, 16);
             this.label1.TabIndex = 15;
             this.label1.Text = "Материал";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -328,10 +339,10 @@
             this.cmbEl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbEl.FormattingEnabled = true;
-            this.cmbEl.Location = new System.Drawing.Point(172, 30);
-            this.cmbEl.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.cmbEl.Location = new System.Drawing.Point(229, 37);
+            this.cmbEl.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.cmbEl.Name = "cmbEl";
-            this.cmbEl.Size = new System.Drawing.Size(576, 21);
+            this.cmbEl.Size = new System.Drawing.Size(767, 24);
             this.cmbEl.TabIndex = 14;
             // 
             // openFileDialog
@@ -340,14 +351,15 @@
             // 
             // MaterialsControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.MinimumSize = new System.Drawing.Size(300, 300);
+            this.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+            this.MinimumSize = new System.Drawing.Size(400, 369);
             this.Name = "MaterialsControl";
-            this.Size = new System.Drawing.Size(778, 599);
+            this.Size = new System.Drawing.Size(1037, 737);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

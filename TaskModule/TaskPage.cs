@@ -202,7 +202,7 @@ namespace TaskModule
                 item.Enabled = status;
         }
 
-        public void CreateAdvisor(TaskAdvisor taskAdv, Icon icon)
+        public void CreateAdvisor(TaskAdvisor taskAdv)
         {
             try
             {
@@ -214,7 +214,7 @@ namespace TaskModule
                 }
 
                 activeTask = taskAdv.Name;
-                var form = new Form() { Text = activeTask, Name = activeTask, TopMost = true, Size = taskAdv.Size, Icon = icon };
+                var form = new Form() { Text = activeTask, Name = activeTask, TopMost = true, Size = taskAdv.Size, ShowIcon = false };
                 form.FormClosed += (ar1, ar2) =>
                 {
                     if (ar2.CloseReason == CloseReason.UserClosing)
@@ -438,7 +438,7 @@ namespace TaskModule
 
                 var myProcess = new Process();
 
-                myProcess.StartInfo.FileName = $@"{SolverPath}\TaskSolver.exe";
+                myProcess.StartInfo.FileName = $@"{SolverPath}\BazisSolver.exe";
 
                 var compDir = $@"{Project.Path}\ComputationData";
                 var cmdFile = $@"{compDir}\computation.tcf";

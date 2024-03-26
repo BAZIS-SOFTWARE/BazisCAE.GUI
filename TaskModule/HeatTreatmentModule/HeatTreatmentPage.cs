@@ -18,9 +18,9 @@ namespace TaskModule.HeatTreatmentModule
             if (!arg2.Status)
             {
                 var taskAdv = new HeatTreatmentAdvisor() { Dock = DockStyle.Fill, Name = "Термообработка" };
-                var icon = TaskModule.Properties.Resources.HT;
+
                 if (GetTaskAdvisor() == null)
-                    CreateAdvisor(taskAdv,icon);
+                    CreateAdvisor(taskAdv);
             }
             else DeleteAdvisor();
         }
@@ -56,10 +56,9 @@ namespace TaskModule.HeatTreatmentModule
 
                 if (htMenuItem.Checked)
                 {
-                    var icon = TaskModule.Properties.Resources.HT;
 
                     if (GetTaskAdvisor() == null)
-                        CreateAdvisor(taskAdv, icon);
+                        CreateAdvisor(taskAdv);
                 }
 
                 else DeleteAdvisor();

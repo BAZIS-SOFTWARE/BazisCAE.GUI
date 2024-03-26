@@ -94,6 +94,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GMSH2DMeshControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GMSH2DMeshControl.Designer.cs">
+      <DependentUpon>GMSH2DMeshControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModelPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -126,17 +132,20 @@
     <Compile Include="CurveControl.Designer.cs">
       <DependentUpon>CurveControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="GMSHMeshGeneratorControl.cs">
+    <Compile Include="GMSHGeneralMeshControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GMSHMeshGeneratorControl.Designer.cs">
-      <DependentUpon>GMSHMeshGeneratorControl.cs</DependentUpon>
+    <Compile Include="GMSHGeneralMeshControl.Designer.cs">
+      <DependentUpon>GMSHGeneralMeshControl.cs</DependentUpon>
     </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GMSHMeshGeneratorControl.resx">
-      <DependentUpon>GMSHMeshGeneratorControl.cs</DependentUpon>
+    <EmbeddedResource Include="GMSH2DMeshControl.resx">
+      <DependentUpon>GMSH2DMeshControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GMSHGeneralMeshControl.resx">
+      <DependentUpon>GMSHGeneralMeshControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ModelPage.resx">
       <DependentUpon>ModelPage.cs</DependentUpon>

@@ -21,6 +21,7 @@ using System.Threading;
 using ModelInterfaces.MeshObjects;
 using ModelInterfaces.GeometryObjects;
 using ModelControllerInterfaces.GmshController;
+using Scene;
 
 namespace BaseModule
 {
@@ -344,7 +345,7 @@ namespace BaseModule
 
                     if (e.ClickedItem.Tag.ToString() == "4")
                     {
-                        var form = new Form() { Name = "selectForm", Text = "Выбрать", ShowIcon = false, Size = new Size(300, 300) };
+                        var form = new Form() { Name = "selectForm", Text = "Выбрать", Size = new Size(300, 300), ShowIcon = false };
                         form.TopMost = true;
 
                         form.FormClosing += (s1, s2) => { btn.Checked = false; };
@@ -781,7 +782,7 @@ namespace BaseModule
                 }));
             });
 
-            var message = "Выберите узел и нажмите на кнопку Enter или нажмите кнопку ESC";
+            var message = @"Выберите узел и нажмите на клавишу ""E"" или нажмите кнопку ""ESC""";
 
             var actPointConfirm = new Func<Tuple<bool, object>>(() =>
             {
@@ -822,7 +823,7 @@ namespace BaseModule
                     ConsoleControl.PrintInfo("Операция отменена", Color.Black);
                 }));
             });
-            var message = "Задайте поверхность, выбрав три узла, и нажмите на кнопку E или нажмите кнопку ESC";
+            var message = @"Задайте поверхность, выбрав три узла, и нажмите на клавишу ""E"" или нажмите кнопку ""ESC""";
             var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
             {
                 var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
@@ -1043,7 +1044,11 @@ namespace BaseModule
         {
             var resObject = new object();
             PressedKey = Keys.None;
-            Invoke(new Action(() => { consoleControl.PrintInfo(cmdMessage,Color.Black); }));
+            Invoke(new Action(() => 
+            {
+                sceneControl.DisplayText2D(cmdMessage, Color.Black, new Point2D(10, 10));
+                sceneControl.DisplayObjects();
+            }));
             await System.Threading.Tasks.Task.Run(() =>
             {
                 while (true)
@@ -1057,6 +1062,11 @@ namespace BaseModule
                     }
                     if (PressedKey == Keys.Escape)
                     {
+                        Invoke(new Action(() =>
+                        {
+                            sceneControl.HideDisplayText2D();
+                            sceneControl.DisplayObjects();
+                        }));
                         actBreak.Invoke();
                         break;
                     }

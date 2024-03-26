@@ -87,14 +87,15 @@ namespace ModelModule
 
             else
             {
-                var meshGenerator = new GMSHMeshGeneratorControl();
+                var meshGenerator = new GMSHGeneralMeshControl();
                 var gmshForm = new Form()
                 {
                     TopMost = true,
                     ShowIcon = false,
                     ClientSize = meshGenerator.Size,
                     MaximizeBox = false,
-                    FormBorderStyle = FormBorderStyle.FixedSingle
+                    FormBorderStyle = FormBorderStyle.FixedSingle,
+                    Text = "3D сеточный генератор"
                 };
 
                 meshGenerator.updateMeshVBOEvent += UpdateMeshVBO;

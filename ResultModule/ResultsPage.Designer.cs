@@ -32,8 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResultPage));
             this.treeNodesImageList = new System.Windows.Forms.ImageList(this.components);
             this.resultsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.скрытьРезультатыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.показатьЗначенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.скрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resultsMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,31 +51,30 @@
             // 
             this.resultsMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.resultsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.скрытьРезультатыToolStripMenuItem,
-            this.показатьЗначенияToolStripMenuItem});
+            this.скрытьToolStripMenuItem,
+            this.удалитьToolStripMenuItem});
             this.resultsMenuStrip.Name = "resultsMenuStrip";
-            this.resultsMenuStrip.Size = new System.Drawing.Size(213, 52);
+            this.resultsMenuStrip.Size = new System.Drawing.Size(211, 80);
             // 
-            // скрытьРезультатыToolStripMenuItem
+            // скрытьToolStripMenuItem
             // 
-            this.скрытьРезультатыToolStripMenuItem.Name = "скрытьРезультатыToolStripMenuItem";
-            this.скрытьРезультатыToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
-            this.скрытьРезультатыToolStripMenuItem.Text = "Скрыть результаты";
-            this.скрытьРезультатыToolStripMenuItem.Click += new System.EventHandler(this.скрытьРезультатыToolStripMenuItem_Click);
+            this.скрытьToolStripMenuItem.Name = "скрытьToolStripMenuItem";
+            this.скрытьToolStripMenuItem.Size = new System.Drawing.Size(134, 24);
+            this.скрытьToolStripMenuItem.Text = "Скрыть";
+            this.скрытьToolStripMenuItem.Click += new System.EventHandler(this.скрытьРезультатыToolStripMenuItem_Click);
             // 
-            // показатьЗначенияToolStripMenuItem
+            // удалитьToolStripMenuItem
             // 
-            this.показатьЗначенияToolStripMenuItem.CheckOnClick = true;
-            this.показатьЗначенияToolStripMenuItem.Name = "показатьЗначенияToolStripMenuItem";
-            this.показатьЗначенияToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
-            this.показатьЗначенияToolStripMenuItem.Text = "Показать значения";
-            this.показатьЗначенияToolStripMenuItem.Click += new System.EventHandler(this.показатьЗначенияToolStripMenuItem_Click);
+            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.удалитьToolStripMenuItem.Text = "Удалить";
+            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
             // ResultPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "ResultPage";
             this.Size = new System.Drawing.Size(1193, 687);
             this.Load += new System.EventHandler(this.ResultPage_Load);
@@ -88,7 +87,7 @@
 
         private System.Windows.Forms.ImageList treeNodesImageList;
         private System.Windows.Forms.ContextMenuStrip resultsMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem скрытьРезультатыToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem показатьЗначенияToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem скрытьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
     }
 }

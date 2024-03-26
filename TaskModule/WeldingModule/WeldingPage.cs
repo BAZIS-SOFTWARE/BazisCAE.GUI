@@ -44,9 +44,8 @@ namespace TaskModule.WeldingModule
 
                 if (weldingMenuItem.Checked)
                 {
-                    var icon = TaskModule.Properties.Resources.Welding;
                     if (GetTaskAdvisor() == null)
-                        CreateAdvisor(taskAdv, icon);
+                        CreateAdvisor(taskAdv);
                 }
 
                 else DeleteAdvisor();

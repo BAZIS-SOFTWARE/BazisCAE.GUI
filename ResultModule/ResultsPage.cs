@@ -37,7 +37,7 @@ namespace ResultModule
         {
             InitializeComponent();
 
-            NavigatorControl.TreeView.Nodes.Add(new TreeNode("Результаты", 1, 1) { Name = "Результаты", Tag = 6 });
+            NavigatorControl.TreeView.Nodes.Add(new TreeNode("Результаты", 1, 1) { Name = "Результаты", Tag = 6, ContextMenuStrip = resultsMenuStrip });
 
             var nodeNode = new TreeNode("ПоУзлам", 1, 1) { Name = "ПоУзлам", Tag = "6.1" };
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(nodeNode);
@@ -66,26 +66,6 @@ namespace ResultModule
                 Enabled = false
             };
 
-            ToolStripMenuItem clearResultsMenuItem = new ToolStripMenuItem()
-            {
-                Name = "clearResults",
-                Text = "Очистить результаты"
-            };
-
-            clearResultsMenuItem.Click += (ar1, ar2) => 
-            {
-                Project.ResultData.Clear();
-                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
-                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
-
-                ClearAllDataOnScene();
-
-                foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-                    CreateObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
-
-                SceneControl.DisplayObjects();
-            };
-
             ToolStripMenuItem addResultsMenuItem = new ToolStripMenuItem()
             {
                 Name = "addResults",
@@ -98,6 +78,18 @@ namespace ResultModule
             {
                 Name = "loadResults",
                 Text = "Загрузить результаты"
+            };
+
+            ToolStripMenuItem showResultsValueMenuItem = new ToolStripMenuItem()
+            {
+                Name = "showResultsValue",
+                Text = "Показать значения",
+                CheckOnClick = true
+            };
+
+            showResultsValueMenuItem.Click += (ar1, ar2) =>
+            {
+                showResultValue = showResultsValueMenuItem.Checked;
             };
 
             ToolStripMenuItem showAnimationResultsMenuItem = new ToolStripMenuItem()
@@ -131,9 +123,9 @@ namespace ResultModule
             };
 
             resultsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            clearResultsMenuItem,
             addResultsMenuItem,
             loadResultsMenuItem,
+            showResultsValueMenuItem,
             showAnimationResultsMenuItem,
             createGraphResultsMenuItem,
             showScaleResultsMenuItem
@@ -187,7 +179,7 @@ namespace ResultModule
                 scale.Coord_Y = (int)ar2;
             };
             
-            var scForm = new Form() { TopMost = true,Size = scPage.Size, Name = "Scale", Text = "Шкала значений" };
+            var scForm = new Form() { TopMost = true,Size = scPage.Size, Name = "Scale", Text = "Шкала значений", ShowIcon = false };
 
             scForm.Controls.Add(scPage);
             scForm.Show();
@@ -236,8 +228,7 @@ namespace ResultModule
                 }
                 grPage.SetResultsItems(resDic);
 
-                var icon = ResultModule.Properties.Resources.Graph;
-                var scForm = new Form() { TopMost = true, Text = "Построить график", Icon = icon, Size = grPage.Size };
+                var scForm = new Form() { TopMost = true, Text = "Построить график", Size = grPage.Size, ShowIcon = false };
                 scForm.Controls.Add(grPage);
                 scForm.Show();
 
@@ -275,8 +266,7 @@ namespace ResultModule
 
             anPage.SetResultsItems(resDic);
 
-            var icon = ResultModule.Properties.Resources.Animation;
-            var anForm = new Form() { TopMost = true, Icon = icon, Size = anPage.Size, Name = "Animation", Text = "Анимация" };
+            var anForm = new Form() { TopMost = true, Size = anPage.Size, Name = "Animation", Text = "Анимация", ShowIcon = false };
             
             anForm.FormClosed += (ar1,ar2) =>{ anPage = null; };
             anForm.Controls.Add(anPage);
@@ -552,8 +542,8 @@ namespace ResultModule
                     var form = new Form
                     {
                         TopMost = true,
-                        Icon = ResultModule.Properties.Resources.Graph,
-                        Text = $"График {resDes} - координата"
+                        Text = $"График {resDes} - координата",
+                        ShowIcon = false
                     };
                     form.Controls.Add(grContainer);
                     form.Show();
@@ -616,8 +606,8 @@ namespace ResultModule
                     var form = new Form
                     {
                         TopMost = true,
-                        Icon = ResultModule.Properties.Resources.Graph,
-                        Text = $"График {resDes} - время"
+                        Text = $"График {resDes} - время",
+                        ShowIcon = false
                     };
                     form.Controls.Add(grContainer);
                     form.Show();
@@ -744,9 +734,18 @@ namespace ResultModule
             SceneControl.DisplayObjects();
         }
 
-        private void показатьЗначенияToolStripMenuItem_Click(object sender, EventArgs e)
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowValue(показатьЗначенияToolStripMenuItem.Checked);
+            Project.ResultData.Clear();
+            NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
+            NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
+
+            ClearAllDataOnScene();
+
+            foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
+                CreateObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
+
+            SceneControl.DisplayObjects();
         }
     }   
 }
