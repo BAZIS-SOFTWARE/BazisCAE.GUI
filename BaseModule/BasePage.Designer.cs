@@ -32,12 +32,14 @@ namespace BaseModule
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BasePage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.navigator = new BaseModule.Navigator.NavigatorControl();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.sceneControl = new Scene.SceneControl();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.navigator = new BaseModule.Navigator.NavigatorControl();
             this.consoleControl = new BaseModule.Console.ConsoleControl();
             this.standartToolStrip = new BaseModule.ToolStrips.StandartToolStrip();
             this.instrumentalToolStrip = new BaseModule.ToolStrips.InstrumentToolStrip();
@@ -54,6 +56,7 @@ namespace BaseModule
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStripContainer
@@ -63,12 +66,14 @@ namespace BaseModule
             // 
             this.toolStripContainer.ContentPanel.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer.ContentPanel.Padding = new System.Windows.Forms.Padding(5);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1318, 623);
+            this.toolStripContainer.ContentPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.toolStripContainer.ContentPanel.Padding = new System.Windows.Forms.Padding(7, 6, 7, 6);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1757, 773);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
+            this.toolStripContainer.Margin = new System.Windows.Forms.Padding(4);
             this.toolStripContainer.Name = "toolStripContainer";
-            this.toolStripContainer.Size = new System.Drawing.Size(1318, 648);
+            this.toolStripContainer.Size = new System.Drawing.Size(1757, 798);
             this.toolStripContainer.TabIndex = 1;
             this.toolStripContainer.Text = "toolStripContainer1";
             // 
@@ -80,60 +85,32 @@ namespace BaseModule
             // 
             this.splitContainer1.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(5, 5);
+            this.splitContainer1.Location = new System.Drawing.Point(7, 6);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.navigator);
-            this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1308, 613);
-            this.splitContainer1.SplitterDistance = 389;
+            this.splitContainer1.Size = new System.Drawing.Size(1743, 761);
+            this.splitContainer1.SplitterDistance = 518;
             this.splitContainer1.SplitterIncrement = 15;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.SplitterWidth = 7;
             this.splitContainer1.TabIndex = 0;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             this.splitContainer1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Paint);
             this.splitContainer1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.splitContainer1_MouseClick);
             // 
-            // navigator
-            // 
-            this.navigator.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.navigator.BackColor = System.Drawing.SystemColors.Control;
-            this.navigator.CollapseIndex = 1;
-            this.navigator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.navigator.ExpandIndex = 2;
-            this.navigator.Location = new System.Drawing.Point(0, 0);
-            this.navigator.Name = "navigator";
-            this.navigator.ProjectInfoIndex = 0;
-            this.navigator.Size = new System.Drawing.Size(387, 613);
-            this.navigator.TabIndex = 0;
-            this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
-            this.navigator.SelectGroupEvent += new System.Action<string>(this.navigator_SelectGroupEvent);
-            this.navigator.DelGroupEvent += new System.Action<int>(this.navigator_DelGroupEvent);
-            this.navigator.DelAllGroupsEvent += new System.Action(this.navigator_DelAllGroupsEvent);
-            this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
-            this.navigator.ShowGroupEvent += new System.Action<int>(this.navigator_ShowGroupEvent);
-            this.navigator.EditGroupEvent += new System.Action<int>(this.navigator_EditGroupEvent);
-            this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
-            this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
-            this.navigator.ShowAllGroupsEvent += new System.Action(this.navigator_ShowAllGroupsEvent);
-            this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
-            this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
-            this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
-            this.navigator.ShowObjectsEvent += new System.Action<string>(this.navigator_ShowObjectsEvent);
-            this.navigator.ChangeObjectsViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeViewModeEventHandler);
-            this.navigator.HideObjectsEvent += new System.Action<string>(this.navigator_HideObjectsEvent);
-            this.navigator.DelObjectsEvent += new System.Action<string>(this.navigator_DelObjectsEvent);
-            // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -145,15 +122,16 @@ namespace BaseModule
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
-            this.splitContainer2.Size = new System.Drawing.Size(914, 613);
-            this.splitContainer2.SplitterDistance = 465;
-            this.splitContainer2.SplitterWidth = 5;
+            this.splitContainer2.Size = new System.Drawing.Size(1218, 761);
+            this.splitContainer2.SplitterDistance = 450;
+            this.splitContainer2.SplitterWidth = 6;
             this.splitContainer2.TabIndex = 0;
             this.splitContainer2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Paint);
             this.splitContainer2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.splitContainer2_MouseClick);
             // 
             // sceneControl
             // 
+            this.sceneControl.AutoSize = true;
             this.sceneControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.sceneControl.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.sceneControl.BackGroundColor = System.Drawing.Color.Green;
@@ -175,7 +153,7 @@ namespace BaseModule
             this.sceneControl.SelectionColor = System.Drawing.Color.Green;
             this.sceneControl.ShadowAngle = 0F;
             this.sceneControl.ShowSurfaceBackEdges = false;
-            this.sceneControl.Size = new System.Drawing.Size(914, 464);
+            this.sceneControl.Size = new System.Drawing.Size(1218, 449);
             this.sceneControl.TabIndex = 0;
             this.sceneControl.TitleColor = System.Drawing.Color.Black;
             this.sceneControl.TitleText = "";
@@ -188,16 +166,53 @@ namespace BaseModule
             this.sceneControl.DeleteSelectionEvent += new System.Action<object, System.EventArgs>(this.sceneControl_DeleteSelectionEvent);
             this.sceneControl.MessageEvent += new System.Action<object, Scene.Events.MessageEventArgs>(this.sceneControl_MessageEvent);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // navigator
+            // 
+            this.navigator.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.navigator.BackColor = System.Drawing.SystemColors.Control;
+            this.navigator.CollapseIndex = 1;
+            this.navigator.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.navigator.ExpandIndex = 2;
+            this.navigator.Location = new System.Drawing.Point(0, 0);
+            this.navigator.Margin = new System.Windows.Forms.Padding(4);
+            this.navigator.Name = "navigator";
+            this.navigator.ProjectInfoIndex = 0;
+            this.navigator.Size = new System.Drawing.Size(515, 761);
+            this.navigator.TabIndex = 0;
+            this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
+            this.navigator.SelectGroupEvent += new System.Action<string>(this.navigator_SelectGroupEvent);
+            this.navigator.DelGroupEvent += new System.Action<int>(this.navigator_DelGroupEvent);
+            this.navigator.DelAllGroupsEvent += new System.Action(this.navigator_DelAllGroupsEvent);
+            this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
+            this.navigator.ShowGroupEvent += new System.Action<int>(this.navigator_ShowGroupEvent);
+            this.navigator.EditGroupEvent += new System.Action<int>(this.navigator_EditGroupEvent);
+            this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
+            this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
+            this.navigator.ShowAllGroupsEvent += new System.Action(this.navigator_ShowAllGroupsEvent);
+            this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
+            this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
+            this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
+            this.navigator.ShowObjectsEvent += new System.Action<string>(this.navigator_ShowObjectsEvent);
+            this.navigator.ChangeObjectsViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeViewModeEventHandler);
+            this.navigator.HideObjectsEvent += new System.Action<string>(this.navigator_HideObjectsEvent);
+            this.navigator.DelObjectsEvent += new System.Action<string>(this.navigator_DelObjectsEvent);
+            // 
             // consoleControl
             // 
+            this.consoleControl.AutoSize = true;
             this.consoleControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.consoleControl.BackColor = System.Drawing.SystemColors.Control;
             this.consoleControl.CheckPrintElemsInfo = false;
             this.consoleControl.CheckPrintNodesInfo = false;
             this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.consoleControl.Location = new System.Drawing.Point(0, 0);
+            this.consoleControl.Margin = new System.Windows.Forms.Padding(5);
             this.consoleControl.Name = "consoleControl";
-            this.consoleControl.Size = new System.Drawing.Size(914, 143);
+            this.consoleControl.Size = new System.Drawing.Size(1218, 305);
             this.consoleControl.TabIndex = 4;
             this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
             // 
@@ -205,6 +220,7 @@ namespace BaseModule
             // 
             this.standartToolStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.standartToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.standartToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.standartToolStrip.Location = new System.Drawing.Point(0, 106);
             this.standartToolStrip.Name = "standartToolStrip";
             this.standartToolStrip.Size = new System.Drawing.Size(156, 53);
@@ -215,6 +231,7 @@ namespace BaseModule
             // 
             this.instrumentalToolStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.instrumentalToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.instrumentalToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.instrumentalToolStrip.Location = new System.Drawing.Point(0, 106);
             this.instrumentalToolStrip.Name = "instrumentalToolStrip";
             this.instrumentalToolStrip.Size = new System.Drawing.Size(120, 53);
@@ -226,6 +243,7 @@ namespace BaseModule
             // 
             this.viewToolStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.viewToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.viewToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.viewToolStrip.Location = new System.Drawing.Point(0, 53);
             this.viewToolStrip.Name = "viewToolStrip";
             this.viewToolStrip.Size = new System.Drawing.Size(336, 53);
@@ -237,6 +255,7 @@ namespace BaseModule
             // 
             this.displayToolStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.displayToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.displayToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.displayToolStrip.Location = new System.Drawing.Point(0, 53);
             this.displayToolStrip.Name = "displayToolStrip";
             this.displayToolStrip.Size = new System.Drawing.Size(348, 53);
@@ -253,6 +272,7 @@ namespace BaseModule
             this.selectToolStrip.GeomsImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.GeomsImage")));
             this.selectToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.selectToolStrip.HelperImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.HelperImage")));
+            this.selectToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.selectToolStrip.Location = new System.Drawing.Point(0, 0);
             this.selectToolStrip.Name = "selectToolStrip";
             this.selectToolStrip.NodeImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.NodeImage")));
@@ -266,11 +286,12 @@ namespace BaseModule
             // 
             // BasePage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.toolStripContainer);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "BasePage";
-            this.Size = new System.Drawing.Size(1318, 648);
+            this.Size = new System.Drawing.Size(1757, 798);
             this.Load += new System.EventHandler(this.BasePage_Load);
             this.toolStripContainer.ContentPanel.ResumeLayout(false);
             this.toolStripContainer.ResumeLayout(false);
@@ -280,9 +301,12 @@ namespace BaseModule
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -300,5 +324,6 @@ namespace BaseModule
         InstrumentToolStrip instrumentalToolStrip;
         private Navigator.NavigatorControl navigator;
         private Scene.SceneControl sceneControl;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

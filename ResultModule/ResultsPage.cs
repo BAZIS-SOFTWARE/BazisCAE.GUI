@@ -100,33 +100,6 @@ namespace ResultModule
                 Text = "Загрузить результаты"
             };
 
-            loadResultsMenuItem.Click += (ar1, ar2) => { ShowOpenResultsFileDialog(false); };
-
-            ToolStripMenuItem hideResultsMenuItem = new ToolStripMenuItem()
-            {
-                Name = "hideResults",
-                Text = "Скрыть результаты"
-            };
-
-            hideResultsMenuItem.Click += (ar1, ar2) => 
-            {
-                ClearAllDataOnScene();
-
-                foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-                    CreateObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
-
-                SceneControl.DisplayObjects();
-            };
-
-            ToolStripMenuItem showValueResultsMenuItem = new ToolStripMenuItem()
-            {
-                Name = "showValueResults",
-                Text = "Показать значения",
-                CheckOnClick = true
-            };
-
-            showValueResultsMenuItem.Click += (ar1, ar2) => { ShowValue(showValueResultsMenuItem.Checked); };
-
             ToolStripMenuItem showAnimationResultsMenuItem = new ToolStripMenuItem()
             {
                 Name = "showAnimationResults",
@@ -161,8 +134,6 @@ namespace ResultModule
             clearResultsMenuItem,
             addResultsMenuItem,
             loadResultsMenuItem,
-            hideResultsMenuItem,
-            showValueResultsMenuItem,
             showAnimationResultsMenuItem,
             createGraphResultsMenuItem,
             showScaleResultsMenuItem
@@ -761,6 +732,21 @@ namespace ResultModule
         private void ResultPage_Load(object sender, EventArgs e)
         {
             scale = SceneControl.CreateScaleObject(0, 1, 2, "", "");
+        }
+
+        private void скрытьРезультатыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ClearAllDataOnScene();
+
+            foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
+                CreateObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
+
+            SceneControl.DisplayObjects();
+        }
+
+        private void показатьЗначенияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowValue(показатьЗначенияToolStripMenuItem.Checked);
         }
     }   
 }

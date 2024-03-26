@@ -40,6 +40,11 @@ namespace BazisGUI.SettingsControls
             lightingControl.BallPosition = settingsConfig.LighterPosition;
             colorSlider.Value = settingsConfig.LightingIntensity;
             chbTransparency.Checked = settingsConfig.Transparency;
+
+            clslNodes.Value = settingsConfig.NodeTransparency;
+            cls1D.Value = settingsConfig.E1DTransparency;
+            cls2D.Value = settingsConfig.E2DTransparency;
+            cls3D.Value = settingsConfig.E3DTransparency;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -56,9 +61,13 @@ namespace BazisGUI.SettingsControls
                 LighterPosition = lightingControl.BallPosition,
                 LightingIntensity = colorSlider.Value,
                 Transparency = chbTransparency.Checked,
-                BackRibbers = chbBackRibbers.Checked
-            };
+                BackRibbers = chbBackRibbers.Checked,
 
+                NodeTransparency = clslNodes.Value,
+                E1DTransparency = cls1D.Value,
+                E2DTransparency = cls2D.Value,
+                E3DTransparency = cls3D.Value
+            };
             
             SaveSettingsEvent(config);
 

@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading;
 using System.Reflection;
 using BaseModule.Console.Events;
 using Functions.Parser;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using System.Drawing.Drawing2D;
-using Scene;
 
 namespace BaseModule.Console
 {
@@ -98,19 +94,26 @@ namespace BaseModule.Console
 
         private Thread trd;
 
-        public void RunMacro(bool value)
+        public void NewItem_Click(object obj, EventArgs args)
         {
-            Invoke(new Action(() =>
+            var tstb = (ToolStripMenuItem)obj;
+
+            var str = String.Empty;
+            GetItemCmd(tstb, ref str);
+            rtxbField.AppendText("\n" + str);
+        }
+
+        private void GetItemCmd(ToolStripMenuItem toolStripItem, ref string info)
+        {
+            var owner = toolStripItem.OwnerItem;
+            if (owner is ToolStripMenuItem menuItem)
             {
-                if (value)
-                {
-                    trd.Resume();
-                }
-                else
-                {
-                    trd.Suspend();
-                }
-            }));
+
+                GetItemCmd(menuItem, ref info);
+            }
+            info = info + " " + "\"" + toolStripItem.Text + "\"";
+
+
         }
 
         public event Action<object, EventArgs> InEvent;
@@ -128,24 +131,13 @@ namespace BaseModule.Console
                 SetValue(grbConsole, true, null);
 
             tlsOut.Renderer = new ConsoleToolStrRender();
-            tlsIn.Renderer = new ConsoleToolStrRender();
 
             var path = " > Текущая сессия ";
 
-            rtxbOut.AppendText(path);
+            rtxbField.AppendText(path);
+            rtxbField.AppendText("\n");
             HighlightPhrase(path, System.Drawing.Color.Green);
         }
-
-        //private ToolStripMenuItem CreateItem(string cmd)
-        //{
-        //    var newItem = new ToolStripMenuItem(cmd)
-        //    {
-        //        Text = cmd,
-        //        AutoSize = true
-        //    };
-        //    newItem.Click += NewItem_Click;
-        //    return newItem;
-        //}
 
         private void GetChildControlExpandHeight(GroupBox grb)
         {
@@ -166,30 +158,6 @@ namespace BaseModule.Console
             grb.Height = heigth + gap;
         }
 
-        public void NewItem_Click(object obj, EventArgs args)
-        {
-            var tstb = (ToolStripMenuItem)obj;
-            if (inputRichTextBox.Text == "введите команду...")
-                inputRichTextBox.Text = "";
-
-            var str = String.Empty;
-            GetItemCmd(tstb, ref str);
-            inputRichTextBox.AppendText("\n" + str);
-        }
-
-        private void GetItemCmd(ToolStripMenuItem toolStripItem, ref string info)
-        {
-            var owner = toolStripItem.OwnerItem;
-            if (owner is ToolStripMenuItem menuItem)
-            {
-
-                GetItemCmd(menuItem, ref info);
-            }
-            info = info + " " + "\"" + toolStripItem.Text + "\"";
-
-
-        }
-
 
         private void ConsoleControl_Load(object sender, EventArgs e)
         {
@@ -203,68 +171,13 @@ namespace BaseModule.Console
             link.AutoSize = true;
             link.Left = 100;
             link.LinkClicked += Link_LinkClicked;
-            rtxbOut.Controls.Add(link);
+            rtxbField.Controls.Add(link);
         }
 
         private void Link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("explorer", e.ToString());
-        }
-
-        public void PrintMatrix(float[][] matrix)
-        {
-            FontStyle style = (FontStyle.Bold); //жирный
-
-            var w1 = rtxbOut.Width;
-            var w2 = matrix.GetLength(0);
-
-            for (int i = 0; i < w1; i++)
-            {
-                rtxbOut.AppendText("_");
-            }
-            rtxbOut.AppendText("\n");
-            var w = (float)w1 / (w2 * 16);
-
-            //StringBuilder st = new StringBuilder();
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                var str = "";
-                for (int j = 0; j < matrix[i].Length; j++)
-                {
-                    if (matrix[i][j] != 0)
-                        str = str + "1";
-                    else { str = str + "_"; }
-                }
-                str = str + "\n";
-                rtxbOut.SelectionFont = new Font(rtxbOut.Font.FontFamily, w, style);
-                rtxbOut.AppendText(str);
-            }
-        }
-        private void PrintVector(float[] vector)
-        {
-            FontStyle style = (FontStyle.Bold); //жирный
-
-            var w1 = rtxbOut.Width;
-            var w2 = vector.Length;
-
-            for (int i = 0; i < w1; i++)
-            {
-                rtxbOut.AppendText("_");
-            }
-            rtxbOut.AppendText("\n");
-            var w = (float)w1 / (w2 * 16);
-
-            var str = "";
-            for (int j = 0; j < vector.Length; j++)
-            {
-                if (vector[j] != 0)
-                    str = str + " " + vector[j].ToString();
-                else { str = str + " " + "0"; }
-            }
-            str = str + "\n";
-            rtxbOut.SelectionFont = new Font(rtxbOut.Font.FontFamily, w, style);
-            rtxbOut.AppendText(str);
-        }
+        }    
 
         public string GetSessionLogPath
         {
@@ -277,84 +190,38 @@ namespace BaseModule.Console
 
         public void PrintInfo(string str, Color color)
         {
-            if (ShowTaskInfo)
-            {
-                if (str.Contains(" s "))
-                    rtxbOut.AppendText("\n > " + str);
-            }
-            else
-                rtxbOut.AppendText("\n > " + str);
-            if (color.Name != "Black")
+            rtxbField.AppendText("\n > " + str);
+
+            if (color != Color.Black)
                 HighlightPhrase(str, color);
             var path = GetSessionLogPath;
             using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
                 sw.Write(str);
-            rtxbOut.SelectionStart = rtxbOut.Text.Length;
+            rtxbField.SelectionStart = rtxbField.Text.Length;
 
+            rtxbField.AppendText("\n");
 
-            rtxbOut.Focus();
-            rtxbOut.ScrollToCaret();
+            rtxbField.Focus();
+            rtxbField.ScrollToCaret();
 
         }
 
         void HighlightPhrase(string phrase, Color color)
         {
-            int pos = rtxbOut.SelectionStart;
-            string s = rtxbOut.Text;
+            int pos = rtxbField.SelectionStart;
+            string s = rtxbField.Text;
             for (int ix = 0; ;)
             {
                 int jx = s.IndexOf(phrase, ix, StringComparison.InvariantCulture);
                 if (jx < 0) break;
-                rtxbOut.SelectionStart = jx;
-                rtxbOut.SelectionLength = phrase.Length;
-                rtxbOut.SelectionColor = color;
+                rtxbField.SelectionStart = jx;
+                rtxbField.SelectionLength = phrase.Length;
+                rtxbField.SelectionColor = color;
                 ix = jx + 1;
             }
-            rtxbOut.SelectionStart = pos;
-            rtxbOut.SelectionLength = 0;
-            rtxbOut.SelectionColor = Color.Black;
-        }
-
-        private void inputRichTextBox_KeyUp(object sender, KeyEventArgs e)
-        {
-
-            if (e.KeyCode == Keys.Enter)
-            {
-
-                //Копируем все строки как список
-                List<string> list = inputRichTextBox.Lines.ToList();
-                //Удаляем последний элемент (именно для этого нужно было массив в список превращать)
-                list.RemoveAt(inputRichTextBox.Lines.Length - 1);
-                //Возвращаем список строк в контролл
-                inputRichTextBox.Lines = list.ToArray();
-                var cmds = list.Last();
-
-                trd = new Thread(delegate ()
-                {
-                    try
-                    {
-
-                        ExecuteCommand(cmds);
-                    }
-                    catch (Exception ex)
-                    {
-                        Invoke(new Action(() =>
-                        {
-                            inputRichTextBox.AppendText("\n < " + ex.Message);
-                            inputRichTextBox.AppendText("\n");
-                        }
-                            ));
-
-                    }
-                });
-                trd.Start();
-
-                Invoke(new Action(() =>
-                {
-                    inputRichTextBox.AppendText("\n < " + cmds);
-                    inputRichTextBox.AppendText("\n");
-                }));
-            }
+            rtxbField.SelectionStart = pos;
+            rtxbField.SelectionLength = 0;
+            rtxbField.SelectionColor = Color.Black;
         }
 
         public void ExecuteCmdFile(string cmdFileName)
@@ -383,70 +250,66 @@ namespace BaseModule.Console
             try
             {
                 var cmds = FieldsParserTask.ParseLine(line);
-                if (cmds.Count == 0) throw new Exception("Введите команду!");
-
-                if (!this.genCmds.ContainsKey(cmds[0])) throw new Exception("Не является командой");
-
-                switch (genCmds[cmds[0]])
+                if (cmds.Count != 0)
                 {
-                    case GenCmd.FindObject:
-                        InEvent(this, new FindObjectEventArgs(cmds[1]));
-                        break;
-                    case GenCmd.LoadProject:
-                        InEvent(this, new LoadProjectEventArgs(cmds[1]));
-                        break;
-                    case GenCmd.SaveProject:
-                        InEvent(this, new SaveProjectEventArgs(cmds[1]));
-                        break;
-                    case GenCmd.NewProject:
-                        break;
-                    case GenCmd.ShowResults:
-                        break;
-                    case GenCmd.HideResults:
-                        break;
-                    case GenCmd.CreateGraph:
-                        break;
-                    case GenCmd.RenumberMesh:
-                        InEvent(this, new ModelRenumberEventArgs(cmds[1]));
-                        break;
-                    case GenCmd.ChangeModelCoordinates:
-                        InEvent(this, new ModelShiftCoordinateEventArgs(cmds[2]));
-                        break;
-                    case GenCmd.FindFreeNodes:
-                        InEvent(this, new ModelFindFreeNodesEventArgs());
-                        break;
-                    case GenCmd.FindCoincident:
-                        if (cmds[1] == "Узлы")
-                            InEvent(this, new ModelFindCoincidentsNodesEventArgs());
-                        break;
-                    case GenCmd.SolveProject:
-                        InEvent(this, new SolveProjectEventArgs());
-                        break;
-                    case GenCmd.Exit:
-                        InEvent(this, new ExitAppEventArgs());
-                        break;
-                }
+                    if (!this.genCmds.ContainsKey(cmds[0])) throw new Exception("Не является командой");
+
+                    switch (genCmds[cmds[0]])
+                    {
+                        case GenCmd.FindObject:
+                            InEvent(this, new FindObjectEventArgs(cmds[1]));
+                            break;
+                        case GenCmd.LoadProject:
+                            InEvent(this, new LoadProjectEventArgs(cmds[1]));
+                            break;
+                        case GenCmd.SaveProject:
+                            InEvent(this, new SaveProjectEventArgs(cmds[1]));
+                            break;
+                        case GenCmd.NewProject:
+                            break;
+                        case GenCmd.ShowResults:
+                            break;
+                        case GenCmd.HideResults:
+                            break;
+                        case GenCmd.CreateGraph:
+                            break;
+                        case GenCmd.RenumberMesh:
+                            InEvent(this, new ModelRenumberEventArgs(cmds[1]));
+                            break;
+                        case GenCmd.ChangeModelCoordinates:
+                            InEvent(this, new ModelShiftCoordinateEventArgs(cmds[2]));
+                            break;
+                        case GenCmd.FindFreeNodes:
+                            InEvent(this, new ModelFindFreeNodesEventArgs());
+                            break;
+                        case GenCmd.FindCoincident:
+                            if (cmds[1] == "Узлы")
+                                InEvent(this, new ModelFindCoincidentsNodesEventArgs());
+                            break;
+                        case GenCmd.SolveProject:
+                            InEvent(this, new SolveProjectEventArgs());
+                            break;
+                        case GenCmd.Exit:
+                            InEvent(this, new ExitAppEventArgs());
+                            break;
+                    }
+                }          
             }
             catch (Exception ex)
             {
                 Invoke(new Action(() =>
                 {
                     PrintInfo(ex.Message, Color.Red);
+                    rtxbField.AppendText("\n");
                 }));               
             }
         }
 
-        private void inputRichTextBox_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (inputRichTextBox.Text == "введите команду...")
-                inputRichTextBox.Text = "";
-        }
-
         private void ClearAll_Click(object sender, EventArgs e)
         {
-            var sessionPath = rtxbOut.Lines[0];
-            rtxbOut.Clear();
-            rtxbOut.AppendText(sessionPath);
+            var sessionPath = rtxbField.Lines[0];
+            rtxbField.Clear();
+            rtxbField.AppendText(sessionPath);
         }
 
         private void btnStartMacro_Click(object sender, EventArgs e)
@@ -498,44 +361,9 @@ namespace BaseModule.Console
             }
         }
 
-        private void inputRichTextBox_Leave(object sender, EventArgs e)
-        {
-            if (inputRichTextBox.Text == "")
-                inputRichTextBox.Text = "введите команду...";
-        }
-
         private void btnDictionary_Click(object sender, EventArgs e)
         {
             btnDictionary.ShowDropDown();
-        }
-
-        private void btnCompInfo_Click(object sender, EventArgs e)
-        {
-            var btn = (ToolStripButton)sender;
-
-            if (btn.Checked)
-            {
-                ShowTaskInfo = true;
-
-                rtxbOut.Clear();
-                var sessionPath = GetSessionLogPath;
-                Encoding win1251 = Encoding.GetEncoding("windows-1251");
-                var lines = File.ReadAllLines(sessionPath, win1251);
-
-                var res = lines.Where(x => x.Contains(" > s ")).ToArray();
-                rtxbOut.Lines = res;
-            }
-            else
-            {
-                ShowTaskInfo = false;
-
-                rtxbOut.Clear();
-                var sessionPath = GetSessionLogPath;
-                Encoding win1251 = Encoding.GetEncoding("windows-1251");
-                var lines = File.ReadAllLines(sessionPath, win1251);
-                var res = lines.Where(x => x.Length > 0).ToArray();
-                rtxbOut.Lines = res;
-            }
         }
 
         private void btnBackGroundInfo_Click(object sender, EventArgs e)
@@ -545,7 +373,7 @@ namespace BaseModule.Console
             if (colorDialog.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            rtxbOut.BackColor = colorDialog.Color;
+            rtxbField.BackColor = colorDialog.Color;
         }
 
         private void grbConsole_Paint(object sender, PaintEventArgs e)
@@ -604,6 +432,39 @@ namespace BaseModule.Console
         private void grbConsole_Resize(object sender, EventArgs e)
         {
             grbConsole.Invalidate();
+        }
+
+        private void rtxbField_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                var cmds = rtxbField.Lines[rtxbField.Lines.Count() - 1];
+
+                trd = new Thread(delegate ()
+                {
+                    try
+                    {
+                        Invoke(new Action(() => 
+                        {
+                            ExecuteCommand(cmds); 
+                        }));
+                    }
+                    catch (Exception ex)
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            rtxbField.AppendText("\n < " + ex.Message);
+                            rtxbField.AppendText("\n");
+                        }
+                            ));
+
+                    }
+                });
+                trd.Start();
+
+                rtxbField.AppendText("\n < " + cmds);
+                rtxbField.AppendText("\n");
+            }
         }
     }
 }

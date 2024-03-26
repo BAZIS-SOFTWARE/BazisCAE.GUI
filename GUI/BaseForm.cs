@@ -29,13 +29,8 @@ using Model.IO;
 using ModelControllerInterfaces;
 using Results.IO;
 using GmshApi.GmshController;
-using BaseModule.Console;
 using ProjectInterfaces;
 using System.Threading.Tasks;
-using ProjectInterfaces.IO;
-using System.Xml.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
-using ProjectInterfaces.Results;
 using Results;
 using ModelInterfaces;
 
@@ -221,7 +216,6 @@ namespace BazisGUI
             if (serverConnection.Answer == "можно")
                 StartLicensing();
             else StartLisenceForm();
-
         }
 
         private BasePage CreateModule(string moduleName)
@@ -347,7 +341,13 @@ namespace BazisGUI
             module.SceneControl.SelectionColor = settingsConfig.SelectObjectColor;
             module.SceneControl.IsBlending = settingsConfig.Transparency;
             module.SceneControl.IsLighting = settingsConfig.Lighting;
+
+            module.SceneControl.SetTransparency(ObjType.Узел.ToString(), settingsConfig.NodeTransparency);
+            module.SceneControl.SetTransparency(ObjType.Элемент1D.ToString(), settingsConfig.E1DTransparency);
+            module.SceneControl.SetTransparency(ObjType.Элемент2D.ToString(), settingsConfig.E2DTransparency);
+            module.SceneControl.SetTransparency(ObjType.Элемент3D.ToString(), settingsConfig.E3DTransparency);
             module.SelectionGroupColor = settingsConfig.SelectGroupColor;
+
         }
 
         private void BaseForm_KeyDown(object sender, KeyEventArgs e)

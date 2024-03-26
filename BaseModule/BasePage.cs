@@ -400,6 +400,7 @@ namespace BaseModule
                         var plane = new Plane(n1.Position, n2.Position, n3.Position);
                         ModelController.SelectionHelper.SelectNodeInPlane(Project.ModelData.ObjectData,
                             plane, sceneControl.SelectionColor);
+                        SetObjectsSceneColor(ObjType.Узел);
                     }
                 }
                 else
@@ -409,10 +410,9 @@ namespace BaseModule
                         var element = objs.Last();
                         ModelController.SelectionHelper.SelectE2DInPlane(Project.ModelData.ObjectData, 
                             arg2.Angle, element.Number, sceneControl.SelectionColor);
+                        SetObjectsSceneColor(ObjType.Элемент2D);
                     }
                 }
-
-                SetObjectsSceneColor(arg2.ObjsType);
 
                 sceneControl.DisplayObjects();
 
@@ -822,7 +822,7 @@ namespace BaseModule
                     ConsoleControl.PrintInfo("Операция отменена", Color.Black);
                 }));
             });
-            var message = "Задайте поверхность, выбрав три узла, и нажмите на кнопку Enter или нажмите кнопку ESC";
+            var message = "Задайте поверхность, выбрав три узла, и нажмите на кнопку E или нажмите кнопку ESC";
             var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
             {
                 var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
@@ -1048,7 +1048,7 @@ namespace BaseModule
             {
                 while (true)
                 {
-                    if (PressedKey == Keys.Enter)
+                    if (PressedKey == Keys.E)
                     {
                         var resAction = actConfirm.Invoke();
                         if (resAction.Item1)
@@ -1411,7 +1411,7 @@ namespace BaseModule
                             consoleControl.PrintInfo("Операция отменена", Color.Black);
                         }));
                     });
-                    await AsyncMethodContainer(actConfirm, actBreak, $"Нажмите {"Enter"} для слияния, {"Esc"} для отмены");
+                    await AsyncMethodContainer(actConfirm, actBreak, $"Нажмите {"E"} для слияния, {"Esc"} для отмены");
                 }
             }
             catch (Exception ex)
@@ -1541,7 +1541,7 @@ namespace BaseModule
                 }));
             });
 
-            var message = "измените группу, добавив или удалив объекты, и нажмите на кнопку Enter или нажмите кнопку ESC";
+            var message = "измените группу, добавив или удалив объекты, и нажмите на кнопку E или нажмите кнопку ESC";
  
             await AsyncMethodContainer(actConfirm, actBreak, message);
         }
