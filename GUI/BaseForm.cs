@@ -220,8 +220,7 @@ namespace BazisGUI
 
         private BasePage CreateModule(string moduleName)
         {
-            //activePage = moduleName;
-
+            BasePage basePage;
             if (moduleName == "Weld")
             {
                 //модулиMenuItem.Image = сварка.Image;
@@ -229,8 +228,7 @@ namespace BazisGUI
 
                 var taskPage = new WeldingPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
                 taskPage.SolverPath = settingsConfig.SolverPath;
-
-                return taskPage;
+                basePage = taskPage;
             }
 
             else if (moduleName == "HeatTreatment")
@@ -240,23 +238,28 @@ namespace BazisGUI
 
                 var taskPage = new HeatTreatmentPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
                 taskPage.SolverPath = settingsConfig.SolverPath;
-
-                return taskPage;
+                basePage = taskPage;
             }
 
             else if (moduleName == "Result")
             {
                 //модулиMenuItem.Image = анализРезультатов.Image;
                 модулиMenuItem.Text = "Результаты";
-                return new ResultPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
+                var resPage = new ResultPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
+                basePage = resPage;
             }
 
             else
             {
                 //модулиMenuItem.Image = построениеСетки.Image;
                 модулиMenuItem.Text = "Сетка";
-                return new ModelPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
+                var modelPage = new ModelPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
+                modelPage.GmshController = gmshController;
+                basePage = modelPage;
             }
+
+            basePage.ModelController = new ModelController.ModelController();
+            return basePage;
         }
 
         private void CloseActivePageChildControls()
@@ -683,8 +686,10 @@ namespace BazisGUI
 
                 lblStatus.Text = $"{project.Path}\\{project.Name}";
 
-                модулиMenuItem.Enabled = true;
+                var ierr = 0;
+                gmshController?.Clear(ref ierr);
 
+                модулиMenuItem.Enabled = true;
 
                 if (module != null)
                 {
@@ -696,12 +701,7 @@ namespace BazisGUI
 
                 else 
                 {
-                    module = CreateModule("Mesh");
-                    module.ModelController = new ModelController.ModelController();
-
-                    var meshModule = module as ModelPage;
-                    meshModule.GmshController = gmshController;
-
+                    module = CreateModule("Mesh");            
                     AddModule();
                 }
             }
@@ -777,6 +777,9 @@ namespace BazisGUI
 
                 lblStatus.Text = $"{project.Path}\\{project.Name}";
 
+                var ierr = 0;
+                gmshController?.Clear(ref ierr);
+
                 модулиMenuItem.Enabled = true;
 
                 if(module != null)
@@ -789,11 +792,6 @@ namespace BazisGUI
                 else
                 {
                     module = CreateModule("Mesh");
-                    module.ModelController = new ModelController.ModelController();
-
-                    var meshModule = module as ModelPage;
-                    meshModule.GmshController = gmshController;
-
                     AddModule();
                 }
             }
@@ -860,55 +858,57 @@ namespace BazisGUI
 
         private void импортГеометрииToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var dialog = new OpenFileDialog();
-
-            var filter =
-"(*.brep*)|*.brep|" +
-"(*.geo*)|*.geo|" +
-"*.stp*)|*.stp|" +
-"(*.step*)|*.step|" +
-"(*.iges*)|*.iges|" +
-"(*.igs*)|*.igs";
-
-            dialog.Filter = filter;
-            if (dialog.ShowDialog() == DialogResult.OK)
+            try
             {
-                if (gmshController == null)
-                    LoadGMSH();
+                var dialog = new OpenFileDialog();
 
-                var ierr = 0;
-                gmshController.Clear(ref ierr);
-                gmshController.Open(dialog.FileName, ref ierr);
+                var filter =
+    "(*.brep*)|*.brep|" +
+    "(*.geo*)|*.geo|" +
+    "*.stp*)|*.stp|" +
+    "(*.step*)|*.step|" +
+    "(*.iges*)|*.iges|" +
+    "(*.igs*)|*.igs";
 
-                var path = Path.GetDirectoryName(dialog.FileName);
-                var name = Path.GetFileName(dialog.FileName);
-
-                CreateNewProject(path, name);
-
-                lblStatus.Text = $"{project.Path}\\{project.Name}";
-
-                модулиMenuItem.Enabled = true;
-
-                UpdateGeometry(ObjType.Точка);
-                UpdateGeometry(ObjType.Линия);
-
-                if (module != null)
+                dialog.Filter = filter;
+                if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    module.Project = project;
-                    module.SceneInitialization();
-                    module.PresentProjectOnTree();
-                    module.PresentModelOnSelectToolStrip();
-                }
-                else
-                {
-                    module = CreateModule("Mesh");
-                    module.ModelController = new ModelController.ModelController();
+                    if (gmshController == null)
+                        LoadGMSH();
 
-                    var meshModule = module as ModelPage;
-                    meshModule.GmshController = gmshController;
+                    var ierr = 0;
+                    gmshController.Clear(ref ierr);
+                    gmshController.Open(dialog.FileName, ref ierr);
 
-                    AddModule();
+                    var path = Path.GetDirectoryName(dialog.FileName);
+                    var name = Path.GetFileName(dialog.FileName);
+
+                    CreateNewProject(path, name);
+
+                    lblStatus.Text = $"{project.Path}\\{project.Name}";
+
+                    модулиMenuItem.Enabled = true;
+
+                    UpdateGeometry(ObjType.Точка);
+                    UpdateGeometry(ObjType.Линия);
+
+                    if (module != null)
+                    {
+                        module.Project = project;
+                        module.SceneInitialization();
+                        module.PresentProjectOnTree();
+                        module.PresentModelOnSelectToolStrip();
+                    }
+                    else
+                    {
+                        module = CreateModule("Mesh");
+                        AddModule();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -936,26 +936,26 @@ namespace BazisGUI
 
         private void LoadGMSH()
         {
-            FormClosing += OnClosingForm;
-            var path = Environment.GetEnvironmentVariable("BazisMeshPath", EnvironmentVariableTarget.Machine);
+                FormClosing += OnClosingForm;
+                var path = Environment.GetEnvironmentVariable("BazisMeshPath", EnvironmentVariableTarget.Machine);
 
-            if (path == null || path == "")
-            {
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = "All files(*.*)|*.*|" +
-                    "dinamic library(*.dll)|*.dll";
-                if (dialog.ShowDialog() == DialogResult.Cancel)
-                    return;
-                path = dialog.FileName;
-            }
-            else
-                path = $@"{path}";
+                if (path == null || path == "")
+                {
+                    OpenFileDialog dialog = new OpenFileDialog();
+                    dialog.Filter = "All files(*.*)|*.*|" +
+                        "dinamic library(*.dll)|*.dll";
+                    if (dialog.ShowDialog() == DialogResult.Cancel)
+                        return;
+                    path = dialog.FileName;
+                }
+                else
+                    path = $@"{path}";
 
-            gmshController = new GmshController();
-            gmshController.Load(path);
-            //ObjectData = new ObjectsData();
-            var ierr = 0;
-            gmshController.OptionSetNumber("General.AbortOnError", 0, ref ierr);//Запретить поделию Кристофа обваливать Базис
+                gmshController = new GmshController();
+                gmshController.Load(path);
+                //ObjectData = new ObjectsData();
+                var ierr = 0;
+                gmshController.OptionSetNumber("General.AbortOnError", 0, ref ierr);//Запретить поделию Кристофа обваливать Базис
         }
 
         private void OnClosingForm(object sender, FormClosingEventArgs e)

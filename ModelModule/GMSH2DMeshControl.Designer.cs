@@ -56,11 +56,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.txtGenListPoints = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.pnlFieldInit = new System.Windows.Forms.Panel();
-            this.btnFieldDelete = new System.Windows.Forms.Button();
-            this.btnFieldAdd = new System.Windows.Forms.Button();
             this.chkMetrics = new System.Windows.Forms.CheckBox();
-            this.chkBeta = new System.Windows.Forms.CheckBox();
             this.grpFieldSize = new System.Windows.Forms.GroupBox();
             this.txtSizeListPoints = new System.Windows.Forms.TextBox();
             this.txtSizeListNear = new System.Windows.Forms.TextBox();
@@ -75,7 +71,6 @@
             this.grpFieldFan.SuspendLayout();
             this.grpFieldLayer.SuspendLayout();
             this.grpFieldGeneral.SuspendLayout();
-            this.pnlFieldInit.SuspendLayout();
             this.grpFieldSize.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -109,23 +104,22 @@
             this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.grpFieldBeta, 0, 5);
-            this.tableLayoutPanel2.Controls.Add(this.grpFieldFan, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.grpFieldLayer, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.grpFieldGeneral, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.pnlFieldInit, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.grpFieldSize, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.grpFieldBeta, 0, 4);
+            this.tableLayoutPanel2.Controls.Add(this.grpFieldFan, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.grpFieldLayer, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.grpFieldGeneral, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.grpFieldSize, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 2);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 6;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel2.RowCount = 5;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(539, 576);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
@@ -133,17 +127,18 @@
             // 
             this.grpFieldBeta.AutoSize = true;
             this.grpFieldBeta.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.grpFieldBeta.Controls.Add(this.chkMetrics);
             this.grpFieldBeta.Controls.Add(this.txtBetaCoef);
             this.grpFieldBeta.Controls.Add(this.label5);
             this.grpFieldBeta.Controls.Add(this.txtBetaLayers);
             this.grpFieldBeta.Controls.Add(this.label4);
             this.grpFieldBeta.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpFieldBeta.Enabled = false;
-            this.grpFieldBeta.Location = new System.Drawing.Point(3, 482);
+            this.grpFieldBeta.Location = new System.Drawing.Point(3, 462);
             this.grpFieldBeta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpFieldBeta.Name = "grpFieldBeta";
             this.grpFieldBeta.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grpFieldBeta.Size = new System.Drawing.Size(533, 92);
+            this.grpFieldBeta.Size = new System.Drawing.Size(533, 112);
             this.grpFieldBeta.TabIndex = 13;
             this.grpFieldBeta.TabStop = false;
             this.grpFieldBeta.Text = "Закон бета";
@@ -200,11 +195,11 @@
             this.grpFieldFan.Controls.Add(this.txtFanListPoints);
             this.grpFieldFan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpFieldFan.Enabled = false;
-            this.grpFieldFan.Location = new System.Drawing.Point(3, 386);
+            this.grpFieldFan.Location = new System.Drawing.Point(3, 347);
             this.grpFieldFan.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpFieldFan.Name = "grpFieldFan";
             this.grpFieldFan.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grpFieldFan.Size = new System.Drawing.Size(533, 92);
+            this.grpFieldFan.Size = new System.Drawing.Size(533, 111);
             this.grpFieldFan.TabIndex = 11;
             this.grpFieldFan.TabStop = false;
             this.grpFieldFan.Text = "Настройки скруглений:";
@@ -276,11 +271,11 @@
             this.grpFieldLayer.Controls.Add(this.label9);
             this.grpFieldLayer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpFieldLayer.Enabled = false;
-            this.grpFieldLayer.Location = new System.Drawing.Point(3, 290);
+            this.grpFieldLayer.Location = new System.Drawing.Point(3, 232);
             this.grpFieldLayer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpFieldLayer.Name = "grpFieldLayer";
             this.grpFieldLayer.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grpFieldLayer.Size = new System.Drawing.Size(533, 92);
+            this.grpFieldLayer.Size = new System.Drawing.Size(533, 111);
             this.grpFieldLayer.TabIndex = 10;
             this.grpFieldLayer.TabStop = false;
             this.grpFieldLayer.Text = "Настройки слоев:";
@@ -337,11 +332,11 @@
             this.grpFieldGeneral.Controls.Add(this.label13);
             this.grpFieldGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpFieldGeneral.Enabled = false;
-            this.grpFieldGeneral.Location = new System.Drawing.Point(3, 98);
+            this.grpFieldGeneral.Location = new System.Drawing.Point(3, 2);
             this.grpFieldGeneral.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpFieldGeneral.Name = "grpFieldGeneral";
             this.grpFieldGeneral.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grpFieldGeneral.Size = new System.Drawing.Size(533, 92);
+            this.grpFieldGeneral.Size = new System.Drawing.Size(533, 111);
             this.grpFieldGeneral.TabIndex = 9;
             this.grpFieldGeneral.TabStop = false;
             this.grpFieldGeneral.Text = "Общие настройки:";
@@ -416,50 +411,12 @@
             this.label13.TabIndex = 4;
             this.label13.Text = "Список точек:";
             // 
-            // pnlFieldInit
-            // 
-            this.pnlFieldInit.AutoSize = true;
-            this.pnlFieldInit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pnlFieldInit.Controls.Add(this.btnFieldDelete);
-            this.pnlFieldInit.Controls.Add(this.btnFieldAdd);
-            this.pnlFieldInit.Controls.Add(this.chkMetrics);
-            this.pnlFieldInit.Controls.Add(this.chkBeta);
-            this.pnlFieldInit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlFieldInit.Location = new System.Drawing.Point(3, 2);
-            this.pnlFieldInit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pnlFieldInit.Name = "pnlFieldInit";
-            this.pnlFieldInit.Size = new System.Drawing.Size(533, 92);
-            this.pnlFieldInit.TabIndex = 3;
-            // 
-            // btnFieldDelete
-            // 
-            this.btnFieldDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFieldDelete.Enabled = false;
-            this.btnFieldDelete.Location = new System.Drawing.Point(15, 31);
-            this.btnFieldDelete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnFieldDelete.Name = "btnFieldDelete";
-            this.btnFieldDelete.Size = new System.Drawing.Size(120, 32);
-            this.btnFieldDelete.TabIndex = 4;
-            this.btnFieldDelete.Text = "Удалить";
-            this.btnFieldDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnFieldAdd
-            // 
-            this.btnFieldAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFieldAdd.Location = new System.Drawing.Point(336, 33);
-            this.btnFieldAdd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnFieldAdd.Name = "btnFieldAdd";
-            this.btnFieldAdd.Size = new System.Drawing.Size(120, 32);
-            this.btnFieldAdd.TabIndex = 3;
-            this.btnFieldAdd.Text = "Добавить";
-            this.btnFieldAdd.UseVisualStyleBackColor = true;
-            // 
             // chkMetrics
             // 
             this.chkMetrics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkMetrics.AutoSize = true;
             this.chkMetrics.Enabled = false;
-            this.chkMetrics.Location = new System.Drawing.Point(254, 9);
+            this.chkMetrics.Location = new System.Drawing.Point(9, 55);
             this.chkMetrics.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkMetrics.Name = "chkMetrics";
             this.chkMetrics.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -468,19 +425,6 @@
             this.chkMetrics.Tag = "IntersectMetrics";
             this.chkMetrics.Text = "Пересеч метрик поверхн";
             this.chkMetrics.UseVisualStyleBackColor = true;
-            // 
-            // chkBeta
-            // 
-            this.chkBeta.AutoSize = true;
-            this.chkBeta.Enabled = false;
-            this.chkBeta.Location = new System.Drawing.Point(15, 7);
-            this.chkBeta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.chkBeta.Name = "chkBeta";
-            this.chkBeta.Size = new System.Drawing.Size(103, 20);
-            this.chkBeta.TabIndex = 0;
-            this.chkBeta.Tag = "BetaLaw";
-            this.chkBeta.Text = "Закон бета";
-            this.chkBeta.UseVisualStyleBackColor = true;
             // 
             // grpFieldSize
             // 
@@ -493,11 +437,11 @@
             this.grpFieldSize.Controls.Add(this.txtSizeListFar);
             this.grpFieldSize.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpFieldSize.Enabled = false;
-            this.grpFieldSize.Location = new System.Drawing.Point(3, 194);
+            this.grpFieldSize.Location = new System.Drawing.Point(3, 117);
             this.grpFieldSize.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpFieldSize.Name = "grpFieldSize";
             this.grpFieldSize.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grpFieldSize.Size = new System.Drawing.Size(533, 92);
+            this.grpFieldSize.Size = new System.Drawing.Size(533, 111);
             this.grpFieldSize.TabIndex = 8;
             this.grpFieldSize.TabStop = false;
             this.grpFieldSize.Text = "Настройки размеров:";
@@ -580,8 +524,6 @@
             this.grpFieldLayer.PerformLayout();
             this.grpFieldGeneral.ResumeLayout(false);
             this.grpFieldGeneral.PerformLayout();
-            this.pnlFieldInit.ResumeLayout(false);
-            this.pnlFieldInit.PerformLayout();
             this.grpFieldSize.ResumeLayout(false);
             this.grpFieldSize.PerformLayout();
             this.ResumeLayout(false);
@@ -618,11 +560,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtGenListPoints;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Panel pnlFieldInit;
-        private System.Windows.Forms.Button btnFieldDelete;
-        private System.Windows.Forms.Button btnFieldAdd;
         private System.Windows.Forms.CheckBox chkMetrics;
-        private System.Windows.Forms.CheckBox chkBeta;
         private System.Windows.Forms.GroupBox grpFieldSize;
         private System.Windows.Forms.TextBox txtSizeListPoints;
         private System.Windows.Forms.TextBox txtSizeListNear;

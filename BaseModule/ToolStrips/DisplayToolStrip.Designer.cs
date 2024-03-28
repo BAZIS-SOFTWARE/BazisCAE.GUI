@@ -154,6 +154,7 @@
             // btnElementsNormals
             // 
             this.btnElementsNormals.AutoSize = false;
+            this.btnElementsNormals.CheckOnClick = true;
             this.btnElementsNormals.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnElementsNormals.Image = ((System.Drawing.Image)(resources.GetObject("btnElementsNormals.Image")));
             this.btnElementsNormals.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -193,6 +194,7 @@
             this.btnShowBasis,
             this.btnElementsNormals,
             this.btnBoundaryContours});
+            this.Size = new System.Drawing.Size(100, 25);
             this.Text = "Отображение";
             this.ResumeLayout(false);
 

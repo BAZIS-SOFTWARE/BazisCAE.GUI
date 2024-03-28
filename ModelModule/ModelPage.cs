@@ -83,7 +83,7 @@ namespace ModelModule
             //SceneControl.IsBlending = false;//Прозрачность пока больше мешает
 
             if (GmshController == null)
-                MessageBox.Show("Загрузите CAD модель перед запуском генератора сетки!");
+                MessageBox.Show("Контроллер генератора сетки не загружен!");
 
             else
             {

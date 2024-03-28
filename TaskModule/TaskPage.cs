@@ -507,7 +507,7 @@ namespace TaskModule
             else return null;
         }
 
-        public async void TaskAdvisor_ChangeDataEvent(object arg1, ChangeDataEventArgs arg2)
+        public void TaskAdvisor_ChangeDataEvent(object arg1, ChangeDataEventArgs arg2)
         {
             try
             {

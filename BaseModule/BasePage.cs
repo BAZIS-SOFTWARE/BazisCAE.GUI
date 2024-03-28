@@ -943,21 +943,6 @@ namespace BaseModule
                         sceneControl.DisplayTitle();
                     else sceneControl.HideTitle();
                 }
-                else if (arg2.ClickedItem.Tag.ToString() == "8")
-                {
-                    var btn = (ToolStripButton)arg2.ClickedItem;
-                    if (!btn.Checked)
-                    {
-                        var surfElems = Project.ModelData.ObjectData.GetAllElements().Select(x => (ISurfaceElement)x);
-                        var linesNodes = ModelController.BoundaryEdgesFinder.Find(surfElems);
-                        var edges = ModelController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes,Project.ModelData);
-                        var linePresenter = PresentersCreator.CreateLineObjectsPresenter(edges);
-
-                        CreateObjectsToScene("Boundary", linePresenter);
-                    }
-                    else sceneControl.DeleteVBObjects("Boundary");
-                }
-
                 else if (arg2.ClickedItem.Tag.ToString() == "1")
                 {
                     sceneControl.DrawInsideObjects = true;
@@ -1022,6 +1007,34 @@ namespace BaseModule
                     if (!btn.Checked)
                         SceneControl.DisplayBasis = true;
                     else SceneControl.DisplayBasis = false;
+                }
+                else if (arg2.ClickedItem.Tag.ToString() == "7")
+                {
+                    var btn = (ToolStripButton)arg2.ClickedItem;
+                    if (!btn.Checked)
+                    {
+                        var surfElems = Project.ModelData.ObjectData.GetAllElements().Select(x => (ISurfaceElement)x);
+                        var elemsNormals = ModelController.NormalCalculator.CalcElemsNormals(surfElems);
+    
+                        var linePresenter = PresentersCreator.CreateLineObjectsPresenter(elemsNormals);
+
+                        CreateObjectsToScene("Normals", linePresenter);
+                    }
+                    else sceneControl.DeleteVBObjects("Normals");
+                }
+                else if (arg2.ClickedItem.Tag.ToString() == "8")
+                {
+                    var btn = (ToolStripButton)arg2.ClickedItem;
+                    if (!btn.Checked)
+                    {
+                        var surfElems = Project.ModelData.ObjectData.GetAllElements().Select(x => (ISurfaceElement)x);
+                        var linesNodes = ModelController.BoundaryEdgesFinder.Find(surfElems);
+                        var edges = ModelController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes, Project.ModelData);
+                        var linePresenter = PresentersCreator.CreateLineObjectsPresenter(edges);
+
+                        CreateObjectsToScene("Boundary", linePresenter);
+                    }
+                    else sceneControl.DeleteVBObjects("Boundary");
                 }
                 sceneControl.DisplayObjects();
             }
@@ -1503,18 +1516,10 @@ namespace BaseModule
             var group = Project.ModelData.GroupData[obj];
             selectToolStrip.SelectObjectsType = group.ObjType;
 
-
-            //SelectToolStrip.SelectObjectsType = group.ObjType;
-
             foreach (var iobj in group)
                 iobj.MasterColor = sceneControl.SelectionColor;
 
             SetObjectsSceneColor(selectToolStrip.SelectObjectsType);
-
-            //var objsPresenter = ModelPresenter[selectToolStrip.SelectObjectsType];
-            //var vboObjs = sceneControl.FindVBObj(selectToolStrip.SelectObjectsType);
-            //var colors = objsPresenter.CreateVertexes(vboObjs.ColorLength, "цвет");
-            //vboObjs.PointsColors = colors;
 
             sceneControl.DisplayObjects();
 
