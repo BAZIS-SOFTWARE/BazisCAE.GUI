@@ -105,15 +105,15 @@
             // upd_YCoord
             // 
             this.upd_YCoord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.upd_YCoord.Location = new System.Drawing.Point(471, 256);
-            this.upd_YCoord.Margin = new System.Windows.Forms.Padding(5, 0, 5, 3);
+            this.upd_YCoord.Location = new System.Drawing.Point(473, 258);
+            this.upd_YCoord.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.upd_YCoord.Maximum = new decimal(new int[] {
             2000,
             0,
             0,
             0});
             this.upd_YCoord.Name = "upd_YCoord";
-            this.upd_YCoord.Size = new System.Drawing.Size(124, 23);
+            this.upd_YCoord.Size = new System.Drawing.Size(120, 23);
             this.upd_YCoord.TabIndex = 34;
             this.upd_YCoord.Value = new decimal(new int[] {
             170,
@@ -148,15 +148,15 @@
             // upd_XCoord
             // 
             this.upd_XCoord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.upd_XCoord.Location = new System.Drawing.Point(232, 256);
-            this.upd_XCoord.Margin = new System.Windows.Forms.Padding(5, 0, 5, 3);
+            this.upd_XCoord.Location = new System.Drawing.Point(234, 258);
+            this.upd_XCoord.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.upd_XCoord.Maximum = new decimal(new int[] {
             2000,
             0,
             0,
             0});
             this.upd_XCoord.Name = "upd_XCoord";
-            this.upd_XCoord.Size = new System.Drawing.Size(123, 23);
+            this.upd_XCoord.Size = new System.Drawing.Size(119, 23);
             this.upd_XCoord.TabIndex = 34;
             this.upd_XCoord.Value = new decimal(new int[] {
             70,
@@ -168,8 +168,8 @@
             // updIntervals
             // 
             this.updIntervals.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.updIntervals.Location = new System.Drawing.Point(471, 139);
-            this.updIntervals.Margin = new System.Windows.Forms.Padding(5, 0, 5, 3);
+            this.updIntervals.Location = new System.Drawing.Point(473, 141);
+            this.updIntervals.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.updIntervals.Maximum = new decimal(new int[] {
             10,
             0,
@@ -181,7 +181,7 @@
             0,
             0});
             this.updIntervals.Name = "updIntervals";
-            this.updIntervals.Size = new System.Drawing.Size(124, 23);
+            this.updIntervals.Size = new System.Drawing.Size(120, 23);
             this.updIntervals.TabIndex = 39;
             this.updIntervals.Value = new decimal(new int[] {
             10,
@@ -215,10 +215,10 @@
             // txbMax
             // 
             this.txbMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbMax.Location = new System.Drawing.Point(232, 69);
-            this.txbMax.Margin = new System.Windows.Forms.Padding(5, 0, 5, 3);
+            this.txbMax.Location = new System.Drawing.Point(234, 70);
+            this.txbMax.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.txbMax.Name = "txbMax";
-            this.txbMax.Size = new System.Drawing.Size(123, 23);
+            this.txbMax.Size = new System.Drawing.Size(119, 23);
             this.txbMax.TabIndex = 15;
             this.txbMax.Text = "1";
             this.txbMax.Leave += new System.EventHandler(this.txbMax_Leave);
@@ -248,10 +248,10 @@
             // txbMin
             // 
             this.txbMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbMin.Location = new System.Drawing.Point(471, 69);
-            this.txbMin.Margin = new System.Windows.Forms.Padding(5, 0, 5, 3);
+            this.txbMin.Location = new System.Drawing.Point(473, 70);
+            this.txbMin.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.txbMin.Name = "txbMin";
-            this.txbMin.Size = new System.Drawing.Size(124, 23);
+            this.txbMin.Size = new System.Drawing.Size(120, 23);
             this.txbMin.TabIndex = 17;
             this.txbMin.Text = "0";
             this.txbMin.Leave += new System.EventHandler(this.txbMin_Leave);
@@ -259,15 +259,15 @@
             // updPrecision
             // 
             this.updPrecision.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.updPrecision.Location = new System.Drawing.Point(232, 139);
-            this.updPrecision.Margin = new System.Windows.Forms.Padding(5, 0, 5, 3);
+            this.updPrecision.Location = new System.Drawing.Point(234, 141);
+            this.updPrecision.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.updPrecision.Maximum = new decimal(new int[] {
             15,
             0,
             0,
             0});
             this.updPrecision.Name = "updPrecision";
-            this.updPrecision.Size = new System.Drawing.Size(123, 23);
+            this.updPrecision.Size = new System.Drawing.Size(119, 23);
             this.updPrecision.TabIndex = 34;
             this.updPrecision.Value = new decimal(new int[] {
             4,
@@ -304,7 +304,7 @@
             this.chbMaxMinAuto.Location = new System.Drawing.Point(21, 23);
             this.chbMaxMinAuto.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.chbMaxMinAuto.Name = "chbMaxMinAuto";
-            this.chbMaxMinAuto.Size = new System.Drawing.Size(199, 26);
+            this.chbMaxMinAuto.Size = new System.Drawing.Size(159, 21);
             this.chbMaxMinAuto.TabIndex = 0;
             this.chbMaxMinAuto.Text = "Уточнить значения";
             this.chbMaxMinAuto.UseVisualStyleBackColor = true;
