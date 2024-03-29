@@ -116,7 +116,7 @@
             this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -161,7 +161,7 @@
             this.player.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.player.MinimumSize = new System.Drawing.Size(287, 55);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(768, 55);
+            this.player.Size = new System.Drawing.Size(770, 55);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -200,10 +200,10 @@
             // 
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbStopTime.Location = new System.Drawing.Point(229, 53);
+            this.txbStopTime.Location = new System.Drawing.Point(229, 56);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(767, 22);
+            this.txbStopTime.Size = new System.Drawing.Size(770, 22);
             this.txbStopTime.TabIndex = 1;
             // 
             // btnHideAll
@@ -279,7 +279,7 @@
             this.txbStartTime.Location = new System.Drawing.Point(229, 23);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(767, 22);
+            this.txbStartTime.Size = new System.Drawing.Size(770, 22);
             this.txbStartTime.TabIndex = 0;
             // 
             // groupBox2
@@ -318,9 +318,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbMat.FormattingEnabled = true;
             this.cmbMat.Location = new System.Drawing.Point(229, 70);
-            this.cmbMat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbMat.Margin = new System.Windows.Forms.Padding(4);
             this.cmbMat.Name = "cmbMat";
-            this.cmbMat.Size = new System.Drawing.Size(767, 24);
+            this.cmbMat.Size = new System.Drawing.Size(770, 24);
             this.cmbMat.TabIndex = 13;
             // 
             // label1
@@ -342,7 +342,7 @@
             this.cmbEl.Location = new System.Drawing.Point(229, 37);
             this.cmbEl.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.cmbEl.Name = "cmbEl";
-            this.cmbEl.Size = new System.Drawing.Size(767, 24);
+            this.cmbEl.Size = new System.Drawing.Size(770, 24);
             this.cmbEl.TabIndex = 14;
             // 
             // openFileDialog

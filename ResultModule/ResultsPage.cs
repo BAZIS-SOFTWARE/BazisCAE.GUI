@@ -1,4 +1,5 @@
 ﻿using BaseModule;
+using BaseModule.Console;
 using BaseModule.Navigator;
 using CustomControls.Controls;
 using CustomControls.OS;
@@ -179,7 +180,14 @@ namespace ResultModule
                 scale.Coord_Y = (int)ar2;
             };
             
-            var scForm = new Form() { TopMost = true,Size = scPage.Size, Name = "Scale", Text = "Шкала значений", ShowIcon = false };
+            var scForm = new Form() { 
+                TopMost = true,
+                Size = scPage.Size, 
+                Name = "Scale", 
+                Text = "Шкала значений", 
+                ShowIcon = false,
+                ClientSize = scPage.Size
+            };
 
             scForm.Controls.Add(scPage);
             scForm.Show();
@@ -190,11 +198,11 @@ namespace ResultModule
                 var grPage = new GraphCreationPage() { Dock = DockStyle.Fill };
                 grPage.CreateTimeGraphEvent += (ar1, ar2) =>
                 {
-                    CreateTimeGraph(NavigatorControl.TreeView.Nodes["Результаты"].Text, ar2.ObjsType);
+                    CreateTimeGraph(ar2.ResultKind, ar2.ObjsType);
                 };
                 grPage.CreatePathGraphEvent += (ar1, ar2) =>
                 {
-                    CreatePathGraph(NavigatorControl.TreeView.Nodes["Результаты"].Text, ar2.ObjsType, ar2.Time);
+                    CreatePathGraph(ar2.ResultKind, ar2.ObjsType, ar2.Time);
                 };
 
                 grPage.SelectObjectsEvent += (ar) =>
@@ -228,7 +236,14 @@ namespace ResultModule
                 }
                 grPage.SetResultsItems(resDic);
 
-                var scForm = new Form() { TopMost = true, Text = "Построить график", Size = grPage.Size, ShowIcon = false };
+                var scForm = new Form() 
+                { 
+                    TopMost = true, 
+                    Text = "Построить график", 
+                    Size = grPage.Size, 
+                    ShowIcon = false ,
+                    ClientSize = grPage.Size
+                };
                 scForm.Controls.Add(grPage);
                 scForm.Show();
 
@@ -266,7 +281,15 @@ namespace ResultModule
 
             anPage.SetResultsItems(resDic);
 
-            var anForm = new Form() { TopMost = true, Size = anPage.Size, Name = "Animation", Text = "Анимация", ShowIcon = false };
+            var anForm = new Form() 
+            { 
+                TopMost = true, 
+                Size = anPage.Size, 
+                Name = "Animation", 
+                Text = "Анимация", 
+                ShowIcon = false,
+                ClientSize = anPage.Size
+            };
             
             anForm.FormClosed += (ar1,ar2) =>{ anPage = null; };
             anForm.Controls.Add(anPage);
@@ -543,7 +566,8 @@ namespace ResultModule
                     {
                         TopMost = true,
                         Text = $"График {resDes} - координата",
-                        ShowIcon = false
+                        ShowIcon = false,
+                        ClientSize = grContainer.Size
                     };
                     form.Controls.Add(grContainer);
                     form.Show();
@@ -556,14 +580,10 @@ namespace ResultModule
             }
         }
 
-        private void CreateTimeGraph(string resKind, ObjType objsType)
+        private async void CreateTimeGraph(string resKind, ObjType objsType)
         {
             try
             {
-
-                if (resKind == "Результаты")
-                    throw new Exception("Выберите результаты для построения графика используя панель анимации");
-
                 if (NavigatorControl.TreeView.SelectedNode?.Level != 2)
                     throw new Exception("Выберите вид результатов в разделе результаты");
 
@@ -574,7 +594,7 @@ namespace ResultModule
 
                 var grDataAr = new List<GraphData>();
 
-                var objs = Project.ModelData.ObjectData.GetObjects(objsType).Where(x => x.MasterColor == SceneControl.SelectionColor);
+                var objs = await SelectNodesAsync();
                 foreach (var obj in objs)
                 {
                     var grPoints = new List<GraphPoint>();
@@ -590,13 +610,10 @@ namespace ResultModule
                         grPoints.Add(grPoint);
                     }
 
-                    SceneControl.DisplayText3D($"{objsType}_{obj.Number}", Color.Black, obj.CalcCentr());
-
                     var grData = new GraphData($"{objsType}_{obj.Number}", Color.Orange, "Сек.", resDes, grPoints.ToArray());
                     grDataAr.Add(grData);
                 }
 
-                SceneControl.DisplayObjects();
                 var grContainer = new GraphContainer();
 
                 if (grDataAr.Count != 0)
@@ -607,7 +624,8 @@ namespace ResultModule
                     {
                         TopMost = true,
                         Text = $"График {resDes} - время",
-                        ShowIcon = false
+                        ShowIcon = false,
+                        ClientSize = grContainer.Size
                     };
                     form.Controls.Add(grContainer);
                     form.Show();
@@ -619,7 +637,30 @@ namespace ResultModule
                 ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
 
-        }       
+        }
+
+        public async Task<List<INode>> SelectNodesAsync()
+        {
+            var nodes = new List<INode>();
+
+            PressedKey = Keys.None;
+
+            while (true)
+            {
+                var res = SelectNodeAsync();
+                await res;
+
+                if (res.Result is INode node)
+                {
+                    nodes.Add(node);
+                    SceneControl.DisplayText3D($"{ObjType.Узел}_{node.Number}", Color.Black, node.CalcCentr());
+                    SceneControl.DisplayObjects();
+                }
+                else break;
+            }
+
+            return nodes;
+        }
 
         public void PresentResultsOnTree(IEnumerable<IResult> results)
         {

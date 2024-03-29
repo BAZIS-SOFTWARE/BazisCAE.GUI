@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectionSet));
             this.rbtNodes = new System.Windows.Forms.RadioButton();
             this.rbtElements = new System.Windows.Forms.RadioButton();
             this.chbChangeDirection = new System.Windows.Forms.CheckBox();
@@ -51,10 +50,11 @@
             // 
             this.rbtNodes.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.rbtNodes.AutoSize = true;
-            this.rbtNodes.Location = new System.Drawing.Point(275, 21);
-            this.rbtNodes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbtNodes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rbtNodes.Location = new System.Drawing.Point(229, 7);
+            this.rbtNodes.Margin = new System.Windows.Forms.Padding(4);
             this.rbtNodes.Name = "rbtNodes";
-            this.rbtNodes.Size = new System.Drawing.Size(62, 20);
+            this.rbtNodes.Size = new System.Drawing.Size(63, 21);
             this.rbtNodes.TabIndex = 8;
             this.rbtNodes.TabStop = true;
             this.rbtNodes.Text = "Узлы";
@@ -65,10 +65,11 @@
             // rbtElements
             // 
             this.rbtElements.AutoSize = true;
-            this.rbtElements.Location = new System.Drawing.Point(39, 21);
-            this.rbtElements.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbtElements.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rbtElements.Location = new System.Drawing.Point(39, 7);
+            this.rbtElements.Margin = new System.Windows.Forms.Padding(4);
             this.rbtElements.Name = "rbtElements";
-            this.rbtElements.Size = new System.Drawing.Size(95, 20);
+            this.rbtElements.Size = new System.Drawing.Size(96, 21);
             this.rbtElements.TabIndex = 5;
             this.rbtElements.TabStop = true;
             this.rbtElements.Text = "Элементы";
@@ -78,61 +79,63 @@
             // chbChangeDirection
             // 
             this.chbChangeDirection.AutoSize = true;
-            this.chbChangeDirection.Location = new System.Drawing.Point(39, 91);
-            this.chbChangeDirection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbChangeDirection.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.chbChangeDirection.Location = new System.Drawing.Point(39, 58);
+            this.chbChangeDirection.Margin = new System.Windows.Forms.Padding(4);
             this.chbChangeDirection.Name = "chbChangeDirection";
-            this.chbChangeDirection.Size = new System.Drawing.Size(176, 20);
+            this.chbChangeDirection.Size = new System.Drawing.Size(177, 21);
             this.chbChangeDirection.TabIndex = 10;
             this.chbChangeDirection.Text = "Сменить направление";
             this.chbChangeDirection.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
+            this.panel1.AutoSize = true;
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel1.SetColumnSpan(this.panel1, 2);
             this.panel1.Controls.Add(this.txbAngle);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.chbChangeDirection);
-            this.panel1.Controls.Add(this.btnSelect);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(4, 151);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Location = new System.Drawing.Point(4, 91);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(405, 153);
+            this.panel1.Size = new System.Drawing.Size(381, 83);
             this.panel1.TabIndex = 9;
             // 
             // txbAngle
             // 
             this.txbAngle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbAngle.Location = new System.Drawing.Point(85, 32);
-            this.txbAngle.Margin = new System.Windows.Forms.Padding(4, 18, 20, 4);
+            this.txbAngle.Location = new System.Drawing.Point(101, 28);
+            this.txbAngle.Margin = new System.Windows.Forms.Padding(0, 0, 7, 0);
             this.txbAngle.Name = "txbAngle";
-            this.txbAngle.Size = new System.Drawing.Size(288, 22);
+            this.txbAngle.Size = new System.Drawing.Size(277, 22);
             this.txbAngle.TabIndex = 6;
             this.txbAngle.Text = "5";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 36);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(36, 31);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 16);
+            this.label1.Size = new System.Drawing.Size(38, 17);
             this.label1.TabIndex = 7;
             this.label1.Text = "Угол";
             // 
             // btnSelect
             // 
-            this.btnSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelect.AutoSize = true;
+            this.btnSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSelect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnSelect.Image = ((System.Drawing.Image)(resources.GetObject("btnSelect.Image")));
-            this.btnSelect.Location = new System.Drawing.Point(337, 76);
-            this.btnSelect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSelect.Location = new System.Drawing.Point(248, 186);
+            this.btnSelect.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.btnSelect.Name = "btnSelect";
-            this.btnSelect.Size = new System.Drawing.Size(38, 38);
+            this.btnSelect.Size = new System.Drawing.Size(134, 32);
             this.btnSelect.TabIndex = 3;
+            this.btnSelect.Text = "Выбрать";
             this.btnSelect.UseVisualStyleBackColor = true;
             this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
@@ -140,10 +143,11 @@
             // 
             this.rbtInPlain.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.rbtInPlain.AutoSize = true;
-            this.rbtInPlain.Location = new System.Drawing.Point(275, 20);
-            this.rbtInPlain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbtInPlain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rbtInPlain.Location = new System.Drawing.Point(229, 14);
+            this.rbtInPlain.Margin = new System.Windows.Forms.Padding(4);
             this.rbtInPlain.Name = "rbtInPlain";
-            this.rbtInPlain.Size = new System.Drawing.Size(108, 20);
+            this.rbtInPlain.Size = new System.Drawing.Size(110, 21);
             this.rbtInPlain.TabIndex = 1;
             this.rbtInPlain.TabStop = true;
             this.rbtInPlain.Text = "В плоскости";
@@ -153,10 +157,11 @@
             // rbtInDirection
             // 
             this.rbtInDirection.AutoSize = true;
-            this.rbtInDirection.Location = new System.Drawing.Point(39, 21);
-            this.rbtInDirection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbtInDirection.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rbtInDirection.Location = new System.Drawing.Point(39, 14);
+            this.rbtInDirection.Margin = new System.Windows.Forms.Padding(4);
             this.rbtInDirection.Name = "rbtInDirection";
-            this.rbtInDirection.Size = new System.Drawing.Size(139, 20);
+            this.rbtInDirection.Size = new System.Drawing.Size(140, 21);
             this.rbtInDirection.TabIndex = 0;
             this.rbtInDirection.TabStop = true;
             this.rbtInDirection.Text = "По направлению";
@@ -168,57 +173,63 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 61.95373F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.04627F));
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel3, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnSelect, 1, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 82F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(413, 308);
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(389, 226);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // panel2
             // 
+            this.panel2.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.panel2, 2);
             this.panel2.Controls.Add(this.rbtElements);
             this.panel2.Controls.Add(this.rbtNodes);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(4, 69);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Location = new System.Drawing.Point(4, 51);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(405, 74);
+            this.panel2.Size = new System.Drawing.Size(381, 32);
             this.panel2.TabIndex = 10;
             // 
             // panel3
             // 
+            this.panel3.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.panel3, 2);
             this.panel3.Controls.Add(this.rbtInDirection);
             this.panel3.Controls.Add(this.rbtInPlain);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(4, 4);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(405, 57);
+            this.panel3.Size = new System.Drawing.Size(381, 39);
             this.panel3.TabIndex = 11;
             // 
             // SelectionSet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "SelectionSet";
-            this.Size = new System.Drawing.Size(413, 308);
+            this.Size = new System.Drawing.Size(389, 226);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);

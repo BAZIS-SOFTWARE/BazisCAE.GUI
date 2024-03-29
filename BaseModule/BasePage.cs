@@ -345,7 +345,7 @@ namespace BaseModule
 
                     if (e.ClickedItem.Tag.ToString() == "4")
                     {
-                        var form = new Form() { Name = "selectForm", Text = "Выбрать", Size = new Size(300, 300), ShowIcon = false };
+                        var form = new Form() { Name = "selectForm", Text = "Выбрать", AutoSize = false, ShowIcon = false };
                         form.TopMost = true;
 
                         form.FormClosing += (s1, s2) => { btn.Checked = false; };
@@ -355,6 +355,7 @@ namespace BaseModule
                         selectionControl.SelectNodes += (s1, s2) =>
                         {
                             selectStrip.SelectObjectsType = ObjType.Узел;
+                            var size = form.Size;
                             consoleControl.PrintInfo("Выберите два узла для направления или три для плоскости",Color.Black);
                         };
                         selectionControl.SelectElements += (s1, s2) =>
@@ -362,7 +363,7 @@ namespace BaseModule
                             selectStrip.SelectObjectsType = ObjType.Элемент2D;
                             consoleControl.PrintInfo("Выберите плоский элемент \"2D\"", Color.Black);
                         };
-
+                        form.ClientSize = selectionControl.Size;
                         form.Controls.Add(selectionControl);
                         form.Show();
                     }
@@ -464,7 +465,7 @@ namespace BaseModule
             {
                 if (e.ClickedItem.Tag.ToString() == "0")
                 {
-                    var form = new Form() { Name = "measureForm", Text = "Измерить", ShowIcon = false, Size = new Size(555, 283) };
+                    var form = new Form() { Name = "measureForm", Text = "Измерить", ShowIcon = false };
                     form.TopMost = true;
 
                     form.FormClosed += (s1, s2) =>
@@ -478,7 +479,9 @@ namespace BaseModule
                     var measuringControl = new MeasuringSet() { Dock = DockStyle.Fill };
                     measuringControl.PreparingMeasureEvent += MeasuringControl_PreparingMeasureEvent;
                     measuringControl.MakeMeasureEvent += MeasuringControl_MakeMeasureEvent;
+                    form.ClientSize = measuringControl.Size;
                     form.Controls.Add(measuringControl);
+     
                     form.Show();
                 }
 
@@ -487,6 +490,7 @@ namespace BaseModule
                     var form = new Form() { Name = "CrossSectionForm", Text = "Построить сечение", ShowIcon = false, Size = new Size(268, 203), TopMost = true };
 
                     var crossSection = new CrossSectionControl() { Dock = DockStyle.Fill };
+                    form.ClientSize = crossSection.Size;
                     form.Controls.Add(crossSection);
 
                     crossSection.RemoveCrossEvent += () =>
@@ -772,7 +776,7 @@ namespace BaseModule
         }
 
 
-        private async Task<object> SelectNodeAsync()
+        public async Task<object> SelectNodeAsync()
         {
             var actBreak = new Action(() =>
             {
@@ -826,8 +830,8 @@ namespace BaseModule
             var message = @"Задайте поверхность, выбрав три узла, и нажмите на клавишу ""E"" или нажмите кнопку ""ESC""";
             var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
-                var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
+                var nodes = Project.ModelData.ObjectData.NodeCollection;
+                var selObjs = nodes.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
 
                 if (selObjs.Length < 3)
                 {

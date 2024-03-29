@@ -117,30 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnCreatePlot.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wgAADsIBFShKgAAAACxJREFUOE9joBlwOMDwHxlDhYkHI80AdMXEYqj2YWEANkCSYmxg1ABiAQMDABBr
-        v6G/1Jc4AAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="btnSelectObjs.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAAx4AAAMeATRW7lQAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
-        AAACr0lEQVRYR8WXXUsqURSG+zP+AX9EN5JGqNGFEtRlBEISYghBZhBFIfRBEkFGIIJ3YlhCKCIJfRBB
-        UEREQh8aFGqh5RtrWHI6Zztn9ljSA8K8a3Tmma177W1XrVZ/+fj4ePuNF927iw7wS9C9Oy7w+vrKRyId
-        Fbi7u4PNZsP29jZXRDomEIlE0Nvbi7m5OWxtbXFV5McFCoUCHA4HFhYW6OKIx+PY3NzksyI/JtBoNLC6
-        uor+/n7c3NxwFdjZ2cHGxgYnkR8RuLy8RF9fnyLwL8lkEuvr65xEviVQr9cxMzOjDPnDwwNX/yaVSmFt
-        bY2TSNsCJycn6OnpQSwW40pr9vf3sbKywklEtwDN6cnJSYyMjOD5+Zmr6qTTaSwtLXES0SWQyWRgMpmw
-        t7fHFW2y2SyCwSAnESmBSqUCr9cLl8uFcrnMVTlyuRwWFxc5iWgKXF1dwWAw6Hrqr+TzeczPz3MSkRqB
-        g4MDWK1W5RdfrVa5Ksfh4SFmZ2c5iUgJNEkkEjCbzUqblYVmC4mroUuAiEajWF5e5qTN6ekppqenOYno
-        Enh/f1dGoFarcUWbs7MzTE1NcRLRJUANRc/wE+fn50rfUENagKaixWJRFp3/Qe3562J0cXEBn8/HSURa
-        IBAIYHd3l5M6NErd3d1wu90oFovKNJ6YmOCzIlICpVIJdrudkzpfR4mmHy3No6Oj8Hg8/A4RKQF6Grqg
-        Fn6/X2hYlMPhMCcRTYHb21sMDw9zUufp6QkDAwOc5NEUCIVCcDqdeHx85EprxsbGcHR0xEkeTQGC5vLg
-        4CDGx8dbLsHX19cYGhripA8pgSa0tNLWi1rr29ufj9BXRNuydtAl0IT2ebQboj3g8fGxsky3S1sCBLVl
-        2usZjUbc399zVT9tCzTR6oxafFvguygCv/v3vP7yCaVJWPZVaZ7IAAAAAElFTkSuQmCC
-</value>
-  </data>
 </root>

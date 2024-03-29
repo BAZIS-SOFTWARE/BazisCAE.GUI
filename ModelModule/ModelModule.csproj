@@ -120,18 +120,6 @@
     <Compile Include="ToolStrips\MeshToolStrip.Designer.cs">
       <DependentUpon>MeshToolStrip.cs</DependentUpon>
     </Compile>
-    <Compile Include="SurfaceControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SurfaceControl.Designer.cs">
-      <DependentUpon>SurfaceControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CurveControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CurveControl.Designer.cs">
-      <DependentUpon>CurveControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="GMSHGeneralMeshControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

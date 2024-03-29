@@ -46,29 +46,25 @@ namespace ResultModule
 
         private void btnCreatePlot_Click(object sender, EventArgs e)
         {
-            
+            if (comboBox.SelectedItem == null)
+                MessageBox.Show("Выберите тип задачи!");
+            var resKind = comboBox.SelectedItem.ToString();
+
             if (rbtTime.Checked)
             {
                 if (rbtNodes.Checked)
-                    CreateTimeGraphEvent(this, new CreateTimeGraphArgs(ObjType.Узел));
-                else CreateTimeGraphEvent(this, new CreateTimeGraphArgs(ObjType.Элемент));
+                    CreateTimeGraphEvent(this, new CreateTimeGraphArgs(ObjType.Узел, resKind));
+                else CreateTimeGraphEvent(this, new CreateTimeGraphArgs(ObjType.Элемент, resKind));
             }
             else
             {
-                if (comboBox.SelectedItem == null)
-                    MessageBox.Show("Выберите время!");
-                else
+                if (richTextBox.Lines.Length > 0)
                 {
-                    var resName = comboBox.SelectedItem.ToString();
-                    if (richTextBox.Lines.Length > 0)
-                    {
-                        var time = float.Parse(richTextBox.Lines[lineIndex]);
-                        if (rbtNodes.Checked)
-                            CreatePathGraphEvent(this, new CreatePathGraphEventArgs(ObjType.Узел, resName, time));
-                        else CreatePathGraphEvent(this, new CreatePathGraphEventArgs(ObjType.Элемент, resName, time));
-                    }
+                    var time = float.Parse(richTextBox.Lines[lineIndex]);
+                    if (rbtNodes.Checked)
+                        CreatePathGraphEvent(this, new CreatePathGraphEventArgs(ObjType.Узел, resKind, time));
+                    else CreatePathGraphEvent(this, new CreatePathGraphEventArgs(ObjType.Элемент, resKind, time));
                 }
-
             }
         }
 

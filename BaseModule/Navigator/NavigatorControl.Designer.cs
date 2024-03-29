@@ -152,8 +152,8 @@
             this.treeNodesImageList_16x16.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("treeNodesImageList_16x16.ImageStream")));
             this.treeNodesImageList_16x16.TransparentColor = System.Drawing.Color.Transparent;
             this.treeNodesImageList_16x16.Images.SetKeyName(0, "Инфо.bmp");
-            this.treeNodesImageList_16x16.Images.SetKeyName(1, "CloseFolder.png");
-            this.treeNodesImageList_16x16.Images.SetKeyName(2, "OpenFolder.png");
+            this.treeNodesImageList_16x16.Images.SetKeyName(1, "CloseFolder.bmp");
+            this.treeNodesImageList_16x16.Images.SetKeyName(2, "OpenFolder.bmp");
             this.treeNodesImageList_16x16.Images.SetKeyName(3, "NodeObjs.png");
             this.treeNodesImageList_16x16.Images.SetKeyName(4, "MeshObjs.png");
             this.treeNodesImageList_16x16.Images.SetKeyName(5, "switchOn_nodes_16x16.png");
@@ -379,6 +379,7 @@
             this.treeView.BackColor = System.Drawing.SystemColors.Window;
             this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.treeView.FullRowSelect = true;
             this.treeView.HideSelection = false;
             this.treeView.ImageIndex = 0;

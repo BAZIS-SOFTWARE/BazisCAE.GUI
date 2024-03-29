@@ -42,9 +42,10 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(91, 26);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(51, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(133, 13);
+            this.label1.Size = new System.Drawing.Size(173, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Лицензия принадлежит :";
             // 
@@ -52,9 +53,10 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(85, 92);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(43, 92);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(139, 13);
+            this.label3.Size = new System.Drawing.Size(181, 17);
             this.label3.TabIndex = 2;
             this.label3.Text = "Информация о лицензии :";
             // 
@@ -62,9 +64,10 @@
             // 
             this.lblCompanyName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblCompanyName.AutoSize = true;
-            this.lblCompanyName.Location = new System.Drawing.Point(334, 26);
+            this.lblCompanyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblCompanyName.Location = new System.Drawing.Point(332, 25);
             this.lblCompanyName.Name = "lblCompanyName";
-            this.lblCompanyName.Size = new System.Drawing.Size(13, 13);
+            this.lblCompanyName.Size = new System.Drawing.Size(16, 17);
             this.lblCompanyName.TabIndex = 3;
             this.lblCompanyName.Text = "?";
             // 
@@ -72,9 +75,10 @@
             // 
             this.lblKeyInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblKeyInfo.AutoSize = true;
-            this.lblKeyInfo.Location = new System.Drawing.Point(334, 92);
+            this.lblKeyInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblKeyInfo.Location = new System.Drawing.Point(332, 92);
             this.lblKeyInfo.Name = "lblKeyInfo";
-            this.lblKeyInfo.Size = new System.Drawing.Size(13, 13);
+            this.lblKeyInfo.Size = new System.Drawing.Size(16, 17);
             this.lblKeyInfo.TabIndex = 3;
             this.lblKeyInfo.Text = "?";
             // 
@@ -82,9 +86,10 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(110, 160);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(75, 159);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(114, 13);
+            this.label2.Size = new System.Drawing.Size(149, 17);
             this.label2.TabIndex = 2;
             this.label2.Text = "Адрес подключения :";
             // 
@@ -92,9 +97,10 @@
             // 
             this.lblServerAdress.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblServerAdress.AutoSize = true;
-            this.lblServerAdress.Location = new System.Drawing.Point(334, 160);
+            this.lblServerAdress.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblServerAdress.Location = new System.Drawing.Point(332, 159);
             this.lblServerAdress.Name = "lblServerAdress";
-            this.lblServerAdress.Size = new System.Drawing.Size(13, 13);
+            this.lblServerAdress.Size = new System.Drawing.Size(16, 17);
             this.lblServerAdress.TabIndex = 3;
             this.lblServerAdress.Text = "?";
             // 
@@ -119,12 +125,12 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(454, 201);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
-            // AboutControl
+            // AboutLicenseControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "AboutControl";
+            this.Name = "AboutLicenseControl";
             this.Size = new System.Drawing.Size(454, 201);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

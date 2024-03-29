@@ -266,6 +266,8 @@
     <None Include="ToolStrips\DisplayToolStripButtons_x32\Basis.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\CloseFolder.png" />
+    <Content Include="Resources\OpenFolder.png" />
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
   </ItemGroup>

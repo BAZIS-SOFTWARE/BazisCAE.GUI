@@ -190,7 +190,7 @@ namespace BaseModule.Console
 
         public void PrintInfo(string str, Color color)
         {
-            rtxbField.AppendText($"\n > {str}");
+            rtxbField.AppendText($" > {str}");
 
             if (color != Color.Black)
                 HighlightPhrase(str, color);

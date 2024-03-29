@@ -543,31 +543,6 @@ namespace TaskModule
 
         }
 
-        //public Func<string> SetDirection(string taskStr)
-        //{
-        //    return new Func<string>(() =>
-        //    {
-
-        //        var pointsCoords = Project.ModelData.ObjectData.FindMany().
-        //            Where(x => x.MasterColor == Color.FromArgb(0, 255, 0)).Select(x => new Point3D(x._x, x._y, x._z)).ToArray();
-        //        if (pointsCoords.Length < 3)
-        //        {
-        //            CalculatorEvent(this, new CalculatorEventArgs("Выберите 3 точки!"));
-        //            return taskStr;
-        //        }
-        //        else
-        //        {
-        //            var plane = new Plane(pointsCoords[0], pointsCoords[1], pointsCoords[2]);
-        //            var vector = plane.Normal;
-        //            var normVector = Vector.GetVectorNorm(vector);
-
-        //            CalculatorEvent(this, new CalculatorEventArgs(""));
-
-        //            return taskStr.Replace("LRF", normVector.ToString());
-        //        }
-        //    });
-        //}
-
         public void TaskAdvisor_DeleteAllDataEvent(object arg1, DeleteAllDataEventArgs arg2)
         {
             var dataArray = Project.TaskData.Find(arg2.DataName).ToArray();

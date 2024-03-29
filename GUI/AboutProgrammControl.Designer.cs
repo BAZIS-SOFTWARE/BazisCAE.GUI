@@ -32,9 +32,9 @@
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.lblVersion = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.richTextBox = new System.Windows.Forms.RichTextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -44,7 +44,7 @@
             this.tableLayoutPanel.ColumnCount = 3;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.41646F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.58354F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 74F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.tableLayoutPanel.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.lblVersion, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.pictureBox1, 1, 0);
@@ -61,7 +61,7 @@
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 140F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(553, 281);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(608, 278);
             this.tableLayoutPanel.TabIndex = 0;
             // 
             // label1
@@ -72,7 +72,7 @@
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(160, 27);
+            this.label1.Size = new System.Drawing.Size(178, 26);
             this.label1.TabIndex = 2;
             this.label1.Text = "Bazis Software";
             // 
@@ -80,21 +80,34 @@
             // 
             this.lblVersion.AutoSize = true;
             this.lblVersion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblVersion.Location = new System.Drawing.Point(0, 27);
+            this.lblVersion.Location = new System.Drawing.Point(0, 26);
             this.lblVersion.Margin = new System.Windows.Forms.Padding(0);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(160, 28);
+            this.lblVersion.Size = new System.Drawing.Size(178, 26);
             this.lblVersion.TabIndex = 3;
+            // 
+            // pictureBox1
+            // 
+            this.tableLayoutPanel.SetColumnSpan(this.pictureBox1, 2);
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(181, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.tableLayoutPanel.SetRowSpan(this.pictureBox1, 6);
+            this.pictureBox1.Size = new System.Drawing.Size(424, 272);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(0, 55);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(0, 52);
             this.label4.Margin = new System.Windows.Forms.Padding(0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(160, 32);
+            this.label4.Size = new System.Drawing.Size(178, 32);
             this.label4.TabIndex = 5;
             this.label4.Text = "Техническая поддержка\r\nInfo@bazisnet.ru";
             // 
@@ -103,37 +116,26 @@
             this.richTextBox.BackColor = System.Drawing.SystemColors.Control;
             this.richTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox.Location = new System.Drawing.Point(3, 113);
+            this.richTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.richTextBox.Location = new System.Drawing.Point(3, 110);
             this.richTextBox.Name = "richTextBox";
             this.richTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tableLayoutPanel.SetRowSpan(this.richTextBox, 2);
-            this.richTextBox.Size = new System.Drawing.Size(154, 165);
+            this.richTextBox.Size = new System.Drawing.Size(172, 165);
             this.richTextBox.TabIndex = 6;
             this.richTextBox.Text = "ПО предназначено для расчетов термомеханических процессов сварки и родственных пр" +
     "оцессов и технологий.\nРазработанно коллективом авторов УрФУ имени первого Презид" +
     "ента России Б.Н. Ельцина.";
-            // 
-            // pictureBox1
-            // 
-            this.tableLayoutPanel.SetColumnSpan(this.pictureBox1, 2);
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(163, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.tableLayoutPanel.SetRowSpan(this.pictureBox1, 6);
-            this.pictureBox1.Size = new System.Drawing.Size(387, 275);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
             // 
             // AboutProgrammControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel);
+            this.MinimumSize = new System.Drawing.Size(610, 280);
             this.Name = "AboutProgrammControl";
             this.Padding = new System.Windows.Forms.Padding(1);
-            this.Size = new System.Drawing.Size(555, 283);
+            this.Size = new System.Drawing.Size(610, 280);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
