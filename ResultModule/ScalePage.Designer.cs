@@ -44,7 +44,7 @@
             this.updPrecision = new System.Windows.Forms.NumericUpDown();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.chbMaxMinAuto = new System.Windows.Forms.CheckBox();
+            this.chbMaxMinSetUp = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.upd_YCoord)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.upd_XCoord)).BeginInit();
@@ -215,6 +215,7 @@
             // txbMax
             // 
             this.txbMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbMax.Enabled = false;
             this.txbMax.Location = new System.Drawing.Point(234, 70);
             this.txbMax.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.txbMax.Name = "txbMax";
@@ -248,6 +249,7 @@
             // txbMin
             // 
             this.txbMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbMin.Enabled = false;
             this.txbMin.Location = new System.Drawing.Point(473, 70);
             this.txbMin.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.txbMin.Name = "txbMin";
@@ -279,7 +281,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.chbMaxMinAuto);
+            this.panel1.Controls.Add(this.chbMaxMinSetUp);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 49);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
@@ -298,17 +300,17 @@
             this.label2.TabIndex = 19;
             this.label2.Text = "Max";
             // 
-            // chbMaxMinAuto
+            // chbMaxMinSetUp
             // 
-            this.chbMaxMinAuto.AutoSize = true;
-            this.chbMaxMinAuto.Location = new System.Drawing.Point(21, 23);
-            this.chbMaxMinAuto.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.chbMaxMinAuto.Name = "chbMaxMinAuto";
-            this.chbMaxMinAuto.Size = new System.Drawing.Size(159, 21);
-            this.chbMaxMinAuto.TabIndex = 0;
-            this.chbMaxMinAuto.Text = "Уточнить значения";
-            this.chbMaxMinAuto.UseVisualStyleBackColor = true;
-            this.chbMaxMinAuto.CheckedChanged += new System.EventHandler(this.chbMaxMinAuto_CheckedChanged);
+            this.chbMaxMinSetUp.AutoSize = true;
+            this.chbMaxMinSetUp.Location = new System.Drawing.Point(21, 23);
+            this.chbMaxMinSetUp.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.chbMaxMinSetUp.Name = "chbMaxMinSetUp";
+            this.chbMaxMinSetUp.Size = new System.Drawing.Size(159, 21);
+            this.chbMaxMinSetUp.TabIndex = 0;
+            this.chbMaxMinSetUp.Text = "Уточнить значения";
+            this.chbMaxMinSetUp.UseVisualStyleBackColor = true;
+            this.chbMaxMinSetUp.Click += new System.EventHandler(this.chbMaxMinSetUp_Click);
             // 
             // ScalePage
             // 
@@ -350,6 +352,6 @@
         private System.Windows.Forms.NumericUpDown updPrecision;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox chbMaxMinAuto;
+        private System.Windows.Forms.CheckBox chbMaxMinSetUp;
     }
 }

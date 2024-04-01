@@ -32,7 +32,7 @@ namespace ResultModule
         private bool showResultValue;
 
         private bool showScale = true;
-        public bool IsScaleMaxMinAuto { get; set; } = true;
+        public bool IsScaleMaxMinManual { get; set; } = false;
 
         public ResultPage()
         {
@@ -142,9 +142,9 @@ namespace ResultModule
             scPage.Max = scale.MaxValue;
             scPage.Min = scale.MinValue;
 
-            scPage.ChangeMaxMinAutoEvent += (ar) => { IsScaleMaxMinAuto = ar; };
+            scPage.SetUpMaxMinEvent += (ar) => { IsScaleMaxMinManual = ar; };
 
-            scPage.IsMaxMinAuto = IsScaleMaxMinAuto;
+            scPage.IsMaxMinAuto = IsScaleMaxMinManual;
 
             scPage.Precision = scale.Precision;
 
@@ -426,7 +426,7 @@ namespace ResultModule
 
                 else objsType = ObjType.Элемент;
 
-                if (IsScaleMaxMinAuto)
+                if (!IsScaleMaxMinManual)
                 {
                     if (objsType == ObjType.Элемент)
                         SetMaxMinAuto(result, "elements", resName);
@@ -595,6 +595,10 @@ namespace ResultModule
                 var grDataAr = new List<GraphData>();
 
                 var objs = await SelectNodesAsync();
+
+                if(objs.Count == 0)
+                    throw new Exception("Не выбран ни один узел!");
+
                 foreach (var obj in objs)
                 {
                     var grPoints = new List<GraphPoint>();
@@ -610,10 +614,12 @@ namespace ResultModule
                         grPoints.Add(grPoint);
                     }
 
+                    SceneControl.DisplayText3D($"{objsType}_{obj.Number}", Color.Black, obj.Position);
+
                     var grData = new GraphData($"{objsType}_{obj.Number}", Color.Orange, "Сек.", resDes, grPoints.ToArray());
                     grDataAr.Add(grData);
                 }
-
+                SceneControl.DisplayObjects();
                 var grContainer = new GraphContainer();
 
                 if (grDataAr.Count != 0)
@@ -625,9 +631,12 @@ namespace ResultModule
                         TopMost = true,
                         Text = $"График {resDes} - время",
                         ShowIcon = false,
-                        ClientSize = grContainer.Size
+                        ClientSize = grContainer.Size            
                     };
+
+
                     form.Controls.Add(grContainer);
+                    form.ClientSize = grContainer.Size;
                     form.Show();
                 }
 
@@ -642,23 +651,24 @@ namespace ResultModule
         public async Task<List<INode>> SelectNodesAsync()
         {
             var nodes = new List<INode>();
-
             PressedKey = Keys.None;
-
-            while (true)
+            SceneControl.DisplayText2D(@"Выберите узлы и нажмите на клавишу ""E"" для подтверждения", Color.Black, new Point2D(10, 10));
+            SceneControl.DisplayObjects();
+            await System.Threading.Tasks.Task.Run(() =>
             {
-                var res = SelectNodeAsync();
-                await res;
-
-                if (res.Result is INode node)
+                while (true)
                 {
-                    nodes.Add(node);
-                    SceneControl.DisplayText3D($"{ObjType.Узел}_{node.Number}", Color.Black, node.CalcCentr());
-                    SceneControl.DisplayObjects();
+                    if (PressedKey == Keys.E)
+                    {
+                        var objs = Project.ModelData.ObjectData.NodeCollection;
+                        nodes = objs.Where(x => x.MasterColor == SceneControl.SelectionColor).ToList();
+                        break;
+                    }
                 }
-                else break;
-            }
-
+            });
+            SceneControl.HideDisplayText2D();
+            SceneControl.DisplayObjects();
+            PressedKey = Keys.None;
             return nodes;
         }
 

@@ -19,7 +19,7 @@ namespace ResultModule
         public event Action<object, decimal> SetX_PositionEvent;
         public event Action<object, decimal> SetY_PositionEvent;
 
-        public event Action<bool> ChangeMaxMinAutoEvent;
+        public event Action<bool> SetUpMaxMinEvent;
 
         public ScalePage()
         {
@@ -28,8 +28,8 @@ namespace ResultModule
 
         public bool IsMaxMinAuto
         {
-            get { return chbMaxMinAuto.Checked; }
-            set { chbMaxMinAuto.Checked = value; }
+            get { return chbMaxMinSetUp.Checked; }
+            set { chbMaxMinSetUp.Checked = value; }
         }
 
         public float Max
@@ -146,9 +146,20 @@ namespace ResultModule
                 ShowScaleEvent(this, true);
         }
 
-        private void chbMaxMinAuto_CheckedChanged(object sender, EventArgs e)
+        private void chbMaxMinSetUp_Click(object sender, EventArgs e)
         {
-            ChangeMaxMinAutoEvent(chbMaxMinAuto.Checked);
+            if(chbMaxMinSetUp.Checked == true)
+            {
+                txbMax.Enabled = true;
+                txbMin.Enabled = true;
+                SetUpMaxMinEvent(chbMaxMinSetUp.Checked);
+            }
+            else
+            {
+                txbMax.Enabled = false;
+                txbMin.Enabled = false;
+                SetUpMaxMinEvent(chbMaxMinSetUp.Checked);
+            }
         }
     }
 }

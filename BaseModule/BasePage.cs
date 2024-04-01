@@ -786,11 +786,11 @@ namespace BaseModule
                 }));
             });
 
-            var message = @"Выберите узел и нажмите на клавишу ""E"" или нажмите кнопку ""ESC""";
+            var message = @"Выберите узел и нажмите на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
 
             var actPointConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
+                var objs = Project.ModelData.ObjectData.NodeCollection;
                 
                 var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor);
 
@@ -799,6 +799,14 @@ namespace BaseModule
                     Invoke(new Action(() =>
                     {
                         ConsoleControl.PrintInfo("Не выбран ни один узел!", Color.Orange);
+                    }));
+                    return new Tuple<bool, object>(false, new object());
+                }
+                else if(selObjs.Count() > 1)
+                {
+                    Invoke(new Action(() =>
+                    {
+                        ConsoleControl.PrintInfo("Выберите один узел!", Color.Orange);
                     }));
                     return new Tuple<bool, object>(false, new object());
                 }
@@ -1087,10 +1095,9 @@ namespace BaseModule
                         actBreak.Invoke();
                         break;
                     }
-                }
-                PressedKey = Keys.None;
+                }             
             });
-            
+            PressedKey = Keys.None;
             return resObject;
         }
 
