@@ -657,7 +657,6 @@
             // 
             // grbWeldRegime
             // 
-            this.grbWeldRegime.AutoSize = true;
             this.grbWeldRegime.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.grbWeldRegime.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbWeldRegime.ForeColor = System.Drawing.Color.Black;
@@ -670,6 +669,8 @@
             this.grbWeldRegime.TabIndex = 30;
             this.grbWeldRegime.TabStop = false;
             this.grbWeldRegime.Text = "Источник сварки";
+            this.grbWeldRegime.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbWeldRegime_MouseClick);
+            this.grbWeldRegime.Paint += new System.Windows.Forms.PaintEventHandler(this.grbWeldRegime_Paint);
             // 
             // WeldingControl
             // 

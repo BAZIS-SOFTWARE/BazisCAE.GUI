@@ -85,11 +85,11 @@
             // 
             this.toolStripContainer.ContentPanel.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripContainer.ContentPanel.Controls.Add(this.tableLayoutPanel);
-            this.toolStripContainer.ContentPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.toolStripContainer.ContentPanel.Margin = new System.Windows.Forms.Padding(4);
             this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1100, 559);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
-            this.toolStripContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.toolStripContainer.Margin = new System.Windows.Forms.Padding(4);
             this.toolStripContainer.Name = "toolStripContainer";
             this.toolStripContainer.Size = new System.Drawing.Size(1100, 613);
             this.toolStripContainer.TabIndex = 0;
@@ -153,7 +153,7 @@
             this.tableLayoutPanel.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 3;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 79.24722F));
@@ -228,7 +228,7 @@
             this.термообработка});
             this.модулиMenuItem.Enabled = false;
             this.модулиMenuItem.Name = "модулиMenuItem";
-            this.модулиMenuItem.Size = new System.Drawing.Size(85, 24);
+            this.модулиMenuItem.Size = new System.Drawing.Size(85, 26);
             this.модулиMenuItem.Text = "Модули  ";
             this.модулиMenuItem.Paint += new System.Windows.Forms.PaintEventHandler(this.модулиMenuItem_Paint);
             // 
@@ -278,7 +278,7 @@
             this.toolStripSeparator2,
             this.выходToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(59, 26);
             this.файлToolStripMenuItem.Text = "&Файл";
             // 
             // создатьToolStripMenuItem
@@ -358,7 +358,7 @@
             // 
             this.настройкиToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(98, 24);
+            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(98, 26);
             this.настройкиToolStripMenuItem.Text = "&Настройки";
             this.настройкиToolStripMenuItem.Click += new System.EventHandler(this.настройкиToolStripMenuItem_Click);
             // 
@@ -369,7 +369,7 @@
             this.опрограммеToolStripMenuItem,
             this.новостиВерсииToolStripMenuItem});
             this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
+            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(81, 26);
             this.справкаToolStripMenuItem.Text = "Спра&вка";
             // 
             // содержаниеToolStripMenuItem
@@ -399,7 +399,7 @@
             this.сведенияMenuItem,
             this.получитьЛицензиюMenuItem});
             this.лицензияToolStripMenuItem.Name = "лицензияToolStripMenuItem";
-            this.лицензияToolStripMenuItem.Size = new System.Drawing.Size(92, 24);
+            this.лицензияToolStripMenuItem.Size = new System.Drawing.Size(92, 26);
             this.лицензияToolStripMenuItem.Text = "Лицензия";
             // 
             // сведенияMenuItem
@@ -425,7 +425,7 @@
             this.toolStripMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(65, 24);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(65, 26);
             this.toolStripMenuItem1.Text = "toolStripMenuItem1";
             // 
             // BaseForm
@@ -437,7 +437,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "BaseForm";
             this.Text = "Bazis. Система технологического анализа";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

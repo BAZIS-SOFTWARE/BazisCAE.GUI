@@ -41,8 +41,8 @@
             // btnInfo
             // 
             this.btnInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnInfo.Image")));
-            this.btnInfo.Location = new System.Drawing.Point(17, 111);
-            this.btnInfo.Margin = new System.Windows.Forms.Padding(13, 4, 4, 12);
+            this.btnInfo.Location = new System.Drawing.Point(13, 103);
+            this.btnInfo.Margin = new System.Windows.Forms.Padding(13, 12, 4, 16);
             this.btnInfo.Name = "btnInfo";
             this.btnInfo.Size = new System.Drawing.Size(35, 32);
             this.btnInfo.TabIndex = 54;
@@ -53,7 +53,7 @@
             // 
             this.voltageTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.voltageTextBox.Location = new System.Drawing.Point(237, 45);
+            this.voltageTextBox.Location = new System.Drawing.Point(237, 42);
             this.voltageTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.voltageTextBox.Name = "voltageTextBox";
             this.voltageTextBox.Size = new System.Drawing.Size(794, 22);
@@ -62,7 +62,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(13, 48);
+            this.label8.Location = new System.Drawing.Point(13, 45);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(104, 16);
@@ -73,7 +73,7 @@
             // 
             this.weldPoolTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.weldPoolTextBox.Location = new System.Drawing.Point(237, 76);
+            this.weldPoolTextBox.Location = new System.Drawing.Point(237, 72);
             this.weldPoolTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.weldPoolTextBox.Name = "weldPoolTextBox";
             this.weldPoolTextBox.Size = new System.Drawing.Size(794, 22);
@@ -82,7 +82,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 80);
+            this.label4.Location = new System.Drawing.Point(13, 75);
             this.label4.Margin = new System.Windows.Forms.Padding(13, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(128, 16);
@@ -123,9 +123,9 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.currentTextBox);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "ArcWeldingControl";
-            this.Size = new System.Drawing.Size(1051, 194);
+            this.Size = new System.Drawing.Size(1051, 151);
             this.ResumeLayout(false);
             this.PerformLayout();
 

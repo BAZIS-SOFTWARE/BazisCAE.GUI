@@ -127,7 +127,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             var textSize = TextRenderer.MeasureText(grb.Text, this.Font).Width;
             if (e.Location.X > textSize + 5 & e.Location.X < textSize + 15 && e.Location.Y <= 10)
             {
-                if (grb.Height == 17) GetChildControlExpandHeight(grb);
+                if (grb.Height == 17)
+                {
+                    GetChildControlExpandHeight(grb);
+                }
+
                 else grb.Height = 17;
             }
         }
@@ -144,7 +148,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                         if (cntr is TextBox txb | cntr is ComboBox cmb | cntr is Button)
                         {
                             heigth = heigth + cntr.Size.Height;
-                            gap = gap + 6;
+                            gap = gap + 5;
                         }
                     }
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -309,6 +310,7 @@ Where(x => x.GetType() == typeof(LWeldingControl)).First();
                 grbWeldRegime.Controls.Clear();
                 var cntrw = new ArcWeldingControl() { Dock = DockStyle.Fill };
                 grbWeldRegime.Controls.Add(cntrw);
+                GetChildControlExpandHeight(grbWeldRegime);
             }
         }
 
@@ -321,6 +323,7 @@ Where(x => x.GetType() == typeof(LWeldingControl)).First();
                 var cntrw = new FSWeldingControl() { Dock = DockStyle.Fill };
                 cntrw.Add_Functions(funcs);
                 grbWeldRegime.Controls.Add(cntrw);
+                GetChildControlExpandHeight(grbWeldRegime);
             }
         }
 
@@ -332,6 +335,7 @@ Where(x => x.GetType() == typeof(LWeldingControl)).First();
                 grbWeldRegime.Controls.Clear();
                 var cntrw = new LWeldingControl() { Dock = DockStyle.Fill };
                 grbWeldRegime.Controls.Add(cntrw);
+                GetChildControlExpandHeight(grbWeldRegime);
             }
         }
 
@@ -383,6 +387,60 @@ Where(x => x.GetType() == typeof(LWeldingControl)).First();
                 txbShiftZ.Enabled = false;
                 txbAngle.Enabled = false;
             }
+        }
+
+        private void grbWeldRegime_Paint(object sender, PaintEventArgs e)
+        {
+            var grb = (GroupBox)sender;
+            var textSize = TextRenderer.MeasureText(grb.Text, this.Font).Width;
+            var locRect = new Point(textSize + 5, 3);
+            Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 1);
+            var rect = new Rectangle(locRect, new Size(8, 8));
+
+            e.Graphics.DrawRectangle(blackPen, rect);
+            if (grb.Height == 17)
+            {
+                e.Graphics.DrawString("+", Font, new SolidBrush(System.Drawing.Color.Blue), textSize + 4, 0);
+            }
+            else
+            {
+                e.Graphics.DrawString("-", Font, new SolidBrush(System.Drawing.Color.Blue), textSize + 6, 0);
+            }
+        }
+
+        private void grbWeldRegime_MouseClick(object sender, MouseEventArgs e)
+        {
+            var grb = grbWeldRegime;
+
+            var textSize = TextRenderer.MeasureText(grb.Text, this.Font).Width;
+            if (e.Location.X > textSize + 5 & e.Location.X < textSize + 15 && e.Location.Y <= 10)
+            {
+                if (grb.Height == 17)
+                {
+                    GetChildControlExpandHeight(grb);
+                }
+
+                else grb.Height = 17;
+            }
+        }
+
+        private void GetChildControlExpandHeight(GroupBox grb)
+        {
+            var heigth = 0;
+            var gap = 20;
+            foreach (Control control in grb.Controls)
+            {
+                if (control is UserControl uControl)
+                    foreach (Control cntr in uControl.Controls)
+                    {
+                        if (cntr is TextBox txb | cntr is ComboBox cmb | cntr is Button)
+                        {
+                            heigth = heigth + cntr.Size.Height;
+                            gap = gap + 6;
+                        }
+                    }
+            }
+            grb.Height = heigth + gap;
         }
     }
 }

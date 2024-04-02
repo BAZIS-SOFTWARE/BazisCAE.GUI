@@ -77,7 +77,7 @@
             this.cmbFriction.Location = new System.Drawing.Point(237, 202);
             this.cmbFriction.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.cmbFriction.Name = "cmbFriction";
-            this.cmbFriction.Size = new System.Drawing.Size(258, 24);
+            this.cmbFriction.Size = new System.Drawing.Size(563, 24);
             this.cmbFriction.TabIndex = 62;
             // 
             // label1
@@ -97,7 +97,7 @@
             this.axisForceTextBox.Location = new System.Drawing.Point(237, 43);
             this.axisForceTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.axisForceTextBox.Name = "axisForceTextBox";
-            this.axisForceTextBox.Size = new System.Drawing.Size(258, 22);
+            this.axisForceTextBox.Size = new System.Drawing.Size(563, 22);
             this.axisForceTextBox.TabIndex = 59;
             // 
             // pinUpperDiamTextBox
@@ -107,37 +107,37 @@
             this.pinUpperDiamTextBox.Location = new System.Drawing.Point(237, 171);
             this.pinUpperDiamTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.pinUpperDiamTextBox.Name = "pinUpperDiamTextBox";
-            this.pinUpperDiamTextBox.Size = new System.Drawing.Size(258, 22);
+            this.pinUpperDiamTextBox.Size = new System.Drawing.Size(563, 22);
             this.pinUpperDiamTextBox.TabIndex = 58;
             // 
             // pinBottomDiamTextBox
             // 
             this.pinBottomDiamTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pinBottomDiamTextBox.Location = new System.Drawing.Point(237, 139);
+            this.pinBottomDiamTextBox.Location = new System.Drawing.Point(237, 140);
             this.pinBottomDiamTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.pinBottomDiamTextBox.Name = "pinBottomDiamTextBox";
-            this.pinBottomDiamTextBox.Size = new System.Drawing.Size(258, 22);
+            this.pinBottomDiamTextBox.Size = new System.Drawing.Size(563, 22);
             this.pinBottomDiamTextBox.TabIndex = 57;
             // 
             // pinLenghtTextBox
             // 
             this.pinLenghtTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pinLenghtTextBox.Location = new System.Drawing.Point(237, 107);
+            this.pinLenghtTextBox.Location = new System.Drawing.Point(237, 108);
             this.pinLenghtTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.pinLenghtTextBox.Name = "pinLenghtTextBox";
-            this.pinLenghtTextBox.Size = new System.Drawing.Size(258, 22);
+            this.pinLenghtTextBox.Size = new System.Drawing.Size(563, 22);
             this.pinLenghtTextBox.TabIndex = 56;
             // 
             // shoulderDiamTextBox
             // 
             this.shoulderDiamTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.shoulderDiamTextBox.Location = new System.Drawing.Point(237, 75);
+            this.shoulderDiamTextBox.Location = new System.Drawing.Point(237, 76);
             this.shoulderDiamTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.shoulderDiamTextBox.Name = "shoulderDiamTextBox";
-            this.shoulderDiamTextBox.Size = new System.Drawing.Size(258, 22);
+            this.shoulderDiamTextBox.Size = new System.Drawing.Size(563, 22);
             this.shoulderDiamTextBox.TabIndex = 55;
             // 
             // label16
@@ -196,7 +196,7 @@
             this.rotSpeedTextBox.Location = new System.Drawing.Point(237, 12);
             this.rotSpeedTextBox.Margin = new System.Windows.Forms.Padding(237, 12, 20, 4);
             this.rotSpeedTextBox.Name = "rotSpeedTextBox";
-            this.rotSpeedTextBox.Size = new System.Drawing.Size(258, 22);
+            this.rotSpeedTextBox.Size = new System.Drawing.Size(563, 22);
             this.rotSpeedTextBox.TabIndex = 50;
             // 
             // label5
@@ -217,7 +217,7 @@
             this.cmbYield.Location = new System.Drawing.Point(237, 235);
             this.cmbYield.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.cmbYield.Name = "cmbYield";
-            this.cmbYield.Size = new System.Drawing.Size(258, 24);
+            this.cmbYield.Size = new System.Drawing.Size(563, 24);
             this.cmbYield.TabIndex = 62;
             // 
             // FSWeldingControl
@@ -245,7 +245,7 @@
             this.Controls.Add(this.rotSpeedTextBox);
             this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "FSWeldingControl";
-            this.Size = new System.Drawing.Size(258, 312);
+            this.Size = new System.Drawing.Size(820, 312);
             this.ResumeLayout(false);
             this.PerformLayout();
 

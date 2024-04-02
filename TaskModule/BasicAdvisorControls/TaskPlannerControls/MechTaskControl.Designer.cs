@@ -52,13 +52,12 @@
             this.txbMaxDU = new System.Windows.Forms.TextBox();
             this.chbPlastisity = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 302);
+            this.label4.Location = new System.Drawing.Point(12, 257);
             this.label4.Margin = new System.Windows.Forms.Padding(27, 12, 4, 12);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(164, 16);
@@ -79,7 +78,7 @@
             "ВышеСреднего",
             "Высокий",
             "Наивысший"});
-            this.cmbPriority.Location = new System.Drawing.Point(237, 363);
+            this.cmbPriority.Location = new System.Drawing.Point(237, 314);
             this.cmbPriority.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.cmbPriority.Name = "cmbPriority";
             this.cmbPriority.Size = new System.Drawing.Size(618, 24);
@@ -90,7 +89,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 236);
+            this.label3.Location = new System.Drawing.Point(12, 195);
             this.label3.Margin = new System.Windows.Forms.Padding(27, 12, 4, 12);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(129, 16);
@@ -107,7 +106,7 @@
             "Gauss_direct",
             "SOR_iterative",
             "CG_iterative"});
-            this.cmbSolver.Location = new System.Drawing.Point(237, 234);
+            this.cmbSolver.Location = new System.Drawing.Point(237, 192);
             this.cmbSolver.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.cmbSolver.Name = "cmbSolver";
             this.cmbSolver.Size = new System.Drawing.Size(618, 24);
@@ -118,7 +117,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(12, 366);
+            this.label12.Location = new System.Drawing.Point(12, 317);
             this.label12.Margin = new System.Windows.Forms.Padding(27, 12, 4, 12);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(79, 16);
@@ -131,7 +130,7 @@
             this.txbRelaxation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbRelaxation.BackColor = System.Drawing.SystemColors.Window;
-            this.txbRelaxation.Location = new System.Drawing.Point(237, 331);
+            this.txbRelaxation.Location = new System.Drawing.Point(237, 284);
             this.txbRelaxation.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.txbRelaxation.Name = "txbRelaxation";
             this.txbRelaxation.Size = new System.Drawing.Size(618, 22);
@@ -145,7 +144,7 @@
             this.txbPrecision.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbPrecision.BackColor = System.Drawing.SystemColors.Window;
-            this.txbPrecision.Location = new System.Drawing.Point(237, 299);
+            this.txbPrecision.Location = new System.Drawing.Point(237, 254);
             this.txbPrecision.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.txbPrecision.Name = "txbPrecision";
             this.txbPrecision.Size = new System.Drawing.Size(618, 22);
@@ -157,7 +156,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 270);
+            this.label1.Location = new System.Drawing.Point(12, 227);
             this.label1.Margin = new System.Windows.Forms.Padding(27, 12, 4, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(176, 16);
@@ -170,7 +169,7 @@
             this.txbSolverIterations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbSolverIterations.BackColor = System.Drawing.SystemColors.Window;
-            this.txbSolverIterations.Location = new System.Drawing.Point(237, 267);
+            this.txbSolverIterations.Location = new System.Drawing.Point(237, 224);
             this.txbSolverIterations.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.txbSolverIterations.Name = "txbSolverIterations";
             this.txbSolverIterations.Size = new System.Drawing.Size(618, 22);
@@ -182,7 +181,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 334);
+            this.label7.Location = new System.Drawing.Point(12, 287);
             this.label7.Margin = new System.Windows.Forms.Padding(27, 12, 4, 12);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(146, 16);
@@ -195,7 +194,7 @@
             this.txbIters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbIters.BackColor = System.Drawing.SystemColors.Window;
-            this.txbIters.Location = new System.Drawing.Point(237, 169);
+            this.txbIters.Location = new System.Drawing.Point(237, 132);
             this.txbIters.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.txbIters.Name = "txbIters";
             this.txbIters.Size = new System.Drawing.Size(618, 22);
@@ -206,7 +205,7 @@
             // maxTMIter
             // 
             this.maxTMIter.AutoSize = true;
-            this.maxTMIter.Location = new System.Drawing.Point(12, 172);
+            this.maxTMIter.Location = new System.Drawing.Point(12, 135);
             this.maxTMIter.Margin = new System.Windows.Forms.Padding(9, 34, 4, 12);
             this.maxTMIter.Name = "maxTMIter";
             this.maxTMIter.Size = new System.Drawing.Size(170, 16);
@@ -220,7 +219,7 @@
             this.txbSaveRate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbSaveRate.BackColor = System.Drawing.SystemColors.Window;
-            this.txbSaveRate.Location = new System.Drawing.Point(237, 201);
+            this.txbSaveRate.Location = new System.Drawing.Point(237, 162);
             this.txbSaveRate.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.txbSaveRate.Name = "txbSaveRate";
             this.txbSaveRate.Size = new System.Drawing.Size(618, 22);
@@ -231,7 +230,7 @@
             // lblSaveRateTM
             // 
             this.lblSaveRateTM.AutoSize = true;
-            this.lblSaveRateTM.Location = new System.Drawing.Point(12, 204);
+            this.lblSaveRateTM.Location = new System.Drawing.Point(12, 165);
             this.lblSaveRateTM.Margin = new System.Windows.Forms.Padding(9, 34, 4, 12);
             this.lblSaveRateTM.Name = "lblSaveRateTM";
             this.lblSaveRateTM.Size = new System.Drawing.Size(170, 16);
@@ -245,7 +244,7 @@
             this.txbBodyTemp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbBodyTemp.BackColor = System.Drawing.SystemColors.Window;
-            this.txbBodyTemp.Location = new System.Drawing.Point(237, 137);
+            this.txbBodyTemp.Location = new System.Drawing.Point(237, 102);
             this.txbBodyTemp.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.txbBodyTemp.Name = "txbBodyTemp";
             this.txbBodyTemp.Size = new System.Drawing.Size(618, 22);
@@ -256,7 +255,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 140);
+            this.label2.Location = new System.Drawing.Point(12, 105);
             this.label2.Margin = new System.Windows.Forms.Padding(9, 12, 4, 12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(115, 16);
@@ -267,7 +266,7 @@
             // chbUMax
             // 
             this.chbUMax.AutoSize = true;
-            this.chbUMax.Location = new System.Drawing.Point(11, 75);
+            this.chbUMax.Location = new System.Drawing.Point(12, 44);
             this.chbUMax.Margin = new System.Windows.Forms.Padding(4);
             this.chbUMax.Name = "chbUMax";
             this.chbUMax.Size = new System.Drawing.Size(190, 20);
@@ -301,7 +300,7 @@
             this.txbMaxSiSt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbMaxSiSt.BackColor = System.Drawing.SystemColors.Window;
-            this.txbMaxSiSt.Location = new System.Drawing.Point(237, 105);
+            this.txbMaxSiSt.Location = new System.Drawing.Point(237, 72);
             this.txbMaxSiSt.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.txbMaxSiSt.Name = "txbMaxSiSt";
             this.txbMaxSiSt.Size = new System.Drawing.Size(618, 22);
@@ -315,7 +314,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbMaxU.BackColor = System.Drawing.SystemColors.Window;
             this.txbMaxU.Enabled = false;
-            this.txbMaxU.Location = new System.Drawing.Point(237, 73);
+            this.txbMaxU.Location = new System.Drawing.Point(237, 42);
             this.txbMaxU.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.txbMaxU.Name = "txbMaxU";
             this.txbMaxU.Size = new System.Drawing.Size(618, 22);
@@ -328,8 +327,8 @@
             this.txbMaxDU.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbMaxDU.BackColor = System.Drawing.SystemColors.Window;
-            this.txbMaxDU.Location = new System.Drawing.Point(237, 41);
-            this.txbMaxDU.Margin = new System.Windows.Forms.Padding(237, 6, 20, 4);
+            this.txbMaxDU.Location = new System.Drawing.Point(237, 12);
+            this.txbMaxDU.Margin = new System.Windows.Forms.Padding(237, 12, 20, 4);
             this.txbMaxDU.Name = "txbMaxDU";
             this.txbMaxDU.Size = new System.Drawing.Size(618, 22);
             this.txbMaxDU.TabIndex = 95;
@@ -341,34 +340,24 @@
             this.chbPlastisity.AutoSize = true;
             this.chbPlastisity.Checked = true;
             this.chbPlastisity.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbPlastisity.Location = new System.Drawing.Point(11, 9);
+            this.chbPlastisity.Location = new System.Drawing.Point(12, 74);
             this.chbPlastisity.Margin = new System.Windows.Forms.Padding(4);
             this.chbPlastisity.Name = "chbPlastisity";
-            this.chbPlastisity.Size = new System.Drawing.Size(241, 20);
+            this.chbPlastisity.Size = new System.Drawing.Size(213, 20);
             this.chbPlastisity.TabIndex = 130;
-            this.chbPlastisity.Text = "Учет пластических деформаций";
+            this.chbPlastisity.Text = "Пласт. деформации Si/St, >1 ";
             this.chbPlastisity.UseVisualStyleBackColor = true;
             this.chbPlastisity.CheckedChanged += new System.EventHandler(this.chbPlastisity_CheckedChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 44);
+            this.label6.Location = new System.Drawing.Point(12, 15);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(143, 16);
             this.label6.TabIndex = 131;
             this.label6.Text = "Макс. разница dU, >0";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 108);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(169, 16);
-            this.label8.TabIndex = 132;
-            this.label8.Text = "Макс. отношение Si/St, >1";
             // 
             // MechTaskControl
             // 
@@ -376,7 +365,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.chbPlastisity);
             this.Controls.Add(this.label4);
@@ -401,9 +389,9 @@
             this.Controls.Add(this.txbMaxSiSt);
             this.Controls.Add(this.txbMaxU);
             this.Controls.Add(this.txbMaxDU);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "MechTaskControl";
-            this.Size = new System.Drawing.Size(875, 394);
+            this.Size = new System.Drawing.Size(875, 345);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -435,6 +423,5 @@
         private System.Windows.Forms.TextBox txbMaxDU;
         private System.Windows.Forms.CheckBox chbPlastisity;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label8;
     }
 }
