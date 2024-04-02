@@ -85,11 +85,13 @@
             // 
             this.toolStripContainer.ContentPanel.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripContainer.ContentPanel.Controls.Add(this.tableLayoutPanel);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(825, 442);
+            this.toolStripContainer.ContentPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1100, 559);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
+            this.toolStripContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.toolStripContainer.Name = "toolStripContainer";
-            this.toolStripContainer.Size = new System.Drawing.Size(825, 498);
+            this.toolStripContainer.Size = new System.Drawing.Size(1100, 613);
             this.toolStripContainer.TabIndex = 0;
             this.toolStripContainer.Text = "toolStripContainer1";
             // 
@@ -108,7 +110,7 @@
             this.webPageLabel});
             this.statusStrip.Location = new System.Drawing.Point(0, 0);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(825, 26);
+            this.statusStrip.Size = new System.Drawing.Size(1100, 26);
             this.statusStrip.TabIndex = 1;
             // 
             // lblStatus
@@ -118,7 +120,7 @@
             this.lblStatus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblStatus.Margin = new System.Windows.Forms.Padding(5, 3, 0, 2);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(580, 21);
+            this.lblStatus.Size = new System.Drawing.Size(855, 21);
             this.lblStatus.Spring = true;
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -151,12 +153,13 @@
             this.tableLayoutPanel.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 3;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 79.24722F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.43737F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.31541F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(825, 442);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(1100, 559);
             this.tableLayoutPanel.TabIndex = 1;
             // 
             // pictureBox
@@ -164,10 +167,10 @@
             this.pictureBox.BackColor = System.Drawing.Color.White;
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox.Image = global::BazisGUI.Properties.Resources.ScreenSaver;
-            this.pictureBox.Location = new System.Drawing.Point(2, 2);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox.Location = new System.Drawing.Point(3, 2);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(821, 346);
+            this.pictureBox.Size = new System.Drawing.Size(1094, 438);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
@@ -176,9 +179,10 @@
             // 
             this.releaseNoteslinkLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.releaseNoteslinkLabel.AutoSize = true;
-            this.releaseNoteslinkLabel.Location = new System.Drawing.Point(340, 413);
+            this.releaseNoteslinkLabel.Location = new System.Drawing.Point(469, 524);
+            this.releaseNoteslinkLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.releaseNoteslinkLabel.Name = "releaseNoteslinkLabel";
-            this.releaseNoteslinkLabel.Size = new System.Drawing.Size(144, 15);
+            this.releaseNoteslinkLabel.Size = new System.Drawing.Size(161, 16);
             this.releaseNoteslinkLabel.TabIndex = 1;
             this.releaseNoteslinkLabel.TabStop = true;
             this.releaseNoteslinkLabel.Text = "Узнать новости версии";
@@ -189,7 +193,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(78, 363);
+            this.label1.Location = new System.Drawing.Point(215, 461);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(669, 24);
@@ -210,7 +214,7 @@
             this.toolStripMenuItem1});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(825, 28);
+            this.menuStrip.Size = new System.Drawing.Size(1100, 28);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip";
             // 
@@ -426,13 +430,14 @@
             // 
             // BaseForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(825, 498);
+            this.ClientSize = new System.Drawing.Size(1100, 613);
             this.Controls.Add(this.toolStripContainer);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "BaseForm";
             this.Text = "Bazis. Система технологического анализа";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

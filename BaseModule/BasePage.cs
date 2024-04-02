@@ -347,7 +347,7 @@ namespace BaseModule
                     {
                         var form = new Form() { Name = "selectForm", Text = "Выбрать", AutoSize = false, ShowIcon = false };
                         form.TopMost = true;
-
+                        
                         form.FormClosing += (s1, s2) => { btn.Checked = false; };
                         var selectionControl = new SelectionSet() { Dock = DockStyle.Fill };
                         selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
