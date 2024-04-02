@@ -28,6 +28,7 @@ using System.Text.RegularExpressions;
 using ModelInterfaces.ObjectsComparers;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using BaseModule.Console;
+using ProjectInterfaces;
 
 namespace TaskModule
 {
@@ -119,6 +120,7 @@ namespace TaskModule
                     var name = "База материалов";
                     var form = new Form() { Name = name, Text = name, TopMost = true, Size = matBasePage.Size, Icon = icon };
                     form.Controls.Add(matBasePage);
+                    form.ClientSize = matBasePage.Size;
                     form.Show();
 
                 }
@@ -152,6 +154,7 @@ namespace TaskModule
                     var name = "База функций";
                     var form = new Form() { Name = name, Text = name, TopMost = true, Size = funBasePage.Size, Icon = icon };
                     form.Controls.Add(funBasePage);
+                    form.ClientSize = funBasePage.Size;
                     form.Show();
                 }
                 catch (Exception ex)
@@ -230,6 +233,7 @@ namespace TaskModule
                     activeTask = "";
                 };
                 form.Controls.Add(taskAdv);
+                form.ClientSize = taskAdv.Size;
                 form.Show();
 
                 taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent;
@@ -515,18 +519,12 @@ namespace TaskModule
 
                 var taskStrAr = FieldsParserTask.ParseLine(arg2.DataInfo);
 
-                if (dataArray[arg2.Index] is IValuableData heatData)
+                if (dataArray[arg2.Index] is IValuableData valData)
                 {
-                    //AsyncMethodContainer()
-
-                    //var taskStrLRF = SetTaskDataAsync("setDirection", taskStrAr[0]);
-
-                    //await taskStrLRF;
-
                     taskStrAr[0] = taskStrAr[0].Replace("*", "0");
-                    heatData.SetInfo(taskStrAr[0]);
+                    valData.SetInfo(taskStrAr[0]);
 
-                    SetMFF(taskStrAr[0].Split(' ')[4], heatData);
+                    SetMFF(taskStrAr[0].Split(' ')[4], valData);
                 }
                 else dataArray[arg2.Index].SetInfo(taskStrAr[0]);
 
@@ -768,24 +766,31 @@ namespace TaskModule
 
         private void AddData(AddDataEventArgs arg2, string taskStr)
         {
-            var dataAr = taskStr;
+            var dataAr = taskStr.Split(' ');
 
             IGroup group;
             if(arg2.DataName == "Среда" | arg2.DataName == "Нагрев")
-               group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[1]);
+                group = Project.ModelData.GroupData.Find(dataAr[1]);               
             else
-                group = Project.ModelData.GroupData.Find(dataAr.Split(' ')[0]);
+                group = Project.ModelData.GroupData.Find(dataAr[0]);
 
-            var data = Project.TaskData.Create(arg2.DataName, dataAr, group);
+            var data = Project.TaskData.Create(arg2.DataName, taskStr, group);
             var valData = data as IValuableData;
 
             if (arg2.DataName == "Нагрев")
-                SetMFF(dataAr.Split(' ')[4], valData);
+                SetMFF(dataAr[4], valData);
 
             Project.TaskData.Add(data);          
-
             NavigatorControl.CreateChildNode("Данные", arg2.DataName, $"{arg2.DataName} : {taskStr}", "6.1");
         }
+
+        //private IGroup CreateByMFF(IMovedFrameFunction movedFrameFunction)
+        //{
+        //    var objs = movedFrameFunction.TryCatchElements();
+        //    var gr = Project.ModelData.GroupData.Create("new", ObjType.Элемент3D);
+        //    gr.AddRange(objs);
+        //    return gr;
+        //}
 
         private void SetMFF(string mffInfo, IValuableData data)
         {

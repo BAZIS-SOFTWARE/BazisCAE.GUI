@@ -161,7 +161,7 @@
             this.player.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.player.MinimumSize = new System.Drawing.Size(287, 55);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(770, 55);
+            this.player.Size = new System.Drawing.Size(787, 55);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -203,7 +203,7 @@
             this.txbStopTime.Location = new System.Drawing.Point(229, 56);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(770, 22);
+            this.txbStopTime.Size = new System.Drawing.Size(787, 22);
             this.txbStopTime.TabIndex = 1;
             // 
             // btnHideAll
@@ -279,7 +279,7 @@
             this.txbStartTime.Location = new System.Drawing.Point(229, 23);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(770, 22);
+            this.txbStartTime.Size = new System.Drawing.Size(787, 22);
             this.txbStartTime.TabIndex = 0;
             // 
             // groupBox2
@@ -320,7 +320,7 @@
             this.cmbMat.Location = new System.Drawing.Point(229, 70);
             this.cmbMat.Margin = new System.Windows.Forms.Padding(4);
             this.cmbMat.Name = "cmbMat";
-            this.cmbMat.Size = new System.Drawing.Size(770, 24);
+            this.cmbMat.Size = new System.Drawing.Size(787, 24);
             this.cmbMat.TabIndex = 13;
             // 
             // label1
@@ -340,9 +340,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbEl.FormattingEnabled = true;
             this.cmbEl.Location = new System.Drawing.Point(229, 37);
-            this.cmbEl.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
+            this.cmbEl.Margin = new System.Windows.Forms.Padding(4, 4, 20, 4);
             this.cmbEl.Name = "cmbEl";
-            this.cmbEl.Size = new System.Drawing.Size(770, 24);
+            this.cmbEl.Size = new System.Drawing.Size(787, 24);
             this.cmbEl.TabIndex = 14;
             // 
             // openFileDialog

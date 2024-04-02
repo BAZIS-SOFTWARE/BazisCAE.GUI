@@ -44,93 +44,95 @@
             // 
             this.txbBeamBottomDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbBeamBottomDiam.Location = new System.Drawing.Point(178, 87);
-            this.txbBeamBottomDiam.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbBeamBottomDiam.Location = new System.Drawing.Point(237, 107);
+            this.txbBeamBottomDiam.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.txbBeamBottomDiam.Name = "txbBeamBottomDiam";
-            this.txbBeamBottomDiam.Size = new System.Drawing.Size(230, 20);
+            this.txbBeamBottomDiam.Size = new System.Drawing.Size(81755, 28);
             this.txbBeamBottomDiam.TabIndex = 45;
             // 
             // txbBeamUpperDiam
             // 
             this.txbBeamUpperDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbBeamUpperDiam.Location = new System.Drawing.Point(178, 61);
-            this.txbBeamUpperDiam.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbBeamUpperDiam.Location = new System.Drawing.Point(237, 75);
+            this.txbBeamUpperDiam.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.txbBeamUpperDiam.Name = "txbBeamUpperDiam";
-            this.txbBeamUpperDiam.Size = new System.Drawing.Size(230, 20);
+            this.txbBeamUpperDiam.Size = new System.Drawing.Size(81755, 28);
             this.txbBeamUpperDiam.TabIndex = 44;
             // 
             // txbPower
             // 
             this.txbPower.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbPower.Location = new System.Drawing.Point(178, 10);
-            this.txbPower.Margin = new System.Windows.Forms.Padding(3, 10, 28, 3);
+            this.txbPower.Location = new System.Drawing.Point(237, 12);
+            this.txbPower.Margin = new System.Windows.Forms.Padding(237, 12, 20, 4);
             this.txbPower.Name = "txbPower";
-            this.txbPower.Size = new System.Drawing.Size(230, 20);
+            this.txbPower.Size = new System.Drawing.Size(81755, 28);
             this.txbPower.TabIndex = 42;
             // 
             // txbBeamLenght
             // 
             this.txbBeamLenght.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbBeamLenght.Location = new System.Drawing.Point(178, 35);
-            this.txbBeamLenght.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbBeamLenght.Location = new System.Drawing.Point(237, 43);
+            this.txbBeamLenght.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.txbBeamLenght.Name = "txbBeamLenght";
-            this.txbBeamLenght.Size = new System.Drawing.Size(230, 20);
+            this.txbBeamLenght.Size = new System.Drawing.Size(81755, 28);
             this.txbBeamLenght.TabIndex = 43;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(10, 90);
+            this.label16.Location = new System.Drawing.Point(13, 111);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(131, 13);
+            this.label16.Size = new System.Drawing.Size(158, 16);
             this.label16.TabIndex = 41;
             this.label16.Text = "Диаметр конца (D3), мм";
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(10, 64);
+            this.label15.Location = new System.Drawing.Point(13, 79);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(155, 20);
+            this.label15.Size = new System.Drawing.Size(207, 25);
             this.label15.TabIndex = 40;
             this.label15.Text = "Диаметр основания (D2), мм";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 13);
-            this.label1.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
+            this.label1.Location = new System.Drawing.Point(13, 16);
+            this.label1.Margin = new System.Windows.Forms.Padding(13, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(138, 13);
+            this.label1.Size = new System.Drawing.Size(170, 16);
             this.label1.TabIndex = 38;
             this.label1.Text = "Мощность излучения, Дж";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(10, 38);
-            this.label12.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
+            this.label12.Location = new System.Drawing.Point(13, 47);
+            this.label12.Margin = new System.Windows.Forms.Padding(13, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(160, 13);
+            this.label12.Size = new System.Drawing.Size(202, 16);
             this.label12.TabIndex = 39;
             this.label12.Text = "Глубина проплавления (L), мм";
             // 
             // btnInfo
             // 
             this.btnInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnInfo.Image")));
-            this.btnInfo.Location = new System.Drawing.Point(10, 113);
-            this.btnInfo.Margin = new System.Windows.Forms.Padding(10, 10, 3, 10);
+            this.btnInfo.Location = new System.Drawing.Point(13, 139);
+            this.btnInfo.Margin = new System.Windows.Forms.Padding(13, 12, 4, 12);
             this.btnInfo.Name = "btnInfo";
-            this.btnInfo.Size = new System.Drawing.Size(27, 27);
+            this.btnInfo.Size = new System.Drawing.Size(36, 33);
             this.btnInfo.TabIndex = 46;
             this.btnInfo.UseVisualStyleBackColor = true;
             this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
             // 
             // LWeldingControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -145,7 +147,7 @@
             this.Controls.Add(this.label12);
             this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "LWeldingControl";
-            this.Size = new System.Drawing.Size(436, 150);
+            this.Size = new System.Drawing.Size(65535, 184);
             this.ResumeLayout(false);
             this.PerformLayout();
 

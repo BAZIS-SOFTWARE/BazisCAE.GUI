@@ -71,7 +71,7 @@ namespace TaskModule.HeatTreatmentModule
             this.tabControl1.ImageList = this.imageList;
             this.tabControl1.ItemSize = new System.Drawing.Size(91, 30);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(933, 738);
@@ -84,9 +84,9 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgTaskType.Controls.Add(this.taskTypeControl1);
             this.pdgTaskType.ImageIndex = 0;
             this.pdgTaskType.Location = new System.Drawing.Point(4, 34);
-            this.pdgTaskType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pdgTaskType.Margin = new System.Windows.Forms.Padding(4);
             this.pdgTaskType.Name = "pdgTaskType";
-            this.pdgTaskType.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pdgTaskType.Padding = new System.Windows.Forms.Padding(4);
             this.pdgTaskType.Size = new System.Drawing.Size(925, 700);
             this.pdgTaskType.TabIndex = 1;
             this.pdgTaskType.Text = "Тип задачи";
@@ -114,7 +114,7 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgMaterials.Controls.Add(this.materialsControl1);
             this.pdgMaterials.ImageIndex = 1;
             this.pdgMaterials.Location = new System.Drawing.Point(4, 34);
-            this.pdgMaterials.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pdgMaterials.Margin = new System.Windows.Forms.Padding(4);
             this.pdgMaterials.Name = "pdgMaterials";
             this.pdgMaterials.Size = new System.Drawing.Size(925, 700);
             this.pdgMaterials.TabIndex = 2;
@@ -151,7 +151,7 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgHT.Controls.Add(this.htMediaControl1);
             this.pdgHT.ImageIndex = 2;
             this.pdgHT.Location = new System.Drawing.Point(4, 34);
-            this.pdgHT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pdgHT.Margin = new System.Windows.Forms.Padding(4);
             this.pdgHT.Name = "pdgHT";
             this.pdgHT.Size = new System.Drawing.Size(925, 700);
             this.pdgHT.TabIndex = 3;
@@ -186,7 +186,7 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgClamps.Controls.Add(this.clampControl1);
             this.pdgClamps.ImageIndex = 3;
             this.pdgClamps.Location = new System.Drawing.Point(4, 34);
-            this.pdgClamps.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pdgClamps.Margin = new System.Windows.Forms.Padding(4);
             this.pdgClamps.Name = "pdgClamps";
             this.pdgClamps.Size = new System.Drawing.Size(925, 700);
             this.pdgClamps.TabIndex = 5;
@@ -202,7 +202,7 @@ namespace TaskModule.HeatTreatmentModule
             this.clampControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clampControl1.HideAllButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl1.HideAllButtonImage")));
             this.clampControl1.Location = new System.Drawing.Point(0, 0);
-            this.clampControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.clampControl1.Margin = new System.Windows.Forms.Padding(4);
             this.clampControl1.MinimumSize = new System.Drawing.Size(400, 369);
             this.clampControl1.Name = "clampControl1";
             this.clampControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl1.RefreshButtonImage")));
@@ -223,7 +223,7 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgLoad.Controls.Add(this.loadControl1);
             this.pdgLoad.ImageIndex = 4;
             this.pdgLoad.Location = new System.Drawing.Point(4, 34);
-            this.pdgLoad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pdgLoad.Margin = new System.Windows.Forms.Padding(4);
             this.pdgLoad.Name = "pdgLoad";
             this.pdgLoad.Size = new System.Drawing.Size(925, 700);
             this.pdgLoad.TabIndex = 6;
@@ -237,7 +237,7 @@ namespace TaskModule.HeatTreatmentModule
             this.loadControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.loadControl1.HideAllButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.HideAllButtonImage")));
             this.loadControl1.Location = new System.Drawing.Point(0, 0);
-            this.loadControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.loadControl1.Margin = new System.Windows.Forms.Padding(4);
             this.loadControl1.MinimumSize = new System.Drawing.Size(400, 369);
             this.loadControl1.Name = "loadControl1";
             this.loadControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.RefreshButtonImage")));
@@ -258,7 +258,7 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgPlanner.Controls.Add(this.taskPlannerControl1);
             this.pdgPlanner.ImageIndex = 5;
             this.pdgPlanner.Location = new System.Drawing.Point(4, 34);
-            this.pdgPlanner.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pdgPlanner.Margin = new System.Windows.Forms.Padding(4);
             this.pdgPlanner.Name = "pdgPlanner";
             this.pdgPlanner.Size = new System.Drawing.Size(925, 700);
             this.pdgPlanner.TabIndex = 7;
@@ -273,7 +273,7 @@ namespace TaskModule.HeatTreatmentModule
             this.taskPlannerControl1.CurentSelectedRowInfo = null;
             this.taskPlannerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.taskPlannerControl1.Location = new System.Drawing.Point(0, 0);
-            this.taskPlannerControl1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.taskPlannerControl1.Margin = new System.Windows.Forms.Padding(5);
             this.taskPlannerControl1.MinimumSize = new System.Drawing.Size(533, 862);
             this.taskPlannerControl1.Name = "taskPlannerControl1";
             this.taskPlannerControl1.ProjPath = null;
@@ -308,7 +308,6 @@ namespace TaskModule.HeatTreatmentModule
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "HeatTreatmentAdvisor";
             this.Size = new System.Drawing.Size(933, 738);
             this.tabControl1.ResumeLayout(false);

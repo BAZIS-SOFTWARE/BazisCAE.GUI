@@ -78,7 +78,7 @@
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -228,20 +228,20 @@
             // 
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbStopTime.Location = new System.Drawing.Point(227, 57);
+            this.txbStopTime.Location = new System.Drawing.Point(236, 57);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(481, 22);
+            this.txbStopTime.Size = new System.Drawing.Size(491, 22);
             this.txbStopTime.TabIndex = 1;
             // 
             // txbStartTime
             // 
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbStartTime.Location = new System.Drawing.Point(227, 23);
+            this.txbStartTime.Location = new System.Drawing.Point(236, 23);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(481, 22);
+            this.txbStartTime.Size = new System.Drawing.Size(491, 22);
             this.txbStartTime.TabIndex = 0;
             // 
             // dataGridView
@@ -349,17 +349,17 @@
             // 
             this.txbValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbValue.Location = new System.Drawing.Point(227, 137);
+            this.txbValue.Location = new System.Drawing.Point(236, 137);
             this.txbValue.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.txbValue.Name = "txbValue";
-            this.txbValue.Size = new System.Drawing.Size(481, 23);
+            this.txbValue.Size = new System.Drawing.Size(491, 23);
             this.txbValue.TabIndex = 45;
             // 
             // chbLRF
             // 
             this.chbLRF.AutoSize = true;
-            this.chbLRF.Location = new System.Drawing.Point(383, 75);
-            this.chbLRF.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbLRF.Location = new System.Drawing.Point(392, 75);
+            this.chbLRF.Margin = new System.Windows.Forms.Padding(4);
             this.chbLRF.Name = "chbLRF";
             this.chbLRF.Size = new System.Drawing.Size(125, 21);
             this.chbLRF.TabIndex = 44;
@@ -372,10 +372,10 @@
             this.cmbGr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbGr.FormattingEnabled = true;
-            this.cmbGr.Location = new System.Drawing.Point(227, 103);
+            this.cmbGr.Location = new System.Drawing.Point(236, 103);
             this.cmbGr.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.cmbGr.Name = "cmbGr";
-            this.cmbGr.Size = new System.Drawing.Size(481, 25);
+            this.cmbGr.Size = new System.Drawing.Size(491, 25);
             this.cmbGr.TabIndex = 43;
             // 
             // label2
@@ -413,10 +413,10 @@
             this.cmbLoadFunction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbLoadFunction.FormattingEnabled = true;
-            this.cmbLoadFunction.Location = new System.Drawing.Point(227, 169);
+            this.cmbLoadFunction.Location = new System.Drawing.Point(236, 169);
             this.cmbLoadFunction.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.cmbLoadFunction.Name = "cmbLoadFunction";
-            this.cmbLoadFunction.Size = new System.Drawing.Size(481, 25);
+            this.cmbLoadFunction.Size = new System.Drawing.Size(491, 25);
             this.cmbLoadFunction.TabIndex = 36;
             // 
             // cmbKind
@@ -427,16 +427,16 @@
             this.cmbKind.Items.AddRange(new object[] {
             "Сила",
             "Перемещение"});
-            this.cmbKind.Location = new System.Drawing.Point(227, 37);
-            this.cmbKind.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
+            this.cmbKind.Location = new System.Drawing.Point(236, 37);
+            this.cmbKind.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.cmbKind.Name = "cmbKind";
-            this.cmbKind.Size = new System.Drawing.Size(481, 25);
+            this.cmbKind.Size = new System.Drawing.Size(491, 25);
             this.cmbKind.TabIndex = 36;
             // 
             // chbZ
             // 
             this.chbZ.AutoSize = true;
-            this.chbZ.Location = new System.Drawing.Point(331, 75);
+            this.chbZ.Location = new System.Drawing.Point(340, 75);
             this.chbZ.Margin = new System.Windows.Forms.Padding(4, 9, 4, 4);
             this.chbZ.Name = "chbZ";
             this.chbZ.Size = new System.Drawing.Size(39, 21);
@@ -449,7 +449,7 @@
             // chbY
             // 
             this.chbY.AutoSize = true;
-            this.chbY.Location = new System.Drawing.Point(279, 75);
+            this.chbY.Location = new System.Drawing.Point(288, 75);
             this.chbY.Margin = new System.Windows.Forms.Padding(4, 9, 4, 4);
             this.chbY.Name = "chbY";
             this.chbY.Size = new System.Drawing.Size(39, 21);
@@ -462,7 +462,7 @@
             // chbX
             // 
             this.chbX.AutoSize = true;
-            this.chbX.Location = new System.Drawing.Point(227, 75);
+            this.chbX.Location = new System.Drawing.Point(236, 75);
             this.chbX.Margin = new System.Windows.Forms.Padding(4, 9, 4, 4);
             this.chbX.Name = "chbX";
             this.chbX.Size = new System.Drawing.Size(39, 21);

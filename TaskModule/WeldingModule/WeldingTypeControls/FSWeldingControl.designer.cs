@@ -51,10 +51,10 @@
             // btnInfo
             // 
             this.btnInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnInfo.Image")));
-            this.btnInfo.Location = new System.Drawing.Point(12, 217);
-            this.btnInfo.Margin = new System.Windows.Forms.Padding(10, 10, 3, 10);
+            this.btnInfo.Location = new System.Drawing.Point(16, 267);
+            this.btnInfo.Margin = new System.Windows.Forms.Padding(13, 12, 4, 12);
             this.btnInfo.Name = "btnInfo";
-            this.btnInfo.Size = new System.Drawing.Size(27, 27);
+            this.btnInfo.Size = new System.Drawing.Size(36, 33);
             this.btnInfo.TabIndex = 64;
             this.btnInfo.UseVisualStyleBackColor = true;
             this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
@@ -62,10 +62,10 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 167);
-            this.label2.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
+            this.label2.Location = new System.Drawing.Point(13, 206);
+            this.label2.Margin = new System.Windows.Forms.Padding(13, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(115, 13);
+            this.label2.Size = new System.Drawing.Size(149, 16);
             this.label2.TabIndex = 63;
             this.label2.Text = "Коэффициент трения";
             // 
@@ -74,18 +74,19 @@
             this.cmbFriction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbFriction.FormattingEnabled = true;
-            this.cmbFriction.Location = new System.Drawing.Point(178, 164);
-            this.cmbFriction.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.cmbFriction.Location = new System.Drawing.Point(237, 202);
+            this.cmbFriction.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.cmbFriction.Name = "cmbFriction";
-            this.cmbFriction.Size = new System.Drawing.Size(534, 21);
+            this.cmbFriction.Size = new System.Drawing.Size(258, 24);
             this.cmbFriction.TabIndex = 62;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 38);
+            this.label1.Location = new System.Drawing.Point(13, 47);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 13);
+            this.label1.Size = new System.Drawing.Size(122, 16);
             this.label1.TabIndex = 60;
             this.label1.Text = "Осевое усилие, Н";
             // 
@@ -93,93 +94,98 @@
             // 
             this.axisForceTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.axisForceTextBox.Location = new System.Drawing.Point(178, 35);
-            this.axisForceTextBox.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.axisForceTextBox.Location = new System.Drawing.Point(237, 43);
+            this.axisForceTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.axisForceTextBox.Name = "axisForceTextBox";
-            this.axisForceTextBox.Size = new System.Drawing.Size(534, 20);
+            this.axisForceTextBox.Size = new System.Drawing.Size(258, 22);
             this.axisForceTextBox.TabIndex = 59;
             // 
             // pinUpperDiamTextBox
             // 
             this.pinUpperDiamTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pinUpperDiamTextBox.Location = new System.Drawing.Point(178, 139);
-            this.pinUpperDiamTextBox.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.pinUpperDiamTextBox.Location = new System.Drawing.Point(237, 171);
+            this.pinUpperDiamTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.pinUpperDiamTextBox.Name = "pinUpperDiamTextBox";
-            this.pinUpperDiamTextBox.Size = new System.Drawing.Size(534, 20);
+            this.pinUpperDiamTextBox.Size = new System.Drawing.Size(258, 22);
             this.pinUpperDiamTextBox.TabIndex = 58;
             // 
             // pinBottomDiamTextBox
             // 
             this.pinBottomDiamTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pinBottomDiamTextBox.Location = new System.Drawing.Point(178, 113);
-            this.pinBottomDiamTextBox.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.pinBottomDiamTextBox.Location = new System.Drawing.Point(237, 139);
+            this.pinBottomDiamTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.pinBottomDiamTextBox.Name = "pinBottomDiamTextBox";
-            this.pinBottomDiamTextBox.Size = new System.Drawing.Size(534, 20);
+            this.pinBottomDiamTextBox.Size = new System.Drawing.Size(258, 22);
             this.pinBottomDiamTextBox.TabIndex = 57;
             // 
             // pinLenghtTextBox
             // 
             this.pinLenghtTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pinLenghtTextBox.Location = new System.Drawing.Point(178, 87);
-            this.pinLenghtTextBox.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.pinLenghtTextBox.Location = new System.Drawing.Point(237, 107);
+            this.pinLenghtTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.pinLenghtTextBox.Name = "pinLenghtTextBox";
-            this.pinLenghtTextBox.Size = new System.Drawing.Size(534, 20);
+            this.pinLenghtTextBox.Size = new System.Drawing.Size(258, 22);
             this.pinLenghtTextBox.TabIndex = 56;
             // 
             // shoulderDiamTextBox
             // 
             this.shoulderDiamTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.shoulderDiamTextBox.Location = new System.Drawing.Point(178, 61);
-            this.shoulderDiamTextBox.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.shoulderDiamTextBox.Location = new System.Drawing.Point(237, 75);
+            this.shoulderDiamTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.shoulderDiamTextBox.Name = "shoulderDiamTextBox";
-            this.shoulderDiamTextBox.Size = new System.Drawing.Size(534, 20);
+            this.shoulderDiamTextBox.Size = new System.Drawing.Size(258, 22);
             this.shoulderDiamTextBox.TabIndex = 55;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(10, 142);
+            this.label16.Location = new System.Drawing.Point(13, 175);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(109, 13);
+            this.label16.Size = new System.Drawing.Size(134, 16);
             this.label16.TabIndex = 54;
             this.label16.Text = "Диаметр конца (D3)";
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(10, 116);
+            this.label15.Location = new System.Drawing.Point(13, 143);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(181, 13);
+            this.label15.Size = new System.Drawing.Size(241, 16);
             this.label15.TabIndex = 53;
             this.label15.Text = "Диаметр основания (D2), мм";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(10, 90);
+            this.label12.Location = new System.Drawing.Point(13, 111);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(103, 13);
+            this.label12.Size = new System.Drawing.Size(125, 16);
             this.label12.TabIndex = 52;
             this.label12.Text = "Длина бура (L), мм";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 64);
+            this.label3.Location = new System.Drawing.Point(13, 79);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(130, 13);
+            this.label3.Size = new System.Drawing.Size(159, 16);
             this.label3.TabIndex = 51;
             this.label3.Text = "Диаметр плеча (D1), мм";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(10, 13);
+            this.label11.Location = new System.Drawing.Point(13, 16);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(153, 13);
+            this.label11.Size = new System.Drawing.Size(186, 16);
             this.label11.TabIndex = 49;
             this.label11.Text = "Скорость вращения, об/cек.";
             // 
@@ -187,19 +193,19 @@
             // 
             this.rotSpeedTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.rotSpeedTextBox.Location = new System.Drawing.Point(178, 10);
-            this.rotSpeedTextBox.Margin = new System.Windows.Forms.Padding(3, 10, 28, 3);
+            this.rotSpeedTextBox.Location = new System.Drawing.Point(237, 12);
+            this.rotSpeedTextBox.Margin = new System.Windows.Forms.Padding(237, 12, 20, 4);
             this.rotSpeedTextBox.Name = "rotSpeedTextBox";
-            this.rotSpeedTextBox.Size = new System.Drawing.Size(534, 20);
+            this.rotSpeedTextBox.Size = new System.Drawing.Size(258, 22);
             this.rotSpeedTextBox.TabIndex = 50;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 194);
-            this.label5.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
+            this.label5.Location = new System.Drawing.Point(13, 239);
+            this.label5.Margin = new System.Windows.Forms.Padding(13, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(127, 13);
+            this.label5.Size = new System.Drawing.Size(163, 16);
             this.label5.TabIndex = 63;
             this.label5.Text = "Предел текучести, МПа";
             // 
@@ -208,15 +214,15 @@
             this.cmbYield.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbYield.FormattingEnabled = true;
-            this.cmbYield.Location = new System.Drawing.Point(178, 191);
-            this.cmbYield.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.cmbYield.Location = new System.Drawing.Point(237, 235);
+            this.cmbYield.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.cmbYield.Name = "cmbYield";
-            this.cmbYield.Size = new System.Drawing.Size(534, 21);
+            this.cmbYield.Size = new System.Drawing.Size(258, 24);
             this.cmbYield.TabIndex = 62;
             // 
             // FSWeldingControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -239,7 +245,7 @@
             this.Controls.Add(this.rotSpeedTextBox);
             this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "FSWeldingControl";
-            this.Size = new System.Drawing.Size(740, 254);
+            this.Size = new System.Drawing.Size(258, 312);
             this.ResumeLayout(false);
             this.PerformLayout();
 

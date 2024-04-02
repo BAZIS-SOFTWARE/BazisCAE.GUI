@@ -33,6 +33,7 @@ using ProjectInterfaces;
 using System.Threading.Tasks;
 using Results;
 using ModelInterfaces;
+using MathNet.Numerics;
 
 namespace BazisGUI
 {
@@ -381,7 +382,7 @@ namespace BazisGUI
 
         private void содержаниеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new Form() { Name = "helpForm", Text = "Справка", ShowIcon = false, Size = new Size(555, 283) };
+            var form = new Form() { Name = "helpForm", Text = "Справка", ShowIcon = false};
             form.TopMost = true;
             var helpFile = Directory.GetFiles(Application.StartupPath, "ПО Bazis. Руководство пользователя.chm", SearchOption.AllDirectories);
 
@@ -392,19 +393,21 @@ namespace BazisGUI
 
         private void опрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new Form() { Name = "aboutProgrammForm", Text = "О программе", ShowIcon = false, Size = new Size(555, 283) };
+            var form = new Form() { Name = "aboutProgrammForm", Text = "О программе", ShowIcon = false};
             var control = new AboutProgrammControl { Dock = DockStyle.Fill };
 
+            form.ClientSize = control.Size;
             form.Controls.Add(control);
             form.ShowDialog();
         }
 
         private void сведенияMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new Form() { Name = "aboutLicenseForm", Text = "Информация о лицензии", ShowIcon = false, Size = new Size(555, 283) };
+            var form = new Form() { Name = "aboutLicenseForm", Text = "Информация о лицензии", ShowIcon = false};
             form.TopMost = true;
             var control = new AboutLicenseControl { Dock = DockStyle.Fill };
-
+            form.ClientSize = control.Size;
+            
             try
             {
                 serverConnection.RequestServer("CheckLicenseInfo");
@@ -432,8 +435,10 @@ namespace BazisGUI
 
         private void StartLisenceForm()
         {
-            var form = new Form() { Name = "checkForm", Text = "Лицензирование", ShowIcon = false, Size = new Size(500, 250) };
+            var form = new Form() { Name = "checkForm", Text = "Лицензирование", ShowIcon = false };
             var control = new ClientControl() { Dock = DockStyle.Fill };
+
+            form.ClientSize = control.Size;
 
             control.LicenseActionEvent += (ar1,ar2) => 
             {
@@ -478,11 +483,10 @@ namespace BazisGUI
                     Text = "Настройки",
                     TopMost = true,
                     ShowIcon = false,
-                    FormBorderStyle = FormBorderStyle.FixedDialog,
-                    Width = 350,
-                    Height = 650
+                    FormBorderStyle = FormBorderStyle.FixedDialog
                 };
 
+                form.ClientSize = settings.Size;
                 form.Controls.Add(settings);
                 form.Show();
             }
@@ -619,7 +623,7 @@ namespace BazisGUI
 
         private static void ShowReleaseNotes()
         {
-            var form = new Form() { Name = "newsForm", Text = "Новости версии", ShowIcon = false, Size = new Size(555, 283) };
+            var form = new Form() { Name = "newsForm", Text = "Новости версии", ShowIcon = false, Size = new Size(500, 300) };
             form.TopMost = true;
             var helpFile = Directory.GetFiles(Application.StartupPath, "ReleaseNotes.pdf", SearchOption.AllDirectories);
 

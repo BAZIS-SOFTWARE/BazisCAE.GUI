@@ -41,10 +41,10 @@
             // btnInfo
             // 
             this.btnInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnInfo.Image")));
-            this.btnInfo.Location = new System.Drawing.Point(13, 90);
-            this.btnInfo.Margin = new System.Windows.Forms.Padding(10, 3, 3, 10);
+            this.btnInfo.Location = new System.Drawing.Point(17, 111);
+            this.btnInfo.Margin = new System.Windows.Forms.Padding(13, 4, 4, 12);
             this.btnInfo.Name = "btnInfo";
-            this.btnInfo.Size = new System.Drawing.Size(26, 26);
+            this.btnInfo.Size = new System.Drawing.Size(35, 32);
             this.btnInfo.TabIndex = 54;
             this.btnInfo.UseVisualStyleBackColor = true;
             this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
@@ -53,18 +53,19 @@
             // 
             this.voltageTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.voltageTextBox.Location = new System.Drawing.Point(178, 36);
-            this.voltageTextBox.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.voltageTextBox.Location = new System.Drawing.Point(237, 45);
+            this.voltageTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.voltageTextBox.Name = "voltageTextBox";
-            this.voltageTextBox.Size = new System.Drawing.Size(230, 20);
+            this.voltageTextBox.Size = new System.Drawing.Size(794, 22);
             this.voltageTextBox.TabIndex = 53;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(10, 39);
+            this.label8.Location = new System.Drawing.Point(13, 48);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(84, 13);
+            this.label8.Size = new System.Drawing.Size(104, 16);
             this.label8.TabIndex = 52;
             this.label8.Text = "Напряжение, В";
             // 
@@ -72,19 +73,19 @@
             // 
             this.weldPoolTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.weldPoolTextBox.Location = new System.Drawing.Point(178, 62);
-            this.weldPoolTextBox.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.weldPoolTextBox.Location = new System.Drawing.Point(237, 76);
+            this.weldPoolTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.weldPoolTextBox.Name = "weldPoolTextBox";
-            this.weldPoolTextBox.Size = new System.Drawing.Size(230, 20);
+            this.weldPoolTextBox.Size = new System.Drawing.Size(794, 22);
             this.weldPoolTextBox.TabIndex = 51;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 65);
-            this.label4.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
+            this.label4.Location = new System.Drawing.Point(13, 80);
+            this.label4.Margin = new System.Windows.Forms.Padding(13, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(106, 13);
+            this.label4.Size = new System.Drawing.Size(128, 16);
             this.label4.TabIndex = 50;
             this.label4.Text = "Ширина шва (L), мм";
             // 
@@ -92,25 +93,25 @@
             // 
             this.currentTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.currentTextBox.Location = new System.Drawing.Point(178, 10);
-            this.currentTextBox.Margin = new System.Windows.Forms.Padding(3, 10, 28, 3);
+            this.currentTextBox.Location = new System.Drawing.Point(237, 12);
+            this.currentTextBox.Margin = new System.Windows.Forms.Padding(237, 12, 20, 4);
             this.currentTextBox.Name = "currentTextBox";
-            this.currentTextBox.Size = new System.Drawing.Size(230, 20);
+            this.currentTextBox.Size = new System.Drawing.Size(794, 22);
             this.currentTextBox.TabIndex = 49;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 13);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 3, 0);
+            this.label1.Location = new System.Drawing.Point(13, 16);
+            this.label1.Margin = new System.Windows.Forms.Padding(7, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(39, 13);
+            this.label1.Size = new System.Drawing.Size(46, 16);
             this.label1.TabIndex = 48;
             this.label1.Text = "Ток, А";
             // 
             // ArcWeldingControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -122,8 +123,9 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.currentTextBox);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ArcWeldingControl";
-            this.Size = new System.Drawing.Size(436, 126);
+            this.Size = new System.Drawing.Size(1051, 194);
             this.ResumeLayout(false);
             this.PerformLayout();
 
