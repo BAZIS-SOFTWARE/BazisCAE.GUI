@@ -76,7 +76,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 523);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(354, 50);
+            this.groupBox2.Size = new System.Drawing.Size(354, 52);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Настройки решателя";
@@ -96,7 +96,7 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(348, 31);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(348, 33);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // button2
@@ -106,7 +106,7 @@
             this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button2.Location = new System.Drawing.Point(4, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(224, 23);
+            this.button2.Size = new System.Drawing.Size(224, 25);
             this.button2.TabIndex = 5;
             this.button2.Text = "Задать путь к решателю";
             this.button2.UseVisualStyleBackColor = true;
@@ -117,9 +117,9 @@
             this.lblSolverPath.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSolverPath.AutoEllipsis = true;
             this.lblSolverPath.AutoSize = true;
-            this.lblSolverPath.Location = new System.Drawing.Point(283, 9);
+            this.lblSolverPath.Location = new System.Drawing.Point(282, 9);
             this.lblSolverPath.Name = "lblSolverPath";
-            this.lblSolverPath.Size = new System.Drawing.Size(13, 13);
+            this.lblSolverPath.Size = new System.Drawing.Size(14, 15);
             this.lblSolverPath.TabIndex = 6;
             this.lblSolverPath.Text = "?";
             // 
@@ -128,9 +128,10 @@
             this.button1.AutoSize = true;
             this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(241, 579);
+            this.button1.Location = new System.Drawing.Point(243, 582);
+            this.button1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(116, 28);
+            this.button1.Size = new System.Drawing.Size(112, 32);
             this.button1.TabIndex = 1;
             this.button1.Text = "Сохранить";
             this.button1.UseVisualStyleBackColor = true;
@@ -227,9 +228,9 @@
             // 
             this.chbLighting.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.chbLighting.AutoSize = true;
-            this.chbLighting.Location = new System.Drawing.Point(282, 134);
+            this.chbLighting.Location = new System.Drawing.Point(280, 133);
             this.chbLighting.Name = "chbLighting";
-            this.chbLighting.Size = new System.Drawing.Size(15, 14);
+            this.chbLighting.Size = new System.Drawing.Size(18, 17);
             this.chbLighting.TabIndex = 8;
             this.chbLighting.UseVisualStyleBackColor = true;
             this.chbLighting.Click += new System.EventHandler(this.chbLighting_Click);
@@ -238,9 +239,9 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(37, 99);
+            this.label1.Location = new System.Drawing.Point(25, 98);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(157, 13);
+            this.label1.Size = new System.Drawing.Size(181, 15);
             this.label1.TabIndex = 6;
             this.label1.Text = "Внутренние ребра элементов";
             // 
@@ -248,9 +249,9 @@
             // 
             this.chbBackRibbers.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.chbBackRibbers.AutoSize = true;
-            this.chbBackRibbers.Location = new System.Drawing.Point(282, 98);
+            this.chbBackRibbers.Location = new System.Drawing.Point(280, 97);
             this.chbBackRibbers.Name = "chbBackRibbers";
-            this.chbBackRibbers.Size = new System.Drawing.Size(15, 14);
+            this.chbBackRibbers.Size = new System.Drawing.Size(18, 17);
             this.chbBackRibbers.TabIndex = 5;
             this.chbBackRibbers.UseVisualStyleBackColor = true;
             this.chbBackRibbers.Click += new System.EventHandler(this.chbBackRibbers_Click);
@@ -345,7 +346,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(93, 86);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 13);
+            this.label2.Size = new System.Drawing.Size(73, 15);
             this.label2.TabIndex = 0;
             this.label2.Text = "Освещение";
             // 
@@ -410,9 +411,9 @@
             // 
             this.chbTransparency.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.chbTransparency.AutoSize = true;
-            this.chbTransparency.Location = new System.Drawing.Point(282, 325);
+            this.chbTransparency.Location = new System.Drawing.Point(280, 324);
             this.chbTransparency.Name = "chbTransparency";
-            this.chbTransparency.Size = new System.Drawing.Size(15, 14);
+            this.chbTransparency.Size = new System.Drawing.Size(18, 17);
             this.chbTransparency.TabIndex = 18;
             this.chbTransparency.UseVisualStyleBackColor = true;
             this.chbTransparency.Click += new System.EventHandler(this.chbTransparency_Click);
@@ -421,9 +422,9 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(76, 326);
+            this.label3.Location = new System.Drawing.Point(71, 325);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(79, 13);
+            this.label3.Size = new System.Drawing.Size(90, 15);
             this.label3.TabIndex = 19;
             this.label3.Text = "Прозрачность";
             // 
@@ -431,9 +432,9 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(98, 362);
+            this.label4.Location = new System.Drawing.Point(97, 361);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.Size = new System.Drawing.Size(37, 15);
             this.label4.TabIndex = 20;
             this.label4.Text = "Узлы";
             // 
@@ -441,9 +442,9 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(78, 398);
+            this.label5.Location = new System.Drawing.Point(72, 397);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(76, 13);
+            this.label5.Size = new System.Drawing.Size(87, 15);
             this.label5.TabIndex = 21;
             this.label5.Text = "Элементы 1D";
             // 
@@ -451,9 +452,9 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(78, 434);
+            this.label6.Location = new System.Drawing.Point(72, 433);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(76, 13);
+            this.label6.Size = new System.Drawing.Size(87, 15);
             this.label6.TabIndex = 22;
             this.label6.Text = "Элементы 2D";
             // 
@@ -461,9 +462,9 @@
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(78, 470);
+            this.label7.Location = new System.Drawing.Point(72, 469);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(76, 13);
+            this.label7.Size = new System.Drawing.Size(87, 15);
             this.label7.TabIndex = 23;
             this.label7.Text = "Элементы 3D";
             // 
@@ -483,8 +484,8 @@
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(360, 610);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(360, 617);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // SettingsControl
@@ -494,7 +495,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "SettingsControl";
-            this.Size = new System.Drawing.Size(360, 610);
+            this.Size = new System.Drawing.Size(360, 617);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);

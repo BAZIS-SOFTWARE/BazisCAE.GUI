@@ -44,8 +44,7 @@
             // 
             this.rbtnDistance.AutoSize = true;
             this.rbtnDistance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbtnDistance.Location = new System.Drawing.Point(16, 19);
-            this.rbtnDistance.Margin = new System.Windows.Forms.Padding(4);
+            this.rbtnDistance.Location = new System.Drawing.Point(12, 15);
             this.rbtnDistance.Name = "rbtnDistance";
             this.rbtnDistance.Size = new System.Drawing.Size(133, 21);
             this.rbtnDistance.TabIndex = 0;
@@ -58,7 +57,7 @@
             // 
             this.rbtnPath.AutoSize = true;
             this.rbtnPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbtnPath.Location = new System.Drawing.Point(16, 103);
+            this.rbtnPath.Location = new System.Drawing.Point(12, 84);
             this.rbtnPath.Margin = new System.Windows.Forms.Padding(0);
             this.rbtnPath.Name = "rbtnPath";
             this.rbtnPath.Size = new System.Drawing.Size(86, 21);
@@ -71,8 +70,7 @@
             // 
             this.rbtSquare.AutoSize = true;
             this.rbtSquare.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbtSquare.Location = new System.Drawing.Point(16, 76);
-            this.rbtSquare.Margin = new System.Windows.Forms.Padding(4);
+            this.rbtSquare.Location = new System.Drawing.Point(12, 62);
             this.rbtSquare.Name = "rbtSquare";
             this.rbtSquare.Size = new System.Drawing.Size(130, 21);
             this.rbtSquare.TabIndex = 2;
@@ -84,8 +82,7 @@
             // 
             this.rbtVolume.AutoSize = true;
             this.rbtVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbtVolume.Location = new System.Drawing.Point(16, 47);
-            this.rbtVolume.Margin = new System.Windows.Forms.Padding(4);
+            this.rbtVolume.Location = new System.Drawing.Point(12, 38);
             this.rbtVolume.Name = "rbtVolume";
             this.rbtVolume.Size = new System.Drawing.Size(115, 21);
             this.rbtVolume.TabIndex = 3;
@@ -100,22 +97,22 @@
             this.cmbMeasureObjects.Items.AddRange(new object[] {
             "Между двумя точками",
             "Между точкой и плоскостью"});
-            this.cmbMeasureObjects.Location = new System.Drawing.Point(170, 59);
-            this.cmbMeasureObjects.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.cmbMeasureObjects.Location = new System.Drawing.Point(155, 64);
+            this.cmbMeasureObjects.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.cmbMeasureObjects.Name = "cmbMeasureObjects";
-            this.cmbMeasureObjects.Size = new System.Drawing.Size(139, 24);
+            this.cmbMeasureObjects.Size = new System.Drawing.Size(131, 21);
             this.cmbMeasureObjects.TabIndex = 4;
             this.cmbMeasureObjects.SelectedIndexChanged += new System.EventHandler(this.cmbMeasureObjects_SelectedIndexChanged);
             // 
             // btnMeasure
             // 
-            this.btnMeasure.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnMeasure.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnMeasure.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMeasure.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnMeasure.Location = new System.Drawing.Point(170, 150);
-            this.btnMeasure.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.btnMeasure.Location = new System.Drawing.Point(155, 153);
+            this.btnMeasure.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnMeasure.Name = "btnMeasure";
-            this.btnMeasure.Size = new System.Drawing.Size(138, 32);
+            this.btnMeasure.Size = new System.Drawing.Size(131, 32);
             this.btnMeasure.TabIndex = 5;
             this.btnMeasure.Text = "Измерить";
             this.btnMeasure.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -136,8 +133,8 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(316, 190);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(291, 189);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // panel1
@@ -147,20 +144,21 @@
             this.panel1.Controls.Add(this.rbtSquare);
             this.panel1.Controls.Add(this.rbtnPath);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Location = new System.Drawing.Point(2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(157, 137);
+            this.panel1.Size = new System.Drawing.Size(146, 145);
             this.panel1.TabIndex = 6;
             // 
             // MeasuringSet
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.MinimumSize = new System.Drawing.Size(290, 190);
+            this.MinimumSize = new System.Drawing.Size(218, 154);
             this.Name = "MeasuringSet";
-            this.Size = new System.Drawing.Size(316, 190);
+            this.Size = new System.Drawing.Size(291, 189);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
