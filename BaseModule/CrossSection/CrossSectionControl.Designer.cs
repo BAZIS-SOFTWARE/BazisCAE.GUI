@@ -48,10 +48,10 @@
             // 
             this.btnCreateCross.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnCreateCross.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnCreateCross.Location = new System.Drawing.Point(83, 170);
-            this.btnCreateCross.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.btnCreateCross.Location = new System.Drawing.Point(60, 215);
+            this.btnCreateCross.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.btnCreateCross.Name = "btnCreateCross";
-            this.btnCreateCross.Size = new System.Drawing.Size(120, 32);
+            this.btnCreateCross.Size = new System.Drawing.Size(95, 32);
             this.btnCreateCross.TabIndex = 16;
             this.btnCreateCross.Text = "Построить";
             this.btnCreateCross.UseVisualStyleBackColor = true;
@@ -64,10 +64,10 @@
             this.chbSelectPoints.AutoSize = true;
             this.tableLayoutPanel3.SetColumnSpan(this.chbSelectPoints, 2);
             this.chbSelectPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chbSelectPoints.Location = new System.Drawing.Point(80, 81);
-            this.chbSelectPoints.Margin = new System.Windows.Forms.Padding(7, 0, 0, 0);
+            this.chbSelectPoints.Location = new System.Drawing.Point(60, 105);
+            this.chbSelectPoints.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.chbSelectPoints.Name = "chbSelectPoints";
-            this.chbSelectPoints.Size = new System.Drawing.Size(148, 27);
+            this.chbSelectPoints.Size = new System.Drawing.Size(148, 35);
             this.chbSelectPoints.TabIndex = 13;
             this.chbSelectPoints.Text = "Задать по точкам";
             this.chbSelectPoints.UseVisualStyleBackColor = true;
@@ -78,10 +78,9 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(6, 5);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 17);
+            this.label1.Size = new System.Drawing.Size(48, 34);
             this.label1.TabIndex = 4;
             this.label1.Text = "Точка 1";
             // 
@@ -89,10 +88,10 @@
             // 
             this.txbPoint1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.tableLayoutPanel3.SetColumnSpan(this.txbPoint1, 2);
-            this.txbPoint1.Location = new System.Drawing.Point(83, 2);
-            this.txbPoint1.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.txbPoint1.Location = new System.Drawing.Point(62, 7);
+            this.txbPoint1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.txbPoint1.Name = "txbPoint1";
-            this.txbPoint1.Size = new System.Drawing.Size(267, 22);
+            this.txbPoint1.Size = new System.Drawing.Size(201, 20);
             this.txbPoint1.TabIndex = 17;
             this.txbPoint1.Text = "0;0;0";
             // 
@@ -100,10 +99,10 @@
             // 
             this.txbPoint2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.tableLayoutPanel3.SetColumnSpan(this.txbPoint2, 2);
-            this.txbPoint2.Location = new System.Drawing.Point(83, 29);
-            this.txbPoint2.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.txbPoint2.Location = new System.Drawing.Point(62, 42);
+            this.txbPoint2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.txbPoint2.Name = "txbPoint2";
-            this.txbPoint2.Size = new System.Drawing.Size(267, 22);
+            this.txbPoint2.Size = new System.Drawing.Size(201, 20);
             this.txbPoint2.TabIndex = 18;
             this.txbPoint2.Text = "0;0;0";
             // 
@@ -112,10 +111,9 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(6, 32);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(3, 35);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 17);
+            this.label2.Size = new System.Drawing.Size(48, 34);
             this.label2.TabIndex = 5;
             this.label2.Text = "Точка 2";
             // 
@@ -123,10 +121,10 @@
             // 
             this.txbPoint3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.tableLayoutPanel3.SetColumnSpan(this.txbPoint3, 2);
-            this.txbPoint3.Location = new System.Drawing.Point(83, 56);
-            this.txbPoint3.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.txbPoint3.Location = new System.Drawing.Point(62, 77);
+            this.txbPoint3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.txbPoint3.Name = "txbPoint3";
-            this.txbPoint3.Size = new System.Drawing.Size(267, 22);
+            this.txbPoint3.Size = new System.Drawing.Size(201, 20);
             this.txbPoint3.TabIndex = 19;
             this.txbPoint3.Text = "0;0;0";
             // 
@@ -135,10 +133,9 @@
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(6, 59);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(3, 70);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 17);
+            this.label3.Size = new System.Drawing.Size(48, 34);
             this.label3.TabIndex = 6;
             this.label3.Text = "Точка 3";
             // 
@@ -146,10 +143,10 @@
             // 
             this.rbtXY.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.rbtXY.AutoSize = true;
-            this.rbtXY.Location = new System.Drawing.Point(14, 84);
+            this.rbtXY.Location = new System.Drawing.Point(6, 113);
             this.rbtXY.Margin = new System.Windows.Forms.Padding(0);
             this.rbtXY.Name = "rbtXY";
-            this.rbtXY.Size = new System.Drawing.Size(45, 20);
+            this.rbtXY.Size = new System.Drawing.Size(43, 19);
             this.rbtXY.TabIndex = 5;
             this.rbtXY.TabStop = true;
             this.rbtXY.Text = "XY";
@@ -160,10 +157,10 @@
             // 
             this.rbtXZ.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.rbtXZ.AutoSize = true;
-            this.rbtXZ.Location = new System.Drawing.Point(14, 111);
+            this.rbtXZ.Location = new System.Drawing.Point(6, 148);
             this.rbtXZ.Margin = new System.Windows.Forms.Padding(0);
             this.rbtXZ.Name = "rbtXZ";
-            this.rbtXZ.Size = new System.Drawing.Size(44, 20);
+            this.rbtXZ.Size = new System.Drawing.Size(43, 19);
             this.rbtXZ.TabIndex = 4;
             this.rbtXZ.TabStop = true;
             this.rbtXZ.Text = "XZ";
@@ -174,10 +171,10 @@
             // 
             this.rbtYZ.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.rbtYZ.AutoSize = true;
-            this.rbtYZ.Location = new System.Drawing.Point(14, 138);
+            this.rbtYZ.Location = new System.Drawing.Point(6, 183);
             this.rbtYZ.Margin = new System.Windows.Forms.Padding(0);
             this.rbtYZ.Name = "rbtYZ";
-            this.rbtYZ.Size = new System.Drawing.Size(45, 20);
+            this.rbtYZ.Size = new System.Drawing.Size(42, 19);
             this.rbtYZ.TabIndex = 3;
             this.rbtYZ.TabStop = true;
             this.rbtYZ.Text = "YZ";
@@ -188,8 +185,8 @@
             // 
             this.tableLayoutPanel3.ColumnCount = 3;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 140F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 144F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 108F));
             this.tableLayoutPanel3.Controls.Add(this.rbtYZ, 0, 5);
             this.tableLayoutPanel3.Controls.Add(this.rbtXZ, 0, 4);
             this.tableLayoutPanel3.Controls.Add(this.rbtXY, 0, 3);
@@ -199,9 +196,9 @@
             this.tableLayoutPanel3.Controls.Add(this.txbPoint2, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.txbPoint1, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.chbSelectPoints, 1, 3);
             this.tableLayoutPanel3.Controls.Add(this.btnCreateCross, 1, 6);
             this.tableLayoutPanel3.Controls.Add(this.btnRemoveCross, 2, 6);
+            this.tableLayoutPanel3.Controls.Add(this.chbSelectPoints, 1, 3);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
@@ -213,18 +210,18 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(357, 210);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(268, 252);
             this.tableLayoutPanel3.TabIndex = 14;
             // 
             // btnRemoveCross
             // 
             this.btnRemoveCross.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnRemoveCross.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnRemoveCross.Location = new System.Drawing.Point(221, 170);
-            this.btnRemoveCross.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.btnRemoveCross.Location = new System.Drawing.Point(165, 215);
+            this.btnRemoveCross.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.btnRemoveCross.Name = "btnRemoveCross";
-            this.btnRemoveCross.Size = new System.Drawing.Size(127, 32);
+            this.btnRemoveCross.Size = new System.Drawing.Size(98, 32);
             this.btnRemoveCross.TabIndex = 20;
             this.btnRemoveCross.Text = "Удалить";
             this.btnRemoveCross.UseVisualStyleBackColor = true;
@@ -232,12 +229,12 @@
             // 
             // CrossSectionControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel3);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "CrossSectionControl";
-            this.Size = new System.Drawing.Size(357, 210);
+            this.Size = new System.Drawing.Size(268, 252);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.ResumeLayout(false);

@@ -198,7 +198,7 @@ namespace ResultModule
             this.cmbResultNames.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel3.SetColumnSpan(this.cmbResultNames, 2);
             this.cmbResultNames.FormattingEnabled = true;
-            this.cmbResultNames.Location = new System.Drawing.Point(7, 6);
+            this.cmbResultNames.Location = new System.Drawing.Point(7, 7);
             this.cmbResultNames.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.cmbResultNames.Name = "cmbResultNames";
             this.cmbResultNames.Size = new System.Drawing.Size(432, 24);
@@ -223,7 +223,7 @@ namespace ResultModule
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.61539F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.38461F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 141F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 142F));
             this.tableLayoutPanel4.Controls.Add(this.btnCreateAnimation, 2, 1);
             this.tableLayoutPanel4.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.chbDelTempScrs, 1, 1);
@@ -243,10 +243,10 @@ namespace ResultModule
             // 
             this.btnCreateAnimation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreateAnimation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnCreateAnimation.Location = new System.Drawing.Point(311, 41);
+            this.btnCreateAnimation.Location = new System.Drawing.Point(310, 41);
             this.btnCreateAnimation.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.btnCreateAnimation.Name = "btnCreateAnimation";
-            this.btnCreateAnimation.Size = new System.Drawing.Size(128, 32);
+            this.btnCreateAnimation.Size = new System.Drawing.Size(129, 32);
             this.btnCreateAnimation.TabIndex = 3;
             this.btnCreateAnimation.Text = "Создать";
             this.btnCreateAnimation.UseVisualStyleBackColor = true;
@@ -256,7 +256,7 @@ namespace ResultModule
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(36, 7);
+            this.label2.Location = new System.Drawing.Point(35, 7);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(186, 17);
@@ -269,7 +269,7 @@ namespace ResultModule
             this.chbDelTempScrs.AutoSize = true;
             this.chbDelTempScrs.Checked = true;
             this.chbDelTempScrs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbDelTempScrs.Location = new System.Drawing.Point(272, 48);
+            this.chbDelTempScrs.Location = new System.Drawing.Point(271, 48);
             this.chbDelTempScrs.Margin = new System.Windows.Forms.Padding(4);
             this.chbDelTempScrs.Name = "chbDelTempScrs";
             this.chbDelTempScrs.Size = new System.Drawing.Size(18, 17);
@@ -292,7 +292,7 @@ namespace ResultModule
             // txbDelayTime
             // 
             this.txbDelayTime.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txbDelayTime.Location = new System.Drawing.Point(258, 4);
+            this.txbDelayTime.Location = new System.Drawing.Point(257, 4);
             this.txbDelayTime.Margin = new System.Windows.Forms.Padding(0);
             this.txbDelayTime.Name = "txbDelayTime";
             this.txbDelayTime.Size = new System.Drawing.Size(46, 23);

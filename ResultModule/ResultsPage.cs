@@ -81,6 +81,8 @@ namespace ResultModule
                 Text = "Загрузить результаты"
             };
 
+            loadResultsMenuItem.Click += (ar1, ar2) => { ShowOpenResultsFileDialog(false); };
+
             ToolStripMenuItem showResultsValueMenuItem = new ToolStripMenuItem()
             {
                 Name = "showResultsValue",

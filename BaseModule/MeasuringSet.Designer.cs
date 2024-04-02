@@ -106,11 +106,11 @@
             // 
             // btnMeasure
             // 
+            this.btnMeasure.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnMeasure.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnMeasure.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMeasure.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnMeasure.Location = new System.Drawing.Point(155, 153);
-            this.btnMeasure.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnMeasure.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.btnMeasure.Name = "btnMeasure";
             this.btnMeasure.Size = new System.Drawing.Size(131, 32);
             this.btnMeasure.TabIndex = 5;
@@ -124,9 +124,9 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.72414F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.27586F));
-            this.tableLayoutPanel1.Controls.Add(this.btnMeasure, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cmbMeasureObjects, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnMeasure, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -145,7 +145,7 @@
             this.panel1.Controls.Add(this.rbtnPath);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(2, 2);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(146, 145);
             this.panel1.TabIndex = 6;

@@ -20,8 +20,6 @@ using ModelControllerInterfaces;
 using System.Threading;
 using ModelInterfaces.MeshObjects;
 using ModelInterfaces.GeometryObjects;
-using ModelControllerInterfaces.GmshController;
-using Scene;
 
 namespace BaseModule
 {
@@ -345,8 +343,7 @@ namespace BaseModule
 
                     if (e.ClickedItem.Tag.ToString() == "4")
                     {
-                        var form = new Form() { Name = "selectForm", Text = "Выбрать", AutoSize = false, ShowIcon = false };
-                        form.TopMost = true;
+                        var form = new Form() { Name = "selectForm", Text = "Выбрать", AutoSize = false, ShowIcon = false, TopMost = true };
                         
                         form.FormClosing += (s1, s2) => { btn.Checked = false; };
                         var selectionControl = new SelectionSet() { Dock = DockStyle.Fill };
@@ -465,8 +462,7 @@ namespace BaseModule
             {
                 if (e.ClickedItem.Tag.ToString() == "0")
                 {
-                    var form = new Form() { Name = "measureForm", Text = "Измерить", ShowIcon = false };
-                    form.TopMost = true;
+                    var form = new Form() { Name = "measureForm", Text = "Измерить", ShowIcon = false, TopMost = true };
 
                     form.FormClosed += (s1, s2) =>
                     {
@@ -1087,16 +1083,15 @@ namespace BaseModule
                     }
                     if (PressedKey == Keys.Escape)
                     {
-                        Invoke(new Action(() =>
-                        {
-                            sceneControl.HideDisplayText2D();
-                            sceneControl.DisplayObjects();
-                        }));
                         actBreak.Invoke();
                         break;
                     }
                 }             
             });
+
+            sceneControl.HideDisplayText2D();
+            sceneControl.DisplayObjects();
+
             PressedKey = Keys.None;
             return resObject;
         }
@@ -1567,7 +1562,7 @@ namespace BaseModule
                 }));
             });
 
-            var message = "измените группу, добавив или удалив объекты, и нажмите на кнопку E или нажмите кнопку ESC";
+            var message = "Измените группу, добавив или удалив объекты, и нажмите на кнопку E или нажмите кнопку ESC";
  
             await AsyncMethodContainer(actConfirm, actBreak, message);
         }

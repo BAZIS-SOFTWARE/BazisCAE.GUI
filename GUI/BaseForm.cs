@@ -438,7 +438,7 @@ namespace BazisGUI
             var form = new Form() { Name = "checkForm", Text = "Лицензирование", ShowIcon = false };
             var control = new ClientControl() { Dock = DockStyle.Fill };
 
-            form.ClientSize = control.Size;
+
 
             control.LicenseActionEvent += (ar1,ar2) => 
             {
@@ -457,7 +457,9 @@ namespace BazisGUI
                     }
                 }
             };
+            form.ClientSize = control.Size;
             form.Controls.Add(control);
+
             form.ShowDialog();
         }
 
@@ -482,8 +484,7 @@ namespace BazisGUI
                     Name = "settings",
                     Text = "Настройки",
                     TopMost = true,
-                    ShowIcon = false,
-                    FormBorderStyle = FormBorderStyle.FixedDialog
+                    ShowIcon = false
                 };
 
                 form.ClientSize = settings.Size;

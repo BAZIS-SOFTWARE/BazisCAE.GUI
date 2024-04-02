@@ -103,10 +103,10 @@
             // 
             this.txbAngle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbAngle.Location = new System.Drawing.Point(76, 23);
+            this.txbAngle.Location = new System.Drawing.Point(68, 24);
             this.txbAngle.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.txbAngle.Name = "txbAngle";
-            this.txbAngle.Size = new System.Drawing.Size(209, 20);
+            this.txbAngle.Size = new System.Drawing.Size(213, 20);
             this.txbAngle.TabIndex = 6;
             this.txbAngle.Text = "5";
             // 
@@ -122,11 +122,11 @@
             // 
             // btnSelect
             // 
-            this.btnSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSelect.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnSelect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnSelect.Location = new System.Drawing.Point(185, 163);
-            this.btnSelect.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnSelect.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(102, 32);
             this.btnSelect.TabIndex = 3;
@@ -172,7 +172,6 @@
             this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel3, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnSelect, 1, 3);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
