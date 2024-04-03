@@ -48,9 +48,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         public void Add_Functions(List<string> functions)
         {
             cmbFriction.Items.Clear();
+            cmbYield.Items.Clear();
             foreach (var function in functions)
             {
-                    cmbFriction.Items.Add(function);
+                cmbFriction.Items.Add(function);
+                cmbYield.Items.Add(function);
             }
         }
 
