@@ -84,6 +84,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             dataList.Add(txbStopTime.Text);
             dataList.Add("*");
 
+            if (dataList.Any(x => x == ""))
+                throw new Exception("Одно из переданных значений полей было пустым");
+
             return "\"" + string.Join(" ", dataList) + "\"";
         }
 
