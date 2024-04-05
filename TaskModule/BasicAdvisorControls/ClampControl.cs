@@ -117,30 +117,24 @@ namespace TaskModule.BasicAdvisorControls
             if (CountSelectedRow > 0)
             {
                 if (chb.Checked)
-                    if (chb.Tag.ToString() == "0")
-                    {
-                        chbY.Checked = false;
-                        chbZ.Checked = false;
-                        chbLRF.Checked = false;
-                    }
-                    else if (chb.Tag.ToString() == "1")
-                    {
-                        chbX.Checked = false;
-                        chbZ.Checked = false;
-                        chbLRF.Checked = false;
-                    }
-                    else if (chb.Tag.ToString() == "2")
-                    {
-                        chbX.Checked = false;
-                        chbY.Checked = false;
-                        chbLRF.Checked = false;
-                    }
-                    else 
-                    {
-                        chbX.Checked = false;
-                        chbY.Checked = false;
-                        chbZ.Checked = false;
-                    }
+                {
+                    chbX.Checked = chb == chbX ? true : false;
+                    chbY.Checked = chb == chbY ? true : false;
+                    chbZ.Checked = chb == chbZ ? true : false;
+                    chbLRF.Checked = chb == chbLRF ? true : false;
+                }
+                btnRefresh.Enabled = true;
+            }
+            if ((chb == chbX && chbX.Checked) 
+                || (chb == chbY && chbY.Checked) 
+                || (chb == chbZ && chbZ.Checked))
+                chbLRF.Checked = false;
+
+            if (chb == chbLRF && chbLRF.Checked)
+            {
+                chbX.Checked = false;
+                chbY.Checked = false;
+                chbZ.Checked = false;
             }
         }
 
