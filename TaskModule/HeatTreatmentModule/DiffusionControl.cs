@@ -283,6 +283,11 @@ namespace TaskModule.HeatTreatmentModule
         {
             var taskStrAr = new List<string>();
 
+            if (cmbEl.Text == "" || txbDiffCoefCarbon.Text == "" || txbDiffCoefNitro.Text == ""
+                || txbConcentrCarbon.Text == "" || txbConcentrNitro.Text == ""
+                || cmbTempreture.Text == ""|| txbStart.Text == "" || txbStop.Text == "")
+                throw new Exception("Одно из переданных значений полей было пустым");
+
             if (rbtNitrocarburizing.Checked)
             {
                 taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\" {0} {1} {2} {3} {4} {5} *\"", cmbEl.Text, txbDiffCoefCarbon.Text, txbConcentrCarbon.Text, cmbTempreture.Text, txbStart.Text, txbStop.Text));

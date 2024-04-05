@@ -119,6 +119,8 @@ namespace TaskModule.HeatTreatmentModule
                 "*"
             });
 
+            if (dataList.Any(x => x == ""))
+                throw new Exception("Одно из переданных значений полей было пустым");
 
             return "\"" + string.Join(" ", dataList) + "\"";
         }

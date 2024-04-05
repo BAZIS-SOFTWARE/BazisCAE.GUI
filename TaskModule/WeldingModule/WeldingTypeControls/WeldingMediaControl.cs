@@ -69,12 +69,18 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
             if (rbtHeatFlow.Checked)
             {
+                if (cmbEl.Text == "" || cmbFunc.Text == "")
+                    throw new Exception("Одно из переданных значений полей было пустым");
+
                 dataList.Add(cmbEl.Text);
                 dataList.Add(cmbFunc.Text);
                 dataList.Add(txbMediaTemp.Text);
             }
             else
             {
+                if (cmbNode.Text == "" || cmbTermoCycle.Text == "")
+                    throw new Exception("Одно из переданных значений полей было пустым");
+
                 dataList.Add(cmbNode.Text);
                 dataList.Add("*");
                 dataList.Add(cmbTermoCycle.Text);
@@ -83,6 +89,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             dataList.Add(txbStartTime.Text);
             dataList.Add(txbStopTime.Text);
             dataList.Add("*");
+
+            if (txbStartTime.Text == "" || txbStopTime.Text == "")
+                throw new Exception("Одно из переданных значений полей было пустым");
 
             return "\"" + string.Join(" ", dataList) + "\"";
         }
