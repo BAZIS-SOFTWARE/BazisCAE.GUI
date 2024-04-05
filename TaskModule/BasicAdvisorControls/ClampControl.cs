@@ -218,8 +218,13 @@ namespace TaskModule.BasicAdvisorControls
                 throw new Exception("Не выбрано направление");
 
             foreach(var d in direction)
-            taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} {4} {5} *\"",
+            {
+                if (cmbNodeGr.Text == "" || cmbKind.Text == "" || d == "" || stiffnessFunc == "" || txbStartTime.Text == "" || txbStopTime.Text == "")
+                    throw new Exception("Одно из переданных значений полей было пустым");
+
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} {4} {5} *\"",
                     cmbNodeGr.Text, cmbKind.Text, d, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
+            }
 
             return string.Join("~", taskStrAr);
         }
