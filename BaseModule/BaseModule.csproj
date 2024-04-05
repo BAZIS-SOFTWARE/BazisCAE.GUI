@@ -133,25 +133,25 @@
     <Compile Include="CrossSection\CrossSectionControl.Designer.cs">
       <DependentUpon>CrossSectionControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="MeasureEventArgs.cs" />
+    <Compile Include="Measurement\MeasureEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SelectInDirectionEventArgs.cs" />
-    <Compile Include="SelectInPlainEventArgs.cs" />
-    <Compile Include="MeasuringSet.cs">
+    <Compile Include="SelectionSet\SelectInDirectionEventArgs.cs" />
+    <Compile Include="SelectionSet\SelectInPlainEventArgs.cs" />
+    <Compile Include="Measurement\MeasuringSet.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MeasuringSet.Designer.cs">
+    <Compile Include="Measurement\MeasuringSet.Designer.cs">
       <DependentUpon>MeasuringSet.cs</DependentUpon>
     </Compile>
-    <Compile Include="SelectionSet.cs">
+    <Compile Include="SelectionSet\SelectionSet.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SelectionSet.Designer.cs">
+    <Compile Include="SelectionSet\SelectionSet.Designer.cs">
       <DependentUpon>SelectionSet.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolStrips\BaseToolStrRender.cs" />
@@ -205,7 +205,7 @@
     <EmbeddedResource Include="CrossSection\CrossSectionControl.resx">
       <DependentUpon>CrossSectionControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MeasuringSet.resx">
+    <EmbeddedResource Include="Measurement\MeasuringSet.resx">
       <DependentUpon>MeasuringSet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Navigator\NavigatorControl.resx">
@@ -215,7 +215,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="SelectionSet.resx">
+    <EmbeddedResource Include="SelectionSet\SelectionSet.resx">
       <DependentUpon>SelectionSet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ToolStrips\DisplayToolStrip.resx">
