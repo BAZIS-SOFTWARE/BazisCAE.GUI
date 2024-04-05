@@ -172,8 +172,13 @@ namespace TaskModule.BasicAdvisorControls
                 throw new Exception("Не выбрано направление");
 
             foreach(var d in direction)
+            {
+                if (cmbGr.Text == "" || cmbKind.Text == "" || d == "" || loadFunc == "" || txbStartTime.Text == "" || txbStopTime.Text == "")
+                    throw new Exception("Одно из переданных значений полей было пустым");
+
                 taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} {4} {5} {6} *\"",
-                     cmbGr.Text, cmbKind.Text, d, value,loadFunc, txbStartTime.Text, txbStopTime.Text));
+                     cmbGr.Text, cmbKind.Text, d, value, loadFunc, txbStartTime.Text, txbStopTime.Text));
+            } 
 
             return string.Join("~", taskStrAr);
         }
