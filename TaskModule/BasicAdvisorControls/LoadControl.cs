@@ -117,13 +117,9 @@ namespace TaskModule.BasicAdvisorControls
         {
             try
             {
-                var rows = AddRowInfo().Split('~');
-                foreach( var row in rows)
-                {
-                    CurentSelectedRowInfo = row;
-                    base.AddButton_Click(sender, e);
-                    btnRefresh.Enabled = false;
-                }
+                CurentSelectedRowInfo = AddRowInfo();
+                base.AddButton_Click(sender, e);
+                btnRefresh.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -148,39 +144,28 @@ namespace TaskModule.BasicAdvisorControls
                     throw new Exception("Необходимо задать величину нагрузки");
             }
             else value = 1;
-  
 
-            var direction = new List<string>();
+            if (cmbGr.Text == "" || cmbKind.Text == "" || loadFunc == "" || txbStartTime.Text == "" || txbStopTime.Text == "")
+                throw new Exception("Одно из переданных значений полей было пустым");
+
+            var direction = string.Empty;
+            if (chbX.Enabled & chbX.Checked)
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} X {2} {3} {4} {5} *\"",
+                    cmbGr.Text, cmbKind.Text, value, loadFunc, txbStartTime.Text, txbStopTime.Text));
+
+            if (chbY.Enabled & chbY.Checked)
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Y {2} {3} {4} {5} *\"",
+                    cmbGr.Text, cmbKind.Text, value, loadFunc, txbStartTime.Text, txbStopTime.Text));
+
+            if (chbZ.Enabled & chbZ.Checked)
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Z {2} {3} {4} {5} *\"",
+                    cmbGr.Text, cmbKind.Text, value, loadFunc, txbStartTime.Text, txbStopTime.Text));
+
             if (chbLRF.Checked)
-            {
-                if (cmbKind.Text == "Жесткое")
-                    throw new Exception("Произвольное направление не может быть выбрано при жестком закреплении при нагрузке");
-                direction.Add("LRF");
-            }
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} LRF {2} {3} {4} {5} *\"",
+                    cmbGr.Text, cmbKind.Text, value, loadFunc, txbStartTime.Text, txbStopTime.Text));
 
-            else
-            {
-                if (chbX.Enabled && chbX.Checked)
-                    direction.Add("X");
-                if (chbY.Enabled && chbY.Checked)
-                    direction.Add("Y");
-                if (chbZ.Enabled && chbZ.Checked)
-                    direction.Add("Z");
-            }
-
-            if (direction.Count == 0)
-                throw new Exception("Не выбрано направление");
-
-            foreach(var d in direction)
-            {
-                if (cmbGr.Text == "" || cmbKind.Text == "" || d == "" || loadFunc == "" || txbStartTime.Text == "" || txbStopTime.Text == "")
-                    throw new Exception("Одно из переданных значений полей было пустым");
-
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} {4} {5} {6} *\"",
-                     cmbGr.Text, cmbKind.Text, d, value, loadFunc, txbStartTime.Text, txbStopTime.Text));
-            } 
-
-            return string.Join("~", taskStrAr);
+            return string.Join(" ", taskStrAr);
         }
 
         public void ShowDataButton_Click(object sender, EventArgs e)

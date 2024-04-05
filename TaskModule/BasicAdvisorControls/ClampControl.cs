@@ -172,13 +172,9 @@ namespace TaskModule.BasicAdvisorControls
         {
             try
             {
-                var rows = AddRowInfo().Split('~');
-                foreach (var row in rows)
-                {
-                    CurentSelectedRowInfo = row;
-                    base.AddButton_Click(sender, e);
-                    btnRefresh.Enabled = false;
-                }
+                CurentSelectedRowInfo = AddRowInfo();
+                base.AddButton_Click(sender, e);
+                btnRefresh.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -195,38 +191,26 @@ namespace TaskModule.BasicAdvisorControls
                 stiffnessFunc = cmbStiffnessFunc.Text;
             else stiffnessFunc = "*";
 
-            var direction = new List<string>();
-            if (chbLRF.Checked) 
-            {
-                if (cmbKind.Text == "Жесткое")
-                    throw new Exception("Произвольное направление не может быть выбрано при жестком закреплении");
-                direction.Add("LRF");
-            }
-                
+            if (cmbNodeGr.Text == "" || cmbKind.Text == "" || stiffnessFunc == "" || txbStartTime.Text == "" || txbStopTime.Text == "")
+                throw new Exception("Одно из переданных значений полей было пустым");
 
-            else
-            {
-                if (chbX.Enabled && chbX.Checked)
-                    direction.Add("X");
-                if (chbY.Enabled && chbY.Checked)
-                    direction.Add("Y");
-                if (chbZ.Enabled && chbZ.Checked)
-                    direction.Add("Z");
-            }
+            if (chbX.Enabled & chbX.Checked)
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} X {2} {3} {4} *\"",
+                    cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
 
-            if (direction.Count == 0)
-                throw new Exception("Не выбрано направление");
+            if (chbY.Enabled & chbY.Checked)
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Y {2} {3} {4} *\"",
+                    cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
 
-            foreach(var d in direction)
-            {
-                if (cmbNodeGr.Text == "" || cmbKind.Text == "" || d == "" || stiffnessFunc == "" || txbStartTime.Text == "" || txbStopTime.Text == "")
-                    throw new Exception("Одно из переданных значений полей было пустым");
+            if (chbZ.Enabled & chbZ.Checked)
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Z {2} {3} {4} *\"",
+                    cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
 
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} {4} {5} *\"",
-                    cmbNodeGr.Text, cmbKind.Text, d, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
-            }
+            if (chbLRF.Checked)
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} LRF {2} {3} {4} *\"",
+                     cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
 
-            return string.Join("~", taskStrAr);
+            return string.Join(" ", taskStrAr);
         }
 
         public override void RefreshButton_Click(object sender, EventArgs e)
