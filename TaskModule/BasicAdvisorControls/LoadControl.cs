@@ -117,9 +117,30 @@ namespace TaskModule.BasicAdvisorControls
         {
             try
             {
-                while (chbX.Checked || chbY.Checked || chbZ.Checked || chbLRF.Checked)
+                if (chbX.Checked)
                 {
-                    CurentSelectedRowInfo = AddRowInfo();
+                    CurentSelectedRowInfo = AddRowInfo("X");
+                    base.AddButton_Click(sender, e);
+                    btnRefresh.Enabled = false;
+                }
+
+                if (chbY.Checked)
+                {
+                    CurentSelectedRowInfo = AddRowInfo("Y");
+                    base.AddButton_Click(sender, e);
+                    btnRefresh.Enabled = false;
+                }
+
+                if (chbZ.Checked)
+                {
+                    CurentSelectedRowInfo = AddRowInfo("Z");
+                    base.AddButton_Click(sender, e);
+                    btnRefresh.Enabled = false;
+                }
+
+                if (chbLRF.Checked)
+                {
+                    CurentSelectedRowInfo = AddRowInfo("LRF");
                     base.AddButton_Click(sender, e);
                     btnRefresh.Enabled = false;
                 }
@@ -131,7 +152,7 @@ namespace TaskModule.BasicAdvisorControls
 
         }
 
-        private string AddRowInfo()
+        private string AddRowInfo(string direction)
         {
             string loadFunc;
             if (cmbLoadFunction.Text != "")
@@ -149,35 +170,8 @@ namespace TaskModule.BasicAdvisorControls
             if (cmbGr.Text == "" || cmbKind.Text == "" || loadFunc == "" || txbStartTime.Text == "" || txbStopTime.Text == "")
                 throw new Exception("Одно из переданных значений полей было пустым");
 
-            if (chbX.Enabled && chbX.Checked)
-            {
-                chbX.Checked = false;
-                return string.Format(CultureInfo.InvariantCulture, "\"{0} {1} X {2} {3} {4} {5} *\"",
-                    cmbGr.Text, cmbKind.Text, value, loadFunc, txbStartTime.Text, txbStopTime.Text);
-            }
-
-            if (chbY.Enabled && chbY.Checked)
-            {
-                chbY.Checked = false;
-                return string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Y {2} {3} {4} {5} *\"",
-                    cmbGr.Text, cmbKind.Text, value, loadFunc, txbStartTime.Text, txbStopTime.Text);
-            }
-
-            if (chbZ.Enabled && chbZ.Checked)
-            {
-                chbZ.Checked = false;
-                return string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Z {2} {3} {4} {5} *\"",
-                    cmbGr.Text, cmbKind.Text, value, loadFunc, txbStartTime.Text, txbStopTime.Text);
-            }
-
-            if (chbLRF.Enabled && chbLRF.Checked)
-            {
-                chbLRF.Checked = false;
-                return string.Format(CultureInfo.InvariantCulture, "\"{0} {1} LRF {2} {3} {4} {5} *\"",
-                    cmbGr.Text, cmbKind.Text, value, loadFunc, txbStartTime.Text, txbStopTime.Text);
-            }
-
-            throw new Exception("Не выбранно направление");
+            return string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} {4} {5} {6} *\"",
+                    cmbGr.Text, cmbKind.Text, direction, value, loadFunc, txbStartTime.Text, txbStopTime.Text);
         }
 
         public void ShowDataButton_Click(object sender, EventArgs e)
@@ -235,11 +229,31 @@ namespace TaskModule.BasicAdvisorControls
         {
             try
             {
-                while (chbX.Checked || chbY.Checked || chbZ.Checked || chbLRF.Checked)
+                if (chbX.Checked)
                 {
-                    CurentSelectedRowInfo = AddRowInfo();
+                    CurentSelectedRowInfo = AddRowInfo("X");
                     base.RefreshButton_Click(sender, e);
+                    btnRefresh.Enabled = false;
+                }
 
+                if (chbY.Checked)
+                {
+                    CurentSelectedRowInfo = AddRowInfo("Y");
+                    base.RefreshButton_Click(sender, e);
+                    btnRefresh.Enabled = false;
+                }
+
+                if (chbZ.Checked)
+                {
+                    CurentSelectedRowInfo = AddRowInfo("Z");
+                    base.RefreshButton_Click(sender, e);
+                    btnRefresh.Enabled = false;
+                }
+
+                if (chbLRF.Checked)
+                {
+                    CurentSelectedRowInfo = AddRowInfo("LRF");
+                    base.RefreshButton_Click(sender, e);
                     btnRefresh.Enabled = false;
                 }
             }
