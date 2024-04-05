@@ -54,7 +54,7 @@ namespace TaskModule.BasicAdvisorControls
             set { btnHideAll.Image = value; }
         }
         
-        enum Column : int { node, kind, direction, function, startTime, stopTime };
+        enum Column : int { node, kind, direction, value, function, startTime, stopTime };
         enum Kind : int { force, pressure, displacement };
 
         public LoadControl()
@@ -152,13 +152,9 @@ namespace TaskModule.BasicAdvisorControls
                 loadFunc = cmbLoadFunction.Text;
             else loadFunc = "*";
 
-            var value = 0.0f;
-            if (loadFunc == "*")
-            {
-                if (!float.TryParse(txbValue.Text, out value))
-                    throw new Exception("Необходимо задать величину нагрузки");
-            }
-            else value = 1;
+            var value = 1f;
+            if (loadFunc == "*" && !float.TryParse(txbValue.Text, out value))
+                throw new Exception("Необходимо задать величину нагрузки");
 
             if (cmbGr.Text == "" || cmbKind.Text == "" || loadFunc == "" || txbStartTime.Text == "" || txbStopTime.Text == "")
                 throw new Exception("Одно из переданных значений полей было пустым");
