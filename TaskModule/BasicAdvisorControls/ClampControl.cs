@@ -172,9 +172,12 @@ namespace TaskModule.BasicAdvisorControls
         {
             try
             {
-                CurentSelectedRowInfo = AddRowInfo();
-                base.AddButton_Click(sender, e);
-                btnRefresh.Enabled = false;
+                while(chbX.Checked || chbY.Checked || chbZ.Checked || chbLRF.Checked)
+                {
+                    CurentSelectedRowInfo = AddRowInfo();
+                    base.AddButton_Click(sender, e);
+                    btnRefresh.Enabled = false;
+                }
             }
             catch (Exception ex)
             {
@@ -184,8 +187,6 @@ namespace TaskModule.BasicAdvisorControls
 
         private string AddRowInfo()
         {
-            var taskStrAr = new List<string>();
-
             string stiffnessFunc;
             if (cmbStiffnessFunc.Text != "")
                 stiffnessFunc = cmbStiffnessFunc.Text;
@@ -194,33 +195,48 @@ namespace TaskModule.BasicAdvisorControls
             if (cmbNodeGr.Text == "" || cmbKind.Text == "" || stiffnessFunc == "" || txbStartTime.Text == "" || txbStopTime.Text == "")
                 throw new Exception("Одно из переданных значений полей было пустым");
 
-            if (chbX.Enabled & chbX.Checked)
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} X {2} {3} {4} *\"",
-                    cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
+            if (chbX.Enabled && chbX.Checked)
+            {
+                chbX.Checked = false;
+                return string.Format(CultureInfo.InvariantCulture, "\"{0} {1} X {2} {3} {4} *\"",
+                    cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text);
+            }
 
-            if (chbY.Enabled & chbY.Checked)
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Y {2} {3} {4} *\"",
-                    cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
+            if (chbY.Enabled && chbY.Checked)
+            {
+                chbY.Checked = false;
+                return string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Y {2} {3} {4} *\"",
+                    cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text);
+            }
 
-            if (chbZ.Enabled & chbZ.Checked)
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Z {2} {3} {4} *\"",
-                    cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
+            if (chbZ.Enabled && chbZ.Checked)
+            {
+                chbZ.Checked = false;
+                return string.Format(CultureInfo.InvariantCulture, "\"{0} {1} Z {2} {3} {4} *\"",
+                    cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text);
+            }
 
-            if (chbLRF.Checked)
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} LRF {2} {3} {4} *\"",
-                     cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
+            if (chbLRF.Enabled && chbLRF.Checked)
+            {
+                chbLRF.Checked = false;
+                return string.Format(CultureInfo.InvariantCulture, "\"{0} {1} LRF {2} {3} {4} *\"",
+                     cmbNodeGr.Text, cmbKind.Text, stiffnessFunc, txbStartTime.Text, txbStopTime.Text);
+            }
 
-            return string.Join(" ", taskStrAr);
+            throw new Exception("Не выбранно направление");
         }
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
             try
             {
-                CurentSelectedRowInfo = AddRowInfo();
-                base.RefreshButton_Click(sender, e);
+                while (chbX.Checked || chbY.Checked || chbZ.Checked || chbLRF.Checked)
+                {
+                    CurentSelectedRowInfo = AddRowInfo();
+                    base.RefreshButton_Click(sender, e);
 
-                btnRefresh.Enabled = false;
+                    btnRefresh.Enabled = false;
+                }
             }
             catch (Exception ex)
             {
