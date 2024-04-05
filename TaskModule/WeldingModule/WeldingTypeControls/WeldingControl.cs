@@ -197,18 +197,23 @@ Where(x => x.GetType() == typeof(LWeldingControl)).First();
                 var hsDataAr = HeatSourceData.Split(';');
 
                 var pinDataStr = string.Join(";", new string[] { "FSWPin", hsDataAr[1], hsDataAr[4], hsDataAr[5], hsDataAr[6], hsDataAr[7], hsDataAr[8] });
-                var taskStr = string.Join(" ", new string[] { pinDataStr, cmbWeldZone.Text, txbStartTime.Text, "*", trajData });
+                var shoulderDataStr = string.Join(";", new string[] { "FSWShoulder", hsDataAr[1], hsDataAr[2], hsDataAr[3], hsDataAr[3], "30", hsDataAr[7], hsDataAr[8] });
 
+                if (hsDataAr.Any(x => x == "") || cmbWeldZone.Text == "" || txbStartTime.Text == "" || trajData == "")
+                    throw new Exception("Одно из переданных значений полей было пустым");
+
+                var taskStr = string.Join(" ", new string[] { pinDataStr, cmbWeldZone.Text, txbStartTime.Text, "*", trajData });
                 taskStrAr.Add("\"" + taskStr + "\"");
 
-                var shoulderDataStr = string.Join(";", new string[] { "FSWShoulder", hsDataAr[1], hsDataAr[2], hsDataAr[3], hsDataAr[3], "30", hsDataAr[7], hsDataAr[8] });
                 taskStr = string.Join(" ", new string[] { shoulderDataStr, cmbWeldZone.Text, txbStartTime.Text, "*", trajData });
-
                 taskStrAr.Add("\"" + taskStr + "\"");
             }
 
             else
             {
+                if (HeatSourceData == "" || cmbWeldZone.Text == "" || txbStartTime.Text == "" || trajData == "")
+                    throw new Exception("Одно из переданных значений полей было пустым");
+
                 var taskStr = string.Join(" ", new string[] { HeatSourceData, cmbWeldZone.Text, txbStartTime.Text, "*", trajData });
                 taskStrAr.Add("\"" + taskStr + "\"");
             }
