@@ -386,7 +386,8 @@
             this.treeView.ImageList = this.treeNodesImageList_16x16;
             this.treeView.Indent = 19;
             this.treeView.ItemHeight = 18;
-            this.treeView.Location = new System.Drawing.Point(0, 15);
+            this.treeView.Location = new System.Drawing.Point(0, 23);
+            this.treeView.Margin = new System.Windows.Forms.Padding(1);
             this.treeView.Name = "treeView";
             treeNode1.ImageIndex = 0;
             treeNode1.Name = "названиеПроекта";
@@ -427,7 +428,7 @@
             treeNode6});
             this.treeView.SelectedImageIndex = 0;
             this.treeView.ShowLines = false;
-            this.treeView.Size = new System.Drawing.Size(223, 325);
+            this.treeView.Size = new System.Drawing.Size(279, 403);
             this.treeView.TabIndex = 2;
             this.treeView.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_BeforeLabelEdit);
             this.treeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_AfterLabelEdit);
@@ -442,8 +443,9 @@
             this.grbNavigator.Controls.Add(this.treeView);
             this.grbNavigator.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbNavigator.Location = new System.Drawing.Point(0, 0);
+            this.grbNavigator.Margin = new System.Windows.Forms.Padding(4);
             this.grbNavigator.Name = "grbNavigator";
-            this.grbNavigator.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.grbNavigator.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
             this.grbNavigator.Size = new System.Drawing.Size(225, 342);
             this.grbNavigator.TabIndex = 5;
             this.grbNavigator.Paint += new System.Windows.Forms.PaintEventHandler(this.grbNavigator_Paint);

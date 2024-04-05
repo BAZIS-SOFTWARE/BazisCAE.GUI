@@ -86,7 +86,7 @@
             this.toolStripContainer.ContentPanel.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripContainer.ContentPanel.Controls.Add(this.tableLayoutPanel);
             this.toolStripContainer.ContentPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1100, 559);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1100, 557);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer.Margin = new System.Windows.Forms.Padding(4);
@@ -159,7 +159,7 @@
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 79.24722F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.43737F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.31541F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(1100, 559);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(1100, 557);
             this.tableLayoutPanel.TabIndex = 1;
             // 
             // pictureBox
@@ -170,7 +170,7 @@
             this.pictureBox.Location = new System.Drawing.Point(3, 2);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(1094, 438);
+            this.pictureBox.Size = new System.Drawing.Size(1094, 437);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
@@ -179,7 +179,7 @@
             // 
             this.releaseNoteslinkLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.releaseNoteslinkLabel.AutoSize = true;
-            this.releaseNoteslinkLabel.Location = new System.Drawing.Point(469, 524);
+            this.releaseNoteslinkLabel.Location = new System.Drawing.Point(469, 522);
             this.releaseNoteslinkLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.releaseNoteslinkLabel.Name = "releaseNoteslinkLabel";
             this.releaseNoteslinkLabel.Size = new System.Drawing.Size(161, 16);
@@ -193,7 +193,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(215, 461);
+            this.label1.Location = new System.Drawing.Point(215, 460);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(669, 24);
@@ -214,7 +214,7 @@
             this.toolStripMenuItem1});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1100, 28);
+            this.menuStrip.Size = new System.Drawing.Size(1100, 30);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip";
             // 

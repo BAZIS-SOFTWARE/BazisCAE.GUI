@@ -594,22 +594,18 @@ namespace TaskModule
 
         private void DisplayMRF(float time, IValuableData data)
         {
-            float[] geomParam;
-
             var frame = data.MovedFrameFunction.CalcFrame(time - data.StartTime);
             SceneControl.DisplayLocalFrame(frame);
             var trajPoints = data.MovedFrameFunction.BaseLine.Select(x => x.CalcCentr()).ToArray();
             SceneControl.DisplayPath(trajPoints);
 
-            if (data.MovedFrameFunction.FunctionType == "Sphere")
+            if (data.MovedFrameFunction is ISphereFunction sphear )
             {
-                geomParam = data.MovedFrameFunction.GetGeometryParameters();
-                SceneControl.DisplaySphere(geomParam[0], frame);
+                SceneControl.DisplaySphere(sphear.Width, frame);
             }
-            else if (data.MovedFrameFunction.FunctionType == "Cillindrical")
+            else if (data.MovedFrameFunction is ICillindricalFunction cilinder )
             {
-                geomParam = data.MovedFrameFunction.GetGeometryParameters();
-                SceneControl.DisplayConus(geomParam[0], geomParam[1], geomParam[2], frame);
+                SceneControl.DisplayConus(cilinder.UpperDiam, cilinder.BottomDiam, cilinder.Length, frame);
             }
         }
 

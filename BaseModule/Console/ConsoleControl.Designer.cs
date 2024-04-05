@@ -136,7 +136,7 @@
             // 
             this.tlscOut.ContentPanel.Controls.Add(this.rtxbField);
             this.tlscOut.ContentPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.tlscOut.ContentPanel.Size = new System.Drawing.Size(899, 232);
+            this.tlscOut.ContentPanel.Size = new System.Drawing.Size(909, 232);
             this.tlscOut.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlscOut.LeftToolStripPanelVisible = false;
             this.tlscOut.Location = new System.Drawing.Point(0, 18);
@@ -164,7 +164,7 @@
             this.rtxbField.Location = new System.Drawing.Point(0, 0);
             this.rtxbField.Margin = new System.Windows.Forms.Padding(1);
             this.rtxbField.Name = "rtxbField";
-            this.rtxbField.Size = new System.Drawing.Size(899, 232);
+            this.rtxbField.Size = new System.Drawing.Size(909, 232);
             this.rtxbField.TabIndex = 2;
             this.rtxbField.Text = "";
             this.rtxbField.WordWrap = false;
@@ -186,7 +186,7 @@
             this.tlsOut.Location = new System.Drawing.Point(0, 0);
             this.tlsOut.Name = "tlsOut";
             this.tlsOut.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tlsOut.Size = new System.Drawing.Size(40, 232);
+            this.tlsOut.Size = new System.Drawing.Size(30, 232);
             this.tlsOut.Stretch = true;
             this.tlsOut.TabIndex = 0;
             this.tlsOut.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical90;
@@ -212,7 +212,7 @@
             this.btnClearAll.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnClearAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(38, 20);
+            this.btnClearAll.Size = new System.Drawing.Size(28, 20);
             this.btnClearAll.Text = "btnClearAll";
             this.btnClearAll.Click += new System.EventHandler(this.ClearAll_Click);
             // 
@@ -516,7 +516,7 @@
             this.btnStartMacro.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnStartMacro.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnStartMacro.Name = "btnStartMacro";
-            this.btnStartMacro.Size = new System.Drawing.Size(38, 24);
+            this.btnStartMacro.Size = new System.Drawing.Size(28, 24);
             this.btnStartMacro.Text = "Старт макрос";
             this.btnStartMacro.Click += new System.EventHandler(this.btnStartMacro_Click);
             // 

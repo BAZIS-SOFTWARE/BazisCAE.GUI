@@ -62,6 +62,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         private string AddRowInfo()
         {
+            //TO DO
             var dataList = new List<string>();
 
             dataList.Add("Охлаждение");
