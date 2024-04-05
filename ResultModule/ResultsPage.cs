@@ -19,6 +19,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.AxHost;
 using Image = System.Drawing.Image;
 
 namespace ResultModule
@@ -92,7 +93,14 @@ namespace ResultModule
 
             showResultsValueMenuItem.Click += (ar1, ar2) =>
             {
-                showResultValue = showResultsValueMenuItem.Checked;
+                if (showResultsValueMenuItem.Checked)
+                    showResultValue = true;
+                else
+                {
+                    showResultValue = false;
+                    SceneControl.HideDisplayText3D();
+                    SceneControl.DisplayObjects();
+                }
             };
 
             ToolStripMenuItem showAnimationResultsMenuItem = new ToolStripMenuItem()
@@ -205,18 +213,6 @@ namespace ResultModule
                 grPage.CreatePathGraphEvent += (ar1, ar2) =>
                 {
                     CreatePathGraph(ar2.ResultKind, ar2.ObjsType, ar2.Time);
-                };
-
-                grPage.SelectObjectsEvent += (ar) =>
-                {
-                    ClearAllDataOnScene();
-
-                    foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-                        CreateObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
-
-                    SelectedObjects = ar;
-
-                    SceneControl.DisplayObjects();
                 };
 
                 grPage.SelectResultsEvent += (ar) =>
@@ -374,17 +370,6 @@ namespace ResultModule
             }
         }
 
-        private void ShowValue(bool state)
-        {
-            if (state)
-                showResultValue = true;
-            else
-            {
-                showResultValue = false;
-                SceneControl.HideDisplayText3D();
-            }
-        }
-
         private void ShowOpenResultsFileDialog(bool addRes)
         {
             var openDialogEx = new OpenFileDialogEx()
@@ -516,21 +501,21 @@ namespace ResultModule
         {
             try
             {
-                if (resKind == "Результаты")
-                {
-                    throw new Exception("Выберите результаты для построения графика используя панель анимации");
-                }
-
                 if (NavigatorControl.TreeView.SelectedNode?.Level != 2)
                 {
                     throw new Exception("Выберите вид результатов в разделе результаты");
                 }
+
+                ClearAllDataOnScene();
+                PresentAllModelObjectsToScene();
+                SelectedObjects = objsType;
+
+                var objs = await CreatePathAsync();
+
                 var selNode = NavigatorControl.TreeView.SelectedNode;
                 var resDes = selNode.Name;
 
                 var result = Project.ResultData.FindByTime(resKind, time);
-
-                var objs = await CreatePathAsync();
 
                 var pathPoints = new List<Point3D>();
                 var path = 0.0f;
@@ -589,18 +574,22 @@ namespace ResultModule
                 if (NavigatorControl.TreeView.SelectedNode?.Level != 2)
                     throw new Exception("Выберите вид результатов в разделе результаты");
 
+                ClearAllDataOnScene();
+                PresentAllModelObjectsToScene();
+                SelectedObjects = objsType;
+
+                var objs = await SelectObjectsAsync(objsType);
+
+                if(objs.Count == 0)
+                    throw new Exception("Не выбран ни один объект!");
+
                 var selNode = NavigatorControl.TreeView.SelectedNode;
                 var resDes = selNode.Name;
 
                 var results = Project.ResultData.FindByTaskKind(resKind);
 
                 var grDataAr = new List<GraphData>();
-
-                var objs = await SelectNodesAsync();
-
-                if(objs.Count == 0)
-                    throw new Exception("Не выбран ни один узел!");
-
+                Random random = new Random();
                 foreach (var obj in objs)
                 {
                     var grPoints = new List<GraphPoint>();
@@ -616,9 +605,9 @@ namespace ResultModule
                         grPoints.Add(grPoint);
                     }
 
-                    SceneControl.DisplayText3D($"{objsType}_{obj.Number}", Color.Black, obj.Position);
-
-                    var grData = new GraphData($"{objsType}_{obj.Number}", Color.Orange, "Сек.", resDes, grPoints.ToArray());
+                    SceneControl.DisplayText3D($"{objsType}_{obj.Number}", Color.Black, obj.CalcCentr());
+                    var color = Color.FromArgb(random.Next(255), random.Next(255), random.Next(255));
+                    var grData = new GraphData($"{objsType}_{obj.Number}", color, "Сек.", resDes, grPoints.ToArray());
                     grDataAr.Add(grData);
                 }
                 SceneControl.DisplayObjects();
@@ -650,9 +639,9 @@ namespace ResultModule
 
         }
 
-        public async Task<List<INode>> SelectNodesAsync()
+        public async Task<List<IModelObject>> SelectObjectsAsync(ObjType objType)
         {
-            var nodes = new List<INode>();
+            var nodes = new List<IModelObject>();
             PressedKey = Keys.None;
             SceneControl.DisplayText2D(@"Выберите узлы и нажмите на клавишу ""E"" для подтверждения", Color.Black, new Point2D(10, 10));
             SceneControl.DisplayObjects();
@@ -662,8 +651,16 @@ namespace ResultModule
                 {
                     if (PressedKey == Keys.E)
                     {
-                        var objs = Project.ModelData.ObjectData.NodeCollection;
+                        var objs = Project.ModelData.ObjectData.GetObjects(objType);
                         nodes = objs.Where(x => x.MasterColor == SceneControl.SelectionColor).ToList();
+                        break;
+                    }
+                    if(PressedKey == Keys.Escape)
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            ConsoleControl.PrintInfo("Операция отменена", Color.Black);
+                        }));
                         break;
                     }
                 }
@@ -781,9 +778,9 @@ namespace ResultModule
         {
             ClearAllDataOnScene();
 
-            foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-                CreateObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
+            PresentAllModelObjectsToScene();
 
+            SceneControl.FitObjectsToScreen();
             SceneControl.DisplayObjects();
         }
 

@@ -15,8 +15,6 @@ namespace ResultModule
     {
         public event Action<object, CreateTimeGraphArgs> CreateTimeGraphEvent;
         public event Action<object, CreatePathGraphEventArgs> CreatePathGraphEvent;
-
-        public event Action<ObjType> SelectObjectsEvent;
         public event Action<string> SelectResultsEvent;
 
         public GraphCreationPage()
@@ -37,17 +35,26 @@ namespace ResultModule
             this.resItems = resItems;
         }
 
-        private void btnSelectObjs_Click(object sender, EventArgs e)
-        {
-            if (rbtNodes.Checked)
-                SelectObjectsEvent(ObjType.Узел);
-            else SelectObjectsEvent(ObjType.Элемент);
-        }
-
         private void btnCreatePlot_Click(object sender, EventArgs e)
         {
+            if (rbtTime.Checked == false & rbtPath.Checked == false)
+            {
+                MessageBox.Show("Выберите тип графика!");
+                return;
+            }
+
+            if (rbtNodes.Checked == false & rbtElements.Checked == false)
+            {
+                MessageBox.Show("Выберите тип объектов!");
+                return;
+            }
+
             if (comboBox.SelectedItem == null)
+            {
                 MessageBox.Show("Выберите тип задачи!");
+                return;
+            }
+
             var resKind = comboBox.SelectedItem.ToString();
 
             if (rbtTime.Checked)
@@ -97,7 +104,7 @@ namespace ResultModule
         {
             if (rbtTime.Checked)
             {
-                comboBox.Enabled = false;
+                comboBox.Enabled = true;
                 richTextBox.Enabled = false;
             }
 

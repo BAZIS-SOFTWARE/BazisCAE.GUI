@@ -225,7 +225,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.99338F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.00662F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 87F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 104F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
             this.tableLayoutPanel2.Controls.Add(this.rbtNodes, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label6, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.rbtElements, 2, 0);
@@ -245,7 +245,7 @@
             this.rbtNodes.AutoSize = true;
             this.rbtNodes.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.rbtNodes.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtNodes.Location = new System.Drawing.Point(54, 107);
+            this.rbtNodes.Location = new System.Drawing.Point(53, 107);
             this.rbtNodes.Margin = new System.Windows.Forms.Padding(0);
             this.rbtNodes.Name = "rbtNodes";
             this.rbtNodes.Size = new System.Drawing.Size(17, 16);
@@ -257,7 +257,7 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(71, 107);
+            this.label6.Location = new System.Drawing.Point(70, 107);
             this.label6.Margin = new System.Windows.Forms.Padding(0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(42, 17);
@@ -270,7 +270,7 @@
             this.rbtElements.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.rbtElements.AutoSize = true;
             this.rbtElements.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtElements.Location = new System.Drawing.Point(209, 107);
+            this.rbtElements.Location = new System.Drawing.Point(208, 107);
             this.rbtElements.Margin = new System.Windows.Forms.Padding(0);
             this.rbtElements.Name = "rbtElements";
             this.rbtElements.Size = new System.Drawing.Size(17, 16);
@@ -281,7 +281,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(226, 107);
+            this.label3.Location = new System.Drawing.Point(225, 107);
             this.label3.Margin = new System.Windows.Forms.Padding(0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 17);

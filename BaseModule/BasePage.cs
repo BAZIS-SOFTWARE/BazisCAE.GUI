@@ -20,6 +20,7 @@ using ModelControllerInterfaces;
 using System.Threading;
 using ModelInterfaces.MeshObjects;
 using ModelInterfaces.GeometryObjects;
+using System.Data.Odbc;
 
 namespace BaseModule
 {
@@ -617,30 +618,30 @@ namespace BaseModule
             sceneControl.HideDisplayText3D();
             sceneControl.DisplayObjects();
 
-            switch (arg2.Kind)
-            {
-                case MeasureKind.DistanceNodeToNode:
-                    selectToolStrip.SelectObjectsType = ObjType.Узел;
-                    consoleControl.PrintInfo("Выберите два узла",Color.Black);
-                    break;
-                case MeasureKind.DistanceNodeToPlane:
-                    consoleControl.PrintInfo("Создайте поверхность и выберите узел", Color.Black);
-                    break;
-                case MeasureKind.Path:
-                    selectToolStrip.SelectObjectsType = ObjType.Узел;
-                    consoleControl.PrintInfo("Выберите узлы", Color.Black);
-                    break;
-                case MeasureKind.Square:
-                    selectToolStrip.SelectObjectsType = ObjType.Элемент2D;
-                    consoleControl.PrintInfo("Выберите элементы 2D или поверхности", Color.Black);
-                    break;
-                case MeasureKind.Volume:
-                    selectToolStrip.SelectObjectsType = ObjType.Элемент3D;
-                    consoleControl.PrintInfo("Выберите элементы 3D", Color.Black);
-                    break;
-                default:
-                    break;
-            }
+            //switch (arg2.Kind)
+            //{
+            //    case MeasureKind.DistanceNodeToNode:
+            //        selectToolStrip.SelectObjectsType = ObjType.Узел;
+            //        consoleControl.PrintInfo("Выберите два узла",Color.Black);
+            //        break;
+            //    case MeasureKind.DistanceNodeToPlane:
+            //        consoleControl.PrintInfo("Создайте поверхность и выберите узел", Color.Black);
+            //        break;
+            //    case MeasureKind.Path:
+            //        selectToolStrip.SelectObjectsType = ObjType.Узел;
+            //        consoleControl.PrintInfo("Выберите узлы", Color.Black);
+            //        break;
+            //    case MeasureKind.Square:
+            //        selectToolStrip.SelectObjectsType = ObjType.Элемент2D;
+            //        consoleControl.PrintInfo("Выберите элементы 2D или поверхности", Color.Black);
+            //        break;
+            //    case MeasureKind.Volume:
+            //        selectToolStrip.SelectObjectsType = ObjType.Элемент3D;
+            //        consoleControl.PrintInfo("Выберите элементы 3D", Color.Black);
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
 
         private async void MeasuringControl_MakeMeasureEvent(object arg1, MeasureEventArgs arg2)
@@ -746,28 +747,49 @@ namespace BaseModule
         {
             var nodes = new List<INode>();
 
-            PressedKey = Keys.None;
+            var message = @"Начните строить путь нажав на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
 
-            while (true)
+            var actBreak = new Action(() =>
             {
-                var res = SelectNodeAsync();
-                await res;
-
-                if (res.Result is INode node)
+                Invoke(new Action(() =>
                 {
-                    nodes.Add(node);
-                    node.SetBackColor();
-                }
-                else break;
+                    ConsoleControl.PrintInfo("Операция отменена", Color.Black);
+                }));
+            });
 
-                if (nodes.Count > 1)
+            var actPointConfirm = new Func<Tuple<bool, object>>(() =>
+            {
+                Invoke(new Action(() =>
                 {
-                    var line = new Segment3D(nodes[nodes.Count - 1].Position, nodes[nodes.Count - 2].Position);
-                    consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
-                    sceneControl.DisplayDistance(line);
-                    sceneControl.DisplayObjects();
+                    ConsoleControl.PrintInfo($"Начато построение пути", Color.Green);
+                }));
+                return new Tuple<bool, object>(true, true);
+
+            });
+
+            var answer = await AsyncMethodContainer(actPointConfirm, actBreak, message);
+
+            if (answer is bool)
+                while (true)
+                {
+                    var res = SelectNodeAsync();
+                    await res;
+
+                    if (res.Result is INode node)
+                    {
+                        nodes.Add(node);
+                        node.SetBackColor();
+                    }
+                    else break;
+
+                    if (nodes.Count > 1)
+                    {
+                        var line = new Segment3D(nodes[nodes.Count - 1].Position, nodes[nodes.Count - 2].Position);
+                        consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
+                        sceneControl.DisplayDistance(line);
+                        sceneControl.DisplayObjects();
+                    }
                 }
-            }
             return nodes;
         }
 
@@ -1078,8 +1100,11 @@ namespace BaseModule
                     {
                         var resAction = actConfirm.Invoke();
                         if (resAction.Item1)
+                        {
                             resObject = resAction.Item2;
                             break;
+                        }
+                        PressedKey = Keys.None;
                     }
                     if (PressedKey == Keys.Escape)
                     {
