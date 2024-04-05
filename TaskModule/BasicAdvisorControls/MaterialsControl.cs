@@ -149,6 +149,9 @@ namespace TaskModule.BasicAdvisorControls
 
         private string AddRowInfo()
         {
+            if (cmbEl.Text == "" || cmbMat.Text == "" || txbStartTime.Text == "" || txbStopTime.Text == "")
+                throw new Exception("Одно из переданных значений полей было пустым");
+
             return string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} *\"", cmbEl.Text, cmbMat.Text, txbStartTime.Text, txbStopTime.Text);
         }
 
