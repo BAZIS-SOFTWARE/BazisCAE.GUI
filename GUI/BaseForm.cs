@@ -346,10 +346,10 @@ namespace BazisGUI
             module.SceneControl.IsBlending = settingsConfig.Transparency;
             module.SceneControl.IsLighting = settingsConfig.Lighting;
 
-            module.SceneControl.SetTransparency(ObjType.Узел.ToString(), settingsConfig.NodeTransparency);
-            module.SceneControl.SetTransparency(ObjType.Элемент1D.ToString(), settingsConfig.E1DTransparency);
-            module.SceneControl.SetTransparency(ObjType.Элемент2D.ToString(), settingsConfig.E2DTransparency);
-            module.SceneControl.SetTransparency(ObjType.Элемент3D.ToString(), settingsConfig.E3DTransparency);
+            module.PresentersCreator.SetTransparency(ObjType.Узел.ToString(), settingsConfig.NodeTransparency);
+            module.PresentersCreator.SetTransparency(ObjType.Элемент1D.ToString(), settingsConfig.E1DTransparency);
+            module.PresentersCreator.SetTransparency(ObjType.Элемент2D.ToString(), settingsConfig.E2DTransparency);
+            module.PresentersCreator.SetTransparency(ObjType.Элемент3D.ToString(), settingsConfig.E3DTransparency);
             module.SelectionGroupColor = settingsConfig.SelectGroupColor;
 
         }
@@ -525,12 +525,16 @@ namespace BazisGUI
             settings.SetTransparencyEvent += (ar) =>
             {
                 module.SceneControl.IsBlending = ar;
+                module.ClearAllDataOnScene();
+                module.PresentAllModelObjectsToScene();
                 module.SceneControl.DisplayObjects();
             };
 
             settings.SetTransparencyValueEvent += (ar1,ar2) =>
             {
-                module.SceneControl.SetTransparency(ar1.ToString(),ar2);
+                module.PresentersCreator.SetTransparency(ar1.ToString(),ar2);
+                module.ClearAllDataOnScene();
+                module.PresentAllModelObjectsToScene();
                 module.SceneControl.DisplayObjects();
             };
 

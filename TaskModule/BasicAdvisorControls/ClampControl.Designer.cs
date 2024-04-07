@@ -74,7 +74,7 @@
             // 
             this.закрепленияTab_элComboBox.FormattingEnabled = true;
             this.закрепленияTab_элComboBox.Location = new System.Drawing.Point(199, -37);
-            this.закрепленияTab_элComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.закрепленияTab_элComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.закрепленияTab_элComboBox.Name = "закрепленияTab_элComboBox";
             this.закрепленияTab_элComboBox.Size = new System.Drawing.Size(304, 24);
             this.закрепленияTab_элComboBox.TabIndex = 17;
@@ -101,7 +101,7 @@
             this.tableLayoutPanel1.Controls.Add(this.grbClampingParams, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -460,7 +460,7 @@
             // 
             this.chbLRF.AutoSize = true;
             this.chbLRF.Location = new System.Drawing.Point(392, 42);
-            this.chbLRF.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbLRF.Margin = new System.Windows.Forms.Padding(4);
             this.chbLRF.Name = "chbLRF";
             this.chbLRF.Size = new System.Drawing.Size(126, 20);
             this.chbLRF.TabIndex = 0;
@@ -468,12 +468,13 @@
             this.chbLRF.Text = "Произвольное";
             this.chbLRF.UseVisualStyleBackColor = true;
             this.chbLRF.CheckedChanged += new System.EventHandler(this.ChbDirection_CheckedChanged);
+            this.chbLRF.EnabledChanged += new System.EventHandler(this.chbLRF_EnabledChanged);
             // 
             // chbZ
             // 
             this.chbZ.AutoSize = true;
             this.chbZ.Location = new System.Drawing.Point(340, 42);
-            this.chbZ.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbZ.Margin = new System.Windows.Forms.Padding(4);
             this.chbZ.Name = "chbZ";
             this.chbZ.Size = new System.Drawing.Size(37, 20);
             this.chbZ.TabIndex = 0;
@@ -486,7 +487,7 @@
             // 
             this.chbY.AutoSize = true;
             this.chbY.Location = new System.Drawing.Point(288, 42);
-            this.chbY.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbY.Margin = new System.Windows.Forms.Padding(4);
             this.chbY.Name = "chbY";
             this.chbY.Size = new System.Drawing.Size(38, 20);
             this.chbY.TabIndex = 0;
@@ -499,7 +500,7 @@
             // 
             this.chbX.AutoSize = true;
             this.chbX.Location = new System.Drawing.Point(236, 42);
-            this.chbX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbX.Margin = new System.Windows.Forms.Padding(4);
             this.chbX.Name = "chbX";
             this.chbX.Size = new System.Drawing.Size(37, 20);
             this.chbX.TabIndex = 0;

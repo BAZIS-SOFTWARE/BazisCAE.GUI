@@ -87,8 +87,7 @@ namespace TaskModule.BasicAdvisorControls
             var comboBox = (ComboBox)sender;
 
             if (cmbKind.Text == "Жесткое")
-            {
-                chbLRF.Checked = false;
+            {                
                 chbLRF.Enabled = false;
             }
             else
@@ -170,15 +169,28 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
+            var rows = new List<string>();
             try
             {
-                var rows = AddRowInfo().Split('~');
+                if (chbLRF.Checked)
+                    rows.Add(CreateRowInfo("LRF"));
+
+                else
+                {
+                    if (chbX.Checked)
+                        rows.Add(CreateRowInfo("X"));
+                    if (chbY.Checked)
+                        rows.Add(CreateRowInfo("Y"));
+                    if (chbZ.Checked)
+                        rows.Add(CreateRowInfo("Z"));
+                }
+
                 foreach (var row in rows)
                 {
                     CurentSelectedRowInfo = row;
                     base.AddButton_Click(sender, e);
-                    btnRefresh.Enabled = false;
                 }
+                btnRefresh.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -186,55 +198,46 @@ namespace TaskModule.BasicAdvisorControls
             }
         }
 
-        private string AddRowInfo()
+        private string CreateRowInfo(string direction)
         {
-            var taskStrAr = new List<string>();
+            var rowInfo = string.Empty;
 
             string stiffnessFunc;
             if (cmbStiffnessFunc.Text != "")
                 stiffnessFunc = cmbStiffnessFunc.Text;
             else stiffnessFunc = "*";
 
-            var direction = new List<string>();
-            if (chbLRF.Checked) 
-            {
-                if (cmbKind.Text == "Жесткое")
-                    throw new Exception("Произвольное направление не может быть выбрано при жестком закреплении");
-                direction.Add("LRF");
-            }
-                
 
-            else
-            {
-                if (chbX.Enabled && chbX.Checked)
-                    direction.Add("X");
-                if (chbY.Enabled && chbY.Checked)
-                    direction.Add("Y");
-                if (chbZ.Enabled && chbZ.Checked)
-                    direction.Add("Z");
-            }
+            if (cmbNodeGr.Text == "" || 
+                cmbKind.Text == "" || 
+                txbStartTime.Text == "" || 
+                txbStopTime.Text == "")
+                throw new Exception("Одно из переданных значений полей было пустым");
 
-            if (direction.Count == 0)
-                throw new Exception("Не выбрано направление");
+            rowInfo = string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} {4} {5} *\"",
+                    cmbNodeGr.Text, cmbKind.Text, direction, stiffnessFunc, txbStartTime.Text, txbStopTime.Text);
 
-            foreach(var d in direction)
-            {
-                if (cmbNodeGr.Text == "" || cmbKind.Text == "" || d == "" || stiffnessFunc == "" || txbStartTime.Text == "" || txbStopTime.Text == "")
-                    throw new Exception("Одно из переданных значений полей было пустым");
-
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} {4} {5} *\"",
-                    cmbNodeGr.Text, cmbKind.Text, d, stiffnessFunc, txbStartTime.Text, txbStopTime.Text));
-            }
-
-            return string.Join("~", taskStrAr);
+            return rowInfo;
         }
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
             try
             {
-                CurentSelectedRowInfo = AddRowInfo();
-                base.RefreshButton_Click(sender, e);
+                string direction = string.Empty;
+
+                if (chbX.Checked)
+                    direction+= "X";
+                if (chbY.Checked)
+                    direction += "Y";
+                if (chbZ.Checked)
+                    direction += "Z";
+
+                if (direction.Length == 0 | direction.Length > 1)
+                    throw new Exception("Для обновления данных должно быть только одно направление!");
+
+                CurentSelectedRowInfo = CreateRowInfo(direction);
+                base.AddButton_Click(sender, e);
 
                 btnRefresh.Enabled = false;
             }
@@ -316,6 +319,12 @@ namespace TaskModule.BasicAdvisorControls
         public void Fill_eGroups(List<string> groupNames)
         {
             //throw new Exception("Метод не реализован!");
+        }
+
+        private void chbLRF_EnabledChanged(object sender, EventArgs e)
+        {
+            if(!chbLRF.Enabled)
+                chbLRF.Checked = false;
         }
     }
 }

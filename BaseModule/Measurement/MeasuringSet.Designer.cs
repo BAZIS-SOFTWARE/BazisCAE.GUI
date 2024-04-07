@@ -96,6 +96,7 @@
             // cmbMeasureObjects
             // 
             this.cmbMeasureObjects.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.cmbMeasureObjects.Enabled = false;
             this.cmbMeasureObjects.FormattingEnabled = true;
             this.cmbMeasureObjects.Items.AddRange(new object[] {
             "Между двумя точками",

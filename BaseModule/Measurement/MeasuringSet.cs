@@ -7,7 +7,7 @@ namespace BaseModule
     {
 
         public event Action<object, MeasureEventArgs> MakeMeasureEvent;
-        public event Action<object, MeasureEventArgs> PreparingMeasureEvent;
+        public event Action PreparingMeasureEvent;
 
         MeasureKind measureKind;
         public MeasuringSet()
@@ -18,13 +18,33 @@ namespace BaseModule
         private void Rbtn_Click(object sender, EventArgs e)
         {
             if (rbtVolume.Checked)
+            {
                 measureKind = MeasureKind.Volume;
+                cmbMeasureObjects.Enabled = false;
+                PreparingMeasureEvent?.Invoke();
+            }
+
             else if (rbtSquare.Checked)
+            {
                 measureKind = MeasureKind.Square;
+                cmbMeasureObjects.Enabled = false;
+                PreparingMeasureEvent?.Invoke();
+            }
+
             else if (rbtnPath.Checked)
+            {
                 measureKind = MeasureKind.Path;
-            else measureKind = MeasureKind.None;
-                PreparingMeasureEvent(this, new MeasureEventArgs(measureKind));
+                cmbMeasureObjects.Enabled = false;
+                PreparingMeasureEvent?.Invoke();
+            }
+
+            else
+            {
+                cmbMeasureObjects.Enabled = true;
+                measureKind = MeasureKind.DistanceNodeToNode;
+                cmbMeasureObjects.SelectedIndex = 0;
+            }
+
         }
 
         private void btnMeasure_Click(object sender, EventArgs e)
@@ -37,9 +57,9 @@ namespace BaseModule
             if (cmbMeasureObjects.SelectedIndex == 0)
                 measureKind = MeasureKind.DistanceNodeToNode;
             else if (cmbMeasureObjects.SelectedIndex == 1)
-                measureKind = MeasureKind.DistanceNodeToPlane;           
+                measureKind = MeasureKind.DistanceNodeToPlane;
 
-            PreparingMeasureEvent(this, new MeasureEventArgs(measureKind));
+            PreparingMeasureEvent?.Invoke();
         }
     }
 }

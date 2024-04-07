@@ -260,6 +260,10 @@ namespace BaseModule
 
             else
                 sceneControl.CreatePointVBObjects(ptrs, coords, colors, normals, objsName);
+
+            // это костыль потом поправим
+            if (sceneControl.IsBlending)
+                sceneControl.SetTransparency(objsName, PresentersCreator.GetTransparency(objsName));
         }
 
         public void SetBackColorToAllObjects()
@@ -474,7 +478,12 @@ namespace BaseModule
                     };
 
                     var measuringControl = new MeasuringSet() { Dock = DockStyle.Fill };
-                    measuringControl.PreparingMeasureEvent += MeasuringControl_PreparingMeasureEvent;
+                    measuringControl.PreparingMeasureEvent += () =>
+                    {
+                        sceneControl.HideAllGeometryObjs();
+                        sceneControl.HideDisplayText3D();
+                        sceneControl.DisplayObjects();
+                    } ;
                     measuringControl.MakeMeasureEvent += MeasuringControl_MakeMeasureEvent;
                     form.ClientSize = measuringControl.Size;
                     form.Controls.Add(measuringControl);
@@ -610,38 +619,6 @@ namespace BaseModule
             var plane = new Plane(p0, p1, p2);
 
             return ModelController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
-        }
-
-        private void MeasuringControl_PreparingMeasureEvent(object arg1, MeasureEventArgs arg2)
-        {
-            sceneControl.HideAllGeometryObjs();
-            sceneControl.HideDisplayText3D();
-            sceneControl.DisplayObjects();
-
-            //switch (arg2.Kind)
-            //{
-            //    case MeasureKind.DistanceNodeToNode:
-            //        selectToolStrip.SelectObjectsType = ObjType.Узел;
-            //        consoleControl.PrintInfo("Выберите два узла",Color.Black);
-            //        break;
-            //    case MeasureKind.DistanceNodeToPlane:
-            //        consoleControl.PrintInfo("Создайте поверхность и выберите узел", Color.Black);
-            //        break;
-            //    case MeasureKind.Path:
-            //        selectToolStrip.SelectObjectsType = ObjType.Узел;
-            //        consoleControl.PrintInfo("Выберите узлы", Color.Black);
-            //        break;
-            //    case MeasureKind.Square:
-            //        selectToolStrip.SelectObjectsType = ObjType.Элемент2D;
-            //        consoleControl.PrintInfo("Выберите элементы 2D или поверхности", Color.Black);
-            //        break;
-            //    case MeasureKind.Volume:
-            //        selectToolStrip.SelectObjectsType = ObjType.Элемент3D;
-            //        consoleControl.PrintInfo("Выберите элементы 3D", Color.Black);
-            //        break;
-            //    default:
-            //        break;
-            //}
         }
 
         private async void MeasuringControl_MakeMeasureEvent(object arg1, MeasureEventArgs arg2)
@@ -1233,13 +1210,17 @@ namespace BaseModule
 
         public void SetObjectsSceneColor(ObjType objsType)
         {
-            var vboObjs = sceneControl.FindVBObj(objsType.ToString());
+            var objName = objsType.ToString();
+            var vboObjs = sceneControl.FindVBObj(objName);
             if (vboObjs != null)
             {
                 var objsPresenter = CreateObjectsPresentor(objsType);
-                
+
                 var colors = objsPresenter.CreateVertexes(vboObjs.ColorLength, "цвет");
                 vboObjs.PointsColors = colors;
+
+                if (sceneControl.IsBlending)
+                    sceneControl.SetTransparency(objName, PresentersCreator.GetTransparency(objName));
             }
         }
 
