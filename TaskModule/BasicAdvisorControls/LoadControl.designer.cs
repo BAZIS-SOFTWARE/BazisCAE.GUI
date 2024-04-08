@@ -363,9 +363,10 @@
             this.chbLRF.Name = "chbLRF";
             this.chbLRF.Size = new System.Drawing.Size(125, 21);
             this.chbLRF.TabIndex = 44;
+            this.chbLRF.Tag = "3";
             this.chbLRF.Text = "Произвольное";
             this.chbLRF.UseVisualStyleBackColor = true;
-            this.chbLRF.CheckedChanged += new System.EventHandler(this.ChbDirection_CheckedChanged);
+            this.chbLRF.Click += new System.EventHandler(this.ChbDirection_Click);
             // 
             // cmbGr
             // 
@@ -444,7 +445,7 @@
             this.chbZ.Tag = "2";
             this.chbZ.Text = "Z";
             this.chbZ.UseVisualStyleBackColor = true;
-            this.chbZ.CheckedChanged += new System.EventHandler(this.ChbDirection_CheckedChanged);
+            this.chbZ.Click += new System.EventHandler(this.ChbDirection_Click);
             // 
             // chbY
             // 
@@ -457,7 +458,7 @@
             this.chbY.Tag = "1";
             this.chbY.Text = "Y";
             this.chbY.UseVisualStyleBackColor = true;
-            this.chbY.CheckedChanged += new System.EventHandler(this.ChbDirection_CheckedChanged);
+            this.chbY.Click += new System.EventHandler(this.ChbDirection_Click);
             // 
             // chbX
             // 
@@ -470,7 +471,7 @@
             this.chbX.Tag = "0";
             this.chbX.Text = "X";
             this.chbX.UseVisualStyleBackColor = true;
-            this.chbX.CheckedChanged += new System.EventHandler(this.ChbDirection_CheckedChanged);
+            this.chbX.Click += new System.EventHandler(this.ChbDirection_Click);
             // 
             // label10
             // 

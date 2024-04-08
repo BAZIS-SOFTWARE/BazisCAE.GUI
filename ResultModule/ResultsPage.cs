@@ -437,7 +437,7 @@ namespace ResultModule
 
                     var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
  
-                    CreateObjectsToScene("Results", presenter);
+                    CreateObjectsToScene(ObjType.Фигура2D.ToString(), presenter);
                 }
                 else
                 {
@@ -445,7 +445,7 @@ namespace ResultModule
                     var elsResults = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
 
                     var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
-                    CreateObjectsToScene("Results", presenter);
+                    CreateObjectsToScene(ObjType.Фигура2D.ToString(), presenter);
                 }
 
                 if (showResultValue)
@@ -458,7 +458,7 @@ namespace ResultModule
                 }
  
 
-                SceneControl.ChangeViewModeVBObjects("Results", ObjView.Surface);
+                //SceneControl.ChangeViewModeVBObjects("Results", ObjView.Surface);
 
                 SceneControl.DisplayObjects();
 

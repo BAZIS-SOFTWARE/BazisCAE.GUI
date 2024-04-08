@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClampControl));
-            this.закрепленияTab_элComboBox = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.player = new PlayerControl.Player();
@@ -63,31 +61,14 @@
             this.chbZ = new System.Windows.Forms.CheckBox();
             this.chbY = new System.Windows.Forms.CheckBox();
             this.chbX = new System.Windows.Forms.CheckBox();
+            this.закрепленияTab_элComboBox = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.grbClampingParams.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // закрепленияTab_элComboBox
-            // 
-            this.закрепленияTab_элComboBox.FormattingEnabled = true;
-            this.закрепленияTab_элComboBox.Location = new System.Drawing.Point(199, -37);
-            this.закрепленияTab_элComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.закрепленияTab_элComboBox.Name = "закрепленияTab_элComboBox";
-            this.закрепленияTab_элComboBox.Size = new System.Drawing.Size(304, 24);
-            this.закрепленияTab_элComboBox.TabIndex = 17;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(-13, -33);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(173, 16);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "Группа узлов/элементов";
             // 
             // tableLayoutPanel1
             // 
@@ -108,7 +89,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1181, 1078);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(7361, 1348);
             this.tableLayoutPanel1.TabIndex = 26;
             // 
             // groupBox3
@@ -131,7 +112,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox3.Size = new System.Drawing.Size(1179, 168);
+            this.groupBox3.Size = new System.Drawing.Size(7359, 168);
             this.groupBox3.TabIndex = 24;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Время действия";
@@ -147,7 +128,7 @@
             this.player.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.player.MinimumSize = new System.Drawing.Size(287, 55);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(923, 55);
+            this.player.Size = new System.Drawing.Size(7103, 55);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -200,7 +181,7 @@
             this.txbStopTime.Location = new System.Drawing.Point(236, 60);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(923, 22);
+            this.txbStopTime.Size = new System.Drawing.Size(7103, 22);
             this.txbStopTime.TabIndex = 1;
             // 
             // btnShowAll
@@ -263,7 +244,7 @@
             this.txbStartTime.Location = new System.Drawing.Point(236, 25);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(923, 22);
+            this.txbStartTime.Size = new System.Drawing.Size(7103, 22);
             this.txbStartTime.TabIndex = 0;
             // 
             // dataGridView
@@ -283,7 +264,7 @@
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(1179, 672);
+            this.dataGridView.Size = new System.Drawing.Size(7359, 942);
             this.dataGridView.TabIndex = 23;
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
@@ -354,7 +335,7 @@
             this.groupBox1.MinimumSize = new System.Drawing.Size(467, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(1179, 113);
+            this.groupBox1.Size = new System.Drawing.Size(7359, 113);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Вид закрепления";
@@ -367,7 +348,7 @@
             this.cmbNodeGr.Location = new System.Drawing.Point(236, 38);
             this.cmbNodeGr.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.cmbNodeGr.Name = "cmbNodeGr";
-            this.cmbNodeGr.Size = new System.Drawing.Size(923, 24);
+            this.cmbNodeGr.Size = new System.Drawing.Size(7334, 24);
             this.cmbNodeGr.TabIndex = 43;
             // 
             // label1
@@ -400,7 +381,7 @@
             this.cmbKind.Location = new System.Drawing.Point(236, 70);
             this.cmbKind.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.cmbKind.Name = "cmbKind";
-            this.cmbKind.Size = new System.Drawing.Size(923, 24);
+            this.cmbKind.Size = new System.Drawing.Size(7334, 24);
             this.cmbKind.TabIndex = 36;
             this.cmbKind.SelectedIndexChanged += new System.EventHandler(this.kindComboBox_SelectedIndexChanged);
             // 
@@ -419,7 +400,7 @@
             this.grbClampingParams.Margin = new System.Windows.Forms.Padding(1);
             this.grbClampingParams.Name = "grbClampingParams";
             this.grbClampingParams.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grbClampingParams.Size = new System.Drawing.Size(1179, 119);
+            this.grbClampingParams.Size = new System.Drawing.Size(7359, 119);
             this.grbClampingParams.TabIndex = 26;
             this.grbClampingParams.TabStop = false;
             this.grbClampingParams.Text = "Параметры закрепления";
@@ -453,7 +434,7 @@
             this.cmbStiffnessFunc.Location = new System.Drawing.Point(236, 74);
             this.cmbStiffnessFunc.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
             this.cmbStiffnessFunc.Name = "cmbStiffnessFunc";
-            this.cmbStiffnessFunc.Size = new System.Drawing.Size(923, 24);
+            this.cmbStiffnessFunc.Size = new System.Drawing.Size(7103, 24);
             this.cmbStiffnessFunc.TabIndex = 1;
             // 
             // chbLRF
@@ -467,8 +448,8 @@
             this.chbLRF.Tag = "3";
             this.chbLRF.Text = "Произвольное";
             this.chbLRF.UseVisualStyleBackColor = true;
-            this.chbLRF.CheckedChanged += new System.EventHandler(this.ChbDirection_CheckedChanged);
             this.chbLRF.EnabledChanged += new System.EventHandler(this.chbLRF_EnabledChanged);
+            this.chbLRF.Click += new System.EventHandler(this.ChbDirection_Click);
             // 
             // chbZ
             // 
@@ -481,7 +462,7 @@
             this.chbZ.Tag = "2";
             this.chbZ.Text = "Z";
             this.chbZ.UseVisualStyleBackColor = true;
-            this.chbZ.CheckedChanged += new System.EventHandler(this.ChbDirection_CheckedChanged);
+            this.chbZ.Click += new System.EventHandler(this.ChbDirection_Click);
             // 
             // chbY
             // 
@@ -494,7 +475,7 @@
             this.chbY.Tag = "1";
             this.chbY.Text = "Y";
             this.chbY.UseVisualStyleBackColor = true;
-            this.chbY.CheckedChanged += new System.EventHandler(this.ChbDirection_CheckedChanged);
+            this.chbY.Click += new System.EventHandler(this.ChbDirection_Click);
             // 
             // chbX
             // 
@@ -507,7 +488,26 @@
             this.chbX.Tag = "0";
             this.chbX.Text = "X";
             this.chbX.UseVisualStyleBackColor = true;
-            this.chbX.CheckedChanged += new System.EventHandler(this.ChbDirection_CheckedChanged);
+            this.chbX.Click += new System.EventHandler(this.ChbDirection_Click);
+            // 
+            // закрепленияTab_элComboBox
+            // 
+            this.закрепленияTab_элComboBox.FormattingEnabled = true;
+            this.закрепленияTab_элComboBox.Location = new System.Drawing.Point(199, -37);
+            this.закрепленияTab_элComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.закрепленияTab_элComboBox.Name = "закрепленияTab_элComboBox";
+            this.закрепленияTab_элComboBox.Size = new System.Drawing.Size(304, 24);
+            this.закрепленияTab_элComboBox.TabIndex = 17;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(-13, -33);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(173, 16);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Группа узлов/элементов";
             // 
             // ClampControl
             // 
@@ -521,7 +521,7 @@
             this.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.MinimumSize = new System.Drawing.Size(400, 369);
             this.Name = "ClampControl";
-            this.Size = new System.Drawing.Size(1181, 1078);
+            this.Size = new System.Drawing.Size(7361, 1348);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox3.ResumeLayout(false);

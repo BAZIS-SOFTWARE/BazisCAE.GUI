@@ -110,36 +110,23 @@ namespace TaskModule.BasicAdvisorControls
             }
         }
 
-        private void ChbDirection_CheckedChanged(object sender, EventArgs e)
+        private void ChbDirection_Click(object sender, EventArgs e)
         {
             var chb = (CheckBox)sender;
-            if (CountSelectedRow > 0)
+
+            if (chb.Checked)
             {
-                if (chb.Checked)
-                    if (chb.Tag.ToString() == "0")
-                    {
-                        chbY.Checked = false;
-                        chbZ.Checked = false;
-                        chbLRF.Checked = false;
-                    }
-                    else if (chb.Tag.ToString() == "1")
-                    {
-                        chbX.Checked = false;
-                        chbZ.Checked = false;
-                        chbLRF.Checked = false;
-                    }
-                    else if (chb.Tag.ToString() == "2")
-                    {
-                        chbX.Checked = false;
-                        chbY.Checked = false;
-                        chbLRF.Checked = false;
-                    }
-                    else 
-                    {
-                        chbX.Checked = false;
-                        chbY.Checked = false;
-                        chbZ.Checked = false;
-                    }
+                if (chb.Tag.ToString() == "0" || chb.Tag.ToString() == "1" || chb.Tag.ToString() == "2")
+                {
+                    chbLRF.Checked = false;
+                }
+
+                else
+                {
+                    chbX.Checked = false;
+                    chbY.Checked = false;
+                    chbZ.Checked = false;
+                }
             }
         }
 
@@ -237,7 +224,7 @@ namespace TaskModule.BasicAdvisorControls
                     throw new Exception("Для обновления данных должно быть только одно направление!");
 
                 CurentSelectedRowInfo = CreateRowInfo(direction);
-                base.AddButton_Click(sender, e);
+                base.RefreshButton_Click(sender, e);
 
                 btnRefresh.Enabled = false;
             }
@@ -257,13 +244,11 @@ namespace TaskModule.BasicAdvisorControls
                 var directions = dataGridView[(int)Column.direction, e.RowIndex].Value.ToString();
 
                 if (directions == "X")
-                { chbX.Checked = true; }
+                { chbX.Checked = true; chbY.Checked = false; chbZ.Checked = false; chbLRF.Checked = false; }
                 else if (directions == "Y")
-                { chbY.Checked = true; }
-                else if (directions == "Z")
-                { chbZ.Checked = true;  }
+                { chbY.Checked = true; chbX.Checked = false; chbZ.Checked = false; chbLRF.Checked = false; }
                 else
-                { chbLRF.Checked = true; }
+                { chbZ.Checked = true; chbX.Checked = false; chbY.Checked = false; chbLRF.Checked = false; }
 
                 cmbKind.Text = dataGridView[(int)Column.kind, e.RowIndex].Value.ToString();
                 txbStartTime.Text = dataGridView[(int)Column.startTime, e.RowIndex].Value.ToString();

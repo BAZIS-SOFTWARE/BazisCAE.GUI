@@ -16,9 +16,6 @@ namespace BazisGUI.SettingsControls
         public Point LighterPosition;
         public bool Transparency;
         public bool BackRibbers;
-        public int NodeTransparency;
-        public int E1DTransparency;
-        public int E2DTransparency;
-        public int E3DTransparency;
+        public int TransparencyValue;
     }
 }

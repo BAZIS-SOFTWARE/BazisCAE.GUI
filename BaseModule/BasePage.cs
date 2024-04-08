@@ -245,9 +245,9 @@ namespace BaseModule
 
             if (presenter.PresenterType == PresenterType.Surface)
             {
-                if (PresentersCreator[objsName] == PresenterView.Line)
+                if (PresentersCreator.GetView(objsName) == PresenterView.Line)
                     sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.Lines);
-                else if (PresentersCreator[objsName] == PresenterView.LineSurface)
+                else if (PresentersCreator.GetView(objsName) == PresenterView.LineSurface)
                     sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.LinesSurface);
                 else
                     sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.Surface);
@@ -260,10 +260,6 @@ namespace BaseModule
 
             else
                 sceneControl.CreatePointVBObjects(ptrs, coords, colors, normals, objsName);
-
-            // это костыль потом поправим
-            if (sceneControl.IsBlending)
-                sceneControl.SetTransparency(objsName, PresentersCreator.GetTransparency(objsName));
         }
 
         public void SetBackColorToAllObjects()
@@ -279,17 +275,12 @@ namespace BaseModule
 
         public void PresentModelOnSelectToolStrip()
         {
+            foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
+                selectToolStrip.AddObjectsType(item);
+
             selectToolStrip.AddObjectsType(ObjType.Объект);
-            selectToolStrip.AddObjectsType(ObjType.Точка);
-            selectToolStrip.AddObjectsType(ObjType.Линия);
             selectToolStrip.AddObjectsType(ObjType.Фигура);
-            selectToolStrip.AddObjectsType(ObjType.Фигура2D);
-            selectToolStrip.AddObjectsType(ObjType.Фигура3D);
-            selectToolStrip.AddObjectsType(ObjType.Узел);
             selectToolStrip.AddObjectsType(ObjType.Элемент);
-            selectToolStrip.AddObjectsType(ObjType.Элемент1D);
-            selectToolStrip.AddObjectsType(ObjType.Элемент2D);
-            selectToolStrip.AddObjectsType(ObjType.Элемент3D);
         }
 
         public virtual void PresentProjectOnTree()
@@ -1109,7 +1100,8 @@ namespace BaseModule
             }
 
             var selObjs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType).
-                Where(x => x.MasterColor == sceneControl.SelectionColor);
+                Where(x =>x.MasterColor == sceneControl.SelectionColor);
+
 
             if (selObjs.Count() > 0)
             {
@@ -1136,6 +1128,7 @@ namespace BaseModule
 
         public virtual void sceneControl_DeleteSelectionEvent(object sender, EventArgs arg)
         {
+
             var selObjs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType).
                 Where(x => x.MasterColor == sceneControl.SelectionColor);
 
@@ -1218,9 +1211,6 @@ namespace BaseModule
 
                 var colors = objsPresenter.CreateVertexes(vboObjs.ColorLength, "цвет");
                 vboObjs.PointsColors = colors;
-
-                if (sceneControl.IsBlending)
-                    sceneControl.SetTransparency(objName, PresentersCreator.GetTransparency(objName));
             }
         }
 
@@ -1232,7 +1222,9 @@ namespace BaseModule
 
                 var near = selections.OrderByDescending(x => camera.GetSceenCoord(x.CalcCentr())._z).First();
                 if (isSelected)
+                {
                     near.MasterColor = sceneControl.SelectionColor;
+                }
                 else
                     near.SetBackColor();
             }
@@ -1240,7 +1232,10 @@ namespace BaseModule
             {
                 foreach (var obj in selections)
                     if (isSelected)
+                    {
                         obj.MasterColor = sceneControl.SelectionColor;
+                    }
+
                     else
                         obj.SetBackColor();
             }
@@ -1787,15 +1782,15 @@ namespace BaseModule
             {
                 case ViewRegime.ribbers:
                     sceneControl.ChangeViewModeVBObjects(objs, ObjView.Lines);
-                    PresentersCreator[objs] = PresenterView.Line;
+                    PresentersCreator.SetView(objs, PresenterView.Line);
                     break;
                 case ViewRegime.surfaces:
                     sceneControl.ChangeViewModeVBObjects(objs, ObjView.Surface);
-                    PresentersCreator[objs] = PresenterView.Surface;
+                    PresentersCreator.SetView(objs, PresenterView.Surface);
                     break;
                 case ViewRegime.ribbersSurfaces:
                     sceneControl.ChangeViewModeVBObjects(objs, ObjView.LinesSurface);
-                    PresentersCreator[objs] = PresenterView.LineSurface;
+                    PresentersCreator.SetView(objs, PresenterView.LineSurface);
                     break;
                 default:
                     break;
@@ -1831,7 +1826,7 @@ namespace BaseModule
 
         private void splitContainer1_Paint(object sender, PaintEventArgs e)
         {
-            var locRect = new Point(splitContainer1.Panel1.Width - 1, splitContainer2.Panel1.Height / 2);
+            var locRect = new Point(splitContainer1.Panel1.Width-1, splitContainer2.Panel1.Height / 2);
             var rect = new Rectangle(locRect, new Size(5, 50));
             e.Graphics.DrawRectangle(Pens.DarkGray, rect);
 
@@ -1840,9 +1835,9 @@ namespace BaseModule
 
             var points = new Point[]
             {
-                        new Point(x + 4, y + 24),
-                        new Point(x + 1, y + 27),
-                        new Point(x + 4, y + 31)
+                        new Point(x + 3, y + 24),
+                        new Point(x + 0, y + 27),
+                        new Point(x + 3, y + 31)
             };
             e.Graphics.FillPolygon(Brushes.Black, points);
 

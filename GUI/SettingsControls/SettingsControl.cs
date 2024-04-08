@@ -18,7 +18,7 @@ namespace BazisGUI.SettingsControls
         public Action<int> SetLightingIntensityEvent;
         public Action<Point> SetLighterPositionEvent;
         public Action<bool> SetTransparencyEvent;
-        public Action<ObjType,int> SetTransparencyValueEvent;
+        public Action<int> SetTransparencyValueEvent;
         public SettingsControl()
         {
             InitializeComponent();
@@ -41,10 +41,7 @@ namespace BazisGUI.SettingsControls
             colorSlider.Value = settingsConfig.LightingIntensity;
             chbTransparency.Checked = settingsConfig.Transparency;
 
-            clslNodes.Value = settingsConfig.NodeTransparency;
-            cls1D.Value = settingsConfig.E1DTransparency;
-            cls2D.Value = settingsConfig.E2DTransparency;
-            cls3D.Value = settingsConfig.E3DTransparency;
+            clslTransparency.Value = settingsConfig.TransparencyValue;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -63,10 +60,7 @@ namespace BazisGUI.SettingsControls
                 Transparency = chbTransparency.Checked,
                 BackRibbers = chbBackRibbers.Checked,
 
-                NodeTransparency = clslNodes.Value,
-                E1DTransparency = cls1D.Value,
-                E2DTransparency = cls2D.Value,
-                E3DTransparency = cls3D.Value
+                TransparencyValue = clslTransparency.Value,
             };
             
             SaveSettingsEvent(config);
@@ -154,24 +148,9 @@ namespace BazisGUI.SettingsControls
 
         }
 
-        private void clslNodes_ValueChanged(object sender, EventArgs e)
+        private void clslTransparency_ValueChanged(object sender, EventArgs e)
         {
-            SetTransparencyValueEvent?.Invoke(ObjType.Узел, clslNodes.Value);
-        }
-
-        private void cls1D_ValueChanged(object sender, EventArgs e)
-        {
-            SetTransparencyValueEvent?.Invoke(ObjType.Элемент1D, cls1D.Value);
-        }
-
-        private void cls2D_ValueChanged(object sender, EventArgs e)
-        {
-            SetTransparencyValueEvent?.Invoke(ObjType.Элемент2D, cls2D.Value);
-        }
-
-        private void cls3D_ValueChanged(object sender, EventArgs e)
-        {
-            SetTransparencyValueEvent?.Invoke(ObjType.Элемент3D, cls3D.Value);
+            SetTransparencyValueEvent?.Invoke(clslTransparency.Value);
         }
     }
 }

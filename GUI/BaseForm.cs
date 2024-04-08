@@ -34,6 +34,7 @@ using System.Threading.Tasks;
 using Results;
 using ModelInterfaces;
 using MathNet.Numerics;
+using Tasks.Functions;
 
 namespace BazisGUI
 {
@@ -125,7 +126,6 @@ namespace BazisGUI
 
             resultModule.ResultsController = new ResultsController();
             resultModule.ModelController = new ModelController.ModelController();
-            resultModule.PresentersCreator.Add("Results", PresenterView.Surface);
 
             resultModule.LoadResultsEvent += ResultModule_LoadResultsEvent;
 
@@ -342,16 +342,23 @@ namespace BazisGUI
         private void SetGeneralSettings(BasePage module)
         {
             module.SceneControl.BackGroundColor = settingsConfig.BackGroudColor;
-            module.SceneControl.SelectionColor = settingsConfig.SelectObjectColor;
             module.SceneControl.IsBlending = settingsConfig.Transparency;
             module.SceneControl.IsLighting = settingsConfig.Lighting;
 
-            module.PresentersCreator.SetTransparency(ObjType.Узел.ToString(), settingsConfig.NodeTransparency);
-            module.PresentersCreator.SetTransparency(ObjType.Элемент1D.ToString(), settingsConfig.E1DTransparency);
-            module.PresentersCreator.SetTransparency(ObjType.Элемент2D.ToString(), settingsConfig.E2DTransparency);
-            module.PresentersCreator.SetTransparency(ObjType.Элемент3D.ToString(), settingsConfig.E3DTransparency);
-            module.SelectionGroupColor = settingsConfig.SelectGroupColor;
+            module.PresentersCreator.TransparencyValue = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
 
+            module.SceneControl.SelectionColor = Color.FromArgb(module.PresentersCreator.TransparencyValue, settingsConfig.SelectObjectColor);
+            module.SelectionGroupColor = Color.FromArgb(module.PresentersCreator.TransparencyValue, settingsConfig.SelectGroupColor);
+
+            var objs = project.ModelData.ObjectData.GetAllObjects();
+
+            foreach (var obj in objs)
+            {
+                var preColor = obj.SlaveColor;
+                var newColor = Color.FromArgb(module.PresentersCreator.TransparencyValue, preColor);
+                obj.MasterColor = newColor;
+                obj.SlaveColor = newColor;
+            }
         }
 
         private void BaseForm_KeyDown(object sender, KeyEventArgs e)
@@ -530,9 +537,23 @@ namespace BazisGUI
                 module.SceneControl.DisplayObjects();
             };
 
-            settings.SetTransparencyValueEvent += (ar1,ar2) =>
+            settings.SetTransparencyValueEvent += (ar1) =>
             {
-                module.PresentersCreator.SetTransparency(ar1.ToString(),ar2);
+                module.PresentersCreator.TransparencyValue = (int)(ar1 / 100.0f * 255);
+
+                module.SceneControl.SelectionColor = Color.FromArgb(module.PresentersCreator.TransparencyValue, settingsConfig.SelectObjectColor);
+                module.SelectionGroupColor = Color.FromArgb(module.PresentersCreator.TransparencyValue, settingsConfig.SelectGroupColor);
+
+                var objs = project.ModelData.ObjectData.GetAllObjects();
+
+                foreach (var obj in objs)
+                {
+                    var preColor = obj.SlaveColor;
+                    var newColor = Color.FromArgb(module.PresentersCreator.TransparencyValue, preColor);
+                    obj.MasterColor = newColor;
+                    obj.SlaveColor = newColor;
+                } 
+                
                 module.ClearAllDataOnScene();
                 module.PresentAllModelObjectsToScene();
                 module.SceneControl.DisplayObjects();

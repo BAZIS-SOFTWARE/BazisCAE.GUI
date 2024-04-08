@@ -45,7 +45,7 @@
             this.rbtnDistance.AutoSize = true;
             this.rbtnDistance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rbtnDistance.Location = new System.Drawing.Point(16, 18);
-            this.rbtnDistance.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbtnDistance.Margin = new System.Windows.Forms.Padding(4);
             this.rbtnDistance.Name = "rbtnDistance";
             this.rbtnDistance.Size = new System.Drawing.Size(133, 21);
             this.rbtnDistance.TabIndex = 0;
@@ -72,7 +72,7 @@
             this.rbtSquare.AutoSize = true;
             this.rbtSquare.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rbtSquare.Location = new System.Drawing.Point(16, 76);
-            this.rbtSquare.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbtSquare.Margin = new System.Windows.Forms.Padding(4);
             this.rbtSquare.Name = "rbtSquare";
             this.rbtSquare.Size = new System.Drawing.Size(130, 21);
             this.rbtSquare.TabIndex = 2;
@@ -85,7 +85,7 @@
             this.rbtVolume.AutoSize = true;
             this.rbtVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rbtVolume.Location = new System.Drawing.Point(16, 47);
-            this.rbtVolume.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbtVolume.Margin = new System.Windows.Forms.Padding(4);
             this.rbtVolume.Name = "rbtVolume";
             this.rbtVolume.Size = new System.Drawing.Size(115, 21);
             this.rbtVolume.TabIndex = 3;

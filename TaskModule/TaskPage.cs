@@ -519,14 +519,7 @@ namespace TaskModule
 
                 var taskStrAr = FieldsParserTask.ParseLine(arg2.DataInfo);
 
-                if (dataArray[arg2.Index] is IValuableData valData)
-                {
-                    taskStrAr[0] = taskStrAr[0].Replace("*", "0");
-                    valData.SetInfo(taskStrAr[0]);
-
-                    SetMFF(taskStrAr[0].Split(' ')[4], valData);
-                }
-                else dataArray[arg2.Index].SetInfo(taskStrAr[0]);
+                dataArray[arg2.Index].SetInfo(taskStrAr[0]);
 
                 GetTaskAdvisor()?.SetProjectData(Project);
 
