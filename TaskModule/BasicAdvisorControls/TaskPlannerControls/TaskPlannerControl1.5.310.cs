@@ -489,7 +489,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 .OrderBy(x => int.Parse(x[1].Split('_')[1]))
                 .ThenByDescending(x => x[1]);
 
-            resultArrs.Select(x => dataGridView.Rows.Add(x));
+            foreach (var line in resultArrs)
+                dataGridView.Rows.Add(line);
         }
 
         private void btnLoadParameters_Click(object sender, EventArgs e)
