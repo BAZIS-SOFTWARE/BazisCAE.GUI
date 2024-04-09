@@ -44,6 +44,7 @@ namespace TaskModule
             InitializeComponent();
 
             var taskNode = new TreeNode("Данные", 1, 1) { Name = "Данные", Tag = "6" };
+            taskNode.ContextMenuStrip = taskMenuStrip;
             NavigatorControl.TreeView.Nodes.Add(taskNode);
 
             ChangeProjectDataEvent += () => { GetTaskAdvisor()?.SetProjectData(Project); };
@@ -797,6 +798,13 @@ namespace TaskModule
             data.MovedFrameFunction.CheckTrajNodes();
             //Sort
             data.MovedFrameFunction.SortTrajNodes();
+        }
+
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Project.TaskData.Clear();
+            PresentProjectOnTree();
+            ChangeProjectDataEvent?.Invoke();
         }
     }
 }

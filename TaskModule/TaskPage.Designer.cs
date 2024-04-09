@@ -35,6 +35,9 @@ namespace TaskModule
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskPage));
             this.treeNodesImageList = new System.Windows.Forms.ImageList(this.components);
+            this.taskMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.taskMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeNodesImageList
@@ -51,11 +54,28 @@ namespace TaskModule
             this.treeNodesImageList.Images.SetKeyName(7, "Нагрузки.bmp");
             this.treeNodesImageList.Images.SetKeyName(8, "CompInfo.png");
             // 
+            // taskMenuStrip
+            // 
+            this.taskMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.taskMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.удалитьToolStripMenuItem});
+            this.taskMenuStrip.Name = "taskMenuStrip";
+            this.taskMenuStrip.Size = new System.Drawing.Size(211, 56);
+            // 
+            // удалитьToolStripMenuItem
+            // 
+            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.удалитьToolStripMenuItem.Text = "Удалить";
+            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
+            // 
             // TaskPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.Name = "TaskPage";
-            this.Size = new System.Drawing.Size(1163, 612);
+            this.Size = new System.Drawing.Size(1551, 753);
+            this.taskMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -64,6 +84,8 @@ namespace TaskModule
 
         private BaseModule.BasePage basePage1;
         private System.Windows.Forms.ImageList treeNodesImageList;
+        private ContextMenuStrip taskMenuStrip;
+        private ToolStripMenuItem удалитьToolStripMenuItem;
         //ToolStrip taskToolStrip;
     }
 }

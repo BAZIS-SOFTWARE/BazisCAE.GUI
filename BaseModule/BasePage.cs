@@ -281,6 +281,8 @@ namespace BaseModule
             selectToolStrip.AddObjectsType(ObjType.Объект);
             selectToolStrip.AddObjectsType(ObjType.Фигура);
             selectToolStrip.AddObjectsType(ObjType.Элемент);
+
+            selectToolStrip.SelectObjectsType = ObjType.Объект;
         }
 
         public virtual void PresentProjectOnTree()
@@ -1190,41 +1192,48 @@ namespace BaseModule
         {
             var selections = SearchObjects(selectToolStrip.SelectObjectsType, arg2.SelectionBox);
 
-            SelectObjects(arg2.IsSelected, arg2.IsSorted, selections);
+            if(selections.Count > 0)
+            {
+                SelectObjects(arg2.IsSelected, arg2.IsSorted, selections);
 
-            if (selectToolStrip.SelectObjectsType == ObjType.Объект)
-            {
-                var types = Project.ModelData.ObjectData.ObjsTypes;
-                foreach (var type in types)
-                    SetObjectsSceneColor(type);
+                if (selectToolStrip.SelectObjectsType == ObjType.Объект)
+                {
+                    var types = Project.ModelData.ObjectData.ObjsTypes;
+                    foreach (var type in types)
+                        SetObjectsSceneColor(type);
+                }
+                else if (selectToolStrip.SelectObjectsType == ObjType.Элемент)
+                {
+                    SetObjectsSceneColor(ObjType.Элемент1D);
+                    SetObjectsSceneColor(ObjType.Элемент2D);
+                    SetObjectsSceneColor(ObjType.Элемент3D);
+                }
+                else if (selectToolStrip.SelectObjectsType == ObjType.Фигура)
+                {
+                    SetObjectsSceneColor(ObjType.Фигура2D);
+                    SetObjectsSceneColor(ObjType.Фигура3D);
+                }
+                else
+                    SetObjectsSceneColor(selectToolStrip.SelectObjectsType);
+
+                sceneControl.DisplayObjects();
             }
-            else if(selectToolStrip.SelectObjectsType == ObjType.Элемент)
-            {
-                SetObjectsSceneColor(ObjType.Элемент1D);
-                SetObjectsSceneColor(ObjType.Элемент2D);
-                SetObjectsSceneColor(ObjType.Элемент3D);
-            }
-            else if (selectToolStrip.SelectObjectsType == ObjType.Фигура)
-            {
-                SetObjectsSceneColor(ObjType.Фигура2D);
-                SetObjectsSceneColor(ObjType.Фигура3D);
-            }
-            else 
-                SetObjectsSceneColor(selectToolStrip.SelectObjectsType);
-            
-            sceneControl.DisplayObjects();
         }
 
         public void SetObjectsSceneColor(ObjType objsType)
         {
             var objName = objsType.ToString();
             var vboObjs = sceneControl.FindVBObj(objName);
+
             if (vboObjs != null)
             {
                 var objsPresenter = CreateObjectsPresentor(objsType);
 
-                var colors = objsPresenter.CreateVertexes(vboObjs.ColorLength, "цвет");
-                vboObjs.PointsColors = colors;
+                if(objsPresenter.Count() > 0)
+                {
+                    var colors = objsPresenter.CreateVertexes(vboObjs.ColorLength, "цвет");
+                    vboObjs.PointsColors = colors;
+                }
             }
         }
 

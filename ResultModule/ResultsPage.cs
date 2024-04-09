@@ -428,7 +428,15 @@ namespace ResultModule
 
                 SceneControl.HideDisplayText2D();
                 SceneControl.HideDisplayText3D();
-                SceneControl.DeleteAllVBObjects();
+
+                SceneControl.DeleteVBObjects(ObjType.Точка.ToString());
+                SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
+                SceneControl.DeleteVBObjects(ObjType.Фигура2D.ToString());
+                SceneControl.DeleteVBObjects(ObjType.Фигура3D.ToString());
+                SceneControl.DeleteVBObjects(ObjType.Узел.ToString());
+                SceneControl.DeleteVBObjects(ObjType.Элемент1D.ToString());
+                SceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
+                SceneControl.DeleteVBObjects(ObjType.Элемент3D.ToString());
 
                 if (Project.TaskType == TaskType.Volume)
                 {
@@ -796,6 +804,11 @@ namespace ResultModule
                 CreateObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
 
             SceneControl.DisplayObjects();
+        }
+
+        private async void пересчитатьНаУзлыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await MergeResults(Project.ResultData);                     
         }
     }   
 }
