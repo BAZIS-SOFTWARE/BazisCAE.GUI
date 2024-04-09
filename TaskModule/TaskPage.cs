@@ -24,9 +24,6 @@ using ProjectInterfaces.Tasks;
 using ModelInterfaces;
 using System.Xml.XPath;
 using TaskModule.BasicAdvisorControls.TaskPlannerControls;
-using System.Text.RegularExpressions;
-using ModelInterfaces.ObjectsComparers;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using BaseModule.Console;
 using ProjectInterfaces;
 

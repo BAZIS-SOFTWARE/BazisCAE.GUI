@@ -1105,7 +1105,21 @@ namespace BaseModule
 
             if (selObjs.Count() > 0)
             {
-                var name = $"{selectToolStrip.SelectObjectsType}_{Project.ModelData.GroupData.Count + 1}";
+                var grps = Project.ModelData.GroupData.FindMany(selectToolStrip.SelectObjectsType);
+
+                var counter = 1;
+                var name = $"{selectToolStrip.SelectObjectsType}_{grps.Count() + counter}";
+        
+                while(true)
+                {
+                    if (Project.ModelData.GroupData.Find(name) != null)
+                    {
+                        counter++;
+                        name = $"{selectToolStrip.SelectObjectsType}_{grps.Count() + counter}";
+                    }
+                    else break;
+                }
+
                 var group = Project.ModelData.GroupData.Create(name, selectToolStrip.SelectObjectsType);
                
                 group.AddRange(selObjs);
@@ -1721,7 +1735,6 @@ namespace BaseModule
                 Thread.Sleep(100);
                 //PresentProjectOnTree();
             }
-
         }
 
         private void navigator_SelectGroupEvent(string obj)

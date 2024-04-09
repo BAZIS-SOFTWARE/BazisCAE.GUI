@@ -227,16 +227,23 @@ namespace BaseModule.Navigator
 
                 if (parentNode.Name == "группыОбъектов")
                 {
-                    RenameGroupEvent?.Invoke(newName, oldName);
+                    var nodes = treeView.Nodes["группыОбъектов"].Nodes.Cast<TreeNode>().Where(x => x.Text == newName);
+                    if(nodes.Count() > 0)
+                        e.CancelEdit = true;
+                    else
+                    {
+                        RenameGroupEvent?.Invoke(newName, oldName);
 
-                    var dataNodes = treeView.Nodes.Find("Данные", true);
+                        var dataNodes = treeView.Nodes.Find("Данные", true);
 
-                    if (dataNodes.Count() != 0)
-                        foreach (TreeNode node in dataNodes[0].Nodes)
-                        {
-                            if (node.Text.Contains(oldName))
-                                node.Text = node.Text.Replace(oldName, newName);
-                        }
+                        if (dataNodes.Count() != 0)
+                            foreach (TreeNode node in dataNodes[0].Nodes)
+                            {
+                                if (node.Text.Contains(oldName))
+                                    node.Text = node.Text.Replace(oldName, newName);
+                            }
+                    }
+
                 }
             }
 
