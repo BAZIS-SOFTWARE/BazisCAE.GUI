@@ -484,13 +484,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         public override void Set_DataGridLines(IEnumerable<string> lines)
         {
             dataGridView.Rows.Clear();
-            var resultArrs = lines.Select(x => new[]
-            { Path.GetFileName(x).Split('_')[0], x, TaskStatus.выполнить.ToString() })
-                .OrderBy(x => int.Parse(x[1].Split('_')[1]))
-                .ThenByDescending(x => x[1]);
 
-            foreach (var line in resultArrs)
-                dataGridView.Rows.Add(line);
+            foreach (var line in lines)
+            {
+                var taskType = Path.GetFileName(line).Split('_')[0];
+                dataGridView.Rows.Add(new string[] { taskType, line, TaskStatus.выполнить.ToString() });
+            }
         }
 
         private void btnLoadParameters_Click(object sender, EventArgs e)
