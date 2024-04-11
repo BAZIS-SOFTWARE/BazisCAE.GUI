@@ -345,7 +345,10 @@ namespace TaskModule
                 PreProc.CalcCompDataV1(data, processType, inputDir);
 
                 var tsfFiles = Directory.GetFiles(inputDir, "*.tsf");
-                GetTaskAdvisor()?.SetTaskPlannerlData(tsfFiles.ToList());
+
+                var sortedFiles = PreProc.SortCompDataByTimeAndType(tsfFiles);
+
+                GetTaskAdvisor()?.SetTaskPlannerlData(sortedFiles);
 
                 ConsoleControl.PrintInfo($"Входные Данные задачи сгенерированы в {inputDir}", Color.Green);
 

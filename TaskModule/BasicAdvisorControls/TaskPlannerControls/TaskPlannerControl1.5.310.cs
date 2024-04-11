@@ -486,10 +486,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             dataGridView.Rows.Clear();
 
             foreach (var line in lines)
-            {
-                var taskType = Path.GetFileName(line).Split('_')[0];
-                dataGridView.Rows.Add(new string[] { taskType, line, TaskStatus.выполнить.ToString() });
-            }
+                dataGridView.Rows.Add(line.Split(' '));      
         }
 
         private void btnLoadParameters_Click(object sender, EventArgs e)
