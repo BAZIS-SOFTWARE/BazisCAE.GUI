@@ -102,10 +102,10 @@ namespace TaskModule.BasicTaskAdvisor
                         {
                             taskPlannerControl.ProjPath = project.Path;
 
-                            var inputDir = $@"{project.Path}\InputData";
+                            //var inputDir = $@"{project.Path}\InputData";
 
-                            if (Directory.Exists(inputDir))
-                                data = Directory.GetFiles(inputDir, "*.tsf");
+                            //if (Directory.Exists(inputDir))
+                                //data = Directory.GetFiles(inputDir, "*.tsf");
                         }
                         gvControl.Set_DataGridLines(data);
                     }

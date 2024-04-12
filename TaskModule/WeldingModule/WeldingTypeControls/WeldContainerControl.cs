@@ -15,6 +15,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
     public partial class WeldContainerControl : UserControl
     {
         public event Action<object, WeldContainerCntrEventArgs> ChangeDataEvent;
+        public event Action InfoBoxClickEvent;
+
 
         public WeldContainerControl()
         {
@@ -46,7 +48,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             {
                 var pxb = new PictureBox()
                 {
-                    Margin = new Padding(0, 10, 0, 10),
+                    Margin = new Padding(0, 10, 0, 0),
                     Name = "pictureBox",
                     SizeMode = PictureBoxSizeMode.AutoSize,
                     BorderStyle = BorderStyle.FixedSingle,
@@ -66,6 +68,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 //release memory by disposing
                 pxb.Dispose();
             }
+
+            InfoBoxClickEvent?.Invoke();
         }
     }
 }

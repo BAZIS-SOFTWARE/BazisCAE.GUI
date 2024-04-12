@@ -38,7 +38,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         private void btnInfo_Click(object sender, EventArgs e)
         {
-            CreatePictureBox(TaskModule.Properties.Resources.Arc_new, new Point(Width / 2, btnInfo.Location.Y));           
+            CreatePictureBox(TaskModule.Properties.Resources.Arc_new, new Point(Width / 2, btnInfo.Location.Y));
         }
     }
 }

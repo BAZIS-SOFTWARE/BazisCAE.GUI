@@ -316,6 +316,9 @@ Where(x => x.GetType() == typeof(LWeldingControl)).First();
                 var cntrw = new ArcWeldingControl() { Dock = DockStyle.Fill };
                 grbWeldRegime.Controls.Add(cntrw);
                 GetChildControlExpandHeight(grbWeldRegime);
+
+                cntrw.InfoBoxClickEvent += () => 
+                { GetChildControlExpandHeight(grbWeldRegime); };
             }
         }
 
@@ -329,6 +332,9 @@ Where(x => x.GetType() == typeof(LWeldingControl)).First();
                 cntrw.Add_Functions(funcs);
                 grbWeldRegime.Controls.Add(cntrw);
                 GetChildControlExpandHeight(grbWeldRegime);
+
+                cntrw.InfoBoxClickEvent += () =>
+                { GetChildControlExpandHeight(grbWeldRegime); };
             }
         }
 
@@ -341,6 +347,9 @@ Where(x => x.GetType() == typeof(LWeldingControl)).First();
                 var cntrw = new LWeldingControl() { Dock = DockStyle.Fill };
                 grbWeldRegime.Controls.Add(cntrw);
                 GetChildControlExpandHeight(grbWeldRegime);
+
+                cntrw.InfoBoxClickEvent += () =>
+                { GetChildControlExpandHeight(grbWeldRegime); };
             }
         }
 
@@ -438,7 +447,7 @@ Where(x => x.GetType() == typeof(LWeldingControl)).First();
                 if (control is UserControl uControl)
                     foreach (Control cntr in uControl.Controls)
                     {
-                        if (cntr is TextBox txb | cntr is ComboBox cmb | cntr is Button)
+                        if (cntr is TextBox txb | cntr is ComboBox cmb | cntr is Button | cntr is PictureBox)
                         {
                             heigth = heigth + cntr.Size.Height;
                             gap = gap + 6;

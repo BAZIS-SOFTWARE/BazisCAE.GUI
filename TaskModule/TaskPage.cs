@@ -267,6 +267,15 @@ namespace TaskModule
 
                 taskAdv.SetProjectData(Project);
 
+                var inputDir = $@"{Project.Path}\InputData";
+
+                if (Directory.Exists(inputDir))
+                {
+                    var tsfFiles = Directory.GetFiles(inputDir, "*.tsf");
+
+                    var sortedFiles = PreProc.SortCompDataByTimeAndType(tsfFiles);
+                    taskAdv.SetTaskPlannerlData(sortedFiles);
+                }
             }
             catch (Exception ex)
             {

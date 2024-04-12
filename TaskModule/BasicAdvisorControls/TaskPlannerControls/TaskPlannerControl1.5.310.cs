@@ -181,7 +181,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
                 Set_TaskSettings(taskKind, taskSettings, e.RowIndex);
 
-                GetChildControlExpandHeight(grbTaskSettings);
+                //GetChildControlExpandHeight(grbTaskSettings);
 
                 btnRefresh.Enabled = true;
 
