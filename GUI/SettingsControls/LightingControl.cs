@@ -7,13 +7,12 @@ namespace BazisGUI.SettingsControls
     public partial class LightingControl : UserControl
     {
         public Action<Point> SetBallPositionEvent;
-        public Point BallPosition { get; set; } = new Point(0, 0);
-        private int ballRadius = 5;
-        private Rectangle ballBounds;
-        private bool isPointInsideBall;
-        private bool isMouseDownState;
+        public Point BallPosition { get; set; }
+        private int BallRadius { get; set; }
+        private bool IsPointInsideBall { get; set; }
+        private bool IsMouseDownState { get; set; }
 
-        private Brush ballBrush;
+        private Brush BallBrush { get; set; }
 
         public LightingControl()
         {
@@ -23,16 +22,9 @@ namespace BazisGUI.SettingsControls
 
         private void OnLoad(object sender, EventArgs e)
         {
-            ballBounds.Width = 2 * ballRadius;
-            ballBounds.Height = 2 * ballRadius;
-
-            ballBounds.X = panel.Width / 2 + BallPosition.X - ballRadius;
-            ballBounds.Y = panel.Height / 2 - BallPosition.Y - ballRadius;
-
-            isPointInsideBall = false;
-            isMouseDownState = false;
-
-            ballBrush = new SolidBrush(Color.Black);
+            BallRadius = 5;
+            BallPosition = new Point();
+            BallBrush = new SolidBrush(Color.Black);
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
                      ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
@@ -40,18 +32,14 @@ namespace BazisGUI.SettingsControls
 
         private void OnMove(object sender, MouseEventArgs e)
         {
-            if (isPointInsideBall)
+            if (IsPointInsideBall && IsMouseDownState)
             {
                 var status = false;
-                if (e.X - ballRadius > 0 && e.X + ballRadius < panel.Width)
+                if (e.X - BallRadius >= 0 && e.X + BallRadius < panel.Width)
                     status = true;
-                if (e.Y - ballRadius >= 0 && e.Y + ballRadius <= panel.Height && status == true)
+                if (e.Y - BallRadius >= 0 && e.Y + BallRadius < panel.Height && status == true)
                 {
-                    BallPosition = new Point(e.X - (Width / 2), -e.Y + (Height / 2));
-
-                    ballBounds.X = e.X - ballRadius;
-                    ballBounds.Y = e.Y - ballRadius;
-
+                    BallPosition = new Point(e.X - (panel.Width / 2), -e.Y + (panel.Height / 2));
                     panel.Invalidate();
                 }
             }
@@ -59,35 +47,38 @@ namespace BazisGUI.SettingsControls
 
         private void OnDown(object sender, MouseEventArgs e)
         {
-            if (!isMouseDownState)
+            if (!IsMouseDownState)
             {
                 var xDif = e.X - (Width / 2) - BallPosition.X;
                 var xPow = xDif * xDif;
                 var yDif = -e.Y + (Height / 2) - BallPosition.Y;
                 var yPow = yDif * yDif;
-                if (xPow + yPow <= ballRadius * ballRadius)
-                    isPointInsideBall = true;
-                isMouseDownState = true;
+                if (xPow + yPow <= BallRadius * BallRadius)
+                    IsPointInsideBall = true;
+                IsMouseDownState = true;
             }
         }
 
         private void OnUp(object sender, MouseEventArgs e)
         {
-            isPointInsideBall = false;
-            isMouseDownState = false;
+            IsPointInsideBall = false;
+            IsMouseDownState = false;
 
             SetBallPositionEvent(BallPosition);
         }
 
         private void OnPaint(object sender, PaintEventArgs e)
         {
-            e.Graphics.FillEllipse(ballBrush, ballBounds);
+            var leftX = BallPosition.X + panel.Width / 2 - BallRadius;
+            var leftY = -BallPosition.Y + panel.Height / 2 - BallRadius;
+            var rect = new RectangleF(leftX, leftY, BallRadius * 2, BallRadius * 2);
+            e.Graphics.FillEllipse(BallBrush, rect);
         }
 
         private void panel_MouseLeave(object sender, EventArgs e)
         {
-            isPointInsideBall = false;
-            isMouseDownState = false;
+            IsPointInsideBall = false;
+            IsMouseDownState = false;
         }
     }
 }
