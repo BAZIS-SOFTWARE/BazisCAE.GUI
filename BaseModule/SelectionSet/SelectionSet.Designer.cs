@@ -51,7 +51,7 @@
             this.rbtNodes.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.rbtNodes.AutoSize = true;
             this.rbtNodes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbtNodes.Location = new System.Drawing.Point(229, 7);
+            this.rbtNodes.Location = new System.Drawing.Point(220, 7);
             this.rbtNodes.Margin = new System.Windows.Forms.Padding(4);
             this.rbtNodes.Name = "rbtNodes";
             this.rbtNodes.Size = new System.Drawing.Size(63, 21);
@@ -80,7 +80,7 @@
             // 
             this.chbChangeDirection.AutoSize = true;
             this.chbChangeDirection.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chbChangeDirection.Location = new System.Drawing.Point(39, 58);
+            this.chbChangeDirection.Location = new System.Drawing.Point(39, 45);
             this.chbChangeDirection.Margin = new System.Windows.Forms.Padding(4);
             this.chbChangeDirection.Name = "chbChangeDirection";
             this.chbChangeDirection.Size = new System.Drawing.Size(177, 21);
@@ -100,17 +100,17 @@
             this.panel1.Location = new System.Drawing.Point(4, 91);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(381, 83);
+            this.panel1.Size = new System.Drawing.Size(363, 70);
             this.panel1.TabIndex = 9;
             // 
             // txbAngle
             // 
             this.txbAngle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbAngle.Location = new System.Drawing.Point(91, 30);
+            this.txbAngle.Location = new System.Drawing.Point(91, 17);
             this.txbAngle.Margin = new System.Windows.Forms.Padding(0, 0, 7, 0);
             this.txbAngle.Name = "txbAngle";
-            this.txbAngle.Size = new System.Drawing.Size(283, 22);
+            this.txbAngle.Size = new System.Drawing.Size(265, 22);
             this.txbAngle.TabIndex = 6;
             this.txbAngle.Text = "5";
             // 
@@ -118,7 +118,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(36, 31);
+            this.label1.Location = new System.Drawing.Point(36, 18);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 17);
@@ -127,13 +127,13 @@
             // 
             // btnSelect
             // 
-            this.btnSelect.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnSelect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSelect.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnSelect.Location = new System.Drawing.Point(248, 186);
-            this.btnSelect.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.btnSelect.Location = new System.Drawing.Point(236, 172);
+            this.btnSelect.Margin = new System.Windows.Forms.Padding(7);
             this.btnSelect.Name = "btnSelect";
-            this.btnSelect.Size = new System.Drawing.Size(134, 32);
+            this.btnSelect.Size = new System.Drawing.Size(128, 31);
             this.btnSelect.TabIndex = 3;
             this.btnSelect.Text = "Выбрать";
             this.btnSelect.UseVisualStyleBackColor = true;
@@ -144,7 +144,7 @@
             this.rbtInPlain.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.rbtInPlain.AutoSize = true;
             this.rbtInPlain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbtInPlain.Location = new System.Drawing.Point(229, 12);
+            this.rbtInPlain.Location = new System.Drawing.Point(220, 12);
             this.rbtInPlain.Margin = new System.Windows.Forms.Padding(4);
             this.rbtInPlain.Name = "rbtInPlain";
             this.rbtInPlain.Size = new System.Drawing.Size(110, 21);
@@ -187,8 +187,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(389, 227);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(371, 210);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // panel2
@@ -201,7 +201,7 @@
             this.panel2.Location = new System.Drawing.Point(4, 51);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(381, 32);
+            this.panel2.Size = new System.Drawing.Size(363, 32);
             this.panel2.TabIndex = 10;
             // 
             // panel3
@@ -214,7 +214,7 @@
             this.panel3.Location = new System.Drawing.Point(4, 4);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(381, 39);
+            this.panel3.Size = new System.Drawing.Size(363, 39);
             this.panel3.TabIndex = 11;
             // 
             // SelectionSet
@@ -225,7 +225,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "SelectionSet";
-            this.Size = new System.Drawing.Size(389, 227);
+            this.Size = new System.Drawing.Size(371, 210);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);

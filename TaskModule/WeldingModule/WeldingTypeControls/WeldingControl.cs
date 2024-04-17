@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -18,6 +19,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
+        public event Action<string, int> SpecifyFunctionAreaEvent;
 
         enum Column : int { weldingType = 0, weldingArea, startTime, stopTime, movingReferenceFrame };
 
@@ -68,54 +70,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             get
             {
-                if (rbtARC.Checked)
-                {
-                    var arcControl = (ArcWeldingControl)grbWeldRegime.Controls.Cast<Control>().
-      Where(x => x.GetType() == typeof(ArcWeldingControl)).First();
-
-                    return arcControl.CollectData();
-                }
-                else if (rbtFSW.Checked)
-                {
-                    var fswControl = (FSWeldingControl)grbWeldRegime.Controls.Cast<Control>().
-Where(x => x.GetType() == typeof(FSWeldingControl)).First();
-
-                    return fswControl.CollectData();
-                }
-                else if (rbtLW.Checked)
-                {
-                    var lwControl = (LWeldingControl)grbWeldRegime.Controls.Cast<Control>().
-Where(x => x.GetType() == typeof(LWeldingControl)).First();
-
-                    return lwControl.CollectData();
-                }
-                else return null;
+                var wcc = (WeldContainerControl)grbWeldRegime.Controls.Cast<Control>().First();
+                return wcc.CollectData();
             }
             set
             {
-                var hsDataAr = value.Split(';');
-
-                WeldContainerControl wcc;
-                if (hsDataAr[0] == "ARC")
-                {
-                    rbtARC.Checked = true;
-                    wcc = new ArcWeldingControl() { Dock = DockStyle.Fill };
-                }
-
-                else if (hsDataAr[0] == "FSW")
-                {
-                    rbtFSW.Checked = true;
-                    wcc = new FSWeldingControl() { Dock = DockStyle.Fill };
-                }
-
-                else
-                {
-                    rbtLW.Checked = true;
-                    wcc = new LWeldingControl() { Dock = DockStyle.Fill };
-                }
-
-                grbWeldRegime.Controls.Clear();
-                grbWeldRegime.Controls.Add(wcc);
+                var wcc = (WeldContainerControl)grbWeldRegime.Controls.Cast<Control>().First();
 
                 wcc.InputData(value.Split(';'));
             }
@@ -166,8 +126,8 @@ Where(x => x.GetType() == typeof(LWeldingControl)).First();
         public override void AddButton_Click(object sender, EventArgs e)
         {
             try
-            {
-                CurentSelectedRowInfo = AddRowInfo();
+            {         
+                CurentSelectedRowInfo = CreateRowInfo("*");
                 base.AddButton_Click(sender, e);
 
                 btnRefresh.Enabled = false;
@@ -179,7 +139,7 @@ Where(x => x.GetType() == typeof(LWeldingControl)).First();
 
         }
 
-        private string AddRowInfo()
+        private string CreateRowInfo(string stopTime)
         {
             var taskStrAr = new List<string>();
 
@@ -192,33 +152,30 @@ Where(x => x.GetType() == typeof(LWeldingControl)).First();
                     string.Format($"{txbShiftX.Text}|{txbShiftY.Text}|{txbShiftZ.Text}|{txbAngle.Text}");
             }
 
-            if (rbtFSW.Checked)
-            {
-                var hsDataAr = HeatSourceData.Split(';');
+            //if (rbtFSW.Checked)
+            //{
+            //    var hsDataAr = HeatSourceData.Split(';');
 
-                var pinDataStr = string.Join(";", new string[] { "FSWPin", hsDataAr[1], hsDataAr[4], hsDataAr[5], hsDataAr[6], hsDataAr[7], hsDataAr[8] });
-                var shoulderDataStr = string.Join(";", new string[] { "FSWShoulder", hsDataAr[1], hsDataAr[2], hsDataAr[3], hsDataAr[3], "30", hsDataAr[7], hsDataAr[8] });
+            //    var pinDataStr = string.Join(";", new string[] { "FSWPin", hsDataAr[1], hsDataAr[4], hsDataAr[5], hsDataAr[6], hsDataAr[7], hsDataAr[8] });
+            //    var shoulderDataStr = string.Join(";", new string[] { "FSWShoulder", hsDataAr[1], hsDataAr[2], hsDataAr[3], hsDataAr[3], "30", hsDataAr[7], hsDataAr[8] });
 
-                if (hsDataAr.Any(x => x == "") || cmbWeldZone.Text == "" || txbStartTime.Text == "" || trajData == "")
-                    throw new Exception("Одно из переданных значений полей было пустым");
+            //    if (hsDataAr.Any(x => x == "") || cmbWeldZone.Text == "" || txbStartTime.Text == "" || trajData == "")
+            //        throw new Exception("Одно из переданных значений полей было пустым");
 
-                var taskStr = string.Join(" ", new string[] { pinDataStr, cmbWeldZone.Text, txbStartTime.Text, "*", trajData });
-                taskStrAr.Add("\"" + taskStr + "\"");
+            //   var taskStr = string.Join(" ", new string[] { pinDataStr, cmbWeldZone.Text, txbStartTime.Text, stopTime, trajData });
+            //    taskStrAr.Add("\"" + taskStr + "\"");
 
-                taskStr = string.Join(" ", new string[] { shoulderDataStr, cmbWeldZone.Text, txbStartTime.Text, "*", trajData });
-                taskStrAr.Add("\"" + taskStr + "\"");
-            }
+            //    taskStr = string.Join(" ", new string[] { shoulderDataStr, cmbWeldZone.Text, txbStartTime.Text, stopTime, trajData });
+            //    taskStrAr.Add("\"" + taskStr + "\"");
+            //}
 
-            else
-            {
-                if (HeatSourceData == "" || cmbWeldZone.Text == "" || txbStartTime.Text == "" || trajData == "")
-                    throw new Exception("Одно из переданных значений полей было пустым");
 
-                var taskStr = string.Join(" ", new string[] { HeatSourceData, cmbWeldZone.Text, txbStartTime.Text, "*", trajData });
-                taskStrAr.Add("\"" + taskStr + "\"");
-            }
+            if (HeatSourceData == "" || cmbWeldZone.Text == "" || txbStartTime.Text == "" || trajData == "")
+                throw new Exception("Одно из переданных значений полей было пустым");
 
-            return string.Join(" ", taskStrAr);
+            var taskStr = string.Join(" ", new string[] { HeatSourceData, cmbWeldZone.Text, txbStartTime.Text, stopTime, trajData });
+
+            return taskStr;
         }
 
         public override void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -360,7 +317,11 @@ Where(x => x.GetType() == typeof(LWeldingControl)).First();
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            CurentSelectedRowInfo = AddRowInfo();
+            var gridView = GetDataGrid;
+            var count = gridView.SelectedRows.Count;
+            var stopTime = gridView.SelectedRows[count - 1].Cells[(int)Column.stopTime].Value.ToString();
+
+            CurentSelectedRowInfo = CreateRowInfo(stopTime);
             base.RefreshButton_Click(sender, e);
 
             btnRefresh.Enabled = false;
@@ -455,6 +416,44 @@ Where(x => x.GetType() == typeof(LWeldingControl)).First();
                     }
             }
             grb.Height = heigth + gap;
+        }
+
+        private void dataGridView_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Right)
+            {
+                contextMenuStrip.Show(dataGridView.Location);
+            }
+        }
+
+        private void tsmiSpecifyHeatingZone_Click(object sender, EventArgs e)
+        {
+            var gridView = GetDataGrid;
+            var count = gridView.SelectedRows.Count;
+
+            SpecifyFunctionAreaEvent?.Invoke("Нагрев", gridView.SelectedRows[count - 1].Index);
+        }
+
+        internal void SetWeldingKind(WeldingKind weldingKind)
+        {
+            WeldContainerControl wcc;
+            if (weldingKind == WeldingKind.ARC)
+            {
+                wcc = new ArcWeldingControl() { Dock = DockStyle.Fill };
+            }
+
+            else if (weldingKind == WeldingKind.FrictionStearing)
+            {
+                wcc = new FSWeldingControl() { Dock = DockStyle.Fill };
+            }
+
+            else
+            {
+                wcc = new LWeldingControl() { Dock = DockStyle.Fill };
+            }
+
+            grbWeldRegime.Controls.Clear();
+            grbWeldRegime.Controls.Add(wcc);
         }
     }
 }

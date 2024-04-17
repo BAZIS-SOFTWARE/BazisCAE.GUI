@@ -101,7 +101,7 @@
             this.cmbMeasureObjects.Items.AddRange(new object[] {
             "Между двумя точками",
             "Между точкой и плоскостью"});
-            this.cmbMeasureObjects.Location = new System.Drawing.Point(208, 58);
+            this.cmbMeasureObjects.Location = new System.Drawing.Point(208, 71);
             this.cmbMeasureObjects.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.cmbMeasureObjects.Name = "cmbMeasureObjects";
             this.cmbMeasureObjects.Size = new System.Drawing.Size(173, 24);
@@ -110,13 +110,13 @@
             // 
             // btnMeasure
             // 
-            this.btnMeasure.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnMeasure.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnMeasure.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMeasure.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnMeasure.Location = new System.Drawing.Point(207, 149);
-            this.btnMeasure.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.btnMeasure.Location = new System.Drawing.Point(207, 174);
+            this.btnMeasure.Margin = new System.Windows.Forms.Padding(7);
             this.btnMeasure.Name = "btnMeasure";
-            this.btnMeasure.Size = new System.Drawing.Size(174, 32);
+            this.btnMeasure.Size = new System.Drawing.Size(174, 31);
             this.btnMeasure.TabIndex = 5;
             this.btnMeasure.Text = "Измерить";
             this.btnMeasure.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -137,8 +137,8 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(388, 190);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(388, 212);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // panel1
@@ -151,7 +151,7 @@
             this.panel1.Location = new System.Drawing.Point(3, 2);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(194, 137);
+            this.panel1.Size = new System.Drawing.Size(194, 163);
             this.panel1.TabIndex = 6;
             // 
             // MeasuringSet
@@ -162,7 +162,7 @@
             this.Margin = new System.Windows.Forms.Padding(0);
             this.MinimumSize = new System.Drawing.Size(291, 190);
             this.Name = "MeasuringSet";
-            this.Size = new System.Drawing.Size(388, 190);
+            this.Size = new System.Drawing.Size(388, 212);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

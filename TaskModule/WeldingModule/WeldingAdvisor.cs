@@ -8,11 +8,19 @@ using TaskModule.BasicTaskAdvisor;
 
 namespace TaskModule.WeldingModule
 {
+    public enum WeldingKind :int{ ARC,Lazer, FrictionStearing}
     public partial class WeldingAdvisor : TaskAdvisor
     {
+        public event Action<string, int> SpecifyWeldingZoneEvent;
         public WeldingAdvisor()
         {
             InitializeComponent();
+
+        }
+
+        public void SetWeldingKind(WeldingKind weldingKind)
+        {
+            weldingControl.SetWeldingKind(weldingKind);
         }
 
         public override void TaskPlannerControl_StartComputationEvent(object arg1, EventArgs arg2)
@@ -89,6 +97,11 @@ namespace TaskModule.WeldingModule
         public override void TaskPlannerControl_GenerateTCFEvent(object sender, GenerateTCFEventArgs e)
         {
             base.TaskPlannerControl_GenerateTCFEvent(sender, e);
+        }
+
+        private void weldingControl_SpecifyFunctionAreaEvent(string arg1, int arg2)
+        {
+            SpecifyWeldingZoneEvent?.Invoke(arg1, arg2);
         }
     }
 }

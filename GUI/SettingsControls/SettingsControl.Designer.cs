@@ -37,7 +37,6 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.btnSelectColor = new System.Windows.Forms.Button();
             this.panelSelectionObjsColor = new System.Windows.Forms.Panel();
             this.chbLighting = new System.Windows.Forms.CheckBox();
@@ -47,13 +46,13 @@
             this.panelBackGroundColor = new System.Windows.Forms.Panel();
             this.btnSelectGroupColor = new System.Windows.Forms.Button();
             this.panelSelectionGroupColor = new System.Windows.Forms.Panel();
+            this.lightingControl = new BazisGUI.SettingsControls.LightingControl();
             this.colorSlider = new MB.Controls.ColorSlider();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.clslTransparency = new MB.Controls.ColorSlider();
             this.chbTransparency = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lightingControl = new BazisGUI.SettingsControls.LightingControl();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -70,7 +69,7 @@
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox2, 2);
             this.groupBox2.Controls.Add(this.tableLayoutPanel3);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(4, 509);
+            this.groupBox2.Location = new System.Drawing.Point(4, 512);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
@@ -126,12 +125,12 @@
             // 
             // button1
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button1.Location = new System.Drawing.Point(322, 585);
-            this.button1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Location = new System.Drawing.Point(324, 584);
+            this.button1.Margin = new System.Windows.Forms.Padding(7);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(153, 32);
+            this.button1.Size = new System.Drawing.Size(149, 32);
             this.button1.TabIndex = 1;
             this.button1.Text = "Сохранить";
             this.button1.UseVisualStyleBackColor = true;
@@ -148,7 +147,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(472, 497);
+            this.groupBox1.Size = new System.Drawing.Size(472, 500);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Настройки сцены";
@@ -191,40 +190,30 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(464, 473);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(464, 476);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.label3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(1, 385);
             this.panel2.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.panel2.Name = "panel2";
             this.tableLayoutPanel2.SetRowSpan(this.panel2, 2);
-            this.panel2.Size = new System.Drawing.Size(308, 86);
+            this.panel2.Size = new System.Drawing.Size(308, 89);
             this.panel2.TabIndex = 19;
             // 
             // label4
             // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(112, 35);
+            this.label4.Location = new System.Drawing.Point(106, 37);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(102, 17);
             this.label4.TabIndex = 1;
             this.label4.Text = "Прозрачность";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(124, 106);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 17);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Освещение";
             // 
             // btnSelectColor
             // 
@@ -335,6 +324,18 @@
             this.panelSelectionGroupColor.Size = new System.Drawing.Size(145, 26);
             this.panelSelectionGroupColor.TabIndex = 10;
             // 
+            // lightingControl
+            // 
+            this.lightingControl.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lightingControl.BallPosition = new System.Drawing.Point(0, 0);
+            this.lightingControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lightingControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lightingControl.Location = new System.Drawing.Point(313, 196);
+            this.lightingControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.lightingControl.Name = "lightingControl";
+            this.lightingControl.Size = new System.Drawing.Size(147, 142);
+            this.lightingControl.TabIndex = 11;
+            // 
             // colorSlider
             // 
             this.colorSlider.BackColor = System.Drawing.Color.Transparent;
@@ -365,8 +366,8 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(124, 106);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(106, 112);
+            this.label2.Margin = new System.Windows.Forms.Padding(0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(84, 17);
             this.label2.TabIndex = 0;
@@ -374,10 +375,11 @@
             // 
             // clslTransparency
             // 
+            this.clslTransparency.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.clslTransparency.BackColor = System.Drawing.Color.Transparent;
             this.clslTransparency.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             this.clslTransparency.LargeChange = ((uint)(50u));
-            this.clslTransparency.Location = new System.Drawing.Point(314, 434);
+            this.clslTransparency.Location = new System.Drawing.Point(314, 436);
             this.clslTransparency.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.clslTransparency.Name = "clslTransparency";
             this.clslTransparency.Size = new System.Drawing.Size(145, 31);
@@ -415,23 +417,11 @@
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(480, 628);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(480, 623);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // lightingControl
-            // 
-            this.lightingControl.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lightingControl.BallPosition = new System.Drawing.Point(54, 53);
-            this.lightingControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lightingControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lightingControl.Location = new System.Drawing.Point(313, 196);
-            this.lightingControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.lightingControl.Name = "lightingControl";
-            this.lightingControl.Size = new System.Drawing.Size(147, 142);
-            this.lightingControl.TabIndex = 11;
             // 
             // SettingsControl
             // 
@@ -441,7 +431,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "SettingsControl";
-            this.Size = new System.Drawing.Size(480, 628);
+            this.Size = new System.Drawing.Size(480, 623);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -488,6 +478,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
     }
 }

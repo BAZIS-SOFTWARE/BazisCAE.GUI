@@ -7,11 +7,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
     public partial class FSWeldingControl : WeldContainerControl
     {
 
-
-
-        //public delegate void CollectData(object sender, CollectDataEventArgs args);
-        //public event CollectData CollectDataEvent;
-
         public FSWeldingControl()
         {
             InitializeComponent();
@@ -19,9 +14,15 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override string CollectData()
         {
+            var hsStr = string.Empty;
+            if (radioButton1.Checked)
+                hsStr = "FSWPin";
+            else if (radioButton2.Checked)
+                hsStr = "FSWShoulder";
+
             var strs = new string[]
             {
-                "FSW",
+                hsStr,
                 rotSpeedTextBox.Text,
                 axisForceTextBox.Text,
                 shoulderDiamTextBox.Text,
@@ -37,6 +38,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void InputData(string[] inputData)
         {
+            if (inputData[0] == "FSWPin")
+                radioButton1.Checked = true;
+            else if(inputData[0] == "FSWShoulder")
+                radioButton2.Checked = true;
+            
             rotSpeedTextBox.Text = inputData[1];
             axisForceTextBox.Text = inputData[2];
             shoulderDiamTextBox.Text = inputData[3];

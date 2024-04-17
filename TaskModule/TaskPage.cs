@@ -26,6 +26,8 @@ using System.Xml.XPath;
 using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using BaseModule.Console;
 using ProjectInterfaces;
+using System.Text.RegularExpressions;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TaskModule
 {
@@ -527,9 +529,15 @@ namespace TaskModule
             {
                 var dataArray = Project.TaskData.Find(arg2.DataName).ToArray();
 
-                var taskStrAr = FieldsParserTask.ParseLine(arg2.DataInfo);
+                //var dataAr = taskStr.Split(' ');
+                //var taskStrAr = FieldsParserTask.ParseLine(arg2.DataInfo);
 
-                dataArray[arg2.Index].SetInfo(taskStrAr[0]);
+                dataArray[arg2.Index].SetInfo(arg2.DataInfo);
+
+                var valData = dataArray[arg2.Index] as IValuableData;
+
+                if (valData.TrajectoryInfo != "*")
+                    SetMFF(valData);
 
                 GetTaskAdvisor()?.SetProjectData(Project);
 
@@ -720,16 +728,16 @@ namespace TaskModule
         {
             try
             {
-                var taskStrAr = FieldsParserTask.ParseLine(arg2.DataInfo);
+                var ar = arg2.DataInfo.Split(' ');
 
-                if (taskStrAr[0].Contains("LRF"))
+                if (ar[0].Contains("LRF"))
                 {
                     var taskStrLRF = CreateSurfaceAsync();
                     await taskStrLRF;
                     var vec = taskStrLRF.Result.Normal;
                     var nVec = Vector.GetVectorNorm(vec);
 
-                    var ar = taskStrAr[0].Split(' ');
+ 
 
                     var val = float.Parse(ar[3]);
 
@@ -739,21 +747,21 @@ namespace TaskModule
                     ar[2] = "X";
                     ar[3] = rVec._x.ToString();
 
-                    AddData(arg2, string.Join(" ", ar));
+                    AddData(arg2.DataName, string.Join(" ", ar));
 
                     ar[2] = "Y";
                     ar[3] = rVec._y.ToString();
 
-                    AddData(arg2, string.Join(" ", ar));
+                    AddData(arg2.DataName, string.Join(" ", ar));
 
                     ar[2] = "Z";
                     ar[3] = rVec._z.ToString();
 
-                    AddData(arg2, string.Join(" ", ar));
+                    AddData(arg2.DataName, string.Join(" ", ar));
                 }
 
                 else
-                    AddData(arg2, taskStrAr[0]);
+                    AddData(arg2.DataName, string.Join(" ", ar));
 
                 GetTaskAdvisor()?.SetProjectData(Project);
             }
@@ -763,39 +771,51 @@ namespace TaskModule
             }
         }
 
-        private void AddData(AddDataEventArgs arg2, string taskStr)
+        private void AddData(string dataName, string dataInfo)
         {
-            var dataAr = taskStr.Split(' ');
+            IGroup group = Project.ModelData.GroupData.Create("",ObjType.Линия);
+            //bool getIntersectedElements;
+            //NewMethod(dataName, dataAr, out group, out getIntersectedElements);
 
-            IGroup group;
-            if(arg2.DataName == "Среда" | arg2.DataName == "Нагрев")
-                group = Project.ModelData.GroupData.Find(dataAr[1]);               
-            else
-                group = Project.ModelData.GroupData.Find(dataAr[0]);
-
-            var data = Project.TaskData.Create(arg2.DataName, taskStr, group);
+            var data = Project.TaskData.Create(dataName, dataInfo, group);
             var valData = data as IValuableData;
 
-            if (arg2.DataName == "Нагрев")
-                SetMFF(dataAr[4], valData);
+            if (valData.TrajectoryInfo != "*")
+            {
+                SetMFF(valData);
+                //if (getIntersectedElements)
+                //    GetIntersectedElements(valData);
+            }
 
-            Project.TaskData.Add(data);          
-            NavigatorControl.CreateChildNode("Данные", arg2.DataName, $"{arg2.DataName} : {taskStr}", "6.1");
+            Project.TaskData.Add(data);
+            NavigatorControl.CreateChildNode("Данные", dataName, $"{dataName} : {dataInfo}", "6.1");
         }
 
-        //private IGroup CreateByMFF(IMovedFrameFunction movedFrameFunction)
-        //{
-        //    var objs = movedFrameFunction.TryCatchElements();
-        //    var gr = Project.ModelData.GroupData.Create("new", ObjType.Элемент3D);
-        //    gr.AddRange(objs);
-        //    return gr;
-        //}
-
-        private void SetMFF(string mffInfo, IValuableData data)
+        private void NewMethod(string dataName, string[] dataAr, out IGroup group, out bool getIntersectedElements)
         {
-            var baseLineGrName = mffInfo.Split(';')[0].Split('|')[0];
-            var refLineGrName = mffInfo.Split(';')[0].Split('|')[1];
-            var stNodesGrName = mffInfo.Split(';')[2];
+            getIntersectedElements = false;
+            if (dataName == "Среда" | dataName == "Нагрев")
+            {
+                if (dataAr[1].Contains("*"))
+                {
+                    var grName = dataAr[1].Replace("*", "");
+                    group = Project.ModelData.GroupData.Find(grName);
+                    getIntersectedElements = true;
+                }
+                else
+                    group = Project.ModelData.GroupData.Find(dataAr[1]);
+            }
+
+            else
+                group = Project.ModelData.GroupData.Find(dataAr[0]);
+        }
+
+        private void SetMFF(IValuableData data)
+        {
+            var trajInfo = data.TrajectoryInfo;
+            var baseLineGrName = trajInfo.Split(';')[0].Split('|')[0];
+            var refLineGrName = trajInfo.Split(';')[0].Split('|')[1];
+            var stNodesGrName = trajInfo.Split(';')[2];
             var baseLineGr = Project.ModelData.GroupData.Find(baseLineGrName);
             var refLineGr = Project.ModelData.GroupData.Find(refLineGrName);
             var stNodesGr = Project.ModelData.GroupData.Find(stNodesGrName);
@@ -805,9 +825,16 @@ namespace TaskModule
             data.MovedFrameFunction.StartPoints = stNodesGr;
             data.MovedFrameFunction.StopPoints = stNodesGr;
 
-            data.StopTime = data.StartTime + data.MovedFrameFunction.CalcMotionTime();
-            //Check
+            //Проверка узлов траектории
             data.MovedFrameFunction.CheckTrajNodes();
+
+            //Проверка самопересечения от скорости движения
+            if (!data.MovedFrameFunction.IsOverlappingSelf())
+                ConsoleControl.PrintInfo("Скорость источника не позволяет добиться самопересечения при движении! " +
+                    "Рекомендуется снизить скорость", Color.Orange);
+
+            data.StopTime = data.StartTime + data.MovedFrameFunction.CalcMotionTime();
+
             //Sort
             data.MovedFrameFunction.SortTrajNodes();
         }

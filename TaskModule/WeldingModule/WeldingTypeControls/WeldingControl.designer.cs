@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -69,17 +70,16 @@
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ПараметрыДвижения = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.chbSelectByHS = new System.Windows.Forms.CheckBox();
-            this.rbtLW = new System.Windows.Forms.RadioButton();
-            this.rbtFSW = new System.Windows.Forms.RadioButton();
-            this.rbtARC = new System.Windows.Forms.RadioButton();
             this.cmbWeldZone = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.grbWeldRegime = new System.Windows.Forms.GroupBox();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiSpecifyHeatingZone = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox3.SuspendLayout();
+            this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -102,7 +102,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(764, 785);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(684, 785);
             this.tableLayoutPanel1.TabIndex = 20;
             // 
             // groupBox1
@@ -139,11 +139,11 @@
             this.groupBox1.Controls.Add(this.cmbRef);
             this.groupBox1.Controls.Add(this.cmbTraj);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(1, 169);
+            this.groupBox1.Location = new System.Drawing.Point(1, 93);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(762, 368);
+            this.groupBox1.Size = new System.Drawing.Size(682, 368);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры движения";
@@ -159,7 +159,7 @@
             this.player.Margin = new System.Windows.Forms.Padding(0, 4, 4, 0);
             this.player.MinimumSize = new System.Drawing.Size(287, 55);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(506, 55);
+            this.player.Size = new System.Drawing.Size(426, 55);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -175,7 +175,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(551, 199);
+            this.label11.Location = new System.Drawing.Point(558, 199);
             this.label11.Margin = new System.Windows.Forms.Padding(13, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(38, 16);
@@ -256,7 +256,7 @@
             this.txbStartTime.Location = new System.Drawing.Point(237, 260);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(506, 22);
+            this.txbStartTime.Size = new System.Drawing.Size(426, 22);
             this.txbStartTime.TabIndex = 43;
             // 
             // label1
@@ -277,7 +277,7 @@
             this.cmbStopPoint.Location = new System.Drawing.Point(237, 162);
             this.cmbStopPoint.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.cmbStopPoint.Name = "cmbStopPoint";
-            this.cmbStopPoint.Size = new System.Drawing.Size(506, 24);
+            this.cmbStopPoint.Size = new System.Drawing.Size(426, 24);
             this.cmbStopPoint.TabIndex = 36;
             // 
             // cmbStartPoint
@@ -288,7 +288,7 @@
             this.cmbStartPoint.Location = new System.Drawing.Point(237, 129);
             this.cmbStartPoint.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.cmbStartPoint.Name = "cmbStartPoint";
-            this.cmbStartPoint.Size = new System.Drawing.Size(506, 24);
+            this.cmbStartPoint.Size = new System.Drawing.Size(426, 24);
             this.cmbStartPoint.TabIndex = 35;
             // 
             // btnHide
@@ -353,7 +353,7 @@
             // txbAngle
             // 
             this.txbAngle.Enabled = false;
-            this.txbAngle.Location = new System.Drawing.Point(601, 196);
+            this.txbAngle.Location = new System.Drawing.Point(604, 196);
             this.txbAngle.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.txbAngle.Name = "txbAngle";
             this.txbAngle.Size = new System.Drawing.Size(59, 22);
@@ -397,7 +397,7 @@
             this.txbVelosity.Location = new System.Drawing.Point(237, 228);
             this.txbVelosity.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.txbVelosity.Name = "txbVelosity";
-            this.txbVelosity.Size = new System.Drawing.Size(506, 22);
+            this.txbVelosity.Size = new System.Drawing.Size(426, 22);
             this.txbVelosity.TabIndex = 31;
             // 
             // label7
@@ -459,7 +459,7 @@
             this.cmbEnergyCalibration.Location = new System.Drawing.Point(237, 96);
             this.cmbEnergyCalibration.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.cmbEnergyCalibration.Name = "cmbEnergyCalibration";
-            this.cmbEnergyCalibration.Size = new System.Drawing.Size(506, 24);
+            this.cmbEnergyCalibration.Size = new System.Drawing.Size(426, 24);
             this.cmbEnergyCalibration.TabIndex = 29;
             // 
             // cmbRef
@@ -470,7 +470,7 @@
             this.cmbRef.Location = new System.Drawing.Point(237, 63);
             this.cmbRef.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
             this.cmbRef.Name = "cmbRef";
-            this.cmbRef.Size = new System.Drawing.Size(506, 24);
+            this.cmbRef.Size = new System.Drawing.Size(426, 24);
             this.cmbRef.TabIndex = 29;
             // 
             // cmbTraj
@@ -481,7 +481,7 @@
             this.cmbTraj.Location = new System.Drawing.Point(237, 30);
             this.cmbTraj.Margin = new System.Windows.Forms.Padding(4, 31, 37, 4);
             this.cmbTraj.Name = "cmbTraj";
-            this.cmbTraj.Size = new System.Drawing.Size(506, 24);
+            this.cmbTraj.Size = new System.Drawing.Size(426, 24);
             this.cmbTraj.TabIndex = 29;
             // 
             // dataGridView
@@ -505,7 +505,7 @@
             this.stopColumn,
             this.ПараметрыДвижения});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 537);
+            this.dataGridView.Location = new System.Drawing.Point(1, 461);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
@@ -515,11 +515,12 @@
             this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.Size = new System.Drawing.Size(762, 247);
+            this.dataGridView.Size = new System.Drawing.Size(682, 323);
             this.dataGridView.TabIndex = 25;
             this.dataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView_DefaultValuesNeeded);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
+            this.dataGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_MouseClick);
             // 
             // видСварки
             // 
@@ -564,10 +565,6 @@
             // groupBox3
             // 
             this.groupBox3.AutoSize = true;
-            this.groupBox3.Controls.Add(this.chbSelectByHS);
-            this.groupBox3.Controls.Add(this.rbtLW);
-            this.groupBox3.Controls.Add(this.rbtFSW);
-            this.groupBox3.Controls.Add(this.rbtARC);
             this.groupBox3.Controls.Add(this.cmbWeldZone);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -575,80 +572,26 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox3.Size = new System.Drawing.Size(762, 146);
+            this.groupBox3.Size = new System.Drawing.Size(682, 70);
             this.groupBox3.TabIndex = 31;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Вид сварки";
-            // 
-            // chbSelectByHS
-            // 
-            this.chbSelectByHS.AutoSize = true;
-            this.chbSelectByHS.Enabled = false;
-            this.chbSelectByHS.Location = new System.Drawing.Point(13, 105);
-            this.chbSelectByHS.Margin = new System.Windows.Forms.Padding(4, 12, 4, 4);
-            this.chbSelectByHS.Name = "chbSelectByHS";
-            this.chbSelectByHS.Size = new System.Drawing.Size(166, 20);
-            this.chbSelectByHS.TabIndex = 50;
-            this.chbSelectByHS.Text = "Выбрать источником";
-            this.chbSelectByHS.UseVisualStyleBackColor = true;
-            // 
-            // rbtLW
-            // 
-            this.rbtLW.AutoSize = true;
-            this.rbtLW.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbtLW.Location = new System.Drawing.Point(330, 34);
-            this.rbtLW.Margin = new System.Windows.Forms.Padding(4);
-            this.rbtLW.Name = "rbtLW";
-            this.rbtLW.Size = new System.Drawing.Size(94, 21);
-            this.rbtLW.TabIndex = 22;
-            this.rbtLW.TabStop = true;
-            this.rbtLW.Text = "Лазерная";
-            this.rbtLW.UseVisualStyleBackColor = true;
-            this.rbtLW.Click += new System.EventHandler(this.rbtLW_CheckedChanged);
-            // 
-            // rbtFSW
-            // 
-            this.rbtFSW.AutoSize = true;
-            this.rbtFSW.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbtFSW.Location = new System.Drawing.Point(104, 34);
-            this.rbtFSW.Margin = new System.Windows.Forms.Padding(4);
-            this.rbtFSW.Name = "rbtFSW";
-            this.rbtFSW.Size = new System.Drawing.Size(218, 21);
-            this.rbtFSW.TabIndex = 22;
-            this.rbtFSW.TabStop = true;
-            this.rbtFSW.Text = "Трением с перемешиванием";
-            this.rbtFSW.UseVisualStyleBackColor = true;
-            this.rbtFSW.Click += new System.EventHandler(this.fswRadioButton_CheckedChanged);
-            // 
-            // rbtARC
-            // 
-            this.rbtARC.AutoSize = true;
-            this.rbtARC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbtARC.Location = new System.Drawing.Point(13, 34);
-            this.rbtARC.Margin = new System.Windows.Forms.Padding(4, 18, 4, 4);
-            this.rbtARC.Name = "rbtARC";
-            this.rbtARC.Size = new System.Drawing.Size(83, 21);
-            this.rbtARC.TabIndex = 21;
-            this.rbtARC.TabStop = true;
-            this.rbtARC.Text = "Дуговая";
-            this.rbtARC.UseVisualStyleBackColor = true;
-            this.rbtARC.Click += new System.EventHandler(this.arcwRadioButton_CheckedChanged);
             // 
             // cmbWeldZone
             // 
             this.cmbWeldZone.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbWeldZone.FormattingEnabled = true;
-            this.cmbWeldZone.Location = new System.Drawing.Point(237, 103);
+            this.cmbWeldZone.Location = new System.Drawing.Point(237, 27);
             this.cmbWeldZone.Margin = new System.Windows.Forms.Padding(4, 12, 20, 4);
             this.cmbWeldZone.Name = "cmbWeldZone";
-            this.cmbWeldZone.Size = new System.Drawing.Size(506, 24);
+            this.cmbWeldZone.Size = new System.Drawing.Size(426, 24);
             this.cmbWeldZone.TabIndex = 38;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 75);
+            this.label9.Location = new System.Drawing.Point(9, 30);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(111, 16);
@@ -660,17 +603,32 @@
             this.grbWeldRegime.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.grbWeldRegime.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbWeldRegime.ForeColor = System.Drawing.Color.Black;
-            this.grbWeldRegime.Location = new System.Drawing.Point(1, 149);
+            this.grbWeldRegime.Location = new System.Drawing.Point(1, 73);
             this.grbWeldRegime.Margin = new System.Windows.Forms.Padding(1);
             this.grbWeldRegime.MinimumSize = new System.Drawing.Size(0, 18);
             this.grbWeldRegime.Name = "grbWeldRegime";
             this.grbWeldRegime.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grbWeldRegime.Size = new System.Drawing.Size(762, 18);
+            this.grbWeldRegime.Size = new System.Drawing.Size(682, 18);
             this.grbWeldRegime.TabIndex = 30;
             this.grbWeldRegime.TabStop = false;
             this.grbWeldRegime.Text = "Источник сварки";
             this.grbWeldRegime.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbWeldRegime_MouseClick);
             this.grbWeldRegime.Paint += new System.Windows.Forms.PaintEventHandler(this.grbWeldRegime_Paint);
+            // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiSpecifyHeatingZone});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(239, 28);
+            // 
+            // tsmiSpecifyHeatingZone
+            // 
+            this.tsmiSpecifyHeatingZone.Name = "tsmiSpecifyHeatingZone";
+            this.tsmiSpecifyHeatingZone.Size = new System.Drawing.Size(238, 24);
+            this.tsmiSpecifyHeatingZone.Text = "Уточнить зону нагрева";
+            this.tsmiSpecifyHeatingZone.Click += new System.EventHandler(this.tsmiSpecifyHeatingZone_Click);
             // 
             // WeldingControl
             // 
@@ -681,7 +639,7 @@
             this.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.MinimumSize = new System.Drawing.Size(400, 369);
             this.Name = "WeldingControl";
-            this.Size = new System.Drawing.Size(764, 785);
+            this.Size = new System.Drawing.Size(684, 785);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -689,6 +647,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -712,10 +671,7 @@
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox grbWeldRegime;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.RadioButton rbtFSW;
-        private System.Windows.Forms.RadioButton rbtARC;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.RadioButton rbtLW;
         private System.Windows.Forms.TextBox txbShiftX;
         private System.Windows.Forms.CheckBox chbShifting;
         private System.Windows.Forms.ComboBox cmbEnergyCalibration;
@@ -739,6 +695,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn startColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn stopColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ПараметрыДвижения;
-        private System.Windows.Forms.CheckBox chbSelectByHS;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSpecifyHeatingZone;
     }
 }
