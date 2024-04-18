@@ -677,8 +677,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         {
             try
             {
-                var fbd = new FolderBrowserDialog() { SelectedPath = ProjPath };
-                if (fbd.ShowDialog() == DialogResult.OK && Regex.IsMatch(fbd.SelectedPath, @"(\w*)(\.db)")) ;
+                var fbd = new OpenFileDialog();
+                if (fbd.ShowDialog() == DialogResult.OK && Regex.IsMatch(fbd.FileName, @"(\w*)(\.db)"))
+                {
+                    var prevResults = fbd.FileName;
+                    var file = CurentSelectedRowInfo;
+                }
                 // tsf-logic
                 else
                     return;
