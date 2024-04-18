@@ -143,7 +143,7 @@ namespace TaskModule.BasicAdvisorControls
             if (cmbGr.Text == "" || cmbKind.Text == "" || txbStartTime.Text == "" || txbStopTime.Text == "")
                 throw new Exception("Одно из переданных значений полей было пустым");
 
-            return string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} {4} {5} {6} *\"",
+            return string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3} {4} {5} {6} *",
                  cmbGr.Text, cmbKind.Text, direction, txbValue.Text, loadFunc, txbStartTime.Text, txbStopTime.Text);
         }
 

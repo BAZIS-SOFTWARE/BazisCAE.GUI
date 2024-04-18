@@ -33,7 +33,7 @@ namespace TaskModule
 {
     public partial class TaskPage: BasePage
     {
-        string activeTask  = String.Empty;
+        string activeAdvisor  = String.Empty;
         public string SolverPath { get; set; }
 
         public IPreProc PreProc { get; set; }
@@ -190,13 +190,17 @@ namespace TaskModule
 
         public void DeleteAdvisor()
         {
-            Application.OpenForms[activeTask]?.Close();
-            activeTask = "";
+            Application.OpenForms[activeAdvisor]?.Close();
+            activeAdvisor = "";
         }
 
-        public virtual void UnCheckToolStripButtons()
+        public virtual void UnCheckToolStripButton(string advisorName)
         {
-            throw new Exception("Метод не реализован");
+            foreach (var item in GetToolStripMenuItems())
+                foreach (var dropItem in item.DropDownItems)
+                    if (dropItem is ToolStripMenuItem tls)
+                        if(tls.Name == advisorName)
+                            tls.Checked = false;
         }
 
         public override void UnBlockInterface(bool status)
@@ -216,21 +220,15 @@ namespace TaskModule
                     return;
                 }
 
-                activeTask = taskAdv.Name;
-                var form = new Form() { Text = activeTask, Name = activeTask, TopMost = true, Size = taskAdv.Size, ShowIcon = false };
+                activeAdvisor = taskAdv.Name;
+                var form = new Form() { Text = taskAdv.Text, Name = taskAdv.Name, TopMost = true, Size = taskAdv.Size, ShowIcon = false };
                 form.FormClosed += (ar1, ar2) =>
                 {
                     if (ar2.CloseReason == CloseReason.UserClosing)
                     {
-
-                        UnCheckToolStripButtons();
-
-                        foreach (var item in GetToolStripMenuItems())
-                            foreach (var dropItem in item.DropDownItems)
-                                if (dropItem is ToolStripMenuItem tls)
-                                    tls.Checked = false;
+                        UnCheckToolStripButton(taskAdv.Name);
                     }
-                    activeTask = "";
+                    activeAdvisor = "";
                 };
                 form.Controls.Add(taskAdv);
                 form.ClientSize = taskAdv.Size;
@@ -346,7 +344,7 @@ namespace TaskModule
             try
             {
                 var data = Project.TaskData.Select(x => x as IValuableData).ToList();
-                var processType = ParseProcessTypeFromString(activeTask);
+                var processType = ParseProcessTypeFromString(activeAdvisor);
 
                 var inputDir = $@"{Project.Path}\InputData";
 
@@ -513,7 +511,7 @@ namespace TaskModule
 
         public TaskAdvisor GetTaskAdvisor()
         {
-            var taskForm = Application.OpenForms[activeTask];
+            var taskForm = Application.OpenForms[activeAdvisor];
             if (taskForm != null)
             {
                 var taskAdvisor = (TaskAdvisor)taskForm.Controls[0];
@@ -529,15 +527,15 @@ namespace TaskModule
             {
                 var dataArray = Project.TaskData.Find(arg2.DataName).ToArray();
 
-                //var dataAr = taskStr.Split(' ');
-                //var taskStrAr = FieldsParserTask.ParseLine(arg2.DataInfo);
-
                 dataArray[arg2.Index].SetInfo(arg2.DataInfo);
 
                 var valData = dataArray[arg2.Index] as IValuableData;
+                var group = GetDataGroup(arg2.DataName, arg2.DataInfo.Split(' '));
 
-                if (valData.TrajectoryInfo != "*")
-                    SetMFF(valData);
+                valData.Group = group;
+
+                if (valData.MovedFrameFunction != null)
+                    SetMFF(valData, arg2.DataInfo.Split(' ').Last());
 
                 GetTaskAdvisor()?.SetProjectData(Project);
 
@@ -547,9 +545,21 @@ namespace TaskModule
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo($"{ex.Message}:{ex.InnerException}", Color.Red);
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
 
+        }
+
+        private IGroup GetDataGroup(string dataName, string[] ar)
+        {
+            IGroup group;
+
+            if (dataName == "Среда" | dataName == "Нагрев")
+                group = Project.ModelData.GroupData.Find(ar[1]);
+
+            else
+                group = Project.ModelData.GroupData.Find(ar[0]);
+            return group;
         }
 
         public void TaskAdvisor_DeleteAllDataEvent(object arg1, DeleteAllDataEventArgs arg2)
@@ -730,38 +740,13 @@ namespace TaskModule
             {
                 var ar = arg2.DataInfo.Split(' ');
 
+                var group = GetDataGroup(arg2.DataName, ar);
+
                 if (ar[0].Contains("LRF"))
-                {
-                    var taskStrLRF = CreateSurfaceAsync();
-                    await taskStrLRF;
-                    var vec = taskStrLRF.Result.Normal;
-                    var nVec = Vector.GetVectorNorm(vec);
-
- 
-
-                    var val = float.Parse(ar[3]);
-
-                    var rVec = nVec.Mult(val);
-
-                    //TO DO
-                    ar[2] = "X";
-                    ar[3] = rVec._x.ToString();
-
-                    AddData(arg2.DataName, string.Join(" ", ar));
-
-                    ar[2] = "Y";
-                    ar[3] = rVec._y.ToString();
-
-                    AddData(arg2.DataName, string.Join(" ", ar));
-
-                    ar[2] = "Z";
-                    ar[3] = rVec._z.ToString();
-
-                    AddData(arg2.DataName, string.Join(" ", ar));
-                }
+                    await AddDataLRF(arg2, ar, group);
 
                 else
-                    AddData(arg2.DataName, string.Join(" ", ar));
+                    AddData(arg2, ar, group);
 
                 GetTaskAdvisor()?.SetProjectData(Project);
             }
@@ -771,48 +756,61 @@ namespace TaskModule
             }
         }
 
-        private void AddData(string dataName, string dataInfo)
+        private void AddData(AddDataEventArgs arg2, string[] ar, IGroup group)
         {
-            IGroup group = Project.ModelData.GroupData.Create("",ObjType.Линия);
-            //bool getIntersectedElements;
-            //NewMethod(dataName, dataAr, out group, out getIntersectedElements);
+            var data = (IValuableData)Project.TaskData.Create(arg2.DataName, arg2.DataInfo, group);
+            if (data.MovedFrameFunction != null)
+                SetMFF(data, ar.Last());
+            Project.TaskData.Add(data);
+            NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
+        }
 
-            var data = Project.TaskData.Create(dataName, dataInfo, group);
-            var valData = data as IValuableData;
+        private async Task AddDataLRF(AddDataEventArgs arg2, string[] ar, IGroup group)
+        {
+            var taskStrLRF = CreateSurfaceAsync();
+            await taskStrLRF;
+            var vec = taskStrLRF.Result.Normal;
+            var nVec = Vector.GetVectorNorm(vec);
 
-            if (valData.TrajectoryInfo != "*")
-            {
-                SetMFF(valData);
-                //if (getIntersectedElements)
-                //    GetIntersectedElements(valData);
-            }
+            var val = float.Parse(ar[3]);
+
+            var rVec = nVec.Mult(val);
+
+            //TO DO
+            ar[2] = "X";
+            ar[3] = rVec._x.ToString();
+
+            var data = (IValuableData)Project.TaskData.Create(arg2.DataName, string.Join(" ", ar), group);
+            if (data.MovedFrameFunction != null)
+                SetMFF(data, ar.Last());
 
             Project.TaskData.Add(data);
-            NavigatorControl.CreateChildNode("Данные", dataName, $"{dataName} : {dataInfo}", "6.1");
+            NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
+
+            ar[2] = "Y";
+            ar[3] = rVec._y.ToString();
+
+            data = (IValuableData)Project.TaskData.Create(arg2.DataName, string.Join(" ", ar), group);
+            if (data.MovedFrameFunction != null)
+                SetMFF(data, ar.Last());
+
+            Project.TaskData.Add(data);
+            NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
+
+            ar[2] = "Z";
+            ar[3] = rVec._z.ToString();
+
+            data = (IValuableData)Project.TaskData.Create(arg2.DataName, string.Join(" ", ar), group);
+            if (data.MovedFrameFunction != null)
+                SetMFF(data, ar.Last());
+
+            Project.TaskData.Add(data);
+            NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
         }
 
-        private void NewMethod(string dataName, string[] dataAr, out IGroup group, out bool getIntersectedElements)
+        private void SetMFF(IValuableData data, string trajInfo)
         {
-            getIntersectedElements = false;
-            if (dataName == "Среда" | dataName == "Нагрев")
-            {
-                if (dataAr[1].Contains("*"))
-                {
-                    var grName = dataAr[1].Replace("*", "");
-                    group = Project.ModelData.GroupData.Find(grName);
-                    getIntersectedElements = true;
-                }
-                else
-                    group = Project.ModelData.GroupData.Find(dataAr[1]);
-            }
-
-            else
-                group = Project.ModelData.GroupData.Find(dataAr[0]);
-        }
-
-        private void SetMFF(IValuableData data)
-        {
-            var trajInfo = data.TrajectoryInfo;
+            //var trajInfo = data.TrajectoryInfo;
             var baseLineGrName = trajInfo.Split(';')[0].Split('|')[0];
             var refLineGrName = trajInfo.Split(';')[0].Split('|')[1];
             var stNodesGrName = trajInfo.Split(';')[2];

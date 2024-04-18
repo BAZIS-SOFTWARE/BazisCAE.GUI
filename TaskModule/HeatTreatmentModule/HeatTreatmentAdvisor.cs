@@ -13,8 +13,12 @@ using TaskModule.BasicTaskAdvisor;
 
 namespace TaskModule.HeatTreatmentModule
 {
+    public enum HTKind : int { Нагрев, Охлаждение, Выдержка }
     public partial class HeatTreatmentAdvisor : TaskAdvisor
     {
+
+        public HTKind HTKind { set { htMediaControl.HTKind = value; } }
+
         public HeatTreatmentAdvisor()
         {
             InitializeComponent();

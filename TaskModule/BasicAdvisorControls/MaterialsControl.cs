@@ -114,7 +114,7 @@ namespace TaskModule.BasicAdvisorControls
         {
             try
             {
-                CurentSelectedRowInfo = AddRowInfo();
+                CurentSelectedRowInfo = CreateRowInfo();
                 base.RefreshButton_Click(sender, e);
                 btnRefresh.Enabled = false;
             }
@@ -134,7 +134,7 @@ namespace TaskModule.BasicAdvisorControls
         {
             try
             {
-                CurentSelectedRowInfo = AddRowInfo();
+                CurentSelectedRowInfo = CreateRowInfo();
                 base.AddButton_Click(sender, e);
                 btnRefresh.Enabled = false;
             }
@@ -147,12 +147,12 @@ namespace TaskModule.BasicAdvisorControls
 
         }
 
-        private string AddRowInfo()
+        private string CreateRowInfo()
         {
             if (cmbEl.Text == "" || cmbMat.Text == "" || txbStartTime.Text == "" || txbStopTime.Text == "")
                 throw new Exception("Одно из переданных значений полей было пустым");
 
-            return string.Format(CultureInfo.InvariantCulture, "\"{0} {1} {2} {3} *\"", cmbEl.Text, cmbMat.Text, txbStartTime.Text, txbStopTime.Text);
+            return string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3} *", cmbEl.Text, cmbMat.Text, txbStartTime.Text, txbStopTime.Text);
         }
 
         public override void ClearAllDataButton_Click(object sender, EventArgs e)

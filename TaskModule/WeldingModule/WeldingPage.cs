@@ -1,12 +1,9 @@
-﻿using System;
-using System.Windows.Forms;
-using TaskModule.BasicTaskAdvisor;
-using BaseModule.ToolStrips;
-using TaskModule.ToolStrips;
+﻿using System.Windows.Forms;
 using ModelInterfaces;
 using ProjectInterfaces.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
 
 namespace TaskModule.WeldingModule
 {
@@ -15,12 +12,6 @@ namespace TaskModule.WeldingModule
         public WeldingPage()
         {
             InitializeComponent();
-        }
-
-        public override void UnCheckToolStripButtons()
-        {
-            foreach (ToolStripButton item in weldingTaskToolStrip.Items)
-                item.Checked = false;
         }
 
         public override ToolStripMenuItem CreateTasksInterface()
@@ -37,21 +28,21 @@ namespace TaskModule.WeldingModule
             ToolStripMenuItem arcWeldingMenuItem = new ToolStripMenuItem()
             {
                 Name = "arcWelding",
-                Text = "Дуговая",
+                Text = "Дуговая сварка",
                 CheckOnClick = true
             };
 
             ToolStripMenuItem lazerWeldingMenuItem = new ToolStripMenuItem()
             {
                 Name = "lazerWelding",
-                Text = "Лазерная",
+                Text = "Лазерная сварка",
                 CheckOnClick = true
             };
 
             ToolStripMenuItem fsWeldingMenuItem = new ToolStripMenuItem()
             {
                 Name = "FSWelding",
-                Text = "Трением с перемешиванием",
+                Text = "Сварка трением с перемешиванием",
                 CheckOnClick = true
             };
 
@@ -66,11 +57,13 @@ namespace TaskModule.WeldingModule
                 var taskAdv = new WeldingAdvisor() 
                 { 
                     Dock = DockStyle.Fill,
-                    Name = "Дуговая сварка"
+                    Name = arcWeldingMenuItem.Name,
+                    Text = arcWeldingMenuItem.Text
                 };
                 taskAdv.SetWeldingKind(WeldingKind.ARC);
 
                 taskAdv.SpecifyWeldingZoneEvent += TaskAdv_SpecifyWeldingZoneEvent;
+
                 DeleteAdvisor();
 
                 if (arcWeldingMenuItem.Checked)
@@ -82,11 +75,13 @@ namespace TaskModule.WeldingModule
                 var taskAdv = new WeldingAdvisor()
                 {
                     Dock = DockStyle.Fill,
-                    Name = "Лазерная сварка"
+                    Name = lazerWeldingMenuItem.Name,
+                    Text = lazerWeldingMenuItem.Text
                 };
                 taskAdv.SetWeldingKind(WeldingKind.Lazer);
 
                 taskAdv.SpecifyWeldingZoneEvent += TaskAdv_SpecifyWeldingZoneEvent;
+
                 DeleteAdvisor();
 
                 if (lazerWeldingMenuItem.Checked)
@@ -98,11 +93,13 @@ namespace TaskModule.WeldingModule
                 var taskAdv = new WeldingAdvisor()
                 {
                     Dock = DockStyle.Fill,
-                    Name = "Сварка трением с перемешиванием"
+                    Name = fsWeldingMenuItem.Name,
+                    Text = fsWeldingMenuItem.Text
                 };
                 taskAdv.SetWeldingKind(WeldingKind.FrictionStearing);
 
                 taskAdv.SpecifyWeldingZoneEvent += TaskAdv_SpecifyWeldingZoneEvent;
+
                 DeleteAdvisor();
 
                 if (fsWeldingMenuItem.Checked)
@@ -110,25 +107,31 @@ namespace TaskModule.WeldingModule
                 else DeleteAdvisor();
             };
 
-
-
             return taskMenuItem;
         }
 
         private void TaskAdv_SpecifyWeldingZoneEvent(string arg1, int arg2)
         {
-            var data = (IValuableData)Project.TaskData.Find(arg1).ToArray()[arg2];
-
-            var modelObjects = new List<IModelObject>();
-            var finishTime = data.StopTime - data.StartTime;
-            for (int i = 0; i <= finishTime; i++)
+            try
             {
-                var resu = data.MovedFrameFunction.GetIntersectedObjects(i, data.Group.ToList());
-                modelObjects.AddRange(resu);
+                var data = (IValuableData)Project.TaskData.Find(arg1).ToArray()[arg2];
+
+                var modelObjects = new List<IModelObject>();
+                var finishTime = data.StopTime - data.StartTime;
+                for (int i = 0; i <= finishTime; i++)
+                {
+                    var resu = data.MovedFrameFunction.GetIntersectedObjects(i, data.Group.ToList());
+                    modelObjects.AddRange(resu);
+                }
+
+                data.Group.Clear();
+                data.Group.AddRange(modelObjects);
+            }
+            catch (System.Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
 
-            data.Group.Clear();
-            data.Group.AddRange(modelObjects);
         }
     }
 }

@@ -70,8 +70,8 @@
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ПараметрыДвижения = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cmbWeldZone = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.cmbWeldZone = new System.Windows.Forms.ComboBox();
             this.grbWeldRegime = new System.Windows.Forms.GroupBox();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiSpecifyHeatingZone = new System.Windows.Forms.ToolStripMenuItem();
@@ -565,8 +565,8 @@
             // groupBox3
             // 
             this.groupBox3.AutoSize = true;
-            this.groupBox3.Controls.Add(this.cmbWeldZone);
             this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.cmbWeldZone);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(1, 1);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(1);
@@ -575,7 +575,17 @@
             this.groupBox3.Size = new System.Drawing.Size(682, 70);
             this.groupBox3.TabIndex = 31;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Вид сварки";
+            this.groupBox3.Text = "Область действия";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(10, 30);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(129, 16);
+            this.label9.TabIndex = 39;
+            this.label9.Text = "Группа элементов";
             // 
             // cmbWeldZone
             // 
@@ -583,20 +593,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbWeldZone.FormattingEnabled = true;
             this.cmbWeldZone.Location = new System.Drawing.Point(237, 27);
-            this.cmbWeldZone.Margin = new System.Windows.Forms.Padding(4, 12, 20, 4);
+            this.cmbWeldZone.Margin = new System.Windows.Forms.Padding(20, 12, 20, 4);
             this.cmbWeldZone.Name = "cmbWeldZone";
             this.cmbWeldZone.Size = new System.Drawing.Size(426, 24);
             this.cmbWeldZone.TabIndex = 38;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 30);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(111, 16);
-            this.label9.TabIndex = 37;
-            this.label9.Text = "Область сварки";
             // 
             // grbWeldRegime
             // 
@@ -611,7 +611,7 @@
             this.grbWeldRegime.Size = new System.Drawing.Size(682, 18);
             this.grbWeldRegime.TabIndex = 30;
             this.grbWeldRegime.TabStop = false;
-            this.grbWeldRegime.Text = "Источник сварки";
+            this.grbWeldRegime.Text = "Режимы сварки";
             this.grbWeldRegime.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbWeldRegime_MouseClick);
             this.grbWeldRegime.Paint += new System.Windows.Forms.PaintEventHandler(this.grbWeldRegime_Paint);
             // 
@@ -659,7 +659,6 @@
         private System.Windows.Forms.TextBox txbStartTime;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbWeldZone;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cmbStopPoint;
         private System.Windows.Forms.ComboBox cmbStartPoint;
         private System.Windows.Forms.Button addRowButton;
@@ -697,5 +696,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ПараметрыДвижения;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem tsmiSpecifyHeatingZone;
+        private System.Windows.Forms.Label label9;
     }
 }

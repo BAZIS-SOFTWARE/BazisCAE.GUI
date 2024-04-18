@@ -408,7 +408,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 if (control is UserControl uControl)
                     foreach (Control cntr in uControl.Controls)
                     {
-                        if (cntr is TextBox txb | cntr is ComboBox cmb | cntr is Button | cntr is PictureBox)
+                        if (cntr is TextBox txb | cntr is ComboBox cmb | cntr is Button | cntr is PictureBox | cntr is RadioButton)
                         {
                             heigth = heigth + cntr.Size.Height;
                             gap = gap + 6;
@@ -422,7 +422,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             if(e.Button == MouseButtons.Right)
             {
-                contextMenuStrip.Show(dataGridView.Location);
+                var x = dataGridView.Location.X + e.Location.X;
+                var y = dataGridView.Location.Y + e.Location.Y;
+                contextMenuStrip.Show(new Point(x,y));
             }
         }
 
@@ -431,7 +433,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             var gridView = GetDataGrid;
             var count = gridView.SelectedRows.Count;
 
-            SpecifyFunctionAreaEvent?.Invoke("Нагрев", gridView.SelectedRows[count - 1].Index);
+            if (count == 0)
+                MessageBox.Show("Выберите строку данных для уточнения!");
+            else
+                SpecifyFunctionAreaEvent?.Invoke("Нагрев", gridView.SelectedRows[count - 1].Index);
         }
 
         internal void SetWeldingKind(WeldingKind weldingKind)

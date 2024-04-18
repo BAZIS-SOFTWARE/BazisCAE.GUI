@@ -120,7 +120,7 @@ namespace TaskModule.HeatTreatmentModule
         {
             try
             {
-                CurentSelectedRowInfo = AddRowInfo();
+                CurentSelectedRowInfo = CreateRowInfo();
                 base.AddButton_Click(sender, e);
                 btnRefresh.Enabled = false;
             }
@@ -165,7 +165,7 @@ namespace TaskModule.HeatTreatmentModule
         {
             try
             {
-                CurentSelectedRowInfo = AddRowInfo();
+                CurentSelectedRowInfo = CreateRowInfo();
                 base.RefreshButton_Click(sender, e);
                 btnRefresh.Enabled = false;
             }
@@ -279,7 +279,7 @@ namespace TaskModule.HeatTreatmentModule
             }
         }
 
-        private string AddRowInfo()
+        private string CreateRowInfo()
         {
             var taskStrAr = new List<string>();
 
@@ -290,18 +290,18 @@ namespace TaskModule.HeatTreatmentModule
 
             if (rbtNitrocarburizing.Checked)
             {
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\" {0} {1} {2} {3} {4} {5} *\"", cmbEl.Text, txbDiffCoefCarbon.Text, txbConcentrCarbon.Text, cmbTempreture.Text, txbStart.Text, txbStop.Text));
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\" {0} {1} {2} {3} {4} {5} *\"", cmbEl.Text, txbDiffCoefNitro.Text, txbConcentrNitro.Text, cmbTempreture.Text, txbStart.Text, txbStop.Text));
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3} {4} {5} *", cmbEl.Text, txbDiffCoefCarbon.Text, txbConcentrCarbon.Text, cmbTempreture.Text, txbStart.Text, txbStop.Text));
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3} {4} {5} *", cmbEl.Text, txbDiffCoefNitro.Text, txbConcentrNitro.Text, cmbTempreture.Text, txbStart.Text, txbStop.Text));
             }
 
             else if (rbtCarburization.Checked)
             {
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\" {0} {1} {2} {3} {4} {5} *\"", cmbEl.Text, txbDiffCoefCarbon.Text, txbConcentrCarbon.Text, cmbTempreture.Text, txbStart.Text, txbStop.Text));
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3} {4} {5} *", cmbEl.Text, txbDiffCoefCarbon.Text, txbConcentrCarbon.Text, cmbTempreture.Text, txbStart.Text, txbStop.Text));
             }
 
             else if (rbtNitritization.Checked)
             {
-                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "\" {0} {1} {2} {3} {4} {5} *\"", cmbEl.Text, txbDiffCoefCarbon.Text, txbConcentrCarbon.Text, cmbTempreture.Text, txbStart.Text, txbStop.Text));
+                taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3} {4} {5} *", cmbEl.Text, txbDiffCoefCarbon.Text, txbConcentrCarbon.Text, cmbTempreture.Text, txbStart.Text, txbStop.Text));
             }
 
             return string.Join(" ", taskStrAr);

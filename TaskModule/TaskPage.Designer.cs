@@ -82,7 +82,6 @@ namespace TaskModule
 
         #endregion
 
-        private BaseModule.BasePage basePage1;
         private System.Windows.Forms.ImageList treeNodesImageList;
         private ContextMenuStrip taskMenuStrip;
         private ToolStripMenuItem удалитьToolStripMenuItem;

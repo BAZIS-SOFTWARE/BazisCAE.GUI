@@ -1,8 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
-using TaskModule.BasicTaskAdvisor;
-using BaseModule.ToolStrips;
-using TaskModule.ToolStrips;
+﻿using System.Windows.Forms;
 
 namespace TaskModule.HeatTreatmentModule
 {
@@ -13,54 +9,86 @@ namespace TaskModule.HeatTreatmentModule
             InitializeComponent();
         }
 
-        private void HtTaskToolStrip_advisorStatusChanged(object arg1, AdvisorEventArgs arg2)
-        {
-            if (!arg2.Status)
-            {
-                var taskAdv = new HeatTreatmentAdvisor() { Dock = DockStyle.Fill, Name = "Термообработка" };
-
-                if (GetTaskAdvisor() == null)
-                    CreateAdvisor(taskAdv);
-            }
-            else DeleteAdvisor();
-        }
-
-        public override void UnCheckToolStripButtons()
-        {
-            foreach (ToolStripButton item in heatTreatmentTasksToolStrip.Items)
-                item.Checked = false;
-        }
-
         public override ToolStripMenuItem CreateTasksInterface()
         {
             var taskMenuItem = base.CreateTasksInterface();
 
-            ToolStripMenuItem htMenuItem = new ToolStripMenuItem()
+            ToolStripMenuItem owenHeatingMenuItem = new ToolStripMenuItem()
             {
-                Name = "Термообработка",
-                Text = "Термообработка",
+                Name = "owenHeating",
+                Text = "Нагрев",
                 CheckOnClick = true
+            };
+
+            ToolStripMenuItem quenchingMenuItem = new ToolStripMenuItem()
+            {
+                Name = "quenching",
+                Text = "Закалка",
+                CheckOnClick = true
+            };
+
+            ToolStripMenuItem temperingMenuItem = new ToolStripMenuItem()
+            {
+                Name = "tempering",
+                Text = "Отпуск/Отжиг/Старение",
+                CheckOnClick = true
+            };
+
+            ToolStripMenuItem diffusionMenuItem = new ToolStripMenuItem()
+            {
+                Name = "diffusion",
+                Text = "ХТО",
+                CheckOnClick = true,
+                Enabled = false
             };
 
 
             taskMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            htMenuItem
+            owenHeatingMenuItem,quenchingMenuItem,temperingMenuItem,diffusionMenuItem
             });
 
-            htMenuItem.Click += (ar1, ar2) => {
+            owenHeatingMenuItem.Click += (ar1, ar2) => {
+                var taskAdv = new HeatTreatmentAdvisor() { 
+                    Dock = DockStyle.Fill, 
+                    Name = owenHeatingMenuItem.Name,
+                    Text = owenHeatingMenuItem.Text
+                };
+                
+                taskAdv.HTKind = HTKind.Нагрев;
 
-                var taskAdv = new TaskAdvisor();
-
-
-                taskAdv = new HeatTreatmentAdvisor() { Dock = DockStyle.Fill, Name = "Термообработка" };
-
-                if (htMenuItem.Checked)
-                {
-
-                    if (GetTaskAdvisor() == null)
+                DeleteAdvisor();
+                if (owenHeatingMenuItem.Checked)
                         CreateAdvisor(taskAdv);
-                }
+                else DeleteAdvisor();
+            };
 
+            quenchingMenuItem.Click += (ar1, ar2) => {
+                var taskAdv = new HeatTreatmentAdvisor() { 
+                    Dock = DockStyle.Fill, 
+                    Name = quenchingMenuItem.Name,
+                    Text = quenchingMenuItem.Text
+                };
+
+                taskAdv.HTKind = HTKind.Охлаждение;
+
+                DeleteAdvisor();
+                if (quenchingMenuItem.Checked)
+                    CreateAdvisor(taskAdv);
+                else DeleteAdvisor();
+            };
+
+            temperingMenuItem.Click += (ar1, ar2) => {
+                var taskAdv = new HeatTreatmentAdvisor() { 
+                    Dock = DockStyle.Fill, 
+                    Name = temperingMenuItem.Name,
+                    Text = temperingMenuItem.Text
+                };
+
+                taskAdv.HTKind = HTKind.Выдержка;
+
+                DeleteAdvisor();
+                if (temperingMenuItem.Checked)
+                    CreateAdvisor(taskAdv);
                 else DeleteAdvisor();
             };
 

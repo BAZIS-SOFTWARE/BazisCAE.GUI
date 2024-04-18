@@ -42,7 +42,7 @@ namespace TaskModule.WeldingModule
             this.materialsControl1 = new TaskModule.BasicAdvisorControls.MaterialsControl();
             this.pgMedia = new System.Windows.Forms.TabPage();
             this.mediaControl1 = new TaskModule.WeldingModule.WeldingTypeControls.WeldingMediaControl();
-            this.pdgWelding = new System.Windows.Forms.TabPage();
+            this.pdgWeldingRegime = new System.Windows.Forms.TabPage();
             this.weldingControl = new TaskModule.WeldingModule.WeldingTypeControls.WeldingControl();
             this.pdgClamps = new System.Windows.Forms.TabPage();
             this.clampControl = new TaskModule.BasicAdvisorControls.ClampControl();
@@ -55,7 +55,7 @@ namespace TaskModule.WeldingModule
             this.pdgTaskType.SuspendLayout();
             this.pdgMaterials.SuspendLayout();
             this.pgMedia.SuspendLayout();
-            this.pdgWelding.SuspendLayout();
+            this.pdgWeldingRegime.SuspendLayout();
             this.pdgClamps.SuspendLayout();
             this.pdgLoad.SuspendLayout();
             this.pdgPlanner.SuspendLayout();
@@ -66,7 +66,7 @@ namespace TaskModule.WeldingModule
             this.tabControl.Controls.Add(this.pdgTaskType);
             this.tabControl.Controls.Add(this.pdgMaterials);
             this.tabControl.Controls.Add(this.pgMedia);
-            this.tabControl.Controls.Add(this.pdgWelding);
+            this.tabControl.Controls.Add(this.pdgWeldingRegime);
             this.tabControl.Controls.Add(this.pdgClamps);
             this.tabControl.Controls.Add(this.pdgLoad);
             this.tabControl.Controls.Add(this.pdgPlanner);
@@ -179,17 +179,17 @@ namespace TaskModule.WeldingModule
             this.mediaControl1.DeleteAllDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
             this.mediaControl1.ChangeDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
             // 
-            // pdgWelding
+            // pdgWeldingRegime
             // 
-            this.pdgWelding.Controls.Add(this.weldingControl);
-            this.pdgWelding.ImageIndex = 3;
-            this.pdgWelding.Location = new System.Drawing.Point(4, 34);
-            this.pdgWelding.Margin = new System.Windows.Forms.Padding(4);
-            this.pdgWelding.Name = "pdgWelding";
-            this.pdgWelding.Size = new System.Drawing.Size(925, 700);
-            this.pdgWelding.TabIndex = 3;
-            this.pdgWelding.Text = "Вид сварки";
-            this.pdgWelding.UseVisualStyleBackColor = true;
+            this.pdgWeldingRegime.Controls.Add(this.weldingControl);
+            this.pdgWeldingRegime.ImageIndex = 3;
+            this.pdgWeldingRegime.Location = new System.Drawing.Point(4, 34);
+            this.pdgWeldingRegime.Margin = new System.Windows.Forms.Padding(4);
+            this.pdgWeldingRegime.Name = "pdgWeldingRegime";
+            this.pdgWeldingRegime.Size = new System.Drawing.Size(925, 700);
+            this.pdgWeldingRegime.TabIndex = 3;
+            this.pdgWeldingRegime.Text = "Режим сварки";
+            this.pdgWeldingRegime.UseVisualStyleBackColor = true;
             // 
             // weldingControl
             // 
@@ -349,7 +349,7 @@ namespace TaskModule.WeldingModule
             this.pdgMaterials.ResumeLayout(false);
             this.pdgMaterials.PerformLayout();
             this.pgMedia.ResumeLayout(false);
-            this.pdgWelding.ResumeLayout(false);
+            this.pdgWeldingRegime.ResumeLayout(false);
             this.pdgClamps.ResumeLayout(false);
             this.pdgClamps.PerformLayout();
             this.pdgLoad.ResumeLayout(false);
@@ -368,7 +368,7 @@ namespace TaskModule.WeldingModule
         private MaterialsControl materialsControl1;
         private System.Windows.Forms.TabPage pdgLoad;
         private LoadControl loadControl1;
-        private System.Windows.Forms.TabPage pdgWelding;
+        private System.Windows.Forms.TabPage pdgWeldingRegime;
         private WeldingControl weldingControl;
         private System.Windows.Forms.TabPage pgMedia;
         private WeldingMediaControl mediaControl1;

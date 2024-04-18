@@ -15,9 +15,12 @@ using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.HeatTreatmentModule
-{
+{  
     public partial class HeatControl : CheckedGridViewAdviserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
+        public HTKind HTKind { get; set; }
+
+
         [Category("Images")]
         [Description("Set image for add button")]
         public Image AddButtonImage
@@ -81,15 +84,12 @@ namespace TaskModule.HeatTreatmentModule
                 cmbEl.Items.Add(eGroup);
         }
 
-        private string AddRowInfo()
+        private string CreateRowInfo()
         {
-            if (cmbProcKinds.Text == "")
-                throw new Exception("Выберите процесс!");
-
             // Order matters
             var dataList = new List<string>
             {
-                cmbProcKinds.Text,
+                HTKind.ToString(),
                 cmbEl.Text
             };
 
@@ -122,7 +122,7 @@ namespace TaskModule.HeatTreatmentModule
             if (dataList.Any(x => x == ""))
                 throw new Exception("Одно из переданных значений полей было пустым");
 
-            return "\"" + string.Join(" ", dataList) + "\"";
+            return string.Join(" ", dataList);
         }
 
         public void Add_Functions(List<string> functions)
@@ -140,7 +140,7 @@ namespace TaskModule.HeatTreatmentModule
         {
             try
             {
-                CurentSelectedRowInfo = AddRowInfo();
+                CurentSelectedRowInfo = CreateRowInfo();
                 base.AddButton_Click(sender, e);
 
                 btnRefresh.Enabled = false;
@@ -155,7 +155,7 @@ namespace TaskModule.HeatTreatmentModule
         {
             try
             {
-                CurentSelectedRowInfo = AddRowInfo();
+                CurentSelectedRowInfo = CreateRowInfo();
                 base.RefreshButton_Click(sender, e);
                 btnRefresh.Enabled = false;
             }
@@ -174,9 +174,7 @@ namespace TaskModule.HeatTreatmentModule
             cmbExchFunc.Text = dataGridView[(int)Column.function, CurentSelectedRowIndex].Value.ToString();
 
 
-            var procType = dataGridView[(int)Column.kind, CurentSelectedRowIndex].Value.ToString();
-
-            cmbProcKinds.Text = procType;
+            //var procType = dataGridView[(int)Column.kind, CurentSelectedRowIndex].Value.ToString();
 
             txbStartTime.Text = dataGridView[(int)Column.startTime, CurentSelectedRowIndex].Value.ToString();
             txbStopTime.Text = dataGridView[(int)Column.stopTime, CurentSelectedRowIndex].Value.ToString();
