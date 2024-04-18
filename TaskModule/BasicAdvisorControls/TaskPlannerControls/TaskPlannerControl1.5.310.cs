@@ -675,7 +675,18 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         private void PrevResultLoadButton_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                var fbd = new FolderBrowserDialog() { SelectedPath = ProjPath };
+                if (fbd.ShowDialog() == DialogResult.OK && Regex.IsMatch(fbd.SelectedPath, @"(\w*)(\.db)")) ;
+                // tsf-logic
+                else
+                    return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

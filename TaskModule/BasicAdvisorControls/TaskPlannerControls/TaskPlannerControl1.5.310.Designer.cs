@@ -36,6 +36,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.PrevResultLoadBtn = new System.Windows.Forms.Button();
             this.lblFileParameters = new System.Windows.Forms.Label();
             this.btnLoadParameters = new System.Windows.Forms.Button();
             this.StopButton = new System.Windows.Forms.Button();
@@ -72,7 +73,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.Settings = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.PrevResultLoadBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -136,6 +136,21 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Временные параметры";
+            // 
+            // PrevResultLoadBtn
+            // 
+            this.PrevResultLoadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PrevResultLoadBtn.AutoSize = true;
+            this.PrevResultLoadBtn.Enabled = false;
+            this.PrevResultLoadBtn.Location = new System.Drawing.Point(15, 184);
+            this.PrevResultLoadBtn.Margin = new System.Windows.Forms.Padding(1);
+            this.PrevResultLoadBtn.Name = "PrevResultLoadBtn";
+            this.PrevResultLoadBtn.Size = new System.Drawing.Size(213, 26);
+            this.PrevResultLoadBtn.TabIndex = 131;
+            this.PrevResultLoadBtn.Text = "Предыдущие условия";
+            this.PrevResultLoadBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.PrevResultLoadBtn.UseVisualStyleBackColor = true;
+            this.PrevResultLoadBtn.Click += new System.EventHandler(this.PrevResultLoadButton_Click);
             // 
             // lblFileParameters
             // 
@@ -621,21 +636,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog";
-            // 
-            // PrevResultLoadBtn
-            // 
-            this.PrevResultLoadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PrevResultLoadBtn.AutoSize = true;
-            this.PrevResultLoadBtn.Enabled = false;
-            this.PrevResultLoadBtn.Location = new System.Drawing.Point(15, 184);
-            this.PrevResultLoadBtn.Margin = new System.Windows.Forms.Padding(1);
-            this.PrevResultLoadBtn.Name = "PrevResultLoadBtn";
-            this.PrevResultLoadBtn.Size = new System.Drawing.Size(213, 27);
-            this.PrevResultLoadBtn.TabIndex = 131;
-            this.PrevResultLoadBtn.Text = "Предыдущие условия";
-            this.PrevResultLoadBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.PrevResultLoadBtn.UseVisualStyleBackColor = true;
-            this.PrevResultLoadBtn.Click += new System.EventHandler(this.PrevResultLoadButton_Click);
             // 
             // TaskPlannerControl
             // 
