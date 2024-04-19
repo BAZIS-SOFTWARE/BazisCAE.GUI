@@ -680,12 +680,21 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 var fbd = new OpenFileDialog();
                 if (fbd.ShowDialog() == DialogResult.OK && Regex.IsMatch(fbd.FileName, @"(\w*)(\.db)"))
                 {
+                    var settings = new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.Auto,
+                        Formatting = Formatting.Indented
+                    };
+
                     var prevResults = fbd.FileName;
-                    var file = CurentSelectedRowInfo;
+                    var fileWithPath = dataGridView[1, CurentSelectedRowIndex].Value.ToString();
+
+                    var selectedFile = JsonConvert.DeserializeObject<GeneralParameters>(File.ReadAllText(fileWithPath), settings);
+
+                    selectedFile.RestartFile = prevResults;
+                    var result = JsonConvert.SerializeObject(selectedFile, settings);
+                    File.WriteAllText(fileWithPath, result);
                 }
-                // tsf-logic
-                else
-                    return;
             }
             catch (Exception ex)
             {
