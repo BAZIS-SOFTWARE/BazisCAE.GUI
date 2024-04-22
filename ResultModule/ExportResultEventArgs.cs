@@ -7,17 +7,19 @@ using System.Threading.Tasks;
 
 namespace ResultModule
 {
-    public class ExportResultEvent : EventArgs
+    public class ExportResultEventArgs : EventArgs
     {
         public float Time { get; set; }
         public ObjType ObjType { get; set; }
         public string ResName { get; set; }
+        public string Path { get; set; }
 
-        public ExportResultEvent(float time, ObjType objType, string resName)
+        public ExportResultEventArgs(float time, ObjType objType, string resName, string path)
         {
             Time = time;
             ObjType = objType;
             ResName = resName;
+            Path = path;
         }
     }
 }

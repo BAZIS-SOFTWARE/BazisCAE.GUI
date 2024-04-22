@@ -125,7 +125,7 @@
     <Compile Include="ExportControl.Designer.cs">
       <DependentUpon>ExportControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExportResultEvent.cs" />
+    <Compile Include="ExportResultEventArgs.cs" />
     <Compile Include="GraphCreationPage.cs">
       <SubType>UserControl</SubType>
     </Compile>

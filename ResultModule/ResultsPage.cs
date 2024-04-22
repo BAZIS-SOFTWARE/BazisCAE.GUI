@@ -28,6 +28,7 @@ namespace ResultModule
     {
         ISceneScale scale;
         public event Action<string, bool, bool> LoadResultsEvent;
+        public event Action<object, ExportResultEventArgs> ExportResultsEventArgs;
         public IResultsController ResultsController { get; set; }
         
         private bool showResultValue;
@@ -128,6 +129,13 @@ namespace ResultModule
                 Text = "Показать шкалу"
             };
 
+            ToolStripMenuItem exportResultGridMEnuItem = new ToolStripMenuItem()
+            {
+                Name = "ExportSurfaceResults",
+                Text = "Экспорт результатов"
+            };
+            exportResultGridMEnuItem.Click += (ar1, ar2) => ShowExportResultsPage();
+
             showScaleResultsMenuItem.Click += (ar1, ar2) => 
             { 
                     ShowScalePage(); 
@@ -139,7 +147,8 @@ namespace ResultModule
             showResultsValueMenuItem,
             showAnimationResultsMenuItem,
             createGraphResultsMenuItem,
-            showScaleResultsMenuItem
+            showScaleResultsMenuItem,
+            exportResultGridMEnuItem
             });
 
             return resultsMenuItem;
@@ -805,9 +814,10 @@ namespace ResultModule
             await MergeResults(Project.ResultData);                     
         }
 
-        private void PrepareExportResults()
+        private void ShowExportResultsPage()
         {
-            var exprtPage = new ExportControl();
+            var exprtPage = new ExportControl() { Dock = DockStyle.Fill };
+            exprtPage.
 
             var resKinds = Project.ResultData.GetResultKinds();
             var resDic = new Dictionary<string, List<float>>();
@@ -821,16 +831,31 @@ namespace ResultModule
             exprtPage.SetSelectorsValues(resDic);
         }
 
-        private void ExportGrid(string resKind, string savePath, float time,
+        private void ExportGrid(ExportResultEventArgs results,
             ProjectInterfaces.Results.IResultsSurfacesSaver surfaceSaver)
         {
-            var result = Project.ResultData.FindByTaskKind(resKind);
-            var figures = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result.Where(x => x.Time == time).First(),)
-            var figures = fieldsCreator.CreateSurfaceObjects(, ObjType.Узел,
-                "T", Project.ModelData.ObjectData.E3DCollection);
+            try
+            {
+                if (NavigatorControl.TreeView.SelectedNode?.Level != 2)
+                    throw new Exception("Выберите вид результатов в разделе результаты");
 
-            //WriteResults(IEnumerable <IResultFigure2D> figures, string savePath);
-            surfaceSaver.WriteResults(figures, savePath);
+                var resName = NavigatorControl.TreeView.SelectedNode.Name;
+
+                var result = Project.ResultData.FindByTaskKind(results.ResName);
+                List<ISurfaceElement> elements;
+                if (Project.TaskType == TaskType.Volume)
+                    elements = Project.ModelData.ObjectData.E3DCollection.Select(x => x as ISurfaceElement).ToList();
+                else
+                    elements = Project.ModelData.ObjectData.E2DCollection.Select(x => x as ISurfaceElement).ToList();
+                var figures = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result.Where(x => x.Time == results.Time).First(), results.ObjType, resName, elements);
+
+                //WriteResults(IEnumerable <IResultFigure2D> figures, string savePath);
+                surfaceSaver.WriteResults(figures, results.Path);
+            }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
         }
     }   
 }

@@ -50,7 +50,7 @@
             // 
             this.btnExport.Location = new System.Drawing.Point(453, 328);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(143, 23);
+            this.btnExport.Size = new System.Drawing.Size(143, 32);
             this.btnExport.TabIndex = 1;
             this.btnExport.Text = "Экспортировать";
             this.btnExport.UseVisualStyleBackColor = true;

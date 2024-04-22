@@ -16,9 +16,11 @@ namespace ResultModule
     public partial class ExportControl : UserControl
     {
         public event Action<string> SelectResultsEvent;
+        public event Action<object, ExportResultEventArgs> ExportResultEventArgs;
 
         private readonly Dictionary<string, List<float>> resItems;
         private ObjType selectedObjType;
+
         public ExportControl()
         {
             InitializeComponent();
@@ -27,21 +29,21 @@ namespace ResultModule
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var fbd = new FolderBrowserDialog();
-                string selectedPath;
-                if (fbd.ShowDialog() == DialogResult.OK)
-                    selectedPath = fbd.SelectedPath;
+            CheckFormBeforeButtonClick();
+            var fbd = new FolderBrowserDialog();
+            string selectedPath = "";
+            if (fbd.ShowDialog() == DialogResult.OK)
+                selectedPath = fbd.SelectedPath;
 
-                var time = float.Parse(richTextBox1.SelectedText);
-                var resKind = cmbTasksResults.SelectedText;
-            }
-            catch(Exception ex) 
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
+            var time = float.Parse(richTextBox1.SelectedText);
+            var resKind = cmbTasksResults.SelectedText;
+            ExportResultEventArgs(this, new ExportResultEventArgs(time, selectedObjType, resKind, selectedPath));
+        }
+
+        private void CheckFormBeforeButtonClick()
+        {
+            if (cmbTasksResults.Text == "" || cmbTasksResults.Text == "" || richTextBox1.SelectedText == "")
+                throw new Exception("Перед экспортом результатов необходимо заполнить поля формы");
         }
 
         private void cmbTasksResults_SelectedIndexChanged(object sender, EventArgs e)
