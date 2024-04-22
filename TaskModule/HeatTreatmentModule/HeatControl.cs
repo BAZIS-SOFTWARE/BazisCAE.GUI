@@ -237,7 +237,7 @@ namespace TaskModule.HeatTreatmentModule
 
         public void Fill_nGroups(List<string> groupNames)
         {
-            //throw new Exception("Метод не реализован!");
+            //для термообработки нет возможности задавать граничные условия на узлах
         }
 
         private void fullCoef_CheckedChanged(object sender, EventArgs e)

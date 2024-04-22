@@ -154,8 +154,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // lblFileParameters
             // 
             this.lblFileParameters.AutoSize = true;
-            this.lblFileParameters.Location = new System.Drawing.Point(140, 212);
-            this.lblFileParameters.Margin = new System.Windows.Forms.Padding(5, 8, 2, 8);
+            this.lblFileParameters.Location = new System.Drawing.Point(176, 226);
+            this.lblFileParameters.Margin = new System.Windows.Forms.Padding(7, 10, 3, 10);
             this.lblFileParameters.Name = "lblFileParameters";
             this.lblFileParameters.Size = new System.Drawing.Size(200, 13);
             this.lblFileParameters.TabIndex = 130;
@@ -166,10 +166,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.btnLoadParameters.AutoSize = true;
             this.btnLoadParameters.Image = global::TaskModule.Properties.Resources.ComputationFolder;
-            this.btnLoadParameters.Location = new System.Drawing.Point(107, 206);
-            this.btnLoadParameters.Margin = new System.Windows.Forms.Padding(2, 2, 2, 0);
+            this.btnLoadParameters.Location = new System.Drawing.Point(134, 218);
+            this.btnLoadParameters.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.btnLoadParameters.Name = "btnLoadParameters";
-            this.btnLoadParameters.Size = new System.Drawing.Size(26, 26);
+            this.btnLoadParameters.Size = new System.Drawing.Size(32, 32);
             this.btnLoadParameters.TabIndex = 129;
             this.btnLoadParameters.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLoadParameters.UseVisualStyleBackColor = true;
@@ -301,7 +301,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.chbAddByTaskConditions.AutoSize = true;
             this.chbAddByTaskConditions.Location = new System.Drawing.Point(12, 180);
             this.chbAddByTaskConditions.Name = "chbAddByTaskConditions";
-            this.chbAddByTaskConditions.Size = new System.Drawing.Size(181, 17);
+            this.chbAddByTaskConditions.Size = new System.Drawing.Size(225, 20);
             this.chbAddByTaskConditions.TabIndex = 54;
             this.chbAddByTaskConditions.Text = "Добавить по условиям задачи";
             this.chbAddByTaskConditions.UseVisualStyleBackColor = true;
@@ -310,10 +310,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.btnClearAllTask.AutoSize = true;
             this.btnClearAllTask.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAllTask.Image")));
-            this.btnClearAllTask.Location = new System.Drawing.Point(44, 206);
-            this.btnClearAllTask.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
+            this.btnClearAllTask.Location = new System.Drawing.Point(55, 218);
+            this.btnClearAllTask.Margin = new System.Windows.Forms.Padding(4, 6, 4, 0);
             this.btnClearAllTask.Name = "btnClearAllTask";
-            this.btnClearAllTask.Size = new System.Drawing.Size(26, 26);
+            this.btnClearAllTask.Size = new System.Drawing.Size(32, 32);
             this.btnClearAllTask.TabIndex = 53;
             this.btnClearAllTask.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnClearAllTask.UseVisualStyleBackColor = true;
@@ -324,10 +324,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnRefresh.AutoSize = true;
             this.btnRefresh.Enabled = false;
             this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
-            this.btnRefresh.Location = new System.Drawing.Point(76, 206);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
+            this.btnRefresh.Location = new System.Drawing.Point(95, 218);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4, 6, 4, 0);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(26, 26);
+            this.btnRefresh.Size = new System.Drawing.Size(32, 32);
             this.btnRefresh.TabIndex = 53;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -337,10 +337,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.btnAddNewTask.AutoSize = true;
             this.btnAddNewTask.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewTask.Image")));
-            this.btnAddNewTask.Location = new System.Drawing.Point(12, 206);
-            this.btnAddNewTask.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
+            this.btnAddNewTask.Location = new System.Drawing.Point(15, 218);
+            this.btnAddNewTask.Margin = new System.Windows.Forms.Padding(4, 6, 4, 0);
             this.btnAddNewTask.Name = "btnAddNewTask";
-            this.btnAddNewTask.Size = new System.Drawing.Size(26, 26);
+            this.btnAddNewTask.Size = new System.Drawing.Size(32, 32);
             this.btnAddNewTask.TabIndex = 53;
             this.btnAddNewTask.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewTask.UseVisualStyleBackColor = true;
@@ -422,7 +422,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.chbFurtherComp.AutoSize = true;
             this.chbFurtherComp.Location = new System.Drawing.Point(311, 54);
             this.chbFurtherComp.Name = "chbFurtherComp";
-            this.chbFurtherComp.Size = new System.Drawing.Size(126, 17);
+            this.chbFurtherComp.Size = new System.Drawing.Size(156, 20);
             this.chbFurtherComp.TabIndex = 77;
             this.chbFurtherComp.Text = "Продолжить расчет";
             this.chbFurtherComp.UseVisualStyleBackColor = true;
@@ -533,7 +533,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.chbLinkedCalc.BackColor = System.Drawing.Color.Transparent;
             this.chbLinkedCalc.Location = new System.Drawing.Point(311, 30);
             this.chbLinkedCalc.Name = "chbLinkedCalc";
-            this.chbLinkedCalc.Size = new System.Drawing.Size(128, 17);
+            this.chbLinkedCalc.Size = new System.Drawing.Size(158, 20);
             this.chbLinkedCalc.TabIndex = 4;
             this.chbLinkedCalc.Text = "Связанное решение";
             this.chbLinkedCalc.UseVisualStyleBackColor = false;

@@ -4,6 +4,7 @@ using ProjectInterfaces.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
+using System;
 
 namespace TaskModule.WeldingModule
 {
@@ -17,13 +18,6 @@ namespace TaskModule.WeldingModule
         public override ToolStripMenuItem CreateTasksInterface()
         {
             var taskMenuItem = base.CreateTasksInterface();
-
-            //ToolStripMenuItem weldingMenuItem = new ToolStripMenuItem()
-            //{
-            //    Name = "Сварка",
-            //    Text = "Сварка",
-            //    CheckOnClick = true
-            //};
 
             ToolStripMenuItem arcWeldingMenuItem = new ToolStripMenuItem()
             {
@@ -57,7 +51,7 @@ namespace TaskModule.WeldingModule
                 var taskAdv = new WeldingAdvisor() 
                 { 
                     Dock = DockStyle.Fill,
-                    Name = arcWeldingMenuItem.Name,
+                    Name = "Сварка",
                     Text = arcWeldingMenuItem.Text
                 };
                 taskAdv.SetWeldingKind(WeldingKind.ARC);
@@ -75,7 +69,7 @@ namespace TaskModule.WeldingModule
                 var taskAdv = new WeldingAdvisor()
                 {
                     Dock = DockStyle.Fill,
-                    Name = lazerWeldingMenuItem.Name,
+                    Name = "Сварка",
                     Text = lazerWeldingMenuItem.Text
                 };
                 taskAdv.SetWeldingKind(WeldingKind.Lazer);
@@ -93,7 +87,7 @@ namespace TaskModule.WeldingModule
                 var taskAdv = new WeldingAdvisor()
                 {
                     Dock = DockStyle.Fill,
-                    Name = fsWeldingMenuItem.Name,
+                    Name = "Сварка",
                     Text = fsWeldingMenuItem.Text
                 };
                 taskAdv.SetWeldingKind(WeldingKind.FrictionStearing);
@@ -110,22 +104,38 @@ namespace TaskModule.WeldingModule
             return taskMenuItem;
         }
 
-        private void TaskAdv_SpecifyWeldingZoneEvent(string arg1, int arg2)
+        private async void TaskAdv_SpecifyWeldingZoneEvent(string arg1, int arg2)
         {
             try
             {
-                var data = (IValuableData)Project.TaskData.Find(arg1).ToArray()[arg2];
-
-                var modelObjects = new List<IModelObject>();
-                var finishTime = data.StopTime - data.StartTime;
-                for (int i = 0; i <= finishTime; i++)
+                await System.Threading.Tasks.Task.Run(() =>
                 {
-                    var resu = data.MovedFrameFunction.GetIntersectedObjects(i, data.Group.ToList());
-                    modelObjects.AddRange(resu);
-                }
+                    var data = (IValuableData)Project.TaskData.Find(arg1).ToArray()[arg2];
 
-                data.Group.Clear();
-                data.Group.AddRange(modelObjects);
+                    var modelObjects = new List<IModelObject>();
+                    var finishTime = data.StopTime - data.StartTime;
+
+                    Invoke(new Action(() =>
+                    {
+                        ConsoleControl.PrintInfo("Уточнение зоны нагрева...", Color.Black);
+                    }));
+
+                    for (int i = 0; i <= 100; i++)
+                    {
+                        var currentTime = i * finishTime / 100.0f;
+                        var resu = data.MovedFrameFunction.GetIntersectedObjects(currentTime, data.Group.ToList());
+                        modelObjects.AddRange(resu);
+
+                        if (i % 10 == 0)
+                            Invoke(new Action(() =>
+                            {
+                                ConsoleControl.PrintInfo((i / 100.0f).ToString("P2"), Color.Black);
+                            }));
+                    }
+
+                    data.Group.Clear();
+                    data.Group.AddRange(modelObjects);
+                });
             }
             catch (System.Exception ex)
             {

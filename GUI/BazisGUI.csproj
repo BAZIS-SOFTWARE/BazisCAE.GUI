@@ -111,8 +111,8 @@
     <Reference Include="Model, Version=3.0.9.30, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
       <HintPath>..\packages\Model.3.0.9.30\lib\net48\Model.dll</HintPath>
     </Reference>
-    <Reference Include="ModelController, Version=3.0.11.54, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelController.3.0.11.54\lib\net48\ModelController.dll</HintPath>
+    <Reference Include="ModelController, Version=3.0.11.55, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelController.3.0.11.55\lib\net48\ModelController.dll</HintPath>
     </Reference>
     <Reference Include="ModelControllerInterfaces, Version=3.0.0.45, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
       <HintPath>..\packages\ModelControllerInterfaces.3.0.0.45\lib\net48\ModelControllerInterfaces.dll</HintPath>
@@ -126,14 +126,14 @@
     <Reference Include="Octree, Version=2.1.10.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.10\lib\net48\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=3.0.11.32, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.3.0.11.32\lib\net48\Project.dll</HintPath>
+    <Reference Include="Project, Version=3.0.11.34, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.3.0.11.34\lib\net48\Project.dll</HintPath>
     </Reference>
-    <Reference Include="ProjectInterfaces, Version=3.0.32.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjectInterfaces.3.0.32\lib\net48\ProjectInterfaces.dll</HintPath>
+    <Reference Include="ProjectInterfaces, Version=3.0.33.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProjectInterfaces.3.0.33\lib\net48\ProjectInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Results, Version=3.0.0.37, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
-      <HintPath>..\packages\Results.3.0.0.37\lib\net48\Results.dll</HintPath>
+    <Reference Include="Results, Version=3.0.0.39, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
+      <HintPath>..\packages\Results.3.0.0.39\lib\net48\Results.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface, Version=1.0.36.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
       <HintPath>..\packages\SceneInterface.1.0.36\lib\net48\SceneInterface.dll</HintPath>
@@ -171,8 +171,8 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tasks, Version=3.0.0.35, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tasks.3.0.0.35\lib\net48\Tasks.dll</HintPath>
+    <Reference Include="Tasks, Version=3.0.0.40, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tasks.3.0.0.40\lib\net48\Tasks.dll</HintPath>
     </Reference>
     <Reference Include="TasksParameters, Version=1.0.0.11, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TasksParameters.1.0.0.11\lib\net48\TasksParameters.dll</HintPath>
