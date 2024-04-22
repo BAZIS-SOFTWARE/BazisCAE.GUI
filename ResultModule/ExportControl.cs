@@ -22,6 +22,13 @@ namespace ResultModule
 
         }
 
+        private void cbmTasksResults_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
 
+        public void SetSelectorsValues(Dictionary<string, List<float>> resDic)
+        {
+
+        }
     }
 }

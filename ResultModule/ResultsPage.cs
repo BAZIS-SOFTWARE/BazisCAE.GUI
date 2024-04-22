@@ -804,5 +804,21 @@ namespace ResultModule
         {
             await MergeResults(Project.ResultData);                     
         }
+
+        private void ExportResults()
+        {
+            var exprtPage = new ExportControl();
+
+            var resKinds = Project.ResultData.GetResultKinds();
+            var resDic = new Dictionary<string, List<float>>();
+            foreach (var resKind in resKinds)
+            {
+                resDic.Add(resKind.ToString(), new List<float>());
+                var resTimes = Project.ResultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
+                resDic[resKind.ToString()] = resTimes;
+            }
+
+            exprtPage.SetSelectorsValues(Dictionary<string, List<float>> resDic);
+        }
     }   
 }
