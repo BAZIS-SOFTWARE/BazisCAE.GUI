@@ -30,13 +30,14 @@
         {
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.btnExport = new System.Windows.Forms.Button();
-            this.cbmTasksResults = new System.Windows.Forms.ComboBox();
+            this.cmbTasksResults = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // richTextBox1
             // 
+            this.richTextBox1.ReadOnly = true;
             this.richTextBox1.Location = new System.Drawing.Point(136, 70);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(460, 219);
@@ -55,14 +56,14 @@
             // 
             // cbmTasksResults
             // 
-            this.cbmTasksResults.Items.Clear();
-            this.cbmTasksResults.Sorted = true;
-            this.cbmTasksResults.FormattingEnabled = true;
-            this.cbmTasksResults.Location = new System.Drawing.Point(136, 48);
-            this.cbmTasksResults.Name = "cbmTasksResults";
-            this.cbmTasksResults.Size = new System.Drawing.Size(460, 24);
-            this.cbmTasksResults.TabIndex = 0;
-            this.cbmTasksResults.SelectedIndexChanged += new System.EventHandler(this.cbmTasksResults_SelectedIndexChanged);
+            this.cmbTasksResults.Items.Clear();
+            this.cmbTasksResults.Sorted = true;
+            this.cmbTasksResults.FormattingEnabled = true;
+            this.cmbTasksResults.Location = new System.Drawing.Point(136, 48);
+            this.cmbTasksResults.Name = "cbmTasksResults";
+            this.cmbTasksResults.Size = new System.Drawing.Size(460, 24);
+            this.cmbTasksResults.TabIndex = 0;
+            this.cmbTasksResults.SelectedIndexChanged += new System.EventHandler(this.cbmTasksResults_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -88,7 +89,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.cbmTasksResults);
+            this.Controls.Add(this.cmbTasksResults);
             this.Controls.Add(this.btnExport);
             this.Controls.Add(this.richTextBox1);
             this.Name = "ExportControl";
@@ -102,7 +103,7 @@
 
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button btnExport;
-        private System.Windows.Forms.ComboBox cbmTasksResults;
+        private System.Windows.Forms.ComboBox cmbTasksResults;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
     }

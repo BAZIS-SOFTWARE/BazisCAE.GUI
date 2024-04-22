@@ -805,7 +805,7 @@ namespace ResultModule
             await MergeResults(Project.ResultData);                     
         }
 
-        private void ExportResults()
+        private void PrepareExportResults()
         {
             var exprtPage = new ExportControl();
 
@@ -818,7 +818,7 @@ namespace ResultModule
                 resDic[resKind.ToString()] = resTimes;
             }
 
-            exprtPage.SetSelectorsValues(Dictionary<string, List<float>> resDic);
+            exprtPage.SetSelectorsValues(resDic);
         }
     }   
 }
