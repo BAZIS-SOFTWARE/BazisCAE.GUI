@@ -1,9 +1,12 @@
-﻿using System;
+﻿using ModelInterfaces;
+using ProjectInterfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,6 +18,7 @@ namespace ResultModule
         public event Action<string> SelectResultsEvent;
 
         private readonly Dictionary<string, List<float>> resItems;
+        private ObjType selectedObjType;
         public ExportControl()
         {
             InitializeComponent();
@@ -23,10 +27,24 @@ namespace ResultModule
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+            try
+            {
+                var fbd = new FolderBrowserDialog();
+                string selectedPath;
+                if (fbd.ShowDialog() == DialogResult.OK)
+                    selectedPath = fbd.SelectedPath;
 
+                var time = float.Parse(richTextBox1.SelectedText);
+                var resKind = cmbTasksResults.SelectedText;
+            }
+            catch(Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
-        private void cbmTasksResults_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbTasksResults_SelectedIndexChanged(object sender, EventArgs e)
         {
             var rows = resItems[cmbTasksResults.SelectedItem.ToString()];
             foreach(var text in rows)
@@ -42,6 +60,14 @@ namespace ResultModule
                 cmbTasksResults.Items.Add(key);
                 resItems.Add(key, resDic[key]);
             }
+        }
+
+        private void cmbObjType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbObjType.SelectedItem.ToString() == "Элементы")
+                selectedObjType = ObjType.Элемент;
+            else
+                selectedObjType = ObjType.Узел;
         }
     }
 }

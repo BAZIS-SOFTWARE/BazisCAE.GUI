@@ -820,5 +820,17 @@ namespace ResultModule
 
             exprtPage.SetSelectorsValues(resDic);
         }
+
+        private void ExportGrid(string resKind, string savePath, float time,
+            ProjectInterfaces.Results.IResultsSurfacesSaver surfaceSaver)
+        {
+            var result = Project.ResultData.FindByTaskKind(resKind);
+            var figures = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result.Where(x => x.Time == time).First(),)
+            var figures = fieldsCreator.CreateSurfaceObjects(, ObjType.Узел,
+                "T", Project.ModelData.ObjectData.E3DCollection);
+
+            //WriteResults(IEnumerable <IResultFigure2D> figures, string savePath);
+            surfaceSaver.WriteResults(figures, savePath);
+        }
     }   
 }
