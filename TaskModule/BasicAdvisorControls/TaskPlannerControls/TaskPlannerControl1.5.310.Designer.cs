@@ -31,11 +31,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskPlannerControl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.PrevResultLoadBtn = new System.Windows.Forms.Button();
             this.lblFileParameters = new System.Windows.Forms.Label();
             this.btnLoadParameters = new System.Windows.Forms.Button();
             this.StopButton = new System.Windows.Forms.Button();
@@ -90,21 +91,21 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.tableLayoutPanel1.Controls.Add(this.dataGridView, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(837, 804);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(837, 831);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox2
             // 
             this.groupBox2.AutoSize = true;
             this.groupBox2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox2.Controls.Add(this.PrevResultLoadBtn);
             this.groupBox2.Controls.Add(this.lblFileParameters);
             this.groupBox2.Controls.Add(this.btnLoadParameters);
             this.groupBox2.Controls.Add(this.StopButton);
@@ -125,23 +126,38 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.groupBox2.Controls.Add(this.txbStopTime);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(1, 128);
+            this.groupBox2.Location = new System.Drawing.Point(1, 107);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
-            this.groupBox2.MinimumSize = new System.Drawing.Size(400, 0);
+            this.groupBox2.MinimumSize = new System.Drawing.Size(300, 0);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox2.Size = new System.Drawing.Size(835, 267);
+            this.groupBox2.Size = new System.Drawing.Size(835, 246);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Временные параметры";
             // 
+            // PrevResultLoadBtn
+            // 
+            this.PrevResultLoadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PrevResultLoadBtn.AutoSize = true;
+            this.PrevResultLoadBtn.Enabled = false;
+            this.PrevResultLoadBtn.Location = new System.Drawing.Point(12, 150);
+            this.PrevResultLoadBtn.Margin = new System.Windows.Forms.Padding(1);
+            this.PrevResultLoadBtn.Name = "PrevResultLoadBtn";
+            this.PrevResultLoadBtn.Size = new System.Drawing.Size(160, 23);
+            this.PrevResultLoadBtn.TabIndex = 131;
+            this.PrevResultLoadBtn.Text = "Предыдущие условия";
+            this.PrevResultLoadBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.PrevResultLoadBtn.UseVisualStyleBackColor = true;
+            this.PrevResultLoadBtn.Click += new System.EventHandler(this.PrevResultLoadButton_Click);
+            // 
             // lblFileParameters
             // 
             this.lblFileParameters.AutoSize = true;
-            this.lblFileParameters.Location = new System.Drawing.Point(187, 226);
-            this.lblFileParameters.Margin = new System.Windows.Forms.Padding(7, 10, 3, 10);
+            this.lblFileParameters.Location = new System.Drawing.Point(140, 212);
+            this.lblFileParameters.Margin = new System.Windows.Forms.Padding(5, 8, 2, 8);
             this.lblFileParameters.Name = "lblFileParameters";
-            this.lblFileParameters.Size = new System.Drawing.Size(252, 16);
+            this.lblFileParameters.Size = new System.Drawing.Size(200, 13);
             this.lblFileParameters.TabIndex = 130;
             this.lblFileParameters.Text = "Выберите директорию с *.tsf файлами";
             this.lblFileParameters.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -150,10 +166,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.btnLoadParameters.AutoSize = true;
             this.btnLoadParameters.Image = global::TaskModule.Properties.Resources.ComputationFolder;
-            this.btnLoadParameters.Location = new System.Drawing.Point(143, 218);
-            this.btnLoadParameters.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
+            this.btnLoadParameters.Location = new System.Drawing.Point(107, 206);
+            this.btnLoadParameters.Margin = new System.Windows.Forms.Padding(2, 2, 2, 0);
             this.btnLoadParameters.Name = "btnLoadParameters";
-            this.btnLoadParameters.Size = new System.Drawing.Size(35, 32);
+            this.btnLoadParameters.Size = new System.Drawing.Size(26, 26);
             this.btnLoadParameters.TabIndex = 129;
             this.btnLoadParameters.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLoadParameters.UseVisualStyleBackColor = true;
@@ -163,10 +179,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.StopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.StopButton.AutoSize = true;
-            this.StopButton.Location = new System.Drawing.Point(727, 218);
+            this.StopButton.Location = new System.Drawing.Point(754, 206);
             this.StopButton.Margin = new System.Windows.Forms.Padding(1);
             this.StopButton.Name = "StopButton";
-            this.StopButton.Size = new System.Drawing.Size(89, 32);
+            this.StopButton.Size = new System.Drawing.Size(67, 26);
             this.StopButton.TabIndex = 3;
             this.StopButton.Text = "Стоп";
             this.StopButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -178,10 +194,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbStartStep.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStartStep.BackColor = System.Drawing.SystemColors.Window;
-            this.txbStartStep.Location = new System.Drawing.Point(237, 89);
-            this.txbStartStep.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
+            this.txbStartStep.Location = new System.Drawing.Point(178, 72);
+            this.txbStartStep.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbStartStep.Name = "txbStartStep";
-            this.txbStartStep.Size = new System.Drawing.Size(579, 22);
+            this.txbStartStep.Size = new System.Drawing.Size(644, 20);
             this.txbStartStep.TabIndex = 76;
             this.txbStartStep.Tag = "2";
             this.txbStartStep.Text = "0.1";
@@ -191,10 +207,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.btnGenTCF.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGenTCF.AutoSize = true;
-            this.btnGenTCF.Location = new System.Drawing.Point(507, 218);
+            this.btnGenTCF.Location = new System.Drawing.Point(589, 206);
             this.btnGenTCF.Margin = new System.Windows.Forms.Padding(1);
             this.btnGenTCF.Name = "btnGenTCF";
-            this.btnGenTCF.Size = new System.Drawing.Size(128, 32);
+            this.btnGenTCF.Size = new System.Drawing.Size(96, 26);
             this.btnGenTCF.TabIndex = 2;
             this.btnGenTCF.Text = "Создать *.tcf";
             this.btnGenTCF.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -205,10 +221,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.StartButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.StartButton.AutoSize = true;
-            this.StartButton.Location = new System.Drawing.Point(637, 218);
+            this.StartButton.Location = new System.Drawing.Point(687, 206);
             this.StartButton.Margin = new System.Windows.Forms.Padding(1);
             this.StartButton.Name = "StartButton";
-            this.StartButton.Size = new System.Drawing.Size(88, 32);
+            this.StartButton.Size = new System.Drawing.Size(66, 26);
             this.StartButton.TabIndex = 2;
             this.StartButton.Text = "Старт";
             this.StartButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -218,10 +234,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 92);
-            this.label3.Margin = new System.Windows.Forms.Padding(9, 12, 4, 12);
+            this.label3.Location = new System.Drawing.Point(9, 75);
+            this.label3.Margin = new System.Windows.Forms.Padding(7, 10, 3, 10);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(192, 16);
+            this.label3.Size = new System.Drawing.Size(153, 13);
             this.label3.TabIndex = 73;
             this.label3.Text = "Начальный шаг расчета, сек";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -230,10 +246,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 155);
-            this.label6.Margin = new System.Windows.Forms.Padding(9, 12, 4, 12);
+            this.label6.Location = new System.Drawing.Point(9, 126);
+            this.label6.Margin = new System.Windows.Forms.Padding(7, 10, 3, 10);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(216, 16);
+            this.label6.Size = new System.Drawing.Size(175, 13);
             this.label6.TabIndex = 71;
             this.label6.Text = "Максимальный шаг расчета, сек";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -242,10 +258,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 124);
-            this.label8.Margin = new System.Windows.Forms.Padding(9, 12, 4, 12);
+            this.label8.Location = new System.Drawing.Point(9, 101);
+            this.label8.Margin = new System.Windows.Forms.Padding(7, 10, 3, 10);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(210, 16);
+            this.label8.Size = new System.Drawing.Size(169, 13);
             this.label8.TabIndex = 72;
             this.label8.Text = "Минимальный шаг расчета, сек";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -257,10 +273,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbMaxStep.BackColor = System.Drawing.SystemColors.Window;
             this.txbMaxStep.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txbMaxStep.Location = new System.Drawing.Point(237, 152);
-            this.txbMaxStep.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
+            this.txbMaxStep.Location = new System.Drawing.Point(178, 124);
+            this.txbMaxStep.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbMaxStep.Name = "txbMaxStep";
-            this.txbMaxStep.Size = new System.Drawing.Size(579, 22);
+            this.txbMaxStep.Size = new System.Drawing.Size(644, 20);
             this.txbMaxStep.TabIndex = 74;
             this.txbMaxStep.Tag = "4";
             this.txbMaxStep.Text = "100";
@@ -271,10 +287,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbMinStep.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbMinStep.BackColor = System.Drawing.SystemColors.Window;
-            this.txbMinStep.Location = new System.Drawing.Point(237, 122);
-            this.txbMinStep.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
+            this.txbMinStep.Location = new System.Drawing.Point(178, 99);
+            this.txbMinStep.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbMinStep.Name = "txbMinStep";
-            this.txbMinStep.Size = new System.Drawing.Size(579, 22);
+            this.txbMinStep.Size = new System.Drawing.Size(644, 20);
             this.txbMinStep.TabIndex = 75;
             this.txbMinStep.Tag = "3";
             this.txbMinStep.Text = "0.00001";
@@ -283,10 +299,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // chbAddByTaskConditions
             // 
             this.chbAddByTaskConditions.AutoSize = true;
-            this.chbAddByTaskConditions.Location = new System.Drawing.Point(16, 187);
-            this.chbAddByTaskConditions.Margin = new System.Windows.Forms.Padding(4);
+            this.chbAddByTaskConditions.Location = new System.Drawing.Point(12, 180);
             this.chbAddByTaskConditions.Name = "chbAddByTaskConditions";
-            this.chbAddByTaskConditions.Size = new System.Drawing.Size(228, 20);
+            this.chbAddByTaskConditions.Size = new System.Drawing.Size(181, 17);
             this.chbAddByTaskConditions.TabIndex = 54;
             this.chbAddByTaskConditions.Text = "Добавить по условиям задачи";
             this.chbAddByTaskConditions.UseVisualStyleBackColor = true;
@@ -295,10 +310,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.btnClearAllTask.AutoSize = true;
             this.btnClearAllTask.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAllTask.Image")));
-            this.btnClearAllTask.Location = new System.Drawing.Point(59, 218);
-            this.btnClearAllTask.Margin = new System.Windows.Forms.Padding(4, 6, 4, 0);
+            this.btnClearAllTask.Location = new System.Drawing.Point(44, 206);
+            this.btnClearAllTask.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
             this.btnClearAllTask.Name = "btnClearAllTask";
-            this.btnClearAllTask.Size = new System.Drawing.Size(35, 32);
+            this.btnClearAllTask.Size = new System.Drawing.Size(26, 26);
             this.btnClearAllTask.TabIndex = 53;
             this.btnClearAllTask.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnClearAllTask.UseVisualStyleBackColor = true;
@@ -309,10 +324,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnRefresh.AutoSize = true;
             this.btnRefresh.Enabled = false;
             this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
-            this.btnRefresh.Location = new System.Drawing.Point(101, 218);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4, 6, 4, 0);
+            this.btnRefresh.Location = new System.Drawing.Point(76, 206);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(35, 32);
+            this.btnRefresh.Size = new System.Drawing.Size(26, 26);
             this.btnRefresh.TabIndex = 53;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -322,10 +337,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.btnAddNewTask.AutoSize = true;
             this.btnAddNewTask.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewTask.Image")));
-            this.btnAddNewTask.Location = new System.Drawing.Point(16, 218);
-            this.btnAddNewTask.Margin = new System.Windows.Forms.Padding(4, 6, 4, 0);
+            this.btnAddNewTask.Location = new System.Drawing.Point(12, 206);
+            this.btnAddNewTask.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
             this.btnAddNewTask.Name = "btnAddNewTask";
-            this.btnAddNewTask.Size = new System.Drawing.Size(35, 32);
+            this.btnAddNewTask.Size = new System.Drawing.Size(26, 26);
             this.btnAddNewTask.TabIndex = 53;
             this.btnAddNewTask.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewTask.UseVisualStyleBackColor = true;
@@ -336,10 +351,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStartTime.BackColor = System.Drawing.SystemColors.Window;
-            this.txbStartTime.Location = new System.Drawing.Point(237, 25);
-            this.txbStartTime.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
+            this.txbStartTime.Location = new System.Drawing.Point(178, 20);
+            this.txbStartTime.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(579, 22);
+            this.txbStartTime.Size = new System.Drawing.Size(644, 20);
             this.txbStartTime.TabIndex = 44;
             this.txbStartTime.Tag = "0";
             this.txbStartTime.Leave += new System.EventHandler(this.TimeSettingsTextBox_Leave);
@@ -347,10 +362,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 28);
-            this.label4.Margin = new System.Windows.Forms.Padding(9, 12, 4, 12);
+            this.label4.Location = new System.Drawing.Point(9, 23);
+            this.label4.Margin = new System.Windows.Forms.Padding(7, 10, 3, 10);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(127, 16);
+            this.label4.Size = new System.Drawing.Size(102, 13);
             this.label4.TabIndex = 42;
             this.label4.Text = "Время начала, сек";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -360,10 +375,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStopTime.BackColor = System.Drawing.SystemColors.Window;
-            this.txbStopTime.Location = new System.Drawing.Point(237, 57);
-            this.txbStopTime.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
+            this.txbStopTime.Location = new System.Drawing.Point(178, 46);
+            this.txbStopTime.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(579, 22);
+            this.txbStopTime.Size = new System.Drawing.Size(644, 20);
             this.txbStopTime.TabIndex = 40;
             this.txbStopTime.Tag = "1";
             this.txbStopTime.Leave += new System.EventHandler(this.TimeSettingsTextBox_Leave);
@@ -371,10 +386,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 60);
-            this.label1.Margin = new System.Windows.Forms.Padding(27, 12, 4, 12);
+            this.label1.Location = new System.Drawing.Point(9, 49);
+            this.label1.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(149, 16);
+            this.label1.Size = new System.Drawing.Size(120, 13);
             this.label1.TabIndex = 39;
             this.label1.Text = "Время окончания, сек";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -397,7 +412,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.groupBox3.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox3.Size = new System.Drawing.Size(835, 105);
+            this.groupBox3.Size = new System.Drawing.Size(835, 87);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Выбор задачи";
@@ -405,10 +420,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // chbFurtherComp
             // 
             this.chbFurtherComp.AutoSize = true;
-            this.chbFurtherComp.Location = new System.Drawing.Point(415, 66);
-            this.chbFurtherComp.Margin = new System.Windows.Forms.Padding(4);
+            this.chbFurtherComp.Location = new System.Drawing.Point(311, 54);
             this.chbFurtherComp.Name = "chbFurtherComp";
-            this.chbFurtherComp.Size = new System.Drawing.Size(159, 20);
+            this.chbFurtherComp.Size = new System.Drawing.Size(126, 17);
             this.chbFurtherComp.TabIndex = 77;
             this.chbFurtherComp.Text = "Продолжить расчет";
             this.chbFurtherComp.UseVisualStyleBackColor = true;
@@ -418,10 +432,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.cmbHardnessTask.AutoSize = true;
             this.cmbHardnessTask.BackColor = System.Drawing.Color.Transparent;
             this.cmbHardnessTask.Enabled = false;
-            this.cmbHardnessTask.Location = new System.Drawing.Point(16, 68);
-            this.cmbHardnessTask.Margin = new System.Windows.Forms.Padding(4, 4, 3, 4);
+            this.cmbHardnessTask.Location = new System.Drawing.Point(12, 55);
+            this.cmbHardnessTask.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
             this.cmbHardnessTask.Name = "cmbHardnessTask";
-            this.cmbHardnessTask.Size = new System.Drawing.Size(18, 17);
+            this.cmbHardnessTask.Size = new System.Drawing.Size(15, 14);
             this.cmbHardnessTask.TabIndex = 75;
             this.cmbHardnessTask.Tag = "1";
             this.cmbHardnessTask.UseVisualStyleBackColor = false;
@@ -429,10 +443,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // lblMechTask
             // 
             this.lblMechTask.AutoSize = true;
-            this.lblMechTask.Location = new System.Drawing.Point(300, 37);
-            this.lblMechTask.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
+            this.lblMechTask.Location = new System.Drawing.Point(225, 30);
+            this.lblMechTask.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.lblMechTask.Name = "lblMechTask";
-            this.lblMechTask.Size = new System.Drawing.Size(101, 16);
+            this.lblMechTask.Size = new System.Drawing.Size(80, 13);
             this.lblMechTask.TabIndex = 7;
             this.lblMechTask.Text = "Механическая";
             this.lblMechTask.Click += new System.EventHandler(this.LblMechTask_Click);
@@ -441,10 +455,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.lblHardness.AutoSize = true;
             this.lblHardness.Enabled = false;
-            this.lblHardness.Location = new System.Drawing.Point(39, 68);
-            this.lblHardness.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
+            this.lblHardness.Location = new System.Drawing.Point(29, 55);
+            this.lblHardness.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.lblHardness.Name = "lblHardness";
-            this.lblHardness.Size = new System.Drawing.Size(77, 16);
+            this.lblHardness.Size = new System.Drawing.Size(61, 13);
             this.lblHardness.TabIndex = 6;
             this.lblHardness.Text = "Твердость";
             this.lblHardness.Click += new System.EventHandler(this.LblTermoTask_Click);
@@ -452,10 +466,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // lblTermoTask
             // 
             this.lblTermoTask.AutoSize = true;
-            this.lblTermoTask.Location = new System.Drawing.Point(169, 37);
-            this.lblTermoTask.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
+            this.lblTermoTask.Location = new System.Drawing.Point(127, 30);
+            this.lblTermoTask.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.lblTermoTask.Name = "lblTermoTask";
-            this.lblTermoTask.Size = new System.Drawing.Size(94, 16);
+            this.lblTermoTask.Size = new System.Drawing.Size(75, 13);
             this.lblTermoTask.TabIndex = 6;
             this.lblTermoTask.Text = "Термическая";
             this.lblTermoTask.Click += new System.EventHandler(this.LblTermoTask_Click);
@@ -464,10 +478,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.lblChemicalTask.AutoSize = true;
             this.lblChemicalTask.Enabled = false;
-            this.lblChemicalTask.Location = new System.Drawing.Point(39, 37);
-            this.lblChemicalTask.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
+            this.lblChemicalTask.Location = new System.Drawing.Point(29, 30);
+            this.lblChemicalTask.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.lblChemicalTask.Name = "lblChemicalTask";
-            this.lblChemicalTask.Size = new System.Drawing.Size(94, 16);
+            this.lblChemicalTask.Size = new System.Drawing.Size(77, 13);
             this.lblChemicalTask.TabIndex = 5;
             this.lblChemicalTask.Text = "Химмическая";
             this.lblChemicalTask.Click += new System.EventHandler(this.LblChemicalTask_Click);
@@ -476,10 +490,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.chbMechTask.AutoSize = true;
             this.chbMechTask.BackColor = System.Drawing.Color.Transparent;
-            this.chbMechTask.Location = new System.Drawing.Point(277, 37);
-            this.chbMechTask.Margin = new System.Windows.Forms.Padding(4, 4, 3, 4);
+            this.chbMechTask.Location = new System.Drawing.Point(208, 30);
+            this.chbMechTask.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
             this.chbMechTask.Name = "chbMechTask";
-            this.chbMechTask.Size = new System.Drawing.Size(18, 17);
+            this.chbMechTask.Size = new System.Drawing.Size(15, 14);
             this.chbMechTask.TabIndex = 4;
             this.chbMechTask.Tag = "2";
             this.chbMechTask.UseVisualStyleBackColor = false;
@@ -489,10 +503,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.chbTermoTask.AutoSize = true;
             this.chbTermoTask.BackColor = System.Drawing.Color.Transparent;
-            this.chbTermoTask.Location = new System.Drawing.Point(147, 37);
-            this.chbTermoTask.Margin = new System.Windows.Forms.Padding(4, 4, 3, 4);
+            this.chbTermoTask.Location = new System.Drawing.Point(110, 30);
+            this.chbTermoTask.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
             this.chbTermoTask.Name = "chbTermoTask";
-            this.chbTermoTask.Size = new System.Drawing.Size(18, 17);
+            this.chbTermoTask.Size = new System.Drawing.Size(15, 14);
             this.chbTermoTask.TabIndex = 4;
             this.chbTermoTask.Tag = "1";
             this.chbTermoTask.UseVisualStyleBackColor = false;
@@ -504,10 +518,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.chbChemicalTask.BackColor = System.Drawing.Color.Transparent;
             this.chbChemicalTask.Enabled = false;
             this.chbChemicalTask.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chbChemicalTask.Location = new System.Drawing.Point(16, 37);
-            this.chbChemicalTask.Margin = new System.Windows.Forms.Padding(4, 4, 3, 4);
+            this.chbChemicalTask.Location = new System.Drawing.Point(12, 30);
+            this.chbChemicalTask.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
             this.chbChemicalTask.Name = "chbChemicalTask";
-            this.chbChemicalTask.Size = new System.Drawing.Size(18, 17);
+            this.chbChemicalTask.Size = new System.Drawing.Size(15, 14);
             this.chbChemicalTask.TabIndex = 4;
             this.chbChemicalTask.Tag = "0";
             this.chbChemicalTask.UseVisualStyleBackColor = false;
@@ -517,10 +531,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.chbLinkedCalc.AutoSize = true;
             this.chbLinkedCalc.BackColor = System.Drawing.Color.Transparent;
-            this.chbLinkedCalc.Location = new System.Drawing.Point(415, 37);
-            this.chbLinkedCalc.Margin = new System.Windows.Forms.Padding(4);
+            this.chbLinkedCalc.Location = new System.Drawing.Point(311, 30);
             this.chbLinkedCalc.Name = "chbLinkedCalc";
-            this.chbLinkedCalc.Size = new System.Drawing.Size(161, 20);
+            this.chbLinkedCalc.Size = new System.Drawing.Size(128, 17);
             this.chbLinkedCalc.TabIndex = 4;
             this.chbLinkedCalc.Text = "Связанное решение";
             this.chbLinkedCalc.UseVisualStyleBackColor = false;
@@ -530,12 +543,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.grbTaskSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.grbTaskSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbTaskSettings.Location = new System.Drawing.Point(1, 108);
+            this.grbTaskSettings.Location = new System.Drawing.Point(1, 90);
             this.grbTaskSettings.Margin = new System.Windows.Forms.Padding(1);
-            this.grbTaskSettings.MinimumSize = new System.Drawing.Size(0, 18);
+            this.grbTaskSettings.MinimumSize = new System.Drawing.Size(0, 15);
             this.grbTaskSettings.Name = "grbTaskSettings";
-            this.grbTaskSettings.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.grbTaskSettings.Size = new System.Drawing.Size(835, 18);
+            this.grbTaskSettings.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grbTaskSettings.Size = new System.Drawing.Size(835, 15);
             this.grbTaskSettings.TabIndex = 13;
             this.grbTaskSettings.TabStop = false;
             this.grbTaskSettings.Text = "Настройки расчета";
@@ -546,42 +559,42 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.dataGridView.AllowUserToAddRows = false;
             this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Kind,
             this.Settings,
             this.Time});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 395);
+            this.dataGridView.Location = new System.Drawing.Point(1, 353);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(835, 408);
+            this.dataGridView.Size = new System.Drawing.Size(835, 477);
             this.dataGridView.TabIndex = 14;
             this.dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -595,7 +608,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.Kind.MinimumWidth = 6;
             this.Kind.Name = "Kind";
             this.Kind.ReadOnly = true;
-            this.Kind.Width = 62;
+            this.Kind.Width = 51;
             // 
             // Settings
             // 
@@ -622,15 +635,15 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             // TaskPlannerControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(5);
-            this.MinimumSize = new System.Drawing.Size(400, 369);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "TaskPlannerControl";
-            this.Size = new System.Drawing.Size(837, 804);
+            this.Size = new System.Drawing.Size(837, 831);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -682,5 +695,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private System.Windows.Forms.DataGridViewTextBoxColumn Kind;
         private System.Windows.Forms.DataGridViewTextBoxColumn Settings;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Time;
+        private System.Windows.Forms.Button PrevResultLoadBtn;
     }
 }

@@ -168,6 +168,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         {
             var file = e.Row.Cells[1].Value.ToString();
             File.Delete(file);
+            if (e.Row.Cells.Count == 0)
+                PrevResultLoadBtn.Enabled = false;
             //base.DataGridView_UserDeletingRow(sender, e);
         }
 
@@ -184,6 +186,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 //GetChildControlExpandHeight(grbTaskSettings);
 
                 btnRefresh.Enabled = true;
+                PrevResultLoadBtn.Enabled = true;
 
             }
             catch (Exception ex)
@@ -473,6 +476,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                     if (Regex.IsMatch(file, @"(\w*)(\.tsf)"))
                         File.Delete(file);
                 }
+                PrevResultLoadBtn.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -667,6 +671,35 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             else e.Handled = false;
 
             e.Handled = true;
+        }
+
+        private void PrevResultLoadButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var fbd = new OpenFileDialog();
+                if (fbd.ShowDialog() == DialogResult.OK && Regex.IsMatch(fbd.FileName, @"(\w*)(\.db)"))
+                {
+                    var settings = new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.Auto,
+                        Formatting = Formatting.Indented
+                    };
+
+                    var prevResults = fbd.FileName;
+                    var fileWithPath = dataGridView[1, CurentSelectedRowIndex].Value.ToString();
+
+                    var selectedFile = JsonConvert.DeserializeObject<GeneralParameters>(File.ReadAllText(fileWithPath), settings);
+
+                    selectedFile.RestartFile = prevResults;
+                    var result = JsonConvert.SerializeObject(selectedFile, settings);
+                    File.WriteAllText(fileWithPath, result);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
