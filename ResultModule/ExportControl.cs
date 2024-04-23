@@ -19,11 +19,13 @@ namespace ResultModule
         public event Action<ExportResultEventArgs> ExportResultEvent;
 
         private readonly Dictionary<string, List<float>> resItems;
+        private readonly List<string> nodesNames;
 
         public ExportControl()
         {
             InitializeComponent();
             resItems = new Dictionary<string, List<float>>();
+            nodesNames = new List<string>();
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -39,8 +41,9 @@ namespace ResultModule
                     return;
 
                 var time = float.Parse(richTextBox1.SelectedText);
-                var resKind = cmbTasksResults.SelectedItem.ToString();
-                ExportResultEvent(new ExportResultEventArgs(time, resKind, selectedPath));
+                var taskKind = cmbTasksResults.SelectedItem.ToString();
+                var resKind = cmbNodeGroupName.SelectedItem.ToString();
+                ExportResultEvent(new ExportResultEventArgs(time, taskKind, resKind, selectedPath));
             }
             catch(Exception ex)
             {
@@ -50,7 +53,7 @@ namespace ResultModule
 
         private void CheckFormBeforeButtonClick()
         {
-            if (cmbTasksResults.Text == "" || richTextBox1.SelectedText == "")
+            if (cmbTasksResults.Text == "" || richTextBox1.SelectedText == "" || cmbNodeGroupName.Text == "")
                 throw new Exception("Перед экспортом результатов необходимо выбрать тип задачи и интервал времени для экспорта результата");
         }
 
@@ -70,6 +73,15 @@ namespace ResultModule
             {
                 cmbTasksResults.Items.Add(key);
                 resItems.Add(key, resDic[key]);
+            }
+        }
+
+        public void SetNodesNames(List<string> nodesGroupName)
+        {
+            foreach (var name in nodesGroupName)
+            {
+                cmbNodeGroupName.Items.Add(name);
+                nodesNames.Add(name);
             }
         }
     }

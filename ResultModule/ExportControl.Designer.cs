@@ -33,14 +33,16 @@
             this.cmbTasksResults = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.cmbNodeGroupName = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(136, 70);
+            this.richTextBox1.Location = new System.Drawing.Point(155, 70);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(437, 128);
+            this.richTextBox1.Size = new System.Drawing.Size(418, 128);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
@@ -57,9 +59,9 @@
             // cmbTasksResults
             // 
             this.cmbTasksResults.FormattingEnabled = true;
-            this.cmbTasksResults.Location = new System.Drawing.Point(136, 48);
+            this.cmbTasksResults.Location = new System.Drawing.Point(155, 48);
             this.cmbTasksResults.Name = "cmbTasksResults";
-            this.cmbTasksResults.Size = new System.Drawing.Size(437, 24);
+            this.cmbTasksResults.Size = new System.Drawing.Size(418, 24);
             this.cmbTasksResults.Sorted = true;
             this.cmbTasksResults.TabIndex = 0;
             this.cmbTasksResults.SelectedIndexChanged += new System.EventHandler(this.cmbTasksResults_SelectedIndexChanged);
@@ -82,10 +84,29 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Интервалы";
             // 
+            // cmbNodeGroupName
+            // 
+            this.cmbNodeGroupName.FormattingEnabled = true;
+            this.cmbNodeGroupName.Location = new System.Drawing.Point(155, 217);
+            this.cmbNodeGroupName.Name = "cmbNodeGroupName";
+            this.cmbNodeGroupName.Size = new System.Drawing.Size(418, 24);
+            this.cmbNodeGroupName.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 217);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(142, 16);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Группа результатов";
+            // 
             // ExportControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.cmbNodeGroupName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbTasksResults);
@@ -105,5 +126,7 @@
         private System.Windows.Forms.ComboBox cmbTasksResults;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cmbNodeGroupName;
+        private System.Windows.Forms.Label label3;
     }
 }

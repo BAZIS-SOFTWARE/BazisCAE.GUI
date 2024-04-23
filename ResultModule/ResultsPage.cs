@@ -821,15 +821,19 @@ namespace ResultModule
             exprtPage.ExportResultEvent += ExportGrid;
 
             var resKinds = Project.ResultData.GetResultKinds();
+            var names = new List<string>();
             var resDic = new Dictionary<string, List<float>>();
             foreach (var resKind in resKinds)
             {
+                var results = Project.ResultData.FindByTaskKind(resKind.ToString());
+                names.AddRange(results.First().GetDataSchema("nodes"));
                 resDic.Add(resKind.ToString(), new List<float>());
                 var resTimes = Project.ResultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
                 resDic[resKind.ToString()] = resTimes;
             }
 
             exprtPage.SetSelectorsValues(resDic);
+            exprtPage.SetNodesNames(names);
 
             var exprtForm = new Form()
             {
@@ -846,21 +850,23 @@ namespace ResultModule
             exprtForm.Show();
         }
 
-        private void ExportGrid(ExportResultEventArgs results)
+        private void ExportGrid(ExportResultEventArgs ar)
         {
             try
             {
-                var resName = NavigatorControl.TreeView.SelectedNode.Name;
-                
-                var result = Project.ResultData.FindByTaskKind(results.ResName);
-                List<ISurfaceElement> elements;
+                var results = Project.ResultData.FindByTaskKind(ar.TaskKind);
+                var resName = results.First().GetDataSchema("nodes").First();
+
+                IEnumerable<ISurfaceElement> elements;
                 if (Project.TaskType == TaskType.Volume)
-                    elements = Project.ModelData.ObjectData.E3DCollection.Select(x => x as ISurfaceElement).ToList();
+                    elements = Project.ModelData.ObjectData.E3DCollection;
                 else
-                    elements = Project.ModelData.ObjectData.E2DCollection.Select(x => x as ISurfaceElement).ToList();
-                var figures = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result.Where(x => x.Time == results.Time).First(),
-                    results.ObjType,
-                    NavigatorControl.TreeView.SelectedNode.Name,
+                    elements = Project.ModelData.ObjectData.E2DCollection;
+
+                var res = results.Where(x => x.Time == ar.Time).First();
+                var figures = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(res,
+                    ObjType.Узел,
+                    resName,
                     elements);
                 //ResultsController.ResultSurfaceSaver.WriteResults(figures, results.Path);
             }
