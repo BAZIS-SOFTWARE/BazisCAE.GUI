@@ -26,15 +26,12 @@ using Model;
 using Tasks;
 using Results.ResultsData;
 using Model.IO;
-using ModelControllerInterfaces;
 using Results.IO;
 using GmshApi.GmshController;
 using ProjectInterfaces;
 using System.Threading.Tasks;
 using Results;
 using ModelInterfaces;
-using MathNet.Numerics;
-using Tasks.Functions;
 
 namespace BazisGUI
 {

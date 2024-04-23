@@ -9,33 +9,24 @@ namespace BaseModule.ToolStrips
 {
     public partial class SelectToolStrip: ToolStrip
     {
-
-        [Description("Set nodes image")]
-        [Category("General properties")]
         public Image NodeImage
         {
             get { return btnNodes.Image; }
             set { btnNodes.Image = value; }
         }
 
-        [Description("Set elements image")]
-        [Category("General properties")]
         public Image ElementsImage
         {
             get { return btnElems.Image; }
             set { btnElems.Image = value; }
         }
 
-        [Description("Set geometry image")]
-        [Category("General properties")]
         public Image GeomsImage
         {
             get { return btnObjs.Image; }
             set { btnObjs.Image = value; }
         }
 
-        [Description("Set selectionHelper image")]
-        [Category("General properties")]
         public Image HelperImage
         {
             get { return btnSelectorHelper.Image; }

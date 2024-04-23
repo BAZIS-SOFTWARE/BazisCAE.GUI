@@ -32,10 +32,11 @@
             // 
             // ModelPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.Name = "ModelPage";
-            this.Size = new System.Drawing.Size(1005, 642);
+            this.Size = new System.Drawing.Size(1340, 790);
             this.ResumeLayout(false);
 
         }

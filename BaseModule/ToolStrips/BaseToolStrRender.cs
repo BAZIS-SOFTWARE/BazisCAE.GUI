@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace BaseModule.ToolStrips
 {
     public class BaseToolStrRender: ToolStripProfessionalRenderer
     {
+        public Color TopColor { get; set; } = Color.Silver;
+        public Color BottomColor { get; set; } = Color.WhiteSmoke;
         protected override void OnRenderSplitButtonBackground(ToolStripItemRenderEventArgs e)
         {
             //base.OnRenderSplitButtonBackground(e);
@@ -118,8 +121,8 @@ namespace BaseModule.ToolStrips
             var linGrBrush = new LinearGradientBrush(
    new Point(0, lbl.Height),
    new Point(0, lbl.Height + 15),
-   Color.WhiteSmoke,   // Opaque red
-   Color.Silver);  // Opaque blue
+   BottomColor,   // Opaque red
+   TopColor);  // Opaque blue
 
             var rect = new Rectangle(locRect, new Size(lbl.Width, 15));
 
@@ -146,8 +149,8 @@ namespace BaseModule.ToolStrips
                 var linGrBrush = new LinearGradientBrush(
        new Point(0, (int)yc),
        new Point(0, tls.Height),
-       Color.WhiteSmoke,   // Opaque red
-       Color.Silver);  // Opaque blue
+       BottomColor,   // Opaque red
+       TopColor);  // Opaque blue
 
                 var rect = new Rectangle(locRect, new Size(tls.Width, tls.Height));
 

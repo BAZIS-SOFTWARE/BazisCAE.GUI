@@ -93,7 +93,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             if (txbStartTime.Text == "" || txbStopTime.Text == "")
                 throw new Exception("Одно из переданных значений полей было пустым");
 
-            return "\"" + string.Join(" ", dataList) + "\"";
+            return string.Join(" ", dataList);
         }
 
         public override void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
