@@ -20,6 +20,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.AxHost;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using Image = System.Drawing.Image;
 
 namespace ResultModule
@@ -28,7 +30,6 @@ namespace ResultModule
     {
         ISceneScale scale;
         public event Action<string, bool, bool> LoadResultsEvent;
-        public event Action<object, ExportResultEventArgs> ExportResultsEventArgs;
         public IResultsController ResultsController { get; set; }
         
         private bool showResultValue;
@@ -817,7 +818,7 @@ namespace ResultModule
         private void ShowExportResultsPage()
         {
             var exprtPage = new ExportControl() { Dock = DockStyle.Fill };
-            exprtPage.
+            exprtPage.ExportResultEvent += ExportGrid;
 
             var resKinds = Project.ResultData.GetResultKinds();
             var resDic = new Dictionary<string, List<float>>();
@@ -829,28 +830,39 @@ namespace ResultModule
             }
 
             exprtPage.SetSelectorsValues(resDic);
+
+            var exprtForm = new Form()
+            {
+                TopMost = true,
+                Size = exprtPage.Size,
+                Name = "export",
+                Text = "Экспорт результатов",
+                ShowIcon = false,
+                ClientSize = exprtPage.Size
+            };
+
+            exprtForm.FormClosed += (ar1, ar2) => { exprtPage = null; };
+            exprtForm.Controls.Add(exprtPage);
+            exprtForm.Show();
         }
 
-        private void ExportGrid(ExportResultEventArgs results,
-            ProjectInterfaces.Results.IResultsSurfacesSaver surfaceSaver)
+        private void ExportGrid(ExportResultEventArgs results)
         {
             try
             {
-                if (NavigatorControl.TreeView.SelectedNode?.Level != 2)
-                    throw new Exception("Выберите вид результатов в разделе результаты");
-
                 var resName = NavigatorControl.TreeView.SelectedNode.Name;
-
+                
                 var result = Project.ResultData.FindByTaskKind(results.ResName);
                 List<ISurfaceElement> elements;
                 if (Project.TaskType == TaskType.Volume)
                     elements = Project.ModelData.ObjectData.E3DCollection.Select(x => x as ISurfaceElement).ToList();
                 else
                     elements = Project.ModelData.ObjectData.E2DCollection.Select(x => x as ISurfaceElement).ToList();
-                var figures = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result.Where(x => x.Time == results.Time).First(), results.ObjType, resName, elements);
-
-                //WriteResults(IEnumerable <IResultFigure2D> figures, string savePath);
-                surfaceSaver.WriteResults(figures, results.Path);
+                var figures = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result.Where(x => x.Time == results.Time).First(),
+                    results.ObjType,
+                    NavigatorControl.TreeView.SelectedNode.Name,
+                    elements);
+                //ResultsController.ResultSurfaceSaver.WriteResults(figures, results.Path);
             }
             catch (Exception ex)
             {

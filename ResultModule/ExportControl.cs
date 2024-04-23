@@ -16,10 +16,9 @@ namespace ResultModule
     public partial class ExportControl : UserControl
     {
         public event Action<string> SelectResultsEvent;
-        public event Action<object, ExportResultEventArgs> ExportResultEventArgs;
+        public event Action<ExportResultEventArgs> ExportResultEvent;
 
         private readonly Dictionary<string, List<float>> resItems;
-        private ObjType selectedObjType;
 
         public ExportControl()
         {
@@ -29,30 +28,40 @@ namespace ResultModule
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            CheckFormBeforeButtonClick();
-            var fbd = new FolderBrowserDialog();
-            string selectedPath = "";
-            if (fbd.ShowDialog() == DialogResult.OK)
-                selectedPath = fbd.SelectedPath;
+            try
+            {
+                CheckFormBeforeButtonClick();
+                var fbd = new FolderBrowserDialog();
+                string selectedPath = "";
+                if (fbd.ShowDialog() == DialogResult.OK)
+                    selectedPath = fbd.SelectedPath;
+                else
+                    return;
 
-            var time = float.Parse(richTextBox1.SelectedText);
-            var resKind = cmbTasksResults.SelectedText;
-            ExportResultEventArgs(this, new ExportResultEventArgs(time, selectedObjType, resKind, selectedPath));
+                var time = float.Parse(richTextBox1.SelectedText);
+                var resKind = cmbTasksResults.SelectedItem.ToString();
+                ExportResultEvent(new ExportResultEventArgs(time, resKind, selectedPath));
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void CheckFormBeforeButtonClick()
         {
-            if (cmbTasksResults.Text == "" || cmbTasksResults.Text == "" || richTextBox1.SelectedText == "")
-                throw new Exception("Перед экспортом результатов необходимо заполнить поля формы");
+            if (cmbTasksResults.Text == "" || richTextBox1.SelectedText == "")
+                throw new Exception("Перед экспортом результатов необходимо выбрать тип задачи и интервал времени для экспорта результата");
         }
 
         private void cmbTasksResults_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var rows = resItems[cmbTasksResults.SelectedItem.ToString()];
-            foreach(var text in rows)
+            var value = cmbTasksResults.SelectedItem;
+            var rows = resItems[value.ToString()];
+            foreach (var text in rows)
                 richTextBox1.AppendText(text + "\n");
 
-            SelectResultsEvent?.Invoke(cmbTasksResults.SelectedItem.ToString());
+            SelectResultsEvent?.Invoke(value.ToString());
         }
 
         public void SetSelectorsValues(Dictionary<string, List<float>> resDic)
@@ -62,14 +71,6 @@ namespace ResultModule
                 cmbTasksResults.Items.Add(key);
                 resItems.Add(key, resDic[key]);
             }
-        }
-
-        private void cmbObjType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbObjType.SelectedItem.ToString() == "Элементы")
-                selectedObjType = ObjType.Элемент;
-            else
-                selectedObjType = ObjType.Узел;
         }
     }
 }

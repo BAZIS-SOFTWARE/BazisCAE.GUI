@@ -33,8 +33,6 @@
             this.cmbTasksResults = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbObjType = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -84,33 +82,10 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Интервалы";
             // 
-            // cmbObjType
-            // 
-            this.cmbObjType.FormattingEnabled = true;
-            this.cmbObjType.Items.AddRange(new object[] {
-            "Узлы",
-            "Элементы"});
-            this.cmbObjType.Location = new System.Drawing.Point(136, 227);
-            this.cmbObjType.Name = "cmbObjType";
-            this.cmbObjType.Size = new System.Drawing.Size(437, 24);
-            this.cmbObjType.TabIndex = 5;
-            this.cmbObjType.SelectedIndexChanged += new System.EventHandler(this.cmbObjType_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(32, 227);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 16);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Объекты";
-            // 
             // ExportControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.cmbObjType);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbTasksResults);
@@ -130,7 +105,5 @@
         private System.Windows.Forms.ComboBox cmbTasksResults;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cmbObjType;
-        private System.Windows.Forms.Label label3;
     }
 }
