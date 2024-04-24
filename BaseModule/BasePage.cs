@@ -163,6 +163,103 @@ namespace BaseModule
             set { viewToolStrip.FitImage = value; }
         }
 
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения граничного контура")]
+        public Image BoundaryContoursImage
+        {
+            get { return displayToolStrip.BoundaryContoursImage; }
+            set { displayToolStrip.BoundaryContoursImage = value; }
+        }
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения ребер элементов")]
+        public Image ElementsFramesImage
+        {
+            get { return displayToolStrip.ElementsFramesImage; }
+            set { displayToolStrip.ElementsFramesImage = value; }
+        }
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения поверхностей и ребер элементов")]
+        public Image ElementsFramesAndSurfacesImage
+        {
+            get { return displayToolStrip.ElementsFramesAndSurfacesImage; }
+            set { displayToolStrip.ElementsFramesAndSurfacesImage = value; }
+        }
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения поверхностей элементов")]
+        public Image ElementsSurfacesImage
+        {
+            get { return displayToolStrip.ElementsSurfacesImage; }
+            set { displayToolStrip.ElementsSurfacesImage = value; }
+        }
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения нормалей элементов")]
+        public Image ElementsNormalsImage
+        {
+            get { return displayToolStrip.ElementsNormalsImage; }
+            set { displayToolStrip.ElementsNormalsImage = value; }
+        }
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения базиса")]
+        public Image ShowBasisImage
+        {
+            get { return displayToolStrip.ShowBasisImage; }
+            set { displayToolStrip.ShowBasisImage = value; }
+        }
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения только открытых поверхностей")]
+        public Image SurfaceNodesImage
+        {
+            get { return displayToolStrip.SurfaceNodesImage; }
+            set { displayToolStrip.SurfaceNodesImage = value; }
+        }
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения всех поверхностей")]
+        public Image VolumeNodesImage
+        {
+            get { return displayToolStrip.VolumeNodesImage; }
+            set { displayToolStrip.VolumeNodesImage = value; }
+        }
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения названия проекта")]
+        public Image TitleInfoImage
+        {
+            get { return displayToolStrip.TitleInfoImage; }
+            set { displayToolStrip.TitleInfoImage = value; }
+        }
+
+        [Category("instrumentalToolStrip")]
+        [Description("Иконка запуска измерения")]
+        public Image MeasureImage
+        {
+            get { return instrumentToolStrip.MeasureImage; }
+            set { instrumentToolStrip.MeasureImage = value; }
+        }
+
+        [Category("instrumentalToolStrip")]
+        [Description("Иконка снимка экрана")]
+        public Image MakePhotoImage
+        {
+            get { return instrumentToolStrip.MakePhotoImage; }
+            set { instrumentToolStrip.MakePhotoImage = value; }
+        }
+
+        [Category("instrumentalToolStrip")]
+        [Description("Иконка запуска построителя сечения")]
+        public Image CrossSectionImage
+        {
+            get { return instrumentToolStrip.CrossSectionImage; }
+            set { instrumentToolStrip.CrossSectionImage = value; }
+        }
+
         public IModelController ModelController { get; set; }
 
         public IPresentersCreator PresentersCreator 

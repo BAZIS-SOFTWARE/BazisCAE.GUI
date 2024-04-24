@@ -21,6 +21,7 @@ namespace InstallerAction
             base.Install(stateSaver);
 
             string fullPath = this.Context.Parameters["assemblypath"];
+            fullPath += "\\Mesh\\gmsh.dll";
 
             var process = new Process();
             var startInfo = new ProcessStartInfo
