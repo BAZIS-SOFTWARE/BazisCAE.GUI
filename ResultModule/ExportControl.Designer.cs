@@ -43,7 +43,7 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.richTextBox1, 2);
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(150, 52);
+            this.richTextBox1.Location = new System.Drawing.Point(150, 53);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(5, 0, 7, 0);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
@@ -54,10 +54,10 @@
             // btnExport
             // 
             this.btnExport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnExport.Location = new System.Drawing.Point(297, 320);
+            this.btnExport.Location = new System.Drawing.Point(297, 321);
             this.btnExport.Margin = new System.Windows.Forms.Padding(7);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(154, 33);
+            this.btnExport.Size = new System.Drawing.Size(154, 32);
             this.btnExport.TabIndex = 1;
             this.btnExport.Text = "Экспортировать";
             this.btnExport.UseVisualStyleBackColor = true;
@@ -81,7 +81,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(51, 19);
+            this.label1.Location = new System.Drawing.Point(51, 20);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(43, 13);
@@ -92,7 +92,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 155);
+            this.label2.Location = new System.Drawing.Point(40, 156);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 13);
@@ -105,7 +105,7 @@
             this.tableLayoutPanel1.SetColumnSpan(this.cmbNodeGroupName, 2);
             this.cmbNodeGroupName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbNodeGroupName.FormattingEnabled = true;
-            this.cmbNodeGroupName.Location = new System.Drawing.Point(152, 282);
+            this.cmbNodeGroupName.Location = new System.Drawing.Point(152, 283);
             this.cmbNodeGroupName.Margin = new System.Windows.Forms.Padding(7, 2, 7, 2);
             this.cmbNodeGroupName.Name = "cmbNodeGroupName";
             this.cmbNodeGroupName.Size = new System.Drawing.Size(299, 21);
@@ -115,7 +115,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 286);
+            this.label3.Location = new System.Drawing.Point(21, 287);
             this.label3.Margin = new System.Windows.Forms.Padding(7, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(108, 13);
@@ -143,7 +143,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.38461F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80.61539F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(458, 360);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
