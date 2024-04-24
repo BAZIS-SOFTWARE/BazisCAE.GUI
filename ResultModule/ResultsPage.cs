@@ -850,11 +850,11 @@ namespace ResultModule
             exprtForm.Show();
         }
 
-        private void ExportGrid(ExportResultEventArgs ar)
+        private void ExportGrid(ExportResultEventArgs args)
         {
             try
             {
-                var results = Project.ResultData.FindByTime(ar.TaskKind, Convert.ToSingle(ar.Time));
+                var results = Project.ResultData.FindByTime(args.TaskKind, Convert.ToSingle(args.Time));
                 //var resName = results.GetDataSchema("nodes").First(x => x == ar.ResName);
 
                 var scaleItems = GetScaleItems();
@@ -870,9 +870,9 @@ namespace ResultModule
 
                 var figures = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(results,
                     ObjType.Узел,
-                    ar.ResName,
+                    args.ResName,
                     elements);
-                //ResultsController.ResultSurfaceSaver.WriteResults(figures, results.Path);
+                ResultsController.ResultsSurfacesSaver.WriteResults(figures, args.Path);
             }
             catch (Exception ex)
             {
