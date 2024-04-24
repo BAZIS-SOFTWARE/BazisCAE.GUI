@@ -20,6 +20,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.AxHost;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using Image = System.Drawing.Image;
 
 namespace ResultModule
@@ -128,6 +130,13 @@ namespace ResultModule
                 Text = "Показать шкалу"
             };
 
+            ToolStripMenuItem exportResultGridMEnuItem = new ToolStripMenuItem()
+            {
+                Name = "ExportSurfaceResults",
+                Text = "Экспорт результатов"
+            };
+            exportResultGridMEnuItem.Click += (ar1, ar2) => ShowExportResultsPage();
+
             showScaleResultsMenuItem.Click += (ar1, ar2) => 
             { 
                     ShowScalePage(); 
@@ -139,7 +148,8 @@ namespace ResultModule
             showResultsValueMenuItem,
             showAnimationResultsMenuItem,
             createGraphResultsMenuItem,
-            showScaleResultsMenuItem
+            showScaleResultsMenuItem,
+            exportResultGridMEnuItem
             });
 
             return resultsMenuItem;
@@ -803,6 +813,71 @@ namespace ResultModule
         private async void пересчитатьНаУзлыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await MergeResults(Project.ResultData);                     
+        }
+
+        private void ShowExportResultsPage()
+        {
+            var exprtPage = new ExportControl() { Dock = DockStyle.Fill };
+            exprtPage.ExportResultEvent += ExportGrid;
+
+            var resKinds = Project.ResultData.GetResultKinds();
+            var names = new List<string>();
+            var resDic = new Dictionary<string, List<float>>();
+            foreach (var resKind in resKinds)
+            {
+                var results = Project.ResultData.FindByTaskKind(resKind.ToString());
+                names.AddRange(results.First().GetDataSchema("nodes"));
+                resDic.Add(resKind.ToString(), new List<float>());
+                var resTimes = Project.ResultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
+                resDic[resKind.ToString()] = resTimes;
+            }
+
+            exprtPage.SetSelectorsValues(resDic);
+            exprtPage.SetNodesNames(names);
+
+            var exprtForm = new Form()
+            {
+                TopMost = true,
+                Size = exprtPage.Size,
+                Name = "export",
+                Text = "Экспорт результатов",
+                ShowIcon = false,
+                ClientSize = exprtPage.Size
+            };
+
+            exprtForm.FormClosed += (ar1, ar2) => { exprtPage = null; };
+            exprtForm.Controls.Add(exprtPage);
+            exprtForm.Show();
+        }
+
+        private void ExportGrid(ExportResultEventArgs ar)
+        {
+            try
+            {
+                var results = Project.ResultData.FindByTime(ar.TaskKind, Convert.ToSingle(ar.Time));
+                var resName = results.GetDataSchema("nodes").First();
+
+                var scaleItems = GetScaleItems();
+
+                ResultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
+                ResultsController.ResultsFieldsCreator.ScaleFactor = 1;
+
+                IEnumerable<ISurfaceElement> elements;
+                if (Project.TaskType == TaskType.Volume)
+                    elements = Project.ModelData.ObjectData.E3DCollection;
+                else
+                    elements = Project.ModelData.ObjectData.E2DCollection;
+
+                var figures = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(results,
+                    ObjType.Узел,
+                    resName,
+                    elements);
+                //ResultsController.ResultSurfaceSaver.WriteResults(figures, results.Path);
+            }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
         }
     }   
 }

@@ -119,6 +119,13 @@
     <Compile Include="CreateAnimationEventArgs.cs" />
     <Compile Include="CreatePathGraphEventArgs.cs" />
     <Compile Include="CreateTimeGraphArgs.cs" />
+    <Compile Include="ExportControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExportControl.Designer.cs">
+      <DependentUpon>ExportControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExportResultEventArgs.cs" />
     <Compile Include="GraphCreationPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -157,6 +164,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AnimationPage.resx">
       <DependentUpon>AnimationPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportControl.resx">
+      <DependentUpon>ExportControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GraphCreationPage.resx">
       <DependentUpon>GraphCreationPage.cs</DependentUpon>
