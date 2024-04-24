@@ -50,7 +50,7 @@ namespace TaskModule.HeatTreatmentModule
             owenHeatingMenuItem.Click += (ar1, ar2) => {
                 var taskAdv = new HeatTreatmentAdvisor() { 
                     Dock = DockStyle.Fill, 
-                    Name = owenHeatingMenuItem.Name,
+                    Name = "Термообработка",
                     Text = owenHeatingMenuItem.Text
                 };
                 
@@ -65,7 +65,7 @@ namespace TaskModule.HeatTreatmentModule
             quenchingMenuItem.Click += (ar1, ar2) => {
                 var taskAdv = new HeatTreatmentAdvisor() { 
                     Dock = DockStyle.Fill, 
-                    Name = quenchingMenuItem.Name,
+                    Name = "Термообработка",
                     Text = quenchingMenuItem.Text
                 };
 
@@ -80,7 +80,7 @@ namespace TaskModule.HeatTreatmentModule
             temperingMenuItem.Click += (ar1, ar2) => {
                 var taskAdv = new HeatTreatmentAdvisor() { 
                     Dock = DockStyle.Fill, 
-                    Name = temperingMenuItem.Name,
+                    Name = "Термообработка",
                     Text = temperingMenuItem.Text
                 };
 

@@ -225,7 +225,7 @@ namespace ResultModule
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.61539F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.38461F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 147F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 148F));
             this.tableLayoutPanel4.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.chbDelTempScrs, 1, 1);
             this.tableLayoutPanel4.Controls.Add(this.label3, 0, 1);
@@ -258,7 +258,7 @@ namespace ResultModule
             this.chbDelTempScrs.AutoSize = true;
             this.chbDelTempScrs.Checked = true;
             this.chbDelTempScrs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbDelTempScrs.Location = new System.Drawing.Point(231, 50);
+            this.chbDelTempScrs.Location = new System.Drawing.Point(230, 50);
             this.chbDelTempScrs.Margin = new System.Windows.Forms.Padding(4);
             this.chbDelTempScrs.Name = "chbDelTempScrs";
             this.chbDelTempScrs.Size = new System.Drawing.Size(18, 17);
@@ -284,7 +284,7 @@ namespace ResultModule
             this.txbDelayTime.Location = new System.Drawing.Point(220, 6);
             this.txbDelayTime.Margin = new System.Windows.Forms.Padding(0);
             this.txbDelayTime.Name = "txbDelayTime";
-            this.txbDelayTime.Size = new System.Drawing.Size(40, 23);
+            this.txbDelayTime.Size = new System.Drawing.Size(39, 23);
             this.txbDelayTime.TabIndex = 5;
             this.txbDelayTime.Text = "100";
             this.txbDelayTime.Leave += new System.EventHandler(this.txbDelayTime_Leave);
@@ -292,11 +292,12 @@ namespace ResultModule
             // btnCreateAnimation
             // 
             this.btnCreateAnimation.AutoSize = true;
+            this.btnCreateAnimation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnCreateAnimation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCreateAnimation.Location = new System.Drawing.Point(267, 43);
-            this.btnCreateAnimation.Margin = new System.Windows.Forms.Padding(7);
+            this.btnCreateAnimation.Location = new System.Drawing.Point(266, 44);
+            this.btnCreateAnimation.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.btnCreateAnimation.Name = "btnCreateAnimation";
-            this.btnCreateAnimation.Size = new System.Drawing.Size(134, 32);
+            this.btnCreateAnimation.Size = new System.Drawing.Size(135, 30);
             this.btnCreateAnimation.TabIndex = 3;
             this.btnCreateAnimation.Text = "Создать";
             this.btnCreateAnimation.UseVisualStyleBackColor = true;

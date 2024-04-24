@@ -194,12 +194,12 @@ namespace TaskModule
             activeAdvisor = "";
         }
 
-        public virtual void UnCheckToolStripButton(string advisorName)
+        public virtual void UnCheckToolStripButton(string toolStripButtonText)
         {
             foreach (var item in GetToolStripMenuItems())
                 foreach (var dropItem in item.DropDownItems)
                     if (dropItem is ToolStripMenuItem tls)
-                        if(tls.Name == advisorName)
+                        if(tls.Text == toolStripButtonText)
                             tls.Checked = false;
         }
 
@@ -226,7 +226,7 @@ namespace TaskModule
                 {
                     if (ar2.CloseReason == CloseReason.UserClosing)
                     {
-                        UnCheckToolStripButton(taskAdv.Name);
+                        UnCheckToolStripButton(taskAdv.Text);
                     }
                     activeAdvisor = "";
                 };
@@ -252,7 +252,7 @@ namespace TaskModule
                 var matDB = GetDataBase<MaterialDBData>(Project.Materials, Project.Path);
 
                 if (matDB == null)
-                    ConsoleControl.PrintInfo($"Не загружена база {Project.Materials}", Color.Red);
+                    ConsoleControl.PrintInfo($"Не загружена база {Project.Materials}", Color.Orange);
                 else
 
                     taskAdv.SetMaterialData(matDB.Keys.ToList());
@@ -260,7 +260,7 @@ namespace TaskModule
                 var funDB = GetDataBase<FunctionDBData>(Project.Functions, Project.Path);
 
                 if (funDB == null)
-                    ConsoleControl.PrintInfo($"Не загружена база {Project.Functions}", Color.Red);
+                    ConsoleControl.PrintInfo($"Не загружена база {Project.Functions}", Color.Orange);
                 else
                     taskAdv.SetFunctionData(funDB.Keys.ToList());
 
@@ -391,7 +391,7 @@ namespace TaskModule
             var filePath = FindFileByPath(dbPath, dbName);
             if (filePath == null)
             {
-                ConsoleControl.PrintInfo($"Не найдена база {dbName} в папке {dbPath}", Color.Red);
+                ConsoleControl.PrintInfo($"Не найдена база {dbName} в папке {dbPath}", Color.Orange);
                 return default;
             }
  

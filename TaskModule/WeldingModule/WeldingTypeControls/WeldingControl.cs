@@ -422,9 +422,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             if(e.Button == MouseButtons.Right)
             {
-                var x = dataGridView.Location.X + e.Location.X;
-                var y = dataGridView.Location.Y + e.Location.Y;
-                contextMenuStrip.Show(new Point(x,y));
+                var location = dataGridView.PointToScreen(Point.Empty);
+                contextMenuStrip.Show(location);
             }
         }
 
