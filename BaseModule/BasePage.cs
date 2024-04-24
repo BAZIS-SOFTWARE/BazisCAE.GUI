@@ -21,6 +21,7 @@ using System.Threading;
 using ModelInterfaces.MeshObjects;
 using ModelInterfaces.GeometryObjects;
 using System.Data.Odbc;
+using System.ComponentModel;
 
 namespace BaseModule
 {
@@ -28,6 +29,236 @@ namespace BaseModule
     {
         public Action ChangeProjectDataEvent;
         public Action CreateProjectDataEvent;
+
+        BaseToolStrRender BaseToolStrRender { get; set; } = new BaseToolStrRender();
+
+
+        [Category("SelectToolStrip")]
+        [Description("Иконка выбора узлов сцены")]
+        public Image SelectNodeImage
+        {
+            get { return selectToolStrip.NodeImage; }
+            set { selectToolStrip.NodeImage = value; }
+        }
+        [Category("SelectToolStrip")]
+        [Description("Иконка выбора элементов сцены")]
+        public Image SelectElementImage
+        {
+            get { return selectToolStrip.ElementsImage; }
+            set { selectToolStrip.ElementsImage = value; }
+        }
+        [Category("SelectToolStrip")]
+        [Description("Иконка выбора элементов сцены")]
+        public Image SelectGeometryImage
+        {
+            get { return selectToolStrip.GeomsImage; }
+            set { selectToolStrip.GeomsImage = value; }
+        }
+        [Category("SelectToolStrip")]
+        [Description("Иконка выбора элементов сцены")]
+        public Image SelectHelperImage
+        {
+            get { return selectToolStrip.HelperImage; }
+            set { selectToolStrip.HelperImage = value; }
+        }
+
+        [Category("SelectToolStrip")]
+        [Description("Выбранный объект сцены")]
+        public ObjType SelectedObjects
+        {
+            get { return selectToolStrip.SelectObjectsType; }
+            set { selectToolStrip.SelectObjectsType = value; }
+        }
+
+        [Category("General")]
+        [Description("Задать верхний цвет градиента для кнопочного меню быстрого доступа")]
+        public Color ToolStrTopColor 
+        { 
+            get { return BaseToolStrRender.TopColor; }
+            set { BaseToolStrRender.TopColor = value; }
+        }
+
+        [Category("General")]
+        [Description("Задать нижний цвет градиента для кнопочного меню быстрого доступа")]
+        public Color ToolStrBottomColor 
+        { 
+            get { return BaseToolStrRender.BottomColor; }
+            set { BaseToolStrRender.BottomColor = value; }
+        }
+
+        [Category("General")]
+        [Description("Задать цвет выбора групп объектов")]
+        public Color SelectionGroupColor { get; set; }
+
+
+        [Category("ViewToolStrip")]
+        [Description("Иконка установки в плоскость XY")]
+        public Image PlaneXYImage
+        {
+            get { return viewToolStrip.PlaneXYImage; }
+            set { viewToolStrip.PlaneXYImage = value; }
+        }
+
+        [Category("ViewToolStrip")]
+        [Description("Иконка установки в плоскость XZ")]
+        public Image PlaneXZImage
+        {
+            get { return viewToolStrip.PlaneXZImage; }
+            set { viewToolStrip.PlaneXZImage = value; }
+        }
+
+        [Category("ViewToolStrip")]
+        [Description("Иконка установки в плоскость YZ")]
+        public Image PlaneYZImage
+        {
+            get { return viewToolStrip.PlaneYZImage; }
+            set { viewToolStrip.PlaneYZImage = value; }
+        }
+
+        [Category("ViewToolStrip")]
+        [Description("Иконка поворота по оси X")]
+        public Image RotXImage
+        {
+            get { return viewToolStrip.RotXImage; }
+            set { viewToolStrip.RotXImage = value; }
+        }
+
+        [Category("ViewToolStrip")]
+        [Description("Иконка поворота по оси Y")]
+        public Image RotYImage
+        {
+            get { return viewToolStrip.RotYImage; }
+            set { viewToolStrip.RotYImage = value; }
+        }
+
+        [Category("ViewToolStrip")]
+        [Description("Иконка поворота по оси Z")]
+        public Image RotZImage
+        {
+            get { return viewToolStrip.RotZImage; }
+            set { viewToolStrip.RotZImage = value; }
+        }
+
+        [Category("ViewToolStrip")]
+        [Description("Иконка поворота на 90 по горизонтали")]
+        public Image Rot90HorImage
+        {
+            get { return viewToolStrip.Rot90HorImage; }
+            set { viewToolStrip.Rot90HorImage = value; }
+        }
+
+        [Category("ViewToolStrip")]
+        [Description("Иконка поворота на 90 по вертикали")]
+        public Image Rot90VerImage
+        {
+            get { return viewToolStrip.Rot90VerImage; }
+            set { viewToolStrip.Rot90VerImage = value; }
+        }
+
+        [Category("ViewToolStrip")]
+        [Description("Иконка вписывания всех объектов в экран")]
+        public Image FitImage
+        {
+            get { return viewToolStrip.FitImage; }
+            set { viewToolStrip.FitImage = value; }
+        }
+
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения граничного контура")]
+        public Image BoundaryContoursImage
+        {
+            get { return displayToolStrip.BoundaryContoursImage; }
+            set { displayToolStrip.BoundaryContoursImage = value; }
+        }
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения ребер элементов")]
+        public Image ElementsFramesImage
+        {
+            get { return displayToolStrip.ElementsFramesImage; }
+            set { displayToolStrip.ElementsFramesImage = value; }
+        }
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения поверхностей и ребер элементов")]
+        public Image ElementsFramesAndSurfacesImage
+        {
+            get { return displayToolStrip.ElementsFramesAndSurfacesImage; }
+            set { displayToolStrip.ElementsFramesAndSurfacesImage = value; }
+        }
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения поверхностей элементов")]
+        public Image ElementsSurfacesImage
+        {
+            get { return displayToolStrip.ElementsSurfacesImage; }
+            set { displayToolStrip.ElementsSurfacesImage = value; }
+        }
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения нормалей элементов")]
+        public Image ElementsNormalsImage
+        {
+            get { return displayToolStrip.ElementsNormalsImage; }
+            set { displayToolStrip.ElementsNormalsImage = value; }
+        }
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения базиса")]
+        public Image ShowBasisImage
+        {
+            get { return displayToolStrip.ShowBasisImage; }
+            set { displayToolStrip.ShowBasisImage = value; }
+        }
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения только открытых поверхностей")]
+        public Image SurfaceNodesImage
+        {
+            get { return displayToolStrip.SurfaceNodesImage; }
+            set { displayToolStrip.SurfaceNodesImage = value; }
+        }
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения всех поверхностей")]
+        public Image VolumeNodesImage
+        {
+            get { return displayToolStrip.VolumeNodesImage; }
+            set { displayToolStrip.VolumeNodesImage = value; }
+        }
+
+        [Category("displayToolStrip")]
+        [Description("Иконка отображения названия проекта")]
+        public Image TitleInfoImage
+        {
+            get { return displayToolStrip.TitleInfoImage; }
+            set { displayToolStrip.TitleInfoImage = value; }
+        }
+
+        [Category("instrumentalToolStrip")]
+        [Description("Иконка запуска измерения")]
+        public Image MeasureImage
+        {
+            get { return instrumentToolStrip.MeasureImage; }
+            set { instrumentToolStrip.MeasureImage = value; }
+        }
+
+        [Category("instrumentalToolStrip")]
+        [Description("Иконка снимка экрана")]
+        public Image MakePhotoImage
+        {
+            get { return instrumentToolStrip.MakePhotoImage; }
+            set { instrumentToolStrip.MakePhotoImage = value; }
+        }
+
+        [Category("instrumentalToolStrip")]
+        [Description("Иконка запуска построителя сечения")]
+        public Image CrossSectionImage
+        {
+            get { return instrumentToolStrip.CrossSectionImage; }
+            set { instrumentToolStrip.CrossSectionImage = value; }
+        }
 
         public IModelController ModelController { get; set; }
 
@@ -41,15 +272,6 @@ namespace BaseModule
         public Keys PressedKey { get; set; }
 
         public IProjectData Project { get; set; }
-
-        public Color SelectionGroupColor { get; set; }
-
-
-        public ObjType SelectedObjects
-        {
-            get { return selectToolStrip.SelectObjectsType; }
-            set { selectToolStrip.SelectObjectsType = value; }
-        }
 
         public BasePage()
         {
@@ -174,19 +396,16 @@ namespace BaseModule
             showNavigatorMenuItem,
             showConsoleMenuItem});
             видToolStripMenuItem.Name = "видToolStripMenuItem";
-            видToolStripMenuItem.Size = new System.Drawing.Size(39, 24);
             видToolStripMenuItem.Text = "Вид";
             // 
             // showNavigatorMenuItem
             // 
             showNavigatorMenuItem.Name = "showNavigatorMenuItem";
-            showNavigatorMenuItem.Size = new System.Drawing.Size(180, 22);
             showNavigatorMenuItem.Text = "Навигатор";
             // 
             // showConsoleMenuItem
             // 
             showConsoleMenuItem.Name = "showConsoleMenuItem";
-            showConsoleMenuItem.Size = new System.Drawing.Size(180, 22);
             showConsoleMenuItem.Text = "Консоль";
 
             // singup to show navigator click
@@ -1340,24 +1559,7 @@ namespace BaseModule
 
         public virtual void UnBlockInterface(bool status)
         {
-            //var toolStr = FindToolStrip<StandartToolStrip>();
-            //toolStr.Enabled = true;
-
-            //standartToolStrip.Items[2].Enabled = status;
-            //standartToolStrip.Items[3].Enabled = status;
-
-            //foreach (ToolStripButton item in toolStr.Items)
-            //    item.Enabled = true;
-
-            //var items = menuItems.Find(x => x.Name == "файлToolStripMenuItem");
-
-            //items.DropDownItems[3].Enabled = status;
-            //items.DropDownItems[4].Enabled = status;
-
-            //foreach (var item in items.DropDownItems)
-            //    if (item is ToolStripMenuItem tsmItem)
-            //        tsmItem.Enabled = true;
-            
+            throw new Exception("Функция разблокировки не реализована!");  
         }
 
         private void BasePage_Load(object sender, EventArgs e)
@@ -1376,22 +1578,21 @@ namespace BaseModule
             };
             consoleControl.ConsolePanelCollapseEvent += () => { splitContainer2.Panel2Collapsed = true; };
 
-            displayToolStrip.Location = new Point(0, 0);
-            instrumentalToolStrip.Location = new Point(0, 0);
-            selectToolStrip.Location = new Point(0, 0);
-            viewToolStrip.Location = new Point(0, 0);
-            instrumentalToolStrip.Location = new Point(0, 0);
+            //displayToolStrip.Location = new Point(0, 0);
+            //instrumentalToolStrip.Location = new Point(0, 0);
+            //selectToolStrip.Location = new Point(0, 0);
+            //viewToolStrip.Location = new Point(0, 0);
+            //instrumentalToolStrip.Location = new Point(0, 0);
 
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.viewToolStrip);
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.instrumentalToolStrip);
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.selectToolStrip);
+            //this.toolStripContainer.TopToolStripPanel.Controls.Add(this.viewToolStrip);
+            //this.toolStripContainer.TopToolStripPanel.Controls.Add(this.instrumentalToolStrip);
+            //this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
+            //this.toolStripContainer.TopToolStripPanel.Controls.Add(this.selectToolStrip);
 
-            displayToolStrip.Renderer = new BaseToolStrRender();
-            instrumentalToolStrip.Renderer = new BaseToolStrRender();
-            selectToolStrip.Renderer = new BaseToolStrRender();
-            viewToolStrip.Renderer = new BaseToolStrRender();
-            instrumentalToolStrip.Renderer = new BaseToolStrRender();
+            displayToolStrip.Renderer = BaseToolStrRender;
+            selectToolStrip.Renderer = BaseToolStrRender;
+            viewToolStrip.Renderer = BaseToolStrRender;
+            instrumentToolStrip.Renderer = BaseToolStrRender;
         }
 
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)

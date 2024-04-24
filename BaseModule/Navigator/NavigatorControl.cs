@@ -14,6 +14,18 @@ namespace BaseModule.Navigator
     {
         Dictionary<string, int> imgDict;
 
+        [Category("General")]
+        [Description("Set up color gradient")]
+        public Color UpColor { get; set; } = Color.Silver;
+
+        [Category("General")]
+        [Description("Set down color gradient")]
+        public Color DownColor { get; set; } = Color.WhiteSmoke;
+
+        [Category("General")]
+        [Description("Set header name")]
+        public string HeaderName { get; set; } = "Навигатор";
+
         [Category("treeView")]
         [Description("Set imageIndex for expand node")]
         public int ExpandIndex { get; set; } = 2;
@@ -406,8 +418,8 @@ namespace BaseModule.Navigator
             var linGrBrush = new LinearGradientBrush(
    new Point(0, 0),
    new Point(0, 15),
-   Color.WhiteSmoke,   // Opaque red
-   Color.Silver);  // Opaque blue
+   DownColor,   // Opaque red
+   UpColor);  // Opaque blue
 
             Pen gradPen = new Pen(linGrBrush);
 
@@ -422,10 +434,10 @@ namespace BaseModule.Navigator
         private void PaintName(PaintEventArgs e)
         {
             var locRect = new Point(15, 3);
-            var size = e.Graphics.MeasureString("Навигатор", this.Font);
+            var size = e.Graphics.MeasureString(HeaderName, this.Font);
             var rect = new Rectangle(locRect, new Size((int)size.Width, 8));
             //e.Graphics.FillRectangle(new SolidBrush(System.Drawing.Color.Silver), rect);
-            e.Graphics.DrawString("Навигатор", Font, new SolidBrush(System.Drawing.Color.Black), 16, 0);
+            e.Graphics.DrawString(HeaderName, Font, new SolidBrush(System.Drawing.Color.Black), 16, 0);
         }
 
         private void PaintCloseRectangle(PaintEventArgs e)

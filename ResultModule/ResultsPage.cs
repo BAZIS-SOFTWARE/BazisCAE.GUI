@@ -855,7 +855,7 @@ namespace ResultModule
             try
             {
                 var results = Project.ResultData.FindByTime(ar.TaskKind, Convert.ToSingle(ar.Time));
-                var resName = results.GetDataSchema("nodes").First();
+                //var resName = results.GetDataSchema("nodes").First(x => x == ar.ResName);
 
                 var scaleItems = GetScaleItems();
 
@@ -870,7 +870,7 @@ namespace ResultModule
 
                 var figures = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(results,
                     ObjType.Узел,
-                    resName,
+                    ar.ResName,
                     elements);
                 //ResultsController.ResultSurfaceSaver.WriteResults(figures, results.Path);
             }

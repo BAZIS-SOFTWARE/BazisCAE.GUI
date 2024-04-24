@@ -553,12 +553,14 @@ namespace TaskModule
         private IGroup GetDataGroup(string dataName, string[] ar)
         {
             IGroup group;
-
+            var groupName = ar[0];
             if (dataName == "Среда" | dataName == "Нагрев")
-                group = Project.ModelData.GroupData.Find(ar[1]);
+                groupName = ar[1];
+   
+            group = Project.ModelData.GroupData.Find(groupName);
 
-            else
-                group = Project.ModelData.GroupData.Find(ar[0]);
+            if (group == null)
+                throw new Exception(@"Группа ""groupName"" не найдена!");
             return group;
         }
 
@@ -685,39 +687,45 @@ namespace TaskModule
 
         public void TaskAdvisor_CheckDataEvent(object arg1, CheckDataEventArgs arg2)
         {
-            SceneControl.HideAllGeometryObjs();
-            var selectedData = Project.TaskData.Find(arg2.DataName).Select(x => (IValuableData)x);
-            foreach (var data in selectedData)
+            try
             {
-                if (arg2.Time >= data.StartTime & arg2.Time <= data.StopTime)
+                SceneControl.HideAllGeometryObjs();
+                var selectedData = Project.TaskData.Find(arg2.DataName).Select(x => (IValuableData)x);
+                foreach (var data in selectedData)
                 {
-                    if (data.MovedFrameFunction != null)
-                        DisplayMRF(arg2.Time, data);
-
-                    var group = data.Group;
-
-                    foreach (var iobj in group)
+                    if (arg2.Time >= data.StartTime & arg2.Time <= data.StopTime)
                     {
-                        if (data.Kind == DataKind.Mat)
-                            iobj.MasterColor = Color.FromArgb(255, 255, 0);
-                        else if (data.Kind == DataKind.Med)
-                            iobj.MasterColor = Color.FromArgb(255, 155, 0);
-                        else if (data.Kind == DataKind.Clamp | data.Kind == DataKind.Load)
-                            iobj.MasterColor = Color.FromArgb(255, 0, 0);
-                        else if (data.Kind == DataKind.Heat)
-                            iobj.MasterColor = Color.FromArgb(125,155, 255, 0);
+                        if (data.MovedFrameFunction != null)
+                            DisplayMRF(arg2.Time, data);
 
-                        //PresentProjectTaskDataOnScene(arg2.Time, data, modelObj);
-                        if (data.Direction != "*")
-                            DisplayDirection(arg2.Time, data, iobj);
+                        var group = data.Group;
+
+                        foreach (var iobj in group)
+                        {
+                            if (data.Kind == DataKind.Mat)
+                                iobj.MasterColor = Color.FromArgb(255, 255, 0);
+                            else if (data.Kind == DataKind.Med)
+                                iobj.MasterColor = Color.FromArgb(255, 155, 0);
+                            else if (data.Kind == DataKind.Clamp | data.Kind == DataKind.Load)
+                                iobj.MasterColor = Color.FromArgb(255, 0, 0);
+                            else if (data.Kind == DataKind.Heat)
+                                iobj.MasterColor = Color.FromArgb(125, 155, 255, 0);
+
+                            //PresentProjectTaskDataOnScene(arg2.Time, data, modelObj);
+                            if (data.Direction != "*")
+                                DisplayDirection(arg2.Time, data, iobj);
+                        }
+
+                        SetObjectsSceneColor(group.ObjType);
+
+                        SceneControl.DisplayObjects();
                     }
-
-                    SetObjectsSceneColor(group.ObjType);
-
-                    SceneControl.DisplayObjects();
                 }
             }
-
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }       
         }
 
         public void TaskAdvisor_DeleteDataEvent(object arg1, DeleteDataEventArgs arg2)
@@ -742,7 +750,7 @@ namespace TaskModule
 
                 var group = GetDataGroup(arg2.DataName, ar);
 
-                if (ar[0].Contains("LRF"))
+                if (arg2.DataInfo.Contains("LRF"))
                     await AddDataLRF(arg2, ar, group);
 
                 else
@@ -830,11 +838,10 @@ namespace TaskModule
             if (!data.MovedFrameFunction.IsOverlappingSelf())
                 ConsoleControl.PrintInfo("Скорость источника не позволяет добиться самопересечения при движении! " +
                     "Рекомендуется снизить скорость", Color.Orange);
-
-            data.StopTime = data.StartTime + data.MovedFrameFunction.CalcMotionTime();
-
             //Sort
             data.MovedFrameFunction.SortTrajNodes();
+
+            data.StopTime = data.StartTime + data.MovedFrameFunction.CalcMotionTime();
         }
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
