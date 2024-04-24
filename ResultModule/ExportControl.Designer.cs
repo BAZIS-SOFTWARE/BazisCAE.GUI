@@ -45,6 +45,7 @@
             this.richTextBox1.Size = new System.Drawing.Size(418, 128);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             // 
             // btnExport
             // 
@@ -60,6 +61,7 @@
             // 
             this.cmbTasksResults.FormattingEnabled = true;
             this.cmbTasksResults.Location = new System.Drawing.Point(155, 48);
+            this.cmbTasksResults.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTasksResults.Name = "cmbTasksResults";
             this.cmbTasksResults.Size = new System.Drawing.Size(418, 24);
             this.cmbTasksResults.Sorted = true;
@@ -91,6 +93,7 @@
             this.cmbNodeGroupName.Name = "cmbNodeGroupName";
             this.cmbNodeGroupName.Size = new System.Drawing.Size(418, 24);
             this.cmbNodeGroupName.TabIndex = 5;
+            this.cmbNodeGroupName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             // 
             // label3
             // 

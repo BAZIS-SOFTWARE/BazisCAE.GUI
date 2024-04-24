@@ -854,8 +854,13 @@ namespace ResultModule
         {
             try
             {
-                var results = Project.ResultData.FindByTaskKind(ar.TaskKind);
-                var resName = results.First().GetDataSchema("nodes").First();
+                var results = Project.ResultData.FindByTime(ar.TaskKind, Convert.ToSingle(ar.Time));
+                var resName = results.GetDataSchema("nodes").First();
+
+                var scaleItems = GetScaleItems();
+
+                ResultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
+                ResultsController.ResultsFieldsCreator.ScaleFactor = 1;
 
                 IEnumerable<ISurfaceElement> elements;
                 if (Project.TaskType == TaskType.Volume)
@@ -863,8 +868,7 @@ namespace ResultModule
                 else
                     elements = Project.ModelData.ObjectData.E2DCollection;
 
-                var res = results.Where(x => x.Time == ar.Time).First();
-                var figures = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(res,
+                var figures = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(results,
                     ObjType.Узел,
                     resName,
                     elements);
