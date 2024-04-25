@@ -8,13 +8,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using Geometry;
-using ModelInterfaces.MeshObjects;
 using System.Runtime.ExceptionServices;
 using System.Security;
 using ModelControllerInterfaces.GmshController;
-using System.Security.Cryptography;
-using System.Xml.Linq;
-using System.Collections.ObjectModel;
 
 namespace ModelModule
 {
@@ -484,17 +480,44 @@ namespace ModelModule
 
         private void entTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (e.Node.Text.Contains("Кривая"))
+            var curveNodes = TryGetCurveNodeRecursevely(e.Node);
+
+            foreach (var item in curveNodes)
+            {
+                var tag = FindObjectByTreeNode(item);
+                ShowObjectsEvent?.Invoke(tag);
+            }
+
+            if (curveNodes.Count == 0 | curveNodes.Count > 1)
+                pointsControlBox.Enabled = false;
+            else
             {
                 pointsControlBox.Enabled = true;
                 var tag = FindObjectByTreeNode(e.Node);
                 var attributes = GetCurrentCurveAttributes(tag);
                 WriteCurveSettingsToControls(attributes);
-                ShowObjectsEvent?.Invoke(tag);
             }
-            else
-                pointsControlBox.Enabled = false;
+
             redrawScene?.Invoke(false);
+        }
+
+        private List<TreeNode> TryGetCurveNodeRecursevely(TreeNode node)
+        {
+            var trNodes = new List<TreeNode>();
+
+            GetCurveNodes(trNodes, node);
+
+            return trNodes.Distinct(new TreeNodeEqualityComparer()).ToList();
+        }
+
+        private void GetCurveNodes(List<TreeNode> trNodes, TreeNode node)
+        {
+            if (node.Text.Contains("Кривая"))
+                trNodes.Add(node);
+            foreach (TreeNode item in node.Nodes)
+            {
+                GetCurveNodes(trNodes, item);
+            }
         }
 
         private void DeleteElementsByNumbers(int[] dimTags, string keyData)
@@ -674,12 +697,9 @@ namespace ModelModule
         private void entTree_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
             var oldNode = geomTree.SelectedNode;
-            if (oldNode != null && oldNode.Text.Contains("Кривая"))
-            {
+            
+            if (oldNode != null)
                 ResetColorObjectsEvent?.Invoke(ObjType.Линия, true);
-            }
-            else
-                pointsControlBox.Enabled = false;
         }
         /// <summary>
         /// Вернуть центр масс текущей геометрической сущности

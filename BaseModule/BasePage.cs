@@ -1651,8 +1651,10 @@ namespace BaseModule
                     {
                         Invoke(new Action(() => { consoleControl.PrintInfo(string.Format("{0:00}%", ar2 * 100), Color.Black); }));
                     };
+
+                    var nodes = Project.ModelData.ObjectData.NodeCollection;
                     var coincidentNodes = ModelController.CoincidentObjectsFinder.Find(
-                        Project.ModelData.ObjectData.GetObjects(ObjType.Узел).ToList(), 0.001f);
+                        nodes.ToList(), 0.001f);
 
                     Invoke(new Action(() => { consoleControl.PrintInfo($"Найдено {coincidentNodes.Where(x => x.Count > 2).Count()} совпадений", Color.Black); }));
                     Invoke(new Action(() =>
@@ -1663,8 +1665,10 @@ namespace BaseModule
                     }));
                     var actConfirm = new Func<Tuple<bool, object>>(() =>
                     {
-                        ModelController.ObjectsMerger.Merge(coincidentNodes,
-                            Project.ModelData.ObjectData.GetObjects(ObjType.Узел).ToList());
+                        var mergedNodes = ModelController.ObjectsMerger.Merge(coincidentNodes, nodes.ToList());
+
+                        Project.ModelData.ObjectData.NodeCollection.Clear();
+                        Project.ModelData.ObjectData.NodeCollection.AddRange(mergedNodes);
 
                         Invoke(new Action(() =>
                         {

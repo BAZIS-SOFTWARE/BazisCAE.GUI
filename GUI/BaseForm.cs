@@ -43,7 +43,7 @@ namespace BazisGUI
         //private string activePage;
         private List<ToolStripMenuItem> activeMenuItems = new List<ToolStripMenuItem>();
         BasePage module;
-
+        ModelController.ModelController modelController = new ModelController.ModelController(); 
         GmshController gmshController;
 
 
@@ -94,7 +94,7 @@ namespace BazisGUI
             DisconnectWithServer();
 
             module = CreateModule("Mesh");
-            module.ModelController = new ModelController.ModelController();
+            module.ModelController = modelController;
 
             var meshModule = module as ModelPage;
             meshModule.GmshController = gmshController;
@@ -122,7 +122,7 @@ namespace BazisGUI
             var resultModule = module as ResultPage;
 
             resultModule.ResultsController = new ResultsController();
-            resultModule.ModelController = new ModelController.ModelController();
+            resultModule.ModelController = modelController;
 
             resultModule.LoadResultsEvent += ResultModule_LoadResultsEvent;
 
@@ -164,7 +164,7 @@ namespace BazisGUI
             DisconnectWithServer();
 
             module = CreateModule("Weld");
-            module.ModelController = new ModelController.ModelController();
+            module.ModelController = modelController;
 
             var weldingPage = module as TaskPage;
 
@@ -178,7 +178,7 @@ namespace BazisGUI
             DisconnectWithServer();
 
             module = CreateModule("HeatTreatment");
-            module.ModelController = new ModelController.ModelController();
+            module.ModelController = modelController;
 
             var htPage = module as TaskPage;
 
@@ -256,7 +256,7 @@ namespace BazisGUI
                 basePage = modelPage;
             }
 
-            basePage.ModelController = new ModelController.ModelController();
+            basePage.ModelController = modelController;
             return basePage;
         }
 
@@ -360,14 +360,16 @@ namespace BazisGUI
 
         private void BaseForm_KeyDown(object sender, KeyEventArgs e)
         {
-            var controls = toolStripContainer.ContentPanel.Controls.Find(module.Name,false);
-
-            if(controls.Length > 0)
+            if(module != null)
             {
-                var baseControl = (BasePage)controls[0];
-                baseControl.PressedKey = e.KeyCode;
-            }
+                var controls = toolStripContainer.ContentPanel.Controls.Find(module.Name, false);
 
+                if (controls.Length > 0)
+                {
+                    var baseControl = (BasePage)controls[0];
+                    baseControl.PressedKey = e.KeyCode;
+                }
+            }
         }
 
         private void модулиMenuItem_Paint(object sender, PaintEventArgs e)
