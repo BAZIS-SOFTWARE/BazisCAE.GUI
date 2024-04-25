@@ -67,7 +67,7 @@ namespace ResultModule
             {
                 Name = "resultsMenuItem",
                 Text = "Результаты",
-                Enabled = false
+                Enabled = true
             };
 
             ToolStripMenuItem addResultsMenuItem = new ToolStripMenuItem()
@@ -854,11 +854,10 @@ namespace ResultModule
         {
             try
             {
-                var results = Project.ResultData.FindByTime(args.TaskKind, Convert.ToSingle(args.Time));
-                //var resName = results.GetDataSchema("nodes").First(x => x == ar.ResName);
+                var results = Project.ResultData.FindByTime(args.TaskKind, args.Time);
+                var formatedPath = $"{args.Path}\\GridExport_{DateTime.Now.ToString().Replace("/", "_").Replace(":", "_")}.bpf";
 
                 var scaleItems = GetScaleItems();
-
                 ResultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
                 ResultsController.ResultsFieldsCreator.ScaleFactor = 1;
 
@@ -872,7 +871,8 @@ namespace ResultModule
                     ObjType.Узел,
                     args.ResName,
                     elements);
-                ResultsController.ResultsSurfacesSaver.WriteResults(figures, args.Path);
+                ResultsController.ResultsSurfacesSaver.WriteResults(figures, formatedPath);
+                ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
             }
             catch (Exception ex)
             {
