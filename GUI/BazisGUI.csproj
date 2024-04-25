@@ -99,8 +99,8 @@
     <Reference Include="Geometry, Version=2.0.7.26, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
       <HintPath>..\packages\Geometry.2.0.7.26\lib\net48\Geometry.dll</HintPath>
     </Reference>
-    <Reference Include="GmshApi, Version=3.0.2.34, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
-      <HintPath>..\packages\GmshApi.3.0.2.34\lib\net48\GmshApi.dll</HintPath>
+    <Reference Include="GmshApi, Version=3.0.2.35, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
+      <HintPath>..\packages\GmshApi.3.0.2.35\lib\net48\GmshApi.dll</HintPath>
     </Reference>
     <Reference Include="LicenseInfo">
       <HintPath>..\Libs\LicenseInfo.dll</HintPath>
