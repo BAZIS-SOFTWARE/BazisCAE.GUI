@@ -690,139 +690,147 @@ namespace BaseModule
 
         private void InstrumentalToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            var btn = (ToolStripButton)e.ClickedItem;
-            if (!btn.Checked)
+            try
             {
-                if (e.ClickedItem.Tag.ToString() == "0")
+                var btn = (ToolStripButton)e.ClickedItem;
+                if (!btn.Checked)
                 {
-                    var form = new Form() { Name = "measureForm", Text = "Измерить", ShowIcon = false, TopMost = true };
-
-                    form.FormClosed += (s1, s2) =>
+                    if (e.ClickedItem.Tag.ToString() == "0")
                     {
-                        btn.Checked = false;
-                        sceneControl.HideAllGeometryObjs();
-                        sceneControl.HideDisplayText3D();
-                        sceneControl.DisplayObjects();
-                    };
+                        var form = new Form() { Name = "measureForm", Text = "Измерить", ShowIcon = false, TopMost = true };
 
-                    var measuringControl = new MeasuringSet() { Dock = DockStyle.Fill };
-                    measuringControl.PreparingMeasureEvent += () =>
-                    {
-                        sceneControl.HideAllGeometryObjs();
-                        sceneControl.HideDisplayText3D();
-                        sceneControl.DisplayObjects();
-                    } ;
-                    measuringControl.MakeMeasureEvent += MeasuringControl_MakeMeasureEvent;
-                    form.ClientSize = measuringControl.Size;
-                    form.Controls.Add(measuringControl);
-     
-                    form.Show();
-                }
-
-                else if (e.ClickedItem.Tag.ToString() == "1")
-                {
-                    var form = new Form() { Name = "CrossSectionForm", Text = "Построить сечение", ShowIcon = false, Size = new Size(268, 203), TopMost = true };
-
-                    var crossSection = new CrossSectionControl() { Dock = DockStyle.Fill };
-                    form.ClientSize = crossSection.Size;
-                    form.Controls.Add(crossSection);
-
-                    crossSection.RemoveCrossEvent += () =>
-                    {
-                        sceneControl.DeleteVBObjects("crossSection");
-                        sceneControl.DisplayObjects();
-                    };
-
-                    crossSection.SelectNodesEvent += () => { selectToolStrip.SelectObjectsType = ObjType.Узел; };
-
-                    crossSection.CreateCrossFromTextArgs += (ar1, ar2) =>
-                    {
-                        try
+                        form.FormClosed += (s1, s2) =>
                         {
-                            var elems3D = Project.ModelData.ObjectData.E3DCollection;
-                            var surface = CreateSectionSurfaces(elems3D, ar2.point1, ar2.point2, ar2.point3);
+                            btn.Checked = false;
+                            sceneControl.HideAllGeometryObjs();
+                            sceneControl.HideDisplayText3D();
+                            sceneControl.DisplayObjects();
+                        };
 
-                            PresentCrossSection(surface);
-
-                        }
-                        catch (Exception ex)
+                        var measuringControl = new MeasuringSet() { Dock = DockStyle.Fill };
+                        measuringControl.PreparingMeasureEvent += (ar) =>
                         {
-                            ConsoleControl.PrintInfo(ex.Message, Color.Red);
-                        }
-                    };
-                    crossSection.CreateCrossFromNodesEvent += () =>
+                            selectToolStrip.SelectObjectsType = ar;
+                            sceneControl.HideAllGeometryObjs();
+                            sceneControl.HideDisplayText3D();
+                            sceneControl.DisplayObjects();
+                        };
+                        measuringControl.MakeMeasureEvent += MeasuringControl_MakeMeasureEvent;
+                        form.ClientSize = measuringControl.Size;
+                        form.Controls.Add(measuringControl);
+
+                        form.Show();
+                    }
+
+                    else if (e.ClickedItem.Tag.ToString() == "1")
                     {
-                        try
+                        var form = new Form() { Name = "CrossSectionForm", Text = "Построить сечение", ShowIcon = false, Size = new Size(268, 203), TopMost = true };
+
+                        var crossSection = new CrossSectionControl() { Dock = DockStyle.Fill };
+                        form.ClientSize = crossSection.Size;
+                        form.Controls.Add(crossSection);
+
+                        crossSection.RemoveCrossEvent += () =>
                         {
-                            var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
-                            var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
-                            if (selObjs.Length < 3)
+                            sceneControl.DeleteVBObjects("crossSection");
+                            sceneControl.DisplayObjects();
+                        };
+
+                        crossSection.SelectNodesEvent += () => { selectToolStrip.SelectObjectsType = ObjType.Узел; };
+
+                        crossSection.CreateCrossFromTextArgs += (ar1, ar2) =>
+                        {
+                            try
                             {
-                                consoleControl.PrintInfo("Ошибка, выбрано неверное количество узлов", Color.Red);
-                                return;
+                                var elems3D = Project.ModelData.ObjectData.E3DCollection;
+                                var surface = CreateSectionSurfaces(elems3D, ar2.point1, ar2.point2, ar2.point3);
+
+                                PresentCrossSection(surface);
+
                             }
-
-                            var p0 = selObjs[0];
-                            var p1 = selObjs[1];
-                            var p2 = selObjs[2];
-
-                            var elems3D = Project.ModelData.ObjectData.E3DCollection;
-
-                            var surface = CreateSectionSurfaces(
-                                elems3D, p0.CalcCentr(),
-                                p1.CalcCentr(),
-                                p2.CalcCentr());
-
-                            PresentCrossSection(surface);
-
-                        }
-                        catch (Exception ex)
-                        {
-                            ConsoleControl.PrintInfo(ex.Message, Color.Red);
-                        }
-                    };
-
-                    form.FormClosed += (ar1, ar2) =>
-                    {
-                        btn.Checked = false;
-
-                        sceneControl.DeleteVBObjects("crossSection");
-
-                        if (sceneControl.GetVBObjsName().Count() == 0)
-                        {
-                            sceneControl.DeleteAllVBObjects();
-                            foreach (var objsType in Project.ModelData.ObjectData.ObjsTypes)
+                            catch (Exception ex)
                             {
-                                var presentor = CreateObjectsPresentor(objsType);
-                                CreateObjectsToScene(objsType.ToString(), presentor);
+                                ConsoleControl.PrintInfo(ex.Message, Color.Red);
                             }
-      
-                        }
-                        sceneControl.DisplayObjects();
-                    };
+                        };
+                        crossSection.CreateCrossFromNodesEvent += () =>
+                        {
+                            try
+                            {
+                                var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
+                                var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
+                                if (selObjs.Length < 3)
+                                {
+                                    consoleControl.PrintInfo("Ошибка, выбрано неверное количество узлов", Color.Red);
+                                    return;
+                                }
 
-                    form.Show();
-                }
+                                var p0 = selObjs[0];
+                                var p1 = selObjs[1];
+                                var p2 = selObjs[2];
 
-                else if (e.ClickedItem.Tag.ToString() == "2")
-                {
-                    var scrShot = CreateScreenShot();
-                    scrShot.Save(Project.Path + "\\screenShot.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
-                    consoleControl.PrintInfo($"Сделан снимок экрана {Project.Path}\\screenShot.bmp", Color.Black);
-                }
-            }
-            else
-            {
-                if (e.ClickedItem.Tag.ToString() == "0")
-                {
-                    var forms = Application.OpenForms.Cast<Form>().ToList();
-                    var form = forms.Find(x => x.Name == "measureForm");
-                    if (form != null)
+                                var elems3D = Project.ModelData.ObjectData.E3DCollection;
+
+                                var surface = CreateSectionSurfaces(
+                                    elems3D, p0.CalcCentr(),
+                                    p1.CalcCentr(),
+                                    p2.CalcCentr());
+
+                                PresentCrossSection(surface);
+
+                            }
+                            catch (Exception ex)
+                            {
+                                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                            }
+                        };
+
+                        form.FormClosed += (ar1, ar2) =>
+                        {
+                            btn.Checked = false;
+
+                            sceneControl.DeleteVBObjects("crossSection");
+
+                            if (sceneControl.GetVBObjsName().Count() == 0)
+                            {
+                                sceneControl.DeleteAllVBObjects();
+                                foreach (var objsType in Project.ModelData.ObjectData.ObjsTypes)
+                                {
+                                    var presentor = CreateObjectsPresentor(objsType);
+                                    CreateObjectsToScene(objsType.ToString(), presentor);
+                                }
+
+                            }
+                            sceneControl.DisplayObjects();
+                        };
+
+                        form.Show();
+                    }
+
+                    else if (e.ClickedItem.Tag.ToString() == "2")
                     {
-                        form.Close();
-                        btn.Checked = true;
+                        var scrShot = CreateScreenShot();
+                        scrShot.Save(Project.Path + "\\screenShot.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
+                        consoleControl.PrintInfo($"Сделан снимок экрана {Project.Path}\\screenShot.bmp", Color.Black);
                     }
                 }
+                else
+                {
+                    if (e.ClickedItem.Tag.ToString() == "0")
+                    {
+                        var forms = Application.OpenForms.Cast<Form>().ToList();
+                        var form = forms.Find(x => x.Name == "measureForm");
+                        if (form != null)
+                        {
+                            form.Close();
+                            btn.Checked = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                consoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
 

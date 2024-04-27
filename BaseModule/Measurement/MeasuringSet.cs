@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelInterfaces;
+using System;
 using System.Windows.Forms;
 
 namespace BaseModule
@@ -7,7 +8,7 @@ namespace BaseModule
     {
 
         public event Action<object, MeasureEventArgs> MakeMeasureEvent;
-        public event Action PreparingMeasureEvent;
+        public event Action<ObjType> PreparingMeasureEvent;
 
         MeasureKind measureKind;
         public MeasuringSet()
@@ -21,21 +22,21 @@ namespace BaseModule
             {
                 measureKind = MeasureKind.Volume;
                 cmbMeasureObjects.Enabled = false;
-                PreparingMeasureEvent?.Invoke();
+                PreparingMeasureEvent?.Invoke(ObjType.Элемент3D);
             }
 
             else if (rbtSquare.Checked)
             {
                 measureKind = MeasureKind.Square;
                 cmbMeasureObjects.Enabled = false;
-                PreparingMeasureEvent?.Invoke();
+                PreparingMeasureEvent?.Invoke(ObjType.Элемент2D);
             }
 
             else if (rbtnPath.Checked)
             {
                 measureKind = MeasureKind.Path;
                 cmbMeasureObjects.Enabled = false;
-                PreparingMeasureEvent?.Invoke();
+                PreparingMeasureEvent?.Invoke(ObjType.Узел);
             }
 
             else
@@ -43,6 +44,7 @@ namespace BaseModule
                 cmbMeasureObjects.Enabled = true;
                 measureKind = MeasureKind.DistanceNodeToNode;
                 cmbMeasureObjects.SelectedIndex = 0;
+                PreparingMeasureEvent?.Invoke(ObjType.Узел);
             }
 
         }
@@ -58,8 +60,6 @@ namespace BaseModule
                 measureKind = MeasureKind.DistanceNodeToNode;
             else if (cmbMeasureObjects.SelectedIndex == 1)
                 measureKind = MeasureKind.DistanceNodeToPlane;
-
-            PreparingMeasureEvent?.Invoke();
         }
     }
 }
