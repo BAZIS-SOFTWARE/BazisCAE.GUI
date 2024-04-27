@@ -43,13 +43,14 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.richTextBox1, 2);
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(150, 53);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(5, 0, 7, 0);
+            this.richTextBox1.Location = new System.Drawing.Point(152, 53);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(301, 220);
+            this.richTextBox1.Size = new System.Drawing.Size(299, 220);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
+            this.richTextBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.richTextBox1_MouseClick);
             // 
             // btnExport
             // 
@@ -152,7 +153,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ExportControl";
             this.Size = new System.Drawing.Size(458, 360);
             this.tableLayoutPanel1.ResumeLayout(false);

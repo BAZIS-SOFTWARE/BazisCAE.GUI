@@ -1,4 +1,6 @@
-﻿using ModelInterfaces;
+﻿using Geometry;
+using ModelInterfaces;
+using PlayerControl;
 using ProjectInterfaces;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 
 namespace ResultModule
@@ -20,6 +23,7 @@ namespace ResultModule
 
         private readonly Dictionary<string, List<float>> resItems;
         private readonly List<string> nodesNames;
+        private string selectedText;
 
         public ExportControl()
         {
@@ -40,7 +44,7 @@ namespace ResultModule
                 else
                     return;
 
-                var time = float.Parse(richTextBox1.SelectedText);
+                var time = float.Parse(selectedText);
                 var taskKind = cmbTasksResults.SelectedItem.ToString();
                 var resKind = cmbNodeGroupName.SelectedItem.ToString();
                 ExportResultEvent(new ExportResultEventArgs(time, taskKind, resKind, selectedPath));
@@ -53,7 +57,7 @@ namespace ResultModule
 
         private void CheckFormBeforeButtonClick()
         {
-            if (cmbTasksResults.Text == "" || richTextBox1.SelectedText == "" || cmbNodeGroupName.Text == "")
+            if (cmbTasksResults.Text == "" || selectedText == "" || cmbNodeGroupName.Text == "")
                 throw new Exception("Перед экспортом результатов необходимо выбрать тип задачи и интервал времени для экспорта результата");
         }
 
@@ -83,6 +87,37 @@ namespace ResultModule
                 cmbNodeGroupName.Items.Add(name);
                 nodesNames.Add(name);
             }
+        }
+
+        private void richTextBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                int charIndex = richTextBox1.GetCharIndexFromPosition(e.Location);
+                //Получаем номер строки по знаку
+                var lineIndex = richTextBox1.GetLineFromCharIndex(charIndex);
+                PaintSelectedText(lineIndex);
+                selectedText = richTextBox1.Lines[lineIndex];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void PaintSelectedText(int lineIndex)
+        {
+            int startFromIndex = richTextBox1.GetFirstCharIndexFromLine(lineIndex);
+            //Получаем длину строки
+            int lineLength = richTextBox1.Lines[lineIndex].Length;
+
+            richTextBox1.SelectAll();
+            richTextBox1.SelectionBackColor = System.Drawing.Color.White;
+            //Выделяем текст с первого символа строки до конца строки
+            richTextBox1.Select(startFromIndex, lineLength);
+            //Устанавливаем выделенному тексту оранжевый фон
+            richTextBox1.SelectionBackColor = System.Drawing.Color.Orange;
+            richTextBox1.Select(startFromIndex, 0);
         }
     }
 }
