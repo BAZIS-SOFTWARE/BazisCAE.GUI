@@ -123,7 +123,8 @@ namespace TaskModule.WeldingModule
                     for (int i = 0; i <= 100; i++)
                     {
                         var currentTime = i * finishTime / 100.0f;
-                        var resu = data.MovedFrameFunction.GetIntersectedObjects(currentTime, data.Group.ToList());
+                        var frame = data.MovedFrame.CalcFrame(currentTime);
+                        var resu = data.FrameFunction.GetIntersectedObjects(frame, data.Group.ToList());
                         modelObjects.AddRange(resu);
 
                         if (i % 10 == 0)

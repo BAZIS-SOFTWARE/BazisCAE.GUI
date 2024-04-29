@@ -534,7 +534,7 @@ namespace TaskModule
 
                 valData.Group = group;
 
-                if (valData.MovedFrameFunction != null)
+                if (valData.MovedFrame != null)
                     SetMFF(valData, arg2.DataInfo.Split(' ').Last());
 
                 GetTaskAdvisor()?.SetProjectData(Project);
@@ -589,7 +589,7 @@ namespace TaskModule
             {
                 var group = data[index].Group;
 
-                if (data[index].MovedFrameFunction != null)
+                if (data[index].FrameFunction != null)
                     DisplayMRF(data[index].StartTime, data[index]);
 
                 foreach (var iobj in group)
@@ -617,16 +617,16 @@ namespace TaskModule
 
         private void DisplayMRF(float time, IValuableData data)
         {
-            var frame = data.MovedFrameFunction.CalcFrame(time - data.StartTime);
+            var frame = data.MovedFrame.CalcFrame(time - data.StartTime);
             SceneControl.DisplayLocalFrame(frame);
-            var trajPoints = data.MovedFrameFunction.BaseLine.Select(x => x.CalcCentr()).ToArray();
+            var trajPoints = data.MovedFrame.BaseLine.Select(x => x.CalcCentr()).ToArray();
             SceneControl.DisplayPath(trajPoints);
 
-            if (data.MovedFrameFunction is ISphereFunction sphear )
+            if (data.FrameFunction is ISphereFunction sphear )
             {
                 SceneControl.DisplaySphere(sphear.Width, frame);
             }
-            else if (data.MovedFrameFunction is ICillindricalFunction cilinder )
+            else if (data.FrameFunction is ICillindricalFunction cilinder )
             {
                 SceneControl.DisplayConus(cilinder.UpperDiam, cilinder.BottomDiam, cilinder.Length, frame);
             }
@@ -695,7 +695,7 @@ namespace TaskModule
                 {
                     if (arg2.Time >= data.StartTime & arg2.Time <= data.StopTime)
                     {
-                        if (data.MovedFrameFunction != null)
+                        if (data.FrameFunction != null)
                             DisplayMRF(arg2.Time, data);
 
                         var group = data.Group;
@@ -767,7 +767,7 @@ namespace TaskModule
         private void AddData(AddDataEventArgs arg2, string[] ar, IGroup group)
         {
             var data = (IValuableData)Project.TaskData.Create(arg2.DataName, arg2.DataInfo, group);
-            if (data.MovedFrameFunction != null)
+            if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
             Project.TaskData.Add(data);
             NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
@@ -789,7 +789,7 @@ namespace TaskModule
             ar[3] = rVec._x.ToString();
 
             var data = (IValuableData)Project.TaskData.Create(arg2.DataName, string.Join(" ", ar), group);
-            if (data.MovedFrameFunction != null)
+            if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
 
             Project.TaskData.Add(data);
@@ -799,7 +799,7 @@ namespace TaskModule
             ar[3] = rVec._y.ToString();
 
             data = (IValuableData)Project.TaskData.Create(arg2.DataName, string.Join(" ", ar), group);
-            if (data.MovedFrameFunction != null)
+            if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
 
             Project.TaskData.Add(data);
@@ -809,7 +809,7 @@ namespace TaskModule
             ar[3] = rVec._z.ToString();
 
             data = (IValuableData)Project.TaskData.Create(arg2.DataName, string.Join(" ", ar), group);
-            if (data.MovedFrameFunction != null)
+            if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
 
             Project.TaskData.Add(data);
@@ -826,22 +826,24 @@ namespace TaskModule
             var refLineGr = Project.ModelData.GroupData.Find(refLineGrName);
             var stNodesGr = Project.ModelData.GroupData.Find(stNodesGrName);
 
-            data.MovedFrameFunction.BaseLine = baseLineGr;
-            data.MovedFrameFunction.RefLine = refLineGr;
-            data.MovedFrameFunction.StartPoints = stNodesGr;
-            data.MovedFrameFunction.StopPoints = stNodesGr;
+            data.MovedFrame.BaseLine = baseLineGr;
+            data.MovedFrame.RefLine = refLineGr;
+            data.MovedFrame.StartPoints = stNodesGr;
+            data.MovedFrame.StopPoints = stNodesGr;
 
             //Проверка узлов траектории
-            data.MovedFrameFunction.CheckTrajNodes();
-
+            data.MovedFrame.CheckTrajNodes();
+            var vel = data.MovedFrame.Velosity;
             //Проверка самопересечения от скорости движения
-            if (!data.MovedFrameFunction.IsOverlappingSelf())
-                ConsoleControl.PrintInfo("Скорость источника не позволяет добиться самопересечения при движении! " +
-                    "Рекомендуется снизить скорость", Color.Orange);
-            //Sort
-            data.MovedFrameFunction.SortTrajNodes();
 
-            data.StopTime = data.StartTime + data.MovedFrameFunction.CalcMotionTime();
+            if (data.FrameFunction != null)
+                if (!data.FrameFunction.IsOverlappingSelf(vel))
+                    ConsoleControl.PrintInfo("Скорость источника не позволяет добиться самопересечения при движении! " +
+                        "Рекомендуется снизить скорость", Color.Orange);
+            //Sort
+            data.MovedFrame.SortTrajNodes();
+
+            data.StopTime = data.StartTime + data.MovedFrame.CalcMotionTime();
         }
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)

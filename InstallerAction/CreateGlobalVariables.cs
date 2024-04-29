@@ -21,7 +21,6 @@ namespace InstallerAction
             base.Install(stateSaver);
 
             string fullPath = this.Context.Parameters["assemblypath"];
-            fullPath += "\\Mesh\\gmsh.dll";
 
             var process = new Process();
             var startInfo = new ProcessStartInfo
@@ -33,8 +32,8 @@ namespace InstallerAction
             };
             process.StartInfo = startInfo;
 
-            var path = Path.GetDirectoryName(fullPath);
-            startInfo.Arguments = $@"/C setx /m BazisMeshPath ""{path}""";
+            var gmshPath = Path.GetDirectoryName(fullPath) + "\\Mesh\\gmsh.dll";
+            startInfo.Arguments = $@"/C setx /m BazisMeshPath ""{gmshPath}""";
 
             process.Start();
 
@@ -42,7 +41,7 @@ namespace InstallerAction
 
             var value = Environment.GetEnvironmentVariable("BazisMeshPath");
             if (value == null | value == "")
-                MessageBox.Show($"Возможно возникла проблема автоматического создания переменной среды BazisMeshPath : {path}! Создайте ее вручную в случае если она отсутсвует",
+                MessageBox.Show($"Возможно возникла проблема автоматического создания переменной среды BazisMeshPath : {gmshPath}! Создайте ее вручную в случае если она отсутсвует",
                     "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }

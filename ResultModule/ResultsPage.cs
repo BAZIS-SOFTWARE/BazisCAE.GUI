@@ -871,7 +871,7 @@ namespace ResultModule
                     ObjType.Узел,
                     args.ResName,
                     elements);
-                ResultsController.ResultsSurfacesSaver.WriteResults(figures, formatedPath);
+                ResultsController.ResultsSurfacesSaver.ExportResults(figures, formatedPath);
                 ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
             }
             catch (Exception ex)
