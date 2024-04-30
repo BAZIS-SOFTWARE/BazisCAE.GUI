@@ -32,6 +32,7 @@ using ProjectInterfaces;
 using System.Threading.Tasks;
 using Results;
 using ModelInterfaces;
+using System.Runtime.Remoting.Messaging;
 
 namespace BazisGUI
 {
@@ -42,7 +43,7 @@ namespace BazisGUI
         ProjectData project;
         //private string activePage;
         private List<ToolStripMenuItem> activeMenuItems = new List<ToolStripMenuItem>();
-        BasePage module;
+        //BasePage module;
         ModelController.ModelController modelController = new ModelController.ModelController(); 
         GmshController gmshController;
 
@@ -91,45 +92,67 @@ namespace BazisGUI
 
         private void построениеСетки_Click(object sender, EventArgs e)
         {
-            DisconnectWithServer();
+            var module = TryGetModule(модулиMenuItem.Text);
+            DisconnectWithServer(module.Name);
 
-            module = CreateModule("Mesh");
-            module.ModelController = modelController;
+            CloseActivePageChildControls(module.Name);
 
-            var meshModule = module as ModelPage;
+            var newModule = CreateModule("Mesh");
+            newModule.ModelController = modelController;
+
+            var meshModule = newModule as ModelPage;
             meshModule.GmshController = gmshController;
 
-            AddModule();
+            AddModule(newModule);
         }
 
-        private void DisconnectWithServer()
+        private BasePage TryGetModule(string text)
         {
-            if (module != null)
-            {
-                CloseActivePageChildControls();
+            Control[] cntrs;
+            if(text == "Сварка")
+                cntrs = toolStripContainer.ContentPanel.Controls.Find("Weld", false);
+            else if (text == "Термообработка")
+                cntrs = toolStripContainer.ContentPanel.Controls.Find("HeatTreatment", false);
+            else if (text == "Результаты")
+                cntrs = toolStripContainer.ContentPanel.Controls.Find("Result", false);
+            else
+                cntrs = toolStripContainer.ContentPanel.Controls.Find("Mesh", false);
+            
+            if (cntrs.Count() > 0)
+                return (BasePage)cntrs[0];
+            else
+                return null;
+        }
 
+        private void DisconnectWithServer(string moduleName)
+        {
+            //if (module != null)
+            //{
                 StopServerPing();
-                serverConnection.RequestServer(module.Name + " Отдать");
-            }
+                serverConnection.RequestServer(moduleName + " Отдать");
+            //}
         }
 
         private void анализРезультатов_Click(object sender, EventArgs e)
         {
-            DisconnectWithServer();
+            var module = TryGetModule(модулиMenuItem.Text);
+            DisconnectWithServer(module.Name);
 
-            module = CreateModule("Result");
+            CloseActivePageChildControls(module.Name);
 
-            var resultModule = module as ResultPage;
+            var newModule = CreateModule("Result");
+
+            var resultModule = newModule as ResultPage;
 
             resultModule.ResultsController = new ResultsController();
             resultModule.ModelController = modelController;
 
             resultModule.LoadResultsEvent += ResultModule_LoadResultsEvent;
 
-            AddModule();
+            AddModule(newModule);
         }
 
-        private async void ResultModule_LoadResultsEvent(string fileName, bool mergeRes, bool addRes)
+        private async void ResultModule_LoadResultsEvent(object sender,string fileName, bool mergeRes, bool addRes)
         {
 
             var dbExtension = System.IO.Path.GetExtension(fileName);
@@ -140,7 +163,7 @@ namespace BazisGUI
             else
                 project.ResultData.Loader = new LoadResultsFileBrfTextFormat();
 
-            var resultModule = module as ResultPage;
+            var resultModule = sender as ResultPage;
 
             Enabled = false;
             if (!addRes)
@@ -161,34 +184,40 @@ namespace BazisGUI
 
         private void сварка_Click(object sender, EventArgs e)
         {
-            DisconnectWithServer();
+            var module = TryGetModule(модулиMenuItem.Text);
+            DisconnectWithServer(module.Name);
 
-            module = CreateModule("Weld");
-            module.ModelController = modelController;
+            CloseActivePageChildControls(module.Name);
 
-            var weldingPage = module as TaskPage;
+            var newModule = CreateModule("Weld");
+            newModule.ModelController = modelController;
+
+            var weldingPage = newModule as TaskPage;
 
             weldingPage.PreProc = new PreProc();
 
-            AddModule();
+            AddModule(newModule);
         }
 
         private void термообработка_Click(object sender, EventArgs e)
         {
-            DisconnectWithServer();
+            var module = TryGetModule(модулиMenuItem.Text);
+            DisconnectWithServer(module.Name);
 
-            module = CreateModule("HeatTreatment");
-            module.ModelController = modelController;
+            CloseActivePageChildControls(module.Name);
 
-            var htPage = module as TaskPage;
+            var newModule = CreateModule("HeatTreatment");
+            newModule.ModelController = modelController;
+
+            var htPage = newModule as TaskPage;
 
             htPage.PreProc = new PreProc();
 
-            AddModule();
+            AddModule(newModule);
 
         }
 
-        private void AddModule()
+        private void AddModule(BasePage module)
         {
             SetGeneralSettings(module);
 
@@ -212,8 +241,8 @@ namespace BazisGUI
             serverConnection.RequestServer(module.Name + " Взять");
 
             if (serverConnection.Answer == "можно")
-                StartLicensing();
-            else StartLisenceForm();
+                StartLicensing(module);
+            else StartLisenceForm(module);
         }
 
         private BasePage CreateModule(string moduleName)
@@ -260,9 +289,9 @@ namespace BazisGUI
             return basePage;
         }
 
-        private void CloseActivePageChildControls()
+        private void CloseActivePageChildControls(string moduleName)
         {
-            toolStripContainer.ContentPanel.Controls.RemoveByKey(module.Name);
+            toolStripContainer.ContentPanel.Controls.RemoveByKey(moduleName);
 
             var openForms = Application.OpenForms.Cast<Form>().ToArray();
 
@@ -276,7 +305,7 @@ namespace BazisGUI
                 menuStrip.Items.Remove(activeMenuItem);
         }
 
-        private void StartLicensing()
+        private void StartLicensing(BasePage module)
         {
             //сохранитьToolStripMenuItem.Enabled = true;
             //сохранитькакToolStripMenuItem.Enabled = true;
@@ -360,6 +389,7 @@ namespace BazisGUI
 
         private void BaseForm_KeyDown(object sender, KeyEventArgs e)
         {
+            var module = TryGetModule(модулиMenuItem.Text);
             if(module != null)
             {
                 var controls = toolStripContainer.ContentPanel.Controls.Find(module.Name, false);
@@ -439,7 +469,7 @@ namespace BazisGUI
             form.ShowDialog();
         }
 
-        private void StartLisenceForm()
+        private void StartLisenceForm(BasePage module)
         {
             var form = new Form() { Name = "checkForm", Text = "Лицензирование", ShowIcon = false };
             var control = new ClientControl() { Dock = DockStyle.Fill };
@@ -459,7 +489,7 @@ namespace BazisGUI
                     if (serverConnection.Answer == "можно")
                     {
                         //var page = module;
-                        StartLicensing();
+                        StartLicensing(module);
                     }
                 }
             };
@@ -498,13 +528,15 @@ namespace BazisGUI
                 form.Show();
             }
 
+
+            var module = TryGetModule(модулиMenuItem.Text);
             if (module != null)
             {
-                SetSettingsToModule(settings);
+                SetSettingsToModule(module,settings);
             }
         }
 
-        private void SetSettingsToModule(SettingsControl settings)
+        private void SetSettingsToModule(BasePage module,SettingsControl settings)
         {
             settings.SetSelectionGroupColorEvent += (ar) => module.SelectionGroupColor = ar;
             settings.SetSelectionObjectColorEvent += (ar) =>
@@ -626,7 +658,10 @@ namespace BazisGUI
 
         private void получитьЛицензиюMenuItem_Click(object sender, EventArgs e)
         {
-            StartLisenceForm();
+            var module = TryGetModule(модулиMenuItem.Text);
+
+            if(module != null)
+                StartLisenceForm(module);
         }
 
         private void BaseForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -679,6 +714,7 @@ namespace BazisGUI
 
                 модулиMenuItem.Enabled = true;
 
+                var module = TryGetModule(модулиMenuItem.Text);
                 if (module != null)
                 {
                     module.Project = project;
@@ -720,6 +756,7 @@ namespace BazisGUI
 
                 модулиMenuItem.Enabled = true;
 
+                var module = TryGetModule(модулиMenuItem.Text);
                 if (module != null)
                 {
                     module.Project = project;
@@ -731,7 +768,7 @@ namespace BazisGUI
                 else 
                 {
                     module = CreateModule("Mesh");            
-                    AddModule();
+                    AddModule(module);
                 }
             }
             catch (Exception ex)
@@ -811,7 +848,8 @@ namespace BazisGUI
 
                 модулиMenuItem.Enabled = true;
 
-                if(module != null)
+                var module = TryGetModule(модулиMenuItem.Text);
+                if (module != null)
                 {
                     module.Project = project;
                     module.SceneInitialization();
@@ -821,7 +859,7 @@ namespace BazisGUI
                 else
                 {
                     module = CreateModule("Mesh");
-                    AddModule();
+                    AddModule(module);
                 }
             }
 
@@ -868,6 +906,8 @@ namespace BazisGUI
                     }
 
                     project.Save();
+
+                    var module = TryGetModule(модулиMenuItem.Text);
                     module?.ConsoleControl.PrintInfo("Проект сохранен", Color.Black);
                     lblStatus.Text = $"{project.Path}\\{project.Name}";
 
@@ -882,6 +922,7 @@ namespace BazisGUI
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             project?.Save();
+            var module = TryGetModule(модулиMenuItem.Text);
             module?.ConsoleControl.PrintInfo("Проект сохранен", Color.Black);
         }
 
@@ -921,6 +962,7 @@ namespace BazisGUI
                     UpdateGeometry(ObjType.Точка);
                     UpdateGeometry(ObjType.Линия);
 
+                    var module = TryGetModule(модулиMenuItem.Text);
                     if (module != null)
                     {
                         module.Project = project;
@@ -931,7 +973,7 @@ namespace BazisGUI
                     else
                     {
                         module = CreateModule("Mesh");
-                        AddModule();
+                        AddModule(module);
                     }
                 }
             }

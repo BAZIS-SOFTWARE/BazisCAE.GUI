@@ -29,7 +29,7 @@ namespace ResultModule
     public partial class ResultPage: BasePage
     {
         ISceneScale scale;
-        public event Action<string, bool, bool> LoadResultsEvent;
+        public event Action<object,string, bool, bool> LoadResultsEvent;
         public IResultsController ResultsController { get; set; }
         
         private bool showResultValue;
@@ -401,7 +401,7 @@ namespace ResultModule
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
-            LoadResultsEvent?.Invoke(openDialogEx.OpenDialog.FileName, openDialogEx.MergeResults, addRes);
+            LoadResultsEvent?.Invoke(this,openDialogEx.OpenDialog.FileName, openDialogEx.MergeResults, addRes);
         }     
 
         private void ShowResults(float time, string resKind, int scaleFactor)
