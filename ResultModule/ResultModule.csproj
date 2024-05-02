@@ -86,8 +86,8 @@
     <Reference Include="PlayerControl, Version=1.0.0.25, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PlayerControl.1.0.0.25\lib\net48\PlayerControl.dll</HintPath>
     </Reference>
-    <Reference Include="ProjectInterfaces, Version=3.0.36.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjectInterfaces.3.0.36\lib\net48\ProjectInterfaces.dll</HintPath>
+    <Reference Include="ProjectInterfaces, Version=3.0.39.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProjectInterfaces.3.0.39\lib\net48\ProjectInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface, Version=1.0.36.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
       <HintPath>..\packages\SceneInterface.1.0.36\lib\net48\SceneInterface.dll</HintPath>

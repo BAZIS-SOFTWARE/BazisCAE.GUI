@@ -603,7 +603,7 @@ namespace TaskModule
                     else if (data[index].Kind == DataKind.Heat)
                         iobj.MasterColor = Color.FromArgb(125,155, 255, 0);
 
-                    if (data[index].Direction != "*")
+                    if (data[index].Direction != Direction.None)
                         DisplayDirection(data[index].StartTime, data[index], iobj);
                 }
 
@@ -637,34 +637,22 @@ namespace TaskModule
             var vector = new Point3D();
             Color color;
 
-            if (data.Direction == "X")
+            if (data.Direction == Direction.X)
             {
                 vector = new Point3D(1, 0, 0);
                 color = Color.FromArgb(255, 0, 0);
             }
 
-            else if (data.Direction == "Y")
+            else if (data.Direction == Direction.Y)
             {
                 vector = new Point3D(0, 1, 0);
                 color = Color.FromArgb(0, 255, 0);
             }
 
-            else if (data.Direction == "Z")
+            else
             {
                 vector = new Point3D(0, 0, 1);
                 color = Color.FromArgb(0, 0, 255);
-            }
-
-            else
-            {
-                var directionAr = data.Direction.Split('|');
-
-                var x = float.Parse(directionAr[0], NumberStyles.Float, CultureInfo.InvariantCulture);
-                var y = float.Parse(directionAr[1], NumberStyles.Float, CultureInfo.InvariantCulture);
-                var z = float.Parse(directionAr[2], NumberStyles.Float, CultureInfo.InvariantCulture);
-
-                vector = new Point3D(x, y, z);
-                color = Color.FromArgb(255, 155, 0);
             }
 
             foreach (var point in modelObj.GetCoordinates())
@@ -712,7 +700,7 @@ namespace TaskModule
                                 iobj.MasterColor = Color.FromArgb(125, 155, 255, 0);
 
                             //PresentProjectTaskDataOnScene(arg2.Time, data, modelObj);
-                            if (data.Direction != "*")
+                            if (data.Direction != Direction.None)
                                 DisplayDirection(arg2.Time, data, iobj);
                         }
 
