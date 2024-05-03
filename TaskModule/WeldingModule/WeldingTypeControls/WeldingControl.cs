@@ -91,6 +91,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 cmbEnergyCalibration.Items.Add(function);
                 funcs.Add(function);
             }
+
+            if(grbWeldRegime.Controls[0] is FSWeldingControl fswc)
+                fswc.Add_Functions(funcs);
         }
 
         public void Fill_eGroups(List<string> groupNames)
@@ -151,24 +154,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 trajData = trajData + ";" +
                     string.Format($"{txbShiftX.Text}|{txbShiftY.Text}|{txbShiftZ.Text}|{txbAngle.Text}");
             }
-
-            //if (rbtFSW.Checked)
-            //{
-            //    var hsDataAr = HeatSourceData.Split(';');
-
-            //    var pinDataStr = string.Join(";", new string[] { "FSWPin", hsDataAr[1], hsDataAr[4], hsDataAr[5], hsDataAr[6], hsDataAr[7], hsDataAr[8] });
-            //    var shoulderDataStr = string.Join(";", new string[] { "FSWShoulder", hsDataAr[1], hsDataAr[2], hsDataAr[3], hsDataAr[3], "30", hsDataAr[7], hsDataAr[8] });
-
-            //    if (hsDataAr.Any(x => x == "") || cmbWeldZone.Text == "" || txbStartTime.Text == "" || trajData == "")
-            //        throw new Exception("Одно из переданных значений полей было пустым");
-
-            //   var taskStr = string.Join(" ", new string[] { pinDataStr, cmbWeldZone.Text, txbStartTime.Text, stopTime, trajData });
-            //    taskStrAr.Add("\"" + taskStr + "\"");
-
-            //    taskStr = string.Join(" ", new string[] { shoulderDataStr, cmbWeldZone.Text, txbStartTime.Text, stopTime, trajData });
-            //    taskStrAr.Add("\"" + taskStr + "\"");
-            //}
-
 
             if (HeatSourceData == "" || cmbWeldZone.Text == "" || txbStartTime.Text == "" || trajData == "")
                 throw new Exception("Одно из переданных значений полей было пустым");
@@ -261,53 +246,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         public override void ClearAllDataButton_Click(object sender, EventArgs e)
         {
             base.ClearAllDataButton_Click(sender, e);
-        }
-
-
-        private void arcwRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            var radioButton = (RadioButton)sender;
-            if (radioButton.Checked)
-            {
-                grbWeldRegime.Controls.Clear();
-                var cntrw = new ArcWeldingControl() { Dock = DockStyle.Fill };
-                grbWeldRegime.Controls.Add(cntrw);
-                GetChildControlExpandHeight(grbWeldRegime);
-
-                cntrw.InfoBoxClickEvent += () => 
-                { GetChildControlExpandHeight(grbWeldRegime); };
-            }
-        }
-
-        private void fswRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            var radioButton = (RadioButton)sender;
-            if (radioButton.Checked)
-            {
-                grbWeldRegime.Controls.Clear();
-                var cntrw = new FSWeldingControl() { Dock = DockStyle.Fill };
-                cntrw.Add_Functions(funcs);
-                grbWeldRegime.Controls.Add(cntrw);
-                GetChildControlExpandHeight(grbWeldRegime);
-
-                cntrw.InfoBoxClickEvent += () =>
-                { GetChildControlExpandHeight(grbWeldRegime); };
-            }
-        }
-
-        private void rbtLW_CheckedChanged(object sender, EventArgs e)
-        {
-            var radioButton = (RadioButton)sender;
-            if (radioButton.Checked)
-            {
-                grbWeldRegime.Controls.Clear();
-                var cntrw = new LWeldingControl() { Dock = DockStyle.Fill };
-                grbWeldRegime.Controls.Add(cntrw);
-                GetChildControlExpandHeight(grbWeldRegime);
-
-                cntrw.InfoBoxClickEvent += () =>
-                { GetChildControlExpandHeight(grbWeldRegime); };
-            }
         }
 
         public override void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
@@ -442,19 +380,16 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             WeldContainerControl wcc;
             if (weldingKind == WeldingKind.ARC)
-            {
                 wcc = new ArcWeldingControl() { Dock = DockStyle.Fill };
-            }
 
             else if (weldingKind == WeldingKind.FrictionStearing)
-            {
                 wcc = new FSWeldingControl() { Dock = DockStyle.Fill };
-            }
 
             else
-            {
                 wcc = new LWeldingControl() { Dock = DockStyle.Fill };
-            }
+
+            wcc.InfoBoxClickEvent += () =>
+            { GetChildControlExpandHeight(grbWeldRegime); };
 
             grbWeldRegime.Controls.Clear();
             grbWeldRegime.Controls.Add(wcc);

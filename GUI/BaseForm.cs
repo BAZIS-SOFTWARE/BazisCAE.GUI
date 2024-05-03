@@ -33,6 +33,7 @@ using System.Threading.Tasks;
 using Results;
 using ModelInterfaces;
 using System.Runtime.Remoting.Messaging;
+using System.Drawing.Drawing2D;
 
 namespace BazisGUI
 {
@@ -1034,5 +1035,25 @@ namespace BazisGUI
                 var ierr = 0;
                 gmshController.Finalize(ref ierr);
         }
+
+        private void menuStrip_Paint(object sender, PaintEventArgs e)
+        {
+                var gr = e.Graphics;
+
+                Font _TabFont = new Font(FontFamily.GenericSansSerif, (float)11, FontStyle.Regular, GraphicsUnit.Pixel);
+                SizeF messageSize = gr.MeasureString(menuStrip.Text, _TabFont);
+
+                var locRect = new Point(0, 0);
+
+                var linGrBrush = new LinearGradientBrush(
+       new Point(0, 0),
+       new Point(menuStrip.Width, 0),
+       Color.LightGray,   // Opaque red
+       Color.WhiteSmoke);  // Opaque blue
+
+                var rect = new Rectangle(locRect, new Size(menuStrip.Width, menuStrip.Height));
+
+                e.Graphics.FillRectangle(linGrBrush, rect);
+            }
     }
 }

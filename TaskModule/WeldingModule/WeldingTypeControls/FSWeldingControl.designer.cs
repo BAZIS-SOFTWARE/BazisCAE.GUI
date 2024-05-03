@@ -31,32 +31,32 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FSWeldingControl));
             this.btnInfo = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbFriction = new System.Windows.Forms.ComboBox();
+            this.cmbFrictionModule = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.axisForceTextBox = new System.Windows.Forms.TextBox();
-            this.pinUpperDiamTextBox = new System.Windows.Forms.TextBox();
-            this.pinBottomDiamTextBox = new System.Windows.Forms.TextBox();
-            this.pinLenghtTextBox = new System.Windows.Forms.TextBox();
-            this.shoulderDiamTextBox = new System.Windows.Forms.TextBox();
+            this.txbAxisForce = new System.Windows.Forms.TextBox();
+            this.txbPinUpperDiam = new System.Windows.Forms.TextBox();
+            this.txbPinBottomDiam = new System.Windows.Forms.TextBox();
+            this.txbPinLenght = new System.Windows.Forms.TextBox();
+            this.txbShoulderDiam = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.rotSpeedTextBox = new System.Windows.Forms.TextBox();
+            this.txbRotSpeed = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cmbYield = new System.Windows.Forms.ComboBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.rbtPin = new System.Windows.Forms.RadioButton();
+            this.rbtShoulder = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // btnInfo
             // 
             this.btnInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnInfo.Image")));
-            this.btnInfo.Location = new System.Drawing.Point(16, 314);
-            this.btnInfo.Margin = new System.Windows.Forms.Padding(13, 12, 4, 12);
+            this.btnInfo.Location = new System.Drawing.Point(12, 255);
+            this.btnInfo.Margin = new System.Windows.Forms.Padding(10, 10, 3, 10);
             this.btnInfo.Name = "btnInfo";
-            this.btnInfo.Size = new System.Drawing.Size(36, 33);
+            this.btnInfo.Size = new System.Drawing.Size(27, 27);
             this.btnInfo.TabIndex = 64;
             this.btnInfo.UseVisualStyleBackColor = true;
             this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
@@ -64,150 +64,144 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 253);
-            this.label2.Margin = new System.Windows.Forms.Padding(13, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(10, 206);
+            this.label2.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(149, 16);
+            this.label2.Size = new System.Drawing.Size(115, 13);
             this.label2.TabIndex = 63;
             this.label2.Text = "Коэффициент трения";
             // 
-            // cmbFriction
+            // cmbFrictionModule
             // 
-            this.cmbFriction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cmbFrictionModule.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbFriction.FormattingEnabled = true;
-            this.cmbFriction.Location = new System.Drawing.Point(237, 249);
-            this.cmbFriction.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
-            this.cmbFriction.Name = "cmbFriction";
-            this.cmbFriction.Size = new System.Drawing.Size(563, 24);
-            this.cmbFriction.TabIndex = 62;
+            this.cmbFrictionModule.FormattingEnabled = true;
+            this.cmbFrictionModule.Location = new System.Drawing.Point(178, 202);
+            this.cmbFrictionModule.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
+            this.cmbFrictionModule.Name = "cmbFrictionModule";
+            this.cmbFrictionModule.Size = new System.Drawing.Size(627, 21);
+            this.cmbFrictionModule.TabIndex = 62;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 94);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(10, 76);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 16);
+            this.label1.Size = new System.Drawing.Size(97, 13);
             this.label1.TabIndex = 60;
             this.label1.Text = "Осевое усилие, Н";
             // 
-            // axisForceTextBox
+            // txbAxisForce
             // 
-            this.axisForceTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txbAxisForce.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.axisForceTextBox.Location = new System.Drawing.Point(237, 90);
-            this.axisForceTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
-            this.axisForceTextBox.Name = "axisForceTextBox";
-            this.axisForceTextBox.Size = new System.Drawing.Size(563, 22);
-            this.axisForceTextBox.TabIndex = 59;
+            this.txbAxisForce.Location = new System.Drawing.Point(178, 73);
+            this.txbAxisForce.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
+            this.txbAxisForce.Name = "txbAxisForce";
+            this.txbAxisForce.Size = new System.Drawing.Size(627, 20);
+            this.txbAxisForce.TabIndex = 59;
             // 
-            // pinUpperDiamTextBox
+            // txbPinUpperDiam
             // 
-            this.pinUpperDiamTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txbPinUpperDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pinUpperDiamTextBox.Location = new System.Drawing.Point(237, 218);
-            this.pinUpperDiamTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
-            this.pinUpperDiamTextBox.Name = "pinUpperDiamTextBox";
-            this.pinUpperDiamTextBox.Size = new System.Drawing.Size(563, 22);
-            this.pinUpperDiamTextBox.TabIndex = 58;
+            this.txbPinUpperDiam.Location = new System.Drawing.Point(178, 177);
+            this.txbPinUpperDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
+            this.txbPinUpperDiam.Name = "txbPinUpperDiam";
+            this.txbPinUpperDiam.Size = new System.Drawing.Size(627, 20);
+            this.txbPinUpperDiam.TabIndex = 58;
             // 
-            // pinBottomDiamTextBox
+            // txbPinBottomDiam
             // 
-            this.pinBottomDiamTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txbPinBottomDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pinBottomDiamTextBox.Location = new System.Drawing.Point(237, 187);
-            this.pinBottomDiamTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
-            this.pinBottomDiamTextBox.Name = "pinBottomDiamTextBox";
-            this.pinBottomDiamTextBox.Size = new System.Drawing.Size(563, 22);
-            this.pinBottomDiamTextBox.TabIndex = 57;
+            this.txbPinBottomDiam.Location = new System.Drawing.Point(178, 152);
+            this.txbPinBottomDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
+            this.txbPinBottomDiam.Name = "txbPinBottomDiam";
+            this.txbPinBottomDiam.Size = new System.Drawing.Size(627, 20);
+            this.txbPinBottomDiam.TabIndex = 57;
             // 
-            // pinLenghtTextBox
+            // txbPinLenght
             // 
-            this.pinLenghtTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txbPinLenght.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pinLenghtTextBox.Location = new System.Drawing.Point(237, 155);
-            this.pinLenghtTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
-            this.pinLenghtTextBox.Name = "pinLenghtTextBox";
-            this.pinLenghtTextBox.Size = new System.Drawing.Size(563, 22);
-            this.pinLenghtTextBox.TabIndex = 56;
+            this.txbPinLenght.Location = new System.Drawing.Point(178, 126);
+            this.txbPinLenght.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
+            this.txbPinLenght.Name = "txbPinLenght";
+            this.txbPinLenght.Size = new System.Drawing.Size(627, 20);
+            this.txbPinLenght.TabIndex = 56;
             // 
-            // shoulderDiamTextBox
+            // txbShoulderDiam
             // 
-            this.shoulderDiamTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txbShoulderDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.shoulderDiamTextBox.Location = new System.Drawing.Point(237, 123);
-            this.shoulderDiamTextBox.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
-            this.shoulderDiamTextBox.Name = "shoulderDiamTextBox";
-            this.shoulderDiamTextBox.Size = new System.Drawing.Size(563, 22);
-            this.shoulderDiamTextBox.TabIndex = 55;
+            this.txbShoulderDiam.Location = new System.Drawing.Point(178, 100);
+            this.txbShoulderDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
+            this.txbShoulderDiam.Name = "txbShoulderDiam";
+            this.txbShoulderDiam.Size = new System.Drawing.Size(627, 20);
+            this.txbShoulderDiam.TabIndex = 55;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(13, 222);
-            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Location = new System.Drawing.Point(10, 180);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(134, 16);
+            this.label16.Size = new System.Drawing.Size(109, 13);
             this.label16.TabIndex = 54;
             this.label16.Text = "Диаметр конца (D3)";
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(13, 190);
-            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label15.Location = new System.Drawing.Point(10, 154);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(200, 19);
+            this.label15.Size = new System.Drawing.Size(150, 15);
             this.label15.TabIndex = 53;
             this.label15.Text = "Диаметр основания (D2), мм";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(13, 158);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Location = new System.Drawing.Point(10, 128);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(125, 16);
+            this.label12.Size = new System.Drawing.Size(103, 13);
             this.label12.TabIndex = 52;
             this.label12.Text = "Длина бура (L), мм";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 126);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(10, 102);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(159, 16);
+            this.label3.Size = new System.Drawing.Size(130, 13);
             this.label3.TabIndex = 51;
             this.label3.Text = "Диаметр плеча (D1), мм";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(13, 63);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Location = new System.Drawing.Point(10, 51);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(186, 16);
+            this.label11.Size = new System.Drawing.Size(153, 13);
             this.label11.TabIndex = 49;
             this.label11.Text = "Скорость вращения, об/cек.";
             // 
-            // rotSpeedTextBox
+            // txbRotSpeed
             // 
-            this.rotSpeedTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txbRotSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.rotSpeedTextBox.Location = new System.Drawing.Point(237, 59);
-            this.rotSpeedTextBox.Margin = new System.Windows.Forms.Padding(237, 12, 20, 4);
-            this.rotSpeedTextBox.Name = "rotSpeedTextBox";
-            this.rotSpeedTextBox.Size = new System.Drawing.Size(563, 22);
-            this.rotSpeedTextBox.TabIndex = 50;
+            this.txbRotSpeed.Location = new System.Drawing.Point(178, 48);
+            this.txbRotSpeed.Margin = new System.Windows.Forms.Padding(178, 10, 15, 3);
+            this.txbRotSpeed.Name = "txbRotSpeed";
+            this.txbRotSpeed.Size = new System.Drawing.Size(627, 20);
+            this.txbRotSpeed.TabIndex = 50;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 286);
-            this.label5.Margin = new System.Windows.Forms.Padding(13, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(10, 232);
+            this.label5.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(163, 16);
+            this.label5.Size = new System.Drawing.Size(127, 13);
             this.label5.TabIndex = 63;
             this.label5.Text = "Предел текучести, МПа";
             // 
@@ -216,62 +210,66 @@
             this.cmbYield.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbYield.FormattingEnabled = true;
-            this.cmbYield.Location = new System.Drawing.Point(237, 282);
-            this.cmbYield.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
+            this.cmbYield.Location = new System.Drawing.Point(178, 229);
+            this.cmbYield.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.cmbYield.Name = "cmbYield";
-            this.cmbYield.Size = new System.Drawing.Size(563, 24);
+            this.cmbYield.Size = new System.Drawing.Size(627, 21);
             this.cmbYield.TabIndex = 62;
             // 
-            // radioButton1
+            // rbtPin
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(16, 19);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(124, 20);
-            this.radioButton1.TabIndex = 65;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Рабочая часть";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rbtPin.AutoSize = true;
+            this.rbtPin.Location = new System.Drawing.Point(12, 15);
+            this.rbtPin.Margin = new System.Windows.Forms.Padding(2);
+            this.rbtPin.Name = "rbtPin";
+            this.rbtPin.Size = new System.Drawing.Size(98, 17);
+            this.rbtPin.TabIndex = 65;
+            this.rbtPin.TabStop = true;
+            this.rbtPin.Text = "Рабочая часть";
+            this.rbtPin.UseVisualStyleBackColor = true;
+            this.rbtPin.Click += new System.EventHandler(this.rbt_Click);
             // 
-            // radioButton2
+            // rbtShoulder
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(143, 19);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(121, 20);
-            this.radioButton2.TabIndex = 66;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Опорный бурт";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.rbtShoulder.AutoSize = true;
+            this.rbtShoulder.Location = new System.Drawing.Point(107, 15);
+            this.rbtShoulder.Margin = new System.Windows.Forms.Padding(2);
+            this.rbtShoulder.Name = "rbtShoulder";
+            this.rbtShoulder.Size = new System.Drawing.Size(96, 17);
+            this.rbtShoulder.TabIndex = 66;
+            this.rbtShoulder.TabStop = true;
+            this.rbtShoulder.Text = "Опорный бурт";
+            this.rbtShoulder.UseVisualStyleBackColor = true;
+            this.rbtShoulder.Click += new System.EventHandler(this.rbt_Click);
             // 
             // FSWeldingControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.rbtShoulder);
+            this.Controls.Add(this.rbtPin);
             this.Controls.Add(this.btnInfo);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cmbYield);
-            this.Controls.Add(this.cmbFriction);
+            this.Controls.Add(this.cmbFrictionModule);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.axisForceTextBox);
-            this.Controls.Add(this.pinUpperDiamTextBox);
-            this.Controls.Add(this.pinBottomDiamTextBox);
-            this.Controls.Add(this.pinLenghtTextBox);
-            this.Controls.Add(this.shoulderDiamTextBox);
+            this.Controls.Add(this.txbAxisForce);
+            this.Controls.Add(this.txbPinUpperDiam);
+            this.Controls.Add(this.txbPinBottomDiam);
+            this.Controls.Add(this.txbPinLenght);
+            this.Controls.Add(this.txbShoulderDiam);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.rotSpeedTextBox);
+            this.Controls.Add(this.txbRotSpeed);
             this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "FSWeldingControl";
-            this.Size = new System.Drawing.Size(820, 359);
+            this.Size = new System.Drawing.Size(820, 292);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -281,22 +279,22 @@
 
         private System.Windows.Forms.Button btnInfo;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cmbFriction;
+        private System.Windows.Forms.ComboBox cmbFrictionModule;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox axisForceTextBox;
-        private System.Windows.Forms.TextBox pinUpperDiamTextBox;
-        private System.Windows.Forms.TextBox pinBottomDiamTextBox;
-        private System.Windows.Forms.TextBox pinLenghtTextBox;
-        private System.Windows.Forms.TextBox shoulderDiamTextBox;
+        private System.Windows.Forms.TextBox txbAxisForce;
+        private System.Windows.Forms.TextBox txbPinUpperDiam;
+        private System.Windows.Forms.TextBox txbPinBottomDiam;
+        private System.Windows.Forms.TextBox txbPinLenght;
+        private System.Windows.Forms.TextBox txbShoulderDiam;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox rotSpeedTextBox;
+        private System.Windows.Forms.TextBox txbRotSpeed;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cmbYield;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton rbtPin;
+        private System.Windows.Forms.RadioButton rbtShoulder;
     }
 }

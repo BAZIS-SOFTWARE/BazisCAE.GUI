@@ -735,19 +735,24 @@ namespace ResultModule
 
             var act = new Action(() =>
             {
-                
                 var interfaceNodes = ModelController.InterfacedNodesFinder.Find(elements);
-                var resNames = results.First().GetDataSchema("elements");
+                var resKinds = Project.ResultData.GetResultKinds();
 
-                for (int i = 1; i < resNames.Count; i++)
+                foreach (var item in resKinds)
                 {
-                    ResultsController.ResultsMerger.Merge(interfaceNodes, resNames[i], results);
+                    var resNames = Project.ResultData.First(x => x.TaskKind == item).GetDataSchema("elements");
 
-                    Invoke(new Action(() =>
+                    for (int i = 1; i < resNames.Count; i++)
                     {
-                        ConsoleControl.PrintInfo($"Выполнен пересчет на узлы для {resNames[i]}", Color.Black);
-                    }));
+                        ResultsController.ResultsMerger.Merge(interfaceNodes, resNames[i], results);
+
+                        Invoke(new Action(() =>
+                        {
+                            ConsoleControl.PrintInfo($"Выполнен пересчет на узлы для {resNames[i]}", Color.Black);
+                        }));
+                    }
                 }
+  
 
                 Invoke(new Action(() =>
                 {
@@ -812,6 +817,7 @@ namespace ResultModule
 
         private async void пересчитатьНаУзлыToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ConsoleControl.PrintInfo($"Выполняется пересчет с элементов на узлы. Не выходите из модуля!", Color.Orange);
             await MergeResults(Project.ResultData);                     
         }
 
