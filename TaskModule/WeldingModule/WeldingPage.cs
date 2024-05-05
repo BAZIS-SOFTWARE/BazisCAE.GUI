@@ -55,6 +55,7 @@ namespace TaskModule.WeldingModule
                     Text = arcWeldingMenuItem.Text
                 };
                 taskAdv.SetWeldingKind(WeldingKind.ARC);
+                taskAdv.ProcessType = ProcessType.Welding;
 
                 taskAdv.SpecifyWeldingZoneEvent += TaskAdv_SpecifyWeldingZoneEvent;
 
@@ -73,6 +74,7 @@ namespace TaskModule.WeldingModule
                     Text = lazerWeldingMenuItem.Text
                 };
                 taskAdv.SetWeldingKind(WeldingKind.Lazer);
+                taskAdv.ProcessType = ProcessType.Welding;
 
                 taskAdv.SpecifyWeldingZoneEvent += TaskAdv_SpecifyWeldingZoneEvent;
 
@@ -91,6 +93,7 @@ namespace TaskModule.WeldingModule
                     Text = fsWeldingMenuItem.Text
                 };
                 taskAdv.SetWeldingKind(WeldingKind.FrictionStearing);
+                taskAdv.ProcessType = ProcessType.Welding;
 
                 taskAdv.SpecifyWeldingZoneEvent += TaskAdv_SpecifyWeldingZoneEvent;
 

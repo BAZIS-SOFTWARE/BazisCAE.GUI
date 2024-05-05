@@ -344,14 +344,15 @@ namespace TaskModule
             try
             {
                 var data = Project.TaskData.Select(x => x as IValuableData).ToList();
-                var processType = ParseProcessTypeFromString(activeAdvisor);
+
+                var adv = GetTaskAdvisor();
 
                 var inputDir = $@"{Project.Path}\InputData";
 
                 if (!Directory.Exists(inputDir))
                     Directory.CreateDirectory(inputDir);
 
-                PreProc.CalcCompDataV1(data, processType, inputDir);
+                PreProc.CalcCompDataV1(data, adv.ProcessType, inputDir);
 
                 var tsfFiles = Directory.GetFiles(inputDir, "*.tsf");
 
@@ -366,24 +367,6 @@ namespace TaskModule
             {
                 ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
-        }
-
-        private ProcessType ParseProcessTypeFromString(string processType)
-        {
-            switch (processType)
-            {
-                case "Термический анализ":
-                    return ProcessType.TermalProcess;
-                case "Механический анализ":
-                    return ProcessType.MechProcess;
-                case "Сварка":
-                    return ProcessType.Welding;
-                case "Термообработка":
-                    return ProcessType.HeatTreatment;
-                default:
-                    throw new ArgumentException($"Переданную строку нельзя идентифицировать как тип процесса");
-            }
-
         }
 
         private T GetDataBase<T>(string dbName, string dbPath)
@@ -471,29 +454,36 @@ namespace TaskModule
 
         public override void PresentProjectOnTree()
         {
-            base.PresentProjectOnTree();
+            try
+            {
+                base.PresentProjectOnTree();
 
-            NavigatorControl.TreeView.BeginUpdate();
+                NavigatorControl.TreeView.BeginUpdate();
 
-            NavigatorControl.TreeView.Nodes["Данные"].Nodes.Clear();
+                NavigatorControl.TreeView.Nodes["Данные"].Nodes.Clear();
 
-            NavigatorControl.TreeView.Nodes.RemoveByKey("База материалов");
-            var matNode = new TreeNode($"База материалов : {Project.Materials}") { Name = "База материалов" };
-            NavigatorControl.TreeView.Nodes.Insert(4, matNode);
+                NavigatorControl.TreeView.Nodes.RemoveByKey("База материалов");
+                var matNode = new TreeNode($"База материалов : {Project.Materials}") { Name = "База материалов" };
+                NavigatorControl.TreeView.Nodes.Insert(4, matNode);
 
-            NavigatorControl.TreeView.Nodes.RemoveByKey("База функций");
-            var funNode = new TreeNode($"База функций : {Project.Functions}") { Name = "База функций" };
-            NavigatorControl.TreeView.Nodes.Insert(4, funNode);
+                NavigatorControl.TreeView.Nodes.RemoveByKey("База функций");
+                var funNode = new TreeNode($"База функций : {Project.Functions}") { Name = "База функций" };
+                NavigatorControl.TreeView.Nodes.Insert(4, funNode);
 
-            foreach (var data in Project.TaskData)
+                foreach (var data in Project.TaskData)
                 {
                     NavigatorControl.CreateChildNode("Данные", data.Name, data.ToString(), "6.1");
                 }
 
-            NavigatorControl.TreeView.EndUpdate();
-            NavigatorControl.TreeView.Nodes["Данные"].Expand();
+                NavigatorControl.TreeView.EndUpdate();
+                NavigatorControl.TreeView.Nodes["Данные"].Expand();
 
-            //GetTaskAdvisor()?.SetProjectData(Project);
+
+            }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
         public void TaskAdvisor_ChangeTaskTypeEvent(object arg1, ChangeTaskTypeEventArgs arg2)
@@ -554,7 +544,7 @@ namespace TaskModule
         {
             IGroup group;
             var groupName = ar[0];
-            if (dataName == "Среда" | dataName == "Нагрев")
+            if (dataName == "Нагрев")
                 groupName = ar[1];
    
             group = Project.ModelData.GroupData.Find(groupName);

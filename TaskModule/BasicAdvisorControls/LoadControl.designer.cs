@@ -78,13 +78,12 @@
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(748, 625);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(561, 508);
             this.tableLayoutPanel1.TabIndex = 27;
             // 
             // groupBox3
@@ -103,11 +102,11 @@
             this.groupBox3.Controls.Add(this.txbStartTime);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox3.Location = new System.Drawing.Point(1, 217);
+            this.groupBox3.Location = new System.Drawing.Point(1, 173);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox3.Size = new System.Drawing.Size(746, 165);
+            this.groupBox3.Size = new System.Drawing.Size(559, 138);
             this.groupBox3.TabIndex = 24;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Время действия";
@@ -119,11 +118,11 @@
             this.player.AutoSize = true;
             this.player.CheckState = PlayerControl.CheckState.start;
             this.player.CurrentValue = 0;
-            this.player.Location = new System.Drawing.Point(227, 95);
-            this.player.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
-            this.player.MinimumSize = new System.Drawing.Size(287, 55);
+            this.player.Location = new System.Drawing.Point(171, 80);
+            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.player.MinimumSize = new System.Drawing.Size(215, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(482, 55);
+            this.player.Size = new System.Drawing.Size(361, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -140,10 +139,10 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(15, 60);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            this.label8.Location = new System.Drawing.Point(8, 53);
+            this.label8.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(74, 17);
+            this.label8.Size = new System.Drawing.Size(58, 13);
             this.label8.TabIndex = 4;
             this.label8.Text = "Стоп, сек.";
             // 
@@ -152,10 +151,10 @@
             this.btnRefresh.AutoSize = true;
             this.btnRefresh.Enabled = false;
             this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
-            this.btnRefresh.Location = new System.Drawing.Point(99, 95);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4, 18, 4, 0);
+            this.btnRefresh.Location = new System.Drawing.Point(75, 80);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(35, 32);
+            this.btnRefresh.Size = new System.Drawing.Size(26, 26);
             this.btnRefresh.TabIndex = 19;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -165,10 +164,10 @@
             // 
             this.btnHideAll.AutoSize = true;
             this.btnHideAll.Image = ((System.Drawing.Image)(resources.GetObject("btnHideAll.Image")));
-            this.btnHideAll.Location = new System.Drawing.Point(184, 95);
-            this.btnHideAll.Margin = new System.Windows.Forms.Padding(4, 18, 4, 0);
+            this.btnHideAll.Location = new System.Drawing.Point(139, 80);
+            this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnHideAll.Name = "btnHideAll";
-            this.btnHideAll.Size = new System.Drawing.Size(35, 32);
+            this.btnHideAll.Size = new System.Drawing.Size(26, 26);
             this.btnHideAll.TabIndex = 19;
             this.btnHideAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnHideAll.UseVisualStyleBackColor = true;
@@ -178,10 +177,10 @@
             // 
             this.btnClearAll.AutoSize = true;
             this.btnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAll.Image")));
-            this.btnClearAll.Location = new System.Drawing.Point(56, 95);
-            this.btnClearAll.Margin = new System.Windows.Forms.Padding(4, 18, 4, 0);
+            this.btnClearAll.Location = new System.Drawing.Point(43, 80);
+            this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(35, 32);
+            this.btnClearAll.Size = new System.Drawing.Size(26, 26);
             this.btnClearAll.TabIndex = 19;
             this.btnClearAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnClearAll.UseVisualStyleBackColor = true;
@@ -191,10 +190,10 @@
             // 
             this.btnShowAll.AutoSize = true;
             this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
-            this.btnShowAll.Location = new System.Drawing.Point(141, 95);
-            this.btnShowAll.Margin = new System.Windows.Forms.Padding(4, 18, 4, 0);
+            this.btnShowAll.Location = new System.Drawing.Point(107, 80);
+            this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(35, 32);
+            this.btnShowAll.Size = new System.Drawing.Size(26, 26);
             this.btnShowAll.TabIndex = 19;
             this.btnShowAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnShowAll.UseVisualStyleBackColor = true;
@@ -204,10 +203,10 @@
             // 
             this.btnAddNewRow.AutoSize = true;
             this.btnAddNewRow.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewRow.Image")));
-            this.btnAddNewRow.Location = new System.Drawing.Point(13, 95);
-            this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(4, 18, 4, 0);
+            this.btnAddNewRow.Location = new System.Drawing.Point(11, 80);
+            this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
             this.btnAddNewRow.Name = "btnAddNewRow";
-            this.btnAddNewRow.Size = new System.Drawing.Size(35, 32);
+            this.btnAddNewRow.Size = new System.Drawing.Size(26, 26);
             this.btnAddNewRow.TabIndex = 19;
             this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewRow.UseVisualStyleBackColor = true;
@@ -217,10 +216,10 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(15, 27);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            this.label9.Location = new System.Drawing.Point(8, 27);
+            this.label9.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(81, 17);
+            this.label9.Size = new System.Drawing.Size(63, 13);
             this.label9.TabIndex = 3;
             this.label9.Text = "Старт, сек.";
             // 
@@ -228,20 +227,20 @@
             // 
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbStopTime.Location = new System.Drawing.Point(236, 57);
-            this.txbStopTime.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
+            this.txbStopTime.Location = new System.Drawing.Point(171, 50);
+            this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(491, 22);
+            this.txbStopTime.Size = new System.Drawing.Size(374, 20);
             this.txbStopTime.TabIndex = 1;
             // 
             // txbStartTime
             // 
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbStartTime.Location = new System.Drawing.Point(236, 23);
-            this.txbStartTime.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
+            this.txbStartTime.Location = new System.Drawing.Point(171, 24);
+            this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 25, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(491, 22);
+            this.txbStartTime.Size = new System.Drawing.Size(374, 20);
             this.txbStartTime.TabIndex = 0;
             // 
             // dataGridView
@@ -258,12 +257,12 @@
             this.startColumn,
             this.stopColumn});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 382);
+            this.dataGridView.Location = new System.Drawing.Point(1, 311);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(746, 242);
+            this.dataGridView.Size = new System.Drawing.Size(559, 196);
             this.dataGridView.TabIndex = 23;
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_UserDeletingRow);
@@ -340,7 +339,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(746, 214);
+            this.groupBox1.Size = new System.Drawing.Size(559, 170);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры нагрузки";
@@ -349,19 +348,18 @@
             // 
             this.txbValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbValue.Location = new System.Drawing.Point(236, 137);
-            this.txbValue.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
+            this.txbValue.Location = new System.Drawing.Point(171, 107);
+            this.txbValue.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbValue.Name = "txbValue";
-            this.txbValue.Size = new System.Drawing.Size(491, 23);
+            this.txbValue.Size = new System.Drawing.Size(374, 20);
             this.txbValue.TabIndex = 45;
             // 
             // chbLRF
             // 
             this.chbLRF.AutoSize = true;
-            this.chbLRF.Location = new System.Drawing.Point(392, 75);
-            this.chbLRF.Margin = new System.Windows.Forms.Padding(4);
+            this.chbLRF.Location = new System.Drawing.Point(288, 55);
             this.chbLRF.Name = "chbLRF";
-            this.chbLRF.Size = new System.Drawing.Size(125, 21);
+            this.chbLRF.Size = new System.Drawing.Size(100, 17);
             this.chbLRF.TabIndex = 44;
             this.chbLRF.Tag = "3";
             this.chbLRF.Text = "Произвольное";
@@ -373,39 +371,37 @@
             this.cmbGr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbGr.FormattingEnabled = true;
-            this.cmbGr.Location = new System.Drawing.Point(236, 103);
-            this.cmbGr.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
+            this.cmbGr.Location = new System.Drawing.Point(171, 80);
+            this.cmbGr.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbGr.Name = "cmbGr";
-            this.cmbGr.Size = new System.Drawing.Size(491, 25);
+            this.cmbGr.Size = new System.Drawing.Size(374, 21);
             this.cmbGr.TabIndex = 43;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 140);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(8, 110);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(91, 17);
+            this.label2.Size = new System.Drawing.Size(69, 13);
             this.label2.TabIndex = 42;
             this.label2.Text = "Величина, Н";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 107);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(8, 83);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(121, 17);
+            this.label1.Size = new System.Drawing.Size(93, 13);
             this.label1.TabIndex = 42;
             this.label1.Text = "Группа объектов";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 41);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 25, 4, 0);
+            this.label5.Location = new System.Drawing.Point(8, 27);
+            this.label5.Margin = new System.Windows.Forms.Padding(11, 20, 3, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(33, 17);
+            this.label5.Size = new System.Drawing.Size(26, 13);
             this.label5.TabIndex = 37;
             this.label5.Text = "Вид";
             // 
@@ -414,10 +410,10 @@
             this.cmbLoadFunction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbLoadFunction.FormattingEnabled = true;
-            this.cmbLoadFunction.Location = new System.Drawing.Point(236, 169);
-            this.cmbLoadFunction.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
+            this.cmbLoadFunction.Location = new System.Drawing.Point(171, 133);
+            this.cmbLoadFunction.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbLoadFunction.Name = "cmbLoadFunction";
-            this.cmbLoadFunction.Size = new System.Drawing.Size(491, 25);
+            this.cmbLoadFunction.Size = new System.Drawing.Size(374, 21);
             this.cmbLoadFunction.TabIndex = 36;
             // 
             // cmbKind
@@ -428,19 +424,19 @@
             this.cmbKind.Items.AddRange(new object[] {
             "Сила",
             "Перемещение"});
-            this.cmbKind.Location = new System.Drawing.Point(236, 37);
-            this.cmbKind.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
+            this.cmbKind.Location = new System.Drawing.Point(171, 24);
+            this.cmbKind.Margin = new System.Windows.Forms.Padding(178, 25, 15, 3);
             this.cmbKind.Name = "cmbKind";
-            this.cmbKind.Size = new System.Drawing.Size(491, 25);
+            this.cmbKind.Size = new System.Drawing.Size(374, 21);
             this.cmbKind.TabIndex = 36;
             // 
             // chbZ
             // 
             this.chbZ.AutoSize = true;
-            this.chbZ.Location = new System.Drawing.Point(340, 75);
-            this.chbZ.Margin = new System.Windows.Forms.Padding(4, 9, 4, 4);
+            this.chbZ.Location = new System.Drawing.Point(249, 55);
+            this.chbZ.Margin = new System.Windows.Forms.Padding(3, 7, 3, 3);
             this.chbZ.Name = "chbZ";
-            this.chbZ.Size = new System.Drawing.Size(39, 21);
+            this.chbZ.Size = new System.Drawing.Size(33, 17);
             this.chbZ.TabIndex = 41;
             this.chbZ.Tag = "2";
             this.chbZ.Text = "Z";
@@ -450,10 +446,10 @@
             // chbY
             // 
             this.chbY.AutoSize = true;
-            this.chbY.Location = new System.Drawing.Point(288, 75);
-            this.chbY.Margin = new System.Windows.Forms.Padding(4, 9, 4, 4);
+            this.chbY.Location = new System.Drawing.Point(210, 55);
+            this.chbY.Margin = new System.Windows.Forms.Padding(3, 7, 3, 3);
             this.chbY.Name = "chbY";
-            this.chbY.Size = new System.Drawing.Size(39, 21);
+            this.chbY.Size = new System.Drawing.Size(33, 17);
             this.chbY.TabIndex = 40;
             this.chbY.Tag = "1";
             this.chbY.Text = "Y";
@@ -463,10 +459,10 @@
             // chbX
             // 
             this.chbX.AutoSize = true;
-            this.chbX.Location = new System.Drawing.Point(236, 75);
-            this.chbX.Margin = new System.Windows.Forms.Padding(4, 9, 4, 4);
+            this.chbX.Location = new System.Drawing.Point(171, 55);
+            this.chbX.Margin = new System.Windows.Forms.Padding(3, 7, 3, 3);
             this.chbX.Name = "chbX";
-            this.chbX.Size = new System.Drawing.Size(39, 21);
+            this.chbX.Size = new System.Drawing.Size(33, 17);
             this.chbX.TabIndex = 39;
             this.chbX.Tag = "0";
             this.chbX.Text = "X";
@@ -477,31 +473,30 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(13, 172);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            this.label10.Location = new System.Drawing.Point(8, 136);
+            this.label10.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(154, 17);
+            this.label10.Size = new System.Drawing.Size(118, 13);
             this.label10.TabIndex = 32;
             this.label10.Text = "Функция, F(t), Н - сек.";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 76);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(8, 56);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(97, 17);
+            this.label6.Size = new System.Drawing.Size(75, 13);
             this.label6.TabIndex = 38;
             this.label6.Text = "Направление";
             // 
             // LoadControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
-            this.MinimumSize = new System.Drawing.Size(400, 369);
+            this.Margin = new System.Windows.Forms.Padding(5);
+            this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "LoadControl";
-            this.Size = new System.Drawing.Size(748, 625);
+            this.Size = new System.Drawing.Size(561, 508);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox3.ResumeLayout(false);

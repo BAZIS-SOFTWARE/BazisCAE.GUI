@@ -18,9 +18,6 @@ namespace TaskModule.HeatTreatmentModule
 {  
     public partial class HeatControl : CheckedGridViewAdviserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
-        public HTKind HTKind { get; set; }
-
-
         [Category("Images")]
         [Description("Set image for add button")]
         public Image AddButtonImage
@@ -61,7 +58,7 @@ namespace TaskModule.HeatTreatmentModule
             set { btnHideAll.Image = value; }
         }      
 
-        enum Column : int { kind,plane, function, mediaTemp, startTime, stopTime };
+        enum Column : int { element, heatExchange, mediaTemp, startTime, stopTime };
 
         public HeatControl()
         {
@@ -89,7 +86,6 @@ namespace TaskModule.HeatTreatmentModule
             // Order matters
             var dataList = new List<string>
             {
-                HTKind.ToString(),
                 cmbEl.Text
             };
 
@@ -170,9 +166,9 @@ namespace TaskModule.HeatTreatmentModule
             var medTempFunc = dataGridView[(int)Column.mediaTemp, CurentSelectedRowIndex].Value.ToString();
             cmbTempFunc.Text = medTempFunc;
 
-            cmbEl.Text = dataGridView[(int)Column.plane, CurentSelectedRowIndex].Value.ToString();
-            cmbExchFunc.Text = dataGridView[(int)Column.function, CurentSelectedRowIndex].Value.ToString();
-
+            cmbEl.Text = dataGridView[(int)Column.element, CurentSelectedRowIndex].Value.ToString();
+            cmbExchFunc.Text = dataGridView[(int)Column.heatExchange, CurentSelectedRowIndex].Value.ToString();
+            cmbTempFunc.Text = dataGridView[(int)Column.mediaTemp, CurentSelectedRowIndex].Value.ToString();
 
             //var procType = dataGridView[(int)Column.kind, CurentSelectedRowIndex].Value.ToString();
 

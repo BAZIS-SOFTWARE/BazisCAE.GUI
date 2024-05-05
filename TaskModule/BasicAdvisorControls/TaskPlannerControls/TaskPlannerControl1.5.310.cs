@@ -19,6 +19,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
     public partial class TaskPlannerControl : GridViewAdviserControl
     {
+        public ProcessType ProcessType { get; set; }
+
         [Category("Images")]
         [Description("Set image for add button")]
         public Image AddButtonImage
@@ -140,7 +142,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private void GetChildControlExpandHeight(GroupBox grb)
         {
             var heigth = 0;
-            var gap = 20;
+            var gap = 25;
             foreach (Control control in grb.Controls)
             {
                 if (control is UserControl uControl)
@@ -149,7 +151,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                         if (cntr is TextBox txb | cntr is ComboBox cmb | cntr is Button)
                         {
                             heigth = heigth + cntr.Size.Height;
-                            gap = gap + 5;
+                            gap = gap + 6;
                         }
                     }
             }
@@ -343,7 +345,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 var parameters = Get_TaskSettings(taskKind);
 
-                parameters.TermalProcesses = new List<string>() { "Охлаждение", "Нагрев" };
+                parameters.MetallurgicalProcesses = new List<string>() { "Охлаждение", "Нагрев" };
 
                 parameters.TimeSettings.StartTime = Convert.ToSingle(txbStartTime.Text);
                 parameters.TimeSettings.StopTime = Convert.ToSingle(txbStopTime.Text);

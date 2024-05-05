@@ -12,6 +12,7 @@ using BaseModule.Utilities;
 using ProjectInterfaces;
 using ModelInterfaces;
 using System.IO;
+using ProjectInterfaces.Tasks;
 
 namespace TaskModule.BasicTaskAdvisor
 {
@@ -32,6 +33,23 @@ namespace TaskModule.BasicTaskAdvisor
         public event Action<object, EventArgs> StopComputationEvent;
         public event Action<object, EventArgs> AddDataUseTaskConditionsEvent;
         public event Action<object, GenerateTCFEventArgs> GenerateTCFEvent;
+
+
+        public ProcessType ProcessType 
+        {
+            get
+            {
+                var cntrs = new List<TaskPlannerControl>();
+                RecursiveSearchControls.AllTypedControls(this, cntrs);
+                return cntrs.First().ProcessType;
+            }
+            set
+            {
+                var cntrs = new List<TaskPlannerControl>();
+                RecursiveSearchControls.AllTypedControls(this, cntrs);
+                cntrs.First().ProcessType = value;
+            }
+        }
 
         public TaskAdvisor()
         {

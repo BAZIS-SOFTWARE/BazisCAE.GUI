@@ -13,7 +13,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 {
     public partial class WeldingMediaControl : CheckedGridViewAdviserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
-        enum Column : int { objects = 1, function, mediaTemp, startTime, stopTime };
+        enum Column : int { objects, heatExchange, mediaTemp, startTime, stopTime };
 
         public WeldingMediaControl()
         {
@@ -65,8 +65,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             //TO DO
             var dataList = new List<string>();
 
-            dataList.Add("Охлаждение");
-
             if (rbtHeatFlow.Checked)
             {
                 if (cmbEl.Text == "" || cmbFunc.Text == "")
@@ -98,7 +96,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var function = dataGridView[(int)Column.function, e.RowIndex].Value.ToString();
+            var function = dataGridView[(int)Column.heatExchange, e.RowIndex].Value.ToString();
 
             if (function == "*")
             {
@@ -109,7 +107,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             else
             {
                 cmbEl.Text = dataGridView[(int)Column.objects, CurentSelectedRowIndex].Value.ToString();
-                cmbFunc.Text = dataGridView[(int)Column.function, CurentSelectedRowIndex].Value.ToString();
+                cmbFunc.Text = dataGridView[(int)Column.heatExchange, CurentSelectedRowIndex].Value.ToString();
                 txbMediaTemp.Text = dataGridView[(int)Column.mediaTemp, CurentSelectedRowIndex].Value.ToString();
                 rbtHeatFlow.Checked = true;
             }
@@ -168,50 +166,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 MessageBox.Show(ex.Message);
             }
 
-        }
-
-        private void txbDraftFunction_Enter(object sender, EventArgs e)
-        {
-            try
-            {
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    //StreamReader myStream = new StreamReader(openFileDialog.OpenFile());
-                    //var dataReader = new DbDataReader();
-                    //var data = dataReader.ReadData(myStream);
-                    //myStream.Dispose();
-
-
-                    //foreach (var func in data.GetFuncdata)
-                    //{
-                    //    var name = func.Key;
-                    //    var actTime = func.Value.Where(x => x[0] == '1').
-                    //    Select(p => p.Split(' ')[1]).ToArray();
-
-                    //    var check = false;
-                    //    if (heatFlowRadioButton.Checked)
-                    //    {
-                    //        check = AddNewRow(name, cmbFunc.Text, txbMediaTemp.Text, "*", actTime.First(), actTime.Last());
-                    //    }
-                    //    else check = AddNewRow(name, "*", "*", cmbTermoCycle.Text, actTime.First(), actTime.Last());
-
-                    //    if (check)
-                    //    {
-                    //        var ind = dataGridView.RowCount - 1;
-                    //        var medData = new MediaData(Get_DataGridFillLine(ind), new ObjColor());
-                    //        InEvent(this, new TaskDataEventArgs(DataType.Med, medData,ProjCmd.AddTaskData));
-                    //        btnRefresh.Enabled = false;
-                    //        Thread.Sleep(100);
-                    //    }
-                    //    else throw new Exception("Некорректный ввод данных!\nПроверьте файл функции шаблона.");
-                    //}
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Security error.\n\nError message: {ex.Message}\n\n" +
-                $"Details:\n\n{ex.StackTrace}");
-            }
         }
 
         private void grbTask_Paint(object sender, PaintEventArgs e)

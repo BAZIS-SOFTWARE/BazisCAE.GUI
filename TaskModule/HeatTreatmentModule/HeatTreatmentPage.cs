@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using ProjectInterfaces.Tasks;
+using System.Windows.Forms;
 
 namespace TaskModule.HeatTreatmentModule
 {
@@ -50,11 +51,11 @@ namespace TaskModule.HeatTreatmentModule
             owenHeatingMenuItem.Click += (ar1, ar2) => {
                 var taskAdv = new HeatTreatmentAdvisor() { 
                     Dock = DockStyle.Fill, 
-                    Name = "Термообработка",
+                    Name = "Нагрев",
                     Text = owenHeatingMenuItem.Text
                 };
-                
-                taskAdv.HTKind = HTKind.Нагрев;
+
+                taskAdv.ProcessType = ProcessType.Heating;
 
                 DeleteAdvisor();
                 if (owenHeatingMenuItem.Checked)
@@ -65,11 +66,11 @@ namespace TaskModule.HeatTreatmentModule
             quenchingMenuItem.Click += (ar1, ar2) => {
                 var taskAdv = new HeatTreatmentAdvisor() { 
                     Dock = DockStyle.Fill, 
-                    Name = "Термообработка",
+                    Name = "Закалка",
                     Text = quenchingMenuItem.Text
                 };
 
-                taskAdv.HTKind = HTKind.Охлаждение;
+                taskAdv.ProcessType = ProcessType.Quenching;
 
                 DeleteAdvisor();
                 if (quenchingMenuItem.Checked)
@@ -80,11 +81,11 @@ namespace TaskModule.HeatTreatmentModule
             temperingMenuItem.Click += (ar1, ar2) => {
                 var taskAdv = new HeatTreatmentAdvisor() { 
                     Dock = DockStyle.Fill, 
-                    Name = "Термообработка",
+                    Name = "Выдержка",
                     Text = temperingMenuItem.Text
                 };
 
-                taskAdv.HTKind = HTKind.Выдержка;
+                taskAdv.ProcessType = ProcessType.Tempering;
 
                 DeleteAdvisor();
                 if (temperingMenuItem.Checked)

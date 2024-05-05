@@ -53,8 +53,8 @@
             // btnInfo
             // 
             this.btnInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnInfo.Image")));
-            this.btnInfo.Location = new System.Drawing.Point(12, 255);
-            this.btnInfo.Margin = new System.Windows.Forms.Padding(10, 10, 3, 10);
+            this.btnInfo.Location = new System.Drawing.Point(11, 255);
+            this.btnInfo.Margin = new System.Windows.Forms.Padding(11, 10, 3, 10);
             this.btnInfo.Name = "btnInfo";
             this.btnInfo.Size = new System.Drawing.Size(27, 27);
             this.btnInfo.TabIndex = 64;
@@ -64,7 +64,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 206);
+            this.label2.Location = new System.Drawing.Point(8, 207);
             this.label2.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(115, 13);
@@ -76,16 +76,16 @@
             this.cmbFrictionModule.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbFrictionModule.FormattingEnabled = true;
-            this.cmbFrictionModule.Location = new System.Drawing.Point(178, 202);
+            this.cmbFrictionModule.Location = new System.Drawing.Point(171, 202);
             this.cmbFrictionModule.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.cmbFrictionModule.Name = "cmbFrictionModule";
-            this.cmbFrictionModule.Size = new System.Drawing.Size(627, 21);
+            this.cmbFrictionModule.Size = new System.Drawing.Size(634, 21);
             this.cmbFrictionModule.TabIndex = 62;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 76);
+            this.label1.Location = new System.Drawing.Point(8, 76);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 13);
             this.label1.TabIndex = 60;
@@ -95,56 +95,56 @@
             // 
             this.txbAxisForce.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbAxisForce.Location = new System.Drawing.Point(178, 73);
+            this.txbAxisForce.Location = new System.Drawing.Point(171, 73);
             this.txbAxisForce.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbAxisForce.Name = "txbAxisForce";
-            this.txbAxisForce.Size = new System.Drawing.Size(627, 20);
+            this.txbAxisForce.Size = new System.Drawing.Size(634, 20);
             this.txbAxisForce.TabIndex = 59;
             // 
             // txbPinUpperDiam
             // 
             this.txbPinUpperDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbPinUpperDiam.Location = new System.Drawing.Point(178, 177);
+            this.txbPinUpperDiam.Location = new System.Drawing.Point(171, 177);
             this.txbPinUpperDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbPinUpperDiam.Name = "txbPinUpperDiam";
-            this.txbPinUpperDiam.Size = new System.Drawing.Size(627, 20);
+            this.txbPinUpperDiam.Size = new System.Drawing.Size(634, 20);
             this.txbPinUpperDiam.TabIndex = 58;
             // 
             // txbPinBottomDiam
             // 
             this.txbPinBottomDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbPinBottomDiam.Location = new System.Drawing.Point(178, 152);
+            this.txbPinBottomDiam.Location = new System.Drawing.Point(171, 152);
             this.txbPinBottomDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbPinBottomDiam.Name = "txbPinBottomDiam";
-            this.txbPinBottomDiam.Size = new System.Drawing.Size(627, 20);
+            this.txbPinBottomDiam.Size = new System.Drawing.Size(634, 20);
             this.txbPinBottomDiam.TabIndex = 57;
             // 
             // txbPinLenght
             // 
             this.txbPinLenght.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbPinLenght.Location = new System.Drawing.Point(178, 126);
+            this.txbPinLenght.Location = new System.Drawing.Point(171, 126);
             this.txbPinLenght.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbPinLenght.Name = "txbPinLenght";
-            this.txbPinLenght.Size = new System.Drawing.Size(627, 20);
+            this.txbPinLenght.Size = new System.Drawing.Size(634, 20);
             this.txbPinLenght.TabIndex = 56;
             // 
             // txbShoulderDiam
             // 
             this.txbShoulderDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbShoulderDiam.Location = new System.Drawing.Point(178, 100);
+            this.txbShoulderDiam.Location = new System.Drawing.Point(171, 100);
             this.txbShoulderDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbShoulderDiam.Name = "txbShoulderDiam";
-            this.txbShoulderDiam.Size = new System.Drawing.Size(627, 20);
+            this.txbShoulderDiam.Size = new System.Drawing.Size(634, 20);
             this.txbShoulderDiam.TabIndex = 55;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(10, 180);
+            this.label16.Location = new System.Drawing.Point(8, 181);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(109, 13);
             this.label16.TabIndex = 54;
@@ -152,7 +152,7 @@
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(10, 154);
+            this.label15.Location = new System.Drawing.Point(8, 155);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(150, 15);
             this.label15.TabIndex = 53;
@@ -161,7 +161,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(10, 128);
+            this.label12.Location = new System.Drawing.Point(8, 129);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(103, 13);
             this.label12.TabIndex = 52;
@@ -170,7 +170,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 102);
+            this.label3.Location = new System.Drawing.Point(8, 103);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(130, 13);
             this.label3.TabIndex = 51;
@@ -179,7 +179,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(10, 51);
+            this.label11.Location = new System.Drawing.Point(8, 51);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(153, 13);
             this.label11.TabIndex = 49;
@@ -189,16 +189,16 @@
             // 
             this.txbRotSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbRotSpeed.Location = new System.Drawing.Point(178, 48);
+            this.txbRotSpeed.Location = new System.Drawing.Point(171, 48);
             this.txbRotSpeed.Margin = new System.Windows.Forms.Padding(178, 10, 15, 3);
             this.txbRotSpeed.Name = "txbRotSpeed";
-            this.txbRotSpeed.Size = new System.Drawing.Size(627, 20);
+            this.txbRotSpeed.Size = new System.Drawing.Size(634, 20);
             this.txbRotSpeed.TabIndex = 50;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 232);
+            this.label5.Location = new System.Drawing.Point(8, 233);
             this.label5.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(127, 13);
@@ -210,10 +210,10 @@
             this.cmbYield.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbYield.FormattingEnabled = true;
-            this.cmbYield.Location = new System.Drawing.Point(178, 229);
+            this.cmbYield.Location = new System.Drawing.Point(171, 229);
             this.cmbYield.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.cmbYield.Name = "cmbYield";
-            this.cmbYield.Size = new System.Drawing.Size(627, 21);
+            this.cmbYield.Size = new System.Drawing.Size(634, 21);
             this.cmbYield.TabIndex = 62;
             // 
             // rbtPin

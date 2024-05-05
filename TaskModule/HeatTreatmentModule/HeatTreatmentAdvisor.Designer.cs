@@ -164,7 +164,6 @@ namespace TaskModule.HeatTreatmentModule
             this.htMediaControl.CurentSelectedRowInfo = null;
             this.htMediaControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.htMediaControl.HideAllButtonImage = ((System.Drawing.Image)(resources.GetObject("htMediaControl.HideAllButtonImage")));
-            this.htMediaControl.HTKind = TaskModule.HeatTreatmentModule.HTKind.Нагрев;
             this.htMediaControl.Location = new System.Drawing.Point(0, 0);
             this.htMediaControl.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.htMediaControl.MinimumSize = new System.Drawing.Size(400, 369);
