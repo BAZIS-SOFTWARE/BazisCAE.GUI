@@ -56,10 +56,10 @@
       <HintPath>..\packages\ColorSlider.1.0.0.15\lib\net48\ColorSlider.dll</HintPath>
     </Reference>
     <Reference Include="DataBaseController, Version=1.0.2.47, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataBasesGUI.1.0.2.53\lib\net48\DataBaseController.dll</HintPath>
+      <HintPath>..\packages\DataBasesGUI.1.0.2.54\lib\net48\DataBaseController.dll</HintPath>
     </Reference>
-    <Reference Include="DataBasesGUI, Version=1.0.2.53, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataBasesGUI.1.0.2.53\lib\net48\DataBasesGUI.dll</HintPath>
+    <Reference Include="DataBasesGUI, Version=1.0.2.54, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataBasesGUI.1.0.2.54\lib\net48\DataBasesGUI.dll</HintPath>
     </Reference>
     <Reference Include="Functions, Version=1.0.2.44, Culture=neutral, PublicKeyToken=65fde98421b2fc88, processorArchitecture=MSIL">
       <HintPath>..\packages\Functions.1.0.2.44\lib\net48\Functions.dll</HintPath>
