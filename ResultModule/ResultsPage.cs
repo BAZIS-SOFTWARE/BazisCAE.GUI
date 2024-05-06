@@ -727,41 +727,52 @@ namespace ResultModule
 
         public async Task MergeResults(IEnumerable<IResult> results)
         {
-            IElement[] elements;
-            if (Project.TaskType == TaskType.Volume)
-                elements = Project.ModelData.ObjectData.E3DCollection.ToArray();
-            else
-                elements = Project.ModelData.ObjectData.E2DCollection.ToArray();
-
-            var act = new Action(() =>
+            try
             {
-                var interfaceNodes = ModelController.InterfacedNodesFinder.Find(elements);
-                var resKinds = Project.ResultData.GetResultKinds();
+                IElement[] elements;
+                if (Project.TaskType == TaskType.Volume)
+                    elements = Project.ModelData.ObjectData.E3DCollection.ToArray();
+                else
+                    elements = Project.ModelData.ObjectData.E2DCollection.ToArray();
 
-                foreach (var item in resKinds)
+                var act = new Action(() =>
                 {
-                    var resNames = Project.ResultData.First(x => x.TaskKind == item).GetDataSchema("elements");
+                    var interfaceNodes = ModelController.InterfacedNodesFinder.Find(elements);
+                    var resKinds = Project.ResultData.GetResultKinds();
 
-                    for (int i = 1; i < resNames.Count; i++)
+                    foreach (var item in resKinds)
                     {
-                        ResultsController.ResultsMerger.Merge(interfaceNodes, resNames[i], results);
+                        var resNames = Project.ResultData.First(x => x.TaskKind == item).GetDataSchema("elements");
 
-                        Invoke(new Action(() =>
+                        for (int i = 1; i < resNames.Count; i++)
                         {
-                            ConsoleControl.PrintInfo($"Выполнен пересчет на узлы для {resNames[i]}", Color.Black);
-                        }));
-                    }
-                }
-  
+                            ResultsController.ResultsMerger.Merge(interfaceNodes, resNames[i], results.Where(x => x.TaskKind == item));
 
+                            Invoke(new Action(() =>
+                            {
+                                ConsoleControl.PrintInfo($"Выполнен пересчет на узлы для {resNames[i]}", Color.Black);
+                            }));
+                        }
+                    }
+
+
+                    Invoke(new Action(() =>
+                    {
+                        ConsoleControl.PrintInfo("Пересчет завершен", Color.Green);
+                    }));
+
+                });
+
+                await Task.Run(act);
+
+            }
+            catch (Exception ex)
+            {
                 Invoke(new Action(() =>
                 {
-                    ConsoleControl.PrintInfo("Пересчет завершен", Color.Green);
+                    ConsoleControl.PrintInfo($"В ходе пересчета возникла ошибка: {ex.Message}", Color.Red);
                 }));
-                
-            });
-
-            await Task.Run(act);
+            }
         }
 
         private void ShowResultValue(ObjType objsType, string resName, IResult result)
