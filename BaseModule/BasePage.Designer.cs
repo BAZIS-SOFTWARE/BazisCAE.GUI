@@ -66,14 +66,12 @@ namespace BaseModule
             // 
             this.toolStripContainer.ContentPanel.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer.ContentPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.toolStripContainer.ContentPanel.Padding = new System.Windows.Forms.Padding(7, 6, 7, 6);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1757, 745);
+            this.toolStripContainer.ContentPanel.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1318, 595);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
-            this.toolStripContainer.Margin = new System.Windows.Forms.Padding(4);
             this.toolStripContainer.Name = "toolStripContainer";
-            this.toolStripContainer.Size = new System.Drawing.Size(1757, 798);
+            this.toolStripContainer.Size = new System.Drawing.Size(1318, 648);
             this.toolStripContainer.TabIndex = 1;
             this.toolStripContainer.Text = "toolStripContainer1";
             // 
@@ -84,28 +82,27 @@ namespace BaseModule
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.viewToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.instrumentToolStrip);
-            this.toolStripContainer.TopToolStripPanel.MaximumSize = new System.Drawing.Size(0, 100);
+            this.toolStripContainer.TopToolStripPanel.MaximumSize = new System.Drawing.Size(0, 81);
             // 
             // splitContainer1
             // 
             this.splitContainer1.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(7, 6);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
+            this.splitContainer1.Location = new System.Drawing.Point(5, 5);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.navigator);
-            this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1743, 733);
-            this.splitContainer1.SplitterDistance = 518;
+            this.splitContainer1.Size = new System.Drawing.Size(1308, 585);
+            this.splitContainer1.SplitterDistance = 388;
             this.splitContainer1.SplitterIncrement = 15;
-            this.splitContainer1.SplitterWidth = 7;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 0;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             this.splitContainer1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Paint);
@@ -121,10 +118,9 @@ namespace BaseModule
             this.navigator.ExpandIndex = 2;
             this.navigator.HeaderName = "Навигатор";
             this.navigator.Location = new System.Drawing.Point(0, 0);
-            this.navigator.Margin = new System.Windows.Forms.Padding(4);
             this.navigator.Name = "navigator";
             this.navigator.ProjectInfoIndex = 0;
-            this.navigator.Size = new System.Drawing.Size(515, 733);
+            this.navigator.Size = new System.Drawing.Size(386, 585);
             this.navigator.TabIndex = 0;
             this.navigator.UpColor = System.Drawing.Color.Silver;
             this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
@@ -149,7 +145,6 @@ namespace BaseModule
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -161,9 +156,9 @@ namespace BaseModule
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
-            this.splitContainer2.Size = new System.Drawing.Size(1218, 733);
-            this.splitContainer2.SplitterDistance = 334;
-            this.splitContainer2.SplitterWidth = 6;
+            this.splitContainer2.Size = new System.Drawing.Size(915, 585);
+            this.splitContainer2.SplitterDistance = 266;
+            this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
             this.splitContainer2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Paint);
             this.splitContainer2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.splitContainer2_MouseClick);
@@ -192,7 +187,7 @@ namespace BaseModule
             this.sceneControl.SelectionColor = System.Drawing.Color.Green;
             this.sceneControl.ShadowAngle = 0F;
             this.sceneControl.ShowSurfaceBackEdges = false;
-            this.sceneControl.Size = new System.Drawing.Size(1218, 333);
+            this.sceneControl.Size = new System.Drawing.Size(915, 265);
             this.sceneControl.TabIndex = 0;
             this.sceneControl.TitleColor = System.Drawing.Color.Black;
             this.sceneControl.TitleText = "";
@@ -204,6 +199,7 @@ namespace BaseModule
             this.sceneControl.CreateMeshGroupEvent += new System.Action<object, System.EventArgs>(this.sceneControl_CreateMeshGroupEvent);
             this.sceneControl.DeleteSelectionEvent += new System.Action<object, System.EventArgs>(this.sceneControl_DeleteSelectionEvent);
             this.sceneControl.MessageEvent += new System.Action<object, Scene.Events.MessageEventArgs>(this.sceneControl_MessageEvent);
+            this.sceneControl.Load += new System.EventHandler(this.sceneControl_Load);
             // 
             // consoleControl
             // 
@@ -214,9 +210,9 @@ namespace BaseModule
             this.consoleControl.CheckPrintNodesInfo = false;
             this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.consoleControl.Location = new System.Drawing.Point(0, 0);
-            this.consoleControl.Margin = new System.Windows.Forms.Padding(5);
+            this.consoleControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.consoleControl.Name = "consoleControl";
-            this.consoleControl.Size = new System.Drawing.Size(1218, 393);
+            this.consoleControl.Size = new System.Drawing.Size(915, 314);
             this.consoleControl.TabIndex = 4;
             this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
             // 
@@ -243,9 +239,18 @@ namespace BaseModule
             // viewToolStrip
             // 
             this.viewToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.viewToolStrip.FitImage = ((System.Drawing.Image)(resources.GetObject("viewToolStrip.FitImage")));
             this.viewToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.viewToolStrip.Location = new System.Drawing.Point(305, 0);
             this.viewToolStrip.Name = "viewToolStrip";
+            this.viewToolStrip.PlaneXYImage = ((System.Drawing.Image)(resources.GetObject("viewToolStrip.PlaneXYImage")));
+            this.viewToolStrip.PlaneXZImage = ((System.Drawing.Image)(resources.GetObject("viewToolStrip.PlaneXZImage")));
+            this.viewToolStrip.PlaneYZImage = ((System.Drawing.Image)(resources.GetObject("viewToolStrip.PlaneYZImage")));
+            this.viewToolStrip.Rot90HorImage = ((System.Drawing.Image)(resources.GetObject("viewToolStrip.Rot90HorImage")));
+            this.viewToolStrip.Rot90VerImage = ((System.Drawing.Image)(resources.GetObject("viewToolStrip.Rot90VerImage")));
+            this.viewToolStrip.RotXImage = ((System.Drawing.Image)(resources.GetObject("viewToolStrip.RotXImage")));
+            this.viewToolStrip.RotYImage = ((System.Drawing.Image)(resources.GetObject("viewToolStrip.RotYImage")));
+            this.viewToolStrip.RotZImage = ((System.Drawing.Image)(resources.GetObject("viewToolStrip.RotZImage")));
             this.viewToolStrip.Size = new System.Drawing.Size(327, 53);
             this.viewToolStrip.TabIndex = 2;
             this.viewToolStrip.Text = "Вид";
@@ -253,22 +258,34 @@ namespace BaseModule
             // 
             // displayToolStrip
             // 
+            this.displayToolStrip.BoundaryContoursImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.BoundaryContoursImage")));
             this.displayToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.displayToolStrip.ElementsFramesAndSurfacesImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.ElementsFramesAndSurfacesImage")));
+            this.displayToolStrip.ElementsFramesImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.ElementsFramesImage")));
+            this.displayToolStrip.ElementsNormalsImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.ElementsNormalsImage")));
+            this.displayToolStrip.ElementsSurfacesImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.ElementsSurfacesImage")));
             this.displayToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.displayToolStrip.Location = new System.Drawing.Point(632, 0);
             this.displayToolStrip.Name = "displayToolStrip";
+            this.displayToolStrip.ShowBasisImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.ShowBasisImage")));
             this.displayToolStrip.Size = new System.Drawing.Size(339, 53);
+            this.displayToolStrip.SurfaceNodesImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.SurfaceNodesImage")));
             this.displayToolStrip.TabIndex = 3;
             this.displayToolStrip.Text = "Отображение";
+            this.displayToolStrip.TitleInfoImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.TitleInfoImage")));
+            this.displayToolStrip.VolumeNodesImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.VolumeNodesImage")));
             this.displayToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.DisplayToolStrip_ItemClick);
             // 
             // instrumentToolStrip
             // 
+            this.instrumentToolStrip.CrossSectionImage = ((System.Drawing.Image)(resources.GetObject("instrumentToolStrip.CrossSectionImage")));
             this.instrumentToolStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.instrumentToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.instrumentToolStrip.Location = new System.Drawing.Point(971, 0);
+            this.instrumentToolStrip.MakePhotoImage = ((System.Drawing.Image)(resources.GetObject("instrumentToolStrip.MakePhotoImage")));
+            this.instrumentToolStrip.MeasureImage = ((System.Drawing.Image)(resources.GetObject("instrumentToolStrip.MeasureImage")));
             this.instrumentToolStrip.Name = "instrumentToolStrip";
-            this.instrumentToolStrip.Size = new System.Drawing.Size(142, 53);
+            this.instrumentToolStrip.Size = new System.Drawing.Size(111, 53);
             this.instrumentToolStrip.TabIndex = 4;
             this.instrumentToolStrip.Text = "Инструменты";
             this.instrumentToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.InstrumentalToolStrip_ItemClicked);
@@ -279,12 +296,11 @@ namespace BaseModule
             // 
             // BasePage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.toolStripContainer);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "BasePage";
-            this.Size = new System.Drawing.Size(1757, 798);
+            this.Size = new System.Drawing.Size(1318, 648);
             this.Load += new System.EventHandler(this.BasePage_Load);
             this.toolStripContainer.ContentPanel.ResumeLayout(false);
             this.toolStripContainer.TopToolStripPanel.ResumeLayout(false);

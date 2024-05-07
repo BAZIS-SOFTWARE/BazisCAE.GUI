@@ -34,6 +34,8 @@ using Results;
 using ModelInterfaces;
 using System.Runtime.Remoting.Messaging;
 using System.Drawing.Drawing2D;
+using MathNet.Numerics.LinearAlgebra;
+using SceneInterface;
 
 namespace BazisGUI
 {
@@ -94,6 +96,8 @@ namespace BazisGUI
         private void построениеСетки_Click(object sender, EventArgs e)
         {
             var module = TryGetModule(модулиMenuItem.Text);
+            var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
+
             DisconnectWithServer(module.Name);
 
             CloseActivePageChildControls(module.Name);
@@ -105,6 +109,14 @@ namespace BazisGUI
             meshModule.GmshController = gmshController;
 
             AddModule(newModule);
+            SetSceneViewMatrix(viewMatrix, newModule);
+            newModule.SceneControl.DisplayObjects();
+        }
+
+        private static void SetSceneViewMatrix(Matrix<float> viewMatrix, BasePage newModule)
+        {
+            newModule.SceneControl.Camera.SetViewMatrix(viewMatrix);
+            newModule.SceneControl.ScaleObjs(1.0f); // TO DO Разобраться почему без этого компас сворачивается в точку
         }
 
         private BasePage TryGetModule(string text)
@@ -137,6 +149,9 @@ namespace BazisGUI
         private void анализРезультатов_Click(object sender, EventArgs e)
         {
             var module = TryGetModule(модулиMenuItem.Text);
+
+            var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
+
             DisconnectWithServer(module.Name);
 
             CloseActivePageChildControls(module.Name);
@@ -151,6 +166,9 @@ namespace BazisGUI
             resultModule.LoadResultsEvent += ResultModule_LoadResultsEvent;
 
             AddModule(newModule);
+
+            SetSceneViewMatrix(viewMatrix, newModule);
+            newModule.SceneControl.DisplayObjects();
         }
 
         private async void ResultModule_LoadResultsEvent(object sender,string fileName, bool mergeRes, bool addRes)
@@ -186,6 +204,9 @@ namespace BazisGUI
         private void сварка_Click(object sender, EventArgs e)
         {
             var module = TryGetModule(модулиMenuItem.Text);
+
+            var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
+
             DisconnectWithServer(module.Name);
 
             CloseActivePageChildControls(module.Name);
@@ -198,11 +219,17 @@ namespace BazisGUI
             weldingPage.PreProc = new PreProc();
 
             AddModule(newModule);
+
+            SetSceneViewMatrix(viewMatrix, newModule);
+            newModule.SceneControl.DisplayObjects();
         }
 
         private void термообработка_Click(object sender, EventArgs e)
         {
             var module = TryGetModule(модулиMenuItem.Text);
+
+            var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
+
             DisconnectWithServer(module.Name);
 
             CloseActivePageChildControls(module.Name);
@@ -216,18 +243,16 @@ namespace BazisGUI
 
             AddModule(newModule);
 
+            SetSceneViewMatrix(viewMatrix, newModule);
+            newModule.SceneControl.DisplayObjects();
         }
 
         private void AddModule(BasePage module)
         {
             SetGeneralSettings(module);
 
+            // Загрузка модуля на сцену. Стираются все содержимое сцены и перезаливается навигатор
             toolStripContainer.ContentPanel.Controls.Add(module);
-
-            module.CreateMenuInterface();
-            module.SceneInitialization();
-            module.PresentProjectOnTree();
-            module.PresentModelOnSelectToolStrip();
 
             activeMenuItems.Clear();
 
@@ -720,10 +745,16 @@ namespace BazisGUI
                 {
                     module.Project = project;
                     module.SceneInitialization();
+                    module.PresentAllModelObjectsToScene();
                     module.PresentProjectOnTree();
                     module.PresentModelOnSelectToolStrip();
                 }
-
+                else
+                {
+                    module = CreateModule("Mesh");
+                    AddModule(module);
+                }
+                module.SceneControl.DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -762,6 +793,7 @@ namespace BazisGUI
                 {
                     module.Project = project;
                     module.SceneInitialization();
+                    module.PresentAllModelObjectsToScene();
                     module.PresentProjectOnTree();
                     module.PresentModelOnSelectToolStrip();
                 }
@@ -771,6 +803,7 @@ namespace BazisGUI
                     module = CreateModule("Mesh");            
                     AddModule(module);
                 }
+                module.SceneControl.DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -854,6 +887,7 @@ namespace BazisGUI
                 {
                     module.Project = project;
                     module.SceneInitialization();
+                    module.PresentAllModelObjectsToScene();
                     module.PresentProjectOnTree();
                     module.PresentModelOnSelectToolStrip();
                 }
@@ -862,6 +896,7 @@ namespace BazisGUI
                     module = CreateModule("Mesh");
                     AddModule(module);
                 }
+                module.SceneControl.DisplayObjects();
             }
 
             catch (Exception ex)
@@ -968,8 +1003,11 @@ namespace BazisGUI
                     {
                         module.Project = project;
                         module.SceneInitialization();
+                        module.PresentAllModelObjectsToScene();
                         module.PresentProjectOnTree();
                         module.PresentModelOnSelectToolStrip();
+                        module.SceneControl.FitObjectsToScreen();
+                        module.SceneControl.DisplayObjects();
                     }
                     else
                     {

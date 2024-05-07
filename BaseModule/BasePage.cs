@@ -281,13 +281,10 @@ namespace BaseModule
         public void SceneInitialization()
         {
             sceneControl.Initialization();
-
             ClearAllDataOnScene();
 
-            PresentAllModelObjectsToScene();
-
-            sceneControl.FitObjectsToScreen();
-            sceneControl.DisplayObjects();
+            //sceneControl.FitObjectsToScreen();
+            //sceneControl.DisplayObjects();
         }
 
         public void PresentAllModelObjectsToScene()
@@ -2140,6 +2137,16 @@ namespace BaseModule
             }
             else
                 splitContainer2.IsSplitterFixed = false;
+        }
+
+        private void sceneControl_Load(object sender, EventArgs e)
+        {
+            SceneInitialization();
+            CreateMenuInterface();
+            PresentAllModelObjectsToScene();
+            PresentProjectOnTree();
+            PresentModelOnSelectToolStrip();
+            sceneControl.FitObjectsToScreen();
         }
     }
 }
