@@ -30,7 +30,7 @@ namespace ResultModule
             InitializeComponent();
             resItems = new Dictionary<string, List<float>>();
             nodesNames = new List<string>();
-            cmbExtentionType.Items.AddRange(new[] {".bpf", ".STL"});
+            cmbExtentionType.Items.AddRange(new[] {".bpf", ".STL(bin)", ".STL(text)"});
         }
 
         private void btnExport_Click(object sender, EventArgs e)
