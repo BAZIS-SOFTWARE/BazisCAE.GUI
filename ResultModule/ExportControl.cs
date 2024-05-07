@@ -30,6 +30,7 @@ namespace ResultModule
             InitializeComponent();
             resItems = new Dictionary<string, List<float>>();
             nodesNames = new List<string>();
+            cmbExtentionType.Items.AddRange(new[] {".bpf", ".STL"});
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -47,7 +48,8 @@ namespace ResultModule
                 var time = float.Parse(selectedText);
                 var taskKind = cmbTasksResults.SelectedItem.ToString();
                 var resKind = cmbNodeGroupName.SelectedItem.ToString();
-                ExportResultEvent(new ExportResultEventArgs(time, taskKind, resKind, selectedPath));
+                var extension = cmbExtentionType.SelectedItem.ToString();
+                ExportResultEvent(new ExportResultEventArgs(time, taskKind, resKind, selectedPath, extension));
             }
             catch(Exception ex)
             {
