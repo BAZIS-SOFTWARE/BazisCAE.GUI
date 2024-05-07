@@ -872,7 +872,7 @@ namespace ResultModule
             try
             {
                 var results = Project.ResultData.FindByTime(args.TaskKind, args.Time);
-                var formatedPath = $"{args.Path}\\GridExport_{DateTime.Now.ToString().Replace("/", "_").Replace(":", "_")}.bpf";
+                var formatedPath = $"{args.Path}\\GridExport_{DateTime.Now.ToString().Replace("/", "_").Replace(":", "_")}{args.Extension}";
 
                 var scaleItems = GetScaleItems();
                 ResultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
