@@ -889,7 +889,10 @@ namespace ResultModule
                     ObjType.Узел,
                     args.ResName,
                     elements);
-                CreateExportFile(new ResultPageSaverEventArgs(this, args.Extension, figures, formatedPath));
+
+                var changeSaver = new ResultPageSaverEventArgs(this, args.Extension, figures, formatedPath);
+                ChangeResultControllerSaver(changeSaver);
+                CreateExportFile(changeSaver);
             }
             catch (Exception ex)
             {
