@@ -59,7 +59,7 @@ namespace ResultModule
 
         private void CheckFormBeforeButtonClick()
         {
-            if (cmbTasksResults.Text == "" || selectedText == "" || cmbNodeGroupName.Text == "")
+            if (cmbTasksResults.Text == "" || selectedText == "" || cmbNodeGroupName.Text == "" || cmbExtentionType.Text == "")
                 throw new Exception("Перед экспортом результатов необходимо выбрать тип задачи и интервал времени для экспорта результата");
         }
 
