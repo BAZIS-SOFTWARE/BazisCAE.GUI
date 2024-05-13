@@ -5,14 +5,11 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Globalization;
-using System.Threading;
 using System.Diagnostics;
 using System.IO;
 using TaskModule.BasicTaskAdvisor;
 using TaskModule.BasicAdvisorControls.Events;
 using BaseModule;
-using Functions.Parser;
 using DataBaseController.MaterialData;
 using DataBaseController.FunctionData;
 using Newtonsoft.Json;
@@ -22,12 +19,8 @@ using Geometry;
 //using Tasks;
 using ProjectInterfaces.Tasks;
 using ModelInterfaces;
-using System.Xml.XPath;
 using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using BaseModule.Console;
-using ProjectInterfaces;
-using System.Text.RegularExpressions;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TaskModule
 {

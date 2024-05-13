@@ -7,8 +7,8 @@ using System.IO;
 using System.Threading;
 using System.Reflection;
 using BaseModule.Console.Events;
-using Functions.Parser;
 using System.Drawing.Drawing2D;
+using ParserLib;
 
 namespace BaseModule.Console
 {
