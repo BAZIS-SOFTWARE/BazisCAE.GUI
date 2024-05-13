@@ -55,11 +55,11 @@
     <Reference Include="ColorSlider, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ColorSlider.1.0.0.15\lib\net48\ColorSlider.dll</HintPath>
     </Reference>
-    <Reference Include="DataBaseController, Version=1.0.2.47, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataBasesGUI.1.0.2.54\lib\net48\DataBaseController.dll</HintPath>
+    <Reference Include="DataBaseController, Version=1.0.2.48, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataBasesGUI.1.0.2.55\lib\net48\DataBaseController.dll</HintPath>
     </Reference>
-    <Reference Include="DataBasesGUI, Version=1.0.2.54, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataBasesGUI.1.0.2.54\lib\net48\DataBasesGUI.dll</HintPath>
+    <Reference Include="DataBasesGUI, Version=1.0.2.55, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataBasesGUI.1.0.2.55\lib\net48\DataBasesGUI.dll</HintPath>
     </Reference>
     <Reference Include="Functions, Version=1.0.2.44, Culture=neutral, PublicKeyToken=65fde98421b2fc88, processorArchitecture=MSIL">
       <HintPath>..\packages\Functions.1.0.2.44\lib\net48\Functions.dll</HintPath>
@@ -67,8 +67,8 @@
     <Reference Include="Geometry, Version=2.0.7.26, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
       <HintPath>..\packages\Geometry.2.0.7.26\lib\net48\Geometry.dll</HintPath>
     </Reference>
-    <Reference Include="Graph, Version=1.0.2.22, Culture=neutral, PublicKeyToken=4d6e483d8ec08dd8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Graph.1.0.2.22\lib\net48\Graph.dll</HintPath>
+    <Reference Include="Graph, Version=1.0.2.23, Culture=neutral, PublicKeyToken=4d6e483d8ec08dd8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Graph.1.0.2.23\lib\net48\Graph.dll</HintPath>
     </Reference>
     <Reference Include="ModelControllerInterfaces, Version=3.0.0.47, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
       <HintPath>..\packages\ModelControllerInterfaces.3.0.0.47\lib\net48\ModelControllerInterfaces.dll</HintPath>
@@ -82,11 +82,14 @@
     <Reference Include="PlayerControl, Version=1.0.0.25, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PlayerControl.1.0.0.25\lib\net48\PlayerControl.dll</HintPath>
     </Reference>
-    <Reference Include="ProjectInterfaces, Version=3.0.40.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjectInterfaces.3.0.40\lib\net48\ProjectInterfaces.dll</HintPath>
+    <Reference Include="ProjectInterfaces, Version=3.0.41.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProjectInterfaces.3.0.41\lib\net48\ProjectInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface, Version=1.0.38.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
       <HintPath>..\packages\SceneInterface.1.0.38\lib\net48\SceneInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="SearchLib, Version=1.0.1.11, Culture=neutral, PublicKeyToken=8c358dc795e42d21, processorArchitecture=MSIL">
+      <HintPath>..\packages\SearchLib.1.0.1.11\lib\net48\SearchLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
