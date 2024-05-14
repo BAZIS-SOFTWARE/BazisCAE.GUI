@@ -97,6 +97,7 @@ namespace BazisGUI
         {
             var module = TryGetModule(модулиMenuItem.Text);
             var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
+            var splitters = module.SplittersController.GetSplitters();
 
             DisconnectWithServer(module.Name);
 
@@ -109,6 +110,8 @@ namespace BazisGUI
             meshModule.GmshController = gmshController;
 
             AddModule(newModule);
+
+            newModule.SplittersController.SetSplitters(splitters);
             SetSceneViewMatrix(viewMatrix, newModule);
             newModule.SceneControl.DisplayObjects();
         }
@@ -151,6 +154,7 @@ namespace BazisGUI
             var module = TryGetModule(модулиMenuItem.Text);
 
             var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
+            var splitters = module.SplittersController.GetSplitters();
 
             DisconnectWithServer(module.Name);
 
@@ -167,6 +171,7 @@ namespace BazisGUI
 
             AddModule(newModule);
 
+            newModule.SplittersController.SetSplitters(splitters);
             SetSceneViewMatrix(viewMatrix, newModule);
             newModule.SceneControl.DisplayObjects();
         }
@@ -206,6 +211,7 @@ namespace BazisGUI
             var module = TryGetModule(модулиMenuItem.Text);
 
             var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
+            var splitters = module.SplittersController.GetSplitters();
 
             DisconnectWithServer(module.Name);
 
@@ -220,6 +226,7 @@ namespace BazisGUI
 
             AddModule(newModule);
 
+            newModule.SplittersController.SetSplitters(splitters);
             SetSceneViewMatrix(viewMatrix, newModule);
             newModule.SceneControl.DisplayObjects();
         }
@@ -229,6 +236,7 @@ namespace BazisGUI
             var module = TryGetModule(модулиMenuItem.Text);
 
             var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
+            var splitters = module.SplittersController.GetSplitters();
 
             DisconnectWithServer(module.Name);
 
@@ -243,6 +251,7 @@ namespace BazisGUI
 
             AddModule(newModule);
 
+            newModule.SplittersController.SetSplitters(splitters);
             SetSceneViewMatrix(viewMatrix, newModule);
             newModule.SceneControl.DisplayObjects();
         }

@@ -260,6 +260,8 @@ namespace BaseModule
             set { instrumentToolStrip.CrossSectionImage = value; }
         }
 
+        public SplittersController SplittersController { get; internal set; }
+
         public IModelController ModelController { get; set; }
 
         public IPresentersCreator PresentersCreator 
@@ -1583,16 +1585,7 @@ namespace BaseModule
             };
             consoleControl.ConsolePanelCollapseEvent += () => { splitContainer2.Panel2Collapsed = true; };
 
-            //displayToolStrip.Location = new Point(0, 0);
-            //instrumentalToolStrip.Location = new Point(0, 0);
-            //selectToolStrip.Location = new Point(0, 0);
-            //viewToolStrip.Location = new Point(0, 0);
-            //instrumentalToolStrip.Location = new Point(0, 0);
-
-            //this.toolStripContainer.TopToolStripPanel.Controls.Add(this.viewToolStrip);
-            //this.toolStripContainer.TopToolStripPanel.Controls.Add(this.instrumentalToolStrip);
-            //this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
-            //this.toolStripContainer.TopToolStripPanel.Controls.Add(this.selectToolStrip);
+            SplittersController = new SplittersController(this);
 
             displayToolStrip.Renderer = BaseToolStrRender;
             selectToolStrip.Renderer = BaseToolStrRender;

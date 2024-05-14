@@ -157,6 +157,7 @@
     <Compile Include="SelectionSet\SelectionSet.Designer.cs">
       <DependentUpon>SelectionSet.cs</DependentUpon>
     </Compile>
+    <Compile Include="SplittersController.cs" />
     <Compile Include="ToolStrips\BaseToolStrRender.cs" />
     <Compile Include="ToolStrips\DisplayToolStrip.cs">
       <SubType>Component</SubType>
