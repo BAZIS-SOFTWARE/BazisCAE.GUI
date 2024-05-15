@@ -55,11 +55,11 @@
     <Reference Include="ColorSlider, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ColorSlider.1.0.0.15\lib\net48\ColorSlider.dll</HintPath>
     </Reference>
-    <Reference Include="DataBaseController, Version=1.0.2.48, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataBasesGUI.1.0.2.55\lib\net48\DataBaseController.dll</HintPath>
+    <Reference Include="DataBaseController, Version=1.0.2.49, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataBasesGUI.1.0.2.56\lib\net48\DataBaseController.dll</HintPath>
     </Reference>
-    <Reference Include="DataBasesGUI, Version=1.0.2.55, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataBasesGUI.1.0.2.55\lib\net48\DataBasesGUI.dll</HintPath>
+    <Reference Include="DataBasesGUI, Version=1.0.2.56, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataBasesGUI.1.0.2.56\lib\net48\DataBasesGUI.dll</HintPath>
     </Reference>
     <Reference Include="ExtensionsLib, Version=1.0.1.14, Culture=neutral, PublicKeyToken=8c358dc795e42d21, processorArchitecture=MSIL">
       <HintPath>..\packages\ExtensionsLib.1.0.1.14\lib\net48\ExtensionsLib.dll</HintPath>
