@@ -1860,11 +1860,6 @@
             "AssemblyAsmDisplayName" = "8:Project, Version=3.0.11.43, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_349CA39F66E585F86F40F1CD03A45178"
-                    {
-                    "Name" = "8:Project.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Project.dll"
             "TargetName" = "8:"
@@ -3046,11 +3041,6 @@
             "AssemblyAsmDisplayName" = "8:Results, Version=3.0.0.51, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_A70B31CDB71A85D1CFDB775A49A75ACD"
-                    {
-                    "Name" = "8:Results.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Results.dll"
             "TargetName" = "8:"
@@ -3077,11 +3067,6 @@
             "AssemblyAsmDisplayName" = "8:Tasks, Version=3.0.0.56, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_AA4602B7B9062E6B0E4571F8968525C1"
-                    {
-                    "Name" = "8:Tasks.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Tasks.dll"
             "TargetName" = "8:"
@@ -3425,11 +3410,6 @@
             "AssemblyAsmDisplayName" = "8:ProjectInterfaces, Version=3.0.42.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_E3C310DF31A4298506326D85A5B70AF1"
-                    {
-                    "Name" = "8:ProjectInterfaces.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ProjectInterfaces.dll"
             "TargetName" = "8:"
@@ -3904,16 +3884,16 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:BazisPrePost4.3.96"
-        "ProductCode" = "8:{E4696ED4-C393-428C-95E0-8F95B65041E2}"
-        "PackageCode" = "8:{38B70A10-9B27-4E21-8EF6-6D9DC7F5C4C7}"
+        "ProductName" = "8:BazisPrePost4.3.97"
+        "ProductCode" = "8:{57FAA3A0-00DA-40A0-BBCF-5B02E5758C91}"
+        "PackageCode" = "8:{C2484D8B-4E02-4E57-B965-0D779F497797}"
         "UpgradeCode" = "8:{B6CE3573-0A6F-4654-B604-218137EC41B2}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:4.3.96"
+        "ProductVersion" = "8:4.3.97"
         "Manufacturer" = "8:BazisSoftware"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://bazisnet.ru"
