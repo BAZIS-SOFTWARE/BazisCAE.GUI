@@ -76,8 +76,8 @@
     <Reference Include="ParserLib, Version=1.0.1.10, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ParserLib.1.0.1.10\lib\net48\ParserLib.dll</HintPath>
     </Reference>
-    <Reference Include="ProjectInterfaces, Version=3.0.42.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjectInterfaces.3.0.42\lib\net48\ProjectInterfaces.dll</HintPath>
+    <Reference Include="ProjectInterfaces, Version=3.0.43.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProjectInterfaces.3.0.43\lib\net48\ProjectInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Scene, Version=2.0.8.34, Culture=neutral, PublicKeyToken=2e7150108cd20395, processorArchitecture=MSIL">
       <HintPath>..\packages\Scene.2.0.8.34\lib\net48\Scene.dll</HintPath>

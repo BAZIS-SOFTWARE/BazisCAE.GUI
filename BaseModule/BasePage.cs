@@ -284,9 +284,6 @@ namespace BaseModule
         {
             sceneControl.Initialization();
             ClearAllDataOnScene();
-
-            //sceneControl.FitObjectsToScreen();
-            //sceneControl.DisplayObjects();
         }
 
         public void PresentAllModelObjectsToScene()
