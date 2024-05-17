@@ -742,6 +742,12 @@ namespace ResultModule
 
                     foreach (var item in resKinds)
                     {
+                        Invoke(new Action(() =>
+                        {
+                            ConsoleControl.PrintInfo($"Выполняется пересчет на узлы для задачи {item}", Color.Black);
+                            ConsoleControl.PrintInfo("", Color.Black);
+                        }));
+
                         var resNames = Project.ResultData.First(x => x.TaskKind == item).GetDataSchema("elements");
 
                         for (int i = 1; i < resNames.Count; i++)

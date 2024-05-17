@@ -1061,8 +1061,8 @@ namespace BazisGUI
                 if (path == null || path == "")
                 {
                     OpenFileDialog dialog = new OpenFileDialog();
-                    dialog.Filter = "All files(*.*)|*.*|" +
-                        "dinamic library(*.dll)|*.dll";
+                    dialog.Filter = "dinamic library(*.dll)|*.dll|All files(*.*)|*.*"
+                        ;
                     if (dialog.ShowDialog() == DialogResult.Cancel)
                         return;
                     path = dialog.FileName;
