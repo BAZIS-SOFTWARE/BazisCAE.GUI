@@ -976,29 +976,27 @@ namespace BaseModule
 
             });
 
-            var answer = await AsyncMethodContainer(actPointConfirm, actBreak, message);
+            while (true)
+            {
+                var res = SelectNodeAsync();
+                await res;
 
-            if (answer is bool)
-                while (true)
+                if (res.Result is INode node)
                 {
-                    var res = SelectNodeAsync();
-                    await res;
-
-                    if (res.Result is INode node)
-                    {
-                        nodes.Add(node);
-                        node.SetBackColor();
-                    }
-                    else break;
-
-                    if (nodes.Count > 1)
-                    {
-                        var line = new Segment3D(nodes[nodes.Count - 1].Position, nodes[nodes.Count - 2].Position);
-                        consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
-                        sceneControl.DisplayDistance(line);
-                        sceneControl.DisplayObjects();
-                    }
+                    nodes.Add(node);
+                    node.SetBackColor();
                 }
+                else break;
+
+                if (nodes.Count > 1)
+                {
+                    var line = new Segment3D(nodes[nodes.Count - 1].Position, nodes[nodes.Count - 2].Position);
+                    consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
+                    sceneControl.DisplayDistance(line);
+                    sceneControl.DisplayObjects();
+                }
+            }
+
             return nodes;
         }
 
