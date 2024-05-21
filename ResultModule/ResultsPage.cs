@@ -30,7 +30,6 @@ namespace ResultModule
     {
         ISceneScale scale;
         public event Action<object,string, bool, bool> LoadResultsEvent;
-        public event Action<ResultPageSaverEventArgs> ChangeResultControllerSaver;
         public IResultsController ResultsController { get; set; }
         
         private bool showResultValue;
@@ -873,7 +872,8 @@ namespace ResultModule
             try
             {
                 var results = Project.ResultData.FindByTime(args.TaskKind, args.Time);
-                var formatedPath = $"{args.Path}\\GridExport_{DateTime.Now.ToString().Replace("/", "_").Replace(":", "_")}{args.Extension.Split('(')[0]}";
+                var format = args.Extension.Split('-')[0];
+                var formatedPath = $"{args.Path}\\GridExport_{DateTime.Now.ToString().Replace("/", "_").Replace(":", "_")}{format}";
 
                 var scaleItems = GetScaleItems();
                 ResultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
@@ -890,20 +890,13 @@ namespace ResultModule
                     args.ResName,
                     elements);
 
-                var changeSaver = new ResultPageSaverEventArgs(this, args.Extension, figures, formatedPath);
-                ChangeResultControllerSaver(changeSaver);
-                CreateExportFile(changeSaver);
+                ResultsController.ResultsExporter.ExportResults(figures, formatedPath, args.Extension);
+                ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {args.Path}", Color.Black);
             }
             catch (Exception ex)
             {
                 ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
-        }
-
-        public void CreateExportFile(ResultPageSaverEventArgs args)
-        {
-            ResultsController.ResultsSurfacesSaver.ExportResults(args.Figures, args.Path);
-            ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {args.Path}", Color.Black);
         }
     }   
 }

@@ -160,7 +160,6 @@ namespace BazisGUI
             var newModule = CreateModule("Result");
 
             var resultModule = newModule as ResultPage;
-            resultModule.ChangeResultControllerSaver += ChangeResultControllerSaver;
 
             resultModule.ResultsController = new ResultsController();
             resultModule.ModelController = modelController;
@@ -1094,28 +1093,6 @@ namespace BazisGUI
                 var rect = new Rectangle(locRect, new Size(menuStrip.Width, menuStrip.Height));
 
                 e.Graphics.FillRectangle(linGrBrush, rect);
-            }
-
-        private void ChangeResultControllerSaver(ResultPageSaverEventArgs args)
-        {
-            switch (args.ExportFormat)
-            {
-                case ".bpf":
-                    {
-                        args.ResultPage.ResultsController.ResultsSurfacesSaver = new SaveResultsSurfacesToBPF();
-                        break;
-                    }
-                case ".STL(bin)":
-                    {
-                        args.ResultPage.ResultsController.ResultsSurfacesSaver = new SaveResultsSurfacesToBinSTL();
-                        break;
-                    }
-                case ".STL(text)":
-                    {
-                        args.ResultPage.ResultsController.ResultsSurfacesSaver = new SaveResultsSurfacesToTxtSTL();
-                        break;
-                    }
-            }
         }
     }
 }

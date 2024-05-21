@@ -61,9 +61,6 @@
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
     </Reference>
-    <Reference Include="ModelControllerInterfaces, Version=3.0.0.47, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelControllerInterfaces.3.0.0.47\lib\net48\ModelControllerInterfaces.dll</HintPath>
-    </Reference>
     <Reference Include="ModelInterfaces, Version=3.0.0.23, Culture=neutral, PublicKeyToken=998e39182864f357, processorArchitecture=MSIL">
       <HintPath>..\packages\ModelInterfaces.3.0.0.23\lib\net48\ModelInterfaces.dll</HintPath>
     </Reference>
@@ -72,15 +69,6 @@
     </Reference>
     <Reference Include="Octree, Version=2.1.10.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.10\lib\net48\Octree.dll</HintPath>
-    </Reference>
-    <Reference Include="ProjectInterfaces, Version=3.0.40.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjectInterfaces.3.0.40\lib\net48\ProjectInterfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="Scene, Version=2.0.8.33, Culture=neutral, PublicKeyToken=2e7150108cd20395, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.33\lib\net48\Scene.dll</HintPath>
-    </Reference>
-    <Reference Include="SceneInterface, Version=1.0.38.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.33\lib\net48\SceneInterface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
