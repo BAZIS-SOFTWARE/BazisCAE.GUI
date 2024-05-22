@@ -876,6 +876,7 @@ namespace BazisGUI
                     project.ModelData.Loader = new LoadModelFromCDBTextFile();
 
                 await LoadProjectAsync();
+                project.Name = "новый_проект.bpf";
 
                 lblStatus.Text = $"{project.Path}\\{project.Name}";
 
@@ -986,7 +987,7 @@ namespace BazisGUI
                     gmshController.Open(dialog.FileName, ref ierr);
 
                     var path = Path.GetDirectoryName(dialog.FileName);
-                    var name = Path.GetFileName(dialog.FileName);
+                    var name = "новый_проект.bpf";
 
                     CreateNewProject(path, name);
 
