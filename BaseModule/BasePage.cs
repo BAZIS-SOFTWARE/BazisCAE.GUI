@@ -71,7 +71,7 @@ namespace BaseModule
         }
 
         [Category("General")]
-        [Description("Задать верхний цвет градиента для кнопочного меню быстрого доступа")]
+        [Description("Задать верхний цвет градиента для навигатора и консоли")]
         public Color ToolStrTopColor 
         { 
             get { return BaseToolStrRender.TopColor; }
@@ -79,7 +79,7 @@ namespace BaseModule
         }
 
         [Category("General")]
-        [Description("Задать нижний цвет градиента для кнопочного меню быстрого доступа")]
+        [Description("Задать нижний цвет градиента для навигатора и консоли")]
         public Color ToolStrBottomColor 
         { 
             get { return BaseToolStrRender.BottomColor; }

@@ -386,7 +386,7 @@ namespace ResultModule
             {
                 StartLocation = AddonWindowLocation.Right,
                 DefaultViewMode = FolderViewMode.Thumbnails,
-                MergeResults = true
+                MergeResults = false
             };
 
             openDialogEx.OpenDialog.InitialDirectory = Path.GetFullPath(Application.ExecutablePath);
@@ -738,7 +738,10 @@ namespace ResultModule
                 var act = new Action(() =>
                 {
                     var interfaceNodes = ModelController.InterfacedNodesFinder.Find(elements);
-                    var resKinds = Project.ResultData.GetResultKinds();
+
+                    var resKinds = results.Select(x => x.TaskKind).Distinct();
+
+                    //var resKinds = Project.ResultData.GetResultKinds();
 
                     foreach (var item in resKinds)
                     {
@@ -748,7 +751,7 @@ namespace ResultModule
                             ConsoleControl.PrintInfo("", Color.Black);
                         }));
 
-                        var resNames = Project.ResultData.First(x => x.TaskKind == item).GetDataSchema("elements");
+                        var resNames = results.First(x => x.TaskKind == item).GetDataSchema("elements");
 
                         for (int i = 1; i < resNames.Count; i++)
                         {
