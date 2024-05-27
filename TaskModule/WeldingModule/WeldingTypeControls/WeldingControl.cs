@@ -376,7 +376,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 SpecifyFunctionAreaEvent?.Invoke("Нагрев", gridView.SelectedRows[count - 1].Index);
         }
 
-        internal void SetWeldingKind(WeldingKind weldingKind)
+        public void SetWeldingKind(WeldingKind weldingKind)
         {
             WeldContainerControl wcc;
             if (weldingKind == WeldingKind.ARC)

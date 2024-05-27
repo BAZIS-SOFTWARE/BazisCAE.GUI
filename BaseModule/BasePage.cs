@@ -12,7 +12,6 @@ using System.Diagnostics;
 using BaseModule.Console;
 using BaseModule.CrossSection;
 using BaseModule.Console.Events;
-using ProjectInterfaces;
 using SceneInterface;
 using BaseModule.ToolStrips;
 using BaseModule.Navigator;
@@ -22,6 +21,7 @@ using ModelInterfaces.MeshObjects;
 using ModelInterfaces.GeometryObjects;
 using System.Data.Odbc;
 using System.ComponentModel;
+using ProjectInterfaces;
 
 namespace BaseModule
 {
@@ -957,29 +957,9 @@ namespace BaseModule
             var nodes = new List<INode>();
 
             var message = @"Начните строить путь нажав на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
+            ConsoleControl.PrintInfo(message, Color.Black);
 
-            var actBreak = new Action(() =>
-            {
-                Invoke(new Action(() =>
-                {
-                    ConsoleControl.PrintInfo("Операция отменена", Color.Black);
-                }));
-            });
-
-            var actPointConfirm = new Func<Tuple<bool, object>>(() =>
-            {
-                Invoke(new Action(() =>
-                {
-                    ConsoleControl.PrintInfo($"Начато построение пути", Color.Green);
-                }));
-                return new Tuple<bool, object>(true, true);
-
-            });
-
-            var answer = await AsyncMethodContainer(actPointConfirm, actBreak, message);
-
-            if (answer is bool)
-                while (true)
+            while (true)
                 {
                     var res = SelectNodeAsync();
                     await res;

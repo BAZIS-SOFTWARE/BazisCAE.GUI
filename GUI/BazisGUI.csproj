@@ -126,14 +126,14 @@
     <Reference Include="Octree, Version=2.1.10.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.10\lib\net48\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=3.0.11.44, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.3.0.11.44\lib\net48\Project.dll</HintPath>
+    <Reference Include="Project, Version=3.0.11.48, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.3.0.11.48\lib\net48\Project.dll</HintPath>
     </Reference>
-    <Reference Include="ProjectInterfaces, Version=3.0.43.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjectInterfaces.3.0.43\lib\net48\ProjectInterfaces.dll</HintPath>
+    <Reference Include="ProjectInterfaces, Version=3.0.45.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProjectInterfaces.3.0.45\lib\net48\ProjectInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Results, Version=3.0.0.52, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
-      <HintPath>..\packages\Results.3.0.0.52\lib\net48\Results.dll</HintPath>
+    <Reference Include="Results, Version=3.0.0.56, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
+      <HintPath>..\packages\Results.3.0.0.56\lib\net48\Results.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface, Version=1.0.40.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
       <HintPath>..\packages\SceneInterface.1.0.40\lib\net48\SceneInterface.dll</HintPath>
@@ -180,11 +180,11 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tasks, Version=3.0.0.58, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tasks.3.0.0.58\lib\net48\Tasks.dll</HintPath>
+    <Reference Include="Tasks, Version=3.0.0.65, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tasks.3.0.0.65\lib\net48\Tasks.dll</HintPath>
     </Reference>
-    <Reference Include="TasksParameters, Version=1.0.0.12, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TasksParameters.1.0.0.12\lib\net48\TasksParameters.dll</HintPath>
+    <Reference Include="TasksParameters, Version=1.0.0.13, Culture=neutral, PublicKeyToken=8bfe6827a0935d51, processorArchitecture=MSIL">
+      <HintPath>..\packages\TasksParameters.1.0.0.13\lib\net48\TasksParameters.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
