@@ -393,6 +393,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
             grbWeldRegime.Controls.Clear();
             grbWeldRegime.Controls.Add(wcc);
+
+            GetChildControlExpandHeight(grbWeldRegime);
         }
     }
 }

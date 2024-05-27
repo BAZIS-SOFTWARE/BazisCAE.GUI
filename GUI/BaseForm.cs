@@ -98,6 +98,7 @@ namespace BazisGUI
         {
             var module = TryGetModule(модулиMenuItem.Text);
             var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
+            var splitters = module.SplittersController.GetSplitters();
 
             DisconnectWithServer(module.Name);
 
@@ -110,6 +111,8 @@ namespace BazisGUI
             meshModule.GmshController = gmshController;
 
             AddModule(newModule);
+
+            newModule.SplittersController.SetSplitters(splitters);
             SetSceneViewMatrix(viewMatrix, newModule);
             newModule.SceneControl.DisplayObjects();
         }
@@ -152,6 +155,7 @@ namespace BazisGUI
             var module = TryGetModule(модулиMenuItem.Text);
 
             var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
+            var splitters = module.SplittersController.GetSplitters();
 
             DisconnectWithServer(module.Name);
 
@@ -168,6 +172,7 @@ namespace BazisGUI
 
             AddModule(newModule);
 
+            newModule.SplittersController.SetSplitters(splitters);
             SetSceneViewMatrix(viewMatrix, newModule);
             newModule.SceneControl.DisplayObjects();
         }
@@ -207,6 +212,7 @@ namespace BazisGUI
             var module = TryGetModule(модулиMenuItem.Text);
 
             var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
+            var splitters = module.SplittersController.GetSplitters();
 
             DisconnectWithServer(module.Name);
 
@@ -221,6 +227,7 @@ namespace BazisGUI
 
             AddModule(newModule);
 
+            newModule.SplittersController.SetSplitters(splitters);
             SetSceneViewMatrix(viewMatrix, newModule);
             newModule.SceneControl.DisplayObjects();
         }
@@ -230,6 +237,7 @@ namespace BazisGUI
             var module = TryGetModule(модулиMenuItem.Text);
 
             var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
+            var splitters = module.SplittersController.GetSplitters();
 
             DisconnectWithServer(module.Name);
 
@@ -244,6 +252,7 @@ namespace BazisGUI
 
             AddModule(newModule);
 
+            newModule.SplittersController.SetSplitters(splitters);
             SetSceneViewMatrix(viewMatrix, newModule);
             newModule.SceneControl.DisplayObjects();
         }
@@ -744,11 +753,7 @@ namespace BazisGUI
                 var module = TryGetModule(модулиMenuItem.Text);
                 if (module != null)
                 {
-                    module.Project = project;
-                    module.SceneInitialization();
-                    module.PresentAllModelObjectsToScene();
-                    module.PresentProjectOnTree();
-                    module.PresentModelOnSelectToolStrip();
+                    PresentProjectOnModule(module);
                 }
                 else
                 {
@@ -792,11 +797,7 @@ namespace BazisGUI
                 var module = TryGetModule(модулиMenuItem.Text);
                 if (module != null)
                 {
-                    module.Project = project;
-                    module.SceneInitialization();
-                    module.PresentAllModelObjectsToScene();
-                    module.PresentProjectOnTree();
-                    module.PresentModelOnSelectToolStrip();
+                    PresentProjectOnModule(module);
                 }
 
                 else 
@@ -804,6 +805,7 @@ namespace BazisGUI
                     module = CreateModule("Mesh");            
                     AddModule(module);
                 }
+                module.SceneControl.FitObjectsToScreen();
                 module.SceneControl.DisplayObjects();
             }
             catch (Exception ex)
@@ -875,6 +877,7 @@ namespace BazisGUI
                     project.ModelData.Loader = new LoadModelFromCDBTextFile();
 
                 await LoadProjectAsync();
+                project.Name = "новый_проект.bpf";
 
                 lblStatus.Text = $"{project.Path}\\{project.Name}";
 
@@ -886,17 +889,14 @@ namespace BazisGUI
                 var module = TryGetModule(модулиMenuItem.Text);
                 if (module != null)
                 {
-                    module.Project = project;
-                    module.SceneInitialization();
-                    module.PresentAllModelObjectsToScene();
-                    module.PresentProjectOnTree();
-                    module.PresentModelOnSelectToolStrip();
+                    PresentProjectOnModule(module);
                 }
                 else
                 {
                     module = CreateModule("Mesh");
                     AddModule(module);
                 }
+                module.SceneControl.FitObjectsToScreen();
                 module.SceneControl.DisplayObjects();
             }
 
@@ -988,7 +988,7 @@ namespace BazisGUI
                     gmshController.Open(dialog.FileName, ref ierr);
 
                     var path = Path.GetDirectoryName(dialog.FileName);
-                    var name = Path.GetFileName(dialog.FileName);
+                    var name = "новый_проект.bpf";
 
                     CreateNewProject(path, name);
 
@@ -1002,25 +1002,30 @@ namespace BazisGUI
                     var module = TryGetModule(модулиMenuItem.Text);
                     if (module != null)
                     {
-                        module.Project = project;
-                        module.SceneInitialization();
-                        module.PresentAllModelObjectsToScene();
-                        module.PresentProjectOnTree();
-                        module.PresentModelOnSelectToolStrip();
-                        module.SceneControl.FitObjectsToScreen();
-                        module.SceneControl.DisplayObjects();
+                        PresentProjectOnModule(module);
                     }
                     else
                     {
                         module = CreateModule("Mesh");
                         AddModule(module);
                     }
+                    module.SceneControl.FitObjectsToScreen();
+                    module.SceneControl.DisplayObjects();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void PresentProjectOnModule(BasePage module)
+        {
+            module.Project = project;
+            module.SceneInitialization();
+            module.PresentAllModelObjectsToScene();
+            module.PresentProjectOnTree();
+            module.PresentModelOnSelectToolStrip();
         }
 
         private void UpdateGeometry(ObjType objType)
@@ -1053,8 +1058,8 @@ namespace BazisGUI
                 if (path == null || path == "")
                 {
                     OpenFileDialog dialog = new OpenFileDialog();
-                    dialog.Filter = "All files(*.*)|*.*|" +
-                        "dinamic library(*.dll)|*.dll";
+                    dialog.Filter = "dinamic library(*.dll)|*.dll|All files(*.*)|*.*"
+                        ;
                     if (dialog.ShowDialog() == DialogResult.Cancel)
                         return;
                     path = dialog.FileName;

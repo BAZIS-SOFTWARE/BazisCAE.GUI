@@ -71,7 +71,7 @@ namespace BaseModule
         }
 
         [Category("General")]
-        [Description("Задать верхний цвет градиента для кнопочного меню быстрого доступа")]
+        [Description("Задать верхний цвет градиента для навигатора и консоли")]
         public Color ToolStrTopColor 
         { 
             get { return BaseToolStrRender.TopColor; }
@@ -79,7 +79,7 @@ namespace BaseModule
         }
 
         [Category("General")]
-        [Description("Задать нижний цвет градиента для кнопочного меню быстрого доступа")]
+        [Description("Задать нижний цвет градиента для навигатора и консоли")]
         public Color ToolStrBottomColor 
         { 
             get { return BaseToolStrRender.BottomColor; }
@@ -260,6 +260,8 @@ namespace BaseModule
             set { instrumentToolStrip.CrossSectionImage = value; }
         }
 
+        public SplittersController SplittersController { get; internal set; }
+
         public IModelController ModelController { get; set; }
 
         public IPresentersCreator PresentersCreator 
@@ -282,9 +284,6 @@ namespace BaseModule
         {
             sceneControl.Initialization();
             ClearAllDataOnScene();
-
-            //sceneControl.FitObjectsToScreen();
-            //sceneControl.DisplayObjects();
         }
 
         public void PresentAllModelObjectsToScene()
@@ -1583,16 +1582,7 @@ namespace BaseModule
             };
             consoleControl.ConsolePanelCollapseEvent += () => { splitContainer2.Panel2Collapsed = true; };
 
-            //displayToolStrip.Location = new Point(0, 0);
-            //instrumentalToolStrip.Location = new Point(0, 0);
-            //selectToolStrip.Location = new Point(0, 0);
-            //viewToolStrip.Location = new Point(0, 0);
-            //instrumentalToolStrip.Location = new Point(0, 0);
-
-            //this.toolStripContainer.TopToolStripPanel.Controls.Add(this.viewToolStrip);
-            //this.toolStripContainer.TopToolStripPanel.Controls.Add(this.instrumentalToolStrip);
-            //this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
-            //this.toolStripContainer.TopToolStripPanel.Controls.Add(this.selectToolStrip);
+            SplittersController = new SplittersController(this);
 
             displayToolStrip.Renderer = BaseToolStrRender;
             selectToolStrip.Renderer = BaseToolStrRender;
