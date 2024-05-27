@@ -1232,12 +1232,18 @@ namespace BaseModule
                     var btn = (ToolStripButton)arg2.ClickedItem;
                     if (!btn.Checked)
                     {
-                        var surfElems = Project.ModelData.ObjectData.GetAllElements().Select(x => (ISurfaceElement)x);
-                        var elemsNormals = ModelController.NormalCalculator.CalcElemsNormals(surfElems);
-    
-                        var linePresenter = PresentersCreator.CreateLineObjectsPresenter(elemsNormals);
+                        var surfElems = Project.ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement);
+                        if (surfElems.Count() > 0)
+                        {
+                            var elemsNormals = ModelController.NormalCalculator.CalcElemsNormals(surfElems.Select(x => x as ISurfaceElement));
 
-                        CreateObjectsToScene("Normals", linePresenter);
+                            var linePresenter = PresentersCreator.CreateLineObjectsPresenter(elemsNormals);
+
+                            CreateObjectsToScene("Normals", linePresenter);
+                        }
+                        else
+                            throw new Exception("Для отображения нормалей модели не заданы объекты типа \"Элемент\"," +
+                                "возможно вы пользуетесь модулем Геометрии");
                     }
                     else sceneControl.DeleteVBObjects("Normals");
                 }
