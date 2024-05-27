@@ -30,6 +30,7 @@ namespace ResultModule
             InitializeComponent();
             resItems = new Dictionary<string, List<float>>();
             nodesNames = new List<string>();
+            cmbExtentionType.Items.AddRange(new[] {".bpf", ".STL-bin", ".STL-text"});
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -47,7 +48,8 @@ namespace ResultModule
                 var time = float.Parse(selectedText);
                 var taskKind = cmbTasksResults.SelectedItem.ToString();
                 var resKind = cmbNodeGroupName.SelectedItem.ToString();
-                ExportResultEvent(new ExportResultEventArgs(time, taskKind, resKind, selectedPath));
+                var extension = cmbExtentionType.SelectedItem.ToString();
+                ExportResultEvent(new ExportResultEventArgs(time, taskKind, resKind, selectedPath, extension));
             }
             catch(Exception ex)
             {
@@ -57,7 +59,7 @@ namespace ResultModule
 
         private void CheckFormBeforeButtonClick()
         {
-            if (cmbTasksResults.Text == "" || selectedText == "" || cmbNodeGroupName.Text == "")
+            if (cmbTasksResults.Text == "" || selectedText == "" || cmbNodeGroupName.Text == "" || cmbExtentionType.Text == "")
                 throw new Exception("Перед экспортом результатов необходимо выбрать тип задачи и интервал времени для экспорта результата");
         }
 

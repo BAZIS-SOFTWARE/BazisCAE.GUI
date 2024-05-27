@@ -140,6 +140,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ResultPageSaverEventArgs.cs" />
     <Compile Include="resultsItem.cs" />
     <Compile Include="ResultsPage.cs">
       <SubType>UserControl</SubType>

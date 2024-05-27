@@ -36,6 +36,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Drawing.Drawing2D;
 using MathNet.Numerics.LinearAlgebra;
 using SceneInterface;
+using ProjectInterfaces.Results;
 
 namespace BazisGUI
 {
@@ -1097,6 +1098,6 @@ namespace BazisGUI
                 var rect = new Rectangle(locRect, new Size(menuStrip.Width, menuStrip.Height));
 
                 e.Graphics.FillRectangle(linGrBrush, rect);
-            }
+        }
     }
 }

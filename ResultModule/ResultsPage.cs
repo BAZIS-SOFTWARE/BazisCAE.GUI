@@ -881,7 +881,8 @@ namespace ResultModule
             try
             {
                 var results = Project.ResultData.FindByTime(args.TaskKind, args.Time);
-                var formatedPath = $"{args.Path}\\GridExport_{DateTime.Now.ToString().Replace("/", "_").Replace(":", "_")}.bpf";
+                var format = args.Extension.Split('-')[0];
+                var formatedPath = $"{args.Path}\\GridExport_{DateTime.Now.ToString().Replace("/", "_").Replace(":", "_")}{format}";
 
                 var scaleItems = GetScaleItems();
                 ResultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
@@ -897,8 +898,9 @@ namespace ResultModule
                     ObjType.Узел,
                     args.ResName,
                     elements);
-                ResultsController.ResultsSurfacesSaver.ExportResults(figures, formatedPath);
-                ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
+
+                ResultsController.ResultsExporter.ExportResults(figures, formatedPath, args.Extension);
+                ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {args.Path}", Color.Black);
             }
             catch (Exception ex)
             {
