@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace ResultModule
 {
@@ -12,6 +13,21 @@ namespace ResultModule
         public event Action<string> SaveScreenShotEvent;
         public event Action<string> SelectResultsEvent;
 
+        public void StopAnimation()
+        {
+            player.StopChecking();
+        }
+
+        public bool IsAnimationStarted
+        {
+            get
+            {
+                if (player.CheckState == PlayerControl.CheckState.pause)
+                    return true;
+                else return false;
+            }
+        }
+
         public AnimationPage()
         {
             InitializeComponent();
@@ -19,7 +35,7 @@ namespace ResultModule
 
         Dictionary<string, List<float>> resItems;
 
-        public bool MakeGifAnimation { get; private set; } = false;
+        //public bool MakeGifAnimation { get; private set; } = false;
 
         public void SetResultsItems(Dictionary<string, List<float>> resItems)
         {
@@ -49,8 +65,16 @@ namespace ResultModule
 
             richTextBox.Clear();
 
+            for (int i = 0; i < times.Count; i++)
+            {
+                if (i == times.Count - 1)
+                    richTextBox.AppendText($"{times[i]}");
+                else
+                    richTextBox.AppendText($"{times[i]}\n");
+            }
+
             foreach (var time in times)
-                richTextBox.AppendText($"{time}\n");
+                
 
             SelectResultsEvent?.Invoke(cmbResultNames.SelectedItem.ToString());
         }
@@ -121,8 +145,18 @@ namespace ResultModule
 
         private void btnCreateAnimation_Click(object sender, EventArgs e)
         {
-            MakeGifAnimation = true;
-            player.StartChecking_Click(this, new EventArgs());
+            try
+            {
+                var delay = int.Parse(txbDelayTime.Text);
+                var times = richTextBox.Lines.Select(x => float.Parse(x)).ToArray();
+                var scaleFactor = int.Parse(txbScale.Text);
+                CreateGIFAnimationEvent(this, new CreateAnimationEventArgs(cmbResultNames.SelectedItem.ToString(), times, scaleFactor, chbDelTempScrs.Checked, delay));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+   
         }
 
         private void playerControl_CheckingEvent(object arg1, float arg2)
@@ -134,8 +168,8 @@ namespace ResultModule
             
             ShowResultEvent(this, new ShowResultEventArgs(cmbResultNames.SelectedItem.ToString(), times[(int)arg2], scaleFactor));
 
-            if (MakeGifAnimation)
-                SaveScreenShotEvent($@"screenShot_{arg2}");
+            //if (MakeGifAnimation)
+            //    SaveScreenShotEvent($@"screenShot_{arg2}");
         }
 
         private void playerControl_StartCheckingEvent(object obj)
@@ -153,13 +187,10 @@ namespace ResultModule
 
         private void playerControl_StopCheckingEvent(object obj)
         {
-            if (MakeGifAnimation)
-            {
-                var delay = int.Parse(txbDelayTime.Text);
-                CreateGIFAnimationEvent(this, new CreateAnimationEventArgs(chbDelTempScrs.Checked, delay));
-                MakeGifAnimation = false;
-            }
-                
+            //if (MakeGifAnimation)
+            //{
+            //    MakeGifAnimation = false;
+            //}        
         }
     }
 }
