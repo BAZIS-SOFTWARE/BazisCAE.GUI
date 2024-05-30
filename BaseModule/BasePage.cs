@@ -437,10 +437,10 @@ namespace BaseModule
             var bmpPicture = new Bitmap(sceneControl.Width, sceneControl.Height);
             var gr = Graphics.FromImage(bmpPicture);
             var pos = sceneControl.PointToScreen(Point.Empty);
-            var size = new Size(sceneControl.Size.Width - 5, sceneControl.Size.Height - 5);
+            var size = new Size(sceneControl.Size.Width - 5, sceneControl.Size.Height - 20);
             gr.CopyFromScreen(pos, Point.Empty, size);
 
-            bmpPicture.Save($@"{Project.Path}\{fileName}.bmp");
+            bmpPicture.Save(fileName, System.Drawing.Imaging.ImageFormat.Bmp);
         }
 
         public void CreateObjectsToScene(string objsName, IObjsPresenter presenter)
@@ -805,8 +805,7 @@ namespace BaseModule
 
                     else if (e.ClickedItem.Tag.ToString() == "2")
                     {
-                        var scrShot = CreateScreenShot();
-                        scrShot.Save(Project.Path + "\\screenShot.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
+                        CreateScreenShot(Project.Path + "\\screenShot.bmp");
                         consoleControl.PrintInfo($"Сделан снимок экрана {Project.Path}\\screenShot.bmp", Color.Black);
                     }
                 }
@@ -1074,18 +1073,6 @@ namespace BaseModule
             await surfaceAwait;
             return (Plane)surfaceAwait.Result;
         }    
-
-        private Image CreateScreenShot()
-        {
-            this.BringToFront();
-            var bmpPicture = new Bitmap(sceneControl.Width, sceneControl.Height);
-            var gr = Graphics.FromImage(bmpPicture);
-            var pos = sceneControl.PointToScreen(new Point(10, 10));
-            var size = new Size(sceneControl.Size.Width - 10, sceneControl.Size.Height - 20);
-            gr.CopyFromScreen(pos, Point.Empty, size);
-
-            return bmpPicture;
-        }
 
         private void ViewToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {

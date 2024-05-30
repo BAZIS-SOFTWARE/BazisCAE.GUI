@@ -19,10 +19,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.AxHost;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
-using Image = System.Drawing.Image;
 
 namespace ResultModule
 {
@@ -298,7 +294,12 @@ namespace ResultModule
                 ShowIcon = false,
                 ClientSize = anPage.Size
             };
-            
+
+            anForm.FormClosing += (ar1, ar2) => 
+            {
+                if (anPage.IsAnimationStarted)
+                    anPage.StopAnimation();
+            };
             anForm.FormClosed += (ar1,ar2) =>{ anPage = null; };
             anForm.Controls.Add(anPage);
             anForm.Show();
@@ -310,13 +311,7 @@ namespace ResultModule
         {
             try
             {
-                //you should replace filepath
-
-                var search = string.Format("screenShot_*");
-                var imagesPaths = Directory.GetFiles(Project.Path, search);
-                SortCharNumberStrings(imagesPaths);
-
-                String outputFilePath = $@"{Project.Path}\results.gif";
+                var outputFilePath = $@"{Project.Path}\results.gif";
 
                 AnimatedGifEncoder e = new AnimatedGifEncoder();
 
@@ -325,27 +320,26 @@ namespace ResultModule
                 //-1:no repeat,0:always repeat
                 e.SetRepeat(0);
 
-                for (int i = 0; i < imagesPaths.Length; i++)
+                for (int i = 0; i < args.Times.Length; i++)
                 {
-                    using (var stream = new FileStream(imagesPaths[i], FileMode.Open))
+                    ShowResults(args.Times[i], args.ResltsName, args.ScaleFactor);
+                    var image = $@"screenShot_{args.Times[i]}";
+                    var imagePath = $@"{Project.Path}\{image}.bmp";
+                    CreateScreenShot(imagePath);
+
+                    using (var stream = new FileStream(imagePath, FileMode.Open))
                     {
                         var bmpImage = Image.FromStream(stream);
 
                         //var bmpImage = Image.FromFile(imagesPaths[i]);
                         e.AddFrame(bmpImage);
-                        var total = ((i / (float)imagesPaths.Length) * 100).ToString("#.##");
+                        var total = ((i + 1) / (float)args.Times.Length * 100).ToString("#.##");
                         ConsoleControl.PrintInfo($@"Создание GIF анимации {total}%", Color.Black);
                     }
-
+                    File.Delete(imagePath);
                 }
                 e.Finish();
                 ConsoleControl.PrintInfo("GIF анимация создана", Color.Green);
-
-                //delete temp scrShots
-
-                foreach (var image in imagesPaths)
-                    File.Delete(image);
-
             }
             catch (Exception ex)
             {
@@ -389,7 +383,7 @@ namespace ResultModule
                 MergeResults = false
             };
 
-            openDialogEx.OpenDialog.InitialDirectory = Path.GetFullPath(Application.ExecutablePath);
+            openDialogEx.OpenDialog.InitialDirectory = Path.GetFullPath(System.Windows.Forms.Application.ExecutablePath);
             openDialogEx.OpenDialog.AddExtension = true;
  
             openDialogEx.StartLocation = AddonWindowLocation.None;
