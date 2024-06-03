@@ -37,6 +37,7 @@ using System.Drawing.Drawing2D;
 using MathNet.Numerics.LinearAlgebra;
 using SceneInterface;
 using ProjectInterfaces.Results;
+using System.Xml.Linq;
 
 namespace BazisGUI
 {
@@ -112,8 +113,11 @@ namespace BazisGUI
 
             AddModule(newModule);
 
+            PresentProjectOnModule(newModule);
+
             newModule.SplittersController.SetSplitters(splitters);
             SetSceneViewMatrix(viewMatrix, newModule);
+
             newModule.SceneControl.DisplayObjects();
         }
 
@@ -172,6 +176,8 @@ namespace BazisGUI
 
             AddModule(newModule);
 
+            PresentProjectOnModule(newModule);
+
             newModule.SplittersController.SetSplitters(splitters);
             SetSceneViewMatrix(viewMatrix, newModule);
             newModule.SceneControl.DisplayObjects();
@@ -227,6 +233,8 @@ namespace BazisGUI
 
             AddModule(newModule);
 
+            PresentProjectOnModule(newModule);
+
             newModule.SplittersController.SetSplitters(splitters);
             SetSceneViewMatrix(viewMatrix, newModule);
             newModule.SceneControl.DisplayObjects();
@@ -251,6 +259,8 @@ namespace BazisGUI
             htPage.PreProc = new PreProc();
 
             AddModule(newModule);
+
+            PresentProjectOnModule(newModule);
 
             newModule.SplittersController.SetSplitters(splitters);
             SetSceneViewMatrix(viewMatrix, newModule);
@@ -279,6 +289,8 @@ namespace BazisGUI
             if (serverConnection.Answer == "можно")
                 StartLicensing(module);
             else StartLisenceForm(module);
+
+
         }
 
         private BasePage CreateModule(string moduleName)
@@ -751,15 +763,16 @@ namespace BazisGUI
                 модулиMenuItem.Enabled = true;
 
                 var module = TryGetModule(модулиMenuItem.Text);
-                if (module != null)
-                {
-                    PresentProjectOnModule(module);
-                }
-                else
+                if (module == null)
                 {
                     module = CreateModule("Mesh");
                     AddModule(module);
                 }
+
+                else
+                    module.SceneInitialization();
+
+                PresentProjectOnModule(module);
                 module.SceneControl.DisplayObjects();
             }
             catch (Exception ex)
@@ -795,16 +808,15 @@ namespace BazisGUI
                 модулиMenuItem.Enabled = true;
 
                 var module = TryGetModule(модулиMenuItem.Text);
-                if (module != null)
+                if (module == null)
                 {
-                    PresentProjectOnModule(module);
-                }
-
-                else 
-                {
-                    module = CreateModule("Mesh");            
+                    module = CreateModule("Mesh");
                     AddModule(module);
                 }
+                else
+                    module.SceneInitialization();
+
+                PresentProjectOnModule(module);
                 module.SceneControl.FitObjectsToScreen();
                 module.SceneControl.DisplayObjects();
             }
@@ -887,15 +899,15 @@ namespace BazisGUI
                 модулиMenuItem.Enabled = true;
 
                 var module = TryGetModule(модулиMenuItem.Text);
-                if (module != null)
-                {
-                    PresentProjectOnModule(module);
-                }
-                else
+                if (module == null)
                 {
                     module = CreateModule("Mesh");
                     AddModule(module);
                 }
+                else
+                    module.SceneInitialization();
+
+                PresentProjectOnModule(module);
                 module.SceneControl.FitObjectsToScreen();
                 module.SceneControl.DisplayObjects();
             }
@@ -1000,15 +1012,15 @@ namespace BazisGUI
                     UpdateGeometry(ObjType.Линия);
 
                     var module = TryGetModule(модулиMenuItem.Text);
-                    if (module != null)
-                    {
-                        PresentProjectOnModule(module);
-                    }
-                    else
+                    if (module == null)
                     {
                         module = CreateModule("Mesh");
                         AddModule(module);
                     }
+                    else 
+                        module.SceneInitialization();
+
+                    PresentProjectOnModule(module);
                     module.SceneControl.FitObjectsToScreen();
                     module.SceneControl.DisplayObjects();
                 }
@@ -1022,7 +1034,6 @@ namespace BazisGUI
         private void PresentProjectOnModule(BasePage module)
         {
             module.Project = project;
-            module.SceneInitialization();
             module.PresentAllModelObjectsToScene();
             module.PresentProjectOnTree();
             module.PresentModelOnSelectToolStrip();

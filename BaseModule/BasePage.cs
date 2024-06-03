@@ -278,6 +278,7 @@ namespace BaseModule
         public BasePage()
         {
             InitializeComponent();
+            CreateMenuInterface();
         }
 
         public void SceneInitialization()
@@ -2105,11 +2106,6 @@ namespace BaseModule
         private void sceneControl_Load(object sender, EventArgs e)
         {
             SceneInitialization();
-            CreateMenuInterface();
-            PresentAllModelObjectsToScene();
-            PresentProjectOnTree();
-            PresentModelOnSelectToolStrip();
-            sceneControl.FitObjectsToScreen();
         }
     }
 }
