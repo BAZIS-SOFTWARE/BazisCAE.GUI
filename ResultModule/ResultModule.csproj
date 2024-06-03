@@ -236,5 +236,8 @@
     <Content Include="Resources\Show_table.bmp" />
     <Content Include="Resources\Show_value.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Animation\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
