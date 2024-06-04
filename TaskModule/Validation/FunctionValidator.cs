@@ -23,6 +23,7 @@ namespace TaskModule.Validation
                 if (AvailableFunctions.Contains(str) || float.TryParse(str, out float e))
                     return true;
             }
+            ErrorMessage = "Ввыбранная функция была изменена, или числовое значение задано с ошибкой";
             return false;
         }
     }
