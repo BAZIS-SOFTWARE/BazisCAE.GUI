@@ -31,7 +31,6 @@ namespace TaskModule.Validation
             errorMessage = string.Empty;
             return true;
         }
-
         public static void cmb_Validating(object sender, ValidationEventArgs e)
         {
             string errorMessage = string.Empty;

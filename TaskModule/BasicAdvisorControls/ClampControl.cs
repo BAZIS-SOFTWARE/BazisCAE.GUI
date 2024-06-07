@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Schema;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -9,6 +10,7 @@ using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
+using TaskModule.Validation;
 
 namespace TaskModule.BasicAdvisorControls
 {
@@ -57,7 +59,7 @@ namespace TaskModule.BasicAdvisorControls
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
-                
+
         enum Column : int { node,kind, direction, function,startTime, stopTime };
         //enum Kind : int { rigid, elastic = 1, contact, simmetry = 2 };
 
@@ -310,6 +312,11 @@ namespace TaskModule.BasicAdvisorControls
         {
             if(!chbLRF.Enabled)
                 chbLRF.Checked = false;
+        }
+
+        private void cmb_Validating(object sender, Validation.ValidationEventArgs e)
+        {
+            FunctionValidator.cmb_Validating(sender, e);
         }
     }
 }

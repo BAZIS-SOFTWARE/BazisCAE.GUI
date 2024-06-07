@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.ComponentModel;
+using System.Windows.Forms;
 using TaskModule.Validation;
 
 namespace TaskModule.BasicAdvisorControls
@@ -361,7 +363,7 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbNodeGr.Name = "cmbNodeGr";
             this.cmbNodeGr.Size = new System.Drawing.Size(414, 21);
             this.cmbNodeGr.TabIndex = 43;
-            this.cmbNodeGr.Validating += new DataGridViewCellCancelEventHandler(FunctionValidator.cmb_Validating(this, new ValidationEventArgs(cmbNodeGrEP, cmbNodeGr)));
+            this.cmbNodeGr.Validating += new CancelEventHandler(this.cmb_Validating);
             //
             // 
             // label1
