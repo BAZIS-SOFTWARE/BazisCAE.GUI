@@ -1,4 +1,7 @@
-﻿namespace TaskModule.BasicAdvisorControls
+﻿using System.Windows.Forms;
+using TaskModule.Validation;
+
+namespace TaskModule.BasicAdvisorControls
 {
     partial class ClampControl
     {
@@ -21,6 +24,9 @@
         }
 
         #region Код, автоматически созданный конструктором компонентов
+
+        // ErrorProviders
+        private ErrorProvider cmbNodeGrEP;
 
         /// <summary> 
         /// Требуемый метод для поддержки конструктора — не изменяйте 
@@ -336,6 +342,14 @@
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Вид закрепления";
+            //
+            // cmbNodeGrEP
+            //
+            cmbNodeGrEP = new System.Windows.Forms.ErrorProvider();
+            cmbNodeGrEP.SetIconAlignment(this.cmbNodeGr, ErrorIconAlignment.MiddleRight);
+            cmbNodeGrEP.SetIconPadding(this.cmbNodeGr, 2);
+            cmbNodeGrEP.BlinkRate = 1000;
+            cmbNodeGrEP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             // 
             // cmbNodeGr
             // 
@@ -347,6 +361,8 @@
             this.cmbNodeGr.Name = "cmbNodeGr";
             this.cmbNodeGr.Size = new System.Drawing.Size(414, 21);
             this.cmbNodeGr.TabIndex = 43;
+            this.cmbNodeGr.Validating += new DataGridViewCellCancelEventHandler(FunctionValidator.cmb_Validating(this, new ValidationEventArgs(cmbNodeGrEP, cmbNodeGr)));
+            //
             // 
             // label1
             // 
