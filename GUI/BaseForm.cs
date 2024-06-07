@@ -38,6 +38,7 @@ using MathNet.Numerics.LinearAlgebra;
 using SceneInterface;
 using ProjectInterfaces.Results;
 using System.Xml.Linq;
+using BaseModule.ControlsComponents;
 
 namespace BazisGUI
 {
@@ -69,7 +70,7 @@ namespace BazisGUI
         public BaseForm()
         {
             InitializeComponent();
-
+            ComponentsPainter.Font = this.Font;
             GetServerConnection();
         }
 
@@ -1109,6 +1110,15 @@ namespace BazisGUI
                 var rect = new Rectangle(locRect, new Size(menuStrip.Width, menuStrip.Height));
 
                 e.Graphics.FillRectangle(linGrBrush, rect);
+        }
+
+        private void модулиMenuItem_Paint_1(object sender, PaintEventArgs e)
+        {
+            //Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 1.5f);
+
+            //var rect = new Rectangle(new Point(0, 0), new Size(модулиMenuItem.Width - 1, модулиMenuItem.Height - 1));
+
+            //e.Graphics.DrawRectangle(blackPen, rect);
         }
     }
 }

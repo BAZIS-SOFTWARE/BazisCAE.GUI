@@ -129,6 +129,7 @@
       <DependentUpon>ConsoleControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Console\FindObjectEventArgs.cs" />
+    <Compile Include="ControlsPainter\ComponentsPainter.cs" />
     <Compile Include="CrossSection\CreatePlaneFromTextArgs.cs" />
     <Compile Include="CrossSection\CrossSectionControl.cs">
       <SubType>UserControl</SubType>

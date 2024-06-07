@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseModule.ControlsComponents;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -107,56 +108,20 @@ namespace BaseModule.ToolStrips
         }
 
 
-
-        protected override void OnRenderLabelBackground(ToolStripItemRenderEventArgs e)
-        {
-            var lbl = e.Item as ToolStripLabel;
-            
-            var gr = e.Graphics;
-
-            var recHeigth = 15;
-
-            var locRect = new Point(0, lbl.Height - recHeigth);
-
-            var linGrBrush = new LinearGradientBrush(
-   new Point(0, lbl.Height),
-   new Point(0, lbl.Height + 15),
-   BottomColor,   // Opaque red
-   TopColor);  // Opaque blue
-
-            var rect = new Rectangle(locRect, new Size(lbl.Width, 15));
-
-            e.Graphics.FillRectangle(linGrBrush, rect);
-
-        }
-
         protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e)
         {
             var tls = e.ToolStrip;
 
-            if(tls.Text != "")
+            if (tls.Text != "")
             {
                 var gr = e.Graphics;
+                var parentSize = tls.Parent.Size;
+                ComponentsPainter.PaintGradientRectangle(gr, new Point(0, parentSize.Height - 16),tls.Width, parentSize.Height, TopColor, BottomColor);
 
-                Font _TabFont = new Font(FontFamily.GenericSansSerif, (float)11, FontStyle.Regular, GraphicsUnit.Pixel);
-                SizeF messageSize = gr.MeasureString(tls.Text, _TabFont);
-                var xc = tls.Width / 2 - messageSize.Width / 2;
-                var yc = tls.Height - messageSize.Height;
-                PointF p = new PointF(xc, yc - 2);
-
-                var locRect = new Point(0, (int)yc + 2);
-
-                var linGrBrush = new LinearGradientBrush(
-       new Point(0, (int)yc),
-       new Point(0, tls.Height),
-       BottomColor,   // Opaque red
-       TopColor);  // Opaque blue
-
-                var rect = new Rectangle(locRect, new Size(tls.Width, tls.Height));
-
-                e.Graphics.FillRectangle(linGrBrush, rect);
-
-                gr.DrawString(tls.Text, _TabFont, SystemBrushes.WindowText, p);
+                SizeF messageSize = gr.MeasureString(tls.Text, ComponentsPainter.Font);
+                var x = tls.Width / 2 - messageSize.Width / 2;
+                var y = parentSize.Height - messageSize.Height;
+                gr.DrawString(tls.Text, ComponentsPainter.Font, SystemBrushes.WindowText, x, y);
             }            
         }
         

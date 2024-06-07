@@ -30,12 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NavigatorControl));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Название проекта :", 0, 0);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Путь :", 0, 0);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Сведения :", 0, 0);
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Вид :");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Объекты", 1, 1);
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Группы объектов", 1, 1);
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Название проекта :", 0, 0);
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Путь :", 0, 0);
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Сведения :", 0, 0);
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Вид :");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Объекты", 1, 1);
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Группы объектов", 1, 1);
             this.objects_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,13 +87,13 @@
             this.toolStripMenuItem2,
             this.toolStripMenuItem3});
             this.objects_MenuStrip.Name = "lv0_MenuStrip";
-            this.objects_MenuStrip.Size = new System.Drawing.Size(147, 82);
+            this.objects_MenuStrip.Size = new System.Drawing.Size(129, 82);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(146, 26);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(128, 26);
             this.toolStripMenuItem1.Text = "Удалить";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.DelAllObjects_Click);
             // 
@@ -101,7 +101,7 @@
             // 
             this.toolStripMenuItem2.Image = global::BaseModule.Properties.Resources.Hide;
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(146, 26);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(128, 26);
             this.toolStripMenuItem2.Text = "Скрыть";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.HideAllObjects_Click);
             // 
@@ -109,7 +109,7 @@
             // 
             this.toolStripMenuItem3.Image = global::BaseModule.Properties.Resources.Show;
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(146, 26);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(128, 26);
             this.toolStripMenuItem3.Text = "Показать";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.ShowAllObjects_Click);
             // 
@@ -121,13 +121,13 @@
             this.toolStripMenuItem11,
             this.toolStripMenuItem12});
             this.groups_MenuStrip.Name = "lv0_MenuStrip";
-            this.groups_MenuStrip.Size = new System.Drawing.Size(147, 82);
+            this.groups_MenuStrip.Size = new System.Drawing.Size(129, 82);
             // 
             // toolStripMenuItem10
             // 
             this.toolStripMenuItem10.Image = global::BaseModule.Properties.Resources.Delete;
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(146, 26);
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(128, 26);
             this.toolStripMenuItem10.Text = "Удалить";
             this.toolStripMenuItem10.Click += new System.EventHandler(this.DelAllGroups_Click);
             // 
@@ -135,7 +135,7 @@
             // 
             this.toolStripMenuItem11.Image = global::BaseModule.Properties.Resources.Hide;
             this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            this.toolStripMenuItem11.Size = new System.Drawing.Size(146, 26);
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(128, 26);
             this.toolStripMenuItem11.Text = "Скрыть";
             this.toolStripMenuItem11.Click += new System.EventHandler(this.HideAllGroups_Click);
             // 
@@ -143,7 +143,7 @@
             // 
             this.toolStripMenuItem12.Image = global::BaseModule.Properties.Resources.Show;
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(146, 26);
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(128, 26);
             this.toolStripMenuItem12.Text = "Показать";
             this.toolStripMenuItem12.Click += new System.EventHandler(this.ShowAllGroups_Click);
             // 
@@ -188,13 +188,13 @@
             this.toolStripMenuItem8,
             this.toolStripMenuItem9});
             this.ndGroup_MenuStrip.Name = "lv11_MenuStrip";
-            this.ndGroup_MenuStrip.Size = new System.Drawing.Size(195, 160);
+            this.ndGroup_MenuStrip.Size = new System.Drawing.Size(166, 160);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem4.Image")));
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(194, 26);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(165, 26);
             this.toolStripMenuItem4.Text = "Удалить";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.DelGroup_Click);
             // 
@@ -202,7 +202,7 @@
             // 
             this.toolStripMenuItem5.Image = global::BaseModule.Properties.Resources.Hide;
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(194, 26);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(165, 26);
             this.toolStripMenuItem5.Text = "Скрыть";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.HideGroup_Click);
             // 
@@ -210,7 +210,7 @@
             // 
             this.toolStripMenuItem6.Image = global::BaseModule.Properties.Resources.Show;
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(194, 26);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(165, 26);
             this.toolStripMenuItem6.Text = "Показать";
             this.toolStripMenuItem6.Click += new System.EventHandler(this.ShowGroup_Click);
             // 
@@ -218,7 +218,7 @@
             // 
             this.toolStripMenuItem7.Image = global::BaseModule.Properties.Resources.Edit;
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(194, 26);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(165, 26);
             this.toolStripMenuItem7.Text = "Изменить";
             this.toolStripMenuItem7.Click += new System.EventHandler(this.EditGroup_Click);
             // 
@@ -226,7 +226,7 @@
             // 
             this.toolStripMenuItem8.Image = global::BaseModule.Properties.Resources.Rename;
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(194, 26);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(165, 26);
             this.toolStripMenuItem8.Text = "Переименовать";
             this.toolStripMenuItem8.Click += new System.EventHandler(this.RenameGroup_Click);
             // 
@@ -234,7 +234,7 @@
             // 
             this.toolStripMenuItem9.Image = global::BaseModule.Properties.Resources.Info;
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(194, 26);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(165, 26);
             this.toolStripMenuItem9.Text = "Инфо";
             this.toolStripMenuItem9.Click += new System.EventHandler(this.InfoGroup_Click);
             // 
@@ -247,13 +247,13 @@
             this.скрытьMenuItem,
             this.отображениеToolStripMenuItem});
             this.object_MenuStrip.Name = "lv0_MenuStrip";
-            this.object_MenuStrip.Size = new System.Drawing.Size(180, 108);
+            this.object_MenuStrip.Size = new System.Drawing.Size(155, 108);
             // 
             // удалитьОбъектMenuItem
             // 
             this.удалитьОбъектMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("удалитьОбъектMenuItem.Image")));
             this.удалитьОбъектMenuItem.Name = "удалитьОбъектMenuItem";
-            this.удалитьОбъектMenuItem.Size = new System.Drawing.Size(179, 26);
+            this.удалитьОбъектMenuItem.Size = new System.Drawing.Size(154, 26);
             this.удалитьОбъектMenuItem.Text = "Удалить";
             this.удалитьОбъектMenuItem.Click += new System.EventHandler(this.DelObjects_Click);
             // 
@@ -261,7 +261,7 @@
             // 
             this.показатьОбъектMenuItem.Image = global::BaseModule.Properties.Resources.Show;
             this.показатьОбъектMenuItem.Name = "показатьОбъектMenuItem";
-            this.показатьОбъектMenuItem.Size = new System.Drawing.Size(179, 26);
+            this.показатьОбъектMenuItem.Size = new System.Drawing.Size(154, 26);
             this.показатьОбъектMenuItem.Text = "Показать";
             this.показатьОбъектMenuItem.Click += new System.EventHandler(this.ShowObjects_Click);
             // 
@@ -269,7 +269,7 @@
             // 
             this.скрытьMenuItem.Image = global::BaseModule.Properties.Resources.Hide;
             this.скрытьMenuItem.Name = "скрытьMenuItem";
-            this.скрытьMenuItem.Size = new System.Drawing.Size(179, 26);
+            this.скрытьMenuItem.Size = new System.Drawing.Size(154, 26);
             this.скрытьMenuItem.Text = "Скрыть";
             this.скрытьMenuItem.Click += new System.EventHandler(this.HideObjects_Click);
             // 
@@ -280,27 +280,27 @@
             this.поверхностиToolStripMenuItem,
             this.ребраИПоверхностиToolStripMenuItem});
             this.отображениеToolStripMenuItem.Name = "отображениеToolStripMenuItem";
-            this.отображениеToolStripMenuItem.Size = new System.Drawing.Size(179, 26);
+            this.отображениеToolStripMenuItem.Size = new System.Drawing.Size(154, 26);
             this.отображениеToolStripMenuItem.Text = "Отображение";
             // 
             // ребраToolStripMenuItem
             // 
             this.ребраToolStripMenuItem.Name = "ребраToolStripMenuItem";
-            this.ребраToolStripMenuItem.Size = new System.Drawing.Size(241, 26);
+            this.ребраToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.ребраToolStripMenuItem.Text = "Ребра";
             this.ребраToolStripMenuItem.Click += new System.EventHandler(this.ребраToolStripMenuItem_Click);
             // 
             // поверхностиToolStripMenuItem
             // 
             this.поверхностиToolStripMenuItem.Name = "поверхностиToolStripMenuItem";
-            this.поверхностиToolStripMenuItem.Size = new System.Drawing.Size(241, 26);
+            this.поверхностиToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.поверхностиToolStripMenuItem.Text = "Поверхности";
             this.поверхностиToolStripMenuItem.Click += new System.EventHandler(this.поверхностиToolStripMenuItem_Click);
             // 
             // ребраИПоверхностиToolStripMenuItem
             // 
             this.ребраИПоверхностиToolStripMenuItem.Name = "ребраИПоверхностиToolStripMenuItem";
-            this.ребраИПоверхностиToolStripMenuItem.Size = new System.Drawing.Size(241, 26);
+            this.ребраИПоверхностиToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.ребраИПоверхностиToolStripMenuItem.Text = "Ребра и поверхности";
             this.ребраИПоверхностиToolStripMenuItem.Click += new System.EventHandler(this.ребраИПоверхностиToolStripMenuItem_Click);
             // 
@@ -316,13 +316,13 @@
             this.toolStripMenuItem21,
             this.toolStripMenuItem22});
             this.elGroup_MenuStrip.Name = "lv11_MenuStrip";
-            this.elGroup_MenuStrip.Size = new System.Drawing.Size(212, 186);
+            this.elGroup_MenuStrip.Size = new System.Drawing.Size(181, 186);
             // 
             // toolStripMenuItem16
             // 
             this.toolStripMenuItem16.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem16.Image")));
             this.toolStripMenuItem16.Name = "toolStripMenuItem16";
-            this.toolStripMenuItem16.Size = new System.Drawing.Size(211, 26);
+            this.toolStripMenuItem16.Size = new System.Drawing.Size(180, 26);
             this.toolStripMenuItem16.Text = "Удалить";
             this.toolStripMenuItem16.Click += new System.EventHandler(this.DelGroup_Click);
             // 
@@ -330,7 +330,7 @@
             // 
             this.toolStripMenuItem17.Image = global::BaseModule.Properties.Resources.Hide;
             this.toolStripMenuItem17.Name = "toolStripMenuItem17";
-            this.toolStripMenuItem17.Size = new System.Drawing.Size(211, 26);
+            this.toolStripMenuItem17.Size = new System.Drawing.Size(180, 26);
             this.toolStripMenuItem17.Text = "Скрыть";
             this.toolStripMenuItem17.Click += new System.EventHandler(this.HideGroup_Click);
             // 
@@ -338,7 +338,7 @@
             // 
             this.toolStripMenuItem18.Image = global::BaseModule.Properties.Resources.Show;
             this.toolStripMenuItem18.Name = "toolStripMenuItem18";
-            this.toolStripMenuItem18.Size = new System.Drawing.Size(211, 26);
+            this.toolStripMenuItem18.Size = new System.Drawing.Size(180, 26);
             this.toolStripMenuItem18.Text = "Показать";
             this.toolStripMenuItem18.Click += new System.EventHandler(this.ShowGroup_Click);
             // 
@@ -346,7 +346,7 @@
             // 
             this.toolStripMenuItem19.Image = global::BaseModule.Properties.Resources.Edit;
             this.toolStripMenuItem19.Name = "toolStripMenuItem19";
-            this.toolStripMenuItem19.Size = new System.Drawing.Size(211, 26);
+            this.toolStripMenuItem19.Size = new System.Drawing.Size(180, 26);
             this.toolStripMenuItem19.Text = "Изменить";
             this.toolStripMenuItem19.Click += new System.EventHandler(this.EditGroup_Click);
             // 
@@ -354,7 +354,7 @@
             // 
             this.toolStripMenuItem20.Image = global::BaseModule.Properties.Resources.Rename;
             this.toolStripMenuItem20.Name = "toolStripMenuItem20";
-            this.toolStripMenuItem20.Size = new System.Drawing.Size(211, 26);
+            this.toolStripMenuItem20.Size = new System.Drawing.Size(180, 26);
             this.toolStripMenuItem20.Text = "Переименовать";
             this.toolStripMenuItem20.Click += new System.EventHandler(this.RenameGroup_Click);
             // 
@@ -362,7 +362,7 @@
             // 
             this.toolStripMenuItem21.Image = global::BaseModule.Properties.Resources.Info;
             this.toolStripMenuItem21.Name = "toolStripMenuItem21";
-            this.toolStripMenuItem21.Size = new System.Drawing.Size(211, 26);
+            this.toolStripMenuItem21.Size = new System.Drawing.Size(180, 26);
             this.toolStripMenuItem21.Text = "Инфо";
             this.toolStripMenuItem21.Click += new System.EventHandler(this.InfoGroup_Click);
             // 
@@ -370,7 +370,7 @@
             // 
             this.toolStripMenuItem22.Image = global::BaseModule.Properties.Resources.NodeFromElemGroup;
             this.toolStripMenuItem22.Name = "toolStripMenuItem22";
-            this.toolStripMenuItem22.Size = new System.Drawing.Size(211, 26);
+            this.toolStripMenuItem22.Size = new System.Drawing.Size(180, 26);
             this.toolStripMenuItem22.Text = "Показать с узлами";
             this.toolStripMenuItem22.Click += new System.EventHandler(this.ShowGroupWithNodes_Click);
             // 
@@ -386,49 +386,49 @@
             this.treeView.ImageList = this.treeNodesImageList_16x16;
             this.treeView.Indent = 19;
             this.treeView.ItemHeight = 18;
-            this.treeView.Location = new System.Drawing.Point(0, 23);
-            this.treeView.Margin = new System.Windows.Forms.Padding(1);
+            this.treeView.Location = new System.Drawing.Point(0, 15);
+            this.treeView.Margin = new System.Windows.Forms.Padding(0);
             this.treeView.Name = "treeView";
-            treeNode1.ImageIndex = 0;
-            treeNode1.Name = "названиеПроекта";
-            treeNode1.SelectedImageIndex = 0;
-            treeNode1.Tag = "0";
-            treeNode1.Text = "Название проекта :";
-            treeNode2.ImageIndex = 0;
-            treeNode2.Name = "путь";
-            treeNode2.SelectedImageIndex = 0;
-            treeNode2.Tag = "1";
-            treeNode2.Text = "Путь :";
-            treeNode3.ImageIndex = 0;
-            treeNode3.Name = "сведения";
-            treeNode3.SelectedImageIndex = 0;
-            treeNode3.Tag = "2";
-            treeNode3.Text = "Сведения :";
-            treeNode4.Name = "вид";
-            treeNode4.Tag = "3";
-            treeNode4.Text = "Вид :";
-            treeNode5.ContextMenuStrip = this.objects_MenuStrip;
-            treeNode5.ImageIndex = 1;
-            treeNode5.Name = "объекты";
-            treeNode5.SelectedImageIndex = 1;
-            treeNode5.Tag = "4";
-            treeNode5.Text = "Объекты";
-            treeNode6.ContextMenuStrip = this.groups_MenuStrip;
-            treeNode6.ImageIndex = 1;
-            treeNode6.Name = "группыОбъектов";
-            treeNode6.SelectedImageIndex = 1;
-            treeNode6.Tag = "5";
-            treeNode6.Text = "Группы объектов";
+            treeNode7.ImageIndex = 0;
+            treeNode7.Name = "названиеПроекта";
+            treeNode7.SelectedImageIndex = 0;
+            treeNode7.Tag = "0";
+            treeNode7.Text = "Название проекта :";
+            treeNode8.ImageIndex = 0;
+            treeNode8.Name = "путь";
+            treeNode8.SelectedImageIndex = 0;
+            treeNode8.Tag = "1";
+            treeNode8.Text = "Путь :";
+            treeNode9.ImageIndex = 0;
+            treeNode9.Name = "сведения";
+            treeNode9.SelectedImageIndex = 0;
+            treeNode9.Tag = "2";
+            treeNode9.Text = "Сведения :";
+            treeNode10.Name = "вид";
+            treeNode10.Tag = "3";
+            treeNode10.Text = "Вид :";
+            treeNode11.ContextMenuStrip = this.objects_MenuStrip;
+            treeNode11.ImageIndex = 1;
+            treeNode11.Name = "объекты";
+            treeNode11.SelectedImageIndex = 1;
+            treeNode11.Tag = "4";
+            treeNode11.Text = "Объекты";
+            treeNode12.ContextMenuStrip = this.groups_MenuStrip;
+            treeNode12.ImageIndex = 1;
+            treeNode12.Name = "группыОбъектов";
+            treeNode12.SelectedImageIndex = 1;
+            treeNode12.Tag = "5";
+            treeNode12.Text = "Группы объектов";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6});
+            treeNode7,
+            treeNode8,
+            treeNode9,
+            treeNode10,
+            treeNode11,
+            treeNode12});
             this.treeView.SelectedImageIndex = 0;
             this.treeView.ShowLines = false;
-            this.treeView.Size = new System.Drawing.Size(279, 403);
+            this.treeView.Size = new System.Drawing.Size(223, 325);
             this.treeView.TabIndex = 2;
             this.treeView.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_BeforeLabelEdit);
             this.treeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_AfterLabelEdit);
@@ -443,9 +443,8 @@
             this.grbNavigator.Controls.Add(this.treeView);
             this.grbNavigator.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbNavigator.Location = new System.Drawing.Point(0, 0);
-            this.grbNavigator.Margin = new System.Windows.Forms.Padding(4);
             this.grbNavigator.Name = "grbNavigator";
-            this.grbNavigator.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
+            this.grbNavigator.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
             this.grbNavigator.Size = new System.Drawing.Size(225, 342);
             this.grbNavigator.TabIndex = 5;
             this.grbNavigator.Paint += new System.Windows.Forms.PaintEventHandler(this.grbNavigator_Paint);
