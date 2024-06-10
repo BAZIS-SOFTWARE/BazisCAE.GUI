@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace BaseModule.ToolStrips
+namespace BaseModule.ControlsLib
 {
     public partial class SelectToolStrip: ToolStrip
     {

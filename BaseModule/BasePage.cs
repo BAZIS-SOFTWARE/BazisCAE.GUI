@@ -13,7 +13,7 @@ using BaseModule.Console;
 using BaseModule.CrossSection;
 using BaseModule.Console.Events;
 using SceneInterface;
-using BaseModule.ToolStrips;
+using BaseModule.ControlsLib;
 using BaseModule.Navigator;
 using ModelControllerInterfaces;
 using System.Threading;
@@ -226,14 +226,6 @@ namespace BaseModule
         {
             get { return displayToolStrip.VolumeNodesImage; }
             set { displayToolStrip.VolumeNodesImage = value; }
-        }
-
-        [Category("displayToolStrip")]
-        [Description("Иконка отображения названия проекта")]
-        public Image TitleInfoImage
-        {
-            get { return displayToolStrip.TitleInfoImage; }
-            set { displayToolStrip.TitleInfoImage = value; }
         }
 
         [Category("instrumentalToolStrip")]

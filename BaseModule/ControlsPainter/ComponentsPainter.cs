@@ -12,7 +12,7 @@ namespace BaseModule.ControlsComponents
 {
     public static class ComponentsPainter
     {
-        public static Font Font { get; set; }
+        public static Font Font { get; set; } = new Font("Arial", 10);
         public static void PaintCloseRectangle(Graphics graphics, Point locRect)
         {
             Pen blackPen1 = new Pen(Color.FromArgb(255, 0, 0, 0), 1);
@@ -45,6 +45,13 @@ namespace BaseModule.ControlsComponents
             var rect = new Rectangle(location, new Size(width, heigth));
 
             graphics.FillRectangle(linGrBrush, rect);
+        }
+
+        public static void PaintFrameRectangle(Graphics graphics, float thickness,Color color,Point location, int width, int heigth)
+        {
+            var pen = new Pen(color, thickness);
+            var rect = new Rectangle(location, new Size(width, heigth));
+            graphics.DrawRectangle(pen, rect);
         }
     }
 }

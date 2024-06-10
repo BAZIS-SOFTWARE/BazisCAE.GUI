@@ -1,4 +1,4 @@
-﻿namespace BaseModule.ToolStrips
+﻿namespace BaseModule.ControlsLib
 {
     partial class DisplayToolStrip
     {
@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayToolStrip));
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnTitleInfo = new System.Windows.Forms.ToolStripButton();
             this.btnVolumeNodes = new System.Windows.Forms.ToolStripButton();
             this.btnSurfaceNodes = new System.Windows.Forms.ToolStripButton();
             this.btnElementsFramesAndSurfaces = new System.Windows.Forms.ToolStripButton();
@@ -41,32 +38,6 @@
             this.btnElementsNormals = new System.Windows.Forms.ToolStripButton();
             this.btnBoundaryContours = new System.Windows.Forms.ToolStripButton();
             this.SuspendLayout();
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.AutoSize = false;
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 50);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.AutoSize = false;
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 50);
-            // 
-            // btnTitleInfo
-            // 
-            this.btnTitleInfo.AutoSize = false;
-            this.btnTitleInfo.CheckOnClick = true;
-            this.btnTitleInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnTitleInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnTitleInfo.Image")));
-            this.btnTitleInfo.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnTitleInfo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnTitleInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnTitleInfo.Name = "btnTitleInfo";
-            this.btnTitleInfo.Size = new System.Drawing.Size(36, 50);
-            this.btnTitleInfo.Tag = "0";
-            this.btnTitleInfo.Text = "О проекте";
             // 
             // btnVolumeNodes
             // 
@@ -183,18 +154,14 @@
             // 
             this.Dock = System.Windows.Forms.DockStyle.None;
             this.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnTitleInfo,
-            this.toolStripSeparator2,
             this.btnVolumeNodes,
             this.btnSurfaceNodes,
-            this.toolStripSeparator1,
             this.btnElementsFramesAndSurfaces,
             this.btnElementsFrames,
             this.btnElementsSurfaces,
             this.btnShowBasis,
             this.btnElementsNormals,
             this.btnBoundaryContours});
-            this.Size = new System.Drawing.Size(100, 25);
             this.Text = "Отображение";
             this.ResumeLayout(false);
 
@@ -203,7 +170,6 @@
         #endregion
 
         private System.Windows.Forms.ToolStripButton btnShowBasis;
-        private System.Windows.Forms.ToolStripButton btnTitleInfo;
         private System.Windows.Forms.ToolStripButton btnVolumeNodes;
         private System.Windows.Forms.ToolStripButton btnBoundaryContours;
         private System.Windows.Forms.ToolStripButton btnElementsFramesAndSurfaces;
@@ -211,7 +177,5 @@
         private System.Windows.Forms.ToolStripButton btnElementsFrames;
         private System.Windows.Forms.ToolStripButton btnElementsSurfaces;
         private System.Windows.Forms.ToolStripButton btnElementsNormals;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }

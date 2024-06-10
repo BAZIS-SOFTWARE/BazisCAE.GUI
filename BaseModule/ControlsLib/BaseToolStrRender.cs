@@ -9,12 +9,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BaseModule.ToolStrips
+namespace BaseModule.ControlsLib
 {
     public class BaseToolStrRender: ToolStripProfessionalRenderer
     {
-        public Color TopColor { get; set; } = Color.Silver;
-        public Color BottomColor { get; set; } = Color.WhiteSmoke;
+        public Color FrameColor { get; set; } = Color.FromArgb(255, 217, 217, 217);
+        public Color TopColor { get; set; } = Color.FromArgb(255, 228, 228, 228);
+        public Color BottomColor { get; set; } = Color.FromArgb(255, 228, 228, 228);
         protected override void OnRenderSplitButtonBackground(ToolStripItemRenderEventArgs e)
         {
             //base.OnRenderSplitButtonBackground(e);
@@ -30,6 +31,11 @@ namespace BaseModule.ToolStrips
 
             Rectangle rectangle = new Rectangle(0, shiftUpmRect_Y, e.Item.Size.Width - shiftRect_X, e.Item.Size.Height - shiftBottomRect_Y);
             e.Graphics.FillRectangle(Brushes.White, rectangle);
+
+            ComponentsPainter.PaintFrameRectangle(e.Graphics, 2.0f, FrameColor, new Point(0, shiftUpmRect_Y), e.Item.Size.Width - shiftRect_X, e.Item.Size.Height - shiftBottomRect_Y);
+
+            ComponentsPainter.PaintFrameRectangle(e.Graphics, 2.0f, FrameColor, new Point(sbtn.Width - 20, shiftUpmRect_Y), sbtn.Width - 30, e.Item.Size.Height - shiftBottomRect_Y);
+
             if (sbtn.Pressed | sbtn.Selected)
             {
                 rectangle = new Rectangle(0, shiftUpmRect_Y, e.Item.Size.Width - shiftRect_X, e.Item.Size.Height - shiftBottomRect_Y);
@@ -46,7 +52,7 @@ namespace BaseModule.ToolStrips
             
 
             e.Graphics.DrawString(sbtn.ToolTipText, _TabFont, SystemBrushes.WindowText,
-                sbtn.Width / 2 - messageSize.Width / 2, sbtn.Height / 2 - messageSize.Height / 1.5f);
+                5, sbtn.Height / 2 - messageSize.Height / 1.5f);
         }
 
         protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
@@ -116,11 +122,14 @@ namespace BaseModule.ToolStrips
             {
                 var gr = e.Graphics;
                 var parentSize = tls.Parent.Size;
-                ComponentsPainter.PaintGradientRectangle(gr, new Point(0, parentSize.Height - 16),tls.Width, parentSize.Height, TopColor, BottomColor);
+
+                ComponentsPainter.PaintGradientRectangle(gr, new Point(0, 0),tls.Width, parentSize.Height, TopColor, BottomColor);
+                ComponentsPainter.PaintFrameRectangle(gr, 2.5f,FrameColor, new Point(0, 0), tls.Width - 2, parentSize.Height - 2);
+                ComponentsPainter.PaintFrameRectangle(gr, 2.0f, FrameColor, new Point(0, parentSize.Height - 17), tls.Width - 2, 15);
 
                 SizeF messageSize = gr.MeasureString(tls.Text, ComponentsPainter.Font);
                 var x = tls.Width / 2 - messageSize.Width / 2;
-                var y = parentSize.Height - messageSize.Height;
+                var y = parentSize.Height - messageSize.Height - 2;
                 gr.DrawString(tls.Text, ComponentsPainter.Font, SystemBrushes.WindowText, x, y);
             }            
         }

@@ -1,4 +1,4 @@
-﻿namespace BaseModule.ToolStrips
+﻿namespace BaseModule.ControlsLib
 {
     partial class SelectToolStrip
     {

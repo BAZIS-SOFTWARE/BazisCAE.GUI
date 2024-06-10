@@ -98,7 +98,7 @@ namespace BazisGUI
 
         private void построениеСетки_Click(object sender, EventArgs e)
         {
-            var module = TryGetModule(модулиMenuItem.Text);
+            var module = TryGetModule();
             var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
             var splitters = module.SplittersController.GetSplitters();
 
@@ -146,6 +146,16 @@ namespace BazisGUI
                 return null;
         }
 
+        private BasePage TryGetModule()
+        {
+            foreach (var item in toolStripContainer.ContentPanel.Controls)
+            {
+                if(item is BasePage page)
+                    return page;
+            }
+            return null;
+        }
+
         private void DisconnectWithServer(string moduleName)
         {
             //if (module != null)
@@ -157,7 +167,7 @@ namespace BazisGUI
 
         private void анализРезультатов_Click(object sender, EventArgs e)
         {
-            var module = TryGetModule(модулиMenuItem.Text);
+            var module = TryGetModule();
 
             var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
             var splitters = module.SplittersController.GetSplitters();
@@ -216,7 +226,7 @@ namespace BazisGUI
 
         private void сварка_Click(object sender, EventArgs e)
         {
-            var module = TryGetModule(модулиMenuItem.Text);
+            var module = TryGetModule();
 
             var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
             var splitters = module.SplittersController.GetSplitters();
@@ -243,7 +253,7 @@ namespace BazisGUI
 
         private void термообработка_Click(object sender, EventArgs e)
         {
-            var module = TryGetModule(модулиMenuItem.Text);
+            var module = TryGetModule();
 
             var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
             var splitters = module.SplittersController.GetSplitters();
@@ -300,8 +310,6 @@ namespace BazisGUI
             if (moduleName == "Weld")
             {
                 //модулиMenuItem.Image = сварка.Image;
-                модулиMenuItem.Text = "Сварка";
-
                 var taskPage = new WeldingPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
                 taskPage.SolverPath = settingsConfig.SolverPath;
                 basePage = taskPage;
@@ -310,8 +318,6 @@ namespace BazisGUI
             else if (moduleName == "HeatTreatment")
             {
                 //модулиMenuItem.Image = термообработка.Image;
-                модулиMenuItem.Text = "Термообработка";
-
                 var taskPage = new HeatTreatmentPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
                 taskPage.SolverPath = settingsConfig.SolverPath;
                 basePage = taskPage;
@@ -320,7 +326,6 @@ namespace BazisGUI
             else if (moduleName == "Result")
             {
                 //модулиMenuItem.Image = анализРезультатов.Image;
-                модулиMenuItem.Text = "Результаты";
                 var resPage = new ResultPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
                 basePage = resPage;
             }
@@ -328,7 +333,6 @@ namespace BazisGUI
             else
             {
                 //модулиMenuItem.Image = построениеСетки.Image;
-                модулиMenuItem.Text = "Сетка";
                 var modelPage = new ModelPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
                 modelPage.GmshController = gmshController;
                 basePage = modelPage;
@@ -438,7 +442,7 @@ namespace BazisGUI
 
         private void BaseForm_KeyDown(object sender, KeyEventArgs e)
         {
-            var module = TryGetModule(модулиMenuItem.Text);
+            var module = TryGetModule();
             if(module != null)
             {
                 var controls = toolStripContainer.ContentPanel.Controls.Find(module.Name, false);
@@ -449,20 +453,6 @@ namespace BazisGUI
                     baseControl.PressedKey = e.KeyCode;
                 }
             }
-        }
-
-        private void модулиMenuItem_Paint(object sender, PaintEventArgs e)
-        {
-            var x = модулиMenuItem.Width;
-            var y = модулиMenuItem.Height / 2;
-
-            var points = new Point[]
-{
-                        new Point(x,модулиMenuItem.Height - 3 - y),
-                        new Point(x - 4,модулиMenuItem.Height + 1 - y),
-                        new Point(x - 7,модулиMenuItem.Height - 3 - y)
-};
-            e.Graphics.FillPolygon(Brushes.Black, points);
         }
 
         private void содержаниеToolStripMenuItem_Click(object sender, EventArgs e)
@@ -578,7 +568,7 @@ namespace BazisGUI
             }
 
 
-            var module = TryGetModule(модулиMenuItem.Text);
+            var module = TryGetModule();
             if (module != null)
             {
                 SetSettingsToModule(module,settings);
@@ -707,7 +697,7 @@ namespace BazisGUI
 
         private void получитьЛицензиюMenuItem_Click(object sender, EventArgs e)
         {
-            var module = TryGetModule(модулиMenuItem.Text);
+            var module = TryGetModule();
 
             if(module != null)
                 StartLisenceForm(module);
@@ -763,7 +753,7 @@ namespace BazisGUI
 
                 модулиMenuItem.Enabled = true;
 
-                var module = TryGetModule(модулиMenuItem.Text);
+                var module = TryGetModule();
                 if (module == null)
                 {
                     module = CreateModule("Mesh");
@@ -808,7 +798,7 @@ namespace BazisGUI
 
                 модулиMenuItem.Enabled = true;
 
-                var module = TryGetModule(модулиMenuItem.Text);
+                var module = TryGetModule();
                 if (module == null)
                 {
                     module = CreateModule("Mesh");
@@ -899,7 +889,7 @@ namespace BazisGUI
 
                 модулиMenuItem.Enabled = true;
 
-                var module = TryGetModule(модулиMenuItem.Text);
+                var module = TryGetModule();
                 if (module == null)
                 {
                     module = CreateModule("Mesh");
@@ -957,7 +947,7 @@ namespace BazisGUI
 
                     project.Save();
 
-                    var module = TryGetModule(модулиMenuItem.Text);
+                    var module = TryGetModule();
                     module?.ConsoleControl.PrintInfo("Проект сохранен", Color.Black);
                     lblStatus.Text = $"{project.Path}\\{project.Name}";
 
@@ -972,7 +962,7 @@ namespace BazisGUI
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             project?.Save();
-            var module = TryGetModule(модулиMenuItem.Text);
+            var module = TryGetModule();
             module?.ConsoleControl.PrintInfo("Проект сохранен", Color.Black);
         }
 
@@ -1012,7 +1002,7 @@ namespace BazisGUI
                     UpdateGeometry(ObjType.Точка);
                     UpdateGeometry(ObjType.Линия);
 
-                    var module = TryGetModule(модулиMenuItem.Text);
+                    var module = TryGetModule();
                     if (module == null)
                     {
                         module = CreateModule("Mesh");
@@ -1092,27 +1082,7 @@ namespace BazisGUI
                 gmshController.Finalize(ref ierr);
         }
 
-        private void menuStrip_Paint(object sender, PaintEventArgs e)
-        {
-                var gr = e.Graphics;
-
-                Font _TabFont = new Font(FontFamily.GenericSansSerif, (float)11, FontStyle.Regular, GraphicsUnit.Pixel);
-                SizeF messageSize = gr.MeasureString(menuStrip.Text, _TabFont);
-
-                var locRect = new Point(0, 0);
-
-                var linGrBrush = new LinearGradientBrush(
-       new Point(0, 0),
-       new Point(menuStrip.Width, 0),
-       Color.LightGray,   // Opaque red
-       Color.WhiteSmoke);  // Opaque blue
-
-                var rect = new Rectangle(locRect, new Size(menuStrip.Width, menuStrip.Height));
-
-                e.Graphics.FillRectangle(linGrBrush, rect);
-        }
-
-        private void модулиMenuItem_Paint_1(object sender, PaintEventArgs e)
+        private void модулиMenuItem_Paint(object sender, PaintEventArgs e)
         {
             //Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 1.5f);
 

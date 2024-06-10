@@ -1,13 +1,13 @@
-﻿namespace ModelModule
+﻿namespace BaseModule.ControlsLib
 {
-    partial class ModelPage
+    partial class TabControlEx
     {
-        /// <summary>
+        /// <summary> 
         /// Обязательная переменная конструктора.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Освободить все используемые ресурсы.
         /// </summary>
         /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
@@ -22,7 +22,7 @@
 
         #region Код, автоматически созданный конструктором компонентов
 
-        /// <summary>
+        /// <summary> 
         /// Требуемый метод для поддержки конструктора — не изменяйте 
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
@@ -30,13 +30,9 @@
         {
             this.SuspendLayout();
             // 
-            // ModelPage
+            // TabControlEx
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "ModelPage";
-            this.Size = new System.Drawing.Size(1005, 642);
+            this.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.TabControl_DrawItem);
             this.ResumeLayout(false);
 
         }

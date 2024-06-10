@@ -1,5 +1,5 @@
 ﻿using BaseModule.Console;
-using BaseModule.ToolStrips;
+using BaseModule.ControlsLib;
 using ModelInterfaces;
 
 namespace BaseModule
@@ -40,10 +40,10 @@ namespace BaseModule
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.sceneControl = new Scene.SceneControl();
             this.consoleControl = new BaseModule.Console.ConsoleControl();
-            this.selectToolStrip = new BaseModule.ToolStrips.SelectToolStrip();
-            this.viewToolStrip = new BaseModule.ToolStrips.ViewToolStrip();
-            this.displayToolStrip = new BaseModule.ToolStrips.DisplayToolStrip();
-            this.instrumentToolStrip = new BaseModule.ToolStrips.InstrumentToolStrip();
+            this.selectToolStrip = new BaseModule.ControlsLib.SelectToolStrip();
+            this.viewToolStrip = new BaseModule.ControlsLib.ViewToolStrip();
+            this.displayToolStrip = new BaseModule.ControlsLib.DisplayToolStrip();
+            this.instrumentToolStrip = new BaseModule.ControlsLib.InstrumentToolStrip();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -233,7 +233,7 @@ namespace BaseModule
             this.selectToolStrip.Size = new System.Drawing.Size(302, 53);
             this.selectToolStrip.TabIndex = 1;
             this.selectToolStrip.Text = "Выбор";
-            this.selectToolStrip.SelectObjectEvent += new System.Action<object, BaseModule.ToolStrips.SelectObjectEventArgs>(this.SelectToolStrip_SelectObjectEvent);
+            this.selectToolStrip.SelectObjectEvent += new System.Action<object, BaseModule.ControlsLib.SelectObjectEventArgs>(this.SelectToolStrip_SelectObjectEvent);
             this.selectToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.SelectToolStrip_ItemClicked);
             // 
             // viewToolStrip
@@ -272,7 +272,6 @@ namespace BaseModule
             this.displayToolStrip.SurfaceNodesImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.SurfaceNodesImage")));
             this.displayToolStrip.TabIndex = 3;
             this.displayToolStrip.Text = "Отображение";
-            this.displayToolStrip.TitleInfoImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.TitleInfoImage")));
             this.displayToolStrip.VolumeNodesImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.VolumeNodesImage")));
             this.displayToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.DisplayToolStrip_ItemClick);
             // 
