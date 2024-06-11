@@ -14,6 +14,10 @@ namespace BaseModule.ControlsLib
     {
         public Color SelectColor { get; set; }
 
+        public Color UnSelectColor { get; set; }
+
+        public Color FontColor { get; set; } = Color.Black;
+
 
         public TabControlEx()
         {
@@ -23,7 +27,7 @@ namespace BaseModule.ControlsLib
         public virtual void TabControl_DrawItem(object sender, DrawItemEventArgs e)
         {
             Graphics g = e.Graphics;
-            Brush _TextBrush;
+            Brush _TextBrush = new System.Drawing.SolidBrush(FontColor);
 
             // Get the item from the collection. 
             var _TabPage = TabPages[e.Index];        
@@ -42,13 +46,14 @@ namespace BaseModule.ControlsLib
             {
                 // Draw a different background color, and don't paint a focus rectangle. 
                 g.FillRectangle(new SolidBrush(SelectColor), e.Bounds);
-
-                _TextBrush = new SolidBrush(System.Drawing.Color.White);
             }
             else
             {
-                _TextBrush = new System.Drawing.SolidBrush(e.ForeColor);
+                var rec = new Rectangle(e.Bounds.Location, new Size(e.Bounds.Width, e.Bounds.Height + 2));
+                g.FillRectangle(new SolidBrush(UnSelectColor), rec);
             }
+
+
             g.DrawString(TabPages[e.Index].Text, e.Font, _TextBrush,
         new PointF(_TabBounds.X + _TabBounds.Width / 2, _TabBounds.Height - e.Font.Height), new StringFormat(_StringFlags));
         }

@@ -66,7 +66,7 @@ namespace BaseModule
             // 
             this.toolStripContainer.ContentPanel.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer.ContentPanel.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.toolStripContainer.ContentPanel.Padding = new System.Windows.Forms.Padding(5);
             this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1318, 595);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
@@ -209,11 +209,14 @@ namespace BaseModule
             this.consoleControl.CheckPrintElemsInfo = false;
             this.consoleControl.CheckPrintNodesInfo = false;
             this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.consoleControl.DownColor = System.Drawing.Color.WhiteSmoke;
+            this.consoleControl.HeaderName = "Консоль";
             this.consoleControl.Location = new System.Drawing.Point(0, 0);
-            this.consoleControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.consoleControl.Margin = new System.Windows.Forms.Padding(4);
             this.consoleControl.Name = "consoleControl";
             this.consoleControl.Size = new System.Drawing.Size(915, 314);
             this.consoleControl.TabIndex = 4;
+            this.consoleControl.UpColor = System.Drawing.Color.Silver;
             this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
             // 
             // selectToolStrip
@@ -223,6 +226,7 @@ namespace BaseModule
             this.selectToolStrip.ElementsImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.ElementsImage")));
             this.selectToolStrip.Font = new System.Drawing.Font("Segoe UI", 7F);
             this.selectToolStrip.GeomsImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.GeomsImage")));
+            this.selectToolStrip.GripMargin = new System.Windows.Forms.Padding(0);
             this.selectToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.selectToolStrip.HelperImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.HelperImage")));
             this.selectToolStrip.Location = new System.Drawing.Point(3, 0);
@@ -240,6 +244,7 @@ namespace BaseModule
             // 
             this.viewToolStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.viewToolStrip.FitImage = ((System.Drawing.Image)(resources.GetObject("viewToolStrip.FitImage")));
+            this.viewToolStrip.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.viewToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.viewToolStrip.Location = new System.Drawing.Point(305, 0);
             this.viewToolStrip.Name = "viewToolStrip";
@@ -264,11 +269,12 @@ namespace BaseModule
             this.displayToolStrip.ElementsFramesImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.ElementsFramesImage")));
             this.displayToolStrip.ElementsNormalsImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.ElementsNormalsImage")));
             this.displayToolStrip.ElementsSurfacesImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.ElementsSurfacesImage")));
+            this.displayToolStrip.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.displayToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.displayToolStrip.Location = new System.Drawing.Point(632, 0);
             this.displayToolStrip.Name = "displayToolStrip";
             this.displayToolStrip.ShowBasisImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.ShowBasisImage")));
-            this.displayToolStrip.Size = new System.Drawing.Size(339, 53);
+            this.displayToolStrip.Size = new System.Drawing.Size(291, 53);
             this.displayToolStrip.SurfaceNodesImage = ((System.Drawing.Image)(resources.GetObject("displayToolStrip.SurfaceNodesImage")));
             this.displayToolStrip.TabIndex = 3;
             this.displayToolStrip.Text = "Отображение";
@@ -279,12 +285,13 @@ namespace BaseModule
             // 
             this.instrumentToolStrip.CrossSectionImage = ((System.Drawing.Image)(resources.GetObject("instrumentToolStrip.CrossSectionImage")));
             this.instrumentToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.instrumentToolStrip.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.instrumentToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.instrumentToolStrip.Location = new System.Drawing.Point(971, 0);
+            this.instrumentToolStrip.Location = new System.Drawing.Point(923, 0);
             this.instrumentToolStrip.MakePhotoImage = ((System.Drawing.Image)(resources.GetObject("instrumentToolStrip.MakePhotoImage")));
             this.instrumentToolStrip.MeasureImage = ((System.Drawing.Image)(resources.GetObject("instrumentToolStrip.MeasureImage")));
             this.instrumentToolStrip.Name = "instrumentToolStrip";
-            this.instrumentToolStrip.Size = new System.Drawing.Size(111, 53);
+            this.instrumentToolStrip.Size = new System.Drawing.Size(142, 53);
             this.instrumentToolStrip.TabIndex = 4;
             this.instrumentToolStrip.Text = "Инструменты";
             this.instrumentToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.InstrumentalToolStrip_ItemClicked);

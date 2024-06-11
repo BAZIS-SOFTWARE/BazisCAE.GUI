@@ -330,30 +330,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             {
                 if (grb.Height == 17)
                 {
-                    GetChildControlExpandHeight(grb);
+                    var heigth = 0;
+                    GetChildControlExpandHeight(grb, ref heigth);
+                    grb.Height = heigth;
                 }
 
                 else grb.Height = 17;
             }
-        }
-
-        private void GetChildControlExpandHeight(GroupBox grb)
-        {
-            var heigth = 0;
-            var gap = 20;
-            foreach (Control control in grb.Controls)
-            {
-                if (control is UserControl uControl)
-                    foreach (Control cntr in uControl.Controls)
-                    {
-                        if (cntr is TextBox txb | cntr is ComboBox cmb | cntr is Button | cntr is PictureBox | cntr is RadioButton)
-                        {
-                            heigth = heigth + cntr.Size.Height;
-                            gap = gap + 6;
-                        }
-                    }
-            }
-            grb.Height = heigth + gap;
         }
 
         private void dataGridView_MouseClick(object sender, MouseEventArgs e)
@@ -389,12 +372,18 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 wcc = new LWeldingControl() { Dock = DockStyle.Fill };
 
             wcc.InfoBoxClickEvent += () =>
-            { GetChildControlExpandHeight(grbWeldRegime); };
+            {
+                var heigthEx = 0;
+                GetChildControlExpandHeight(grbWeldRegime, ref heigthEx);
+                grbWeldRegime.Height = heigthEx;
+            };
 
             grbWeldRegime.Controls.Clear();
             grbWeldRegime.Controls.Add(wcc);
 
-            GetChildControlExpandHeight(grbWeldRegime);
+            var heigth = 0;
+            GetChildControlExpandHeight(grbWeldRegime, ref heigth);
+            grbWeldRegime.Height = heigth;
         }
     }
 }

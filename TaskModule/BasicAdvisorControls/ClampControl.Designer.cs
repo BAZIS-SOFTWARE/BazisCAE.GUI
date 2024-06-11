@@ -82,6 +82,7 @@
             this.tableLayoutPanel1.Controls.Add(this.grbClampingParams, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -107,11 +108,11 @@
             this.groupBox3.Controls.Add(this.txbStartTime);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox3.Location = new System.Drawing.Point(1, 192);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
+            this.groupBox3.Location = new System.Drawing.Point(7, 222);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox3.Size = new System.Drawing.Size(599, 138);
+            this.groupBox3.Size = new System.Drawing.Size(587, 138);
             this.groupBox3.TabIndex = 24;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Время действия";
@@ -127,7 +128,7 @@
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.player.MinimumSize = new System.Drawing.Size(215, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(410, 45);
+            this.player.Size = new System.Drawing.Size(398, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -178,7 +179,7 @@
             this.txbStopTime.Location = new System.Drawing.Point(174, 54);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(410, 20);
+            this.txbStopTime.Size = new System.Drawing.Size(398, 20);
             this.txbStopTime.TabIndex = 1;
             // 
             // btnShowAll
@@ -241,7 +242,7 @@
             this.txbStartTime.Location = new System.Drawing.Point(174, 28);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 15, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(410, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(398, 20);
             this.txbStartTime.TabIndex = 0;
             // 
             // dataGridView
@@ -256,12 +257,12 @@
             this.startColumn,
             this.stopColumn});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 330);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
+            this.dataGridView.Location = new System.Drawing.Point(7, 374);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(599, 196);
+            this.dataGridView.Size = new System.Drawing.Size(587, 146);
             this.dataGridView.TabIndex = 23;
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
@@ -327,12 +328,12 @@
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.cmbKind);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(1, 1);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
+            this.groupBox1.Location = new System.Drawing.Point(7, 7);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.MinimumSize = new System.Drawing.Size(350, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(599, 88);
+            this.groupBox1.Size = new System.Drawing.Size(587, 88);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Вид закрепления";
@@ -345,7 +346,7 @@
             this.cmbNodeGr.Location = new System.Drawing.Point(171, 24);
             this.cmbNodeGr.Margin = new System.Windows.Forms.Padding(178, 25, 15, 3);
             this.cmbNodeGr.Name = "cmbNodeGr";
-            this.cmbNodeGr.Size = new System.Drawing.Size(414, 21);
+            this.cmbNodeGr.Size = new System.Drawing.Size(402, 21);
             this.cmbNodeGr.TabIndex = 43;
             // 
             // label1
@@ -377,7 +378,7 @@
             this.cmbKind.Location = new System.Drawing.Point(170, 51);
             this.cmbKind.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbKind.Name = "cmbKind";
-            this.cmbKind.Size = new System.Drawing.Size(414, 21);
+            this.cmbKind.Size = new System.Drawing.Size(402, 21);
             this.cmbKind.TabIndex = 36;
             this.cmbKind.SelectedIndexChanged += new System.EventHandler(this.kindComboBox_SelectedIndexChanged);
             // 
@@ -392,11 +393,11 @@
             this.grbClampingParams.Controls.Add(this.chbY);
             this.grbClampingParams.Controls.Add(this.chbX);
             this.grbClampingParams.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbClampingParams.Location = new System.Drawing.Point(1, 91);
-            this.grbClampingParams.Margin = new System.Windows.Forms.Padding(1);
+            this.grbClampingParams.Location = new System.Drawing.Point(7, 109);
+            this.grbClampingParams.Margin = new System.Windows.Forms.Padding(7);
             this.grbClampingParams.Name = "grbClampingParams";
             this.grbClampingParams.Padding = new System.Windows.Forms.Padding(2);
-            this.grbClampingParams.Size = new System.Drawing.Size(599, 99);
+            this.grbClampingParams.Size = new System.Drawing.Size(587, 99);
             this.grbClampingParams.TabIndex = 26;
             this.grbClampingParams.TabStop = false;
             this.grbClampingParams.Text = "Параметры закрепления";
@@ -430,7 +431,7 @@
             this.cmbStiffnessFunc.Location = new System.Drawing.Point(170, 60);
             this.cmbStiffnessFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbStiffnessFunc.Name = "cmbStiffnessFunc";
-            this.cmbStiffnessFunc.Size = new System.Drawing.Size(414, 21);
+            this.cmbStiffnessFunc.Size = new System.Drawing.Size(402, 21);
             this.cmbStiffnessFunc.TabIndex = 1;
             // 
             // chbLRF
@@ -507,7 +508,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.закрепленияTab_элComboBox);
             this.Controls.Add(this.label7);
-            this.Margin = new System.Windows.Forms.Padding(5);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "ClampControl";
             this.Size = new System.Drawing.Size(601, 527);

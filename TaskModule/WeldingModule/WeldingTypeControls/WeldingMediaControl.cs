@@ -190,19 +190,16 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             var grb = (GroupBox)sender;
 
-            var heigth = 0;
-            foreach (Control control in grb.Controls)
-            {
-                if (control is TextBox txb)
-                    heigth = heigth + txb.Size.Height;
-                if (control is ComboBox cmb)
-                    heigth = heigth + cmb.Size.Height;
-            }
-
             var textSize = TextRenderer.MeasureText(grb.Text, this.Font).Width;
             if (e.Location.X > textSize + 5 & e.Location.X < textSize + 15 && e.Location.Y <= 10)
             {
-                if (grb.Height < heigth + 60) grb.Height = heigth + 60;
+                if (grb.Height == 17)
+                {
+                    var heigth = 0;
+                    GetChildControlExpandHeight(grb, ref heigth);
+                    grb.Height = heigth;
+                }
+
                 else grb.Height = 17;
             }
         }

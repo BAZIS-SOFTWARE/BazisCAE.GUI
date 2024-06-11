@@ -153,6 +153,7 @@
             // DisplayToolStrip
             // 
             this.Dock = System.Windows.Forms.DockStyle.None;
+            this.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnVolumeNodes,
             this.btnSurfaceNodes,

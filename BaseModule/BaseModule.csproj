@@ -129,6 +129,12 @@
       <DependentUpon>ConsoleControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Console\FindObjectEventArgs.cs" />
+    <Compile Include="ControlsLib\GroupBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlsLib\GroupBoxEx.Designer.cs">
+      <DependentUpon>GroupBoxEx.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlsPainter\ComponentsPainter.cs" />
     <Compile Include="CrossSection\CreatePlaneFromTextArgs.cs" />
     <Compile Include="CrossSection\CrossSectionControl.cs">
@@ -212,6 +218,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Console\ConsoleControl.resx">
       <DependentUpon>ConsoleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsLib\GroupBoxEx.resx">
+      <DependentUpon>GroupBoxEx.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CrossSection\CrossSectionControl.resx">
       <DependentUpon>CrossSectionControl.cs</DependentUpon>

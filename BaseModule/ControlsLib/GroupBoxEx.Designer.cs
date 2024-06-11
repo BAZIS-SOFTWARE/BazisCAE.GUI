@@ -1,6 +1,6 @@
 ﻿namespace BaseModule.ControlsLib
 {
-    partial class TabControlEx
+    partial class GroupBoxEx
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -30,10 +30,10 @@
         {
             this.SuspendLayout();
             // 
-            // TabControlEx
+            // GroupBoxEx
             // 
-            this.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.TabControl_DrawItem);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.GroupBoxEx_Paint);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GroupBoxEx_MouseClick);
             this.ResumeLayout(false);
 
         }

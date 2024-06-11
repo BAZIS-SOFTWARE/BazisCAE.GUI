@@ -36,7 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ModelPage";
-            this.Size = new System.Drawing.Size(1005, 642);
+            this.Size = new System.Drawing.Size(1065, 671);
             this.ResumeLayout(false);
 
         }

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.player = new PlayerControl.Player();
@@ -139,11 +139,11 @@
             this.groupBox1.Controls.Add(this.cmbRef);
             this.groupBox1.Controls.Add(this.cmbTraj);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(1, 81);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
+            this.groupBox1.Location = new System.Drawing.Point(7, 111);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(511, 295);
+            this.groupBox1.Size = new System.Drawing.Size(499, 295);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры движения";
@@ -159,7 +159,7 @@
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 15, 0);
             this.player.MinimumSize = new System.Drawing.Size(215, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(326, 45);
+            this.player.Size = new System.Drawing.Size(314, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -252,7 +252,7 @@
             this.txbStartTime.Location = new System.Drawing.Point(171, 210);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(326, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(314, 20);
             this.txbStartTime.TabIndex = 43;
             // 
             // label1
@@ -272,7 +272,7 @@
             this.cmbStopPoint.Location = new System.Drawing.Point(171, 131);
             this.cmbStopPoint.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbStopPoint.Name = "cmbStopPoint";
-            this.cmbStopPoint.Size = new System.Drawing.Size(326, 21);
+            this.cmbStopPoint.Size = new System.Drawing.Size(314, 21);
             this.cmbStopPoint.TabIndex = 36;
             // 
             // cmbStartPoint
@@ -283,7 +283,7 @@
             this.cmbStartPoint.Location = new System.Drawing.Point(171, 104);
             this.cmbStartPoint.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbStartPoint.Name = "cmbStartPoint";
-            this.cmbStartPoint.Size = new System.Drawing.Size(326, 21);
+            this.cmbStartPoint.Size = new System.Drawing.Size(314, 21);
             this.cmbStartPoint.TabIndex = 35;
             // 
             // btnHide
@@ -392,7 +392,7 @@
             this.txbVelosity.Location = new System.Drawing.Point(171, 184);
             this.txbVelosity.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbVelosity.Name = "txbVelosity";
-            this.txbVelosity.Size = new System.Drawing.Size(326, 20);
+            this.txbVelosity.Size = new System.Drawing.Size(314, 20);
             this.txbVelosity.TabIndex = 31;
             // 
             // label7
@@ -449,7 +449,7 @@
             this.cmbEnergyCalibration.Location = new System.Drawing.Point(170, 77);
             this.cmbEnergyCalibration.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbEnergyCalibration.Name = "cmbEnergyCalibration";
-            this.cmbEnergyCalibration.Size = new System.Drawing.Size(326, 21);
+            this.cmbEnergyCalibration.Size = new System.Drawing.Size(314, 21);
             this.cmbEnergyCalibration.TabIndex = 29;
             // 
             // cmbRef
@@ -460,7 +460,7 @@
             this.cmbRef.Location = new System.Drawing.Point(170, 50);
             this.cmbRef.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbRef.Name = "cmbRef";
-            this.cmbRef.Size = new System.Drawing.Size(326, 21);
+            this.cmbRef.Size = new System.Drawing.Size(314, 21);
             this.cmbRef.TabIndex = 29;
             // 
             // cmbTraj
@@ -471,22 +471,22 @@
             this.cmbTraj.Location = new System.Drawing.Point(170, 23);
             this.cmbTraj.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
             this.cmbTraj.Name = "cmbTraj";
-            this.cmbTraj.Size = new System.Drawing.Size(326, 21);
+            this.cmbTraj.Size = new System.Drawing.Size(314, 21);
             this.cmbTraj.TabIndex = 29;
             // 
             // dataGridView
             // 
             this.dataGridView.AllowUserToAddRows = false;
             this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.NullValue = " ";
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.NullValue = " ";
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.видСварки,
@@ -495,17 +495,17 @@
             this.stopColumn,
             this.ПараметрыДвижения});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 376);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
+            this.dataGridView.Location = new System.Drawing.Point(7, 420);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 20;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.Size = new System.Drawing.Size(511, 261);
+            this.dataGridView.Size = new System.Drawing.Size(499, 211);
             this.dataGridView.TabIndex = 25;
             this.dataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView_DefaultValuesNeeded);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -537,8 +537,8 @@
             // stopColumn
             // 
             this.stopColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle8.NullValue = "0";
-            this.stopColumn.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.NullValue = "0";
+            this.stopColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.stopColumn.HeaderText = "Стоп";
             this.stopColumn.MinimumWidth = 6;
             this.stopColumn.Name = "stopColumn";
@@ -558,11 +558,11 @@
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.cmbWeldZone);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(1, 1);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(1);
+            this.groupBox3.Location = new System.Drawing.Point(7, 7);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox3.Size = new System.Drawing.Size(511, 61);
+            this.groupBox3.Size = new System.Drawing.Size(499, 61);
             this.groupBox3.TabIndex = 31;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Область действия";
@@ -584,7 +584,7 @@
             this.cmbWeldZone.Location = new System.Drawing.Point(170, 24);
             this.cmbWeldZone.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
             this.cmbWeldZone.Name = "cmbWeldZone";
-            this.cmbWeldZone.Size = new System.Drawing.Size(326, 21);
+            this.cmbWeldZone.Size = new System.Drawing.Size(314, 21);
             this.cmbWeldZone.TabIndex = 38;
             // 
             // grbWeldRegime
@@ -592,12 +592,12 @@
             this.grbWeldRegime.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.grbWeldRegime.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbWeldRegime.ForeColor = System.Drawing.Color.Black;
-            this.grbWeldRegime.Location = new System.Drawing.Point(1, 64);
-            this.grbWeldRegime.Margin = new System.Windows.Forms.Padding(1);
+            this.grbWeldRegime.Location = new System.Drawing.Point(7, 82);
+            this.grbWeldRegime.Margin = new System.Windows.Forms.Padding(7);
             this.grbWeldRegime.MinimumSize = new System.Drawing.Size(0, 15);
             this.grbWeldRegime.Name = "grbWeldRegime";
             this.grbWeldRegime.Padding = new System.Windows.Forms.Padding(2);
-            this.grbWeldRegime.Size = new System.Drawing.Size(511, 15);
+            this.grbWeldRegime.Size = new System.Drawing.Size(499, 15);
             this.grbWeldRegime.TabIndex = 30;
             this.grbWeldRegime.TabStop = false;
             this.grbWeldRegime.Text = "Параметры процесса";

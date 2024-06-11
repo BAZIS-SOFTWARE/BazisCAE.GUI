@@ -22,6 +22,8 @@ using ModelInterfaces.GeometryObjects;
 using System.Data.Odbc;
 using System.ComponentModel;
 using ProjectInterfaces;
+using BaseModule.ControlsComponents;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BaseModule
 {
@@ -271,6 +273,9 @@ namespace BaseModule
         {
             InitializeComponent();
             CreateMenuInterface();
+
+            if(ComponentsPainter.ScreenDPI == 120 | ComponentsPainter.ScreenDPI == 144)
+                selectToolStrip.Location = new Point(0,0);
         }
 
         public void SceneInitialization()

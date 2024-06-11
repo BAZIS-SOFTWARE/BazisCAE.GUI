@@ -71,6 +71,7 @@ namespace BazisGUI
         {
             InitializeComponent();
             ComponentsPainter.Font = this.Font;
+            ComponentsPainter.ScreenDPI = this.DeviceDpi;
             GetServerConnection();
         }
 

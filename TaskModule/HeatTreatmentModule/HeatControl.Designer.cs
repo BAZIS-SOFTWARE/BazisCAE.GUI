@@ -82,6 +82,7 @@ namespace TaskModule.HeatTreatmentModule
             this.tableLayoutPanel1.Controls.Add(this.groupBox4, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -108,11 +109,11 @@ namespace TaskModule.HeatTreatmentModule
             this.grbHeatFlux.Controls.Add(this.cmbExchFunc);
             this.grbHeatFlux.Controls.Add(this.label1);
             this.grbHeatFlux.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbHeatFlux.Location = new System.Drawing.Point(1, 64);
-            this.grbHeatFlux.Margin = new System.Windows.Forms.Padding(1);
+            this.grbHeatFlux.Location = new System.Drawing.Point(7, 82);
+            this.grbHeatFlux.Margin = new System.Windows.Forms.Padding(7);
             this.grbHeatFlux.Name = "grbHeatFlux";
             this.grbHeatFlux.Padding = new System.Windows.Forms.Padding(0);
-            this.grbHeatFlux.Size = new System.Drawing.Size(531, 181);
+            this.grbHeatFlux.Size = new System.Drawing.Size(519, 181);
             this.grbHeatFlux.TabIndex = 18;
             this.grbHeatFlux.TabStop = false;
             this.grbHeatFlux.Text = "Параметры процесса";
@@ -134,7 +135,7 @@ namespace TaskModule.HeatTreatmentModule
             this.blackRank.Location = new System.Drawing.Point(171, 118);
             this.blackRank.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.blackRank.Name = "blackRank";
-            this.blackRank.Size = new System.Drawing.Size(346, 20);
+            this.blackRank.Size = new System.Drawing.Size(334, 20);
             this.blackRank.TabIndex = 28;
             // 
             // radAndConvCoef
@@ -178,7 +179,7 @@ namespace TaskModule.HeatTreatmentModule
             this.StefanBolzmanConst.Location = new System.Drawing.Point(171, 92);
             this.StefanBolzmanConst.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.StefanBolzmanConst.Name = "StefanBolzmanConst";
-            this.StefanBolzmanConst.Size = new System.Drawing.Size(346, 20);
+            this.StefanBolzmanConst.Size = new System.Drawing.Size(334, 20);
             this.StefanBolzmanConst.TabIndex = 25;
             // 
             // convExcFunc
@@ -189,7 +190,7 @@ namespace TaskModule.HeatTreatmentModule
             this.convExcFunc.Location = new System.Drawing.Point(171, 66);
             this.convExcFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.convExcFunc.Name = "convExcFunc";
-            this.convExcFunc.Size = new System.Drawing.Size(346, 20);
+            this.convExcFunc.Size = new System.Drawing.Size(334, 20);
             this.convExcFunc.TabIndex = 24;
             // 
             // cmbTempFunc
@@ -200,7 +201,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbTempFunc.Location = new System.Drawing.Point(171, 144);
             this.cmbTempFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbTempFunc.Name = "cmbTempFunc";
-            this.cmbTempFunc.Size = new System.Drawing.Size(346, 21);
+            this.cmbTempFunc.Size = new System.Drawing.Size(334, 21);
             this.cmbTempFunc.TabIndex = 23;
             // 
             // label8
@@ -229,7 +230,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbExchFunc.Location = new System.Drawing.Point(171, 38);
             this.cmbExchFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbExchFunc.Name = "cmbExchFunc";
-            this.cmbExchFunc.Size = new System.Drawing.Size(346, 21);
+            this.cmbExchFunc.Size = new System.Drawing.Size(334, 21);
             this.cmbExchFunc.TabIndex = 17;
             // 
             // label1
@@ -262,12 +263,12 @@ namespace TaskModule.HeatTreatmentModule
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 381);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
+            this.dataGridView.Location = new System.Drawing.Point(7, 425);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(531, 220);
+            this.dataGridView.Size = new System.Drawing.Size(519, 170);
             this.dataGridView.TabIndex = 14;
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
@@ -323,11 +324,11 @@ namespace TaskModule.HeatTreatmentModule
             this.groupBox1.Controls.Add(this.txbStartTime);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(1, 247);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
+            this.groupBox1.Location = new System.Drawing.Point(7, 277);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(531, 134);
+            this.groupBox1.Size = new System.Drawing.Size(519, 134);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Время действия";
@@ -343,7 +344,7 @@ namespace TaskModule.HeatTreatmentModule
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.player.MinimumSize = new System.Drawing.Size(215, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(346, 45);
+            this.player.Size = new System.Drawing.Size(334, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -381,7 +382,7 @@ namespace TaskModule.HeatTreatmentModule
             this.txbStopTime.Location = new System.Drawing.Point(171, 50);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(346, 20);
+            this.txbStopTime.Size = new System.Drawing.Size(334, 20);
             this.txbStopTime.TabIndex = 1;
             // 
             // btnHideAll
@@ -457,7 +458,7 @@ namespace TaskModule.HeatTreatmentModule
             this.txbStartTime.Location = new System.Drawing.Point(171, 24);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(346, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(334, 20);
             this.txbStartTime.TabIndex = 0;
             // 
             // groupBox4
@@ -466,11 +467,11 @@ namespace TaskModule.HeatTreatmentModule
             this.groupBox4.Controls.Add(this.cmbEl);
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(1, 1);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(1);
+            this.groupBox4.Location = new System.Drawing.Point(7, 7);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox4.Size = new System.Drawing.Size(531, 61);
+            this.groupBox4.Size = new System.Drawing.Size(519, 61);
             this.groupBox4.TabIndex = 21;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Область действия";
@@ -485,7 +486,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbEl.Location = new System.Drawing.Point(170, 24);
             this.cmbEl.Margin = new System.Windows.Forms.Padding(3, 25, 15, 3);
             this.cmbEl.Name = "cmbEl";
-            this.cmbEl.Size = new System.Drawing.Size(346, 21);
+            this.cmbEl.Size = new System.Drawing.Size(334, 21);
             this.cmbEl.TabIndex = 18;
             // 
             // label2
@@ -502,7 +503,7 @@ namespace TaskModule.HeatTreatmentModule
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(5);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "HeatControl";
             this.Size = new System.Drawing.Size(533, 602);

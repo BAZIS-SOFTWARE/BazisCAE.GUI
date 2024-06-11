@@ -13,6 +13,8 @@ namespace BaseModule.ControlsComponents
     public static class ComponentsPainter
     {
         public static Font Font { get; set; } = new Font("Arial", 10);
+        public static int ScreenDPI { get; set; } = 96; // 96 - 100%, 120 - 125%, 144 - 150%
+
         public static void PaintCloseRectangle(Graphics graphics, Point locRect)
         {
             Pen blackPen1 = new Pen(Color.FromArgb(255, 0, 0, 0), 1);
@@ -52,6 +54,39 @@ namespace BaseModule.ControlsComponents
             var pen = new Pen(color, thickness);
             var rect = new Rectangle(location, new Size(width, heigth));
             graphics.DrawRectangle(pen, rect);
+        }
+
+        public static void PaintSimbolRectangle(Graphics graphics, Point location, string simb)
+        {
+            Pen blackPen1 = new Pen(Color.FromArgb(255, 0, 0, 0), 1);
+
+            var rect = new Rectangle(location, new Size(8, 8));
+
+            graphics.DrawRectangle(blackPen1, rect);
+
+            if (simb == "+")
+            {
+                Pen blackPen2 = new Pen(Color.FromArgb(255, 0, 0, 0), 1.5f);
+
+                var loc1 = new Point(location.X + 2, location.Y + 4);
+                var loc2 = new Point(location.X + 6, location.Y + 4);
+
+                graphics.DrawLine(blackPen2, loc1, loc2);
+
+                var loc3 = new Point(location.X + 4, location.Y + 2);
+                var loc4 = new Point(location.X + 4, location.Y + 6);
+
+                graphics.DrawLine(blackPen2, loc3, loc4);
+            }
+            else if (simb == "-")
+            {
+                Pen blackPen2 = new Pen(Color.FromArgb(255, 0, 0, 0), 1.5f);
+
+                var loc1 = new Point(location.X + 2, location.Y + 4);
+                var loc2 = new Point(location.X + 6, location.Y + 4);
+
+                graphics.DrawLine(blackPen2, loc1, loc2);
+            }
         }
     }
 }
