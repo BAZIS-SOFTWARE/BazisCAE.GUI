@@ -314,10 +314,34 @@ namespace TaskModule.BasicAdvisorControls
                 chbLRF.Checked = false;
         }
 
-        private void cmb_Validating(object sender, CancelEventArgs e)
+        private void cmbNodeGr_Validating(object sender, CancelEventArgs e)
         {
-            var args = new Validation.ValidationEventArgs(cmbNodeGrEP, cmbNodeGr);
-            GroupValidator.cmbGroup_Validating(sender, args);
+            var args = new Validation.ValidationEventArgs(errorProvider, cmbNodeGr);
+            GroupValidator.Validating(sender, args);
+        }
+
+        private void cmbKind_Validating(object sender, CancelEventArgs e)
+        {
+            var args = new Validation.ValidationEventArgs(errorProvider, cmbKind);
+            CmbValidator.Validating(sender, args);
+        }
+
+        private void cmbStiffnessFunc_Validating(object sender, CancelEventArgs e)
+        {
+            var args = new Validation.ValidationEventArgs(errorProvider, cmbStiffnessFunc);
+            FunctionValidator.Validating(sender, args);
+        }
+
+        private void txbStartTime_Validating(object sender, CancelEventArgs e)
+        {
+            var args = new Validation.ValidationEventArgs(errorProvider, txbStartTime);
+            NumericValidator.Validating(sender, args);
+        }
+
+        private void txbStopTime_Validating(object sender, CancelEventArgs e)
+        {
+            var args = new Validation.ValidationEventArgs(errorProvider, txbStopTime);
+            NumericValidator.Validating(sender, args);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace TaskModule.BasicAdvisorControls
         #region Код, автоматически созданный конструктором компонентов
 
         // ErrorProviders
-        private ErrorProvider cmbNodeGrEP;
+        private ErrorProvider errorProvider;
 
         /// <summary> 
         /// Требуемый метод для поддержки конструктора — не изменяйте 
@@ -188,6 +188,7 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStopTime.Name = "txbStopTime";
             this.txbStopTime.Size = new System.Drawing.Size(410, 20);
             this.txbStopTime.TabIndex = 1;
+            this.txbStopTime.Validating += new CancelEventHandler(this.txbStopTime_Validating);
             // 
             // btnShowAll
             // 
@@ -251,6 +252,7 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStartTime.Name = "txbStartTime";
             this.txbStartTime.Size = new System.Drawing.Size(410, 20);
             this.txbStartTime.TabIndex = 0;
+            this.txbStartTime.Validating += new CancelEventHandler(this.txbStartTime_Validating);
             // 
             // dataGridView
             // 
@@ -345,13 +347,13 @@ namespace TaskModule.BasicAdvisorControls
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Вид закрепления";
             //
-            // cmbNodeGrEP
+            // errorProvider
             //
-            cmbNodeGrEP = new System.Windows.Forms.ErrorProvider();
-            cmbNodeGrEP.SetIconAlignment(this.cmbNodeGr, ErrorIconAlignment.MiddleRight);
-            cmbNodeGrEP.SetIconPadding(this.cmbNodeGr, 2);
-            cmbNodeGrEP.BlinkRate = 1000;
-            cmbNodeGrEP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            errorProvider = new System.Windows.Forms.ErrorProvider();
+            errorProvider.SetIconAlignment(this.cmbNodeGr, ErrorIconAlignment.MiddleRight);
+            errorProvider.SetIconPadding(this.cmbNodeGr, 2);
+            errorProvider.BlinkRate = 1000;
+            errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             // 
             // cmbNodeGr
             // 
@@ -363,7 +365,7 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbNodeGr.Name = "cmbNodeGr";
             this.cmbNodeGr.Size = new System.Drawing.Size(414, 21);
             this.cmbNodeGr.TabIndex = 43;
-            this.cmbNodeGr.Validating += new CancelEventHandler(this.cmb_Validating);
+            this.cmbNodeGr.Validating += new CancelEventHandler(this.cmbNodeGr_Validating);
             // 
             // label1
             // 
@@ -397,6 +399,7 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbKind.Size = new System.Drawing.Size(414, 21);
             this.cmbKind.TabIndex = 36;
             this.cmbKind.SelectedIndexChanged += new System.EventHandler(this.kindComboBox_SelectedIndexChanged);
+            this.cmbKind.Validating += new CancelEventHandler(this.cmbKind_Validating);
             // 
             // grbClampingParams
             // 
