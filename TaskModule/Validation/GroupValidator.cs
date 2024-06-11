@@ -4,27 +4,32 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TaskModule.Validation
 {
-    public class GroupValidator : ValidationAttribute
+    public class GroupValidator
     {
-        public List<string> Groups { get; set; }
-
-        public GroupValidator(List<string> groups) 
+        public static bool IsGroupValueValid(ComboBox cmb, out string errorMessage)
         {
-            Groups = groups;
-        }
+            var groups = cmb.Items;
+            var value = cmb.Text;
 
-        public override bool IsValid(object value)
-        {
-            if (value is string str)
+            if (groups.Contains(value))
             {
-                if (Groups.Contains(str))
-                    return true;
+                errorMessage = string.Empty;
+                return true;
             }
-            ErrorMessage = "Выбранная группа была изменена, или она не существует";
+            errorMessage = "Выбранная группа не доступна. Вероятно, допущена ошибка при выборе группы";
             return false;
+        }
+        public static void cmbGroup_Validating(object sender, ValidationEventArgs e)
+        {
+            string errorMessage = string.Empty;
+            if (!IsGroupValueValid(e.component as ComboBox, out errorMessage))
+                e.Cancel = true;
+
+            e.EP.SetError(e.component as ComboBox, errorMessage);
         }
     }
 }

@@ -364,7 +364,6 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbNodeGr.Size = new System.Drawing.Size(414, 21);
             this.cmbNodeGr.TabIndex = 43;
             this.cmbNodeGr.Validating += new CancelEventHandler(this.cmb_Validating);
-            //
             // 
             // label1
             // 

@@ -314,9 +314,10 @@ namespace TaskModule.BasicAdvisorControls
                 chbLRF.Checked = false;
         }
 
-        private void cmb_Validating(object sender, Validation.ValidationEventArgs e)
+        private void cmb_Validating(object sender, CancelEventArgs e)
         {
-            FunctionValidator.cmb_Validating(sender, e);
+            var args = new Validation.ValidationEventArgs(cmbNodeGrEP, cmbNodeGr);
+            GroupValidator.cmbGroup_Validating(sender, args);
         }
     }
 }
