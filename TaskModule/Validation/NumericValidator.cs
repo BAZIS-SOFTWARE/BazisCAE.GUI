@@ -5,29 +5,47 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TaskModule.Validation
 {
-    public class NumericValidator : ValidationAttribute
+    public class NumericValidator
     {
-        public override bool IsValid(object value)
+        public static bool IsNumericValueValid(TextBox txtBox, out string errorMessage)
         {
-            if (value is string str)
+            var value = txtBox.Text;
+            errorMessage = string.Empty;
+
+            if (value == null || value.Equals(string.Empty))
             {
-                if (str == null || str.Equals(string.Empty))
-                {
-                    ErrorMessage = "Поле не заполнено";
-                    return false;
-                }
-                    
-
-                if (Regex.IsMatch(str, "^([-]?)(([1-9]{1,})|([0-9]{1}))([.](\\d{1,}))?$")
-                    || Regex.IsMatch(str, "^([-]?)([0-9]{1})(([.])([0-9]{1,}))?([e])([+]|[-])([0]|[1-9]{1,})$"))
-                    return true;
-
+                errorMessage = "Поле оставлено пустым";
+                return false;
             }
-            ErrorMessage = "Введенное значение строки не соответствует записи числа в обычном или экспоненциальном виде";
+
+            if (value.Contains(","))
+            {
+                errorMessage = "В качестве разделителя целой и дробной части используйте точку";
+                return false;
+            }
+
+            if (Regex.IsMatch(value, "^([-]?)(([1-9]{1,})|([0-9]{1}))([.](\\d{1,}))?$")
+                || Regex.IsMatch(value, "^([-]?)([0-9]{1})(([.])([0-9]{1,}))?([e,E])([+]|[-])([0]|[1-9]{1,})$"))
+            {
+                errorMessage = string.Empty;
+                return true;
+            }
+
+            errorMessage = "Введенное значение строки не соответствует культуре записи числа в обычном или экспоненциальном виде";
             return false;
+        }
+
+        public static void txtBox_Validating(object sender, ValidationEventArgs e)
+        {
+            string errorMessage = string.Empty;
+            if (!IsNumericValueValid(e.component as TextBox, out errorMessage))
+                e.Cancel = true;
+
+            e.EP.SetError(e.component as TextBox, errorMessage);
         }
     }
 }

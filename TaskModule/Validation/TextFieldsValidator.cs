@@ -4,22 +4,33 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TaskModule.Validation
 {
-    public class TextFieldsValidator : ValidationAttribute
+    public class TextFieldsValidator
     {
-        private readonly char[] IligalSymbols = new[] {' '};
+        private static readonly char[] IligalSymbols = new[] {' '};
 
-        public override bool IsValid(object value)
+        public static bool IsTextValueValid(TextBox txtBox, out string errorMessage)
         {
-            if (value is string str)
+            var value = txtBox.Text;
+            if (value == null && value.Any(x => IligalSymbols.Contains(x)))
             {
-                if (str != null && !str.All(x => IligalSymbols.Contains(x)))
-                    return true;
+                errorMessage = "Переданная строка пуста или содержит неподдерживаемые символы.";
+                return false;
             }
-            ErrorMessage = "Переданная строка пуста или содержит неподдерживаемые символы.";
-            return false;
+            errorMessage = string.Empty;
+            return true;
+        }
+
+        public static void txtBox_Validating(object sender, ValidationEventArgs e)
+        {
+            string errorMessage = string.Empty;
+            if (!IsTextValueValid(e.component as TextBox, out errorMessage))
+                e.Cancel = true;
+
+            e.EP.SetError(e.component as TextBox, errorMessage);
         }
     }
 }
