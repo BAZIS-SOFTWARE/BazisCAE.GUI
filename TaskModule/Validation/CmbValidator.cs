@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace TaskModule.Validation
 {
-    public class GroupValidator
+    public class CmbValidator
     {
-        public static bool IsGroupValueValid(ComboBox cmb, out string errorMessage)
+        public static bool IsCmbValueValid(ComboBox cmb, out string errorMessage)
         {
             var groups = cmb.Items;
             var value = cmb.Text;
@@ -26,13 +26,14 @@ namespace TaskModule.Validation
                 errorMessage = string.Empty;
                 return true;
             }
-            errorMessage = "Выбранная группа не доступна. Вероятно, допущена ошибка при выборе группы";
+            errorMessage = "Выбранный вариант не доступен. Вероятно, допущена ошибка при выборе значения";
             return false;
         }
+
         public static void Validating(object sender, ValidationEventArgs e)
         {
             string errorMessage = string.Empty;
-            if (!IsGroupValueValid(e.component as ComboBox, out errorMessage))
+            if (!IsCmbValueValid(e.component as ComboBox, out errorMessage))
                 e.Cancel = true;
 
             e.EP.SetError(e.component as ComboBox, errorMessage);

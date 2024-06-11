@@ -259,6 +259,7 @@
       <DependentUpon>WeldingTasksToolStrip.cs</DependentUpon>
     </Compile>
     <Compile Include="Validation\FunctionValidator.cs" />
+    <Compile Include="Validation\CmbValidator.cs" />
     <Compile Include="Validation\GroupValidator.cs" />
     <Compile Include="Validation\NumericValidator.cs" />
     <Compile Include="Validation\TextFieldsValidator.cs" />

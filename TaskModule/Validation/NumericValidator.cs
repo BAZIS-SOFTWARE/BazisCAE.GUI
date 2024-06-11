@@ -28,8 +28,8 @@ namespace TaskModule.Validation
                 return false;
             }
 
-            if (Regex.IsMatch(value, "^([-]?)(([1-9]{1,})|([0-9]{1}))([.](\\d{1,}))?$")
-                || Regex.IsMatch(value, "^([-]?)([0-9]{1})(([.])([0-9]{1,}))?([e,E])([+]|[-])([0]|[1-9]{1,})$"))
+            if (Regex.IsMatch(value, "^([-]?)(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
+                || Regex.IsMatch(value, "^([-]?)(\\d{1})(([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,})$"))
             {
                 errorMessage = string.Empty;
                 return true;
@@ -39,7 +39,7 @@ namespace TaskModule.Validation
             return false;
         }
 
-        public static void txtBox_Validating(object sender, ValidationEventArgs e)
+        public static void Validating(object sender, ValidationEventArgs e)
         {
             string errorMessage = string.Empty;
             if (!IsNumericValueValid(e.component as TextBox, out errorMessage))

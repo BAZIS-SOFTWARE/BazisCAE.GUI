@@ -31,7 +31,7 @@ namespace TaskModule.Validation
             errorMessage = string.Empty;
             return true;
         }
-        public static void cmbFunction_Validating(object sender, ValidationEventArgs e)
+        public static void Validating(object sender, ValidationEventArgs e)
         {
             string errorMessage = string.Empty;
             if (!IsFunctionValueValid(e.component as ComboBox, out errorMessage))

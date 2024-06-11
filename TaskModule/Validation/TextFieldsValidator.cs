@@ -24,7 +24,7 @@ namespace TaskModule.Validation
             return true;
         }
 
-        public static void txtBox_Validating(object sender, ValidationEventArgs e)
+        public static void Validating(object sender, ValidationEventArgs e)
         {
             string errorMessage = string.Empty;
             if (!IsTextValueValid(e.component as TextBox, out errorMessage))
