@@ -85,6 +85,19 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             cntrHeatTask.SetSolver(1);
             cntrMechTask.SetSolver(1);
             cntrChemTask.SetSolver(1);
+
+            // Create the ToolTip and associate with the Form container.
+            var toolTip = new ToolTip();
+
+            // Set up the delays for the ToolTip.
+            toolTip.AutoPopDelay = 5000;
+            toolTip.InitialDelay = 1000;
+            toolTip.ReshowDelay = 500;
+            // Force the ToolTip text to be displayed whether or not the form is active.
+            toolTip.ShowAlways = true;
+
+            // Set up the ToolTip text for the Button and Checkbox.
+            toolTip.SetToolTip(btnLoadParameters, "Выберите директорию с *.tsf файлами");
         }
 
         public override string DataName { get; }
@@ -103,59 +116,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         {
             var strs = dataGridView.Rows.Cast<DataGridViewRow>().Select(x => $"{x.Cells[0].Value} {x.Cells[1].Value} {x.Cells[2].Value}").ToList();
             GenerateTCFEvent(this, new GenerateTCFEventArgs(strs));
-        }
-
-        private void grbTask_Paint(object sender, PaintEventArgs e)
-        {
-            var grb = (GroupBox)sender;
-            var textSize = TextRenderer.MeasureText(grb.Text, this.Font).Width;
-            var locRect = new Point(textSize + 5, 3);
-            Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 1);
-            var rect = new Rectangle(locRect, new Size(8, 8));
-
-            e.Graphics.DrawRectangle(blackPen, rect);
-            if (grb.Height == 17)
-            {
-                e.Graphics.DrawString("+", Font, new SolidBrush(System.Drawing.Color.Blue), textSize + 4, 0);
-            }
-            else
-            {
-                e.Graphics.DrawString("-", Font, new SolidBrush(System.Drawing.Color.Blue), textSize + 6, 0);
-            }
-        }
-        private void grbTask_MouseClick(object sender, MouseEventArgs e)
-        {
-            var grb = grbTaskSettings;
-
-            var textSize = TextRenderer.MeasureText(grb.Text, this.Font).Width;
-            if (e.Location.X > textSize + 5 & e.Location.X < textSize + 15 && e.Location.Y <= 10)
-            {
-                if (grb.Height == 17)
-                {
-                    GetChildControlExpandHeight(grb);
-                }
-
-                else grb.Height = 17;
-            }
-        }
-
-        private void GetChildControlExpandHeight(GroupBox grb)
-        {
-            var heigth = 0;
-            var gap = 25;
-            foreach (Control control in grb.Controls)
-            {
-                if (control is UserControl uControl)
-                    foreach (Control cntr in uControl.Controls)
-                    {
-                        if (cntr is TextBox txb | cntr is ComboBox cmb | cntr is Button)
-                        {
-                            heigth = heigth + cntr.Size.Height;
-                            gap = gap + 6;
-                        }
-                    }
-            }
-            grbTaskSettings.Height = heigth + gap;
         }
 
         private void Cntrw_InEvent(object arg1, EventArgs arg2)
@@ -184,8 +144,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 var taskSettings = dataGridView[(int)Column.settings, e.RowIndex].Value.ToString();
 
                 Set_TaskSettings(taskKind, taskSettings, e.RowIndex);
-
-                //GetChildControlExpandHeight(grbTaskSettings);
 
                 btnRefresh.Enabled = true;
                 PrevResultLoadBtn.Enabled = true;
@@ -587,8 +545,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             cntrHeatTask.BringToFront();
             grbTaskSettings.Controls.Add(cntrHeatTask);
 
-            GetChildControlExpandHeight(grbTaskSettings);
-
+            var heigth = 0;
+            GetChildControlExpandHeight(grbTaskSettings, ref heigth);
+            grbTaskSettings.Height = heigth;
         }
 
         private void LblMechTask_Click(object sender, EventArgs e)
@@ -607,7 +566,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             cntrMechTask.BringToFront();
             grbTaskSettings.Controls.Add(cntrMechTask);
 
-            GetChildControlExpandHeight(grbTaskSettings);
+            var heigth = 0;
+            GetChildControlExpandHeight(grbTaskSettings, ref heigth);
+            grbTaskSettings.Height = heigth;
 
         }
 

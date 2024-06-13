@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseModule.ControlsLib;
+using System;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
@@ -31,13 +32,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskPlannerControl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.PrevResultLoadBtn = new System.Windows.Forms.Button();
-            this.lblFileParameters = new System.Windows.Forms.Label();
             this.btnLoadParameters = new System.Windows.Forms.Button();
             this.StopButton = new System.Windows.Forms.Button();
             this.txbStartStep = new System.Windows.Forms.TextBox();
@@ -67,7 +67,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.chbTermoTask = new System.Windows.Forms.CheckBox();
             this.chbChemicalTask = new System.Windows.Forms.CheckBox();
             this.chbLinkedCalc = new System.Windows.Forms.CheckBox();
-            this.grbTaskSettings = new System.Windows.Forms.GroupBox();
+            this.grbTaskSettings = new BaseModule.ControlsLib.GroupBoxEx();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Kind = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Settings = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -91,6 +91,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.tableLayoutPanel1.Controls.Add(this.dataGridView, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -98,7 +99,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1116, 1046);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1128, 1205);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox2
@@ -106,7 +107,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.groupBox2.AutoSize = true;
             this.groupBox2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox2.Controls.Add(this.PrevResultLoadBtn);
-            this.groupBox2.Controls.Add(this.lblFileParameters);
             this.groupBox2.Controls.Add(this.btnLoadParameters);
             this.groupBox2.Controls.Add(this.StopButton);
             this.groupBox2.Controls.Add(this.txbStartStep);
@@ -126,12 +126,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.groupBox2.Controls.Add(this.txbStopTime);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(1, 107);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
+            this.groupBox2.Location = new System.Drawing.Point(7, 137);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox2.MinimumSize = new System.Drawing.Size(300, 0);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox2.Size = new System.Drawing.Size(1114, 222);
+            this.groupBox2.Size = new System.Drawing.Size(1114, 219);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Временные параметры";
@@ -150,17 +150,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.PrevResultLoadBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.PrevResultLoadBtn.UseVisualStyleBackColor = true;
             this.PrevResultLoadBtn.Click += new System.EventHandler(this.PrevResultLoadButton_Click);
-            // 
-            // lblFileParameters
-            // 
-            this.lblFileParameters.AutoSize = true;
-            this.lblFileParameters.Location = new System.Drawing.Point(143, 186);
-            this.lblFileParameters.Margin = new System.Windows.Forms.Padding(7, 10, 3, 10);
-            this.lblFileParameters.Name = "lblFileParameters";
-            this.lblFileParameters.Size = new System.Drawing.Size(200, 13);
-            this.lblFileParameters.TabIndex = 130;
-            this.lblFileParameters.Text = "Выберите директорию с *.tsf файлами";
-            this.lblFileParameters.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnLoadParameters
             // 
@@ -336,6 +325,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // btnAddNewTask
             // 
             this.btnAddNewTask.AutoSize = true;
+            this.btnAddNewTask.FlatAppearance.BorderSize = 0;
             this.btnAddNewTask.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewTask.Image")));
             this.btnAddNewTask.Location = new System.Drawing.Point(11, 178);
             this.btnAddNewTask.Margin = new System.Windows.Forms.Padding(11, 6, 3, 0);
@@ -408,8 +398,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.groupBox3.Controls.Add(this.chbChemicalTask);
             this.groupBox3.Controls.Add(this.chbLinkedCalc);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(1, 1);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(1);
+            this.groupBox3.Location = new System.Drawing.Point(7, 7);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
             this.groupBox3.Size = new System.Drawing.Size(1114, 87);
@@ -543,8 +533,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.grbTaskSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.grbTaskSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbTaskSettings.Location = new System.Drawing.Point(1, 90);
-            this.grbTaskSettings.Margin = new System.Windows.Forms.Padding(1);
+            this.grbTaskSettings.Location = new System.Drawing.Point(7, 108);
+            this.grbTaskSettings.Margin = new System.Windows.Forms.Padding(7);
             this.grbTaskSettings.MinimumSize = new System.Drawing.Size(0, 15);
             this.grbTaskSettings.Name = "grbTaskSettings";
             this.grbTaskSettings.Padding = new System.Windows.Forms.Padding(2);
@@ -552,49 +542,47 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.grbTaskSettings.TabIndex = 13;
             this.grbTaskSettings.TabStop = false;
             this.grbTaskSettings.Text = "Настройки расчета";
-            this.grbTaskSettings.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbTask_MouseClick);
-            this.grbTaskSettings.Paint += new System.Windows.Forms.PaintEventHandler(this.grbTask_Paint);
             // 
             // dataGridView
             // 
             this.dataGridView.AllowUserToAddRows = false;
             this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Kind,
             this.Settings,
             this.Time});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 329);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
+            this.dataGridView.Location = new System.Drawing.Point(7, 370);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(1114, 716);
+            this.dataGridView.Size = new System.Drawing.Size(1114, 828);
             this.dataGridView.TabIndex = 14;
             this.dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -640,10 +628,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.AutoScroll = true;
             this.AutoSize = true;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "TaskPlannerControl";
-            this.Size = new System.Drawing.Size(1116, 1046);
+            this.Size = new System.Drawing.Size(1128, 1205);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -678,7 +666,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txbMaxStep;
         private System.Windows.Forms.TextBox txbMinStep;
-        private System.Windows.Forms.GroupBox grbTaskSettings;
         private System.Windows.Forms.CheckBox chbMechTask;
         private System.Windows.Forms.CheckBox chbTermoTask;
         private System.Windows.Forms.CheckBox chbChemicalTask;
@@ -688,7 +675,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private System.Windows.Forms.CheckBox cmbHardnessTask;
         private System.Windows.Forms.Label lblHardness;
         private System.Windows.Forms.CheckBox chbFurtherComp;
-        private System.Windows.Forms.Label lblFileParameters;
         private System.Windows.Forms.Button btnLoadParameters;
         private System.Windows.Forms.Button btnGenTCF;
         private System.Windows.Forms.DataGridView dataGridView;
@@ -696,5 +682,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private System.Windows.Forms.DataGridViewTextBoxColumn Settings;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Time;
         private System.Windows.Forms.Button PrevResultLoadBtn;
+        private GroupBoxEx grbTaskSettings;
     }
 }

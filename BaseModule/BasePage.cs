@@ -13,7 +13,7 @@ using BaseModule.Console;
 using BaseModule.CrossSection;
 using BaseModule.Console.Events;
 using SceneInterface;
-using BaseModule.ToolStrips;
+using BaseModule.ControlsLib;
 using BaseModule.Navigator;
 using ModelControllerInterfaces;
 using System.Threading;
@@ -22,6 +22,8 @@ using ModelInterfaces.GeometryObjects;
 using System.Data.Odbc;
 using System.ComponentModel;
 using ProjectInterfaces;
+using BaseModule.ControlsComponents;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BaseModule
 {
@@ -228,14 +230,6 @@ namespace BaseModule
             set { displayToolStrip.VolumeNodesImage = value; }
         }
 
-        [Category("displayToolStrip")]
-        [Description("Иконка отображения названия проекта")]
-        public Image TitleInfoImage
-        {
-            get { return displayToolStrip.TitleInfoImage; }
-            set { displayToolStrip.TitleInfoImage = value; }
-        }
-
         [Category("instrumentalToolStrip")]
         [Description("Иконка запуска измерения")]
         public Image MeasureImage
@@ -279,6 +273,9 @@ namespace BaseModule
         {
             InitializeComponent();
             CreateMenuInterface();
+
+            if(ComponentsPainter.ScreenDPI == 120 | ComponentsPainter.ScreenDPI == 144)
+                selectToolStrip.Location = new Point(0,0);
         }
 
         public void SceneInitialization()

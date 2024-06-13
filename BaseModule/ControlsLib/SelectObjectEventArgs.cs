@@ -1,7 +1,7 @@
 ﻿using ModelInterfaces;
 using System;
 
-namespace BaseModule.ToolStrips
+namespace BaseModule.ControlsLib
 {
     public class SelectObjectEventArgs : EventArgs
     {

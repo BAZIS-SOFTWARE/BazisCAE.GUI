@@ -1,4 +1,5 @@
-﻿using ModelInterfaces;
+﻿using BaseModule.ControlsComponents;
+using ModelInterfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -406,51 +407,14 @@ namespace BaseModule.Navigator
 
         private void grbNavigator_Paint(object sender, PaintEventArgs e)
         {
-            PaintHeaderRectangle(e);
-            PaintCloseRectangle(e);
-            PaintName(e);
-        }
+            var loc_y = treeView.Location.Y;
 
-        private void PaintHeaderRectangle(PaintEventArgs e)
-        {
-            var locRect = new Point(0, 0);
-
-            var linGrBrush = new LinearGradientBrush(
-   new Point(0, 0),
-   new Point(0, 15),
-   DownColor,   // Opaque red
-   UpColor);  // Opaque blue
-
-            Pen gradPen = new Pen(linGrBrush);
-
-            var rect = new Rectangle(locRect, new Size(Width, 15));
-
-            e.Graphics.FillRectangle(linGrBrush, rect);
-
-            //e.Graphics.DrawRectangle(gradPen, rect);
-
-        }
-
-        private void PaintName(PaintEventArgs e)
-        {
-            var locRect = new Point(15, 3);
-            var size = e.Graphics.MeasureString(HeaderName, this.Font);
-            var rect = new Rectangle(locRect, new Size((int)size.Width, 8));
-            //e.Graphics.FillRectangle(new SolidBrush(System.Drawing.Color.Silver), rect);
-            e.Graphics.DrawString(HeaderName, Font, new SolidBrush(System.Drawing.Color.Black), 16, 0);
-        }
-
-        private void PaintCloseRectangle(PaintEventArgs e)
-        {
-            var locRect = new Point(Width - 16, 3);
-
-            Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 1);
+            ComponentsPainter.PaintGradientRectangle(e.Graphics, new Point(0, 0),Width, loc_y,UpColor,DownColor);
             
-            var rect = new Rectangle(locRect, new Size(8, 8));
+            var locRect = new Point(Width - 15, loc_y / 2 - 4);
+            ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
 
-            e.Graphics.DrawRectangle(blackPen, rect);
-            e.Graphics.DrawString("х", Font, new SolidBrush(System.Drawing.Color.Black),
-                Width - 16, 0);
+            e.Graphics.DrawString(HeaderName, ComponentsPainter.Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
         }
 
         private void grbNavigator_MouseClick(object sender, MouseEventArgs e)

@@ -2,6 +2,7 @@
 using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using TaskModule.BasicAdvisorControls;
 using TaskModule.BasicAdvisorControls.BasicControls;
+using BaseModule.ControlsLib;
 
 namespace TaskModule.HeatTreatmentModule
 {
@@ -35,7 +36,7 @@ namespace TaskModule.HeatTreatmentModule
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HeatTreatmentAdvisor));
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControl1 = new BaseModule.ControlsLib.TabControlEx();
             this.pdgTaskType = new System.Windows.Forms.TabPage();
             this.taskTypeControl1 = new TaskModule.BasicAdvisorControls.TaskTypeControl();
             this.pdgMaterials = new System.Windows.Forms.TabPage();
@@ -68,19 +69,20 @@ namespace TaskModule.HeatTreatmentModule
             this.tabControl1.Controls.Add(this.pdgPlanner);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.tabControl1.FontColor = System.Drawing.Color.Black;
             this.tabControl1.ImageList = this.imageList;
             this.tabControl1.ItemSize = new System.Drawing.Size(91, 30);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectColor = System.Drawing.SystemColors.ControlLightLight;
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(933, 738);
             this.tabControl1.TabIndex = 0;
-            this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.TabControl_DrawItem);
             // 
             // pdgTaskType
             // 
-            this.pdgTaskType.BackColor = System.Drawing.SystemColors.Control;
+            this.pdgTaskType.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.pdgTaskType.Controls.Add(this.taskTypeControl1);
             this.pdgTaskType.ImageIndex = 0;
             this.pdgTaskType.Location = new System.Drawing.Point(4, 34);
@@ -93,7 +95,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             // taskTypeControl1
             // 
-            this.taskTypeControl1.BackColor = System.Drawing.SystemColors.Control;
+            this.taskTypeControl1.BackColor = System.Drawing.Color.Transparent;
             this.taskTypeControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.taskTypeControl1.Location = new System.Drawing.Point(4, 4);
             this.taskTypeControl1.Margin = new System.Windows.Forms.Padding(0);
@@ -110,7 +112,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             // pdgMaterials
             // 
-            this.pdgMaterials.BackColor = System.Drawing.SystemColors.Control;
+            this.pdgMaterials.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.pdgMaterials.Controls.Add(this.materialsControl1);
             this.pdgMaterials.ImageIndex = 1;
             this.pdgMaterials.Location = new System.Drawing.Point(4, 34);
@@ -125,6 +127,7 @@ namespace TaskModule.HeatTreatmentModule
             this.materialsControl1.AddButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.AddButtonImage")));
             this.materialsControl1.AutoScroll = true;
             this.materialsControl1.AutoSize = true;
+            this.materialsControl1.BackColor = System.Drawing.Color.Transparent;
             this.materialsControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.ClearButtonImage")));
             this.materialsControl1.CurentSelectedRowInfo = null;
             this.materialsControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -147,7 +150,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             // pdgHTRegime
             // 
-            this.pdgHTRegime.BackColor = System.Drawing.SystemColors.Control;
+            this.pdgHTRegime.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.pdgHTRegime.Controls.Add(this.htMediaControl);
             this.pdgHTRegime.ImageIndex = 2;
             this.pdgHTRegime.Location = new System.Drawing.Point(4, 34);
@@ -160,6 +163,7 @@ namespace TaskModule.HeatTreatmentModule
             // htMediaControl
             // 
             this.htMediaControl.AddButtonImage = ((System.Drawing.Image)(resources.GetObject("htMediaControl.AddButtonImage")));
+            this.htMediaControl.BackColor = System.Drawing.Color.Transparent;
             this.htMediaControl.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("htMediaControl.ClearButtonImage")));
             this.htMediaControl.CurentSelectedRowInfo = null;
             this.htMediaControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -182,7 +186,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             // pdgClamps
             // 
-            this.pdgClamps.BackColor = System.Drawing.SystemColors.Control;
+            this.pdgClamps.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.pdgClamps.Controls.Add(this.clampControl1);
             this.pdgClamps.ImageIndex = 3;
             this.pdgClamps.Location = new System.Drawing.Point(4, 34);
@@ -197,6 +201,7 @@ namespace TaskModule.HeatTreatmentModule
             this.clampControl1.AddButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl1.AddButtonImage")));
             this.clampControl1.AutoScroll = true;
             this.clampControl1.AutoSize = true;
+            this.clampControl1.BackColor = System.Drawing.Color.Transparent;
             this.clampControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl1.ClearButtonImage")));
             this.clampControl1.CurentSelectedRowInfo = null;
             this.clampControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -219,7 +224,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             // pdgLoad
             // 
-            this.pdgLoad.BackColor = System.Drawing.SystemColors.Control;
+            this.pdgLoad.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.pdgLoad.Controls.Add(this.loadControl1);
             this.pdgLoad.ImageIndex = 4;
             this.pdgLoad.Location = new System.Drawing.Point(4, 34);
@@ -254,7 +259,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             // pdgPlanner
             // 
-            this.pdgPlanner.BackColor = System.Drawing.SystemColors.Control;
+            this.pdgPlanner.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.pdgPlanner.Controls.Add(this.taskPlannerControl1);
             this.pdgPlanner.ImageIndex = 5;
             this.pdgPlanner.Location = new System.Drawing.Point(4, 34);
@@ -269,6 +274,7 @@ namespace TaskModule.HeatTreatmentModule
             this.taskPlannerControl1.AddButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.AddButtonImage")));
             this.taskPlannerControl1.AutoScroll = true;
             this.taskPlannerControl1.AutoSize = true;
+            this.taskPlannerControl1.BackColor = System.Drawing.Color.Transparent;
             this.taskPlannerControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.ClearButtonImage")));
             this.taskPlannerControl1.CurentSelectedRowInfo = null;
             this.taskPlannerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -276,6 +282,7 @@ namespace TaskModule.HeatTreatmentModule
             this.taskPlannerControl1.Margin = new System.Windows.Forms.Padding(5);
             this.taskPlannerControl1.MinimumSize = new System.Drawing.Size(533, 862);
             this.taskPlannerControl1.Name = "taskPlannerControl1";
+            this.taskPlannerControl1.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
             this.taskPlannerControl1.ProjPath = null;
             this.taskPlannerControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.RefreshButtonImage")));
             this.taskPlannerControl1.Size = new System.Drawing.Size(925, 862);
@@ -304,11 +311,13 @@ namespace TaskModule.HeatTreatmentModule
             // 
             // HeatTreatmentAdvisor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "HeatTreatmentAdvisor";
+            this.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
             this.Size = new System.Drawing.Size(933, 738);
             this.tabControl1.ResumeLayout(false);
             this.pdgTaskType.ResumeLayout(false);
@@ -325,8 +334,6 @@ namespace TaskModule.HeatTreatmentModule
         }
 
         #endregion
-
-        private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage pdgTaskType;
         private TaskTypeControl taskTypeControl1;
         private System.Windows.Forms.TabPage pdgMaterials;
@@ -340,5 +347,6 @@ namespace TaskModule.HeatTreatmentModule
         private TaskPlannerControl taskPlannerControl1;
         private HeatControl htMediaControl;
         private System.Windows.Forms.ImageList imageList;
+        private TabControlEx tabControl1;
     }
 }

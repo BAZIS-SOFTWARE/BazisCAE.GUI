@@ -129,6 +129,13 @@
       <DependentUpon>ConsoleControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Console\FindObjectEventArgs.cs" />
+    <Compile Include="ControlsLib\GroupBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlsLib\GroupBoxEx.Designer.cs">
+      <DependentUpon>GroupBoxEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsPainter\ComponentsPainter.cs" />
     <Compile Include="CrossSection\CreatePlaneFromTextArgs.cs" />
     <Compile Include="CrossSection\CrossSectionControl.cs">
       <SubType>UserControl</SubType>
@@ -158,36 +165,42 @@
       <DependentUpon>SelectionSet.cs</DependentUpon>
     </Compile>
     <Compile Include="SplittersController.cs" />
-    <Compile Include="ToolStrips\BaseToolStrRender.cs" />
-    <Compile Include="ToolStrips\DisplayToolStrip.cs">
+    <Compile Include="ControlsLib\TabControlEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ToolStrips\DisplayToolStrip.Designer.cs">
+    <Compile Include="ControlsLib\TabControlEx.Designer.cs">
+      <DependentUpon>TabControlEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsLib\BaseToolStrRender.cs" />
+    <Compile Include="ControlsLib\DisplayToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlsLib\DisplayToolStrip.Designer.cs">
       <DependentUpon>DisplayToolStrip.cs</DependentUpon>
     </Compile>
-    <Compile Include="ToolStrips\InstrumentToolStrip.cs">
+    <Compile Include="ControlsLib\InstrumentToolStrip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ToolStrips\InstrumentToolStrip.Designer.cs">
+    <Compile Include="ControlsLib\InstrumentToolStrip.Designer.cs">
       <DependentUpon>InstrumentToolStrip.cs</DependentUpon>
     </Compile>
-    <Compile Include="ToolStrips\SelectObjectEventArgs.cs" />
-    <Compile Include="ToolStrips\SelectToolStrip.cs">
+    <Compile Include="ControlsLib\SelectObjectEventArgs.cs" />
+    <Compile Include="ControlsLib\SelectToolStrip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ToolStrips\SelectToolStrip.Designer.cs">
+    <Compile Include="ControlsLib\SelectToolStrip.Designer.cs">
       <DependentUpon>SelectToolStrip.cs</DependentUpon>
     </Compile>
-    <Compile Include="ToolStrips\StandartToolStrip.cs">
+    <Compile Include="ControlsLib\StandartToolStrip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ToolStrips\StandartToolStrip.Designer.cs">
+    <Compile Include="ControlsLib\StandartToolStrip.Designer.cs">
       <DependentUpon>StandartToolStrip.cs</DependentUpon>
     </Compile>
-    <Compile Include="ToolStrips\ViewToolStrip.cs">
+    <Compile Include="ControlsLib\ViewToolStrip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ToolStrips\ViewToolStrip.Designer.cs">
+    <Compile Include="ControlsLib\ViewToolStrip.Designer.cs">
       <DependentUpon>ViewToolStrip.cs</DependentUpon>
     </Compile>
     <Compile Include="Navigator\NavigatorControl.cs">
@@ -206,6 +219,9 @@
     <EmbeddedResource Include="Console\ConsoleControl.resx">
       <DependentUpon>ConsoleControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ControlsLib\GroupBoxEx.resx">
+      <DependentUpon>GroupBoxEx.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CrossSection\CrossSectionControl.resx">
       <DependentUpon>CrossSectionControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -218,23 +234,27 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SelectionSet\SelectionSet.resx">
       <DependentUpon>SelectionSet.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ToolStrips\DisplayToolStrip.resx">
+    <EmbeddedResource Include="ControlsLib\TabControlEx.resx">
+      <DependentUpon>TabControlEx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsLib\DisplayToolStrip.resx">
       <DependentUpon>DisplayToolStrip.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ToolStrips\InstrumentToolStrip.resx">
+    <EmbeddedResource Include="ControlsLib\InstrumentToolStrip.resx">
       <DependentUpon>InstrumentToolStrip.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ToolStrips\SelectToolStrip.resx">
+    <EmbeddedResource Include="ControlsLib\SelectToolStrip.resx">
       <DependentUpon>SelectToolStrip.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ToolStrips\StandartToolStrip.resx">
+    <EmbeddedResource Include="ControlsLib\StandartToolStrip.resx">
       <DependentUpon>StandartToolStrip.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ToolStrips\ViewToolStrip.resx">
+    <EmbeddedResource Include="ControlsLib\ViewToolStrip.resx">
       <DependentUpon>ViewToolStrip.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -267,7 +287,7 @@
     <None Include="Resources\Measure_32x32.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ToolStrips\DisplayToolStripButtons_x32\Basis.png" />
+    <None Include="ControlsLib\DisplayToolStripButtons_x32\Basis.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\CloseFolder.png" />
