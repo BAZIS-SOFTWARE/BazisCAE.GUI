@@ -134,7 +134,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.Color.Transparent;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.btnInfo);
             this.Controls.Add(this.txbBeamBottomDiam);
             this.Controls.Add(this.txbBeamUpperDiam);

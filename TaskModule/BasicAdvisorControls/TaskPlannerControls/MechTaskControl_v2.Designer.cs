@@ -368,6 +368,7 @@
             this.Controls.Add(this.txbMaxSiSt);
             this.Controls.Add(this.txbMaxU);
             this.Controls.Add(this.txbMaxDU);
+            this.Margin = new System.Windows.Forms.Padding(1);
             this.MinimumSize = new System.Drawing.Size(0, 300);
             this.Name = "MechTaskControl_v2";
             this.Size = new System.Drawing.Size(778, 300);

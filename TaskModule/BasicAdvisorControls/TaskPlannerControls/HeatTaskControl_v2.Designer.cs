@@ -312,6 +312,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.chbDTtMax);
             this.Controls.Add(this.txbDTtMax);
+            this.Margin = new System.Windows.Forms.Padding(1);
             this.MinimumSize = new System.Drawing.Size(0, 250);
             this.Name = "HeatTaskControl_v2";
             this.Size = new System.Drawing.Size(546, 250);

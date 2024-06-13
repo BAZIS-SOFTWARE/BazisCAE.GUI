@@ -739,49 +739,44 @@ namespace BazisGUI
 
         private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var f = new Form();
-            var taskAdv = new WeldingAdvisor()
+            try
             {
-                Dock = DockStyle.Fill,
-                Name = "Сварка",
-                Text = "arcWeldingMenuItem.Text",
-                Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)))
-        };
-            f.Controls.Add(taskAdv);
-            f.Show();
 
-            //try
-            //{
+                var dialog = new FolderBrowserDialog();
+                if (dialog.ShowDialog() == DialogResult.Cancel)
+                    return;
 
-            //    var dialog = new FolderBrowserDialog();
-            //    if (dialog.ShowDialog() == DialogResult.Cancel)
-            //        return;
+                var folderName = dialog.SelectedPath;
 
-            //    var folderName = dialog.SelectedPath;
+                CreateNewProject(folderName, "newProject");
 
-            //    CreateNewProject(folderName, "newProject");
+                lblStatus.Text = $"{project.Path}\\{project.Name}";
 
-            //    lblStatus.Text = $"{project.Path}\\{project.Name}";
+                модулиMenuItem.Enabled = true;
 
-            //    модулиMenuItem.Enabled = true;
+                var module = TryGetModule();
+                if (module == null)
+                {
+                    module = CreateModule("Mesh");
+                    AddModule(module);
 
-            //    var module = TryGetModule();
-            //    if (module == null)
-            //    {
-            //        module = CreateModule("Mesh");
-            //        AddModule(module);
-            //    }
+                    var que = new Queue<int>();
+                    que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.2f));
+                    que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.65f));
 
-            //    else
-            //        module.SceneInitialization();
+                    module.SplittersController.SetSplitters(que);
+                }
 
-            //    PresentProjectOnModule(module);
-            //    module.SceneControl.DisplayObjects();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Ошибка");
-            //}
+                else
+                    module.SceneInitialization();
+
+                PresentProjectOnModule(module);
+                module.SceneControl.DisplayObjects();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка");
+            }
         }
 
         private async void открытьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -815,6 +810,12 @@ namespace BazisGUI
                 {
                     module = CreateModule("Mesh");
                     AddModule(module);
+
+                    var que = new Queue<int>();
+                    que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.2f));
+                    que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.65f));
+
+                    module.SplittersController.SetSplitters(que);
                 }
                 else
                     module.SceneInitialization();
