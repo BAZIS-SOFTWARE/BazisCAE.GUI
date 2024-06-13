@@ -371,6 +371,9 @@
     <EmbeddedResource Include="ToolStrips\WeldingTasksToolStrip.resx">
       <DependentUpon>WeldingTasksToolStrip.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WeldingModule\WeldingTypeControls\WeldContainerControl.resx">
+      <DependentUpon>WeldContainerControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WeldingModule\WeldingTypeControls\WeldingMediaControl.resx">
       <DependentUpon>WeldingMediaControl.cs</DependentUpon>
     </EmbeddedResource>

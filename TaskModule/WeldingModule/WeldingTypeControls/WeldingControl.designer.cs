@@ -1,4 +1,6 @@
-﻿namespace TaskModule.WeldingModule.WeldingTypeControls
+﻿using BaseModule.ControlsLib;
+
+namespace TaskModule.WeldingModule.WeldingTypeControls
 {
     partial class WeldingControl
     {
@@ -72,7 +74,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.cmbWeldZone = new System.Windows.Forms.ComboBox();
-            this.grbWeldRegime = new System.Windows.Forms.GroupBox();
+            this.grbWeldRegime = new GroupBoxEx();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiSpecifyHeatingZone = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
@@ -601,8 +603,6 @@
             this.grbWeldRegime.TabIndex = 30;
             this.grbWeldRegime.TabStop = false;
             this.grbWeldRegime.Text = "Параметры процесса";
-            this.grbWeldRegime.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbWeldRegime_MouseClick);
-            this.grbWeldRegime.Paint += new System.Windows.Forms.PaintEventHandler(this.grbWeldRegime_Paint);
             // 
             // contextMenuStrip
             // 

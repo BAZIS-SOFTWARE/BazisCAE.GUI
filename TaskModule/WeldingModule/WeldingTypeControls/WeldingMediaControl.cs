@@ -168,42 +168,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         }
 
-        private void grbTask_Paint(object sender, PaintEventArgs e)
-        {
-            var grb = (GroupBox)sender;
-            var textSize = TextRenderer.MeasureText(grb.Text, this.Font).Width;
-            var locRect = new Point(textSize + 5, 3);
-            Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 1);
-            var rect = new Rectangle(locRect, new Size(8, 8));
-
-            e.Graphics.DrawRectangle(blackPen, rect);
-            if (grb.Height == 17)
-            {
-                e.Graphics.DrawString("+", Font, new SolidBrush(System.Drawing.Color.Blue), textSize + 4, 0);
-            }
-            else
-            {
-                e.Graphics.DrawString("-", Font, new SolidBrush(System.Drawing.Color.Blue), textSize + 6, 0);
-            }
-        }
-        private void grbTask_MouseClick(object sender, MouseEventArgs e)
-        {
-            var grb = (GroupBox)sender;
-
-            var textSize = TextRenderer.MeasureText(grb.Text, this.Font).Width;
-            if (e.Location.X > textSize + 5 & e.Location.X < textSize + 15 && e.Location.Y <= 10)
-            {
-                if (grb.Height == 17)
-                {
-                    var heigth = 0;
-                    GetChildControlExpandHeight(grb, ref heigth);
-                    grb.Height = heigth;
-                }
-
-                else grb.Height = 17;
-            }
-        }
-
         public override void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             base.DataGridView_UserDeletingRow(sender, e);

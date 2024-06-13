@@ -1,4 +1,5 @@
-﻿using MB.Controls;
+﻿using BaseModule.ControlsLib;
+using MB.Controls;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -32,7 +33,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.grbHeatFlux = new System.Windows.Forms.GroupBox();
+            this.grbHeatFlux = new GroupBoxEx();
             this.label5 = new System.Windows.Forms.Label();
             this.txbMediaTemp = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -56,7 +57,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnAddNewRow = new System.Windows.Forms.Button();
             this.txbStartTime = new System.Windows.Forms.TextBox();
-            this.grbTermoCycle = new System.Windows.Forms.GroupBox();
+            this.grbTermoCycle = new GroupBoxEx();
             this.cmbTermoCycle = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -113,8 +114,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.grbHeatFlux.TabIndex = 18;
             this.grbHeatFlux.TabStop = false;
             this.grbHeatFlux.Text = "Параметры теплового потока";
-            this.grbHeatFlux.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbTask_MouseClick);
-            this.grbHeatFlux.Paint += new System.Windows.Forms.PaintEventHandler(this.grbTask_Paint);
             // 
             // label5
             // 
@@ -414,8 +413,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.grbTermoCycle.TabIndex = 20;
             this.grbTermoCycle.TabStop = false;
             this.grbTermoCycle.Text = "Параметры термоцикла";
-            this.grbTermoCycle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbTask_MouseClick);
-            this.grbTermoCycle.Paint += new System.Windows.Forms.PaintEventHandler(this.grbTask_Paint);
             // 
             // cmbTermoCycle
             // 
