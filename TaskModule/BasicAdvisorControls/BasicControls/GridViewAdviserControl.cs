@@ -26,39 +26,7 @@ namespace TaskModule.BasicAdvisorControls.BasicControls
                     throw new Exception("Выберите строку с данными!");
                 return gridView.SelectedRows[gridView.SelectedRows.Count - 1].Index;
             }
-        }
-
-        public void GetChildControlExpandHeight(Control cntr, ref int heigth)
-        {
-            var gap = 0;
-
-            var mediumGap = 6;
-            heigth = 20;
-            if (ComponentsPainter.ScreenDPI == 120)
-                mediumGap = 8;
-            if (ComponentsPainter.ScreenDPI == 144)
-                mediumGap = 10;
-
-            foreach (Control control in cntr.Controls)
-            {
-                if (control.Controls.Count > 0)
-                {
-                    heigth = 0;
-                    GetChildControlExpandHeight(control, ref heigth);
-                    heigth -= 20;
-                }
- 
-                else
-                {
-                    if (control is TextBox txb | control is ComboBox cmb | control is Button | control is PictureBox | control is RadioButton)
-                    {
-                        heigth += control.Size.Height;
-                        gap += mediumGap;
-                    }
-                }
-            }
-            heigth = heigth + gap + 20;
-        }
+        }      
 
         public DataGridView GetDataGrid
         {

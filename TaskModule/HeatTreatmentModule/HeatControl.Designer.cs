@@ -1,4 +1,4 @@
-﻿using MB.Controls;
+﻿using BaseModule.ControlsLib;
 
 namespace TaskModule.HeatTreatmentModule
 {
@@ -52,7 +52,7 @@ namespace TaskModule.HeatTreatmentModule
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.player = new PlayerControl.Player();
+            this.player = new Player();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txbStopTime = new System.Windows.Forms.TextBox();
@@ -338,7 +338,7 @@ namespace TaskModule.HeatTreatmentModule
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = PlayerControl.CheckState.start;
+            this.player.CheckState = CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(171, 76);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -542,7 +542,7 @@ namespace TaskModule.HeatTreatmentModule
         private System.Windows.Forms.TextBox txbStartTime;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.ComboBox cmbTempFunc;
-        private PlayerControl.Player player;
+        private Player player;
         private System.Windows.Forms.TextBox convExcFunc;
         private System.Windows.Forms.TextBox StefanBolzmanConst;
         private System.Windows.Forms.Label label9;

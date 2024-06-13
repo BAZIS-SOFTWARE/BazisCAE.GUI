@@ -129,11 +129,23 @@
       <DependentUpon>ConsoleControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Console\FindObjectEventArgs.cs" />
+    <Compile Include="ControlsLib\ColorSlider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlsLib\ColorSlider.Designer.cs">
+      <DependentUpon>ColorSlider.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlsLib\GroupBoxEx.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ControlsLib\GroupBoxEx.Designer.cs">
       <DependentUpon>GroupBoxEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsLib\Player.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlsLib\Player.Designer.cs">
+      <DependentUpon>Player.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlsPainter\ComponentsPainter.cs" />
     <Compile Include="CrossSection\CreatePlaneFromTextArgs.cs" />
@@ -290,6 +302,9 @@
     <None Include="ControlsLib\DisplayToolStripButtons_x32\Basis.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ControlsLib\PlayerControlIcons\Pause.ico" />
+    <None Include="ControlsLib\PlayerControlIcons\StartCheck.ico" />
+    <None Include="ControlsLib\PlayerControlIcons\Stop.ico" />
     <Content Include="Resources\CloseFolder.png" />
     <Content Include="Resources\OpenFolder.png" />
     <Content Include="Tao.OpenGl.dll" />

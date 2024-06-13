@@ -1,5 +1,4 @@
 ﻿using BaseModule.ControlsLib;
-using MB.Controls;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -47,7 +46,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.player = new PlayerControl.Player();
+            this.player = new Player();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txbStopTime = new System.Windows.Forms.TextBox();
@@ -274,7 +273,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = PlayerControl.CheckState.start;
+            this.player.CheckState = CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(172, 76);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -554,7 +553,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Button btnClearAll;
-        private PlayerControl.Player player;
+        private Player player;
         private System.Windows.Forms.DataGridViewTextBoxColumn elGroupColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn matColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;

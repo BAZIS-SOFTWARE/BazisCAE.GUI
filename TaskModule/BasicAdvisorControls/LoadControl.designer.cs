@@ -1,4 +1,6 @@
-﻿namespace TaskModule.BasicAdvisorControls
+﻿using BaseModule.ControlsLib;
+
+namespace TaskModule.BasicAdvisorControls
 {
     partial class LoadControl
     {
@@ -31,7 +33,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.player = new PlayerControl.Player();
+            this.player = new Player();
             this.label8 = new System.Windows.Forms.Label();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnHideAll = new System.Windows.Forms.Button();
@@ -117,7 +119,7 @@
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = PlayerControl.CheckState.start;
+            this.player.CheckState = CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(171, 80);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -535,7 +537,7 @@
         private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.CheckBox chbLRF;
-        private PlayerControl.Player player;
+        private Player player;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;

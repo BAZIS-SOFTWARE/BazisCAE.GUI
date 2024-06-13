@@ -36,22 +36,17 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.player = new PlayerControl.Player();
+            this.player = new BaseModule.ControlsLib.Player();
             this.label11 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnClearAll = new System.Windows.Forms.Button();
             this.chbEnergyCalibration = new System.Windows.Forms.CheckBox();
             this.chbShifting = new System.Windows.Forms.CheckBox();
             this.txbStartTime = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbStopPoint = new System.Windows.Forms.ComboBox();
             this.cmbStartPoint = new System.Windows.Forms.ComboBox();
-            this.btnHide = new System.Windows.Forms.Button();
-            this.btnShow = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.addRowButton = new System.Windows.Forms.Button();
             this.txbAngle = new System.Windows.Forms.TextBox();
             this.txbShiftZ = new System.Windows.Forms.TextBox();
             this.txbShiftY = new System.Windows.Forms.TextBox();
@@ -74,9 +69,14 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.cmbWeldZone = new System.Windows.Forms.ComboBox();
-            this.grbWeldRegime = new GroupBoxEx();
+            this.grbWeldRegime = new BaseModule.ControlsLib.GroupBoxEx();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiSpecifyHeatingZone = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnClearAll = new System.Windows.Forms.Button();
+            this.btnHide = new System.Windows.Forms.Button();
+            this.btnShow = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.addRowButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -104,7 +104,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(513, 638);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(410, 510);
             this.tableLayoutPanel1.TabIndex = 20;
             // 
             // groupBox1
@@ -141,11 +141,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.groupBox1.Controls.Add(this.cmbRef);
             this.groupBox1.Controls.Add(this.cmbTraj);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(7, 111);
+            this.groupBox1.Location = new System.Drawing.Point(7, 115);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(499, 295);
+            this.groupBox1.Size = new System.Drawing.Size(396, 295);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры движения";
@@ -155,13 +155,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = PlayerControl.CheckState.start;
+            this.player.CheckState = BaseModule.ControlsLib.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(171, 237);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 15, 0);
             this.player.MinimumSize = new System.Drawing.Size(215, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(314, 45);
+            this.player.Size = new System.Drawing.Size(215, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -212,19 +212,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.label5.TabIndex = 53;
             this.label5.Text = "dX";
             // 
-            // btnClearAll
-            // 
-            this.btnClearAll.AutoSize = true;
-            this.btnClearAll.Image = global::TaskModule.Properties.Resources.delete;
-            this.btnClearAll.Location = new System.Drawing.Point(43, 237);
-            this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
-            this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(26, 26);
-            this.btnClearAll.TabIndex = 52;
-            this.btnClearAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnClearAll.UseVisualStyleBackColor = true;
-            this.btnClearAll.Click += new System.EventHandler(this.ClearAllDataButton_Click);
-            // 
             // chbEnergyCalibration
             // 
             this.chbEnergyCalibration.AutoSize = true;
@@ -254,7 +241,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbStartTime.Location = new System.Drawing.Point(171, 210);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(314, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(211, 20);
             this.txbStartTime.TabIndex = 43;
             // 
             // label1
@@ -274,7 +261,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbStopPoint.Location = new System.Drawing.Point(171, 131);
             this.cmbStopPoint.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbStopPoint.Name = "cmbStopPoint";
-            this.cmbStopPoint.Size = new System.Drawing.Size(314, 21);
+            this.cmbStopPoint.Size = new System.Drawing.Size(211, 21);
             this.cmbStopPoint.TabIndex = 36;
             // 
             // cmbStartPoint
@@ -285,8 +272,293 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbStartPoint.Location = new System.Drawing.Point(171, 104);
             this.cmbStartPoint.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbStartPoint.Name = "cmbStartPoint";
-            this.cmbStartPoint.Size = new System.Drawing.Size(314, 21);
+            this.cmbStartPoint.Size = new System.Drawing.Size(211, 21);
             this.cmbStartPoint.TabIndex = 35;
+            // 
+            // txbAngle
+            // 
+            this.txbAngle.Enabled = false;
+            this.txbAngle.Location = new System.Drawing.Point(453, 158);
+            this.txbAngle.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
+            this.txbAngle.Name = "txbAngle";
+            this.txbAngle.Size = new System.Drawing.Size(44, 20);
+            this.txbAngle.TabIndex = 31;
+            this.txbAngle.Text = "0";
+            // 
+            // txbShiftZ
+            // 
+            this.txbShiftZ.Enabled = false;
+            this.txbShiftZ.Location = new System.Drawing.Point(359, 158);
+            this.txbShiftZ.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbShiftZ.Name = "txbShiftZ";
+            this.txbShiftZ.Size = new System.Drawing.Size(45, 20);
+            this.txbShiftZ.TabIndex = 31;
+            this.txbShiftZ.Text = "0";
+            // 
+            // txbShiftY
+            // 
+            this.txbShiftY.Enabled = false;
+            this.txbShiftY.Location = new System.Drawing.Point(281, 158);
+            this.txbShiftY.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbShiftY.Name = "txbShiftY";
+            this.txbShiftY.Size = new System.Drawing.Size(45, 20);
+            this.txbShiftY.TabIndex = 31;
+            this.txbShiftY.Text = "0";
+            // 
+            // txbShiftX
+            // 
+            this.txbShiftX.Enabled = false;
+            this.txbShiftX.Location = new System.Drawing.Point(205, 158);
+            this.txbShiftX.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbShiftX.Name = "txbShiftX";
+            this.txbShiftX.Size = new System.Drawing.Size(45, 20);
+            this.txbShiftX.TabIndex = 31;
+            this.txbShiftX.Text = "0";
+            // 
+            // txbVelosity
+            // 
+            this.txbVelosity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbVelosity.Location = new System.Drawing.Point(171, 184);
+            this.txbVelosity.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
+            this.txbVelosity.Name = "txbVelosity";
+            this.txbVelosity.Size = new System.Drawing.Size(211, 20);
+            this.txbVelosity.TabIndex = 31;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(8, 139);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(132, 13);
+            this.label7.TabIndex = 34;
+            this.label7.Text = "Точка остановки сварки";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 53);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(84, 13);
+            this.label4.TabIndex = 33;
+            this.label4.Text = "Опорная линия";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(92, 13);
+            this.label3.TabIndex = 33;
+            this.label3.Text = "Линия движения";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(8, 107);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(114, 13);
+            this.label6.TabIndex = 33;
+            this.label6.Text = "Точка начала сварки";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 192);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(142, 13);
+            this.label2.TabIndex = 30;
+            this.label2.Text = "Скорость сварки, мм/cек.";
+            // 
+            // cmbEnergyCalibration
+            // 
+            this.cmbEnergyCalibration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbEnergyCalibration.Enabled = false;
+            this.cmbEnergyCalibration.FormattingEnabled = true;
+            this.cmbEnergyCalibration.Location = new System.Drawing.Point(170, 77);
+            this.cmbEnergyCalibration.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
+            this.cmbEnergyCalibration.Name = "cmbEnergyCalibration";
+            this.cmbEnergyCalibration.Size = new System.Drawing.Size(211, 21);
+            this.cmbEnergyCalibration.TabIndex = 29;
+            // 
+            // cmbRef
+            // 
+            this.cmbRef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbRef.FormattingEnabled = true;
+            this.cmbRef.Location = new System.Drawing.Point(170, 50);
+            this.cmbRef.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
+            this.cmbRef.Name = "cmbRef";
+            this.cmbRef.Size = new System.Drawing.Size(211, 21);
+            this.cmbRef.TabIndex = 29;
+            // 
+            // cmbTraj
+            // 
+            this.cmbTraj.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbTraj.FormattingEnabled = true;
+            this.cmbTraj.Location = new System.Drawing.Point(170, 23);
+            this.cmbTraj.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
+            this.cmbTraj.Name = "cmbTraj";
+            this.cmbTraj.Size = new System.Drawing.Size(211, 21);
+            this.cmbTraj.TabIndex = 29;
+            // 
+            // dataGridView
+            // 
+            this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.NullValue = " ";
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.видСварки,
+            this.ОбластьСварки,
+            this.startColumn,
+            this.stopColumn,
+            this.ПараметрыДвижения});
+            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView.Location = new System.Drawing.Point(7, 424);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.ReadOnly = true;
+            this.dataGridView.RowHeadersWidth = 20;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridView.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.dataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dataGridView.Size = new System.Drawing.Size(396, 79);
+            this.dataGridView.TabIndex = 25;
+            this.dataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView_DefaultValuesNeeded);
+            this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
+            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
+            this.dataGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_MouseClick);
+            // 
+            // видСварки
+            // 
+            this.видСварки.HeaderText = "Вид сварки";
+            this.видСварки.MinimumWidth = 6;
+            this.видСварки.Name = "видСварки";
+            this.видСварки.ReadOnly = true;
+            this.видСварки.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // ОбластьСварки
+            // 
+            this.ОбластьСварки.HeaderText = "Область сварки";
+            this.ОбластьСварки.MinimumWidth = 6;
+            this.ОбластьСварки.Name = "ОбластьСварки";
+            this.ОбластьСварки.ReadOnly = true;
+            // 
+            // startColumn
+            // 
+            this.startColumn.HeaderText = "Старт";
+            this.startColumn.MinimumWidth = 6;
+            this.startColumn.Name = "startColumn";
+            this.startColumn.ReadOnly = true;
+            // 
+            // stopColumn
+            // 
+            this.stopColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.NullValue = "0";
+            this.stopColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.stopColumn.HeaderText = "Стоп";
+            this.stopColumn.MinimumWidth = 6;
+            this.stopColumn.Name = "stopColumn";
+            this.stopColumn.ReadOnly = true;
+            // 
+            // ПараметрыДвижения
+            // 
+            this.ПараметрыДвижения.HeaderText = "Параметры движения";
+            this.ПараметрыДвижения.MinimumWidth = 6;
+            this.ПараметрыДвижения.Name = "ПараметрыДвижения";
+            this.ПараметрыДвижения.ReadOnly = true;
+            this.ПараметрыДвижения.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.AutoSize = true;
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.cmbWeldZone);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(7, 7);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(7);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBox3.Size = new System.Drawing.Size(396, 61);
+            this.groupBox3.TabIndex = 31;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Область действия";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(8, 27);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(100, 13);
+            this.label9.TabIndex = 39;
+            this.label9.Text = "Группа элементов";
+            // 
+            // cmbWeldZone
+            // 
+            this.cmbWeldZone.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbWeldZone.FormattingEnabled = true;
+            this.cmbWeldZone.Location = new System.Drawing.Point(170, 24);
+            this.cmbWeldZone.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
+            this.cmbWeldZone.Name = "cmbWeldZone";
+            this.cmbWeldZone.Size = new System.Drawing.Size(211, 21);
+            this.cmbWeldZone.TabIndex = 38;
+            // 
+            // grbWeldRegime
+            // 
+            this.grbWeldRegime.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.grbWeldRegime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grbWeldRegime.ForeColor = System.Drawing.Color.Black;
+            this.grbWeldRegime.Location = new System.Drawing.Point(7, 82);
+            this.grbWeldRegime.Margin = new System.Windows.Forms.Padding(7);
+            this.grbWeldRegime.MinimumSize = new System.Drawing.Size(0, 15);
+            this.grbWeldRegime.Name = "grbWeldRegime";
+            this.grbWeldRegime.Padding = new System.Windows.Forms.Padding(0);
+            this.grbWeldRegime.Size = new System.Drawing.Size(396, 19);
+            this.grbWeldRegime.TabIndex = 30;
+            this.grbWeldRegime.TabStop = false;
+            this.grbWeldRegime.Text = "Параметры процесса";
+            // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiSpecifyHeatingZone});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(200, 26);
+            // 
+            // tsmiSpecifyHeatingZone
+            // 
+            this.tsmiSpecifyHeatingZone.Name = "tsmiSpecifyHeatingZone";
+            this.tsmiSpecifyHeatingZone.Size = new System.Drawing.Size(199, 22);
+            this.tsmiSpecifyHeatingZone.Text = "Уточнить зону нагрева";
+            this.tsmiSpecifyHeatingZone.Click += new System.EventHandler(this.tsmiSpecifyHeatingZone_Click);
+            // 
+            // btnClearAll
+            // 
+            this.btnClearAll.AutoSize = true;
+            this.btnClearAll.Image = global::TaskModule.Properties.Resources.delete;
+            this.btnClearAll.Location = new System.Drawing.Point(43, 237);
+            this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
+            this.btnClearAll.Name = "btnClearAll";
+            this.btnClearAll.Size = new System.Drawing.Size(26, 26);
+            this.btnClearAll.TabIndex = 52;
+            this.btnClearAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnClearAll.UseVisualStyleBackColor = true;
+            this.btnClearAll.Click += new System.EventHandler(this.ClearAllDataButton_Click);
             // 
             // btnHide
             // 
@@ -347,278 +619,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.addRowButton.UseVisualStyleBackColor = true;
             this.addRowButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
-            // txbAngle
-            // 
-            this.txbAngle.Enabled = false;
-            this.txbAngle.Location = new System.Drawing.Point(453, 158);
-            this.txbAngle.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
-            this.txbAngle.Name = "txbAngle";
-            this.txbAngle.Size = new System.Drawing.Size(44, 20);
-            this.txbAngle.TabIndex = 31;
-            this.txbAngle.Text = "0";
-            // 
-            // txbShiftZ
-            // 
-            this.txbShiftZ.Enabled = false;
-            this.txbShiftZ.Location = new System.Drawing.Point(359, 158);
-            this.txbShiftZ.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
-            this.txbShiftZ.Name = "txbShiftZ";
-            this.txbShiftZ.Size = new System.Drawing.Size(45, 20);
-            this.txbShiftZ.TabIndex = 31;
-            this.txbShiftZ.Text = "0";
-            // 
-            // txbShiftY
-            // 
-            this.txbShiftY.Enabled = false;
-            this.txbShiftY.Location = new System.Drawing.Point(281, 158);
-            this.txbShiftY.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
-            this.txbShiftY.Name = "txbShiftY";
-            this.txbShiftY.Size = new System.Drawing.Size(45, 20);
-            this.txbShiftY.TabIndex = 31;
-            this.txbShiftY.Text = "0";
-            // 
-            // txbShiftX
-            // 
-            this.txbShiftX.Enabled = false;
-            this.txbShiftX.Location = new System.Drawing.Point(205, 158);
-            this.txbShiftX.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
-            this.txbShiftX.Name = "txbShiftX";
-            this.txbShiftX.Size = new System.Drawing.Size(45, 20);
-            this.txbShiftX.TabIndex = 31;
-            this.txbShiftX.Text = "0";
-            // 
-            // txbVelosity
-            // 
-            this.txbVelosity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbVelosity.Location = new System.Drawing.Point(171, 184);
-            this.txbVelosity.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.txbVelosity.Name = "txbVelosity";
-            this.txbVelosity.Size = new System.Drawing.Size(314, 20);
-            this.txbVelosity.TabIndex = 31;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 139);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(132, 13);
-            this.label7.TabIndex = 34;
-            this.label7.Text = "Точка остановки сварки";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 53);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 13);
-            this.label4.TabIndex = 33;
-            this.label4.Text = "Опорная линия";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 26);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(92, 13);
-            this.label3.TabIndex = 33;
-            this.label3.Text = "Линия движения";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 107);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(114, 13);
-            this.label6.TabIndex = 33;
-            this.label6.Text = "Точка начала сварки";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 192);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(142, 13);
-            this.label2.TabIndex = 30;
-            this.label2.Text = "Скорость сварки, мм/cек.";
-            // 
-            // cmbEnergyCalibration
-            // 
-            this.cmbEnergyCalibration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbEnergyCalibration.Enabled = false;
-            this.cmbEnergyCalibration.FormattingEnabled = true;
-            this.cmbEnergyCalibration.Location = new System.Drawing.Point(170, 77);
-            this.cmbEnergyCalibration.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.cmbEnergyCalibration.Name = "cmbEnergyCalibration";
-            this.cmbEnergyCalibration.Size = new System.Drawing.Size(314, 21);
-            this.cmbEnergyCalibration.TabIndex = 29;
-            // 
-            // cmbRef
-            // 
-            this.cmbRef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbRef.FormattingEnabled = true;
-            this.cmbRef.Location = new System.Drawing.Point(170, 50);
-            this.cmbRef.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.cmbRef.Name = "cmbRef";
-            this.cmbRef.Size = new System.Drawing.Size(314, 21);
-            this.cmbRef.TabIndex = 29;
-            // 
-            // cmbTraj
-            // 
-            this.cmbTraj.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbTraj.FormattingEnabled = true;
-            this.cmbTraj.Location = new System.Drawing.Point(170, 23);
-            this.cmbTraj.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
-            this.cmbTraj.Name = "cmbTraj";
-            this.cmbTraj.Size = new System.Drawing.Size(314, 21);
-            this.cmbTraj.TabIndex = 29;
-            // 
-            // dataGridView
-            // 
-            this.dataGridView.AllowUserToAddRows = false;
-            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.NullValue = " ";
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.видСварки,
-            this.ОбластьСварки,
-            this.startColumn,
-            this.stopColumn,
-            this.ПараметрыДвижения});
-            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(7, 420);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.ReadOnly = true;
-            this.dataGridView.RowHeadersWidth = 20;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            this.dataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.Size = new System.Drawing.Size(499, 211);
-            this.dataGridView.TabIndex = 25;
-            this.dataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView_DefaultValuesNeeded);
-            this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
-            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
-            this.dataGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_MouseClick);
-            // 
-            // видСварки
-            // 
-            this.видСварки.HeaderText = "Вид сварки";
-            this.видСварки.MinimumWidth = 6;
-            this.видСварки.Name = "видСварки";
-            this.видСварки.ReadOnly = true;
-            this.видСварки.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // ОбластьСварки
-            // 
-            this.ОбластьСварки.HeaderText = "Область сварки";
-            this.ОбластьСварки.MinimumWidth = 6;
-            this.ОбластьСварки.Name = "ОбластьСварки";
-            this.ОбластьСварки.ReadOnly = true;
-            // 
-            // startColumn
-            // 
-            this.startColumn.HeaderText = "Старт";
-            this.startColumn.MinimumWidth = 6;
-            this.startColumn.Name = "startColumn";
-            this.startColumn.ReadOnly = true;
-            // 
-            // stopColumn
-            // 
-            this.stopColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.NullValue = "0";
-            this.stopColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.stopColumn.HeaderText = "Стоп";
-            this.stopColumn.MinimumWidth = 6;
-            this.stopColumn.Name = "stopColumn";
-            this.stopColumn.ReadOnly = true;
-            // 
-            // ПараметрыДвижения
-            // 
-            this.ПараметрыДвижения.HeaderText = "Параметры движения";
-            this.ПараметрыДвижения.MinimumWidth = 6;
-            this.ПараметрыДвижения.Name = "ПараметрыДвижения";
-            this.ПараметрыДвижения.ReadOnly = true;
-            this.ПараметрыДвижения.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.AutoSize = true;
-            this.groupBox3.Controls.Add(this.label9);
-            this.groupBox3.Controls.Add(this.cmbWeldZone);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(7, 7);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(7);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox3.Size = new System.Drawing.Size(499, 61);
-            this.groupBox3.TabIndex = 31;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Область действия";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(8, 27);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(100, 13);
-            this.label9.TabIndex = 39;
-            this.label9.Text = "Группа элементов";
-            // 
-            // cmbWeldZone
-            // 
-            this.cmbWeldZone.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbWeldZone.FormattingEnabled = true;
-            this.cmbWeldZone.Location = new System.Drawing.Point(170, 24);
-            this.cmbWeldZone.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
-            this.cmbWeldZone.Name = "cmbWeldZone";
-            this.cmbWeldZone.Size = new System.Drawing.Size(314, 21);
-            this.cmbWeldZone.TabIndex = 38;
-            // 
-            // grbWeldRegime
-            // 
-            this.grbWeldRegime.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.grbWeldRegime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbWeldRegime.ForeColor = System.Drawing.Color.Black;
-            this.grbWeldRegime.Location = new System.Drawing.Point(7, 82);
-            this.grbWeldRegime.Margin = new System.Windows.Forms.Padding(7);
-            this.grbWeldRegime.MinimumSize = new System.Drawing.Size(0, 15);
-            this.grbWeldRegime.Name = "grbWeldRegime";
-            this.grbWeldRegime.Padding = new System.Windows.Forms.Padding(2);
-            this.grbWeldRegime.Size = new System.Drawing.Size(499, 15);
-            this.grbWeldRegime.TabIndex = 30;
-            this.grbWeldRegime.TabStop = false;
-            this.grbWeldRegime.Text = "Параметры процесса";
-            // 
-            // contextMenuStrip
-            // 
-            this.contextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiSpecifyHeatingZone});
-            this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(200, 26);
-            // 
-            // tsmiSpecifyHeatingZone
-            // 
-            this.tsmiSpecifyHeatingZone.Name = "tsmiSpecifyHeatingZone";
-            this.tsmiSpecifyHeatingZone.Size = new System.Drawing.Size(199, 22);
-            this.tsmiSpecifyHeatingZone.Text = "Уточнить зону нагрева";
-            this.tsmiSpecifyHeatingZone.Click += new System.EventHandler(this.tsmiSpecifyHeatingZone_Click);
-            // 
             // WeldingControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -657,7 +657,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbTraj;
         private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.GroupBox grbWeldRegime;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.TextBox txbShiftX;
@@ -677,7 +676,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private System.Windows.Forms.TextBox txbAngle;
         private System.Windows.Forms.TextBox txbShiftZ;
         private System.Windows.Forms.TextBox txbShiftY;
-        private PlayerControl.Player player;
+        private Player player;
         private System.Windows.Forms.DataGridViewTextBoxColumn видСварки;
         private System.Windows.Forms.DataGridViewTextBoxColumn ОбластьСварки;
         private System.Windows.Forms.DataGridViewTextBoxColumn startColumn;
@@ -686,5 +685,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem tsmiSpecifyHeatingZone;
         private System.Windows.Forms.Label label9;
+        private GroupBoxEx grbWeldRegime;
     }
 }

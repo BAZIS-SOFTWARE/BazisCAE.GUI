@@ -739,38 +739,49 @@ namespace BazisGUI
 
         private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
+            var f = new Form();
+            var taskAdv = new WeldingAdvisor()
             {
+                Dock = DockStyle.Fill,
+                Name = "Сварка",
+                Text = "arcWeldingMenuItem.Text",
+                Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)))
+        };
+            f.Controls.Add(taskAdv);
+            f.Show();
 
-                var dialog = new FolderBrowserDialog();
-                if (dialog.ShowDialog() == DialogResult.Cancel)
-                    return;
+            //try
+            //{
 
-                var folderName = dialog.SelectedPath;
+            //    var dialog = new FolderBrowserDialog();
+            //    if (dialog.ShowDialog() == DialogResult.Cancel)
+            //        return;
 
-                CreateNewProject(folderName, "newProject");
+            //    var folderName = dialog.SelectedPath;
 
-                lblStatus.Text = $"{project.Path}\\{project.Name}";
+            //    CreateNewProject(folderName, "newProject");
 
-                модулиMenuItem.Enabled = true;
+            //    lblStatus.Text = $"{project.Path}\\{project.Name}";
 
-                var module = TryGetModule();
-                if (module == null)
-                {
-                    module = CreateModule("Mesh");
-                    AddModule(module);
-                }
+            //    модулиMenuItem.Enabled = true;
 
-                else
-                    module.SceneInitialization();
+            //    var module = TryGetModule();
+            //    if (module == null)
+            //    {
+            //        module = CreateModule("Mesh");
+            //        AddModule(module);
+            //    }
 
-                PresentProjectOnModule(module);
-                module.SceneControl.DisplayObjects();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка");
-            }
+            //    else
+            //        module.SceneInitialization();
+
+            //    PresentProjectOnModule(module);
+            //    module.SceneControl.DisplayObjects();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Ошибка");
+            //}
         }
 
         private async void открытьToolStripMenuItem_Click(object sender, EventArgs e)

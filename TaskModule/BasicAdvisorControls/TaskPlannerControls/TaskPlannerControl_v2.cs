@@ -13,11 +13,10 @@ using ProjectInterfaces.Tasks;
 using System.Text.RegularExpressions;
 using System.Linq;
 using TasksParameters;
-using System.Text;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
-    public partial class TaskPlannerControl : GridViewAdviserControl
+    public partial class TaskPlannerControl_v2 : GridViewAdviserControl
     {
         public ProcessType ProcessType { get; set; }
 
@@ -48,9 +47,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         [Description("Set path for computation")]
 
         public string ProjPath { get; set; }
-        string InputDataPath 
-        { 
-            get 
+        string InputDataPath
+        {
+            get
             {
                 var inputDataPath = $@"{Path.GetFullPath(ProjPath)}\InputData";
                 return inputDataPath;
@@ -65,17 +64,17 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         enum Column : int { kind, settings, status };
         enum TaskKind : int { химическая, термическая, механическая, твердость };
 
-        HeatTaskControl cntrHeatTask;
-        MechTaskControl cntrMechTask;
+        HeatTaskControl_v2 cntrHeatTask;
+        MechTaskControl_v2 cntrMechTask;
         ChemTaskControl cntrChemTask;
 
-        public TaskPlannerControl()
+        public TaskPlannerControl_v2()
         {
             InitializeComponent();
             DataName = "Расчет";
 
-            cntrHeatTask = new HeatTaskControl() { Dock = DockStyle.Fill };
-            cntrMechTask = new MechTaskControl() { Dock = DockStyle.Fill };
+            cntrHeatTask = new HeatTaskControl_v2() { Dock = DockStyle.Fill };
+            cntrMechTask = new MechTaskControl_v2() { Dock = DockStyle.Fill };
             cntrChemTask = new ChemTaskControl() { Dock = DockStyle.Fill };
 
             cntrHeatTask.ChangeDataEvent += Cntrw_InEvent;
@@ -210,9 +209,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             parameters = JsonConvert.DeserializeObject<MechanicalParameters>
 (File.ReadAllText(fileSettings), settingsSerializer);
             cntrMechTask.InputData(parameters);
-            cntrMechTask.BringToFront();
-            grbTaskSettings.Height = cntrMechTask.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
+            grbTaskSettings.Controls.Clear();
             grbTaskSettings.Controls.Add(cntrMechTask);
+            grbTaskSettings.Height = cntrMechTask.MinimumSize.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height + 12;
 
             var mechPar = parameters as MechanicalParameters;
 
@@ -242,9 +241,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             parameters = JsonConvert.DeserializeObject<TermalParameters>
 (File.ReadAllText(fileSettings), settingsSerializer);
             cntrHeatTask.InputData(parameters);
-            cntrHeatTask.BringToFront();
-            grbTaskSettings.Height = cntrHeatTask.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
+            grbTaskSettings.Controls.Clear();
             grbTaskSettings.Controls.Add(cntrHeatTask);
+            grbTaskSettings.Height = cntrHeatTask.MinimumSize.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height + 10;
 
             var termPar = parameters as TermalParameters;
 
@@ -385,7 +384,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                         if (isTsfFileCreated)
                             AddRowInfo(TaskKind.термическая, TaskStatus.выполнить, CountRows);
                     }
-                    
+
                     Thread.Sleep(100);
                     if (chbMechTask.Checked)
                     {
@@ -417,7 +416,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 throw new Exception("Время окончания не указано");
 
             var tsfFileName = $"{taskKind}_{taskInd}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
-            
+
             dataGridView.Rows.Add(new string[] { taskKind.ToString(), $@"{InputDataPath}\{tsfFileName}", status.ToString() });
         }
 
@@ -452,7 +451,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             dataGridView.Rows.Clear();
 
             foreach (var line in lines)
-                dataGridView.Rows.Add(line.Split(' '));      
+                dataGridView.Rows.Add(line.Split(' '));
         }
 
         private void btnLoadParameters_Click(object sender, EventArgs e)
@@ -542,15 +541,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             lblMechTask.BackColor = Color.Transparent;
             lblMechTask.ForeColor = Color.Black;
 
-            grbTaskSettings.Height = cntrHeatTask.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
             grbTaskSettings.Controls.Clear();
-
-            cntrHeatTask.BringToFront();
             grbTaskSettings.Controls.Add(cntrHeatTask);
-
-            //var heigth = 0;
-            //GetChildControlExpandHeight(grbTaskSettings, ref heigth);
-            //grbTaskSettings.Height = heigth;
+            grbTaskSettings.Height = cntrHeatTask.MinimumSize.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height + 10;
         }
 
         private void LblMechTask_Click(object sender, EventArgs e)
@@ -565,9 +558,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             lblChemicalTask.ForeColor = Color.Black;
             grbTaskSettings.Controls.Clear();
 
-            cntrMechTask.BringToFront();
+            //cntrMechTask.BringToFront();
             grbTaskSettings.Controls.Add(cntrMechTask);
-            grbTaskSettings.Height = cntrMechTask.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
+            grbTaskSettings.Height = cntrMechTask.MinimumSize.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height + +12;
 
         }
 

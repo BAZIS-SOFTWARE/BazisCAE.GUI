@@ -1,21 +1,17 @@
-﻿using PlayerControl;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.HeatTreatmentModule
-{  
+{
     public partial class HeatControl : CheckedGridViewAdviserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
         [Category("Images")]

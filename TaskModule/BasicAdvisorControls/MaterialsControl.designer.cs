@@ -1,4 +1,6 @@
-﻿namespace TaskModule.BasicAdvisorControls
+﻿using BaseModule.ControlsLib;
+
+namespace TaskModule.BasicAdvisorControls
 {
     partial class MaterialsControl
     {
@@ -36,7 +38,7 @@
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.player = new PlayerControl.Player();
+            this.player = new Player();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txbStopTime = new System.Windows.Forms.TextBox();
@@ -155,7 +157,7 @@
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = PlayerControl.CheckState.start;
+            this.player.CheckState = CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(171, 72);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -390,6 +392,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn matColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn startColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn stopColumn;
-        private PlayerControl.Player player;
+        private Player player;
     }
 }

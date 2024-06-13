@@ -117,71 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Basis" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ControlsLib\DisplayToolStripButtons_x32\Basis.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnClearAllTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAFtJREFUOE/Ni8ENwCAMxLL/Bp2WgnSURLjHs7V0j8hO/It2RRvTuWH9lG/RyW9B
+        jpx7oMhNbxUKacoZeshT5qHHMWkPPeYpY+iBprxCoZveFi5yrmBl5+S/IOIGPKYIOujdzLMAAAAASUVO
+        RK5CYII=
+</value>
   </data>
-  <data name="console" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\console.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="btnRefresh.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABEAAAAQCAYAAADwMZRfAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAX
+        kAAAF5ABPVKdSAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGQSURBVDhPfVTN
+        KwVRFD8+djZIskTZYan8AYqyFmUpFrKysLXwHyjRm7m3puQrO7KzkOQp6YmkzLv3mp73lAUbChnnfpiv
+        N9evfs2dc36/M3PPuTNQB5ePAeH7yCoyRL5g7AiImIbdsMmoLHCCdi1WRhsvsVivcWRAWSsKbjMGG6tQ
+        4D3GmQDhexnhFb7VPFAxgusZ5HEix6FQHlRb23jq0AVcPpwQSK7m7t3li0DYCXgPneDVWvD+FBy+opOU
+        O4kCZ7AcNupEDmSOsi7U3WBvvpReweX3URFXTOigBd5jP+rLkZ5wH8KwQfbjPQrmNsxAj74SaTVrQP0+
+        WeQjDlrGR8Q45uOH/ZHyb3DEnCxyFwfZpLHVgwYDmN9C4xtqX5E/xncon7JubiTP/20sEduxlvlYtIRr
+        H09qeShOKK5hoWZji0HFUlrHplR8U7SpKwZ2UgKXl9C0oJspZtX5SOapKNa/sfxuCLtOCe2s4Da6jTMD
+        eYRlk/KNhuzCOsEUKBs12wuQn8hnnMiBmlzurwDgF4emk5eGjyBzAAAAAElFTkSuQmCC
+</value>
   </data>
-  <data name="create" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\create.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Del" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\TreeViewPic\ConsoleMenu\Del.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\TreeViewPic\ConsoleMenu\Delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\TreeViewPic\ConsoleMenu\Edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Hide" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\TreeViewPic\ConsoleMenu\Hide.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Info" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\TreeViewPic\ConsoleMenu\Info.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Measure_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Measure_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="navigator" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\navigator.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NodeFromElemGroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\TreeViewPic\ConsoleMenu\NodeFromElemGroup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\open.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ControlsLib\PlayerControlIcons\Pause.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Rename" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\TreeViewPic\ConsoleMenu\Rename.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="save" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\save.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Show" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\TreeViewPic\ConsoleMenu\Show.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="StartCheck" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ControlsLib\PlayerControlIcons\StartCheck.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ControlsLib\PlayerControlIcons\Stop.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SwitchOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\TreeViewPic\ConsoleMenu\SwitchOff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SwitchOn" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\TreeViewPic\ConsoleMenu\SwitchOn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="switchOn_elems_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\TreeViewPic\switchOn_elems_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="switchOn_nodes_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\TreeViewPic\switchOn_nodes_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="btnAddNewTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAACxJREFUOE9joBlwOMDwHxlDhYkHI80AdMXEYqj2YWEANkCSYmxg1ABiAQMDABBr
+        v6G/1Jc4AAAAAElFTkSuQmCC
+</value>
   </data>
 </root>
