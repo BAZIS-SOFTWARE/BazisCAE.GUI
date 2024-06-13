@@ -272,6 +272,9 @@ namespace BaseModule
         public BasePage()
         {
             InitializeComponent();
+
+            SplittersController = new SplittersController(this);
+
             CreateMenuInterface();
 
             if(ComponentsPainter.ScreenDPI == 120 | ComponentsPainter.ScreenDPI == 144)
@@ -570,7 +573,9 @@ namespace BaseModule
 
                     if (e.ClickedItem.Tag.ToString() == "4")
                     {
-                        var form = new Form() { Name = "selectForm", Text = "Выбрать", AutoSize = false, ShowIcon = false, TopMost = true };
+                        var form = new Form() { 
+                            Name = "selectForm", Text = "Выбрать", AutoSize = false, 
+                            ShowIcon = false, TopMost = true, Owner = Application.OpenForms[0] };
                         
                         form.FormClosing += (s1, s2) => { btn.Checked = false; };
                         var selectionControl = new SelectionSet() { Dock = DockStyle.Fill };
@@ -691,7 +696,8 @@ namespace BaseModule
                 {
                     if (e.ClickedItem.Tag.ToString() == "0")
                     {
-                        var form = new Form() { Name = "measureForm", Text = "Измерить", ShowIcon = false, TopMost = true };
+                        var form = new Form() { Name = "measureForm", Text = "Измерить", ShowIcon = false, 
+                            Owner = Application.OpenForms[0],TopMost = true };
 
                         form.FormClosed += (s1, s2) =>
                         {
@@ -718,7 +724,9 @@ namespace BaseModule
 
                     else if (e.ClickedItem.Tag.ToString() == "1")
                     {
-                        var form = new Form() { Name = "CrossSectionForm", Text = "Построить сечение", ShowIcon = false, Size = new Size(268, 203), TopMost = true };
+                        var form = new Form() { Name = "CrossSectionForm", Text = "Построить сечение", 
+                            ShowIcon = false, Size = new Size(268, 203),
+                            Owner = Application.OpenForms[0],TopMost = true };
 
                         var crossSection = new CrossSectionControl() { Dock = DockStyle.Fill };
                         form.ClientSize = crossSection.Size;
@@ -1189,19 +1197,31 @@ namespace BaseModule
 
                 else if (arg2.ClickedItem.Tag.ToString() == "3")
                 {
+                    PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.LineSurface);
+                    PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.LineSurface);
+                    PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.LineSurface);
+                    PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.LineSurface);
+
                     foreach (var objsType in sceneControl.GetVBObjsName())
                         sceneControl.ChangeViewModeVBObjects(objsType, ObjView.LinesSurface);
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "4")
                 {
-
+                    PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.Line);
+                    PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.Line);
+                    PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.Line);
+                    PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.Line);
                     foreach (var objsType in sceneControl.GetVBObjsName())
                         sceneControl.ChangeViewModeVBObjects(objsType, ObjView.Lines);
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "5")
                 {
+                    PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.Surface);
+                    PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.Surface);
+                    PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.Surface);
+                    PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.Surface);
                     foreach (var objsType in sceneControl.GetVBObjsName())
                         sceneControl.ChangeViewModeVBObjects(objsType, ObjView.Surface);
                 }
@@ -1546,8 +1566,6 @@ namespace BaseModule
                 splitContainer2.Panel2Collapsed = false;
             };
             consoleControl.ConsolePanelCollapseEvent += () => { splitContainer2.Panel2Collapsed = true; };
-
-            SplittersController = new SplittersController(this);
 
             displayToolStrip.Renderer = BaseToolStrRender;
             selectToolStrip.Renderer = BaseToolStrRender;

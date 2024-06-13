@@ -111,7 +111,7 @@ namespace TaskModule
 
                     var icon = TaskModule.Properties.Resources.Материалы;
                     var name = "База материалов";
-                    var form = new Form() { Name = name, Text = name, TopMost = true, Size = matBasePage.Size, Icon = icon };
+                    var form = new Form() { Name = name, Text = name, TopMost = true, Owner = Application.OpenForms[0],Size = matBasePage.Size, Icon = icon };
                     form.Controls.Add(matBasePage);
                     form.ClientSize = matBasePage.Size;
                     form.Show();
@@ -145,7 +145,7 @@ namespace TaskModule
 
                     var icon = TaskModule.Properties.Resources.Функции;
                     var name = "База функций";
-                    var form = new Form() { Name = name, Text = name, TopMost = true, Size = funBasePage.Size, Icon = icon };
+                    var form = new Form() { Name = name, Text = name, TopMost = true, Owner = Application.OpenForms[0],Size = funBasePage.Size, Icon = icon };
                     form.Controls.Add(funBasePage);
                     form.ClientSize = funBasePage.Size;
                     form.Show();
@@ -214,7 +214,7 @@ namespace TaskModule
                 }
 
                 activeAdvisor = taskAdv.Name;
-                var form = new Form() { Text = taskAdv.Text, Name = taskAdv.Name, TopMost = true, Size = taskAdv.Size, ShowIcon = false };
+                var form = new Form() { Text = taskAdv.Text, Name = taskAdv.Name, TopMost = true, Owner = Application.OpenForms[0],Size = taskAdv.Size, ShowIcon = false };
                 form.FormClosed += (ar1, ar2) =>
                 {
                     if (ar2.CloseReason == CloseReason.UserClosing)

@@ -72,6 +72,9 @@ namespace BazisGUI
             InitializeComponent();
             ComponentsPainter.Font = this.Font;
             ComponentsPainter.ScreenDPI = this.DeviceDpi;
+
+            this.
+
             GetServerConnection();
         }
 
@@ -127,24 +130,6 @@ namespace BazisGUI
         {
             newModule.SceneControl.Camera.SetViewMatrix(viewMatrix);
             newModule.SceneControl.ScaleObjs(1.0f); // TO DO Разобраться почему без этого компас сворачивается в точку
-        }
-
-        private BasePage TryGetModule(string text)
-        {
-            Control[] cntrs;
-            if(text == "Сварка")
-                cntrs = toolStripContainer.ContentPanel.Controls.Find("Weld", false);
-            else if (text == "Термообработка")
-                cntrs = toolStripContainer.ContentPanel.Controls.Find("HeatTreatment", false);
-            else if (text == "Результаты")
-                cntrs = toolStripContainer.ContentPanel.Controls.Find("Result", false);
-            else
-                cntrs = toolStripContainer.ContentPanel.Controls.Find("Mesh", false);
-            
-            if (cntrs.Count() > 0)
-                return (BasePage)cntrs[0];
-            else
-                return null;
         }
 
         private BasePage TryGetModule()
@@ -338,6 +323,12 @@ namespace BazisGUI
                 modelPage.GmshController = gmshController;
                 basePage = modelPage;
             }
+
+            var que = new Queue<int>();
+            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.1f));
+            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.45f));
+
+            basePage.SplittersController.SetSplitters(que);
 
             basePage.ModelController = modelController;
             return basePage;
@@ -759,12 +750,6 @@ namespace BazisGUI
                 {
                     module = CreateModule("Mesh");
                     AddModule(module);
-
-                    var que = new Queue<int>();
-                    que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.2f));
-                    que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.65f));
-
-                    module.SplittersController.SetSplitters(que);
                 }
 
                 else
@@ -810,12 +795,6 @@ namespace BazisGUI
                 {
                     module = CreateModule("Mesh");
                     AddModule(module);
-
-                    var que = new Queue<int>();
-                    que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.2f));
-                    que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.65f));
-
-                    module.SplittersController.SetSplitters(que);
                 }
                 else
                     module.SceneInitialization();
