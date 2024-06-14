@@ -127,6 +127,7 @@
             this.txbRelaxation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbRelaxation.BackColor = System.Drawing.SystemColors.Window;
+            this.txbRelaxation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbRelaxation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbRelaxation.Location = new System.Drawing.Point(190, 194);
             this.txbRelaxation.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -140,6 +141,7 @@
             this.txbPrecision.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbPrecision.BackColor = System.Drawing.SystemColors.Window;
+            this.txbPrecision.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbPrecision.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbPrecision.Location = new System.Drawing.Point(190, 168);
             this.txbPrecision.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -165,6 +167,7 @@
             this.txbSolverIterations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbSolverIterations.BackColor = System.Drawing.SystemColors.Window;
+            this.txbSolverIterations.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbSolverIterations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbSolverIterations.Location = new System.Drawing.Point(190, 142);
             this.txbSolverIterations.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -190,6 +193,7 @@
             this.txbIters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbIters.BackColor = System.Drawing.SystemColors.Window;
+            this.txbIters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbIters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbIters.Location = new System.Drawing.Point(190, 63);
             this.txbIters.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -216,6 +220,7 @@
             this.txbSaveRate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbSaveRate.BackColor = System.Drawing.SystemColors.Window;
+            this.txbSaveRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbSaveRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbSaveRate.Location = new System.Drawing.Point(190, 89);
             this.txbSaveRate.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -242,6 +247,7 @@
             this.txbInitTemp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbInitTemp.BackColor = System.Drawing.SystemColors.Window;
+            this.txbInitTemp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbInitTemp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbInitTemp.Location = new System.Drawing.Point(190, 37);
             this.txbInitTemp.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -281,6 +287,7 @@
             this.txbDTtMax.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbDTtMax.BackColor = System.Drawing.SystemColors.Window;
+            this.txbDTtMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbDTtMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbDTtMax.Location = new System.Drawing.Point(190, 10);
             this.txbDTtMax.Margin = new System.Windows.Forms.Padding(178, 10, 15, 3);

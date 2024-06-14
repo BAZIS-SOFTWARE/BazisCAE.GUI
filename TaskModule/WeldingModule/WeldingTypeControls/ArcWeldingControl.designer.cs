@@ -53,6 +53,7 @@
             // 
             this.voltageTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.voltageTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.voltageTextBox.Location = new System.Drawing.Point(178, 36);
             this.voltageTextBox.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.voltageTextBox.Name = "voltageTextBox";
@@ -72,6 +73,7 @@
             // 
             this.weldPoolTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.weldPoolTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.weldPoolTextBox.Location = new System.Drawing.Point(178, 62);
             this.weldPoolTextBox.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.weldPoolTextBox.Name = "weldPoolTextBox";
@@ -92,6 +94,7 @@
             // 
             this.currentTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.currentTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.currentTextBox.Location = new System.Drawing.Point(178, 10);
             this.currentTextBox.Margin = new System.Windows.Forms.Padding(178, 15, 15, 3);
             this.currentTextBox.Name = "currentTextBox";

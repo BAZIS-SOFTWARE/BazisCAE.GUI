@@ -47,6 +47,7 @@
             // btnCreateCross
             // 
             this.btnCreateCross.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnCreateCross.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCreateCross.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnCreateCross.Location = new System.Drawing.Point(60, 210);
             this.btnCreateCross.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
@@ -87,6 +88,7 @@
             // txbPoint1
             // 
             this.txbPoint1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.txbPoint1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tableLayoutPanel3.SetColumnSpan(this.txbPoint1, 2);
             this.txbPoint1.Location = new System.Drawing.Point(62, 7);
             this.txbPoint1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -98,6 +100,7 @@
             // txbPoint2
             // 
             this.txbPoint2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.txbPoint2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tableLayoutPanel3.SetColumnSpan(this.txbPoint2, 2);
             this.txbPoint2.Location = new System.Drawing.Point(62, 41);
             this.txbPoint2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -120,6 +123,7 @@
             // txbPoint3
             // 
             this.txbPoint3.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.txbPoint3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tableLayoutPanel3.SetColumnSpan(this.txbPoint3, 2);
             this.txbPoint3.Location = new System.Drawing.Point(62, 75);
             this.txbPoint3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -217,6 +221,7 @@
             // btnRemoveCross
             // 
             this.btnRemoveCross.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRemoveCross.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemoveCross.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnRemoveCross.Location = new System.Drawing.Point(165, 210);
             this.btnRemoveCross.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);

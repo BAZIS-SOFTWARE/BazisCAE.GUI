@@ -176,7 +176,7 @@
     <Compile Include="SelectionSet\SelectionSet.Designer.cs">
       <DependentUpon>SelectionSet.cs</DependentUpon>
     </Compile>
-    <Compile Include="SplittersController.cs" />
+    <Compile Include="Utilities\SplittersController.cs" />
     <Compile Include="ControlsLib\TabControlEx.cs">
       <SubType>Component</SubType>
     </Compile>

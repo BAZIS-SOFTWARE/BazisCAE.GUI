@@ -32,7 +32,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.grbHeatFlux = new GroupBoxEx();
+            this.grbHeatFlux = new BaseModule.ControlsLib.GroupBoxEx();
             this.label5 = new System.Windows.Forms.Label();
             this.txbMediaTemp = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,7 +46,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.player = new Player();
+            this.player = new BaseModule.ControlsLib.Player();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txbStopTime = new System.Windows.Forms.TextBox();
@@ -56,7 +56,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnAddNewRow = new System.Windows.Forms.Button();
             this.txbStartTime = new System.Windows.Forms.TextBox();
-            this.grbTermoCycle = new GroupBoxEx();
+            this.grbTermoCycle = new BaseModule.ControlsLib.GroupBoxEx();
             this.cmbTermoCycle = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -128,6 +128,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbMediaTemp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbMediaTemp.BackColor = System.Drawing.SystemColors.Window;
+            this.txbMediaTemp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbMediaTemp.Location = new System.Drawing.Point(171, 80);
             this.txbMediaTemp.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbMediaTemp.Name = "txbMediaTemp";
@@ -273,7 +274,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = CheckState.start;
+            this.player.CheckState = BaseModule.ControlsLib.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(172, 76);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -314,6 +315,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStopTime.Location = new System.Drawing.Point(171, 50);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStopTime.Name = "txbStopTime";
@@ -323,11 +325,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // btnHideAll
             // 
             this.btnHideAll.AutoSize = true;
+            this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHideAll.Image = global::TaskModule.Properties.Resources.HideAll;
             this.btnHideAll.Location = new System.Drawing.Point(140, 76);
             this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnHideAll.Name = "btnHideAll";
-            this.btnHideAll.Size = new System.Drawing.Size(26, 26);
+            this.btnHideAll.Size = new System.Drawing.Size(28, 28);
             this.btnHideAll.TabIndex = 13;
             this.btnHideAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnHideAll.UseVisualStyleBackColor = true;
@@ -336,11 +339,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // btnShowAll
             // 
             this.btnShowAll.AutoSize = true;
+            this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowAll.Image = global::TaskModule.Properties.Resources.ShowAll;
             this.btnShowAll.Location = new System.Drawing.Point(108, 76);
             this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(26, 26);
+            this.btnShowAll.Size = new System.Drawing.Size(28, 28);
             this.btnShowAll.TabIndex = 13;
             this.btnShowAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnShowAll.UseVisualStyleBackColor = true;
@@ -350,11 +354,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             this.btnRefresh.AutoSize = true;
             this.btnRefresh.Enabled = false;
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Image = global::TaskModule.Properties.Resources.Refresh;
             this.btnRefresh.Location = new System.Drawing.Point(76, 76);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(26, 26);
+            this.btnRefresh.Size = new System.Drawing.Size(28, 28);
             this.btnRefresh.TabIndex = 13;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -363,11 +368,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // btnClearAll
             // 
             this.btnClearAll.AutoSize = true;
+            this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = global::TaskModule.Properties.Resources.delete;
             this.btnClearAll.Location = new System.Drawing.Point(44, 76);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(26, 26);
+            this.btnClearAll.Size = new System.Drawing.Size(28, 28);
             this.btnClearAll.TabIndex = 13;
             this.btnClearAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnClearAll.UseVisualStyleBackColor = true;
@@ -376,11 +382,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // btnAddNewRow
             // 
             this.btnAddNewRow.AutoSize = true;
+            this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewRow.Image = global::TaskModule.Properties.Resources.Add;
             this.btnAddNewRow.Location = new System.Drawing.Point(11, 76);
             this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
             this.btnAddNewRow.Name = "btnAddNewRow";
-            this.btnAddNewRow.Size = new System.Drawing.Size(26, 26);
+            this.btnAddNewRow.Size = new System.Drawing.Size(28, 28);
             this.btnAddNewRow.TabIndex = 13;
             this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewRow.UseVisualStyleBackColor = true;
@@ -390,6 +397,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartTime.Location = new System.Drawing.Point(171, 24);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
@@ -526,7 +534,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.GroupBox grbHeatFlux;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txbMediaTemp;
         private System.Windows.Forms.Label label2;
@@ -540,7 +547,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private System.Windows.Forms.TextBox txbStopTime;
         private System.Windows.Forms.Button btnAddNewRow;
         private System.Windows.Forms.TextBox txbStartTime;
-        private System.Windows.Forms.GroupBox grbTermoCycle;
         private System.Windows.Forms.ComboBox cmbTermoCycle;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -559,5 +565,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn startColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn stopColumn;
+        private GroupBoxEx grbHeatFlux;
+        private GroupBoxEx grbTermoCycle;
     }
 }

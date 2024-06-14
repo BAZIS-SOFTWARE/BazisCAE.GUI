@@ -43,13 +43,14 @@
             // 
             // richTextBox1
             // 
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tableLayoutPanel1.SetColumnSpan(this.richTextBox1, 2);
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(202, 57);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(9, 0, 9, 0);
+            this.richTextBox1.Location = new System.Drawing.Point(151, 48);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(400, 240);
+            this.richTextBox1.Size = new System.Drawing.Size(300, 202);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             this.richTextBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.richTextBox1_MouseClick);
@@ -60,10 +61,10 @@
             this.tableLayoutPanel1.SetColumnSpan(this.cmbTasksResults, 2);
             this.cmbTasksResults.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTasksResults.FormattingEnabled = true;
-            this.cmbTasksResults.Location = new System.Drawing.Point(202, 20);
-            this.cmbTasksResults.Margin = new System.Windows.Forms.Padding(9, 9, 9, 2);
+            this.cmbTasksResults.Location = new System.Drawing.Point(151, 16);
+            this.cmbTasksResults.Margin = new System.Windows.Forms.Padding(7, 7, 7, 2);
             this.cmbTasksResults.Name = "cmbTasksResults";
-            this.cmbTasksResults.Size = new System.Drawing.Size(400, 24);
+            this.cmbTasksResults.Size = new System.Drawing.Size(300, 21);
             this.cmbTasksResults.Sorted = true;
             this.cmbTasksResults.TabIndex = 0;
             this.cmbTasksResults.SelectedIndexChanged += new System.EventHandler(this.cmbTasksResults_SelectedIndexChanged);
@@ -72,9 +73,10 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(68, 20);
+            this.label1.Location = new System.Drawing.Point(50, 17);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 16);
+            this.label1.Size = new System.Drawing.Size(43, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Задача";
             // 
@@ -82,9 +84,10 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(56, 169);
+            this.label2.Location = new System.Drawing.Point(40, 142);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(81, 16);
+            this.label2.Size = new System.Drawing.Size(64, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Интервалы";
             // 
@@ -94,20 +97,20 @@
             this.tableLayoutPanel1.SetColumnSpan(this.cmbNodeGroupName, 2);
             this.cmbNodeGroupName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbNodeGroupName.FormattingEnabled = true;
-            this.cmbNodeGroupName.Location = new System.Drawing.Point(202, 304);
-            this.cmbNodeGroupName.Margin = new System.Windows.Forms.Padding(9, 2, 9, 2);
+            this.cmbNodeGroupName.Location = new System.Drawing.Point(151, 255);
+            this.cmbNodeGroupName.Margin = new System.Windows.Forms.Padding(7, 2, 7, 2);
             this.cmbNodeGroupName.Name = "cmbNodeGroupName";
-            this.cmbNodeGroupName.Size = new System.Drawing.Size(400, 24);
+            this.cmbNodeGroupName.Size = new System.Drawing.Size(300, 21);
             this.cmbNodeGroupName.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(28, 308);
-            this.label3.Margin = new System.Windows.Forms.Padding(9, 0, 3, 0);
+            this.label3.Location = new System.Drawing.Point(20, 259);
+            this.label3.Margin = new System.Windows.Forms.Padding(7, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(142, 16);
+            this.label3.Size = new System.Drawing.Size(108, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "Группа результатов";
             // 
@@ -116,7 +119,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 225F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 169F));
             this.tableLayoutPanel1.Controls.Add(this.cmbNodeGroupName, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
@@ -133,18 +136,19 @@
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.38461F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80.61539F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(611, 432);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(458, 360);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(395, 382);
-            this.btnExport.Margin = new System.Windows.Forms.Padding(9);
+            this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExport.Location = new System.Drawing.Point(295, 319);
+            this.btnExport.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(207, 37);
+            this.btnExport.Size = new System.Drawing.Size(155, 30);
             this.btnExport.TabIndex = 1;
             this.btnExport.Text = "Экспортировать";
             this.btnExport.UseVisualStyleBackColor = true;
@@ -154,10 +158,10 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(38, 346);
-            this.label4.Margin = new System.Windows.Forms.Padding(9, 0, 3, 0);
+            this.label4.Location = new System.Drawing.Point(25, 290);
+            this.label4.Margin = new System.Windows.Forms.Padding(7, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(122, 16);
+            this.label4.Size = new System.Drawing.Size(99, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "Формат экспорта";
             // 
@@ -167,20 +171,20 @@
             this.tableLayoutPanel1.SetColumnSpan(this.cmbExtentionType, 2);
             this.cmbExtentionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbExtentionType.FormattingEnabled = true;
-            this.cmbExtentionType.Location = new System.Drawing.Point(202, 342);
-            this.cmbExtentionType.Margin = new System.Windows.Forms.Padding(9, 2, 9, 2);
+            this.cmbExtentionType.Location = new System.Drawing.Point(151, 286);
+            this.cmbExtentionType.Margin = new System.Windows.Forms.Padding(7, 2, 7, 2);
             this.cmbExtentionType.Name = "cmbExtentionType";
-            this.cmbExtentionType.Size = new System.Drawing.Size(400, 24);
+            this.cmbExtentionType.Size = new System.Drawing.Size(300, 21);
             this.cmbExtentionType.TabIndex = 8;
             // 
             // ExportControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ExportControl";
-            this.Size = new System.Drawing.Size(611, 443);
+            this.Size = new System.Drawing.Size(458, 360);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
