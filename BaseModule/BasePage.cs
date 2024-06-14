@@ -864,14 +864,14 @@ namespace BaseModule
             {
                 switch (arg2.Kind)
                 {
-                    case MeasureKind.DistanceNodeToNode:
+                    case MeasureKind.DistancePointToPoint:
                         {
                             var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
                             var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToList();
 
                             if (selObjs.Count() > 1)
                             {
-                                var nodes = selObjs.Select(x => (INode)x);
+                                var nodes = selObjs.Select(x => (IPoint)x);
                                 var p0 = nodes.First();
                                 var p1 = nodes.Last();
                                 var line = new Segment3D(p0.Position, p1.Position);
@@ -881,29 +881,29 @@ namespace BaseModule
                                 sceneControl.DisplayDistance(line);
                                 sceneControl.DisplayObjects();
                             }
-                            else consoleControl.PrintInfo("Узлы не выбраны", Color.Red);
+                            else consoleControl.PrintInfo($"{selectToolStrip.SelectObjectsType} не выбраны", Color.Red);
                             break;
                         }
-                    case MeasureKind.DistanceNodeToPlane:
+                    case MeasureKind.DistancePointToPlane:
                         {
-                            var plane = CreateSurfaceAsync();
+                            var plane = CreateSurfaceAsync(selectToolStrip.SelectObjectsType);
                             await plane;
 
-                            var nodes = Project.ModelData.ObjectData.GetObjects(ObjType.Узел);
-                            foreach (var _node in nodes)
-                                _node.SetBackColor();
+                            var objects = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
+                            foreach (var _object in objects)
+                                _object.SetBackColor();
 
-                            SetObjectsSceneColor(ObjType.Узел);
+                            SetObjectsSceneColor(selectToolStrip.SelectObjectsType);
 
                             sceneControl.DisplayObjects();
 
-                            var res = SelectNodeAsync();
+                            var res = SelectObjectAsync(selectToolStrip.SelectObjectsType);
                             await res;
 
-                            if(res.Result is INode node)
+                            if(res.Result is IPoint point)
                             {
-                                var proj = node.Position.GetPointProectionOnPlane(plane.Result);
-                                var line = new Segment3D(node.Position, proj);
+                                var proj = point.Position.GetPointProectionOnPlane(plane.Result);
+                                var line = new Segment3D(point.Position, proj);
                                 consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
                                 sceneControl.DisplayDistance(line);
                                 sceneControl.DisplayObjects();
@@ -957,19 +957,19 @@ namespace BaseModule
             }
         }
 
-        public async Task<List<INode>> CreatePathAsync()
+        public async Task<List<IPoint>> CreatePathAsync()
         {
-            var nodes = new List<INode>();
+            var nodes = new List<IPoint>();
 
             var message = @"Начните строить путь нажав на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
             ConsoleControl.PrintInfo(message, Color.Black);
 
             while (true)
                 {
-                    var res = SelectNodeAsync();
+                    var res = SelectObjectAsync(selectToolStrip.SelectObjectsType);
                     await res;
 
-                    if (res.Result is INode node)
+                    if (res.Result is IPoint node)
                     {
                         nodes.Add(node);
                         node.SetBackColor();
@@ -988,7 +988,7 @@ namespace BaseModule
         }
 
 
-        public async Task<object> SelectNodeAsync()
+        public async Task<object> SelectObjectAsync(ObjType objType)
         {
             var actBreak = new Action(() =>
             {
@@ -998,11 +998,11 @@ namespace BaseModule
                 }));
             });
 
-            var message = @"Выберите узел и нажмите на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
+            var message = $@"Выберите {objType} и нажмите на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
 
             var actPointConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var objs = Project.ModelData.ObjectData.NodeCollection;
+                var objs = Project.ModelData.ObjectData.GetObjects(objType);
                 
                 var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor);
 
@@ -1010,7 +1010,7 @@ namespace BaseModule
                 {
                     Invoke(new Action(() =>
                     {
-                        ConsoleControl.PrintInfo("Не выбран ни один узел!", Color.Orange);
+                        ConsoleControl.PrintInfo($"Не выбран ни один {objType}!", Color.Orange);
                     }));
                     return new Tuple<bool, object>(false, new object());
                 }
@@ -1018,16 +1018,16 @@ namespace BaseModule
                 {
                     Invoke(new Action(() =>
                     {
-                        ConsoleControl.PrintInfo("Выберите один узел!", Color.Orange);
+                        ConsoleControl.PrintInfo($"Выберите один {objType}!", Color.Orange);
                     }));
                     return new Tuple<bool, object>(false, new object());
                 }
                 else
                 {
-                    var node = (INode)selObjs.First();
+                    var node = selObjs.First();
                     Invoke(new Action(() =>
                     {
-                        ConsoleControl.PrintInfo($"Выбран узел {node.Number}", Color.Green);
+                        ConsoleControl.PrintInfo($"Выбран {objType} с номером {node.Number}", Color.Green);
                     }));
                     return new Tuple<bool, object>(true, node);
                 }
@@ -1038,7 +1038,7 @@ namespace BaseModule
             return pointAwait.Result;
         }
 
-        public async Task<Plane> CreateSurfaceAsync()
+        public async Task<Plane> CreateSurfaceAsync(ObjType objType)
         {
             var actBreak = new Action(() =>
             {
@@ -1050,14 +1050,22 @@ namespace BaseModule
             var message = @"Задайте поверхность, выбрав три узла, и нажмите на клавишу ""E"" или нажмите кнопку ""ESC""";
             var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var nodes = Project.ModelData.ObjectData.NodeCollection;
-                var selObjs = nodes.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
+                var pointObjs = Project.ModelData.ObjectData.GetObjects(objType);
+                var selObjs = pointObjs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
 
                 if (selObjs.Length < 3)
                 {
                     Invoke(new Action(() =>
                     {
-                        ConsoleControl.PrintInfo("Выберите три узла!", Color.Orange);
+                        ConsoleControl.PrintInfo("Выберите три узла или точки!", Color.Orange);
+                    }));
+                    return new Tuple<bool, object>(false, new object());
+                }
+                else if (objType != ObjType.Узел & objType != ObjType.Точка)
+                {
+                    Invoke(new Action(() =>
+                    {
+                        ConsoleControl.PrintInfo("Выберите или узлы или точки!", Color.Orange);
                     }));
                     return new Tuple<bool, object>(false, new object());
                 }
