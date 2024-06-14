@@ -42,7 +42,7 @@ namespace BaseModule
             else
             {
                 cmbMeasureObjects.Enabled = true;
-                measureKind = MeasureKind.DistanceNodeToNode;
+                measureKind = MeasureKind.DistancePointToPoint;
                 cmbMeasureObjects.SelectedIndex = 0;
                 PreparingMeasureEvent?.Invoke(ObjType.Узел);
             }
@@ -57,9 +57,9 @@ namespace BaseModule
         private void cmbMeasureObjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbMeasureObjects.SelectedIndex == 0)
-                measureKind = MeasureKind.DistanceNodeToNode;
+                measureKind = MeasureKind.DistancePointToPoint;
             else if (cmbMeasureObjects.SelectedIndex == 1)
-                measureKind = MeasureKind.DistanceNodeToPlane;
+                measureKind = MeasureKind.DistancePointToPlane;
         }
     }
 }

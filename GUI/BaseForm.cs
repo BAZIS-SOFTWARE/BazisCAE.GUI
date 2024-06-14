@@ -73,8 +73,6 @@ namespace BazisGUI
             ComponentsPainter.Font = this.Font;
             ComponentsPainter.ScreenDPI = this.DeviceDpi;
 
-            this.
-
             GetServerConnection();
         }
 
@@ -846,6 +844,7 @@ namespace BazisGUI
 "Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
 "GMSH(*.inp*)|*.inp|" +
 "ANSYS(*.cdb*)|*.cdb|" +
+"STL(*.stl*)|*.stl|" +
 "SOLOMIA(*.dat*)|*.dat";
 
                 OpenFileDialog dialog = new OpenFileDialog();
@@ -866,7 +865,7 @@ namespace BazisGUI
                     project.ModelData.Loader = new LoadModelFromASCIITextFile();
                 else if (ext == ".dat")
                     project.ModelData.Loader = new LoadModelFromSalomeFile();
-                else if (ext == ".stl")
+                else if (ext == ".STL")
                     project.ModelData.Loader = new LoadModelFromSTLFile();
                 else
                     project.ModelData.Loader = new LoadModelFromCDBTextFile();

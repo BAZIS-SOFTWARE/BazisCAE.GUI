@@ -746,7 +746,8 @@ namespace TaskModule
 
         private async Task AddDataLRF(AddDataEventArgs arg2, string[] ar, IGroup group)
         {
-            var taskStrLRF = CreateSurfaceAsync();
+            SelectedObjects = ObjType.Узел;
+            var taskStrLRF = CreateSurfaceAsync(ObjType.Узел);
             await taskStrLRF;
             var vec = taskStrLRF.Result.Normal;
             var nVec = Vector.GetVectorNorm(vec);
