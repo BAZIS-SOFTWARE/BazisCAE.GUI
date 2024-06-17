@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,16 +9,24 @@ using System.Windows.Forms;
 
 namespace TaskModule.Validation
 {
-    public static class FunctionValidator
+    public partial class ValidatingFunctionCMB : ComboBox, IValidatingControl<ComboBox>
     {
-        public static bool IsFunctionValueValid(ComboBox cmb, out string errorMessage)
-        {
-            var functions = cmb.Items;
-            var value = cmb.Text;
+        public ValidatingFunctionCMB() { InitializeComponent(); }
 
-            if (!float.TryParse(value, out float temp))
+        public ValidatingFunctionCMB(IContainer container)
+        {
+            container.Add(this);
+
+            InitializeComponent();
+        }
+
+        public ErrorProvider EP { get; set; } = new ErrorProvider();
+
+        public bool IsValueValid(out string errorMessage)
+        {
+            if (!float.TryParse(Text, out float temp))
             {
-                if (functions.Contains(value))
+                if (Items.Contains(Text))
                 {
                     errorMessage = string.Empty;
                     return true;
@@ -31,13 +39,14 @@ namespace TaskModule.Validation
             errorMessage = string.Empty;
             return true;
         }
-        public static void Validating(object sender, ValidationEventArgs e)
+
+        void IValidatingControl<ComboBox>.Validating(object sender, CancelEventArgs e)
         {
             string errorMessage = string.Empty;
-            if (!IsFunctionValueValid(e.component as ComboBox, out errorMessage))
+            if (!IsValueValid(out errorMessage))
                 e.Cancel = true;
 
-            e.EP.SetError(e.component as ComboBox, errorMessage);
+            EP.SetError(this, errorMessage);
         }
     }
 }
