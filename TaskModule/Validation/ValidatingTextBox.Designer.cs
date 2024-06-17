@@ -1,6 +1,9 @@
-﻿namespace TaskModule.Validation
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace TaskModule.Validation
 {
-    partial class ValidatingTextBox
+    partial class ValidatingTextBox : IValidatingControl
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -29,6 +32,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            this.Validating += new CancelEventHandler(this.OnValidating);
         }
 
         #endregion

@@ -12,6 +12,10 @@ namespace TaskModule.BasicAdvisorControls
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        // ErrorProviders
+        private ErrorProvider AddButtonEP;
+        private ErrorProvider RefreshButtonEP;
+
         /// <summary> 
         /// Освободить все используемые ресурсы.
         /// </summary>
@@ -27,9 +31,6 @@ namespace TaskModule.BasicAdvisorControls
 
         #region Код, автоматически созданный конструктором компонентов
 
-        // ErrorProviders
-        private ErrorProvider errorProvider;
-
         /// <summary> 
         /// Требуемый метод для поддержки конструктора — не изменяйте 
         /// содержимое этого метода с помощью редактора кода.
@@ -43,12 +44,12 @@ namespace TaskModule.BasicAdvisorControls
             this.btnClearAll = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.txbStopTime = new System.Windows.Forms.TextBox();
+            this.txbStopTime = new ValidatingNumericTextBox();
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnAddNewRow = new System.Windows.Forms.Button();
-            this.txbStartTime = new System.Windows.Forms.TextBox();
+            this.txbStartTime = new ValidatingNumericTextBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,14 +58,14 @@ namespace TaskModule.BasicAdvisorControls
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cmbNodeGr = new System.Windows.Forms.ComboBox();
+            this.cmbNodeGr = new ValidatingCMB();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.cmbKind = new System.Windows.Forms.ComboBox();
+            this.cmbKind = new ValidatingCMB();
             this.grbClampingParams = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbStiffnessFunc = new System.Windows.Forms.ComboBox();
+            this.cmbStiffnessFunc = new ValidatingFunctionCMB();
             this.chbLRF = new System.Windows.Forms.CheckBox();
             this.chbZ = new System.Windows.Forms.CheckBox();
             this.chbY = new System.Windows.Forms.CheckBox();
@@ -188,7 +189,6 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStopTime.Name = "txbStopTime";
             this.txbStopTime.Size = new System.Drawing.Size(410, 20);
             this.txbStopTime.TabIndex = 1;
-            this.txbStopTime.Validating += new CancelEventHandler(this.txbStopTime_Validating);
             // 
             // btnShowAll
             // 
@@ -215,6 +215,15 @@ namespace TaskModule.BasicAdvisorControls
             this.btnHideAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnHideAll.UseVisualStyleBackColor = true;
             this.btnHideAll.Click += new System.EventHandler(this.HideAllDataButton_Click);
+            //
+            // RefreshButtonEP
+            //
+            RefreshButtonEP = new System.Windows.Forms.ErrorProvider();
+            RefreshButtonEP.SetIconAlignment(this.cmbNodeGr, ErrorIconAlignment.MiddleRight);
+            RefreshButtonEP.SetIconPadding(this.cmbNodeGr, 2);
+            RefreshButtonEP.BlinkRate = 1000;
+            RefreshButtonEP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+
             // 
             // btnRefresh
             // 
@@ -229,6 +238,14 @@ namespace TaskModule.BasicAdvisorControls
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
+            //
+            // AddButtonEP
+            //
+            AddButtonEP = new System.Windows.Forms.ErrorProvider();
+            AddButtonEP.SetIconAlignment(this.cmbNodeGr, ErrorIconAlignment.MiddleRight);
+            AddButtonEP.SetIconPadding(this.cmbNodeGr, 2);
+            AddButtonEP.BlinkRate = 1000;
+            AddButtonEP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             // 
             // btnAddNewRow
             // 
@@ -252,7 +269,6 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStartTime.Name = "txbStartTime";
             this.txbStartTime.Size = new System.Drawing.Size(410, 20);
             this.txbStartTime.TabIndex = 0;
-            this.txbStartTime.Validating += new CancelEventHandler(this.txbStartTime_Validating);
             // 
             // dataGridView
             // 
@@ -346,14 +362,6 @@ namespace TaskModule.BasicAdvisorControls
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Вид закрепления";
-            //
-            // errorProvider
-            //
-            errorProvider = new System.Windows.Forms.ErrorProvider();
-            errorProvider.SetIconAlignment(this.cmbNodeGr, ErrorIconAlignment.MiddleRight);
-            errorProvider.SetIconPadding(this.cmbNodeGr, 2);
-            errorProvider.BlinkRate = 1000;
-            errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             // 
             // cmbNodeGr
             // 
@@ -365,7 +373,6 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbNodeGr.Name = "cmbNodeGr";
             this.cmbNodeGr.Size = new System.Drawing.Size(414, 21);
             this.cmbNodeGr.TabIndex = 43;
-            this.cmbNodeGr.Validating += new CancelEventHandler(this.cmbNodeGr_Validating);
             // 
             // label1
             // 
@@ -399,7 +406,6 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbKind.Size = new System.Drawing.Size(414, 21);
             this.cmbKind.TabIndex = 36;
             this.cmbKind.SelectedIndexChanged += new System.EventHandler(this.kindComboBox_SelectedIndexChanged);
-            this.cmbKind.Validating += new CancelEventHandler(this.cmbKind_Validating);
             // 
             // grbClampingParams
             // 
@@ -552,18 +558,18 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txbStopTime;
+        private ValidatingNumericTextBox txbStopTime;
         private System.Windows.Forms.Button btnAddNewRow;
-        private System.Windows.Forms.TextBox txbStartTime;
+        private ValidatingNumericTextBox txbStartTime;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox cmbNodeGr;
+        private ValidatingCMB cmbNodeGr;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox cmbKind;
+        private ValidatingCMB cmbKind;
         private System.Windows.Forms.GroupBox grbClampingParams;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cmbStiffnessFunc;
+        private ValidatingFunctionCMB cmbStiffnessFunc;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnShowAll;

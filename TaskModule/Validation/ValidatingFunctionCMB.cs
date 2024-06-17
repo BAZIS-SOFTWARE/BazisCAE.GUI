@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace TaskModule.Validation
 {
-    public partial class ValidatingFunctionCMB : ComboBox, IValidatingControl<ComboBox>
+    public partial class ValidatingFunctionCMB : ComboBox, IValidatingControl
     {
         public ValidatingFunctionCMB() { InitializeComponent(); }
 
@@ -20,7 +20,7 @@ namespace TaskModule.Validation
             InitializeComponent();
         }
 
-        public ErrorProvider EP { get; set; } = new ErrorProvider();
+        public ErrorProvider EP { get; set; }
 
         public bool IsValueValid(out string errorMessage)
         {
@@ -40,7 +40,7 @@ namespace TaskModule.Validation
             return true;
         }
 
-        void IValidatingControl<ComboBox>.Validating(object sender, CancelEventArgs e)
+        public void OnValidating(object sender, CancelEventArgs e)
         {
             string errorMessage = string.Empty;
             if (!IsValueValid(out errorMessage))

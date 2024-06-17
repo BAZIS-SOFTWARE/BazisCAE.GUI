@@ -11,14 +11,12 @@ namespace TaskModule.Validation
     /// <summary>
     /// Абстрактный класс валидатора контроллов. Используется валидация после ввода
     /// </summary>
-    /// <typeparam name="ControlType">Класс контролла, который модифицируется проверкой над значением</typeparam>
-    public interface IValidatingControl<ControlType>
-        where ControlType : Control
+    public interface IValidatingControl
     {
-        ErrorProvider EP { get; set; }
+        ErrorProvider EP { get; }
 
         bool IsValueValid(out string errorMessage);
 
-        void Validating(object sender, CancelEventArgs e);
+        void OnValidating(object sender, CancelEventArgs e);
     }
 }
