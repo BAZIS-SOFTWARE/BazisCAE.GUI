@@ -230,7 +230,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.StopButton.AutoSize = true;
             this.StopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.StopButton.Location = new System.Drawing.Point(604, 178);
+            this.StopButton.Location = new System.Drawing.Point(604, 179);
             this.StopButton.Margin = new System.Windows.Forms.Padding(3, 1, 15, 1);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(67, 28);
