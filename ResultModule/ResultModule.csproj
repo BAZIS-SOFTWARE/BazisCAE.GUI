@@ -74,8 +74,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net5.0\MathNet.Numerics.dll</HintPath>
     </Reference>
-    <Reference Include="ModelControllerInterfaces, Version=3.0.0.51, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelControllerInterfaces.3.0.0.51\lib\net48\ModelControllerInterfaces.dll</HintPath>
+    <Reference Include="Model, Version=3.0.9.32, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Model.3.0.9.32\lib\net48\Model.dll</HintPath>
+    </Reference>
+    <Reference Include="ModelControllerInterfaces, Version=3.0.0.52, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelControllerInterfaces.3.0.0.52\lib\net48\ModelControllerInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="ModelInterfaces, Version=3.0.0.24, Culture=neutral, PublicKeyToken=998e39182864f357, processorArchitecture=MSIL">
       <HintPath>..\packages\ModelInterfaces.3.0.0.24\lib\net48\ModelInterfaces.dll</HintPath>
@@ -94,6 +97,9 @@
     </Reference>
     <Reference Include="SearchLib, Version=1.0.1.11, Culture=neutral, PublicKeyToken=8c358dc795e42d21, processorArchitecture=MSIL">
       <HintPath>..\packages\SearchLib.1.0.1.11\lib\net48\SearchLib.dll</HintPath>
+    </Reference>
+    <Reference Include="SortLib, Version=1.0.1.11, Culture=neutral, PublicKeyToken=8c358dc795e42d21, processorArchitecture=MSIL">
+      <HintPath>..\packages\SortLib.1.0.1.11\lib\net48\SortLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

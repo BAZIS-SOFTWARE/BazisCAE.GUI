@@ -466,6 +466,7 @@
             this.Name = "BaseForm";
             this.Text = "Bazis. Система технологического анализа";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClosingForm);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BaseForm_FormClosed);
             this.Load += new System.EventHandler(this.BaseForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BaseForm_KeyDown);

@@ -1025,19 +1025,13 @@ namespace BazisGUI
         {
             if (objType == ObjType.Точка)
             {
-                project.ModelData.ObjectData.PointCollection.Clear();
-                int[] dimTags;
-                gmshController.ModelGetGeometryEntities(out dimTags, 0);
-                var controlPoints = gmshController.CreateControlPoints(dimTags);
+                var controlPoints = gmshController.CreateControlPoints();
                 if (controlPoints.Count > 0)
                     project.ModelData.ObjectData.PointCollection.AddRange(controlPoints);
             }
             else if (objType == ObjType.Линия)
             {
-                int[] dimTags;
-                project.ModelData.ObjectData.LineCollection.Clear();
-                gmshController.ModelGetGeometryEntities(out dimTags, 1);
-                var curves = gmshController.CreateLines(dimTags);
+                var curves = gmshController.CreateLines();
                 if (curves.Count > 0)
                     project.ModelData.ObjectData.LineCollection.AddRange(curves);
             }
@@ -1045,7 +1039,6 @@ namespace BazisGUI
 
         private void LoadGMSH()
         {
-                FormClosing += OnClosingForm;
                 var path = Environment.GetEnvironmentVariable("BazisMeshPath", EnvironmentVariableTarget.Machine);
 
                 if (path == null || path == "")
@@ -1070,7 +1063,7 @@ namespace BazisGUI
         private void OnClosingForm(object sender, FormClosingEventArgs e)
         {
                 var ierr = 0;
-                gmshController.Finalize(ref ierr);
+                gmshController?.Finalize(ref ierr);
         }
 
         private void модулиMenuItem_Paint(object sender, PaintEventArgs e)
