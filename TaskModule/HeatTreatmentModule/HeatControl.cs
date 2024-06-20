@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
+using TaskModule.Validation;
 
 namespace TaskModule.HeatTreatmentModule
 {
@@ -130,6 +131,11 @@ namespace TaskModule.HeatTreatmentModule
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
+            if (sender is CheckValidatingButton cvb)
+            {
+                if (!cvb.ValidatingButton_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
+                    return;
+            }
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -145,6 +151,11 @@ namespace TaskModule.HeatTreatmentModule
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
+            if (sender is CheckValidatingButton cvb)
+            {
+                if (!cvb.ValidatingButton_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
+                    return;
+            }
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
