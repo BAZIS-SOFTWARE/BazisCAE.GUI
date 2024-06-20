@@ -1,4 +1,5 @@
 ﻿using BaseModule.ControlsLib;
+using TaskModule.Validation;
 
 namespace TaskModule.BasicAdvisorControls
 {
@@ -41,18 +42,18 @@ namespace TaskModule.BasicAdvisorControls
             this.player = new BaseModule.ControlsLib.Player();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txbStopTime = new System.Windows.Forms.TextBox();
+            this.txbStopTime = new ValidatingNumericTextBox();
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnRefresh = new CheckValidatingButton();
             this.btnClearAll = new System.Windows.Forms.Button();
-            this.btnAddNewRow = new System.Windows.Forms.Button();
-            this.txbStartTime = new System.Windows.Forms.TextBox();
+            this.btnAddNewRow = new CheckValidatingButton();
+            this.txbStartTime = new ValidatingNumericTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbMat = new System.Windows.Forms.ComboBox();
+            this.cmbMat = new ValidatingCMB();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbEl = new System.Windows.Forms.ComboBox();
+            this.cmbEl = new ValidatingCMB();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -248,6 +249,10 @@ namespace TaskModule.BasicAdvisorControls
             this.btnRefresh.TabIndex = 13;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.AddControl(txbStopTime);
+            this.btnRefresh.AddControl(txbStopTime);
+            this.btnRefresh.AddControl(cmbEl);
+            this.btnRefresh.AddControl(cmbMat);
             this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // btnClearAll
@@ -276,6 +281,10 @@ namespace TaskModule.BasicAdvisorControls
             this.btnAddNewRow.TabIndex = 13;
             this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewRow.UseVisualStyleBackColor = true;
+            this.btnAddNewRow.AddControl(txbStopTime);
+            this.btnAddNewRow.AddControl(txbStopTime);
+            this.btnAddNewRow.AddControl(cmbEl);
+            this.btnAddNewRow.AddControl(cmbMat);
             this.btnAddNewRow.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // txbStartTime
@@ -382,15 +391,15 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txbStopTime;
-        private System.Windows.Forms.Button btnAddNewRow;
-        private System.Windows.Forms.TextBox txbStartTime;
+        private ValidatingNumericTextBox txbStopTime;
+        private CheckValidatingButton btnAddNewRow;
+        private ValidatingNumericTextBox txbStartTime;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cmbMat;
+        private ValidatingCMB cmbMat;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cmbEl;
-        private System.Windows.Forms.Button btnRefresh;
+        private ValidatingCMB cmbEl;
+        private CheckValidatingButton btnRefresh;
         private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.Button btnHideAll;
         private System.Windows.Forms.OpenFileDialog openFileDialog;

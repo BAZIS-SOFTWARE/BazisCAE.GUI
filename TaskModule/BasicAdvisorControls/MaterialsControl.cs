@@ -8,6 +8,7 @@ using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Interfaces;
 using System.Linq;
 using TaskModule.BasicAdvisorControls.Events;
+using TaskModule.Validation;
 
 namespace TaskModule.BasicAdvisorControls
 {
@@ -112,6 +113,11 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
+            if (sender is CheckValidatingButton cvb)
+            {
+                if (!cvb.ValidatingButton_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
+                    return;
+            }
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -132,6 +138,11 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
+            if (sender is CheckValidatingButton cvb)
+            {
+                if (!cvb.ValidatingButton_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
+                    return;
+            }
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -142,16 +153,10 @@ namespace TaskModule.BasicAdvisorControls
             {
                 MessageBox.Show(ex.Message);
             }
-
-
-
         }
 
         private string CreateRowInfo()
         {
-            if (cmbEl.Text == "" || cmbMat.Text == "" || txbStartTime.Text == "" || txbStopTime.Text == "")
-                throw new Exception("Одно из переданных значений полей было пустым");
-
             return string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3} *", cmbEl.Text, cmbMat.Text, txbStartTime.Text, txbStopTime.Text);
         }
 
