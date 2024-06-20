@@ -9,16 +9,16 @@ using System.Windows.Forms;
 
 namespace TaskModule.Validation
 {
-    public partial class ValidatingButton : Button, IControlGroupValidator
+    public partial class CheckValidatingButton : Button, IControlGroupValidator
     {
-        public ValidatingButton()
+        public CheckValidatingButton()
         {
             InitializeComponent();
             EP = InitializaErrorProvider();
             ValidatingControls = new List<IValidatingControl>();
         }
 
-        public ValidatingButton(IContainer container)
+        public CheckValidatingButton(IContainer container)
         {
             container.Add(this);
 
@@ -47,10 +47,14 @@ namespace TaskModule.Validation
 
         public bool ValidateControls() => ValidatingControls.Any(x => x.IsValueValid(EP));
 
-        public void ValidatingButton_OnClick(object sender, CancelEventArgs cea)
+        public bool ValidatingButton_OnClick_IsValuesValid(object sender, CancelEventArgs cea)
         {
             if (!ValidateControls())
+            {
                 cea.Cancel = true;
+                return false;
+            }
+            return true;
         }
     }
 }

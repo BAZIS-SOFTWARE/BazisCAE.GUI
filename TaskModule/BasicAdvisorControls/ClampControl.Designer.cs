@@ -48,7 +48,7 @@ namespace TaskModule.BasicAdvisorControls
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.btnAddNewRow = new System.Windows.Forms.Button();
+            this.btnAddNewRow = new CheckValidatingButton();
             this.txbStartTime = new ValidatingNumericTextBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -258,7 +258,12 @@ namespace TaskModule.BasicAdvisorControls
             this.btnAddNewRow.TabIndex = 19;
             this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewRow.UseVisualStyleBackColor = true;
-            this.btnAddNewRow.Click += new System.EventHandler(this.AddButton_Click);
+            this.btnAddNewRow.AddControl(txbStopTime);
+            this.btnAddNewRow.AddControl(txbStartTime);
+            this.btnAddNewRow.AddControl(cmbNodeGr);
+            this.btnAddNewRow.AddControl(cmbKind);
+            this.btnAddNewRow.AddControl(cmbStiffnessFunc);
+            this.btnAddNewRow.Click += new EventHandler(this.AddButton_Click);
             // 
             // txbStartTime
             // 
@@ -559,7 +564,7 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private ValidatingNumericTextBox txbStopTime;
-        private System.Windows.Forms.Button btnAddNewRow;
+        private CheckValidatingButton btnAddNewRow;
         private ValidatingNumericTextBox txbStartTime;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox1;

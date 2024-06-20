@@ -1,6 +1,6 @@
 ﻿namespace TaskModule.Validation
 {
-    partial class ValidatingButton
+    partial class CheckValidatingButton
     {
         /// <summary>
         /// Обязательная переменная конструктора.

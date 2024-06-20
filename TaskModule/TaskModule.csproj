@@ -258,11 +258,11 @@
     <Compile Include="ToolStrips\WeldingTasksToolStrip.Designer.cs">
       <DependentUpon>WeldingTasksToolStrip.cs</DependentUpon>
     </Compile>
-    <Compile Include="Validation\ValidatingButton.cs">
+    <Compile Include="Validation\CheckValidatingButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Validation\ValidatingButton.Designer.cs">
-      <DependentUpon>ValidatingButton.cs</DependentUpon>
+    <Compile Include="Validation\CheckValidatingButton.Designer.cs">
+      <DependentUpon>CheckValidatingButton.cs</DependentUpon>
     </Compile>
     <Compile Include="Validation\IControllGroupValidator.cs" />
     <Compile Include="Validation\IValidatingControl.cs" />

@@ -158,6 +158,12 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
+            if (sender is CheckValidatingButton vb)
+            {
+                if (!vb.ValidatingButton_OnClick_IsValuesValid(vb, new CancelEventArgs()))
+                    return;
+            }
+
             var rows = new List<string>();
             try
             {
