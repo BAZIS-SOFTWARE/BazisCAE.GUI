@@ -9,6 +9,9 @@ using System.Reflection;
 using BaseModule.Console.Events;
 using System.Drawing.Drawing2D;
 using ParserLib;
+using BaseModule.ControlsComponents;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.ComponentModel;
 
 namespace BaseModule.Console
 {
@@ -47,6 +50,18 @@ namespace BaseModule.Console
     }
     public partial class ConsoleControl : UserControl
     {
+        [Category("General")]
+        [Description("Set up color gradient")]
+        public Color UpColor { get; set; } = Color.Silver;
+
+        [Category("General")]
+        [Description("Set down color gradient")]
+        public Color DownColor { get; set; } = Color.WhiteSmoke;
+
+        [Category("General")]
+        [Description("Set header name")]
+        public string HeaderName { get; set; } = "Консоль";
+
         public bool CheckPrintElemsInfo { get; set; }
         public bool CheckPrintNodesInfo { get; set; }
 
@@ -120,8 +135,6 @@ namespace BaseModule.Console
 
         int LineIndex { get; set; }
 
-        //public Action<object,BaseFormCntrEventArgs> ConsoleEvent;
-
         public ConsoleControl()
         {
             InitializeComponent();
@@ -137,25 +150,6 @@ namespace BaseModule.Console
             rtxbField.AppendText(path);
             rtxbField.AppendText("\n");
             HighlightPhrase(path, System.Drawing.Color.Green);
-        }
-
-        private void GetChildControlExpandHeight(GroupBox grb)
-        {
-            var heigth = 0;
-            var gap = 20;
-            foreach (Control control in grb.Controls)
-            {
-                if (control is UserControl uControl)
-                    foreach (Control cntr in uControl.Controls)
-                    {
-                        if (cntr is TextBox txb | cntr is ComboBox cmb)
-                        {
-                            heigth = heigth + cntr.Size.Height;
-                            gap = gap + 6;
-                        }
-                    }
-            }
-            grb.Height = heigth + gap;
         }
 
 
@@ -367,50 +361,15 @@ namespace BaseModule.Console
 
         private void grbConsole_Paint(object sender, PaintEventArgs e)
         {
-            PaintHeaderRectangle(e);
-            PaintCloseRectangle(e);
-            PaintName(e);
-        }
+            var loc_y = tlscOut.Location.Y;
 
-        private void PaintHeaderRectangle(PaintEventArgs e)
-        {
-            var locRect = new Point(0, 0);
+            ComponentsPainter.PaintGradientRectangle(e.Graphics, new Point(0, 0),Width, loc_y, UpColor, DownColor);
 
-            var linGrBrush = new LinearGradientBrush(
-   new Point(0, 0),
-   new Point(0, 15),
-   Color.WhiteSmoke,   // Opaque red
-   Color.Silver);  // Opaque blue
+            var locRect = new Point(Width - 15, loc_y / 2 - 4);
+            ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
 
-            Pen gradPen = new Pen(linGrBrush);
-
-            var rect = new Rectangle(locRect, new Size(Width, 15));
-
-            e.Graphics.FillRectangle(linGrBrush, rect);
-
-            //e.Graphics.DrawRectangle(gradPen, rect);
-
-        }
-
-        private void PaintName(PaintEventArgs e)
-        {
-            var locRect = new Point(15, 3);
-            var size = e.Graphics.MeasureString("Консоль", this.Font);
-            var rect = new Rectangle(locRect, new Size((int)size.Width, 8));
-            //e.Graphics.FillRectangle(new SolidBrush(System.Drawing.Color.Silver), rect);
-            e.Graphics.DrawString("Консоль", Font, new SolidBrush(System.Drawing.Color.Black), 16, 0);
-        }
-
-        private void PaintCloseRectangle(PaintEventArgs e)
-        {
-            var locRect = new Point(Width - 16, 3);
-            Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 1);
-            var rect = new Rectangle(locRect, new Size(8, 8));
-
-            e.Graphics.DrawRectangle(blackPen, rect);
-            e.Graphics.DrawString("х", Font, new SolidBrush(System.Drawing.Color.Black),
-                Width - 16, 0);
-        }
+            e.Graphics.DrawString(HeaderName, ComponentsPainter.Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
+        }     
 
         private void grbConsole_MouseClick(object sender, MouseEventArgs e)
         {

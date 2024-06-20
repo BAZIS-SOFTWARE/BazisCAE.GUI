@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BaseModule.ToolStrips
+namespace BaseModule.ControlsLib
 {
     public partial class ViewToolStrip : ToolStrip
     {

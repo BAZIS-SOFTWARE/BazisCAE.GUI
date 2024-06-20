@@ -5,8 +5,8 @@ namespace BaseModule
 
     public enum MeasureKind
     {
-        DistanceNodeToNode,
-        DistanceNodeToPlane,
+        DistancePointToPoint,
+        DistancePointToPlane,
         Path,
         Square,
         Volume,

@@ -1,4 +1,6 @@
-﻿namespace TaskModule.HeatTreatmentModule
+﻿using TaskModule.BasicAdvisorControls.TaskPlannerControls;
+
+namespace TaskModule.HeatTreatmentModule
 {
     partial class ChemicalTreatmentAdvisor
     {
@@ -36,7 +38,6 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.diffusionСontrol1 = new TaskModule.HeatTreatmentModule.DiffusionСontrol();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.taskPlannerControl1 = new TaskModule.BasicAdvisorControls.TaskPlannerControls.TaskPlannerControl();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -118,30 +119,12 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage3.Controls.Add(this.taskPlannerControl1);
             this.tabPage3.Location = new System.Drawing.Point(4, 34);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(817, 672);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
-            // 
-            // taskPlannerControl1
-            // 
-            this.taskPlannerControl1.AddButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.AddButtonImage")));
-            this.taskPlannerControl1.AutoScroll = true;
-            this.taskPlannerControl1.AutoSize = true;
-            this.taskPlannerControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.ClearButtonImage")));
-            this.taskPlannerControl1.CurentSelectedRowInfo = null;
-            this.taskPlannerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.taskPlannerControl1.Location = new System.Drawing.Point(0, 0);
-            this.taskPlannerControl1.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
-            this.taskPlannerControl1.MinimumSize = new System.Drawing.Size(533, 862);
-            this.taskPlannerControl1.Name = "taskPlannerControl1";
-            this.taskPlannerControl1.ProjPath = null;
-            this.taskPlannerControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.RefreshButtonImage")));
-            this.taskPlannerControl1.Size = new System.Drawing.Size(817, 862);
-            this.taskPlannerControl1.TabIndex = 0;
             // 
             // imageList
             // 
@@ -177,6 +160,6 @@
         private System.Windows.Forms.TabPage tabPage3;
         private DiffusionСontrol diffusionСontrol1;
         private System.Windows.Forms.ImageList imageList;
-        private BasicAdvisorControls.TaskPlannerControls.TaskPlannerControl taskPlannerControl1;
+        //private BasicAdvisorControls.TaskPlannerControls.TaskPlannerControl taskPlannerControl1;
     }
 }

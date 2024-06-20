@@ -1,4 +1,6 @@
-﻿namespace TaskModule.WeldingModule.WeldingTypeControls
+﻿using BaseModule.ControlsLib;
+
+namespace TaskModule.WeldingModule.WeldingTypeControls
 {
     partial class WeldingControl
     {
@@ -29,12 +31,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.player = new PlayerControl.Player();
+            this.player = new BaseModule.ControlsLib.Player();
             this.label11 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -72,7 +74,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.cmbWeldZone = new System.Windows.Forms.ComboBox();
-            this.grbWeldRegime = new System.Windows.Forms.GroupBox();
+            this.grbWeldRegime = new BaseModule.ControlsLib.GroupBoxEx();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiSpecifyHeatingZone = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
@@ -102,7 +104,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(513, 638);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(546, 638);
             this.tableLayoutPanel1.TabIndex = 20;
             // 
             // groupBox1
@@ -139,11 +141,11 @@
             this.groupBox1.Controls.Add(this.cmbRef);
             this.groupBox1.Controls.Add(this.cmbTraj);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(1, 81);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
+            this.groupBox1.Location = new System.Drawing.Point(7, 115);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(511, 295);
+            this.groupBox1.Size = new System.Drawing.Size(532, 295);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры движения";
@@ -153,13 +155,13 @@
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = PlayerControl.CheckState.start;
+            this.player.CheckState = BaseModule.ControlsLib.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(171, 237);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 15, 0);
             this.player.MinimumSize = new System.Drawing.Size(215, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(326, 45);
+            this.player.Size = new System.Drawing.Size(351, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -213,11 +215,12 @@
             // btnClearAll
             // 
             this.btnClearAll.AutoSize = true;
+            this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = global::TaskModule.Properties.Resources.delete;
             this.btnClearAll.Location = new System.Drawing.Point(43, 237);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(26, 26);
+            this.btnClearAll.Size = new System.Drawing.Size(28, 28);
             this.btnClearAll.TabIndex = 52;
             this.btnClearAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnClearAll.UseVisualStyleBackColor = true;
@@ -249,10 +252,11 @@
             // 
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartTime.Location = new System.Drawing.Point(171, 210);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(326, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(347, 20);
             this.txbStartTime.TabIndex = 43;
             // 
             // label1
@@ -272,7 +276,7 @@
             this.cmbStopPoint.Location = new System.Drawing.Point(171, 131);
             this.cmbStopPoint.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbStopPoint.Name = "cmbStopPoint";
-            this.cmbStopPoint.Size = new System.Drawing.Size(326, 21);
+            this.cmbStopPoint.Size = new System.Drawing.Size(347, 21);
             this.cmbStopPoint.TabIndex = 36;
             // 
             // cmbStartPoint
@@ -283,18 +287,19 @@
             this.cmbStartPoint.Location = new System.Drawing.Point(171, 104);
             this.cmbStartPoint.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbStartPoint.Name = "cmbStartPoint";
-            this.cmbStartPoint.Size = new System.Drawing.Size(326, 21);
+            this.cmbStartPoint.Size = new System.Drawing.Size(347, 21);
             this.cmbStartPoint.TabIndex = 35;
             // 
             // btnHide
             // 
             this.btnHide.AutoSize = true;
             this.btnHide.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnHide.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHide.Image = global::TaskModule.Properties.Resources.HideAll;
             this.btnHide.Location = new System.Drawing.Point(139, 237);
             this.btnHide.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.btnHide.Name = "btnHide";
-            this.btnHide.Size = new System.Drawing.Size(26, 26);
+            this.btnHide.Size = new System.Drawing.Size(28, 28);
             this.btnHide.TabIndex = 39;
             this.btnHide.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnHide.UseVisualStyleBackColor = true;
@@ -304,11 +309,12 @@
             // 
             this.btnShow.AutoSize = true;
             this.btnShow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShow.Image = global::TaskModule.Properties.Resources.ShowAll;
             this.btnShow.Location = new System.Drawing.Point(107, 237);
             this.btnShow.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(26, 26);
+            this.btnShow.Size = new System.Drawing.Size(28, 28);
             this.btnShow.TabIndex = 39;
             this.btnShow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnShow.UseVisualStyleBackColor = true;
@@ -320,11 +326,12 @@
             this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnRefresh.Enabled = false;
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Image = global::TaskModule.Properties.Resources.Refresh;
             this.btnRefresh.Location = new System.Drawing.Point(75, 237);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(26, 26);
+            this.btnRefresh.Size = new System.Drawing.Size(28, 28);
             this.btnRefresh.TabIndex = 40;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -335,11 +342,12 @@
             this.addRowButton.AutoSize = true;
             this.addRowButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.addRowButton.Cursor = System.Windows.Forms.Cursors.Default;
+            this.addRowButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addRowButton.Image = global::TaskModule.Properties.Resources.Add;
             this.addRowButton.Location = new System.Drawing.Point(11, 237);
             this.addRowButton.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
             this.addRowButton.Name = "addRowButton";
-            this.addRowButton.Size = new System.Drawing.Size(26, 26);
+            this.addRowButton.Size = new System.Drawing.Size(28, 28);
             this.addRowButton.TabIndex = 40;
             this.addRowButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.addRowButton.UseVisualStyleBackColor = true;
@@ -389,10 +397,11 @@
             // 
             this.txbVelosity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbVelosity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbVelosity.Location = new System.Drawing.Point(171, 184);
             this.txbVelosity.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbVelosity.Name = "txbVelosity";
-            this.txbVelosity.Size = new System.Drawing.Size(326, 20);
+            this.txbVelosity.Size = new System.Drawing.Size(347, 20);
             this.txbVelosity.TabIndex = 31;
             // 
             // label7
@@ -449,7 +458,7 @@
             this.cmbEnergyCalibration.Location = new System.Drawing.Point(170, 77);
             this.cmbEnergyCalibration.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbEnergyCalibration.Name = "cmbEnergyCalibration";
-            this.cmbEnergyCalibration.Size = new System.Drawing.Size(326, 21);
+            this.cmbEnergyCalibration.Size = new System.Drawing.Size(347, 21);
             this.cmbEnergyCalibration.TabIndex = 29;
             // 
             // cmbRef
@@ -460,7 +469,7 @@
             this.cmbRef.Location = new System.Drawing.Point(170, 50);
             this.cmbRef.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbRef.Name = "cmbRef";
-            this.cmbRef.Size = new System.Drawing.Size(326, 21);
+            this.cmbRef.Size = new System.Drawing.Size(347, 21);
             this.cmbRef.TabIndex = 29;
             // 
             // cmbTraj
@@ -471,22 +480,22 @@
             this.cmbTraj.Location = new System.Drawing.Point(170, 23);
             this.cmbTraj.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
             this.cmbTraj.Name = "cmbTraj";
-            this.cmbTraj.Size = new System.Drawing.Size(326, 21);
+            this.cmbTraj.Size = new System.Drawing.Size(347, 21);
             this.cmbTraj.TabIndex = 29;
             // 
             // dataGridView
             // 
             this.dataGridView.AllowUserToAddRows = false;
             this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.NullValue = " ";
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.NullValue = " ";
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.видСварки,
@@ -495,17 +504,17 @@
             this.stopColumn,
             this.ПараметрыДвижения});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 376);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
+            this.dataGridView.Location = new System.Drawing.Point(7, 424);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 20;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.Size = new System.Drawing.Size(511, 261);
+            this.dataGridView.Size = new System.Drawing.Size(532, 207);
             this.dataGridView.TabIndex = 25;
             this.dataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView_DefaultValuesNeeded);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -537,8 +546,8 @@
             // stopColumn
             // 
             this.stopColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle8.NullValue = "0";
-            this.stopColumn.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.NullValue = "0";
+            this.stopColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.stopColumn.HeaderText = "Стоп";
             this.stopColumn.MinimumWidth = 6;
             this.stopColumn.Name = "stopColumn";
@@ -558,11 +567,11 @@
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.cmbWeldZone);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(1, 1);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(1);
+            this.groupBox3.Location = new System.Drawing.Point(7, 7);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox3.Size = new System.Drawing.Size(511, 61);
+            this.groupBox3.Size = new System.Drawing.Size(532, 61);
             this.groupBox3.TabIndex = 31;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Область действия";
@@ -584,7 +593,7 @@
             this.cmbWeldZone.Location = new System.Drawing.Point(170, 24);
             this.cmbWeldZone.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
             this.cmbWeldZone.Name = "cmbWeldZone";
-            this.cmbWeldZone.Size = new System.Drawing.Size(326, 21);
+            this.cmbWeldZone.Size = new System.Drawing.Size(347, 21);
             this.cmbWeldZone.TabIndex = 38;
             // 
             // grbWeldRegime
@@ -592,17 +601,15 @@
             this.grbWeldRegime.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.grbWeldRegime.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbWeldRegime.ForeColor = System.Drawing.Color.Black;
-            this.grbWeldRegime.Location = new System.Drawing.Point(1, 64);
-            this.grbWeldRegime.Margin = new System.Windows.Forms.Padding(1);
+            this.grbWeldRegime.Location = new System.Drawing.Point(7, 82);
+            this.grbWeldRegime.Margin = new System.Windows.Forms.Padding(7);
             this.grbWeldRegime.MinimumSize = new System.Drawing.Size(0, 15);
             this.grbWeldRegime.Name = "grbWeldRegime";
-            this.grbWeldRegime.Padding = new System.Windows.Forms.Padding(2);
-            this.grbWeldRegime.Size = new System.Drawing.Size(511, 15);
+            this.grbWeldRegime.Padding = new System.Windows.Forms.Padding(0);
+            this.grbWeldRegime.Size = new System.Drawing.Size(532, 19);
             this.grbWeldRegime.TabIndex = 30;
             this.grbWeldRegime.TabStop = false;
             this.grbWeldRegime.Text = "Параметры процесса";
-            this.grbWeldRegime.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbWeldRegime_MouseClick);
-            this.grbWeldRegime.Paint += new System.Windows.Forms.PaintEventHandler(this.grbWeldRegime_Paint);
             // 
             // contextMenuStrip
             // 
@@ -628,7 +635,7 @@
             this.Margin = new System.Windows.Forms.Padding(5);
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "WeldingControl";
-            this.Size = new System.Drawing.Size(513, 638);
+            this.Size = new System.Drawing.Size(546, 638);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -657,7 +664,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbTraj;
         private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.GroupBox grbWeldRegime;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.TextBox txbShiftX;
@@ -677,7 +683,7 @@
         private System.Windows.Forms.TextBox txbAngle;
         private System.Windows.Forms.TextBox txbShiftZ;
         private System.Windows.Forms.TextBox txbShiftY;
-        private PlayerControl.Player player;
+        private Player player;
         private System.Windows.Forms.DataGridViewTextBoxColumn видСварки;
         private System.Windows.Forms.DataGridViewTextBoxColumn ОбластьСварки;
         private System.Windows.Forms.DataGridViewTextBoxColumn startColumn;
@@ -686,5 +692,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem tsmiSpecifyHeatingZone;
         private System.Windows.Forms.Label label9;
+        private GroupBoxEx grbWeldRegime;
     }
 }

@@ -53,10 +53,11 @@
             // 
             this.voltageTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.voltageTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.voltageTextBox.Location = new System.Drawing.Point(178, 36);
             this.voltageTextBox.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.voltageTextBox.Name = "voltageTextBox";
-            this.voltageTextBox.Size = new System.Drawing.Size(858, 20);
+            this.voltageTextBox.Size = new System.Drawing.Size(408, 20);
             this.voltageTextBox.TabIndex = 53;
             // 
             // label8
@@ -72,10 +73,11 @@
             // 
             this.weldPoolTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.weldPoolTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.weldPoolTextBox.Location = new System.Drawing.Point(178, 62);
             this.weldPoolTextBox.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.weldPoolTextBox.Name = "weldPoolTextBox";
-            this.weldPoolTextBox.Size = new System.Drawing.Size(858, 20);
+            this.weldPoolTextBox.Size = new System.Drawing.Size(408, 20);
             this.weldPoolTextBox.TabIndex = 51;
             // 
             // label4
@@ -92,10 +94,11 @@
             // 
             this.currentTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.currentTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.currentTextBox.Location = new System.Drawing.Point(178, 10);
             this.currentTextBox.Margin = new System.Windows.Forms.Padding(178, 15, 15, 3);
             this.currentTextBox.Name = "currentTextBox";
-            this.currentTextBox.Size = new System.Drawing.Size(858, 20);
+            this.currentTextBox.Size = new System.Drawing.Size(408, 20);
             this.currentTextBox.TabIndex = 49;
             // 
             // label1
@@ -112,7 +115,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.btnInfo);
@@ -123,8 +125,9 @@
             this.Controls.Add(this.currentTextBox);
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(1);
+            this.MinimumSize = new System.Drawing.Size(0, 123);
             this.Name = "ArcWeldingControl";
-            this.Size = new System.Drawing.Size(1051, 123);
+            this.Size = new System.Drawing.Size(601, 123);
             this.ResumeLayout(false);
             this.PerformLayout();
 

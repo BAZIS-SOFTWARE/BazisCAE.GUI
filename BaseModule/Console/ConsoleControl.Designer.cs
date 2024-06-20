@@ -119,10 +119,9 @@
             this.grbConsole.Controls.Add(this.tlscOut);
             this.grbConsole.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbConsole.Location = new System.Drawing.Point(0, 0);
-            this.grbConsole.Margin = new System.Windows.Forms.Padding(4);
             this.grbConsole.Name = "grbConsole";
-            this.grbConsole.Padding = new System.Windows.Forms.Padding(0, 18, 0, 0);
-            this.grbConsole.Size = new System.Drawing.Size(941, 252);
+            this.grbConsole.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.grbConsole.Size = new System.Drawing.Size(706, 205);
             this.grbConsole.TabIndex = 6;
             this.grbConsole.Paint += new System.Windows.Forms.PaintEventHandler(this.grbConsole_Paint);
             this.grbConsole.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbConsole_MouseClick);
@@ -135,11 +134,10 @@
             // tlscOut.ContentPanel
             // 
             this.tlscOut.ContentPanel.Controls.Add(this.rtxbField);
-            this.tlscOut.ContentPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.tlscOut.ContentPanel.Size = new System.Drawing.Size(909, 232);
+            this.tlscOut.ContentPanel.Size = new System.Drawing.Size(679, 188);
             this.tlscOut.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlscOut.LeftToolStripPanelVisible = false;
-            this.tlscOut.Location = new System.Drawing.Point(0, 18);
+            this.tlscOut.Location = new System.Drawing.Point(0, 15);
             this.tlscOut.Margin = new System.Windows.Forms.Padding(0);
             this.tlscOut.Name = "tlscOut";
             // 
@@ -147,7 +145,7 @@
             // 
             this.tlscOut.RightToolStripPanel.Controls.Add(this.tlsOut);
             this.tlscOut.RightToolStripPanel.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tlscOut.Size = new System.Drawing.Size(939, 232);
+            this.tlscOut.Size = new System.Drawing.Size(704, 188);
             this.tlscOut.TabIndex = 4;
             this.tlscOut.Text = "toolStripContainer1";
             // 
@@ -164,7 +162,7 @@
             this.rtxbField.Location = new System.Drawing.Point(0, 0);
             this.rtxbField.Margin = new System.Windows.Forms.Padding(1);
             this.rtxbField.Name = "rtxbField";
-            this.rtxbField.Size = new System.Drawing.Size(909, 232);
+            this.rtxbField.Size = new System.Drawing.Size(679, 188);
             this.rtxbField.TabIndex = 2;
             this.rtxbField.Text = "";
             this.rtxbField.WordWrap = false;
@@ -186,7 +184,7 @@
             this.tlsOut.Location = new System.Drawing.Point(0, 0);
             this.tlsOut.Name = "tlsOut";
             this.tlsOut.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tlsOut.Size = new System.Drawing.Size(30, 232);
+            this.tlsOut.Size = new System.Drawing.Size(25, 188);
             this.tlsOut.Stretch = true;
             this.tlsOut.TabIndex = 0;
             this.tlsOut.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical90;
@@ -212,7 +210,7 @@
             this.btnClearAll.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnClearAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(28, 20);
+            this.btnClearAll.Size = new System.Drawing.Size(23, 20);
             this.btnClearAll.Text = "btnClearAll";
             this.btnClearAll.Click += new System.EventHandler(this.ClearAll_Click);
             // 
@@ -252,13 +250,13 @@
             this.toolStripMenuItem33});
             this.toolStripMenuItem32.Enabled = false;
             this.toolStripMenuItem32.Name = "toolStripMenuItem32";
-            this.toolStripMenuItem32.Size = new System.Drawing.Size(310, 26);
+            this.toolStripMenuItem32.Size = new System.Drawing.Size(245, 22);
             this.toolStripMenuItem32.Text = "Загрузить проект";
             // 
             // toolStripMenuItem33
             // 
             this.toolStripMenuItem33.Name = "toolStripMenuItem33";
-            this.toolStripMenuItem33.Size = new System.Drawing.Size(184, 26);
+            this.toolStripMenuItem33.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItem33.Text = "Укажите путь";
             // 
             // toolStripMenuItem34
@@ -267,27 +265,27 @@
             this.toolStripMenuItem35});
             this.toolStripMenuItem34.Enabled = false;
             this.toolStripMenuItem34.Name = "toolStripMenuItem34";
-            this.toolStripMenuItem34.Size = new System.Drawing.Size(310, 26);
+            this.toolStripMenuItem34.Size = new System.Drawing.Size(245, 22);
             this.toolStripMenuItem34.Text = "Сохранить проект";
             // 
             // toolStripMenuItem35
             // 
             this.toolStripMenuItem35.Name = "toolStripMenuItem35";
-            this.toolStripMenuItem35.Size = new System.Drawing.Size(184, 26);
+            this.toolStripMenuItem35.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItem35.Text = "Укажите путь";
             // 
             // toolStripMenuItem36
             // 
             this.toolStripMenuItem36.Enabled = false;
             this.toolStripMenuItem36.Name = "toolStripMenuItem36";
-            this.toolStripMenuItem36.Size = new System.Drawing.Size(310, 26);
+            this.toolStripMenuItem36.Size = new System.Drawing.Size(245, 22);
             this.toolStripMenuItem36.Text = "Новый проект";
             // 
             // toolStripMenuItem37
             // 
             this.toolStripMenuItem37.Enabled = false;
             this.toolStripMenuItem37.Name = "toolStripMenuItem37";
-            this.toolStripMenuItem37.Size = new System.Drawing.Size(310, 26);
+            this.toolStripMenuItem37.Size = new System.Drawing.Size(245, 22);
             this.toolStripMenuItem37.Text = "Рассчитать проект";
             // 
             // toolStripMenuItem38
@@ -295,13 +293,13 @@
             this.toolStripMenuItem38.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem39});
             this.toolStripMenuItem38.Name = "toolStripMenuItem38";
-            this.toolStripMenuItem38.Size = new System.Drawing.Size(310, 26);
+            this.toolStripMenuItem38.Size = new System.Drawing.Size(245, 22);
             this.toolStripMenuItem38.Text = "Перенумерация сетки";
             // 
             // toolStripMenuItem39
             // 
             this.toolStripMenuItem39.Name = "toolStripMenuItem39";
-            this.toolStripMenuItem39.Size = new System.Drawing.Size(179, 26);
+            this.toolStripMenuItem39.Size = new System.Drawing.Size(142, 22);
             this.toolStripMenuItem39.Text = "тип и номер";
             this.toolStripMenuItem39.Click += new System.EventHandler(this.NewItem_Click);
             // 
@@ -313,7 +311,7 @@
             this.toolStripMenuItem45});
             this.toolStripMenuItem40.Enabled = false;
             this.toolStripMenuItem40.Name = "toolStripMenuItem40";
-            this.toolStripMenuItem40.Size = new System.Drawing.Size(310, 26);
+            this.toolStripMenuItem40.Size = new System.Drawing.Size(245, 22);
             this.toolStripMenuItem40.Text = "Изменить координаты модели";
             // 
             // toolStripMenuItem41
@@ -321,13 +319,13 @@
             this.toolStripMenuItem41.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem42});
             this.toolStripMenuItem41.Name = "toolStripMenuItem41";
-            this.toolStripMenuItem41.Size = new System.Drawing.Size(212, 26);
+            this.toolStripMenuItem41.Size = new System.Drawing.Size(170, 22);
             this.toolStripMenuItem41.Text = "Переместить";
             // 
             // toolStripMenuItem42
             // 
             this.toolStripMenuItem42.Name = "toolStripMenuItem42";
-            this.toolStripMenuItem42.Size = new System.Drawing.Size(242, 26);
+            this.toolStripMenuItem42.Size = new System.Drawing.Size(194, 22);
             this.toolStripMenuItem42.Text = "Укажите вектор : a,b,c";
             // 
             // toolStripMenuItem43
@@ -335,13 +333,13 @@
             this.toolStripMenuItem43.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem44});
             this.toolStripMenuItem43.Name = "toolStripMenuItem43";
-            this.toolStripMenuItem43.Size = new System.Drawing.Size(212, 26);
+            this.toolStripMenuItem43.Size = new System.Drawing.Size(170, 22);
             this.toolStripMenuItem43.Text = "Повернуть";
             // 
             // toolStripMenuItem44
             // 
             this.toolStripMenuItem44.Name = "toolStripMenuItem44";
-            this.toolStripMenuItem44.Size = new System.Drawing.Size(203, 26);
+            this.toolStripMenuItem44.Size = new System.Drawing.Size(163, 22);
             this.toolStripMenuItem44.Text = "Укажите угол : a";
             // 
             // toolStripMenuItem45
@@ -349,13 +347,13 @@
             this.toolStripMenuItem45.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem46});
             this.toolStripMenuItem45.Name = "toolStripMenuItem45";
-            this.toolStripMenuItem45.Size = new System.Drawing.Size(212, 26);
+            this.toolStripMenuItem45.Size = new System.Drawing.Size(170, 22);
             this.toolStripMenuItem45.Text = "Масштабировать";
             // 
             // toolStripMenuItem46
             // 
             this.toolStripMenuItem46.Name = "toolStripMenuItem46";
-            this.toolStripMenuItem46.Size = new System.Drawing.Size(222, 26);
+            this.toolStripMenuItem46.Size = new System.Drawing.Size(178, 22);
             this.toolStripMenuItem46.Text = "Укажите фактор : a";
             // 
             // toolStripMenuItem47
@@ -366,7 +364,7 @@
             this.toolStripMenuItem52});
             this.toolStripMenuItem47.Enabled = false;
             this.toolStripMenuItem47.Name = "toolStripMenuItem47";
-            this.toolStripMenuItem47.Size = new System.Drawing.Size(310, 26);
+            this.toolStripMenuItem47.Size = new System.Drawing.Size(245, 22);
             this.toolStripMenuItem47.Text = "Изменить координаты объекта";
             // 
             // toolStripMenuItem48
@@ -374,13 +372,13 @@
             this.toolStripMenuItem48.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem49});
             this.toolStripMenuItem48.Name = "toolStripMenuItem48";
-            this.toolStripMenuItem48.Size = new System.Drawing.Size(212, 26);
+            this.toolStripMenuItem48.Size = new System.Drawing.Size(170, 22);
             this.toolStripMenuItem48.Text = "Переместить";
             // 
             // toolStripMenuItem49
             // 
             this.toolStripMenuItem49.Name = "toolStripMenuItem49";
-            this.toolStripMenuItem49.Size = new System.Drawing.Size(242, 26);
+            this.toolStripMenuItem49.Size = new System.Drawing.Size(194, 22);
             this.toolStripMenuItem49.Text = "Укажите вектор : a,b,c";
             // 
             // toolStripMenuItem50
@@ -388,13 +386,13 @@
             this.toolStripMenuItem50.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem51});
             this.toolStripMenuItem50.Name = "toolStripMenuItem50";
-            this.toolStripMenuItem50.Size = new System.Drawing.Size(212, 26);
+            this.toolStripMenuItem50.Size = new System.Drawing.Size(170, 22);
             this.toolStripMenuItem50.Text = "Повернуть";
             // 
             // toolStripMenuItem51
             // 
             this.toolStripMenuItem51.Name = "toolStripMenuItem51";
-            this.toolStripMenuItem51.Size = new System.Drawing.Size(203, 26);
+            this.toolStripMenuItem51.Size = new System.Drawing.Size(163, 22);
             this.toolStripMenuItem51.Text = "Укажите угол : a";
             // 
             // toolStripMenuItem52
@@ -402,13 +400,13 @@
             this.toolStripMenuItem52.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem53});
             this.toolStripMenuItem52.Name = "toolStripMenuItem52";
-            this.toolStripMenuItem52.Size = new System.Drawing.Size(212, 26);
+            this.toolStripMenuItem52.Size = new System.Drawing.Size(170, 22);
             this.toolStripMenuItem52.Text = "Масштабировать";
             // 
             // toolStripMenuItem53
             // 
             this.toolStripMenuItem53.Name = "toolStripMenuItem53";
-            this.toolStripMenuItem53.Size = new System.Drawing.Size(222, 26);
+            this.toolStripMenuItem53.Size = new System.Drawing.Size(178, 22);
             this.toolStripMenuItem53.Text = "Укажите фактор : a";
             // 
             // toolStripMenuItem54
@@ -420,7 +418,7 @@
             this.toolStripMenuItem54.Enabled = false;
             this.toolStripMenuItem54.MergeAction = System.Windows.Forms.MergeAction.Replace;
             this.toolStripMenuItem54.Name = "toolStripMenuItem54";
-            this.toolStripMenuItem54.Size = new System.Drawing.Size(310, 26);
+            this.toolStripMenuItem54.Size = new System.Drawing.Size(245, 22);
             this.toolStripMenuItem54.Text = "Изменить вид";
             // 
             // toolStripMenuItem55
@@ -428,13 +426,13 @@
             this.toolStripMenuItem55.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem56});
             this.toolStripMenuItem55.Name = "toolStripMenuItem55";
-            this.toolStripMenuItem55.Size = new System.Drawing.Size(212, 26);
+            this.toolStripMenuItem55.Size = new System.Drawing.Size(170, 22);
             this.toolStripMenuItem55.Text = "Переместить";
             // 
             // toolStripMenuItem56
             // 
             this.toolStripMenuItem56.Name = "toolStripMenuItem56";
-            this.toolStripMenuItem56.Size = new System.Drawing.Size(242, 26);
+            this.toolStripMenuItem56.Size = new System.Drawing.Size(194, 22);
             this.toolStripMenuItem56.Text = "Укажите вектор : a,b,c";
             // 
             // toolStripMenuItem57
@@ -442,13 +440,13 @@
             this.toolStripMenuItem57.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem58});
             this.toolStripMenuItem57.Name = "toolStripMenuItem57";
-            this.toolStripMenuItem57.Size = new System.Drawing.Size(212, 26);
+            this.toolStripMenuItem57.Size = new System.Drawing.Size(170, 22);
             this.toolStripMenuItem57.Text = "Повернуть";
             // 
             // toolStripMenuItem58
             // 
             this.toolStripMenuItem58.Name = "toolStripMenuItem58";
-            this.toolStripMenuItem58.Size = new System.Drawing.Size(203, 26);
+            this.toolStripMenuItem58.Size = new System.Drawing.Size(163, 22);
             this.toolStripMenuItem58.Text = "Укажите угол : a";
             // 
             // toolStripMenuItem59
@@ -456,19 +454,19 @@
             this.toolStripMenuItem59.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem60});
             this.toolStripMenuItem59.Name = "toolStripMenuItem59";
-            this.toolStripMenuItem59.Size = new System.Drawing.Size(212, 26);
+            this.toolStripMenuItem59.Size = new System.Drawing.Size(170, 22);
             this.toolStripMenuItem59.Text = "Масштабировать";
             // 
             // toolStripMenuItem60
             // 
             this.toolStripMenuItem60.Name = "toolStripMenuItem60";
-            this.toolStripMenuItem60.Size = new System.Drawing.Size(222, 26);
+            this.toolStripMenuItem60.Size = new System.Drawing.Size(178, 22);
             this.toolStripMenuItem60.Text = "Укажите фактор : a";
             // 
             // toolStripMenuItem61
             // 
             this.toolStripMenuItem61.Name = "toolStripMenuItem61";
-            this.toolStripMenuItem61.Size = new System.Drawing.Size(310, 26);
+            this.toolStripMenuItem61.Size = new System.Drawing.Size(245, 22);
             this.toolStripMenuItem61.Text = "Найти свободные узлы";
             this.toolStripMenuItem61.Click += new System.EventHandler(this.NewItem_Click);
             // 
@@ -477,13 +475,13 @@
             this.toolStripMenuItem62.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem63});
             this.toolStripMenuItem62.Name = "toolStripMenuItem62";
-            this.toolStripMenuItem62.Size = new System.Drawing.Size(310, 26);
+            this.toolStripMenuItem62.Size = new System.Drawing.Size(245, 22);
             this.toolStripMenuItem62.Text = "Найти объект";
             // 
             // toolStripMenuItem63
             // 
             this.toolStripMenuItem63.Name = "toolStripMenuItem63";
-            this.toolStripMenuItem63.Size = new System.Drawing.Size(173, 26);
+            this.toolStripMenuItem63.Size = new System.Drawing.Size(138, 22);
             this.toolStripMenuItem63.Text = "тип : номер";
             this.toolStripMenuItem63.Click += new System.EventHandler(this.NewItem_Click);
             // 
@@ -492,20 +490,20 @@
             this.toolStripMenuItem64.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem65});
             this.toolStripMenuItem64.Name = "toolStripMenuItem64";
-            this.toolStripMenuItem64.Size = new System.Drawing.Size(310, 26);
+            this.toolStripMenuItem64.Size = new System.Drawing.Size(245, 22);
             this.toolStripMenuItem64.Text = "Найти совпадающие";
             // 
             // toolStripMenuItem65
             // 
             this.toolStripMenuItem65.Name = "toolStripMenuItem65";
-            this.toolStripMenuItem65.Size = new System.Drawing.Size(127, 26);
+            this.toolStripMenuItem65.Size = new System.Drawing.Size(102, 22);
             this.toolStripMenuItem65.Text = "Узлы";
             this.toolStripMenuItem65.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem66
             // 
             this.toolStripMenuItem66.Name = "toolStripMenuItem66";
-            this.toolStripMenuItem66.Size = new System.Drawing.Size(310, 26);
+            this.toolStripMenuItem66.Size = new System.Drawing.Size(245, 22);
             this.toolStripMenuItem66.Text = "Выход";
             this.toolStripMenuItem66.Click += new System.EventHandler(this.NewItem_Click);
             // 
@@ -516,19 +514,18 @@
             this.btnStartMacro.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnStartMacro.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnStartMacro.Name = "btnStartMacro";
-            this.btnStartMacro.Size = new System.Drawing.Size(28, 24);
+            this.btnStartMacro.Size = new System.Drawing.Size(23, 24);
             this.btnStartMacro.Text = "Старт макрос";
             this.btnStartMacro.Click += new System.EventHandler(this.btnStartMacro_Click);
             // 
             // ConsoleControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.grbConsole);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ConsoleControl";
-            this.Size = new System.Drawing.Size(941, 252);
+            this.Size = new System.Drawing.Size(706, 205);
             this.Load += new System.EventHandler(this.ConsoleControl_Load);
             this.grbConsole.ResumeLayout(false);
             this.tlscOut.ContentPanel.ResumeLayout(false);

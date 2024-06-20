@@ -13,15 +13,17 @@ using BaseModule.Console;
 using BaseModule.CrossSection;
 using BaseModule.Console.Events;
 using SceneInterface;
-using BaseModule.ToolStrips;
+using BaseModule.ControlsLib;
 using BaseModule.Navigator;
 using ModelControllerInterfaces;
 using System.Threading;
 using ModelInterfaces.MeshObjects;
 using ModelInterfaces.GeometryObjects;
-using System.Data.Odbc;
 using System.ComponentModel;
 using ProjectInterfaces;
+using BaseModule.ControlsComponents;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using BaseModule.Utilities;
 
 namespace BaseModule
 {
@@ -228,14 +230,6 @@ namespace BaseModule
             set { displayToolStrip.VolumeNodesImage = value; }
         }
 
-        [Category("displayToolStrip")]
-        [Description("Иконка отображения названия проекта")]
-        public Image TitleInfoImage
-        {
-            get { return displayToolStrip.TitleInfoImage; }
-            set { displayToolStrip.TitleInfoImage = value; }
-        }
-
         [Category("instrumentalToolStrip")]
         [Description("Иконка запуска измерения")]
         public Image MeasureImage
@@ -278,7 +272,13 @@ namespace BaseModule
         public BasePage()
         {
             InitializeComponent();
+
+            SplittersController = new SplittersController(this);
+
             CreateMenuInterface();
+
+            if(ComponentsPainter.ScreenDPI == 120 | ComponentsPainter.ScreenDPI == 144)
+                selectToolStrip.Location = new Point(0,0);
         }
 
         public void SceneInitialization()
@@ -573,7 +573,9 @@ namespace BaseModule
 
                     if (e.ClickedItem.Tag.ToString() == "4")
                     {
-                        var form = new Form() { Name = "selectForm", Text = "Выбрать", AutoSize = false, ShowIcon = false, TopMost = true };
+                        var form = new Form() { 
+                            Name = "selectForm", Text = "Выбрать", AutoSize = false, 
+                            ShowIcon = false, TopMost = true, Owner = Application.OpenForms[0] };
                         
                         form.FormClosing += (s1, s2) => { btn.Checked = false; };
                         var selectionControl = new SelectionSet() { Dock = DockStyle.Fill };
@@ -694,7 +696,8 @@ namespace BaseModule
                 {
                     if (e.ClickedItem.Tag.ToString() == "0")
                     {
-                        var form = new Form() { Name = "measureForm", Text = "Измерить", ShowIcon = false, TopMost = true };
+                        var form = new Form() { Name = "measureForm", Text = "Измерить", ShowIcon = false, 
+                            Owner = Application.OpenForms[0],TopMost = true };
 
                         form.FormClosed += (s1, s2) =>
                         {
@@ -721,7 +724,9 @@ namespace BaseModule
 
                     else if (e.ClickedItem.Tag.ToString() == "1")
                     {
-                        var form = new Form() { Name = "CrossSectionForm", Text = "Построить сечение", ShowIcon = false, Size = new Size(268, 203), TopMost = true };
+                        var form = new Form() { Name = "CrossSectionForm", Text = "Построить сечение", 
+                            ShowIcon = false, Size = new Size(268, 203),
+                            Owner = Application.OpenForms[0],TopMost = true };
 
                         var crossSection = new CrossSectionControl() { Dock = DockStyle.Fill };
                         form.ClientSize = crossSection.Size;
@@ -859,14 +864,14 @@ namespace BaseModule
             {
                 switch (arg2.Kind)
                 {
-                    case MeasureKind.DistanceNodeToNode:
+                    case MeasureKind.DistancePointToPoint:
                         {
                             var objs = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
                             var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToList();
 
                             if (selObjs.Count() > 1)
                             {
-                                var nodes = selObjs.Select(x => (INode)x);
+                                var nodes = selObjs.Select(x => (IPoint)x);
                                 var p0 = nodes.First();
                                 var p1 = nodes.Last();
                                 var line = new Segment3D(p0.Position, p1.Position);
@@ -876,29 +881,29 @@ namespace BaseModule
                                 sceneControl.DisplayDistance(line);
                                 sceneControl.DisplayObjects();
                             }
-                            else consoleControl.PrintInfo("Узлы не выбраны", Color.Red);
+                            else consoleControl.PrintInfo($"{selectToolStrip.SelectObjectsType} не выбраны", Color.Red);
                             break;
                         }
-                    case MeasureKind.DistanceNodeToPlane:
+                    case MeasureKind.DistancePointToPlane:
                         {
-                            var plane = CreateSurfaceAsync();
+                            var plane = CreateSurfaceAsync(selectToolStrip.SelectObjectsType);
                             await plane;
 
-                            var nodes = Project.ModelData.ObjectData.GetObjects(ObjType.Узел);
-                            foreach (var _node in nodes)
-                                _node.SetBackColor();
+                            var objects = Project.ModelData.ObjectData.GetObjects(selectToolStrip.SelectObjectsType);
+                            foreach (var _object in objects)
+                                _object.SetBackColor();
 
-                            SetObjectsSceneColor(ObjType.Узел);
+                            SetObjectsSceneColor(selectToolStrip.SelectObjectsType);
 
                             sceneControl.DisplayObjects();
 
-                            var res = SelectNodeAsync();
+                            var res = SelectObjectAsync(selectToolStrip.SelectObjectsType);
                             await res;
 
-                            if(res.Result is INode node)
+                            if(res.Result is IPoint point)
                             {
-                                var proj = node.Position.GetPointProectionOnPlane(plane.Result);
-                                var line = new Segment3D(node.Position, proj);
+                                var proj = point.Position.GetPointProectionOnPlane(plane.Result);
+                                var line = new Segment3D(point.Position, proj);
                                 consoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
                                 sceneControl.DisplayDistance(line);
                                 sceneControl.DisplayObjects();
@@ -952,19 +957,19 @@ namespace BaseModule
             }
         }
 
-        public async Task<List<INode>> CreatePathAsync()
+        public async Task<List<IPoint>> CreatePathAsync()
         {
-            var nodes = new List<INode>();
+            var nodes = new List<IPoint>();
 
             var message = @"Начните строить путь нажав на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
             ConsoleControl.PrintInfo(message, Color.Black);
 
             while (true)
                 {
-                    var res = SelectNodeAsync();
+                    var res = SelectObjectAsync(selectToolStrip.SelectObjectsType);
                     await res;
 
-                    if (res.Result is INode node)
+                    if (res.Result is IPoint node)
                     {
                         nodes.Add(node);
                         node.SetBackColor();
@@ -983,7 +988,7 @@ namespace BaseModule
         }
 
 
-        public async Task<object> SelectNodeAsync()
+        public async Task<object> SelectObjectAsync(ObjType objType)
         {
             var actBreak = new Action(() =>
             {
@@ -993,11 +998,11 @@ namespace BaseModule
                 }));
             });
 
-            var message = @"Выберите узел и нажмите на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
+            var message = $@"Выберите {objType} и нажмите на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
 
             var actPointConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var objs = Project.ModelData.ObjectData.NodeCollection;
+                var objs = Project.ModelData.ObjectData.GetObjects(objType);
                 
                 var selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor);
 
@@ -1005,7 +1010,7 @@ namespace BaseModule
                 {
                     Invoke(new Action(() =>
                     {
-                        ConsoleControl.PrintInfo("Не выбран ни один узел!", Color.Orange);
+                        ConsoleControl.PrintInfo($"Не выбран ни один {objType}!", Color.Orange);
                     }));
                     return new Tuple<bool, object>(false, new object());
                 }
@@ -1013,16 +1018,16 @@ namespace BaseModule
                 {
                     Invoke(new Action(() =>
                     {
-                        ConsoleControl.PrintInfo("Выберите один узел!", Color.Orange);
+                        ConsoleControl.PrintInfo($"Выберите один {objType}!", Color.Orange);
                     }));
                     return new Tuple<bool, object>(false, new object());
                 }
                 else
                 {
-                    var node = (INode)selObjs.First();
+                    var node = selObjs.First();
                     Invoke(new Action(() =>
                     {
-                        ConsoleControl.PrintInfo($"Выбран узел {node.Number}", Color.Green);
+                        ConsoleControl.PrintInfo($"Выбран {objType} с номером {node.Number}", Color.Green);
                     }));
                     return new Tuple<bool, object>(true, node);
                 }
@@ -1033,7 +1038,7 @@ namespace BaseModule
             return pointAwait.Result;
         }
 
-        public async Task<Plane> CreateSurfaceAsync()
+        public async Task<Plane> CreateSurfaceAsync(ObjType objType)
         {
             var actBreak = new Action(() =>
             {
@@ -1045,14 +1050,22 @@ namespace BaseModule
             var message = @"Задайте поверхность, выбрав три узла, и нажмите на клавишу ""E"" или нажмите кнопку ""ESC""";
             var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var nodes = Project.ModelData.ObjectData.NodeCollection;
-                var selObjs = nodes.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
+                var pointObjs = Project.ModelData.ObjectData.GetObjects(objType);
+                var selObjs = pointObjs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
 
                 if (selObjs.Length < 3)
                 {
                     Invoke(new Action(() =>
                     {
-                        ConsoleControl.PrintInfo("Выберите три узла!", Color.Orange);
+                        ConsoleControl.PrintInfo("Выберите три узла или точки!", Color.Orange);
+                    }));
+                    return new Tuple<bool, object>(false, new object());
+                }
+                else if (objType != ObjType.Узел & objType != ObjType.Точка)
+                {
+                    Invoke(new Action(() =>
+                    {
+                        ConsoleControl.PrintInfo("Выберите или узлы или точки!", Color.Orange);
                     }));
                     return new Tuple<bool, object>(false, new object());
                 }
@@ -1192,19 +1205,31 @@ namespace BaseModule
 
                 else if (arg2.ClickedItem.Tag.ToString() == "3")
                 {
+                    PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.LineSurface);
+                    PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.LineSurface);
+                    PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.LineSurface);
+                    PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.LineSurface);
+
                     foreach (var objsType in sceneControl.GetVBObjsName())
                         sceneControl.ChangeViewModeVBObjects(objsType, ObjView.LinesSurface);
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "4")
                 {
-
+                    PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.Line);
+                    PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.Line);
+                    PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.Line);
+                    PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.Line);
                     foreach (var objsType in sceneControl.GetVBObjsName())
                         sceneControl.ChangeViewModeVBObjects(objsType, ObjView.Lines);
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "5")
                 {
+                    PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.Surface);
+                    PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.Surface);
+                    PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.Surface);
+                    PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.Surface);
                     foreach (var objsType in sceneControl.GetVBObjsName())
                         sceneControl.ChangeViewModeVBObjects(objsType, ObjView.Surface);
                 }
@@ -1220,12 +1245,18 @@ namespace BaseModule
                     var btn = (ToolStripButton)arg2.ClickedItem;
                     if (!btn.Checked)
                     {
-                        var surfElems = Project.ModelData.ObjectData.GetAllElements().Select(x => (ISurfaceElement)x);
-                        var elemsNormals = ModelController.NormalCalculator.CalcElemsNormals(surfElems);
-    
-                        var linePresenter = PresentersCreator.CreateLineObjectsPresenter(elemsNormals);
+                        var surfElems = Project.ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement);
+                        if (surfElems.Count() > 0)
+                        {
+                            var elemsNormals = ModelController.NormalCalculator.CalcElemsNormals(surfElems.Select(x => x as ISurfaceElement));
 
-                        CreateObjectsToScene("Normals", linePresenter);
+                            var linePresenter = PresentersCreator.CreateLineObjectsPresenter(elemsNormals);
+
+                            CreateObjectsToScene("Normals", linePresenter);
+                        }
+                        else
+                            throw new Exception("Для отображения нормалей модели не заданы объекты типа \"Элемент\"," +
+                                "возможно вы пользуетесь модулем Геометрии");
                     }
                     else sceneControl.DeleteVBObjects("Normals");
                 }
@@ -1549,8 +1580,6 @@ namespace BaseModule
                 splitContainer2.Panel2Collapsed = false;
             };
             consoleControl.ConsolePanelCollapseEvent += () => { splitContainer2.Panel2Collapsed = true; };
-
-            SplittersController = new SplittersController(this);
 
             displayToolStrip.Renderer = BaseToolStrRender;
             selectToolStrip.Renderer = BaseToolStrRender;

@@ -97,13 +97,13 @@ namespace ResultModule
             this.tableLayoutPanel1.Controls.Add(this.txbScale, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 16);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 13);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 61.53846F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.46154F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(408, 120);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(408, 123);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // playerPanel
@@ -115,7 +115,7 @@ namespace ResultModule
             this.playerPanel.Location = new System.Drawing.Point(4, 4);
             this.playerPanel.Margin = new System.Windows.Forms.Padding(4);
             this.playerPanel.Name = "playerPanel";
-            this.playerPanel.Size = new System.Drawing.Size(400, 65);
+            this.playerPanel.Size = new System.Drawing.Size(400, 67);
             this.playerPanel.TabIndex = 0;
             // 
             // player
@@ -125,7 +125,7 @@ namespace ResultModule
             this.player.CheckState = PlayerControl.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.player.Location = new System.Drawing.Point(3, 0);
+            this.player.Location = new System.Drawing.Point(3, 1);
             this.player.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.player.MinimumSize = new System.Drawing.Size(287, 55);
             this.player.Name = "player";
@@ -145,10 +145,11 @@ namespace ResultModule
             // txbScale
             // 
             this.txbScale.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txbScale.Location = new System.Drawing.Point(272, 83);
+            this.txbScale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txbScale.Location = new System.Drawing.Point(272, 87);
             this.txbScale.Margin = new System.Windows.Forms.Padding(4, 0, 7, 4);
             this.txbScale.Name = "txbScale";
-            this.txbScale.Size = new System.Drawing.Size(57, 23);
+            this.txbScale.Size = new System.Drawing.Size(57, 20);
             this.txbScale.TabIndex = 20;
             this.txbScale.Text = "1";
             // 
@@ -156,10 +157,10 @@ namespace ResultModule
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(208, 88);
+            this.label1.Location = new System.Drawing.Point(220, 92);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 17);
+            this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 21;
             this.label1.Text = "Масшт.";
             // 
@@ -186,14 +187,14 @@ namespace ResultModule
             this.tableLayoutPanel3.Controls.Add(this.cmbResultNames, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.richTextBox, 1, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 16);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 13);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(408, 269);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(408, 272);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // cmbResultNames
@@ -204,18 +205,19 @@ namespace ResultModule
             this.cmbResultNames.Location = new System.Drawing.Point(7, 0);
             this.cmbResultNames.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.cmbResultNames.Name = "cmbResultNames";
-            this.cmbResultNames.Size = new System.Drawing.Size(394, 24);
+            this.cmbResultNames.Size = new System.Drawing.Size(394, 21);
             this.cmbResultNames.TabIndex = 0;
             this.cmbResultNames.SelectedIndexChanged += new System.EventHandler(this.cmbResultNames_SelectedIndexChanged);
             // 
             // richTextBox
             // 
+            this.richTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tableLayoutPanel3.SetColumnSpan(this.richTextBox, 2);
             this.richTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox.Location = new System.Drawing.Point(7, 24);
+            this.richTextBox.Location = new System.Drawing.Point(7, 21);
             this.richTextBox.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.richTextBox.Name = "richTextBox";
-            this.richTextBox.Size = new System.Drawing.Size(394, 245);
+            this.richTextBox.Size = new System.Drawing.Size(394, 251);
             this.richTextBox.TabIndex = 1;
             this.richTextBox.Text = "";
             this.richTextBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.richTextBox_MouseClick);
@@ -225,7 +227,7 @@ namespace ResultModule
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.61539F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.38461F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 148F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 149F));
             this.tableLayoutPanel4.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.chbDelTempScrs, 1, 1);
             this.tableLayoutPanel4.Controls.Add(this.label3, 0, 1);
@@ -245,10 +247,10 @@ namespace ResultModule
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 9);
+            this.label2.Location = new System.Drawing.Point(36, 11);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(186, 17);
+            this.label2.Size = new System.Drawing.Size(147, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Задержка между слайдами";
             // 
@@ -258,10 +260,10 @@ namespace ResultModule
             this.chbDelTempScrs.AutoSize = true;
             this.chbDelTempScrs.Checked = true;
             this.chbDelTempScrs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbDelTempScrs.Location = new System.Drawing.Point(230, 50);
+            this.chbDelTempScrs.Location = new System.Drawing.Point(231, 52);
             this.chbDelTempScrs.Margin = new System.Windows.Forms.Padding(4);
             this.chbDelTempScrs.Name = "chbDelTempScrs";
-            this.chbDelTempScrs.Size = new System.Drawing.Size(18, 17);
+            this.chbDelTempScrs.Size = new System.Drawing.Size(15, 14);
             this.chbDelTempScrs.TabIndex = 6;
             this.chbDelTempScrs.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chbDelTempScrs.UseVisualStyleBackColor = true;
@@ -270,10 +272,10 @@ namespace ResultModule
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(23, 42);
+            this.label3.Location = new System.Drawing.Point(11, 52);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(173, 34);
+            this.label3.Size = new System.Drawing.Size(196, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Удалить промежуточные результаты";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -281,10 +283,10 @@ namespace ResultModule
             // txbDelayTime
             // 
             this.txbDelayTime.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txbDelayTime.Location = new System.Drawing.Point(220, 6);
+            this.txbDelayTime.Location = new System.Drawing.Point(219, 8);
             this.txbDelayTime.Margin = new System.Windows.Forms.Padding(0);
             this.txbDelayTime.Name = "txbDelayTime";
-            this.txbDelayTime.Size = new System.Drawing.Size(39, 23);
+            this.txbDelayTime.Size = new System.Drawing.Size(39, 20);
             this.txbDelayTime.TabIndex = 5;
             this.txbDelayTime.Text = "100";
             this.txbDelayTime.Leave += new System.EventHandler(this.txbDelayTime_Leave);
@@ -294,10 +296,11 @@ namespace ResultModule
             this.btnCreateAnimation.AutoSize = true;
             this.btnCreateAnimation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnCreateAnimation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCreateAnimation.Location = new System.Drawing.Point(266, 44);
+            this.btnCreateAnimation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCreateAnimation.Location = new System.Drawing.Point(265, 44);
             this.btnCreateAnimation.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.btnCreateAnimation.Name = "btnCreateAnimation";
-            this.btnCreateAnimation.Size = new System.Drawing.Size(135, 30);
+            this.btnCreateAnimation.Size = new System.Drawing.Size(136, 30);
             this.btnCreateAnimation.TabIndex = 3;
             this.btnCreateAnimation.Text = "Создать";
             this.btnCreateAnimation.UseVisualStyleBackColor = true;
@@ -305,7 +308,7 @@ namespace ResultModule
             // 
             // AnimationPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel2);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));

@@ -51,6 +51,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.Location = new System.Drawing.Point(8, 170);
             this.label4.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
             this.label4.Name = "label4";
@@ -64,6 +65,7 @@
             this.cmbPriority.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbPriority.DisplayMember = "0";
+            this.cmbPriority.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cmbPriority.FormattingEnabled = true;
             this.cmbPriority.Items.AddRange(new object[] {
             "Низкий",
@@ -73,9 +75,9 @@
             "Высокий",
             "Наивысший"});
             this.cmbPriority.Location = new System.Drawing.Point(190, 219);
-            this.cmbPriority.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
+            this.cmbPriority.Margin = new System.Windows.Forms.Padding(178, 3, 15, 15);
             this.cmbPriority.Name = "cmbPriority";
-            this.cmbPriority.Size = new System.Drawing.Size(290, 21);
+            this.cmbPriority.Size = new System.Drawing.Size(295, 21);
             this.cmbPriority.TabIndex = 122;
             this.cmbPriority.Text = "Наивысший";
             this.cmbPriority.SelectedIndexChanged += new System.EventHandler(this.AllTextBox_TextChanged);
@@ -83,6 +85,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.Location = new System.Drawing.Point(8, 117);
             this.label3.Margin = new System.Windows.Forms.Padding(8, 10, 3, 10);
             this.label3.Name = "label3";
@@ -95,6 +98,7 @@
             // 
             this.cmbSolver.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbSolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cmbSolver.FormattingEnabled = true;
             this.cmbSolver.Items.AddRange(new object[] {
             "Gauss_direct",
@@ -103,7 +107,7 @@
             this.cmbSolver.Location = new System.Drawing.Point(190, 114);
             this.cmbSolver.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.cmbSolver.Name = "cmbSolver";
-            this.cmbSolver.Size = new System.Drawing.Size(290, 21);
+            this.cmbSolver.Size = new System.Drawing.Size(295, 21);
             this.cmbSolver.TabIndex = 120;
             this.cmbSolver.Text = "SOR_iterative";
             this.cmbSolver.SelectedIndexChanged += new System.EventHandler(this.AllTextBox_TextChanged);
@@ -111,6 +115,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label12.Location = new System.Drawing.Point(8, 222);
             this.label12.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
             this.label12.Name = "label12";
@@ -124,10 +129,11 @@
             this.txbRelaxation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbRelaxation.BackColor = System.Drawing.SystemColors.Window;
+            this.txbRelaxation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbRelaxation.Location = new System.Drawing.Point(190, 193);
             this.txbRelaxation.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbRelaxation.Name = "txbRelaxation";
-            this.txbRelaxation.Size = new System.Drawing.Size(290, 20);
+            this.txbRelaxation.Size = new System.Drawing.Size(295, 20);
             this.txbRelaxation.TabIndex = 113;
             this.txbRelaxation.Text = "1.05";
             this.txbRelaxation.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
@@ -138,10 +144,11 @@
             this.txbPrecision.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbPrecision.BackColor = System.Drawing.SystemColors.Window;
+            this.txbPrecision.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbPrecision.Location = new System.Drawing.Point(190, 167);
             this.txbPrecision.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbPrecision.Name = "txbPrecision";
-            this.txbPrecision.Size = new System.Drawing.Size(290, 20);
+            this.txbPrecision.Size = new System.Drawing.Size(295, 20);
             this.txbPrecision.TabIndex = 114;
             this.txbPrecision.Text = "0.01";
             this.txbPrecision.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
@@ -150,6 +157,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(8, 144);
             this.label1.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
             this.label1.Name = "label1";
@@ -163,10 +171,11 @@
             this.txbSolverIterations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbSolverIterations.BackColor = System.Drawing.SystemColors.Window;
+            this.txbSolverIterations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbSolverIterations.Location = new System.Drawing.Point(190, 141);
             this.txbSolverIterations.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbSolverIterations.Name = "txbSolverIterations";
-            this.txbSolverIterations.Size = new System.Drawing.Size(290, 20);
+            this.txbSolverIterations.Size = new System.Drawing.Size(295, 20);
             this.txbSolverIterations.TabIndex = 115;
             this.txbSolverIterations.Text = "100";
             this.txbSolverIterations.EnabledChanged += new System.EventHandler(this.Txb_EnabledChanged);
@@ -175,6 +184,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label7.Location = new System.Drawing.Point(8, 198);
             this.label7.Margin = new System.Windows.Forms.Padding(20, 10, 3, 10);
             this.label7.Name = "label7";
@@ -188,10 +198,11 @@
             this.txbIters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbIters.BackColor = System.Drawing.SystemColors.Window;
+            this.txbIters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbIters.Location = new System.Drawing.Point(190, 62);
             this.txbIters.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbIters.Name = "txbIters";
-            this.txbIters.Size = new System.Drawing.Size(290, 20);
+            this.txbIters.Size = new System.Drawing.Size(295, 20);
             this.txbIters.TabIndex = 109;
             this.txbIters.Text = "2";
             this.txbIters.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
@@ -199,6 +210,7 @@
             // maxTMIter
             // 
             this.maxTMIter.AutoSize = true;
+            this.maxTMIter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.maxTMIter.Location = new System.Drawing.Point(8, 65);
             this.maxTMIter.Margin = new System.Windows.Forms.Padding(8, 28, 3, 10);
             this.maxTMIter.Name = "maxTMIter";
@@ -213,10 +225,11 @@
             this.txbSaveRate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbSaveRate.BackColor = System.Drawing.SystemColors.Window;
+            this.txbSaveRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbSaveRate.Location = new System.Drawing.Point(190, 88);
             this.txbSaveRate.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbSaveRate.Name = "txbSaveRate";
-            this.txbSaveRate.Size = new System.Drawing.Size(290, 20);
+            this.txbSaveRate.Size = new System.Drawing.Size(295, 20);
             this.txbSaveRate.TabIndex = 111;
             this.txbSaveRate.Text = "1";
             this.txbSaveRate.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
@@ -224,6 +237,7 @@
             // lblSaveRateTM
             // 
             this.lblSaveRateTM.AutoSize = true;
+            this.lblSaveRateTM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblSaveRateTM.Location = new System.Drawing.Point(8, 91);
             this.lblSaveRateTM.Margin = new System.Windows.Forms.Padding(8, 28, 3, 10);
             this.lblSaveRateTM.Name = "lblSaveRateTM";
@@ -238,10 +252,11 @@
             this.txbInitTemp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbInitTemp.BackColor = System.Drawing.SystemColors.Window;
+            this.txbInitTemp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbInitTemp.Location = new System.Drawing.Point(190, 36);
             this.txbInitTemp.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbInitTemp.Name = "txbInitTemp";
-            this.txbInitTemp.Size = new System.Drawing.Size(290, 20);
+            this.txbInitTemp.Size = new System.Drawing.Size(295, 20);
             this.txbInitTemp.TabIndex = 106;
             this.txbInitTemp.Text = "20";
             this.txbInitTemp.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
@@ -249,6 +264,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(8, 39);
             this.label2.Margin = new System.Windows.Forms.Padding(8, 10, 3, 10);
             this.label2.Name = "label2";
@@ -262,6 +278,7 @@
             this.chbDTtMax.AutoSize = true;
             this.chbDTtMax.Checked = true;
             this.chbDTtMax.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbDTtMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.chbDTtMax.Location = new System.Drawing.Point(12, 7);
             this.chbDTtMax.Margin = new System.Windows.Forms.Padding(10, 7, 3, 3);
             this.chbDTtMax.Name = "chbDTtMax";
@@ -276,10 +293,11 @@
             this.txbDTtMax.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbDTtMax.BackColor = System.Drawing.SystemColors.Window;
+            this.txbDTtMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbDTtMax.Location = new System.Drawing.Point(190, 10);
             this.txbDTtMax.Margin = new System.Windows.Forms.Padding(178, 10, 15, 3);
             this.txbDTtMax.Name = "txbDTtMax";
-            this.txbDTtMax.Size = new System.Drawing.Size(290, 20);
+            this.txbDTtMax.Size = new System.Drawing.Size(295, 20);
             this.txbDTtMax.TabIndex = 105;
             this.txbDTtMax.Text = "1500";
             this.txbDTtMax.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
@@ -308,9 +326,12 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.chbDTtMax);
             this.Controls.Add(this.txbDTtMax);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(1);
+            this.MaximumSize = new System.Drawing.Size(10000, 255);
+            this.MinimumSize = new System.Drawing.Size(100, 255);
             this.Name = "HeatTaskControl";
-            this.Size = new System.Drawing.Size(495, 245);
+            this.Size = new System.Drawing.Size(500, 255);
             this.ResumeLayout(false);
             this.PerformLayout();
 

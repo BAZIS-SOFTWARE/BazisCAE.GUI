@@ -9,7 +9,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
     public partial class WeldContainerControl : UserControl
     {
         public event Action<object, WeldContainerCntrEventArgs> ChangeDataEvent;
-        public event Action InfoBoxClickEvent;
 
 
         public WeldContainerControl()
@@ -35,35 +34,33 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public void CreatePictureBox(Bitmap image, Point location)
         {
-            var picBoxes = Controls.Cast<Control>().
-    Where(x => x.GetType() == typeof(PictureBox));
+            var openForms = Application.OpenForms.Cast<Form>();
 
-            if (picBoxes.Count() == 0)
-            {
-                var pxb = new PictureBox()
-                {
-                    Margin = new Padding(0, 10, 0, 0),
-                    Name = "pictureBox",
-                    SizeMode = PictureBoxSizeMode.AutoSize,
-                    BorderStyle = BorderStyle.FixedSingle,
-                    Image = image
-                };
 
-                location.X -= pxb.Width / 2;
-                pxb.Location = location;
+            var forms = openForms.Where(x => x.Name.Equals("frmWeldingRegime"));
 
-                this.Controls.Add(pxb);
-                pxb.BringToFront();
-            }
+            if(forms.Count() > 0)
+                forms.First().Close();
             else
             {
-                var pxb = picBoxes.First() as PictureBox;
-                Controls.Remove(pxb);
-                //release memory by disposing
-                pxb.Dispose();
-            }
+                var formForPic = new Form() { AutoSize = false, ShowIcon = false};
+                formForPic.Name = "frmWeldingRegime";
+                formForPic.StartPosition = FormStartPosition.CenterScreen;
 
-            InfoBoxClickEvent?.Invoke();
+                PictureBox pb = new PictureBox()
+                {
+                    Dock = DockStyle.Fill,
+                    Image = image,
+                    SizeMode = PictureBoxSizeMode.StretchImage,
+                    Size = image.Size
+                };
+
+                formForPic.ClientSize = pb.Size;
+                formForPic.Controls.Add(pb);
+                formForPic.TopMost = true;
+
+                formForPic.Show();
+            }
         }
     }
 }

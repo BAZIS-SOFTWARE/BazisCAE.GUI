@@ -1,4 +1,6 @@
-﻿namespace TaskModule.BasicAdvisorControls
+﻿using BaseModule.ControlsLib;
+
+namespace TaskModule.BasicAdvisorControls
 {
     partial class LoadControl
     {
@@ -31,7 +33,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.player = new PlayerControl.Player();
+            this.player = new BaseModule.ControlsLib.Player();
             this.label8 = new System.Windows.Forms.Label();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnHideAll = new System.Windows.Forms.Button();
@@ -78,6 +80,7 @@
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -102,11 +105,11 @@
             this.groupBox3.Controls.Add(this.txbStartTime);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox3.Location = new System.Drawing.Point(1, 173);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
+            this.groupBox3.Location = new System.Drawing.Point(7, 191);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox3.Size = new System.Drawing.Size(559, 138);
+            this.groupBox3.Size = new System.Drawing.Size(547, 138);
             this.groupBox3.TabIndex = 24;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Время действия";
@@ -116,13 +119,13 @@
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = PlayerControl.CheckState.start;
+            this.player.CheckState = BaseModule.ControlsLib.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(171, 80);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.player.MinimumSize = new System.Drawing.Size(215, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(361, 45);
+            this.player.Size = new System.Drawing.Size(349, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -150,11 +153,12 @@
             // 
             this.btnRefresh.AutoSize = true;
             this.btnRefresh.Enabled = false;
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
             this.btnRefresh.Location = new System.Drawing.Point(75, 80);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(26, 26);
+            this.btnRefresh.Size = new System.Drawing.Size(28, 28);
             this.btnRefresh.TabIndex = 19;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -163,11 +167,12 @@
             // btnHideAll
             // 
             this.btnHideAll.AutoSize = true;
+            this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHideAll.Image = ((System.Drawing.Image)(resources.GetObject("btnHideAll.Image")));
             this.btnHideAll.Location = new System.Drawing.Point(139, 80);
             this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnHideAll.Name = "btnHideAll";
-            this.btnHideAll.Size = new System.Drawing.Size(26, 26);
+            this.btnHideAll.Size = new System.Drawing.Size(28, 28);
             this.btnHideAll.TabIndex = 19;
             this.btnHideAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnHideAll.UseVisualStyleBackColor = true;
@@ -176,11 +181,12 @@
             // btnClearAll
             // 
             this.btnClearAll.AutoSize = true;
+            this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAll.Image")));
             this.btnClearAll.Location = new System.Drawing.Point(43, 80);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(26, 26);
+            this.btnClearAll.Size = new System.Drawing.Size(28, 28);
             this.btnClearAll.TabIndex = 19;
             this.btnClearAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnClearAll.UseVisualStyleBackColor = true;
@@ -189,11 +195,12 @@
             // btnShowAll
             // 
             this.btnShowAll.AutoSize = true;
+            this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
             this.btnShowAll.Location = new System.Drawing.Point(107, 80);
             this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(26, 26);
+            this.btnShowAll.Size = new System.Drawing.Size(28, 28);
             this.btnShowAll.TabIndex = 19;
             this.btnShowAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnShowAll.UseVisualStyleBackColor = true;
@@ -202,11 +209,12 @@
             // btnAddNewRow
             // 
             this.btnAddNewRow.AutoSize = true;
+            this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewRow.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewRow.Image")));
             this.btnAddNewRow.Location = new System.Drawing.Point(11, 80);
             this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
             this.btnAddNewRow.Name = "btnAddNewRow";
-            this.btnAddNewRow.Size = new System.Drawing.Size(26, 26);
+            this.btnAddNewRow.Size = new System.Drawing.Size(28, 28);
             this.btnAddNewRow.TabIndex = 19;
             this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewRow.UseVisualStyleBackColor = true;
@@ -227,20 +235,22 @@
             // 
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStopTime.Location = new System.Drawing.Point(171, 50);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(374, 20);
+            this.txbStopTime.Size = new System.Drawing.Size(362, 20);
             this.txbStopTime.TabIndex = 1;
             // 
             // txbStartTime
             // 
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartTime.Location = new System.Drawing.Point(171, 24);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 25, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(374, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(362, 20);
             this.txbStartTime.TabIndex = 0;
             // 
             // dataGridView
@@ -257,12 +267,12 @@
             this.startColumn,
             this.stopColumn});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 311);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
+            this.dataGridView.Location = new System.Drawing.Point(7, 343);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(559, 196);
+            this.dataGridView.Size = new System.Drawing.Size(547, 158);
             this.dataGridView.TabIndex = 23;
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_UserDeletingRow);
@@ -335,11 +345,11 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(1, 1);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
+            this.groupBox1.Location = new System.Drawing.Point(7, 7);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(559, 170);
+            this.groupBox1.Size = new System.Drawing.Size(547, 170);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры нагрузки";
@@ -348,10 +358,11 @@
             // 
             this.txbValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbValue.Location = new System.Drawing.Point(171, 107);
             this.txbValue.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbValue.Name = "txbValue";
-            this.txbValue.Size = new System.Drawing.Size(374, 20);
+            this.txbValue.Size = new System.Drawing.Size(362, 20);
             this.txbValue.TabIndex = 45;
             // 
             // chbLRF
@@ -374,7 +385,7 @@
             this.cmbGr.Location = new System.Drawing.Point(171, 80);
             this.cmbGr.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbGr.Name = "cmbGr";
-            this.cmbGr.Size = new System.Drawing.Size(374, 21);
+            this.cmbGr.Size = new System.Drawing.Size(362, 21);
             this.cmbGr.TabIndex = 43;
             // 
             // label2
@@ -413,7 +424,7 @@
             this.cmbLoadFunction.Location = new System.Drawing.Point(171, 133);
             this.cmbLoadFunction.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbLoadFunction.Name = "cmbLoadFunction";
-            this.cmbLoadFunction.Size = new System.Drawing.Size(374, 21);
+            this.cmbLoadFunction.Size = new System.Drawing.Size(362, 21);
             this.cmbLoadFunction.TabIndex = 36;
             // 
             // cmbKind
@@ -427,7 +438,7 @@
             this.cmbKind.Location = new System.Drawing.Point(171, 24);
             this.cmbKind.Margin = new System.Windows.Forms.Padding(178, 25, 15, 3);
             this.cmbKind.Name = "cmbKind";
-            this.cmbKind.Size = new System.Drawing.Size(374, 21);
+            this.cmbKind.Size = new System.Drawing.Size(362, 21);
             this.cmbKind.TabIndex = 36;
             // 
             // chbZ
@@ -493,7 +504,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(5);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "LoadControl";
             this.Size = new System.Drawing.Size(561, 508);
@@ -534,7 +545,7 @@
         private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.CheckBox chbLRF;
-        private PlayerControl.Player player;
+        private Player player;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;

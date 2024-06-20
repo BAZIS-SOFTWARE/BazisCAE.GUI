@@ -300,61 +300,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 txbShiftZ.Enabled = false;
                 txbAngle.Enabled = false;
             }
-        }
-
-        private void grbWeldRegime_Paint(object sender, PaintEventArgs e)
-        {
-            var grb = (GroupBox)sender;
-            var textSize = TextRenderer.MeasureText(grb.Text, this.Font).Width;
-            var locRect = new Point(textSize + 5, 3);
-            Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 1);
-            var rect = new Rectangle(locRect, new Size(8, 8));
-
-            e.Graphics.DrawRectangle(blackPen, rect);
-            if (grb.Height == 17)
-            {
-                e.Graphics.DrawString("+", Font, new SolidBrush(System.Drawing.Color.Blue), textSize + 4, 0);
-            }
-            else
-            {
-                e.Graphics.DrawString("-", Font, new SolidBrush(System.Drawing.Color.Blue), textSize + 6, 0);
-            }
-        }
-
-        private void grbWeldRegime_MouseClick(object sender, MouseEventArgs e)
-        {
-            var grb = grbWeldRegime;
-
-            var textSize = TextRenderer.MeasureText(grb.Text, this.Font).Width;
-            if (e.Location.X > textSize + 5 & e.Location.X < textSize + 15 && e.Location.Y <= 10)
-            {
-                if (grb.Height == 17)
-                {
-                    GetChildControlExpandHeight(grb);
-                }
-
-                else grb.Height = 17;
-            }
-        }
-
-        private void GetChildControlExpandHeight(GroupBox grb)
-        {
-            var heigth = 0;
-            var gap = 20;
-            foreach (Control control in grb.Controls)
-            {
-                if (control is UserControl uControl)
-                    foreach (Control cntr in uControl.Controls)
-                    {
-                        if (cntr is TextBox txb | cntr is ComboBox cmb | cntr is Button | cntr is PictureBox | cntr is RadioButton)
-                        {
-                            heigth = heigth + cntr.Size.Height;
-                            gap = gap + 6;
-                        }
-                    }
-            }
-            grb.Height = heigth + gap;
-        }
+        }       
 
         private void dataGridView_MouseClick(object sender, MouseEventArgs e)
         {
@@ -380,7 +326,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             WeldContainerControl wcc;
             if (weldingKind == WeldingKind.ARC)
-                wcc = new ArcWeldingControl() { Dock = DockStyle.Fill };
+                wcc = new ArcWeldingControl() { Dock = DockStyle.Fill};
 
             else if (weldingKind == WeldingKind.FrictionStearing)
                 wcc = new FSWeldingControl() { Dock = DockStyle.Fill };
@@ -388,13 +334,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             else
                 wcc = new LWeldingControl() { Dock = DockStyle.Fill };
 
-            wcc.InfoBoxClickEvent += () =>
-            { GetChildControlExpandHeight(grbWeldRegime); };
-
+            // TO DO небольшие костыли, потом улучшим...
+            grbWeldRegime.Height = wcc.Height + TextRenderer.MeasureText(grbWeldRegime.Text,grbWeldRegime.Font).Height + 10;
+            grbWeldRegime.Padding = new Padding(3,0,3,3);
             grbWeldRegime.Controls.Clear();
             grbWeldRegime.Controls.Add(wcc);
-
-            GetChildControlExpandHeight(grbWeldRegime);
         }
     }
 }

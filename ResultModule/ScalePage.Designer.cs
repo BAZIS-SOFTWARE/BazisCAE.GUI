@@ -93,10 +93,10 @@
             this.chbShowScale.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.chbShowScale.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.chbShowScale, 4);
-            this.chbShowScale.Location = new System.Drawing.Point(21, 14);
+            this.chbShowScale.Location = new System.Drawing.Point(21, 16);
             this.chbShowScale.Margin = new System.Windows.Forms.Padding(21, 3, 5, 3);
             this.chbShowScale.Name = "chbShowScale";
-            this.chbShowScale.Size = new System.Drawing.Size(137, 21);
+            this.chbShowScale.Size = new System.Drawing.Size(109, 17);
             this.chbShowScale.TabIndex = 41;
             this.chbShowScale.Text = "Показать шкалу";
             this.chbShowScale.UseVisualStyleBackColor = true;
@@ -105,7 +105,7 @@
             // upd_YCoord
             // 
             this.upd_YCoord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.upd_YCoord.Location = new System.Drawing.Point(473, 258);
+            this.upd_YCoord.Location = new System.Drawing.Point(473, 259);
             this.upd_YCoord.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.upd_YCoord.Maximum = new decimal(new int[] {
             2000,
@@ -113,7 +113,7 @@
             0,
             0});
             this.upd_YCoord.Name = "upd_YCoord";
-            this.upd_YCoord.Size = new System.Drawing.Size(120, 23);
+            this.upd_YCoord.Size = new System.Drawing.Size(120, 20);
             this.upd_YCoord.TabIndex = 34;
             this.upd_YCoord.Value = new decimal(new int[] {
             170,
@@ -127,10 +127,10 @@
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label4.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.label4, 4);
-            this.label4.Location = new System.Drawing.Point(21, 206);
+            this.label4.Location = new System.Drawing.Point(21, 208);
             this.label4.Margin = new System.Windows.Forms.Padding(21, 0, 5, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(131, 17);
+            this.label4.Size = new System.Drawing.Size(102, 13);
             this.label4.TabIndex = 36;
             this.label4.Text = "Положение шкалы";
             // 
@@ -138,17 +138,17 @@
             // 
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(416, 261);
+            this.label8.Location = new System.Drawing.Point(426, 263);
             this.label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(45, 17);
+            this.label8.Size = new System.Drawing.Size(35, 13);
             this.label8.TabIndex = 16;
             this.label8.Text = "по Y :";
             // 
             // upd_XCoord
             // 
             this.upd_XCoord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.upd_XCoord.Location = new System.Drawing.Point(234, 258);
+            this.upd_XCoord.Location = new System.Drawing.Point(234, 259);
             this.upd_XCoord.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.upd_XCoord.Maximum = new decimal(new int[] {
             2000,
@@ -156,7 +156,7 @@
             0,
             0});
             this.upd_XCoord.Name = "upd_XCoord";
-            this.upd_XCoord.Size = new System.Drawing.Size(119, 23);
+            this.upd_XCoord.Size = new System.Drawing.Size(119, 20);
             this.upd_XCoord.TabIndex = 34;
             this.upd_XCoord.Value = new decimal(new int[] {
             70,
@@ -168,7 +168,7 @@
             // updIntervals
             // 
             this.updIntervals.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.updIntervals.Location = new System.Drawing.Point(473, 141);
+            this.updIntervals.Location = new System.Drawing.Point(473, 142);
             this.updIntervals.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.updIntervals.Maximum = new decimal(new int[] {
             10,
@@ -181,7 +181,7 @@
             0,
             0});
             this.updIntervals.Name = "updIntervals";
-            this.updIntervals.Size = new System.Drawing.Size(120, 23);
+            this.updIntervals.Size = new System.Drawing.Size(120, 20);
             this.updIntervals.TabIndex = 39;
             this.updIntervals.Value = new decimal(new int[] {
             10,
@@ -194,10 +194,10 @@
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(379, 144);
+            this.label9.Location = new System.Drawing.Point(397, 146);
             this.label9.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(82, 17);
+            this.label9.Size = new System.Drawing.Size(64, 13);
             this.label9.TabIndex = 40;
             this.label9.Text = "Интервалы";
             // 
@@ -205,21 +205,22 @@
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(177, 261);
+            this.label7.Location = new System.Drawing.Point(187, 263);
             this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(45, 17);
+            this.label7.Size = new System.Drawing.Size(35, 13);
             this.label7.TabIndex = 16;
             this.label7.Text = "по X :";
             // 
             // txbMax
             // 
             this.txbMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbMax.Enabled = false;
-            this.txbMax.Location = new System.Drawing.Point(234, 70);
+            this.txbMax.Location = new System.Drawing.Point(234, 72);
             this.txbMax.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.txbMax.Name = "txbMax";
-            this.txbMax.Size = new System.Drawing.Size(119, 23);
+            this.txbMax.Size = new System.Drawing.Size(119, 20);
             this.txbMax.TabIndex = 15;
             this.txbMax.Text = "1";
             this.txbMax.Leave += new System.EventHandler(this.txbMax_Leave);
@@ -228,10 +229,10 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(436, 73);
+            this.label3.Location = new System.Drawing.Point(442, 75);
             this.label3.Margin = new System.Windows.Forms.Padding(0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 17);
+            this.label3.Size = new System.Drawing.Size(24, 13);
             this.label3.TabIndex = 18;
             this.label3.Text = "Min";
             // 
@@ -239,21 +240,22 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(152, 144);
+            this.label1.Location = new System.Drawing.Point(168, 146);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 17);
+            this.label1.Size = new System.Drawing.Size(54, 13);
             this.label1.TabIndex = 35;
             this.label1.Text = "Точность";
             // 
             // txbMin
             // 
             this.txbMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbMin.Enabled = false;
-            this.txbMin.Location = new System.Drawing.Point(473, 70);
+            this.txbMin.Location = new System.Drawing.Point(473, 72);
             this.txbMin.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.txbMin.Name = "txbMin";
-            this.txbMin.Size = new System.Drawing.Size(120, 23);
+            this.txbMin.Size = new System.Drawing.Size(120, 20);
             this.txbMin.TabIndex = 17;
             this.txbMin.Text = "0";
             this.txbMin.Leave += new System.EventHandler(this.txbMin_Leave);
@@ -261,7 +263,7 @@
             // updPrecision
             // 
             this.updPrecision.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.updPrecision.Location = new System.Drawing.Point(234, 141);
+            this.updPrecision.Location = new System.Drawing.Point(234, 142);
             this.updPrecision.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.updPrecision.Maximum = new decimal(new int[] {
             15,
@@ -269,7 +271,7 @@
             0,
             0});
             this.updPrecision.Name = "updPrecision";
-            this.updPrecision.Size = new System.Drawing.Size(119, 23);
+            this.updPrecision.Size = new System.Drawing.Size(119, 20);
             this.updPrecision.TabIndex = 34;
             this.updPrecision.Value = new decimal(new int[] {
             4,
@@ -296,7 +298,7 @@
             this.label2.Location = new System.Drawing.Point(190, 25);
             this.label2.Margin = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(33, 17);
+            this.label2.Size = new System.Drawing.Size(27, 13);
             this.label2.TabIndex = 19;
             this.label2.Text = "Max";
             // 
@@ -306,7 +308,7 @@
             this.chbMaxMinSetUp.Location = new System.Drawing.Point(21, 23);
             this.chbMaxMinSetUp.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.chbMaxMinSetUp.Name = "chbMaxMinSetUp";
-            this.chbMaxMinSetUp.Size = new System.Drawing.Size(159, 21);
+            this.chbMaxMinSetUp.Size = new System.Drawing.Size(123, 17);
             this.chbMaxMinSetUp.TabIndex = 0;
             this.chbMaxMinSetUp.Text = "Уточнить значения";
             this.chbMaxMinSetUp.UseVisualStyleBackColor = true;
@@ -314,7 +316,7 @@
             // 
             // ScalePage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));

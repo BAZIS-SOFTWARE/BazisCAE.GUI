@@ -40,7 +40,7 @@ namespace TaskModule.BasicAdvisorControls
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClampControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.player = new PlayerControl.Player();
+            this.player = new BaseModule.ControlsLib.Player();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -91,6 +91,7 @@ namespace TaskModule.BasicAdvisorControls
             this.tableLayoutPanel1.Controls.Add(this.grbClampingParams, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -116,11 +117,11 @@ namespace TaskModule.BasicAdvisorControls
             this.groupBox3.Controls.Add(this.txbStartTime);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox3.Location = new System.Drawing.Point(1, 192);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
+            this.groupBox3.Location = new System.Drawing.Point(7, 222);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox3.Size = new System.Drawing.Size(599, 138);
+            this.groupBox3.Size = new System.Drawing.Size(587, 138);
             this.groupBox3.TabIndex = 24;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Время действия";
@@ -130,13 +131,13 @@ namespace TaskModule.BasicAdvisorControls
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = PlayerControl.CheckState.start;
+            this.player.CheckState = BaseModule.ControlsLib.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(174, 80);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.player.MinimumSize = new System.Drawing.Size(215, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(410, 45);
+            this.player.Size = new System.Drawing.Size(398, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -152,11 +153,12 @@ namespace TaskModule.BasicAdvisorControls
             // btnClearAll
             // 
             this.btnClearAll.AutoSize = true;
+            this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAll.Image")));
             this.btnClearAll.Location = new System.Drawing.Point(43, 80);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(26, 26);
+            this.btnClearAll.Size = new System.Drawing.Size(28, 28);
             this.btnClearAll.TabIndex = 20;
             this.btnClearAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnClearAll.UseVisualStyleBackColor = true;
@@ -184,20 +186,22 @@ namespace TaskModule.BasicAdvisorControls
             // 
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStopTime.Location = new System.Drawing.Point(174, 54);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(410, 20);
+            this.txbStopTime.Size = new System.Drawing.Size(398, 20);
             this.txbStopTime.TabIndex = 1;
             // 
             // btnShowAll
             // 
             this.btnShowAll.AutoSize = true;
+            this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
             this.btnShowAll.Location = new System.Drawing.Point(107, 80);
             this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(26, 26);
+            this.btnShowAll.Size = new System.Drawing.Size(28, 28);
             this.btnShowAll.TabIndex = 19;
             this.btnShowAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnShowAll.UseVisualStyleBackColor = true;
@@ -206,11 +210,12 @@ namespace TaskModule.BasicAdvisorControls
             // btnHideAll
             // 
             this.btnHideAll.AutoSize = true;
+            this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHideAll.Image = ((System.Drawing.Image)(resources.GetObject("btnHideAll.Image")));
             this.btnHideAll.Location = new System.Drawing.Point(139, 80);
             this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnHideAll.Name = "btnHideAll";
-            this.btnHideAll.Size = new System.Drawing.Size(26, 26);
+            this.btnHideAll.Size = new System.Drawing.Size(28, 28);
             this.btnHideAll.TabIndex = 19;
             this.btnHideAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnHideAll.UseVisualStyleBackColor = true;
@@ -229,11 +234,12 @@ namespace TaskModule.BasicAdvisorControls
             // 
             this.btnRefresh.AutoSize = true;
             this.btnRefresh.Enabled = false;
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
             this.btnRefresh.Location = new System.Drawing.Point(75, 80);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(26, 26);
+            this.btnRefresh.Size = new System.Drawing.Size(28, 28);
             this.btnRefresh.TabIndex = 19;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -250,11 +256,12 @@ namespace TaskModule.BasicAdvisorControls
             // btnAddNewRow
             // 
             this.btnAddNewRow.AutoSize = true;
+            this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewRow.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewRow.Image")));
             this.btnAddNewRow.Location = new System.Drawing.Point(11, 80);
             this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
             this.btnAddNewRow.Name = "btnAddNewRow";
-            this.btnAddNewRow.Size = new System.Drawing.Size(26, 26);
+            this.btnAddNewRow.Size = new System.Drawing.Size(28, 28);
             this.btnAddNewRow.TabIndex = 19;
             this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewRow.UseVisualStyleBackColor = true;
@@ -269,10 +276,11 @@ namespace TaskModule.BasicAdvisorControls
             // 
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartTime.Location = new System.Drawing.Point(174, 28);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 15, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(410, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(398, 20);
             this.txbStartTime.TabIndex = 0;
             // 
             // dataGridView
@@ -287,12 +295,12 @@ namespace TaskModule.BasicAdvisorControls
             this.startColumn,
             this.stopColumn});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 330);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
+            this.dataGridView.Location = new System.Drawing.Point(7, 374);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(599, 196);
+            this.dataGridView.Size = new System.Drawing.Size(587, 146);
             this.dataGridView.TabIndex = 23;
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
@@ -358,12 +366,12 @@ namespace TaskModule.BasicAdvisorControls
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.cmbKind);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(1, 1);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
+            this.groupBox1.Location = new System.Drawing.Point(7, 7);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.MinimumSize = new System.Drawing.Size(350, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(599, 88);
+            this.groupBox1.Size = new System.Drawing.Size(587, 88);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Вид закрепления";
@@ -376,7 +384,7 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbNodeGr.Location = new System.Drawing.Point(171, 24);
             this.cmbNodeGr.Margin = new System.Windows.Forms.Padding(178, 25, 15, 3);
             this.cmbNodeGr.Name = "cmbNodeGr";
-            this.cmbNodeGr.Size = new System.Drawing.Size(414, 21);
+            this.cmbNodeGr.Size = new System.Drawing.Size(402, 21);
             this.cmbNodeGr.TabIndex = 43;
             // 
             // label1
@@ -408,7 +416,7 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbKind.Location = new System.Drawing.Point(170, 51);
             this.cmbKind.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbKind.Name = "cmbKind";
-            this.cmbKind.Size = new System.Drawing.Size(414, 21);
+            this.cmbKind.Size = new System.Drawing.Size(402, 21);
             this.cmbKind.TabIndex = 36;
             this.cmbKind.SelectedIndexChanged += new System.EventHandler(this.kindComboBox_SelectedIndexChanged);
             // 
@@ -423,11 +431,11 @@ namespace TaskModule.BasicAdvisorControls
             this.grbClampingParams.Controls.Add(this.chbY);
             this.grbClampingParams.Controls.Add(this.chbX);
             this.grbClampingParams.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbClampingParams.Location = new System.Drawing.Point(1, 91);
-            this.grbClampingParams.Margin = new System.Windows.Forms.Padding(1);
+            this.grbClampingParams.Location = new System.Drawing.Point(7, 109);
+            this.grbClampingParams.Margin = new System.Windows.Forms.Padding(7);
             this.grbClampingParams.Name = "grbClampingParams";
             this.grbClampingParams.Padding = new System.Windows.Forms.Padding(2);
-            this.grbClampingParams.Size = new System.Drawing.Size(599, 99);
+            this.grbClampingParams.Size = new System.Drawing.Size(587, 99);
             this.grbClampingParams.TabIndex = 26;
             this.grbClampingParams.TabStop = false;
             this.grbClampingParams.Text = "Параметры закрепления";
@@ -461,7 +469,7 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbStiffnessFunc.Location = new System.Drawing.Point(170, 60);
             this.cmbStiffnessFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbStiffnessFunc.Name = "cmbStiffnessFunc";
-            this.cmbStiffnessFunc.Size = new System.Drawing.Size(414, 21);
+            this.cmbStiffnessFunc.Size = new System.Drawing.Size(402, 21);
             this.cmbStiffnessFunc.TabIndex = 1;
             // 
             // chbLRF
@@ -538,7 +546,7 @@ namespace TaskModule.BasicAdvisorControls
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.закрепленияTab_элComboBox);
             this.Controls.Add(this.label7);
-            this.Margin = new System.Windows.Forms.Padding(5);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "ClampControl";
             this.Size = new System.Drawing.Size(601, 527);
@@ -584,7 +592,7 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.CheckBox chbZ;
         private System.Windows.Forms.CheckBox chbY;
         private System.Windows.Forms.CheckBox chbX;
-        private PlayerControl.Player player;
+        private Player player;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;

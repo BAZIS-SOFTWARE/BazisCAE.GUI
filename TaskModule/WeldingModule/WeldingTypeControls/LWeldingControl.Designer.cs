@@ -44,6 +44,7 @@
             // 
             this.txbBeamBottomDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbBeamBottomDiam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbBeamBottomDiam.Location = new System.Drawing.Point(171, 88);
             this.txbBeamBottomDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbBeamBottomDiam.Name = "txbBeamBottomDiam";
@@ -54,6 +55,7 @@
             // 
             this.txbBeamUpperDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbBeamUpperDiam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbBeamUpperDiam.Location = new System.Drawing.Point(171, 62);
             this.txbBeamUpperDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbBeamUpperDiam.Name = "txbBeamUpperDiam";
@@ -64,6 +66,7 @@
             // 
             this.txbPower.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbPower.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbPower.Location = new System.Drawing.Point(171, 10);
             this.txbPower.Margin = new System.Windows.Forms.Padding(178, 10, 15, 3);
             this.txbPower.Name = "txbPower";
@@ -74,6 +77,7 @@
             // 
             this.txbBeamLenght.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbBeamLenght.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbBeamLenght.Location = new System.Drawing.Point(171, 36);
             this.txbBeamLenght.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbBeamLenght.Name = "txbBeamLenght";
@@ -134,6 +138,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.btnInfo);
             this.Controls.Add(this.txbBeamBottomDiam);
             this.Controls.Add(this.txbBeamUpperDiam);

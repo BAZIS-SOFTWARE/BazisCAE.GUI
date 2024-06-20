@@ -13,6 +13,7 @@ using ProjectInterfaces;
 using ModelInterfaces;
 using System.IO;
 using ProjectInterfaces.Tasks;
+using BaseModule.ControlsLib;
 
 namespace TaskModule.BasicTaskAdvisor
 {
@@ -39,13 +40,13 @@ namespace TaskModule.BasicTaskAdvisor
         {
             get
             {
-                var cntrs = new List<TaskPlannerControl>();
+                var cntrs = new List<TaskPlannerControl_v2>();
                 RecursiveSearchControls.AllTypedControls(this, cntrs);
                 return cntrs.First().ProcessType;
             }
             set
             {
-                var cntrs = new List<TaskPlannerControl>();
+                var cntrs = new List<TaskPlannerControl_v2>();
                 RecursiveSearchControls.AllTypedControls(this, cntrs);
                 cntrs.First().ProcessType = value;
             }
@@ -69,7 +70,7 @@ namespace TaskModule.BasicTaskAdvisor
         {
             get
             {
-                var cntrs = new List<TabControl>();
+                var cntrs = new List<TabControlEx>();
                 RecursiveSearchControls.AllTypedControls(this, cntrs);
                 return cntrs.First();
             }
@@ -116,7 +117,7 @@ namespace TaskModule.BasicTaskAdvisor
                                 materialsRelatedControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.GroupName).ToList());
                         }
 
-                        else if (control is TaskPlannerControl taskPlannerControl)
+                        else if (control is TaskPlannerControl_v2 taskPlannerControl)
                         {
                             taskPlannerControl.ProjPath = project.Path;
 
@@ -138,7 +139,7 @@ namespace TaskModule.BasicTaskAdvisor
             {
                 foreach (Control control in tabPage.Controls)
                 {
-                    if (control is TaskPlannerControl taskPlannerControl)
+                    if (control is TaskPlannerControl_v2 taskPlannerControl)
                         taskPlannerControl.Set_DataGridLines(cmdFiles);
 
                 }

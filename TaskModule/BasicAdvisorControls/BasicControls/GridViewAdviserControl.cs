@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseModule.ControlsComponents;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.Events;
@@ -25,7 +26,7 @@ namespace TaskModule.BasicAdvisorControls.BasicControls
                     throw new Exception("Выберите строку с данными!");
                 return gridView.SelectedRows[gridView.SelectedRows.Count - 1].Index;
             }
-        }
+        }      
 
         public DataGridView GetDataGrid
         {

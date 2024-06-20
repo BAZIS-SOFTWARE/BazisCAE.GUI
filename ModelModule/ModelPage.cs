@@ -1,9 +1,6 @@
 ﻿using BaseModule;
-using BaseModule.ToolStrips;
 using ModelControllerInterfaces.GmshController;
 using ModelInterfaces;
-using ModelModule.ToolStrips;
-using SceneInterface;
 using System;
 using System.Drawing;
 using System.Linq;

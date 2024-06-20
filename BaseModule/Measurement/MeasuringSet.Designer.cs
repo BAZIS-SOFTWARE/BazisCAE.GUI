@@ -109,6 +109,7 @@
             // 
             this.btnMeasure.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnMeasure.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMeasure.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMeasure.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnMeasure.Location = new System.Drawing.Point(155, 134);
             this.btnMeasure.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
@@ -146,7 +147,7 @@
             this.panel1.Controls.Add(this.rbtnPath);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(2, 2);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(146, 124);
             this.panel1.TabIndex = 6;

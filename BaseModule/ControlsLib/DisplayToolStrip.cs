@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace BaseModule.ToolStrips
+namespace BaseModule.ControlsLib
 {
     public partial class DisplayToolStrip : ToolStrip
     {
@@ -57,12 +57,6 @@ namespace BaseModule.ToolStrips
         {
             get { return btnVolumeNodes.Image; }
             set { btnVolumeNodes.Image = value; }
-        }
-
-        public Image TitleInfoImage
-        {
-            get { return btnTitleInfo.Image; }
-            set { btnTitleInfo.Image = value; }
         }
     }
 }
