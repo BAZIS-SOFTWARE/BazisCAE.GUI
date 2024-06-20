@@ -1,4 +1,5 @@
 ﻿using BaseModule.ControlsLib;
+using TaskModule.Validation;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -44,27 +45,27 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnClearAll = new System.Windows.Forms.Button();
             this.chbEnergyCalibration = new System.Windows.Forms.CheckBox();
             this.chbShifting = new System.Windows.Forms.CheckBox();
-            this.txbStartTime = new System.Windows.Forms.TextBox();
+            this.txbStartTime = new ValidatingNumericTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbStopPoint = new System.Windows.Forms.ComboBox();
-            this.cmbStartPoint = new System.Windows.Forms.ComboBox();
+            this.cmbStopPoint = new ValidatingCMB();
+            this.cmbStartPoint = new ValidatingCMB();
             this.btnHide = new System.Windows.Forms.Button();
             this.btnShow = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.addRowButton = new System.Windows.Forms.Button();
-            this.txbAngle = new System.Windows.Forms.TextBox();
-            this.txbShiftZ = new System.Windows.Forms.TextBox();
-            this.txbShiftY = new System.Windows.Forms.TextBox();
-            this.txbShiftX = new System.Windows.Forms.TextBox();
-            this.txbVelosity = new System.Windows.Forms.TextBox();
+            this.btnRefresh = new CheckValidatingButton();
+            this.addRowButton = new CheckValidatingButton();
+            this.txbAngle = new ValidatingNumericTextBox() { IsNegativeValueAvailable = true };
+            this.txbShiftZ = new ValidatingNumericTextBox() { IsNegativeValueAvailable = true };
+            this.txbShiftY = new ValidatingNumericTextBox() { IsNegativeValueAvailable = true };
+            this.txbShiftX = new ValidatingNumericTextBox() { IsNegativeValueAvailable = true };
+            this.txbVelosity = new ValidatingNumericTextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbEnergyCalibration = new System.Windows.Forms.ComboBox();
-            this.cmbRef = new System.Windows.Forms.ComboBox();
-            this.cmbTraj = new System.Windows.Forms.ComboBox();
+            this.cmbEnergyCalibration = new ValidatingCMB();
+            this.cmbRef = new ValidatingCMB();
+            this.cmbTraj = new ValidatingCMB();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.видСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ОбластьСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -73,7 +74,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.ПараметрыДвижения = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.cmbWeldZone = new System.Windows.Forms.ComboBox();
+            this.cmbWeldZone = new ValidatingCMB();
             this.grbWeldRegime = new BaseModule.ControlsLib.GroupBoxEx();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiSpecifyHeatingZone = new System.Windows.Forms.ToolStripMenuItem();
@@ -335,6 +336,18 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnRefresh.TabIndex = 40;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.AddControl(txbStartTime);
+            this.btnRefresh.AddControl(txbAngle);
+            this.btnRefresh.AddControl(txbShiftX);
+            this.btnRefresh.AddControl(txbShiftY);
+            this.btnRefresh.AddControl(txbShiftZ);
+            this.btnRefresh.AddControl(txbVelosity);
+            this.btnRefresh.AddControl(cmbTraj);
+            this.btnRefresh.AddControl(cmbRef);
+            this.btnRefresh.AddControl(cmbWeldZone);
+            this.btnRefresh.AddControl(cmbEnergyCalibration);
+            this.btnRefresh.AddControl(cmbStartPoint);
+            this.btnRefresh.AddControl(cmbStopPoint);
             this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // addRowButton
@@ -351,6 +364,18 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.addRowButton.TabIndex = 40;
             this.addRowButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.addRowButton.UseVisualStyleBackColor = true;
+            this.addRowButton.AddControl(txbStartTime);
+            this.addRowButton.AddControl(txbAngle);
+            this.addRowButton.AddControl(txbShiftX);
+            this.addRowButton.AddControl(txbShiftY);
+            this.addRowButton.AddControl(txbShiftZ);
+            this.addRowButton.AddControl(txbVelosity);
+            this.addRowButton.AddControl(cmbTraj);
+            this.addRowButton.AddControl(cmbRef);
+            this.addRowButton.AddControl(cmbWeldZone);
+            this.addRowButton.AddControl(cmbEnergyCalibration);
+            this.addRowButton.AddControl(cmbStartPoint);
+            this.addRowButton.AddControl(cmbStopPoint);
             this.addRowButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // txbAngle
@@ -652,25 +677,25 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         #endregion
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox txbStartTime;
+        private ValidatingNumericTextBox txbStartTime;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cmbWeldZone;
-        private System.Windows.Forms.ComboBox cmbStopPoint;
-        private System.Windows.Forms.ComboBox cmbStartPoint;
-        private System.Windows.Forms.Button addRowButton;
-        private System.Windows.Forms.TextBox txbVelosity;
+        private ValidatingCMB cmbWeldZone;
+        private ValidatingCMB cmbStopPoint;
+        private ValidatingCMB cmbStartPoint;
+        private CheckValidatingButton addRowButton;
+        private ValidatingNumericTextBox txbVelosity;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cmbTraj;
+        private ValidatingCMB cmbTraj;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.TextBox txbShiftX;
+        private CheckValidatingButton btnRefresh;
+        private ValidatingNumericTextBox txbShiftX;
         private System.Windows.Forms.CheckBox chbShifting;
-        private System.Windows.Forms.ComboBox cmbEnergyCalibration;
+        private ValidatingCMB cmbEnergyCalibration;
         private System.Windows.Forms.CheckBox chbEnergyCalibration;
-        private System.Windows.Forms.ComboBox cmbRef;
+        private ValidatingCMB cmbRef;
         private System.Windows.Forms.Button btnHide;
         private System.Windows.Forms.Button btnShow;
         private System.Windows.Forms.Button btnClearAll;
@@ -680,9 +705,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txbAngle;
-        private System.Windows.Forms.TextBox txbShiftZ;
-        private System.Windows.Forms.TextBox txbShiftY;
+        private ValidatingNumericTextBox txbAngle;
+        private ValidatingNumericTextBox txbShiftZ;
+        private ValidatingNumericTextBox txbShiftY;
         private Player player;
         private System.Windows.Forms.DataGridViewTextBoxColumn видСварки;
         private System.Windows.Forms.DataGridViewTextBoxColumn ОбластьСварки;

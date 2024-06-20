@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
@@ -9,6 +10,7 @@ using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
+using TaskModule.Validation;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -128,6 +130,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         public override string DataName { get; }
         public override void AddButton_Click(object sender, EventArgs e)
         {
+            if (sender is CheckValidatingButton cvb)
+            {
+                if (!cvb.ValidatingButton_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
+                    return;
+            }
             try
             {         
                 CurentSelectedRowInfo = CreateRowInfo("*");
@@ -255,6 +262,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
+            if (sender is CheckValidatingButton cvb)
+            {
+                if (!cvb.ValidatingButton_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
+                    return;
+            }
             var gridView = GetDataGrid;
             var count = gridView.SelectedRows.Count;
             var stopTime = gridView.SelectedRows[count - 1].Cells[(int)Column.stopTime].Value.ToString();
