@@ -1,4 +1,5 @@
 ﻿using BaseModule.ControlsLib;
+using TaskModule.Validation;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -34,11 +35,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new BaseModule.ControlsLib.GroupBoxEx();
             this.label5 = new System.Windows.Forms.Label();
-            this.txbMediaTemp = new System.Windows.Forms.TextBox();
+            this.txbMediaTemp = new ValidatingNumericTextBox() { IsNegativeValueAvailable = true };
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbFunc = new System.Windows.Forms.ComboBox();
+            this.cmbFunc = new ValidatingFunctionCMB();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbEl = new System.Windows.Forms.ComboBox();
+            this.cmbEl = new ValidatingCMB();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.elGroupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.matColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,18 +50,18 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.player = new BaseModule.ControlsLib.Player();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txbStopTime = new System.Windows.Forms.TextBox();
+            this.txbStopTime = new ValidatingNumericTextBox();
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnRefresh = new CheckValidatingButton();
             this.btnClearAll = new System.Windows.Forms.Button();
-            this.btnAddNewRow = new System.Windows.Forms.Button();
-            this.txbStartTime = new System.Windows.Forms.TextBox();
+            this.btnAddNewRow = new CheckValidatingButton();
+            this.txbStartTime = new ValidatingNumericTextBox();
             this.grbTermoCycle = new BaseModule.ControlsLib.GroupBoxEx();
-            this.cmbTermoCycle = new System.Windows.Forms.ComboBox();
+            this.cmbTermoCycle = new ValidatingCMB();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.cmbNode = new System.Windows.Forms.ComboBox();
+            this.cmbNode = new ValidatingCMB();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.rbtTermoCycle = new System.Windows.Forms.RadioButton();
             this.rbtHeatFlow = new System.Windows.Forms.RadioButton();
@@ -363,6 +364,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnRefresh.TabIndex = 13;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.AddControl(txbStartTime);
+            this.btnRefresh.AddControl(txbStopTime);
+            this.btnRefresh.AddControl(txbMediaTemp);
+            this.btnRefresh.AddControl(cmbEl);
+            this.btnRefresh.AddControl(cmbFunc);
+            this.btnRefresh.AddControl(cmbNode);
+            this.btnRefresh.AddControl(cmbTermoCycle);
             this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // btnClearAll
@@ -391,6 +399,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnAddNewRow.TabIndex = 13;
             this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewRow.UseVisualStyleBackColor = true;
+            this.btnAddNewRow.AddControl(txbStartTime);
+            this.btnAddNewRow.AddControl(txbStopTime);
+            this.btnAddNewRow.AddControl(txbMediaTemp);
+            this.btnAddNewRow.AddControl(cmbEl);
+            this.btnAddNewRow.AddControl(cmbFunc);
+            this.btnAddNewRow.AddControl(cmbNode);
+            this.btnAddNewRow.AddControl(cmbTermoCycle);
             this.btnAddNewRow.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // txbStartTime
@@ -535,26 +550,26 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txbMediaTemp;
+        private ValidatingNumericTextBox txbMediaTemp;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cmbFunc;
+        private ValidatingFunctionCMB cmbFunc;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cmbEl;
+        private ValidatingCMB cmbEl;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txbStopTime;
-        private System.Windows.Forms.Button btnAddNewRow;
-        private System.Windows.Forms.TextBox txbStartTime;
-        private System.Windows.Forms.ComboBox cmbTermoCycle;
+        private ValidatingNumericTextBox txbStopTime;
+        private CheckValidatingButton btnAddNewRow;
+        private ValidatingNumericTextBox txbStartTime;
+        private ValidatingCMB cmbTermoCycle;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cmbNode;
+        private ValidatingCMB cmbNode;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.RadioButton rbtTermoCycle;
         private System.Windows.Forms.RadioButton rbtHeatFlow;
-        private System.Windows.Forms.Button btnRefresh;
+        private CheckValidatingButton btnRefresh;
         private System.Windows.Forms.Button btnHideAll;
         private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.OpenFileDialog openFileDialog;

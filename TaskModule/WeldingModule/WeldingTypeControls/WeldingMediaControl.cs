@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
@@ -8,6 +9,7 @@ using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
+using TaskModule.Validation;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -47,6 +49,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
+            if (sender is CheckValidatingButton cvb)
+            {
+                if (!cvb.ValidatingButton_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
+                    return;
+            }
             try
             {
                 CurentSelectedRowInfo = AddRowInfo();
@@ -67,18 +74,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
             if (rbtHeatFlow.Checked)
             {
-                if (cmbEl.Text == "" || cmbFunc.Text == "")
-                    throw new Exception("Одно из переданных значений полей было пустым");
-
                 dataList.Add(cmbEl.Text);
                 dataList.Add(cmbFunc.Text);
                 dataList.Add(txbMediaTemp.Text);
             }
             else
             {
-                if (cmbNode.Text == "" || cmbTermoCycle.Text == "")
-                    throw new Exception("Одно из переданных значений полей было пустым");
-
                 dataList.Add(cmbNode.Text);
                 dataList.Add("*");
                 dataList.Add(cmbTermoCycle.Text);
@@ -87,9 +88,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             dataList.Add(txbStartTime.Text);
             dataList.Add(txbStopTime.Text);
             dataList.Add("*");
-
-            if (txbStartTime.Text == "" || txbStopTime.Text == "")
-                throw new Exception("Одно из переданных значений полей было пустым");
 
             return string.Join(" ", dataList);
         }
@@ -155,6 +153,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
+            if (sender is CheckValidatingButton cvb)
+            {
+                if (!cvb.ValidatingButton_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
+                    return;
+            }
             try
             {
                 CurentSelectedRowInfo = AddRowInfo();
