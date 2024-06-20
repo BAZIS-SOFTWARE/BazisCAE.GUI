@@ -52,7 +52,7 @@ namespace BazisGUI
         //BasePage module;
         ModelController.ModelController modelController = new ModelController.ModelController(); 
         GmshController gmshController;
-
+        IODataController dataController = new IODataController();
 
         SettingsConfig settingsConfig = new SettingsConfig()
         {
@@ -737,7 +737,7 @@ namespace BazisGUI
 
                 var folderName = dialog.SelectedPath;
 
-                CreateNewProject(folderName, "newProject");
+                project = dataController.CreateNewProject(folderName, "newProject");
 
                 lblStatus.Text = $"{project.Path}\\{project.Name}";
 
@@ -766,20 +766,7 @@ namespace BazisGUI
         {
             try
             {
-                var filter = "Project file(*.bpf)|*.bpf";
-
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = filter;
-                dialog.DefaultExt = "bpf";
-                if (dialog.ShowDialog() == DialogResult.Cancel)
-                    return;
-
-                var path = Path.GetDirectoryName(dialog.FileName);
-                var name = Path.GetFileName(dialog.FileName);
-
-                CreateNewProject(path, name);
-
-                await LoadProjectAsync();
+                project =  await dataController.OpenProject();
 
                 lblStatus.Text = $"{project.Path}\\{project.Name}";
 
@@ -807,71 +794,11 @@ namespace BazisGUI
             }
         }
 
-        private void CreateNewProject(string path, string name)
-        {
-            project = new ProjectData(name, path);
-            project.ModelData = new ModelData();
-            project.TaskData = new TaskData();
-            project.ResultData = new ResultData();
-
-            project.Loader = new LoadProjectFromTextFormat();
-            project.Saver = new SaveProjectTextFormat();
-        }
-
-        public async Task LoadProjectAsync()
-        {
-            var res = new List<IResult>();
-            await Task.Run(new Action(() =>
-            {
-                project.Loader.LoadEvent += (ar1, ar2) =>
-                {
-                    Invoke(new Action(() =>
-                    {
-                        lblStatus.Text = ar2.Message;
-                    }));
-                };
-
-                project.Load();           
-            }));
-        }
-
         private async void импортСеткиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                var filter =
-"All files(*.*)|*.*|" +
-"Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
-"GMSH(*.inp*)|*.inp|" +
-"ANSYS(*.cdb*)|*.cdb|" +
-"STL(*.stl*)|*.stl|" +
-"SOLOMIA(*.dat*)|*.dat";
-
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = filter;
-                if (dialog.ShowDialog() == DialogResult.Cancel)
-                    return;
-
-                var path = Path.GetDirectoryName(dialog.FileName);
-                var name = Path.GetFileName(dialog.FileName);
-
-                CreateNewProject(path, name);
-
-                var ext = Path.GetExtension(dialog.FileName);
-
-                if (ext == ".inp")
-                    project.ModelData.Loader = new LoadModelFromGMSHTextFile();
-                else if (ext == ".ASC")
-                    project.ModelData.Loader = new LoadModelFromASCIITextFile();
-                else if (ext == ".dat")
-                    project.ModelData.Loader = new LoadModelFromSalomeFile();
-                else if (ext == ".STL")
-                    project.ModelData.Loader = new LoadModelFromSTLFile();
-                else
-                    project.ModelData.Loader = new LoadModelFromCDBTextFile();
-
-                await LoadProjectAsync();
-                project.Name = "новый_проект.bpf";
+                project = await dataController.ImportMesh();
 
                 lblStatus.Text = $"{project.Path}\\{project.Name}";
 
@@ -957,55 +884,32 @@ namespace BazisGUI
             module?.ConsoleControl.PrintInfo("Проект сохранен", Color.Black);
         }
 
-        private void импортГеометрииToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void импортГеометрииToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                var dialog = new OpenFileDialog();
+                project = dataController.ImportGeometry(ref gmshController);
 
-                var filter =
-    "(*.brep*)|*.brep|" +
-    "(*.geo*)|*.geo|" +
-    "*.stp*)|*.stp|" +
-    "(*.step*)|*.step|" +
-    "(*.iges*)|*.iges|" +
-    "(*.igs*)|*.igs";
+                lblStatus.Text = $"{project.Path}\\{project.Name}";
 
-                dialog.Filter = filter;
-                if (dialog.ShowDialog() == DialogResult.OK)
+                модулиMenuItem.Enabled = true;
+
+                UpdateGeometry(ObjType.Точка);
+                UpdateGeometry(ObjType.Линия);
+
+                var module = TryGetModule();
+                if (module == null)
                 {
-                    if (gmshController == null)
-                        LoadGMSH();
-
-                    var ierr = 0;
-                    gmshController.Clear(ref ierr);
-                    gmshController.Open(dialog.FileName, ref ierr);
-
-                    var path = Path.GetDirectoryName(dialog.FileName);
-                    var name = "новый_проект.bpf";
-
-                    CreateNewProject(path, name);
-
-                    lblStatus.Text = $"{project.Path}\\{project.Name}";
-
-                    модулиMenuItem.Enabled = true;
-
-                    UpdateGeometry(ObjType.Точка);
-                    UpdateGeometry(ObjType.Линия);
-
-                    var module = TryGetModule();
-                    if (module == null)
-                    {
-                        module = CreateModule("Mesh");
-                        AddModule(module);
-                    }
-                    else 
-                        module.SceneInitialization();
-
-                    PresentProjectOnModule(module);
-                    module.SceneControl.FitObjectsToScreen();
-                    module.SceneControl.DisplayObjects();
+                    module = CreateModule("Mesh");
+                    AddModule(module);
                 }
+                else
+                    module.SceneInitialization();
+
+                PresentProjectOnModule(module);
+                module.SceneControl.FitObjectsToScreen();
+                module.SceneControl.DisplayObjects();
+
             }
             catch (Exception ex)
             {
@@ -1035,29 +939,6 @@ namespace BazisGUI
                 if (curves.Count > 0)
                     project.ModelData.ObjectData.LineCollection.AddRange(curves);
             }
-        }
-
-        private void LoadGMSH()
-        {
-                var path = Environment.GetEnvironmentVariable("BazisMeshPath", EnvironmentVariableTarget.Machine);
-
-                if (path == null || path == "")
-                {
-                    OpenFileDialog dialog = new OpenFileDialog();
-                    dialog.Filter = "dinamic library(*.dll)|*.dll|All files(*.*)|*.*"
-                        ;
-                    if (dialog.ShowDialog() == DialogResult.Cancel)
-                        return;
-                    path = dialog.FileName;
-                }
-                else
-                    path = $@"{path}";
-
-                gmshController = new GmshController();
-                gmshController.Load(path);
-                //ObjectData = new ObjectsData();
-                var ierr = 0;
-                gmshController.OptionSetNumber("General.AbortOnError", 0, ref ierr);//Запретить поделию Кристофа обваливать Базис
         }
 
         private void OnClosingForm(object sender, FormClosingEventArgs e)
