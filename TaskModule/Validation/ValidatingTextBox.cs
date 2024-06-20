@@ -22,26 +22,16 @@ namespace TaskModule.Validation
             InitializeComponent();
         }
 
-        public ErrorProvider EP { get; set; } 
-
-        public bool IsValueValid(out string errorMessage)
+        public bool IsValueValid(ErrorProvider EP)
         {
-            if (Text == null && Text.Any(x => IligalSymbols.Contains(x)))
+            var errorMessage = string.Empty;
+            if (Text.Equals(string.Empty) && Text.Any(x => IligalSymbols.Contains(x)))
             {
                 errorMessage = "Переданная строка пуста или содержит неподдерживаемые символы.";
+                EP.SetError(this, errorMessage);
                 return false;
             }
-            errorMessage = string.Empty;
             return true;
-        }
-
-        public void OnValidating(object sender, CancelEventArgs e)
-        {
-            string errorMessage = string.Empty;
-            if (!IsValueValid(out errorMessage))
-                e.Cancel = true;
-
-            EP.SetError(this, errorMessage);
         }
     }
 }

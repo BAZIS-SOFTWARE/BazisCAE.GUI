@@ -9,14 +9,10 @@ using System.Windows.Forms;
 namespace TaskModule.Validation
 {
     /// <summary>
-    /// Абстрактный класс валидатора контроллов. Используется валидация после ввода
+    /// Интерфейс валидатора контроллов. Используется для проверки значения после нажатия кнопки
     /// </summary>
     public interface IValidatingControl
     {
-        ErrorProvider EP { get; }
-
-        bool IsValueValid(out string errorMessage);
-
-        void OnValidating(object sender, CancelEventArgs e);
+        bool IsValueValid(ErrorProvider EP);
     }
 }

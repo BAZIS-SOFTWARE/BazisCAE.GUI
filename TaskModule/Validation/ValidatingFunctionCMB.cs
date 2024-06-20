@@ -20,33 +20,16 @@ namespace TaskModule.Validation
             InitializeComponent();
         }
 
-        public ErrorProvider EP { get; set; }
-
-        public bool IsValueValid(out string errorMessage)
+        public bool IsValueValid(ErrorProvider EP)
         {
-            if (!float.TryParse(Text, out float temp))
-            {
-                if (Items.Contains(Text))
-                {
-                    errorMessage = string.Empty;
-                    return true;
-                }
-                errorMessage = "Переданное значение не является числом и не содержится в наборе доступных функций." +
-                    "Вероятно, допущена ошибка при выборе функции или при вводе числа";
-                return false;
-            }
+            var errorMessage = string.Empty;
+            if (float.TryParse(Text, out float temp) || Items.Contains(Text))
+                return true;
 
-            errorMessage = string.Empty;
-            return true;
-        }
-
-        public void OnValidating(object sender, CancelEventArgs e)
-        {
-            string errorMessage = string.Empty;
-            if (!IsValueValid(out errorMessage))
-                e.Cancel = true;
-
+            errorMessage = "Переданное значение не является числом и не содержится в наборе доступных функций." +
+                "Вероятно, допущена ошибка при выборе функции или при вводе числа";
             EP.SetError(this, errorMessage);
+            return false;
         }
     }
 }

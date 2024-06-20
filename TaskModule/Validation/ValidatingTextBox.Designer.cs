@@ -32,7 +32,6 @@ namespace TaskModule.Validation
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            this.Validating += new CancelEventHandler(this.OnValidating);
         }
 
         #endregion

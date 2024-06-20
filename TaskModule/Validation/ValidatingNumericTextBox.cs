@@ -22,19 +22,20 @@ namespace TaskModule.Validation
             InitializeComponent();
         }
 
-        public ErrorProvider EP { get; set; }
-
-        public bool IsValueValid(out string errorMessage)
+        public bool IsValueValid(ErrorProvider EP)
         {
+            var errorMessage = string.Empty;
             if (Text.Equals(string.Empty))
             {
                 errorMessage = "Поле оставлено пустым";
+                EP.SetError(this, errorMessage);
                 return false;
             }
 
             if (Text.Contains(","))
             {
                 errorMessage = "В качестве разделителя целой и дробной части используйте точку";
+                EP.SetError(this, errorMessage);
                 return false;
             }
 
@@ -46,16 +47,8 @@ namespace TaskModule.Validation
             }
 
             errorMessage = "Введенное значение строки не соответствует культуре записи числа в обычном или экспоненциальном виде";
-            return false;
-        }
-
-        public void OnValidating(object sender, CancelEventArgs e)
-        {
-            var errorMessage = string.Empty;
-            if (!IsValueValid(out errorMessage))
-                e.Cancel = true;
-
             EP.SetError(this, errorMessage);
+            return false;
         }
     }
 }

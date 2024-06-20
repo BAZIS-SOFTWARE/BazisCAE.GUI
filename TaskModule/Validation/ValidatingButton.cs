@@ -45,7 +45,7 @@ namespace TaskModule.Validation
 
         public void RemoveControl(IValidatingControl ctrl) => ValidatingControls.Remove(ctrl);
 
-        public bool ValidateControls() => ValidatingControls.Any(x => x.IsValueValid(EP, out string e));
+        public bool ValidateControls() => ValidatingControls.Any(x => x.IsValueValid(EP));
 
         public void ValidatingButton_OnClick(object sender, CancelEventArgs cea)
         {
