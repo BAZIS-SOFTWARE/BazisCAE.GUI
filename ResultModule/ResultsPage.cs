@@ -196,7 +196,8 @@ namespace ResultModule
                 scale.Coord_Y = (int)ar2;
             };
             
-            var scForm = new Form() { 
+            var scForm = new Form() {
+                Owner = Application.OpenForms[0],
                 TopMost = true,
                 Size = scPage.Size, 
                 Name = "Scale", 
@@ -241,7 +242,8 @@ namespace ResultModule
                 grPage.SetResultsItems(resDic);
 
                 var scForm = new Form() 
-                { 
+                {
+                    Owner = Application.OpenForms[0],
                     TopMost = true, 
                     Text = "Построить график", 
                     Size = grPage.Size, 
@@ -286,7 +288,8 @@ namespace ResultModule
             anPage.SetResultsItems(resDic);
 
             var anForm = new Form() 
-            { 
+            {
+                Owner = Application.OpenForms[0],
                 TopMost = true, 
                 Size = anPage.Size, 
                 Name = "Animation", 
@@ -557,6 +560,7 @@ namespace ResultModule
                     grContainer.Dock = DockStyle.Fill;
                     var form = new Form
                     {
+                        Owner = Application.OpenForms[0],
                         TopMost = true,
                         Text = $"График {resDes} - координата",
                         ShowIcon = false,
@@ -625,6 +629,7 @@ namespace ResultModule
                     grContainer.Dock = DockStyle.Fill;
                     var form = new Form
                     {
+                        Owner = Application.OpenForms[0],
                         TopMost = true,
                         Text = $"График {resDes} - время",
                         ShowIcon = false,
@@ -857,6 +862,7 @@ namespace ResultModule
 
             var exprtForm = new Form()
             {
+                Owner = Application.OpenForms[0],
                 TopMost = true,
                 Size = exprtPage.Size,
                 Name = "export",

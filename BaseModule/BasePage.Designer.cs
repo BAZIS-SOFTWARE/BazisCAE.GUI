@@ -100,7 +100,7 @@ namespace BaseModule
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(1308, 585);
-            this.splitContainer1.SplitterDistance = 388;
+            this.splitContainer1.SplitterDistance = 313;
             this.splitContainer1.SplitterIncrement = 15;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 0;
@@ -120,7 +120,7 @@ namespace BaseModule
             this.navigator.Location = new System.Drawing.Point(0, 0);
             this.navigator.Name = "navigator";
             this.navigator.ProjectInfoIndex = 0;
-            this.navigator.Size = new System.Drawing.Size(386, 585);
+            this.navigator.Size = new System.Drawing.Size(311, 585);
             this.navigator.TabIndex = 0;
             this.navigator.UpColor = System.Drawing.Color.Silver;
             this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
@@ -156,8 +156,8 @@ namespace BaseModule
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
-            this.splitContainer2.Size = new System.Drawing.Size(915, 585);
-            this.splitContainer2.SplitterDistance = 266;
+            this.splitContainer2.Size = new System.Drawing.Size(990, 585);
+            this.splitContainer2.SplitterDistance = 397;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
             this.splitContainer2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Paint);
@@ -187,7 +187,7 @@ namespace BaseModule
             this.sceneControl.SelectionColor = System.Drawing.Color.Green;
             this.sceneControl.ShadowAngle = 0F;
             this.sceneControl.ShowSurfaceBackEdges = false;
-            this.sceneControl.Size = new System.Drawing.Size(915, 265);
+            this.sceneControl.Size = new System.Drawing.Size(990, 396);
             this.sceneControl.TabIndex = 0;
             this.sceneControl.TitleColor = System.Drawing.Color.Black;
             this.sceneControl.TitleText = "";
@@ -214,7 +214,7 @@ namespace BaseModule
             this.consoleControl.Location = new System.Drawing.Point(0, 0);
             this.consoleControl.Margin = new System.Windows.Forms.Padding(4);
             this.consoleControl.Name = "consoleControl";
-            this.consoleControl.Size = new System.Drawing.Size(915, 314);
+            this.consoleControl.Size = new System.Drawing.Size(990, 183);
             this.consoleControl.TabIndex = 4;
             this.consoleControl.UpColor = System.Drawing.Color.Silver;
             this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
@@ -291,7 +291,7 @@ namespace BaseModule
             this.instrumentToolStrip.MakePhotoImage = ((System.Drawing.Image)(resources.GetObject("instrumentToolStrip.MakePhotoImage")));
             this.instrumentToolStrip.MeasureImage = ((System.Drawing.Image)(resources.GetObject("instrumentToolStrip.MeasureImage")));
             this.instrumentToolStrip.Name = "instrumentToolStrip";
-            this.instrumentToolStrip.Size = new System.Drawing.Size(142, 53);
+            this.instrumentToolStrip.Size = new System.Drawing.Size(111, 53);
             this.instrumentToolStrip.TabIndex = 4;
             this.instrumentToolStrip.Text = "Инструменты";
             this.instrumentToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.InstrumentalToolStrip_ItemClicked);

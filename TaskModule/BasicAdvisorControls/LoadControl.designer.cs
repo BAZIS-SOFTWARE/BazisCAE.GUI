@@ -1,4 +1,6 @@
-﻿namespace TaskModule.BasicAdvisorControls
+﻿using BaseModule.ControlsLib;
+
+namespace TaskModule.BasicAdvisorControls
 {
     partial class LoadControl
     {
@@ -31,7 +33,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.player = new PlayerControl.Player();
+            this.player = new BaseModule.ControlsLib.Player();
             this.label8 = new System.Windows.Forms.Label();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnHideAll = new System.Windows.Forms.Button();
@@ -117,7 +119,7 @@
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = PlayerControl.CheckState.start;
+            this.player.CheckState = BaseModule.ControlsLib.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(171, 80);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -151,11 +153,12 @@
             // 
             this.btnRefresh.AutoSize = true;
             this.btnRefresh.Enabled = false;
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
             this.btnRefresh.Location = new System.Drawing.Point(75, 80);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(26, 26);
+            this.btnRefresh.Size = new System.Drawing.Size(28, 28);
             this.btnRefresh.TabIndex = 19;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -164,11 +167,12 @@
             // btnHideAll
             // 
             this.btnHideAll.AutoSize = true;
+            this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHideAll.Image = ((System.Drawing.Image)(resources.GetObject("btnHideAll.Image")));
             this.btnHideAll.Location = new System.Drawing.Point(139, 80);
             this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnHideAll.Name = "btnHideAll";
-            this.btnHideAll.Size = new System.Drawing.Size(26, 26);
+            this.btnHideAll.Size = new System.Drawing.Size(28, 28);
             this.btnHideAll.TabIndex = 19;
             this.btnHideAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnHideAll.UseVisualStyleBackColor = true;
@@ -177,11 +181,12 @@
             // btnClearAll
             // 
             this.btnClearAll.AutoSize = true;
+            this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAll.Image")));
             this.btnClearAll.Location = new System.Drawing.Point(43, 80);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(26, 26);
+            this.btnClearAll.Size = new System.Drawing.Size(28, 28);
             this.btnClearAll.TabIndex = 19;
             this.btnClearAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnClearAll.UseVisualStyleBackColor = true;
@@ -190,11 +195,12 @@
             // btnShowAll
             // 
             this.btnShowAll.AutoSize = true;
+            this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
             this.btnShowAll.Location = new System.Drawing.Point(107, 80);
             this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(26, 26);
+            this.btnShowAll.Size = new System.Drawing.Size(28, 28);
             this.btnShowAll.TabIndex = 19;
             this.btnShowAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnShowAll.UseVisualStyleBackColor = true;
@@ -203,11 +209,12 @@
             // btnAddNewRow
             // 
             this.btnAddNewRow.AutoSize = true;
+            this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewRow.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewRow.Image")));
             this.btnAddNewRow.Location = new System.Drawing.Point(11, 80);
             this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
             this.btnAddNewRow.Name = "btnAddNewRow";
-            this.btnAddNewRow.Size = new System.Drawing.Size(26, 26);
+            this.btnAddNewRow.Size = new System.Drawing.Size(28, 28);
             this.btnAddNewRow.TabIndex = 19;
             this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewRow.UseVisualStyleBackColor = true;
@@ -228,6 +235,7 @@
             // 
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStopTime.Location = new System.Drawing.Point(171, 50);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbStopTime.Name = "txbStopTime";
@@ -238,6 +246,7 @@
             // 
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartTime.Location = new System.Drawing.Point(171, 24);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 25, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
@@ -349,6 +358,7 @@
             // 
             this.txbValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbValue.Location = new System.Drawing.Point(171, 107);
             this.txbValue.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbValue.Name = "txbValue";
@@ -535,7 +545,7 @@
         private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.CheckBox chbLRF;
-        private PlayerControl.Player player;
+        private Player player;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;

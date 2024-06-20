@@ -103,6 +103,7 @@
             // 
             this.txbAngle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbAngle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbAngle.Location = new System.Drawing.Point(68, 14);
             this.txbAngle.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.txbAngle.Name = "txbAngle";
@@ -124,6 +125,7 @@
             // 
             this.btnSelect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnSelect.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnSelect.Location = new System.Drawing.Point(199, 151);
             this.btnSelect.Margin = new System.Windows.Forms.Padding(7);

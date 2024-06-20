@@ -1,4 +1,6 @@
-﻿namespace TaskModule.BasicAdvisorControls
+﻿using BaseModule.ControlsLib;
+
+namespace TaskModule.BasicAdvisorControls
 {
     partial class MaterialsControl
     {
@@ -36,7 +38,7 @@
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.player = new PlayerControl.Player();
+            this.player = new BaseModule.ControlsLib.Player();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txbStopTime = new System.Windows.Forms.TextBox();
@@ -155,7 +157,7 @@
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = PlayerControl.CheckState.start;
+            this.player.CheckState = BaseModule.ControlsLib.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(171, 72);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -198,6 +200,7 @@
             // 
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStopTime.Location = new System.Drawing.Point(171, 46);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbStopTime.Name = "txbStopTime";
@@ -207,11 +210,12 @@
             // btnHideAll
             // 
             this.btnHideAll.AutoSize = true;
+            this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHideAll.Image = ((System.Drawing.Image)(resources.GetObject("btnHideAll.Image")));
             this.btnHideAll.Location = new System.Drawing.Point(139, 72);
             this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnHideAll.Name = "btnHideAll";
-            this.btnHideAll.Size = new System.Drawing.Size(26, 26);
+            this.btnHideAll.Size = new System.Drawing.Size(28, 28);
             this.btnHideAll.TabIndex = 13;
             this.btnHideAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnHideAll.UseVisualStyleBackColor = true;
@@ -220,11 +224,12 @@
             // btnShowAll
             // 
             this.btnShowAll.AutoSize = true;
+            this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
             this.btnShowAll.Location = new System.Drawing.Point(107, 72);
             this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(26, 26);
+            this.btnShowAll.Size = new System.Drawing.Size(28, 28);
             this.btnShowAll.TabIndex = 13;
             this.btnShowAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnShowAll.UseVisualStyleBackColor = true;
@@ -234,11 +239,12 @@
             // 
             this.btnRefresh.AutoSize = true;
             this.btnRefresh.Enabled = false;
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
             this.btnRefresh.Location = new System.Drawing.Point(75, 72);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(26, 26);
+            this.btnRefresh.Size = new System.Drawing.Size(28, 28);
             this.btnRefresh.TabIndex = 13;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -247,11 +253,12 @@
             // btnClearAll
             // 
             this.btnClearAll.AutoSize = true;
+            this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAll.Image")));
             this.btnClearAll.Location = new System.Drawing.Point(43, 72);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(26, 26);
+            this.btnClearAll.Size = new System.Drawing.Size(28, 28);
             this.btnClearAll.TabIndex = 13;
             this.btnClearAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnClearAll.UseVisualStyleBackColor = true;
@@ -260,11 +267,12 @@
             // btnAddNewRow
             // 
             this.btnAddNewRow.AutoSize = true;
+            this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewRow.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewRow.Image")));
             this.btnAddNewRow.Location = new System.Drawing.Point(11, 72);
             this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
             this.btnAddNewRow.Name = "btnAddNewRow";
-            this.btnAddNewRow.Size = new System.Drawing.Size(26, 26);
+            this.btnAddNewRow.Size = new System.Drawing.Size(28, 28);
             this.btnAddNewRow.TabIndex = 13;
             this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewRow.UseVisualStyleBackColor = true;
@@ -274,6 +282,7 @@
             // 
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartTime.Location = new System.Drawing.Point(171, 19);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbStartTime.Name = "txbStartTime";
@@ -390,6 +399,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn matColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn startColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn stopColumn;
-        private PlayerControl.Player player;
+        private Player player;
     }
 }

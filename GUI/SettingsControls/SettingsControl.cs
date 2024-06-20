@@ -38,13 +38,13 @@ namespace BazisGUI.SettingsControls
             chbLighting.Checked = settingsConfig.Lighting;
             chbBackRibbers.Checked = settingsConfig.BackRibbers;
             lightingControl.BallPosition = settingsConfig.LighterPosition;
-            colorSlider.Value = settingsConfig.LightingIntensity;
+            clslLigthingIntensity.Value = settingsConfig.LightingIntensity;
             chbTransparency.Checked = settingsConfig.Transparency;
 
             clslTransparency.Value = settingsConfig.TransparencyValue;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnSaveConfig_Click(object sender, EventArgs e)
         {
 
             var config = new SettingsConfig()
@@ -56,7 +56,7 @@ namespace BazisGUI.SettingsControls
                 SolverPath = lblSolverPath.Text,
                 Lighting = chbLighting.Checked,
                 LighterPosition = lightingControl.BallPosition,
-                LightingIntensity = colorSlider.Value,
+                LightingIntensity = clslLigthingIntensity.Value,
                 Transparency = chbTransparency.Checked,
                 BackRibbers = chbBackRibbers.Checked,
 
@@ -133,11 +133,6 @@ namespace BazisGUI.SettingsControls
             SetLightingEvent?.Invoke(chbLighting.Checked);
         }
 
-        private void colorSlider_Scroll(object sender, ScrollEventArgs e)
-        {
-            SetLightingIntensityEvent?.Invoke(e.NewValue);
-        }
-
         private void chbTransparency_Click(object sender, EventArgs e)
         {
             SetTransparencyEvent?.Invoke(chbTransparency.Checked);
@@ -148,9 +143,14 @@ namespace BazisGUI.SettingsControls
 
         }
 
-        private void clslTransparency_ValueChanged(object sender, EventArgs e)
+        private void clslLigthingIntensity_Scroll(object sender, ScrollEventArgs e)
         {
-            SetTransparencyValueEvent?.Invoke(clslTransparency.Value);
+            SetLightingIntensityEvent?.Invoke(e.NewValue);
+        }
+
+        private void clslTransparency_Scroll(object sender, ScrollEventArgs e)
+        {
+            SetTransparencyValueEvent?.Invoke(e.NewValue);
         }
     }
 }

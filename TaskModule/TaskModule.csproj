@@ -52,9 +52,6 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ColorSlider, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ColorSlider.1.0.0.15\lib\net48\ColorSlider.dll</HintPath>
-    </Reference>
     <Reference Include="DataBaseController, Version=1.0.2.49, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
       <HintPath>..\packages\DataBasesGUI.1.0.2.56\lib\net48\DataBaseController.dll</HintPath>
     </Reference>
@@ -70,17 +67,17 @@
     <Reference Include="Graph, Version=1.0.2.23, Culture=neutral, PublicKeyToken=4d6e483d8ec08dd8, processorArchitecture=MSIL">
       <HintPath>..\packages\Graph.1.0.2.23\lib\net48\Graph.dll</HintPath>
     </Reference>
-    <Reference Include="ModelControllerInterfaces, Version=3.0.0.49, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelControllerInterfaces.3.0.0.49\lib\net48\ModelControllerInterfaces.dll</HintPath>
+    <Reference Include="Model, Version=3.0.9.32, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Model.3.0.9.32\lib\net48\Model.dll</HintPath>
+    </Reference>
+    <Reference Include="ModelControllerInterfaces, Version=3.0.0.52, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelControllerInterfaces.3.0.0.52\lib\net48\ModelControllerInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="ModelInterfaces, Version=3.0.0.24, Culture=neutral, PublicKeyToken=998e39182864f357, processorArchitecture=MSIL">
       <HintPath>..\packages\ModelInterfaces.3.0.0.24\lib\net48\ModelInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="PlayerControl, Version=1.0.0.26, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PlayerControl.1.0.0.26\lib\net48\PlayerControl.dll</HintPath>
     </Reference>
     <Reference Include="ProjectInterfaces, Version=3.0.45.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
       <HintPath>..\packages\ProjectInterfaces.3.0.45\lib\net48\ProjectInterfaces.dll</HintPath>
@@ -90,6 +87,9 @@
     </Reference>
     <Reference Include="SearchLib, Version=1.0.1.11, Culture=neutral, PublicKeyToken=8c358dc795e42d21, processorArchitecture=MSIL">
       <HintPath>..\packages\SearchLib.1.0.1.11\lib\net48\SearchLib.dll</HintPath>
+    </Reference>
+    <Reference Include="SortLib, Version=1.0.1.11, Culture=neutral, PublicKeyToken=8c358dc795e42d21, processorArchitecture=MSIL">
+      <HintPath>..\packages\SortLib.1.0.1.11\lib\net48\SortLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -165,17 +165,17 @@
     </Compile>
     <Compile Include="BasicAdvisorControls\TaskPlannerControls\FileSettingsIO.cs" />
     <Compile Include="BasicAdvisorControls\TaskPlannerControls\GenerateTCFEventArgs.cs" />
-    <Compile Include="BasicAdvisorControls\TaskPlannerControls\HeatTaskControl.cs">
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\HeatTaskControl_v2.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="BasicAdvisorControls\TaskPlannerControls\HeatTaskControl.Designer.cs">
-      <DependentUpon>HeatTaskControl.cs</DependentUpon>
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\HeatTaskControl_v2.Designer.cs">
+      <DependentUpon>HeatTaskControl_v2.cs</DependentUpon>
     </Compile>
-    <Compile Include="BasicAdvisorControls\TaskPlannerControls\MechTaskControl.cs">
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\MechTaskControl_v2.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="BasicAdvisorControls\TaskPlannerControls\MechTaskControl.Designer.cs">
-      <DependentUpon>MechTaskControl.cs</DependentUpon>
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\MechTaskControl_v2.Designer.cs">
+      <DependentUpon>MechTaskControl_v2.cs</DependentUpon>
     </Compile>
     <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskControl.cs">
       <SubType>UserControl</SubType>
@@ -183,11 +183,11 @@
     <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskControl.Designer.cs">
       <DependentUpon>TaskControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl1.5.310.cs">
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl_v2.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl1.5.310.Designer.cs">
-      <DependentUpon>TaskPlannerControl1.5.310.cs</DependentUpon>
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl_v2.Designer.cs">
+      <DependentUpon>TaskPlannerControl_v2.cs</DependentUpon>
     </Compile>
     <Compile Include="BasicAdvisorControls\TaskTypeControl.cs">
       <SubType>UserControl</SubType>
@@ -328,14 +328,14 @@
     <EmbeddedResource Include="BasicAdvisorControls\TaskPlannerControls\ChemTaskControl.resx">
       <DependentUpon>ChemTaskControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BasicAdvisorControls\TaskPlannerControls\HeatTaskControl.resx">
-      <DependentUpon>HeatTaskControl.cs</DependentUpon>
+    <EmbeddedResource Include="BasicAdvisorControls\TaskPlannerControls\HeatTaskControl_v2.resx">
+      <DependentUpon>HeatTaskControl_v2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BasicAdvisorControls\TaskPlannerControls\MechTaskControl.resx">
-      <DependentUpon>MechTaskControl.cs</DependentUpon>
+    <EmbeddedResource Include="BasicAdvisorControls\TaskPlannerControls\MechTaskControl_v2.resx">
+      <DependentUpon>MechTaskControl_v2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl1.5.310.resx">
-      <DependentUpon>TaskPlannerControl1.5.310.cs</DependentUpon>
+    <EmbeddedResource Include="BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl_v2.resx">
+      <DependentUpon>TaskPlannerControl_v2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BasicAdvisorControls\TaskTypeControl.resx">
       <DependentUpon>TaskTypeControl.cs</DependentUpon>

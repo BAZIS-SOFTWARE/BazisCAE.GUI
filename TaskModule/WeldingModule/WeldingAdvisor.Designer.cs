@@ -50,8 +50,9 @@ namespace TaskModule.WeldingModule
             this.pdgLoad = new System.Windows.Forms.TabPage();
             this.loadControl1 = new TaskModule.BasicAdvisorControls.LoadControl();
             this.pdgPlanner = new System.Windows.Forms.TabPage();
-            this.taskPlannerControl1 = new TaskModule.BasicAdvisorControls.TaskPlannerControls.TaskPlannerControl();
+            this.taskPlannerControl = new TaskModule.BasicAdvisorControls.TaskPlannerControls.TaskPlannerControl_v2();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
+            this.heatTaskControl = new HeatTaskControl_v2();
             this.tabControl.SuspendLayout();
             this.pdgTaskType.SuspendLayout();
             this.pdgMaterials.SuspendLayout();
@@ -137,6 +138,7 @@ namespace TaskModule.WeldingModule
             this.materialsControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.ClearButtonImage")));
             this.materialsControl1.CurentSelectedRowInfo = null;
             this.materialsControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.materialsControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.materialsControl1.HideAllButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.HideAllButtonImage")));
             this.materialsControl1.Location = new System.Drawing.Point(0, 0);
             this.materialsControl1.Margin = new System.Windows.Forms.Padding(0);
@@ -171,6 +173,7 @@ namespace TaskModule.WeldingModule
             this.mediaControl1.BackColor = System.Drawing.Color.Transparent;
             this.mediaControl1.CurentSelectedRowInfo = null;
             this.mediaControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mediaControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.mediaControl1.Location = new System.Drawing.Point(0, 0);
             this.mediaControl1.Margin = new System.Windows.Forms.Padding(4);
             this.mediaControl1.MinimumSize = new System.Drawing.Size(400, 369);
@@ -203,6 +206,7 @@ namespace TaskModule.WeldingModule
             this.weldingControl.BackColor = System.Drawing.Color.Transparent;
             this.weldingControl.CurentSelectedRowInfo = null;
             this.weldingControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.weldingControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.weldingControl.Location = new System.Drawing.Point(0, 0);
             this.weldingControl.Margin = new System.Windows.Forms.Padding(4);
             this.weldingControl.MinimumSize = new System.Drawing.Size(400, 369);
@@ -239,6 +243,7 @@ namespace TaskModule.WeldingModule
             this.clampControl.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl.ClearButtonImage")));
             this.clampControl.CurentSelectedRowInfo = null;
             this.clampControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clampControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.clampControl.HideAllButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl.HideAllButtonImage")));
             this.clampControl.Location = new System.Drawing.Point(0, 0);
             this.clampControl.Margin = new System.Windows.Forms.Padding(4);
@@ -275,6 +280,7 @@ namespace TaskModule.WeldingModule
             this.loadControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.ClearButtonImage")));
             this.loadControl1.CurentSelectedRowInfo = null;
             this.loadControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.loadControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.loadControl1.HideAllButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.HideAllButtonImage")));
             this.loadControl1.Location = new System.Drawing.Point(0, 0);
             this.loadControl1.Margin = new System.Windows.Forms.Padding(4);
@@ -295,7 +301,7 @@ namespace TaskModule.WeldingModule
             // pdgPlanner
             // 
             this.pdgPlanner.BackColor = System.Drawing.SystemColors.Control;
-            this.pdgPlanner.Controls.Add(this.taskPlannerControl1);
+            this.pdgPlanner.Controls.Add(this.taskPlannerControl);
             this.pdgPlanner.ImageIndex = 6;
             this.pdgPlanner.Location = new System.Drawing.Point(4, 34);
             this.pdgPlanner.Margin = new System.Windows.Forms.Padding(4);
@@ -304,32 +310,28 @@ namespace TaskModule.WeldingModule
             this.pdgPlanner.TabIndex = 6;
             this.pdgPlanner.Text = "Планировщик";
             // 
-            // taskPlannerControl1
+            // taskPlannerControl
             // 
-            this.taskPlannerControl1.AddButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.AddButtonImage")));
-            this.taskPlannerControl1.AutoScroll = true;
-            this.taskPlannerControl1.AutoSize = true;
-            this.taskPlannerControl1.BackColor = System.Drawing.Color.Transparent;
-            this.taskPlannerControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.ClearButtonImage")));
-            this.taskPlannerControl1.CurentSelectedRowInfo = null;
-            this.taskPlannerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.taskPlannerControl1.Location = new System.Drawing.Point(0, 0);
-            this.taskPlannerControl1.Margin = new System.Windows.Forms.Padding(5);
-            this.taskPlannerControl1.MinimumSize = new System.Drawing.Size(400, 369);
-            this.taskPlannerControl1.Name = "taskPlannerControl1";
-            this.taskPlannerControl1.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
-            this.taskPlannerControl1.ProjPath = null;
-            this.taskPlannerControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.RefreshButtonImage")));
-            this.taskPlannerControl1.Size = new System.Drawing.Size(691, 445);
-            this.taskPlannerControl1.TabIndex = 0;
-            this.taskPlannerControl1.AddDataUseTaskConditionsEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_AddDataUseTaskConditionsEvent);
-            this.taskPlannerControl1.StartComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl_StartComputationEvent);
-            this.taskPlannerControl1.StopComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StopComputationEvent);
-            this.taskPlannerControl1.GenerateTCFEvent += new System.Action<object, TaskModule.BasicAdvisorControls.TaskPlannerControls.GenerateTCFEventArgs>(this.TaskPlannerControl_GenerateTCFEvent);
-            this.taskPlannerControl1.AddDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
-            this.taskPlannerControl1.DeleteDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
-            this.taskPlannerControl1.DeleteAllDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
-            this.taskPlannerControl1.ChangeDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            this.taskPlannerControl.AddButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl.AddButtonImage")));
+            this.taskPlannerControl.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl.ClearButtonImage")));
+            this.taskPlannerControl.CurentSelectedRowInfo = null;
+            this.taskPlannerControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.taskPlannerControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.taskPlannerControl.Location = new System.Drawing.Point(0, 0);
+            this.taskPlannerControl.Name = "taskPlannerControl";
+            this.taskPlannerControl.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
+            this.taskPlannerControl.ProjPath = null;
+            this.taskPlannerControl.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl.RefreshButtonImage")));
+            this.taskPlannerControl.Size = new System.Drawing.Size(691, 445);
+            this.taskPlannerControl.TabIndex = 0;
+            this.taskPlannerControl.AddDataUseTaskConditionsEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_AddDataUseTaskConditionsEvent);
+            this.taskPlannerControl.StartComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl_StartComputationEvent);
+            this.taskPlannerControl.StopComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StopComputationEvent);
+            this.taskPlannerControl.GenerateTCFEvent += new System.Action<object, TaskModule.BasicAdvisorControls.TaskPlannerControls.GenerateTCFEventArgs>(this.TaskPlannerControl_GenerateTCFEvent);
+            this.taskPlannerControl.AddDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
+            this.taskPlannerControl.DeleteDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
+            this.taskPlannerControl.DeleteAllDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
+            this.taskPlannerControl.ChangeDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
             // 
             // imageList
             // 
@@ -344,13 +346,46 @@ namespace TaskModule.WeldingModule
             this.imageList.Images.SetKeyName(6, "Num7.png");
             this.imageList.Images.SetKeyName(7, "Num8.png");
             // 
+            // heatTaskControl1
+            // 
+            this.heatTaskControl.AutoSize = true;
+            this.heatTaskControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.heatTaskControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.heatTaskControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.heatTaskControl.Location = new System.Drawing.Point(3, 3);
+            this.heatTaskControl.Margin = new System.Windows.Forms.Padding(1);
+            this.heatTaskControl.MaximumSize = new System.Drawing.Size(10000, 0);
+            this.heatTaskControl.MinimumSize = new System.Drawing.Size(100, 255);
+            this.heatTaskControl.Name = "heatTaskControl1";
+            this.heatTaskControl.Size = new System.Drawing.Size(685, 439);
+            this.heatTaskControl.TabIndex = 0;
+            // 
+            // taskPlannerControl2
+            // 
+            this.taskPlannerControl.AddButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl2.AddButtonImage")));
+            this.taskPlannerControl.AutoScroll = true;
+            this.taskPlannerControl.AutoSize = true;
+            this.taskPlannerControl.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl2.ClearButtonImage")));
+            this.taskPlannerControl.CurentSelectedRowInfo = null;
+            this.taskPlannerControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.taskPlannerControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.taskPlannerControl.Location = new System.Drawing.Point(3, 3);
+            this.taskPlannerControl.Margin = new System.Windows.Forms.Padding(0);
+            this.taskPlannerControl.MinimumSize = new System.Drawing.Size(300, 300);
+            this.taskPlannerControl.Name = "taskPlannerControl2";
+            this.taskPlannerControl.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
+            this.taskPlannerControl.ProjPath = null;
+            this.taskPlannerControl.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl2.RefreshButtonImage")));
+            this.taskPlannerControl.Size = new System.Drawing.Size(685, 439);
+            this.taskPlannerControl.TabIndex = 0;
+            // 
             // WeldingAdvisor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.tabControl);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "WeldingAdvisor";
             this.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
@@ -365,7 +400,6 @@ namespace TaskModule.WeldingModule
             this.pdgClamps.PerformLayout();
             this.pdgLoad.ResumeLayout(false);
             this.pdgPlanner.ResumeLayout(false);
-            this.pdgPlanner.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -384,8 +418,10 @@ namespace TaskModule.WeldingModule
         private System.Windows.Forms.TabPage pdgTaskType;
         private TaskTypeControl taskTypeControl1;
         private System.Windows.Forms.TabPage pdgPlanner;
-        private TaskPlannerControl taskPlannerControl1;
         private System.Windows.Forms.ImageList imageList;
         private TabControlEx tabControl;
+        private TaskPlannerControl_v2 taskPlannerControl;
+        private HeatTaskControl_v2 heatTaskControl;
+        //private UserControl1 userControl11;
     }
 }

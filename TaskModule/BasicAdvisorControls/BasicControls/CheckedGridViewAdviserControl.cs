@@ -1,16 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Data;
-using System.Linq;
 using System.Windows.Forms;
-using System.Reflection;
-using System.Threading;
-using TaskModule.BasicAdvisorControls.Interfaces;
-using System.IO;
-using System.Globalization;
-using MB.Controls;
-using TaskModule.BasicAdvisorControls.Events;
 
 namespace TaskModule.BasicAdvisorControls.BasicControls
 {

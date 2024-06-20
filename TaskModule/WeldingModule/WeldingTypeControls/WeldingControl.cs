@@ -326,7 +326,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             WeldContainerControl wcc;
             if (weldingKind == WeldingKind.ARC)
-                wcc = new ArcWeldingControl() { Dock = DockStyle.Fill };
+                wcc = new ArcWeldingControl() { Dock = DockStyle.Fill};
 
             else if (weldingKind == WeldingKind.FrictionStearing)
                 wcc = new FSWeldingControl() { Dock = DockStyle.Fill };
@@ -334,8 +334,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             else
                 wcc = new LWeldingControl() { Dock = DockStyle.Fill };
 
-
-            grbWeldRegime.Height = wcc.Height + TextRenderer.MeasureText(grbWeldRegime.Text,grbWeldRegime.Font).Height;
+            // TO DO небольшие костыли, потом улучшим...
+            grbWeldRegime.Height = wcc.Height + TextRenderer.MeasureText(grbWeldRegime.Text,grbWeldRegime.Font).Height + 10;
+            grbWeldRegime.Padding = new Padding(3,0,3,3);
             grbWeldRegime.Controls.Clear();
             grbWeldRegime.Controls.Add(wcc);
         }

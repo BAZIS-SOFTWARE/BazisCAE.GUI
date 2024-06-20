@@ -72,6 +72,7 @@ namespace BazisGUI
             InitializeComponent();
             ComponentsPainter.Font = this.Font;
             ComponentsPainter.ScreenDPI = this.DeviceDpi;
+
             GetServerConnection();
         }
 
@@ -127,24 +128,6 @@ namespace BazisGUI
         {
             newModule.SceneControl.Camera.SetViewMatrix(viewMatrix);
             newModule.SceneControl.ScaleObjs(1.0f); // TO DO Разобраться почему без этого компас сворачивается в точку
-        }
-
-        private BasePage TryGetModule(string text)
-        {
-            Control[] cntrs;
-            if(text == "Сварка")
-                cntrs = toolStripContainer.ContentPanel.Controls.Find("Weld", false);
-            else if (text == "Термообработка")
-                cntrs = toolStripContainer.ContentPanel.Controls.Find("HeatTreatment", false);
-            else if (text == "Результаты")
-                cntrs = toolStripContainer.ContentPanel.Controls.Find("Result", false);
-            else
-                cntrs = toolStripContainer.ContentPanel.Controls.Find("Mesh", false);
-            
-            if (cntrs.Count() > 0)
-                return (BasePage)cntrs[0];
-            else
-                return null;
         }
 
         private BasePage TryGetModule()
@@ -338,6 +321,12 @@ namespace BazisGUI
                 modelPage.GmshController = gmshController;
                 basePage = modelPage;
             }
+
+            var que = new Queue<int>();
+            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.1f));
+            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.45f));
+
+            basePage.SplittersController.SetSplitters(que);
 
             basePage.ModelController = modelController;
             return basePage;
@@ -855,6 +844,7 @@ namespace BazisGUI
 "Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
 "GMSH(*.inp*)|*.inp|" +
 "ANSYS(*.cdb*)|*.cdb|" +
+"STL(*.stl*)|*.stl|" +
 "SOLOMIA(*.dat*)|*.dat";
 
                 OpenFileDialog dialog = new OpenFileDialog();
@@ -875,7 +865,7 @@ namespace BazisGUI
                     project.ModelData.Loader = new LoadModelFromASCIITextFile();
                 else if (ext == ".dat")
                     project.ModelData.Loader = new LoadModelFromSalomeFile();
-                else if (ext == ".stl")
+                else if (ext == ".STL")
                     project.ModelData.Loader = new LoadModelFromSTLFile();
                 else
                     project.ModelData.Loader = new LoadModelFromCDBTextFile();
@@ -1035,19 +1025,13 @@ namespace BazisGUI
         {
             if (objType == ObjType.Точка)
             {
-                project.ModelData.ObjectData.PointCollection.Clear();
-                int[] dimTags;
-                gmshController.ModelGetGeometryEntities(out dimTags, 0);
-                var controlPoints = gmshController.CreateControlPoints(dimTags);
+                var controlPoints = gmshController.CreateControlPoints();
                 if (controlPoints.Count > 0)
                     project.ModelData.ObjectData.PointCollection.AddRange(controlPoints);
             }
             else if (objType == ObjType.Линия)
             {
-                int[] dimTags;
-                project.ModelData.ObjectData.LineCollection.Clear();
-                gmshController.ModelGetGeometryEntities(out dimTags, 1);
-                var curves = gmshController.CreateLines(dimTags);
+                var curves = gmshController.CreateLines();
                 if (curves.Count > 0)
                     project.ModelData.ObjectData.LineCollection.AddRange(curves);
             }
@@ -1055,7 +1039,6 @@ namespace BazisGUI
 
         private void LoadGMSH()
         {
-                FormClosing += OnClosingForm;
                 var path = Environment.GetEnvironmentVariable("BazisMeshPath", EnvironmentVariableTarget.Machine);
 
                 if (path == null || path == "")
@@ -1080,7 +1063,7 @@ namespace BazisGUI
         private void OnClosingForm(object sender, FormClosingEventArgs e)
         {
                 var ierr = 0;
-                gmshController.Finalize(ref ierr);
+                gmshController?.Finalize(ref ierr);
         }
 
         private void модулиMenuItem_Paint(object sender, PaintEventArgs e)

@@ -34,6 +34,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataBaseController">
+      <HintPath>..\packages\DataBasesGUI.1.0.2.56\lib\net48\DataBaseController.dll</HintPath>
+    </Reference>
+    <Reference Include="DataBasesGUI">
+      <HintPath>..\packages\DataBasesGUI.1.0.2.56\lib\net48\DataBasesGUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Geometry, Version=2.0.7.30, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Geometry.2.0.7.30\lib\net48\Geometry.dll</HintPath>
+    </Reference>
+    <Reference Include="ModelInterfaces, Version=3.0.0.24, Culture=neutral, PublicKeyToken=998e39182864f357, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ModelInterfaces.3.0.0.24\lib\net48\ModelInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PlayerControl">
+      <HintPath>..\packages\PlayerControl.1.0.0.26\lib\net48\PlayerControl.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectInterfaces, Version=3.0.45.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ProjectInterfaces.3.0.45\lib\net48\ProjectInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="SceneInterface, Version=1.0.40.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Scene.2.0.8.35\lib\net48\SceneInterface.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,6 +73,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TasksParameters">
+      <HintPath>..\packages\TasksParameters.1.0.0.13\lib\net48\TasksParameters.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">
@@ -85,6 +116,10 @@
     <ProjectReference Include="..\BaseModule\BaseModule.csproj">
       <Project>{e5c49662-b9c7-4b1b-9734-1ff03da9fcc0}</Project>
       <Name>BaseModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskModule\TaskModule.csproj">
+      <Project>{11954439-9966-4648-A776-7CE642FE21F3}</Project>
+      <Name>TaskModule</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

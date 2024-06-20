@@ -211,6 +211,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 (File.ReadAllText(fileSettings), settingsSerializer);
             cntrMechTask.InputData(parameters);
             cntrMechTask.BringToFront();
+            grbTaskSettings.Height = cntrMechTask.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
             grbTaskSettings.Controls.Add(cntrMechTask);
 
             var mechPar = parameters as MechanicalParameters;
@@ -242,6 +243,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 (File.ReadAllText(fileSettings), settingsSerializer);
             cntrHeatTask.InputData(parameters);
             cntrHeatTask.BringToFront();
+            grbTaskSettings.Height = cntrHeatTask.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
             grbTaskSettings.Controls.Add(cntrHeatTask);
 
             var termPar = parameters as TermalParameters;
@@ -540,14 +542,15 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             lblMechTask.BackColor = Color.Transparent;
             lblMechTask.ForeColor = Color.Black;
 
+            grbTaskSettings.Height = cntrHeatTask.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
             grbTaskSettings.Controls.Clear();
 
             cntrHeatTask.BringToFront();
             grbTaskSettings.Controls.Add(cntrHeatTask);
 
-            var heigth = 0;
-            GetChildControlExpandHeight(grbTaskSettings, ref heigth);
-            grbTaskSettings.Height = heigth;
+            //var heigth = 0;
+            //GetChildControlExpandHeight(grbTaskSettings, ref heigth);
+            //grbTaskSettings.Height = heigth;
         }
 
         private void LblMechTask_Click(object sender, EventArgs e)
@@ -560,15 +563,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
             lblChemicalTask.BackColor = Color.Transparent;
             lblChemicalTask.ForeColor = Color.Black;
-
             grbTaskSettings.Controls.Clear();
 
             cntrMechTask.BringToFront();
             grbTaskSettings.Controls.Add(cntrMechTask);
-
-            var heigth = 0;
-            GetChildControlExpandHeight(grbTaskSettings, ref heigth);
-            grbTaskSettings.Height = heigth;
+            grbTaskSettings.Height = cntrMechTask.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
 
         }
 

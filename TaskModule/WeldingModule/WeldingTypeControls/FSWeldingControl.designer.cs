@@ -95,6 +95,7 @@
             // 
             this.txbAxisForce.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbAxisForce.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbAxisForce.Location = new System.Drawing.Point(171, 73);
             this.txbAxisForce.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbAxisForce.Name = "txbAxisForce";
@@ -105,6 +106,7 @@
             // 
             this.txbPinUpperDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbPinUpperDiam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbPinUpperDiam.Location = new System.Drawing.Point(171, 177);
             this.txbPinUpperDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbPinUpperDiam.Name = "txbPinUpperDiam";
@@ -115,6 +117,7 @@
             // 
             this.txbPinBottomDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbPinBottomDiam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbPinBottomDiam.Location = new System.Drawing.Point(171, 152);
             this.txbPinBottomDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbPinBottomDiam.Name = "txbPinBottomDiam";
@@ -125,6 +128,7 @@
             // 
             this.txbPinLenght.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbPinLenght.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbPinLenght.Location = new System.Drawing.Point(171, 126);
             this.txbPinLenght.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbPinLenght.Name = "txbPinLenght";
@@ -135,6 +139,7 @@
             // 
             this.txbShoulderDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbShoulderDiam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbShoulderDiam.Location = new System.Drawing.Point(171, 100);
             this.txbShoulderDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbShoulderDiam.Name = "txbShoulderDiam";
@@ -189,6 +194,7 @@
             // 
             this.txbRotSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbRotSpeed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbRotSpeed.Location = new System.Drawing.Point(171, 48);
             this.txbRotSpeed.Margin = new System.Windows.Forms.Padding(178, 10, 15, 3);
             this.txbRotSpeed.Name = "txbRotSpeed";
@@ -268,7 +274,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.txbRotSpeed);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "FSWeldingControl";
             this.Size = new System.Drawing.Size(820, 292);

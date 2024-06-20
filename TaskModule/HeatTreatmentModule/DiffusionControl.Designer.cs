@@ -1,4 +1,6 @@
-﻿namespace TaskModule.HeatTreatmentModule
+﻿using BaseModule.ControlsLib;
+
+namespace TaskModule.HeatTreatmentModule
 {
     partial class DiffusionСontrol
     {
@@ -37,7 +39,7 @@
             this.ClmnStop = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.player = new PlayerControl.Player();
+            this.player = new Player();
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -204,7 +206,7 @@
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = PlayerControl.CheckState.start;
+            this.player.CheckState = CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(236, 97);
             this.player.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
@@ -660,6 +662,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ClmnTherm;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClmStart;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClmnStop;
-        private PlayerControl.Player player;
+        private Player player;
     }
 }

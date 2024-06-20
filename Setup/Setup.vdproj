@@ -1568,7 +1568,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:BaseModule, Version=1.0.9.5, Culture=neutral, processorArchitecture=AMD64"
+            "AssemblyAsmDisplayName" = "8:BaseModule, Version=1.0.9.8, Culture=neutral, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
                     "_0B3950E13A8E789808CDA39137534E2A"
@@ -1781,7 +1781,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:TaskModule, Version=4.1.1.3, Culture=neutral, processorArchitecture=AMD64"
+            "AssemblyAsmDisplayName" = "8:TaskModule, Version=4.1.1.4, Culture=neutral, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
                     "_2511C0CFC25E79092724FA347B621AE4"
@@ -1990,11 +1990,6 @@
             "AssemblyAsmDisplayName" = "8:ModelController, Version=3.0.11.59, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_3D9360D119D142EBD72204B8BBDEA810"
-                    {
-                    "Name" = "8:ModelController.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ModelController.dll"
             "TargetName" = "8:"
@@ -2021,11 +2016,6 @@
             "AssemblyAsmDisplayName" = "8:ModelControllerInterfaces, Version=3.0.0.49, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_3DE4E983089CAD062CBC820442AE2F20"
-                    {
-                    "Name" = "8:ModelControllerInterfaces.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ModelControllerInterfaces.dll"
             "TargetName" = "8:"
@@ -2695,11 +2685,6 @@
             "AssemblyAsmDisplayName" = "8:Model, Version=3.0.9.31, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_8563C83E3399E3C51E74A3B90C7E8752"
-                    {
-                    "Name" = "8:Model.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Model.dll"
             "TargetName" = "8:"
@@ -3185,11 +3170,6 @@
             "AssemblyAsmDisplayName" = "8:GmshApi, Version=3.0.2.37, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_B43387A1763231186FC78EBCA77A78E9"
-                    {
-                    "Name" = "8:GmshApi.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:GmshApi.dll"
             "TargetName" = "8:"
@@ -3544,11 +3524,6 @@
             "AssemblyAsmDisplayName" = "8:Results, Version=3.0.0.56, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F2AF0A4AB64C95AFC00879AEFE2136CC"
-                    {
-                    "Name" = "8:Results.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Results.dll"
             "TargetName" = "8:"
@@ -3910,16 +3885,16 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:BazisPrePost4.4.10"
-        "ProductCode" = "8:{ED51F6AA-9DBD-428C-BB56-66908EA4BB5C}"
-        "PackageCode" = "8:{2442FE4A-FE88-4D0B-B2A7-C9956CC0A240}"
+        "ProductName" = "8:BazisPrePost4.4.15"
+        "ProductCode" = "8:{7A5544EB-0556-4393-B07B-785BFA7BB80C}"
+        "PackageCode" = "8:{F75FD736-4C3D-465B-A9C2-DF34A1DB2C8E}"
         "UpgradeCode" = "8:{B6CE3573-0A6F-4654-B604-218137EC41B2}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:4.4.10"
+        "ProductVersion" = "8:4.4.15"
         "Manufacturer" = "8:BazisSoftware"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://bazisnet.ru"
