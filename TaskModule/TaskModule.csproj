@@ -258,38 +258,6 @@
     <Compile Include="ToolStrips\WeldingTasksToolStrip.Designer.cs">
       <DependentUpon>WeldingTasksToolStrip.cs</DependentUpon>
     </Compile>
-    <Compile Include="Validation\CheckValidatingButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Validation\CheckValidatingButton.Designer.cs">
-      <DependentUpon>CheckValidatingButton.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Validation\IControllGroupValidator.cs" />
-    <Compile Include="Validation\IValidatingControl.cs" />
-    <Compile Include="Validation\ValidatingCMB.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Validation\ValidatingCMB.Designer.cs">
-      <DependentUpon>ValidatingCMB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Validation\ValidatingFunctionCMB.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Validation\ValidatingFunctionCMB.Designer.cs">
-      <DependentUpon>ValidatingFunctionCMB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Validation\ValidatingNumericTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Validation\ValidatingNumericTextBox.Designer.cs">
-      <DependentUpon>ValidatingNumericTextBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Validation\ValidatingTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Validation\ValidatingTextBox.Designer.cs">
-      <DependentUpon>ValidatingTextBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="WeldingModule\WeldingPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -494,6 +462,8 @@
     <EmbeddedResource Include="BasicAdvisorControls\Resources\Pause.ico" />
     <EmbeddedResource Include="BasicAdvisorControls\Resources\StartCheck.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Validation\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

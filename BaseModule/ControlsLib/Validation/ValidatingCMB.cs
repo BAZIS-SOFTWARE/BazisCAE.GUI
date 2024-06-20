@@ -23,15 +23,19 @@ namespace TaskModule.Validation
         public bool IsValueValid(ErrorProvider EP)
         {
             string errorMessage = string.Empty;
-            if (Text.Equals(string.Empty))
+            if (Text.Equals(string.Empty) && Enabled == true)
             {
                 errorMessage = "Поле оставлено пустым";
                 EP.SetError(this, errorMessage);
                 return false;
             }
 
-            if (Items.Contains(Text))
+            if (Items.Contains(Text)
+                || (Text.Equals(string.Empty) && Enabled == false))
+            {
+                EP.SetError(this, errorMessage);
                 return true;
+            }
 
             errorMessage = "Выбранный вариант не доступен. Вероятно, допущена ошибка при выборе значения";
             EP.SetError(this, errorMessage);

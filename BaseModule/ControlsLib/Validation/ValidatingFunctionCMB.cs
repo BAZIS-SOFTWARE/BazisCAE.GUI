@@ -23,8 +23,12 @@ namespace TaskModule.Validation
         public bool IsValueValid(ErrorProvider EP)
         {
             var errorMessage = string.Empty;
-            if (float.TryParse(Text, out float temp) || Items.Contains(Text))
+            if (float.TryParse(Text, out float temp) || Items.Contains(Text)
+                || (Text.Equals(string.Empty) && Enabled == false))
+            {
+                EP.SetError(this, errorMessage);
                 return true;
+            }
 
             errorMessage = "Переданное значение не является числом и не содержится в наборе доступных функций." +
                 "Вероятно, допущена ошибка при выборе функции или при вводе числа";

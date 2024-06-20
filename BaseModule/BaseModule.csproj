@@ -153,6 +153,38 @@
     <Compile Include="ControlsLib\Player.Designer.cs">
       <DependentUpon>Player.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControlsLib\Validation\CheckValidatingButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlsLib\Validation\CheckValidatingButton.Designer.cs">
+      <DependentUpon>CheckValidatingButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsLib\Validation\IControllGroupValidator.cs" />
+    <Compile Include="ControlsLib\Validation\IValidatingControl.cs" />
+    <Compile Include="ControlsLib\Validation\ValidatingCMB.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlsLib\Validation\ValidatingCMB.Designer.cs">
+      <DependentUpon>ValidatingCMB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsLib\Validation\ValidatingFunctionCMB.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlsLib\Validation\ValidatingFunctionCMB.Designer.cs">
+      <DependentUpon>ValidatingFunctionCMB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsLib\Validation\ValidatingNumericTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlsLib\Validation\ValidatingNumericTextBox.Designer.cs">
+      <DependentUpon>ValidatingNumericTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsLib\Validation\ValidatingTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlsLib\Validation\ValidatingTextBox.Designer.cs">
+      <DependentUpon>ValidatingTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlsPainter\ComponentsPainter.cs" />
     <Compile Include="CrossSection\CreatePlaneFromTextArgs.cs" />
     <Compile Include="CrossSection\CrossSectionControl.cs">
@@ -316,5 +348,6 @@
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

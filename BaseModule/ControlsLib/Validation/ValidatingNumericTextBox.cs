@@ -22,6 +22,8 @@ namespace TaskModule.Validation
             InitializeComponent();
         }
 
+        public bool IsNegativeValueAvailable { get; set; } = false;
+
         public bool IsValueValid(ErrorProvider EP)
         {
             var errorMessage = string.Empty;
@@ -39,10 +41,23 @@ namespace TaskModule.Validation
                 return false;
             }
 
-            if (Regex.IsMatch(Text, "^([-]?)(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
-                || Regex.IsMatch(Text, "^([-]?)(\\d{1})(([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,})$"))
+            if (!IsNegativeValueAvailable && Text.StartsWith("-"))
+            {
+                errorMessage = "Для данного поля отрицательные значения запрещены";
+                EP.SetError(this, errorMessage);
+                return false;
+            }
+
+            if ((IsNegativeValueAvailable && (Regex.IsMatch(Text, "^([-]?)(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
+                || Regex.IsMatch(Text, "^([-]?)(\\d{1})(([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,})$")))
+
+                || (!IsNegativeValueAvailable && (Regex.IsMatch(Text, "^(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
+                || Regex.IsMatch(Text, "^(\\d{1})(([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,})$")))
+
+                || (Text.Equals(string.Empty) && Enabled == false))
             {
                 errorMessage = string.Empty;
+                EP.SetError(this, errorMessage);
                 return true;
             }
 

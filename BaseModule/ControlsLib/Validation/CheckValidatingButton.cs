@@ -45,11 +45,26 @@ namespace TaskModule.Validation
 
         public void RemoveControl(IValidatingControl ctrl) => ValidatingControls.Remove(ctrl);
 
-        public bool ValidateControls() => ValidatingControls.Any(x => x.IsValueValid(EP));
+        /// <summary>
+        /// Проходит всегда по всем валидаторам контроллов, проверяя их и выводя ошибку.
+        /// </summary>
+        /// <returns></returns>
+        public bool ValidateControls() 
+        {
+            var result = true;
+            // Обязательно проходить все контроллы, чтобы не пропустить вывод других ошибок, в случае обнаружения
+            foreach(var ctrl in ValidatingControls)
+            {
+                if (!ctrl.IsValueValid(EP))
+                    result = false;
+            }
+            return result;
+        }
 
         public bool ValidatingButton_OnClick_IsValuesValid(object sender, CancelEventArgs cea)
         {
-            if (!ValidateControls())
+            var isValid = ValidateControls();
+            if (!isValid)
             {
                 cea.Cancel = true;
                 return false;

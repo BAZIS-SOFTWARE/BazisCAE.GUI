@@ -25,12 +25,13 @@ namespace TaskModule.Validation
         public bool IsValueValid(ErrorProvider EP)
         {
             var errorMessage = string.Empty;
-            if (Text.Equals(string.Empty) && Text.Any(x => IligalSymbols.Contains(x)))
+            if (Text.Equals(string.Empty) && Text.Any(x => IligalSymbols.Contains(x)) && Enabled == true)
             {
                 errorMessage = "Переданная строка пуста или содержит неподдерживаемые символы.";
                 EP.SetError(this, errorMessage);
                 return false;
             }
+            EP.SetError(this, errorMessage);
             return true;
         }
     }
