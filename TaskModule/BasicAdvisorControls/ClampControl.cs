@@ -202,13 +202,6 @@ namespace TaskModule.BasicAdvisorControls
                 stiffnessFunc = cmbStiffnessFunc.Text;
             else stiffnessFunc = "*";
 
-
-            //if (cmbNodeGr.Text == "" || 
-            //    cmbKind.Text == "" || 
-            //    txbStartTime.Text == "" || 
-            //    txbStopTime.Text == "")
-            //    throw new Exception("Одно из переданных значений полей было пустым");
-
             rowInfo = string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3} {4} {5} *",
                     cmbNodeGr.Text, cmbKind.Text, direction, stiffnessFunc, txbStartTime.Text, txbStopTime.Text);
 
@@ -217,6 +210,11 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
+            if (sender is CheckValidatingButton vb)
+            {
+                if (!vb.ValidatingButton_OnClick_IsValuesValid(vb, new CancelEventArgs()))
+                    return;
+            }
             try
             {
                 string direction = string.Empty;

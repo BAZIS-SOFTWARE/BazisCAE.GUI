@@ -462,8 +462,6 @@
     <EmbeddedResource Include="BasicAdvisorControls\Resources\Pause.ico" />
     <EmbeddedResource Include="BasicAdvisorControls\Resources\StartCheck.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Validation\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
