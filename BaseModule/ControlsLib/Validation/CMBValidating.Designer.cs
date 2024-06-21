@@ -1,8 +1,6 @@
-﻿using System.ComponentModel;
-
-namespace TaskModule.Validation
+﻿namespace TaskModule.Validation
 {
-    partial class ValidatingNumericTextBox : IValidatingControl
+    partial class CMBValidating
     {
         /// <summary>
         /// Обязательная переменная конструктора.

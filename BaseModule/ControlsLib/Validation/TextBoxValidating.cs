@@ -9,20 +9,37 @@ using System.Windows.Forms;
 
 namespace TaskModule.Validation
 {
-    public partial class ValidatingTextBox : TextBox, IValidatingControl
+    public partial class TextBoxValidating : TextBox, IValidatingControl
     {
         private static readonly char[] IligalSymbols = new[] { ' ' };
 
-        public ValidatingTextBox() { InitializeComponent(); }
+        public TextBoxValidating() { InitializeComponent(); }
 
-        public ValidatingTextBox(IContainer container)
+        public TextBoxValidating(IContainer container)
         {
             container.Add(this);
 
             InitializeComponent();
+            EP = InitializaErrorProvider();
         }
 
-        public bool IsValueValid(ErrorProvider EP)
+        public bool IsValidating { get; set; }
+
+        public TextBoxInputType InputType { get; set; }
+
+        public ErrorProvider EP { get; }
+
+        private ErrorProvider InitializaErrorProvider()
+        {
+            var eP = new ErrorProvider();
+            eP.SetIconAlignment(this, ErrorIconAlignment.MiddleRight);
+            eP.SetIconPadding(this, 2);
+            eP.BlinkRate = 1000;
+            eP.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+            return eP;
+        }
+
+        public bool IsValueValid()
         {
             var errorMessage = string.Empty;
             if (Text.Equals(string.Empty) && Text.Any(x => IligalSymbols.Contains(x)) && Enabled == true)

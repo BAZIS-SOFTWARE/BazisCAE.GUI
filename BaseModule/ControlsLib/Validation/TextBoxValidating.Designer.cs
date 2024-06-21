@@ -1,6 +1,9 @@
-﻿namespace TaskModule.Validation
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace TaskModule.Validation
 {
-    partial class ValidatingCMB
+    partial class TextBoxValidating : IValidatingControl
     {
         /// <summary>
         /// Обязательная переменная конструктора.

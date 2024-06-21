@@ -158,9 +158,9 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (sender is CheckValidatingButton cvb)
+            if (sender is BtnValidate cvb)
             {
-                if (!cvb.ValidatingButton_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
+                if (!cvb.ValidateControl_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
                     return;
             }
 
@@ -210,9 +210,9 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (sender is CheckValidatingButton vb)
+            if (sender is BtnValidate vb)
             {
-                if (!vb.ValidatingButton_OnClick_IsValuesValid(vb, new CancelEventArgs()))
+                if (!vb.ValidateControl_OnClick_IsValuesValid(vb, new CancelEventArgs()))
                     return;
             }
             try

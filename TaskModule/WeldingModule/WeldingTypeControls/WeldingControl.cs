@@ -130,9 +130,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         public override string DataName { get; }
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (sender is CheckValidatingButton cvb)
+            if (sender is BtnValidate cvb)
             {
-                if (!cvb.ValidatingButton_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
+                if (!cvb.ValidateControl_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
                     return;
             }
             try
@@ -262,9 +262,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (sender is CheckValidatingButton cvb)
+            if (sender is BtnValidate cvb)
             {
-                if (!cvb.ValidatingButton_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
+                if (!cvb.ValidateControl_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
                     return;
             }
             var gridView = GetDataGrid;

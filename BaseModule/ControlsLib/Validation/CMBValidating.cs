@@ -9,18 +9,39 @@ using System.Windows.Forms;
 
 namespace TaskModule.Validation
 {
-    public partial class ValidatingCMB : ComboBox, IValidatingControl
+    public partial class CMBValidating : ComboBox, IValidatingControl
     {
-        public ValidatingCMB() { InitializeComponent(); }
+        public CMBValidating() 
+        { 
+            InitializeComponent();
+            EP = InitializaErrorProvider();
+        }
 
-        public ValidatingCMB(IContainer container)
+        public CMBValidating(IContainer container)
         {
             container.Add(this);
 
             InitializeComponent();
+            EP = InitializaErrorProvider();
         }
 
-        public bool IsValueValid(ErrorProvider EP)
+        private ErrorProvider InitializaErrorProvider()
+        {
+            var eP = new ErrorProvider();
+            eP.SetIconAlignment(this, ErrorIconAlignment.MiddleRight);
+            eP.SetIconPadding(this, 2);
+            eP.BlinkRate = 1000;
+            eP.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+            return eP;
+        }
+
+        public ErrorProvider EP { get; }
+
+        public ComboBoxInputType InputType { get; set; } = ComboBoxInputType.AllValues;
+
+        public bool IsValidating { get; set; } = true;
+
+        public bool IsValueValid()
         {
             string errorMessage = string.Empty;
             if (Text.Equals(string.Empty) && Enabled == true)

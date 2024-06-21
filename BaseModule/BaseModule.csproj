@@ -153,37 +153,25 @@
     <Compile Include="ControlsLib\Player.Designer.cs">
       <DependentUpon>Player.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlsLib\Validation\CheckValidatingButton.cs">
+    <Compile Include="ControlsLib\Validation\BtnValidate.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ControlsLib\Validation\CheckValidatingButton.Designer.cs">
-      <DependentUpon>CheckValidatingButton.cs</DependentUpon>
+    <Compile Include="ControlsLib\Validation\BtnValidate.Designer.cs">
+      <DependentUpon>BtnValidate.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlsLib\Validation\IControllGroupValidator.cs" />
+    <Compile Include="ControlsLib\Validation\IValidateControl.cs" />
     <Compile Include="ControlsLib\Validation\IValidatingControl.cs" />
-    <Compile Include="ControlsLib\Validation\ValidatingCMB.cs">
+    <Compile Include="ControlsLib\Validation\CMBValidating.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ControlsLib\Validation\ValidatingCMB.Designer.cs">
-      <DependentUpon>ValidatingCMB.cs</DependentUpon>
+    <Compile Include="ControlsLib\Validation\CMBValidating.Designer.cs">
+      <DependentUpon>CMBValidating.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlsLib\Validation\ValidatingFunctionCMB.cs">
+    <Compile Include="ControlsLib\Validation\TextBoxValidating.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ControlsLib\Validation\ValidatingFunctionCMB.Designer.cs">
-      <DependentUpon>ValidatingFunctionCMB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ControlsLib\Validation\ValidatingNumericTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ControlsLib\Validation\ValidatingNumericTextBox.Designer.cs">
-      <DependentUpon>ValidatingNumericTextBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ControlsLib\Validation\ValidatingTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ControlsLib\Validation\ValidatingTextBox.Designer.cs">
-      <DependentUpon>ValidatingTextBox.cs</DependentUpon>
+    <Compile Include="ControlsLib\Validation\TextBoxValidating.Designer.cs">
+      <DependentUpon>TextBoxValidating.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlsPainter\ComponentsPainter.cs" />
     <Compile Include="CrossSection\CreatePlaneFromTextArgs.cs" />

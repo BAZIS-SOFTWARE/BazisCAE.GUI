@@ -51,8 +51,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbStartPoint = new ValidatingCMB();
             this.btnHide = new System.Windows.Forms.Button();
             this.btnShow = new System.Windows.Forms.Button();
-            this.btnRefresh = new CheckValidatingButton();
-            this.addRowButton = new CheckValidatingButton();
+            this.btnRefresh = new BtnValidate();
+            this.addRowButton = new BtnValidate();
             this.txbAngle = new ValidatingNumericTextBox() { IsNegativeValueAvailable = true };
             this.txbShiftZ = new ValidatingNumericTextBox() { IsNegativeValueAvailable = true };
             this.txbShiftY = new ValidatingNumericTextBox() { IsNegativeValueAvailable = true };
@@ -682,7 +682,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private ValidatingCMB cmbWeldZone;
         private ValidatingCMB cmbStopPoint;
         private ValidatingCMB cmbStartPoint;
-        private CheckValidatingButton addRowButton;
+        private BtnValidate addRowButton;
         private ValidatingNumericTextBox txbVelosity;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -690,7 +690,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private ValidatingCMB cmbTraj;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox3;
-        private CheckValidatingButton btnRefresh;
+        private BtnValidate btnRefresh;
         private ValidatingNumericTextBox txbShiftX;
         private System.Windows.Forms.CheckBox chbShifting;
         private ValidatingCMB cmbEnergyCalibration;

@@ -1,6 +1,6 @@
 ﻿namespace TaskModule.Validation
 {
-    partial class ValidatingFunctionCMB
+    partial class BtnValidate
     {
         /// <summary>
         /// Обязательная переменная конструктора.
