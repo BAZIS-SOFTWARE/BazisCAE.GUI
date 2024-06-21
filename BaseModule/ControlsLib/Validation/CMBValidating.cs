@@ -44,6 +44,12 @@ namespace TaskModule.Validation
         public bool IsValueValid()
         {
             string errorMessage = string.Empty;
+            var isFlag = false;
+
+            if (!IsValidating || Enabled == false)
+                return true;
+
+            if (bool.TryParse())
             if (Text.Equals(string.Empty) && Enabled == true)
             {
                 errorMessage = "Поле оставлено пустым";

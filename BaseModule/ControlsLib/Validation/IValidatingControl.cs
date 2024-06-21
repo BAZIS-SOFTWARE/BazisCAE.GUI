@@ -20,20 +20,24 @@ namespace TaskModule.Validation
         ErrorProvider EP { get; }
     }
 
+    [Flags]
     public enum TextBoxInputType
     {
-        Text,
-        TextAndSpecialSymbols,
-        PositiveFloat,
-        Float,
-        AllValues
+        AllValues = 0,
+        Text = 1,
+        SpecialSymbols = 2,
+        integet = 4,
+        Float = 8,
+        Positive = 16
     }
 
+    [Flags]
     public enum ComboBoxInputType
     {
-        Items,
-        ItemsAndFloat,
-        ItemsAndPositiveFloat,
-        AllValues
+        AllValues = 0,
+        Items = 1,
+        Integer = 2,
+        Float = 4,
+        Positive = 8
     }
 }
