@@ -232,7 +232,6 @@ namespace BaseModule
             this.selectToolStrip.Location = new System.Drawing.Point(3, 0);
             this.selectToolStrip.Name = "selectToolStrip";
             this.selectToolStrip.NodeImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.NodeImage")));
-            this.selectToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.selectToolStrip.SelectObjectsType = ModelInterfaces.ObjType.Объект;
             this.selectToolStrip.Size = new System.Drawing.Size(302, 53);
             this.selectToolStrip.TabIndex = 1;

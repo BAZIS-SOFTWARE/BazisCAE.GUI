@@ -21,6 +21,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 voltageTextBox.Text
             };
 
+
+
             return string.Join(";", strs);
         }
 

@@ -1479,7 +1479,7 @@ namespace BaseModule
         {
             if (isSorted & selections.Count > 0)
             {
-                var camera = sceneControl.Camera;
+                var camera = sceneControl.GetCamera();
 
                 var near = selections.OrderByDescending(x => camera.GetSceenCoord(x.CalcCentr())._z).First();
                 if (isSelected)
@@ -1580,11 +1580,6 @@ namespace BaseModule
                 splitContainer2.Panel2Collapsed = false;
             };
             consoleControl.ConsolePanelCollapseEvent += () => { splitContainer2.Panel2Collapsed = true; };
-
-            displayToolStrip.Renderer = BaseToolStrRender;
-            selectToolStrip.Renderer = BaseToolStrRender;
-            viewToolStrip.Renderer = BaseToolStrRender;
-            instrumentToolStrip.Renderer = BaseToolStrRender;
         }
 
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
@@ -1690,7 +1685,7 @@ namespace BaseModule
 
         public List<IModelObject> SearchObjects(ObjType objType, RectangleBox selectionBox)
         {
-            var camera = sceneControl.Camera;
+            var camera = sceneControl.GetCamera();
             var selections = new List<IModelObject>();
 
             foreach (var item in Project.ModelData.ObjectData.GetObjects(objType))

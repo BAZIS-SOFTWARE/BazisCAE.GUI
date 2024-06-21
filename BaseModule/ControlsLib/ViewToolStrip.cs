@@ -12,6 +12,7 @@ namespace BaseModule.ControlsLib
 {
     public partial class ViewToolStrip : ToolStrip
     {
+        BaseToolStrRender BaseToolStrRender { get; set; } = new BaseToolStrRender();
         public Image PlaneXYImage
         {
             get { return btnSetPlaneXY.Image; }
@@ -69,6 +70,7 @@ namespace BaseModule.ControlsLib
         public ViewToolStrip()
         {
             InitializeComponent();
+            Renderer = BaseToolStrRender;
         }
 
 

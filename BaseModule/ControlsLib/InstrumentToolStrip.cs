@@ -12,6 +12,7 @@ namespace BaseModule.ControlsLib
 {
     public partial class InstrumentToolStrip : ToolStrip
     {
+        BaseToolStrRender BaseToolStrRender { get; set; } = new BaseToolStrRender();
         public Image MeasureImage
         {
             get { return btnMeasure.Image; }
@@ -32,6 +33,7 @@ namespace BaseModule.ControlsLib
         public InstrumentToolStrip()
         {
             InitializeComponent();
+            Renderer = BaseToolStrRender;
         }
     }
 }

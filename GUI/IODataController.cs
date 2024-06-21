@@ -63,24 +63,43 @@ namespace BazisGUI
                 return null;
 
 
-                if (gmshController == null)
-                    gmshController = LoadGMSH();
+            if (gmshController == null)
+                gmshController = LoadGMSH();
 
-                var ierr = 0;
-                gmshController.Clear(ref ierr);
-                gmshController.Open(dialog.FileName, ref ierr);
+            var ierr = 0;
+            gmshController.Clear(ref ierr);
+            gmshController.Open(dialog.FileName, ref ierr);
 
-                var path = Path.GetDirectoryName(dialog.FileName);
-                var name = "новый_проект.bpf";
+            var path = Path.GetDirectoryName(dialog.FileName);
+            var name = "новый_проект.bpf";
 
-                var project = CreateNewProject(path, name);
+            var project = CreateNewProject(path, name);
 
-                return project;
-                //gmshController.ModelGetFileName()
-            
+            UpdateGeometry(gmshController, project, ObjType.Точка);
+            UpdateGeometry(gmshController, project, ObjType.Линия);
+
+            return project;
+            //gmshController.ModelGetFileName()
+
         }
 
-        public void SaveProject(ProjectData project)
+        private void UpdateGeometry(GmshController gmshController, ProjectData project, ObjType objType)
+        {
+            if (objType == ObjType.Точка)
+            {
+                var controlPoints = gmshController.CreateControlPoints();
+                if (controlPoints.Count > 0)
+                    project.ModelData.ObjectData.PointCollection.AddRange(controlPoints);
+            }
+            else if (objType == ObjType.Линия)
+            {
+                var curves = gmshController.CreateLines();
+                if (curves.Count > 0)
+                    project.ModelData.ObjectData.LineCollection.AddRange(curves);
+            }
+        }
+
+        public void SaveAsProject(ProjectData project)
         {
             using (SaveFileDialog saveDialog = new SaveFileDialog())
             {

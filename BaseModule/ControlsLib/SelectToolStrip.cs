@@ -9,6 +9,8 @@ namespace BaseModule.ControlsLib
 {
     public partial class SelectToolStrip: ToolStrip
     {
+        BaseToolStrRender BaseToolStrRender { get; set; } = new BaseToolStrRender();
+
         public Image NodeImage
         {
             get { return btnNodes.Image; }
@@ -34,9 +36,14 @@ namespace BaseModule.ControlsLib
         }
 
         public event Action<object, SelectObjectEventArgs> SelectObjectEvent;
+
+
+
         public SelectToolStrip()
         {
             InitializeComponent();
+
+            Renderer = BaseToolStrRender;
 
             btnSplitSelector.DropDownItemClicked += SpbtMethod_DropDownItemClicked;
             btnNodes.Click += (ar1, ar2) => { SelectObjectsType = ObjType.Узел; };

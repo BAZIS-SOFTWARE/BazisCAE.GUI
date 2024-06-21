@@ -101,7 +101,7 @@ namespace BazisGUI
         private void построениеСетки_Click(object sender, EventArgs e)
         {
             var module = TryGetModule();
-            var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
+            var viewMatrix = module.SceneControl.GetCamera().GetViewMatrix();
             var splitters = module.SplittersController.GetSplitters();
 
             DisconnectWithServer(module.Name);
@@ -126,7 +126,7 @@ namespace BazisGUI
 
         private static void SetSceneViewMatrix(Matrix<float> viewMatrix, BasePage newModule)
         {
-            newModule.SceneControl.Camera.SetViewMatrix(viewMatrix);
+            newModule.SceneControl.GetCamera().SetViewMatrix(viewMatrix);
             newModule.SceneControl.ScaleObjs(1.0f); // TO DO Разобраться почему без этого компас сворачивается в точку
         }
 
@@ -153,7 +153,7 @@ namespace BazisGUI
         {
             var module = TryGetModule();
 
-            var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
+            var viewMatrix = module.SceneControl.GetCamera().GetViewMatrix();
             var splitters = module.SplittersController.GetSplitters();
 
             DisconnectWithServer(module.Name);
@@ -212,7 +212,7 @@ namespace BazisGUI
         {
             var module = TryGetModule();
 
-            var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
+            var viewMatrix = module.SceneControl.GetCamera().GetViewMatrix();
             var splitters = module.SplittersController.GetSplitters();
 
             DisconnectWithServer(module.Name);
@@ -239,7 +239,7 @@ namespace BazisGUI
         {
             var module = TryGetModule();
 
-            var viewMatrix = module.SceneControl.Camera.GetViewMatrix();
+            var viewMatrix = module.SceneControl.GetCamera().GetViewMatrix();
             var splitters = module.SplittersController.GetSplitters();
 
             DisconnectWithServer(module.Name);
@@ -730,7 +730,6 @@ namespace BazisGUI
         {
             try
             {
-
                 var dialog = new FolderBrowserDialog();
                 if (dialog.ShowDialog() == DialogResult.Cancel)
                     return;
@@ -840,41 +839,14 @@ namespace BazisGUI
 
         private void сохранитькакToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (SaveFileDialog saveDialog = new SaveFileDialog())
-            {
-                saveDialog.DefaultExt = "bpf";
 
-                if (saveDialog.ShowDialog() == DialogResult.Cancel)
-                    return;
+            dataController.SaveAsProject(project);
 
-                if (project == null)
-                    MessageBox.Show("Сначала откройте или создайте новый проект");
-                else
-                {
-                    var newFolder = Path.GetDirectoryName(saveDialog.FileName);
-                    var oldFolder = project.Path;
+            var module = TryGetModule();
+            module?.ConsoleControl.PrintInfo("Проект сохранен", Color.Black);
+            lblStatus.Text = $"{project.Path}\\{project.Name}";
 
-                    project.Name = Path.GetFileName(saveDialog.FileName);
-                    project.Path = newFolder;
-
-                    if (oldFolder != project.Path)
-                    {
-                        project.CopyFile(project.Materials, oldFolder, project.Path);
-                        project.CopyFile(project.Functions, oldFolder, project.Path);
-                    }
-
-                    project.Save();
-
-                    var module = TryGetModule();
-                    module?.ConsoleControl.PrintInfo("Проект сохранен", Color.Black);
-                    lblStatus.Text = $"{project.Path}\\{project.Name}";
-
-                    module?.PresentProjectOnTree();
-                }
- 
-            }
-
-
+            module?.PresentProjectOnTree();
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -893,9 +865,6 @@ namespace BazisGUI
                 lblStatus.Text = $"{project.Path}\\{project.Name}";
 
                 модулиMenuItem.Enabled = true;
-
-                UpdateGeometry(ObjType.Точка);
-                UpdateGeometry(ObjType.Линия);
 
                 var module = TryGetModule();
                 if (module == null)
@@ -923,22 +892,6 @@ namespace BazisGUI
             module.PresentAllModelObjectsToScene();
             module.PresentProjectOnTree();
             module.PresentModelOnSelectToolStrip();
-        }
-
-        private void UpdateGeometry(ObjType objType)
-        {
-            if (objType == ObjType.Точка)
-            {
-                var controlPoints = gmshController.CreateControlPoints();
-                if (controlPoints.Count > 0)
-                    project.ModelData.ObjectData.PointCollection.AddRange(controlPoints);
-            }
-            else if (objType == ObjType.Линия)
-            {
-                var curves = gmshController.CreateLines();
-                if (curves.Count > 0)
-                    project.ModelData.ObjectData.LineCollection.AddRange(curves);
-            }
         }
 
         private void OnClosingForm(object sender, FormClosingEventArgs e)

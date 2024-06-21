@@ -30,8 +30,8 @@
         {
             this.message = new System.Windows.Forms.Label();
             this.title = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
+            this.messagePanel = new System.Windows.Forms.Panel();
+            this.messagePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // message
@@ -49,6 +49,7 @@
             // 
             this.title.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.title.AutoSize = true;
+            this.title.BackColor = System.Drawing.Color.Transparent;
             this.title.Location = new System.Drawing.Point(3, -1);
             this.title.Margin = new System.Windows.Forms.Padding(3);
             this.title.Name = "title";
@@ -56,30 +57,30 @@
             this.title.TabIndex = 0;
             this.title.Text = "Загрузка данных. Пожалуйста подождите...";
             // 
-            // panel1
+            // messagePanel
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.Window;
-            this.panel1.Controls.Add(this.message);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 15);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(288, 61);
-            this.panel1.TabIndex = 1;
+            this.messagePanel.BackColor = System.Drawing.SystemColors.Control;
+            this.messagePanel.Controls.Add(this.message);
+            this.messagePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.messagePanel.Location = new System.Drawing.Point(0, 15);
+            this.messagePanel.Margin = new System.Windows.Forms.Padding(0);
+            this.messagePanel.Name = "messagePanel";
+            this.messagePanel.Size = new System.Drawing.Size(288, 61);
+            this.messagePanel.TabIndex = 1;
             // 
             // MessageBoxEx
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.messagePanel);
             this.Controls.Add(this.title);
             this.Name = "MessageBoxEx";
             this.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
             this.Size = new System.Drawing.Size(288, 76);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MessageBoxEx_Paint);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.messagePanel.ResumeLayout(false);
+            this.messagePanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -89,6 +90,6 @@
 
         private System.Windows.Forms.Label message;
         private System.Windows.Forms.Label title;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel messagePanel;
     }
 }

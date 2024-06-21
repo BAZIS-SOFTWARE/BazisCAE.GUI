@@ -10,7 +10,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
     {
         public event Action<object, WeldContainerCntrEventArgs> ChangeDataEvent;
 
-
         public WeldContainerControl()
         {
             InitializeComponent();

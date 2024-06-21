@@ -334,6 +334,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             else
                 wcc = new LWeldingControl() { Dock = DockStyle.Fill };
 
+
             // TO DO небольшие костыли, потом улучшим...
             grbWeldRegime.Height = wcc.Height + TextRenderer.MeasureText(grbWeldRegime.Text,grbWeldRegime.Font).Height + 10;
             grbWeldRegime.Padding = new Padding(3,0,3,3);
