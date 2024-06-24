@@ -1,4 +1,6 @@
-﻿namespace TaskModule.WeldingModule.WeldingTypeControls
+﻿using BaseModule.ControlsLib.Validation;
+
+namespace TaskModule.WeldingModule.WeldingTypeControls
 {
     partial class ArcWeldingControl
     {
@@ -30,11 +32,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArcWeldingControl));
             this.btnInfo = new System.Windows.Forms.Button();
-            this.voltageTextBox = new System.Windows.Forms.TextBox();
+            this.voltageTextBox = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive};
             this.label8 = new System.Windows.Forms.Label();
-            this.weldPoolTextBox = new System.Windows.Forms.TextBox();
+            this.weldPoolTextBox = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.label4 = new System.Windows.Forms.Label();
-            this.currentTextBox = new System.Windows.Forms.TextBox();
+            this.currentTextBox = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -136,11 +138,11 @@
         #endregion
 
         private System.Windows.Forms.Button btnInfo;
-        private System.Windows.Forms.TextBox voltageTextBox;
+        private TextBoxValidator voltageTextBox;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox weldPoolTextBox;
+        private TextBoxValidator weldPoolTextBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox currentTextBox;
+        private TextBoxValidator currentTextBox;
         private System.Windows.Forms.Label label1;
     }
 }

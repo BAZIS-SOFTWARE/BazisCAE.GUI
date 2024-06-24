@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -24,6 +25,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         public virtual void InputData(string[] inputData)
         {
             throw new NotImplementedException("Не реализован метод!");
+        }
+
+        public virtual Func<ErrorProvider, bool>[] GetCtrlsValidatingMethods()
+        {
+            throw new NotImplementedException();
         }
 
         public virtual void AllTextBox_TextChanged(object sender, EventArgs e)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -10,7 +11,17 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             InitializeComponent();
         }
 
-        
+        public override Func<ErrorProvider, bool>[] GetCtrlsValidatingMethods()
+        {
+            return new Func<ErrorProvider, bool>[] 
+            {
+                (EP) => currentTextBox.IsValueValid(EP),
+                (EP) => voltageTextBox.IsValueValid(EP),
+                (EP) => weldPoolTextBox.IsValueValid(EP)
+            };
+        }
+
+
         public override string CollectData()
         {
             var strs = new string[]
