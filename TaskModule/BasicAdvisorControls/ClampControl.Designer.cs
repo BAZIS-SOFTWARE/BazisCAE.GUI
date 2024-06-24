@@ -1,8 +1,8 @@
 ﻿using BaseModule.ControlsLib;
+using BaseModule.ControlsLib.Validation;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using TaskModule.Validation;
 
 namespace TaskModule.BasicAdvisorControls
 {
@@ -42,15 +42,12 @@ namespace TaskModule.BasicAdvisorControls
             this.btnClearAll = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.txbStopTime = new ValidatingNumericTextBox(this.components);
+            this.txbStopTime = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnHideAll = new System.Windows.Forms.Button();
-            this.btnRefresh = new BtnValidate(this.components);
-            this.btnAddNewRow = new BtnValidate(this.components);
-            this.txbStartTime = new ValidatingNumericTextBox(this.components);
-            this.cmbNodeGr = new CMBValidator(this.components);
-            this.cmbKind = new CMBValidator(this.components);
-            this.cmbStiffnessFunc = new ValidatingFunctionCMB(this.components);
+            this.btnRefresh = new BaseModule.ControlsLib.Validation.BtnValidate(this.components);
+            this.btnAddNewRow = new BaseModule.ControlsLib.Validation.BtnValidate(this.components);
+            this.txbStartTime = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,11 +56,14 @@ namespace TaskModule.BasicAdvisorControls
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbNodeGr = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.cmbKind = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
             this.grbClampingParams = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.cmbStiffnessFunc = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
             this.chbLRF = new System.Windows.Forms.CheckBox();
             this.chbZ = new System.Windows.Forms.CheckBox();
             this.chbY = new System.Windows.Forms.CheckBox();
@@ -116,7 +116,7 @@ namespace TaskModule.BasicAdvisorControls
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox3.Location = new System.Drawing.Point(9, 283);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(9, 9, 9, 9);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(9);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
             this.groupBox3.Size = new System.Drawing.Size(783, 180);
@@ -187,7 +187,8 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStopTime.IsNegativeValueAvailable = false;
+            this.txbStopTime.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
+            this.txbStopTime.IsValidating = true;
             this.txbStopTime.Location = new System.Drawing.Point(232, 71);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(4, 4, 20, 4);
             this.txbStopTime.Name = "txbStopTime";
@@ -235,11 +236,6 @@ namespace TaskModule.BasicAdvisorControls
             this.btnRefresh.TabIndex = 19;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.AddControl(txbStopTime);
-            this.btnRefresh.AddControl(txbStartTime);
-            this.btnRefresh.AddControl(cmbNodeGr);
-            this.btnRefresh.AddControl(cmbKind);
-            this.btnRefresh.AddControl(cmbStiffnessFunc);
             this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // btnAddNewRow
@@ -254,11 +250,6 @@ namespace TaskModule.BasicAdvisorControls
             this.btnAddNewRow.TabIndex = 19;
             this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewRow.UseVisualStyleBackColor = true;
-            this.btnAddNewRow.AddControl(txbStopTime);
-            this.btnAddNewRow.AddControl(txbStartTime);
-            this.btnAddNewRow.AddControl(cmbNodeGr);
-            this.btnAddNewRow.AddControl(cmbKind);
-            this.btnAddNewRow.AddControl(cmbStiffnessFunc);
             this.btnAddNewRow.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // txbStartTime
@@ -266,49 +257,13 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStartTime.IsNegativeValueAvailable = false;
+            this.txbStartTime.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
+            this.txbStartTime.IsValidating = true;
             this.txbStartTime.Location = new System.Drawing.Point(232, 37);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(4, 20, 20, 4);
             this.txbStartTime.Name = "txbStartTime";
             this.txbStartTime.Size = new System.Drawing.Size(530, 23);
             this.txbStartTime.TabIndex = 0;
-            // 
-            // cmbNodeGr
-            // 
-            this.cmbNodeGr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbNodeGr.FormattingEnabled = true;
-            this.cmbNodeGr.Location = new System.Drawing.Point(228, 31);
-            this.cmbNodeGr.Margin = new System.Windows.Forms.Padding(237, 33, 20, 4);
-            this.cmbNodeGr.Name = "cmbNodeGr";
-            this.cmbNodeGr.Size = new System.Drawing.Size(535, 25);
-            this.cmbNodeGr.TabIndex = 43;
-            // 
-            // cmbKind
-            // 
-            this.cmbKind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbKind.FormattingEnabled = true;
-            this.cmbKind.Items.AddRange(new object[] {
-            "Жесткое"});
-            this.cmbKind.Location = new System.Drawing.Point(227, 67);
-            this.cmbKind.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
-            this.cmbKind.Name = "cmbKind";
-            this.cmbKind.Size = new System.Drawing.Size(535, 25);
-            this.cmbKind.TabIndex = 36;
-            this.cmbKind.SelectedIndexChanged += new System.EventHandler(this.kindComboBox_SelectedIndexChanged);
-            // 
-            // cmbStiffnessFunc
-            // 
-            this.cmbStiffnessFunc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbStiffnessFunc.Enabled = false;
-            this.cmbStiffnessFunc.FormattingEnabled = true;
-            this.cmbStiffnessFunc.Location = new System.Drawing.Point(227, 78);
-            this.cmbStiffnessFunc.Margin = new System.Windows.Forms.Padding(20, 4, 20, 4);
-            this.cmbStiffnessFunc.Name = "cmbStiffnessFunc";
-            this.cmbStiffnessFunc.Size = new System.Drawing.Size(535, 25);
-            this.cmbStiffnessFunc.TabIndex = 1;
             // 
             // dataGridView
             // 
@@ -323,7 +278,7 @@ namespace TaskModule.BasicAdvisorControls
             this.stopColumn});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.Location = new System.Drawing.Point(9, 481);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(9, 9, 9, 9);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(9);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
@@ -394,7 +349,7 @@ namespace TaskModule.BasicAdvisorControls
             this.groupBox1.Controls.Add(this.cmbKind);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(9, 9);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(9, 9, 9, 9);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(9);
             this.groupBox1.MinimumSize = new System.Drawing.Size(467, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
@@ -402,6 +357,19 @@ namespace TaskModule.BasicAdvisorControls
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Вид закрепления";
+            // 
+            // cmbNodeGr
+            // 
+            this.cmbNodeGr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbNodeGr.FormattingEnabled = true;
+            this.cmbNodeGr.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
+            this.cmbNodeGr.IsValidating = true;
+            this.cmbNodeGr.Location = new System.Drawing.Point(228, 31);
+            this.cmbNodeGr.Margin = new System.Windows.Forms.Padding(237, 33, 20, 4);
+            this.cmbNodeGr.Name = "cmbNodeGr";
+            this.cmbNodeGr.Size = new System.Drawing.Size(535, 25);
+            this.cmbNodeGr.TabIndex = 43;
             // 
             // label1
             // 
@@ -423,6 +391,22 @@ namespace TaskModule.BasicAdvisorControls
             this.label5.TabIndex = 37;
             this.label5.Text = "Вид";
             // 
+            // cmbKind
+            // 
+            this.cmbKind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbKind.FormattingEnabled = true;
+            this.cmbKind.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
+            this.cmbKind.IsValidating = true;
+            this.cmbKind.Items.AddRange(new object[] {
+            "Жесткое"});
+            this.cmbKind.Location = new System.Drawing.Point(227, 67);
+            this.cmbKind.Margin = new System.Windows.Forms.Padding(4, 4, 37, 4);
+            this.cmbKind.Name = "cmbKind";
+            this.cmbKind.Size = new System.Drawing.Size(535, 25);
+            this.cmbKind.TabIndex = 36;
+            this.cmbKind.SelectedIndexChanged += new System.EventHandler(this.kindComboBox_SelectedIndexChanged);
+            // 
             // grbClampingParams
             // 
             this.grbClampingParams.AutoSize = true;
@@ -435,7 +419,7 @@ namespace TaskModule.BasicAdvisorControls
             this.grbClampingParams.Controls.Add(this.chbX);
             this.grbClampingParams.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbClampingParams.Location = new System.Drawing.Point(9, 139);
-            this.grbClampingParams.Margin = new System.Windows.Forms.Padding(9, 9, 9, 9);
+            this.grbClampingParams.Margin = new System.Windows.Forms.Padding(9);
             this.grbClampingParams.Name = "grbClampingParams";
             this.grbClampingParams.Size = new System.Drawing.Size(783, 126);
             this.grbClampingParams.TabIndex = 26;
@@ -462,11 +446,25 @@ namespace TaskModule.BasicAdvisorControls
             this.label2.TabIndex = 38;
             this.label2.Text = "Направление";
             // 
+            // cmbStiffnessFunc
+            // 
+            this.cmbStiffnessFunc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbStiffnessFunc.Enabled = false;
+            this.cmbStiffnessFunc.FormattingEnabled = true;
+            this.cmbStiffnessFunc.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
+            this.cmbStiffnessFunc.IsValidating = true;
+            this.cmbStiffnessFunc.Location = new System.Drawing.Point(227, 78);
+            this.cmbStiffnessFunc.Margin = new System.Windows.Forms.Padding(20, 4, 20, 4);
+            this.cmbStiffnessFunc.Name = "cmbStiffnessFunc";
+            this.cmbStiffnessFunc.Size = new System.Drawing.Size(535, 25);
+            this.cmbStiffnessFunc.TabIndex = 1;
+            // 
             // chbLRF
             // 
             this.chbLRF.AutoSize = true;
             this.chbLRF.Location = new System.Drawing.Point(383, 44);
-            this.chbLRF.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbLRF.Margin = new System.Windows.Forms.Padding(4);
             this.chbLRF.Name = "chbLRF";
             this.chbLRF.Size = new System.Drawing.Size(125, 21);
             this.chbLRF.TabIndex = 0;
@@ -480,7 +478,7 @@ namespace TaskModule.BasicAdvisorControls
             // 
             this.chbZ.AutoSize = true;
             this.chbZ.Location = new System.Drawing.Point(331, 44);
-            this.chbZ.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbZ.Margin = new System.Windows.Forms.Padding(4);
             this.chbZ.Name = "chbZ";
             this.chbZ.Size = new System.Drawing.Size(39, 21);
             this.chbZ.TabIndex = 0;
@@ -493,7 +491,7 @@ namespace TaskModule.BasicAdvisorControls
             // 
             this.chbY.AutoSize = true;
             this.chbY.Location = new System.Drawing.Point(279, 44);
-            this.chbY.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbY.Margin = new System.Windows.Forms.Padding(4);
             this.chbY.Name = "chbY";
             this.chbY.Size = new System.Drawing.Size(39, 21);
             this.chbY.TabIndex = 0;
@@ -506,7 +504,7 @@ namespace TaskModule.BasicAdvisorControls
             // 
             this.chbX.AutoSize = true;
             this.chbX.Location = new System.Drawing.Point(227, 44);
-            this.chbX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbX.Margin = new System.Windows.Forms.Padding(4);
             this.chbX.Name = "chbX";
             this.chbX.Size = new System.Drawing.Size(39, 21);
             this.chbX.TabIndex = 0;
@@ -519,7 +517,7 @@ namespace TaskModule.BasicAdvisorControls
             // 
             this.закрепленияTab_элComboBox.FormattingEnabled = true;
             this.закрепленияTab_элComboBox.Location = new System.Drawing.Point(199, -39);
-            this.закрепленияTab_элComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.закрепленияTab_элComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.закрепленияTab_элComboBox.Name = "закрепленияTab_элComboBox";
             this.закрепленияTab_элComboBox.Size = new System.Drawing.Size(304, 25);
             this.закрепленияTab_элComboBox.TabIndex = 17;
@@ -567,9 +565,9 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private ValidatingNumericTextBox txbStopTime;
+        private TextBoxValidator txbStopTime;
         private BtnValidate btnAddNewRow;
-        private ValidatingNumericTextBox txbStartTime;
+        private TextBoxValidator txbStartTime;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
         private CMBValidator cmbNodeGr;
@@ -578,7 +576,7 @@ namespace TaskModule.BasicAdvisorControls
         private CMBValidator cmbKind;
         private System.Windows.Forms.GroupBox grbClampingParams;
         private System.Windows.Forms.Label label2;
-        private ValidatingFunctionCMB cmbStiffnessFunc;
+        private CMBValidator cmbStiffnessFunc;
         private System.Windows.Forms.Label label4;
         private BtnValidate btnRefresh;
         private System.Windows.Forms.Button btnShowAll;

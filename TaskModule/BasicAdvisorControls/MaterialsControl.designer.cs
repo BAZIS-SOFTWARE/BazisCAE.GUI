@@ -1,5 +1,5 @@
 ﻿using BaseModule.ControlsLib;
-using TaskModule.Validation;
+using BaseModule.ControlsLib.Validation;
 
 namespace TaskModule.BasicAdvisorControls
 {
@@ -42,13 +42,13 @@ namespace TaskModule.BasicAdvisorControls
             this.player = new BaseModule.ControlsLib.Player();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txbStopTime = new ValidatingNumericTextBox();
+            this.txbStopTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive};
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnRefresh = new BtnValidate();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnAddNewRow = new BtnValidate();
-            this.txbStartTime = new ValidatingNumericTextBox();
+            this.txbStartTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbMat = new CMBValidator();
@@ -249,10 +249,6 @@ namespace TaskModule.BasicAdvisorControls
             this.btnRefresh.TabIndex = 13;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.AddControl(txbStopTime);
-            this.btnRefresh.AddControl(txbStopTime);
-            this.btnRefresh.AddControl(cmbEl);
-            this.btnRefresh.AddControl(cmbMat);
             this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // btnClearAll
@@ -281,10 +277,6 @@ namespace TaskModule.BasicAdvisorControls
             this.btnAddNewRow.TabIndex = 13;
             this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewRow.UseVisualStyleBackColor = true;
-            this.btnAddNewRow.AddControl(txbStopTime);
-            this.btnAddNewRow.AddControl(txbStopTime);
-            this.btnAddNewRow.AddControl(cmbEl);
-            this.btnAddNewRow.AddControl(cmbMat);
             this.btnAddNewRow.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // txbStartTime
@@ -391,9 +383,9 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private ValidatingNumericTextBox txbStopTime;
+        private TextBoxValidator txbStopTime;
         private BtnValidate btnAddNewRow;
-        private ValidatingNumericTextBox txbStartTime;
+        private TextBoxValidator txbStartTime;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label2;
         private CMBValidator cmbMat;

@@ -8,7 +8,7 @@ using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Interfaces;
 using System.Linq;
 using TaskModule.BasicAdvisorControls.Events;
-using TaskModule.Validation;
+using BaseModule.ControlsLib.Validation;
 
 namespace TaskModule.BasicAdvisorControls
 {
@@ -79,6 +79,16 @@ namespace TaskModule.BasicAdvisorControls
             InitializeComponent();
 
             DataName = "Материал";
+            var ctrlsValidatingMethods = new Func<ErrorProvider, bool>[] 
+            {
+                (EP) => txbStartTime.IsValueValid(EP),
+                (EP) => txbStopTime.IsValueValid(EP),
+                (EP) => cmbEl.IsValueValid(EP),
+                (EP) => cmbMat.IsValueValid(EP)
+            };
+
+            btnRefresh.AddRangeControlValidatingMethod(ctrlsValidatingMethods);
+            btnAddNewRow.AddRangeControlValidatingMethod(ctrlsValidatingMethods);
         }
 
         public override string DataName { get; }

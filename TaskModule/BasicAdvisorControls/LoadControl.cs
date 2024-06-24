@@ -9,7 +9,7 @@ using TaskModule.BasicAdvisorControls.Interfaces;
 using System.Linq;
 using TaskModule.BasicAdvisorControls.Events;
 using System.Text;
-using TaskModule.Validation;
+using BaseModule.ControlsLib.Validation;
 
 namespace TaskModule.BasicAdvisorControls
 {
@@ -62,6 +62,19 @@ namespace TaskModule.BasicAdvisorControls
         {
             InitializeComponent();
             DataName = "Нагрузка";
+
+            var validatingCtrlsMethods = new Func<ErrorProvider, bool>[]
+            {
+                (EP) => txbStartTime.IsValueValid(EP),
+                (EP) => txbStopTime.IsValueValid(EP),
+                (EP) => txbValue.IsValueValid(EP),
+                (EP) => cmbGr.IsValueValid(EP),
+                (EP) => cmbKind.IsValueValid(EP),
+                (EP) => cmbLoadFunction.IsValueValid(EP)
+            };
+
+            btnRefresh.AddRangeControlValidatingMethod(validatingCtrlsMethods);
+            btnAddNewRow.AddRangeControlValidatingMethod(validatingCtrlsMethods);
         }
 
         public override string DataName { get; }

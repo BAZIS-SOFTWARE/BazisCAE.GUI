@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
-using TaskModule.Validation;
+using BaseModule.ControlsLib.Validation;
 
 namespace TaskModule.BasicAdvisorControls
 {
@@ -70,7 +70,19 @@ namespace TaskModule.BasicAdvisorControls
         public ClampControl()
         {
             InitializeComponent();
-            DataName = "Закрепление";      
+            DataName = "Закрепление";
+
+            var validatingCtrlsMethods = new Func<ErrorProvider, bool>[] 
+            {
+                (EP) => txbStartTime.IsValueValid(EP),
+                (EP) => txbStopTime.IsValueValid(EP),
+                (EP) => cmbKind.IsValueValid(EP),
+                (EP) => cmbNodeGr.IsValueValid(EP),
+                (EP) => cmbStiffnessFunc.IsValueValid(EP)
+            };
+
+            btnRefresh.AddRangeControlValidatingMethod(validatingCtrlsMethods);
+            btnAddNewRow.AddRangeControlValidatingMethod(validatingCtrlsMethods);
         }
 
         public override string DataName { get; }
