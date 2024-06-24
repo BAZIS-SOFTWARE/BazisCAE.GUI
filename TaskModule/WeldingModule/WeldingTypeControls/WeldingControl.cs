@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using BaseModule.ControlsLib.Validation;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +11,6 @@ using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
-using TaskModule.Validation;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -125,6 +125,25 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             InitializeComponent();
             DataName = "Нагрев";
+
+            var ctrlsValidatingMethods = new Func<ErrorProvider, bool>[] 
+            {
+                (EP) => txbStartTime.IsValueValid(EP),
+                (EP) => txbAngle.IsValueValid(EP),
+                (EP) => txbShiftX.IsValueValid(EP),
+                (EP) => txbShiftY.IsValueValid(EP),
+                (EP) => txbShiftZ.IsValueValid(EP),
+                (EP) => txbVelosity.IsValueValid(EP),
+                (EP) => cmbTraj.IsValueValid(EP),
+                (EP) => cmbEnergyCalibration.IsValueValid(EP),
+                (EP) => cmbRef.IsValueValid(EP),
+                (EP) => cmbWeldZone.IsValueValid(EP),
+                (EP) => cmbStartPoint.IsValueValid(EP),
+                (EP) => cmbStopPoint.IsValueValid(EP)
+            };
+
+            btnRefresh.AddRangeControlValidatingMethod(ctrlsValidatingMethods);
+            addRowButton.AddRangeControlValidatingMethod(ctrlsValidatingMethods);
         }
 
         public override string DataName { get; }

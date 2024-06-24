@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseModule.ControlsLib.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,7 +10,6 @@ using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
-using TaskModule.Validation;
 
 namespace TaskModule.HeatTreatmentModule
 {
@@ -62,6 +62,20 @@ namespace TaskModule.HeatTreatmentModule
             InitializeComponent();
             DataName = "Среда";
 
+            var ctrlsValidatingMethods = new Func<ErrorProvider, bool>[]
+            {
+                (EP) => txbStartTime.IsValueValid(EP),
+                (EP) => txbStopTime.IsValueValid(EP),
+                (EP) => cmbEl.IsValueValid(EP),
+                (EP) => cmbExchFunc.IsValueValid(EP),
+                (EP) => cmbTempFunc.IsValueValid(EP),
+                (EP) => blackRank.IsValueValid(EP),
+                (EP) => StefanBolzmanConst.IsValueValid(EP),
+                (EP) => convExcFunc.IsValueValid(EP)
+            };
+
+            btnAddNewRow.AddRangeControlValidatingMethod(ctrlsValidatingMethods);
+            btnRefresh.AddRangeControlValidatingMethod(ctrlsValidatingMethods);
         }
 
         public override string DataName { get; }

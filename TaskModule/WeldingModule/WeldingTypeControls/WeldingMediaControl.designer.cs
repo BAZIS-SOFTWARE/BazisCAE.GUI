@@ -1,5 +1,6 @@
 ﻿using BaseModule.ControlsLib;
-using TaskModule.Validation;
+using BaseModule.ControlsLib.Validation;
+using System.Windows.Forms;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -35,9 +36,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new BaseModule.ControlsLib.GroupBoxEx();
             this.label5 = new System.Windows.Forms.Label();
-            this.txbMediaTemp = new ValidatingNumericTextBox() { IsNegativeValueAvailable = true };
+            this.txbMediaTemp = new TextBoxValidator() { InputType = TXTBoxInputType.Float };
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbFunc = new ValidatingFunctionCMB();
+            this.cmbFunc = new CMBValidator() { InputType = CMBInputType.Items | CMBInputType.Float };
             this.label1 = new System.Windows.Forms.Label();
             this.cmbEl = new CMBValidator();
             this.dataGridView = new System.Windows.Forms.DataGridView();
@@ -50,13 +51,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.player = new BaseModule.ControlsLib.Player();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txbStopTime = new ValidatingNumericTextBox();
+            this.txbStopTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnRefresh = new BtnValidate();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnAddNewRow = new BtnValidate();
-            this.txbStartTime = new ValidatingNumericTextBox();
+            this.txbStartTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.grbTermoCycle = new BaseModule.ControlsLib.GroupBoxEx();
             this.cmbTermoCycle = new CMBValidator();
             this.label7 = new System.Windows.Forms.Label();
@@ -364,13 +365,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnRefresh.TabIndex = 13;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.AddControl(txbStartTime);
-            this.btnRefresh.AddControl(txbStopTime);
-            this.btnRefresh.AddControl(txbMediaTemp);
-            this.btnRefresh.AddControl(cmbEl);
-            this.btnRefresh.AddControl(cmbFunc);
-            this.btnRefresh.AddControl(cmbNode);
-            this.btnRefresh.AddControl(cmbTermoCycle);
             this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // btnClearAll
@@ -399,13 +393,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnAddNewRow.TabIndex = 13;
             this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewRow.UseVisualStyleBackColor = true;
-            this.btnAddNewRow.AddControl(txbStartTime);
-            this.btnAddNewRow.AddControl(txbStopTime);
-            this.btnAddNewRow.AddControl(txbMediaTemp);
-            this.btnAddNewRow.AddControl(cmbEl);
-            this.btnAddNewRow.AddControl(cmbFunc);
-            this.btnAddNewRow.AddControl(cmbNode);
-            this.btnAddNewRow.AddControl(cmbTermoCycle);
             this.btnAddNewRow.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // txbStartTime
@@ -550,18 +537,18 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label5;
-        private ValidatingNumericTextBox txbMediaTemp;
+        private TextBoxValidator txbMediaTemp;
         private System.Windows.Forms.Label label2;
-        private ValidatingFunctionCMB cmbFunc;
+        private CMBValidator cmbFunc;
         private System.Windows.Forms.Label label1;
         private CMBValidator cmbEl;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private ValidatingNumericTextBox txbStopTime;
+        private TextBoxValidator txbStopTime;
         private BtnValidate btnAddNewRow;
-        private ValidatingNumericTextBox txbStartTime;
+        private TextBoxValidator txbStartTime;
         private CMBValidator cmbTermoCycle;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;

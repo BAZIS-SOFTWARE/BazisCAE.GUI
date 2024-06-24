@@ -1,5 +1,5 @@
 ﻿using BaseModule.ControlsLib;
-using TaskModule.Validation;
+using BaseModule.ControlsLib.Validation;
 
 namespace TaskModule.HeatTreatmentModule
 {
@@ -35,16 +35,16 @@ namespace TaskModule.HeatTreatmentModule
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.blackRank = new ValidatingNumericTextBox();
+            this.blackRank = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.radAndConvCoef = new System.Windows.Forms.RadioButton();
             this.fullCoef = new System.Windows.Forms.RadioButton();
             this.label7 = new System.Windows.Forms.Label();
-            this.StefanBolzmanConst = new ValidatingNumericTextBox();
-            this.convExcFunc = new ValidatingNumericTextBox();
+            this.StefanBolzmanConst = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
+            this.convExcFunc = new TextBoxValidator() { InputType = TXTBoxInputType.Float };
             this.cmbTempFunc = new CMBValidator();
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.cmbExchFunc = new ValidatingFunctionCMB();
+            this.cmbExchFunc = new CMBValidator() { InputType = CMBInputType.Float | CMBInputType.Items };
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.elGroupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,13 +56,13 @@ namespace TaskModule.HeatTreatmentModule
             this.player = new BaseModule.ControlsLib.Player();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txbStopTime = new ValidatingNumericTextBox();
+            this.txbStopTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnRefresh = new BtnValidate();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnAddNewRow = new BtnValidate();
-            this.txbStartTime = new ValidatingNumericTextBox();
+            this.txbStartTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cmbEl = new CMBValidator();
             this.label2 = new System.Windows.Forms.Label();
@@ -431,14 +431,6 @@ namespace TaskModule.HeatTreatmentModule
             this.btnRefresh.TabIndex = 13;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.AddControl(txbStartTime);
-            this.btnRefresh.AddControl(txbStopTime);
-            this.btnRefresh.AddControl(cmbEl);
-            this.btnRefresh.AddControl(cmbExchFunc);
-            this.btnRefresh.AddControl(cmbTempFunc);
-            this.btnRefresh.AddControl(StefanBolzmanConst);
-            this.btnRefresh.AddControl(blackRank);
-            this.btnRefresh.AddControl(convExcFunc);
             this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // btnClearAll
@@ -467,14 +459,6 @@ namespace TaskModule.HeatTreatmentModule
             this.btnAddNewRow.TabIndex = 13;
             this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewRow.UseVisualStyleBackColor = true;
-            this.btnAddNewRow.AddControl(txbStartTime);
-            this.btnAddNewRow.AddControl(txbStopTime);
-            this.btnAddNewRow.AddControl(cmbEl);
-            this.btnAddNewRow.AddControl(cmbExchFunc);
-            this.btnAddNewRow.AddControl(cmbTempFunc);
-            this.btnAddNewRow.AddControl(StefanBolzmanConst);
-            this.btnAddNewRow.AddControl(blackRank);
-            this.btnAddNewRow.AddControl(convExcFunc);
             this.btnAddNewRow.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // txbStartTime
@@ -553,27 +537,27 @@ namespace TaskModule.HeatTreatmentModule
         private System.Windows.Forms.GroupBox grbHeatFlux;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label2;
-        private ValidatingFunctionCMB cmbExchFunc;
+        private CMBValidator cmbExchFunc;
         private System.Windows.Forms.Label label1;
         private CMBValidator cmbEl;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private ValidatingNumericTextBox txbStopTime;
+        private TextBoxValidator txbStopTime;
         private System.Windows.Forms.Button btnHideAll;
         private System.Windows.Forms.Button btnShowAll;
         private BtnValidate btnRefresh;
         private System.Windows.Forms.Button btnClearAll;
         private BtnValidate btnAddNewRow;
-        private ValidatingNumericTextBox txbStartTime;
+        private TextBoxValidator txbStartTime;
         private System.Windows.Forms.GroupBox groupBox4;
         private CMBValidator cmbTempFunc;
         private Player player;
-        private ValidatingNumericTextBox convExcFunc;
-        private ValidatingNumericTextBox StefanBolzmanConst;
+        private TextBoxValidator convExcFunc;
+        private TextBoxValidator StefanBolzmanConst;
         private System.Windows.Forms.Label label9;
-        private ValidatingNumericTextBox blackRank;
+        private TextBoxValidator blackRank;
         private System.Windows.Forms.RadioButton radAndConvCoef;
         private System.Windows.Forms.RadioButton fullCoef;
         private System.Windows.Forms.Label label7;

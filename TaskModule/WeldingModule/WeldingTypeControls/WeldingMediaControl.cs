@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseModule.ControlsLib.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,7 +10,6 @@ using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
-using TaskModule.Validation;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -22,6 +22,19 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             InitializeComponent();
             DataName = "Среда";
 
+            var ctrlsValidatingMethods = new Func<ErrorProvider, bool>[] 
+            {
+                (EP) => txbStartTime.IsValueValid(EP),
+                (EP) => txbStopTime.IsValueValid(EP),
+                (EP) => txbMediaTemp.IsValueValid(EP),
+                (EP) => cmbEl.IsValueValid(EP),
+                (EP) => cmbFunc.IsValueValid(EP),
+                (EP) => cmbNode.IsValueValid(EP),
+                (EP) => cmbTermoCycle.IsValueValid(EP)
+            };
+
+            btnAddNewRow.AddRangeControlValidatingMethod(ctrlsValidatingMethods);
+            btnRefresh.AddRangeControlValidatingMethod(ctrlsValidatingMethods);
         }
 
         public override string DataName { get; }
