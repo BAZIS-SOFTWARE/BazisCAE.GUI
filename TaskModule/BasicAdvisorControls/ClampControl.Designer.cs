@@ -48,8 +48,8 @@ namespace TaskModule.BasicAdvisorControls
             this.btnRefresh = new BtnValidate(this.components);
             this.btnAddNewRow = new BtnValidate(this.components);
             this.txbStartTime = new ValidatingNumericTextBox(this.components);
-            this.cmbNodeGr = new CMBValidating(this.components);
-            this.cmbKind = new CMBValidating(this.components);
+            this.cmbNodeGr = new CMBValidator(this.components);
+            this.cmbKind = new CMBValidator(this.components);
             this.cmbStiffnessFunc = new ValidatingFunctionCMB(this.components);
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -572,10 +572,10 @@ namespace TaskModule.BasicAdvisorControls
         private ValidatingNumericTextBox txbStartTime;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
-        private CMBValidating cmbNodeGr;
+        private CMBValidator cmbNodeGr;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
-        private CMBValidating cmbKind;
+        private CMBValidator cmbKind;
         private System.Windows.Forms.GroupBox grbClampingParams;
         private System.Windows.Forms.Label label2;
         private ValidatingFunctionCMB cmbStiffnessFunc;

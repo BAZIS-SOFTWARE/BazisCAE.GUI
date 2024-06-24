@@ -13,28 +13,24 @@ namespace TaskModule.Validation
     /// </summary>
     public interface IValidatingControl
     {
-        bool IsValueValid();
+        bool IsValueValid(ErrorProvider EP);
 
         bool IsValidating { get; set; }
-
-        ErrorProvider EP { get; }
     }
 
     [Flags]
-    public enum TextBoxInputType
+    public enum TXTBoxInputType
     {
-        AllValues = 0,
         Text = 1,
         SpecialSymbols = 2,
-        integet = 4,
+        Integer = 4,
         Float = 8,
         Positive = 16
     }
 
     [Flags]
-    public enum ComboBoxInputType
+    public enum CMBInputType
     {
-        AllValues = 0,
         Items = 1,
         Integer = 2,
         Float = 4,

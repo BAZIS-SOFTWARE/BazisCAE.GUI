@@ -51,9 +51,9 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStartTime = new ValidatingNumericTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbMat = new CMBValidating();
+            this.cmbMat = new CMBValidator();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbEl = new CMBValidating();
+            this.cmbEl = new CMBValidator();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -396,9 +396,9 @@ namespace TaskModule.BasicAdvisorControls
         private ValidatingNumericTextBox txbStartTime;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label2;
-        private CMBValidating cmbMat;
+        private CMBValidator cmbMat;
         private System.Windows.Forms.Label label1;
-        private CMBValidating cmbEl;
+        private CMBValidator cmbEl;
         private BtnValidate btnRefresh;
         private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.Button btnHideAll;

@@ -1,6 +1,6 @@
 ﻿namespace TaskModule.Validation
 {
-    partial class CMBValidating
+    partial class CMBValidator
     {
         /// <summary>
         /// Обязательная переменная конструктора.

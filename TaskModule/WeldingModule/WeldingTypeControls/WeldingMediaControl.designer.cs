@@ -39,7 +39,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.label2 = new System.Windows.Forms.Label();
             this.cmbFunc = new ValidatingFunctionCMB();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbEl = new CMBValidating();
+            this.cmbEl = new CMBValidator();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.elGroupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.matColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,10 +58,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnAddNewRow = new BtnValidate();
             this.txbStartTime = new ValidatingNumericTextBox();
             this.grbTermoCycle = new BaseModule.ControlsLib.GroupBoxEx();
-            this.cmbTermoCycle = new CMBValidating();
+            this.cmbTermoCycle = new CMBValidator();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.cmbNode = new CMBValidating();
+            this.cmbNode = new CMBValidator();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.rbtTermoCycle = new System.Windows.Forms.RadioButton();
             this.rbtHeatFlow = new System.Windows.Forms.RadioButton();
@@ -554,7 +554,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private System.Windows.Forms.Label label2;
         private ValidatingFunctionCMB cmbFunc;
         private System.Windows.Forms.Label label1;
-        private CMBValidating cmbEl;
+        private CMBValidator cmbEl;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
@@ -562,10 +562,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private ValidatingNumericTextBox txbStopTime;
         private BtnValidate btnAddNewRow;
         private ValidatingNumericTextBox txbStartTime;
-        private CMBValidating cmbTermoCycle;
+        private CMBValidator cmbTermoCycle;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private CMBValidating cmbNode;
+        private CMBValidator cmbNode;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.RadioButton rbtTermoCycle;
         private System.Windows.Forms.RadioButton rbtHeatFlow;

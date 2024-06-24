@@ -25,7 +25,7 @@ namespace TaskModule.Validation
 
         public bool IsValidating { get; set; }
 
-        public TextBoxInputType InputType { get; set; }
+        public TXTBoxInputType InputType { get; set; }
 
         public ErrorProvider EP { get; }
 

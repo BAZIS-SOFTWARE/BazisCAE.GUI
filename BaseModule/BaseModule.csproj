@@ -161,11 +161,11 @@
     </Compile>
     <Compile Include="ControlsLib\Validation\IValidateControl.cs" />
     <Compile Include="ControlsLib\Validation\IValidatingControl.cs" />
-    <Compile Include="ControlsLib\Validation\CMBValidating.cs">
+    <Compile Include="ControlsLib\Validation\CMBValidator.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ControlsLib\Validation\CMBValidating.Designer.cs">
-      <DependentUpon>CMBValidating.cs</DependentUpon>
+    <Compile Include="ControlsLib\Validation\CMBValidator.Designer.cs">
+      <DependentUpon>CMBValidator.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlsLib\Validation\TextBoxValidating.cs">
       <SubType>Component</SubType>

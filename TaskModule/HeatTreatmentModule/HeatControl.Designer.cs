@@ -41,7 +41,7 @@ namespace TaskModule.HeatTreatmentModule
             this.label7 = new System.Windows.Forms.Label();
             this.StefanBolzmanConst = new ValidatingNumericTextBox();
             this.convExcFunc = new ValidatingNumericTextBox();
-            this.cmbTempFunc = new CMBValidating();
+            this.cmbTempFunc = new CMBValidator();
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.cmbExchFunc = new ValidatingFunctionCMB();
@@ -64,7 +64,7 @@ namespace TaskModule.HeatTreatmentModule
             this.btnAddNewRow = new BtnValidate();
             this.txbStartTime = new ValidatingNumericTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.cmbEl = new CMBValidating();
+            this.cmbEl = new CMBValidator();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.grbHeatFlux.SuspendLayout();
@@ -555,7 +555,7 @@ namespace TaskModule.HeatTreatmentModule
         private System.Windows.Forms.Label label2;
         private ValidatingFunctionCMB cmbExchFunc;
         private System.Windows.Forms.Label label1;
-        private CMBValidating cmbEl;
+        private CMBValidator cmbEl;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
@@ -568,7 +568,7 @@ namespace TaskModule.HeatTreatmentModule
         private BtnValidate btnAddNewRow;
         private ValidatingNumericTextBox txbStartTime;
         private System.Windows.Forms.GroupBox groupBox4;
-        private CMBValidating cmbTempFunc;
+        private CMBValidator cmbTempFunc;
         private Player player;
         private ValidatingNumericTextBox convExcFunc;
         private ValidatingNumericTextBox StefanBolzmanConst;

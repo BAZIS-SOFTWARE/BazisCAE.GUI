@@ -55,12 +55,12 @@ namespace TaskModule.BasicAdvisorControls
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txbValue = new ValidatingNumericTextBox() { IsNegativeValueAvailable = true};
             this.chbLRF = new System.Windows.Forms.CheckBox();
-            this.cmbGr = new CMBValidating();
+            this.cmbGr = new CMBValidator();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.cmbLoadFunction = new ValidatingFunctionCMB();
-            this.cmbKind = new CMBValidating();
+            this.cmbKind = new CMBValidator();
             this.chbZ = new System.Windows.Forms.CheckBox();
             this.chbY = new System.Windows.Forms.CheckBox();
             this.chbX = new System.Windows.Forms.CheckBox();
@@ -544,10 +544,10 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.Label label10;
         private ValidatingNumericTextBox txbStartTime;
         private System.Windows.Forms.GroupBox groupBox1;
-        private CMBValidating cmbGr;
+        private CMBValidator cmbGr;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
-        private CMBValidating cmbKind;
+        private CMBValidator cmbKind;
         private System.Windows.Forms.CheckBox chbZ;
         private System.Windows.Forms.CheckBox chbY;
         private System.Windows.Forms.CheckBox chbX;
