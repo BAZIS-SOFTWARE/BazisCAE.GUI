@@ -70,6 +70,7 @@ namespace ModelModule
             this.txbAlgoNPoints = new System.Windows.Forms.TextBox();
             this.btnDel = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.chbShowCurveLayout = new System.Windows.Forms.CheckBox();
             this.chbShowCurvesInfo = new System.Windows.Forms.CheckBox();
             this.chbShowSurfacesInfo = new System.Windows.Forms.CheckBox();
             this.chbShowHeatMap = new System.Windows.Forms.CheckBox();
@@ -105,7 +106,7 @@ namespace ModelModule
             this.btnMesh2DDel.Enabled = false;
             this.btnMesh2DDel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMesh2DDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnMesh2DDel.Location = new System.Drawing.Point(329, 60);
+            this.btnMesh2DDel.Location = new System.Drawing.Point(328, 60);
             this.btnMesh2DDel.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.btnMesh2DDel.Name = "btnMesh2DDel";
             this.btnMesh2DDel.Size = new System.Drawing.Size(154, 32);
@@ -140,7 +141,7 @@ namespace ModelModule
             this.algoLabel.AutoSize = true;
             this.algoLabel.Enabled = false;
             this.algoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.algoLabel.Location = new System.Drawing.Point(18, 13);
+            this.algoLabel.Location = new System.Drawing.Point(17, 13);
             this.algoLabel.Name = "algoLabel";
             this.algoLabel.Size = new System.Drawing.Size(118, 26);
             this.algoLabel.TabIndex = 7;
@@ -155,7 +156,7 @@ namespace ModelModule
             this.meshDensityValue.Location = new System.Drawing.Point(7, 113);
             this.meshDensityValue.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.meshDensityValue.Name = "meshDensityValue";
-            this.meshDensityValue.Size = new System.Drawing.Size(140, 20);
+            this.meshDensityValue.Size = new System.Drawing.Size(139, 20);
             this.meshDensityValue.TabIndex = 6;
             this.meshDensityValue.Text = "1";
             this.meshDensityValue.TextChanged += new System.EventHandler(this.OnDencityChange);
@@ -165,7 +166,7 @@ namespace ModelModule
             this.mesh2DGenBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.mesh2DGenBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesh2DGenBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.mesh2DGenBtn.Location = new System.Drawing.Point(162, 60);
+            this.mesh2DGenBtn.Location = new System.Drawing.Point(160, 60);
             this.mesh2DGenBtn.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.mesh2DGenBtn.Name = "mesh2DGenBtn";
             this.mesh2DGenBtn.Size = new System.Drawing.Size(151, 32);
@@ -197,7 +198,7 @@ namespace ModelModule
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.97297F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.02703F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 172F));
             this.tableLayoutPanel1.Controls.Add(this.refineBtn, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.meshDensityValue, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.algoLabel, 0, 0);
@@ -223,7 +224,7 @@ namespace ModelModule
             this.refineBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.refineBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refineBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.refineBtn.Location = new System.Drawing.Point(161, 107);
+            this.refineBtn.Location = new System.Drawing.Point(160, 107);
             this.refineBtn.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.refineBtn.Name = "refineBtn";
             this.refineBtn.Size = new System.Drawing.Size(152, 32);
@@ -250,7 +251,7 @@ namespace ModelModule
             this.quadBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.quadBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.quadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.quadBtn.Location = new System.Drawing.Point(330, 107);
+            this.quadBtn.Location = new System.Drawing.Point(329, 107);
             this.quadBtn.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.quadBtn.Name = "quadBtn";
             this.quadBtn.Size = new System.Drawing.Size(152, 32);
@@ -628,6 +629,7 @@ namespace ModelModule
             this.panel2.AutoSize = true;
             this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Controls.Add(this.chbShowCurveLayout);
             this.panel2.Controls.Add(this.chbShowCurvesInfo);
             this.panel2.Controls.Add(this.chbShowSurfacesInfo);
             this.panel2.Controls.Add(this.chbShowHeatMap);
@@ -637,6 +639,21 @@ namespace ModelModule
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(492, 72);
             this.panel2.TabIndex = 16;
+            // 
+            // chbShowCurveLayout
+            // 
+            this.chbShowCurveLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chbShowCurveLayout.AutoSize = true;
+            this.chbShowCurveLayout.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.chbShowCurveLayout.Location = new System.Drawing.Point(279, 5);
+            this.chbShowCurveLayout.Margin = new System.Windows.Forms.Padding(3, 5, 3, 2);
+            this.chbShowCurveLayout.Name = "chbShowCurveLayout";
+            this.chbShowCurveLayout.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chbShowCurveLayout.Size = new System.Drawing.Size(197, 17);
+            this.chbShowCurveLayout.TabIndex = 6;
+            this.chbShowCurveLayout.Text = "Показать разметку точек кривых";
+            this.chbShowCurveLayout.UseVisualStyleBackColor = true;
+            this.chbShowCurveLayout.Click += new System.EventHandler(this.chbShowCurveLayout_Click);
             // 
             // chbShowCurvesInfo
             // 
@@ -826,5 +843,6 @@ namespace ModelModule
         private TableLayoutPanel tableLayoutPanel2;
         private TableLayoutPanel tableLayoutPanel3;
         private TabControlEx gmshTab;
+        private CheckBox chbShowCurveLayout;
     }
 }

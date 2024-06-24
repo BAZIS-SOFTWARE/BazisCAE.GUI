@@ -11,6 +11,7 @@ using Geometry;
 using System.Runtime.ExceptionServices;
 using System.Security;
 using ModelControllerInterfaces.GmshController;
+using Model.GeometryObjects;
 
 namespace ModelModule
 {
@@ -678,6 +679,15 @@ namespace ModelModule
         private void OnClosingForm(object sender, FormClosingEventArgs e)
         {
             hide3dTextEvent?.Invoke();
+            //Удаляем все временные контрольные точки
+            if (btnOK.Tag != null)
+            {
+                var dict = btnOK.Tag as Dictionary<int, List<GeometryPoint>>;
+                foreach (var item in dict)
+                    DeleteCurveTransfinitePoints(item.Key);
+                updateGeometryVBOEvent?.Invoke();
+            }
+
             if (!SaveObjectData)
             {
                 //DeleteGeometry();
@@ -739,6 +749,56 @@ namespace ModelModule
             show3dTextEvent?.Invoke(this,new Show3dTextEventArgs(list));  
         }
 
+        private void ShowCurveTransfinitePoints(bool show = true)
+        {
+            if (btnOK.Tag != null)
+            {
+                var dict = btnOK.Tag as Dictionary<int, List<GeometryPoint>>;
+                foreach (var keyValues in dict)
+                    foreach (var gPoint in keyValues.Value)
+                        gPoint.ViewState = show;
+            }
+        }
+
+        private void DeleteCurveTransfinitePoints(int curveTag)
+        {
+            if (btnOK.Tag != null)
+            {
+                var dict = btnOK.Tag as Dictionary<int, List<GeometryPoint>>;
+                if (dict.ContainsKey(curveTag))
+                {
+                    var storage = dict[curveTag];
+                    foreach (var gPoint in storage)
+                        gPoint.ExistState = false;
+                    ObjectData.PointCollection.ClearNotExisted();
+                }
+            }
+        }
+
+        private void UpdateCurveTransfinitePoints(int curveTag)
+        {
+            var ierr = 0;
+            long[] nodeTags;
+            double[] coords, parametrics;
+            var lastId = ObjectData.PointCollection.Last().Number;
+            GmshController.ModelMeshGenerate(1, ref ierr);
+            GmshController.ModelMeshGetNodes(1, curveTag, false, false, out nodeTags, out coords, out parametrics);
+            if(btnOK.Tag == null)
+                btnOK.Tag = new Dictionary<int, List<GeometryPoint>>();
+            var dict = btnOK.Tag as Dictionary<int, List<GeometryPoint>>;
+            var list = new List<GeometryPoint>();
+            if (!dict.ContainsKey(curveTag))
+                dict.Add(curveTag, list);
+            for (int i = 0, j = 0, num = lastId + 1; i < coords.Length; i += 3, ++j, ++num)
+            {
+                var gPoint = new GeometryPoint(num, new Point3D((float)coords[i], (float)coords[i + 1], (float)coords[i + 2]));
+                list.Add(gPoint);
+                ObjectData.PointCollection.Add(gPoint);
+            }
+            dict[curveTag] = list;
+        }
+
+
         private void BtnOK_Click(object sender, EventArgs e)
         {
             var ierr = 0;
@@ -758,9 +818,15 @@ namespace ModelModule
                     if (attributes.All(x => x.Length != 0))
                     {
                         GmshController.ModelMeshSetTransfiniteCurve(tag, (int)points, attributes[1], coef, ref ierr);
-                        //Перегенерация сетки, если она присутствовала в момент уплотнения кривой
-                        if (ObjectData.E2DCollection.Count > 0)
+                        DeleteCurveTransfinitePoints(tag);
+                        UpdateCurveTransfinitePoints(tag);
+                        if (ObjectData.E2DCollection.Count > 0)//Перегенерация сетки, если она присутствовала в момент уплотнения кривой
                             OnGenerateMesh2D(sender, EventArgs.Empty);
+                        else if (chbShowCurveLayout.Checked)
+                        {
+                            updateGeometryVBOEvent?.Invoke();
+                            redrawScene?.Invoke(false);
+                        }
                     }
                 }
             }
@@ -849,6 +915,16 @@ namespace ModelModule
                 if (chbShowCurvesInfo.Checked)//Рассматриваем случай когда кривые должны быть отображены
                     ShowCurvesInfo();
             }
+        }
+
+        private void chbShowCurveLayout_Click(object sender, EventArgs e)
+        {
+            if(chbShowCurveLayout.Checked)
+                ShowCurveTransfinitePoints();
+            else
+                ShowCurveTransfinitePoints(false);
+            updateGeometryVBOEvent?.Invoke();
+            redrawScene?.Invoke(false);
         }
     }
 }
