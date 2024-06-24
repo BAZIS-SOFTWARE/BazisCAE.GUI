@@ -10,20 +10,29 @@ using System.Windows.Forms;
 
 namespace TaskModule.Validation
 {
-    public partial class CMBValidator : ComboBox, IValidatorControl
+    public partial class TextBoxValidator : TextBox, IValidatorControl
     {
-        public CMBValidator() { InitializeComponent(); }
+        private readonly char[] IligalSymbols = new[] { ' ' };
 
-        public CMBValidator(IContainer container)
+        public TextBoxValidator(char[] iligalSymbols = null) 
+        { 
+            InitializeComponent();
+            if (!(iligalSymbols == null))
+                IligalSymbols = iligalSymbols;
+        }
+
+        public TextBoxValidator(IContainer container, char[] iligalSymbols = null)
         {
             container.Add(this);
 
             InitializeComponent();
+            if (!(iligalSymbols == null))
+                IligalSymbols = iligalSymbols;
         }
 
-        public CMBInputType InputType { get; set; } = CMBInputType.Items;
-
         public bool IsValidating { get; set; } = true;
+
+        public TXTBoxInputType InputType { get; set; } = TXTBoxInputType.Text;
 
         public bool IsValueValid(ErrorProvider EP)
         {
@@ -38,16 +47,18 @@ namespace TaskModule.Validation
                     return GetErrorCheckResult(EP, "Поле оставлено пустым");
             }
 
-            if (IsInputTypeChosen(CMBInputType.Items) && Items.Contains(Text))
+            if (IsInputTypeChosen(TXTBoxInputType.Text | TXTBoxInputType.SpecialSymbols)
+                && Text.Any(x => IligalSymbols.Contains(x)))
+                return GetErrorCheckResult(EP, "Переданная строка пуста или содержит неподдерживаемые символы");
+
+            if (IsInputTypeChosen(TXTBoxInputType.Integer) && IsIntegerValuePass())
                 return GetErrorCheckResult(EP);
 
-            if (IsInputTypeChosen(CMBInputType.Integer) & IsIntegerValuePass())
+            if (IsInputTypeChosen(TXTBoxInputType.Float) && IsFloatValuePass())
                 return GetErrorCheckResult(EP);
 
-            if (IsInputTypeChosen(CMBInputType.Float) && IsFloatValuePass())
-                return GetErrorCheckResult(EP);
-
-            return GetErrorCheckResult(EP, "Выбранный вариант не доступен. Вероятно, допущена ошибка при выборе значения");
+            return GetErrorCheckResult(EP, $"Поле с валидирующим обработчиком типа {InputType} не было обработано ни одним обработчиком." +
+                $"Ошибка в веденном значении или типе обработки");
         }
 
         private bool GetErrorCheckResult(ErrorProvider EP, string errorMessage = "")
@@ -55,21 +66,20 @@ namespace TaskModule.Validation
             EP.SetError(this, errorMessage);
             return !(errorMessage.Length > 0);
         }
-
-        private bool IsInputTypeChosen(CMBInputType it) =>
+        private bool IsInputTypeChosen(TXTBoxInputType it) =>
             (InputType & it) != 0;
 
         private bool IsFloatValuePass() =>
-            IsInputTypeChosen(CMBInputType.Positive)
+            IsInputTypeChosen(TXTBoxInputType.Positive)
             && (IsPassRegExCheck("^(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
             || IsPassRegExCheck("^(\\d{1})(([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,})$"))
             || IsPassRegExCheck("^([-]?)(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
             || IsPassRegExCheck("^([-]?)(\\d{1})(([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,})$");
 
         private bool IsIntegerValuePass() =>
-            IsInputTypeChosen(CMBInputType.Positive)
-            && IsPassRegExCheck("^(([1-9]{1})(\\d{1,})?)$")
-            || IsPassRegExCheck("^([-]?)(([1-9]{1})(\\d{1,})?)$");
+            IsInputTypeChosen(TXTBoxInputType.Positive)
+            && IsPassRegExCheck("^([-]?)(([1-9]{1})(\\d{1,})?)$")
+            || IsPassRegExCheck("^(([1-9]{1})(\\d{1,})?)$");
 
         private bool IsPassRegExCheck(string regEx) => Regex.IsMatch(Text, regEx);
     }

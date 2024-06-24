@@ -11,7 +11,7 @@ namespace TaskModule.Validation
     /// <summary>
     /// Интерфейс валидатора контроллов. Используется для проверки значения после нажатия кнопки
     /// </summary>
-    public interface IValidatingControl
+    public interface IValidatorControl
     {
         bool IsValueValid(ErrorProvider EP);
 

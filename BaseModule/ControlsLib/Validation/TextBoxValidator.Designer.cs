@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace TaskModule.Validation
 {
-    partial class TextBoxValidating : IValidatingControl
+    partial class TextBoxValidator : IValidatorControl
     {
         /// <summary>
         /// Обязательная переменная конструктора.
