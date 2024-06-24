@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TaskModule.Validation
+namespace BaseModule.ControlsLib.Validation
 {
     public partial class CMBValidator : ComboBox, IValidatorControl
     {

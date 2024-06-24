@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace TaskModule.Validation
+namespace BaseModule.ControlsLib.Validation
 {
     partial class TextBoxValidator : IValidatorControl
     {

@@ -8,26 +8,19 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TaskModule.Validation
+namespace BaseModule.ControlsLib.Validation
 {
     public partial class TextBoxValidator : TextBox, IValidatorControl
     {
-        private readonly char[] IligalSymbols = new[] { ' ' };
+        public char[] IligalSymbols = new[] { ' ' };
 
-        public TextBoxValidator(char[] iligalSymbols = null) 
-        { 
-            InitializeComponent();
-            if (!(iligalSymbols == null))
-                IligalSymbols = iligalSymbols;
-        }
+        public TextBoxValidator() { InitializeComponent(); }
 
-        public TextBoxValidator(IContainer container, char[] iligalSymbols = null)
+        public TextBoxValidator(IContainer container)
         {
             container.Add(this);
 
             InitializeComponent();
-            if (!(iligalSymbols == null))
-                IligalSymbols = iligalSymbols;
         }
 
         public bool IsValidating { get; set; } = true;

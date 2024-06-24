@@ -1,4 +1,4 @@
-﻿namespace TaskModule.Validation
+﻿namespace BaseModule.ControlsLib.Validation
 {
     partial class BtnValidate
     {

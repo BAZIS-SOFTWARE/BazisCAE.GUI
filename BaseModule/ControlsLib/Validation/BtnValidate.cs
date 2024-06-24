@@ -7,14 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TaskModule.Validation
+namespace BaseModule.ControlsLib.Validation
 {
     public partial class BtnValidate : Button, IControlGroupValidator
     {
         public BtnValidate()
         {
             InitializeComponent();
-            ControlsValidatingMethods = new List<Func<bool>>();
+            EP = InitializaErrorProvider();
+            ControlsValidatingMethods = new List<Func<ErrorProvider, bool>>();
         }
 
         public BtnValidate(IContainer container)
@@ -22,20 +23,33 @@ namespace TaskModule.Validation
             container.Add(this);
 
             InitializeComponent();
-            ControlsValidatingMethods = new List<Func<bool>>();
+            EP = InitializaErrorProvider();
+            ControlsValidatingMethods = new List<Func<ErrorProvider, bool>>();
         }
 
-        public List<Func<bool>> ControlsValidatingMethods { get; }
+        public List<Func<ErrorProvider, bool>> ControlsValidatingMethods { get; }
 
-        public void AddControlValidatingMethod(Func<bool> method) => ControlsValidatingMethods.Add(method);
+        public void AddControlValidatingMethod(Func<ErrorProvider, bool> method) => ControlsValidatingMethods.Add(method);
 
-        public void RemoveControlValidatingMethod(Func<bool> method) => ControlsValidatingMethods.Remove(method);
+        public void RemoveControlValidatingMethod(Func<ErrorProvider, bool> method) => ControlsValidatingMethods.Remove(method);
 
-        public void AddRangeControlValidatingMethod(IEnumerable<Func<bool>> methods) =>
+        public void AddRangeControlValidatingMethod(IEnumerable<Func<ErrorProvider, bool>> methods) =>
             ControlsValidatingMethods.AddRange(methods);
 
+        public ErrorProvider EP { get; }
+
+        private ErrorProvider InitializaErrorProvider()
+        {
+            var eP = new ErrorProvider();
+            eP.SetIconAlignment(this, ErrorIconAlignment.MiddleRight);
+            eP.SetIconPadding(this, 2);
+            eP.BlinkRate = 1000;
+            eP.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+            return eP;
+        }
+
         /// <summary>
-        /// Проходит всегда по всем валидаторам контроллов, проверяя их и выводя ошибку.
+        /// Проходит всегда по всем делегатам проверки, проверяя их контролы и выводя ошибку возле контрола.
         /// </summary>
         /// <returns></returns>
         public bool ValidateControls() 
@@ -43,7 +57,7 @@ namespace TaskModule.Validation
             var result = true;
             foreach(var method in ControlsValidatingMethods)
             {
-                if (!method())
+                if (!method(EP))
                     result = false;
             }
             return result;
