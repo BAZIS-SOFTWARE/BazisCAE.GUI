@@ -33,7 +33,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FSWeldingControl));
             this.btnInfo = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbFrictionModule = new CMBValidator();
+            this.cmbFrictionModule = new CMBValidator() { InputType = CMBInputType.Items | CMBInputType.Float | CMBInputType.Positive };
             this.label1 = new System.Windows.Forms.Label();
             this.txbAxisForce = new TextBoxValidator() { InputType = TXTBoxInputType.Positive | TXTBoxInputType.Float };
             this.txbPinUpperDiam = new TextBoxValidator() { InputType = TXTBoxInputType.Positive | TXTBoxInputType.Float };
@@ -47,7 +47,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.label11 = new System.Windows.Forms.Label();
             this.txbRotSpeed = new TextBoxValidator() { InputType = TXTBoxInputType.Positive | TXTBoxInputType.Float};
             this.label5 = new System.Windows.Forms.Label();
-            this.cmbYield = new CMBValidator();
+            this.cmbYield = new CMBValidator() { InputType = CMBInputType.Items | CMBInputType.Float | CMBInputType.Positive};
             this.rbtPin = new System.Windows.Forms.RadioButton();
             this.rbtShoulder = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();

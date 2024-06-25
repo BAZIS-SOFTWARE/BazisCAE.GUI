@@ -68,13 +68,17 @@ namespace BaseModule.ControlsLib.Validation
             if (Text.Contains(","))
                 return GetErrorCheckResult(EP, "В качестве разделителя целой и дробной части необходимо использовать точку");
 
-            if (IsInputTypeChosen(TXTBoxInputType.Positive)
-                && (IsPassRegExCheck("^(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
-                || IsPassRegExCheck("^(\\d{1})(([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,})$")))
-                return GetErrorCheckResult(EP);
+            if (IsInputTypeChosen(TXTBoxInputType.Positive))
+            {
+                if (IsPassRegExCheck("^(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
+                || IsPassRegExCheck("^(\\d{1})((([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,}))?$"))
+                    return GetErrorCheckResult(EP);
+                return GetErrorCheckResult(EP, "Числовое поле не прошло проверку. Поле принимает только положительные числа");
+            }
+                
 
             else if (IsPassRegExCheck("^([-]?)(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
-            || IsPassRegExCheck("^([-]?)(\\d{1})(([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,})$"))
+            || IsPassRegExCheck("^([-]?)(\\d{1})((([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,}))?$"))
                 return GetErrorCheckResult(EP);
 
             return GetErrorCheckResult(EP, "Числовое поле не прошло проверку. Присутсвуют неопределимые ошибки записи числа");

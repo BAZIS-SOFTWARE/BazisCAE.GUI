@@ -42,12 +42,12 @@ namespace TaskModule.BasicAdvisorControls
             this.btnClearAll = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.txbStopTime = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbStopTime = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components) { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnRefresh = new BaseModule.ControlsLib.Validation.BtnValidate(this.components);
             this.btnAddNewRow = new BaseModule.ControlsLib.Validation.BtnValidate(this.components);
-            this.txbStartTime = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbStartTime = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components) { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
