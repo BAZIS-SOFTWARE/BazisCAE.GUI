@@ -62,17 +62,24 @@ namespace BaseModule.ControlsLib.Validation
         private bool IsInputTypeChosen(TXTBoxInputType it) =>
             (InputType & it) != 0;
 
-        private bool IsFloatValuePass() =>
-            IsInputTypeChosen(TXTBoxInputType.Positive)
-            && (IsPassRegExCheck("^(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
-            || IsPassRegExCheck("^(\\d{1})(([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,})$"))
+        private bool IsFloatValuePass()
+        {
+            if (IsInputTypeChosen(TXTBoxInputType.Positive))
+                return IsPassRegExCheck("^(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
+                    || IsPassRegExCheck("^(\\d{1})(([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,})$");
+
+            return IsPassRegExCheck("^(\\d{1})(([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,})$")
             || IsPassRegExCheck("^([-]?)(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
             || IsPassRegExCheck("^([-]?)(\\d{1})(([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,})$");
+        }
 
-        private bool IsIntegerValuePass() =>
-            IsInputTypeChosen(TXTBoxInputType.Positive)
-            && IsPassRegExCheck("^([-]?)(([1-9]{1})(\\d{1,})?)$")
-            || IsPassRegExCheck("^(([1-9]{1})(\\d{1,})?)$");
+        private bool IsIntegerValuePass()
+        {
+            if (IsInputTypeChosen(TXTBoxInputType.Positive))
+                return IsPassRegExCheck("^(([1-9]{1})(\\d{1,})?)$");
+
+            return IsPassRegExCheck("^([-]?)(([1-9]{1})(\\d{1,})?)$");
+        }
 
         private bool IsPassRegExCheck(string regEx) => Regex.IsMatch(Text, regEx);
     }
