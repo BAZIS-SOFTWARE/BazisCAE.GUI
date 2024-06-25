@@ -21,7 +21,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             };
         }
 
-
         public override string CollectData()
         {
             var strs = new string[]

@@ -1,4 +1,6 @@
-﻿namespace TaskModule.WeldingModule.WeldingTypeControls
+﻿using BaseModule.ControlsLib.Validation;
+
+namespace TaskModule.WeldingModule.WeldingTypeControls
 {
     partial class FSWeldingControl
     {
@@ -31,21 +33,21 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FSWeldingControl));
             this.btnInfo = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbFrictionModule = new System.Windows.Forms.ComboBox();
+            this.cmbFrictionModule = new CMBValidator();
             this.label1 = new System.Windows.Forms.Label();
-            this.txbAxisForce = new System.Windows.Forms.TextBox();
-            this.txbPinUpperDiam = new System.Windows.Forms.TextBox();
-            this.txbPinBottomDiam = new System.Windows.Forms.TextBox();
-            this.txbPinLenght = new System.Windows.Forms.TextBox();
-            this.txbShoulderDiam = new System.Windows.Forms.TextBox();
+            this.txbAxisForce = new TextBoxValidator() { InputType = TXTBoxInputType.Positive | TXTBoxInputType.Float };
+            this.txbPinUpperDiam = new TextBoxValidator() { InputType = TXTBoxInputType.Positive | TXTBoxInputType.Float };
+            this.txbPinBottomDiam = new TextBoxValidator() { InputType = TXTBoxInputType.Positive | TXTBoxInputType.Float };
+            this.txbPinLenght = new TextBoxValidator() { InputType = TXTBoxInputType.Positive | TXTBoxInputType.Float };
+            this.txbShoulderDiam = new TextBoxValidator() { InputType = TXTBoxInputType.Positive | TXTBoxInputType.Float };
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.txbRotSpeed = new System.Windows.Forms.TextBox();
+            this.txbRotSpeed = new TextBoxValidator() { InputType = TXTBoxInputType.Positive | TXTBoxInputType.Float};
             this.label5 = new System.Windows.Forms.Label();
-            this.cmbYield = new System.Windows.Forms.ComboBox();
+            this.cmbYield = new CMBValidator();
             this.rbtPin = new System.Windows.Forms.RadioButton();
             this.rbtShoulder = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
@@ -286,21 +288,21 @@
 
         private System.Windows.Forms.Button btnInfo;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cmbFrictionModule;
+        private CMBValidator cmbFrictionModule;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txbAxisForce;
-        private System.Windows.Forms.TextBox txbPinUpperDiam;
-        private System.Windows.Forms.TextBox txbPinBottomDiam;
-        private System.Windows.Forms.TextBox txbPinLenght;
-        private System.Windows.Forms.TextBox txbShoulderDiam;
+        private TextBoxValidator txbAxisForce;
+        private TextBoxValidator txbPinUpperDiam;
+        private TextBoxValidator txbPinBottomDiam;
+        private TextBoxValidator txbPinLenght;
+        private TextBoxValidator txbShoulderDiam;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox txbRotSpeed;
+        private TextBoxValidator txbRotSpeed;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox cmbYield;
+        private CMBValidator cmbYield;
         private System.Windows.Forms.RadioButton rbtPin;
         private System.Windows.Forms.RadioButton rbtShoulder;
     }
