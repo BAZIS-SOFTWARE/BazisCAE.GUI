@@ -16,6 +16,16 @@ namespace BaseModule.ControlsLib.Validation
         bool IsValueValid(ErrorProvider EP);
 
         bool IsValidating { get; set; }
+
+        /// <summary>
+        /// UserRegExCheck. Предоставляет пользователю добавить свою проверку ввода с помощью строки регулярного выражения
+        /// </summary>
+        string UserRegExCheck { get; set; }
+
+        /// <summary>
+        /// ErrorMessage, которое появляется при непройденной проверке на соответствие регулярному выражению UserRegExCheck
+        /// </summary>
+        string UserRegExCheckErrorMessage { get; set; } 
     }
 
     [Flags]
@@ -25,7 +35,8 @@ namespace BaseModule.ControlsLib.Validation
         SpecialSymbols = 2,
         Integer = 4,
         Float = 8,
-        Positive = 16
+        Positive = 16,
+        User = 32
     }
 
     [Flags]
@@ -34,6 +45,7 @@ namespace BaseModule.ControlsLib.Validation
         Items = 1,
         Integer = 2,
         Float = 4,
-        Positive = 8
+        Positive = 8,
+        User = 32
     }
 }
