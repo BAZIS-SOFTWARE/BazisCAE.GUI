@@ -27,11 +27,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             throw new NotImplementedException("Не реализован метод!");
         }
 
-        public virtual Func<ErrorProvider, bool>[] GetCtrlsValidatingMethods()
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual void AllTextBox_TextChanged(object sender, EventArgs e)
         {
             var sourceData = CollectData();

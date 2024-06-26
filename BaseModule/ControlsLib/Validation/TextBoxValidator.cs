@@ -15,25 +15,16 @@ namespace BaseModule.ControlsLib.Validation
     {
         public char[] IligalSymbols = new[] { ' ' };
 
-        public TextBoxValidator() { InitializeComponent(); }
+        public TextBoxValidator() { InitializeComponent(); InitializeErrorProvider(); }
 
         public TextBoxValidator(IContainer container)
         {
             container.Add(this);
 
             InitializeComponent();
+            InitializeErrorProvider();
         }
 
-        public event Action<EventArgs> Validate;
-        private void TextBoxValidator_Validate(object sender, EventArgs e) 
-        {
-            
-        }
-
-        //[Category("Flash")]
-        //[Editor("System.Windows.Forms.ImageEditorIndex, System.Design", typeof(UITypeEditor))]
-        //[Description("The current value of the track bar.  You can enter an actual value or a percentage.")]
-        //public int Value { get; set; }
         public bool IsValidating { get; set; } = true;
 
         public ErrorProvider EP { get; private set; }

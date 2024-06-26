@@ -73,6 +73,7 @@ namespace TaskModule.HeatTreatmentModule
             },
         };
 
+        public event Func<bool> ValidateControls;
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -86,6 +87,15 @@ namespace TaskModule.HeatTreatmentModule
         {
             InitializeComponent();
             DataName = "Диффузия";
+
+            ValidateControls += () => cmbEl.IsValueValid();
+            ValidateControls += () => cmbTempreture.IsValueValid();
+            ValidateControls += () => txbConcentrCarbon.IsValueValid();
+            ValidateControls += () => txbDiffCoefCarbon.IsValueValid();
+            ValidateControls += () => txbConcentrNitro.IsValueValid();
+            ValidateControls += () => txbDiffCoefNitro.IsValueValid();
+            ValidateControls += () => txbStart.IsValueValid();
+            ValidateControls += () => txbStop.IsValueValid();
         }
 
         public override string DataName { get; }
@@ -115,6 +125,8 @@ namespace TaskModule.HeatTreatmentModule
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
+            if (!IsValidated(this, new CancelEventArgs()))
+                return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -160,6 +172,8 @@ namespace TaskModule.HeatTreatmentModule
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
+            if (!IsValidated(this, new CancelEventArgs()))
+                return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -339,6 +353,12 @@ namespace TaskModule.HeatTreatmentModule
         public void Fill_nGroups(List<string> groupNames)
         {
             throw new Exception("Метод не реализован!");
+        }
+        public bool IsValidated(object sender, CancelEventArgs args)
+        {
+            var check = ValidateControls();
+            args.Cancel = check;
+            return check;
         }
     }
 }

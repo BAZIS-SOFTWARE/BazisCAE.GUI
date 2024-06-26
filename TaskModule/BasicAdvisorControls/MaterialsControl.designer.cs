@@ -1,5 +1,6 @@
 ﻿using BaseModule.ControlsLib;
 using BaseModule.ControlsLib.Validation;
+using System.Windows.Forms;
 
 namespace TaskModule.BasicAdvisorControls
 {
@@ -45,9 +46,9 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStopTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive};
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
-            this.btnRefresh = new BtnValidate();
+            this.btnRefresh = new Button();
             this.btnClearAll = new System.Windows.Forms.Button();
-            this.btnAddNewRow = new BtnValidate();
+            this.btnAddNewRow = new Button();
             this.txbStartTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -384,14 +385,14 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private TextBoxValidator txbStopTime;
-        private BtnValidate btnAddNewRow;
+        private Button btnAddNewRow;
         private TextBoxValidator txbStartTime;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label2;
         private CMBValidator cmbMat;
         private System.Windows.Forms.Label label1;
         private CMBValidator cmbEl;
-        private BtnValidate btnRefresh;
+        private Button btnRefresh;
         private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.Button btnHideAll;
         private System.Windows.Forms.OpenFileDialog openFileDialog;

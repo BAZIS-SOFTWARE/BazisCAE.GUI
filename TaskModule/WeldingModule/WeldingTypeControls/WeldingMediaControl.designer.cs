@@ -54,9 +54,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbStopTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
-            this.btnRefresh = new BtnValidate();
+            this.btnRefresh = new Button();
             this.btnClearAll = new System.Windows.Forms.Button();
-            this.btnAddNewRow = new BtnValidate();
+            this.btnAddNewRow = new Button();
             this.txbStartTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.grbTermoCycle = new BaseModule.ControlsLib.GroupBoxEx();
             this.cmbTermoCycle = new CMBValidator();
@@ -547,7 +547,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private TextBoxValidator txbStopTime;
-        private BtnValidate btnAddNewRow;
+        private Button btnAddNewRow;
         private TextBoxValidator txbStartTime;
         private CMBValidator cmbTermoCycle;
         private System.Windows.Forms.Label label7;
@@ -556,7 +556,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.RadioButton rbtTermoCycle;
         private System.Windows.Forms.RadioButton rbtHeatFlow;
-        private BtnValidate btnRefresh;
+        private Button btnRefresh;
         private System.Windows.Forms.Button btnHideAll;
         private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.OpenFileDialog openFileDialog;

@@ -12,16 +12,15 @@ namespace BaseModule.ControlsLib.Validation
 {
     public partial class CMBValidator : ComboBox, IValidatorControl
     {
-        public CMBValidator() { InitializeComponent(); }
+        public CMBValidator() { InitializeComponent(); InitializeErrorProvider(); }
 
         public CMBValidator(IContainer container)
         {
             container.Add(this);
 
             InitializeComponent();
+            InitializeErrorProvider();
         }
-
-        public event Action<EventArgs> Validate;
 
         public ErrorProvider EP { get; private set; }
         public CMBInputType InputType { get; set; } = CMBInputType.Items;

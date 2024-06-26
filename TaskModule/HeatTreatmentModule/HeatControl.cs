@@ -62,24 +62,19 @@ namespace TaskModule.HeatTreatmentModule
             InitializeComponent();
             DataName = "Среда";
 
-            var ctrlsValidatingMethods = new Func<ErrorProvider, bool>[]
-            {
-                (EP) => txbStartTime.IsValueValid(EP),
-                (EP) => txbStopTime.IsValueValid(EP),
-                (EP) => cmbEl.IsValueValid(EP),
-                (EP) => cmbExchFunc.IsValueValid(EP),
-                (EP) => cmbTempFunc.IsValueValid(EP),
-                (EP) => blackRank.IsValueValid(EP),
-                (EP) => StefanBolzmanConst.IsValueValid(EP),
-                (EP) => convExcFunc.IsValueValid(EP)
-            };
-
-            btnAddNewRow.AddRangeControlValidatingMethod(ctrlsValidatingMethods);
-            btnRefresh.AddRangeControlValidatingMethod(ctrlsValidatingMethods);
+            ValidateControls += () => txbStartTime.IsValueValid();
+            ValidateControls += () => txbStopTime.IsValueValid();
+            ValidateControls += () => cmbEl.IsValueValid();
+            ValidateControls += () => cmbExchFunc.IsValueValid();
+            ValidateControls += () => cmbTempFunc.IsValueValid();
+            ValidateControls += () => blackRank.IsValueValid();
+            ValidateControls += () => convExcFunc.IsValueValid();
+            ValidateControls += () => StefanBolzmanConst.IsValueValid();
         }
 
         public override string DataName { get; }
 
+        public event Func<bool> ValidateControls;
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -145,11 +140,8 @@ namespace TaskModule.HeatTreatmentModule
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (sender is BtnValidate cvb)
-            {
-                if (!cvb.ValidateControl_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
-                    return;
-            }
+            if (!IsValidated(this, new CancelEventArgs()))
+                return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -165,11 +157,8 @@ namespace TaskModule.HeatTreatmentModule
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (sender is BtnValidate cvb)
-            {
-                if (!cvb.ValidateControl_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
-                    return;
-            }
+            if (!IsValidated(this, new CancelEventArgs()))
+                return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -279,6 +268,13 @@ namespace TaskModule.HeatTreatmentModule
                 StefanBolzmanConst.Enabled = false;
                 blackRank.Enabled = false;
             }
+        }
+
+        public bool IsValidated(object sender, CancelEventArgs args)
+        {
+            var check = ValidateControls();
+            args.Cancel = check;
+            return check;
         }
     }
 }

@@ -22,23 +22,18 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             InitializeComponent();
             DataName = "Среда";
 
-            var ctrlsValidatingMethods = new Func<ErrorProvider, bool>[] 
-            {
-                (EP) => txbStartTime.IsValueValid(EP),
-                (EP) => txbStopTime.IsValueValid(EP),
-                (EP) => txbMediaTemp.IsValueValid(EP),
-                (EP) => cmbEl.IsValueValid(EP),
-                (EP) => cmbFunc.IsValueValid(EP),
-                (EP) => cmbNode.IsValueValid(EP),
-                (EP) => cmbTermoCycle.IsValueValid(EP)
-            };
-
-            btnAddNewRow.AddRangeControlValidatingMethod(ctrlsValidatingMethods);
-            btnRefresh.AddRangeControlValidatingMethod(ctrlsValidatingMethods);
+            ValidateControls += () => txbStartTime.IsValueValid();
+            ValidateControls += () => txbStopTime.IsValueValid();
+            ValidateControls += () => txbMediaTemp.IsValueValid();
+            ValidateControls += () => cmbEl.IsValueValid();
+            ValidateControls += () => cmbFunc.IsValueValid();
+            ValidateControls += () => cmbNode.IsValueValid();
+            ValidateControls += () => cmbTermoCycle.IsValueValid();
         }
 
         public override string DataName { get; }
 
+        public event Func<bool> ValidateControls;
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -62,11 +57,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (sender is BtnValidate cvb)
-            {
-                if (!cvb.ValidateControl_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
-                    return;
-            }
+            if (!ValidateControls())
+                return;
             try
             {
                 CurentSelectedRowInfo = AddRowInfo();
@@ -166,11 +158,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (sender is BtnValidate cvb)
-            {
-                if (!cvb.ValidateControl_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
-                    return;
-            }
+            if (!ValidateControls())
+                return;
             try
             {
                 CurentSelectedRowInfo = AddRowInfo();
@@ -255,6 +244,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         public void HideAllDataButton_Click(object sender, EventArgs e)
         {
             HideDataEvent(this, new HideDataEventArgs(DataName));
+        }
+
+        public bool IsValidated(object sender, CancelEventArgs args)
+        {
+            var check = ValidateControls();
+            args.Cancel = check;
+            return check;
         }
     }
 }

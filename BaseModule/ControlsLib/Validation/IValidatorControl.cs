@@ -13,6 +13,10 @@ namespace BaseModule.ControlsLib.Validation
     /// </summary>
     public interface IValidatorControl
     {
+        /// <summary>
+        /// Метод проверки контрола. подписывается на событие, после которого будет проходить проверка
+        /// </summary>
+        /// <returns></returns>
         bool IsValueValid();
 
         bool IsValidating { get; set; }
@@ -26,8 +30,6 @@ namespace BaseModule.ControlsLib.Validation
         /// ErrorMessage, которое появляется при непройденной проверке на соответствие регулярному выражению UserRegExCheck
         /// </summary>
         string UserRegExCheckErrorMessage { get; set; }
-
-        event Action<EventArgs> Validate;
 
         ErrorProvider EP { get; }
 

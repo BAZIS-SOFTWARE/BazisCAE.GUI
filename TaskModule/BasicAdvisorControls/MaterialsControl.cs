@@ -61,6 +61,7 @@ namespace TaskModule.BasicAdvisorControls
             get { return dataGridView.Rows.Count; }
         }
 
+        public event Func<bool> ValidateControls;
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -79,16 +80,11 @@ namespace TaskModule.BasicAdvisorControls
             InitializeComponent();
 
             DataName = "Материал";
-            var ctrlsValidatingMethods = new Func<ErrorProvider, bool>[] 
-            {
-                (EP) => txbStartTime.IsValueValid(EP),
-                (EP) => txbStopTime.IsValueValid(EP),
-                (EP) => cmbEl.IsValueValid(EP),
-                (EP) => cmbMat.IsValueValid(EP)
-            };
 
-            btnRefresh.AddRangeControlValidatingMethod(ctrlsValidatingMethods);
-            btnAddNewRow.AddRangeControlValidatingMethod(ctrlsValidatingMethods);
+            ValidateControls += () => txbStartTime.IsValueValid();
+            ValidateControls += () => txbStopTime.IsValueValid();
+            ValidateControls += () => cmbEl.IsValueValid();
+            ValidateControls += () => cmbMat.IsValueValid();
         }
 
         public override string DataName { get; }
@@ -123,11 +119,8 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (sender is BtnValidate cvb)
-            {
-                if (!cvb.ValidateControl_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
-                    return;
-            }
+            if (!IsValidated(this, new CancelEventArgs()))
+                return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -148,11 +141,8 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (sender is BtnValidate cvb)
-            {
-                if (!cvb.ValidateControl_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
-                    return;
-            }
+            if (!IsValidated(this, new CancelEventArgs()))
+                return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -206,7 +196,12 @@ namespace TaskModule.BasicAdvisorControls
                 cmbEl.Items.Add(eGroup);
         }
 
-
+        public bool IsValidated(object sender, CancelEventArgs args)
+        {
+            var check = ValidateControls();
+            args.Cancel = check;
+            return check;
+        }
 
         //private void dataGridView_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         //{

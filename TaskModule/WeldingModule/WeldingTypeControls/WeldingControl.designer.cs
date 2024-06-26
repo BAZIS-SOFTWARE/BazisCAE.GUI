@@ -1,5 +1,6 @@
 ﻿using BaseModule.ControlsLib;
 using BaseModule.ControlsLib.Validation;
+using System.Windows.Forms;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -51,8 +52,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbStartPoint = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
             this.btnHide = new System.Windows.Forms.Button();
             this.btnShow = new System.Windows.Forms.Button();
-            this.btnRefresh = new BaseModule.ControlsLib.Validation.BtnValidate(this.components);
-            this.addRowButton = new BaseModule.ControlsLib.Validation.BtnValidate(this.components);
+            this.btnRefresh = new Button();
+            this.addRowButton = new Button();
             this.txbAngle = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
             this.txbShiftZ = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
             this.txbShiftY = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
@@ -706,7 +707,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private CMBValidator cmbWeldZone;
         private CMBValidator cmbStopPoint;
         private CMBValidator cmbStartPoint;
-        private BtnValidate addRowButton;
+        private Button addRowButton;
         private TextBoxValidator txbVelosity;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -714,7 +715,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private CMBValidator cmbTraj;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox3;
-        private BtnValidate btnRefresh;
+        private Button btnRefresh;
         private TextBoxValidator txbShiftX;
         private System.Windows.Forms.CheckBox chbShifting;
         private CMBValidator cmbEnergyCalibration;

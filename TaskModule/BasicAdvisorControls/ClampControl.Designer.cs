@@ -45,8 +45,8 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStopTime = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components) { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnHideAll = new System.Windows.Forms.Button();
-            this.btnRefresh = new BaseModule.ControlsLib.Validation.BtnValidate(this.components);
-            this.btnAddNewRow = new BaseModule.ControlsLib.Validation.BtnValidate(this.components);
+            this.btnRefresh = new Button();
+            this.btnAddNewRow = new Button();
             this.txbStartTime = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components) { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -566,7 +566,7 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private TextBoxValidator txbStopTime;
-        private BtnValidate btnAddNewRow;
+        private Button btnAddNewRow;
         private TextBoxValidator txbStartTime;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -578,7 +578,7 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.Label label2;
         private CMBValidator cmbStiffnessFunc;
         private System.Windows.Forms.Label label4;
-        private BtnValidate btnRefresh;
+        private Button btnRefresh;
         private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.Button btnHideAll;
         private System.Windows.Forms.Button btnClearAll;

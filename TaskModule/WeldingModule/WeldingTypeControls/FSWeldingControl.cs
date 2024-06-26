@@ -13,21 +13,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             InitializeComponent();
         }
 
-        public override Func<ErrorProvider, bool>[] GetCtrlsValidatingMethods()
-        {
-            return new Func<ErrorProvider, bool>[]
-            {
-                (EP) => txbAxisForce.IsValueValid(EP),
-                (EP) => txbPinBottomDiam.IsValueValid(EP),
-                (EP) => txbPinLenght.IsValueValid(EP),
-                (EP) => txbPinUpperDiam.IsValueValid(EP),
-                (EP) => txbRotSpeed.IsValueValid(EP),
-                (EP) => txbShoulderDiam.IsValueValid(EP),
-                (EP) => cmbFrictionModule.IsValueValid(EP),
-                (EP) => cmbYield.IsValueValid(EP)
-            };
-        }
-
         public override string CollectData()
         {
             var strsArr = new List<string>();

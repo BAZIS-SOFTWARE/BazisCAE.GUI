@@ -54,8 +54,9 @@ namespace TaskModule.BasicAdvisorControls
         {
             get { return btnHideAll.Image; }
             set { btnHideAll.Image = value; }
-        }    
+        }
 
+        public event Func<bool> ValidateControls;
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -72,17 +73,11 @@ namespace TaskModule.BasicAdvisorControls
             InitializeComponent();
             DataName = "Закрепление";
 
-            var validatingCtrlsMethods = new Func<ErrorProvider, bool>[] 
-            {
-                (EP) => txbStartTime.IsValueValid(EP),
-                (EP) => txbStopTime.IsValueValid(EP),
-                (EP) => cmbKind.IsValueValid(EP),
-                (EP) => cmbNodeGr.IsValueValid(EP),
-                (EP) => cmbStiffnessFunc.IsValueValid(EP)
-            };
-
-            btnRefresh.AddRangeControlValidatingMethod(validatingCtrlsMethods);
-            btnAddNewRow.AddRangeControlValidatingMethod(validatingCtrlsMethods);
+            ValidateControls += () => txbStartTime.IsValueValid();
+            ValidateControls += () => txbStopTime.IsValueValid();
+            ValidateControls += () => cmbKind.IsValueValid();
+            ValidateControls += () => cmbNodeGr.IsValueValid();
+            ValidateControls += () => cmbStiffnessFunc.IsValueValid();
         }
 
         public override string DataName { get; }
@@ -170,11 +165,8 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (sender is BtnValidate cvb)
-            {
-                if (!cvb.ValidateControl_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
-                    return;
-            }
+            if (!IsValidated(this, new CancelEventArgs()))
+                return;
 
             var rows = new List<string>();
             try
@@ -222,11 +214,8 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (sender is BtnValidate vb)
-            {
-                if (!vb.ValidateControl_OnClick_IsValuesValid(vb, new CancelEventArgs()))
-                    return;
-            }
+            if (!IsValidated(this, new CancelEventArgs()))
+                return;
             try
             {
                 string direction = string.Empty;
@@ -328,6 +317,13 @@ namespace TaskModule.BasicAdvisorControls
         {
             if(!chbLRF.Enabled)
                 chbLRF.Checked = false;
+        }
+
+        public bool IsValidated(object sender, CancelEventArgs args)
+        {
+            var check = ValidateControls();
+            args.Cancel = check;
+            return check;
         }
 
         //private void cmbNodeGr_Validating(object sender, CancelEventArgs e)

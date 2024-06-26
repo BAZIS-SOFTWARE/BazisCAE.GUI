@@ -18,6 +18,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
     {
         List<string> funcs = new List<string>();
 
+        public event Func<bool> ValidateControls;
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -126,34 +127,25 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             InitializeComponent();
             DataName = "Нагрев";
 
-            var ctrlsValidatingMethods = new Func<ErrorProvider, bool>[] 
-            {
-                (EP) => txbStartTime.IsValueValid(EP),
-                (EP) => txbAngle.IsValueValid(EP),
-                (EP) => txbShiftX.IsValueValid(EP),
-                (EP) => txbShiftY.IsValueValid(EP),
-                (EP) => txbShiftZ.IsValueValid(EP),
-                (EP) => txbVelosity.IsValueValid(EP),
-                (EP) => cmbTraj.IsValueValid(EP),
-                (EP) => cmbEnergyCalibration.IsValueValid(EP),
-                (EP) => cmbRef.IsValueValid(EP),
-                (EP) => cmbWeldZone.IsValueValid(EP),
-                (EP) => cmbStartPoint.IsValueValid(EP),
-                (EP) => cmbStopPoint.IsValueValid(EP)
-            };
-
-            btnRefresh.AddRangeControlValidatingMethod(ctrlsValidatingMethods);
-            addRowButton.AddRangeControlValidatingMethod(ctrlsValidatingMethods);
+            ValidateControls += () => txbStartTime.IsValueValid();
+            ValidateControls += () => txbVelosity.IsValueValid();
+            ValidateControls += () => txbAngle.IsValueValid();
+            ValidateControls += () => txbShiftX.IsValueValid();
+            ValidateControls += () => txbShiftY.IsValueValid();
+            ValidateControls += () => txbShiftZ.IsValueValid();
+            ValidateControls += () => cmbEnergyCalibration.IsValueValid();
+            ValidateControls += () => cmbTraj.IsValueValid();
+            ValidateControls += () => cmbRef.IsValueValid();
+            ValidateControls += () => cmbStartPoint.IsValueValid();
+            ValidateControls += () => cmbStopPoint.IsValueValid();
+            ValidateControls += () => cmbWeldZone.IsValueValid(); 
         }
 
         public override string DataName { get; }
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (sender is BtnValidate cvb)
-            {
-                if (!cvb.ValidateControl_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
-                    return;
-            }
+            if (!IsValidated(this, new CancelEventArgs()))
+                return;
             try
             {         
                 CurentSelectedRowInfo = CreateRowInfo("*");
@@ -281,11 +273,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (sender is BtnValidate cvb)
-            {
-                if (!cvb.ValidateControl_OnClick_IsValuesValid(cvb, new CancelEventArgs()))
-                    return;
-            }
+            if (!IsValidated(this, new CancelEventArgs()))
+                return;
             var gridView = GetDataGrid;
             var count = gridView.SelectedRows.Count;
             var stopTime = gridView.SelectedRows[count - 1].Cells[(int)Column.stopTime].Value.ToString();
@@ -295,6 +284,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
             btnRefresh.Enabled = false;
 
+        }
+
+        public bool IsValidated(object sender, CancelEventArgs args)
+        {
+            var check = ValidateControls();
+            args.Cancel = check;
+            return check;
         }
 
         private void dataGridView_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)

@@ -1,5 +1,6 @@
 ﻿using BaseModule.ControlsLib;
 using BaseModule.ControlsLib.Validation;
+using System.Windows.Forms;
 
 namespace TaskModule.BasicAdvisorControls
 {
@@ -36,11 +37,11 @@ namespace TaskModule.BasicAdvisorControls
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.player = new BaseModule.ControlsLib.Player();
             this.label8 = new System.Windows.Forms.Label();
-            this.btnRefresh = new BtnValidate();
+            this.btnRefresh = new Button();
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
-            this.btnAddNewRow = new BtnValidate();
+            this.btnAddNewRow = new Button();
             this.label9 = new System.Windows.Forms.Label();
             this.txbStopTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.txbStartTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
@@ -526,7 +527,7 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label8;
-        private BtnValidate btnAddNewRow;
+        private Button btnAddNewRow;
         private System.Windows.Forms.Label label9;
         private TextBoxValidator txbStopTime;
         private System.Windows.Forms.Label label10;
@@ -540,7 +541,7 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.CheckBox chbY;
         private System.Windows.Forms.CheckBox chbX;
         private System.Windows.Forms.Label label6;
-        private BtnValidate btnRefresh;
+        private Button btnRefresh;
         private CMBValidator cmbLoadFunction;
         private System.Windows.Forms.Button btnHideAll;
         private System.Windows.Forms.Button btnShowAll;

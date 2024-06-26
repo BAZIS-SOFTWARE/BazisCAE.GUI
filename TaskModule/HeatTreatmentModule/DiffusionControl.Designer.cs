@@ -1,4 +1,5 @@
 ﻿using BaseModule.ControlsLib;
+using BaseModule.ControlsLib.Validation;
 
 namespace TaskModule.HeatTreatmentModule
 {
@@ -45,21 +46,21 @@ namespace TaskModule.HeatTreatmentModule
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnAddNewRow = new System.Windows.Forms.Button();
-            this.txbStop = new System.Windows.Forms.TextBox();
-            this.txbStart = new System.Windows.Forms.TextBox();
+            this.txbStop = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
+            this.txbStart = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txbDiffCoefNitro = new System.Windows.Forms.TextBox();
+            this.txbDiffCoefNitro = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.label9 = new System.Windows.Forms.Label();
-            this.txbConcentrNitro = new System.Windows.Forms.TextBox();
-            this.txbConcentrCarbon = new System.Windows.Forms.TextBox();
+            this.txbConcentrNitro = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
+            this.txbConcentrCarbon = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.label8 = new System.Windows.Forms.Label();
             this.rbtFunction = new System.Windows.Forms.RadioButton();
             this.rbtParam = new System.Windows.Forms.RadioButton();
-            this.cmbEl = new System.Windows.Forms.ComboBox();
-            this.cmbTempreture = new System.Windows.Forms.ComboBox();
-            this.txbDiffCoefCarbon = new System.Windows.Forms.TextBox();
+            this.cmbEl = new CMBValidator();
+            this.cmbTempreture = new CMBValidator() { InputType = CMBInputType.Items | CMBInputType.Float };
+            this.txbDiffCoefCarbon = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -626,9 +627,9 @@ namespace TaskModule.HeatTreatmentModule
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox cmbEl;
-        private System.Windows.Forms.ComboBox cmbTempreture;
-        private System.Windows.Forms.TextBox txbDiffCoefCarbon;
+        private CMBValidator cmbEl;
+        private CMBValidator cmbTempreture;
+        private TextBoxValidator txbDiffCoefCarbon;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -644,15 +645,15 @@ namespace TaskModule.HeatTreatmentModule
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.Button btnAddNewRow;
-        private System.Windows.Forms.TextBox txbStop;
-        private System.Windows.Forms.TextBox txbStart;
+        private TextBoxValidator txbStop;
+        private TextBoxValidator txbStart;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.RadioButton rbtGammaFe;
-        private System.Windows.Forms.TextBox txbConcentrNitro;
-        private System.Windows.Forms.TextBox txbConcentrCarbon;
+        private TextBoxValidator txbConcentrNitro;
+        private TextBoxValidator txbConcentrCarbon;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txbDiffCoefNitro;
+        private TextBoxValidator txbDiffCoefNitro;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.RadioButton rbtAlphaFe;
