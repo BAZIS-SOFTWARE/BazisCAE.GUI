@@ -2,6 +2,8 @@
 using ModelControllerInterfaces.GmshController;
 using ModelInterfaces;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -97,6 +99,7 @@ namespace ModelModule
 
                 meshGenerator.updateMeshVBOEvent += UpdateMeshVBO;
                 meshGenerator.updateGeometryVBOEvent += UpdateGeometryVBO;
+                meshGenerator.updateTransfinitePoints += UpdateTransfiniteControlPoints;
                 meshGenerator.updateTreeViewEvent += () => { PresentProjectOnTree(); };
                 meshGenerator.redrawScene += RedrawScene;
                 meshGenerator.showErrorMessage += ShowErrorMessage;
@@ -234,6 +237,18 @@ namespace ModelModule
         {
             PresentObjects(ObjType.Точка);
             PresentObjects(ObjType.Линия);
+        }
+
+        private void UpdateTransfiniteControlPoints(List<IModelObject> points)
+        {
+            var vbo = SceneControl.FindVBObj("Точки трансфиниции");
+            if (vbo != null)
+                SceneControl.DeleteVBObjects("Точки трансфиниции");
+            if(points.Count > 0)
+            {
+                var presenter = PresentersCreator.CreatePointObjectsPresenter(points);
+                CreateObjectsToScene("Точки трансфиниции", presenter);
+            }
         }
 
         private void PresentObjects(ObjType item)
