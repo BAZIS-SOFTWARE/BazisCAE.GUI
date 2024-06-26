@@ -120,6 +120,7 @@
     </Compile>
     <Compile Include="Show3dTextEventArgs.cs" />
     <Compile Include="ShowHeatMapEventArg.cs" />
+    <Compile Include="ShowTransPointsEventArgs.cs" />
     <Compile Include="ToolStrips\MeshToolStrip.cs">
       <SubType>Component</SubType>
     </Compile>

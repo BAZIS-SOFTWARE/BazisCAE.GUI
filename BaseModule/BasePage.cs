@@ -277,8 +277,8 @@ namespace BaseModule
 
             CreateMenuInterface();
 
-            if(ComponentsPainter.ScreenDPI == 120 | ComponentsPainter.ScreenDPI == 144)
-                selectToolStrip.Location = new Point(0,0);
+            //if(ComponentsPainter.ScreenDPI == 120 | ComponentsPainter.ScreenDPI == 144)
+            selectToolStrip.Location = new Point(0,0);
         }
 
         public void SceneInitialization()

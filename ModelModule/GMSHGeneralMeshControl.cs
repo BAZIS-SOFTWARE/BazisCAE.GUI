@@ -16,9 +16,6 @@ namespace ModelModule
 {
     public partial class GMSHGeneralMeshControl : UserControl
     {
-        //private const string cadTemplates = "CAD Files(*.brep; *.stp; *.step; *.igs; *.iges)|" +
-        //                                              "*.brep; *.stp; *.step; *.igs; *.iges";
-        //private const string scriptTemplates = "Script Files(*.geo)|*.geo";
         public IGmshController GmshController { get; set; }
 
         private int boundFieldTag;
@@ -48,7 +45,9 @@ namespace ModelModule
         public bool IsControllerLoaded { get => GmshController != null; }
         public IObjectsData ObjectData { get; internal set; }
 
-        public event Action updateMeshVBOEvent;
+        public event Action updateObjectsDataEvent;
+        public event Action showTransPoints;
+        public event Action hideTransPoints;
         public event Action updateGeometryVBOEvent;
         public event Action updateTreeViewEvent;
         public event Action hide3dTextEvent;
@@ -56,7 +55,7 @@ namespace ModelModule
         public event Action<int> ShowObjectsEvent;
         public event Action<ObjType,bool> ResetColorObjectsEvent;
         public event Action<string> showErrorMessage;
-        public event Action<object, ShowHeatMapEventArgs> showHeatMapEvent;
+        public event Action showHeatMapEvent;
         public event Action hideHeatMapEvent;
         public event Action<bool> redrawScene;
 
@@ -64,45 +63,23 @@ namespace ModelModule
         public GMSHGeneralMeshControl()
         {
             InitializeComponent();
+            //algoChoice.SelectedIndex = 3;
         }
 
         private void OnLoad(object sender, EventArgs e)
         {
             ParentForm.FormClosing += OnClosingForm;
 
-            var ierr = 0;
-            FillGeometryTreeView();
-            if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
-                ShowHideGeneralTabControls(2);
+            if(GmshController != null)
+            {
+                var ierr = 0;
+                FillGeometryTreeView(GmshController);
+                if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
+                    ShowHideGeneralTabControls(2);
+            }
+
             ShowHideGeneralTabControls(1);
             ShowHideTabControls(1);
-
-            algoChoice.SelectedIndex = 3;
-        }
-
-        /// <summary>
-        /// Обновляет VBO-объекты сетки
-        /// </summary>
-        /// <param name="update3d">Обновление 3d элементов</param>
-        //private void UpdateMeshVBO(bool update3d)
-        //{
-        //    updateMeshVBOEvent?.Invoke(ObjType.Узел);
-        //    updateMeshVBOEvent?.Invoke(ObjType.Элемент1D);
-        //    updateMeshVBOEvent?.Invoke(ObjType.Элемент2D);
-        //    if(update3d)
-        //        updateMeshVBOEvent?.Invoke(ObjType.Элемент3D);
-        //}
-        /// <summary>
-        /// Обновляет ObjectData данными из GmshController
-        /// </summary>
-        private void UpdateObjectData()
-        {
-            var objs = GmshController.GetMeshObjects();
-            ObjectData.NodeCollection.AddRange(objs.Item1);
-            ObjectData.E1DCollection.AddRange(objs.Item2);
-            ObjectData.E2DCollection.AddRange(objs.Item3);
-            if(objs.Item4.Count > 0)
-                ObjectData.E3DCollection.AddRange(objs.Item4);
         }
         
 
@@ -117,7 +94,7 @@ namespace ModelModule
             ClearTreeView(2);
             ShowHideTabControls(2, false);
 
-            updateMeshVBOEvent?.Invoke();
+            updateObjectsDataEvent?.Invoke();
 
             //UpdateMeshVBO(true);
 
@@ -143,9 +120,9 @@ namespace ModelModule
             DeleteGMSHMeshObjects(ObjType.Элемент3D);
 
             ObjectData.Clear(ObjType.Узел);
-            UpdateObjectData();
+            //UpdateObjectData();
 
-            updateMeshVBOEvent?.Invoke();
+            updateObjectsDataEvent?.Invoke();
 
             //updateMeshVBOEvent?.Invoke(ObjType.Узел);
             //updateMeshVBOEvent?.Invoke(ObjType.Элемент3D);
@@ -230,9 +207,9 @@ namespace ModelModule
                 ClearTreeView(3);
             }
             ObjectData.Clear(ObjType.Узел);
-            UpdateObjectData();
+            //UpdateObjectData();
 
-            updateMeshVBOEvent?.Invoke();
+            updateObjectsDataEvent?.Invoke();
 
             //UpdateMeshVBO(true);
 
@@ -269,9 +246,9 @@ namespace ModelModule
             if (objs.Item4.Count > 0)//Было ли что-то сгенерировано ?
             {
                 ObjectData.Clear(ObjType.Узел);
-                UpdateObjectData();
+                //UpdateObjectData();
 
-                updateMeshVBOEvent?.Invoke();
+                updateObjectsDataEvent?.Invoke();
 
                 //updateMeshVBOEvent?.Invoke(ObjType.Узел);
                 //updateMeshVBOEvent?.Invoke(ObjType.Элемент3D);
@@ -311,9 +288,9 @@ namespace ModelModule
             ClearTreeView(3);
             ObjectData.Clear(ObjType.Узел);
 
-            UpdateObjectData();
+            //UpdateObjectData();
 
-            updateMeshVBOEvent?.Invoke();
+            updateObjectsDataEvent?.Invoke();
 
             //UpdateMeshVBO(true);
             
@@ -340,9 +317,9 @@ namespace ModelModule
                 var objs = GmshController.GetMeshObjects();
                 ObjectData.Clear(ObjType.Узел);
 
-                UpdateObjectData();
+                //UpdateObjectData();
 
-                updateMeshVBOEvent?.Invoke();
+                updateObjectsDataEvent?.Invoke();
 
                 //UpdateMeshVBO(false);
 
@@ -370,7 +347,7 @@ namespace ModelModule
             return nodes;
         }
 
-        private void FillGeometryTreeView()
+        public void FillGeometryTreeView(IGmshController GmshController)
         {
             int[] dimTags, upwards, downwards;
             GmshController.ModelGetGeometryEntities(out dimTags, -1);
@@ -632,7 +609,7 @@ namespace ModelModule
                         ObjectData.E2DCollection.AddRange(objs.Item3);
                 }
 
-                updateMeshVBOEvent?.Invoke();
+                updateObjectsDataEvent?.Invoke();
                 //UpdateMeshVBO(true);
             }
             else
@@ -658,7 +635,7 @@ namespace ModelModule
                 }
             }
 
-            updateMeshVBOEvent?.Invoke();
+            updateObjectsDataEvent?.Invoke();
             updateTreeViewEvent?.Invoke();
             redrawScene?.Invoke(false);
         }
@@ -768,10 +745,12 @@ namespace ModelModule
             if (chbShowCurvesInfo.Checked)
                 ShowCurvesInfo();
 
-            if (chbShowHeatMap.Checked)
+            if (chbShowHeatMap.Checked | chbShowTranfPoints.Checked)
             {
-                var dict = GetCurvesNumbersAndNodes();
-                showHeatMapEvent?.Invoke(this, new ShowHeatMapEventArgs(dict));
+                if(chbShowHeatMap.Checked)
+                    showHeatMapEvent?.Invoke();
+                if(chbShowTranfPoints.Checked)
+                    showTransPoints?.Invoke();
             }
         }
 
@@ -792,36 +771,10 @@ namespace ModelModule
 
             if (chbShowHeatMap.Checked)
             {
-                var dict = GetCurvesNumbersAndNodes();
-                showHeatMapEvent?.Invoke(this, new ShowHeatMapEventArgs(dict));
+                showHeatMapEvent?.Invoke();
             }
             else hideHeatMapEvent?.Invoke();
 
-        }
-        /// <summary>
-        /// GetNodesOnCurves. Where key - curve number, value - nodes on curve
-        /// </summary>
-        /// <returns></returns>
-        private Dictionary<int, int> GetCurvesNumbersAndNodes()
-        {
-            var curveDict = new Dictionary<int, int>();
-            //1)Добавляем в словарь сначала размеченные кривые
-            string[] attribList;
-            GmshController.ModelGetAttributeNames(out attribList);
-            foreach (var item in attribList)
-            {
-                var tag = Int32.Parse(item.Split(' ')[1]);
-                var attributes = GetCurrentCurveAttributes(tag);
-                var points = attributes.Length == 3 ? Int32.Parse(attributes[0]) : 0;
-                curveDict.Add(tag, points);
-            }
-            //2)Добавляем в словарь неразмеченные кривые, которых нет в словаре (со значением ноль)
-            int[] dimTags;
-            GmshController.ModelGetGeometryEntities(out dimTags, 1);
-            for (var i = 1; i < dimTags.Length; i += 2)
-                if (!curveDict.ContainsKey(dimTags[i]))
-                    curveDict.Add(dimTags[i], 0);
-            return curveDict;
         }
         
         private void ShowSurfacesInfo()
@@ -849,6 +802,14 @@ namespace ModelModule
                 if (chbShowCurvesInfo.Checked)//Рассматриваем случай когда кривые должны быть отображены
                     ShowCurvesInfo();
             }
+        }
+
+        private void chbShowTranfPoints_Click(object sender, EventArgs e)
+        {
+            if (chbShowTranfPoints.Checked)
+                showTransPoints?.Invoke();
+            else
+                hideTransPoints?.Invoke();
         }
     }
 }

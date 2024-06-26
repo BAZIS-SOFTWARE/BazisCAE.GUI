@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CustomOpenFileDialog">
+      <HintPath>..\Libs\CustomOpenFileDialog.dll</HintPath>
+    </Reference>
     <Reference Include="DataBaseController">
       <HintPath>..\packages\DataBasesGUI.1.0.2.56\lib\net48\DataBaseController.dll</HintPath>
     </Reference>
@@ -43,6 +46,16 @@
     <Reference Include="Geometry, Version=2.0.7.30, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Geometry.2.0.7.30\lib\net48\Geometry.dll</HintPath>
+    </Reference>
+    <Reference Include="Gif.Components">
+      <HintPath>..\Libs\Gif.Components.dll</HintPath>
+    </Reference>
+    <Reference Include="Graph">
+      <HintPath>..\packages\Graph.1.0.2.23\lib\net48\Graph.dll</HintPath>
+    </Reference>
+    <Reference Include="ModelControllerInterfaces, Version=3.0.0.52, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ModelControllerInterfaces.3.0.0.52\lib\net48\ModelControllerInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="ModelInterfaces, Version=3.0.0.24, Culture=neutral, PublicKeyToken=998e39182864f357, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -116,6 +129,14 @@
     <ProjectReference Include="..\BaseModule\BaseModule.csproj">
       <Project>{e5c49662-b9c7-4b1b-9734-1ff03da9fcc0}</Project>
       <Name>BaseModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModelModule\ModelModule.csproj">
+      <Project>{986F99D5-CC42-41F8-A5D4-97DE97D7EA64}</Project>
+      <Name>ModelModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ResultModule\ResultModule.csproj">
+      <Project>{80D9E902-D51F-4A78-828C-987AB7F0A578}</Project>
+      <Name>ResultModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\TaskModule\TaskModule.csproj">
       <Project>{11954439-9966-4648-A776-7CE642FE21F3}</Project>
