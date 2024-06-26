@@ -21,42 +21,51 @@ namespace BaseModule.ControlsLib.Validation
             InitializeComponent();
         }
 
-        public CMBInputType InputType { get; set; } = CMBInputType.Items;
+        public event Action<EventArgs> Validate;
 
+        public ErrorProvider EP { get; private set; }
+        public CMBInputType InputType { get; set; } = CMBInputType.Items;
         public bool IsValidating { get; set; } = true;
         public string UserRegExCheck { get; set; }
         public string UserRegExCheckErrorMessage { get; set; }
 
-        public bool IsValueValid(ErrorProvider EP)
+        public void InitializeErrorProvider()
+        {
+            EP = new ErrorProvider();
+            EP.SetIconAlignment(this, ErrorIconAlignment.MiddleRight);
+            EP.SetIconPadding(this, 2);
+            EP.BlinkRate = 1000;
+            EP.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+        }
+
+        public bool IsValueValid()
         {
             if (!IsValidating)
                 return true;
 
             if (Text.Equals(string.Empty))
                 return Enabled == false?
-                    GetErrorCheckResult(EP):
-                    GetErrorCheckResult(EP, "Поле оставлено пустым");
+                    GetErrorCheckResult():
+                    GetErrorCheckResult("Поле оставлено пустым");
 
             if (IsInputTypeChosen(CMBInputType.Items))
                 return Items.Contains(Text) ?
-                    GetErrorCheckResult(EP) :
-                    GetErrorCheckResult(EP, "Допущена ошибка при выборе варианта");
+                    GetErrorCheckResult() :
+                    GetErrorCheckResult("Допущена ошибка при выборе варианта");
 
             if (IsInputTypeChosen(CMBInputType.Integer))
-                return HandleIntegerValue(EP);
+                return HandleIntegerValue();
 
             if (IsInputTypeChosen(CMBInputType.Float))
-                return HandleFloatValue(EP);
+                return HandleFloatValue();
 
             if (IsInputTypeChosen(CMBInputType.User))
-            {
+                return HandleUserCheckValue();
 
-            }
-
-            return GetErrorCheckResult(EP, "Выбранный вариант не доступен. Вероятно, допущена ошибка при выборе значения");
+            return GetErrorCheckResult("Выбранный вариант не доступен. Вероятно, допущена ошибка при выборе значения");
         }
 
-        private bool GetErrorCheckResult(ErrorProvider EP, string errorMessage = "")
+        private bool GetErrorCheckResult(string errorMessage = "")
         {
             EP.SetError(this, errorMessage);
             return !(errorMessage.Length > 0);
@@ -65,42 +74,42 @@ namespace BaseModule.ControlsLib.Validation
         private bool IsInputTypeChosen(CMBInputType it) =>
             (InputType & it) != 0;
 
-        private bool HandleFloatValue(ErrorProvider EP)
+        private bool HandleFloatValue()
         {
             if (Text.Contains(","))
-                return GetErrorCheckResult(EP, "В качестве разделителя целой и дробной части необходимо использовать точку");
+                return GetErrorCheckResult("В качестве разделителя целой и дробной части необходимо использовать точку");
 
             if (IsInputTypeChosen(CMBInputType.Positive))
                 return (IsPassRegExCheck("^(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
                     || IsPassRegExCheck("^(\\d{1})(([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,})$"))?
-                    GetErrorCheckResult(EP):
-                    GetErrorCheckResult(EP, "Числовое поле не прошло проверку. Поле принимает только положительные числа");
+                    GetErrorCheckResult():
+                    GetErrorCheckResult("Числовое поле не прошло проверку. Поле принимает только положительные числа");
 
             return (IsPassRegExCheck("^([-]?)(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
                 || IsPassRegExCheck("^([-]?)(\\d{1})((([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,}))?$"))?
-                GetErrorCheckResult(EP):
-                GetErrorCheckResult(EP, "Числовое поле не прошло проверку. Присутсвуют неопределимые ошибки записи числа");
+                GetErrorCheckResult():
+                GetErrorCheckResult("Числовое поле не прошло проверку. Присутсвуют неопределимые ошибки записи числа");
         }
 
-        private bool HandleIntegerValue(ErrorProvider EP)
+        private bool HandleIntegerValue()
         {
             if (IsInputTypeChosen(CMBInputType.Positive))
             {
                 return IsPassRegExCheck("^(([1-9]{1})(\\d{1,})?)$") ?
-                    GetErrorCheckResult(EP) :
-                    GetErrorCheckResult(EP, "Числовое значение должно быть положительным. Возможно присутсвие других ошибок в записи числа");
+                    GetErrorCheckResult() :
+                    GetErrorCheckResult("Числовое значение должно быть положительным. Возможно присутсвие других ошибок в записи числа");
             }
 
             return (IsPassRegExCheck("^([-]?)(([1-9]{1})(\\d{1,})?)$")) ?
-                GetErrorCheckResult(EP) :
-                GetErrorCheckResult(EP, "Числовое поле не прошло проверку. Присутсвуют неопределимые ошибки записи числа ошибки записи числа");
+                GetErrorCheckResult() :
+                GetErrorCheckResult("Числовое поле не прошло проверку. Присутсвуют неопределимые ошибки записи числа ошибки записи числа");
         }
 
-        private bool HandleUserCheckValue(ErrorProvider EP)
+        private bool HandleUserCheckValue()
         {
             return IsPassRegExCheck(UserRegExCheck) ?
-                GetErrorCheckResult(EP) :
-                GetErrorCheckResult(EP, UserRegExCheckErrorMessage);
+                GetErrorCheckResult() :
+                GetErrorCheckResult(UserRegExCheckErrorMessage);
         }
 
         private bool IsPassRegExCheck(string regEx) => Regex.IsMatch(Text, regEx);

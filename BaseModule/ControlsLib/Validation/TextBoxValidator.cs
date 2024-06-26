@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing.Design;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -23,41 +24,61 @@ namespace BaseModule.ControlsLib.Validation
             InitializeComponent();
         }
 
+        public event Action<EventArgs> Validate;
+        private void TextBoxValidator_Validate(object sender, EventArgs e) 
+        {
+            
+        }
+
+        //[Category("Flash")]
+        //[Editor("System.Windows.Forms.ImageEditorIndex, System.Design", typeof(UITypeEditor))]
+        //[Description("The current value of the track bar.  You can enter an actual value or a percentage.")]
+        //public int Value { get; set; }
         public bool IsValidating { get; set; } = true;
 
+        public ErrorProvider EP { get; private set; }
         public TXTBoxInputType InputType { get; set; } = TXTBoxInputType.Text;
         public string UserRegExCheck { get; set; }
         public string UserRegExCheckErrorMessage { get; set; }
 
-        public bool IsValueValid(ErrorProvider EP)
+        public void InitializeErrorProvider()
+        {
+            EP = new ErrorProvider();
+            EP.SetIconAlignment(this, ErrorIconAlignment.MiddleRight);
+            EP.SetIconPadding(this, 2);
+            EP.BlinkRate = 1000;
+            EP.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+        }
+
+        public bool IsValueValid()
         {
             if (!IsValidating)
                 return true;
 
             if (Text.Equals(string.Empty))
                 return Enabled == false ?
-                    GetErrorCheckResult(EP) :
-                    GetErrorCheckResult(EP, "Поле оставлено пустым");
+                    GetErrorCheckResult() :
+                    GetErrorCheckResult("Поле оставлено пустым");
 
             if (IsInputTypeChosen(TXTBoxInputType.Text)
                 && Text.Any(x => IligalSymbols.Contains(x)))
-                return GetErrorCheckResult(EP, "Переданная строка пуста или содержит неподдерживаемые символы");
+                return GetErrorCheckResult("Переданная строка пуста или содержит неподдерживаемые символы");
 
             if (IsInputTypeChosen(TXTBoxInputType.Integer))
-                return HandleIntegerValue(EP);
+                return HandleIntegerValue();
                 
 
             if (IsInputTypeChosen(TXTBoxInputType.Float))
-                return HandleFloatValue(EP);
+                return HandleFloatValue();
 
             if (IsInputTypeChosen(TXTBoxInputType.User))
-                return HandleUserCheckValue(EP);
+                return HandleUserCheckValue();
 
-            return GetErrorCheckResult(EP, $"Поле с валидирующим обработчиком типа {InputType} не было обработано ни одним обработчиком." +
+            return GetErrorCheckResult($"Поле с валидирующим обработчиком типа {InputType} не было обработано ни одним обработчиком." +
                 $"Ошибка в веденном значении или типе обработки");
         }
 
-        private bool GetErrorCheckResult(ErrorProvider EP, string errorMessage = "")
+        private bool GetErrorCheckResult(string errorMessage = "")
         {
             EP.SetError(this, errorMessage);
             return !(errorMessage.Length > 0);
@@ -65,44 +86,44 @@ namespace BaseModule.ControlsLib.Validation
         private bool IsInputTypeChosen(TXTBoxInputType it) =>
             (InputType & it) != 0;
 
-        private bool HandleFloatValue(ErrorProvider EP)
+        private bool HandleFloatValue()
         {
             if (Text.Contains(","))
-                return GetErrorCheckResult(EP, "В качестве разделителя целой и дробной части необходимо использовать точку");
+                return GetErrorCheckResult("В качестве разделителя целой и дробной части необходимо использовать точку");
 
             if (IsInputTypeChosen(TXTBoxInputType.Positive))
             {
                 return (IsPassRegExCheck("^(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
                     || IsPassRegExCheck("^(\\d{1})((([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,}))?$"))?
-                    GetErrorCheckResult(EP):
-                    GetErrorCheckResult(EP, "Числовое поле не прошло проверку. Поле принимает только положительные числа");
+                    GetErrorCheckResult():
+                    GetErrorCheckResult("Числовое поле не прошло проверку. Поле принимает только положительные числа");
             }
 
             return (IsPassRegExCheck("^([-]?)(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
                 || IsPassRegExCheck("^([-]?)(\\d{1})((([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,}))?$"))?
-                GetErrorCheckResult(EP):
-                GetErrorCheckResult(EP, "Числовое поле не прошло проверку. Присутсвуют неопределимые ошибки записи числа");
+                GetErrorCheckResult():
+                GetErrorCheckResult("Числовое поле не прошло проверку. Присутсвуют неопределимые ошибки записи числа");
         }
 
-        private bool HandleIntegerValue(ErrorProvider EP)
+        private bool HandleIntegerValue()
         {
             if (IsInputTypeChosen(TXTBoxInputType.Positive))
             {
                 return IsPassRegExCheck("^(([1-9]{1})(\\d{1,})?)$") ?
-                    GetErrorCheckResult(EP) :
-                    GetErrorCheckResult(EP, "Числовое значение должно быть положительным. Возможно присутсвие других ошибок в записи числа");
+                    GetErrorCheckResult() :
+                    GetErrorCheckResult("Числовое значение должно быть положительным. Возможно присутсвие других ошибок в записи числа");
             }
 
             return (IsPassRegExCheck("^([-]?)(([1-9]{1})(\\d{1,})?)$"))?
-                GetErrorCheckResult(EP):
-                GetErrorCheckResult(EP, "Числовое поле не прошло проверку. Присутсвуют неопределимые ошибки записи числа ошибки записи числа");
+                GetErrorCheckResult():
+                GetErrorCheckResult("Числовое поле не прошло проверку. Присутсвуют неопределимые ошибки записи числа ошибки записи числа");
         }
 
-        private bool HandleUserCheckValue(ErrorProvider EP)
+        private bool HandleUserCheckValue()
         {
             return IsPassRegExCheck(UserRegExCheck) ?
-                GetErrorCheckResult(EP) :
-                GetErrorCheckResult(EP, UserRegExCheckErrorMessage);
+                GetErrorCheckResult() :
+                GetErrorCheckResult(UserRegExCheckErrorMessage);
         }
 
         private bool IsPassRegExCheck(string regEx) => Regex.IsMatch(Text, regEx);

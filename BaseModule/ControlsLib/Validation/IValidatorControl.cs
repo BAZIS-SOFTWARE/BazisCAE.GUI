@@ -13,7 +13,7 @@ namespace BaseModule.ControlsLib.Validation
     /// </summary>
     public interface IValidatorControl
     {
-        bool IsValueValid(ErrorProvider EP);
+        bool IsValueValid();
 
         bool IsValidating { get; set; }
 
@@ -25,7 +25,13 @@ namespace BaseModule.ControlsLib.Validation
         /// <summary>
         /// ErrorMessage, которое появляется при непройденной проверке на соответствие регулярному выражению UserRegExCheck
         /// </summary>
-        string UserRegExCheckErrorMessage { get; set; } 
+        string UserRegExCheckErrorMessage { get; set; }
+
+        event Action<EventArgs> Validate;
+
+        ErrorProvider EP { get; }
+
+        void InitializeErrorProvider();
     }
 
     [Flags]

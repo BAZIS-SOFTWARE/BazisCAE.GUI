@@ -45,27 +45,27 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnClearAll = new System.Windows.Forms.Button();
             this.chbEnergyCalibration = new System.Windows.Forms.CheckBox();
             this.chbShifting = new System.Windows.Forms.CheckBox();
-            this.txbStartTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive};
+            this.txbStartTime = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbStopPoint = new CMBValidator();
-            this.cmbStartPoint = new CMBValidator();
+            this.cmbStopPoint = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
+            this.cmbStartPoint = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
             this.btnHide = new System.Windows.Forms.Button();
             this.btnShow = new System.Windows.Forms.Button();
-            this.btnRefresh = new BtnValidate();
-            this.addRowButton = new BtnValidate();
-            this.txbAngle = new TextBoxValidator() { InputType = TXTBoxInputType.Float};
-            this.txbShiftZ = new TextBoxValidator() { InputType = TXTBoxInputType.Float };
-            this.txbShiftY = new TextBoxValidator() { InputType = TXTBoxInputType.Float };
-            this.txbShiftX = new TextBoxValidator() { InputType = TXTBoxInputType.Float };
-            this.txbVelosity = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive};
+            this.btnRefresh = new BaseModule.ControlsLib.Validation.BtnValidate(this.components);
+            this.addRowButton = new BaseModule.ControlsLib.Validation.BtnValidate(this.components);
+            this.txbAngle = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbShiftZ = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbShiftY = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbShiftX = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbVelosity = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbEnergyCalibration = new CMBValidator();
-            this.cmbRef = new CMBValidator();
-            this.cmbTraj = new CMBValidator();
+            this.cmbEnergyCalibration = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
+            this.cmbRef = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
+            this.cmbTraj = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.видСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ОбластьСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -74,7 +74,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.ПараметрыДвижения = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.cmbWeldZone = new CMBValidator();
+            this.cmbWeldZone = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
             this.grbWeldRegime = new BaseModule.ControlsLib.GroupBoxEx();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiSpecifyHeatingZone = new System.Windows.Forms.ToolStripMenuItem();
@@ -254,11 +254,15 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txbStartTime.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
+            this.txbStartTime.IsValidating = true;
             this.txbStartTime.Location = new System.Drawing.Point(171, 210);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
             this.txbStartTime.Size = new System.Drawing.Size(347, 20);
             this.txbStartTime.TabIndex = 43;
+            this.txbStartTime.UserRegExCheck = null;
+            this.txbStartTime.UserRegExCheckErrorMessage = null;
             // 
             // label1
             // 
@@ -274,22 +278,30 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbStopPoint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbStopPoint.FormattingEnabled = true;
+            this.cmbStopPoint.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
+            this.cmbStopPoint.IsValidating = true;
             this.cmbStopPoint.Location = new System.Drawing.Point(171, 131);
             this.cmbStopPoint.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbStopPoint.Name = "cmbStopPoint";
             this.cmbStopPoint.Size = new System.Drawing.Size(347, 21);
             this.cmbStopPoint.TabIndex = 36;
+            this.cmbStopPoint.UserRegExCheck = null;
+            this.cmbStopPoint.UserRegExCheckErrorMessage = null;
             // 
             // cmbStartPoint
             // 
             this.cmbStartPoint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbStartPoint.FormattingEnabled = true;
+            this.cmbStartPoint.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
+            this.cmbStartPoint.IsValidating = true;
             this.cmbStartPoint.Location = new System.Drawing.Point(171, 104);
             this.cmbStartPoint.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbStartPoint.Name = "cmbStartPoint";
             this.cmbStartPoint.Size = new System.Drawing.Size(347, 21);
             this.cmbStartPoint.TabIndex = 35;
+            this.cmbStartPoint.UserRegExCheck = null;
+            this.cmbStartPoint.UserRegExCheckErrorMessage = null;
             // 
             // btnHide
             // 
@@ -357,53 +369,73 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // txbAngle
             // 
             this.txbAngle.Enabled = false;
+            this.txbAngle.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
+            this.txbAngle.IsValidating = true;
             this.txbAngle.Location = new System.Drawing.Point(453, 158);
             this.txbAngle.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
             this.txbAngle.Name = "txbAngle";
             this.txbAngle.Size = new System.Drawing.Size(44, 20);
             this.txbAngle.TabIndex = 31;
             this.txbAngle.Text = "0";
+            this.txbAngle.UserRegExCheck = null;
+            this.txbAngle.UserRegExCheckErrorMessage = null;
             // 
             // txbShiftZ
             // 
             this.txbShiftZ.Enabled = false;
+            this.txbShiftZ.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
+            this.txbShiftZ.IsValidating = true;
             this.txbShiftZ.Location = new System.Drawing.Point(359, 158);
             this.txbShiftZ.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbShiftZ.Name = "txbShiftZ";
             this.txbShiftZ.Size = new System.Drawing.Size(45, 20);
             this.txbShiftZ.TabIndex = 31;
             this.txbShiftZ.Text = "0";
+            this.txbShiftZ.UserRegExCheck = null;
+            this.txbShiftZ.UserRegExCheckErrorMessage = null;
             // 
             // txbShiftY
             // 
             this.txbShiftY.Enabled = false;
+            this.txbShiftY.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
+            this.txbShiftY.IsValidating = true;
             this.txbShiftY.Location = new System.Drawing.Point(281, 158);
             this.txbShiftY.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbShiftY.Name = "txbShiftY";
             this.txbShiftY.Size = new System.Drawing.Size(45, 20);
             this.txbShiftY.TabIndex = 31;
             this.txbShiftY.Text = "0";
+            this.txbShiftY.UserRegExCheck = null;
+            this.txbShiftY.UserRegExCheckErrorMessage = null;
             // 
             // txbShiftX
             // 
             this.txbShiftX.Enabled = false;
+            this.txbShiftX.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
+            this.txbShiftX.IsValidating = true;
             this.txbShiftX.Location = new System.Drawing.Point(205, 158);
             this.txbShiftX.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbShiftX.Name = "txbShiftX";
             this.txbShiftX.Size = new System.Drawing.Size(45, 20);
             this.txbShiftX.TabIndex = 31;
             this.txbShiftX.Text = "0";
+            this.txbShiftX.UserRegExCheck = null;
+            this.txbShiftX.UserRegExCheckErrorMessage = null;
             // 
             // txbVelosity
             // 
             this.txbVelosity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbVelosity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txbVelosity.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
+            this.txbVelosity.IsValidating = true;
             this.txbVelosity.Location = new System.Drawing.Point(171, 184);
             this.txbVelosity.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbVelosity.Name = "txbVelosity";
             this.txbVelosity.Size = new System.Drawing.Size(347, 20);
             this.txbVelosity.TabIndex = 31;
+            this.txbVelosity.UserRegExCheck = null;
+            this.txbVelosity.UserRegExCheckErrorMessage = null;
             // 
             // label7
             // 
@@ -456,33 +488,45 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbEnergyCalibration.Enabled = false;
             this.cmbEnergyCalibration.FormattingEnabled = true;
+            this.cmbEnergyCalibration.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
+            this.cmbEnergyCalibration.IsValidating = true;
             this.cmbEnergyCalibration.Location = new System.Drawing.Point(170, 77);
             this.cmbEnergyCalibration.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbEnergyCalibration.Name = "cmbEnergyCalibration";
             this.cmbEnergyCalibration.Size = new System.Drawing.Size(347, 21);
             this.cmbEnergyCalibration.TabIndex = 29;
+            this.cmbEnergyCalibration.UserRegExCheck = null;
+            this.cmbEnergyCalibration.UserRegExCheckErrorMessage = null;
             // 
             // cmbRef
             // 
             this.cmbRef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbRef.FormattingEnabled = true;
+            this.cmbRef.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
+            this.cmbRef.IsValidating = true;
             this.cmbRef.Location = new System.Drawing.Point(170, 50);
             this.cmbRef.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbRef.Name = "cmbRef";
             this.cmbRef.Size = new System.Drawing.Size(347, 21);
             this.cmbRef.TabIndex = 29;
+            this.cmbRef.UserRegExCheck = null;
+            this.cmbRef.UserRegExCheckErrorMessage = null;
             // 
             // cmbTraj
             // 
             this.cmbTraj.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbTraj.FormattingEnabled = true;
+            this.cmbTraj.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
+            this.cmbTraj.IsValidating = true;
             this.cmbTraj.Location = new System.Drawing.Point(170, 23);
             this.cmbTraj.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
             this.cmbTraj.Name = "cmbTraj";
             this.cmbTraj.Size = new System.Drawing.Size(347, 21);
             this.cmbTraj.TabIndex = 29;
+            this.cmbTraj.UserRegExCheck = null;
+            this.cmbTraj.UserRegExCheckErrorMessage = null;
             // 
             // dataGridView
             // 
@@ -591,11 +635,15 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbWeldZone.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbWeldZone.FormattingEnabled = true;
+            this.cmbWeldZone.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
+            this.cmbWeldZone.IsValidating = true;
             this.cmbWeldZone.Location = new System.Drawing.Point(170, 24);
             this.cmbWeldZone.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
             this.cmbWeldZone.Name = "cmbWeldZone";
             this.cmbWeldZone.Size = new System.Drawing.Size(347, 21);
             this.cmbWeldZone.TabIndex = 38;
+            this.cmbWeldZone.UserRegExCheck = null;
+            this.cmbWeldZone.UserRegExCheckErrorMessage = null;
             // 
             // grbWeldRegime
             // 
