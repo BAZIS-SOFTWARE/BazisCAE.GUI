@@ -46,10 +46,11 @@ namespace BaseModule.ControlsLib.Validation
             if (!IsValidating)
                 return true;
 
+            if (Enabled == false)
+                return GetErrorCheckResult();
+
             if (Text.Equals(string.Empty))
-                return Enabled == false ?
-                    GetErrorCheckResult() :
-                    GetErrorCheckResult("Поле оставлено пустым");
+                return GetErrorCheckResult("Поле оставлено пустым");
 
             if (IsInputTypeChosen(TXTBoxInputType.Text)
                 && Text.Any(x => IligalSymbols.Contains(x)))
