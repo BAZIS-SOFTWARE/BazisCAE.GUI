@@ -1,5 +1,6 @@
 ﻿using BaseModule.ControlsLib;
 using BaseModule.ControlsLib.Validation;
+using System.Windows.Forms;
 
 namespace TaskModule.HeatTreatmentModule
 {
@@ -207,7 +208,7 @@ namespace TaskModule.HeatTreatmentModule
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = CheckState.start;
+            this.player.CheckState = BaseModule.ControlsLib.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(236, 97);
             this.player.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
@@ -627,9 +628,12 @@ namespace TaskModule.HeatTreatmentModule
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private CMBValidator cmbEl;
-        private CMBValidator cmbTempreture;
-        private TextBoxValidator txbDiffCoefCarbon;
+        //private CMBValidator cmbEl;
+        private ComboBox cmbEl;
+        //private CMBValidator cmbTempreture;
+        private ComboBox cmbTempreture;
+        //private TextBoxValidator txbDiffCoefCarbon;
+        private TextBox txbDiffCoefCarbon;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -645,15 +649,20 @@ namespace TaskModule.HeatTreatmentModule
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.Button btnAddNewRow;
-        private TextBoxValidator txbStop;
-        private TextBoxValidator txbStart;
+        //private TextBoxValidator txbStop;
+        private TextBox txbStop;
+        //private TextBoxValidator txbStart;
+        private TextBox txbStart;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.RadioButton rbtGammaFe;
-        private TextBoxValidator txbConcentrNitro;
-        private TextBoxValidator txbConcentrCarbon;
+        //private TextBoxValidator txbConcentrNitro;
+        private TextBox txbConcentrNitro;
+        //private TextBoxValidator txbConcentrCarbon;
+        private TextBox txbConcentrCarbon;
         private System.Windows.Forms.Label label8;
-        private TextBoxValidator txbDiffCoefNitro;
+        //private TextBoxValidator txbDiffCoefNitro;
+        private TextBox txbDiffCoefNitro;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.RadioButton rbtAlphaFe;

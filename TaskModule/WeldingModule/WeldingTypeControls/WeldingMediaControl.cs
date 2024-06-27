@@ -22,13 +22,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             InitializeComponent();
             DataName = "Среда";
 
-            ValidateControls += () => txbStartTime.IsValueValid();
-            ValidateControls += () => txbStopTime.IsValueValid();
-            ValidateControls += () => txbMediaTemp.IsValueValid();
-            ValidateControls += () => cmbEl.IsValueValid();
-            ValidateControls += () => cmbFunc.IsValueValid();
-            ValidateControls += () => cmbNode.IsValueValid();
-            ValidateControls += () => cmbTermoCycle.IsValueValid();
+            //ValidateControls += () => txbStartTime.IsValueValid();
+            //ValidateControls += () => txbStopTime.IsValueValid();
+            //ValidateControls += () => txbMediaTemp.IsValueValid();
+            //ValidateControls += () => cmbEl.IsValueValid();
+            //ValidateControls += () => cmbFunc.IsValueValid();
+            //ValidateControls += () => cmbNode.IsValueValid();
+            //ValidateControls += () => cmbTermoCycle.IsValueValid();
         }
 
         public override string DataName { get; }
@@ -57,8 +57,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (!ValidateControls())
-                return;
+            //if (!ValidateControls())
+            //    return;
             try
             {
                 CurentSelectedRowInfo = AddRowInfo();
@@ -158,8 +158,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (!ValidateControls())
-                return;
+            //if (!ValidateControls())
+            //    return;
             try
             {
                 CurentSelectedRowInfo = AddRowInfo();

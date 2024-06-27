@@ -62,14 +62,14 @@ namespace TaskModule.HeatTreatmentModule
             InitializeComponent();
             DataName = "Среда";
 
-            ValidateControls += () => txbStartTime.IsValueValid();
-            ValidateControls += () => txbStopTime.IsValueValid();
-            ValidateControls += () => cmbEl.IsValueValid();
-            ValidateControls += () => cmbExchFunc.IsValueValid();
-            ValidateControls += () => cmbTempFunc.IsValueValid();
-            ValidateControls += () => blackRank.IsValueValid();
-            ValidateControls += () => convExcFunc.IsValueValid();
-            ValidateControls += () => StefanBolzmanConst.IsValueValid();
+            //ValidateControls += () => txbStartTime.IsValueValid();
+            //ValidateControls += () => txbStopTime.IsValueValid();
+            //ValidateControls += () => cmbEl.IsValueValid();
+            //ValidateControls += () => cmbExchFunc.IsValueValid();
+            //ValidateControls += () => cmbTempFunc.IsValueValid();
+            //ValidateControls += () => blackRank.IsValueValid();
+            //ValidateControls += () => convExcFunc.IsValueValid();
+            //ValidateControls += () => StefanBolzmanConst.IsValueValid();
         }
 
         public override string DataName { get; }
@@ -140,8 +140,8 @@ namespace TaskModule.HeatTreatmentModule
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (!IsValidated(this, new CancelEventArgs()))
-                return;
+            //if (!IsValidated(this, new CancelEventArgs()))
+            //    return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -157,8 +157,8 @@ namespace TaskModule.HeatTreatmentModule
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (!IsValidated(this, new CancelEventArgs()))
-                return;
+            //if (!IsValidated(this, new CancelEventArgs()))
+            //    return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();

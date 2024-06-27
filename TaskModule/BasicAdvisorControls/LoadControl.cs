@@ -63,12 +63,12 @@ namespace TaskModule.BasicAdvisorControls
             InitializeComponent();
             DataName = "Нагрузка";
 
-            ValidateControls += () => txbStartTime.IsValueValid();
-            ValidateControls += () => txbStopTime.IsValueValid();
-            ValidateControls += () => txbValue.IsValueValid();
-            ValidateControls += () => cmbGr.IsValueValid();
-            ValidateControls += () => cmbKind.IsValueValid();
-            ValidateControls += () => cmbLoadFunction.IsValueValid();
+            //ValidateControls += () => txbStartTime.IsValueValid();
+            //ValidateControls += () => txbStopTime.IsValueValid();
+            //ValidateControls += () => txbValue.IsValueValid();
+            //ValidateControls += () => cmbGr.IsValueValid();
+            //ValidateControls += () => cmbKind.IsValueValid();
+            //ValidateControls += () => cmbLoadFunction.IsValueValid();
         }
 
         public override string DataName { get; }
@@ -109,8 +109,8 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (!IsValidated(this, new CancelEventArgs()))
-                return;
+            //if (!IsValidated(this, new CancelEventArgs()))
+            //    return;
             var rows = new List<string>();
             try
             {
@@ -211,8 +211,8 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (!IsValidated(this, new CancelEventArgs()))
-                return;
+            //if (!IsValidated(this, new CancelEventArgs()))
+            //    return;
             try
             {
                 string direction = string.Empty;

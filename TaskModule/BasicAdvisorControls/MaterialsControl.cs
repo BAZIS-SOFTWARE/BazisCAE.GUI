@@ -81,10 +81,10 @@ namespace TaskModule.BasicAdvisorControls
 
             DataName = "Материал";
 
-            ValidateControls += () => txbStartTime.IsValueValid();
-            ValidateControls += () => txbStopTime.IsValueValid();
-            ValidateControls += () => cmbEl.IsValueValid();
-            ValidateControls += () => cmbMat.IsValueValid();
+            //ValidateControls += () => txbStartTime.IsValueValid();
+            //ValidateControls += () => txbStopTime.IsValueValid();
+            //ValidateControls += () => cmbEl.IsValueValid();
+            //ValidateControls += () => cmbMat.IsValueValid();
         }
 
         public override string DataName { get; }
@@ -119,8 +119,8 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (!IsValidated(this, new CancelEventArgs()))
-                return;
+            //if (!IsValidated(this, new CancelEventArgs()))
+            //    return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -141,8 +141,8 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (!IsValidated(this, new CancelEventArgs()))
-                return;
+            //if (!IsValidated(this, new CancelEventArgs()))
+            //    return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -157,6 +157,8 @@ namespace TaskModule.BasicAdvisorControls
 
         private string CreateRowInfo()
         {
+            if (cmbEl.Text.Equals("") || cmbMat.Text.Equals("") || txbStartTime.Text.Equals("") || txbStopTime.Text.Equals(""))
+                throw new Exception("Передано пустое значение");
             return string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3} *", cmbEl.Text, cmbMat.Text, txbStartTime.Text, txbStopTime.Text);
         }
 

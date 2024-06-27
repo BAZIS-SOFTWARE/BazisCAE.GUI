@@ -3,6 +3,7 @@ using TaskModule.BasicAdvisorControls;
 using TaskModule.WeldingModule.WeldingTypeControls;
 using TaskModule.BasicTaskAdvisor;
 using BaseModule.ControlsLib;
+using System.Windows.Forms;
 
 namespace TaskModule.WeldingModule
 {

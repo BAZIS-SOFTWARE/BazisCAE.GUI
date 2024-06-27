@@ -42,12 +42,14 @@ namespace TaskModule.BasicAdvisorControls
             this.btnClearAll = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.txbStopTime = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components) { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
+            //this.txbStopTime = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components) { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
+            this.txbStopTime = new TextBox();
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnRefresh = new Button();
             this.btnAddNewRow = new Button();
-            this.txbStartTime = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components) { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
+            //this.txbStartTime = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components) { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
+            this.txbStartTime = new TextBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,14 +58,17 @@ namespace TaskModule.BasicAdvisorControls
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cmbNodeGr = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
+            //this.cmbNodeGr = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
+            this.cmbNodeGr = new ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.cmbKind = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
+            //this.cmbKind = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
+            this.cmbKind = new ComboBox();
             this.grbClampingParams = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbStiffnessFunc = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
+            //this.cmbStiffnessFunc = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
+            this.cmbStiffnessFunc = new ComboBox();
             this.chbLRF = new System.Windows.Forms.CheckBox();
             this.chbZ = new System.Windows.Forms.CheckBox();
             this.chbY = new System.Windows.Forms.CheckBox();
@@ -187,8 +192,7 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStopTime.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
-            this.txbStopTime.IsValidating = true;
+            //this.txbStopTime.IsValidating = true;
             this.txbStopTime.Location = new System.Drawing.Point(232, 71);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(4, 4, 20, 4);
             this.txbStopTime.Name = "txbStopTime";
@@ -257,8 +261,7 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStartTime.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
-            this.txbStartTime.IsValidating = true;
+            //this.txbStartTime.IsValidating = true;
             this.txbStartTime.Location = new System.Drawing.Point(232, 37);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(4, 20, 20, 4);
             this.txbStartTime.Name = "txbStartTime";
@@ -363,8 +366,8 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbNodeGr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbNodeGr.FormattingEnabled = true;
-            this.cmbNodeGr.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
-            this.cmbNodeGr.IsValidating = true;
+            //this.cmbNodeGr.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
+            //this.cmbNodeGr.IsValidating = true;
             this.cmbNodeGr.Location = new System.Drawing.Point(228, 31);
             this.cmbNodeGr.Margin = new System.Windows.Forms.Padding(237, 33, 20, 4);
             this.cmbNodeGr.Name = "cmbNodeGr";
@@ -396,8 +399,8 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbKind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbKind.FormattingEnabled = true;
-            this.cmbKind.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
-            this.cmbKind.IsValidating = true;
+            //this.cmbKind.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
+            //this.cmbKind.IsValidating = true;
             this.cmbKind.Items.AddRange(new object[] {
             "Жесткое"});
             this.cmbKind.Location = new System.Drawing.Point(227, 67);
@@ -452,8 +455,8 @@ namespace TaskModule.BasicAdvisorControls
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbStiffnessFunc.Enabled = false;
             this.cmbStiffnessFunc.FormattingEnabled = true;
-            this.cmbStiffnessFunc.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
-            this.cmbStiffnessFunc.IsValidating = true;
+            //this.cmbStiffnessFunc.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
+            //this.cmbStiffnessFunc.IsValidating = true;
             this.cmbStiffnessFunc.Location = new System.Drawing.Point(227, 78);
             this.cmbStiffnessFunc.Margin = new System.Windows.Forms.Padding(20, 4, 20, 4);
             this.cmbStiffnessFunc.Name = "cmbStiffnessFunc";
@@ -565,18 +568,23 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private TextBoxValidator txbStopTime;
+        //private TextBoxValidator txbStopTime;
+        private TextBox txbStopTime;
         private Button btnAddNewRow;
-        private TextBoxValidator txbStartTime;
+        //private TextBoxValidator txbStartTime;
+        private TextBox txbStartTime;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
-        private CMBValidator cmbNodeGr;
+        //private CMBValidator cmbNodeGr;
+        private ComboBox cmbNodeGr;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
-        private CMBValidator cmbKind;
+        //private CMBValidator cmbKind;
+        private ComboBox cmbKind;
         private System.Windows.Forms.GroupBox grbClampingParams;
         private System.Windows.Forms.Label label2;
-        private CMBValidator cmbStiffnessFunc;
+        //private CMBValidator cmbStiffnessFunc;
+        private ComboBox cmbStiffnessFunc;
         private System.Windows.Forms.Label label4;
         private Button btnRefresh;
         private System.Windows.Forms.Button btnShowAll;

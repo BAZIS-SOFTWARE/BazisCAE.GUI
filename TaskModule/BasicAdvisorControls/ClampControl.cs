@@ -73,11 +73,11 @@ namespace TaskModule.BasicAdvisorControls
             InitializeComponent();
             DataName = "Закрепление";
 
-            ValidateControls += () => txbStartTime.IsValueValid();
-            ValidateControls += () => txbStopTime.IsValueValid();
-            ValidateControls += () => cmbKind.IsValueValid();
-            ValidateControls += () => cmbNodeGr.IsValueValid();
-            ValidateControls += () => cmbStiffnessFunc.IsValueValid();
+            //ValidateControls += () => txbStartTime.IsValueValid();
+            //ValidateControls += () => txbStopTime.IsValueValid();
+            //ValidateControls += () => cmbKind.IsValueValid();
+            //ValidateControls += () => cmbNodeGr.IsValueValid();
+            //ValidateControls += () => cmbStiffnessFunc.IsValueValid();
         }
 
         public override string DataName { get; }
@@ -165,8 +165,8 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (!IsValidated(this, new CancelEventArgs()))
-                return;
+            //if (!IsValidated(this, new CancelEventArgs()))
+            //    return;
 
             var rows = new List<string>();
             try
@@ -214,8 +214,8 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (!IsValidated(this, new CancelEventArgs()))
-                return;
+            //if (!IsValidated(this, new CancelEventArgs()))
+            //    return;
             try
             {
                 string direction = string.Empty;
