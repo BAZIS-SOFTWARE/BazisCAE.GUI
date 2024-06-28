@@ -15,7 +15,22 @@ namespace BaseModule.ControlsLib
     {
         int fullHeigth;
 
+        public bool IsRollable { get; set; } = true;
 
+        public bool CheckState
+        {
+            get { return chb.Checked; }
+            set { chb.Checked = value; }
+        }
+
+        public bool IsCheckable 
+        {
+            get { return chb.Visible; }
+            set 
+            { 
+                chb.Visible = value;
+            }
+        } 
 
         public GroupBoxEx()
         {
@@ -31,33 +46,43 @@ namespace BaseModule.ControlsLib
         {
             var textSize = TextRenderer.MeasureText(Text, Font);
 
-            if (Height == textSize.Height + 10)
+            if (IsCheckable)
             {
-                ComponentsPainter.PaintSimbolRectangle(e.Graphics, new Point(textSize.Width + 4, textSize.Height / 2 - 4), "+");
+                chb.Location = new Point(this.Width - (int)(chb.Width * 1.5f), textSize.Height / 2 - chb.Height / 2);
             }
-            else
+
+            if (IsRollable)
             {
-                ComponentsPainter.PaintSimbolRectangle(e.Graphics, new Point(textSize.Width + 4, textSize.Height / 2 - 4), "-");
+                var location = new Point(textSize.Width + 4, textSize.Height / 2 - 4);
+
+                if (Height == textSize.Height + this.MinimumSize.Height)
+                    ComponentsPainter.PaintSimbolRectangle(e.Graphics, location, "+");
+                else
+                    ComponentsPainter.PaintSimbolRectangle(e.Graphics, location, "-");
             }
+
         }
 
         private void GroupBoxEx_MouseClick(object sender, MouseEventArgs e)
         {
-            var textSize = TextRenderer.MeasureText(Text, Font);
-            if (e.Location.X > textSize.Width + 5 & e.Location.X < textSize.Width + 15 && e.Location.Y <= 10)
+            if (IsRollable)
             {
-                if (Height == textSize.Height + 10)
+                var textSize = TextRenderer.MeasureText(Text, Font);
+                if (e.Location.X > textSize.Width + 5 & e.Location.X < textSize.Width + 15 && e.Location.Y <= 10)
                 {
-                    Height = fullHeigth;
-                }
+                    if (Height == textSize.Height + this.MinimumSize.Height)
+                    {
+                        Height = fullHeigth;
+                    }
 
-                else
-                {
-                    var temp = Height;
-                    fullHeigth = temp;
-                    Height = textSize.Height + 10;
-                }
+                    else
+                    {
+                        var temp = Height;
+                        fullHeigth = temp;
+                        Height = textSize.Height + this.MinimumSize.Height;
+                    }
 
+                }
             }
         }
 
