@@ -8,7 +8,10 @@ using SceneInterface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.ExceptionServices;
+using System.Security;
 using System.Windows.Forms;
 
 namespace ModelModule
@@ -99,54 +102,348 @@ namespace ModelModule
                     FormBorderStyle = FormBorderStyle.FixedSingle,
                     Text = "Cеточный тетра генератор"
                 };
+                gmshForm.FormClosing += GmshForm_FormClosing;
 
+
+                meshGenerator.Load += (ar1, ar2) =>
+                {
+                    if (GmshController != null)
+                    {
+                        var ierr = 0;
+                        meshGenerator.FillGeometryTreeView(GmshController);
+                        if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
+                            meshGenerator.ShowHideGeneralTabControls(2, true);
+                    }
+
+                    meshGenerator.ShowHideGeneralTabControls(1);
+                    meshGenerator.ShowHideTabControls(1);
+                };
+
+                meshGenerator.setMeshAlgoEvent += (ar) =>
+                {
+                    var ierr = 0;
+                    GmshController.OptionSetNumber("Mesh.Algorithm", ar, ref ierr);
+                };
+                meshGenerator.showSurfaceInfoEvent += MeshGenerator_showSurfaceInfoEvent;
+                meshGenerator.showCurveInfoEvent += MeshGenerator_showCurveInfoEvent;
+                meshGenerator.generateMeshEvent += MeshGenerator_generateMeshEvent;
+                meshGenerator.deleteMeshEvent += MeshGenerator_deleteMeshEvent;
                 meshGenerator.showTransPoints += MeshGenerator_showTransPoints;
-                meshGenerator.hideTransPoints += MeshGenerator_hideTransPoints;
                 meshGenerator.updateObjectsDataEvent += UpdateMeshVBO;
                 meshGenerator.updateGeometryVBOEvent += UpdateGeometryVBO;
                 meshGenerator.updateTreeViewEvent += () => { PresentProjectOnTree(); };
-                meshGenerator.redrawScene += RedrawScene;
-                meshGenerator.showErrorMessage += ShowErrorMessage;
-                meshGenerator.ShowObjectsEvent += ShowLines;
-                meshGenerator.hide3dTextEvent += () =>
-                {
-                    SceneControl.HideDisplayText3D();
-                    SceneControl.DisplayObjects();
-                };
-                meshGenerator.show3dTextEvent += GmshControl_show3dTextEvent;
+                meshGenerator.refineMesh += MeshGenerator_refineMesh;
+                meshGenerator.showObjectsEvent += ShowLines;
+                meshGenerator.generateQuadMesh += MeshGenerator_generateQuadMesh;      
                 meshGenerator.showHeatMapEvent += GmshControl_showHeatMapEvent;
-                meshGenerator.hideHeatMapEvent += GmshControl_hideHeatMapEvent;
-                meshGenerator.ResetColorObjectsEvent += GmshControl_ResetColorObjectsEvent;
+                meshGenerator.resetColorObjectsEvent += GmshControl_ResetColorObjectsEvent;
+                meshGenerator.setTransfiniteCurveEvent += MeshGenerator_setTransfiniteCurveEvent;
+                meshGenerator.setCurveDataEvent += SetCurveDataEventHandler;
+
                 gmshForm.Controls.Add(meshGenerator);
                 meshGenerator.Dock = DockStyle.Fill;
-                meshGenerator.ObjectData = Project.ModelData.ObjectData;
-                meshGenerator.GmshController = GmshController;
+                //meshGenerator.ObjectData = Project.ModelData.ObjectData;
+  
                 gmshForm.Show();
             }        
             //ModelPresenter.Clear();//Подчищаем Presenter во избежании артефактов
         }
 
-        private void MeshGenerator_hideTransPoints()
+        private void SetCurveDataEventHandler(object sender, int tag)
         {
-            SceneControl.DeleteVBObjects("transPoints");
+            var cntr = (GMSHGeneralMeshControl)sender;
+            string[] attributes;
+            GmshController.ModelGetAttribute($"transfinite {tag}", out attributes);
+            cntr.WriteCurveSettingsToControls(attributes);
+        }
+
+        private void DeleteElementsByNumber(object sender, DeleteElementEventArgs args)
+        {
+            var cntr = (GMSHGeneralMeshControl)sender;
+            var intType = cntr.GetElementTypeByString(ref args.keyData[0]);
+
+            var dimTags = args.isNumeric ? new int[] { args.dim, Int32.Parse(args.keyData[1]) }
+                         : GetElementsByType(intType, args.dim, args.tag);
+
+
+            DeleteElementsByNumbers(dimTags, args.keyData[0], cntr.ElementsType);
+        }
+
+        private int[] GetElementsByType(int intType, int dim, int tag)
+        {
+            int[] elTypes;
+            long[][] elTags, nodeTags;
+            GmshController.ModelMeshGetElements(dim, tag, out elTypes, out elTags, out nodeTags);
+            int[] dimTags = null;
+            for (var i = 0; i < elTypes.Length; ++i)
+                if (elTypes[i] == intType)
+                {
+                    var tags = elTags[i];
+                    dimTags = new int[tags.Length * 2];
+                    for (var j = 0; j < tags.Length; ++j)
+                    {
+                        dimTags[j * 2] = dim;
+                        dimTags[j * 2 + 1] = Convert.ToInt32(tags[j]);
+                    }
+                    break;
+                }
+            return dimTags;
+        }
+
+        private void DeleteElementsByNumbers(int[] dimTags, string keyData, IEnumerable<string> elementType)
+        {
+            foreach (var element in elementType)
+                if (element.Contains(keyData))
+                {
+                    long[] idElems = dimTags.Where((i, v) => (v & 1) == 1)
+                                            .Select(v => (long)v)
+                                            .ToArray();
+                    GmshController.DeleteMeshElements(idElems);
+                    return;
+                }
+            var ierr = 0;
+            GmshController.ModelMeshClear(dimTags, (IntPtr)dimTags.Length, ref ierr);
+        }
+
+
+        private void MeshGenerator_showSurfaceInfoEvent(bool flag)
+        {
+            if(flag)
+            {
+                int[] dimTags;
+                GmshController.ModelGetGeometryEntities(out dimTags, 2);
+
+                for (var i = 1; i < dimTags.Length; i += 2)
+                {
+                    var point = GetCenterOfGeometryEntity(2, dimTags[i]);
+                    //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
+                    var text = $"Поверхность {dimTags[i]}";
+
+                    SceneControl.DisplayText3D(text, Color.Black, point);
+                }
+            }
+            else
+                SceneControl.HideDisplayText3D();
+
             SceneControl.DisplayObjects();
         }
 
-        private void MeshGenerator_showTransPoints()
+        private void MeshGenerator_showCurveInfoEvent(bool obj)
         {
-            var dic = GetCurvesNumbersAndNodes();
-
-            var points = new List<GeometryPoint>();
-            foreach (var item in dic.Keys)
+            // тут нужно перебрать все кривые которые есть в модели и показать их параметры разметки
+            if (obj)
             {
-                points.AddRange(GetTransPointsCoords(item));
+                string[] attribList;
+                GmshController.ModelGetAttributeNames(out attribList);
+
+                foreach (var item in attribList)
+                {
+                    var tag = Int32.Parse(item.Split(' ')[1]);
+                    var attributes = GetCurrentCurveAttributes(tag);
+
+                    if (attributes.Length == 3)
+                    {
+                        var text = $"{attributes[2]} {attributes[1]} {attributes[0]}";
+                        var point = GetCenterOfGeometryEntity(1, tag);
+
+                        SceneControl.DisplayText3D(text, Color.Black, point);
+                    }
+                }
+            }
+            else
+                SceneControl.HideDisplayText3D();
+             
+            SceneControl.DisplayObjects();
+        }
+
+
+
+
+        /// <summary>
+        /// Вернуть центр масс текущей геометрической сущности
+        /// </summary>
+        /// <param name="dim">Геометрическая размерность</param>
+        /// <param name="tag">Идентификатор геометрической сущности</param>
+        /// <returns>Центр масс</returns>
+        private Point3D GetCenterOfGeometryEntity(int dim, int tag)
+        {
+            var ierr = 0;
+            double x = 0, y = 0, z = 0;
+            GmshController.ModelOccGetCenterOfMass(dim, tag, ref x, ref y, ref z, ref ierr);
+            var point = new Point3D((float)x, (float)y, (float)z);
+            return point;
+        }
+
+        private void GmshForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SceneControl.HideAllGeometryObjs();
+            SceneControl.HideDisplayText3D();
+        }
+
+        private void MeshGenerator_setTransfiniteCurveEvent(object arg1, SetTransfiniteCurveEventArgs arg2)
+        {
+            var ierr = 0;
+            GmshController.ModelSetAttribute($"transfinite {arg2.tag}", arg2.attributes, (IntPtr)arg2.v, ref ierr);
+                if (arg2.attributes.All(x => x.Length != 0))
+                {
+                    GmshController.ModelMeshSetTransfiniteCurve(arg2.tag, (int)arg2.points, arg2.attributes[1], arg2.coef, ref ierr);
+                    //Перегенерация сетки, если она присутствовала в момент уплотнения кривой
+                }
+        }
+
+        private void MeshGenerator_generateQuadMesh(object obj)
+        {
+            var cntr = (GMSHGeneralMeshControl)obj;
+            var filename = string.Empty;
+            GmshController.ModelGetFileName(out filename);
+            var ext = Path.GetExtension(filename);
+            if (ext.Contains("igs") || ext.Contains("iges"))
+            {
+                var ierr = 0;
+                string error;
+                GmshController.ModelMeshRecombine(ref ierr);
+                GmshController.LoggerGetLastError(out error);
+                if (!String.IsNullOrEmpty(error))
+                    ConsoleControl.PrintInfo(error, Color.Red);
+                cntr.ShowHideTabControls(3, false);
+                cntr.ClearTreeView(3);
+                var objs = GmshController.GetMeshObjects();
+
+
+                Project.ModelData.ObjectData.Clear(ObjType.Узел);
+                var trv = cntr.GetTreeView(2);
+                cntr.FillMeshTreeView(GmshController,trv, 2);
+            }
+        }
+
+        private void MeshGenerator_refineMesh(object sender)
+        {
+            var cntr = (GMSHGeneralMeshControl)sender;
+            var ierr = 0;
+            GmshController.ModelMeshRefine(ref ierr);
+
+            var trv = cntr.GetTreeView(2);
+            cntr.FillMeshTreeView(GmshController, trv, 2);
+
+            Project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
+            UpdateMeshVBO();
+
+            PresentProjectOnTree();
+
+            SceneControl.FitObjectsToScreen();
+            SceneControl.DisplayObjects();
+        }
+
+        [HandleProcessCorruptedStateExceptions]
+        [SecurityCritical]
+        private void MeshGenerator_generateMeshEvent(object sender, double meshDencity, ObjType obj)
+        {
+            var ierr = 0;
+            string error;
+            try
+            {
+                var cntr = (GMSHGeneralMeshControl)sender;
+                GmshController.OptionSetNumber("Mesh.MeshSizeFactor", meshDencity, ref ierr);
+                if (obj == ObjType.Элемент2D)
+                {
+                    DeleteGMSHMeshObjects(ObjType.Узел);
+                    GmshController.ModelMeshGenerate(1, ref ierr);
+                    GmshController.ModelMeshGenerate(2, ref ierr);
+                    var trv = cntr.GetTreeView(2);
+                    cntr.FillMeshTreeView(GmshController, trv, 2);
+                }
+                else
+                {
+                    DeleteGMSHMeshObjects(ObjType.Элемент3D);
+                    GmshController.ModelMeshGenerate(3, ref ierr);
+                    var trv = cntr.GetTreeView(3);
+                    cntr.FillMeshTreeView(GmshController,trv, 3, "Объемы", "Объем ");
+                }
+            }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                return;
+            }
+            GmshController.LoggerGetLastError(out error);
+            if (!String.IsNullOrEmpty(error))
+                ConsoleControl.PrintInfo(error, Color.Red);
+
+            Project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
+            UpdateMeshVBO();
+
+            PresentProjectOnTree();
+
+            SceneControl.FitObjectsToScreen();
+            SceneControl.DisplayObjects();
+        }
+
+        private void MeshGenerator_deleteMeshEvent(ObjType objType)
+        {
+            if(objType == ObjType.Элемент2D)
+            {
+                DeleteGMSHMeshObjects(ObjType.Узел);
+            }
+            else if(objType == ObjType.Элемент3D)
+            {
+                DeleteGMSHMeshObjects(ObjType.Элемент3D);
             }
 
-            var presentor = PresentersCreator.CreatePointObjectsPresenter(points);
+            Project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
+            UpdateMeshVBO();
 
+            PresentProjectOnTree();
+
+            SceneControl.FitObjectsToScreen();
+            SceneControl.DisplayObjects();
+        }
+
+        private void DeleteGMSHMeshObjects(ObjType type)
+        {
+            var ierr = 0;
+            int[] dimTags = null;
+            var dim = 0;
+            if (type == ObjType.Узел) //удаляем всю сетку узлы,1d,2d,3d
+            {
+                dimTags = new int[0];
+            }
+            if (type == ObjType.Элемент1D)//удаляем все 1d элементы
+            {
+                dim = 1;
+                GmshController.ModelGetGeometryEntities(out dimTags, dim);
+            }
+            else if (type == ObjType.Элемент2D)//удаляем все 2d элементы
+            {
+                dim = 2;
+                GmshController.ModelGetGeometryEntities(out dimTags, dim);
+            }
+            else if (type == ObjType.Элемент3D)//удаляем все 3d элементы
+            {
+                dim = 3;
+                GmshController.ModelGetGeometryEntities(out dimTags, dim);
+            }
+            GmshController.ModelMeshClear(dimTags, (IntPtr)dimTags.Length, ref ierr);
+        }
+
+        private void MeshGenerator_showTransPoints(bool flag)
+        {
             SceneControl.DeleteVBObjects("transPoints");
 
-            CreateObjectsToScene("transPoints", presentor);
+            if (flag)
+            {
+                var dic = GetCurvesNumbersAndNodes();
+
+                var points = new List<GeometryPoint>();
+                foreach (var item in dic.Keys)
+                {
+                    points.AddRange(GetTransPointsCoords(item));
+                }
+
+                var presentor = PresentersCreator.CreatePointObjectsPresenter(points);
+
+                CreateObjectsToScene("transPoints", presentor);
+            }
+                
             SceneControl.DisplayObjects();
         }
 
@@ -198,41 +495,43 @@ namespace ModelModule
             return gPoints;
         }
 
-        private void GmshControl_hideHeatMapEvent()
-        {
-            SceneControl.HideGeometryObj("DisplaySceneScale");
-
-            foreach (var item in Project.ModelData.ObjectData.LineCollection)
-                item.SetBackColor();
-
-            var linePres = PresentersCreator.CreateLineObjectsPresenter(Project.ModelData.ObjectData.LineCollection);
-            SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
-            CreateObjectsToScene(ObjType.Линия.ToString(), linePres);
-            SceneControl.DisplayObjects();
-        }
-
-        private void GmshControl_showHeatMapEvent()
+        private void GmshControl_showHeatMapEvent(bool flag)
         {
             try
             {
-                var curvesInfo = GetCurvesNumbersAndNodes();
-                var max = curvesInfo.Max(x => x.Value);
-                var min = curvesInfo.Min(x => x.Value);
-
-                var scale = SceneControl.CreateScaleObject(min, max, 3, "", "");
                 SceneControl.HideGeometryObj("DisplaySceneScale");
-                SceneControl.DisplaySceneScale(scale);
 
-                foreach (var item in curvesInfo)
+                if (flag)
                 {
-                    var color = scale.GetValueColor(item.Value);
-                    Project.ModelData.ObjectData.LineCollection.Find(item.Key).MasterColor = color;
-                }
+                    var curvesInfo = GetCurvesNumbersAndNodes();
+                    var max = curvesInfo.Max(x => x.Value);
+                    var min = curvesInfo.Min(x => x.Value);
 
-                var linePres = PresentersCreator.CreateLineObjectsPresenter(Project.ModelData.ObjectData.LineCollection);
-                SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
-                CreateObjectsToScene(ObjType.Линия.ToString(), linePres);
-                SceneControl.DisplayObjects();
+                    var scale = SceneControl.CreateScaleObject(min, max, 3, "", "");
+
+                    SceneControl.DisplaySceneScale(scale);
+
+                    foreach (var item in curvesInfo)
+                    {
+                        var color = scale.GetValueColor(item.Value);
+                        Project.ModelData.ObjectData.LineCollection.Find(item.Key).MasterColor = color;
+                    }
+
+                    var linePres = PresentersCreator.CreateLineObjectsPresenter(Project.ModelData.ObjectData.LineCollection);
+                    SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
+                    CreateObjectsToScene(ObjType.Линия.ToString(), linePres);
+                    SceneControl.DisplayObjects();
+                }
+                else
+                {
+                    foreach (var item in Project.ModelData.ObjectData.LineCollection)
+                        item.SetBackColor();
+
+                    var linePres = PresentersCreator.CreateLineObjectsPresenter(Project.ModelData.ObjectData.LineCollection);
+                    SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
+                    CreateObjectsToScene(ObjType.Линия.ToString(), linePres);
+                    SceneControl.DisplayObjects();
+                }
             }
             catch (Exception ex)
             {
@@ -240,27 +539,13 @@ namespace ModelModule
             }
         }
 
-        /// <summary>
-        /// Показать 3д текст (если строка пустая - то прячем текст)
-        /// </summary>
-        /// <param name="list"></param>
-        private void GmshControl_show3dTextEvent(object sender,Show3dTextEventArgs args)
+
+
+        private void GmshControl_ResetColorObjectsEvent(ObjType objType)
         {
-            foreach (var item in args)
-                SceneControl.DisplayText3D(item.Item1, Color.Black, item.Item2);
-            SceneControl.DisplayObjects();
-        }
-
-
-
-        private void GmshControl_ResetColorObjectsEvent(ObjType objType, bool obj)
-        {
-            if (obj)
-            {
-                foreach (var item in Project.ModelData.ObjectData.GetObjects(objType))
-                    item.SetBackColor();
-                SetObjectsSceneColor(ObjType.Линия);
-            }      
+            foreach (var item in Project.ModelData.ObjectData.GetObjects(objType))
+                item.SetBackColor();
+            SetObjectsSceneColor(ObjType.Линия);
         }
 
         private void CreateBoundaryElements2D()
@@ -292,13 +577,18 @@ namespace ModelModule
 
         }
 
-        private void ShowLines(int objNumber)
+        private void ShowLines(List<int> objNumbers)
         {
             try
             {
-                Project.ModelData.ObjectData.LineCollection.Find(objNumber).MasterColor 
-                    = SceneControl.SelectionColor;
+                foreach (var item in objNumbers)
+                {
+                    Project.ModelData.ObjectData.LineCollection.Find(item).MasterColor
+    = SceneControl.SelectionColor;
+                }
+
                 SetObjectsSceneColor(ObjType.Линия);
+                SceneControl.DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -342,8 +632,6 @@ namespace ModelModule
             if (presentor.Count() > 0)
                 CreateObjectsToScene(item.ToString(), presentor);
         }   
-
-        private void ShowErrorMessage(string message) => ConsoleControl.PrintInfo(message, Color.Red);
 
         private void RedrawScene(bool fitOnScreen)
         {

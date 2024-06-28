@@ -3,23 +3,14 @@ using System;
 using System.Globalization;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using System.IO;
-using System.Data;
 using System.Linq;
 using System.Text;
-using Geometry;
-using System.Runtime.ExceptionServices;
-using System.Security;
 using ModelControllerInterfaces.GmshController;
 
 namespace ModelModule
 {
     public partial class GMSHGeneralMeshControl : UserControl
     {
-        public IGmshController GmshController { get; set; }
-
-        private int boundFieldTag;
-
         private Dictionary<int, Tuple<string, string>> fundamental = new Dictionary<int, Tuple<string, string>>
         {
             { 2, Tuple.Create("Поверхности","Поверхность") },
@@ -41,23 +32,38 @@ namespace ModelModule
                                                                 { 1, Tuple.Create("Кривая ","Контрольный узел ") },
                                                                 { 0, Tuple.Create("Контрольный узел ","") }
                                                             };
-        public bool SaveObjectData { get; set; }
-        public bool IsControllerLoaded { get => GmshController != null; }
-        public IObjectsData ObjectData { get; internal set; }
-
+        /// <summary>
+        /// Get types of elements
+        /// </summary>
+        public IEnumerable<string> ElementsType 
+        { 
+            get
+            {
+                foreach (var item in elementType.Values)
+                {
+                    yield return item.Item1;
+                }
+            }
+        }
+        public event Action<double> setMeshAlgoEvent;
         public event Action updateObjectsDataEvent;
-        public event Action showTransPoints;
-        public event Action hideTransPoints;
+        public event Action<ObjType> deleteMeshEvent;
+        public event Action<object,double, ObjType> generateMeshEvent;
+        public event Action<object> generateQuadMesh;
+        public event Action<bool> showTransPoints;
         public event Action updateGeometryVBOEvent;
         public event Action updateTreeViewEvent;
-        public event Action hide3dTextEvent;
+        public event Action<bool> showCurveInfoEvent;
+        public event Action<bool> showSurfaceInfoEvent;
         public event Action<object, Show3dTextEventArgs> show3dTextEvent;
-        public event Action<int> ShowObjectsEvent;
-        public event Action<ObjType,bool> ResetColorObjectsEvent;
-        public event Action<string> showErrorMessage;
-        public event Action showHeatMapEvent;
-        public event Action hideHeatMapEvent;
-        public event Action<bool> redrawScene;
+        public event Action<List<int>> showObjectsEvent;
+        public event Action<ObjType> resetColorObjectsEvent;
+        public event Action<object> refineMesh;
+        public event Action<bool> showHeatMapEvent;
+
+        public event Action<object, DeleteElementEventArgs> deleteElementEvent;
+        public event Action<object, SetTransfiniteCurveEventArgs> setTransfiniteCurveEvent;
+        public event Action<object,int> setCurveDataEvent;
 
 
         public GMSHGeneralMeshControl()
@@ -65,76 +71,29 @@ namespace ModelModule
             InitializeComponent();
             //algoChoice.SelectedIndex = 3;
         }
-
-        private void OnLoad(object sender, EventArgs e)
-        {
-            ParentForm.FormClosing += OnClosingForm;
-
-            if(GmshController != null)
-            {
-                var ierr = 0;
-                FillGeometryTreeView(GmshController);
-                if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
-                    ShowHideGeneralTabControls(2);
-            }
-
-            ShowHideGeneralTabControls(1);
-            ShowHideTabControls(1);
-        }
         
 
         private void OnDeleteMesh2D(object sender, EventArgs e)
         {
-            DeleteMesh();
-
             ClearTreeView(3);
-            ShowHideTabControls(3, false);
-            ShowHideGeneralTabControls(3, false);
+            //ShowHideTabControls(3, false);
+            //ShowHideGeneralTabControls(3, false);
 
             ClearTreeView(2);
-            ShowHideTabControls(2, false);
+            //ShowHideTabControls(2, false);
 
-            updateObjectsDataEvent?.Invoke();
-
-            //UpdateMeshVBO(true);
-
-            redrawScene(false);
-
-            updateTreeViewEvent?.Invoke();
+            deleteMeshEvent?.Invoke(ObjType.Элемент2D);
         }
-        /// <summary>
-        /// Метод который удаляет только элементы сетки
-        /// </summary>
-        private void DeleteMesh()
-        {
-            DeleteGMSHMeshObjects(ObjType.Узел);
-            ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
-        }
-        /// <summary>
-        /// Удаляет только элементы 3D, обновляет VBO, деревья элементов, и пререрисовывает сцену
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+
         private void OnDeleteMesh3D(object sender, EventArgs e)
         {
-            DeleteGMSHMeshObjects(ObjType.Элемент3D);
-
-            ObjectData.Clear(ObjType.Узел);
-            //UpdateObjectData();
-
-            updateObjectsDataEvent?.Invoke();
-
-            //updateMeshVBOEvent?.Invoke(ObjType.Узел);
-            //updateMeshVBOEvent?.Invoke(ObjType.Элемент3D);
-
             ClearTreeView(3);
-            ShowHideTabControls(3, false);
-            redrawScene.Invoke(false);
+            //ShowHideTabControls(3, false);
 
-            updateTreeViewEvent?.Invoke();
+            deleteMeshEvent?.Invoke(ObjType.Элемент3D);
         }
 
-        private void ShowHideGeneralTabControls(int dim, bool show = true)
+        public void ShowHideGeneralTabControls(int dim, bool show = true)
         {
             if (dim == 1)
             {
@@ -151,26 +110,44 @@ namespace ModelModule
             }
             else if (dim == 3)
             {
-                volumeBox.Enabled = show;
-                volGenBtn.Enabled = show;
+                grbVolControlBox.Enabled = show;
+                btnGenVolMesh.Enabled = show;
             }
         }
 
-        private void ShowHideTabControls(int dim, bool show = true)
+        public void ShowHideTabControls(int dim, bool show = true)
         {
             if (dim == 2)
             {
                 btnMesh2DDel.Enabled = show;
-                meshElBox.Enabled = show;
+                surfsTree.Enabled = show;
             }
             else if (dim == 3)
             {
-                btnMesh3DDel.Enabled = show;
-                volElBox.Enabled = show;
+                grbVolControlBox.Enabled = show;
+                volumesTree.Enabled = show;
             }
         }
 
-        private void ClearTreeView(int dim)
+        /// <summary>
+        /// GetTreeView
+        /// </summary>
+        /// <param name="dim"></param>
+        /// <returns>TreeView</returns>
+        public TreeView GetTreeView(int dim)
+        {
+            if (dim == 1)
+                return geomTree;
+            else if (dim == 2)
+                return surfsTree;
+            else
+                return volumesTree;
+        }
+        /// <summary>
+        /// ClearTreeView
+        /// </summary>
+        /// <param name="dim"></param>
+        public void ClearTreeView(int dim)
         {
             if (dim == 1)
                 geomTree.Nodes.Clear();
@@ -180,153 +157,46 @@ namespace ModelModule
                 volumesTree.Nodes.Clear();
         }
 
-        [HandleProcessCorruptedStateExceptions]
-        [SecurityCritical]
+
         private void OnGenerateMesh2D(object sender, EventArgs e)
-        {
-            var ierr = 0;
-            string error;
-            try
-            {
-                GmshController.ModelMeshGenerate(1, ref ierr);
-                GmshController.ModelMeshGenerate(2, ref ierr);
-            }
-            catch(Exception ex)
-            {
-                showErrorMessage?.Invoke(ex.Message);
-                OnSaveData(this, null);
-                return;
-            }
-            GmshController.LoggerGetLastError(out error);
-            if (!String.IsNullOrEmpty(error))
-                showErrorMessage?.Invoke(error);
-            if (volumesTree.Nodes.Count > 0)
-            {
-                DeleteGMSHMeshObjects(ObjType.Элемент3D);
-                ShowHideTabControls(3, false);
-                ClearTreeView(3);
-            }
-            ObjectData.Clear(ObjType.Узел);
-            //UpdateObjectData();
+        {      
+            //if (volumesTree.Nodes.Count > 0)
+            //{
+            //    ShowHideTabControls(3, false);
+            //    ClearTreeView(3);
+            //}
 
-            updateObjectsDataEvent?.Invoke();
+            //ShowHideTabControls(3, true);
 
-            //UpdateMeshVBO(true);
-
-            FillMeshTreeView(surfsTree, 2);
-            ShowHideTabControls(2, true);
-            if (GmshController.GetGeometryObjectDimension(ref ierr) > 2)
-                ShowHideGeneralTabControls(3, true);
-            redrawScene?.Invoke(false);
-
-            updateTreeViewEvent?.Invoke();
+            var result = 0.0;
+            if (Double.TryParse(meshDensityValue.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
+                generateMeshEvent?.Invoke(this, result,ObjType.Элемент2D);          
         }
 
-        [HandleProcessCorruptedStateExceptions]
-        [SecurityCritical]
         private void OnGenerateMesh3D(object sender, EventArgs e)
-        {
-            var ierr = 0;
-            string error;
-            try
-            {
-                GmshController.ModelMeshGenerate(3, ref ierr);
-            }
-            catch (Exception ex)
-            {
-                showErrorMessage?.Invoke(ex.Message);
-                OnSaveData(this, null);
-                return;
-            }
-            GmshController.LoggerGetLastError(out error);
-            if (!String.IsNullOrEmpty(error))
-                showErrorMessage?.Invoke(error);
-
-            var objs = GmshController.GetMeshObjects();
-            if (objs.Item4.Count > 0)//Было ли что-то сгенерировано ?
-            {
-                ObjectData.Clear(ObjType.Узел);
-                //UpdateObjectData();
-
-                updateObjectsDataEvent?.Invoke();
-
-                //updateMeshVBOEvent?.Invoke(ObjType.Узел);
-                //updateMeshVBOEvent?.Invoke(ObjType.Элемент3D);
-
-                FillMeshTreeView(volumesTree, 3, "Объемы", "Объем ");
-                ShowHideTabControls(3, true);
-                redrawScene?.Invoke(false);
-            }
-
-            updateTreeViewEvent?.Invoke();
-        }
-
-        private void OnDencityChange(object sender, EventArgs e)
         {
             var result = 0.0;
             if (Double.TryParse(meshDensityValue.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
-            {
-                var ierr = 0;
-                GmshController.OptionSetNumber("Mesh.MeshSizeFactor", result, ref ierr);
-            }
+                generateMeshEvent?.Invoke(this, result,ObjType.Элемент3D);           
         }
 
         private void OnAlgorithmChoice(object sender, EventArgs e)
         {
-            var ierr = 0;
-            var choice = sender as ComboBox;
             var algo = new double[] { 1, 2, 5, 6, 8 };
-            GmshController.OptionSetNumber("Mesh.Algorithm", algo[choice.SelectedIndex], ref ierr);
+            setMeshAlgoEvent?.Invoke(algo[algoChoice.SelectedIndex]);
         }
 
         private void OnRefine(object sender, EventArgs e)
         {
-            var ierr = 0;
-            GmshController.ModelMeshRefine(ref ierr);
+            refineMesh?.Invoke(this);
 
             ShowHideTabControls(3, false);
-            ClearTreeView(3);
-            ObjectData.Clear(ObjType.Узел);
-
-            //UpdateObjectData();
-
-            updateObjectsDataEvent?.Invoke();
-
-            //UpdateMeshVBO(true);
-            
-            FillMeshTreeView(surfsTree, 2);
-            redrawScene?.Invoke(false);
-            updateTreeViewEvent?.Invoke();
+            ClearTreeView(3);         
         }
 
         private void OnQuadrangulate(object sender, EventArgs e)
         {
-            var filename = string.Empty;
-            GmshController.ModelGetFileName(out filename);
-            var ext = Path.GetExtension(filename);
-            if (ext.Contains("igs") || ext.Contains("iges"))
-            {
-                var ierr = 0;
-                string error;
-                GmshController.ModelMeshRecombine(ref ierr);
-                GmshController.LoggerGetLastError(out error);
-                if (!String.IsNullOrEmpty(error))
-                    showErrorMessage?.Invoke(error);
-                ShowHideTabControls(3, false);
-                ClearTreeView(3);
-                var objs = GmshController.GetMeshObjects();
-                ObjectData.Clear(ObjType.Узел);
-
-                //UpdateObjectData();
-
-                updateObjectsDataEvent?.Invoke();
-
-                //UpdateMeshVBO(false);
-
-                FillMeshTreeView(surfsTree, 2);
-                redrawScene?.Invoke(false);
-                updateTreeViewEvent?.Invoke();
-            }
+            generateQuadMesh?.Invoke(this);
         }
 
         private Dictionary<int, Dictionary<int, TreeNode>> CreateGeometryNodes(int[] dimTags)
@@ -371,19 +241,19 @@ namespace ModelModule
             }
         }
 
-        private void FillMeshTreeView(TreeView tree, int dim,
+        public void FillMeshTreeView(IGmshController gmshController, TreeView tree, int dim,
                                        string generalKey = "Поверхности", string generalChild = "Поверхность ")
         {
             ClearTreeView(dim);
             int[] dimTags;
-            GmshController.ModelGetGeometryEntities(out dimTags, dim);
+            gmshController.ModelGetGeometryEntities(out dimTags, dim);
             int[] elementTypes;
             long[][] elementTags, nodeTags;
             var surfNodes = new TreeNode[dimTags.Length / 2];
             tree.Nodes.Add(generalKey);
             for (int i = 1, m = 0; i < dimTags.Length; i += 2, ++m)
             {
-                GmshController.ModelMeshGetElements(dim, dimTags[i], out elementTypes, out elementTags, out nodeTags);
+                gmshController.ModelMeshGetElements(dim, dimTags[i], out elementTypes, out elementTags, out nodeTags);
                 var child = generalChild + dimTags[i].ToString();
                 surfNodes[m] = new TreeNode(child);
                 var currentSurface = surfNodes[m];
@@ -432,7 +302,7 @@ namespace ModelModule
         /// <summary>
         /// Записывает настройки трансфиниции в элементы управления
         /// </summary>
-        private void WriteCurveSettingsToControls(string[] attributes)
+        public void WriteCurveSettingsToControls(string[] attributes)
         {
             if(attributes.Length == 0)
             {
@@ -459,11 +329,14 @@ namespace ModelModule
         {
             var curveNodes = TryGetCurveNodeRecursevely(e.Node);
 
+            var objsNumbers = new List<int>();
             foreach (var item in curveNodes)
             {
                 var tag = FindObjectByTreeNode(item);
-                ShowObjectsEvent?.Invoke(tag);
+                objsNumbers.Add(tag);
             }
+
+            showObjectsEvent?.Invoke(objsNumbers);
 
             if (curveNodes.Count == 0 | curveNodes.Count > 1)
                 pointsControlBox.Enabled = false;
@@ -471,11 +344,11 @@ namespace ModelModule
             {
                 pointsControlBox.Enabled = true;
                 var tag = FindObjectByTreeNode(e.Node);
-                var attributes = GetCurrentCurveAttributes(tag);
-                WriteCurveSettingsToControls(attributes);
+
+                setCurveDataEvent?.Invoke(this,tag);           
             }
 
-            redrawScene?.Invoke(false);
+            //redrawScene?.Invoke(false);
         }
 
         private List<TreeNode> TryGetCurveNodeRecursevely(TreeNode node)
@@ -495,73 +368,9 @@ namespace ModelModule
             {
                 GetCurveNodes(trNodes, item);
             }
-        }
+        }       
 
-        private void DeleteElementsByNumbers(int[] dimTags, string keyData)
-        {
-            foreach (var element in elementType.Values)
-                if (element.Item1.Contains(keyData))
-                {
-                    long[] idElems = dimTags.Where((i, v) => (v & 1) == 1)
-                                            .Select(v => (long)v)
-                                            .ToArray();
-                    GmshController.DeleteMeshElements(idElems);
-                    return;
-                }
-            var ierr = 0;
-            GmshController.ModelMeshClear(dimTags, (IntPtr)dimTags.Length, ref ierr);
-        }
-
-        private void DeleteGMSHMeshObjects(ObjType type)
-        {
-            var ierr = 0;
-            int[] dimTags = null;
-            var dim = 0;
-            if(type == ObjType.Узел) //удаляем всю сетку узлы,1d,2d,3d
-            {
-                dimTags = new int[0];
-            }
-            if (type == ObjType.Элемент1D)//удаляем все 1d элементы
-            {
-                dim = 1;
-                GmshController.ModelGetGeometryEntities(out dimTags, dim);
-            }
-            else if (type == ObjType.Элемент2D)//удаляем все 2d элементы
-            {
-                dim = 2;
-                GmshController.ModelGetGeometryEntities(out dimTags, dim);
-            }
-            else if (type == ObjType.Элемент3D)//удаляем все 3d элементы
-            {
-                dim = 3;
-                GmshController.ModelGetGeometryEntities(out dimTags, dim);
-            }
-            GmshController.ModelMeshClear(dimTags, (IntPtr)dimTags.Length, ref ierr);
-        }
-
-        private int[] GetElementsByType(ref string query, int dim, int tag)
-        {
-            var intType = GetElementTypeByString(ref query);
-            int[] elTypes;
-            long[][] elTags, nodeTags;
-            GmshController.ModelMeshGetElements(dim, tag, out elTypes, out elTags, out nodeTags);
-            int[] dimTags = null;
-            for (var i = 0; i < elTypes.Length; ++i)
-                if (elTypes[i] == intType)
-                {
-                    var tags = elTags[i];
-                    dimTags = new int[tags.Length * 2];
-                    for (var j = 0; j < tags.Length; ++j)
-                    {
-                        dimTags[j * 2] = dim;
-                        dimTags[j * 2 + 1] = Convert.ToInt32(tags[j]);
-                    }
-                    break;
-                }
-            return dimTags;
-        }
-
-        private int GetElementTypeByString(ref string query)
+        public int GetElementTypeByString(ref string query)
         {
             foreach (var entry in elementType)
                 if (query.Contains(entry.Value.Item1))
@@ -575,100 +384,60 @@ namespace ModelModule
 
         private void DeleteElement(TreeNode currentNode)
         {
-            // TO DO 
-            // Может изменить вход на treeNode с которого было вызвано это действие? - Ок, сделано.
-            var tn = new TreeNode();
-            var dim = currentNode.TreeView.Equals(surfsTree) ? 2 : 3;
-            
-            // Ищем одиночные узлы двигаясь вверх по дереву,
-            // пока не встречаем более чем один узел в ветке.
-            while (currentNode.Parent != null && currentNode.Parent.Nodes.Count == 1)
-                currentNode = currentNode.Parent;
-
-            if (currentNode.Text.Contains(fundamental[dim].Item1))
+            try
             {
-                ClearTreeView(3);
-                ShowHideTabControls(3, false);
-                if (dim == 2)
+                // TO DO 
+                // Может изменить вход на treeNode с которого было вызвано это действие? - Ок, сделано.
+                var tn = new TreeNode();
+                var dim = currentNode.TreeView.Equals(surfsTree) ? 2 : 3;
+
+                // Ищем одиночные узлы двигаясь вверх по дереву,
+                // пока не встречаем более чем один узел в ветке.
+                while (currentNode.Parent != null && currentNode.Parent.Nodes.Count == 1)
+                    currentNode = currentNode.Parent;
+
+                if (currentNode.Text.Contains(fundamental[dim].Item1))
                 {
-                    DeleteMesh();
-                    ShowHideGeneralTabControls(3, false);
-                    ClearTreeView(2);
-                    ShowHideTabControls(2, false);
+                    ClearTreeView(3);
+                    ShowHideTabControls(3, false);
+                    if (dim == 2)
+                    {
+                        ShowHideGeneralTabControls(3, false);
+                        ClearTreeView(2);
+                        ShowHideTabControls(2, false);
+
+                        deleteMeshEvent?.Invoke(ObjType.Элемент2D);
+                    }
+                    else
+                    {
+                        deleteMeshEvent?.Invoke(ObjType.Элемент3D);
+                    }
                 }
                 else
                 {
-                    DeleteGMSHMeshObjects(ObjType.Элемент3D);
-                    ObjectData.Clear(ObjType.Узел);
-                    var objs = GmshController.GetMeshObjects();
-                    if (objs.Item1.Count > 0)
-                        ObjectData.NodeCollection.AddRange(objs.Item1);
-                    if (objs.Item2.Count > 0)
-                        ObjectData.E1DCollection.AddRange(objs.Item2);
-                    if (objs.Item3.Count > 0)
-                        ObjectData.E2DCollection.AddRange(objs.Item3);
-                }
+                    var tag = Int32.Parse(currentNode.Parent.Text.Split(' ')[1]);
+                    surfsTree.Nodes.Remove(currentNode);
 
-                updateObjectsDataEvent?.Invoke();
-                //UpdateMeshVBO(true);
+                    var keyData = currentNode.Text.Split(' ');
+                    var isNumeric = keyData.Length > 1;
+
+                    deleteElementEvent?.Invoke(this, new DeleteElementEventArgs(dim, tag, keyData, isNumeric));
+                    //NewMethod(dim, tag, keyData, isNumeric);
+
+                    if (dim == 2)
+                    {
+                        deleteMeshEvent?.Invoke(ObjType.Элемент2D);
+                    }
+                    else
+                    {
+                        deleteMeshEvent?.Invoke(ObjType.Элемент3D);
+                    }
+                }
             }
-            else
+            catch (Exception)
             {
-                var keyData = currentNode.Text.Split(' ');
-                var isNumeric = keyData.Length > 1;
-                var dimTags = isNumeric ? new int[] { dim, Int32.Parse(keyData[1]) }
-                             : GetElementsByType(ref keyData[0], dim, Int32.Parse(currentNode.Parent.Text.Split(' ')[1]));
-                surfsTree.Nodes.Remove(currentNode);
-                DeleteElementsByNumbers(dimTags, keyData[0]);
-                var objs = GmshController.GetMeshObjects();
-                if (dim == 2)
-                {
-                    ObjectData.Clear(ObjType.Элемент2D);
-                    ObjectData.E2DCollection.AddRange(objs.Item3);
-                    //updateMeshVBOEvent?.Invoke(ObjType.Элемент2D);
-                }
-                else
-                {
-                    ObjectData.Clear(ObjType.Элемент3D);
-                    ObjectData.E3DCollection.AddRange(objs.Item4);
-                    //updateMeshVBOEvent?.Invoke(ObjType.Элемент3D);
-                }
+
             }
-
-            updateObjectsDataEvent?.Invoke();
-            updateTreeViewEvent?.Invoke();
-            redrawScene?.Invoke(false);
-        }
-
-        
-        /// <summary>
-        /// Получить аттрибуты для текущей выбранной в дереве узлов кривой
-        /// </summary>
-        /// <returns>Аттрибуты кривой</returns>
-        private string[] GetCurrentCurveAttributes(int tag)
-        {
-            string[] attributes;
-            GmshController.ModelGetAttribute($"transfinite {tag}", out attributes);
-            return attributes;
-        }
-
-        private void OnClosingForm(object sender, FormClosingEventArgs e)
-        {
-            hide3dTextEvent?.Invoke();
-            if (!SaveObjectData)
-            {
-                //DeleteGeometry();
-                redrawScene?.Invoke(true);
-            }
-
-            updateTreeViewEvent?.Invoke();
-            hideHeatMapEvent?.Invoke();
-        }
-
-        private void OnSaveData(object sender, EventArgs e)
-        {
-            SaveObjectData = true;
-            ParentForm.Close();
         }
 
         private void entTree_BeforeSelect(object sender, TreeViewCancelEventArgs e)
@@ -676,49 +445,11 @@ namespace ModelModule
             var oldNode = geomTree.SelectedNode;
             
             if (oldNode != null)
-                ResetColorObjectsEvent?.Invoke(ObjType.Линия, true);
-        }
-        /// <summary>
-        /// Вернуть центр масс текущей геометрической сущности
-        /// </summary>
-        /// <param name="dim">Геометрическая размерность</param>
-        /// <param name="tag">Идентификатор геометрической сущности</param>
-        /// <returns>Центр масс</returns>
-        private Point3D GetCenterOfGeometryEntity(int dim, int tag)
-        {
-            var ierr = 0;
-            double x = 0, y = 0, z = 0;
-            GmshController.ModelOccGetCenterOfMass(dim, tag, ref x, ref y, ref z, ref ierr);
-            var point = new Point3D((float)x, (float)y, (float)z);
-            return point;
-        }
-        /// <summary>
-        /// Показать информацию о кривых
-        /// </summary>
-        private void ShowCurvesInfo()
-        {
-            // тут нужно перебрать все кривые которые есть в модели и показать их параметры разметки
-            string[] attribList;
-            GmshController.ModelGetAttributeNames(out attribList);
-            var list = new List<Tuple<string,Point3D>>(attribList.Length);
-            foreach (var item in attribList)
-            {          
-                var tag = Int32.Parse(item.Split(' ')[1]);
-                var attributes = GetCurrentCurveAttributes(tag);
-
-                if(attributes.Length == 3)
-                {
-                    var text = $"{attributes[2]} {attributes[1]} {attributes[0]}";
-                    var point = GetCenterOfGeometryEntity(1,tag);
-                    list.Add(Tuple.Create(text, point));
-                }
-            }
-            show3dTextEvent?.Invoke(this,new Show3dTextEventArgs(list));  
+                resetColorObjectsEvent?.Invoke(ObjType.Линия);
         }
 
         private void BtnOK_Click(object sender, EventArgs e)
         {
-            var ierr = 0;
             var tag = FindObjectByTreeNode(geomTree.SelectedNode);
 
             var attributes = new string[3] { txbAlgoNPoints.Text, rbtnProgressive.Text, algoCoef.Text };
@@ -731,85 +462,49 @@ namespace ModelModule
             {
                 if(Double.TryParse(algoCoef.Text, out coef))//Обязательный TryParse иначе Exсeption по пустому полю
                 {
-                    GmshController.ModelSetAttribute($"transfinite {tag}", attributes, (IntPtr)3, ref ierr);
-                    if (attributes.All(x => x.Length != 0))
-                    {
-                        GmshController.ModelMeshSetTransfiniteCurve(tag, (int)points, attributes[1], coef, ref ierr);
-                        //Перегенерация сетки, если она присутствовала в момент уплотнения кривой
-                        if (ObjectData.E2DCollection.Count > 0)
-                            OnGenerateMesh2D(sender, EventArgs.Empty);
-                    }
+                    setTransfiniteCurveEvent?.Invoke(this, new SetTransfiniteCurveEventArgs(tag, attributes, 3, coef,points));
                 }
             }
 
             if (chbShowCurvesInfo.Checked)
-                ShowCurvesInfo();
-
-            if (chbShowHeatMap.Checked | chbShowTranfPoints.Checked)
-            {
-                if(chbShowHeatMap.Checked)
-                    showHeatMapEvent?.Invoke();
-                if(chbShowTranfPoints.Checked)
-                    showTransPoints?.Invoke();
-            }
+                showCurveInfoEvent?.Invoke(true);
+            if (chbShowHeatMap.Checked)
+                showHeatMapEvent?.Invoke(true);
+            if (chbShowTranfPoints.Checked)
+                showTransPoints?.Invoke(true);
         }
 
         private void chbShowCurvesInfo_Click(object sender, EventArgs e)
         {
             if (chbShowCurvesInfo.Checked)
-                ShowCurvesInfo();
+                showCurveInfoEvent?.Invoke(true);
             else
-            {
-                hide3dTextEvent?.Invoke();//Прячем весь текст
-                if (chbShowCurvesInfo.Checked)//Рассматриваем случай когда поверхности должны быть отображены
-                    ShowSurfacesInfo();
-            }
+                showCurveInfoEvent?.Invoke(false);//Прячем весь текст
         }
 
         private void chbShowHeatMap_Click(object sender, EventArgs e)
         {
 
             if (chbShowHeatMap.Checked)
-            {
-                showHeatMapEvent?.Invoke();
-            }
-            else hideHeatMapEvent?.Invoke();
+                showHeatMapEvent?.Invoke(true);
+            else showHeatMapEvent?.Invoke(false);
 
-        }
-        
-        private void ShowSurfacesInfo()
-        {
-            int[] dimTags;
-            GmshController.ModelGetGeometryEntities(out dimTags, 2);
-            var surfList = new List<Tuple<string, Point3D>>();
-            for (var i = 1; i < dimTags.Length; i += 2)
-            {
-                var point = GetCenterOfGeometryEntity(2, dimTags[i]);
-                //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
-                var text = $"Поверхность {dimTags[i]}";
-                surfList.Add(Tuple.Create(text, point));
-            }
-            show3dTextEvent?.Invoke(this, new Show3dTextEventArgs(surfList));
         }
 
         private void chbShowSurfacesInfo_Click(object sender, EventArgs e)
         {
             if (chbShowSurfacesInfo.Checked)
-                ShowSurfacesInfo();
+                showSurfaceInfoEvent?.Invoke(true);
             else
-            {
-                hide3dTextEvent?.Invoke();//Прячем весь текст
-                if (chbShowCurvesInfo.Checked)//Рассматриваем случай когда кривые должны быть отображены
-                    ShowCurvesInfo();
-            }
+                showSurfaceInfoEvent?.Invoke(false);
         }
 
         private void chbShowTranfPoints_Click(object sender, EventArgs e)
         {
             if (chbShowTranfPoints.Checked)
-                showTransPoints?.Invoke();
+                showTransPoints?.Invoke(true);
             else
-                hideTransPoints?.Invoke();
+                showTransPoints?.Invoke(false);
         }
     }
 }

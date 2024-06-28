@@ -767,25 +767,29 @@ namespace BazisGUI
             {
                 project =  await dataController.OpenProject();
 
-                lblStatus.Text = $"{project.Path}\\{project.Name}";
-
-                var ierr = 0;
-                gmshController?.Clear(ref ierr);
-
-                модулиMenuItem.Enabled = true;
-
-                var module = TryGetModule();
-                if (module == null)
+                if(project != null)
                 {
-                    module = CreateModule("Mesh");
-                    AddModule(module);
-                }
-                else
-                    module.SceneInitialization();
+                    lblStatus.Text = $"{project.Path}\\{project.Name}";
 
-                PresentProjectOnModule(module);
-                module.SceneControl.FitObjectsToScreen();
-                module.SceneControl.DisplayObjects();
+                    var ierr = 0;
+                    gmshController?.Clear(ref ierr);
+
+                    модулиMenuItem.Enabled = true;
+
+                    var module = TryGetModule();
+                    if (module == null)
+                    {
+                        module = CreateModule("Mesh");
+                        AddModule(module);
+                    }
+                    else
+                        module.SceneInitialization();
+
+                    PresentProjectOnModule(module);
+                    module.SceneControl.FitObjectsToScreen();
+                    module.SceneControl.DisplayObjects();
+                }
+
             }
             catch (Exception ex)
             {
@@ -862,23 +866,25 @@ namespace BazisGUI
             {
                 project = dataController.ImportGeometry(ref gmshController);
 
-                lblStatus.Text = $"{project.Path}\\{project.Name}";
-
-                модулиMenuItem.Enabled = true;
-
-                var module = TryGetModule();
-                if (module == null)
+                if(project != null)
                 {
-                    module = CreateModule("Mesh");
-                    AddModule(module);
+                    lblStatus.Text = $"{project.Path}\\{project.Name}";
+
+                    модулиMenuItem.Enabled = true;
+
+                    var module = TryGetModule();
+                    if (module == null)
+                    {
+                        module = CreateModule("Mesh");
+                        AddModule(module);
+                    }
+                    else
+                        module.SceneInitialization();
+
+                    PresentProjectOnModule(module);
+                    module.SceneControl.FitObjectsToScreen();
+                    module.SceneControl.DisplayObjects();
                 }
-                else
-                    module.SceneInitialization();
-
-                PresentProjectOnModule(module);
-                module.SceneControl.FitObjectsToScreen();
-                module.SceneControl.DisplayObjects();
-
             }
             catch (Exception ex)
             {
