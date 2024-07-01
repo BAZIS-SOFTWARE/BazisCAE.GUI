@@ -1,4 +1,6 @@
-﻿namespace TaskModule.WeldingModule.WeldingTypeControls
+﻿using BaseModule.ControlsLib.Validation;
+
+namespace TaskModule.WeldingModule.WeldingTypeControls
 {
     partial class LWeldingControl
     {
@@ -28,11 +30,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LWeldingControl));
-            this.txbBeamBottomDiam = new System.Windows.Forms.TextBox();
-            this.txbBeamUpperDiam = new System.Windows.Forms.TextBox();
-            this.txbPower = new System.Windows.Forms.TextBox();
-            this.txbBeamLenght = new System.Windows.Forms.TextBox();
+            this.txbBeamBottomDiam = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbBeamUpperDiam = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbPower = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbBeamLenght = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -45,10 +48,12 @@
             this.txbBeamBottomDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbBeamBottomDiam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txbBeamBottomDiam.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
+            this.txbBeamBottomDiam.IsValidating = true;
             this.txbBeamBottomDiam.Location = new System.Drawing.Point(171, 88);
             this.txbBeamBottomDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbBeamBottomDiam.Name = "txbBeamBottomDiam";
-            this.txbBeamBottomDiam.Size = new System.Drawing.Size(220, 20);
+            this.txbBeamBottomDiam.Size = new System.Drawing.Size(773, 20);
             this.txbBeamBottomDiam.TabIndex = 45;
             // 
             // txbBeamUpperDiam
@@ -56,10 +61,12 @@
             this.txbBeamUpperDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbBeamUpperDiam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txbBeamUpperDiam.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
+            this.txbBeamUpperDiam.IsValidating = true;
             this.txbBeamUpperDiam.Location = new System.Drawing.Point(171, 62);
             this.txbBeamUpperDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbBeamUpperDiam.Name = "txbBeamUpperDiam";
-            this.txbBeamUpperDiam.Size = new System.Drawing.Size(220, 20);
+            this.txbBeamUpperDiam.Size = new System.Drawing.Size(773, 20);
             this.txbBeamUpperDiam.TabIndex = 44;
             // 
             // txbPower
@@ -67,10 +74,12 @@
             this.txbPower.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbPower.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txbPower.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
+            this.txbPower.IsValidating = true;
             this.txbPower.Location = new System.Drawing.Point(171, 10);
             this.txbPower.Margin = new System.Windows.Forms.Padding(178, 10, 15, 3);
             this.txbPower.Name = "txbPower";
-            this.txbPower.Size = new System.Drawing.Size(220, 20);
+            this.txbPower.Size = new System.Drawing.Size(773, 20);
             this.txbPower.TabIndex = 42;
             // 
             // txbBeamLenght
@@ -78,10 +87,12 @@
             this.txbBeamLenght.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbBeamLenght.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txbBeamLenght.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
+            this.txbBeamLenght.IsValidating = true;
             this.txbBeamLenght.Location = new System.Drawing.Point(171, 36);
             this.txbBeamLenght.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbBeamLenght.Name = "txbBeamLenght";
-            this.txbBeamLenght.Size = new System.Drawing.Size(220, 20);
+            this.txbBeamLenght.Size = new System.Drawing.Size(773, 20);
             this.txbBeamLenght.TabIndex = 43;
             // 
             // label16
@@ -136,7 +147,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.btnInfo);
@@ -150,7 +160,7 @@
             this.Controls.Add(this.label12);
             this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "LWeldingControl";
-            this.Size = new System.Drawing.Size(406, 147);
+            this.Size = new System.Drawing.Size(959, 147);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,10 +168,10 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txbBeamBottomDiam;
-        private System.Windows.Forms.TextBox txbBeamUpperDiam;
-        private System.Windows.Forms.TextBox txbPower;
-        private System.Windows.Forms.TextBox txbBeamLenght;
+        private TextBoxValidator txbBeamBottomDiam;
+        private TextBoxValidator txbBeamUpperDiam;
+        private TextBoxValidator txbPower;
+        private TextBoxValidator txbBeamLenght;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label1;

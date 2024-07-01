@@ -1,4 +1,6 @@
 ﻿using BaseModule.ControlsLib;
+using BaseModule.ControlsLib.Validation;
+using System.Windows.Forms;
 
 namespace TaskModule.BasicAdvisorControls
 {
@@ -41,18 +43,22 @@ namespace TaskModule.BasicAdvisorControls
             this.player = new BaseModule.ControlsLib.Player();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txbStopTime = new System.Windows.Forms.TextBox();
+            //this.txbStopTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive};
+            this.txbStopTime = new TextBox();
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnRefresh = new Button();
             this.btnClearAll = new System.Windows.Forms.Button();
-            this.btnAddNewRow = new System.Windows.Forms.Button();
-            this.txbStartTime = new System.Windows.Forms.TextBox();
+            this.btnAddNewRow = new Button();
+            //this.txbStartTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
+            this.txbStartTime = new TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbMat = new System.Windows.Forms.ComboBox();
+            //this.cmbMat = new CMBValidator();
+            this.cmbMat = new ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbEl = new System.Windows.Forms.ComboBox();
+            //this.cmbEl = new CMBValidator();
+            this.cmbEl = new ComboBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -382,15 +388,19 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txbStopTime;
-        private System.Windows.Forms.Button btnAddNewRow;
-        private System.Windows.Forms.TextBox txbStartTime;
+        //private TextBoxValidator txbStopTime;
+        private TextBox txbStopTime;
+        private Button btnAddNewRow;
+        //private TextBoxValidator txbStartTime;
+        private TextBox txbStartTime;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cmbMat;
+        //private CMBValidator cmbMat;
+        private ComboBox cmbMat;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cmbEl;
-        private System.Windows.Forms.Button btnRefresh;
+        //private CMBValidator cmbEl;
+        private ComboBox cmbEl;
+        private Button btnRefresh;
         private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.Button btnHideAll;
         private System.Windows.Forms.OpenFileDialog openFileDialog;

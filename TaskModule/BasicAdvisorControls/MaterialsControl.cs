@@ -8,6 +8,7 @@ using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Interfaces;
 using System.Linq;
 using TaskModule.BasicAdvisorControls.Events;
+using BaseModule.ControlsLib.Validation;
 
 namespace TaskModule.BasicAdvisorControls
 {
@@ -60,6 +61,7 @@ namespace TaskModule.BasicAdvisorControls
             get { return dataGridView.Rows.Count; }
         }
 
+        public event Func<bool> ValidateControls;
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -78,6 +80,11 @@ namespace TaskModule.BasicAdvisorControls
             InitializeComponent();
 
             DataName = "Материал";
+
+            //ValidateControls += () => txbStartTime.IsValueValid();
+            //ValidateControls += () => txbStopTime.IsValueValid();
+            //ValidateControls += () => cmbEl.IsValueValid();
+            //ValidateControls += () => cmbMat.IsValueValid();
         }
 
         public override string DataName { get; }
@@ -112,6 +119,8 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
+            //if (!IsValidated(this, new CancelEventArgs()))
+            //    return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -132,6 +141,8 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
+            //if (!IsValidated(this, new CancelEventArgs()))
+            //    return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -142,16 +153,12 @@ namespace TaskModule.BasicAdvisorControls
             {
                 MessageBox.Show(ex.Message);
             }
-
-
-
         }
 
         private string CreateRowInfo()
         {
-            if (cmbEl.Text == "" || cmbMat.Text == "" || txbStartTime.Text == "" || txbStopTime.Text == "")
-                throw new Exception("Одно из переданных значений полей было пустым");
-
+            if (cmbEl.Text.Equals("") || cmbMat.Text.Equals("") || txbStartTime.Text.Equals("") || txbStopTime.Text.Equals(""))
+                throw new Exception("Передано пустое значение");
             return string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3} *", cmbEl.Text, cmbMat.Text, txbStartTime.Text, txbStopTime.Text);
         }
 
@@ -191,7 +198,12 @@ namespace TaskModule.BasicAdvisorControls
                 cmbEl.Items.Add(eGroup);
         }
 
-
+        public bool IsValidated(object sender, CancelEventArgs args)
+        {
+            var check = ValidateControls();
+            args.Cancel = check;
+            return check;
+        }
 
         //private void dataGridView_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         //{

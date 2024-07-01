@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BaseModule.ControlsLib.Validation;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
@@ -20,10 +22,18 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             InitializeComponent();
             DataName = "Среда";
 
+            //ValidateControls += () => txbStartTime.IsValueValid();
+            //ValidateControls += () => txbStopTime.IsValueValid();
+            //ValidateControls += () => txbMediaTemp.IsValueValid();
+            //ValidateControls += () => cmbEl.IsValueValid();
+            //ValidateControls += () => cmbFunc.IsValueValid();
+            //ValidateControls += () => cmbNode.IsValueValid();
+            //ValidateControls += () => cmbTermoCycle.IsValueValid();
         }
 
         public override string DataName { get; }
 
+        public event Func<bool> ValidateControls;
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -47,6 +57,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
+            //if (!ValidateControls())
+            //    return;
             try
             {
                 CurentSelectedRowInfo = AddRowInfo();
@@ -67,18 +79,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
             if (rbtHeatFlow.Checked)
             {
-                if (cmbEl.Text == "" || cmbFunc.Text == "")
-                    throw new Exception("Одно из переданных значений полей было пустым");
-
                 dataList.Add(cmbEl.Text);
                 dataList.Add(cmbFunc.Text);
                 dataList.Add(txbMediaTemp.Text);
             }
             else
             {
-                if (cmbNode.Text == "" || cmbTermoCycle.Text == "")
-                    throw new Exception("Одно из переданных значений полей было пустым");
-
                 dataList.Add(cmbNode.Text);
                 dataList.Add("*");
                 dataList.Add(cmbTermoCycle.Text);
@@ -87,9 +93,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             dataList.Add(txbStartTime.Text);
             dataList.Add(txbStopTime.Text);
             dataList.Add("*");
-
-            if (txbStartTime.Text == "" || txbStopTime.Text == "")
-                throw new Exception("Одно из переданных значений полей было пустым");
 
             return string.Join(" ", dataList);
         }
@@ -155,6 +158,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
+            //if (!ValidateControls())
+            //    return;
             try
             {
                 CurentSelectedRowInfo = AddRowInfo();
@@ -239,6 +244,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         public void HideAllDataButton_Click(object sender, EventArgs e)
         {
             HideDataEvent(this, new HideDataEventArgs(DataName));
+        }
+
+        public bool IsValidated(object sender, CancelEventArgs args)
+        {
+            var check = ValidateControls();
+            args.Cancel = check;
+            return check;
         }
     }
 }

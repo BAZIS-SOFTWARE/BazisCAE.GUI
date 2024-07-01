@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -10,7 +11,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             InitializeComponent();
         }
 
-        
         public override string CollectData()
         {
             var strs = new string[]

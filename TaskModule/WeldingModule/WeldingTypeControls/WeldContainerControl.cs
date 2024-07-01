@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {

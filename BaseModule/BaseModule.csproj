@@ -153,6 +153,19 @@
     <Compile Include="ControlsLib\Player.Designer.cs">
       <DependentUpon>Player.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControlsLib\Validation\IValidatorControl.cs" />
+    <Compile Include="ControlsLib\Validation\CMBValidator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlsLib\Validation\CMBValidator.Designer.cs">
+      <DependentUpon>CMBValidator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsLib\Validation\TextBoxValidator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlsLib\Validation\TextBoxValidator.Designer.cs">
+      <DependentUpon>TextBoxValidator.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlsPainter\ComponentsPainter.cs" />
     <Compile Include="CrossSection\CreatePlaneFromTextArgs.cs" />
     <Compile Include="CrossSection\CrossSectionControl.cs">
@@ -316,5 +329,6 @@
     <Content Include="Resources\CloseFolder.png" />
     <Content Include="Resources\OpenFolder.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
