@@ -62,9 +62,10 @@ namespace BaseModule.ControlsLib.Validation
                     GetErrorCheckResult("Поле оставлено пустым") :
                     GetErrorCheckResult();
 
-            if (IsInputTypeChosen(TXTBoxInputType.Text)
-                && Text.Any(x => IligalSymbols.Contains(x)))
-                return GetErrorCheckResult("Переданная строка пуста или содержит неподдерживаемые символы");
+            if (IsInputTypeChosen(TXTBoxInputType.Text))
+                return Text.Any(x => IligalSymbols.Contains(x))?
+                GetErrorCheckResult("Переданная строка пуста или содержит неподдерживаемые символы"):
+                HandleIntegerValue();
 
             if (IsInputTypeChosen(TXTBoxInputType.Integer))
                 return HandleIntegerValue();
