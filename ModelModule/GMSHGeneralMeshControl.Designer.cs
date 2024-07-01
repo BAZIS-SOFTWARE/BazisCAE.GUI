@@ -32,7 +32,6 @@ namespace ModelModule
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.btnMesh2DDel = new System.Windows.Forms.Button();
             this.meshDensityValue = new System.Windows.Forms.TextBox();
             this.mesh2DGenBtn = new System.Windows.Forms.Button();
@@ -81,9 +80,9 @@ namespace ModelModule
             this.txbFirstLayerMeshSize = new System.Windows.Forms.TextBox();
             this.txbThickness = new System.Windows.Forms.TextBox();
             this.gmshTab = new BaseModule.ControlsLib.TabControlEx();
-            this.cmsRemoveMesh2D = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmsRemoveMesh2D = new System.Windows.Forms.ContextMenuStrip();
             this.rem3DItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsRemoveMesh3D = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmsRemoveMesh3D = new System.Windows.Forms.ContextMenuStrip();
             this.rem2DItem = new System.Windows.Forms.ToolStripMenuItem();
             this.meshGenBox.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -109,7 +108,7 @@ namespace ModelModule
             this.btnMesh2DDel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnMesh2DDel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMesh2DDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnMesh2DDel.Location = new System.Drawing.Point(295, 63);
+            this.btnMesh2DDel.Location = new System.Drawing.Point(294, 63);
             this.btnMesh2DDel.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.btnMesh2DDel.Name = "btnMesh2DDel";
             this.btnMesh2DDel.Size = new System.Drawing.Size(154, 32);
@@ -126,7 +125,7 @@ namespace ModelModule
             this.meshDensityValue.Location = new System.Drawing.Point(7, 118);
             this.meshDensityValue.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.meshDensityValue.Name = "meshDensityValue";
-            this.meshDensityValue.Size = new System.Drawing.Size(120, 20);
+            this.meshDensityValue.Size = new System.Drawing.Size(119, 20);
             this.meshDensityValue.TabIndex = 6;
             this.meshDensityValue.Text = "1";
             // 
@@ -135,10 +134,10 @@ namespace ModelModule
             this.mesh2DGenBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.mesh2DGenBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesh2DGenBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.mesh2DGenBtn.Location = new System.Drawing.Point(141, 63);
+            this.mesh2DGenBtn.Location = new System.Drawing.Point(140, 63);
             this.mesh2DGenBtn.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.mesh2DGenBtn.Name = "mesh2DGenBtn";
-            this.mesh2DGenBtn.Size = new System.Drawing.Size(132, 32);
+            this.mesh2DGenBtn.Size = new System.Drawing.Size(131, 32);
             this.mesh2DGenBtn.TabIndex = 5;
             this.mesh2DGenBtn.Text = "Сгенерировать";
             this.mesh2DGenBtn.UseVisualStyleBackColor = true;
@@ -167,7 +166,7 @@ namespace ModelModule
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.97297F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.02703F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 183F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 185F));
             this.tableLayoutPanel1.Controls.Add(this.refineBtn, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.meshDensityValue, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.algoLabel, 0, 0);
@@ -192,10 +191,10 @@ namespace ModelModule
             this.refineBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.refineBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refineBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.refineBtn.Location = new System.Drawing.Point(141, 112);
+            this.refineBtn.Location = new System.Drawing.Point(140, 112);
             this.refineBtn.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.refineBtn.Name = "refineBtn";
-            this.refineBtn.Size = new System.Drawing.Size(132, 32);
+            this.refineBtn.Size = new System.Drawing.Size(131, 32);
             this.refineBtn.TabIndex = 10;
             this.refineBtn.Text = "Уплотнить";
             this.refineBtn.UseVisualStyleBackColor = true;
@@ -207,7 +206,7 @@ namespace ModelModule
             this.algoLabel.AutoSize = true;
             this.algoLabel.Enabled = false;
             this.algoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.algoLabel.Location = new System.Drawing.Point(8, 14);
+            this.algoLabel.Location = new System.Drawing.Point(7, 14);
             this.algoLabel.Name = "algoLabel";
             this.algoLabel.Size = new System.Drawing.Size(118, 26);
             this.algoLabel.TabIndex = 7;
@@ -252,7 +251,7 @@ namespace ModelModule
             this.quadBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.quadBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.quadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.quadBtn.Location = new System.Drawing.Point(296, 112);
+            this.quadBtn.Location = new System.Drawing.Point(295, 112);
             this.quadBtn.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.quadBtn.Name = "quadBtn";
             this.quadBtn.Size = new System.Drawing.Size(152, 32);
@@ -679,7 +678,7 @@ namespace ModelModule
             // 
             this.grbGradientMeshSettings.AutoSize = true;
             this.grbGradientMeshSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.grbGradientMeshSettings.CheckState = false;
+            this.grbGradientMeshSettings.CheckState = true;
             this.grbGradientMeshSettings.Controls.Add(this.label5);
             this.grbGradientMeshSettings.Controls.Add(this.label4);
             this.grbGradientMeshSettings.Controls.Add(this.label1);

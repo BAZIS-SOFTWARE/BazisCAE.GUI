@@ -111,5 +111,21 @@ namespace BaseModule.ControlsLib
             }
             heigth += borderStep;
         }
+
+        private void chb_Click(object sender, EventArgs e)
+        {
+            bool flag;
+            if (chb.Checked)
+                flag = true;
+            else
+                flag = false;
+
+            foreach (Control item in this.Controls)
+            {
+                if (item.Name != "chb")
+                    item.Enabled = flag;
+            }
+
+        }
     }
 }

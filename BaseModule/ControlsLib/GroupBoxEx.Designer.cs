@@ -34,6 +34,8 @@
             // chb
             // 
             this.chb.AutoSize = true;
+            this.chb.Checked = true;
+            this.chb.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chb.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chb.Location = new System.Drawing.Point(0, 0);
             this.chb.Name = "chb";
@@ -41,6 +43,7 @@
             this.chb.TabIndex = 0;
             this.chb.UseVisualStyleBackColor = true;
             this.chb.Visible = false;
+            this.chb.Click += new System.EventHandler(this.chb_Click);
             // 
             // GroupBoxEx
             // 
