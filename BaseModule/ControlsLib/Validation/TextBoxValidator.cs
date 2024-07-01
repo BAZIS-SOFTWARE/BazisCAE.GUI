@@ -11,6 +11,17 @@ using System.Windows.Forms;
 
 namespace BaseModule.ControlsLib.Validation
 {
+    [Flags]
+    public enum TXTBoxInputType
+    {
+        Text = 1,
+        SpecialSymbols = 2,
+        Integer = 4,
+        Float = 8,
+        Positive = 16,
+        User = 32
+    }
+
     public partial class TextBoxValidator : TextBox, IValidatorControl
     {
         public char[] IligalSymbols = new[] { ' ' };
@@ -46,11 +57,10 @@ namespace BaseModule.ControlsLib.Validation
             if (!IsValidating)
                 return true;
 
-            if (Enabled == false)
-                return GetErrorCheckResult();
-
             if (Text.Equals(string.Empty))
-                return GetErrorCheckResult("Поле оставлено пустым");
+                return Enabled ?
+                    GetErrorCheckResult("Поле оставлено пустым") :
+                    GetErrorCheckResult();
 
             if (IsInputTypeChosen(TXTBoxInputType.Text)
                 && Text.Any(x => IligalSymbols.Contains(x)))

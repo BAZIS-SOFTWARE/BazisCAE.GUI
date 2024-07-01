@@ -10,6 +10,16 @@ using System.Windows.Forms;
 
 namespace BaseModule.ControlsLib.Validation
 {
+    [Flags]
+    public enum CMBInputType
+    {
+        Items = 1,
+        Integer = 2,
+        Float = 4,
+        Positive = 8,
+        User = 16
+    }
+
     public partial class CMBValidator : ComboBox, IValidatorControl
     {
         public CMBValidator() { InitializeComponent(); InitializeErrorProvider(); }
@@ -43,9 +53,9 @@ namespace BaseModule.ControlsLib.Validation
                 return true;
 
             if (Text.Equals(string.Empty))
-                return Enabled == false?
-                    GetErrorCheckResult():
-                    GetErrorCheckResult("Поле оставлено пустым");
+                return Enabled ?
+                    GetErrorCheckResult("Поле оставлено пустым") :
+                    GetErrorCheckResult();
 
             if (IsInputTypeChosen(CMBInputType.Items))
                 return Items.Contains(Text) ?
@@ -93,11 +103,9 @@ namespace BaseModule.ControlsLib.Validation
         private bool HandleIntegerValue()
         {
             if (IsInputTypeChosen(CMBInputType.Positive))
-            {
                 return IsPassRegExCheck("^(([1-9]{1})(\\d{1,})?)$") ?
                     GetErrorCheckResult() :
                     GetErrorCheckResult("Числовое значение должно быть положительным. Возможно присутсвие других ошибок в записи числа");
-            }
 
             return (IsPassRegExCheck("^([-]?)(([1-9]{1})(\\d{1,})?)$")) ?
                 GetErrorCheckResult() :

@@ -35,25 +35,4 @@ namespace BaseModule.ControlsLib.Validation
 
         void InitializeErrorProvider();
     }
-
-    [Flags]
-    public enum TXTBoxInputType
-    {
-        Text = 1,
-        SpecialSymbols = 2,
-        Integer = 4,
-        Float = 8,
-        Positive = 16,
-        User = 32
-    }
-
-    [Flags]
-    public enum CMBInputType
-    {
-        Items = 1,
-        Integer = 2,
-        Float = 4,
-        Positive = 8,
-        User = 32
-    }
 }
