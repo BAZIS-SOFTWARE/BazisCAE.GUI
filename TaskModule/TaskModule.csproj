@@ -82,8 +82,8 @@
     <Reference Include="ProjectInterfaces, Version=3.0.45.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
       <HintPath>..\packages\ProjectInterfaces.3.0.45\lib\net48\ProjectInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="SceneInterface, Version=1.0.40.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
-      <HintPath>..\packages\SceneInterface.1.0.40\lib\net48\SceneInterface.dll</HintPath>
+    <Reference Include="SceneInterface, Version=1.0.43.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
+      <HintPath>..\packages\SceneInterface.1.0.43\lib\net48\SceneInterface.dll</HintPath>
     </Reference>
     <Reference Include="SearchLib, Version=1.0.1.11, Culture=neutral, PublicKeyToken=8c358dc795e42d21, processorArchitecture=MSIL">
       <HintPath>..\packages\SearchLib.1.0.1.11\lib\net48\SearchLib.dll</HintPath>

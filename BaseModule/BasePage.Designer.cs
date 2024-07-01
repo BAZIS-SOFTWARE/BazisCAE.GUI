@@ -32,19 +32,18 @@ namespace BaseModule
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BasePage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.navigator = new BaseModule.Navigator.NavigatorControl();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.sceneControl = new Scene.SceneControl();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider();
+            this.navigator = new BaseModule.Navigator.NavigatorControl();
             this.consoleControl = new BaseModule.Console.ConsoleControl();
             this.selectToolStrip = new BaseModule.ControlsLib.SelectToolStrip();
             this.viewToolStrip = new BaseModule.ControlsLib.ViewToolStrip();
             this.displayToolStrip = new BaseModule.ControlsLib.DisplayToolStrip();
             this.instrumentToolStrip = new BaseModule.ControlsLib.InstrumentToolStrip();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
@@ -108,6 +107,72 @@ namespace BaseModule
             this.splitContainer1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Paint);
             this.splitContainer1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.splitContainer1_MouseClick);
             // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.sceneControl);
+            this.splitContainer2.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
+            this.splitContainer2.Size = new System.Drawing.Size(990, 585);
+            this.splitContainer2.SplitterDistance = 397;
+            this.splitContainer2.SplitterWidth = 5;
+            this.splitContainer2.TabIndex = 0;
+            this.splitContainer2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Paint);
+            this.splitContainer2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.splitContainer2_MouseClick);
+            // 
+            // sceneControl
+            // 
+            this.sceneControl.AutoSize = true;
+            this.sceneControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.sceneControl.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.sceneControl.BackGroundColor = System.Drawing.Color.Green;
+            this.sceneControl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.sceneControl.DisplayBasis = true;
+            this.sceneControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sceneControl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.sceneControl.IsClipPlane = false;
+            this.sceneControl.IsSmoothShadow = false;
+            this.sceneControl.LightAttenuation = 0F;
+            this.sceneControl.LightTranslateX = 0F;
+            this.sceneControl.LightTranslateY = 0F;
+            this.sceneControl.LightTranslateZ = 0F;
+            this.sceneControl.Location = new System.Drawing.Point(0, 0);
+            this.sceneControl.Margin = new System.Windows.Forms.Padding(0);
+            this.sceneControl.Name = "sceneControl";
+            this.sceneControl.Projection = SceneInterface.ViewProjection.Perspective;
+            this.sceneControl.RotationAngle = 2.5F;
+            this.sceneControl.RotationAxis = SceneInterface.ViewAxis.XYZ;
+            this.sceneControl.ScaleFactor = 1F;
+            this.sceneControl.SelectionColor = System.Drawing.Color.Green;
+            this.sceneControl.ShadowAngle = 0F;
+            this.sceneControl.ShowSurfaceBackEdges = false;
+            this.sceneControl.Size = new System.Drawing.Size(990, 396);
+            this.sceneControl.TabIndex = 0;
+            this.sceneControl.TitleColor = System.Drawing.Color.Black;
+            this.sceneControl.TitleText = "";
+            this.sceneControl.InfoObjectsEvent += new System.Action<object, System.EventArgs>(this.sceneControl_InfoObjectsEvent);
+            this.sceneControl.SelectObjectsEvent += new System.Action<object, Scene.Events.SelectObjectsEventArgs>(this.sceneControl_SelectObjectsEvent);
+            this.sceneControl.SetBackColorEvent += new System.Action<object, System.EventArgs>(this.sceneControl_SetBackColorEvent);
+            this.sceneControl.ShowAllHiddenObjectsEvent += new System.Action<object, System.EventArgs>(this.sceneControl_ShowAllHiddenObjectsEvent);
+            this.sceneControl.HideSelectedObjectsEvent += new System.Action<object, System.EventArgs>(this.sceneControl_HideSelectedObjectsEvent);
+            this.sceneControl.CreateMeshGroupEvent += new System.Action<object, System.EventArgs>(this.sceneControl_CreateMeshGroupEvent);
+            this.sceneControl.DeleteSelectionEvent += new System.Action<object, System.EventArgs>(this.sceneControl_DeleteSelectionEvent);
+            this.sceneControl.MessageEvent += new System.Action<object, Scene.Events.MessageEventArgs>(this.sceneControl_MessageEvent);
+            this.sceneControl.Load += new System.EventHandler(this.sceneControl_Load);
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
             // navigator
             // 
             this.navigator.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -141,66 +206,6 @@ namespace BaseModule
             this.navigator.HideObjectsEvent += new System.Action<string>(this.navigator_HideObjectsEvent);
             this.navigator.DelObjectsEvent += new System.Action<string>(this.navigator_DelObjectsEvent);
             // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.sceneControl);
-            this.splitContainer2.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
-            this.splitContainer2.Size = new System.Drawing.Size(990, 585);
-            this.splitContainer2.SplitterDistance = 397;
-            this.splitContainer2.SplitterWidth = 5;
-            this.splitContainer2.TabIndex = 0;
-            this.splitContainer2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Paint);
-            this.splitContainer2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.splitContainer2_MouseClick);
-            // 
-            // sceneControl
-            // 
-            this.sceneControl.AutoSize = true;
-            this.sceneControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.sceneControl.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.sceneControl.BackGroundColor = System.Drawing.Color.Green;
-            this.sceneControl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.sceneControl.DisplayBasis = true;
-            this.sceneControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sceneControl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.sceneControl.IsSmoothShadow = false;
-            this.sceneControl.LightAttenuation = 0F;
-            this.sceneControl.LightTranslateX = 0F;
-            this.sceneControl.LightTranslateY = 0F;
-            this.sceneControl.LightTranslateZ = 0F;
-            this.sceneControl.Location = new System.Drawing.Point(0, 0);
-            this.sceneControl.Margin = new System.Windows.Forms.Padding(0);
-            this.sceneControl.Name = "sceneControl";
-            this.sceneControl.Projection = SceneInterface.ViewProjection.Perspective;
-            this.sceneControl.RotationAngle = 2.5F;
-            this.sceneControl.RotationAxis = SceneInterface.ViewAxis.XYZ;
-            this.sceneControl.SelectionColor = System.Drawing.Color.Green;
-            this.sceneControl.ShadowAngle = 0F;
-            this.sceneControl.ShowSurfaceBackEdges = false;
-            this.sceneControl.Size = new System.Drawing.Size(990, 396);
-            this.sceneControl.TabIndex = 0;
-            this.sceneControl.TitleColor = System.Drawing.Color.Black;
-            this.sceneControl.TitleText = "";
-            this.sceneControl.InfoObjectsEvent += new System.Action<object, System.EventArgs>(this.sceneControl_InfoObjectsEvent);
-            this.sceneControl.SelectObjectsEvent += new System.Action<object, Scene.Events.SelectObjectsEventArgs>(this.sceneControl_SelectObjectsEvent);
-            this.sceneControl.SetBackColorEvent += new System.Action<object, System.EventArgs>(this.sceneControl_SetBackColorEvent);
-            this.sceneControl.ShowAllHiddenObjectsEvent += new System.Action<object, System.EventArgs>(this.sceneControl_ShowAllHiddenObjectsEvent);
-            this.sceneControl.HideSelectedObjectsEvent += new System.Action<object, System.EventArgs>(this.sceneControl_HideSelectedObjectsEvent);
-            this.sceneControl.CreateMeshGroupEvent += new System.Action<object, System.EventArgs>(this.sceneControl_CreateMeshGroupEvent);
-            this.sceneControl.DeleteSelectionEvent += new System.Action<object, System.EventArgs>(this.sceneControl_DeleteSelectionEvent);
-            this.sceneControl.MessageEvent += new System.Action<object, Scene.Events.MessageEventArgs>(this.sceneControl_MessageEvent);
-            this.sceneControl.Load += new System.EventHandler(this.sceneControl_Load);
-            // 
             // consoleControl
             // 
             this.consoleControl.AutoSize = true;
@@ -232,7 +237,6 @@ namespace BaseModule
             this.selectToolStrip.Location = new System.Drawing.Point(3, 0);
             this.selectToolStrip.Name = "selectToolStrip";
             this.selectToolStrip.NodeImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.NodeImage")));
-            this.selectToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.selectToolStrip.SelectObjectsType = ModelInterfaces.ObjType.Объект;
             this.selectToolStrip.Size = new System.Drawing.Size(302, 53);
             this.selectToolStrip.TabIndex = 1;
@@ -295,10 +299,6 @@ namespace BaseModule
             this.instrumentToolStrip.TabIndex = 4;
             this.instrumentToolStrip.Text = "Инструменты";
             this.instrumentToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.InstrumentalToolStrip_ItemClicked);
-            // 
-            // errorProvider
-            // 
-            this.errorProvider.ContainerControl = this;
             // 
             // BasePage
             // 

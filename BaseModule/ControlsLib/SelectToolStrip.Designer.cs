@@ -116,7 +116,6 @@
             this.btnElems,
             this.btnObjs,
             this.btnSelectorHelper});
-            this.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.Size = new System.Drawing.Size(800, 55);
             this.Text = "Выбор";
             this.ResumeLayout(false);

@@ -82,11 +82,11 @@
     <Reference Include="ProjectInterfaces, Version=3.0.45.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
       <HintPath>..\packages\ProjectInterfaces.3.0.45\lib\net48\ProjectInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Scene, Version=2.0.8.35, Culture=neutral, PublicKeyToken=2e7150108cd20395, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.35\lib\net48\Scene.dll</HintPath>
+    <Reference Include="Scene, Version=2.0.8.39, Culture=neutral, PublicKeyToken=2e7150108cd20395, processorArchitecture=MSIL">
+      <HintPath>..\packages\Scene.2.0.8.39\lib\net48\Scene.dll</HintPath>
     </Reference>
-    <Reference Include="SceneInterface, Version=1.0.40.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.35\lib\net48\SceneInterface.dll</HintPath>
+    <Reference Include="SceneInterface, Version=1.0.43.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Scene.2.0.8.39\lib\net48\SceneInterface.dll</HintPath>
     </Reference>
     <Reference Include="SortLib, Version=1.0.1.11, Culture=neutral, PublicKeyToken=8c358dc795e42d21, processorArchitecture=MSIL">
       <HintPath>..\packages\SortLib.1.0.1.11\lib\net48\SortLib.dll</HintPath>
@@ -106,10 +106,10 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Tao.OpenGl, Version=2.1.0.12, Culture=neutral, PublicKeyToken=1ca010269a4501ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.35\lib\net48\Tao.OpenGl.dll</HintPath>
+      <HintPath>..\packages\Scene.2.0.8.39\lib\net48\Tao.OpenGl.dll</HintPath>
     </Reference>
     <Reference Include="Tao.Platform.Windows, Version=1.0.0.5, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.35\lib\net48\Tao.Platform.Windows.dll</HintPath>
+      <HintPath>..\packages\Scene.2.0.8.39\lib\net48\Tao.Platform.Windows.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -321,13 +321,13 @@
     <None Include="ControlsLib\DisplayToolStripButtons_x32\Basis.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Tao.OpenGl.dll" />
+    <Content Include="Tao.Platform.Windows.dll" />
     <None Include="ControlsLib\PlayerControlIcons\Pause.ico" />
     <None Include="ControlsLib\PlayerControlIcons\StartCheck.ico" />
     <None Include="ControlsLib\PlayerControlIcons\Stop.ico" />
     <Content Include="Resources\CloseFolder.png" />
     <Content Include="Resources\OpenFolder.png" />
-    <Content Include="Tao.OpenGl.dll" />
-    <Content Include="Tao.Platform.Windows.dll" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

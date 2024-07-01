@@ -6,9 +6,11 @@ namespace BaseModule.ControlsLib
 {
     public partial class DisplayToolStrip : ToolStrip
     {
+        BaseToolStrRender BaseToolStrRender { get; set; } = new BaseToolStrRender();
         public DisplayToolStrip()
         {
             InitializeComponent();
+            Renderer = BaseToolStrRender;
         }
 
         public Image BoundaryContoursImage
