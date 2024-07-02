@@ -13,6 +13,9 @@ namespace BaseModule.ControlsLib
 {
     public partial class GroupBoxEx : GroupBox
     {
+        public event Action<object> CheckBoxClick;
+
+
         int fullHeigth;
 
         public bool IsRollable { get; set; } = true;

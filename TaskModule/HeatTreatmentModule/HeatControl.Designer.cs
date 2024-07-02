@@ -45,7 +45,7 @@ namespace TaskModule.HeatTreatmentModule
             this.StefanBolzmanConst = new TextBox();
             //this.convExcFunc = new TextBoxValidator() { InputType = TXTBoxInputType.Float };
             this.convExcFunc = new TextBox();
-            this.cmbTempFunc = new CMBValidator();
+            this.cmbTempFunc = new ComboBoxEx();
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             //this.cmbExchFunc = new CMBValidator() { InputType = CMBInputType.Float | CMBInputType.Items };

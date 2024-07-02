@@ -154,17 +154,17 @@
       <DependentUpon>Player.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlsLib\Validation\IValidatorControl.cs" />
-    <Compile Include="ControlsLib\Validation\CMBValidator.cs">
+    <Compile Include="ControlsLib\ComboBoxEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ControlsLib\Validation\CMBValidator.Designer.cs">
-      <DependentUpon>CMBValidator.cs</DependentUpon>
+    <Compile Include="ControlsLib\ComboBoxEx.Designer.cs">
+      <DependentUpon>ComboBoxEx.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlsLib\Validation\TextBoxValidator.cs">
+    <Compile Include="ControlsLib\TextBoxEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ControlsLib\Validation\TextBoxValidator.Designer.cs">
-      <DependentUpon>TextBoxValidator.cs</DependentUpon>
+    <Compile Include="ControlsLib\TextBoxEx.Designer.cs">
+      <DependentUpon>TextBoxEx.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlsPainter\ComponentsPainter.cs" />
     <Compile Include="CrossSection\CreatePlaneFromTextArgs.cs" />

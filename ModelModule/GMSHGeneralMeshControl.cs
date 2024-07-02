@@ -45,11 +45,14 @@ namespace ModelModule
                 }
             }
         }
+        public event Action<object,bool> switchMeshGradientEvent;
+        public event Action<object, MeshGradientSettingsEventArgs> setMeshGradientSettingsEvent;
         public event Action<double> setMeshAlgoEvent;
         public event Action updateObjectsDataEvent;
         public event Action<ObjType> deleteMeshEvent;
-        public event Action<object,double, ObjType> generateMeshEvent;
-        public event Action<object> generateQuadMesh;
+        public event Action<object,double> generate2DTriangleMeshEvent;
+        public event Action<object> generate3DTetraMeshEvent;
+        public event Action<object> generate2DQuadMesh;
         public event Action<bool> showTransPoints;
         public event Action updateGeometryVBOEvent;
         public event Action updateTreeViewEvent;
@@ -102,7 +105,7 @@ namespace ModelModule
             else if (dim == 2)
             {
                 algoLabel.Enabled = show;//Активация/деактивация "Алгоритм построения сетки"
-                algoChoice.Enabled = show;//Активация/деактивация эл.управления выбора алгоритма
+                cmbAlgoChoice.Enabled = show;//Активация/деактивация эл.управления выбора алгоритма
                 densityLabel.Enabled = show;//Активация/деактивация "Размер элементов"
                 meshDensityValue.Enabled = show;//Активация/деактивация эл.управления ввода размера элементов
                 mesh2DGenBtn.Enabled = show;//Активация/деактивация кнопки сгенерировать
@@ -159,31 +162,27 @@ namespace ModelModule
 
 
         private void OnGenerateMesh2D(object sender, EventArgs e)
-        {      
-            //if (volumesTree.Nodes.Count > 0)
-            //{
-            //    ShowHideTabControls(3, false);
-            //    ClearTreeView(3);
-            //}
-
-            //ShowHideTabControls(3, true);
-
-            var result = 0.0;
-            if (Double.TryParse(meshDensityValue.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
-                generateMeshEvent?.Invoke(this, result,ObjType.Элемент2D);          
+        {
+            if (!meshDensityValue.IsValueValid())
+                return;
+            var result = Double.Parse(meshDensityValue.Text);
+   
+            generate2DTriangleMeshEvent?.Invoke(this, result);          
         }
 
         private void OnGenerateMesh3D(object sender, EventArgs e)
         {
-            var result = 0.0;
-            if (Double.TryParse(meshDensityValue.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
-                generateMeshEvent?.Invoke(this, result,ObjType.Элемент3D);           
+            generate3DTetraMeshEvent?.Invoke(this);
         }
 
         private void OnAlgorithmChoice(object sender, EventArgs e)
         {
             var algo = new double[] { 1, 2, 5, 6, 8 };
-            setMeshAlgoEvent?.Invoke(algo[algoChoice.SelectedIndex]);
+
+            if (!cmbAlgoChoice.IsValueValid())
+                return;
+
+            setMeshAlgoEvent?.Invoke(algo[cmbAlgoChoice.SelectedIndex]);
         }
 
         private void OnRefine(object sender, EventArgs e)
@@ -196,7 +195,7 @@ namespace ModelModule
 
         private void OnQuadrangulate(object sender, EventArgs e)
         {
-            generateQuadMesh?.Invoke(this);
+            generate2DQuadMesh?.Invoke(this);
         }
 
         private Dictionary<int, Dictionary<int, TreeNode>> CreateGeometryNodes(int[] dimTags)
@@ -296,6 +295,7 @@ namespace ModelModule
 
         private int FindObjectByTreeNode(TreeNode node)
         {
+
             var tokens = node.Text.Split(' ');
             return Int32.Parse(tokens[1]);
         }
@@ -307,7 +307,7 @@ namespace ModelModule
             if(attributes.Length == 0)
             {
                 rbtnProgressive.Checked = true;
-                algoCoef.Text = "1.0";
+                txbAlgoCoef.Text = "1.0";
                 txbAlgoNPoints.Text = string.Empty;
             }
             else
@@ -321,7 +321,7 @@ namespace ModelModule
                     rbtnProgressive.Checked = true;
 
                 txbAlgoNPoints.Text = attributes[0];
-                algoCoef.Text = attributes[2].Length == 0 ? "1.0" : attributes[2];
+                txbAlgoCoef.Text = attributes[2].Length == 0 ? "1.0" : attributes[2];
             }
         }
 
@@ -450,21 +450,25 @@ namespace ModelModule
 
         private void BtnOK_Click(object sender, EventArgs e)
         {
-            var tag = FindObjectByTreeNode(geomTree.SelectedNode);
-
-            var attributes = new string[3] { txbAlgoNPoints.Text, rbtnProgressive.Text, algoCoef.Text };
+            var attributes = new string[3] { txbAlgoNPoints.Text, rbtnProgressive.Text, txbAlgoCoef.Text };
             if (rbtnBeta.Checked)
                 attributes[1] = rbtnBeta.Text;
             else if (rbtnBump.Checked)
                 attributes[1] = rbtnBump.Text;
             double points = 0, coef = 0;
-            if(Double.TryParse(txbAlgoNPoints.Text, out points))//Обязательный TryParse иначе Exсeption по пустому полю
-            {
-                if(Double.TryParse(algoCoef.Text, out coef))//Обязательный TryParse иначе Exсeption по пустому полю
-                {
-                    setTransfiniteCurveEvent?.Invoke(this, new SetTransfiniteCurveEventArgs(tag, attributes, 3, coef,points));
-                }
-            }
+
+            if (txbAlgoCoef.IsValueValid())
+                points = double.Parse(txbAlgoCoef.Text);
+            else
+                return;
+
+            if (txbAlgoNPoints.IsValueValid())
+                coef = double.Parse(txbAlgoNPoints.Text);
+            else
+                return;
+
+            var tag = FindObjectByTreeNode(geomTree.SelectedNode);
+            setTransfiniteCurveEvent?.Invoke(this, new SetTransfiniteCurveEventArgs(tag, attributes, 3, coef, points));
 
             if (chbShowCurvesInfo.Checked)
                 showCurveInfoEvent?.Invoke(true);
@@ -505,6 +509,45 @@ namespace ModelModule
                 showTransPoints?.Invoke(true);
             else
                 showTransPoints?.Invoke(false);
+        }
+
+
+        public void SetGradientSetting(float layerThickness, float surfaceMeshSize, float coreMeshSize,float powerOfGradient)
+        {
+            txbLayerThickness.Text = layerThickness.ToString();
+            txbSurfaceMeshSize.Text = surfaceMeshSize.ToString();
+            txbCoreMeshSize.Text = coreMeshSize.ToString();
+            txbMeshGradientPower.Text = powerOfGradient.ToString();
+        }
+
+        private void grbGradientMeshSettings_CheckBoxClick(object obj)
+        {
+            var chb = obj as CheckBox;
+
+            if (chb.Checked)
+                switchMeshGradientEvent?.Invoke(this,true);
+            else
+                switchMeshGradientEvent?.Invoke(this,false);
+        }
+
+        private void btnSetGradientSettings_Click(object sender, EventArgs e)
+        {
+            if (!txbLayerThickness.IsValueValid())
+                return;
+            if (!txbSurfaceMeshSize.IsValueValid())
+                return;
+            if (!txbCoreMeshSize.IsValueValid())
+                return;
+            if (!txbMeshGradientPower.IsValueValid())
+                return;
+
+            var layerThickness = double.Parse(txbLayerThickness.Text);
+            var surfaceMeshSize = double.Parse(txbSurfaceMeshSize.Text);
+            var coreMeshSize = double.Parse(txbCoreMeshSize.Text);
+            var gradientMeshPower = double.Parse(txbMeshGradientPower.Text);
+
+            setMeshGradientSettingsEvent?.Invoke(this,
+                new MeshGradientSettingsEventArgs(layerThickness, surfaceMeshSize, coreMeshSize, gradientMeshPower));
         }
     }
 }

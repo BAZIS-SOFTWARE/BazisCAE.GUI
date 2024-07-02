@@ -104,29 +104,17 @@ namespace ModelModule
                 };
                 gmshForm.FormClosing += GmshForm_FormClosing;
 
-
-                meshGenerator.Load += (ar1, ar2) =>
-                {
-                    if (GmshController != null)
-                    {
-                        var ierr = 0;
-                        meshGenerator.FillGeometryTreeView(GmshController);
-                        if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
-                            meshGenerator.ShowHideGeneralTabControls(2, true);
-                    }
-
-                    meshGenerator.ShowHideGeneralTabControls(1);
-                    meshGenerator.ShowHideTabControls(1);
-                };
-
                 meshGenerator.setMeshAlgoEvent += (ar) =>
                 {
-                    var ierr = 0;
-                    GmshController.OptionSetNumber("Mesh.Algorithm", ar, ref ierr);
+                    var ierrAlgo = 0;
+                    GmshController.OptionSetNumber("Mesh.Algorithm", ar, ref ierrAlgo);
                 };
+
+                meshGenerator.switchMeshGradientEvent += MeshGenerator_switchMeshGradientEvent;
                 meshGenerator.showSurfaceInfoEvent += MeshGenerator_showSurfaceInfoEvent;
                 meshGenerator.showCurveInfoEvent += MeshGenerator_showCurveInfoEvent;
-                meshGenerator.generateMeshEvent += MeshGenerator_generateMeshEvent;
+                meshGenerator.generate3DTetraMeshEvent += MeshGenerator_generate3DMeshEvent;
+                meshGenerator.generate2DTriangleMeshEvent += MeshGenerator_generate2DMeshEvent;
                 meshGenerator.deleteMeshEvent += MeshGenerator_deleteMeshEvent;
                 meshGenerator.showTransPoints += MeshGenerator_showTransPoints;
                 meshGenerator.updateObjectsDataEvent += UpdateMeshVBO;
@@ -134,19 +122,33 @@ namespace ModelModule
                 meshGenerator.updateTreeViewEvent += () => { PresentProjectOnTree(); };
                 meshGenerator.refineMesh += MeshGenerator_refineMesh;
                 meshGenerator.showObjectsEvent += ShowLines;
-                meshGenerator.generateQuadMesh += MeshGenerator_generateQuadMesh;      
+                meshGenerator.generate2DQuadMesh += MeshGenerator_generate2DQuadMesh;      
                 meshGenerator.showHeatMapEvent += GmshControl_showHeatMapEvent;
                 meshGenerator.resetColorObjectsEvent += GmshControl_ResetColorObjectsEvent;
                 meshGenerator.setTransfiniteCurveEvent += MeshGenerator_setTransfiniteCurveEvent;
                 meshGenerator.setCurveDataEvent += SetCurveDataEventHandler;
+                meshGenerator.deleteElementEvent += DeleteElementsByNumber;
 
                 gmshForm.Controls.Add(meshGenerator);
                 meshGenerator.Dock = DockStyle.Fill;
-                //meshGenerator.ObjectData = Project.ModelData.ObjectData;
-  
+
+                var ierr = 0;
+                meshGenerator.FillGeometryTreeView(GmshController);
+                if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
+                    meshGenerator.ShowHideGeneralTabControls(2, true);
+
+                meshGenerator.ShowHideGeneralTabControls(1);
+                meshGenerator.ShowHideTabControls(1);
+
                 gmshForm.Show();
             }        
             //ModelPresenter.Clear();//Подчищаем Presenter во избежании артефактов
+        }
+
+        private void MeshGenerator_switchMeshGradientEvent(object arg1, bool arg2)
+        {
+            //TO DO 
+            // код включения и выключения в зависимости от флага arg2 опции построения градиентной сетки
         }
 
         private void SetCurveDataEventHandler(object sender, int tag)
@@ -291,7 +293,7 @@ namespace ModelModule
                 }
         }
 
-        private void MeshGenerator_generateQuadMesh(object obj)
+        private void MeshGenerator_generate2DQuadMesh(object obj)
         {
             var cntr = (GMSHGeneralMeshControl)obj;
             var filename = string.Empty;
@@ -336,7 +338,40 @@ namespace ModelModule
 
         [HandleProcessCorruptedStateExceptions]
         [SecurityCritical]
-        private void MeshGenerator_generateMeshEvent(object sender, double meshDencity, ObjType obj)
+        private void MeshGenerator_generate3DMeshEvent(object sender)
+        {
+            var ierr = 0;
+            string error;
+            try
+            {
+                var cntr = (GMSHGeneralMeshControl)sender;
+
+                DeleteGMSHMeshObjects(ObjType.Элемент3D);
+                GmshController.ModelMeshGenerate(3, ref ierr);
+                var trv = cntr.GetTreeView(3);
+                cntr.FillMeshTreeView(GmshController, trv, 3, "Объемы", "Объем ");
+            }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                return;
+            }
+            GmshController.LoggerGetLastError(out error);
+            if (!String.IsNullOrEmpty(error))
+                ConsoleControl.PrintInfo(error, Color.Red);
+
+            Project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
+            UpdateMeshVBO();
+
+            PresentProjectOnTree();
+
+            SceneControl.FitObjectsToScreen();
+            SceneControl.DisplayObjects();
+        }
+
+        [HandleProcessCorruptedStateExceptions]
+        [SecurityCritical]
+        private void MeshGenerator_generate2DMeshEvent(object sender, double meshDencity)
         {
             var ierr = 0;
             string error;
@@ -344,21 +379,12 @@ namespace ModelModule
             {
                 var cntr = (GMSHGeneralMeshControl)sender;
                 GmshController.OptionSetNumber("Mesh.MeshSizeFactor", meshDencity, ref ierr);
-                if (obj == ObjType.Элемент2D)
-                {
-                    DeleteGMSHMeshObjects(ObjType.Узел);
-                    GmshController.ModelMeshGenerate(1, ref ierr);
-                    GmshController.ModelMeshGenerate(2, ref ierr);
-                    var trv = cntr.GetTreeView(2);
-                    cntr.FillMeshTreeView(GmshController, trv, 2);
-                }
-                else
-                {
-                    DeleteGMSHMeshObjects(ObjType.Элемент3D);
-                    GmshController.ModelMeshGenerate(3, ref ierr);
-                    var trv = cntr.GetTreeView(3);
-                    cntr.FillMeshTreeView(GmshController,trv, 3, "Объемы", "Объем ");
-                }
+
+                DeleteGMSHMeshObjects(ObjType.Узел);
+                GmshController.ModelMeshGenerate(1, ref ierr);
+                GmshController.ModelMeshGenerate(2, ref ierr);
+                var trv = cntr.GetTreeView(2);
+                cntr.FillMeshTreeView(GmshController, trv, 2);
             }
             catch (Exception ex)
             {

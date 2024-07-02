@@ -1,4 +1,5 @@
-﻿using BaseModule.ControlsLib.Validation;
+﻿using BaseModule.ControlsLib;
+using BaseModule.ControlsLib.Validation;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -32,11 +33,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArcWeldingControl));
             this.btnInfo = new System.Windows.Forms.Button();
-            this.voltageTextBox = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive};
+            this.voltageTextBox = new TextBoxEx() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive};
             this.label8 = new System.Windows.Forms.Label();
-            this.weldPoolTextBox = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
+            this.weldPoolTextBox = new TextBoxEx() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.label4 = new System.Windows.Forms.Label();
-            this.currentTextBox = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
+            this.currentTextBox = new TextBoxEx() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -138,11 +139,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         #endregion
 
         private System.Windows.Forms.Button btnInfo;
-        private TextBoxValidator voltageTextBox;
+        private TextBoxEx voltageTextBox;
         private System.Windows.Forms.Label label8;
-        private TextBoxValidator weldPoolTextBox;
+        private TextBoxEx weldPoolTextBox;
         private System.Windows.Forms.Label label4;
-        private TextBoxValidator currentTextBox;
+        private TextBoxEx currentTextBox;
         private System.Windows.Forms.Label label1;
     }
 }
