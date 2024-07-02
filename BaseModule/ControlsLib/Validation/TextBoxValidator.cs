@@ -19,7 +19,8 @@ namespace BaseModule.ControlsLib.Validation
         Integer = 4,
         Float = 8,
         Positive = 16,
-        User = 32
+        User = 32,
+        Empty = 64
     }
 
     public partial class TextBoxValidator : TextBox, IValidatorControl
@@ -58,9 +59,15 @@ namespace BaseModule.ControlsLib.Validation
                 return true;
 
             if (Text.Equals(string.Empty))
+            {
+                if (IsInputTypeChosen(TXTBoxInputType.Empty))
+                    return GetErrorCheckResult();
+
                 return Enabled ?
                     GetErrorCheckResult("Поле оставлено пустым") :
                     GetErrorCheckResult();
+            }
+                
 
             if (IsInputTypeChosen(TXTBoxInputType.Text))
                 return Text.Any(x => IligalSymbols.Contains(x))?

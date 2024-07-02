@@ -17,7 +17,8 @@ namespace BaseModule.ControlsLib.Validation
         Integer = 2,
         Float = 4,
         Positive = 8,
-        User = 16
+        User = 16,
+        Empty = 32
     }
 
     public partial class CMBValidator : ComboBox, IValidatorControl
@@ -53,9 +54,14 @@ namespace BaseModule.ControlsLib.Validation
                 return true;
 
             if (Text.Equals(string.Empty))
+            {
+                if (IsInputTypeChosen(CMBInputType.Empty))
+                    return GetErrorCheckResult();
+
                 return Enabled ?
                     GetErrorCheckResult("Поле оставлено пустым") :
                     GetErrorCheckResult();
+            }
 
             if (IsInputTypeChosen(CMBInputType.Items))
                 return Items.Contains(Text) ?
