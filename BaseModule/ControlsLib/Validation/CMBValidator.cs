@@ -63,19 +63,28 @@ namespace BaseModule.ControlsLib.Validation
                     GetErrorCheckResult();
             }
 
+            if (IsInputTypeChosen(CMBInputType.Integer))
+            {
+                var res = HandleIntegerValue();
+                if (res) return res;
+            }
+
+            if (IsInputTypeChosen(CMBInputType.Float))
+            {
+                var res = HandleFloatValue();
+                if (res) return res;
+            }
+
+            if (IsInputTypeChosen(CMBInputType.User))
+            {
+                var res = HandleUserCheckValue();
+                if (res) return res;
+            }
+
             if (IsInputTypeChosen(CMBInputType.Items))
                 return Items.Contains(Text) ?
                     GetErrorCheckResult() :
                     GetErrorCheckResult("Допущена ошибка при выборе варианта");
-
-            if (IsInputTypeChosen(CMBInputType.Integer))
-                return HandleIntegerValue();
-
-            if (IsInputTypeChosen(CMBInputType.Float))
-                return HandleFloatValue();
-
-            if (IsInputTypeChosen(CMBInputType.User))
-                return HandleUserCheckValue();
 
             return GetErrorCheckResult("Выбранный вариант не доступен. Вероятно, допущена ошибка при выборе значения");
         }

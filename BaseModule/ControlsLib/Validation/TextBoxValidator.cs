@@ -67,22 +67,29 @@ namespace BaseModule.ControlsLib.Validation
                     GetErrorCheckResult("Поле оставлено пустым") :
                     GetErrorCheckResult();
             }
-                
-
-            if (IsInputTypeChosen(TXTBoxInputType.Text))
-                return Text.Any(x => IligalSymbols.Contains(x))?
-                GetErrorCheckResult("Переданная строка пуста или содержит неподдерживаемые символы"):
-                HandleIntegerValue();
 
             if (IsInputTypeChosen(TXTBoxInputType.Integer))
-                return HandleIntegerValue();
-                
+            {
+                var res = HandleIntegerValue();
+                if (res) return res;
+            }
 
             if (IsInputTypeChosen(TXTBoxInputType.Float))
-                return HandleFloatValue();
+            {
+                var res = HandleFloatValue();
+                if (res) return res;
+            }
 
             if (IsInputTypeChosen(TXTBoxInputType.User))
-                return HandleUserCheckValue();
+            {
+                var res = HandleUserCheckValue();
+                if (res) return res;
+            }
+
+            if (IsInputTypeChosen(TXTBoxInputType.Text))
+                return Text.Any(x => IligalSymbols.Contains(x)) ?
+                GetErrorCheckResult("Переданная строка содержит неподдерживаемые символы") :
+                HandleIntegerValue();
 
             return GetErrorCheckResult($"Поле с валидирующим обработчиком типа {InputType} не было обработано ни одним обработчиком." +
                 $"Ошибка в веденном значении или типе обработки");
