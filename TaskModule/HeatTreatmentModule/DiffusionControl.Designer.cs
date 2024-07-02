@@ -32,6 +32,7 @@ namespace TaskModule.HeatTreatmentModule
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.ClmnElem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ClmnDiffCoef = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,27 +42,27 @@ namespace TaskModule.HeatTreatmentModule
             this.ClmnStop = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.player = new Player();
+            this.player = new BaseModule.ControlsLib.Player();
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnAddNewRow = new System.Windows.Forms.Button();
-            this.txbStop = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
-            this.txbStart = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
+            this.txbStop = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbStart = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txbDiffCoefNitro = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
+            this.txbDiffCoefNitro = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
             this.label9 = new System.Windows.Forms.Label();
-            this.txbConcentrNitro = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
-            this.txbConcentrCarbon = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
+            this.txbConcentrNitro = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbConcentrCarbon = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
             this.label8 = new System.Windows.Forms.Label();
             this.rbtFunction = new System.Windows.Forms.RadioButton();
             this.rbtParam = new System.Windows.Forms.RadioButton();
-            this.cmbEl = new CMBValidator();
-            this.cmbTempreture = new CMBValidator() { InputType = CMBInputType.Items | CMBInputType.Float };
-            this.txbDiffCoefCarbon = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
+            this.cmbEl = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
+            this.cmbTempreture = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
+            this.txbDiffCoefCarbon = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -94,12 +95,12 @@ namespace TaskModule.HeatTreatmentModule
             this.ClmStart,
             this.ClmnStop});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 486);
+            this.dataGridView.Location = new System.Drawing.Point(1, 400);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(823, 307);
+            this.dataGridView.Size = new System.Drawing.Size(617, 244);
             this.dataGridView.TabIndex = 0;
             this.dataGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -167,8 +168,7 @@ namespace TaskModule.HeatTreatmentModule
             this.tableLayoutPanel1.Controls.Add(this.groupBox4, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tableLayoutPanel1.MinimumSize = new System.Drawing.Size(533, 492);
+            this.tableLayoutPanel1.MinimumSize = new System.Drawing.Size(400, 400);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -176,7 +176,7 @@ namespace TaskModule.HeatTreatmentModule
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(825, 794);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(619, 645);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox3
@@ -194,11 +194,11 @@ namespace TaskModule.HeatTreatmentModule
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(1, 319);
+            this.groupBox3.Location = new System.Drawing.Point(1, 263);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
-            this.groupBox3.Size = new System.Drawing.Size(823, 167);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.groupBox3.Size = new System.Drawing.Size(617, 137);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Время действия";
@@ -210,11 +210,11 @@ namespace TaskModule.HeatTreatmentModule
             this.player.AutoSize = true;
             this.player.CheckState = BaseModule.ControlsLib.CheckState.start;
             this.player.CurrentValue = 0;
-            this.player.Location = new System.Drawing.Point(236, 97);
-            this.player.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
-            this.player.MinimumSize = new System.Drawing.Size(287, 55);
+            this.player.Location = new System.Drawing.Point(177, 79);
+            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.player.MinimumSize = new System.Drawing.Size(215, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(568, 55);
+            this.player.Size = new System.Drawing.Size(426, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -230,10 +230,9 @@ namespace TaskModule.HeatTreatmentModule
             // btnHideAll
             // 
             this.btnHideAll.Image = global::TaskModule.Properties.Resources.HideAll;
-            this.btnHideAll.Location = new System.Drawing.Point(177, 97);
-            this.btnHideAll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnHideAll.Location = new System.Drawing.Point(133, 79);
             this.btnHideAll.Name = "btnHideAll";
-            this.btnHideAll.Size = new System.Drawing.Size(35, 32);
+            this.btnHideAll.Size = new System.Drawing.Size(26, 26);
             this.btnHideAll.TabIndex = 13;
             this.btnHideAll.UseVisualStyleBackColor = true;
             this.btnHideAll.Click += new System.EventHandler(this.HideAllDataButton_Click);
@@ -241,10 +240,9 @@ namespace TaskModule.HeatTreatmentModule
             // btnShowAll
             // 
             this.btnShowAll.Image = global::TaskModule.Properties.Resources.ShowAll;
-            this.btnShowAll.Location = new System.Drawing.Point(135, 97);
-            this.btnShowAll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnShowAll.Location = new System.Drawing.Point(101, 79);
             this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(35, 32);
+            this.btnShowAll.Size = new System.Drawing.Size(26, 26);
             this.btnShowAll.TabIndex = 12;
             this.btnShowAll.UseVisualStyleBackColor = true;
             this.btnShowAll.Click += new System.EventHandler(this.ShowDataButton_Click);
@@ -252,10 +250,9 @@ namespace TaskModule.HeatTreatmentModule
             // btnRefresh
             // 
             this.btnRefresh.Image = global::TaskModule.Properties.Resources.Refresh;
-            this.btnRefresh.Location = new System.Drawing.Point(92, 97);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRefresh.Location = new System.Drawing.Point(69, 79);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(35, 32);
+            this.btnRefresh.Size = new System.Drawing.Size(26, 26);
             this.btnRefresh.TabIndex = 11;
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
@@ -263,10 +260,9 @@ namespace TaskModule.HeatTreatmentModule
             // btnClearAll
             // 
             this.btnClearAll.Image = global::TaskModule.Properties.Resources.delete;
-            this.btnClearAll.Location = new System.Drawing.Point(49, 97);
-            this.btnClearAll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnClearAll.Location = new System.Drawing.Point(37, 79);
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(35, 32);
+            this.btnClearAll.Size = new System.Drawing.Size(26, 26);
             this.btnClearAll.TabIndex = 10;
             this.btnClearAll.UseVisualStyleBackColor = true;
             this.btnClearAll.Click += new System.EventHandler(this.ClearAllDataButton_Click);
@@ -274,10 +270,9 @@ namespace TaskModule.HeatTreatmentModule
             // btnAddNewRow
             // 
             this.btnAddNewRow.Image = global::TaskModule.Properties.Resources.Add;
-            this.btnAddNewRow.Location = new System.Drawing.Point(7, 97);
-            this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAddNewRow.Location = new System.Drawing.Point(5, 79);
             this.btnAddNewRow.Name = "btnAddNewRow";
-            this.btnAddNewRow.Size = new System.Drawing.Size(35, 32);
+            this.btnAddNewRow.Size = new System.Drawing.Size(26, 26);
             this.btnAddNewRow.TabIndex = 9;
             this.btnAddNewRow.UseVisualStyleBackColor = true;
             this.btnAddNewRow.Click += new System.EventHandler(this.AddButton_Click);
@@ -286,39 +281,43 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.txbStop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbStop.Location = new System.Drawing.Point(236, 55);
-            this.txbStop.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txbStop.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbStop.IsValidating = true;
+            this.txbStop.Location = new System.Drawing.Point(177, 45);
             this.txbStop.Name = "txbStop";
-            this.txbStop.Size = new System.Drawing.Size(568, 22);
+            this.txbStop.Size = new System.Drawing.Size(427, 20);
             this.txbStop.TabIndex = 6;
+            this.txbStop.UserRegExCheck = null;
+            this.txbStop.UserRegExCheckErrorMessage = null;
             // 
             // txbStart
             // 
             this.txbStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbStart.Location = new System.Drawing.Point(236, 26);
-            this.txbStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txbStart.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbStart.IsValidating = true;
+            this.txbStart.Location = new System.Drawing.Point(177, 21);
             this.txbStart.Name = "txbStart";
-            this.txbStart.Size = new System.Drawing.Size(568, 22);
+            this.txbStart.Size = new System.Drawing.Size(427, 20);
             this.txbStart.TabIndex = 5;
+            this.txbStart.UserRegExCheck = null;
+            this.txbStart.UserRegExCheckErrorMessage = null;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 59);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(6, 48);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(49, 16);
+            this.label6.Size = new System.Drawing.Size(40, 13);
             this.label6.TabIndex = 1;
             this.label6.Text = "Стоп,с";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 30);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(6, 24);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(56, 16);
+            this.label5.Size = new System.Drawing.Size(45, 13);
             this.label5.TabIndex = 0;
             this.label5.Text = "Старт,с";
             // 
@@ -340,12 +339,11 @@ namespace TaskModule.HeatTreatmentModule
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(1, 87);
+            this.groupBox2.Location = new System.Drawing.Point(1, 72);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(1);
-            this.groupBox2.MinimumSize = new System.Drawing.Size(533, 0);
+            this.groupBox2.MinimumSize = new System.Drawing.Size(400, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox2.Size = new System.Drawing.Size(823, 230);
+            this.groupBox2.Size = new System.Drawing.Size(617, 189);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Параметры";
@@ -354,19 +352,21 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.txbDiffCoefNitro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbDiffCoefNitro.Location = new System.Drawing.Point(236, 86);
-            this.txbDiffCoefNitro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txbDiffCoefNitro.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbDiffCoefNitro.IsValidating = true;
+            this.txbDiffCoefNitro.Location = new System.Drawing.Point(177, 70);
             this.txbDiffCoefNitro.Name = "txbDiffCoefNitro";
-            this.txbDiffCoefNitro.Size = new System.Drawing.Size(568, 22);
+            this.txbDiffCoefNitro.Size = new System.Drawing.Size(427, 20);
             this.txbDiffCoefNitro.TabIndex = 20;
+            this.txbDiffCoefNitro.UserRegExCheck = null;
+            this.txbDiffCoefNitro.UserRegExCheckErrorMessage = null;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(11, 90);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Location = new System.Drawing.Point(8, 73);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(149, 16);
+            this.label9.Size = new System.Drawing.Size(116, 13);
             this.label9.TabIndex = 19;
             this.label9.Text = "Коэф. диффузии N, %";
             // 
@@ -374,39 +374,43 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.txbConcentrNitro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbConcentrNitro.Location = new System.Drawing.Point(236, 118);
-            this.txbConcentrNitro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txbConcentrNitro.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbConcentrNitro.IsValidating = true;
+            this.txbConcentrNitro.Location = new System.Drawing.Point(177, 96);
             this.txbConcentrNitro.Name = "txbConcentrNitro";
-            this.txbConcentrNitro.Size = new System.Drawing.Size(568, 22);
+            this.txbConcentrNitro.Size = new System.Drawing.Size(427, 20);
             this.txbConcentrNitro.TabIndex = 18;
+            this.txbConcentrNitro.UserRegExCheck = null;
+            this.txbConcentrNitro.UserRegExCheckErrorMessage = null;
             // 
             // txbConcentrCarbon
             // 
             this.txbConcentrCarbon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbConcentrCarbon.Location = new System.Drawing.Point(236, 54);
-            this.txbConcentrCarbon.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txbConcentrCarbon.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbConcentrCarbon.IsValidating = true;
+            this.txbConcentrCarbon.Location = new System.Drawing.Point(177, 44);
             this.txbConcentrCarbon.Name = "txbConcentrCarbon";
-            this.txbConcentrCarbon.Size = new System.Drawing.Size(568, 22);
+            this.txbConcentrCarbon.Size = new System.Drawing.Size(427, 20);
             this.txbConcentrCarbon.TabIndex = 17;
+            this.txbConcentrCarbon.UserRegExCheck = null;
+            this.txbConcentrCarbon.UserRegExCheckErrorMessage = null;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(11, 122);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Location = new System.Drawing.Point(8, 99);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(132, 16);
+            this.label8.Size = new System.Drawing.Size(104, 13);
             this.label8.TabIndex = 16;
             this.label8.Text = "Концентрация N, %";
             // 
             // rbtFunction
             // 
             this.rbtFunction.AutoSize = true;
-            this.rbtFunction.Location = new System.Drawing.Point(329, 150);
-            this.rbtFunction.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbtFunction.Location = new System.Drawing.Point(247, 122);
             this.rbtFunction.Name = "rbtFunction";
-            this.rbtFunction.Size = new System.Drawing.Size(85, 20);
+            this.rbtFunction.Size = new System.Drawing.Size(71, 17);
             this.rbtFunction.TabIndex = 11;
             this.rbtFunction.TabStop = true;
             this.rbtFunction.Text = "Функция";
@@ -416,10 +420,9 @@ namespace TaskModule.HeatTreatmentModule
             // rbtParam
             // 
             this.rbtParam.AutoSize = true;
-            this.rbtParam.Location = new System.Drawing.Point(220, 150);
-            this.rbtParam.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbtParam.Location = new System.Drawing.Point(165, 122);
             this.rbtParam.Name = "rbtParam";
-            this.rbtParam.Size = new System.Drawing.Size(94, 20);
+            this.rbtParam.Size = new System.Drawing.Size(76, 17);
             this.rbtParam.TabIndex = 10;
             this.rbtParam.TabStop = true;
             this.rbtParam.Text = "Параметр";
@@ -431,70 +434,76 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbEl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbEl.FormattingEnabled = true;
-            this.cmbEl.Location = new System.Drawing.Point(236, 183);
-            this.cmbEl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbEl.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
+            this.cmbEl.IsValidating = true;
+            this.cmbEl.Location = new System.Drawing.Point(177, 149);
             this.cmbEl.Name = "cmbEl";
-            this.cmbEl.Size = new System.Drawing.Size(568, 24);
+            this.cmbEl.Size = new System.Drawing.Size(427, 21);
             this.cmbEl.TabIndex = 9;
+            this.cmbEl.UserRegExCheck = null;
+            this.cmbEl.UserRegExCheckErrorMessage = null;
             // 
             // cmbTempreture
             // 
             this.cmbTempreture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbTempreture.FormattingEnabled = true;
-            this.cmbTempreture.Location = new System.Drawing.Point(432, 150);
-            this.cmbTempreture.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbTempreture.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Float;
+            this.cmbTempreture.IsValidating = true;
+            this.cmbTempreture.Location = new System.Drawing.Point(324, 122);
             this.cmbTempreture.Name = "cmbTempreture";
-            this.cmbTempreture.Size = new System.Drawing.Size(372, 24);
+            this.cmbTempreture.Size = new System.Drawing.Size(280, 21);
             this.cmbTempreture.TabIndex = 8;
+            this.cmbTempreture.UserRegExCheck = null;
+            this.cmbTempreture.UserRegExCheckErrorMessage = null;
             // 
             // txbDiffCoefCarbon
             // 
             this.txbDiffCoefCarbon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbDiffCoefCarbon.Location = new System.Drawing.Point(236, 23);
-            this.txbDiffCoefCarbon.Margin = new System.Windows.Forms.Padding(237, 4, 20, 4);
+            this.txbDiffCoefCarbon.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbDiffCoefCarbon.IsValidating = true;
+            this.txbDiffCoefCarbon.Location = new System.Drawing.Point(177, 19);
+            this.txbDiffCoefCarbon.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbDiffCoefCarbon.Name = "txbDiffCoefCarbon";
-            this.txbDiffCoefCarbon.Size = new System.Drawing.Size(568, 22);
+            this.txbDiffCoefCarbon.Size = new System.Drawing.Size(427, 20);
             this.txbDiffCoefCarbon.TabIndex = 4;
+            this.txbDiffCoefCarbon.UserRegExCheck = null;
+            this.txbDiffCoefCarbon.UserRegExCheckErrorMessage = null;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 187);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(8, 152);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(129, 16);
+            this.label4.Size = new System.Drawing.Size(100, 13);
             this.label4.TabIndex = 3;
             this.label4.Text = "Группа элементов";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 154);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(8, 125);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(115, 16);
+            this.label3.Size = new System.Drawing.Size(91, 13);
             this.label3.TabIndex = 2;
             this.label3.Text = "Температура, °С";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 58);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(9, 47);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(131, 16);
+            this.label2.Size = new System.Drawing.Size(103, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Концентрация C, %";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 27);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(8, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 16);
+            this.label1.Size = new System.Drawing.Size(115, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Коэф. диффузии C, %";
             // 
@@ -508,8 +517,7 @@ namespace TaskModule.HeatTreatmentModule
             this.groupBox1.Location = new System.Drawing.Point(1, 1);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox1.Size = new System.Drawing.Size(823, 23);
+            this.groupBox1.Size = new System.Drawing.Size(617, 19);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Вид процесса";
@@ -518,10 +526,9 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.rbtNitrocarburizing.AutoSize = true;
             this.rbtNitrocarburizing.Dock = System.Windows.Forms.DockStyle.Left;
-            this.rbtNitrocarburizing.Location = new System.Drawing.Point(236, 19);
-            this.rbtNitrocarburizing.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbtNitrocarburizing.Location = new System.Drawing.Point(188, 16);
             this.rbtNitrocarburizing.Name = "rbtNitrocarburizing";
-            this.rbtNitrocarburizing.Size = new System.Drawing.Size(148, 0);
+            this.rbtNitrocarburizing.Size = new System.Drawing.Size(117, 0);
             this.rbtNitrocarburizing.TabIndex = 6;
             this.rbtNitrocarburizing.TabStop = true;
             this.rbtNitrocarburizing.Text = "Нитроцементация";
@@ -532,10 +539,9 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.rbtCarburization.AutoSize = true;
             this.rbtCarburization.Dock = System.Windows.Forms.DockStyle.Left;
-            this.rbtCarburization.Location = new System.Drawing.Point(128, 19);
-            this.rbtCarburization.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbtCarburization.Location = new System.Drawing.Point(100, 16);
             this.rbtCarburization.Name = "rbtCarburization";
-            this.rbtCarburization.Size = new System.Drawing.Size(108, 0);
+            this.rbtCarburization.Size = new System.Drawing.Size(88, 0);
             this.rbtCarburization.TabIndex = 5;
             this.rbtCarburization.TabStop = true;
             this.rbtCarburization.Text = "Цементация";
@@ -546,10 +552,9 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.rbtNitritization.AutoSize = true;
             this.rbtNitritization.Dock = System.Windows.Forms.DockStyle.Left;
-            this.rbtNitritization.Location = new System.Drawing.Point(4, 19);
-            this.rbtNitritization.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbtNitritization.Location = new System.Drawing.Point(3, 16);
             this.rbtNitritization.Name = "rbtNitritization";
-            this.rbtNitritization.Size = new System.Drawing.Size(124, 0);
+            this.rbtNitritization.Size = new System.Drawing.Size(97, 0);
             this.rbtNitritization.TabIndex = 4;
             this.rbtNitritization.TabStop = true;
             this.rbtNitritization.Text = "Азотирование";
@@ -561,11 +566,10 @@ namespace TaskModule.HeatTreatmentModule
             this.groupBox4.Controls.Add(this.rbtAlphaFe);
             this.groupBox4.Controls.Add(this.rbtGammaFe);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(1, 26);
+            this.groupBox4.Location = new System.Drawing.Point(1, 22);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox4.Size = new System.Drawing.Size(823, 59);
+            this.groupBox4.Size = new System.Drawing.Size(617, 48);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Материал";
@@ -573,10 +577,9 @@ namespace TaskModule.HeatTreatmentModule
             // rbtAlphaFe
             // 
             this.rbtAlphaFe.AutoSize = true;
-            this.rbtAlphaFe.Location = new System.Drawing.Point(12, 27);
-            this.rbtAlphaFe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbtAlphaFe.Location = new System.Drawing.Point(9, 22);
             this.rbtAlphaFe.Name = "rbtAlphaFe";
-            this.rbtAlphaFe.Size = new System.Drawing.Size(54, 20);
+            this.rbtAlphaFe.Size = new System.Drawing.Size(47, 17);
             this.rbtAlphaFe.TabIndex = 15;
             this.rbtAlphaFe.TabStop = true;
             this.rbtAlphaFe.Text = "α Fe";
@@ -586,10 +589,9 @@ namespace TaskModule.HeatTreatmentModule
             // rbtGammaFe
             // 
             this.rbtGammaFe.AutoSize = true;
-            this.rbtGammaFe.Location = new System.Drawing.Point(83, 27);
-            this.rbtGammaFe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbtGammaFe.Location = new System.Drawing.Point(62, 22);
             this.rbtGammaFe.Name = "rbtGammaFe";
-            this.rbtGammaFe.Size = new System.Drawing.Size(54, 20);
+            this.rbtGammaFe.Size = new System.Drawing.Size(46, 17);
             this.rbtGammaFe.TabIndex = 15;
             this.rbtGammaFe.TabStop = true;
             this.rbtGammaFe.Text = "γ Fe";
@@ -598,14 +600,14 @@ namespace TaskModule.HeatTreatmentModule
             // 
             // DiffusionСontrol
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
-            this.MinimumSize = new System.Drawing.Size(533, 0);
+            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.MinimumSize = new System.Drawing.Size(400, 0);
             this.Name = "DiffusionСontrol";
-            this.Size = new System.Drawing.Size(825, 794);
+            this.Size = new System.Drawing.Size(619, 645);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -628,12 +630,9 @@ namespace TaskModule.HeatTreatmentModule
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
-        //private CMBValidator cmbEl;
-        private ComboBox cmbEl;
-        //private CMBValidator cmbTempreture;
-        private ComboBox cmbTempreture;
-        //private TextBoxValidator txbDiffCoefCarbon;
-        private TextBox txbDiffCoefCarbon;
+        private CMBValidator cmbEl;
+        private CMBValidator cmbTempreture;
+        private TextBoxValidator txbDiffCoefCarbon;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -649,20 +648,15 @@ namespace TaskModule.HeatTreatmentModule
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.Button btnAddNewRow;
-        //private TextBoxValidator txbStop;
-        private TextBox txbStop;
-        //private TextBoxValidator txbStart;
-        private TextBox txbStart;
+        private TextBoxValidator txbStop;
+        private TextBoxValidator txbStart;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.RadioButton rbtGammaFe;
-        //private TextBoxValidator txbConcentrNitro;
-        private TextBox txbConcentrNitro;
-        //private TextBoxValidator txbConcentrCarbon;
-        private TextBox txbConcentrCarbon;
+        private TextBoxValidator txbConcentrNitro;
+        private TextBoxValidator txbConcentrCarbon;
         private System.Windows.Forms.Label label8;
-        //private TextBoxValidator txbDiffCoefNitro;
-        private TextBox txbDiffCoefNitro;
+        private TextBoxValidator txbDiffCoefNitro;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.RadioButton rbtAlphaFe;
