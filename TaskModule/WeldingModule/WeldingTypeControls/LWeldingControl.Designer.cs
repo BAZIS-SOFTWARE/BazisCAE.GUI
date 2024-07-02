@@ -48,52 +48,60 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbBeamBottomDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbBeamBottomDiam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbBeamBottomDiam.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
+            this.txbBeamBottomDiam.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Float;
             this.txbBeamBottomDiam.IsValidating = true;
             this.txbBeamBottomDiam.Location = new System.Drawing.Point(171, 88);
             this.txbBeamBottomDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbBeamBottomDiam.Name = "txbBeamBottomDiam";
             this.txbBeamBottomDiam.Size = new System.Drawing.Size(773, 20);
             this.txbBeamBottomDiam.TabIndex = 45;
+            this.txbBeamBottomDiam.UserRegExCheck = null;
+            this.txbBeamBottomDiam.UserRegExCheckErrorMessage = null;
             // 
             // txbBeamUpperDiam
             // 
             this.txbBeamUpperDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbBeamUpperDiam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbBeamUpperDiam.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
+            this.txbBeamUpperDiam.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Float;
             this.txbBeamUpperDiam.IsValidating = true;
             this.txbBeamUpperDiam.Location = new System.Drawing.Point(171, 62);
             this.txbBeamUpperDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbBeamUpperDiam.Name = "txbBeamUpperDiam";
             this.txbBeamUpperDiam.Size = new System.Drawing.Size(773, 20);
             this.txbBeamUpperDiam.TabIndex = 44;
+            this.txbBeamUpperDiam.UserRegExCheck = null;
+            this.txbBeamUpperDiam.UserRegExCheckErrorMessage = null;
             // 
             // txbPower
             // 
             this.txbPower.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbPower.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbPower.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
+            this.txbPower.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Float;
             this.txbPower.IsValidating = true;
             this.txbPower.Location = new System.Drawing.Point(171, 10);
             this.txbPower.Margin = new System.Windows.Forms.Padding(178, 10, 15, 3);
             this.txbPower.Name = "txbPower";
             this.txbPower.Size = new System.Drawing.Size(773, 20);
             this.txbPower.TabIndex = 42;
+            this.txbPower.UserRegExCheck = null;
+            this.txbPower.UserRegExCheckErrorMessage = null;
             // 
             // txbBeamLenght
             // 
             this.txbBeamLenght.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbBeamLenght.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbBeamLenght.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Text;
+            this.txbBeamLenght.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Float;
             this.txbBeamLenght.IsValidating = true;
             this.txbBeamLenght.Location = new System.Drawing.Point(171, 36);
             this.txbBeamLenght.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbBeamLenght.Name = "txbBeamLenght";
             this.txbBeamLenght.Size = new System.Drawing.Size(773, 20);
             this.txbBeamLenght.TabIndex = 43;
+            this.txbBeamLenght.UserRegExCheck = null;
+            this.txbBeamLenght.UserRegExCheckErrorMessage = null;
             // 
             // label16
             // 

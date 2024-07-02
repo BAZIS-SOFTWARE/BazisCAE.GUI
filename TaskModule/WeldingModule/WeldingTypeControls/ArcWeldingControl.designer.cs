@@ -30,13 +30,14 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArcWeldingControl));
             this.btnInfo = new System.Windows.Forms.Button();
-            this.voltageTextBox = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive};
+            this.voltageTextBox = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
             this.label8 = new System.Windows.Forms.Label();
-            this.weldPoolTextBox = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
+            this.weldPoolTextBox = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
             this.label4 = new System.Windows.Forms.Label();
-            this.currentTextBox = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
+            this.currentTextBox = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -56,11 +57,15 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.voltageTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.voltageTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.voltageTextBox.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Float;
+            this.voltageTextBox.IsValidating = true;
             this.voltageTextBox.Location = new System.Drawing.Point(178, 36);
             this.voltageTextBox.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.voltageTextBox.Name = "voltageTextBox";
             this.voltageTextBox.Size = new System.Drawing.Size(408, 20);
             this.voltageTextBox.TabIndex = 53;
+            this.voltageTextBox.UserRegExCheck = null;
+            this.voltageTextBox.UserRegExCheckErrorMessage = null;
             // 
             // label8
             // 
@@ -76,11 +81,15 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.weldPoolTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.weldPoolTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.weldPoolTextBox.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.weldPoolTextBox.IsValidating = true;
             this.weldPoolTextBox.Location = new System.Drawing.Point(178, 62);
             this.weldPoolTextBox.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.weldPoolTextBox.Name = "weldPoolTextBox";
             this.weldPoolTextBox.Size = new System.Drawing.Size(408, 20);
             this.weldPoolTextBox.TabIndex = 51;
+            this.weldPoolTextBox.UserRegExCheck = null;
+            this.weldPoolTextBox.UserRegExCheckErrorMessage = null;
             // 
             // label4
             // 
@@ -97,11 +106,15 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.currentTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.currentTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.currentTextBox.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Float;
+            this.currentTextBox.IsValidating = true;
             this.currentTextBox.Location = new System.Drawing.Point(178, 10);
             this.currentTextBox.Margin = new System.Windows.Forms.Padding(178, 15, 15, 3);
             this.currentTextBox.Name = "currentTextBox";
             this.currentTextBox.Size = new System.Drawing.Size(408, 20);
             this.currentTextBox.TabIndex = 49;
+            this.currentTextBox.UserRegExCheck = null;
+            this.currentTextBox.UserRegExCheckErrorMessage = null;
             // 
             // label1
             // 

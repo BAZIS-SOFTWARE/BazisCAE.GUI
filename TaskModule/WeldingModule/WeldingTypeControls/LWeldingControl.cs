@@ -28,6 +28,16 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             return string.Join(";", strs);
         }
 
+        public override IEnumerable<Func<bool>> GetValidatorsFuncs()
+        {
+            return new Func<bool>[]
+            {
+                () => txbPower.IsValueValid(),
+                () => txbBeamLenght.IsValueValid(),
+                () => txbBeamBottomDiam.IsValueValid(),
+                () => txbBeamUpperDiam.IsValueValid()
+            };
+        }
         public override void InputData(string[] inputData)
         {
             txbPower.Text = inputData[1];
