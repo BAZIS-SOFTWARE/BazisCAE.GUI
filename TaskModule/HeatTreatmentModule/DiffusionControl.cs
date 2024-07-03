@@ -73,7 +73,6 @@ namespace TaskModule.HeatTreatmentModule
             },
         };
 
-        public event Func<bool> ValidateControls;
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -87,15 +86,6 @@ namespace TaskModule.HeatTreatmentModule
         {
             InitializeComponent();
             DataName = "Диффузия";
-
-            //ValidateControls += () => cmbEl.IsValueValid();
-            //ValidateControls += () => cmbTempreture.IsValueValid();
-            //ValidateControls += () => txbConcentrCarbon.IsValueValid();
-            //ValidateControls += () => txbDiffCoefCarbon.IsValueValid();
-            //ValidateControls += () => txbConcentrNitro.IsValueValid();
-            //ValidateControls += () => txbDiffCoefNitro.IsValueValid();
-            //ValidateControls += () => txbStart.IsValueValid();
-            //ValidateControls += () => txbStop.IsValueValid();
         }
 
         public override string DataName { get; }
@@ -125,8 +115,7 @@ namespace TaskModule.HeatTreatmentModule
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            //if (!IsValidated(this, new CancelEventArgs()))
-            //    return;
+            if (!IsValidated()) return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -172,8 +161,7 @@ namespace TaskModule.HeatTreatmentModule
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            //if (!IsValidated(this, new CancelEventArgs()))
-            //    return;
+            if (!IsValidated()) return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -293,12 +281,6 @@ namespace TaskModule.HeatTreatmentModule
         private string CreateRowInfo()
         {
             var taskStrAr = new List<string>();
-
-            if (cmbEl.Text == "" || txbDiffCoefCarbon.Text == "" || txbDiffCoefNitro.Text == ""
-                || txbConcentrCarbon.Text == "" || txbConcentrNitro.Text == ""
-                || cmbTempreture.Text == ""|| txbStart.Text == "" || txbStop.Text == "")
-                throw new Exception("Одно из переданных значений полей было пустым");
-
             if (rbtNitrocarburizing.Checked)
             {
                 taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3} {4} {5} *", cmbEl.Text, txbDiffCoefCarbon.Text, txbConcentrCarbon.Text, cmbTempreture.Text, txbStart.Text, txbStop.Text));
@@ -306,14 +288,10 @@ namespace TaskModule.HeatTreatmentModule
             }
 
             else if (rbtCarburization.Checked)
-            {
                 taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3} {4} {5} *", cmbEl.Text, txbDiffCoefCarbon.Text, txbConcentrCarbon.Text, cmbTempreture.Text, txbStart.Text, txbStop.Text));
-            }
 
             else if (rbtNitritization.Checked)
-            {
                 taskStrAr.Add(string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3} {4} {5} *", cmbEl.Text, txbDiffCoefCarbon.Text, txbConcentrCarbon.Text, cmbTempreture.Text, txbStart.Text, txbStop.Text));
-            }
 
             return string.Join(" ", taskStrAr);
         }
@@ -354,11 +332,20 @@ namespace TaskModule.HeatTreatmentModule
         {
             throw new Exception("Метод не реализован!");
         }
-        public bool IsValidated(object sender, CancelEventArgs args)
+        public override bool IsValidated()
         {
-            var check = ValidateControls();
-            args.Cancel = check;
-            return check;
+            var checks = new List<bool>()
+            {
+                cmbEl.IsValueValid(),
+                cmbTempreture.IsValueValid(),
+                txbConcentrCarbon.IsValueValid(),
+                txbDiffCoefCarbon.IsValueValid(),
+                txbConcentrNitro.IsValueValid(),
+                txbDiffCoefNitro.IsValueValid(),
+                txbStart.IsValueValid(),
+                txbStop.IsValueValid()
+        };
+            return checks.All(x => x);
         }
     }
 }

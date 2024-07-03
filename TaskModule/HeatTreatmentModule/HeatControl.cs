@@ -61,20 +61,10 @@ namespace TaskModule.HeatTreatmentModule
         {
             InitializeComponent();
             DataName = "Среда";
-
-            //ValidateControls += () => txbStartTime.IsValueValid();
-            //ValidateControls += () => txbStopTime.IsValueValid();
-            //ValidateControls += () => cmbEl.IsValueValid();
-            //ValidateControls += () => cmbExchFunc.IsValueValid();
-            //ValidateControls += () => cmbTempFunc.IsValueValid();
-            //ValidateControls += () => blackRank.IsValueValid();
-            //ValidateControls += () => convExcFunc.IsValueValid();
-            //ValidateControls += () => StefanBolzmanConst.IsValueValid();
         }
 
         public override string DataName { get; }
 
-        public event Func<bool> ValidateControls;
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -90,23 +80,13 @@ namespace TaskModule.HeatTreatmentModule
         private string CreateRowInfo()
         {
             // Order matters
-            var dataList = new List<string>
-            {
-                cmbEl.Text
-            };
+            var dataList = new List<string> { cmbEl.Text };
 
             if (radAndConvCoef.Checked)
             {
-                float StefanBolzman, BlacknessCoef, convCoef;
-
-                if (!float.TryParse(StefanBolzmanConst.Text, out StefanBolzman))
-                    throw new Exception("Константа должна быть числом с плавающей точкой");
-
-                if(!float.TryParse(blackRank.Text, out BlacknessCoef))
-                    throw new Exception("Коэффициент черноты должен быть числом с плавающей точкой");
-
-                if (!float.TryParse(convExcFunc.Text, out convCoef))
-                    throw new Exception("Коэффициент конвекционных потерь должен быть рассчитан и записан в виде числа с плавающей точкой");
+                var StefanBolzman = float.Parse(StefanBolzmanConst.Text);
+                var BlacknessCoef = float.Parse(blackRank.Text);
+                var convCoef = float.Parse(convExcFunc.Text);
 
                 var res = convCoef + StefanBolzman * BlacknessCoef;
                 dataList.Add(res.ToString());
@@ -118,11 +98,7 @@ namespace TaskModule.HeatTreatmentModule
                 cmbTempFunc.Text,
                 txbStartTime.Text,
                 txbStopTime.Text,
-                "*"
-            });
-
-            if (dataList.Any(x => x == ""))
-                throw new Exception("Одно из переданных значений полей было пустым");
+                "*" });
 
             return string.Join(" ", dataList);
         }
@@ -140,8 +116,7 @@ namespace TaskModule.HeatTreatmentModule
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            //if (!IsValidated(this, new CancelEventArgs()))
-            //    return;
+            if (!IsValidated()) return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -157,8 +132,7 @@ namespace TaskModule.HeatTreatmentModule
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            //if (!IsValidated(this, new CancelEventArgs()))
-            //    return;
+            if (!IsValidated()) return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -270,11 +244,20 @@ namespace TaskModule.HeatTreatmentModule
             }
         }
 
-        public bool IsValidated(object sender, CancelEventArgs args)
+        public override bool IsValidated()
         {
-            var check = ValidateControls();
-            args.Cancel = check;
-            return check;
+            var checks = new List<bool>()
+            {
+                txbStartTime.IsValueValid(),
+                txbStopTime.IsValueValid(),
+                cmbEl.IsValueValid(),
+                cmbExchFunc.IsValueValid(),
+                cmbTempFunc.IsValueValid(),
+                blackRank.IsValueValid(),
+                convExcFunc.IsValueValid(),
+                StefanBolzmanConst.IsValueValid()
+        };
+            return checks.All(x => x);
         }
     }
 }

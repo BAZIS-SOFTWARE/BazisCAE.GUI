@@ -18,7 +18,8 @@ namespace BaseModule.ControlsLib
         Integer = 2,
         Float = 4,
         Positive = 8,
-        User = 16
+        User = 16,
+        Empty = 32
     }
 
     public partial class ComboBoxEx : ComboBox, IValidatorControl
@@ -50,27 +51,37 @@ namespace BaseModule.ControlsLib
 
         public bool IsValueValid()
         {
-            if (!IsValidating)
-                return true;
+            var errors = new StringBuilder();
+            if (!IsValidating) return true;
 
             if (Text.Equals(string.Empty))
+            {
+                if (IsInputTypeChosen(CMBInputType.Empty)) return GetErrorCheckResult();
                 return Enabled ?
                     GetErrorCheckResult("Поле оставлено пустым") :
                     GetErrorCheckResult();
+            }
 
-            if (IsInputTypeChosen(CMBInputType.Items))
-                return Items.Contains(Text) ?
-                    GetErrorCheckResult() :
-                    GetErrorCheckResult("Допущена ошибка при выборе варианта");
-
-            if (IsInputTypeChosen(CMBInputType.Integer))
-                return HandleIntegerValue();
+            if (IsInputTypeChosen(CMBInputType.Integer)) return HandleIntegerValue();
 
             if (IsInputTypeChosen(CMBInputType.Float))
-                return HandleFloatValue();
+            {
+                var res = HandleFloatValue();
+                return !res && IsInputTypeChosen(CMBInputType.Items) ?
+                    HandleTextValue() :
+                    res;
+            }
 
-            if (IsInputTypeChosen(CMBInputType.User))
-                return HandleUserCheckValue();
+            if (IsInputTypeChosen(CMBInputType.User)) return HandleUserCheckValue();
+
+            if (IsInputTypeChosen(CMBInputType.Items))
+            {
+                var res = HandleTextValue();
+                return !res && IsInputTypeChosen(CMBInputType.Float) ?
+                    HandleFloatValue() :
+                    res;
+            }
+                
 
             return GetErrorCheckResult("Выбранный вариант не доступен. Вероятно, допущена ошибка при выборе значения");
         }
@@ -118,6 +129,13 @@ namespace BaseModule.ControlsLib
             return IsPassRegExCheck(UserRegExCheck) ?
                 GetErrorCheckResult() :
                 GetErrorCheckResult(UserRegExCheckErrorMessage);
+        }
+
+        private bool HandleTextValue()
+        {
+            return Items.Contains(Text) ?
+                    GetErrorCheckResult() :
+                    GetErrorCheckResult("Допущена ошибка при выборе варианта");
         }
 
         private bool IsPassRegExCheck(string regEx) => Regex.IsMatch(Text, regEx);

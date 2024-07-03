@@ -80,6 +80,10 @@ namespace TaskModule.BasicAdvisorControls.BasicControls
             throw new Exception("Метод не реализован!");
         }
         
+        public virtual bool IsValidated()
+        {
+            throw new NotImplementedException("Метод \"IsValidated\" не реализован");
+        }
 
         public virtual void RefreshButton_Click(object sender, EventArgs e)
         {

@@ -62,18 +62,10 @@ namespace TaskModule.BasicAdvisorControls
         {
             InitializeComponent();
             DataName = "Нагрузка";
-
-            //ValidateControls += () => txbStartTime.IsValueValid();
-            //ValidateControls += () => txbStopTime.IsValueValid();
-            //ValidateControls += () => txbValue.IsValueValid();
-            //ValidateControls += () => cmbGr.IsValueValid();
-            //ValidateControls += () => cmbKind.IsValueValid();
-            //ValidateControls += () => cmbLoadFunction.IsValueValid();
         }
 
         public override string DataName { get; }
-
-        public event Func<bool> ValidateControls;
+        
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -109,8 +101,7 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            //if (!IsValidated(this, new CancelEventArgs()))
-            //    return;
+            if (!IsValidated()) return;
             var rows = new List<string>();
             try
             {
@@ -143,17 +134,7 @@ namespace TaskModule.BasicAdvisorControls
 
         private string CreateRowInfo(string direction)
         {
-            var rowInfo = string.Empty;
-
-            string loadFunc;
-            if (cmbLoadFunction.Text != "")
-                loadFunc = cmbLoadFunction.Text;
-            else loadFunc = "*";
-
-
-            if (cmbGr.Text == "" || cmbKind.Text == "" || txbStartTime.Text == "" || txbStopTime.Text == "")
-                throw new Exception("Одно из переданных значений полей было пустым");
-
+            var loadFunc = cmbLoadFunction.Text == "" ? "*" : cmbLoadFunction.Text;
             return string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3} {4} {5} {6} *",
                  cmbGr.Text, cmbKind.Text, direction, txbValue.Text, loadFunc, txbStartTime.Text, txbStopTime.Text);
         }
@@ -211,8 +192,7 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            //if (!IsValidated(this, new CancelEventArgs()))
-            //    return;
+            if (!IsValidated()) return;
             try
             {
                 string direction = string.Empty;
@@ -281,11 +261,18 @@ namespace TaskModule.BasicAdvisorControls
             base.DataGridView_UserDeletingRow(sender, e);
         }
 
-        public bool IsValidated(object sender, CancelEventArgs args)
+        public override bool IsValidated()
         {
-            var check = ValidateControls();
-            args.Cancel = check;
-            return check;
+            var checks = new List<bool>()
+            {
+                txbStartTime.IsValueValid(),
+                txbStopTime.IsValueValid(),
+                txbValue.IsValueValid(),
+                cmbGr.IsValueValid(),
+                cmbKind.IsValueValid(),
+                cmbLoadFunction.IsValueValid(),
+            };
+            return checks.All(x => x);
         }
     }
 }
