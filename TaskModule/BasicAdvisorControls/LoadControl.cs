@@ -62,18 +62,10 @@ namespace TaskModule.BasicAdvisorControls
         {
             InitializeComponent();
             DataName = "Нагрузка";
-
-            ValidateControls += () => txbStartTime.IsValueValid();
-            ValidateControls += () => txbStopTime.IsValueValid();
-            ValidateControls += () => txbValue.IsValueValid();
-            ValidateControls += () => cmbGr.IsValueValid();
-            ValidateControls += () => cmbKind.IsValueValid();
-            ValidateControls += () => cmbLoadFunction.IsValueValid();
         }
 
         public override string DataName { get; }
-
-        public event Func<bool> ValidateControls;
+        
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -109,8 +101,7 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (!IsValidated(this, new CancelEventArgs()))
-                return;
+            if (!IsValidated()) return;
             var rows = new List<string>();
             try
             {
@@ -201,8 +192,7 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (!IsValidated(this, new CancelEventArgs()))
-                return;
+            if (!IsValidated()) return;
             try
             {
                 string direction = string.Empty;
@@ -271,11 +261,21 @@ namespace TaskModule.BasicAdvisorControls
             base.DataGridView_UserDeletingRow(sender, e);
         }
 
-        public bool IsValidated(object sender, CancelEventArgs args)
+        public override bool IsValidated()
         {
-            var check = ValidateControls();
-            args.Cancel = check;
-            return check;
+            var cancel = new CancelEventArgs();
+            var checks = new List<bool>()
+            {
+                txbStartTime.IsValueValid(),
+                txbStopTime.IsValueValid(),
+                txbValue.IsValueValid(),
+                cmbGr.IsValueValid(),
+                cmbKind.IsValueValid(),
+                cmbLoadFunction.IsValueValid(),
+            };
+            var res = checks.All(x => x);
+            cancel.Cancel = !res;
+            return res;
         }
     }
 }

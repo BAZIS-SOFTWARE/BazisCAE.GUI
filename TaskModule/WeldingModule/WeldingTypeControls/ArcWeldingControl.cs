@@ -25,13 +25,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             return string.Join(";", strs);
         }
 
-        public override IEnumerable<Func<bool>> GetValidatorsFuncs()
+        public override IEnumerable<bool> GetValidatorsResults()
         {
-            return new Func<bool>[]
+            return new bool[]
             {
-                () => currentTextBox.IsValueValid(),
-                () => voltageTextBox.IsValueValid(),
-                () => weldPoolTextBox.IsValueValid()
+                currentTextBox.IsValueValid(),
+                voltageTextBox.IsValueValid(),
+                weldPoolTextBox.IsValueValid()
             };
         }
 

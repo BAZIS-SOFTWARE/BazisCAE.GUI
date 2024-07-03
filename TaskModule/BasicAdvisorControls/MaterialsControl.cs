@@ -62,7 +62,6 @@ namespace TaskModule.BasicAdvisorControls
             get { return dataGridView.Rows.Count; }
         }
 
-        public event Func<bool> ValidateControls;
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -81,11 +80,6 @@ namespace TaskModule.BasicAdvisorControls
             InitializeComponent();
 
             DataName = "Материал";
-
-            ValidateControls += () => txbStartTime.IsValueValid();
-            ValidateControls += () => txbStopTime.IsValueValid();
-            ValidateControls += () => cmbEl.IsValueValid();
-            ValidateControls += () => cmbMat.IsValueValid();
         }
 
         public override string DataName { get; }
@@ -120,8 +114,7 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (!IsValidated(this, new CancelEventArgs()))
-                return;
+            if (!IsValidated()) return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -142,8 +135,7 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (!IsValidated(this, new CancelEventArgs()))
-                return;
+            if (!IsValidated()) return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -195,11 +187,19 @@ namespace TaskModule.BasicAdvisorControls
                 cmbEl.Items.Add(eGroup);
         }
 
-        public bool IsValidated(object sender, CancelEventArgs args)
+        public override bool IsValidated()
         {
-            var check = ValidateControls();
-            args.Cancel = check;
-            return check;
+            var cancel = new CancelEventArgs();
+            var checks = new List<bool>()
+            {
+                txbStartTime.IsValueValid(),
+                txbStopTime.IsValueValid(),
+                cmbEl.IsValueValid(),
+                cmbMat.IsValueValid()
+        };
+            var res = checks.All(x => x);
+            cancel.Cancel = !res;
+            return res;
         }
 
         //private void dataGridView_SortCompare(object sender, DataGridViewSortCompareEventArgs e)

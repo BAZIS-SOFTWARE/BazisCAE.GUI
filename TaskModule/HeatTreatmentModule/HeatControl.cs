@@ -61,20 +61,10 @@ namespace TaskModule.HeatTreatmentModule
         {
             InitializeComponent();
             DataName = "Среда";
-
-            ValidateControls += () => txbStartTime.IsValueValid();
-            ValidateControls += () => txbStopTime.IsValueValid();
-            ValidateControls += () => cmbEl.IsValueValid();
-            ValidateControls += () => cmbExchFunc.IsValueValid();
-            ValidateControls += () => cmbTempFunc.IsValueValid();
-            ValidateControls += () => blackRank.IsValueValid();
-            ValidateControls += () => convExcFunc.IsValueValid();
-            ValidateControls += () => StefanBolzmanConst.IsValueValid();
         }
 
         public override string DataName { get; }
 
-        public event Func<bool> ValidateControls;
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -126,8 +116,7 @@ namespace TaskModule.HeatTreatmentModule
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (!IsValidated(this, new CancelEventArgs()))
-                return;
+            if (!IsValidated()) return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -143,8 +132,7 @@ namespace TaskModule.HeatTreatmentModule
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (!IsValidated(this, new CancelEventArgs()))
-                return;
+            if (!IsValidated()) return;
             try
             {
                 CurentSelectedRowInfo = CreateRowInfo();
@@ -256,11 +244,23 @@ namespace TaskModule.HeatTreatmentModule
             }
         }
 
-        public bool IsValidated(object sender, CancelEventArgs args)
+        public override bool IsValidated()
         {
-            var check = ValidateControls();
-            args.Cancel = check;
-            return check;
+            var cancel = new CancelEventArgs();
+            var checks = new List<bool>()
+            {
+                txbStartTime.IsValueValid(),
+                txbStopTime.IsValueValid(),
+                cmbEl.IsValueValid(),
+                cmbExchFunc.IsValueValid(),
+                cmbTempFunc.IsValueValid(),
+                blackRank.IsValueValid(),
+                convExcFunc.IsValueValid(),
+                StefanBolzmanConst.IsValueValid()
+        };
+            var res = checks.All(x => x);
+            cancel.Cancel = !res;
+            return res;
         }
     }
 }

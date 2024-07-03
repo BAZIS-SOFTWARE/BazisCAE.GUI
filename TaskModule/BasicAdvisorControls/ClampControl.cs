@@ -56,7 +56,6 @@ namespace TaskModule.BasicAdvisorControls
             set { btnHideAll.Image = value; }
         }
 
-        public event Func<bool> ValidateControls;
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -72,12 +71,6 @@ namespace TaskModule.BasicAdvisorControls
         {
             InitializeComponent();
             DataName = "Закрепление";
-
-            ValidateControls += () => txbStartTime.IsValueValid();
-            ValidateControls += () => txbStopTime.IsValueValid();
-            ValidateControls += () => cmbKind.IsValueValid();
-            ValidateControls += () => cmbNodeGr.IsValueValid();
-            ValidateControls += () => cmbStiffnessFunc.IsValueValid();
         }
 
         public override string DataName { get; }
@@ -165,8 +158,7 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            if (!IsValidated(this, new CancelEventArgs()))
-                return;
+            if (!IsValidated()) return;
 
             var rows = new List<string>();
             try
@@ -206,8 +198,8 @@ namespace TaskModule.BasicAdvisorControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            if (!IsValidated(this, new CancelEventArgs()))
-                return;
+            if (!IsValidated()) return;
+
             try
             {
                 string direction = string.Empty;
@@ -311,11 +303,20 @@ namespace TaskModule.BasicAdvisorControls
                 chbLRF.Checked = false;
         }
 
-        public bool IsValidated(object sender, CancelEventArgs args)
+        public override bool IsValidated()
         {
-            var check = ValidateControls();
-            args.Cancel = check;
-            return check;
+            var cancel = new CancelEventArgs();
+            var checks = new List<bool>()
+            {
+                txbStartTime.IsValueValid(),
+                txbStopTime.IsValueValid(),
+                cmbKind.IsValueValid(),
+                cmbNodeGr.IsValueValid(),
+                cmbStiffnessFunc.IsValueValid()
+        };
+            var res = checks.All(x => x);
+            cancel.Cancel = !res;
+            return res;
         }
 
         //private void cmbNodeGr_Validating(object sender, CancelEventArgs e)

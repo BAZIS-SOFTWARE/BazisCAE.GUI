@@ -28,14 +28,14 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             return string.Join(";", strs);
         }
 
-        public override IEnumerable<Func<bool>> GetValidatorsFuncs()
+        public override IEnumerable<bool> GetValidatorsResults()
         {
-            return new Func<bool>[]
+            return new bool[]
             {
-                () => txbPower.IsValueValid(),
-                () => txbBeamLenght.IsValueValid(),
-                () => txbBeamBottomDiam.IsValueValid(),
-                () => txbBeamUpperDiam.IsValueValid()
+                txbPower.IsValueValid(),
+                txbBeamLenght.IsValueValid(),
+                txbBeamBottomDiam.IsValueValid(),
+                txbBeamUpperDiam.IsValueValid()
             };
         }
         public override void InputData(string[] inputData)

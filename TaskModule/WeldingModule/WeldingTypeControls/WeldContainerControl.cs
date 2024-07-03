@@ -22,9 +22,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             throw new NotImplementedException("Не реализован метод!");
         }
 
-        public virtual IEnumerable<Func<bool>> GetValidatorsFuncs()
+        public virtual IEnumerable<bool> GetValidatorsResults()
         {
-            throw new NotFiniteNumberException();
+            throw new NotImplementedException("Метод \"GetValidatosResults\" не реализован");
         }
 
         public virtual void InputData(string[] inputData)

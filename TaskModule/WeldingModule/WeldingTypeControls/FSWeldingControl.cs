@@ -40,18 +40,18 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             return string.Join(";", strsArr);
         }
 
-        public override IEnumerable<Func<bool>> GetValidatorsFuncs()
+        public override IEnumerable<bool> GetValidatorsResults()
         {
-            return new Func<bool>[]
+            return new bool[]
             {
-                () => txbRotSpeed.IsValueValid(),
-                () => txbAxisForce.IsValueValid(),
-                () => txbShoulderDiam.IsValueValid(),
-                () => txbPinLenght.IsValueValid(),
-                () => txbPinBottomDiam.IsValueValid(),
-                () => txbPinUpperDiam.IsValueValid(),
-                () => cmbFrictionModule.IsValueValid(),
-                () => cmbYield.IsValueValid()
+                txbRotSpeed.IsValueValid(),
+                txbAxisForce.IsValueValid(),
+                txbShoulderDiam.IsValueValid(),
+                txbPinLenght.IsValueValid(),
+                txbPinBottomDiam.IsValueValid(),
+                txbPinUpperDiam.IsValueValid(),
+                cmbFrictionModule.IsValueValid(),
+                cmbYield.IsValueValid()
             };
         }
 
