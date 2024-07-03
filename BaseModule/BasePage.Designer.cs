@@ -32,12 +32,13 @@ namespace BaseModule
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BasePage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.sceneControl = new Scene.SceneControl();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.navigator = new BaseModule.Navigator.NavigatorControl();
             this.consoleControl = new BaseModule.Console.ConsoleControl();
             this.selectToolStrip = new BaseModule.ControlsLib.SelectToolStrip();

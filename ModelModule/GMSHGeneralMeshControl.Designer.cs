@@ -33,27 +33,12 @@ namespace ModelModule
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.btnMesh2DDel = new System.Windows.Forms.Button();
-            this.mesh2DGenBtn = new System.Windows.Forms.Button();
-            this.meshGenBox = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.refineBtn = new System.Windows.Forms.Button();
-            this.algoLabel = new System.Windows.Forms.Label();
-            this.densityLabel = new System.Windows.Forms.Label();
-            this.quadBtn = new System.Windows.Forms.Button();
-            this.cmbAlgoChoice = new BaseModule.ControlsLib.ComboBoxEx(this.components);
-            this.meshDensityValue = new BaseModule.ControlsLib.TextBoxEx(this.components);
-            this.meshLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.surfsTree = new System.Windows.Forms.TreeView();
-            this.meshPage = new System.Windows.Forms.TabPage();
             this.loadFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.grbVolControlBox = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnGenVolMesh = new System.Windows.Forms.Button();
-            this.btnDelVolMesh = new System.Windows.Forms.Button();
-            this.volumePage = new System.Windows.Forms.TabPage();
-            this.volumeLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.volumesTree = new System.Windows.Forms.TreeView();
+            this.cmsRemoveMesh2D = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.rem3DItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsRemoveMesh3D = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.rem2DItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gmshTab = new BaseModule.ControlsLib.TabControlEx();
             this.geometryPage = new System.Windows.Forms.TabPage();
             this.geometryLayout = new System.Windows.Forms.TableLayoutPanel();
             this.pointsControlBox = new System.Windows.Forms.GroupBox();
@@ -68,9 +53,9 @@ namespace ModelModule
             this.rbtnBump = new System.Windows.Forms.RadioButton();
             this.btnOK = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.chbShowTranfPoints = new System.Windows.Forms.CheckBox();
-            this.chbShowCurvesInfo = new System.Windows.Forms.CheckBox();
-            this.chbShowSurfacesInfo = new System.Windows.Forms.CheckBox();
+            this.chbShowNodesOnCurves = new System.Windows.Forms.CheckBox();
+            this.chbShowNumberOfCurveNodes = new System.Windows.Forms.CheckBox();
+            this.chbShowSurfaceNumbers = new System.Windows.Forms.CheckBox();
             this.chbShowHeatMap = new System.Windows.Forms.CheckBox();
             this.geomTree = new System.Windows.Forms.TreeView();
             this.grbGradientMeshSettings = new BaseModule.ControlsLib.GroupBoxEx();
@@ -84,19 +69,29 @@ namespace ModelModule
             this.label1 = new System.Windows.Forms.Label();
             this.btnSetGradientSettings = new System.Windows.Forms.Button();
             this.txbMeshGradientPower = new BaseModule.ControlsLib.TextBoxEx(this.components);
-            this.gmshTab = new BaseModule.ControlsLib.TabControlEx();
-            this.cmsRemoveMesh2D = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.rem3DItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsRemoveMesh3D = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.rem2DItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.meshGenBox.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.meshLayout.SuspendLayout();
-            this.meshPage.SuspendLayout();
-            this.grbVolControlBox.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.volumePage.SuspendLayout();
-            this.volumeLayout.SuspendLayout();
+            this.meshPage = new System.Windows.Forms.TabPage();
+            this.meshLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.surfsTree = new System.Windows.Forms.TreeView();
+            this.meshGenBox = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.refineBtn = new System.Windows.Forms.Button();
+            this.algoLabel = new System.Windows.Forms.Label();
+            this.densityLabel = new System.Windows.Forms.Label();
+            this.btnMesh2DDel = new System.Windows.Forms.Button();
+            this.quadBtn = new System.Windows.Forms.Button();
+            this.mesh2DGenBtn = new System.Windows.Forms.Button();
+            this.cmbAlgoChoice = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.meshDensityValue = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.volumePage = new System.Windows.Forms.TabPage();
+            this.volumeLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.volumesTree = new System.Windows.Forms.TreeView();
+            this.grbVolControlBox = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnGenVolMesh = new System.Windows.Forms.Button();
+            this.btnDelVolMesh = new System.Windows.Forms.Button();
+            this.cmsRemoveMesh2D.SuspendLayout();
+            this.cmsRemoveMesh3D.SuspendLayout();
+            this.gmshTab.SuspendLayout();
             this.geometryPage.SuspendLayout();
             this.geometryLayout.SuspendLayout();
             this.pointsControlBox.SuspendLayout();
@@ -104,311 +99,68 @@ namespace ModelModule
             this.panel2.SuspendLayout();
             this.grbGradientMeshSettings.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            this.gmshTab.SuspendLayout();
-            this.cmsRemoveMesh2D.SuspendLayout();
-            this.cmsRemoveMesh3D.SuspendLayout();
+            this.meshPage.SuspendLayout();
+            this.meshLayout.SuspendLayout();
+            this.meshGenBox.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.volumePage.SuspendLayout();
+            this.volumeLayout.SuspendLayout();
+            this.grbVolControlBox.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnMesh2DDel
-            // 
-            this.btnMesh2DDel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnMesh2DDel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMesh2DDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnMesh2DDel.Location = new System.Drawing.Point(306, 63);
-            this.btnMesh2DDel.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.btnMesh2DDel.Name = "btnMesh2DDel";
-            this.btnMesh2DDel.Size = new System.Drawing.Size(139, 32);
-            this.btnMesh2DDel.TabIndex = 9;
-            this.btnMesh2DDel.Text = "Удалить";
-            this.btnMesh2DDel.UseVisualStyleBackColor = true;
-            this.btnMesh2DDel.Click += new System.EventHandler(this.OnDeleteMesh2D);
-            // 
-            // mesh2DGenBtn
-            // 
-            this.mesh2DGenBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.mesh2DGenBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mesh2DGenBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.mesh2DGenBtn.Location = new System.Drawing.Point(128, 63);
-            this.mesh2DGenBtn.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.mesh2DGenBtn.Name = "mesh2DGenBtn";
-            this.mesh2DGenBtn.Size = new System.Drawing.Size(131, 32);
-            this.mesh2DGenBtn.TabIndex = 5;
-            this.mesh2DGenBtn.Text = "Треугольная сетка";
-            this.mesh2DGenBtn.UseVisualStyleBackColor = true;
-            this.mesh2DGenBtn.Click += new System.EventHandler(this.OnGenerateMesh2D);
-            // 
-            // meshGenBox
-            // 
-            this.meshGenBox.AutoSize = true;
-            this.meshGenBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.meshGenBox.BackColor = System.Drawing.SystemColors.Control;
-            this.meshGenBox.Controls.Add(this.tableLayoutPanel1);
-            this.meshGenBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.meshGenBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.meshGenBox.Location = new System.Drawing.Point(7, 7);
-            this.meshGenBox.Margin = new System.Windows.Forms.Padding(7);
-            this.meshGenBox.Name = "meshGenBox";
-            this.meshGenBox.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.meshGenBox.Size = new System.Drawing.Size(478, 166);
-            this.meshGenBox.TabIndex = 3;
-            this.meshGenBox.TabStop = false;
-            this.meshGenBox.Text = "Управление сеткой";
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.AutoSize = true;
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.71951F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 61.28049F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 192F));
-            this.tableLayoutPanel1.Controls.Add(this.refineBtn, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.algoLabel, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.densityLabel, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btnMesh2DDel, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.quadBtn, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.mesh2DGenBtn, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.cmbAlgoChoice, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.meshDensityValue, 0, 2);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 13);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(472, 150);
-            this.tableLayoutPanel1.TabIndex = 12;
-            // 
-            // refineBtn
-            // 
-            this.refineBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.refineBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.refineBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.refineBtn.Location = new System.Drawing.Point(128, 110);
-            this.refineBtn.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.refineBtn.Name = "refineBtn";
-            this.refineBtn.Size = new System.Drawing.Size(131, 32);
-            this.refineBtn.TabIndex = 10;
-            this.refineBtn.Text = "Уплотнить";
-            this.refineBtn.UseVisualStyleBackColor = true;
-            this.refineBtn.Click += new System.EventHandler(this.OnRefine);
-            // 
-            // algoLabel
-            // 
-            this.algoLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.algoLabel.AutoSize = true;
-            this.algoLabel.Enabled = false;
-            this.algoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.algoLabel.Location = new System.Drawing.Point(3, 14);
-            this.algoLabel.Name = "algoLabel";
-            this.algoLabel.Size = new System.Drawing.Size(101, 26);
-            this.algoLabel.TabIndex = 7;
-            this.algoLabel.Text = "Алгоритм построения сетки:";
-            this.algoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // densityLabel
-            // 
-            this.densityLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.densityLabel.AutoSize = true;
-            this.densityLabel.Enabled = false;
-            this.densityLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.densityLabel.Location = new System.Drawing.Point(21, 66);
-            this.densityLabel.Name = "densityLabel";
-            this.densityLabel.Size = new System.Drawing.Size(65, 26);
-            this.densityLabel.TabIndex = 0;
-            this.densityLabel.Text = "Размер элементов:";
-            this.densityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // quadBtn
-            // 
-            this.quadBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.quadBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.quadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.quadBtn.Location = new System.Drawing.Point(306, 110);
-            this.quadBtn.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.quadBtn.Name = "quadBtn";
-            this.quadBtn.Size = new System.Drawing.Size(139, 32);
-            this.quadBtn.TabIndex = 11;
-            this.quadBtn.Text = "Квадратная сетка";
-            this.quadBtn.UseVisualStyleBackColor = true;
-            this.quadBtn.Click += new System.EventHandler(this.OnQuadrangulate);
-            // 
-            // cmbAlgoChoice
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.cmbAlgoChoice, 2);
-            this.cmbAlgoChoice.FormattingEnabled = true;
-            this.cmbAlgoChoice.InputType = BaseModule.ControlsLib.CMBInputType.Items;
-            this.cmbAlgoChoice.IsValidating = true;
-            this.cmbAlgoChoice.Items.AddRange(new object[] {
-            "MeshAdapt",
-            "Automatic",
-            "Delaunay",
-            "FrontalDelaunay",
-            "FrontalDelaunayQuad"});
-            this.cmbAlgoChoice.Location = new System.Drawing.Point(128, 20);
-            this.cmbAlgoChoice.Margin = new System.Windows.Forms.Padding(20);
-            this.cmbAlgoChoice.Name = "cmbAlgoChoice";
-            this.cmbAlgoChoice.Size = new System.Drawing.Size(319, 21);
-            this.cmbAlgoChoice.TabIndex = 12;
-            this.cmbAlgoChoice.UserRegExCheck = null;
-            this.cmbAlgoChoice.UserRegExCheckErrorMessage = null;
-            this.cmbAlgoChoice.SelectedIndexChanged += new System.EventHandler(this.OnAlgorithmChoice);
-            // 
-            // meshDensityValue
-            // 
-            this.meshDensityValue.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.meshDensityValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.meshDensityValue.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
-            this.meshDensityValue.IsValidating = true;
-            this.meshDensityValue.Location = new System.Drawing.Point(20, 116);
-            this.meshDensityValue.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.meshDensityValue.Name = "meshDensityValue";
-            this.meshDensityValue.Size = new System.Drawing.Size(68, 20);
-            this.meshDensityValue.TabIndex = 13;
-            this.meshDensityValue.Text = "1";
-            this.meshDensityValue.UserRegExCheck = null;
-            this.meshDensityValue.UserRegExCheckErrorMessage = null;
-            // 
-            // meshLayout
-            // 
-            this.meshLayout.BackColor = System.Drawing.SystemColors.Control;
-            this.meshLayout.ColumnCount = 1;
-            this.meshLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.meshLayout.Controls.Add(this.surfsTree, 0, 1);
-            this.meshLayout.Controls.Add(this.meshGenBox, 0, 0);
-            this.meshLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.meshLayout.Location = new System.Drawing.Point(0, 0);
-            this.meshLayout.Margin = new System.Windows.Forms.Padding(0);
-            this.meshLayout.Name = "meshLayout";
-            this.meshLayout.RowCount = 2;
-            this.meshLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 180F));
-            this.meshLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.meshLayout.Size = new System.Drawing.Size(492, 763);
-            this.meshLayout.TabIndex = 0;
-            // 
-            // surfsTree
-            // 
-            this.surfsTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.surfsTree.FullRowSelect = true;
-            this.surfsTree.Location = new System.Drawing.Point(7, 187);
-            this.surfsTree.Margin = new System.Windows.Forms.Padding(7);
-            this.surfsTree.Name = "surfsTree";
-            this.surfsTree.Size = new System.Drawing.Size(478, 569);
-            this.surfsTree.TabIndex = 4;
-            this.surfsTree.Tag = "elemsTree";
-            this.surfsTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.entTree_AfterSelect);
-            // 
-            // meshPage
-            // 
-            this.meshPage.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.meshPage.Controls.Add(this.meshLayout);
-            this.meshPage.Location = new System.Drawing.Point(4, 34);
-            this.meshPage.Margin = new System.Windows.Forms.Padding(0);
-            this.meshPage.Name = "meshPage";
-            this.meshPage.Size = new System.Drawing.Size(492, 763);
-            this.meshPage.TabIndex = 1;
-            this.meshPage.Text = "2D";
             // 
             // loadFileDialog
             // 
             this.loadFileDialog.FileName = "untitled.geo";
             // 
-            // grbVolControlBox
+            // cmsRemoveMesh2D
             // 
-            this.grbVolControlBox.AutoSize = true;
-            this.grbVolControlBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.grbVolControlBox.BackColor = System.Drawing.SystemColors.Control;
-            this.grbVolControlBox.Controls.Add(this.tableLayoutPanel3);
-            this.grbVolControlBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbVolControlBox.Location = new System.Drawing.Point(7, 7);
-            this.grbVolControlBox.Margin = new System.Windows.Forms.Padding(7);
-            this.grbVolControlBox.Name = "grbVolControlBox";
-            this.grbVolControlBox.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.grbVolControlBox.Size = new System.Drawing.Size(478, 71);
-            this.grbVolControlBox.TabIndex = 4;
-            this.grbVolControlBox.TabStop = false;
-            this.grbVolControlBox.Text = "Управление сеткой";
+            this.cmsRemoveMesh2D.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsRemoveMesh2D.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rem3DItem});
+            this.cmsRemoveMesh2D.Name = "cmsRemoveMesh2D";
+            this.cmsRemoveMesh2D.Size = new System.Drawing.Size(119, 26);
             // 
-            // tableLayoutPanel3
+            // rem3DItem
             // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.btnGenVolMesh, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.btnDelVolMesh, 1, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 13);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(472, 55);
-            this.tableLayoutPanel3.TabIndex = 7;
+            this.rem3DItem.Name = "rem3DItem";
+            this.rem3DItem.Size = new System.Drawing.Size(118, 22);
+            this.rem3DItem.Text = "Удалить";
+            this.rem3DItem.Click += new System.EventHandler(this.OnDeleteElement2D);
             // 
-            // btnGenVolMesh
+            // cmsRemoveMesh3D
             // 
-            this.btnGenVolMesh.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnGenVolMesh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGenVolMesh.Location = new System.Drawing.Point(20, 11);
-            this.btnGenVolMesh.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.btnGenVolMesh.Name = "btnGenVolMesh";
-            this.btnGenVolMesh.Size = new System.Drawing.Size(196, 32);
-            this.btnGenVolMesh.TabIndex = 5;
-            this.btnGenVolMesh.Text = "Сгенерировать";
-            this.btnGenVolMesh.UseVisualStyleBackColor = true;
-            this.btnGenVolMesh.Click += new System.EventHandler(this.OnGenerateMesh3D);
+            this.cmsRemoveMesh3D.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsRemoveMesh3D.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rem2DItem});
+            this.cmsRemoveMesh3D.Name = "cmsRemoveMesh3D";
+            this.cmsRemoveMesh3D.Size = new System.Drawing.Size(119, 26);
             // 
-            // btnDelVolMesh
+            // rem2DItem
             // 
-            this.btnDelVolMesh.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnDelVolMesh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelVolMesh.Location = new System.Drawing.Point(256, 11);
-            this.btnDelVolMesh.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.btnDelVolMesh.Name = "btnDelVolMesh";
-            this.btnDelVolMesh.Size = new System.Drawing.Size(196, 32);
-            this.btnDelVolMesh.TabIndex = 6;
-            this.btnDelVolMesh.Text = "Удалить";
-            this.btnDelVolMesh.UseVisualStyleBackColor = true;
-            this.btnDelVolMesh.Click += new System.EventHandler(this.OnDeleteMesh3D);
+            this.rem2DItem.Name = "rem2DItem";
+            this.rem2DItem.Size = new System.Drawing.Size(118, 22);
+            this.rem2DItem.Text = "Удалить";
+            this.rem2DItem.Click += new System.EventHandler(this.OnDeleteElement3D);
             // 
-            // volumePage
+            // gmshTab
             // 
-            this.volumePage.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.volumePage.Controls.Add(this.volumeLayout);
-            this.volumePage.Location = new System.Drawing.Point(4, 34);
-            this.volumePage.Margin = new System.Windows.Forms.Padding(0);
-            this.volumePage.Name = "volumePage";
-            this.volumePage.Size = new System.Drawing.Size(492, 763);
-            this.volumePage.TabIndex = 2;
-            this.volumePage.Text = "3D";
-            // 
-            // volumeLayout
-            // 
-            this.volumeLayout.BackColor = System.Drawing.SystemColors.Control;
-            this.volumeLayout.ColumnCount = 1;
-            this.volumeLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.volumeLayout.Controls.Add(this.volumesTree, 0, 1);
-            this.volumeLayout.Controls.Add(this.grbVolControlBox, 0, 0);
-            this.volumeLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.volumeLayout.Location = new System.Drawing.Point(0, 0);
-            this.volumeLayout.Margin = new System.Windows.Forms.Padding(0);
-            this.volumeLayout.Name = "volumeLayout";
-            this.volumeLayout.RowCount = 2;
-            this.volumeLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 85F));
-            this.volumeLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.volumeLayout.Size = new System.Drawing.Size(492, 763);
-            this.volumeLayout.TabIndex = 0;
-            // 
-            // volumesTree
-            // 
-            this.volumesTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.volumesTree.Location = new System.Drawing.Point(7, 92);
-            this.volumesTree.Margin = new System.Windows.Forms.Padding(7);
-            this.volumesTree.Name = "volumesTree";
-            this.volumesTree.Size = new System.Drawing.Size(478, 664);
-            this.volumesTree.TabIndex = 5;
-            this.volumesTree.Tag = "volElemsTree";
+            this.gmshTab.Controls.Add(this.geometryPage);
+            this.gmshTab.Controls.Add(this.meshPage);
+            this.gmshTab.Controls.Add(this.volumePage);
+            this.gmshTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gmshTab.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.gmshTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.gmshTab.FontColor = System.Drawing.Color.Black;
+            this.gmshTab.ItemSize = new System.Drawing.Size(50, 30);
+            this.gmshTab.Location = new System.Drawing.Point(0, 0);
+            this.gmshTab.Margin = new System.Windows.Forms.Padding(0);
+            this.gmshTab.Name = "gmshTab";
+            this.gmshTab.SelectColor = System.Drawing.SystemColors.Control;
+            this.gmshTab.SelectedIndex = 0;
+            this.gmshTab.Size = new System.Drawing.Size(472, 676);
+            this.gmshTab.TabIndex = 1;
+            this.gmshTab.UnSelectColor = System.Drawing.Color.LightGray;
             // 
             // geometryPage
             // 
@@ -417,7 +169,7 @@ namespace ModelModule
             this.geometryPage.Location = new System.Drawing.Point(4, 34);
             this.geometryPage.Margin = new System.Windows.Forms.Padding(0);
             this.geometryPage.Name = "geometryPage";
-            this.geometryPage.Size = new System.Drawing.Size(492, 763);
+            this.geometryPage.Size = new System.Drawing.Size(464, 638);
             this.geometryPage.TabIndex = 0;
             this.geometryPage.Text = "CAD";
             // 
@@ -439,7 +191,7 @@ namespace ModelModule
             this.geometryLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.geometryLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.geometryLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.geometryLayout.Size = new System.Drawing.Size(492, 763);
+            this.geometryLayout.Size = new System.Drawing.Size(464, 638);
             this.geometryLayout.TabIndex = 0;
             // 
             // pointsControlBox
@@ -454,7 +206,7 @@ namespace ModelModule
             this.pointsControlBox.Margin = new System.Windows.Forms.Padding(7);
             this.pointsControlBox.Name = "pointsControlBox";
             this.pointsControlBox.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.pointsControlBox.Size = new System.Drawing.Size(478, 157);
+            this.pointsControlBox.Size = new System.Drawing.Size(450, 157);
             this.pointsControlBox.TabIndex = 2;
             this.pointsControlBox.TabStop = false;
             this.pointsControlBox.Text = "Настройки разметки кривых";
@@ -485,7 +237,7 @@ namespace ModelModule
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(472, 141);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(444, 141);
             this.tableLayoutPanel2.TabIndex = 11;
             // 
             // rbtnProgressive
@@ -535,7 +287,7 @@ namespace ModelModule
             this.txbAlgoCoef.Location = new System.Drawing.Point(229, 14);
             this.txbAlgoCoef.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
             this.txbAlgoCoef.Name = "txbAlgoCoef";
-            this.txbAlgoCoef.Size = new System.Drawing.Size(223, 20);
+            this.txbAlgoCoef.Size = new System.Drawing.Size(195, 20);
             this.txbAlgoCoef.TabIndex = 4;
             this.txbAlgoCoef.Tag = "algoCoef";
             this.txbAlgoCoef.Text = "1.0";
@@ -552,7 +304,7 @@ namespace ModelModule
             this.txbAlgoNPoints.Location = new System.Drawing.Point(229, 62);
             this.txbAlgoNPoints.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
             this.txbAlgoNPoints.Name = "txbAlgoNPoints";
-            this.txbAlgoNPoints.Size = new System.Drawing.Size(223, 20);
+            this.txbAlgoNPoints.Size = new System.Drawing.Size(195, 20);
             this.txbAlgoNPoints.TabIndex = 5;
             this.txbAlgoNPoints.Tag = "algoNPoints";
             this.txbAlgoNPoints.UserRegExCheck = null;
@@ -563,10 +315,10 @@ namespace ModelModule
             this.btnDel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnDel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnDel.Location = new System.Drawing.Point(360, 102);
+            this.btnDel.Location = new System.Drawing.Point(346, 102);
             this.btnDel.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(92, 32);
+            this.btnDel.Size = new System.Drawing.Size(78, 32);
             this.btnDel.TabIndex = 9;
             this.btnDel.Text = "Удалить";
             this.btnDel.UseVisualStyleBackColor = true;
@@ -605,7 +357,7 @@ namespace ModelModule
             this.btnOK.Location = new System.Drawing.Point(229, 102);
             this.btnOK.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(91, 32);
+            this.btnOK.Size = new System.Drawing.Size(77, 32);
             this.btnOK.TabIndex = 10;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -616,55 +368,55 @@ namespace ModelModule
             this.panel2.AutoSize = true;
             this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Controls.Add(this.chbShowTranfPoints);
-            this.panel2.Controls.Add(this.chbShowCurvesInfo);
-            this.panel2.Controls.Add(this.chbShowSurfacesInfo);
+            this.panel2.Controls.Add(this.chbShowNodesOnCurves);
+            this.panel2.Controls.Add(this.chbShowNumberOfCurveNodes);
+            this.panel2.Controls.Add(this.chbShowSurfaceNumbers);
             this.panel2.Controls.Add(this.chbShowHeatMap);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(7, 707);
+            this.panel2.Location = new System.Drawing.Point(7, 582);
             this.panel2.Margin = new System.Windows.Forms.Padding(7);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(478, 49);
+            this.panel2.Size = new System.Drawing.Size(450, 49);
             this.panel2.TabIndex = 16;
             // 
-            // chbShowTranfPoints
+            // chbShowNodesOnCurves
             // 
-            this.chbShowTranfPoints.AutoSize = true;
-            this.chbShowTranfPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chbShowTranfPoints.Location = new System.Drawing.Point(224, 5);
-            this.chbShowTranfPoints.Margin = new System.Windows.Forms.Padding(3, 5, 3, 2);
-            this.chbShowTranfPoints.Name = "chbShowTranfPoints";
-            this.chbShowTranfPoints.Size = new System.Drawing.Size(187, 17);
-            this.chbShowTranfPoints.TabIndex = 3;
-            this.chbShowTranfPoints.Text = "Показать разбиение на кривых";
-            this.chbShowTranfPoints.UseVisualStyleBackColor = true;
-            this.chbShowTranfPoints.Click += new System.EventHandler(this.chbShowTranfPoints_Click);
+            this.chbShowNodesOnCurves.AutoSize = true;
+            this.chbShowNodesOnCurves.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.chbShowNodesOnCurves.Location = new System.Drawing.Point(224, 5);
+            this.chbShowNodesOnCurves.Margin = new System.Windows.Forms.Padding(3, 5, 3, 2);
+            this.chbShowNodesOnCurves.Name = "chbShowNodesOnCurves";
+            this.chbShowNodesOnCurves.Size = new System.Drawing.Size(158, 17);
+            this.chbShowNodesOnCurves.TabIndex = 3;
+            this.chbShowNodesOnCurves.Text = "Показать узлы на кривых";
+            this.chbShowNodesOnCurves.UseVisualStyleBackColor = true;
+            this.chbShowNodesOnCurves.Click += new System.EventHandler(this.chbShowNodesOnCurves_Click);
             // 
-            // chbShowCurvesInfo
+            // chbShowNumberOfCurveNodes
             // 
-            this.chbShowCurvesInfo.AutoSize = true;
-            this.chbShowCurvesInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chbShowCurvesInfo.Location = new System.Drawing.Point(12, 5);
-            this.chbShowCurvesInfo.Margin = new System.Windows.Forms.Padding(3, 5, 3, 2);
-            this.chbShowCurvesInfo.Name = "chbShowCurvesInfo";
-            this.chbShowCurvesInfo.Size = new System.Drawing.Size(156, 17);
-            this.chbShowCurvesInfo.TabIndex = 3;
-            this.chbShowCurvesInfo.Text = "Показать номера кривых";
-            this.chbShowCurvesInfo.UseVisualStyleBackColor = true;
-            this.chbShowCurvesInfo.Click += new System.EventHandler(this.chbShowCurvesInfo_Click);
+            this.chbShowNumberOfCurveNodes.AutoSize = true;
+            this.chbShowNumberOfCurveNodes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.chbShowNumberOfCurveNodes.Location = new System.Drawing.Point(12, 5);
+            this.chbShowNumberOfCurveNodes.Margin = new System.Windows.Forms.Padding(3, 5, 3, 2);
+            this.chbShowNumberOfCurveNodes.Name = "chbShowNumberOfCurveNodes";
+            this.chbShowNumberOfCurveNodes.Size = new System.Drawing.Size(198, 17);
+            this.chbShowNumberOfCurveNodes.TabIndex = 3;
+            this.chbShowNumberOfCurveNodes.Text = "Показать кол-во узлов на кривых";
+            this.chbShowNumberOfCurveNodes.UseVisualStyleBackColor = true;
+            this.chbShowNumberOfCurveNodes.Click += new System.EventHandler(this.chbShowNumberOfCurveNodes_Click);
             // 
-            // chbShowSurfacesInfo
+            // chbShowSurfaceNumbers
             // 
-            this.chbShowSurfacesInfo.AutoSize = true;
-            this.chbShowSurfacesInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chbShowSurfacesInfo.Location = new System.Drawing.Point(12, 30);
-            this.chbShowSurfacesInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.chbShowSurfacesInfo.Name = "chbShowSurfacesInfo";
-            this.chbShowSurfacesInfo.Size = new System.Drawing.Size(189, 17);
-            this.chbShowSurfacesInfo.TabIndex = 5;
-            this.chbShowSurfacesInfo.Text = "Показать номера поверхностей";
-            this.chbShowSurfacesInfo.UseVisualStyleBackColor = true;
-            this.chbShowSurfacesInfo.Click += new System.EventHandler(this.chbShowSurfacesInfo_Click);
+            this.chbShowSurfaceNumbers.AutoSize = true;
+            this.chbShowSurfaceNumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.chbShowSurfaceNumbers.Location = new System.Drawing.Point(12, 30);
+            this.chbShowSurfaceNumbers.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.chbShowSurfaceNumbers.Name = "chbShowSurfaceNumbers";
+            this.chbShowSurfaceNumbers.Size = new System.Drawing.Size(189, 17);
+            this.chbShowSurfaceNumbers.TabIndex = 5;
+            this.chbShowSurfaceNumbers.Text = "Показать номера поверхностей";
+            this.chbShowSurfaceNumbers.UseVisualStyleBackColor = true;
+            this.chbShowSurfaceNumbers.Click += new System.EventHandler(this.chbShowSurfaceNumbers_Click);
             // 
             // chbShowHeatMap
             // 
@@ -686,7 +438,7 @@ namespace ModelModule
             this.geomTree.Location = new System.Drawing.Point(7, 442);
             this.geomTree.Margin = new System.Windows.Forms.Padding(7);
             this.geomTree.Name = "geomTree";
-            this.geomTree.Size = new System.Drawing.Size(478, 251);
+            this.geomTree.Size = new System.Drawing.Size(450, 126);
             this.geomTree.TabIndex = 14;
             this.geomTree.Tag = "entTree";
             this.geomTree.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.entTree_BeforeSelect);
@@ -699,13 +451,14 @@ namespace ModelModule
             this.grbGradientMeshSettings.Controls.Add(this.tableLayoutPanel4);
             this.grbGradientMeshSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbGradientMeshSettings.IsCheckable = true;
+            this.grbGradientMeshSettings.IsExpanded = true;
             this.grbGradientMeshSettings.IsRollable = true;
             this.grbGradientMeshSettings.Location = new System.Drawing.Point(7, 178);
             this.grbGradientMeshSettings.Margin = new System.Windows.Forms.Padding(7);
             this.grbGradientMeshSettings.MinimumSize = new System.Drawing.Size(0, 10);
             this.grbGradientMeshSettings.Name = "grbGradientMeshSettings";
             this.grbGradientMeshSettings.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.grbGradientMeshSettings.Size = new System.Drawing.Size(478, 250);
+            this.grbGradientMeshSettings.Size = new System.Drawing.Size(450, 250);
             this.grbGradientMeshSettings.TabIndex = 17;
             this.grbGradientMeshSettings.TabStop = false;
             this.grbGradientMeshSettings.Text = "Настройки градиента сетки";
@@ -735,7 +488,7 @@ namespace ModelModule
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(472, 234);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(444, 234);
             this.tableLayoutPanel4.TabIndex = 15;
             // 
             // label6
@@ -755,10 +508,10 @@ namespace ModelModule
             this.txbLayerThickness.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbLayerThickness.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbLayerThickness.IsValidating = true;
-            this.txbLayerThickness.Location = new System.Drawing.Point(229, 14);
+            this.txbLayerThickness.Location = new System.Drawing.Point(216, 14);
             this.txbLayerThickness.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
             this.txbLayerThickness.Name = "txbLayerThickness";
-            this.txbLayerThickness.Size = new System.Drawing.Size(223, 20);
+            this.txbLayerThickness.Size = new System.Drawing.Size(208, 20);
             this.txbLayerThickness.TabIndex = 11;
             this.txbLayerThickness.UserRegExCheck = null;
             this.txbLayerThickness.UserRegExCheckErrorMessage = null;
@@ -780,10 +533,10 @@ namespace ModelModule
             this.txbSurfaceMeshSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbSurfaceMeshSize.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbSurfaceMeshSize.IsValidating = true;
-            this.txbSurfaceMeshSize.Location = new System.Drawing.Point(229, 59);
+            this.txbSurfaceMeshSize.Location = new System.Drawing.Point(216, 59);
             this.txbSurfaceMeshSize.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
             this.txbSurfaceMeshSize.Name = "txbSurfaceMeshSize";
-            this.txbSurfaceMeshSize.Size = new System.Drawing.Size(223, 20);
+            this.txbSurfaceMeshSize.Size = new System.Drawing.Size(208, 20);
             this.txbSurfaceMeshSize.TabIndex = 12;
             this.txbSurfaceMeshSize.UserRegExCheck = null;
             this.txbSurfaceMeshSize.UserRegExCheckErrorMessage = null;
@@ -805,10 +558,10 @@ namespace ModelModule
             this.txbCoreMeshSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbCoreMeshSize.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbCoreMeshSize.IsValidating = true;
-            this.txbCoreMeshSize.Location = new System.Drawing.Point(229, 103);
+            this.txbCoreMeshSize.Location = new System.Drawing.Point(216, 103);
             this.txbCoreMeshSize.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
             this.txbCoreMeshSize.Name = "txbCoreMeshSize";
-            this.txbCoreMeshSize.Size = new System.Drawing.Size(223, 20);
+            this.txbCoreMeshSize.Size = new System.Drawing.Size(208, 20);
             this.txbCoreMeshSize.TabIndex = 13;
             this.txbCoreMeshSize.UserRegExCheck = null;
             this.txbCoreMeshSize.UserRegExCheckErrorMessage = null;
@@ -828,10 +581,10 @@ namespace ModelModule
             // 
             this.btnSetGradientSettings.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnSetGradientSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSetGradientSettings.Location = new System.Drawing.Point(229, 194);
+            this.btnSetGradientSettings.Location = new System.Drawing.Point(216, 194);
             this.btnSetGradientSettings.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.btnSetGradientSettings.Name = "btnSetGradientSettings";
-            this.btnSetGradientSettings.Size = new System.Drawing.Size(223, 32);
+            this.btnSetGradientSettings.Size = new System.Drawing.Size(208, 32);
             this.btnSetGradientSettings.TabIndex = 14;
             this.btnSetGradientSettings.Text = "Задать настройки";
             this.btnSetGradientSettings.UseVisualStyleBackColor = true;
@@ -843,62 +596,310 @@ namespace ModelModule
             this.txbMeshGradientPower.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbMeshGradientPower.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbMeshGradientPower.IsValidating = true;
-            this.txbMeshGradientPower.Location = new System.Drawing.Point(229, 152);
+            this.txbMeshGradientPower.Location = new System.Drawing.Point(216, 152);
             this.txbMeshGradientPower.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
             this.txbMeshGradientPower.Name = "txbMeshGradientPower";
-            this.txbMeshGradientPower.Size = new System.Drawing.Size(223, 20);
+            this.txbMeshGradientPower.Size = new System.Drawing.Size(208, 20);
             this.txbMeshGradientPower.TabIndex = 15;
             this.txbMeshGradientPower.UserRegExCheck = null;
             this.txbMeshGradientPower.UserRegExCheckErrorMessage = null;
             // 
-            // gmshTab
+            // meshPage
             // 
-            this.gmshTab.Controls.Add(this.geometryPage);
-            this.gmshTab.Controls.Add(this.meshPage);
-            this.gmshTab.Controls.Add(this.volumePage);
-            this.gmshTab.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gmshTab.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.gmshTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.gmshTab.FontColor = System.Drawing.Color.Black;
-            this.gmshTab.ItemSize = new System.Drawing.Size(50, 30);
-            this.gmshTab.Location = new System.Drawing.Point(0, 0);
-            this.gmshTab.Margin = new System.Windows.Forms.Padding(0);
-            this.gmshTab.Name = "gmshTab";
-            this.gmshTab.SelectColor = System.Drawing.SystemColors.Control;
-            this.gmshTab.SelectedIndex = 0;
-            this.gmshTab.Size = new System.Drawing.Size(500, 801);
-            this.gmshTab.TabIndex = 1;
-            this.gmshTab.UnSelectColor = System.Drawing.Color.LightGray;
+            this.meshPage.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.meshPage.Controls.Add(this.meshLayout);
+            this.meshPage.Location = new System.Drawing.Point(4, 34);
+            this.meshPage.Margin = new System.Windows.Forms.Padding(0);
+            this.meshPage.Name = "meshPage";
+            this.meshPage.Size = new System.Drawing.Size(464, 638);
+            this.meshPage.TabIndex = 1;
+            this.meshPage.Text = "2D";
             // 
-            // cmsRemoveMesh2D
+            // meshLayout
             // 
-            this.cmsRemoveMesh2D.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.cmsRemoveMesh2D.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.rem3DItem});
-            this.cmsRemoveMesh2D.Name = "cmsRemoveMesh2D";
-            this.cmsRemoveMesh2D.Size = new System.Drawing.Size(119, 26);
+            this.meshLayout.BackColor = System.Drawing.SystemColors.Control;
+            this.meshLayout.ColumnCount = 1;
+            this.meshLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.meshLayout.Controls.Add(this.surfsTree, 0, 1);
+            this.meshLayout.Controls.Add(this.meshGenBox, 0, 0);
+            this.meshLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.meshLayout.Location = new System.Drawing.Point(0, 0);
+            this.meshLayout.Margin = new System.Windows.Forms.Padding(0);
+            this.meshLayout.Name = "meshLayout";
+            this.meshLayout.RowCount = 2;
+            this.meshLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 180F));
+            this.meshLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.meshLayout.Size = new System.Drawing.Size(464, 638);
+            this.meshLayout.TabIndex = 0;
             // 
-            // rem3DItem
+            // surfsTree
             // 
-            this.rem3DItem.Name = "rem3DItem";
-            this.rem3DItem.Size = new System.Drawing.Size(118, 22);
-            this.rem3DItem.Text = "Удалить";
-            this.rem3DItem.Click += new System.EventHandler(this.OnDeleteElement2D);
+            this.surfsTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.surfsTree.FullRowSelect = true;
+            this.surfsTree.Location = new System.Drawing.Point(7, 187);
+            this.surfsTree.Margin = new System.Windows.Forms.Padding(7);
+            this.surfsTree.Name = "surfsTree";
+            this.surfsTree.Size = new System.Drawing.Size(450, 444);
+            this.surfsTree.TabIndex = 4;
+            this.surfsTree.Tag = "elemsTree";
+            this.surfsTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.entTree_AfterSelect);
             // 
-            // cmsRemoveMesh3D
+            // meshGenBox
             // 
-            this.cmsRemoveMesh3D.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.cmsRemoveMesh3D.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.rem2DItem});
-            this.cmsRemoveMesh3D.Name = "cmsRemoveMesh3D";
-            this.cmsRemoveMesh3D.Size = new System.Drawing.Size(119, 26);
+            this.meshGenBox.AutoSize = true;
+            this.meshGenBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.meshGenBox.BackColor = System.Drawing.SystemColors.Control;
+            this.meshGenBox.Controls.Add(this.tableLayoutPanel1);
+            this.meshGenBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.meshGenBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.meshGenBox.Location = new System.Drawing.Point(7, 7);
+            this.meshGenBox.Margin = new System.Windows.Forms.Padding(7);
+            this.meshGenBox.Name = "meshGenBox";
+            this.meshGenBox.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.meshGenBox.Size = new System.Drawing.Size(450, 166);
+            this.meshGenBox.TabIndex = 3;
+            this.meshGenBox.TabStop = false;
+            this.meshGenBox.Text = "Управление сеткой";
             // 
-            // rem2DItem
+            // tableLayoutPanel1
             // 
-            this.rem2DItem.Name = "rem2DItem";
-            this.rem2DItem.Size = new System.Drawing.Size(118, 22);
-            this.rem2DItem.Text = "Удалить";
-            this.rem2DItem.Click += new System.EventHandler(this.OnDeleteElement3D);
+            this.tableLayoutPanel1.AutoSize = true;
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.40146F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.59854F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
+            this.tableLayoutPanel1.Controls.Add(this.refineBtn, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.algoLabel, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.densityLabel, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnMesh2DDel, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.quadBtn, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.mesh2DGenBtn, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.cmbAlgoChoice, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.meshDensityValue, 0, 2);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 13);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(444, 150);
+            this.tableLayoutPanel1.TabIndex = 12;
+            // 
+            // refineBtn
+            // 
+            this.refineBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.refineBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.refineBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.refineBtn.Location = new System.Drawing.Point(117, 110);
+            this.refineBtn.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.refineBtn.Name = "refineBtn";
+            this.refineBtn.Size = new System.Drawing.Size(137, 32);
+            this.refineBtn.TabIndex = 10;
+            this.refineBtn.Text = "Уплотнить";
+            this.refineBtn.UseVisualStyleBackColor = true;
+            this.refineBtn.Click += new System.EventHandler(this.OnRefine);
+            // 
+            // algoLabel
+            // 
+            this.algoLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.algoLabel.AutoSize = true;
+            this.algoLabel.Enabled = false;
+            this.algoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.algoLabel.Location = new System.Drawing.Point(15, 8);
+            this.algoLabel.Name = "algoLabel";
+            this.algoLabel.Size = new System.Drawing.Size(66, 39);
+            this.algoLabel.TabIndex = 7;
+            this.algoLabel.Text = "Алгоритм построения сетки:";
+            this.algoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // densityLabel
+            // 
+            this.densityLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.densityLabel.AutoSize = true;
+            this.densityLabel.Enabled = false;
+            this.densityLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.densityLabel.Location = new System.Drawing.Point(19, 66);
+            this.densityLabel.Name = "densityLabel";
+            this.densityLabel.Size = new System.Drawing.Size(58, 26);
+            this.densityLabel.TabIndex = 0;
+            this.densityLabel.Text = "Фактор масштаба";
+            this.densityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnMesh2DDel
+            // 
+            this.btnMesh2DDel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnMesh2DDel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMesh2DDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnMesh2DDel.Location = new System.Drawing.Point(294, 63);
+            this.btnMesh2DDel.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.btnMesh2DDel.Name = "btnMesh2DDel";
+            this.btnMesh2DDel.Size = new System.Drawing.Size(130, 32);
+            this.btnMesh2DDel.TabIndex = 9;
+            this.btnMesh2DDel.Text = "Удалить";
+            this.btnMesh2DDel.UseVisualStyleBackColor = true;
+            this.btnMesh2DDel.Click += new System.EventHandler(this.OnDeleteMesh2D);
+            // 
+            // quadBtn
+            // 
+            this.quadBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.quadBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.quadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.quadBtn.Location = new System.Drawing.Point(294, 110);
+            this.quadBtn.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.quadBtn.Name = "quadBtn";
+            this.quadBtn.Size = new System.Drawing.Size(130, 32);
+            this.quadBtn.TabIndex = 11;
+            this.quadBtn.Text = "Квадратная сетка";
+            this.quadBtn.UseVisualStyleBackColor = true;
+            this.quadBtn.Click += new System.EventHandler(this.OnQuadrangulate);
+            // 
+            // mesh2DGenBtn
+            // 
+            this.mesh2DGenBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.mesh2DGenBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mesh2DGenBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.mesh2DGenBtn.Location = new System.Drawing.Point(117, 63);
+            this.mesh2DGenBtn.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.mesh2DGenBtn.Name = "mesh2DGenBtn";
+            this.mesh2DGenBtn.Size = new System.Drawing.Size(137, 32);
+            this.mesh2DGenBtn.TabIndex = 5;
+            this.mesh2DGenBtn.Text = "Треугольная сетка";
+            this.mesh2DGenBtn.UseVisualStyleBackColor = true;
+            this.mesh2DGenBtn.Click += new System.EventHandler(this.OnGenerateMesh2D);
+            // 
+            // cmbAlgoChoice
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.cmbAlgoChoice, 2);
+            this.cmbAlgoChoice.FormattingEnabled = true;
+            this.cmbAlgoChoice.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbAlgoChoice.IsValidating = true;
+            this.cmbAlgoChoice.Items.AddRange(new object[] {
+            "MeshAdapt",
+            "Automatic",
+            "Delaunay",
+            "FrontalDelaunay",
+            "FrontalDelaunayQuad"});
+            this.cmbAlgoChoice.Location = new System.Drawing.Point(117, 20);
+            this.cmbAlgoChoice.Margin = new System.Windows.Forms.Padding(20);
+            this.cmbAlgoChoice.Name = "cmbAlgoChoice";
+            this.cmbAlgoChoice.Size = new System.Drawing.Size(307, 21);
+            this.cmbAlgoChoice.TabIndex = 12;
+            this.cmbAlgoChoice.UserRegExCheck = null;
+            this.cmbAlgoChoice.UserRegExCheckErrorMessage = null;
+            this.cmbAlgoChoice.SelectedIndexChanged += new System.EventHandler(this.OnAlgorithmChoice);
+            // 
+            // meshDensityValue
+            // 
+            this.meshDensityValue.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.meshDensityValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.meshDensityValue.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.meshDensityValue.IsValidating = true;
+            this.meshDensityValue.Location = new System.Drawing.Point(22, 116);
+            this.meshDensityValue.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.meshDensityValue.Name = "meshDensityValue";
+            this.meshDensityValue.Size = new System.Drawing.Size(53, 20);
+            this.meshDensityValue.TabIndex = 13;
+            this.meshDensityValue.Text = "1";
+            this.meshDensityValue.UserRegExCheck = null;
+            this.meshDensityValue.UserRegExCheckErrorMessage = null;
+            // 
+            // volumePage
+            // 
+            this.volumePage.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.volumePage.Controls.Add(this.volumeLayout);
+            this.volumePage.Location = new System.Drawing.Point(4, 34);
+            this.volumePage.Margin = new System.Windows.Forms.Padding(0);
+            this.volumePage.Name = "volumePage";
+            this.volumePage.Size = new System.Drawing.Size(464, 638);
+            this.volumePage.TabIndex = 2;
+            this.volumePage.Text = "3D";
+            // 
+            // volumeLayout
+            // 
+            this.volumeLayout.BackColor = System.Drawing.SystemColors.Control;
+            this.volumeLayout.ColumnCount = 1;
+            this.volumeLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.volumeLayout.Controls.Add(this.volumesTree, 0, 1);
+            this.volumeLayout.Controls.Add(this.grbVolControlBox, 0, 0);
+            this.volumeLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.volumeLayout.Location = new System.Drawing.Point(0, 0);
+            this.volumeLayout.Margin = new System.Windows.Forms.Padding(0);
+            this.volumeLayout.Name = "volumeLayout";
+            this.volumeLayout.RowCount = 2;
+            this.volumeLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 85F));
+            this.volumeLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.volumeLayout.Size = new System.Drawing.Size(464, 638);
+            this.volumeLayout.TabIndex = 0;
+            // 
+            // volumesTree
+            // 
+            this.volumesTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.volumesTree.Location = new System.Drawing.Point(7, 92);
+            this.volumesTree.Margin = new System.Windows.Forms.Padding(7);
+            this.volumesTree.Name = "volumesTree";
+            this.volumesTree.Size = new System.Drawing.Size(450, 539);
+            this.volumesTree.TabIndex = 5;
+            this.volumesTree.Tag = "volElemsTree";
+            // 
+            // grbVolControlBox
+            // 
+            this.grbVolControlBox.AutoSize = true;
+            this.grbVolControlBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.grbVolControlBox.BackColor = System.Drawing.SystemColors.Control;
+            this.grbVolControlBox.Controls.Add(this.tableLayoutPanel3);
+            this.grbVolControlBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grbVolControlBox.Location = new System.Drawing.Point(7, 7);
+            this.grbVolControlBox.Margin = new System.Windows.Forms.Padding(7);
+            this.grbVolControlBox.Name = "grbVolControlBox";
+            this.grbVolControlBox.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.grbVolControlBox.Size = new System.Drawing.Size(450, 71);
+            this.grbVolControlBox.TabIndex = 4;
+            this.grbVolControlBox.TabStop = false;
+            this.grbVolControlBox.Text = "Управление сеткой";
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.btnGenVolMesh, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.btnDelVolMesh, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 13);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(444, 55);
+            this.tableLayoutPanel3.TabIndex = 7;
+            // 
+            // btnGenVolMesh
+            // 
+            this.btnGenVolMesh.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnGenVolMesh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGenVolMesh.Location = new System.Drawing.Point(20, 11);
+            this.btnGenVolMesh.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.btnGenVolMesh.Name = "btnGenVolMesh";
+            this.btnGenVolMesh.Size = new System.Drawing.Size(182, 32);
+            this.btnGenVolMesh.TabIndex = 5;
+            this.btnGenVolMesh.Text = "Сгенерировать";
+            this.btnGenVolMesh.UseVisualStyleBackColor = true;
+            this.btnGenVolMesh.Click += new System.EventHandler(this.OnGenerateMesh3D);
+            // 
+            // btnDelVolMesh
+            // 
+            this.btnDelVolMesh.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnDelVolMesh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelVolMesh.Location = new System.Drawing.Point(242, 11);
+            this.btnDelVolMesh.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.btnDelVolMesh.Name = "btnDelVolMesh";
+            this.btnDelVolMesh.Size = new System.Drawing.Size(182, 32);
+            this.btnDelVolMesh.TabIndex = 6;
+            this.btnDelVolMesh.Text = "Удалить";
+            this.btnDelVolMesh.UseVisualStyleBackColor = true;
+            this.btnDelVolMesh.Click += new System.EventHandler(this.OnDeleteMesh3D);
             // 
             // GMSHGeneralMeshControl
             // 
@@ -908,19 +909,10 @@ namespace ModelModule
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "GMSHGeneralMeshControl";
-            this.Size = new System.Drawing.Size(500, 801);
-            this.meshGenBox.ResumeLayout(false);
-            this.meshGenBox.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.meshLayout.ResumeLayout(false);
-            this.meshLayout.PerformLayout();
-            this.meshPage.ResumeLayout(false);
-            this.grbVolControlBox.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.volumePage.ResumeLayout(false);
-            this.volumeLayout.ResumeLayout(false);
-            this.volumeLayout.PerformLayout();
+            this.Size = new System.Drawing.Size(472, 676);
+            this.cmsRemoveMesh2D.ResumeLayout(false);
+            this.cmsRemoveMesh3D.ResumeLayout(false);
+            this.gmshTab.ResumeLayout(false);
             this.geometryPage.ResumeLayout(false);
             this.geometryLayout.ResumeLayout(false);
             this.geometryLayout.PerformLayout();
@@ -934,9 +926,18 @@ namespace ModelModule
             this.grbGradientMeshSettings.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
-            this.gmshTab.ResumeLayout(false);
-            this.cmsRemoveMesh2D.ResumeLayout(false);
-            this.cmsRemoveMesh3D.ResumeLayout(false);
+            this.meshPage.ResumeLayout(false);
+            this.meshLayout.ResumeLayout(false);
+            this.meshLayout.PerformLayout();
+            this.meshGenBox.ResumeLayout(false);
+            this.meshGenBox.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.volumePage.ResumeLayout(false);
+            this.volumeLayout.ResumeLayout(false);
+            this.volumeLayout.PerformLayout();
+            this.grbVolControlBox.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -973,14 +974,14 @@ namespace ModelModule
         private RadioButton rbtnBeta;
         private TreeView geomTree;
         private Panel panel2;
-        private CheckBox chbShowCurvesInfo;
-        private CheckBox chbShowSurfacesInfo;
+        private CheckBox chbShowNumberOfCurveNodes;
+        private CheckBox chbShowSurfaceNumbers;
         private CheckBox chbShowHeatMap;
         private TableLayoutPanel tableLayoutPanel1;
         private TableLayoutPanel tableLayoutPanel2;
         private TableLayoutPanel tableLayoutPanel3;
         private TabControlEx gmshTab;
-        private CheckBox chbShowTranfPoints;
+        private CheckBox chbShowNodesOnCurves;
         private TreeView surfsTree;
         private TreeView volumesTree;
         private Label algoLabel;

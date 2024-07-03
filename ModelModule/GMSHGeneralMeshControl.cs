@@ -45,6 +45,23 @@ namespace ModelModule
                 }
             }
         }
+
+        public bool IsNumberOfCurveNodesShowen
+        {
+            get { return chbShowNumberOfCurveNodes.Checked; }
+        }
+
+        public bool IsNodesOnCurvesShowen
+        {
+            get { return chbShowNodesOnCurves.Checked; }
+        }
+
+        public bool IsSurfaceNumbersShowen
+        {
+            get { return chbShowSurfaceNumbers.Checked; }
+        }
+
+
         public event Action<object,bool> switchMeshGradientEvent;
         public event Action<object, MeshGradientSettingsEventArgs> setMeshGradientSettingsEvent;
         public event Action<double> setMeshAlgoEvent;
@@ -53,12 +70,12 @@ namespace ModelModule
         public event Action<object,double> generate2DTriangleMeshEvent;
         public event Action<object> generate3DTetraMeshEvent;
         public event Action<object> generate2DQuadMesh;
-        public event Action<bool> showTransPoints;
+        public event Action<bool> showNodesOnCurvesEvent;
         public event Action updateGeometryVBOEvent;
-        public event Action updateTreeViewEvent;
-        public event Action<bool> showCurveInfoEvent;
-        public event Action<bool> showSurfaceInfoEvent;
-        public event Action<object, Show3dTextEventArgs> show3dTextEvent;
+        //public event Action updateTreeViewEvent;
+        public event Action<object,bool> showNumberOfCurveNodesEvent;
+        public event Action<object,bool> showShowSurfaceNumbersEvent;
+        //public event Action<object, Show3dTextEventArgs> show3dTextEvent;
         public event Action<List<int>> showObjectsEvent;
         public event Action<ObjType> resetColorObjectsEvent;
         public event Action<object> refineMesh;
@@ -189,7 +206,7 @@ namespace ModelModule
         {
             refineMesh?.Invoke(this);
 
-            ShowHideTabControls(3, false);
+            //ShowHideTabControls(3, false);
             ClearTreeView(3);         
         }
 
@@ -458,32 +475,32 @@ namespace ModelModule
             double points = 0, coef = 0;
 
             if (txbAlgoCoef.IsValueValid())
-                points = double.Parse(txbAlgoCoef.Text);
+                coef = double.Parse(txbAlgoCoef.Text);
             else
                 return;
 
             if (txbAlgoNPoints.IsValueValid())
-                coef = double.Parse(txbAlgoNPoints.Text);
+                points = double.Parse(txbAlgoNPoints.Text);
             else
                 return;
 
             var tag = FindObjectByTreeNode(geomTree.SelectedNode);
             setTransfiniteCurveEvent?.Invoke(this, new SetTransfiniteCurveEventArgs(tag, attributes, 3, coef, points));
 
-            if (chbShowCurvesInfo.Checked)
-                showCurveInfoEvent?.Invoke(true);
+            if (chbShowNumberOfCurveNodes.Checked)
+                showNumberOfCurveNodesEvent?.Invoke(this,true);
             if (chbShowHeatMap.Checked)
                 showHeatMapEvent?.Invoke(true);
-            if (chbShowTranfPoints.Checked)
-                showTransPoints?.Invoke(true);
+            if (chbShowNodesOnCurves.Checked)
+                showNodesOnCurvesEvent?.Invoke(true);
         }
 
-        private void chbShowCurvesInfo_Click(object sender, EventArgs e)
+        private void chbShowNumberOfCurveNodes_Click(object sender, EventArgs e)
         {
-            if (chbShowCurvesInfo.Checked)
-                showCurveInfoEvent?.Invoke(true);
+            if (chbShowNumberOfCurveNodes.Checked)
+                showNumberOfCurveNodesEvent?.Invoke(this,true);
             else
-                showCurveInfoEvent?.Invoke(false);//Прячем весь текст
+                showNumberOfCurveNodesEvent?.Invoke(this,false);//Прячем весь текст
         }
 
         private void chbShowHeatMap_Click(object sender, EventArgs e)
@@ -495,20 +512,20 @@ namespace ModelModule
 
         }
 
-        private void chbShowSurfacesInfo_Click(object sender, EventArgs e)
+        private void chbShowSurfaceNumbers_Click(object sender, EventArgs e)
         {
-            if (chbShowSurfacesInfo.Checked)
-                showSurfaceInfoEvent?.Invoke(true);
+            if (chbShowSurfaceNumbers.Checked)
+                showShowSurfaceNumbersEvent?.Invoke(this,true);
             else
-                showSurfaceInfoEvent?.Invoke(false);
+                showShowSurfaceNumbersEvent?.Invoke(this,false);
         }
 
-        private void chbShowTranfPoints_Click(object sender, EventArgs e)
+        private void chbShowNodesOnCurves_Click(object sender, EventArgs e)
         {
-            if (chbShowTranfPoints.Checked)
-                showTransPoints?.Invoke(true);
+            if (chbShowNodesOnCurves.Checked)
+                showNodesOnCurvesEvent?.Invoke(true);
             else
-                showTransPoints?.Invoke(false);
+                showNodesOnCurvesEvent?.Invoke(false);
         }
 
 

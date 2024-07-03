@@ -33,10 +33,10 @@ namespace ComponentsTestForm
             this.components = new System.ComponentModel.Container();
             this.gmshGeneralMeshControl1 = new ModelModule.GMSHGeneralMeshControl();
             this.groupBoxEx1 = new BaseModule.ControlsLib.GroupBoxEx();
+            this.button1 = new System.Windows.Forms.Button();
+            this.cmbValidator2 = new BaseModule.ControlsLib.ComboBoxEx(this.components);
             this.textBoxValidator1 = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.cmbValidator1 = new BaseModule.ControlsLib.ComboBoxEx(this.components);
-            this.cmbValidator2 = new BaseModule.ControlsLib.ComboBoxEx(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBoxEx1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,14 +56,42 @@ namespace ComponentsTestForm
             this.groupBoxEx1.Controls.Add(this.cmbValidator2);
             this.groupBoxEx1.Controls.Add(this.textBoxValidator1);
             this.groupBoxEx1.IsCheckable = true;
+            this.groupBoxEx1.IsExpanded = true;
             this.groupBoxEx1.IsRollable = true;
             this.groupBoxEx1.Location = new System.Drawing.Point(600, 126);
             this.groupBoxEx1.MinimumSize = new System.Drawing.Size(0, 10);
             this.groupBoxEx1.Name = "groupBoxEx1";
-            this.groupBoxEx1.Size = new System.Drawing.Size(200, 157);
+            this.groupBoxEx1.Size = new System.Drawing.Size(200, 153);
             this.groupBoxEx1.TabIndex = 1;
             this.groupBoxEx1.TabStop = false;
             this.groupBoxEx1.Text = "groupBoxEx1";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(111, 117);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // cmbValidator2
+            // 
+            this.cmbValidator2.FormattingEnabled = true;
+            this.cmbValidator2.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbValidator2.IsValidating = true;
+            this.cmbValidator2.Items.AddRange(new object[] {
+            "A",
+            "B",
+            "C",
+            "D"});
+            this.cmbValidator2.Location = new System.Drawing.Point(17, 59);
+            this.cmbValidator2.Name = "cmbValidator2";
+            this.cmbValidator2.Size = new System.Drawing.Size(121, 21);
+            this.cmbValidator2.TabIndex = 3;
+            this.cmbValidator2.UserRegExCheck = null;
+            this.cmbValidator2.UserRegExCheckErrorMessage = null;
             // 
             // textBoxValidator1
             // 
@@ -88,33 +116,6 @@ namespace ComponentsTestForm
             this.cmbValidator1.TabIndex = 2;
             this.cmbValidator1.UserRegExCheck = null;
             this.cmbValidator1.UserRegExCheckErrorMessage = null;
-            // 
-            // cmbValidator2
-            // 
-            this.cmbValidator2.FormattingEnabled = true;
-            this.cmbValidator2.InputType = BaseModule.ControlsLib.CMBInputType.Items;
-            this.cmbValidator2.IsValidating = true;
-            this.cmbValidator2.Items.AddRange(new object[] {
-            "A",
-            "B",
-            "C",
-            "D"});
-            this.cmbValidator2.Location = new System.Drawing.Point(17, 59);
-            this.cmbValidator2.Name = "cmbValidator2";
-            this.cmbValidator2.Size = new System.Drawing.Size(121, 21);
-            this.cmbValidator2.TabIndex = 3;
-            this.cmbValidator2.UserRegExCheck = null;
-            this.cmbValidator2.UserRegExCheckErrorMessage = null;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(111, 117);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 

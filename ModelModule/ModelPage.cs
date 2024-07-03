@@ -111,23 +111,24 @@ namespace ModelModule
                 };
 
                 meshGenerator.switchMeshGradientEvent += MeshGenerator_switchMeshGradientEvent;
-                meshGenerator.showSurfaceInfoEvent += MeshGenerator_showSurfaceInfoEvent;
-                meshGenerator.showCurveInfoEvent += MeshGenerator_showCurveInfoEvent;
+                meshGenerator.showShowSurfaceNumbersEvent += MeshGenerator_showSurfaceNumbers;
+                meshGenerator.showNumberOfCurveNodesEvent += MeshGenerator_showNumberOfCurveNodes;
                 meshGenerator.generate3DTetraMeshEvent += MeshGenerator_generate3DMeshEvent;
                 meshGenerator.generate2DTriangleMeshEvent += MeshGenerator_generate2DMeshEvent;
                 meshGenerator.deleteMeshEvent += MeshGenerator_deleteMeshEvent;
-                meshGenerator.showTransPoints += MeshGenerator_showTransPoints;
+                meshGenerator.showNodesOnCurvesEvent += MeshGenerator_showNodesOnCurves;
                 meshGenerator.updateObjectsDataEvent += UpdateMeshVBO;
                 meshGenerator.updateGeometryVBOEvent += UpdateGeometryVBO;
-                meshGenerator.updateTreeViewEvent += () => { PresentProjectOnTree(); };
+                //meshGenerator.updateTreeViewEvent += () => { PresentProjectOnTree(); };
                 meshGenerator.refineMesh += MeshGenerator_refineMesh;
-                meshGenerator.showObjectsEvent += ShowLines;
+                meshGenerator.showObjectsEvent += ShowObjects;
                 meshGenerator.generate2DQuadMesh += MeshGenerator_generate2DQuadMesh;      
                 meshGenerator.showHeatMapEvent += GmshControl_showHeatMapEvent;
                 meshGenerator.resetColorObjectsEvent += GmshControl_ResetColorObjectsEvent;
                 meshGenerator.setTransfiniteCurveEvent += MeshGenerator_setTransfiniteCurveEvent;
                 meshGenerator.setCurveDataEvent += SetCurveDataEventHandler;
                 meshGenerator.deleteElementEvent += DeleteElementsByNumber;
+                meshGenerator.setMeshGradientSettingsEvent += MeshGenerator_setMeshGradientSettingsEvent;
 
                 gmshForm.Controls.Add(meshGenerator);
                 meshGenerator.Dock = DockStyle.Fill;
@@ -143,6 +144,12 @@ namespace ModelModule
                 gmshForm.Show();
             }        
             //ModelPresenter.Clear();//Подчищаем Presenter во избежании артефактов
+        }
+
+        private void MeshGenerator_setMeshGradientSettingsEvent(object arg1, MeshGradientSettingsEventArgs arg2)
+        {
+            //TO DO 
+            // код задания настроек построения градиентной сетки
         }
 
         private void MeshGenerator_switchMeshGradientEvent(object arg1, bool arg2)
@@ -208,58 +215,79 @@ namespace ModelModule
         }
 
 
-        private void MeshGenerator_showSurfaceInfoEvent(bool flag)
+        private void MeshGenerator_showSurfaceNumbers(object sender,bool flag)
         {
             if(flag)
             {
-                int[] dimTags;
-                GmshController.ModelGetGeometryEntities(out dimTags, 2);
-
-                for (var i = 1; i < dimTags.Length; i += 2)
-                {
-                    var point = GetCenterOfGeometryEntity(2, dimTags[i]);
-                    //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
-                    var text = $"Поверхность {dimTags[i]}";
-
-                    SceneControl.DisplayText3D(text, Color.Black, point);
-                }
+                ShowSurfaceNumbers();
             }
             else
+            {
+                var cnt = sender as GMSHGeneralMeshControl;
                 SceneControl.HideDisplayText3D();
+
+                if (cnt.IsNumberOfCurveNodesShowen)
+                    ShowNumberOfCurveNodes();
+            }
 
             SceneControl.DisplayObjects();
         }
 
-        private void MeshGenerator_showCurveInfoEvent(bool obj)
+        private void MeshGenerator_showNumberOfCurveNodes(object sender, bool obj)
         {
             // тут нужно перебрать все кривые которые есть в модели и показать их параметры разметки
             if (obj)
             {
-                string[] attribList;
-                GmshController.ModelGetAttributeNames(out attribList);
-
-                foreach (var item in attribList)
-                {
-                    var tag = Int32.Parse(item.Split(' ')[1]);
-                    var attributes = GetCurrentCurveAttributes(tag);
-
-                    if (attributes.Length == 3)
-                    {
-                        var text = $"{attributes[2]} {attributes[1]} {attributes[0]}";
-                        var point = GetCenterOfGeometryEntity(1, tag);
-
-                        SceneControl.DisplayText3D(text, Color.Black, point);
-                    }
-                }
+                ShowNumberOfCurveNodes();
             }
             else
+            {
+                var cnt = sender as GMSHGeneralMeshControl;
                 SceneControl.HideDisplayText3D();
-             
+
+                if (cnt.IsSurfaceNumbersShowen)
+                    ShowSurfaceNumbers();
+            }
+
+
             SceneControl.DisplayObjects();
         }
 
+        private void ShowSurfaceNumbers()
+        {
+            int[] dimTags;
+            GmshController.ModelGetGeometryEntities(out dimTags, 2);
 
+            for (var i = 1; i < dimTags.Length; i += 2)
+            {
+                var point = GetCenterOfGeometryEntity(2, dimTags[i]);
+                //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
+                var text = $"Поверхность {dimTags[i]}";
 
+                SceneControl.DisplayText3D(text, Color.Black, point.Sum(new Point3D(5,5,5)));
+            }
+        }
+
+        private void ShowNumberOfCurveNodes()
+        {
+            string[] attribList;
+            GmshController.ModelGetAttributeNames(out attribList);
+
+            foreach (var item in attribList)
+            {
+                var tag = Int32.Parse(item.Split(' ')[1]);
+                var attributes = GetCurrentCurveAttributes(tag);
+
+                if (attributes.Length == 3)
+                {
+                    // var text = $"{attributes[2]} {attributes[1]} {attributes[0]}";
+                    var text = $"{attributes[0]}";
+                    var point = GetCenterOfGeometryEntity(1, tag);
+
+                    SceneControl.DisplayText3D(text, Color.Black, point);
+                }
+            }
+        }
 
         /// <summary>
         /// Вернуть центр масс текущей геометрической сущности
@@ -278,8 +306,12 @@ namespace ModelModule
 
         private void GmshForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SceneControl.HideAllGeometryObjs();
-            SceneControl.HideDisplayText3D();
+            //SceneControl.HideAllGeometryObjs();
+            //SceneControl.HideDisplayText3D();
+
+            ClearAllDataOnScene();
+            PresentAllModelObjectsToScene();
+            SceneControl.DisplayObjects();
         }
 
         private void MeshGenerator_setTransfiniteCurveEvent(object arg1, SetTransfiniteCurveEventArgs arg2)
@@ -451,7 +483,7 @@ namespace ModelModule
             GmshController.ModelMeshClear(dimTags, (IntPtr)dimTags.Length, ref ierr);
         }
 
-        private void MeshGenerator_showTransPoints(bool flag)
+        private void MeshGenerator_showNodesOnCurves(bool flag)
         {
             SceneControl.DeleteVBObjects("transPoints");
 
@@ -603,7 +635,7 @@ namespace ModelModule
 
         }
 
-        private void ShowLines(List<int> objNumbers)
+        private void ShowObjects(List<int> objNumbers)
         {
             try
             {
