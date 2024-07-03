@@ -92,7 +92,7 @@ namespace BaseModule.ControlsLib
             if (IsInputTypeChosen(TXTBoxInputType.Positive))
             {
                 return (IsPassRegExCheck("^(([1-9](\\d{1,}))|(\\d{1}))([.](\\d{1,}))?$")
-                    || IsPassRegExCheck("^(\\d{1})((([.])(\\d{1,}))?([e,E])([+]|[-])(\\d|[1-9]\\d{1,}))?$"))?
+                    || IsPassRegExCheck("^(\\d{1})((([.])(\\d{1,}))?([e,E])([+]|[-])(\\d{1,}))?$"))?
                     GetErrorCheckResult():
                     GetErrorCheckResult("Числовое поле не прошло проверку. Поле принимает только положительные числа");
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Windows.Forms;
 using TasksParameters;
 
@@ -13,6 +14,11 @@ namespace AdvisorControls.TaskPlannerControls
         public virtual string TaskName { get; }
 
         public event Action<object, EventArgs> ChangeDataEvent;
+
+        public virtual bool GetValidationResult()
+        {
+            throw new NotImplementedException("Метод \"GetValidationResult\" не реализован");
+        }
 
         public virtual GeneralParameters CollectData()
         {

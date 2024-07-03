@@ -59,6 +59,24 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             return mechParameters;
         }
 
+        public override bool GetValidationResult()
+        {
+            var checks = new List<bool>()
+            {
+                txbMaxDU.IsValueValid(),
+                txbMaxU.IsValueValid(),
+                txbMaxSiSt.IsValueValid(),
+                txbPrecision.IsValueValid(),
+                txbRelaxation.IsValueValid(),
+                txbSaveRate.IsValueValid(),
+                txbSolverIterations.IsValueValid(),
+                txbBodyTemp.IsValueValid(),
+                cmbPriority.IsValueValid(),
+                cmbSolver.IsValueValid()
+            };
+            return checks.All(x => x);
+        }
+
         public override void InputData(GeneralParameters parameters)
         {
             var mechParameters = (MechanicalParameters)parameters;
