@@ -34,11 +34,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArcWeldingControl));
             this.btnInfo = new System.Windows.Forms.Button();
-            this.voltageTextBox = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.voltageTextBox = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label8 = new System.Windows.Forms.Label();
-            this.weldPoolTextBox = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.weldPoolTextBox = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label4 = new System.Windows.Forms.Label();
-            this.currentTextBox = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.currentTextBox = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -58,7 +58,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.voltageTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.voltageTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.voltageTextBox.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Float;
+            this.voltageTextBox.InputType = BaseModule.ControlsLib.TXTBoxInputType.Float;
             this.voltageTextBox.IsValidating = true;
             this.voltageTextBox.Location = new System.Drawing.Point(178, 36);
             this.voltageTextBox.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -82,7 +82,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.weldPoolTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.weldPoolTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.weldPoolTextBox.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.weldPoolTextBox.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.weldPoolTextBox.IsValidating = true;
             this.weldPoolTextBox.Location = new System.Drawing.Point(178, 62);
             this.weldPoolTextBox.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -107,7 +107,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.currentTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.currentTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.currentTextBox.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Float;
+            this.currentTextBox.InputType = BaseModule.ControlsLib.TXTBoxInputType.Float;
             this.currentTextBox.IsValidating = true;
             this.currentTextBox.Location = new System.Drawing.Point(178, 10);
             this.currentTextBox.Margin = new System.Windows.Forms.Padding(178, 15, 15, 3);

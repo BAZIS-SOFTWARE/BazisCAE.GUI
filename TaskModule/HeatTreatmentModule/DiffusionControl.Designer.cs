@@ -48,21 +48,21 @@ namespace TaskModule.HeatTreatmentModule
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnAddNewRow = new System.Windows.Forms.Button();
-            this.txbStop = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
-            this.txbStart = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbStop = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbStart = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txbDiffCoefNitro = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbDiffCoefNitro = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label9 = new System.Windows.Forms.Label();
-            this.txbConcentrNitro = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
-            this.txbConcentrCarbon = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbConcentrNitro = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbConcentrCarbon = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label8 = new System.Windows.Forms.Label();
             this.rbtFunction = new System.Windows.Forms.RadioButton();
             this.rbtParam = new System.Windows.Forms.RadioButton();
-            this.cmbEl = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
-            this.cmbTempreture = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
-            this.txbDiffCoefCarbon = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.cmbEl = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbTempreture = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.txbDiffCoefCarbon = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -281,7 +281,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.txbStop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbStop.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbStop.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbStop.IsValidating = true;
             this.txbStop.Location = new System.Drawing.Point(177, 45);
             this.txbStop.Name = "txbStop";
@@ -294,7 +294,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.txbStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbStart.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbStart.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbStart.IsValidating = true;
             this.txbStart.Location = new System.Drawing.Point(177, 21);
             this.txbStart.Name = "txbStart";
@@ -352,7 +352,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.txbDiffCoefNitro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbDiffCoefNitro.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbDiffCoefNitro.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbDiffCoefNitro.IsValidating = true;
             this.txbDiffCoefNitro.Location = new System.Drawing.Point(177, 70);
             this.txbDiffCoefNitro.Name = "txbDiffCoefNitro";
@@ -374,7 +374,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.txbConcentrNitro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbConcentrNitro.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbConcentrNitro.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbConcentrNitro.IsValidating = true;
             this.txbConcentrNitro.Location = new System.Drawing.Point(177, 96);
             this.txbConcentrNitro.Name = "txbConcentrNitro";
@@ -387,7 +387,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.txbConcentrCarbon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbConcentrCarbon.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbConcentrCarbon.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbConcentrCarbon.IsValidating = true;
             this.txbConcentrCarbon.Location = new System.Drawing.Point(177, 44);
             this.txbConcentrCarbon.Name = "txbConcentrCarbon";
@@ -434,7 +434,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbEl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbEl.FormattingEnabled = true;
-            this.cmbEl.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Items;
+            this.cmbEl.InputType = BaseModule.ControlsLib.CMBInputType.Items;
             this.cmbEl.IsValidating = true;
             this.cmbEl.Location = new System.Drawing.Point(177, 149);
             this.cmbEl.Name = "cmbEl";
@@ -448,7 +448,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbTempreture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbTempreture.FormattingEnabled = true;
-            this.cmbTempreture.InputType = BaseModule.ControlsLib.Validation.CMBInputType.Float;
+            this.cmbTempreture.InputType = BaseModule.ControlsLib.CMBInputType.Float;
             this.cmbTempreture.IsValidating = true;
             this.cmbTempreture.Location = new System.Drawing.Point(324, 122);
             this.cmbTempreture.Name = "cmbTempreture";
@@ -461,7 +461,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.txbDiffCoefCarbon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbDiffCoefCarbon.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbDiffCoefCarbon.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbDiffCoefCarbon.IsValidating = true;
             this.txbDiffCoefCarbon.Location = new System.Drawing.Point(177, 19);
             this.txbDiffCoefCarbon.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -630,9 +630,9 @@ namespace TaskModule.HeatTreatmentModule
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private CMBValidator cmbEl;
-        private CMBValidator cmbTempreture;
-        private TextBoxValidator txbDiffCoefCarbon;
+        private ComboBoxEx cmbEl;
+        private ComboBoxEx cmbTempreture;
+        private TextBoxEx txbDiffCoefCarbon;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -648,15 +648,15 @@ namespace TaskModule.HeatTreatmentModule
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.Button btnAddNewRow;
-        private TextBoxValidator txbStop;
-        private TextBoxValidator txbStart;
+        private TextBoxEx txbStop;
+        private TextBoxEx txbStart;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.RadioButton rbtGammaFe;
-        private TextBoxValidator txbConcentrNitro;
-        private TextBoxValidator txbConcentrCarbon;
+        private TextBoxEx txbConcentrNitro;
+        private TextBoxEx txbConcentrCarbon;
         private System.Windows.Forms.Label label8;
-        private TextBoxValidator txbDiffCoefNitro;
+        private TextBoxEx txbDiffCoefNitro;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.RadioButton rbtAlphaFe;

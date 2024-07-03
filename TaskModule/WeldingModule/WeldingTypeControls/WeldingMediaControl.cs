@@ -246,11 +246,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 cmbFunc.IsValueValid(),
                 cmbNode.IsValueValid(),
                 cmbTermoCycle.IsValueValid()
+
             }; 
-            var wccHF = (WeldContainerControl)grbHeatFlux.Controls.Cast<Control>().First();
-            var wccTC = (WeldContainerControl)grbTermoCycle.Controls.Cast<Control>().First();
-            checks.AddRange(wccTC.GetValidatorsResults());
-            checks.AddRange(wccHF.GetValidatorsResults());
             return checks.All(x => x);
         }
     }

@@ -35,21 +35,21 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FSWeldingControl));
             this.btnInfo = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbFrictionModule = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
+            this.cmbFrictionModule = new BaseModule.ControlsLib.ComboBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.txbAxisForce = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
-            this.txbPinUpperDiam = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
-            this.txbPinBottomDiam = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
-            this.txbPinLenght = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
-            this.txbShoulderDiam = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbAxisForce = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbPinUpperDiam = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbPinBottomDiam = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbPinLenght = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbShoulderDiam = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.txbRotSpeed = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbRotSpeed = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label5 = new System.Windows.Forms.Label();
-            this.cmbYield = new BaseModule.ControlsLib.Validation.CMBValidator(this.components);
+            this.cmbYield = new BaseModule.ControlsLib.ComboBoxEx(this.components);
             this.rbtPin = new System.Windows.Forms.RadioButton();
             this.rbtShoulder = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
@@ -80,7 +80,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbFrictionModule.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbFrictionModule.FormattingEnabled = true;
-            this.cmbFrictionModule.InputType = ((BaseModule.ControlsLib.Validation.CMBInputType)((BaseModule.ControlsLib.Validation.CMBInputType.Items | BaseModule.ControlsLib.Validation.CMBInputType.Float)));
+            this.cmbFrictionModule.InputType = ((BaseModule.ControlsLib.CMBInputType)((BaseModule.ControlsLib.CMBInputType.Items | BaseModule.ControlsLib.CMBInputType.Float)));
             this.cmbFrictionModule.IsValidating = true;
             this.cmbFrictionModule.Location = new System.Drawing.Point(171, 202);
             this.cmbFrictionModule.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -104,7 +104,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbAxisForce.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbAxisForce.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbAxisForce.InputType = BaseModule.ControlsLib.Validation.TXTBoxInputType.Float;
+            this.txbAxisForce.InputType = BaseModule.ControlsLib.TXTBoxInputType.Float;
             this.txbAxisForce.IsValidating = true;
             this.txbAxisForce.Location = new System.Drawing.Point(171, 73);
             this.txbAxisForce.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -119,7 +119,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbPinUpperDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbPinUpperDiam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbPinUpperDiam.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbPinUpperDiam.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbPinUpperDiam.IsValidating = true;
             this.txbPinUpperDiam.Location = new System.Drawing.Point(171, 177);
             this.txbPinUpperDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -134,7 +134,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbPinBottomDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbPinBottomDiam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbPinBottomDiam.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbPinBottomDiam.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbPinBottomDiam.IsValidating = true;
             this.txbPinBottomDiam.Location = new System.Drawing.Point(171, 152);
             this.txbPinBottomDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -149,7 +149,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbPinLenght.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbPinLenght.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbPinLenght.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbPinLenght.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbPinLenght.IsValidating = true;
             this.txbPinLenght.Location = new System.Drawing.Point(171, 126);
             this.txbPinLenght.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -164,7 +164,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbShoulderDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbShoulderDiam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbShoulderDiam.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbShoulderDiam.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbShoulderDiam.IsValidating = true;
             this.txbShoulderDiam.Location = new System.Drawing.Point(171, 100);
             this.txbShoulderDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -223,7 +223,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbRotSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbRotSpeed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbRotSpeed.InputType = ((BaseModule.ControlsLib.Validation.TXTBoxInputType)((BaseModule.ControlsLib.Validation.TXTBoxInputType.Float | BaseModule.ControlsLib.Validation.TXTBoxInputType.Positive)));
+            this.txbRotSpeed.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbRotSpeed.IsValidating = true;
             this.txbRotSpeed.Location = new System.Drawing.Point(171, 48);
             this.txbRotSpeed.Margin = new System.Windows.Forms.Padding(178, 10, 15, 3);
@@ -248,7 +248,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbYield.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbYield.FormattingEnabled = true;
-            this.cmbYield.InputType = ((BaseModule.ControlsLib.Validation.CMBInputType)((BaseModule.ControlsLib.Validation.CMBInputType.Items | BaseModule.ControlsLib.Validation.CMBInputType.Float)));
+            this.cmbYield.InputType = ((BaseModule.ControlsLib.CMBInputType)((BaseModule.ControlsLib.CMBInputType.Items | BaseModule.ControlsLib.CMBInputType.Float)));
             this.cmbYield.IsValidating = true;
             this.cmbYield.Location = new System.Drawing.Point(171, 229);
             this.cmbYield.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);

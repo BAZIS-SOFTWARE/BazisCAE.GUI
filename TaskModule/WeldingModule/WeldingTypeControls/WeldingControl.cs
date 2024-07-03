@@ -68,6 +68,19 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             get { return txbAngle.Text; }
         }
 
+        WeldContainerControl HeatSourceControl
+        {
+            get 
+            {
+                var wcc = grbWeldRegime.Controls.Cast<Control>().Where(x => x is WeldContainerControl);
+
+                if (wcc.Count() == 0)
+                    return null;
+                else
+                    return (WeldContainerControl)wcc.First();
+            }
+        }
+
         string HeatSourceData
         {
             get
@@ -282,8 +295,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 cmbStopPoint.IsValueValid(),
                 cmbWeldZone.IsValueValid()
             };
-            var wcc = (WeldContainerControl)grbWeldRegime.Controls.Cast<Control>().First();
-            checks.AddRange(wcc.GetValidatorsResults());
+            if(HeatSourceControl != null)
+                checks.AddRange(HeatSourceControl.GetValidatorsResults());
+            
             return checks.All(x => x);
         }
 
