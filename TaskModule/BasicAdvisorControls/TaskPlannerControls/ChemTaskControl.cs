@@ -61,6 +61,13 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             return chemicalParameters;
         }
 
+        public override bool GetValidationResult()
+        {
+            return cmbPriority.IsValueValid() && cmbSolver.IsValueValid() && txbDTtMax.IsValueValid() && txbInitConcentration.IsValueValid()
+                && txbIters.IsValueValid() && txbPrecision.IsValueValid() && txbRelaxation.IsValueValid() && txbSaveRate.IsValueValid()
+                && txbSolverIterations.IsValueValid();
+        }
+
         public override void AllTextBox_TextChanged(object sender, EventArgs e)
         {
             if (sender is ComboBox cmb)

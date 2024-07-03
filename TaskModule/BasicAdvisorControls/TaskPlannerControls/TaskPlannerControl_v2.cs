@@ -13,6 +13,7 @@ using ProjectInterfaces.Tasks;
 using System.Text.RegularExpressions;
 using System.Linq;
 using TasksParameters;
+using System.Security.Cryptography.X509Certificates;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
@@ -97,6 +98,19 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
             // Set up the ToolTip text for the Button and Checkbox.
             toolTip.SetToolTip(btnLoadParameters, "Выберите директорию с *.tsf файлами");
+        }
+
+        public override bool IsValidated()
+        {
+            var checks = new List<bool>()
+            {
+                txbMaxStep.IsValueValid(),
+                txbMinStep.IsValueValid(),
+                txbStartStep.IsValueValid(),
+                txbStartTime.IsValueValid(),
+                txbStopTime.IsValueValid()
+            };
+            return checks.All(x => x);
         }
 
         public override string DataName { get; }
@@ -271,6 +285,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
+            if (!IsValidated()) return;
             try
             {
                 var status = dataGridView[(int)Column.status, CurentSelectedRowIndex].Value.ToString();
@@ -361,6 +376,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
+            if (!IsValidated()) return;
             try
             {
                 if (chbAddByTaskConditions.Checked)

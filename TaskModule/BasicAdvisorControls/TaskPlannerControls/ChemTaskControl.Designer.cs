@@ -1,4 +1,6 @@
-﻿namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
+﻿using BaseModule.ControlsLib;
+
+namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
     partial class ChemTaskControl
     {
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             this.chbDTtMax = new System.Windows.Forms.CheckBox();
-            this.txbDTtMax = new System.Windows.Forms.TextBox();
+            this.txbDTtMax = new TextBoxEx();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -38,14 +40,14 @@
             this.maxTMIter = new System.Windows.Forms.Label();
             this.lblSaveRateTM = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbPriority = new System.Windows.Forms.ComboBox();
-            this.txbRelaxation = new System.Windows.Forms.TextBox();
-            this.txbPrecision = new System.Windows.Forms.TextBox();
-            this.txbSolverIterations = new System.Windows.Forms.TextBox();
-            this.cmbSolver = new System.Windows.Forms.ComboBox();
-            this.txbSaveRate = new System.Windows.Forms.TextBox();
-            this.txbIters = new System.Windows.Forms.TextBox();
-            this.txbInitConcentration = new System.Windows.Forms.TextBox();
+            this.cmbPriority = new ComboBoxEx();
+            this.txbRelaxation = new TextBoxEx();
+            this.txbPrecision = new TextBoxEx();
+            this.txbSolverIterations = new TextBoxEx();
+            this.cmbSolver = new ComboBoxEx();
+            this.txbSaveRate = new TextBoxEx();
+            this.txbIters = new TextBoxEx();
+            this.txbInitConcentration = new TextBoxEx();
             this.SuspendLayout();
             // 
             // chbDTtMax
@@ -307,7 +309,7 @@
         #endregion
 
         private System.Windows.Forms.CheckBox chbDTtMax;
-        private System.Windows.Forms.TextBox txbDTtMax;
+        private TextBoxEx txbDTtMax;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label12;
@@ -316,13 +318,13 @@
         private System.Windows.Forms.Label maxTMIter;
         private System.Windows.Forms.Label lblSaveRateTM;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cmbPriority;
-        private System.Windows.Forms.TextBox txbRelaxation;
-        private System.Windows.Forms.TextBox txbPrecision;
-        private System.Windows.Forms.TextBox txbSolverIterations;
-        private System.Windows.Forms.ComboBox cmbSolver;
-        private System.Windows.Forms.TextBox txbSaveRate;
-        private System.Windows.Forms.TextBox txbIters;
-        private System.Windows.Forms.TextBox txbInitConcentration;
+        private ComboBoxEx cmbPriority;
+        private TextBoxEx txbRelaxation;
+        private TextBoxEx txbPrecision;
+        private TextBoxEx txbSolverIterations;
+        private ComboBoxEx cmbSolver;
+        private TextBoxEx txbSaveRate;
+        private TextBoxEx txbIters;
+        private TextBoxEx txbInitConcentration;
     }
 }
