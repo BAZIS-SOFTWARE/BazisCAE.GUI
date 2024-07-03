@@ -189,7 +189,6 @@ namespace TaskModule.BasicAdvisorControls
 
         public override bool IsValidated()
         {
-            var cancel = new CancelEventArgs();
             var checks = new List<bool>()
             {
                 txbStartTime.IsValueValid(),
@@ -197,9 +196,7 @@ namespace TaskModule.BasicAdvisorControls
                 cmbEl.IsValueValid(),
                 cmbMat.IsValueValid()
         };
-            var res = checks.All(x => x);
-            cancel.Cancel = !res;
-            return res;
+            return checks.All(x => x);
         }
 
         //private void dataGridView_SortCompare(object sender, DataGridViewSortCompareEventArgs e)

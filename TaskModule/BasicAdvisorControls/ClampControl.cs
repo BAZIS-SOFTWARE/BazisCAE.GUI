@@ -305,7 +305,6 @@ namespace TaskModule.BasicAdvisorControls
 
         public override bool IsValidated()
         {
-            var cancel = new CancelEventArgs();
             var checks = new List<bool>()
             {
                 txbStartTime.IsValueValid(),
@@ -314,9 +313,7 @@ namespace TaskModule.BasicAdvisorControls
                 cmbNodeGr.IsValueValid(),
                 cmbStiffnessFunc.IsValueValid()
         };
-            var res = checks.All(x => x);
-            cancel.Cancel = !res;
-            return res;
+            return checks.All(x => x);
         }
 
         //private void cmbNodeGr_Validating(object sender, CancelEventArgs e)

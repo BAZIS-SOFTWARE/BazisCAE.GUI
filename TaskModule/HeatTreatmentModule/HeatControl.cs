@@ -246,7 +246,6 @@ namespace TaskModule.HeatTreatmentModule
 
         public override bool IsValidated()
         {
-            var cancel = new CancelEventArgs();
             var checks = new List<bool>()
             {
                 txbStartTime.IsValueValid(),
@@ -258,9 +257,7 @@ namespace TaskModule.HeatTreatmentModule
                 convExcFunc.IsValueValid(),
                 StefanBolzmanConst.IsValueValid()
         };
-            var res = checks.All(x => x);
-            cancel.Cancel = !res;
-            return res;
+            return checks.All(x => x);
         }
     }
 }

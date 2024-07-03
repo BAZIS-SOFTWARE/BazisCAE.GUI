@@ -267,7 +267,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override bool IsValidated()
         {
-            var cancel = new CancelEventArgs();
             var checks = new List<bool>()
             {
                 txbStartTime.IsValueValid(),
@@ -285,10 +284,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             };
             var wcc = (WeldContainerControl)grbWeldRegime.Controls.Cast<Control>().First();
             checks.AddRange(wcc.GetValidatorsResults());
-
-            var res = checks.All(x => x);
-            cancel.Cancel = !res;
-            return res;
+            return checks.All(x => x);
         }
 
         private void dataGridView_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
