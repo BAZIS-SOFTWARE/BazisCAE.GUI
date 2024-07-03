@@ -4,6 +4,8 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.IO;
 using TasksParameters;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
@@ -63,9 +65,19 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         public override bool GetValidationResult()
         {
-            return cmbPriority.IsValueValid() && cmbSolver.IsValueValid() && txbDTtMax.IsValueValid() && txbInitConcentration.IsValueValid()
-                && txbIters.IsValueValid() && txbPrecision.IsValueValid() && txbRelaxation.IsValueValid() && txbSaveRate.IsValueValid()
-                && txbSolverIterations.IsValueValid();
+            var checks = new List<bool>()
+            {
+                cmbPriority.IsValueValid(),
+                cmbSolver.IsValueValid(),
+                txbDTtMax.IsValueValid(),
+                txbInitConcentration.IsValueValid(),
+                txbIters.IsValueValid(),
+                txbPrecision.IsValueValid(),
+                txbRelaxation.IsValueValid(),
+                txbSaveRate.IsValueValid(),
+                txbSolverIterations.IsValueValid()
+            };
+            return checks.All(x => x);
         }
 
         public override void AllTextBox_TextChanged(object sender, EventArgs e)
