@@ -1,4 +1,5 @@
 ﻿using BaseModule;
+using BaseModule.ControlsLib;
 using Geometry;
 using Model;
 using Model.GeometryObjects;
@@ -13,6 +14,7 @@ using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Security;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ScrollBar;
 
 namespace ModelModule
 {
@@ -148,14 +150,48 @@ namespace ModelModule
 
         private void MeshGenerator_setMeshGradientSettingsEvent(object arg1, MeshGradientSettingsEventArgs arg2)
         {
-            //TO DO 
-            // код задания настроек построения градиентной сетки
+            var ierr = 0;
+            int[] list;
+            GmshController.ModelMeshFieldList(out list);
+            if (list.Length != 0)
+            {
+                var field = list.First();
+                int[] points, curves, surfaces;
+                GmshController.ModelGetGeometryEntities(out points, 0);
+                GmshController.ModelGetGeometryEntities(out curves, 1);
+                GmshController.ModelGetGeometryEntities(out surfaces, 2);
+                var curveTags = curves.Where((v, i) => (i & 1) != 0)
+                                      .Select(v => (double)v).ToArray();
+                var surfTags = surfaces.Where((v, i) => (i & 1) != 0)
+                                       .Select(v => (double)v).ToArray();
+                GmshController.ModelMeshSetSize(points, (IntPtr)points.Length, arg2.surfaceMeshSize, ref ierr);
+                GmshController.ModelMeshFieldSetNumbers(field, "CurvesList", curveTags, (IntPtr)curveTags.Length, ref ierr);
+                GmshController.ModelMeshFieldSetNumbers(field, "SurfacesList", surfTags, (IntPtr)surfTags.Length, ref ierr);
+                GmshController.ModelMeshFieldSetNumber(field, "Power", arg2.gradientMeshPower, ref ierr);
+                GmshController.ModelMeshFieldSetNumber(field, "DistMax", arg2.layerThickness, ref ierr);
+                GmshController.ModelMeshFieldSetNumber(field, "SizeMax", arg2.coreMeshSize, ref ierr);
+                GmshController.ModelMeshFieldSetAsBackgroundMesh(field, ref ierr);
+                GmshController.OptionSetNumber("Mesh.MeshSizeExtendFromBoundary", -2, ref ierr);
+            }
         }
 
         private void MeshGenerator_switchMeshGradientEvent(object arg1, bool arg2)
         {
-            //TO DO 
-            // код включения и выключения в зависимости от флага arg2 опции построения градиентной сетки
+            if(arg2)
+            {
+                var ierr = 0;
+                var field = GmshController.ModelMeshFieldAdd("Extend", -1, ref ierr);
+            }
+            else
+            {
+                var ierr = 0;
+                int[] list, points;
+                GmshController.ModelMeshFieldList(out list);
+                GmshController.ModelMeshFieldRemove(list.First(), ref ierr);
+                GmshController.ModelGetGeometryEntities(out points, 0);
+                GmshController.ModelMeshRemoveConstraints(points, (IntPtr)points.Length, ref ierr);
+                GmshController.OptionSetNumber("Mesh.MeshSizeExtendFromBoundary", 1, ref ierr);
+            }
         }
 
         private void SetCurveDataEventHandler(object sender, int tag)
