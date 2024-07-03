@@ -295,11 +295,11 @@
     <Compile Include="WeldingModule\WeldingTypeControls\WeldContainerControl.Designer.cs">
       <DependentUpon>WeldContainerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="WeldingModule\WeldingTypeControls\WeldingControl.cs">
+    <Compile Include="WeldingModule\WeldingTypeControls\WeldingHeatingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WeldingModule\WeldingTypeControls\WeldingControl.Designer.cs">
-      <DependentUpon>WeldingControl.cs</DependentUpon>
+    <Compile Include="WeldingModule\WeldingTypeControls\WeldingHeatingControl.Designer.cs">
+      <DependentUpon>WeldingHeatingControl.cs</DependentUpon>
     </Compile>
     <Compile Include="WeldingModule\WeldingTypeControls\WeldingMediaControl.cs">
       <SubType>UserControl</SubType>
@@ -456,8 +456,8 @@
     <EmbeddedResource Include="WeldingModule\WeldingAdvisor.resx">
       <DependentUpon>WeldingAdvisor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WeldingModule\WeldingTypeControls\WeldingControl.resx">
-      <DependentUpon>WeldingControl.cs</DependentUpon>
+    <EmbeddedResource Include="WeldingModule\WeldingTypeControls\WeldingHeatingControl.resx">
+      <DependentUpon>WeldingHeatingControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BasicAdvisorControls\Resources\Pause.ico" />
     <EmbeddedResource Include="BasicAdvisorControls\Resources\StartCheck.ico" />

@@ -95,12 +95,12 @@ namespace TaskModule.HeatTreatmentModule
             this.ClmStart,
             this.ClmnStop});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(1, 400);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
+            this.dataGridView.Location = new System.Drawing.Point(7, 432);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(617, 244);
+            this.dataGridView.Size = new System.Drawing.Size(605, 206);
             this.dataGridView.TabIndex = 0;
             this.dataGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -194,11 +194,11 @@ namespace TaskModule.HeatTreatmentModule
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(1, 263);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(1, 1, 1, 0);
+            this.groupBox3.Location = new System.Drawing.Point(7, 281);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.groupBox3.Size = new System.Drawing.Size(617, 137);
+            this.groupBox3.Size = new System.Drawing.Size(605, 137);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Время действия";
@@ -214,7 +214,7 @@ namespace TaskModule.HeatTreatmentModule
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.player.MinimumSize = new System.Drawing.Size(215, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(426, 45);
+            this.player.Size = new System.Drawing.Size(409, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -229,6 +229,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             // btnHideAll
             // 
+            this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHideAll.Image = global::TaskModule.Properties.Resources.HideAll;
             this.btnHideAll.Location = new System.Drawing.Point(133, 79);
             this.btnHideAll.Name = "btnHideAll";
@@ -239,6 +240,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             // btnShowAll
             // 
+            this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowAll.Image = global::TaskModule.Properties.Resources.ShowAll;
             this.btnShowAll.Location = new System.Drawing.Point(101, 79);
             this.btnShowAll.Name = "btnShowAll";
@@ -249,6 +251,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             // btnRefresh
             // 
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Image = global::TaskModule.Properties.Resources.Refresh;
             this.btnRefresh.Location = new System.Drawing.Point(69, 79);
             this.btnRefresh.Name = "btnRefresh";
@@ -259,6 +262,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             // btnClearAll
             // 
+            this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = global::TaskModule.Properties.Resources.delete;
             this.btnClearAll.Location = new System.Drawing.Point(37, 79);
             this.btnClearAll.Name = "btnClearAll";
@@ -269,6 +273,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             // btnAddNewRow
             // 
+            this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewRow.Image = global::TaskModule.Properties.Resources.Add;
             this.btnAddNewRow.Location = new System.Drawing.Point(5, 79);
             this.btnAddNewRow.Name = "btnAddNewRow";
@@ -281,11 +286,12 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.txbStop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStop.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbStop.IsValidating = true;
             this.txbStop.Location = new System.Drawing.Point(177, 45);
             this.txbStop.Name = "txbStop";
-            this.txbStop.Size = new System.Drawing.Size(427, 20);
+            this.txbStop.Size = new System.Drawing.Size(409, 20);
             this.txbStop.TabIndex = 6;
             this.txbStop.UserRegExCheck = null;
             this.txbStop.UserRegExCheckErrorMessage = null;
@@ -294,11 +300,12 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.txbStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStart.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStart.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbStart.IsValidating = true;
             this.txbStart.Location = new System.Drawing.Point(177, 21);
             this.txbStart.Name = "txbStart";
-            this.txbStart.Size = new System.Drawing.Size(427, 20);
+            this.txbStart.Size = new System.Drawing.Size(409, 20);
             this.txbStart.TabIndex = 5;
             this.txbStart.UserRegExCheck = null;
             this.txbStart.UserRegExCheckErrorMessage = null;
@@ -339,11 +346,11 @@ namespace TaskModule.HeatTreatmentModule
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(1, 72);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(1);
+            this.groupBox2.Location = new System.Drawing.Point(7, 78);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox2.MinimumSize = new System.Drawing.Size(400, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(617, 189);
+            this.groupBox2.Size = new System.Drawing.Size(605, 189);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Параметры";
@@ -352,11 +359,12 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.txbDiffCoefNitro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbDiffCoefNitro.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbDiffCoefNitro.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbDiffCoefNitro.IsValidating = true;
             this.txbDiffCoefNitro.Location = new System.Drawing.Point(177, 70);
             this.txbDiffCoefNitro.Name = "txbDiffCoefNitro";
-            this.txbDiffCoefNitro.Size = new System.Drawing.Size(427, 20);
+            this.txbDiffCoefNitro.Size = new System.Drawing.Size(409, 20);
             this.txbDiffCoefNitro.TabIndex = 20;
             this.txbDiffCoefNitro.UserRegExCheck = null;
             this.txbDiffCoefNitro.UserRegExCheckErrorMessage = null;
@@ -374,11 +382,12 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.txbConcentrNitro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbConcentrNitro.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbConcentrNitro.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbConcentrNitro.IsValidating = true;
             this.txbConcentrNitro.Location = new System.Drawing.Point(177, 96);
             this.txbConcentrNitro.Name = "txbConcentrNitro";
-            this.txbConcentrNitro.Size = new System.Drawing.Size(427, 20);
+            this.txbConcentrNitro.Size = new System.Drawing.Size(409, 20);
             this.txbConcentrNitro.TabIndex = 18;
             this.txbConcentrNitro.UserRegExCheck = null;
             this.txbConcentrNitro.UserRegExCheckErrorMessage = null;
@@ -387,11 +396,12 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.txbConcentrCarbon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbConcentrCarbon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbConcentrCarbon.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbConcentrCarbon.IsValidating = true;
             this.txbConcentrCarbon.Location = new System.Drawing.Point(177, 44);
             this.txbConcentrCarbon.Name = "txbConcentrCarbon";
-            this.txbConcentrCarbon.Size = new System.Drawing.Size(427, 20);
+            this.txbConcentrCarbon.Size = new System.Drawing.Size(409, 20);
             this.txbConcentrCarbon.TabIndex = 17;
             this.txbConcentrCarbon.UserRegExCheck = null;
             this.txbConcentrCarbon.UserRegExCheckErrorMessage = null;
@@ -408,7 +418,7 @@ namespace TaskModule.HeatTreatmentModule
             // rbtFunction
             // 
             this.rbtFunction.AutoSize = true;
-            this.rbtFunction.Location = new System.Drawing.Point(247, 122);
+            this.rbtFunction.Location = new System.Drawing.Point(259, 123);
             this.rbtFunction.Name = "rbtFunction";
             this.rbtFunction.Size = new System.Drawing.Size(71, 17);
             this.rbtFunction.TabIndex = 11;
@@ -420,7 +430,7 @@ namespace TaskModule.HeatTreatmentModule
             // rbtParam
             // 
             this.rbtParam.AutoSize = true;
-            this.rbtParam.Location = new System.Drawing.Point(165, 122);
+            this.rbtParam.Location = new System.Drawing.Point(177, 123);
             this.rbtParam.Name = "rbtParam";
             this.rbtParam.Size = new System.Drawing.Size(76, 17);
             this.rbtParam.TabIndex = 10;
@@ -438,7 +448,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbEl.IsValidating = true;
             this.cmbEl.Location = new System.Drawing.Point(177, 149);
             this.cmbEl.Name = "cmbEl";
-            this.cmbEl.Size = new System.Drawing.Size(427, 21);
+            this.cmbEl.Size = new System.Drawing.Size(409, 21);
             this.cmbEl.TabIndex = 9;
             this.cmbEl.UserRegExCheck = null;
             this.cmbEl.UserRegExCheckErrorMessage = null;
@@ -450,9 +460,9 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbTempreture.FormattingEnabled = true;
             this.cmbTempreture.InputType = BaseModule.ControlsLib.CMBInputType.Float;
             this.cmbTempreture.IsValidating = true;
-            this.cmbTempreture.Location = new System.Drawing.Point(324, 122);
+            this.cmbTempreture.Location = new System.Drawing.Point(336, 122);
             this.cmbTempreture.Name = "cmbTempreture";
-            this.cmbTempreture.Size = new System.Drawing.Size(280, 21);
+            this.cmbTempreture.Size = new System.Drawing.Size(250, 21);
             this.cmbTempreture.TabIndex = 8;
             this.cmbTempreture.UserRegExCheck = null;
             this.cmbTempreture.UserRegExCheckErrorMessage = null;
@@ -461,12 +471,13 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.txbDiffCoefCarbon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbDiffCoefCarbon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbDiffCoefCarbon.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbDiffCoefCarbon.IsValidating = true;
             this.txbDiffCoefCarbon.Location = new System.Drawing.Point(177, 19);
-            this.txbDiffCoefCarbon.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
+            this.txbDiffCoefCarbon.Margin = new System.Windows.Forms.Padding(178, 3, 20, 3);
             this.txbDiffCoefCarbon.Name = "txbDiffCoefCarbon";
-            this.txbDiffCoefCarbon.Size = new System.Drawing.Size(427, 20);
+            this.txbDiffCoefCarbon.Size = new System.Drawing.Size(409, 20);
             this.txbDiffCoefCarbon.TabIndex = 4;
             this.txbDiffCoefCarbon.UserRegExCheck = null;
             this.txbDiffCoefCarbon.UserRegExCheckErrorMessage = null;
@@ -604,7 +615,7 @@ namespace TaskModule.HeatTreatmentModule
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.MinimumSize = new System.Drawing.Size(400, 0);
             this.Name = "DiffusionСontrol";
             this.Size = new System.Drawing.Size(619, 645);

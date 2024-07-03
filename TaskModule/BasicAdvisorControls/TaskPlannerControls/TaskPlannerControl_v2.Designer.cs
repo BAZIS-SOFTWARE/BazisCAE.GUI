@@ -199,7 +199,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.PrevResultLoadBtn.Enabled = false;
             this.PrevResultLoadBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PrevResultLoadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.PrevResultLoadBtn.Location = new System.Drawing.Point(264, 179);
+            this.PrevResultLoadBtn.Location = new System.Drawing.Point(259, 179);
             this.PrevResultLoadBtn.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.PrevResultLoadBtn.Name = "PrevResultLoadBtn";
             this.PrevResultLoadBtn.Size = new System.Drawing.Size(160, 28);
@@ -230,7 +230,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.StopButton.AutoSize = true;
             this.StopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.StopButton.Location = new System.Drawing.Point(604, 179);
+            this.StopButton.Location = new System.Drawing.Point(599, 179);
             this.StopButton.Margin = new System.Windows.Forms.Padding(3, 1, 15, 1);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(67, 28);
@@ -250,7 +250,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbStartStep.Location = new System.Drawing.Point(190, 80);
             this.txbStartStep.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStartStep.Name = "txbStartStep";
-            this.txbStartStep.Size = new System.Drawing.Size(481, 20);
+            this.txbStartStep.Size = new System.Drawing.Size(476, 20);
             this.txbStartStep.TabIndex = 76;
             this.txbStartStep.Tag = "2";
             this.txbStartStep.Text = "0.1";
@@ -261,7 +261,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnGenTCF.AutoSize = true;
             this.btnGenTCF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenTCF.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnGenTCF.Location = new System.Drawing.Point(430, 179);
+            this.btnGenTCF.Location = new System.Drawing.Point(425, 179);
             this.btnGenTCF.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.btnGenTCF.Name = "btnGenTCF";
             this.btnGenTCF.Size = new System.Drawing.Size(96, 28);
@@ -277,7 +277,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.StartButton.AutoSize = true;
             this.StartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StartButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.StartButton.Location = new System.Drawing.Point(532, 179);
+            this.StartButton.Location = new System.Drawing.Point(527, 179);
             this.StartButton.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(66, 28);
@@ -337,7 +337,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbMaxStep.Location = new System.Drawing.Point(190, 132);
             this.txbMaxStep.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbMaxStep.Name = "txbMaxStep";
-            this.txbMaxStep.Size = new System.Drawing.Size(481, 20);
+            this.txbMaxStep.Size = new System.Drawing.Size(476, 20);
             this.txbMaxStep.TabIndex = 74;
             this.txbMaxStep.Tag = "4";
             this.txbMaxStep.Text = "100";
@@ -352,7 +352,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbMinStep.Location = new System.Drawing.Point(190, 106);
             this.txbMinStep.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbMinStep.Name = "txbMinStep";
-            this.txbMinStep.Size = new System.Drawing.Size(481, 20);
+            this.txbMinStep.Size = new System.Drawing.Size(476, 20);
             this.txbMinStep.TabIndex = 75;
             this.txbMinStep.Tag = "3";
             this.txbMinStep.Text = "0.00001";
@@ -407,9 +407,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.txbStartTime.Location = new System.Drawing.Point(190, 28);
-            this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 15, 15, 3);
+            this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 15, 20, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(481, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(476, 20);
             this.txbStartTime.TabIndex = 44;
             this.txbStartTime.Tag = "0";
             // 
@@ -435,7 +435,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbStopTime.Location = new System.Drawing.Point(190, 54);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(481, 20);
+            this.txbStopTime.Size = new System.Drawing.Size(476, 20);
             this.txbStopTime.TabIndex = 40;
             this.txbStopTime.Tag = "1";
             // 
@@ -591,7 +591,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             // grbTaskSettings
             // 
+            this.grbTaskSettings.CheckState = true;
             this.grbTaskSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grbTaskSettings.IsCheckable = false;
+            this.grbTaskSettings.IsExpanded = true;
+            this.grbTaskSettings.IsRollable = true;
             this.grbTaskSettings.Location = new System.Drawing.Point(7, 115);
             this.grbTaskSettings.Margin = new System.Windows.Forms.Padding(7);
             this.grbTaskSettings.MinimumSize = new System.Drawing.Size(0, 15);

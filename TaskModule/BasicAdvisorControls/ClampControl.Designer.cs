@@ -187,10 +187,10 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStopTime.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbStopTime.IsValidating = true;
-            this.txbStopTime.Location = new System.Drawing.Point(174, 54);
+            this.txbStopTime.Location = new System.Drawing.Point(170, 55);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(398, 20);
+            this.txbStopTime.Size = new System.Drawing.Size(397, 20);
             this.txbStopTime.TabIndex = 1;
             this.txbStopTime.UserRegExCheck = null;
             this.txbStopTime.UserRegExCheckErrorMessage = null;
@@ -259,10 +259,10 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartTime.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbStartTime.IsValidating = true;
-            this.txbStartTime.Location = new System.Drawing.Point(174, 28);
+            this.txbStartTime.Location = new System.Drawing.Point(170, 29);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 15, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(398, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(397, 20);
             this.txbStartTime.TabIndex = 0;
             this.txbStartTime.UserRegExCheck = null;
             this.txbStartTime.UserRegExCheckErrorMessage = null;
@@ -367,10 +367,10 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbNodeGr.FormattingEnabled = true;
             this.cmbNodeGr.InputType = BaseModule.ControlsLib.CMBInputType.Items;
             this.cmbNodeGr.IsValidating = true;
-            this.cmbNodeGr.Location = new System.Drawing.Point(171, 24);
-            this.cmbNodeGr.Margin = new System.Windows.Forms.Padding(178, 25, 15, 3);
+            this.cmbNodeGr.Location = new System.Drawing.Point(170, 24);
+            this.cmbNodeGr.Margin = new System.Windows.Forms.Padding(178, 25, 20, 3);
             this.cmbNodeGr.Name = "cmbNodeGr";
-            this.cmbNodeGr.Size = new System.Drawing.Size(402, 21);
+            this.cmbNodeGr.Size = new System.Drawing.Size(397, 21);
             this.cmbNodeGr.TabIndex = 43;
             this.cmbNodeGr.UserRegExCheck = null;
             this.cmbNodeGr.UserRegExCheckErrorMessage = null;
@@ -406,7 +406,7 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbKind.Location = new System.Drawing.Point(170, 51);
             this.cmbKind.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbKind.Name = "cmbKind";
-            this.cmbKind.Size = new System.Drawing.Size(402, 21);
+            this.cmbKind.Size = new System.Drawing.Size(397, 21);
             this.cmbKind.TabIndex = 36;
             this.cmbKind.UserRegExCheck = null;
             this.cmbKind.UserRegExCheckErrorMessage = null;
@@ -464,7 +464,7 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbStiffnessFunc.Location = new System.Drawing.Point(170, 60);
             this.cmbStiffnessFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbStiffnessFunc.Name = "cmbStiffnessFunc";
-            this.cmbStiffnessFunc.Size = new System.Drawing.Size(402, 21);
+            this.cmbStiffnessFunc.Size = new System.Drawing.Size(397, 21);
             this.cmbStiffnessFunc.TabIndex = 1;
             this.cmbStiffnessFunc.UserRegExCheck = null;
             this.cmbStiffnessFunc.UserRegExCheckErrorMessage = null;

@@ -33,7 +33,7 @@ namespace TaskModule.HeatTreatmentModule
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -141,7 +141,7 @@ namespace TaskModule.HeatTreatmentModule
             this.blackRank.Location = new System.Drawing.Point(171, 118);
             this.blackRank.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.blackRank.Name = "blackRank";
-            this.blackRank.Size = new System.Drawing.Size(334, 20);
+            this.blackRank.Size = new System.Drawing.Size(328, 20);
             this.blackRank.TabIndex = 28;
             this.blackRank.UserRegExCheck = null;
             this.blackRank.UserRegExCheckErrorMessage = null;
@@ -190,7 +190,7 @@ namespace TaskModule.HeatTreatmentModule
             this.StefanBolzmanConst.Location = new System.Drawing.Point(171, 92);
             this.StefanBolzmanConst.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.StefanBolzmanConst.Name = "StefanBolzmanConst";
-            this.StefanBolzmanConst.Size = new System.Drawing.Size(334, 20);
+            this.StefanBolzmanConst.Size = new System.Drawing.Size(328, 20);
             this.StefanBolzmanConst.TabIndex = 25;
             this.StefanBolzmanConst.UserRegExCheck = null;
             this.StefanBolzmanConst.UserRegExCheckErrorMessage = null;
@@ -206,7 +206,7 @@ namespace TaskModule.HeatTreatmentModule
             this.convExcFunc.Location = new System.Drawing.Point(171, 66);
             this.convExcFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.convExcFunc.Name = "convExcFunc";
-            this.convExcFunc.Size = new System.Drawing.Size(334, 20);
+            this.convExcFunc.Size = new System.Drawing.Size(328, 20);
             this.convExcFunc.TabIndex = 24;
             this.convExcFunc.UserRegExCheck = null;
             this.convExcFunc.UserRegExCheckErrorMessage = null;
@@ -221,7 +221,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbTempFunc.Location = new System.Drawing.Point(171, 144);
             this.cmbTempFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbTempFunc.Name = "cmbTempFunc";
-            this.cmbTempFunc.Size = new System.Drawing.Size(334, 21);
+            this.cmbTempFunc.Size = new System.Drawing.Size(328, 21);
             this.cmbTempFunc.TabIndex = 23;
             this.cmbTempFunc.UserRegExCheck = null;
             this.cmbTempFunc.UserRegExCheckErrorMessage = null;
@@ -254,7 +254,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbExchFunc.Location = new System.Drawing.Point(171, 38);
             this.cmbExchFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbExchFunc.Name = "cmbExchFunc";
-            this.cmbExchFunc.Size = new System.Drawing.Size(334, 21);
+            this.cmbExchFunc.Size = new System.Drawing.Size(328, 21);
             this.cmbExchFunc.TabIndex = 17;
             this.cmbExchFunc.UserRegExCheck = null;
             this.cmbExchFunc.UserRegExCheckErrorMessage = null;
@@ -279,15 +279,15 @@ namespace TaskModule.HeatTreatmentModule
             this.Column1,
             this.startColumn,
             this.stopColumn});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.NullValue = " ";
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.NullValue = " ";
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.Location = new System.Drawing.Point(7, 425);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
@@ -370,7 +370,7 @@ namespace TaskModule.HeatTreatmentModule
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.player.MinimumSize = new System.Drawing.Size(215, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(334, 45);
+            this.player.Size = new System.Drawing.Size(328, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -411,7 +411,7 @@ namespace TaskModule.HeatTreatmentModule
             this.txbStopTime.Location = new System.Drawing.Point(171, 50);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(334, 20);
+            this.txbStopTime.Size = new System.Drawing.Size(328, 20);
             this.txbStopTime.TabIndex = 1;
             this.txbStopTime.UserRegExCheck = null;
             this.txbStopTime.UserRegExCheckErrorMessage = null;
@@ -497,7 +497,7 @@ namespace TaskModule.HeatTreatmentModule
             this.txbStartTime.Location = new System.Drawing.Point(171, 24);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(334, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(328, 20);
             this.txbStartTime.TabIndex = 0;
             this.txbStartTime.UserRegExCheck = null;
             this.txbStartTime.UserRegExCheckErrorMessage = null;
@@ -526,10 +526,10 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbEl.IsValidating = true;
             this.cmbEl.Items.AddRange(new object[] {
             "test"});
-            this.cmbEl.Location = new System.Drawing.Point(170, 24);
-            this.cmbEl.Margin = new System.Windows.Forms.Padding(3, 25, 15, 3);
+            this.cmbEl.Location = new System.Drawing.Point(171, 24);
+            this.cmbEl.Margin = new System.Windows.Forms.Padding(3, 25, 20, 3);
             this.cmbEl.Name = "cmbEl";
-            this.cmbEl.Size = new System.Drawing.Size(334, 21);
+            this.cmbEl.Size = new System.Drawing.Size(328, 21);
             this.cmbEl.TabIndex = 18;
             this.cmbEl.UserRegExCheck = null;
             this.cmbEl.UserRegExCheckErrorMessage = null;
