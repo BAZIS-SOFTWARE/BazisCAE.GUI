@@ -244,7 +244,7 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStopTime.Location = new System.Drawing.Point(171, 50);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(362, 20);
+            this.txbStopTime.Size = new System.Drawing.Size(356, 20);
             this.txbStopTime.TabIndex = 1;
             this.txbStopTime.UserRegExCheck = null;
             this.txbStopTime.UserRegExCheckErrorMessage = null;
@@ -259,7 +259,7 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStartTime.Location = new System.Drawing.Point(171, 24);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 25, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(362, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(356, 20);
             this.txbStartTime.TabIndex = 0;
             this.txbStartTime.UserRegExCheck = null;
             this.txbStartTime.UserRegExCheckErrorMessage = null;
@@ -375,7 +375,7 @@ namespace TaskModule.BasicAdvisorControls
             this.txbValue.Location = new System.Drawing.Point(171, 107);
             this.txbValue.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbValue.Name = "txbValue";
-            this.txbValue.Size = new System.Drawing.Size(362, 20);
+            this.txbValue.Size = new System.Drawing.Size(356, 20);
             this.txbValue.TabIndex = 45;
             this.txbValue.UserRegExCheck = null;
             this.txbValue.UserRegExCheckErrorMessage = null;
@@ -402,7 +402,7 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbGr.Location = new System.Drawing.Point(171, 80);
             this.cmbGr.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbGr.Name = "cmbGr";
-            this.cmbGr.Size = new System.Drawing.Size(362, 21);
+            this.cmbGr.Size = new System.Drawing.Size(356, 21);
             this.cmbGr.TabIndex = 43;
             this.cmbGr.UserRegExCheck = null;
             this.cmbGr.UserRegExCheckErrorMessage = null;
@@ -446,7 +446,7 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbLoadFunction.Location = new System.Drawing.Point(171, 133);
             this.cmbLoadFunction.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbLoadFunction.Name = "cmbLoadFunction";
-            this.cmbLoadFunction.Size = new System.Drawing.Size(362, 21);
+            this.cmbLoadFunction.Size = new System.Drawing.Size(356, 21);
             this.cmbLoadFunction.TabIndex = 36;
             this.cmbLoadFunction.UserRegExCheck = null;
             this.cmbLoadFunction.UserRegExCheckErrorMessage = null;
@@ -462,9 +462,9 @@ namespace TaskModule.BasicAdvisorControls
             "Сила",
             "Перемещение"});
             this.cmbKind.Location = new System.Drawing.Point(171, 24);
-            this.cmbKind.Margin = new System.Windows.Forms.Padding(178, 25, 15, 3);
+            this.cmbKind.Margin = new System.Windows.Forms.Padding(178, 25, 20, 3);
             this.cmbKind.Name = "cmbKind";
-            this.cmbKind.Size = new System.Drawing.Size(362, 21);
+            this.cmbKind.Size = new System.Drawing.Size(356, 21);
             this.cmbKind.TabIndex = 36;
             this.cmbKind.UserRegExCheck = null;
             this.cmbKind.UserRegExCheckErrorMessage = null;

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
-    partial class WeldingControl
+    partial class WeldingHeatingControl
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -33,9 +33,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.player = new BaseModule.ControlsLib.Player();
@@ -163,7 +163,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 15, 0);
             this.player.MinimumSize = new System.Drawing.Size(215, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(351, 45);
+            this.player.Size = new System.Drawing.Size(341, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -260,7 +260,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbStartTime.Location = new System.Drawing.Point(171, 210);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(347, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(341, 20);
             this.txbStartTime.TabIndex = 43;
             this.txbStartTime.UserRegExCheck = null;
             this.txbStartTime.UserRegExCheckErrorMessage = null;
@@ -284,7 +284,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbStopPoint.Location = new System.Drawing.Point(171, 131);
             this.cmbStopPoint.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbStopPoint.Name = "cmbStopPoint";
-            this.cmbStopPoint.Size = new System.Drawing.Size(347, 21);
+            this.cmbStopPoint.Size = new System.Drawing.Size(341, 21);
             this.cmbStopPoint.TabIndex = 36;
             this.cmbStopPoint.UserRegExCheck = null;
             this.cmbStopPoint.UserRegExCheckErrorMessage = null;
@@ -299,7 +299,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbStartPoint.Location = new System.Drawing.Point(171, 104);
             this.cmbStartPoint.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbStartPoint.Name = "cmbStartPoint";
-            this.cmbStartPoint.Size = new System.Drawing.Size(347, 21);
+            this.cmbStartPoint.Size = new System.Drawing.Size(341, 21);
             this.cmbStartPoint.TabIndex = 35;
             this.cmbStartPoint.UserRegExCheck = null;
             this.cmbStartPoint.UserRegExCheckErrorMessage = null;
@@ -433,7 +433,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbVelosity.Location = new System.Drawing.Point(171, 184);
             this.txbVelosity.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbVelosity.Name = "txbVelosity";
-            this.txbVelosity.Size = new System.Drawing.Size(347, 20);
+            this.txbVelosity.Size = new System.Drawing.Size(341, 20);
             this.txbVelosity.TabIndex = 31;
             this.txbVelosity.UserRegExCheck = null;
             this.txbVelosity.UserRegExCheckErrorMessage = null;
@@ -494,7 +494,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbEnergyCalibration.Location = new System.Drawing.Point(170, 77);
             this.cmbEnergyCalibration.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbEnergyCalibration.Name = "cmbEnergyCalibration";
-            this.cmbEnergyCalibration.Size = new System.Drawing.Size(347, 21);
+            this.cmbEnergyCalibration.Size = new System.Drawing.Size(342, 21);
             this.cmbEnergyCalibration.TabIndex = 29;
             this.cmbEnergyCalibration.UserRegExCheck = null;
             this.cmbEnergyCalibration.UserRegExCheckErrorMessage = null;
@@ -509,7 +509,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbRef.Location = new System.Drawing.Point(170, 50);
             this.cmbRef.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbRef.Name = "cmbRef";
-            this.cmbRef.Size = new System.Drawing.Size(347, 21);
+            this.cmbRef.Size = new System.Drawing.Size(342, 21);
             this.cmbRef.TabIndex = 29;
             this.cmbRef.UserRegExCheck = null;
             this.cmbRef.UserRegExCheckErrorMessage = null;
@@ -524,7 +524,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbTraj.Location = new System.Drawing.Point(170, 23);
             this.cmbTraj.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
             this.cmbTraj.Name = "cmbTraj";
-            this.cmbTraj.Size = new System.Drawing.Size(347, 21);
+            this.cmbTraj.Size = new System.Drawing.Size(342, 21);
             this.cmbTraj.TabIndex = 29;
             this.cmbTraj.UserRegExCheck = null;
             this.cmbTraj.UserRegExCheckErrorMessage = null;
@@ -533,15 +533,15 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             this.dataGridView.AllowUserToAddRows = false;
             this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.NullValue = " ";
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.NullValue = " ";
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.видСварки,
@@ -555,9 +555,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 20;
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             this.dataGridView.Size = new System.Drawing.Size(532, 207);
@@ -592,8 +592,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // stopColumn
             // 
             this.stopColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle20.NullValue = "0";
-            this.stopColumn.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle5.NullValue = "0";
+            this.stopColumn.DefaultCellStyle = dataGridViewCellStyle5;
             this.stopColumn.HeaderText = "Стоп";
             this.stopColumn.MinimumWidth = 6;
             this.stopColumn.Name = "stopColumn";
@@ -639,9 +639,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbWeldZone.InputType = BaseModule.ControlsLib.CMBInputType.Items;
             this.cmbWeldZone.IsValidating = true;
             this.cmbWeldZone.Location = new System.Drawing.Point(170, 24);
-            this.cmbWeldZone.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
+            this.cmbWeldZone.Margin = new System.Windows.Forms.Padding(15, 25, 20, 3);
             this.cmbWeldZone.Name = "cmbWeldZone";
-            this.cmbWeldZone.Size = new System.Drawing.Size(347, 21);
+            this.cmbWeldZone.Size = new System.Drawing.Size(342, 21);
             this.cmbWeldZone.TabIndex = 38;
             this.cmbWeldZone.UserRegExCheck = null;
             this.cmbWeldZone.UserRegExCheckErrorMessage = null;
@@ -653,6 +653,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.grbWeldRegime.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbWeldRegime.ForeColor = System.Drawing.Color.Black;
             this.grbWeldRegime.IsCheckable = false;
+            this.grbWeldRegime.IsExpanded = true;
             this.grbWeldRegime.IsRollable = true;
             this.grbWeldRegime.Location = new System.Drawing.Point(7, 82);
             this.grbWeldRegime.Margin = new System.Windows.Forms.Padding(7);
@@ -679,7 +680,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.tsmiSpecifyHeatingZone.Text = "Уточнить зону нагрева";
             this.tsmiSpecifyHeatingZone.Click += new System.EventHandler(this.tsmiSpecifyHeatingZone_Click);
             // 
-            // WeldingControl
+            // WeldingHeatingControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -687,7 +688,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(5);
             this.MinimumSize = new System.Drawing.Size(300, 300);
-            this.Name = "WeldingControl";
+            this.Name = "WeldingHeatingControl";
             this.Size = new System.Drawing.Size(546, 638);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

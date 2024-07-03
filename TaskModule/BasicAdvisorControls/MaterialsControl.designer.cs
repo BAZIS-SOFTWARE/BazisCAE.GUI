@@ -166,7 +166,7 @@ namespace TaskModule.BasicAdvisorControls
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.player.MinimumSize = new System.Drawing.Size(215, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(580, 45);
+            this.player.Size = new System.Drawing.Size(573, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -207,9 +207,9 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStopTime.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbStopTime.IsValidating = true;
             this.txbStopTime.Location = new System.Drawing.Point(171, 46);
-            this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(577, 20);
+            this.txbStopTime.Size = new System.Drawing.Size(573, 20);
             this.txbStopTime.TabIndex = 1;
             this.txbStopTime.UserRegExCheck = null;
             this.txbStopTime.UserRegExCheckErrorMessage = null;
@@ -292,10 +292,10 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartTime.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
             this.txbStartTime.IsValidating = true;
-            this.txbStartTime.Location = new System.Drawing.Point(171, 19);
-            this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbStartTime.Location = new System.Drawing.Point(171, 20);
+            this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(578, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(573, 20);
             this.txbStartTime.TabIndex = 0;
             this.txbStartTime.UserRegExCheck = null;
             this.txbStartTime.UserRegExCheckErrorMessage = null;
@@ -339,7 +339,7 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbMat.IsValidating = true;
             this.cmbMat.Location = new System.Drawing.Point(171, 51);
             this.cmbMat.Name = "cmbMat";
-            this.cmbMat.Size = new System.Drawing.Size(577, 21);
+            this.cmbMat.Size = new System.Drawing.Size(573, 21);
             this.cmbMat.TabIndex = 13;
             this.cmbMat.UserRegExCheck = null;
             this.cmbMat.UserRegExCheckErrorMessage = null;
@@ -362,9 +362,9 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbEl.InputType = BaseModule.ControlsLib.CMBInputType.Items;
             this.cmbEl.IsValidating = true;
             this.cmbEl.Location = new System.Drawing.Point(171, 24);
-            this.cmbEl.Margin = new System.Windows.Forms.Padding(3, 25, 15, 3);
+            this.cmbEl.Margin = new System.Windows.Forms.Padding(3, 25, 20, 3);
             this.cmbEl.Name = "cmbEl";
-            this.cmbEl.Size = new System.Drawing.Size(578, 21);
+            this.cmbEl.Size = new System.Drawing.Size(573, 21);
             this.cmbEl.TabIndex = 14;
             this.cmbEl.UserRegExCheck = null;
             this.cmbEl.UserRegExCheckErrorMessage = null;

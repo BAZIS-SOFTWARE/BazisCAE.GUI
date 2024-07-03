@@ -14,7 +14,7 @@ using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
-    public partial class WeldingControl : CheckedGridViewAdviserControl, ILoadControl, IFunctionsRelatedControl, ICheckGridViewControl
+    public partial class WeldingHeatingControl : CheckedGridViewAdviserControl, ILoadControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
         List<string> funcs = new List<string>();
 
@@ -134,7 +134,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             }
         }
 
-        public WeldingControl()
+        public WeldingHeatingControl()
         {
             InitializeComponent();
             DataName = "Нагрев";

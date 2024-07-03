@@ -45,7 +45,7 @@ namespace TaskModule.WeldingModule
             this.pgMedia = new System.Windows.Forms.TabPage();
             this.mediaControl1 = new TaskModule.WeldingModule.WeldingTypeControls.WeldingMediaControl();
             this.pdgWeldingRegime = new System.Windows.Forms.TabPage();
-            this.weldingControl = new TaskModule.WeldingModule.WeldingTypeControls.WeldingControl();
+            this.weldingControl = new TaskModule.WeldingModule.WeldingTypeControls.WeldingHeatingControl();
             this.pdgClamps = new System.Windows.Forms.TabPage();
             this.clampControl = new TaskModule.BasicAdvisorControls.ClampControl();
             this.pdgLoad = new System.Windows.Forms.TabPage();
@@ -413,7 +413,7 @@ namespace TaskModule.WeldingModule
         private System.Windows.Forms.TabPage pdgLoad;
         private LoadControl loadControl1;
         private System.Windows.Forms.TabPage pdgWeldingRegime;
-        private WeldingControl weldingControl;
+        private WeldingHeatingControl weldingControl;
         private System.Windows.Forms.TabPage pgMedia;
         private WeldingMediaControl mediaControl1;
         private System.Windows.Forms.TabPage pdgTaskType;
