@@ -55,44 +55,24 @@ namespace BaseModule.ControlsLib.Validation
 
         public bool IsValueValid()
         {
-            if (!IsValidating)
-                return true;
+            if (!IsValidating) return true;
 
             if (Text.Equals(string.Empty))
             {
-                if (IsInputTypeChosen(TXTBoxInputType.Empty))
-                    return GetErrorCheckResult();
+                if (IsInputTypeChosen(TXTBoxInputType.Empty)) return GetErrorCheckResult();
 
-                return Enabled ?
-                    GetErrorCheckResult("Поле оставлено пустым") :
-                    GetErrorCheckResult();
+                if (Enabled) return GetErrorCheckResult("Поле оставлено пустым");
             }
 
-            if (IsInputTypeChosen(TXTBoxInputType.Integer))
-            {
-                var res = HandleIntegerValue();
-                if (res) return res;
-            }
+            if (IsInputTypeChosen(TXTBoxInputType.Integer)) return HandleIntegerValue();
 
-            if (IsInputTypeChosen(TXTBoxInputType.Float))
-            {
-                var res = HandleFloatValue();
-                if (res) return res;
-            }
+            if (IsInputTypeChosen(TXTBoxInputType.Float)) return HandleFloatValue();
 
-            if (IsInputTypeChosen(TXTBoxInputType.User))
-            {
-                var res = HandleUserCheckValue();
-                if (res) return res;
-            }
+            if (IsInputTypeChosen(TXTBoxInputType.User)) return HandleUserCheckValue();
 
-            if (IsInputTypeChosen(TXTBoxInputType.Text))
-                return Text.Any(x => IligalSymbols.Contains(x)) ?
-                GetErrorCheckResult("Переданная строка содержит неподдерживаемые символы") :
-                HandleIntegerValue();
+            if (IsInputTypeChosen(TXTBoxInputType.Text)) return HandleTextValue();
 
-            return GetErrorCheckResult($"Поле с валидирующим обработчиком типа {InputType} не было обработано ни одним обработчиком." +
-                $"Ошибка в веденном значении или типе обработки");
+            return GetErrorCheckResult();
         }
 
         private bool GetErrorCheckResult(string errorMessage = "")
@@ -141,6 +121,13 @@ namespace BaseModule.ControlsLib.Validation
             return IsPassRegExCheck(UserRegExCheck) ?
                 GetErrorCheckResult() :
                 GetErrorCheckResult(UserRegExCheckErrorMessage);
+        }
+
+        private bool HandleTextValue()
+        {
+            return Text.Any(x => IligalSymbols.Contains(x)) ?
+                GetErrorCheckResult("Переданная строка содержит неподдерживаемые символы") :
+                HandleIntegerValue();
         }
 
         private bool IsPassRegExCheck(string regEx) => Regex.IsMatch(Text, regEx);
