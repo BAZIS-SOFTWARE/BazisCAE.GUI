@@ -1,9 +1,10 @@
-﻿using System.ComponentModel;
+﻿using BaseModule.ControlsLib.Validation;
+using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace BaseModule.ControlsLib.Validation
+namespace BaseModule.ControlsLib
 {
-    partial class TextBoxValidator : IValidatorControl
+    partial class TextBoxEx : IValidatorControl
     {
         /// <summary>
         /// Обязательная переменная конструктора.

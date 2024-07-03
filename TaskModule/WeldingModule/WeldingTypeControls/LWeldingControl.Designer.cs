@@ -1,4 +1,5 @@
-﻿using BaseModule.ControlsLib.Validation;
+﻿using BaseModule.ControlsLib;
+using BaseModule.ControlsLib.Validation;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -32,10 +33,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LWeldingControl));
-            this.txbBeamBottomDiam = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
-            this.txbBeamUpperDiam = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
-            this.txbPower = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
-            this.txbBeamLenght = new BaseModule.ControlsLib.Validation.TextBoxValidator(this.components);
+            this.txbBeamBottomDiam = new TextBoxEx(this.components);
+            this.txbBeamUpperDiam = new TextBoxEx(this.components);
+            this.txbPower = new TextBoxEx(this.components);
+            this.txbBeamLenght = new TextBoxEx(this.components);
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -176,10 +177,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         #endregion
 
-        private TextBoxValidator txbBeamBottomDiam;
-        private TextBoxValidator txbBeamUpperDiam;
-        private TextBoxValidator txbPower;
-        private TextBoxValidator txbBeamLenght;
+        private TextBoxEx txbBeamBottomDiam;
+        private TextBoxEx txbBeamUpperDiam;
+        private TextBoxEx txbPower;
+        private TextBoxEx txbBeamLenght;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label1;

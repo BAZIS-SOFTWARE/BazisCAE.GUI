@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseModule.ControlsLib.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -9,7 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BaseModule.ControlsLib.Validation
+namespace BaseModule.ControlsLib
 {
     [Flags]
     public enum TXTBoxInputType
@@ -23,13 +24,13 @@ namespace BaseModule.ControlsLib.Validation
         Empty = 64
     }
 
-    public partial class TextBoxValidator : TextBox, IValidatorControl
+    public partial class TextBoxEx : TextBox, IValidatorControl
     {
         public char[] IligalSymbols = new[] { ' ' };
 
-        public TextBoxValidator() { InitializeComponent(); InitializeErrorProvider(); }
+        public TextBoxEx() { InitializeComponent(); InitializeErrorProvider(); }
 
-        public TextBoxValidator(IContainer container)
+        public TextBoxEx(IContainer container)
         {
             container.Add(this);
 

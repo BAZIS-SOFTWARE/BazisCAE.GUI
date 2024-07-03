@@ -104,49 +104,58 @@ namespace ModelModule
                 };
                 gmshForm.FormClosing += GmshForm_FormClosing;
 
-
-                meshGenerator.Load += (ar1, ar2) =>
-                {
-                    if (GmshController != null)
-                    {
-                        var ierr = 0;
-                        meshGenerator.FillGeometryTreeView(GmshController);
-                        if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
-                            meshGenerator.ShowHideGeneralTabControls(2, true);
-                    }
-
-                    meshGenerator.ShowHideGeneralTabControls(1);
-                    meshGenerator.ShowHideTabControls(1);
-                };
-
                 meshGenerator.setMeshAlgoEvent += (ar) =>
                 {
-                    var ierr = 0;
-                    GmshController.OptionSetNumber("Mesh.Algorithm", ar, ref ierr);
+                    var ierrAlgo = 0;
+                    GmshController.OptionSetNumber("Mesh.Algorithm", ar, ref ierrAlgo);
                 };
-                meshGenerator.showSurfaceInfoEvent += MeshGenerator_showSurfaceInfoEvent;
-                meshGenerator.showCurveInfoEvent += MeshGenerator_showCurveInfoEvent;
-                meshGenerator.generateMeshEvent += MeshGenerator_generateMeshEvent;
+
+                meshGenerator.switchMeshGradientEvent += MeshGenerator_switchMeshGradientEvent;
+                meshGenerator.showShowSurfaceNumbersEvent += MeshGenerator_showSurfaceNumbers;
+                meshGenerator.showNumberOfCurveNodesEvent += MeshGenerator_showNumberOfCurveNodes;
+                meshGenerator.generate3DTetraMeshEvent += MeshGenerator_generate3DMeshEvent;
+                meshGenerator.generate2DTriangleMeshEvent += MeshGenerator_generate2DMeshEvent;
                 meshGenerator.deleteMeshEvent += MeshGenerator_deleteMeshEvent;
-                meshGenerator.showTransPoints += MeshGenerator_showTransPoints;
+                meshGenerator.showNodesOnCurvesEvent += MeshGenerator_showNodesOnCurves;
                 meshGenerator.updateObjectsDataEvent += UpdateMeshVBO;
                 meshGenerator.updateGeometryVBOEvent += UpdateGeometryVBO;
-                meshGenerator.updateTreeViewEvent += () => { PresentProjectOnTree(); };
+                //meshGenerator.updateTreeViewEvent += () => { PresentProjectOnTree(); };
                 meshGenerator.refineMesh += MeshGenerator_refineMesh;
-                meshGenerator.showObjectsEvent += ShowLines;
-                meshGenerator.generateQuadMesh += MeshGenerator_generateQuadMesh;      
+                meshGenerator.showObjectsEvent += ShowObjects;
+                meshGenerator.generate2DQuadMesh += MeshGenerator_generate2DQuadMesh;      
                 meshGenerator.showHeatMapEvent += GmshControl_showHeatMapEvent;
                 meshGenerator.resetColorObjectsEvent += GmshControl_ResetColorObjectsEvent;
                 meshGenerator.setTransfiniteCurveEvent += MeshGenerator_setTransfiniteCurveEvent;
                 meshGenerator.setCurveDataEvent += SetCurveDataEventHandler;
+                meshGenerator.deleteElementEvent += DeleteElementsByNumber;
+                meshGenerator.setMeshGradientSettingsEvent += MeshGenerator_setMeshGradientSettingsEvent;
 
                 gmshForm.Controls.Add(meshGenerator);
                 meshGenerator.Dock = DockStyle.Fill;
-                //meshGenerator.ObjectData = Project.ModelData.ObjectData;
-  
+
+                var ierr = 0;
+                meshGenerator.FillGeometryTreeView(GmshController);
+                if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
+                    meshGenerator.ShowHideGeneralTabControls(2, true);
+
+                meshGenerator.ShowHideGeneralTabControls(1);
+                meshGenerator.ShowHideTabControls(1);
+
                 gmshForm.Show();
             }        
             //ModelPresenter.Clear();//Подчищаем Presenter во избежании артефактов
+        }
+
+        private void MeshGenerator_setMeshGradientSettingsEvent(object arg1, MeshGradientSettingsEventArgs arg2)
+        {
+            //TO DO 
+            // код задания настроек построения градиентной сетки
+        }
+
+        private void MeshGenerator_switchMeshGradientEvent(object arg1, bool arg2)
+        {
+            //TO DO 
+            // код включения и выключения в зависимости от флага arg2 опции построения градиентной сетки
         }
 
         private void SetCurveDataEventHandler(object sender, int tag)
@@ -206,58 +215,79 @@ namespace ModelModule
         }
 
 
-        private void MeshGenerator_showSurfaceInfoEvent(bool flag)
+        private void MeshGenerator_showSurfaceNumbers(object sender,bool flag)
         {
             if(flag)
             {
-                int[] dimTags;
-                GmshController.ModelGetGeometryEntities(out dimTags, 2);
-
-                for (var i = 1; i < dimTags.Length; i += 2)
-                {
-                    var point = GetCenterOfGeometryEntity(2, dimTags[i]);
-                    //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
-                    var text = $"Поверхность {dimTags[i]}";
-
-                    SceneControl.DisplayText3D(text, Color.Black, point);
-                }
+                ShowSurfaceNumbers();
             }
             else
+            {
+                var cnt = sender as GMSHGeneralMeshControl;
                 SceneControl.HideDisplayText3D();
+
+                if (cnt.IsNumberOfCurveNodesShowen)
+                    ShowNumberOfCurveNodes();
+            }
 
             SceneControl.DisplayObjects();
         }
 
-        private void MeshGenerator_showCurveInfoEvent(bool obj)
+        private void MeshGenerator_showNumberOfCurveNodes(object sender, bool obj)
         {
             // тут нужно перебрать все кривые которые есть в модели и показать их параметры разметки
             if (obj)
             {
-                string[] attribList;
-                GmshController.ModelGetAttributeNames(out attribList);
-
-                foreach (var item in attribList)
-                {
-                    var tag = Int32.Parse(item.Split(' ')[1]);
-                    var attributes = GetCurrentCurveAttributes(tag);
-
-                    if (attributes.Length == 3)
-                    {
-                        var text = $"{attributes[2]} {attributes[1]} {attributes[0]}";
-                        var point = GetCenterOfGeometryEntity(1, tag);
-
-                        SceneControl.DisplayText3D(text, Color.Black, point);
-                    }
-                }
+                ShowNumberOfCurveNodes();
             }
             else
+            {
+                var cnt = sender as GMSHGeneralMeshControl;
                 SceneControl.HideDisplayText3D();
-             
+
+                if (cnt.IsSurfaceNumbersShowen)
+                    ShowSurfaceNumbers();
+            }
+
+
             SceneControl.DisplayObjects();
         }
 
+        private void ShowSurfaceNumbers()
+        {
+            int[] dimTags;
+            GmshController.ModelGetGeometryEntities(out dimTags, 2);
 
+            for (var i = 1; i < dimTags.Length; i += 2)
+            {
+                var point = GetCenterOfGeometryEntity(2, dimTags[i]);
+                //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
+                var text = $"Поверхность {dimTags[i]}";
 
+                SceneControl.DisplayText3D(text, Color.Black, point.Sum(new Point3D(5,5,5)));
+            }
+        }
+
+        private void ShowNumberOfCurveNodes()
+        {
+            string[] attribList;
+            GmshController.ModelGetAttributeNames(out attribList);
+
+            foreach (var item in attribList)
+            {
+                var tag = Int32.Parse(item.Split(' ')[1]);
+                var attributes = GetCurrentCurveAttributes(tag);
+
+                if (attributes.Length == 3)
+                {
+                    // var text = $"{attributes[2]} {attributes[1]} {attributes[0]}";
+                    var text = $"{attributes[0]}";
+                    var point = GetCenterOfGeometryEntity(1, tag);
+
+                    SceneControl.DisplayText3D(text, Color.Black, point);
+                }
+            }
+        }
 
         /// <summary>
         /// Вернуть центр масс текущей геометрической сущности
@@ -276,8 +306,12 @@ namespace ModelModule
 
         private void GmshForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SceneControl.HideAllGeometryObjs();
-            SceneControl.HideDisplayText3D();
+            //SceneControl.HideAllGeometryObjs();
+            //SceneControl.HideDisplayText3D();
+
+            ClearAllDataOnScene();
+            PresentAllModelObjectsToScene();
+            SceneControl.DisplayObjects();
         }
 
         private void MeshGenerator_setTransfiniteCurveEvent(object arg1, SetTransfiniteCurveEventArgs arg2)
@@ -291,7 +325,7 @@ namespace ModelModule
                 }
         }
 
-        private void MeshGenerator_generateQuadMesh(object obj)
+        private void MeshGenerator_generate2DQuadMesh(object obj)
         {
             var cntr = (GMSHGeneralMeshControl)obj;
             var filename = string.Empty;
@@ -336,7 +370,40 @@ namespace ModelModule
 
         [HandleProcessCorruptedStateExceptions]
         [SecurityCritical]
-        private void MeshGenerator_generateMeshEvent(object sender, double meshDencity, ObjType obj)
+        private void MeshGenerator_generate3DMeshEvent(object sender)
+        {
+            var ierr = 0;
+            string error;
+            try
+            {
+                var cntr = (GMSHGeneralMeshControl)sender;
+
+                DeleteGMSHMeshObjects(ObjType.Элемент3D);
+                GmshController.ModelMeshGenerate(3, ref ierr);
+                var trv = cntr.GetTreeView(3);
+                cntr.FillMeshTreeView(GmshController, trv, 3, "Объемы", "Объем ");
+            }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                return;
+            }
+            GmshController.LoggerGetLastError(out error);
+            if (!String.IsNullOrEmpty(error))
+                ConsoleControl.PrintInfo(error, Color.Red);
+
+            Project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
+            UpdateMeshVBO();
+
+            PresentProjectOnTree();
+
+            SceneControl.FitObjectsToScreen();
+            SceneControl.DisplayObjects();
+        }
+
+        [HandleProcessCorruptedStateExceptions]
+        [SecurityCritical]
+        private void MeshGenerator_generate2DMeshEvent(object sender, double meshDencity)
         {
             var ierr = 0;
             string error;
@@ -344,21 +411,12 @@ namespace ModelModule
             {
                 var cntr = (GMSHGeneralMeshControl)sender;
                 GmshController.OptionSetNumber("Mesh.MeshSizeFactor", meshDencity, ref ierr);
-                if (obj == ObjType.Элемент2D)
-                {
-                    DeleteGMSHMeshObjects(ObjType.Узел);
-                    GmshController.ModelMeshGenerate(1, ref ierr);
-                    GmshController.ModelMeshGenerate(2, ref ierr);
-                    var trv = cntr.GetTreeView(2);
-                    cntr.FillMeshTreeView(GmshController, trv, 2);
-                }
-                else
-                {
-                    DeleteGMSHMeshObjects(ObjType.Элемент3D);
-                    GmshController.ModelMeshGenerate(3, ref ierr);
-                    var trv = cntr.GetTreeView(3);
-                    cntr.FillMeshTreeView(GmshController,trv, 3, "Объемы", "Объем ");
-                }
+
+                DeleteGMSHMeshObjects(ObjType.Узел);
+                GmshController.ModelMeshGenerate(1, ref ierr);
+                GmshController.ModelMeshGenerate(2, ref ierr);
+                var trv = cntr.GetTreeView(2);
+                cntr.FillMeshTreeView(GmshController, trv, 2);
             }
             catch (Exception ex)
             {
@@ -425,7 +483,7 @@ namespace ModelModule
             GmshController.ModelMeshClear(dimTags, (IntPtr)dimTags.Length, ref ierr);
         }
 
-        private void MeshGenerator_showTransPoints(bool flag)
+        private void MeshGenerator_showNodesOnCurves(bool flag)
         {
             SceneControl.DeleteVBObjects("transPoints");
 
@@ -577,7 +635,7 @@ namespace ModelModule
 
         }
 
-        private void ShowLines(List<int> objNumbers)
+        private void ShowObjects(List<int> objNumbers)
         {
             try
             {

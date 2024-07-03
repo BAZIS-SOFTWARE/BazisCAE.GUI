@@ -1,4 +1,5 @@
-﻿using BaseModule.ControlsLib.Validation;
+﻿using BaseModule.ControlsLib;
+using BaseModule.ControlsLib.Validation;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -151,11 +152,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         #endregion
 
         private System.Windows.Forms.Button btnInfo;
-        private TextBoxValidator voltageTextBox;
+        private TextBoxEx voltageTextBox;
         private System.Windows.Forms.Label label8;
-        private TextBoxValidator weldPoolTextBox;
+        private TextBoxEx weldPoolTextBox;
         private System.Windows.Forms.Label label4;
-        private TextBoxValidator currentTextBox;
+        private TextBoxEx currentTextBox;
         private System.Windows.Forms.Label label1;
     }
 }

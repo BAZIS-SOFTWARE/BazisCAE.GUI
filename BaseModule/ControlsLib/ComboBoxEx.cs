@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseModule.ControlsLib.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -8,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BaseModule.ControlsLib.Validation
+namespace BaseModule.ControlsLib
 {
     [Flags]
     public enum CMBInputType
@@ -21,11 +22,11 @@ namespace BaseModule.ControlsLib.Validation
         Empty = 32
     }
 
-    public partial class CMBValidator : ComboBox, IValidatorControl
+    public partial class ComboBoxEx : ComboBox, IValidatorControl
     {
-        public CMBValidator() { InitializeComponent(); InitializeErrorProvider(); }
+        public ComboBoxEx() { InitializeComponent(); InitializeErrorProvider(); }
 
-        public CMBValidator(IContainer container)
+        public ComboBoxEx(IContainer container)
         {
             container.Add(this);
 

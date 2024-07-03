@@ -1,4 +1,5 @@
-﻿using BaseModule.ControlsLib.Validation;
+﻿using BaseModule.ControlsLib;
+using BaseModule.ControlsLib.Validation;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -321,21 +322,21 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         private System.Windows.Forms.Button btnInfo;
         private System.Windows.Forms.Label label2;
-        private CMBValidator cmbFrictionModule;
+        private ComboBoxEx cmbFrictionModule;
         private System.Windows.Forms.Label label1;
-        private TextBoxValidator txbAxisForce;
-        private TextBoxValidator txbPinUpperDiam;
-        private TextBoxValidator txbPinBottomDiam;
-        private TextBoxValidator txbPinLenght;
-        private TextBoxValidator txbShoulderDiam;
+        private TextBoxEx txbAxisForce;
+        private TextBoxEx txbPinUpperDiam;
+        private TextBoxEx txbPinBottomDiam;
+        private TextBoxEx txbPinLenght;
+        private TextBoxEx txbShoulderDiam;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label11;
-        private TextBoxValidator txbRotSpeed;
+        private TextBoxEx txbRotSpeed;
         private System.Windows.Forms.Label label5;
-        private CMBValidator cmbYield;
+        private ComboBoxEx cmbYield;
         private System.Windows.Forms.RadioButton rbtPin;
         private System.Windows.Forms.RadioButton rbtShoulder;
     }

@@ -107,6 +107,7 @@
     <Compile Include="GMSH2DMeshControl.Designer.cs">
       <DependentUpon>GMSH2DMeshControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="MeshGradientSettingsEventArgs.cs" />
     <Compile Include="ModelPage.cs">
       <SubType>UserControl</SubType>
     </Compile>

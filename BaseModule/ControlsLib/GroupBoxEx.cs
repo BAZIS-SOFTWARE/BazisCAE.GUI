@@ -13,16 +13,23 @@ namespace BaseModule.ControlsLib
 {
     public partial class GroupBoxEx : GroupBox
     {
-        int fullHeigth;
+        public event Action<object> CheckBoxClick;
 
+
+        int fullHeigth;
+        [Category("General")]
+        [Description("Включить или выключить сворачиваемость")]
         public bool IsRollable { get; set; } = true;
 
+        [Category("General")]
+        [Description("Изменить состояние проверяемости")]
         public bool CheckState
         {
             get { return chb.Checked; }
             set { chb.Checked = value; }
         }
-
+        [Category("General")]
+        [Description("Включить или выключить проверяемость")]
         public bool IsCheckable 
         {
             get { return chb.Visible; }
@@ -32,14 +39,44 @@ namespace BaseModule.ControlsLib
             }
         } 
 
+        [Category("General")]
+        [Description("Свернуть или развернуть элемент")]
+
+        public bool IsExpanded
+        {
+            get
+            {
+                if (IsRollable)
+                {
+                    var textSize = TextRenderer.MeasureText(Text, Font);
+                    if (Height == textSize.Height + this.MinimumSize.Height)
+                        return false;
+                    else return true;
+                }
+                else return false;
+            }
+
+            set
+            {
+                if (IsRollable)
+                {
+                    var textSize = TextRenderer.MeasureText(Text, Font);
+                    if (value)
+                        Height = fullHeigth;
+                    else
+                    {
+                        var temp = Height;
+                        fullHeigth = temp;
+                        Height = textSize.Height + this.MinimumSize.Height;
+                    }
+
+                }
+            }
+        }
+
         public GroupBoxEx()
         {
             InitializeComponent();
-        }
-
-        public void Expand()
-        {
-
         }
 
         private void GroupBoxEx_Paint(object sender, PaintEventArgs e)

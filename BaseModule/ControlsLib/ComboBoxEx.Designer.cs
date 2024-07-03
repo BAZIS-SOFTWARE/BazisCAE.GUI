@@ -1,6 +1,6 @@
-﻿namespace BaseModule.ControlsLib.Validation
+﻿namespace BaseModule.ControlsLib
 {
-    partial class CMBValidator
+    partial class ComboBoxEx
     {
         /// <summary>
         /// Обязательная переменная конструктора.
