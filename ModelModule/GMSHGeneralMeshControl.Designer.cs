@@ -32,10 +32,11 @@ namespace ModelModule
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.loadFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.cmsRemoveMesh2D = new System.Windows.Forms.ContextMenuStrip();
+            this.cmsRemoveMesh2D = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.rem3DItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsRemoveMesh3D = new System.Windows.Forms.ContextMenuStrip();
+            this.cmsRemoveMesh3D = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.rem2DItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gmshTab = new BaseModule.ControlsLib.TabControlEx();
             this.geometryPage = new System.Windows.Forms.TabPage();
@@ -45,8 +46,8 @@ namespace ModelModule
             this.rbtnProgressive = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txbAlgoCoef = new BaseModule.ControlsLib.TextBoxEx();
-            this.txbAlgoNPoints = new BaseModule.ControlsLib.TextBoxEx();
+            this.txbAlgoCoef = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbAlgoNPoints = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.btnDel = new System.Windows.Forms.Button();
             this.rbtnBeta = new System.Windows.Forms.RadioButton();
             this.rbtnBump = new System.Windows.Forms.RadioButton();
@@ -60,14 +61,14 @@ namespace ModelModule
             this.grbGradientMeshSettings = new BaseModule.ControlsLib.GroupBoxEx();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
-            this.txbLayerThickness = new BaseModule.ControlsLib.TextBoxEx();
+            this.txbLayerThickness = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label5 = new System.Windows.Forms.Label();
-            this.txbSurfaceMeshSize = new BaseModule.ControlsLib.TextBoxEx();
+            this.txbSurfaceMeshSize = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label4 = new System.Windows.Forms.Label();
-            this.txbCoreMeshSize = new BaseModule.ControlsLib.TextBoxEx();
+            this.txbCoreMeshSize = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.btnSetGradientSettings = new System.Windows.Forms.Button();
-            this.txbMeshGradientPower = new BaseModule.ControlsLib.TextBoxEx();
+            this.txbMeshGradientPower = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.meshPage = new System.Windows.Forms.TabPage();
             this.meshLayout = new System.Windows.Forms.TableLayoutPanel();
             this.surfsTree = new System.Windows.Forms.TreeView();
@@ -79,8 +80,8 @@ namespace ModelModule
             this.btnMesh2DDel = new System.Windows.Forms.Button();
             this.quadBtn = new System.Windows.Forms.Button();
             this.mesh2DGenBtn = new System.Windows.Forms.Button();
-            this.cmbAlgoChoice = new BaseModule.ControlsLib.ComboBoxEx();
-            this.meshDensityValue = new BaseModule.ControlsLib.TextBoxEx();
+            this.cmbAlgoChoice = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.meshDensityValue = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.volumePage = new System.Windows.Forms.TabPage();
             this.volumeLayout = new System.Windows.Forms.TableLayoutPanel();
             this.volumesTree = new System.Windows.Forms.TreeView();
