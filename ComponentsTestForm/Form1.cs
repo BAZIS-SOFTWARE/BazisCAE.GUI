@@ -16,5 +16,13 @@ namespace ComponentsTestForm
         {
             InitializeComponent();
         }
+
+        private void groupBoxEx1_CheckBoxClick(object obj)
+        {
+            if (groupBoxEx1.CheckState)
+                txbTest.Text = "Проверка";
+            else
+                txbTest.Text = "Нет проверки";
+        }
     }
 }

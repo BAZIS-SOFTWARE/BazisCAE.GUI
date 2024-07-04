@@ -461,7 +461,7 @@ namespace ModelModule
             this.grbGradientMeshSettings.TabIndex = 17;
             this.grbGradientMeshSettings.TabStop = false;
             this.grbGradientMeshSettings.Text = "Настройки градиента сетки";
-            this.grbGradientMeshSettings.CheckBoxClick += new System.Action<object>(this.grbGradientMeshSettings_CheckBoxClick);
+            this.grbGradientMeshSettings.CheckBoxClickEvent += new System.Action<object>(this.grbGradientMeshSettings_CheckBoxClick);
             // 
             // tableLayoutPanel4
             // 
