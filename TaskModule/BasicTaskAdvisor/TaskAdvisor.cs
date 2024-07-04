@@ -218,17 +218,17 @@ namespace TaskModule.BasicTaskAdvisor
 
         public virtual void taskTypeControl_Select2DAxiTaskEvent(object arg1, EventArgs arg2)
         {
-            Select2DAxiEvent(this, new ChangeTaskTypeEventArgs(1));
+            Select2DAxiEvent?.Invoke(this, new ChangeTaskTypeEventArgs(1));
         }
 
         public virtual void taskTypeControl_Select2DPlaneTaskEvent(object arg1, EventArgs arg2)
         {
-            Select2DPlaneEvent(this, new ChangeTaskTypeEventArgs(0));
+            Select2DPlaneEvent?.Invoke(this, new ChangeTaskTypeEventArgs(0));
         }
 
         public virtual void taskTypeControl_Select3DTaskEvent(object arg1, EventArgs arg2)
         {
-            Select3DEvent(this, new ChangeTaskTypeEventArgs(2));
+            Select3DEvent?.Invoke(this, new ChangeTaskTypeEventArgs(2));
         }
 
         public virtual void TaskPlannerControl1_StopComputationEvent(object arg1, EventArgs arg2)

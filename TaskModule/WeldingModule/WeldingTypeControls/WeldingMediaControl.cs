@@ -21,19 +21,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             InitializeComponent();
             DataName = "Среда";
-
-            //ValidateControls += () => txbStartTime.IsValueValid();
-            //ValidateControls += () => txbStopTime.IsValueValid();
-            //ValidateControls += () => txbMediaTemp.IsValueValid();
-            //ValidateControls += () => cmbEl.IsValueValid();
-            //ValidateControls += () => cmbFunc.IsValueValid();
-            //ValidateControls += () => cmbNode.IsValueValid();
-            //ValidateControls += () => cmbTermoCycle.IsValueValid();
         }
 
         public override string DataName { get; }
 
-        public event Func<bool> ValidateControls;
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -57,8 +48,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            //if (!ValidateControls())
-            //    return;
+            if (!IsValidated()) return;
             try
             {
                 CurentSelectedRowInfo = AddRowInfo();
@@ -158,8 +148,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            //if (!ValidateControls())
-            //    return;
+            if (!IsValidated()) return;
             try
             {
                 CurentSelectedRowInfo = AddRowInfo();
@@ -246,11 +235,20 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             HideDataEvent(this, new HideDataEventArgs(DataName));
         }
 
-        public bool IsValidated(object sender, CancelEventArgs args)
+        public override bool IsValidated()
         {
-            var check = ValidateControls();
-            args.Cancel = check;
-            return check;
+            var checks = new List<bool>()
+            {
+                txbStartTime.IsValueValid(),
+                txbStopTime.IsValueValid(),
+                txbMediaTemp.IsValueValid(),
+                cmbEl.IsValueValid(),
+                cmbFunc.IsValueValid(),
+                cmbNode.IsValueValid(),
+                cmbTermoCycle.IsValueValid()
+
+            }; 
+            return checks.All(x => x);
         }
     }
 }

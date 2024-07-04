@@ -40,6 +40,21 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             return string.Join(";", strsArr);
         }
 
+        public override IEnumerable<bool> GetValidatorsResults()
+        {
+            return new bool[]
+            {
+                txbRotSpeed.IsValueValid(),
+                txbAxisForce.IsValueValid(),
+                txbShoulderDiam.IsValueValid(),
+                txbPinLenght.IsValueValid(),
+                txbPinBottomDiam.IsValueValid(),
+                txbPinUpperDiam.IsValueValid(),
+                cmbFrictionModule.IsValueValid(),
+                cmbYield.IsValueValid()
+            };
+        }
+
         public override void InputData(string[] inputData)
         {
             if (inputData[0] == "FSWPin")

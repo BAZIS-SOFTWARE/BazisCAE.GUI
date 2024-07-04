@@ -1,4 +1,6 @@
-﻿namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
+﻿using BaseModule.ControlsLib;
+
+namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
     partial class HeatTaskControl_v2
     {
@@ -28,24 +30,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label4 = new System.Windows.Forms.Label();
-            this.cmbPriority = new System.Windows.Forms.ComboBox();
+            this.cmbPriority = new BaseModule.ControlsLib.ComboBoxEx(this.components);
             this.label3 = new System.Windows.Forms.Label();
-            this.cmbSolver = new System.Windows.Forms.ComboBox();
+            this.cmbSolver = new BaseModule.ControlsLib.ComboBoxEx(this.components);
             this.label12 = new System.Windows.Forms.Label();
-            this.txbRelaxation = new System.Windows.Forms.TextBox();
-            this.txbPrecision = new System.Windows.Forms.TextBox();
+            this.txbRelaxation = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbPrecision = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.txbSolverIterations = new System.Windows.Forms.TextBox();
+            this.txbSolverIterations = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label7 = new System.Windows.Forms.Label();
-            this.txbIters = new System.Windows.Forms.TextBox();
+            this.txbIters = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.maxTMIter = new System.Windows.Forms.Label();
-            this.txbSaveRate = new System.Windows.Forms.TextBox();
+            this.txbSaveRate = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.lblSaveRateTM = new System.Windows.Forms.Label();
-            this.txbInitTemp = new System.Windows.Forms.TextBox();
+            this.txbInitTemp = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.chbDTtMax = new System.Windows.Forms.CheckBox();
-            this.txbDTtMax = new System.Windows.Forms.TextBox();
+            this.txbDTtMax = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.SuspendLayout();
             // 
             // label4
@@ -67,6 +70,8 @@
             this.cmbPriority.DisplayMember = "0";
             this.cmbPriority.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cmbPriority.FormattingEnabled = true;
+            this.cmbPriority.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbPriority.IsValidating = true;
             this.cmbPriority.Items.AddRange(new object[] {
             "Низкий",
             "НижеСреднего",
@@ -80,6 +85,8 @@
             this.cmbPriority.Size = new System.Drawing.Size(341, 21);
             this.cmbPriority.TabIndex = 140;
             this.cmbPriority.Text = "Наивысший";
+            this.cmbPriority.UserRegExCheck = null;
+            this.cmbPriority.UserRegExCheckErrorMessage = null;
             // 
             // label3
             // 
@@ -99,6 +106,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbSolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cmbSolver.FormattingEnabled = true;
+            this.cmbSolver.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbSolver.IsValidating = true;
             this.cmbSolver.Items.AddRange(new object[] {
             "Gauss_direct",
             "SOR_iterative",
@@ -109,6 +118,8 @@
             this.cmbSolver.Size = new System.Drawing.Size(341, 21);
             this.cmbSolver.TabIndex = 138;
             this.cmbSolver.Text = "SOR_iterative";
+            this.cmbSolver.UserRegExCheck = null;
+            this.cmbSolver.UserRegExCheckErrorMessage = null;
             // 
             // label12
             // 
@@ -129,12 +140,16 @@
             this.txbRelaxation.BackColor = System.Drawing.SystemColors.Window;
             this.txbRelaxation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbRelaxation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txbRelaxation.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbRelaxation.IsValidating = true;
             this.txbRelaxation.Location = new System.Drawing.Point(190, 194);
             this.txbRelaxation.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbRelaxation.Name = "txbRelaxation";
             this.txbRelaxation.Size = new System.Drawing.Size(341, 20);
             this.txbRelaxation.TabIndex = 131;
             this.txbRelaxation.Text = "1.05";
+            this.txbRelaxation.UserRegExCheck = null;
+            this.txbRelaxation.UserRegExCheckErrorMessage = null;
             // 
             // txbPrecision
             // 
@@ -143,12 +158,16 @@
             this.txbPrecision.BackColor = System.Drawing.SystemColors.Window;
             this.txbPrecision.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbPrecision.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txbPrecision.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbPrecision.IsValidating = true;
             this.txbPrecision.Location = new System.Drawing.Point(190, 168);
             this.txbPrecision.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbPrecision.Name = "txbPrecision";
             this.txbPrecision.Size = new System.Drawing.Size(341, 20);
             this.txbPrecision.TabIndex = 132;
             this.txbPrecision.Text = "0.01";
+            this.txbPrecision.UserRegExCheck = null;
+            this.txbPrecision.UserRegExCheckErrorMessage = null;
             // 
             // label1
             // 
@@ -169,12 +188,16 @@
             this.txbSolverIterations.BackColor = System.Drawing.SystemColors.Window;
             this.txbSolverIterations.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbSolverIterations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txbSolverIterations.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Integer | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbSolverIterations.IsValidating = true;
             this.txbSolverIterations.Location = new System.Drawing.Point(190, 142);
             this.txbSolverIterations.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbSolverIterations.Name = "txbSolverIterations";
             this.txbSolverIterations.Size = new System.Drawing.Size(341, 20);
             this.txbSolverIterations.TabIndex = 133;
             this.txbSolverIterations.Text = "100";
+            this.txbSolverIterations.UserRegExCheck = null;
+            this.txbSolverIterations.UserRegExCheckErrorMessage = null;
             // 
             // label7
             // 
@@ -195,12 +218,16 @@
             this.txbIters.BackColor = System.Drawing.SystemColors.Window;
             this.txbIters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbIters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txbIters.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Integer | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbIters.IsValidating = true;
             this.txbIters.Location = new System.Drawing.Point(190, 63);
             this.txbIters.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbIters.Name = "txbIters";
             this.txbIters.Size = new System.Drawing.Size(341, 20);
             this.txbIters.TabIndex = 127;
             this.txbIters.Text = "2";
+            this.txbIters.UserRegExCheck = null;
+            this.txbIters.UserRegExCheckErrorMessage = null;
             // 
             // maxTMIter
             // 
@@ -222,12 +249,16 @@
             this.txbSaveRate.BackColor = System.Drawing.SystemColors.Window;
             this.txbSaveRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbSaveRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txbSaveRate.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Integer | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbSaveRate.IsValidating = true;
             this.txbSaveRate.Location = new System.Drawing.Point(190, 89);
             this.txbSaveRate.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbSaveRate.Name = "txbSaveRate";
             this.txbSaveRate.Size = new System.Drawing.Size(341, 20);
             this.txbSaveRate.TabIndex = 129;
             this.txbSaveRate.Text = "1";
+            this.txbSaveRate.UserRegExCheck = null;
+            this.txbSaveRate.UserRegExCheckErrorMessage = null;
             // 
             // lblSaveRateTM
             // 
@@ -249,12 +280,16 @@
             this.txbInitTemp.BackColor = System.Drawing.SystemColors.Window;
             this.txbInitTemp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbInitTemp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txbInitTemp.InputType = BaseModule.ControlsLib.TXTBoxInputType.Float;
+            this.txbInitTemp.IsValidating = true;
             this.txbInitTemp.Location = new System.Drawing.Point(190, 37);
             this.txbInitTemp.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbInitTemp.Name = "txbInitTemp";
             this.txbInitTemp.Size = new System.Drawing.Size(341, 20);
             this.txbInitTemp.TabIndex = 124;
             this.txbInitTemp.Text = "20";
+            this.txbInitTemp.UserRegExCheck = null;
+            this.txbInitTemp.UserRegExCheckErrorMessage = null;
             // 
             // label2
             // 
@@ -289,12 +324,16 @@
             this.txbDTtMax.BackColor = System.Drawing.SystemColors.Window;
             this.txbDTtMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbDTtMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txbDTtMax.InputType = BaseModule.ControlsLib.TXTBoxInputType.Float;
+            this.txbDTtMax.IsValidating = true;
             this.txbDTtMax.Location = new System.Drawing.Point(190, 10);
             this.txbDTtMax.Margin = new System.Windows.Forms.Padding(178, 10, 15, 3);
             this.txbDTtMax.Name = "txbDTtMax";
             this.txbDTtMax.Size = new System.Drawing.Size(341, 20);
             this.txbDTtMax.TabIndex = 123;
             this.txbDTtMax.Text = "1500";
+            this.txbDTtMax.UserRegExCheck = null;
+            this.txbDTtMax.UserRegExCheckErrorMessage = null;
             // 
             // HeatTaskControl_v2
             // 
@@ -331,22 +370,22 @@
         #endregion
 
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cmbPriority;
+        private ComboBoxEx cmbPriority;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cmbSolver;
+        private ComboBoxEx cmbSolver;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox txbRelaxation;
-        private System.Windows.Forms.TextBox txbPrecision;
+        private TextBoxEx txbRelaxation;
+        private TextBoxEx txbPrecision;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txbSolverIterations;
+        private TextBoxEx txbSolverIterations;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txbIters;
+        private TextBoxEx txbIters;
         private System.Windows.Forms.Label maxTMIter;
-        private System.Windows.Forms.TextBox txbSaveRate;
+        private TextBoxEx txbSaveRate;
         private System.Windows.Forms.Label lblSaveRateTM;
-        private System.Windows.Forms.TextBox txbInitTemp;
+        private TextBoxEx txbInitTemp;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chbDTtMax;
-        private System.Windows.Forms.TextBox txbDTtMax;
+        private TextBoxEx txbDTtMax;
     }
 }

@@ -17,9 +17,12 @@ namespace ComponentsTestForm
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void groupBoxEx1_CheckBoxClick(object obj)
         {
-            textBoxValidator1.IsValueValid();
+            if (groupBoxEx1.CheckState)
+                txbTest.Text = "Проверка";
+            else
+                txbTest.Text = "Нет проверки";
         }
     }
 }

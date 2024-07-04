@@ -13,7 +13,7 @@ namespace BaseModule.ControlsLib
 {
     public partial class GroupBoxEx : GroupBox
     {
-        public event Action<object> CheckBoxClick;
+        public event Action<object> CheckBoxClickEvent;
 
 
         int fullHeigth;
@@ -162,6 +162,8 @@ namespace BaseModule.ControlsLib
                 if (item.Name != "chb")
                     item.Enabled = flag;
             }
+
+            CheckBoxClickEvent?.Invoke(this);
 
         }
     }

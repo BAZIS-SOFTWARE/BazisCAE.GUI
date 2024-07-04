@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -21,9 +22,17 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 voltageTextBox.Text
             };
 
-
-
             return string.Join(";", strs);
+        }
+
+        public override IEnumerable<bool> GetValidatorsResults()
+        {
+            return new bool[]
+            {
+                currentTextBox.IsValueValid(),
+                voltageTextBox.IsValueValid(),
+                weldPoolTextBox.IsValueValid()
+            };
         }
 
         public override void InputData(string[] inputData)

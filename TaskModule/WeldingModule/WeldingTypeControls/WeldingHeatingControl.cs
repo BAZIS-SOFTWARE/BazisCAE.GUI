@@ -14,11 +14,10 @@ using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
-    public partial class WeldingControl : CheckedGridViewAdviserControl, ILoadControl, IFunctionsRelatedControl, ICheckGridViewControl
+    public partial class WeldingHeatingControl : CheckedGridViewAdviserControl, ILoadControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
         List<string> funcs = new List<string>();
 
-        public event Func<bool> ValidateControls;
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
@@ -67,6 +66,19 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         public override string Rotation
         {
             get { return txbAngle.Text; }
+        }
+
+        WeldContainerControl HeatSourceControl
+        {
+            get 
+            {
+                var wcc = grbWeldRegime.Controls.Cast<Control>().Where(x => x is WeldContainerControl);
+
+                if (wcc.Count() == 0)
+                    return null;
+                else
+                    return (WeldContainerControl)wcc.First();
+            }
         }
 
         string HeatSourceData
@@ -122,30 +134,16 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             }
         }
 
-        public WeldingControl()
+        public WeldingHeatingControl()
         {
             InitializeComponent();
             DataName = "Нагрев";
-
-            //ValidateControls += () => txbStartTime.IsValueValid();
-            //ValidateControls += () => txbVelosity.IsValueValid();
-            //ValidateControls += () => txbAngle.IsValueValid();
-            //ValidateControls += () => txbShiftX.IsValueValid();
-            //ValidateControls += () => txbShiftY.IsValueValid();
-            //ValidateControls += () => txbShiftZ.IsValueValid();
-            //ValidateControls += () => cmbEnergyCalibration.IsValueValid();
-            //ValidateControls += () => cmbTraj.IsValueValid();
-            //ValidateControls += () => cmbRef.IsValueValid();
-            //ValidateControls += () => cmbStartPoint.IsValueValid();
-            //ValidateControls += () => cmbStopPoint.IsValueValid();
-            //ValidateControls += () => cmbWeldZone.IsValueValid(); 
         }
 
         public override string DataName { get; }
         public override void AddButton_Click(object sender, EventArgs e)
         {
-            //if (!IsValidated(this, new CancelEventArgs()))
-            //    return;
+            if (!IsValidated()) return;
             try
             {         
                 CurentSelectedRowInfo = CreateRowInfo("*");
@@ -162,8 +160,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         private string CreateRowInfo(string stopTime)
         {
-            var taskStrAr = new List<string>();
-
             var trajData = GetTrajectoryData();
 
             if (chbShifting.Checked)
@@ -172,9 +168,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 trajData = trajData + ";" +
                     string.Format($"{txbShiftX.Text}|{txbShiftY.Text}|{txbShiftZ.Text}|{txbAngle.Text}");
             }
-
-            if (HeatSourceData == "" || cmbWeldZone.Text == "" || txbStartTime.Text == "" || trajData == "")
-                throw new Exception("Одно из переданных значений полей было пустым");
 
             var taskStr = string.Join(" ", new string[] { HeatSourceData, cmbWeldZone.Text, txbStartTime.Text, stopTime, trajData });
 
@@ -273,8 +266,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
-            //if (!IsValidated(this, new CancelEventArgs()))
-            //    return;
+            if (!IsValidated()) return;
             var gridView = GetDataGrid;
             var count = gridView.SelectedRows.Count;
             var stopTime = gridView.SelectedRows[count - 1].Cells[(int)Column.stopTime].Value.ToString();
@@ -286,11 +278,27 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         }
 
-        public bool IsValidated(object sender, CancelEventArgs args)
+        public override bool IsValidated()
         {
-            var check = ValidateControls();
-            args.Cancel = check;
-            return check;
+            var checks = new List<bool>()
+            {
+                txbStartTime.IsValueValid(),
+                txbVelosity.IsValueValid(),
+                txbAngle.IsValueValid(),
+                txbShiftX.IsValueValid(),
+                txbShiftY.IsValueValid(),
+                txbShiftZ.IsValueValid(),
+                cmbEnergyCalibration.IsValueValid(),
+                cmbTraj.IsValueValid(),
+                cmbRef.IsValueValid(),
+                cmbStartPoint.IsValueValid(),
+                cmbStopPoint.IsValueValid(),
+                cmbWeldZone.IsValueValid()
+            };
+            if(HeatSourceControl != null)
+                checks.AddRange(HeatSourceControl.GetValidatorsResults());
+            
+            return checks.All(x => x);
         }
 
         private void dataGridView_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)

@@ -32,6 +32,7 @@ namespace TaskModule.BasicAdvisorControls
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MaterialsControl));
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.elGroupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,22 +44,18 @@ namespace TaskModule.BasicAdvisorControls
             this.player = new BaseModule.ControlsLib.Player();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            //this.txbStopTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive};
-            this.txbStopTime = new TextBox();
+            this.txbStopTime = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
-            this.btnRefresh = new Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
-            this.btnAddNewRow = new Button();
-            //this.txbStartTime = new TextBoxValidator() { InputType = TXTBoxInputType.Float | TXTBoxInputType.Positive };
-            this.txbStartTime = new TextBox();
+            this.btnAddNewRow = new System.Windows.Forms.Button();
+            this.txbStartTime = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            //this.cmbMat = new CMBValidator();
-            this.cmbMat = new ComboBox();
+            this.cmbMat = new BaseModule.ControlsLib.ComboBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            //this.cmbEl = new CMBValidator();
-            this.cmbEl = new ComboBox();
+            this.cmbEl = new BaseModule.ControlsLib.ComboBoxEx(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -169,7 +166,7 @@ namespace TaskModule.BasicAdvisorControls
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.player.MinimumSize = new System.Drawing.Size(215, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(580, 45);
+            this.player.Size = new System.Drawing.Size(573, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -207,11 +204,15 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txbStopTime.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbStopTime.IsValidating = true;
             this.txbStopTime.Location = new System.Drawing.Point(171, 46);
-            this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(577, 20);
+            this.txbStopTime.Size = new System.Drawing.Size(573, 20);
             this.txbStopTime.TabIndex = 1;
+            this.txbStopTime.UserRegExCheck = null;
+            this.txbStopTime.UserRegExCheckErrorMessage = null;
             // 
             // btnHideAll
             // 
@@ -289,11 +290,15 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStartTime.Location = new System.Drawing.Point(171, 19);
-            this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
+            this.txbStartTime.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbStartTime.IsValidating = true;
+            this.txbStartTime.Location = new System.Drawing.Point(171, 20);
+            this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(578, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(573, 20);
             this.txbStartTime.TabIndex = 0;
+            this.txbStartTime.UserRegExCheck = null;
+            this.txbStartTime.UserRegExCheckErrorMessage = null;
             // 
             // groupBox2
             // 
@@ -330,10 +335,14 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbMat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbMat.FormattingEnabled = true;
+            this.cmbMat.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbMat.IsValidating = true;
             this.cmbMat.Location = new System.Drawing.Point(171, 51);
             this.cmbMat.Name = "cmbMat";
-            this.cmbMat.Size = new System.Drawing.Size(577, 21);
+            this.cmbMat.Size = new System.Drawing.Size(573, 21);
             this.cmbMat.TabIndex = 13;
+            this.cmbMat.UserRegExCheck = null;
+            this.cmbMat.UserRegExCheckErrorMessage = null;
             // 
             // label1
             // 
@@ -350,11 +359,15 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbEl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbEl.FormattingEnabled = true;
+            this.cmbEl.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbEl.IsValidating = true;
             this.cmbEl.Location = new System.Drawing.Point(171, 24);
-            this.cmbEl.Margin = new System.Windows.Forms.Padding(3, 25, 15, 3);
+            this.cmbEl.Margin = new System.Windows.Forms.Padding(3, 25, 20, 3);
             this.cmbEl.Name = "cmbEl";
-            this.cmbEl.Size = new System.Drawing.Size(578, 21);
+            this.cmbEl.Size = new System.Drawing.Size(573, 21);
             this.cmbEl.TabIndex = 14;
+            this.cmbEl.UserRegExCheck = null;
+            this.cmbEl.UserRegExCheckErrorMessage = null;
             // 
             // openFileDialog
             // 
@@ -388,18 +401,14 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        //private TextBoxValidator txbStopTime;
-        private TextBox txbStopTime;
+        private TextBoxEx txbStopTime;
         private Button btnAddNewRow;
-        //private TextBoxValidator txbStartTime;
-        private TextBox txbStartTime;
+        private TextBoxEx txbStartTime;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label2;
-        //private CMBValidator cmbMat;
-        private ComboBox cmbMat;
+        private ComboBoxEx cmbMat;
         private System.Windows.Forms.Label label1;
-        //private CMBValidator cmbEl;
-        private ComboBox cmbEl;
+        private ComboBoxEx cmbEl;
         private Button btnRefresh;
         private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.Button btnHideAll;

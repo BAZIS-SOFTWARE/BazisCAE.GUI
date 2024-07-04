@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -19,6 +20,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         public virtual string CollectData()
         {
             throw new NotImplementedException("Не реализован метод!");
+        }
+
+        public virtual IEnumerable<bool> GetValidatorsResults()
+        {
+            throw new NotImplementedException("Метод \"GetValidatosResults\" не реализован");
         }
 
         public virtual void InputData(string[] inputData)

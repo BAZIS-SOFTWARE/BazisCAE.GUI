@@ -107,5 +107,22 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             else
                 txbDTtMax.Enabled = false;
         }
+
+        public override bool GetValidationResult()
+        {
+            var checks = new List<bool>()
+            {
+                cmbSolver.IsValueValid(),
+                cmbPriority.IsValueValid(),
+                txbDTtMax.IsValueValid(),
+                txbInitTemp.IsValueValid(),
+                txbIters.IsValueValid(),
+                txbPrecision.IsValueValid(),
+                txbRelaxation.IsValueValid(),
+                txbSaveRate.IsValueValid(),
+                txbSolverIterations.IsValueValid()
+            };
+            return checks.All(x => x);
+        }
     }
 }
