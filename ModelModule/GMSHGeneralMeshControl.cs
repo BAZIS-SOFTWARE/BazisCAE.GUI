@@ -539,9 +539,7 @@ namespace ModelModule
 
         private void grbGradientMeshSettings_CheckBoxClick(object obj)
         {
-            var chb = obj as CheckBox;
-
-            if (chb.Checked)
+            if (grbGradientMeshSettings.CheckState)
                 switchMeshGradientEvent?.Invoke(this,true);
             else
                 switchMeshGradientEvent?.Invoke(this,false);
