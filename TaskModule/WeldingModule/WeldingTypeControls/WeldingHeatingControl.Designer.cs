@@ -33,12 +33,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.player = new BaseModule.ControlsLib.Player();
             this.label11 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -46,27 +45,16 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnClearAll = new System.Windows.Forms.Button();
             this.chbEnergyCalibration = new System.Windows.Forms.CheckBox();
             this.chbShifting = new System.Windows.Forms.CheckBox();
-            this.txbStartTime = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbStopPoint = new BaseModule.ControlsLib.ComboBoxEx(this.components);
-            this.cmbStartPoint = new BaseModule.ControlsLib.ComboBoxEx(this.components);
             this.btnHide = new System.Windows.Forms.Button();
             this.btnShow = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.addRowButton = new System.Windows.Forms.Button();
-            this.txbAngle = new BaseModule.ControlsLib.TextBoxEx(this.components);
-            this.txbShiftZ = new BaseModule.ControlsLib.TextBoxEx(this.components);
-            this.txbShiftY = new BaseModule.ControlsLib.TextBoxEx(this.components);
-            this.txbShiftX = new BaseModule.ControlsLib.TextBoxEx(this.components);
-            this.txbVelosity = new BaseModule.ControlsLib.TextBoxEx(this.components);
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbEnergyCalibration = new BaseModule.ControlsLib.ComboBoxEx(this.components);
-            this.cmbRef = new BaseModule.ControlsLib.ComboBoxEx(this.components);
-            this.cmbTraj = new BaseModule.ControlsLib.ComboBoxEx(this.components);
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.видСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ОбластьСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -75,10 +63,22 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.ПараметрыДвижения = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.cmbWeldZone = new BaseModule.ControlsLib.ComboBoxEx(this.components);
-            this.grbWeldRegime = new BaseModule.ControlsLib.GroupBoxEx();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiSpecifyHeatingZone = new System.Windows.Forms.ToolStripMenuItem();
+            this.player = new BaseModule.ControlsLib.Player();
+            this.txbStartTime = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.cmbStopPoint = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbStartPoint = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.txbAngle = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbShiftZ = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbShiftY = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbShiftX = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbVelosity = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.cmbEnergyCalibration = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbRef = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbTraj = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbWeldZone = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.grbWeldRegime = new BaseModule.ControlsLib.GroupBoxEx();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -106,7 +106,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(546, 638);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(682, 797);
             this.tableLayoutPanel1.TabIndex = 20;
             // 
             // groupBox1
@@ -143,38 +143,14 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.groupBox1.Controls.Add(this.cmbRef);
             this.groupBox1.Controls.Add(this.cmbTraj);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(7, 115);
+            this.groupBox1.Location = new System.Drawing.Point(7, 144);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(532, 295);
+            this.groupBox1.Size = new System.Drawing.Size(668, 295);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры движения";
-            // 
-            // player
-            // 
-            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.player.AutoSize = true;
-            this.player.CheckState = BaseModule.ControlsLib.CheckState.start;
-            this.player.CurrentValue = 0;
-            this.player.Location = new System.Drawing.Point(171, 237);
-            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 15, 0);
-            this.player.MinimumSize = new System.Drawing.Size(215, 45);
-            this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(341, 45);
-            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
-            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
-            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
-            this.player.SpeedValue = 500;
-            this.player.StartValue = 0;
-            this.player.StopValue = 100;
-            this.player.TabIndex = 54;
-            this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
-            this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
-            this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
             // 
             // label11
             // 
@@ -250,21 +226,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.chbShifting.UseVisualStyleBackColor = true;
             this.chbShifting.CheckedChanged += new System.EventHandler(this.ChbShifting_CheckedChanged);
             // 
-            // txbStartTime
-            // 
-            this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStartTime.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
-            this.txbStartTime.IsValidating = true;
-            this.txbStartTime.Location = new System.Drawing.Point(171, 210);
-            this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(341, 20);
-            this.txbStartTime.TabIndex = 43;
-            this.txbStartTime.UserRegExCheck = null;
-            this.txbStartTime.UserRegExCheckErrorMessage = null;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -273,36 +234,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 41;
             this.label1.Text = "Старт, сек.";
-            // 
-            // cmbStopPoint
-            // 
-            this.cmbStopPoint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbStopPoint.FormattingEnabled = true;
-            this.cmbStopPoint.InputType = BaseModule.ControlsLib.CMBInputType.Items;
-            this.cmbStopPoint.IsValidating = true;
-            this.cmbStopPoint.Location = new System.Drawing.Point(171, 131);
-            this.cmbStopPoint.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.cmbStopPoint.Name = "cmbStopPoint";
-            this.cmbStopPoint.Size = new System.Drawing.Size(341, 21);
-            this.cmbStopPoint.TabIndex = 36;
-            this.cmbStopPoint.UserRegExCheck = null;
-            this.cmbStopPoint.UserRegExCheckErrorMessage = null;
-            // 
-            // cmbStartPoint
-            // 
-            this.cmbStartPoint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbStartPoint.FormattingEnabled = true;
-            this.cmbStartPoint.InputType = BaseModule.ControlsLib.CMBInputType.Items;
-            this.cmbStartPoint.IsValidating = true;
-            this.cmbStartPoint.Location = new System.Drawing.Point(171, 104);
-            this.cmbStartPoint.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.cmbStartPoint.Name = "cmbStartPoint";
-            this.cmbStartPoint.Size = new System.Drawing.Size(341, 21);
-            this.cmbStartPoint.TabIndex = 35;
-            this.cmbStartPoint.UserRegExCheck = null;
-            this.cmbStartPoint.UserRegExCheckErrorMessage = null;
             // 
             // btnHide
             // 
@@ -366,6 +297,237 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.addRowButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.addRowButton.UseVisualStyleBackColor = true;
             this.addRowButton.Click += new System.EventHandler(this.AddButton_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(8, 139);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(132, 13);
+            this.label7.TabIndex = 34;
+            this.label7.Text = "Точка остановки сварки";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 53);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(84, 13);
+            this.label4.TabIndex = 33;
+            this.label4.Text = "Опорная линия";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(92, 13);
+            this.label3.TabIndex = 33;
+            this.label3.Text = "Линия движения";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(8, 107);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(114, 13);
+            this.label6.TabIndex = 33;
+            this.label6.Text = "Точка начала сварки";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 192);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(142, 13);
+            this.label2.TabIndex = 30;
+            this.label2.Text = "Скорость сварки, мм/cек.";
+            // 
+            // dataGridView
+            // 
+            this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.NullValue = " ";
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.видСварки,
+            this.ОбластьСварки,
+            this.startColumn,
+            this.stopColumn,
+            this.ПараметрыДвижения});
+            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView.Location = new System.Drawing.Point(7, 453);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.ReadOnly = true;
+            this.dataGridView.RowHeadersWidth = 20;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridView.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.dataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dataGridView.Size = new System.Drawing.Size(668, 337);
+            this.dataGridView.TabIndex = 25;
+            this.dataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView_DefaultValuesNeeded);
+            this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
+            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
+            this.dataGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_MouseClick);
+            // 
+            // видСварки
+            // 
+            this.видСварки.HeaderText = "Вид сварки";
+            this.видСварки.MinimumWidth = 6;
+            this.видСварки.Name = "видСварки";
+            this.видСварки.ReadOnly = true;
+            this.видСварки.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // ОбластьСварки
+            // 
+            this.ОбластьСварки.HeaderText = "Область сварки";
+            this.ОбластьСварки.MinimumWidth = 6;
+            this.ОбластьСварки.Name = "ОбластьСварки";
+            this.ОбластьСварки.ReadOnly = true;
+            // 
+            // startColumn
+            // 
+            this.startColumn.HeaderText = "Старт";
+            this.startColumn.MinimumWidth = 6;
+            this.startColumn.Name = "startColumn";
+            this.startColumn.ReadOnly = true;
+            // 
+            // stopColumn
+            // 
+            this.stopColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.NullValue = "0";
+            this.stopColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.stopColumn.HeaderText = "Стоп";
+            this.stopColumn.MinimumWidth = 6;
+            this.stopColumn.Name = "stopColumn";
+            this.stopColumn.ReadOnly = true;
+            // 
+            // ПараметрыДвижения
+            // 
+            this.ПараметрыДвижения.HeaderText = "Параметры движения";
+            this.ПараметрыДвижения.MinimumWidth = 6;
+            this.ПараметрыДвижения.Name = "ПараметрыДвижения";
+            this.ПараметрыДвижения.ReadOnly = true;
+            this.ПараметрыДвижения.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.AutoSize = true;
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.cmbWeldZone);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(7, 7);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(7);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBox3.Size = new System.Drawing.Size(668, 61);
+            this.groupBox3.TabIndex = 31;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Область действия";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(8, 27);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(100, 13);
+            this.label9.TabIndex = 39;
+            this.label9.Text = "Группа элементов";
+            // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiSpecifyHeatingZone});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(200, 26);
+            // 
+            // tsmiSpecifyHeatingZone
+            // 
+            this.tsmiSpecifyHeatingZone.Name = "tsmiSpecifyHeatingZone";
+            this.tsmiSpecifyHeatingZone.Size = new System.Drawing.Size(199, 22);
+            this.tsmiSpecifyHeatingZone.Text = "Уточнить зону нагрева";
+            this.tsmiSpecifyHeatingZone.Click += new System.EventHandler(this.tsmiSpecifyHeatingZone_Click);
+            // 
+            // player
+            // 
+            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.player.AutoSize = true;
+            this.player.CheckState = BaseModule.ControlsLib.CheckState.start;
+            this.player.CurrentValue = 0;
+            this.player.Location = new System.Drawing.Point(171, 237);
+            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 15, 0);
+            this.player.MinimumSize = new System.Drawing.Size(215, 45);
+            this.player.Name = "player";
+            this.player.Size = new System.Drawing.Size(215, 45);
+            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
+            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
+            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
+            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.player.SpeedValue = 500;
+            this.player.StartValue = 0;
+            this.player.StopValue = 100;
+            this.player.TabIndex = 54;
+            this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
+            this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
+            this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
+            // 
+            // txbStartTime
+            // 
+            this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txbStartTime.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbStartTime.IsValidating = true;
+            this.txbStartTime.Location = new System.Drawing.Point(171, 210);
+            this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
+            this.txbStartTime.Name = "txbStartTime";
+            this.txbStartTime.Size = new System.Drawing.Size(0, 20);
+            this.txbStartTime.TabIndex = 43;
+            this.txbStartTime.UserRegExCheck = null;
+            this.txbStartTime.UserRegExCheckErrorMessage = null;
+            // 
+            // cmbStopPoint
+            // 
+            this.cmbStopPoint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbStopPoint.FormattingEnabled = true;
+            this.cmbStopPoint.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbStopPoint.IsValidating = true;
+            this.cmbStopPoint.Location = new System.Drawing.Point(171, 131);
+            this.cmbStopPoint.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
+            this.cmbStopPoint.Name = "cmbStopPoint";
+            this.cmbStopPoint.Size = new System.Drawing.Size(0, 21);
+            this.cmbStopPoint.TabIndex = 36;
+            this.cmbStopPoint.UserRegExCheck = null;
+            this.cmbStopPoint.UserRegExCheckErrorMessage = null;
+            // 
+            // cmbStartPoint
+            // 
+            this.cmbStartPoint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbStartPoint.FormattingEnabled = true;
+            this.cmbStartPoint.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbStartPoint.IsValidating = true;
+            this.cmbStartPoint.Location = new System.Drawing.Point(171, 104);
+            this.cmbStartPoint.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
+            this.cmbStartPoint.Name = "cmbStartPoint";
+            this.cmbStartPoint.Size = new System.Drawing.Size(0, 21);
+            this.cmbStartPoint.TabIndex = 35;
+            this.cmbStartPoint.UserRegExCheck = null;
+            this.cmbStartPoint.UserRegExCheckErrorMessage = null;
             // 
             // txbAngle
             // 
@@ -433,55 +595,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbVelosity.Location = new System.Drawing.Point(171, 184);
             this.txbVelosity.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbVelosity.Name = "txbVelosity";
-            this.txbVelosity.Size = new System.Drawing.Size(341, 20);
+            this.txbVelosity.Size = new System.Drawing.Size(0, 20);
             this.txbVelosity.TabIndex = 31;
             this.txbVelosity.UserRegExCheck = null;
             this.txbVelosity.UserRegExCheckErrorMessage = null;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 139);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(132, 13);
-            this.label7.TabIndex = 34;
-            this.label7.Text = "Точка остановки сварки";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 53);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 13);
-            this.label4.TabIndex = 33;
-            this.label4.Text = "Опорная линия";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 26);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(92, 13);
-            this.label3.TabIndex = 33;
-            this.label3.Text = "Линия движения";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 107);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(114, 13);
-            this.label6.TabIndex = 33;
-            this.label6.Text = "Точка начала сварки";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 192);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(142, 13);
-            this.label2.TabIndex = 30;
-            this.label2.Text = "Скорость сварки, мм/cек.";
             // 
             // cmbEnergyCalibration
             // 
@@ -494,7 +611,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbEnergyCalibration.Location = new System.Drawing.Point(170, 77);
             this.cmbEnergyCalibration.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbEnergyCalibration.Name = "cmbEnergyCalibration";
-            this.cmbEnergyCalibration.Size = new System.Drawing.Size(342, 21);
+            this.cmbEnergyCalibration.Size = new System.Drawing.Size(0, 21);
             this.cmbEnergyCalibration.TabIndex = 29;
             this.cmbEnergyCalibration.UserRegExCheck = null;
             this.cmbEnergyCalibration.UserRegExCheckErrorMessage = null;
@@ -509,7 +626,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbRef.Location = new System.Drawing.Point(170, 50);
             this.cmbRef.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbRef.Name = "cmbRef";
-            this.cmbRef.Size = new System.Drawing.Size(342, 21);
+            this.cmbRef.Size = new System.Drawing.Size(0, 21);
             this.cmbRef.TabIndex = 29;
             this.cmbRef.UserRegExCheck = null;
             this.cmbRef.UserRegExCheckErrorMessage = null;
@@ -524,112 +641,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbTraj.Location = new System.Drawing.Point(170, 23);
             this.cmbTraj.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
             this.cmbTraj.Name = "cmbTraj";
-            this.cmbTraj.Size = new System.Drawing.Size(342, 21);
+            this.cmbTraj.Size = new System.Drawing.Size(0, 21);
             this.cmbTraj.TabIndex = 29;
             this.cmbTraj.UserRegExCheck = null;
             this.cmbTraj.UserRegExCheckErrorMessage = null;
-            // 
-            // dataGridView
-            // 
-            this.dataGridView.AllowUserToAddRows = false;
-            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.NullValue = " ";
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.видСварки,
-            this.ОбластьСварки,
-            this.startColumn,
-            this.stopColumn,
-            this.ПараметрыДвижения});
-            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(7, 424);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.ReadOnly = true;
-            this.dataGridView.RowHeadersWidth = 20;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridView.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            this.dataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.Size = new System.Drawing.Size(532, 207);
-            this.dataGridView.TabIndex = 25;
-            this.dataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView_DefaultValuesNeeded);
-            this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
-            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
-            this.dataGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_MouseClick);
-            // 
-            // видСварки
-            // 
-            this.видСварки.HeaderText = "Вид сварки";
-            this.видСварки.MinimumWidth = 6;
-            this.видСварки.Name = "видСварки";
-            this.видСварки.ReadOnly = true;
-            this.видСварки.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // ОбластьСварки
-            // 
-            this.ОбластьСварки.HeaderText = "Область сварки";
-            this.ОбластьСварки.MinimumWidth = 6;
-            this.ОбластьСварки.Name = "ОбластьСварки";
-            this.ОбластьСварки.ReadOnly = true;
-            // 
-            // startColumn
-            // 
-            this.startColumn.HeaderText = "Старт";
-            this.startColumn.MinimumWidth = 6;
-            this.startColumn.Name = "startColumn";
-            this.startColumn.ReadOnly = true;
-            // 
-            // stopColumn
-            // 
-            this.stopColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle5.NullValue = "0";
-            this.stopColumn.DefaultCellStyle = dataGridViewCellStyle5;
-            this.stopColumn.HeaderText = "Стоп";
-            this.stopColumn.MinimumWidth = 6;
-            this.stopColumn.Name = "stopColumn";
-            this.stopColumn.ReadOnly = true;
-            // 
-            // ПараметрыДвижения
-            // 
-            this.ПараметрыДвижения.HeaderText = "Параметры движения";
-            this.ПараметрыДвижения.MinimumWidth = 6;
-            this.ПараметрыДвижения.Name = "ПараметрыДвижения";
-            this.ПараметрыДвижения.ReadOnly = true;
-            this.ПараметрыДвижения.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.AutoSize = true;
-            this.groupBox3.Controls.Add(this.label9);
-            this.groupBox3.Controls.Add(this.cmbWeldZone);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(7, 7);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(7);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox3.Size = new System.Drawing.Size(532, 61);
-            this.groupBox3.TabIndex = 31;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Область действия";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(8, 27);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(100, 13);
-            this.label9.TabIndex = 39;
-            this.label9.Text = "Группа элементов";
             // 
             // cmbWeldZone
             // 
@@ -641,7 +656,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbWeldZone.Location = new System.Drawing.Point(170, 24);
             this.cmbWeldZone.Margin = new System.Windows.Forms.Padding(15, 25, 20, 3);
             this.cmbWeldZone.Name = "cmbWeldZone";
-            this.cmbWeldZone.Size = new System.Drawing.Size(342, 21);
+            this.cmbWeldZone.Size = new System.Drawing.Size(0, 21);
             this.cmbWeldZone.TabIndex = 38;
             this.cmbWeldZone.UserRegExCheck = null;
             this.cmbWeldZone.UserRegExCheckErrorMessage = null;
@@ -660,25 +675,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.grbWeldRegime.MinimumSize = new System.Drawing.Size(0, 15);
             this.grbWeldRegime.Name = "grbWeldRegime";
             this.grbWeldRegime.Padding = new System.Windows.Forms.Padding(0);
-            this.grbWeldRegime.Size = new System.Drawing.Size(532, 19);
+            this.grbWeldRegime.Size = new System.Drawing.Size(668, 48);
             this.grbWeldRegime.TabIndex = 30;
             this.grbWeldRegime.TabStop = false;
             this.grbWeldRegime.Text = "Параметры процесса";
-            // 
-            // contextMenuStrip
-            // 
-            this.contextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiSpecifyHeatingZone});
-            this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(200, 26);
-            // 
-            // tsmiSpecifyHeatingZone
-            // 
-            this.tsmiSpecifyHeatingZone.Name = "tsmiSpecifyHeatingZone";
-            this.tsmiSpecifyHeatingZone.Size = new System.Drawing.Size(199, 22);
-            this.tsmiSpecifyHeatingZone.Text = "Уточнить зону нагрева";
-            this.tsmiSpecifyHeatingZone.Click += new System.EventHandler(this.tsmiSpecifyHeatingZone_Click);
             // 
             // WeldingHeatingControl
             // 
@@ -689,7 +689,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.Margin = new System.Windows.Forms.Padding(5);
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "WeldingHeatingControl";
-            this.Size = new System.Drawing.Size(546, 638);
+            this.Size = new System.Drawing.Size(852, 996);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
