@@ -143,7 +143,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.groupBox1.Controls.Add(this.cmbRef);
             this.groupBox1.Controls.Add(this.cmbTraj);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(7, 144);
+            this.groupBox1.Location = new System.Drawing.Point(7, 156);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
@@ -364,7 +364,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.stopColumn,
             this.ПараметрыДвижения});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(7, 453);
+            this.dataGridView.Location = new System.Drawing.Point(7, 465);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
@@ -374,7 +374,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.Size = new System.Drawing.Size(668, 337);
+            this.dataGridView.Size = new System.Drawing.Size(668, 325);
             this.dataGridView.TabIndex = 25;
             this.dataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView_DefaultValuesNeeded);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -675,7 +675,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.grbWeldRegime.MinimumSize = new System.Drawing.Size(0, 15);
             this.grbWeldRegime.Name = "grbWeldRegime";
             this.grbWeldRegime.Padding = new System.Windows.Forms.Padding(0);
-            this.grbWeldRegime.Size = new System.Drawing.Size(668, 48);
+            this.grbWeldRegime.Size = new System.Drawing.Size(668, 60);
             this.grbWeldRegime.TabIndex = 30;
             this.grbWeldRegime.TabStop = false;
             this.grbWeldRegime.Text = "Параметры процесса";

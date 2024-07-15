@@ -43,7 +43,17 @@ namespace BaseModule
             this.instrumentToolStrip = new BaseModule.ControlsLib.InstrumentToolStrip();
             this.displayToolStrip = new BaseModule.ControlsLib.DisplayToolStrip();
             this.viewToolStrip = new BaseModule.ControlsLib.ViewToolStrip();
-            this.selectToolStrip = new BaseModule.ControlsLib.SelectToolStrip();
+            this.selectToolStrip = new BaseModule.ControlsLib.ToolStripEx();
+            this.spb_Select = new System.Windows.Forms.ToolStripSplitButton();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.selectToolStrip_1 = new BaseModule.ControlsLib.SelectToolStrip();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -56,6 +66,7 @@ namespace BaseModule
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.selectToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,6 +93,7 @@ namespace BaseModule
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.viewToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.selectToolStrip);
+            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.selectToolStrip_1);
             this.toolStripContainer.TopToolStripPanel.MaximumSize = new System.Drawing.Size(0, 81);
             // 
             // splitContainer1
@@ -159,7 +171,7 @@ namespace BaseModule
             // 
             this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
             this.splitContainer2.Size = new System.Drawing.Size(984, 585);
-            this.splitContainer2.SplitterDistance = 397;
+            this.splitContainer2.SplitterDistance = 396;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
             this.splitContainer2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Paint);
@@ -191,7 +203,7 @@ namespace BaseModule
             this.sceneControl.SelectionColor = System.Drawing.Color.Green;
             this.sceneControl.ShadowAngle = 0F;
             this.sceneControl.ShowSurfaceBackEdges = false;
-            this.sceneControl.Size = new System.Drawing.Size(984, 396);
+            this.sceneControl.Size = new System.Drawing.Size(984, 395);
             this.sceneControl.TabIndex = 0;
             this.sceneControl.TitleColor = System.Drawing.Color.Black;
             this.sceneControl.TitleText = "";
@@ -218,7 +230,7 @@ namespace BaseModule
             this.consoleControl.Location = new System.Drawing.Point(0, 0);
             this.consoleControl.Margin = new System.Windows.Forms.Padding(4);
             this.consoleControl.Name = "consoleControl";
-            this.consoleControl.Size = new System.Drawing.Size(984, 183);
+            this.consoleControl.Size = new System.Drawing.Size(984, 184);
             this.consoleControl.TabIndex = 4;
             this.consoleControl.UpColor = System.Drawing.Color.Silver;
             this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
@@ -282,23 +294,136 @@ namespace BaseModule
             // 
             // selectToolStrip
             // 
-            this.selectToolStrip.AllowDrop = true;
+            this.selectToolStrip.BottomColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(228)))), ((int)(((byte)(228)))));
             this.selectToolStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.selectToolStrip.ElementsImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.ElementsImage")));
-            this.selectToolStrip.Font = new System.Drawing.Font("Segoe UI", 7F);
-            this.selectToolStrip.GeomsImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.GeomsImage")));
-            this.selectToolStrip.GripMargin = new System.Windows.Forms.Padding(0);
-            this.selectToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.selectToolStrip.HelperImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.HelperImage")));
+            this.selectToolStrip.FrameColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.selectToolStrip.IconLocation = new System.Drawing.Point(0, 3);
+            this.selectToolStrip.ItemBackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(228)))), ((int)(((byte)(228)))));
+            this.selectToolStrip.ItemPressColor = System.Drawing.Color.Black;
+            this.selectToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.spb_Select,
+            this.toolStripButton2,
+            this.toolStripButton3,
+            this.toolStripButton4,
+            this.toolStripButton1});
+            this.selectToolStrip.ItemSelectColor = System.Drawing.Color.DarkGray;
             this.selectToolStrip.Location = new System.Drawing.Point(732, 0);
             this.selectToolStrip.Name = "selectToolStrip";
-            this.selectToolStrip.NodeImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip.NodeImage")));
-            this.selectToolStrip.SelectObjectsType = ModelInterfaces.ObjType.Объект;
-            this.selectToolStrip.Size = new System.Drawing.Size(301, 53);
-            this.selectToolStrip.TabIndex = 1;
+            this.selectToolStrip.Size = new System.Drawing.Size(306, 53);
+            this.selectToolStrip.SplitButtonTriangleSize = 7;
+            this.selectToolStrip.SplitButtonWidth = 24;
+            this.selectToolStrip.TabIndex = 5;
             this.selectToolStrip.Text = "Выбор";
-            this.selectToolStrip.SelectObjectEvent += new System.Action<object, BaseModule.ControlsLib.SelectObjectEventArgs>(this.SelectToolStrip_SelectObjectEvent);
-            this.selectToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.SelectToolStrip_ItemClicked);
+            this.selectToolStrip.TextBoxHeight = 16;
+            this.selectToolStrip.TopColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(228)))), ((int)(((byte)(228)))));
+            // 
+            // spb_Select
+            // 
+            this.spb_Select.AutoSize = false;
+            this.spb_Select.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.spb_Select.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4});
+            this.spb_Select.Image = ((System.Drawing.Image)(resources.GetObject("spb_Select.Image")));
+            this.spb_Select.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.spb_Select.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.spb_Select.Name = "spb_Select";
+            this.spb_Select.Size = new System.Drawing.Size(150, 50);
+            this.spb_Select.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.spb_Select_DropDownItemClicked);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(95, 22);
+            this.toolStripMenuItem1.Text = "rrr";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(95, 22);
+            this.toolStripMenuItem2.Text = "fff";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(95, 22);
+            this.toolStripMenuItem3.Text = "ddd";
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(95, 22);
+            this.toolStripMenuItem4.Text = "ggg";
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.AutoSize = false;
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.toolStripButton2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(36, 50);
+            this.toolStripButton2.Text = "toolStripButton2";
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.AutoSize = false;
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.toolStripButton3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(36, 50);
+            this.toolStripButton3.Text = "toolStripButton3";
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.AutoSize = false;
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+            this.toolStripButton4.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.toolStripButton4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(36, 50);
+            this.toolStripButton4.Text = "toolStripButton4";
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.AutoSize = false;
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(36, 50);
+            this.toolStripButton1.Text = "toolStripButton1";
+            // 
+            // selectToolStrip_1
+            // 
+            this.selectToolStrip_1.AllowDrop = true;
+            this.selectToolStrip_1.Dock = System.Windows.Forms.DockStyle.None;
+            this.selectToolStrip_1.ElementsImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip_1.ElementsImage")));
+            this.selectToolStrip_1.Font = new System.Drawing.Font("Segoe UI", 7F);
+            this.selectToolStrip_1.GeomsImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip_1.GeomsImage")));
+            this.selectToolStrip_1.GripMargin = new System.Windows.Forms.Padding(0);
+            this.selectToolStrip_1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.selectToolStrip_1.HelperImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip_1.HelperImage")));
+            this.selectToolStrip_1.Location = new System.Drawing.Point(1038, 0);
+            this.selectToolStrip_1.Name = "selectToolStrip_1";
+            this.selectToolStrip_1.NodeImage = ((System.Drawing.Image)(resources.GetObject("selectToolStrip_1.NodeImage")));
+            this.selectToolStrip_1.SelectObjectsType = ModelInterfaces.ObjType.Объект;
+            this.selectToolStrip_1.Size = new System.Drawing.Size(270, 53);
+            this.selectToolStrip_1.TabIndex = 1;
+            this.selectToolStrip_1.Text = "Выбор";
+            this.selectToolStrip_1.SelectObjectEvent += new System.Action<object, BaseModule.ControlsLib.SelectObjectEventArgs>(this.SelectToolStrip_SelectObjectEvent);
+            this.selectToolStrip_1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.SelectToolStrip_ItemClicked);
             // 
             // errorProvider
             // 
@@ -328,6 +453,8 @@ namespace BaseModule
             this.splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.selectToolStrip.ResumeLayout(false);
+            this.selectToolStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
@@ -345,6 +472,16 @@ namespace BaseModule
         private ViewToolStrip viewToolStrip;
         private InstrumentToolStrip instrumentToolStrip;
         protected DisplayToolStrip displayToolStrip;
-        protected SelectToolStrip selectToolStrip;
+        protected SelectToolStrip selectToolStrip_1;
+        private ToolStripEx selectToolStrip;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripSplitButton spb_Select;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ToolStripButton toolStripButton4;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

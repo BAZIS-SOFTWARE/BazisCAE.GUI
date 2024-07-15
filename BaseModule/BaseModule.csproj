@@ -153,6 +153,12 @@
     <Compile Include="ControlsLib\Player.Designer.cs">
       <DependentUpon>Player.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControlsLib\ToolStripEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlsLib\ToolStripEx.Designer.cs">
+      <DependentUpon>ToolStripEx.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlsLib\Validation\IValidatorControl.cs" />
     <Compile Include="ControlsLib\ComboBoxEx.cs">
       <SubType>Component</SubType>
