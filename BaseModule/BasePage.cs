@@ -60,79 +60,7 @@ namespace BaseModule
         [Category("General")]
         [Description("Задать цвет выбора групп объектов")]
         public Color SelectionGroupColor { get; set; }
-
-
-        [Category("ViewToolStrip")]
-        [Description("Иконка установки в плоскость XY")]
-        public Image PlaneXYImage
-        {
-            get { return viewToolStrip.PlaneXYImage; }
-            set { viewToolStrip.PlaneXYImage = value; }
-        }
-
-        [Category("ViewToolStrip")]
-        [Description("Иконка установки в плоскость XZ")]
-        public Image PlaneXZImage
-        {
-            get { return viewToolStrip.PlaneXZImage; }
-            set { viewToolStrip.PlaneXZImage = value; }
-        }
-
-        [Category("ViewToolStrip")]
-        [Description("Иконка установки в плоскость YZ")]
-        public Image PlaneYZImage
-        {
-            get { return viewToolStrip.PlaneYZImage; }
-            set { viewToolStrip.PlaneYZImage = value; }
-        }
-
-        [Category("ViewToolStrip")]
-        [Description("Иконка поворота по оси X")]
-        public Image RotXImage
-        {
-            get { return viewToolStrip.RotXImage; }
-            set { viewToolStrip.RotXImage = value; }
-        }
-
-        [Category("ViewToolStrip")]
-        [Description("Иконка поворота по оси Y")]
-        public Image RotYImage
-        {
-            get { return viewToolStrip.RotYImage; }
-            set { viewToolStrip.RotYImage = value; }
-        }
-
-        [Category("ViewToolStrip")]
-        [Description("Иконка поворота по оси Z")]
-        public Image RotZImage
-        {
-            get { return viewToolStrip.RotZImage; }
-            set { viewToolStrip.RotZImage = value; }
-        }
-
-        [Category("ViewToolStrip")]
-        [Description("Иконка поворота на 90 по горизонтали")]
-        public Image Rot90HorImage
-        {
-            get { return viewToolStrip.Rot90HorImage; }
-            set { viewToolStrip.Rot90HorImage = value; }
-        }
-
-        [Category("ViewToolStrip")]
-        [Description("Иконка поворота на 90 по вертикали")]
-        public Image Rot90VerImage
-        {
-            get { return viewToolStrip.Rot90VerImage; }
-            set { viewToolStrip.Rot90VerImage = value; }
-        }
-
-        [Category("ViewToolStrip")]
-        [Description("Иконка вписывания всех объектов в экран")]
-        public Image FitImage
-        {
-            get { return viewToolStrip.FitImage; }
-            set { viewToolStrip.FitImage = value; }
-        }
+      
 
 
         [Category("displayToolStrip")]
@@ -197,31 +125,7 @@ namespace BaseModule
         {
             get { return displayToolStrip.VolumeNodesImage; }
             set { displayToolStrip.VolumeNodesImage = value; }
-        }
-
-        [Category("instrumentalToolStrip")]
-        [Description("Иконка запуска измерения")]
-        public Image MeasureImage
-        {
-            get { return instrumentToolStrip.MeasureImage; }
-            set { instrumentToolStrip.MeasureImage = value; }
-        }
-
-        [Category("instrumentalToolStrip")]
-        [Description("Иконка снимка экрана")]
-        public Image MakePhotoImage
-        {
-            get { return instrumentToolStrip.MakePhotoImage; }
-            set { instrumentToolStrip.MakePhotoImage = value; }
-        }
-
-        [Category("instrumentalToolStrip")]
-        [Description("Иконка запуска построителя сечения")]
-        public Image CrossSectionImage
-        {
-            get { return instrumentToolStrip.CrossSectionImage; }
-            set { instrumentToolStrip.CrossSectionImage = value; }
-        }
+        }       
 
         public SplittersController SplittersController { get; internal set; }
 
