@@ -13,44 +13,53 @@ namespace BaseModule.ControlsLib
 {
     public class BaseToolStrRender: ToolStripProfessionalRenderer
     {
+        public Color BackGroundColor { get; set; } = Color.Gainsboro;
         public Color FrameColor { get; set; } = Color.DarkGray;
-        public Color TopColor { get; set; } = Color.FromArgb(255, 228, 228, 228);
-        public Color BottomColor { get; set; } = Color.FromArgb(255, 228, 228, 228);
         public Color ItemPressColor { get; set; } = Color.Black;
         public Color ItemSelectColor { get; set; } = Color.Gray;
         public Color ItemBackGroundColor { get; set; } = Color.FromArgb(255, 228, 228, 228);
-
-        public Point IconLocation { get; set; } = new Point(0, 3);
-
-        public int SplitButtonWidth { get; set; } = 24;
-
+        public Point IconLocation { get; set; } = new Point(0, 8);
+        public Point ItemLocation { get; set; } = new Point(4, 4);
+        public int SplitButtonClickWidth { get; set; } = 16;
+        public int SplitButtonHeight { get; set; } = 34;
         public int TextBoxHeight { get; set; } = 16;
-
-        public int SplitButtonTriangleSize { get; set; } = 5;
-
-
+        public int SplitButtonTriangleSize { get; set; } = 6;
+        public bool GeneralFrame { get; set; } = true;
+        public bool ItemFrame { get; set; } = true;
+        public bool TextBoxFrame { get; set; } = true;
 
         protected override void OnRenderSplitButtonBackground(ToolStripItemRenderEventArgs e)
         {
-            var sbtn = e.Item as ToolStripSplitButton;
+            var spb = e.Item;
 
-            ComponentsPainter.PaintFrameRectangle(e.Graphics, 1.0f, FrameColor, new Point(0, 0), sbtn.Width - 1, sbtn.Height - 15);
-            ComponentsPainter.PaintFrameRectangle(e.Graphics, 1.0f, FrameColor, new Point(sbtn.Width - SplitButtonWidth, 0), SplitButtonWidth, sbtn.Height - 15);
+            var rectangle = new Rectangle(ItemLocation.X, ItemLocation.Y,
+spb.Width - 2 * ItemLocation.X, SplitButtonHeight - 2 * ItemLocation.Y);
+            
+            //e.Graphics.FillRectangle(new SolidBrush(ItemBackGroundColor), rectangle);
 
-            if (sbtn.Selected)
+            if (spb.Selected)
             {
-                Rectangle rectangle = new Rectangle(0, 0, sbtn.Width, sbtn.Height - 15);
                 e.Graphics.FillRectangle(new SolidBrush(ItemSelectColor), rectangle);
-                //ComponentsPainter.PaintFrameRectangle(e.Graphics, 2.0f, ItemSelectColor, new Point(1, 1), sbtn.Width - 2, sbtn.Height - 17);
             }
-            var centre = new Point(sbtn.Width - SplitButtonWidth / 2, (sbtn.Height - TextBoxHeight) / 2);
+
+            if(ItemFrame)
+            {
+                e.Graphics.DrawRectangle(new Pen(FrameColor, 1.0f), rectangle);
+
+                rectangle = new Rectangle(spb.Width - SplitButtonClickWidth - ItemLocation.X, ItemLocation.Y,
+    SplitButtonClickWidth, SplitButtonHeight - 2 * ItemLocation.Y);
+
+                e.Graphics.DrawRectangle(new Pen(FrameColor, 1.0f), rectangle);
+            }
+
+            var centre = new Point(spb.Width - ItemLocation.X - SplitButtonClickWidth / 2, (spb.Height - TextBoxHeight) / 2);
 
             var points = CreateTriangle(centre, SplitButtonTriangleSize);
             e.Graphics.FillPolygon(Brushes.Black, points);
 
-            SizeF messageSize = e.Graphics.MeasureString(sbtn.ToolTipText, ComponentsPainter.Font);
-            e.Graphics.DrawString(sbtn.ToolTipText, ComponentsPainter.Font, SystemBrushes.WindowText,
-5, sbtn.Height / 2 - messageSize.Height);
+            SizeF messageSize = e.Graphics.MeasureString(spb.ToolTipText, ComponentsPainter.Font);
+            e.Graphics.DrawString(spb.ToolTipText, ComponentsPainter.Font, SystemBrushes.WindowText,
+5, spb.Height / 2 - messageSize.Height);
 
             //sbtn.Width = (int)messageSize.Width + 2 * sbtn.DropDownButtonWidth;
             //}
@@ -110,21 +119,21 @@ namespace BaseModule.ControlsLib
         protected override void OnRenderButtonBackground(ToolStripItemRenderEventArgs e)
         {
             var btn = e.Item as ToolStripButton;
-            Rectangle rectangle = new Rectangle(0, 0, btn.Width, btn.Height - 15);
+            var rectangle = new Rectangle(ItemLocation.X, ItemLocation.Y, btn.Width - 2 * ItemLocation.X, btn.Width - 2 * ItemLocation.X);
 
             e.Graphics.FillRectangle(new SolidBrush(ItemBackGroundColor), rectangle);
 
-            ComponentsPainter.PaintFrameRectangle(e.Graphics, 1.0f, FrameColor, new Point(0, 0), btn.Width - 1, btn.Height - 15);
+            if(ItemFrame)
+                e.Graphics.DrawRectangle(new Pen(FrameColor, 1.0f), rectangle);
  
 
             if (btn.Pressed | btn.Checked)
             {
-                ComponentsPainter.PaintFrameRectangle(e.Graphics, 2.0f, ItemPressColor, new Point(1, 1), btn.Width - 2, btn.Height - 17);
+                e.Graphics.DrawRectangle(new Pen(ItemPressColor, 2.0f), rectangle);
             }
 
             if (btn.Selected)
                 e.Graphics.FillRectangle(new SolidBrush(ItemSelectColor), rectangle); 
-            //ComponentsPainter.PaintFrameRectangle(e.Graphics, 2.0f, ItemSelectColor, new Point(1, 1), btn.Width - 2, btn.Height - 17);
         }
 
         protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
@@ -141,15 +150,23 @@ namespace BaseModule.ControlsLib
             if (tls.Text != "")
             {
                 var gr = e.Graphics;
-                var parentSize = tls.Parent.Size;
+    
+                var rectangle = new Rectangle(0, 0, tls.Width - 4, tls.Height - 4);
 
-                ComponentsPainter.PaintGradientRectangle(gr, new Point(0, 1),tls.Width - 4, parentSize.Height - 4, TopColor, BottomColor);
-                ComponentsPainter.PaintFrameRectangle(gr, 1.0f,FrameColor, new Point(0, 1), tls.Width - 4, parentSize.Height - 4);
-                ComponentsPainter.PaintFrameRectangle(gr, 1.0f, FrameColor, new Point(0, parentSize.Height - TextBoxHeight - 1), tls.Width - 2, TextBoxHeight);
+                e.Graphics.FillRectangle(new SolidBrush(BackGroundColor), rectangle);
+
+                if(GeneralFrame)
+                    e.Graphics.DrawRectangle(new Pen(FrameColor, 1.0f), rectangle);
+
+                if(TextBoxFrame)
+                {
+                    rectangle = new Rectangle(0, tls.Height - 4 - TextBoxHeight, tls.Width - 4, TextBoxHeight);
+                    e.Graphics.DrawRectangle(new Pen(FrameColor, 1.0f), rectangle);
+                }
 
                 SizeF messageSize = gr.MeasureString(tls.Text, ComponentsPainter.Font);
                 var x = tls.Width / 2 - messageSize.Width / 2;
-                var y = parentSize.Height - messageSize.Height - 2;
+                var y = tls.Height - messageSize.Height - 2;
                 gr.DrawString(tls.Text, ComponentsPainter.Font, SystemBrushes.WindowText, x, y);
             }            
         }

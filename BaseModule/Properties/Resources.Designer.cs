@@ -183,9 +183,9 @@ namespace BaseModule.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
         /// </summary>
-        internal static System.Drawing.Icon Pause {
+        internal static System.Drawing.Icon Pause1 {
             get {
-                object obj = ResourceManager.GetObject("Pause", resourceCulture);
+                object obj = ResourceManager.GetObject("Pause1", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -223,9 +223,9 @@ namespace BaseModule.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
         /// </summary>
-        internal static System.Drawing.Icon StartCheck {
+        internal static System.Drawing.Icon StartCheck1 {
             get {
-                object obj = ResourceManager.GetObject("StartCheck", resourceCulture);
+                object obj = ResourceManager.GetObject("StartCheck1", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -233,9 +233,9 @@ namespace BaseModule.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
         /// </summary>
-        internal static System.Drawing.Icon Stop {
+        internal static System.Drawing.Icon Stop1 {
             get {
-                object obj = ResourceManager.GetObject("Stop", resourceCulture);
+                object obj = ResourceManager.GetObject("Stop1", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

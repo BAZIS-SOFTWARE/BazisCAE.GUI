@@ -428,7 +428,7 @@
             treeNode12});
             this.treeView.SelectedImageIndex = 0;
             this.treeView.ShowLines = false;
-            this.treeView.Size = new System.Drawing.Size(223, 325);
+            this.treeView.Size = new System.Drawing.Size(225, 327);
             this.treeView.TabIndex = 2;
             this.treeView.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_BeforeLabelEdit);
             this.treeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_AfterLabelEdit);
@@ -438,8 +438,7 @@
             // 
             // grbNavigator
             // 
-            this.grbNavigator.BackColor = System.Drawing.SystemColors.Control;
-            this.grbNavigator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.grbNavigator.BackColor = System.Drawing.Color.Silver;
             this.grbNavigator.Controls.Add(this.treeView);
             this.grbNavigator.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbNavigator.Location = new System.Drawing.Point(0, 0);

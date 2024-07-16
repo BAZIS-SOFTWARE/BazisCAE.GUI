@@ -12,6 +12,22 @@ namespace BaseModule.ControlsLib
 {
     public partial class ToolStripEx : ToolStrip
     {
+        [Category("Color")]
+        [Description("Set up color")]
+        public Color BackGroundColor
+        {
+            get
+            {
+                return BaseToolStrRender.BackGroundColor;
+            }
+
+            set
+            {
+                BaseToolStrRender.BackGroundColor = value;
+            }
+        }
+        [Category("Color")]
+        [Description("Set up color")]
         public Color FrameColor 
         { 
             get
@@ -24,30 +40,8 @@ namespace BaseModule.ControlsLib
                 BaseToolStrRender.FrameColor = value;
             }
         }
-        public Color TopColor
-        {
-            get
-            {
-                return BaseToolStrRender.TopColor;
-            }
-
-            set
-            {
-                BaseToolStrRender.TopColor = value;
-            }
-        }
-        public Color BottomColor
-        {
-            get
-            {
-                return BaseToolStrRender.BottomColor;
-            }
-
-            set
-            {
-                BaseToolStrRender.BottomColor = value;
-            }
-        }
+        [Category("Color")]
+        [Description("Set up color")]
         public Color ItemPressColor
         {
             get
@@ -60,6 +54,8 @@ namespace BaseModule.ControlsLib
                 BaseToolStrRender.ItemPressColor = value;
             }
         }
+        [Category("Color")]
+        [Description("Set up color")]
         public Color ItemSelectColor
         {
             get
@@ -72,6 +68,8 @@ namespace BaseModule.ControlsLib
                 BaseToolStrRender.ItemSelectColor = value;
             }
         }
+        [Category("Color")]
+        [Description("Set up color")]
         public Color ItemBackGroundColor
         {
             get
@@ -84,7 +82,8 @@ namespace BaseModule.ControlsLib
                 BaseToolStrRender.ItemBackGroundColor = value;
             }
         }
-
+        [Category("Location")]
+        [Description("Set up location")]
         public Point IconLocation
         {
             get
@@ -97,19 +96,48 @@ namespace BaseModule.ControlsLib
                 BaseToolStrRender.IconLocation = value;
             }
         }
+        [Category("Location")]
+        [Description("Set up location")]
+        public Point ItemLocation
+        {
+            get
+            {
+                return BaseToolStrRender.ItemLocation;
+            }
 
-        public int SplitButtonWidth 
+            set
+            {
+                BaseToolStrRender.ItemLocation = value;
+            }
+        }
+        [Category("Size")]
+        [Description("Set up size")]
+        public int SplitButtonHeight
         { 
             get
             {
-                return BaseToolStrRender.SplitButtonWidth;
+                return BaseToolStrRender.SplitButtonHeight;
             }
             set
             {
-                BaseToolStrRender.SplitButtonWidth = value;
+                BaseToolStrRender.SplitButtonHeight = value;
             }
         }
-
+        [Category("Size")]
+        [Description("Set up size")]
+        public int SplitButtonClickWidth
+        {
+            get
+            {
+                return BaseToolStrRender.SplitButtonClickWidth;
+            }
+            set
+            {
+                BaseToolStrRender.SplitButtonClickWidth = value;
+            }
+        }
+        [Category("Size")]
+        [Description("Set up size")]
         public int TextBoxHeight
         {
             get
@@ -121,7 +149,8 @@ namespace BaseModule.ControlsLib
                 BaseToolStrRender.TextBoxHeight = value;
             }
         }
-
+        [Category("Size")]
+        [Description("Set up size")]
         public int SplitButtonTriangleSize
         {
             get
@@ -131,6 +160,47 @@ namespace BaseModule.ControlsLib
             set
             {
                 BaseToolStrRender.SplitButtonTriangleSize = value;
+            }
+        }
+        [Category("Frame")]
+        [Description("Set up frame")]
+        public bool GeneralFrame
+        {
+            get
+            {
+                return BaseToolStrRender.GeneralFrame;
+            }
+            set
+            {
+                BaseToolStrRender.GeneralFrame = value;
+            }
+        }
+
+        [Category("Frame")]
+        [Description("Set up frame")]
+        public bool ItemFrame
+        {
+            get
+            {
+                return BaseToolStrRender.ItemFrame;
+            }
+            set
+            {
+                BaseToolStrRender.ItemFrame = value;
+            }
+        }
+
+        [Category("Frame")]
+        [Description("Set up frame")]
+        public bool TextBoxFrame
+        {
+            get
+            {
+                return BaseToolStrRender.TextBoxFrame;
+            }
+            set
+            {
+                BaseToolStrRender.TextBoxFrame = value;
             }
         }
 
