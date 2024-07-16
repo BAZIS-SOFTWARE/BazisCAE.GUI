@@ -41,15 +41,15 @@ namespace BaseModule
             get
             {
                 ObjType objType;
-                Enum.TryParse(spb_Select.ToolTipText, out objType);
+                Enum.TryParse(spbSelectObject.ToolTipText, out objType);
                 return objType;
             }
             set
             {
-                if (spb_Select.DropDownItems.ContainsKey(value.ToString()))
+                if (spbSelectObject.DropDownItems.ContainsKey(value.ToString()))
                 {
-                    spb_Select.ToolTipText = value.ToString();
-                    Invalidate();
+                    spbSelectObject.ToolTipText = value.ToString();
+                    spbSelectObject.Invalidate();
 
                     SetBackColorToAllObjects();
                     sceneControl.DisplayObjects();
@@ -59,73 +59,7 @@ namespace BaseModule
 
         [Category("General")]
         [Description("Задать цвет выбора групп объектов")]
-        public Color SelectionGroupColor { get; set; }
-      
-
-
-        [Category("displayToolStrip")]
-        [Description("Иконка отображения граничного контура")]
-        public Image BoundaryContoursImage
-        {
-            get { return displayToolStrip.BoundaryContoursImage; }
-            set { displayToolStrip.BoundaryContoursImage = value; }
-        }
-
-        [Category("displayToolStrip")]
-        [Description("Иконка отображения ребер элементов")]
-        public Image ElementsFramesImage
-        {
-            get { return displayToolStrip.ElementsFramesImage; }
-            set { displayToolStrip.ElementsFramesImage = value; }
-        }
-
-        [Category("displayToolStrip")]
-        [Description("Иконка отображения поверхностей и ребер элементов")]
-        public Image ElementsFramesAndSurfacesImage
-        {
-            get { return displayToolStrip.ElementsFramesAndSurfacesImage; }
-            set { displayToolStrip.ElementsFramesAndSurfacesImage = value; }
-        }
-
-        [Category("displayToolStrip")]
-        [Description("Иконка отображения поверхностей элементов")]
-        public Image ElementsSurfacesImage
-        {
-            get { return displayToolStrip.ElementsSurfacesImage; }
-            set { displayToolStrip.ElementsSurfacesImage = value; }
-        }
-
-        [Category("displayToolStrip")]
-        [Description("Иконка отображения нормалей элементов")]
-        public Image ElementsNormalsImage
-        {
-            get { return displayToolStrip.ElementsNormalsImage; }
-            set { displayToolStrip.ElementsNormalsImage = value; }
-        }
-
-        [Category("displayToolStrip")]
-        [Description("Иконка отображения базиса")]
-        public Image ShowBasisImage
-        {
-            get { return displayToolStrip.ShowBasisImage; }
-            set { displayToolStrip.ShowBasisImage = value; }
-        }
-
-        [Category("displayToolStrip")]
-        [Description("Иконка отображения только открытых поверхностей")]
-        public Image SurfaceNodesImage
-        {
-            get { return displayToolStrip.SurfaceNodesImage; }
-            set { displayToolStrip.SurfaceNodesImage = value; }
-        }
-
-        [Category("displayToolStrip")]
-        [Description("Иконка отображения всех поверхностей")]
-        public Image VolumeNodesImage
-        {
-            get { return displayToolStrip.VolumeNodesImage; }
-            set { displayToolStrip.VolumeNodesImage = value; }
-        }       
+        public Color SelectionGroupColor { get; set; }              
 
         public SplittersController SplittersController { get; internal set; }
 
@@ -376,10 +310,10 @@ namespace BaseModule
 
         public void AddObjectsType(ObjType objsType)
         {
-            if (!spb_Select.DropDownItems.ContainsKey(objsType.ToString()))
+            if (!spbSelectObject.DropDownItems.ContainsKey(objsType.ToString()))
             {
                 var newItem = new ToolStripMenuItem(objsType.ToString()) { Name = objsType.ToString() };
-                spb_Select.DropDownItems.Add(newItem);
+                spbSelectObject.DropDownItems.Add(newItem);
             }
 
         }
@@ -449,40 +383,50 @@ namespace BaseModule
 
         private void SelectToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            var selectStrip = (SelectToolStrip)sender;
-            if (e.ClickedItem is ToolStripButton btn)
-                if (!btn.Checked)
-                {
+            var selectStrip = (ToolStrip)sender;
 
-                    if (e.ClickedItem.Tag.ToString() == "4")
+            if (e.ClickedItem.Tag.ToString() == "1")
+                SelectedObjects = ObjType.Узел;
+            else if (e.ClickedItem.Tag.ToString() == "2")
+                SelectedObjects = ObjType.Элемент;
+            else if (e.ClickedItem.Tag.ToString() == "3")
+                SelectedObjects = ObjType.Объект;
+            else if (e.ClickedItem.Tag.ToString() == "4")
+            {
+                var btn = e.ClickedItem as ToolStripButton;
+                    if (!btn.Checked)
                     {
-                        var form = new Form() { 
-                            Name = "selectForm", Text = "Выбрать", AutoSize = false, 
-                            ShowIcon = false, TopMost = true, Owner = Application.OpenForms[0] };
-                        
+                        var form = new Form()
+                        {
+                            Name = "selectForm",
+                            Text = "Выбрать",
+                            AutoSize = false,
+                            ShowIcon = false,
+                            TopMost = true,
+                            Owner = Application.OpenForms[0]
+                        };
+
                         form.FormClosing += (s1, s2) => { btn.Checked = false; };
                         var selectionControl = new SelectionSet() { Dock = DockStyle.Fill };
                         selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
                         selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
                         selectionControl.SelectNodes += (s1, s2) =>
                         {
-                            selectStrip.SelectObjectsType = ObjType.Узел;
+                            //selectStrip.SelectObjectsType = ObjType.Узел;
                             var size = form.Size;
-                            consoleControl.PrintInfo("Выберите два узла для направления или три для плоскости",Color.Black);
+                            consoleControl.PrintInfo("Выберите два узла для направления или три для плоскости", Color.Black);
                         };
                         selectionControl.SelectElements += (s1, s2) =>
                         {
-                            selectStrip.SelectObjectsType = ObjType.Элемент2D;
+                            //selectStrip.SelectObjectsType = ObjType.Элемент2D;
                             consoleControl.PrintInfo("Выберите плоский элемент \"2D\"", Color.Black);
                         };
                         form.ClientSize = selectionControl.Size;
                         form.Controls.Add(selectionControl);
                         form.Show();
+
                     }
-                }
-                else
-                {
-                    if (e.ClickedItem.Tag.ToString() == "4")
+                    else
                     {
                         var forms = Application.OpenForms.Cast<Form>().ToList();
                         var form = forms.Find(x => x.Name == "selectForm");
@@ -492,7 +436,8 @@ namespace BaseModule
                             btn.Checked = true;
                         }
                     }
-                }
+            }
+
         }
 
         private void SelectionControl_SelectInPlain(object arg1, SelectInPlainEventArgs arg2)
@@ -1038,15 +983,8 @@ namespace BaseModule
         {
             try
             {
-                if (arg2.ClickedItem.Tag.ToString() == "0")
-                {
-                    var btn = (ToolStripButton)arg2.ClickedItem;
 
-                    if (!btn.Checked)
-                        sceneControl.DisplayTitle();
-                    else sceneControl.HideTitle();
-                }
-                else if (arg2.ClickedItem.Tag.ToString() == "1")
+                if (arg2.ClickedItem.Tag.ToString() == "0")
                 {
                     sceneControl.DrawInsideObjects = true;
                     var vbobj = sceneControl.FindVBObj("Элемент3D");
@@ -1068,7 +1006,7 @@ namespace BaseModule
                     consoleControl.PrintInfo("Показаны все объекты", Color.Black);
                 }
 
-                else if (arg2.ClickedItem.Tag.ToString() == "2")
+                else if (arg2.ClickedItem.Tag.ToString() == "1")
                 {
                     sceneControl.DrawInsideObjects = false;
 
@@ -1086,7 +1024,7 @@ namespace BaseModule
                     consoleControl.PrintInfo("Скрыты внутренние объекты", Color.Black);
                 }
 
-                else if (arg2.ClickedItem.Tag.ToString() == "3")
+                else if (arg2.ClickedItem.Tag.ToString() == "2")
                 {
                     PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.LineSurface);
                     PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.LineSurface);
@@ -1097,7 +1035,7 @@ namespace BaseModule
                         sceneControl.ChangeViewModeVBObjects(objsType, ObjView.LinesSurface);
                 }
 
-                else if (arg2.ClickedItem.Tag.ToString() == "4")
+                else if (arg2.ClickedItem.Tag.ToString() == "3")
                 {
                     PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.Line);
                     PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.Line);
@@ -1107,7 +1045,7 @@ namespace BaseModule
                         sceneControl.ChangeViewModeVBObjects(objsType, ObjView.Lines);
                 }
 
-                else if (arg2.ClickedItem.Tag.ToString() == "5")
+                else if (arg2.ClickedItem.Tag.ToString() == "4")
                 {
                     PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.Surface);
                     PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.Surface);
@@ -1116,14 +1054,14 @@ namespace BaseModule
                     foreach (var objsType in sceneControl.GetVBObjsName())
                         sceneControl.ChangeViewModeVBObjects(objsType, ObjView.Surface);
                 }
-                else if(arg2.ClickedItem.Tag.ToString() == "6")
+                else if(arg2.ClickedItem.Tag.ToString() == "5")
                 {
                     var btn = (ToolStripButton)arg2.ClickedItem;
                     if (!btn.Checked)
                         SceneControl.DisplayBasis = true;
                     else SceneControl.DisplayBasis = false;
                 }
-                else if (arg2.ClickedItem.Tag.ToString() == "7")
+                else if (arg2.ClickedItem.Tag.ToString() == "6")
                 {
                     var btn = (ToolStripButton)arg2.ClickedItem;
                     if (!btn.Checked)
@@ -1143,7 +1081,7 @@ namespace BaseModule
                     }
                     else sceneControl.DeleteVBObjects("Normals");
                 }
-                else if (arg2.ClickedItem.Tag.ToString() == "8")
+                else if (arg2.ClickedItem.Tag.ToString() == "7")
                 {
                     var btn = (ToolStripButton)arg2.ClickedItem;
                     if (!btn.Checked)
@@ -2014,7 +1952,7 @@ namespace BaseModule
 
         private void spb_Select_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            spb_Select.ToolTipText = e.ClickedItem.Text;
+            spbSelectObject.ToolTipText = e.ClickedItem.Text;
 
             SetBackColorToAllObjects();
             sceneControl.DisplayObjects();
