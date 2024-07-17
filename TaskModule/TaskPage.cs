@@ -47,8 +47,8 @@ namespace TaskModule
 
         public override void CreateMenuInterface()
         {
-            AddToolStripMenuItem(CreateDataBaseInterface());
-            AddToolStripMenuItem(CreateTasksInterface());
+            AddMenuItem(CreateDataBaseInterface());
+            AddMenuItem(CreateTasksInterface());
             base.CreateMenuInterface();
         }
 
@@ -189,17 +189,11 @@ namespace TaskModule
 
         public virtual void UnCheckToolStripButton(string toolStripButtonText)
         {
-            foreach (var item in GetToolStripMenuItems())
+            foreach (var item in GetMenuItems())
                 foreach (var dropItem in item.DropDownItems)
                     if (dropItem is ToolStripMenuItem tls)
                         if(tls.Text == toolStripButtonText)
                             tls.Checked = false;
-        }
-
-        public override void UnBlockInterface(bool status)
-        {
-            foreach (var item in GetToolStripMenuItems().Where(x => x.Text == "Задачи"))
-                item.Enabled = status;
         }
 
         public void CreateAdvisor(TaskAdvisor taskAdv)

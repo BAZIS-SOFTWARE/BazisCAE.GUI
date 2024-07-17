@@ -100,7 +100,7 @@ namespace BaseModule
             {
                 var presentor = CreateObjectsPresentor(item);
                 if (presentor.Count() > 0)
-                    CreateObjectsToScene(item.ToString(), presentor);
+                    CreateObjectsOnScene(item.ToString(), presentor);
             }
         }  
 
@@ -168,7 +168,7 @@ namespace BaseModule
             }
         }
 
-        public IEnumerable<ToolStripMenuItem> GetToolStripMenuItems()
+        public IEnumerable<ToolStripMenuItem> GetMenuItems()
         {
             foreach (var menuItem in menuItems)
             {
@@ -176,52 +176,15 @@ namespace BaseModule
             }
         }
 
-        public void AddToolStripMenuItem(ToolStripMenuItem toolStripMenuItem)
+        public void AddMenuItem(ToolStripMenuItem toolStripMenuItem)
         {
             menuItems.Add(toolStripMenuItem);
         }
 
         public virtual void CreateMenuInterface()
         {
-            AddToolStripMenuItem(AddViewInterface());
-        }      
-
-        private ToolStripMenuItem AddViewInterface()
-        {
-
-            var видToolStripMenuItem = new ToolStripMenuItem();
-            var showNavigatorMenuItem = new ToolStripMenuItem();
-            var showConsoleMenuItem = new ToolStripMenuItem();
-
-            // 
-            // видToolStripMenuItem
-            // 
-            видToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            showNavigatorMenuItem,
-            showConsoleMenuItem});
-            видToolStripMenuItem.Name = "видToolStripMenuItem";
-            видToolStripMenuItem.Text = "Вид";
-            // 
-            // showNavigatorMenuItem
-            // 
-            showNavigatorMenuItem.Name = "showNavigatorMenuItem";
-            showNavigatorMenuItem.Text = "Навигатор";
-            // 
-            // showConsoleMenuItem
-            // 
-            showConsoleMenuItem.Name = "showConsoleMenuItem";
-            showConsoleMenuItem.Text = "Консоль";
-
-            // singup to show navigator click
-            showNavigatorMenuItem.Click += (ar1, ar2) =>
-            { splitContainer1.Panel1Collapsed = false; };
-
-            // singup to show console click
-            showConsoleMenuItem.Click += (ar1, ar2) =>
-            { splitContainer2.Panel2Collapsed = false; };
-
-            return видToolStripMenuItem;
-        }
+            //AddMenuItem(AddViewInterface());
+        }            
 
         public void SearchControl<T>(Control ctrl, List<T> controls) where T : Control
         {
@@ -251,7 +214,7 @@ namespace BaseModule
             bmpPicture.Save(fileName, System.Drawing.Imaging.ImageFormat.Bmp);
         }
 
-        public void CreateObjectsToScene(string objsName, IObjsPresenter presenter)
+        public void CreateObjectsOnScene(string objsName, IObjsPresenter presenter)
         {
             if (!sceneControl.DrawInsideObjects & presenter.IsVolumeObjs)
             {
@@ -627,7 +590,7 @@ namespace BaseModule
                                 foreach (var objsType in Project.ModelData.ObjectData.ObjsTypes)
                                 {
                                     var presentor = CreateObjectsPresentor(objsType);
-                                    CreateObjectsToScene(objsType.ToString(), presentor);
+                                    CreateObjectsOnScene(objsType.ToString(), presentor);
                                 }
 
                             }
@@ -999,7 +962,7 @@ namespace BaseModule
                                 item.ViewState = true;
 
                         var presentor = CreateObjectsPresentor(ObjType.Элемент3D);
-                        CreateObjectsToScene("Элемент3D", presentor);
+                        CreateObjectsOnScene("Элемент3D", presentor);
                         sceneControl.ChangeViewModeVBObjects("Элемент3D", viewMode);
                     }
     
@@ -1017,7 +980,7 @@ namespace BaseModule
                         sceneControl.DeleteVBObjects("Элемент3D");
 
                         var presentor = CreateObjectsPresentor(ObjType.Элемент3D);
-                        CreateObjectsToScene("Элемент3D", presentor);
+                        CreateObjectsOnScene("Элемент3D", presentor);
                         sceneControl.ChangeViewModeVBObjects("Элемент3D", viewMode);
                     }
   
@@ -1073,7 +1036,7 @@ namespace BaseModule
 
                             var linePresenter = PresentersCreator.CreateLineObjectsPresenter(elemsNormals);
 
-                            CreateObjectsToScene("Normals", linePresenter);
+                            CreateObjectsOnScene("Normals", linePresenter);
                         }
                         else
                             throw new Exception("Для отображения нормалей модели не заданы объекты типа \"Элемент\"," +
@@ -1091,7 +1054,7 @@ namespace BaseModule
                         var edges = ModelController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes, Project.ModelData);
                         var linePresenter = PresentersCreator.CreateLineObjectsPresenter(edges);
 
-                        CreateObjectsToScene("Boundary", linePresenter);
+                        CreateObjectsOnScene("Boundary", linePresenter);
                     }
                     else sceneControl.DeleteVBObjects("Boundary");
                 }
@@ -1349,24 +1312,24 @@ namespace BaseModule
             else if (SelectedObjects == ObjType.Элемент)
             {
                 sceneControl.DeleteVBObjects(ObjType.Элемент1D.ToString());
-                CreateObjectsToScene(ObjType.Элемент1D.ToString(), CreateObjectsPresentor(ObjType.Элемент1D));
+                CreateObjectsOnScene(ObjType.Элемент1D.ToString(), CreateObjectsPresentor(ObjType.Элемент1D));
                 sceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
-                CreateObjectsToScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(ObjType.Элемент2D));
+                CreateObjectsOnScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(ObjType.Элемент2D));
                 sceneControl.DeleteVBObjects(ObjType.Элемент3D.ToString());
-                CreateObjectsToScene(ObjType.Элемент3D.ToString(), CreateObjectsPresentor(ObjType.Элемент3D));
+                CreateObjectsOnScene(ObjType.Элемент3D.ToString(), CreateObjectsPresentor(ObjType.Элемент3D));
             }
             else if (SelectedObjects == ObjType.Фигура)
             {
                 sceneControl.DeleteVBObjects(ObjType.Фигура2D.ToString());
-                CreateObjectsToScene(ObjType.Фигура2D.ToString(), CreateObjectsPresentor(ObjType.Фигура2D));
+                CreateObjectsOnScene(ObjType.Фигура2D.ToString(), CreateObjectsPresentor(ObjType.Фигура2D));
                 sceneControl.DeleteVBObjects(ObjType.Фигура3D.ToString());
-                CreateObjectsToScene(ObjType.Фигура3D.ToString(), CreateObjectsPresentor(ObjType.Фигура3D));
+                CreateObjectsOnScene(ObjType.Фигура3D.ToString(), CreateObjectsPresentor(ObjType.Фигура3D));
             }
             else
             {
                 var strObjType = SelectedObjects.ToString();
                 sceneControl.DeleteVBObjects(strObjType);
-                CreateObjectsToScene(strObjType, CreateObjectsPresentor(SelectedObjects));
+                CreateObjectsOnScene(strObjType, CreateObjectsPresentor(SelectedObjects));
             }
 
 
@@ -1383,7 +1346,7 @@ namespace BaseModule
 
         public virtual void UnBlockInterface(bool status)
         {
-            throw new Exception("Функция разблокировки не реализована!");  
+            //throw new Exception("Функция разблокировки не реализована!");  
         }
 
         private void BasePage_Load(object sender, EventArgs e)
@@ -1429,7 +1392,7 @@ namespace BaseModule
 
                         var objsTypeStr = ObjType.Узел.ToString();
                         sceneControl.DeleteVBObjects(objsTypeStr);
-                        CreateObjectsToScene(objsTypeStr, CreateObjectsPresentor(ObjType.Узел));
+                        CreateObjectsOnScene(objsTypeStr, CreateObjectsPresentor(ObjType.Узел));
 
                         sceneControl.DisplayObjects();
                     }));
@@ -1468,7 +1431,7 @@ namespace BaseModule
                     Invoke(new Action(() =>
                     {
                         foreach (var objType in Project.ModelData.ObjectData.ObjsTypes)
-                            CreateObjectsToScene(objType.ToString(), CreateObjectsPresentor(objType));
+                            CreateObjectsOnScene(objType.ToString(), CreateObjectsPresentor(objType));
                         sceneControl.DisplayObjects();
                     }));
                     var actConfirm = new Func<Tuple<bool, object>>(() =>
@@ -1696,7 +1659,7 @@ namespace BaseModule
                 var viewMode = vbobj.ViewMode;
 
                 sceneControl.DeleteVBObjects(group.ObjType.ToString());
-                CreateObjectsToScene(group.ObjType.ToString(), CreateObjectsPresentor(group.ObjType));
+                CreateObjectsOnScene(group.ObjType.ToString(), CreateObjectsPresentor(group.ObjType));
                 sceneControl.ChangeViewModeVBObjects(group.ObjType.ToString(), viewMode);
 
                 sceneControl.DisplayObjects();
@@ -1720,7 +1683,7 @@ namespace BaseModule
 
                 sceneControl.DeleteVBObjects(obj);
 
-                CreateObjectsToScene(obj, CreateObjectsPresentor(objType));
+                CreateObjectsOnScene(obj, CreateObjectsPresentor(objType));
                 sceneControl.DisplayObjects();
             }
             catch (Exception ex)
@@ -1748,7 +1711,7 @@ namespace BaseModule
 
                 sceneControl.DeleteVBObjects(obj);
 
-                CreateObjectsToScene(obj, CreateObjectsPresentor(objType));
+                CreateObjectsOnScene(obj, CreateObjectsPresentor(objType));
 
                 sceneControl.DisplayObjects();
 
@@ -1825,7 +1788,7 @@ namespace BaseModule
 
             var strObjType = group.ObjType.ToString();
             sceneControl.DeleteVBObjects(strObjType);
-            CreateObjectsToScene(strObjType, CreateObjectsPresentor(group.ObjType));
+            CreateObjectsOnScene(strObjType, CreateObjectsPresentor(group.ObjType));
             sceneControl.DisplayObjects();
         }
 
@@ -1869,11 +1832,11 @@ namespace BaseModule
 
 
             sceneControl.DeleteVBObjects(ObjType.Узел.ToString());
-            CreateObjectsToScene(ObjType.Узел.ToString(), CreateObjectsPresentor(ObjType.Узел));
+            CreateObjectsOnScene(ObjType.Узел.ToString(), CreateObjectsPresentor(ObjType.Узел));
 
             var strObjType = group.ObjType.ToString();
             sceneControl.DeleteVBObjects(strObjType);
-            CreateObjectsToScene(strObjType, CreateObjectsPresentor(group.ObjType));
+            CreateObjectsOnScene(strObjType, CreateObjectsPresentor(group.ObjType));
 
             sceneControl.DisplayObjects();
         }

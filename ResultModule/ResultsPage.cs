@@ -47,14 +47,8 @@ namespace ResultModule
 
         public override void CreateMenuInterface()
         {
-            AddToolStripMenuItem(CreateResultsInterface());
+            AddMenuItem(CreateResultsInterface());
             base.CreateMenuInterface();
-        }
-
-        public override void UnBlockInterface(bool status)
-        {
-            foreach (var item in GetToolStripMenuItems().Where(x => x.Text == "Результаты"))
-                item.Enabled = status;
         }
 
         private ToolStripMenuItem CreateResultsInterface()
@@ -446,7 +440,7 @@ namespace ResultModule
 
                     var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
  
-                    CreateObjectsToScene(ObjType.Фигура2D.ToString(), presenter);
+                    CreateObjectsOnScene(ObjType.Фигура2D.ToString(), presenter);
                 }
                 else
                 {
@@ -454,7 +448,7 @@ namespace ResultModule
                     var elsResults = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
 
                     var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
-                    CreateObjectsToScene(ObjType.Фигура2D.ToString(), presenter);
+                    CreateObjectsOnScene(ObjType.Фигура2D.ToString(), presenter);
                 }
 
                 if (showResultValue)
@@ -829,7 +823,7 @@ namespace ResultModule
             ClearAllDataOnScene();
 
             foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-                CreateObjectsToScene(item.ToString(), CreateObjectsPresentor(item));
+                CreateObjectsOnScene(item.ToString(), CreateObjectsPresentor(item));
 
             SceneControl.DisplayObjects();
         }

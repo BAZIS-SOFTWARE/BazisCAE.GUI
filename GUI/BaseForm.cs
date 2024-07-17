@@ -39,6 +39,8 @@ using SceneInterface;
 using ProjectInterfaces.Results;
 using System.Xml.Linq;
 using BaseModule.ControlsComponents;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using BaseModule.Console;
 
 namespace BazisGUI
 {
@@ -271,21 +273,45 @@ namespace BazisGUI
 
             activeMenuItems.Clear();
 
-            foreach (var menuItem in module.GetToolStripMenuItems())
+
+            //+ change this place
+            foreach (var menuItem in module.GetMenuItems())
             {
                 menuStrip.Items.Insert(2,menuItem);
                 activeMenuItems.Add(menuItem);
             }
-
+            //+
             tableLayoutPanel.Hide();
 
             serverConnection.RequestServer(module.Name + " Взять");
 
             if (serverConnection.Answer == "можно")
+            {
+                UnBlockInterface(module.Name);
                 StartLicensing(module);
+            }
+
             else StartLisenceForm(module);
 
 
+        }
+
+        private void UnBlockInterface(string moduleName)
+        {
+            if(moduleName == "Mesh")
+            {
+                meshMenuItem.Enabled = true;
+            }
+            else if(moduleName == "Result")
+            {
+                //foreach (var item in GetMenuItems().Where(x => x.Text == "Результаты"))
+                //    item.Enabled = status;
+            }
+            else if(moduleName == "Weld" | moduleName == "HeatTreatment")
+            {
+                //foreach (var item in GetMenuItems().Where(x => x.Text == "Задачи"))
+                //    item.Enabled = status;
+            }
         }
 
         private BasePage CreateModule(string moduleName)
@@ -293,7 +319,6 @@ namespace BazisGUI
             BasePage basePage;
             if (moduleName == "Weld")
             {
-                //модулиMenuItem.Image = сварка.Image;
                 var taskPage = new WeldingPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
                 taskPage.SolverPath = settingsConfig.SolverPath;
                 basePage = taskPage;
@@ -301,6 +326,7 @@ namespace BazisGUI
 
             else if (moduleName == "HeatTreatment")
             {
+
                 //модулиMenuItem.Image = термообработка.Image;
                 var taskPage = new HeatTreatmentPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
                 taskPage.SolverPath = settingsConfig.SolverPath;
@@ -316,11 +342,13 @@ namespace BazisGUI
 
             else
             {
-                //модулиMenuItem.Image = построениеСетки.Image;
+                meshMenuItem.Visible = true;
                 var modelPage = new ModelPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
                 modelPage.GmshController = gmshController;
                 basePage = modelPage;
             }
+
+            viewMenuItem.Visible = true;
 
             var que = new Queue<int>();
             que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.1f));
@@ -352,7 +380,6 @@ namespace BazisGUI
         {
             //сохранитьToolStripMenuItem.Enabled = true;
             //сохранитькакToolStripMenuItem.Enabled = true;
-            module.UnBlockInterface(true);
 
             serverConnectionPing = new Thread(() =>
             {
@@ -517,7 +544,7 @@ namespace BazisGUI
 
                     if (serverConnection.Answer == "можно")
                     {
-                        //var page = module;
+                        UnBlockInterface(module.Name);
                         StartLicensing(module);
                     }
                 }
@@ -913,6 +940,65 @@ namespace BazisGUI
             //var rect = new Rectangle(new Point(0, 0), new Size(модулиMenuItem.Width - 1, модулиMenuItem.Height - 1));
 
             //e.Graphics.DrawRectangle(blackPen, rect);
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            var module = TryGetModule();
+            var splitContainer = (SplitContainer)module.NavigatorControl.Parent.Parent;
+            splitContainer.Panel1Collapsed = false;
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            var module = TryGetModule();
+            var splitContainer = (SplitContainer)module.ConsoleControl.Parent.Parent;
+            splitContainer.Panel2Collapsed = false;
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            var els3D = project.ModelData.ObjectData.E3DCollection;
+            var module = TryGetModule();
+            if (els3D.Count() != 0)
+            {
+                module.SceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
+
+                var startNumber = project.ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
+                var boundaryElements2D = module.ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
+
+                project.ModelData.ObjectData.E2DCollection.AddRange(boundaryElements2D);
+
+                module.SceneControl.HideAllGeometryObjs();
+                module.SceneControl.HideDisplayText2D();
+                module.SceneControl.HideDisplayText3D();
+
+                module.CreateObjectsOnScene(ObjType.Элемент2D.ToString(), module.CreateObjectsPresentor(ObjType.Элемент2D));
+
+                module.SceneControl.DisplayObjects();
+                module.PresentProjectOnTree();
+
+                module.ConsoleControl.PrintInfo("Созданы 2D элементы", Color.Black);
+            }
+            else
+                module.ConsoleControl.PrintInfo("Модель не содержит объемных элементов!", Color.Red);
+        }
+
+        private void toolStripMenuItem6_Click(object sender, EventArgs e)
+        {
+            var res = MessageBox.Show("Вы собираетесь запустить сеточный генератор. При нажатии на кнопку \"OK\" Все данные о задаче будут удалены!",
+                    "Внимание!", MessageBoxButtons.OKCancel);
+            var module = (ModelPage)TryGetModule();
+            if (res == DialogResult.OK)
+            {
+                project.TaskData.Clear();
+                module.SceneControl.HideAllGeometryObjs();
+                module.SceneControl.HideDisplayText2D();
+                module.SceneControl.HideDisplayText3D();
+                module.PresentProjectOnTree();
+                module.LoadGMSHMeshControl();
+                module.SceneControl.DisplayObjects();
+            }
         }
     }
 }

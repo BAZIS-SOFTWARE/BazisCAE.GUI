@@ -324,21 +324,20 @@
     <None Include="Resources\Measure_32x32.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ControlsLib\DisplayToolStripButtons_x32\Basis.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\PlayerControlIcons\Pause.ico" />
     <None Include="Resources\PlayerControlIcons\StartCheck.ico" />
     <None Include="Resources\PlayerControlIcons\Stop.ico" />
     <None Include="Resources\DisplayToolStripButtons_x32\Basis.png" />
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
-    <None Include="ControlsLib\PlayerControlIcons\Pause.ico" />
-    <None Include="ControlsLib\PlayerControlIcons\StartCheck.ico" />
-    <None Include="ControlsLib\PlayerControlIcons\Stop.ico" />
     <Content Include="Resources\CloseFolder.png" />
     <Content Include="Resources\OpenFolder.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\WinFormsControlLibEx\UserControlsEx.csproj">
+      <Project>{452d36b3-7997-48ac-96cb-4aa349e2b608}</Project>
+      <Name>UserControlsEx</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

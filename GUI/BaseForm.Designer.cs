@@ -57,6 +57,9 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.содержаниеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,6 +68,9 @@
             this.лицензияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сведенияMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.получитьЛицензиюMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.meshMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -238,6 +244,8 @@
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.модулиMenuItem,
             this.файлToolStripMenuItem,
+            this.viewMenuItem,
+            this.meshMenuItem,
             this.настройкиToolStripMenuItem,
             this.справкаToolStripMenuItem,
             this.лицензияToolStripMenuItem});
@@ -386,6 +394,30 @@
             this.выходToolStripMenuItem.Text = "Вы&ход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
+            // viewMenuItem
+            // 
+            this.viewMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3});
+            this.viewMenuItem.Name = "viewMenuItem";
+            this.viewMenuItem.Size = new System.Drawing.Size(38, 20);
+            this.viewMenuItem.Text = "Вид";
+            this.viewMenuItem.Visible = false;
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Text = "Навигатор";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem3.Text = "Консоль";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
             // настройкиToolStripMenuItem
             // 
             this.настройкиToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -450,6 +482,31 @@
             this.получитьЛицензиюMenuItem.Size = new System.Drawing.Size(182, 22);
             this.получитьЛицензиюMenuItem.Text = "Получить лицензию";
             this.получитьЛицензиюMenuItem.Click += new System.EventHandler(this.получитьЛицензиюMenuItem_Click);
+            // 
+            // meshMenuItem
+            // 
+            this.meshMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem5,
+            this.toolStripMenuItem6});
+            this.meshMenuItem.Enabled = false;
+            this.meshMenuItem.Name = "meshMenuItem";
+            this.meshMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.meshMenuItem.Text = "Сетка";
+            this.meshMenuItem.Visible = false;
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(256, 22);
+            this.toolStripMenuItem5.Text = "Создать поверхностные элементы";
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(256, 22);
+            this.toolStripMenuItem6.Text = "Генератор 3D сетки";
+            this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
             // 
             // BaseForm
             // 
@@ -529,6 +586,12 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ToolStripMenuItem viewMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem meshMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
     }
 }
 

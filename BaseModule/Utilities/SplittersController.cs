@@ -43,5 +43,10 @@ namespace BaseModule.Utilities
                 PassBySplittersReq(splitters, item.Controls, isEnqueue);
             }
         }
+
+        public void CollapseSplitterPanel(bool flag)
+        {
+
+        }
     }
 }

@@ -24,68 +24,9 @@ namespace ModelModule
         public ModelPage() : base()
         {
             InitializeComponent();
-        }
+        }     
 
-        public override void UnBlockInterface(bool status)
-        {
-            foreach (var item in GetToolStripMenuItems().Where(x => x.Text == "Сетка"))
-                        item.Enabled = status;
-        }
-
-        public override void CreateMenuInterface()
-        {
-            AddToolStripMenuItem(AddMeshInterface());
-            base.CreateMenuInterface();
-        }
-
-        private ToolStripMenuItem AddMeshInterface()
-        {
-            ToolStripMenuItem meshMenuItem = new ToolStripMenuItem()
-            {
-                Name = "meshMenuItem",
-                Text = "Сетка",
-                Enabled = false
-            };
-
-            ToolStripMenuItem boundaryElements2DMenuItem = new ToolStripMenuItem()
-            {
-                Name = "boundaryElements2D",
-                Text = "Создать поверхностные элементы"
-            };
-
-            ToolStripMenuItem meshGeneratorMenuItem = new ToolStripMenuItem()
-            {
-                Name = "meshGenerator",
-                Text = "Генератор сетки"
-            };
-
-            meshMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            boundaryElements2DMenuItem,meshGeneratorMenuItem
-            });
-
-            boundaryElements2DMenuItem.Click += (ar1, ar2) => { CreateBoundaryElements2D(); };
-
-            meshGeneratorMenuItem.Click += (ar1, ar2) =>
-            {
-                var res = MessageBox.Show("Вы собираетесь запустить сеточный генератор. При нажатии на кнопку \"OK\" Все данные о задаче будут удалены!",
-                    "Внимание!", MessageBoxButtons.OKCancel);
-
-                if(res == DialogResult.OK)
-                {
-                    Project.TaskData.Clear();
-                    SceneControl.HideAllGeometryObjs();
-                    SceneControl.HideDisplayText2D();
-                    SceneControl.HideDisplayText3D();
-                    PresentProjectOnTree();
-                    LoadGMSHMeshControl();
-                    SceneControl.DisplayObjects();
-                }
-            };
-
-            return meshMenuItem;
-        }
-
-        private void LoadGMSHMeshControl()
+        public void LoadGMSHMeshControl()
         {
             //SceneControl.IsBlending = false;//Прозрачность пока больше мешает
 
@@ -535,7 +476,7 @@ namespace ModelModule
 
                 var presentor = PresentersCreator.CreatePointObjectsPresenter(points);
 
-                CreateObjectsToScene("transPoints", presentor);
+                CreateObjectsOnScene("transPoints", presentor);
             }
                 
             SceneControl.DisplayObjects();
@@ -613,7 +554,7 @@ namespace ModelModule
 
                     var linePres = PresentersCreator.CreateLineObjectsPresenter(Project.ModelData.ObjectData.LineCollection);
                     SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
-                    CreateObjectsToScene(ObjType.Линия.ToString(), linePres);
+                    CreateObjectsOnScene(ObjType.Линия.ToString(), linePres);
                     SceneControl.DisplayObjects();
                 }
                 else
@@ -623,7 +564,7 @@ namespace ModelModule
 
                     var linePres = PresentersCreator.CreateLineObjectsPresenter(Project.ModelData.ObjectData.LineCollection);
                     SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
-                    CreateObjectsToScene(ObjType.Линия.ToString(), linePres);
+                    CreateObjectsOnScene(ObjType.Линия.ToString(), linePres);
                     SceneControl.DisplayObjects();
                 }
             }
@@ -644,30 +585,30 @@ namespace ModelModule
 
         private void CreateBoundaryElements2D()
         {
-            var els3D = Project.ModelData.ObjectData.E3DCollection;
+            //var els3D = Project.ModelData.ObjectData.E3DCollection;
 
-            if (els3D.Count() != 0)
-            {
-                SceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
+            //if (els3D.Count() != 0)
+            //{
+            //    SceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
 
-                var startNumber = Project.ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
-                var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
+            //    var startNumber = Project.ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
+            //    var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
 
-                Project.ModelData.ObjectData.E2DCollection.AddRange(boundaryElements2D);
+            //    Project.ModelData.ObjectData.E2DCollection.AddRange(boundaryElements2D);
 
-                SceneControl.HideAllGeometryObjs();
-                SceneControl.HideDisplayText2D();
-                SceneControl.HideDisplayText3D();
+            //    SceneControl.HideAllGeometryObjs();
+            //    SceneControl.HideDisplayText2D();
+            //    SceneControl.HideDisplayText3D();
 
-                CreateObjectsToScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(ObjType.Элемент2D));
+            //    CreateObjectsOnScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(ObjType.Элемент2D));
 
-                SceneControl.DisplayObjects();
-                PresentProjectOnTree();
+            //    SceneControl.DisplayObjects();
+            //    PresentProjectOnTree();
 
-                ConsoleControl.PrintInfo("Созданы 2D элементы", Color.Black);
-            }
-            else
-                ConsoleControl.PrintInfo("Модель не содержит объемных элементов!", Color.Red);
+            //    ConsoleControl.PrintInfo("Созданы 2D элементы", Color.Black);
+            //}
+            //else
+            //    ConsoleControl.PrintInfo("Модель не содержит объемных элементов!", Color.Red);
 
         }
 
@@ -724,7 +665,7 @@ namespace ModelModule
 
             var presentor = CreateObjectsPresentor(item);
             if (presentor.Count() > 0)
-                CreateObjectsToScene(item.ToString(), presentor);
+                CreateObjectsOnScene(item.ToString(), presentor);
         }   
 
         private void RedrawScene(bool fitOnScreen)
