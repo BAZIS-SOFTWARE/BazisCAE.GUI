@@ -2,8 +2,7 @@
 using TaskModule.BasicAdvisorControls;
 using TaskModule.WeldingModule.WeldingTypeControls;
 using TaskModule.BasicTaskAdvisor;
-using BaseModule.ControlsLib;
-using System.Windows.Forms;
+using UserControlsEx;
 
 namespace TaskModule.WeldingModule
 {
@@ -37,7 +36,7 @@ namespace TaskModule.WeldingModule
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WeldingAdvisor));
-            this.tabControl = new BaseModule.ControlsLib.TabControlEx();
+            this.tabControl = new TabControlEx();
             this.pdgTaskType = new System.Windows.Forms.TabPage();
             this.taskTypeControl1 = new TaskModule.BasicAdvisorControls.TaskTypeControl();
             this.pdgMaterials = new System.Windows.Forms.TabPage();

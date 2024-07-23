@@ -7,11 +7,9 @@ using System.IO;
 using System.Threading;
 using System.Reflection;
 using BaseModule.Console.Events;
-using System.Drawing.Drawing2D;
 using ParserLib;
-using BaseModule.ControlsComponents;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.ComponentModel;
+using UserControlsEx;
 
 namespace BaseModule.Console
 {

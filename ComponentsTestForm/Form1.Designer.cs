@@ -1,4 +1,4 @@
-﻿using BaseModule.ControlsLib;
+﻿using UserControlsEx;
 
 namespace ComponentsTestForm
 {
@@ -31,7 +31,7 @@ namespace ComponentsTestForm
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.groupBoxEx1 = new BaseModule.ControlsLib.GroupBoxEx();
+            this.groupBoxEx1 = new GroupBoxEx();
             this.txbTest = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBoxEx1 = new UserControlsEx.ComboBoxEx(this.components);

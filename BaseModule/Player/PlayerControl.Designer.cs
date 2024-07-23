@@ -1,9 +1,8 @@
-﻿using BaseModule.ControlsLib;
-using System.Drawing;
+﻿using UserControlsEx;
 
-namespace BaseModule.ControlsLib
+namespace BaseModule.Player
 {
-    partial class Player
+    partial class PlayerControl
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -31,7 +30,7 @@ namespace BaseModule.ControlsLib
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Player));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerControl));
             this.lblStatus = new System.Windows.Forms.Label();
             this.btnStopCheck = new System.Windows.Forms.Button();
             this.colorSlider = new ColorSlider();

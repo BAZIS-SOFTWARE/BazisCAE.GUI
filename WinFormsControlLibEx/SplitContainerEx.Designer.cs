@@ -1,6 +1,8 @@
-﻿namespace BaseModule.ControlsLib
+﻿using System.Windows.Forms;
+
+namespace UserControlsEx
 {
-    partial class GroupBoxEx
+    partial class SplitContainerEx : SplitContainer
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -28,36 +30,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.chb = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
-            // chb
+            // SplitContainerEx
             // 
-            this.chb.AutoSize = true;
-            this.chb.Checked = true;
-            this.chb.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chb.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chb.Location = new System.Drawing.Point(0, 0);
-            this.chb.Name = "chb";
-            this.chb.Size = new System.Drawing.Size(12, 11);
-            this.chb.TabIndex = 0;
-            this.chb.UseVisualStyleBackColor = true;
-            this.chb.Visible = false;
-            this.chb.Click += new System.EventHandler(this.chb_Click);
-            // 
-            // GroupBoxEx
-            // 
-            this.Controls.Add(this.chb);
-            this.MinimumSize = new System.Drawing.Size(0, 10);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GroupBoxEx_MouseClick);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.GroupBoxEx_Paint);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.SplitContainerEx_Paint);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SplitContainerEx_MouseClick);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox chb;
     }
 }

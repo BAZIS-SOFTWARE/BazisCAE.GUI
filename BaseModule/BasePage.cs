@@ -13,7 +13,6 @@ using BaseModule.Console;
 using BaseModule.CrossSection;
 using BaseModule.Console.Events;
 using SceneInterface;
-using BaseModule.ControlsLib;
 using BaseModule.Navigator;
 using ModelControllerInterfaces;
 using System.Threading;
@@ -21,7 +20,6 @@ using ModelInterfaces.MeshObjects;
 using ModelInterfaces.GeometryObjects;
 using System.ComponentModel;
 using ProjectInterfaces;
-using BaseModule.ControlsComponents;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using BaseModule.Utilities;
 
@@ -292,12 +290,6 @@ namespace BaseModule
             sceneControl.HideDisplayText2D();
             sceneControl.HideDisplayText3D();
             sceneControl.DeleteAllVBObjects();
-        }
-
-        private void SelectToolStrip_SelectObjectEvent(object arg1, SelectObjectEventArgs arg2)
-        {
-            SetBackColorToAllObjects();
-            sceneControl.DisplayObjects();
         }
 
         private void SelectToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -1791,73 +1783,6 @@ namespace BaseModule
             CreateObjectsOnScene(strObjType, CreateObjectsPresentor(group.ObjType));
 
             sceneControl.DisplayObjects();
-        }
-
-        private void splitContainer1_Paint(object sender, PaintEventArgs e)
-        {
-            var locRect = new Point(splitContainer1.Panel1.Width-1, splitContainer2.Panel1.Height / 2);
-            var rect = new Rectangle(locRect, new Size(5, 50));
-            e.Graphics.DrawRectangle(Pens.DarkGray, rect);
-
-            var x = splitContainer1.Panel1.Width;
-            var y = splitContainer2.Panel1.Height / 2;
-
-            var points = new Point[]
-            {
-                        new Point(x + 3, y + 24),
-                        new Point(x + 0, y + 27),
-                        new Point(x + 3, y + 31)
-            };
-            e.Graphics.FillPolygon(Brushes.Black, points);
-
-        }
-
-        private void splitContainer1_MouseClick(object sender, MouseEventArgs e)
-        {
-            var x = splitContainer1.Panel1.Width;
-            var y = splitContainer2.Panel1.Height / 2;
-            
-            if (e.Location.X > x & e.Location.X < x + splitContainer1.SplitterWidth &&
-                e.Location.Y > y & e.Location.Y < y + 50)
-            {
-                splitContainer1.IsSplitterFixed = true;
-                splitContainer1.SplitterDistance -= 100;
-            }
-            else
-                splitContainer1.IsSplitterFixed = false;
-        }
-
-        private void splitContainer2_Paint(object sender, PaintEventArgs e)
-        {
-            var locRect = new Point(splitContainer2.Panel1.Width / 2, splitContainer2.Panel1.Height - 1);
-            var rect = new Rectangle(locRect, new Size(50, 5));
-            e.Graphics.DrawRectangle(Pens.DarkGray, rect);
-
-            var x = splitContainer2.Panel1.Width / 2;
-            var y = splitContainer2.Panel1.Height;
-
-            var points = new Point[]
-            {
-                        new Point(x + 21, y),
-                        new Point(x + 27, y),
-                        new Point(x + 24, y + 3)
-            };
-            e.Graphics.FillPolygon(Brushes.Black, points);
-        }
-
-        private void splitContainer2_MouseClick(object sender, MouseEventArgs e)
-        {
-            var x = splitContainer2.Panel1.Width / 2;
-            var y = splitContainer2.Panel1.Height;
-
-            if (e.Location.X > x & e.Location.X < x + 50 &&
-                e.Location.Y > y - 3 & e.Location.Y < y + 3)
-            {
-                splitContainer2.IsSplitterFixed = true;
-                splitContainer2.SplitterDistance += 50;
-            }
-            else
-                splitContainer2.IsSplitterFixed = false;
         }
 
         private void sceneControl_Load(object sender, EventArgs e)

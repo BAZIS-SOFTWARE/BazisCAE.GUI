@@ -62,6 +62,12 @@
     <Compile Include="GroupBoxEx.Designer.cs">
       <DependentUpon>GroupBoxEx.cs</DependentUpon>
     </Compile>
+    <Compile Include="SplitContainerEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SplitContainerEx.Designer.cs">
+      <DependentUpon>SplitContainerEx.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabControlEx.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -87,6 +93,9 @@
   <ItemGroup>
     <EmbeddedResource Include="GroupBoxEx.resx">
       <DependentUpon>GroupBoxEx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SplitContainerEx.resx">
+      <DependentUpon>SplitContainerEx.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabControlEx.resx">
       <DependentUpon>TabControlEx.cs</DependentUpon>

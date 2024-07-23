@@ -284,6 +284,10 @@
       <Project>{11954439-9966-4648-a776-7ce642fe21f3}</Project>
       <Name>TaskModule</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WinFormsControlLibEx\UserControlsEx.csproj">
+      <Project>{452D36B3-7997-48AC-96CB-4AA349E2B608}</Project>
+      <Name>UserControlsEx</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

@@ -1,4 +1,4 @@
-﻿using BaseModule.ControlsLib;
+﻿using UserControlsEx;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
@@ -32,23 +32,23 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         {
             this.components = new System.ComponentModel.Container();
             this.label4 = new System.Windows.Forms.Label();
-            this.cmbPriority = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbPriority = new ComboBoxEx(this.components);
             this.label3 = new System.Windows.Forms.Label();
-            this.cmbSolver = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbSolver = new ComboBoxEx(this.components);
             this.label12 = new System.Windows.Forms.Label();
-            this.txbRelaxation = new BaseModule.ControlsLib.TextBoxEx(this.components);
-            this.txbPrecision = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbRelaxation = new TextBoxEx(this.components);
+            this.txbPrecision = new TextBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.txbSolverIterations = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbSolverIterations = new TextBoxEx(this.components);
             this.label7 = new System.Windows.Forms.Label();
-            this.txbIters = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbIters = new TextBoxEx(this.components);
             this.maxTMIter = new System.Windows.Forms.Label();
-            this.txbSaveRate = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbSaveRate = new TextBoxEx(this.components);
             this.lblSaveRateTM = new System.Windows.Forms.Label();
-            this.txbInitTemp = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbInitTemp = new TextBoxEx(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.chbDTtMax = new System.Windows.Forms.CheckBox();
-            this.txbDTtMax = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbDTtMax = new TextBoxEx(this.components);
             this.SuspendLayout();
             // 
             // label4
@@ -70,7 +70,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.cmbPriority.DisplayMember = "0";
             this.cmbPriority.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cmbPriority.FormattingEnabled = true;
-            this.cmbPriority.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbPriority.InputType = CMBInputType.Items;
             this.cmbPriority.IsValidating = true;
             this.cmbPriority.Items.AddRange(new object[] {
             "Низкий",
@@ -106,7 +106,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbSolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cmbSolver.FormattingEnabled = true;
-            this.cmbSolver.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbSolver.InputType = CMBInputType.Items;
             this.cmbSolver.IsValidating = true;
             this.cmbSolver.Items.AddRange(new object[] {
             "Gauss_direct",
@@ -140,7 +140,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbRelaxation.BackColor = System.Drawing.SystemColors.Window;
             this.txbRelaxation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbRelaxation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txbRelaxation.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbRelaxation.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
             this.txbRelaxation.IsValidating = true;
             this.txbRelaxation.Location = new System.Drawing.Point(190, 194);
             this.txbRelaxation.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -158,7 +158,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbPrecision.BackColor = System.Drawing.SystemColors.Window;
             this.txbPrecision.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbPrecision.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txbPrecision.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbPrecision.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
             this.txbPrecision.IsValidating = true;
             this.txbPrecision.Location = new System.Drawing.Point(190, 168);
             this.txbPrecision.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -188,7 +188,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbSolverIterations.BackColor = System.Drawing.SystemColors.Window;
             this.txbSolverIterations.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbSolverIterations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txbSolverIterations.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Integer | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbSolverIterations.InputType = ((TXTBoxInputType)((TXTBoxInputType.Integer | TXTBoxInputType.Positive)));
             this.txbSolverIterations.IsValidating = true;
             this.txbSolverIterations.Location = new System.Drawing.Point(190, 142);
             this.txbSolverIterations.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -218,7 +218,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbIters.BackColor = System.Drawing.SystemColors.Window;
             this.txbIters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbIters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txbIters.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Integer | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbIters.InputType = ((TXTBoxInputType)((TXTBoxInputType.Integer | TXTBoxInputType.Positive)));
             this.txbIters.IsValidating = true;
             this.txbIters.Location = new System.Drawing.Point(190, 63);
             this.txbIters.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -249,7 +249,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbSaveRate.BackColor = System.Drawing.SystemColors.Window;
             this.txbSaveRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbSaveRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txbSaveRate.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Integer | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbSaveRate.InputType = ((TXTBoxInputType)((TXTBoxInputType.Integer | TXTBoxInputType.Positive)));
             this.txbSaveRate.IsValidating = true;
             this.txbSaveRate.Location = new System.Drawing.Point(190, 89);
             this.txbSaveRate.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -280,7 +280,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbInitTemp.BackColor = System.Drawing.SystemColors.Window;
             this.txbInitTemp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbInitTemp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txbInitTemp.InputType = BaseModule.ControlsLib.TXTBoxInputType.Float;
+            this.txbInitTemp.InputType = TXTBoxInputType.Float;
             this.txbInitTemp.IsValidating = true;
             this.txbInitTemp.Location = new System.Drawing.Point(190, 37);
             this.txbInitTemp.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
@@ -324,7 +324,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbDTtMax.BackColor = System.Drawing.SystemColors.Window;
             this.txbDTtMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbDTtMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txbDTtMax.InputType = BaseModule.ControlsLib.TXTBoxInputType.Float;
+            this.txbDTtMax.InputType = TXTBoxInputType.Float;
             this.txbDTtMax.IsValidating = true;
             this.txbDTtMax.Location = new System.Drawing.Point(190, 10);
             this.txbDTtMax.Margin = new System.Windows.Forms.Padding(178, 10, 15, 3);

@@ -11,9 +11,8 @@ using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using BaseModule.Utilities;
 using ProjectInterfaces;
 using ModelInterfaces;
-using System.IO;
 using ProjectInterfaces.Tasks;
-using BaseModule.ControlsLib;
+using UserControlsEx;
 
 namespace TaskModule.BasicTaskAdvisor
 {

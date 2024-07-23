@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using UserControlsEx;
 
 namespace UserControlsEx
 {
@@ -28,13 +21,15 @@ namespace UserControlsEx
         public bool ItemFrame { get; set; } = true;
         public bool TextBoxFrame { get; set; } = true;
 
+        public Point ImageRectangleSize { get; set; } = new Point(26, 26);
+
         protected override void OnRenderSplitButtonBackground(ToolStripItemRenderEventArgs e)
         {
             var spb = e.Item;
 
             var rectangle = new Rectangle(ItemLocation.X, ItemLocation.Y,
 spb.Width - 2 * ItemLocation.X, SplitButtonHeight - 2 * ItemLocation.Y);
-            
+
             //e.Graphics.FillRectangle(new SolidBrush(ItemBackGroundColor), rectangle);
 
             if (spb.Selected)
@@ -42,21 +37,27 @@ spb.Width - 2 * ItemLocation.X, SplitButtonHeight - 2 * ItemLocation.Y);
                 e.Graphics.FillRectangle(new SolidBrush(ItemSelectColor), rectangle);
             }
 
-            if(ItemFrame)
+            if (ItemFrame)
             {
                 e.Graphics.DrawRectangle(new Pen(FrameColor, 1.0f), rectangle);
 
-                rectangle = new Rectangle(spb.Width - SplitButtonClickWidth - ItemLocation.X, ItemLocation.Y,
-    SplitButtonClickWidth, SplitButtonHeight - 2 * ItemLocation.Y);
+                if (e.ToolStrip.LayoutStyle == ToolStripLayoutStyle.HorizontalStackWithOverflow)
+
+                    rectangle = new Rectangle(spb.Width - SplitButtonClickWidth - ItemLocation.X, ItemLocation.Y,
+        SplitButtonClickWidth, SplitButtonHeight - 2 * ItemLocation.Y);
+                else
+                    rectangle = new Rectangle(ItemLocation.X, SplitButtonHeight - SplitButtonClickWidth,
+spb.Width - 2 * ItemLocation.X, SplitButtonClickWidth - ItemLocation.Y);
+
 
                 e.Graphics.DrawRectangle(new Pen(FrameColor, 1.0f), rectangle);
             }
 
             Point centre;
-            if(e.ToolStrip.LayoutStyle == ToolStripLayoutStyle.HorizontalStackWithOverflow)
+            if (e.ToolStrip.LayoutStyle == ToolStripLayoutStyle.HorizontalStackWithOverflow)
                 centre = new Point(spb.Width - ItemLocation.X - SplitButtonClickWidth / 2, (spb.Height - TextBoxHeight) / 2);
             else
-                centre = new Point(spb.Width - ItemLocation.X - SplitButtonClickWidth / 2, (spb.Height - TextBoxHeight) / 2);
+                centre = new Point(spb.Width / 2, SplitButtonHeight - SplitButtonClickWidth / 2 - ItemLocation.Y);
 
             var points = CreateTriangle(centre, SplitButtonTriangleSize);
             e.Graphics.FillPolygon(Brushes.Black, points);
@@ -114,9 +115,10 @@ spb.Width - 2 * ItemLocation.X, SplitButtonHeight - 2 * ItemLocation.Y);
 
         protected override void OnRenderItemImage(ToolStripItemImageRenderEventArgs e)
         {
+  
             var x = e.ImageRectangle.X + IconLocation.X;
             var y = e.ImageRectangle.Y + IconLocation.Y;
-            var rectangle = new Rectangle(x, y, e.ImageRectangle.Width, e.ImageRectangle.Height);
+            var rectangle = new Rectangle(x, y, ImageRectangleSize.X, ImageRectangleSize.Y);
             e.Graphics.DrawImage(e.Image, rectangle);
         }
 

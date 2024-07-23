@@ -1,11 +1,8 @@
 ﻿using BaseModule;
-using BaseModule.ControlsLib;
 using Geometry;
-using Model;
 using Model.GeometryObjects;
 using ModelControllerInterfaces.GmshController;
 using ModelInterfaces;
-using SceneInterface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,7 +11,6 @@ using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Security;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ScrollBar;
 
 namespace ModelModule
 {

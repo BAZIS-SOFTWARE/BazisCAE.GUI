@@ -1,6 +1,6 @@
-﻿using BaseModule.ControlsLib;
-using BaseModule.ControlsLib.Validation;
+﻿using BaseModule.Player;
 using System.Windows.Forms;
+using UserControlsEx;
 
 namespace TaskModule.HeatTreatmentModule
 {
@@ -37,16 +37,16 @@ namespace TaskModule.HeatTreatmentModule
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.blackRank = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.blackRank = new TextBoxEx(this.components);
             this.radAndConvCoef = new System.Windows.Forms.RadioButton();
             this.fullCoef = new System.Windows.Forms.RadioButton();
             this.label7 = new System.Windows.Forms.Label();
-            this.StefanBolzmanConst = new BaseModule.ControlsLib.TextBoxEx(this.components);
-            this.convExcFunc = new BaseModule.ControlsLib.TextBoxEx(this.components);
-            this.cmbTempFunc = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.StefanBolzmanConst = new TextBoxEx(this.components);
+            this.convExcFunc = new TextBoxEx(this.components);
+            this.cmbTempFunc = new ComboBoxEx(this.components);
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.cmbExchFunc = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbExchFunc = new ComboBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.elGroupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,18 +55,18 @@ namespace TaskModule.HeatTreatmentModule
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.player = new BaseModule.ControlsLib.Player();
+            this.player = new PlayerControl();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txbStopTime = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbStopTime = new TextBoxEx(this.components);
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnAddNewRow = new System.Windows.Forms.Button();
-            this.txbStartTime = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbStartTime = new TextBoxEx(this.components);
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.cmbEl = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbEl = new ComboBoxEx(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.grbHeatFlux.SuspendLayout();
@@ -136,7 +136,7 @@ namespace TaskModule.HeatTreatmentModule
             | System.Windows.Forms.AnchorStyles.Right)));
             this.blackRank.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.blackRank.Enabled = false;
-            this.blackRank.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.blackRank.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
             this.blackRank.IsValidating = true;
             this.blackRank.Location = new System.Drawing.Point(171, 118);
             this.blackRank.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -185,7 +185,7 @@ namespace TaskModule.HeatTreatmentModule
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StefanBolzmanConst.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.StefanBolzmanConst.Enabled = false;
-            this.StefanBolzmanConst.InputType = BaseModule.ControlsLib.TXTBoxInputType.Float;
+            this.StefanBolzmanConst.InputType = TXTBoxInputType.Float;
             this.StefanBolzmanConst.IsValidating = true;
             this.StefanBolzmanConst.Location = new System.Drawing.Point(171, 92);
             this.StefanBolzmanConst.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -201,7 +201,7 @@ namespace TaskModule.HeatTreatmentModule
             | System.Windows.Forms.AnchorStyles.Right)));
             this.convExcFunc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.convExcFunc.Enabled = false;
-            this.convExcFunc.InputType = BaseModule.ControlsLib.TXTBoxInputType.Float;
+            this.convExcFunc.InputType = TXTBoxInputType.Float;
             this.convExcFunc.IsValidating = true;
             this.convExcFunc.Location = new System.Drawing.Point(171, 66);
             this.convExcFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -216,7 +216,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbTempFunc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbTempFunc.FormattingEnabled = true;
-            this.cmbTempFunc.InputType = ((BaseModule.ControlsLib.CMBInputType)((BaseModule.ControlsLib.CMBInputType.Items | BaseModule.ControlsLib.CMBInputType.Float)));
+            this.cmbTempFunc.InputType = ((CMBInputType)((CMBInputType.Items | CMBInputType.Float)));
             this.cmbTempFunc.IsValidating = true;
             this.cmbTempFunc.Location = new System.Drawing.Point(171, 144);
             this.cmbTempFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -249,7 +249,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbExchFunc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbExchFunc.FormattingEnabled = true;
-            this.cmbExchFunc.InputType = ((BaseModule.ControlsLib.CMBInputType)((BaseModule.ControlsLib.CMBInputType.Items | BaseModule.ControlsLib.CMBInputType.Float)));
+            this.cmbExchFunc.InputType = ((CMBInputType)((CMBInputType.Items | CMBInputType.Float)));
             this.cmbExchFunc.IsValidating = true;
             this.cmbExchFunc.Location = new System.Drawing.Point(171, 38);
             this.cmbExchFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -364,7 +364,7 @@ namespace TaskModule.HeatTreatmentModule
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = BaseModule.ControlsLib.CheckState.start;
+            this.player.CheckState = BaseModule.Player.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(171, 76);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -406,7 +406,7 @@ namespace TaskModule.HeatTreatmentModule
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStopTime.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbStopTime.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
             this.txbStopTime.IsValidating = true;
             this.txbStopTime.Location = new System.Drawing.Point(171, 50);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -492,7 +492,7 @@ namespace TaskModule.HeatTreatmentModule
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStartTime.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbStartTime.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
             this.txbStartTime.IsValidating = true;
             this.txbStartTime.Location = new System.Drawing.Point(171, 24);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
@@ -522,7 +522,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbEl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbEl.FormattingEnabled = true;
-            this.cmbEl.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbEl.InputType = CMBInputType.Items;
             this.cmbEl.IsValidating = true;
             this.cmbEl.Items.AddRange(new object[] {
             "test"});
@@ -587,7 +587,7 @@ namespace TaskModule.HeatTreatmentModule
         private TextBoxEx txbStartTime;
         private System.Windows.Forms.GroupBox groupBox4;
         private ComboBoxEx cmbTempFunc;
-        private Player player;
+        private PlayerControl player;
         private TextBoxEx convExcFunc;
         private TextBoxEx StefanBolzmanConst;
         private System.Windows.Forms.Label label9;

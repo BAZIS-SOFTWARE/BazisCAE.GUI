@@ -1,4 +1,4 @@
-﻿using BaseModule.ControlsLib;
+﻿using UserControlsEx;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
@@ -41,16 +41,16 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.PrevResultLoadBtn = new System.Windows.Forms.Button();
             this.btnLoadParameters = new System.Windows.Forms.Button();
             this.StopButton = new System.Windows.Forms.Button();
-            this.txbStartStep = new BaseModule.ControlsLib.TextBoxEx(this.components);            this.btnGenTCF = new System.Windows.Forms.Button();
+            this.txbStartStep = new TextBoxEx(this.components);            this.btnGenTCF = new System.Windows.Forms.Button();
             this.StartButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.txbMaxStep = new BaseModule.ControlsLib.TextBoxEx(this.components);            this.txbMinStep = new BaseModule.ControlsLib.TextBoxEx(this.components);            this.chbAddByTaskConditions = new System.Windows.Forms.CheckBox();
+            this.txbMaxStep = new TextBoxEx(this.components);            this.txbMinStep = new TextBoxEx(this.components);            this.chbAddByTaskConditions = new System.Windows.Forms.CheckBox();
             this.btnClearAllTask = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.txbStartTime = new BaseModule.ControlsLib.TextBoxEx(this.components);            this.label9 = new System.Windows.Forms.Label();
-            this.txbStopTime = new BaseModule.ControlsLib.TextBoxEx(this.components);            this.label10 = new System.Windows.Forms.Label();
+            this.txbStartTime = new TextBoxEx(this.components);            this.label9 = new System.Windows.Forms.Label();
+            this.txbStopTime = new TextBoxEx(this.components);            this.label10 = new System.Windows.Forms.Label();
             this.grbTaskKind = new System.Windows.Forms.GroupBox();
             this.chbFurtherComp = new System.Windows.Forms.CheckBox();
             this.cmbHardnessTask = new System.Windows.Forms.CheckBox();
@@ -62,7 +62,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.chbTermoTask = new System.Windows.Forms.CheckBox();
             this.chbChemicalTask = new System.Windows.Forms.CheckBox();
             this.chbLinkedCalc = new System.Windows.Forms.CheckBox();
-            this.grbTaskSettings = new BaseModule.ControlsLib.GroupBoxEx();
+            this.grbTaskSettings = new GroupBoxEx();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -242,7 +242,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbStartStep.BackColor = System.Drawing.SystemColors.Window;
             this.txbStartStep.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartStep.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txbStartStep.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));            this.txbStartStep.IsValidating = true;            this.txbStartStep.Location = new System.Drawing.Point(190, 80);
+            this.txbStartStep.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));            this.txbStartStep.IsValidating = true;            this.txbStartStep.Location = new System.Drawing.Point(190, 80);
             this.txbStartStep.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStartStep.Name = "txbStartStep";
             this.txbStartStep.Size = new System.Drawing.Size(476, 20);
@@ -329,7 +329,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbMaxStep.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbMaxStep.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txbMaxStep.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txbMaxStep.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));            this.txbMaxStep.IsValidating = true;            this.txbMaxStep.Location = new System.Drawing.Point(190, 132);
+            this.txbMaxStep.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));            this.txbMaxStep.IsValidating = true;            this.txbMaxStep.Location = new System.Drawing.Point(190, 132);
             this.txbMaxStep.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbMaxStep.Name = "txbMaxStep";
             this.txbMaxStep.Size = new System.Drawing.Size(476, 20);
@@ -344,7 +344,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbMinStep.BackColor = System.Drawing.SystemColors.Window;
             this.txbMinStep.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbMinStep.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txbMinStep.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));            this.txbMinStep.IsValidating = true;            this.txbMinStep.Location = new System.Drawing.Point(190, 106);
+            this.txbMinStep.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));            this.txbMinStep.IsValidating = true;            this.txbMinStep.Location = new System.Drawing.Point(190, 106);
             this.txbMinStep.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbMinStep.Name = "txbMinStep";
             this.txbMinStep.Size = new System.Drawing.Size(476, 20);
@@ -401,7 +401,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbStartTime.BackColor = System.Drawing.SystemColors.Window;
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txbStartTime.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));            this.txbStartTime.IsValidating = true;            this.txbStartTime.Location = new System.Drawing.Point(190, 28);
+            this.txbStartTime.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));            this.txbStartTime.IsValidating = true;            this.txbStartTime.Location = new System.Drawing.Point(190, 28);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 15, 20, 3);
             this.txbStartTime.Name = "txbStartTime";
             this.txbStartTime.Size = new System.Drawing.Size(476, 20);
@@ -427,7 +427,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbStopTime.BackColor = System.Drawing.SystemColors.Window;
             this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStopTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txbStopTime.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));            this.txbStopTime.IsValidating = true;            this.txbStopTime.Location = new System.Drawing.Point(190, 54);
+            this.txbStopTime.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));            this.txbStopTime.IsValidating = true;            this.txbStopTime.Location = new System.Drawing.Point(190, 54);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStopTime.Name = "txbStopTime";
             this.txbStopTime.Size = new System.Drawing.Size(476, 20);

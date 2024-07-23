@@ -135,44 +135,12 @@
       <DependentUpon>ConsoleControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Console\FindObjectEventArgs.cs" />
-    <Compile Include="ControlsLib\ColorSlider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ControlsLib\ColorSlider.Designer.cs">
-      <DependentUpon>ColorSlider.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ControlsLib\GroupBoxEx.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ControlsLib\GroupBoxEx.Designer.cs">
-      <DependentUpon>GroupBoxEx.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ControlsLib\Player.cs">
+    <Compile Include="Player\PlayerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ControlsLib\Player.Designer.cs">
-      <DependentUpon>Player.cs</DependentUpon>
+    <Compile Include="Player\PlayerControl.Designer.cs">
+      <DependentUpon>PlayerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlsLib\ToolStripEx.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ControlsLib\ToolStripEx.Designer.cs">
-      <DependentUpon>ToolStripEx.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ControlsLib\Validation\IValidatorControl.cs" />
-    <Compile Include="ControlsLib\ComboBoxEx.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ControlsLib\ComboBoxEx.Designer.cs">
-      <DependentUpon>ComboBoxEx.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ControlsLib\TextBoxEx.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ControlsLib\TextBoxEx.Designer.cs">
-      <DependentUpon>TextBoxEx.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ControlsPainter\ComponentsPainter.cs" />
     <Compile Include="CrossSection\CreatePlaneFromTextArgs.cs" />
     <Compile Include="CrossSection\CrossSectionControl.cs">
       <SubType>UserControl</SubType>
@@ -202,44 +170,6 @@
       <DependentUpon>SelectionSet.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\SplittersController.cs" />
-    <Compile Include="ControlsLib\TabControlEx.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ControlsLib\TabControlEx.Designer.cs">
-      <DependentUpon>TabControlEx.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ControlsLib\BaseToolStrRender.cs" />
-    <Compile Include="ControlsLib\DisplayToolStrip.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ControlsLib\DisplayToolStrip.Designer.cs">
-      <DependentUpon>DisplayToolStrip.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ControlsLib\InstrumentToolStrip.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ControlsLib\InstrumentToolStrip.Designer.cs">
-      <DependentUpon>InstrumentToolStrip.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ControlsLib\SelectObjectEventArgs.cs" />
-    <Compile Include="ControlsLib\SelectToolStrip.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ControlsLib\SelectToolStrip.Designer.cs">
-      <DependentUpon>SelectToolStrip.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ControlsLib\StandartToolStrip.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ControlsLib\StandartToolStrip.Designer.cs">
-      <DependentUpon>StandartToolStrip.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ControlsLib\ViewToolStrip.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ControlsLib\ViewToolStrip.Designer.cs">
-      <DependentUpon>ViewToolStrip.cs</DependentUpon>
-    </Compile>
     <Compile Include="Navigator\NavigatorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -256,8 +186,8 @@
     <EmbeddedResource Include="Console\ConsoleControl.resx">
       <DependentUpon>ConsoleControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ControlsLib\GroupBoxEx.resx">
-      <DependentUpon>GroupBoxEx.cs</DependentUpon>
+    <EmbeddedResource Include="Player\PlayerControl.resx">
+      <DependentUpon>PlayerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CrossSection\CrossSectionControl.resx">
       <DependentUpon>CrossSectionControl.cs</DependentUpon>
@@ -275,24 +205,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SelectionSet\SelectionSet.resx">
       <DependentUpon>SelectionSet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ControlsLib\TabControlEx.resx">
-      <DependentUpon>TabControlEx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ControlsLib\DisplayToolStrip.resx">
-      <DependentUpon>DisplayToolStrip.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ControlsLib\InstrumentToolStrip.resx">
-      <DependentUpon>InstrumentToolStrip.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ControlsLib\SelectToolStrip.resx">
-      <DependentUpon>SelectToolStrip.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ControlsLib\StandartToolStrip.resx">
-      <DependentUpon>StandartToolStrip.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ControlsLib\ViewToolStrip.resx">
-      <DependentUpon>ViewToolStrip.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -339,5 +251,6 @@
       <Name>UserControlsEx</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

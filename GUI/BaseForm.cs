@@ -38,10 +38,10 @@ using MathNet.Numerics.LinearAlgebra;
 using SceneInterface;
 using ProjectInterfaces.Results;
 using System.Xml.Linq;
-using BaseModule.ControlsComponents;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using BaseModule.Console;
 using ProjectInterfaces.Tasks;
+using UserControlsEx;
 
 namespace BazisGUI
 {

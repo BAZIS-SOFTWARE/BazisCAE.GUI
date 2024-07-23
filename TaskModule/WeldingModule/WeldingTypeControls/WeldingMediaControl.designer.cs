@@ -1,6 +1,6 @@
-﻿using BaseModule.ControlsLib;
-using BaseModule.ControlsLib.Validation;
+﻿using BaseModule.Player;
 using System.Windows.Forms;
+using UserControlsEx;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -35,13 +35,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.grbHeatFlux = new BaseModule.ControlsLib.GroupBoxEx();
+            this.grbHeatFlux = new GroupBoxEx();
             this.label5 = new System.Windows.Forms.Label();
-            this.txbMediaTemp = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbMediaTemp = new TextBoxEx(this.components);
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbFunc = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbFunc = new ComboBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbEl = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbEl = new ComboBoxEx(this.components);
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.elGroupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.matColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,21 +49,21 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.player = new BaseModule.ControlsLib.Player();
+            this.player = new PlayerControl();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txbStopTime = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbStopTime = new TextBoxEx(this.components);
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnAddNewRow = new System.Windows.Forms.Button();
-            this.txbStartTime = new BaseModule.ControlsLib.TextBoxEx(this.components);
-            this.grbTermoCycle = new BaseModule.ControlsLib.GroupBoxEx();
-            this.cmbTermoCycle = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.txbStartTime = new TextBoxEx(this.components);
+            this.grbTermoCycle = new GroupBoxEx();
+            this.cmbTermoCycle = new ComboBoxEx(this.components);
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.cmbNode = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbNode = new ComboBoxEx(this.components);
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.rbtTermoCycle = new System.Windows.Forms.RadioButton();
             this.rbtHeatFlow = new System.Windows.Forms.RadioButton();
@@ -137,7 +137,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbMediaTemp.BackColor = System.Drawing.SystemColors.Window;
             this.txbMediaTemp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbMediaTemp.InputType = BaseModule.ControlsLib.TXTBoxInputType.Text;
+            this.txbMediaTemp.InputType = TXTBoxInputType.Text;
             this.txbMediaTemp.IsValidating = true;
             this.txbMediaTemp.Location = new System.Drawing.Point(171, 80);
             this.txbMediaTemp.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -161,7 +161,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbFunc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbFunc.FormattingEnabled = true;
-            this.cmbFunc.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbFunc.InputType = CMBInputType.Items;
             this.cmbFunc.IsValidating = true;
             this.cmbFunc.Location = new System.Drawing.Point(171, 51);
             this.cmbFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -185,7 +185,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbEl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbEl.FormattingEnabled = true;
-            this.cmbEl.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbEl.InputType = CMBInputType.Items;
             this.cmbEl.IsValidating = true;
             this.cmbEl.Items.AddRange(new object[] {
             "test"});
@@ -294,7 +294,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = BaseModule.ControlsLib.CheckState.start;
+            this.player.CheckState = BaseModule.Player.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(172, 76);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -336,7 +336,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStopTime.InputType = BaseModule.ControlsLib.TXTBoxInputType.Text;
+            this.txbStopTime.InputType = TXTBoxInputType.Text;
             this.txbStopTime.IsValidating = true;
             this.txbStopTime.Location = new System.Drawing.Point(171, 50);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -422,7 +422,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStartTime.InputType = BaseModule.ControlsLib.TXTBoxInputType.Text;
+            this.txbStartTime.InputType = TXTBoxInputType.Text;
             this.txbStartTime.IsValidating = true;
             this.txbStartTime.Location = new System.Drawing.Point(171, 24);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
@@ -459,7 +459,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbTermoCycle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbTermoCycle.FormattingEnabled = true;
-            this.cmbTermoCycle.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbTermoCycle.InputType = CMBInputType.Items;
             this.cmbTermoCycle.IsValidating = true;
             this.cmbTermoCycle.Location = new System.Drawing.Point(172, 51);
             this.cmbTermoCycle.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
@@ -492,7 +492,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbNode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbNode.FormattingEnabled = true;
-            this.cmbNode.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbNode.InputType = CMBInputType.Items;
             this.cmbNode.IsValidating = true;
             this.cmbNode.Items.AddRange(new object[] {
             "node"});
@@ -600,7 +600,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Button btnClearAll;
-        private Player player;
+        private PlayerControl player;
         private System.Windows.Forms.DataGridViewTextBoxColumn elGroupColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn matColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;

@@ -1,6 +1,6 @@
-﻿namespace BaseModule.ControlsLib
+﻿namespace BaseModule
 {
-    partial class ToolStripEx
+    partial class ToolStripsPage
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         }
 
         #endregion

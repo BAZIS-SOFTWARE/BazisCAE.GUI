@@ -1,6 +1,6 @@
 ﻿using BaseModule.Console;
-using BaseModule.ControlsLib;
 using ModelInterfaces;
+using UserControlsEx;
 
 namespace BaseModule
 {
@@ -35,18 +35,18 @@ namespace BaseModule
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BasePage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer1 = new UserControlsEx.SplitContainerEx();
             this.navigator = new BaseModule.Navigator.NavigatorControl();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new UserControlsEx.SplitContainerEx();
             this.sceneControl = new Scene.SceneControl();
             this.consoleControl = new BaseModule.Console.ConsoleControl();
-            this.selectToolStrip = new BaseModule.ControlsLib.ToolStripEx();
+            this.selectToolStrip = new UserControlsEx.ToolStripEx();
             this.spbSelectObject = new System.Windows.Forms.ToolStripSplitButton();
-            this.btnSelectElements = new System.Windows.Forms.ToolStripButton();
             this.btnSelectNodes = new System.Windows.Forms.ToolStripButton();
+            this.btnSelectElements = new System.Windows.Forms.ToolStripButton();
             this.btnSelectObjects = new System.Windows.Forms.ToolStripButton();
             this.btnAdvanceSelection = new System.Windows.Forms.ToolStripButton();
-            this.displayToolStrip = new BaseModule.ControlsLib.ToolStripEx();
+            this.displayToolStrip = new UserControlsEx.ToolStripEx();
             this.btnShowAll = new System.Windows.Forms.ToolStripButton();
             this.btnShowOpenSurfaces = new System.Windows.Forms.ToolStripButton();
             this.btnShowSurfaceAndRibbers = new System.Windows.Forms.ToolStripButton();
@@ -55,7 +55,7 @@ namespace BaseModule
             this.btnShowBasis = new System.Windows.Forms.ToolStripButton();
             this.btnShowNormals = new System.Windows.Forms.ToolStripButton();
             this.btnShowCountours = new System.Windows.Forms.ToolStripButton();
-            this.viewToolStrip = new BaseModule.ControlsLib.ToolStripEx();
+            this.viewToolStrip = new UserControlsEx.ToolStripEx();
             this.btnSetXY = new System.Windows.Forms.ToolStripButton();
             this.btnSetZX = new System.Windows.Forms.ToolStripButton();
             this.btnSetZY = new System.Windows.Forms.ToolStripButton();
@@ -65,7 +65,7 @@ namespace BaseModule
             this.btnSetRotHor90 = new System.Windows.Forms.ToolStripButton();
             this.btnSetRotVer90 = new System.Windows.Forms.ToolStripButton();
             this.btnFitObjs = new System.Windows.Forms.ToolStripButton();
-            this.instrumentalToolStrip = new BaseModule.ControlsLib.ToolStripEx();
+            this.instrumentalToolStrip = new UserControlsEx.ToolStripEx();
             this.btnMeasuring = new System.Windows.Forms.ToolStripButton();
             this.btnCrossSection = new System.Windows.Forms.ToolStripButton();
             this.btnScreenShot = new System.Windows.Forms.ToolStripButton();
@@ -135,8 +135,6 @@ namespace BaseModule
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 0;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
-            this.splitContainer1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Paint);
-            this.splitContainer1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.splitContainer1_MouseClick);
             // 
             // navigator
             // 
@@ -192,8 +190,6 @@ namespace BaseModule
             this.splitContainer2.SplitterDistance = 390;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
-            this.splitContainer2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Paint);
-            this.splitContainer2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.splitContainer2_MouseClick);
             // 
             // sceneControl
             // 
@@ -261,15 +257,15 @@ namespace BaseModule
             this.selectToolStrip.GeneralFrame = true;
             this.selectToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.selectToolStrip.IconLocation = new System.Drawing.Point(0, 4);
-            this.selectToolStrip.ImageRectangleSize = 26;
+            this.selectToolStrip.ImageRectangleSize = new System.Drawing.Point(26, 26);
             this.selectToolStrip.ItemBackGroundColor = System.Drawing.Color.White;
             this.selectToolStrip.ItemFrame = true;
             this.selectToolStrip.ItemLocation = new System.Drawing.Point(3, 3);
             this.selectToolStrip.ItemPressColor = System.Drawing.Color.Black;
             this.selectToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.spbSelectObject,
-            this.btnSelectElements,
             this.btnSelectNodes,
+            this.btnSelectElements,
             this.btnSelectObjects,
             this.btnAdvanceSelection});
             this.selectToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
@@ -291,26 +287,12 @@ namespace BaseModule
             this.spbSelectObject.AutoSize = false;
             this.spbSelectObject.BackColor = System.Drawing.SystemColors.Control;
             this.spbSelectObject.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.spbSelectObject.Image = ((System.Drawing.Image)(resources.GetObject("spbSelectObject.Image")));
             this.spbSelectObject.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.spbSelectObject.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.spbSelectObject.Name = "spbSelectObject";
             this.spbSelectObject.Size = new System.Drawing.Size(150, 53);
             this.spbSelectObject.Tag = "0";
             this.spbSelectObject.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.spb_Select_DropDownItemClicked);
-            // 
-            // btnSelectElements
-            // 
-            this.btnSelectElements.AutoSize = false;
-            this.btnSelectElements.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSelectElements.Image = ((System.Drawing.Image)(resources.GetObject("btnSelectElements.Image")));
-            this.btnSelectElements.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSelectElements.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSelectElements.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSelectElements.Name = "btnSelectElements";
-            this.btnSelectElements.Size = new System.Drawing.Size(36, 53);
-            this.btnSelectElements.Tag = "2";
-            this.btnSelectElements.Text = "toolStripButton3";
             // 
             // btnSelectNodes
             // 
@@ -324,6 +306,19 @@ namespace BaseModule
             this.btnSelectNodes.Size = new System.Drawing.Size(36, 53);
             this.btnSelectNodes.Tag = "1";
             this.btnSelectNodes.Text = "toolStripButton2";
+            // 
+            // btnSelectElements
+            // 
+            this.btnSelectElements.AutoSize = false;
+            this.btnSelectElements.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSelectElements.Image = ((System.Drawing.Image)(resources.GetObject("btnSelectElements.Image")));
+            this.btnSelectElements.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnSelectElements.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnSelectElements.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSelectElements.Name = "btnSelectElements";
+            this.btnSelectElements.Size = new System.Drawing.Size(36, 53);
+            this.btnSelectElements.Tag = "2";
+            this.btnSelectElements.Text = "toolStripButton3";
             // 
             // btnSelectObjects
             // 
@@ -360,7 +355,7 @@ namespace BaseModule
             this.displayToolStrip.GeneralFrame = true;
             this.displayToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.displayToolStrip.IconLocation = new System.Drawing.Point(0, 4);
-            this.displayToolStrip.ImageRectangleSize = 26;
+            this.displayToolStrip.ImageRectangleSize = new System.Drawing.Point(26, 26);
             this.displayToolStrip.ItemBackGroundColor = System.Drawing.Color.White;
             this.displayToolStrip.ItemFrame = true;
             this.displayToolStrip.ItemLocation = new System.Drawing.Point(3, 3);
@@ -506,7 +501,7 @@ namespace BaseModule
             this.viewToolStrip.GeneralFrame = true;
             this.viewToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.viewToolStrip.IconLocation = new System.Drawing.Point(0, 4);
-            this.viewToolStrip.ImageRectangleSize = 26;
+            this.viewToolStrip.ImageRectangleSize = new System.Drawing.Point(26, 26);
             this.viewToolStrip.ItemBackGroundColor = System.Drawing.Color.White;
             this.viewToolStrip.ItemFrame = true;
             this.viewToolStrip.ItemLocation = new System.Drawing.Point(3, 3);
@@ -659,8 +654,8 @@ namespace BaseModule
             this.instrumentalToolStrip.FrameColor = System.Drawing.Color.Gray;
             this.instrumentalToolStrip.GeneralFrame = true;
             this.instrumentalToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.instrumentalToolStrip.IconLocation = new System.Drawing.Point(0, 4);
-            this.instrumentalToolStrip.ImageRectangleSize = 26;
+            this.instrumentalToolStrip.IconLocation = new System.Drawing.Point(1, 6);
+            this.instrumentalToolStrip.ImageRectangleSize = new System.Drawing.Point(26, 20);
             this.instrumentalToolStrip.ItemBackGroundColor = System.Drawing.Color.White;
             this.instrumentalToolStrip.ItemFrame = true;
             this.instrumentalToolStrip.ItemLocation = new System.Drawing.Point(3, 3);
@@ -766,8 +761,8 @@ namespace BaseModule
         }
 
         #endregion
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.SplitContainer splitContainer2;
+        private SplitContainerEx splitContainer1;
+        private SplitContainerEx splitContainer2;
         private Scene.SceneControl sceneControl;
         private System.Windows.Forms.ErrorProvider errorProvider;
         protected ToolStripEx viewToolStrip;

@@ -1,8 +1,6 @@
-﻿using BaseModule.ControlsLib;
-using BaseModule.ControlsLib.Validation;
-using System;
-using System.ComponentModel;
+﻿using BaseModule.Player;
 using System.Windows.Forms;
+using UserControlsEx;
 
 namespace TaskModule.BasicAdvisorControls
 {
@@ -38,16 +36,16 @@ namespace TaskModule.BasicAdvisorControls
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClampControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.player = new BaseModule.ControlsLib.Player();
+            this.player = new PlayerControl();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.txbStopTime = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbStopTime = new TextBoxEx(this.components);
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnAddNewRow = new System.Windows.Forms.Button();
-            this.txbStartTime = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbStartTime = new TextBoxEx(this.components);
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,14 +54,14 @@ namespace TaskModule.BasicAdvisorControls
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cmbNodeGr = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbNodeGr = new ComboBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.cmbKind = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbKind = new ComboBoxEx(this.components);
             this.grbClampingParams = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbStiffnessFunc = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbStiffnessFunc = new ComboBoxEx(this.components);
             this.chbLRF = new System.Windows.Forms.CheckBox();
             this.chbZ = new System.Windows.Forms.CheckBox();
             this.chbY = new System.Windows.Forms.CheckBox();
@@ -129,7 +127,7 @@ namespace TaskModule.BasicAdvisorControls
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = BaseModule.ControlsLib.CheckState.start;
+            this.player.CheckState = BaseModule.Player.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(174, 80);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -185,7 +183,7 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStopTime.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbStopTime.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
             this.txbStopTime.IsValidating = true;
             this.txbStopTime.Location = new System.Drawing.Point(170, 55);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
@@ -257,7 +255,7 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStartTime.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbStartTime.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
             this.txbStartTime.IsValidating = true;
             this.txbStartTime.Location = new System.Drawing.Point(170, 29);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 15, 15, 3);
@@ -365,7 +363,7 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbNodeGr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbNodeGr.FormattingEnabled = true;
-            this.cmbNodeGr.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbNodeGr.InputType = CMBInputType.Items;
             this.cmbNodeGr.IsValidating = true;
             this.cmbNodeGr.Location = new System.Drawing.Point(170, 24);
             this.cmbNodeGr.Margin = new System.Windows.Forms.Padding(178, 25, 20, 3);
@@ -399,7 +397,7 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbKind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbKind.FormattingEnabled = true;
-            this.cmbKind.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbKind.InputType = CMBInputType.Items;
             this.cmbKind.IsValidating = true;
             this.cmbKind.Items.AddRange(new object[] {
             "Жесткое"});
@@ -458,8 +456,8 @@ namespace TaskModule.BasicAdvisorControls
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbStiffnessFunc.Enabled = false;
             this.cmbStiffnessFunc.FormattingEnabled = true;
-            this.cmbStiffnessFunc.InputType = ((BaseModule.ControlsLib.CMBInputType)(((BaseModule.ControlsLib.CMBInputType.Items | BaseModule.ControlsLib.CMBInputType.Float) 
-            | BaseModule.ControlsLib.CMBInputType.Empty)));
+            this.cmbStiffnessFunc.InputType = ((CMBInputType)(((CMBInputType.Items | CMBInputType.Float) 
+            | CMBInputType.Empty)));
             this.cmbStiffnessFunc.IsValidating = true;
             this.cmbStiffnessFunc.Location = new System.Drawing.Point(170, 60);
             this.cmbStiffnessFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -589,7 +587,7 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.CheckBox chbZ;
         private System.Windows.Forms.CheckBox chbY;
         private System.Windows.Forms.CheckBox chbX;
-        private Player player;
+        private PlayerControl player;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;

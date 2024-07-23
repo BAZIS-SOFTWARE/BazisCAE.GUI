@@ -8,8 +8,6 @@ using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Interfaces;
 using System.Linq;
 using TaskModule.BasicAdvisorControls.Events;
-using System.Text;
-using BaseModule.ControlsLib.Validation;
 
 namespace TaskModule.BasicAdvisorControls
 {

@@ -1,6 +1,5 @@
-﻿using BaseModule.ControlsLib;
-using BaseModule.ControlsLib.Validation;
-using System.Windows.Forms;
+﻿using UserControlsEx;
+using BaseModule.Player;
 
 namespace TaskModule.HeatTreatmentModule
 {
@@ -42,27 +41,27 @@ namespace TaskModule.HeatTreatmentModule
             this.ClmnStop = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.player = new BaseModule.ControlsLib.Player();
+            this.player = new PlayerControl();
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnAddNewRow = new System.Windows.Forms.Button();
-            this.txbStop = new BaseModule.ControlsLib.TextBoxEx(this.components);
-            this.txbStart = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbStop = new TextBoxEx(this.components);
+            this.txbStart = new TextBoxEx(this.components);
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txbDiffCoefNitro = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbDiffCoefNitro = new TextBoxEx(this.components);
             this.label9 = new System.Windows.Forms.Label();
-            this.txbConcentrNitro = new BaseModule.ControlsLib.TextBoxEx(this.components);
-            this.txbConcentrCarbon = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbConcentrNitro = new TextBoxEx(this.components);
+            this.txbConcentrCarbon = new TextBoxEx(this.components);
             this.label8 = new System.Windows.Forms.Label();
             this.rbtFunction = new System.Windows.Forms.RadioButton();
             this.rbtParam = new System.Windows.Forms.RadioButton();
-            this.cmbEl = new BaseModule.ControlsLib.ComboBoxEx(this.components);
-            this.cmbTempreture = new BaseModule.ControlsLib.ComboBoxEx(this.components);
-            this.txbDiffCoefCarbon = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.cmbEl = new ComboBoxEx(this.components);
+            this.cmbTempreture = new ComboBoxEx(this.components);
+            this.txbDiffCoefCarbon = new TextBoxEx(this.components);
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -208,7 +207,7 @@ namespace TaskModule.HeatTreatmentModule
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = BaseModule.ControlsLib.CheckState.start;
+            this.player.CheckState = BaseModule.Player.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(177, 79);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -287,7 +286,7 @@ namespace TaskModule.HeatTreatmentModule
             this.txbStop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStop.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbStop.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
             this.txbStop.IsValidating = true;
             this.txbStop.Location = new System.Drawing.Point(177, 45);
             this.txbStop.Name = "txbStop";
@@ -301,7 +300,7 @@ namespace TaskModule.HeatTreatmentModule
             this.txbStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStart.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStart.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbStart.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
             this.txbStart.IsValidating = true;
             this.txbStart.Location = new System.Drawing.Point(177, 21);
             this.txbStart.Name = "txbStart";
@@ -360,7 +359,7 @@ namespace TaskModule.HeatTreatmentModule
             this.txbDiffCoefNitro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbDiffCoefNitro.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbDiffCoefNitro.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbDiffCoefNitro.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
             this.txbDiffCoefNitro.IsValidating = true;
             this.txbDiffCoefNitro.Location = new System.Drawing.Point(177, 70);
             this.txbDiffCoefNitro.Name = "txbDiffCoefNitro";
@@ -383,7 +382,7 @@ namespace TaskModule.HeatTreatmentModule
             this.txbConcentrNitro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbConcentrNitro.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbConcentrNitro.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbConcentrNitro.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
             this.txbConcentrNitro.IsValidating = true;
             this.txbConcentrNitro.Location = new System.Drawing.Point(177, 96);
             this.txbConcentrNitro.Name = "txbConcentrNitro";
@@ -397,7 +396,7 @@ namespace TaskModule.HeatTreatmentModule
             this.txbConcentrCarbon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbConcentrCarbon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbConcentrCarbon.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbConcentrCarbon.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
             this.txbConcentrCarbon.IsValidating = true;
             this.txbConcentrCarbon.Location = new System.Drawing.Point(177, 44);
             this.txbConcentrCarbon.Name = "txbConcentrCarbon";
@@ -444,7 +443,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbEl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbEl.FormattingEnabled = true;
-            this.cmbEl.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbEl.InputType = CMBInputType.Items;
             this.cmbEl.IsValidating = true;
             this.cmbEl.Location = new System.Drawing.Point(177, 149);
             this.cmbEl.Name = "cmbEl";
@@ -458,7 +457,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbTempreture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbTempreture.FormattingEnabled = true;
-            this.cmbTempreture.InputType = BaseModule.ControlsLib.CMBInputType.Float;
+            this.cmbTempreture.InputType = CMBInputType.Float;
             this.cmbTempreture.IsValidating = true;
             this.cmbTempreture.Location = new System.Drawing.Point(336, 122);
             this.cmbTempreture.Name = "cmbTempreture";
@@ -472,7 +471,7 @@ namespace TaskModule.HeatTreatmentModule
             this.txbDiffCoefCarbon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbDiffCoefCarbon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbDiffCoefCarbon.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbDiffCoefCarbon.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
             this.txbDiffCoefCarbon.IsValidating = true;
             this.txbDiffCoefCarbon.Location = new System.Drawing.Point(177, 19);
             this.txbDiffCoefCarbon.Margin = new System.Windows.Forms.Padding(178, 3, 20, 3);
@@ -677,6 +676,6 @@ namespace TaskModule.HeatTreatmentModule
         private System.Windows.Forms.DataGridViewTextBoxColumn ClmnTherm;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClmStart;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClmnStop;
-        private Player player;
+        private PlayerControl player;
     }
 }

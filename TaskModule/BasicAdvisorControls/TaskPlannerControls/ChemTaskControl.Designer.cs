@@ -1,4 +1,4 @@
-﻿using BaseModule.ControlsLib;
+﻿using UserControlsEx;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {

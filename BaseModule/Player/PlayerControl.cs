@@ -10,10 +10,10 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Reflection.Emit;
 
-namespace BaseModule.ControlsLib
+namespace BaseModule.Player
 {
     public enum CheckState : int { start, pause, continuation };
-    public partial class Player: UserControl
+    public partial class PlayerControl: UserControl
     {
         System.Windows.Forms.Timer timer;
 
@@ -77,7 +77,7 @@ namespace BaseModule.ControlsLib
         [Category("General")]
         public int SpeedValue { get; set; } = 500;
 
-        public Player()
+        public PlayerControl()
         {
             InitializeComponent();
             timer = new System.Windows.Forms.Timer();

@@ -1,4 +1,4 @@
-﻿using BaseModule.ControlsLib;
+﻿using UserControlsEx;
 
 namespace BaseModule.Console
 {
@@ -39,6 +39,7 @@ namespace BaseModule.Console
             this.grbConsole = new System.Windows.Forms.Panel();
             this.tlscOut = new System.Windows.Forms.ToolStripContainer();
             this.rtxbField = new System.Windows.Forms.RichTextBox();
+            this.toolStripEx1 = new UserControlsEx.ToolStripEx();
             this.spbDictionary = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripMenuItem32 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem33 = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,7 +76,6 @@ namespace BaseModule.Console
             this.toolStripMenuItem64 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem65 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem66 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripEx1 = new BaseModule.ControlsLib.ToolStripEx();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.btnStartMacro = new System.Windows.Forms.ToolStripButton();
@@ -170,6 +170,37 @@ namespace BaseModule.Console
             this.rtxbField.WordWrap = false;
             this.rtxbField.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtxbOut_LinkClicked);
             this.rtxbField.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtxbField_KeyDown);
+            // 
+            // toolStripEx1
+            // 
+            this.toolStripEx1.BackGroundColor = System.Drawing.Color.Gainsboro;
+            this.toolStripEx1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripEx1.FrameColor = System.Drawing.Color.DarkGray;
+            this.toolStripEx1.GeneralFrame = true;
+            this.toolStripEx1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripEx1.IconLocation = new System.Drawing.Point(3, 3);
+            this.toolStripEx1.ImageRectangleSize = new System.Drawing.Point(16, 16);
+            this.toolStripEx1.ItemBackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(228)))), ((int)(((byte)(228)))));
+            this.toolStripEx1.ItemFrame = true;
+            this.toolStripEx1.ItemLocation = new System.Drawing.Point(1, 1);
+            this.toolStripEx1.ItemPressColor = System.Drawing.Color.Black;
+            this.toolStripEx1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.spbDictionary,
+            this.toolStripButton1,
+            this.toolStripButton2,
+            this.btnStartMacro});
+            this.toolStripEx1.ItemSelectColor = System.Drawing.Color.Gray;
+            this.toolStripEx1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
+            this.toolStripEx1.Location = new System.Drawing.Point(0, 3);
+            this.toolStripEx1.Name = "toolStripEx1";
+            this.toolStripEx1.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.toolStripEx1.Size = new System.Drawing.Size(31, 130);
+            this.toolStripEx1.SplitButtonClickWidth = 13;
+            this.toolStripEx1.SplitButtonHeight = 40;
+            this.toolStripEx1.SplitButtonTriangleSize = 6;
+            this.toolStripEx1.TabIndex = 10;
+            this.toolStripEx1.TextBoxFrame = true;
+            this.toolStripEx1.TextBoxHeight = 0;
             // 
             // spbDictionary
             // 
@@ -462,37 +493,6 @@ namespace BaseModule.Console
             this.toolStripMenuItem66.Text = "Выход";
             this.toolStripMenuItem66.Click += new System.EventHandler(this.NewItem_Click);
             // 
-            // toolStripEx1
-            // 
-            this.toolStripEx1.BackGroundColor = System.Drawing.Color.Gainsboro;
-            this.toolStripEx1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStripEx1.FrameColor = System.Drawing.Color.DarkGray;
-            this.toolStripEx1.GeneralFrame = true;
-            this.toolStripEx1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStripEx1.IconLocation = new System.Drawing.Point(3, 3);
-            this.toolStripEx1.ImageRectangleSize = 16;
-            this.toolStripEx1.ItemBackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(228)))), ((int)(((byte)(228)))));
-            this.toolStripEx1.ItemFrame = true;
-            this.toolStripEx1.ItemLocation = new System.Drawing.Point(1, 1);
-            this.toolStripEx1.ItemPressColor = System.Drawing.Color.Black;
-            this.toolStripEx1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.spbDictionary,
-            this.toolStripButton1,
-            this.toolStripButton2,
-            this.btnStartMacro});
-            this.toolStripEx1.ItemSelectColor = System.Drawing.Color.Gray;
-            this.toolStripEx1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.toolStripEx1.Location = new System.Drawing.Point(0, 3);
-            this.toolStripEx1.Name = "toolStripEx1";
-            this.toolStripEx1.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.toolStripEx1.Size = new System.Drawing.Size(31, 130);
-            this.toolStripEx1.SplitButtonClickWidth = 13;
-            this.toolStripEx1.SplitButtonHeight = 40;
-            this.toolStripEx1.SplitButtonTriangleSize = 6;
-            this.toolStripEx1.TabIndex = 10;
-            this.toolStripEx1.TextBoxFrame = true;
-            this.toolStripEx1.TextBoxHeight = 0;
-            // 
             // toolStripButton1
             // 
             this.toolStripButton1.AutoSize = false;
@@ -595,7 +595,7 @@ namespace BaseModule.Console
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem64;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem65;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem66;
-        private ControlsLib.ToolStripEx toolStripEx1;
+        private ToolStripEx toolStripEx1;
         private System.Windows.Forms.ToolStripSplitButton spbDictionary;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;

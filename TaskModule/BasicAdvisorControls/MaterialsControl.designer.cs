@@ -1,6 +1,6 @@
-﻿using BaseModule.ControlsLib;
-using BaseModule.ControlsLib.Validation;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
+using BaseModule.Player;
+using UserControlsEx;
 
 namespace TaskModule.BasicAdvisorControls
 {
@@ -41,21 +41,21 @@ namespace TaskModule.BasicAdvisorControls
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.player = new BaseModule.ControlsLib.Player();
+            this.player = new PlayerControl();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txbStopTime = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbStopTime = new TextBoxEx(this.components);
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnAddNewRow = new System.Windows.Forms.Button();
-            this.txbStartTime = new BaseModule.ControlsLib.TextBoxEx(this.components);
+            this.txbStartTime = new TextBoxEx(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbMat = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbMat = new ComboBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbEl = new BaseModule.ControlsLib.ComboBoxEx(this.components);
+            this.cmbEl = new ComboBoxEx(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -160,7 +160,7 @@ namespace TaskModule.BasicAdvisorControls
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = BaseModule.ControlsLib.CheckState.start;
+            this.player.CheckState = BaseModule.Player.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(171, 72);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -204,7 +204,7 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStopTime.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbStopTime.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
             this.txbStopTime.IsValidating = true;
             this.txbStopTime.Location = new System.Drawing.Point(171, 46);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
@@ -290,7 +290,7 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStartTime.InputType = ((BaseModule.ControlsLib.TXTBoxInputType)((BaseModule.ControlsLib.TXTBoxInputType.Float | BaseModule.ControlsLib.TXTBoxInputType.Positive)));
+            this.txbStartTime.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
             this.txbStartTime.IsValidating = true;
             this.txbStartTime.Location = new System.Drawing.Point(171, 20);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
@@ -335,7 +335,7 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbMat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbMat.FormattingEnabled = true;
-            this.cmbMat.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbMat.InputType = CMBInputType.Items;
             this.cmbMat.IsValidating = true;
             this.cmbMat.Location = new System.Drawing.Point(171, 51);
             this.cmbMat.Name = "cmbMat";
@@ -359,7 +359,7 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbEl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbEl.FormattingEnabled = true;
-            this.cmbEl.InputType = BaseModule.ControlsLib.CMBInputType.Items;
+            this.cmbEl.InputType = CMBInputType.Items;
             this.cmbEl.IsValidating = true;
             this.cmbEl.Location = new System.Drawing.Point(171, 24);
             this.cmbEl.Margin = new System.Windows.Forms.Padding(3, 25, 20, 3);
@@ -418,6 +418,6 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.DataGridViewTextBoxColumn matColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn startColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn stopColumn;
-        private Player player;
+        private PlayerControl player;
     }
 }

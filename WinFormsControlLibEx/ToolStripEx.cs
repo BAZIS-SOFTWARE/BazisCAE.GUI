@@ -151,6 +151,20 @@ namespace UserControlsEx
         }
         [Category("Size")]
         [Description("Set up size")]
+        public Point ImageRectangleSize
+        {
+            get
+            {
+                return BaseToolStrRender.ImageRectangleSize;
+            }
+            set
+            {
+                BaseToolStrRender.ImageRectangleSize = value;
+            }
+        }
+
+        [Category("Size")]
+        [Description("Set up size")]
         public int SplitButtonTriangleSize
         {
             get

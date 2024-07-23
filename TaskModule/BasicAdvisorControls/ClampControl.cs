@@ -1,16 +1,13 @@
-﻿using Newtonsoft.Json.Schema;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
-using BaseModule.ControlsLib.Validation;
 
 namespace TaskModule.BasicAdvisorControls
 {

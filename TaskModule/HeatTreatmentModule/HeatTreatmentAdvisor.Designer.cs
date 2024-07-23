@@ -1,8 +1,6 @@
-﻿using TaskModule.BasicAdvisorControls.Events;
-using TaskModule.BasicAdvisorControls.TaskPlannerControls;
+﻿using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using TaskModule.BasicAdvisorControls;
-using TaskModule.BasicAdvisorControls.BasicControls;
-using BaseModule.ControlsLib;
+using UserControlsEx;
 
 namespace TaskModule.HeatTreatmentModule
 {
@@ -36,7 +34,7 @@ namespace TaskModule.HeatTreatmentModule
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HeatTreatmentAdvisor));
-            this.tabControl1 = new BaseModule.ControlsLib.TabControlEx();
+            this.tabControl1 = new TabControlEx();
             this.pdgTaskType = new System.Windows.Forms.TabPage();
             this.taskTypeControl1 = new TaskModule.BasicAdvisorControls.TaskTypeControl();
             this.pdgMaterials = new System.Windows.Forms.TabPage();
