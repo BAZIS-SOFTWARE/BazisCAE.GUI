@@ -113,10 +113,24 @@ namespace TaskModule.WeldingModule
             {
                 await System.Threading.Tasks.Task.Run(() =>
                 {
-                    var data = (IValuableData)Project.TaskData.Find(arg1).ToArray()[arg2];
+                    var weldingZoneData = (IValuableData)Project.TaskData.Find(arg1).ToArray()[arg2];
+                    var timeBoundedMaterial = Project.TaskData
+                    .Find("Материал")
+                    .Select(vd => vd as IValuableData)
+                    .Where(md => md.StartTime <= weldingZoneData.StartTime && md.StartTime <= weldingZoneData.StopTime)
+                    .ToArray();
+
+                    if (timeBoundedMaterial.Length == 0) 
+                    {
+                        Invoke(new Action(() => 
+                        { 
+                            ConsoleControl.PrintInfo("Ошибка при обработке траектории нагрева: неопределен материал на пути источника нагрева", Color.Red); 
+                        }));
+                        return;
+                    }
 
                     var modelObjects = new List<IModelObject>();
-                    var finishTime = data.StopTime - data.StartTime;
+                    var finishTime = weldingZoneData.StopTime - weldingZoneData.StartTime;
 
                     Invoke(new Action(() =>
                     {
@@ -126,9 +140,12 @@ namespace TaskModule.WeldingModule
                     for (int i = 0; i <= 100; i++)
                     {
                         var currentTime = i * finishTime / 100.0f;
-                        var frame = data.MovedFrame.CalcFrame(currentTime);
-                        var resu = data.FrameFunction.GetIntersectedObjects(frame, data.Group.ToList());
-                        modelObjects.AddRange(resu);
+                        var frame = weldingZoneData.MovedFrame.CalcFrame(currentTime);
+                        foreach (var md in timeBoundedMaterial)
+                        {
+                            var resu = weldingZoneData.FrameFunction.GetIntersectedObjects(frame, md.Group.ToList());
+                            modelObjects.AddRange(resu);
+                        }
 
                         if (i % 10 == 0)
                             Invoke(new Action(() =>
@@ -137,15 +154,14 @@ namespace TaskModule.WeldingModule
                             }));
                     }
 
-                    data.Group.Clear();
-                    data.Group.AddRange(modelObjects);
+                    weldingZoneData.Group.Clear();
+                    weldingZoneData.Group.AddRange(modelObjects);
                 });
             }
             catch (System.Exception ex)
             {
                 ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
-
         }
     }
 }
