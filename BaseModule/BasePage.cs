@@ -32,8 +32,6 @@ namespace BaseModule
         public Action ChangeProjectDataEvent;
         public Action CreateProjectDataEvent;
 
-        BaseToolStrRender BaseToolStrRender { get; set; } = new BaseToolStrRender();   
-
         [Category("SelectToolStrip")]
         [Description("Выбранный объект сцены")]
         public ObjType SelectedObjects
@@ -69,8 +67,6 @@ namespace BaseModule
         { 
             get { return ModelController.PresentersCreator; }
         }  
-
-        List<ToolStripMenuItem> menuItems = new List<ToolStripMenuItem>();
 
         public Keys PressedKey { get; set; }
 
@@ -160,41 +156,7 @@ namespace BaseModule
             {
                 return consoleControl;
             }
-        }
-
-        public IEnumerable<ToolStripMenuItem> GetMenuItems()
-        {
-            foreach (var menuItem in menuItems)
-            {
-                yield return menuItem;
-            }
-        }
-
-        public void AddMenuItem(ToolStripMenuItem toolStripMenuItem)
-        {
-            menuItems.Add(toolStripMenuItem);
-        }
-
-        public virtual void CreateMenuInterface()
-        {
-            //AddMenuItem(AddViewInterface());
-        }            
-
-        public void SearchControl<T>(Control ctrl, List<T> controls) where T : Control
-        {
-            // Работаем только с элементами искомого типа   
-            if (ctrl.GetType() == typeof(T))
-            {
-                controls.Add((T)ctrl);
-            }
-            // Проходим через элементы рекурсивно,   
-            // чтобы не пропустить элементы,   
-            //которые находятся в контейнерах   
-            foreach (Control ctrlChild in ctrl.Controls)
-            {
-                SearchControl(ctrlChild, controls);
-            }
-        }
+        }           
 
         public void CreateScreenShot(string fileName)
         {
