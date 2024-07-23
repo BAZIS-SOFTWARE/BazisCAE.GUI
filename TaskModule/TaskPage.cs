@@ -45,121 +45,76 @@ namespace TaskModule
             ChangeProjectDataEvent += () => { GetTaskAdvisor()?.SetProjectData(Project); };
         }
 
-        public override void CreateMenuInterface()
+        public void OpenFunctionsDB()
         {
-            AddMenuItem(CreateDataBaseInterface());
-            AddMenuItem(CreateTasksInterface());
-            base.CreateMenuInterface();
+            try
+            {
+                var funBasePage = new FunctionDataBasePage() { Dock = DockStyle.Fill };
+                funBasePage.LoadEvent += () =>
+                {
+                    ChangeFuncDBEventHandler(funBasePage);
+                };
+
+                funBasePage.SaveEvent += () =>
+                {
+                    ChangeFuncDBEventHandler(funBasePage);
+                };
+
+                var filePath = FindFileByPath(Project.Path, Project.Functions);
+                if (filePath == null)
+                    ConsoleControl.PrintInfo($"База данных {Project.Functions} не найдена в директории {Project.Path}", Color.Red);
+                else
+                    funBasePage.Load($@"{filePath}\{Project.Functions}", false);
+
+                var icon = TaskModule.Properties.Resources.Функции;
+                var name = "База функций";
+                var form = new Form() { Name = name, Text = name, TopMost = true, Owner = Application.OpenForms[0], Size = funBasePage.Size, Icon = icon };
+                form.Controls.Add(funBasePage);
+                form.ClientSize = funBasePage.Size;
+                form.Show();
+            }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
-        public virtual ToolStripMenuItem CreateTasksInterface()
+        public void OpenMaterialsDB()
         {
-            ToolStripMenuItem tasksMenuItem = new ToolStripMenuItem()
+            try
             {
-                Name = "tasksMenuItem",
-                Text = "Задачи",
-                Enabled = false
-            };
-            return tasksMenuItem;
+                var matBasePage = new MaterialsDataBasePage() { Dock = DockStyle.Fill };
+                matBasePage.LoadEvent += () =>
+                {
+                    ChangeMaterialDBEventHandler(matBasePage);
+                };
+
+                matBasePage.SaveEvent += () =>
+                {
+                    ChangeMaterialDBEventHandler(matBasePage);
+                };
+
+                var filePath = FindFileByPath(Project.Path, Project.Materials);
+                if (filePath == null)
+                    ConsoleControl.PrintInfo($"База данных {Project.Materials} не найдена в директории {Project.Path}", Color.Red);
+                else
+                    matBasePage.Load($@"{filePath}\{Project.Materials}", false);
+
+                var icon = TaskModule.Properties.Resources.Материалы;
+                var name = "База материалов";
+                var form = new Form() { Name = name, Text = name, TopMost = true, Owner = Application.OpenForms[0], Size = matBasePage.Size, Icon = icon };
+                form.Controls.Add(matBasePage);
+                form.ClientSize = matBasePage.Size;
+                form.Show();
+
+            }
+            catch (Exception ex)
+            {
+                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
-        private ToolStripMenuItem CreateDataBaseInterface()
-        {
-            ToolStripMenuItem dataBaseMenuItem = new ToolStripMenuItem()
-            {
-                Name = "dataBaseMenuItem",
-                Text = "Базы данных"
-            };
-
-            ToolStripMenuItem matDataMenuItem = new ToolStripMenuItem()
-            {
-                Name = "matDataMenuItem",
-                Text = "База материалов",
-            };
-
-            ToolStripMenuItem funDataMenuItem = new ToolStripMenuItem()
-            {
-                Name = "funDataMenuItem",
-                Text = "База функций"
-            };
-
-            dataBaseMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            matDataMenuItem,
-            funDataMenuItem
-            });
-
-            matDataMenuItem.Click += (ar1, ar2) =>
-            {
-                try
-                {
-                    var matBasePage = new MaterialsDataBasePage() { Dock = DockStyle.Fill };
-                    matBasePage.LoadEvent += () =>
-                    {
-                        ChangeMaterialDBEventHandler(matBasePage);
-                    };
-
-                    matBasePage.SaveEvent += () =>
-                    {
-                        ChangeMaterialDBEventHandler(matBasePage);
-                    };
-
-                    var filePath = FindFileByPath(Project.Path, Project.Materials);
-                    if (filePath == null)
-                        ConsoleControl.PrintInfo($"База данных {Project.Materials} не найдена в директории {Project.Path}", Color.Red);
-                    else
-                        matBasePage.Load($@"{filePath}\{Project.Materials}", false);
-
-                    var icon = TaskModule.Properties.Resources.Материалы;
-                    var name = "База материалов";
-                    var form = new Form() { Name = name, Text = name, TopMost = true, Owner = Application.OpenForms[0],Size = matBasePage.Size, Icon = icon };
-                    form.Controls.Add(matBasePage);
-                    form.ClientSize = matBasePage.Size;
-                    form.Show();
-
-                }
-                catch (Exception ex)
-                {
-                    ConsoleControl.PrintInfo(ex.Message, Color.Red);
-                }
-            };
-            funDataMenuItem.Click += (ar1, ar2) =>
-            {
-                try
-                {
-                    var funBasePage = new FunctionDataBasePage() { Dock = DockStyle.Fill };
-                    funBasePage.LoadEvent += () =>
-                    {
-                        ChangeFuncDBEventHandler(funBasePage);
-                    };
-
-                    funBasePage.SaveEvent += () =>
-                    {
-                        ChangeFuncDBEventHandler(funBasePage);
-                    };
-
-                    var filePath = FindFileByPath(Project.Path, Project.Functions);
-                    if (filePath == null)
-                        ConsoleControl.PrintInfo($"База данных {Project.Functions} не найдена в директории {Project.Path}", Color.Red);
-                    else
-                        funBasePage.Load($@"{filePath}\{Project.Functions}", false);
-
-                    var icon = TaskModule.Properties.Resources.Функции;
-                    var name = "База функций";
-                    var form = new Form() { Name = name, Text = name, TopMost = true, Owner = Application.OpenForms[0],Size = funBasePage.Size, Icon = icon };
-                    form.Controls.Add(funBasePage);
-                    form.ClientSize = funBasePage.Size;
-                    form.Show();
-                }
-                catch (Exception ex)
-                {
-                    ConsoleControl.PrintInfo(ex.Message, Color.Red);
-                }
-            };
-
-            return dataBaseMenuItem;
-        }
-
-        private void ChangeFuncDBEventHandler(FunctionDataBasePage funBasePage)
+        public void ChangeFuncDBEventHandler(FunctionDataBasePage funBasePage)
         {
             if (funBasePage.DbPath != Project.Path)
                 Project.CopyFile(funBasePage.DbName, funBasePage.DbPath, Project.Path);
@@ -170,7 +125,7 @@ namespace TaskModule
             PresentProjectOnTree();
         }
 
-        private void ChangeMaterialDBEventHandler(MaterialsDataBasePage matBasePage)
+        public void ChangeMaterialDBEventHandler(MaterialsDataBasePage matBasePage)
         {
             if (matBasePage.DbPath != Project.Path)
                 Project.CopyFile(matBasePage.DbName, matBasePage.DbPath, Project.Path);
@@ -187,19 +142,11 @@ namespace TaskModule
             activeAdvisor = "";
         }
 
-        public virtual void UnCheckToolStripButton(string toolStripButtonText)
-        {
-            foreach (var item in GetMenuItems())
-                foreach (var dropItem in item.DropDownItems)
-                    if (dropItem is ToolStripMenuItem tls)
-                        if(tls.Text == toolStripButtonText)
-                            tls.Checked = false;
-        }
-
-        public void CreateAdvisor(TaskAdvisor taskAdv)
+        public void ShowAdvisor(object sender, TaskAdvisor taskAdv)
         {
             try
             {
+                var btn = sender as ToolStripButton;
                 var appFolder = Path.GetDirectoryName(Application.ExecutablePath);
                 if (appFolder == Project.Path)
                 {
@@ -212,9 +159,7 @@ namespace TaskModule
                 form.FormClosed += (ar1, ar2) =>
                 {
                     if (ar2.CloseReason == CloseReason.UserClosing)
-                    {
-                        UnCheckToolStripButton(taskAdv.Text);
-                    }
+                        btn.Checked = false;
                     activeAdvisor = "";
                 };
                 form.Controls.Add(taskAdv);

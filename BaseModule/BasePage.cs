@@ -82,8 +82,6 @@ namespace BaseModule
 
             SplittersController = new SplittersController(this);
 
-            CreateMenuInterface();
-
             //if(ComponentsPainter.ScreenDPI == 120 | ComponentsPainter.ScreenDPI == 144)
             //selectToolStrip_1.Location = new Point(3,0);
         }
@@ -139,10 +137,6 @@ namespace BaseModule
             return presenter;
         }
 
-        public void AddToolStrip(ToolStrip toolStrip)
-        {
-            toolStripContainer.TopToolStripPanel.Join(toolStrip);
-        }
 
         public NavigatorControl NavigatorControl
         {
@@ -467,6 +461,8 @@ namespace BaseModule
                         ModelController.SelectionHelper.SelectNodeInDirection(Project.ModelData.ObjectData, 
                             arg2.Angle, selObjs[selObjs.Length - 1].Number, selObjs[selObjs.Length - 2].Number, sceneControl.SelectionColor);
                     }
+
+                    //selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
                     SetObjectsSceneColor(SelectedObjects);
 
                     sceneControl.DisplayObjects();
@@ -1341,12 +1337,6 @@ namespace BaseModule
             SetBackColorToAllObjects();
             sceneControl.HideDisplayText3D();
             sceneControl.DisplayObjects();
-        }
-
-
-        public virtual void UnBlockInterface(bool status)
-        {
-            //throw new Exception("Функция разблокировки не реализована!");  
         }
 
         private void BasePage_Load(object sender, EventArgs e)

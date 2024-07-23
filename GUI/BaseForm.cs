@@ -41,6 +41,7 @@ using System.Xml.Linq;
 using BaseModule.ControlsComponents;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using BaseModule.Console;
+using ProjectInterfaces.Tasks;
 
 namespace BazisGUI
 {
@@ -49,8 +50,7 @@ namespace BazisGUI
     {
         //private System.Windows.Forms.Timer connectTimer = new System.Windows.Forms.Timer();
         ProjectData project;
-        //private string activePage;
-        private List<ToolStripMenuItem> activeMenuItems = new List<ToolStripMenuItem>();
+
         //BasePage module;
         ModelController.ModelController modelController = new ModelController.ModelController(); 
         GmshController gmshController;
@@ -271,23 +271,13 @@ namespace BazisGUI
             // Загрузка модуля на сцену. Стираются все содержимое сцены и перезаливается навигатор
             toolStripContainer.ContentPanel.Controls.Add(module);
 
-            activeMenuItems.Clear();
-
-
-            //+ change this place
-            foreach (var menuItem in module.GetMenuItems())
-            {
-                menuStrip.Items.Insert(2,menuItem);
-                activeMenuItems.Add(menuItem);
-            }
-            //+
             tableLayoutPanel.Hide();
 
             serverConnection.RequestServer(module.Name + " Взять");
 
             if (serverConnection.Answer == "можно")
             {
-                UnBlockInterface(module.Name);
+                UnBlockInterface(module.Name,true);
                 StartLicensing(module);
             }
 
@@ -296,21 +286,56 @@ namespace BazisGUI
 
         }
 
-        private void UnBlockInterface(string moduleName)
+        private void ViewInterface(string moduleName)
+        {
+            resultsMenuItem.Visible = false;
+            tasksMenuItem.Visible = false;
+            dataBasesMenuItem.Visible = false;
+            meshMenuItem.Visible = false;
+
+            if (moduleName == "Mesh")
+            {
+                meshMenuItem.Visible = true;
+            }
+            else if (moduleName == "Result")
+            {
+                resultsMenuItem.Visible = true;
+            }
+            else if (moduleName == "Weld" | moduleName == "HeatTreatment")
+            {
+                tasksMenuItem.Visible = true;
+                dataBasesMenuItem.Visible = true;
+            }
+        }
+
+        private void UnBlockInterface(string moduleName, bool flag)
         {
             if(moduleName == "Mesh")
             {
-                meshMenuItem.Enabled = true;
+                if(flag)
+                    meshMenuItem.Enabled = true;
+                else
+                    meshMenuItem.Enabled = false;
             }
             else if(moduleName == "Result")
             {
-                //foreach (var item in GetMenuItems().Where(x => x.Text == "Результаты"))
-                //    item.Enabled = status;
+                if (flag)
+                    resultsMenuItem.Enabled = true;
+                else
+                    resultsMenuItem.Enabled = false;
             }
             else if(moduleName == "Weld" | moduleName == "HeatTreatment")
             {
-                //foreach (var item in GetMenuItems().Where(x => x.Text == "Задачи"))
-                //    item.Enabled = status;
+                if (flag)
+                {
+                    tasksMenuItem.Enabled = true;
+                    dataBasesMenuItem.Enabled = true;
+                }
+                else
+                {
+                    tasksMenuItem.Enabled = false;
+                    dataBasesMenuItem.Enabled = false;
+                }
             }
         }
 
@@ -335,7 +360,7 @@ namespace BazisGUI
 
             else if (moduleName == "Result")
             {
-                //модулиMenuItem.Image = анализРезультатов.Image;
+                resultsMenuItem.Visible = true;
                 var resPage = new ResultPage() { Dock = DockStyle.Fill, Name = moduleName, Project = project };
                 basePage = resPage;
             }
@@ -349,6 +374,7 @@ namespace BazisGUI
             }
 
             viewMenuItem.Visible = true;
+            ViewInterface(moduleName);
 
             var que = new Queue<int>();
             que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.1f));
@@ -371,9 +397,6 @@ namespace BazisGUI
                 if (!form.Name.Equals(this.Name))
                     form.Close();
             }
-
-            foreach (var activeMenuItem in activeMenuItems)
-                menuStrip.Items.Remove(activeMenuItem);
         }
 
         private void StartLicensing(BasePage module)
@@ -408,7 +431,7 @@ namespace BazisGUI
                         {
                             MessageBox.Show(this, "Внимание! Лицензирование прервано. Приложение будет заблокировано. Проверьте сервер лицензий.");
                             //Application.ExitThread();
-                            module.UnBlockInterface(false);
+                            UnBlockInterface(module.Name, false);
                         }));
                     }
                 }
@@ -544,7 +567,7 @@ namespace BazisGUI
 
                     if (serverConnection.Answer == "можно")
                     {
-                        UnBlockInterface(module.Name);
+                        UnBlockInterface(module.Name,true);
                         StartLicensing(module);
                     }
                 }
@@ -956,49 +979,156 @@ namespace BazisGUI
             splitContainer.Panel2Collapsed = false;
         }
 
-        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        private void createSurfaceElementsMenuItem_Click(object sender, EventArgs e)
         {
-            var els3D = project.ModelData.ObjectData.E3DCollection;
-            var module = TryGetModule();
-            if (els3D.Count() != 0)
-            {
-                module.SceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
-
-                var startNumber = project.ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
-                var boundaryElements2D = module.ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
-
-                project.ModelData.ObjectData.E2DCollection.AddRange(boundaryElements2D);
-
-                module.SceneControl.HideAllGeometryObjs();
-                module.SceneControl.HideDisplayText2D();
-                module.SceneControl.HideDisplayText3D();
-
-                module.CreateObjectsOnScene(ObjType.Элемент2D.ToString(), module.CreateObjectsPresentor(ObjType.Элемент2D));
-
-                module.SceneControl.DisplayObjects();
-                module.PresentProjectOnTree();
-
-                module.ConsoleControl.PrintInfo("Созданы 2D элементы", Color.Black);
-            }
-            else
-                module.ConsoleControl.PrintInfo("Модель не содержит объемных элементов!", Color.Red);
+            var module = (ModelPage)TryGetModule();
+            module.CreateSurfaceElements();
         }
 
-        private void toolStripMenuItem6_Click(object sender, EventArgs e)
+        private void mesh3DGeneratorMenuItem_Click(object sender, EventArgs e)
         {
-            var res = MessageBox.Show("Вы собираетесь запустить сеточный генератор. При нажатии на кнопку \"OK\" Все данные о задаче будут удалены!",
-                    "Внимание!", MessageBoxButtons.OKCancel);
             var module = (ModelPage)TryGetModule();
-            if (res == DialogResult.OK)
+            module.OpenMesh3DGenerator();            
+        }
+
+        private void arcWeldingMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (WeldingPage)TryGetModule();
+
+            var adv = module.CreateWeldingAdvisor(WeldingKind.ARC);
+
+            module.DeleteAdvisor();
+
+            if (arcWeldingMenuItem.Checked)
+                module.ShowAdvisor(sender,adv);
+            else module.DeleteAdvisor();
+        }
+
+        private void материалыMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (TaskPage)TryGetModule();
+            module.OpenMaterialsDB();
+        }
+
+        private void функцииMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (TaskPage)TryGetModule();
+            module.OpenFunctionsDB();
+        }
+
+        private void lazerWeldingMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (WeldingPage)TryGetModule();
+
+            var adv = module.CreateWeldingAdvisor(WeldingKind.Lazer);
+
+            module.DeleteAdvisor();
+
+            if (arcWeldingMenuItem.Checked)
+                module.ShowAdvisor(sender, adv);
+            else module.DeleteAdvisor();
+        }
+
+        private void fsWeldingMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (WeldingPage)TryGetModule();
+
+            var adv = module.CreateWeldingAdvisor(WeldingKind.FrictionStearing);
+
+            module.DeleteAdvisor();
+
+            if (arcWeldingMenuItem.Checked)
+                module.ShowAdvisor(sender, adv);
+            else module.DeleteAdvisor();
+        }
+
+        private void addResultsMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (ResultPage)TryGetModule();
+            module.ShowOpenResultsFileDialog(true);
+        }
+
+        private void loadResultsMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (ResultPage)TryGetModule();
+            module.ShowOpenResultsFileDialog(false);
+        }
+
+        private void showValueMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (ResultPage)TryGetModule();
+
+            if (showValueMenuItem.Checked)
+                module.IsResultsValueShowen = true;
+            else
             {
-                project.TaskData.Clear();
-                module.SceneControl.HideAllGeometryObjs();
-                module.SceneControl.HideDisplayText2D();
+                module.IsResultsValueShowen = false;
                 module.SceneControl.HideDisplayText3D();
-                module.PresentProjectOnTree();
-                module.LoadGMSHMeshControl();
                 module.SceneControl.DisplayObjects();
             }
+        }
+
+        private void createFieldMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (ResultPage)TryGetModule();
+            module.ShowAnimation();
+        }
+
+        private void createPlotMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (ResultPage)TryGetModule();
+            module.CreateGraph();
+        }
+
+        private void scaleSettingsMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (ResultPage)TryGetModule();
+            module.ShowScalePage();
+        }
+
+        private void exportResultsMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (ResultPage)TryGetModule();
+            module.ShowExportResultsPage();
+        }
+
+        private void heatingMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (HeatTreatmentPage)TryGetModule();
+
+            var adv = module.CreateHeatTreatmentAdvisor(ProcessType.Heating);
+
+            module.DeleteAdvisor();
+
+            if (arcWeldingMenuItem.Checked)
+                module.ShowAdvisor(sender, adv);
+            else module.DeleteAdvisor();
+        }
+
+        private void temperingMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (HeatTreatmentPage)TryGetModule();
+
+            var adv = module.CreateHeatTreatmentAdvisor(ProcessType.Tempering);
+
+            module.DeleteAdvisor();
+
+            if (arcWeldingMenuItem.Checked)
+                module.ShowAdvisor(sender, adv);
+            else module.DeleteAdvisor();
+        }
+
+        private void quenchingMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (HeatTreatmentPage)TryGetModule();
+
+            var adv = module.CreateHeatTreatmentAdvisor(ProcessType.Quenching);
+
+            module.DeleteAdvisor();
+
+            if (arcWeldingMenuItem.Checked)
+                module.ShowAdvisor(sender, adv);
+            else module.DeleteAdvisor();
         }
     }
 }

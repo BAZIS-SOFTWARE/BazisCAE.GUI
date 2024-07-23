@@ -142,6 +142,10 @@
       <Project>{11954439-9966-4648-A776-7CE642FE21F3}</Project>
       <Name>TaskModule</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WinFormsControlLibEx\UserControlsEx.csproj">
+      <Project>{452D36B3-7997-48AC-96CB-4AA349E2B608}</Project>
+      <Name>UserControlsEx</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

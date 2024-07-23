@@ -15,96 +15,20 @@ namespace TaskModule.WeldingModule
             InitializeComponent();
         }
 
-        public override ToolStripMenuItem CreateTasksInterface()
+        public WeldingAdvisor CreateWeldingAdvisor(WeldingKind weldingKind)
         {
-            var taskMenuItem = base.CreateTasksInterface();
-
-            ToolStripMenuItem arcWeldingMenuItem = new ToolStripMenuItem()
+            var taskAdv = new WeldingAdvisor()
             {
-                Name = "arcWelding",
-                Text = "Дуговая сварка",
-                CheckOnClick = true
+                Dock = DockStyle.Fill,
+                Name = "Сварка",
+                Text = weldingKind.ToString()
             };
+            taskAdv.SetWeldingKind(weldingKind);
+            taskAdv.ProcessType = ProcessType.Welding;
 
-            ToolStripMenuItem lazerWeldingMenuItem = new ToolStripMenuItem()
-            {
-                Name = "lazerWelding",
-                Text = "Лазерная сварка",
-                CheckOnClick = true
-            };
+            taskAdv.SpecifyWeldingZoneEvent += TaskAdv_SpecifyWeldingZoneEvent;
 
-            ToolStripMenuItem fsWeldingMenuItem = new ToolStripMenuItem()
-            {
-                Name = "FSWelding",
-                Text = "Сварка трением с перемешиванием",
-                CheckOnClick = true
-            };
-
-
-            taskMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            arcWeldingMenuItem,lazerWeldingMenuItem,fsWeldingMenuItem
-            });
-
-            
-
-            arcWeldingMenuItem.Click += (ar1, ar2) => {
-                var taskAdv = new WeldingAdvisor() 
-                { 
-                    Dock = DockStyle.Fill,
-                    Name = "Сварка",
-                    Text = arcWeldingMenuItem.Text
-                };
-                taskAdv.SetWeldingKind(WeldingKind.ARC);
-                taskAdv.ProcessType = ProcessType.Welding;
-
-                taskAdv.SpecifyWeldingZoneEvent += TaskAdv_SpecifyWeldingZoneEvent;
-
-                DeleteAdvisor();
-
-                if (arcWeldingMenuItem.Checked)
-                        CreateAdvisor(taskAdv);
-                else DeleteAdvisor();
-            };
-
-            lazerWeldingMenuItem.Click += (ar1, ar2) => {
-                var taskAdv = new WeldingAdvisor()
-                {
-                    Dock = DockStyle.Fill,
-                    Name = "Сварка",
-                    Text = lazerWeldingMenuItem.Text
-                };
-                taskAdv.SetWeldingKind(WeldingKind.Lazer);
-                taskAdv.ProcessType = ProcessType.Welding;
-
-                taskAdv.SpecifyWeldingZoneEvent += TaskAdv_SpecifyWeldingZoneEvent;
-
-                DeleteAdvisor();
-
-                if (lazerWeldingMenuItem.Checked)
-                        CreateAdvisor(taskAdv);
-                else DeleteAdvisor();
-            };
-
-            fsWeldingMenuItem.Click += (ar1, ar2) => {
-                var taskAdv = new WeldingAdvisor()
-                {
-                    Dock = DockStyle.Fill,
-                    Name = "Сварка",
-                    Text = fsWeldingMenuItem.Text
-                };
-                taskAdv.SetWeldingKind(WeldingKind.FrictionStearing);
-                taskAdv.ProcessType = ProcessType.Welding;
-
-                taskAdv.SpecifyWeldingZoneEvent += TaskAdv_SpecifyWeldingZoneEvent;
-
-                DeleteAdvisor();
-
-                if (fsWeldingMenuItem.Checked)
-                        CreateAdvisor(taskAdv);
-                else DeleteAdvisor();
-            };
-
-            return taskMenuItem;
+            return taskAdv;
         }
 
         private async void TaskAdv_SpecifyWeldingZoneEvent(string arg1, int arg2)

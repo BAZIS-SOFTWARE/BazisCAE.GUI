@@ -24,7 +24,35 @@ namespace ModelModule
         public ModelPage() : base()
         {
             InitializeComponent();
-        }     
+        }  
+        
+
+        public void CreateSurfaceElements()
+        {
+            var els3D = Project.ModelData.ObjectData.E3DCollection;
+            if (els3D.Count() != 0)
+            {
+                SceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
+
+                var startNumber = Project.ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
+                var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
+
+                Project.ModelData.ObjectData.E2DCollection.AddRange(boundaryElements2D);
+
+                SceneControl.HideAllGeometryObjs();
+                SceneControl.HideDisplayText2D();
+                SceneControl.HideDisplayText3D();
+
+                CreateObjectsOnScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(ObjType.Элемент2D));
+
+                SceneControl.DisplayObjects();
+                PresentProjectOnTree();
+
+                ConsoleControl.PrintInfo("Созданы 2D элементы", Color.Black);
+            }
+            else
+                ConsoleControl.PrintInfo("Модель не содержит объемных элементов!", Color.Red);
+        }
 
         public void LoadGMSHMeshControl()
         {
@@ -673,6 +701,23 @@ namespace ModelModule
             if (fitOnScreen)
                 SceneControl.FitObjectsToScreen();
             SceneControl.DisplayObjects();
+        }
+
+        public void OpenMesh3DGenerator()
+        {
+            var res = MessageBox.Show("Вы собираетесь запустить сеточный генератор. При нажатии на кнопку \"OK\" Все данные о задаче будут удалены!",
+        "Внимание!", MessageBoxButtons.OKCancel);
+
+            if (res == DialogResult.OK)
+            {
+                Project.TaskData.Clear();
+                SceneControl.HideAllGeometryObjs();
+                SceneControl.HideDisplayText2D();
+                SceneControl.HideDisplayText3D();
+                PresentProjectOnTree();
+                LoadGMSHMeshControl();
+                SceneControl.DisplayObjects();
+            }
         }
     }
 }

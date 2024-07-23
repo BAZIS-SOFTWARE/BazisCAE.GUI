@@ -221,12 +221,12 @@ namespace BaseModule.Properties {
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Icon StartCheck {
+        internal static System.Drawing.Bitmap StartCheck {
             get {
                 object obj = ResourceManager.GetObject("StartCheck", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

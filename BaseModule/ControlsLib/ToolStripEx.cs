@@ -151,6 +151,20 @@ namespace BaseModule.ControlsLib
         }
         [Category("Size")]
         [Description("Set up size")]
+        public int ImageRectangleSize
+        {
+            get
+            {
+                return BaseToolStrRender.ImageRectangleSize;
+            }
+            set
+            {
+                BaseToolStrRender.ImageRectangleSize = value;
+            }
+        }
+
+        [Category("Size")]
+        [Description("Set up size")]
         public int SplitButtonTriangleSize
         {
             get

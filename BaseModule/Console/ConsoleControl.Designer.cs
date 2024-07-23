@@ -1,4 +1,6 @@
-﻿namespace BaseModule.Console
+﻿using BaseModule.ControlsLib;
+
+namespace BaseModule.Console
 {
     partial class ConsoleControl
     {
@@ -37,10 +39,7 @@
             this.grbConsole = new System.Windows.Forms.Panel();
             this.tlscOut = new System.Windows.Forms.ToolStripContainer();
             this.rtxbField = new System.Windows.Forms.RichTextBox();
-            this.tlsOut = new System.Windows.Forms.ToolStrip();
-            this.btnBackGroundInfo = new System.Windows.Forms.ToolStripButton();
-            this.btnClearAll = new System.Windows.Forms.ToolStripButton();
-            this.btnDictionary = new System.Windows.Forms.ToolStripSplitButton();
+            this.spbDictionary = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripMenuItem32 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem33 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem34 = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,12 +75,15 @@
             this.toolStripMenuItem64 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem65 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem66 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripEx1 = new BaseModule.ControlsLib.ToolStripEx();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.btnStartMacro = new System.Windows.Forms.ToolStripButton();
             this.grbConsole.SuspendLayout();
             this.tlscOut.ContentPanel.SuspendLayout();
             this.tlscOut.RightToolStripPanel.SuspendLayout();
             this.tlscOut.SuspendLayout();
-            this.tlsOut.SuspendLayout();
+            this.toolStripEx1.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog
@@ -134,7 +136,7 @@
             // tlscOut.ContentPanel
             // 
             this.tlscOut.ContentPanel.Controls.Add(this.rtxbField);
-            this.tlscOut.ContentPanel.Size = new System.Drawing.Size(679, 188);
+            this.tlscOut.ContentPanel.Size = new System.Drawing.Size(673, 188);
             this.tlscOut.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlscOut.LeftToolStripPanelVisible = false;
             this.tlscOut.Location = new System.Drawing.Point(0, 15);
@@ -143,7 +145,7 @@
             // 
             // tlscOut.RightToolStripPanel
             // 
-            this.tlscOut.RightToolStripPanel.Controls.Add(this.tlsOut);
+            this.tlscOut.RightToolStripPanel.Controls.Add(this.toolStripEx1);
             this.tlscOut.RightToolStripPanel.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.tlscOut.Size = new System.Drawing.Size(704, 188);
             this.tlscOut.TabIndex = 4;
@@ -162,64 +164,19 @@
             this.rtxbField.Location = new System.Drawing.Point(0, 0);
             this.rtxbField.Margin = new System.Windows.Forms.Padding(1);
             this.rtxbField.Name = "rtxbField";
-            this.rtxbField.Size = new System.Drawing.Size(679, 188);
+            this.rtxbField.Size = new System.Drawing.Size(673, 188);
             this.rtxbField.TabIndex = 2;
             this.rtxbField.Text = "";
             this.rtxbField.WordWrap = false;
             this.rtxbField.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtxbOut_LinkClicked);
             this.rtxbField.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtxbField_KeyDown);
             // 
-            // tlsOut
+            // spbDictionary
             // 
-            this.tlsOut.BackColor = System.Drawing.SystemColors.Control;
-            this.tlsOut.Dock = System.Windows.Forms.DockStyle.None;
-            this.tlsOut.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.tlsOut.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.tlsOut.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnBackGroundInfo,
-            this.btnClearAll,
-            this.btnDictionary,
-            this.btnStartMacro});
-            this.tlsOut.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.tlsOut.Location = new System.Drawing.Point(0, 0);
-            this.tlsOut.Name = "tlsOut";
-            this.tlsOut.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tlsOut.Size = new System.Drawing.Size(25, 188);
-            this.tlsOut.Stretch = true;
-            this.tlsOut.TabIndex = 0;
-            this.tlsOut.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical90;
-            // 
-            // btnBackGroundInfo
-            // 
-            this.btnBackGroundInfo.AutoSize = false;
-            this.btnBackGroundInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnBackGroundInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnBackGroundInfo.Image")));
-            this.btnBackGroundInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBackGroundInfo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnBackGroundInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnBackGroundInfo.Name = "btnBackGroundInfo";
-            this.btnBackGroundInfo.Size = new System.Drawing.Size(24, 20);
-            this.btnBackGroundInfo.Text = "Изменить фон";
-            this.btnBackGroundInfo.Click += new System.EventHandler(this.btnBackGroundInfo_Click);
-            // 
-            // btnClearAll
-            // 
-            this.btnClearAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAll.Image")));
-            this.btnClearAll.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClearAll.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnClearAll.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(23, 20);
-            this.btnClearAll.Text = "btnClearAll";
-            this.btnClearAll.Click += new System.EventHandler(this.ClearAll_Click);
-            // 
-            // btnDictionary
-            // 
-            this.btnDictionary.AutoSize = false;
-            this.btnDictionary.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnDictionary.DropDownButtonWidth = 5;
-            this.btnDictionary.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.spbDictionary.AutoSize = false;
+            this.spbDictionary.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.spbDictionary.DropDownButtonWidth = 10;
+            this.spbDictionary.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem32,
             this.toolStripMenuItem34,
             this.toolStripMenuItem36,
@@ -232,17 +189,15 @@
             this.toolStripMenuItem62,
             this.toolStripMenuItem64,
             this.toolStripMenuItem66});
-            this.btnDictionary.Image = ((System.Drawing.Image)(resources.GetObject("btnDictionary.Image")));
-            this.btnDictionary.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.btnDictionary.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnDictionary.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDictionary.Margin = new System.Windows.Forms.Padding(0);
-            this.btnDictionary.MergeAction = System.Windows.Forms.MergeAction.Replace;
-            this.btnDictionary.Name = "btnDictionary";
-            this.btnDictionary.Size = new System.Drawing.Size(24, 27);
-            this.btnDictionary.Text = "Словарь команд";
-            this.btnDictionary.ToolTipText = "Словарь команд";
-            this.btnDictionary.ButtonClick += new System.EventHandler(this.btnDictionary_Click);
+            this.spbDictionary.Image = ((System.Drawing.Image)(resources.GetObject("spbDictionary.Image")));
+            this.spbDictionary.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.spbDictionary.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.spbDictionary.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.spbDictionary.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.spbDictionary.Name = "spbDictionary";
+            this.spbDictionary.Size = new System.Drawing.Size(25, 40);
+            this.spbDictionary.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.spbDictionary.ButtonClick += new System.EventHandler(this.btnDictionary_Click);
             // 
             // toolStripMenuItem32
             // 
@@ -507,15 +462,72 @@
             this.toolStripMenuItem66.Text = "Выход";
             this.toolStripMenuItem66.Click += new System.EventHandler(this.NewItem_Click);
             // 
+            // toolStripEx1
+            // 
+            this.toolStripEx1.BackGroundColor = System.Drawing.Color.Gainsboro;
+            this.toolStripEx1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripEx1.FrameColor = System.Drawing.Color.DarkGray;
+            this.toolStripEx1.GeneralFrame = true;
+            this.toolStripEx1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripEx1.IconLocation = new System.Drawing.Point(3, 3);
+            this.toolStripEx1.ImageRectangleSize = 16;
+            this.toolStripEx1.ItemBackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(228)))), ((int)(((byte)(228)))));
+            this.toolStripEx1.ItemFrame = true;
+            this.toolStripEx1.ItemLocation = new System.Drawing.Point(1, 1);
+            this.toolStripEx1.ItemPressColor = System.Drawing.Color.Black;
+            this.toolStripEx1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.spbDictionary,
+            this.toolStripButton1,
+            this.toolStripButton2,
+            this.btnStartMacro});
+            this.toolStripEx1.ItemSelectColor = System.Drawing.Color.Gray;
+            this.toolStripEx1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
+            this.toolStripEx1.Location = new System.Drawing.Point(0, 3);
+            this.toolStripEx1.Name = "toolStripEx1";
+            this.toolStripEx1.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.toolStripEx1.Size = new System.Drawing.Size(31, 130);
+            this.toolStripEx1.SplitButtonClickWidth = 13;
+            this.toolStripEx1.SplitButtonHeight = 40;
+            this.toolStripEx1.SplitButtonTriangleSize = 6;
+            this.toolStripEx1.TabIndex = 10;
+            this.toolStripEx1.TextBoxFrame = true;
+            this.toolStripEx1.TextBoxHeight = 0;
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.AutoSize = false;
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(25, 25);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.btnBackGroundInfo_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.AutoSize = false;
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(25, 25);
+            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Click += new System.EventHandler(this.ClearAll_Click);
+            // 
             // btnStartMacro
             // 
+            this.btnStartMacro.AutoSize = false;
             this.btnStartMacro.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnStartMacro.Image = ((System.Drawing.Image)(resources.GetObject("btnStartMacro.Image")));
-            this.btnStartMacro.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStartMacro.Image = global::BaseModule.Properties.Resources.StartCheck;
+            this.btnStartMacro.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnStartMacro.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnStartMacro.Name = "btnStartMacro";
-            this.btnStartMacro.Size = new System.Drawing.Size(23, 24);
-            this.btnStartMacro.Text = "Старт макрос";
+            this.btnStartMacro.Size = new System.Drawing.Size(25, 25);
+            this.btnStartMacro.Text = "toolStripButton4";
             this.btnStartMacro.Click += new System.EventHandler(this.btnStartMacro_Click);
             // 
             // ConsoleControl
@@ -533,8 +545,8 @@
             this.tlscOut.RightToolStripPanel.PerformLayout();
             this.tlscOut.ResumeLayout(false);
             this.tlscOut.PerformLayout();
-            this.tlsOut.ResumeLayout(false);
-            this.tlsOut.PerformLayout();
+            this.toolStripEx1.ResumeLayout(false);
+            this.toolStripEx1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -548,11 +560,6 @@
         private System.Windows.Forms.Panel grbConsole;
         private System.Windows.Forms.ToolStripContainer tlscOut;
         private System.Windows.Forms.RichTextBox rtxbField;
-        public System.Windows.Forms.ToolStrip tlsOut;
-        private System.Windows.Forms.ToolStripButton btnBackGroundInfo;
-        private System.Windows.Forms.ToolStripButton btnClearAll;
-        private System.Windows.Forms.ToolStripSplitButton btnDictionary;
-        private System.Windows.Forms.ToolStripButton btnStartMacro;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem32;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem33;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem34;
@@ -588,5 +595,10 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem64;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem65;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem66;
+        private ControlsLib.ToolStripEx toolStripEx1;
+        private System.Windows.Forms.ToolStripSplitButton spbDictionary;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton btnStartMacro;
     }
 }

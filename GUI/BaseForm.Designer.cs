@@ -60,6 +60,27 @@
             this.viewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.meshMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createSurfaceElementsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mesh3DGeneratorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tasksMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.arcWeldingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lazerWeldingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fsWeldingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.heatingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.temperingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quenchingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataBasesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.материалыMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.функцииMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resultsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addResultsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadResultsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showValueMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createFieldMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createPlotMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scaleSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportResultsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.содержаниеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,9 +89,6 @@
             this.лицензияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сведенияMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.получитьЛицензиюMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.meshMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -246,6 +264,9 @@
             this.файлToolStripMenuItem,
             this.viewMenuItem,
             this.meshMenuItem,
+            this.tasksMenuItem,
+            this.dataBasesMenuItem,
+            this.resultsMenuItem,
             this.настройкиToolStripMenuItem,
             this.справкаToolStripMenuItem,
             this.лицензияToolStripMenuItem});
@@ -407,16 +428,194 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(131, 22);
             this.toolStripMenuItem2.Text = "Навигатор";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(131, 22);
             this.toolStripMenuItem3.Text = "Консоль";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // meshMenuItem
+            // 
+            this.meshMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.createSurfaceElementsMenuItem,
+            this.mesh3DGeneratorMenuItem});
+            this.meshMenuItem.Enabled = false;
+            this.meshMenuItem.Name = "meshMenuItem";
+            this.meshMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.meshMenuItem.Text = "Сетка";
+            this.meshMenuItem.Visible = false;
+            // 
+            // createSurfaceElementsMenuItem
+            // 
+            this.createSurfaceElementsMenuItem.Name = "createSurfaceElementsMenuItem";
+            this.createSurfaceElementsMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.createSurfaceElementsMenuItem.Text = "Создать поверхностные элементы";
+            this.createSurfaceElementsMenuItem.Click += new System.EventHandler(this.createSurfaceElementsMenuItem_Click);
+            // 
+            // mesh3DGeneratorMenuItem
+            // 
+            this.mesh3DGeneratorMenuItem.Name = "mesh3DGeneratorMenuItem";
+            this.mesh3DGeneratorMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.mesh3DGeneratorMenuItem.Text = "Генератор 3D сетки";
+            this.mesh3DGeneratorMenuItem.Click += new System.EventHandler(this.mesh3DGeneratorMenuItem_Click);
+            // 
+            // tasksMenuItem
+            // 
+            this.tasksMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.arcWeldingMenuItem,
+            this.lazerWeldingMenuItem,
+            this.fsWeldingMenuItem,
+            this.heatingMenuItem,
+            this.temperingMenuItem,
+            this.quenchingMenuItem});
+            this.tasksMenuItem.Enabled = false;
+            this.tasksMenuItem.Name = "tasksMenuItem";
+            this.tasksMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.tasksMenuItem.Text = "Задачи";
+            this.tasksMenuItem.Visible = false;
+            // 
+            // arcWeldingMenuItem
+            // 
+            this.arcWeldingMenuItem.CheckOnClick = true;
+            this.arcWeldingMenuItem.Name = "arcWeldingMenuItem";
+            this.arcWeldingMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.arcWeldingMenuItem.Text = "Дуговая сварка";
+            this.arcWeldingMenuItem.Click += new System.EventHandler(this.arcWeldingMenuItem_Click);
+            // 
+            // lazerWeldingMenuItem
+            // 
+            this.lazerWeldingMenuItem.CheckOnClick = true;
+            this.lazerWeldingMenuItem.Name = "lazerWeldingMenuItem";
+            this.lazerWeldingMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.lazerWeldingMenuItem.Text = "Лазерная сварка";
+            this.lazerWeldingMenuItem.Click += new System.EventHandler(this.lazerWeldingMenuItem_Click);
+            // 
+            // fsWeldingMenuItem
+            // 
+            this.fsWeldingMenuItem.CheckOnClick = true;
+            this.fsWeldingMenuItem.Name = "fsWeldingMenuItem";
+            this.fsWeldingMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.fsWeldingMenuItem.Text = "Трением с перемешиванием";
+            this.fsWeldingMenuItem.Click += new System.EventHandler(this.fsWeldingMenuItem_Click);
+            // 
+            // heatingMenuItem
+            // 
+            this.heatingMenuItem.CheckOnClick = true;
+            this.heatingMenuItem.Name = "heatingMenuItem";
+            this.heatingMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.heatingMenuItem.Text = "Нагрев";
+            this.heatingMenuItem.Click += new System.EventHandler(this.heatingMenuItem_Click);
+            // 
+            // temperingMenuItem
+            // 
+            this.temperingMenuItem.CheckOnClick = true;
+            this.temperingMenuItem.Name = "temperingMenuItem";
+            this.temperingMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.temperingMenuItem.Text = "Отпуск | Отжиг | Старение";
+            this.temperingMenuItem.Click += new System.EventHandler(this.temperingMenuItem_Click);
+            // 
+            // quenchingMenuItem
+            // 
+            this.quenchingMenuItem.CheckOnClick = true;
+            this.quenchingMenuItem.Name = "quenchingMenuItem";
+            this.quenchingMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.quenchingMenuItem.Text = "Закалка";
+            this.quenchingMenuItem.Click += new System.EventHandler(this.quenchingMenuItem_Click);
+            // 
+            // dataBasesMenuItem
+            // 
+            this.dataBasesMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.материалыMenuItem,
+            this.функцииMenuItem});
+            this.dataBasesMenuItem.Enabled = false;
+            this.dataBasesMenuItem.Name = "dataBasesMenuItem";
+            this.dataBasesMenuItem.Size = new System.Drawing.Size(86, 20);
+            this.dataBasesMenuItem.Text = "Базы данных";
+            this.dataBasesMenuItem.Visible = false;
+            // 
+            // материалыMenuItem
+            // 
+            this.материалыMenuItem.Name = "материалыMenuItem";
+            this.материалыMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.материалыMenuItem.Text = "Материалы";
+            this.материалыMenuItem.Click += new System.EventHandler(this.материалыMenuItem_Click);
+            // 
+            // функцииMenuItem
+            // 
+            this.функцииMenuItem.Name = "функцииMenuItem";
+            this.функцииMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.функцииMenuItem.Text = "Функции";
+            this.функцииMenuItem.Click += new System.EventHandler(this.функцииMenuItem_Click);
+            // 
+            // resultsMenuItem
+            // 
+            this.resultsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addResultsMenuItem,
+            this.loadResultsMenuItem,
+            this.showValueMenuItem,
+            this.createFieldMenuItem,
+            this.createPlotMenuItem,
+            this.scaleSettingsMenuItem,
+            this.exportResultsMenuItem});
+            this.resultsMenuItem.Enabled = false;
+            this.resultsMenuItem.Name = "resultsMenuItem";
+            this.resultsMenuItem.Size = new System.Drawing.Size(77, 20);
+            this.resultsMenuItem.Text = "Результаты";
+            this.resultsMenuItem.Visible = false;
+            // 
+            // addResultsMenuItem
+            // 
+            this.addResultsMenuItem.Name = "addResultsMenuItem";
+            this.addResultsMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.addResultsMenuItem.Text = "Добавить результаты";
+            this.addResultsMenuItem.Click += new System.EventHandler(this.addResultsMenuItem_Click);
+            // 
+            // loadResultsMenuItem
+            // 
+            this.loadResultsMenuItem.Name = "loadResultsMenuItem";
+            this.loadResultsMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.loadResultsMenuItem.Text = "Загрузить результаты";
+            this.loadResultsMenuItem.Click += new System.EventHandler(this.loadResultsMenuItem_Click);
+            // 
+            // showValueMenuItem
+            // 
+            this.showValueMenuItem.Name = "showValueMenuItem";
+            this.showValueMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.showValueMenuItem.Text = "Показать значения";
+            this.showValueMenuItem.Click += new System.EventHandler(this.showValueMenuItem_Click);
+            // 
+            // createFieldMenuItem
+            // 
+            this.createFieldMenuItem.Name = "createFieldMenuItem";
+            this.createFieldMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.createFieldMenuItem.Text = "Построить поле";
+            this.createFieldMenuItem.Click += new System.EventHandler(this.createFieldMenuItem_Click);
+            // 
+            // createPlotMenuItem
+            // 
+            this.createPlotMenuItem.Name = "createPlotMenuItem";
+            this.createPlotMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.createPlotMenuItem.Text = "Построить график";
+            this.createPlotMenuItem.Click += new System.EventHandler(this.createPlotMenuItem_Click);
+            // 
+            // scaleSettingsMenuItem
+            // 
+            this.scaleSettingsMenuItem.Name = "scaleSettingsMenuItem";
+            this.scaleSettingsMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.scaleSettingsMenuItem.Text = "Настройки шкалы";
+            this.scaleSettingsMenuItem.Click += new System.EventHandler(this.scaleSettingsMenuItem_Click);
+            // 
+            // exportResultsMenuItem
+            // 
+            this.exportResultsMenuItem.Name = "exportResultsMenuItem";
+            this.exportResultsMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.exportResultsMenuItem.Text = "Экспорт результатов";
+            this.exportResultsMenuItem.Click += new System.EventHandler(this.exportResultsMenuItem_Click);
             // 
             // настройкиToolStripMenuItem
             // 
@@ -482,31 +681,6 @@
             this.получитьЛицензиюMenuItem.Size = new System.Drawing.Size(182, 22);
             this.получитьЛицензиюMenuItem.Text = "Получить лицензию";
             this.получитьЛицензиюMenuItem.Click += new System.EventHandler(this.получитьЛицензиюMenuItem_Click);
-            // 
-            // meshMenuItem
-            // 
-            this.meshMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem5,
-            this.toolStripMenuItem6});
-            this.meshMenuItem.Enabled = false;
-            this.meshMenuItem.Name = "meshMenuItem";
-            this.meshMenuItem.Size = new System.Drawing.Size(49, 20);
-            this.meshMenuItem.Text = "Сетка";
-            this.meshMenuItem.Visible = false;
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(256, 22);
-            this.toolStripMenuItem5.Text = "Создать поверхностные элементы";
-            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
-            // 
-            // toolStripMenuItem6
-            // 
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(256, 22);
-            this.toolStripMenuItem6.Text = "Генератор 3D сетки";
-            this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
             // 
             // BaseForm
             // 
@@ -590,8 +764,26 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem meshMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
+        private System.Windows.Forms.ToolStripMenuItem createSurfaceElementsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mesh3DGeneratorMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tasksMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem arcWeldingMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lazerWeldingMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fsWeldingMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem heatingMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem temperingMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quenchingMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resultsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addResultsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadResultsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showValueMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dataBasesMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem материалыMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem функцииMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createFieldMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createPlotMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem scaleSettingsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportResultsMenuItem;
     }
 }
 

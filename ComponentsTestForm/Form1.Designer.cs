@@ -30,8 +30,11 @@ namespace ComponentsTestForm
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBoxEx1 = new BaseModule.ControlsLib.GroupBoxEx();
             this.txbTest = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxEx1 = new UserControlsEx.ComboBoxEx(this.components);
             this.SuspendLayout();
             // 
             // groupBoxEx1
@@ -56,11 +59,34 @@ namespace ComponentsTestForm
             this.txbTest.Size = new System.Drawing.Size(100, 20);
             this.txbTest.TabIndex = 1;
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(637, 256);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 2;
+            // 
+            // comboBoxEx1
+            // 
+            this.comboBoxEx1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.comboBoxEx1.FormattingEnabled = true;
+            this.comboBoxEx1.InputType = UserControlsEx.CMBInputType.Items;
+            this.comboBoxEx1.IsValidating = true;
+            this.comboBoxEx1.Location = new System.Drawing.Point(571, 375);
+            this.comboBoxEx1.Name = "comboBoxEx1";
+            this.comboBoxEx1.Size = new System.Drawing.Size(19, 21);
+            this.comboBoxEx1.TabIndex = 3;
+            this.comboBoxEx1.UserRegExCheck = null;
+            this.comboBoxEx1.UserRegExCheckErrorMessage = null;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1241, 778);
+            this.Controls.Add(this.comboBoxEx1);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.txbTest);
             this.Controls.Add(this.groupBoxEx1);
             this.Name = "Form1";
@@ -74,6 +100,8 @@ namespace ComponentsTestForm
 
         private GroupBoxEx groupBoxEx1;
         private System.Windows.Forms.TextBox txbTest;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private UserControlsEx.ComboBoxEx comboBoxEx1;
     }
 }
 

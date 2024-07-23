@@ -37,8 +37,26 @@ namespace TaskModule
             this.treeNodesImageList = new System.Windows.Forms.ImageList(this.components);
             this.taskMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripContainer.SuspendLayout();
             this.taskMenuStrip.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // toolStripContainer
+            // 
+            // 
+            // toolStripContainer.ContentPanel
+            // 
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1155, 556);
+            this.toolStripContainer.Location = new System.Drawing.Point(4, 0);
+            this.toolStripContainer.Size = new System.Drawing.Size(1155, 612);
+            // 
+            // consoleControl
+            // 
+            this.consoleControl.Size = new System.Drawing.Size(869, 176);
+            // 
+            // navigator
+            // 
+            this.navigator.Size = new System.Drawing.Size(270, 546);
             // 
             // treeNodesImageList
             // 
@@ -60,21 +78,25 @@ namespace TaskModule
             this.taskMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.удалитьToolStripMenuItem});
             this.taskMenuStrip.Name = "taskMenuStrip";
-            this.taskMenuStrip.Size = new System.Drawing.Size(211, 56);
+            this.taskMenuStrip.Size = new System.Drawing.Size(119, 26);
             // 
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.удалитьToolStripMenuItem.Text = "Удалить";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
             // TaskPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "TaskPage";
-            this.Size = new System.Drawing.Size(1551, 753);
+            this.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Size = new System.Drawing.Size(1163, 612);
+            this.Controls.SetChildIndex(this.toolStripContainer, 0);
+            this.toolStripContainer.ResumeLayout(false);
+            this.toolStripContainer.PerformLayout();
             this.taskMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 

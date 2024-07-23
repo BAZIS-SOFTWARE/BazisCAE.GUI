@@ -28,7 +28,7 @@ namespace ResultModule
         public event Action<object,string, bool, bool> LoadResultsEvent;
         public IResultsController ResultsController { get; set; }
         
-        private bool showResultValue;
+        public bool IsResultsValueShowen { get; set; }
 
         private bool showScale = true;
         public bool IsScaleMaxMinManual { get; set; } = false;
@@ -43,109 +43,9 @@ namespace ResultModule
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(nodeNode);
             var elemNode = new TreeNode("ПоЭлементам", 1, 1) { Name = "ПоЭлементам", Tag = "6.1" };
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(elemNode);
-        }
+        }      
 
-        public override void CreateMenuInterface()
-        {
-            AddMenuItem(CreateResultsInterface());
-            base.CreateMenuInterface();
-        }
-
-        private ToolStripMenuItem CreateResultsInterface()
-        {
-            ToolStripMenuItem resultsMenuItem = new ToolStripMenuItem()
-            {
-                Name = "resultsMenuItem",
-                Text = "Результаты",
-                Enabled = true
-            };
-
-            ToolStripMenuItem addResultsMenuItem = new ToolStripMenuItem()
-            {
-                Name = "addResults",
-                Text = "Добавить результаты"
-            };
-
-            addResultsMenuItem.Click += (ar1, ar2) => { ShowOpenResultsFileDialog(true); };
-
-            ToolStripMenuItem loadResultsMenuItem = new ToolStripMenuItem()
-            {
-                Name = "loadResults",
-                Text = "Загрузить результаты"
-            };
-
-            loadResultsMenuItem.Click += (ar1, ar2) => { ShowOpenResultsFileDialog(false); };
-
-            ToolStripMenuItem showResultsValueMenuItem = new ToolStripMenuItem()
-            {
-                Name = "showResultsValue",
-                Text = "Показать значения",
-                CheckOnClick = true
-            };
-
-            showResultsValueMenuItem.Click += (ar1, ar2) =>
-            {
-                if (showResultsValueMenuItem.Checked)
-                    showResultValue = true;
-                else
-                {
-                    showResultValue = false;
-                    SceneControl.HideDisplayText3D();
-                    SceneControl.DisplayObjects();
-                }
-            };
-
-            ToolStripMenuItem showAnimationResultsMenuItem = new ToolStripMenuItem()
-            {
-                Name = "showAnimationResults",
-                Text = "Показать анимацию"
-            };
-
-            showAnimationResultsMenuItem.Click += (ar1, ar2) => 
-            {
-                    ShowAnimation(); 
-            };
-
-            ToolStripMenuItem createGraphResultsMenuItem = new ToolStripMenuItem()
-            {
-                Name = "createGraphResults",
-                Text = "Построить график"
-            };
-
-            createGraphResultsMenuItem.Click += (ar1, ar2) => { CreateGraph(); };
-
-            ToolStripMenuItem showScaleResultsMenuItem = new ToolStripMenuItem()
-            {
-                Name = "showScaleResults",
-                Text = "Показать шкалу"
-            };
-
-            ToolStripMenuItem exportResultGridMEnuItem = new ToolStripMenuItem()
-            {
-                Name = "ExportSurfaceResults",
-                Text = "Экспорт результатов"
-            };
-            exportResultGridMEnuItem.Click += (ar1, ar2) => ShowExportResultsPage();
-
-            showScaleResultsMenuItem.Click += (ar1, ar2) => 
-            { 
-                    ShowScalePage(); 
-            };
-
-            resultsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            addResultsMenuItem,
-            loadResultsMenuItem,
-            showResultsValueMenuItem,
-            showAnimationResultsMenuItem,
-            createGraphResultsMenuItem,
-            showScaleResultsMenuItem,
-            exportResultGridMEnuItem
-            });
-
-            return resultsMenuItem;
-        }
-
-        private void ShowScalePage()
+        public void ShowScalePage()
         {
             var scPage = new ScalePage() { Dock = DockStyle.Fill };
 
@@ -204,7 +104,7 @@ namespace ResultModule
             scForm.Show();
         }
 
-        private void CreateGraph()
+        public void CreateGraph()
         {
                 var grPage = new GraphCreationPage() { Dock = DockStyle.Fill };
                 grPage.CreateTimeGraphEvent += (ar1, ar2) =>
@@ -249,7 +149,7 @@ namespace ResultModule
 
         }
 
-        private void ShowAnimation()
+        public void ShowAnimation()
         {
             var anPage = new AnimationPage() { Dock = DockStyle.Fill };
             anPage.ShowResultEvent += (ar1, ar2) =>
@@ -371,7 +271,7 @@ namespace ResultModule
             }
         }
 
-        private void ShowOpenResultsFileDialog(bool addRes)
+        public void ShowOpenResultsFileDialog(bool addRes)
         {
             var openDialogEx = new OpenFileDialogEx()
             {
@@ -451,7 +351,7 @@ namespace ResultModule
                     CreateObjectsOnScene(ObjType.Фигура2D.ToString(), presenter);
                 }
 
-                if (showResultValue)
+                if (IsResultsValueShowen)
                     ShowResultValue(objsType, resName, result);
 
                 if (showScale)
@@ -834,7 +734,7 @@ namespace ResultModule
             await MergeResults(Project.ResultData);                     
         }
 
-        private void ShowExportResultsPage()
+        public void ShowExportResultsPage()
         {
             var exprtPage = new ExportControl() { Dock = DockStyle.Fill };
             exprtPage.ExportResultEvent += ExportGrid;

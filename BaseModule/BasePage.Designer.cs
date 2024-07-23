@@ -42,8 +42,8 @@ namespace BaseModule
             this.consoleControl = new BaseModule.Console.ConsoleControl();
             this.selectToolStrip = new BaseModule.ControlsLib.ToolStripEx();
             this.spbSelectObject = new System.Windows.Forms.ToolStripSplitButton();
-            this.btnSelectNodes = new System.Windows.Forms.ToolStripButton();
             this.btnSelectElements = new System.Windows.Forms.ToolStripButton();
+            this.btnSelectNodes = new System.Windows.Forms.ToolStripButton();
             this.btnSelectObjects = new System.Windows.Forms.ToolStripButton();
             this.btnAdvanceSelection = new System.Windows.Forms.ToolStripButton();
             this.displayToolStrip = new BaseModule.ControlsLib.ToolStripEx();
@@ -130,7 +130,7 @@ namespace BaseModule
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(1298, 582);
-            this.splitContainer1.SplitterDistance = 309;
+            this.splitContainer1.SplitterDistance = 307;
             this.splitContainer1.SplitterIncrement = 15;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 0;
@@ -152,7 +152,7 @@ namespace BaseModule
             this.navigator.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.navigator.Name = "navigator";
             this.navigator.ProjectInfoIndex = 16;
-            this.navigator.Size = new System.Drawing.Size(307, 582);
+            this.navigator.Size = new System.Drawing.Size(305, 582);
             this.navigator.TabIndex = 0;
             this.navigator.UpColor = System.Drawing.Color.Gainsboro;
             this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
@@ -188,8 +188,8 @@ namespace BaseModule
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
-            this.splitContainer2.Size = new System.Drawing.Size(984, 582);
-            this.splitContainer2.SplitterDistance = 391;
+            this.splitContainer2.Size = new System.Drawing.Size(986, 582);
+            this.splitContainer2.SplitterDistance = 390;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
             this.splitContainer2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Paint);
@@ -221,7 +221,7 @@ namespace BaseModule
             this.sceneControl.SelectionColor = System.Drawing.Color.Green;
             this.sceneControl.ShadowAngle = 0F;
             this.sceneControl.ShowSurfaceBackEdges = false;
-            this.sceneControl.Size = new System.Drawing.Size(984, 390);
+            this.sceneControl.Size = new System.Drawing.Size(986, 389);
             this.sceneControl.TabIndex = 0;
             this.sceneControl.TitleColor = System.Drawing.Color.Black;
             this.sceneControl.TitleText = "";
@@ -237,7 +237,6 @@ namespace BaseModule
             // 
             // consoleControl
             // 
-            this.consoleControl.AutoSize = true;
             this.consoleControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.consoleControl.BackColor = System.Drawing.SystemColors.Control;
             this.consoleControl.CheckPrintElemsInfo = false;
@@ -248,7 +247,7 @@ namespace BaseModule
             this.consoleControl.Location = new System.Drawing.Point(0, 0);
             this.consoleControl.Margin = new System.Windows.Forms.Padding(4);
             this.consoleControl.Name = "consoleControl";
-            this.consoleControl.Size = new System.Drawing.Size(984, 186);
+            this.consoleControl.Size = new System.Drawing.Size(986, 187);
             this.consoleControl.TabIndex = 4;
             this.consoleControl.UpColor = System.Drawing.Color.Gainsboro;
             this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
@@ -261,15 +260,16 @@ namespace BaseModule
             this.selectToolStrip.FrameColor = System.Drawing.Color.Gray;
             this.selectToolStrip.GeneralFrame = true;
             this.selectToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.selectToolStrip.IconLocation = new System.Drawing.Point(0, 0);
-            this.selectToolStrip.ItemBackGroundColor = System.Drawing.Color.Transparent;
+            this.selectToolStrip.IconLocation = new System.Drawing.Point(0, 4);
+            this.selectToolStrip.ImageRectangleSize = 26;
+            this.selectToolStrip.ItemBackGroundColor = System.Drawing.Color.White;
             this.selectToolStrip.ItemFrame = true;
             this.selectToolStrip.ItemLocation = new System.Drawing.Point(3, 3);
             this.selectToolStrip.ItemPressColor = System.Drawing.Color.Black;
             this.selectToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.spbSelectObject,
-            this.btnSelectNodes,
             this.btnSelectElements,
+            this.btnSelectNodes,
             this.btnSelectObjects,
             this.btnAdvanceSelection});
             this.selectToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
@@ -299,19 +299,6 @@ namespace BaseModule
             this.spbSelectObject.Tag = "0";
             this.spbSelectObject.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.spb_Select_DropDownItemClicked);
             // 
-            // btnSelectNodes
-            // 
-            this.btnSelectNodes.AutoSize = false;
-            this.btnSelectNodes.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSelectNodes.Image = ((System.Drawing.Image)(resources.GetObject("btnSelectNodes.Image")));
-            this.btnSelectNodes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSelectNodes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSelectNodes.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSelectNodes.Name = "btnSelectNodes";
-            this.btnSelectNodes.Size = new System.Drawing.Size(36, 53);
-            this.btnSelectNodes.Tag = "1";
-            this.btnSelectNodes.Text = "toolStripButton2";
-            // 
             // btnSelectElements
             // 
             this.btnSelectElements.AutoSize = false;
@@ -324,6 +311,19 @@ namespace BaseModule
             this.btnSelectElements.Size = new System.Drawing.Size(36, 53);
             this.btnSelectElements.Tag = "2";
             this.btnSelectElements.Text = "toolStripButton3";
+            // 
+            // btnSelectNodes
+            // 
+            this.btnSelectNodes.AutoSize = false;
+            this.btnSelectNodes.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSelectNodes.Image = ((System.Drawing.Image)(resources.GetObject("btnSelectNodes.Image")));
+            this.btnSelectNodes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnSelectNodes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnSelectNodes.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSelectNodes.Name = "btnSelectNodes";
+            this.btnSelectNodes.Size = new System.Drawing.Size(36, 53);
+            this.btnSelectNodes.Tag = "1";
+            this.btnSelectNodes.Text = "toolStripButton2";
             // 
             // btnSelectObjects
             // 
@@ -360,7 +360,8 @@ namespace BaseModule
             this.displayToolStrip.GeneralFrame = true;
             this.displayToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.displayToolStrip.IconLocation = new System.Drawing.Point(0, 4);
-            this.displayToolStrip.ItemBackGroundColor = System.Drawing.Color.Transparent;
+            this.displayToolStrip.ImageRectangleSize = 26;
+            this.displayToolStrip.ItemBackGroundColor = System.Drawing.Color.White;
             this.displayToolStrip.ItemFrame = true;
             this.displayToolStrip.ItemLocation = new System.Drawing.Point(3, 3);
             this.displayToolStrip.ItemPressColor = System.Drawing.Color.Black;
@@ -505,7 +506,8 @@ namespace BaseModule
             this.viewToolStrip.GeneralFrame = true;
             this.viewToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.viewToolStrip.IconLocation = new System.Drawing.Point(0, 4);
-            this.viewToolStrip.ItemBackGroundColor = System.Drawing.Color.Transparent;
+            this.viewToolStrip.ImageRectangleSize = 26;
+            this.viewToolStrip.ItemBackGroundColor = System.Drawing.Color.White;
             this.viewToolStrip.ItemFrame = true;
             this.viewToolStrip.ItemLocation = new System.Drawing.Point(3, 3);
             this.viewToolStrip.ItemPressColor = System.Drawing.Color.Black;
@@ -523,7 +525,7 @@ namespace BaseModule
             this.viewToolStrip.Location = new System.Drawing.Point(593, 0);
             this.viewToolStrip.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.viewToolStrip.Name = "viewToolStrip";
-            this.viewToolStrip.Size = new System.Drawing.Size(325, 56);
+            this.viewToolStrip.Size = new System.Drawing.Size(327, 56);
             this.viewToolStrip.SplitButtonClickWidth = 16;
             this.viewToolStrip.SplitButtonHeight = 34;
             this.viewToolStrip.SplitButtonTriangleSize = 6;
@@ -620,7 +622,7 @@ namespace BaseModule
             this.btnSetRotHor90.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnSetRotHor90.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSetRotHor90.Name = "btnSetRotHor90";
-            this.btnSetRotHor90.Size = new System.Drawing.Size(34, 51);
+            this.btnSetRotHor90.Size = new System.Drawing.Size(36, 53);
             this.btnSetRotHor90.Tag = "6";
             this.btnSetRotHor90.Text = "toolStripButton11";
             // 
@@ -658,7 +660,8 @@ namespace BaseModule
             this.instrumentalToolStrip.GeneralFrame = true;
             this.instrumentalToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.instrumentalToolStrip.IconLocation = new System.Drawing.Point(0, 4);
-            this.instrumentalToolStrip.ItemBackGroundColor = System.Drawing.Color.Transparent;
+            this.instrumentalToolStrip.ImageRectangleSize = 26;
+            this.instrumentalToolStrip.ItemBackGroundColor = System.Drawing.Color.White;
             this.instrumentalToolStrip.ItemFrame = true;
             this.instrumentalToolStrip.ItemLocation = new System.Drawing.Point(3, 3);
             this.instrumentalToolStrip.ItemPressColor = System.Drawing.Color.Black;
@@ -667,7 +670,8 @@ namespace BaseModule
             this.btnCrossSection,
             this.btnScreenShot});
             this.instrumentalToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.instrumentalToolStrip.Location = new System.Drawing.Point(918, 0);
+            this.instrumentalToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.instrumentalToolStrip.Location = new System.Drawing.Point(920, 0);
             this.instrumentalToolStrip.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.instrumentalToolStrip.Name = "instrumentalToolStrip";
             this.instrumentalToolStrip.Size = new System.Drawing.Size(111, 56);
@@ -746,7 +750,6 @@ namespace BaseModule
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
-            this.splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.selectToolStrip.ResumeLayout(false);
@@ -798,6 +801,6 @@ namespace BaseModule
         protected System.Windows.Forms.ToolStripButton btnScreenShot;
         protected System.Windows.Forms.ToolStripSplitButton spbSelectObject;
         protected ConsoleControl consoleControl;
-        protected Navigator.NavigatorControl navigator;
+        public Navigator.NavigatorControl navigator;
     }
 }

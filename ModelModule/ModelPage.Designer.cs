@@ -28,7 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.toolStripContainer.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // toolStripContainer
+            // 
+            // 
+            // toolStripContainer.ContentPanel
+            // 
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1055, 615);
+            this.toolStripContainer.Size = new System.Drawing.Size(1055, 671);
+            // 
+            // consoleControl
+            // 
+            this.consoleControl.Size = new System.Drawing.Size(794, 196);
+            // 
+            // navigator
+            // 
+            this.navigator.Size = new System.Drawing.Size(245, 605);
             // 
             // ModelPage
             // 
@@ -37,6 +54,8 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ModelPage";
             this.Size = new System.Drawing.Size(1065, 671);
+            this.toolStripContainer.ResumeLayout(false);
+            this.toolStripContainer.PerformLayout();
             this.ResumeLayout(false);
 
         }

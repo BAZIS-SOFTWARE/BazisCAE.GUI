@@ -143,8 +143,6 @@ namespace BaseModule.Console
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).
                 SetValue(grbConsole, true, null);
 
-            tlsOut.Renderer = new ConsoleToolStrRender();
-
             var path = " > Текущая сессия ";
 
             rtxbField.AppendText(path);
@@ -346,7 +344,7 @@ namespace BaseModule.Console
 
         private void btnDictionary_Click(object sender, EventArgs e)
         {
-            btnDictionary.ShowDropDown();
+            spbDictionary.ShowDropDown();
         }
 
         private void btnBackGroundInfo_Click(object sender, EventArgs e)

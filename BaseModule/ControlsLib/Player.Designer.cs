@@ -84,7 +84,7 @@ namespace BaseModule.ControlsLib
             // 
             this.btnCheckDinamic.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnCheckDinamic.AutoSize = true;
-            this.btnCheckDinamic.Image = Properties.Resources.StartCheck.ToBitmap();
+            this.btnCheckDinamic.Image = Properties.Resources.StartCheck;
             this.btnCheckDinamic.Location = new System.Drawing.Point(0, 0);
             this.btnCheckDinamic.Margin = new System.Windows.Forms.Padding(0);
             this.btnCheckDinamic.Name = "btnCheckDinamic";

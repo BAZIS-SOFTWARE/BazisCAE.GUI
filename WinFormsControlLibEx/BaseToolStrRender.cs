@@ -52,7 +52,11 @@ spb.Width - 2 * ItemLocation.X, SplitButtonHeight - 2 * ItemLocation.Y);
                 e.Graphics.DrawRectangle(new Pen(FrameColor, 1.0f), rectangle);
             }
 
-            var centre = new Point(spb.Width - ItemLocation.X - SplitButtonClickWidth / 2, (spb.Height - TextBoxHeight) / 2);
+            Point centre;
+            if(e.ToolStrip.LayoutStyle == ToolStripLayoutStyle.HorizontalStackWithOverflow)
+                centre = new Point(spb.Width - ItemLocation.X - SplitButtonClickWidth / 2, (spb.Height - TextBoxHeight) / 2);
+            else
+                centre = new Point(spb.Width - ItemLocation.X - SplitButtonClickWidth / 2, (spb.Height - TextBoxHeight) / 2);
 
             var points = CreateTriangle(centre, SplitButtonTriangleSize);
             e.Graphics.FillPolygon(Brushes.Black, points);

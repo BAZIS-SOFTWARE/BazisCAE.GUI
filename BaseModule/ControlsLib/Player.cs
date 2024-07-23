@@ -166,7 +166,7 @@ namespace BaseModule.ControlsLib
         {
             if (CheckState == CheckState.start)
             {
-                btnCheckDinamic.Image = BaseModule.Properties.Resources.StartCheck.ToBitmap();
+                btnCheckDinamic.Image = BaseModule.Properties.Resources.StartCheck;
             }
             else if (CheckState == CheckState.pause)
             {
@@ -174,7 +174,7 @@ namespace BaseModule.ControlsLib
             }
             else
             {
-                btnCheckDinamic.Image = BaseModule.Properties.Resources.StartCheck.ToBitmap();
+                btnCheckDinamic.Image = BaseModule.Properties.Resources.StartCheck;
             }
         }
     }
