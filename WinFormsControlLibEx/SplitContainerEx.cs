@@ -13,6 +13,9 @@ namespace UserControlsEx
 {
     public partial class SplitContainerEx : SplitContainer
     {
+        [Category("Shifting")]
+        [Description("Задать сдвиг по клику")]
+        public int IncrementShifting { get; set; } = 50;
         public SplitContainerEx()
         {
             InitializeComponent();
@@ -67,7 +70,7 @@ namespace UserControlsEx
                     e.Location.Y > y & e.Location.Y < y + 50)
                 {
                     IsSplitterFixed = true;
-                    SplitterDistance -= 100;
+                    SplitterDistance -= IncrementShifting;
                 }
                 else
                     IsSplitterFixed = false;
@@ -81,7 +84,7 @@ namespace UserControlsEx
                     e.Location.Y > y - 3 & e.Location.Y < y + 3)
                 {
                     IsSplitterFixed = true;
-                    SplitterDistance += 50;
+                    SplitterDistance += IncrementShifting;
                 }
                 else
                     IsSplitterFixed = false;

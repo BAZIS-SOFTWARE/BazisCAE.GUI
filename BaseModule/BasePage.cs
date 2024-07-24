@@ -22,6 +22,7 @@ using System.ComponentModel;
 using ProjectInterfaces;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using BaseModule.Utilities;
+using UserControlsEx;
 
 namespace BaseModule
 {
@@ -29,6 +30,7 @@ namespace BaseModule
     {
         public Action ChangeProjectDataEvent;
         public Action CreateProjectDataEvent;
+
 
         [Category("SelectToolStrip")]
         [Description("Выбранный объект сцены")]

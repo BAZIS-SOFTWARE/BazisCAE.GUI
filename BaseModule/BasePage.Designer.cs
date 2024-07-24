@@ -117,6 +117,7 @@ namespace BaseModule
             // 
             this.splitContainer1.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.IncrementShifting = 50;
             this.splitContainer1.Location = new System.Drawing.Point(5, 5);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.splitContainer1.Name = "splitContainer1";
@@ -174,6 +175,7 @@ namespace BaseModule
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.IncrementShifting = 50;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -272,7 +274,7 @@ namespace BaseModule
             this.selectToolStrip.Location = new System.Drawing.Point(5, 0);
             this.selectToolStrip.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.selectToolStrip.Name = "selectToolStrip";
-            this.selectToolStrip.Size = new System.Drawing.Size(297, 56);
+            this.selectToolStrip.Size = new System.Drawing.Size(328, 56);
             this.selectToolStrip.SplitButtonClickWidth = 16;
             this.selectToolStrip.SplitButtonHeight = 36;
             this.selectToolStrip.SplitButtonTriangleSize = 7;
@@ -370,7 +372,7 @@ namespace BaseModule
             this.btnShowNormals,
             this.btnShowCountours});
             this.displayToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.displayToolStrip.Location = new System.Drawing.Point(302, 0);
+            this.displayToolStrip.Location = new System.Drawing.Point(333, 0);
             this.displayToolStrip.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.displayToolStrip.Name = "displayToolStrip";
             this.displayToolStrip.Size = new System.Drawing.Size(291, 56);
@@ -517,7 +519,7 @@ namespace BaseModule
             this.btnSetRotVer90,
             this.btnFitObjs});
             this.viewToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.viewToolStrip.Location = new System.Drawing.Point(593, 0);
+            this.viewToolStrip.Location = new System.Drawing.Point(624, 0);
             this.viewToolStrip.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.viewToolStrip.Name = "viewToolStrip";
             this.viewToolStrip.Size = new System.Drawing.Size(327, 56);
@@ -666,7 +668,7 @@ namespace BaseModule
             this.btnScreenShot});
             this.instrumentalToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
             this.instrumentalToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.instrumentalToolStrip.Location = new System.Drawing.Point(920, 0);
+            this.instrumentalToolStrip.Location = new System.Drawing.Point(951, 0);
             this.instrumentalToolStrip.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.instrumentalToolStrip.Name = "instrumentalToolStrip";
             this.instrumentalToolStrip.Size = new System.Drawing.Size(111, 56);
@@ -763,12 +765,10 @@ namespace BaseModule
         #endregion
         private SplitContainerEx splitContainer1;
         private SplitContainerEx splitContainer2;
-        private Scene.SceneControl sceneControl;
         private System.Windows.Forms.ErrorProvider errorProvider;
         protected ToolStripEx viewToolStrip;
         protected ToolStripEx instrumentalToolStrip;
         protected ToolStripEx displayToolStrip;
-        protected ToolStripEx selectToolStrip;
         protected System.Windows.Forms.ToolStripContainer toolStripContainer;
         protected System.Windows.Forms.ToolStripButton btnSelectNodes;
         protected System.Windows.Forms.ToolStripButton btnShowAll;
@@ -796,6 +796,8 @@ namespace BaseModule
         protected System.Windows.Forms.ToolStripButton btnScreenShot;
         protected System.Windows.Forms.ToolStripSplitButton spbSelectObject;
         protected ConsoleControl consoleControl;
-        public Navigator.NavigatorControl navigator;
+        protected Scene.SceneControl sceneControl;
+        protected ToolStripEx selectToolStrip;
+        protected Navigator.NavigatorControl navigator;
     }
 }
