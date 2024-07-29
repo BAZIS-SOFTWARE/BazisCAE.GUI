@@ -1,5 +1,6 @@
 ﻿using BaseModule.Console;
 using ModelInterfaces;
+using System.Drawing;
 using UserControlsEx;
 
 namespace BaseModule
@@ -36,10 +37,7 @@ namespace BaseModule
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BasePage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.splitContainer1 = new UserControlsEx.SplitContainerEx();
-            this.navigator = new BaseModule.Navigator.NavigatorControl();
             this.splitContainer2 = new UserControlsEx.SplitContainerEx();
-            this.sceneControl = new Scene.SceneControl();
-            this.consoleControl = new BaseModule.Console.ConsoleControl();
             this.selectToolStrip = new UserControlsEx.ToolStripEx();
             this.spbSelectObject = new System.Windows.Forms.ToolStripSplitButton();
             this.btnSelectNodes = new System.Windows.Forms.ToolStripButton();
@@ -70,6 +68,9 @@ namespace BaseModule
             this.btnCrossSection = new System.Windows.Forms.ToolStripButton();
             this.btnScreenShot = new System.Windows.Forms.ToolStripButton();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.navigator = new BaseModule.Navigator.NavigatorControl();
+            this.scenePage = new BaseModule.ScenePage();
+            this.consoleControl = new BaseModule.Console.ConsoleControl();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
@@ -137,41 +138,6 @@ namespace BaseModule
             this.splitContainer1.TabIndex = 0;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
-            // navigator
-            // 
-            this.navigator.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.navigator.BackColor = System.Drawing.SystemColors.Control;
-            this.navigator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.navigator.CollapseIndex = 14;
-            this.navigator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.navigator.DownColor = System.Drawing.Color.Gainsboro;
-            this.navigator.ExpandIndex = 15;
-            this.navigator.HeaderName = "Навигатор";
-            this.navigator.Location = new System.Drawing.Point(0, 0);
-            this.navigator.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.navigator.Name = "navigator";
-            this.navigator.ProjectInfoIndex = 16;
-            this.navigator.Size = new System.Drawing.Size(305, 582);
-            this.navigator.TabIndex = 0;
-            this.navigator.UpColor = System.Drawing.Color.Gainsboro;
-            this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
-            this.navigator.SelectGroupEvent += new System.Action<string>(this.navigator_SelectGroupEvent);
-            this.navigator.DelGroupEvent += new System.Action<int>(this.navigator_DelGroupEvent);
-            this.navigator.DelAllGroupsEvent += new System.Action(this.navigator_DelAllGroupsEvent);
-            this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
-            this.navigator.ShowGroupEvent += new System.Action<int>(this.navigator_ShowGroupEvent);
-            this.navigator.EditGroupEvent += new System.Action<int>(this.navigator_EditGroupEvent);
-            this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
-            this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
-            this.navigator.ShowAllGroupsEvent += new System.Action(this.navigator_ShowAllGroupsEvent);
-            this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
-            this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
-            this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
-            this.navigator.ShowObjectsEvent += new System.Action<string>(this.navigator_ShowObjectsEvent);
-            this.navigator.ChangeObjectsViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeViewModeEventHandler);
-            this.navigator.HideObjectsEvent += new System.Action<string>(this.navigator_HideObjectsEvent);
-            this.navigator.DelObjectsEvent += new System.Action<string>(this.navigator_DelObjectsEvent);
-            // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -182,7 +148,7 @@ namespace BaseModule
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.sceneControl);
+            this.splitContainer2.Panel1.Controls.Add(this.scenePage);
             this.splitContainer2.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
             // 
             // splitContainer2.Panel2
@@ -192,63 +158,6 @@ namespace BaseModule
             this.splitContainer2.SplitterDistance = 390;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
-            // 
-            // sceneControl
-            // 
-            this.sceneControl.AutoSize = true;
-            this.sceneControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.sceneControl.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.sceneControl.BackGroundColor = System.Drawing.Color.Green;
-            this.sceneControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.sceneControl.DisplayBasis = true;
-            this.sceneControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sceneControl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.sceneControl.IsClipPlane = false;
-            this.sceneControl.IsSmoothShadow = false;
-            this.sceneControl.LightAttenuation = 0F;
-            this.sceneControl.LightTranslateX = 0F;
-            this.sceneControl.LightTranslateY = 0F;
-            this.sceneControl.LightTranslateZ = 0F;
-            this.sceneControl.Location = new System.Drawing.Point(0, 0);
-            this.sceneControl.Margin = new System.Windows.Forms.Padding(0);
-            this.sceneControl.Name = "sceneControl";
-            this.sceneControl.Projection = SceneInterface.ViewProjection.Perspective;
-            this.sceneControl.RotationAngle = 2.5F;
-            this.sceneControl.RotationAxis = SceneInterface.ViewAxis.XYZ;
-            this.sceneControl.ScaleFactor = 1F;
-            this.sceneControl.SelectionColor = System.Drawing.Color.Green;
-            this.sceneControl.ShadowAngle = 0F;
-            this.sceneControl.ShowSurfaceBackEdges = false;
-            this.sceneControl.Size = new System.Drawing.Size(986, 389);
-            this.sceneControl.TabIndex = 0;
-            this.sceneControl.TitleColor = System.Drawing.Color.Black;
-            this.sceneControl.TitleText = "";
-            this.sceneControl.InfoObjectsEvent += new System.Action<object, System.EventArgs>(this.sceneControl_InfoObjectsEvent);
-            this.sceneControl.SelectObjectsEvent += new System.Action<object, Scene.Events.SelectObjectsEventArgs>(this.sceneControl_SelectObjectsEvent);
-            this.sceneControl.SetBackColorEvent += new System.Action<object, System.EventArgs>(this.sceneControl_SetBackColorEvent);
-            this.sceneControl.ShowAllHiddenObjectsEvent += new System.Action<object, System.EventArgs>(this.sceneControl_ShowAllHiddenObjectsEvent);
-            this.sceneControl.HideSelectedObjectsEvent += new System.Action<object, System.EventArgs>(this.sceneControl_HideSelectedObjectsEvent);
-            this.sceneControl.CreateMeshGroupEvent += new System.Action<object, System.EventArgs>(this.sceneControl_CreateMeshGroupEvent);
-            this.sceneControl.DeleteSelectionEvent += new System.Action<object, System.EventArgs>(this.sceneControl_DeleteSelectionEvent);
-            this.sceneControl.MessageEvent += new System.Action<object, Scene.Events.MessageEventArgs>(this.sceneControl_MessageEvent);
-            this.sceneControl.Load += new System.EventHandler(this.sceneControl_Load);
-            // 
-            // consoleControl
-            // 
-            this.consoleControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.consoleControl.BackColor = System.Drawing.SystemColors.Control;
-            this.consoleControl.CheckPrintElemsInfo = false;
-            this.consoleControl.CheckPrintNodesInfo = false;
-            this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.consoleControl.DownColor = System.Drawing.Color.Gainsboro;
-            this.consoleControl.HeaderName = "Консоль";
-            this.consoleControl.Location = new System.Drawing.Point(0, 0);
-            this.consoleControl.Margin = new System.Windows.Forms.Padding(4);
-            this.consoleControl.Name = "consoleControl";
-            this.consoleControl.Size = new System.Drawing.Size(986, 187);
-            this.consoleControl.TabIndex = 4;
-            this.consoleControl.UpColor = System.Drawing.Color.Gainsboro;
-            this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
             // 
             // selectToolStrip
             // 
@@ -271,10 +180,10 @@ namespace BaseModule
             this.btnSelectObjects,
             this.btnAdvanceSelection});
             this.selectToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.selectToolStrip.Location = new System.Drawing.Point(5, 0);
+            this.selectToolStrip.Location = new System.Drawing.Point(3, 0);
             this.selectToolStrip.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.selectToolStrip.Name = "selectToolStrip";
-            this.selectToolStrip.Size = new System.Drawing.Size(328, 56);
+            this.selectToolStrip.Size = new System.Drawing.Size(297, 56);
             this.selectToolStrip.SplitButtonClickWidth = 16;
             this.selectToolStrip.SplitButtonHeight = 36;
             this.selectToolStrip.SplitButtonTriangleSize = 7;
@@ -372,7 +281,7 @@ namespace BaseModule
             this.btnShowNormals,
             this.btnShowCountours});
             this.displayToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.displayToolStrip.Location = new System.Drawing.Point(333, 0);
+            this.displayToolStrip.Location = new System.Drawing.Point(300, 0);
             this.displayToolStrip.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.displayToolStrip.Name = "displayToolStrip";
             this.displayToolStrip.Size = new System.Drawing.Size(291, 56);
@@ -519,7 +428,7 @@ namespace BaseModule
             this.btnSetRotVer90,
             this.btnFitObjs});
             this.viewToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.viewToolStrip.Location = new System.Drawing.Point(624, 0);
+            this.viewToolStrip.Location = new System.Drawing.Point(591, 0);
             this.viewToolStrip.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.viewToolStrip.Name = "viewToolStrip";
             this.viewToolStrip.Size = new System.Drawing.Size(327, 56);
@@ -668,7 +577,7 @@ namespace BaseModule
             this.btnScreenShot});
             this.instrumentalToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
             this.instrumentalToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.instrumentalToolStrip.Location = new System.Drawing.Point(951, 0);
+            this.instrumentalToolStrip.Location = new System.Drawing.Point(918, 0);
             this.instrumentalToolStrip.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.instrumentalToolStrip.Name = "instrumentalToolStrip";
             this.instrumentalToolStrip.Size = new System.Drawing.Size(111, 56);
@@ -725,6 +634,80 @@ namespace BaseModule
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
+            // 
+            // navigator
+            // 
+            this.navigator.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.navigator.BackColor = System.Drawing.SystemColors.Control;
+            this.navigator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.navigator.CollapseIndex = 14;
+            this.navigator.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.navigator.DownColor = System.Drawing.Color.Gainsboro;
+            this.navigator.ExpandIndex = 15;
+            this.navigator.HeaderName = "Навигатор";
+            this.navigator.Location = new System.Drawing.Point(0, 0);
+            this.navigator.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.navigator.Name = "navigator";
+            this.navigator.ProjectInfoIndex = 16;
+            this.navigator.Size = new System.Drawing.Size(305, 582);
+            this.navigator.TabIndex = 0;
+            this.navigator.UpColor = System.Drawing.Color.Gainsboro;
+            this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
+            this.navigator.SelectGroupEvent += new System.Action<string>(this.navigator_SelectGroupEvent);
+            this.navigator.DelGroupEvent += new System.Action<int>(this.navigator_DelGroupEvent);
+            this.navigator.DelAllGroupsEvent += new System.Action(this.navigator_DelAllGroupsEvent);
+            this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
+            this.navigator.ShowGroupEvent += new System.Action<int>(this.navigator_ShowGroupEvent);
+            this.navigator.EditGroupEvent += new System.Action<int>(this.navigator_EditGroupEvent);
+            this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
+            this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
+            this.navigator.ShowAllGroupsEvent += new System.Action(this.navigator_ShowAllGroupsEvent);
+            this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
+            this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
+            this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
+            this.navigator.ShowObjectsEvent += new System.Action<string>(this.navigator_ShowObjectsEvent);
+            this.navigator.ChangeObjectsViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeViewModeEventHandler);
+            this.navigator.HideObjectsEvent += new System.Action<string>(this.navigator_HideObjectsEvent);
+            this.navigator.DelObjectsEvent += new System.Action<string>(this.navigator_DelObjectsEvent);
+            // 
+            // scenePage
+            // 
+            this.scenePage.AutoSize = true;
+            this.scenePage.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.scenePage.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.scenePage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.scenePage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scenePage.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.scenePage.Location = new System.Drawing.Point(0, 0);
+            this.scenePage.Margin = new System.Windows.Forms.Padding(0);
+            this.scenePage.ModelController = null;
+            this.scenePage.ModelData = null;
+            this.scenePage.Name = "scenePage";
+            this.scenePage.SelectedObjects = ModelInterfaces.ObjType.Объект;
+            this.scenePage.Size = new System.Drawing.Size(986, 389);
+            this.scenePage.TabIndex = 0;
+            this.scenePage.MeshGroupCreatedEvent += new System.Action<object, string>(this.scenePage_CreateMeshGroupEvent);
+            this.scenePage.SceneInfoEvent += new System.Action<object, string, System.Drawing.Color>(this.scenePage_SceneInfoEvent);
+            this.scenePage.ShowAllObjectsEvent += new System.Action<object>(this.scenePage_ShowAllObjectsEvent);
+            this.scenePage.SelectionDeletedEvent += new System.Action<object>(this.scenePage_SelectionDeletedEvent);
+            this.scenePage.Load += new System.EventHandler(this.sceneControl_Load);
+            // 
+            // consoleControl
+            // 
+            this.consoleControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.consoleControl.BackColor = System.Drawing.SystemColors.Control;
+            this.consoleControl.CheckPrintElemsInfo = false;
+            this.consoleControl.CheckPrintNodesInfo = false;
+            this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.consoleControl.DownColor = System.Drawing.Color.Gainsboro;
+            this.consoleControl.HeaderName = "Консоль";
+            this.consoleControl.Location = new System.Drawing.Point(0, 0);
+            this.consoleControl.Margin = new System.Windows.Forms.Padding(4);
+            this.consoleControl.Name = "consoleControl";
+            this.consoleControl.Size = new System.Drawing.Size(986, 187);
+            this.consoleControl.TabIndex = 4;
+            this.consoleControl.UpColor = System.Drawing.Color.Gainsboro;
+            this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
             // 
             // BasePage
             // 
@@ -796,8 +779,8 @@ namespace BaseModule
         protected System.Windows.Forms.ToolStripButton btnScreenShot;
         protected System.Windows.Forms.ToolStripSplitButton spbSelectObject;
         protected ConsoleControl consoleControl;
-        protected Scene.SceneControl sceneControl;
-        protected ToolStripEx selectToolStrip;
+        protected ScenePage scenePage;
         protected Navigator.NavigatorControl navigator;
+        public ToolStripEx selectToolStrip;
     }
 }

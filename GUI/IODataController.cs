@@ -1,4 +1,5 @@
-﻿using GmshApi.GmshController;
+﻿using BaseModule.Utilities;
+using GmshApi.GmshController;
 using Model;
 using Model.IO;
 using ModelControllerInterfaces.GmshController;
@@ -113,15 +114,15 @@ namespace BazisGUI
                 else
                 {
                     var newFolder = Path.GetDirectoryName(saveDialog.FileName);
-                    var oldFolder = project.Path;
+                    var oldFolder = project.GeneralData.Path;
 
-                    project.Name = Path.GetFileName(saveDialog.FileName);
-                    project.Path = newFolder;
+                    project.GeneralData.Name = Path.GetFileName(saveDialog.FileName);
+                    project.GeneralData.Path = newFolder;
 
-                    if (oldFolder != project.Path)
+                    if (oldFolder != project.GeneralData.Path)
                     {
-                        project.CopyFile(project.Materials, oldFolder, project.Path);
-                        project.CopyFile(project.Functions, oldFolder, project.Path);
+                        IOFileController.CopyFile(project.GeneralData.Materials, oldFolder, project.GeneralData.Path);
+                        IOFileController.CopyFile(project.GeneralData.Functions, oldFolder, project.GeneralData.Path);
                     }
 
                     project.Save();
@@ -166,7 +167,7 @@ namespace BazisGUI
 
             await LoadProjectAsync(project);
 
-            project.Name = "новый_проект.bpf";
+            project.GeneralData.Name = "новый_проект.bpf";
             return project;
         }
 

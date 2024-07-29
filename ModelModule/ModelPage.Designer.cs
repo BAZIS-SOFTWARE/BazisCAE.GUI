@@ -36,24 +36,31 @@
             // 
             // toolStripContainer.ContentPanel
             // 
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1055, 615);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1055, 591);
             this.toolStripContainer.Size = new System.Drawing.Size(1055, 671);
             // 
             // consoleControl
             // 
-            this.consoleControl.Size = new System.Drawing.Size(794, 196);
+            this.consoleControl.Size = new System.Drawing.Size(794, 188);
+            // 
+            // scenePage
+            // 
+            this.scenePage.BackColor = System.Drawing.Color.DimGray;
+            this.scenePage.Size = new System.Drawing.Size(794, 388);
             // 
             // navigator
             // 
-            this.navigator.Size = new System.Drawing.Size(245, 605);
+            this.navigator.Size = new System.Drawing.Size(245, 581);
             // 
             // ModelPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ModelPage";
             this.Size = new System.Drawing.Size(1065, 671);
+            this.DeleteSelectedObjectsEvent += new System.Action(this.ModelPage_DeleteSelectedObjectsEvent);
             this.toolStripContainer.ResumeLayout(false);
             this.toolStripContainer.PerformLayout();
             this.ResumeLayout(false);

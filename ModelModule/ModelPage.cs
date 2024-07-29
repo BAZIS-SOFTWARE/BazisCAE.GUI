@@ -24,24 +24,24 @@ namespace ModelModule
         
 
         public void CreateSurfaceElements()
-        {
-            var els3D = Project.ModelData.ObjectData.E3DCollection;
+        {           
+            var els3D = scenePage.ModelData.ObjectData.E3DCollection;
             if (els3D.Count() != 0)
             {
-                SceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
+                ScenePage.SceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
 
-                var startNumber = Project.ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
-                var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
+                var startNumber = scenePage.ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
+                var boundaryElements2D = ScenePage.ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
 
-                Project.ModelData.ObjectData.E2DCollection.AddRange(boundaryElements2D);
+                scenePage.ModelData.ObjectData.E2DCollection.AddRange(boundaryElements2D);
 
-                SceneControl.HideAllGeometryObjs();
-                SceneControl.HideDisplayText2D();
-                SceneControl.HideDisplayText3D();
+                ScenePage.SceneControl.HideAllGeometryObjs();
+                ScenePage.SceneControl.HideDisplayText2D();
+                ScenePage.SceneControl.HideDisplayText3D();
 
-                CreateObjectsOnScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(ObjType.Элемент2D));
+                ScenePage.CreateObjectsOnScene(ObjType.Элемент2D.ToString(), ScenePage.CreateObjectsPresentor(ObjType.Элемент2D));
 
-                SceneControl.DisplayObjects();
+                ScenePage.SceneControl.DisplayObjects();
                 PresentProjectOnTree();
 
                 ConsoleControl.PrintInfo("Созданы 2D элементы", Color.Black);
@@ -225,13 +225,13 @@ namespace ModelModule
             else
             {
                 var cnt = sender as GMSHGeneralMeshControl;
-                SceneControl.HideDisplayText3D();
+                ScenePage.SceneControl.HideDisplayText3D();
 
                 if (cnt.IsNumberOfCurveNodesShowen)
                     ShowNumberOfCurveNodes();
             }
 
-            SceneControl.DisplayObjects();
+            ScenePage.SceneControl.DisplayObjects();
         }
 
         private void MeshGenerator_showNumberOfCurveNodes(object sender, bool obj)
@@ -244,14 +244,14 @@ namespace ModelModule
             else
             {
                 var cnt = sender as GMSHGeneralMeshControl;
-                SceneControl.HideDisplayText3D();
+                ScenePage.SceneControl.HideDisplayText3D();
 
                 if (cnt.IsSurfaceNumbersShowen)
                     ShowSurfaceNumbers();
             }
 
 
-            SceneControl.DisplayObjects();
+            ScenePage.SceneControl.DisplayObjects();
         }
 
         private void ShowSurfaceNumbers()
@@ -265,7 +265,7 @@ namespace ModelModule
                 //var point = GetOffsetPointFromCenter(2, dimTags[i], 10);
                 var text = $"Поверхность {dimTags[i]}";
 
-                SceneControl.DisplayText3D(text, Color.Black, point.Sum(new Point3D(5,5,5)));
+                ScenePage.SceneControl.DisplayText3D(text, Color.Black, point.Sum(new Point3D(5,5,5)));
             }
         }
 
@@ -285,7 +285,7 @@ namespace ModelModule
                     var text = $"{attributes[0]}";
                     var point = GetCenterOfGeometryEntity(1, tag);
 
-                    SceneControl.DisplayText3D(text, Color.Black, point);
+                    ScenePage.SceneControl.DisplayText3D(text, Color.Black, point);
                 }
             }
         }
@@ -311,8 +311,8 @@ namespace ModelModule
             //SceneControl.HideDisplayText3D();
 
             ClearAllDataOnScene();
-            PresentAllModelObjectsToScene();
-            SceneControl.DisplayObjects();
+            ScenePage.PresentAllModelObjectsToScene();
+            ScenePage.SceneControl.DisplayObjects();
         }
 
         private void MeshGenerator_setTransfiniteCurveEvent(object arg1, SetTransfiniteCurveEventArgs arg2)
@@ -345,7 +345,7 @@ namespace ModelModule
                 var objs = GmshController.GetMeshObjects();
 
 
-                Project.ModelData.ObjectData.Clear(ObjType.Узел);
+                scenePage.ModelData.ObjectData.Clear(ObjType.Узел);
                 var trv = cntr.GetTreeView(2);
                 cntr.FillMeshTreeView(GmshController,trv, 2);
             }
@@ -360,13 +360,13 @@ namespace ModelModule
             var trv = cntr.GetTreeView(2);
             cntr.FillMeshTreeView(GmshController, trv, 2);
 
-            Project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
+            scenePage.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
             UpdateMeshVBO();
 
             PresentProjectOnTree();
 
-            SceneControl.FitObjectsToScreen();
-            SceneControl.DisplayObjects();
+            ScenePage.SceneControl.FitObjectsToScreen();
+            ScenePage.SceneControl.DisplayObjects();
         }
 
         [HandleProcessCorruptedStateExceptions]
@@ -393,13 +393,13 @@ namespace ModelModule
             if (!String.IsNullOrEmpty(error))
                 ConsoleControl.PrintInfo(error, Color.Red);
 
-            Project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
+            scenePage.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
             UpdateMeshVBO();
 
             PresentProjectOnTree();
 
-            SceneControl.FitObjectsToScreen();
-            SceneControl.DisplayObjects();
+            ScenePage.SceneControl.FitObjectsToScreen();
+            ScenePage.SceneControl.DisplayObjects();
         }
 
         [HandleProcessCorruptedStateExceptions]
@@ -428,13 +428,13 @@ namespace ModelModule
             if (!String.IsNullOrEmpty(error))
                 ConsoleControl.PrintInfo(error, Color.Red);
 
-            Project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
+            scenePage.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
             UpdateMeshVBO();
 
             PresentProjectOnTree();
 
-            SceneControl.FitObjectsToScreen();
-            SceneControl.DisplayObjects();
+            ScenePage.SceneControl.FitObjectsToScreen();
+            ScenePage.SceneControl.DisplayObjects();
         }
 
         private void MeshGenerator_deleteMeshEvent(ObjType objType)
@@ -448,13 +448,13 @@ namespace ModelModule
                 DeleteGMSHMeshObjects(ObjType.Элемент3D);
             }
 
-            Project.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
+            scenePage.ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
             UpdateMeshVBO();
 
             PresentProjectOnTree();
 
-            SceneControl.FitObjectsToScreen();
-            SceneControl.DisplayObjects();
+            ScenePage.SceneControl.FitObjectsToScreen();
+            ScenePage.SceneControl.DisplayObjects();
         }
 
         private void DeleteGMSHMeshObjects(ObjType type)
@@ -486,7 +486,7 @@ namespace ModelModule
 
         private void MeshGenerator_showNodesOnCurves(bool flag)
         {
-            SceneControl.DeleteVBObjects("transPoints");
+            ScenePage.SceneControl.DeleteVBObjects("transPoints");
 
             if (flag)
             {
@@ -498,12 +498,12 @@ namespace ModelModule
                     points.AddRange(GetTransPointsCoords(item));
                 }
 
-                var presentor = PresentersCreator.CreatePointObjectsPresenter(points);
+                var presentor = ScenePage.PresentersCreator.CreatePointObjectsPresenter(points);
 
-                CreateObjectsOnScene("transPoints", presentor);
+                ScenePage.CreateObjectsOnScene("transPoints", presentor);
             }
-                
-            SceneControl.DisplayObjects();
+
+            ScenePage.SceneControl.DisplayObjects();
         }
 
         private Dictionary<int, int> GetCurvesNumbersAndNodes()
@@ -558,7 +558,7 @@ namespace ModelModule
         {
             try
             {
-                SceneControl.HideGeometryObj("DisplaySceneScale");
+                ScenePage.SceneControl.HideGeometryObj("DisplaySceneScale");
 
                 if (flag)
                 {
@@ -566,30 +566,30 @@ namespace ModelModule
                     var max = curvesInfo.Max(x => x.Value);
                     var min = curvesInfo.Min(x => x.Value);
 
-                    var scale = SceneControl.CreateScaleObject(min, max, 3, "", "");
+                    var scale = ScenePage.SceneControl.CreateScaleObject(min, max, 3, "", "");
 
-                    SceneControl.DisplaySceneScale(scale);
+                    ScenePage.SceneControl.DisplaySceneScale(scale);
 
                     foreach (var item in curvesInfo)
                     {
                         var color = scale.GetValueColor(item.Value);
-                        Project.ModelData.ObjectData.LineCollection.Find(item.Key).MasterColor = color;
+                        scenePage.ModelData.ObjectData.LineCollection.Find(item.Key).MasterColor = color;
                     }
 
-                    var linePres = PresentersCreator.CreateLineObjectsPresenter(Project.ModelData.ObjectData.LineCollection);
-                    SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
-                    CreateObjectsOnScene(ObjType.Линия.ToString(), linePres);
-                    SceneControl.DisplayObjects();
+                    var linePres = ScenePage.PresentersCreator.CreateLineObjectsPresenter(scenePage.ModelData.ObjectData.LineCollection);
+                    ScenePage.SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
+                    ScenePage.CreateObjectsOnScene(ObjType.Линия.ToString(), linePres);
+                    ScenePage.SceneControl.DisplayObjects();
                 }
                 else
                 {
-                    foreach (var item in Project.ModelData.ObjectData.LineCollection)
+                    foreach (var item in scenePage.ModelData.ObjectData.LineCollection)
                         item.SetBackColor();
 
-                    var linePres = PresentersCreator.CreateLineObjectsPresenter(Project.ModelData.ObjectData.LineCollection);
-                    SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
-                    CreateObjectsOnScene(ObjType.Линия.ToString(), linePres);
-                    SceneControl.DisplayObjects();
+                    var linePres = ScenePage.PresentersCreator.CreateLineObjectsPresenter(scenePage.ModelData.ObjectData.LineCollection);
+                    ScenePage.SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
+                    ScenePage.CreateObjectsOnScene(ObjType.Линия.ToString(), linePres);
+                    ScenePage.SceneControl.DisplayObjects();
                 }
             }
             catch (Exception ex)
@@ -602,23 +602,23 @@ namespace ModelModule
 
         private void GmshControl_ResetColorObjectsEvent(ObjType objType)
         {
-            foreach (var item in Project.ModelData.ObjectData.GetObjects(objType))
+            foreach (var item in scenePage.ModelData.ObjectData.GetObjects(objType))
                 item.SetBackColor();
-            SetObjectsSceneColor(ObjType.Линия);
+            ScenePage.SetObjectsSceneColor(ObjType.Линия);
         }
 
         private void CreateBoundaryElements2D()
         {
-            //var els3D = Project.ModelData.ObjectData.E3DCollection;
+            //var els3D = scenePage.ModelData.ObjectData.E3DCollection;
 
             //if (els3D.Count() != 0)
             //{
             //    SceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
 
-            //    var startNumber = Project.ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
+            //    var startNumber = scenePage.ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
             //    var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
 
-            //    Project.ModelData.ObjectData.E2DCollection.AddRange(boundaryElements2D);
+            //    scenePage.ModelData.ObjectData.E2DCollection.AddRange(boundaryElements2D);
 
             //    SceneControl.HideAllGeometryObjs();
             //    SceneControl.HideDisplayText2D();
@@ -642,12 +642,12 @@ namespace ModelModule
             {
                 foreach (var item in objNumbers)
                 {
-                    Project.ModelData.ObjectData.LineCollection.Find(item).MasterColor
-    = SceneControl.SelectionColor;
+                    scenePage.ModelData.ObjectData.LineCollection.Find(item).MasterColor
+    = ScenePage.SceneControl.SelectionColor;
                 }
 
-                SetObjectsSceneColor(ObjType.Линия);
-                SceneControl.DisplayObjects();
+                ScenePage.SetObjectsSceneColor(ObjType.Линия);
+                ScenePage.SceneControl.DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -660,13 +660,13 @@ namespace ModelModule
             var objs = GmshController.GetMeshObjects();
 
             if(objs.Item1.Count > 0)
-                Project.ModelData.ObjectData.NodeCollection.AddRange(objs.Item1);
+                scenePage.ModelData.ObjectData.NodeCollection.AddRange(objs.Item1);
             if (objs.Item1.Count > 0)
-                Project.ModelData.ObjectData.E1DCollection.AddRange(objs.Item2);
+                scenePage.ModelData.ObjectData.E1DCollection.AddRange(objs.Item2);
             if (objs.Item1.Count > 0)
-                Project.ModelData.ObjectData.E2DCollection.AddRange(objs.Item3);
+                scenePage.ModelData.ObjectData.E2DCollection.AddRange(objs.Item3);
             if (objs.Item4.Count > 0)
-                Project.ModelData.ObjectData.E3DCollection.AddRange(objs.Item4);
+                scenePage.ModelData.ObjectData.E3DCollection.AddRange(objs.Item4);
 
             PresentObjects(ObjType.Узел);
             PresentObjects(ObjType.Элемент1D);
@@ -682,38 +682,36 @@ namespace ModelModule
 
         private void PresentObjects(ObjType item)
         {
-            var vbo = SceneControl.FindVBObj(item.ToString());
+            var vbo = ScenePage.SceneControl.FindVBObj(item.ToString());
 
             if (vbo != null)
-                SceneControl.DeleteVBObjects(item.ToString());
+                ScenePage.SceneControl.DeleteVBObjects(item.ToString());
 
-            var presentor = CreateObjectsPresentor(item);
+            var presentor = ScenePage.CreateObjectsPresentor(item);
             if (presentor.Count() > 0)
-                CreateObjectsOnScene(item.ToString(), presentor);
+                ScenePage.CreateObjectsOnScene(item.ToString(), presentor);
         }   
 
         private void RedrawScene(bool fitOnScreen)
         {
             if (fitOnScreen)
-                SceneControl.FitObjectsToScreen();
-            SceneControl.DisplayObjects();
+                ScenePage.SceneControl.FitObjectsToScreen();
+            ScenePage.SceneControl.DisplayObjects();
         }
 
         public void OpenMesh3DGenerator()
         {
-            var res = MessageBox.Show("Вы собираетесь запустить сеточный генератор. При нажатии на кнопку \"OK\" Все данные о задаче будут удалены!",
-        "Внимание!", MessageBoxButtons.OKCancel);
+            ScenePage.SceneControl.HideAllGeometryObjs();
+            ScenePage.SceneControl.HideDisplayText2D();
+            ScenePage.SceneControl.HideDisplayText3D();
+            PresentProjectOnTree();
+            LoadGMSHMeshControl();
+            ScenePage.SceneControl.DisplayObjects();
+        }
 
-            if (res == DialogResult.OK)
-            {
-                Project.TaskData.Clear();
-                SceneControl.HideAllGeometryObjs();
-                SceneControl.HideDisplayText2D();
-                SceneControl.HideDisplayText3D();
-                PresentProjectOnTree();
-                LoadGMSHMeshControl();
-                SceneControl.DisplayObjects();
-            }
+        private void ModelPage_DeleteSelectedObjectsEvent()
+        {
+            PresentProjectOnTree();
         }
     }
 }

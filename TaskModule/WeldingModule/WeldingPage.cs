@@ -37,7 +37,7 @@ namespace TaskModule.WeldingModule
             {
                 await System.Threading.Tasks.Task.Run(() =>
                 {
-                    var data = (IValuableData)Project.TaskData.Find(arg1).ToArray()[arg2];
+                    var data = (IValuableData)TaskData.Find(arg1).ToArray()[arg2];
 
                     var modelObjects = new List<IModelObject>();
                     var finishTime = data.StopTime - data.StartTime;

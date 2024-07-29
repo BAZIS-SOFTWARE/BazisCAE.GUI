@@ -33,6 +33,8 @@ namespace ResultModule
         private bool showScale = true;
         public bool IsScaleMaxMinManual { get; set; } = false;
 
+        public IResultData ResultData { get; set; }
+
         public ResultPage()
         {
             InitializeComponent();
@@ -68,7 +70,7 @@ namespace ResultModule
             };
             scPage.ShowScaleEvent += (ar1, ar2) =>
             {
-                SceneControl.HideGeometryObj("DisplaySceneScale");
+                ScenePage.SceneControl.HideGeometryObj("DisplaySceneScale");
 
                 if (ar2)
                 {
@@ -76,10 +78,10 @@ namespace ResultModule
                     scale.Coord_Y = scPage.Y_Coord;
 
 
-                    SceneControl.DisplaySceneScale(scale);
+                    ScenePage.SceneControl.DisplaySceneScale(scale);
                 }
 
-                SceneControl.DisplayObjects();
+                ScenePage.SceneControl.DisplayObjects();
             };
             scPage.SetX_PositionEvent += (ar1, ar2) =>
             {
@@ -121,16 +123,16 @@ namespace ResultModule
                     NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
                     NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
-                    var res = Project.ResultData.FindByTaskKind(ar);
+                    var res = ResultData.FindByTaskKind(ar);
                     PresentResultsOnTree(res);
                 };
 
-                var resKinds = Project.ResultData.GetResultKinds();
+                var resKinds = ResultData.GetResultKinds();
                 var resDic = new Dictionary<string, List<float>>();
                 foreach (var resKind in resKinds)
                 {
                     resDic.Add(resKind.ToString(), new List<float>());
-                    var resTimes = Project.ResultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
+                    var resTimes = ResultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
                     resDic[resKind.ToString()] = resTimes;
                 }
                 grPage.SetResultsItems(resDic);
@@ -166,16 +168,16 @@ namespace ResultModule
                 NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
                 NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
-                var res = Project.ResultData.FindByTaskKind(ar1);
+                var res = ResultData.FindByTaskKind(ar1);
                 PresentResultsOnTree(res);
             };
 
-            var resKinds = Project.ResultData.GetResultKinds();
+            var resKinds = ResultData.GetResultKinds();
             var resDic = new Dictionary<string, List<float>>();
             foreach (var resKind in resKinds)
             {
                 resDic.Add(resKind.ToString(), new List<float>());
-                var resTimes = Project.ResultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
+                var resTimes = ResultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
                 resDic[resKind.ToString()] = resTimes;
             }
 
@@ -208,7 +210,7 @@ namespace ResultModule
         {
             try
             {
-                var outputFilePath = $@"{Project.Path}\results.gif";
+                var outputFilePath = $@"{GeneralData.Path}\results.gif";
 
                 AnimatedGifEncoder e = new AnimatedGifEncoder();
 
@@ -221,7 +223,7 @@ namespace ResultModule
                 {
                     ShowResults(args.Times[i], args.ResltsName, args.ScaleFactor);
                     var image = $@"screenShot_{args.Times[i]}";
-                    var imagePath = $@"{Project.Path}\{image}.bmp";
+                    var imagePath = $@"{GeneralData.Path}\{image}.bmp";
                     CreateScreenShot(imagePath);
 
                     using (var stream = new FileStream(imagePath, FileMode.Open))
@@ -299,7 +301,7 @@ namespace ResultModule
         {
             try
             {
-                var result = Project.ResultData.FindByTime(resKind, time);
+                var result = ResultData.FindByTime(resKind, time);
 
                 var resName = NavigatorControl.TreeView.SelectedNode.Name;
                 var nodeName = NavigatorControl.TreeView.SelectedNode.Parent.Name;
@@ -327,28 +329,28 @@ namespace ResultModule
                 ResultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
                 ResultsController.ResultsFieldsCreator.ScaleFactor = scaleFactor;
 
-                SceneControl.HideDisplayText2D();
-                SceneControl.HideDisplayText3D();
+                ScenePage.SceneControl.HideDisplayText2D();
+                ScenePage.SceneControl.HideDisplayText3D();
 
-                ClearAllGeometryDataOnScene();
-                ClearAllMeshDataOnScene();
+                ScenePage.ClearAllGeometryDataOnScene();
+                ScenePage.ClearAllMeshDataOnScene();
 
-                if (Project.TaskType == TaskType.Volume)
+                if (GeneralData.TaskType == TaskType.Volume)
                 {
-                    var els3D = Project.ModelData.ObjectData.E3DCollection;
+                    var els3D = scenePage.ModelData.ObjectData.E3DCollection;
                     var elsResults = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els3D);
 
-                    var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
- 
-                    CreateObjectsOnScene(ObjType.Фигура2D.ToString(), presenter);
+                    var presenter = ScenePage.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
+
+                    ScenePage.CreateObjectsOnScene(ObjType.Фигура2D.ToString(), presenter);
                 }
                 else
                 {
-                    var els2D = Project.ModelData.ObjectData.E2DCollection;
+                    var els2D = scenePage.ModelData.ObjectData.E2DCollection;
                     var elsResults = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
 
-                    var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
-                    CreateObjectsOnScene(ObjType.Фигура2D.ToString(), presenter);
+                    var presenter = ScenePage.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
+                    ScenePage.CreateObjectsOnScene(ObjType.Фигура2D.ToString(), presenter);
                 }
 
                 if (IsResultsValueShowen)
@@ -356,14 +358,14 @@ namespace ResultModule
 
                 if (showScale)
                 {
-                    SceneControl.HideGeometryObj("DisplaySceneScale");
-                    SceneControl.DisplaySceneScale(scale);
+                    ScenePage.SceneControl.HideGeometryObj("DisplaySceneScale");
+                    ScenePage.SceneControl.DisplaySceneScale(scale);
                 }
- 
+
 
                 //SceneControl.ChangeViewModeVBObjects("Results", ObjView.Surface);
 
-                SceneControl.DisplayObjects();
+                ScenePage.SceneControl.DisplayObjects();
 
             }
             catch (Exception ex)
@@ -410,15 +412,15 @@ namespace ResultModule
                 }
 
                 ClearAllDataOnScene();
-                PresentAllModelObjectsToScene();
-                SelectedObjects = objsType;
+                ScenePage.PresentAllModelObjectsToScene();
+                ScenePage.SelectedObjects = objsType;
 
                 var objs = await CreatePathAsync();
 
                 var selNode = NavigatorControl.TreeView.SelectedNode;
                 var resDes = selNode.Name;
 
-                var result = Project.ResultData.FindByTime(resKind, time);
+                var result = ResultData.FindByTime(resKind, time);
 
                 var pathPoints = new List<Point3D>();
                 var path = 0.0f;
@@ -479,8 +481,8 @@ namespace ResultModule
                     throw new Exception("Выберите вид результатов в разделе результаты");
 
                 ClearAllDataOnScene();
-                PresentAllModelObjectsToScene();
-                SelectedObjects = objsType;
+                ScenePage.PresentAllModelObjectsToScene();
+                ScenePage.SelectedObjects = objsType;
 
                 var objs = await SelectObjectsAsync(objsType);
 
@@ -490,7 +492,7 @@ namespace ResultModule
                 var selNode = NavigatorControl.TreeView.SelectedNode;
                 var resDes = selNode.Name;
 
-                var results = Project.ResultData.FindByTaskKind(resKind);
+                var results = ResultData.FindByTaskKind(resKind);
 
                 var grDataAr = new List<GraphData>();
                 Random random = new Random();
@@ -509,12 +511,12 @@ namespace ResultModule
                         grPoints.Add(grPoint);
                     }
 
-                    SceneControl.DisplayText3D($"{objsType}_{obj.Number}", Color.Black, obj.CalcCentr());
+                    ScenePage.SceneControl.DisplayText3D($"{objsType}_{obj.Number}", Color.Black, obj.CalcCentr());
                     var color = Color.FromArgb(random.Next(255), random.Next(255), random.Next(255));
                     var grData = new GraphData($"{objsType}_{obj.Number}", color, "Сек.", resDes, grPoints.ToArray());
                     grDataAr.Add(grData);
                 }
-                SceneControl.DisplayObjects();
+                ScenePage.SceneControl.DisplayObjects();
                 var grContainer = new GraphContainer();
 
                 if (grDataAr.Count != 0)
@@ -548,16 +550,16 @@ namespace ResultModule
         {
             var nodes = new List<IModelObject>();
             PressedKey = Keys.None;
-            SceneControl.DisplayText2D(@"Выберите узлы и нажмите на клавишу ""E"" для подтверждения", Color.Black, new Point2D(10, 10));
-            SceneControl.DisplayObjects();
+            ScenePage.SceneControl.DisplayText2D(@"Выберите узлы и нажмите на клавишу ""E"" для подтверждения", Color.Black, new Point2D(10, 10));
+            ScenePage.SceneControl.DisplayObjects();
             await System.Threading.Tasks.Task.Run(() =>
             {
                 while (true)
                 {
                     if (PressedKey == Keys.E)
                     {
-                        var objs = Project.ModelData.ObjectData.GetObjects(objType);
-                        nodes = objs.Where(x => x.MasterColor == SceneControl.SelectionColor).ToList();
+                        var objs = scenePage.ModelData.ObjectData.GetObjects(objType);
+                        nodes = objs.Where(x => x.MasterColor == ScenePage.SceneControl.SelectionColor).ToList();
                         break;
                     }
                     if(PressedKey == Keys.Escape)
@@ -570,8 +572,8 @@ namespace ResultModule
                     }
                 }
             });
-            SceneControl.HideDisplayText2D();
-            SceneControl.DisplayObjects();
+            ScenePage.SceneControl.HideDisplayText2D();
+            ScenePage.SceneControl.DisplayObjects();
             PressedKey = Keys.None;
             return nodes;
         }
@@ -599,7 +601,7 @@ namespace ResultModule
             await Task.Run(new Action(() =>
             {
 
-                foreach (var result in Project.ResultData.Loader.Load(fileName))
+                foreach (var result in ResultData.Loader.Load(fileName))
                 {
                     Invoke(new Action(() =>
                     {
@@ -623,18 +625,18 @@ namespace ResultModule
             try
             {
                 IElement[] elements;
-                if (Project.TaskType == TaskType.Volume)
-                    elements = Project.ModelData.ObjectData.E3DCollection.ToArray();
+                if (GeneralData.TaskType == TaskType.Volume)
+                    elements = scenePage.ModelData.ObjectData.E3DCollection.ToArray();
                 else
-                    elements = Project.ModelData.ObjectData.E2DCollection.ToArray();
+                    elements = scenePage.ModelData.ObjectData.E2DCollection.ToArray();
 
                 var act = new Action(() =>
                 {
-                    var interfaceNodes = ModelController.InterfacedNodesFinder.Find(elements);
+                    var interfaceNodes = ScenePage.ModelController.InterfacedNodesFinder.Find(elements);
 
                     var resKinds = results.Select(x => x.TaskKind).Distinct();
 
-                    //var resKinds = Project.ResultData.GetResultKinds();
+                    //var resKinds = ResultData.GetResultKinds();
 
                     foreach (var item in resKinds)
                     {
@@ -681,57 +683,57 @@ namespace ResultModule
         {
             IEnumerable<IModelObject> objs;
             if (objsType == ObjType.Узел)
-                objs = Project.ModelData.ObjectData.NodeCollection;
+                objs = scenePage.ModelData.ObjectData.NodeCollection;
             else
-                objs = Project.ModelData.ObjectData.GetAllElements();
+                objs = scenePage.ModelData.ObjectData.GetAllElements();
 
             foreach (var obj in objs)
             {
-                if (obj.MasterColor == SceneControl.SelectionColor)
+                if (obj.MasterColor == ScenePage.SceneControl.SelectionColor)
                 {
                     var coord = obj.CalcCentr();
                     var res = 0.0f;
                     if (objsType == ObjType.Узел)
                         res = result.GetNodeValue(obj.Number, resName);
                     else res = result.GetElementValue(obj.Number, resName);
-                    SceneControl.DisplayText3D(res.ToString(), Color.Black, coord);
+                    ScenePage.SceneControl.DisplayText3D(res.ToString(), Color.Black, coord);
                 }
             }
         }
 
         private void ResultPage_Load(object sender, EventArgs e)
         {
-            scale = SceneControl.CreateScaleObject(0, 1, 2, "", "");
+            scale = ScenePage.SceneControl.CreateScaleObject(0, 1, 2, "", "");
         }
 
         private void скрытьРезультатыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClearAllDataOnScene();
 
-            PresentAllModelObjectsToScene();
+            ScenePage.PresentAllModelObjectsToScene();
 
-            SceneControl.FitObjectsToScreen();
-            SceneControl.DisplayObjects();
+            ScenePage.SceneControl.FitObjectsToScreen();
+            ScenePage.SceneControl.DisplayObjects();
         }
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Project.ResultData.Clear();
+            ResultData.Clear();
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
             ClearAllDataOnScene();
 
-            foreach (var item in Project.ModelData.ObjectData.ObjsTypes)
-                CreateObjectsOnScene(item.ToString(), CreateObjectsPresentor(item));
+            foreach (var item in scenePage.ModelData.ObjectData.ObjsTypes)
+                ScenePage.CreateObjectsOnScene(item.ToString(), ScenePage.CreateObjectsPresentor(item));
 
-            SceneControl.DisplayObjects();
+            ScenePage.SceneControl.DisplayObjects();
         }
 
         private async void пересчитатьНаУзлыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ConsoleControl.PrintInfo($"Выполняется пересчет с элементов на узлы. Не выходите из модуля!", Color.Orange);
-            await MergeResults(Project.ResultData);                     
+            await MergeResults(ResultData);                     
         }
 
         public void ShowExportResultsPage()
@@ -739,15 +741,15 @@ namespace ResultModule
             var exprtPage = new ExportControl() { Dock = DockStyle.Fill };
             exprtPage.ExportResultEvent += ExportGrid;
 
-            var resKinds = Project.ResultData.GetResultKinds();
+            var resKinds = ResultData.GetResultKinds();
             var names = new List<string>();
             var resDic = new Dictionary<string, List<float>>();
             foreach (var resKind in resKinds)
             {
-                var results = Project.ResultData.FindByTaskKind(resKind.ToString());
+                var results = ResultData.FindByTaskKind(resKind.ToString());
                 names.AddRange(results.First().GetDataSchema("nodes"));
                 resDic.Add(resKind.ToString(), new List<float>());
-                var resTimes = Project.ResultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
+                var resTimes = ResultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
                 resDic[resKind.ToString()] = resTimes;
             }
 
@@ -774,7 +776,7 @@ namespace ResultModule
         {
             try
             {
-                var results = Project.ResultData.FindByTime(args.TaskKind, args.Time);
+                var results = ResultData.FindByTime(args.TaskKind, args.Time);
                 var format = args.Extension.Split('-')[0];
                 var formatedPath = $"{args.Path}\\GridExport_{DateTime.Now.ToString().Replace("/", "_").Replace(":", "_")}{format}";
 
@@ -783,10 +785,10 @@ namespace ResultModule
                 ResultsController.ResultsFieldsCreator.ScaleFactor = 1;
 
                 IEnumerable<ISurfaceElement> elements;
-                if (Project.TaskType == TaskType.Volume)
-                    elements = Project.ModelData.ObjectData.E3DCollection;
+                if (GeneralData.TaskType == TaskType.Volume)
+                    elements = scenePage.ModelData.ObjectData.E3DCollection;
                 else
-                    elements = Project.ModelData.ObjectData.E2DCollection;
+                    elements = scenePage.ModelData.ObjectData.E2DCollection;
 
                 var figures = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(results,
                     ObjType.Узел,

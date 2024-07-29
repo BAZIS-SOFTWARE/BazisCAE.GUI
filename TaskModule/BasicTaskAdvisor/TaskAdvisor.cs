@@ -13,6 +13,7 @@ using ProjectInterfaces;
 using ModelInterfaces;
 using ProjectInterfaces.Tasks;
 using UserControlsEx;
+using ProjectInterfaces.Results;
 
 namespace TaskModule.BasicTaskAdvisor
 {
@@ -75,9 +76,9 @@ namespace TaskModule.BasicTaskAdvisor
             }
         }     
 
-        public void SetProjectData(IProjectData project)
+        public void SetProjectData(IGeneralData generalData, IModelData modelData, ITaskData taskData)
         {
-            var taskType = project.TaskType.ToString();
+            var taskType = generalData.TaskType.ToString();
             taskTypeControl.SetTaskType(taskType);
 
             foreach (TabPage tabPage in tabControl.Controls)
@@ -86,39 +87,39 @@ namespace TaskModule.BasicTaskAdvisor
                 {   
                     if(control is GridViewAdviserControl gvControl)
                     {
-                        var data = project.TaskData.
+                        var data = taskData.
     Where(x => x.Name == gvControl.DataName).
     Select(x => x.GetInfo);
 
                         if (control is ILoadControl loadControl)
                         {
-                            loadControl.Fill_nGroups(project.ModelData.GroupData.FindMany(ObjType.Узел).Select(x => x.GroupName).ToList());
+                            loadControl.Fill_nGroups(modelData.GroupData.FindMany(ObjType.Узел).Select(x => x.GroupName).ToList());
                             if (taskType == "Plain" | taskType == "AxiPlain")
-                                loadControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.GroupName).ToList());
+                                loadControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.GroupName).ToList());
                             else
-                                loadControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.GroupName).ToList());
+                                loadControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.GroupName).ToList());
                         }
 
                         else if (control is IBoundaryControl boundaryControl)
                         {
-                            boundaryControl.Fill_nGroups(project.ModelData.GroupData.FindMany(ObjType.Узел).Select(x => x.GroupName).ToList());
+                            boundaryControl.Fill_nGroups(modelData.GroupData.FindMany(ObjType.Узел).Select(x => x.GroupName).ToList());
                             if (taskType == "Plain" | taskType == "AxiPlain")
-                                boundaryControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент1D).Select(x => x.GroupName).ToList());
+                                boundaryControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент1D).Select(x => x.GroupName).ToList());
                             else
-                                boundaryControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.GroupName).ToList());
+                                boundaryControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.GroupName).ToList());
                         }
 
                         else if (control is IMaterialsRelatedControl materialsRelatedControl)
                         {
                             if (taskType == "Plain" | taskType == "AxiPlain")
-                                materialsRelatedControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.GroupName).ToList());
+                                materialsRelatedControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.GroupName).ToList());
                             else
-                                materialsRelatedControl.Fill_eGroups(project.ModelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.GroupName).ToList());
+                                materialsRelatedControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.GroupName).ToList());
                         }
 
                         else if (control is TaskPlannerControl_v2 taskPlannerControl)
                         {
-                            taskPlannerControl.ProjPath = project.Path;
+                            taskPlannerControl.ProjPath = generalData.Path;
 
                             //var inputDir = $@"{project.Path}\InputData";
 

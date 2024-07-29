@@ -21,6 +21,7 @@ using ProjectInterfaces.Tasks;
 using ModelInterfaces;
 using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using BaseModule.Console;
+using BaseModule.Utilities;
 
 namespace TaskModule
 {
@@ -31,8 +32,9 @@ namespace TaskModule
 
         public IPreProc PreProc { get; set; }
 
-        //public MaterialDBData MatData { get; set; }
-        //public FunctionDBData FunData { get; set; }
+        public ITaskData TaskData { get; set; }
+
+        public event Action<object> NeedSaveProjectEvent;
 
         public TaskPage()
         {
@@ -42,7 +44,46 @@ namespace TaskModule
             taskNode.ContextMenuStrip = taskMenuStrip;
             NavigatorControl.TreeView.Nodes.Add(taskNode);
 
-            ChangeProjectDataEvent += () => { GetTaskAdvisor()?.SetProjectData(Project); };
+            ChangeProjectDataEvent += () => { GetTaskAdvisor()?.SetProjectData(GeneralData, scenePage.ModelData,TaskData); };
+
+            DeleteGroupEvent += TaskPage_DeleteGroupEvent;
+            DeleteAllGroupsEvent += TaskPage_DeleteAllGroupsEvent;
+            DeleteObjectsEvent += TaskPage_DeleteObjectsEvent;
+            DeleteSelectedObjectsEvent += TaskPage_DeleteSelectedObjectsEvent;
+        }
+
+        private void TaskPage_DeleteSelectedObjectsEvent()
+        {
+            TaskData?.ClearNotExisted(scenePage.ModelData.GroupData);
+
+            PresentProjectOnTree();
+        }
+
+        private void TaskPage_DeleteObjectsEvent()
+        {
+            TaskData?.ClearNotExisted(scenePage.ModelData.GroupData);
+
+            scenePage.SceneControl.DeleteAllVBObjects();
+            scenePage.PresentAllModelObjectsToScene();
+
+            PresentProjectOnTree();
+            scenePage.SceneControl.DisplayObjects();
+        }
+
+        private void TaskPage_DeleteAllGroupsEvent()
+        {
+            TaskData?.Clear();
+
+            PresentProjectOnTree();
+            ChangeProjectDataEvent?.Invoke();
+        }
+
+        private void TaskPage_DeleteGroupEvent()
+        {
+            TaskData?.ClearNotExisted(scenePage.ModelData.GroupData);
+
+            PresentProjectOnTree();
+            ChangeProjectDataEvent?.Invoke();
         }
 
         public void OpenFunctionsDB()
@@ -60,11 +101,11 @@ namespace TaskModule
                     ChangeFuncDBEventHandler(funBasePage);
                 };
 
-                var filePath = FindFileByPath(Project.Path, Project.Functions);
+                var filePath = FindFileByPath(GeneralData.Path, GeneralData.Functions);
                 if (filePath == null)
-                    ConsoleControl.PrintInfo($"База данных {Project.Functions} не найдена в директории {Project.Path}", Color.Red);
+                    ConsoleControl.PrintInfo($"База данных {GeneralData.Functions} не найдена в директории {GeneralData.Path}", Color.Red);
                 else
-                    funBasePage.Load($@"{filePath}\{Project.Functions}", false);
+                    funBasePage.Load($@"{filePath}\{GeneralData.Functions}", false);
 
                 var icon = TaskModule.Properties.Resources.Функции;
                 var name = "База функций";
@@ -94,11 +135,11 @@ namespace TaskModule
                     ChangeMaterialDBEventHandler(matBasePage);
                 };
 
-                var filePath = FindFileByPath(Project.Path, Project.Materials);
+                var filePath = FindFileByPath(GeneralData.Path, GeneralData.Materials);
                 if (filePath == null)
-                    ConsoleControl.PrintInfo($"База данных {Project.Materials} не найдена в директории {Project.Path}", Color.Red);
+                    ConsoleControl.PrintInfo($"База данных {GeneralData.Materials} не найдена в директории {GeneralData.Path}", Color.Red);
                 else
-                    matBasePage.Load($@"{filePath}\{Project.Materials}", false);
+                    matBasePage.Load($@"{filePath}\{GeneralData.Materials}", false);
 
                 var icon = TaskModule.Properties.Resources.Материалы;
                 var name = "База материалов";
@@ -116,10 +157,10 @@ namespace TaskModule
 
         public void ChangeFuncDBEventHandler(FunctionDataBasePage funBasePage)
         {
-            if (funBasePage.DbPath != Project.Path)
-                Project.CopyFile(funBasePage.DbName, funBasePage.DbPath, Project.Path);
+            if (funBasePage.DbPath != GeneralData.Path)
+                IOFileController.CopyFile(funBasePage.DbName, funBasePage.DbPath, GeneralData.Path);
 
-            Project.Functions = funBasePage.DbName;
+            GeneralData.Functions = funBasePage.DbName;
             var funData = funBasePage.Functions;
             GetTaskAdvisor()?.SetFunctionData(funData.Keys.ToList());
             PresentProjectOnTree();
@@ -127,10 +168,10 @@ namespace TaskModule
 
         public void ChangeMaterialDBEventHandler(MaterialsDataBasePage matBasePage)
         {
-            if (matBasePage.DbPath != Project.Path)
-                Project.CopyFile(matBasePage.DbName, matBasePage.DbPath, Project.Path);
+            if (matBasePage.DbPath != GeneralData.Path)
+                IOFileController.CopyFile(matBasePage.DbName, matBasePage.DbPath, GeneralData.Path);
 
-            Project.Materials = matBasePage.DbName;
+            GeneralData.Materials = matBasePage.DbName;
             var matData = matBasePage.Materials;
             GetTaskAdvisor()?.SetMaterialData(matData.Keys.ToList());
             PresentProjectOnTree();
@@ -148,7 +189,7 @@ namespace TaskModule
             {
                 var btn = sender as ToolStripButton;
                 var appFolder = Path.GetDirectoryName(Application.ExecutablePath);
-                if (appFolder == Project.Path)
+                if (appFolder == GeneralData.Path)
                 {
                     MessageBox.Show("Рабочая папка проекта должна отличаться от папки установки программы!");
                     return;
@@ -181,25 +222,25 @@ namespace TaskModule
                 taskAdv.Select2DPlaneEvent += TaskAdvisor_ChangeTaskTypeEvent;
                 taskAdv.Select3DEvent += TaskAdvisor_ChangeTaskTypeEvent;
 
-                var matDB = GetDataBase<MaterialDBData>(Project.Materials, Project.Path);
+                var matDB = GetDataBase<MaterialDBData>(GeneralData.Materials, GeneralData.Path);
 
                 if (matDB == null)
-                    ConsoleControl.PrintInfo($"Не загружена база {Project.Materials}", Color.Orange);
+                    ConsoleControl.PrintInfo($"Не загружена база {GeneralData.Materials}", Color.Orange);
                 else
 
                     taskAdv.SetMaterialData(matDB.Keys.ToList());
 
-                var funDB = GetDataBase<FunctionDBData>(Project.Functions, Project.Path);
+                var funDB = GetDataBase<FunctionDBData>(GeneralData.Functions, GeneralData.Path);
 
                 if (funDB == null)
-                    ConsoleControl.PrintInfo($"Не загружена база {Project.Functions}", Color.Orange);
+                    ConsoleControl.PrintInfo($"Не загружена база {GeneralData.Functions}", Color.Orange);
                 else
                     taskAdv.SetFunctionData(funDB.Keys.ToList());
 
 
-                taskAdv.SetProjectData(Project);
+                taskAdv.SetProjectData(GeneralData, scenePage.ModelData, TaskData);
 
-                var inputDir = $@"{Project.Path}\InputData";
+                var inputDir = $@"{GeneralData.Path}\InputData";
 
                 if (Directory.Exists(inputDir))
                 {
@@ -221,11 +262,11 @@ namespace TaskModule
             var result = new List<string>
             {
                 $@"\\загрузка сетки и данных",
-                $@"загрузить проект {Project.Path}\{Project.Name}",
+                $@"загрузить проект {GeneralData.Path}\{GeneralData.Name}",
                 $@"\\загрузка материалов",
-                $@"загрузить материалы {Project.Path}\{Project.Materials}",
+                $@"загрузить материалы {GeneralData.Path}\{GeneralData.Materials}",
                 $@"\\загрузка функций",
-                $@"загрузить функции {Project.Path}\{Project.Functions}",
+                $@"загрузить функции {GeneralData.Path}\{GeneralData.Functions}",
 
             };
             result.Add($@"\\расчет");
@@ -236,7 +277,7 @@ namespace TaskModule
 
             result.AddRange(tasks);
 
-            var compDir = $@"{Project.Path}\ComputationData";
+            var compDir = $@"{GeneralData.Path}\ComputationData";
 
             if (!Directory.Exists(compDir))
                 Directory.CreateDirectory(compDir);
@@ -246,22 +287,24 @@ namespace TaskModule
             File.WriteAllLines(cmdFile, result);
 
             ConsoleControl.PrintInfo($"Сформирован командный файл {cmdFile}", Color.Green);
+
+            NeedSaveProjectEvent?.Invoke(this);
         }
 
         private void CheckProjectDataBeforeCreationTCF()
         {
             try
             {
-            if (!File.Exists($@"{Project.Path}\{Project.Name}"))
-                throw new Exception($"В папке проекта {Project.Path} отсутствует файл проекта {Project.Name}. " +
+            if (!File.Exists($@"{GeneralData.Path}\{GeneralData.Name}"))
+                throw new Exception($"В папке проекта {GeneralData.Path} отсутствует файл проекта {GeneralData.Name}. " +
                     $"Верните файл проекта в папку проекта или выберете другой проект");
 
-            if (!File.Exists($@"{Project.Path}\{Project.Materials}"))
-                throw new Exception($"В папке проекта {Project.Path} отсутствует файл материалов {Project.Materials}. " +
+            if (!File.Exists($@"{GeneralData.Path}\{GeneralData.Materials}"))
+                throw new Exception($"В папке проекта {GeneralData.Path} отсутствует файл материалов {GeneralData.Materials}. " +
                     $"Верните файл материалов в папку проекта или выберете другой файл материалов");
 
-            if (!File.Exists($@"{Project.Path}\{Project.Functions}"))
-                throw new Exception($"В папке проекта {Project.Path} отсутствует файл функций {Project.Functions}. " +
+            if (!File.Exists($@"{GeneralData.Path}\{GeneralData.Functions}"))
+                throw new Exception($"В папке проекта {GeneralData.Path} отсутствует файл функций {GeneralData.Functions}. " +
                     $"Верните файл функций в папку проекта или выберете другой файл функций");
 
             }
@@ -275,11 +318,11 @@ namespace TaskModule
         {
             try
             {
-                var data = Project.TaskData.Select(x => x as IValuableData).ToList();
+                var data = TaskData.Select(x => x as IValuableData).ToList();
 
                 var adv = GetTaskAdvisor();
 
-                var inputDir = $@"{Project.Path}\InputData";
+                var inputDir = $@"{GeneralData.Path}\InputData";
 
                 if (!Directory.Exists(inputDir))
                     Directory.CreateDirectory(inputDir);
@@ -361,15 +404,11 @@ namespace TaskModule
         {
             try
             {
-                Project.Save();
-
-                ConsoleControl.PrintInfo("Проект сохранен в " + Project.Path, Color.Black);
-
                 var myProcess = new Process();
 
                 myProcess.StartInfo.FileName = $@"{SolverPath}\BazisSolver.exe";
 
-                var compDir = $@"{Project.Path}\ComputationData";
+                var compDir = $@"{GeneralData.Path}\ComputationData";
                 var cmdFile = $@"{compDir}\computation.tcf";
 
                 var argStr = string.Join(" ", new string[] { cmdFile });
@@ -395,14 +434,14 @@ namespace TaskModule
                 NavigatorControl.TreeView.Nodes["Данные"].Nodes.Clear();
 
                 NavigatorControl.TreeView.Nodes.RemoveByKey("База материалов");
-                var matNode = new TreeNode($"База материалов : {Project.Materials}") { Name = "База материалов" };
+                var matNode = new TreeNode($"База материалов : {GeneralData.Materials}") { Name = "База материалов" };
                 NavigatorControl.TreeView.Nodes.Insert(4, matNode);
 
                 NavigatorControl.TreeView.Nodes.RemoveByKey("База функций");
-                var funNode = new TreeNode($"База функций : {Project.Functions}") { Name = "База функций" };
+                var funNode = new TreeNode($"База функций : {GeneralData.Functions}") { Name = "База функций" };
                 NavigatorControl.TreeView.Nodes.Insert(4, funNode);
 
-                foreach (var data in Project.TaskData)
+                foreach (var data in TaskData)
                 {
                     NavigatorControl.CreateChildNode("Данные", data.Name, data.ToString(), "6.1");
                 }
@@ -421,14 +460,14 @@ namespace TaskModule
         public void TaskAdvisor_ChangeTaskTypeEvent(object arg1, ChangeTaskTypeEventArgs arg2)
         {
             if (arg2.Index == 0)
-                Project.TaskType = TaskType.Plain;
+                GeneralData.TaskType = TaskType.Plain;
             else if (arg2.Index == 1)
-                Project.TaskType = TaskType.AxiPlain;
-            else Project.TaskType = TaskType.Volume;
+                GeneralData.TaskType = TaskType.AxiPlain;
+            else GeneralData.TaskType = TaskType.Volume;
 
-            NavigatorControl.TreeView.Nodes[3].Text = "Вид : " + Project.TaskType;
+            NavigatorControl.TreeView.Nodes[3].Text = "Вид : " + GeneralData.TaskType;
 
-            GetTaskAdvisor()?.SetProjectData(Project);
+            GetTaskAdvisor()?.SetProjectData(GeneralData,scenePage.ModelData,TaskData);
         }
 
         public TaskAdvisor GetTaskAdvisor()
@@ -447,7 +486,7 @@ namespace TaskModule
         {
             try
             {
-                var dataArray = Project.TaskData.Find(arg2.DataName).ToArray();
+                var dataArray = TaskData.Find(arg2.DataName).ToArray();
 
                 dataArray[arg2.Index].SetInfo(arg2.DataInfo);
 
@@ -459,9 +498,9 @@ namespace TaskModule
                 if (valData.MovedFrame != null)
                     SetMFF(valData, arg2.DataInfo.Split(' ').Last());
 
-                GetTaskAdvisor()?.SetProjectData(Project);
+                GetTaskAdvisor()?.SetProjectData(GeneralData, scenePage.ModelData, TaskData);
 
-                var dataIndex = Project.TaskData.IndexOf(dataArray[arg2.Index]);
+                var dataIndex = TaskData.IndexOf(dataArray[arg2.Index]);
                 NavigatorControl.TreeView.Nodes["Данные"].Nodes[dataIndex].Text = dataArray[arg2.Index].ToString();
                 //PresentProjectOnTree();
             }
@@ -479,7 +518,7 @@ namespace TaskModule
             if (dataName == "Нагрев")
                 groupName = ar[1];
    
-            group = Project.ModelData.GroupData.Find(groupName);
+            group = scenePage.ModelData.GroupData.Find(groupName);
 
             if (group == null)
                 throw new Exception(@"Группа ""groupName"" не найдена!");
@@ -488,23 +527,23 @@ namespace TaskModule
 
         public void TaskAdvisor_DeleteAllDataEvent(object arg1, DeleteAllDataEventArgs arg2)
         {
-            var dataArray = Project.TaskData.Find(arg2.DataName).ToArray();
+            var dataArray = TaskData.Find(arg2.DataName).ToArray();
 
             foreach (var data in dataArray)
             {
-                var index = Project.TaskData.IndexOf(data);
+                var index = TaskData.IndexOf(data);
                 NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
 
-                Project.TaskData.Remove(data);
+                TaskData.Remove(data);
             }
 
-            GetTaskAdvisor()?.SetProjectData(Project);
+            GetTaskAdvisor()?.SetProjectData(GeneralData, scenePage.ModelData, TaskData);
         }
 
         public void TaskAdvisor_ShowDataEvent(object arg1, ShowDataEventArgs arg2)
         {
-            SceneControl.HideAllGeometryObjs();
-            var data = Project.TaskData.Find(arg2.DataName).
+            ScenePage.SceneControl.HideAllGeometryObjs();
+            var data = TaskData.Find(arg2.DataName).
                 Select(x => (IValuableData)x).ToArray();
 
             foreach (var index in arg2.GetDataInfo())
@@ -529,28 +568,28 @@ namespace TaskModule
                         DisplayDirection(data[index].StartTime, data[index], iobj);
                 }
 
-                SetObjectsSceneColor(group.ObjType);
+                ScenePage.SetObjectsSceneColor(group.ObjType);
 
                 //SetVBObjColor(group.ObjType);
 
             }
-            SceneControl.DisplayObjects();
+            ScenePage.SceneControl.DisplayObjects();
         }
 
         private void DisplayMRF(float time, IValuableData data)
         {
             var frame = data.MovedFrame.CalcFrame(time - data.StartTime);
-            SceneControl.DisplayLocalFrame(frame);
+            ScenePage.SceneControl.DisplayLocalFrame(frame);
             var trajPoints = data.MovedFrame.BaseLine.Select(x => x.CalcCentr()).ToArray();
-            SceneControl.DisplayPath(trajPoints);
+            ScenePage.SceneControl.DisplayPath(trajPoints);
 
             if (data.FrameFunction is ISphereFunction sphear )
             {
-                SceneControl.DisplaySphere(sphear.Width, frame);
+                ScenePage.SceneControl.DisplaySphere(sphear.Width, frame);
             }
             else if (data.FrameFunction is ICillindricalFunction cilinder )
             {
-                SceneControl.DisplayConus(cilinder.UpperDiam, cilinder.BottomDiam, cilinder.Length, frame);
+                ScenePage.SceneControl.DisplayConus(cilinder.UpperDiam, cilinder.BottomDiam, cilinder.Length, frame);
             }
         }
 
@@ -579,28 +618,28 @@ namespace TaskModule
 
             foreach (var point in modelObj.GetCoordinates())
             {
-                var scl = 10 * (1.0f / Height * 1.0f / SceneControl.ScaleFactor);
+                var scl = 10 * (1.0f / Height * 1.0f / ScenePage.SceneControl.ScaleFactor);
                 vector = vector.Mult(scl);
                 var p1 = point.Sum(vector);
-                SceneControl.DisplayLine(point, p1, color);
+                ScenePage.SceneControl.DisplayLine(point, p1, color);
                 //SceneControl.DisplayText3D(data.CalcValue(time, point).ToString(), Color.FromArgb(0, 0, 0), point);
             }
         }
 
         public void TaskAdvisor_HideDataEvent(object arg1, HideDataEventArgs arg2)
         {
-            SceneControl.HideAllGeometryObjs();
-            SceneControl.HideDisplayText3D();
-            SetBackColorToAllObjects();
-            SceneControl.DisplayObjects();
+            ScenePage.SceneControl.HideAllGeometryObjs();
+            ScenePage.SceneControl.HideDisplayText3D();
+            ScenePage.SetBackColorToAllObjects();
+            ScenePage.SceneControl.DisplayObjects();
         }
 
         public void TaskAdvisor_CheckDataEvent(object arg1, CheckDataEventArgs arg2)
         {
             try
             {
-                SceneControl.HideAllGeometryObjs();
-                var selectedData = Project.TaskData.Find(arg2.DataName).Select(x => (IValuableData)x);
+                ScenePage.SceneControl.HideAllGeometryObjs();
+                var selectedData = TaskData.Find(arg2.DataName).Select(x => (IValuableData)x);
                 foreach (var data in selectedData)
                 {
                     if (arg2.Time >= data.StartTime & arg2.Time <= data.StopTime)
@@ -626,9 +665,9 @@ namespace TaskModule
                                 DisplayDirection(arg2.Time, data, iobj);
                         }
 
-                        SetObjectsSceneColor(group.ObjType);
+                        ScenePage.SetObjectsSceneColor(group.ObjType);
 
-                        SceneControl.DisplayObjects();
+                        ScenePage.SceneControl.DisplayObjects();
                     }
                 }
             }
@@ -640,12 +679,12 @@ namespace TaskModule
 
         public void TaskAdvisor_DeleteDataEvent(object arg1, DeleteDataEventArgs arg2)
         {
-            var dataArray = Project.TaskData.Find(arg2.DataName).ToArray();
+            var dataArray = TaskData.Find(arg2.DataName).ToArray();
 
-            var index = Project.TaskData.IndexOf(dataArray[arg2.Index]);
+            var index = TaskData.IndexOf(dataArray[arg2.Index]);
             NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
 
-            Project.TaskData.Remove(dataArray[arg2.Index]);
+            TaskData.Remove(dataArray[arg2.Index]);
 
             
 
@@ -666,7 +705,7 @@ namespace TaskModule
                 else
                     AddData(arg2, ar, group);
 
-                GetTaskAdvisor()?.SetProjectData(Project);
+                GetTaskAdvisor()?.SetProjectData(GeneralData, scenePage.ModelData, TaskData);
             }
             catch (Exception ex)
             {
@@ -676,16 +715,16 @@ namespace TaskModule
 
         private void AddData(AddDataEventArgs arg2, string[] ar, IGroup group)
         {
-            var data = (IValuableData)Project.TaskData.Create(arg2.DataName, arg2.DataInfo, group);
+            var data = (IValuableData)TaskData.Create(arg2.DataName, arg2.DataInfo, group);
             if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
-            Project.TaskData.Add(data);
+            TaskData.Add(data);
             NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
         }
 
         private async Task AddDataLRF(AddDataEventArgs arg2, string[] ar, IGroup group)
         {
-            SelectedObjects = ObjType.Узел;
+            ScenePage.SelectedObjects = ObjType.Узел;
             var taskStrLRF = CreateSurfaceAsync(ObjType.Узел);
             await taskStrLRF;
             var vec = taskStrLRF.Result.Normal;
@@ -699,31 +738,31 @@ namespace TaskModule
             ar[2] = "X";
             ar[3] = rVec._x.ToString();
 
-            var data = (IValuableData)Project.TaskData.Create(arg2.DataName, string.Join(" ", ar), group);
+            var data = (IValuableData)TaskData.Create(arg2.DataName, string.Join(" ", ar), group);
             if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
 
-            Project.TaskData.Add(data);
+            TaskData.Add(data);
             NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
 
             ar[2] = "Y";
             ar[3] = rVec._y.ToString();
 
-            data = (IValuableData)Project.TaskData.Create(arg2.DataName, string.Join(" ", ar), group);
+            data = (IValuableData)TaskData.Create(arg2.DataName, string.Join(" ", ar), group);
             if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
 
-            Project.TaskData.Add(data);
+            TaskData.Add(data);
             NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
 
             ar[2] = "Z";
             ar[3] = rVec._z.ToString();
 
-            data = (IValuableData)Project.TaskData.Create(arg2.DataName, string.Join(" ", ar), group);
+            data = (IValuableData)TaskData.Create(arg2.DataName, string.Join(" ", ar), group);
             if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
 
-            Project.TaskData.Add(data);
+            TaskData.Add(data);
             NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
         }
 
@@ -733,9 +772,9 @@ namespace TaskModule
             var baseLineGrName = trajInfo.Split(';')[0].Split('|')[0];
             var refLineGrName = trajInfo.Split(';')[0].Split('|')[1];
             var stNodesGrName = trajInfo.Split(';')[2];
-            var baseLineGr = Project.ModelData.GroupData.Find(baseLineGrName);
-            var refLineGr = Project.ModelData.GroupData.Find(refLineGrName);
-            var stNodesGr = Project.ModelData.GroupData.Find(stNodesGrName);
+            var baseLineGr = scenePage.ModelData.GroupData.Find(baseLineGrName);
+            var refLineGr = scenePage.ModelData.GroupData.Find(refLineGrName);
+            var stNodesGr = scenePage.ModelData.GroupData.Find(stNodesGrName);
 
             data.MovedFrame.BaseLine = baseLineGr;
             data.MovedFrame.RefLine = refLineGr;
@@ -759,7 +798,7 @@ namespace TaskModule
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Project.TaskData.Clear();
+            TaskData.Clear();
             PresentProjectOnTree();
             ChangeProjectDataEvent?.Invoke();
         }
