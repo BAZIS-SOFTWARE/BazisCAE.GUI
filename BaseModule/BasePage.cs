@@ -20,10 +20,6 @@ using System.ComponentModel;
 using ProjectInterfaces;
 using BaseModule.Utilities;
 using SceneInterface;
-using ProjectInterfaces.Tasks;
-using ProjectInterfaces.Results;
-using Model;
-using UserControlsEx;
 
 namespace BaseModule
 {
@@ -32,33 +28,41 @@ namespace BaseModule
         public Action ChangeProjectDataEvent;
         public Action CreateProjectDataEvent;
 
-        //public ObjType scenePage.SelectedObjects
-        //{
-        //    get
-        //    {
-        //        ObjType objType;
-        //        Enum.TryParse(spbSelectObject.ToolTipText, out objType);
-        //        return objType;
-        //    }
-        //    set
-        //    {
-        //        if (spbSelectObject.DropDownItems.ContainsKey(value.ToString()))
-        //        {
-        //            spbSelectObject.ToolTipText = value.ToString();
-        //            spbSelectObject.Invalidate();
-
-        //            scenePage.SetBackColorToAllObjects();
-        //            scenePage.SceneControl.DisplayObjects();
-        //        }
-        //    }
-        //} 
-        [Category("General")]
-        [Description("Меню выбора")]
-        public ToolStripEx SelectToolStrip { get { return selectToolStrip; } }
-
         [Category("General")]
         [Description("Задать цвет выбора групп объектов")]
-        public Color SelectionGroupColor { get; set; }              
+        public Color SelectionGroupColor { get; set; }
+
+        [Category("General")]
+        [Description("NavigatorControl")]
+        public NavigatorControl NavigatorControl
+        {
+            get
+            {
+                return navigator;
+            }
+        }
+        [Category("General")]
+        [Description("ScenePage")]
+        public ScenePage ScenePage
+        {
+            get
+            {
+                return scenePage;
+            }
+        }
+        [Category("General")]
+        [Description("ConsoleControl")]
+        public ConsoleControl ConsoleControl
+        {
+            get
+            {
+                return consoleControl;
+            }
+        }
+
+        [Category("General")]
+        [Description("Кнопка на клавиатуре")]
+        public Keys PressedKey { get; set; }
 
         public SplittersController SplittersController { get; internal set; }
 
@@ -69,102 +73,19 @@ namespace BaseModule
         public event Action DeleteObjectsEvent;
         public event Action DeleteSelectedObjectsEvent;
 
-        //public IModelController ModelController { get; set; }
-
-        //public IPresentersCreator PresentersCreator 
-        //{ 
-        //    get { return ModelController.PresentersCreator; }
-        //}  
-
-        public Keys PressedKey { get; set; }
-
-        //public IProjectData Project { get; set; }
-
         public BasePage()
         {
             InitializeComponent();
 
             SplittersController = new SplittersController(this);
 
-            //if(ComponentsPainter.ScreenDPI == 120 | ComponentsPainter.ScreenDPI == 144)
-            //selectToolStrip_1.Location = new Point(3,0);
         }
 
         public void SceneInitialization()
         {
             scenePage.SceneControl.Initialization();
-            ClearAllDataOnScene();
-        }
-
-        //public void PresentAllModelObjectsToScene()
-        //{
-        //    foreach (var item in scenePage.ModelData.ObjectData.ObjsTypes)
-        //    {
-        //        var presentor = CreateObjectsPresentor(item);
-        //        if (presentor.Count() > 0)
-        //            CreateObjectsOnScene(item.ToString(), presentor);
-        //    }
-        //}  
-
-        //public IObjsPresenter CreateObjectsPresentor(ObjType objType)
-        //{
-        //    IObjsPresenter presenter;
-
-        //    switch (objType)
-        //    {
-        //        case ObjType.Узел:
-        //            presenter = PresentersCreator.CreatePointObjectsPresenter(scenePage.ModelData.ObjectData.NodeCollection);
-        //            break;
-        //        case ObjType.Линия:
-        //            presenter = PresentersCreator.CreateLineObjectsPresenter(scenePage.ModelData.ObjectData.LineCollection);
-        //            break;
-        //        case ObjType.Фигура2D:
-        //            presenter = PresentersCreator.CreateSurfaceObjectsPresenter(scenePage.ModelData.ObjectData.Fig2DCollection, false);
-        //            break;
-        //        case ObjType.Фигура3D:
-        //            presenter = PresentersCreator.CreateSurfaceObjectsPresenter(scenePage.ModelData.ObjectData.Fig3DCollection, false);
-        //            break;
-        //        case ObjType.Элемент1D:
-        //            presenter = PresentersCreator.CreateLineObjectsPresenter(scenePage.ModelData.ObjectData.E1DCollection);
-        //            break;
-        //        case ObjType.Элемент2D:
-        //            presenter = PresentersCreator.CreateSurfaceObjectsPresenter(scenePage.ModelData.ObjectData.E2DCollection, false);
-        //            break;
-        //        case ObjType.Элемент3D:
-        //            presenter = PresentersCreator.CreateSurfaceObjectsPresenter(scenePage.ModelData.ObjectData.E3DCollection, true);
-        //            break;
-        //        default:
-        //            presenter = PresentersCreator.CreatePointObjectsPresenter(scenePage.ModelData.ObjectData.PointCollection);
-        //            break;
-        //    }
-
-        //    return presenter;
-        //}
-
-
-        public NavigatorControl NavigatorControl
-        {
-            get
-            {
-                return navigator;
-            }
-        }
-
-        public ScenePage ScenePage
-        {
-            get
-            {
-                return scenePage;
-            }
-        }
-
-        public ConsoleControl ConsoleControl
-        {
-            get
-            {
-                return consoleControl;
-            }
-        }           
+            scenePage.ClearAllDataOnScene();
+        }      
 
         public void CreateScreenShot(string fileName)
         {
@@ -176,52 +97,7 @@ namespace BaseModule
             gr.CopyFromScreen(pos, Point.Empty, size);
 
             bmpPicture.Save(fileName, System.Drawing.Imaging.ImageFormat.Bmp);
-        }
-
-        //public void CreateObjectsOnScene(string objsName, IObjsPresenter presenter)
-        //{
-        //    if (!scenePage.SceneControl.DrawInsideObjects & presenter.IsVolumeObjs)
-        //    {
-        //        var volPresenter = (IVolumeObjsPresenter)presenter;
-        //        volPresenter.HideInsideSurfaces();
-        //    }
-
-        //    var inds = presenter.CreateIndexes();
-        //    var ptrs = presenter.CreatePointers(inds.Item1);
-        //    var coords = presenter.CreateVertexes(inds.Item2, "координаты");
-        //    var colors = presenter.CreateVertexes(inds.Item3, "цвет");
-        //    var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
-        //    var edges = presenter.CreateEdgeFlags(inds.Item4);
-
-        //    if (presenter.PresenterType == PresenterType.Surface)
-        //    {
-        //        if (PresentersCreator.GetView(objsName) == PresenterView.Line)
-        //            scenePage.SceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.Lines);
-        //        else if (PresentersCreator.GetView(objsName) == PresenterView.LineSurface)
-        //            scenePage.SceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.LinesSurface);
-        //        else
-        //            scenePage.SceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.Surface);
-        //    }
-
-        //    else if (presenter.PresenterType == PresenterType.Line)
-        //    {
-        //        scenePage.SceneControl.CreateLineVBObjects(ptrs, coords, colors, normals, edges, objsName);
-        //    }
-
-        //    else
-        //        scenePage.SceneControl.CreatePointVBObjects(ptrs, coords, colors, normals, objsName);
-        //}
-
-        //public void SetBackColorToAllObjects()
-        //{
-        //    foreach (var item in scenePage.ModelData.ObjectData.ObjsTypes)
-        //    {
-        //        foreach (var obj in scenePage.ModelData.ObjectData.GetObjects(item))
-        //            obj.SetBackColor();
-        //        SetObjectsSceneColor(item);
-        //    }
-
-        //}       
+        }            
 
         public void PresentModelOnSelectToolStrip(IObjectsData objectsData)
         {
@@ -233,6 +109,8 @@ namespace BaseModule
             AddObjectsType(ObjType.Элемент);
 
             scenePage.SelectedObjects = ObjType.Объект;
+
+            spbSelectObject.ToolTipText = ObjType.Объект.ToString();
         }
 
         public void AddObjectsType(ObjType objsType)
@@ -273,15 +151,6 @@ namespace BaseModule
             }
 
             navigator.TreeView.EndUpdate();
-        }
-
-
-        public void ClearAllDataOnScene()
-        {
-            scenePage.SceneControl.HideAllGeometryObjs();
-            scenePage.SceneControl.HideDisplayText2D();
-            scenePage.SceneControl.HideDisplayText3D();
-            scenePage.SceneControl.DeleteAllVBObjects();
         }
 
         private void SelectToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -1037,137 +906,7 @@ namespace BaseModule
 
             PressedKey = Keys.None;
             return resObject;
-        }
-
-
-        //private void sceneControl_MessageEvent(object arg1, MessageEventArgs arg2)
-        //{
-        //    consoleControl.PrintInfo(arg2.Message, Color.Red);
-        //}
-
-        //private void sceneControl_SelectObjectsEvent(object arg1, SelectObjectsEventArgs arg2)
-        //{
-        //    var selections = SearchObjects(scenePage.SelectedObjects, arg2.SelectionBox);
-
-        //    if(selections.Count > 0)
-        //    {
-        //        scenePage.SelectObjects(arg2.IsSelected, arg2.IsSorted, selections);
-
-        //        if (scenePage.SelectedObjects == ObjType.Объект)
-        //        {
-        //            var types = scenePage.ModelData.ObjectData.ObjsTypes;
-        //            foreach (var type in types)
-        //                SetObjectsSceneColor(type);
-        //        }
-        //        else if (scenePage.SelectedObjects == ObjType.Элемент)
-        //        {
-        //            SetObjectsSceneColor(ObjType.Элемент1D);
-        //            SetObjectsSceneColor(ObjType.Элемент2D);
-        //            SetObjectsSceneColor(ObjType.Элемент3D);
-        //        }
-        //        else if (scenePage.SelectedObjects == ObjType.Фигура)
-        //        {
-        //            SetObjectsSceneColor(ObjType.Фигура2D);
-        //            SetObjectsSceneColor(ObjType.Фигура3D);
-        //        }
-        //        else
-        //            SetObjectsSceneColor(scenePage.SelectedObjects);
-
-        //        scenePage.SceneControl.DisplayObjects();
-        //    }
-        //}
-
-        //public void SetObjectsSceneColor(ObjType objsType)
-        //{
-        //    var objName = objsType.ToString();
-        //    var vboObjs = scenePage.SceneControl.FindVBObj(objName);
-
-        //    if (vboObjs != null)
-        //    {
-        //        var objsPresenter = CreateObjectsPresentor(objsType);
-
-        //        if(objsPresenter.Count() > 0)
-        //        {
-        //            var colors = objsPresenter.CreateVertexes(vboObjs.ColorLength, "цвет");
-        //            vboObjs.PointsColors = colors;
-        //        }
-        //    }
-        //}
-
-        //private void SelectObjects(bool isSelected, bool isSorted, List<IModelObject> selections)
-        //{
-        //    if (isSorted & selections.Count > 0)
-        //    {
-        //        var camera = scenePage.SceneControl.GetCamera();
-
-        //        var near = selections.OrderByDescending(x => camera.GetSceenCoord(x.CalcCentr())._z).First();
-        //        if (isSelected)
-        //        {
-        //            near.MasterColor = scenePage.SceneControl.SelectionColor;
-        //        }
-        //        else
-        //            near.SetBackColor();
-        //    }
-        //    else
-        //    {
-        //        foreach (var obj in selections)
-        //            if (isSelected)
-        //            {
-        //                obj.MasterColor = scenePage.SceneControl.SelectionColor;
-        //            }
-
-        //            else
-        //                obj.SetBackColor();
-        //    }
-        //}
-
-
-        //private void sceneControl_HidescenePage.SelectedObjectsEvent(object sender, EventArgs arg)
-        //{
-        //    var selObjs = scenePage.ModelData.ObjectData.GetObjects(scenePage.SelectedObjects).
-        //        Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor);
-
-        //    foreach (var selObj in selObjs)
-        //        selObj.ViewState = false;
-
-        //    if (scenePage.SelectedObjects == ObjType.Объект)
-        //    {
-        //        scenePage.SceneControl.DeleteAllVBObjects();
-        //        PresentAllModelObjectsToScene();
-        //    }
-        //    else if (scenePage.SelectedObjects == ObjType.Элемент)
-        //    {
-        //        scenePage.SceneControl.DeleteVBObjects(ObjType.Элемент1D.ToString());
-        //        CreateObjectsOnScene(ObjType.Элемент1D.ToString(), CreateObjectsPresentor(ObjType.Элемент1D));
-        //        scenePage.SceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
-        //        CreateObjectsOnScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(ObjType.Элемент2D));
-        //        scenePage.SceneControl.DeleteVBObjects(ObjType.Элемент3D.ToString());
-        //        CreateObjectsOnScene(ObjType.Элемент3D.ToString(), CreateObjectsPresentor(ObjType.Элемент3D));
-        //    }
-        //    else if (scenePage.SelectedObjects == ObjType.Фигура)
-        //    {
-        //        scenePage.SceneControl.DeleteVBObjects(ObjType.Фигура2D.ToString());
-        //        CreateObjectsOnScene(ObjType.Фигура2D.ToString(), CreateObjectsPresentor(ObjType.Фигура2D));
-        //        scenePage.SceneControl.DeleteVBObjects(ObjType.Фигура3D.ToString());
-        //        CreateObjectsOnScene(ObjType.Фигура3D.ToString(), CreateObjectsPresentor(ObjType.Фигура3D));
-        //    }
-        //    else
-        //    {
-        //        var strObjType = scenePage.SelectedObjects.ToString();
-        //        scenePage.SceneControl.DeleteVBObjects(strObjType);
-        //        CreateObjectsOnScene(strObjType, CreateObjectsPresentor(scenePage.SelectedObjects));
-        //    }
-
-
-        //    scenePage.SceneControl.DisplayObjects();
-        //}
-
-        //private void sceneControl_SetBackColorEvent(object sender, EventArgs arg)
-        //{
-        //    scenePage.SetBackColorToAllObjects();
-        //    scenePage.SceneControl.HideDisplayText3D();
-        //    scenePage.SceneControl.DisplayObjects();
-        //}
+        }       
 
         private void BasePage_Load(object sender, EventArgs e)
         {
@@ -1228,7 +967,7 @@ namespace BaseModule
                             foreach (var item in scenePage.ModelData.ObjectData.GetObjects(ObjType.Объект))
                                 item.ViewState = false;
                             obj.ViewState = true;
-                            ClearAllDataOnScene();
+                            scenePage.ClearAllDataOnScene();
                             scenePage.PresentAllModelObjectsToScene();
                             scenePage.SceneControl.DisplayObjects();
                         }
@@ -1284,39 +1023,7 @@ namespace BaseModule
                 Invoke(new Action(() => { consoleControl.PrintInfo(ex.Message, Color.Red); }));
             }
         }
-
-        
-
-        //public List<IModelObject> SearchObjects(ObjType objType, RectangleBox selectionBox)
-        //{
-        //    var camera = scenePage.SceneControl.GetCamera();
-        //    var selections = new List<IModelObject>();
-
-        //    foreach (var item in scenePage.ModelData.ObjectData.GetObjects(objType))
-        //    {
-        //        if (item.ViewState)
-        //        {
-        //            var scrPoints = new Point2D[item.NumberOfPoints];
-        //            var scnPoints = new Point3D[item.NumberOfPoints];
-
-        //            var pointCounter = 0;
-        //            foreach (var point in item.GetCoordinates())
-        //            {
-        //                var scnPoint = camera.GetSceenCoord(point);
-        //                scnPoints[pointCounter] = scnPoint;
-
-        //                var scrPoint = camera.GetScreenCoord(scnPoint);
-        //                scrPoints[pointCounter] = scrPoint;
-
-        //                pointCounter++;
-        //            }
-
-        //            if (selectionBox.IsPointsInside(scrPoints))
-        //                selections.Add(item);
-        //        }
-        //    }
-        //    return selections;
-        //}
+    
 
         private void navigator_DelGroupEvent(int obj)
         {

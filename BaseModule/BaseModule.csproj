@@ -175,6 +175,12 @@
     <Compile Include="SelectionSet\SelectionSet.Designer.cs">
       <DependentUpon>SelectionSet.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToolStripPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolStripPage.Designer.cs">
+      <DependentUpon>ToolStripPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\IOFileController.cs" />
     <Compile Include="Utilities\SplittersController.cs" />
     <Compile Include="Navigator\NavigatorControl.cs">
@@ -215,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SelectionSet\SelectionSet.resx">
       <DependentUpon>SelectionSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolStripPage.resx">
+      <DependentUpon>ToolStripPage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

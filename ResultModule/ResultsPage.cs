@@ -411,7 +411,7 @@ namespace ResultModule
                     throw new Exception("Выберите вид результатов в разделе результаты");
                 }
 
-                ClearAllDataOnScene();
+                ScenePage.ClearAllDataOnScene();
                 ScenePage.PresentAllModelObjectsToScene();
                 ScenePage.SelectedObjects = objsType;
 
@@ -480,7 +480,7 @@ namespace ResultModule
                 if (NavigatorControl.TreeView.SelectedNode?.Level != 2)
                     throw new Exception("Выберите вид результатов в разделе результаты");
 
-                ClearAllDataOnScene();
+                ScenePage.ClearAllDataOnScene();
                 ScenePage.PresentAllModelObjectsToScene();
                 ScenePage.SelectedObjects = objsType;
 
@@ -708,7 +708,7 @@ namespace ResultModule
 
         private void скрытьРезультатыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ClearAllDataOnScene();
+            ScenePage.ClearAllDataOnScene();
 
             ScenePage.PresentAllModelObjectsToScene();
 
@@ -722,7 +722,7 @@ namespace ResultModule
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
-            ClearAllDataOnScene();
+            ScenePage.ClearAllDataOnScene();
 
             foreach (var item in scenePage.ModelData.ObjectData.ObjsTypes)
                 ScenePage.CreateObjectsOnScene(item.ToString(), ScenePage.CreateObjectsPresentor(item));

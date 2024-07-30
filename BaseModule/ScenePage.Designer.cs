@@ -45,10 +45,12 @@
             // 
             this.sceneControl.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.sceneControl.BackGroundColor = System.Drawing.SystemColors.ControlDark;
-            this.sceneControl.DisplayBasis = false;
+            this.sceneControl.DisplayBasis = true;
             this.sceneControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sceneControl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.sceneControl.IsBlending = true;
             this.sceneControl.IsClipPlane = false;
+            this.sceneControl.IsLighting = true;
             this.sceneControl.IsSmoothShadow = false;
             this.sceneControl.LightAttenuation = 0F;
             this.sceneControl.LightTranslateX = 0F;
@@ -58,7 +60,7 @@
             this.sceneControl.Name = "sceneControl";
             this.sceneControl.Projection = SceneInterface.ViewProjection.Perspective;
             this.sceneControl.RotationAngle = 2.5F;
-            this.sceneControl.RotationAxis = SceneInterface.ViewAxis.X;
+            this.sceneControl.RotationAxis = SceneInterface.ViewAxis.XYZ;
             this.sceneControl.ScaleFactor = 1F;
             this.sceneControl.SelectionColor = System.Drawing.Color.Green;
             this.sceneControl.ShadowAngle = 0F;

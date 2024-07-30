@@ -37,6 +37,13 @@ namespace InstallerAction
 
             process.Start();
 
+
+        }
+
+        protected override void OnAfterInstall(IDictionary savedState)
+        {
+            base.OnAfterInstall(savedState);
+
             // checking
 
             var value = Environment.GetEnvironmentVariable("BazisMeshPath");

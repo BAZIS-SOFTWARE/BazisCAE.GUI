@@ -654,7 +654,7 @@ namespace BazisGUI
             settings.SetTransparencyEvent += (ar) =>
             {
                 module.ScenePage.SceneControl.IsBlending = ar;
-                module.ClearAllDataOnScene();
+                module.ScenePage.ClearAllDataOnScene();
                 module.ScenePage.PresentAllModelObjectsToScene();
                 module.ScenePage.SceneControl.DisplayObjects();
             };
@@ -676,7 +676,7 @@ namespace BazisGUI
                     obj.SlaveColor = newColor;
                 } 
                 
-                module.ClearAllDataOnScene();
+                module.ScenePage.ClearAllDataOnScene();
                 module.ScenePage.PresentAllModelObjectsToScene();
                 module.ScenePage.SceneControl.DisplayObjects();
             };

@@ -1,18 +1,13 @@
-﻿using BaseModule.Console;
-using ModelInterfaces;
-using System.Drawing;
-using UserControlsEx;
-
-namespace BaseModule
+﻿namespace BaseModule
 {
-    partial class BasePage
+    partial class ToolStripPage
     {
-        /// <summary>
+        /// <summary> 
         /// Обязательная переменная конструктора.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Освободить все используемые ресурсы.
         /// </summary>
         /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
@@ -27,17 +22,14 @@ namespace BaseModule
 
         #region Код, автоматически созданный конструктором компонентов
 
-        /// <summary>
+        /// <summary> 
         /// Требуемый метод для поддержки конструктора — не изменяйте 
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BasePage));
-            this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
-            this.splitContainer1 = new UserControlsEx.SplitContainerEx();
-            this.splitContainer2 = new UserControlsEx.SplitContainerEx();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolStripPage));
+            this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.selectToolStrip = new UserControlsEx.ToolStripEx();
             this.spbSelectObject = new System.Windows.Forms.ToolStripSplitButton();
             this.btnSelectNodes = new System.Windows.Forms.ToolStripButton();
@@ -67,97 +59,33 @@ namespace BaseModule
             this.btnMeasuring = new System.Windows.Forms.ToolStripButton();
             this.btnCrossSection = new System.Windows.Forms.ToolStripButton();
             this.btnScreenShot = new System.Windows.Forms.ToolStripButton();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.navigator = new BaseModule.Navigator.NavigatorControl();
-            this.scenePage = new BaseModule.ScenePage();
-            this.consoleControl = new BaseModule.Console.ConsoleControl();
-            this.toolStripContainer.ContentPanel.SuspendLayout();
-            this.toolStripContainer.TopToolStripPanel.SuspendLayout();
-            this.toolStripContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
+            this.toolStripContainer1.SuspendLayout();
             this.selectToolStrip.SuspendLayout();
             this.displayToolStrip.SuspendLayout();
             this.viewToolStrip.SuspendLayout();
             this.instrumentalToolStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
-            // toolStripContainer
+            // toolStripContainer1
             // 
             // 
-            // toolStripContainer.ContentPanel
+            // toolStripContainer1.ContentPanel
             // 
-            this.toolStripContainer.ContentPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer.ContentPanel.Padding = new System.Windows.Forms.Padding(5);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1308, 592);
-            this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.toolStripContainer.Location = new System.Drawing.Point(5, 0);
-            this.toolStripContainer.Name = "toolStripContainer";
-            this.toolStripContainer.Size = new System.Drawing.Size(1308, 648);
-            this.toolStripContainer.TabIndex = 1;
-            this.toolStripContainer.Text = "toolStripContainer1";
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1159, 593);
+            this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
+            this.toolStripContainer1.Name = "toolStripContainer1";
+            this.toolStripContainer1.Size = new System.Drawing.Size(1159, 649);
+            this.toolStripContainer1.TabIndex = 0;
+            this.toolStripContainer1.Text = "toolStripContainer1";
             // 
-            // toolStripContainer.TopToolStripPanel
+            // toolStripContainer1.TopToolStripPanel
             // 
-            this.toolStripContainer.TopToolStripPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.selectToolStrip);
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.viewToolStrip);
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.instrumentalToolStrip);
-            this.toolStripContainer.TopToolStripPanel.MaximumSize = new System.Drawing.Size(0, 80);
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.IncrementShifting = 50;
-            this.splitContainer1.Location = new System.Drawing.Point(5, 5);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.navigator);
-            this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1298, 582);
-            this.splitContainer1.SplitterDistance = 307;
-            this.splitContainer1.SplitterIncrement = 15;
-            this.splitContainer1.SplitterWidth = 5;
-            this.splitContainer1.TabIndex = 0;
-            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.IncrementShifting = 50;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.scenePage);
-            this.splitContainer2.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
-            this.splitContainer2.Size = new System.Drawing.Size(986, 582);
-            this.splitContainer2.SplitterDistance = 390;
-            this.splitContainer2.SplitterWidth = 5;
-            this.splitContainer2.TabIndex = 0;
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.instrumentalToolStrip);
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.viewToolStrip);
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.displayToolStrip);
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.selectToolStrip);
             // 
             // selectToolStrip
             // 
@@ -180,18 +108,17 @@ namespace BaseModule
             this.btnSelectObjects,
             this.btnAdvanceSelection});
             this.selectToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.selectToolStrip.Location = new System.Drawing.Point(5, 0);
+            this.selectToolStrip.Location = new System.Drawing.Point(3, 0);
             this.selectToolStrip.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.selectToolStrip.Name = "selectToolStrip";
             this.selectToolStrip.Size = new System.Drawing.Size(297, 56);
             this.selectToolStrip.SplitButtonClickWidth = 16;
             this.selectToolStrip.SplitButtonHeight = 36;
             this.selectToolStrip.SplitButtonTriangleSize = 7;
-            this.selectToolStrip.TabIndex = 5;
+            this.selectToolStrip.TabIndex = 6;
             this.selectToolStrip.Text = "Выбор";
             this.selectToolStrip.TextBoxFrame = false;
             this.selectToolStrip.TextBoxHeight = 14;
-            this.selectToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.SelectToolStrip_ItemClicked);
             // 
             // spbSelectObject
             // 
@@ -203,7 +130,6 @@ namespace BaseModule
             this.spbSelectObject.Name = "spbSelectObject";
             this.spbSelectObject.Size = new System.Drawing.Size(150, 53);
             this.spbSelectObject.Tag = "0";
-            this.spbSelectObject.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.spb_Select_DropDownItemClicked);
             // 
             // btnSelectNodes
             // 
@@ -281,18 +207,17 @@ namespace BaseModule
             this.btnShowNormals,
             this.btnShowCountours});
             this.displayToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.displayToolStrip.Location = new System.Drawing.Point(302, 0);
+            this.displayToolStrip.Location = new System.Drawing.Point(300, 0);
             this.displayToolStrip.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.displayToolStrip.Name = "displayToolStrip";
             this.displayToolStrip.Size = new System.Drawing.Size(291, 56);
             this.displayToolStrip.SplitButtonClickWidth = 16;
             this.displayToolStrip.SplitButtonHeight = 34;
             this.displayToolStrip.SplitButtonTriangleSize = 6;
-            this.displayToolStrip.TabIndex = 8;
+            this.displayToolStrip.TabIndex = 9;
             this.displayToolStrip.Text = "Отображение";
             this.displayToolStrip.TextBoxFrame = false;
             this.displayToolStrip.TextBoxHeight = 14;
-            this.displayToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.DisplayToolStrip_ItemClick);
             // 
             // btnShowAll
             // 
@@ -428,18 +353,17 @@ namespace BaseModule
             this.btnSetRotVer90,
             this.btnFitObjs});
             this.viewToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.viewToolStrip.Location = new System.Drawing.Point(593, 0);
+            this.viewToolStrip.Location = new System.Drawing.Point(591, 0);
             this.viewToolStrip.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.viewToolStrip.Name = "viewToolStrip";
             this.viewToolStrip.Size = new System.Drawing.Size(327, 56);
             this.viewToolStrip.SplitButtonClickWidth = 16;
             this.viewToolStrip.SplitButtonHeight = 34;
             this.viewToolStrip.SplitButtonTriangleSize = 6;
-            this.viewToolStrip.TabIndex = 6;
+            this.viewToolStrip.TabIndex = 10;
             this.viewToolStrip.Text = "Вид";
             this.viewToolStrip.TextBoxFrame = false;
             this.viewToolStrip.TextBoxHeight = 14;
-            this.viewToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ViewToolStrip_ItemClicked);
             // 
             // btnSetXY
             // 
@@ -577,18 +501,17 @@ namespace BaseModule
             this.btnScreenShot});
             this.instrumentalToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
             this.instrumentalToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.instrumentalToolStrip.Location = new System.Drawing.Point(920, 0);
+            this.instrumentalToolStrip.Location = new System.Drawing.Point(918, 0);
             this.instrumentalToolStrip.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.instrumentalToolStrip.Name = "instrumentalToolStrip";
             this.instrumentalToolStrip.Size = new System.Drawing.Size(111, 56);
             this.instrumentalToolStrip.SplitButtonClickWidth = 16;
             this.instrumentalToolStrip.SplitButtonHeight = 34;
             this.instrumentalToolStrip.SplitButtonTriangleSize = 6;
-            this.instrumentalToolStrip.TabIndex = 7;
+            this.instrumentalToolStrip.TabIndex = 11;
             this.instrumentalToolStrip.Text = "Инструменты";
             this.instrumentalToolStrip.TextBoxFrame = false;
             this.instrumentalToolStrip.TextBoxHeight = 14;
-            this.instrumentalToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.InstrumentalToolStrip_ItemClicked);
             // 
             // btnMeasuring
             // 
@@ -631,107 +554,17 @@ namespace BaseModule
             this.btnScreenShot.Tag = "2";
             this.btnScreenShot.Text = "toolStripButton16";
             // 
-            // errorProvider
-            // 
-            this.errorProvider.ContainerControl = this;
-            // 
-            // navigator
-            // 
-            this.navigator.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.navigator.BackColor = System.Drawing.SystemColors.Control;
-            this.navigator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.navigator.CollapseIndex = 14;
-            this.navigator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.navigator.DownColor = System.Drawing.Color.Gainsboro;
-            this.navigator.ExpandIndex = 15;
-            this.navigator.HeaderName = "Навигатор";
-            this.navigator.Location = new System.Drawing.Point(0, 0);
-            this.navigator.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.navigator.Name = "navigator";
-            this.navigator.ProjectInfoIndex = 16;
-            this.navigator.Size = new System.Drawing.Size(305, 582);
-            this.navigator.TabIndex = 0;
-            this.navigator.UpColor = System.Drawing.Color.Gainsboro;
-            this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
-            this.navigator.SelectGroupEvent += new System.Action<string>(this.navigator_SelectGroupEvent);
-            this.navigator.DelGroupEvent += new System.Action<int>(this.navigator_DelGroupEvent);
-            this.navigator.DelAllGroupsEvent += new System.Action(this.navigator_DelAllGroupsEvent);
-            this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
-            this.navigator.ShowGroupEvent += new System.Action<int>(this.navigator_ShowGroupEvent);
-            this.navigator.EditGroupEvent += new System.Action<int>(this.navigator_EditGroupEvent);
-            this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
-            this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
-            this.navigator.ShowAllGroupsEvent += new System.Action(this.navigator_ShowAllGroupsEvent);
-            this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
-            this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
-            this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
-            this.navigator.ShowObjectsEvent += new System.Action<string>(this.navigator_ShowObjectsEvent);
-            this.navigator.ChangeObjectsViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeViewModeEventHandler);
-            this.navigator.HideObjectsEvent += new System.Action<string>(this.navigator_HideObjectsEvent);
-            this.navigator.DelObjectsEvent += new System.Action<string>(this.navigator_DelObjectsEvent);
-            // 
-            // scenePage
-            // 
-            this.scenePage.AutoSize = true;
-            this.scenePage.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.scenePage.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.scenePage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.scenePage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scenePage.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.scenePage.Location = new System.Drawing.Point(0, 0);
-            this.scenePage.Margin = new System.Windows.Forms.Padding(0);
-            this.scenePage.ModelController = null;
-            this.scenePage.ModelData = null;
-            this.scenePage.Name = "scenePage";
-            this.scenePage.SelectedObjects = ModelInterfaces.ObjType.Объект;
-            this.scenePage.Size = new System.Drawing.Size(986, 389);
-            this.scenePage.TabIndex = 0;
-            this.scenePage.MeshGroupCreatedEvent += new System.Action<object, string>(this.scenePage_CreateMeshGroupEvent);
-            this.scenePage.SceneInfoEvent += new System.Action<object, string, System.Drawing.Color>(this.scenePage_SceneInfoEvent);
-            this.scenePage.ShowAllObjectsEvent += new System.Action<object>(this.scenePage_ShowAllObjectsEvent);
-            this.scenePage.SelectionDeletedEvent += new System.Action<object>(this.scenePage_SelectionDeletedEvent);
-            this.scenePage.Load += new System.EventHandler(this.sceneControl_Load);
-            // 
-            // consoleControl
-            // 
-            this.consoleControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.consoleControl.BackColor = System.Drawing.SystemColors.Control;
-            this.consoleControl.CheckPrintElemsInfo = false;
-            this.consoleControl.CheckPrintNodesInfo = false;
-            this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.consoleControl.DownColor = System.Drawing.Color.Gainsboro;
-            this.consoleControl.HeaderName = "Консоль";
-            this.consoleControl.Location = new System.Drawing.Point(0, 0);
-            this.consoleControl.Margin = new System.Windows.Forms.Padding(4);
-            this.consoleControl.Name = "consoleControl";
-            this.consoleControl.Size = new System.Drawing.Size(986, 187);
-            this.consoleControl.TabIndex = 4;
-            this.consoleControl.UpColor = System.Drawing.Color.Gainsboro;
-            this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
-            // 
-            // BasePage
+            // ToolStripPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.toolStripContainer);
-            this.Name = "BasePage";
-            this.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.Size = new System.Drawing.Size(1318, 648);
-            this.Load += new System.EventHandler(this.BasePage_Load);
-            this.toolStripContainer.ContentPanel.ResumeLayout(false);
-            this.toolStripContainer.TopToolStripPanel.ResumeLayout(false);
-            this.toolStripContainer.TopToolStripPanel.PerformLayout();
-            this.toolStripContainer.ResumeLayout(false);
-            this.toolStripContainer.PerformLayout();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel1.PerformLayout();
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
+            this.Controls.Add(this.toolStripContainer1);
+            this.Name = "ToolStripPage";
+            this.Size = new System.Drawing.Size(1159, 649);
+            this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer1.TopToolStripPanel.PerformLayout();
+            this.toolStripContainer1.ResumeLayout(false);
+            this.toolStripContainer1.PerformLayout();
             this.selectToolStrip.ResumeLayout(false);
             this.selectToolStrip.PerformLayout();
             this.displayToolStrip.ResumeLayout(false);
@@ -740,20 +573,20 @@ namespace BaseModule
             this.viewToolStrip.PerformLayout();
             this.instrumentalToolStrip.ResumeLayout(false);
             this.instrumentalToolStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private SplitContainerEx splitContainer1;
-        private SplitContainerEx splitContainer2;
-        private System.Windows.Forms.ErrorProvider errorProvider;
-        protected ToolStripEx viewToolStrip;
-        protected ToolStripEx instrumentalToolStrip;
-        protected ToolStripEx displayToolStrip;
-        protected System.Windows.Forms.ToolStripContainer toolStripContainer;
+
+        private System.Windows.Forms.ToolStripContainer toolStripContainer1;
+        protected UserControlsEx.ToolStripEx selectToolStrip;
+        protected System.Windows.Forms.ToolStripSplitButton spbSelectObject;
         protected System.Windows.Forms.ToolStripButton btnSelectNodes;
+        protected System.Windows.Forms.ToolStripButton btnSelectElements;
+        protected System.Windows.Forms.ToolStripButton btnSelectObjects;
+        protected System.Windows.Forms.ToolStripButton btnAdvanceSelection;
+        protected UserControlsEx.ToolStripEx displayToolStrip;
         protected System.Windows.Forms.ToolStripButton btnShowAll;
         protected System.Windows.Forms.ToolStripButton btnShowOpenSurfaces;
         protected System.Windows.Forms.ToolStripButton btnShowSurfaceAndRibbers;
@@ -762,9 +595,7 @@ namespace BaseModule
         protected System.Windows.Forms.ToolStripButton btnShowBasis;
         protected System.Windows.Forms.ToolStripButton btnShowNormals;
         protected System.Windows.Forms.ToolStripButton btnShowCountours;
-        protected System.Windows.Forms.ToolStripButton btnSelectElements;
-        protected System.Windows.Forms.ToolStripButton btnSelectObjects;
-        protected System.Windows.Forms.ToolStripButton btnAdvanceSelection;
+        protected UserControlsEx.ToolStripEx viewToolStrip;
         protected System.Windows.Forms.ToolStripButton btnSetXY;
         protected System.Windows.Forms.ToolStripButton btnSetZX;
         protected System.Windows.Forms.ToolStripButton btnSetZY;
@@ -774,13 +605,9 @@ namespace BaseModule
         protected System.Windows.Forms.ToolStripButton btnSetRotHor90;
         protected System.Windows.Forms.ToolStripButton btnSetRotVer90;
         protected System.Windows.Forms.ToolStripButton btnFitObjs;
+        protected UserControlsEx.ToolStripEx instrumentalToolStrip;
         protected System.Windows.Forms.ToolStripButton btnMeasuring;
         protected System.Windows.Forms.ToolStripButton btnCrossSection;
         protected System.Windows.Forms.ToolStripButton btnScreenShot;
-        protected System.Windows.Forms.ToolStripSplitButton spbSelectObject;
-        protected ConsoleControl consoleControl;
-        protected ScenePage scenePage;
-        protected Navigator.NavigatorControl navigator;
-        protected ToolStripEx selectToolStrip;
     }
 }

@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -208,12 +209,19 @@ namespace BazisGUI
         public ProjectData CreateNewProject(string path, string name)
         {
             var project = new ProjectData(name, path);
+            project.GeneralData.Materials = "materials_v1.jsf";
+            project.GeneralData.Functions = "functions.jsf";
             project.ModelData = new ModelData();
             project.TaskData = new TaskData();
             project.ResultData = new ResultData();
 
             project.Loader = new LoadProjectFromTextFormat();
             project.Saver = new SaveProjectTextFormat();
+
+            var startMatPath = Application.StartupPath + "\\Materials";
+            IOFileController.CopyFile(project.GeneralData.Materials, startMatPath, path);
+            var startFunPath = Application.StartupPath + "\\Functions";
+            IOFileController.CopyFile(project.GeneralData.Functions, startFunPath, path);
 
             return project;
         }

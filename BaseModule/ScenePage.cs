@@ -376,6 +376,14 @@ namespace BaseModule
             ShowAllObjectsEvent?.Invoke(sender);
         }
 
+        public void ClearAllDataOnScene()
+        {
+            sceneControl.HideAllGeometryObjs();
+            sceneControl.HideDisplayText2D();
+            sceneControl.HideDisplayText3D();
+            sceneControl.DeleteAllVBObjects();
+        }
+
         public void ShowAllObjects()
         {
             try

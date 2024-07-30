@@ -310,7 +310,7 @@ namespace ModelModule
             //SceneControl.HideAllGeometryObjs();
             //SceneControl.HideDisplayText3D();
 
-            ClearAllDataOnScene();
+            ScenePage.ClearAllDataOnScene();
             ScenePage.PresentAllModelObjectsToScene();
             ScenePage.SceneControl.DisplayObjects();
         }
@@ -605,35 +605,6 @@ namespace ModelModule
             foreach (var item in scenePage.ModelData.ObjectData.GetObjects(objType))
                 item.SetBackColor();
             ScenePage.SetObjectsSceneColor(ObjType.Линия);
-        }
-
-        private void CreateBoundaryElements2D()
-        {
-            //var els3D = scenePage.ModelData.ObjectData.E3DCollection;
-
-            //if (els3D.Count() != 0)
-            //{
-            //    SceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
-
-            //    var startNumber = scenePage.ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
-            //    var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
-
-            //    scenePage.ModelData.ObjectData.E2DCollection.AddRange(boundaryElements2D);
-
-            //    SceneControl.HideAllGeometryObjs();
-            //    SceneControl.HideDisplayText2D();
-            //    SceneControl.HideDisplayText3D();
-
-            //    CreateObjectsOnScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(ObjType.Элемент2D));
-
-            //    SceneControl.DisplayObjects();
-            //    PresentProjectOnTree();
-
-            //    ConsoleControl.PrintInfo("Созданы 2D элементы", Color.Black);
-            //}
-            //else
-            //    ConsoleControl.PrintInfo("Модель не содержит объемных элементов!", Color.Red);
-
         }
 
         private void ShowObjects(List<int> objNumbers)
