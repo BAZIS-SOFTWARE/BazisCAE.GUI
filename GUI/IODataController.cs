@@ -1,9 +1,11 @@
 ﻿using BaseModule.Utilities;
+using BazisGUI.SettingsControls;
 using GmshApi.GmshController;
 using Model;
 using Model.IO;
 using ModelControllerInterfaces.GmshController;
 using ModelInterfaces;
+using Newtonsoft.Json;
 using Project;
 using Project.IO;
 using ProjectInterfaces;
@@ -22,6 +24,18 @@ namespace BazisGUI
 {
     public class IODataController
     {
+        public SettingsConfig LoadConfig()
+        {
+            var folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var fullPath = $@"{folder}\settingsConfig.json";
+
+            if (File.Exists(fullPath))
+            {
+                var settings = File.ReadAllText(fullPath);
+                return (SettingsConfig)JsonConvert.DeserializeObject(settings, typeof(SettingsConfig));
+            }
+            else return null;
+        }
         public GmshController LoadGMSH()
         {
             var path = Environment.GetEnvironmentVariable("BazisMeshPath", EnvironmentVariableTarget.Machine);

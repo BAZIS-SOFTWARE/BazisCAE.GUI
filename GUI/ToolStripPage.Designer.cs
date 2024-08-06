@@ -1,4 +1,4 @@
-﻿namespace BaseModule
+﻿namespace BazisGUI
 {
     partial class ToolStripPage
     {
@@ -36,6 +36,15 @@
             this.btnSelectElements = new System.Windows.Forms.ToolStripButton();
             this.btnSelectObjects = new System.Windows.Forms.ToolStripButton();
             this.btnAdvanceSelection = new System.Windows.Forms.ToolStripButton();
+            this.displayToolStrip = new UserControlsEx.ToolStripEx();
+            this.btnShowAll = new System.Windows.Forms.ToolStripButton();
+            this.btnShowOpenSurfaces = new System.Windows.Forms.ToolStripButton();
+            this.btnShowSurfaceAndRibbers = new System.Windows.Forms.ToolStripButton();
+            this.btnShowRibbers = new System.Windows.Forms.ToolStripButton();
+            this.btnShowSurfaces = new System.Windows.Forms.ToolStripButton();
+            this.btnShowBasis = new System.Windows.Forms.ToolStripButton();
+            this.btnShowNormals = new System.Windows.Forms.ToolStripButton();
+            this.btnShowCountours = new System.Windows.Forms.ToolStripButton();
             this.instrumentalToolStrip = new UserControlsEx.ToolStripEx();
             this.btnMeasuring = new System.Windows.Forms.ToolStripButton();
             this.btnCrossSection = new System.Windows.Forms.ToolStripButton();
@@ -50,21 +59,14 @@
             this.btnSetRotHor90 = new System.Windows.Forms.ToolStripButton();
             this.btnSetRotVer90 = new System.Windows.Forms.ToolStripButton();
             this.btnFitObjs = new System.Windows.Forms.ToolStripButton();
-            this.displayToolStrip = new UserControlsEx.ToolStripEx();
-            this.btnShowAll = new System.Windows.Forms.ToolStripButton();
-            this.btnShowOpenSurfaces = new System.Windows.Forms.ToolStripButton();
-            this.btnShowSurfaceAndRibbers = new System.Windows.Forms.ToolStripButton();
-            this.btnShowRibbers = new System.Windows.Forms.ToolStripButton();
-            this.btnShowSurfaces = new System.Windows.Forms.ToolStripButton();
-            this.btnShowBasis = new System.Windows.Forms.ToolStripButton();
-            this.btnShowNormals = new System.Windows.Forms.ToolStripButton();
-            this.btnShowCountours = new System.Windows.Forms.ToolStripButton();
+            this.modelPage = new ModelModule.ModelPage();
+            this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
             this.selectToolStrip.SuspendLayout();
+            this.displayToolStrip.SuspendLayout();
             this.instrumentalToolStrip.SuspendLayout();
             this.viewToolStrip.SuspendLayout();
-            this.displayToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripContainer
@@ -72,6 +74,7 @@
             // 
             // toolStripContainer.ContentPanel
             // 
+            this.toolStripContainer.ContentPanel.Controls.Add(this.modelPage);
             this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1149, 583);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(5, 5);
@@ -83,9 +86,9 @@
             // toolStripContainer.TopToolStripPanel
             // 
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.selectToolStrip);
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.instrumentalToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.viewToolStrip);
+            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
             this.toolStripContainer.TopToolStripPanel.MaximumSize = new System.Drawing.Size(0, 80);
             // 
             // selectToolStrip
@@ -186,6 +189,152 @@
             this.btnAdvanceSelection.Size = new System.Drawing.Size(36, 53);
             this.btnAdvanceSelection.Tag = "4";
             this.btnAdvanceSelection.Text = "toolStripButton1";
+            // 
+            // displayToolStrip
+            // 
+            this.displayToolStrip.BackGroundColor = System.Drawing.Color.Gainsboro;
+            this.displayToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.displayToolStrip.FrameColor = System.Drawing.Color.Gray;
+            this.displayToolStrip.GeneralFrame = true;
+            this.displayToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.displayToolStrip.IconLocation = new System.Drawing.Point(0, 4);
+            this.displayToolStrip.ImageRectangleSize = new System.Drawing.Point(26, 26);
+            this.displayToolStrip.ItemBackGroundColor = System.Drawing.Color.White;
+            this.displayToolStrip.ItemFrame = true;
+            this.displayToolStrip.ItemLocation = new System.Drawing.Point(3, 3);
+            this.displayToolStrip.ItemPressColor = System.Drawing.Color.Black;
+            this.displayToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnShowAll,
+            this.btnShowOpenSurfaces,
+            this.btnShowSurfaceAndRibbers,
+            this.btnShowRibbers,
+            this.btnShowSurfaces,
+            this.btnShowBasis,
+            this.btnShowNormals,
+            this.btnShowCountours});
+            this.displayToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
+            this.displayToolStrip.Location = new System.Drawing.Point(741, 0);
+            this.displayToolStrip.Name = "displayToolStrip";
+            this.displayToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            this.displayToolStrip.Size = new System.Drawing.Size(292, 56);
+            this.displayToolStrip.SplitButtonClickWidth = 16;
+            this.displayToolStrip.SplitButtonHeight = 34;
+            this.displayToolStrip.SplitButtonTriangleSize = 6;
+            this.displayToolStrip.TabIndex = 9;
+            this.displayToolStrip.Text = "Отображение";
+            this.displayToolStrip.TextBoxFrame = false;
+            this.displayToolStrip.TextBoxHeight = 14;
+            this.displayToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.DisplayToolStrip_ItemClick);
+            // 
+            // btnShowAll
+            // 
+            this.btnShowAll.AutoSize = false;
+            this.btnShowAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
+            this.btnShowAll.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnShowAll.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnShowAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnShowAll.Name = "btnShowAll";
+            this.btnShowAll.Size = new System.Drawing.Size(36, 53);
+            this.btnShowAll.Tag = "0";
+            this.btnShowAll.Text = "toolStripButton17";
+            // 
+            // btnShowOpenSurfaces
+            // 
+            this.btnShowOpenSurfaces.AutoSize = false;
+            this.btnShowOpenSurfaces.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnShowOpenSurfaces.Image = ((System.Drawing.Image)(resources.GetObject("btnShowOpenSurfaces.Image")));
+            this.btnShowOpenSurfaces.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnShowOpenSurfaces.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnShowOpenSurfaces.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnShowOpenSurfaces.Name = "btnShowOpenSurfaces";
+            this.btnShowOpenSurfaces.Size = new System.Drawing.Size(36, 53);
+            this.btnShowOpenSurfaces.Tag = "1";
+            this.btnShowOpenSurfaces.Text = "toolStripButton18";
+            // 
+            // btnShowSurfaceAndRibbers
+            // 
+            this.btnShowSurfaceAndRibbers.AutoSize = false;
+            this.btnShowSurfaceAndRibbers.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnShowSurfaceAndRibbers.Image = ((System.Drawing.Image)(resources.GetObject("btnShowSurfaceAndRibbers.Image")));
+            this.btnShowSurfaceAndRibbers.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnShowSurfaceAndRibbers.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnShowSurfaceAndRibbers.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnShowSurfaceAndRibbers.Name = "btnShowSurfaceAndRibbers";
+            this.btnShowSurfaceAndRibbers.Size = new System.Drawing.Size(36, 53);
+            this.btnShowSurfaceAndRibbers.Tag = "2";
+            this.btnShowSurfaceAndRibbers.Text = "toolStripButton19";
+            this.btnShowSurfaceAndRibbers.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // btnShowRibbers
+            // 
+            this.btnShowRibbers.AutoSize = false;
+            this.btnShowRibbers.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnShowRibbers.Image = ((System.Drawing.Image)(resources.GetObject("btnShowRibbers.Image")));
+            this.btnShowRibbers.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnShowRibbers.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnShowRibbers.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnShowRibbers.Name = "btnShowRibbers";
+            this.btnShowRibbers.Size = new System.Drawing.Size(36, 53);
+            this.btnShowRibbers.Tag = "3";
+            this.btnShowRibbers.Text = "toolStripButton20";
+            // 
+            // btnShowSurfaces
+            // 
+            this.btnShowSurfaces.AutoSize = false;
+            this.btnShowSurfaces.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnShowSurfaces.Image = ((System.Drawing.Image)(resources.GetObject("btnShowSurfaces.Image")));
+            this.btnShowSurfaces.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnShowSurfaces.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnShowSurfaces.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnShowSurfaces.Name = "btnShowSurfaces";
+            this.btnShowSurfaces.Size = new System.Drawing.Size(36, 53);
+            this.btnShowSurfaces.Tag = "4";
+            this.btnShowSurfaces.Text = "toolStripButton21";
+            // 
+            // btnShowBasis
+            // 
+            this.btnShowBasis.AutoSize = false;
+            this.btnShowBasis.Checked = true;
+            this.btnShowBasis.CheckOnClick = true;
+            this.btnShowBasis.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.btnShowBasis.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnShowBasis.Image = ((System.Drawing.Image)(resources.GetObject("btnShowBasis.Image")));
+            this.btnShowBasis.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnShowBasis.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnShowBasis.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnShowBasis.Name = "btnShowBasis";
+            this.btnShowBasis.Size = new System.Drawing.Size(36, 53);
+            this.btnShowBasis.Tag = "5";
+            this.btnShowBasis.Text = "toolStripButton22";
+            // 
+            // btnShowNormals
+            // 
+            this.btnShowNormals.AutoSize = false;
+            this.btnShowNormals.CheckOnClick = true;
+            this.btnShowNormals.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnShowNormals.Image = ((System.Drawing.Image)(resources.GetObject("btnShowNormals.Image")));
+            this.btnShowNormals.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnShowNormals.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnShowNormals.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnShowNormals.Name = "btnShowNormals";
+            this.btnShowNormals.Size = new System.Drawing.Size(36, 53);
+            this.btnShowNormals.Tag = "6";
+            this.btnShowNormals.Text = "toolStripButton23";
+            // 
+            // btnShowCountours
+            // 
+            this.btnShowCountours.AutoSize = false;
+            this.btnShowCountours.CheckOnClick = true;
+            this.btnShowCountours.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnShowCountours.Image = ((System.Drawing.Image)(resources.GetObject("btnShowCountours.Image")));
+            this.btnShowCountours.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnShowCountours.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnShowCountours.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnShowCountours.Name = "btnShowCountours";
+            this.btnShowCountours.Size = new System.Drawing.Size(36, 53);
+            this.btnShowCountours.Tag = "7";
+            this.btnShowCountours.Text = "toolStripButton24";
             // 
             // instrumentalToolStrip
             // 
@@ -414,151 +563,20 @@
             this.btnFitObjs.Tag = "8";
             this.btnFitObjs.Text = "toolStripButton13";
             // 
-            // displayToolStrip
+            // modelPage
             // 
-            this.displayToolStrip.BackGroundColor = System.Drawing.Color.Gainsboro;
-            this.displayToolStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.displayToolStrip.FrameColor = System.Drawing.Color.Gray;
-            this.displayToolStrip.GeneralFrame = true;
-            this.displayToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.displayToolStrip.IconLocation = new System.Drawing.Point(0, 4);
-            this.displayToolStrip.ImageRectangleSize = new System.Drawing.Point(26, 26);
-            this.displayToolStrip.ItemBackGroundColor = System.Drawing.Color.White;
-            this.displayToolStrip.ItemFrame = true;
-            this.displayToolStrip.ItemLocation = new System.Drawing.Point(3, 3);
-            this.displayToolStrip.ItemPressColor = System.Drawing.Color.Black;
-            this.displayToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnShowAll,
-            this.btnShowOpenSurfaces,
-            this.btnShowSurfaceAndRibbers,
-            this.btnShowRibbers,
-            this.btnShowSurfaces,
-            this.btnShowBasis,
-            this.btnShowNormals,
-            this.btnShowCountours});
-            this.displayToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.displayToolStrip.Location = new System.Drawing.Point(741, 0);
-            this.displayToolStrip.Name = "displayToolStrip";
-            this.displayToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.displayToolStrip.Size = new System.Drawing.Size(292, 56);
-            this.displayToolStrip.SplitButtonClickWidth = 16;
-            this.displayToolStrip.SplitButtonHeight = 34;
-            this.displayToolStrip.SplitButtonTriangleSize = 6;
-            this.displayToolStrip.TabIndex = 9;
-            this.displayToolStrip.Text = "Отображение";
-            this.displayToolStrip.TextBoxFrame = false;
-            this.displayToolStrip.TextBoxHeight = 14;
-            this.displayToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.DisplayToolStrip_ItemClick);
-            // 
-            // btnShowAll
-            // 
-            this.btnShowAll.AutoSize = false;
-            this.btnShowAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
-            this.btnShowAll.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowAll.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnShowAll.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(36, 53);
-            this.btnShowAll.Tag = "0";
-            this.btnShowAll.Text = "toolStripButton17";
-            // 
-            // btnShowOpenSurfaces
-            // 
-            this.btnShowOpenSurfaces.AutoSize = false;
-            this.btnShowOpenSurfaces.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnShowOpenSurfaces.Image = ((System.Drawing.Image)(resources.GetObject("btnShowOpenSurfaces.Image")));
-            this.btnShowOpenSurfaces.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowOpenSurfaces.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnShowOpenSurfaces.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnShowOpenSurfaces.Name = "btnShowOpenSurfaces";
-            this.btnShowOpenSurfaces.Size = new System.Drawing.Size(36, 53);
-            this.btnShowOpenSurfaces.Tag = "1";
-            this.btnShowOpenSurfaces.Text = "toolStripButton18";
-            // 
-            // btnShowSurfaceAndRibbers
-            // 
-            this.btnShowSurfaceAndRibbers.AutoSize = false;
-            this.btnShowSurfaceAndRibbers.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnShowSurfaceAndRibbers.Image = ((System.Drawing.Image)(resources.GetObject("btnShowSurfaceAndRibbers.Image")));
-            this.btnShowSurfaceAndRibbers.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowSurfaceAndRibbers.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnShowSurfaceAndRibbers.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnShowSurfaceAndRibbers.Name = "btnShowSurfaceAndRibbers";
-            this.btnShowSurfaceAndRibbers.Size = new System.Drawing.Size(36, 53);
-            this.btnShowSurfaceAndRibbers.Tag = "2";
-            this.btnShowSurfaceAndRibbers.Text = "toolStripButton19";
-            this.btnShowSurfaceAndRibbers.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // btnShowRibbers
-            // 
-            this.btnShowRibbers.AutoSize = false;
-            this.btnShowRibbers.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnShowRibbers.Image = ((System.Drawing.Image)(resources.GetObject("btnShowRibbers.Image")));
-            this.btnShowRibbers.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowRibbers.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnShowRibbers.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnShowRibbers.Name = "btnShowRibbers";
-            this.btnShowRibbers.Size = new System.Drawing.Size(36, 53);
-            this.btnShowRibbers.Tag = "3";
-            this.btnShowRibbers.Text = "toolStripButton20";
-            // 
-            // btnShowSurfaces
-            // 
-            this.btnShowSurfaces.AutoSize = false;
-            this.btnShowSurfaces.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnShowSurfaces.Image = ((System.Drawing.Image)(resources.GetObject("btnShowSurfaces.Image")));
-            this.btnShowSurfaces.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowSurfaces.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnShowSurfaces.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnShowSurfaces.Name = "btnShowSurfaces";
-            this.btnShowSurfaces.Size = new System.Drawing.Size(36, 53);
-            this.btnShowSurfaces.Tag = "4";
-            this.btnShowSurfaces.Text = "toolStripButton21";
-            // 
-            // btnShowBasis
-            // 
-            this.btnShowBasis.AutoSize = false;
-            this.btnShowBasis.Checked = true;
-            this.btnShowBasis.CheckOnClick = true;
-            this.btnShowBasis.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.btnShowBasis.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnShowBasis.Image = ((System.Drawing.Image)(resources.GetObject("btnShowBasis.Image")));
-            this.btnShowBasis.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowBasis.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnShowBasis.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnShowBasis.Name = "btnShowBasis";
-            this.btnShowBasis.Size = new System.Drawing.Size(36, 53);
-            this.btnShowBasis.Tag = "5";
-            this.btnShowBasis.Text = "toolStripButton22";
-            // 
-            // btnShowNormals
-            // 
-            this.btnShowNormals.AutoSize = false;
-            this.btnShowNormals.CheckOnClick = true;
-            this.btnShowNormals.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnShowNormals.Image = ((System.Drawing.Image)(resources.GetObject("btnShowNormals.Image")));
-            this.btnShowNormals.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowNormals.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnShowNormals.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnShowNormals.Name = "btnShowNormals";
-            this.btnShowNormals.Size = new System.Drawing.Size(36, 53);
-            this.btnShowNormals.Tag = "6";
-            this.btnShowNormals.Text = "toolStripButton23";
-            // 
-            // btnShowCountours
-            // 
-            this.btnShowCountours.AutoSize = false;
-            this.btnShowCountours.CheckOnClick = true;
-            this.btnShowCountours.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnShowCountours.Image = ((System.Drawing.Image)(resources.GetObject("btnShowCountours.Image")));
-            this.btnShowCountours.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnShowCountours.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnShowCountours.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnShowCountours.Name = "btnShowCountours";
-            this.btnShowCountours.Size = new System.Drawing.Size(36, 53);
-            this.btnShowCountours.Tag = "7";
-            this.btnShowCountours.Text = "toolStripButton24";
+            this.modelPage.BackColor = System.Drawing.SystemColors.Control;
+            this.modelPage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.modelPage.GeneralData = null;
+            this.modelPage.GmshController = null;
+            this.modelPage.Location = new System.Drawing.Point(0, 0);
+            this.modelPage.Margin = new System.Windows.Forms.Padding(0);
+            this.modelPage.Name = "modelPage";
+            this.modelPage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.modelPage.PressedKey = System.Windows.Forms.Keys.None;
+            this.modelPage.SelectionGroupColor = System.Drawing.Color.Lime;
+            this.modelPage.Size = new System.Drawing.Size(1149, 583);
+            this.modelPage.TabIndex = 0;
             // 
             // ToolStripPage
             // 
@@ -568,18 +586,19 @@
             this.Name = "ToolStripPage";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.Size = new System.Drawing.Size(1159, 649);
+            this.toolStripContainer.ContentPanel.ResumeLayout(false);
             this.toolStripContainer.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer.TopToolStripPanel.PerformLayout();
             this.toolStripContainer.ResumeLayout(false);
             this.toolStripContainer.PerformLayout();
             this.selectToolStrip.ResumeLayout(false);
             this.selectToolStrip.PerformLayout();
+            this.displayToolStrip.ResumeLayout(false);
+            this.displayToolStrip.PerformLayout();
             this.instrumentalToolStrip.ResumeLayout(false);
             this.instrumentalToolStrip.PerformLayout();
             this.viewToolStrip.ResumeLayout(false);
             this.viewToolStrip.PerformLayout();
-            this.displayToolStrip.ResumeLayout(false);
-            this.displayToolStrip.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -616,6 +635,7 @@
         protected System.Windows.Forms.ToolStripButton btnScreenShot;
         public UserControlsEx.ToolStripEx selectToolStrip;
         public UserControlsEx.ToolStripEx instrumentalToolStrip;
+        private ModelModule.ModelPage modelPage;
         //private BasePage basePage;
     }
 }

@@ -195,6 +195,9 @@
     <Reference Include="TasksParameters, Version=1.0.0.13, Culture=neutral, PublicKeyToken=8bfe6827a0935d51, processorArchitecture=MSIL">
       <HintPath>..\packages\TasksParameters.1.0.0.13\lib\net48\TasksParameters.dll</HintPath>
     </Reference>
+    <Reference Include="UserControlsEx, Version=1.0.6.0, Culture=neutral, PublicKeyToken=16903e6a4b8fab01, processorArchitecture=MSIL">
+      <HintPath>..\packages\UserControlsEx.1.0.6\lib\net48\UserControlsEx.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutLicenseControl.cs">
@@ -237,6 +240,12 @@
     <Compile Include="SettingsControls\LightingControl.Designer.cs">
       <DependentUpon>LightingControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToolStripPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolStripPage.Designer.cs">
+      <DependentUpon>ToolStripPage.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AboutLicenseControl.resx">
       <DependentUpon>AboutLicenseControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -269,6 +278,9 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="ToolStripPage.resx">
+      <DependentUpon>ToolStripPage.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutBanner.jpg" />
@@ -294,10 +306,6 @@
     <ProjectReference Include="..\TaskModule\TaskModule.csproj">
       <Project>{11954439-9966-4648-a776-7ce642fe21f3}</Project>
       <Name>TaskModule</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WinFormsControlLibEx\UserControlsEx.csproj">
-      <Project>{452D36B3-7997-48AC-96CB-4AA349E2B608}</Project>
-      <Name>UserControlsEx</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

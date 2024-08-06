@@ -32,31 +32,24 @@ namespace TaskModule
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskPage));
-            this.treeNodesImageList = new System.Windows.Forms.ImageList(this.components);
-            this.taskMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.treeNodesImageList = new System.Windows.Forms.ImageList();
+            this.taskMenuStrip = new System.Windows.Forms.ContextMenuStrip();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripContainer.SuspendLayout();
             this.taskMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // toolStripContainer
+            // navigator
             // 
+            this.navigator.Size = new System.Drawing.Size(268, 607);
             // 
-            // toolStripContainer.ContentPanel
+            // scenePage
             // 
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1155, 556);
-            this.toolStripContainer.Location = new System.Drawing.Point(4, 0);
-            this.toolStripContainer.Size = new System.Drawing.Size(1155, 612);
+            this.scenePage.Size = new System.Drawing.Size(878, 403);
             // 
             // consoleControl
             // 
-            this.consoleControl.Size = new System.Drawing.Size(869, 176);
-            // 
-            // navigator
-            // 
-            this.navigator.Size = new System.Drawing.Size(270, 546);
+            this.consoleControl.Size = new System.Drawing.Size(878, 199);
             // 
             // treeNodesImageList
             // 
@@ -90,13 +83,9 @@ namespace TaskModule
             // TaskPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "TaskPage";
-            this.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Size = new System.Drawing.Size(1163, 612);
-            this.Controls.SetChildIndex(this.toolStripContainer, 0);
-            this.toolStripContainer.ResumeLayout(false);
-            this.toolStripContainer.PerformLayout();
             this.taskMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 

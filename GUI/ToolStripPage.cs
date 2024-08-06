@@ -1,4 +1,5 @@
-﻿using BaseModule.Console;
+﻿using BaseModule;
+using BaseModule.Console;
 using BaseModule.CrossSection;
 using Geometry;
 using ModelControllerInterfaces;
@@ -19,7 +20,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BaseModule
+namespace BazisGUI
 {
     public partial class ToolStripPage : UserControl
     {

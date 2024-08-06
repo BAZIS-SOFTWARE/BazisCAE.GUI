@@ -117,6 +117,9 @@
     <Reference Include="TasksParameters, Version=1.0.0.13, Culture=neutral, PublicKeyToken=8bfe6827a0935d51, processorArchitecture=MSIL">
       <HintPath>..\packages\TasksParameters.1.0.0.13\lib\net48\TasksParameters.dll</HintPath>
     </Reference>
+    <Reference Include="UserControlsEx, Version=1.0.6.0, Culture=neutral, PublicKeyToken=16903e6a4b8fab01, processorArchitecture=MSIL">
+      <HintPath>..\packages\UserControlsEx.1.0.6\lib\net48\UserControlsEx.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicAdvisorControls\BasicControls\CheckedGridViewAdviserControl.cs">
@@ -392,10 +395,6 @@
     <ProjectReference Include="..\BaseModule\BaseModule.csproj">
       <Project>{e5c49662-b9c7-4b1b-9734-1ff03da9fcc0}</Project>
       <Name>BaseModule</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WinFormsControlLibEx\UserControlsEx.csproj">
-      <Project>{452D36B3-7997-48AC-96CB-4AA349E2B608}</Project>
-      <Name>UserControlsEx</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

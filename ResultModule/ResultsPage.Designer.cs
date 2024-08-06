@@ -33,10 +33,22 @@
             this.treeNodesImageList = new System.Windows.Forms.ImageList(this.components);
             this.resultsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.скрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.пересчитатьНаУзлыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resultsMenuStrip.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // navigator
+            // 
+            this.navigator.Size = new System.Drawing.Size(205, 553);
+            // 
+            // scenePage
+            // 
+            this.scenePage.Size = new System.Drawing.Size(673, 367);
+            // 
+            // consoleControl
+            // 
+            this.consoleControl.Size = new System.Drawing.Size(673, 181);
             // 
             // treeNodesImageList
             // 
@@ -56,36 +68,36 @@
             this.пересчитатьНаУзлыToolStripMenuItem,
             this.удалитьToolStripMenuItem});
             this.resultsMenuStrip.Name = "resultsMenuStrip";
-            this.resultsMenuStrip.Size = new System.Drawing.Size(225, 104);
+            this.resultsMenuStrip.Size = new System.Drawing.Size(191, 70);
             // 
             // скрытьToolStripMenuItem
             // 
             this.скрытьToolStripMenuItem.Name = "скрытьToolStripMenuItem";
-            this.скрытьToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
+            this.скрытьToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.скрытьToolStripMenuItem.Text = "Скрыть";
             this.скрытьToolStripMenuItem.Click += new System.EventHandler(this.скрытьРезультатыToolStripMenuItem_Click);
-            // 
-            // удалитьToolStripMenuItem
-            // 
-            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
-            this.удалитьToolStripMenuItem.Text = "Удалить";
-            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
             // пересчитатьНаУзлыToolStripMenuItem
             // 
             this.пересчитатьНаУзлыToolStripMenuItem.Name = "пересчитатьНаУзлыToolStripMenuItem";
-            this.пересчитатьНаУзлыToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
+            this.пересчитатьНаУзлыToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.пересчитатьНаУзлыToolStripMenuItem.Text = "Пересчитать на узлы";
             this.пересчитатьНаУзлыToolStripMenuItem.Click += new System.EventHandler(this.пересчитатьНаУзлыToolStripMenuItem_Click);
             // 
+            // удалитьToolStripMenuItem
+            // 
+            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.удалитьToolStripMenuItem.Text = "Удалить";
+            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
+            // 
             // ResultPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Margin = new System.Windows.Forms.Padding(5);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "ResultPage";
-            this.Size = new System.Drawing.Size(1193, 687);
+            this.Size = new System.Drawing.Size(895, 558);
             this.Load += new System.EventHandler(this.ResultPage_Load);
             this.resultsMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);

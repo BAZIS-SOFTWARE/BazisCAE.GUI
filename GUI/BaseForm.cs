@@ -55,6 +55,7 @@ namespace BazisGUI
         ModelController.ModelController modelController = new ModelController.ModelController(); 
         GmshController gmshController;
         IODataController dataController = new IODataController();
+        ToolStripPage toolStripPage = new ToolStripPage() { Dock = DockStyle.Fill};
 
         SettingsConfig settingsConfig = new SettingsConfig()
         {
@@ -74,7 +75,8 @@ namespace BazisGUI
             InitializeComponent();
             ComponentsPainter.Font = this.Font;
             ComponentsPainter.ScreenDPI = this.DeviceDpi;
-
+            toolStripContainer.ContentPanel.Controls.Add(toolStripPage);
+            tableLayoutPanel.BringToFront();
             GetServerConnection();
         }
 
@@ -102,44 +104,37 @@ namespace BazisGUI
 
         private void построениеСетки_Click(object sender, EventArgs e)
         {
-            var module = TryGetModule();
-            var viewMatrix = module.ScenePage.SceneControl.GetCamera().GetViewMatrix();
-            var splitters = module.SplittersController.GetSplitters();
+            SetModule("Mesh");
 
-            DisconnectWithServer(module.Name);
+            var module = toolStripPage.BasePage;
+            module.ScenePage.SceneControl.DisplayObjects();
+        }
+        private void анализРезультатов_Click(object sender, EventArgs e)
+        {
+            SetModule("Result");
 
-            CloseActivePageChildControls(module.Name);
+            var module = toolStripPage.BasePage;
+            module.ScenePage.SceneControl.DisplayObjects();
+        }
+        private void сварка_Click(object sender, EventArgs e)
+        {
+            SetModule("Weld");
 
-            var newModule = CreateModule("Mesh");
-            newModule.ScenePage.ModelController = modelController;
+            var module = toolStripPage.BasePage;
+            module.ScenePage.SceneControl.DisplayObjects();
+        }
+        private void термообработка_Click(object sender, EventArgs e)
+        {
+            SetModule("HeatTreatment");
 
-            var meshModule = newModule as ModelPage;
-            meshModule.GmshController = gmshController;
-
-            AddModule(newModule);
-
-            PresentProjectOnModule(newModule);
-
-            newModule.SplittersController.SetSplitters(splitters);
-            SetSceneViewMatrix(viewMatrix, newModule);
-
-            newModule.ScenePage.SceneControl.DisplayObjects();
+            var module = toolStripPage.BasePage;
+            module.ScenePage.SceneControl.DisplayObjects();
         }
 
         private static void SetSceneViewMatrix(Matrix<float> viewMatrix, BasePage newModule)
         {
             newModule.ScenePage.SceneControl.GetCamera().SetViewMatrix(viewMatrix);
             newModule.ScenePage.SceneControl.ScaleObjs(1.0f); // TO DO Разобраться почему без этого компас сворачивается в точку
-        }
-
-        private BasePage TryGetModule()
-        {
-            foreach (var item in toolStripContainer.ContentPanel.Controls)
-            {
-                if(item is BasePage page)
-                    return page;
-            }
-            return null;
         }
 
         private void DisconnectWithServer(string moduleName)
@@ -149,35 +144,6 @@ namespace BazisGUI
                 StopServerPing();
                 serverConnection.RequestServer(moduleName + " Отдать");
             //}
-        }
-
-        private void анализРезультатов_Click(object sender, EventArgs e)
-        {
-            var module = TryGetModule();
-
-            var viewMatrix = module.ScenePage.SceneControl.GetCamera().GetViewMatrix();
-            var splitters = module.SplittersController.GetSplitters();
-
-            DisconnectWithServer(module.Name);
-
-            CloseActivePageChildControls(module.Name);
-
-            var newModule = CreateModule("Result");
-
-            var resultModule = newModule as ResultPage;
-
-            resultModule.ResultsController = new ResultsController();
-            resultModule.ScenePage.ModelController = modelController;
-
-            resultModule.LoadResultsEvent += ResultModule_LoadResultsEvent;
-
-            AddModule(newModule);
-
-            PresentProjectOnModule(newModule);
-
-            newModule.SplittersController.SetSplitters(splitters);
-            SetSceneViewMatrix(viewMatrix, newModule);
-            newModule.ScenePage.SceneControl.DisplayObjects();
         }
 
         private async void ResultModule_LoadResultsEvent(object sender,string fileName, bool mergeRes, bool addRes)
@@ -206,13 +172,11 @@ namespace BazisGUI
             Enabled = true;
 
             project.ResultData.AddRange(res.Result);
-        }
+        } 
 
-        
-
-        private void сварка_Click(object sender, EventArgs e)
+        private void SetModule(string moduleName)
         {
-            var module = TryGetModule();
+            var module = toolStripPage.BasePage;
 
             var viewMatrix = module.ScenePage.SceneControl.GetCamera().GetViewMatrix();
             var splitters = module.SplittersController.GetSplitters();
@@ -221,69 +185,42 @@ namespace BazisGUI
 
             CloseActivePageChildControls(module.Name);
 
-            var newModule = CreateModule("Weld");
-            newModule.ScenePage.ModelController = modelController;
-
-            var weldingPage = newModule as TaskPage;
-
-            weldingPage.PreProc = new PreProc();
+            var newModule = CreateModule(moduleName);
 
             AddModule(newModule);
+
+            SetGeneralSettings(newModule);
+            LicenseModule(newModule);
 
             PresentProjectOnModule(newModule);
 
             newModule.SplittersController.SetSplitters(splitters);
             SetSceneViewMatrix(viewMatrix, newModule);
-            newModule.ScenePage.SceneControl.DisplayObjects();
-        }
-
-        private void термообработка_Click(object sender, EventArgs e)
-        {
-            var module = TryGetModule();
-
-            var viewMatrix = module.ScenePage.SceneControl.GetCamera().GetViewMatrix();
-            var splitters = module.SplittersController.GetSplitters();
-
-            DisconnectWithServer(module.Name);
-
-            CloseActivePageChildControls(module.Name);
-
-            var newModule = CreateModule("HeatTreatment");
-            newModule.ScenePage.ModelController = modelController;
-
-            var htPage = newModule as TaskPage;
-
-            htPage.PreProc = new PreProc();
-
-            AddModule(newModule);
-
-            PresentProjectOnModule(newModule);
-
-            newModule.SplittersController.SetSplitters(splitters);
-            SetSceneViewMatrix(viewMatrix, newModule);
-            newModule.ScenePage.SceneControl.DisplayObjects();
         }
 
         private void AddModule(BasePage module)
-        {
-            SetGeneralSettings(module);
-
+        {          
             // Загрузка модуля на сцену. Стираются все содержимое сцены и перезаливается навигатор
-            toolStripContainer.ContentPanel.Controls.Add(module);
+            toolStripPage.BasePage = module;
+            toolStripPage.selectToolStrip.Location = new Point(3, 0);
+            toolStripPage.BasePage.SceneInitialization();
+            toolStripPage.BringToFront();
 
             tableLayoutPanel.Hide();
 
+        }
+
+        private void LicenseModule(BasePage module)
+        {
             serverConnection.RequestServer(module.Name + " Взять");
 
             if (serverConnection.Answer == "можно")
             {
-                UnBlockInterface(module.Name,true);
+                UnBlockGeneralMenuInterface(module.Name, true);
                 StartLicensing(module);
             }
 
             else StartLisenceForm(module);
-
-
         }
 
         private void ViewInterface(string moduleName)
@@ -305,10 +242,26 @@ namespace BazisGUI
             {
                 tasksMenuItem.Visible = true;
                 dataBasesMenuItem.Visible = true;
+
+                foreach (var item in tasksMenuItem.DropDownItems.Cast<ToolStripMenuItem>())
+                    item.Visible = false;
+
+                if (moduleName == "Weld")
+                {
+                    arcWeldingMenuItem.Visible = true;
+                    lazerWeldingMenuItem.Visible = true;
+                    fsWeldingMenuItem.Visible = true;
+                }
+                else
+                {
+                    heatingMenuItem.Visible = true;
+                    quenchingMenuItem.Visible = true;
+                    temperingMenuItem.Visible = true;
+                }
             }
         }
 
-        private void UnBlockInterface(string moduleName, bool flag)
+        private void UnBlockGeneralMenuInterface(string moduleName, bool flag)
         {
             if(moduleName == "Mesh")
             {
@@ -341,13 +294,14 @@ namespace BazisGUI
 
         private BasePage CreateModule(string moduleName)
         {
-            BasePage basePage;
+            BasePage module;
             if (moduleName == "Weld")
             {
                 var taskPage = new WeldingPage() { Dock = DockStyle.Fill, Name = moduleName, TaskData = project.TaskData };
                 taskPage.SolverPath = settingsConfig.SolverPath;
+                taskPage.PreProc = new PreProc();
                 taskPage.NeedSaveProjectEvent += TaskPage_NeedSaveProjectEvent;
-                basePage = taskPage;
+                module = taskPage;
             }
 
             else if (moduleName == "HeatTreatment")
@@ -356,14 +310,18 @@ namespace BazisGUI
                 //модулиMenuItem.Image = термообработка.Image;
                 var taskPage = new HeatTreatmentPage() { Dock = DockStyle.Fill, Name = moduleName, TaskData = project.TaskData };
                 taskPage.SolverPath = settingsConfig.SolverPath;
-                basePage = taskPage;
+                taskPage.PreProc = new PreProc();
+                taskPage.NeedSaveProjectEvent += TaskPage_NeedSaveProjectEvent;
+                module = taskPage;
             }
 
             else if (moduleName == "Result")
             {
                 resultsMenuItem.Visible = true;
                 var resPage = new ResultPage() { Dock = DockStyle.Fill, Name = moduleName, ResultData = project.ResultData };
-                basePage = resPage;
+                resPage.ResultsController = new ResultsController();
+                resPage.LoadResultsEvent += ResultModule_LoadResultsEvent;
+                module = resPage;
             }
 
             else
@@ -371,23 +329,10 @@ namespace BazisGUI
                 meshMenuItem.Visible = true;
                 var modelPage = new ModelPage() { Dock = DockStyle.Fill, Name = moduleName };
                 modelPage.GmshController = gmshController;
-                basePage = modelPage;
+                module = modelPage;
             }
 
-            viewMenuItem.Visible = true;
-            ViewInterface(moduleName);
-
-            var que = new Queue<int>();
-            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.1f));
-            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.45f));
-
-            basePage.SplittersController.SetSplitters(que);
-
-            basePage.GeneralData = project.GeneralData;
-            basePage.ScenePage.ModelData = project.ModelData;
-            basePage.ScenePage.ModelController = modelController;
-
-            return basePage;
+            return module;
         }
 
         private void TaskPage_NeedSaveProjectEvent(object sender)
@@ -413,8 +358,6 @@ namespace BazisGUI
 
         private void StartLicensing(BasePage module)
         {
-            //сохранитьToolStripMenuItem.Enabled = true;
-            //сохранитькакToolStripMenuItem.Enabled = true;
 
             serverConnectionPing = new Thread(() =>
             {
@@ -443,7 +386,7 @@ namespace BazisGUI
                         {
                             MessageBox.Show(this, "Внимание! Лицензирование прервано. Приложение будет заблокировано. Проверьте сервер лицензий.");
                             //Application.ExitThread();
-                            UnBlockInterface(module.Name, false);
+                            UnBlockGeneralMenuInterface(module.Name, false);
                         }));
                     }
                 }
@@ -472,6 +415,18 @@ namespace BazisGUI
 
         private void SetGeneralSettings(BasePage module)
         {
+            viewMenuItem.Visible = true;
+            ViewInterface(module.Name);
+
+            var que = new Queue<int>();
+            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.1f));
+            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.45f));
+
+            module.SplittersController.SetSplitters(que);
+
+            module.GeneralData = project.GeneralData;
+            module.ScenePage.ModelData = project.ModelData;
+            module.ScenePage.ModelController = modelController;
             module.ScenePage.SceneControl.BackGroundColor = settingsConfig.BackGroudColor;
             module.ScenePage.SceneControl.IsBlending = settingsConfig.Transparency;
             module.ScenePage.SceneControl.IsLighting = settingsConfig.Lighting;
@@ -494,7 +449,7 @@ namespace BazisGUI
 
         private void BaseForm_KeyDown(object sender, KeyEventArgs e)
         {
-            var module = TryGetModule();
+            var module = toolStripPage.BasePage;
             if(module != null)
             {
                 var controls = toolStripContainer.ContentPanel.Controls.Find(module.Name, false);
@@ -579,7 +534,7 @@ namespace BazisGUI
 
                     if (serverConnection.Answer == "можно")
                     {
-                        UnBlockInterface(module.Name,true);
+                        UnBlockGeneralMenuInterface(module.Name,true);
                         StartLicensing(module);
                     }
                 }
@@ -620,7 +575,7 @@ namespace BazisGUI
             }
 
 
-            var module = TryGetModule();
+            var module = toolStripPage.BasePage;
             if (module != null)
             {
                 SetSettingsToModule(module,settings);
@@ -709,7 +664,7 @@ namespace BazisGUI
             var verStr = "Версия " + $"{ver.Major}.{ver.Minor}.{ver.Build}";
             lblVersion.Text = verStr;
 
-            LoadConfig();
+            this.settingsConfig = dataController.LoadConfig();
         }
 
         public void KillAlreadyLaunchdExamples()
@@ -731,27 +686,11 @@ namespace BazisGUI
             }
         }
 
-        private void LoadConfig()
-        {
-            var folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var fullPath = $@"{folder}\settingsConfig.json";
-
-            if (File.Exists(fullPath))
-            {
-                var settings = File.ReadAllText(fullPath);
-                var settingsConfig =(SettingsConfig)JsonConvert.DeserializeObject(settings, typeof(SettingsConfig));
-                if (settingsConfig != null)
-                {
-                    this.settingsConfig = settingsConfig;
-                }
-            }
-        }
-
         private void получитьЛицензиюMenuItem_Click(object sender, EventArgs e)
         {
-            var module = TryGetModule();
+            var module = toolStripPage.BasePage;
 
-            if(module != null)
+            if (module != null)
                 StartLisenceForm(module);
         }
 
@@ -804,17 +743,10 @@ namespace BazisGUI
 
                 модулиMenuItem.Enabled = true;
 
-                var module = TryGetModule();
-                if (module == null)
-                {
-                    module = CreateModule("Mesh");
-                    AddModule(module);
-                }
+                SetModule("Mesh");
 
-                else
-                    module.SceneInitialization();
-
-                PresentProjectOnModule(module);
+                var module = toolStripPage.BasePage;
+                module.ScenePage.SceneControl.FitObjectsToScreen();
                 module.ScenePage.SceneControl.DisplayObjects();
             }
             catch (Exception ex)
@@ -838,16 +770,9 @@ namespace BazisGUI
 
                     модулиMenuItem.Enabled = true;
 
-                    var module = TryGetModule();
-                    if (module == null)
-                    {
-                        module = CreateModule("Mesh");
-                        AddModule(module);
-                    }
-                    else
-                        module.SceneInitialization();
+                    SetModule("Mesh");
 
-                    PresentProjectOnModule(module);
+                    var module = toolStripPage.BasePage;
                     module.ScenePage.SceneControl.FitObjectsToScreen();
                     module.ScenePage.SceneControl.DisplayObjects();
                 }
@@ -872,16 +797,9 @@ namespace BazisGUI
 
                 модулиMenuItem.Enabled = true;
 
-                var module = TryGetModule();
-                if (module == null)
-                {
-                    module = CreateModule("Mesh");
-                    AddModule(module);
-                }
-                else
-                    module.SceneInitialization();
+                SetModule("Mesh");
 
-                PresentProjectOnModule(module);
+                var module = toolStripPage.BasePage;
                 module.ScenePage.SceneControl.FitObjectsToScreen();
                 module.ScenePage.SceneControl.DisplayObjects();
             }
@@ -908,7 +826,7 @@ namespace BazisGUI
 
             dataController.SaveAsProject(project);
 
-            var module = TryGetModule();
+            var module = toolStripPage.BasePage;
             module?.ConsoleControl.PrintInfo("Проект сохранен", Color.Black);
             lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
 
@@ -918,7 +836,7 @@ namespace BazisGUI
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             project?.Save();
-            var module = TryGetModule();
+            var module = toolStripPage.BasePage;
             module?.ConsoleControl.PrintInfo("Проект сохранен", Color.Black);
         }
 
@@ -934,16 +852,9 @@ namespace BazisGUI
 
                     модулиMenuItem.Enabled = true;
 
-                    var module = TryGetModule();
-                    if (module == null)
-                    {
-                        module = CreateModule("Mesh");
-                        AddModule(module);
-                    }
-                    else
-                        module.SceneInitialization();
+                    SetModule("Mesh");
 
-                    PresentProjectOnModule(module);
+                    var module = toolStripPage.BasePage;
                     module.ScenePage.SceneControl.FitObjectsToScreen();
                     module.ScenePage.SceneControl.DisplayObjects();
                 }
@@ -958,7 +869,7 @@ namespace BazisGUI
         {
             module.ScenePage.PresentAllModelObjectsToScene();
             module.PresentProjectOnTree();
-            module.PresentModelOnSelectToolStrip(project.ModelData.ObjectData);
+            toolStripPage.PresentModelOnSelectToolStrip(project.ModelData.ObjectData);
         }
 
         private void OnClosingForm(object sender, FormClosingEventArgs e)
@@ -969,36 +880,32 @@ namespace BazisGUI
 
         private void модулиMenuItem_Paint(object sender, PaintEventArgs e)
         {
-            //Pen blackPen = new Pen(Color.FromArgb(255, 0, 0, 0), 1.5f);
-
-            //var rect = new Rectangle(new Point(0, 0), new Size(модулиMenuItem.Width - 1, модулиMenuItem.Height - 1));
-
-            //e.Graphics.DrawRectangle(blackPen, rect);
+            // тут можно порисовать на кнопке "модули"
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            var module = TryGetModule();
+            var module = toolStripPage.BasePage;
             var splitContainer = (SplitContainer)module.NavigatorControl.Parent.Parent;
             splitContainer.Panel1Collapsed = false;
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            var module = TryGetModule();
+            var module = toolStripPage.BasePage;
             var splitContainer = (SplitContainer)module.ConsoleControl.Parent.Parent;
             splitContainer.Panel2Collapsed = false;
         }
 
         private void createSurfaceElementsMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ModelPage)TryGetModule();
+            var module = (ModelPage)toolStripPage.BasePage;
             module.CreateSurfaceElements();
         }
 
         private void mesh3DGeneratorMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ModelPage)TryGetModule();
+            var module = (ModelPage)toolStripPage.BasePage;
 
             var res = MessageBox.Show("Вы собираетесь запустить сеточный генератор. При нажатии на кнопку \"OK\" Все данные о задаче будут удалены!",
 "Внимание!", MessageBoxButtons.OKCancel);
@@ -1013,7 +920,7 @@ namespace BazisGUI
 
         private void arcWeldingMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (WeldingPage)TryGetModule();
+            var module = (WeldingPage)toolStripPage.BasePage;
 
             var adv = module.CreateWeldingAdvisor(WeldingKind.ARC);
 
@@ -1026,57 +933,57 @@ namespace BazisGUI
 
         private void материалыMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (TaskPage)TryGetModule();
+            var module = (TaskPage)toolStripPage.BasePage;
             module.OpenMaterialsDB();
         }
 
         private void функцииMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (TaskPage)TryGetModule();
+            var module = (TaskPage)toolStripPage.BasePage;
             module.OpenFunctionsDB();
         }
 
         private void lazerWeldingMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (WeldingPage)TryGetModule();
+            var module = (WeldingPage)toolStripPage.BasePage;
 
             var adv = module.CreateWeldingAdvisor(WeldingKind.Lazer);
 
             module.DeleteAdvisor();
 
-            if (arcWeldingMenuItem.Checked)
+            if (lazerWeldingMenuItem.Checked)
                 module.ShowAdvisor(sender, adv);
             else module.DeleteAdvisor();
         }
 
         private void fsWeldingMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (WeldingPage)TryGetModule();
+            var module = (WeldingPage)toolStripPage.BasePage;
 
             var adv = module.CreateWeldingAdvisor(WeldingKind.FrictionStearing);
 
             module.DeleteAdvisor();
 
-            if (arcWeldingMenuItem.Checked)
+            if (fsWeldingMenuItem.Checked)
                 module.ShowAdvisor(sender, adv);
             else module.DeleteAdvisor();
         }
 
         private void addResultsMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultPage)TryGetModule();
+            var module = (ResultPage)toolStripPage.BasePage;
             module.ShowOpenResultsFileDialog(true);
         }
 
         private void loadResultsMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultPage)TryGetModule();
+            var module = (ResultPage)toolStripPage.BasePage;
             module.ShowOpenResultsFileDialog(false);
         }
 
         private void showValueMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultPage)TryGetModule();
+            var module = (ResultPage)toolStripPage.BasePage;
 
             if (showValueMenuItem.Checked)
                 module.IsResultsValueShowen = true;
@@ -1090,63 +997,63 @@ namespace BazisGUI
 
         private void createFieldMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultPage)TryGetModule();
+            var module = (ResultPage)toolStripPage.BasePage;
             module.ShowAnimation();
         }
 
         private void createPlotMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultPage)TryGetModule();
+            var module = (ResultPage)toolStripPage.BasePage;
             module.CreateGraph();
         }
 
         private void scaleSettingsMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultPage)TryGetModule();
+            var module = (ResultPage)toolStripPage.BasePage;
             module.ShowScalePage();
         }
 
         private void exportResultsMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultPage)TryGetModule();
+            var module = (ResultPage)toolStripPage.BasePage;
             module.ShowExportResultsPage();
         }
 
         private void heatingMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (HeatTreatmentPage)TryGetModule();
+            var module = (HeatTreatmentPage)toolStripPage.BasePage;
 
             var adv = module.CreateHeatTreatmentAdvisor(ProcessType.Heating);
 
             module.DeleteAdvisor();
 
-            if (arcWeldingMenuItem.Checked)
+            if (heatingMenuItem.Checked)
                 module.ShowAdvisor(sender, adv);
             else module.DeleteAdvisor();
         }
 
         private void temperingMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (HeatTreatmentPage)TryGetModule();
+            var module = (HeatTreatmentPage)toolStripPage.BasePage;
 
             var adv = module.CreateHeatTreatmentAdvisor(ProcessType.Tempering);
 
             module.DeleteAdvisor();
 
-            if (arcWeldingMenuItem.Checked)
+            if (temperingMenuItem.Checked)
                 module.ShowAdvisor(sender, adv);
             else module.DeleteAdvisor();
         }
 
         private void quenchingMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (HeatTreatmentPage)TryGetModule();
+            var module = (HeatTreatmentPage)toolStripPage.BasePage;
 
             var adv = module.CreateHeatTreatmentAdvisor(ProcessType.Quenching);
 
             module.DeleteAdvisor();
 
-            if (arcWeldingMenuItem.Checked)
+            if (quenchingMenuItem.Checked)
                 module.ShowAdvisor(sender, adv);
             else module.DeleteAdvisor();
         }

@@ -48,7 +48,7 @@ namespace InstallerAction
 
             var value = Environment.GetEnvironmentVariable("BazisMeshPath");
             if (value == null | value == "")
-                MessageBox.Show($"Возможно возникла проблема автоматического создания переменной среды BazisMeshPath : {gmshPath}! Создайте ее вручную в случае если она отсутсвует",
+                MessageBox.Show($"Возможно возникла проблема автоматического создания переменной среды BazisMeshPath! Создайте ее вручную в случае если она отсутсвует",
                     "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }

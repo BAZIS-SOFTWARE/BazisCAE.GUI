@@ -187,7 +187,7 @@ namespace TaskModule
         {
             try
             {
-                var btn = sender as ToolStripButton;
+                var btn = sender as ToolStripMenuItem;
                 var appFolder = Path.GetDirectoryName(Application.ExecutablePath);
                 if (appFolder == GeneralData.Path)
                 {

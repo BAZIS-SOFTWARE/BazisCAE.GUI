@@ -28,42 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.toolStripContainer.SuspendLayout();
             this.SuspendLayout();
             // 
-            // toolStripContainer
+            // navigator
             // 
-            // 
-            // toolStripContainer.ContentPanel
-            // 
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1055, 615);
-            this.toolStripContainer.Size = new System.Drawing.Size(1055, 671);
-            // 
-            // consoleControl
-            // 
-            this.consoleControl.Size = new System.Drawing.Size(794, 196);
+            this.navigator.Size = new System.Drawing.Size(245, 666);
             // 
             // scenePage
             // 
             this.scenePage.BackColor = System.Drawing.Color.DimGray;
-            this.scenePage.Size = new System.Drawing.Size(794, 404);
+            this.scenePage.Size = new System.Drawing.Size(803, 443);
             // 
-            // navigator
+            // consoleControl
             // 
-            this.navigator.Size = new System.Drawing.Size(245, 605);
+            this.consoleControl.Size = new System.Drawing.Size(803, 218);
             // 
             // ModelPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "ModelPage";
             this.SelectionGroupColor = System.Drawing.Color.Lime;
             this.Size = new System.Drawing.Size(1065, 671);
             this.DeleteSelectedObjectsEvent += new System.Action(this.ModelPage_DeleteSelectedObjectsEvent);
-            this.toolStripContainer.ResumeLayout(false);
-            this.toolStripContainer.PerformLayout();
             this.ResumeLayout(false);
 
         }
