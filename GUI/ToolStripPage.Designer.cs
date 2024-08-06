@@ -611,7 +611,6 @@
         protected System.Windows.Forms.ToolStripButton btnSelectElements;
         protected System.Windows.Forms.ToolStripButton btnSelectObjects;
         protected System.Windows.Forms.ToolStripButton btnAdvanceSelection;
-        protected UserControlsEx.ToolStripEx displayToolStrip;
         protected System.Windows.Forms.ToolStripButton btnShowAll;
         protected System.Windows.Forms.ToolStripButton btnShowOpenSurfaces;
         protected System.Windows.Forms.ToolStripButton btnShowSurfaceAndRibbers;
@@ -620,7 +619,6 @@
         protected System.Windows.Forms.ToolStripButton btnShowBasis;
         protected System.Windows.Forms.ToolStripButton btnShowNormals;
         protected System.Windows.Forms.ToolStripButton btnShowCountours;
-        protected UserControlsEx.ToolStripEx viewToolStrip;
         protected System.Windows.Forms.ToolStripButton btnSetXY;
         protected System.Windows.Forms.ToolStripButton btnSetZX;
         protected System.Windows.Forms.ToolStripButton btnSetZY;
@@ -636,6 +634,8 @@
         public UserControlsEx.ToolStripEx selectToolStrip;
         public UserControlsEx.ToolStripEx instrumentalToolStrip;
         private ModelModule.ModelPage modelPage;
+        public UserControlsEx.ToolStripEx displayToolStrip;
+        public UserControlsEx.ToolStripEx viewToolStrip;
         //private BasePage basePage;
     }
 }
