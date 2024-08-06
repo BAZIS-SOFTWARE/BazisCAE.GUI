@@ -200,9 +200,8 @@ namespace BazisGUI
 
         private void AddModule(BasePage module)
         {          
-            // Загрузка модуля на сцену. Стираются все содержимое сцены и перезаливается навигатор
             toolStripPage.BasePage = module;
-            toolStripPage.selectToolStrip.Location = new Point(3, 0);
+            //toolStripPage.selectToolStrip.Location = new Point(3, 0);
             toolStripPage.BasePage.SceneInitialization();
             toolStripPage.BringToFront();
 
