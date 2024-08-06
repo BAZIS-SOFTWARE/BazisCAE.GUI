@@ -39,11 +39,11 @@ namespace ResultModule
         {
             InitializeComponent();
 
-            NavigatorControl.TreeView.Nodes.Add(new TreeNode("Результаты", 1, 1) { Name = "Результаты", Tag = 6, ContextMenuStrip = resultsMenuStrip });
+            NavigatorControl.TreeView.Nodes.Add(new TreeNode("Результаты", 14, 14) { Name = "Результаты", Tag = 6, ContextMenuStrip = resultsMenuStrip });
 
-            var nodeNode = new TreeNode("ПоУзлам", 1, 1) { Name = "ПоУзлам", Tag = "6.1" };
+            var nodeNode = new TreeNode("ПоУзлам", 14, 14) { Name = "ПоУзлам", Tag = "6.1" };
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(nodeNode);
-            var elemNode = new TreeNode("ПоЭлементам", 1, 1) { Name = "ПоЭлементам", Tag = "6.1" };
+            var elemNode = new TreeNode("ПоЭлементам", 14, 14) { Name = "ПоЭлементам", Tag = "6.1" };
             NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(elemNode);
         }      
 

@@ -103,8 +103,8 @@ namespace BaseModule.Navigator
                 Name = name,
                 Text = text,
 
-                ImageIndex = imgDict.ContainsKey(name) ? imgDict[name] : 0,
-                SelectedImageIndex = imgDict.ContainsKey(name) ? imgDict[name] : 0,
+                ImageIndex = imgDict.ContainsKey(name) ? imgDict[name] : 16,
+                SelectedImageIndex = imgDict.ContainsKey(name) ? imgDict[name] : 16,
 
                 Tag = tag
             };

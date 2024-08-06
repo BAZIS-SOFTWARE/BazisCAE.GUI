@@ -40,7 +40,7 @@ namespace TaskModule
         {
             InitializeComponent();
 
-            var taskNode = new TreeNode("Данные", 1, 1) { Name = "Данные", Tag = "6" };
+            var taskNode = new TreeNode("Данные", 14, 14) { Name = "Данные", Tag = "6" };
             taskNode.ContextMenuStrip = taskMenuStrip;
             NavigatorControl.TreeView.Nodes.Add(taskNode);
 

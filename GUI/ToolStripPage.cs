@@ -503,7 +503,7 @@ namespace BazisGUI
                         break;
                     case MeasureKind.Square:
                         {
-                            var square = 0.0f;
+                            var square = 0.0;
 
                             var objs = scenePage.ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
 
@@ -514,7 +514,7 @@ namespace BazisGUI
                                 var sObj = (ISquare)obj;
                                 square += sObj.CalcSquare();
                             }
-                            consoleControl.PrintInfo(string.Format("Площадь : {0}", square), Color.Black);
+                            consoleControl.PrintInfo($"Площадь : {square}", Color.Black);
                             break;
                         }
 

@@ -67,20 +67,20 @@
     <Reference Include="Graph, Version=1.0.2.23, Culture=neutral, PublicKeyToken=4d6e483d8ec08dd8, processorArchitecture=MSIL">
       <HintPath>..\packages\Graph.1.0.2.23\lib\net48\Graph.dll</HintPath>
     </Reference>
-    <Reference Include="Model, Version=3.0.9.32, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\Model.3.0.9.32\lib\net48\Model.dll</HintPath>
+    <Reference Include="Model, Version=3.0.9.35, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Model.3.0.9.35\lib\net48\Model.dll</HintPath>
     </Reference>
-    <Reference Include="ModelControllerInterfaces, Version=3.0.0.52, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelControllerInterfaces.3.0.0.52\lib\net48\ModelControllerInterfaces.dll</HintPath>
+    <Reference Include="ModelControllerInterfaces, Version=3.0.0.54, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelControllerInterfaces.3.0.0.54\lib\net48\ModelControllerInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ModelInterfaces, Version=3.0.0.24, Culture=neutral, PublicKeyToken=998e39182864f357, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelInterfaces.3.0.0.24\lib\net48\ModelInterfaces.dll</HintPath>
+    <Reference Include="ModelInterfaces, Version=3.0.0.26, Culture=neutral, PublicKeyToken=998e39182864f357, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelInterfaces.3.0.0.26\lib\net48\ModelInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="ProjectInterfaces, Version=3.0.48.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjectInterfaces.3.0.48\lib\net48\ProjectInterfaces.dll</HintPath>
+    <Reference Include="ProjectInterfaces, Version=3.0.49.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProjectInterfaces.3.0.49\lib\net48\ProjectInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Scene, Version=2.0.8.43, Culture=neutral, PublicKeyToken=2e7150108cd20395, processorArchitecture=MSIL">
       <HintPath>..\packages\Scene.2.0.8.43\lib\net48\Scene.dll</HintPath>
