@@ -59,7 +59,7 @@ namespace BaseModule
             // 
             this.splitContainer1.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.IncrementButtonSize = new System.Drawing.Size(5, 50);
+            this.splitContainer1.IncrementButtonSize = new System.Drawing.Size(10, 50);
             this.splitContainer1.IncrementShifting = 50;
             this.splitContainer1.Location = new System.Drawing.Point(5, 5);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
@@ -68,7 +68,6 @@ namespace BaseModule
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.navigator);
-            this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             // 
             // splitContainer1.Panel2
             // 
@@ -76,7 +75,7 @@ namespace BaseModule
             this.splitContainer1.Size = new System.Drawing.Size(1308, 643);
             this.splitContainer1.SplitterDistance = 307;
             this.splitContainer1.SplitterIncrement = 15;
-            this.splitContainer1.SplitterWidth = 8;
+            this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 1;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
@@ -94,7 +93,7 @@ namespace BaseModule
             this.navigator.Margin = new System.Windows.Forms.Padding(0);
             this.navigator.Name = "navigator";
             this.navigator.ProjectInfoIndex = 16;
-            this.navigator.Size = new System.Drawing.Size(305, 643);
+            this.navigator.Size = new System.Drawing.Size(307, 643);
             this.navigator.TabIndex = 0;
             this.navigator.UpColor = System.Drawing.Color.Gainsboro;
             this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
@@ -119,7 +118,7 @@ namespace BaseModule
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.IncrementButtonSize = new System.Drawing.Size(50, 5);
+            this.splitContainer2.IncrementButtonSize = new System.Drawing.Size(50, 11);
             this.splitContainer2.IncrementShifting = 50;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
             this.splitContainer2.Name = "splitContainer2";
@@ -133,9 +132,9 @@ namespace BaseModule
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
-            this.splitContainer2.Size = new System.Drawing.Size(993, 643);
+            this.splitContainer2.Size = new System.Drawing.Size(995, 643);
             this.splitContainer2.SplitterDistance = 429;
-            this.splitContainer2.SplitterWidth = 8;
+            this.splitContainer2.SplitterWidth = 6;
             this.splitContainer2.TabIndex = 0;
             // 
             // scenePage
@@ -152,7 +151,7 @@ namespace BaseModule
             this.scenePage.ModelData = null;
             this.scenePage.Name = "scenePage";
             this.scenePage.SelectedObjects = ModelInterfaces.ObjType.Объект;
-            this.scenePage.Size = new System.Drawing.Size(993, 428);
+            this.scenePage.Size = new System.Drawing.Size(995, 428);
             this.scenePage.TabIndex = 0;
             this.scenePage.MeshGroupCreatedEvent += new System.Action<object, string>(this.scenePage_CreateMeshGroupEvent);
             this.scenePage.SceneInfoEvent += new System.Action<object, string, System.Drawing.Color>(this.scenePage_SceneInfoEvent);
@@ -172,11 +171,12 @@ namespace BaseModule
             this.consoleControl.Location = new System.Drawing.Point(0, 0);
             this.consoleControl.Margin = new System.Windows.Forms.Padding(0);
             this.consoleControl.Name = "consoleControl";
-            this.consoleControl.Size = new System.Drawing.Size(993, 206);
+            this.consoleControl.Size = new System.Drawing.Size(995, 208);
             this.consoleControl.TabIndex = 4;
             this.consoleControl.UpColor = System.Drawing.Color.Gainsboro;
             this.consoleControl.ConsolePanelCollapseEvent += new System.Action(this.consoleControl_ConsolePanelCollapseEvent);
             this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
+            this.consoleControl.FindFreeNodesEvent += new System.Action(this.consoleControl_FindFreeNodesEvent);
             // 
             // BasePage
             // 

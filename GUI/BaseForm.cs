@@ -201,7 +201,7 @@ namespace BazisGUI
 
             AddModule(newModule);
 
-            SetGeneralSettings(newModule.BasePage);
+            SetGeneralSettings(newModule);
             LicenseModule(newModule);
 
             PresentProjectOnModule(newModule);
@@ -349,7 +349,7 @@ namespace BazisGUI
         {
             project.Save();
 
-            var basePage = (BasePage)sender;
+            var basePage = (sender as ToolStripPage).BasePage;
             basePage.ConsoleControl.PrintInfo("Проект сохранен в " + project.GeneralData.Path, Color.Black);
         }
 
@@ -423,35 +423,38 @@ namespace BazisGUI
             }
         }
 
-        private void SetGeneralSettings(BasePage module)
+        private void SetGeneralSettings(ToolStripPage module)
         {
             viewMenuItem.Visible = true;
+
+            var basePage = module.BasePage;
+
             ViewInterface(module.Name);
 
             var que = new Queue<int>();
             que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.25f));
             que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.65f));
 
-            module.SplittersController.SetSplitters(que);
+            basePage.SplittersController.SetSplitters(que);
 
-            module.GeneralData = project.GeneralData;
-            module.ScenePage.ModelData = project.ModelData;
-            module.ScenePage.ModelController = modelController;
-            module.ScenePage.SceneControl.BackGroundColor = settingsConfig.BackGroudColor;
-            module.ScenePage.SceneControl.IsBlending = settingsConfig.Transparency;
-            module.ScenePage.SceneControl.IsLighting = settingsConfig.Lighting;
+            basePage.GeneralData = project.GeneralData;
+            basePage.ScenePage.ModelData = project.ModelData;
+            basePage.ScenePage.ModelController = modelController;
+            basePage.ScenePage.SceneControl.BackGroundColor = settingsConfig.BackGroudColor;
+            basePage.ScenePage.SceneControl.IsBlending = settingsConfig.Transparency;
+            basePage.ScenePage.SceneControl.IsLighting = settingsConfig.Lighting;
 
-            module.ScenePage.PresentersCreator.TransparencyValue = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
+            basePage.ScenePage.PresentersCreator.TransparencyValue = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
 
-            module.ScenePage.SceneControl.SelectionColor = Color.FromArgb(module.ScenePage.PresentersCreator.TransparencyValue, settingsConfig.SelectObjectColor);
-            module.SelectionGroupColor = Color.FromArgb(module.ScenePage.PresentersCreator.TransparencyValue, settingsConfig.SelectGroupColor);
+            basePage.ScenePage.SceneControl.SelectionColor = Color.FromArgb(basePage.ScenePage.PresentersCreator.TransparencyValue, settingsConfig.SelectObjectColor);
+            basePage.SelectionGroupColor = Color.FromArgb(basePage.ScenePage.PresentersCreator.TransparencyValue, settingsConfig.SelectGroupColor);
 
             var objs = project.ModelData.ObjectData.GetAllObjects();
 
             foreach (var obj in objs)
             {
                 var preColor = obj.SlaveColor;
-                var newColor = Color.FromArgb(module.ScenePage.PresentersCreator.TransparencyValue, preColor);
+                var newColor = Color.FromArgb(basePage.ScenePage.PresentersCreator.TransparencyValue, preColor);
                 obj.MasterColor = newColor;
                 obj.SlaveColor = newColor;
             }
@@ -873,6 +876,9 @@ namespace BazisGUI
         {
             module.BasePage.ScenePage.PresentAllModelObjectsToScene();
             module.BasePage.PresentProjectOnTree();
+
+            (module as TaskPage)?.PresentTaskDataOnTree();
+
             ModulePage.PresentModelOnSelectToolStrip(project.ModelData.ObjectData);
         }
 

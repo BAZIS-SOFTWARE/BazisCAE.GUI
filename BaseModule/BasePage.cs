@@ -82,11 +82,6 @@ namespace BaseModule
             InitializeComponent();
 
             SplittersController = new SplittersController(this);
-
-            var cntrs = new List<SplitContainerEx>();
-            RecursiveSearchControls.AllTypedControls(this, cntrs);
-
-            cntrs.ForEach(x => x.SplitterWidth = SplitterWidthEx);
         }
 
         public void SceneInitialization()
@@ -107,7 +102,7 @@ namespace BaseModule
             bmpPicture.Save(fileName, System.Drawing.Imaging.ImageFormat.Bmp);
         }
 
-        public virtual void PresentProjectOnTree()
+        public void PresentProjectOnTree()
         {
             navigator.SetProjectTitleInfo("названиеПроекта", "Название : " + GeneralData.Name);
             navigator.SetProjectTitleInfo("путь", "Путь : " + GeneralData.Path);
@@ -328,6 +323,11 @@ namespace BaseModule
                 splitContainer1.Panel1Collapsed = false;
                 splitContainer2.Panel2Collapsed = false;
             };
+
+            var cntrs = new List<SplitContainerEx>();
+            RecursiveSearchControls.AllTypedControls(this, cntrs);
+
+            cntrs.ForEach(x => x.SplitterWidth = SplitterWidthEx);
         }
 
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
@@ -340,28 +340,8 @@ namespace BaseModule
         public async void ConsoleControl_InEvent(object arg1, EventArgs arg2)
         {
             try
-            {
-                if (arg2 is ModelFindFreeNodesEventArgs freeNodesEventArgs)
-                {
-                    var freeNodes = scenePage.ModelController.FreeNodesFinder.Find(scenePage.ModelData.ObjectData);
-
-                    Invoke(new Action(() =>
-                    {
-                        consoleControl.PrintInfo($"Найдено {freeNodes.Count()} свободных узлов", Color.Black);
-
-                        HideAllObjects();
-
-                        foreach (var freeNode in freeNodes)
-                            scenePage.ModelData.ObjectData.Find(ObjType.Узел, freeNode).ViewState = true;
-
-                        var objsTypeStr = ObjType.Узел.ToString();
-                        scenePage.SceneControl.DeleteVBObjects(objsTypeStr);
-                        scenePage.CreateObjectsOnScene(objsTypeStr, scenePage.CreateObjectsPresentor(ObjType.Узел));
-
-                        scenePage.SceneControl.DisplayObjects();
-                    }));
-                }
-                else if (arg2 is FindObjectEventArgs findObjectEventArgs)
+            { 
+                if (arg2 is FindObjectEventArgs findObjectEventArgs)
                 {
                     Invoke(new Action(() =>
                     {
@@ -761,7 +741,7 @@ namespace BaseModule
         private void scenePage_SelectionDeletedEvent(object obj)
         {
             DeleteSelectedObjectsEvent?.Invoke();
-            //PresentProjectOnTree();
+            PresentProjectOnTree();
         }
 
         public virtual void scenePage_CreateMeshGroupEvent(object sender, string arg)
@@ -782,6 +762,27 @@ namespace BaseModule
         private void consoleControl_ConsolePanelCollapseEvent()
         {
             splitContainer2.Panel2Collapsed = true;
+        }
+
+        private void consoleControl_FindFreeNodesEvent()
+        {
+            var freeNodes = scenePage.ModelController.FreeNodesFinder.Find(scenePage.ModelData.ObjectData);
+
+            Invoke(new Action(() =>
+            {
+                consoleControl.PrintInfo($"Найдено {freeNodes.Count()} свободных узлов", Color.Black);
+
+                HideAllObjects();
+
+                foreach (var freeNode in freeNodes)
+                    scenePage.ModelData.ObjectData.Find(ObjType.Узел, freeNode).ViewState = true;
+
+                var objsTypeStr = ObjType.Узел.ToString();
+                scenePage.SceneControl.DeleteVBObjects(objsTypeStr);
+                scenePage.CreateObjectsOnScene(objsTypeStr, scenePage.CreateObjectsPresentor(ObjType.Узел));
+
+                scenePage.SceneControl.DisplayObjects();
+            }));
         }
     }
 }

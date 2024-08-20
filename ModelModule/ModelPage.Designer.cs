@@ -52,7 +52,7 @@
             this.Name = "ModelPage";
             this.BasePage.SelectionGroupColor = System.Drawing.Color.Lime;
             this.Size = new System.Drawing.Size(1065, 671);
-            this.BasePage.DeleteSelectedObjectsEvent += new System.Action(this.ModelPage_DeleteSelectedObjectsEvent);
+            //this.BasePage.DeleteSelectedObjectsEvent += new System.Action(this.ModelPage_DeleteSelectedObjectsEvent);
             this.ResumeLayout(false);
 
         }

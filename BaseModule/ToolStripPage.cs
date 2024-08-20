@@ -1,6 +1,7 @@
 ﻿using BaseModule;
 using BaseModule.Console;
 using BaseModule.CrossSection;
+using BaseModule.Utilities;
 using Geometry;
 using ModelControllerInterfaces;
 using ModelInterfaces;
@@ -19,6 +20,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UserControlsEx;
 
 namespace BaseModule
 {
@@ -28,6 +30,8 @@ namespace BaseModule
         {
             InitializeComponent();
             selectToolStrip.Location = new Point(0, 0);
+
+            basePage.SplitterWidthEx = 8;
         }
 
         public BasePage BasePage 

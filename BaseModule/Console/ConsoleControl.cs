@@ -66,6 +66,8 @@ namespace BaseModule.Console
         public bool ShowTaskInfo { get; private set; }
 
         public event Action ConsolePanelCollapseEvent;
+        public event Action<object, EventArgs> InEvent;
+        public event Action FindFreeNodesEvent;
 
         int SessionNumber
         {
@@ -128,8 +130,6 @@ namespace BaseModule.Console
 
 
         }
-
-        public event Action<object, EventArgs> InEvent;
 
         int LineIndex { get; set; }
 
@@ -268,7 +268,7 @@ namespace BaseModule.Console
                         InEvent(this, new ModelShiftCoordinateEventArgs(cmds[2]));
                         break;
                     case GenCmd.FindFreeNodes:
-                        InEvent(this, new ModelFindFreeNodesEventArgs());
+                        FindFreeNodesEvent?.Invoke();
                         break;
                     case GenCmd.FindCoincident:
                         if (cmds[1] == "Узлы")

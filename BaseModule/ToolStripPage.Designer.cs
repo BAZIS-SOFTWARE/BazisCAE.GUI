@@ -106,6 +106,7 @@ namespace BaseModule
             this.basePage.PressedKey = System.Windows.Forms.Keys.None;
             this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
             this.basePage.Size = new System.Drawing.Size(1149, 583);
+            this.basePage.SplitterWidthEx = 10;
             this.basePage.TabIndex = 0;
             // 
             // selectToolStrip

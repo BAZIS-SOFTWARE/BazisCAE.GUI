@@ -56,7 +56,7 @@ namespace TaskModule
         {
             TaskData?.ClearNotExisted(BasePage.ScenePage.ModelData.GroupData);
 
-            PresentProjectOnTree();
+            PresentTaskDataOnTree();
         }
 
         private void TaskPage_DeleteObjectsEvent()
@@ -67,7 +67,7 @@ namespace TaskModule
             scenePage.SceneControl.DeleteAllVBObjects();
             scenePage.PresentAllModelObjectsToScene();
 
-            PresentProjectOnTree();
+            PresentTaskDataOnTree();
             scenePage.SceneControl.DisplayObjects();
         }
 
@@ -75,7 +75,7 @@ namespace TaskModule
         {
             TaskData?.Clear();
 
-            PresentProjectOnTree();
+            PresentTaskDataOnTree();
             BasePage.ChangeProjectDataEvent?.Invoke();
         }
 
@@ -83,7 +83,7 @@ namespace TaskModule
         {
             TaskData?.ClearNotExisted(BasePage.ScenePage.ModelData.GroupData);
 
-            PresentProjectOnTree();
+            PresentTaskDataOnTree();
             BasePage.ChangeProjectDataEvent?.Invoke();
         }
 
@@ -164,7 +164,7 @@ namespace TaskModule
             BasePage.GeneralData.Functions = funBasePage.DbName;
             var funData = funBasePage.Functions;
             GetTaskAdvisor()?.SetFunctionData(funData.Keys.ToList());
-            PresentProjectOnTree();
+            PresentTaskDataOnTree();
         }
 
         public void ChangeMaterialDBEventHandler(MaterialsDataBasePage matBasePage)
@@ -175,7 +175,7 @@ namespace TaskModule
             BasePage.GeneralData.Materials = matBasePage.DbName;
             var matData = matBasePage.Materials;
             GetTaskAdvisor()?.SetMaterialData(matData.Keys.ToList());
-            PresentProjectOnTree();
+            PresentTaskDataOnTree();
         }
 
         public void DeleteAdvisor()
@@ -428,12 +428,10 @@ namespace TaskModule
             }
         }
 
-        public void PresentProjectOnTree()
+        public void PresentTaskDataOnTree()
         {
             try
             {
-                BasePage.PresentProjectOnTree();
-
                 var navigator = BasePage.NavigatorControl;
 
                 navigator.TreeView.BeginUpdate();
@@ -814,7 +812,7 @@ namespace TaskModule
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TaskData.Clear();
-            PresentProjectOnTree();
+            PresentTaskDataOnTree();
             BasePage.ChangeProjectDataEvent?.Invoke();
         }
     }

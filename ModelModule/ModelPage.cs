@@ -678,14 +678,6 @@ namespace ModelModule
                 scenePage.CreateObjectsOnScene(item.ToString(), presentor);
         }   
 
-        private void RedrawScene(bool fitOnScreen)
-        {
-            var scenePage = BasePage.ScenePage;
-            if (fitOnScreen)
-                scenePage.SceneControl.FitObjectsToScreen();
-            scenePage.SceneControl.DisplayObjects();
-        }
-
         public void OpenMesh3DGenerator()
         {
             var scenePage = BasePage.ScenePage;
@@ -695,11 +687,6 @@ namespace ModelModule
             BasePage.PresentProjectOnTree();
             LoadGMSHMeshControl();
             scenePage.SceneControl.DisplayObjects();
-        }
-
-        private void ModelPage_DeleteSelectedObjectsEvent()
-        {
-            BasePage.PresentProjectOnTree();
         }
     }
 }

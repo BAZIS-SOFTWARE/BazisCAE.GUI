@@ -107,8 +107,8 @@
     <Reference Include="Tao.Platform.Windows, Version=1.0.0.5, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL">
       <HintPath>..\packages\Scene.2.0.8.43\lib\net48\Tao.Platform.Windows.dll</HintPath>
     </Reference>
-    <Reference Include="UserControlsEx, Version=1.0.8.0, Culture=neutral, PublicKeyToken=16903e6a4b8fab01, processorArchitecture=MSIL">
-      <HintPath>..\packages\UserControlsEx.1.0.8\lib\net48\UserControlsEx.dll</HintPath>
+    <Reference Include="UserControlsEx, Version=1.1.1.0, Culture=neutral, PublicKeyToken=16903e6a4b8fab01, processorArchitecture=MSIL">
+      <HintPath>..\packages\UserControlsEx.1.1.1\lib\net48\UserControlsEx.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
