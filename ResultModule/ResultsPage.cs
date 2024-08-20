@@ -22,7 +22,7 @@ using System.Windows.Forms;
 
 namespace ResultModule
 {
-    public partial class ResultPage: BasePage
+    public partial class ResultPage: ToolStripPage
     {
         ISceneScale scale;
         public event Action<object,string, bool, bool> LoadResultsEvent;
@@ -39,12 +39,14 @@ namespace ResultModule
         {
             InitializeComponent();
 
-            NavigatorControl.TreeView.Nodes.Add(new TreeNode("Результаты", 14, 14) { Name = "Результаты", Tag = 6, ContextMenuStrip = resultsMenuStrip });
+            var navigator = BasePage.NavigatorControl;
+
+            navigator.TreeView.Nodes.Add(new TreeNode("Результаты", 14, 14) { Name = "Результаты", Tag = 6, ContextMenuStrip = resultsMenuStrip });
 
             var nodeNode = new TreeNode("ПоУзлам", 14, 14) { Name = "ПоУзлам", Tag = "6.1" };
-            NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(nodeNode);
+            navigator.TreeView.Nodes["Результаты"].Nodes.Add(nodeNode);
             var elemNode = new TreeNode("ПоЭлементам", 14, 14) { Name = "ПоЭлементам", Tag = "6.1" };
-            NavigatorControl.TreeView.Nodes["Результаты"].Nodes.Add(elemNode);
+            navigator.TreeView.Nodes["Результаты"].Nodes.Add(elemNode);
         }      
 
         public void ShowScalePage()
@@ -70,7 +72,8 @@ namespace ResultModule
             };
             scPage.ShowScaleEvent += (ar1, ar2) =>
             {
-                ScenePage.SceneControl.HideGeometryObj("DisplaySceneScale");
+                var scenePage = BasePage.ScenePage;
+                scenePage.SceneControl.HideGeometryObj("DisplaySceneScale");
 
                 if (ar2)
                 {
@@ -78,10 +81,10 @@ namespace ResultModule
                     scale.Coord_Y = scPage.Y_Coord;
 
 
-                    ScenePage.SceneControl.DisplaySceneScale(scale);
+                    scenePage.SceneControl.DisplaySceneScale(scale);
                 }
 
-                ScenePage.SceneControl.DisplayObjects();
+                scenePage.SceneControl.DisplayObjects();
             };
             scPage.SetX_PositionEvent += (ar1, ar2) =>
             {
@@ -120,8 +123,8 @@ namespace ResultModule
 
                 grPage.SelectResultsEvent += (ar) =>
                 {
-                    NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
-                    NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
+                    BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
+                    BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
                     var res = ResultData.FindByTaskKind(ar);
                     PresentResultsOnTree(res);
@@ -156,17 +159,17 @@ namespace ResultModule
             var anPage = new AnimationPage() { Dock = DockStyle.Fill };
             anPage.ShowResultEvent += (ar1, ar2) =>
             {
-                if (NavigatorControl.TreeView.SelectedNode?.Level == 2)
+                if (BasePage.NavigatorControl.TreeView.SelectedNode?.Level == 2)
                     ShowResults(ar2.Time, ar2.ResultKind, ar2.ScaleFactor);
-                else ConsoleControl.PrintInfo("Выберите результаты для отображения!", Color.Red);
+                else BasePage.ConsoleControl.PrintInfo("Выберите результаты для отображения!", Color.Red);
             };
 
             anPage.CreateGIFAnimationEvent += CreateGIFAnimation;
-            anPage.SaveScreenShotEvent += (ar1) => { CreateScreenShot(ar1); };
+            anPage.SaveScreenShotEvent += (ar1) => { BasePage.CreateScreenShot(ar1); };
             anPage.SelectResultsEvent += (ar1) => 
             {
-                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
-                NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
+                BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
+                BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
                 var res = ResultData.FindByTaskKind(ar1);
                 PresentResultsOnTree(res);
@@ -210,7 +213,7 @@ namespace ResultModule
         {
             try
             {
-                var outputFilePath = $@"{GeneralData.Path}\results.gif";
+                var outputFilePath = $@"{BasePage.GeneralData.Path}\results.gif";
 
                 AnimatedGifEncoder e = new AnimatedGifEncoder();
 
@@ -223,8 +226,8 @@ namespace ResultModule
                 {
                     ShowResults(args.Times[i], args.ResltsName, args.ScaleFactor);
                     var image = $@"screenShot_{args.Times[i]}";
-                    var imagePath = $@"{GeneralData.Path}\{image}.bmp";
-                    CreateScreenShot(imagePath);
+                    var imagePath = $@"{BasePage.GeneralData.Path}\{image}.bmp";
+                    BasePage.CreateScreenShot(imagePath);
 
                     using (var stream = new FileStream(imagePath, FileMode.Open))
                     {
@@ -233,16 +236,16 @@ namespace ResultModule
                         //var bmpImage = Image.FromFile(imagesPaths[i]);
                         e.AddFrame(bmpImage);
                         var total = ((i + 1) / (float)args.Times.Length * 100).ToString("#.##");
-                        ConsoleControl.PrintInfo($@"Создание GIF анимации {total}%", Color.Black);
+                        BasePage.ConsoleControl.PrintInfo($@"Создание GIF анимации {total}%", Color.Black);
                     }
                     File.Delete(imagePath);
                 }
                 e.Finish();
-                ConsoleControl.PrintInfo("GIF анимация создана", Color.Green);
+                BasePage.ConsoleControl.PrintInfo("GIF анимация создана", Color.Green);
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
 
@@ -291,8 +294,8 @@ namespace ResultModule
 
             if (openDialogEx.ShowDialog(this) == DialogResult.Cancel)
                 return;
-            NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
-            NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
+            BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
+            BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
             LoadResultsEvent?.Invoke(this,openDialogEx.OpenDialog.FileName, openDialogEx.MergeResults, addRes);
         }     
@@ -301,10 +304,11 @@ namespace ResultModule
         {
             try
             {
+                var scenePage = BasePage.ScenePage;
                 var result = ResultData.FindByTime(resKind, time);
 
-                var resName = NavigatorControl.TreeView.SelectedNode.Name;
-                var nodeName = NavigatorControl.TreeView.SelectedNode.Parent.Name;
+                var resName = BasePage.NavigatorControl.TreeView.SelectedNode.Name;
+                var nodeName = BasePage.NavigatorControl.TreeView.SelectedNode.Parent.Name;
 
                 scale.Title = resKind;
                 scale.Info = $"{resName} {time}";
@@ -329,28 +333,28 @@ namespace ResultModule
                 ResultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
                 ResultsController.ResultsFieldsCreator.ScaleFactor = scaleFactor;
 
-                ScenePage.SceneControl.HideDisplayText2D();
-                ScenePage.SceneControl.HideDisplayText3D();
+                scenePage.SceneControl.HideDisplayText2D();
+                scenePage.SceneControl.HideDisplayText3D();
 
-                ScenePage.ClearAllGeometryDataOnScene();
-                ScenePage.ClearAllMeshDataOnScene();
+                scenePage.ClearAllGeometryDataOnScene();
+                scenePage.ClearAllMeshDataOnScene();
 
-                if (GeneralData.TaskType == TaskType.Volume)
+                if (BasePage.GeneralData.TaskType == TaskType.Volume)
                 {
                     var els3D = scenePage.ModelData.ObjectData.E3DCollection;
                     var elsResults = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els3D);
 
-                    var presenter = ScenePage.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
+                    var presenter = scenePage.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
 
-                    ScenePage.CreateObjectsOnScene(ObjType.Фигура2D.ToString(), presenter);
+                    scenePage.CreateObjectsOnScene(ObjType.Фигура2D.ToString(), presenter);
                 }
                 else
                 {
                     var els2D = scenePage.ModelData.ObjectData.E2DCollection;
                     var elsResults = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
 
-                    var presenter = ScenePage.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
-                    ScenePage.CreateObjectsOnScene(ObjType.Фигура2D.ToString(), presenter);
+                    var presenter = scenePage.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
+                    scenePage.CreateObjectsOnScene(ObjType.Фигура2D.ToString(), presenter);
                 }
 
                 if (IsResultsValueShowen)
@@ -358,19 +362,19 @@ namespace ResultModule
 
                 if (showScale)
                 {
-                    ScenePage.SceneControl.HideGeometryObj("DisplaySceneScale");
-                    ScenePage.SceneControl.DisplaySceneScale(scale);
+                    scenePage.SceneControl.HideGeometryObj("DisplaySceneScale");
+                    scenePage.SceneControl.DisplaySceneScale(scale);
                 }
 
 
                 //SceneControl.ChangeViewModeVBObjects("Results", ObjView.Surface);
 
-                ScenePage.SceneControl.DisplayObjects();
+                scenePage.SceneControl.DisplayObjects();
 
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo($@"Ошибка : {ex.Message},\n Источник : {ex.Source}", Color.Red);
+                BasePage.ConsoleControl.PrintInfo($@"Ошибка : {ex.Message},\n Источник : {ex.Source}", Color.Red);
             }
         }
 
@@ -406,18 +410,19 @@ namespace ResultModule
         {
             try
             {
-                if (NavigatorControl.TreeView.SelectedNode?.Level != 2)
+                var scenePage = BasePage.ScenePage;
+                if (BasePage.NavigatorControl.TreeView.SelectedNode?.Level != 2)
                 {
                     throw new Exception("Выберите вид результатов в разделе результаты");
                 }
 
-                ScenePage.ClearAllDataOnScene();
-                ScenePage.PresentAllModelObjectsToScene();
-                ScenePage.SelectedObjects = objsType;
+                scenePage.ClearAllDataOnScene();
+                scenePage.PresentAllModelObjectsToScene();
+                scenePage.SelectedObjects = objsType;
 
-                var objs = await CreatePathAsync();
+                var objs = await BasePage.CreatePathAsync();
 
-                var selNode = NavigatorControl.TreeView.SelectedNode;
+                var selNode = BasePage.NavigatorControl.TreeView.SelectedNode;
                 var resDes = selNode.Name;
 
                 var result = ResultData.FindByTime(resKind, time);
@@ -469,7 +474,7 @@ namespace ResultModule
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
 
@@ -477,19 +482,20 @@ namespace ResultModule
         {
             try
             {
-                if (NavigatorControl.TreeView.SelectedNode?.Level != 2)
+                var scenePage = BasePage.ScenePage;
+                if (BasePage.NavigatorControl.TreeView.SelectedNode?.Level != 2)
                     throw new Exception("Выберите вид результатов в разделе результаты");
 
-                ScenePage.ClearAllDataOnScene();
-                ScenePage.PresentAllModelObjectsToScene();
-                ScenePage.SelectedObjects = objsType;
+                scenePage.ClearAllDataOnScene();
+                scenePage.PresentAllModelObjectsToScene();
+                scenePage.SelectedObjects = objsType;
 
                 var objs = await SelectObjectsAsync(objsType);
 
                 if(objs.Count == 0)
                     throw new Exception("Не выбран ни один объект!");
 
-                var selNode = NavigatorControl.TreeView.SelectedNode;
+                var selNode = BasePage.NavigatorControl.TreeView.SelectedNode;
                 var resDes = selNode.Name;
 
                 var results = ResultData.FindByTaskKind(resKind);
@@ -511,12 +517,12 @@ namespace ResultModule
                         grPoints.Add(grPoint);
                     }
 
-                    ScenePage.SceneControl.DisplayText3D($"{objsType}_{obj.Number}", Color.Black, obj.CalcCentr());
+                    scenePage.SceneControl.DisplayText3D($"{objsType}_{obj.Number}", Color.Black, obj.CalcCentr());
                     var color = Color.FromArgb(random.Next(255), random.Next(255), random.Next(255));
                     var grData = new GraphData($"{objsType}_{obj.Number}", color, "Сек.", resDes, grPoints.ToArray());
                     grDataAr.Add(grData);
                 }
-                ScenePage.SceneControl.DisplayObjects();
+                scenePage.SceneControl.DisplayObjects();
                 var grContainer = new GraphContainer();
 
                 if (grDataAr.Count != 0)
@@ -541,7 +547,7 @@ namespace ResultModule
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
 
         }
@@ -549,32 +555,33 @@ namespace ResultModule
         public async Task<List<IModelObject>> SelectObjectsAsync(ObjType objType)
         {
             var nodes = new List<IModelObject>();
-            PressedKey = Keys.None;
-            ScenePage.SceneControl.DisplayText2D(@"Выберите узлы и нажмите на клавишу ""E"" для подтверждения", Color.Black, new Point2D(10, 10));
-            ScenePage.SceneControl.DisplayObjects();
+            BasePage.PressedKey = Keys.None;
+            var scenePage = BasePage.ScenePage;
+            scenePage.SceneControl.DisplayText2D(@"Выберите узлы и нажмите на клавишу ""E"" для подтверждения", Color.Black, new Point2D(10, 10));
+            scenePage.SceneControl.DisplayObjects();
             await System.Threading.Tasks.Task.Run(() =>
             {
                 while (true)
                 {
-                    if (PressedKey == Keys.E)
+                    if (BasePage.PressedKey == Keys.E)
                     {
                         var objs = scenePage.ModelData.ObjectData.GetObjects(objType);
-                        nodes = objs.Where(x => x.MasterColor == ScenePage.SceneControl.SelectionColor).ToList();
+                        nodes = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToList();
                         break;
                     }
-                    if(PressedKey == Keys.Escape)
+                    if(BasePage.PressedKey == Keys.Escape)
                     {
                         Invoke(new Action(() =>
                         {
-                            ConsoleControl.PrintInfo("Операция отменена", Color.Black);
+                            BasePage.ConsoleControl.PrintInfo("Операция отменена", Color.Black);
                         }));
                         break;
                     }
                 }
             });
-            ScenePage.SceneControl.HideDisplayText2D();
-            ScenePage.SceneControl.DisplayObjects();
-            PressedKey = Keys.None;
+            scenePage.SceneControl.HideDisplayText2D();
+            scenePage.SceneControl.DisplayObjects();
+            BasePage.PressedKey = Keys.None;
             return nodes;
         }
 
@@ -583,15 +590,15 @@ namespace ResultModule
             var nodeSchema = results.First().GetDataSchema("nodes");
             var elemSchema = results.First().GetDataSchema("elements");
 
-            var resultNode = NavigatorControl.TreeView.Nodes["Результаты"];
+            var resultNode = BasePage.NavigatorControl.TreeView.Nodes["Результаты"];
             foreach (var desc in nodeSchema)
             {
-                    NavigatorControl.CreateChildNode("ПоУзлам", desc, desc, "6.1.1");
+                BasePage.NavigatorControl.CreateChildNode("ПоУзлам", desc, desc, "6.1.1");
             }
 
             foreach (var desc in elemSchema)
             {
-                    NavigatorControl.CreateChildNode("ПоЭлементам", desc, desc, "6.1.1");
+                BasePage.NavigatorControl.CreateChildNode("ПоЭлементам", desc, desc, "6.1.1");
             }
         }
 
@@ -605,7 +612,7 @@ namespace ResultModule
                 {
                     Invoke(new Action(() =>
                     {
-                        ConsoleControl.PrintInfo(result.ToString(), Color.Black);
+                        BasePage.ConsoleControl.PrintInfo(result.ToString(), Color.Black);
                     }));
 
                     res.Add(result);
@@ -613,7 +620,7 @@ namespace ResultModule
 
                 Invoke(new Action(() =>
                 {
-                    ConsoleControl.PrintInfo("Загрузка завершена", Color.Green);
+                    BasePage.ConsoleControl.PrintInfo("Загрузка завершена", Color.Green);
                 }));
 
             }));
@@ -624,15 +631,16 @@ namespace ResultModule
         {
             try
             {
+                var scenePage = BasePage.ScenePage;
                 IElement[] elements;
-                if (GeneralData.TaskType == TaskType.Volume)
+                if (BasePage.GeneralData.TaskType == TaskType.Volume)
                     elements = scenePage.ModelData.ObjectData.E3DCollection.ToArray();
                 else
                     elements = scenePage.ModelData.ObjectData.E2DCollection.ToArray();
 
                 var act = new Action(() =>
                 {
-                    var interfaceNodes = ScenePage.ModelController.InterfacedNodesFinder.Find(elements);
+                    var interfaceNodes = scenePage.ModelController.InterfacedNodesFinder.Find(elements);
 
                     var resKinds = results.Select(x => x.TaskKind).Distinct();
 
@@ -642,8 +650,8 @@ namespace ResultModule
                     {
                         Invoke(new Action(() =>
                         {
-                            ConsoleControl.PrintInfo($"Выполняется пересчет на узлы для задачи {item}", Color.Black);
-                            ConsoleControl.PrintInfo("", Color.Black);
+                            BasePage.ConsoleControl.PrintInfo($"Выполняется пересчет на узлы для задачи {item}", Color.Black);
+                            BasePage.ConsoleControl.PrintInfo("", Color.Black);
                         }));
 
                         var resNames = results.First(x => x.TaskKind == item).GetDataSchema("elements");
@@ -654,7 +662,7 @@ namespace ResultModule
 
                             Invoke(new Action(() =>
                             {
-                                ConsoleControl.PrintInfo($"Выполнен пересчет на узлы для {resNames[i]}", Color.Black);
+                                BasePage.ConsoleControl.PrintInfo($"Выполнен пересчет на узлы для {resNames[i]}", Color.Black);
                             }));
                         }
                     }
@@ -662,7 +670,7 @@ namespace ResultModule
 
                     Invoke(new Action(() =>
                     {
-                        ConsoleControl.PrintInfo("Пересчет завершен", Color.Green);
+                        BasePage.ConsoleControl.PrintInfo("Пересчет завершен", Color.Green);
                     }));
 
                 });
@@ -674,7 +682,7 @@ namespace ResultModule
             {
                 Invoke(new Action(() =>
                 {
-                    ConsoleControl.PrintInfo($"В ходе пересчета возникла ошибка: {ex.Message}", Color.Red);
+                    BasePage.ConsoleControl.PrintInfo($"В ходе пересчета возникла ошибка: {ex.Message}", Color.Red);
                 }));
             }
         }
@@ -682,6 +690,9 @@ namespace ResultModule
         private void ShowResultValue(ObjType objsType, string resName, IResult result)
         {
             IEnumerable<IModelObject> objs;
+
+            var scenePage = BasePage.ScenePage;
+
             if (objsType == ObjType.Узел)
                 objs = scenePage.ModelData.ObjectData.NodeCollection;
             else
@@ -689,50 +700,54 @@ namespace ResultModule
 
             foreach (var obj in objs)
             {
-                if (obj.MasterColor == ScenePage.SceneControl.SelectionColor)
+                if (obj.MasterColor == scenePage.SceneControl.SelectionColor)
                 {
                     var coord = obj.CalcCentr();
                     var res = 0.0f;
                     if (objsType == ObjType.Узел)
                         res = result.GetNodeValue(obj.Number, resName);
                     else res = result.GetElementValue(obj.Number, resName);
-                    ScenePage.SceneControl.DisplayText3D(res.ToString(), Color.Black, coord);
+                    scenePage.SceneControl.DisplayText3D(res.ToString(), Color.Black, coord);
                 }
             }
         }
 
         private void ResultPage_Load(object sender, EventArgs e)
         {
-            scale = ScenePage.SceneControl.CreateScaleObject(0, 1, 2, "", "");
+            scale = BasePage.ScenePage.SceneControl.CreateScaleObject(0, 1, 2, "", "");
         }
 
         private void скрытьРезультатыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ScenePage.ClearAllDataOnScene();
+            var scenePage = BasePage.ScenePage;
 
-            ScenePage.PresentAllModelObjectsToScene();
+            scenePage.ClearAllDataOnScene();
 
-            ScenePage.SceneControl.FitObjectsToScreen();
-            ScenePage.SceneControl.DisplayObjects();
+            scenePage.PresentAllModelObjectsToScene();
+
+            scenePage.SceneControl.FitObjectsToScreen();
+            scenePage.SceneControl.DisplayObjects();
         }
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ResultData.Clear();
-            NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
-            NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
+            BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
+            BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
-            ScenePage.ClearAllDataOnScene();
+            var scenePage = BasePage.ScenePage;
+
+            scenePage.ClearAllDataOnScene();
 
             foreach (var item in scenePage.ModelData.ObjectData.ObjsTypes)
-                ScenePage.CreateObjectsOnScene(item.ToString(), ScenePage.CreateObjectsPresentor(item));
+                scenePage.CreateObjectsOnScene(item.ToString(), scenePage.CreateObjectsPresentor(item));
 
-            ScenePage.SceneControl.DisplayObjects();
+            scenePage.SceneControl.DisplayObjects();
         }
 
         private async void пересчитатьНаУзлыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConsoleControl.PrintInfo($"Выполняется пересчет с элементов на узлы. Не выходите из модуля!", Color.Orange);
+            BasePage.ConsoleControl.PrintInfo($"Выполняется пересчет с элементов на узлы. Не выходите из модуля!", Color.Orange);
             await MergeResults(ResultData);                     
         }
 
@@ -785,7 +800,10 @@ namespace ResultModule
                 ResultsController.ResultsFieldsCreator.ScaleFactor = 1;
 
                 IEnumerable<ISurfaceElement> elements;
-                if (GeneralData.TaskType == TaskType.Volume)
+
+                var scenePage = BasePage.ScenePage;
+
+                if (BasePage.GeneralData.TaskType == TaskType.Volume)
                     elements = scenePage.ModelData.ObjectData.E3DCollection;
                 else
                     elements = scenePage.ModelData.ObjectData.E2DCollection;
@@ -796,11 +814,11 @@ namespace ResultModule
                     elements);
 
                 ResultsController.ResultsExporter.ExportResults(figures, formatedPath, args.Extension);
-                ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {args.Path}", Color.Black);
+                BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {args.Path}", Color.Black);
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
     }   

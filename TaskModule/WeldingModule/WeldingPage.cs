@@ -44,7 +44,7 @@ namespace TaskModule.WeldingModule
 
                     Invoke(new Action(() =>
                     {
-                        ConsoleControl.PrintInfo("Уточнение зоны нагрева...", Color.Black);
+                        BasePage.ConsoleControl.PrintInfo("Уточнение зоны нагрева...", Color.Black);
                     }));
 
                     for (int i = 0; i <= 100; i++)
@@ -57,7 +57,7 @@ namespace TaskModule.WeldingModule
                         if (i % 10 == 0)
                             Invoke(new Action(() =>
                             {
-                                ConsoleControl.PrintInfo((i / 100.0f).ToString("P2"), Color.Black);
+                                BasePage.ConsoleControl.PrintInfo((i / 100.0f).ToString("P2"), Color.Black);
                             }));
                     }
 
@@ -67,7 +67,7 @@ namespace TaskModule.WeldingModule
             }
             catch (System.Exception ex)
             {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
 
         }

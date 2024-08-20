@@ -1,4 +1,6 @@
-﻿namespace BaseModule
+﻿using BaseModule;
+
+namespace BaseModule
 {
     partial class ToolStripPage
     {
@@ -30,6 +32,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolStripPage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
+            this.basePage = new BaseModule.BasePage();
             this.selectToolStrip = new UserControlsEx.ToolStripEx();
             this.spbSelectObject = new System.Windows.Forms.ToolStripSplitButton();
             this.btnSelectNodes = new System.Windows.Forms.ToolStripButton();
@@ -59,6 +62,7 @@
             this.btnShowBasis = new System.Windows.Forms.ToolStripButton();
             this.btnShowNormals = new System.Windows.Forms.ToolStripButton();
             this.btnShowCountours = new System.Windows.Forms.ToolStripButton();
+            this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
             this.selectToolStrip.SuspendLayout();
@@ -72,6 +76,7 @@
             // 
             // toolStripContainer.ContentPanel
             // 
+            this.toolStripContainer.ContentPanel.Controls.Add(this.basePage);
             this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1149, 583);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(5, 5);
@@ -82,11 +87,26 @@
             // 
             // toolStripContainer.TopToolStripPanel
             // 
+            this.toolStripContainer.TopToolStripPanel.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.selectToolStrip);
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.instrumentalToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.viewToolStrip);
+            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
             this.toolStripContainer.TopToolStripPanel.MaximumSize = new System.Drawing.Size(0, 80);
+            // 
+            // basePage
+            // 
+            this.basePage.BackColor = System.Drawing.SystemColors.Control;
+            this.basePage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.basePage.GeneralData = null;
+            this.basePage.Location = new System.Drawing.Point(0, 0);
+            this.basePage.Margin = new System.Windows.Forms.Padding(0);
+            this.basePage.Name = "basePage";
+            this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.basePage.PressedKey = System.Windows.Forms.Keys.None;
+            this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
+            this.basePage.Size = new System.Drawing.Size(1149, 583);
+            this.basePage.TabIndex = 0;
             // 
             // selectToolStrip
             // 
@@ -568,6 +588,7 @@
             this.Name = "ToolStripPage";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.Size = new System.Drawing.Size(1159, 649);
+            this.toolStripContainer.ContentPanel.ResumeLayout(false);
             this.toolStripContainer.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer.TopToolStripPanel.PerformLayout();
             this.toolStripContainer.ResumeLayout(false);
@@ -592,7 +613,6 @@
         protected System.Windows.Forms.ToolStripButton btnSelectElements;
         protected System.Windows.Forms.ToolStripButton btnSelectObjects;
         protected System.Windows.Forms.ToolStripButton btnAdvanceSelection;
-        protected UserControlsEx.ToolStripEx displayToolStrip;
         protected System.Windows.Forms.ToolStripButton btnShowAll;
         protected System.Windows.Forms.ToolStripButton btnShowOpenSurfaces;
         protected System.Windows.Forms.ToolStripButton btnShowSurfaceAndRibbers;
@@ -601,7 +621,6 @@
         protected System.Windows.Forms.ToolStripButton btnShowBasis;
         protected System.Windows.Forms.ToolStripButton btnShowNormals;
         protected System.Windows.Forms.ToolStripButton btnShowCountours;
-        protected UserControlsEx.ToolStripEx viewToolStrip;
         protected System.Windows.Forms.ToolStripButton btnSetXY;
         protected System.Windows.Forms.ToolStripButton btnSetZX;
         protected System.Windows.Forms.ToolStripButton btnSetZY;
@@ -616,6 +635,9 @@
         protected System.Windows.Forms.ToolStripButton btnScreenShot;
         public UserControlsEx.ToolStripEx selectToolStrip;
         public UserControlsEx.ToolStripEx instrumentalToolStrip;
+        private BasePage basePage;
+        public UserControlsEx.ToolStripEx displayToolStrip;
+        public UserControlsEx.ToolStripEx viewToolStrip;
         //private BasePage basePage;
     }
 }

@@ -36,8 +36,8 @@ namespace BaseModule
             this.components = new System.ComponentModel.Container();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.splitContainer1 = new UserControlsEx.SplitContainerEx();
-            this.splitContainer2 = new UserControlsEx.SplitContainerEx();
             this.navigator = new BaseModule.Navigator.NavigatorControl();
+            this.splitContainer2 = new UserControlsEx.SplitContainerEx();
             this.scenePage = new BaseModule.ScenePage();
             this.consoleControl = new BaseModule.Console.ConsoleControl();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -59,6 +59,7 @@ namespace BaseModule
             // 
             this.splitContainer1.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.IncrementButtonSize = new System.Drawing.Size(5, 50);
             this.splitContainer1.IncrementShifting = 50;
             this.splitContainer1.Location = new System.Drawing.Point(5, 5);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
@@ -75,30 +76,9 @@ namespace BaseModule
             this.splitContainer1.Size = new System.Drawing.Size(1308, 643);
             this.splitContainer1.SplitterDistance = 307;
             this.splitContainer1.SplitterIncrement = 15;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.TabIndex = 1;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.IncrementShifting = 50;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.scenePage);
-            this.splitContainer2.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
-            this.splitContainer2.Size = new System.Drawing.Size(996, 643);
-            this.splitContainer2.SplitterDistance = 429;
-            this.splitContainer2.SplitterWidth = 5;
-            this.splitContainer2.TabIndex = 0;
             // 
             // navigator
             // 
@@ -136,6 +116,28 @@ namespace BaseModule
             this.navigator.DelObjectsEvent += new System.Action<string>(this.navigator_DelObjectsEvent);
             this.navigator.NavigatorPanelCollapseEvent += new System.Action(this.navigator_NavigatorPanelCollapseEvent);
             // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.IncrementButtonSize = new System.Drawing.Size(50, 5);
+            this.splitContainer2.IncrementShifting = 50;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.scenePage);
+            this.splitContainer2.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
+            this.splitContainer2.Size = new System.Drawing.Size(993, 643);
+            this.splitContainer2.SplitterDistance = 429;
+            this.splitContainer2.SplitterWidth = 8;
+            this.splitContainer2.TabIndex = 0;
+            // 
             // scenePage
             // 
             this.scenePage.AutoSize = true;
@@ -150,7 +152,7 @@ namespace BaseModule
             this.scenePage.ModelData = null;
             this.scenePage.Name = "scenePage";
             this.scenePage.SelectedObjects = ModelInterfaces.ObjType.Объект;
-            this.scenePage.Size = new System.Drawing.Size(996, 428);
+            this.scenePage.Size = new System.Drawing.Size(993, 428);
             this.scenePage.TabIndex = 0;
             this.scenePage.MeshGroupCreatedEvent += new System.Action<object, string>(this.scenePage_CreateMeshGroupEvent);
             this.scenePage.SceneInfoEvent += new System.Action<object, string, System.Drawing.Color>(this.scenePage_SceneInfoEvent);
@@ -170,7 +172,7 @@ namespace BaseModule
             this.consoleControl.Location = new System.Drawing.Point(0, 0);
             this.consoleControl.Margin = new System.Windows.Forms.Padding(0);
             this.consoleControl.Name = "consoleControl";
-            this.consoleControl.Size = new System.Drawing.Size(996, 209);
+            this.consoleControl.Size = new System.Drawing.Size(993, 206);
             this.consoleControl.TabIndex = 4;
             this.consoleControl.UpColor = System.Drawing.Color.Gainsboro;
             this.consoleControl.ConsolePanelCollapseEvent += new System.Action(this.consoleControl_ConsolePanelCollapseEvent);

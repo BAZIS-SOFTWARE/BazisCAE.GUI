@@ -25,7 +25,7 @@ using BaseModule.Utilities;
 
 namespace TaskModule
 {
-    public partial class TaskPage: BasePage
+    public partial class TaskPage: ToolStripPage
     {
         string activeAdvisor  = String.Empty;
         public string SolverPath { get; set; }
@@ -42,25 +42,26 @@ namespace TaskModule
 
             var taskNode = new TreeNode("Данные", 14, 14) { Name = "Данные", Tag = "6" };
             taskNode.ContextMenuStrip = taskMenuStrip;
-            NavigatorControl.TreeView.Nodes.Add(taskNode);
+            BasePage.NavigatorControl.TreeView.Nodes.Add(taskNode);
 
-            ChangeProjectDataEvent += () => { GetTaskAdvisor()?.SetProjectData(GeneralData, scenePage.ModelData,TaskData); };
+            BasePage.ChangeProjectDataEvent += () => { GetTaskAdvisor()?.SetProjectData(BasePage.GeneralData, BasePage.ScenePage.ModelData,TaskData); };
 
-            DeleteGroupEvent += TaskPage_DeleteGroupEvent;
-            DeleteAllGroupsEvent += TaskPage_DeleteAllGroupsEvent;
-            DeleteObjectsEvent += TaskPage_DeleteObjectsEvent;
-            DeleteSelectedObjectsEvent += TaskPage_DeleteSelectedObjectsEvent;
+            BasePage.DeleteGroupEvent += TaskPage_DeleteGroupEvent;
+            BasePage.DeleteAllGroupsEvent += TaskPage_DeleteAllGroupsEvent;
+            BasePage.DeleteObjectsEvent += TaskPage_DeleteObjectsEvent;
+            BasePage.DeleteSelectedObjectsEvent += TaskPage_DeleteSelectedObjectsEvent;
         }
 
         private void TaskPage_DeleteSelectedObjectsEvent()
         {
-            TaskData?.ClearNotExisted(scenePage.ModelData.GroupData);
+            TaskData?.ClearNotExisted(BasePage.ScenePage.ModelData.GroupData);
 
             PresentProjectOnTree();
         }
 
         private void TaskPage_DeleteObjectsEvent()
         {
+            var scenePage = BasePage.ScenePage;
             TaskData?.ClearNotExisted(scenePage.ModelData.GroupData);
 
             scenePage.SceneControl.DeleteAllVBObjects();
@@ -75,15 +76,15 @@ namespace TaskModule
             TaskData?.Clear();
 
             PresentProjectOnTree();
-            ChangeProjectDataEvent?.Invoke();
+            BasePage.ChangeProjectDataEvent?.Invoke();
         }
 
         private void TaskPage_DeleteGroupEvent()
         {
-            TaskData?.ClearNotExisted(scenePage.ModelData.GroupData);
+            TaskData?.ClearNotExisted(BasePage.ScenePage.ModelData.GroupData);
 
             PresentProjectOnTree();
-            ChangeProjectDataEvent?.Invoke();
+            BasePage.ChangeProjectDataEvent?.Invoke();
         }
 
         public void OpenFunctionsDB()
@@ -101,11 +102,11 @@ namespace TaskModule
                     ChangeFuncDBEventHandler(funBasePage);
                 };
 
-                var filePath = FindFileByPath(GeneralData.Path, GeneralData.Functions);
+                var filePath = FindFileByPath(BasePage.GeneralData.Path, BasePage.GeneralData.Functions);
                 if (filePath == null)
-                    ConsoleControl.PrintInfo($"База данных {GeneralData.Functions} не найдена в директории {GeneralData.Path}", Color.Red);
+                    BasePage.ConsoleControl.PrintInfo($"База данных {BasePage.GeneralData.Functions} не найдена в директории {BasePage.GeneralData.Path}", Color.Red);
                 else
-                    funBasePage.Load($@"{filePath}\{GeneralData.Functions}", false);
+                    funBasePage.Load($@"{filePath}\{BasePage.GeneralData.Functions}", false);
 
                 var icon = TaskModule.Properties.Resources.Функции;
                 var name = "База функций";
@@ -116,7 +117,7 @@ namespace TaskModule
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
 
@@ -135,11 +136,11 @@ namespace TaskModule
                     ChangeMaterialDBEventHandler(matBasePage);
                 };
 
-                var filePath = FindFileByPath(GeneralData.Path, GeneralData.Materials);
+                var filePath = FindFileByPath(BasePage.GeneralData.Path, BasePage.GeneralData.Materials);
                 if (filePath == null)
-                    ConsoleControl.PrintInfo($"База данных {GeneralData.Materials} не найдена в директории {GeneralData.Path}", Color.Red);
+                    BasePage.ConsoleControl.PrintInfo($"База данных {BasePage.GeneralData.Materials} не найдена в директории {BasePage.GeneralData.Path}", Color.Red);
                 else
-                    matBasePage.Load($@"{filePath}\{GeneralData.Materials}", false);
+                    matBasePage.Load($@"{filePath}\{BasePage.GeneralData.Materials}", false);
 
                 var icon = TaskModule.Properties.Resources.Материалы;
                 var name = "База материалов";
@@ -151,16 +152,16 @@ namespace TaskModule
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
 
         public void ChangeFuncDBEventHandler(FunctionDataBasePage funBasePage)
         {
-            if (funBasePage.DbPath != GeneralData.Path)
-                IOFileController.CopyFile(funBasePage.DbName, funBasePage.DbPath, GeneralData.Path);
+            if (funBasePage.DbPath != BasePage.GeneralData.Path)
+                IOFileController.CopyFile(funBasePage.DbName, funBasePage.DbPath, BasePage.GeneralData.Path);
 
-            GeneralData.Functions = funBasePage.DbName;
+            BasePage.GeneralData.Functions = funBasePage.DbName;
             var funData = funBasePage.Functions;
             GetTaskAdvisor()?.SetFunctionData(funData.Keys.ToList());
             PresentProjectOnTree();
@@ -168,10 +169,10 @@ namespace TaskModule
 
         public void ChangeMaterialDBEventHandler(MaterialsDataBasePage matBasePage)
         {
-            if (matBasePage.DbPath != GeneralData.Path)
-                IOFileController.CopyFile(matBasePage.DbName, matBasePage.DbPath, GeneralData.Path);
+            if (matBasePage.DbPath != BasePage.GeneralData.Path)
+                IOFileController.CopyFile(matBasePage.DbName, matBasePage.DbPath, BasePage.GeneralData.Path);
 
-            GeneralData.Materials = matBasePage.DbName;
+            BasePage.GeneralData.Materials = matBasePage.DbName;
             var matData = matBasePage.Materials;
             GetTaskAdvisor()?.SetMaterialData(matData.Keys.ToList());
             PresentProjectOnTree();
@@ -187,9 +188,10 @@ namespace TaskModule
         {
             try
             {
+                var generalData = BasePage.GeneralData;
                 var btn = sender as ToolStripMenuItem;
                 var appFolder = Path.GetDirectoryName(Application.ExecutablePath);
-                if (appFolder == GeneralData.Path)
+                if (appFolder == generalData.Path)
                 {
                     MessageBox.Show("Рабочая папка проекта должна отличаться от папки установки программы!");
                     return;
@@ -222,25 +224,25 @@ namespace TaskModule
                 taskAdv.Select2DPlaneEvent += TaskAdvisor_ChangeTaskTypeEvent;
                 taskAdv.Select3DEvent += TaskAdvisor_ChangeTaskTypeEvent;
 
-                var matDB = GetDataBase<MaterialDBData>(GeneralData.Materials, GeneralData.Path);
+                var matDB = GetDataBase<MaterialDBData>(generalData.Materials, generalData.Path);
 
                 if (matDB == null)
-                    ConsoleControl.PrintInfo($"Не загружена база {GeneralData.Materials}", Color.Orange);
+                    BasePage.ConsoleControl.PrintInfo($"Не загружена база {generalData.Materials}", Color.Orange);
                 else
 
                     taskAdv.SetMaterialData(matDB.Keys.ToList());
 
-                var funDB = GetDataBase<FunctionDBData>(GeneralData.Functions, GeneralData.Path);
+                var funDB = GetDataBase<FunctionDBData>(generalData.Functions, generalData.Path);
 
                 if (funDB == null)
-                    ConsoleControl.PrintInfo($"Не загружена база {GeneralData.Functions}", Color.Orange);
+                    BasePage.ConsoleControl.PrintInfo($"Не загружена база {generalData.Functions}", Color.Orange);
                 else
                     taskAdv.SetFunctionData(funDB.Keys.ToList());
 
 
-                taskAdv.SetProjectData(GeneralData, scenePage.ModelData, TaskData);
+                taskAdv.SetProjectData(generalData, BasePage.ScenePage.ModelData, TaskData);
 
-                var inputDir = $@"{GeneralData.Path}\InputData";
+                var inputDir = $@"{generalData.Path}\InputData";
 
                 if (Directory.Exists(inputDir))
                 {
@@ -252,21 +254,23 @@ namespace TaskModule
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
 
         private void TaskAdv_GenerateTCFEvent(object arg1, GenerateTCFEventArgs arg2)
         {
             CheckProjectDataBeforeCreationTCF();
+
+            var generalData = BasePage.GeneralData;
             var result = new List<string>
             {
                 $@"\\загрузка сетки и данных",
-                $@"загрузить проект {GeneralData.Path}\{GeneralData.Name}",
+                $@"загрузить проект {generalData.Path}\{generalData.Name}",
                 $@"\\загрузка материалов",
-                $@"загрузить материалы {GeneralData.Path}\{GeneralData.Materials}",
+                $@"загрузить материалы {generalData.Path}\{generalData.Materials}",
                 $@"\\загрузка функций",
-                $@"загрузить функции {GeneralData.Path}\{GeneralData.Functions}",
+                $@"загрузить функции {generalData.Path}\{generalData.Functions}",
 
             };
             result.Add($@"\\расчет");
@@ -277,7 +281,7 @@ namespace TaskModule
 
             result.AddRange(tasks);
 
-            var compDir = $@"{GeneralData.Path}\ComputationData";
+            var compDir = $@"{generalData.Path}\ComputationData";
 
             if (!Directory.Exists(compDir))
                 Directory.CreateDirectory(compDir);
@@ -286,7 +290,7 @@ namespace TaskModule
 
             File.WriteAllLines(cmdFile, result);
 
-            ConsoleControl.PrintInfo($"Сформирован командный файл {cmdFile}", Color.Green);
+            BasePage.ConsoleControl.PrintInfo($"Сформирован командный файл {cmdFile}", Color.Green);
 
             NeedSaveProjectEvent?.Invoke(this);
         }
@@ -295,22 +299,23 @@ namespace TaskModule
         {
             try
             {
-            if (!File.Exists($@"{GeneralData.Path}\{GeneralData.Name}"))
-                throw new Exception($"В папке проекта {GeneralData.Path} отсутствует файл проекта {GeneralData.Name}. " +
+                var generalData = BasePage.GeneralData;
+                if (!File.Exists($@"{generalData.Path}\{generalData.Name}"))
+                throw new Exception($"В папке проекта {generalData.Path} отсутствует файл проекта {generalData.Name}. " +
                     $"Верните файл проекта в папку проекта или выберете другой проект");
 
-            if (!File.Exists($@"{GeneralData.Path}\{GeneralData.Materials}"))
-                throw new Exception($"В папке проекта {GeneralData.Path} отсутствует файл материалов {GeneralData.Materials}. " +
+            if (!File.Exists($@"{generalData.Path}\{generalData.Materials}"))
+                throw new Exception($"В папке проекта {generalData.Path} отсутствует файл материалов {generalData.Materials}. " +
                     $"Верните файл материалов в папку проекта или выберете другой файл материалов");
 
-            if (!File.Exists($@"{GeneralData.Path}\{GeneralData.Functions}"))
-                throw new Exception($"В папке проекта {GeneralData.Path} отсутствует файл функций {GeneralData.Functions}. " +
+            if (!File.Exists($@"{generalData.Path}\{generalData.Functions}"))
+                throw new Exception($"В папке проекта {generalData.Path} отсутствует файл функций {generalData.Functions}. " +
                     $"Верните файл функций в папку проекта или выберете другой файл функций");
 
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
 
@@ -322,7 +327,7 @@ namespace TaskModule
 
                 var adv = GetTaskAdvisor();
 
-                var inputDir = $@"{GeneralData.Path}\InputData";
+                var inputDir = $@"{BasePage.GeneralData.Path}\InputData";
 
                 if (!Directory.Exists(inputDir))
                     Directory.CreateDirectory(inputDir);
@@ -335,12 +340,12 @@ namespace TaskModule
 
                 GetTaskAdvisor()?.SetTaskPlannerlData(sortedFiles);
 
-                ConsoleControl.PrintInfo($"Входные Данные задачи сгенерированы в {inputDir}", Color.Green);
+                BasePage.ConsoleControl.PrintInfo($"Входные Данные задачи сгенерированы в {inputDir}", Color.Green);
 
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
 
@@ -349,7 +354,7 @@ namespace TaskModule
             var filePath = FindFileByPath(dbPath, dbName);
             if (filePath == null)
             {
-                ConsoleControl.PrintInfo($"Не найдена база {dbName} в папке {dbPath}", Color.Orange);
+                BasePage.ConsoleControl.PrintInfo($"Не найдена база {dbName} в папке {dbPath}", Color.Orange);
                 return default;
             }
  
@@ -408,7 +413,7 @@ namespace TaskModule
 
                 myProcess.StartInfo.FileName = $@"{SolverPath}\BazisSolver.exe";
 
-                var compDir = $@"{GeneralData.Path}\ComputationData";
+                var compDir = $@"{BasePage.GeneralData.Path}\ComputationData";
                 var cmdFile = $@"{compDir}\computation.tcf";
 
                 var argStr = string.Join(" ", new string[] { cmdFile });
@@ -419,55 +424,58 @@ namespace TaskModule
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
 
-        public override void PresentProjectOnTree()
+        public void PresentProjectOnTree()
         {
             try
             {
-                base.PresentProjectOnTree();
+                BasePage.PresentProjectOnTree();
 
-                NavigatorControl.TreeView.BeginUpdate();
+                var navigator = BasePage.NavigatorControl;
 
-                NavigatorControl.TreeView.Nodes["Данные"].Nodes.Clear();
+                navigator.TreeView.BeginUpdate();
 
-                NavigatorControl.TreeView.Nodes.RemoveByKey("База материалов");
-                var matNode = new TreeNode($"База материалов : {GeneralData.Materials}") { Name = "База материалов" };
-                NavigatorControl.TreeView.Nodes.Insert(4, matNode);
+                navigator.TreeView.Nodes["Данные"].Nodes.Clear();
 
-                NavigatorControl.TreeView.Nodes.RemoveByKey("База функций");
-                var funNode = new TreeNode($"База функций : {GeneralData.Functions}") { Name = "База функций" };
-                NavigatorControl.TreeView.Nodes.Insert(4, funNode);
+                navigator.TreeView.Nodes.RemoveByKey("База материалов");
+                var matNode = new TreeNode($"База материалов : {BasePage.GeneralData.Materials}") { Name = "База материалов" };
+                navigator.TreeView.Nodes.Insert(4, matNode);
+
+                navigator.TreeView.Nodes.RemoveByKey("База функций");
+                var funNode = new TreeNode($"База функций : {BasePage.GeneralData.Functions}") { Name = "База функций" };
+                navigator.TreeView.Nodes.Insert(4, funNode);
 
                 foreach (var data in TaskData)
                 {
-                    NavigatorControl.CreateChildNode("Данные", data.Name, data.ToString(), "6.1");
+                    navigator.CreateChildNode("Данные", data.Name, data.ToString(), "6.1");
                 }
 
-                NavigatorControl.TreeView.EndUpdate();
-                NavigatorControl.TreeView.Nodes["Данные"].Expand();
+                navigator.TreeView.EndUpdate();
+                navigator.TreeView.Nodes["Данные"].Expand();
 
 
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
 
         public void TaskAdvisor_ChangeTaskTypeEvent(object arg1, ChangeTaskTypeEventArgs arg2)
         {
+            var generalData = BasePage.GeneralData;
             if (arg2.Index == 0)
-                GeneralData.TaskType = TaskType.Plain;
+                generalData.TaskType = TaskType.Plain;
             else if (arg2.Index == 1)
-                GeneralData.TaskType = TaskType.AxiPlain;
-            else GeneralData.TaskType = TaskType.Volume;
+                generalData.TaskType = TaskType.AxiPlain;
+            else generalData.TaskType = TaskType.Volume;
 
-            NavigatorControl.TreeView.Nodes[3].Text = "Вид : " + GeneralData.TaskType;
+            BasePage.NavigatorControl.TreeView.Nodes[3].Text = "Вид : " + generalData.TaskType;
 
-            GetTaskAdvisor()?.SetProjectData(GeneralData,scenePage.ModelData,TaskData);
+            GetTaskAdvisor()?.SetProjectData(generalData, BasePage.ScenePage.ModelData,TaskData);
         }
 
         public TaskAdvisor GetTaskAdvisor()
@@ -498,15 +506,15 @@ namespace TaskModule
                 if (valData.MovedFrame != null)
                     SetMFF(valData, arg2.DataInfo.Split(' ').Last());
 
-                GetTaskAdvisor()?.SetProjectData(GeneralData, scenePage.ModelData, TaskData);
+                GetTaskAdvisor()?.SetProjectData(BasePage.GeneralData, BasePage.ScenePage.ModelData, TaskData);
 
                 var dataIndex = TaskData.IndexOf(dataArray[arg2.Index]);
-                NavigatorControl.TreeView.Nodes["Данные"].Nodes[dataIndex].Text = dataArray[arg2.Index].ToString();
+                BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes[dataIndex].Text = dataArray[arg2.Index].ToString();
                 //PresentProjectOnTree();
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
 
         }
@@ -518,7 +526,7 @@ namespace TaskModule
             if (dataName == "Нагрев")
                 groupName = ar[1];
    
-            group = scenePage.ModelData.GroupData.Find(groupName);
+            group = BasePage.ScenePage.ModelData.GroupData.Find(groupName);
 
             if (group == null)
                 throw new Exception(@"Группа ""groupName"" не найдена!");
@@ -532,17 +540,18 @@ namespace TaskModule
             foreach (var data in dataArray)
             {
                 var index = TaskData.IndexOf(data);
-                NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
+                BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
 
                 TaskData.Remove(data);
             }
 
-            GetTaskAdvisor()?.SetProjectData(GeneralData, scenePage.ModelData, TaskData);
+            GetTaskAdvisor()?.SetProjectData(BasePage.GeneralData, BasePage.ScenePage.ModelData, TaskData);
         }
 
         public void TaskAdvisor_ShowDataEvent(object arg1, ShowDataEventArgs arg2)
         {
-            ScenePage.SceneControl.HideAllGeometryObjs();
+            var scenePage = BasePage.ScenePage;
+            scenePage.SceneControl.HideAllGeometryObjs();
             var data = TaskData.Find(arg2.DataName).
                 Select(x => (IValuableData)x).ToArray();
 
@@ -568,28 +577,29 @@ namespace TaskModule
                         DisplayDirection(data[index].StartTime, data[index], iobj);
                 }
 
-                ScenePage.SetObjectsSceneColor(group.ObjType);
+                scenePage.SetObjectsSceneColor(group.ObjType);
 
                 //SetVBObjColor(group.ObjType);
 
             }
-            ScenePage.SceneControl.DisplayObjects();
+            scenePage.SceneControl.DisplayObjects();
         }
 
         private void DisplayMRF(float time, IValuableData data)
         {
+            var scenePage = BasePage.ScenePage;
             var frame = data.MovedFrame.CalcFrame(time - data.StartTime);
-            ScenePage.SceneControl.DisplayLocalFrame(frame);
+            scenePage.SceneControl.DisplayLocalFrame(frame);
             var trajPoints = data.MovedFrame.BaseLine.Select(x => x.CalcCentr()).ToArray();
-            ScenePage.SceneControl.DisplayPath(trajPoints);
+            scenePage.SceneControl.DisplayPath(trajPoints);
 
             if (data.FrameFunction is ISphereFunction sphear )
             {
-                ScenePage.SceneControl.DisplaySphere(sphear.Width, frame);
+                scenePage.SceneControl.DisplaySphere(sphear.Width, frame);
             }
             else if (data.FrameFunction is ICillindricalFunction cilinder )
             {
-                ScenePage.SceneControl.DisplayConus(cilinder.UpperDiam, cilinder.BottomDiam, cilinder.Length, frame);
+                scenePage.SceneControl.DisplayConus(cilinder.UpperDiam, cilinder.BottomDiam, cilinder.Length, frame);
             }
         }
 
@@ -618,27 +628,30 @@ namespace TaskModule
 
             foreach (var point in modelObj.GetCoordinates())
             {
-                var scl = 10 * (1.0f / Height * 1.0f / ScenePage.SceneControl.ScaleFactor);
+                var scenePage = BasePage.ScenePage;
+                var scl = 10 * (1.0f / Height * 1.0f / scenePage.SceneControl.ScaleFactor);
                 vector = vector.Mult(scl);
                 var p1 = point.Sum(vector);
-                ScenePage.SceneControl.DisplayLine(point, p1, color);
+                scenePage.SceneControl.DisplayLine(point, p1, color);
                 //SceneControl.DisplayText3D(data.CalcValue(time, point).ToString(), Color.FromArgb(0, 0, 0), point);
             }
         }
 
         public void TaskAdvisor_HideDataEvent(object arg1, HideDataEventArgs arg2)
         {
-            ScenePage.SceneControl.HideAllGeometryObjs();
-            ScenePage.SceneControl.HideDisplayText3D();
-            ScenePage.SetBackColorToAllObjects();
-            ScenePage.SceneControl.DisplayObjects();
+            var scenePage = BasePage.ScenePage;
+            scenePage.SceneControl.HideAllGeometryObjs();
+            scenePage.SceneControl.HideDisplayText3D();
+            scenePage.SetBackColorToAllObjects();
+            scenePage.SceneControl.DisplayObjects();
         }
 
         public void TaskAdvisor_CheckDataEvent(object arg1, CheckDataEventArgs arg2)
         {
             try
             {
-                ScenePage.SceneControl.HideAllGeometryObjs();
+                var scenePage = BasePage.ScenePage;
+                scenePage.SceneControl.HideAllGeometryObjs();
                 var selectedData = TaskData.Find(arg2.DataName).Select(x => (IValuableData)x);
                 foreach (var data in selectedData)
                 {
@@ -665,15 +678,15 @@ namespace TaskModule
                                 DisplayDirection(arg2.Time, data, iobj);
                         }
 
-                        ScenePage.SetObjectsSceneColor(group.ObjType);
+                        scenePage.SetObjectsSceneColor(group.ObjType);
 
-                        ScenePage.SceneControl.DisplayObjects();
+                        scenePage.SceneControl.DisplayObjects();
                     }
                 }
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }       
         }
 
@@ -682,7 +695,7 @@ namespace TaskModule
             var dataArray = TaskData.Find(arg2.DataName).ToArray();
 
             var index = TaskData.IndexOf(dataArray[arg2.Index]);
-            NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
+            BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
 
             TaskData.Remove(dataArray[arg2.Index]);
 
@@ -705,11 +718,11 @@ namespace TaskModule
                 else
                     AddData(arg2, ar, group);
 
-                GetTaskAdvisor()?.SetProjectData(GeneralData, scenePage.ModelData, TaskData);
+                GetTaskAdvisor()?.SetProjectData(BasePage.GeneralData, BasePage.ScenePage.ModelData, TaskData);
             }
             catch (Exception ex)
             {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
 
@@ -719,13 +732,13 @@ namespace TaskModule
             if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
             TaskData.Add(data);
-            NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
+            BasePage.NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
         }
 
         private async Task AddDataLRF(AddDataEventArgs arg2, string[] ar, IGroup group)
         {
-            ScenePage.SelectedObjects = ObjType.Узел;
-            var taskStrLRF = CreateSurfaceAsync(ObjType.Узел);
+            BasePage.ScenePage.SelectedObjects = ObjType.Узел;
+            var taskStrLRF = BasePage.CreateSurfaceAsync(ObjType.Узел);
             await taskStrLRF;
             var vec = taskStrLRF.Result.Normal;
             var nVec = Vector.GetVectorNorm(vec);
@@ -743,7 +756,7 @@ namespace TaskModule
                 SetMFF(data, ar.Last());
 
             TaskData.Add(data);
-            NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
+            BasePage.NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
 
             ar[2] = "Y";
             ar[3] = rVec._y.ToString();
@@ -753,7 +766,7 @@ namespace TaskModule
                 SetMFF(data, ar.Last());
 
             TaskData.Add(data);
-            NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
+            BasePage.NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
 
             ar[2] = "Z";
             ar[3] = rVec._z.ToString();
@@ -763,12 +776,14 @@ namespace TaskModule
                 SetMFF(data, ar.Last());
 
             TaskData.Add(data);
-            NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
+            BasePage.NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
         }
 
         private void SetMFF(IValuableData data, string trajInfo)
         {
             //var trajInfo = data.TrajectoryInfo;
+            var scenePage = BasePage.ScenePage;
+
             var baseLineGrName = trajInfo.Split(';')[0].Split('|')[0];
             var refLineGrName = trajInfo.Split(';')[0].Split('|')[1];
             var stNodesGrName = trajInfo.Split(';')[2];
@@ -788,7 +803,7 @@ namespace TaskModule
 
             if (data.FrameFunction != null)
                 if (!data.FrameFunction.IsOverlappingSelf(vel))
-                    ConsoleControl.PrintInfo("Скорость источника не позволяет добиться самопересечения при движении! " +
+                    BasePage.ConsoleControl.PrintInfo("Скорость источника не позволяет добиться самопересечения при движении! " +
                         "Рекомендуется снизить скорость", Color.Orange);
             //Sort
             data.MovedFrame.SortTrajNodes();
@@ -800,7 +815,7 @@ namespace TaskModule
         {
             TaskData.Clear();
             PresentProjectOnTree();
-            ChangeProjectDataEvent?.Invoke();
+            BasePage.ChangeProjectDataEvent?.Invoke();
         }
     }
 }

@@ -40,15 +40,15 @@
             // 
             // navigator
             // 
-            this.navigator.Size = new System.Drawing.Size(205, 553);
+            this.BasePage.NavigatorControl.Size = new System.Drawing.Size(205, 553);
             // 
             // scenePage
             // 
-            this.scenePage.Size = new System.Drawing.Size(673, 367);
+            this.BasePage.ScenePage.Size = new System.Drawing.Size(673, 367);
             // 
             // consoleControl
             // 
-            this.consoleControl.Size = new System.Drawing.Size(673, 181);
+            this.BasePage.ConsoleControl.Size = new System.Drawing.Size(673, 181);
             // 
             // treeNodesImageList
             // 

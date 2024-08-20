@@ -20,6 +20,7 @@ using System.ComponentModel;
 using ProjectInterfaces;
 using BaseModule.Utilities;
 using SceneInterface;
+using UserControlsEx;
 
 namespace BaseModule
 {
@@ -59,6 +60,9 @@ namespace BaseModule
                 return consoleControl;
             }
         }
+        [Category("General")]
+        [Description("Ширина разделителей")]
+        public int SplitterWidthEx { get; set; } = 5;
 
         [Category("General")]
         [Description("Кнопка на клавиатуре")]
@@ -79,6 +83,10 @@ namespace BaseModule
 
             SplittersController = new SplittersController(this);
 
+            var cntrs = new List<SplitContainerEx>();
+            RecursiveSearchControls.AllTypedControls(this, cntrs);
+
+            cntrs.ForEach(x => x.SplitterWidth = SplitterWidthEx);
         }
 
         public void SceneInitialization()

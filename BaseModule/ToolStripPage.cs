@@ -1,4 +1,5 @@
-﻿using BaseModule.Console;
+﻿using BaseModule;
+using BaseModule.Console;
 using BaseModule.CrossSection;
 using Geometry;
 using ModelControllerInterfaces;
@@ -26,20 +27,14 @@ namespace BaseModule
         public ToolStripPage()
         {
             InitializeComponent();
+            selectToolStrip.Location = new Point(0, 0);
         }
 
         public BasePage BasePage 
         { 
             get
             {
-                return toolStripContainer.ContentPanel.Controls.Count == 0 ? 
-                    null : 
-                    (BasePage)toolStripContainer.ContentPanel.Controls[0];
-            }
-            set
-            {
-                toolStripContainer.ContentPanel.Controls.Clear();
-                toolStripContainer.ContentPanel.Controls.Add(value);
+                return basePage;
             }
         }
 
@@ -502,7 +497,7 @@ namespace BaseModule
                         break;
                     case MeasureKind.Square:
                         {
-                            var square = 0.0f;
+                            var square = 0.0;
 
                             var objs = scenePage.ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
 
@@ -513,7 +508,7 @@ namespace BaseModule
                                 var sObj = (ISquare)obj;
                                 square += sObj.CalcSquare();
                             }
-                            consoleControl.PrintInfo(string.Format("Площадь : {0}", square), Color.Black);
+                            consoleControl.PrintInfo($"Площадь : {square}", Color.Black);
                             break;
                         }
 

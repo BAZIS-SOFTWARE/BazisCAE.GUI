@@ -41,15 +41,15 @@ namespace TaskModule
             // 
             // navigator
             // 
-            this.navigator.Size = new System.Drawing.Size(268, 607);
+            this.BasePage.NavigatorControl.Size = new System.Drawing.Size(268, 607);
             // 
             // scenePage
             // 
-            this.scenePage.Size = new System.Drawing.Size(878, 403);
+            this.BasePage.ScenePage.Size = new System.Drawing.Size(878, 403);
             // 
             // consoleControl
             // 
-            this.consoleControl.Size = new System.Drawing.Size(878, 199);
+            this.BasePage.ConsoleControl.Size = new System.Drawing.Size(878, 199);
             // 
             // treeNodesImageList
             // 

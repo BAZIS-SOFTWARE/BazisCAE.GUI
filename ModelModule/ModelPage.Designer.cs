@@ -32,16 +32,16 @@
             // 
             // navigator
             // 
-            this.navigator.Size = new System.Drawing.Size(245, 666);
+            this.BasePage.NavigatorControl.Size = new System.Drawing.Size(245, 666);
             // 
             // scenePage
             // 
-            this.scenePage.BackColor = System.Drawing.Color.DimGray;
-            this.scenePage.Size = new System.Drawing.Size(803, 443);
+            this.BasePage.ScenePage.BackColor = System.Drawing.Color.DimGray;
+            this.BasePage.ScenePage.Size = new System.Drawing.Size(803, 443);
             // 
             // consoleControl
             // 
-            this.consoleControl.Size = new System.Drawing.Size(803, 218);
+            this.BasePage.ConsoleControl.Size = new System.Drawing.Size(803, 218);
             // 
             // ModelPage
             // 
@@ -50,9 +50,9 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "ModelPage";
-            this.SelectionGroupColor = System.Drawing.Color.Lime;
+            this.BasePage.SelectionGroupColor = System.Drawing.Color.Lime;
             this.Size = new System.Drawing.Size(1065, 671);
-            this.DeleteSelectedObjectsEvent += new System.Action(this.ModelPage_DeleteSelectedObjectsEvent);
+            this.BasePage.DeleteSelectedObjectsEvent += new System.Action(this.ModelPage_DeleteSelectedObjectsEvent);
             this.ResumeLayout(false);
 
         }
