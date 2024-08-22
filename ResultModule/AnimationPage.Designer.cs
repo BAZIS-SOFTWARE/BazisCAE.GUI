@@ -1,4 +1,4 @@
-﻿using PlayerControl;
+﻿using BaseModule.Player;
 
 namespace ResultModule
 {
@@ -34,7 +34,7 @@ namespace ResultModule
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.playerPanel = new System.Windows.Forms.Panel();
-            this.player = new PlayerControl.Player();
+            this.player = new PlayerControl();
             this.txbScale = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -122,7 +122,7 @@ namespace ResultModule
             // 
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSize = true;
-            this.player.CheckState = PlayerControl.CheckState.start;
+            this.player.CheckState = CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.player.Location = new System.Drawing.Point(3, 1);
@@ -348,6 +348,6 @@ namespace ResultModule
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chbDelTempScrs;
         private System.Windows.Forms.Label label3;
-        private Player player;
+        private PlayerControl player;
     }
 }

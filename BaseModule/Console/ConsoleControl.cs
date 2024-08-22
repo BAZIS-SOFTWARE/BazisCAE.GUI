@@ -7,9 +7,9 @@ using System.IO;
 using System.Threading;
 using System.Reflection;
 using BaseModule.Console.Events;
-using ParserLib;
 using System.ComponentModel;
 using UserControlsEx;
+using BaseModule.Utilities;
 
 namespace BaseModule.Console
 {
@@ -237,7 +237,7 @@ namespace BaseModule.Console
         private void ExecuteCommand(string line)
         {
             //TO DO
-            var cmds = FieldsParserTask.ParseLine(line);
+            var cmds = FieldsParser.ParseLine(line);
             if (cmds.Count != 0)
             {
                 if (!this.genCmds.ContainsKey(cmds[0])) throw new Exception("Не является командой");

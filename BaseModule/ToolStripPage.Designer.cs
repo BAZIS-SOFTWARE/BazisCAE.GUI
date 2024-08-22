@@ -141,7 +141,6 @@ namespace BaseModule
             this.selectToolStrip.Text = "Выбор";
             this.selectToolStrip.TextBoxFrame = false;
             this.selectToolStrip.TextBoxHeight = 14;
-            this.selectToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.SelectToolStrip_ItemClicked);
             // 
             // spbSelectObject
             // 
@@ -167,6 +166,8 @@ namespace BaseModule
             this.btnSelectNodes.Size = new System.Drawing.Size(36, 53);
             this.btnSelectNodes.Tag = "1";
             this.btnSelectNodes.Text = "toolStripButton2";
+            this.btnSelectNodes.ToolTipText = "Выбор узлов";
+            this.btnSelectNodes.Click += new System.EventHandler(this.btnSelectObjects_Click);
             // 
             // btnSelectElements
             // 
@@ -180,6 +181,8 @@ namespace BaseModule
             this.btnSelectElements.Size = new System.Drawing.Size(36, 53);
             this.btnSelectElements.Tag = "2";
             this.btnSelectElements.Text = "toolStripButton3";
+            this.btnSelectElements.ToolTipText = "Выбор элементов";
+            this.btnSelectElements.Click += new System.EventHandler(this.btnSelectObjects_Click);
             // 
             // btnSelectObjects
             // 
@@ -193,6 +196,8 @@ namespace BaseModule
             this.btnSelectObjects.Size = new System.Drawing.Size(36, 53);
             this.btnSelectObjects.Tag = "3";
             this.btnSelectObjects.Text = "toolStripButton4";
+            this.btnSelectObjects.ToolTipText = "Выбор геометрии";
+            this.btnSelectObjects.Click += new System.EventHandler(this.btnSelectObjects_Click);
             // 
             // btnAdvanceSelection
             // 
@@ -207,6 +212,7 @@ namespace BaseModule
             this.btnAdvanceSelection.Size = new System.Drawing.Size(36, 53);
             this.btnAdvanceSelection.Tag = "4";
             this.btnAdvanceSelection.Text = "toolStripButton1";
+            this.btnAdvanceSelection.Click += new System.EventHandler(this.btnAdvanceSelection_Click);
             // 
             // instrumentalToolStrip
             // 
@@ -238,7 +244,6 @@ namespace BaseModule
             this.instrumentalToolStrip.Text = "Инструменты";
             this.instrumentalToolStrip.TextBoxFrame = false;
             this.instrumentalToolStrip.TextBoxHeight = 14;
-            this.instrumentalToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.InstrumentalToolStrip_ItemClicked);
             // 
             // btnMeasuring
             // 
@@ -253,6 +258,7 @@ namespace BaseModule
             this.btnMeasuring.Size = new System.Drawing.Size(36, 53);
             this.btnMeasuring.Tag = "0";
             this.btnMeasuring.Text = "toolStripButton14";
+            this.btnMeasuring.Click += new System.EventHandler(this.btnMeasuring_Click);
             // 
             // btnCrossSection
             // 
@@ -267,6 +273,7 @@ namespace BaseModule
             this.btnCrossSection.Size = new System.Drawing.Size(36, 53);
             this.btnCrossSection.Tag = "1";
             this.btnCrossSection.Text = "toolStripButton15";
+            this.btnCrossSection.Click += new System.EventHandler(this.btnCrossSection_Click);
             // 
             // btnScreenShot
             // 
@@ -280,6 +287,7 @@ namespace BaseModule
             this.btnScreenShot.Size = new System.Drawing.Size(36, 53);
             this.btnScreenShot.Tag = "2";
             this.btnScreenShot.Text = "toolStripButton16";
+            this.btnScreenShot.Click += new System.EventHandler(this.btnScreenShot_Click);
             // 
             // viewToolStrip
             // 
@@ -360,6 +368,7 @@ namespace BaseModule
             // btnSetRotX
             // 
             this.btnSetRotX.AutoSize = false;
+            this.btnSetRotX.CheckOnClick = true;
             this.btnSetRotX.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnSetRotX.Image = ((System.Drawing.Image)(resources.GetObject("btnSetRotX.Image")));
             this.btnSetRotX.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -369,10 +378,12 @@ namespace BaseModule
             this.btnSetRotX.Size = new System.Drawing.Size(36, 53);
             this.btnSetRotX.Tag = "3";
             this.btnSetRotX.Text = "toolStripButton8";
+            this.btnSetRotX.Click += new System.EventHandler(this.btnSetRotAxis_Click);
             // 
             // btnSetRotY
             // 
             this.btnSetRotY.AutoSize = false;
+            this.btnSetRotY.CheckOnClick = true;
             this.btnSetRotY.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnSetRotY.Image = ((System.Drawing.Image)(resources.GetObject("btnSetRotY.Image")));
             this.btnSetRotY.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -382,10 +393,12 @@ namespace BaseModule
             this.btnSetRotY.Size = new System.Drawing.Size(36, 53);
             this.btnSetRotY.Tag = "4";
             this.btnSetRotY.Text = "toolStripButton9";
+            this.btnSetRotY.Click += new System.EventHandler(this.btnSetRotAxis_Click);
             // 
             // btnSetRotZ
             // 
             this.btnSetRotZ.AutoSize = false;
+            this.btnSetRotZ.CheckOnClick = true;
             this.btnSetRotZ.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnSetRotZ.Image = ((System.Drawing.Image)(resources.GetObject("btnSetRotZ.Image")));
             this.btnSetRotZ.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -395,6 +408,7 @@ namespace BaseModule
             this.btnSetRotZ.Size = new System.Drawing.Size(36, 53);
             this.btnSetRotZ.Tag = "5";
             this.btnSetRotZ.Text = "toolStripButton10";
+            this.btnSetRotZ.Click += new System.EventHandler(this.btnSetRotAxis_Click);
             // 
             // btnSetRotHor90
             // 
@@ -552,6 +566,7 @@ namespace BaseModule
             this.btnShowBasis.Size = new System.Drawing.Size(36, 53);
             this.btnShowBasis.Tag = "5";
             this.btnShowBasis.Text = "toolStripButton22";
+            this.btnShowBasis.Click += new System.EventHandler(this.btnShowBasis_Click);
             // 
             // btnShowNormals
             // 
@@ -566,6 +581,7 @@ namespace BaseModule
             this.btnShowNormals.Size = new System.Drawing.Size(36, 53);
             this.btnShowNormals.Tag = "6";
             this.btnShowNormals.Text = "toolStripButton23";
+            this.btnShowNormals.Click += new System.EventHandler(this.btnShowNormals_Click);
             // 
             // btnShowCountours
             // 
@@ -580,6 +596,7 @@ namespace BaseModule
             this.btnShowCountours.Size = new System.Drawing.Size(36, 53);
             this.btnShowCountours.Tag = "7";
             this.btnShowCountours.Text = "toolStripButton24";
+            this.btnShowCountours.Click += new System.EventHandler(this.btnShowCountours_Click);
             // 
             // ToolStripPage
             // 
@@ -636,9 +653,9 @@ namespace BaseModule
         protected System.Windows.Forms.ToolStripButton btnScreenShot;
         public UserControlsEx.ToolStripEx selectToolStrip;
         public UserControlsEx.ToolStripEx instrumentalToolStrip;
-        private BasePage basePage;
         public UserControlsEx.ToolStripEx displayToolStrip;
         public UserControlsEx.ToolStripEx viewToolStrip;
+        protected BasePage basePage;
         //private BasePage basePage;
     }
 }

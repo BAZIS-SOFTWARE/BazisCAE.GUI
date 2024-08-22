@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Odbc;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -97,30 +98,6 @@ namespace BaseModule
             else if (e.ClickedItem.Tag.ToString() == "2")
             {
                 scenePage.SceneControl.PlaneObjs(ViewPlane.YZ);
-            }
-            else if (e.ClickedItem.Tag.ToString() == "3")
-            {
-                if (!btn.Checked)
-                    scenePage.SceneControl.RotationAxis = ViewAxis.X;
-                else
-                    scenePage.SceneControl.RotationAxis = ViewAxis.XYZ;
-
-            }
-            else if (e.ClickedItem.Tag.ToString() == "4")
-            {
-                if (!btn.Checked)
-                    scenePage.SceneControl.RotationAxis = ViewAxis.Y;
-                else
-                    scenePage.SceneControl.RotationAxis = ViewAxis.XYZ;
-
-            }
-            else if (e.ClickedItem.Tag.ToString() == "5")
-            {
-                if (!btn.Checked)
-                    scenePage.SceneControl.RotationAxis = ViewAxis.Z;
-                else
-                    scenePage.SceneControl.RotationAxis = ViewAxis.XYZ;
-
             }
             else if (e.ClickedItem.Tag.ToString() == "6")
             {
@@ -222,217 +199,14 @@ namespace BaseModule
                     foreach (var obj in scenePage.SceneControl.GetVBObjs())
                         scenePage.SceneControl.ChangeViewModeVBObjects(obj.ObjName, ObjView.Surface);
                 }
-                else if (arg2.ClickedItem.Tag.ToString() == "5")
-                {
-                    var btn = (ToolStripButton)arg2.ClickedItem;
-                    if (!btn.Checked)
-                        scenePage.SceneControl.DisplayBasis = true;
-                    else scenePage.SceneControl.DisplayBasis = false;
-                }
-                else if (arg2.ClickedItem.Tag.ToString() == "6")
-                {
-                    var btn = (ToolStripButton)arg2.ClickedItem;
-                    if (!btn.Checked)
-                    {
-                        var surfElems = scenePage.ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement);
-                        if (surfElems.Count() > 0)
-                        {
-                            var elemsNormals = scenePage.ModelController.NormalCalculator.CalcElemsNormals(surfElems.Select(x => x as ISurfaceElement));
 
-                            var linePresenter = scenePage.PresentersCreator.CreateLineObjectsPresenter(elemsNormals);
-
-                            scenePage.CreateObjectsOnScene("Normals", linePresenter);
-                        }
-                        else
-                            throw new Exception("Для отображения нормалей модели не заданы объекты типа \"Элемент\"," +
-                                "возможно вы пользуетесь модулем Геометрии");
-                    }
-                    else scenePage.SceneControl.DeleteVBObjects("Normals");
-                }
-                else if (arg2.ClickedItem.Tag.ToString() == "7")
-                {
-                    var btn = (ToolStripButton)arg2.ClickedItem;
-                    if (!btn.Checked)
-                    {
-                        var surfElems = scenePage.ModelData.ObjectData.GetAllElements().Select(x => (ISurfaceElement)x);
-                        var linesNodes = scenePage.ModelController.BoundaryEdgesFinder.Find(surfElems);
-                        var edges = scenePage.ModelController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes, scenePage.ModelData);
-                        var linePresenter = scenePage.PresentersCreator.CreateLineObjectsPresenter(edges);
-
-                        scenePage.CreateObjectsOnScene("Boundary", linePresenter);
-                    }
-                    else scenePage.SceneControl.DeleteVBObjects("Boundary");
-                }
                 scenePage.SceneControl.DisplayObjects();
             }
             catch (Exception ex)
             {
                 consoleControl.PrintInfo(ex.Message, Color.Red);
             }
-        }
-
-        private void InstrumentalToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            var scenePage = BasePage.ScenePage;
-            var consoleControl = BasePage.ConsoleControl;
-            try
-            {
-                var btn = (ToolStripButton)e.ClickedItem;
-                if (!btn.Checked)
-                {
-                    if (e.ClickedItem.Tag.ToString() == "0")
-                    {
-                        var form = new Form()
-                        {
-                            Name = "measureForm",
-                            Text = "Измерить",
-                            ShowIcon = false,
-                            Owner = Application.OpenForms[0],
-                            TopMost = true
-                        };
-
-                        form.FormClosed += (s1, s2) =>
-                        {
-                            btn.Checked = false;
-                            scenePage.SceneControl.HideAllGeometryObjs();
-                            scenePage.SceneControl.HideDisplayText3D();
-                            scenePage.SceneControl.DisplayObjects();
-                        };
-
-                        var measuringControl = new MeasuringSet() { Dock = DockStyle.Fill };
-                        measuringControl.PreparingMeasureEvent += (ar) =>
-                        {
-                            scenePage.SelectedObjects = ar;
-                            scenePage.SceneControl.HideAllGeometryObjs();
-                            scenePage.SceneControl.HideDisplayText3D();
-                            scenePage.SceneControl.DisplayObjects();
-                        };
-                        measuringControl.MakeMeasureEvent += MeasuringControl_MakeMeasureEvent;
-                        form.ClientSize = measuringControl.Size;
-                        form.Controls.Add(measuringControl);
-
-                        form.Show();
-                    }
-
-                    else if (e.ClickedItem.Tag.ToString() == "1")
-                    {
-                        var form = new Form()
-                        {
-                            Name = "CrossSectionForm",
-                            Text = "Построить сечение",
-                            ShowIcon = false,
-                            Size = new Size(268, 203),
-                            Owner = Application.OpenForms[0],
-                            TopMost = true
-                        };
-
-                        var crossSection = new CrossSectionControl() { Dock = DockStyle.Fill };
-                        form.ClientSize = crossSection.Size;
-                        form.Controls.Add(crossSection);
-
-                        crossSection.RemoveCrossEvent += () =>
-                        {
-                            scenePage.SceneControl.DeleteVBObjects("crossSection");
-                            scenePage.SceneControl.DisplayObjects();
-                        };
-
-                        crossSection.SelectNodesEvent += () => { scenePage.SelectedObjects = ObjType.Узел; };
-
-                        crossSection.CreateCrossFromTextArgs += (ar1, ar2) =>
-                        {
-                            try
-                            {
-                                var elems3D = scenePage.ModelData.ObjectData.E3DCollection;
-                                var surface = CreateSectionSurfaces(elems3D, ar2.point1, ar2.point2, ar2.point3);
-
-                                scenePage.PresentCrossSection(surface);
-
-                            }
-                            catch (Exception ex)
-                            {
-                                consoleControl.PrintInfo(ex.Message, Color.Red);
-                            }
-                        };
-                        crossSection.CreateCrossFromNodesEvent += () =>
-                        {
-                            try
-                            {
-                                var objs = scenePage.ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
-                                var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
-                                if (selObjs.Length < 3)
-                                {
-                                    consoleControl.PrintInfo("Ошибка, выбрано неверное количество узлов", Color.Red);
-                                    return;
-                                }
-
-                                var p0 = selObjs[0];
-                                var p1 = selObjs[1];
-                                var p2 = selObjs[2];
-
-                                var elems3D = scenePage.ModelData.ObjectData.E3DCollection;
-
-                                var surface = CreateSectionSurfaces(
-                                    elems3D, p0.CalcCentr(),
-                                    p1.CalcCentr(),
-                                    p2.CalcCentr());
-
-                                scenePage.PresentCrossSection(surface);
-
-                            }
-                            catch (Exception ex)
-                            {
-                                consoleControl.PrintInfo(ex.Message, Color.Red);
-                            }
-                        };
-
-                        form.FormClosed += (ar1, ar2) =>
-                        {
-                            btn.Checked = false;
-
-                            scenePage.SceneControl.DeleteVBObjects("crossSection");
-
-                            if (scenePage.SceneControl.GetVBObjs().Count() == 0)
-                            {
-                                scenePage.SceneControl.DeleteAllVBObjects();
-                                foreach (var objsType in scenePage.ModelData.ObjectData.ObjsTypes)
-                                {
-                                    var presentor = scenePage.CreateObjectsPresentor(objsType);
-                                    scenePage.CreateObjectsOnScene(objsType.ToString(), presentor);
-                                }
-
-                            }
-                            scenePage.SceneControl.DisplayObjects();
-                        };
-
-                        form.Show();
-                    }
-
-                    else if (e.ClickedItem.Tag.ToString() == "2")
-                    {
-                        var generalData = BasePage.GeneralData;
-                        BasePage.CreateScreenShot(generalData.Path + "\\screenShot.bmp");
-                        consoleControl.PrintInfo($"Сделан снимок экрана {generalData.Path}\\screenShot.bmp", Color.Black);
-                    }
-                }
-                else
-                {
-                    if (e.ClickedItem.Tag.ToString() == "0")
-                    {
-                        var forms = Application.OpenForms.Cast<Form>().ToList();
-                        var form = forms.Find(x => x.Name == "measureForm");
-                        if (form != null)
-                        {
-                            form.Close();
-                            btn.Checked = true;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                consoleControl.PrintInfo(ex.Message, Color.Red);
-            }
-        }
+        }       
 
         public ISurfaceFigure CreateSectionSurfaces(IEnumerable<IElement3D> elems3D, Point3D p0, Point3D p1, Point3D p2)
         {
@@ -542,67 +316,6 @@ namespace BaseModule
             }
         }
 
-        private void SelectToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            var selectStrip = (ToolStrip)sender;
-            var scenePage = BasePage.ScenePage;
-            var consoleControl = BasePage.ConsoleControl;
-
-            if (e.ClickedItem.Tag.ToString() == "1")
-                scenePage.SelectedObjects = ObjType.Узел;
-            else if (e.ClickedItem.Tag.ToString() == "2")
-                scenePage.SelectedObjects = ObjType.Элемент;
-            else if (e.ClickedItem.Tag.ToString() == "3")
-                scenePage.SelectedObjects = ObjType.Объект;
-            else if (e.ClickedItem.Tag.ToString() == "4")
-            {
-                var btn = e.ClickedItem as ToolStripButton;
-                if (!btn.Checked)
-                {
-                    var form = new Form()
-                    {
-                        Name = "selectForm",
-                        Text = "Выбрать",
-                        AutoSize = false,
-                        ShowIcon = false,
-                        TopMost = true,
-                        Owner = Application.OpenForms[0]
-                    };
-
-                    form.FormClosing += (s1, s2) => { btn.Checked = false; };
-                    var selectionControl = new SelectionSet() { Dock = DockStyle.Fill };
-                    selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
-                    selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
-                    selectionControl.SelectNodes += (s1, s2) =>
-                    {
-                        //selectStrip.SelectObjectsType = ObjType.Узел;
-                        var size = form.Size;
-                        consoleControl.PrintInfo("Выберите два узла для направления или три для плоскости", Color.Black);
-                    };
-                    selectionControl.SelectElements += (s1, s2) =>
-                    {
-                        //selectStrip.SelectObjectsType = ObjType.Элемент2D;
-                        consoleControl.PrintInfo("Выберите плоский элемент \"2D\"", Color.Black);
-                    };
-                    form.ClientSize = selectionControl.Size;
-                    form.Controls.Add(selectionControl);
-                    form.Show();
-
-                }
-                else
-                {
-                    var forms = Application.OpenForms.Cast<Form>().ToList();
-                    var form = forms.Find(x => x.Name == "selectForm");
-                    if (form != null)
-                    {
-                        form.Close();
-                        btn.Checked = true;
-                    }
-                }
-            }
-
-        }
-
         private void SelectionControl_SelectInPlain(object arg1, SelectInPlainEventArgs arg2)
         {
             var scenePage = BasePage.ScenePage;
@@ -684,8 +397,329 @@ namespace BaseModule
             }
         }
 
-        
+        private void btnSelectObjects_Click(object sender, EventArgs e)
+        {
+            var btn = sender as ToolStripButton;
+            var scenePage = BasePage.ScenePage;
 
-        
+            if (btn.Tag.ToString() == "1")
+                scenePage.SelectedObjects = ObjType.Узел;
+            else if (btn.Tag.ToString() == "2")
+                scenePage.SelectedObjects = ObjType.Элемент;
+            else
+                scenePage.SelectedObjects = ObjType.Фигура;
+
+            spbSelectObject.ToolTipText = scenePage.SelectedObjects.ToString();
+            spbSelectObject.Invalidate();
+            scenePage.SetBackColorToAllObjects();
+            scenePage.SceneControl.DisplayObjects();
+        }
+
+        private void btnAdvanceSelection_Click(object sender, EventArgs e)
+        {
+            var btn = sender as ToolStripButton;
+            if (btn.Checked)
+            {
+                var form = new Form()
+                {
+                    Name = "selectForm",
+                    Text = "Выбрать",
+                    AutoSize = false,
+                    ShowIcon = false,
+                    TopMost = true,
+                    Owner = Application.OpenForms[0]
+                };
+
+                form.FormClosing += (s1, s2) => { btn.Checked = false; };
+                var selectionControl = new SelectionSet() { Dock = DockStyle.Fill };
+                selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
+                selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
+                selectionControl.SelectNodes += (s1, s2) =>
+                {
+                    //selectStrip.SelectObjectsType = ObjType.Узел;
+                    var size = form.Size;
+                    basePage.ConsoleControl.PrintInfo("Выберите два узла для направления или три для плоскости", Color.Black);
+                };
+                selectionControl.SelectElements += (s1, s2) =>
+                {
+                    //selectStrip.SelectObjectsType = ObjType.Элемент2D;
+                    basePage.ConsoleControl.PrintInfo("Выберите плоский элемент \"2D\"", Color.Black);
+                };
+                form.ClientSize = selectionControl.Size;
+                form.Controls.Add(selectionControl);
+                form.Show();
+
+            }
+            else
+            {
+                var forms = Application.OpenForms.Cast<Form>().ToList();
+                var form = forms.Find(x => x.Name == "selectForm");
+                if (form != null)
+                {
+                    form.Close();
+                    btn.Checked = false;
+                }
+            }
+        }
+
+        private void btnSetRotAxis_Click(object sender, EventArgs e)
+        {
+            var btn = (ToolStripButton)sender;
+
+            var scenePage = BasePage.ScenePage;
+            if (btn.Checked)
+            {
+                if (btn.Tag.ToString() == "3")
+                    scenePage.SceneControl.RotationAxis = ViewAxis.X;
+                else if (btn.Tag.ToString() == "4")
+                    scenePage.SceneControl.RotationAxis = ViewAxis.Y;
+                else
+                    scenePage.SceneControl.RotationAxis = ViewAxis.Z;
+            }
+            else
+                scenePage.SceneControl.RotationAxis = ViewAxis.XYZ;
+        }
+
+        private void btnCrossSection_Click(object sender, EventArgs e)
+        {
+            var scenePage = BasePage.ScenePage;
+            var consoleControl = BasePage.ConsoleControl;
+            try
+            {
+                var btn = (ToolStripButton)sender;
+                if (btn.Checked)
+                {
+                    var form = new Form()
+                    {
+                        Name = "CrossSectionForm",
+                        Text = "Построить сечение",
+                        ShowIcon = false,
+                        Size = new Size(268, 203),
+                        Owner = Application.OpenForms[0],
+                        TopMost = true
+                    };
+
+                    var crossSection = new CrossSectionControl() { Dock = DockStyle.Fill };
+                    form.ClientSize = crossSection.Size;
+                    form.Controls.Add(crossSection);
+
+                    crossSection.RemoveCrossEvent += () =>
+                    {
+                        scenePage.SceneControl.DeleteVBObjects("crossSection");
+                        scenePage.SceneControl.DisplayObjects();
+                    };
+
+                    crossSection.SelectNodesEvent += () => { scenePage.SelectedObjects = ObjType.Узел; };
+
+                    crossSection.CreateCrossFromTextArgs += (ar1, ar2) =>
+                    {
+                        try
+                        {
+                            var elems3D = scenePage.ModelData.ObjectData.E3DCollection;
+                            var surface = CreateSectionSurfaces(elems3D, ar2.point1, ar2.point2, ar2.point3);
+
+                            scenePage.PresentCrossSection(surface);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            consoleControl.PrintInfo(ex.Message, Color.Red);
+                        }
+                    };
+                    crossSection.CreateCrossFromNodesEvent += () =>
+                    {
+                        try
+                        {
+                            var objs = scenePage.ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
+                            var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
+                            if (selObjs.Length < 3)
+                            {
+                                consoleControl.PrintInfo("Ошибка, выбрано неверное количество узлов", Color.Red);
+                                return;
+                            }
+
+                            var p0 = selObjs[0];
+                            var p1 = selObjs[1];
+                            var p2 = selObjs[2];
+
+                            var elems3D = scenePage.ModelData.ObjectData.E3DCollection;
+
+                            var surface = CreateSectionSurfaces(
+                                elems3D, p0.CalcCentr(),
+                                p1.CalcCentr(),
+                                p2.CalcCentr());
+
+                            scenePage.PresentCrossSection(surface);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            consoleControl.PrintInfo(ex.Message, Color.Red);
+                        }
+                    };
+
+                    form.FormClosed += (ar1, ar2) =>
+                    {
+                        btn.Checked = false;
+
+                        scenePage.SceneControl.DeleteVBObjects("crossSection");
+
+                        if (scenePage.SceneControl.GetVBObjs().Count() == 0)
+                        {
+                            scenePage.SceneControl.DeleteAllVBObjects();
+                            foreach (var objsType in scenePage.ModelData.ObjectData.ObjsTypes)
+                            {
+                                var presentor = scenePage.CreateObjectsPresentor(objsType);
+                                scenePage.CreateObjectsOnScene(objsType.ToString(), presentor);
+                            }
+
+                        }
+                        scenePage.SceneControl.DisplayObjects();
+                    };
+
+                    form.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                consoleControl.PrintInfo(ex.Message, Color.Red);
+            }
+        }
+
+        private void btnMeasuring_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var scenePage = basePage.ScenePage;
+                var btn = (ToolStripButton)sender;
+                if (btn.Checked)
+                {
+
+                    var form = new Form()
+                    {
+                        Name = "measureForm",
+                        Text = "Измерить",
+                        ShowIcon = false,
+                        Owner = Application.OpenForms[0],
+                        TopMost = true
+                    };
+
+                    form.FormClosed += (s1, s2) =>
+                    {
+                        btn.Checked = false;
+                        scenePage.SceneControl.HideAllGeometryObjs();
+                        scenePage.SceneControl.HideDisplayText3D();
+                        scenePage.SceneControl.DisplayObjects();
+                    };
+
+                    var measuringControl = new MeasuringSet() { Dock = DockStyle.Fill };
+                    measuringControl.PreparingMeasureEvent += (ar) =>
+                    {
+                        scenePage.SelectedObjects = ar;
+                        scenePage.SceneControl.HideAllGeometryObjs();
+                        scenePage.SceneControl.HideDisplayText3D();
+                        scenePage.SceneControl.DisplayObjects();
+                    };
+                    measuringControl.MakeMeasureEvent += MeasuringControl_MakeMeasureEvent;
+                    form.ClientSize = measuringControl.Size;
+                    form.Controls.Add(measuringControl);
+
+                    form.Show();
+                }
+                else
+                {
+                    var forms = Application.OpenForms.Cast<Form>().ToList();
+                    var form = forms.Find(x => x.Name == "measureForm");
+                    if (form != null)
+                    {
+                        form.Close();
+                        btn.Checked = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
+        }
+
+        private void btnScreenShot_Click(object sender, EventArgs e)
+        {
+            var generalData = BasePage.GeneralData;
+            basePage.CreateScreenShot(generalData.Path + "\\screenShot.bmp");
+            basePage.ConsoleControl.PrintInfo($"Сделан снимок экрана {generalData.Path}\\screenShot.bmp", Color.Black);
+        }
+
+        private void btnShowCountours_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var scenePage = basePage.ScenePage;
+
+                var btn = (ToolStripButton)sender;
+                if (btn.Checked)
+                {
+                    var surfElems = scenePage.ModelData.ObjectData.GetAllElements().Select(x => (ISurfaceElement)x);
+                    var linesNodes = scenePage.ModelController.BoundaryEdgesFinder.Find(surfElems);
+                    var edges = scenePage.ModelController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes, scenePage.ModelData);
+                    var linePresenter = scenePage.PresentersCreator.CreateLineObjectsPresenter(edges);
+
+                    scenePage.CreateObjectsOnScene("Boundary", linePresenter);
+                }
+                else scenePage.SceneControl.DeleteVBObjects("Boundary");
+
+                scenePage.SceneControl.DisplayObjects();
+            }
+            catch (Exception ex)
+            {
+                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
+
+        }
+
+        private void btnShowNormals_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var btn = (ToolStripButton)sender;
+                var scenePage = basePage.ScenePage;
+                if (btn.Checked)
+                {
+                    var surfElems = scenePage.ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement);
+                    if (surfElems.Count() > 0)
+                    {
+                        var elemsNormals = scenePage.ModelController.NormalCalculator.CalcElemsNormals(surfElems.Select(x => x as ISurfaceElement));
+
+                        var linePresenter = scenePage.PresentersCreator.CreateLineObjectsPresenter(elemsNormals);
+
+                        scenePage.CreateObjectsOnScene("Normals", linePresenter);
+                    }
+                    else
+                        throw new Exception("Для отображения нормалей модели не заданы объекты типа \"Элемент\"," +
+                            "возможно вы пользуетесь модулем Геометрии");
+                }
+                else scenePage.SceneControl.DeleteVBObjects("Normals");
+
+                scenePage.SceneControl.DisplayObjects();
+            }
+            catch (Exception ex)
+            {
+                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
+
+            
+        }
+
+        private void btnShowBasis_Click(object sender, EventArgs e)
+        {
+            var btn = (ToolStripButton)sender;
+            var scenePage = basePage.ScenePage;
+
+            if (btn.Checked)
+                scenePage.SceneControl.DisplayBasis = true;
+            else scenePage.SceneControl.DisplayBasis = false;
+
+            scenePage.SceneControl.DisplayObjects();
+        }
     }
 }

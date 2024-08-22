@@ -191,13 +191,14 @@ namespace BaseModule.Console
             this.btnStartMacro});
             this.toolStripEx1.ItemSelectColor = System.Drawing.Color.Gray;
             this.toolStripEx1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.toolStripEx1.Location = new System.Drawing.Point(0, 3);
+            this.toolStripEx1.Location = new System.Drawing.Point(0, 0);
             this.toolStripEx1.Name = "toolStripEx1";
             this.toolStripEx1.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.toolStripEx1.Size = new System.Drawing.Size(31, 130);
+            this.toolStripEx1.Size = new System.Drawing.Size(31, 188);
             this.toolStripEx1.SplitButtonClickWidth = 13;
             this.toolStripEx1.SplitButtonHeight = 40;
             this.toolStripEx1.SplitButtonTriangleSize = 6;
+            this.toolStripEx1.Stretch = true;
             this.toolStripEx1.TabIndex = 10;
             this.toolStripEx1.TextBoxFrame = true;
             this.toolStripEx1.TextBoxHeight = 0;

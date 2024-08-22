@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseModule.Player;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -22,7 +23,7 @@ namespace ResultModule
         {
             get
             {
-                if (player.CheckState == PlayerControl.CheckState.pause)
+                if (player.CheckState == BaseModule.Player.CheckState.pause)
                     return true;
                 else return false;
             }

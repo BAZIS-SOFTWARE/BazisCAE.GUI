@@ -415,12 +415,16 @@ namespace BaseModule
             var group = scenePage.ModelData.GroupData[obj];
             scenePage.ModelData.GroupData.Remove(group);
 
+            PresentProjectOnTree();
+
             DeleteGroupEvent?.Invoke();
         }
 
         private void navigator_DelAllGroupsEvent()
         {
             scenePage.ModelData.GroupData.Clear();
+
+            PresentProjectOnTree();
 
             DeleteAllGroupsEvent?.Invoke();
         }
@@ -432,6 +436,8 @@ namespace BaseModule
  
             scenePage.ModelData.ObjectData.Clear(objType);
             scenePage.ModelData.GroupData.ClearNotExisted();
+
+            PresentProjectOnTree();
 
             DeleteObjectsEvent?.Invoke();
         }

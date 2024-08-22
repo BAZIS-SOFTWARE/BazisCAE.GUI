@@ -457,7 +457,7 @@ namespace ResultModule
                     var grData = new GraphData(resDes, Color.Orange, "мм", resDes, grPoints.ToArray());
                     var grContainer = new GraphContainer();
 
-                    grContainer.CreateGraphObj("Результаты по расстоянию", new List<GraphData>() { grData }, new AxisFormat(), new AxisFormat());
+                    grContainer.CreateGraphData("Результаты по расстоянию", new List<GraphData>() { grData }, new AxisFormat(), new AxisFormat());
                     grContainer.Dock = DockStyle.Fill;
                     var form = new Form
                     {
@@ -527,7 +527,7 @@ namespace ResultModule
 
                 if (grDataAr.Count != 0)
                 {
-                    grContainer.CreateGraphObj("Результаты по времени", grDataAr, new AxisFormat(), new AxisFormat());
+                    grContainer.CreateGraphData("Результаты по времени", grDataAr, new AxisFormat(), new AxisFormat());
                     grContainer.Dock = DockStyle.Fill;
                     var form = new Form
                     {

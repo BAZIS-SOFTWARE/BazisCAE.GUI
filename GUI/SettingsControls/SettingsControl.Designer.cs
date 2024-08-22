@@ -1,4 +1,6 @@
-﻿namespace BazisGUI.SettingsControls
+﻿using UserControlsEx;
+
+namespace BazisGUI.SettingsControls
 {
     partial class SettingsControl
     {
@@ -40,10 +42,10 @@
             this.panelBackGroundColor = new System.Windows.Forms.Panel();
             this.btnSelectGroupColor = new System.Windows.Forms.Button();
             this.panelSelectionGroupColor = new System.Windows.Forms.Panel();
-            this.clslLigthingIntensity = new MB.Controls.ColorSlider();
+            this.clslLigthingIntensity = new ColorSlider();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.clslTransparency = new MB.Controls.ColorSlider();
+            this.clslTransparency = new ColorSlider();
             this.chbTransparency = new System.Windows.Forms.CheckBox();
             this.lblSolverPath = new System.Windows.Forms.Label();
             this.btnSolverPath = new System.Windows.Forms.Button();
@@ -380,9 +382,9 @@
         private System.Windows.Forms.Button btnSelectGroupColor;
         private System.Windows.Forms.Panel panelSelectionGroupColor;
         private LightingControl lightingControl;
-        private MB.Controls.ColorSlider clslLigthingIntensity;
+        private ColorSlider clslLigthingIntensity;
         private System.Windows.Forms.Panel panel1;
-        private MB.Controls.ColorSlider clslTransparency;
+        private ColorSlider clslTransparency;
         private System.Windows.Forms.CheckBox chbTransparency;
         private System.Windows.Forms.Label lblSolverPath;
         private System.Windows.Forms.Button btnSolverPath;
