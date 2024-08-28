@@ -1,27 +1,16 @@
-﻿using BaseModule;
-using BaseModule.Console;
-using BaseModule.CrossSection;
-using BaseModule.Utilities;
+﻿using BaseModule.CrossSection;
 using Geometry;
 using ModelControllerInterfaces;
 using ModelInterfaces;
 using ModelInterfaces.GeometryObjects;
 using ModelInterfaces.MeshObjects;
-using ProjectInterfaces;
-using Scene;
-using SceneInterface;
+using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.Odbc;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using UserControlsEx;
 
 namespace BaseModule
 {

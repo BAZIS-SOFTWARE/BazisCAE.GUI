@@ -19,7 +19,7 @@ using ModelInterfaces.GeometryObjects;
 using System.ComponentModel;
 using ProjectInterfaces;
 using BaseModule.Utilities;
-using SceneInterface;
+using Scene.Interfaces;
 using UserControlsEx;
 
 namespace BaseModule

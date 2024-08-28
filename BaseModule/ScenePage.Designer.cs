@@ -58,9 +58,9 @@
             this.sceneControl.LightTranslateZ = 0F;
             this.sceneControl.Location = new System.Drawing.Point(0, 0);
             this.sceneControl.Name = "sceneControl";
-            this.sceneControl.Projection = SceneInterface.ViewProjection.Perspective;
+            this.sceneControl.Projection = Scene.Interfaces.ViewProjection.Perspective;
             this.sceneControl.RotationAngle = 2.5F;
-            this.sceneControl.RotationAxis = SceneInterface.ViewAxis.XYZ;
+            this.sceneControl.RotationAxis = Scene.Interfaces.ViewAxis.XYZ;
             this.sceneControl.ScaleFactor = 1F;
             this.sceneControl.SelectionColor = System.Drawing.Color.Green;
             this.sceneControl.ShadowAngle = 0F;

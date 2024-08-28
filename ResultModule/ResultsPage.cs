@@ -11,7 +11,7 @@ using ModelInterfaces.MeshObjects;
 using ProjectInterfaces;
 using ProjectInterfaces.Results;
 using ProjectInterfaces.Tasks;
-using SceneInterface;
+using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

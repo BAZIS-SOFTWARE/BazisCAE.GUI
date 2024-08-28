@@ -91,7 +91,7 @@ namespace TaskModule
         {
             try
             {
-                var funBasePage = new FunctionDataBasePage() { Dock = DockStyle.Fill };
+                var funBasePage = new FunctionDataBasePage() { Dock = DockStyle.Fill, HeadColor = Color.Gainsboro };
                 funBasePage.LoadEvent += () =>
                 {
                     ChangeFuncDBEventHandler(funBasePage);
@@ -108,9 +108,8 @@ namespace TaskModule
                 else
                     funBasePage.Load($@"{filePath}\{BasePage.GeneralData.Functions}", false);
 
-                var icon = TaskModule.Properties.Resources.Функции;
                 var name = "База функций";
-                var form = new Form() { Name = name, Text = name, TopMost = true, Owner = Application.OpenForms[0], Size = funBasePage.Size, Icon = icon };
+                var form = new Form() { Name = name, Text = name, TopMost = true, Owner = Application.OpenForms[0], Size = funBasePage.Size, ShowIcon = false };
                 form.Controls.Add(funBasePage);
                 form.ClientSize = funBasePage.Size;
                 form.Show();
@@ -125,7 +124,8 @@ namespace TaskModule
         {
             try
             {
-                var matBasePage = new MaterialsDataBasePage() { Dock = DockStyle.Fill };
+                var matBasePage = new MaterialsDataBasePage() { Dock = DockStyle.Fill, HeadColor = Color.Gainsboro };
+
                 matBasePage.LoadEvent += () =>
                 {
                     ChangeMaterialDBEventHandler(matBasePage);
@@ -142,9 +142,8 @@ namespace TaskModule
                 else
                     matBasePage.Load($@"{filePath}\{BasePage.GeneralData.Materials}", false);
 
-                var icon = TaskModule.Properties.Resources.Материалы;
                 var name = "База материалов";
-                var form = new Form() { Name = name, Text = name, TopMost = true, Owner = Application.OpenForms[0], Size = matBasePage.Size, Icon = icon };
+                var form = new Form() { Name = name, Text = name, TopMost = true, Owner = Application.OpenForms[0], Size = matBasePage.Size, ShowIcon = false };
                 form.Controls.Add(matBasePage);
                 form.ClientSize = matBasePage.Size;
                 form.Show();
@@ -411,7 +410,7 @@ namespace TaskModule
             {
                 var myProcess = new Process();
 
-                myProcess.StartInfo.FileName = $@"{SolverPath}\BazisSolver.exe";
+                myProcess.StartInfo.FileName = $@"{SolverPath}\TaskSolverCore.exe";
 
                 var compDir = $@"{BasePage.GeneralData.Path}\ComputationData";
                 var cmdFile = $@"{compDir}\computation.tcf";

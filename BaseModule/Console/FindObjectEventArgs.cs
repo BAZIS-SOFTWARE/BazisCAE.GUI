@@ -3,7 +3,7 @@ using System;
 
 namespace BaseModule.Console
 {
-    internal class FindObjectEventArgs : EventArgs
+    public class FindObjectEventArgs : EventArgs
     {
         public uint Number { get; }
         public ObjType ObjsType { get; }

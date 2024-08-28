@@ -5,7 +5,7 @@ using ModelControllerInterfaces;
 using ModelInterfaces;
 using ModelInterfaces.GeometryObjects;
 using Scene;
-using SceneInterface;
+using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
