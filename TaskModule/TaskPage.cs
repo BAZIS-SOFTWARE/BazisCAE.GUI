@@ -410,7 +410,7 @@ namespace TaskModule
             {
                 var myProcess = new Process();
 
-                myProcess.StartInfo.FileName = $@"{SolverPath}\TaskSolverCore.exe";
+                myProcess.StartInfo.FileName = $@"{SolverPath}\BazisSolverCP.exe";
 
                 var compDir = $@"{BasePage.GeneralData.Path}\ComputationData";
                 var cmdFile = $@"{compDir}\computation.tcf";

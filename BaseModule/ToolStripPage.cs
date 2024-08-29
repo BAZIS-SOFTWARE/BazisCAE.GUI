@@ -63,7 +63,7 @@ namespace BaseModule
             ObjType objType;
             Enum.TryParse(spbSelectObject.ToolTipText, out objType);
 
-            var scenePage = BasePage.ScenePage;
+            var scenePage = basePage.ScenePage;
             scenePage.SelectedObjects = objType;
 
             scenePage.SetBackColorToAllObjects();
@@ -73,8 +73,8 @@ namespace BaseModule
         private void ViewToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             var btn = (ToolStripButton)e.ClickedItem;
-            var scenePage = BasePage.ScenePage;
-            var consoleControl = BasePage.ConsoleControl;
+            var scenePage = basePage.ScenePage;
+            var consoleControl = basePage.ConsoleControl;
 
             if (e.ClickedItem.Tag.ToString() == "0")
             {
@@ -113,8 +113,8 @@ namespace BaseModule
 
         private void DisplayToolStrip_ItemClick(object arg1, ToolStripItemClickedEventArgs arg2)
         {
-            var scenePage = BasePage.ScenePage;
-            var consoleControl = BasePage.ConsoleControl;
+            var scenePage = basePage.ScenePage;
+            var consoleControl = basePage.ConsoleControl;
             try
             {
 
@@ -200,14 +200,14 @@ namespace BaseModule
         public ISurfaceFigure CreateSectionSurfaces(IEnumerable<IElement3D> elems3D, Point3D p0, Point3D p1, Point3D p2)
         {
             var plane = new Plane(p0, p1, p2);
-            var scenePage = BasePage.ScenePage;
+            var scenePage = basePage.ScenePage;
             return scenePage.ModelController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
         }
 
         private async void MeasuringControl_MakeMeasureEvent(object arg1, MeasureEventArgs arg2)
         {
-            var scenePage = BasePage.ScenePage;
-            var consoleControl = BasePage.ConsoleControl;
+            var scenePage = basePage.ScenePage;
+            var consoleControl = basePage.ConsoleControl;
             try
             {
                 switch (arg2.Kind)
@@ -234,7 +234,7 @@ namespace BaseModule
                         }
                     case MeasureKind.DistancePointToPlane:
                         {
-                            var plane = BasePage.CreateSurfaceAsync(scenePage.SelectedObjects);
+                            var plane = basePage.CreateSurfaceAsync(scenePage.SelectedObjects);
                             await plane;
 
                             var objects = scenePage.ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
@@ -245,7 +245,7 @@ namespace BaseModule
 
                             scenePage.SceneControl.DisplayObjects();
 
-                            var res = BasePage.SelectObjectAsync(scenePage.SelectedObjects);
+                            var res = basePage.SelectObjectAsync(scenePage.SelectedObjects);
                             await res;
 
                             if (res.Result is IPoint point)
@@ -289,7 +289,7 @@ namespace BaseModule
                             foreach (var obj in selObjs)
                             {
                                 var e3DObj = (IElement3D)obj;
-                                vol += e3DObj.CalcVolume();
+                                vol += (float)e3DObj.CalcVolume();
                             }
                             consoleControl.PrintInfo(string.Format("Объем : {0}", vol), Color.Black);
                             break;
@@ -307,8 +307,8 @@ namespace BaseModule
 
         private void SelectionControl_SelectInPlain(object arg1, SelectInPlainEventArgs arg2)
         {
-            var scenePage = BasePage.ScenePage;
-            var consoleControl = BasePage.ConsoleControl;
+            var scenePage = basePage.ScenePage;
+            var consoleControl = basePage.ConsoleControl;
             try
             {
                 //var selectHelper = new SelectionHelper(scenePage.ModelData.ObjectData);
@@ -352,8 +352,8 @@ namespace BaseModule
 
         private void SelectionControl_SelectInDirection(object arg1, SelectInDirectionEventArgs arg2)
         {
-            var scenePage = BasePage.ScenePage;
-            var consoleControl = BasePage.ConsoleControl;
+            var scenePage = basePage.ScenePage;
+            var consoleControl = basePage.ConsoleControl;
             try
             {
                 //var selectHelper = new SelectionHelper(scenePage.ModelData.ObjectData);
@@ -389,7 +389,7 @@ namespace BaseModule
         private void btnSelectObjects_Click(object sender, EventArgs e)
         {
             var btn = sender as ToolStripButton;
-            var scenePage = BasePage.ScenePage;
+            var scenePage = basePage.ScenePage;
 
             if (btn.Tag.ToString() == "1")
                 scenePage.SelectedObjects = ObjType.Узел;
@@ -455,7 +455,7 @@ namespace BaseModule
         {
             var btn = (ToolStripButton)sender;
 
-            var scenePage = BasePage.ScenePage;
+            var scenePage = basePage.ScenePage;
             if (btn.Checked)
             {
                 if (btn.Tag.ToString() == "3")
@@ -471,8 +471,8 @@ namespace BaseModule
 
         private void btnCrossSection_Click(object sender, EventArgs e)
         {
-            var scenePage = BasePage.ScenePage;
-            var consoleControl = BasePage.ConsoleControl;
+            var scenePage = basePage.ScenePage;
+            var consoleControl = basePage.ConsoleControl;
             try
             {
                 var btn = (ToolStripButton)sender;
@@ -634,7 +634,7 @@ namespace BaseModule
 
         private void btnScreenShot_Click(object sender, EventArgs e)
         {
-            var generalData = BasePage.GeneralData;
+            var generalData = basePage.GeneralData;
             basePage.CreateScreenShot(generalData.Path + "\\screenShot.bmp");
             basePage.ConsoleControl.PrintInfo($"Сделан снимок экрана {generalData.Path}\\screenShot.bmp", Color.Black);
         }

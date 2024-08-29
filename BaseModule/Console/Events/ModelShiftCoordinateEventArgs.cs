@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace BaseModule.Console.Events
 {
-    internal class ModelShiftCoordinateEventArgs : EventArgs
+    public class ModelShiftCoordinateEventArgs : EventArgs
     {
         public float X { get; }
         public float Y { get; }

@@ -132,7 +132,8 @@ namespace BazisGUI
         private static void SetSceneViewMatrix(Matrix<float> viewMatrix, ScenePage scenePage)
         {
             scenePage.SceneControl.GetCamera().SetViewMatrix(viewMatrix);
-            scenePage.SceneControl.ScaleObjs(1.0f); // TO DO Разобраться почему без этого компас сворачивается в точку
+            scenePage.SceneControl.FitObjectsToScreen();
+            //scenePage.SceneControl.ScaleObjs(1.0f); // TO DO Разобраться почему без этого компас сворачивается в точку
         }
 
         private void DisconnectWithServer(string moduleName)

@@ -2,7 +2,7 @@
 
 namespace BaseModule.Console.Events
 {
-    internal class ModelRenumberEventArgs : EventArgs
+    public class ModelRenumberEventArgs : EventArgs
     {
         private string Cmd { get; }
 

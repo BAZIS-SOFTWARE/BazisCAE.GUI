@@ -439,6 +439,10 @@ namespace BaseModule
 
             PresentProjectOnTree();
 
+            scenePage.ClearAllDataOnScene();
+            scenePage.PresentAllModelObjectsToScene();
+            scenePage.SceneControl.DisplayObjects();
+
             DeleteObjectsEvent?.Invoke();
         }
 
