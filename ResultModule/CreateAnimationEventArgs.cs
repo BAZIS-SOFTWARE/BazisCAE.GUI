@@ -8,21 +8,21 @@ namespace ResultModule
 
         public int DelayTime { get; }
 
-        public string ResltsName { get; }
+        public string ResltsKind { get; }
 
         public float[] Times { get; }
 
         public int ScaleFactor { get; }
 
-        public CreateAnimationEventArgs(string resltsName, float[] times,int scaleFactor, bool deleteTempImages, int delayTime)
+        public CreateAnimationEventArgs(string resltsKind, float[] times,int scaleFactor, bool deleteTempImages, int delayTime)
         {
-            if (resltsName == "")
+            if (resltsKind == "")
                 throw new Exception("Выберите результаты");
 
             Times = times;
 
             ScaleFactor = scaleFactor;
-            ResltsName = resltsName;
+            ResltsKind = resltsKind;
             DeleteTempImages = deleteTempImages;
             DelayTime = delayTime;
         }

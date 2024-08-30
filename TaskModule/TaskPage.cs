@@ -30,11 +30,15 @@ namespace TaskModule
         string activeAdvisor  = String.Empty;
         public string SolverPath { get; set; }
 
-        public IPreProc PreProc { get; set; }
+        //public IPreProc PreProc { get; set; }
 
-        public ITaskData TaskData { get; set; }
+        //public ITaskData TaskData { get; set; }
 
         public event Action<object> NeedSaveProjectEvent;
+
+        public event Action ClearAllTaskDataEvent;
+        public event Action ClearNotExistedTaskDataEvent;
+        public event Action ChangeTaskDataEvent;
 
         public TaskPage()
         {
@@ -44,47 +48,11 @@ namespace TaskModule
             taskNode.ContextMenuStrip = taskMenuStrip;
             BasePage.NavigatorControl.TreeView.Nodes.Add(taskNode);
 
-            BasePage.ChangeProjectDataEvent += () => { GetTaskAdvisor()?.SetProjectData(BasePage.GeneralData, BasePage.ScenePage.ModelData,TaskData); };
-
-            BasePage.DeleteGroupEvent += TaskPage_DeleteGroupEvent;
-            BasePage.DeleteAllGroupsEvent += TaskPage_DeleteAllGroupsEvent;
-            BasePage.DeleteObjectsEvent += TaskPage_DeleteObjectsEvent;
-            BasePage.DeleteSelectedObjectsEvent += TaskPage_DeleteSelectedObjectsEvent;
-        }
-
-        private void TaskPage_DeleteSelectedObjectsEvent()
-        {
-            TaskData?.ClearNotExisted(BasePage.ScenePage.ModelData.GroupData);
-
-            PresentTaskDataOnTree();
-        }
-
-        private void TaskPage_DeleteObjectsEvent()
-        {
-            var scenePage = BasePage.ScenePage;
-            TaskData?.ClearNotExisted(scenePage.ModelData.GroupData);
-
-            scenePage.SceneControl.DeleteAllVBObjects();
-            scenePage.PresentAllModelObjectsToScene();
-
-            PresentTaskDataOnTree();
-            scenePage.SceneControl.DisplayObjects();
-        }
-
-        private void TaskPage_DeleteAllGroupsEvent()
-        {
-            TaskData?.Clear();
-
-            PresentTaskDataOnTree();
-            BasePage.ChangeProjectDataEvent?.Invoke();
-        }
-
-        private void TaskPage_DeleteGroupEvent()
-        {
-            TaskData?.ClearNotExisted(BasePage.ScenePage.ModelData.GroupData);
-
-            PresentTaskDataOnTree();
-            BasePage.ChangeProjectDataEvent?.Invoke();
+            BasePage.ChangeGroupNameEvent += () => { ChangeTaskDataEvent?.Invoke(); };
+            BasePage.DeleteGroupEvent += () => { ClearNotExistedTaskDataEvent?.Invoke(); };
+            BasePage.DeleteAllGroupsEvent += () => { ClearAllTaskDataEvent?.Invoke(); };
+            BasePage.DeleteObjectsEvent += () => { ClearNotExistedTaskDataEvent?.Invoke(); };
+            BasePage.DeleteSelectedObjectsEvent += () => { ClearNotExistedTaskDataEvent?.Invoke(); };
         }
 
         public void OpenFunctionsDB()
@@ -163,7 +131,7 @@ namespace TaskModule
             BasePage.GeneralData.Functions = funBasePage.DbName;
             var funData = funBasePage.Functions;
             GetTaskAdvisor()?.SetFunctionData(funData.Keys.ToList());
-            PresentTaskDataOnTree();
+            PresentMatAndFuncDataOnTree();
         }
 
         public void ChangeMaterialDBEventHandler(MaterialsDataBasePage matBasePage)
@@ -174,7 +142,7 @@ namespace TaskModule
             BasePage.GeneralData.Materials = matBasePage.DbName;
             var matData = matBasePage.Materials;
             GetTaskAdvisor()?.SetMaterialData(matData.Keys.ToList());
-            PresentTaskDataOnTree();
+            PresentMatAndFuncDataOnTree();
         }
 
         public void DeleteAdvisor()
@@ -183,7 +151,7 @@ namespace TaskModule
             activeAdvisor = "";
         }
 
-        public void ShowAdvisor(object sender, TaskAdvisor taskAdv)
+        public void ShowAdvisor(object sender, TaskAdvisor taskAdv, ITaskData taskData, IPreProc preProc)
         {
             try
             {
@@ -209,19 +177,19 @@ namespace TaskModule
                 form.Show();
 
                 taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent;
-                taskAdv.AddDataUseTaskConditionsEvent += TaskAdv_AddDataUseTaskConditionsEvent;
-                taskAdv.AddDataEvent += TaskAdvisor_AddDataEvent;
-                taskAdv.DeleteDataEvent += TaskAdvisor_DeleteDataEvent;
-                taskAdv.DeleteAllDataEvent += TaskAdvisor_DeleteAllDataEvent;
-                taskAdv.CheckDataEvent += TaskAdvisor_CheckDataEvent;
+                taskAdv.AddDataUseTaskConditionsEvent += (ar1,ar2) => { TaskAdv_AddDataUseTaskConditions(taskData, preProc); };
+                taskAdv.AddDataEvent += (ar1, ar2) => { TaskAdvisor_AddData(taskData, ar2); };
+                taskAdv.DeleteDataEvent += (ar1, ar2) => { TaskAdvisor_DeleteData(taskData, ar2); };
+                taskAdv.DeleteAllDataEvent += (ar1, ar2) => { TaskAdvisor_DeleteAllData(taskData, ar2); };
+                taskAdv.CheckDataEvent += (ar1, ar2) => { TaskAdvisor_CheckData(taskData, ar2); };
                 taskAdv.HideDataEvent += TaskAdvisor_HideDataEvent;
-                taskAdv.ShowDataEvent += TaskAdvisor_ShowDataEvent;
-                taskAdv.ChangeDataEvent += TaskAdvisor_ChangeDataEvent;
+                taskAdv.ShowDataEvent += (ar1, ar2) => { TaskAdvisor_ShowData(taskData, ar2); };
+                taskAdv.ChangeDataEvent += (ar1,ar2) => { TaskAdvisor_ChangeData(taskData,ar2); };
                 taskAdv.StartComputationEvent += TaskAdvisor_StartComputationEvent;
                 taskAdv.StopComputationEvent += TaskAdv_StopComputationEvent;
-                taskAdv.Select2DAxiEvent += TaskAdvisor_ChangeTaskTypeEvent;
-                taskAdv.Select2DPlaneEvent += TaskAdvisor_ChangeTaskTypeEvent;
-                taskAdv.Select3DEvent += TaskAdvisor_ChangeTaskTypeEvent;
+                taskAdv.Select2DAxiEvent += (ar1,ar2) => { TaskAdvisor_ChangeTaskType(taskData,ar2); };
+                taskAdv.Select2DPlaneEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };
+                taskAdv.Select3DEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };
 
                 var matDB = GetDataBase<MaterialDBData>(generalData.Materials, generalData.Path);
 
@@ -239,7 +207,7 @@ namespace TaskModule
                     taskAdv.SetFunctionData(funDB.Keys.ToList());
 
 
-                taskAdv.SetProjectData(generalData, BasePage.ScenePage.ModelData, TaskData);
+                taskAdv.SetProjectData(generalData, BasePage.ScenePage.ModelData, taskData);
 
                 var inputDir = $@"{generalData.Path}\InputData";
 
@@ -247,7 +215,7 @@ namespace TaskModule
                 {
                     var tsfFiles = Directory.GetFiles(inputDir, "*.tsf");
 
-                    var sortedFiles = PreProc.SortCompDataByTimeAndType(tsfFiles);
+                    var sortedFiles = preProc.SortCompDataByTimeAndType(tsfFiles);
                     taskAdv.SetTaskPlannerlData(sortedFiles);
                 }
             }
@@ -318,11 +286,11 @@ namespace TaskModule
             }
         }
 
-        private void TaskAdv_AddDataUseTaskConditionsEvent(object arg1, EventArgs arg2)
+        private void TaskAdv_AddDataUseTaskConditions(ITaskData taskData, IPreProc preProc)
         {
             try
             {
-                var data = TaskData.Select(x => x as IValuableData).ToList();
+                var data = taskData.Select(x => x as IValuableData).ToList();
 
                 var adv = GetTaskAdvisor();
 
@@ -331,11 +299,11 @@ namespace TaskModule
                 if (!Directory.Exists(inputDir))
                     Directory.CreateDirectory(inputDir);
 
-                PreProc.CalcCompDataV1(data, adv.ProcessType, inputDir);
+                preProc.CalcCompDataV1(data, adv.ProcessType, inputDir);
 
                 var tsfFiles = Directory.GetFiles(inputDir, "*.tsf");
 
-                var sortedFiles = PreProc.SortCompDataByTimeAndType(tsfFiles);
+                var sortedFiles = preProc.SortCompDataByTimeAndType(tsfFiles);
 
                 GetTaskAdvisor()?.SetTaskPlannerlData(sortedFiles);
 
@@ -427,7 +395,32 @@ namespace TaskModule
             }
         }
 
-        public void PresentTaskDataOnTree()
+        public void PresentMatAndFuncDataOnTree()
+        {
+            try
+            {
+                var navigator = BasePage.NavigatorControl;
+
+                navigator.TreeView.BeginUpdate();
+
+                navigator.TreeView.Nodes.RemoveByKey("База материалов");
+                var matNode = new TreeNode($"База материалов : {BasePage.GeneralData.Materials}") { Name = "База материалов" };
+                navigator.TreeView.Nodes.Insert(4, matNode);
+
+                navigator.TreeView.Nodes.RemoveByKey("База функций");
+                var funNode = new TreeNode($"База функций : {BasePage.GeneralData.Functions}") { Name = "База функций" };
+                navigator.TreeView.Nodes.Insert(4, funNode);
+
+                navigator.TreeView.EndUpdate();
+
+            }
+            catch (Exception ex)
+            {
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
+        }
+
+        public void PresentTaskDataOnTree(ITaskData taskData)
         {
             try
             {
@@ -445,7 +438,7 @@ namespace TaskModule
                 var funNode = new TreeNode($"База функций : {BasePage.GeneralData.Functions}") { Name = "База функций" };
                 navigator.TreeView.Nodes.Insert(4, funNode);
 
-                foreach (var data in TaskData)
+                foreach (var data in taskData)
                 {
                     navigator.CreateChildNode("Данные", data.Name, data.ToString(), "6.1");
                 }
@@ -461,7 +454,7 @@ namespace TaskModule
             }
         }
 
-        public void TaskAdvisor_ChangeTaskTypeEvent(object arg1, ChangeTaskTypeEventArgs arg2)
+        public void TaskAdvisor_ChangeTaskType(ITaskData taskData, ChangeTaskTypeEventArgs arg2)
         {
             var generalData = BasePage.GeneralData;
             if (arg2.Index == 0)
@@ -472,7 +465,7 @@ namespace TaskModule
 
             BasePage.NavigatorControl.TreeView.Nodes[3].Text = "Вид : " + generalData.TaskType;
 
-            GetTaskAdvisor()?.SetProjectData(generalData, BasePage.ScenePage.ModelData,TaskData);
+            GetTaskAdvisor()?.SetProjectData(generalData, BasePage.ScenePage.ModelData,taskData);
         }
 
         public TaskAdvisor GetTaskAdvisor()
@@ -487,11 +480,11 @@ namespace TaskModule
             else return null;
         }
 
-        public void TaskAdvisor_ChangeDataEvent(object arg1, ChangeDataEventArgs arg2)
+        public void TaskAdvisor_ChangeData(ITaskData taskData, ChangeDataEventArgs arg2)
         {
             try
             {
-                var dataArray = TaskData.Find(arg2.DataName).ToArray();
+                var dataArray = taskData.Find(arg2.DataName).ToArray();
 
                 dataArray[arg2.Index].SetInfo(arg2.DataInfo);
 
@@ -503,9 +496,9 @@ namespace TaskModule
                 if (valData.MovedFrame != null)
                     SetMFF(valData, arg2.DataInfo.Split(' ').Last());
 
-                GetTaskAdvisor()?.SetProjectData(BasePage.GeneralData, BasePage.ScenePage.ModelData, TaskData);
+                GetTaskAdvisor()?.SetProjectData(BasePage.GeneralData, BasePage.ScenePage.ModelData, taskData);
 
-                var dataIndex = TaskData.IndexOf(dataArray[arg2.Index]);
+                var dataIndex = taskData.IndexOf(dataArray[arg2.Index]);
                 BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes[dataIndex].Text = dataArray[arg2.Index].ToString();
                 //PresentProjectOnTree();
             }
@@ -530,26 +523,26 @@ namespace TaskModule
             return group;
         }
 
-        public void TaskAdvisor_DeleteAllDataEvent(object arg1, DeleteAllDataEventArgs arg2)
+        public void TaskAdvisor_DeleteAllData(ITaskData taskData, DeleteAllDataEventArgs arg2)
         {
-            var dataArray = TaskData.Find(arg2.DataName).ToArray();
+            var dataArray = taskData.Find(arg2.DataName).ToArray();
 
             foreach (var data in dataArray)
             {
-                var index = TaskData.IndexOf(data);
+                var index = taskData.IndexOf(data);
                 BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
 
-                TaskData.Remove(data);
+                taskData.Remove(data);
             }
 
-            GetTaskAdvisor()?.SetProjectData(BasePage.GeneralData, BasePage.ScenePage.ModelData, TaskData);
+            GetTaskAdvisor()?.SetProjectData(BasePage.GeneralData, BasePage.ScenePage.ModelData, taskData);
         }
 
-        public void TaskAdvisor_ShowDataEvent(object arg1, ShowDataEventArgs arg2)
+        public void TaskAdvisor_ShowData(ITaskData taskData, ShowDataEventArgs arg2)
         {
             var scenePage = BasePage.ScenePage;
             scenePage.SceneControl.HideAllGeometryObjs();
-            var data = TaskData.Find(arg2.DataName).
+            var data = taskData.Find(arg2.DataName).
                 Select(x => (IValuableData)x).ToArray();
 
             foreach (var index in arg2.GetDataInfo())
@@ -643,13 +636,13 @@ namespace TaskModule
             scenePage.SceneControl.DisplayObjects();
         }
 
-        public void TaskAdvisor_CheckDataEvent(object arg1, CheckDataEventArgs arg2)
+        public void TaskAdvisor_CheckData(ITaskData taskData, CheckDataEventArgs arg2)
         {
             try
             {
                 var scenePage = BasePage.ScenePage;
                 scenePage.SceneControl.HideAllGeometryObjs();
-                var selectedData = TaskData.Find(arg2.DataName).Select(x => (IValuableData)x);
+                var selectedData = taskData.Find(arg2.DataName).Select(x => (IValuableData)x);
                 foreach (var data in selectedData)
                 {
                     if (arg2.Time >= data.StartTime & arg2.Time <= data.StopTime)
@@ -687,21 +680,19 @@ namespace TaskModule
             }       
         }
 
-        public void TaskAdvisor_DeleteDataEvent(object arg1, DeleteDataEventArgs arg2)
+        public void TaskAdvisor_DeleteData(ITaskData taskData, DeleteDataEventArgs arg2)
         {
-            var dataArray = TaskData.Find(arg2.DataName).ToArray();
+            var dataArray = taskData.Find(arg2.DataName).ToArray();
 
-            var index = TaskData.IndexOf(dataArray[arg2.Index]);
+            var index = taskData.IndexOf(dataArray[arg2.Index]);
             BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
 
-            TaskData.Remove(dataArray[arg2.Index]);
+            taskData.Remove(dataArray[arg2.Index]);
 
-            
-
-            //PresentProjectOnTree();
+            PresentTaskDataOnTree(taskData);
         }
 
-        public async void TaskAdvisor_AddDataEvent(object arg1, AddDataEventArgs arg2)
+        public async void TaskAdvisor_AddData(ITaskData taskData, AddDataEventArgs arg2)
         {
             try
             {
@@ -710,12 +701,12 @@ namespace TaskModule
                 var group = GetDataGroup(arg2.DataName, ar);
 
                 if (arg2.DataInfo.Contains("LRF"))
-                    await AddDataLRF(arg2, ar, group);
+                    await AddDataLRF(taskData,arg2, ar, group);
 
                 else
-                    AddData(arg2, ar, group);
+                    AddData(taskData,arg2, ar, group);
 
-                GetTaskAdvisor()?.SetProjectData(BasePage.GeneralData, BasePage.ScenePage.ModelData, TaskData);
+                GetTaskAdvisor()?.SetProjectData(BasePage.GeneralData, BasePage.ScenePage.ModelData, taskData);
             }
             catch (Exception ex)
             {
@@ -723,16 +714,16 @@ namespace TaskModule
             }
         }
 
-        private void AddData(AddDataEventArgs arg2, string[] ar, IGroup group)
+        private void AddData(ITaskData taskData, AddDataEventArgs arg2, string[] ar, IGroup group)
         {
-            var data = (IValuableData)TaskData.Create(arg2.DataName, arg2.DataInfo, group);
+            var data = (IValuableData)taskData.Create(arg2.DataName, arg2.DataInfo, group);
             if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
-            TaskData.Add(data);
+            taskData.Add(data);
             BasePage.NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
         }
 
-        private async Task AddDataLRF(AddDataEventArgs arg2, string[] ar, IGroup group)
+        private async Task AddDataLRF(ITaskData taskData,AddDataEventArgs arg2, string[] ar, IGroup group)
         {
             BasePage.ScenePage.SelectedObjects = ObjType.Узел;
             var taskStrLRF = BasePage.CreateSurfaceAsync(ObjType.Узел);
@@ -748,31 +739,31 @@ namespace TaskModule
             ar[2] = "X";
             ar[3] = rVec._x.ToString();
 
-            var data = (IValuableData)TaskData.Create(arg2.DataName, string.Join(" ", ar), group);
+            var data = (IValuableData)taskData.Create(arg2.DataName, string.Join(" ", ar), group);
             if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
 
-            TaskData.Add(data);
+            taskData.Add(data);
             BasePage.NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
 
             ar[2] = "Y";
             ar[3] = rVec._y.ToString();
 
-            data = (IValuableData)TaskData.Create(arg2.DataName, string.Join(" ", ar), group);
+            data = (IValuableData)taskData.Create(arg2.DataName, string.Join(" ", ar), group);
             if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
 
-            TaskData.Add(data);
+            taskData.Add(data);
             BasePage.NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
 
             ar[2] = "Z";
             ar[3] = rVec._z.ToString();
 
-            data = (IValuableData)TaskData.Create(arg2.DataName, string.Join(" ", ar), group);
+            data = (IValuableData)taskData.Create(arg2.DataName, string.Join(" ", ar), group);
             if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
 
-            TaskData.Add(data);
+            taskData.Add(data);
             BasePage.NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
         }
 
@@ -810,9 +801,8 @@ namespace TaskModule
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TaskData.Clear();
-            PresentTaskDataOnTree();
-            BasePage.ChangeProjectDataEvent?.Invoke();
+            ClearAllTaskDataEvent?.Invoke();
+            BasePage.ChangeGroupNameEvent?.Invoke();
         }
     }
 }

@@ -19,6 +19,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace ResultModule
 {
@@ -26,14 +27,13 @@ namespace ResultModule
     {
         ISceneScale scale;
         public event Action<object,string, bool, bool> LoadResultsEvent;
-        public IResultsController ResultsController { get; set; }
+        public event Action ClearingResultDataUseNavigatorEvent;
+        public event Action MergingResultDataUseNavigatorEvent;
         
         public bool IsResultsValueShowen { get; set; }
 
         private bool showScale = true;
         public bool IsScaleMaxMinManual { get; set; } = false;
-
-        public IResultData ResultData { get; set; }
 
         public ResultPage()
         {
@@ -109,16 +109,18 @@ namespace ResultModule
             scForm.Show();
         }
 
-        public void CreateGraph()
+        public void CreateGraph(IResultData resultData)
         {
                 var grPage = new GraphCreationPage() { Dock = DockStyle.Fill };
                 grPage.CreateTimeGraphEvent += (ar1, ar2) =>
                 {
-                    CreateTimeGraph(ar2.ResultKind, ar2.ObjsType);
+                    var results = resultData.FindByTaskKind(ar2.ResultKind);
+                    CreateTimeGraph(results, ar2.ObjsType);
                 };
-                grPage.CreatePathGraphEvent += (ar1, ar2) =>
+            grPage.CreatePathGraphEvent += (ar1, ar2) =>
                 {
-                    CreatePathGraph(ar2.ResultKind, ar2.ObjsType, ar2.Time);
+                    var result = resultData.FindByTime(ar2.ResultKind, ar2.Time);
+                    CreatePathGraph(result, ar2.ObjsType);
                 };
 
                 grPage.SelectResultsEvent += (ar) =>
@@ -126,16 +128,16 @@ namespace ResultModule
                     BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
                     BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
-                    var res = ResultData.FindByTaskKind(ar);
+                    var res = resultData.FindByTaskKind(ar);
                     PresentResultsOnTree(res);
                 };
 
-                var resKinds = ResultData.GetResultKinds();
+                var resKinds = resultData.GetResultKinds();
                 var resDic = new Dictionary<string, List<float>>();
                 foreach (var resKind in resKinds)
                 {
                     resDic.Add(resKind.ToString(), new List<float>());
-                    var resTimes = ResultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
+                    var resTimes = resultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
                     resDic[resKind.ToString()] = resTimes;
                 }
                 grPage.SetResultsItems(resDic);
@@ -154,33 +156,37 @@ namespace ResultModule
 
         }
 
-        public void ShowAnimation()
+        public void ShowAnimation(IResultData resultData, IResultsController resultsController)
         {
             var anPage = new AnimationPage() { Dock = DockStyle.Fill };
             anPage.ShowResultEvent += (ar1, ar2) =>
             {
                 if (BasePage.NavigatorControl.TreeView.SelectedNode?.Level == 2)
-                    ShowResults(ar2.Time, ar2.ResultKind, ar2.ScaleFactor);
+                {
+                    var result = resultData.FindByTime(ar2.ResultKind, ar2.Time, 1e-2f);
+                    ShowResults(result, ar2.ScaleFactor, resultsController);
+                }
+
                 else BasePage.ConsoleControl.PrintInfo("Выберите результаты для отображения!", Color.Red);
             };
 
-            anPage.CreateGIFAnimationEvent += CreateGIFAnimation;
+            anPage.CreateGIFAnimationEvent += (arg1, arg2) => { CreateGIFAnimation(resultData, arg2, resultsController); };
             anPage.SaveScreenShotEvent += (ar1) => { BasePage.CreateScreenShot(ar1); };
             anPage.SelectResultsEvent += (ar1) => 
             {
                 BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
                 BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
-                var res = ResultData.FindByTaskKind(ar1);
+                var res = resultData.FindByTaskKind(ar1);
                 PresentResultsOnTree(res);
             };
 
-            var resKinds = ResultData.GetResultKinds();
+            var resKinds = resultData.GetResultKinds();
             var resDic = new Dictionary<string, List<float>>();
             foreach (var resKind in resKinds)
             {
                 resDic.Add(resKind.ToString(), new List<float>());
-                var resTimes = ResultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
+                var resTimes = resultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
                 resDic[resKind.ToString()] = resTimes;
             }
 
@@ -209,7 +215,7 @@ namespace ResultModule
 
 
 
-        private void CreateGIFAnimation(object sender, CreateAnimationEventArgs args)
+        private void CreateGIFAnimation(IResultData resultData, CreateAnimationEventArgs args, IResultsController resultsController)
         {
             try
             {
@@ -224,7 +230,8 @@ namespace ResultModule
 
                 for (int i = 0; i < args.Times.Length; i++)
                 {
-                    ShowResults(args.Times[i], args.ResltsName, args.ScaleFactor);
+                    var result = resultData.FindByTime(args.ResltsKind, args.Times[i]);
+                    ShowResults(result, args.ScaleFactor, resultsController);
                     var image = $@"screenShot_{args.Times[i]}";
                     var imagePath = $@"{BasePage.GeneralData.Path}\{image}.bmp";
                     BasePage.CreateScreenShot(imagePath);
@@ -300,18 +307,16 @@ namespace ResultModule
             LoadResultsEvent?.Invoke(this,openDialogEx.OpenDialog.FileName, openDialogEx.MergeResults, addRes);
         }     
 
-        private void ShowResults(float time, string resKind, int scaleFactor)
+        private void ShowResults(IResult result, int scaleFactor, IResultsController resultsController)
         {
             try
             {
                 var scenePage = BasePage.ScenePage;
-                var result = ResultData.FindByTime(resKind, time);
-
                 var resName = BasePage.NavigatorControl.TreeView.SelectedNode.Name;
                 var nodeName = BasePage.NavigatorControl.TreeView.SelectedNode.Parent.Name;
 
-                scale.Title = resKind;
-                scale.Info = $"{resName} {time}";
+                scale.Title = result.TaskKind.ToString();
+                scale.Info = $"{resName} {result.Time}";
 
                 ObjType objsType;
 
@@ -330,8 +335,8 @@ namespace ResultModule
 
                 var scaleItems = GetScaleItems();
 
-                ResultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
-                ResultsController.ResultsFieldsCreator.ScaleFactor = scaleFactor;
+                resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
+                resultsController.ResultsFieldsCreator.ScaleFactor = scaleFactor;
 
                 scenePage.SceneControl.HideDisplayText2D();
                 scenePage.SceneControl.HideDisplayText3D();
@@ -342,7 +347,7 @@ namespace ResultModule
                 if (BasePage.GeneralData.TaskType == TaskType.Volume)
                 {
                     var els3D = scenePage.ModelData.ObjectData.E3DCollection;
-                    var elsResults = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els3D);
+                    var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els3D);
 
                     var presenter = scenePage.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
 
@@ -351,7 +356,7 @@ namespace ResultModule
                 else
                 {
                     var els2D = scenePage.ModelData.ObjectData.E2DCollection;
-                    var elsResults = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
+                    var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
 
                     var presenter = scenePage.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
                     scenePage.CreateObjectsOnScene(ObjType.Фигура2D.ToString(), presenter);
@@ -403,10 +408,10 @@ namespace ResultModule
             var max = (float)result.Data.Tables[objsType].Compute($"Max({resName})", "");
             var min = (float)result.Data.Tables[objsType].Compute($"Min({resName})", "");
 
-            scale.FillRange(min, max, 10);
+            scale.FillRange(min, (float)max, 10);
         }
 
-        private async void CreatePathGraph(string resKind, ObjType objsType, float time)
+        private async void CreatePathGraph(IResult result, ObjType objsType)
         {
             try
             {
@@ -424,8 +429,6 @@ namespace ResultModule
 
                 var selNode = BasePage.NavigatorControl.TreeView.SelectedNode;
                 var resDes = selNode.Name;
-
-                var result = ResultData.FindByTime(resKind, time);
 
                 var pathPoints = new List<Point3D>();
                 var path = 0.0f;
@@ -478,7 +481,7 @@ namespace ResultModule
             }
         }
 
-        private async void CreateTimeGraph(string resKind, ObjType objsType)
+        private async void CreateTimeGraph(IEnumerable<IResult> results, ObjType objsType)
         {
             try
             {
@@ -497,8 +500,6 @@ namespace ResultModule
 
                 var selNode = BasePage.NavigatorControl.TreeView.SelectedNode;
                 var resDes = selNode.Name;
-
-                var results = ResultData.FindByTaskKind(resKind);
 
                 var grDataAr = new List<GraphData>();
                 Random random = new Random();
@@ -602,13 +603,13 @@ namespace ResultModule
             }
         }
 
-        public async Task<List<IResult>> LoadResultsAsync(string fileName)
+        public async Task<List<IResult>> LoadResultsAsync(string fileName, IResultData resultData)
         {
             var res = new List<IResult>();
             await Task.Run(new Action(() =>
             {
 
-                foreach (var result in ResultData.Loader.Load(fileName))
+                foreach (var result in resultData.Loader.Load(fileName))
                 {
                     Invoke(new Action(() =>
                     {
@@ -627,7 +628,7 @@ namespace ResultModule
             return res;
         }
 
-        public async Task MergeResults(IEnumerable<IResult> results)
+        public async Task MergeResults(IEnumerable<IResult> results, IResultsController resultsController)
         {
             try
             {
@@ -658,7 +659,7 @@ namespace ResultModule
 
                         for (int i = 1; i < resNames.Count; i++)
                         {
-                            ResultsController.ResultsMerger.Merge(interfaceNodes, resNames[i], results.Where(x => x.TaskKind == item));
+                            resultsController.ResultsMerger.Merge(interfaceNodes, resNames[i], results.Where(x => x.TaskKind == item));
 
                             Invoke(new Action(() =>
                             {
@@ -731,7 +732,8 @@ namespace ResultModule
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ResultData.Clear();
+            ClearingResultDataUseNavigatorEvent?.Invoke();
+            //ResultData.Clear();
             BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
             BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
@@ -745,26 +747,30 @@ namespace ResultModule
             scenePage.SceneControl.DisplayObjects();
         }
 
-        private async void пересчитатьНаУзлыToolStripMenuItem_Click(object sender, EventArgs e)
+        private void пересчитатьНаУзлыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            BasePage.ConsoleControl.PrintInfo($"Выполняется пересчет с элементов на узлы. Не выходите из модуля!", Color.Orange);
-            await MergeResults(ResultData);                     
+            MergingResultDataUseNavigatorEvent?.Invoke();
+            BasePage.ConsoleControl.PrintInfo($"Выполняется пересчет с элементов на узлы. Не выходите из модуля!", Color.Orange);                    
         }
 
-        public void ShowExportResultsPage()
+        public void ShowExportResultsPage(IResultData resultData, IResultsController resultsController)
         {
             var exprtPage = new ExportControl() { Dock = DockStyle.Fill };
-            exprtPage.ExportResultEvent += ExportGrid;
+            exprtPage.ExportResultEvent += (arg) => 
+            {
+            var results = resultData.FindByTime(arg.TaskKind, arg.Time);
+            ExportGrid(results, arg, resultsController);
+            };
 
-            var resKinds = ResultData.GetResultKinds();
+            var resKinds = resultData.GetResultKinds();
             var names = new List<string>();
             var resDic = new Dictionary<string, List<float>>();
             foreach (var resKind in resKinds)
             {
-                var results = ResultData.FindByTaskKind(resKind.ToString());
+                var results = resultData.FindByTaskKind(resKind.ToString());
                 names.AddRange(results.First().GetDataSchema("nodes"));
                 resDic.Add(resKind.ToString(), new List<float>());
-                var resTimes = ResultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
+                var resTimes = resultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
                 resDic[resKind.ToString()] = resTimes;
             }
 
@@ -787,17 +793,16 @@ namespace ResultModule
             exprtForm.Show();
         }
 
-        private void ExportGrid(ExportResultEventArgs args)
+        private void ExportGrid(IResult result, ExportResultEventArgs args, IResultsController resultsController)
         {
             try
             {
-                var results = ResultData.FindByTime(args.TaskKind, args.Time);
                 var format = args.Extension.Split('-')[0];
                 var formatedPath = $"{args.Path}\\GridExport_{DateTime.Now.ToString().Replace("/", "_").Replace(":", "_")}{format}";
 
                 var scaleItems = GetScaleItems();
-                ResultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
-                ResultsController.ResultsFieldsCreator.ScaleFactor = 1;
+                resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
+                resultsController.ResultsFieldsCreator.ScaleFactor = 1;
 
                 IEnumerable<ISurfaceElement> elements;
 
@@ -808,12 +813,12 @@ namespace ResultModule
                 else
                     elements = scenePage.ModelData.ObjectData.E2DCollection;
 
-                var figures = ResultsController.ResultsFieldsCreator.CreateSurfaceObjects(results,
+                var figures = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result,
                     ObjType.Узел,
                     args.ResName,
                     elements);
 
-                ResultsController.ResultsExporter.ExportResults(figures, formatedPath, args.Extension);
+                resultsController.ResultsExporter.ExportResults(figures, formatedPath, args.Extension);
                 BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {args.Path}", Color.Black);
             }
             catch (Exception ex)

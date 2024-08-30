@@ -32,6 +32,10 @@ namespace TaskModule.HeatTreatmentModule
         {
             this.SuspendLayout();
             // 
+            // basePage
+            // 
+            this.basePage.Size = new System.Drawing.Size(790, 384);
+            // 
             // HeatTreatmentPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -39,6 +43,7 @@ namespace TaskModule.HeatTreatmentModule
             this.Name = "HeatTreatmentPage";
             this.Size = new System.Drawing.Size(800, 450);
             this.ResumeLayout(false);
+
         }
         HeatTreatmentTasksToolStrip heatTreatmentTasksToolStrip = new HeatTreatmentTasksToolStrip() { Name = "Термообработка" };
         #endregion

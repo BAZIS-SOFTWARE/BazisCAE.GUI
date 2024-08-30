@@ -16,7 +16,7 @@ namespace ModelModule
 {
     public partial class ModelPage : ToolStripPage
     {
-        public IGmshController GmshController { get; set; }
+        IGmshController GmshController { get; set; }
         public ModelPage() : base()
         {
             InitializeComponent();
@@ -51,8 +51,9 @@ namespace ModelModule
                 BasePage.ConsoleControl.PrintInfo("Модель не содержит объемных элементов!", Color.Red);
         }
 
-        public void LoadGMSHMeshControl()
+        public void LoadGMSHMeshControl(IGmshController gmshController)
         {
+            GmshController = gmshController;
             //SceneControl.IsBlending = false;//Прозрачность пока больше мешает
 
             if (GmshController == null)
@@ -678,14 +679,14 @@ namespace ModelModule
                 scenePage.CreateObjectsOnScene(item.ToString(), presentor);
         }   
 
-        public void OpenMesh3DGenerator()
+        public void OpenMesh3DGenerator(IGmshController gmshController)
         {
             var scenePage = BasePage.ScenePage;
             scenePage.SceneControl.HideAllGeometryObjs();
             scenePage.SceneControl.HideDisplayText2D();
             scenePage.SceneControl.HideDisplayText3D();
             BasePage.PresentProjectOnTree();
-            LoadGMSHMeshControl();
+            LoadGMSHMeshControl(gmshController);
             scenePage.SceneControl.DisplayObjects();
         }
     }

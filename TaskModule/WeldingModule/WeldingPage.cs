@@ -15,7 +15,7 @@ namespace TaskModule.WeldingModule
             InitializeComponent();
         }
 
-        public WeldingAdvisor CreateWeldingAdvisor(WeldingKind weldingKind)
+        public WeldingAdvisor CreateWeldingAdvisor(ITaskData taskData, WeldingKind weldingKind)
         {
             var taskAdv = new WeldingAdvisor()
             {
@@ -26,18 +26,19 @@ namespace TaskModule.WeldingModule
             taskAdv.SetWeldingKind(weldingKind);
             taskAdv.ProcessType = ProcessType.Welding;
 
-            taskAdv.SpecifyWeldingZoneEvent += TaskAdv_SpecifyWeldingZoneEvent;
+            taskAdv.SpecifyWeldingZoneEvent += (ar1,ar2) => 
+            { TaskAdv_SpecifyWeldingZone(taskData,ar1,ar2); };
 
             return taskAdv;
         }
 
-        private async void TaskAdv_SpecifyWeldingZoneEvent(string arg1, int arg2)
+        private async void TaskAdv_SpecifyWeldingZone(ITaskData taskData,string arg1, int arg2)
         {
             try
             {
                 await System.Threading.Tasks.Task.Run(() =>
                 {
-                    var data = (IValuableData)TaskData.Find(arg1).ToArray()[arg2];
+                    var data = (IValuableData)taskData.Find(arg1).ToArray()[arg2];
 
                     var modelObjects = new List<IModelObject>();
                     var finishTime = data.StopTime - data.StartTime;

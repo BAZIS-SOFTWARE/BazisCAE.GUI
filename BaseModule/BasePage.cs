@@ -26,7 +26,7 @@ namespace BaseModule
 {
     public partial class BasePage : UserControl
     {
-        public Action ChangeProjectDataEvent;
+        public Action ChangeGroupNameEvent;
         public Action CreateProjectDataEvent;
 
         [Category("General")]
@@ -68,7 +68,7 @@ namespace BaseModule
         [Description("Кнопка на клавиатуре")]
         public Keys PressedKey { get; set; }
 
-        public SplittersController SplittersController { get; internal set; }
+        SplittersController SplittersController;
 
         public IGeneralData GeneralData { get; set; }
 
@@ -81,7 +81,21 @@ namespace BaseModule
         {
             InitializeComponent();
 
-            SplittersController = new SplittersController(this);
+            SplittersController = new SplittersController();
+        }
+
+        public Queue<int> GetSplitters()
+        {
+            var splitters = new Queue<int>();
+
+            SplittersController.PassBySplittersReq(splitters, this.Controls, true);
+
+            return splitters;
+        }
+
+        public void SetSplitters(Queue<int> splitters)
+        {
+            SplittersController.PassBySplittersReq(splitters, this.Controls, false);
         }
 
         public void SceneInitialization()
@@ -625,7 +639,7 @@ namespace BaseModule
             {
                 gr.GroupName = newName;
 
-                ChangeProjectDataEvent?.Invoke();
+                ChangeGroupNameEvent?.Invoke();
                 Thread.Sleep(100);
                 //PresentProjectOnTree();
             }
@@ -760,7 +774,7 @@ namespace BaseModule
 
             navigator.CreateChildNode("группыОбъектов", scenePage.SelectedObjects.ToString(), arg, "5.1");
 
-            ChangeProjectDataEvent?.Invoke();
+            ChangeGroupNameEvent?.Invoke();
 
         }
 

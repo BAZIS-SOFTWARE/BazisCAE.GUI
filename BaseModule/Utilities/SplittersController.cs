@@ -10,27 +10,8 @@ namespace BaseModule.Utilities
 {
     public class SplittersController
     {
-        Control Control;
 
-        public SplittersController(Control control)
-        {
-            Control = control;
-        }
-        public Queue<int> GetSplitters()
-        {
-            var splitters = new Queue<int>();
-
-            PassBySplittersReq(splitters, Control.Controls, true);
-
-            return splitters;
-        }
-
-        public void SetSplitters(Queue<int> splitters)
-        {
-            PassBySplittersReq(splitters, Control.Controls, false);
-        }
-
-        private void PassBySplittersReq(Queue<int> splitters, ControlCollection controls, bool isEnqueue)
+        public void PassBySplittersReq(Queue<int> splitters, ControlCollection controls, bool isEnqueue)
         {
             foreach (Control item in controls)
             {
@@ -42,11 +23,6 @@ namespace BaseModule.Utilities
 
                 PassBySplittersReq(splitters, item.Controls, isEnqueue);
             }
-        }
-
-        public void CollapseSplitterPanel(bool flag)
-        {
-
         }
     }
 }
