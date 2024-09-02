@@ -15,7 +15,7 @@ namespace TaskModule.WeldingModule
             InitializeComponent();
         }
 
-        public WeldingAdvisor CreateWeldingAdvisor(ITaskData taskData, WeldingKind weldingKind)
+        public WeldingAdvisor CreateWeldingAdvisor(WeldingKind weldingKind)
         {
             var taskAdv = new WeldingAdvisor()
             {
@@ -27,12 +27,12 @@ namespace TaskModule.WeldingModule
             taskAdv.ProcessType = ProcessType.Welding;
 
             taskAdv.SpecifyWeldingZoneEvent += (ar1,ar2) => 
-            { TaskAdv_SpecifyWeldingZone(taskData,ar1,ar2); };
+            { TaskAdv_SpecifyWeldingZone(ar1,ar2); };
 
             return taskAdv;
         }
 
-        private async void TaskAdv_SpecifyWeldingZone(ITaskData taskData,string arg1, int arg2)
+        private async void TaskAdv_SpecifyWeldingZone(string arg1, int arg2)
         {
             try
             {

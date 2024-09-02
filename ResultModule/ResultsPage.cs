@@ -6,6 +6,7 @@ using CustomControls.OS;
 using Geometry;
 using Gif.Components;
 using Graph;
+using ModelControllerInterfaces;
 using ModelInterfaces;
 using ModelInterfaces.MeshObjects;
 using ProjectInterfaces;
@@ -27,13 +28,37 @@ namespace ResultModule
     {
         ISceneScale scale;
         public event Action<object,string, bool, bool> LoadResultsEvent;
-        public event Action ClearingResultDataUseNavigatorEvent;
-        public event Action MergingResultDataUseNavigatorEvent;
         
         public bool IsResultsValueShowen { get; set; }
 
         private bool showScale = true;
         public bool IsScaleMaxMinManual { get; set; } = false;
+
+        IResultsController resultsController;
+
+        IResultData resultData;
+
+        IGeneralData GeneralData { get { return basePage.GetGeneralData(); } }
+
+        IModelController ModelController
+        {
+            get { return BasePage.ScenePage.GetModelController(); }
+        }
+
+        IModelData ModelData
+        {
+            get { return ModelController.ModelData; }
+        }
+
+        public void SetResultsController(IResultsController resultsController)
+        {
+            this.resultsController = resultsController;
+        }
+
+        public void SetResultData(IResultData resultData)
+        {
+            this.resultData = resultData;
+        }
 
         public ResultPage()
         {
@@ -109,7 +134,7 @@ namespace ResultModule
             scForm.Show();
         }
 
-        public void CreateGraph(IResultData resultData)
+        public void CreateGraph()
         {
                 var grPage = new GraphCreationPage() { Dock = DockStyle.Fill };
                 grPage.CreateTimeGraphEvent += (ar1, ar2) =>
@@ -156,7 +181,7 @@ namespace ResultModule
 
         }
 
-        public void ShowAnimation(IResultData resultData, IResultsController resultsController)
+        public void ShowAnimation()
         {
             var anPage = new AnimationPage() { Dock = DockStyle.Fill };
             anPage.ShowResultEvent += (ar1, ar2) =>
@@ -164,13 +189,13 @@ namespace ResultModule
                 if (BasePage.NavigatorControl.TreeView.SelectedNode?.Level == 2)
                 {
                     var result = resultData.FindByTime(ar2.ResultKind, ar2.Time, 1e-2f);
-                    ShowResults(result, ar2.ScaleFactor, resultsController);
+                    ShowResults(result, ar2.ScaleFactor);
                 }
 
                 else BasePage.ConsoleControl.PrintInfo("Выберите результаты для отображения!", Color.Red);
             };
 
-            anPage.CreateGIFAnimationEvent += (arg1, arg2) => { CreateGIFAnimation(resultData, arg2, resultsController); };
+            anPage.CreateGIFAnimationEvent += (arg1, arg2) => { CreateGIFAnimation(arg2); };
             anPage.SaveScreenShotEvent += (ar1) => { BasePage.CreateScreenShot(ar1); };
             anPage.SelectResultsEvent += (ar1) => 
             {
@@ -215,11 +240,11 @@ namespace ResultModule
 
 
 
-        private void CreateGIFAnimation(IResultData resultData, CreateAnimationEventArgs args, IResultsController resultsController)
+        private void CreateGIFAnimation(CreateAnimationEventArgs args)
         {
             try
             {
-                var outputFilePath = $@"{BasePage.GeneralData.Path}\results.gif";
+                var outputFilePath = $@"{GeneralData.Path}\results.gif";
 
                 AnimatedGifEncoder e = new AnimatedGifEncoder();
 
@@ -231,9 +256,9 @@ namespace ResultModule
                 for (int i = 0; i < args.Times.Length; i++)
                 {
                     var result = resultData.FindByTime(args.ResltsKind, args.Times[i]);
-                    ShowResults(result, args.ScaleFactor, resultsController);
+                    ShowResults(result, args.ScaleFactor);
                     var image = $@"screenShot_{args.Times[i]}";
-                    var imagePath = $@"{BasePage.GeneralData.Path}\{image}.bmp";
+                    var imagePath = $@"{GeneralData.Path}\{image}.bmp";
                     BasePage.CreateScreenShot(imagePath);
 
                     using (var stream = new FileStream(imagePath, FileMode.Open))
@@ -307,7 +332,7 @@ namespace ResultModule
             LoadResultsEvent?.Invoke(this,openDialogEx.OpenDialog.FileName, openDialogEx.MergeResults, addRes);
         }     
 
-        private void ShowResults(IResult result, int scaleFactor, IResultsController resultsController)
+        private void ShowResults(IResult result, int scaleFactor)
         {
             try
             {
@@ -344,21 +369,21 @@ namespace ResultModule
                 scenePage.ClearAllGeometryDataOnScene();
                 scenePage.ClearAllMeshDataOnScene();
 
-                if (BasePage.GeneralData.TaskType == TaskType.Volume)
+                if (GeneralData.TaskType == TaskType.Volume)
                 {
-                    var els3D = scenePage.ModelData.ObjectData.E3DCollection;
+                    var els3D = ModelData.ObjectData.E3DCollection;
                     var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els3D);
 
-                    var presenter = scenePage.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
+                    var presenter = ModelController.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
 
                     scenePage.CreateObjectsOnScene(ObjType.Фигура2D.ToString(), presenter);
                 }
                 else
                 {
-                    var els2D = scenePage.ModelData.ObjectData.E2DCollection;
+                    var els2D = ModelData.ObjectData.E2DCollection;
                     var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
 
-                    var presenter = scenePage.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
+                    var presenter = ModelController.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
                     scenePage.CreateObjectsOnScene(ObjType.Фигура2D.ToString(), presenter);
                 }
 
@@ -566,7 +591,7 @@ namespace ResultModule
                 {
                     if (BasePage.PressedKey == Keys.E)
                     {
-                        var objs = scenePage.ModelData.ObjectData.GetObjects(objType);
+                        var objs = ModelData.ObjectData.GetObjects(objType);
                         nodes = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToList();
                         break;
                     }
@@ -628,22 +653,22 @@ namespace ResultModule
             return res;
         }
 
-        public async Task MergeResults(IEnumerable<IResult> results, IResultsController resultsController)
+        public async Task MergeResults()
         {
             try
             {
                 var scenePage = BasePage.ScenePage;
                 IElement[] elements;
-                if (BasePage.GeneralData.TaskType == TaskType.Volume)
-                    elements = scenePage.ModelData.ObjectData.E3DCollection.ToArray();
+                if (GeneralData.TaskType == TaskType.Volume)
+                    elements = ModelData.ObjectData.E3DCollection.ToArray();
                 else
-                    elements = scenePage.ModelData.ObjectData.E2DCollection.ToArray();
+                    elements = ModelData.ObjectData.E2DCollection.ToArray();
 
                 var act = new Action(() =>
                 {
-                    var interfaceNodes = scenePage.ModelController.InterfacedNodesFinder.Find(elements);
+                    var interfaceNodes = ModelController.InterfacedNodesFinder.Find(elements);
 
-                    var resKinds = results.Select(x => x.TaskKind).Distinct();
+                    var resKinds = resultData.Select(x => x.TaskKind).Distinct();
 
                     //var resKinds = ResultData.GetResultKinds();
 
@@ -655,11 +680,11 @@ namespace ResultModule
                             BasePage.ConsoleControl.PrintInfo("", Color.Black);
                         }));
 
-                        var resNames = results.First(x => x.TaskKind == item).GetDataSchema("elements");
+                        var resNames = resultData.First(x => x.TaskKind == item).GetDataSchema("elements");
 
                         for (int i = 1; i < resNames.Count; i++)
                         {
-                            resultsController.ResultsMerger.Merge(interfaceNodes, resNames[i], results.Where(x => x.TaskKind == item));
+                            resultsController.ResultsMerger.Merge(interfaceNodes, resNames[i], resultData.Where(x => x.TaskKind == item));
 
                             Invoke(new Action(() =>
                             {
@@ -695,9 +720,9 @@ namespace ResultModule
             var scenePage = BasePage.ScenePage;
 
             if (objsType == ObjType.Узел)
-                objs = scenePage.ModelData.ObjectData.NodeCollection;
+                objs = ModelData.ObjectData.NodeCollection;
             else
-                objs = scenePage.ModelData.ObjectData.GetAllElements();
+                objs = ModelData.ObjectData.GetAllElements();
 
             foreach (var obj in objs)
             {
@@ -732,7 +757,7 @@ namespace ResultModule
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ClearingResultDataUseNavigatorEvent?.Invoke();
+            resultData.Clear();
             //ResultData.Clear();
             BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
             BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
@@ -741,7 +766,7 @@ namespace ResultModule
 
             scenePage.ClearAllDataOnScene();
 
-            foreach (var item in scenePage.ModelData.ObjectData.ObjsTypes)
+            foreach (var item in ModelData.ObjectData.ObjsTypes)
                 scenePage.CreateObjectsOnScene(item.ToString(), scenePage.CreateObjectsPresentor(item));
 
             scenePage.SceneControl.DisplayObjects();
@@ -749,11 +774,11 @@ namespace ResultModule
 
         private void пересчитатьНаУзлыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MergingResultDataUseNavigatorEvent?.Invoke();
+            MergeResults();
             BasePage.ConsoleControl.PrintInfo($"Выполняется пересчет с элементов на узлы. Не выходите из модуля!", Color.Orange);                    
         }
 
-        public void ShowExportResultsPage(IResultData resultData, IResultsController resultsController)
+        public void ShowExportResultsPage()
         {
             var exprtPage = new ExportControl() { Dock = DockStyle.Fill };
             exprtPage.ExportResultEvent += (arg) => 
@@ -808,10 +833,10 @@ namespace ResultModule
 
                 var scenePage = BasePage.ScenePage;
 
-                if (BasePage.GeneralData.TaskType == TaskType.Volume)
-                    elements = scenePage.ModelData.ObjectData.E3DCollection;
+                if (GeneralData.TaskType == TaskType.Volume)
+                    elements = ModelData.ObjectData.E3DCollection;
                 else
-                    elements = scenePage.ModelData.ObjectData.E2DCollection;
+                    elements = ModelData.ObjectData.E2DCollection;
 
                 var figures = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result,
                     ObjType.Узел,

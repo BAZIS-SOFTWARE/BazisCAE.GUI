@@ -32,24 +32,17 @@ namespace TaskModule
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskPage));
-            this.treeNodesImageList = new System.Windows.Forms.ImageList();
-            this.taskMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+            this.treeNodesImageList = new System.Windows.Forms.ImageList(this.components);
+            this.taskMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.taskMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // navigator
+            // basePage
             // 
-            this.BasePage.NavigatorControl.Size = new System.Drawing.Size(268, 607);
-            // 
-            // scenePage
-            // 
-            this.BasePage.ScenePage.Size = new System.Drawing.Size(878, 403);
-            // 
-            // consoleControl
-            // 
-            this.BasePage.ConsoleControl.Size = new System.Drawing.Size(878, 199);
+            this.basePage.Size = new System.Drawing.Size(1153, 522);
             // 
             // treeNodesImageList
             // 
@@ -86,6 +79,12 @@ namespace TaskModule
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "TaskPage";
             this.Size = new System.Drawing.Size(1163, 612);
+            this.ChangedGroupNameEvent += new System.Action(this.TaskPage_ChangedGroupNameEvent);
+            this.CreatedMeshGroupEvent += new System.Action(this.TaskPage_CreatedMeshGroupEvent);
+            this.DeleteAllGroupsEvent += new System.Action(this.TaskPage_DeleteAllGroupsEvent);
+            this.DeleteGroupEvent += new System.Action(this.TaskPage_DeleteGroupEvent);
+            this.DeleteObjectsEvent += new System.Action(this.TaskPage_DeleteGroupEvent);
+            this.DeleteSelectedObjectsEvent += new System.Action(this.TaskPage_DeleteGroupEvent);
             this.taskMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 

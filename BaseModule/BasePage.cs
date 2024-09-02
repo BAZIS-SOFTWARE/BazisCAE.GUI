@@ -21,13 +21,12 @@ using ProjectInterfaces;
 using BaseModule.Utilities;
 using Scene.Interfaces;
 using UserControlsEx;
+using Model;
 
 namespace BaseModule
 {
     public partial class BasePage : UserControl
     {
-        public Action ChangeGroupNameEvent;
-        public Action CreateProjectDataEvent;
 
         [Category("General")]
         [Description("Задать цвет выбора групп объектов")]
@@ -70,12 +69,28 @@ namespace BaseModule
 
         SplittersController SplittersController;
 
-        public IGeneralData GeneralData { get; set; }
+        IGeneralData generalData;
+
+        public void SetGeneralData( IGeneralData generalData)
+        {
+            this.generalData = generalData;
+        }
+
+        public IGeneralData GetGeneralData()
+        {
+            return generalData;
+        }
 
         public event Action DeleteGroupEvent;
         public event Action DeleteAllGroupsEvent;
         public event Action DeleteObjectsEvent;
         public event Action DeleteSelectedObjectsEvent;
+        public event Action CreatedMeshGroupEvent;
+        public event Action ChangedGroupNameEvent;
+
+        IModelController ModelController { get { return scenePage.GetModelController(); } }
+
+        IModelData ModelData { get { return ModelController.ModelData; } }
 
         public BasePage()
         {
@@ -118,19 +133,21 @@ namespace BaseModule
 
         public void PresentProjectOnTree()
         {
-            navigator.SetProjectTitleInfo("названиеПроекта", "Название : " + GeneralData.Name);
-            navigator.SetProjectTitleInfo("путь", "Путь : " + GeneralData.Path);
-            navigator.SetProjectTitleInfo("сведения", "Сведения : " + GeneralData.Comments);
-            navigator.SetProjectTitleInfo("вид", "Вид: " + GeneralData.TaskType);
+            navigator.SetProjectTitleInfo("названиеПроекта", "Название : " + generalData.Name);
+            navigator.SetProjectTitleInfo("путь", "Путь : " + generalData.Path);
+            navigator.SetProjectTitleInfo("сведения", "Сведения : " + generalData.Comments);
+            navigator.SetProjectTitleInfo("вид", "Вид: " + generalData.TaskType);
 
             navigator.TreeView.BeginUpdate();
 
             navigator.TreeView.Nodes["объекты"].Expand();
             navigator.TreeView.Nodes["объекты"].Nodes.Clear();
 
-            foreach (var objType in scenePage.ModelData.ObjectData.ObjsTypes)
+            var ModelData = ModelController.ModelData;
+
+            foreach (var objType in ModelData.ObjectData.ObjsTypes)
             {
-                var objs = scenePage.ModelData.ObjectData.GetObjects(objType);
+                var objs = ModelData.ObjectData.GetObjects(objType);
                 navigator.CreateChildNode("объекты", objType.ToString(), $"{objType} : {objs.Count()}", "4.1");
                 navigator.ShowObjectsNode(objType.ToString());
             }
@@ -138,9 +155,9 @@ namespace BaseModule
             navigator.TreeView.Nodes["группыОбъектов"].Expand();
             navigator.TreeView.Nodes["группыОбъектов"].Nodes.Clear();
 
-            foreach (var group in scenePage.ModelData.GroupData)
+            foreach (var group in ModelData.GroupData)
             {
-                navigator.CreateChildNode("группыОбъектов", group.ObjType.ToString(), group.GroupName, "5.1");
+                navigator.CreateChildNode("группыОбъектов", group.ObjType.ToString(), group.Name, "5.1");
             }
 
             navigator.TreeView.EndUpdate();
@@ -168,7 +185,7 @@ namespace BaseModule
             var message = @"Задайте поверхность, выбрав три узла, и нажмите на клавишу ""E"" или нажмите кнопку ""ESC""";
             var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var pointObjs = scenePage.ModelData.ObjectData.GetObjects(objType);
+                var pointObjs = ModelData.ObjectData.GetObjects(objType);
                 var selObjs = pointObjs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
 
                 if (selObjs.Length < 3)
@@ -250,7 +267,7 @@ namespace BaseModule
 
             var actPointConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var objs = scenePage.ModelData.ObjectData.GetObjects(objType);
+                var objs = ModelData.ObjectData.GetObjects(objType);
 
                 var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor);
 
@@ -359,11 +376,11 @@ namespace BaseModule
                 {
                     Invoke(new Action(() =>
                     {
-                        var obj = scenePage.ModelData.ObjectData.Find(findObjectEventArgs.ObjsType, (int)findObjectEventArgs.Number);
+                        var obj = ModelData.ObjectData.Find(findObjectEventArgs.ObjsType, (int)findObjectEventArgs.Number);
 
                         if (obj != null)
                         {
-                            foreach (var item in scenePage.ModelData.ObjectData.GetObjects(ObjType.Объект))
+                            foreach (var item in ModelData.ObjectData.GetObjects(ObjType.Объект))
                                 item.ViewState = false;
                             obj.ViewState = true;
                             scenePage.ClearAllDataOnScene();
@@ -376,28 +393,28 @@ namespace BaseModule
                 {
                     Invoke(new Action(() => { consoleControl.PrintInfo("Выполняется поиск совпадающих узлов сетки...", Color.Black); }));
 
-                    scenePage.ModelController.CoincidentObjectsFinder.ProgressEvent += (ar1, ar2) =>
+                    ModelController.CoincidentObjectsFinder.ProgressEvent += (ar1, ar2) =>
                     {
                         Invoke(new Action(() => { consoleControl.PrintInfo(string.Format("{0:00}%", ar2 * 100), Color.Black); }));
                     };
 
-                    var nodes = scenePage.ModelData.ObjectData.NodeCollection;
-                    var coincidentNodes = scenePage.ModelController.CoincidentObjectsFinder.Find(
+                    var nodes = ModelData.ObjectData.NodeCollection;
+                    var coincidentNodes = ModelController.CoincidentObjectsFinder.Find(
                         nodes.ToList(), 0.001f);
 
                     Invoke(new Action(() => { consoleControl.PrintInfo($"Найдено {coincidentNodes.Where(x => x.Count > 2).Count()} совпадений", Color.Black); }));
                     Invoke(new Action(() =>
                     {
-                        foreach (var objType in scenePage.ModelData.ObjectData.ObjsTypes)
+                        foreach (var objType in ModelData.ObjectData.ObjsTypes)
                             scenePage.CreateObjectsOnScene(objType.ToString(), scenePage.CreateObjectsPresentor(objType));
                         scenePage.SceneControl.DisplayObjects();
                     }));
                     var actConfirm = new Func<Tuple<bool, object>>(() =>
                     {
-                        var mergedNodes = scenePage.ModelController.ObjectsMerger.Merge(coincidentNodes, nodes.ToList());
+                        var mergedNodes = ModelController.ObjectsMerger.Merge(coincidentNodes, nodes.ToList());
 
-                        scenePage.ModelData.ObjectData.NodeCollection.Clear();
-                        scenePage.ModelData.ObjectData.NodeCollection.AddRange(mergedNodes);
+                        ModelData.ObjectData.NodeCollection.Clear();
+                        ModelData.ObjectData.NodeCollection.AddRange(mergedNodes);
 
                         Invoke(new Action(() =>
                         {
@@ -426,8 +443,8 @@ namespace BaseModule
 
         private void navigator_DelGroupEvent(int obj)
         {
-            var group = scenePage.ModelData.GroupData[obj];
-            scenePage.ModelData.GroupData.Remove(group);
+            var group = ModelData.GroupData[obj];
+            ModelData.GroupData.Remove(group);
 
             PresentProjectOnTree();
 
@@ -436,7 +453,7 @@ namespace BaseModule
 
         private void navigator_DelAllGroupsEvent()
         {
-            scenePage.ModelData.GroupData.Clear();
+            ModelData.GroupData.Clear();
 
             PresentProjectOnTree();
 
@@ -448,8 +465,8 @@ namespace BaseModule
             ObjType objType;
             Enum.TryParse(objs, out objType);
  
-            scenePage.ModelData.ObjectData.Clear(objType);
-            scenePage.ModelData.GroupData.ClearNotExisted();
+            ModelData.ObjectData.Clear(objType);
+            ModelData.GroupData.ClearNotExisted();
 
             PresentProjectOnTree();
 
@@ -462,7 +479,7 @@ namespace BaseModule
 
         private async void navigator_EditGroupEvent(int obj)
         {
-            var group = scenePage.ModelData.GroupData[obj];
+            var group = ModelData.GroupData[obj];
             scenePage.SelectedObjects = group.ObjType;
 
             foreach (var iobj in group)
@@ -474,7 +491,7 @@ namespace BaseModule
 
             var actConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var objs = scenePage.ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
+                var objs = ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
                 var selObj = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor);
 
                 if (selObj.Count() == 0)
@@ -512,7 +529,7 @@ namespace BaseModule
 
         private void navigator_HideAllGroupsEvent()
         {
-            foreach (var group in scenePage.ModelData.GroupData)
+            foreach (var group in ModelData.GroupData)
             {
                 foreach (var iobj in group)
                 {
@@ -536,9 +553,9 @@ namespace BaseModule
         {
             try
             {
-                foreach (var item in scenePage.ModelData.ObjectData.ObjsTypes)
+                foreach (var item in ModelData.ObjectData.ObjsTypes)
                 {
-                    foreach (var modelObject in scenePage.ModelData.ObjectData.GetObjects(item))
+                    foreach (var modelObject in ModelData.ObjectData.GetObjects(item))
                         modelObject.ViewState = false;
                 }
                 scenePage.SceneControl.DeleteAllVBObjects();
@@ -553,7 +570,7 @@ namespace BaseModule
         {
             try
             {
-                var group = scenePage.ModelData.GroupData[obj];
+                var group = ModelData.GroupData[obj];
 
                 foreach (var iobj in group)
                     iobj.ViewState = false;
@@ -583,7 +600,7 @@ namespace BaseModule
                 ObjType objType;
                 Enum.TryParse(obj, out objType);
 
-                foreach (var modelObject in scenePage.ModelData.ObjectData.GetObjects(objType))
+                foreach (var modelObject in ModelData.ObjectData.GetObjects(objType))
                     modelObject.ViewState = false;
 
                 scenePage.SceneControl.DeleteVBObjects(obj);
@@ -610,7 +627,7 @@ namespace BaseModule
                 ObjType objType;
                 Enum.TryParse(obj, out objType);
 
-                foreach (var modelObject in scenePage.ModelData.ObjectData.GetObjects(objType))
+                foreach (var modelObject in ModelData.ObjectData.GetObjects(objType))
                     modelObject.ViewState = true;
 
                 scenePage.SceneControl.DeleteVBObjects(obj);
@@ -628,18 +645,18 @@ namespace BaseModule
 
         private void navigator_InfoGroupEvent(int obj)
         {
-            var group = scenePage.ModelData.GroupData[obj];
+            var group = ModelData.GroupData[obj];
             consoleControl.PrintInfo(group.ToString(), Color.Black);
         }
 
         private void navigator_RenameGroup(string newName, string oldName)
         {
-            var gr = scenePage.ModelData.GroupData.Find(oldName);
+            var gr = ModelData.GroupData.Find(oldName);
             if (gr != null)
             {
-                gr.GroupName = newName;
+                gr.Name = newName;
 
-                ChangeGroupNameEvent?.Invoke();
+                ChangedGroupNameEvent?.Invoke();
                 Thread.Sleep(100);
                 //PresentProjectOnTree();
             }
@@ -651,7 +668,7 @@ namespace BaseModule
             {
                 scenePage.SetBackColorToAllObjects();
 
-                var group = scenePage.ModelData.GroupData.Find(obj);
+                var group = ModelData.GroupData.Find(obj);
 
                 foreach (var iobj in group)
                     iobj.MasterColor = SelectionGroupColor;
@@ -668,7 +685,7 @@ namespace BaseModule
 
         private void navigator_ShowAllGroupsEvent()
         {
-            foreach (var group in scenePage.ModelData.GroupData)
+            foreach (var group in ModelData.GroupData)
             {
                 foreach (var iobj in group)
                 {
@@ -685,7 +702,7 @@ namespace BaseModule
 
         private void navigator_ShowGroupEvent(int obj)
         {
-            var group = scenePage.ModelData.GroupData[obj];
+            var group = ModelData.GroupData[obj];
 
             foreach (var iobj in group)
                 iobj.ViewState = true;
@@ -703,15 +720,15 @@ namespace BaseModule
             {
                 case ViewRegime.ribbers:
                     scenePage.SceneControl.ChangeViewModeVBObjects(objs, ObjView.Lines);
-                    scenePage.PresentersCreator.SetView(objs, PresenterView.Line);
+                    ModelController.PresentersCreator.SetView(objs, PresenterView.Line);
                     break;
                 case ViewRegime.surfaces:
                     scenePage.SceneControl.ChangeViewModeVBObjects(objs, ObjView.Surface);
-                    scenePage.PresentersCreator.SetView(objs, PresenterView.Surface);
+                    ModelController.PresentersCreator.SetView(objs, PresenterView.Surface);
                     break;
                 case ViewRegime.ribbersSurfaces:
                     scenePage.SceneControl.ChangeViewModeVBObjects(objs, ObjView.LinesSurface);
-                    scenePage.PresentersCreator.SetView(objs, PresenterView.LineSurface);
+                    ModelController.PresentersCreator.SetView(objs, PresenterView.LineSurface);
                     break;
                 default:
                     break;
@@ -722,7 +739,7 @@ namespace BaseModule
 
         private void navigator_ShowGroupWithNodesEvent(int obj)
         {
-            var group = scenePage.ModelData.GroupData[obj];
+            var group = ModelData.GroupData[obj];
 
             foreach (var iobj in group)
             {
@@ -758,7 +775,7 @@ namespace BaseModule
 
         private void scenePage_ShowAllObjectsEvent(object obj)
         {
-            foreach (var item in scenePage.ModelData.ObjectData.ObjsTypes)
+            foreach (var item in ModelData.ObjectData.ObjsTypes)
                 navigator.ShowObjectsNode(item.ToString());
         }
 
@@ -774,7 +791,7 @@ namespace BaseModule
 
             navigator.CreateChildNode("группыОбъектов", scenePage.SelectedObjects.ToString(), arg, "5.1");
 
-            ChangeGroupNameEvent?.Invoke();
+            CreatedMeshGroupEvent?.Invoke();
 
         }
 
@@ -790,7 +807,7 @@ namespace BaseModule
 
         private void consoleControl_FindFreeNodesEvent()
         {
-            var freeNodes = scenePage.ModelController.FreeNodesFinder.Find(scenePage.ModelData.ObjectData);
+            var freeNodes = ModelController.FreeNodesFinder.Find(ModelData.ObjectData);
 
             Invoke(new Action(() =>
             {
@@ -799,7 +816,7 @@ namespace BaseModule
                 HideAllObjects();
 
                 foreach (var freeNode in freeNodes)
-                    scenePage.ModelData.ObjectData.Find(ObjType.Узел, freeNode).ViewState = true;
+                    ModelData.ObjectData.Find(ObjType.Узел, freeNode).ViewState = true;
 
                 var objsTypeStr = ObjType.Узел.ToString();
                 scenePage.SceneControl.DeleteVBObjects(objsTypeStr);

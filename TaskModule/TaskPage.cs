@@ -22,6 +22,8 @@ using ModelInterfaces;
 using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using BaseModule.Console;
 using BaseModule.Utilities;
+using ModelControllerInterfaces;
+using ProjectInterfaces;
 
 namespace TaskModule
 {
@@ -30,15 +32,33 @@ namespace TaskModule
         string activeAdvisor  = String.Empty;
         public string SolverPath { get; set; }
 
-        //public IPreProc PreProc { get; set; }
+        IGeneralData GeneralData { get { return basePage.GetGeneralData(); } }
 
-        //public ITaskData TaskData { get; set; }
+        IPreProc preProc;
+
+        private protected ITaskData taskData;
+
+        public void SetPreProc(IPreProc preProc)
+        {
+            this.preProc = preProc;
+        }
+
+        public void SetTaskData(ITaskData taskData)
+        {
+            this.taskData = taskData;
+        }
+
+        IModelController ModelController
+        {
+            get { return BasePage.ScenePage.GetModelController(); }
+        }
+
+        IModelData ModelData
+        {
+            get { return ModelController.ModelData; }
+        }
 
         public event Action<object> NeedSaveProjectEvent;
-
-        public event Action ClearAllTaskDataEvent;
-        public event Action ClearNotExistedTaskDataEvent;
-        public event Action ChangeTaskDataEvent;
 
         public TaskPage()
         {
@@ -47,12 +67,6 @@ namespace TaskModule
             var taskNode = new TreeNode("Данные", 14, 14) { Name = "Данные", Tag = "6" };
             taskNode.ContextMenuStrip = taskMenuStrip;
             BasePage.NavigatorControl.TreeView.Nodes.Add(taskNode);
-
-            BasePage.ChangeGroupNameEvent += () => { ChangeTaskDataEvent?.Invoke(); };
-            BasePage.DeleteGroupEvent += () => { ClearNotExistedTaskDataEvent?.Invoke(); };
-            BasePage.DeleteAllGroupsEvent += () => { ClearAllTaskDataEvent?.Invoke(); };
-            BasePage.DeleteObjectsEvent += () => { ClearNotExistedTaskDataEvent?.Invoke(); };
-            BasePage.DeleteSelectedObjectsEvent += () => { ClearNotExistedTaskDataEvent?.Invoke(); };
         }
 
         public void OpenFunctionsDB()
@@ -70,11 +84,11 @@ namespace TaskModule
                     ChangeFuncDBEventHandler(funBasePage);
                 };
 
-                var filePath = FindFileByPath(BasePage.GeneralData.Path, BasePage.GeneralData.Functions);
+                var filePath = FindFileByPath(GeneralData.Path, GeneralData.Functions);
                 if (filePath == null)
-                    BasePage.ConsoleControl.PrintInfo($"База данных {BasePage.GeneralData.Functions} не найдена в директории {BasePage.GeneralData.Path}", Color.Red);
+                    BasePage.ConsoleControl.PrintInfo($"База данных {GeneralData.Functions} не найдена в директории {GeneralData.Path}", Color.Red);
                 else
-                    funBasePage.Load($@"{filePath}\{BasePage.GeneralData.Functions}", false);
+                    funBasePage.Load($@"{filePath}\{GeneralData.Functions}", false);
 
                 var name = "База функций";
                 var form = new Form() { Name = name, Text = name, TopMost = true, Owner = Application.OpenForms[0], Size = funBasePage.Size, ShowIcon = false };
@@ -104,11 +118,11 @@ namespace TaskModule
                     ChangeMaterialDBEventHandler(matBasePage);
                 };
 
-                var filePath = FindFileByPath(BasePage.GeneralData.Path, BasePage.GeneralData.Materials);
+                var filePath = FindFileByPath(GeneralData.Path, GeneralData.Materials);
                 if (filePath == null)
-                    BasePage.ConsoleControl.PrintInfo($"База данных {BasePage.GeneralData.Materials} не найдена в директории {BasePage.GeneralData.Path}", Color.Red);
+                    BasePage.ConsoleControl.PrintInfo($"База данных {GeneralData.Materials} не найдена в директории {GeneralData.Path}", Color.Red);
                 else
-                    matBasePage.Load($@"{filePath}\{BasePage.GeneralData.Materials}", false);
+                    matBasePage.Load($@"{filePath}\{GeneralData.Materials}", false);
 
                 var name = "База материалов";
                 var form = new Form() { Name = name, Text = name, TopMost = true, Owner = Application.OpenForms[0], Size = matBasePage.Size, ShowIcon = false };
@@ -125,10 +139,10 @@ namespace TaskModule
 
         public void ChangeFuncDBEventHandler(FunctionDataBasePage funBasePage)
         {
-            if (funBasePage.DbPath != BasePage.GeneralData.Path)
-                IOFileController.CopyFile(funBasePage.DbName, funBasePage.DbPath, BasePage.GeneralData.Path);
+            if (funBasePage.DbPath != GeneralData.Path)
+                IOFileController.CopyFile(funBasePage.DbName, funBasePage.DbPath, GeneralData.Path);
 
-            BasePage.GeneralData.Functions = funBasePage.DbName;
+            GeneralData.Functions = funBasePage.DbName;
             var funData = funBasePage.Functions;
             GetTaskAdvisor()?.SetFunctionData(funData.Keys.ToList());
             PresentMatAndFuncDataOnTree();
@@ -136,10 +150,10 @@ namespace TaskModule
 
         public void ChangeMaterialDBEventHandler(MaterialsDataBasePage matBasePage)
         {
-            if (matBasePage.DbPath != BasePage.GeneralData.Path)
-                IOFileController.CopyFile(matBasePage.DbName, matBasePage.DbPath, BasePage.GeneralData.Path);
+            if (matBasePage.DbPath != GeneralData.Path)
+                IOFileController.CopyFile(matBasePage.DbName, matBasePage.DbPath, GeneralData.Path);
 
-            BasePage.GeneralData.Materials = matBasePage.DbName;
+            GeneralData.Materials = matBasePage.DbName;
             var matData = matBasePage.Materials;
             GetTaskAdvisor()?.SetMaterialData(matData.Keys.ToList());
             PresentMatAndFuncDataOnTree();
@@ -151,11 +165,11 @@ namespace TaskModule
             activeAdvisor = "";
         }
 
-        public void ShowAdvisor(object sender, TaskAdvisor taskAdv, ITaskData taskData, IPreProc preProc)
+        public void ShowAdvisor(object sender, TaskAdvisor taskAdv)
         {
             try
             {
-                var generalData = BasePage.GeneralData;
+                var generalData = GeneralData;
                 var btn = sender as ToolStripMenuItem;
                 var appFolder = Path.GetDirectoryName(Application.ExecutablePath);
                 if (appFolder == generalData.Path)
@@ -207,7 +221,7 @@ namespace TaskModule
                     taskAdv.SetFunctionData(funDB.Keys.ToList());
 
 
-                taskAdv.SetProjectData(generalData, BasePage.ScenePage.ModelData, taskData);
+                taskAdv.SetProjectData(generalData, ModelData, taskData);
 
                 var inputDir = $@"{generalData.Path}\InputData";
 
@@ -229,7 +243,7 @@ namespace TaskModule
         {
             CheckProjectDataBeforeCreationTCF();
 
-            var generalData = BasePage.GeneralData;
+            var generalData = GeneralData;
             var result = new List<string>
             {
                 $@"\\загрузка сетки и данных",
@@ -266,7 +280,7 @@ namespace TaskModule
         {
             try
             {
-                var generalData = BasePage.GeneralData;
+                var generalData = GeneralData;
                 if (!File.Exists($@"{generalData.Path}\{generalData.Name}"))
                 throw new Exception($"В папке проекта {generalData.Path} отсутствует файл проекта {generalData.Name}. " +
                     $"Верните файл проекта в папку проекта или выберете другой проект");
@@ -294,7 +308,7 @@ namespace TaskModule
 
                 var adv = GetTaskAdvisor();
 
-                var inputDir = $@"{BasePage.GeneralData.Path}\InputData";
+                var inputDir = $@"{GeneralData.Path}\InputData";
 
                 if (!Directory.Exists(inputDir))
                     Directory.CreateDirectory(inputDir);
@@ -380,7 +394,7 @@ namespace TaskModule
 
                 myProcess.StartInfo.FileName = $@"{SolverPath}\BazisSolverCP.exe";
 
-                var compDir = $@"{BasePage.GeneralData.Path}\ComputationData";
+                var compDir = $@"{GeneralData.Path}\ComputationData";
                 var cmdFile = $@"{compDir}\computation.tcf";
 
                 var argStr = string.Join(" ", new string[] { cmdFile });
@@ -404,11 +418,11 @@ namespace TaskModule
                 navigator.TreeView.BeginUpdate();
 
                 navigator.TreeView.Nodes.RemoveByKey("База материалов");
-                var matNode = new TreeNode($"База материалов : {BasePage.GeneralData.Materials}") { Name = "База материалов" };
+                var matNode = new TreeNode($"База материалов : {GeneralData.Materials}") { Name = "База материалов" };
                 navigator.TreeView.Nodes.Insert(4, matNode);
 
                 navigator.TreeView.Nodes.RemoveByKey("База функций");
-                var funNode = new TreeNode($"База функций : {BasePage.GeneralData.Functions}") { Name = "База функций" };
+                var funNode = new TreeNode($"База функций : {GeneralData.Functions}") { Name = "База функций" };
                 navigator.TreeView.Nodes.Insert(4, funNode);
 
                 navigator.TreeView.EndUpdate();
@@ -431,11 +445,11 @@ namespace TaskModule
                 navigator.TreeView.Nodes["Данные"].Nodes.Clear();
 
                 navigator.TreeView.Nodes.RemoveByKey("База материалов");
-                var matNode = new TreeNode($"База материалов : {BasePage.GeneralData.Materials}") { Name = "База материалов" };
+                var matNode = new TreeNode($"База материалов : {GeneralData.Materials}") { Name = "База материалов" };
                 navigator.TreeView.Nodes.Insert(4, matNode);
 
                 navigator.TreeView.Nodes.RemoveByKey("База функций");
-                var funNode = new TreeNode($"База функций : {BasePage.GeneralData.Functions}") { Name = "База функций" };
+                var funNode = new TreeNode($"База функций : {GeneralData.Functions}") { Name = "База функций" };
                 navigator.TreeView.Nodes.Insert(4, funNode);
 
                 foreach (var data in taskData)
@@ -456,7 +470,7 @@ namespace TaskModule
 
         public void TaskAdvisor_ChangeTaskType(ITaskData taskData, ChangeTaskTypeEventArgs arg2)
         {
-            var generalData = BasePage.GeneralData;
+            var generalData = GeneralData;
             if (arg2.Index == 0)
                 generalData.TaskType = TaskType.Plain;
             else if (arg2.Index == 1)
@@ -465,7 +479,7 @@ namespace TaskModule
 
             BasePage.NavigatorControl.TreeView.Nodes[3].Text = "Вид : " + generalData.TaskType;
 
-            GetTaskAdvisor()?.SetProjectData(generalData, BasePage.ScenePage.ModelData,taskData);
+            GetTaskAdvisor()?.SetProjectData(generalData, ModelData,taskData);
         }
 
         public TaskAdvisor GetTaskAdvisor()
@@ -496,7 +510,7 @@ namespace TaskModule
                 if (valData.MovedFrame != null)
                     SetMFF(valData, arg2.DataInfo.Split(' ').Last());
 
-                GetTaskAdvisor()?.SetProjectData(BasePage.GeneralData, BasePage.ScenePage.ModelData, taskData);
+                GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
 
                 var dataIndex = taskData.IndexOf(dataArray[arg2.Index]);
                 BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes[dataIndex].Text = dataArray[arg2.Index].ToString();
@@ -516,7 +530,7 @@ namespace TaskModule
             if (dataName == "Нагрев")
                 groupName = ar[1];
    
-            group = BasePage.ScenePage.ModelData.GroupData.Find(groupName);
+            group = ModelData.GroupData.Find(groupName);
 
             if (group == null)
                 throw new Exception(@"Группа ""groupName"" не найдена!");
@@ -535,7 +549,7 @@ namespace TaskModule
                 taskData.Remove(data);
             }
 
-            GetTaskAdvisor()?.SetProjectData(BasePage.GeneralData, BasePage.ScenePage.ModelData, taskData);
+            GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
         }
 
         public void TaskAdvisor_ShowData(ITaskData taskData, ShowDataEventArgs arg2)
@@ -706,7 +720,7 @@ namespace TaskModule
                 else
                     AddData(taskData,arg2, ar, group);
 
-                GetTaskAdvisor()?.SetProjectData(BasePage.GeneralData, BasePage.ScenePage.ModelData, taskData);
+                GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
             }
             catch (Exception ex)
             {
@@ -775,9 +789,9 @@ namespace TaskModule
             var baseLineGrName = trajInfo.Split(';')[0].Split('|')[0];
             var refLineGrName = trajInfo.Split(';')[0].Split('|')[1];
             var stNodesGrName = trajInfo.Split(';')[2];
-            var baseLineGr = scenePage.ModelData.GroupData.Find(baseLineGrName);
-            var refLineGr = scenePage.ModelData.GroupData.Find(refLineGrName);
-            var stNodesGr = scenePage.ModelData.GroupData.Find(stNodesGrName);
+            var baseLineGr = ModelData.GroupData.Find(baseLineGrName);
+            var refLineGr = ModelData.GroupData.Find(refLineGrName);
+            var stNodesGr = ModelData.GroupData.Find(stNodesGrName);
 
             data.MovedFrame.BaseLine = baseLineGr;
             data.MovedFrame.RefLine = refLineGr;
@@ -801,8 +815,34 @@ namespace TaskModule
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ClearAllTaskDataEvent?.Invoke();
-            BasePage.ChangeGroupNameEvent?.Invoke();
+            taskData?.Clear();
+            PresentTaskDataOnTree(taskData);
+            GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
+        }
+
+        private void TaskPage_ChangedGroupNameEvent()
+        {
+            PresentTaskDataOnTree(taskData);
+            GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
+        }
+
+        private void TaskPage_CreatedMeshGroupEvent()
+        {
+            GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
+        }
+
+        private void TaskPage_DeleteAllGroupsEvent()
+        {
+            taskData?.Clear();
+            PresentTaskDataOnTree(taskData);
+            GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
+        }
+
+        private void TaskPage_DeleteGroupEvent()
+        {
+            taskData?.ClearNotExisted(ModelData.GroupData);
+            PresentTaskDataOnTree(taskData);
+            GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
         }
     }
 }

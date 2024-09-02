@@ -147,8 +147,6 @@ namespace BaseModule
             this.scenePage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.scenePage.Location = new System.Drawing.Point(0, 0);
             this.scenePage.Margin = new System.Windows.Forms.Padding(0);
-            this.scenePage.ModelController = null;
-            this.scenePage.ModelData = null;
             this.scenePage.Name = "scenePage";
             this.scenePage.SelectedObjects = ModelInterfaces.ObjType.Объект;
             this.scenePage.Size = new System.Drawing.Size(995, 428);

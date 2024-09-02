@@ -93,28 +93,28 @@ namespace TaskModule.BasicTaskAdvisor
 
                         if (control is ILoadControl loadControl)
                         {
-                            loadControl.Fill_nGroups(modelData.GroupData.FindMany(ObjType.Узел).Select(x => x.GroupName).ToList());
+                            loadControl.Fill_nGroups(modelData.GroupData.FindMany(ObjType.Узел).Select(x => x.Name).ToList());
                             if (taskType == "Plain" | taskType == "AxiPlain")
-                                loadControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.GroupName).ToList());
+                                loadControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList());
                             else
-                                loadControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.GroupName).ToList());
+                                loadControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.Name).ToList());
                         }
 
                         else if (control is IBoundaryControl boundaryControl)
                         {
-                            boundaryControl.Fill_nGroups(modelData.GroupData.FindMany(ObjType.Узел).Select(x => x.GroupName).ToList());
+                            boundaryControl.Fill_nGroups(modelData.GroupData.FindMany(ObjType.Узел).Select(x => x.Name).ToList());
                             if (taskType == "Plain" | taskType == "AxiPlain")
-                                boundaryControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент1D).Select(x => x.GroupName).ToList());
+                                boundaryControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент1D).Select(x => x.Name).ToList());
                             else
-                                boundaryControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.GroupName).ToList());
+                                boundaryControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList());
                         }
 
                         else if (control is IMaterialsRelatedControl materialsRelatedControl)
                         {
                             if (taskType == "Plain" | taskType == "AxiPlain")
-                                materialsRelatedControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.GroupName).ToList());
+                                materialsRelatedControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList());
                             else
-                                materialsRelatedControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.GroupName).ToList());
+                                materialsRelatedControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.Name).ToList());
                         }
 
                         else if (control is TaskPlannerControl_v2 taskPlannerControl)

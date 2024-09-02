@@ -4,6 +4,7 @@ using ModelControllerInterfaces;
 using ModelInterfaces;
 using ModelInterfaces.GeometryObjects;
 using ModelInterfaces.MeshObjects;
+using ProjectInterfaces;
 using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,27 @@ namespace BaseModule
 {
     public partial class ToolStripPage : UserControl
     {
+        public event Action ChangedGroupNameEvent;
+        public event Action CreatedMeshGroupEvent;
+        public event Action DeleteAllGroupsEvent;
+        public event Action DeleteGroupEvent;
+        public event Action DeleteObjectsEvent;
+        public event Action DeleteSelectedObjectsEvent;
+
+        IModelController ModelController 
+        { 
+            get { return basePage.ScenePage.GetModelController(); } 
+        }
+
+        IGeneralData GeneralData
+        {
+            get { return basePage.GetGeneralData(); }
+        }
+
+        IModelData ModelData
+        {
+            get { return ModelController.ModelData; }
+        }
         public ToolStripPage()
         {
             InitializeComponent();
@@ -128,7 +150,7 @@ namespace BaseModule
 
                         scenePage.SceneControl.DeleteVBObjects("Элемент3D");
 
-                        foreach (var item in scenePage.ModelData.ObjectData.E3DCollection)
+                        foreach (var item in ModelData.ObjectData.E3DCollection)
                             if (item.ViewState)
                                 item.ViewState = true;
 
@@ -160,10 +182,10 @@ namespace BaseModule
 
                 else if (arg2.ClickedItem.Tag.ToString() == "2")
                 {
-                    scenePage.PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.LineSurface);
-                    scenePage.PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.LineSurface);
-                    scenePage.PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.LineSurface);
-                    scenePage.PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.LineSurface);
+                    ModelController.PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.LineSurface);
+                    ModelController.PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.LineSurface);
+                    ModelController.PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.LineSurface);
+                    ModelController.PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.LineSurface);
 
                     foreach (var obj in scenePage.SceneControl.GetVBObjs())
                         scenePage.SceneControl.ChangeViewModeVBObjects(obj.ObjName, ObjView.LinesSurface);
@@ -171,20 +193,20 @@ namespace BaseModule
 
                 else if (arg2.ClickedItem.Tag.ToString() == "3")
                 {
-                    scenePage.PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.Line);
-                    scenePage.PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.Line);
-                    scenePage.PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.Line);
-                    scenePage.PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.Line);
+                    ModelController.PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.Line);
+                    ModelController.PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.Line);
+                    ModelController.PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.Line);
+                    ModelController.PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.Line);
                     foreach (var obj in scenePage.SceneControl.GetVBObjs())
                         scenePage.SceneControl.ChangeViewModeVBObjects(obj.ObjName, ObjView.Lines);
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "4")
                 {
-                    scenePage.PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.Surface);
-                    scenePage.PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.Surface);
-                    scenePage.PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.Surface);
-                    scenePage.PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.Surface);
+                    ModelController.PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.Surface);
+                    ModelController.PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.Surface);
+                    ModelController.PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.Surface);
+                    ModelController.PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.Surface);
                     foreach (var obj in scenePage.SceneControl.GetVBObjs())
                         scenePage.SceneControl.ChangeViewModeVBObjects(obj.ObjName, ObjView.Surface);
                 }
@@ -201,7 +223,7 @@ namespace BaseModule
         {
             var plane = new Plane(p0, p1, p2);
             var scenePage = basePage.ScenePage;
-            return scenePage.ModelController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
+            return ModelController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
         }
 
         private async void MeasuringControl_MakeMeasureEvent(object arg1, MeasureEventArgs arg2)
@@ -214,7 +236,7 @@ namespace BaseModule
                 {
                     case MeasureKind.DistancePointToPoint:
                         {
-                            var objs = scenePage.ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
+                            var objs = ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
                             var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToList();
 
                             if (selObjs.Count() > 1)
@@ -237,7 +259,7 @@ namespace BaseModule
                             var plane = basePage.CreateSurfaceAsync(scenePage.SelectedObjects);
                             await plane;
 
-                            var objects = scenePage.ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
+                            var objects = ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
                             foreach (var _object in objects)
                                 _object.SetBackColor();
 
@@ -266,7 +288,7 @@ namespace BaseModule
                         {
                             var square = 0.0;
 
-                            var objs = scenePage.ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
+                            var objs = ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
 
                             var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor);
 
@@ -283,7 +305,7 @@ namespace BaseModule
                         {
                             var vol = 0.0f;
 
-                            var objs = scenePage.ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
+                            var objs = ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
                             var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor);
 
                             foreach (var obj in selObjs)
@@ -311,9 +333,9 @@ namespace BaseModule
             var consoleControl = basePage.ConsoleControl;
             try
             {
-                //var selectHelper = new SelectionHelper(scenePage.ModelData.ObjectData);
+                //var selectHelper = new SelectionHelper(ModelData.ObjectData);
 
-                var objs = scenePage.ModelData.ObjectData.GetObjects(arg2.ObjsType).Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToList();
+                var objs = ModelData.ObjectData.GetObjects(arg2.ObjsType).Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToList();
 
                 if (arg2.ObjsType == ObjType.Узел)
                 {
@@ -324,7 +346,7 @@ namespace BaseModule
                         var n3 = (INode)objs[2];
 
                         var plane = new Plane(n1.Position, n2.Position, n3.Position);
-                        scenePage.ModelController.SelectionHelper.SelectNodeInPlane(scenePage.ModelData.ObjectData,
+                        ModelController.SelectionHelper.SelectNodeInPlane(ModelData.ObjectData,
                             plane, scenePage.SceneControl.SelectionColor);
                         scenePage.SetObjectsSceneColor(ObjType.Узел);
                     }
@@ -334,7 +356,7 @@ namespace BaseModule
                     if (objs.Count > 0)
                     {
                         var element = objs.Last();
-                        scenePage.ModelController.SelectionHelper.SelectE2DInPlane(scenePage.ModelData.ObjectData,
+                        ModelController.SelectionHelper.SelectE2DInPlane(ModelData.ObjectData,
                             arg2.Angle, element.Number, scenePage.SceneControl.SelectionColor);
                         scenePage.SetObjectsSceneColor(ObjType.Элемент2D);
                     }
@@ -356,21 +378,21 @@ namespace BaseModule
             var consoleControl = basePage.ConsoleControl;
             try
             {
-                //var selectHelper = new SelectionHelper(scenePage.ModelData.ObjectData);
+                //var selectHelper = new SelectionHelper(ModelData.ObjectData);
 
-                var objs = scenePage.ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
+                var objs = ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
                 var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
                 if (selObjs.Length > 1)
                 {
                     if (!arg2.Reverse)
                     {
-                        scenePage.ModelController.SelectionHelper.SelectNodeInDirection(scenePage.ModelData.ObjectData,
+                        ModelController.SelectionHelper.SelectNodeInDirection(ModelData.ObjectData,
                             arg2.Angle, selObjs[selObjs.Length - 2].Number, selObjs[selObjs.Length - 1].Number, scenePage.SceneControl.SelectionColor);
                     }
 
                     else
                     {
-                        scenePage.ModelController.SelectionHelper.SelectNodeInDirection(scenePage.ModelData.ObjectData,
+                        ModelController.SelectionHelper.SelectNodeInDirection(ModelData.ObjectData,
                             arg2.Angle, selObjs[selObjs.Length - 1].Number, selObjs[selObjs.Length - 2].Number, scenePage.SceneControl.SelectionColor);
                     }
 
@@ -504,7 +526,7 @@ namespace BaseModule
                     {
                         try
                         {
-                            var elems3D = scenePage.ModelData.ObjectData.E3DCollection;
+                            var elems3D = ModelData.ObjectData.E3DCollection;
                             var surface = CreateSectionSurfaces(elems3D, ar2.point1, ar2.point2, ar2.point3);
 
                             scenePage.PresentCrossSection(surface);
@@ -519,7 +541,7 @@ namespace BaseModule
                     {
                         try
                         {
-                            var objs = scenePage.ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
+                            var objs = ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
                             var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
                             if (selObjs.Length < 3)
                             {
@@ -531,7 +553,7 @@ namespace BaseModule
                             var p1 = selObjs[1];
                             var p2 = selObjs[2];
 
-                            var elems3D = scenePage.ModelData.ObjectData.E3DCollection;
+                            var elems3D = ModelData.ObjectData.E3DCollection;
 
                             var surface = CreateSectionSurfaces(
                                 elems3D, p0.CalcCentr(),
@@ -556,7 +578,7 @@ namespace BaseModule
                         if (scenePage.SceneControl.GetVBObjs().Count() == 0)
                         {
                             scenePage.SceneControl.DeleteAllVBObjects();
-                            foreach (var objsType in scenePage.ModelData.ObjectData.ObjsTypes)
+                            foreach (var objsType in ModelData.ObjectData.ObjsTypes)
                             {
                                 var presentor = scenePage.CreateObjectsPresentor(objsType);
                                 scenePage.CreateObjectsOnScene(objsType.ToString(), presentor);
@@ -634,7 +656,7 @@ namespace BaseModule
 
         private void btnScreenShot_Click(object sender, EventArgs e)
         {
-            var generalData = basePage.GeneralData;
+            var generalData = GeneralData;
             basePage.CreateScreenShot(generalData.Path + "\\screenShot.bmp");
             basePage.ConsoleControl.PrintInfo($"Сделан снимок экрана {generalData.Path}\\screenShot.bmp", Color.Black);
         }
@@ -648,10 +670,10 @@ namespace BaseModule
                 var btn = (ToolStripButton)sender;
                 if (btn.Checked)
                 {
-                    var surfElems = scenePage.ModelData.ObjectData.GetAllElements().Select(x => (ISurfaceElement)x);
-                    var linesNodes = scenePage.ModelController.BoundaryEdgesFinder.Find(surfElems);
-                    var edges = scenePage.ModelController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes, scenePage.ModelData);
-                    var linePresenter = scenePage.PresentersCreator.CreateLineObjectsPresenter(edges);
+                    var surfElems = ModelData.ObjectData.GetAllElements().Select(x => (ISurfaceElement)x);
+                    var linesNodes = ModelController.BoundaryEdgesFinder.Find(surfElems);
+                    var edges = ModelController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes, ModelData);
+                    var linePresenter = ModelController.PresentersCreator.CreateLineObjectsPresenter(edges);
 
                     scenePage.CreateObjectsOnScene("Boundary", linePresenter);
                 }
@@ -674,12 +696,12 @@ namespace BaseModule
                 var scenePage = basePage.ScenePage;
                 if (btn.Checked)
                 {
-                    var surfElems = scenePage.ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement);
+                    var surfElems = ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement);
                     if (surfElems.Count() > 0)
                     {
-                        var elemsNormals = scenePage.ModelController.NormalCalculator.CalcElemsNormals(surfElems.Select(x => x as ISurfaceElement));
+                        var elemsNormals = ModelController.NormalCalculator.CalcElemsNormals(surfElems.Select(x => x as ISurfaceElement));
 
-                        var linePresenter = scenePage.PresentersCreator.CreateLineObjectsPresenter(elemsNormals);
+                        var linePresenter = ModelController.PresentersCreator.CreateLineObjectsPresenter(elemsNormals);
 
                         scenePage.CreateObjectsOnScene("Normals", linePresenter);
                     }
@@ -709,6 +731,36 @@ namespace BaseModule
             else scenePage.SceneControl.DisplayBasis = false;
 
             scenePage.SceneControl.DisplayObjects();
+        }
+
+        private void basePage_ChangedGroupNameEvent()
+        {
+            ChangedGroupNameEvent?.Invoke();
+        }
+
+        private void basePage_CreatedMeshGroupEvent()
+        {
+            CreatedMeshGroupEvent?.Invoke();
+        }
+
+        private void basePage_DeleteAllGroupsEvent()
+        {
+            DeleteAllGroupsEvent?.Invoke();
+        }
+
+        private void basePage_DeleteGroupEvent()
+        {
+            DeleteGroupEvent?.Invoke();
+        }
+
+        private void basePage_DeleteObjectsEvent()
+        {
+            DeleteObjectsEvent?.Invoke();
+        }
+
+        private void basePage_DeleteSelectedObjectsEvent()
+        {
+            DeleteSelectedObjectsEvent?.Invoke();
         }
     }
 }

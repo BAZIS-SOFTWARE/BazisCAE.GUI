@@ -24,14 +24,26 @@ namespace BaseModule
         [Description("Выбранный объект сцены")]
         public ObjType SelectedObjects { get; set; }
 
-        public IModelData ModelData { get; set; }
+        IModelData ModelData { get { return ModelController.ModelData; } }
 
-        public IModelController ModelController { get; set; }
+        IModelController ModelController { get; set; }
 
-        public IPresentersCreator PresentersCreator
+        IPresentersCreator PresentersCreator
         {
             get { return ModelController.PresentersCreator; }
         }
+
+        public void SetModelController(IModelController modelController)
+        {
+            ModelController = modelController;
+        }
+
+        public IModelController GetModelController()
+        {
+            return ModelController;
+        }
+
+
         [Category("SceneControl")]
         [Description("Сцена для отображения объектов")]
         public SceneControl SceneControl

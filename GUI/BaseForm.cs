@@ -40,10 +40,11 @@ namespace BazisGUI
         ProjectData project;
 
         //BasePage module;
-        ModelController.ModelController modelController = new ModelController.ModelController(); 
+        ModelController.ModelController modelController;
         GmshController gmshController;
         IODataController dataController = new IODataController();
         ResultsController resultsController = new ResultsController();
+        PreProc preProc = new PreProc();
         ClientController serverConnection;
 
         public ToolStripPage ModulePage
@@ -79,8 +80,7 @@ namespace BazisGUI
             InitializeComponent();
             ComponentsPainter.Font = this.Font;
             ComponentsPainter.ScreenDPI = this.DeviceDpi;
-            
-            //toolStripContainer.ContentPanel.Controls.Add(toolStripPage);
+
             tableLayoutPanel.BringToFront();
             GetServerConnection();
         }
@@ -169,7 +169,7 @@ namespace BazisGUI
             await res;
 
             if (mergeRes)
-                await resultModule.MergeResults(res.Result,resultsController);
+                await resultModule.MergeResults();
 
             Enabled = true;
 
@@ -188,6 +188,10 @@ namespace BazisGUI
             CloseActivePageChildControls(module?.Name);
 
             var newModule = CreateModule(moduleName);
+            //Important to see in future
+            modelController = new ModelController.ModelController(project.ModelData);
+            newModule.BasePage.SetGeneralData(project.GeneralData);
+            newModule.BasePage.ScenePage.SetModelController(modelController);
 
             AddModule(newModule);
 
@@ -296,7 +300,6 @@ namespace BazisGUI
 
         private ToolStripPage CreateModule(string moduleName)
         {
-            //BasePage module;
             if (moduleName == "Weld" | moduleName == "HeatTreatment")
             {
                 TaskPage taskPage;
@@ -305,33 +308,12 @@ namespace BazisGUI
                 else
                     taskPage = new HeatTreatmentPage() { Dock = DockStyle.Fill, Name = moduleName };
 
+                taskPage.SetTaskData(project.TaskData);
+                taskPage.SetPreProc(preProc);
+
                 taskPage.SolverPath = settingsConfig.SolverPath;
                 taskPage.NeedSaveProjectEvent += TaskPage_NeedSaveProjectEvent;
 
-                taskPage.ClearNotExistedTaskDataEvent += () =>
-                {
-                    project.TaskData?.ClearNotExisted(project.ModelData.GroupData);
-
-                    taskPage.PresentTaskDataOnTree(project.TaskData);
-                    taskPage.GetTaskAdvisor()?.
-SetProjectData(project.GeneralData, project.ModelData, project.TaskData);
-
-                };
-
-                taskPage.ClearAllTaskDataEvent += () =>
-                {
-                    project.TaskData?.Clear();
-                    taskPage.PresentTaskDataOnTree(project.TaskData);
-                    taskPage.GetTaskAdvisor()?.
-                    SetProjectData(project.GeneralData, project.ModelData, project.TaskData);
-                };
-
-                taskPage.ChangeTaskDataEvent += () =>
-                {
-                    taskPage.PresentTaskDataOnTree(project.TaskData);
-                    taskPage.GetTaskAdvisor()?.
-                    SetProjectData(project.GeneralData, project.ModelData, project.TaskData);
-                };
                 return taskPage;
             }
 
@@ -339,9 +321,9 @@ SetProjectData(project.GeneralData, project.ModelData, project.TaskData);
             {
                 resultsMenuItem.Visible = true;
                 var resPage = new ResultPage() { Dock = DockStyle.Fill, Name = moduleName};
+                resPage.SetResultsController(resultsController);
+                resPage.SetResultData(project.ResultData);
                 resPage.LoadResultsEvent += ResultModule_LoadResultsEvent;
-                resPage.ClearingResultDataUseNavigatorEvent += () => { project.ResultData.Clear(); };
-                resPage.MergingResultDataUseNavigatorEvent += () => { resPage.MergeResults(project.ResultData, resultsController); };
                 return resPage;
             }
 
@@ -351,6 +333,8 @@ SetProjectData(project.GeneralData, project.ModelData, project.TaskData);
                 var modelPage = new ModelPage() { Dock = DockStyle.Fill, Name = moduleName };
                 return modelPage;
             }
+
+
         }
 
         private void TaskPage_NeedSaveProjectEvent(object sender)
@@ -445,24 +429,21 @@ SetProjectData(project.GeneralData, project.ModelData, project.TaskData);
 
             basePage.SetSplitters(que);
 
-            basePage.GeneralData = project.GeneralData;
-            basePage.ScenePage.ModelData = project.ModelData;
-            basePage.ScenePage.ModelController = modelController;
+            modelController.PresentersCreator.TransparencyValue = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
+    
             basePage.ScenePage.SceneControl.BackGroundColor = settingsConfig.BackGroudColor;
             basePage.ScenePage.SceneControl.IsBlending = settingsConfig.Transparency;
             basePage.ScenePage.SceneControl.IsLighting = settingsConfig.Lighting;
 
-            basePage.ScenePage.PresentersCreator.TransparencyValue = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
-
-            basePage.ScenePage.SceneControl.SelectionColor = Color.FromArgb(basePage.ScenePage.PresentersCreator.TransparencyValue, settingsConfig.SelectObjectColor);
-            basePage.SelectionGroupColor = Color.FromArgb(basePage.ScenePage.PresentersCreator.TransparencyValue, settingsConfig.SelectGroupColor);
+            basePage.ScenePage.SceneControl.SelectionColor = Color.FromArgb(modelController.PresentersCreator.TransparencyValue, settingsConfig.SelectObjectColor);
+            basePage.SelectionGroupColor = Color.FromArgb(modelController.PresentersCreator.TransparencyValue, settingsConfig.SelectGroupColor);
 
             var objs = project.ModelData.ObjectData.GetAllObjects();
 
             foreach (var obj in objs)
             {
                 var preColor = obj.SlaveColor;
-                var newColor = Color.FromArgb(basePage.ScenePage.PresentersCreator.TransparencyValue, preColor);
+                var newColor = Color.FromArgb(modelController.PresentersCreator.TransparencyValue, preColor);
                 obj.MasterColor = newColor;
                 obj.SlaveColor = newColor;
             }
@@ -545,13 +526,14 @@ SetProjectData(project.GeneralData, project.ModelData, project.TaskData);
                     serverConnection = new ClientController(ar1, ar2);
                     serverConnection.RequestServer(module.Name + " Взять");
 
-                    control.LabelAnswer = serverConnection.Answer;
-
                     if (serverConnection.Answer == "можно")
                     {
-                        UnBlockGeneralMenuInterface(module.Name,true);
+                        control.LabelAnswer = "Лицензирование проведено";
+                        UnBlockGeneralMenuInterface(module.Name, true);
                         StartLicensing(module);
                     }
+                    else
+                        control.LabelAnswer = serverConnection.Answer;
                 }
             };
             form.ClientSize = control.Size;
@@ -631,17 +613,17 @@ SetProjectData(project.GeneralData, project.ModelData, project.TaskData);
 
             settings.SetTransparencyValueEvent += (ar1) =>
             {
-                scenePage.PresentersCreator.TransparencyValue = (int)(ar1 / 100.0f * 255);
+                modelController.PresentersCreator.TransparencyValue = (int)(ar1 / 100.0f * 255);
 
-                scenePage.SceneControl.SelectionColor = Color.FromArgb(scenePage.PresentersCreator.TransparencyValue, settingsConfig.SelectObjectColor);
-                module.BasePage.SelectionGroupColor = Color.FromArgb(scenePage.PresentersCreator.TransparencyValue, settingsConfig.SelectGroupColor);
+                scenePage.SceneControl.SelectionColor = Color.FromArgb(modelController.PresentersCreator.TransparencyValue, settingsConfig.SelectObjectColor);
+                module.BasePage.SelectionGroupColor = Color.FromArgb(modelController.PresentersCreator.TransparencyValue, settingsConfig.SelectGroupColor);
 
                 var objs = project.ModelData.ObjectData.GetAllObjects();
 
                 foreach (var obj in objs)
                 {
                     var preColor = obj.SlaveColor;
-                    var newColor = Color.FromArgb(scenePage.PresentersCreator.TransparencyValue, preColor);
+                    var newColor = Color.FromArgb(modelController.PresentersCreator.TransparencyValue, preColor);
                     obj.MasterColor = newColor;
                     obj.SlaveColor = newColor;
                 } 
@@ -940,12 +922,12 @@ SetProjectData(project.GeneralData, project.ModelData, project.TaskData);
         {
             var module = (WeldingPage)ModulePage;
 
-            var adv = module.CreateWeldingAdvisor(project.TaskData, WeldingKind.ARC);
+            var adv = module.CreateWeldingAdvisor(WeldingKind.ARC);
 
             module.DeleteAdvisor();
 
             if (arcWeldingMenuItem.Checked)
-                module.ShowAdvisor(sender,adv, project.TaskData,new PreProc());
+                module.ShowAdvisor(sender,adv);
             else module.DeleteAdvisor();
         }
 
@@ -965,12 +947,12 @@ SetProjectData(project.GeneralData, project.ModelData, project.TaskData);
         {
             var module = (WeldingPage)ModulePage;
 
-            var adv = module.CreateWeldingAdvisor(project.TaskData, WeldingKind.Lazer);
+            var adv = module.CreateWeldingAdvisor( WeldingKind.Lazer);
 
             module.DeleteAdvisor();
 
             if (lazerWeldingMenuItem.Checked)
-                module.ShowAdvisor(sender, adv, project.TaskData, new PreProc());
+                module.ShowAdvisor(sender, adv);
             else module.DeleteAdvisor();
         }
 
@@ -978,12 +960,12 @@ SetProjectData(project.GeneralData, project.ModelData, project.TaskData);
         {
             var module = (WeldingPage)ModulePage;
 
-            var adv = module.CreateWeldingAdvisor(project.TaskData, WeldingKind.FrictionStearing);
+            var adv = module.CreateWeldingAdvisor(WeldingKind.FrictionStearing);
 
             module.DeleteAdvisor();
 
             if (fsWeldingMenuItem.Checked)
-                module.ShowAdvisor(sender, adv, project.TaskData, new PreProc());
+                module.ShowAdvisor(sender, adv);
             else module.DeleteAdvisor();
         }
 
@@ -1016,13 +998,13 @@ SetProjectData(project.GeneralData, project.ModelData, project.TaskData);
         private void createFieldMenuItem_Click(object sender, EventArgs e)
         {
             var module = (ResultPage)ModulePage;
-            module.ShowAnimation(project.ResultData, resultsController);
+            module.ShowAnimation();
         }
 
         private void createPlotMenuItem_Click(object sender, EventArgs e)
         {
             var module = (ResultPage)ModulePage;
-            module.CreateGraph(project.ResultData);
+            module.CreateGraph();
         }
 
         private void scaleSettingsMenuItem_Click(object sender, EventArgs e)
@@ -1034,7 +1016,7 @@ SetProjectData(project.GeneralData, project.ModelData, project.TaskData);
         private void exportResultsMenuItem_Click(object sender, EventArgs e)
         {
             var module = (ResultPage)ModulePage;
-            module.ShowExportResultsPage(project.ResultData, resultsController);
+            module.ShowExportResultsPage();
         }
 
         private void heatingMenuItem_Click(object sender, EventArgs e)
@@ -1046,7 +1028,7 @@ SetProjectData(project.GeneralData, project.ModelData, project.TaskData);
             module.DeleteAdvisor();
 
             if (heatingMenuItem.Checked)
-                module.ShowAdvisor(sender, adv, project.TaskData, new PreProc());
+                module.ShowAdvisor(sender, adv);
             else module.DeleteAdvisor();
         }
 
@@ -1059,7 +1041,7 @@ SetProjectData(project.GeneralData, project.ModelData, project.TaskData);
             module.DeleteAdvisor();
 
             if (temperingMenuItem.Checked)
-                module.ShowAdvisor(sender, adv, project.TaskData, new PreProc());
+                module.ShowAdvisor(sender, adv);
             else module.DeleteAdvisor();
         }
 
@@ -1072,7 +1054,7 @@ SetProjectData(project.GeneralData, project.ModelData, project.TaskData);
             module.DeleteAdvisor();
 
             if (quenchingMenuItem.Checked)
-                module.ShowAdvisor(sender, adv, project.TaskData, new PreProc());
+                module.ShowAdvisor(sender, adv);
             else module.DeleteAdvisor();
         }
     }
