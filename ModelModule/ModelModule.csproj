@@ -102,8 +102,8 @@
     <Reference Include="Tao.Platform.Windows, Version=1.0.0.5, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL">
       <HintPath>..\packages\Scene.2.0.8.46\lib\net48\Tao.Platform.Windows.dll</HintPath>
     </Reference>
-    <Reference Include="UserControlsEx, Version=1.1.2.0, Culture=neutral, PublicKeyToken=16903e6a4b8fab01, processorArchitecture=MSIL">
-      <HintPath>..\packages\UserControlsEx.1.1.2\lib\net48\UserControlsEx.dll</HintPath>
+    <Reference Include="UserControlsEx, Version=1.1.7.0, Culture=neutral, PublicKeyToken=16903e6a4b8fab01, processorArchitecture=MSIL">
+      <HintPath>..\packages\UserControlsEx.1.1.7\lib\net48\UserControlsEx.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +176,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ProgressBarEx\Controls\ProgressBar.ico" />
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
   </ItemGroup>

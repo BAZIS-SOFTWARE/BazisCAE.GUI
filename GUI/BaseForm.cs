@@ -28,7 +28,6 @@ using Results;
 using MathNet.Numerics.LinearAlgebra;
 using ProjectInterfaces.Tasks;
 using UserControlsEx;
-using Results.ResultsData;
 using BazisGUI.Properties;
 
 namespace BazisGUI

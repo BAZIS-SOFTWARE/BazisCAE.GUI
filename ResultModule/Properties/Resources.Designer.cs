@@ -59,35 +59,5 @@ namespace ResultModule.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
-        /// </summary>
-        internal static System.Drawing.Icon Animation {
-            get {
-                object obj = ResourceManager.GetObject("Animation", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
-        /// </summary>
-        internal static System.Drawing.Icon Graph {
-            get {
-                object obj = ResourceManager.GetObject("Graph", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
-        /// </summary>
-        internal static System.Drawing.Icon Scale {
-            get {
-                object obj = ResourceManager.GetObject("Scale", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
     }
 }

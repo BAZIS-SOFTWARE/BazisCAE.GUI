@@ -61,8 +61,8 @@
     <Reference Include="Gif.Components">
       <HintPath>..\Libs\Gif.Components.dll</HintPath>
     </Reference>
-    <Reference Include="Graph, Version=1.0.2.29, Culture=neutral, PublicKeyToken=4d6e483d8ec08dd8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Graph.1.0.2.29\lib\net48\Graph.dll</HintPath>
+    <Reference Include="Graph, Version=1.0.2.31, Culture=neutral, PublicKeyToken=4d6e483d8ec08dd8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Graph.1.0.2.31\lib\net48\Graph.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -112,8 +112,8 @@
     <Reference Include="Tao.Platform.Windows, Version=1.0.0.5, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL">
       <HintPath>..\packages\Scene.2.0.8.46\lib\net48\Tao.Platform.Windows.dll</HintPath>
     </Reference>
-    <Reference Include="UserControlsEx, Version=1.1.2.0, Culture=neutral, PublicKeyToken=16903e6a4b8fab01, processorArchitecture=MSIL">
-      <HintPath>..\packages\UserControlsEx.1.1.2\lib\net48\UserControlsEx.dll</HintPath>
+    <Reference Include="UserControlsEx, Version=1.1.7.0, Culture=neutral, PublicKeyToken=16903e6a4b8fab01, processorArchitecture=MSIL">
+      <HintPath>..\packages\UserControlsEx.1.1.7\lib\net48\UserControlsEx.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -205,15 +205,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Scale.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Graph.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Animation.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -226,6 +217,7 @@
     <Content Include="Graph_icons\LineThickness1.ico" />
     <Content Include="Graph_icons\LineThickness2.ico" />
     <Content Include="Graph_icons\Show_value.bmp" />
+    <Content Include="ProgressBarEx\Controls\ProgressBar.ico" />
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
   </ItemGroup>
