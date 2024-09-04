@@ -92,6 +92,8 @@
             // 
             this.chbShowScale.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.chbShowScale.AutoSize = true;
+            this.chbShowScale.Checked = true;
+            this.chbShowScale.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tableLayoutPanel1.SetColumnSpan(this.chbShowScale, 4);
             this.chbShowScale.Location = new System.Drawing.Point(21, 16);
             this.chbShowScale.Margin = new System.Windows.Forms.Padding(21, 3, 5, 3);

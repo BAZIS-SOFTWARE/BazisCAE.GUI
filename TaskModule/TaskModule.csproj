@@ -52,11 +52,11 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DataBaseController, Version=1.0.3.3, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataBaseController.1.0.3.3\lib\netstandard2.0\DataBaseController.dll</HintPath>
+    <Reference Include="DataBaseController, Version=1.0.3.4, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataBaseController.1.0.3.4\lib\netstandard2.0\DataBaseController.dll</HintPath>
     </Reference>
-    <Reference Include="DataBasesGUI, Version=1.0.2.66, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataBasesGUI.1.0.2.66\lib\net48\DataBasesGUI.dll</HintPath>
+    <Reference Include="DataBasesGUI, Version=1.0.2.67, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataBasesGUI.1.0.2.67\lib\net48\DataBasesGUI.dll</HintPath>
     </Reference>
     <Reference Include="Geometry, Version=2.0.8.1, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
       <HintPath>..\packages\Geometry.2.0.8.1\lib\netstandard2.0\Geometry.dll</HintPath>

@@ -136,48 +136,49 @@ namespace ResultModule
 
         public void CreateGraph()
         {
-                var grPage = new GraphCreationPage() { Dock = DockStyle.Fill };
-                grPage.CreateTimeGraphEvent += (ar1, ar2) =>
-                {
-                    var results = resultData.FindByTaskKind(ar2.ResultKind);
-                    CreateTimeGraph(results, ar2.ObjsType);
-                };
+            var grPage = new GraphCreationPage() { Dock = DockStyle.Fill };
+            grPage.CreateTimeGraphEvent += (ar1, ar2) =>
+            {
+                var results = resultData.FindByTaskKind(ar2.ResultKind);
+                CreateTimeGraph(results, ar2.ObjsType);
+            };
             grPage.CreatePathGraphEvent += (ar1, ar2) =>
                 {
                     var result = resultData.FindByTime(ar2.ResultKind, ar2.Time);
                     CreatePathGraph(result, ar2.ObjsType);
                 };
 
-                grPage.SelectResultsEvent += (ar) =>
-                {
-                    BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
-                    BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
+            grPage.SelectResultsEvent += (ar) =>
+            {
+                BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
+                BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
 
-                    var res = resultData.FindByTaskKind(ar);
-                    PresentResultsOnTree(res);
-                };
+                var res = resultData.FindByTaskKind(ar);
+                PresentResultsOnTree(res);
+            };
 
-                var resKinds = resultData.GetResultKinds();
-                var resDic = new Dictionary<string, List<float>>();
-                foreach (var resKind in resKinds)
-                {
-                    resDic.Add(resKind.ToString(), new List<float>());
-                    var resTimes = resultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
-                    resDic[resKind.ToString()] = resTimes;
-                }
-                grPage.SetResultsItems(resDic);
+            var resKinds = resultData.GetResultKinds();
+            var resDic = new Dictionary<string, List<float>>();
+            foreach (var resKind in resKinds)
+            {
+                resDic.Add(resKind.ToString(), new List<float>());
+                var resTimes = resultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
+                resDic[resKind.ToString()] = resTimes;
+            }
+            grPage.SetResultsItems(resDic);
 
-                var scForm = new Form() 
-                {
-                    Owner = Application.OpenForms[0],
-                    TopMost = true, 
-                    Text = "Построить график", 
-                    Size = grPage.Size, 
-                    ShowIcon = false ,
-                    ClientSize = grPage.Size
-                };
-                scForm.Controls.Add(grPage);
-                scForm.Show();
+            var scForm = new Form()
+            {
+                Owner = Application.OpenForms[0],
+                TopMost = true,
+                Text = "Построить график",
+                Size = grPage.Size,
+                ShowIcon = false,
+                ClientSize = grPage.Size
+            };
+            scForm.FormClosed += (ar1, ar2) => { BasePage.ScenePage.ClearAllGeometryDataOnScene(); };
+            scForm.Controls.Add(grPage);
+            scForm.Show();
 
         }
 
