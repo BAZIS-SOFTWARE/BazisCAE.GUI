@@ -117,7 +117,8 @@ namespace ModelModule
         {
             if (dim == 1)
             {
-                pointsControlBox.Enabled = false;
+                geometryLayout.GetControlFromPosition(0, 0).Enabled = false;
+                //curvesControlBox.Enabled = false;
             }
             else if (dim == 2)
             {
@@ -321,25 +322,20 @@ namespace ModelModule
         /// </summary>
         public void WriteCurveSettingsToControls(string[] attributes)
         {
-            if(attributes.Length == 0)
+            var ctrl = geometryLayout.GetControlFromPosition(0, 0);
+            if (ctrl != null)
             {
-                rbtnProgressive.Checked = true;
-                txbAlgoCoef.Text = "1.0";
-                txbAlgoNPoints.Text = string.Empty;
+                var curveCtrl = ctrl as GMSHCurveSettingsControl;
+                curveCtrl.WriteCurveSettingsToControls(attributes);
             }
-            else
-            {
-                var law = attributes[1];
-                if (rbtnBump.Text.Contains(law))
-                    rbtnBump.Checked = true;
-                else if (rbtnBeta.Text.Contains(law))
-                    rbtnBeta.Checked = true;
-                else
-                    rbtnProgressive.Checked = true;
+        }
+        /// <summary>
+        /// Записывает размеры гкометрических точек в элементы управления
+        /// </summary>
+        /// <param name="sizes">Размеры геометрических точек</param>
+        public  void WritePointsSettingsToControl(double[] sizes)
+        {
 
-                txbAlgoNPoints.Text = attributes[0];
-                txbAlgoCoef.Text = attributes[2].Length == 0 ? "1.0" : attributes[2];
-            }
         }
 
         private void entTree_AfterSelect(object sender, TreeViewEventArgs e)
@@ -355,15 +351,29 @@ namespace ModelModule
 
             showObjectsEvent?.Invoke(objsNumbers);
 
-            if (curveNodes.Count == 0 | curveNodes.Count > 1)
-                pointsControlBox.Enabled = false;
-            else
-            {
-                pointsControlBox.Enabled = true;
-                var tag = FindObjectByTreeNode(e.Node);
+            var gmshTag = FindObjectByTreeNode(e.Node);
 
-                setCurveDataEvent?.Invoke(this,tag);           
+            var nodeText = e.Node.Text;
+            if (nodeText.Contains("Узел"))
+            {
+                geometryLayout.GetControlFromPosition(0, 0).Enabled = false;
             }
+            else if (nodeText.Contains("Кривая"))
+            {
+                geometryLayout.GetControlFromPosition(0, 0).Enabled = true;
+                setCurveDataEvent?.Invoke(this, gmshTag);///Записываем настройки кривой в контрол, который сохранил gmsh
+            }
+            else if (nodeText.Contains("Поверхность"))
+            {
+                geometryLayout.GetControlFromPosition(0, 0).Enabled = false;
+            }
+            else if (nodeText.Contains("Объем"))
+            {
+                geometryLayout.GetControlFromPosition(0, 0).Enabled = false;
+            }
+            //geometryLayout.GetControlFromPosition(0, 0);
+
+            //geometryLayout.Controls.RemoveAt(0);//Должно быть в before
 
             //redrawScene?.Invoke(false);
         }
@@ -465,30 +475,20 @@ namespace ModelModule
                 resetColorObjectsEvent?.Invoke(ObjType.Линия);
         }
 
-        private void BtnOK_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Принимает от пользовательского контрола валидные настройки трансфиниции
+        /// </summary>
+        /// <param name="attributes">Настройки трансфиниции пользовательского контрола в виде массива строк</param>
+        public void ApplyCurveTranfinition(string[] attributes)
         {
-            var attributes = new string[3] { txbAlgoNPoints.Text, rbtnProgressive.Text, txbAlgoCoef.Text };
-            if (rbtnBeta.Checked)
-                attributes[1] = rbtnBeta.Text;
-            else if (rbtnBump.Checked)
-                attributes[1] = rbtnBump.Text;
-            double points = 0, coef = 0;
-
-            if (txbAlgoCoef.IsValueValid())
-                coef = double.Parse(txbAlgoCoef.Text);
-            else
-                return;
-
-            if (txbAlgoNPoints.IsValueValid())
-                points = double.Parse(txbAlgoNPoints.Text);
-            else
-                return;
+            var coef = double.Parse(attributes[2]);
+            var points = double.Parse(attributes[0]);
 
             var tag = FindObjectByTreeNode(geomTree.SelectedNode);
             setTransfiniteCurveEvent?.Invoke(this, new SetTransfiniteCurveEventArgs(tag, attributes, 3, coef, points));
 
             if (chbShowNumberOfCurveNodes.Checked)
-                showNumberOfCurveNodesEvent?.Invoke(this,true);
+                showNumberOfCurveNodesEvent?.Invoke(this, true);
             if (chbShowHeatMap.Checked)
                 showHeatMapEvent?.Invoke(true);
             if (chbShowNodesOnCurves.Checked)

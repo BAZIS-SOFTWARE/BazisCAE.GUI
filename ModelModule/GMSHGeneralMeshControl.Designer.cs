@@ -37,37 +37,26 @@ namespace ModelModule
             this.rem3DItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsRemoveMesh3D = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.rem2DItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gmshTab = new TabControlEx();
+            this.gmshTab = new UserControlsEx.TabControlEx();
             this.geometryPage = new System.Windows.Forms.TabPage();
             this.geometryLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.pointsControlBox = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.rbtnProgressive = new System.Windows.Forms.RadioButton();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txbAlgoCoef = new TextBoxEx(this.components);
-            this.txbAlgoNPoints = new TextBoxEx(this.components);
-            this.btnDel = new System.Windows.Forms.Button();
-            this.rbtnBeta = new System.Windows.Forms.RadioButton();
-            this.rbtnBump = new System.Windows.Forms.RadioButton();
-            this.btnOK = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.chbShowNodesOnCurves = new System.Windows.Forms.CheckBox();
             this.chbShowNumberOfCurveNodes = new System.Windows.Forms.CheckBox();
             this.chbShowSurfaceNumbers = new System.Windows.Forms.CheckBox();
             this.chbShowHeatMap = new System.Windows.Forms.CheckBox();
             this.geomTree = new System.Windows.Forms.TreeView();
-            this.grbGradientMeshSettings = new GroupBoxEx();
+            this.grbGradientMeshSettings = new UserControlsEx.GroupBoxEx();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
-            this.txbLayerThickness = new TextBoxEx(this.components);
+            this.txbLayerThickness = new UserControlsEx.TextBoxEx(this.components);
             this.label5 = new System.Windows.Forms.Label();
-            this.txbSurfaceMeshSize = new TextBoxEx(this.components);
+            this.txbSurfaceMeshSize = new UserControlsEx.TextBoxEx(this.components);
             this.label4 = new System.Windows.Forms.Label();
-            this.txbCoreMeshSize = new TextBoxEx(this.components);
+            this.txbCoreMeshSize = new UserControlsEx.TextBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.btnSetGradientSettings = new System.Windows.Forms.Button();
-            this.txbMeshGradientPower = new TextBoxEx(this.components);
+            this.txbMeshGradientPower = new UserControlsEx.TextBoxEx(this.components);
             this.meshPage = new System.Windows.Forms.TabPage();
             this.meshLayout = new System.Windows.Forms.TableLayoutPanel();
             this.surfsTree = new System.Windows.Forms.TreeView();
@@ -79,8 +68,8 @@ namespace ModelModule
             this.btnMesh2DDel = new System.Windows.Forms.Button();
             this.quadBtn = new System.Windows.Forms.Button();
             this.mesh2DGenBtn = new System.Windows.Forms.Button();
-            this.cmbAlgoChoice = new ComboBoxEx(this.components);
-            this.meshDensityValue = new TextBoxEx(this.components);
+            this.cmbAlgoChoice = new UserControlsEx.ComboBoxEx(this.components);
+            this.meshDensityValue = new UserControlsEx.TextBoxEx(this.components);
             this.volumePage = new System.Windows.Forms.TabPage();
             this.volumeLayout = new System.Windows.Forms.TableLayoutPanel();
             this.volumesTree = new System.Windows.Forms.TreeView();
@@ -88,13 +77,12 @@ namespace ModelModule
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.btnGenVolMesh = new System.Windows.Forms.Button();
             this.btnDelVolMesh = new System.Windows.Forms.Button();
+            this.gmshCurveSettingsControl1 = new ModelModule.GMSHCurveSettingsControl();
             this.cmsRemoveMesh2D.SuspendLayout();
             this.cmsRemoveMesh3D.SuspendLayout();
             this.gmshTab.SuspendLayout();
             this.geometryPage.SuspendLayout();
             this.geometryLayout.SuspendLayout();
-            this.pointsControlBox.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.panel2.SuspendLayout();
             this.grbGradientMeshSettings.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -177,10 +165,10 @@ namespace ModelModule
             this.geometryLayout.BackColor = System.Drawing.SystemColors.Control;
             this.geometryLayout.ColumnCount = 1;
             this.geometryLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.geometryLayout.Controls.Add(this.pointsControlBox, 0, 0);
             this.geometryLayout.Controls.Add(this.panel2, 0, 3);
             this.geometryLayout.Controls.Add(this.geomTree, 0, 2);
             this.geometryLayout.Controls.Add(this.grbGradientMeshSettings, 0, 1);
+            this.geometryLayout.Controls.Add(this.gmshCurveSettingsControl1, 0, 0);
             this.geometryLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.geometryLayout.Location = new System.Drawing.Point(0, 0);
             this.geometryLayout.Margin = new System.Windows.Forms.Padding(0);
@@ -192,175 +180,6 @@ namespace ModelModule
             this.geometryLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.geometryLayout.Size = new System.Drawing.Size(464, 638);
             this.geometryLayout.TabIndex = 0;
-            // 
-            // pointsControlBox
-            // 
-            this.pointsControlBox.AutoSize = true;
-            this.pointsControlBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pointsControlBox.BackColor = System.Drawing.SystemColors.Control;
-            this.pointsControlBox.Controls.Add(this.tableLayoutPanel2);
-            this.pointsControlBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pointsControlBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.pointsControlBox.Location = new System.Drawing.Point(7, 7);
-            this.pointsControlBox.Margin = new System.Windows.Forms.Padding(7);
-            this.pointsControlBox.Name = "pointsControlBox";
-            this.pointsControlBox.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.pointsControlBox.Size = new System.Drawing.Size(450, 157);
-            this.pointsControlBox.TabIndex = 2;
-            this.pointsControlBox.TabStop = false;
-            this.pointsControlBox.Text = "Настройки разметки кривых";
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.AutoSize = true;
-            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel2.ColumnCount = 4;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 92F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.rbtnProgressive, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label3, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label2, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.txbAlgoCoef, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.txbAlgoNPoints, 2, 1);
-            this.tableLayoutPanel2.Controls.Add(this.btnDel, 3, 2);
-            this.tableLayoutPanel2.Controls.Add(this.rbtnBeta, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.rbtnBump, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.btnOK, 2, 2);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 13);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(444, 141);
-            this.tableLayoutPanel2.TabIndex = 11;
-            // 
-            // rbtnProgressive
-            // 
-            this.rbtnProgressive.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.rbtnProgressive.AutoSize = true;
-            this.rbtnProgressive.Checked = true;
-            this.rbtnProgressive.Location = new System.Drawing.Point(5, 15);
-            this.rbtnProgressive.Margin = new System.Windows.Forms.Padding(5, 2, 3, 2);
-            this.rbtnProgressive.Name = "rbtnProgressive";
-            this.rbtnProgressive.Size = new System.Drawing.Size(80, 17);
-            this.rbtnProgressive.TabIndex = 0;
-            this.rbtnProgressive.TabStop = true;
-            this.rbtnProgressive.Tag = "Прогрессия";
-            this.rbtnProgressive.Text = "Progressive";
-            this.rbtnProgressive.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(110, 17);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Коэффициент:";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(114, 65);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Число точек:";
-            // 
-            // txbAlgoCoef
-            // 
-            this.txbAlgoCoef.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbAlgoCoef.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tableLayoutPanel2.SetColumnSpan(this.txbAlgoCoef, 2);
-            this.txbAlgoCoef.InputType = TXTBoxInputType.Float;
-            this.txbAlgoCoef.IsValidating = true;
-            this.txbAlgoCoef.Location = new System.Drawing.Point(229, 14);
-            this.txbAlgoCoef.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
-            this.txbAlgoCoef.Name = "txbAlgoCoef";
-            this.txbAlgoCoef.Size = new System.Drawing.Size(195, 20);
-            this.txbAlgoCoef.TabIndex = 4;
-            this.txbAlgoCoef.Tag = "algoCoef";
-            this.txbAlgoCoef.Text = "1.0";
-            this.txbAlgoCoef.UserRegExCheck = null;
-            this.txbAlgoCoef.UserRegExCheckErrorMessage = "Введите чило с плавающей запятой.";
-            // 
-            // txbAlgoNPoints
-            // 
-            this.txbAlgoNPoints.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbAlgoNPoints.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tableLayoutPanel2.SetColumnSpan(this.txbAlgoNPoints, 2);
-            this.txbAlgoNPoints.InputType = TXTBoxInputType.Integer;
-            this.txbAlgoNPoints.IsValidating = true;
-            this.txbAlgoNPoints.Location = new System.Drawing.Point(229, 62);
-            this.txbAlgoNPoints.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
-            this.txbAlgoNPoints.Name = "txbAlgoNPoints";
-            this.txbAlgoNPoints.Size = new System.Drawing.Size(195, 20);
-            this.txbAlgoNPoints.TabIndex = 5;
-            this.txbAlgoNPoints.Tag = "algoNPoints";
-            this.txbAlgoNPoints.UserRegExCheck = null;
-            this.txbAlgoNPoints.UserRegExCheckErrorMessage = null;
-            // 
-            // btnDel
-            // 
-            this.btnDel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnDel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnDel.Location = new System.Drawing.Point(346, 102);
-            this.btnDel.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(78, 32);
-            this.btnDel.TabIndex = 9;
-            this.btnDel.Text = "Удалить";
-            this.btnDel.UseVisualStyleBackColor = true;
-            // 
-            // rbtnBeta
-            // 
-            this.rbtnBeta.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.rbtnBeta.AutoSize = true;
-            this.rbtnBeta.Location = new System.Drawing.Point(5, 110);
-            this.rbtnBeta.Margin = new System.Windows.Forms.Padding(5, 2, 3, 2);
-            this.rbtnBeta.Name = "rbtnBeta";
-            this.rbtnBeta.Size = new System.Drawing.Size(47, 17);
-            this.rbtnBeta.TabIndex = 2;
-            this.rbtnBeta.Tag = "Бета";
-            this.rbtnBeta.Text = "Beta";
-            this.rbtnBeta.UseVisualStyleBackColor = true;
-            // 
-            // rbtnBump
-            // 
-            this.rbtnBump.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.rbtnBump.AutoSize = true;
-            this.rbtnBump.Location = new System.Drawing.Point(5, 63);
-            this.rbtnBump.Margin = new System.Windows.Forms.Padding(5, 2, 3, 2);
-            this.rbtnBump.Name = "rbtnBump";
-            this.rbtnBump.Size = new System.Drawing.Size(52, 17);
-            this.rbtnBump.TabIndex = 1;
-            this.rbtnBump.Tag = "Колокол";
-            this.rbtnBump.Text = "Bump";
-            this.rbtnBump.UseVisualStyleBackColor = true;
-            // 
-            // btnOK
-            // 
-            this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnOK.Location = new System.Drawing.Point(229, 102);
-            this.btnOK.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(77, 32);
-            this.btnOK.TabIndex = 10;
-            this.btnOK.Text = "OK";
-            this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // panel2
             // 
@@ -505,7 +324,7 @@ namespace ModelModule
             // 
             this.txbLayerThickness.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txbLayerThickness.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbLayerThickness.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbLayerThickness.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbLayerThickness.IsValidating = true;
             this.txbLayerThickness.Location = new System.Drawing.Point(216, 14);
             this.txbLayerThickness.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
@@ -530,7 +349,7 @@ namespace ModelModule
             // 
             this.txbSurfaceMeshSize.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txbSurfaceMeshSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbSurfaceMeshSize.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbSurfaceMeshSize.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbSurfaceMeshSize.IsValidating = true;
             this.txbSurfaceMeshSize.Location = new System.Drawing.Point(216, 59);
             this.txbSurfaceMeshSize.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
@@ -555,7 +374,7 @@ namespace ModelModule
             // 
             this.txbCoreMeshSize.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txbCoreMeshSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbCoreMeshSize.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbCoreMeshSize.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbCoreMeshSize.IsValidating = true;
             this.txbCoreMeshSize.Location = new System.Drawing.Point(216, 103);
             this.txbCoreMeshSize.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
@@ -593,7 +412,7 @@ namespace ModelModule
             // 
             this.txbMeshGradientPower.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txbMeshGradientPower.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbMeshGradientPower.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbMeshGradientPower.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbMeshGradientPower.IsValidating = true;
             this.txbMeshGradientPower.Location = new System.Drawing.Point(216, 152);
             this.txbMeshGradientPower.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
@@ -772,7 +591,7 @@ namespace ModelModule
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.cmbAlgoChoice, 2);
             this.cmbAlgoChoice.FormattingEnabled = true;
-            this.cmbAlgoChoice.InputType = CMBInputType.Items;
+            this.cmbAlgoChoice.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbAlgoChoice.IsValidating = true;
             this.cmbAlgoChoice.Items.AddRange(new object[] {
             "MeshAdapt",
@@ -793,7 +612,7 @@ namespace ModelModule
             // 
             this.meshDensityValue.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.meshDensityValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.meshDensityValue.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.meshDensityValue.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.meshDensityValue.IsValidating = true;
             this.meshDensityValue.Location = new System.Drawing.Point(22, 116);
             this.meshDensityValue.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
@@ -900,6 +719,15 @@ namespace ModelModule
             this.btnDelVolMesh.UseVisualStyleBackColor = true;
             this.btnDelVolMesh.Click += new System.EventHandler(this.OnDeleteMesh3D);
             // 
+            // gmshCurveSettingsControl1
+            // 
+            this.gmshCurveSettingsControl1.Enabled = false;
+            this.gmshCurveSettingsControl1.Location = new System.Drawing.Point(7, 7);
+            this.gmshCurveSettingsControl1.Margin = new System.Windows.Forms.Padding(7);
+            this.gmshCurveSettingsControl1.Name = "gmshCurveSettingsControl1";
+            this.gmshCurveSettingsControl1.Size = new System.Drawing.Size(450, 157);
+            this.gmshCurveSettingsControl1.TabIndex = 18;
+            // 
             // GMSHGeneralMeshControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -915,10 +743,6 @@ namespace ModelModule
             this.geometryPage.ResumeLayout(false);
             this.geometryLayout.ResumeLayout(false);
             this.geometryLayout.PerformLayout();
-            this.pointsControlBox.ResumeLayout(false);
-            this.pointsControlBox.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.grbGradientMeshSettings.ResumeLayout(false);
@@ -962,22 +786,12 @@ namespace ModelModule
         private ContextMenuStrip cmsRemoveMesh3D;
         private ToolStripMenuItem rem2DItem;
         private TableLayoutPanel geometryLayout;
-        private GroupBox pointsControlBox;
-        private Button btnDel;
-        private Button btnOK;
-        private TextBoxEx txbAlgoNPoints;
-        private RadioButton rbtnProgressive;
-        private Label label2;
-        private RadioButton rbtnBump;
-        private Label label3;
-        private RadioButton rbtnBeta;
         private TreeView geomTree;
         private Panel panel2;
         private CheckBox chbShowNumberOfCurveNodes;
         private CheckBox chbShowSurfaceNumbers;
         private CheckBox chbShowHeatMap;
         private TableLayoutPanel tableLayoutPanel1;
-        private TableLayoutPanel tableLayoutPanel2;
         private TableLayoutPanel tableLayoutPanel3;
         private TabControlEx gmshTab;
         private CheckBox chbShowNodesOnCurves;
@@ -988,7 +802,6 @@ namespace ModelModule
         private Label label1;
         private Label label5;
         private Label label4;
-        private TextBoxEx txbAlgoCoef;
         private TextBoxEx txbLayerThickness;
         private TextBoxEx txbCoreMeshSize;
         private TextBoxEx txbSurfaceMeshSize;
@@ -998,5 +811,6 @@ namespace ModelModule
         private Button btnSetGradientSettings;
         private TextBoxEx txbMeshGradientPower;
         private Label label6;
+        private GMSHCurveSettingsControl gmshCurveSettingsControl1;
     }
 }
