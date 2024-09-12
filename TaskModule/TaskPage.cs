@@ -13,14 +13,11 @@ using BaseModule;
 using DataBaseController.MaterialData;
 using DataBaseController.FunctionData;
 using Newtonsoft.Json;
-using BaseModule.Navigator;
 using DataBasesGUI;
 using Geometry;
-//using Tasks;
 using ProjectInterfaces.Tasks;
 using ModelInterfaces;
 using TaskModule.BasicAdvisorControls.TaskPlannerControls;
-using BaseModule.Console;
 using BaseModule.Utilities;
 using ModelControllerInterfaces;
 using ProjectInterfaces;
@@ -345,7 +342,7 @@ namespace TaskModule
 
         private void TaskAdv_StopComputationEvent(object arg1, EventArgs arg2)
         {
-            var runProc = Process.GetProcessesByName("BazisSolver");
+            var runProc = Process.GetProcessesByName("BazisSolverCP");
 
             if (runProc.Length != 0)
             {

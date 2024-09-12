@@ -301,9 +301,25 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 var setting = dataGridView[(int)Column.settings, CurentSelectedRowIndex].Value.ToString();
                 var taskInd = int.Parse(Path.GetFileName(setting).Split('_')[1]);
 
-                GenerateTsfFile(taskKind, taskInd, InputDataPath);
-                //CurentSelectedRowInfo = AddRowInfo(taskKind, taskStatus, CurentSelectedRowIndex);
-                //base.RefreshButton_Click(sender, e);
+
+                var isTsfFileCreated = GenerateTsfFile(taskKind, taskInd, InputDataPath);
+
+                if (isTsfFileCreated)
+                {
+                    var tsfFileName = $"{taskKind}_{taskInd}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
+
+                    if (taskKind == TaskKind.термическая)
+                    {
+
+                    }
+
+                    dataGridView[(int)Column.kind, CurentSelectedRowIndex].Value = TaskKind.термическая;
+                    var settingsStr = $@"{InputDataPath}\{tsfFileName}";
+                    dataGridView[(int)Column.settings, CurentSelectedRowIndex].Value = tsfFileName;
+                    dataGridView[(int)Column.status, CurentSelectedRowIndex].Value = tsfFileName;
+
+                }
+
 
                 btnRefresh.Enabled = false;
             }
@@ -425,12 +441,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         private void AddRowInfo(TaskKind taskKind, TaskStatus status, int taskInd)
         {
-            if (txbStartTime.Text == "")
-                throw new Exception("Время старта не указано");
-
-            if (txbStopTime.Text == "")
-                throw new Exception("Время окончания не указано");
-
             var tsfFileName = $"{taskKind}_{taskInd}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
 
             dataGridView.Rows.Add(new string[] { taskKind.ToString(), $@"{InputDataPath}\{tsfFileName}", status.ToString() });
