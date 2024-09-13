@@ -110,6 +110,8 @@ namespace ModelModule
                 meshGenerator.deleteElementEvent += DeleteElementsByNumber;
                 meshGenerator.setMeshGradientSettingsEvent += MeshGenerator_setMeshGradientSettingsEvent;
 
+                meshGenerator.getOrSetPointSizesEvent += GetOrSetPointSizesEvent;
+
                 gmshForm.Controls.Add(meshGenerator);
                 meshGenerator.Dock = DockStyle.Fill;
 
@@ -151,6 +153,17 @@ namespace ModelModule
                 GmshController.ModelMeshFieldSetAsBackgroundMesh(field, ref ierr);
                 GmshController.OptionSetNumber("Mesh.MeshSizeExtendFromBoundary", -2, ref ierr);
             }
+        }
+
+        private void GetOrSetPointSizesEvent(object sender, PointSizesEventArgs arg)
+        {
+            var ierr = 0;
+            if (arg.Request == PointSizesRequest.Get)
+                arg.Sizes = GmshController.GetMeshDensity(arg.DimTags);
+            else if (arg.Request == PointSizesRequest.Set)
+                GmshController.ModelMeshSetSize(arg.DimTags, (IntPtr)arg.DimTags.Length, arg.Sizes[0], ref ierr);
+            else
+                GmshController.ModelMeshRemoveConstraints(arg.DimTags, (IntPtr)arg.DimTags.Length, ref ierr);
         }
 
         private void MeshGenerator_switchMeshGradientEvent(object arg1, bool arg2)

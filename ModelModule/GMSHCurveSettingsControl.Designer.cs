@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.curvesControlBox = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.rbtnProgressive = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
@@ -40,26 +39,8 @@
             this.rbtnBeta = new System.Windows.Forms.RadioButton();
             this.rbtnBump = new System.Windows.Forms.RadioButton();
             this.btnOK = new System.Windows.Forms.Button();
-            this.curvesControlBox.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // curvesControlBox
-            // 
-            this.curvesControlBox.AutoSize = true;
-            this.curvesControlBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.curvesControlBox.BackColor = System.Drawing.SystemColors.Control;
-            this.curvesControlBox.Controls.Add(this.tableLayoutPanel2);
-            this.curvesControlBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.curvesControlBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.curvesControlBox.Location = new System.Drawing.Point(0, 0);
-            this.curvesControlBox.Margin = new System.Windows.Forms.Padding(7);
-            this.curvesControlBox.Name = "curvesControlBox";
-            this.curvesControlBox.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.curvesControlBox.Size = new System.Drawing.Size(450, 157);
-            this.curvesControlBox.TabIndex = 3;
-            this.curvesControlBox.TabStop = false;
-            this.curvesControlBox.Text = "Настройки разметки кривых";
             // 
             // tableLayoutPanel2
             // 
@@ -80,15 +61,15 @@
             this.tableLayoutPanel2.Controls.Add(this.rbtnBump, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.btnOK, 2, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 13);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(444, 141);
-            this.tableLayoutPanel2.TabIndex = 11;
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(450, 157);
+            this.tableLayoutPanel2.TabIndex = 12;
             // 
             // rbtnProgressive
             // 
@@ -137,7 +118,7 @@
             this.txbAlgoCoef.Location = new System.Drawing.Point(229, 14);
             this.txbAlgoCoef.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
             this.txbAlgoCoef.Name = "txbAlgoCoef";
-            this.txbAlgoCoef.Size = new System.Drawing.Size(195, 20);
+            this.txbAlgoCoef.Size = new System.Drawing.Size(201, 20);
             this.txbAlgoCoef.TabIndex = 4;
             this.txbAlgoCoef.Tag = "algoCoef";
             this.txbAlgoCoef.Text = "1.0";
@@ -154,7 +135,7 @@
             this.txbAlgoNPoints.Location = new System.Drawing.Point(229, 62);
             this.txbAlgoNPoints.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
             this.txbAlgoNPoints.Name = "txbAlgoNPoints";
-            this.txbAlgoNPoints.Size = new System.Drawing.Size(195, 20);
+            this.txbAlgoNPoints.Size = new System.Drawing.Size(201, 20);
             this.txbAlgoNPoints.TabIndex = 5;
             this.txbAlgoNPoints.Tag = "algoNPoints";
             this.txbAlgoNPoints.UserRegExCheck = null;
@@ -165,7 +146,7 @@
             this.btnDel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnDel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnDel.Location = new System.Drawing.Point(346, 102);
+            this.btnDel.Location = new System.Drawing.Point(350, 110);
             this.btnDel.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(78, 32);
@@ -177,7 +158,7 @@
             // 
             this.rbtnBeta.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.rbtnBeta.AutoSize = true;
-            this.rbtnBeta.Location = new System.Drawing.Point(5, 110);
+            this.rbtnBeta.Location = new System.Drawing.Point(5, 118);
             this.rbtnBeta.Margin = new System.Windows.Forms.Padding(5, 2, 3, 2);
             this.rbtnBeta.Name = "rbtnBeta";
             this.rbtnBeta.Size = new System.Drawing.Size(47, 17);
@@ -204,7 +185,7 @@
             this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnOK.Location = new System.Drawing.Point(229, 102);
+            this.btnOK.Location = new System.Drawing.Point(230, 110);
             this.btnOK.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(77, 32);
@@ -217,11 +198,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.curvesControlBox);
+            this.Controls.Add(this.tableLayoutPanel2);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "GMSHCurveSettingsControl";
             this.Size = new System.Drawing.Size(450, 157);
-            this.curvesControlBox.ResumeLayout(false);
-            this.curvesControlBox.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
@@ -231,7 +211,6 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox curvesControlBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.RadioButton rbtnProgressive;
         private System.Windows.Forms.Label label3;

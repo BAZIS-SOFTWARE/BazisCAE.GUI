@@ -85,6 +85,8 @@ namespace ModelModule
         public event Action<object, SetTransfiniteCurveEventArgs> setTransfiniteCurveEvent;
         public event Action<object,int> setCurveDataEvent;
 
+        public event Action<object, PointSizesEventArgs> getOrSetPointSizesEvent;
+
 
         public GMSHGeneralMeshControl()
         {
@@ -117,8 +119,7 @@ namespace ModelModule
         {
             if (dim == 1)
             {
-                geometryLayout.GetControlFromPosition(0, 0).Enabled = false;
-                //curvesControlBox.Enabled = false;
+                entitieSettingsBox.Enabled = false;
             }
             else if (dim == 2)
             {
@@ -313,29 +314,40 @@ namespace ModelModule
 
         private int FindObjectByTreeNode(TreeNode node)
         {
-
             var tokens = node.Text.Split(' ');
-            return Int32.Parse(tokens[1]);
+            var lastToken = tokens.Length - 1;
+            return Int32.Parse(tokens[lastToken]);
         }
+
+
+        /// <summary>
+        /// Создает пользовательский запрос на получение или изменение размера контрольной точки
+        /// </summary>
+        /// <param name="request">Тип запроса</param>
+        /// <param name="sizes">Пользовательские данные полученные от GMSHPointSettingsControl</param>
+        public void CreatePointSizesRequest(PointSizesRequest request, double[] sizes = null)
+        {
+            var tag = FindObjectByTreeNode(geomTree.SelectedNode);
+            var dimTags = new int[] { 0, tag };
+
+            var pointEvent = new PointSizesEventArgs(dimTags, request);
+            pointEvent.Sizes = sizes;
+            getOrSetPointSizesEvent?.Invoke(this, pointEvent);
+
+            if (request == PointSizesRequest.Get)
+            {
+                var control = entitieSettingsBox.Controls[1] as GMSHPointSettingsControl;
+                control.WritePointSettingsToControls(pointEvent.Sizes);
+            }
+        }
+
         /// <summary>
         /// Записывает настройки трансфиниции в элементы управления
         /// </summary>
         public void WriteCurveSettingsToControls(string[] attributes)
         {
-            var ctrl = geometryLayout.GetControlFromPosition(0, 0);
-            if (ctrl != null)
-            {
-                var curveCtrl = ctrl as GMSHCurveSettingsControl;
-                curveCtrl.WriteCurveSettingsToControls(attributes);
-            }
-        }
-        /// <summary>
-        /// Записывает размеры гкометрических точек в элементы управления
-        /// </summary>
-        /// <param name="sizes">Размеры геометрических точек</param>
-        public  void WritePointsSettingsToControl(double[] sizes)
-        {
-
+            var curveCtrl = entitieSettingsBox.Controls[1] as GMSHCurveSettingsControl;
+            curveCtrl.WriteCurveSettingsToControls(attributes);
         }
 
         private void entTree_AfterSelect(object sender, TreeViewEventArgs e)
@@ -351,30 +363,24 @@ namespace ModelModule
 
             showObjectsEvent?.Invoke(objsNumbers);
 
-            var gmshTag = FindObjectByTreeNode(e.Node);
-
             var nodeText = e.Node.Text;
-            if (nodeText.Contains("Узел"))
+            if (nodeText.Contains("Контрольный узел"))
             {
-                geometryLayout.GetControlFromPosition(0, 0).Enabled = false;
+                CreatePointSizesRequest(PointSizesRequest.Get);
             }
             else if (nodeText.Contains("Кривая"))
             {
-                geometryLayout.GetControlFromPosition(0, 0).Enabled = true;
+                var gmshTag = FindObjectByTreeNode(e.Node);
                 setCurveDataEvent?.Invoke(this, gmshTag);///Записываем настройки кривой в контрол, который сохранил gmsh
             }
             else if (nodeText.Contains("Поверхность"))
             {
-                geometryLayout.GetControlFromPosition(0, 0).Enabled = false;
+
             }
             else if (nodeText.Contains("Объем"))
             {
-                geometryLayout.GetControlFromPosition(0, 0).Enabled = false;
+
             }
-            //geometryLayout.GetControlFromPosition(0, 0);
-
-            //geometryLayout.Controls.RemoveAt(0);//Должно быть в before
-
             //redrawScene?.Invoke(false);
         }
 
@@ -470,9 +476,49 @@ namespace ModelModule
         private void entTree_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
             var oldNode = geomTree.SelectedNode;
-            
+
             if (oldNode != null)
+            {
                 resetColorObjectsEvent?.Invoke(ObjType.Линия);
+
+                var oldGmshType = oldNode.Text.Split(' ')[0];
+                var text = e.Node.Text;
+                var newGmshType = text.Split(' ')[0];
+
+                if (oldGmshType != newGmshType)///Блок кода, отвечающий за динамическую смену Control-а в область entitieSettingsBox
+                {
+                    var control = entitieSettingsBox.Controls[1];
+                    entitieSettingsBox.Controls.Remove(control);
+
+                    if (text.Contains("Контрольный узел"))
+                    {
+                        control = new GMSHPointSettingsControl();
+                        entitieSettingsBox.Text = "Настройки разметки контрольных узлов";
+                        entitieSettingsBox.Enabled = true;
+                    }
+                    else if (text.Contains("Кривая"))
+                    {
+                        control = new GMSHCurveSettingsControl();
+                        entitieSettingsBox.Text = "Настройки разметки кривых";
+                        entitieSettingsBox.Enabled = true;
+                    }
+                    else if (text.Contains("Поверхность"))
+                    {
+                        //control = new GMSHSurfaceSettingsControl();//Для настроек трансфиниции поверхностей
+                        //entitieSettingsBox.Text = "Настройки разметки поверхностей";
+                        entitieSettingsBox.Enabled = false;//Временная строчка
+                    }
+                    else if (text.Contains("Объем"))
+                    {
+                        //control = new GMSHVolumeSettingsControl();//Для настроек трансфиниции объемов
+                        //entitieSettingsBox.Text = "Настройки разметки объемов";
+                        entitieSettingsBox.Enabled = false;//Временная строчка
+                    }
+
+                    entitieSettingsBox.Controls.Add(control);
+                    control.Dock = DockStyle.Fill;
+                }
+            }
         }
 
         /// <summary>
