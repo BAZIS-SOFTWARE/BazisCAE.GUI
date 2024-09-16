@@ -153,6 +153,7 @@
             this.btnDel.TabIndex = 9;
             this.btnDel.Text = "Удалить";
             this.btnDel.UseVisualStyleBackColor = true;
+            this.btnDel.Click += new System.EventHandler(this.BtnDel_Click);
             // 
             // rbtnBeta
             // 

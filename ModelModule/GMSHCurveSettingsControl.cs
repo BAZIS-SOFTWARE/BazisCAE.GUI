@@ -20,11 +20,7 @@ namespace ModelModule
         public void WriteCurveSettingsToControls(string[] attributes)
         {
             if (attributes.Length == 0)
-            {
-                rbtnProgressive.Checked = true;
-                txbAlgoCoef.Text = "1.0";
-                txbAlgoNPoints.Text = string.Empty;
-            }
+                ResetTransfinition();
             else
             {
                 var law = attributes[1];
@@ -42,17 +38,33 @@ namespace ModelModule
 
         private void BtnOK_Click(object sender, EventArgs e)
         {
-            var attributes = new string[3] { txbAlgoNPoints.Text, rbtnProgressive.Text, txbAlgoCoef.Text };
+            var attributes = new string[3] { string.Empty, rbtnProgressive.Text, string.Empty };
             if (rbtnBeta.Checked)
                 attributes[1] = rbtnBeta.Text;
             else if (rbtnBump.Checked)
                 attributes[1] = rbtnBump.Text;
 
-            if (txbAlgoCoef.IsValueValid() && txbAlgoNPoints.IsValueValid())
-            {
-                var headControl = ParentForm.Controls[0] as GMSHGeneralMeshControl;
-                headControl.ApplyCurveTranfinition(attributes);
-            }
+            if (txbAlgoCoef.IsValueValid())
+                attributes[2] = txbAlgoCoef.Text;
+            if(txbAlgoNPoints.IsValueValid())
+                attributes[0] = txbAlgoNPoints.Text;
+
+            var headControl = ParentForm.Controls[0] as GMSHGeneralMeshControl;
+            headControl.ApplyCurveTranfinition(SetTransfiniteCurveEventRequest.Set, attributes);
+        }
+
+        private void BtnDel_Click(object sender, EventArgs e)
+        {
+            ResetTransfinition();
+            var headControl = ParentForm.Controls[0] as GMSHGeneralMeshControl;
+            headControl.ApplyCurveTranfinition(SetTransfiniteCurveEventRequest.Reset, null);
+        }
+
+        private void ResetTransfinition()
+        {
+            rbtnProgressive.Checked = true;
+            txbAlgoCoef.Text = "1.0";
+            txbAlgoNPoints.Text = string.Empty;
         }
     }
 }

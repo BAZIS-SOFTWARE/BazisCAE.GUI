@@ -12,6 +12,7 @@ using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Security;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ModelModule
 {
@@ -106,7 +107,6 @@ namespace ModelModule
                 meshGenerator.showHeatMapEvent += GmshControl_showHeatMapEvent;
                 meshGenerator.resetColorObjectsEvent += GmshControl_ResetColorObjectsEvent;
                 meshGenerator.setTransfiniteCurveEvent += MeshGenerator_setTransfiniteCurveEvent;
-                meshGenerator.setCurveDataEvent += SetCurveDataEventHandler;
                 meshGenerator.deleteElementEvent += DeleteElementsByNumber;
                 meshGenerator.setMeshGradientSettingsEvent += MeshGenerator_setMeshGradientSettingsEvent;
 
@@ -185,12 +185,13 @@ namespace ModelModule
             }
         }
 
-        private void SetCurveDataEventHandler(object sender, int tag)
+        private void SetCurveDataEventHandler(object sender, SetTransfiniteCurveEventArgs arg)
         {
-            var cntr = (GMSHGeneralMeshControl)sender;
+
+            /*var cntr = (GMSHGeneralMeshControl)sender;
             string[] attributes;
             GmshController.ModelGetAttribute($"transfinite {tag}", out attributes);
-            cntr.WriteCurveSettingsToControls(attributes);
+            cntr.WriteCurveSettingsToControls(attributes);*/
         }
 
         private void DeleteElementsByNumber(object sender, DeleteElementEventArgs args)
@@ -349,12 +350,24 @@ namespace ModelModule
         private void MeshGenerator_setTransfiniteCurveEvent(object arg1, SetTransfiniteCurveEventArgs arg2)
         {
             var ierr = 0;
-            GmshController.ModelSetAttribute($"transfinite {arg2.tag}", arg2.attributes, (IntPtr)arg2.v, ref ierr);
-                if (arg2.attributes.All(x => x.Length != 0))
-                {
-                    GmshController.ModelMeshSetTransfiniteCurve(arg2.tag, (int)arg2.points, arg2.attributes[1], arg2.coef, ref ierr);
-                    //Перегенерация сетки, если она присутствовала в момент уплотнения кривой
-                }
+            if (arg2.Request == SetTransfiniteCurveEventRequest.Set)
+            {
+                GmshController.ModelSetAttribute($"transfinite {arg2.Tag}", arg2.Attributes, (IntPtr)arg2.Attributes.Length, ref ierr);
+                if (!string.IsNullOrEmpty(arg2.Attributes[0]) && !string.IsNullOrEmpty(arg2.Attributes[2]))
+                    GmshController.ModelMeshSetTransfiniteCurve(arg2.Tag, arg2.Points, arg2.Attributes[1], arg2.Coef, ref ierr);
+            }
+            else if (arg2.Request == SetTransfiniteCurveEventRequest.Get)
+            {
+                string[] attributes;
+                GmshController.ModelGetAttribute($"transfinite {arg2.Tag}", out attributes);
+                arg2.Attributes = attributes;
+            }
+            else
+            {
+                var dimTags = new int[] { 1, arg2.Tag };
+                GmshController.ModelRemoveAttribute($"transfinite {arg2.Tag}", ref ierr);
+                GmshController.ModelMeshRemoveConstraints(dimTags, (IntPtr)dimTags.Length, ref ierr);
+            }
         }
 
         private void MeshGenerator_generate2DQuadMesh(object obj)
@@ -552,7 +565,7 @@ namespace ModelModule
             {
                 var tag = Int32.Parse(item.Split(' ')[1]);
                 var attributes = GetCurrentCurveAttributes(tag);
-                var points = attributes.Length == 3 ? Int32.Parse(attributes[0]) : 0;
+                var points = attributes.Length == 3 && !string.IsNullOrEmpty(attributes[0]) ? Int32.Parse(attributes[0]) : 0;
                 curveDict.Add(tag, points);
             }
             //2)Добавляем в словарь неразмеченные кривые, которых нет в словаре (со значением ноль)
