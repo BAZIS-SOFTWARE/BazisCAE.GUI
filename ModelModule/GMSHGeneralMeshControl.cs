@@ -86,6 +86,7 @@ namespace ModelModule
         //public event Action<object,int> setCurveDataEvent;
 
         public event Action<object, PointSizesEventArgs> getOrSetPointSizesEvent;
+        public event Action<object, double[]> setMinMaxSizesEvent;
 
 
         public GMSHGeneralMeshControl()
@@ -601,6 +602,20 @@ namespace ModelModule
 
             setMeshGradientSettingsEvent?.Invoke(this,
                 new MeshGradientSettingsEventArgs(layerThickness, surfaceMeshSize, coreMeshSize, gradientMeshPower));
+        }
+
+        private void BtnMinMaxSizes_Click(object sender, EventArgs e)
+        {
+            var separators = new char[] { ',', ' ' };
+            var tokens = txbMinMaxSizes.Text.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            double min, max;
+            if (double.TryParse(tokens[0], out min))
+            {
+                if(double.TryParse(tokens[0], out max))
+                {
+                    setMinMaxSizesEvent?.Invoke(this, new double[]  { min, max });
+                }
+            }
         }
     }
 }

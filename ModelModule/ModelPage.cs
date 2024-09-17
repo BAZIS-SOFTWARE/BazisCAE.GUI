@@ -111,6 +111,7 @@ namespace ModelModule
                 meshGenerator.setMeshGradientSettingsEvent += MeshGenerator_setMeshGradientSettingsEvent;
 
                 meshGenerator.getOrSetPointSizesEvent += GetOrSetPointSizesEvent;
+                meshGenerator.setMinMaxSizesEvent += SetMinMaxSizesEvent;
 
                 gmshForm.Controls.Add(meshGenerator);
                 meshGenerator.Dock = DockStyle.Fill;
@@ -164,6 +165,13 @@ namespace ModelModule
                 GmshController.ModelMeshSetSize(arg.DimTags, (IntPtr)arg.DimTags.Length, arg.Sizes[0], ref ierr);
             else
                 GmshController.ModelMeshRemoveConstraints(arg.DimTags, (IntPtr)arg.DimTags.Length, ref ierr);
+        }
+
+        private void SetMinMaxSizesEvent(object sender, double[] sizes)
+        {
+            var ierr = 0;
+            GmshController.OptionSetNumber("Mesh.MeshSizeMin", sizes[0], ref ierr);
+            GmshController.OptionSetNumber("Mesh.MeshSizeMax", sizes[1], ref ierr);
         }
 
         private void MeshGenerator_switchMeshGradientEvent(object arg1, bool arg2)
