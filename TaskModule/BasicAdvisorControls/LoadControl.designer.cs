@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using BaseModule.Player;
+using TaskModule.BasicAdvisorControls.BasicControls;
 using UserControlsEx;
 
 namespace TaskModule.BasicAdvisorControls
@@ -46,7 +47,7 @@ namespace TaskModule.BasicAdvisorControls
             this.label9 = new System.Windows.Forms.Label();
             this.txbStopTime = new UserControlsEx.TextBoxEx(this.components);
             this.txbStartTime = new UserControlsEx.TextBoxEx(this.components);
-            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridView = new DGVControl();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -286,7 +287,7 @@ namespace TaskModule.BasicAdvisorControls
             this.dataGridView.Size = new System.Drawing.Size(547, 158);
             this.dataGridView.TabIndex = 23;
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
-            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_UserDeletingRow);
+            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
             // 
             // Column9
             // 
@@ -550,7 +551,7 @@ namespace TaskModule.BasicAdvisorControls
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.DataGridView dataGridView;
+        private DGVControl dataGridView;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label8;
         private Button btnAddNewRow;

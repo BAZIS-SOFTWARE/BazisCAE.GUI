@@ -133,7 +133,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         private void Cntrw_InEvent(object arg1, EventArgs arg2)
         {
-            if (CountSelectedRow > 0)
+            if (dataGridView.SelectedRows.Count > 0)
             {
                 btnRefresh.Enabled = true;
             }
@@ -307,20 +307,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 if (isTsfFileCreated)
                 {
                     var tsfFileName = $"{taskKind}_{taskInd}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
-
-                    if (taskKind == TaskKind.термическая)
-                    {
-
-                    }
-
-                    dataGridView[(int)Column.kind, CurentSelectedRowIndex].Value = TaskKind.термическая;
-                    var settingsStr = $@"{InputDataPath}\{tsfFileName}";
-                    dataGridView[(int)Column.settings, CurentSelectedRowIndex].Value = tsfFileName;
-                    dataGridView[(int)Column.status, CurentSelectedRowIndex].Value = tsfFileName;
-
+                    dataGridView[(int)Column.kind, CurentSelectedRowIndex].Value = taskKind;
+                    dataGridView[(int)Column.settings, CurentSelectedRowIndex].Value = $@"{InputDataPath}\{tsfFileName}";
+                    dataGridView[(int)Column.status, CurentSelectedRowIndex].Value = status;
                 }
-
-
                 btnRefresh.Enabled = false;
             }
             catch (Exception ex)
@@ -490,7 +480,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 else
                     return;
 
-                dataGridView.Rows.Clear();
+                //dataGridView.Rows.Clear();
                 var files = Directory.GetFiles(ProjPath).Where(x => Regex.IsMatch(x, @"(\w*)(\.tsf)"));
                 Set_DataGridLines(files);
             }

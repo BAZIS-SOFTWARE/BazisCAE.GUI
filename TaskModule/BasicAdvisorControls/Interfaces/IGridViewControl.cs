@@ -10,8 +10,9 @@ namespace TaskModule.BasicAdvisorControls.Interfaces
         event Action<object, AddDataEventArgs> AddDataEvent;
         event Action<object, DeleteDataEventArgs> DeleteDataEvent;
         event Action<object, ChangeDataEventArgs> ChangeDataEvent;
+        event Action<object, DeleteAllDataEventArgs> DeleteAllDataEvent;
 
-        DataGridView GetDataGrid { get; }
+        //DataGridView GetDataGrid { get; }
 
         void AddButton_Click(object sender, EventArgs e);
 
@@ -23,15 +24,16 @@ namespace TaskModule.BasicAdvisorControls.Interfaces
 
         void ClearAllDataButton_Click(object sender, EventArgs e);
 
+
         string Get_DataGridFillLine(int ind);
 
         void Set_DataGridLines(IEnumerable<string> lines);
 
-        int CountSelectedRow { get; }
-        int CurentSelectedRowIndex { get; }
+        //int CountSelectedRow { get; }
+        //int CurentSelectedRowIndex { get; }
 
-        int CountRows { get;}
+        //int CountRows { get;}
 
-        string CurentSelectedRowInfo { get; set; }
+        //string CurentSelectedRowInfo { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using BaseModule.Player;
+using TaskModule.BasicAdvisorControls.BasicControls;
 using UserControlsEx;
 
 namespace TaskModule.BasicAdvisorControls
@@ -34,7 +35,7 @@ namespace TaskModule.BasicAdvisorControls
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MaterialsControl));
-            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridView = new DGVControl();
             this.elGroupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.matColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -396,7 +397,7 @@ namespace TaskModule.BasicAdvisorControls
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView dataGridView;
+        private DGVControl dataGridView;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;

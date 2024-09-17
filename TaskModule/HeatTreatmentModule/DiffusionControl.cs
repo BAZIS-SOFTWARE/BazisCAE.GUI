@@ -131,13 +131,11 @@ namespace TaskModule.HeatTreatmentModule
 
         private void player_StartCheckingEvent(object obj)
         {
-            var gridViewList = new List<DataGridView>();
-            SearchControls(this, gridViewList);
 
-            var checkStopTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+            var checkStopTime = dataGridView.Rows.Cast<DataGridViewRow>()
        .Max(r => Convert.ToSingle(r.Cells[(int)Column.stopTime].Value, CultureInfo.InvariantCulture));
 
-            var checkStartTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+            var checkStartTime = dataGridView.Rows.Cast<DataGridViewRow>()
                         .Min(r => Convert.ToSingle(r.Cells[(int)Column.startTime].Value, CultureInfo.InvariantCulture));
 
             player.StartValue = (int)checkStartTime;
@@ -177,7 +175,7 @@ namespace TaskModule.HeatTreatmentModule
 
         public void ShowDataButton_Click(object sender, EventArgs e)
         {
-            if (CountSelectedRow > 0)
+            if (dataGridView.SelectedRows.Count > 0)
             {
                 ShowDataEvent(this, new ShowDataEventArgs(DataName, GetSelectedRowIndexes().ToList()));
             }

@@ -211,15 +211,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         private void player_StartCheckingEvent(object obj)
         {
-            var gridViewList = new List<DataGridView>();
-            SearchControls(this, gridViewList);
 
-            if (gridViewList[0].Rows.Count > 0)
+            if (dataGridView.Rows.Count > 0)
             {
-                var checkStopTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+                var checkStopTime = dataGridView.Rows.Cast<DataGridViewRow>()
            .Max(r => Convert.ToSingle(r.Cells[(int)Column.stopTime].Value, CultureInfo.InvariantCulture));
 
-                var checkStartTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+                var checkStartTime = dataGridView.Rows.Cast<DataGridViewRow>()
                             .Min(r => Convert.ToSingle(r.Cells[(int)Column.startTime].Value, CultureInfo.InvariantCulture));
 
                 player.StartValue = (int)checkStartTime;
@@ -240,7 +238,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public void ShowDataButton_Click(object sender, EventArgs e)
         {
-            if (CountSelectedRow > 0)
+            if (dataGridView.SelectedRows.Count > 0)
             {
                 ShowDataEvent(this, new ShowDataEventArgs(DataName, GetSelectedRowIndexes().ToList()));
             }
@@ -264,9 +262,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         public override void RefreshButton_Click(object sender, EventArgs e)
         {
             if (!IsValidated()) return;
-            var gridView = GetDataGrid;
-            var count = gridView.SelectedRows.Count;
-            var stopTime = gridView.SelectedRows[count - 1].Cells[(int)Column.stopTime].Value.ToString();
+            //var gridView = GetDataGrid;
+            var count = dataGridView.SelectedRows.Count;
+            var stopTime = dataGridView.SelectedRows[count - 1].Cells[(int)Column.stopTime].Value.ToString();
 
             CurentSelectedRowInfo = CreateRowInfo(stopTime);
             base.RefreshButton_Click(sender, e);
@@ -345,13 +343,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         private void tsmiSpecifyHeatingZone_Click(object sender, EventArgs e)
         {
-            var gridView = GetDataGrid;
-            var count = gridView.SelectedRows.Count;
+            var count = dataGridView.SelectedRows.Count;
 
             if (count == 0)
                 MessageBox.Show("Выберите строку данных для уточнения!");
             else
-                SpecifyFunctionAreaEvent?.Invoke("Нагрев", gridView.SelectedRows[count - 1].Index);
+                SpecifyFunctionAreaEvent?.Invoke("Нагрев", dataGridView.SelectedRows[count - 1].Index);
         }
 
         public void SetWeldingKind(WeldingKind weldingKind)

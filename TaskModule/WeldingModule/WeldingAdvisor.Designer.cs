@@ -136,7 +136,6 @@ namespace TaskModule.WeldingModule
             this.materialsControl1.AutoSize = true;
             this.materialsControl1.BackColor = System.Drawing.Color.Transparent;
             this.materialsControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.ClearButtonImage")));
-            this.materialsControl1.CurentSelectedRowInfo = null;
             this.materialsControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialsControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.materialsControl1.HideAllButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.HideAllButtonImage")));
@@ -241,7 +240,7 @@ namespace TaskModule.WeldingModule
             this.clampControl.AutoSize = true;
             this.clampControl.BackColor = System.Drawing.Color.Transparent;
             this.clampControl.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl.ClearButtonImage")));
-            this.clampControl.CurentSelectedRowInfo = null;
+            //this.clampControl.CurentSelectedRowInfo = null;
             this.clampControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clampControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.clampControl.HideAllButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl.HideAllButtonImage")));
@@ -278,7 +277,6 @@ namespace TaskModule.WeldingModule
             this.loadControl1.AddButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.AddButtonImage")));
             this.loadControl1.BackColor = System.Drawing.Color.Transparent;
             this.loadControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.ClearButtonImage")));
-            this.loadControl1.CurentSelectedRowInfo = null;
             this.loadControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.loadControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.loadControl1.HideAllButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.HideAllButtonImage")));
