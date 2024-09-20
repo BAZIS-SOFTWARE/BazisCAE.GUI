@@ -52,11 +52,11 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DataBaseController, Version=1.0.3.7, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataBaseController.1.0.3.7\lib\netstandard2.0\DataBaseController.dll</HintPath>
+    <Reference Include="DataBaseController, Version=1.0.3.8, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataBaseController.1.0.3.8\lib\netstandard2.0\DataBaseController.dll</HintPath>
     </Reference>
-    <Reference Include="DataBasesGUI, Version=1.0.2.69, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataBasesGUI.1.0.2.69\lib\net48\DataBasesGUI.dll</HintPath>
+    <Reference Include="DataBasesGUI, Version=1.0.2.73, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataBasesGUI.1.0.2.73\lib\net48\DataBasesGUI.dll</HintPath>
     </Reference>
     <Reference Include="Geometry, Version=2.0.8.1, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
       <HintPath>..\packages\Geometry.2.0.8.1\lib\netstandard2.0\Geometry.dll</HintPath>
@@ -114,23 +114,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicAdvisorControls\BasicControls\CheckedGridViewAdviserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="BasicAdvisorControls\BasicControls\CheckedGridViewAdviserControl.Designer.cs">
-      <DependentUpon>CheckedGridViewAdviserControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="BasicAdvisorControls\BasicControls\DGVControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="BasicAdvisorControls\BasicControls\DGVControl.Designer.cs">
       <DependentUpon>DGVControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BasicAdvisorControls\BasicControls\GridViewAdviserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="BasicAdvisorControls\BasicControls\GridViewAdviserControl.Designer.cs">
-      <DependentUpon>GridViewAdviserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="BasicAdvisorControls\ClampControl.cs">
       <SubType>UserControl</SubType>
@@ -321,14 +309,8 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BasicAdvisorControls\BasicControls\CheckedGridViewAdviserControl.resx">
-      <DependentUpon>CheckedGridViewAdviserControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="BasicAdvisorControls\BasicControls\DGVControl.resx">
       <DependentUpon>DGVControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BasicAdvisorControls\BasicControls\GridViewAdviserControl.resx">
-      <DependentUpon>GridViewAdviserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BasicAdvisorControls\ClampControl.resx">
       <DependentUpon>ClampControl.cs</DependentUpon>
@@ -402,6 +384,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <EmbeddedResource Include="BasicAdvisorControls\Resources\open.ico" />
+    <None Include="Materials\materials_v3.jsf" />
     <None Include="packages.config" />
     <None Include="WeldingModule\packages.config" />
   </ItemGroup>

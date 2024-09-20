@@ -295,6 +295,15 @@
     <Content Include="Graph_icons\Show_value.bmp" />
     <Content Include="IconShort_16.ico" />
     <Content Include="IconShort_32.ico" />
+    <None Include="Projects\functions.jsf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Projects\materials_v3.jsf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Projects\proj.bpf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\м 34.png" />
     <None Include="Resources\м 35.png" />
     <None Include="Resources\м 36.png" />

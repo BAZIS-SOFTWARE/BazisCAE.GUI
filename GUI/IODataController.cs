@@ -260,5 +260,15 @@ namespace BazisGUI
             return project;
 
         }
+
+        public async Task<ProjectData> OpenProject(string path, string name)
+        {
+            var project = CreateNewProject(path, name);
+
+            await LoadProjectAsync(project);
+
+            return project;
+
+        }
     }
 }

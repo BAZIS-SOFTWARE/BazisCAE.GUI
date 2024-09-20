@@ -1,4 +1,5 @@
-﻿using UserControlsEx;
+﻿using TaskModule.BasicAdvisorControls.BasicControls;
+using UserControlsEx;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
@@ -32,7 +33,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         {
             this.components = new System.ComponentModel.Container();            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskPlannerControl_v2));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridView = new DGVControl();
             this.Kind = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Settings = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -635,7 +636,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private System.Windows.Forms.Button btnRefresh;
         private TextBoxEx txbStartTime;        private System.Windows.Forms.Label label9;
         private TextBoxEx txbStopTime;        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.DataGridView dataGridView;
+        private DGVControl dataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn Kind;
         private System.Windows.Forms.DataGridViewTextBoxColumn Settings;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Time;

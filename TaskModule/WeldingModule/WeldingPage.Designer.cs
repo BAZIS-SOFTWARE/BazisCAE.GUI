@@ -32,12 +32,17 @@ namespace TaskModule.WeldingModule
         {
             this.SuspendLayout();
             // 
+            // basePage
+            // 
+            this.basePage.Size = new System.Drawing.Size(1153, 546);
+            // 
             // WeldingPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "WeldingPage";
             this.ResumeLayout(false);
+
         }
         WeldingTasksToolStrip weldingTaskToolStrip = new WeldingTasksToolStrip() { Name = "Сварка" };
         #endregion

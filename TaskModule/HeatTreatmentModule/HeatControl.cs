@@ -12,7 +12,7 @@ using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.HeatTreatmentModule
 {
-    public partial class HeatControl : CheckedGridViewAdviserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
+    public partial class HeatControl : UserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
         [Category("Images")]
         [Description("Set image for add button")]
@@ -62,11 +62,15 @@ namespace TaskModule.HeatTreatmentModule
             DataName = "Среда";
         }
 
-        public override string DataName { get; }
+        public string DataName { get; }
 
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
+        public event Action<object, AddDataEventArgs> AddDataEvent;
+        public event Action<object, DeleteDataEventArgs> DeleteDataEvent;
+        public event Action<object, ChangeDataEventArgs> ChangeDataEvent;
+        public event Action<object, DeleteAllDataEventArgs> DeleteAllDataEvent;
 
         public void Fill_eGroups(List<string> groupNames)
         {
@@ -113,13 +117,13 @@ namespace TaskModule.HeatTreatmentModule
             }
         }
 
-        public override void AddButton_Click(object sender, EventArgs e)
+        public void AddButton_Click(object sender, EventArgs e)
         {
             if (!IsValidated()) return;
             try
             {
-                CurentSelectedRowInfo = CreateRowInfo();
-                base.AddButton_Click(sender, e);
+                var rowInfo = CreateRowInfo();
+                AddDataEvent(this, new AddDataEventArgs(DataName, rowInfo));
 
                 btnRefresh.Enabled = false;
             }
@@ -129,13 +133,14 @@ namespace TaskModule.HeatTreatmentModule
             }
         }
 
-        public override void RefreshButton_Click(object sender, EventArgs e)
+        public void RefreshButton_Click(object sender, EventArgs e)
         {
             if (!IsValidated()) return;
             try
             {
-                CurentSelectedRowInfo = CreateRowInfo();
-                base.RefreshButton_Click(sender, e);
+                var rowInfo = CreateRowInfo();
+                var count = dataGridView.Rows.Count;
+                ChangeDataEvent(this, new ChangeDataEventArgs(DataName, dataGridView.CurentSelectedRowIndex, rowInfo));
                 btnRefresh.Enabled = false;
             }
             catch (Exception ex)
@@ -144,33 +149,33 @@ namespace TaskModule.HeatTreatmentModule
             }
         }
 
-        public override void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        public void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var medTempFunc = dataGridView[(int)Column.mediaTemp, CurentSelectedRowIndex].Value.ToString();
+            var medTempFunc = dataGridView[(int)Column.mediaTemp, dataGridView.CurentSelectedRowIndex].Value.ToString();
             cmbTempFunc.Text = medTempFunc;
 
-            cmbEl.Text = dataGridView[(int)Column.element, CurentSelectedRowIndex].Value.ToString();
-            cmbExchFunc.Text = dataGridView[(int)Column.heatExchange, CurentSelectedRowIndex].Value.ToString();
-            cmbTempFunc.Text = dataGridView[(int)Column.mediaTemp, CurentSelectedRowIndex].Value.ToString();
+            cmbEl.Text = dataGridView[(int)Column.element, dataGridView.CurentSelectedRowIndex].Value.ToString();
+            cmbExchFunc.Text = dataGridView[(int)Column.heatExchange, dataGridView.CurentSelectedRowIndex].Value.ToString();
+            cmbTempFunc.Text = dataGridView[(int)Column.mediaTemp, dataGridView.CurentSelectedRowIndex].Value.ToString();
 
             //var procType = dataGridView[(int)Column.kind, CurentSelectedRowIndex].Value.ToString();
 
-            txbStartTime.Text = dataGridView[(int)Column.startTime, CurentSelectedRowIndex].Value.ToString();
-            txbStopTime.Text = dataGridView[(int)Column.stopTime, CurentSelectedRowIndex].Value.ToString();
+            txbStartTime.Text = dataGridView[(int)Column.startTime, dataGridView.CurentSelectedRowIndex].Value.ToString();
+            txbStopTime.Text = dataGridView[(int)Column.stopTime, dataGridView.CurentSelectedRowIndex].Value.ToString();
 
             btnRefresh.Enabled = true;
         }
 
-        public override void ClearAllDataButton_Click(object sender, EventArgs e)
+        public void ClearAllDataButton_Click(object sender, EventArgs e)
         {
-            base.ClearAllDataButton_Click(sender, e);
+            DeleteAllDataEvent(this, new DeleteAllDataEventArgs(DataName));
         }
 
         public void ShowDataButton_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count > 0)
             {
-                ShowDataEvent(this, new ShowDataEventArgs(DataName, GetSelectedRowIndexes().ToList()));
+                ShowDataEvent(this, new ShowDataEventArgs(DataName, dataGridView.GetSelectedRowIndexes().ToList()));
             }
         }
 
@@ -180,9 +185,9 @@ namespace TaskModule.HeatTreatmentModule
         }
 
 
-        public override void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        public void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            base.DataGridView_UserDeletingRow(sender, e);
+            DeleteDataEvent(this, new DeleteDataEventArgs(DataName, e.Row.Index));
         }
 
         private void player_StartCheckingEvent(object obj)
@@ -241,7 +246,7 @@ namespace TaskModule.HeatTreatmentModule
             }
         }
 
-        public override bool IsValidated()
+        public bool IsValidated()
         {
             var checks = new List<bool>()
             {
@@ -255,6 +260,16 @@ namespace TaskModule.HeatTreatmentModule
                 StefanBolzmanConst.IsValueValid()
         };
             return checks.All(x => x);
+        }
+
+        public string Get_DataGridFillLine(int ind)
+        {
+            return dataGridView.Get_DataGridFillLine(ind);
+        }
+
+        public void Set_DataGridLines(IEnumerable<string> lines)
+        {
+            dataGridView.Set_DataGridLines(lines);
         }
     }
 }

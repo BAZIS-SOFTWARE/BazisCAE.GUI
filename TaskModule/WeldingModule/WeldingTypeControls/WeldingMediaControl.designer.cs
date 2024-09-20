@@ -1,5 +1,6 @@
 ﻿using BaseModule.Player;
 using System.Windows.Forms;
+using TaskModule.BasicAdvisorControls.BasicControls;
 using UserControlsEx;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
@@ -42,7 +43,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbFunc = new UserControlsEx.ComboBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.cmbEl = new UserControlsEx.ComboBoxEx(this.components);
-            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridView = new DGVControl();
             this.elGroupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.matColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -581,7 +582,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private ComboBoxEx cmbFunc;
         private System.Windows.Forms.Label label1;
         private ComboBoxEx cmbEl;
-        private System.Windows.Forms.DataGridView dataGridView;
+        private DGVControl dataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;

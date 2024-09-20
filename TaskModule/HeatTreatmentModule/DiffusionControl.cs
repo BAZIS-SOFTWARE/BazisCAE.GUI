@@ -12,7 +12,7 @@ using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.HeatTreatmentModule
 {
-    public partial class DiffusionСontrol : CheckedGridViewAdviserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
+    public partial class DiffusionСontrol : UserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
 
         [Category("Images")]
@@ -76,11 +76,10 @@ namespace TaskModule.HeatTreatmentModule
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
-
-        public override int CountRows
-        {
-            get { return dataGridView.Rows.Count; }
-        }
+        public event Action<object, AddDataEventArgs> AddDataEvent;
+        public event Action<object, DeleteDataEventArgs> DeleteDataEvent;
+        public event Action<object, ChangeDataEventArgs> ChangeDataEvent;
+        public event Action<object, DeleteAllDataEventArgs> DeleteAllDataEvent;
 
         public DiffusionСontrol()
         {
@@ -88,7 +87,7 @@ namespace TaskModule.HeatTreatmentModule
             DataName = "Диффузия";
         }
 
-        public override string DataName { get; }
+        public string DataName { get; }
 
         public void Fill_eGroup(List<string> eGroups)
         {
@@ -100,7 +99,7 @@ namespace TaskModule.HeatTreatmentModule
             }
         }
 
-        public override void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        public void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             cmbEl.Text = dataGridView[(int)Column.elem, e.RowIndex].Value.ToString();
             txbConcentrCarbon.Text = dataGridView[(int)Column.elem, e.RowIndex].Value.ToString();
@@ -109,17 +108,16 @@ namespace TaskModule.HeatTreatmentModule
             txbStart.Text = dataGridView[(int)Column.elem, e.RowIndex].Value.ToString();
             txbStop.Text = dataGridView[(int)Column.elem, e.RowIndex].Value.ToString();
 
-            base.DataGridView_RowHeaderMouseClick(sender, e);
-
+            btnRefresh.Enabled = true;
         }
 
-        public override void AddButton_Click(object sender, EventArgs e)
+        public void AddButton_Click(object sender, EventArgs e)
         {
             if (!IsValidated()) return;
             try
             {
-                CurentSelectedRowInfo = CreateRowInfo();
-                base.AddButton_Click(sender, e);
+                var rowInfo = CreateRowInfo();
+                AddDataEvent(this, new AddDataEventArgs(DataName, rowInfo));
                 btnRefresh.Enabled = false;
             }
 
@@ -152,18 +150,18 @@ namespace TaskModule.HeatTreatmentModule
             HideDataEvent(this, new HideDataEventArgs(DataName));
         }
 
-        public override void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        public void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            base.DataGridView_UserDeletingRow(sender, e);
+            DeleteDataEvent(this, new DeleteDataEventArgs(DataName, e.Row.Index));
         }
 
-        public override void RefreshButton_Click(object sender, EventArgs e)
+        public void RefreshButton_Click(object sender, EventArgs e)
         {
             if (!IsValidated()) return;
             try
             {
-                CurentSelectedRowInfo = CreateRowInfo();
-                base.RefreshButton_Click(sender, e);
+                var rowInfo = CreateRowInfo();
+                ChangeDataEvent(this, new ChangeDataEventArgs(DataName, dataGridView.CurentSelectedRowIndex, rowInfo));
                 btnRefresh.Enabled = false;
             }
 
@@ -177,7 +175,7 @@ namespace TaskModule.HeatTreatmentModule
         {
             if (dataGridView.SelectedRows.Count > 0)
             {
-                ShowDataEvent(this, new ShowDataEventArgs(DataName, GetSelectedRowIndexes().ToList()));
+                ShowDataEvent(this, new ShowDataEventArgs(DataName,  dataGridView.GetSelectedRowIndexes().ToList()));
             }
         }
 
@@ -186,11 +184,9 @@ namespace TaskModule.HeatTreatmentModule
             HideDataEvent(this, new HideDataEventArgs(DataName));
         }
 
-        public override void ClearAllDataButton_Click(object sender, EventArgs e)
+        public void ClearAllDataButton_Click(object sender, EventArgs e)
         {
-            base.ClearAllDataButton_Click(sender, e);
-            int rowIndex = dataGridView.CurrentCell.RowIndex;
-            dataGridView.Rows.RemoveAt(rowIndex);
+            DeleteAllDataEvent(this, new DeleteAllDataEventArgs(DataName));
         }
 
         private void rbtNitritization_Click(object sender, EventArgs e)
@@ -330,7 +326,7 @@ namespace TaskModule.HeatTreatmentModule
         {
             throw new Exception("Метод не реализован!");
         }
-        public override bool IsValidated()
+        public bool IsValidated()
         {
             var checks = new List<bool>()
             {
@@ -344,6 +340,16 @@ namespace TaskModule.HeatTreatmentModule
                 txbStop.IsValueValid()
         };
             return checks.All(x => x);
+        }
+
+        public string Get_DataGridFillLine(int ind)
+        {
+            return dataGridView.Get_DataGridFillLine(ind);
+        }
+
+        public void Set_DataGridLines(IEnumerable<string> lines)
+        {
+            dataGridView.Set_DataGridLines(lines);
         }
     }
 }

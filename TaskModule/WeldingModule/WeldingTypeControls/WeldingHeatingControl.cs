@@ -11,7 +11,7 @@ using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
-    public partial class WeldingHeatingControl : CheckedGridViewAdviserControl, ILoadControl, IFunctionsRelatedControl, ICheckGridViewControl
+    public partial class WeldingHeatingControl : UserControl, ILoadControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
         List<string> funcs = new List<string>();
 
@@ -19,51 +19,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
         public event Action<string, int> SpecifyFunctionAreaEvent;
+        public event Action<object, AddDataEventArgs> AddDataEvent;
+        public event Action<object, DeleteDataEventArgs> DeleteDataEvent;
+        public event Action<object, ChangeDataEventArgs> ChangeDataEvent;
+        public event Action<object, DeleteAllDataEventArgs> DeleteAllDataEvent;
 
-        enum Column : int { weldingType = 0, weldingArea, startTime, stopTime, movingReferenceFrame };
-
-        public override string Traj
-        {
-            get { return cmbTraj.Text; }
-        }
-
-        public override string Ref
-        {
-            get { return cmbRef.Text; }
-        }
-
-        public override string Velosity
-        {
-            get { return txbVelosity.Text; }
-        }
-
-        public override string StartPoints
-        {
-            get { return cmbStartPoint.Text; }
-        }
-
-        public override string StopPoints
-        {
-            get { return cmbStopPoint.Text; }
-        }
-
-        public override string Shifting_X
-        {
-            get { return txbShiftX.Text; }
-        }
-        public override string Shifting_Y
-        {
-            get { return txbShiftY.Text; }
-        }
-        public override string Shifting_Z
-        {
-            get { return txbShiftZ.Text; }
-        }
-
-        public override string Rotation
-        {
-            get { return txbAngle.Text; }
-        }
+        enum Column : int { weldingType = 0, weldingArea, startTime, stopTime, movingReferenceFrame };       
 
         WeldContainerControl HeatSourceControl
         {
@@ -137,14 +98,14 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             DataName = "Нагрев";
         }
 
-        public override string DataName { get; }
-        public override void AddButton_Click(object sender, EventArgs e)
+        public string DataName { get; }
+        public void AddButton_Click(object sender, EventArgs e)
         {
             if (!IsValidated()) return;
             try
             {         
-                CurentSelectedRowInfo = CreateRowInfo("*");
-                base.AddButton_Click(sender, e);
+                var rowInfo = CreateRowInfo("*");
+                AddDataEvent(this, new AddDataEventArgs(DataName, rowInfo));
 
                 btnRefresh.Enabled = false;
             }
@@ -155,13 +116,22 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         }
 
+        public string GetTrajectoryData()
+        {
+
+            if (cmbTraj.Text.Equals(cmbRef.Text))
+                throw new Exception("Траектория и опорная линия должны различаться!");
+
+            return string.Format("{0}|{1};{2};{3};{4}",
+                cmbTraj.Text, cmbRef.Text, txbVelosity.Text, cmbStartPoint.Text, cmbStopPoint.Text);
+        }
+
         private string CreateRowInfo(string stopTime)
         {
             var trajData = GetTrajectoryData();
 
             if (chbShifting.Checked)
             {
-                CheckShiftingInput();
                 trajData = trajData + ";" +
                     string.Format($"{txbShiftX.Text}|{txbShiftY.Text}|{txbShiftZ.Text}|{txbAngle.Text}");
             }
@@ -171,7 +141,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             return taskStr;
         }
 
-        public override void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        public void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             try
             {
@@ -240,7 +210,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             if (dataGridView.SelectedRows.Count > 0)
             {
-                ShowDataEvent(this, new ShowDataEventArgs(DataName, GetSelectedRowIndexes().ToList()));
+                ShowDataEvent(this, new ShowDataEventArgs(DataName, dataGridView.GetSelectedRowIndexes().ToList()));
             }
         }
 
@@ -249,31 +219,31 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             HideDataEvent(this, new HideDataEventArgs(DataName));
         }
 
-        public override void ClearAllDataButton_Click(object sender, EventArgs e)
+        public void ClearAllDataButton_Click(object sender, EventArgs e)
         {
-            base.ClearAllDataButton_Click(sender, e);
+            DeleteAllDataEvent(this, new DeleteAllDataEventArgs(DataName));
         }
 
-        public override void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        public void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            base.DataGridView_UserDeletingRow(sender, e);
+            DeleteDataEvent(this, new DeleteDataEventArgs(DataName, e.Row.Index));
         }
 
-        public override void RefreshButton_Click(object sender, EventArgs e)
+        public void RefreshButton_Click(object sender, EventArgs e)
         {
             if (!IsValidated()) return;
             //var gridView = GetDataGrid;
             var count = dataGridView.SelectedRows.Count;
             var stopTime = dataGridView.SelectedRows[count - 1].Cells[(int)Column.stopTime].Value.ToString();
 
-            CurentSelectedRowInfo = CreateRowInfo(stopTime);
-            base.RefreshButton_Click(sender, e);
+            var rowInfo = CreateRowInfo(stopTime);
+            ChangeDataEvent(this, new ChangeDataEventArgs(DataName, dataGridView.CurentSelectedRowIndex, rowInfo));
 
             btnRefresh.Enabled = false;
 
         }
 
-        public override bool IsValidated()
+        public bool IsValidated()
         {
             var checks = new List<bool>()
             {
@@ -369,6 +339,16 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             grbWeldRegime.Padding = new Padding(3,0,3,3);
             grbWeldRegime.Controls.Clear();
             grbWeldRegime.Controls.Add(wcc);
+        }
+
+        public string Get_DataGridFillLine(int ind)
+        {
+            return dataGridView.Get_DataGridFillLine(ind);
+        }
+
+        public void Set_DataGridLines(IEnumerable<string> lines)
+        {
+            dataGridView.Set_DataGridLines(lines);
         }
     }
 }

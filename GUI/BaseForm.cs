@@ -29,6 +29,7 @@ using MathNet.Numerics.LinearAlgebra;
 using ProjectInterfaces.Tasks;
 using UserControlsEx;
 using BazisGUI.Properties;
+using System.Xml.Linq;
 
 namespace BazisGUI
 {
@@ -74,7 +75,7 @@ namespace BazisGUI
 
 
 
-        public BaseForm()
+        public BaseForm(string[] args)
         {
             InitializeComponent();
             ComponentsPainter.Font = this.Font;
@@ -82,6 +83,22 @@ namespace BazisGUI
 
             tableLayoutPanel.BringToFront();
             GetServerConnection();
+
+            if (args.Length == 2)
+            {
+                var fullPath = Path.GetFullPath(args[0]);
+                project = dataController.CreateNewProject(fullPath, args[1]);
+
+                project.Load();
+                lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
+
+                var ierr = 0;
+                gmshController?.Clear(ref ierr);
+
+                модулиMenuItem.Enabled = true;
+            }
+
+
         }
 
         private void GetServerConnection()
@@ -173,7 +190,7 @@ namespace BazisGUI
             Enabled = true;
 
             project.ResultData.AddRange(res.Result);
-        } 
+        }
 
         private void SetModule(string moduleName)
         {
@@ -188,6 +205,7 @@ namespace BazisGUI
 
             var newModule = CreateModule(moduleName);
             //Important to see in future
+
             modelController = new ModelController.ModelController(project.ModelData);
             newModule.BasePage.SetGeneralData(project.GeneralData);
             newModule.BasePage.ScenePage.SetModelController(modelController);
@@ -199,9 +217,9 @@ namespace BazisGUI
 
             PresentProjectOnModule(newModule);
 
-            if(splitters != null)
+            if (splitters != null)
                 newModule.BasePage.SetSplitters(splitters);
-            if(viewMatrix != null)
+            if (viewMatrix != null)
                 SetSceneViewMatrix(viewMatrix, newModule.BasePage.ScenePage);
         }
 
@@ -562,7 +580,8 @@ namespace BazisGUI
                     Name = "settings",
                     Text = "Настройки",
                     TopMost = true,
-                    ShowIcon = false
+                    ShowIcon = false,
+                    CausesValidation = true
                 };
 
                 form.ClientSize = settings.Size;

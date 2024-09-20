@@ -116,7 +116,7 @@ namespace TaskModule.BasicAdvisorControls
             try
             {
                 var row = CreateRowInfo();
-                var count = dataGridView.Rows.Count;
+
                 ChangeDataEvent(this, new ChangeDataEventArgs(DataName, dataGridView.CurentSelectedRowIndex, row));
                 btnRefresh.Enabled = false;
             }
