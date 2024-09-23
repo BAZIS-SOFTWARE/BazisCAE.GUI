@@ -176,7 +176,16 @@ namespace TaskModule
                 }
 
                 activeAdvisor = taskAdv.Name;
-                var form = new Form() { Text = taskAdv.Text, Name = taskAdv.Name, TopMost = true, Owner = Application.OpenForms[0],Size = taskAdv.Size, ShowIcon = false };
+
+
+                var form = new Form() 
+                { Text = taskAdv.Text, 
+                    Name = taskAdv.Name, 
+                    TopMost = true, Owner = Application.OpenForms[0],
+                    Size = taskAdv.Size, 
+                    ShowIcon = false
+                };
+
                 form.FormClosed += (ar1, ar2) =>
                 {
                     if (ar2.CloseReason == CloseReason.UserClosing)
@@ -184,8 +193,11 @@ namespace TaskModule
                     activeAdvisor = "";
                 };
                 form.Controls.Add(taskAdv);
-                form.ClientSize = taskAdv.Size;
+                
                 form.Show();
+                var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+                form.ClientSize = new Size(taskAdv.Width, this.BasePage.ScenePage.Height);
+                form.Location = location;
 
                 taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent;
                 taskAdv.AddDataUseTaskConditionsEvent += (ar1,ar2) => { TaskAdv_AddDataUseTaskConditions(taskData, preProc); };

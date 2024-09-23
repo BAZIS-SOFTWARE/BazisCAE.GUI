@@ -120,11 +120,6 @@ namespace TaskModule.BasicTaskAdvisor
                         else if (control is TaskPlannerControl_v2 taskPlannerControl)
                         {
                             taskPlannerControl.ProjPath = generalData.Path;
-
-                            //var inputDir = $@"{project.Path}\InputData";
-
-                            //if (Directory.Exists(inputDir))
-                                //data = Directory.GetFiles(inputDir, "*.tsf");
                         }
                         gvControl.Set_DataGridLines(data);
                     }

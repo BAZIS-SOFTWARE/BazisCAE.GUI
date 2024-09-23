@@ -34,21 +34,21 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FSWeldingControl));
             this.btnInfo = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbFrictionModule = new ComboBoxEx(this.components);
+            this.cmbFrictionModule = new UserControlsEx.ComboBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.txbAxisForce = new TextBoxEx(this.components);
-            this.txbPinUpperDiam = new TextBoxEx(this.components);
-            this.txbPinBottomDiam = new TextBoxEx(this.components);
-            this.txbPinLenght = new TextBoxEx(this.components);
-            this.txbShoulderDiam = new TextBoxEx(this.components);
+            this.txbAxisForce = new UserControlsEx.TextBoxEx(this.components);
+            this.txbPinUpperDiam = new UserControlsEx.TextBoxEx(this.components);
+            this.txbPinBottomDiam = new UserControlsEx.TextBoxEx(this.components);
+            this.txbPinLenght = new UserControlsEx.TextBoxEx(this.components);
+            this.txbShoulderDiam = new UserControlsEx.TextBoxEx(this.components);
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.txbRotSpeed = new TextBoxEx(this.components);
+            this.txbRotSpeed = new UserControlsEx.TextBoxEx(this.components);
             this.label5 = new System.Windows.Forms.Label();
-            this.cmbYield = new ComboBoxEx(this.components);
+            this.cmbYield = new UserControlsEx.ComboBoxEx(this.components);
             this.rbtPin = new System.Windows.Forms.RadioButton();
             this.rbtShoulder = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
@@ -79,12 +79,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbFrictionModule.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbFrictionModule.FormattingEnabled = true;
-            this.cmbFrictionModule.InputType = ((CMBInputType)((CMBInputType.Items | CMBInputType.Float)));
+            this.cmbFrictionModule.InputType = ((UserControlsEx.CMBInputType)((UserControlsEx.CMBInputType.Items | UserControlsEx.CMBInputType.Float)));
             this.cmbFrictionModule.IsValidating = true;
             this.cmbFrictionModule.Location = new System.Drawing.Point(171, 202);
             this.cmbFrictionModule.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.cmbFrictionModule.Name = "cmbFrictionModule";
-            this.cmbFrictionModule.Size = new System.Drawing.Size(634, 21);
+            this.cmbFrictionModule.Size = new System.Drawing.Size(629, 21);
             this.cmbFrictionModule.TabIndex = 62;
             this.cmbFrictionModule.UserRegExCheck = null;
             this.cmbFrictionModule.UserRegExCheckErrorMessage = null;
@@ -103,12 +103,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbAxisForce.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbAxisForce.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbAxisForce.InputType = TXTBoxInputType.Float;
+            this.txbAxisForce.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.txbAxisForce.IsValidating = true;
             this.txbAxisForce.Location = new System.Drawing.Point(171, 73);
             this.txbAxisForce.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbAxisForce.Name = "txbAxisForce";
-            this.txbAxisForce.Size = new System.Drawing.Size(634, 20);
+            this.txbAxisForce.Size = new System.Drawing.Size(629, 20);
             this.txbAxisForce.TabIndex = 59;
             this.txbAxisForce.UserRegExCheck = null;
             this.txbAxisForce.UserRegExCheckErrorMessage = null;
@@ -118,12 +118,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbPinUpperDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbPinUpperDiam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbPinUpperDiam.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbPinUpperDiam.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbPinUpperDiam.IsValidating = true;
             this.txbPinUpperDiam.Location = new System.Drawing.Point(171, 177);
             this.txbPinUpperDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbPinUpperDiam.Name = "txbPinUpperDiam";
-            this.txbPinUpperDiam.Size = new System.Drawing.Size(634, 20);
+            this.txbPinUpperDiam.Size = new System.Drawing.Size(629, 20);
             this.txbPinUpperDiam.TabIndex = 58;
             this.txbPinUpperDiam.UserRegExCheck = null;
             this.txbPinUpperDiam.UserRegExCheckErrorMessage = null;
@@ -133,12 +133,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbPinBottomDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbPinBottomDiam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbPinBottomDiam.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbPinBottomDiam.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbPinBottomDiam.IsValidating = true;
             this.txbPinBottomDiam.Location = new System.Drawing.Point(171, 152);
             this.txbPinBottomDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbPinBottomDiam.Name = "txbPinBottomDiam";
-            this.txbPinBottomDiam.Size = new System.Drawing.Size(634, 20);
+            this.txbPinBottomDiam.Size = new System.Drawing.Size(629, 20);
             this.txbPinBottomDiam.TabIndex = 57;
             this.txbPinBottomDiam.UserRegExCheck = null;
             this.txbPinBottomDiam.UserRegExCheckErrorMessage = null;
@@ -148,12 +148,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbPinLenght.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbPinLenght.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbPinLenght.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbPinLenght.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbPinLenght.IsValidating = true;
             this.txbPinLenght.Location = new System.Drawing.Point(171, 126);
             this.txbPinLenght.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbPinLenght.Name = "txbPinLenght";
-            this.txbPinLenght.Size = new System.Drawing.Size(634, 20);
+            this.txbPinLenght.Size = new System.Drawing.Size(629, 20);
             this.txbPinLenght.TabIndex = 56;
             this.txbPinLenght.UserRegExCheck = null;
             this.txbPinLenght.UserRegExCheckErrorMessage = null;
@@ -163,12 +163,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbShoulderDiam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbShoulderDiam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbShoulderDiam.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbShoulderDiam.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbShoulderDiam.IsValidating = true;
             this.txbShoulderDiam.Location = new System.Drawing.Point(171, 100);
             this.txbShoulderDiam.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbShoulderDiam.Name = "txbShoulderDiam";
-            this.txbShoulderDiam.Size = new System.Drawing.Size(634, 20);
+            this.txbShoulderDiam.Size = new System.Drawing.Size(629, 20);
             this.txbShoulderDiam.TabIndex = 55;
             this.txbShoulderDiam.UserRegExCheck = null;
             this.txbShoulderDiam.UserRegExCheckErrorMessage = null;
@@ -222,12 +222,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbRotSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbRotSpeed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbRotSpeed.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbRotSpeed.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbRotSpeed.IsValidating = true;
-            this.txbRotSpeed.Location = new System.Drawing.Point(171, 48);
-            this.txbRotSpeed.Margin = new System.Windows.Forms.Padding(178, 10, 15, 3);
+            this.txbRotSpeed.Location = new System.Drawing.Point(171, 47);
+            this.txbRotSpeed.Margin = new System.Windows.Forms.Padding(178, 10, 20, 3);
             this.txbRotSpeed.Name = "txbRotSpeed";
-            this.txbRotSpeed.Size = new System.Drawing.Size(634, 20);
+            this.txbRotSpeed.Size = new System.Drawing.Size(629, 20);
             this.txbRotSpeed.TabIndex = 50;
             this.txbRotSpeed.UserRegExCheck = null;
             this.txbRotSpeed.UserRegExCheckErrorMessage = null;
@@ -247,12 +247,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbYield.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbYield.FormattingEnabled = true;
-            this.cmbYield.InputType = ((CMBInputType)((CMBInputType.Items | CMBInputType.Float)));
+            this.cmbYield.InputType = ((UserControlsEx.CMBInputType)((UserControlsEx.CMBInputType.Items | UserControlsEx.CMBInputType.Float)));
             this.cmbYield.IsValidating = true;
             this.cmbYield.Location = new System.Drawing.Point(171, 229);
             this.cmbYield.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.cmbYield.Name = "cmbYield";
-            this.cmbYield.Size = new System.Drawing.Size(634, 21);
+            this.cmbYield.Size = new System.Drawing.Size(629, 21);
             this.cmbYield.TabIndex = 62;
             this.cmbYield.UserRegExCheck = null;
             this.cmbYield.UserRegExCheckErrorMessage = null;

@@ -11,6 +11,7 @@ namespace TestGUI
         [SetUp]
         public void Setup()
         {
+            Thread.Sleep(3000);
             //var myProcess = new Process();
 
             //myProcess.StartInfo.FileName = $@"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe";
@@ -22,8 +23,10 @@ namespace TestGUI
             //myProcess.Start();
         }
 
-        [Test]
-        public void MaterialsOperationsTest()
+        [TestCase("Дуговая сварка", "Материалы", "  a_m", "  d_m","  r_m")]
+        [TestCase("Дуговая сварка", "Закрепления", "  a_c", "  d_c", "  r_c")]
+        [TestCase("Дуговая сварка", "Режим сварки", "  a_h", "  d_h", "  r_h")]
+        public void BasicControlsOperationsTest(string process, string category, string btnAdd, string btnDel, string btnRef)
         {
 
             WindowsDriver<WindowsElement> wd;
@@ -43,18 +46,25 @@ namespace TestGUI
             modulW.Click();
             var tasks = wd.FindElement(By.Name("Задачи"));
             tasks.Click();
-            var taskArcW = wd.FindElement(By.Name("Дуговая сварка"));
+            var taskArcW = wd.FindElement(By.Name(process));
             taskArcW.Click();
-            var arcWMat = wd.FindElement(By.Name("Материалы"));
+            var arcWMat = wd.FindElement(By.Name(category));
             arcWMat.Click();
             var strWMat = wd.FindElement(By.Name("Строка 0"));
             strWMat.Click();
-            var refBtn = wd.FindElement(By.Name("  r_m"));
+            var refBtn = wd.FindElement(By.Name(btnRef));
             refBtn.Click();
-            var delBtn = wd.FindElement(By.Name("  d_m"));
+            var delBtn = wd.FindElement(By.Name(btnDel));
             delBtn.Click();
-            var addBtn = wd.FindElement(By.Name("  a_m"));
+            var addBtn = wd.FindElement(By.Name(btnAdd));
             addBtn.Click();
+
+            Thread.Sleep(3000);
+
+            //возврат лицензии на модуль сварка
+            moduls.Click();
+            var modulM = wd.FindElement(By.Name("Построение сетки"));
+            modulM.Click();
 
             Thread.Sleep(3000);
             wd.CloseApp();

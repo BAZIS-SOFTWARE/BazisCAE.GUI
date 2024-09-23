@@ -36,6 +36,12 @@ namespace TaskModule.BasicAdvisorControls
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClampControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dgvControl = new TaskModule.BasicAdvisorControls.BasicControls.DGVControl();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.player = new BaseModule.Player.PlayerControl();
             this.btnClearAll = new System.Windows.Forms.Button();
@@ -62,12 +68,6 @@ namespace TaskModule.BasicAdvisorControls
             this.chbX = new System.Windows.Forms.CheckBox();
             this.закрепленияTab_элComboBox = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvControl)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -119,6 +119,59 @@ namespace TaskModule.BasicAdvisorControls
             this.dgvControl.TabIndex = 23;
             this.dgvControl.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dgvControl.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Группа узлов";
+            this.Column9.MinimumWidth = 6;
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            this.Column9.ToolTipText = "Название группы";
+            this.Column9.Width = 95;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "Вид";
+            this.Column10.MinimumWidth = 6;
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            this.Column10.ToolTipText = "Вид условия";
+            this.Column10.Width = 95;
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "Направление";
+            this.Column12.MinimumWidth = 6;
+            this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
+            this.Column12.Width = 95;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Функция";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.ToolTipText = "Функция f(U)";
+            this.Column1.Width = 125;
+            // 
+            // startColumn
+            // 
+            this.startColumn.HeaderText = "Старт";
+            this.startColumn.MinimumWidth = 6;
+            this.startColumn.Name = "startColumn";
+            this.startColumn.ReadOnly = true;
+            this.startColumn.ToolTipText = "Сек.";
+            this.startColumn.Width = 95;
+            // 
+            // stopColumn
+            // 
+            this.stopColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.stopColumn.HeaderText = "Стоп";
+            this.stopColumn.MinimumWidth = 6;
+            this.stopColumn.Name = "stopColumn";
+            this.stopColumn.ReadOnly = true;
+            this.stopColumn.ToolTipText = "Сек.";
             // 
             // groupBox3
             // 
@@ -172,7 +225,7 @@ namespace TaskModule.BasicAdvisorControls
             // 
             // btnClearAll
             // 
-            this.btnClearAll.AutoSize = true;
+            this.btnClearAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAll.Image")));
             this.btnClearAll.Location = new System.Drawing.Point(43, 80);
@@ -180,7 +233,7 @@ namespace TaskModule.BasicAdvisorControls
             this.btnClearAll.Name = "btnClearAll";
             this.btnClearAll.Size = new System.Drawing.Size(28, 28);
             this.btnClearAll.TabIndex = 20;
-            this.btnClearAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnClearAll.Text = "  d_c";
             this.btnClearAll.UseVisualStyleBackColor = true;
             this.btnClearAll.Click += new System.EventHandler(this.ClearAllDataButton_Click);
             // 
@@ -247,7 +300,6 @@ namespace TaskModule.BasicAdvisorControls
             // 
             // btnRefresh
             // 
-            this.btnRefresh.AutoSize = true;
             this.btnRefresh.Enabled = false;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
@@ -256,13 +308,13 @@ namespace TaskModule.BasicAdvisorControls
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(28, 28);
             this.btnRefresh.TabIndex = 19;
-            this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnRefresh.Text = "  r_c";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // btnAddNewRow
             // 
-            this.btnAddNewRow.AutoSize = true;
+            this.btnAddNewRow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewRow.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewRow.Image")));
             this.btnAddNewRow.Location = new System.Drawing.Point(11, 80);
@@ -270,7 +322,7 @@ namespace TaskModule.BasicAdvisorControls
             this.btnAddNewRow.Name = "btnAddNewRow";
             this.btnAddNewRow.Size = new System.Drawing.Size(28, 28);
             this.btnAddNewRow.TabIndex = 19;
-            this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAddNewRow.Text = "  a_c";
             this.btnAddNewRow.UseVisualStyleBackColor = true;
             this.btnAddNewRow.Click += new System.EventHandler(this.AddButton_Click);
             // 
@@ -481,59 +533,6 @@ namespace TaskModule.BasicAdvisorControls
             this.label7.Size = new System.Drawing.Size(134, 13);
             this.label7.TabIndex = 15;
             this.label7.Text = "Группа узлов/элементов";
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "Группа узлов";
-            this.Column9.MinimumWidth = 6;
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            this.Column9.ToolTipText = "Название группы";
-            this.Column9.Width = 95;
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "Вид";
-            this.Column10.MinimumWidth = 6;
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            this.Column10.ToolTipText = "Вид условия";
-            this.Column10.Width = 95;
-            // 
-            // Column12
-            // 
-            this.Column12.HeaderText = "Направление";
-            this.Column12.MinimumWidth = 6;
-            this.Column12.Name = "Column12";
-            this.Column12.ReadOnly = true;
-            this.Column12.Width = 95;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Функция";
-            this.Column1.MinimumWidth = 6;
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.ToolTipText = "Функция f(U)";
-            this.Column1.Width = 125;
-            // 
-            // startColumn
-            // 
-            this.startColumn.HeaderText = "Старт";
-            this.startColumn.MinimumWidth = 6;
-            this.startColumn.Name = "startColumn";
-            this.startColumn.ReadOnly = true;
-            this.startColumn.ToolTipText = "Сек.";
-            this.startColumn.Width = 95;
-            // 
-            // stopColumn
-            // 
-            this.stopColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.stopColumn.HeaderText = "Стоп";
-            this.stopColumn.MinimumWidth = 6;
-            this.stopColumn.Name = "stopColumn";
-            this.stopColumn.ReadOnly = true;
-            this.stopColumn.ToolTipText = "Сек.";
             // 
             // ClampControl
             // 

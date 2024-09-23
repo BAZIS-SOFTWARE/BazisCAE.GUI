@@ -1,0 +1,32 @@
+{
+  "ChemicalFile": "",
+  "TermalConvergence": {
+    "Is_Switched_Tm": true,
+    "Tm": 1500.0
+  },
+  "MetallurgicalProcesses": [
+    "Охлаждение",
+    "Нагрев"
+  ],
+  "InitTemp": 20.0,
+  "SaveRate": 1,
+  "RestartFile": "термическая_1_0_50.db",
+  "Iterations": 2,
+  "SolverSettings": {
+    "$type": "TasksParameters.SolverSettings, TasksParameters",
+    "MaxIter": 500,
+    "Solver": "SOR_iterative",
+    "MaxRelaxation": 1.5,
+    "Relaxation": 1.05,
+    "Precision": 0.01,
+    "Priority": "Наивысший"
+  },
+  "TimeSettings": {
+    "$type": "TasksParameters.TimeSettings, TasksParameters",
+    "MaxTimeStep": 100.0,
+    "MinTimeStep": 0.0005,
+    "StartTime": 50.0,
+    "StopTime": 1500.0,
+    "InitTimeStep": 0.5
+  }
+}

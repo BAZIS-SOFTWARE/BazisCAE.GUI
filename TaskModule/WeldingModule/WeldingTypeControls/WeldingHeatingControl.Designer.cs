@@ -68,7 +68,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbEnergyCalibration = new UserControlsEx.ComboBoxEx(this.components);
             this.cmbRef = new UserControlsEx.ComboBoxEx(this.components);
             this.cmbTraj = new UserControlsEx.ComboBoxEx(this.components);
-            this.dataGridView = new DGVControl();
+            this.dataGridView = new TaskModule.BasicAdvisorControls.BasicControls.DGVControl();
             this.видСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ОбластьСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -144,7 +144,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.groupBox1.Controls.Add(this.cmbRef);
             this.groupBox1.Controls.Add(this.cmbTraj);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(7, 156);
+            this.groupBox1.Location = new System.Drawing.Point(7, 111);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
@@ -217,7 +217,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             // btnClearAll
             // 
-            this.btnClearAll.AutoSize = true;
+            this.btnClearAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = global::TaskModule.Properties.Resources.delete;
             this.btnClearAll.Location = new System.Drawing.Point(43, 237);
@@ -225,7 +225,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnClearAll.Name = "btnClearAll";
             this.btnClearAll.Size = new System.Drawing.Size(28, 28);
             this.btnClearAll.TabIndex = 52;
-            this.btnClearAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnClearAll.Text = "  d_h";
             this.btnClearAll.UseVisualStyleBackColor = true;
             this.btnClearAll.Click += new System.EventHandler(this.ClearAllDataButton_Click);
             // 
@@ -337,7 +337,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             // btnRefresh
             // 
-            this.btnRefresh.AutoSize = true;
+            this.btnRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnRefresh.Enabled = false;
@@ -348,13 +348,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(28, 28);
             this.btnRefresh.TabIndex = 40;
-            this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnRefresh.Text = "  r_h";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // addRowButton
             // 
-            this.addRowButton.AutoSize = true;
+            this.addRowButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.addRowButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.addRowButton.Cursor = System.Windows.Forms.Cursors.Default;
             this.addRowButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -364,7 +364,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.addRowButton.Name = "addRowButton";
             this.addRowButton.Size = new System.Drawing.Size(28, 28);
             this.addRowButton.TabIndex = 40;
-            this.addRowButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.addRowButton.Text = "  a_h";
             this.addRowButton.UseVisualStyleBackColor = true;
             this.addRowButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
@@ -551,7 +551,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.stopColumn,
             this.ПараметрыДвижения});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(7, 465);
+            this.dataGridView.Location = new System.Drawing.Point(7, 420);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
@@ -561,7 +561,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.Size = new System.Drawing.Size(838, 524);
+            this.dataGridView.Size = new System.Drawing.Size(838, 569);
             this.dataGridView.TabIndex = 25;
             this.dataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView_DefaultValuesNeeded);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -658,10 +658,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.grbWeldRegime.IsRollable = true;
             this.grbWeldRegime.Location = new System.Drawing.Point(7, 82);
             this.grbWeldRegime.Margin = new System.Windows.Forms.Padding(7);
-            this.grbWeldRegime.MinimumSize = new System.Drawing.Size(0, 15);
+            this.grbWeldRegime.MinimumSize = new System.Drawing.Size(0, 12);
             this.grbWeldRegime.Name = "grbWeldRegime";
             this.grbWeldRegime.Padding = new System.Windows.Forms.Padding(0);
-            this.grbWeldRegime.Size = new System.Drawing.Size(838, 60);
+            this.grbWeldRegime.Size = new System.Drawing.Size(838, 15);
             this.grbWeldRegime.TabIndex = 30;
             this.grbWeldRegime.TabStop = false;
             this.grbWeldRegime.Text = "Параметры процесса";

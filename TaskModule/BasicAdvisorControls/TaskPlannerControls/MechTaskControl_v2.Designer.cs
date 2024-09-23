@@ -34,32 +34,32 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.label6 = new System.Windows.Forms.Label();
             this.chbPlastisity = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.cmbPriority = new ComboBoxEx(this.components);
+            this.cmbPriority = new UserControlsEx.ComboBoxEx(this.components);
             this.label3 = new System.Windows.Forms.Label();
-            this.cmbSolver = new ComboBoxEx(this.components);
+            this.cmbSolver = new UserControlsEx.ComboBoxEx(this.components);
             this.label12 = new System.Windows.Forms.Label();
-            this.txbRelaxation = new TextBoxEx(this.components);
-            this.txbPrecision = new TextBoxEx(this.components);
+            this.txbRelaxation = new UserControlsEx.TextBoxEx(this.components);
+            this.txbPrecision = new UserControlsEx.TextBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.txbSolverIterations = new TextBoxEx(this.components);
+            this.txbSolverIterations = new UserControlsEx.TextBoxEx(this.components);
             this.label7 = new System.Windows.Forms.Label();
-            this.txbIters = new TextBoxEx(this.components);
+            this.txbIters = new UserControlsEx.TextBoxEx(this.components);
             this.maxTMIter = new System.Windows.Forms.Label();
-            this.txbSaveRate = new TextBoxEx(this.components);
+            this.txbSaveRate = new UserControlsEx.TextBoxEx(this.components);
             this.lblSaveRateTM = new System.Windows.Forms.Label();
-            this.txbBodyTemp = new TextBoxEx(this.components);
+            this.txbBodyTemp = new UserControlsEx.TextBoxEx(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.chbUMax = new System.Windows.Forms.CheckBox();
-            this.txbMaxSiSt = new TextBoxEx(this.components);
-            this.txbMaxU = new TextBoxEx(this.components);
-            this.txbMaxDU = new TextBoxEx(this.components);
+            this.txbMaxSiSt = new UserControlsEx.TextBoxEx(this.components);
+            this.txbMaxU = new UserControlsEx.TextBoxEx(this.components);
+            this.txbMaxDU = new UserControlsEx.TextBoxEx(this.components);
             this.SuspendLayout();
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(8, 13);
+            this.label6.Location = new System.Drawing.Point(8, 18);
             this.label6.Margin = new System.Windows.Forms.Padding(8, 0, 3, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(117, 13);
@@ -72,7 +72,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.chbPlastisity.Checked = true;
             this.chbPlastisity.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chbPlastisity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chbPlastisity.Location = new System.Drawing.Point(9, 64);
+            this.chbPlastisity.Location = new System.Drawing.Point(9, 69);
             this.chbPlastisity.Name = "chbPlastisity";
             this.chbPlastisity.Size = new System.Drawing.Size(175, 17);
             this.chbPlastisity.TabIndex = 152;
@@ -83,7 +83,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(8, 222);
+            this.label4.Location = new System.Drawing.Point(8, 227);
             this.label4.Margin = new System.Windows.Forms.Padding(8, 10, 3, 10);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(130, 13);
@@ -98,7 +98,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.cmbPriority.DisplayMember = "0";
             this.cmbPriority.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cmbPriority.FormattingEnabled = true;
-            this.cmbPriority.InputType = CMBInputType.Items;
+            this.cmbPriority.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbPriority.IsValidating = true;
             this.cmbPriority.Items.AddRange(new object[] {
             "Низкий",
@@ -107,10 +107,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             "ВышеСреднего",
             "Высокий",
             "Наивысший"});
-            this.cmbPriority.Location = new System.Drawing.Point(190, 271);
-            this.cmbPriority.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
+            this.cmbPriority.Location = new System.Drawing.Point(190, 276);
+            this.cmbPriority.Margin = new System.Windows.Forms.Padding(178, 3, 15, 15);
             this.cmbPriority.Name = "cmbPriority";
-            this.cmbPriority.Size = new System.Drawing.Size(573, 21);
+            this.cmbPriority.Size = new System.Drawing.Size(568, 21);
             this.cmbPriority.TabIndex = 151;
             this.cmbPriority.Text = "Наивысший";
             this.cmbPriority.UserRegExCheck = null;
@@ -120,7 +120,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(8, 171);
+            this.label3.Location = new System.Drawing.Point(8, 176);
             this.label3.Margin = new System.Windows.Forms.Padding(8, 10, 3, 10);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(103, 13);
@@ -134,16 +134,16 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbSolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cmbSolver.FormattingEnabled = true;
-            this.cmbSolver.InputType = CMBInputType.Items;
+            this.cmbSolver.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbSolver.IsValidating = true;
             this.cmbSolver.Items.AddRange(new object[] {
             "Gauss_direct",
             "SOR_iterative",
             "CG_iterative"});
-            this.cmbSolver.Location = new System.Drawing.Point(190, 166);
+            this.cmbSolver.Location = new System.Drawing.Point(190, 171);
             this.cmbSolver.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.cmbSolver.Name = "cmbSolver";
-            this.cmbSolver.Size = new System.Drawing.Size(573, 21);
+            this.cmbSolver.Size = new System.Drawing.Size(568, 21);
             this.cmbSolver.TabIndex = 149;
             this.cmbSolver.Text = "SOR_iterative";
             this.cmbSolver.UserRegExCheck = null;
@@ -153,7 +153,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(8, 274);
+            this.label12.Location = new System.Drawing.Point(8, 279);
             this.label12.Margin = new System.Windows.Forms.Padding(8, 10, 3, 10);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(61, 13);
@@ -168,12 +168,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbRelaxation.BackColor = System.Drawing.SystemColors.Window;
             this.txbRelaxation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbRelaxation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txbRelaxation.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbRelaxation.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbRelaxation.IsValidating = true;
-            this.txbRelaxation.Location = new System.Drawing.Point(190, 245);
+            this.txbRelaxation.Location = new System.Drawing.Point(190, 250);
             this.txbRelaxation.Margin = new System.Windows.Forms.Padding(190, 3, 15, 3);
             this.txbRelaxation.Name = "txbRelaxation";
-            this.txbRelaxation.Size = new System.Drawing.Size(573, 20);
+            this.txbRelaxation.Size = new System.Drawing.Size(568, 20);
             this.txbRelaxation.TabIndex = 142;
             this.txbRelaxation.Text = "1.25";
             this.txbRelaxation.UserRegExCheck = null;
@@ -186,12 +186,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbPrecision.BackColor = System.Drawing.SystemColors.Window;
             this.txbPrecision.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbPrecision.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txbPrecision.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbPrecision.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbPrecision.IsValidating = true;
-            this.txbPrecision.Location = new System.Drawing.Point(190, 219);
+            this.txbPrecision.Location = new System.Drawing.Point(190, 224);
             this.txbPrecision.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbPrecision.Name = "txbPrecision";
-            this.txbPrecision.Size = new System.Drawing.Size(573, 20);
+            this.txbPrecision.Size = new System.Drawing.Size(568, 20);
             this.txbPrecision.TabIndex = 143;
             this.txbPrecision.Text = "0.0001";
             this.txbPrecision.UserRegExCheck = null;
@@ -201,7 +201,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(8, 197);
+            this.label1.Location = new System.Drawing.Point(8, 202);
             this.label1.Margin = new System.Windows.Forms.Padding(8, 10, 3, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(138, 13);
@@ -216,12 +216,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbSolverIterations.BackColor = System.Drawing.SystemColors.Window;
             this.txbSolverIterations.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbSolverIterations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txbSolverIterations.InputType = ((TXTBoxInputType)((TXTBoxInputType.Integer | TXTBoxInputType.Positive)));
+            this.txbSolverIterations.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Integer | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbSolverIterations.IsValidating = true;
-            this.txbSolverIterations.Location = new System.Drawing.Point(190, 193);
+            this.txbSolverIterations.Location = new System.Drawing.Point(190, 198);
             this.txbSolverIterations.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbSolverIterations.Name = "txbSolverIterations";
-            this.txbSolverIterations.Size = new System.Drawing.Size(573, 20);
+            this.txbSolverIterations.Size = new System.Drawing.Size(568, 20);
             this.txbSolverIterations.TabIndex = 144;
             this.txbSolverIterations.Text = "100";
             this.txbSolverIterations.UserRegExCheck = null;
@@ -231,7 +231,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(8, 248);
+            this.label7.Location = new System.Drawing.Point(8, 253);
             this.label7.Margin = new System.Windows.Forms.Padding(8, 10, 3, 10);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(117, 13);
@@ -246,12 +246,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbIters.BackColor = System.Drawing.SystemColors.Window;
             this.txbIters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbIters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txbIters.InputType = ((TXTBoxInputType)((TXTBoxInputType.Integer | TXTBoxInputType.Positive)));
+            this.txbIters.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Integer | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbIters.IsValidating = true;
-            this.txbIters.Location = new System.Drawing.Point(190, 114);
+            this.txbIters.Location = new System.Drawing.Point(190, 119);
             this.txbIters.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbIters.Name = "txbIters";
-            this.txbIters.Size = new System.Drawing.Size(573, 20);
+            this.txbIters.Size = new System.Drawing.Size(568, 20);
             this.txbIters.TabIndex = 138;
             this.txbIters.Text = "25";
             this.txbIters.UserRegExCheck = null;
@@ -261,7 +261,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.maxTMIter.AutoSize = true;
             this.maxTMIter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maxTMIter.Location = new System.Drawing.Point(8, 121);
+            this.maxTMIter.Location = new System.Drawing.Point(8, 126);
             this.maxTMIter.Margin = new System.Windows.Forms.Padding(8, 28, 3, 10);
             this.maxTMIter.Name = "maxTMIter";
             this.maxTMIter.Size = new System.Drawing.Size(134, 13);
@@ -277,12 +277,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbSaveRate.BackColor = System.Drawing.SystemColors.Window;
             this.txbSaveRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbSaveRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txbSaveRate.InputType = ((TXTBoxInputType)((TXTBoxInputType.Integer | TXTBoxInputType.Positive)));
+            this.txbSaveRate.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Integer | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbSaveRate.IsValidating = true;
-            this.txbSaveRate.Location = new System.Drawing.Point(190, 140);
+            this.txbSaveRate.Location = new System.Drawing.Point(190, 145);
             this.txbSaveRate.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbSaveRate.Name = "txbSaveRate";
-            this.txbSaveRate.Size = new System.Drawing.Size(573, 20);
+            this.txbSaveRate.Size = new System.Drawing.Size(568, 20);
             this.txbSaveRate.TabIndex = 140;
             this.txbSaveRate.Text = "5";
             this.txbSaveRate.UserRegExCheck = null;
@@ -292,7 +292,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.lblSaveRateTM.AutoSize = true;
             this.lblSaveRateTM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblSaveRateTM.Location = new System.Drawing.Point(8, 147);
+            this.lblSaveRateTM.Location = new System.Drawing.Point(8, 152);
             this.lblSaveRateTM.Margin = new System.Windows.Forms.Padding(8, 28, 3, 10);
             this.lblSaveRateTM.Name = "lblSaveRateTM";
             this.lblSaveRateTM.Size = new System.Drawing.Size(136, 13);
@@ -308,12 +308,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbBodyTemp.BackColor = System.Drawing.SystemColors.Window;
             this.txbBodyTemp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbBodyTemp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txbBodyTemp.InputType = TXTBoxInputType.Float;
+            this.txbBodyTemp.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.txbBodyTemp.IsValidating = true;
-            this.txbBodyTemp.Location = new System.Drawing.Point(190, 88);
+            this.txbBodyTemp.Location = new System.Drawing.Point(190, 93);
             this.txbBodyTemp.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbBodyTemp.Name = "txbBodyTemp";
-            this.txbBodyTemp.Size = new System.Drawing.Size(573, 20);
+            this.txbBodyTemp.Size = new System.Drawing.Size(568, 20);
             this.txbBodyTemp.TabIndex = 136;
             this.txbBodyTemp.Text = "20";
             this.txbBodyTemp.UserRegExCheck = null;
@@ -323,7 +323,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(8, 91);
+            this.label2.Location = new System.Drawing.Point(8, 96);
             this.label2.Margin = new System.Windows.Forms.Padding(8, 10, 3, 10);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(91, 13);
@@ -335,7 +335,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.chbUMax.AutoSize = true;
             this.chbUMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chbUMax.Location = new System.Drawing.Point(9, 38);
+            this.chbUMax.Location = new System.Drawing.Point(9, 43);
             this.chbUMax.Name = "chbUMax";
             this.chbUMax.Size = new System.Drawing.Size(159, 17);
             this.chbUMax.TabIndex = 135;
@@ -349,12 +349,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbMaxSiSt.BackColor = System.Drawing.SystemColors.Window;
             this.txbMaxSiSt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbMaxSiSt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txbMaxSiSt.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbMaxSiSt.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbMaxSiSt.IsValidating = true;
-            this.txbMaxSiSt.Location = new System.Drawing.Point(190, 62);
+            this.txbMaxSiSt.Location = new System.Drawing.Point(190, 67);
             this.txbMaxSiSt.Margin = new System.Windows.Forms.Padding(190, 3, 15, 3);
             this.txbMaxSiSt.Name = "txbMaxSiSt";
-            this.txbMaxSiSt.Size = new System.Drawing.Size(573, 20);
+            this.txbMaxSiSt.Size = new System.Drawing.Size(568, 20);
             this.txbMaxSiSt.TabIndex = 134;
             this.txbMaxSiSt.Text = "1.25";
             this.txbMaxSiSt.UserRegExCheck = null;
@@ -368,12 +368,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbMaxU.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbMaxU.Enabled = false;
             this.txbMaxU.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txbMaxU.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbMaxU.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbMaxU.IsValidating = true;
-            this.txbMaxU.Location = new System.Drawing.Point(190, 36);
+            this.txbMaxU.Location = new System.Drawing.Point(190, 41);
             this.txbMaxU.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbMaxU.Name = "txbMaxU";
-            this.txbMaxU.Size = new System.Drawing.Size(573, 20);
+            this.txbMaxU.Size = new System.Drawing.Size(568, 20);
             this.txbMaxU.TabIndex = 133;
             this.txbMaxU.Text = "0.05";
             this.txbMaxU.UserRegExCheck = null;
@@ -386,12 +386,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbMaxDU.BackColor = System.Drawing.SystemColors.Window;
             this.txbMaxDU.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbMaxDU.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txbMaxDU.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbMaxDU.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbMaxDU.IsValidating = true;
-            this.txbMaxDU.Location = new System.Drawing.Point(190, 10);
-            this.txbMaxDU.Margin = new System.Windows.Forms.Padding(178, 10, 15, 3);
+            this.txbMaxDU.Location = new System.Drawing.Point(190, 15);
+            this.txbMaxDU.Margin = new System.Windows.Forms.Padding(178, 15, 20, 3);
             this.txbMaxDU.Name = "txbMaxDU";
-            this.txbMaxDU.Size = new System.Drawing.Size(573, 20);
+            this.txbMaxDU.Size = new System.Drawing.Size(568, 20);
             this.txbMaxDU.TabIndex = 132;
             this.txbMaxDU.Text = "0.0005";
             this.txbMaxDU.UserRegExCheck = null;
@@ -401,6 +401,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.label6);
             this.Controls.Add(this.chbPlastisity);
@@ -425,9 +426,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.Controls.Add(this.txbMaxU);
             this.Controls.Add(this.txbMaxDU);
             this.Margin = new System.Windows.Forms.Padding(1);
-            this.MinimumSize = new System.Drawing.Size(0, 300);
             this.Name = "MechTaskControl_v2";
-            this.Size = new System.Drawing.Size(778, 300);
+            this.Size = new System.Drawing.Size(778, 312);
+            this.Tag = "300";
             this.ResumeLayout(false);
             this.PerformLayout();
 

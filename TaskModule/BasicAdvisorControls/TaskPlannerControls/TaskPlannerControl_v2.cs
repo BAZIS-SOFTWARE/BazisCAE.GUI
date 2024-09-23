@@ -15,10 +15,11 @@ using System.Linq;
 using TasksParameters;
 using System.Security.Cryptography.X509Certificates;
 using TaskModule.BasicAdvisorControls.Interfaces;
+using TaskModule.BasicAdvisorControls.Events;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
-    public partial class TaskPlannerControl_v2 : UserControl
+    public partial class TaskPlannerControl_v2 : UserControl,IGridViewControl
     {
         public ProcessType ProcessType { get; set; }
 
@@ -62,6 +63,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         public event Action<object, EventArgs> StartComputationEvent;
         public event Action<object, EventArgs> StopComputationEvent;
         public event Action<object, GenerateTCFEventArgs> GenerateTCFEvent;
+        public event Action<object, AddDataEventArgs> AddDataEvent;
+        public event Action<object, DeleteDataEventArgs> DeleteDataEvent;
+        public event Action<object, ChangeDataEventArgs> ChangeDataEvent;
+        public event Action<object, DeleteAllDataEventArgs> DeleteAllDataEvent;
 
         enum Column : int { kind, settings, status };
         enum TaskKind : int { химическая, термическая, механическая, твердость };
@@ -183,19 +188,29 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             grbTaskSettings.Controls.Clear();
 
             GeneralParameters parameters;
+            TaskControl taskControl;
             if (taskKind == "термическая")
             {
                 parameters = CreateTermalTaskSettings(fileSettings, settingsSerializer);
+                taskControl = cntrHeatTask;
             }
             else if (taskKind == "механическая")
             {
                 parameters = CreateMechTaskSettings(fileSettings, settingsSerializer);
+                taskControl = cntrMechTask;
             }
             else
             {
                 parameters = CreateChemicalTaskSettings(fileSettings, settingsSerializer);
+                taskControl = cntrChemTask;
             }
 
+            taskControl.InputData(parameters);
+            grbTaskSettings.Controls.Clear();
+            grbTaskSettings.Controls.Add(taskControl);
+            grbTaskSettings.Height = int.Parse(cntrHeatTask.Tag.ToString()) + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
+            grbTaskSettings.Padding = new Padding(1,1,1,3);
+            grbTaskSettings.IsExpanded = false;
 
             txbStartTime.Text = parameters.TimeSettings.StartTime.ToString();
             txbStopTime.Text = parameters.TimeSettings.StopTime.ToString();
@@ -223,10 +238,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
             parameters = JsonConvert.DeserializeObject<MechanicalParameters>
 (File.ReadAllText(fileSettings), settingsSerializer);
-            cntrMechTask.InputData(parameters);
-            grbTaskSettings.Controls.Clear();
-            grbTaskSettings.Controls.Add(cntrMechTask);
-            grbTaskSettings.Height = cntrMechTask.MinimumSize.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height + 12;
 
             var mechPar = parameters as MechanicalParameters;
 
@@ -255,10 +266,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
             parameters = JsonConvert.DeserializeObject<TermalParameters>
 (File.ReadAllText(fileSettings), settingsSerializer);
-            cntrHeatTask.InputData(parameters);
-            grbTaskSettings.Controls.Clear();
-            grbTaskSettings.Controls.Add(cntrHeatTask);
-            grbTaskSettings.Height = cntrHeatTask.MinimumSize.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height + 10;
 
             var termPar = parameters as TermalParameters;
 
@@ -560,7 +567,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
             grbTaskSettings.Controls.Clear();
             grbTaskSettings.Controls.Add(cntrHeatTask);
-            grbTaskSettings.Height = cntrHeatTask.MinimumSize.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height + 10;
+            grbTaskSettings.Height = int.Parse(cntrHeatTask.Tag.ToString()) + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
         }
 
         private void LblMechTask_Click(object sender, EventArgs e)
@@ -577,7 +584,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
             //cntrMechTask.BringToFront();
             grbTaskSettings.Controls.Add(cntrMechTask);
-            grbTaskSettings.Height = cntrMechTask.MinimumSize.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height + +12;
+            grbTaskSettings.Height = int.Parse(cntrMechTask.Tag.ToString()) + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
 
         }
 
@@ -672,6 +679,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        public string Get_DataGridFillLine(int ind)
+        {
+            throw new NotImplementedException();
         }
     }
 }
