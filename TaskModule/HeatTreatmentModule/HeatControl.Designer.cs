@@ -1,6 +1,5 @@
 ﻿using BaseModule.Player;
 using System.Windows.Forms;
-using TaskModule.BasicAdvisorControls.BasicControls;
 using UserControlsEx;
 
 namespace TaskModule.HeatTreatmentModule
@@ -49,7 +48,7 @@ namespace TaskModule.HeatTreatmentModule
             this.label5 = new System.Windows.Forms.Label();
             this.cmbExchFunc = new ComboBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView = new DGVControl();
+            this.dataGridView = new DataGridViewEx();
             this.elGroupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.matColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -575,7 +574,7 @@ namespace TaskModule.HeatTreatmentModule
         private ComboBoxEx cmbExchFunc;
         private System.Windows.Forms.Label label1;
         private ComboBoxEx cmbEl;
-        private DGVControl dataGridView;
+        private DataGridViewEx dataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;

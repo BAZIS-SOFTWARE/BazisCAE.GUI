@@ -37,7 +37,7 @@ namespace ModelModule
             this.rem3DItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsRemoveMesh3D = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.rem2DItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gmshTab = new TabControlEx();
+            this.gmshTab = new UserControlsEx.TabControlEx();
             this.geometryPage = new System.Windows.Forms.TabPage();
             this.geometryLayout = new System.Windows.Forms.TableLayoutPanel();
             this.pointsControlBox = new System.Windows.Forms.GroupBox();
@@ -45,8 +45,8 @@ namespace ModelModule
             this.rbtnProgressive = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txbAlgoCoef = new TextBoxEx(this.components);
-            this.txbAlgoNPoints = new TextBoxEx(this.components);
+            this.txbAlgoCoef = new UserControlsEx.TextBoxEx(this.components);
+            this.txbAlgoNPoints = new UserControlsEx.TextBoxEx(this.components);
             this.btnDel = new System.Windows.Forms.Button();
             this.rbtnBeta = new System.Windows.Forms.RadioButton();
             this.rbtnBump = new System.Windows.Forms.RadioButton();
@@ -57,17 +57,17 @@ namespace ModelModule
             this.chbShowSurfaceNumbers = new System.Windows.Forms.CheckBox();
             this.chbShowHeatMap = new System.Windows.Forms.CheckBox();
             this.geomTree = new System.Windows.Forms.TreeView();
-            this.grbGradientMeshSettings = new GroupBoxEx();
+            this.grbGradientMeshSettings = new UserControlsEx.GroupBoxEx();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
-            this.txbLayerThickness = new TextBoxEx(this.components);
+            this.txbLayerThickness = new UserControlsEx.TextBoxEx(this.components);
             this.label5 = new System.Windows.Forms.Label();
-            this.txbSurfaceMeshSize = new TextBoxEx(this.components);
+            this.txbSurfaceMeshSize = new UserControlsEx.TextBoxEx(this.components);
             this.label4 = new System.Windows.Forms.Label();
-            this.txbCoreMeshSize = new TextBoxEx(this.components);
+            this.txbCoreMeshSize = new UserControlsEx.TextBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.btnSetGradientSettings = new System.Windows.Forms.Button();
-            this.txbMeshGradientPower = new TextBoxEx(this.components);
+            this.txbMeshGradientPower = new UserControlsEx.TextBoxEx(this.components);
             this.meshPage = new System.Windows.Forms.TabPage();
             this.meshLayout = new System.Windows.Forms.TableLayoutPanel();
             this.surfsTree = new System.Windows.Forms.TreeView();
@@ -79,8 +79,8 @@ namespace ModelModule
             this.btnMesh2DDel = new System.Windows.Forms.Button();
             this.quadBtn = new System.Windows.Forms.Button();
             this.mesh2DGenBtn = new System.Windows.Forms.Button();
-            this.cmbAlgoChoice = new ComboBoxEx(this.components);
-            this.meshDensityValue = new TextBoxEx(this.components);
+            this.cmbAlgoChoice = new UserControlsEx.ComboBoxEx(this.components);
+            this.meshDensityValue = new UserControlsEx.TextBoxEx(this.components);
             this.volumePage = new System.Windows.Forms.TabPage();
             this.volumeLayout = new System.Windows.Forms.TableLayoutPanel();
             this.volumesTree = new System.Windows.Forms.TreeView();
@@ -163,7 +163,7 @@ namespace ModelModule
             // 
             // geometryPage
             // 
-            this.geometryPage.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.geometryPage.BackColor = System.Drawing.SystemColors.Control;
             this.geometryPage.Controls.Add(this.geometryLayout);
             this.geometryPage.Location = new System.Drawing.Point(4, 34);
             this.geometryPage.Margin = new System.Windows.Forms.Padding(0);
@@ -181,7 +181,6 @@ namespace ModelModule
             this.geometryLayout.Controls.Add(this.panel2, 0, 3);
             this.geometryLayout.Controls.Add(this.geomTree, 0, 2);
             this.geometryLayout.Controls.Add(this.grbGradientMeshSettings, 0, 1);
-            this.geometryLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.geometryLayout.Location = new System.Drawing.Point(0, 0);
             this.geometryLayout.Margin = new System.Windows.Forms.Padding(0);
             this.geometryLayout.Name = "geometryLayout";
@@ -281,7 +280,7 @@ namespace ModelModule
             this.txbAlgoCoef.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txbAlgoCoef.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tableLayoutPanel2.SetColumnSpan(this.txbAlgoCoef, 2);
-            this.txbAlgoCoef.InputType = TXTBoxInputType.Float;
+            this.txbAlgoCoef.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.txbAlgoCoef.IsValidating = true;
             this.txbAlgoCoef.Location = new System.Drawing.Point(229, 14);
             this.txbAlgoCoef.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
@@ -298,7 +297,7 @@ namespace ModelModule
             this.txbAlgoNPoints.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txbAlgoNPoints.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tableLayoutPanel2.SetColumnSpan(this.txbAlgoNPoints, 2);
-            this.txbAlgoNPoints.InputType = TXTBoxInputType.Integer;
+            this.txbAlgoNPoints.InputType = UserControlsEx.TXTBoxInputType.Integer;
             this.txbAlgoNPoints.IsValidating = true;
             this.txbAlgoNPoints.Location = new System.Drawing.Point(229, 62);
             this.txbAlgoNPoints.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
@@ -449,7 +448,7 @@ namespace ModelModule
             this.grbGradientMeshSettings.CheckState = false;
             this.grbGradientMeshSettings.Controls.Add(this.tableLayoutPanel4);
             this.grbGradientMeshSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbGradientMeshSettings.IsCheckable = true;
+            this.grbGradientMeshSettings.IsCheckable = false;
             this.grbGradientMeshSettings.IsExpanded = true;
             this.grbGradientMeshSettings.IsRollable = true;
             this.grbGradientMeshSettings.Location = new System.Drawing.Point(7, 178);
@@ -505,7 +504,7 @@ namespace ModelModule
             // 
             this.txbLayerThickness.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txbLayerThickness.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbLayerThickness.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbLayerThickness.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbLayerThickness.IsValidating = true;
             this.txbLayerThickness.Location = new System.Drawing.Point(216, 14);
             this.txbLayerThickness.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
@@ -530,7 +529,7 @@ namespace ModelModule
             // 
             this.txbSurfaceMeshSize.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txbSurfaceMeshSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbSurfaceMeshSize.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbSurfaceMeshSize.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbSurfaceMeshSize.IsValidating = true;
             this.txbSurfaceMeshSize.Location = new System.Drawing.Point(216, 59);
             this.txbSurfaceMeshSize.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
@@ -555,7 +554,7 @@ namespace ModelModule
             // 
             this.txbCoreMeshSize.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txbCoreMeshSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbCoreMeshSize.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbCoreMeshSize.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbCoreMeshSize.IsValidating = true;
             this.txbCoreMeshSize.Location = new System.Drawing.Point(216, 103);
             this.txbCoreMeshSize.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
@@ -593,7 +592,7 @@ namespace ModelModule
             // 
             this.txbMeshGradientPower.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txbMeshGradientPower.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbMeshGradientPower.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbMeshGradientPower.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbMeshGradientPower.IsValidating = true;
             this.txbMeshGradientPower.Location = new System.Drawing.Point(216, 152);
             this.txbMeshGradientPower.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
@@ -772,7 +771,7 @@ namespace ModelModule
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.cmbAlgoChoice, 2);
             this.cmbAlgoChoice.FormattingEnabled = true;
-            this.cmbAlgoChoice.InputType = CMBInputType.Items;
+            this.cmbAlgoChoice.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbAlgoChoice.IsValidating = true;
             this.cmbAlgoChoice.Items.AddRange(new object[] {
             "MeshAdapt",
@@ -793,7 +792,7 @@ namespace ModelModule
             // 
             this.meshDensityValue.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.meshDensityValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.meshDensityValue.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.meshDensityValue.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.meshDensityValue.IsValidating = true;
             this.meshDensityValue.Location = new System.Drawing.Point(22, 116);
             this.meshDensityValue.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);

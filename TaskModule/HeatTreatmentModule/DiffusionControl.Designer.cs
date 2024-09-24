@@ -1,6 +1,5 @@
 ﻿using UserControlsEx;
 using BaseModule.Player;
-using TaskModule.BasicAdvisorControls.BasicControls;
 
 namespace TaskModule.HeatTreatmentModule
 {
@@ -33,7 +32,7 @@ namespace TaskModule.HeatTreatmentModule
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.dataGridView = new DGVControl();
+            this.dataGridView = new DataGridViewEx();
             this.ClmnElem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ClmnDiffCoef = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ClmnConcentration = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -637,7 +636,7 @@ namespace TaskModule.HeatTreatmentModule
 
         #endregion
 
-        private DGVControl dataGridView;
+        private DataGridViewEx dataGridView;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;

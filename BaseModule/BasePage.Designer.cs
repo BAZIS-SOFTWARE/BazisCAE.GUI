@@ -76,6 +76,7 @@ namespace BaseModule
             this.splitContainer1.SplitterDistance = 307;
             this.splitContainer1.SplitterIncrement = 15;
             this.splitContainer1.SplitterWidth = 6;
+            this.splitContainer1.SwitchShifting = false;
             this.splitContainer1.TabIndex = 1;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
@@ -113,7 +114,7 @@ namespace BaseModule
             this.navigator.ChangeObjectsViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeViewModeEventHandler);
             this.navigator.HideObjectsEvent += new System.Action<string>(this.navigator_HideObjectsEvent);
             this.navigator.DelObjectsEvent += new System.Action<string>(this.navigator_DelObjectsEvent);
-            this.navigator.NavigatorPanelCollapseEvent += new System.Action(this.navigator_NavigatorPanelCollapseEvent);
+            this.navigator.ControlCollapseEvent += new System.Action(this.navigator_NavigatorPanelCollapseEvent);
             // 
             // splitContainer2
             // 
@@ -135,6 +136,7 @@ namespace BaseModule
             this.splitContainer2.Size = new System.Drawing.Size(995, 643);
             this.splitContainer2.SplitterDistance = 429;
             this.splitContainer2.SplitterWidth = 6;
+            this.splitContainer2.SwitchShifting = false;
             this.splitContainer2.TabIndex = 0;
             // 
             // scenePage
@@ -172,7 +174,7 @@ namespace BaseModule
             this.consoleControl.Size = new System.Drawing.Size(995, 208);
             this.consoleControl.TabIndex = 4;
             this.consoleControl.UpColor = System.Drawing.Color.Gainsboro;
-            this.consoleControl.ConsolePanelCollapseEvent += new System.Action(this.consoleControl_ConsolePanelCollapseEvent);
+            this.consoleControl.ControlCollapseEvent += new System.Action(this.consoleControl_ConsolePanelCollapseEvent);
             this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
             this.consoleControl.FindFreeNodesEvent += new System.Action(this.consoleControl_FindFreeNodesEvent);
             // 

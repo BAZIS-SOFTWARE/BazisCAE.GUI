@@ -1,5 +1,4 @@
-﻿using TaskModule.BasicAdvisorControls.BasicControls;
-using UserControlsEx;
+﻿using UserControlsEx;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
@@ -34,7 +33,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskPlannerControl_v2));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridView = new TaskModule.BasicAdvisorControls.BasicControls.DGVControl();
+            this.dataGridView = new DataGridViewEx();
             this.Kind = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Settings = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -181,7 +180,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             // btnAddNewTask
             // 
-            this.btnAddNewTask.AutoSize = true;
+            this.btnAddNewTask.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAddNewTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnAddNewTask.Image = global::TaskModule.Properties.Resources.Add;
@@ -190,7 +189,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnAddNewTask.Name = "btnAddNewTask";
             this.btnAddNewTask.Size = new System.Drawing.Size(28, 28);
             this.btnAddNewTask.TabIndex = 132;
-            this.btnAddNewTask.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAddNewTask.Text = "  a_p";
             this.btnAddNewTask.UseVisualStyleBackColor = true;
             this.btnAddNewTask.Click += new System.EventHandler(this.AddButton_Click);
             // 
@@ -384,7 +383,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             // btnClearAllTask
             // 
-            this.btnClearAllTask.AutoSize = true;
+            this.btnClearAllTask.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClearAllTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAllTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnClearAllTask.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAllTask.Image")));
@@ -393,13 +392,13 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnClearAllTask.Name = "btnClearAllTask";
             this.btnClearAllTask.Size = new System.Drawing.Size(28, 28);
             this.btnClearAllTask.TabIndex = 53;
-            this.btnClearAllTask.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnClearAllTask.Text = "  d_p";
             this.btnClearAllTask.UseVisualStyleBackColor = true;
             this.btnClearAllTask.Click += new System.EventHandler(this.ClearAllDataButton_Click);
             // 
             // btnRefresh
             // 
-            this.btnRefresh.AutoSize = true;
+            this.btnRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRefresh.Enabled = false;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
@@ -409,7 +408,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(28, 28);
             this.btnRefresh.TabIndex = 53;
-            this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnRefresh.Text = "  r_p";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
@@ -653,17 +652,22 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private System.Windows.Forms.Button PrevResultLoadBtn;
         private System.Windows.Forms.Button btnLoadParameters;
         private System.Windows.Forms.Button StopButton;
-        private TextBoxEx txbStartStep;        private System.Windows.Forms.Button btnGenTCF;
+        private TextBoxEx txbStartStep;
+        private System.Windows.Forms.Button btnGenTCF;
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
-        private TextBoxEx txbMaxStep;        private TextBoxEx txbMinStep;        private System.Windows.Forms.CheckBox chbAddByTaskConditions;
+        private TextBoxEx txbMaxStep;
+        private TextBoxEx txbMinStep;
+        private System.Windows.Forms.CheckBox chbAddByTaskConditions;
         private System.Windows.Forms.Button btnClearAllTask;
         private System.Windows.Forms.Button btnRefresh;
-        private TextBoxEx txbStartTime;        private System.Windows.Forms.Label label9;
-        private TextBoxEx txbStopTime;        private System.Windows.Forms.Label label10;
-        private DGVControl dataGridView;
+        private TextBoxEx txbStartTime;
+        private System.Windows.Forms.Label label9;
+        private TextBoxEx txbStopTime;
+        private System.Windows.Forms.Label label10;
+        private DataGridViewEx dataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn Kind;
         private System.Windows.Forms.DataGridViewTextBoxColumn Settings;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Time;

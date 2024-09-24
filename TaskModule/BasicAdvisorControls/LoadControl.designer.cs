@@ -1,6 +1,5 @@
 ﻿using System.Windows.Forms;
 using BaseModule.Player;
-using TaskModule.BasicAdvisorControls.BasicControls;
 using UserControlsEx;
 
 namespace TaskModule.BasicAdvisorControls
@@ -47,7 +46,7 @@ namespace TaskModule.BasicAdvisorControls
             this.label9 = new System.Windows.Forms.Label();
             this.txbStopTime = new UserControlsEx.TextBoxEx(this.components);
             this.txbStartTime = new UserControlsEx.TextBoxEx(this.components);
-            this.dataGridView = new DGVControl();
+            this.dataGridView = new DataGridViewEx();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -551,7 +550,7 @@ namespace TaskModule.BasicAdvisorControls
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private DGVControl dataGridView;
+        private DataGridViewEx dataGridView;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label8;
         private Button btnAddNewRow;

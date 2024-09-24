@@ -35,7 +35,7 @@ namespace TaskModule.BasicAdvisorControls
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClampControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.dgvControl = new TaskModule.BasicAdvisorControls.BasicControls.DGVControl();
+            this.dgvControl = new DataGridViewEx();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -588,7 +588,7 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.CheckBox chbY;
         private System.Windows.Forms.CheckBox chbX;
         private PlayerControl player;
-        private BasicControls.DGVControl dgvControl;
+        private DataGridViewEx dgvControl;
         private DataGridViewTextBoxColumn Column9;
         private DataGridViewTextBoxColumn Column10;
         private DataGridViewTextBoxColumn Column12;

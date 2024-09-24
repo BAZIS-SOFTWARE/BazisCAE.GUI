@@ -4,7 +4,6 @@ using System.Windows.Forms;
 using System.Globalization;
 using System.Drawing;
 using System.ComponentModel;
-using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Interfaces;
 using System.Linq;
 using TaskModule.BasicAdvisorControls.Events;

@@ -1,6 +1,5 @@
 ﻿using BaseModule.Player;
 using System.Windows.Forms;
-using TaskModule.BasicAdvisorControls.BasicControls;
 using UserControlsEx;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
@@ -68,7 +67,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbEnergyCalibration = new UserControlsEx.ComboBoxEx(this.components);
             this.cmbRef = new UserControlsEx.ComboBoxEx(this.components);
             this.cmbTraj = new UserControlsEx.ComboBoxEx(this.components);
-            this.dataGridView = new TaskModule.BasicAdvisorControls.BasicControls.DGVControl();
+            this.dataGridView = new DataGridViewEx();
             this.видСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ОбластьСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -719,7 +718,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label2;
         private ComboBoxEx cmbTraj;
-        private DGVControl dataGridView;
+        private DataGridViewEx dataGridView;
         private System.Windows.Forms.GroupBox groupBox3;
         private Button btnRefresh;
         private System.Windows.Forms.CheckBox chbShifting;

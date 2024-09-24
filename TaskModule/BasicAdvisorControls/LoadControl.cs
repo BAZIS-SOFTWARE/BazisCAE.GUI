@@ -7,8 +7,6 @@ using System.Drawing;
 using TaskModule.BasicAdvisorControls.Interfaces;
 using System.Linq;
 using TaskModule.BasicAdvisorControls.Events;
-using static Tao.Platform.Windows.Winmm;
-using TaskModule.BasicAdvisorControls.BasicControls;
 
 namespace TaskModule.BasicAdvisorControls
 {

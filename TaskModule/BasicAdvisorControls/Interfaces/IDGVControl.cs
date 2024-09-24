@@ -14,7 +14,6 @@ namespace TaskModule.BasicAdvisorControls.Interfaces
 
         void Set_DataGridLines(IEnumerable<string> lines);
 
-        int CountSelectedRow { get; }
         int CurentSelectedRowIndex { get; }
 
         //string CurentSelectedRowInfo { get; set; }

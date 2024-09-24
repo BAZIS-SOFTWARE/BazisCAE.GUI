@@ -177,7 +177,6 @@ namespace TaskModule
 
                 activeAdvisor = taskAdv.Name;
 
-
                 var form = new Form() 
                 { Text = taskAdv.Text, 
                     Name = taskAdv.Name, 

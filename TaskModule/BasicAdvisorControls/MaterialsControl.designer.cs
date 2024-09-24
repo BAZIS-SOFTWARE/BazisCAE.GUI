@@ -1,6 +1,5 @@
 ﻿using System.Windows.Forms;
 using BaseModule.Player;
-using TaskModule.BasicAdvisorControls.BasicControls;
 using UserControlsEx;
 
 namespace TaskModule.BasicAdvisorControls
@@ -47,21 +46,21 @@ namespace TaskModule.BasicAdvisorControls
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnAddNewRow = new System.Windows.Forms.Button();
             this.txbStartTime = new UserControlsEx.TextBoxEx(this.components);
+            this.dataGridView = new UserControlsEx.DataGridViewEx(this.components);
+            this.elGroupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.matColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbMat = new UserControlsEx.ComboBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.cmbEl = new UserControlsEx.ComboBoxEx(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.dataGridView = new TaskModule.BasicAdvisorControls.BasicControls.DGVControl();
-            this.elGroupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.matColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -254,6 +253,55 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStartTime.UserRegExCheck = null;
             this.txbStartTime.UserRegExCheckErrorMessage = null;
             // 
+            // dataGridView
+            // 
+            this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.elGroupColumn,
+            this.matColumn,
+            this.startColumn,
+            this.stopColumn});
+            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView.Location = new System.Drawing.Point(7, 253);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.ReadOnly = true;
+            this.dataGridView.RowHeadersWidth = 51;
+            this.dataGridView.Size = new System.Drawing.Size(765, 299);
+            this.dataGridView.TabIndex = 14;
+            this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
+            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
+            // 
+            // elGroupColumn
+            // 
+            this.elGroupColumn.HeaderText = "Группа элементов";
+            this.elGroupColumn.MinimumWidth = 6;
+            this.elGroupColumn.Name = "elGroupColumn";
+            this.elGroupColumn.ReadOnly = true;
+            // 
+            // matColumn
+            // 
+            this.matColumn.HeaderText = "Материал";
+            this.matColumn.MinimumWidth = 6;
+            this.matColumn.Name = "matColumn";
+            this.matColumn.ReadOnly = true;
+            // 
+            // startColumn
+            // 
+            this.startColumn.HeaderText = "Старт";
+            this.startColumn.MinimumWidth = 6;
+            this.startColumn.Name = "startColumn";
+            this.startColumn.ReadOnly = true;
+            // 
+            // stopColumn
+            // 
+            this.stopColumn.HeaderText = "Стоп";
+            this.stopColumn.MinimumWidth = 6;
+            this.stopColumn.Name = "stopColumn";
+            this.stopColumn.ReadOnly = true;
+            // 
             // groupBox2
             // 
             this.groupBox2.AutoSize = true;
@@ -327,55 +375,6 @@ namespace TaskModule.BasicAdvisorControls
             // 
             this.openFileDialog.FileName = "openFileDialog";
             // 
-            // dataGridView
-            // 
-            this.dataGridView.AllowUserToAddRows = false;
-            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.elGroupColumn,
-            this.matColumn,
-            this.startColumn,
-            this.stopColumn});
-            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(7, 253);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.ReadOnly = true;
-            this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(765, 299);
-            this.dataGridView.TabIndex = 14;
-            this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
-            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
-            // 
-            // elGroupColumn
-            // 
-            this.elGroupColumn.HeaderText = "Группа элементов";
-            this.elGroupColumn.MinimumWidth = 6;
-            this.elGroupColumn.Name = "elGroupColumn";
-            this.elGroupColumn.ReadOnly = true;
-            // 
-            // matColumn
-            // 
-            this.matColumn.HeaderText = "Материал";
-            this.matColumn.MinimumWidth = 6;
-            this.matColumn.Name = "matColumn";
-            this.matColumn.ReadOnly = true;
-            // 
-            // startColumn
-            // 
-            this.startColumn.HeaderText = "Старт";
-            this.startColumn.MinimumWidth = 6;
-            this.startColumn.Name = "startColumn";
-            this.startColumn.ReadOnly = true;
-            // 
-            // stopColumn
-            // 
-            this.stopColumn.HeaderText = "Стоп";
-            this.stopColumn.MinimumWidth = 6;
-            this.stopColumn.Name = "stopColumn";
-            this.stopColumn.ReadOnly = true;
-            // 
             // MaterialsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -391,15 +390,15 @@ namespace TaskModule.BasicAdvisorControls
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private DGVControl dataGridView;
+        private DataGridViewEx dataGridView;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;

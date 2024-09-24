@@ -55,14 +55,14 @@
     <Reference Include="DataBaseController, Version=1.0.3.8, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
       <HintPath>..\packages\DataBaseController.1.0.3.8\lib\netstandard2.0\DataBaseController.dll</HintPath>
     </Reference>
-    <Reference Include="DataBasesGUI, Version=1.0.2.73, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataBasesGUI.1.0.2.73\lib\net48\DataBasesGUI.dll</HintPath>
+    <Reference Include="DataBasesGUI, Version=1.0.2.76, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataBasesGUI.1.0.2.76\lib\net48\DataBasesGUI.dll</HintPath>
     </Reference>
     <Reference Include="Geometry, Version=2.0.8.1, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
       <HintPath>..\packages\Geometry.2.0.8.1\lib\netstandard2.0\Geometry.dll</HintPath>
     </Reference>
-    <Reference Include="Graph, Version=1.0.2.31, Culture=neutral, PublicKeyToken=4d6e483d8ec08dd8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Graph.1.0.2.31\lib\net48\Graph.dll</HintPath>
+    <Reference Include="Graph, Version=1.0.2.34, Culture=neutral, PublicKeyToken=4d6e483d8ec08dd8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Graph.1.0.2.34\lib\net48\Graph.dll</HintPath>
     </Reference>
     <Reference Include="Model, Version=3.1.0.3, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
       <HintPath>..\packages\Model.3.1.0.3\lib\netstandard2.0\Model.dll</HintPath>
@@ -109,17 +109,11 @@
     <Reference Include="TasksParameters, Version=1.0.1.13, Culture=neutral, PublicKeyToken=8bfe6827a0935d51, processorArchitecture=MSIL">
       <HintPath>..\packages\TasksParameters.1.0.1.13\lib\netstandard2.0\TasksParameters.dll</HintPath>
     </Reference>
-    <Reference Include="UserControlsEx, Version=1.1.7.0, Culture=neutral, PublicKeyToken=16903e6a4b8fab01, processorArchitecture=MSIL">
-      <HintPath>..\packages\UserControlsEx.1.1.7\lib\net48\UserControlsEx.dll</HintPath>
+    <Reference Include="UserControlsEx, Version=1.2.1.0, Culture=neutral, PublicKeyToken=16903e6a4b8fab01, processorArchitecture=MSIL">
+      <HintPath>..\packages\UserControlsEx.1.2.1\lib\net48\UserControlsEx.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicAdvisorControls\BasicControls\DGVControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="BasicAdvisorControls\BasicControls\DGVControl.Designer.cs">
-      <DependentUpon>DGVControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="BasicAdvisorControls\ClampControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -194,6 +188,12 @@
     </Compile>
     <Compile Include="BasicAdvisorControls\TaskTypeControl.Designer.cs">
       <DependentUpon>TaskTypeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasicTaskAdvisor\PinnedTaskAdvisorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BasicTaskAdvisor\PinnedTaskAdvisorControl.Designer.cs">
+      <DependentUpon>PinnedTaskAdvisorControl.cs</DependentUpon>
     </Compile>
     <Compile Include="BasicTaskAdvisor\TaskAdvisor.cs">
       <SubType>UserControl</SubType>
@@ -309,9 +309,6 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BasicAdvisorControls\BasicControls\DGVControl.resx">
-      <DependentUpon>DGVControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="BasicAdvisorControls\ClampControl.resx">
       <DependentUpon>ClampControl.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -336,6 +333,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BasicAdvisorControls\TaskTypeControl.resx">
       <DependentUpon>TaskTypeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BasicTaskAdvisor\PinnedTaskAdvisorControl.resx">
+      <DependentUpon>PinnedTaskAdvisorControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BasicTaskAdvisor\TaskAdvisor.resx">
       <DependentUpon>TaskAdvisor.cs</DependentUpon>
@@ -401,7 +401,6 @@
     <Content Include="Graph_icons\LineThickness2.ico" />
     <Content Include="Graph_icons\Show_value.bmp" />
     <Content Include="Materials\materials_draft.txt" />
-    <Content Include="ProgressBarEx\Controls\ProgressBar.ico" />
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
     <None Include="Resources\ComputationFolder.png" />

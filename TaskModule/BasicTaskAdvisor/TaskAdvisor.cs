@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls;
 using System.Linq;
-using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Interfaces;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.TaskPlannerControls;
@@ -13,7 +12,6 @@ using ProjectInterfaces;
 using ModelInterfaces;
 using ProjectInterfaces.Tasks;
 using UserControlsEx;
-using ProjectInterfaces.Results;
 
 namespace TaskModule.BasicTaskAdvisor
 {

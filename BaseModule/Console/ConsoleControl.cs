@@ -10,6 +10,7 @@ using BaseModule.Console.Events;
 using System.ComponentModel;
 using UserControlsEx;
 using BaseModule.Utilities;
+using BaseModule.Interfaces;
 
 namespace BaseModule.Console
 {
@@ -46,7 +47,7 @@ namespace BaseModule.Console
         Factor,
         Path
     }
-    public partial class ConsoleControl : UserControl
+    public partial class ConsoleControl : UserControl, IPinnedControl
     {
         [Category("General")]
         [Description("Set up color gradient")]
@@ -65,9 +66,10 @@ namespace BaseModule.Console
 
         public bool ShowTaskInfo { get; private set; }
 
-        public event Action ConsolePanelCollapseEvent;
+        public event Action ControlCollapseEvent;
         public event Action<object, EventArgs> InEvent;
         public event Action FindFreeNodesEvent;
+        public event Action ControlUnpinnedEvent;
 
         int SessionNumber
         {
@@ -370,7 +372,7 @@ namespace BaseModule.Console
         private void grbConsole_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Location.X > grbConsole.Width - 16 & e.Location.X < grbConsole.Width - 8 && e.Location.Y <= 10)
-                ConsolePanelCollapseEvent?.Invoke();
+                ControlCollapseEvent?.Invoke();
         }
 
         private void grbConsole_Resize(object sender, EventArgs e)

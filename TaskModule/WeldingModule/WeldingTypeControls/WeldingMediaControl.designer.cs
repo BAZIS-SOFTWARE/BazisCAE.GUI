@@ -1,6 +1,5 @@
 ﻿using BaseModule.Player;
 using System.Windows.Forms;
-using TaskModule.BasicAdvisorControls.BasicControls;
 using UserControlsEx;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
@@ -34,7 +33,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new UserControlsEx.GroupBoxEx();
             this.label5 = new System.Windows.Forms.Label();
@@ -43,7 +42,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbFunc = new UserControlsEx.ComboBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.cmbEl = new UserControlsEx.ComboBoxEx(this.components);
-            this.dataGridView = new DGVControl();
+            this.dataGridView = new DataGridViewEx();
             this.elGroupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.matColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -209,15 +208,15 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.Column1,
             this.startColumn,
             this.stopColumn});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.NullValue = " ";
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.NullValue = " ";
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.Location = new System.Drawing.Point(7, 462);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
@@ -377,7 +376,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             // btnRefresh
             // 
-            this.btnRefresh.AutoSize = true;
+            this.btnRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRefresh.Enabled = false;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Image = global::TaskModule.Properties.Resources.Refresh;
@@ -386,13 +385,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(28, 28);
             this.btnRefresh.TabIndex = 13;
-            this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnRefresh.Text = "  r_m";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // btnClearAll
             // 
-            this.btnClearAll.AutoSize = true;
+            this.btnClearAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = global::TaskModule.Properties.Resources.delete;
             this.btnClearAll.Location = new System.Drawing.Point(44, 76);
@@ -400,13 +399,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnClearAll.Name = "btnClearAll";
             this.btnClearAll.Size = new System.Drawing.Size(28, 28);
             this.btnClearAll.TabIndex = 13;
-            this.btnClearAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnClearAll.Text = "  d_m";
             this.btnClearAll.UseVisualStyleBackColor = true;
             this.btnClearAll.Click += new System.EventHandler(this.ClearAllDataButton_Click);
             // 
             // btnAddNewRow
             // 
-            this.btnAddNewRow.AutoSize = true;
+            this.btnAddNewRow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewRow.Image = global::TaskModule.Properties.Resources.Add;
             this.btnAddNewRow.Location = new System.Drawing.Point(11, 76);
@@ -414,7 +413,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnAddNewRow.Name = "btnAddNewRow";
             this.btnAddNewRow.Size = new System.Drawing.Size(28, 28);
             this.btnAddNewRow.TabIndex = 13;
-            this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAddNewRow.Text = "  a_m";
             this.btnAddNewRow.UseVisualStyleBackColor = true;
             this.btnAddNewRow.Click += new System.EventHandler(this.AddButton_Click);
             // 
@@ -582,7 +581,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private ComboBoxEx cmbFunc;
         private System.Windows.Forms.Label label1;
         private ComboBoxEx cmbEl;
-        private DGVControl dataGridView;
+        private DataGridViewEx dataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;

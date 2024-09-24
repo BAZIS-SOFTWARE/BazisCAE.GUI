@@ -11,7 +11,6 @@ namespace TestGUI
         [SetUp]
         public void Setup()
         {
-            Thread.Sleep(3000);
             //var myProcess = new Process();
 
             //myProcess.StartInfo.FileName = $@"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe";
@@ -22,10 +21,12 @@ namespace TestGUI
             //myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
             //myProcess.Start();
         }
-
-        [TestCase("Дуговая сварка", "Материалы", "  a_m", "  d_m","  r_m")]
-        [TestCase("Дуговая сварка", "Закрепления", "  a_c", "  d_c", "  r_c")]
-        [TestCase("Дуговая сварка", "Режим сварки", "  a_h", "  d_h", "  r_h")]
+        [Test]
+        [TestCase("Дуговая сварка", "Материалы", "  a_m", "  d_m","  r_m",TestName = "Дуговая сварка_Материалы: добавить, обновить, удалить")]
+        [TestCase("Дуговая сварка", "Закрепления", "  a_c", "  d_c", "  r_c", TestName = "Дуговая сварка_Закрепления: добавить, обновить, удалить")]
+        [TestCase("Дуговая сварка", "Режим сварки", "  a_h", "  d_h", "  r_h", TestName = "Дуговая сварка_Режим сварки: добавить, обновить, удалить")]
+        [TestCase("Дуговая сварка", "Среда", "  a_m", "  d_m", "  r_m", TestName = "Дуговая сварка_Среда сварки: добавить, обновить, удалить")]
+        [TestCase("Дуговая сварка", "Планировщик", "  a_p", "  d_p", "  r_p", TestName = "Дуговая сварка_Планировщик: добавить, обновить, удалить")]
         public void BasicControlsOperationsTest(string process, string category, string btnAdd, string btnDel, string btnRef)
         {
 

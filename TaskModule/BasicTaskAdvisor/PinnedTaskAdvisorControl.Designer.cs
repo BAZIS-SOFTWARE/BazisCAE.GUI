@@ -1,6 +1,6 @@
-﻿namespace TaskModule.BasicAdvisorControls.BasicControls
+﻿namespace TaskModule.BasicTaskAdvisor
 {
-    partial class CheckedGridViewAdviserControl
+    partial class PinnedTaskAdvisorControl
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -30,12 +30,19 @@
         {
             this.SuspendLayout();
             // 
-            // CheckedGridViewAdviserControl
+            // PinnedTaskAdvisorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "CheckedGridViewAdviserControl";
-            this.Size = new System.Drawing.Size(518, 372);
+            this.BackColor = System.Drawing.Color.Gainsboro;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.Name = "PinnedTaskAdvisorControl";
+            this.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.Size = new System.Drawing.Size(625, 383);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.PinnedTaskAdvisorControl_Paint);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PinnedTaskAdvisorControl_MouseClick);
+            this.Resize += new System.EventHandler(this.PinnedTaskAdvisorControl_Resize);
             this.ResumeLayout(false);
 
         }

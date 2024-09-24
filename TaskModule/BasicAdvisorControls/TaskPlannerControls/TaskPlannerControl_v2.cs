@@ -5,7 +5,6 @@ using System.IO;
 using AdvisorControls.TaskPlannerControls;
 using System.Globalization;
 using System.ComponentModel;
-using TaskModule.BasicAdvisorControls.BasicControls;
 using Newtonsoft.Json;
 using System.Threading;
 using System.Collections.Generic;
@@ -13,7 +12,6 @@ using ProjectInterfaces.Tasks;
 using System.Text.RegularExpressions;
 using System.Linq;
 using TasksParameters;
-using System.Security.Cryptography.X509Certificates;
 using TaskModule.BasicAdvisorControls.Interfaces;
 using TaskModule.BasicAdvisorControls.Events;
 
