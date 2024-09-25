@@ -22,31 +22,47 @@ namespace TestGUI
             //myProcess.Start();
         }
         [Test(Description = "Мастер постановки технологических задач. Действия: показать, скрыть, обновить, удалить, добавить")]
-        [TestCase("Дуговая сварка", "Материалы", "  a_m", "  d_m","  r_m","  s_m","  h_m",TestName = "Дуговая сварка Материалы")]
-        [TestCase("Дуговая сварка", "Закрепления", "  a_c", "  d_c", "  r_c", "  s_c", "  h_c", TestName = "Дуговая сварка Закрепления")]
-        [TestCase("Дуговая сварка", "Режим сварки", "  a_h", "  d_h", "  r_h", "  s_h", "  h_h", TestName = "Дуговая сварка Режим сварки")]
-        [TestCase("Дуговая сварка", "Среда", "  a_m", "  d_m", "  r_m", "  s_m", "  h_m", TestName = "Дуговая сварка Среда сварки")]
-        [TestCase("Дуговая сварка", "Планировщик", "  a_p", "  d_p", "  r_p", "  s_p", "  h_p", TestName = "Дуговая сварка Планировщик")]
-        [TestCase("Нагрев", "Материалы", "  a_m", "  d_m", "  r_m", "  s_m", "  h_m", TestName = "Нагрев Материалы")]
-        [TestCase("Нагрев", "Закрепления", "  a_c", "  d_c", "  r_c", "  s_c", "  h_c", TestName = "Нагрев Закрепления")]
-        [TestCase("Нагрев", "Режим ТО", "  a_h", "  d_h", "  r_h", "  s_h", "  h_h", TestName = "Нагрев Режим ТО")]
-        [TestCase("Нагрев", "Планировщик", "  a_p", "  d_p", "  r_p", "  s_p", "  h_p", TestName = "Нагрев Планировщик")]
-        public void BasicControlsOperationsTest(string process, string category, string btnAdd, string btnDel, string btnRef, string btnShow, string btnHide)
-        {           
+        [TestCase("Сварка", "Дуговая сварка", "Материалы", "  a_m", "  d_m","  r_m","  s_m","  h_m",TestName = "Дуговая сварка Материалы")]
+        [TestCase("Сварка", "Дуговая сварка", "Закрепления", "  a_c", "  d_c", "  r_c", "  s_c", "  h_c", TestName = "Дуговая сварка Закрепления")]
+        [TestCase("Сварка", "Дуговая сварка", "Режим сварки", "  a_h", "  d_h", "  r_h", "  s_h", "  h_h", TestName = "Дуговая сварка Режим сварки")]
+        [TestCase("Сварка", "Дуговая сварка", "Среда", "  a_m", "  d_m", "  r_m", "  s_m", "  h_m", TestName = "Дуговая сварка Среда сварки")]
+        [TestCase("Сварка", "Дуговая сварка", "Планировщик", "  a_p", "  d_p", "  r_p", "  _", "  _", TestName = "Дуговая сварка Планировщик")]
+        [TestCase("Термообработка", "Нагрев", "Материалы", "  a_m", "  d_m", "  r_m", "  s_m", "  h_m", TestName = "Нагрев Материалы")]
+        [TestCase("Термообработка","Нагрев", "Закрепления", "  a_c", "  d_c", "  r_c", "  s_c", "  h_c", TestName = "Нагрев Закрепления")]
+        [TestCase("Термообработка", "Нагрев", "Режим ТО", "  a_h", "  d_h", "  r_h", "  s_h", "  h_h", TestName = "Нагрев Режим ТО")]
+        [TestCase("Термообработка", "Нагрев", "Планировщик", "  a_p", "  d_p", "  r_p", "  _", "  _", TestName = "Нагрев Планировщик")]
+        [TestCase("Термообработка", "Отпуск | Отжиг | Старение", "Материалы", "  a_m", "  d_m", "  r_m", "  s_m", "  h_m", TestName = "Отпуск | Отжиг | Старение Материалы")]
+        [TestCase("Термообработка", "Отпуск | Отжиг | Старение", "Закрепления", "  a_c", "  d_c", "  r_c", "  s_c", "  h_c", TestName = "Отпуск | Отжиг | Старение Закрепления")]
+        [TestCase("Термообработка", "Отпуск | Отжиг | Старение", "Режим ТО", "  a_h", "  d_h", "  r_h", "  s_h", "  h_h", TestName = "Отпуск | Отжиг | Старение Режим ТО")]
+        [TestCase("Термообработка", "Отпуск | Отжиг | Старение", "Планировщик", "  a_p", "  d_p", "  r_p", "  _", "  _", TestName = "Отпуск | Отжиг | Старение Планировщик")]
+        [TestCase("Термообработка", "Закалка", "Материалы", "  a_m", "  d_m", "  r_m", "  s_m", "  h_m", TestName = "Закалка Материалы")]
+        [TestCase("Термообработка", "Закалка", "Закрепления", "  a_c", "  d_c", "  r_c", "  s_c", "  h_c", TestName = "Закалка Закрепления")]
+        [TestCase("Термообработка", "Закалка", "Режим ТО", "  a_h", "  d_h", "  r_h", "  s_h", "  h_h", TestName = "Закалка Режим ТО")]
+        [TestCase("Термообработка", "Закалка", "Планировщик", "  a_p", "  d_p", "  r_p", "  _", "  _", TestName = "Закалка Планировщик")]
+        public void BasicControlsOperationsTest(string module, string process, string category, string btnAdd, string btnDel, string btnRef, string btnShow, string btnHide)
+        {  
+            string args;
+            if(process == "Дуговая сварка")
+                args = @"c:\BazisGUI\GUI\Projects\Welding\Arc proj.bpf";
+            else if(process == "Нагрев")
+                args = @"c:\BazisGUI\GUI\Projects\HeatTreatment\Heating\2D_axi 2D_val.bpf";
+            else
+                args = @"c:\BazisGUI\GUI\Projects\HeatTreatment\Quenching\2D_axi 2D_val.bpf";
+
             WindowsDriver<WindowsElement> wd;
 
             var opt = new AppiumOptions();
 
             opt.AddAdditionalCapability("app", @"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe");
             opt.AddAdditionalCapability("ms:waitForAppLaunch", "3");
-            opt.AddAdditionalCapability("appArguments", @"c:\BazisGUI\GUI\Projects\Welding proj.bpf");
+            opt.AddAdditionalCapability("appArguments", args);
             opt.PlatformName = "Windows11x64";
             var url = new Uri("http://127.0.0.1:4723");
             wd = new WindowsDriver<WindowsElement>(url,opt);
 
             var moduls = wd.FindElement(By.Name("Модули"));
             moduls.Click();
-            var modulW = wd.FindElement(By.Name("Сварка"));
+            var modulW = wd.FindElement(By.Name(module));
             modulW.Click();
             var tasks = wd.FindElement(By.Name("Задачи"));
             tasks.Click();
@@ -56,10 +72,12 @@ namespace TestGUI
             arcWMat.Click();
             var strWMat = wd.FindElement(By.Name("Строка 0"));
             strWMat.Click();
-            var showBtn = wd.FindElement(By.Name(btnShow));
-            showBtn.Click();
-            var hideBtn = wd.FindElement(By.Name(btnHide));
-            hideBtn.Click();
+
+            if(btnShow != "  _")
+                wd.FindElement(By.Name(btnShow)).Click();
+            if (btnHide != "  _")
+                wd.FindElement(By.Name(btnHide)).Click();
+
             var refBtn = wd.FindElement(By.Name(btnRef));
             refBtn.Click();
             var delBtn = wd.FindElement(By.Name(btnDel));
