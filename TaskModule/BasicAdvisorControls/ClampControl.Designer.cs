@@ -35,7 +35,7 @@ namespace TaskModule.BasicAdvisorControls
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClampControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.dgvControl = new DataGridViewEx();
+            this.dgvControl = new UserControlsEx.DataGridViewEx(this.components);
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -272,7 +272,7 @@ namespace TaskModule.BasicAdvisorControls
             // 
             // btnShowAll
             // 
-            this.btnShowAll.AutoSize = true;
+            this.btnShowAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
             this.btnShowAll.Location = new System.Drawing.Point(107, 80);
@@ -280,13 +280,13 @@ namespace TaskModule.BasicAdvisorControls
             this.btnShowAll.Name = "btnShowAll";
             this.btnShowAll.Size = new System.Drawing.Size(28, 28);
             this.btnShowAll.TabIndex = 19;
-            this.btnShowAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnShowAll.Text = "  s_c";
             this.btnShowAll.UseVisualStyleBackColor = true;
             this.btnShowAll.Click += new System.EventHandler(this.ShowDataButton_Click);
             // 
             // btnHideAll
             // 
-            this.btnHideAll.AutoSize = true;
+            this.btnHideAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHideAll.Image = ((System.Drawing.Image)(resources.GetObject("btnHideAll.Image")));
             this.btnHideAll.Location = new System.Drawing.Point(139, 80);
@@ -294,7 +294,7 @@ namespace TaskModule.BasicAdvisorControls
             this.btnHideAll.Name = "btnHideAll";
             this.btnHideAll.Size = new System.Drawing.Size(28, 28);
             this.btnHideAll.TabIndex = 19;
-            this.btnHideAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnHideAll.Text = "  h_c";
             this.btnHideAll.UseVisualStyleBackColor = true;
             this.btnHideAll.Click += new System.EventHandler(this.HideAllDataButton_Click);
             // 

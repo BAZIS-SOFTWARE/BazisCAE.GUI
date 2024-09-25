@@ -21,22 +21,25 @@ namespace TestGUI
             //myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
             //myProcess.Start();
         }
-        [Test]
-        [TestCase("Дуговая сварка", "Материалы", "  a_m", "  d_m","  r_m",TestName = "Дуговая сварка_Материалы: добавить, обновить, удалить")]
-        [TestCase("Дуговая сварка", "Закрепления", "  a_c", "  d_c", "  r_c", TestName = "Дуговая сварка_Закрепления: добавить, обновить, удалить")]
-        [TestCase("Дуговая сварка", "Режим сварки", "  a_h", "  d_h", "  r_h", TestName = "Дуговая сварка_Режим сварки: добавить, обновить, удалить")]
-        [TestCase("Дуговая сварка", "Среда", "  a_m", "  d_m", "  r_m", TestName = "Дуговая сварка_Среда сварки: добавить, обновить, удалить")]
-        [TestCase("Дуговая сварка", "Планировщик", "  a_p", "  d_p", "  r_p", TestName = "Дуговая сварка_Планировщик: добавить, обновить, удалить")]
-        public void BasicControlsOperationsTest(string process, string category, string btnAdd, string btnDel, string btnRef)
-        {
-
+        [Test(Description = "Мастер постановки технологических задач. Действия: показать, скрыть, обновить, удалить, добавить")]
+        [TestCase("Дуговая сварка", "Материалы", "  a_m", "  d_m","  r_m","  s_m","  h_m",TestName = "Дуговая сварка Материалы")]
+        [TestCase("Дуговая сварка", "Закрепления", "  a_c", "  d_c", "  r_c", "  s_c", "  h_c", TestName = "Дуговая сварка Закрепления")]
+        [TestCase("Дуговая сварка", "Режим сварки", "  a_h", "  d_h", "  r_h", "  s_h", "  h_h", TestName = "Дуговая сварка Режим сварки")]
+        [TestCase("Дуговая сварка", "Среда", "  a_m", "  d_m", "  r_m", "  s_m", "  h_m", TestName = "Дуговая сварка Среда сварки")]
+        [TestCase("Дуговая сварка", "Планировщик", "  a_p", "  d_p", "  r_p", "  s_p", "  h_p", TestName = "Дуговая сварка Планировщик")]
+        [TestCase("Нагрев", "Материалы", "  a_m", "  d_m", "  r_m", "  s_m", "  h_m", TestName = "Нагрев Материалы")]
+        [TestCase("Нагрев", "Закрепления", "  a_c", "  d_c", "  r_c", "  s_c", "  h_c", TestName = "Нагрев Закрепления")]
+        [TestCase("Нагрев", "Режим ТО", "  a_h", "  d_h", "  r_h", "  s_h", "  h_h", TestName = "Нагрев Режим ТО")]
+        [TestCase("Нагрев", "Планировщик", "  a_p", "  d_p", "  r_p", "  s_p", "  h_p", TestName = "Нагрев Планировщик")]
+        public void BasicControlsOperationsTest(string process, string category, string btnAdd, string btnDel, string btnRef, string btnShow, string btnHide)
+        {           
             WindowsDriver<WindowsElement> wd;
 
             var opt = new AppiumOptions();
 
             opt.AddAdditionalCapability("app", @"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe");
             opt.AddAdditionalCapability("ms:waitForAppLaunch", "3");
-            opt.AddAdditionalCapability("appArguments", @"c:\BazisGUI\GUI\Projects proj.bpf");
+            opt.AddAdditionalCapability("appArguments", @"c:\BazisGUI\GUI\Projects\Welding proj.bpf");
             opt.PlatformName = "Windows11x64";
             var url = new Uri("http://127.0.0.1:4723");
             wd = new WindowsDriver<WindowsElement>(url,opt);
@@ -53,6 +56,10 @@ namespace TestGUI
             arcWMat.Click();
             var strWMat = wd.FindElement(By.Name("Строка 0"));
             strWMat.Click();
+            var showBtn = wd.FindElement(By.Name(btnShow));
+            showBtn.Click();
+            var hideBtn = wd.FindElement(By.Name(btnHide));
+            hideBtn.Click();
             var refBtn = wd.FindElement(By.Name(btnRef));
             refBtn.Click();
             var delBtn = wd.FindElement(By.Name(btnDel));

@@ -34,32 +34,62 @@ namespace ModelModule
         }  
         
 
-        public void CreateSurfaceElements()
+        public void CreateSurfaceElements(ObjType objType)
         {
             var scenePage = BasePage.ScenePage;
-            var els3D = ModelData.ObjectData.E3DCollection;
-            if (els3D.Count() != 0)
+
+            try
             {
-                scenePage.SceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
+                if (objType == ObjType.Элемент2D)
+                {
+                    var els3D = ModelData.ObjectData.E3DCollection;
+                    if (els3D.Count() == 0)
+                        BasePage.ConsoleControl.PrintInfo("Модель не содержит 3D элементов!", Color.Red);
+                    else
+                    {
+                        scenePage.SceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
 
-                var startNumber = ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
-                var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
+                        var startNumber = ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
+                        var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
 
-                ModelData.ObjectData.E2DCollection.AddRange(boundaryElements2D);
+                        ModelData.ObjectData.E2DCollection.AddRange(boundaryElements2D);
+                    }                
+                }
+                else if (objType == ObjType.Элемент1D)
+                {
+                    var els2D = ModelData.ObjectData.E2DCollection;
+                    if (els2D.Count() == 0)
+                        BasePage.ConsoleControl.PrintInfo("Модель не содержит 2D элементов!", Color.Red);
+                    else
+                    {
+                        scenePage.SceneControl.DeleteVBObjects(ObjType.Элемент1D.ToString());
+
+                        var startNumber = ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
+                        var boundaryElements1D = ModelController.Extractor1DFrom2D.Create(startNumber, els2D.ToArray());
+
+                        ModelData.ObjectData.E1DCollection.AddRange(boundaryElements1D);
+                    }
+                }
 
                 scenePage.SceneControl.HideAllGeometryObjs();
                 scenePage.SceneControl.HideDisplayText2D();
                 scenePage.SceneControl.HideDisplayText3D();
 
-                scenePage.CreateObjectsOnScene(ObjType.Элемент2D.ToString(), scenePage.CreateObjectsPresentor(ObjType.Элемент2D));
+                scenePage.CreateObjectsOnScene(objType.ToString(), scenePage.CreateObjectsPresentor(objType));
 
                 scenePage.SceneControl.DisplayObjects();
                 BasePage.PresentProjectOnTree();
 
-                BasePage.ConsoleControl.PrintInfo("Созданы 2D элементы", Color.Black);
+                BasePage.ConsoleControl.PrintInfo($"Созданы {objType}", Color.Black);
             }
-            else
-                BasePage.ConsoleControl.PrintInfo("Модель не содержит объемных элементов!", Color.Red);
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+           
+            
         }
 
         public void LoadGMSHMeshControl(IGmshController gmshController)

@@ -30,6 +30,7 @@ using ProjectInterfaces.Tasks;
 using UserControlsEx;
 using BazisGUI.Properties;
 using System.Xml.Linq;
+using ModelInterfaces;
 
 namespace BazisGUI
 {
@@ -918,7 +919,7 @@ namespace BazisGUI
         private void createSurfaceElementsMenuItem_Click(object sender, EventArgs e)
         {
             var module = (ModelPage)ModulePage;
-            module.CreateSurfaceElements();
+            module.CreateSurfaceElements(ObjType.Элемент2D);
         }
 
         private void mesh3DGeneratorMenuItem_Click(object sender, EventArgs e)
@@ -1074,6 +1075,12 @@ namespace BazisGUI
             if (quenchingMenuItem.Checked)
                 module.ShowAdvisor(sender, adv);
             else module.DeleteAdvisor();
+        }
+
+        private void создать1DПо2DЭлементамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (ModelPage)ModulePage;
+            module.CreateSurfaceElements(ObjType.Элемент1D);
         }
     }
 }

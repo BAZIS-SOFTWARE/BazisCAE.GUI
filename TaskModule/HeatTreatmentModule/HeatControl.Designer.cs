@@ -37,36 +37,36 @@ namespace TaskModule.HeatTreatmentModule
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.blackRank = new TextBoxEx(this.components);
+            this.blackRank = new UserControlsEx.TextBoxEx(this.components);
             this.radAndConvCoef = new System.Windows.Forms.RadioButton();
             this.fullCoef = new System.Windows.Forms.RadioButton();
             this.label7 = new System.Windows.Forms.Label();
-            this.StefanBolzmanConst = new TextBoxEx(this.components);
-            this.convExcFunc = new TextBoxEx(this.components);
-            this.cmbTempFunc = new ComboBoxEx(this.components);
+            this.StefanBolzmanConst = new UserControlsEx.TextBoxEx(this.components);
+            this.convExcFunc = new UserControlsEx.TextBoxEx(this.components);
+            this.cmbTempFunc = new UserControlsEx.ComboBoxEx(this.components);
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.cmbExchFunc = new ComboBoxEx(this.components);
+            this.cmbExchFunc = new UserControlsEx.ComboBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView = new DataGridViewEx();
+            this.dataGridView = new UserControlsEx.DataGridViewEx(this.components);
             this.elGroupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.matColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.player = new PlayerControl();
+            this.player = new BaseModule.Player.PlayerControl();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txbStopTime = new TextBoxEx(this.components);
+            this.txbStopTime = new UserControlsEx.TextBoxEx(this.components);
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnAddNewRow = new System.Windows.Forms.Button();
-            this.txbStartTime = new TextBoxEx(this.components);
+            this.txbStartTime = new UserControlsEx.TextBoxEx(this.components);
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.cmbEl = new ComboBoxEx(this.components);
+            this.cmbEl = new UserControlsEx.ComboBoxEx(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.grbHeatFlux.SuspendLayout();
@@ -136,7 +136,7 @@ namespace TaskModule.HeatTreatmentModule
             | System.Windows.Forms.AnchorStyles.Right)));
             this.blackRank.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.blackRank.Enabled = false;
-            this.blackRank.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.blackRank.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.blackRank.IsValidating = true;
             this.blackRank.Location = new System.Drawing.Point(171, 118);
             this.blackRank.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -185,7 +185,7 @@ namespace TaskModule.HeatTreatmentModule
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StefanBolzmanConst.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.StefanBolzmanConst.Enabled = false;
-            this.StefanBolzmanConst.InputType = TXTBoxInputType.Float;
+            this.StefanBolzmanConst.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.StefanBolzmanConst.IsValidating = true;
             this.StefanBolzmanConst.Location = new System.Drawing.Point(171, 92);
             this.StefanBolzmanConst.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -201,7 +201,7 @@ namespace TaskModule.HeatTreatmentModule
             | System.Windows.Forms.AnchorStyles.Right)));
             this.convExcFunc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.convExcFunc.Enabled = false;
-            this.convExcFunc.InputType = TXTBoxInputType.Float;
+            this.convExcFunc.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.convExcFunc.IsValidating = true;
             this.convExcFunc.Location = new System.Drawing.Point(171, 66);
             this.convExcFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -216,7 +216,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbTempFunc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbTempFunc.FormattingEnabled = true;
-            this.cmbTempFunc.InputType = ((CMBInputType)((CMBInputType.Items | CMBInputType.Float)));
+            this.cmbTempFunc.InputType = ((UserControlsEx.CMBInputType)((UserControlsEx.CMBInputType.Items | UserControlsEx.CMBInputType.Float)));
             this.cmbTempFunc.IsValidating = true;
             this.cmbTempFunc.Location = new System.Drawing.Point(171, 144);
             this.cmbTempFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -249,7 +249,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbExchFunc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbExchFunc.FormattingEnabled = true;
-            this.cmbExchFunc.InputType = ((CMBInputType)((CMBInputType.Items | CMBInputType.Float)));
+            this.cmbExchFunc.InputType = ((UserControlsEx.CMBInputType)((UserControlsEx.CMBInputType.Items | UserControlsEx.CMBInputType.Float)));
             this.cmbExchFunc.IsValidating = true;
             this.cmbExchFunc.Location = new System.Drawing.Point(171, 38);
             this.cmbExchFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -406,7 +406,7 @@ namespace TaskModule.HeatTreatmentModule
             this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStopTime.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbStopTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbStopTime.IsValidating = true;
             this.txbStopTime.Location = new System.Drawing.Point(171, 50);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -418,7 +418,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             // btnHideAll
             // 
-            this.btnHideAll.AutoSize = true;
+            this.btnHideAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHideAll.Image = global::TaskModule.Properties.Resources.HideAll;
             this.btnHideAll.Location = new System.Drawing.Point(139, 76);
@@ -426,13 +426,13 @@ namespace TaskModule.HeatTreatmentModule
             this.btnHideAll.Name = "btnHideAll";
             this.btnHideAll.Size = new System.Drawing.Size(28, 28);
             this.btnHideAll.TabIndex = 13;
-            this.btnHideAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnHideAll.Text = "  h_h";
             this.btnHideAll.UseVisualStyleBackColor = true;
             this.btnHideAll.Click += new System.EventHandler(this.HideAllDataButton_Click);
             // 
             // btnShowAll
             // 
-            this.btnShowAll.AutoSize = true;
+            this.btnShowAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowAll.Image = global::TaskModule.Properties.Resources.ShowAll;
             this.btnShowAll.Location = new System.Drawing.Point(107, 76);
@@ -440,13 +440,13 @@ namespace TaskModule.HeatTreatmentModule
             this.btnShowAll.Name = "btnShowAll";
             this.btnShowAll.Size = new System.Drawing.Size(28, 28);
             this.btnShowAll.TabIndex = 13;
-            this.btnShowAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnShowAll.Text = "  s_h";
             this.btnShowAll.UseVisualStyleBackColor = true;
             this.btnShowAll.Click += new System.EventHandler(this.ShowDataButton_Click);
             // 
             // btnRefresh
             // 
-            this.btnRefresh.AutoSize = true;
+            this.btnRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRefresh.Enabled = false;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Image = global::TaskModule.Properties.Resources.Refresh;
@@ -455,13 +455,13 @@ namespace TaskModule.HeatTreatmentModule
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(28, 28);
             this.btnRefresh.TabIndex = 13;
-            this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnRefresh.Text = "  r_h";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // btnClearAll
             // 
-            this.btnClearAll.AutoSize = true;
+            this.btnClearAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = global::TaskModule.Properties.Resources.delete;
             this.btnClearAll.Location = new System.Drawing.Point(43, 76);
@@ -469,13 +469,13 @@ namespace TaskModule.HeatTreatmentModule
             this.btnClearAll.Name = "btnClearAll";
             this.btnClearAll.Size = new System.Drawing.Size(28, 28);
             this.btnClearAll.TabIndex = 13;
-            this.btnClearAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnClearAll.Text = "  d_h";
             this.btnClearAll.UseVisualStyleBackColor = true;
             this.btnClearAll.Click += new System.EventHandler(this.ClearAllDataButton_Click);
             // 
             // btnAddNewRow
             // 
-            this.btnAddNewRow.AutoSize = true;
+            this.btnAddNewRow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewRow.Image = global::TaskModule.Properties.Resources.Add;
             this.btnAddNewRow.Location = new System.Drawing.Point(11, 76);
@@ -483,7 +483,7 @@ namespace TaskModule.HeatTreatmentModule
             this.btnAddNewRow.Name = "btnAddNewRow";
             this.btnAddNewRow.Size = new System.Drawing.Size(28, 28);
             this.btnAddNewRow.TabIndex = 13;
-            this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAddNewRow.Text = "  a_h";
             this.btnAddNewRow.UseVisualStyleBackColor = true;
             this.btnAddNewRow.Click += new System.EventHandler(this.AddButton_Click);
             // 
@@ -492,7 +492,7 @@ namespace TaskModule.HeatTreatmentModule
             this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStartTime.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
+            this.txbStartTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbStartTime.IsValidating = true;
             this.txbStartTime.Location = new System.Drawing.Point(171, 24);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
@@ -522,7 +522,7 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbEl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbEl.FormattingEnabled = true;
-            this.cmbEl.InputType = CMBInputType.Items;
+            this.cmbEl.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbEl.IsValidating = true;
             this.cmbEl.Items.AddRange(new object[] {
             "test"});

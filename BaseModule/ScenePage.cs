@@ -61,6 +61,8 @@ namespace BaseModule
         public event Action<object, string, Color> SceneInfoEvent;
         public event Action<object> ShowAllObjectsEvent;
         public event Action<object> SelectionDeletedEvent;
+        public event Action SceneExpandEvent;
+        public event Action SceneFoldEvent;
 
 
         public virtual void PresentCrossSection(ISurfaceFigure surface)
@@ -517,6 +519,16 @@ namespace BaseModule
                 SetBackColorToAllObjects();
                 SceneControl.DisplayObjects();
             }
+        }
+
+        private void sceneControl_SceneControlExpandEvent()
+        {
+            SceneExpandEvent?.Invoke();
+        }
+
+        private void sceneControl_SceneControlFoldEvent()
+        {
+            SceneFoldEvent?.Invoke();
         }
     }
 }

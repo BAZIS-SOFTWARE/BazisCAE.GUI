@@ -67,7 +67,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbEnergyCalibration = new UserControlsEx.ComboBoxEx(this.components);
             this.cmbRef = new UserControlsEx.ComboBoxEx(this.components);
             this.cmbTraj = new UserControlsEx.ComboBoxEx(this.components);
-            this.dataGridView = new DataGridViewEx();
+            this.dataGridView = new UserControlsEx.DataGridViewEx(this.components);
             this.видСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ОбластьСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -306,7 +306,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             // btnHide
             // 
-            this.btnHide.AutoSize = true;
+            this.btnHide.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHide.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnHide.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHide.Image = global::TaskModule.Properties.Resources.HideAll;
@@ -315,13 +315,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnHide.Name = "btnHide";
             this.btnHide.Size = new System.Drawing.Size(28, 28);
             this.btnHide.TabIndex = 39;
-            this.btnHide.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnHide.Text = "  h_h";
             this.btnHide.UseVisualStyleBackColor = true;
             this.btnHide.Click += new System.EventHandler(this.HideAllDataButton_Click);
             // 
             // btnShow
             // 
-            this.btnShow.AutoSize = true;
+            this.btnShow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnShow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShow.Image = global::TaskModule.Properties.Resources.ShowAll;
@@ -330,7 +330,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnShow.Name = "btnShow";
             this.btnShow.Size = new System.Drawing.Size(28, 28);
             this.btnShow.TabIndex = 39;
-            this.btnShow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnShow.Text = "  s_h";
             this.btnShow.UseVisualStyleBackColor = true;
             this.btnShow.Click += new System.EventHandler(this.ShowDataButton_Click);
             // 

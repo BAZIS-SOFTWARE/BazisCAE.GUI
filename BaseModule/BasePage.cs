@@ -343,18 +343,6 @@ namespace BaseModule
 
         private void BasePage_Load(object sender, EventArgs e)
         {
-            scenePage.SceneControl.SceneControlExpandEvent += () =>
-            {
-                splitContainer1.Panel1Collapsed = true;
-                splitContainer2.Panel2Collapsed = true;
-            };
-
-            scenePage.SceneControl.SceneControlFoldEvent += () =>
-            {
-                splitContainer1.Panel1Collapsed = false;
-                splitContainer2.Panel2Collapsed = false;
-            };
-
             var cntrs = new List<SplitContainerEx>();
             RecursiveSearchControls.AllTypedControls(this, cntrs);
 
@@ -824,6 +812,18 @@ namespace BaseModule
 
                 scenePage.SceneControl.DisplayObjects();
             }));
+        }
+
+        private void scenePage_SceneExpandEvent()
+        {
+            splitContainer1.Panel1Collapsed = true;
+            splitContainer2.Panel2Collapsed = true;
+        }
+
+        private void scenePage_SceneFoldEvent()
+        {
+            splitContainer1.Panel1Collapsed = false;
+            splitContainer2.Panel2Collapsed = false;
         }
     }
 }

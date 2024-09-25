@@ -36,7 +36,6 @@ namespace TaskModule.BasicAdvisorControls
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MaterialsControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.player = new BaseModule.Player.PlayerControl();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txbStopTime = new UserControlsEx.TextBoxEx(this.components);
@@ -57,6 +56,7 @@ namespace TaskModule.BasicAdvisorControls
             this.label1 = new System.Windows.Forms.Label();
             this.cmbEl = new UserControlsEx.ComboBoxEx(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.player = new BaseModule.Player.PlayerControl();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -106,30 +106,6 @@ namespace TaskModule.BasicAdvisorControls
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Время действия";
             // 
-            // player
-            // 
-            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.player.AutoSize = true;
-            this.player.CheckState = BaseModule.Player.CheckState.start;
-            this.player.CurrentValue = 0;
-            this.player.Location = new System.Drawing.Point(171, 72);
-            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.player.MinimumSize = new System.Drawing.Size(215, 45);
-            this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(574, 45);
-            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
-            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
-            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
-            this.player.SpeedValue = 500;
-            this.player.StartValue = 0;
-            this.player.StopValue = 100;
-            this.player.TabIndex = 50;
-            this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
-            this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
-            this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -167,7 +143,7 @@ namespace TaskModule.BasicAdvisorControls
             // 
             // btnHideAll
             // 
-            this.btnHideAll.AutoSize = true;
+            this.btnHideAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHideAll.Image = ((System.Drawing.Image)(resources.GetObject("btnHideAll.Image")));
             this.btnHideAll.Location = new System.Drawing.Point(139, 72);
@@ -175,13 +151,13 @@ namespace TaskModule.BasicAdvisorControls
             this.btnHideAll.Name = "btnHideAll";
             this.btnHideAll.Size = new System.Drawing.Size(28, 28);
             this.btnHideAll.TabIndex = 13;
-            this.btnHideAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnHideAll.Text = "  h_m";
             this.btnHideAll.UseVisualStyleBackColor = true;
             this.btnHideAll.Click += new System.EventHandler(this.HideAllDataButton_Click);
             // 
             // btnShowAll
             // 
-            this.btnShowAll.AutoSize = true;
+            this.btnShowAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
             this.btnShowAll.Location = new System.Drawing.Point(107, 72);
@@ -189,7 +165,7 @@ namespace TaskModule.BasicAdvisorControls
             this.btnShowAll.Name = "btnShowAll";
             this.btnShowAll.Size = new System.Drawing.Size(28, 28);
             this.btnShowAll.TabIndex = 13;
-            this.btnShowAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnShowAll.Text = "  s_m";
             this.btnShowAll.UseVisualStyleBackColor = true;
             this.btnShowAll.Click += new System.EventHandler(this.ShowDataButton_Click);
             // 
@@ -374,6 +350,30 @@ namespace TaskModule.BasicAdvisorControls
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog";
+            // 
+            // player
+            // 
+            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.player.AutoSize = true;
+            this.player.CheckState = BaseModule.Player.CheckState.start;
+            this.player.CurrentValue = 0;
+            this.player.Location = new System.Drawing.Point(171, 72);
+            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.player.MinimumSize = new System.Drawing.Size(215, 45);
+            this.player.Name = "player";
+            this.player.Size = new System.Drawing.Size(574, 45);
+            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
+            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
+            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
+            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.player.SpeedValue = 500;
+            this.player.StartValue = 0;
+            this.player.StopValue = 100;
+            this.player.TabIndex = 50;
+            this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
+            this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
+            this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
             // 
             // MaterialsControl
             // 

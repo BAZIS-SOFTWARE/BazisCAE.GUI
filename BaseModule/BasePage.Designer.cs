@@ -36,8 +36,8 @@ namespace BaseModule
             this.components = new System.ComponentModel.Container();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.splitContainer1 = new UserControlsEx.SplitContainerEx();
-            this.navigator = new BaseModule.Navigator.NavigatorControl();
             this.splitContainer2 = new UserControlsEx.SplitContainerEx();
+            this.navigator = new BaseModule.Navigator.NavigatorControl();
             this.scenePage = new BaseModule.ScenePage();
             this.consoleControl = new BaseModule.Console.ConsoleControl();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -80,6 +80,29 @@ namespace BaseModule
             this.splitContainer1.TabIndex = 1;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.IncrementButtonSize = new System.Drawing.Size(50, 11);
+            this.splitContainer2.IncrementShifting = 50;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.scenePage);
+            this.splitContainer2.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
+            this.splitContainer2.Size = new System.Drawing.Size(995, 643);
+            this.splitContainer2.SplitterDistance = 429;
+            this.splitContainer2.SplitterWidth = 6;
+            this.splitContainer2.SwitchShifting = false;
+            this.splitContainer2.TabIndex = 0;
+            // 
             // navigator
             // 
             this.navigator.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -116,29 +139,6 @@ namespace BaseModule
             this.navigator.DelObjectsEvent += new System.Action<string>(this.navigator_DelObjectsEvent);
             this.navigator.ControlCollapseEvent += new System.Action(this.navigator_NavigatorPanelCollapseEvent);
             // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.IncrementButtonSize = new System.Drawing.Size(50, 11);
-            this.splitContainer2.IncrementShifting = 50;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.scenePage);
-            this.splitContainer2.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
-            this.splitContainer2.Size = new System.Drawing.Size(995, 643);
-            this.splitContainer2.SplitterDistance = 429;
-            this.splitContainer2.SplitterWidth = 6;
-            this.splitContainer2.SwitchShifting = false;
-            this.splitContainer2.TabIndex = 0;
-            // 
             // scenePage
             // 
             this.scenePage.AutoSize = true;
@@ -157,6 +157,8 @@ namespace BaseModule
             this.scenePage.SceneInfoEvent += new System.Action<object, string, System.Drawing.Color>(this.scenePage_SceneInfoEvent);
             this.scenePage.ShowAllObjectsEvent += new System.Action<object>(this.scenePage_ShowAllObjectsEvent);
             this.scenePage.SelectionDeletedEvent += new System.Action<object>(this.scenePage_SelectionDeletedEvent);
+            this.scenePage.SceneExpandEvent += new System.Action(this.scenePage_SceneExpandEvent);
+            this.scenePage.SceneFoldEvent += new System.Action(this.scenePage_SceneFoldEvent);
             this.scenePage.Load += new System.EventHandler(this.sceneControl_Load);
             // 
             // consoleControl
