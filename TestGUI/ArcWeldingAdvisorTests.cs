@@ -46,8 +46,10 @@ namespace TestGUI
                 args = @"c:\BazisGUI\GUI\Projects\Welding\Arc proj.bpf";
             else if(process == "Нагрев")
                 args = @"c:\BazisGUI\GUI\Projects\HeatTreatment\Heating\2D_axi 2D_val.bpf";
-            else
+            else if (process == "Закалка")
                 args = @"c:\BazisGUI\GUI\Projects\HeatTreatment\Quenching\2D_axi 2D_val.bpf";
+            else
+                args = @"c:\BazisGUI\GUI\Projects\HeatTreatment\Tempering\2D_axi 2D_val.bpf";
 
             WindowsDriver<WindowsElement> wd;
 
