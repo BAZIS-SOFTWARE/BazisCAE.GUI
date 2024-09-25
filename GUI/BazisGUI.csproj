@@ -141,8 +141,8 @@
     <Reference Include="Results, Version=3.0.1.68, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
       <HintPath>..\packages\Results.3.0.1.68\lib\netstandard2.0\Results.dll</HintPath>
     </Reference>
-    <Reference Include="Scene, Version=2.0.8.46, Culture=neutral, PublicKeyToken=2e7150108cd20395, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.46\lib\net48\Scene.dll</HintPath>
+    <Reference Include="Scene, Version=2.0.8.47, Culture=neutral, PublicKeyToken=2e7150108cd20395, processorArchitecture=MSIL">
+      <HintPath>..\packages\Scene.2.0.8.47\lib\net48\Scene.dll</HintPath>
     </Reference>
     <Reference Include="SceneInterface, Version=1.0.48.0, Culture=neutral, PublicKeyToken=ecbecc097c57e11f, processorArchitecture=MSIL">
       <HintPath>..\packages\SceneInterface.1.0.48\lib\net48\SceneInterface.dll</HintPath>
@@ -194,10 +194,10 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Tao.OpenGl, Version=2.1.0.12, Culture=neutral, PublicKeyToken=1ca010269a4501ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.46\lib\net48\Tao.OpenGl.dll</HintPath>
+      <HintPath>..\packages\Scene.2.0.8.47\lib\net48\Tao.OpenGl.dll</HintPath>
     </Reference>
     <Reference Include="Tao.Platform.Windows, Version=1.0.0.5, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.46\lib\net48\Tao.Platform.Windows.dll</HintPath>
+      <HintPath>..\packages\Scene.2.0.8.47\lib\net48\Tao.Platform.Windows.dll</HintPath>
     </Reference>
     <Reference Include="Tasks, Version=3.0.1.76, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
       <HintPath>..\packages\Tasks.3.0.1.76\lib\netstandard2.0\Tasks.dll</HintPath>
@@ -295,6 +295,8 @@
     <Content Include="Graph_icons\Show_value.bmp" />
     <Content Include="IconShort_16.ico" />
     <Content Include="IconShort_32.ico" />
+    <Content Include="Tao.OpenGl.dll" />
+    <Content Include="Tao.Platform.Windows.dll" />
     <None Include="Projects\Welding\Arc\functions.jsf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -309,8 +311,6 @@
     <None Include="Resources\м 36.png" />
     <None Include="Resources\м 37.png" />
     <Content Include="ProgressBarEx\Controls\ProgressBar.ico" />
-    <Content Include="Tao.OpenGl.dll" />
-    <Content Include="Tao.Platform.Windows.dll" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
