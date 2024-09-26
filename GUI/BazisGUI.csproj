@@ -310,7 +310,6 @@
     <None Include="Resources\м 35.png" />
     <None Include="Resources\м 36.png" />
     <None Include="Resources\м 37.png" />
-    <Content Include="ProgressBarEx\Controls\ProgressBar.ico" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

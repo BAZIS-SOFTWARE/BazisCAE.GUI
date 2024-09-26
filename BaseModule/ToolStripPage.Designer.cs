@@ -32,6 +32,7 @@ namespace BaseModule
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolStripPage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
+            this.splitContainerEx = new UserControlsEx.SplitContainerEx();
             this.selectToolStrip = new UserControlsEx.ToolStripEx();
             this.spbSelectObject = new System.Windows.Forms.ToolStripSplitButton();
             this.btnSelectNodes = new System.Windows.Forms.ToolStripButton();
@@ -65,6 +66,9 @@ namespace BaseModule
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).BeginInit();
+            this.splitContainerEx.Panel1.SuspendLayout();
+            this.splitContainerEx.SuspendLayout();
             this.selectToolStrip.SuspendLayout();
             this.instrumentalToolStrip.SuspendLayout();
             this.viewToolStrip.SuspendLayout();
@@ -76,7 +80,7 @@ namespace BaseModule
             // 
             // toolStripContainer.ContentPanel
             // 
-            this.toolStripContainer.ContentPanel.Controls.Add(this.basePage);
+            this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainerEx);
             this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1149, 583);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(5, 5);
@@ -93,6 +97,23 @@ namespace BaseModule
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.viewToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
             this.toolStripContainer.TopToolStripPanel.MaximumSize = new System.Drawing.Size(0, 80);
+            // 
+            // splitContainerEx
+            // 
+            this.splitContainerEx.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerEx.IncrementButtonSize = new System.Drawing.Size(50, 5);
+            this.splitContainerEx.IncrementShifting = 50;
+            this.splitContainerEx.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerEx.Name = "splitContainerEx";
+            // 
+            // splitContainerEx.Panel1
+            // 
+            this.splitContainerEx.Panel1.Controls.Add(this.basePage);
+            this.splitContainerEx.Panel2Collapsed = true;
+            this.splitContainerEx.Size = new System.Drawing.Size(1149, 583);
+            this.splitContainerEx.SplitterDistance = 662;
+            this.splitContainerEx.SwitchShifting = false;
+            this.splitContainerEx.TabIndex = 1;
             // 
             // selectToolStrip
             // 
@@ -616,6 +637,9 @@ namespace BaseModule
             this.toolStripContainer.TopToolStripPanel.PerformLayout();
             this.toolStripContainer.ResumeLayout(false);
             this.toolStripContainer.PerformLayout();
+            this.splitContainerEx.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).EndInit();
+            this.splitContainerEx.ResumeLayout(false);
             this.selectToolStrip.ResumeLayout(false);
             this.selectToolStrip.PerformLayout();
             this.instrumentalToolStrip.ResumeLayout(false);
@@ -661,6 +685,7 @@ namespace BaseModule
         public UserControlsEx.ToolStripEx displayToolStrip;
         public UserControlsEx.ToolStripEx viewToolStrip;
         protected BasePage basePage;
+        public UserControlsEx.SplitContainerEx splitContainerEx;
         //private BasePage basePage;
     }
 }

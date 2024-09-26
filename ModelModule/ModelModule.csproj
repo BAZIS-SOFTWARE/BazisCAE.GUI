@@ -131,12 +131,6 @@
     <Compile Include="Show3dTextEventArgs.cs" />
     <Compile Include="ShowHeatMapEventArg.cs" />
     <Compile Include="ShowTransPointsEventArgs.cs" />
-    <Compile Include="ToolStrips\MeshToolStrip.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ToolStrips\MeshToolStrip.Designer.cs">
-      <DependentUpon>MeshToolStrip.cs</DependentUpon>
-    </Compile>
     <Compile Include="GMSHGeneralMeshControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -161,9 +155,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ToolStrips\MeshToolStrip.resx">
-      <DependentUpon>MeshToolStrip.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseModule\BaseModule.csproj">
@@ -176,7 +167,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ProgressBarEx\Controls\ProgressBar.ico" />
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
   </ItemGroup>

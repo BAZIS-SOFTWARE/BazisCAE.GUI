@@ -117,11 +117,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnimationPage.cs">
+    <Compile Include="Animation\AnimationPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AnimationPage.designer.cs">
+    <Compile Include="Animation\AnimationPage.designer.cs">
       <DependentUpon>AnimationPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animation\PinnedAnimationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Animation\PinnedAnimationControl.Designer.cs">
+      <DependentUpon>PinnedAnimationControl.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateAnimationEventArgs.cs" />
     <Compile Include="CreatePathGraphEventArgs.cs" />
@@ -169,8 +175,11 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AnimationPage.resx">
+    <EmbeddedResource Include="Animation\AnimationPage.resx">
       <DependentUpon>AnimationPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Animation\PinnedAnimationControl.resx">
+      <DependentUpon>PinnedAnimationControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExportControl.resx">
       <DependentUpon>ExportControl.cs</DependentUpon>
@@ -217,12 +226,9 @@
     <Content Include="Graph_icons\LineThickness1.ico" />
     <Content Include="Graph_icons\LineThickness2.ico" />
     <Content Include="Graph_icons\Show_value.bmp" />
-    <Content Include="ProgressBarEx\Controls\ProgressBar.ico" />
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Animation\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

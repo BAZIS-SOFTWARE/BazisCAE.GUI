@@ -33,6 +33,7 @@ using System.Xml.Linq;
 using ModelInterfaces;
 using Results.ResultsData;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using System.Threading.Tasks;
 
 namespace BazisGUI
 {
@@ -93,11 +94,13 @@ namespace BazisGUI
                 {
                     var projInd = Array.IndexOf(args, "-proj");
 
-                    if (args.Length - 1 - projInd < 2)
+                    if (args.Length - 1 - projInd < 1)
                         throw new Exception($"Отсутствуют необходимые аргументы для -proj path file");
 
-                    var fullPath = Path.GetFullPath(args[projInd + 1]);
-                    project = dataController.CreateNewProject(fullPath, args[projInd + 2]);
+                    var path = Path.GetDirectoryName(args[projInd + 1]);
+                    var name = Path.GetFileName(args[projInd + 1]);
+
+                    project = dataController.CreateNewProject(path,name);
                     project.Load();
                 }
                 if(args.Contains("-res"))
@@ -131,7 +134,7 @@ namespace BazisGUI
                     gmshController.Open(fullPath, ref ierr);
 
                     var path = Path.GetDirectoryName(fullPath);
-                    var name = "новый_проект.bpf";
+                    var name = "new_Project.bpf";
 
                     var project = dataController.CreateNewProject(path, name);
 
@@ -651,7 +654,7 @@ namespace BazisGUI
 
             settings.SetSolverPathEvent += (ar) =>
             {
-                if (module is TaskPage taskPage)
+                if (module is TaskModule.TaskPage taskPage)
                     taskPage.SolverPath = ar;
             };
             settings.SetBackGroundColorEvent += (ar) =>
@@ -1062,7 +1065,9 @@ namespace BazisGUI
         private void createFieldMenuItem_Click(object sender, EventArgs e)
         {
             var module = (ResultPage)ModulePage;
-            module.ShowAnimation();
+
+            if (module.splitContainerEx.Panel2.Controls.Find("PinnedAnimationControl", false).Count() == 0)
+                module.ShowAnimation();
         }
 
         private void createPlotMenuItem_Click(object sender, EventArgs e)

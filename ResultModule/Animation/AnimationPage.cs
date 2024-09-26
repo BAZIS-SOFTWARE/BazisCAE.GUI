@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
-namespace ResultModule
+namespace ResultModule.Animation
 {
     public partial class AnimationPage : UserControl
     {

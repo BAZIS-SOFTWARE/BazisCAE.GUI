@@ -8,14 +8,6 @@ namespace BazisGUI.MessageBoxEx
     public partial class MessageBoxEx : UserControl
     {
         [Category("General")]
-        [Description("Set up color gradient")]
-        public Color UpColor { get; set; } = Color.Silver;
-
-        [Category("General")]
-        [Description("Set down color gradient")]
-        public Color DownColor { get; set; } = Color.WhiteSmoke;
-
-        [Category("General")]
         [Description("Set down color gradient")]
         public string Message 
         { 
@@ -31,7 +23,7 @@ namespace BazisGUI.MessageBoxEx
         {
             var loc_y = messagePanel.Location.Y;
 
-            ComponentsPainter.PaintGradientRectangle(e.Graphics, new Point(0, 0), Width, loc_y, UpColor, DownColor);
+            ComponentsPainter.PaintGradientRectangle(e.Graphics, new Point(0, 0), Width, loc_y, Color.Gainsboro, Color.Gainsboro);
         }
     }
 }

@@ -256,7 +256,6 @@
     <None Include="Resources\Measure_32x32.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ProgressBarEx\Controls\ProgressBar.ico" />
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
     <None Include="Resources\PlayerControlIcons\Pause.ico" />

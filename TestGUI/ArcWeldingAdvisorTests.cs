@@ -43,7 +43,7 @@ namespace TestGUI
         {
             string args;
             if (process == "Дуговая сварка")
-                args = @"-proj c:\BazisGUI\GUI\Projects\Welding\Arc proj.bpf";
+                args = @"-proj c:\BazisGUI\GUI\Projects\Welding\Arc\proj.bpf";
             else if (process == "Нагрев")
                 args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Heating\2D_axi 2D_val.bpf";
             else if (process == "Закалка")
@@ -56,7 +56,7 @@ namespace TestGUI
             var opt = new AppiumOptions();
 
             opt.AddAdditionalCapability("app", @"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe");
-            opt.AddAdditionalCapability("ms:waitForAppLaunch", "3");
+            opt.AddAdditionalCapability("ms:waitForAppLaunch", "10");
             opt.AddAdditionalCapability("appArguments", args);
             opt.PlatformName = "Windows11x64";
             var url = new Uri("http://127.0.0.1:4723");
@@ -99,8 +99,9 @@ namespace TestGUI
         }
 
         [Test(Description = "Постпроцессор. Действия: выбрать шаг,показать результаты, скрыть результаты")]
-        [TestCase("Сварка", "Дуговая сварка", "Материалы", TestName = "Результаты")]
-        public void AdvisorControlsOperationsTest(string projPath, string projFile, string resFile)
+        [TestCase(@"c:\projs\testProj\tjoint\proj.bpf",
+            @"c:\projs\testProj\tjoint\ResultsData\механическая_2_50_1500.db", TestName = "Результаты")]
+        public void AdvisorControlsOperationsTest(string projFile, string resFile)
         {
             WindowsDriver<WindowsElement> wd;
 
@@ -109,7 +110,7 @@ namespace TestGUI
             opt.AddAdditionalCapability("app", @"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe");
             opt.AddAdditionalCapability("ms:waitForAppLaunch", "3");
             var args = string.Join(" ", new string[] { 
-                "-proj", projPath, projFile, "-res", resFile });
+                "-proj", projFile, "-res", resFile });
             
             opt.AddAdditionalCapability("appArguments", args);
             opt.PlatformName = "Windows11x64";
