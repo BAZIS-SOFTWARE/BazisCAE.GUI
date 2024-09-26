@@ -99,7 +99,7 @@ namespace BazisGUI
 
         }
 
-        private void UpdateGeometry(GmshController gmshController, ProjectData project, ObjType objType)
+        public void UpdateGeometry(GmshController gmshController, ProjectData project, ObjType objType)
         {
             if (objType == ObjType.Точка)
             {

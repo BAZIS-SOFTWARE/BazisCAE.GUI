@@ -22,13 +22,13 @@ namespace TestGUI
             //myProcess.Start();
         }
         [Test(Description = "Мастер постановки технологических задач. Действия: показать, скрыть, обновить, удалить, добавить")]
-        [TestCase("Сварка", "Дуговая сварка", "Материалы", "  a_m", "  d_m","  r_m","  s_m","  h_m",TestName = "Дуговая сварка Материалы")]
+        [TestCase("Сварка", "Дуговая сварка", "Материалы", "  a_m", "  d_m", "  r_m", "  s_m", "  h_m", TestName = "Дуговая сварка Материалы")]
         [TestCase("Сварка", "Дуговая сварка", "Закрепления", "  a_c", "  d_c", "  r_c", "  s_c", "  h_c", TestName = "Дуговая сварка Закрепления")]
         [TestCase("Сварка", "Дуговая сварка", "Режим сварки", "  a_h", "  d_h", "  r_h", "  s_h", "  h_h", TestName = "Дуговая сварка Режим сварки")]
         [TestCase("Сварка", "Дуговая сварка", "Среда", "  a_m", "  d_m", "  r_m", "  s_m", "  h_m", TestName = "Дуговая сварка Среда сварки")]
         [TestCase("Сварка", "Дуговая сварка", "Планировщик", "  a_p", "  d_p", "  r_p", "  _", "  _", TestName = "Дуговая сварка Планировщик")]
         [TestCase("Термообработка", "Нагрев", "Материалы", "  a_m", "  d_m", "  r_m", "  s_m", "  h_m", TestName = "Нагрев Материалы")]
-        [TestCase("Термообработка","Нагрев", "Закрепления", "  a_c", "  d_c", "  r_c", "  s_c", "  h_c", TestName = "Нагрев Закрепления")]
+        [TestCase("Термообработка", "Нагрев", "Закрепления", "  a_c", "  d_c", "  r_c", "  s_c", "  h_c", TestName = "Нагрев Закрепления")]
         [TestCase("Термообработка", "Нагрев", "Режим ТО", "  a_h", "  d_h", "  r_h", "  s_h", "  h_h", TestName = "Нагрев Режим ТО")]
         [TestCase("Термообработка", "Нагрев", "Планировщик", "  a_p", "  d_p", "  r_p", "  _", "  _", TestName = "Нагрев Планировщик")]
         [TestCase("Термообработка", "Отпуск | Отжиг | Старение", "Материалы", "  a_m", "  d_m", "  r_m", "  s_m", "  h_m", TestName = "Отпуск | Отжиг | Старение Материалы")]
@@ -39,17 +39,17 @@ namespace TestGUI
         [TestCase("Термообработка", "Закалка", "Закрепления", "  a_c", "  d_c", "  r_c", "  s_c", "  h_c", TestName = "Закалка Закрепления")]
         [TestCase("Термообработка", "Закалка", "Режим ТО", "  a_h", "  d_h", "  r_h", "  s_h", "  h_h", TestName = "Закалка Режим ТО")]
         [TestCase("Термообработка", "Закалка", "Планировщик", "  a_p", "  d_p", "  r_p", "  _", "  _", TestName = "Закалка Планировщик")]
-        public void BasicControlsOperationsTest(string module, string process, string category, string btnAdd, string btnDel, string btnRef, string btnShow, string btnHide)
-        {  
+        public void AdvisorControlsOperationsTest(string module, string process, string category, string btnAdd, string btnDel, string btnRef, string btnShow, string btnHide)
+        {
             string args;
-            if(process == "Дуговая сварка")
-                args = @"c:\BazisGUI\GUI\Projects\Welding\Arc proj.bpf";
-            else if(process == "Нагрев")
-                args = @"c:\BazisGUI\GUI\Projects\HeatTreatment\Heating\2D_axi 2D_val.bpf";
+            if (process == "Дуговая сварка")
+                args = @"-proj c:\BazisGUI\GUI\Projects\Welding\Arc proj.bpf";
+            else if (process == "Нагрев")
+                args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Heating\2D_axi 2D_val.bpf";
             else if (process == "Закалка")
-                args = @"c:\BazisGUI\GUI\Projects\HeatTreatment\Quenching\2D_axi 2D_val.bpf";
+                args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Quenching\2D_axi 2D_val.bpf";
             else
-                args = @"c:\BazisGUI\GUI\Projects\HeatTreatment\Tempering\2D_axi 2D_val.bpf";
+                args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Tempering\2D_axi 2D_val.bpf";
 
             WindowsDriver<WindowsElement> wd;
 
@@ -60,7 +60,7 @@ namespace TestGUI
             opt.AddAdditionalCapability("appArguments", args);
             opt.PlatformName = "Windows11x64";
             var url = new Uri("http://127.0.0.1:4723");
-            wd = new WindowsDriver<WindowsElement>(url,opt);
+            wd = new WindowsDriver<WindowsElement>(url, opt);
 
             var moduls = wd.FindElement(By.Name("Модули"));
             moduls.Click();
@@ -75,7 +75,7 @@ namespace TestGUI
             var strWMat = wd.FindElement(By.Name("Строка 0"));
             strWMat.Click();
 
-            if(btnShow != "  _")
+            if (btnShow != "  _")
                 wd.FindElement(By.Name(btnShow)).Click();
             if (btnHide != "  _")
                 wd.FindElement(By.Name(btnHide)).Click();
@@ -96,6 +96,35 @@ namespace TestGUI
 
             Thread.Sleep(3000);
             wd.CloseApp();
+        }
+
+        [Test(Description = "Постпроцессор. Действия: выбрать шаг,показать результаты, скрыть результаты")]
+        [TestCase("Сварка", "Дуговая сварка", "Материалы", TestName = "Результаты")]
+        public void AdvisorControlsOperationsTest(string projPath, string projFile, string resFile)
+        {
+            WindowsDriver<WindowsElement> wd;
+
+            var opt = new AppiumOptions();
+
+            opt.AddAdditionalCapability("app", @"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe");
+            opt.AddAdditionalCapability("ms:waitForAppLaunch", "3");
+            var args = string.Join(" ", new string[] { 
+                "-proj", projPath, projFile, "-res", resFile });
+            
+            opt.AddAdditionalCapability("appArguments", args);
+            opt.PlatformName = "Windows11x64";
+            var url = new Uri("http://127.0.0.1:4723");
+            
+            wd = new WindowsDriver<WindowsElement>(url, opt);
+
+            var moduls = wd.FindElement(By.Name("Модули"));
+            moduls.Click();
+            var modulR = wd.FindElement(By.Name("Анализ результатов"));
+            modulR.Click();
+            var resTools = wd.FindElement(By.Name("Результаты"));
+            resTools.Click();
+            var resField = wd.FindElement(By.Name("Построить поле"));
+            resField.Click();
         }
     }
 }

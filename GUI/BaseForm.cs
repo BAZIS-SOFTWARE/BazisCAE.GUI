@@ -31,6 +31,8 @@ using UserControlsEx;
 using BazisGUI.Properties;
 using System.Xml.Linq;
 using ModelInterfaces;
+using Results.ResultsData;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace BazisGUI
 {
@@ -85,18 +87,61 @@ namespace BazisGUI
             tableLayoutPanel.BringToFront();
             GetServerConnection();
 
-            if (args.Length == 2)
+            if (args.Length != 0)
             {
-                var fullPath = Path.GetFullPath(args[0]);
-                project = dataController.CreateNewProject(fullPath, args[1]);
+                if(args.Contains("-proj"))
+                {
+                    var projInd = Array.IndexOf(args, "-proj");
 
-                project.Load();
+                    if (args.Length - 1 - projInd < 2)
+                        throw new Exception($"Отсутствуют необходимые аргументы для -proj path file");
+
+                    var fullPath = Path.GetFullPath(args[projInd + 1]);
+                    project = dataController.CreateNewProject(fullPath, args[projInd + 2]);
+                    project.Load();
+                }
+                if(args.Contains("-res"))
+                {
+                    var resInd = Array.IndexOf(args, "-res");
+
+                    if (args.Length - 1 - resInd < 1)
+                        throw new Exception($"Отсутствуют необходимые аргументы для -res file");
+
+                    var fullPath = Path.GetFullPath(args[resInd + 1]);
+
+                    if(project == null)
+                        throw new Exception($"Для загрузки результатов требуется сперва загрузить проект");
+
+                    project.ResultData.Load(fullPath);
+                }
+                if (args.Contains("-cad"))
+                {
+                    var resInd = Array.IndexOf(args, "-cad");
+
+                    if (args.Length - 1 - resInd < 1)
+                        throw new Exception($"Отсутствуют необходимые аргументы для -cad file");
+
+                    var fullPath = Path.GetFullPath(args[resInd + 1]);
+
+                    if (gmshController == null)
+                        gmshController = dataController.LoadGMSH();
+
+                    var ierr = 0;
+                    gmshController.Clear(ref ierr);
+                    gmshController.Open(fullPath, ref ierr);
+
+                    var path = Path.GetDirectoryName(fullPath);
+                    var name = "новый_проект.bpf";
+
+                    var project = dataController.CreateNewProject(path, name);
+
+                    dataController.UpdateGeometry(gmshController, project, ObjType.Точка);
+                    dataController.UpdateGeometry(gmshController, project, ObjType.Линия);
+                }
                 lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
 
-                var ierr = 0;
-                gmshController?.Clear(ref ierr);
-
                 модулиMenuItem.Enabled = true;
+
             }
 
 
