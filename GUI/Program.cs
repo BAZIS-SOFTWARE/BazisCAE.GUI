@@ -16,7 +16,6 @@ namespace BazisGUI
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //var args0 = @"-proj c:\BazisGUI\GUI\Projects\Welding\Arc\proj.bpf";
             Application.Run(new BaseForm(args));
         }
     }

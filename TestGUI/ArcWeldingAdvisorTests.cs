@@ -1,6 +1,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Remote;
 using System.Diagnostics;
 
@@ -39,24 +40,24 @@ namespace TestGUI
         [TestCase("Термообработка", "Закалка", "Закрепления", "  a_c", "  d_c", "  r_c", "  s_c", "  h_c", TestName = "Закалка Закрепления")]
         [TestCase("Термообработка", "Закалка", "Режим ТО", "  a_h", "  d_h", "  r_h", "  s_h", "  h_h", TestName = "Закалка Режим ТО")]
         [TestCase("Термообработка", "Закалка", "Планировщик", "  a_p", "  d_p", "  r_p", "  _", "  _", TestName = "Закалка Планировщик")]
-        public void AdvisorControlsOperationsTest(string module, string process, string category, string btnAdd, string btnDel, string btnRef, string btnShow, string btnHide)
+        public void TaskModuleOperationsTest(string module, string process, string category, string btnAdd, string btnDel, string btnRef, string btnShow, string btnHide)
         {
             string args;
             if (process == "Дуговая сварка")
                 args = @"-proj c:\BazisGUI\GUI\Projects\Welding\Arc\proj.bpf";
             else if (process == "Нагрев")
-                args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Heating\2D_axi 2D_val.bpf";
+                args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Heating\2D_axi\2D_val.bpf";
             else if (process == "Закалка")
-                args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Quenching\2D_axi 2D_val.bpf";
+                args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Quenching\2D_axi\2D_val.bpf";
             else
-                args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Tempering\2D_axi 2D_val.bpf";
+                args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Tempering\2D_axi\2D_val.bpf";
 
             WindowsDriver<WindowsElement> wd;
 
             var opt = new AppiumOptions();
 
             opt.AddAdditionalCapability("app", @"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe");
-            opt.AddAdditionalCapability("ms:waitForAppLaunch", "10");
+            opt.AddAdditionalCapability("ms:waitForAppLaunch", "3");
             opt.AddAdditionalCapability("appArguments", args);
             opt.PlatformName = "Windows11x64";
             var url = new Uri("http://127.0.0.1:4723");
@@ -90,9 +91,7 @@ namespace TestGUI
             Thread.Sleep(3000);
 
             //возврат лицензии на модуль сварка
-            moduls.Click();
-            var modulM = wd.FindElement(By.Name("Построение сетки"));
-            modulM.Click();
+            SwithModule(wd, moduls, "Построение сетки");
 
             Thread.Sleep(3000);
             wd.CloseApp();
@@ -100,8 +99,8 @@ namespace TestGUI
 
         [Test(Description = "Постпроцессор. Действия: выбрать шаг,показать результаты, скрыть результаты")]
         [TestCase(@"c:\projs\testProj\tjoint\proj.bpf",
-            @"c:\projs\testProj\tjoint\ResultsData\механическая_2_50_1500.db", TestName = "Результаты")]
-        public void AdvisorControlsOperationsTest(string projFile, string resFile)
+            @"c:\projs\testProj\tjoint\ResultsData\механическая_2_50_1500.db", "XYZ",TestName = "Результаты")]
+        public void ResultModuleOperationsTest(string projFile, string resFile, string resKind)
         {
             WindowsDriver<WindowsElement> wd;
 
@@ -109,13 +108,13 @@ namespace TestGUI
 
             opt.AddAdditionalCapability("app", @"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe");
             opt.AddAdditionalCapability("ms:waitForAppLaunch", "3");
-            var args = string.Join(" ", new string[] { 
+            var args = string.Join(" ", new string[] {
                 "-proj", projFile, "-res", resFile });
-            
+
             opt.AddAdditionalCapability("appArguments", args);
             opt.PlatformName = "Windows11x64";
             var url = new Uri("http://127.0.0.1:4723");
-            
+
             wd = new WindowsDriver<WindowsElement>(url, opt);
 
             var moduls = wd.FindElement(By.Name("Модули"));
@@ -126,6 +125,76 @@ namespace TestGUI
             resTools.Click();
             var resField = wd.FindElement(By.Name("Построить поле"));
             resField.Click();
+
+            var resSet = wd.FindElement(By.Name("Набор результатов"));
+            resSet.Click();
+
+            var a = new Actions(wd);
+            a.MoveByOffset(-(resSet.Size.Width - 20), 0).Click().Build().Perform();
+
+            var resNodes = wd.FindElement(By.Name("ПоУзлам"));
+
+            a.MoveToElement(resNodes).MoveByOffset(-(resNodes.Size.Width), 0).
+                Click().Build().Perform();
+
+            var resKindNode = wd.FindElement(By.Name(resKind));
+            resKindNode.Click();
+
+            var richEditControl = wd.FindElement(By.Name("RichEdit Control"));
+            richEditControl.Click();
+
+            Thread.Sleep(3000);
+            SwithModule(wd, moduls, "Построение сетки");
+
+            Thread.Sleep(3000);
+            wd.CloseApp();
+        }
+
+        [Test(Description = "Сеточный генератор. Действия: импорт геометрии. Запуск генератора")]
+        [TestCase(@"c:\BazisComponents\WeldingCADMerge\model7v3.stp", TestName = "Импорт геометрии model7v3.stp")]
+        [TestCase(@"c:\BazisComponents\WeldingCADMerge\part2.STEP", TestName = "Импорт геометрии part2.STEP")]
+        [TestCase(@"c:\BazisComponents\WeldingCADMerge\part3.STEP", TestName = "Импорт геометрии part3.STEP")]
+        public void ModelModuleOperationsTest(string cadFile)
+        {
+            WindowsDriver<WindowsElement> wd;
+
+            var opt = new AppiumOptions();
+
+            opt.AddAdditionalCapability("app", @"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe");
+            opt.AddAdditionalCapability("ms:waitForAppLaunch", "3");
+            var args = string.Join(" ", new string[] {
+                "-cad", cadFile });
+
+            opt.AddAdditionalCapability("appArguments", args);
+            opt.PlatformName = "Windows11x64";
+            var url = new Uri("http://127.0.0.1:4723");
+
+            wd = new WindowsDriver<WindowsElement>(url, opt);
+
+            var moduls = wd.FindElement(By.Name("Модули"));
+            moduls.Click();
+            var modulR = wd.FindElement(By.Name("Построение сетки"));
+            modulR.Click();
+            var mesh = wd.FindElement(By.Name("Сетка"));
+            mesh.Click();
+            var meshGen = wd.FindElement(By.Name("Генератор 3D сетки"));
+            meshGen.Click();
+            var approuve = wd.FindElement(By.Name("ОК"));
+            approuve.Click();
+
+            Thread.Sleep(3000);
+            SwithModule(wd, moduls, "Сварка");
+
+            Thread.Sleep(3000);
+            wd.CloseApp();
+        }
+
+            private void SwithModule(WindowsDriver<WindowsElement> wd, WindowsElement moduls, string moduleName)
+        {
+            //возврат лицензии на модуль сварка
+            moduls.Click();
+            var modulM = wd.FindElement(By.Name(moduleName));
+            modulM.Click();
         }
     }
 }

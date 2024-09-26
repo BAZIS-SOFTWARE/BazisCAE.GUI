@@ -1,27 +1,24 @@
 {
   "ChemicalFile": "",
-  "ThermalFile": "термическая_1_0_1.db",
-  "MechanicalConvergence": {
-    "Is_Switched_Um": true,
-    "Um": 0.5,
-    "DUm": 0.0005,
-    "Is_Physically_NonLinear": true,
-    "PlasticityCriterion": 1.25,
-    "SiStm": 1.5,
-    "MaterialPlasticityCoeff": 0.5
+  "TermalConvergence": {
+    "Is_Switched_Tm": true,
+    "Tm": 1500.0
   },
-  "MetallurgicalProcesses": [],
+  "MetallurgicalProcesses": [
+    "Охлаждение",
+    "Нагрев"
+  ],
   "InitTemp": 20.0,
-  "SaveRate": 5,
+  "SaveRate": 1,
   "RestartFile": "",
-  "Iterations": 25,
+  "Iterations": 2,
   "SolverSettings": {
     "$type": "TasksParameters.SolverSettings, TasksParameters",
     "MaxIter": 100,
     "Solver": "SOR_iterative",
     "MaxRelaxation": 1.5,
-    "Relaxation": 1.25,
-    "Precision": 0.0001,
+    "Relaxation": 1.05,
+    "Precision": 0.01,
     "Priority": "Наивысший"
   },
   "TimeSettings": {

@@ -51,33 +51,38 @@ namespace ResultModule.Animation
         public void ClearResultsItems()
         {
             cmbResultNames.Items.Clear();
-        }        
+        }    
+        
+        public void ShowResultsTimeSteps(string resName)
+        {
+            if(resItems.ContainsKey(resName))
+            {
+                playerPanel.Enabled = true;
+
+                var times = resItems[resName];
+
+                if (times.Count() > 1)
+                    player.StopValue = times.Count() - 1;
+                else if (times.Count() == 1)
+                    player.StartValue = 0;
+
+                richTextBox.Clear();
+
+                for (int i = 0; i < times.Count; i++)
+                {
+                    if (i == times.Count - 1)
+                        richTextBox.AppendText($"{times[i]}");
+                    else
+                        richTextBox.AppendText($"{times[i]}\n");
+                }
+                cmbResultNames.Text = resName;
+                SelectResultsEvent?.Invoke(resName);
+            }
+        }
 
         private void cmbResultNames_SelectedIndexChanged(object sender, EventArgs e)
         {
-            playerPanel.Enabled = true;
-
-            var times = resItems[cmbResultNames.SelectedItem.ToString()];
-
-            if (times.Count() > 1)
-                player.StopValue = times.Count() - 1;
-            else if (times.Count() == 1)
-                player.StartValue = 0;
-
-            richTextBox.Clear();
-
-            for (int i = 0; i < times.Count; i++)
-            {
-                if (i == times.Count - 1)
-                    richTextBox.AppendText($"{times[i]}");
-                else
-                    richTextBox.AppendText($"{times[i]}\n");
-            }
-
-            foreach (var time in times)
-                
-
-            SelectResultsEvent?.Invoke(cmbResultNames.SelectedItem.ToString());
+            ShowResultsTimeSteps(cmbResultNames.SelectedItem.ToString());
         }
 
         private void txbDelayTime_Leave(object sender, EventArgs e)

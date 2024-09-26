@@ -186,54 +186,55 @@ namespace ResultModule
 
         public void ShowAnimation()
         {
-                var anPage = new PinnedAnimationControl() { Dock = DockStyle.Fill, BorderStyle = BorderStyle.FixedSingle };
+            var anPage = new PinnedAnimationControl() { Dock = DockStyle.Fill, BorderStyle = BorderStyle.FixedSingle };
 
-                splitContainerEx.SplitterDistance = splitContainerEx.Panel1.Width - anPage.Width;
+            splitContainerEx.SplitterDistance = splitContainerEx.Panel1.Width - anPage.Width;
 
-                anPage.ControlCollapseEvent += () =>
+            anPage.ControlCollapseEvent += () =>
+            {
+                splitContainerEx.Panel2Collapsed = true;
+                splitContainerEx.Panel2.Controls.Clear();
+            };
+
+
+            anPage.animationPage.ShowResultEvent += (ar1, ar2) =>
+            {
+                if (BasePage.NavigatorControl.TreeView.SelectedNode?.Level == 2)
                 {
-                    splitContainerEx.Panel2Collapsed = true;
-                    splitContainerEx.Panel2.Controls.Clear();
-                };
-
-
-                anPage.animationPage.ShowResultEvent += (ar1, ar2) =>
-                {
-                    if (BasePage.NavigatorControl.TreeView.SelectedNode?.Level == 2)
-                    {
-                        var result = resultData.FindByTime(ar2.ResultKind, ar2.Time, 1e-2f);
-                        ShowResults(result, ar2.ScaleFactor);
-                    }
-
-                    else BasePage.ConsoleControl.PrintInfo("Выберите результаты для отображения!", Color.Red);
-                };
-
-                anPage.animationPage.CreateGIFAnimationEvent += (arg1, arg2) => { CreateGIFAnimation(arg2); };
-                anPage.animationPage.SaveScreenShotEvent += (ar1) => { BasePage.CreateScreenShot(ar1); };
-                anPage.animationPage.SelectResultsEvent += (ar1) =>
-                {
-                    BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоУзлам"].Nodes.Clear();
-                    BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоЭлементам"].Nodes.Clear();
-
-                    var res = resultData.FindByTaskKind(ar1);
-                    PresentResultsOnTree(res);
-                };
-
-                var resKinds = resultData.GetResultKinds();
-                var resDic = new Dictionary<string, List<float>>();
-                foreach (var resKind in resKinds)
-                {
-                    resDic.Add(resKind.ToString(), new List<float>());
-                    var resTimes = resultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
-                    resDic[resKind.ToString()] = resTimes;
+                    var result = resultData.FindByTime(ar2.ResultKind, ar2.Time, 1e-2f);
+                    ShowResults(result, ar2.ScaleFactor);
                 }
 
-                anPage.animationPage.SetResultsItems(resDic);
-                splitContainerEx.Panel2Collapsed = false;
-                splitContainerEx.Panel2.Padding = new Padding(0, 5, 5, 0);
-                splitContainerEx.Panel2.Controls.Add(anPage);
-            
-            
+                else BasePage.ConsoleControl.PrintInfo("Выберите результаты для отображения!", Color.Red);
+            };
+
+            anPage.animationPage.CreateGIFAnimationEvent += (arg1, arg2) => { CreateGIFAnimation(arg2); };
+            anPage.animationPage.SaveScreenShotEvent += (ar1) => { BasePage.CreateScreenShot(ar1); };
+            anPage.animationPage.SelectResultsEvent += (ar1) =>
+            {
+                BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоУзлам"].Nodes.Clear();
+                BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоЭлементам"].Nodes.Clear();
+
+                var res = resultData.FindByTaskKind(ar1);
+                PresentResultsOnTree(res);
+            };
+
+            var resKinds = resultData.GetResultKinds();
+            var resDic = new Dictionary<string, List<float>>();
+            foreach (var resKind in resKinds)
+            {
+                resDic.Add(resKind.ToString(), new List<float>());
+                var resTimes = resultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
+                resDic[resKind.ToString()] = resTimes;
+            }
+
+            anPage.animationPage.SetResultsItems(resDic);
+            if(resDic.Count != 0)
+                anPage.animationPage.ShowResultsTimeSteps(resDic.First().Key);
+
+            splitContainerEx.Panel2Collapsed = false;
+            splitContainerEx.Panel2.Padding = new Padding(0, 5, 5, 0);
+            splitContainerEx.Panel2.Controls.Add(anPage);
 
             //var anForm = new Form() 
             //{

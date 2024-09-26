@@ -136,7 +136,7 @@ namespace BazisGUI
                     var path = Path.GetDirectoryName(fullPath);
                     var name = "new_Project.bpf";
 
-                    var project = dataController.CreateNewProject(path, name);
+                    project = dataController.CreateNewProject(path, name);
 
                     dataController.UpdateGeometry(gmshController, project, ObjType.Точка);
                     dataController.UpdateGeometry(gmshController, project, ObjType.Линия);

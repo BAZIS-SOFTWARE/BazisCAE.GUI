@@ -152,6 +152,10 @@ namespace ModelModule
                 meshGenerator.ShowHideTabControls(1);
 
                 gmshForm.Show();
+
+                var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+                gmshForm.ClientSize = new Size(meshGenerator.Width, this.BasePage.ScenePage.Height);
+                gmshForm.Location = location;
             }        
             //ModelPresenter.Clear();//Подчищаем Presenter во избежании артефактов
         }
