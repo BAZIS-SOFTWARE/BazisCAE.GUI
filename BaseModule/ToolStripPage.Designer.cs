@@ -33,6 +33,7 @@ namespace BaseModule
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolStripPage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.splitContainerEx = new UserControlsEx.SplitContainerEx();
+            this.basePage = new BaseModule.BasePage();
             this.selectToolStrip = new UserControlsEx.ToolStripEx();
             this.spbSelectObject = new System.Windows.Forms.ToolStripSplitButton();
             this.btnSelectNodes = new System.Windows.Forms.ToolStripButton();
@@ -62,7 +63,6 @@ namespace BaseModule
             this.btnShowBasis = new System.Windows.Forms.ToolStripButton();
             this.btnShowNormals = new System.Windows.Forms.ToolStripButton();
             this.btnShowCountours = new System.Windows.Forms.ToolStripButton();
-            this.basePage = new BaseModule.BasePage();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
@@ -114,6 +114,26 @@ namespace BaseModule
             this.splitContainerEx.SplitterDistance = 662;
             this.splitContainerEx.SwitchShifting = false;
             this.splitContainerEx.TabIndex = 1;
+            // 
+            // basePage
+            // 
+            this.basePage.BackColor = System.Drawing.SystemColors.Control;
+            this.basePage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.basePage.Location = new System.Drawing.Point(0, 0);
+            this.basePage.Margin = new System.Windows.Forms.Padding(0);
+            this.basePage.Name = "basePage";
+            this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.basePage.PressedKey = System.Windows.Forms.Keys.None;
+            this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
+            this.basePage.Size = new System.Drawing.Size(1149, 583);
+            this.basePage.SplitterWidthEx = 10;
+            this.basePage.TabIndex = 0;
+            this.basePage.DeleteGroupEvent += new System.Action(this.basePage_DeleteGroupEvent);
+            this.basePage.DeleteAllGroupsEvent += new System.Action(this.basePage_DeleteAllGroupsEvent);
+            this.basePage.DeleteObjectsEvent += new System.Action(this.basePage_DeleteObjectsEvent);
+            this.basePage.DeleteSelectedObjectsEvent += new System.Action(this.basePage_DeleteSelectedObjectsEvent);
+            this.basePage.CreatedMeshGroupEvent += new System.Action(this.basePage_CreatedMeshGroupEvent);
+            this.basePage.ChangedGroupNameEvent += new System.Action(this.basePage_ChangedGroupNameEvent);
             // 
             // selectToolStrip
             // 
@@ -218,6 +238,7 @@ namespace BaseModule
             this.btnAdvanceSelection.Size = new System.Drawing.Size(36, 53);
             this.btnAdvanceSelection.Tag = "4";
             this.btnAdvanceSelection.Text = "toolStripButton1";
+            this.btnAdvanceSelection.ToolTipText = "Продвинутый выбор";
             this.btnAdvanceSelection.Click += new System.EventHandler(this.btnAdvanceSelection_Click);
             // 
             // instrumentalToolStrip
@@ -264,6 +285,7 @@ namespace BaseModule
             this.btnMeasuring.Size = new System.Drawing.Size(36, 53);
             this.btnMeasuring.Tag = "0";
             this.btnMeasuring.Text = "toolStripButton14";
+            this.btnMeasuring.ToolTipText = "Измерить";
             this.btnMeasuring.Click += new System.EventHandler(this.btnMeasuring_Click);
             // 
             // btnCrossSection
@@ -279,6 +301,7 @@ namespace BaseModule
             this.btnCrossSection.Size = new System.Drawing.Size(36, 53);
             this.btnCrossSection.Tag = "1";
             this.btnCrossSection.Text = "toolStripButton15";
+            this.btnCrossSection.ToolTipText = "Сделать сечение";
             this.btnCrossSection.Click += new System.EventHandler(this.btnCrossSection_Click);
             // 
             // btnScreenShot
@@ -293,6 +316,7 @@ namespace BaseModule
             this.btnScreenShot.Size = new System.Drawing.Size(36, 53);
             this.btnScreenShot.Tag = "2";
             this.btnScreenShot.Text = "toolStripButton16";
+            this.btnScreenShot.ToolTipText = "Снимок экрана";
             this.btnScreenShot.Click += new System.EventHandler(this.btnScreenShot_Click);
             // 
             // viewToolStrip
@@ -344,6 +368,7 @@ namespace BaseModule
             this.btnSetXY.Size = new System.Drawing.Size(36, 53);
             this.btnSetXY.Tag = "0";
             this.btnSetXY.Text = "toolStripButton5";
+            this.btnSetXY.ToolTipText = "Плоскость XY";
             // 
             // btnSetZX
             // 
@@ -357,6 +382,7 @@ namespace BaseModule
             this.btnSetZX.Size = new System.Drawing.Size(36, 53);
             this.btnSetZX.Tag = "1";
             this.btnSetZX.Text = "toolStripButton6";
+            this.btnSetZX.ToolTipText = "Плоскость ZX";
             // 
             // btnSetZY
             // 
@@ -370,6 +396,7 @@ namespace BaseModule
             this.btnSetZY.Size = new System.Drawing.Size(36, 53);
             this.btnSetZY.Tag = "2";
             this.btnSetZY.Text = "toolStripButton7";
+            this.btnSetZY.ToolTipText = "Плоскость ZY";
             // 
             // btnSetRotX
             // 
@@ -384,6 +411,7 @@ namespace BaseModule
             this.btnSetRotX.Size = new System.Drawing.Size(36, 53);
             this.btnSetRotX.Tag = "3";
             this.btnSetRotX.Text = "toolStripButton8";
+            this.btnSetRotX.ToolTipText = "Вращение  по X";
             this.btnSetRotX.Click += new System.EventHandler(this.btnSetRotAxis_Click);
             // 
             // btnSetRotY
@@ -399,6 +427,7 @@ namespace BaseModule
             this.btnSetRotY.Size = new System.Drawing.Size(36, 53);
             this.btnSetRotY.Tag = "4";
             this.btnSetRotY.Text = "toolStripButton9";
+            this.btnSetRotY.ToolTipText = "Вращение  по Y";
             this.btnSetRotY.Click += new System.EventHandler(this.btnSetRotAxis_Click);
             // 
             // btnSetRotZ
@@ -414,6 +443,7 @@ namespace BaseModule
             this.btnSetRotZ.Size = new System.Drawing.Size(36, 53);
             this.btnSetRotZ.Tag = "5";
             this.btnSetRotZ.Text = "toolStripButton10";
+            this.btnSetRotZ.ToolTipText = "Вращение  по Z";
             this.btnSetRotZ.Click += new System.EventHandler(this.btnSetRotAxis_Click);
             // 
             // btnSetRotHor90
@@ -428,6 +458,7 @@ namespace BaseModule
             this.btnSetRotHor90.Size = new System.Drawing.Size(36, 53);
             this.btnSetRotHor90.Tag = "6";
             this.btnSetRotHor90.Text = "toolStripButton11";
+            this.btnSetRotHor90.ToolTipText = "Поворот по горизонтали";
             // 
             // btnSetRotVer90
             // 
@@ -441,6 +472,7 @@ namespace BaseModule
             this.btnSetRotVer90.Size = new System.Drawing.Size(36, 53);
             this.btnSetRotVer90.Tag = "7";
             this.btnSetRotVer90.Text = "toolStripButton12";
+            this.btnSetRotVer90.ToolTipText = "Поворот по вертикали";
             // 
             // btnFitObjs
             // 
@@ -454,6 +486,7 @@ namespace BaseModule
             this.btnFitObjs.Size = new System.Drawing.Size(36, 53);
             this.btnFitObjs.Tag = "8";
             this.btnFitObjs.Text = "toolStripButton13";
+            this.btnFitObjs.ToolTipText = "Вписать в экран";
             // 
             // displayToolStrip
             // 
@@ -481,7 +514,7 @@ namespace BaseModule
             this.displayToolStrip.Location = new System.Drawing.Point(741, 0);
             this.displayToolStrip.Name = "displayToolStrip";
             this.displayToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.displayToolStrip.Size = new System.Drawing.Size(292, 56);
+            this.displayToolStrip.Size = new System.Drawing.Size(323, 56);
             this.displayToolStrip.SplitButtonClickWidth = 16;
             this.displayToolStrip.SplitButtonHeight = 34;
             this.displayToolStrip.SplitButtonTriangleSize = 6;
@@ -503,6 +536,7 @@ namespace BaseModule
             this.btnShowAll.Size = new System.Drawing.Size(36, 53);
             this.btnShowAll.Tag = "0";
             this.btnShowAll.Text = "toolStripButton17";
+            this.btnShowAll.ToolTipText = "Показывать все объекты";
             // 
             // btnShowOpenSurfaces
             // 
@@ -516,6 +550,7 @@ namespace BaseModule
             this.btnShowOpenSurfaces.Size = new System.Drawing.Size(36, 53);
             this.btnShowOpenSurfaces.Tag = "1";
             this.btnShowOpenSurfaces.Text = "toolStripButton18";
+            this.btnShowOpenSurfaces.ToolTipText = "Показывать только поверхности";
             // 
             // btnShowSurfaceAndRibbers
             // 
@@ -530,6 +565,7 @@ namespace BaseModule
             this.btnShowSurfaceAndRibbers.Tag = "2";
             this.btnShowSurfaceAndRibbers.Text = "toolStripButton19";
             this.btnShowSurfaceAndRibbers.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnShowSurfaceAndRibbers.ToolTipText = "Ребра и поверхности";
             // 
             // btnShowRibbers
             // 
@@ -543,6 +579,7 @@ namespace BaseModule
             this.btnShowRibbers.Size = new System.Drawing.Size(36, 53);
             this.btnShowRibbers.Tag = "3";
             this.btnShowRibbers.Text = "toolStripButton20";
+            this.btnShowRibbers.ToolTipText = "Ребра";
             // 
             // btnShowSurfaces
             // 
@@ -556,6 +593,7 @@ namespace BaseModule
             this.btnShowSurfaces.Size = new System.Drawing.Size(36, 53);
             this.btnShowSurfaces.Tag = "4";
             this.btnShowSurfaces.Text = "toolStripButton21";
+            this.btnShowSurfaces.ToolTipText = "Поверхности";
             // 
             // btnShowBasis
             // 
@@ -572,6 +610,7 @@ namespace BaseModule
             this.btnShowBasis.Size = new System.Drawing.Size(36, 53);
             this.btnShowBasis.Tag = "5";
             this.btnShowBasis.Text = "toolStripButton22";
+            this.btnShowBasis.ToolTipText = "Базис СК";
             this.btnShowBasis.Click += new System.EventHandler(this.btnShowBasis_Click);
             // 
             // btnShowNormals
@@ -587,6 +626,7 @@ namespace BaseModule
             this.btnShowNormals.Size = new System.Drawing.Size(36, 53);
             this.btnShowNormals.Tag = "6";
             this.btnShowNormals.Text = "toolStripButton23";
+            this.btnShowNormals.ToolTipText = "Показать нормали";
             this.btnShowNormals.Click += new System.EventHandler(this.btnShowNormals_Click);
             // 
             // btnShowCountours
@@ -602,27 +642,8 @@ namespace BaseModule
             this.btnShowCountours.Size = new System.Drawing.Size(36, 53);
             this.btnShowCountours.Tag = "7";
             this.btnShowCountours.Text = "toolStripButton24";
+            this.btnShowCountours.ToolTipText = "Показать контуры";
             this.btnShowCountours.Click += new System.EventHandler(this.btnShowCountours_Click);
-            // 
-            // basePage
-            // 
-            this.basePage.BackColor = System.Drawing.SystemColors.Control;
-            this.basePage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.basePage.Location = new System.Drawing.Point(0, 0);
-            this.basePage.Margin = new System.Windows.Forms.Padding(0);
-            this.basePage.Name = "basePage";
-            this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
-            this.basePage.PressedKey = System.Windows.Forms.Keys.None;
-            this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
-            this.basePage.Size = new System.Drawing.Size(1149, 583);
-            this.basePage.SplitterWidthEx = 10;
-            this.basePage.TabIndex = 0;
-            this.basePage.DeleteGroupEvent += new System.Action(this.basePage_DeleteGroupEvent);
-            this.basePage.DeleteAllGroupsEvent += new System.Action(this.basePage_DeleteAllGroupsEvent);
-            this.basePage.DeleteObjectsEvent += new System.Action(this.basePage_DeleteObjectsEvent);
-            this.basePage.DeleteSelectedObjectsEvent += new System.Action(this.basePage_DeleteSelectedObjectsEvent);
-            this.basePage.CreatedMeshGroupEvent += new System.Action(this.basePage_CreatedMeshGroupEvent);
-            this.basePage.ChangedGroupNameEvent += new System.Action(this.basePage_ChangedGroupNameEvent);
             // 
             // ToolStripPage
             // 

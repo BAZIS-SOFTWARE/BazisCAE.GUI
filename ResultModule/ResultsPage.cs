@@ -1,6 +1,7 @@
 ﻿using BaseModule;
 using BaseModule.Console;
 using BaseModule.Navigator;
+using BaseModule.Utilities;
 using CustomControls.Controls;
 using CustomControls.OS;
 using Geometry;
@@ -219,17 +220,10 @@ namespace ResultModule
                 PresentResultsOnTree(res);
             };
 
-            var resKinds = resultData.GetResultKinds();
-            var resDic = new Dictionary<string, List<float>>();
-            foreach (var resKind in resKinds)
-            {
-                resDic.Add(resKind.ToString(), new List<float>());
-                var resTimes = resultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
-                resDic[resKind.ToString()] = resTimes;
-            }
+            var resDic = CreateResultsDic();
 
             anPage.animationPage.SetResultsItems(resDic);
-            if(resDic.Count != 0)
+            if (resDic.Count != 0)
                 anPage.animationPage.ShowResultsTimeSteps(resDic.First().Key);
 
             splitContainerEx.Panel2Collapsed = false;
@@ -257,7 +251,19 @@ namespace ResultModule
             //anForm.Show();
         }
 
+        public Dictionary<string, List<float>> CreateResultsDic()
+        {
+            var resKinds = resultData.GetResultKinds();
+            var resDic = new Dictionary<string, List<float>>();
+            foreach (var resKind in resKinds)
+            {
+                resDic.Add(resKind.ToString(), new List<float>());
+                var resTimes = resultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
+                resDic[resKind.ToString()] = resTimes;
+            }
 
+            return resDic;
+        }
 
         private void CreateGIFAnimation(CreateAnimationEventArgs args)
         {
@@ -789,6 +795,13 @@ namespace ResultModule
                 scenePage.CreateObjectsOnScene(item.ToString(), scenePage.CreateObjectsPresentor(item));
 
             scenePage.SceneControl.DisplayObjects();
+
+            List<PinnedAnimationControl> cntrs = new List<PinnedAnimationControl>();
+            RecursiveSearchControls.AllTypedControls(splitContainerEx.Panel2, cntrs);
+            if (cntrs.Count != 0)
+                cntrs[0].animationPage.ClearResultsItems();
+            //if (splitContainerEx.Panel2.Controls.Find("PinnedAnimationControl", false).Count() != 0)
+            //splitContainerEx.Panel2.Controls[0]
         }
 
         private void пересчитатьНаУзлыToolStripMenuItem_Click(object sender, EventArgs e)

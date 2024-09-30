@@ -61,6 +61,6 @@
 
         #endregion
 
-        internal AnimationPage animationPage;
+        public AnimationPage animationPage;
     }
 }

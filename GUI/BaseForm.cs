@@ -34,6 +34,9 @@ using ModelInterfaces;
 using Results.ResultsData;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using BaseModule.Utilities;
+using ResultModule.Animation;
 
 namespace BazisGUI
 {
@@ -239,6 +242,24 @@ namespace BazisGUI
             Enabled = true;
 
             project.ResultData.AddRange(res.Result);
+
+            List<PinnedAnimationControl> cntrs = new List<PinnedAnimationControl>();
+            RecursiveSearchControls.AllTypedControls(resultModule.splitContainerEx.Panel2, cntrs);
+            if (cntrs.Count != 0)
+            {
+                var anPage = cntrs[0].animationPage;
+
+                if (!addRes)
+                    anPage.ClearResultsItems();
+
+                var resDic = resultModule.CreateResultsDic();
+                if (resDic.Count != 0)
+                {
+                    anPage.SetResultsItems(resDic);
+                    anPage.ShowResultsTimeSteps(resDic.First().Key);
+                }
+
+            }
         }
 
         private void SetModule(string moduleName)

@@ -50,7 +50,10 @@ namespace ResultModule.Animation
 
         public void ClearResultsItems()
         {
+            cmbResultNames.Text = "выберите результаты...";
             cmbResultNames.Items.Clear();
+            resItems.Clear();
+            richTextBox.Clear();
         }    
         
         public void ShowResultsTimeSteps(string resName)

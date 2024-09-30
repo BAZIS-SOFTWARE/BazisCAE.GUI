@@ -26,36 +26,27 @@ namespace BaseModule
         private void btnSelect_Click(object sender, EventArgs e)
         {
             if (rbtInDirection.Checked)
-                SelectInDirection(this, new SelectInDirectionEventArgs(ObjType.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text)));
+                if (rbtNodes.Checked)
+                    SelectInDirection(this, new SelectInDirectionEventArgs(ObjType.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text)));
+                else
+                    MessageBox.Show("Измените объект выбора на \"Узлы\"");
             else if (rbtInPlain.Checked)
                 if (rbtNodes.Checked)
                     SelectInPlain(this, new SelectInPlainEventArgs(ObjType.Узел, float.Parse(txbAngle.Text)));
                 else
-                    SelectInPlain(this, new SelectInPlainEventArgs(ObjType.Элемент, float.Parse(txbAngle.Text)));
+                    SelectInPlain(this, new SelectInPlainEventArgs(ObjType.Элемент2D, float.Parse(txbAngle.Text)));
         }
 
         private void rbtNodes_Click(object sender, EventArgs e)
         {
-            SelectNodes(this, new EventArgs());
+            if (rbtNodes.Checked)
+                SelectNodes?.Invoke(this, new EventArgs());
         }
 
         private void rbtElements_Click(object sender, EventArgs e)
         {
-            SelectElements(this, new EventArgs());
-        }
-
-        private void rbtInDirection_Click(object sender, EventArgs e)
-        {
-            rbtElements.Enabled = false;
-            rbtNodes.Checked = true;
-            SelectNodes(this, new EventArgs());
-        }
-
-        private void rbtInPlain_Click(object sender, EventArgs e)
-        {
-            rbtElements.Enabled = true;
-            rbtNodes.Checked = true;
-            SelectNodes(this, new EventArgs());
+            if (rbtElements.Checked)
+                SelectElements?.Invoke(this, new EventArgs());
         }
     }
 }

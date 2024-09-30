@@ -148,7 +148,6 @@
             this.rbtInPlain.TabStop = true;
             this.rbtInPlain.Text = "В плоскости";
             this.rbtInPlain.UseVisualStyleBackColor = true;
-            this.rbtInPlain.Click += new System.EventHandler(this.rbtInPlain_Click);
             // 
             // rbtInDirection
             // 
@@ -163,7 +162,6 @@
             this.rbtInDirection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtInDirection.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.rbtInDirection.UseVisualStyleBackColor = true;
-            this.rbtInDirection.Click += new System.EventHandler(this.rbtInDirection_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -242,8 +240,8 @@
         private System.Windows.Forms.RadioButton rbtInPlain;
         private System.Windows.Forms.TextBox txbAngle;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnSelect;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
+        internal System.Windows.Forms.Button btnSelect;
     }
 }

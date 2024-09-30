@@ -253,6 +253,47 @@ namespace BaseModule
             return nodes;
         }
 
+        public async Task<object> SelectObjectsAsync(ObjType objType)
+        {
+            var actBreak = new Action(() =>
+            {
+                Invoke(new Action(() =>
+                {
+                    consoleControl.PrintInfo("Операция отменена", Color.Black);
+                }));
+            });
+
+            var message = $@"Выберите {objType} и нажмите на клавишу ""E"" для подтверждения или клавишу ""ESC"" для отмены";
+
+            var actPointConfirm = new Func<Tuple<bool, object>>(() =>
+            {
+                var objs = ModelData.ObjectData.GetObjects(objType);
+
+                var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor);
+
+                if (selObjs.Count() == 0)
+                {
+                    Invoke(new Action(() =>
+                    {
+                        consoleControl.PrintInfo($"Не выбран ни один {objType}!", Color.Orange);
+                    }));
+                    return new Tuple<bool, object>(false, new object());
+                }
+                else
+                {
+                    Invoke(new Action(() =>
+                    {
+                        consoleControl.PrintInfo($"Выбраны {selObjs.Count()} {objType}", Color.Green);
+                    }));
+                    return new Tuple<bool, object>(true, selObjs);
+                }
+            });
+
+            var awaitResult = AsyncMethodContainer(actPointConfirm, actBreak, message);
+            await awaitResult;
+            return awaitResult.Result;
+        }
+
         public async Task<object> SelectObjectAsync(ObjType objType)
         {
             var actBreak = new Action(() =>
