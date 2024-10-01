@@ -194,8 +194,8 @@ namespace TaskModule
                 form.Controls.Add(taskAdv);
                 
                 form.Show();
-                var location = BasePage.ScenePage.PointToScreen(Point.Empty);
                 form.ClientSize = new Size(taskAdv.Width, this.BasePage.ScenePage.Height);
+                var location = BasePage.ScenePage.PointToScreen(Point.Empty);
                 form.Location = location;
 
                 taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent;

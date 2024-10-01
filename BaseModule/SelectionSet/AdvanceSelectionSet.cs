@@ -11,14 +11,14 @@ using ModelInterfaces;
 
 namespace BaseModule
 {
-    public partial class SelectionSet : UserControl
+    public partial class AdvanceSelectionSet : UserControl
     {
         public event Action<object, SelectInDirectionEventArgs> SelectInDirection;
         public event Action<object, SelectInPlainEventArgs> SelectInPlain;
 
         public event Action<object, EventArgs> SelectNodes;
         public event Action<object, EventArgs> SelectElements;
-        public SelectionSet()
+        public AdvanceSelectionSet()
         {
             InitializeComponent();
         }

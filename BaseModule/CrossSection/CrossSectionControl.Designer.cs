@@ -68,9 +68,9 @@
             this.chbSelectPoints.Location = new System.Drawing.Point(60, 102);
             this.chbSelectPoints.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.chbSelectPoints.Name = "chbSelectPoints";
-            this.chbSelectPoints.Size = new System.Drawing.Size(116, 34);
+            this.chbSelectPoints.Size = new System.Drawing.Size(164, 34);
             this.chbSelectPoints.TabIndex = 13;
-            this.chbSelectPoints.Text = "Задать по точкам";
+            this.chbSelectPoints.Text = "Задать с экрана по точкам";
             this.chbSelectPoints.UseVisualStyleBackColor = true;
             this.chbSelectPoints.CheckedChanged += new System.EventHandler(this.chbSelectPoints_CheckedChanged);
             // 

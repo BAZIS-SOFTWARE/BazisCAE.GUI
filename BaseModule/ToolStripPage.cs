@@ -379,35 +379,39 @@ namespace BaseModule
 
         }
 
-        private void SelectionControl_SelectInDirection(object arg1, SelectInDirectionEventArgs arg2)
+        private async void SelectionControl_SelectInDirection(object arg1, SelectInDirectionEventArgs arg2)
         {
             var scenePage = basePage.ScenePage;
             var consoleControl = basePage.ConsoleControl;
             try
             {
-                //var selectHelper = new SelectionHelper(ModelData.ObjectData);
-
-                var objs = ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
-                var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
-                if (selObjs.Length > 1)
+                if (arg2.ObjsType == scenePage.SelectedObjects)
                 {
-                    if (!arg2.Reverse)
+                    var result = await basePage.SelectObjectsAsync(scenePage.SelectedObjects);
+                    var objs = result as IEnumerable<IModelObject>;
+
+                    //var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
+                    if (objs?.Count() > 1)
                     {
-                        ModelController.SelectionHelper.SelectNodeInDirection(ModelData.ObjectData,
-                            arg2.Angle, selObjs[selObjs.Length - 2].Number, selObjs[selObjs.Length - 1].Number, scenePage.SceneControl.SelectionColor);
+                        if (!arg2.Reverse)
+                        {
+                            ModelController.SelectionHelper.SelectNodeInDirection(ModelData.ObjectData,
+                                arg2.Angle, objs.Skip(1).First().Number, objs.First().Number, scenePage.SceneControl.SelectionColor);
+                        }
+
+                        else
+                        {
+                            ModelController.SelectionHelper.SelectNodeInDirection(ModelData.ObjectData,
+                                arg2.Angle, objs.First().Number, objs.Skip(1).First().Number, scenePage.SceneControl.SelectionColor);
+                        }
+
+                        //selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
+                        scenePage.SetObjectsSceneColor(scenePage.SelectedObjects);
+
+                        scenePage.SceneControl.DisplayObjects();
                     }
-
-                    else
-                    {
-                        ModelController.SelectionHelper.SelectNodeInDirection(ModelData.ObjectData,
-                            arg2.Angle, selObjs[selObjs.Length - 1].Number, selObjs[selObjs.Length - 2].Number, scenePage.SceneControl.SelectionColor);
-                    }
-
-                    //selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
-                    scenePage.SetObjectsSceneColor(scenePage.SelectedObjects);
-
-                    scenePage.SceneControl.DisplayObjects();
                 }
+                    
             }
             catch (Exception ex)
             {
@@ -441,7 +445,7 @@ namespace BaseModule
                 var form = new Form()
                 {
                     Name = "selectForm",
-                    Text = "Выбрать",
+                    Text = "Дополненный выбор",
                     AutoSize = false,
                     ShowIcon = false,
                     TopMost = true,
@@ -449,7 +453,7 @@ namespace BaseModule
                 };
 
                 form.FormClosing += (s1, s2) => { btn.Checked = false; };
-                var selectionControl = new SelectionSet() { Dock = DockStyle.Fill };
+                var selectionControl = new AdvanceSelectionSet() { Dock = DockStyle.Fill };
                 selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
                 selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
                 selectionControl.SelectNodes += (s1, s2) =>
@@ -469,7 +473,8 @@ namespace BaseModule
                 form.ClientSize = selectionControl.Size;
                 form.Controls.Add(selectionControl);
                 form.Show();
-
+                var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+                form.Location = location;
             }
             else
             {
@@ -599,6 +604,8 @@ namespace BaseModule
                     };
 
                     form.Show();
+                    var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+                    form.Location = location;
                 }
             }
             catch (Exception ex)
@@ -619,7 +626,7 @@ namespace BaseModule
                     var form = new Form()
                     {
                         Name = "measureForm",
-                        Text = "Измерить",
+                        Text = "Панель измерений",
                         ShowIcon = false,
                         Owner = Application.OpenForms[0],
                         TopMost = true
@@ -646,6 +653,8 @@ namespace BaseModule
                     form.Controls.Add(measuringControl);
 
                     form.Show();
+                    var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+                    form.Location = location;
                 }
                 else
                 {

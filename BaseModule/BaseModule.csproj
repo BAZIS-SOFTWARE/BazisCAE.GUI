@@ -168,11 +168,11 @@
     <Compile Include="Measurement\MeasuringSet.Designer.cs">
       <DependentUpon>MeasuringSet.cs</DependentUpon>
     </Compile>
-    <Compile Include="SelectionSet\SelectionSet.cs">
+    <Compile Include="SelectionSet\AdvanceSelectionSet.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SelectionSet\SelectionSet.Designer.cs">
-      <DependentUpon>SelectionSet.cs</DependentUpon>
+    <Compile Include="SelectionSet\AdvanceSelectionSet.Designer.cs">
+      <DependentUpon>AdvanceSelectionSet.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolStripPage.cs">
       <SubType>UserControl</SubType>
@@ -220,8 +220,8 @@
     <EmbeddedResource Include="ScenePage.resx">
       <DependentUpon>ScenePage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SelectionSet\SelectionSet.resx">
-      <DependentUpon>SelectionSet.cs</DependentUpon>
+    <EmbeddedResource Include="SelectionSet\AdvanceSelectionSet.resx">
+      <DependentUpon>AdvanceSelectionSet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ToolStripPage.resx">
       <DependentUpon>ToolStripPage.cs</DependentUpon>

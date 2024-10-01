@@ -1,6 +1,6 @@
 ﻿namespace BaseModule
 {
-    partial class SelectionSet
+    partial class AdvanceSelectionSet
     {
         /// <summary>
         /// Обязательная переменная конструктора.
