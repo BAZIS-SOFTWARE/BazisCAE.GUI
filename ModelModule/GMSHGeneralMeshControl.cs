@@ -617,5 +617,25 @@ namespace ModelModule
                 }
             }
         }
+
+        private void gmshCurveSettingsControl1_pressOkEvent(object arg1, SetTransfiniteCurveEventRequest arg2, string[] arg3)
+        {
+            ApplyCurveTranfinition(arg2, arg3);
+        }
+
+        private void gmshCurveSettingsControl1_pressDelEvent(object arg1, SetTransfiniteCurveEventRequest arg2, string[] arg3)
+        {
+            ApplyCurveTranfinition(arg2, arg3);
+        }
+
+        private void gmshPointSettingsControl1_pressOkEvent(object arg1, PointSizesRequest arg2, double[] arg3)
+        {
+            CreatePointSizesRequest(arg2, arg3);
+        }
+
+        private void gmshPointSettingsControl1_pressDelEvent(object arg1, PointSizesRequest arg2, double[] arg3)
+        {
+            CreatePointSizesRequest(arg2, arg3);
+        }
     }
 }

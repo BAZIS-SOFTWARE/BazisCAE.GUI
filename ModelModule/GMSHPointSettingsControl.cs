@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,8 @@ namespace ModelModule
 {
     public partial class GMSHPointSettingsControl : UserControl
     {
+        public event Action<object, PointSizesRequest, double[]> pressOkEvent;
+        public event Action<object, PointSizesRequest, double[]> pressDelEvent;
         public GMSHPointSettingsControl()
         {
             InitializeComponent();
@@ -26,17 +29,15 @@ namespace ModelModule
         {
             if (textBoxEx1.IsValueValid())
             {
-                var headControl = ParentForm.Controls[0] as GMSHGeneralMeshControl;
-                var values =  new double[] { double.Parse(textBoxEx1.Text) };
-                headControl.CreatePointSizesRequest(PointSizesRequest.Set, values);
+                var values = new double[] { double.Parse(textBoxEx1.Text) };
+                pressOkEvent?.Invoke(this, PointSizesRequest.Set, values);
             }
         }
 
         private void BtnDel_Click(object sender, EventArgs e)
         {
+            pressDelEvent?.Invoke(this, PointSizesRequest.Reset, null);
             textBoxEx1.Text = string.Empty;
-            var headControl = ParentForm.Controls[0] as GMSHGeneralMeshControl;
-            headControl.CreatePointSizesRequest(PointSizesRequest.Reset);
         }
     }
 }
