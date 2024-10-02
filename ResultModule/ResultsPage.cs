@@ -1,6 +1,7 @@
 ﻿using BaseModule;
 using BaseModule.Console;
 using BaseModule.Navigator;
+using BaseModule.Utilities;
 using CustomControls.Controls;
 using CustomControls.OS;
 using Geometry;
@@ -12,6 +13,7 @@ using ModelInterfaces.MeshObjects;
 using ProjectInterfaces;
 using ProjectInterfaces.Results;
 using ProjectInterfaces.Tasks;
+using ResultModule.Animation;
 using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -20,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UserControlsEx;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace ResultModule
@@ -66,12 +69,12 @@ namespace ResultModule
 
             var navigator = BasePage.NavigatorControl;
 
-            navigator.TreeView.Nodes.Add(new TreeNode("Результаты", 14, 14) { Name = "Результаты", Tag = 6, ContextMenuStrip = resultsMenuStrip });
+            navigator.TreeView.Nodes.Add(new TreeNode("Набор результатов", 14, 14) { Name = "Набор результатов", Tag = 6, ContextMenuStrip = resultsMenuStrip });
 
             var nodeNode = new TreeNode("ПоУзлам", 14, 14) { Name = "ПоУзлам", Tag = "6.1" };
-            navigator.TreeView.Nodes["Результаты"].Nodes.Add(nodeNode);
+            navigator.TreeView.Nodes["Набор результатов"].Nodes.Add(nodeNode);
             var elemNode = new TreeNode("ПоЭлементам", 14, 14) { Name = "ПоЭлементам", Tag = "6.1" };
-            navigator.TreeView.Nodes["Результаты"].Nodes.Add(elemNode);
+            navigator.TreeView.Nodes["Набор результатов"].Nodes.Add(elemNode);
         }      
 
         public void ShowScalePage()
@@ -150,8 +153,8 @@ namespace ResultModule
 
             grPage.SelectResultsEvent += (ar) =>
             {
-                BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
-                BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
+                BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоУзлам"].Nodes.Clear();
+                BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоЭлементам"].Nodes.Clear();
 
                 var res = resultData.FindByTaskKind(ar);
                 PresentResultsOnTree(res);
@@ -184,8 +187,18 @@ namespace ResultModule
 
         public void ShowAnimation()
         {
-            var anPage = new AnimationPage() { Dock = DockStyle.Fill };
-            anPage.ShowResultEvent += (ar1, ar2) =>
+            var anPage = new PinnedAnimationControl() { Dock = DockStyle.Fill, BorderStyle = BorderStyle.FixedSingle };
+
+            splitContainerEx.SplitterDistance = splitContainerEx.Panel1.Width - anPage.Width;
+
+            anPage.ControlCollapseEvent += () =>
+            {
+                splitContainerEx.Panel2Collapsed = true;
+                splitContainerEx.Panel2.Controls.Clear();
+            };
+
+
+            anPage.animationPage.ShowResultEvent += (ar1, ar2) =>
             {
                 if (BasePage.NavigatorControl.TreeView.SelectedNode?.Level == 2)
                 {
@@ -196,17 +209,50 @@ namespace ResultModule
                 else BasePage.ConsoleControl.PrintInfo("Выберите результаты для отображения!", Color.Red);
             };
 
-            anPage.CreateGIFAnimationEvent += (arg1, arg2) => { CreateGIFAnimation(arg2); };
-            anPage.SaveScreenShotEvent += (ar1) => { BasePage.CreateScreenShot(ar1); };
-            anPage.SelectResultsEvent += (ar1) => 
+            anPage.animationPage.CreateGIFAnimationEvent += (arg1, arg2) => { CreateGIFAnimation(arg2); };
+            anPage.animationPage.SaveScreenShotEvent += (ar1) => { BasePage.CreateScreenShot(ar1); };
+            anPage.animationPage.SelectResultsEvent += (ar1) =>
             {
-                BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
-                BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
+                BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоУзлам"].Nodes.Clear();
+                BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоЭлементам"].Nodes.Clear();
 
                 var res = resultData.FindByTaskKind(ar1);
                 PresentResultsOnTree(res);
             };
 
+            var resDic = CreateResultsDic();
+
+            anPage.animationPage.SetResultsItems(resDic);
+            if (resDic.Count != 0)
+                anPage.animationPage.ShowResultsTimeSteps(resDic.First().Key);
+
+            splitContainerEx.Panel2Collapsed = false;
+            splitContainerEx.Panel2.Padding = new Padding(0, 5, 5, 0);
+            splitContainerEx.Panel2.Controls.Add(anPage);
+
+            //var anForm = new Form() 
+            //{
+            //    Owner = Application.OpenForms[0],
+            //    TopMost = true, 
+            //    Size = anPage.Size, 
+            //    Name = "Animation", 
+            //    Text = "Анимация", 
+            //    ShowIcon = false,
+            //    ClientSize = anPage.Size
+            //};
+
+            //anForm.FormClosing += (ar1, ar2) => 
+            //{
+            //    if (anPage.animationPage.IsAnimationStarted)
+            //        anPage.animationPage.StopAnimation();
+            //};
+            //anForm.FormClosed += (ar1,ar2) =>{ anPage = null; };
+            //anForm.Controls.Add(anPage);
+            //anForm.Show();
+        }
+
+        public Dictionary<string, List<float>> CreateResultsDic()
+        {
             var resKinds = resultData.GetResultKinds();
             var resDic = new Dictionary<string, List<float>>();
             foreach (var resKind in resKinds)
@@ -216,30 +262,8 @@ namespace ResultModule
                 resDic[resKind.ToString()] = resTimes;
             }
 
-            anPage.SetResultsItems(resDic);
-
-            var anForm = new Form() 
-            {
-                Owner = Application.OpenForms[0],
-                TopMost = true, 
-                Size = anPage.Size, 
-                Name = "Animation", 
-                Text = "Анимация", 
-                ShowIcon = false,
-                ClientSize = anPage.Size
-            };
-
-            anForm.FormClosing += (ar1, ar2) => 
-            {
-                if (anPage.IsAnimationStarted)
-                    anPage.StopAnimation();
-            };
-            anForm.FormClosed += (ar1,ar2) =>{ anPage = null; };
-            anForm.Controls.Add(anPage);
-            anForm.Show();
+            return resDic;
         }
-
-
 
         private void CreateGIFAnimation(CreateAnimationEventArgs args)
         {
@@ -327,8 +351,8 @@ namespace ResultModule
 
             if (openDialogEx.ShowDialog(this) == DialogResult.Cancel)
                 return;
-            BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
-            BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
+            BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоУзлам"].Nodes.Clear();
+            BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоЭлементам"].Nodes.Clear();
 
             LoadResultsEvent?.Invoke(this,openDialogEx.OpenDialog.FileName, openDialogEx.MergeResults, addRes);
         }     
@@ -486,7 +510,7 @@ namespace ResultModule
                     var grData = new GraphData(resDes, Color.Orange, "мм", resDes, grPoints.ToArray());
                     var grContainer = new GraphContainer();
 
-                    grContainer.CreateGraphData("Результаты по расстоянию", new List<GraphData>() { grData }, new AxisFormat(), new AxisFormat());
+                    grContainer.CreateGraphData("Набор результатов по расстоянию", new List<GraphData>() { grData }, new AxisFormat(), new AxisFormat());
                     grContainer.Dock = DockStyle.Fill;
                     var form = new Form
                     {
@@ -554,7 +578,7 @@ namespace ResultModule
 
                 if (grDataAr.Count != 0)
                 {
-                    grContainer.CreateGraphData("Результаты по времени", grDataAr, new AxisFormat(), new AxisFormat());
+                    grContainer.CreateGraphData("Набор результатов по времени", grDataAr, new AxisFormat(), new AxisFormat());
                     grContainer.Dock = DockStyle.Fill;
                     var form = new Form
                     {
@@ -617,7 +641,7 @@ namespace ResultModule
             var nodeSchema = results.First().GetDataSchema("nodes");
             var elemSchema = results.First().GetDataSchema("elements");
 
-            var resultNode = BasePage.NavigatorControl.TreeView.Nodes["Результаты"];
+            var resultNode = BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"];
             foreach (var desc in nodeSchema)
             {
                 BasePage.NavigatorControl.CreateChildNode("ПоУзлам", desc, desc, "6.1.1");
@@ -760,8 +784,8 @@ namespace ResultModule
         {
             resultData.Clear();
             //ResultData.Clear();
-            BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоУзлам"].Nodes.Clear();
-            BasePage.NavigatorControl.TreeView.Nodes["Результаты"].Nodes["ПоЭлементам"].Nodes.Clear();
+            BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоУзлам"].Nodes.Clear();
+            BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоЭлементам"].Nodes.Clear();
 
             var scenePage = BasePage.ScenePage;
 
@@ -771,6 +795,13 @@ namespace ResultModule
                 scenePage.CreateObjectsOnScene(item.ToString(), scenePage.CreateObjectsPresentor(item));
 
             scenePage.SceneControl.DisplayObjects();
+
+            List<PinnedAnimationControl> cntrs = new List<PinnedAnimationControl>();
+            RecursiveSearchControls.AllTypedControls(splitContainerEx.Panel2, cntrs);
+            if (cntrs.Count != 0)
+                cntrs[0].animationPage.ClearResultsItems();
+            //if (splitContainerEx.Panel2.Controls.Find("PinnedAnimationControl", false).Count() != 0)
+            //splitContainerEx.Panel2.Controls[0]
         }
 
         private void пересчитатьНаУзлыToolStripMenuItem_Click(object sender, EventArgs e)

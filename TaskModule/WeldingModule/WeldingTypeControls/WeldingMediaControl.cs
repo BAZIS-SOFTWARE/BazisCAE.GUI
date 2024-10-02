@@ -4,13 +4,12 @@ using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
-    public partial class WeldingMediaControl : CheckedGridViewAdviserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
+    public partial class WeldingMediaControl : UserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
         enum Column : int { objects, heatExchange, mediaTemp, startTime, stopTime };
 
@@ -20,11 +19,15 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             DataName = "Среда";
         }
 
-        public override string DataName { get; }
+        public string DataName { get; }
 
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
+        public event Action<object, AddDataEventArgs> AddDataEvent;
+        public event Action<object, DeleteDataEventArgs> DeleteDataEvent;
+        public event Action<object, ChangeDataEventArgs> ChangeDataEvent;
+        public event Action<object, DeleteAllDataEventArgs> DeleteAllDataEvent;
 
         public void Fill_nGroups(List<string> nGroups)
         {
@@ -43,13 +46,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 cmbEl.Items.Add(eGroup);
         }
 
-        public override void AddButton_Click(object sender, EventArgs e)
+        public void AddButton_Click(object sender, EventArgs e)
         {
             if (!IsValidated()) return;
             try
             {
-                CurentSelectedRowInfo = AddRowInfo();
-                base.AddButton_Click(sender, e);
+                var rowInfo = AddRowInfo();
+                AddDataEvent(this, new AddDataEventArgs(DataName, rowInfo));
 
                 btnRefresh.Enabled = false;
             }
@@ -84,26 +87,26 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             return string.Join(" ", dataList);
         }
 
-        public override void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        public void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var function = dataGridView[(int)Column.heatExchange, e.RowIndex].Value.ToString();
 
             if (function == "*")
             {
-                cmbNode.Text = dataGridView[(int)Column.objects, CurentSelectedRowIndex].Value.ToString();
-                cmbTermoCycle.Text = dataGridView[(int)Column.mediaTemp, CurentSelectedRowIndex].Value.ToString();
+                cmbNode.Text = dataGridView[(int)Column.objects, e.RowIndex].Value.ToString();
+                cmbTermoCycle.Text = dataGridView[(int)Column.mediaTemp, e.RowIndex].Value.ToString();
                 rbtTermoCycle.Checked = true;
             }
             else
             {
-                cmbEl.Text = dataGridView[(int)Column.objects, CurentSelectedRowIndex].Value.ToString();
-                cmbFunc.Text = dataGridView[(int)Column.heatExchange, CurentSelectedRowIndex].Value.ToString();
-                txbMediaTemp.Text = dataGridView[(int)Column.mediaTemp, CurentSelectedRowIndex].Value.ToString();
+                cmbEl.Text = dataGridView[(int)Column.objects, e.RowIndex].Value.ToString();
+                cmbFunc.Text = dataGridView[(int)Column.heatExchange, e.RowIndex].Value.ToString();
+                txbMediaTemp.Text = dataGridView[(int)Column.mediaTemp, e.RowIndex].Value.ToString();
                 rbtHeatFlow.Checked = true;
             }
 
-            txbStartTime.Text = dataGridView[(int)Column.startTime, CurentSelectedRowIndex].Value.ToString();
-            txbStopTime.Text = dataGridView[(int)Column.stopTime, CurentSelectedRowIndex].Value.ToString();
+            txbStartTime.Text = dataGridView[(int)Column.startTime, e.RowIndex].Value.ToString();
+            txbStopTime.Text = dataGridView[(int)Column.stopTime, e.RowIndex].Value.ToString();
 
             btnRefresh.Enabled = true;
         }
@@ -143,13 +146,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             btnRefresh.Enabled = false;
         }
 
-        public override void RefreshButton_Click(object sender, EventArgs e)
+        public void RefreshButton_Click(object sender, EventArgs e)
         {
             if (!IsValidated()) return;
             try
             {
-                CurentSelectedRowInfo = AddRowInfo();
-                base.RefreshButton_Click(sender, e);
+                var rowInfo = AddRowInfo();
+                ChangeDataEvent(this, new ChangeDataEventArgs(DataName, dataGridView.CurentSelectedRowIndex, rowInfo));
                 btnRefresh.Enabled = false;
             }
             catch (Exception ex)
@@ -159,14 +162,14 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         }
 
-        public override void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        public void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            base.DataGridView_UserDeletingRow(sender, e);
+            DeleteDataEvent(this, new DeleteDataEventArgs(DataName, e.Row.Index));
         }
 
-        public override void ClearAllDataButton_Click(object sender, EventArgs e)
+        public void ClearAllDataButton_Click(object sender, EventArgs e)
         {
-            base.ClearAllDataButton_Click(sender, e);
+            DeleteAllDataEvent(this, new DeleteAllDataEventArgs(DataName));
         }
 
         private void dataGridView_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
@@ -192,15 +195,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         private void player_StartCheckingEvent(object obj)
         {
-            var gridViewList = new List<DataGridView>();
-            SearchControls(this, gridViewList);
-
-            if (gridViewList[0].Rows.Count > 0)
+            if (dataGridView.Rows.Count > 0)
             {
-                var checkStopTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+                var checkStopTime = dataGridView.Rows.Cast<DataGridViewRow>()
 .Max(r => Convert.ToSingle(r.Cells[(int)Column.stopTime].Value, CultureInfo.InvariantCulture));
 
-                var checkStartTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+                var checkStartTime = dataGridView.Rows.Cast<DataGridViewRow>()
                             .Min(r => Convert.ToSingle(r.Cells[(int)Column.startTime].Value, CultureInfo.InvariantCulture));
 
                 player.StartValue = (int)checkStartTime;
@@ -221,9 +221,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public void ShowDataButton_Click(object sender, EventArgs e)
         {
-            if (CountSelectedRow > 0)
+            if (dataGridView.SelectedRows.Count > 0)
             {
-                ShowDataEvent(this, new ShowDataEventArgs(DataName, GetSelectedRowIndexes().ToList()));
+                ShowDataEvent(this, new ShowDataEventArgs(DataName, dataGridView.GetSelectedRowIndexes().ToList()));
             }
         }
 
@@ -232,7 +232,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             HideDataEvent(this, new HideDataEventArgs(DataName));
         }
 
-        public override bool IsValidated()
+        public bool IsValidated()
         {
             var checks = new List<bool>()
             {
@@ -246,6 +246,16 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
             }; 
             return checks.All(x => x);
+        }
+
+        public string Get_DataGridFillLine(int ind)
+        {
+            return dataGridView.Get_DataGridFillLine(ind);
+        }
+
+        public void Set_DataGridLines(IEnumerable<string> lines)
+        {
+            dataGridView.Set_DataGridLines(lines);
         }
     }
 }

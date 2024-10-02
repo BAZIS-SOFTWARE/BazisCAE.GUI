@@ -30,9 +30,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskPlannerControl_v2));
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskPlannerControl_v2));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridView = new DataGridViewEx();
             this.Kind = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Settings = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -41,16 +42,21 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.PrevResultLoadBtn = new System.Windows.Forms.Button();
             this.btnLoadParameters = new System.Windows.Forms.Button();
             this.StopButton = new System.Windows.Forms.Button();
-            this.txbStartStep = new TextBoxEx(this.components);            this.btnGenTCF = new System.Windows.Forms.Button();
+            this.txbStartStep = new UserControlsEx.TextBoxEx(this.components);
+            this.btnGenTCF = new System.Windows.Forms.Button();
             this.StartButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.txbMaxStep = new TextBoxEx(this.components);            this.txbMinStep = new TextBoxEx(this.components);            this.chbAddByTaskConditions = new System.Windows.Forms.CheckBox();
+            this.txbMaxStep = new UserControlsEx.TextBoxEx(this.components);
+            this.txbMinStep = new UserControlsEx.TextBoxEx(this.components);
+            this.chbAddByTaskConditions = new System.Windows.Forms.CheckBox();
             this.btnClearAllTask = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.txbStartTime = new TextBoxEx(this.components);            this.label9 = new System.Windows.Forms.Label();
-            this.txbStopTime = new TextBoxEx(this.components);            this.label10 = new System.Windows.Forms.Label();
+            this.txbStartTime = new UserControlsEx.TextBoxEx(this.components);
+            this.label9 = new System.Windows.Forms.Label();
+            this.txbStopTime = new UserControlsEx.TextBoxEx(this.components);
+            this.label10 = new System.Windows.Forms.Label();
             this.grbTaskKind = new System.Windows.Forms.GroupBox();
             this.chbFurtherComp = new System.Windows.Forms.CheckBox();
             this.cmbHardnessTask = new System.Windows.Forms.CheckBox();
@@ -62,7 +68,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.chbTermoTask = new System.Windows.Forms.CheckBox();
             this.chbChemicalTask = new System.Windows.Forms.CheckBox();
             this.chbLinkedCalc = new System.Windows.Forms.CheckBox();
-            this.grbTaskSettings = new GroupBoxEx();
+            this.grbTaskSettings = new UserControlsEx.GroupBoxEx();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -98,12 +104,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.Settings,
             this.Time});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(7, 379);
+            this.dataGridView.Location = new System.Drawing.Point(7, 376);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(686, 341);
+            this.dataGridView.Size = new System.Drawing.Size(686, 344);
             this.dataGridView.TabIndex = 14;
             this.dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -163,7 +169,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.groupBox1.Location = new System.Drawing.Point(7, 144);
+            this.groupBox1.Location = new System.Drawing.Point(7, 141);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
@@ -174,7 +180,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             // btnAddNewTask
             // 
-            this.btnAddNewTask.AutoSize = true;
+            this.btnAddNewTask.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAddNewTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnAddNewTask.Image = global::TaskModule.Properties.Resources.Add;
@@ -183,7 +189,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnAddNewTask.Name = "btnAddNewTask";
             this.btnAddNewTask.Size = new System.Drawing.Size(28, 28);
             this.btnAddNewTask.TabIndex = 132;
-            this.btnAddNewTask.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAddNewTask.Text = "  a_p";
             this.btnAddNewTask.UseVisualStyleBackColor = true;
             this.btnAddNewTask.Click += new System.EventHandler(this.AddButton_Click);
             // 
@@ -242,14 +248,18 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbStartStep.BackColor = System.Drawing.SystemColors.Window;
             this.txbStartStep.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartStep.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txbStartStep.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));            this.txbStartStep.IsValidating = true;            this.txbStartStep.Location = new System.Drawing.Point(190, 80);
+            this.txbStartStep.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
+            this.txbStartStep.IsValidating = true;
+            this.txbStartStep.Location = new System.Drawing.Point(190, 80);
             this.txbStartStep.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStartStep.Name = "txbStartStep";
             this.txbStartStep.Size = new System.Drawing.Size(476, 20);
             this.txbStartStep.TabIndex = 76;
             this.txbStartStep.Tag = "2";
             this.txbStartStep.Text = "0.1";
-            this.txbStartStep.UserRegExCheck = null;            this.txbStartStep.UserRegExCheckErrorMessage = null;            // 
+            this.txbStartStep.UserRegExCheck = null;
+            this.txbStartStep.UserRegExCheckErrorMessage = null;
+            // 
             // btnGenTCF
             // 
             this.btnGenTCF.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -329,14 +339,18 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbMaxStep.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbMaxStep.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txbMaxStep.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txbMaxStep.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));            this.txbMaxStep.IsValidating = true;            this.txbMaxStep.Location = new System.Drawing.Point(190, 132);
+            this.txbMaxStep.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
+            this.txbMaxStep.IsValidating = true;
+            this.txbMaxStep.Location = new System.Drawing.Point(190, 132);
             this.txbMaxStep.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbMaxStep.Name = "txbMaxStep";
             this.txbMaxStep.Size = new System.Drawing.Size(476, 20);
             this.txbMaxStep.TabIndex = 74;
             this.txbMaxStep.Tag = "4";
             this.txbMaxStep.Text = "100";
-            this.txbMaxStep.UserRegExCheck = null;            this.txbMaxStep.UserRegExCheckErrorMessage = null;            // 
+            this.txbMaxStep.UserRegExCheck = null;
+            this.txbMaxStep.UserRegExCheckErrorMessage = null;
+            // 
             // txbMinStep
             // 
             this.txbMinStep.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -344,14 +358,18 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbMinStep.BackColor = System.Drawing.SystemColors.Window;
             this.txbMinStep.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbMinStep.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txbMinStep.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));            this.txbMinStep.IsValidating = true;            this.txbMinStep.Location = new System.Drawing.Point(190, 106);
+            this.txbMinStep.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
+            this.txbMinStep.IsValidating = true;
+            this.txbMinStep.Location = new System.Drawing.Point(190, 106);
             this.txbMinStep.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbMinStep.Name = "txbMinStep";
             this.txbMinStep.Size = new System.Drawing.Size(476, 20);
             this.txbMinStep.TabIndex = 75;
             this.txbMinStep.Tag = "3";
             this.txbMinStep.Text = "0.00001";
-            this.txbMinStep.UserRegExCheck = null;            this.txbMinStep.UserRegExCheckErrorMessage = null;            // 
+            this.txbMinStep.UserRegExCheck = null;
+            this.txbMinStep.UserRegExCheckErrorMessage = null;
+            // 
             // chbAddByTaskConditions
             // 
             this.chbAddByTaskConditions.AutoSize = true;
@@ -365,7 +383,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             // btnClearAllTask
             // 
-            this.btnClearAllTask.AutoSize = true;
+            this.btnClearAllTask.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClearAllTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAllTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnClearAllTask.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAllTask.Image")));
@@ -374,13 +392,13 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnClearAllTask.Name = "btnClearAllTask";
             this.btnClearAllTask.Size = new System.Drawing.Size(28, 28);
             this.btnClearAllTask.TabIndex = 53;
-            this.btnClearAllTask.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnClearAllTask.Text = "  d_p";
             this.btnClearAllTask.UseVisualStyleBackColor = true;
             this.btnClearAllTask.Click += new System.EventHandler(this.ClearAllDataButton_Click);
             // 
             // btnRefresh
             // 
-            this.btnRefresh.AutoSize = true;
+            this.btnRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRefresh.Enabled = false;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
@@ -390,7 +408,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(28, 28);
             this.btnRefresh.TabIndex = 53;
-            this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnRefresh.Text = "  r_p";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
@@ -401,13 +419,17 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbStartTime.BackColor = System.Drawing.SystemColors.Window;
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txbStartTime.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));            this.txbStartTime.IsValidating = true;            this.txbStartTime.Location = new System.Drawing.Point(190, 28);
+            this.txbStartTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
+            this.txbStartTime.IsValidating = true;
+            this.txbStartTime.Location = new System.Drawing.Point(190, 28);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 15, 20, 3);
             this.txbStartTime.Name = "txbStartTime";
             this.txbStartTime.Size = new System.Drawing.Size(476, 20);
             this.txbStartTime.TabIndex = 44;
             this.txbStartTime.Tag = "0";
-            this.txbStartTime.UserRegExCheck = null;            this.txbStartTime.UserRegExCheckErrorMessage = null;            // 
+            this.txbStartTime.UserRegExCheck = null;
+            this.txbStartTime.UserRegExCheckErrorMessage = null;
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -427,13 +449,17 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbStopTime.BackColor = System.Drawing.SystemColors.Window;
             this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStopTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txbStopTime.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));            this.txbStopTime.IsValidating = true;            this.txbStopTime.Location = new System.Drawing.Point(190, 54);
+            this.txbStopTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
+            this.txbStopTime.IsValidating = true;
+            this.txbStopTime.Location = new System.Drawing.Point(190, 54);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStopTime.Name = "txbStopTime";
             this.txbStopTime.Size = new System.Drawing.Size(476, 20);
             this.txbStopTime.TabIndex = 40;
             this.txbStopTime.Tag = "1";
-            this.txbStopTime.UserRegExCheck = null;            this.txbStopTime.UserRegExCheckErrorMessage = null;            // 
+            this.txbStopTime.UserRegExCheck = null;
+            this.txbStopTime.UserRegExCheckErrorMessage = null;
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -593,9 +619,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.grbTaskSettings.IsRollable = true;
             this.grbTaskSettings.Location = new System.Drawing.Point(7, 115);
             this.grbTaskSettings.Margin = new System.Windows.Forms.Padding(7);
-            this.grbTaskSettings.MinimumSize = new System.Drawing.Size(0, 15);
+            this.grbTaskSettings.MinimumSize = new System.Drawing.Size(0, 12);
             this.grbTaskSettings.Name = "grbTaskSettings";
-            this.grbTaskSettings.Size = new System.Drawing.Size(686, 15);
+            this.grbTaskSettings.Padding = new System.Windows.Forms.Padding(0);
+            this.grbTaskSettings.Size = new System.Drawing.Size(686, 12);
             this.grbTaskSettings.TabIndex = 13;
             this.grbTaskSettings.TabStop = false;
             this.grbTaskSettings.Text = "Настройки расчета";
@@ -625,17 +652,22 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private System.Windows.Forms.Button PrevResultLoadBtn;
         private System.Windows.Forms.Button btnLoadParameters;
         private System.Windows.Forms.Button StopButton;
-        private TextBoxEx txbStartStep;        private System.Windows.Forms.Button btnGenTCF;
+        private TextBoxEx txbStartStep;
+        private System.Windows.Forms.Button btnGenTCF;
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
-        private TextBoxEx txbMaxStep;        private TextBoxEx txbMinStep;        private System.Windows.Forms.CheckBox chbAddByTaskConditions;
+        private TextBoxEx txbMaxStep;
+        private TextBoxEx txbMinStep;
+        private System.Windows.Forms.CheckBox chbAddByTaskConditions;
         private System.Windows.Forms.Button btnClearAllTask;
         private System.Windows.Forms.Button btnRefresh;
-        private TextBoxEx txbStartTime;        private System.Windows.Forms.Label label9;
-        private TextBoxEx txbStopTime;        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.DataGridView dataGridView;
+        private TextBoxEx txbStartTime;
+        private System.Windows.Forms.Label label9;
+        private TextBoxEx txbStopTime;
+        private System.Windows.Forms.Label label10;
+        private DataGridViewEx dataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn Kind;
         private System.Windows.Forms.DataGridViewTextBoxColumn Settings;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Time;

@@ -4,13 +4,16 @@ using ModelControllerInterfaces;
 using ModelInterfaces;
 using ModelInterfaces.GeometryObjects;
 using ModelInterfaces.MeshObjects;
+using Newtonsoft.Json.Linq;
 using ProjectInterfaces;
+using Scene;
 using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace BaseModule
@@ -327,43 +330,47 @@ namespace BaseModule
             }
         }
 
-        private void SelectionControl_SelectInPlain(object arg1, SelectInPlainEventArgs arg2)
+        private async void SelectionControl_SelectInPlain(object arg1, SelectInPlainEventArgs arg2)
         {
             var scenePage = basePage.ScenePage;
             var consoleControl = basePage.ConsoleControl;
             try
             {
-                //var selectHelper = new SelectionHelper(ModelData.ObjectData);
-
-                var objs = ModelData.ObjectData.GetObjects(arg2.ObjsType).Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToList();
-
-                if (arg2.ObjsType == ObjType.Узел)
+                if (arg2.ObjsType == scenePage.SelectedObjects)
                 {
-                    if (objs.Count > 2)
+                    var result = await basePage.SelectObjectsAsync(scenePage.SelectedObjects);
+                    var objs = result as IEnumerable<IModelObject>;
+                    
+                    if (scenePage.SelectedObjects == ObjType.Узел)
                     {
-                        var n1 = (INode)objs[0];
-                        var n2 = (INode)objs[1];
-                        var n3 = (INode)objs[2];
 
-                        var plane = new Plane(n1.Position, n2.Position, n3.Position);
-                        ModelController.SelectionHelper.SelectNodeInPlane(ModelData.ObjectData,
-                            plane, scenePage.SceneControl.SelectionColor);
-                        scenePage.SetObjectsSceneColor(ObjType.Узел);
+                        if (objs?.Count() > 2)
+                        {
+                            var n1 = (INode)objs.First();
+                            var n2 = (INode)objs.Skip(1).First();
+                            var n3 = (INode)objs.Skip(2).First();
+
+                            var plane = new Plane(n1.Position, n2.Position, n3.Position);
+                            ModelController.SelectionHelper.SelectNodeInPlane(ModelData.ObjectData,
+                                plane, scenePage.SceneControl.SelectionColor);
+                            scenePage.SetObjectsSceneColor(ObjType.Узел);
+                        }
+                        else consoleControl.PrintInfo("Не выбрано три узла", Color.Red);
+
                     }
-                }
-                else
-                {
-                    if (objs.Count > 0)
+                    else
                     {
-                        var element = objs.Last();
-                        ModelController.SelectionHelper.SelectE2DInPlane(ModelData.ObjectData,
-                            arg2.Angle, element.Number, scenePage.SceneControl.SelectionColor);
-                        scenePage.SetObjectsSceneColor(ObjType.Элемент2D);
+                        if (objs?.Count() > 0)
+                        {
+                            var element = objs.Last();
+                            ModelController.SelectionHelper.SelectE2DInPlane(ModelData.ObjectData,
+                                arg2.Angle, element.Number, scenePage.SceneControl.SelectionColor);
+                            scenePage.SetObjectsSceneColor(ObjType.Элемент2D);
+                        }
                     }
+
+                    scenePage.SceneControl.DisplayObjects();
                 }
-
-                scenePage.SceneControl.DisplayObjects();
-
             }
             catch (Exception ex)
             {
@@ -372,35 +379,39 @@ namespace BaseModule
 
         }
 
-        private void SelectionControl_SelectInDirection(object arg1, SelectInDirectionEventArgs arg2)
+        private async void SelectionControl_SelectInDirection(object arg1, SelectInDirectionEventArgs arg2)
         {
             var scenePage = basePage.ScenePage;
             var consoleControl = basePage.ConsoleControl;
             try
             {
-                //var selectHelper = new SelectionHelper(ModelData.ObjectData);
-
-                var objs = ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
-                var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
-                if (selObjs.Length > 1)
+                if (arg2.ObjsType == scenePage.SelectedObjects)
                 {
-                    if (!arg2.Reverse)
+                    var result = await basePage.SelectObjectsAsync(scenePage.SelectedObjects);
+                    var objs = result as IEnumerable<IModelObject>;
+
+                    //var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
+                    if (objs?.Count() > 1)
                     {
-                        ModelController.SelectionHelper.SelectNodeInDirection(ModelData.ObjectData,
-                            arg2.Angle, selObjs[selObjs.Length - 2].Number, selObjs[selObjs.Length - 1].Number, scenePage.SceneControl.SelectionColor);
+                        if (!arg2.Reverse)
+                        {
+                            ModelController.SelectionHelper.SelectNodeInDirection(ModelData.ObjectData,
+                                arg2.Angle, objs.Skip(1).First().Number, objs.First().Number, scenePage.SceneControl.SelectionColor);
+                        }
+
+                        else
+                        {
+                            ModelController.SelectionHelper.SelectNodeInDirection(ModelData.ObjectData,
+                                arg2.Angle, objs.First().Number, objs.Skip(1).First().Number, scenePage.SceneControl.SelectionColor);
+                        }
+
+                        //selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
+                        scenePage.SetObjectsSceneColor(scenePage.SelectedObjects);
+
+                        scenePage.SceneControl.DisplayObjects();
                     }
-
-                    else
-                    {
-                        ModelController.SelectionHelper.SelectNodeInDirection(ModelData.ObjectData,
-                            arg2.Angle, selObjs[selObjs.Length - 1].Number, selObjs[selObjs.Length - 2].Number, scenePage.SceneControl.SelectionColor);
-                    }
-
-                    //selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
-                    scenePage.SetObjectsSceneColor(scenePage.SelectedObjects);
-
-                    scenePage.SceneControl.DisplayObjects();
                 }
+                    
             }
             catch (Exception ex)
             {
@@ -434,7 +445,7 @@ namespace BaseModule
                 var form = new Form()
                 {
                     Name = "selectForm",
-                    Text = "Выбрать",
+                    Text = "Дополненный выбор",
                     AutoSize = false,
                     ShowIcon = false,
                     TopMost = true,
@@ -442,24 +453,28 @@ namespace BaseModule
                 };
 
                 form.FormClosing += (s1, s2) => { btn.Checked = false; };
-                var selectionControl = new SelectionSet() { Dock = DockStyle.Fill };
+                var selectionControl = new AdvanceSelectionSet() { Dock = DockStyle.Fill };
                 selectionControl.SelectInDirection += SelectionControl_SelectInDirection;
                 selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
                 selectionControl.SelectNodes += (s1, s2) =>
                 {
-                    //selectStrip.SelectObjectsType = ObjType.Узел;
-                    var size = form.Size;
-                    basePage.ConsoleControl.PrintInfo("Выберите два узла для направления или три для плоскости", Color.Black);
+                    basePage.ScenePage.SelectedObjects = ObjType.Узел;
+                    spbSelectObject.ToolTipText = ObjType.Узел.ToString();
+                    spbSelectObject.Invalidate();
                 };
+
                 selectionControl.SelectElements += (s1, s2) =>
                 {
-                    //selectStrip.SelectObjectsType = ObjType.Элемент2D;
-                    basePage.ConsoleControl.PrintInfo("Выберите плоский элемент \"2D\"", Color.Black);
+                    basePage.ScenePage.SelectedObjects = ObjType.Элемент2D;
+                    spbSelectObject.ToolTipText = ObjType.Элемент2D.ToString();
+                    spbSelectObject.Invalidate();
                 };
+
                 form.ClientSize = selectionControl.Size;
                 form.Controls.Add(selectionControl);
                 form.Show();
-
+                var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+                form.Location = location;
             }
             else
             {
@@ -589,6 +604,8 @@ namespace BaseModule
                     };
 
                     form.Show();
+                    var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+                    form.Location = location;
                 }
             }
             catch (Exception ex)
@@ -609,7 +626,7 @@ namespace BaseModule
                     var form = new Form()
                     {
                         Name = "measureForm",
-                        Text = "Измерить",
+                        Text = "Панель измерений",
                         ShowIcon = false,
                         Owner = Application.OpenForms[0],
                         TopMost = true
@@ -636,6 +653,8 @@ namespace BaseModule
                     form.Controls.Add(measuringControl);
 
                     form.Show();
+                    var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+                    form.Location = location;
                 }
                 else
                 {

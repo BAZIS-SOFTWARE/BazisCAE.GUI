@@ -32,6 +32,7 @@ namespace BaseModule
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolStripPage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
+            this.splitContainerEx = new UserControlsEx.SplitContainerEx();
             this.selectToolStrip = new UserControlsEx.ToolStripEx();
             this.spbSelectObject = new System.Windows.Forms.ToolStripSplitButton();
             this.btnSelectNodes = new System.Windows.Forms.ToolStripButton();
@@ -65,6 +66,9 @@ namespace BaseModule
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).BeginInit();
+            this.splitContainerEx.Panel1.SuspendLayout();
+            this.splitContainerEx.SuspendLayout();
             this.selectToolStrip.SuspendLayout();
             this.instrumentalToolStrip.SuspendLayout();
             this.viewToolStrip.SuspendLayout();
@@ -76,7 +80,7 @@ namespace BaseModule
             // 
             // toolStripContainer.ContentPanel
             // 
-            this.toolStripContainer.ContentPanel.Controls.Add(this.basePage);
+            this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainerEx);
             this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1149, 583);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(5, 5);
@@ -93,6 +97,23 @@ namespace BaseModule
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.viewToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
             this.toolStripContainer.TopToolStripPanel.MaximumSize = new System.Drawing.Size(0, 80);
+            // 
+            // splitContainerEx
+            // 
+            this.splitContainerEx.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerEx.IncrementButtonSize = new System.Drawing.Size(50, 5);
+            this.splitContainerEx.IncrementShifting = 50;
+            this.splitContainerEx.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerEx.Name = "splitContainerEx";
+            // 
+            // splitContainerEx.Panel1
+            // 
+            this.splitContainerEx.Panel1.Controls.Add(this.basePage);
+            this.splitContainerEx.Panel2Collapsed = true;
+            this.splitContainerEx.Size = new System.Drawing.Size(1149, 583);
+            this.splitContainerEx.SplitterDistance = 662;
+            this.splitContainerEx.SwitchShifting = false;
+            this.splitContainerEx.TabIndex = 1;
             // 
             // selectToolStrip
             // 
@@ -118,7 +139,7 @@ namespace BaseModule
             this.selectToolStrip.Location = new System.Drawing.Point(3, 0);
             this.selectToolStrip.Name = "selectToolStrip";
             this.selectToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.selectToolStrip.Size = new System.Drawing.Size(298, 56);
+            this.selectToolStrip.Size = new System.Drawing.Size(329, 56);
             this.selectToolStrip.SplitButtonClickWidth = 16;
             this.selectToolStrip.SplitButtonHeight = 36;
             this.selectToolStrip.SplitButtonTriangleSize = 7;
@@ -197,6 +218,7 @@ namespace BaseModule
             this.btnAdvanceSelection.Size = new System.Drawing.Size(36, 53);
             this.btnAdvanceSelection.Tag = "4";
             this.btnAdvanceSelection.Text = "toolStripButton1";
+            this.btnAdvanceSelection.ToolTipText = "Продвинутый выбор";
             this.btnAdvanceSelection.Click += new System.EventHandler(this.btnAdvanceSelection_Click);
             // 
             // instrumentalToolStrip
@@ -218,7 +240,7 @@ namespace BaseModule
             this.btnScreenShot});
             this.instrumentalToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
             this.instrumentalToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.instrumentalToolStrip.Location = new System.Drawing.Point(301, 0);
+            this.instrumentalToolStrip.Location = new System.Drawing.Point(332, 0);
             this.instrumentalToolStrip.Name = "instrumentalToolStrip";
             this.instrumentalToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.instrumentalToolStrip.Size = new System.Drawing.Size(112, 56);
@@ -243,6 +265,7 @@ namespace BaseModule
             this.btnMeasuring.Size = new System.Drawing.Size(36, 53);
             this.btnMeasuring.Tag = "0";
             this.btnMeasuring.Text = "toolStripButton14";
+            this.btnMeasuring.ToolTipText = "Измерить";
             this.btnMeasuring.Click += new System.EventHandler(this.btnMeasuring_Click);
             // 
             // btnCrossSection
@@ -258,6 +281,7 @@ namespace BaseModule
             this.btnCrossSection.Size = new System.Drawing.Size(36, 53);
             this.btnCrossSection.Tag = "1";
             this.btnCrossSection.Text = "toolStripButton15";
+            this.btnCrossSection.ToolTipText = "Сделать сечение";
             this.btnCrossSection.Click += new System.EventHandler(this.btnCrossSection_Click);
             // 
             // btnScreenShot
@@ -272,6 +296,7 @@ namespace BaseModule
             this.btnScreenShot.Size = new System.Drawing.Size(36, 53);
             this.btnScreenShot.Tag = "2";
             this.btnScreenShot.Text = "toolStripButton16";
+            this.btnScreenShot.ToolTipText = "Снимок экрана";
             this.btnScreenShot.Click += new System.EventHandler(this.btnScreenShot_Click);
             // 
             // viewToolStrip
@@ -298,7 +323,7 @@ namespace BaseModule
             this.btnSetRotVer90,
             this.btnFitObjs});
             this.viewToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.viewToolStrip.Location = new System.Drawing.Point(413, 0);
+            this.viewToolStrip.Location = new System.Drawing.Point(444, 0);
             this.viewToolStrip.Name = "viewToolStrip";
             this.viewToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.viewToolStrip.Size = new System.Drawing.Size(328, 56);
@@ -323,6 +348,7 @@ namespace BaseModule
             this.btnSetXY.Size = new System.Drawing.Size(36, 53);
             this.btnSetXY.Tag = "0";
             this.btnSetXY.Text = "toolStripButton5";
+            this.btnSetXY.ToolTipText = "Плоскость XY";
             // 
             // btnSetZX
             // 
@@ -336,6 +362,7 @@ namespace BaseModule
             this.btnSetZX.Size = new System.Drawing.Size(36, 53);
             this.btnSetZX.Tag = "1";
             this.btnSetZX.Text = "toolStripButton6";
+            this.btnSetZX.ToolTipText = "Плоскость ZX";
             // 
             // btnSetZY
             // 
@@ -349,6 +376,7 @@ namespace BaseModule
             this.btnSetZY.Size = new System.Drawing.Size(36, 53);
             this.btnSetZY.Tag = "2";
             this.btnSetZY.Text = "toolStripButton7";
+            this.btnSetZY.ToolTipText = "Плоскость ZY";
             // 
             // btnSetRotX
             // 
@@ -363,6 +391,7 @@ namespace BaseModule
             this.btnSetRotX.Size = new System.Drawing.Size(36, 53);
             this.btnSetRotX.Tag = "3";
             this.btnSetRotX.Text = "toolStripButton8";
+            this.btnSetRotX.ToolTipText = "Вращение  по X";
             this.btnSetRotX.Click += new System.EventHandler(this.btnSetRotAxis_Click);
             // 
             // btnSetRotY
@@ -378,6 +407,7 @@ namespace BaseModule
             this.btnSetRotY.Size = new System.Drawing.Size(36, 53);
             this.btnSetRotY.Tag = "4";
             this.btnSetRotY.Text = "toolStripButton9";
+            this.btnSetRotY.ToolTipText = "Вращение  по Y";
             this.btnSetRotY.Click += new System.EventHandler(this.btnSetRotAxis_Click);
             // 
             // btnSetRotZ
@@ -393,6 +423,7 @@ namespace BaseModule
             this.btnSetRotZ.Size = new System.Drawing.Size(36, 53);
             this.btnSetRotZ.Tag = "5";
             this.btnSetRotZ.Text = "toolStripButton10";
+            this.btnSetRotZ.ToolTipText = "Вращение  по Z";
             this.btnSetRotZ.Click += new System.EventHandler(this.btnSetRotAxis_Click);
             // 
             // btnSetRotHor90
@@ -407,6 +438,7 @@ namespace BaseModule
             this.btnSetRotHor90.Size = new System.Drawing.Size(36, 53);
             this.btnSetRotHor90.Tag = "6";
             this.btnSetRotHor90.Text = "toolStripButton11";
+            this.btnSetRotHor90.ToolTipText = "Поворот по горизонтали";
             // 
             // btnSetRotVer90
             // 
@@ -420,6 +452,7 @@ namespace BaseModule
             this.btnSetRotVer90.Size = new System.Drawing.Size(36, 53);
             this.btnSetRotVer90.Tag = "7";
             this.btnSetRotVer90.Text = "toolStripButton12";
+            this.btnSetRotVer90.ToolTipText = "Поворот по вертикали";
             // 
             // btnFitObjs
             // 
@@ -433,6 +466,7 @@ namespace BaseModule
             this.btnFitObjs.Size = new System.Drawing.Size(36, 53);
             this.btnFitObjs.Tag = "8";
             this.btnFitObjs.Text = "toolStripButton13";
+            this.btnFitObjs.ToolTipText = "Вписать в экран";
             // 
             // displayToolStrip
             // 
@@ -457,7 +491,7 @@ namespace BaseModule
             this.btnShowNormals,
             this.btnShowCountours});
             this.displayToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.displayToolStrip.Location = new System.Drawing.Point(741, 0);
+            this.displayToolStrip.Location = new System.Drawing.Point(772, 0);
             this.displayToolStrip.Name = "displayToolStrip";
             this.displayToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.displayToolStrip.Size = new System.Drawing.Size(292, 56);
@@ -482,6 +516,7 @@ namespace BaseModule
             this.btnShowAll.Size = new System.Drawing.Size(36, 53);
             this.btnShowAll.Tag = "0";
             this.btnShowAll.Text = "toolStripButton17";
+            this.btnShowAll.ToolTipText = "Показывать все объекты";
             // 
             // btnShowOpenSurfaces
             // 
@@ -495,6 +530,7 @@ namespace BaseModule
             this.btnShowOpenSurfaces.Size = new System.Drawing.Size(36, 53);
             this.btnShowOpenSurfaces.Tag = "1";
             this.btnShowOpenSurfaces.Text = "toolStripButton18";
+            this.btnShowOpenSurfaces.ToolTipText = "Показывать только поверхности";
             // 
             // btnShowSurfaceAndRibbers
             // 
@@ -509,6 +545,7 @@ namespace BaseModule
             this.btnShowSurfaceAndRibbers.Tag = "2";
             this.btnShowSurfaceAndRibbers.Text = "toolStripButton19";
             this.btnShowSurfaceAndRibbers.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnShowSurfaceAndRibbers.ToolTipText = "Ребра и поверхности";
             // 
             // btnShowRibbers
             // 
@@ -522,6 +559,7 @@ namespace BaseModule
             this.btnShowRibbers.Size = new System.Drawing.Size(36, 53);
             this.btnShowRibbers.Tag = "3";
             this.btnShowRibbers.Text = "toolStripButton20";
+            this.btnShowRibbers.ToolTipText = "Ребра";
             // 
             // btnShowSurfaces
             // 
@@ -535,6 +573,7 @@ namespace BaseModule
             this.btnShowSurfaces.Size = new System.Drawing.Size(36, 53);
             this.btnShowSurfaces.Tag = "4";
             this.btnShowSurfaces.Text = "toolStripButton21";
+            this.btnShowSurfaces.ToolTipText = "Поверхности";
             // 
             // btnShowBasis
             // 
@@ -551,6 +590,7 @@ namespace BaseModule
             this.btnShowBasis.Size = new System.Drawing.Size(36, 53);
             this.btnShowBasis.Tag = "5";
             this.btnShowBasis.Text = "toolStripButton22";
+            this.btnShowBasis.ToolTipText = "Базис СК";
             this.btnShowBasis.Click += new System.EventHandler(this.btnShowBasis_Click);
             // 
             // btnShowNormals
@@ -566,6 +606,7 @@ namespace BaseModule
             this.btnShowNormals.Size = new System.Drawing.Size(36, 53);
             this.btnShowNormals.Tag = "6";
             this.btnShowNormals.Text = "toolStripButton23";
+            this.btnShowNormals.ToolTipText = "Показать нормали";
             this.btnShowNormals.Click += new System.EventHandler(this.btnShowNormals_Click);
             // 
             // btnShowCountours
@@ -581,6 +622,7 @@ namespace BaseModule
             this.btnShowCountours.Size = new System.Drawing.Size(36, 53);
             this.btnShowCountours.Tag = "7";
             this.btnShowCountours.Text = "toolStripButton24";
+            this.btnShowCountours.ToolTipText = "Показать контуры";
             this.btnShowCountours.Click += new System.EventHandler(this.btnShowCountours_Click);
             // 
             // basePage
@@ -616,6 +658,9 @@ namespace BaseModule
             this.toolStripContainer.TopToolStripPanel.PerformLayout();
             this.toolStripContainer.ResumeLayout(false);
             this.toolStripContainer.PerformLayout();
+            this.splitContainerEx.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).EndInit();
+            this.splitContainerEx.ResumeLayout(false);
             this.selectToolStrip.ResumeLayout(false);
             this.selectToolStrip.PerformLayout();
             this.instrumentalToolStrip.ResumeLayout(false);
@@ -661,6 +706,7 @@ namespace BaseModule
         public UserControlsEx.ToolStripEx displayToolStrip;
         public UserControlsEx.ToolStripEx viewToolStrip;
         protected BasePage basePage;
+        public UserControlsEx.SplitContainerEx splitContainerEx;
         //private BasePage basePage;
     }
 }

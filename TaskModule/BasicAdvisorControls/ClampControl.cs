@@ -5,13 +5,12 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.BasicAdvisorControls
 {
-    public partial class ClampControl : CheckedGridViewAdviserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
+    public partial class ClampControl : UserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
         [Category("Images")]
         [Description("Set image for add button")]
@@ -56,6 +55,10 @@ namespace TaskModule.BasicAdvisorControls
         public event Action<object, ShowDataEventArgs> ShowDataEvent;
         public event Action<object, HideDataEventArgs> HideDataEvent;
         public event Action<object, CheckDataEventArgs> CheckDataEvent;
+        public event Action<object, AddDataEventArgs> AddDataEvent;
+        public event Action<object, DeleteDataEventArgs> DeleteDataEvent;
+        public event Action<object, ChangeDataEventArgs> ChangeDataEvent;
+        public event Action<object, DeleteAllDataEventArgs> DeleteAllDataEvent;
 
         enum Column : int { node,kind, direction, function,startTime, stopTime };
         //enum Kind : int { rigid, elastic = 1, contact, simmetry = 2 };
@@ -70,7 +73,7 @@ namespace TaskModule.BasicAdvisorControls
             DataName = "Закрепление";
         }
 
-        public override string DataName { get; }
+        public string DataName { get; }
 
         public void Fill_nGroups(List<string> nGroups)
         {
@@ -141,9 +144,9 @@ namespace TaskModule.BasicAdvisorControls
 
         public void ShowDataButton_Click(object sender, EventArgs e)
         {
-            if (CountSelectedRow > 0)
+            if (dgvControl.SelectedRows.Count > 0)
             {
-                ShowDataEvent(this, new ShowDataEventArgs(DataName, GetSelectedRowIndexes().ToList()));
+                ShowDataEvent(this, new ShowDataEventArgs(DataName, dgvControl.GetSelectedRowIndexes().ToList()));
             }
         }
 
@@ -153,7 +156,7 @@ namespace TaskModule.BasicAdvisorControls
         }
 
 
-        public override void AddButton_Click(object sender, EventArgs e)
+        public void AddButton_Click(object sender, EventArgs e)
         {
             if (!IsValidated()) return;
 
@@ -175,8 +178,9 @@ namespace TaskModule.BasicAdvisorControls
 
                 foreach (var row in rows)
                 {
-                    CurentSelectedRowInfo = row;
-                    base.AddButton_Click(sender, e);
+                    //dgvControl.CurentSelectedRowInfo = row;
+                    AddDataEvent(this, new AddDataEventArgs(DataName, row));
+                    //base.AddButton_Click(sender, e);
                 }
                 btnRefresh.Enabled = false;
             }
@@ -193,7 +197,7 @@ namespace TaskModule.BasicAdvisorControls
                     cmbNodeGr.Text, cmbKind.Text, direction, stiffnessFunc, txbStartTime.Text, txbStopTime.Text);
         }
 
-        public override void RefreshButton_Click(object sender, EventArgs e)
+        public void RefreshButton_Click(object sender, EventArgs e)
         {
             if (!IsValidated()) return;
 
@@ -211,8 +215,9 @@ namespace TaskModule.BasicAdvisorControls
                 if (direction.Length == 0 | direction.Length > 1)
                     throw new Exception("Для обновления данных должно быть только одно направление!");
 
-                CurentSelectedRowInfo = CreateRowInfo(direction);
-                base.RefreshButton_Click(sender, e);
+                var rowInfo = CreateRowInfo(direction);
+                var count = dgvControl.Rows.Count;
+                ChangeDataEvent(this, new ChangeDataEventArgs(DataName, dgvControl.CurentSelectedRowIndex, rowInfo));
 
                 btnRefresh.Enabled = false;
             }
@@ -223,13 +228,13 @@ namespace TaskModule.BasicAdvisorControls
 
         }
 
-        public override void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        public void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             try
             {
-                cmbNodeGr.Text = dataGridView[(int)Column.node, e.RowIndex].Value.ToString();
+                cmbNodeGr.Text = dgvControl[(int)Column.node, e.RowIndex].Value.ToString();
 
-                var directions = dataGridView[(int)Column.direction, e.RowIndex].Value.ToString();
+                var directions = dgvControl[(int)Column.direction, e.RowIndex].Value.ToString();
 
                 if (directions == "X")
                 { chbX.Checked = true; chbY.Checked = false; chbZ.Checked = false; chbLRF.Checked = false; }
@@ -238,9 +243,9 @@ namespace TaskModule.BasicAdvisorControls
                 else
                 { chbZ.Checked = true; chbX.Checked = false; chbY.Checked = false; chbLRF.Checked = false; }
 
-                cmbKind.Text = dataGridView[(int)Column.kind, e.RowIndex].Value.ToString();
-                txbStartTime.Text = dataGridView[(int)Column.startTime, e.RowIndex].Value.ToString();
-                txbStopTime.Text = dataGridView[(int)Column.stopTime, e.RowIndex].Value.ToString();
+                cmbKind.Text = dgvControl[(int)Column.kind, e.RowIndex].Value.ToString();
+                txbStartTime.Text = dgvControl[(int)Column.startTime, e.RowIndex].Value.ToString();
+                txbStopTime.Text = dgvControl[(int)Column.stopTime, e.RowIndex].Value.ToString();
 
                 btnRefresh.Enabled = true;
             }
@@ -251,27 +256,29 @@ namespace TaskModule.BasicAdvisorControls
 
         }
 
-        public override void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        public void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            base.DataGridView_UserDeletingRow(sender, e);   
+            DeleteDataEvent(this, new DeleteDataEventArgs(DataName, e.Row.Index));
+            //base.DataGridView_UserDeletingRow(sender, e);   
         }
 
-        public override void ClearAllDataButton_Click(object sender, EventArgs e)
+        public void ClearAllDataButton_Click(object sender, EventArgs e)
         {
-            base.ClearAllDataButton_Click(sender, e);
+            DeleteAllDataEvent(this, new DeleteAllDataEventArgs(DataName));
+            //base.ClearAllDataButton_Click(sender, e);
         }
 
         private void player_StartCheckingEvent(object obj)
         {
-            var gridViewList = new List<DataGridView>();
-            SearchControls(this, gridViewList);
+            //var gridViewList = new List<DataGridView>();
+            //SearchControls(this, gridViewList);
 
-            if (gridViewList[0].Rows.Count > 0)
+            if (dgvControl.Rows.Count > 0)
             {
-                var checkStopTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+                var checkStopTime = dgvControl.Rows.Cast<DataGridViewRow>()
 .Max(r => Convert.ToSingle(r.Cells[(int)Column.stopTime].Value, CultureInfo.InvariantCulture));
 
-                var checkStartTime = gridViewList[0].Rows.Cast<DataGridViewRow>()
+                var checkStartTime = dgvControl.Rows.Cast<DataGridViewRow>()
                             .Min(r => Convert.ToSingle(r.Cells[(int)Column.startTime].Value, CultureInfo.InvariantCulture));
 
                 player.StartValue = (int)checkStartTime;
@@ -300,7 +307,7 @@ namespace TaskModule.BasicAdvisorControls
                 chbLRF.Checked = false;
         }
 
-        public override bool IsValidated()
+        public bool IsValidated()
         {
             var checks = new List<bool>()
             {
@@ -311,6 +318,16 @@ namespace TaskModule.BasicAdvisorControls
                 cmbStiffnessFunc.IsValueValid()
         };
             return checks.All(x => x);
+        }
+
+        public string Get_DataGridFillLine(int ind)
+        {
+            return dgvControl.Get_DataGridFillLine(ind);
+        }
+
+        public void Set_DataGridLines(IEnumerable<string> lines)
+        {
+            dgvControl.Set_DataGridLines(lines);
         }
 
         //private void cmbNodeGr_Validating(object sender, CancelEventArgs e)

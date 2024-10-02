@@ -1,4 +1,5 @@
-﻿using ModelInterfaces;
+﻿using BaseModule.Interfaces;
+using ModelInterfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +11,7 @@ using UserControlsEx;
 namespace BaseModule.Navigator
 {
     public enum ViewRegime : int { ribbers, surfaces, ribbersSurfaces };
-    public partial class NavigatorControl : UserControl
+    public partial class NavigatorControl : UserControl, IPinnedControl
     {
         Dictionary<string, int> imgDict;
 
@@ -59,7 +60,9 @@ namespace BaseModule.Navigator
         public event Action<string, ViewRegime> ChangeObjectsViewEvent;
         public event Action<string> HideObjectsEvent;
         public event Action<string> DelObjectsEvent;
-        public event Action NavigatorPanelCollapseEvent;
+        public event Action ControlCollapseEvent;
+        public event Action ControlUnpinnedEvent;
+
         public NavigatorControl()
         {
             InitializeComponent();
@@ -419,7 +422,7 @@ namespace BaseModule.Navigator
         private void grbNavigator_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Location.X > grbNavigator.Width - 16 & e.Location.X < grbNavigator.Width - 8 && e.Location.Y <= 10)
-                NavigatorPanelCollapseEvent?.Invoke();
+                ControlCollapseEvent?.Invoke();
         }
 
         private void grbNavigator_Resize(object sender, EventArgs e)

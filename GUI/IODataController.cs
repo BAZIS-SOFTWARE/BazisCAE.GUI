@@ -19,6 +19,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace BazisGUI
 {
@@ -99,7 +100,7 @@ namespace BazisGUI
 
         }
 
-        private void UpdateGeometry(GmshController gmshController, ProjectData project, ObjType objType)
+        public void UpdateGeometry(GmshController gmshController, ProjectData project, ObjType objType)
         {
             if (objType == ObjType.Точка)
             {
@@ -190,19 +191,8 @@ namespace BazisGUI
         {
             MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
             { Dock = DockStyle.Fill };
-            var mbf = new Form()
-            {
-                ShowIcon = false,
-                Text = "Загрузка данных. Пожалуйста подождите...",
-                StartPosition = FormStartPosition.Manual,
-                Location =  new System.Drawing.Point(Application.OpenForms[0].Width/2, Application.OpenForms[0].Height / 2),
-                TopMost = true,
-                FormBorderStyle = FormBorderStyle.None,
-                ClientSize = mb.Size,
-                Owner = Application.OpenForms[0]
-            };
 
-            mbf.Controls.Add(mb);
+            var mbf = CreateMessageBoxExForm(mb);
             mbf.Show();
             await Task.Run(new Action(() =>
             {
@@ -220,10 +210,50 @@ namespace BazisGUI
             mbf.Close();
         }
 
+        public async Task LoadResultsAsync(ResultData results, string fullPath)
+        {
+            MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
+            { Dock = DockStyle.Fill };
+            var mbf = CreateMessageBoxExForm(mb);
+            mbf.Show();
+            await Task.Run(new Action(() =>
+            {
+
+                results.Loader.LoadEvent += (ar1, ar2) =>
+                {
+                    mb.Invoke(new Action(() =>
+                    {
+                        mb.Message = ar2.Message;
+                    }));
+                };
+                results.Load(fullPath);
+
+            }));
+            mbf.Close();
+        }
+
+        public Form CreateMessageBoxExForm(MessageBoxEx.MessageBoxEx mb)
+        {
+            var mbf = new Form()
+            {
+                ShowIcon = false,
+                Text = "Загрузка данных. Пожалуйста подождите...",
+                StartPosition = FormStartPosition.Manual,
+                Location = new System.Drawing.Point(Application.OpenForms[0].Width / 2, Application.OpenForms[0].Height / 2),
+                TopMost = true,
+                FormBorderStyle = FormBorderStyle.None,
+                ClientSize = mb.Size,
+                Owner = Application.OpenForms[0]
+            };
+
+            mbf.Controls.Add(mb);
+            return mbf;
+        }
+
         public ProjectData CreateNewProject(string path, string name)
         {
             var project = new ProjectData(name, path);
-            project.GeneralData.Materials = "materials_v1.jsf";
+            project.GeneralData.Materials = "materials_v3.jsf";
             project.GeneralData.Functions = "functions.jsf";
             project.ModelData = new ModelData();
             project.TaskData = new TaskData();
@@ -252,6 +282,19 @@ namespace BazisGUI
 
             var path = Path.GetDirectoryName(dialog.FileName);
             var name = Path.GetFileName(dialog.FileName);
+
+            var project = CreateNewProject(path, name);
+
+            await LoadProjectAsync(project);
+
+            return project;
+
+        }
+
+        public async Task<ProjectData> OpenProject(string fullPath)
+        {
+            var path = Path.GetDirectoryName(fullPath);
+            var name = Path.GetFileName(fullPath);
 
             var project = CreateNewProject(path, name);
 

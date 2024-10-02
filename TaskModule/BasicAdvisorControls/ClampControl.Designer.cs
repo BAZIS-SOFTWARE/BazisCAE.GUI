@@ -35,42 +35,42 @@ namespace TaskModule.BasicAdvisorControls
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClampControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.player = new PlayerControl();
-            this.btnClearAll = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txbStopTime = new TextBoxEx(this.components);
-            this.btnShowAll = new System.Windows.Forms.Button();
-            this.btnHideAll = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.btnAddNewRow = new System.Windows.Forms.Button();
-            this.txbStartTime = new TextBoxEx(this.components);
-            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.dgvControl = new UserControlsEx.DataGridViewEx(this.components);
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnClearAll = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txbStopTime = new UserControlsEx.TextBoxEx(this.components);
+            this.btnShowAll = new System.Windows.Forms.Button();
+            this.btnHideAll = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnAddNewRow = new System.Windows.Forms.Button();
+            this.txbStartTime = new UserControlsEx.TextBoxEx(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cmbNodeGr = new ComboBoxEx(this.components);
+            this.cmbNodeGr = new UserControlsEx.ComboBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.cmbKind = new ComboBoxEx(this.components);
+            this.cmbKind = new UserControlsEx.ComboBoxEx(this.components);
             this.grbClampingParams = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbStiffnessFunc = new ComboBoxEx(this.components);
+            this.cmbStiffnessFunc = new UserControlsEx.ComboBoxEx(this.components);
             this.chbLRF = new System.Windows.Forms.CheckBox();
             this.chbZ = new System.Windows.Forms.CheckBox();
             this.chbY = new System.Windows.Forms.CheckBox();
             this.chbX = new System.Windows.Forms.CheckBox();
             this.закрепленияTab_элComboBox = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.player = new BaseModule.Player.PlayerControl();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvControl)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.grbClampingParams.SuspendLayout();
             this.SuspendLayout();
@@ -81,211 +81,44 @@ namespace TaskModule.BasicAdvisorControls
             this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.dgvControl, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.groupBox3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.dataGridView, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.grbClampingParams, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(601, 527);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(618, 542);
             this.tableLayoutPanel1.TabIndex = 26;
             // 
-            // groupBox3
+            // dgvControl
             // 
-            this.groupBox3.AutoSize = true;
-            this.groupBox3.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox3.Controls.Add(this.player);
-            this.groupBox3.Controls.Add(this.btnClearAll);
-            this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Controls.Add(this.label9);
-            this.groupBox3.Controls.Add(this.txbStopTime);
-            this.groupBox3.Controls.Add(this.btnShowAll);
-            this.groupBox3.Controls.Add(this.btnHideAll);
-            this.groupBox3.Controls.Add(this.btnRefresh);
-            this.groupBox3.Controls.Add(this.btnAddNewRow);
-            this.groupBox3.Controls.Add(this.txbStartTime);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox3.Location = new System.Drawing.Point(7, 222);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(7);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox3.Size = new System.Drawing.Size(587, 138);
-            this.groupBox3.TabIndex = 24;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Время действия";
-            // 
-            // player
-            // 
-            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.player.AutoSize = true;
-            this.player.CheckState = BaseModule.Player.CheckState.start;
-            this.player.CurrentValue = 0;
-            this.player.Location = new System.Drawing.Point(174, 80);
-            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.player.MinimumSize = new System.Drawing.Size(215, 45);
-            this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(398, 45);
-            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
-            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
-            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
-            this.player.SpeedValue = 500;
-            this.player.StartValue = 0;
-            this.player.StopValue = 100;
-            this.player.TabIndex = 22;
-            this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
-            this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
-            this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
-            // 
-            // btnClearAll
-            // 
-            this.btnClearAll.AutoSize = true;
-            this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAll.Image")));
-            this.btnClearAll.Location = new System.Drawing.Point(43, 80);
-            this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
-            this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(28, 28);
-            this.btnClearAll.TabIndex = 20;
-            this.btnClearAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnClearAll.UseVisualStyleBackColor = true;
-            this.btnClearAll.Click += new System.EventHandler(this.ClearAllDataButton_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(8, 57);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(58, 13);
-            this.label8.TabIndex = 4;
-            this.label8.Text = "Стоп, сек.";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(8, 31);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(63, 13);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "Старт, сек.";
-            // 
-            // txbStopTime
-            // 
-            this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStopTime.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
-            this.txbStopTime.IsValidating = true;
-            this.txbStopTime.Location = new System.Drawing.Point(170, 55);
-            this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
-            this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(397, 20);
-            this.txbStopTime.TabIndex = 1;
-            this.txbStopTime.UserRegExCheck = null;
-            this.txbStopTime.UserRegExCheckErrorMessage = null;
-            // 
-            // btnShowAll
-            // 
-            this.btnShowAll.AutoSize = true;
-            this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
-            this.btnShowAll.Location = new System.Drawing.Point(107, 80);
-            this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
-            this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(28, 28);
-            this.btnShowAll.TabIndex = 19;
-            this.btnShowAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnShowAll.UseVisualStyleBackColor = true;
-            this.btnShowAll.Click += new System.EventHandler(this.ShowDataButton_Click);
-            // 
-            // btnHideAll
-            // 
-            this.btnHideAll.AutoSize = true;
-            this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHideAll.Image = ((System.Drawing.Image)(resources.GetObject("btnHideAll.Image")));
-            this.btnHideAll.Location = new System.Drawing.Point(139, 80);
-            this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
-            this.btnHideAll.Name = "btnHideAll";
-            this.btnHideAll.Size = new System.Drawing.Size(28, 28);
-            this.btnHideAll.TabIndex = 19;
-            this.btnHideAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnHideAll.UseVisualStyleBackColor = true;
-            this.btnHideAll.Click += new System.EventHandler(this.HideAllDataButton_Click);
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.AutoSize = true;
-            this.btnRefresh.Enabled = false;
-            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
-            this.btnRefresh.Location = new System.Drawing.Point(75, 80);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(28, 28);
-            this.btnRefresh.TabIndex = 19;
-            this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
-            // 
-            // btnAddNewRow
-            // 
-            this.btnAddNewRow.AutoSize = true;
-            this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddNewRow.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewRow.Image")));
-            this.btnAddNewRow.Location = new System.Drawing.Point(11, 80);
-            this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
-            this.btnAddNewRow.Name = "btnAddNewRow";
-            this.btnAddNewRow.Size = new System.Drawing.Size(28, 28);
-            this.btnAddNewRow.TabIndex = 19;
-            this.btnAddNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnAddNewRow.UseVisualStyleBackColor = true;
-            this.btnAddNewRow.Click += new System.EventHandler(this.AddButton_Click);
-            // 
-            // txbStartTime
-            // 
-            this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbStartTime.InputType = ((TXTBoxInputType)((TXTBoxInputType.Float | TXTBoxInputType.Positive)));
-            this.txbStartTime.IsValidating = true;
-            this.txbStartTime.Location = new System.Drawing.Point(170, 29);
-            this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 15, 15, 3);
-            this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(397, 20);
-            this.txbStartTime.TabIndex = 0;
-            this.txbStartTime.UserRegExCheck = null;
-            this.txbStartTime.UserRegExCheckErrorMessage = null;
-            // 
-            // dataGridView
-            // 
-            this.dataGridView.AllowUserToAddRows = false;
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvControl.AllowUserToAddRows = false;
+            this.dgvControl.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvControl.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column9,
             this.Column10,
             this.Column12,
             this.Column1,
             this.startColumn,
             this.stopColumn});
-            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(7, 374);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.ReadOnly = true;
-            this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(587, 146);
-            this.dataGridView.TabIndex = 23;
-            this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
-            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
+            this.dgvControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvControl.Location = new System.Drawing.Point(7, 374);
+            this.dgvControl.Margin = new System.Windows.Forms.Padding(7);
+            this.dgvControl.Name = "dgvControl";
+            this.dgvControl.ReadOnly = true;
+            this.dgvControl.RowHeadersWidth = 51;
+            this.dgvControl.Size = new System.Drawing.Size(604, 161);
+            this.dgvControl.TabIndex = 23;
+            this.dgvControl.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
+            this.dgvControl.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
             // 
             // Column9
             // 
@@ -340,6 +173,150 @@ namespace TaskModule.BasicAdvisorControls
             this.stopColumn.ReadOnly = true;
             this.stopColumn.ToolTipText = "Сек.";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.AutoSize = true;
+            this.groupBox3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox3.Controls.Add(this.player);
+            this.groupBox3.Controls.Add(this.btnClearAll);
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.txbStopTime);
+            this.groupBox3.Controls.Add(this.btnShowAll);
+            this.groupBox3.Controls.Add(this.btnHideAll);
+            this.groupBox3.Controls.Add(this.btnRefresh);
+            this.groupBox3.Controls.Add(this.btnAddNewRow);
+            this.groupBox3.Controls.Add(this.txbStartTime);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox3.Location = new System.Drawing.Point(7, 222);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(7);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBox3.Size = new System.Drawing.Size(604, 138);
+            this.groupBox3.TabIndex = 24;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Время действия";
+            // 
+            // btnClearAll
+            // 
+            this.btnClearAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAll.Image")));
+            this.btnClearAll.Location = new System.Drawing.Point(43, 80);
+            this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
+            this.btnClearAll.Name = "btnClearAll";
+            this.btnClearAll.Size = new System.Drawing.Size(28, 28);
+            this.btnClearAll.TabIndex = 20;
+            this.btnClearAll.Text = "  d_c";
+            this.btnClearAll.UseVisualStyleBackColor = true;
+            this.btnClearAll.Click += new System.EventHandler(this.ClearAllDataButton_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(8, 57);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(58, 13);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Стоп, сек.";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(8, 31);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(63, 13);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "Старт, сек.";
+            // 
+            // txbStopTime
+            // 
+            this.txbStopTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txbStopTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
+            this.txbStopTime.IsValidating = true;
+            this.txbStopTime.Location = new System.Drawing.Point(170, 55);
+            this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
+            this.txbStopTime.Name = "txbStopTime";
+            this.txbStopTime.Size = new System.Drawing.Size(414, 20);
+            this.txbStopTime.TabIndex = 1;
+            this.txbStopTime.UserRegExCheck = null;
+            this.txbStopTime.UserRegExCheckErrorMessage = null;
+            // 
+            // btnShowAll
+            // 
+            this.btnShowAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
+            this.btnShowAll.Location = new System.Drawing.Point(107, 80);
+            this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
+            this.btnShowAll.Name = "btnShowAll";
+            this.btnShowAll.Size = new System.Drawing.Size(28, 28);
+            this.btnShowAll.TabIndex = 19;
+            this.btnShowAll.Text = "  s_c";
+            this.btnShowAll.UseVisualStyleBackColor = true;
+            this.btnShowAll.Click += new System.EventHandler(this.ShowDataButton_Click);
+            // 
+            // btnHideAll
+            // 
+            this.btnHideAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHideAll.Image = ((System.Drawing.Image)(resources.GetObject("btnHideAll.Image")));
+            this.btnHideAll.Location = new System.Drawing.Point(139, 80);
+            this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
+            this.btnHideAll.Name = "btnHideAll";
+            this.btnHideAll.Size = new System.Drawing.Size(28, 28);
+            this.btnHideAll.TabIndex = 19;
+            this.btnHideAll.Text = "  h_c";
+            this.btnHideAll.UseVisualStyleBackColor = true;
+            this.btnHideAll.Click += new System.EventHandler(this.HideAllDataButton_Click);
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Enabled = false;
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
+            this.btnRefresh.Location = new System.Drawing.Point(75, 80);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(28, 28);
+            this.btnRefresh.TabIndex = 19;
+            this.btnRefresh.Text = "  r_c";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.RefreshButton_Click);
+            // 
+            // btnAddNewRow
+            // 
+            this.btnAddNewRow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddNewRow.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewRow.Image")));
+            this.btnAddNewRow.Location = new System.Drawing.Point(11, 80);
+            this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
+            this.btnAddNewRow.Name = "btnAddNewRow";
+            this.btnAddNewRow.Size = new System.Drawing.Size(28, 28);
+            this.btnAddNewRow.TabIndex = 19;
+            this.btnAddNewRow.Text = "  a_c";
+            this.btnAddNewRow.UseVisualStyleBackColor = true;
+            this.btnAddNewRow.Click += new System.EventHandler(this.AddButton_Click);
+            // 
+            // txbStartTime
+            // 
+            this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txbStartTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
+            this.txbStartTime.IsValidating = true;
+            this.txbStartTime.Location = new System.Drawing.Point(170, 29);
+            this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 15, 15, 3);
+            this.txbStartTime.Name = "txbStartTime";
+            this.txbStartTime.Size = new System.Drawing.Size(414, 20);
+            this.txbStartTime.TabIndex = 0;
+            this.txbStartTime.UserRegExCheck = null;
+            this.txbStartTime.UserRegExCheckErrorMessage = null;
+            // 
             // groupBox1
             // 
             this.groupBox1.AutoSize = true;
@@ -353,7 +330,7 @@ namespace TaskModule.BasicAdvisorControls
             this.groupBox1.MinimumSize = new System.Drawing.Size(350, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(587, 88);
+            this.groupBox1.Size = new System.Drawing.Size(604, 88);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Вид закрепления";
@@ -363,12 +340,12 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbNodeGr.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbNodeGr.FormattingEnabled = true;
-            this.cmbNodeGr.InputType = CMBInputType.Items;
+            this.cmbNodeGr.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbNodeGr.IsValidating = true;
             this.cmbNodeGr.Location = new System.Drawing.Point(170, 24);
             this.cmbNodeGr.Margin = new System.Windows.Forms.Padding(178, 25, 20, 3);
             this.cmbNodeGr.Name = "cmbNodeGr";
-            this.cmbNodeGr.Size = new System.Drawing.Size(397, 21);
+            this.cmbNodeGr.Size = new System.Drawing.Size(414, 21);
             this.cmbNodeGr.TabIndex = 43;
             this.cmbNodeGr.UserRegExCheck = null;
             this.cmbNodeGr.UserRegExCheckErrorMessage = null;
@@ -397,14 +374,14 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbKind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbKind.FormattingEnabled = true;
-            this.cmbKind.InputType = CMBInputType.Items;
+            this.cmbKind.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbKind.IsValidating = true;
             this.cmbKind.Items.AddRange(new object[] {
             "Жесткое"});
             this.cmbKind.Location = new System.Drawing.Point(170, 51);
             this.cmbKind.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbKind.Name = "cmbKind";
-            this.cmbKind.Size = new System.Drawing.Size(397, 21);
+            this.cmbKind.Size = new System.Drawing.Size(414, 21);
             this.cmbKind.TabIndex = 36;
             this.cmbKind.UserRegExCheck = null;
             this.cmbKind.UserRegExCheckErrorMessage = null;
@@ -425,7 +402,7 @@ namespace TaskModule.BasicAdvisorControls
             this.grbClampingParams.Margin = new System.Windows.Forms.Padding(7);
             this.grbClampingParams.Name = "grbClampingParams";
             this.grbClampingParams.Padding = new System.Windows.Forms.Padding(2);
-            this.grbClampingParams.Size = new System.Drawing.Size(587, 99);
+            this.grbClampingParams.Size = new System.Drawing.Size(604, 99);
             this.grbClampingParams.TabIndex = 26;
             this.grbClampingParams.TabStop = false;
             this.grbClampingParams.Text = "Параметры закрепления";
@@ -456,13 +433,13 @@ namespace TaskModule.BasicAdvisorControls
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbStiffnessFunc.Enabled = false;
             this.cmbStiffnessFunc.FormattingEnabled = true;
-            this.cmbStiffnessFunc.InputType = ((CMBInputType)(((CMBInputType.Items | CMBInputType.Float) 
-            | CMBInputType.Empty)));
+            this.cmbStiffnessFunc.InputType = ((UserControlsEx.CMBInputType)(((UserControlsEx.CMBInputType.Items | UserControlsEx.CMBInputType.Float) 
+            | UserControlsEx.CMBInputType.Empty)));
             this.cmbStiffnessFunc.IsValidating = true;
             this.cmbStiffnessFunc.Location = new System.Drawing.Point(170, 60);
             this.cmbStiffnessFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbStiffnessFunc.Name = "cmbStiffnessFunc";
-            this.cmbStiffnessFunc.Size = new System.Drawing.Size(397, 21);
+            this.cmbStiffnessFunc.Size = new System.Drawing.Size(414, 21);
             this.cmbStiffnessFunc.TabIndex = 1;
             this.cmbStiffnessFunc.UserRegExCheck = null;
             this.cmbStiffnessFunc.UserRegExCheckErrorMessage = null;
@@ -519,19 +496,43 @@ namespace TaskModule.BasicAdvisorControls
             // закрепленияTab_элComboBox
             // 
             this.закрепленияTab_элComboBox.FormattingEnabled = true;
-            this.закрепленияTab_элComboBox.Location = new System.Drawing.Point(149, -30);
+            this.закрепленияTab_элComboBox.Location = new System.Drawing.Point(186, -38);
             this.закрепленияTab_элComboBox.Name = "закрепленияTab_элComboBox";
-            this.закрепленияTab_элComboBox.Size = new System.Drawing.Size(229, 21);
+            this.закрепленияTab_элComboBox.Size = new System.Drawing.Size(286, 26);
             this.закрепленияTab_элComboBox.TabIndex = 17;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(-10, -27);
+            this.label7.Location = new System.Drawing.Point(-8, -22);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(134, 13);
+            this.label7.Size = new System.Drawing.Size(107, 10);
             this.label7.TabIndex = 15;
             this.label7.Text = "Группа узлов/элементов";
+            // 
+            // player
+            // 
+            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.player.AutoSize = true;
+            this.player.CheckState = BaseModule.Player.CheckState.start;
+            this.player.CurrentValue = 0;
+            this.player.Location = new System.Drawing.Point(174, 80);
+            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.player.MinimumSize = new System.Drawing.Size(215, 45);
+            this.player.Name = "player";
+            this.player.Size = new System.Drawing.Size(415, 45);
+            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
+            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
+            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
+            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.player.SpeedValue = 500;
+            this.player.StartValue = 0;
+            this.player.StopValue = 100;
+            this.player.TabIndex = 22;
+            this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
+            this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
+            this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
             // 
             // ClampControl
             // 
@@ -544,12 +545,12 @@ namespace TaskModule.BasicAdvisorControls
             this.Margin = new System.Windows.Forms.Padding(0);
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "ClampControl";
-            this.Size = new System.Drawing.Size(601, 527);
+            this.Size = new System.Drawing.Size(773, 677);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvControl)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.grbClampingParams.ResumeLayout(false);
@@ -569,7 +570,6 @@ namespace TaskModule.BasicAdvisorControls
         private TextBoxEx txbStopTime;
         private Button btnAddNewRow;
         private TextBoxEx txbStartTime;
-        private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
         private ComboBoxEx cmbNodeGr;
         private System.Windows.Forms.Label label1;
@@ -588,11 +588,12 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.CheckBox chbY;
         private System.Windows.Forms.CheckBox chbX;
         private PlayerControl player;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn startColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stopColumn;
+        private DataGridViewEx dgvControl;
+        private DataGridViewTextBoxColumn Column9;
+        private DataGridViewTextBoxColumn Column10;
+        private DataGridViewTextBoxColumn Column12;
+        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn startColumn;
+        private DataGridViewTextBoxColumn stopColumn;
     }
 }

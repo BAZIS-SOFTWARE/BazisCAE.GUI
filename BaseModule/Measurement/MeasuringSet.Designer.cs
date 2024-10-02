@@ -46,9 +46,9 @@
             this.rbtnDistance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rbtnDistance.Location = new System.Drawing.Point(12, 15);
             this.rbtnDistance.Name = "rbtnDistance";
-            this.rbtnDistance.Size = new System.Drawing.Size(107, 17);
+            this.rbtnDistance.Size = new System.Drawing.Size(85, 17);
             this.rbtnDistance.TabIndex = 0;
-            this.rbtnDistance.Text = "Расстояние, мм";
+            this.rbtnDistance.Text = "Расстояние";
             this.rbtnDistance.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.rbtnDistance.UseVisualStyleBackColor = true;
             this.rbtnDistance.Click += new System.EventHandler(this.Rbtn_Click);
@@ -60,9 +60,9 @@
             this.rbtnPath.Location = new System.Drawing.Point(12, 84);
             this.rbtnPath.Margin = new System.Windows.Forms.Padding(0);
             this.rbtnPath.Name = "rbtnPath";
-            this.rbtnPath.Size = new System.Drawing.Size(71, 17);
+            this.rbtnPath.Size = new System.Drawing.Size(49, 17);
             this.rbtnPath.TabIndex = 1;
-            this.rbtnPath.Text = "Путь, мм";
+            this.rbtnPath.Text = "Путь";
             this.rbtnPath.UseVisualStyleBackColor = true;
             this.rbtnPath.Click += new System.EventHandler(this.Rbtn_Click);
             // 
@@ -72,9 +72,9 @@
             this.rbtSquare.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rbtSquare.Location = new System.Drawing.Point(12, 62);
             this.rbtSquare.Name = "rbtSquare";
-            this.rbtSquare.Size = new System.Drawing.Size(106, 17);
+            this.rbtSquare.Size = new System.Drawing.Size(105, 17);
             this.rbtSquare.TabIndex = 2;
-            this.rbtSquare.Text = "Площадь, мм^2";
+            this.rbtSquare.Text = "Площадь, ед.^2";
             this.rbtSquare.UseVisualStyleBackColor = true;
             this.rbtSquare.Click += new System.EventHandler(this.Rbtn_Click);
             // 
@@ -84,9 +84,9 @@
             this.rbtVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rbtVolume.Location = new System.Drawing.Point(12, 38);
             this.rbtVolume.Name = "rbtVolume";
-            this.rbtVolume.Size = new System.Drawing.Size(94, 17);
+            this.rbtVolume.Size = new System.Drawing.Size(93, 17);
             this.rbtVolume.TabIndex = 3;
-            this.rbtVolume.Text = "Объем, мм^3";
+            this.rbtVolume.Text = "Объем, ед.^3";
             this.rbtVolume.UseVisualStyleBackColor = true;
             this.rbtVolume.Click += new System.EventHandler(this.Rbtn_Click);
             // 

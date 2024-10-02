@@ -29,6 +29,14 @@ using MathNet.Numerics.LinearAlgebra;
 using ProjectInterfaces.Tasks;
 using UserControlsEx;
 using BazisGUI.Properties;
+using System.Xml.Linq;
+using ModelInterfaces;
+using Results.ResultsData;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using BaseModule.Utilities;
+using ResultModule.Animation;
 
 namespace BazisGUI
 {
@@ -74,7 +82,7 @@ namespace BazisGUI
 
 
 
-        public BaseForm()
+        public BaseForm(string[] args)
         {
             InitializeComponent();
             ComponentsPainter.Font = this.Font;
@@ -82,6 +90,67 @@ namespace BazisGUI
 
             tableLayoutPanel.BringToFront();
             GetServerConnection();
+
+            if (args.Length != 0)
+            {
+                if(args.Contains("-proj"))
+                {
+                    var projInd = Array.IndexOf(args, "-proj");
+
+                    if (args.Length - 1 - projInd < 1)
+                        throw new Exception($"Отсутствуют необходимые аргументы для -proj path file");
+
+                    var path = Path.GetDirectoryName(args[projInd + 1]);
+                    var name = Path.GetFileName(args[projInd + 1]);
+
+                    project = dataController.CreateNewProject(path,name);
+                    project.Load();
+                }
+                if(args.Contains("-res"))
+                {
+                    var resInd = Array.IndexOf(args, "-res");
+
+                    if (args.Length - 1 - resInd < 1)
+                        throw new Exception($"Отсутствуют необходимые аргументы для -res file");
+
+                    var fullPath = Path.GetFullPath(args[resInd + 1]);
+
+                    if(project == null)
+                        throw new Exception($"Для загрузки результатов требуется сперва загрузить проект");
+
+                    project.ResultData.Load(fullPath);
+                }
+                if (args.Contains("-cad"))
+                {
+                    var resInd = Array.IndexOf(args, "-cad");
+
+                    if (args.Length - 1 - resInd < 1)
+                        throw new Exception($"Отсутствуют необходимые аргументы для -cad file");
+
+                    var fullPath = Path.GetFullPath(args[resInd + 1]);
+
+                    if (gmshController == null)
+                        gmshController = dataController.LoadGMSH();
+
+                    var ierr = 0;
+                    gmshController.Clear(ref ierr);
+                    gmshController.Open(fullPath, ref ierr);
+
+                    var path = Path.GetDirectoryName(fullPath);
+                    var name = "new_Project.bpf";
+
+                    project = dataController.CreateNewProject(path, name);
+
+                    dataController.UpdateGeometry(gmshController, project, ObjType.Точка);
+                    dataController.UpdateGeometry(gmshController, project, ObjType.Линия);
+                }
+                lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
+
+                модулиMenuItem.Enabled = true;
+
+            }
+
+
         }
 
         private void GetServerConnection()
@@ -173,7 +242,25 @@ namespace BazisGUI
             Enabled = true;
 
             project.ResultData.AddRange(res.Result);
-        } 
+
+            List<PinnedAnimationControl> cntrs = new List<PinnedAnimationControl>();
+            RecursiveSearchControls.AllTypedControls(resultModule.splitContainerEx.Panel2, cntrs);
+            if (cntrs.Count != 0)
+            {
+                var anPage = cntrs[0].animationPage;
+
+                if (!addRes)
+                    anPage.ClearResultsItems();
+
+                var resDic = resultModule.CreateResultsDic();
+                if (resDic.Count != 0)
+                {
+                    anPage.SetResultsItems(resDic);
+                    anPage.ShowResultsTimeSteps(resDic.First().Key);
+                }
+
+            }
+        }
 
         private void SetModule(string moduleName)
         {
@@ -188,6 +275,7 @@ namespace BazisGUI
 
             var newModule = CreateModule(moduleName);
             //Important to see in future
+
             modelController = new ModelController.ModelController(project.ModelData);
             newModule.BasePage.SetGeneralData(project.GeneralData);
             newModule.BasePage.ScenePage.SetModelController(modelController);
@@ -199,9 +287,9 @@ namespace BazisGUI
 
             PresentProjectOnModule(newModule);
 
-            if(splitters != null)
+            if (splitters != null)
                 newModule.BasePage.SetSplitters(splitters);
-            if(viewMatrix != null)
+            if (viewMatrix != null)
                 SetSceneViewMatrix(viewMatrix, newModule.BasePage.ScenePage);
         }
 
@@ -562,7 +650,8 @@ namespace BazisGUI
                     Name = "settings",
                     Text = "Настройки",
                     TopMost = true,
-                    ShowIcon = false
+                    ShowIcon = false,
+                    CausesValidation = true
                 };
 
                 form.ClientSize = settings.Size;
@@ -586,7 +675,7 @@ namespace BazisGUI
 
             settings.SetSolverPathEvent += (ar) =>
             {
-                if (module is TaskPage taskPage)
+                if (module is TaskModule.TaskPage taskPage)
                     taskPage.SolverPath = ar;
             };
             settings.SetBackGroundColorEvent += (ar) =>
@@ -899,7 +988,7 @@ namespace BazisGUI
         private void createSurfaceElementsMenuItem_Click(object sender, EventArgs e)
         {
             var module = (ModelPage)ModulePage;
-            module.CreateSurfaceElements();
+            module.CreateSurfaceElements(ObjType.Элемент2D);
         }
 
         private void mesh3DGeneratorMenuItem_Click(object sender, EventArgs e)
@@ -997,7 +1086,9 @@ namespace BazisGUI
         private void createFieldMenuItem_Click(object sender, EventArgs e)
         {
             var module = (ResultPage)ModulePage;
-            module.ShowAnimation();
+
+            if (module.splitContainerEx.Panel2.Controls.Find("PinnedAnimationControl", false).Count() == 0)
+                module.ShowAnimation();
         }
 
         private void createPlotMenuItem_Click(object sender, EventArgs e)
@@ -1055,6 +1146,12 @@ namespace BazisGUI
             if (quenchingMenuItem.Checked)
                 module.ShowAdvisor(sender, adv);
             else module.DeleteAdvisor();
+        }
+
+        private void создать1DПо2DЭлементамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (ModelPage)ModulePage;
+            module.CreateSurfaceElements(ObjType.Элемент1D);
         }
     }
 }

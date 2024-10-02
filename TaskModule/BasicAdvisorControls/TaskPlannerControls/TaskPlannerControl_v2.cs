@@ -5,7 +5,6 @@ using System.IO;
 using AdvisorControls.TaskPlannerControls;
 using System.Globalization;
 using System.ComponentModel;
-using TaskModule.BasicAdvisorControls.BasicControls;
 using Newtonsoft.Json;
 using System.Threading;
 using System.Collections.Generic;
@@ -13,11 +12,12 @@ using ProjectInterfaces.Tasks;
 using System.Text.RegularExpressions;
 using System.Linq;
 using TasksParameters;
-using System.Security.Cryptography.X509Certificates;
+using TaskModule.BasicAdvisorControls.Interfaces;
+using TaskModule.BasicAdvisorControls.Events;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
-    public partial class TaskPlannerControl_v2 : GridViewAdviserControl
+    public partial class TaskPlannerControl_v2 : UserControl,IGridViewControl
     {
         public ProcessType ProcessType { get; set; }
 
@@ -61,6 +61,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         public event Action<object, EventArgs> StartComputationEvent;
         public event Action<object, EventArgs> StopComputationEvent;
         public event Action<object, GenerateTCFEventArgs> GenerateTCFEvent;
+        public event Action<object, AddDataEventArgs> AddDataEvent;
+        public event Action<object, DeleteDataEventArgs> DeleteDataEvent;
+        public event Action<object, ChangeDataEventArgs> ChangeDataEvent;
+        public event Action<object, DeleteAllDataEventArgs> DeleteAllDataEvent;
 
         enum Column : int { kind, settings, status };
         enum TaskKind : int { химическая, термическая, механическая, твердость };
@@ -100,7 +104,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             toolTip.SetToolTip(btnLoadParameters, "Выберите директорию с *.tsf файлами");
         }
 
-        public override bool IsValidated()
+        public bool IsValidated()
         {
             var checks = new List<bool>()
             {
@@ -113,7 +117,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             return checks.All(x => x);
         }
 
-        public override string DataName { get; }
+        public string DataName { get; }
 
         private void StopButton_Click(object sender, EventArgs e)
         {
@@ -133,13 +137,13 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
         private void Cntrw_InEvent(object arg1, EventArgs arg2)
         {
-            if (CountSelectedRow > 0)
+            if (dataGridView.SelectedRows.Count > 0)
             {
                 btnRefresh.Enabled = true;
             }
         }
 
-        public override void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        public void DataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             var file = e.Row.Cells[1].Value.ToString();
             File.Delete(file);
@@ -148,7 +152,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             //base.DataGridView_UserDeletingRow(sender, e);
         }
 
-        public override void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        public void DataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             try
             {
@@ -182,19 +186,29 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             grbTaskSettings.Controls.Clear();
 
             GeneralParameters parameters;
+            TaskControl taskControl;
             if (taskKind == "термическая")
             {
                 parameters = CreateTermalTaskSettings(fileSettings, settingsSerializer);
+                taskControl = cntrHeatTask;
             }
             else if (taskKind == "механическая")
             {
                 parameters = CreateMechTaskSettings(fileSettings, settingsSerializer);
+                taskControl = cntrMechTask;
             }
             else
             {
                 parameters = CreateChemicalTaskSettings(fileSettings, settingsSerializer);
+                taskControl = cntrChemTask;
             }
 
+            taskControl.InputData(parameters);
+            grbTaskSettings.Controls.Clear();
+            grbTaskSettings.Controls.Add(taskControl);
+            grbTaskSettings.Height = int.Parse(cntrHeatTask.Tag.ToString()) + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
+            grbTaskSettings.Padding = new Padding(1,1,1,3);
+            grbTaskSettings.IsExpanded = false;
 
             txbStartTime.Text = parameters.TimeSettings.StartTime.ToString();
             txbStopTime.Text = parameters.TimeSettings.StopTime.ToString();
@@ -222,10 +236,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
             parameters = JsonConvert.DeserializeObject<MechanicalParameters>
 (File.ReadAllText(fileSettings), settingsSerializer);
-            cntrMechTask.InputData(parameters);
-            grbTaskSettings.Controls.Clear();
-            grbTaskSettings.Controls.Add(cntrMechTask);
-            grbTaskSettings.Height = cntrMechTask.MinimumSize.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height + 12;
 
             var mechPar = parameters as MechanicalParameters;
 
@@ -254,10 +264,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
             parameters = JsonConvert.DeserializeObject<TermalParameters>
 (File.ReadAllText(fileSettings), settingsSerializer);
-            cntrHeatTask.InputData(parameters);
-            grbTaskSettings.Controls.Clear();
-            grbTaskSettings.Controls.Add(cntrHeatTask);
-            grbTaskSettings.Height = cntrHeatTask.MinimumSize.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height + 10;
 
             var termPar = parameters as TermalParameters;
 
@@ -283,22 +289,22 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             else return cntrMechTask.CollectData();
         }
 
-        public override void RefreshButton_Click(object sender, EventArgs e)
+        public void RefreshButton_Click(object sender, EventArgs e)
         {
             if (!IsValidated()) return;
             try
             {
-                var status = dataGridView[(int)Column.status, CurentSelectedRowIndex].Value.ToString();
+                var status = dataGridView[(int)Column.status, dataGridView.CurentSelectedRowIndex].Value.ToString();
 
                 TaskStatus taskStatus;
                 Enum.TryParse(status, out taskStatus);
 
-                var kind = dataGridView[(int)Column.kind, CurentSelectedRowIndex].Value.ToString();
+                var kind = dataGridView[(int)Column.kind, dataGridView.CurentSelectedRowIndex].Value.ToString();
 
                 TaskKind taskKind;
                 Enum.TryParse(kind, out taskKind);
 
-                var setting = dataGridView[(int)Column.settings, CurentSelectedRowIndex].Value.ToString();
+                var setting = dataGridView[(int)Column.settings, dataGridView.CurentSelectedRowIndex].Value.ToString();
                 var taskInd = int.Parse(Path.GetFileName(setting).Split('_')[1]);
 
 
@@ -307,20 +313,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 if (isTsfFileCreated)
                 {
                     var tsfFileName = $"{taskKind}_{taskInd}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
-
-                    if (taskKind == TaskKind.термическая)
-                    {
-
-                    }
-
-                    dataGridView[(int)Column.kind, CurentSelectedRowIndex].Value = TaskKind.термическая;
-                    var settingsStr = $@"{InputDataPath}\{tsfFileName}";
-                    dataGridView[(int)Column.settings, CurentSelectedRowIndex].Value = tsfFileName;
-                    dataGridView[(int)Column.status, CurentSelectedRowIndex].Value = tsfFileName;
-
+                    dataGridView[(int)Column.kind, dataGridView.CurentSelectedRowIndex].Value = taskKind;
+                    dataGridView[(int)Column.settings, dataGridView.CurentSelectedRowIndex].Value = $@"{InputDataPath}\{tsfFileName}";
+                    dataGridView[(int)Column.status, dataGridView.CurentSelectedRowIndex].Value = status;
                 }
-
-
                 btnRefresh.Enabled = false;
             }
             catch (Exception ex)
@@ -390,7 +386,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             }
         }
 
-        public override void AddButton_Click(object sender, EventArgs e)
+        public void AddButton_Click(object sender, EventArgs e)
         {
             if (!IsValidated()) return;
             try
@@ -405,24 +401,24 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                     var isTsfFileCreated = false;
                     if (chbChemicalTask.Checked)
                     {
-                        isTsfFileCreated = GenerateTsfFile(TaskKind.химическая, CountRows, InputDataPath);
+                        isTsfFileCreated = GenerateTsfFile(TaskKind.химическая, dataGridView.RowCount, InputDataPath);
                         if (isTsfFileCreated)
-                            AddRowInfo(TaskKind.химическая, TaskStatus.выполнить, CountRows);
+                            AddRowInfo(TaskKind.химическая, TaskStatus.выполнить, dataGridView.RowCount);
                     }
                     Thread.Sleep(100);
                     if (chbTermoTask.Checked)
                     {
-                        isTsfFileCreated = GenerateTsfFile(TaskKind.термическая, CountRows, InputDataPath);
+                        isTsfFileCreated = GenerateTsfFile(TaskKind.термическая, dataGridView.RowCount, InputDataPath);
                         if (isTsfFileCreated)
-                            AddRowInfo(TaskKind.термическая, TaskStatus.выполнить, CountRows);
+                            AddRowInfo(TaskKind.термическая, TaskStatus.выполнить, dataGridView.RowCount);
                     }
 
                     Thread.Sleep(100);
                     if (chbMechTask.Checked)
                     {
-                        isTsfFileCreated = GenerateTsfFile(TaskKind.механическая, CountRows, InputDataPath);
+                        isTsfFileCreated = GenerateTsfFile(TaskKind.механическая, dataGridView.RowCount, InputDataPath);
                         if (isTsfFileCreated)
-                            AddRowInfo(TaskKind.механическая, TaskStatus.выполнить, CountRows);
+                            AddRowInfo(TaskKind.механическая, TaskStatus.выполнить, dataGridView.RowCount);
                     }
                     if (isTsfFileCreated)
                     {
@@ -446,7 +442,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             dataGridView.Rows.Add(new string[] { taskKind.ToString(), $@"{InputDataPath}\{tsfFileName}", status.ToString() });
         }
 
-        public override void ClearAllDataButton_Click(object sender, EventArgs e)
+        public void ClearAllDataButton_Click(object sender, EventArgs e)
         {
             DeleteAllTsfFilesFromInputDataDir();
 
@@ -472,7 +468,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         }
 
         //start here
-        public override void Set_DataGridLines(IEnumerable<string> lines)
+        public void Set_DataGridLines(IEnumerable<string> lines)
         {
             dataGridView.Rows.Clear();
 
@@ -490,7 +486,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 else
                     return;
 
-                dataGridView.Rows.Clear();
+                //dataGridView.Rows.Clear();
                 var files = Directory.GetFiles(ProjPath).Where(x => Regex.IsMatch(x, @"(\w*)(\.tsf)"));
                 Set_DataGridLines(files);
             }
@@ -569,7 +565,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
             grbTaskSettings.Controls.Clear();
             grbTaskSettings.Controls.Add(cntrHeatTask);
-            grbTaskSettings.Height = cntrHeatTask.MinimumSize.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height + 10;
+            grbTaskSettings.Height = int.Parse(cntrHeatTask.Tag.ToString()) + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
         }
 
         private void LblMechTask_Click(object sender, EventArgs e)
@@ -586,7 +582,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
             //cntrMechTask.BringToFront();
             grbTaskSettings.Controls.Add(cntrMechTask);
-            grbTaskSettings.Height = cntrMechTask.MinimumSize.Height + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height + +12;
+            grbTaskSettings.Height = int.Parse(cntrMechTask.Tag.ToString()) + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
 
         }
 
@@ -617,10 +613,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 {
                     dataGridView.Rows[e.RowIndex].Selected = true;
 
-                    if (dataGridView[e.ColumnIndex, CurentSelectedRowIndex].Value.ToString() == TaskStatus.выполнить.ToString())
-                        dataGridView[e.ColumnIndex, CurentSelectedRowIndex].Value = TaskStatus.пропустить.ToString();
+                    if (dataGridView[e.ColumnIndex, e.RowIndex].Value.ToString() == TaskStatus.выполнить.ToString())
+                        dataGridView[e.ColumnIndex, e.RowIndex].Value = TaskStatus.пропустить.ToString();
                     else
-                        dataGridView[e.ColumnIndex, CurentSelectedRowIndex].Value = TaskStatus.выполнить.ToString();
+                        dataGridView[e.ColumnIndex, e.RowIndex].Value = TaskStatus.выполнить.ToString();
                 }
                 btnRefresh.Enabled = true;
             }
@@ -668,7 +664,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                     };
 
                     var prevResults = fbd.FileName;
-                    var fileWithPath = dataGridView[1, CurentSelectedRowIndex].Value.ToString();
+                    var fileWithPath = dataGridView[1, dataGridView.CurentSelectedRowIndex].Value.ToString();
 
                     var selectedFile = JsonConvert.DeserializeObject<GeneralParameters>(File.ReadAllText(fileWithPath), settings);
 
@@ -681,6 +677,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        public string Get_DataGridFillLine(int ind)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -35,20 +35,19 @@
             this.скрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.пересчитатьНаУзлыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).BeginInit();
+            this.splitContainerEx.Panel1.SuspendLayout();
+            this.splitContainerEx.SuspendLayout();
             this.resultsMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // navigator
+            // basePage
             // 
-            this.BasePage.NavigatorControl.Size = new System.Drawing.Size(205, 553);
+            this.basePage.Size = new System.Drawing.Size(885, 468);
             // 
-            // scenePage
+            // splitContainerEx
             // 
-            this.BasePage.ScenePage.Size = new System.Drawing.Size(673, 367);
-            // 
-            // consoleControl
-            // 
-            this.BasePage.ConsoleControl.Size = new System.Drawing.Size(673, 181);
+            this.splitContainerEx.Size = new System.Drawing.Size(885, 468);
             // 
             // treeNodesImageList
             // 
@@ -68,7 +67,7 @@
             this.пересчитатьНаУзлыToolStripMenuItem,
             this.удалитьToolStripMenuItem});
             this.resultsMenuStrip.Name = "resultsMenuStrip";
-            this.resultsMenuStrip.Size = new System.Drawing.Size(191, 70);
+            this.resultsMenuStrip.Size = new System.Drawing.Size(191, 92);
             // 
             // скрытьToolStripMenuItem
             // 
@@ -99,6 +98,9 @@
             this.Name = "ResultPage";
             this.Size = new System.Drawing.Size(895, 558);
             this.Load += new System.EventHandler(this.ResultPage_Load);
+            this.splitContainerEx.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).EndInit();
+            this.splitContainerEx.ResumeLayout(false);
             this.resultsMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 

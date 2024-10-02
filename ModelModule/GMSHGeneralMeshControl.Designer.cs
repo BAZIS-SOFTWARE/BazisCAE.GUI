@@ -62,6 +62,7 @@ namespace ModelModule
             this.txbMeshGradientPower = new UserControlsEx.TextBoxEx(this.components);
             this.entitieSettingsBox = new UserControlsEx.GroupBoxEx();
             this.gmshCurveSettingsControl1 = new ModelModule.GMSHCurveSettingsControl();
+
             this.meshPage = new System.Windows.Forms.TabPage();
             this.meshLayout = new System.Windows.Forms.TableLayoutPanel();
             this.surfsTree = new System.Windows.Forms.TreeView();
@@ -156,7 +157,7 @@ namespace ModelModule
             // 
             // geometryPage
             // 
-            this.geometryPage.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.geometryPage.BackColor = System.Drawing.SystemColors.Control;
             this.geometryPage.Controls.Add(this.geometryLayout);
             this.geometryPage.Location = new System.Drawing.Point(4, 34);
             this.geometryPage.Margin = new System.Windows.Forms.Padding(0);
@@ -173,8 +174,10 @@ namespace ModelModule
             this.geometryLayout.Controls.Add(this.panel2, 0, 3);
             this.geometryLayout.Controls.Add(this.geomTree, 0, 2);
             this.geometryLayout.Controls.Add(this.grbGradientMeshSettings, 0, 1);
+
             this.geometryLayout.Controls.Add(this.entitieSettingsBox, 0, 0);
             this.geometryLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+
             this.geometryLayout.Location = new System.Drawing.Point(0, 0);
             this.geometryLayout.Margin = new System.Windows.Forms.Padding(0);
             this.geometryLayout.Name = "geometryLayout";
@@ -307,7 +310,7 @@ namespace ModelModule
             this.grbGradientMeshSettings.CheckState = false;
             this.grbGradientMeshSettings.Controls.Add(this.tableLayoutPanel4);
             this.grbGradientMeshSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbGradientMeshSettings.IsCheckable = true;
+            this.grbGradientMeshSettings.IsCheckable = false;
             this.grbGradientMeshSettings.IsExpanded = true;
             this.grbGradientMeshSettings.IsRollable = true;
             this.grbGradientMeshSettings.Location = new System.Drawing.Point(7, 134);

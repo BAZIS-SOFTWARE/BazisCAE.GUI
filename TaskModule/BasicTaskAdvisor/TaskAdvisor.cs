@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls;
 using System.Linq;
-using TaskModule.BasicAdvisorControls.BasicControls;
 using TaskModule.BasicAdvisorControls.Interfaces;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.TaskPlannerControls;
@@ -13,7 +12,6 @@ using ProjectInterfaces;
 using ModelInterfaces;
 using ProjectInterfaces.Tasks;
 using UserControlsEx;
-using ProjectInterfaces.Results;
 
 namespace TaskModule.BasicTaskAdvisor
 {
@@ -85,7 +83,7 @@ namespace TaskModule.BasicTaskAdvisor
             {
                 foreach (Control control in tabPage.Controls)
                 {   
-                    if(control is GridViewAdviserControl gvControl)
+                    if(control is IGridViewControl gvControl)
                     {
                         var data = taskData.
     Where(x => x.Name == gvControl.DataName).
@@ -120,11 +118,6 @@ namespace TaskModule.BasicTaskAdvisor
                         else if (control is TaskPlannerControl_v2 taskPlannerControl)
                         {
                             taskPlannerControl.ProjPath = generalData.Path;
-
-                            //var inputDir = $@"{project.Path}\InputData";
-
-                            //if (Directory.Exists(inputDir))
-                                //data = Directory.GetFiles(inputDir, "*.tsf");
                         }
                         gvControl.Set_DataGridLines(data);
                     }
