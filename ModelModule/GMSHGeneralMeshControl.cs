@@ -83,7 +83,10 @@ namespace ModelModule
 
         public event Action<object, DeleteElementEventArgs> deleteElementEvent;
         public event Action<object, SetTransfiniteCurveEventArgs> setTransfiniteCurveEvent;
-        public event Action<object,int> setCurveDataEvent;
+        //public event Action<object,int> setCurveDataEvent;
+
+        public event Action<object, PointSizesEventArgs> getOrSetPointSizesEvent;
+        public event Action<object, double[]> setMinMaxSizesEvent;
 
 
         public GMSHGeneralMeshControl()
@@ -117,7 +120,7 @@ namespace ModelModule
         {
             if (dim == 1)
             {
-                pointsControlBox.Enabled = false;
+                entitieSettingsBox.Enabled = false;
             }
             else if (dim == 2)
             {
@@ -312,34 +315,40 @@ namespace ModelModule
 
         private int FindObjectByTreeNode(TreeNode node)
         {
-
             var tokens = node.Text.Split(' ');
-            return Int32.Parse(tokens[1]);
+            var lastToken = tokens.Length - 1;
+            return Int32.Parse(tokens[lastToken]);
         }
+
+
+        /// <summary>
+        /// Создает пользовательский запрос на получение или изменение размера контрольной точки
+        /// </summary>
+        /// <param name="request">Тип запроса</param>
+        /// <param name="sizes">Пользовательские данные полученные от GMSHPointSettingsControl</param>
+        public void CreatePointSizesRequest(PointSizesRequest request, double[] sizes = null)
+        {
+            var tag = FindObjectByTreeNode(geomTree.SelectedNode);
+            var dimTags = new int[] { 0, tag };
+
+            var pointEvent = new PointSizesEventArgs(dimTags, request);
+            pointEvent.Sizes = sizes;
+            getOrSetPointSizesEvent?.Invoke(this, pointEvent);
+
+            if (request == PointSizesRequest.Get)
+            {
+                var control = entitieSettingsBox.Controls[1] as GMSHPointSettingsControl;
+                control.WritePointSettingsToControls(pointEvent.Sizes);
+            }
+        }
+
         /// <summary>
         /// Записывает настройки трансфиниции в элементы управления
         /// </summary>
         public void WriteCurveSettingsToControls(string[] attributes)
         {
-            if(attributes.Length == 0)
-            {
-                rbtnProgressive.Checked = true;
-                txbAlgoCoef.Text = "1.0";
-                txbAlgoNPoints.Text = string.Empty;
-            }
-            else
-            {
-                var law = attributes[1];
-                if (rbtnBump.Text.Contains(law))
-                    rbtnBump.Checked = true;
-                else if (rbtnBeta.Text.Contains(law))
-                    rbtnBeta.Checked = true;
-                else
-                    rbtnProgressive.Checked = true;
-
-                txbAlgoNPoints.Text = attributes[0];
-                txbAlgoCoef.Text = attributes[2].Length == 0 ? "1.0" : attributes[2];
-            }
+            var curveCtrl = entitieSettingsBox.Controls[1] as GMSHCurveSettingsControl;
+            curveCtrl.WriteCurveSettingsToControls(attributes);
         }
 
         private void entTree_AfterSelect(object sender, TreeViewEventArgs e)
@@ -355,16 +364,25 @@ namespace ModelModule
 
             showObjectsEvent?.Invoke(objsNumbers);
 
-            if (curveNodes.Count == 0 | curveNodes.Count > 1)
-                pointsControlBox.Enabled = false;
-            else
+            var nodeText = e.Node.Text;
+            if (nodeText.Contains("Контрольный узел"))
             {
-                pointsControlBox.Enabled = true;
-                var tag = FindObjectByTreeNode(e.Node);
-
-                setCurveDataEvent?.Invoke(this,tag);           
+                CreatePointSizesRequest(PointSizesRequest.Get);
             }
+            else if (nodeText.Contains("Кривая"))
+            {
+                var gmshTag = FindObjectByTreeNode(e.Node);
+                ApplyCurveTranfinition(SetTransfiniteCurveEventRequest.Get, null);
+                //setCurveDataEvent?.Invoke(this, gmshTag);///Записываем настройки кривой в контрол, который сохранил gmsh
+            }
+            else if (nodeText.Contains("Поверхность"))
+            {
 
+            }
+            else if (nodeText.Contains("Объем"))
+            {
+
+            }
             //redrawScene?.Invoke(false);
         }
 
@@ -459,36 +477,57 @@ namespace ModelModule
 
         private void entTree_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
-            var oldNode = geomTree.SelectedNode;
-            
-            if (oldNode != null)
-                resetColorObjectsEvent?.Invoke(ObjType.Линия);
+            resetColorObjectsEvent?.Invoke(ObjType.Линия);
+
+            var text = e.Node.Text;
+            var control = entitieSettingsBox.Controls[1];
+            entitieSettingsBox.Controls.Remove(control);
+
+            if (text.Contains("Контрольный узел"))
+            {
+                control = new GMSHPointSettingsControl();
+                entitieSettingsBox.Text = "Настройки разметки контрольных узлов";
+                entitieSettingsBox.Enabled = true;
+            }
+            else if (text.Contains("Кривая"))
+            {
+                control = new GMSHCurveSettingsControl();
+                entitieSettingsBox.Text = "Настройки разметки кривых";
+                entitieSettingsBox.Enabled = true;
+            }
+            else if (text.Contains("Поверхность"))
+            {
+                //control = new GMSHSurfaceSettingsControl();//Для настроек трансфиниции поверхностей
+                //entitieSettingsBox.Text = "Настройки разметки поверхностей";
+                entitieSettingsBox.Enabled = false;//Временная строчка
+            }
+            else if (text.Contains("Объем"))
+            {
+                //control = new GMSHVolumeSettingsControl();//Для настроек трансфиниции объемов
+                //entitieSettingsBox.Text = "Настройки разметки объемов";
+                entitieSettingsBox.Enabled = false;//Временная строчка
+            }
+
+            entitieSettingsBox.Controls.Add(control);
+            control.Dock = DockStyle.Fill;
         }
 
-        private void BtnOK_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Принимает от пользовательского контрола валидные настройки трансфиниции
+        /// </summary>
+        /// <param name="request">Запрос трансфиниции (сброс, задать, получить)</param>
+        /// <param name="attributes">Настройки трансфиниции пользовательского контрола в виде массива строк</param>
+        public void ApplyCurveTranfinition(SetTransfiniteCurveEventRequest request, string[] attributes)
         {
-            var attributes = new string[3] { txbAlgoNPoints.Text, rbtnProgressive.Text, txbAlgoCoef.Text };
-            if (rbtnBeta.Checked)
-                attributes[1] = rbtnBeta.Text;
-            else if (rbtnBump.Checked)
-                attributes[1] = rbtnBump.Text;
-            double points = 0, coef = 0;
-
-            if (txbAlgoCoef.IsValueValid())
-                coef = double.Parse(txbAlgoCoef.Text);
-            else
-                return;
-
-            if (txbAlgoNPoints.IsValueValid())
-                points = double.Parse(txbAlgoNPoints.Text);
-            else
-                return;
-
             var tag = FindObjectByTreeNode(geomTree.SelectedNode);
-            setTransfiniteCurveEvent?.Invoke(this, new SetTransfiniteCurveEventArgs(tag, attributes, 3, coef, points));
+            var evnt = new SetTransfiniteCurveEventArgs(tag, request, attributes);
+            setTransfiniteCurveEvent?.Invoke(this, evnt);
+
+            if(request == SetTransfiniteCurveEventRequest.Get)
+                WriteCurveSettingsToControls(evnt.Attributes);
 
             if (chbShowNumberOfCurveNodes.Checked)
-                showNumberOfCurveNodesEvent?.Invoke(this,true);
+                showNumberOfCurveNodesEvent?.Invoke(this, true);
             if (chbShowHeatMap.Checked)
                 showHeatMapEvent?.Invoke(true);
             if (chbShowNodesOnCurves.Checked)
@@ -563,6 +602,20 @@ namespace ModelModule
 
             setMeshGradientSettingsEvent?.Invoke(this,
                 new MeshGradientSettingsEventArgs(layerThickness, surfaceMeshSize, coreMeshSize, gradientMeshPower));
+        }
+
+        private void BtnMinMaxSizes_Click(object sender, EventArgs e)
+        {
+            var separators = new char[] { ',', ' ' };
+            var tokens = txbMinMaxSizes.Text.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            double min, max;
+            if (double.TryParse(tokens[0], out min))
+            {
+                if(double.TryParse(tokens[0], out max))
+                {
+                    setMinMaxSizesEvent?.Invoke(this, new double[]  { min, max });
+                }
+            }
         }
     }
 }
