@@ -230,10 +230,10 @@ namespace ModelModule
         private void SetCurveDataEventHandler(object sender, SetTransfiniteCurveEventArgs arg)
         {
 
-            /*var cntr = (GMSHGeneralMeshControl)sender;
+            var cntr = (GMSHGeneralMeshControl)sender;
             string[] attributes;
-            GmshController.ModelGetAttribute($"transfinite {tag}", out attributes);
-            cntr.WriteCurveSettingsToControls(attributes);*/
+            GmshController.ModelGetAttribute($"transfinite {arg.Tag}", out attributes);
+            //cntr.WriteCurveSettingsToControls(attributes);
         }
 
         private void DeleteElementsByNumber(object sender, DeleteElementEventArgs args)
@@ -700,18 +700,19 @@ namespace ModelModule
             scenePage.SetObjectsSceneColor(ObjType.Линия);
         }
 
-        private void ShowObjects(List<int> objNumbers)
+        private void ShowObjects(ObjType objType,List<int> objNumbers)
         {
             try
             {
                 var scenePage = BasePage.ScenePage;
+
                 foreach (var item in objNumbers)
                 {
-                    ModelData.ObjectData.LineCollection.Find(item).MasterColor
+                    ModelData.ObjectData.Find(objType, item).MasterColor
     = scenePage.SceneControl.SelectionColor;
                 }
 
-                scenePage.SetObjectsSceneColor(ObjType.Линия);
+                scenePage.SetObjectsSceneColor(objType);
                 scenePage.SceneControl.DisplayObjects();
             }
             catch (Exception ex)

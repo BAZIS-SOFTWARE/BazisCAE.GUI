@@ -61,8 +61,8 @@ namespace ModelModule
             this.btnSetGradientSettings = new System.Windows.Forms.Button();
             this.txbMeshGradientPower = new UserControlsEx.TextBoxEx(this.components);
             this.entitieSettingsBox = new UserControlsEx.GroupBoxEx();
-            this.gmshCurveSettingsControl1 = new ModelModule.GMSHCurveSettingsControl();
-            this.gmshPointSettingsControl1 = new ModelModule.GMSHPointSettingsControl();
+            this.curveSettingsControl = new ModelModule.GMSHCurveSettingsControl();
+            this.pointSettingsControl = new ModelModule.GMSHPointSettingsControl();
             this.meshPage = new System.Windows.Forms.TabPage();
             this.meshLayout = new System.Windows.Forms.TableLayoutPanel();
             this.surfsTree = new System.Windows.Forms.TreeView();
@@ -467,8 +467,8 @@ namespace ModelModule
             // entitieSettingsBox
             // 
             this.entitieSettingsBox.CheckState = true;
-            this.entitieSettingsBox.Controls.Add(this.gmshCurveSettingsControl1);
-            this.entitieSettingsBox.Controls.Add(this.gmshPointSettingsControl1);
+            this.entitieSettingsBox.Controls.Add(this.curveSettingsControl);
+            this.entitieSettingsBox.Controls.Add(this.pointSettingsControl);
             this.entitieSettingsBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.entitieSettingsBox.IsCheckable = false;
             this.entitieSettingsBox.IsExpanded = false;
@@ -482,25 +482,25 @@ namespace ModelModule
             this.entitieSettingsBox.TabStop = false;
             this.entitieSettingsBox.Text = "Настройки разметки кривых";
             // 
-            // gmshCurveSettingsControl1
+            // curveSettingsControl
             // 
-            this.gmshCurveSettingsControl1.Location = new System.Drawing.Point(17, 26);
-            this.gmshCurveSettingsControl1.Margin = new System.Windows.Forms.Padding(0);
-            this.gmshCurveSettingsControl1.Name = "gmshCurveSettingsControl1";
-            this.gmshCurveSettingsControl1.Size = new System.Drawing.Size(410, 114);
-            this.gmshCurveSettingsControl1.TabIndex = 2;
-            this.gmshCurveSettingsControl1.pressOkEvent += new System.Action<object, ModelModule.SetTransfiniteCurveEventRequest, string[]>(this.gmshCurveSettingsControl1_pressOkEvent);
-            this.gmshCurveSettingsControl1.pressDelEvent += new System.Action<object, ModelModule.SetTransfiniteCurveEventRequest, string[]>(this.gmshCurveSettingsControl1_pressDelEvent);
+            this.curveSettingsControl.Location = new System.Drawing.Point(17, 26);
+            this.curveSettingsControl.Margin = new System.Windows.Forms.Padding(0);
+            this.curveSettingsControl.Name = "curveSettingsControl";
+            this.curveSettingsControl.Size = new System.Drawing.Size(410, 114);
+            this.curveSettingsControl.TabIndex = 2;
+            this.curveSettingsControl.pressOkEvent += new System.Action<object, ModelModule.SetTransfiniteCurveEventRequest, string[]>(this.gmshCurveSettingsControl1_pressOkEvent);
+            this.curveSettingsControl.pressDelEvent += new System.Action<object, ModelModule.SetTransfiniteCurveEventRequest, string[]>(this.gmshCurveSettingsControl1_pressDelEvent);
             // 
-            // gmshPointSettingsControl1
+            // pointSettingsControl
             // 
-            this.gmshPointSettingsControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gmshPointSettingsControl1.Location = new System.Drawing.Point(3, 16);
-            this.gmshPointSettingsControl1.Name = "gmshPointSettingsControl1";
-            this.gmshPointSettingsControl1.Size = new System.Drawing.Size(441, 151);
-            this.gmshPointSettingsControl1.TabIndex = 1;
-            this.gmshPointSettingsControl1.pressOkEvent += new System.Action<object, ModelModule.PointSizesRequest, double[]>(this.gmshPointSettingsControl1_pressOkEvent);
-            this.gmshPointSettingsControl1.pressDelEvent += new System.Action<object, ModelModule.PointSizesRequest, double[]>(this.gmshPointSettingsControl1_pressDelEvent);
+            this.pointSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pointSettingsControl.Location = new System.Drawing.Point(3, 16);
+            this.pointSettingsControl.Name = "pointSettingsControl";
+            this.pointSettingsControl.Size = new System.Drawing.Size(441, 151);
+            this.pointSettingsControl.TabIndex = 1;
+            this.pointSettingsControl.pressOkEvent += new System.Action<object, ModelModule.PointSizesRequest, double[]>(this.gmshPointSettingsControl1_pressOkEvent);
+            this.pointSettingsControl.pressDelEvent += new System.Action<object, ModelModule.PointSizesRequest, double[]>(this.gmshPointSettingsControl1_pressDelEvent);
             // 
             // meshPage
             // 
@@ -888,7 +888,7 @@ namespace ModelModule
         private Label label2;
         private TextBoxEx txbMinMaxSizes;
         private Button btnMinMaxSizes;
-        private GMSHCurveSettingsControl gmshCurveSettingsControl1;
-        private GMSHPointSettingsControl gmshPointSettingsControl1;
+        private GMSHCurveSettingsControl curveSettingsControl;
+        private GMSHPointSettingsControl pointSettingsControl;
     }
 }

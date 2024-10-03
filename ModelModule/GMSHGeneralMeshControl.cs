@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ModelControllerInterfaces.GmshController;
+using Model.MeshObjects;
 
 namespace ModelModule
 {
@@ -76,7 +77,7 @@ namespace ModelModule
         public event Action<object,bool> showNumberOfCurveNodesEvent;
         public event Action<object,bool> showShowSurfaceNumbersEvent;
         //public event Action<object, Show3dTextEventArgs> show3dTextEvent;
-        public event Action<List<int>> showObjectsEvent;
+        public event Action<ObjType,List<int>> showObjectsEvent;
         public event Action<ObjType> resetColorObjectsEvent;
         public event Action<object> refineMesh;
         public event Action<bool> showHeatMapEvent;
@@ -337,54 +338,9 @@ namespace ModelModule
 
             if (request == PointSizesRequest.Get)
             {
-                var control = entitieSettingsBox.Controls[1] as GMSHPointSettingsControl;
-                control.WritePointSettingsToControls(pointEvent.Sizes);
+                pointSettingsControl.WritePointSettingsToControls(pointEvent.Sizes);
             }
-        }
-
-        /// <summary>
-        /// Записывает настройки трансфиниции в элементы управления
-        /// </summary>
-        public void WriteCurveSettingsToControls(string[] attributes)
-        {
-            var curveCtrl = entitieSettingsBox.Controls[1] as GMSHCurveSettingsControl;
-            curveCtrl.WriteCurveSettingsToControls(attributes);
-        }
-
-        private void entTree_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            var curveNodes = TryGetCurveNodeRecursevely(e.Node);
-
-            var objsNumbers = new List<int>();
-            foreach (var item in curveNodes)
-            {
-                var tag = FindObjectByTreeNode(item);
-                objsNumbers.Add(tag);
-            }
-
-            showObjectsEvent?.Invoke(objsNumbers);
-
-            var nodeText = e.Node.Text;
-            if (nodeText.Contains("Контрольный узел"))
-            {
-                CreatePointSizesRequest(PointSizesRequest.Get);
-            }
-            else if (nodeText.Contains("Кривая"))
-            {
-                var gmshTag = FindObjectByTreeNode(e.Node);
-                ApplyCurveTranfinition(SetTransfiniteCurveEventRequest.Get, null);
-                //setCurveDataEvent?.Invoke(this, gmshTag);///Записываем настройки кривой в контрол, который сохранил gmsh
-            }
-            else if (nodeText.Contains("Поверхность"))
-            {
-
-            }
-            else if (nodeText.Contains("Объем"))
-            {
-
-            }
-            //redrawScene?.Invoke(false);
-        }
+        } 
 
         private List<TreeNode> TryGetCurveNodeRecursevely(TreeNode node)
         {
@@ -477,39 +433,63 @@ namespace ModelModule
 
         private void entTree_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
-            resetColorObjectsEvent?.Invoke(ObjType.Линия);
-
             var text = e.Node.Text;
-            var control = entitieSettingsBox.Controls[1];
-            entitieSettingsBox.Controls.Remove(control);
 
             if (text.Contains("Контрольный узел"))
             {
-                control = new GMSHPointSettingsControl();
-                entitieSettingsBox.Text = "Настройки разметки контрольных узлов";
-                entitieSettingsBox.Enabled = true;
+                resetColorObjectsEvent?.Invoke(ObjType.Точка);
             }
             else if (text.Contains("Кривая"))
             {
-                control = new GMSHCurveSettingsControl();
-                entitieSettingsBox.Text = "Настройки разметки кривых";
-                entitieSettingsBox.Enabled = true;
+                resetColorObjectsEvent?.Invoke(ObjType.Линия);
             }
             else if (text.Contains("Поверхность"))
             {
-                //control = new GMSHSurfaceSettingsControl();//Для настроек трансфиниции поверхностей
-                //entitieSettingsBox.Text = "Настройки разметки поверхностей";
-                entitieSettingsBox.Enabled = false;//Временная строчка
+                resetColorObjectsEvent?.Invoke(ObjType.Линия);
             }
             else if (text.Contains("Объем"))
             {
-                //control = new GMSHVolumeSettingsControl();//Для настроек трансфиниции объемов
-                //entitieSettingsBox.Text = "Настройки разметки объемов";
-                entitieSettingsBox.Enabled = false;//Временная строчка
+                resetColorObjectsEvent?.Invoke(ObjType.Линия);
+            }
+        }
+
+        private void entTree_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            //List<TreeNode> curveNodes = new List<TreeNode>();
+            var nText = e.Node.Text;
+            if (nText.Contains("Контрольный узел"))
+            {
+                var nodeNumb =  Int32.Parse(nText.Split(' ')[1]);
+                showObjectsEvent?.Invoke(ObjType.Точка,new List<int>() { nodeNumb });
+            }
+            else if (nText.Contains("Кривая") || nText.Contains("Поверхность")
+                || nText.Contains("Объем"))
+            {
+                var curveNumbers = TryGetCurveNodeRecursevely(e.Node).Select(x =>
+                Int32.Parse(x.Text.Split(' ')[1])).ToList();
+                //var gmshTag = FindObjectByTreeNode(e.Node);
+
+                showObjectsEvent?.Invoke(ObjType.Линия, curveNumbers);
             }
 
-            entitieSettingsBox.Controls.Add(control);
-            control.Dock = DockStyle.Fill;
+
+
+            if (nText.Contains("Контрольный узел"))
+            {
+                CreatePointSizesRequest(PointSizesRequest.Get);
+            }
+            else if (nText.Contains("Кривая"))
+            {
+                ApplyCurveTranfinition(SetTransfiniteCurveEventRequest.Get, null);
+            }
+            else  if (nText.Contains("Поверхность"))
+            {
+
+            }
+            else if (nText.Contains("Объем"))
+            {
+
+            }
         }
 
         /// <summary>
@@ -523,8 +503,8 @@ namespace ModelModule
             var evnt = new SetTransfiniteCurveEventArgs(tag, request, attributes);
             setTransfiniteCurveEvent?.Invoke(this, evnt);
 
-            if(request == SetTransfiniteCurveEventRequest.Get)
-                WriteCurveSettingsToControls(evnt.Attributes);
+            if(request == SetTransfiniteCurveEventRequest.Get)       
+                curveSettingsControl.WriteCurveSettingsToControls(attributes);
 
             if (chbShowNumberOfCurveNodes.Checked)
                 showNumberOfCurveNodesEvent?.Invoke(this, true);
