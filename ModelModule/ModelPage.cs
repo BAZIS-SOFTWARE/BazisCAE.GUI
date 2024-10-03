@@ -132,17 +132,23 @@ namespace ModelModule
                 meshGenerator.updateGeometryVBOEvent += UpdateGeometryVBO;
                 //meshGenerator.updateTreeViewEvent += () => { PresentProjectOnTree(); };
                 meshGenerator.refineMesh += MeshGenerator_refineMesh;
-                meshGenerator.showObjectsEvent += ShowObjects;
+                meshGenerator.ShowObjectsEvent += ShowObjects;
                 meshGenerator.generate2DQuadMesh += MeshGenerator_generate2DQuadMesh;      
                 meshGenerator.showHeatMapEvent += GmshControl_showHeatMapEvent;
                 meshGenerator.resetColorObjectsEvent += GmshControl_ResetColorObjectsEvent;
-                meshGenerator.setTransfiniteCurveEvent += MeshGenerator_setTransfiniteCurveEvent;
+
+                meshGenerator.SetCurveAttributeEvent += MeshGenerator_SetCurveAttributeEvent;
+                meshGenerator.GetCurveAttribEvent += MeshGenerator_GetCurveAttribEvent;
+                meshGenerator.CurveAttribDeleteEvent += MeshGenerator_CurveAttribDeleteEvent;
+
                 meshGenerator.deleteElementEvent += DeleteElementsByNumber;
                 meshGenerator.setMeshGradientSettingsEvent += MeshGenerator_setMeshGradientSettingsEvent;
 
-                meshGenerator.getOrSetPointSizesEvent += GetOrSetPointSizesEvent;
-                meshGenerator.setMinMaxSizesEvent += SetMinMaxSizesEvent;
+                meshGenerator.SetPointSizeEvent += SetPointSizesEventHandler;
+                meshGenerator.PointAttribDeleteEvent += MeshGenerator_PointAttribDeleteEvent;
+                meshGenerator.GetPointSizeEvent += MeshGenerator_GetPointSizeEvent;
 
+                meshGenerator.setMinMaxSizesEvent += SetMinMaxSizesEvent;
                 gmshForm.Controls.Add(meshGenerator);
                 meshGenerator.Dock = DockStyle.Fill;
 
@@ -151,7 +157,7 @@ namespace ModelModule
                 if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
                     meshGenerator.ShowHideGeneralTabControls(2, true);
 
-                meshGenerator.ShowHideGeneralTabControls(1);
+                //meshGenerator.ShowHideGeneralTabControls(1);
                 meshGenerator.ShowHideTabControls(1);
 
                 gmshForm.Show();
@@ -161,6 +167,61 @@ namespace ModelModule
                 gmshForm.Location = location;
             }        
             //ModelPresenter.Clear();//Подчищаем Presenter во избежании артефактов
+        }
+
+        private void MeshGenerator_SetCurveAttributeEvent(object arg1, CurveAttribsEventArgs arg2)
+        {
+            var ierr = 0;
+            GmshController.ModelSetAttribute($"transfinite {arg2.Tag}", arg2.Attributes, (IntPtr)arg2.Attributes.Length, ref ierr);
+            if (!string.IsNullOrEmpty(arg2.Attributes[0]) && !string.IsNullOrEmpty(arg2.Attributes[2]))
+                GmshController.ModelMeshSetTransfiniteCurve(arg2.Tag, arg2.Points, arg2.Attributes[1], arg2.Coef, ref ierr);
+        }
+
+        private void MeshGenerator_CurveAttribDeleteEvent(int obj)
+        {
+            var ierr = 0;
+            var dimTags = new int[] { 1, obj };
+            GmshController.ModelRemoveAttribute($"transfinite {obj}", ref ierr);
+            GmshController.ModelMeshRemoveConstraints(dimTags, (IntPtr)dimTags.Length, ref ierr);
+        }
+
+        private void MeshGenerator_GetCurveAttribEvent(object arg1, int arg2)
+        {
+            try
+            {
+                string[] attributes;
+                GmshController.ModelGetAttribute($"transfinite {arg2}", out attributes);
+                var curveControl = arg1 as GMSHCurveSettingsControl;
+                curveControl.SetCurveAttributes(attributes);
+            }
+            catch (Exception ex)
+            {
+                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
+
+        }
+
+        private void MeshGenerator_PointAttribDeleteEvent(int obj)
+        {
+            var ierr = 0;
+            var dimTags = new int[] { 0, obj };
+            GmshController.ModelMeshRemoveConstraints(dimTags, (IntPtr)dimTags.Length, ref ierr);
+        }
+
+        private void MeshGenerator_GetPointSizeEvent(object arg1, int arg2)
+        {
+            try
+            {
+                var dimTags = new int[] { 0, arg2 };
+                var meshSize = GmshController.GetMeshDensity(dimTags);
+                var pointControl = arg1 as GMSHPointSettingsControl;
+                pointControl.SetPointSize(meshSize[0]);
+            }
+            catch (Exception ex)
+            {
+                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
+
         }
 
         private void MeshGenerator_setMeshGradientSettingsEvent(object arg1, MeshGradientSettingsEventArgs arg2)
@@ -190,15 +251,11 @@ namespace ModelModule
             }
         }
 
-        private void GetOrSetPointSizesEvent(object sender, PointSizesEventArgs arg)
+        private void SetPointSizesEventHandler(object sender, int pointNumber, double[] pointSize)
         {
             var ierr = 0;
-            if (arg.Request == PointSizesRequest.Get)
-                arg.Sizes = GmshController.GetMeshDensity(arg.DimTags);
-            else if (arg.Request == PointSizesRequest.Set)
-                GmshController.ModelMeshSetSize(arg.DimTags, (IntPtr)arg.DimTags.Length, arg.Sizes[0], ref ierr);
-            else
-                GmshController.ModelMeshRemoveConstraints(arg.DimTags, (IntPtr)arg.DimTags.Length, ref ierr);
+            var dimTags = new int[] { 0, pointNumber };
+            GmshController.ModelMeshSetSize(dimTags, (IntPtr)dimTags.Length, pointSize[0], ref ierr);
         }
 
         private void SetMinMaxSizesEvent(object sender, double[] sizes)
@@ -225,15 +282,6 @@ namespace ModelModule
                 GmshController.ModelMeshRemoveConstraints(points, (IntPtr)points.Length, ref ierr);
                 GmshController.OptionSetNumber("Mesh.MeshSizeExtendFromBoundary", 1, ref ierr);
             }
-        }
-
-        private void SetCurveDataEventHandler(object sender, SetTransfiniteCurveEventArgs arg)
-        {
-
-            var cntr = (GMSHGeneralMeshControl)sender;
-            string[] attributes;
-            GmshController.ModelGetAttribute($"transfinite {arg.Tag}", out attributes);
-            //cntr.WriteCurveSettingsToControls(attributes);
         }
 
         private void DeleteElementsByNumber(object sender, DeleteElementEventArgs args)
@@ -387,29 +435,6 @@ namespace ModelModule
             scenePage.ClearAllDataOnScene();
             scenePage.PresentAllModelObjectsToScene();
             scenePage.SceneControl.DisplayObjects();
-        }
-
-        private void MeshGenerator_setTransfiniteCurveEvent(object arg1, SetTransfiniteCurveEventArgs arg2)
-        {
-            var ierr = 0;
-            if (arg2.Request == SetTransfiniteCurveEventRequest.Set)
-            {
-                GmshController.ModelSetAttribute($"transfinite {arg2.Tag}", arg2.Attributes, (IntPtr)arg2.Attributes.Length, ref ierr);
-                if (!string.IsNullOrEmpty(arg2.Attributes[0]) && !string.IsNullOrEmpty(arg2.Attributes[2]))
-                    GmshController.ModelMeshSetTransfiniteCurve(arg2.Tag, arg2.Points, arg2.Attributes[1], arg2.Coef, ref ierr);
-            }
-            else if (arg2.Request == SetTransfiniteCurveEventRequest.Get)
-            {
-                string[] attributes;
-                GmshController.ModelGetAttribute($"transfinite {arg2.Tag}", out attributes);
-                arg2.Attributes = attributes;
-            }
-            else
-            {
-                var dimTags = new int[] { 1, arg2.Tag };
-                GmshController.ModelRemoveAttribute($"transfinite {arg2.Tag}", ref ierr);
-                GmshController.ModelMeshRemoveConstraints(dimTags, (IntPtr)dimTags.Length, ref ierr);
-            }
         }
 
         private void MeshGenerator_generate2DQuadMesh(object obj)

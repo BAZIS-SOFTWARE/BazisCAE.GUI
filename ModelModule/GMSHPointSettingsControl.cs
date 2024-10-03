@@ -13,8 +13,14 @@ namespace ModelModule
 {
     public partial class GMSHPointSettingsControl : UserControl
     {
-        public event Action<object, PointSizesRequest, double[]> pressOkEvent;
-        public event Action<object, PointSizesRequest, double[]> pressDelEvent;
+        public event Action<object,double[]> pressOkEvent;
+        public event Action<object> pressDelEvent;
+
+        public void SetPointSize(double meshSize)
+        {
+            textBoxEx1.Text = meshSize.ToString();
+        }
+
         public GMSHPointSettingsControl()
         {
             InitializeComponent();
@@ -30,13 +36,13 @@ namespace ModelModule
             if (textBoxEx1.IsValueValid())
             {
                 var values = new double[] { double.Parse(textBoxEx1.Text) };
-                pressOkEvent?.Invoke(this, PointSizesRequest.Set, values);
+                pressOkEvent?.Invoke(this, values);
             }
         }
 
         private void BtnDel_Click(object sender, EventArgs e)
         {
-            pressDelEvent?.Invoke(this, PointSizesRequest.Reset, null);
+            pressDelEvent?.Invoke(this);
             textBoxEx1.Text = string.Empty;
         }
     }

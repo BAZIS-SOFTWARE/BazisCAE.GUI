@@ -484,13 +484,13 @@ namespace ModelModule
             // 
             // curveSettingsControl
             // 
-            this.curveSettingsControl.Location = new System.Drawing.Point(17, 26);
+            this.curveSettingsControl.Location = new System.Drawing.Point(32, 29);
             this.curveSettingsControl.Margin = new System.Windows.Forms.Padding(0);
             this.curveSettingsControl.Name = "curveSettingsControl";
-            this.curveSettingsControl.Size = new System.Drawing.Size(410, 114);
+            this.curveSettingsControl.Size = new System.Drawing.Size(450, 157);
             this.curveSettingsControl.TabIndex = 2;
-            this.curveSettingsControl.pressOkEvent += new System.Action<object, ModelModule.SetTransfiniteCurveEventRequest, string[]>(this.gmshCurveSettingsControl1_pressOkEvent);
-            this.curveSettingsControl.pressDelEvent += new System.Action<object, ModelModule.SetTransfiniteCurveEventRequest, string[]>(this.gmshCurveSettingsControl1_pressDelEvent);
+            this.curveSettingsControl.pressOkEvent += new System.Action<object, string[]>(this.CurveSettingsControl_pressOkEvent);
+            this.curveSettingsControl.pressDelEvent += new System.Action<object>(this.CurveSettingsControl_pressDelEvent);
             // 
             // pointSettingsControl
             // 
@@ -499,8 +499,8 @@ namespace ModelModule
             this.pointSettingsControl.Name = "pointSettingsControl";
             this.pointSettingsControl.Size = new System.Drawing.Size(441, 151);
             this.pointSettingsControl.TabIndex = 1;
-            this.pointSettingsControl.pressOkEvent += new System.Action<object, ModelModule.PointSizesRequest, double[]>(this.gmshPointSettingsControl1_pressOkEvent);
-            this.pointSettingsControl.pressDelEvent += new System.Action<object, ModelModule.PointSizesRequest, double[]>(this.gmshPointSettingsControl1_pressDelEvent);
+            this.pointSettingsControl.pressOkEvent += new System.Action<object, double[]>(this.PointSettingsControl_pressOkEvent);
+            this.pointSettingsControl.pressDelEvent += new System.Action<object>(this.PointSettingsControl_pressDelEvent);
             // 
             // meshPage
             // 
@@ -565,7 +565,7 @@ namespace ModelModule
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.40146F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.59854F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 177F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 178F));
             this.tableLayoutPanel1.Controls.Add(this.refineBtn, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.algoLabel, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.densityLabel, 0, 1);
@@ -593,7 +593,7 @@ namespace ModelModule
             this.refineBtn.Location = new System.Drawing.Point(113, 110);
             this.refineBtn.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.refineBtn.Name = "refineBtn";
-            this.refineBtn.Size = new System.Drawing.Size(130, 32);
+            this.refineBtn.Size = new System.Drawing.Size(129, 32);
             this.refineBtn.TabIndex = 10;
             this.refineBtn.Text = "Уплотнить";
             this.refineBtn.UseVisualStyleBackColor = true;
@@ -630,7 +630,7 @@ namespace ModelModule
             this.btnMesh2DDel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnMesh2DDel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMesh2DDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnMesh2DDel.Location = new System.Drawing.Point(287, 63);
+            this.btnMesh2DDel.Location = new System.Drawing.Point(286, 63);
             this.btnMesh2DDel.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.btnMesh2DDel.Name = "btnMesh2DDel";
             this.btnMesh2DDel.Size = new System.Drawing.Size(130, 32);
@@ -644,7 +644,7 @@ namespace ModelModule
             this.quadBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.quadBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.quadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.quadBtn.Location = new System.Drawing.Point(287, 110);
+            this.quadBtn.Location = new System.Drawing.Point(286, 110);
             this.quadBtn.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.quadBtn.Name = "quadBtn";
             this.quadBtn.Size = new System.Drawing.Size(130, 32);
@@ -661,7 +661,7 @@ namespace ModelModule
             this.mesh2DGenBtn.Location = new System.Drawing.Point(113, 63);
             this.mesh2DGenBtn.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.mesh2DGenBtn.Name = "mesh2DGenBtn";
-            this.mesh2DGenBtn.Size = new System.Drawing.Size(130, 32);
+            this.mesh2DGenBtn.Size = new System.Drawing.Size(129, 32);
             this.mesh2DGenBtn.TabIndex = 5;
             this.mesh2DGenBtn.Text = "Треугольная сетка";
             this.mesh2DGenBtn.UseVisualStyleBackColor = true;
@@ -888,7 +888,7 @@ namespace ModelModule
         private Label label2;
         private TextBoxEx txbMinMaxSizes;
         private Button btnMinMaxSizes;
-        private GMSHCurveSettingsControl curveSettingsControl;
         private GMSHPointSettingsControl pointSettingsControl;
+        private GMSHCurveSettingsControl curveSettingsControl;
     }
 }

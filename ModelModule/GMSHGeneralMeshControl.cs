@@ -77,16 +77,21 @@ namespace ModelModule
         public event Action<object,bool> showNumberOfCurveNodesEvent;
         public event Action<object,bool> showShowSurfaceNumbersEvent;
         //public event Action<object, Show3dTextEventArgs> show3dTextEvent;
-        public event Action<ObjType,List<int>> showObjectsEvent;
+        public event Action<ObjType,List<int>> ShowObjectsEvent;
         public event Action<ObjType> resetColorObjectsEvent;
         public event Action<object> refineMesh;
         public event Action<bool> showHeatMapEvent;
 
         public event Action<object, DeleteElementEventArgs> deleteElementEvent;
-        public event Action<object, SetTransfiniteCurveEventArgs> setTransfiniteCurveEvent;
-        //public event Action<object,int> setCurveDataEvent;
 
-        public event Action<object, PointSizesEventArgs> getOrSetPointSizesEvent;
+        public event Action<object, CurveAttribsEventArgs> SetCurveAttributeEvent;
+        public event Action<object,int> GetCurveAttribEvent;
+        public event Action<int> CurveAttribDeleteEvent;
+
+        public event Action<object, int> GetPointSizeEvent;      
+        public event Action<object, int, double[]> SetPointSizeEvent;
+        public event Action<int> PointAttribDeleteEvent;
+
         public event Action<object, double[]> setMinMaxSizesEvent;
 
 
@@ -314,33 +319,12 @@ namespace ModelModule
             }
         }
 
-        private int FindObjectByTreeNode(TreeNode node)
+        private int FindObjectNumber(TreeNode node)
         {
             var tokens = node.Text.Split(' ');
             var lastToken = tokens.Length - 1;
             return Int32.Parse(tokens[lastToken]);
         }
-
-
-        /// <summary>
-        /// Создает пользовательский запрос на получение или изменение размера контрольной точки
-        /// </summary>
-        /// <param name="request">Тип запроса</param>
-        /// <param name="sizes">Пользовательские данные полученные от GMSHPointSettingsControl</param>
-        public void CreatePointSizesRequest(PointSizesRequest request, double[] sizes = null)
-        {
-            var tag = FindObjectByTreeNode(geomTree.SelectedNode);
-            var dimTags = new int[] { 0, tag };
-
-            var pointEvent = new PointSizesEventArgs(dimTags, request);
-            pointEvent.Sizes = sizes;
-            getOrSetPointSizesEvent?.Invoke(this, pointEvent);
-
-            if (request == PointSizesRequest.Get)
-            {
-                pointSettingsControl.WritePointSettingsToControls(pointEvent.Sizes);
-            }
-        } 
 
         private List<TreeNode> TryGetCurveNodeRecursevely(TreeNode node)
         {
@@ -459,59 +443,23 @@ namespace ModelModule
             var nText = e.Node.Text;
             if (nText.Contains("Контрольный узел"))
             {
-                var nodeNumb =  Int32.Parse(nText.Split(' ')[1]);
-                showObjectsEvent?.Invoke(ObjType.Точка,new List<int>() { nodeNumb });
+                var pointNumber = FindObjectNumber(e.Node);
+                ShowObjectsEvent?.Invoke(ObjType.Точка,new List<int>() { pointNumber });
+                
+                //var dimTags = new int[] { 0, pointNumber };
+                GetPointSizeEvent?.Invoke(this, pointNumber);
             }
             else if (nText.Contains("Кривая") || nText.Contains("Поверхность")
                 || nText.Contains("Объем"))
             {
                 var curveNumbers = TryGetCurveNodeRecursevely(e.Node).Select(x =>
-                Int32.Parse(x.Text.Split(' ')[1])).ToList();
-                //var gmshTag = FindObjectByTreeNode(e.Node);
+                FindObjectNumber(x)).ToList();
 
-                showObjectsEvent?.Invoke(ObjType.Линия, curveNumbers);
+                ShowObjectsEvent?.Invoke(ObjType.Линия, curveNumbers);
+
+                if (nText.Contains("Кривая"))
+                    GetCurveAttribEvent?.Invoke(this, curveNumbers[0]);
             }
-
-
-
-            if (nText.Contains("Контрольный узел"))
-            {
-                CreatePointSizesRequest(PointSizesRequest.Get);
-            }
-            else if (nText.Contains("Кривая"))
-            {
-                ApplyCurveTranfinition(SetTransfiniteCurveEventRequest.Get, null);
-            }
-            else  if (nText.Contains("Поверхность"))
-            {
-
-            }
-            else if (nText.Contains("Объем"))
-            {
-
-            }
-        }
-
-        /// <summary>
-        /// Принимает от пользовательского контрола валидные настройки трансфиниции
-        /// </summary>
-        /// <param name="request">Запрос трансфиниции (сброс, задать, получить)</param>
-        /// <param name="attributes">Настройки трансфиниции пользовательского контрола в виде массива строк</param>
-        public void ApplyCurveTranfinition(SetTransfiniteCurveEventRequest request, string[] attributes)
-        {
-            var tag = FindObjectByTreeNode(geomTree.SelectedNode);
-            var evnt = new SetTransfiniteCurveEventArgs(tag, request, attributes);
-            setTransfiniteCurveEvent?.Invoke(this, evnt);
-
-            if(request == SetTransfiniteCurveEventRequest.Get)       
-                curveSettingsControl.WriteCurveSettingsToControls(attributes);
-
-            if (chbShowNumberOfCurveNodes.Checked)
-                showNumberOfCurveNodesEvent?.Invoke(this, true);
-            if (chbShowHeatMap.Checked)
-                showHeatMapEvent?.Invoke(true);
-            if (chbShowNodesOnCurves.Checked)
-                showNodesOnCurvesEvent?.Invoke(true);
         }
 
         private void chbShowNumberOfCurveNodes_Click(object sender, EventArgs e)
@@ -598,24 +546,36 @@ namespace ModelModule
             }
         }
 
-        private void gmshCurveSettingsControl1_pressOkEvent(object arg1, SetTransfiniteCurveEventRequest arg2, string[] arg3)
+        private void CurveSettingsControl_pressOkEvent(object arg1,  string[] arg3)
         {
-            ApplyCurveTranfinition(arg2, arg3);
+            var number = FindObjectNumber(geomTree.SelectedNode);
+            var args = new CurveAttribsEventArgs(number, arg3);
+            SetCurveAttributeEvent?.Invoke(this, args);
+
+            if (chbShowNumberOfCurveNodes.Checked)
+                showNumberOfCurveNodesEvent?.Invoke(this, true);
+            if (chbShowHeatMap.Checked)
+                showHeatMapEvent?.Invoke(true);
+            if (chbShowNodesOnCurves.Checked)
+                showNodesOnCurvesEvent?.Invoke(true);
         }
 
-        private void gmshCurveSettingsControl1_pressDelEvent(object arg1, SetTransfiniteCurveEventRequest arg2, string[] arg3)
+        private void CurveSettingsControl_pressDelEvent(object arg1)
         {
-            ApplyCurveTranfinition(arg2, arg3);
+            var number = FindObjectNumber(geomTree.SelectedNode);
+            CurveAttribDeleteEvent(number);
         }
 
-        private void gmshPointSettingsControl1_pressOkEvent(object arg1, PointSizesRequest arg2, double[] arg3)
+        private void PointSettingsControl_pressOkEvent(object arg1, double[] arg2)
         {
-            CreatePointSizesRequest(arg2, arg3);
+            var number = FindObjectNumber(geomTree.SelectedNode);
+            SetPointSizeEvent?.Invoke(arg1, number, arg2);
         }
 
-        private void gmshPointSettingsControl1_pressDelEvent(object arg1, PointSizesRequest arg2, double[] arg3)
+        private void PointSettingsControl_pressDelEvent(object arg1)
         {
-            CreatePointSizesRequest(arg2, arg3);
+            var number = FindObjectNumber(geomTree.SelectedNode);
+            PointAttribDeleteEvent(number);
         }
     }
 }

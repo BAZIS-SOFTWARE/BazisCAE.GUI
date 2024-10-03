@@ -12,11 +12,16 @@ namespace ModelModule
 {
     public partial class GMSHCurveSettingsControl : UserControl
     {
-        public event Action<object, SetTransfiniteCurveEventRequest, string[]> pressOkEvent;
-        public event Action<object, SetTransfiniteCurveEventRequest, string[]> pressDelEvent;
+        public event Action<object, string[]> pressOkEvent;
+        public event Action<object> pressDelEvent;
         public GMSHCurveSettingsControl()
         {
             InitializeComponent();
+        }
+
+        public void SetCurveAttributes(string[] attributes)
+        {
+
         }
 
         public void WriteCurveSettingsToControls(string[] attributes)
@@ -51,13 +56,13 @@ namespace ModelModule
             if(txbAlgoNPoints.IsValueValid())
                 attributes[0] = txbAlgoNPoints.Text;
 
-            pressOkEvent?.Invoke(this, SetTransfiniteCurveEventRequest.Set, attributes);
+            pressOkEvent?.Invoke(this, attributes);
         }
 
         private void BtnDel_Click(object sender, EventArgs e)
         {
             ResetTransfinition();
-            pressOkEvent?.Invoke(this, SetTransfiniteCurveEventRequest.Reset, null);
+            pressDelEvent?.Invoke(this);
         }
 
         private void ResetTransfinition()

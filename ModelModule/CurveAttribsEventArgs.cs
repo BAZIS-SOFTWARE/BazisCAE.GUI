@@ -1,22 +1,14 @@
 ﻿namespace ModelModule
 {
-    public enum SetTransfiniteCurveEventRequest
-    {
-        Get,
-        Set,
-        Reset
-    }
-    public class SetTransfiniteCurveEventArgs
+    public class CurveAttribsEventArgs
     {
         public int Tag { get; private set; }
-        public SetTransfiniteCurveEventRequest Request { get; private set; }
         public string[] Attributes { get; set; }
         public double Coef { get; private set; }
         public int Points { get; private set; }
-        public SetTransfiniteCurveEventArgs(int tag, SetTransfiniteCurveEventRequest request, string[] attributes)
+        public CurveAttribsEventArgs(int number, string[] attributes)
         {
-            Tag = tag;
-            Request = request;
+            Tag = number;
             Attributes = attributes;
 
             if (attributes != null)

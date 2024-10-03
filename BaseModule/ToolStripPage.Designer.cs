@@ -139,7 +139,7 @@ namespace BaseModule
             this.selectToolStrip.Location = new System.Drawing.Point(3, 0);
             this.selectToolStrip.Name = "selectToolStrip";
             this.selectToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.selectToolStrip.Size = new System.Drawing.Size(329, 56);
+            this.selectToolStrip.Size = new System.Drawing.Size(298, 56);
             this.selectToolStrip.SplitButtonClickWidth = 16;
             this.selectToolStrip.SplitButtonHeight = 36;
             this.selectToolStrip.SplitButtonTriangleSize = 7;
