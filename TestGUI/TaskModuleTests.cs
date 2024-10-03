@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace TestGUI
 {
-    public class Tests
+    public class TaskModuleTests
     {
         [SetUp]
         public void Setup()

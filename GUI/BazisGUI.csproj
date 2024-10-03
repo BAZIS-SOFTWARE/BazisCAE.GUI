@@ -141,14 +141,14 @@
     <Reference Include="Octree, Version=2.1.11.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.11\lib\netstandard2.0\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=3.1.11.60, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.3.1.11.60\lib\netstandard2.0\Project.dll</HintPath>
+    <Reference Include="Project, Version=3.1.11.61, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.3.1.11.61\lib\netstandard2.0\Project.dll</HintPath>
     </Reference>
-    <Reference Include="ProjectInterfaces, Version=3.1.57.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjectInterfaces.3.1.57\lib\netstandard2.0\ProjectInterfaces.dll</HintPath>
+    <Reference Include="ProjectInterfaces, Version=3.1.58.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProjectInterfaces.3.1.58\lib\netstandard2.0\ProjectInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Results, Version=3.0.1.71, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
-      <HintPath>..\packages\Results.3.0.1.71\lib\netstandard2.0\Results.dll</HintPath>
+    <Reference Include="Results, Version=3.0.1.73, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
+      <HintPath>..\packages\Results.3.0.1.73\lib\netstandard2.0\Results.dll</HintPath>
     </Reference>
     <Reference Include="Scene, Version=2.0.8.47, Culture=neutral, PublicKeyToken=2e7150108cd20395, processorArchitecture=MSIL">
       <HintPath>..\packages\Scene.2.0.8.47\lib\net48\Scene.dll</HintPath>
@@ -208,8 +208,8 @@
     <Reference Include="Tao.Platform.Windows, Version=1.0.0.5, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL">
       <HintPath>..\packages\Scene.2.0.8.47\lib\net48\Tao.Platform.Windows.dll</HintPath>
     </Reference>
-    <Reference Include="Tasks, Version=3.0.1.79, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tasks.3.0.1.79\lib\netstandard2.0\Tasks.dll</HintPath>
+    <Reference Include="Tasks, Version=3.0.1.80, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tasks.3.0.1.80\lib\netstandard2.0\Tasks.dll</HintPath>
     </Reference>
     <Reference Include="TasksParameters, Version=1.0.1.13, Culture=neutral, PublicKeyToken=8bfe6827a0935d51, processorArchitecture=MSIL">
       <HintPath>..\packages\TasksParameters.1.0.1.13\lib\netstandard2.0\TasksParameters.dll</HintPath>

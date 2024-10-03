@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenQA.Selenium.Interactions;
 
 namespace TestGUI
 {
@@ -13,8 +14,8 @@ namespace TestGUI
     {
         [Test(Description = "Сеточный генератор. Действия: импорт геометрии. Запуск генератора")]
         [TestCase(@"c:\BazisComponents\WeldingCADMerge\model7v3.stp", TestName = "Импорт геометрии model7v3.stp")]
-        [TestCase(@"c:\BazisComponents\WeldingCADMerge\part2.step", TestName = "Импорт геометрии part2.STEP")]
-        [TestCase(@"c:\BazisComponents\WeldingCADMerge\part3.step", TestName = "Импорт геометрии part3.STEP")]
+        [TestCase(@"c:\BazisComponents\WeldingCADMerge\part2.step", TestName = "Импорт геометрии part2.stp")]
+        [TestCase(@"c:\BazisComponents\WeldingCADMerge\part3.step", TestName = "Импорт геометрии part3.stp")]
         public void ModelModuleOperationsTest(string cadFile)
         {
             WindowsDriver<WindowsElement> wd;
@@ -40,11 +41,28 @@ namespace TestGUI
             mesh.Click();
             var meshGen = wd.FindElement(By.Name("Генератор 3D сетки"));
             meshGen.Click();
+
             var approuve = wd.FindElement(By.Name("ОК"));
             approuve.Click();
 
+            var a = new Actions(wd);
+            //click 2D
+            a.MoveByOffset(-450, -440).Click().Build().Perform();
+
+            //click triangle
+            var b = new Actions(wd);
+            b.MoveByOffset(100, 120).Click().Build().Perform();
+            
+            //click 3D
+            a = new Actions(wd);
+            a.MoveByOffset(-80, -120).Click().Build().Perform();
+
+            //click tetra
+            a = new Actions(wd);
+            a.MoveByOffset(0, 65).Click().Build().Perform();
+
             Thread.Sleep(3000);
-            Tests.SwithModule(wd, moduls, "Сварка");
+            TaskModuleTests.SwithModule(wd, moduls, "Сварка");
 
             Thread.Sleep(3000);
             wd.CloseApp();

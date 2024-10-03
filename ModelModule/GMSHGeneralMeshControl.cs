@@ -445,9 +445,9 @@ namespace ModelModule
             {
                 var pointNumber = FindObjectNumber(e.Node);
                 ShowObjectsEvent?.Invoke(ObjType.Точка,new List<int>() { pointNumber });
-                
-                //var dimTags = new int[] { 0, pointNumber };
-                GetPointSizeEvent?.Invoke(this, pointNumber);
+
+                pointSettingsControl.BringToFront();
+                GetPointSizeEvent?.Invoke(pointSettingsControl, pointNumber);
             }
             else if (nText.Contains("Кривая") || nText.Contains("Поверхность")
                 || nText.Contains("Объем"))
@@ -457,8 +457,10 @@ namespace ModelModule
 
                 ShowObjectsEvent?.Invoke(ObjType.Линия, curveNumbers);
 
+                curveSettingsControl.BringToFront();
+
                 if (nText.Contains("Кривая"))
-                    GetCurveAttribEvent?.Invoke(this, curveNumbers[0]);
+                    GetCurveAttribEvent?.Invoke(curveSettingsControl, curveNumbers[0]);
             }
         }
 

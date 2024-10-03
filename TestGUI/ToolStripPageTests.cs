@@ -54,7 +54,7 @@ namespace TestGUI
             Thread.Sleep(1000);
 
             //возврат лицензии на модуль сварка
-            Tests.SwithModule(wd, moduls, "Построение сетки");
+            TaskModuleTests.SwithModule(wd, moduls, "Построение сетки");
 
             Thread.Sleep(3000);
             wd.CloseApp();
@@ -109,7 +109,7 @@ namespace TestGUI
             Thread.Sleep(1000);
 
             //возврат лицензии на модуль сварка
-            Tests.SwithModule(wd, moduls, "Построение сетки");
+            TaskModuleTests.SwithModule(wd, moduls, "Построение сетки");
 
             Thread.Sleep(3000);
             wd.CloseApp();
@@ -164,7 +164,7 @@ namespace TestGUI
             Thread.Sleep(1000);
 
             //возврат лицензии на модуль сварка
-            Tests.SwithModule(wd, moduls, "Построение сетки");
+            TaskModuleTests.SwithModule(wd, moduls, "Построение сетки");
 
             Thread.Sleep(3000);
             wd.CloseApp();

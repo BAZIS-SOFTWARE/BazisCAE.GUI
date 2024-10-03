@@ -875,7 +875,7 @@ namespace ResultModule
                     args.ResName,
                     elements);
 
-                resultsController.ResultsExporter.ExportResultSurfaces(figures, result,args.ResName, formatedPath, args.Extension);
+                resultsController.ResultsExporter.ExportResultSurfaces(figures, result.TaskKind.ToString(),args.ResName, formatedPath, args.Extension);
                 BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {args.Path}", Color.Black);
             }
             catch (Exception ex)

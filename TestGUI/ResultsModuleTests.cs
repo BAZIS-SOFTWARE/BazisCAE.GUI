@@ -59,7 +59,7 @@ namespace TestGUI
             richEditControl.Click();
 
             Thread.Sleep(3000);
-            Tests.SwithModule(wd, moduls, "Построение сетки");
+            TaskModuleTests.SwithModule(wd, moduls, "Построение сетки");
 
             Thread.Sleep(3000);
             wd.CloseApp();
