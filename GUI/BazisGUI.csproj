@@ -208,8 +208,8 @@
     <Reference Include="Tao.Platform.Windows, Version=1.0.0.5, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL">
       <HintPath>..\packages\Scene.2.0.8.47\lib\net48\Tao.Platform.Windows.dll</HintPath>
     </Reference>
-    <Reference Include="Tasks, Version=3.0.1.80, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tasks.3.0.1.80\lib\netstandard2.0\Tasks.dll</HintPath>
+    <Reference Include="Tasks, Version=3.0.1.81, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tasks.3.0.1.81\lib\netstandard2.0\Tasks.dll</HintPath>
     </Reference>
     <Reference Include="TasksParameters, Version=1.0.1.13, Culture=neutral, PublicKeyToken=8bfe6827a0935d51, processorArchitecture=MSIL">
       <HintPath>..\packages\TasksParameters.1.0.1.13\lib\netstandard2.0\TasksParameters.dll</HintPath>

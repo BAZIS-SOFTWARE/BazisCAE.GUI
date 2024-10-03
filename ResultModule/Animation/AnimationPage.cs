@@ -42,7 +42,8 @@ namespace ResultModule.Animation
         {
             foreach (var item in resItems.Keys)
             {
-                cmbResultNames.Items.Add(item);
+                if(!cmbResultNames.Items.Contains(item))
+                    cmbResultNames.Items.Add(item);
             }
 
             this.resItems = resItems;
