@@ -33,6 +33,7 @@ namespace BaseModule
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolStripPage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.splitContainerEx = new UserControlsEx.SplitContainerEx();
+            this.basePage = new BaseModule.BasePage();
             this.selectToolStrip = new UserControlsEx.ToolStripEx();
             this.spbSelectObject = new System.Windows.Forms.ToolStripSplitButton();
             this.btnSelectNodes = new System.Windows.Forms.ToolStripButton();
@@ -62,7 +63,6 @@ namespace BaseModule
             this.btnShowBasis = new System.Windows.Forms.ToolStripButton();
             this.btnShowNormals = new System.Windows.Forms.ToolStripButton();
             this.btnShowCountours = new System.Windows.Forms.ToolStripButton();
-            this.basePage = new BaseModule.BasePage();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
@@ -114,6 +114,26 @@ namespace BaseModule
             this.splitContainerEx.SplitterDistance = 662;
             this.splitContainerEx.SwitchShifting = false;
             this.splitContainerEx.TabIndex = 1;
+            // 
+            // basePage
+            // 
+            this.basePage.BackColor = System.Drawing.SystemColors.Control;
+            this.basePage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.basePage.Location = new System.Drawing.Point(0, 0);
+            this.basePage.Margin = new System.Windows.Forms.Padding(0);
+            this.basePage.Name = "basePage";
+            this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.basePage.PressedKey = System.Windows.Forms.Keys.None;
+            this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
+            this.basePage.Size = new System.Drawing.Size(1149, 583);
+            this.basePage.SplitterWidthEx = 10;
+            this.basePage.TabIndex = 0;
+            this.basePage.DeleteGroupEvent += new System.Action(this.basePage_DeleteGroupEvent);
+            this.basePage.DeleteAllGroupsEvent += new System.Action(this.basePage_DeleteAllGroupsEvent);
+            this.basePage.DeleteObjectsEvent += new System.Action(this.basePage_DeleteObjectsEvent);
+            this.basePage.DeleteSelectedObjectsEvent += new System.Action(this.basePage_DeleteSelectedObjectsEvent);
+            this.basePage.CreatedMeshGroupEvent += new System.Action(this.basePage_CreatedMeshGroupEvent);
+            this.basePage.ChangedGroupNameEvent += new System.Action(this.basePage_ChangedGroupNameEvent);
             // 
             // selectToolStrip
             // 
@@ -240,7 +260,7 @@ namespace BaseModule
             this.btnScreenShot});
             this.instrumentalToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
             this.instrumentalToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.instrumentalToolStrip.Location = new System.Drawing.Point(332, 0);
+            this.instrumentalToolStrip.Location = new System.Drawing.Point(301, 0);
             this.instrumentalToolStrip.Name = "instrumentalToolStrip";
             this.instrumentalToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.instrumentalToolStrip.Size = new System.Drawing.Size(112, 56);
@@ -323,7 +343,7 @@ namespace BaseModule
             this.btnSetRotVer90,
             this.btnFitObjs});
             this.viewToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.viewToolStrip.Location = new System.Drawing.Point(444, 0);
+            this.viewToolStrip.Location = new System.Drawing.Point(413, 0);
             this.viewToolStrip.Name = "viewToolStrip";
             this.viewToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.viewToolStrip.Size = new System.Drawing.Size(328, 56);
@@ -491,10 +511,10 @@ namespace BaseModule
             this.btnShowNormals,
             this.btnShowCountours});
             this.displayToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.displayToolStrip.Location = new System.Drawing.Point(772, 0);
+            this.displayToolStrip.Location = new System.Drawing.Point(741, 0);
             this.displayToolStrip.Name = "displayToolStrip";
             this.displayToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.displayToolStrip.Size = new System.Drawing.Size(292, 56);
+            this.displayToolStrip.Size = new System.Drawing.Size(323, 56);
             this.displayToolStrip.SplitButtonClickWidth = 16;
             this.displayToolStrip.SplitButtonHeight = 34;
             this.displayToolStrip.SplitButtonTriangleSize = 6;
@@ -624,26 +644,6 @@ namespace BaseModule
             this.btnShowCountours.Text = "toolStripButton24";
             this.btnShowCountours.ToolTipText = "Показать контуры";
             this.btnShowCountours.Click += new System.EventHandler(this.btnShowCountours_Click);
-            // 
-            // basePage
-            // 
-            this.basePage.BackColor = System.Drawing.SystemColors.Control;
-            this.basePage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.basePage.Location = new System.Drawing.Point(0, 0);
-            this.basePage.Margin = new System.Windows.Forms.Padding(0);
-            this.basePage.Name = "basePage";
-            this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
-            this.basePage.PressedKey = System.Windows.Forms.Keys.None;
-            this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
-            this.basePage.Size = new System.Drawing.Size(1149, 583);
-            this.basePage.SplitterWidthEx = 10;
-            this.basePage.TabIndex = 0;
-            this.basePage.DeleteGroupEvent += new System.Action(this.basePage_DeleteGroupEvent);
-            this.basePage.DeleteAllGroupsEvent += new System.Action(this.basePage_DeleteAllGroupsEvent);
-            this.basePage.DeleteObjectsEvent += new System.Action(this.basePage_DeleteObjectsEvent);
-            this.basePage.DeleteSelectedObjectsEvent += new System.Action(this.basePage_DeleteSelectedObjectsEvent);
-            this.basePage.CreatedMeshGroupEvent += new System.Action(this.basePage_CreatedMeshGroupEvent);
-            this.basePage.ChangedGroupNameEvent += new System.Action(this.basePage_ChangedGroupNameEvent);
             // 
             // ToolStripPage
             // 

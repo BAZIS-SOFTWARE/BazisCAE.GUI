@@ -61,6 +61,8 @@ namespace ModelModule
             this.btnSetGradientSettings = new System.Windows.Forms.Button();
             this.txbMeshGradientPower = new UserControlsEx.TextBoxEx(this.components);
             this.entitieSettingsBox = new UserControlsEx.GroupBoxEx();
+            this.curveSettingsControl = new ModelModule.GMSHCurveSettingsControl();
+            this.pointSettingsControl = new ModelModule.GMSHPointSettingsControl();
             this.meshPage = new System.Windows.Forms.TabPage();
             this.meshLayout = new System.Windows.Forms.TableLayoutPanel();
             this.surfsTree = new System.Windows.Forms.TreeView();
@@ -81,8 +83,6 @@ namespace ModelModule
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.btnGenVolMesh = new System.Windows.Forms.Button();
             this.btnDelVolMesh = new System.Windows.Forms.Button();
-            this.curveSettingsControl = new ModelModule.GMSHCurveSettingsControl();
-            this.pointSettingsControl = new ModelModule.GMSHPointSettingsControl();
             this.cmsRemoveMesh2D.SuspendLayout();
             this.cmsRemoveMesh3D.SuspendLayout();
             this.gmshTab.SuspendLayout();
@@ -482,6 +482,27 @@ namespace ModelModule
             this.entitieSettingsBox.TabStop = false;
             this.entitieSettingsBox.Text = "Настройки разметки кривых";
             // 
+            // curveSettingsControl
+            // 
+            this.curveSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.curveSettingsControl.Location = new System.Drawing.Point(3, 16);
+            this.curveSettingsControl.Margin = new System.Windows.Forms.Padding(0);
+            this.curveSettingsControl.Name = "curveSettingsControl";
+            this.curveSettingsControl.Size = new System.Drawing.Size(441, 151);
+            this.curveSettingsControl.TabIndex = 2;
+            this.curveSettingsControl.pressOkEvent += new System.Action<object, string[]>(this.CurveSettingsControl_pressOkEvent);
+            this.curveSettingsControl.pressDelEvent += new System.Action<object>(this.CurveSettingsControl_pressDelEvent);
+            // 
+            // pointSettingsControl
+            // 
+            this.pointSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pointSettingsControl.Location = new System.Drawing.Point(3, 16);
+            this.pointSettingsControl.Name = "pointSettingsControl";
+            this.pointSettingsControl.Size = new System.Drawing.Size(441, 151);
+            this.pointSettingsControl.TabIndex = 1;
+            this.pointSettingsControl.pressOkEvent += new System.Action<object, double[]>(this.PointSettingsControl_pressOkEvent);
+            this.pointSettingsControl.pressDelEvent += new System.Action<object>(this.PointSettingsControl_pressDelEvent);
+            // 
             // meshPage
             // 
             this.meshPage.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -778,27 +799,6 @@ namespace ModelModule
             this.btnDelVolMesh.Text = "Удалить";
             this.btnDelVolMesh.UseVisualStyleBackColor = true;
             this.btnDelVolMesh.Click += new System.EventHandler(this.OnDeleteMesh3D);
-            // 
-            // curveSettingsControl
-            // 
-            this.curveSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.curveSettingsControl.Location = new System.Drawing.Point(3, 16);
-            this.curveSettingsControl.Margin = new System.Windows.Forms.Padding(0);
-            this.curveSettingsControl.Name = "curveSettingsControl";
-            this.curveSettingsControl.Size = new System.Drawing.Size(441, 151);
-            this.curveSettingsControl.TabIndex = 2;
-            this.curveSettingsControl.pressOkEvent += new System.Action<object, string[]>(this.CurveSettingsControl_pressOkEvent);
-            this.curveSettingsControl.pressDelEvent += new System.Action<object>(this.CurveSettingsControl_pressDelEvent);
-            // 
-            // pointSettingsControl
-            // 
-            this.pointSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pointSettingsControl.Location = new System.Drawing.Point(3, 16);
-            this.pointSettingsControl.Name = "pointSettingsControl";
-            this.pointSettingsControl.Size = new System.Drawing.Size(441, 151);
-            this.pointSettingsControl.TabIndex = 1;
-            this.pointSettingsControl.pressOkEvent += new System.Action<object, double[]>(this.PointSettingsControl_pressOkEvent);
-            this.pointSettingsControl.pressDelEvent += new System.Action<object>(this.PointSettingsControl_pressDelEvent);
             // 
             // GMSHGeneralMeshControl
             // 

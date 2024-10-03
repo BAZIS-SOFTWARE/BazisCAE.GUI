@@ -21,11 +21,6 @@ namespace ModelModule
 
         public void SetCurveAttributes(string[] attributes)
         {
-
-        }
-
-        public void WriteCurveSettingsToControls(string[] attributes)
-        {
             if (attributes.Length == 0)
                 ResetTransfinition();
             else

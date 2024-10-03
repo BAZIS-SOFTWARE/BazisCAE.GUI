@@ -18,17 +18,12 @@ namespace ModelModule
 
         public void SetPointSize(double meshSize)
         {
-            textBoxEx1.Text = meshSize.ToString();
+            textBoxEx1.Text = meshSize == 0 ? string.Empty : meshSize.ToString();
         }
 
         public GMSHPointSettingsControl()
         {
             InitializeComponent();
-        }
-
-        public void WritePointSettingsToControls(double[] sizes)
-        {
-            textBoxEx1.Text = sizes[0] == 0 ? string.Empty : sizes[0].ToString();
         }
 
         private void BtnOK_Click(object sender, EventArgs e)
