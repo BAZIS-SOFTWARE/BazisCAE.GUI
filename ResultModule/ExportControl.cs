@@ -29,14 +29,13 @@ namespace ResultModule
             InitializeComponent();
             resItems = new Dictionary<string, List<float>>();
             nodesNames = new List<string>();
-            cmbExtentionType.Items.AddRange(new[] {".bpf", ".STL-bin", ".STL-text"});
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
             try
             {
-                CheckFormBeforeButtonClick();
+                CheckFormBeforeExport();
                 var fbd = new FolderBrowserDialog();
                 string selectedPath = "";
                 if (fbd.ShowDialog() == DialogResult.OK)
@@ -46,9 +45,9 @@ namespace ResultModule
 
                 var time = float.Parse(selectedText);
                 var taskKind = cmbTasksResults.SelectedItem.ToString();
-                var resKind = cmbNodeGroupName.SelectedItem.ToString();
+                var groupName = cmbNodeGroupName.SelectedItem.ToString();
                 var extension = cmbExtentionType.SelectedItem.ToString();
-                ExportResultEvent(new ExportResultEventArgs(time, taskKind, resKind, selectedPath, extension));
+                ExportResultEvent(new ExportResultEventArgs(time, taskKind, groupName, selectedPath, extension));
             }
             catch(Exception ex)
             {
@@ -56,10 +55,40 @@ namespace ResultModule
             }
         }
 
-        private void CheckFormBeforeButtonClick()
+        private void btnSaveBD_Click(object sender, EventArgs e)
         {
-            if (cmbTasksResults.Text == "" || selectedText == "" || cmbNodeGroupName.Text == "" || cmbExtentionType.Text == "")
+            try
+            {
+                CheckFormBeforeDBSave();
+                var fbd = new FolderBrowserDialog();
+                string selectedPath = "";
+                if (fbd.ShowDialog() == DialogResult.OK)
+                    selectedPath = fbd.SelectedPath;
+                else
+                    return;
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void CheckFormBeforeExport()
+        {
+            if (selectedText.Equals(string.Empty)
+                || cmbTasksResults.Text.Equals(string.Empty)
+                || cmbNodeGroupName.Text.Equals(string.Empty)
+                || cmbExtentionType.Text.Equals(string.Empty)
+                || (!rbGrid.Checked && !rbResults.Checked))
                 throw new Exception("Перед экспортом результатов необходимо выбрать тип задачи и интервал времени для экспорта результата");
+        }
+
+        private void CheckFormBeforeDBSave()
+        {
+            if (selectedText.Equals(string.Empty) || cmbTasksResults.Text.Equals(string.Empty))
+                throw new Exception("Перед сохранением результата необходимо выбрать временной интервал и задачу");
         }
 
         private void cmbTasksResults_SelectedIndexChanged(object sender, EventArgs e)
@@ -117,8 +146,26 @@ namespace ResultModule
             //Выделяем текст с первого символа строки до конца строки
             richTextBox1.Select(startFromIndex, lineLength);
             //Устанавливаем выделенному тексту оранжевый фон
-            richTextBox1.SelectionBackColor = System.Drawing.Color.Orange;
+            richTextBox1.SelectionBackColor = System.Drawing.Color.LightBlue;
             richTextBox1.Select(startFromIndex, 0);
+        }
+
+        private void rbGrid_CheckedChanged(object sender, EventArgs e)
+        {
+            rbResults.Checked = false;
+            rbGrid.Checked = true;
+
+            cmbExtentionType.Items.Clear();
+            cmbExtentionType.Items.AddRange(new[] {"*.bpf", "*.STL (Text)", "*.STL (bin)"});
+        }
+
+        private void rbResults_CheckedChanged(object sender, EventArgs e)
+        {
+            rbGrid.Checked = false;
+            rbResults.Checked = true;
+
+            cmbExtentionType.Items.Clear();
+            cmbExtentionType.Items.AddRange(new[] {"*.TXT", "*.CSV"});
         }
     }
 }
