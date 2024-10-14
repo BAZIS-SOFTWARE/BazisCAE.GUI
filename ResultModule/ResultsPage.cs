@@ -812,11 +812,15 @@ namespace ResultModule
 
         public void ShowExportResultsPage()
         {
-            var exprtPage = new ExportControl() { Dock = DockStyle.Fill };
-            exprtPage.ExportResultEvent += (arg) => 
+            var exportPage = new ExportControl() { Dock = DockStyle.Fill };
+            exportPage.ExportResultEvent += (arg) => 
             {
-            var results = resultData.FindByTime(arg.TaskKind, arg.Time);
-            ExportGrid(results, arg, resultsController);
+                var results = resultData.FindByTime(arg.TaskKind, arg.Time);
+                ExportGrid(results, arg, resultsController);
+            };
+            exportPage.CopyResultDBEvent += (arg) =>
+            {
+                var results = resultData.FindByTime(arg.TaskKind, arg.Time);
             };
 
             var resKinds = resultData.GetResultKinds();
@@ -831,30 +835,32 @@ namespace ResultModule
                 resDic[resKind.ToString()] = resTimes;
             }
 
-            exprtPage.SetSelectorsValues(resDic);
-            exprtPage.SetNodesNames(names);
+            exportPage.SetSelectorsValues(resDic);
+            exportPage.SetNodesNames(names);
 
             var exprtForm = new Form()
             {
                 Owner = Application.OpenForms[0],
                 TopMost = true,
-                Size = exprtPage.Size,
+                Size = exportPage.Size,
                 Name = "export",
                 Text = "Экспорт результатов",
                 ShowIcon = false,
-                ClientSize = exprtPage.Size
+                ClientSize = exportPage.Size
             };
 
-            exprtForm.FormClosed += (ar1, ar2) => { exprtPage = null; };
-            exprtForm.Controls.Add(exprtPage);
+            exprtForm.FormClosed += (ar1, ar2) => { exportPage = null; };
+            exprtForm.Controls.Add(exportPage);
             exprtForm.Show();
         }
+
+        private void ExportResults(IResult result, )
 
         private void ExportGrid(IResult result, ExportResultEventArgs args, IResultsController resultsController)
         {
             try
             {
-                var format = args.Extension.Split('-')[0];
+                var format = args.Extension.Split(' ')[0];
                 var formatedPath = $"{args.Path}\\GridExport_{DateTime.Now.ToString().Replace("/", "_").Replace(":", "_")}{format}";
 
                 var scaleItems = GetScaleItems();
@@ -875,7 +881,7 @@ namespace ResultModule
                     args.ResName,
                     elements);
 
-                resultsController.ResultsExporter.ExportResultSurfaces(figures, result.TaskKind.ToString(),args.ResName, formatedPath, args.Extension);
+                //resultsController.ResultsExporter.ExportResultSurfaces(figures, result.TaskKind.ToString(),args.ResName, formatedPath, args.Extension);
                 BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {args.Path}", Color.Black);
             }
             catch (Exception ex)

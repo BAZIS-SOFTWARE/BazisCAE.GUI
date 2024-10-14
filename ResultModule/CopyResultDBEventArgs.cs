@@ -8,12 +8,12 @@ namespace ResultModule
 {
     public class CopyResultDBEventArgs : EventArgs
     {
-        string TasksResults { get; set; }
-        float Time { get; set; }
+        public string TaskKInd { get; set; }
+        public float Time { get; set; }
 
-        public CopyResultDBEventArgs(string tasksResults, float time)
+        public CopyResultDBEventArgs(string taskKind, float time)
         {
-            TasksResults = tasksResults;
+            TaskKInd = taskKind;
             Time = time;
         }
     }

@@ -157,17 +157,32 @@ namespace ResultModule
             rbResults.Checked = false;
             rbGrid.Checked = true;
 
+            rbElements.Checked = false;
+            rbElements.Enabled = false;
+            rbNodes.Checked = true;
+
             cmbExtentionType.Items.Clear();
             cmbExtentionType.Items.AddRange(new[] {"*.bpf", "*.STL (Text)", "*.STL (bin)"});
         }
 
         private void rbResults_CheckedChanged(object sender, EventArgs e)
         {
+            rbElements.Enabled = true;
             rbGrid.Checked = false;
             rbResults.Checked = true;
 
             cmbExtentionType.Items.Clear();
             cmbExtentionType.Items.AddRange(new[] {"*.TXT", "*.CSV"});
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
