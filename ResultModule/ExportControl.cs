@@ -19,6 +19,7 @@ namespace ResultModule
     {
         public event Action<string> SelectResultsEvent;
         public event Action<ExportResultEventArgs> ExportResultEvent;
+        public event Action<CopyResultDBEventArgs> CopyResultDBEvent;
 
         private readonly Dictionary<string, List<float>> resItems;
         private readonly List<string> nodesNames;
@@ -36,18 +37,18 @@ namespace ResultModule
             try
             {
                 CheckFormBeforeExport();
-                var fbd = new FolderBrowserDialog();
                 string selectedPath = "";
+                var fbd = new FolderBrowserDialog();
                 if (fbd.ShowDialog() == DialogResult.OK)
                     selectedPath = fbd.SelectedPath;
                 else
                     return;
 
-                var time = float.Parse(selectedText);
-                var taskKind = cmbTasksResults.SelectedItem.ToString();
-                var groupName = cmbNodeGroupName.SelectedItem.ToString();
-                var extension = cmbExtentionType.SelectedItem.ToString();
-                ExportResultEvent(new ExportResultEventArgs(time, taskKind, groupName, selectedPath, extension));
+                ExportResultEvent(new ExportResultEventArgs(float.Parse(selectedText),
+                    cmbTasksResults.SelectedItem.ToString(),
+                    cmbNodeGroupName.SelectedItem.ToString(),
+                    selectedPath,
+                    cmbExtentionType.SelectedItem.ToString()));
             }
             catch(Exception ex)
             {
@@ -60,14 +61,15 @@ namespace ResultModule
             try
             {
                 CheckFormBeforeDBSave();
-                var fbd = new FolderBrowserDialog();
                 string selectedPath = "";
+                var fbd = new FolderBrowserDialog();
+                
                 if (fbd.ShowDialog() == DialogResult.OK)
                     selectedPath = fbd.SelectedPath;
                 else
                     return;
 
-
+                CopyResultDBEvent(new CopyResultDBEventArgs(cmbTasksResults.Text, float.Parse(selectedText)));
             }
             catch (Exception ex)
             {
