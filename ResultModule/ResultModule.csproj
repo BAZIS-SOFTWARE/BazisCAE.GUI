@@ -129,6 +129,7 @@
     <Compile Include="Animation\PinnedAnimationControl.Designer.cs">
       <DependentUpon>PinnedAnimationControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="CopyResultDBEventArgs.cs" />
     <Compile Include="CreateAnimationEventArgs.cs" />
     <Compile Include="CreatePathGraphEventArgs.cs" />
     <Compile Include="CreateTimeGraphArgs.cs" />

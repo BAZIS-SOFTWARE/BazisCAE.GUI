@@ -10,7 +10,6 @@ namespace ResultModule
     public class ExportResultEventArgs : EventArgs
     {
         public float Time { get; set; }
-        public ObjType ObjType { get; } = ObjType.Узел;
         public string ResName { get; set; }
         public string TaskKind{ get; set; }
         public string Path { get; set; }
