@@ -71,7 +71,7 @@ namespace ResultModule
                 else
                     return;
 
-                CopyResultDBEvent(new CopyResultDBEventArgs(cmbTasksResults.Text, float.Parse(selectedText)));
+                CopyResultDBEvent(new CopyResultDBEventArgs(cmbTasksResults.Text, float.Parse(selectedText), selectedPath));
             }
             catch (Exception ex)
             {
