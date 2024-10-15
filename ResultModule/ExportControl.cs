@@ -154,7 +154,7 @@ namespace ResultModule
             richTextBox1.Select(startFromIndex, 0);
         }
 
-        private void rbGrid_CheckedChanged(object sender, EventArgs e)
+        private void rbGrid_Clicked(object sender, EventArgs e)
         {
             rbResults.Checked = false;
             rbGrid.Checked = true;
@@ -164,26 +164,26 @@ namespace ResultModule
             rbNodes.Checked = true;
 
             cmbExtentionType.Items.Clear();
-            cmbExtentionType.Items.AddRange(new[] {"*.bpf", "*.STL (Text)", "*.STL (bin)"});
+            cmbExtentionType.Items.AddRange(new[] { "*.bpf", "*.STL (Text)", "*.STL (bin)" });
         }
 
-        private void rbResults_CheckedChanged(object sender, EventArgs e)
+        private void rbResults_Clicked(object sender, EventArgs e)
         {
             rbElements.Enabled = true;
             rbGrid.Checked = false;
             rbResults.Checked = true;
 
             cmbExtentionType.Items.Clear();
-            cmbExtentionType.Items.AddRange(new[] {"*.TXT", "*.CSV"});
+            cmbExtentionType.Items.AddRange(new[] { "*.TXT", "*.CSV" });
         }
 
-        private void rbNodes_CheckedChanged(object sender, EventArgs e)
+        private void rbNodes_Clicked(object sender, EventArgs e)
         {
             rbElements.Checked = false;
             rbNodes.Checked = true;
         }
 
-        private void rbElements_CheckedChanged(object sender, EventArgs e)
+        private void rbElements_Clicked(object sender, EventArgs e)
         {
             rbNodes.Checked = false;
             rbElements.Checked = true;

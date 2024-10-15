@@ -166,7 +166,7 @@
             this.rbGrid.TabStop = true;
             this.rbGrid.Text = "Сетка";
             this.rbGrid.UseVisualStyleBackColor = true;
-            this.rbGrid.CheckedChanged += new System.EventHandler(this.rbGrid_CheckedChanged);
+            this.rbGrid.Click += new System.EventHandler(this.rbGrid_Clicked);
             // 
             // rbResults
             // 
@@ -182,7 +182,7 @@
             this.rbResults.TabStop = true;
             this.rbResults.Text = "Результаты";
             this.rbResults.UseVisualStyleBackColor = true;
-            this.rbResults.CheckedChanged += new System.EventHandler(this.rbResults_CheckedChanged);
+            this.rbResults.Click += new System.EventHandler(this.rbResults_Clicked);
             // 
             // btnExport
             // 
@@ -246,7 +246,7 @@
             this.rbNodes.TabStop = true;
             this.rbNodes.Text = "Узлы";
             this.rbNodes.UseVisualStyleBackColor = true;
-            this.rbNodes.CheckedChanged += new System.EventHandler(this.rbNodes_CheckedChanged);
+            this.rbNodes.Click += new System.EventHandler(this.rbNodes_Clicked);
             // 
             // rbElements
             // 
@@ -262,7 +262,7 @@
             this.rbElements.TabStop = true;
             this.rbElements.Text = "Элементы";
             this.rbElements.UseVisualStyleBackColor = true;
-            this.rbElements.CheckedChanged += new System.EventHandler(this.rbElements_CheckedChanged);
+            this.rbElements.Click += new System.EventHandler(this.rbElements_Clicked);
             // 
             // ExportControl
             // 
