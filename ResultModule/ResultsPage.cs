@@ -812,15 +812,23 @@ namespace ResultModule
 
         public void ShowExportResultsPage()
         {
+            var scaleItems = GetScaleItems();
+            resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
+            resultsController.ResultsFieldsCreator.ScaleFactor = 1;
+
             var exportPage = new ExportControl() { Dock = DockStyle.Fill };
             exportPage.ExportResultEvent += (arg) => 
             {
                 var results = resultData.FindByTime(arg.TaskKind, arg.Time);
-                ExportGrid(results, arg, resultsController);
+                if (arg.ExportType == ExportType.Results)
+                    ExportResults(results, arg);
+                else
+                    ExportGrid(results, arg);
             };
             exportPage.CopyResultDBEvent += (arg) =>
             {
                 var results = resultData.FindByTime(arg.TaskKind, arg.Time);
+                CopyResultDB(results, arg);
             };
 
             var resKinds = resultData.GetResultKinds();
@@ -854,40 +862,38 @@ namespace ResultModule
             exprtForm.Show();
         }
 
-        private void ExportResults(IResult result, )
-
-        private void ExportGrid(IResult result, ExportResultEventArgs args, IResultsController resultsController)
+        private void ExportResults(IResult result, ExportResultEventArgs args)
         {
             try
             {
-                var format = args.Extension.Split(' ')[0];
+                var format = args.Extension.Split(' ')[0].Trim('*');
+                var formatedPath = $"{args.Path}\\ResultsExport_{args.ResName}_{args.Time}_{format}";
+
+
+            }
+            catch (Exception ex) { BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red); }
+        }
+
+        private void ExportGrid(IResult result, ExportResultEventArgs args)
+        {
+            try
+            {
+                var format = args.Extension.Split(' ')[0].Trim('*');
                 var formatedPath = $"{args.Path}\\GridExport_{DateTime.Now.ToString().Replace("/", "_").Replace(":", "_")}{format}";
 
-                var scaleItems = GetScaleItems();
-                resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
-                resultsController.ResultsFieldsCreator.ScaleFactor = 1;
-
                 IEnumerable<ISurfaceElement> elements;
-
-                var scenePage = BasePage.ScenePage;
-
                 if (GeneralData.TaskType == TaskType.Volume)
                     elements = ModelData.ObjectData.E3DCollection;
                 else
                     elements = ModelData.ObjectData.E2DCollection;
 
                 var figures = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result,
-                    ObjType.Узел,
-                    args.ResName,
-                    elements);
+                    ObjType.Узел, args.ResName, elements);
 
-                //resultsController.ResultsExporter.ExportResultSurfaces(figures, result.TaskKind.ToString(),args.ResName, formatedPath, args.Extension);
+                resultsController.ResultsExporter.ExportResults(figures, formatedPath, args.Extension);
                 BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {args.Path}", Color.Black);
             }
-            catch (Exception ex)
-            {
-                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
-            }
+            catch (Exception ex) { BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red); }
         }
     }   
 }
