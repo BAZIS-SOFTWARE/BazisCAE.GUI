@@ -874,6 +874,7 @@ namespace ResultModule
                     objects = ModelData.ObjectData.NodeCollection;
                 else
                     objects = ModelData.ObjectData.GetAllElements();
+
                 resultsController.ResultsExporter.ExportObjectsResults(objects, result, args.ResName, formatedPath, format);
                 BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {args.Path}", Color.Black);
             }
@@ -900,6 +901,11 @@ namespace ResultModule
                 BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {args.Path}", Color.Black);
             }
             catch (Exception ex) { BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red); }
+        }
+
+        private void CopyResultDB(IResult result, CopyResultDBEventArgs args)
+        {
+            BasePage.ConsoleControl.PrintInfo($"Метод не реализован!", Color.Red);
         }
     }   
 }
