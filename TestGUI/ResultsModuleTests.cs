@@ -64,5 +64,22 @@ namespace TestGUI
             Thread.Sleep(3000);
             wd.CloseApp();
         }
+
+        [Test]
+        public void TestExportCtrl_ShouldPass_OnSuccessfulExport()
+        {
+            var opt = new AppiumOptions();
+
+            opt.AddAdditionalCapability("app", @"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe");
+            opt.AddAdditionalCapability("ms:waitForAppLaunch", "3");
+            var args = string.Join(" ", new string[] {
+                "-proj", projFile, "-res", resFile });
+
+            opt.AddAdditionalCapability("appArguments", args);
+            opt.PlatformName = "Windows11x64";
+            var url = new Uri("http://127.0.0.1:4723");
+
+            var wd = new WindowsDriver<WindowsElement>(url, opt);
+        }
     }
 }
