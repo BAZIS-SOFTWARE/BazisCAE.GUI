@@ -869,7 +869,13 @@ namespace ResultModule
                 var format = args.Extension.Split(' ')[0].Trim('*');
                 var formatedPath = $"{args.Path}\\ResultsExport_{args.ResName}_{args.Time}_{format}";
 
-
+                IEnumerable<IModelObject> objects;
+                if (args.ExportObj == ObjType.Узел)
+                    objects = ModelData.ObjectData.NodeCollection;
+                else
+                    objects = ModelData.ObjectData.GetAllElements();
+                resultsController.ResultsExporter.ExportObjectsResults(objects, result, args.ResName, formatedPath, format);
+                BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {args.Path}", Color.Black);
             }
             catch (Exception ex) { BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red); }
         }
@@ -890,7 +896,7 @@ namespace ResultModule
                 var figures = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result,
                     ObjType.Узел, args.ResName, elements);
 
-                resultsController.ResultsExporter.ExportResults(figures, formatedPath, args.Extension);
+                resultsController.GridExporter.ExportGridSurfaces(figures, formatedPath, args.Extension);
                 BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {args.Path}", Color.Black);
             }
             catch (Exception ex) { BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red); }
