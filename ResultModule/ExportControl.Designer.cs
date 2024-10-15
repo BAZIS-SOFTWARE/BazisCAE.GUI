@@ -246,7 +246,7 @@
             this.rbNodes.TabStop = true;
             this.rbNodes.Text = "Узлы";
             this.rbNodes.UseVisualStyleBackColor = true;
-            this.rbNodes.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.rbNodes.CheckedChanged += new System.EventHandler(this.rbNodes_CheckedChanged);
             // 
             // rbElements
             // 
@@ -262,7 +262,7 @@
             this.rbElements.TabStop = true;
             this.rbElements.Text = "Элементы";
             this.rbElements.UseVisualStyleBackColor = true;
-            this.rbElements.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            this.rbElements.CheckedChanged += new System.EventHandler(this.rbElements_CheckedChanged);
             // 
             // ExportControl
             // 

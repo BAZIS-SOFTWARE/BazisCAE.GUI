@@ -48,7 +48,9 @@ namespace ResultModule
                     cmbTasksResults.SelectedItem.ToString(),
                     cmbNodeGroupName.SelectedItem.ToString(),
                     selectedPath,
-                    cmbExtentionType.SelectedItem.ToString()));
+                    cmbExtentionType.SelectedItem.ToString(),
+                    rbElements.Checked ? ObjType.Элемент : ObjType.Узел,
+                    rbGrid.Checked ? ExportType.Grid : ExportType.Results));
             }
             catch(Exception ex)
             {
@@ -175,14 +177,16 @@ namespace ResultModule
             cmbExtentionType.Items.AddRange(new[] {"*.TXT", "*.CSV"});
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void rbNodes_CheckedChanged(object sender, EventArgs e)
         {
-
+            rbElements.Checked = false;
+            rbNodes.Checked = true;
         }
 
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        private void rbElements_CheckedChanged(object sender, EventArgs e)
         {
-
+            rbNodes.Checked = false;
+            rbElements.Checked = true;
         }
     }
 }
