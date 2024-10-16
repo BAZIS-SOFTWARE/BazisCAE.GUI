@@ -57,6 +57,7 @@
             this.richTextBox1.ReadOnly = true;
             this.richTextBox1.Size = new System.Drawing.Size(315, 161);
             this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Tag = "Intervals";
             this.richTextBox1.Text = "";
             this.richTextBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.richTextBox1_MouseClick);
             // 
@@ -72,6 +73,7 @@
             this.cmbTasksResults.Size = new System.Drawing.Size(315, 21);
             this.cmbTasksResults.Sorted = true;
             this.cmbTasksResults.TabIndex = 0;
+            this.cmbTasksResults.Tag = "TaskType";
             this.cmbTasksResults.SelectedIndexChanged += new System.EventHandler(this.cmbTasksResults_SelectedIndexChanged);
             // 
             // label1
@@ -105,6 +107,7 @@
             this.cmbGroupName.Name = "cmbGroupName";
             this.cmbGroupName.Size = new System.Drawing.Size(315, 21);
             this.cmbGroupName.TabIndex = 5;
+            this.cmbGroupName.Tag = "Group";
             this.cmbGroupName.Click += new System.EventHandler(this.cmbGroupName_Click);
             // 
             // label3
@@ -232,6 +235,7 @@
             this.cmbExtentionType.Name = "cmbExtentionType";
             this.cmbExtentionType.Size = new System.Drawing.Size(315, 21);
             this.cmbExtentionType.TabIndex = 8;
+            this.cmbExtentionType.Tag = "Format";
             // 
             // rbNodes
             // 
