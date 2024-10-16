@@ -833,21 +833,26 @@ namespace ResultModule
             };
 
             var resKinds = resultData.GetResultKinds();
-            var names = new List<string>();
+            var nodeNames = new List<string>();
+            var elementNames = new List<string>();
             var resDic = new Dictionary<string, List<float>>();
             foreach (var resKind in resKinds)
             {
                 var results = resultData.FindByTaskKind(resKind.ToString());
-                names.AddRange(results.First().GetDataSchema("nodes"));
+
+                nodeNames.AddRange(results.First().GetDataSchema("nodes"));
+                elementNames.AddRange(results.First().GetDataSchema("elements"));
+
                 resDic.Add(resKind.ToString(), new List<float>());
-                var resTimes = resultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
-                resDic[resKind.ToString()] = resTimes;
+                resDic[resKind.ToString()] = resultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
             }
 
-            exportPage.SetSelectorsValues(resDic);
-            exportPage.SetNodesNames(names);
+            exportPage.SetResultKinds(resKinds.Select(x => x.ToString()));
+            exportPage.SetResultValues(resDic);
+            exportPage.SetNodeNames(nodeNames);
+            exportPage.SetElementNames(elementNames);
 
-            var exprtForm = new Form()
+            var exportForm = new Form()
             {
                 Owner = Application.OpenForms[0],
                 TopMost = true,
@@ -858,17 +863,17 @@ namespace ResultModule
                 ClientSize = exportPage.Size
             };
 
-            exprtForm.FormClosed += (ar1, ar2) => { exportPage = null; };
-            exprtForm.Controls.Add(exportPage);
-            exprtForm.Show();
+            exportForm.FormClosed += (ar1, ar2) => { exportPage = null; };
+            exportForm.Controls.Add(exportPage);
+            exportForm.Show();
         }
 
         private void ExportResults(IResult result, ExportResultEventArgs args)
         {
             try
             {
-                var format = args.Extension.Split(' ')[0].Trim('*');
-                var formatedPath = $"{args.Path}\\ResultsExport_{args.ResName}_{args.Time}_{format}";
+                var format = args.Extension.Split('-')[0];
+                var formatedPath = $"{args.Path}\\ResultsExport_{args.ResName}_{args.Time}_{args.ExportType}_{args.ExportObj}.{format}";
 
                 IEnumerable<IModelObject> objects;
                 if (args.ExportObj == ObjType.Узел)
@@ -877,7 +882,7 @@ namespace ResultModule
                     objects = ModelData.ObjectData.GetAllElements();
 
                 resultsController.ResultsExporter.ExportObjectsResults(objects, result, args.ResName, formatedPath, format);
-                BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {args.Path}", Color.Black);
+                BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
             }
             catch (Exception ex) { BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red); }
         }
@@ -886,8 +891,8 @@ namespace ResultModule
         {
             try
             {
-                var format = args.Extension.Split(' ')[0].Trim('*');
-                var formatedPath = $"{args.Path}\\GridExport_{DateTime.Now.ToString().Replace("/", "_").Replace(":", "_")}{format}";
+                var format = args.Extension.Split('-')[0];
+                var formatedPath = $"{args.Path}\\GridExport_{args.ResName}_{args.Time}_{args.ExportType}_{args.ExportObj}.{format}";
 
                 IEnumerable<ISurfaceElement> elements;
                 if (GeneralData.TaskType == TaskType.Volume)
@@ -898,8 +903,8 @@ namespace ResultModule
                 var figures = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result,
                     ObjType.Узел, args.ResName, elements);
 
-                resultsController.GridExporter.ExportGridSurfaces(figures, formatedPath, args.Extension);
-                BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {args.Path}", Color.Black);
+                resultsController.GridExporter.ExportGridSurfaces(figures, formatedPath, $".{args.Extension}");
+                BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
             }
             catch (Exception ex) { BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red); }
         }
