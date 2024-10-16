@@ -33,7 +33,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskPlannerControl_v2));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridView = new DataGridViewEx();
+            this.dataGridView = new UserControlsEx.DataGridViewEx(this.components);
             this.Kind = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Settings = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -68,7 +68,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.chbTermoTask = new System.Windows.Forms.CheckBox();
             this.chbChemicalTask = new System.Windows.Forms.CheckBox();
             this.chbLinkedCalc = new System.Windows.Forms.CheckBox();
-            this.grbTaskSettings = new UserControlsEx.GroupBoxEx();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -79,18 +78,17 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.dataGridView, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.dataGridView, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.grbTaskKind, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.grbTaskSettings, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(700, 727);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -104,12 +102,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.Settings,
             this.Time});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(7, 376);
+            this.dataGridView.Location = new System.Drawing.Point(7, 350);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(686, 344);
+            this.dataGridView.Size = new System.Drawing.Size(686, 370);
             this.dataGridView.TabIndex = 14;
             this.dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -169,7 +167,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.groupBox1.Location = new System.Drawing.Point(7, 141);
+            this.groupBox1.Location = new System.Drawing.Point(7, 115);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
@@ -610,23 +608,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.chbLinkedCalc.Text = "Связанное решение";
             this.chbLinkedCalc.UseVisualStyleBackColor = false;
             // 
-            // grbTaskSettings
-            // 
-            this.grbTaskSettings.CheckState = true;
-            this.grbTaskSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbTaskSettings.IsCheckable = false;
-            this.grbTaskSettings.IsExpanded = true;
-            this.grbTaskSettings.IsRollable = true;
-            this.grbTaskSettings.Location = new System.Drawing.Point(7, 115);
-            this.grbTaskSettings.Margin = new System.Windows.Forms.Padding(7);
-            this.grbTaskSettings.MinimumSize = new System.Drawing.Size(0, 12);
-            this.grbTaskSettings.Name = "grbTaskSettings";
-            this.grbTaskSettings.Padding = new System.Windows.Forms.Padding(0);
-            this.grbTaskSettings.Size = new System.Drawing.Size(686, 12);
-            this.grbTaskSettings.TabIndex = 13;
-            this.grbTaskSettings.TabStop = false;
-            this.grbTaskSettings.Text = "Настройки расчета";
-            // 
             // TaskPlannerControl_v2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -682,7 +663,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private System.Windows.Forms.CheckBox chbTermoTask;
         private System.Windows.Forms.CheckBox chbChemicalTask;
         private System.Windows.Forms.CheckBox chbLinkedCalc;
-        private GroupBoxEx grbTaskSettings;
         private System.Windows.Forms.Button btnAddNewTask;
     }
 }

@@ -1,5 +1,4 @@
-﻿using TaskModule.ToolStrips;
-
+﻿
 namespace TaskModule.HeatTreatmentModule
 {
     partial class HeatTreatmentPage
@@ -45,7 +44,6 @@ namespace TaskModule.HeatTreatmentModule
             this.ResumeLayout(false);
 
         }
-        HeatTreatmentTasksToolStrip heatTreatmentTasksToolStrip = new HeatTreatmentTasksToolStrip() { Name = "Термообработка" };
         #endregion
     }
 }

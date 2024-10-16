@@ -183,7 +183,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 Formatting = Newtonsoft.Json.Formatting.Indented
             };
 
-            grbTaskSettings.Controls.Clear();
+            //grbTaskSettings.Controls.Clear();
 
             GeneralParameters parameters;
             TaskControl taskControl;
@@ -202,13 +202,14 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 parameters = CreateChemicalTaskSettings(fileSettings, settingsSerializer);
                 taskControl = cntrChemTask;
             }
-
-            taskControl.InputData(parameters);
-            grbTaskSettings.Controls.Clear();
-            grbTaskSettings.Controls.Add(taskControl);
-            grbTaskSettings.Height = int.Parse(cntrHeatTask.Tag.ToString()) + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
-            grbTaskSettings.Padding = new Padding(1,1,1,3);
-            grbTaskSettings.IsExpanded = false;
+            /*
+taskControl.InputData(parameters);
+grbTaskSettings.Controls.Clear();
+grbTaskSettings.Controls.Add(taskControl);
+grbTaskSettings.Height = int.Parse(cntrHeatTask.Tag.ToString()) + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
+grbTaskSettings.Padding = new Padding(1,1,1,3);
+grbTaskSettings.IsExpanded = false;
+*/
 
             txbStartTime.Text = parameters.TimeSettings.StartTime.ToString();
             txbStopTime.Text = parameters.TimeSettings.StopTime.ToString();
@@ -226,7 +227,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 (File.ReadAllText(fileSettings), settingsSerializer);
             cntrChemTask.InputData(parameters);
             cntrChemTask.BringToFront();
-            grbTaskSettings.Controls.Add(cntrChemTask);
+            //grbTaskSettings.Controls.Add(cntrChemTask);
             return parameters;
         }
 
@@ -563,9 +564,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             lblMechTask.BackColor = Color.Transparent;
             lblMechTask.ForeColor = Color.Black;
 
-            grbTaskSettings.Controls.Clear();
-            grbTaskSettings.Controls.Add(cntrHeatTask);
-            grbTaskSettings.Height = int.Parse(cntrHeatTask.Tag.ToString()) + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
+            //grbTaskSettings.Controls.Clear();
+            //grbTaskSettings.Controls.Add(cntrHeatTask);
+            //grbTaskSettings.Height = int.Parse(cntrHeatTask.Tag.ToString()) + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
         }
 
         private void LblMechTask_Click(object sender, EventArgs e)
@@ -578,11 +579,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
             lblChemicalTask.BackColor = Color.Transparent;
             lblChemicalTask.ForeColor = Color.Black;
-            grbTaskSettings.Controls.Clear();
+            //grbTaskSettings.Controls.Clear();
 
             //cntrMechTask.BringToFront();
-            grbTaskSettings.Controls.Add(cntrMechTask);
-            grbTaskSettings.Height = int.Parse(cntrMechTask.Tag.ToString()) + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
+            //grbTaskSettings.Controls.Add(cntrMechTask);
+            //grbTaskSettings.Height = int.Parse(cntrMechTask.Tag.ToString()) + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
 
         }
 

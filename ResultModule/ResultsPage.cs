@@ -93,7 +93,7 @@ namespace ResultModule
             scPage.X_Coord = scale.Coord_X;
             scPage.Y_Coord = scale.Coord_Y;
 
-            scPage.SetScaleSetting += (ar1, ar2) =>
+            scPage.SetScaleSettingEvent += (ar1, ar2) =>
             {
                 scale.Precision = ar2.Precision;
                 scale.FillRange(ar2.Min,ar2.Max, ar2.Range);
@@ -458,7 +458,7 @@ namespace ResultModule
             var max = (float)result.Data.Tables[objsType].Compute($"Max({resName})", "");
             var min = (float)result.Data.Tables[objsType].Compute($"Min({resName})", "");
 
-            scale.FillRange(min, (float)max, 10);
+            scale.FillRange(min, max, 10);
         }
 
         private async void CreatePathGraph(IResult result, ObjType objsType)
@@ -875,7 +875,7 @@ namespace ResultModule
                     args.ResName,
                     elements);
 
-                resultsController.ResultsExporter.ExportResultSurfaces(figures, result.TaskKind.ToString(),args.ResName, formatedPath, args.Extension);
+                resultsController.ResultsExporter.ExportObjectsResults(figures, result,args.ResName, formatedPath, args.Extension);
                 BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {args.Path}", Color.Black);
             }
             catch (Exception ex)
