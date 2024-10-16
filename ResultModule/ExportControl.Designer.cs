@@ -32,7 +32,7 @@
             this.cmbTasksResults = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbNodeGroupName = new System.Windows.Forms.ComboBox();
+            this.cmbGroupName = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.rbGrid = new System.Windows.Forms.RadioButton();
@@ -95,16 +95,17 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Интервалы";
             // 
-            // cmbNodeGroupName
+            // cmbGroupName
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.cmbNodeGroupName, 2);
-            this.cmbNodeGroupName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbNodeGroupName.FormattingEnabled = true;
-            this.cmbNodeGroupName.Location = new System.Drawing.Point(136, 263);
-            this.cmbNodeGroupName.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
-            this.cmbNodeGroupName.Name = "cmbNodeGroupName";
-            this.cmbNodeGroupName.Size = new System.Drawing.Size(315, 21);
-            this.cmbNodeGroupName.TabIndex = 5;
+            this.tableLayoutPanel1.SetColumnSpan(this.cmbGroupName, 2);
+            this.cmbGroupName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGroupName.FormattingEnabled = true;
+            this.cmbGroupName.Location = new System.Drawing.Point(136, 263);
+            this.cmbGroupName.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
+            this.cmbGroupName.Name = "cmbGroupName";
+            this.cmbGroupName.Size = new System.Drawing.Size(315, 21);
+            this.cmbGroupName.TabIndex = 5;
+            this.cmbGroupName.Click += new System.EventHandler(this.cmbGroupName_Click);
             // 
             // label3
             // 
@@ -134,7 +135,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.cmbExtentionType, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.cmbNodeGroupName, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.cmbGroupName, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.rbNodes, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.rbElements, 2, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -284,7 +285,7 @@
         private System.Windows.Forms.ComboBox cmbTasksResults;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cmbNodeGroupName;
+        private System.Windows.Forms.ComboBox cmbGroupName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btnExport;
