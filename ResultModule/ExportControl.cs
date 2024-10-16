@@ -200,15 +200,16 @@ namespace ResultModule
         {
             rbElements.Checked = false;
             rbNodes.Checked = true;
+
+            SetGroupNames();
         }
 
         private void rbElements_Clicked(object sender, EventArgs e)
         {
             rbNodes.Checked = false;
             rbElements.Checked = true;
-        }
 
-        private void cmbGroupName_Click(object sender, EventArgs e)
-            => SetGroupNames();
+            SetGroupNames();
+        }
     }
 }

@@ -108,7 +108,6 @@
             this.cmbGroupName.Size = new System.Drawing.Size(315, 21);
             this.cmbGroupName.TabIndex = 5;
             this.cmbGroupName.Tag = "Group";
-            this.cmbGroupName.Click += new System.EventHandler(this.cmbGroupName_Click);
             // 
             // label3
             // 
