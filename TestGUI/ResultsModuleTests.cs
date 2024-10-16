@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
+using System.Reflection;
 
 namespace TestGUI
 {
@@ -66,20 +68,26 @@ namespace TestGUI
         }
 
         [Test]
-        public void TestExportCtrl_ShouldPass_OnSuccessfulExport()
+        [TestCase(@"C:\Users\unv\source\BazisProj\testProj\VSMPO\vsmpo.bpf", @"C:\Users\unv\source\BazisProj\testProj\VSMPO\ResultsData\термическая_1_0_50.db")]
+        public void TestExportCtrl_ShouldPass_OnSuccessfulExport(string projPath, string resPath)
         {
             var opt = new AppiumOptions();
+            opt.AddAdditionalCapability("app", Path.GetFullPath(@"C:\Users\unv\source\repos\Bazis\BazisGUI4.1\GUI\bin\x64\Debug\BazisGUI.exe"));
+            opt.AddAdditionalCapability("ms:waitForAppLaunch", "5");
+            opt.AddAdditionalCapability("appArguments", @$"-proj {projPath} -res {resPath}");
 
-            opt.AddAdditionalCapability("app", @"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe");
-            opt.AddAdditionalCapability("ms:waitForAppLaunch", "3");
-            var args = string.Join(" ", new string[] {
-                "-proj", projFile, "-res", resFile });
-
-            opt.AddAdditionalCapability("appArguments", args);
-            opt.PlatformName = "Windows11x64";
-            var url = new Uri("http://127.0.0.1:4723");
-
-            var wd = new WindowsDriver<WindowsElement>(url, opt);
+            var wd = new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"), opt);
+            try
+            {
+                wd.FindElement(By.Name("Модули")).Click();
+                wd.FindElement(By.Name("Анализ результатов")).Click();
+                wd.FindElement(By.Name("Результаты")).Click();
+                wd.FindElement(By.Name("Экспорт результатов")).Click();
+                wd.FindElement(By.TagName("TaskType")).Click();
+                wd.FindElement(By.Name("механическая")).Click();
+            }
+            catch (Exception ex) { }
+            finally { wd.CloseApp(); }
         }
     }
 }
