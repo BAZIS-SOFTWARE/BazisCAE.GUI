@@ -33,7 +33,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskPlannerControl_v2));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridView = new DataGridViewEx();
+            this.dataGridView = new UserControlsEx.DataGridViewEx(this.components);
             this.Kind = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Settings = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -59,16 +59,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.label10 = new System.Windows.Forms.Label();
             this.grbTaskKind = new System.Windows.Forms.GroupBox();
             this.chbFurtherComp = new System.Windows.Forms.CheckBox();
-            this.cmbHardnessTask = new System.Windows.Forms.CheckBox();
-            this.lblMechTask = new System.Windows.Forms.Label();
-            this.lblHardness = new System.Windows.Forms.Label();
-            this.lblTermoTask = new System.Windows.Forms.Label();
-            this.lblChemicalTask = new System.Windows.Forms.Label();
-            this.chbMechTask = new System.Windows.Forms.CheckBox();
-            this.chbTermoTask = new System.Windows.Forms.CheckBox();
-            this.chbChemicalTask = new System.Windows.Forms.CheckBox();
-            this.chbLinkedCalc = new System.Windows.Forms.CheckBox();
-            this.grbTaskSettings = new UserControlsEx.GroupBoxEx();
+            this.rbtHardnessTask = new System.Windows.Forms.RadioButton();
+            this.rbtMechTask = new System.Windows.Forms.RadioButton();
+            this.rbtTermoTask = new System.Windows.Forms.RadioButton();
+            this.rbtChemicalTask = new System.Windows.Forms.RadioButton();
+            this.rbtTermoMechTask = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -79,18 +74,17 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.dataGridView, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.dataGridView, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.grbTaskKind, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.grbTaskSettings, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(700, 727);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -104,12 +98,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.Settings,
             this.Time});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(7, 376);
+            this.dataGridView.Location = new System.Drawing.Point(7, 350);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(686, 344);
+            this.dataGridView.Size = new System.Drawing.Size(686, 370);
             this.dataGridView.TabIndex = 14;
             this.dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -169,7 +163,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.groupBox1.Location = new System.Drawing.Point(7, 141);
+            this.groupBox1.Location = new System.Drawing.Point(7, 115);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
@@ -475,15 +469,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // grbTaskKind
             // 
             this.grbTaskKind.Controls.Add(this.chbFurtherComp);
-            this.grbTaskKind.Controls.Add(this.cmbHardnessTask);
-            this.grbTaskKind.Controls.Add(this.lblMechTask);
-            this.grbTaskKind.Controls.Add(this.lblHardness);
-            this.grbTaskKind.Controls.Add(this.lblTermoTask);
-            this.grbTaskKind.Controls.Add(this.lblChemicalTask);
-            this.grbTaskKind.Controls.Add(this.chbMechTask);
-            this.grbTaskKind.Controls.Add(this.chbTermoTask);
-            this.grbTaskKind.Controls.Add(this.chbChemicalTask);
-            this.grbTaskKind.Controls.Add(this.chbLinkedCalc);
+            this.grbTaskKind.Controls.Add(this.rbtHardnessTask);
+            this.grbTaskKind.Controls.Add(this.rbtMechTask);
+            this.grbTaskKind.Controls.Add(this.rbtTermoTask);
+            this.grbTaskKind.Controls.Add(this.rbtChemicalTask);
+            this.grbTaskKind.Controls.Add(this.rbtTermoMechTask);
             this.grbTaskKind.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbTaskKind.Location = new System.Drawing.Point(7, 7);
             this.grbTaskKind.Margin = new System.Windows.Forms.Padding(7);
@@ -496,136 +486,80 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // chbFurtherComp
             // 
             this.chbFurtherComp.AutoSize = true;
-            this.chbFurtherComp.Location = new System.Drawing.Point(310, 51);
+            this.chbFurtherComp.Location = new System.Drawing.Point(11, 50);
             this.chbFurtherComp.Name = "chbFurtherComp";
             this.chbFurtherComp.Size = new System.Drawing.Size(126, 17);
             this.chbFurtherComp.TabIndex = 87;
             this.chbFurtherComp.Text = "Продолжить расчет";
             this.chbFurtherComp.UseVisualStyleBackColor = true;
             // 
-            // cmbHardnessTask
+            // rbtHardnessTask
             // 
-            this.cmbHardnessTask.AutoSize = true;
-            this.cmbHardnessTask.BackColor = System.Drawing.Color.Transparent;
-            this.cmbHardnessTask.Enabled = false;
-            this.cmbHardnessTask.Location = new System.Drawing.Point(11, 52);
-            this.cmbHardnessTask.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
-            this.cmbHardnessTask.Name = "cmbHardnessTask";
-            this.cmbHardnessTask.Size = new System.Drawing.Size(15, 14);
-            this.cmbHardnessTask.TabIndex = 86;
-            this.cmbHardnessTask.Tag = "1";
-            this.cmbHardnessTask.UseVisualStyleBackColor = false;
+            this.rbtHardnessTask.AutoSize = true;
+            this.rbtHardnessTask.BackColor = System.Drawing.Color.Transparent;
+            this.rbtHardnessTask.Enabled = false;
+            this.rbtHardnessTask.Location = new System.Drawing.Point(441, 27);
+            this.rbtHardnessTask.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
+            this.rbtHardnessTask.Name = "rbtHardnessTask";
+            this.rbtHardnessTask.Size = new System.Drawing.Size(79, 17);
+            this.rbtHardnessTask.TabIndex = 86;
+            this.rbtHardnessTask.Tag = "1";
+            this.rbtHardnessTask.Text = "Твердость";
+            this.rbtHardnessTask.UseVisualStyleBackColor = false;
             // 
-            // lblMechTask
+            // rbtMechTask
             // 
-            this.lblMechTask.AutoSize = true;
-            this.lblMechTask.Location = new System.Drawing.Point(224, 27);
-            this.lblMechTask.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.lblMechTask.Name = "lblMechTask";
-            this.lblMechTask.Size = new System.Drawing.Size(80, 13);
-            this.lblMechTask.TabIndex = 85;
-            this.lblMechTask.Text = "Механическая";
-            this.lblMechTask.Click += new System.EventHandler(this.LblMechTask_Click);
+            this.rbtMechTask.AutoSize = true;
+            this.rbtMechTask.BackColor = System.Drawing.Color.Transparent;
+            this.rbtMechTask.Location = new System.Drawing.Point(207, 27);
+            this.rbtMechTask.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
+            this.rbtMechTask.Name = "rbtMechTask";
+            this.rbtMechTask.Size = new System.Drawing.Size(98, 17);
+            this.rbtMechTask.TabIndex = 78;
+            this.rbtMechTask.Tag = "2";
+            this.rbtMechTask.Text = "Механическая";
+            this.rbtMechTask.UseVisualStyleBackColor = false;
             // 
-            // lblHardness
+            // rbtTermoTask
             // 
-            this.lblHardness.AutoSize = true;
-            this.lblHardness.Enabled = false;
-            this.lblHardness.Location = new System.Drawing.Point(28, 52);
-            this.lblHardness.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.lblHardness.Name = "lblHardness";
-            this.lblHardness.Size = new System.Drawing.Size(61, 13);
-            this.lblHardness.TabIndex = 83;
-            this.lblHardness.Text = "Твердость";
+            this.rbtTermoTask.AutoSize = true;
+            this.rbtTermoTask.BackColor = System.Drawing.Color.Transparent;
+            this.rbtTermoTask.Checked = true;
+            this.rbtTermoTask.Location = new System.Drawing.Point(109, 27);
+            this.rbtTermoTask.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
+            this.rbtTermoTask.Name = "rbtTermoTask";
+            this.rbtTermoTask.Size = new System.Drawing.Size(93, 17);
+            this.rbtTermoTask.TabIndex = 79;
+            this.rbtTermoTask.TabStop = true;
+            this.rbtTermoTask.Tag = "1";
+            this.rbtTermoTask.Text = "Термическая";
+            this.rbtTermoTask.UseVisualStyleBackColor = false;
             // 
-            // lblTermoTask
+            // rbtChemicalTask
             // 
-            this.lblTermoTask.AutoSize = true;
-            this.lblTermoTask.Location = new System.Drawing.Point(126, 27);
-            this.lblTermoTask.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.lblTermoTask.Name = "lblTermoTask";
-            this.lblTermoTask.Size = new System.Drawing.Size(75, 13);
-            this.lblTermoTask.TabIndex = 84;
-            this.lblTermoTask.Text = "Термическая";
-            this.lblTermoTask.Click += new System.EventHandler(this.LblTermoTask_Click);
+            this.rbtChemicalTask.AutoSize = true;
+            this.rbtChemicalTask.BackColor = System.Drawing.Color.Transparent;
+            this.rbtChemicalTask.Enabled = false;
+            this.rbtChemicalTask.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.rbtChemicalTask.Location = new System.Drawing.Point(11, 27);
+            this.rbtChemicalTask.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
+            this.rbtChemicalTask.Name = "rbtChemicalTask";
+            this.rbtChemicalTask.Size = new System.Drawing.Size(95, 17);
+            this.rbtChemicalTask.TabIndex = 80;
+            this.rbtChemicalTask.Tag = "0";
+            this.rbtChemicalTask.Text = "Химмическая";
+            this.rbtChemicalTask.UseVisualStyleBackColor = false;
             // 
-            // lblChemicalTask
+            // rbtTermoMechTask
             // 
-            this.lblChemicalTask.AutoSize = true;
-            this.lblChemicalTask.Enabled = false;
-            this.lblChemicalTask.Location = new System.Drawing.Point(28, 27);
-            this.lblChemicalTask.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.lblChemicalTask.Name = "lblChemicalTask";
-            this.lblChemicalTask.Size = new System.Drawing.Size(77, 13);
-            this.lblChemicalTask.TabIndex = 82;
-            this.lblChemicalTask.Text = "Химмическая";
-            this.lblChemicalTask.Click += new System.EventHandler(this.LblChemicalTask_Click);
-            // 
-            // chbMechTask
-            // 
-            this.chbMechTask.AutoSize = true;
-            this.chbMechTask.BackColor = System.Drawing.Color.Transparent;
-            this.chbMechTask.Location = new System.Drawing.Point(207, 27);
-            this.chbMechTask.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
-            this.chbMechTask.Name = "chbMechTask";
-            this.chbMechTask.Size = new System.Drawing.Size(15, 14);
-            this.chbMechTask.TabIndex = 78;
-            this.chbMechTask.Tag = "2";
-            this.chbMechTask.UseVisualStyleBackColor = false;
-            // 
-            // chbTermoTask
-            // 
-            this.chbTermoTask.AutoSize = true;
-            this.chbTermoTask.BackColor = System.Drawing.Color.Transparent;
-            this.chbTermoTask.Location = new System.Drawing.Point(109, 27);
-            this.chbTermoTask.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
-            this.chbTermoTask.Name = "chbTermoTask";
-            this.chbTermoTask.Size = new System.Drawing.Size(15, 14);
-            this.chbTermoTask.TabIndex = 79;
-            this.chbTermoTask.Tag = "1";
-            this.chbTermoTask.UseVisualStyleBackColor = false;
-            // 
-            // chbChemicalTask
-            // 
-            this.chbChemicalTask.AutoSize = true;
-            this.chbChemicalTask.BackColor = System.Drawing.Color.Transparent;
-            this.chbChemicalTask.Enabled = false;
-            this.chbChemicalTask.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chbChemicalTask.Location = new System.Drawing.Point(11, 27);
-            this.chbChemicalTask.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
-            this.chbChemicalTask.Name = "chbChemicalTask";
-            this.chbChemicalTask.Size = new System.Drawing.Size(15, 14);
-            this.chbChemicalTask.TabIndex = 80;
-            this.chbChemicalTask.Tag = "0";
-            this.chbChemicalTask.UseVisualStyleBackColor = false;
-            // 
-            // chbLinkedCalc
-            // 
-            this.chbLinkedCalc.AutoSize = true;
-            this.chbLinkedCalc.BackColor = System.Drawing.Color.Transparent;
-            this.chbLinkedCalc.Location = new System.Drawing.Point(310, 27);
-            this.chbLinkedCalc.Name = "chbLinkedCalc";
-            this.chbLinkedCalc.Size = new System.Drawing.Size(128, 17);
-            this.chbLinkedCalc.TabIndex = 81;
-            this.chbLinkedCalc.Text = "Связанное решение";
-            this.chbLinkedCalc.UseVisualStyleBackColor = false;
-            // 
-            // grbTaskSettings
-            // 
-            this.grbTaskSettings.CheckState = true;
-            this.grbTaskSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbTaskSettings.IsCheckable = false;
-            this.grbTaskSettings.IsExpanded = true;
-            this.grbTaskSettings.IsRollable = true;
-            this.grbTaskSettings.Location = new System.Drawing.Point(7, 115);
-            this.grbTaskSettings.Margin = new System.Windows.Forms.Padding(7);
-            this.grbTaskSettings.MinimumSize = new System.Drawing.Size(0, 12);
-            this.grbTaskSettings.Name = "grbTaskSettings";
-            this.grbTaskSettings.Padding = new System.Windows.Forms.Padding(0);
-            this.grbTaskSettings.Size = new System.Drawing.Size(686, 12);
-            this.grbTaskSettings.TabIndex = 13;
-            this.grbTaskSettings.TabStop = false;
-            this.grbTaskSettings.Text = "Настройки расчета";
+            this.rbtTermoMechTask.AutoSize = true;
+            this.rbtTermoMechTask.BackColor = System.Drawing.Color.Transparent;
+            this.rbtTermoMechTask.Location = new System.Drawing.Point(310, 27);
+            this.rbtTermoMechTask.Name = "rbtTermoMechTask";
+            this.rbtTermoMechTask.Size = new System.Drawing.Size(130, 17);
+            this.rbtTermoMechTask.TabIndex = 81;
+            this.rbtTermoMechTask.Text = "Термомеханическая";
+            this.rbtTermoMechTask.UseVisualStyleBackColor = false;
             // 
             // TaskPlannerControl_v2
             // 
@@ -673,16 +607,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private System.Windows.Forms.DataGridViewCheckBoxColumn Time;
         private System.Windows.Forms.GroupBox grbTaskKind;
         private System.Windows.Forms.CheckBox chbFurtherComp;
-        private System.Windows.Forms.CheckBox cmbHardnessTask;
-        private System.Windows.Forms.Label lblMechTask;
-        private System.Windows.Forms.Label lblHardness;
-        private System.Windows.Forms.Label lblTermoTask;
-        private System.Windows.Forms.Label lblChemicalTask;
-        private System.Windows.Forms.CheckBox chbMechTask;
-        private System.Windows.Forms.CheckBox chbTermoTask;
-        private System.Windows.Forms.CheckBox chbChemicalTask;
-        private System.Windows.Forms.CheckBox chbLinkedCalc;
-        private GroupBoxEx grbTaskSettings;
+        private System.Windows.Forms.RadioButton rbtHardnessTask;
+        private System.Windows.Forms.RadioButton rbtMechTask;
+        private System.Windows.Forms.RadioButton rbtTermoTask;
+        private System.Windows.Forms.RadioButton rbtChemicalTask;
+        private System.Windows.Forms.RadioButton rbtTermoMechTask;
         private System.Windows.Forms.Button btnAddNewTask;
     }
 }

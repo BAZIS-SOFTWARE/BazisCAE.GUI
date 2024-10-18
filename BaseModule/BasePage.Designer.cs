@@ -179,6 +179,7 @@ namespace BaseModule
             this.consoleControl.ControlCollapseEvent += new System.Action(this.consoleControl_ConsolePanelCollapseEvent);
             this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
             this.consoleControl.FindFreeNodesEvent += new System.Action(this.consoleControl_FindFreeNodesEvent);
+            this.consoleControl.RenumberMeshEvent += new System.Action<object, BaseModule.Console.Events.ModelRenumberEventArgs>(this.consoleControl_RenumberMeshEvent);
             // 
             // BasePage
             // 

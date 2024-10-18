@@ -2,8 +2,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
-using AdvisorControls.TaskPlannerControls;
-using System.Globalization;
 using System.ComponentModel;
 using Newtonsoft.Json;
 using System.Threading;
@@ -14,6 +12,9 @@ using System.Linq;
 using TasksParameters;
 using TaskModule.BasicAdvisorControls.Interfaces;
 using TaskModule.BasicAdvisorControls.Events;
+using ProjectInterfaces;
+using System.Runtime;
+using BaseModule;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
@@ -44,18 +45,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             get { return btnRefresh.Image; }
             set { btnRefresh.Image = value; }
         }
-        [Category("General")]
-        [Description("Set path for computation")]
-
-        public string ProjPath { get; set; }
-        string InputDataPath
-        {
-            get
-            {
-                var inputDataPath = $@"{Path.GetFullPath(ProjPath)}\InputData";
-                return inputDataPath;
-            }
-        }
 
         public event Action<object, EventArgs> AddDataUseTaskConditionsEvent;
         public event Action<object, EventArgs> StartComputationEvent;
@@ -67,31 +56,31 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         public event Action<object, DeleteAllDataEventArgs> DeleteAllDataEvent;
 
         enum Column : int { kind, settings, status };
-        enum TaskKind : int { химическая, термическая, механическая, твердость };
+        enum TaskKind : int { химическая,термическая, механическая,твердость };
 
-        HeatTaskControl_v2 cntrHeatTask;
-        MechTaskControl_v2 cntrMechTask;
-        ChemTaskControl cntrChemTask;
+        //HeatTaskControl_v2 cntrHeatTask;
+        //MechTaskControl_v2 cntrMechTask;
+        //ChemTaskControl cntrChemTask;
 
         public TaskPlannerControl_v2()
         {
             InitializeComponent();
             DataName = "Расчет";
 
-            cntrHeatTask = new HeatTaskControl_v2() { Dock = DockStyle.Fill };
-            cntrMechTask = new MechTaskControl_v2() { Dock = DockStyle.Fill };
-            cntrChemTask = new ChemTaskControl() { Dock = DockStyle.Fill };
+            //cntrHeatTask = new HeatTaskControl_v2() { Dock = DockStyle.Fill };
+            //cntrMechTask = new MechTaskControl_v2() { Dock = DockStyle.Fill };
+            //cntrChemTask = new ChemTaskControl() { Dock = DockStyle.Fill };
 
-            cntrHeatTask.ChangeDataEvent += Cntrw_InEvent;
-            cntrMechTask.ChangeDataEvent += Cntrw_InEvent;
-            cntrChemTask.ChangeDataEvent += Cntrw_InEvent;
+            //cntrHeatTask.ChangeDataEvent += Cntrw_InEvent;
+            //cntrMechTask.ChangeDataEvent += Cntrw_InEvent;
+            //cntrChemTask.ChangeDataEvent += Cntrw_InEvent;
 
-            cntrHeatTask.SetSolver(1);
-            cntrMechTask.SetSolver(1);
-            cntrChemTask.SetSolver(1);
+            //cntrHeatTask.SetSolver(1);
+            //cntrMechTask.SetSolver(1);
+            //cntrChemTask.SetSolver(1);
 
             // Create the ToolTip and associate with the Form container.
-            var toolTip = new ToolTip();
+            var toolTip = new System.Windows.Forms.ToolTip();
 
             // Set up the delays for the ToolTip.
             toolTip.AutoPopDelay = 5000;
@@ -156,12 +145,36 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         {
             try
             {
-                var taskKind = dataGridView[(int)Column.kind, e.RowIndex].Value.ToString();
+                var taskKindStr = dataGridView[(int)Column.kind, e.RowIndex].Value.ToString();
 
-                var taskSettings = dataGridView[(int)Column.settings, e.RowIndex].Value.ToString();
+                var fileSettings = dataGridView[(int)Column.settings, e.RowIndex].Value.ToString();
 
-                Set_TaskSettings(taskKind, taskSettings, e.RowIndex);
+                TaskKind taskKind;
+                Enum.TryParse(taskKindStr, out taskKind);
 
+                var parameters = GetParametersFromFile(taskKind, fileSettings);
+
+                txbStartTime.Text = parameters.TimeSettings.StartTime.ToString();
+                txbStopTime.Text = parameters.TimeSettings.StopTime.ToString();
+                txbStartStep.Text = parameters.TimeSettings.InitTimeStep.ToString();
+                txbMinStep.Text = parameters.TimeSettings.MinTimeStep.ToString();
+                txbMaxStep.Text = parameters.TimeSettings.MaxTimeStep.ToString();
+
+                if (parameters.RestartFile != "")
+                    chbFurtherComp.Checked = true;
+                else
+                    chbFurtherComp.Checked = false;
+
+                if (taskKind == TaskKind.механическая)
+                    rbtMechTask.Checked = true;
+                else if (taskKind == TaskKind.термическая)
+                    rbtTermoTask.Checked = true;
+                else if (taskKind == TaskKind.химическая)
+                    rbtChemicalTask.Checked = true;
+                else
+                    rbtHardnessTask.Checked = true;
+
+                grbTaskKind.Enabled = false;
                 btnRefresh.Enabled = true;
                 PrevResultLoadBtn.Enabled = true;
 
@@ -170,123 +183,41 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 MessageBox.Show(ex.Message);
             }
-        }
+        } 
 
-        private void Set_TaskSettings(string taskKind, string fileSettings, int rowInd)
+        private GeneralParameters GetParametersFromFile(TaskKind taskKind, string fileSettings)
         {
-            //var taskParams = new TaskParameters(path); //read from file.txt
-            //var filePath = $@"{ProjPath}\{fileSettings}";
-
             var settingsSerializer = new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto,
                 Formatting = Newtonsoft.Json.Formatting.Indented
             };
 
-            grbTaskSettings.Controls.Clear();
-
-            GeneralParameters parameters;
-            TaskControl taskControl;
-            if (taskKind == "термическая")
-            {
-                parameters = CreateTermalTaskSettings(fileSettings, settingsSerializer);
-                taskControl = cntrHeatTask;
-            }
-            else if (taskKind == "механическая")
-            {
-                parameters = CreateMechTaskSettings(fileSettings, settingsSerializer);
-                taskControl = cntrMechTask;
-            }
-            else
-            {
-                parameters = CreateChemicalTaskSettings(fileSettings, settingsSerializer);
-                taskControl = cntrChemTask;
-            }
-
-            taskControl.InputData(parameters);
-            grbTaskSettings.Controls.Clear();
-            grbTaskSettings.Controls.Add(taskControl);
-            grbTaskSettings.Height = int.Parse(cntrHeatTask.Tag.ToString()) + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
-            grbTaskSettings.Padding = new Padding(1,1,1,3);
-            grbTaskSettings.IsExpanded = false;
-
-            txbStartTime.Text = parameters.TimeSettings.StartTime.ToString();
-            txbStopTime.Text = parameters.TimeSettings.StopTime.ToString();
-            txbStartStep.Text = parameters.TimeSettings.InitTimeStep.ToString();
-            txbMinStep.Text = parameters.TimeSettings.MinTimeStep.ToString();
-            txbMaxStep.Text = parameters.TimeSettings.MaxTimeStep.ToString();
-            chbFurtherComp.Checked = !parameters.RestartFile.Equals(string.Empty);
-        }
-
-        private GeneralParameters CreateChemicalTaskSettings(string fileSettings, JsonSerializerSettings settingsSerializer)
-        {
-            GeneralParameters parameters;
-            chbChemicalTask.Checked = true;
-            parameters = JsonConvert.DeserializeObject<ChemicalParameters>
+            if(taskKind == TaskKind.термическая)
+                return JsonConvert.DeserializeObject<TermalParameters>
+    (File.ReadAllText(fileSettings), settingsSerializer);
+            else if (taskKind == TaskKind.механическая)
+                return JsonConvert.DeserializeObject<MechanicalParameters>
 (File.ReadAllText(fileSettings), settingsSerializer);
-            cntrChemTask.InputData(parameters);
-            cntrChemTask.BringToFront();
-            grbTaskSettings.Controls.Add(cntrChemTask);
-            return parameters;
-        }
-
-        private GeneralParameters CreateMechTaskSettings(string fileSettings, JsonSerializerSettings settingsSerializer)
-        {
-            GeneralParameters parameters;
-
-            parameters = JsonConvert.DeserializeObject<MechanicalParameters>
-(File.ReadAllText(fileSettings), settingsSerializer);
-
-            var mechPar = parameters as MechanicalParameters;
-
-            if (!mechPar.ThermalFile.Equals(string.Empty))
-            {
-                chbLinkedCalc.Checked = true;
-                chbTermoTask.Checked = true;
-                if (!mechPar.ChemicalFile.Equals(string.Empty))
-                    chbChemicalTask.Checked = true;
-            }
             else
-            {
-                chbLinkedCalc.Checked = false;
-                chbTermoTask.Checked = false;
-                chbChemicalTask.Checked = false;
-            }
-
-            chbMechTask.Checked = true;
-
-            return parameters;
-        }
-
-        private GeneralParameters CreateTermalTaskSettings(string fileSettings, JsonSerializerSettings settingsSerializer)
-        {
-            GeneralParameters parameters;
-
-            parameters = JsonConvert.DeserializeObject<TermalParameters>
+                return JsonConvert.DeserializeObject<ChemicalParameters>
 (File.ReadAllText(fileSettings), settingsSerializer);
-
-            var termPar = parameters as TermalParameters;
-
-            if (!termPar.ChemicalFile.Equals(string.Empty))
-            {
-                chbLinkedCalc.Checked = true;
-                chbChemicalTask.Checked = true;
-            }
-            else
-            {
-                chbLinkedCalc.Checked = false;
-                chbChemicalTask.Checked = false;
-            }
-            chbTermoTask.Checked = true;
-            chbMechTask.Checked = false;
-            return parameters;
         }
 
-        private GeneralParameters Get_TaskSettings(TaskKind kind)
+        private void SetParametersToFile(GeneralParameters parameters, string tsfFileName, string path)
         {
-            if (kind == TaskKind.термическая) return cntrHeatTask.CollectData();
-            else if (kind == TaskKind.механическая) return cntrMechTask.CollectData();
-            else return cntrMechTask.CollectData();
+            var settingsSerializer = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Newtonsoft.Json.Formatting.Indented
+            };
+
+            var parLine = JsonConvert.SerializeObject(parameters, settingsSerializer);
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            File.WriteAllText($@"{path}\{tsfFileName}", parLine);
         }
 
         public void RefreshButton_Click(object sender, EventArgs e)
@@ -304,19 +235,30 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 TaskKind taskKind;
                 Enum.TryParse(kind, out taskKind);
 
-                var setting = dataGridView[(int)Column.settings, dataGridView.CurentSelectedRowIndex].Value.ToString();
-                var taskInd = int.Parse(Path.GetFileName(setting).Split('_')[1]);
+                var fileSettings = dataGridView[(int)Column.settings, dataGridView.CurentSelectedRowIndex].Value.ToString();
 
+                var parameters = GetParametersFromFile(taskKind,fileSettings);
 
-                var isTsfFileCreated = GenerateTsfFile(taskKind, taskInd, InputDataPath);
-
-                if (isTsfFileCreated)
+                if (parameters != null)
                 {
-                    var tsfFileName = $"{taskKind}_{taskInd}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
+                    parameters.TimeSettings.StartTime = Convert.ToSingle(txbStartTime.Text);
+                    parameters.TimeSettings.StopTime = Convert.ToSingle(txbStopTime.Text);
+                    parameters.TimeSettings.InitTimeStep = Convert.ToSingle(txbStartStep.Text);
+                    parameters.TimeSettings.MinTimeStep = Convert.ToSingle(txbMinStep.Text);
+                    parameters.TimeSettings.MaxTimeStep = Convert.ToSingle(txbMaxStep.Text);
+
+                    var path = Path.GetDirectoryName(fileSettings);
+
+                    var tsfFileName = 
+                        $"{taskKind}_{dataGridView.CurentSelectedRowIndex}_{parameters.TimeSettings.StartTime}_{parameters.TimeSettings.StopTime}.tsf";
+
+                    SetParametersToFile(parameters, tsfFileName, path);
+
                     dataGridView[(int)Column.kind, dataGridView.CurentSelectedRowIndex].Value = taskKind;
-                    dataGridView[(int)Column.settings, dataGridView.CurentSelectedRowIndex].Value = $@"{InputDataPath}\{tsfFileName}";
+                    dataGridView[(int)Column.settings, dataGridView.CurentSelectedRowIndex].Value = $@"{path}\{tsfFileName}";
                     dataGridView[(int)Column.status, dataGridView.CurentSelectedRowIndex].Value = status;
                 }
+                grbTaskKind.Enabled = true;
                 btnRefresh.Enabled = false;
             }
             catch (Exception ex)
@@ -325,65 +267,28 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             }
         }
 
-        private bool GenerateTsfFile(TaskKind taskKind, int taskIndex, string path)
+        private GeneralParameters GenerateParameters(TaskKind taskKind)
         {
-            try
-            {
-                var parameters = Get_TaskSettings(taskKind);
+            GeneralParameters parameters;
+            if (taskKind == TaskKind.химическая)
+                parameters = new ChemicalParameters();
+            else if (taskKind == TaskKind.термическая)
+                parameters = new TermalParameters();
+            else if (taskKind == TaskKind.механическая)
+                parameters = new MechanicalParameters();
+            else
+                parameters = new TermalParameters();
 
-                parameters.MetallurgicalProcesses = new List<string>() { "Охлаждение", "Нагрев" };
-
-                parameters.TimeSettings.StartTime = Convert.ToSingle(txbStartTime.Text);
+            parameters.TimeSettings.StartTime = Convert.ToSingle(txbStartTime.Text);
                 parameters.TimeSettings.StopTime = Convert.ToSingle(txbStopTime.Text);
                 parameters.TimeSettings.InitTimeStep = Convert.ToSingle(txbStartStep.Text);
                 parameters.TimeSettings.MinTimeStep = Convert.ToSingle(txbMinStep.Text);
                 parameters.TimeSettings.MaxTimeStep = Convert.ToSingle(txbMaxStep.Text);
 
-                var settingsSerializer = new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.Auto,
-                    Formatting = Newtonsoft.Json.Formatting.Indented
-                };
-
                 if (chbFurtherComp.Checked)
                     parameters.RestartFile = $@"{taskKind}_*_*_{parameters.TimeSettings.StartTime}.db";
 
-                var tsfStr = String.Empty;
-                if (taskKind == TaskKind.термическая)
-                    tsfStr = JsonConvert.SerializeObject((TermalParameters)parameters, settingsSerializer);
-
-                else if (taskKind == TaskKind.механическая)
-                {
-                    var mechParameters = (MechanicalParameters)parameters;
-
-                    if (chbLinkedCalc.Checked)
-                        if (chbTermoTask.Checked)
-                        {
-                            var termFile = $@"термическая_*_{parameters.TimeSettings.StartTime}_{parameters.TimeSettings.StopTime}.db";
-                            mechParameters.ThermalFile = termFile;
-                        }
-
-                    tsfStr = JsonConvert.SerializeObject(mechParameters, settingsSerializer);
-                }
-
-                else
-                    tsfStr = JsonConvert.SerializeObject(parameters, settingsSerializer);
-
-                var tsfFileName = $"{taskKind}_{taskIndex}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
-
-                if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
-
-                File.WriteAllText($@"{path}\{tsfFileName}", tsfStr);
-
-                return true;
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+                return parameters;
         }
 
         public void AddButton_Click(object sender, EventArgs e)
@@ -393,39 +298,59 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 if (chbAddByTaskConditions.Checked)
                 {
-                    DeleteAllTsfFilesFromInputDataDir();
                     AddDataUseTaskConditionsEvent?.Invoke(this, new EventArgs());
                 }
                 else
                 {
-                    var isTsfFileCreated = false;
-                    if (chbChemicalTask.Checked)
+                    if(rbtTermoMechTask.Checked)
                     {
-                        isTsfFileCreated = GenerateTsfFile(TaskKind.химическая, dataGridView.RowCount, InputDataPath);
-                        if (isTsfFileCreated)
-                            AddRowInfo(TaskKind.химическая, TaskStatus.выполнить, dataGridView.RowCount);
+                        var parameters = GenerateParameters(TaskKind.термическая);
+                        var tsfFileName = $"{TaskKind.термическая}_{dataGridView.RowCount}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
+
+                        var args = new GenerateTSFEventArgs(parameters, DataName, tsfFileName);
+                        AddDataEvent?.Invoke(this, args);
+
+                        Thread.Sleep(100);
+
+                        parameters = GenerateParameters(TaskKind.механическая);
+
+                        var mechParameters = (MechanicalParameters)parameters;
+
+                        var termFile = $@"термическая_*_{parameters.TimeSettings.StartTime}_{parameters.TimeSettings.StopTime}.db";
+                        mechParameters.ThermalFile = termFile;
+
+                        tsfFileName = $"{TaskKind.механическая}_{dataGridView.RowCount}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
+
+                        args = new GenerateTSFEventArgs(parameters, DataName, tsfFileName);
+                        AddDataEvent?.Invoke(this, args);
                     }
-                    Thread.Sleep(100);
-                    if (chbTermoTask.Checked)
+                    else if(rbtChemicalTask.Checked)
                     {
-                        isTsfFileCreated = GenerateTsfFile(TaskKind.термическая, dataGridView.RowCount, InputDataPath);
-                        if (isTsfFileCreated)
-                            AddRowInfo(TaskKind.термическая, TaskStatus.выполнить, dataGridView.RowCount);
+                        var parameters = GenerateParameters(TaskKind.химическая);
+                        var tsfFileName = $"{TaskKind.химическая}_{dataGridView.RowCount}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
+
+                        var args = new GenerateTSFEventArgs(parameters, DataName, tsfFileName);
+                        AddDataEvent?.Invoke(this, args);
+                    }
+                    else if (rbtTermoTask.Checked)
+                    {
+                        var parameters = GenerateParameters(TaskKind.термическая);
+                        var tsfFileName = $"{TaskKind.термическая}_{dataGridView.RowCount}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
+
+                        var args = new GenerateTSFEventArgs(parameters, DataName, tsfFileName);
+                        AddDataEvent?.Invoke(this, args);
+                    }
+                    else if (rbtMechTask.Checked)
+                    {
+                        var parameters = GenerateParameters(TaskKind.механическая);
+                        var tsfFileName = $"{TaskKind.механическая}_{dataGridView.RowCount}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
+
+                        var args = new GenerateTSFEventArgs(parameters, DataName, tsfFileName);
+                        AddDataEvent?.Invoke(this, args);
                     }
 
-                    Thread.Sleep(100);
-                    if (chbMechTask.Checked)
-                    {
-                        isTsfFileCreated = GenerateTsfFile(TaskKind.механическая, dataGridView.RowCount, InputDataPath);
-                        if (isTsfFileCreated)
-                            AddRowInfo(TaskKind.механическая, TaskStatus.выполнить, dataGridView.RowCount);
-                    }
-                    if (isTsfFileCreated)
-                    {
-                        var temp = txbStopTime.Text;
-                        txbStartTime.Text = temp;
-                    }
-
+                    var temp = txbStopTime.Text;
+                    txbStartTime.Text = temp;
                 }
                 btnRefresh.Enabled = false;
             }
@@ -435,36 +360,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             }
         }
 
-        private void AddRowInfo(TaskKind taskKind, TaskStatus status, int taskInd)
-        {
-            var tsfFileName = $"{taskKind}_{taskInd}_{txbStartTime.Text}_{txbStopTime.Text}.tsf";
-
-            dataGridView.Rows.Add(new string[] { taskKind.ToString(), $@"{InputDataPath}\{tsfFileName}", status.ToString() });
-        }
-
         public void ClearAllDataButton_Click(object sender, EventArgs e)
         {
-            DeleteAllTsfFilesFromInputDataDir();
-
-            dataGridView.Rows.Clear();
-            //base.ClearAllDataButton_Click(sender, e);
-        }
-
-        private void DeleteAllTsfFilesFromInputDataDir()
-        {
-            try
-            {
-                foreach (var file in Directory.GetFiles(InputDataPath))
-                {
-                    if (Regex.IsMatch(file, @"(\w*)(\.tsf)"))
-                        File.Delete(file);
-                }
-                PrevResultLoadBtn.Enabled = false;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"File can't be deleted: {ex.Message}");
-            }
+            DeleteAllDataEvent?.Invoke(this, new DeleteAllDataEventArgs(DataName));
         }
 
         //start here
@@ -480,14 +378,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         {
             try
             {
-                var fbd = new FolderBrowserDialog() { SelectedPath = ProjPath };
-                if (fbd.ShowDialog() == DialogResult.OK)
-                    ProjPath = fbd.SelectedPath;
-                else
+                var fbd = new FolderBrowserDialog() ;
+                if (fbd.ShowDialog() == DialogResult.Cancel)
                     return;
 
                 //dataGridView.Rows.Clear();
-                var files = Directory.GetFiles(ProjPath).Where(x => Regex.IsMatch(x, @"(\w*)(\.tsf)"));
+                var files = Directory.GetFiles(fbd.SelectedPath).Where(x => Regex.IsMatch(x, @"(\w*)(\.tsf)"));
                 Set_DataGridLines(files);
             }
             catch (Exception ex)
@@ -495,110 +391,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 MessageBox.Show(ex.Message);
             }
         }
-
-        private void TimeSettingsTextBox_Leave(object sender, EventArgs e)
-        {
-            var txb = (TextBox)sender;
-            bool isInt = float.TryParse(txb.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out float res);
-
-            if (!isInt)
-            {
-                txb.Text = "0";
-            }
-        }
-
-        private void chbTaskKind_CheckedChange(object sender, EventArgs e)
-        {
-            var chb = (CheckBox)sender;
-
-            if (!chbLinkedCalc.Checked)
-            {
-                if (chb.Tag.ToString() == "0")
-                {
-                    if (chb.Checked)
-                    {
-                        chbTermoTask.Checked = false;
-                        chbMechTask.Checked = false;
-                    }
-                }
-                else if (chb.Tag.ToString() == "1")
-                {
-                    if (chb.Checked)
-                    {
-                        chbChemicalTask.Checked = false;
-                        chbMechTask.Checked = false;
-                    }
-                }
-                else
-                {
-                    if (chb.Checked)
-                    {
-                        chbChemicalTask.Checked = false;
-                        chbTermoTask.Checked = false;
-                    }
-                }
-            }
-        }
-
-
-
-        private void chbLinkedCalc_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!chbLinkedCalc.Checked)
-            {
-                chbChemicalTask.Checked = false;
-                chbTermoTask.Checked = false;
-                chbMechTask.Checked = false;
-            }
-        }
-
-        private void LblTermoTask_Click(object sender, EventArgs e)
-        {
-            lblTermoTask.BackColor = Color.Gray;
-            lblTermoTask.ForeColor = Color.White;
-
-            lblChemicalTask.BackColor = Color.Transparent;
-            lblChemicalTask.ForeColor = Color.Black;
-
-            lblMechTask.BackColor = Color.Transparent;
-            lblMechTask.ForeColor = Color.Black;
-
-            grbTaskSettings.Controls.Clear();
-            grbTaskSettings.Controls.Add(cntrHeatTask);
-            grbTaskSettings.Height = int.Parse(cntrHeatTask.Tag.ToString()) + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
-        }
-
-        private void LblMechTask_Click(object sender, EventArgs e)
-        {
-            lblMechTask.BackColor = Color.Gray;
-            lblMechTask.ForeColor = Color.White;
-
-            lblTermoTask.BackColor = Color.Transparent;
-            lblTermoTask.ForeColor = Color.Black;
-
-            lblChemicalTask.BackColor = Color.Transparent;
-            lblChemicalTask.ForeColor = Color.Black;
-            grbTaskSettings.Controls.Clear();
-
-            //cntrMechTask.BringToFront();
-            grbTaskSettings.Controls.Add(cntrMechTask);
-            grbTaskSettings.Height = int.Parse(cntrMechTask.Tag.ToString()) + TextRenderer.MeasureText(grbTaskSettings.Text, grbTaskSettings.Font).Height;
-
-        }
-
-        private void LblChemicalTask_Click(object sender, EventArgs e)
-        {
-            lblChemicalTask.BackColor = Color.Gray;
-            lblChemicalTask.ForeColor = Color.White;
-
-            lblTermoTask.BackColor = Color.Transparent;
-            lblTermoTask.ForeColor = Color.Black;
-
-            lblMechTask.BackColor = Color.Transparent;
-            lblMechTask.ForeColor = Color.Black;
-        }
-
-
 
         private void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
@@ -618,12 +410,75 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                     else
                         dataGridView[e.ColumnIndex, e.RowIndex].Value = TaskStatus.выполнить.ToString();
                 }
+                else if(e.ColumnIndex == 1)
+                {
+                    var taskKind = dataGridView[(int)Column.kind, e.RowIndex].Value.ToString();
+                    var fileSettings = dataGridView[(int)Column.settings, e.RowIndex].Value.ToString();
+
+                    var taskControl = CreateTaskControl(taskKind, fileSettings);
+
+                    var form = new Form()
+                    {
+                        TopMost = true,
+                        ShowIcon = false,
+                        ClientSize = taskControl.Size,
+                        MaximizeBox = false,
+                        FormBorderStyle = FormBorderStyle.FixedSingle,
+                        Owner = Application.OpenForms[0],
+                        Text = $"Настройки задачи: {fileSettings}"
+                    };
+
+                    form.Controls.Add(taskControl);
+                    var location = this.PointToScreen(Point.Empty);
+                    form.Show();
+                    form.Location = location;
+                }
                 btnRefresh.Enabled = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private static UserControl CreateTaskControl(string taskKind, string fileSettings)
+        {
+            var settingsSerializer = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Newtonsoft.Json.Formatting.Indented
+            };
+
+            TaskKind taskKindEnum;
+            Enum.TryParse(taskKind, out taskKindEnum);
+
+            UserControl taskControl;
+            if (taskKindEnum == TaskKind.термическая)
+            {
+                var parameters = JsonConvert.DeserializeObject<TermalParameters>
+(File.ReadAllText(fileSettings), settingsSerializer);
+                var heatControl = new HeatTaskControl_v2();
+                heatControl.InputData(parameters, fileSettings);
+                taskControl = heatControl;
+            }
+            else if (taskKindEnum == TaskKind.механическая)
+            {
+                var parameters = JsonConvert.DeserializeObject<MechanicalParameters>
+(File.ReadAllText(fileSettings), settingsSerializer);
+                var mechControl = new MechTaskControl_v2();
+                mechControl.InputData(parameters, fileSettings);
+                taskControl = mechControl;
+            }
+            else
+            {
+                var parameters = JsonConvert.DeserializeObject<ChemicalParameters>
+(File.ReadAllText(fileSettings), settingsSerializer);
+                var chemControl = new ChemTaskControl();
+                chemControl.InputData(parameters, fileSettings);
+                taskControl = new ChemTaskControl();
+            }
+
+            return taskControl;
         }
 
         private void DataGridView_SortCompare(object sender, DataGridViewSortCompareEventArgs e)

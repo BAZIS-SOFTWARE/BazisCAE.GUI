@@ -14,7 +14,7 @@ namespace ResultModule
     {
         public event Action<object, bool> ShowScaleEvent;
 
-        public event Action<object, ScaleEventArgs> SetScaleSetting;
+        public event Action<object, ScaleEventArgs> SetScaleSettingEvent;
 
         public event Action<object, decimal> SetX_PositionEvent;
         public event Action<object, decimal> SetY_PositionEvent;
@@ -88,7 +88,7 @@ namespace ResultModule
             }
             else
             {
-                SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
+                SetScaleSettingEvent(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
                 
                 if (chbShowScale.Checked)
                     ShowScaleEvent(this, true);
@@ -106,7 +106,7 @@ namespace ResultModule
             }
             else
             {
-                SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
+                SetScaleSettingEvent(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
 
                 if (chbShowScale.Checked)
                     ShowScaleEvent(this, true);
@@ -116,7 +116,7 @@ namespace ResultModule
 
         private void updPrecision_Leave(object sender, EventArgs e)
         {
-            SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
+            SetScaleSettingEvent(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
 
             if (chbShowScale.Checked)
                 ShowScaleEvent(this, true);
@@ -124,7 +124,7 @@ namespace ResultModule
 
         private void updIntervals_Leave(object sender, EventArgs e)
         {
-            SetScaleSetting(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
+            SetScaleSettingEvent(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
 
             if (chbShowScale.Checked)
                 ShowScaleEvent(this, true);

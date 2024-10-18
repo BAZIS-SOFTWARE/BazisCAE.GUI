@@ -9,61 +9,41 @@ using System.Linq;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
-    public partial class ChemTaskControl : TaskControl
+    public partial class ChemTaskControl : UserControl, ITaskControl
     {
+        private ChemicalParameters parameters;
+        private string tsFullFileName;
+
         public ChemTaskControl()
         {
             InitializeComponent();
         }
-        public override string TaskName { get; }
 
-        public override void SetSolver(int solverIndex)
+        public void SetSolver(int solverIndex)
         {
             cmbSolver.SelectedIndex = 1;
         }
 
-        public override void InputData(GeneralParameters parameters)
+        public void InputData(ChemicalParameters _parameters, string _tsFullFileName)
         {
-            base.InputData(parameters);
-            var chemicalParameters = (ChemicalParameters)parameters;
-            txbDTtMax.Text = chemicalParameters.ChemicalConvergence.Cm.ToString();
-            txbIters.Text = chemicalParameters.Iterations.ToString();
+            parameters = _parameters;
 
-            txbSaveRate.Text = chemicalParameters.SaveRate.ToString();
-            txbInitConcentration.Text = chemicalParameters.InitConcentration.ToString();
+            tsFullFileName = _tsFullFileName;
 
-            cmbSolver.Text = chemicalParameters.SolverSettings.Solver;
-            txbSolverIterations.Text = chemicalParameters.SolverSettings.MaxIter.ToString();
-            txbPrecision.Text = chemicalParameters.SolverSettings.Precision.ToString();
-            txbRelaxation.Text = chemicalParameters.SolverSettings.Relaxation.ToString();
-            cmbPriority.Text = chemicalParameters.SolverSettings.Priority.ToString();
+            txbDTtMax.Text = parameters.ChemicalConvergence.Cm.ToString();
+            txbIters.Text = parameters.Iterations.ToString();
+
+            txbSaveRate.Text = parameters.SaveRate.ToString();
+            txbInitConcentration.Text = parameters.InitConcentration.ToString();
+
+            cmbSolver.Text = parameters.SolverSettings.Solver;
+            txbSolverIterations.Text = parameters.SolverSettings.MaxIter.ToString();
+            txbPrecision.Text = parameters.SolverSettings.Precision.ToString();
+            txbRelaxation.Text = parameters.SolverSettings.Relaxation.ToString();
+            cmbPriority.Text = parameters.SolverSettings.Priority.ToString();
         }
 
-        public override GeneralParameters CollectData()
-        {
-            var chemicalParameters = new ChemicalParameters();
-
-            if (chbDTtMax.Checked)
-            {
-                chemicalParameters.ChemicalConvergence.Is_Switched_Cm = true;
-                chemicalParameters.ChemicalConvergence.Cm = Convert.ToSingle(txbDTtMax.Text);
-            }
-
-            chemicalParameters.Iterations = Convert.ToInt32(txbIters.Text);
-
-            chemicalParameters.InitConcentration = Convert.ToSingle(txbInitConcentration.Text);
-            chemicalParameters.SaveRate = Convert.ToInt32(txbSaveRate.Text);
-
-            chemicalParameters.SolverSettings.Solver = cmbSolver.Text;
-            chemicalParameters.SolverSettings.MaxIter = Convert.ToInt32(txbSolverIterations.Text);
-            chemicalParameters.SolverSettings.Precision = Convert.ToSingle(txbPrecision.Text);
-            chemicalParameters.SolverSettings.Relaxation = Convert.ToSingle(txbRelaxation.Text);
-            chemicalParameters.SolverSettings.Priority = cmbPriority.Text;
-
-            return chemicalParameters;
-        }
-
-        public override bool GetValidationResult()
+        public bool GetValidationResult()
         {
             var checks = new List<bool>()
             {
@@ -80,7 +60,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             return checks.All(x => x);
         }
 
-        public override void AllTextBox_TextChanged(object sender, EventArgs e)
+        public void AllTextBox_TextChanged(object sender, EventArgs e)
         {
             if (sender is ComboBox cmb)
                 if (cmb.SelectedItem.ToString() == "Gauss_direct")
@@ -101,39 +81,47 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                     txbRelaxation.Enabled = true;
                     txbSolverIterations.Enabled = true;
                 }
-
-
-            base.AllTextBox_TextChanged(sender, e);
         }
 
-        public override void Txb_EnabledChanged(object sender, EventArgs e)
+        public void Txb_EnabledChanged(object sender, EventArgs e)
         {
-            base.Txb_EnabledChanged(sender, e);
+            if (sender is TextBox txb)
+            {
+                if (txb.Enabled == false)
+                    txb.Text = "0";
+            }
         }
 
-        private void btnLoadParameters_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            try
+            var parameters = new ChemicalParameters();
+
+            if (chbDTtMax.Checked)
             {
-                var dialog = new OpenFileDialog();
-
-                if (dialog.ShowDialog() == DialogResult.Cancel)
-                    return;
-                var settingsSerializer = new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.Auto,
-                    Formatting = Newtonsoft.Json.Formatting.Indented
-                };
-
-                var parameters = JsonConvert.DeserializeObject<ChemicalParameters>
-    (File.ReadAllText(dialog.FileName), settingsSerializer);
-                InputData(parameters);
-
+                parameters.ChemicalConvergence.Is_Switched_Cm = true;
+                parameters.ChemicalConvergence.Cm = Convert.ToSingle(txbDTtMax.Text);
             }
-            catch (Exception ex)
+
+            parameters.Iterations = Convert.ToInt32(txbIters.Text);
+
+            parameters.InitConcentration = Convert.ToSingle(txbInitConcentration.Text);
+            parameters.SaveRate = Convert.ToInt32(txbSaveRate.Text);
+
+            parameters.SolverSettings.Solver = cmbSolver.Text;
+            parameters.SolverSettings.MaxIter = Convert.ToInt32(txbSolverIterations.Text);
+            parameters.SolverSettings.Precision = Convert.ToSingle(txbPrecision.Text);
+            parameters.SolverSettings.Relaxation = Convert.ToSingle(txbRelaxation.Text);
+            parameters.SolverSettings.Priority = cmbPriority.Text;
+
+            var settingsSerializer = new JsonSerializerSettings
             {
-                MessageBox.Show(ex.Message);
-            }
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Newtonsoft.Json.Formatting.Indented
+            };
+
+            var parLine = JsonConvert.SerializeObject(parameters, settingsSerializer);
+
+            File.WriteAllText(tsFullFileName, parLine);
         }
     }
 }

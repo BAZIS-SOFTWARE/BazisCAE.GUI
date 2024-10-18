@@ -4,21 +4,18 @@
     "Is_Switched_Tm": true,
     "Tm": 1500.0
   },
-  "MetallurgicalProcesses": [
-    "Охлаждение",
-    "Нагрев"
-  ],
+  "MetallurgicalProcesses": [],
   "InitTemp": 20.0,
-  "SaveRate": 1,
+  "SaveRate": 0,
   "RestartFile": "",
-  "Iterations": 2,
+  "Iterations": 0,
   "SolverSettings": {
     "$type": "TasksParameters.SolverSettings, TasksParameters",
-    "MaxIter": 100,
-    "Solver": "SOR_iterative",
+    "MaxIter": 0,
+    "Solver": "Gauss_direct",
     "MaxRelaxation": 1.5,
-    "Relaxation": 1.05,
-    "Precision": 0.01,
+    "Relaxation": 0.0,
+    "Precision": 0.0,
     "Priority": "Наивысший"
   },
   "TimeSettings": {

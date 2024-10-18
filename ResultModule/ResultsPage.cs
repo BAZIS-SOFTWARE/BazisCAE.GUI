@@ -94,7 +94,7 @@ namespace ResultModule
             scPage.X_Coord = scale.Coord_X;
             scPage.Y_Coord = scale.Coord_Y;
 
-            scPage.SetScaleSetting += (ar1, ar2) =>
+            scPage.SetScaleSettingEvent += (ar1, ar2) =>
             {
                 scale.Precision = ar2.Precision;
                 scale.FillRange(ar2.Min,ar2.Max, ar2.Range);
@@ -459,7 +459,7 @@ namespace ResultModule
             var max = (float)result.Data.Tables[objsType].Compute($"Max({resName})", "");
             var min = (float)result.Data.Tables[objsType].Compute($"Min({resName})", "");
 
-            scale.FillRange(min, (float)max, 10);
+            scale.FillRange(min, max, 10);
         }
 
         private async void CreatePathGraph(IResult result, ObjType objsType)

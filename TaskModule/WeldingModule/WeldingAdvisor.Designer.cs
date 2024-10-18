@@ -318,7 +318,6 @@ namespace TaskModule.WeldingModule
             this.taskPlannerControl.MinimumSize = new System.Drawing.Size(300, 300);
             this.taskPlannerControl.Name = "taskPlannerControl";
             this.taskPlannerControl.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
-            this.taskPlannerControl.ProjPath = null;
             this.taskPlannerControl.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl.RefreshButtonImage")));
             this.taskPlannerControl.Size = new System.Drawing.Size(691, 505);
             this.taskPlannerControl.TabIndex = 0;
@@ -326,6 +325,9 @@ namespace TaskModule.WeldingModule
             this.taskPlannerControl.StartComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl_StartComputationEvent);
             this.taskPlannerControl.StopComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StopComputationEvent);
             this.taskPlannerControl.GenerateTCFEvent += new System.Action<object, TaskModule.BasicAdvisorControls.TaskPlannerControls.GenerateTCFEventArgs>(this.TaskPlannerControl_GenerateTCFEvent);
+            this.taskPlannerControl.AddDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
+            this.taskPlannerControl.ChangeDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            this.taskPlannerControl.DeleteAllDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
             // 
             // imageList
             // 
@@ -366,7 +368,6 @@ namespace TaskModule.WeldingModule
             this.Name = "WeldingAdvisor";
             this.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
             this.Size = new System.Drawing.Size(699, 543);
-            this.Load += new System.EventHandler(this.ы);
             this.tabControl.ResumeLayout(false);
             this.pdgTaskType.ResumeLayout(false);
             this.pdgMaterials.ResumeLayout(false);

@@ -866,5 +866,10 @@ namespace BaseModule
             splitContainer1.Panel1Collapsed = false;
             splitContainer2.Panel2Collapsed = false;
         }
+
+        private void consoleControl_RenumberMeshEvent(object arg1, ModelRenumberEventArgs arg2)
+        {
+            ModelController.ObjectsRenumber.Renumber(ModelData.ObjectData, arg2.ObjsType);
+        }
     }
 }

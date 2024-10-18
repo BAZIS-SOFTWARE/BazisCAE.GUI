@@ -53,6 +53,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbMaxSiSt = new UserControlsEx.TextBoxEx(this.components);
             this.txbMaxU = new UserControlsEx.TextBoxEx(this.components);
             this.txbMaxDU = new UserControlsEx.TextBoxEx(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label6
@@ -78,6 +79,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.chbPlastisity.TabIndex = 152;
             this.chbPlastisity.Text = "Пласт. деформации Si/St, >1 ";
             this.chbPlastisity.UseVisualStyleBackColor = true;
+            this.chbPlastisity.CheckedChanged += new System.EventHandler(this.chbPlastisity_CheckedChanged);
             // 
             // label4
             // 
@@ -108,9 +110,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             "Высокий",
             "Наивысший"});
             this.cmbPriority.Location = new System.Drawing.Point(190, 276);
-            this.cmbPriority.Margin = new System.Windows.Forms.Padding(178, 3, 15, 15);
+            this.cmbPriority.Margin = new System.Windows.Forms.Padding(178, 3, 20, 7);
             this.cmbPriority.Name = "cmbPriority";
-            this.cmbPriority.Size = new System.Drawing.Size(568, 21);
+            this.cmbPriority.Size = new System.Drawing.Size(490, 21);
             this.cmbPriority.TabIndex = 151;
             this.cmbPriority.Text = "Наивысший";
             this.cmbPriority.UserRegExCheck = null;
@@ -143,7 +145,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.cmbSolver.Location = new System.Drawing.Point(190, 171);
             this.cmbSolver.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.cmbSolver.Name = "cmbSolver";
-            this.cmbSolver.Size = new System.Drawing.Size(568, 21);
+            this.cmbSolver.Size = new System.Drawing.Size(490, 21);
             this.cmbSolver.TabIndex = 149;
             this.cmbSolver.Text = "SOR_iterative";
             this.cmbSolver.UserRegExCheck = null;
@@ -173,7 +175,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbRelaxation.Location = new System.Drawing.Point(190, 250);
             this.txbRelaxation.Margin = new System.Windows.Forms.Padding(190, 3, 15, 3);
             this.txbRelaxation.Name = "txbRelaxation";
-            this.txbRelaxation.Size = new System.Drawing.Size(568, 20);
+            this.txbRelaxation.Size = new System.Drawing.Size(490, 20);
             this.txbRelaxation.TabIndex = 142;
             this.txbRelaxation.Text = "1.25";
             this.txbRelaxation.UserRegExCheck = null;
@@ -191,7 +193,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbPrecision.Location = new System.Drawing.Point(190, 224);
             this.txbPrecision.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbPrecision.Name = "txbPrecision";
-            this.txbPrecision.Size = new System.Drawing.Size(568, 20);
+            this.txbPrecision.Size = new System.Drawing.Size(490, 20);
             this.txbPrecision.TabIndex = 143;
             this.txbPrecision.Text = "0.0001";
             this.txbPrecision.UserRegExCheck = null;
@@ -221,7 +223,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbSolverIterations.Location = new System.Drawing.Point(190, 198);
             this.txbSolverIterations.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbSolverIterations.Name = "txbSolverIterations";
-            this.txbSolverIterations.Size = new System.Drawing.Size(568, 20);
+            this.txbSolverIterations.Size = new System.Drawing.Size(490, 20);
             this.txbSolverIterations.TabIndex = 144;
             this.txbSolverIterations.Text = "100";
             this.txbSolverIterations.UserRegExCheck = null;
@@ -251,7 +253,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbIters.Location = new System.Drawing.Point(190, 119);
             this.txbIters.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbIters.Name = "txbIters";
-            this.txbIters.Size = new System.Drawing.Size(568, 20);
+            this.txbIters.Size = new System.Drawing.Size(490, 20);
             this.txbIters.TabIndex = 138;
             this.txbIters.Text = "25";
             this.txbIters.UserRegExCheck = null;
@@ -282,7 +284,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbSaveRate.Location = new System.Drawing.Point(190, 145);
             this.txbSaveRate.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbSaveRate.Name = "txbSaveRate";
-            this.txbSaveRate.Size = new System.Drawing.Size(568, 20);
+            this.txbSaveRate.Size = new System.Drawing.Size(490, 20);
             this.txbSaveRate.TabIndex = 140;
             this.txbSaveRate.Text = "5";
             this.txbSaveRate.UserRegExCheck = null;
@@ -313,7 +315,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbBodyTemp.Location = new System.Drawing.Point(190, 93);
             this.txbBodyTemp.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbBodyTemp.Name = "txbBodyTemp";
-            this.txbBodyTemp.Size = new System.Drawing.Size(568, 20);
+            this.txbBodyTemp.Size = new System.Drawing.Size(490, 20);
             this.txbBodyTemp.TabIndex = 136;
             this.txbBodyTemp.Text = "20";
             this.txbBodyTemp.UserRegExCheck = null;
@@ -341,6 +343,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.chbUMax.TabIndex = 135;
             this.chbUMax.Text = "Макс. перемещения U, >0";
             this.chbUMax.UseVisualStyleBackColor = true;
+            this.chbUMax.CheckedChanged += new System.EventHandler(this.chbUMax_CheckedChanged);
             // 
             // txbMaxSiSt
             // 
@@ -354,7 +357,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbMaxSiSt.Location = new System.Drawing.Point(190, 67);
             this.txbMaxSiSt.Margin = new System.Windows.Forms.Padding(190, 3, 15, 3);
             this.txbMaxSiSt.Name = "txbMaxSiSt";
-            this.txbMaxSiSt.Size = new System.Drawing.Size(568, 20);
+            this.txbMaxSiSt.Size = new System.Drawing.Size(490, 20);
             this.txbMaxSiSt.TabIndex = 134;
             this.txbMaxSiSt.Text = "1.25";
             this.txbMaxSiSt.UserRegExCheck = null;
@@ -373,7 +376,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbMaxU.Location = new System.Drawing.Point(190, 41);
             this.txbMaxU.Margin = new System.Windows.Forms.Padding(178, 3, 15, 3);
             this.txbMaxU.Name = "txbMaxU";
-            this.txbMaxU.Size = new System.Drawing.Size(568, 20);
+            this.txbMaxU.Size = new System.Drawing.Size(490, 20);
             this.txbMaxU.TabIndex = 133;
             this.txbMaxU.Text = "0.05";
             this.txbMaxU.UserRegExCheck = null;
@@ -391,11 +394,24 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.txbMaxDU.Location = new System.Drawing.Point(190, 15);
             this.txbMaxDU.Margin = new System.Windows.Forms.Padding(178, 15, 20, 3);
             this.txbMaxDU.Name = "txbMaxDU";
-            this.txbMaxDU.Size = new System.Drawing.Size(568, 20);
+            this.txbMaxDU.Size = new System.Drawing.Size(490, 20);
             this.txbMaxDU.TabIndex = 132;
             this.txbMaxDU.Text = "0.0005";
             this.txbMaxDU.UserRegExCheck = null;
             this.txbMaxDU.UserRegExCheckErrorMessage = null;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(605, 311);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 7, 20, 7);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 32);
+            this.button1.TabIndex = 154;
+            this.button1.Text = "Сохранить";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MechTaskControl_v2
             // 
@@ -403,6 +419,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.chbPlastisity);
             this.Controls.Add(this.label4);
@@ -426,8 +443,9 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.Controls.Add(this.txbMaxU);
             this.Controls.Add(this.txbMaxDU);
             this.Margin = new System.Windows.Forms.Padding(1);
+            this.MaximumSize = new System.Drawing.Size(700, 350);
             this.Name = "MechTaskControl_v2";
-            this.Size = new System.Drawing.Size(778, 312);
+            this.Size = new System.Drawing.Size(700, 350);
             this.Tag = "300";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -458,5 +476,6 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private TextBoxEx txbMaxSiSt;
         private TextBoxEx txbMaxU;
         private TextBoxEx txbMaxDU;
+        private System.Windows.Forms.Button button1;
     }
 }

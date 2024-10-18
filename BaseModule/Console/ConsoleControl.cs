@@ -70,6 +70,7 @@ namespace BaseModule.Console
         public event Action<object, EventArgs> InEvent;
         public event Action FindFreeNodesEvent;
         public event Action ControlUnpinnedEvent;
+        public event Action<object, ModelRenumberEventArgs> RenumberMeshEvent;
 
         int SessionNumber
         {
@@ -264,7 +265,7 @@ namespace BaseModule.Console
                     case GenCmd.CreateGraph:
                         break;
                     case GenCmd.RenumberMesh:
-                        InEvent(this, new ModelRenumberEventArgs(cmds[1]));
+                        RenumberMeshEvent?.Invoke(this, new ModelRenumberEventArgs(cmds[1]));
                         break;
                     case GenCmd.ChangeModelCoordinates:
                         InEvent(this, new ModelShiftCoordinateEventArgs(cmds[2]));

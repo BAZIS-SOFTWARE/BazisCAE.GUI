@@ -16,7 +16,9 @@ namespace TestGUI
     {
         [Test(Description = "Постпроцессор. Действия: выбрать шаг,показать результаты, скрыть результаты")]
         [TestCase(@"c:\projs\testProj\tjoint\proj.bpf",
-            @"c:\projs\testProj\tjoint\ResultsData\механическая_2_50_1500.db", "XYZ", TestName = "Результаты")]
+            @"c:\projs\testProj\tjoint\ResultsData\механическая_2_50_1500.db", "XYZ", TestName = "Результаты_XYZ")]
+        [TestCase(@"c:\projs\ElenaLu\Bulk\1.bpf",
+            @"c:\projs\ElenaLu\Bulk\термическая_0.db", "T", TestName = "Результаты_T")]
         public void ResultModuleOperationsTest(string projFile, string resFile, string resKind)
         {
             WindowsDriver<WindowsElement> wd;
