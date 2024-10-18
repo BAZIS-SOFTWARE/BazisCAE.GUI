@@ -76,8 +76,8 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="ProjectInterfaces, Version=3.1.62.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjectInterfaces.3.1.62\lib\netstandard2.0\ProjectInterfaces.dll</HintPath>
+    <Reference Include="ProjectInterfaces, Version=3.1.64.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProjectInterfaces.3.1.64\lib\netstandard2.0\ProjectInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Scene, Version=2.0.8.48, Culture=neutral, PublicKeyToken=2e7150108cd20395, processorArchitecture=MSIL">
       <HintPath>..\packages\Scene.2.0.8.48\lib\net48\Scene.dll</HintPath>
@@ -159,23 +159,19 @@
     </Compile>
     <Compile Include="BasicAdvisorControls\TaskPlannerControls\FileSettingsIO.cs" />
     <Compile Include="BasicAdvisorControls\TaskPlannerControls\GenerateTCFEventArgs.cs" />
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\GenerateTSFEventArgs.cs" />
     <Compile Include="BasicAdvisorControls\TaskPlannerControls\HeatTaskControl_v2.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="BasicAdvisorControls\TaskPlannerControls\HeatTaskControl_v2.Designer.cs">
       <DependentUpon>HeatTaskControl_v2.cs</DependentUpon>
     </Compile>
+    <Compile Include="BasicAdvisorControls\TaskPlannerControls\ITaskControl.cs" />
     <Compile Include="BasicAdvisorControls\TaskPlannerControls\MechTaskControl_v2.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="BasicAdvisorControls\TaskPlannerControls\MechTaskControl_v2.Designer.cs">
       <DependentUpon>MechTaskControl_v2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskControl.Designer.cs">
-      <DependentUpon>TaskControl.cs</DependentUpon>
     </Compile>
     <Compile Include="BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl_v2.cs">
       <SubType>UserControl</SubType>
@@ -314,9 +310,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BasicAdvisorControls\TaskPlannerControls\MechTaskControl_v2.resx">
       <DependentUpon>MechTaskControl_v2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BasicAdvisorControls\TaskPlannerControls\TaskControl.resx">
-      <DependentUpon>TaskControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl_v2.resx">
       <DependentUpon>TaskPlannerControl_v2.cs</DependentUpon>

@@ -115,10 +115,10 @@ namespace TaskModule.BasicTaskAdvisor
                                 materialsRelatedControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.Name).ToList());
                         }
 
-                        else if (control is TaskPlannerControl_v2 taskPlannerControl)
-                        {
-                            taskPlannerControl.ProjPath = generalData.Path;
-                        }
+                        //else if (control is TaskPlannerControl_v2 taskPlannerControl)
+                        //{
+                        //    taskPlannerControl.ProjPath = generalData.Path;
+                        //}
                         gvControl.Set_DataGridLines(data);
                     }
      

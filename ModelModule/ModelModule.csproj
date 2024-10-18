@@ -73,8 +73,8 @@
     <Reference Include="Octree, Version=2.1.11.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.11\lib\netstandard2.0\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="ProjectInterfaces, Version=3.1.62.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjectInterfaces.3.1.62\lib\netstandard2.0\ProjectInterfaces.dll</HintPath>
+    <Reference Include="ProjectInterfaces, Version=3.1.64.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProjectInterfaces.3.1.64\lib\netstandard2.0\ProjectInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Scene, Version=2.0.8.48, Culture=neutral, PublicKeyToken=2e7150108cd20395, processorArchitecture=MSIL">
       <HintPath>..\packages\Scene.2.0.8.48\lib\net48\Scene.dll</HintPath>
@@ -101,6 +101,9 @@
     </Reference>
     <Reference Include="Tao.Platform.Windows, Version=1.0.0.5, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL">
       <HintPath>..\packages\Scene.2.0.8.48\lib\net48\Tao.Platform.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="TasksParameters, Version=1.0.1.13, Culture=neutral, PublicKeyToken=8bfe6827a0935d51, processorArchitecture=MSIL">
+      <HintPath>..\packages\TasksParameters.1.0.1.13\lib\netstandard2.0\TasksParameters.dll</HintPath>
     </Reference>
     <Reference Include="UserControlsEx, Version=1.2.1.0, Culture=neutral, PublicKeyToken=16903e6a4b8fab01, processorArchitecture=MSIL">
       <HintPath>..\packages\UserControlsEx.1.2.1\lib\net48\UserControlsEx.dll</HintPath>

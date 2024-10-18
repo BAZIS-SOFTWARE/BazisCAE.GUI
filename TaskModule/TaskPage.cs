@@ -21,6 +21,8 @@ using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using BaseModule.Utilities;
 using ModelControllerInterfaces;
 using ProjectInterfaces;
+using System.Text.RegularExpressions;
+using System.Security.Cryptography;
 
 namespace TaskModule
 {
@@ -547,17 +549,39 @@ namespace TaskModule
 
         public void TaskAdvisor_DeleteAllData(ITaskData taskData, DeleteAllDataEventArgs arg2)
         {
-            var dataArray = taskData.Find(arg2.DataName).ToArray();
-
-            foreach (var data in dataArray)
+            try
             {
-                var index = taskData.IndexOf(data);
-                BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
+                if (arg2.DataName == "Расчет")
+                {
+                    foreach (var file in Directory.GetFiles($@"{GeneralData.Path}\InputData"))
+                    {
+                        if (Regex.IsMatch(file, @"(\w*)(\.tsf)"))
+                            File.Delete(file);
+                    }
+                    var tsfFiles = Directory.GetFiles($@"{GeneralData.Path}\InputData", "*.tsf");
 
-                taskData.Remove(data);
+                    var sortedFiles = preProc.SortCompDataByTimeAndType(tsfFiles);
+
+                    GetTaskAdvisor()?.SetTaskPlannerlData(sortedFiles);
+                }
+                else
+                {
+                    var dataArray = taskData.Find(arg2.DataName).ToArray();
+
+                    foreach (var data in dataArray)
+                    {
+                        var index = taskData.IndexOf(data);
+                        BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
+
+                        taskData.Remove(data);
+                    }
+                    GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
+                }
             }
-
-            GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
+            catch (Exception ex)
+            {
+                MessageBox.Show($"File can't be deleted: {ex.Message}");
+            }
         }
 
         public void TaskAdvisor_ShowData(ITaskData taskData, ShowDataEventArgs arg2)
@@ -718,17 +742,45 @@ namespace TaskModule
         {
             try
             {
-                var ar = arg2.DataInfo.Split(' ');
+                if(arg2 is GenerateTSFEventArgs args)
+                {
+                    var settingsSerializer = new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.Auto,
+                        Formatting = Newtonsoft.Json.Formatting.Indented
+                    };
 
-                var group = GetDataGroup(arg2.DataName, ar);
+                    if (!Directory.Exists($@"{GeneralData.Path}\InputData"))
+                        Directory.CreateDirectory($@"{GeneralData.Path}\InputData");
 
-                if (arg2.DataInfo.Contains("LRF"))
-                    await AddDataLRF(taskData,arg2, ar, group);
+                    var adv = GetTaskAdvisor();
+
+                    preProc.SetDraftParameters(args.Parameters, adv.ProcessType);
+                    var parLine = JsonConvert.SerializeObject(args.Parameters, settingsSerializer);
+
+                    File.WriteAllText($@"{GeneralData.Path}\InputData\{args.DataInfo}", parLine);
+
+                    var tsfFiles = Directory.GetFiles($@"{GeneralData.Path}\InputData", "*.tsf");
+                    var sortedFiles = preProc.SortCompDataByTimeAndType(tsfFiles);
+
+                    GetTaskAdvisor()?.SetTaskPlannerlData(sortedFiles);
+                }
 
                 else
-                    AddData(taskData,arg2, ar, group);
+                {
+                    var ar = arg2.DataInfo.Split(' ');
 
-                GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
+                    var group = GetDataGroup(arg2.DataName, ar);
+
+                    if (arg2.DataInfo.Contains("LRF"))
+                        await AddDataLRF(taskData, arg2, ar, group);
+
+                    else
+                        AddData(taskData, arg2, ar, group);
+
+                    GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
+                }
+ 
             }
             catch (Exception ex)
             {

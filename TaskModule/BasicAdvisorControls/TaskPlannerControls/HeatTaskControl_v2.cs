@@ -1,10 +1,13 @@
 ﻿using AdvisorControls.TaskPlannerControls;
 using Newtonsoft.Json;
+using ProjectInterfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
+
 //using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,65 +17,46 @@ using TasksParameters;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
-    public partial class HeatTaskControl_v2 : TaskControl
+    public partial class HeatTaskControl_v2 : UserControl, ITaskControl
     {
+        TermalParameters parameters;
+        private string tsFullFileName;
+
         public HeatTaskControl_v2()
         {
             InitializeComponent();
         }
 
-        public override string TaskName { get; }
+        public event Action<object, EventArgs> ChangeDataEvent;
 
-        public override void SetSolver(int solverIndex)
+        public void SetSolver(int solverIndex)
         {
             cmbSolver.SelectedIndex = 1;
         }
 
-        public override void InputData(GeneralParameters parameters)
+        public void InputData(TermalParameters _parameters, string _tsFullFileName)
         {
-            var termalParameters = (TermalParameters)parameters;
+            parameters = _parameters;
+ 
+            tsFullFileName = _tsFullFileName;
 
-            if (termalParameters.TermalConvergence.Is_Switched_Tm)
+            if (parameters.TermalConvergence.Is_Switched_Tm)
                 chbDTtMax.Checked = true;
 
-            txbDTtMax.Text = termalParameters.TermalConvergence.Tm.ToString();
-            txbIters.Text = termalParameters.Iterations.ToString();
+            txbDTtMax.Text = parameters.TermalConvergence.Tm.ToString();
+            txbIters.Text = parameters.Iterations.ToString();
 
-            txbSaveRate.Text = termalParameters.SaveRate.ToString();
-            txbInitTemp.Text = termalParameters.InitTemp.ToString();
+            txbSaveRate.Text = parameters.SaveRate.ToString();
+            txbInitTemp.Text = parameters.InitTemp.ToString();
 
-            cmbSolver.Text = termalParameters.SolverSettings.Solver;
-            txbSolverIterations.Text = termalParameters.SolverSettings.MaxIter.ToString();
-            txbPrecision.Text = termalParameters.SolverSettings.Precision.ToString();
-            txbRelaxation.Text = termalParameters.SolverSettings.Relaxation.ToString();
-            cmbPriority.Text = termalParameters.SolverSettings.Priority.ToString();
+            cmbSolver.Text = parameters.SolverSettings.Solver;
+            txbSolverIterations.Text = parameters.SolverSettings.MaxIter.ToString();
+            txbPrecision.Text = parameters.SolverSettings.Precision.ToString();
+            txbRelaxation.Text = parameters.SolverSettings.Relaxation.ToString();
+            cmbPriority.Text = parameters.SolverSettings.Priority.ToString();
         }
 
-        public override GeneralParameters CollectData()
-        {
-            var termalParameters = new TermalParameters();
-
-            if (chbDTtMax.Checked)
-            {
-                termalParameters.TermalConvergence.Is_Switched_Tm = true;
-                termalParameters.TermalConvergence.Tm = Convert.ToSingle(txbDTtMax.Text);
-            }
-
-            termalParameters.Iterations = Convert.ToInt32(txbIters.Text);
-
-            termalParameters.InitTemp = Convert.ToSingle(txbInitTemp.Text);
-            termalParameters.SaveRate = Convert.ToInt32(txbSaveRate.Text);
-
-            termalParameters.SolverSettings.Solver = cmbSolver.Text;
-            termalParameters.SolverSettings.MaxIter = Convert.ToInt32(txbSolverIterations.Text);
-            termalParameters.SolverSettings.Precision = Convert.ToSingle(txbPrecision.Text);
-            termalParameters.SolverSettings.Relaxation = Convert.ToSingle(txbRelaxation.Text);
-            termalParameters.SolverSettings.Priority = cmbPriority.Text;
-
-            return termalParameters;
-        }
-
-        public override void AllTextBox_TextChanged(object sender, EventArgs e)
+        public void AllTextBox_TextChanged(object sender, EventArgs e)
         {
             if (sender is ComboBox cmb)
                 if (cmb.SelectedItem.ToString() == "Gauss_direct")
@@ -95,9 +79,13 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 }
         }
 
-        public override void Txb_EnabledChanged(object sender, EventArgs e)
+        public void Txb_EnabledChanged(object sender, EventArgs e)
         {
-            base.Txb_EnabledChanged(sender, e);
+            if (sender is TextBox txb)
+            {
+                if (txb.Enabled == false)
+                    txb.Text = "0";
+            }
         }
 
         private void chbDTtMax_CheckedChanged(object sender, EventArgs e)
@@ -108,7 +96,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 txbDTtMax.Enabled = false;
         }
 
-        public override bool GetValidationResult()
+        public bool GetValidationResult()
         {
             var checks = new List<bool>()
             {
@@ -123,6 +111,36 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 txbSolverIterations.IsValueValid()
             };
             return checks.All(x => x);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (chbDTtMax.Checked)
+            {
+                parameters.TermalConvergence.Is_Switched_Tm = true;
+                parameters.TermalConvergence.Tm = Convert.ToSingle(txbDTtMax.Text);
+            }
+
+            parameters.Iterations = Convert.ToInt32(txbIters.Text);
+
+            parameters.InitTemp = Convert.ToSingle(txbInitTemp.Text);
+            parameters.SaveRate = Convert.ToInt32(txbSaveRate.Text);
+
+            parameters.SolverSettings.Solver = cmbSolver.Text;
+            parameters.SolverSettings.MaxIter = Convert.ToInt32(txbSolverIterations.Text);
+            parameters.SolverSettings.Precision = Convert.ToSingle(txbPrecision.Text);
+            parameters.SolverSettings.Relaxation = Convert.ToSingle(txbRelaxation.Text);
+            parameters.SolverSettings.Priority = cmbPriority.Text;
+
+            var settingsSerializer = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Newtonsoft.Json.Formatting.Indented
+            };
+
+            var parLine = JsonConvert.SerializeObject(parameters, settingsSerializer);
+
+            File.WriteAllText(tsFullFileName, parLine);
         }
     }
 }

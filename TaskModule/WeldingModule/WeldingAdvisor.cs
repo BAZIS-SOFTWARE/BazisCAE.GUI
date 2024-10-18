@@ -103,10 +103,5 @@ namespace TaskModule.WeldingModule
         {
             SpecifyWeldingZoneEvent?.Invoke(arg1, arg2);
         }
-
-        private void ы(object sender, EventArgs e)
-        {
-
-        }
     }
 }
