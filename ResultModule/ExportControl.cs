@@ -19,36 +19,65 @@ namespace ResultModule
     {
         public event Action<string> SelectResultsEvent;
         public event Action<ExportResultEventArgs> ExportResultEvent;
+        public event Action<CopyResultDBEventArgs> CopyResultDBEvent;
 
-        private readonly Dictionary<string, List<float>> resItems;
-        private readonly List<string> nodesNames;
+        private readonly Dictionary<string, List<float>> resultDict;
+        private readonly List<string> nodeNames;
+        private readonly List<string> elementNames;
         private string selectedText;
 
         public ExportControl()
         {
             InitializeComponent();
-            resItems = new Dictionary<string, List<float>>();
-            nodesNames = new List<string>();
-            cmbExtentionType.Items.AddRange(new[] {".bpf", ".STL-bin", ".STL-text"});
+            resultDict = new Dictionary<string, List<float>>();
+            nodeNames = new List<string>();
+            elementNames = new List<string>();
+        }
+
+        public void SetResultValues(Dictionary<string, List<float>> _resDic)
+        {
+            resultDict.Clear();
+            foreach (var key in _resDic.Keys)
+                resultDict.Add(key, _resDic[key]);
+        }
+
+        public void SetElementNames(IEnumerable<string> names)
+        {
+            elementNames.Clear();
+            elementNames.AddRange(names);
+        }
+
+        public void SetNodeNames(IEnumerable<string> names)
+        {
+            nodeNames.Clear();
+            nodeNames.AddRange(names);
+        }
+
+        public void SetResultKinds(IEnumerable<string> kinds)
+        {
+            cmbTasksResults.Items.Clear();
+            cmbTasksResults.Items.AddRange(kinds.ToArray());
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
             try
             {
-                CheckFormBeforeButtonClick();
-                var fbd = new FolderBrowserDialog();
+                CheckFormBeforeExport();
                 string selectedPath = "";
+                var fbd = new FolderBrowserDialog();
                 if (fbd.ShowDialog() == DialogResult.OK)
                     selectedPath = fbd.SelectedPath;
                 else
                     return;
 
-                var time = float.Parse(selectedText);
-                var taskKind = cmbTasksResults.SelectedItem.ToString();
-                var resKind = cmbNodeGroupName.SelectedItem.ToString();
-                var extension = cmbExtentionType.SelectedItem.ToString();
-                ExportResultEvent(new ExportResultEventArgs(time, taskKind, resKind, selectedPath, extension));
+                ExportResultEvent(new ExportResultEventArgs(float.Parse(selectedText),
+                    cmbTasksResults.SelectedItem.ToString(),
+                    cmbGroupName.SelectedItem.ToString(),
+                    selectedPath,
+                    cmbExtentionType.SelectedItem.ToString(),
+                    rbElements.Checked ? ObjType.Элемент : ObjType.Узел,
+                    rbGrid.Checked ? ExportType.Grid : ExportType.Results));
             }
             catch(Exception ex)
             {
@@ -56,38 +85,61 @@ namespace ResultModule
             }
         }
 
-        private void CheckFormBeforeButtonClick()
+        private void btnSaveBD_Click(object sender, EventArgs e)
         {
-            if (cmbTasksResults.Text == "" || selectedText == "" || cmbNodeGroupName.Text == "" || cmbExtentionType.Text == "")
+            try
+            {
+                CheckFormBeforeDBSave();
+                string selectedPath = "";
+                var fbd = new FolderBrowserDialog();
+                
+                if (fbd.ShowDialog() == DialogResult.OK)
+                    selectedPath = fbd.SelectedPath;
+                else
+                    return;
+
+                CopyResultDBEvent(new CopyResultDBEventArgs(cmbTasksResults.Text, float.Parse(selectedText), selectedPath));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void CheckFormBeforeExport()
+        {
+            if (selectedText.Equals(string.Empty)
+                || cmbTasksResults.Text.Equals(string.Empty)
+                || cmbGroupName.Text.Equals(string.Empty)
+                || cmbExtentionType.Text.Equals(string.Empty)
+                || (!rbGrid.Checked && !rbResults.Checked))
                 throw new Exception("Перед экспортом результатов необходимо выбрать тип задачи и интервал времени для экспорта результата");
+        }
+
+        private void CheckFormBeforeDBSave()
+        {
+            if (selectedText.Equals(string.Empty) || cmbTasksResults.Text.Equals(string.Empty))
+                throw new Exception("Перед сохранением результата необходимо выбрать временной интервал и задачу");
         }
 
         private void cmbTasksResults_SelectedIndexChanged(object sender, EventArgs e)
         {
             var value = cmbTasksResults.SelectedItem;
-            var rows = resItems[value.ToString()];
+            var rows = resultDict[value.ToString()];
             foreach (var text in rows)
                 richTextBox1.AppendText(text + "\n");
 
             SelectResultsEvent?.Invoke(value.ToString());
         }
 
-        public void SetSelectorsValues(Dictionary<string, List<float>> resDic)
+        private void SetGroupNames()
         {
-            foreach(var key in resDic.Keys)
-            {
-                cmbTasksResults.Items.Add(key);
-                resItems.Add(key, resDic[key]);
-            }
-        }
+            cmbGroupName.Items.Clear();
 
-        public void SetNodesNames(List<string> nodesGroupName)
-        {
-            foreach (var name in nodesGroupName)
-            {
-                cmbNodeGroupName.Items.Add(name);
-                nodesNames.Add(name);
-            }
+            if (rbNodes.Checked)
+                cmbGroupName.Items.AddRange(nodeNames.ToArray());
+            else
+                cmbGroupName.Items.AddRange(elementNames.ToArray());
         }
 
         private void richTextBox1_MouseClick(object sender, MouseEventArgs e)
@@ -119,6 +171,45 @@ namespace ResultModule
             //Устанавливаем выделенному тексту оранжевый фон
             richTextBox1.SelectionBackColor = System.Drawing.Color.Orange;
             richTextBox1.Select(startFromIndex, 0);
+        }
+
+        private void rbGrid_Clicked(object sender, EventArgs e)
+        {
+            rbResults.Checked = false;
+            rbGrid.Checked = true;
+
+            rbElements.Checked = false;
+            rbElements.Enabled = false;
+            rbNodes.Checked = true;
+
+            cmbExtentionType.Items.Clear();
+            cmbExtentionType.Items.AddRange(new[] { "bpf", "stl-text", "stl-bin" });
+        }
+
+        private void rbResults_Clicked(object sender, EventArgs e)
+        {
+            rbElements.Enabled = true;
+            rbGrid.Checked = false;
+            rbResults.Checked = true;
+
+            cmbExtentionType.Items.Clear();
+            cmbExtentionType.Items.AddRange(new[] { "txt", "csv" });
+        }
+
+        private void rbNodes_Clicked(object sender, EventArgs e)
+        {
+            rbElements.Checked = false;
+            rbNodes.Checked = true;
+
+            SetGroupNames();
+        }
+
+        private void rbElements_Clicked(object sender, EventArgs e)
+        {
+            rbNodes.Checked = false;
+            rbElements.Checked = true;
+
+            SetGroupNames();
         }
     }
 }
