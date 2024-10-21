@@ -127,7 +127,7 @@ namespace ResultModule
             var value = cmbTasksResults.SelectedItem;
             var rows = resultDict[value.ToString()];
             foreach (var text in rows)
-                richTextBox1.AppendText(text + "\n");
+                richTextBox.AppendText(text + "\n");
 
             SelectResultsEvent?.Invoke(value.ToString());
         }
@@ -142,15 +142,15 @@ namespace ResultModule
                 cmbGroupName.Items.AddRange(elementNames.ToArray());
         }
 
-        private void richTextBox1_MouseClick(object sender, MouseEventArgs e)
+        private void richTextBox_MouseClick(object sender, MouseEventArgs e)
         {
             try
             {
-                int charIndex = richTextBox1.GetCharIndexFromPosition(e.Location);
+                int charIndex = richTextBox.GetCharIndexFromPosition(e.Location);
                 //Получаем номер строки по знаку
-                var lineIndex = richTextBox1.GetLineFromCharIndex(charIndex);
+                var lineIndex = richTextBox.GetLineFromCharIndex(charIndex);
                 PaintSelectedText(lineIndex);
-                selectedText = richTextBox1.Lines[lineIndex];
+                selectedText = richTextBox.Lines[lineIndex];
             }
             catch (Exception ex)
             {
@@ -160,17 +160,17 @@ namespace ResultModule
 
         private void PaintSelectedText(int lineIndex)
         {
-            int startFromIndex = richTextBox1.GetFirstCharIndexFromLine(lineIndex);
+            int startFromIndex = richTextBox.GetFirstCharIndexFromLine(lineIndex);
             //Получаем длину строки
-            int lineLength = richTextBox1.Lines[lineIndex].Length;
+            int lineLength = richTextBox.Lines[lineIndex].Length;
 
-            richTextBox1.SelectAll();
-            richTextBox1.SelectionBackColor = System.Drawing.Color.White;
+            richTextBox.SelectAll();
+            richTextBox.SelectionBackColor = System.Drawing.Color.White;
             //Выделяем текст с первого символа строки до конца строки
-            richTextBox1.Select(startFromIndex, lineLength);
+            richTextBox.Select(startFromIndex, lineLength);
             //Устанавливаем выделенному тексту оранжевый фон
-            richTextBox1.SelectionBackColor = System.Drawing.Color.Orange;
-            richTextBox1.Select(startFromIndex, 0);
+            richTextBox.SelectionBackColor = System.Drawing.Color.Orange;
+            richTextBox.Select(startFromIndex, 0);
         }
 
         private void rbGrid_Clicked(object sender, EventArgs e)

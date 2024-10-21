@@ -230,26 +230,6 @@ namespace ResultModule
             splitContainerEx.Panel2Collapsed = false;
             splitContainerEx.Panel2.Padding = new Padding(0, 5, 5, 0);
             splitContainerEx.Panel2.Controls.Add(anPage);
-
-            //var anForm = new Form() 
-            //{
-            //    Owner = Application.OpenForms[0],
-            //    TopMost = true, 
-            //    Size = anPage.Size, 
-            //    Name = "Animation", 
-            //    Text = "Анимация", 
-            //    ShowIcon = false,
-            //    ClientSize = anPage.Size
-            //};
-
-            //anForm.FormClosing += (ar1, ar2) => 
-            //{
-            //    if (anPage.animationPage.IsAnimationStarted)
-            //        anPage.animationPage.StopAnimation();
-            //};
-            //anForm.FormClosed += (ar1,ar2) =>{ anPage = null; };
-            //anForm.Controls.Add(anPage);
-            //anForm.Show();
         }
 
         public Dictionary<string, List<float>> CreateResultsDic()
@@ -866,6 +846,8 @@ namespace ResultModule
             exportForm.FormClosed += (ar1, ar2) => { exportPage = null; };
             exportForm.Controls.Add(exportPage);
             exportForm.Show();
+            var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+            exportForm.Location = location;
         }
 
         private void ExportResults(IResult result, ExportResultEventArgs args)
@@ -911,7 +893,8 @@ namespace ResultModule
 
         private void CopyResultDB(IResult result, CopyResultDBEventArgs args)
         {
-            BasePage.ConsoleControl.PrintInfo($"Метод не реализован!", Color.Red);
+            
+            resultData.Saver.Save(new List<IResult>() { result}, args.DirPath + "\\temp.db", false);
         }
     }   
 }

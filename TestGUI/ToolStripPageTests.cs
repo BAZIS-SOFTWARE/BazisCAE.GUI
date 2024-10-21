@@ -87,13 +87,13 @@ namespace TestGUI
 
             var measurebtn = wd.FindElement(By.Name("Измерить"));
 
-            wd.FindElement(By.Name("Расстояние")).Click();
+            wd.FindElement(By.Name("Расстояние, мм")).Click();
             measurebtn.Click();
-            wd.FindElement(By.Name("Объем, ед.^3")).Click();
+            wd.FindElement(By.Name("Объем, мм^3")).Click();
             measurebtn.Click();
-            wd.FindElement(By.Name("Площадь, ед.^2")).Click();
+            wd.FindElement(By.Name("Площадь, мм^2")).Click();
             measurebtn.Click();
-            wd.FindElement(By.Name("Путь")).Click();
+            wd.FindElement(By.Name("Путь, мм")).Click();
             measurebtn.Click();
 
             Thread.Sleep(1000);

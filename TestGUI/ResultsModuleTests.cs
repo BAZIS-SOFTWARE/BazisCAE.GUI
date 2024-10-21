@@ -70,26 +70,48 @@ namespace TestGUI
         }
 
         [Test]
-        [TestCase(@"C:\Users\unv\source\BazisProj\testProj\VSMPO\vsmpo.bpf", @"C:\Users\unv\source\BazisProj\testProj\VSMPO\ResultsData\термическая_1_0_50.db")]
+        [TestCase(@"c:\projs\ElenaLu\Bulk\1.bpf",
+            @"c:\projs\ElenaLu\Bulk\термическая_0.db", TestName = "Результаты_Экспорт")]
         public void TestExportCtrl_ShouldPass_OnSuccessfulExport(string projPath, string resPath)
         {
             var opt = new AppiumOptions();
-            opt.AddAdditionalCapability("app", Path.GetFullPath(@"C:\Users\unv\source\repos\Bazis\BazisGUI4.1\GUI\bin\x64\Debug\BazisGUI.exe"));
+            opt.AddAdditionalCapability("app", Path.GetFullPath(@"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe"));
             opt.AddAdditionalCapability("ms:waitForAppLaunch", "5");
             opt.AddAdditionalCapability("appArguments", @$"-proj {projPath} -res {resPath}");
 
             var wd = new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"), opt);
-            try
-            {
-                wd.FindElement(By.Name("Модули")).Click();
+
+                var moduls = wd.FindElement(By.Name("Модули"));
+            moduls.Click();
                 wd.FindElement(By.Name("Анализ результатов")).Click();
                 wd.FindElement(By.Name("Результаты")).Click();
                 wd.FindElement(By.Name("Экспорт результатов")).Click();
-                wd.FindElement(By.TagName("TaskType")).Click();
-                wd.FindElement(By.Name("механическая")).Click();
-            }
-            catch (Exception ex) { }
-            finally { wd.CloseApp(); }
+            var task = wd.FindElement(By.Name("Задача"));
+                var a = new Actions(wd);
+            a.MoveToElement(task, 150, 0).Click().MoveByOffset(0, 25).Click().Build().Perform();
+
+            var b = new Actions(wd);
+            b.MoveByOffset(0, 50).Click().Build().Perform();
+
+            wd.FindElement(By.Name("Результаты")).Click();
+            wd.FindElement(By.Name("Узлы")).Click();
+
+            var resGroup = wd.FindElement(By.Name("Группа результатов"));
+            var c = new Actions(wd);
+            c.MoveToElement(resGroup, 150, 0).Click().MoveByOffset(0, 50).Click().Build().Perform();
+            var expFormat = wd.FindElement(By.Name("Формат экспорта"));
+
+            var d = new Actions(wd);
+            d.MoveToElement(expFormat, 150, 0).Click().MoveByOffset(0, 25).Click().Build().Perform();
+            
+            wd.FindElement(By.Name("Экспортировать")).Click();
+            wd.FindElement(By.Name("ОК")).Click();
+
+            Thread.Sleep(3000);
+            TaskModuleTests.SwithModule(wd, moduls, "Построение сетки");
+
+            Thread.Sleep(3000);
+            wd.CloseApp();
         }
     }
 }

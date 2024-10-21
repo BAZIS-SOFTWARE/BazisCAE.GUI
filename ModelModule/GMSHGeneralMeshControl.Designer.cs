@@ -180,7 +180,7 @@ namespace ModelModule
             this.geometryLayout.Margin = new System.Windows.Forms.Padding(0);
             this.geometryLayout.Name = "geometryLayout";
             this.geometryLayout.RowCount = 4;
-            this.geometryLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 184F));
+            this.geometryLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 175F));
             this.geometryLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.geometryLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.geometryLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 108F));
@@ -295,10 +295,10 @@ namespace ModelModule
             // 
             this.geomTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.geomTree.HideSelection = false;
-            this.geomTree.Location = new System.Drawing.Point(7, 453);
+            this.geomTree.Location = new System.Drawing.Point(7, 446);
             this.geomTree.Margin = new System.Windows.Forms.Padding(7);
             this.geomTree.Name = "geomTree";
-            this.geomTree.Size = new System.Drawing.Size(447, 139);
+            this.geomTree.Size = new System.Drawing.Size(447, 146);
             this.geomTree.TabIndex = 14;
             this.geomTree.Tag = "entTree";
             this.geomTree.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.entTree_BeforeSelect);
@@ -310,15 +310,14 @@ namespace ModelModule
             this.grbGradientMeshSettings.CheckState = false;
             this.grbGradientMeshSettings.Controls.Add(this.tableLayoutPanel4);
             this.grbGradientMeshSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbGradientMeshSettings.IsCheckable = false;
+            this.grbGradientMeshSettings.IsCheckable = true;
             this.grbGradientMeshSettings.IsExpanded = true;
             this.grbGradientMeshSettings.IsRollable = true;
-            this.grbGradientMeshSettings.Location = new System.Drawing.Point(7, 191);
+            this.grbGradientMeshSettings.Location = new System.Drawing.Point(7, 182);
             this.grbGradientMeshSettings.Margin = new System.Windows.Forms.Padding(7);
-            this.grbGradientMeshSettings.MinimumSize = new System.Drawing.Size(0, 10);
+            this.grbGradientMeshSettings.MinimumSize = new System.Drawing.Size(0, 6);
             this.grbGradientMeshSettings.Name = "grbGradientMeshSettings";
-            this.grbGradientMeshSettings.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.grbGradientMeshSettings.Size = new System.Drawing.Size(447, 248);
+            this.grbGradientMeshSettings.Size = new System.Drawing.Size(447, 250);
             this.grbGradientMeshSettings.TabIndex = 17;
             this.grbGradientMeshSettings.TabStop = false;
             this.grbGradientMeshSettings.Text = "Настройки градиента сетки";
@@ -339,16 +338,16 @@ namespace ModelModule
             this.tableLayoutPanel4.Controls.Add(this.btnSetGradientSettings, 1, 4);
             this.tableLayoutPanel4.Controls.Add(this.txbMeshGradientPower, 1, 3);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 13);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 5;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(441, 232);
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.01423F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 24.19929F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(441, 231);
             this.tableLayoutPanel4.TabIndex = 15;
             // 
             // label6
@@ -356,7 +355,7 @@ namespace ModelModule
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(3, 154);
+            this.label6.Location = new System.Drawing.Point(3, 149);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(104, 13);
             this.label6.TabIndex = 16;
@@ -439,10 +438,12 @@ namespace ModelModule
             // 
             // btnSetGradientSettings
             // 
-            this.btnSetGradientSettings.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnSetGradientSettings.AutoSize = true;
+            this.btnSetGradientSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSetGradientSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSetGradientSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSetGradientSettings.Location = new System.Drawing.Point(215, 192);
-            this.btnSetGradientSettings.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.btnSetGradientSettings.Location = new System.Drawing.Point(215, 186);
+            this.btnSetGradientSettings.Margin = new System.Windows.Forms.Padding(20, 12, 20, 13);
             this.btnSetGradientSettings.Name = "btnSetGradientSettings";
             this.btnSetGradientSettings.Size = new System.Drawing.Size(206, 32);
             this.btnSetGradientSettings.TabIndex = 14;
@@ -477,7 +478,7 @@ namespace ModelModule
             this.entitieSettingsBox.Margin = new System.Windows.Forms.Padding(7);
             this.entitieSettingsBox.MinimumSize = new System.Drawing.Size(0, 100);
             this.entitieSettingsBox.Name = "entitieSettingsBox";
-            this.entitieSettingsBox.Size = new System.Drawing.Size(447, 170);
+            this.entitieSettingsBox.Size = new System.Drawing.Size(447, 161);
             this.entitieSettingsBox.TabIndex = 18;
             this.entitieSettingsBox.TabStop = false;
             this.entitieSettingsBox.Text = "Настройки разметки кривых";
@@ -488,7 +489,7 @@ namespace ModelModule
             this.curveSettingsControl.Location = new System.Drawing.Point(3, 16);
             this.curveSettingsControl.Margin = new System.Windows.Forms.Padding(0);
             this.curveSettingsControl.Name = "curveSettingsControl";
-            this.curveSettingsControl.Size = new System.Drawing.Size(441, 151);
+            this.curveSettingsControl.Size = new System.Drawing.Size(441, 142);
             this.curveSettingsControl.TabIndex = 2;
             this.curveSettingsControl.pressOkEvent += new System.Action<object, string[]>(this.CurveSettingsControl_pressOkEvent);
             this.curveSettingsControl.pressDelEvent += new System.Action<object>(this.CurveSettingsControl_pressDelEvent);
@@ -498,7 +499,7 @@ namespace ModelModule
             this.pointSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pointSettingsControl.Location = new System.Drawing.Point(3, 16);
             this.pointSettingsControl.Name = "pointSettingsControl";
-            this.pointSettingsControl.Size = new System.Drawing.Size(441, 151);
+            this.pointSettingsControl.Size = new System.Drawing.Size(441, 142);
             this.pointSettingsControl.TabIndex = 1;
             this.pointSettingsControl.pressOkEvent += new System.Action<object, double[]>(this.PointSettingsControl_pressOkEvent);
             this.pointSettingsControl.pressDelEvent += new System.Action<object>(this.PointSettingsControl_pressDelEvent);
@@ -566,7 +567,7 @@ namespace ModelModule
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.40146F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.59854F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 182F));
             this.tableLayoutPanel1.Controls.Add(this.refineBtn, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.algoLabel, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.densityLabel, 0, 1);
@@ -591,10 +592,10 @@ namespace ModelModule
             this.refineBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.refineBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refineBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.refineBtn.Location = new System.Drawing.Point(112, 110);
+            this.refineBtn.Location = new System.Drawing.Point(111, 110);
             this.refineBtn.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.refineBtn.Name = "refineBtn";
-            this.refineBtn.Size = new System.Drawing.Size(128, 32);
+            this.refineBtn.Size = new System.Drawing.Size(127, 32);
             this.refineBtn.TabIndex = 10;
             this.refineBtn.Text = "Уплотнить";
             this.refineBtn.UseVisualStyleBackColor = true;
@@ -606,7 +607,7 @@ namespace ModelModule
             this.algoLabel.AutoSize = true;
             this.algoLabel.Enabled = false;
             this.algoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.algoLabel.Location = new System.Drawing.Point(13, 8);
+            this.algoLabel.Location = new System.Drawing.Point(12, 8);
             this.algoLabel.Name = "algoLabel";
             this.algoLabel.Size = new System.Drawing.Size(66, 39);
             this.algoLabel.TabIndex = 7;
@@ -619,7 +620,7 @@ namespace ModelModule
             this.densityLabel.AutoSize = true;
             this.densityLabel.Enabled = false;
             this.densityLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.densityLabel.Location = new System.Drawing.Point(17, 66);
+            this.densityLabel.Location = new System.Drawing.Point(16, 66);
             this.densityLabel.Name = "densityLabel";
             this.densityLabel.Size = new System.Drawing.Size(58, 26);
             this.densityLabel.TabIndex = 0;
@@ -631,7 +632,7 @@ namespace ModelModule
             this.btnMesh2DDel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnMesh2DDel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMesh2DDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnMesh2DDel.Location = new System.Drawing.Point(285, 63);
+            this.btnMesh2DDel.Location = new System.Drawing.Point(284, 63);
             this.btnMesh2DDel.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.btnMesh2DDel.Name = "btnMesh2DDel";
             this.btnMesh2DDel.Size = new System.Drawing.Size(130, 32);
@@ -645,7 +646,7 @@ namespace ModelModule
             this.quadBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.quadBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.quadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.quadBtn.Location = new System.Drawing.Point(285, 110);
+            this.quadBtn.Location = new System.Drawing.Point(284, 110);
             this.quadBtn.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.quadBtn.Name = "quadBtn";
             this.quadBtn.Size = new System.Drawing.Size(130, 32);
@@ -659,10 +660,10 @@ namespace ModelModule
             this.mesh2DGenBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.mesh2DGenBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mesh2DGenBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.mesh2DGenBtn.Location = new System.Drawing.Point(112, 63);
+            this.mesh2DGenBtn.Location = new System.Drawing.Point(111, 63);
             this.mesh2DGenBtn.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.mesh2DGenBtn.Name = "mesh2DGenBtn";
-            this.mesh2DGenBtn.Size = new System.Drawing.Size(128, 32);
+            this.mesh2DGenBtn.Size = new System.Drawing.Size(127, 32);
             this.mesh2DGenBtn.TabIndex = 5;
             this.mesh2DGenBtn.Text = "Треугольная сетка";
             this.mesh2DGenBtn.UseVisualStyleBackColor = true;
@@ -680,7 +681,7 @@ namespace ModelModule
             "Delaunay",
             "FrontalDelaunay",
             "FrontalDelaunayQuad"});
-            this.cmbAlgoChoice.Location = new System.Drawing.Point(112, 20);
+            this.cmbAlgoChoice.Location = new System.Drawing.Point(111, 20);
             this.cmbAlgoChoice.Margin = new System.Windows.Forms.Padding(20);
             this.cmbAlgoChoice.Name = "cmbAlgoChoice";
             this.cmbAlgoChoice.Size = new System.Drawing.Size(307, 21);
@@ -698,7 +699,7 @@ namespace ModelModule
             this.meshDensityValue.Location = new System.Drawing.Point(20, 116);
             this.meshDensityValue.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.meshDensityValue.Name = "meshDensityValue";
-            this.meshDensityValue.Size = new System.Drawing.Size(52, 20);
+            this.meshDensityValue.Size = new System.Drawing.Size(51, 20);
             this.meshDensityValue.TabIndex = 13;
             this.meshDensityValue.Text = "1";
             this.meshDensityValue.UserRegExCheck = null;

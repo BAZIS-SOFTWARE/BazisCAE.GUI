@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.cmbTasksResults = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,26 +46,29 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // richTextBox1
+            // richTextBox
             // 
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tableLayoutPanel1.SetColumnSpan(this.richTextBox1, 2);
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(136, 34);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(7);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(315, 161);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Tag = "Intervals";
-            this.richTextBox1.Text = "";
-            this.richTextBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.richTextBox1_MouseClick);
+            this.richTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.richTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tableLayoutPanel1.SetColumnSpan(this.richTextBox, 2);
+            this.richTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox.Location = new System.Drawing.Point(136, 34);
+            this.richTextBox.Margin = new System.Windows.Forms.Padding(7);
+            this.richTextBox.Name = "richTextBox";
+            this.richTextBox.ReadOnly = true;
+            this.richTextBox.Size = new System.Drawing.Size(315, 161);
+            this.richTextBox.TabIndex = 0;
+            this.richTextBox.Tag = "Intervals";
+            this.richTextBox.Text = "";
+            this.richTextBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.richTextBox_MouseClick);
             // 
             // cmbTasksResults
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.cmbTasksResults, 2);
             this.cmbTasksResults.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbTasksResults.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTasksResults.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbTasksResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cmbTasksResults.FormattingEnabled = true;
             this.cmbTasksResults.Location = new System.Drawing.Point(136, 5);
             this.cmbTasksResults.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
@@ -101,6 +104,7 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.cmbGroupName, 2);
             this.cmbGroupName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGroupName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbGroupName.FormattingEnabled = true;
             this.cmbGroupName.Location = new System.Drawing.Point(136, 263);
             this.cmbGroupName.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
@@ -128,7 +132,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 158F));
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.richTextBox1, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.richTextBox, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.cmbTasksResults, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.rbGrid, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.rbResults, 2, 2);
@@ -228,6 +232,7 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.cmbExtentionType, 2);
             this.cmbExtentionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbExtentionType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbExtentionType.FormattingEnabled = true;
             this.cmbExtentionType.Location = new System.Drawing.Point(136, 292);
             this.cmbExtentionType.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
@@ -284,7 +289,7 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox richTextBox;
         private System.Windows.Forms.ComboBox cmbTasksResults;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
