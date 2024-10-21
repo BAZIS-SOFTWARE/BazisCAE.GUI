@@ -20,9 +20,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             {
                 strsArr.Add("FSWPin");
                 strsArr.Add(txbRotSpeed.Text);
+                strsArr.Add(txbPinLenght.Text);
                 strsArr.Add(txbPinBottomDiam.Text);
                 strsArr.Add(txbPinUpperDiam.Text);
-                strsArr.Add(txbPinLenght.Text);
                 strsArr.Add(cmbYield.Text);
             }
  

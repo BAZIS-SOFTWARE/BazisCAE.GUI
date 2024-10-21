@@ -28,6 +28,9 @@ namespace TestGUI
         [TestCase("Сварка", "Дуговая сварка", "Режим сварки", "  a_h", "  d_h", "  r_h", "  s_h", "  h_h", TestName = "Дуговая сварка Режим сварки")]
         [TestCase("Сварка", "Дуговая сварка", "Среда", "  a_m", "  d_m", "  r_m", "  s_m", "  h_m", TestName = "Дуговая сварка Среда сварки")]
         [TestCase("Сварка", "Дуговая сварка", "Планировщик", "  a_p", "  d_p", "  r_p", "  _", "  _", TestName = "Дуговая сварка Планировщик")]
+        [TestCase("Сварка", "Трением с перемешиванием", "Материалы", "  a_m", "  d_m", "  r_m", "  s_m", "  h_m", TestName = "FSW Материалы")]
+        [TestCase("Сварка", "Трением с перемешиванием", "Режим сварки", "  a_h", "  d_h", "  r_h", "  s_h", "  h_h", TestName = "FSW Режим сварки")]
+        [TestCase("Сварка", "Трением с перемешиванием", "Среда", "  a_m", "  d_m", "  r_m", "  s_m", "  h_m", TestName = "FSW Среда сварки")]
         [TestCase("Термообработка", "Нагрев", "Материалы", "  a_m", "  d_m", "  r_m", "  s_m", "  h_m", TestName = "Нагрев Материалы")]
         [TestCase("Термообработка", "Нагрев", "Закрепления", "  a_c", "  d_c", "  r_c", "  s_c", "  h_c", TestName = "Нагрев Закрепления")]
         [TestCase("Термообработка", "Нагрев", "Режим ТО", "  a_h", "  d_h", "  r_h", "  s_h", "  h_h", TestName = "Нагрев Режим ТО")]
@@ -45,6 +48,8 @@ namespace TestGUI
             string args;
             if (process == "Дуговая сварка")
                 args = @"-proj c:\BazisGUI\GUI\Projects\Welding\Arc\proj.bpf";
+            else if (process == "Трением с перемешиванием")
+                args = @"-proj c:\BazisGUI\GUI\Projects\Welding\FSW\proj.bpf";
             else if (process == "Нагрев")
                 args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Heating\2D_axi\2D_val.bpf";
             else if (process == "Закалка")

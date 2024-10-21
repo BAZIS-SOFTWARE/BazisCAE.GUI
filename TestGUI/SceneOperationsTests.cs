@@ -45,6 +45,12 @@ namespace TestGUI
 
             var с = new Actions(wd);
             с.ContextClick().MoveByOffset(0, 10).Click().Build().Perform();
+
+            Thread.Sleep(3000);
+            TaskModuleTests.SwithModule(wd, moduls, "Построение сетки");
+
+            Thread.Sleep(3000);
+            wd.CloseApp();
         }
     }
 }

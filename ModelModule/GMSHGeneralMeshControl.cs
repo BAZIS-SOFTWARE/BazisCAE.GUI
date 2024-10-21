@@ -541,7 +541,7 @@ namespace ModelModule
             double min, max;
             if (double.TryParse(tokens[0], out min))
             {
-                if(double.TryParse(tokens[0], out max))
+                if(double.TryParse(tokens[1], out max))
                 {
                     setMinMaxSizesEvent?.Invoke(this, new double[]  { min, max });
                 }

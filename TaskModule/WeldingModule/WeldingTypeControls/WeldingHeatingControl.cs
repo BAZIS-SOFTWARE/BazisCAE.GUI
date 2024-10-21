@@ -338,6 +338,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             grbWeldRegime.Padding = new Padding(3,0,3,3);
             grbWeldRegime.Controls.Clear();
             grbWeldRegime.Controls.Add(wcc);
+            grbWeldRegime.IsExpanded = false;
         }
 
         public string Get_DataGridFillLine(int ind)
