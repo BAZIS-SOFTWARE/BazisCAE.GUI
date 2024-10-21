@@ -12,6 +12,19 @@ namespace TestGUI
 {
     public class ModelModuleTests
     {
+        [SetUp]
+        public void Setup()
+        {
+            //var myProcess = new Process();
+
+            //myProcess.StartInfo.FileName = $@"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe";
+
+            //var argStr = string.Join(" ", new string[] { @"..\Debug\Projects", "proj.bpf" });
+
+            //myProcess.StartInfo.Arguments = argStr;
+            //myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+            //myProcess.Start();
+        }
         [Test(Description = "Сеточный генератор. Действия: импорт геометрии. Запуск генератора")]
         [TestCase(@"c:\BazisComponents\WeldingCADMerge\model7v3.stp", TestName = "Импорт геометрии model7v3.stp")]
         [TestCase(@"c:\BazisComponents\WeldingCADMerge\part2.step", TestName = "Импорт геометрии part2.stp")]
