@@ -66,6 +66,9 @@ namespace TaskModule
             var taskNode = new TreeNode("Данные", 14, 14) { Name = "Данные", Tag = "6" };
             taskNode.ContextMenuStrip = taskMenuStrip;
             BasePage.NavigatorControl.TreeView.Nodes.Add(taskNode);
+
+            selectToolStrip.Location = new Point(3, 0);
+            instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
         }
 
         public void OpenFunctionsDB()

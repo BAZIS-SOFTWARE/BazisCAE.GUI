@@ -32,6 +32,9 @@ namespace ModelModule
         public ModelPage() : base()
         {
             InitializeComponent();
+
+            selectToolStrip.Location = new Point(3, 0);
+            instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
         }  
         
 

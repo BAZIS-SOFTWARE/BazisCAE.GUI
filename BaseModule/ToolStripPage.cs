@@ -44,9 +44,9 @@ namespace BaseModule
         public ToolStripPage()
         {
             InitializeComponent();
-            selectToolStrip.Location = new Point(0, 0);
-
+            //selectToolStrip.Location = new Point(3, 0);
             basePage.SplitterWidthEx = 8;
+            //instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
         }
 
         public BasePage BasePage 

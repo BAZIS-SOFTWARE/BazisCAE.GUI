@@ -76,6 +76,9 @@ namespace ResultModule
             var elemNode = new TreeNode("ПоЭлементам", 14, 14) { Name = "ПоЭлементам", Tag = "6.1" };
             navigator.TreeView.Nodes["Набор результатов"].Nodes.Add(elemNode);
             resultsMenuStrip.Enabled = true;
+
+            selectToolStrip.Location = new Point(3, 0);
+            instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
         }      
 
         public void ShowScalePage()

@@ -120,9 +120,9 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnStopCheck.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABDSURBVDhP7cvBCcBAEIDA7b+29JQ0IMrB5bcDPp31g2fe
-        oxJNVqLJSjRZiSYr0WQlmqxEk5VoshJNVqLJSjRZ67KZD4Q8AkDAqIYtAAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wQAADsEBuJFr7QAAAENJREFUOE/ty8EJwEAQgMDtv7b0lDQgysHltwM+nfWDZ96jEk1WoslKNFmJJivR
+        ZCWarESTlWiyEk1WoslKNFnrspkPhDwCQMCohi0AAAAASUVORK5CYII=
 </value>
   </data>
 </root>

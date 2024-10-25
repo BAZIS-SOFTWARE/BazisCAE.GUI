@@ -33,7 +33,7 @@ namespace TaskModule.HeatTreatmentModule
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -138,10 +138,10 @@ namespace TaskModule.HeatTreatmentModule
             this.blackRank.Enabled = false;
             this.blackRank.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.blackRank.IsValidating = true;
-            this.blackRank.Location = new System.Drawing.Point(171, 118);
+            this.blackRank.Location = new System.Drawing.Point(176, 118);
             this.blackRank.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.blackRank.Name = "blackRank";
-            this.blackRank.Size = new System.Drawing.Size(328, 20);
+            this.blackRank.Size = new System.Drawing.Size(323, 20);
             this.blackRank.TabIndex = 28;
             this.blackRank.UserRegExCheck = null;
             this.blackRank.UserRegExCheckErrorMessage = null;
@@ -149,7 +149,7 @@ namespace TaskModule.HeatTreatmentModule
             // radAndConvCoef
             // 
             this.radAndConvCoef.AutoSize = true;
-            this.radAndConvCoef.Location = new System.Drawing.Point(274, 15);
+            this.radAndConvCoef.Location = new System.Drawing.Point(279, 15);
             this.radAndConvCoef.Name = "radAndConvCoef";
             this.radAndConvCoef.Size = new System.Drawing.Size(191, 17);
             this.radAndConvCoef.TabIndex = 27;
@@ -161,7 +161,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.fullCoef.AutoSize = true;
             this.fullCoef.Checked = true;
-            this.fullCoef.Location = new System.Drawing.Point(171, 15);
+            this.fullCoef.Location = new System.Drawing.Point(176, 15);
             this.fullCoef.Name = "fullCoef";
             this.fullCoef.Size = new System.Drawing.Size(97, 17);
             this.fullCoef.TabIndex = 27;
@@ -187,10 +187,10 @@ namespace TaskModule.HeatTreatmentModule
             this.StefanBolzmanConst.Enabled = false;
             this.StefanBolzmanConst.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.StefanBolzmanConst.IsValidating = true;
-            this.StefanBolzmanConst.Location = new System.Drawing.Point(171, 92);
+            this.StefanBolzmanConst.Location = new System.Drawing.Point(176, 92);
             this.StefanBolzmanConst.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.StefanBolzmanConst.Name = "StefanBolzmanConst";
-            this.StefanBolzmanConst.Size = new System.Drawing.Size(328, 20);
+            this.StefanBolzmanConst.Size = new System.Drawing.Size(323, 20);
             this.StefanBolzmanConst.TabIndex = 25;
             this.StefanBolzmanConst.UserRegExCheck = null;
             this.StefanBolzmanConst.UserRegExCheckErrorMessage = null;
@@ -203,10 +203,10 @@ namespace TaskModule.HeatTreatmentModule
             this.convExcFunc.Enabled = false;
             this.convExcFunc.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.convExcFunc.IsValidating = true;
-            this.convExcFunc.Location = new System.Drawing.Point(171, 66);
+            this.convExcFunc.Location = new System.Drawing.Point(176, 66);
             this.convExcFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.convExcFunc.Name = "convExcFunc";
-            this.convExcFunc.Size = new System.Drawing.Size(328, 20);
+            this.convExcFunc.Size = new System.Drawing.Size(323, 20);
             this.convExcFunc.TabIndex = 24;
             this.convExcFunc.UserRegExCheck = null;
             this.convExcFunc.UserRegExCheckErrorMessage = null;
@@ -218,10 +218,10 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbTempFunc.FormattingEnabled = true;
             this.cmbTempFunc.InputType = ((UserControlsEx.CMBInputType)((UserControlsEx.CMBInputType.Items | UserControlsEx.CMBInputType.Float)));
             this.cmbTempFunc.IsValidating = true;
-            this.cmbTempFunc.Location = new System.Drawing.Point(171, 144);
+            this.cmbTempFunc.Location = new System.Drawing.Point(176, 144);
             this.cmbTempFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbTempFunc.Name = "cmbTempFunc";
-            this.cmbTempFunc.Size = new System.Drawing.Size(328, 21);
+            this.cmbTempFunc.Size = new System.Drawing.Size(323, 21);
             this.cmbTempFunc.TabIndex = 23;
             this.cmbTempFunc.UserRegExCheck = null;
             this.cmbTempFunc.UserRegExCheckErrorMessage = null;
@@ -251,10 +251,10 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbExchFunc.FormattingEnabled = true;
             this.cmbExchFunc.InputType = ((UserControlsEx.CMBInputType)((UserControlsEx.CMBInputType.Items | UserControlsEx.CMBInputType.Float)));
             this.cmbExchFunc.IsValidating = true;
-            this.cmbExchFunc.Location = new System.Drawing.Point(171, 38);
+            this.cmbExchFunc.Location = new System.Drawing.Point(176, 38);
             this.cmbExchFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbExchFunc.Name = "cmbExchFunc";
-            this.cmbExchFunc.Size = new System.Drawing.Size(328, 21);
+            this.cmbExchFunc.Size = new System.Drawing.Size(323, 21);
             this.cmbExchFunc.TabIndex = 17;
             this.cmbExchFunc.UserRegExCheck = null;
             this.cmbExchFunc.UserRegExCheckErrorMessage = null;
@@ -279,15 +279,15 @@ namespace TaskModule.HeatTreatmentModule
             this.Column1,
             this.startColumn,
             this.stopColumn});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.NullValue = " ";
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.NullValue = " ";
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.Location = new System.Drawing.Point(7, 425);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
@@ -366,11 +366,11 @@ namespace TaskModule.HeatTreatmentModule
             this.player.AutoSize = true;
             this.player.CheckState = BaseModule.Player.CheckState.start;
             this.player.CurrentValue = 0;
-            this.player.Location = new System.Drawing.Point(171, 76);
+            this.player.Location = new System.Drawing.Point(176, 76);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.player.MinimumSize = new System.Drawing.Size(215, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(328, 45);
+            this.player.Size = new System.Drawing.Size(323, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -408,10 +408,10 @@ namespace TaskModule.HeatTreatmentModule
             this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStopTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbStopTime.IsValidating = true;
-            this.txbStopTime.Location = new System.Drawing.Point(171, 50);
+            this.txbStopTime.Location = new System.Drawing.Point(176, 50);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(328, 20);
+            this.txbStopTime.Size = new System.Drawing.Size(323, 20);
             this.txbStopTime.TabIndex = 1;
             this.txbStopTime.UserRegExCheck = null;
             this.txbStopTime.UserRegExCheckErrorMessage = null;
@@ -421,10 +421,10 @@ namespace TaskModule.HeatTreatmentModule
             this.btnHideAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHideAll.Image = global::TaskModule.Properties.Resources.HideAll;
-            this.btnHideAll.Location = new System.Drawing.Point(139, 76);
+            this.btnHideAll.Location = new System.Drawing.Point(143, 76);
             this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnHideAll.Name = "btnHideAll";
-            this.btnHideAll.Size = new System.Drawing.Size(28, 28);
+            this.btnHideAll.Size = new System.Drawing.Size(27, 27);
             this.btnHideAll.TabIndex = 13;
             this.btnHideAll.Text = "  h_h";
             this.btnHideAll.UseVisualStyleBackColor = true;
@@ -435,10 +435,10 @@ namespace TaskModule.HeatTreatmentModule
             this.btnShowAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowAll.Image = global::TaskModule.Properties.Resources.ShowAll;
-            this.btnShowAll.Location = new System.Drawing.Point(107, 76);
+            this.btnShowAll.Location = new System.Drawing.Point(110, 76);
             this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(28, 28);
+            this.btnShowAll.Size = new System.Drawing.Size(27, 27);
             this.btnShowAll.TabIndex = 13;
             this.btnShowAll.Text = "  s_h";
             this.btnShowAll.UseVisualStyleBackColor = true;
@@ -450,10 +450,10 @@ namespace TaskModule.HeatTreatmentModule
             this.btnRefresh.Enabled = false;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Image = global::TaskModule.Properties.Resources.Refresh;
-            this.btnRefresh.Location = new System.Drawing.Point(75, 76);
+            this.btnRefresh.Location = new System.Drawing.Point(77, 76);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(28, 28);
+            this.btnRefresh.Size = new System.Drawing.Size(27, 27);
             this.btnRefresh.TabIndex = 13;
             this.btnRefresh.Text = "  r_h";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -464,10 +464,10 @@ namespace TaskModule.HeatTreatmentModule
             this.btnClearAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = global::TaskModule.Properties.Resources.delete;
-            this.btnClearAll.Location = new System.Drawing.Point(43, 76);
+            this.btnClearAll.Location = new System.Drawing.Point(44, 76);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(28, 28);
+            this.btnClearAll.Size = new System.Drawing.Size(27, 27);
             this.btnClearAll.TabIndex = 13;
             this.btnClearAll.Text = "  d_h";
             this.btnClearAll.UseVisualStyleBackColor = true;
@@ -481,7 +481,7 @@ namespace TaskModule.HeatTreatmentModule
             this.btnAddNewRow.Location = new System.Drawing.Point(11, 76);
             this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
             this.btnAddNewRow.Name = "btnAddNewRow";
-            this.btnAddNewRow.Size = new System.Drawing.Size(28, 28);
+            this.btnAddNewRow.Size = new System.Drawing.Size(27, 27);
             this.btnAddNewRow.TabIndex = 13;
             this.btnAddNewRow.Text = "  a_h";
             this.btnAddNewRow.UseVisualStyleBackColor = true;
@@ -494,10 +494,10 @@ namespace TaskModule.HeatTreatmentModule
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbStartTime.IsValidating = true;
-            this.txbStartTime.Location = new System.Drawing.Point(171, 24);
+            this.txbStartTime.Location = new System.Drawing.Point(176, 24);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(328, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(323, 20);
             this.txbStartTime.TabIndex = 0;
             this.txbStartTime.UserRegExCheck = null;
             this.txbStartTime.UserRegExCheckErrorMessage = null;
@@ -526,10 +526,10 @@ namespace TaskModule.HeatTreatmentModule
             this.cmbEl.IsValidating = true;
             this.cmbEl.Items.AddRange(new object[] {
             "test"});
-            this.cmbEl.Location = new System.Drawing.Point(171, 24);
+            this.cmbEl.Location = new System.Drawing.Point(176, 24);
             this.cmbEl.Margin = new System.Windows.Forms.Padding(3, 25, 20, 3);
             this.cmbEl.Name = "cmbEl";
-            this.cmbEl.Size = new System.Drawing.Size(328, 21);
+            this.cmbEl.Size = new System.Drawing.Size(323, 21);
             this.cmbEl.TabIndex = 18;
             this.cmbEl.UserRegExCheck = null;
             this.cmbEl.UserRegExCheckErrorMessage = null;

@@ -32,31 +32,30 @@ namespace TaskModule.BasicAdvisorControls
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MaterialsControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.player = new BaseModule.Player.PlayerControl();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txbStopTime = new UserControlsEx.TextBoxEx(this.components);
+            this.txbStopTime = new UserControlsEx.TextBoxEx();
             this.btnHideAll = new System.Windows.Forms.Button();
             this.btnShowAll = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnAddNewRow = new System.Windows.Forms.Button();
-            this.txbStartTime = new UserControlsEx.TextBoxEx(this.components);
-            this.dataGridView = new UserControlsEx.DataGridViewEx(this.components);
+            this.txbStartTime = new UserControlsEx.TextBoxEx();
+            this.dataGridView = new UserControlsEx.DataGridViewEx();
             this.elGroupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.matColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbMat = new UserControlsEx.ComboBoxEx(this.components);
+            this.cmbMat = new UserControlsEx.ComboBoxEx();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbEl = new UserControlsEx.ComboBoxEx(this.components);
+            this.cmbEl = new UserControlsEx.ComboBoxEx();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.player = new BaseModule.Player.PlayerControl();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -78,7 +77,7 @@ namespace TaskModule.BasicAdvisorControls
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(779, 559);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(622, 447);
             this.tableLayoutPanel1.TabIndex = 17;
             // 
             // groupBox1
@@ -101,10 +100,34 @@ namespace TaskModule.BasicAdvisorControls
             this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(765, 130);
+            this.groupBox1.Size = new System.Drawing.Size(608, 130);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Время действия";
+            // 
+            // player
+            // 
+            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.player.AutoSize = true;
+            this.player.CheckState = BaseModule.Player.CheckState.start;
+            this.player.CurrentValue = 0;
+            this.player.Location = new System.Drawing.Point(176, 72);
+            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.player.MinimumSize = new System.Drawing.Size(215, 45);
+            this.player.Name = "player";
+            this.player.Size = new System.Drawing.Size(412, 45);
+            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
+            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
+            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
+            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.player.SpeedValue = 500;
+            this.player.StartValue = 0;
+            this.player.StopValue = 100;
+            this.player.TabIndex = 50;
+            this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
+            this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
+            this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
             // 
             // label4
             // 
@@ -133,10 +156,10 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStopTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbStopTime.IsValidating = true;
-            this.txbStopTime.Location = new System.Drawing.Point(171, 46);
+            this.txbStopTime.Location = new System.Drawing.Point(176, 46);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(574, 20);
+            this.txbStopTime.Size = new System.Drawing.Size(412, 20);
             this.txbStopTime.TabIndex = 1;
             this.txbStopTime.UserRegExCheck = null;
             this.txbStopTime.UserRegExCheckErrorMessage = null;
@@ -146,10 +169,10 @@ namespace TaskModule.BasicAdvisorControls
             this.btnHideAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHideAll.Image = ((System.Drawing.Image)(resources.GetObject("btnHideAll.Image")));
-            this.btnHideAll.Location = new System.Drawing.Point(139, 72);
+            this.btnHideAll.Location = new System.Drawing.Point(143, 72);
             this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnHideAll.Name = "btnHideAll";
-            this.btnHideAll.Size = new System.Drawing.Size(28, 28);
+            this.btnHideAll.Size = new System.Drawing.Size(27, 27);
             this.btnHideAll.TabIndex = 13;
             this.btnHideAll.Text = "  h_m";
             this.btnHideAll.UseVisualStyleBackColor = true;
@@ -160,10 +183,10 @@ namespace TaskModule.BasicAdvisorControls
             this.btnShowAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
-            this.btnShowAll.Location = new System.Drawing.Point(107, 72);
+            this.btnShowAll.Location = new System.Drawing.Point(110, 72);
             this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(28, 28);
+            this.btnShowAll.Size = new System.Drawing.Size(27, 27);
             this.btnShowAll.TabIndex = 13;
             this.btnShowAll.Text = "  s_m";
             this.btnShowAll.UseVisualStyleBackColor = true;
@@ -175,10 +198,10 @@ namespace TaskModule.BasicAdvisorControls
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
-            this.btnRefresh.Location = new System.Drawing.Point(75, 72);
+            this.btnRefresh.Location = new System.Drawing.Point(77, 72);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(28, 28);
+            this.btnRefresh.Size = new System.Drawing.Size(27, 27);
             this.btnRefresh.TabIndex = 13;
             this.btnRefresh.Tag = "Обновить материалы";
             this.btnRefresh.Text = "  r_m";
@@ -191,10 +214,10 @@ namespace TaskModule.BasicAdvisorControls
             this.btnClearAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAll.Image")));
-            this.btnClearAll.Location = new System.Drawing.Point(43, 72);
+            this.btnClearAll.Location = new System.Drawing.Point(44, 72);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(28, 28);
+            this.btnClearAll.Size = new System.Drawing.Size(27, 27);
             this.btnClearAll.TabIndex = 13;
             this.btnClearAll.Text = "  d_m";
             this.btnClearAll.UseVisualStyleBackColor = true;
@@ -208,7 +231,7 @@ namespace TaskModule.BasicAdvisorControls
             this.btnAddNewRow.Location = new System.Drawing.Point(11, 72);
             this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
             this.btnAddNewRow.Name = "btnAddNewRow";
-            this.btnAddNewRow.Size = new System.Drawing.Size(28, 28);
+            this.btnAddNewRow.Size = new System.Drawing.Size(27, 27);
             this.btnAddNewRow.TabIndex = 13;
             this.btnAddNewRow.Text = "  a_m";
             this.btnAddNewRow.UseVisualStyleBackColor = true;
@@ -221,10 +244,10 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbStartTime.IsValidating = true;
-            this.txbStartTime.Location = new System.Drawing.Point(171, 20);
+            this.txbStartTime.Location = new System.Drawing.Point(176, 20);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(574, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(412, 20);
             this.txbStartTime.TabIndex = 0;
             this.txbStartTime.UserRegExCheck = null;
             this.txbStartTime.UserRegExCheckErrorMessage = null;
@@ -245,7 +268,7 @@ namespace TaskModule.BasicAdvisorControls
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(765, 299);
+            this.dataGridView.Size = new System.Drawing.Size(608, 187);
             this.dataGridView.TabIndex = 14;
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
@@ -292,7 +315,7 @@ namespace TaskModule.BasicAdvisorControls
             this.groupBox2.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox2.Size = new System.Drawing.Size(765, 88);
+            this.groupBox2.Size = new System.Drawing.Size(608, 88);
             this.groupBox2.TabIndex = 20;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Выбор материала";
@@ -315,9 +338,9 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbMat.FormattingEnabled = true;
             this.cmbMat.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbMat.IsValidating = true;
-            this.cmbMat.Location = new System.Drawing.Point(171, 51);
+            this.cmbMat.Location = new System.Drawing.Point(176, 51);
             this.cmbMat.Name = "cmbMat";
-            this.cmbMat.Size = new System.Drawing.Size(574, 21);
+            this.cmbMat.Size = new System.Drawing.Size(412, 21);
             this.cmbMat.TabIndex = 13;
             this.cmbMat.UserRegExCheck = null;
             this.cmbMat.UserRegExCheckErrorMessage = null;
@@ -339,10 +362,10 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbEl.FormattingEnabled = true;
             this.cmbEl.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbEl.IsValidating = true;
-            this.cmbEl.Location = new System.Drawing.Point(171, 24);
+            this.cmbEl.Location = new System.Drawing.Point(176, 24);
             this.cmbEl.Margin = new System.Windows.Forms.Padding(3, 25, 20, 3);
             this.cmbEl.Name = "cmbEl";
-            this.cmbEl.Size = new System.Drawing.Size(574, 21);
+            this.cmbEl.Size = new System.Drawing.Size(412, 21);
             this.cmbEl.TabIndex = 14;
             this.cmbEl.UserRegExCheck = null;
             this.cmbEl.UserRegExCheckErrorMessage = null;
@@ -350,30 +373,6 @@ namespace TaskModule.BasicAdvisorControls
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog";
-            // 
-            // player
-            // 
-            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.player.AutoSize = true;
-            this.player.CheckState = BaseModule.Player.CheckState.start;
-            this.player.CurrentValue = 0;
-            this.player.Location = new System.Drawing.Point(171, 72);
-            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.player.MinimumSize = new System.Drawing.Size(215, 45);
-            this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(574, 45);
-            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
-            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
-            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
-            this.player.SpeedValue = 500;
-            this.player.StartValue = 0;
-            this.player.StopValue = 100;
-            this.player.TabIndex = 50;
-            this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
-            this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
-            this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
             // 
             // MaterialsControl
             // 
@@ -385,7 +384,7 @@ namespace TaskModule.BasicAdvisorControls
             this.Margin = new System.Windows.Forms.Padding(0);
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "MaterialsControl";
-            this.Size = new System.Drawing.Size(779, 559);
+            this.Size = new System.Drawing.Size(622, 447);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);

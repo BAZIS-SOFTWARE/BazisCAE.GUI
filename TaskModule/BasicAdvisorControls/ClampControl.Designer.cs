@@ -206,11 +206,11 @@ namespace TaskModule.BasicAdvisorControls
             this.player.AutoSize = true;
             this.player.CheckState = BaseModule.Player.CheckState.start;
             this.player.CurrentValue = 0;
-            this.player.Location = new System.Drawing.Point(174, 80);
+            this.player.Location = new System.Drawing.Point(176, 80);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.player.MinimumSize = new System.Drawing.Size(215, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(570, 45);
+            this.player.Size = new System.Drawing.Size(563, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
@@ -228,10 +228,10 @@ namespace TaskModule.BasicAdvisorControls
             this.btnClearAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAll.Image")));
-            this.btnClearAll.Location = new System.Drawing.Point(43, 80);
+            this.btnClearAll.Location = new System.Drawing.Point(44, 80);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(28, 28);
+            this.btnClearAll.Size = new System.Drawing.Size(27, 27);
             this.btnClearAll.TabIndex = 20;
             this.btnClearAll.Text = "  d_c";
             this.btnClearAll.UseVisualStyleBackColor = true;
@@ -262,10 +262,10 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStopTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbStopTime.IsValidating = true;
-            this.txbStopTime.Location = new System.Drawing.Point(170, 55);
+            this.txbStopTime.Location = new System.Drawing.Point(176, 55);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(569, 20);
+            this.txbStopTime.Size = new System.Drawing.Size(563, 20);
             this.txbStopTime.TabIndex = 1;
             this.txbStopTime.UserRegExCheck = null;
             this.txbStopTime.UserRegExCheckErrorMessage = null;
@@ -275,10 +275,10 @@ namespace TaskModule.BasicAdvisorControls
             this.btnShowAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
-            this.btnShowAll.Location = new System.Drawing.Point(107, 80);
+            this.btnShowAll.Location = new System.Drawing.Point(110, 80);
             this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(28, 28);
+            this.btnShowAll.Size = new System.Drawing.Size(27, 27);
             this.btnShowAll.TabIndex = 19;
             this.btnShowAll.Text = "  s_c";
             this.btnShowAll.UseVisualStyleBackColor = true;
@@ -289,10 +289,10 @@ namespace TaskModule.BasicAdvisorControls
             this.btnHideAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHideAll.Image = ((System.Drawing.Image)(resources.GetObject("btnHideAll.Image")));
-            this.btnHideAll.Location = new System.Drawing.Point(139, 80);
+            this.btnHideAll.Location = new System.Drawing.Point(143, 80);
             this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnHideAll.Name = "btnHideAll";
-            this.btnHideAll.Size = new System.Drawing.Size(28, 28);
+            this.btnHideAll.Size = new System.Drawing.Size(27, 27);
             this.btnHideAll.TabIndex = 19;
             this.btnHideAll.Text = "  h_c";
             this.btnHideAll.UseVisualStyleBackColor = true;
@@ -303,10 +303,10 @@ namespace TaskModule.BasicAdvisorControls
             this.btnRefresh.Enabled = false;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
-            this.btnRefresh.Location = new System.Drawing.Point(75, 80);
+            this.btnRefresh.Location = new System.Drawing.Point(77, 80);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(28, 28);
+            this.btnRefresh.Size = new System.Drawing.Size(27, 27);
             this.btnRefresh.TabIndex = 19;
             this.btnRefresh.Text = "  r_c";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -320,7 +320,7 @@ namespace TaskModule.BasicAdvisorControls
             this.btnAddNewRow.Location = new System.Drawing.Point(11, 80);
             this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
             this.btnAddNewRow.Name = "btnAddNewRow";
-            this.btnAddNewRow.Size = new System.Drawing.Size(28, 28);
+            this.btnAddNewRow.Size = new System.Drawing.Size(27, 27);
             this.btnAddNewRow.TabIndex = 19;
             this.btnAddNewRow.Text = "  a_c";
             this.btnAddNewRow.UseVisualStyleBackColor = true;
@@ -333,10 +333,10 @@ namespace TaskModule.BasicAdvisorControls
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbStartTime.IsValidating = true;
-            this.txbStartTime.Location = new System.Drawing.Point(170, 29);
+            this.txbStartTime.Location = new System.Drawing.Point(176, 29);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(3, 15, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(569, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(563, 20);
             this.txbStartTime.TabIndex = 0;
             this.txbStartTime.UserRegExCheck = null;
             this.txbStartTime.UserRegExCheckErrorMessage = null;
@@ -366,10 +366,10 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbNodeGr.FormattingEnabled = true;
             this.cmbNodeGr.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbNodeGr.IsValidating = true;
-            this.cmbNodeGr.Location = new System.Drawing.Point(170, 24);
+            this.cmbNodeGr.Location = new System.Drawing.Point(176, 24);
             this.cmbNodeGr.Margin = new System.Windows.Forms.Padding(178, 25, 20, 3);
             this.cmbNodeGr.Name = "cmbNodeGr";
-            this.cmbNodeGr.Size = new System.Drawing.Size(569, 21);
+            this.cmbNodeGr.Size = new System.Drawing.Size(563, 21);
             this.cmbNodeGr.TabIndex = 43;
             this.cmbNodeGr.UserRegExCheck = null;
             this.cmbNodeGr.UserRegExCheckErrorMessage = null;
@@ -402,10 +402,10 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbKind.IsValidating = true;
             this.cmbKind.Items.AddRange(new object[] {
             "Жесткое"});
-            this.cmbKind.Location = new System.Drawing.Point(170, 51);
+            this.cmbKind.Location = new System.Drawing.Point(176, 51);
             this.cmbKind.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbKind.Name = "cmbKind";
-            this.cmbKind.Size = new System.Drawing.Size(569, 21);
+            this.cmbKind.Size = new System.Drawing.Size(563, 21);
             this.cmbKind.TabIndex = 36;
             this.cmbKind.UserRegExCheck = null;
             this.cmbKind.UserRegExCheckErrorMessage = null;
@@ -460,10 +460,10 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbStiffnessFunc.InputType = ((UserControlsEx.CMBInputType)(((UserControlsEx.CMBInputType.Items | UserControlsEx.CMBInputType.Float) 
             | UserControlsEx.CMBInputType.Empty)));
             this.cmbStiffnessFunc.IsValidating = true;
-            this.cmbStiffnessFunc.Location = new System.Drawing.Point(170, 60);
+            this.cmbStiffnessFunc.Location = new System.Drawing.Point(176, 60);
             this.cmbStiffnessFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbStiffnessFunc.Name = "cmbStiffnessFunc";
-            this.cmbStiffnessFunc.Size = new System.Drawing.Size(569, 21);
+            this.cmbStiffnessFunc.Size = new System.Drawing.Size(563, 21);
             this.cmbStiffnessFunc.TabIndex = 1;
             this.cmbStiffnessFunc.UserRegExCheck = null;
             this.cmbStiffnessFunc.UserRegExCheckErrorMessage = null;
@@ -471,7 +471,7 @@ namespace TaskModule.BasicAdvisorControls
             // chbLRF
             // 
             this.chbLRF.AutoSize = true;
-            this.chbLRF.Location = new System.Drawing.Point(287, 34);
+            this.chbLRF.Location = new System.Drawing.Point(293, 34);
             this.chbLRF.Name = "chbLRF";
             this.chbLRF.Size = new System.Drawing.Size(100, 17);
             this.chbLRF.TabIndex = 0;
@@ -484,7 +484,7 @@ namespace TaskModule.BasicAdvisorControls
             // chbZ
             // 
             this.chbZ.AutoSize = true;
-            this.chbZ.Location = new System.Drawing.Point(248, 34);
+            this.chbZ.Location = new System.Drawing.Point(254, 34);
             this.chbZ.Name = "chbZ";
             this.chbZ.Size = new System.Drawing.Size(33, 17);
             this.chbZ.TabIndex = 0;
@@ -496,7 +496,7 @@ namespace TaskModule.BasicAdvisorControls
             // chbY
             // 
             this.chbY.AutoSize = true;
-            this.chbY.Location = new System.Drawing.Point(209, 34);
+            this.chbY.Location = new System.Drawing.Point(215, 34);
             this.chbY.Name = "chbY";
             this.chbY.Size = new System.Drawing.Size(33, 17);
             this.chbY.TabIndex = 0;
@@ -508,7 +508,7 @@ namespace TaskModule.BasicAdvisorControls
             // chbX
             // 
             this.chbX.AutoSize = true;
-            this.chbX.Location = new System.Drawing.Point(170, 34);
+            this.chbX.Location = new System.Drawing.Point(176, 34);
             this.chbX.Name = "chbX";
             this.chbX.Size = new System.Drawing.Size(33, 17);
             this.chbX.TabIndex = 0;

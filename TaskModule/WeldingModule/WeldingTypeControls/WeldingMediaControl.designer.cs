@@ -49,7 +49,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.player = new BaseModule.Player.PlayerControl();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txbStopTime = new UserControlsEx.TextBoxEx(this.components);
@@ -68,6 +67,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.rbtTermoCycle = new System.Windows.Forms.RadioButton();
             this.rbtHeatFlow = new System.Windows.Forms.RadioButton();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.player = new BaseModule.Player.PlayerControl();
             this.tableLayoutPanel1.SuspendLayout();
             this.grbHeatFlux.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -117,7 +117,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.grbHeatFlux.MinimumSize = new System.Drawing.Size(0, 10);
             this.grbHeatFlux.Name = "grbHeatFlux";
             this.grbHeatFlux.Padding = new System.Windows.Forms.Padding(0);
-            this.grbHeatFlux.Size = new System.Drawing.Size(448, 116);
+            this.grbHeatFlux.Size = new System.Drawing.Size(448, 93);
             this.grbHeatFlux.TabIndex = 18;
             this.grbHeatFlux.TabStop = false;
             this.grbHeatFlux.Text = "Параметры теплового потока";
@@ -139,10 +139,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbMediaTemp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbMediaTemp.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbMediaTemp.IsValidating = true;
-            this.txbMediaTemp.Location = new System.Drawing.Point(171, 80);
+            this.txbMediaTemp.Location = new System.Drawing.Point(175, 80);
             this.txbMediaTemp.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbMediaTemp.Name = "txbMediaTemp";
-            this.txbMediaTemp.Size = new System.Drawing.Size(257, 20);
+            this.txbMediaTemp.Size = new System.Drawing.Size(343, 20);
             this.txbMediaTemp.TabIndex = 21;
             this.txbMediaTemp.UserRegExCheck = null;
             this.txbMediaTemp.UserRegExCheckErrorMessage = null;
@@ -163,10 +163,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbFunc.FormattingEnabled = true;
             this.cmbFunc.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbFunc.IsValidating = true;
-            this.cmbFunc.Location = new System.Drawing.Point(171, 51);
+            this.cmbFunc.Location = new System.Drawing.Point(175, 51);
             this.cmbFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbFunc.Name = "cmbFunc";
-            this.cmbFunc.Size = new System.Drawing.Size(257, 21);
+            this.cmbFunc.Size = new System.Drawing.Size(343, 21);
             this.cmbFunc.TabIndex = 17;
             this.cmbFunc.UserRegExCheck = null;
             this.cmbFunc.UserRegExCheckErrorMessage = null;
@@ -189,10 +189,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbEl.IsValidating = true;
             this.cmbEl.Items.AddRange(new object[] {
             "test"});
-            this.cmbEl.Location = new System.Drawing.Point(171, 24);
+            this.cmbEl.Location = new System.Drawing.Point(175, 24);
             this.cmbEl.Margin = new System.Windows.Forms.Padding(3, 25, 20, 3);
             this.cmbEl.Name = "cmbEl";
-            this.cmbEl.Size = new System.Drawing.Size(257, 21);
+            this.cmbEl.Size = new System.Drawing.Size(343, 21);
             this.cmbEl.TabIndex = 18;
             this.cmbEl.UserRegExCheck = null;
             this.cmbEl.UserRegExCheckErrorMessage = null;
@@ -218,12 +218,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(7, 462);
+            this.dataGridView.Location = new System.Drawing.Point(7, 421);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(448, 125);
+            this.dataGridView.Size = new System.Drawing.Size(448, 166);
             this.dataGridView.TabIndex = 14;
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dataGridView_SortCompare);
@@ -280,7 +280,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.groupBox1.Controls.Add(this.txbStartTime);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(7, 314);
+            this.groupBox1.Location = new System.Drawing.Point(7, 273);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
@@ -288,30 +288,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Время действия";
-            // 
-            // player
-            // 
-            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.player.AutoSize = true;
-            this.player.CheckState = BaseModule.Player.CheckState.start;
-            this.player.CurrentValue = 0;
-            this.player.Location = new System.Drawing.Point(172, 76);
-            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.player.MinimumSize = new System.Drawing.Size(215, 45);
-            this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(256, 45);
-            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
-            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
-            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
-            this.player.SpeedValue = 500;
-            this.player.StartValue = 0;
-            this.player.StopValue = 100;
-            this.player.TabIndex = 14;
-            this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
-            this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
-            this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
             // 
             // label4
             // 
@@ -338,10 +314,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbStopTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStopTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbStopTime.IsValidating = true;
-            this.txbStopTime.Location = new System.Drawing.Point(171, 50);
+            this.txbStopTime.Location = new System.Drawing.Point(175, 50);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStopTime.Name = "txbStopTime";
-            this.txbStopTime.Size = new System.Drawing.Size(257, 20);
+            this.txbStopTime.Size = new System.Drawing.Size(253, 20);
             this.txbStopTime.TabIndex = 1;
             this.txbStopTime.UserRegExCheck = null;
             this.txbStopTime.UserRegExCheckErrorMessage = null;
@@ -351,10 +327,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnHideAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHideAll.Image = global::TaskModule.Properties.Resources.HideAll;
-            this.btnHideAll.Location = new System.Drawing.Point(140, 76);
+            this.btnHideAll.Location = new System.Drawing.Point(142, 76);
             this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnHideAll.Name = "btnHideAll";
-            this.btnHideAll.Size = new System.Drawing.Size(28, 28);
+            this.btnHideAll.Size = new System.Drawing.Size(27, 27);
             this.btnHideAll.TabIndex = 13;
             this.btnHideAll.Text = "  h_m";
             this.btnHideAll.UseVisualStyleBackColor = true;
@@ -365,10 +341,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnShowAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowAll.Image = global::TaskModule.Properties.Resources.ShowAll;
-            this.btnShowAll.Location = new System.Drawing.Point(108, 76);
+            this.btnShowAll.Location = new System.Drawing.Point(109, 76);
             this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(28, 28);
+            this.btnShowAll.Size = new System.Drawing.Size(27, 27);
             this.btnShowAll.TabIndex = 13;
             this.btnShowAll.Text = "  s_m";
             this.btnShowAll.UseVisualStyleBackColor = true;
@@ -383,7 +359,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnRefresh.Location = new System.Drawing.Point(76, 76);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(28, 28);
+            this.btnRefresh.Size = new System.Drawing.Size(27, 27);
             this.btnRefresh.TabIndex = 13;
             this.btnRefresh.Text = "  r_m";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -394,10 +370,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnClearAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = global::TaskModule.Properties.Resources.delete;
-            this.btnClearAll.Location = new System.Drawing.Point(44, 76);
+            this.btnClearAll.Location = new System.Drawing.Point(43, 76);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(28, 28);
+            this.btnClearAll.Size = new System.Drawing.Size(27, 27);
             this.btnClearAll.TabIndex = 13;
             this.btnClearAll.Text = "  d_m";
             this.btnClearAll.UseVisualStyleBackColor = true;
@@ -408,10 +384,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnAddNewRow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewRow.Image = global::TaskModule.Properties.Resources.Add;
-            this.btnAddNewRow.Location = new System.Drawing.Point(11, 76);
+            this.btnAddNewRow.Location = new System.Drawing.Point(10, 76);
             this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
             this.btnAddNewRow.Name = "btnAddNewRow";
-            this.btnAddNewRow.Size = new System.Drawing.Size(28, 28);
+            this.btnAddNewRow.Size = new System.Drawing.Size(27, 27);
             this.btnAddNewRow.TabIndex = 13;
             this.btnAddNewRow.Text = "  a_m";
             this.btnAddNewRow.UseVisualStyleBackColor = true;
@@ -424,10 +400,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbStartTime.IsValidating = true;
-            this.txbStartTime.Location = new System.Drawing.Point(171, 24);
+            this.txbStartTime.Location = new System.Drawing.Point(175, 24);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 25, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
-            this.txbStartTime.Size = new System.Drawing.Size(257, 20);
+            this.txbStartTime.Size = new System.Drawing.Size(253, 20);
             this.txbStartTime.TabIndex = 0;
             this.txbStartTime.UserRegExCheck = null;
             this.txbStartTime.UserRegExCheckErrorMessage = null;
@@ -444,12 +420,12 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.grbTermoCycle.IsCheckable = false;
             this.grbTermoCycle.IsExpanded = true;
             this.grbTermoCycle.IsRollable = true;
-            this.grbTermoCycle.Location = new System.Drawing.Point(7, 212);
+            this.grbTermoCycle.Location = new System.Drawing.Point(7, 189);
             this.grbTermoCycle.Margin = new System.Windows.Forms.Padding(7);
             this.grbTermoCycle.MinimumSize = new System.Drawing.Size(0, 10);
             this.grbTermoCycle.Name = "grbTermoCycle";
             this.grbTermoCycle.Padding = new System.Windows.Forms.Padding(0);
-            this.grbTermoCycle.Size = new System.Drawing.Size(448, 88);
+            this.grbTermoCycle.Size = new System.Drawing.Size(448, 70);
             this.grbTermoCycle.TabIndex = 20;
             this.grbTermoCycle.TabStop = false;
             this.grbTermoCycle.Text = "Параметры термоцикла";
@@ -461,10 +437,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbTermoCycle.FormattingEnabled = true;
             this.cmbTermoCycle.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbTermoCycle.IsValidating = true;
-            this.cmbTermoCycle.Location = new System.Drawing.Point(172, 51);
+            this.cmbTermoCycle.Location = new System.Drawing.Point(175, 51);
             this.cmbTermoCycle.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbTermoCycle.Name = "cmbTermoCycle";
-            this.cmbTermoCycle.Size = new System.Drawing.Size(256, 21);
+            this.cmbTermoCycle.Size = new System.Drawing.Size(343, 21);
             this.cmbTermoCycle.TabIndex = 26;
             this.cmbTermoCycle.UserRegExCheck = null;
             this.cmbTermoCycle.UserRegExCheckErrorMessage = null;
@@ -496,10 +472,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbNode.IsValidating = true;
             this.cmbNode.Items.AddRange(new object[] {
             "node"});
-            this.cmbNode.Location = new System.Drawing.Point(172, 24);
+            this.cmbNode.Location = new System.Drawing.Point(175, 24);
             this.cmbNode.Margin = new System.Windows.Forms.Padding(3, 25, 15, 3);
             this.cmbNode.Name = "cmbNode";
-            this.cmbNode.Size = new System.Drawing.Size(256, 21);
+            this.cmbNode.Size = new System.Drawing.Size(343, 21);
             this.cmbNode.TabIndex = 19;
             this.cmbNode.UserRegExCheck = null;
             this.cmbNode.UserRegExCheckErrorMessage = null;
@@ -548,6 +524,30 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             this.openFileDialog.FileName = "openFileDialog";
             // 
+            // player
+            // 
+            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.player.AutoSize = true;
+            this.player.CheckState = BaseModule.Player.CheckState.start;
+            this.player.CurrentValue = 0;
+            this.player.Location = new System.Drawing.Point(175, 76);
+            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.player.MinimumSize = new System.Drawing.Size(215, 45);
+            this.player.Name = "player";
+            this.player.Size = new System.Drawing.Size(253, 45);
+            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
+            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
+            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
+            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.player.SpeedValue = 500;
+            this.player.StartValue = 0;
+            this.player.StopValue = 100;
+            this.player.TabIndex = 14;
+            this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
+            this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
+            this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
+            // 
             // WeldingMediaControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -556,7 +556,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.Margin = new System.Windows.Forms.Padding(0);
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "WeldingMediaControl";
-            this.Size = new System.Drawing.Size(462, 594);
+            this.Size = new System.Drawing.Size(577, 742);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.grbHeatFlux.ResumeLayout(false);

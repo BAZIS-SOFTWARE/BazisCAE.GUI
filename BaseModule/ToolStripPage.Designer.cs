@@ -243,6 +243,7 @@ namespace BaseModule
             // 
             // instrumentalToolStrip
             // 
+            this.instrumentalToolStrip.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.instrumentalToolStrip.BackGroundColor = System.Drawing.Color.Gainsboro;
             this.instrumentalToolStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.instrumentalToolStrip.FrameColor = System.Drawing.Color.Gray;

@@ -33,7 +33,7 @@ namespace BaseModule.Player
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerControl));
             this.lblStatus = new System.Windows.Forms.Label();
             this.btnStopCheck = new System.Windows.Forms.Button();
-            this.colorSlider = new ColorSlider();
+            this.colorSlider = new UserControlsEx.ColorSlider();
             this.btnCheckDinamic = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
@@ -43,7 +43,7 @@ namespace BaseModule.Player
             // 
             this.lblStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(84, 29);
+            this.lblStatus.Location = new System.Drawing.Point(98, 29);
             this.lblStatus.Margin = new System.Windows.Forms.Padding(0);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(99, 13);
@@ -53,12 +53,12 @@ namespace BaseModule.Player
             // btnStopCheck
             // 
             this.btnStopCheck.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnStopCheck.AutoSize = true;
-            this.btnStopCheck.Image =  Properties.Resources.Stop.ToBitmap();
-            this.btnStopCheck.Location = new System.Drawing.Point(26, 0);
-            this.btnStopCheck.Margin = new System.Windows.Forms.Padding(0);
+            this.btnStopCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStopCheck.Image = ((System.Drawing.Image)(resources.GetObject("btnStopCheck.Image")));
+            this.btnStopCheck.Location = new System.Drawing.Point(33, 0);
+            this.btnStopCheck.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnStopCheck.Name = "btnStopCheck";
-            this.btnStopCheck.Size = new System.Drawing.Size(26, 26);
+            this.btnStopCheck.Size = new System.Drawing.Size(27, 27);
             this.btnStopCheck.TabIndex = 24;
             this.btnStopCheck.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnStopCheck.UseVisualStyleBackColor = true;
@@ -67,27 +67,30 @@ namespace BaseModule.Player
             // colorSlider
             // 
             this.colorSlider.BackColor = System.Drawing.Color.Transparent;
+            this.colorSlider.BarPenColor = System.Drawing.Color.Black;
             this.colorSlider.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             this.colorSlider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.colorSlider.LargeChange = ((uint)(5u));
-            this.colorSlider.Location = new System.Drawing.Point(52, 0);
-            this.colorSlider.Margin = new System.Windows.Forms.Padding(0);
+            this.colorSlider.Location = new System.Drawing.Point(66, 0);
+            this.colorSlider.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.colorSlider.Name = "colorSlider";
-            this.colorSlider.Size = new System.Drawing.Size(163, 26);
+            this.colorSlider.Size = new System.Drawing.Size(163, 27);
             this.colorSlider.SmallChange = ((uint)(1u));
             this.colorSlider.TabIndex = 26;
             this.colorSlider.Text = "colorSlider";
-            this.colorSlider.ThumbRoundRectSize = new System.Drawing.Size(8, 8);
+            this.colorSlider.ThumbPenColor = System.Drawing.Color.Black;
+            this.colorSlider.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
+            this.colorSlider.ThumbSize = 12;
             // 
             // btnCheckDinamic
             // 
             this.btnCheckDinamic.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCheckDinamic.AutoSize = true;
-            this.btnCheckDinamic.Image = Properties.Resources.StartCheck;
+            this.btnCheckDinamic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCheckDinamic.Image = global::BaseModule.Properties.Resources.StartCheck;
             this.btnCheckDinamic.Location = new System.Drawing.Point(0, 0);
-            this.btnCheckDinamic.Margin = new System.Windows.Forms.Padding(0);
+            this.btnCheckDinamic.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.btnCheckDinamic.Name = "btnCheckDinamic";
-            this.btnCheckDinamic.Size = new System.Drawing.Size(26, 26);
+            this.btnCheckDinamic.Size = new System.Drawing.Size(27, 27);
             this.btnCheckDinamic.TabIndex = 25;
             this.btnCheckDinamic.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCheckDinamic.UseVisualStyleBackColor = true;
@@ -95,6 +98,7 @@ namespace BaseModule.Player
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -109,21 +113,22 @@ namespace BaseModule.Player
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(215, 45);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(232, 45);
             this.tableLayoutPanel1.TabIndex = 27;
             // 
-            // Player
+            // PlayerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.Controls.Add(this.tableLayoutPanel1);
             this.MinimumSize = new System.Drawing.Size(215, 45);
-            this.Name = "Player";
-            this.Size = new System.Drawing.Size(215, 45);
+            this.Name = "PlayerControl";
+            this.Size = new System.Drawing.Size(232, 45);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
