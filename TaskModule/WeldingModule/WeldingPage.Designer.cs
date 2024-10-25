@@ -29,17 +29,27 @@ namespace TaskModule.WeldingModule
         /// </summary>
         private void InitializeComponent()
         {
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).BeginInit();
+            this.splitContainerEx.Panel1.SuspendLayout();
+            this.splitContainerEx.SuspendLayout();
             this.SuspendLayout();
             // 
             // basePage
             // 
             this.basePage.Size = new System.Drawing.Size(1153, 546);
             // 
+            // splitContainerEx
+            // 
+            this.splitContainerEx.Size = new System.Drawing.Size(1153, 546);
+            // 
             // WeldingPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "WeldingPage";
+            this.splitContainerEx.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).EndInit();
+            this.splitContainerEx.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

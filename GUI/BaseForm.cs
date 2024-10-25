@@ -105,6 +105,7 @@ namespace BazisGUI
 
                     project = dataController.CreateNewProject(path,name);
                     project.Load();
+                    modelController = new ModelController.ModelController(project.ModelData);
                 }
                 if(args.Contains("-res"))
                 {
@@ -140,7 +141,7 @@ namespace BazisGUI
                     var name = "new_Project.bpf";
 
                     project = dataController.CreateNewProject(path, name);
-
+                    modelController = new ModelController.ModelController(project.ModelData);
                     dataController.UpdateGeometry(gmshController, project, ObjType.Точка);
                     dataController.UpdateGeometry(gmshController, project, ObjType.Линия);
                 }
@@ -276,7 +277,7 @@ namespace BazisGUI
             var newModule = CreateModule(moduleName);
             //Important to see in future
 
-            modelController = new ModelController.ModelController(project.ModelData);
+            //modelController = new ModelController.ModelController(project.ModelData);
             newModule.BasePage.SetGeneralData(project.GeneralData);
             newModule.BasePage.ScenePage.SetModelController(modelController);
 
@@ -827,7 +828,7 @@ namespace BazisGUI
                 lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
 
                 модулиMenuItem.Enabled = true;
-
+                modelController = new ModelController.ModelController(project.ModelData);
                 SetModule("Mesh");
                 модулиMenuItem.Image = Resources.м_34;
                 var module = ModulePage.BasePage;
@@ -854,7 +855,7 @@ namespace BazisGUI
                     gmshController?.Clear(ref ierr);
 
                     модулиMenuItem.Enabled = true;
-
+                    modelController = new ModelController.ModelController(project.ModelData);
                     SetModule("Mesh");
                     модулиMenuItem.Image = Resources.м_34;
                     var module = ModulePage.BasePage;
@@ -881,7 +882,7 @@ namespace BazisGUI
                 gmshController?.Clear(ref ierr);
 
                 модулиMenuItem.Enabled = true;
-
+                modelController = new ModelController.ModelController(project.ModelData);
                 SetModule("Mesh");
                 модулиMenuItem.Image = Resources.м_34;
                 var module = ModulePage.BasePage;
@@ -936,7 +937,7 @@ namespace BazisGUI
                     lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
 
                     модулиMenuItem.Enabled = true;
-
+                    modelController = new ModelController.ModelController(project.ModelData);
                     SetModule("Mesh");
                     модулиMenuItem.Image = Resources.м_34;
                     var module = ModulePage.BasePage;

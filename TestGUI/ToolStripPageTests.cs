@@ -110,7 +110,7 @@ namespace TestGUI
             Thread.Sleep(1000);
 
             //возврат лицензии на модуль сварка
-            TaskModuleTests.SwithModule(wd, moduls, "Построение сетки");
+            TaskModuleTests.SwithModule(wd, moduls, "Термообработка");
 
             Thread.Sleep(3000);
             wd.CloseApp();
@@ -166,6 +166,51 @@ namespace TestGUI
 
             //возврат лицензии на модуль сварка
             TaskModuleTests.SwithModule(wd, moduls, "Построение сетки");
+
+            Thread.Sleep(3000);
+            wd.CloseApp();
+        }
+
+        [Test(Description = "Тест модуля сечений. Действия: построить, переключение радиокнопок")]
+        public void SwitchPlaneAndAxisTest()
+        {
+            string args = @"-proj c:\BazisGUI\GUI\Projects\Welding\Arc\proj.bpf";
+
+            WindowsDriver<WindowsElement> wd;
+
+            var opt = new AppiumOptions();
+
+            opt.AddAdditionalCapability("app", @"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe");
+            opt.AddAdditionalCapability("ms:waitForAppLaunch", "3");
+            opt.AddAdditionalCapability("appArguments", args);
+            opt.PlatformName = "Windows11x64";
+            var url = new Uri("http://127.0.0.1:4723");
+            wd = new WindowsDriver<WindowsElement>(url, opt);
+
+            var moduls = wd.FindElement(By.Name("Модули"));
+            moduls.Click();
+            var modulW = wd.FindElement(By.Name("Построение сетки"));
+            modulW.Click();
+
+            wd.FindElement(By.Name("toolStripButton5")).Click();
+            wd.FindElement(By.Name("toolStripButton6")).Click();
+            wd.FindElement(By.Name("toolStripButton7")).Click();
+            wd.FindElement(By.Name("toolStripButton8")).Click(); 
+            wd.FindElement(By.Name("toolStripButton9")).Click();
+            wd.FindElement(By.Name("toolStripButton10")).Click();
+            wd.FindElement(By.Name("toolStripButton11")).Click();
+            wd.FindElement(By.Name("toolStripButton12")).Click();
+            wd.FindElement(By.Name("toolStripButton13")).Click();
+
+            Thread.Sleep(1000);
+
+            var a = new Actions(wd);
+            a.SendKeys(Keys.Escape).Perform();
+
+            Thread.Sleep(1000);
+
+            //возврат лицензии на модуль сварка
+            TaskModuleTests.SwithModule(wd, moduls, "Сварка");
 
             Thread.Sleep(3000);
             wd.CloseApp();

@@ -81,11 +81,11 @@ namespace BaseModule
             // toolStripContainer.ContentPanel
             // 
             this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainerEx);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1149, 583);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1438, 745);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(5, 5);
             this.toolStripContainer.Name = "toolStripContainer";
-            this.toolStripContainer.Size = new System.Drawing.Size(1149, 639);
+            this.toolStripContainer.Size = new System.Drawing.Size(1438, 801);
             this.toolStripContainer.TabIndex = 0;
             this.toolStripContainer.Text = "toolStripContainer1";
             // 
@@ -110,7 +110,7 @@ namespace BaseModule
             // 
             this.splitContainerEx.Panel1.Controls.Add(this.basePage);
             this.splitContainerEx.Panel2Collapsed = true;
-            this.splitContainerEx.Size = new System.Drawing.Size(1149, 583);
+            this.splitContainerEx.Size = new System.Drawing.Size(1438, 745);
             this.splitContainerEx.SplitterDistance = 662;
             this.splitContainerEx.SwitchShifting = false;
             this.splitContainerEx.TabIndex = 1;
@@ -125,7 +125,7 @@ namespace BaseModule
             this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.basePage.PressedKey = System.Windows.Forms.Keys.None;
             this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
-            this.basePage.Size = new System.Drawing.Size(1149, 583);
+            this.basePage.Size = new System.Drawing.Size(1438, 745);
             this.basePage.SplitterWidthEx = 10;
             this.basePage.TabIndex = 0;
             this.basePage.DeleteGroupEvent += new System.Action(this.basePage_DeleteGroupEvent);
@@ -514,7 +514,7 @@ namespace BaseModule
             this.displayToolStrip.Location = new System.Drawing.Point(741, 0);
             this.displayToolStrip.Name = "displayToolStrip";
             this.displayToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.displayToolStrip.Size = new System.Drawing.Size(323, 56);
+            this.displayToolStrip.Size = new System.Drawing.Size(292, 56);
             this.displayToolStrip.SplitButtonClickWidth = 16;
             this.displayToolStrip.SplitButtonHeight = 34;
             this.displayToolStrip.SplitButtonTriangleSize = 6;
@@ -652,7 +652,7 @@ namespace BaseModule
             this.Controls.Add(this.toolStripContainer);
             this.Name = "ToolStripPage";
             this.Padding = new System.Windows.Forms.Padding(5);
-            this.Size = new System.Drawing.Size(1159, 649);
+            this.Size = new System.Drawing.Size(1448, 811);
             this.toolStripContainer.ContentPanel.ResumeLayout(false);
             this.toolStripContainer.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer.TopToolStripPanel.PerformLayout();

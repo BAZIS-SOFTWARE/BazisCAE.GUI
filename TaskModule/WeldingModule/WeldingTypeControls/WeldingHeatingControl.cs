@@ -129,11 +129,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         {
             var trajData = GetTrajectoryData();
 
-            if (chbShifting.Checked)
-            {
-                trajData = trajData + ";" +
-                    string.Format($"{txbShiftX.Text}|{txbShiftY.Text}|{txbShiftZ.Text}|{txbAngle.Text}");
-            }
+            trajData = trajData + ";" +
+                string.Format($"{txbShiftX.Text}|{txbShiftY.Text}|{txbShiftZ.Text}|{txbAngle.Text}");
 
             var taskStr = string.Join(" ", new string[] { HeatSourceData, cmbWeldZone.Text, txbStartTime.Text, stopTime, trajData });
 
@@ -281,25 +278,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 cmbEnergyCalibration.Text = "";
                 cmbEnergyCalibration.Enabled = false;
             }
-        }
-
-        private void ChbShifting_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chbShifting.Checked)
-            {
-                txbShiftX.Enabled = true;
-                txbShiftY.Enabled = true;
-                txbShiftZ.Enabled = true;
-                txbAngle.Enabled = true;
-            }
-            else
-            {
-                txbShiftX.Enabled = false;
-                txbShiftY.Enabled = false;
-                txbShiftZ.Enabled = false;
-                txbAngle.Enabled = false;
-            }
-        }       
+        }      
 
         private void dataGridView_MouseClick(object sender, MouseEventArgs e)
         {

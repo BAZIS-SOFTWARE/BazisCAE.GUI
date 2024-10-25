@@ -481,7 +481,7 @@ namespace ModelModule
             this.entitieSettingsBox.Size = new System.Drawing.Size(447, 161);
             this.entitieSettingsBox.TabIndex = 18;
             this.entitieSettingsBox.TabStop = false;
-            this.entitieSettingsBox.Text = "Настройки разметки кривых";
+            this.entitieSettingsBox.Text = "Настройки разметки";
             // 
             // curveSettingsControl
             // 

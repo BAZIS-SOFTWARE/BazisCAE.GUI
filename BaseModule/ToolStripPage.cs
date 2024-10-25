@@ -330,7 +330,7 @@ namespace BaseModule
             }
         }
 
-        private async void SelectionControl_SelectInPlain(object arg1, SelectInPlainEventArgs arg2)
+        private void SelectionControl_SelectInPlain(object arg1, SelectInPlainEventArgs arg2)
         {
             var scenePage = basePage.ScenePage;
             var consoleControl = basePage.ConsoleControl;
@@ -338,17 +338,17 @@ namespace BaseModule
             {
                 if (arg2.ObjsType == scenePage.SelectedObjects)
                 {
-                    var result = await basePage.SelectObjectsAsync(scenePage.SelectedObjects);
-                    var objs = result as IEnumerable<IModelObject>;
-                    
+                    var selObjs = ModelData.ObjectData.GetObjects(arg2.ObjsType).
+                        Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
+
                     if (scenePage.SelectedObjects == ObjType.Узел)
                     {
 
-                        if (objs?.Count() > 2)
+                        if (selObjs?.Count() > 2)
                         {
-                            var n1 = (INode)objs.First();
-                            var n2 = (INode)objs.Skip(1).First();
-                            var n3 = (INode)objs.Skip(2).First();
+                            var n1 = (INode)selObjs.First();
+                            var n2 = (INode)selObjs.Skip(1).First();
+                            var n3 = (INode)selObjs.Skip(2).First();
 
                             var plane = new Plane(n1.Position, n2.Position, n3.Position);
                             ModelController.SelectionHelper.SelectNodeInPlane(ModelData.ObjectData,
@@ -360,13 +360,14 @@ namespace BaseModule
                     }
                     else
                     {
-                        if (objs?.Count() > 0)
+                        if (selObjs?.Count() > 0)
                         {
-                            var element = objs.Last();
+                            var element = selObjs.Last();
                             ModelController.SelectionHelper.SelectE2DInPlane(ModelData.ObjectData,
                                 arg2.Angle, element.Number, scenePage.SceneControl.SelectionColor);
                             scenePage.SetObjectsSceneColor(ObjType.Элемент2D);
                         }
+                        else consoleControl.PrintInfo("Выберите хотя бы один элемент", Color.Red);
                     }
 
                     scenePage.SceneControl.DisplayObjects();
@@ -379,7 +380,7 @@ namespace BaseModule
 
         }
 
-        private async void SelectionControl_SelectInDirection(object arg1, SelectInDirectionEventArgs arg2)
+        private void SelectionControl_SelectInDirection(object arg1, SelectInDirectionEventArgs arg2)
         {
             var scenePage = basePage.ScenePage;
             var consoleControl = basePage.ConsoleControl;
@@ -387,22 +388,23 @@ namespace BaseModule
             {
                 if (arg2.ObjsType == scenePage.SelectedObjects)
                 {
-                    var result = await basePage.SelectObjectsAsync(scenePage.SelectedObjects);
-                    var objs = result as IEnumerable<IModelObject>;
-
-                    //var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
-                    if (objs?.Count() > 1)
+                    //var result = await basePage.SelectObjectsAsync(scenePage.SelectedObjects);
+                    //var objs = result as IEnumerable<IModelObject>;
+                    
+                    var selObjs = ModelData.ObjectData.GetObjects(arg2.ObjsType).
+                        Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
+                    if (selObjs?.Count() > 1)
                     {
                         if (!arg2.Reverse)
                         {
                             ModelController.SelectionHelper.SelectNodeInDirection(ModelData.ObjectData,
-                                arg2.Angle, objs.Skip(1).First().Number, objs.First().Number, scenePage.SceneControl.SelectionColor);
+                                arg2.Angle, selObjs.Skip(1).First().Number, selObjs.First().Number, scenePage.SceneControl.SelectionColor);
                         }
 
                         else
                         {
                             ModelController.SelectionHelper.SelectNodeInDirection(ModelData.ObjectData,
-                                arg2.Angle, objs.First().Number, objs.Skip(1).First().Number, scenePage.SceneControl.SelectionColor);
+                                arg2.Angle, selObjs.First().Number, selObjs.Skip(1).First().Number, scenePage.SceneControl.SelectionColor);
                         }
 
                         //selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
@@ -410,6 +412,8 @@ namespace BaseModule
 
                         scenePage.SceneControl.DisplayObjects();
                     }
+                    else
+                        consoleControl.PrintInfo("Выбранных объектов должно быть больше двух", Color.Red);
                 }
                     
             }
@@ -496,11 +500,26 @@ namespace BaseModule
             if (btn.Checked)
             {
                 if (btn.Tag.ToString() == "3")
+                {
                     scenePage.SceneControl.RotationAxis = ViewAxis.X;
+                    btnSetRotY.Checked = false;
+                    btnSetRotZ.Checked = false;
+                }
+
                 else if (btn.Tag.ToString() == "4")
+                {
                     scenePage.SceneControl.RotationAxis = ViewAxis.Y;
+                    btnSetRotX.Checked = false;
+                    btnSetRotZ.Checked = false;
+                }
+
                 else
+                {
                     scenePage.SceneControl.RotationAxis = ViewAxis.Z;
+                    btnSetRotX.Checked = false;
+                    btnSetRotY.Checked = false;
+                }
+
             }
             else
                 scenePage.SceneControl.RotationAxis = ViewAxis.XYZ;
@@ -689,7 +708,8 @@ namespace BaseModule
                 var btn = (ToolStripButton)sender;
                 if (btn.Checked)
                 {
-                    var surfElems = ModelData.ObjectData.GetAllElements().Select(x => (ISurfaceElement)x);
+                    var surfElems = ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement).
+                        Select(x => (ISurfaceElement)x);
                     var linesNodes = ModelController.BoundaryEdgesFinder.Find(surfElems);
                     var edges = ModelController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes, ModelData);
                     var linePresenter = ModelController.PresentersCreator.CreateLineObjectsPresenter(edges);

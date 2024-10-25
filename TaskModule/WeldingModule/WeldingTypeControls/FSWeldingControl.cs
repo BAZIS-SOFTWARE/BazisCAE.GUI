@@ -31,6 +31,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             {
                 strsArr.Add("FSWShoulder");
                 strsArr.Add(txbAxisForce.Text);
+                strsArr.Add(txbRotSpeed.Text);
                 strsArr.Add("30");
                 strsArr.Add(txbShoulderDiam.Text);
                 strsArr.Add(txbShoulderDiam.Text);
@@ -71,9 +72,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             {
                 rbtShoulder.Checked = true;
                 txbAxisForce.Text = inputData[1];
+                txbRotSpeed.Text = inputData[2];
                 //считаем что диаметры одинаковые, а длина всегда 30 мм
                 txbShoulderDiam.Text = inputData[4];
-                cmbFrictionModule.Text = inputData[5];
+                cmbFrictionModule.Text = inputData[6];
             }
             SetIntefaceState();
         }
@@ -119,7 +121,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             }
             if (rbtShoulder.Checked)
             {
-                txbRotSpeed.Enabled = false;
+                txbRotSpeed.Enabled = true;
                 txbAxisForce.Enabled = true;
                 txbShoulderDiam.Enabled = true;
                 txbPinLenght.Enabled = false;
