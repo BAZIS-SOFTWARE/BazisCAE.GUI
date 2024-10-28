@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
 using System;
+using ModelControllerInterfaces;
 
 namespace TaskModule.WeldingModule
 {
@@ -62,8 +63,10 @@ namespace TaskModule.WeldingModule
                             }));
                     }
 
-                    data.Group.Clear();
-                    data.Group.AddRange(modelObjects);
+                    var modelData = BasePage.ScenePage.GetModelController().ModelData;
+                    var gr = modelData.GroupData.Create(data.Group.Name + "spec", data.Group.ObjType);
+                    gr.AddRange(modelObjects);
+                    modelData.GroupData.Add(gr);
                 });
             }
             catch (System.Exception ex)
