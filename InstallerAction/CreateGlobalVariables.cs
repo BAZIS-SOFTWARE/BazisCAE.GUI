@@ -20,6 +20,9 @@ namespace InstallerAction
         {
             base.Install(stateSaver);
 
+            if (IsVariableExist(EnvironmentVariableTarget.Machine) || IsVariableExist(EnvironmentVariableTarget.User))
+                return;
+
             string fullPath = this.Context.Parameters["assemblypath"];
 
             var process = new Process();
@@ -36,8 +39,6 @@ namespace InstallerAction
             startInfo.Arguments = $@"/C setx /m BazisMeshPath ""{gmshPath}""";
 
             process.Start();
-
-
         }
 
         protected override void OnAfterInstall(IDictionary savedState)
@@ -45,11 +46,26 @@ namespace InstallerAction
             base.OnAfterInstall(savedState);
 
             // checking
-
-            var value = Environment.GetEnvironmentVariable("BazisMeshPath");
-            if (value == null | value == "")
+            if (!IsVariableExist(EnvironmentVariableTarget.Machine) && !IsVariableExist(EnvironmentVariableTarget.User))
                 MessageBox.Show($"Возможно возникла проблема автоматического создания переменной среды BazisMeshPath! Создайте ее вручную в случае если она отсутсвует",
-                    "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        protected override void OnAfterUninstall(IDictionary savedState)
+        {
+            base.OnAfterUninstall(savedState);
+
+            if (IsVariableExist(EnvironmentVariableTarget.Machine))
+                Environment.SetEnvironmentVariable("BazisMeshPath", null, EnvironmentVariableTarget.Machine);
+
+            if (IsVariableExist(EnvironmentVariableTarget.User))
+                Environment.SetEnvironmentVariable("BazisMeshPath", null, EnvironmentVariableTarget.User);
+        }
+
+        private bool IsVariableExist(EnvironmentVariableTarget target)
+        {
+            var variable = Environment.GetEnvironmentVariable("BazisMeshPath", target);
+            return variable != null && !variable.Equals(string.Empty)? true : false;
         }
     }
 }
