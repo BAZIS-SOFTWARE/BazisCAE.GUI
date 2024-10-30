@@ -62,6 +62,7 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.meshMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createSurfaceElementsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.создать1DПо2DЭлементамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mesh3DGeneratorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tasksMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.arcWeldingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,7 +90,6 @@
             this.лицензияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сведенияMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.получитьЛицензиюMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.создать1DПо2DЭлементамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -145,16 +145,16 @@
             this.lblStatus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblStatus.Margin = new System.Windows.Forms.Padding(5, 3, 0, 2);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(488, 17);
+            this.lblStatus.Size = new System.Drawing.Size(584, 17);
             this.lblStatus.Spring = true;
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblVersion
             // 
-            this.lblVersion.AutoSize = false;
             this.lblVersion.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
+            this.lblVersion.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(100, 17);
+            this.lblVersion.Size = new System.Drawing.Size(4, 17);
             // 
             // webPageLabel
             // 
@@ -458,14 +458,21 @@
             // createSurfaceElementsMenuItem
             // 
             this.createSurfaceElementsMenuItem.Name = "createSurfaceElementsMenuItem";
-            this.createSurfaceElementsMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.createSurfaceElementsMenuItem.Size = new System.Drawing.Size(179, 22);
             this.createSurfaceElementsMenuItem.Text = "Создать 2D из 3D";
             this.createSurfaceElementsMenuItem.Click += new System.EventHandler(this.createSurfaceElementsMenuItem_Click);
+            // 
+            // создать1DПо2DЭлементамToolStripMenuItem
+            // 
+            this.создать1DПо2DЭлементамToolStripMenuItem.Name = "создать1DПо2DЭлементамToolStripMenuItem";
+            this.создать1DПо2DЭлементамToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.создать1DПо2DЭлементамToolStripMenuItem.Text = "Создать 1D из 2D";
+            this.создать1DПо2DЭлементамToolStripMenuItem.Click += new System.EventHandler(this.создать1DПо2DЭлементамToolStripMenuItem_Click);
             // 
             // mesh3DGeneratorMenuItem
             // 
             this.mesh3DGeneratorMenuItem.Name = "mesh3DGeneratorMenuItem";
-            this.mesh3DGeneratorMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.mesh3DGeneratorMenuItem.Size = new System.Drawing.Size(179, 22);
             this.mesh3DGeneratorMenuItem.Text = "Генератор 3D сетки";
             this.mesh3DGeneratorMenuItem.Click += new System.EventHandler(this.mesh3DGeneratorMenuItem_Click);
             // 
@@ -687,13 +694,6 @@
             this.получитьЛицензиюMenuItem.Size = new System.Drawing.Size(182, 22);
             this.получитьЛицензиюMenuItem.Text = "Получить лицензию";
             this.получитьЛицензиюMenuItem.Click += new System.EventHandler(this.получитьЛицензиюMenuItem_Click);
-            // 
-            // создать1DПо2DЭлементамToolStripMenuItem
-            // 
-            this.создать1DПо2DЭлементамToolStripMenuItem.Name = "создать1DПо2DЭлементамToolStripMenuItem";
-            this.создать1DПо2DЭлементамToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.создать1DПо2DЭлементамToolStripMenuItem.Text = "Создать 1D из 2D";
-            this.создать1DПо2DЭлементамToolStripMenuItem.Click += new System.EventHandler(this.создать1DПо2DЭлементамToolStripMenuItem_Click);
             // 
             // BaseForm
             // 

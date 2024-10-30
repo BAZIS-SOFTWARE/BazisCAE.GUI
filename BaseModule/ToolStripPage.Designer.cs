@@ -44,6 +44,8 @@ namespace BaseModule
             this.btnMeasuring = new System.Windows.Forms.ToolStripButton();
             this.btnCrossSection = new System.Windows.Forms.ToolStripButton();
             this.btnScreenShot = new System.Windows.Forms.ToolStripButton();
+            this.btnReflect = new System.Windows.Forms.ToolStripButton();
+            this.btnClipPlane = new System.Windows.Forms.ToolStripButton();
             this.viewToolStrip = new UserControlsEx.ToolStripEx();
             this.btnSetXY = new System.Windows.Forms.ToolStripButton();
             this.btnSetZX = new System.Windows.Forms.ToolStripButton();
@@ -258,13 +260,15 @@ namespace BaseModule
             this.instrumentalToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnMeasuring,
             this.btnCrossSection,
-            this.btnScreenShot});
+            this.btnScreenShot,
+            this.btnReflect,
+            this.btnClipPlane});
             this.instrumentalToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
             this.instrumentalToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.instrumentalToolStrip.Location = new System.Drawing.Point(301, 0);
             this.instrumentalToolStrip.Name = "instrumentalToolStrip";
             this.instrumentalToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.instrumentalToolStrip.Size = new System.Drawing.Size(112, 56);
+            this.instrumentalToolStrip.Size = new System.Drawing.Size(184, 56);
             this.instrumentalToolStrip.SplitButtonClickWidth = 16;
             this.instrumentalToolStrip.SplitButtonHeight = 34;
             this.instrumentalToolStrip.SplitButtonTriangleSize = 6;
@@ -320,6 +324,37 @@ namespace BaseModule
             this.btnScreenShot.ToolTipText = "Снимок экрана";
             this.btnScreenShot.Click += new System.EventHandler(this.btnScreenShot_Click);
             // 
+            // btnReflect
+            // 
+            this.btnReflect.AutoSize = false;
+            this.btnReflect.CheckOnClick = true;
+            this.btnReflect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnReflect.Image = ((System.Drawing.Image)(resources.GetObject("btnReflect.Image")));
+            this.btnReflect.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnReflect.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnReflect.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnReflect.Name = "btnReflect";
+            this.btnReflect.Size = new System.Drawing.Size(36, 53);
+            this.btnReflect.Text = "btnReflect";
+            this.btnReflect.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnReflect.ToolTipText = "Зеркальное отображение";
+            this.btnReflect.Click += new System.EventHandler(this.btnReflect_Click);
+            // 
+            // btnClipPlane
+            // 
+            this.btnClipPlane.AutoSize = false;
+            this.btnClipPlane.CheckOnClick = true;
+            this.btnClipPlane.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnClipPlane.Image = ((System.Drawing.Image)(resources.GetObject("btnClipPlane.Image")));
+            this.btnClipPlane.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnClipPlane.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnClipPlane.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnClipPlane.Name = "btnClipPlane";
+            this.btnClipPlane.Size = new System.Drawing.Size(36, 53);
+            this.btnClipPlane.Text = "btnClipPlane";
+            this.btnClipPlane.ToolTipText = "Скрыть плоскостью";
+            this.btnClipPlane.Click += new System.EventHandler(this.btnClipPlane_Click);
+            // 
             // viewToolStrip
             // 
             this.viewToolStrip.BackGroundColor = System.Drawing.Color.Gainsboro;
@@ -344,7 +379,7 @@ namespace BaseModule
             this.btnSetRotVer90,
             this.btnFitObjs});
             this.viewToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.viewToolStrip.Location = new System.Drawing.Point(413, 0);
+            this.viewToolStrip.Location = new System.Drawing.Point(485, 0);
             this.viewToolStrip.Name = "viewToolStrip";
             this.viewToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.viewToolStrip.Size = new System.Drawing.Size(328, 56);
@@ -512,7 +547,7 @@ namespace BaseModule
             this.btnShowNormals,
             this.btnShowCountours});
             this.displayToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.displayToolStrip.Location = new System.Drawing.Point(741, 0);
+            this.displayToolStrip.Location = new System.Drawing.Point(813, 0);
             this.displayToolStrip.Name = "displayToolStrip";
             this.displayToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.displayToolStrip.Size = new System.Drawing.Size(292, 56);
@@ -708,6 +743,8 @@ namespace BaseModule
         public UserControlsEx.ToolStripEx viewToolStrip;
         protected BasePage basePage;
         public UserControlsEx.SplitContainerEx splitContainerEx;
+        private System.Windows.Forms.ToolStripButton btnReflect;
+        private System.Windows.Forms.ToolStripButton btnClipPlane;
         //private BasePage basePage;
     }
 }

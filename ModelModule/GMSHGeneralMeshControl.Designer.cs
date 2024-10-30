@@ -293,6 +293,7 @@ namespace ModelModule
             // 
             // geomTree
             // 
+            this.geomTree.BackColor = System.Drawing.SystemColors.Control;
             this.geomTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.geomTree.HideSelection = false;
             this.geomTree.Location = new System.Drawing.Point(7, 446);

@@ -384,7 +384,22 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
                 //dataGridView.Rows.Clear();
                 var files = Directory.GetFiles(fbd.SelectedPath).Where(x => Regex.IsMatch(x, @"(\w*)(\.tsf)"));
-                Set_DataGridLines(files);
+
+                var strs = new List<string>();
+                foreach (var file in files)
+                {
+                    var str = String.Empty;
+                    
+                    if (file.Contains("термическая"))
+                        str = "термическая";
+                    else
+                        str = "механическая";
+
+                    str += $" {file} {true}";
+                    strs.Add(str);
+                }
+
+                Set_DataGridLines(strs);
             }
             catch (Exception ex)
             {

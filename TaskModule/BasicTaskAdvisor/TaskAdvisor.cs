@@ -83,7 +83,7 @@ namespace TaskModule.BasicTaskAdvisor
             {
                 foreach (Control control in tabPage.Controls)
                 {   
-                    if(control is IGridViewControl gvControl)
+                    if(control is ICheckGridViewControl gvControl)
                     {
                         var data = taskData.
     Where(x => x.Name == gvControl.DataName).

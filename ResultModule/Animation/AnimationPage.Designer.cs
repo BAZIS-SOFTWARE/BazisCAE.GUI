@@ -33,10 +33,6 @@ namespace ResultModule.Animation
         {
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.cmbResultNames = new System.Windows.Forms.ComboBox();
-            this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.chbDelTempScrs = new System.Windows.Forms.CheckBox();
@@ -48,21 +44,25 @@ namespace ResultModule.Animation
             this.player = new BaseModule.Player.PlayerControl();
             this.label1 = new System.Windows.Forms.Label();
             this.txbScale = new UserControlsEx.TextBoxEx(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.cmbResultNames = new System.Windows.Forms.ComboBox();
+            this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel2.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.playerPanel.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.groupBox2, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel4, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
@@ -75,72 +75,12 @@ namespace ResultModule.Animation
             this.tableLayoutPanel2.Size = new System.Drawing.Size(408, 503);
             this.tableLayoutPanel2.TabIndex = 42;
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.tableLayoutPanel3);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(0, 100);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox2.Size = new System.Drawing.Size(408, 321);
-            this.groupBox2.TabIndex = 48;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Шаги по времени";
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.AutoSize = true;
-            this.tableLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.cmbResultNames, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.richTextBox, 1, 1);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 13);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(408, 308);
-            this.tableLayoutPanel3.TabIndex = 0;
-            // 
-            // cmbResultNames
-            // 
-            this.tableLayoutPanel3.SetColumnSpan(this.cmbResultNames, 2);
-            this.cmbResultNames.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmbResultNames.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmbResultNames.FormattingEnabled = true;
-            this.cmbResultNames.Location = new System.Drawing.Point(0, 0);
-            this.cmbResultNames.Margin = new System.Windows.Forms.Padding(0);
-            this.cmbResultNames.Name = "cmbResultNames";
-            this.cmbResultNames.Size = new System.Drawing.Size(408, 21);
-            this.cmbResultNames.TabIndex = 0;
-            this.cmbResultNames.Text = "выберите результаты...";
-            this.cmbResultNames.SelectedIndexChanged += new System.EventHandler(this.cmbResultNames_SelectedIndexChanged);
-            // 
-            // richTextBox
-            // 
-            this.richTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tableLayoutPanel3.SetColumnSpan(this.richTextBox, 2);
-            this.richTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox.Location = new System.Drawing.Point(0, 24);
-            this.richTextBox.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.richTextBox.Name = "richTextBox";
-            this.richTextBox.Size = new System.Drawing.Size(408, 284);
-            this.richTextBox.TabIndex = 1;
-            this.richTextBox.Text = "";
-            this.richTextBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.richTextBox_MouseClick);
-            // 
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.61539F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.38461F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 166F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
             this.tableLayoutPanel4.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.chbDelTempScrs, 1, 1);
             this.tableLayoutPanel4.Controls.Add(this.label3, 0, 1);
@@ -160,7 +100,7 @@ namespace ResultModule.Animation
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 11);
+            this.label2.Location = new System.Drawing.Point(27, 11);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(147, 13);
@@ -173,7 +113,7 @@ namespace ResultModule.Animation
             this.chbDelTempScrs.AutoSize = true;
             this.chbDelTempScrs.Checked = true;
             this.chbDelTempScrs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbDelTempScrs.Location = new System.Drawing.Point(215, 52);
+            this.chbDelTempScrs.Location = new System.Drawing.Point(211, 52);
             this.chbDelTempScrs.Margin = new System.Windows.Forms.Padding(4);
             this.chbDelTempScrs.Name = "chbDelTempScrs";
             this.chbDelTempScrs.Size = new System.Drawing.Size(15, 14);
@@ -185,10 +125,10 @@ namespace ResultModule.Animation
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 52);
+            this.label3.Location = new System.Drawing.Point(33, 46);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(196, 13);
+            this.label3.Size = new System.Drawing.Size(134, 26);
             this.label3.TabIndex = 7;
             this.label3.Text = "Удалить промежуточные результаты";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -199,10 +139,10 @@ namespace ResultModule.Animation
             this.txbDelayTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbDelayTime.InputType = UserControlsEx.TXTBoxInputType.Integer;
             this.txbDelayTime.IsValidating = true;
-            this.txbDelayTime.Location = new System.Drawing.Point(204, 8);
+            this.txbDelayTime.Location = new System.Drawing.Point(201, 8);
             this.txbDelayTime.Margin = new System.Windows.Forms.Padding(0);
             this.txbDelayTime.Name = "txbDelayTime";
-            this.txbDelayTime.Size = new System.Drawing.Size(37, 20);
+            this.txbDelayTime.Size = new System.Drawing.Size(36, 20);
             this.txbDelayTime.TabIndex = 5;
             this.txbDelayTime.Text = "100";
             this.txbDelayTime.UserRegExCheck = null;
@@ -215,10 +155,10 @@ namespace ResultModule.Animation
             this.btnCreateAnimation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnCreateAnimation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCreateAnimation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCreateAnimation.Location = new System.Drawing.Point(248, 44);
+            this.btnCreateAnimation.Location = new System.Drawing.Point(244, 44);
             this.btnCreateAnimation.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.btnCreateAnimation.Name = "btnCreateAnimation";
-            this.btnCreateAnimation.Size = new System.Drawing.Size(153, 30);
+            this.btnCreateAnimation.Size = new System.Drawing.Size(157, 30);
             this.btnCreateAnimation.TabIndex = 3;
             this.btnCreateAnimation.Text = "Создать";
             this.btnCreateAnimation.UseVisualStyleBackColor = true;
@@ -305,6 +245,65 @@ namespace ResultModule.Animation
             this.txbScale.UserRegExCheck = null;
             this.txbScale.UserRegExCheckErrorMessage = null;
             // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.tableLayoutPanel3);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 100);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(408, 321);
+            this.panel1.TabIndex = 50;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.AutoSize = true;
+            this.tableLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.cmbResultNames, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.richTextBox, 1, 1);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(406, 319);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // cmbResultNames
+            // 
+            this.tableLayoutPanel3.SetColumnSpan(this.cmbResultNames, 2);
+            this.cmbResultNames.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmbResultNames.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbResultNames.FormattingEnabled = true;
+            this.cmbResultNames.Location = new System.Drawing.Point(0, 0);
+            this.cmbResultNames.Margin = new System.Windows.Forms.Padding(0);
+            this.cmbResultNames.Name = "cmbResultNames";
+            this.cmbResultNames.Size = new System.Drawing.Size(406, 21);
+            this.cmbResultNames.TabIndex = 0;
+            this.cmbResultNames.Text = "выберите результаты...";
+            this.cmbResultNames.SelectedIndexChanged += new System.EventHandler(this.cmbResultNames_SelectedIndexChanged);
+            // 
+            // richTextBox
+            // 
+            this.richTextBox.BackColor = System.Drawing.SystemColors.Control;
+            this.richTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tableLayoutPanel3.SetColumnSpan(this.richTextBox, 2);
+            this.richTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox.Location = new System.Drawing.Point(0, 24);
+            this.richTextBox.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.richTextBox.Name = "richTextBox";
+            this.richTextBox.Size = new System.Drawing.Size(406, 295);
+            this.richTextBox.TabIndex = 1;
+            this.richTextBox.Text = "";
+            this.richTextBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.richTextBox_MouseClick);
+            // 
             // AnimationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -315,15 +314,15 @@ namespace ResultModule.Animation
             this.Name = "AnimationPage";
             this.Size = new System.Drawing.Size(408, 503);
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.playerPanel.ResumeLayout(false);
             this.playerPanel.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -331,10 +330,6 @@ namespace ResultModule.Animation
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.ComboBox cmbResultNames;
-        private System.Windows.Forms.RichTextBox richTextBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Button btnCreateAnimation;
         private TextBoxEx txbDelayTime;
@@ -346,5 +341,9 @@ namespace ResultModule.Animation
         private PlayerControl player;
         private TextBoxEx txbScale;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.ComboBox cmbResultNames;
+        private System.Windows.Forms.RichTextBox richTextBox;
     }
 }

@@ -652,7 +652,8 @@ namespace BazisGUI
                     Text = "Настройки",
                     TopMost = true,
                     ShowIcon = false,
-                    CausesValidation = true
+                    CausesValidation = true,
+                    Owner = Application.OpenForms[0]
                 };
 
                 form.ClientSize = settings.Size;
@@ -750,7 +751,10 @@ namespace BazisGUI
             var verStr = "Версия " + $"{ver.Major}.{ver.Minor}.{ver.Build}";
             lblVersion.Text = verStr;
 
-            this.settingsConfig = dataController.LoadConfig();
+            var config = dataController.LoadConfig();
+
+            if(config != null)
+                this.settingsConfig = config;
         }
 
         public void KillAlreadyLaunchdExamples()
@@ -837,7 +841,7 @@ namespace BazisGUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка");
+                MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
         }
 
@@ -866,7 +870,7 @@ namespace BazisGUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка");
+                MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
         }
 
@@ -892,7 +896,7 @@ namespace BazisGUI
 
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка");
+                MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
 
         }

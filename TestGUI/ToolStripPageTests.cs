@@ -171,6 +171,44 @@ namespace TestGUI
             wd.CloseApp();
         }
 
+        [Test(Description = "Тест модуля скрыть сечением. Действия: переключение радиокнопок")]
+        public void HideSectionModuleTest()
+        {
+            string args = @"-proj c:\BazisGUI\GUI\Projects\Welding\Arc\proj.bpf";
+
+            WindowsDriver<WindowsElement> wd;
+
+            var opt = new AppiumOptions();
+
+            opt.AddAdditionalCapability("app", @"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe");
+            opt.AddAdditionalCapability("ms:waitForAppLaunch", "3");
+            opt.AddAdditionalCapability("appArguments", args);
+            opt.PlatformName = "Windows11x64";
+            var url = new Uri("http://127.0.0.1:4723");
+            wd = new WindowsDriver<WindowsElement>(url, opt);
+
+            var moduls = wd.FindElement(By.Name("Модули"));
+            moduls.Click();
+            var modulW = wd.FindElement(By.Name("Построение сетки"));
+            modulW.Click();
+            var crossForm = wd.FindElement(By.Name("btnClipPlane"));
+            crossForm.Click();
+
+            Thread.Sleep(1000);
+
+            //возврат фокуса на главную форму
+            crossForm.Click();
+
+            Thread.Sleep(1000);
+
+            //возврат лицензии на модуль сварка
+            TaskModuleTests.SwithModule(wd, moduls, "Сварка");
+
+            Thread.Sleep(3000);
+            wd.CloseApp();
+        }
+
+
         [Test(Description = "Тест модуля сечений. Действия: построить, переключение радиокнопок")]
         public void SwitchPlaneAndAxisTest()
         {

@@ -1,4 +1,6 @@
-﻿using BaseModule.CrossSection;
+﻿using BaseModule.Clip;
+using BaseModule.CrossSection;
+using BaseModule.Reflect;
 using Geometry;
 using ModelControllerInterfaces;
 using ModelInterfaces;
@@ -8,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using ProjectInterfaces;
 using Scene;
 using Scene.Interfaces;
+using Scene.VBO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -801,5 +804,118 @@ namespace BaseModule
         {
             DeleteSelectedObjectsEvent?.Invoke();
         }
-    }
+
+        private void btnClipPlane_Click(object sender, EventArgs e)
+        {
+            var btn = sender as ToolStripButton;
+
+            if(btn.Checked)
+            {
+                var clip = new ClipControl();
+                var clipForm = new Form()
+                {
+                    Name = "clipPlaneForm",
+                    TopMost = true,
+                    ShowIcon = false,
+                    ClientSize = clip.Size,
+                    MaximizeBox = false,
+                    Text = "Сечение",
+                    Owner = Application.OpenForms[0]
+                };
+                clipForm.Controls.Add(clip);
+                clip.Dock = DockStyle.Fill;
+
+                var sceneControl = BasePage.ScenePage.SceneControl;
+
+                clip.SetClipPlaneEvent += (plane) => sceneControl.ChangeClipPlane(plane);
+                clip.SwitchOnOff += (v) =>
+                { sceneControl.IsClipPlane = v; };
+                clip.RedrawClipPlane += () => sceneControl.DisplayObjects();
+                clipForm.FormClosing += (o, ev) =>
+                {
+                    sceneControl.IsClipPlane = false;
+                    btn.Checked = false;
+                    sceneControl.DisplayObjects();
+                };
+                clipForm.Show();
+            }
+            else
+            {
+                var forms = Application.OpenForms.Cast<Form>().ToList();
+                var form = forms.Find(x => x.Name == "clipPlaneForm");
+                if (form != null)
+                {
+                    form.Close();
+                    //btn.Checked = false;
+                }
+            }
+
+        }
+
+        private void btnReflect_Click(object sender, EventArgs e)
+        {
+            var btn = sender as ToolStripButton;
+
+            if (btn.Checked)
+            {
+                var sceneControl = BasePage.ScenePage.SceneControl;
+
+                var reflect = new ReflectControl();
+                var reflectForm = new Form()
+                {
+                    Name = "reflectForm",
+                    TopMost = true,
+                    ShowIcon = false,
+                    ClientSize = reflect.Size,
+                    MaximizeBox = false,
+                    Text = "Отражение",
+                    Owner = Application.OpenForms[0]
+                };
+                reflectForm.Controls.Add(reflect);
+                reflect.Dock = DockStyle.Fill;
+
+                reflect.GlObjsEvent += (obj, evnt) => evnt.GlNames = sceneControl.GetVBObjs().Select(x => x.ObjName);
+                reflect.CheckGlObjs += (ev) =>
+                {
+                    var src = sceneControl.FindVBObj(ev.OriginalGlName) as VBObject;
+                    var cpy = sceneControl.FindVBObj(ev.CopyGlName);
+                    if (cpy != default)
+                    {
+                        //var copy = cpy as VBObject;
+                        if (src.GL_ObjType != cpy.GL_ObjType)
+                            ev.Message = "Типы объектов копии и оригинала не совпадает, выберите из списка объект " +
+                                         "того же типа или создайте новую копию на основе оригинала";
+                        else if (src.ObjName == cpy.ObjName)
+                            ev.Message = "Имя копии и оригинала совпадают, задайте другое имя для копии";
+                        else
+                            ev.Message = "";
+                    }
+                };
+                reflect.MatrixEvent += (s, ev) =>
+                {
+                    var obj = sceneControl.FindVBObj(s);
+                    ev.Matrix = obj.ModelMatrix;
+                };
+                reflect.UpdateReflectPlane += (s, c, p) => sceneControl.CreateReflectedVBObject(s, c, p);
+                reflect.RedrawReflectPlane += () => sceneControl.DisplayObjects();
+                reflectForm.FormClosing += (o, ev) =>
+                {
+                    sceneControl.CreateReflectedVBObject("", "", null);
+                    btn.Checked = false;
+                    sceneControl.DisplayObjects();
+                };
+                reflectForm.Show();
+            }
+            else
+            {
+                var forms = Application.OpenForms.Cast<Form>().ToList();
+                var form = forms.Find(x => x.Name == "reflectForm");
+                if (form != null)
+                {
+                    form.Close();
+                    //btn.Checked = false;
+                }
+            }
+        }
+    }  
 }
