@@ -1,4 +1,4 @@
-﻿namespace ModelModule
+﻿namespace ModelModule.SettingsControls
 {
     partial class GMSHPointSettingsControl
     {
@@ -30,19 +30,19 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnDel = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnOK = new System.Windows.Forms.Button();
             this.textBoxEx1 = new UserControlsEx.TextBoxEx(this.components);
+            this.btnOK = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnDel = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.8718F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.92308F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.20513F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel1.Controls.Add(this.textBoxEx1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnOK, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
@@ -54,61 +54,60 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(450, 157);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // btnDel
+            // textBoxEx1
             // 
-            this.btnDel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnDel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDel.Location = new System.Drawing.Point(342, 101);
-            this.btnDel.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
-            this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(88, 32);
-            this.btnDel.TabIndex = 3;
-            this.btnDel.Text = "Удалить";
-            this.btnDel.UseVisualStyleBackColor = true;
-            this.btnDel.Click += new System.EventHandler(this.BtnDel_Click);
+            this.textBoxEx1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxEx1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tableLayoutPanel1.SetColumnSpan(this.textBoxEx1, 2);
+            this.textBoxEx1.InputType = UserControlsEx.TXTBoxInputType.Float;
+            this.textBoxEx1.IsValidating = true;
+            this.textBoxEx1.Location = new System.Drawing.Point(200, 29);
+            this.textBoxEx1.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
+            this.textBoxEx1.Name = "textBoxEx1";
+            this.textBoxEx1.Size = new System.Drawing.Size(230, 20);
+            this.textBoxEx1.TabIndex = 4;
+            this.textBoxEx1.UserRegExCheck = null;
+            this.textBoxEx1.UserRegExCheckErrorMessage = "Введите чило с плавающей запятой.";
+            // 
+            // btnOK
+            // 
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOK.Location = new System.Drawing.Point(200, 104);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(95, 27);
+            this.btnOK.TabIndex = 2;
+            this.btnOK.Text = "ОК";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 72);
+            this.label1.Location = new System.Drawing.Point(18, 72);
             this.label1.Name = "label1";
             this.tableLayoutPanel1.SetRowSpan(this.label1, 2);
             this.label1.Size = new System.Drawing.Size(144, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Размер элементов в точке";
             // 
-            // btnOK
+            // btnDel
             // 
-            this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOK.Location = new System.Drawing.Point(221, 101);
-            this.btnOK.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(81, 32);
-            this.btnOK.TabIndex = 2;
-            this.btnOK.Text = "ОК";
-            this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
-            // 
-            // textBoxEx1
-            // 
-            this.textBoxEx1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBoxEx1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tableLayoutPanel1.SetColumnSpan(this.textBoxEx1, 2);
-            this.textBoxEx1.InputType = UserControlsEx.TXTBoxInputType.Float;
-            this.textBoxEx1.IsValidating = true;
-            this.textBoxEx1.Location = new System.Drawing.Point(221, 29);
-            this.textBoxEx1.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
-            this.textBoxEx1.Name = "textBoxEx1";
-            this.textBoxEx1.Size = new System.Drawing.Size(209, 20);
-            this.textBoxEx1.TabIndex = 4;
-            this.textBoxEx1.UserRegExCheck = null;
-            this.textBoxEx1.UserRegExCheckErrorMessage = "Введите чило с плавающей запятой.";
+            this.btnDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDel.Location = new System.Drawing.Point(335, 104);
+            this.btnDel.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
+            this.btnDel.Name = "btnDel";
+            this.btnDel.Size = new System.Drawing.Size(95, 27);
+            this.btnDel.TabIndex = 3;
+            this.btnDel.Text = "Удалить";
+            this.btnDel.UseVisualStyleBackColor = true;
+            this.btnDel.Click += new System.EventHandler(this.BtnDel_Click);
             // 
             // GMSHPointSettingsControl
             // 

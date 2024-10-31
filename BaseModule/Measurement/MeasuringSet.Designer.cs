@@ -98,7 +98,7 @@
             this.cmbMeasureObjects.Items.AddRange(new object[] {
             "Между двумя точками",
             "Между точкой и плоскостью"});
-            this.cmbMeasureObjects.Location = new System.Drawing.Point(155, 53);
+            this.cmbMeasureObjects.Location = new System.Drawing.Point(155, 56);
             this.cmbMeasureObjects.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.cmbMeasureObjects.Name = "cmbMeasureObjects";
             this.cmbMeasureObjects.Size = new System.Drawing.Size(131, 21);
@@ -111,10 +111,10 @@
             this.btnMeasure.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMeasure.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMeasure.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnMeasure.Location = new System.Drawing.Point(155, 134);
+            this.btnMeasure.Location = new System.Drawing.Point(155, 139);
             this.btnMeasure.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.btnMeasure.Name = "btnMeasure";
-            this.btnMeasure.Size = new System.Drawing.Size(131, 32);
+            this.btnMeasure.Size = new System.Drawing.Size(131, 27);
             this.btnMeasure.TabIndex = 5;
             this.btnMeasure.Text = "Измерить";
             this.btnMeasure.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -135,7 +135,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(291, 172);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
@@ -149,7 +149,7 @@
             this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(146, 124);
+            this.panel1.Size = new System.Drawing.Size(146, 129);
             this.panel1.TabIndex = 6;
             // 
             // MeasuringSet

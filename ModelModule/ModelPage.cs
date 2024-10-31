@@ -4,6 +4,7 @@ using Model.GeometryObjects;
 using ModelControllerInterfaces;
 using ModelControllerInterfaces.GmshController;
 using ModelInterfaces;
+using ModelModule.SettingsControls;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -113,7 +114,7 @@ namespace ModelModule
                     ShowIcon = false,
                     ClientSize = new Size(meshGenerator.Width, this.BasePage.ScenePage.Height),
                     MaximizeBox = false,
-                    FormBorderStyle = FormBorderStyle.FixedSingle,
+                    //FormBorderStyle = FormBorderStyle.FixedSingle,
                     Owner = Application.OpenForms[0],
                     Text = "Cеточный тетра генератор"
                 };
@@ -125,7 +126,7 @@ namespace ModelModule
                     GmshController.OptionSetNumber("Mesh.Algorithm", ar, ref ierrAlgo);
                 };
 
-                meshGenerator.switchMeshGradientEvent += MeshGenerator_switchMeshGradientEvent;
+                meshGenerator.delMeshGradientEvent += MeshGenerator_delMeshGradientEvent;
                 meshGenerator.showShowSurfaceNumbersEvent += MeshGenerator_showSurfaceNumbers;
                 meshGenerator.showNumberOfCurveNodesEvent += MeshGenerator_showNumberOfCurveNodes;
                 meshGenerator.generate3DTetraMeshEvent += MeshGenerator_generate3DMeshEvent;
@@ -230,6 +231,8 @@ namespace ModelModule
         private void MeshGenerator_setMeshGradientSettingsEvent(object arg1, MeshGradientSettingsEventArgs arg2)
         {
             var ierr = 0;
+            GmshController.ModelMeshFieldAdd("Extend", -1, ref ierr);
+
             int[] list;
             GmshController.ModelMeshFieldList(out list);
             if (list.Length != 0)
@@ -268,23 +271,15 @@ namespace ModelModule
             GmshController.OptionSetNumber("Mesh.MeshSizeMax", sizes[1], ref ierr);
         }
 
-        private void MeshGenerator_switchMeshGradientEvent(object arg1, bool arg2)
+        private void MeshGenerator_delMeshGradientEvent(object arg1)
         {
-            if(arg2)
-            {
-                var ierr = 0;
-                var field = GmshController.ModelMeshFieldAdd("Extend", -1, ref ierr);
-            }
-            else
-            {
-                var ierr = 0;
-                int[] list, points;
-                GmshController.ModelMeshFieldList(out list);
-                GmshController.ModelMeshFieldRemove(list.First(), ref ierr);
-                GmshController.ModelGetGeometryEntities(out points, 0);
-                GmshController.ModelMeshRemoveConstraints(points, (IntPtr)points.Length, ref ierr);
-                GmshController.OptionSetNumber("Mesh.MeshSizeExtendFromBoundary", 1, ref ierr);
-            }
+            var ierr = 0;
+            int[] list, points;
+            GmshController.ModelMeshFieldList(out list);
+            GmshController.ModelMeshFieldRemove(list.First(), ref ierr);
+            GmshController.ModelGetGeometryEntities(out points, 0);
+            GmshController.ModelMeshRemoveConstraints(points, (IntPtr)points.Length, ref ierr);
+            GmshController.OptionSetNumber("Mesh.MeshSizeExtendFromBoundary", 1, ref ierr);
         }
 
         private void DeleteElementsByNumber(object sender, DeleteElementEventArgs args)

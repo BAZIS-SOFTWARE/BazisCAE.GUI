@@ -83,11 +83,11 @@ namespace BaseModule
             // toolStripContainer.ContentPanel
             // 
             this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainerEx);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1438, 745);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(2162, 1150);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(5, 5);
             this.toolStripContainer.Name = "toolStripContainer";
-            this.toolStripContainer.Size = new System.Drawing.Size(1438, 801);
+            this.toolStripContainer.Size = new System.Drawing.Size(2162, 1206);
             this.toolStripContainer.TabIndex = 0;
             this.toolStripContainer.Text = "toolStripContainer1";
             // 
@@ -95,9 +95,9 @@ namespace BaseModule
             // 
             this.toolStripContainer.TopToolStripPanel.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.selectToolStrip);
+            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.instrumentalToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.viewToolStrip);
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
             this.toolStripContainer.TopToolStripPanel.MaximumSize = new System.Drawing.Size(0, 80);
             // 
             // splitContainerEx
@@ -112,7 +112,7 @@ namespace BaseModule
             // 
             this.splitContainerEx.Panel1.Controls.Add(this.basePage);
             this.splitContainerEx.Panel2Collapsed = true;
-            this.splitContainerEx.Size = new System.Drawing.Size(1438, 745);
+            this.splitContainerEx.Size = new System.Drawing.Size(2162, 1150);
             this.splitContainerEx.SplitterDistance = 662;
             this.splitContainerEx.SwitchShifting = false;
             this.splitContainerEx.TabIndex = 1;
@@ -127,7 +127,7 @@ namespace BaseModule
             this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.basePage.PressedKey = System.Windows.Forms.Keys.None;
             this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
-            this.basePage.Size = new System.Drawing.Size(1438, 745);
+            this.basePage.Size = new System.Drawing.Size(2162, 1150);
             this.basePage.SplitterWidthEx = 10;
             this.basePage.TabIndex = 0;
             this.basePage.DeleteGroupEvent += new System.Action(this.basePage_DeleteGroupEvent);
@@ -379,7 +379,7 @@ namespace BaseModule
             this.btnSetRotVer90,
             this.btnFitObjs});
             this.viewToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.viewToolStrip.Location = new System.Drawing.Point(485, 0);
+            this.viewToolStrip.Location = new System.Drawing.Point(777, 0);
             this.viewToolStrip.Name = "viewToolStrip";
             this.viewToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.viewToolStrip.Size = new System.Drawing.Size(328, 56);
@@ -547,7 +547,7 @@ namespace BaseModule
             this.btnShowNormals,
             this.btnShowCountours});
             this.displayToolStrip.ItemSelectColor = System.Drawing.Color.Gray;
-            this.displayToolStrip.Location = new System.Drawing.Point(813, 0);
+            this.displayToolStrip.Location = new System.Drawing.Point(485, 0);
             this.displayToolStrip.Name = "displayToolStrip";
             this.displayToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.displayToolStrip.Size = new System.Drawing.Size(292, 56);
@@ -688,7 +688,7 @@ namespace BaseModule
             this.Controls.Add(this.toolStripContainer);
             this.Name = "ToolStripPage";
             this.Padding = new System.Windows.Forms.Padding(5);
-            this.Size = new System.Drawing.Size(1448, 811);
+            this.Size = new System.Drawing.Size(2172, 1216);
             this.toolStripContainer.ContentPanel.ResumeLayout(false);
             this.toolStripContainer.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer.TopToolStripPanel.PerformLayout();

@@ -117,16 +117,16 @@
     <Compile Include="GMSH2DMeshControl.Designer.cs">
       <DependentUpon>GMSH2DMeshControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="GMSHCurveSettingsControl.cs">
+    <Compile Include="SettingsControls\GMSHCurveSettingsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GMSHCurveSettingsControl.Designer.cs">
+    <Compile Include="SettingsControls\GMSHCurveSettingsControl.Designer.cs">
       <DependentUpon>GMSHCurveSettingsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="GMSHPointSettingsControl.cs">
+    <Compile Include="SettingsControls\GMSHPointSettingsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GMSHPointSettingsControl.Designer.cs">
+    <Compile Include="SettingsControls\GMSHPointSettingsControl.Designer.cs">
       <DependentUpon>GMSHPointSettingsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="MeshGradientSettingsEventArgs.cs" />
@@ -144,6 +144,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="CurveAttribsEventArgs.cs" />
+    <Compile Include="SettingsControls\GMSHVolSettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SettingsControls\GMSHVolSettingsControl.Designer.cs">
+      <DependentUpon>GMSHVolSettingsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Show3dTextEventArgs.cs" />
     <Compile Include="ShowHeatMapEventArg.cs" />
     <Compile Include="ShowTransPointsEventArgs.cs" />
@@ -160,13 +166,13 @@
     <EmbeddedResource Include="GMSH2DMeshControl.resx">
       <DependentUpon>GMSH2DMeshControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GMSHCurveSettingsControl.resx">
+    <EmbeddedResource Include="SettingsControls\GMSHCurveSettingsControl.resx">
       <DependentUpon>GMSHCurveSettingsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GMSHGeneralMeshControl.resx">
       <DependentUpon>GMSHGeneralMeshControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GMSHPointSettingsControl.resx">
+    <EmbeddedResource Include="SettingsControls\GMSHPointSettingsControl.resx">
       <DependentUpon>GMSHPointSettingsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ModelPage.resx">
@@ -176,6 +182,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsControls\GMSHVolSettingsControl.resx">
+      <DependentUpon>GMSHVolSettingsControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

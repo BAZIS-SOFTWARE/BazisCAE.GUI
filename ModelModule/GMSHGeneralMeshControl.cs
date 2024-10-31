@@ -63,7 +63,7 @@ namespace ModelModule
         }
 
 
-        public event Action<object,bool> switchMeshGradientEvent;
+        public event Action<object> delMeshGradientEvent;
         public event Action<object, MeshGradientSettingsEventArgs> setMeshGradientSettingsEvent;
         public event Action<double> setMeshAlgoEvent;
         public event Action updateObjectsDataEvent;
@@ -452,15 +452,23 @@ namespace ModelModule
             else if (nText.Contains("Кривая") || nText.Contains("Поверхность")
                 || nText.Contains("Объем"))
             {
-                var curveNumbers = TryGetCurveNodeRecursevely(e.Node).Select(x =>
+                var numbers = TryGetCurveNodeRecursevely(e.Node).Select(x =>
                 FindObjectNumber(x)).ToList();
 
-                ShowObjectsEvent?.Invoke(ObjType.Линия, curveNumbers);
-
-                curveSettingsControl.BringToFront();
+                ShowObjectsEvent?.Invoke(ObjType.Линия, numbers);
 
                 if (nText.Contains("Кривая"))
-                    GetCurveAttribEvent?.Invoke(curveSettingsControl, curveNumbers[0]);
+                {
+                    curveSettingsControl.BringToFront();
+                    GetCurveAttribEvent?.Invoke(curveSettingsControl, numbers[0]);
+                }
+                else if(nText.Contains("Объем"))
+                {
+                    volSettingsControl.BringToFront();
+                    //TO DO найти объем по номеру
+                    //GetVolAttribEvent?.Invoke(volSettingsControl, curveNumbers[0]);
+                }
+
             }
         }
 
@@ -495,43 +503,6 @@ namespace ModelModule
                 showNodesOnCurvesEvent?.Invoke(true);
             else
                 showNodesOnCurvesEvent?.Invoke(false);
-        }
-
-
-        public void SetGradientSetting(float layerThickness, float surfaceMeshSize, float coreMeshSize,float powerOfGradient)
-        {
-            txbLayerThickness.Text = layerThickness.ToString();
-            txbSurfaceMeshSize.Text = surfaceMeshSize.ToString();
-            txbCoreMeshSize.Text = coreMeshSize.ToString();
-            txbMeshGradientPower.Text = powerOfGradient.ToString();
-        }
-
-        private void grbGradientMeshSettings_CheckBoxClick(object obj)
-        {
-            if (grbGradientMeshSettings.CheckState)
-                switchMeshGradientEvent?.Invoke(this,true);
-            else
-                switchMeshGradientEvent?.Invoke(this,false);
-        }
-
-        private void btnSetGradientSettings_Click(object sender, EventArgs e)
-        {
-            if (!txbLayerThickness.IsValueValid())
-                return;
-            if (!txbSurfaceMeshSize.IsValueValid())
-                return;
-            if (!txbCoreMeshSize.IsValueValid())
-                return;
-            if (!txbMeshGradientPower.IsValueValid())
-                return;
-
-            var layerThickness = double.Parse(txbLayerThickness.Text);
-            var surfaceMeshSize = double.Parse(txbSurfaceMeshSize.Text);
-            var coreMeshSize = double.Parse(txbCoreMeshSize.Text);
-            var gradientMeshPower = double.Parse(txbMeshGradientPower.Text);
-
-            setMeshGradientSettingsEvent?.Invoke(this,
-                new MeshGradientSettingsEventArgs(layerThickness, surfaceMeshSize, coreMeshSize, gradientMeshPower));
         }
 
         private void BtnMinMaxSizes_Click(object sender, EventArgs e)
@@ -578,6 +549,16 @@ namespace ModelModule
         {
             var number = FindObjectNumber(geomTree.SelectedNode);
             PointAttribDeleteEvent(number);
+        }
+
+        private void gmshVolSettingsControl_setMeshGradientSettingsEventHandler(object arg1, MeshGradientSettingsEventArgs arg2)
+        {
+            setMeshGradientSettingsEvent?.Invoke(this,arg2);
+        }
+
+        private void gmshVolSettingsControl_delMeshGradientEventHandler(object arg1)
+        {
+            delMeshGradientEvent?.Invoke(this);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace ModelModule
+﻿namespace ModelModule.SettingsControls
 {
     partial class GMSHCurveSettingsControl
     {
@@ -47,10 +47,10 @@
             this.tableLayoutPanel2.AutoSize = true;
             this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel2.ColumnCount = 4;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 92F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel2.Controls.Add(this.rbtnProgressive, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label3, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.label2, 1, 1);
@@ -68,7 +68,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(450, 157);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(558, 157);
             this.tableLayoutPanel2.TabIndex = 12;
             // 
             // rbtnProgressive
@@ -91,7 +91,7 @@
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(110, 17);
+            this.label3.Location = new System.Drawing.Point(126, 17);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(80, 13);
             this.label3.TabIndex = 3;
@@ -102,7 +102,7 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(114, 65);
+            this.label2.Location = new System.Drawing.Point(130, 65);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 13);
             this.label2.TabIndex = 8;
@@ -115,10 +115,10 @@
             this.tableLayoutPanel2.SetColumnSpan(this.txbAlgoCoef, 2);
             this.txbAlgoCoef.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.txbAlgoCoef.IsValidating = true;
-            this.txbAlgoCoef.Location = new System.Drawing.Point(229, 14);
+            this.txbAlgoCoef.Location = new System.Drawing.Point(242, 14);
             this.txbAlgoCoef.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
             this.txbAlgoCoef.Name = "txbAlgoCoef";
-            this.txbAlgoCoef.Size = new System.Drawing.Size(201, 20);
+            this.txbAlgoCoef.Size = new System.Drawing.Size(296, 20);
             this.txbAlgoCoef.TabIndex = 4;
             this.txbAlgoCoef.Tag = "algoCoef";
             this.txbAlgoCoef.Text = "1.0";
@@ -132,10 +132,10 @@
             this.tableLayoutPanel2.SetColumnSpan(this.txbAlgoNPoints, 2);
             this.txbAlgoNPoints.InputType = UserControlsEx.TXTBoxInputType.Integer;
             this.txbAlgoNPoints.IsValidating = true;
-            this.txbAlgoNPoints.Location = new System.Drawing.Point(229, 62);
+            this.txbAlgoNPoints.Location = new System.Drawing.Point(242, 62);
             this.txbAlgoNPoints.Margin = new System.Windows.Forms.Padding(20, 14, 20, 14);
             this.txbAlgoNPoints.Name = "txbAlgoNPoints";
-            this.txbAlgoNPoints.Size = new System.Drawing.Size(201, 20);
+            this.txbAlgoNPoints.Size = new System.Drawing.Size(296, 20);
             this.txbAlgoNPoints.TabIndex = 5;
             this.txbAlgoNPoints.Tag = "algoNPoints";
             this.txbAlgoNPoints.UserRegExCheck = null;
@@ -143,13 +143,13 @@
             // 
             // btnDel
             // 
-            this.btnDel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnDel.Location = new System.Drawing.Point(350, 110);
+            this.btnDel.Location = new System.Drawing.Point(409, 113);
             this.btnDel.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(78, 32);
+            this.btnDel.Size = new System.Drawing.Size(129, 27);
             this.btnDel.TabIndex = 9;
             this.btnDel.Text = "Удалить";
             this.btnDel.UseVisualStyleBackColor = true;
@@ -183,13 +183,13 @@
             // 
             // btnOK
             // 
-            this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnOK.Location = new System.Drawing.Point(230, 110);
+            this.btnOK.Location = new System.Drawing.Point(242, 113);
             this.btnOK.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(77, 32);
+            this.btnOK.Size = new System.Drawing.Size(127, 27);
             this.btnOK.TabIndex = 10;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -202,7 +202,7 @@
             this.Controls.Add(this.tableLayoutPanel2);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "GMSHCurveSettingsControl";
-            this.Size = new System.Drawing.Size(450, 157);
+            this.Size = new System.Drawing.Size(558, 157);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);

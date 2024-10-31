@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ModelModule
+namespace ModelModule.SettingsControls
 {
     public partial class GMSHCurveSettingsControl : UserControl
     {
