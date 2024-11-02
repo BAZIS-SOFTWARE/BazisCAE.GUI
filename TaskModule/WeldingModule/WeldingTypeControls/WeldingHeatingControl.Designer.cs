@@ -32,9 +32,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -45,28 +45,28 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.label5 = new System.Windows.Forms.Label();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.chbEnergyCalibration = new System.Windows.Forms.CheckBox();
-            this.txbStartTime = new UserControlsEx.TextBoxEx(this.components);
+            this.txbStartTime = new UserControlsEx.TextBoxEx();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbStopPoint = new UserControlsEx.ComboBoxEx(this.components);
-            this.cmbStartPoint = new UserControlsEx.ComboBoxEx(this.components);
+            this.cmbStopPoint = new UserControlsEx.ComboBoxEx();
+            this.cmbStartPoint = new UserControlsEx.ComboBoxEx();
             this.btnHide = new System.Windows.Forms.Button();
             this.btnShow = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.addRowButton = new System.Windows.Forms.Button();
-            this.txbAngle = new UserControlsEx.TextBoxEx(this.components);
-            this.txbShiftZ = new UserControlsEx.TextBoxEx(this.components);
-            this.txbShiftY = new UserControlsEx.TextBoxEx(this.components);
-            this.txbShiftX = new UserControlsEx.TextBoxEx(this.components);
-            this.txbVelosity = new UserControlsEx.TextBoxEx(this.components);
+            this.txbAngle = new UserControlsEx.TextBoxEx();
+            this.txbShiftZ = new UserControlsEx.TextBoxEx();
+            this.txbShiftY = new UserControlsEx.TextBoxEx();
+            this.txbShiftX = new UserControlsEx.TextBoxEx();
+            this.txbVelosity = new UserControlsEx.TextBoxEx();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbEnergyCalibration = new UserControlsEx.ComboBoxEx(this.components);
-            this.cmbRef = new UserControlsEx.ComboBoxEx(this.components);
-            this.cmbTraj = new UserControlsEx.ComboBoxEx(this.components);
-            this.dataGridView = new UserControlsEx.DataGridViewEx(this.components);
+            this.cmbEnergyCalibration = new UserControlsEx.ComboBoxEx();
+            this.cmbRef = new UserControlsEx.ComboBoxEx();
+            this.cmbTraj = new UserControlsEx.ComboBoxEx();
+            this.dataGridView = new UserControlsEx.DataGridViewEx();
             this.видСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ОбластьСварки = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -74,9 +74,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.ПараметрыДвижения = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.cmbWeldZone = new UserControlsEx.ComboBoxEx(this.components);
+            this.cmbWeldZone = new UserControlsEx.ComboBoxEx();
             this.grbWeldRegime = new UserControlsEx.GroupBoxEx();
-            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
             this.tsmiSpecifyHeatingZone = new System.Windows.Forms.ToolStripMenuItem();
             this.player = new BaseModule.Player.PlayerControl();
             this.tableLayoutPanel1.SuspendLayout();
@@ -143,7 +143,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.groupBox1.Controls.Add(this.cmbRef);
             this.groupBox1.Controls.Add(this.cmbTraj);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(7, 120);
+            this.groupBox1.Location = new System.Drawing.Point(7, 126);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
@@ -519,18 +519,26 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.startColumn,
             this.stopColumn,
             this.ПараметрыДвижения});
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(7, 429);
+            this.dataGridView.Location = new System.Drawing.Point(7, 435);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 20;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.Size = new System.Drawing.Size(668, 361);
+            this.dataGridView.Size = new System.Drawing.Size(668, 355);
             this.dataGridView.TabIndex = 25;
             this.dataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView_DefaultValuesNeeded);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -630,7 +638,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.grbWeldRegime.MinimumSize = new System.Drawing.Size(0, 12);
             this.grbWeldRegime.Name = "grbWeldRegime";
             this.grbWeldRegime.Padding = new System.Windows.Forms.Padding(0);
-            this.grbWeldRegime.Size = new System.Drawing.Size(668, 24);
+            this.grbWeldRegime.Size = new System.Drawing.Size(668, 30);
             this.grbWeldRegime.TabIndex = 30;
             this.grbWeldRegime.TabStop = false;
             this.grbWeldRegime.Text = "Параметры процесса";

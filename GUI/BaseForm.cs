@@ -37,6 +37,7 @@ using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using BaseModule.Utilities;
 using ResultModule.Animation;
+using ModelController;
 
 namespace BazisGUI
 {
@@ -73,6 +74,9 @@ namespace BazisGUI
         {
             BackGroudColor = Color.White,
             SelectObjectColor = Color.GreenYellow,
+            Elem2DColor = Color.FromArgb(151, 188, 93),
+            Elem3DColor = Color.Orange,
+            NodeColor = Color.FromArgb(153, 192, 86),
             Transparency = false,
             Lighting = true,
             BackRibbers = false
@@ -517,21 +521,24 @@ namespace BazisGUI
 
             basePage.SetSplitters(que);
 
-            modelController.PresentersCreator.TransparencyValue = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
+            basePage.ScenePage.TransparencyValue = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
     
             basePage.ScenePage.SceneControl.BackGroundColor = settingsConfig.BackGroudColor;
             basePage.ScenePage.SceneControl.IsBlending = settingsConfig.Transparency;
             basePage.ScenePage.SceneControl.IsLighting = settingsConfig.Lighting;
 
-            basePage.ScenePage.SceneControl.SelectionColor = Color.FromArgb(modelController.PresentersCreator.TransparencyValue, settingsConfig.SelectObjectColor);
-            basePage.SelectionGroupColor = Color.FromArgb(modelController.PresentersCreator.TransparencyValue, settingsConfig.SelectGroupColor);
+            basePage.ScenePage.SceneControl.SelectionColor = Color.FromArgb(basePage.ScenePage.TransparencyValue, settingsConfig.SelectObjectColor);
+            basePage.SelectionGroupColor = Color.FromArgb(basePage.ScenePage.TransparencyValue, settingsConfig.SelectGroupColor);
+            basePage.ScenePage.NodeColor = settingsConfig.NodeColor;
+            basePage.ScenePage.E2DColor = settingsConfig.Elem2DColor;
+            basePage.ScenePage.E3DColor = settingsConfig.Elem3DColor;
 
             var objs = project.ModelData.ObjectData.GetAllObjects();
 
             foreach (var obj in objs)
             {
                 var preColor = obj.SlaveColor;
-                var newColor = Color.FromArgb(modelController.PresentersCreator.TransparencyValue, preColor);
+                var newColor = Color.FromArgb(basePage.ScenePage.TransparencyValue, preColor);
                 obj.MasterColor = newColor;
                 obj.SlaveColor = newColor;
             }
@@ -675,9 +682,13 @@ namespace BazisGUI
             settings.SetSelectionObjectColorEvent += (ar) =>
             scenePage.SceneControl.SelectionColor = ar;
 
+            settings.SetNodeColorEvent += (ar) => { scenePage.NodeColor = ar; };
+            settings.Set2DElemColorEvent += (ar) => { scenePage.E2DColor = ar; };
+            settings.Set3DElemColorEvent += (ar) => { scenePage.E3DColor = ar; };
+
             settings.SetSolverPathEvent += (ar) =>
             {
-                if (module is TaskModule.TaskPage taskPage)
+                if (module is TaskPage taskPage)
                     taskPage.SolverPath = ar;
             };
             settings.SetBackGroundColorEvent += (ar) =>
@@ -703,17 +714,17 @@ namespace BazisGUI
 
             settings.SetTransparencyValueEvent += (ar1) =>
             {
-                modelController.PresentersCreator.TransparencyValue = (int)(ar1 / 100.0f * 255);
+                scenePage.TransparencyValue = (int)(ar1 / 100.0f * 255);
 
-                scenePage.SceneControl.SelectionColor = Color.FromArgb(modelController.PresentersCreator.TransparencyValue, settingsConfig.SelectObjectColor);
-                module.BasePage.SelectionGroupColor = Color.FromArgb(modelController.PresentersCreator.TransparencyValue, settingsConfig.SelectGroupColor);
+                scenePage.SceneControl.SelectionColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectObjectColor);
+                module.BasePage.SelectionGroupColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectGroupColor);
 
                 var objs = project.ModelData.ObjectData.GetAllObjects();
 
                 foreach (var obj in objs)
                 {
                     var preColor = obj.SlaveColor;
-                    var newColor = Color.FromArgb(modelController.PresentersCreator.TransparencyValue, preColor);
+                    var newColor = Color.FromArgb(settingsConfig.TransparencyValue, preColor);
                     obj.MasterColor = newColor;
                     obj.SlaveColor = newColor;
                 } 

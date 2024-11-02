@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.colorSlider3 = new UserControlsEx.ColorSlider();
+            this.colorSlider2 = new UserControlsEx.ColorSlider();
             this.radioButton6 = new System.Windows.Forms.RadioButton();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
@@ -37,9 +39,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
             this.label5 = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.trackBar2 = new System.Windows.Forms.TrackBar();
-            this.trackBar3 = new System.Windows.Forms.TrackBar();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -48,11 +47,9 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
+            this.colorSlider1 = new UserControlsEx.ColorSlider();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -62,15 +59,14 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.5F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
+            this.tableLayoutPanel1.Controls.Add(this.colorSlider3, 3, 2);
+            this.tableLayoutPanel1.Controls.Add(this.colorSlider2, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.radioButton6, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.radioButton5, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.radioButton4, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.radioButton3, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBox1, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.trackBar1, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.trackBar2, 3, 1);
-            this.tableLayoutPanel1.Controls.Add(this.trackBar3, 3, 2);
             this.tableLayoutPanel1.Controls.Add(this.textBox1, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.label4, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.label3, 2, 2);
@@ -79,6 +75,7 @@
             this.tableLayoutPanel1.Controls.Add(this.radioButton1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.radioButton2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.button1, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.colorSlider1, 3, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -90,6 +87,44 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(250, 150);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // colorSlider3
+            // 
+            this.colorSlider3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.colorSlider3.BackColor = System.Drawing.Color.Transparent;
+            this.colorSlider3.BarPenColor = System.Drawing.Color.Black;
+            this.colorSlider3.BorderRoundRectSize = new System.Drawing.Size(8, 8);
+            this.colorSlider3.LargeChange = ((uint)(5u));
+            this.colorSlider3.Location = new System.Drawing.Point(139, 63);
+            this.colorSlider3.Maximum = 200;
+            this.colorSlider3.Name = "colorSlider3";
+            this.colorSlider3.Size = new System.Drawing.Size(108, 24);
+            this.colorSlider3.SmallChange = ((uint)(1u));
+            this.colorSlider3.TabIndex = 2;
+            this.colorSlider3.Text = "colorSlider3";
+            this.colorSlider3.ThumbPenColor = System.Drawing.Color.Black;
+            this.colorSlider3.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
+            this.colorSlider3.ThumbSize = 12;
+            this.colorSlider3.ValueChanged += new System.EventHandler(this.OnChangeValue);
+            // 
+            // colorSlider2
+            // 
+            this.colorSlider2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.colorSlider2.BackColor = System.Drawing.Color.Transparent;
+            this.colorSlider2.BarPenColor = System.Drawing.Color.Black;
+            this.colorSlider2.BorderRoundRectSize = new System.Drawing.Size(8, 8);
+            this.colorSlider2.LargeChange = ((uint)(5u));
+            this.colorSlider2.Location = new System.Drawing.Point(139, 33);
+            this.colorSlider2.Maximum = 200;
+            this.colorSlider2.Name = "colorSlider2";
+            this.colorSlider2.Size = new System.Drawing.Size(108, 24);
+            this.colorSlider2.SmallChange = ((uint)(1u));
+            this.colorSlider2.TabIndex = 1;
+            this.colorSlider2.Text = "colorSlider2";
+            this.colorSlider2.ThumbPenColor = System.Drawing.Color.Black;
+            this.colorSlider2.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
+            this.colorSlider2.ThumbSize = 12;
+            this.colorSlider2.ValueChanged += new System.EventHandler(this.OnChangeValue);
             // 
             // radioButton6
             // 
@@ -230,47 +265,9 @@
             this.label5.TabIndex = 1;
             this.label5.Text = "Дельта D:";
             // 
-            // trackBar1
-            // 
-            this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBar1.Enabled = false;
-            this.trackBar1.Location = new System.Drawing.Point(139, 3);
-            this.trackBar1.Maximum = 200;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(108, 24);
-            this.trackBar1.TabIndex = 0;
-            this.trackBar1.Tag = "";
-            this.trackBar1.Value = 100;
-            this.trackBar1.ValueChanged += new System.EventHandler(this.OnChangeValue);
-            // 
-            // trackBar2
-            // 
-            this.trackBar2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBar2.Enabled = false;
-            this.trackBar2.Location = new System.Drawing.Point(139, 33);
-            this.trackBar2.Maximum = 200;
-            this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(108, 24);
-            this.trackBar2.TabIndex = 1;
-            this.trackBar2.Tag = "";
-            this.trackBar2.Value = 100;
-            this.trackBar2.ValueChanged += new System.EventHandler(this.OnChangeValue);
-            // 
-            // trackBar3
-            // 
-            this.trackBar3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBar3.Enabled = false;
-            this.trackBar3.Location = new System.Drawing.Point(139, 63);
-            this.trackBar3.Maximum = 200;
-            this.trackBar3.Name = "trackBar3";
-            this.trackBar3.Size = new System.Drawing.Size(108, 24);
-            this.trackBar3.TabIndex = 2;
-            this.trackBar3.Tag = "";
-            this.trackBar3.ValueChanged += new System.EventHandler(this.OnChangeValue);
-            // 
             // textBox1
             // 
-            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.BackColor = System.Drawing.SystemColors.Window;
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.Location = new System.Drawing.Point(141, 97);
@@ -382,18 +379,37 @@
             // 
             // button1
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.button1, 2);
             this.button1.Enabled = false;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Location = new System.Drawing.Point(2, 93);
+            this.button1.Location = new System.Drawing.Point(0, 93);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(82, 27);
+            this.button1.Size = new System.Drawing.Size(86, 27);
             this.button1.TabIndex = 13;
             this.button1.Text = "Сброс";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.OnResetShifting);
+            // 
+            // colorSlider1
+            // 
+            this.colorSlider1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.colorSlider1.BackColor = System.Drawing.Color.Transparent;
+            this.colorSlider1.BarPenColor = System.Drawing.Color.Black;
+            this.colorSlider1.BorderRoundRectSize = new System.Drawing.Size(8, 8);
+            this.colorSlider1.LargeChange = ((uint)(5u));
+            this.colorSlider1.Location = new System.Drawing.Point(139, 3);
+            this.colorSlider1.Maximum = 200;
+            this.colorSlider1.Name = "colorSlider1";
+            this.colorSlider1.Size = new System.Drawing.Size(108, 24);
+            this.colorSlider1.SmallChange = ((uint)(1u));
+            this.colorSlider1.TabIndex = 0;
+            this.colorSlider1.Text = "colorSlider1";
+            this.colorSlider1.ThumbPenColor = System.Drawing.Color.Black;
+            this.colorSlider1.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
+            this.colorSlider1.ThumbSize = 12;
+            this.colorSlider1.ValueChanged += new System.EventHandler(this.OnChangeValue);
             // 
             // ClipControl
             // 
@@ -406,9 +422,6 @@
             this.tableLayoutPanel1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -416,15 +429,12 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TrackBar trackBar3;
-        private System.Windows.Forms.TrackBar trackBar2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DomainUpDown domainUpDown1;
@@ -435,5 +445,8 @@
         private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.Button button1;
+        private UserControlsEx.ColorSlider colorSlider3;
+        private UserControlsEx.ColorSlider colorSlider2;
+        private UserControlsEx.ColorSlider colorSlider1;
     }
 }

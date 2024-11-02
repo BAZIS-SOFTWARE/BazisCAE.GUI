@@ -80,7 +80,7 @@ namespace ResultModule.Animation
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.61539F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.38461F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 171F));
             this.tableLayoutPanel4.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.chbDelTempScrs, 1, 1);
             this.tableLayoutPanel4.Controls.Add(this.label3, 0, 1);
@@ -100,7 +100,7 @@ namespace ResultModule.Animation
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 11);
+            this.label2.Location = new System.Drawing.Point(26, 11);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(147, 13);
@@ -113,7 +113,7 @@ namespace ResultModule.Animation
             this.chbDelTempScrs.AutoSize = true;
             this.chbDelTempScrs.Checked = true;
             this.chbDelTempScrs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbDelTempScrs.Location = new System.Drawing.Point(211, 52);
+            this.chbDelTempScrs.Location = new System.Drawing.Point(210, 52);
             this.chbDelTempScrs.Margin = new System.Windows.Forms.Padding(4);
             this.chbDelTempScrs.Name = "chbDelTempScrs";
             this.chbDelTempScrs.Size = new System.Drawing.Size(15, 14);
@@ -139,7 +139,7 @@ namespace ResultModule.Animation
             this.txbDelayTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbDelayTime.InputType = UserControlsEx.TXTBoxInputType.Integer;
             this.txbDelayTime.IsValidating = true;
-            this.txbDelayTime.Location = new System.Drawing.Point(201, 8);
+            this.txbDelayTime.Location = new System.Drawing.Point(200, 8);
             this.txbDelayTime.Margin = new System.Windows.Forms.Padding(0);
             this.txbDelayTime.Name = "txbDelayTime";
             this.txbDelayTime.Size = new System.Drawing.Size(36, 20);
@@ -151,14 +151,13 @@ namespace ResultModule.Animation
             // 
             // btnCreateAnimation
             // 
-            this.btnCreateAnimation.AutoSize = true;
+            this.btnCreateAnimation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreateAnimation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnCreateAnimation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCreateAnimation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCreateAnimation.Location = new System.Drawing.Point(244, 44);
+            this.btnCreateAnimation.Location = new System.Drawing.Point(243, 45);
             this.btnCreateAnimation.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.btnCreateAnimation.Name = "btnCreateAnimation";
-            this.btnCreateAnimation.Size = new System.Drawing.Size(157, 30);
+            this.btnCreateAnimation.Size = new System.Drawing.Size(158, 27);
             this.btnCreateAnimation.TabIndex = 3;
             this.btnCreateAnimation.Text = "Создать";
             this.btnCreateAnimation.UseVisualStyleBackColor = true;
@@ -280,7 +279,6 @@ namespace ResultModule.Animation
             // 
             this.tableLayoutPanel3.SetColumnSpan(this.cmbResultNames, 2);
             this.cmbResultNames.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmbResultNames.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbResultNames.FormattingEnabled = true;
             this.cmbResultNames.Location = new System.Drawing.Point(0, 0);
             this.cmbResultNames.Margin = new System.Windows.Forms.Padding(0);

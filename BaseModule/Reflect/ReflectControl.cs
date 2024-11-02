@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using MathNet.Numerics;
 using MathNet.Numerics.LinearAlgebra;
+using UserControlsEx;
 
 namespace BaseModule.Reflect
 {
@@ -50,7 +51,7 @@ namespace BaseModule.Reflect
 
         private void OnChangeNormal(object sender, EventArgs e)
         {
-            var tb = sender as TrackBar;
+            var tb = sender as ColorSlider;
             Plane[tb.TabIndex] = tb.Value * 0.01f - 1;
             var label = tableLayoutPanel1.Controls.OfType<Label>()
                                                   .Where(c => c.TabIndex == tb.TabIndex)
@@ -199,9 +200,9 @@ namespace BaseModule.Reflect
         private void UpdateControlNormal(Vector<float> vector)
         {
             PreventRedraw = true;
-            trackBar1.Value = (int)(vector[0] * 100 + 100);
-            trackBar2.Value = (int)(vector[1] * 100 + 100);
-            trackBar3.Value = (int)(vector[2] * 100 + 100);
+            colorSlider1.Value = (int)(vector[0] * 100 + 100);
+            colorSlider2.Value = (int)(vector[1] * 100 + 100);
+            colorSlider3.Value = (int)(vector[2] * 100 + 100);
             OnResetShifting(this, null);
             PreventRedraw = false;
         }

@@ -13,6 +13,11 @@ namespace BazisGUI.SettingsControls
         public event Action<Color> SetSelectionObjectColorEvent;
         public event Action<Color> SetSelectionGroupColorEvent;
         public event Action<Color> SetBackGroundColorEvent;
+
+        public event Action<Color> Set3DElemColorEvent;
+        public event Action<Color> Set2DElemColorEvent;
+        public event Action<Color> SetNodeColorEvent;
+
         public event Action<string> SetSolverPathEvent;
         public event Action<bool> SetLightingEvent;
         public Action<int> SetLightingIntensityEvent;
@@ -32,8 +37,8 @@ namespace BazisGUI.SettingsControls
         public void SetSettings(SettingsConfig settingsConfig)
         {
             panelBackGroundColor.BackColor = settingsConfig.BackGroudColor;
-            panelSelectionObjsColor.BackColor = settingsConfig.SelectObjectColor;
-            panelSelectionGroupColor.BackColor = settingsConfig.SelectGroupColor;
+            pnlSelectionObjsColor.BackColor = settingsConfig.SelectObjectColor;
+            pnlSelectionGroupColor.BackColor = settingsConfig.SelectGroupColor;
             lblSolverPath.Text = settingsConfig.SolverPath;
             chbLighting.Checked = settingsConfig.Lighting;
             chbBackRibbers.Checked = settingsConfig.BackRibbers;
@@ -50,8 +55,8 @@ namespace BazisGUI.SettingsControls
             var config = new SettingsConfig()
             {
                 BackGroudColor = panelBackGroundColor.BackColor,
-                SelectObjectColor = panelSelectionObjsColor.BackColor,
-                SelectGroupColor = panelSelectionGroupColor.BackColor,
+                SelectObjectColor = pnlSelectionObjsColor.BackColor,
+                SelectGroupColor = pnlSelectionGroupColor.BackColor,
 
                 SolverPath = lblSolverPath.Text,
                 Lighting = chbLighting.Checked,
@@ -61,6 +66,10 @@ namespace BazisGUI.SettingsControls
                 BackRibbers = chbBackRibbers.Checked,
 
                 TransparencyValue = clslTransparency.Value,
+
+                Elem2DColor = pnl2DElemColor.BackColor,
+                Elem3DColor = pnl3DElemColor.BackColor,
+                NodeColor = pnlNodeColor.BackColor
             };
             
             SaveSettingsEvent(config);
@@ -87,9 +96,9 @@ namespace BazisGUI.SettingsControls
             if (dialog.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            panelSelectionObjsColor.BackColor = dialog.Color;
+            pnlSelectionObjsColor.BackColor = dialog.Color;
 
-            SetSelectionObjectColorEvent?.Invoke(panelSelectionObjsColor.BackColor);
+            SetSelectionObjectColorEvent?.Invoke(pnlSelectionObjsColor.BackColor);
         }
 
         private void btnSelectGroupColor_Click(object sender, EventArgs e)
@@ -99,9 +108,9 @@ namespace BazisGUI.SettingsControls
             if (dialog.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            panelSelectionGroupColor.BackColor = dialog.Color;
+            pnlSelectionGroupColor.BackColor = dialog.Color;
 
-            SetSelectionGroupColorEvent?.Invoke(panelSelectionGroupColor.BackColor);
+            SetSelectionGroupColorEvent?.Invoke(pnlSelectionGroupColor.BackColor);
         }
 
         private void btnBackGroundColor_Click(object sender, EventArgs e)
@@ -151,6 +160,42 @@ namespace BazisGUI.SettingsControls
         private void clslTransparency_Scroll(object sender, ScrollEventArgs e)
         {
             SetTransparencyValueEvent?.Invoke(e.NewValue);
+        }
+
+        private void btnSelect3DElemColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog dialog = new ColorDialog();
+
+            if (dialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            pnl3DElemColor.BackColor = dialog.Color;
+
+            Set3DElemColorEvent?.Invoke(pnl3DElemColor.BackColor);
+        }
+
+        private void btnSelect2DElemColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog dialog = new ColorDialog();
+
+            if (dialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            pnl2DElemColor.BackColor = dialog.Color;
+
+            Set2DElemColorEvent?.Invoke(pnl2DElemColor.BackColor);
+        }
+
+        private void btnSelectNodeColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog dialog = new ColorDialog();
+
+            if (dialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            pnlNodeColor.BackColor = dialog.Color;
+
+            SetNodeColorEvent?.Invoke(pnlNodeColor.BackColor);
         }
     }
 }

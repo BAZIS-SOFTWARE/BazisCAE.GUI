@@ -32,11 +32,10 @@ namespace ModelModule
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.loadFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.cmsRemoveMesh2D = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmsRemoveMesh2D = new System.Windows.Forms.ContextMenuStrip();
             this.rem3DItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsRemoveMesh3D = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmsRemoveMesh3D = new System.Windows.Forms.ContextMenuStrip();
             this.rem2DItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gmshTab = new UserControlsEx.TabControlEx();
             this.geometryPage = new System.Windows.Forms.TabPage();
@@ -46,7 +45,7 @@ namespace ModelModule
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.btnMinMaxSizes = new System.Windows.Forms.Button();
-            this.txbMinMaxSizes = new UserControlsEx.TextBoxEx(this.components);
+            this.txbMinMaxSizes = new UserControlsEx.TextBoxEx();
             this.chbShowNodesOnCurves = new System.Windows.Forms.CheckBox();
             this.chbShowHeatMap = new System.Windows.Forms.CheckBox();
             this.chbShowSurfaceNumbers = new System.Windows.Forms.CheckBox();
@@ -62,8 +61,8 @@ namespace ModelModule
             this.densityLabel = new System.Windows.Forms.Label();
             this.btnMesh2DDel = new System.Windows.Forms.Button();
             this.quadBtn = new System.Windows.Forms.Button();
-            this.cmbAlgoChoice = new UserControlsEx.ComboBoxEx(this.components);
-            this.meshDensityValue = new UserControlsEx.TextBoxEx(this.components);
+            this.cmbAlgoChoice = new UserControlsEx.ComboBoxEx();
+            this.meshDensityValue = new UserControlsEx.TextBoxEx();
             this.mesh2DGenBtn = new System.Windows.Forms.Button();
             this.volumePage = new System.Windows.Forms.TabPage();
             this.volumeLayout = new System.Windows.Forms.TableLayoutPanel();

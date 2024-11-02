@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Geometry;
 using System.Globalization;
+using UserControlsEx;
 
 namespace BaseModule.Clip
 {
@@ -43,7 +44,7 @@ namespace BaseModule.Clip
 
         private void OnChangeValue(object sender, EventArgs e)
         {
-            var tb = sender as TrackBar;
+            var tb = sender as ColorSlider;
             var value = (tb.Value - 100) * 0.01f;
             var label = tableLayoutPanel1.Controls.OfType<Label>()
                                                   .Where(c => c.TabIndex == tb.TabIndex)
@@ -99,9 +100,9 @@ namespace BaseModule.Clip
 
         private void NormalizeDirection()
         {
-            var isZeroNormal = trackBar1.Value == trackBar2.Value &&
-                               trackBar2.Value == trackBar3.Value &&
-                               trackBar1.Value == 100;
+            var isZeroNormal = colorSlider1.Value == colorSlider2.Value &&
+                               colorSlider2.Value == colorSlider3.Value &&
+                               colorSlider1.Value == 100;
             if (!isZeroNormal)
             {
                 var normal = Vector.GetVectorNorm(ClipPlane.Normal);
@@ -173,11 +174,11 @@ namespace BaseModule.Clip
             var rBtn = sender as RadioButton;
             PreventRedraw = true;
             var values = rBtn.Tag.ToString().Split(' ');
-            var activeTb = tableLayoutPanel1.Controls.OfType<TrackBar>()
+            var activeTb = tableLayoutPanel1.Controls.OfType<ColorSlider>()
                                                      .Where(v => v.TabIndex == rBtn.TabIndex)
                                                      .First();
             activeTb.Value = int.Parse(values[rBtn.TabIndex]);
-            var inactiveTbs = tableLayoutPanel1.Controls.OfType<TrackBar>()
+            var inactiveTbs = tableLayoutPanel1.Controls.OfType<ColorSlider>()
                                               .Where(v => v.TabIndex != rBtn.TabIndex)
                                               .ToList();
             for (var i = 0; i < inactiveTbs.Count; ++i)

@@ -50,6 +50,48 @@ namespace BaseModule
         {
             get { return sceneControl; }
         }
+        [Category("General")]
+        [Description("Уровень прозрачности объектов")]
+        public int TransparencyValue { get; set; }
+        [Category("General")]
+        [Description("Цвет узлов")]
+        public Color NodeColor
+        {
+            set
+            {
+                foreach (var item in ModelData.ObjectData.NodeCollection)
+                {
+                    item.MasterColor = value;
+                    item.SlaveColor = value;
+                }
+            }
+        }
+        [Category("General")]
+        [Description("Цвет 2D элементов")]
+        public Color E2DColor
+        {
+            set
+            {
+                foreach (var item in ModelData.ObjectData.E2DCollection)
+                {
+                    item.MasterColor = value;
+                    item.SlaveColor = value;
+                }
+            }
+        }
+        [Category("General")]
+        [Description("Цвет 3D элементов")]
+        public Color E3DColor
+        {
+            set
+            {
+                foreach (var item in ModelData.ObjectData.E3DCollection)
+                {
+                    item.MasterColor = value;
+                    item.SlaveColor = value;
+                }
+            }
+        }
 
         public ScenePage()
         {

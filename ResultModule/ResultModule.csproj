@@ -71,8 +71,8 @@
     <Reference Include="Model, Version=3.1.0.8, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
       <HintPath>..\packages\Model.3.1.0.8\lib\netstandard2.0\Model.dll</HintPath>
     </Reference>
-    <Reference Include="ModelControllerInterfaces, Version=3.0.1.7, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelControllerInterfaces.3.0.1.7\lib\netstandard2.0\ModelControllerInterfaces.dll</HintPath>
+    <Reference Include="ModelControllerInterfaces, Version=3.0.1.8, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelControllerInterfaces.3.0.1.8\lib\netstandard2.0\ModelControllerInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="ModelInterfaces, Version=3.0.1.4, Culture=neutral, PublicKeyToken=998e39182864f357, processorArchitecture=MSIL">
       <HintPath>..\packages\ModelInterfaces.3.0.1.4\lib\netstandard2.0\ModelInterfaces.dll</HintPath>
