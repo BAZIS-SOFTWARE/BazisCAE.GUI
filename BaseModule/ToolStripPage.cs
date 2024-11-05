@@ -901,11 +901,6 @@ namespace BaseModule
                         sceneControl.DisplayObjects();
                     };
 
-                    reflect.MatrixEvent += (s, ev) =>
-                    {
-                        var obj = sceneControl.FindVBObj(s);
-                        ev.Matrix = obj.ModelMatrix;
-                    };
                     reflect.UpdateReflectPlane += (s, p) =>
                     {
                         //var obj = sceneControl.FindVBObj(s);
