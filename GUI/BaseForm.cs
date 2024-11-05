@@ -38,6 +38,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using BaseModule.Utilities;
 using ResultModule.Animation;
 using ModelController;
+using Scene.Interfaces;
+using Scene;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace BazisGUI
 {
@@ -79,7 +82,8 @@ namespace BazisGUI
             NodeColor = Color.FromArgb(153, 192, 86),
             Transparency = false,
             Lighting = true,
-            BackRibbers = false
+            BackRibbers = false,
+            Projection = false
         };
 
         private Thread serverConnectionPing;
@@ -721,6 +725,13 @@ namespace BazisGUI
                 scenePage.SceneControl.IsBlending = ar;
                 scenePage.ClearAllDataOnScene();
                 scenePage.PresentAllModelObjectsToScene();
+                scenePage.SceneControl.DisplayObjects();
+            };
+
+            settings.SetOrtoProjectionEvent += (ar) =>
+            {
+                scenePage.SceneControl.Projection = ar ? ViewProjection.Parallel : ViewProjection.Perspective;
+                scenePage.SceneControl.UpdateProjection();
                 scenePage.SceneControl.DisplayObjects();
             };
 

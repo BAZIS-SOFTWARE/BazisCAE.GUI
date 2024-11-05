@@ -31,9 +31,7 @@ namespace BaseModule.Reflect
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.label8 = new System.Windows.Forms.Label();
             this.sldA = new UserControlsEx.ColorSlider();
@@ -45,7 +43,6 @@ namespace BaseModule.Reflect
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.comboBox1 = new UserControlsEx.ComboBoxEx(this.components);
@@ -56,31 +53,12 @@ namespace BaseModule.Reflect
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // radioButton6
-            // 
-            this.radioButton6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButton6.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton6.AutoSize = true;
-            this.radioButton6.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.radioButton6.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.radioButton6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.radioButton6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.radioButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radioButton6.Location = new System.Drawing.Point(48, 63);
-            this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(39, 24);
-            this.radioButton6.TabIndex = 2;
-            this.radioButton6.Tag = "0 0 -1 0";
-            this.radioButton6.Text = "YX";
-            this.radioButton6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton6.UseVisualStyleBackColor = true;
-            this.radioButton6.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
-            // 
             // radioButton5
             // 
             this.radioButton5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton5.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton5.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.radioButton5, 2);
             this.radioButton5.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.radioButton5.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.radioButton5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -88,7 +66,7 @@ namespace BaseModule.Reflect
             this.radioButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.radioButton5.Location = new System.Drawing.Point(3, 63);
             this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(39, 24);
+            this.radioButton5.Size = new System.Drawing.Size(84, 24);
             this.radioButton5.TabIndex = 2;
             this.radioButton5.Tag = "0 0 1 0";
             this.radioButton5.Text = "XY";
@@ -97,31 +75,12 @@ namespace BaseModule.Reflect
             this.radioButton5.Click += new System.EventHandler(this.OnChoicePlane);
             this.radioButton5.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             // 
-            // radioButton4
-            // 
-            this.radioButton4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButton4.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.radioButton4.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.radioButton4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.radioButton4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.radioButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radioButton4.Location = new System.Drawing.Point(48, 33);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(39, 24);
-            this.radioButton4.TabIndex = 1;
-            this.radioButton4.Tag = "0 -1 0 0";
-            this.radioButton4.Text = "XZ";
-            this.radioButton4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton4.UseVisualStyleBackColor = true;
-            this.radioButton4.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
-            // 
             // radioButton3
             // 
             this.radioButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton3.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton3.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.radioButton3, 2);
             this.radioButton3.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.radioButton3.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.radioButton3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -129,7 +88,7 @@ namespace BaseModule.Reflect
             this.radioButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.radioButton3.Location = new System.Drawing.Point(3, 33);
             this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(39, 24);
+            this.radioButton3.Size = new System.Drawing.Size(84, 24);
             this.radioButton3.TabIndex = 1;
             this.radioButton3.Tag = "0 1 0 0";
             this.radioButton3.Text = "ZX";
@@ -285,6 +244,7 @@ namespace BaseModule.Reflect
             this.radioButton1.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.radioButton1, 2);
             this.radioButton1.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.radioButton1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.radioButton1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -292,7 +252,7 @@ namespace BaseModule.Reflect
             this.radioButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.radioButton1.Location = new System.Drawing.Point(3, 3);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(39, 24);
+            this.radioButton1.Size = new System.Drawing.Size(84, 24);
             this.radioButton1.TabIndex = 0;
             this.radioButton1.TabStop = true;
             this.radioButton1.Tag = "1 0 0 0";
@@ -301,26 +261,6 @@ namespace BaseModule.Reflect
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.Click += new System.EventHandler(this.OnChoicePlane);
             this.radioButton1.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButton2.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.radioButton2.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.radioButton2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.radioButton2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.radioButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radioButton2.Location = new System.Drawing.Point(48, 3);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(39, 24);
-            this.radioButton2.TabIndex = 0;
-            this.radioButton2.Tag = "-1 0 0 0";
-            this.radioButton2.Text = "ZY";
-            this.radioButton2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             // 
             // button1
             // 
@@ -344,9 +284,7 @@ namespace BaseModule.Reflect
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28F));
-            this.tableLayoutPanel1.Controls.Add(this.radioButton6, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.radioButton5, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.radioButton4, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.radioButton3, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.sldA, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.sldB, 3, 1);
@@ -357,7 +295,6 @@ namespace BaseModule.Reflect
             this.tableLayoutPanel1.Controls.Add(this.label2, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.radioButton1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.radioButton2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.button1, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.comboBox1, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
@@ -449,10 +386,7 @@ namespace BaseModule.Reflect
         }
 
         #endregion
-
-        private System.Windows.Forms.RadioButton radioButton6;
         private System.Windows.Forms.RadioButton radioButton5;
-        private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label8;
@@ -465,7 +399,6 @@ namespace BaseModule.Reflect
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.Button button1;
         private ComboBoxEx comboBox1;
         private System.Windows.Forms.Label label5;

@@ -873,7 +873,7 @@ namespace TaskModule
             //Sort
             data.MovedFrame.SortTrajNodes();
 
-            data.StopTime = data.StartTime + data.MovedFrame.CalcMotionTime();
+            data.StopTime = data.StartTime + (float)Math.Round(data.MovedFrame.CalcMotionTime(),4);
         }
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)

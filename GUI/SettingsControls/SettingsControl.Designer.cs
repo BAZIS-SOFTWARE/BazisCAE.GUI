@@ -62,6 +62,8 @@ namespace BazisGUI.SettingsControls
             this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.lightingControl = new BazisGUI.SettingsControls.LightingControl();
+            this.chbOrtoProjection = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.tabControlEx1.SuspendLayout();
             this.tbScene.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -87,7 +89,7 @@ namespace BazisGUI.SettingsControls
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(74, 563);
+            this.label4.Location = new System.Drawing.Point(74, 524);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(79, 13);
             this.label4.TabIndex = 1;
@@ -97,7 +99,7 @@ namespace BazisGUI.SettingsControls
             // 
             this.chbLighting.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.chbLighting.AutoSize = true;
-            this.chbLighting.Location = new System.Drawing.Point(245, 145);
+            this.chbLighting.Location = new System.Drawing.Point(245, 106);
             this.chbLighting.Name = "chbLighting";
             this.chbLighting.Size = new System.Drawing.Size(75, 17);
             this.chbLighting.TabIndex = 8;
@@ -109,7 +111,7 @@ namespace BazisGUI.SettingsControls
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 108);
+            this.label1.Location = new System.Drawing.Point(35, 69);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(157, 13);
             this.label1.TabIndex = 6;
@@ -119,7 +121,7 @@ namespace BazisGUI.SettingsControls
             // 
             this.chbBackRibbers.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.chbBackRibbers.AutoSize = true;
-            this.chbBackRibbers.Location = new System.Drawing.Point(245, 106);
+            this.chbBackRibbers.Location = new System.Drawing.Point(245, 67);
             this.chbBackRibbers.Name = "chbBackRibbers";
             this.chbBackRibbers.Size = new System.Drawing.Size(75, 17);
             this.chbBackRibbers.TabIndex = 5;
@@ -132,7 +134,7 @@ namespace BazisGUI.SettingsControls
             this.btnBackGroundColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBackGroundColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBackGroundColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnBackGroundColor.Location = new System.Drawing.Point(7, 34);
+            this.btnBackGroundColor.Location = new System.Drawing.Point(7, 14);
             this.btnBackGroundColor.Margin = new System.Windows.Forms.Padding(7);
             this.btnBackGroundColor.Name = "btnBackGroundColor";
             this.btnBackGroundColor.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -147,7 +149,7 @@ namespace BazisGUI.SettingsControls
             this.panelBackGroundColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.panelBackGroundColor.BackColor = System.Drawing.Color.White;
             this.panelBackGroundColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelBackGroundColor.Location = new System.Drawing.Point(235, 34);
+            this.panelBackGroundColor.Location = new System.Drawing.Point(235, 14);
             this.panelBackGroundColor.Margin = new System.Windows.Forms.Padding(7);
             this.panelBackGroundColor.Name = "panelBackGroundColor";
             this.panelBackGroundColor.Size = new System.Drawing.Size(96, 27);
@@ -161,7 +163,7 @@ namespace BazisGUI.SettingsControls
             this.clslLigthingIntensity.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             this.tableLayoutPanel1.SetColumnSpan(this.clslLigthingIntensity, 2);
             this.clslLigthingIntensity.LargeChange = ((uint)(5u));
-            this.clslLigthingIntensity.Location = new System.Drawing.Point(3, 519);
+            this.clslLigthingIntensity.Location = new System.Drawing.Point(3, 480);
             this.clslLigthingIntensity.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.clslLigthingIntensity.Name = "clslLigthingIntensity";
             this.clslLigthingIntensity.Size = new System.Drawing.Size(332, 23);
@@ -177,7 +179,7 @@ namespace BazisGUI.SettingsControls
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(81, 147);
+            this.label2.Location = new System.Drawing.Point(81, 108);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 0;
@@ -191,7 +193,7 @@ namespace BazisGUI.SettingsControls
             this.clslTransparency.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             this.tableLayoutPanel1.SetColumnSpan(this.clslTransparency, 2);
             this.clslTransparency.LargeChange = ((uint)(50u));
-            this.clslTransparency.Location = new System.Drawing.Point(3, 596);
+            this.clslTransparency.Location = new System.Drawing.Point(3, 557);
             this.clslTransparency.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.clslTransparency.Maximum = 99;
             this.clslTransparency.Name = "clslTransparency";
@@ -208,7 +210,7 @@ namespace BazisGUI.SettingsControls
             // 
             this.chbTransparency.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.chbTransparency.AutoSize = true;
-            this.chbTransparency.Location = new System.Drawing.Point(245, 561);
+            this.chbTransparency.Location = new System.Drawing.Point(245, 522);
             this.chbTransparency.Name = "chbTransparency";
             this.chbTransparency.Size = new System.Drawing.Size(75, 17);
             this.chbTransparency.TabIndex = 18;
@@ -274,15 +276,18 @@ namespace BazisGUI.SettingsControls
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.clslLigthingIntensity, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.clslTransparency, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.chbOrtoProjection, 1, 7);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 7);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowCount = 8;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 338F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
@@ -295,7 +300,7 @@ namespace BazisGUI.SettingsControls
             this.tbObjects.Location = new System.Drawing.Point(4, 34);
             this.tbObjects.Margin = new System.Windows.Forms.Padding(0);
             this.tbObjects.Name = "tbObjects";
-            this.tbObjects.Size = new System.Drawing.Size(215, 396);
+            this.tbObjects.Size = new System.Drawing.Size(338, 628);
             this.tbObjects.TabIndex = 1;
             this.tbObjects.Text = "Объекты";
             this.tbObjects.UseVisualStyleBackColor = true;
@@ -459,7 +464,7 @@ namespace BazisGUI.SettingsControls
             this.tbSolver.Location = new System.Drawing.Point(4, 34);
             this.tbSolver.Margin = new System.Windows.Forms.Padding(0);
             this.tbSolver.Name = "tbSolver";
-            this.tbSolver.Size = new System.Drawing.Size(215, 396);
+            this.tbSolver.Size = new System.Drawing.Size(338, 628);
             this.tbSolver.TabIndex = 2;
             this.tbSolver.Text = "Решатель";
             this.tbSolver.UseVisualStyleBackColor = true;
@@ -513,11 +518,33 @@ namespace BazisGUI.SettingsControls
             this.lightingControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tableLayoutPanel1.SetColumnSpan(this.lightingControl, 2);
             this.lightingControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lightingControl.Location = new System.Drawing.Point(0, 173);
+            this.lightingControl.Location = new System.Drawing.Point(0, 134);
             this.lightingControl.Margin = new System.Windows.Forms.Padding(0);
             this.lightingControl.Name = "lightingControl";
             this.lightingControl.Size = new System.Drawing.Size(338, 338);
             this.lightingControl.TabIndex = 11;
+            // 
+            // chbOrtoProjection
+            // 
+            this.chbOrtoProjection.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.chbOrtoProjection.AutoSize = true;
+            this.chbOrtoProjection.Location = new System.Drawing.Point(245, 600);
+            this.chbOrtoProjection.Name = "chbOrtoProjection";
+            this.chbOrtoProjection.Size = new System.Drawing.Size(75, 17);
+            this.chbOrtoProjection.TabIndex = 19;
+            this.chbOrtoProjection.Text = "Включить";
+            this.chbOrtoProjection.UseVisualStyleBackColor = true;
+            this.chbOrtoProjection.Click += new System.EventHandler(this.chbOrtoProjection_Click);
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(39, 602);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(149, 13);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "Ортографическая проекция";
             // 
             // SettingsControl
             // 
@@ -575,5 +602,7 @@ namespace BazisGUI.SettingsControls
         private System.Windows.Forms.TabPage tbSolver;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox chbOrtoProjection;
+        private System.Windows.Forms.Label label5;
     }
 }

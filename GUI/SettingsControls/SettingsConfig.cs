@@ -20,5 +20,7 @@ namespace BazisGUI.SettingsControls
         public bool Transparency;
         public bool BackRibbers;
         public int TransparencyValue;
+
+        public bool Projection { get; internal set; }
     }
 }

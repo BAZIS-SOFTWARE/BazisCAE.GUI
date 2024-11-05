@@ -147,6 +147,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
                 txbStartTime.Text = dataGridView[(int)Column.startTime, e.RowIndex].Value.ToString();
 
+                var checkStartTime = Convert.ToSingle(txbStartTime.Text);
+
+                player.CurrentValue = (int)checkStartTime;
                 var str = dataGridView[(int)Column.movingReferenceFrame, e.RowIndex].Value.ToString();
                 var strAr = str.Split(';');
                 var linesAr = strAr[0].Split('|');

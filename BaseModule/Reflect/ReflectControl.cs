@@ -14,20 +14,12 @@ namespace BaseModule.Reflect
 {
     public partial class ReflectControl : UserControl
     {
-
-        public float[] Matrix { get; set; }
-
-        //private float[] Plane { get; set; }
         private Point MouseLastPos { get; set; }
 
         private bool PreventRedraw { get; set; }
 
         private Pen Pen { get; set; }
 
-        /// <summary>
-        /// Получить или обновить матрицу
-        /// </summary>
-        public event Action<string, MatrixEvent> MatrixEvent;
         /// <summary>
         /// Обновляет плоскость отражения на сцене
         /// </summary>
@@ -182,32 +174,27 @@ namespace BaseModule.Reflect
             PreventRedraw = false;
         }
 
-        private Vector<float> TransformVector(float[] vector)
-        {
-            var evnt = new MatrixEvent();
-            var name = comboBox1.SelectedItem.ToString();
-            MatrixEvent?.Invoke(name, evnt);
-            var mat = Matrix<float>.Build.Dense(4, 4, evnt.Matrix);
-            mat = mat.Inverse();
-            var vec = Vector<float>.Build.Dense(vector);
-            vec = vec.Normalize(2);
-            vec = mat.Multiply(vec);
-            vec = vec.Normalize(2);
-            vec[0] = vec[0].Round(2);
-            vec[1] = vec[1].Round(2);
-            vec[2] = vec[2].Round(2);
-            return vec;
-        }
+        //private Vector<float> TransformVector(float[] vector)
+        //{
+        //    var evnt = new MatrixEvent();
+        //    var name = comboBox1.SelectedItem.ToString();
+        //    MatrixEvent?.Invoke(name, evnt);
+        //    var mat = Matrix<float>.Build.Dense(4, 4, evnt.Matrix);
+        //    mat = mat.Inverse();
+        //    var vec = Vector<float>.Build.Dense(vector);
+        //    vec = vec.Normalize(2);
+        //    vec = mat.Multiply(vec);
+        //    vec = vec.Normalize(2);
+        //    vec[0] = vec[0].Round(2);
+        //    vec[1] = vec[1].Round(2);
+        //    vec[2] = vec[2].Round(2);
+        //    return vec;
+        //}
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnCreateCopy.Enabled = true;
             ShowObjs?.Invoke(comboBox1.SelectedItem.ToString());
         }
-    }
-
-    public class MatrixEvent : EventArgs
-    {
-        public float[] Matrix { get; set; }
     }
 }

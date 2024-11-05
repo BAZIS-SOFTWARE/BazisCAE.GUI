@@ -24,6 +24,8 @@ namespace BazisGUI.SettingsControls
         public Action<Point> SetLighterPositionEvent;
         public Action<bool> SetTransparencyEvent;
         public Action<int> SetTransparencyValueEvent;
+
+        public Action<bool> SetOrtoProjectionEvent;
         public SettingsControl()
         {
             InitializeComponent();
@@ -48,7 +50,7 @@ namespace BazisGUI.SettingsControls
             pnl2DElemColor.BackColor = settingsConfig.Elem2DColor;
             pnl3DElemColor.BackColor = settingsConfig.Elem3DColor;
             pnlNodeColor.BackColor = settingsConfig.NodeColor;
-
+            chbOrtoProjection.Checked = settingsConfig.Projection;
             clslTransparency.Value = settingsConfig.TransparencyValue;
         }
 
@@ -67,6 +69,7 @@ namespace BazisGUI.SettingsControls
                 LightingIntensity = clslLigthingIntensity.Value,
                 Transparency = chbTransparency.Checked,
                 BackRibbers = chbBackRibbers.Checked,
+                Projection = chbOrtoProjection.Checked,
 
                 TransparencyValue = clslTransparency.Value,
 
@@ -199,6 +202,14 @@ namespace BazisGUI.SettingsControls
             pnlNodeColor.BackColor = dialog.Color;
 
             SetNodeColorEvent?.Invoke(pnlNodeColor.BackColor);
+        }
+
+        private void chbOrtoProjection_Click(object sender, EventArgs e)
+        {
+            if (chbOrtoProjection.Checked)
+                SetOrtoProjectionEvent?.Invoke(true);
+            else
+                SetOrtoProjectionEvent?.Invoke(false);
         }
     }
 }
