@@ -2,21 +2,19 @@
 using BaseModule.CrossSection;
 using BaseModule.Reflect;
 using Geometry;
+using MathNet.Numerics;
+using MathNet.Numerics.LinearAlgebra;
 using ModelControllerInterfaces;
 using ModelInterfaces;
 using ModelInterfaces.GeometryObjects;
 using ModelInterfaces.MeshObjects;
-using Newtonsoft.Json.Linq;
 using ProjectInterfaces;
-using Scene;
 using Scene.Interfaces;
-using Scene.VBO;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace BaseModule
@@ -854,67 +852,103 @@ namespace BaseModule
 
         private void btnReflect_Click(object sender, EventArgs e)
         {
-            var btn = sender as ToolStripButton;
-
-            if (btn.Checked)
+            try
             {
-                var sceneControl = BasePage.ScenePage.SceneControl;
+                var btn = sender as ToolStripButton;
 
-                var reflect = new ReflectControl();
-                var reflectForm = new Form()
+                if (btn.Checked)
                 {
-                    Name = "reflectForm",
-                    TopMost = true,
-                    ShowIcon = false,
-                    ClientSize = reflect.Size,
-                    MaximizeBox = false,
-                    Text = "Отражение",
-                    Owner = Application.OpenForms[0]
-                };
-                reflectForm.Controls.Add(reflect);
-                reflect.Dock = DockStyle.Fill;
+                    var sceneControl = BasePage.ScenePage.SceneControl;
+                    var reflect = new ReflectControl();
+                    reflect.SetGlObjs(sceneControl.GetVBObjs().Select(x => x.ObjName));
 
-                reflect.GlObjsEvent += (obj, evnt) => evnt.GlNames = sceneControl.GetVBObjs().Select(x => x.ObjName);
-                reflect.CheckGlObjs += (ev) =>
-                {
-                    var src = sceneControl.FindVBObj(ev.OriginalGlName) as VBObject;
-                    var cpy = sceneControl.FindVBObj(ev.CopyGlName);
-                    if (cpy != default)
+                    var reflectForm = new Form()
                     {
-                        //var copy = cpy as VBObject;
-                        if (src.GL_ObjType != cpy.GL_ObjType)
-                            ev.Message = "Типы объектов копии и оригинала не совпадает, выберите из списка объект " +
-                                         "того же типа или создайте новую копию на основе оригинала";
-                        else if (src.ObjName == cpy.ObjName)
-                            ev.Message = "Имя копии и оригинала совпадают, задайте другое имя для копии";
-                        else
-                            ev.Message = "";
-                    }
-                };
-                reflect.MatrixEvent += (s, ev) =>
-                {
-                    var obj = sceneControl.FindVBObj(s);
-                    ev.Matrix = obj.ModelMatrix;
-                };
-                reflect.UpdateReflectPlane += (s, c, p) => sceneControl.CreateReflectedVBObject(s, c, p);
-                reflect.RedrawReflectPlane += () => sceneControl.DisplayObjects();
-                reflectForm.FormClosing += (o, ev) =>
-                {
-                    sceneControl.CreateReflectedVBObject("", "", null);
-                    btn.Checked = false;
-                    sceneControl.DisplayObjects();
-                };
-                reflectForm.Show();
-            }
-            else
-            {
-                var forms = Application.OpenForms.Cast<Form>().ToList();
-                var form = forms.Find(x => x.Name == "reflectForm");
-                if (form != null)
-                {
-                    form.Close();
-                    //btn.Checked = false;
+                        TopMost = true,
+                        ShowIcon = false,
+                        ClientSize = reflect.Size,
+                        Text = "Отражение",
+                        Owner = Application.OpenForms[0],
+                        Name = "reflectForm"
+                    };
+                    reflectForm.Controls.Add(reflect);
+                    reflect.Dock = DockStyle.Fill;
+
+                    reflect.ShowObjs += (ar) =>
+                    {
+                        sceneControl.DisplayObjects();
+                    };
+
+                    reflect.CreateReflectObj += (ar1, ar2) =>
+                    {
+                        //var obj = sceneControl.FindVBObj(ar1);
+                        //var mat = Matrix<float>.Build.Dense(4, 4, obj.ModelMatrix);
+                        //mat = mat.Inverse();
+                        //var vec = Vector<float>.Build.Dense(ar2);
+                        //vec = vec.Normalize(2);
+                        //vec = mat.Multiply(vec);
+                        //vec = vec.Normalize(2);
+                        //vec[0] = vec[0].Round(2);
+                        //vec[1] = vec[1].Round(2);
+                        //vec[2] = vec[2].Round(2);
+                        sceneControl.DisplayReflectionPlane(ar1, ar2);
+
+
+                        var copyObjs = sceneControl.GetVBObjs().Where(x => x.ObjName.Contains($"{ar1}_copy")).
+                        Select(x => x.ObjName);
+                        sceneControl.CreateReflectedVBObject(ar1, $"{ar1}_copy_{copyObjs.Count() + 1}", ar2);
+                        reflect.SetGlObjs(copyObjs);
+                        sceneControl.DisplayObjects();
+                    };
+
+                    reflect.MatrixEvent += (s, ev) =>
+                    {
+                        var obj = sceneControl.FindVBObj(s);
+                        ev.Matrix = obj.ModelMatrix;
+                    };
+                    reflect.UpdateReflectPlane += (s, p) =>
+                    {
+                        //var obj = sceneControl.FindVBObj(s);
+                        //var mat = Matrix<float>.Build.Dense(4, 4, obj.ModelMatrix);
+                        //mat = mat.Inverse();
+                        //var vec = Vector<float>.Build.Dense(p);
+                        //vec = vec.Normalize(2);
+                        //vec = mat.Multiply(vec);
+                        //vec = vec.Normalize(2);
+                        //vec[0] = vec[0].Round(2);
+                        //vec[1] = vec[1].Round(2);
+                        //vec[2] = vec[2].Round(2);
+                        if(p.Sum() != 0)
+                            sceneControl.DisplayReflectionPlane(s, p);
+                        sceneControl.DisplayObjects();
+                    };
+
+                    reflectForm.FormClosing += (o, ev) =>
+                    {
+                        sceneControl.HideReflectionPlane();
+                        var listVbo = sceneControl.GetVBObjs().Where(x => x.ObjName.Contains("copy")).ToList();
+                        foreach (var item in listVbo)
+                            sceneControl.DeleteVBObjects(item.ObjName);
+
+                        btn.Checked = false;
+                        sceneControl.DisplayObjects();
+                    };
+                    reflectForm.Show();
                 }
+                else
+                {
+                    var forms = Application.OpenForms.Cast<Form>().ToList();
+                    var form = forms.Find(x => x.Name == "reflectForm");
+                    if (form != null)
+                    {
+                        form.Close();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
     }  

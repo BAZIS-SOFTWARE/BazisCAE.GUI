@@ -45,6 +45,9 @@ namespace BazisGUI.SettingsControls
             lightingControl.BallPosition = settingsConfig.LighterPosition;
             clslLigthingIntensity.Value = settingsConfig.LightingIntensity;
             chbTransparency.Checked = settingsConfig.Transparency;
+            pnl2DElemColor.BackColor = settingsConfig.Elem2DColor;
+            pnl3DElemColor.BackColor = settingsConfig.Elem3DColor;
+            pnlNodeColor.BackColor = settingsConfig.NodeColor;
 
             clslTransparency.Value = settingsConfig.TransparencyValue;
         }

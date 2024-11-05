@@ -682,9 +682,21 @@ namespace BazisGUI
             settings.SetSelectionObjectColorEvent += (ar) =>
             scenePage.SceneControl.SelectionColor = ar;
 
-            settings.SetNodeColorEvent += (ar) => { scenePage.NodeColor = ar; };
-            settings.Set2DElemColorEvent += (ar) => { scenePage.E2DColor = ar; };
-            settings.Set3DElemColorEvent += (ar) => { scenePage.E3DColor = ar; };
+            settings.SetNodeColorEvent += (ar) => { 
+                scenePage.NodeColor = ar;
+                scenePage.SetObjectsSceneColor(ObjType.Узел);
+                scenePage.SceneControl.DisplayObjects();
+            };
+            settings.Set2DElemColorEvent += (ar) => { 
+                scenePage.E2DColor = ar;
+                scenePage.SetObjectsSceneColor(ObjType.Элемент2D);
+                scenePage.SceneControl.DisplayObjects();
+            };
+            settings.Set3DElemColorEvent += (ar) => { 
+                scenePage.E3DColor = ar;
+                scenePage.SetObjectsSceneColor(ObjType.Элемент3D);
+                scenePage.SceneControl.DisplayObjects();
+            };
 
             settings.SetSolverPathEvent += (ar) =>
             {

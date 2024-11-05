@@ -9,19 +9,16 @@ using Geometry;
 using ModelInterfaces;
 using System.Diagnostics;
 using BaseModule.Console;
-using BaseModule.CrossSection;
 using BaseModule.Console.Events;
 using BaseModule.Navigator;
 using ModelControllerInterfaces;
 using System.Threading;
 using ModelInterfaces.MeshObjects;
-using ModelInterfaces.GeometryObjects;
 using System.ComponentModel;
 using ProjectInterfaces;
 using BaseModule.Utilities;
 using Scene.Interfaces;
 using UserControlsEx;
-using Model;
 
 namespace BaseModule
 {
