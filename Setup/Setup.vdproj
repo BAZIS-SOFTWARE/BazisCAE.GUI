@@ -885,6 +885,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_B1552DEDD20142D38B19B3FD2C0516A6"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_B29715CE5D432D132EE9FFBFBC907311"
         "OwnerKey" = "8:_A90745B46D79469DAA2C57E3335DE1FD"
         "MsmSig" = "8:_UNDEFINED"
@@ -971,12 +977,6 @@
         {
         "MsmKey" = "8:_B95BA184E50226791995A121BC6ABB35"
         "OwnerKey" = "8:_EDC56B4424CE007B3593B5C953FF1A3B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BE945D1EE3F94E51A89A387D8E30AE57"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -3320,6 +3320,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B1552DEDD20142D38B19B3FD2C0516A6"
+            {
+            "SourcePath" = "8:..\\GUI\\ReleaseNotes\\ReleaseNotes_4.4.pdf"
+            "TargetName" = "8:ReleaseNotes_4.4.pdf"
+            "Tag" = "8:"
+            "Folder" = "8:_FADE24916A364E1EA3A1FD1FAEEC7879"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B29715CE5D432D132EE9FFBFBC907311"
             {
             "AssemblyRegister" = "3:1"
@@ -3564,26 +3584,6 @@
             "Register" = "3:1"
             "Exclude" = "11:TRUE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BE945D1EE3F94E51A89A387D8E30AE57"
-            {
-            "SourcePath" = "8:..\\GUI\\ReleaseNotes\\ReleaseNotes.pdf"
-            "TargetName" = "8:ReleaseNotes.pdf"
-            "Tag" = "8:"
-            "Folder" = "8:_FADE24916A364E1EA3A1FD1FAEEC7879"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C6CEC1A11FB520A354CB6563A369104D"
@@ -4355,7 +4355,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:BazisPrePost4.4.455"
         "ProductCode" = "8:{3EA57877-8A54-4210-99A4-FAAB4CDB45A5}"
-        "PackageCode" = "8:{A8F8D5C9-BADB-4572-83FD-676FF388B463}"
+        "PackageCode" = "8:{600DA394-E295-4AD9-8D1D-EDBEC283704D}"
         "UpgradeCode" = "8:{B6CE3573-0A6F-4654-B604-218137EC41B2}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -4984,7 +4984,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8BC9F77BF20A47E78FE9281C2E34FB34"
             {
-            "SourcePath" = "8:..\\InstallerAction\\obj\\Release\\InstallerAction.dll"
+            "SourcePath" = "8:..\\InstallerAction\\obj\\Debug\\InstallerAction.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
@@ -5012,7 +5012,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_A90745B46D79469DAA2C57E3335DE1FD"
             {
-            "SourcePath" = "8:..\\GUI\\obj\\x64\\Release\\BazisGUI.exe"
+            "SourcePath" = "8:..\\GUI\\obj\\x64\\Debug\\BazisGUI.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
