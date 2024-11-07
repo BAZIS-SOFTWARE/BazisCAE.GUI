@@ -11,7 +11,6 @@ namespace BaseModule.Clip
 {
     public partial class ClipControl : UserControl
     {
-        private CultureInfo culture;
         private bool IsMouseDown { get; set; }
         private Point MouseLastPos { get; set; }
 
@@ -20,10 +19,7 @@ namespace BaseModule.Clip
         private Pen Pen { get; set; }
 
         private Plane ClipPlane { get; set; }
-        /// <summary>
-        /// Включить\выключить плоскость отсечения
-        /// </summary>
-        public event Action<bool> SwitchOnOff;
+
         /// <summary>
         /// Задать плоскость отсечения
         /// </summary>
@@ -36,8 +32,6 @@ namespace BaseModule.Clip
         {
             InitializeComponent();
             domainUpDown1.SelectedItem = 2;
-            culture = (CultureInfo)CultureInfo.CurrentCulture.Clone();
-            culture.NumberFormat.CurrencyDecimalSeparator = ".";
             Pen = new Pen(SystemColors.Control);
             ClipPlane = new Plane(new Point3D(0, 0, -1), 0);
         }
@@ -112,25 +106,10 @@ namespace BaseModule.Clip
             }
         }
 
-        private void OnEnableClipPlane(object sender, EventArgs e)
-        {
-            var controls = tableLayoutPanel1.Controls.OfType<Control>()
-                                                     .Where(c => !c.Equals(sender));
-            foreach (var control in controls)
-                control.Enabled = checkBox1.Checked;
-
-            var isObjCliped = checkBox1.Checked ? true : false;   
-            SwitchOnOff?.Invoke(isObjCliped);
-            RedrawClipPlane?.Invoke();
-        }
-
         private void OnMouseDown(object sender, MouseEventArgs e)
         {
-            if (checkBox1.Checked)
-            {
-                MouseLastPos = e.Location;
-                IsMouseDown = true;
-            }
+            MouseLastPos = e.Location;
+            IsMouseDown = true;
         }
 
         private void OnMouseUp(object sender, MouseEventArgs e)
@@ -140,10 +119,10 @@ namespace BaseModule.Clip
 
         private void OnMouseMove(object sender, MouseEventArgs e)
         {
-            if (IsMouseDown && checkBox1.Checked)
+            if (IsMouseDown)
             {
                 var sign = Math.Sign(e.X - MouseLastPos.X);
-                var delta = float.Parse(domainUpDown1.Text, NumberStyles.Any, culture);
+                var delta = float.Parse(domainUpDown1.Text, NumberStyles.Any);
                 ClipPlane.Shifting += sign * delta;
                 textBox1.Text = ClipPlane.Shifting.ToString("0.##");
                 MouseLastPos = e.Location;

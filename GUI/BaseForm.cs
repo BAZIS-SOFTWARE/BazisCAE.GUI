@@ -912,7 +912,12 @@ namespace BazisGUI
         {
             try
             {
-                project = await dataController.ImportMesh();
+                var res = await dataController.ImportMesh();
+
+                if (res == null)
+                    return;
+
+                project = res;
 
                 lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
 

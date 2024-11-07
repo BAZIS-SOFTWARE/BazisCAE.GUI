@@ -31,8 +31,8 @@ namespace BaseModule.Reflect
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.rbtXY = new System.Windows.Forms.RadioButton();
+            this.rbtZX = new System.Windows.Forms.RadioButton();
             this.label8 = new System.Windows.Forms.Label();
             this.sldA = new UserControlsEx.ColorSlider();
             this.sldB = new UserControlsEx.ColorSlider();
@@ -42,10 +42,10 @@ namespace BaseModule.Reflect
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.button1 = new System.Windows.Forms.Button();
+            this.rbtYZ = new System.Windows.Forms.RadioButton();
+            this.btnDelReflectedObjs = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.comboBox1 = new UserControlsEx.ComboBoxEx(this.components);
+            this.cmbSelector = new UserControlsEx.ComboBoxEx(this.components);
             this.label5 = new System.Windows.Forms.Label();
             this.btnCreateCopy = new System.Windows.Forms.Button();
             this.txudDeltaD = new System.Windows.Forms.DomainUpDown();
@@ -53,49 +53,49 @@ namespace BaseModule.Reflect
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // radioButton5
+            // rbtXY
             // 
-            this.radioButton5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButton5.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton5.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.radioButton5, 2);
-            this.radioButton5.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.radioButton5.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.radioButton5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.radioButton5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.radioButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radioButton5.Location = new System.Drawing.Point(3, 63);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(84, 24);
-            this.radioButton5.TabIndex = 2;
-            this.radioButton5.Tag = "0 0 1 0";
-            this.radioButton5.Text = "XY";
-            this.radioButton5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton5.UseVisualStyleBackColor = true;
-            this.radioButton5.Click += new System.EventHandler(this.OnChoicePlane);
-            this.radioButton5.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
+            this.rbtXY.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.rbtXY.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbtXY.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.rbtXY, 2);
+            this.rbtXY.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.rbtXY.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.rbtXY.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.rbtXY.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.rbtXY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbtXY.Location = new System.Drawing.Point(3, 63);
+            this.rbtXY.Name = "rbtXY";
+            this.rbtXY.Size = new System.Drawing.Size(84, 24);
+            this.rbtXY.TabIndex = 2;
+            this.rbtXY.Tag = "0 0 1 0";
+            this.rbtXY.Text = "XY";
+            this.rbtXY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbtXY.UseVisualStyleBackColor = true;
+            this.rbtXY.Click += new System.EventHandler(this.OnChoicePlane);
+            this.rbtXY.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             // 
-            // radioButton3
+            // rbtZX
             // 
-            this.radioButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButton3.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton3.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.radioButton3, 2);
-            this.radioButton3.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.radioButton3.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.radioButton3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.radioButton3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.radioButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radioButton3.Location = new System.Drawing.Point(3, 33);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(84, 24);
-            this.radioButton3.TabIndex = 1;
-            this.radioButton3.Tag = "0 1 0 0";
-            this.radioButton3.Text = "ZX";
-            this.radioButton3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton3.UseVisualStyleBackColor = true;
-            this.radioButton3.Click += new System.EventHandler(this.OnChoicePlane);
-            this.radioButton3.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
+            this.rbtZX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.rbtZX.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbtZX.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.rbtZX, 2);
+            this.rbtZX.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.rbtZX.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.rbtZX.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.rbtZX.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.rbtZX.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbtZX.Location = new System.Drawing.Point(3, 33);
+            this.rbtZX.Name = "rbtZX";
+            this.rbtZX.Size = new System.Drawing.Size(84, 24);
+            this.rbtZX.TabIndex = 1;
+            this.rbtZX.Tag = "0 1 0 0";
+            this.rbtZX.Text = "ZX";
+            this.rbtZX.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbtZX.UseVisualStyleBackColor = true;
+            this.rbtZX.Click += new System.EventHandler(this.OnChoicePlane);
+            this.rbtZX.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             // 
             // label8
             // 
@@ -238,43 +238,41 @@ namespace BaseModule.Reflect
             this.label1.Text = "A: 1";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // radioButton1
+            // rbtYZ
             // 
-            this.radioButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButton1.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.radioButton1, 2);
-            this.radioButton1.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.radioButton1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.radioButton1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.radioButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.radioButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radioButton1.Location = new System.Drawing.Point(3, 3);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(84, 24);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Tag = "1 0 0 0";
-            this.radioButton1.Text = "YZ";
-            this.radioButton1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.Click += new System.EventHandler(this.OnChoicePlane);
-            this.radioButton1.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
+            this.rbtYZ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.rbtYZ.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbtYZ.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.rbtYZ, 2);
+            this.rbtYZ.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.rbtYZ.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.rbtYZ.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.rbtYZ.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.rbtYZ.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbtYZ.Location = new System.Drawing.Point(3, 3);
+            this.rbtYZ.Name = "rbtYZ";
+            this.rbtYZ.Size = new System.Drawing.Size(84, 24);
+            this.rbtYZ.TabIndex = 0;
+            this.rbtYZ.Tag = "1 0 0 0";
+            this.rbtYZ.Text = "YZ";
+            this.rbtYZ.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbtYZ.UseVisualStyleBackColor = true;
+            this.rbtYZ.Click += new System.EventHandler(this.OnChoicePlane);
+            this.rbtYZ.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             // 
-            // button1
+            // btnDelReflectedObjs
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.button1, 2);
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Location = new System.Drawing.Point(2, 93);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 27);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Сброс";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.OnResetShifting);
+            this.btnDelReflectedObjs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.btnDelReflectedObjs, 2);
+            this.btnDelReflectedObjs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnDelReflectedObjs.Location = new System.Drawing.Point(2, 93);
+            this.btnDelReflectedObjs.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDelReflectedObjs.Name = "btnDelReflectedObjs";
+            this.btnDelReflectedObjs.Size = new System.Drawing.Size(86, 27);
+            this.btnDelReflectedObjs.TabIndex = 13;
+            this.btnDelReflectedObjs.Text = "Сброс";
+            this.btnDelReflectedObjs.UseVisualStyleBackColor = true;
+            this.btnDelReflectedObjs.Click += new System.EventHandler(this.OnResetShifting);
             // 
             // tableLayoutPanel1
             // 
@@ -284,8 +282,8 @@ namespace BaseModule.Reflect
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28F));
-            this.tableLayoutPanel1.Controls.Add(this.radioButton5, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.radioButton3, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.rbtXY, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.rbtZX, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.sldA, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.sldB, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.sldC, 3, 2);
@@ -294,9 +292,9 @@ namespace BaseModule.Reflect
             this.tableLayoutPanel1.Controls.Add(this.label3, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.label2, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.radioButton1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.comboBox1, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.rbtYZ, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnDelReflectedObjs, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.cmbSelector, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.btnCreateCopy, 4, 5);
             this.tableLayoutPanel1.Controls.Add(this.txudDeltaD, 4, 6);
@@ -317,20 +315,20 @@ namespace BaseModule.Reflect
             this.tableLayoutPanel1.Size = new System.Drawing.Size(250, 200);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // comboBox1
+            // cmbSelector
             // 
-            this.comboBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.tableLayoutPanel1.SetColumnSpan(this.comboBox1, 4);
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.InputType = UserControlsEx.CMBInputType.Items;
-            this.comboBox1.IsValidating = true;
-            this.comboBox1.Location = new System.Drawing.Point(3, 143);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(174, 21);
-            this.comboBox1.TabIndex = 14;
-            this.comboBox1.UserRegExCheck = null;
-            this.comboBox1.UserRegExCheckErrorMessage = null;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.cmbSelector.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tableLayoutPanel1.SetColumnSpan(this.cmbSelector, 4);
+            this.cmbSelector.FormattingEnabled = true;
+            this.cmbSelector.InputType = UserControlsEx.CMBInputType.Items;
+            this.cmbSelector.IsValidating = true;
+            this.cmbSelector.Location = new System.Drawing.Point(3, 143);
+            this.cmbSelector.Name = "cmbSelector";
+            this.cmbSelector.Size = new System.Drawing.Size(174, 21);
+            this.cmbSelector.TabIndex = 14;
+            this.cmbSelector.UserRegExCheck = null;
+            this.cmbSelector.UserRegExCheckErrorMessage = null;
+            this.cmbSelector.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -386,8 +384,8 @@ namespace BaseModule.Reflect
         }
 
         #endregion
-        private System.Windows.Forms.RadioButton radioButton5;
-        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton rbtXY;
+        private System.Windows.Forms.RadioButton rbtZX;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label8;
         private ColorSlider sldA;
@@ -398,9 +396,9 @@ namespace BaseModule.Reflect
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.Button button1;
-        private ComboBoxEx comboBox1;
+        private System.Windows.Forms.RadioButton rbtYZ;
+        private System.Windows.Forms.Button btnDelReflectedObjs;
+        private ComboBoxEx cmbSelector;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnCreateCopy;
         private System.Windows.Forms.DomainUpDown txudDeltaD;

@@ -444,8 +444,7 @@ namespace ModelModule
             if (nText.Contains("Контрольный узел"))
             {
                 var pointNumber = FindObjectNumber(e.Node);
-                ShowObjectsEvent?.Invoke(ObjType.Точка,new List<int>() { pointNumber });
-
+                ShowObjectsEvent?.Invoke(ObjType.Точка,new List<int>() { pointNumber });               
                 pointSettingsControl.BringToFront();
                 GetPointSizeEvent?.Invoke(pointSettingsControl, pointNumber);
             }

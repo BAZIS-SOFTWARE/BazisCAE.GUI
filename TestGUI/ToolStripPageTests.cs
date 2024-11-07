@@ -194,6 +194,15 @@ namespace TestGUI
             var crossForm = wd.FindElement(By.Name("btnClipPlane"));
             crossForm.Click();
 
+            wd.FindElement(By.Name("YZ")).Click();
+            wd.FindElement(By.Name("ZY")).Click();
+            wd.FindElement(By.Name("ZX")).Click();
+            wd.FindElement(By.Name("XZ")).Click();
+            wd.FindElement(By.Name("XY")).Click();
+            wd.FindElement(By.Name("YX")).Click();
+
+            wd.FindElement(By.Name("Сброс")).Click();
+
             Thread.Sleep(1000);
 
             //возврат фокуса на главную форму
@@ -230,6 +239,14 @@ namespace TestGUI
             modulW.Click();
             var crossForm = wd.FindElement(By.Name("btnReflect"));
             crossForm.Click();
+            wd.FindElement(By.Name("YZ")).Click();
+            wd.FindElement(By.Name("Задать")).Click();
+            wd.FindElement(By.Name("ZX")).Click();
+            wd.FindElement(By.Name("Задать")).Click();
+            wd.FindElement(By.Name("XY")).Click();
+            wd.FindElement(By.Name("Задать")).Click();
+
+            wd.FindElement(By.Name("Сброс")).Click();
 
             Thread.Sleep(1000);
 

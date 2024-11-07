@@ -249,8 +249,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 
                     var path = Path.GetDirectoryName(fileSettings);
 
-                    var tsfFileName = 
-                        $"{taskKind}_{dataGridView.CurentSelectedRowIndex}_{parameters.TimeSettings.StartTime}_{parameters.TimeSettings.StopTime}.tsf";
+                    var tsfFileName = Path.GetFileName(fileSettings);
+                    //$"{taskKind}_{dataGridView.CurentSelectedRowIndex + 1}_{parameters.TimeSettings.StartTime}_{parameters.TimeSettings.StopTime}.tsf";
 
                     SetParametersToFile(parameters, tsfFileName, path);
 

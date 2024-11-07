@@ -9,6 +9,7 @@ using ModelInterfaces;
 using ModelInterfaces.GeometryObjects;
 using ModelInterfaces.MeshObjects;
 using ProjectInterfaces;
+using Scene;
 using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -805,49 +806,55 @@ namespace BaseModule
 
         private void btnClipPlane_Click(object sender, EventArgs e)
         {
-            var btn = sender as ToolStripButton;
-
-            if(btn.Checked)
+            try
             {
-                var clip = new ClipControl();
-                var clipForm = new Form()
-                {
-                    Name = "clipPlaneForm",
-                    TopMost = true,
-                    ShowIcon = false,
-                    ClientSize = clip.Size,
-                    MaximizeBox = false,
-                    Text = "Сечение",
-                    Owner = Application.OpenForms[0]
-                };
-                clipForm.Controls.Add(clip);
-                clip.Dock = DockStyle.Fill;
-
+                var btn = sender as ToolStripButton;
                 var sceneControl = BasePage.ScenePage.SceneControl;
+                if (btn.Checked)
+                {
+                    var clip = new ClipControl() { Dock = DockStyle.Fill };
+                    var clipForm = new Form()
+                    {
+                        Name = "clipPlaneForm",
+                        TopMost = true,
+                        ShowIcon = false,
+                        ClientSize = clip.Size,
+                        MaximizeBox = false,
+                        Text = "Сечение",
+                        Owner = Application.OpenForms[0]
+                    };
 
-                clip.SetClipPlaneEvent += (plane) => sceneControl.ChangeClipPlane(plane);
-                clip.SwitchOnOff += (v) =>
-                { sceneControl.IsClipPlane = v; };
-                clip.RedrawClipPlane += () => sceneControl.DisplayObjects();
-                clipForm.FormClosing += (o, ev) =>
+                    sceneControl.IsClipPlane = true;
+                    clipForm.Controls.Add(clip);
+
+                    clip.SetClipPlaneEvent += (plane) => sceneControl.ChangeClipPlane(plane);
+
+                    clip.RedrawClipPlane += () => sceneControl.DisplayObjects();
+                    clipForm.FormClosing += (o, ev) =>
+                    {
+                        sceneControl.IsClipPlane = false;
+                        btn.Checked = false;
+                        sceneControl.DisplayObjects();
+                    };
+                    clipForm.Show();
+                    var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+                    clipForm.Location = location;
+                }
+                else
                 {
-                    sceneControl.IsClipPlane = false;
-                    btn.Checked = false;
-                    sceneControl.DisplayObjects();
-                };
-                clipForm.Show();
-            }
-            else
-            {
-                var forms = Application.OpenForms.Cast<Form>().ToList();
-                var form = forms.Find(x => x.Name == "clipPlaneForm");
-                if (form != null)
-                {
-                    form.Close();
-                    //btn.Checked = false;
+                    var forms = Application.OpenForms.Cast<Form>().ToList();
+                    var form = forms.Find(x => x.Name == "clipPlaneForm");
+                    if (form != null)
+                    {
+                        sceneControl.IsClipPlane = true;
+                        form.Close();
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
         private void btnReflect_Click(object sender, EventArgs e)
@@ -859,8 +866,11 @@ namespace BaseModule
                 if (btn.Checked)
                 {
                     var sceneControl = BasePage.ScenePage.SceneControl;
-                    var reflect = new ReflectControl();
-                    reflect.SetGlObjs(sceneControl.GetVBObjs().Select(x => x.ObjName));
+                    var reflect = new ReflectControl() { Dock = DockStyle.Fill };
+
+                    var objs = sceneControl.GetVBObjs();
+                    reflect.SetGlObjs(objs?.Select(x => x.ObjName));
+                    reflect.SelectedObjects(objs?.First().ObjName);
 
                     var reflectForm = new Form()
                     {
@@ -869,36 +879,30 @@ namespace BaseModule
                         ClientSize = reflect.Size,
                         Text = "Отражение",
                         Owner = Application.OpenForms[0],
-                        Name = "reflectForm"
+                        Name = "reflectForm",
                     };
                     reflectForm.Controls.Add(reflect);
-                    reflect.Dock = DockStyle.Fill;
 
                     reflect.ShowObjs += (ar) =>
                     {
+                        //TO DO Можно ли закрасить желтым цветом выбранный VBO?
                         sceneControl.DisplayObjects();
                     };
 
                     reflect.CreateReflectObj += (ar1, ar2) =>
                     {
-                        //var obj = sceneControl.FindVBObj(ar1);
-                        //var mat = Matrix<float>.Build.Dense(4, 4, obj.ModelMatrix);
-                        //mat = mat.Inverse();
-                        //var vec = Vector<float>.Build.Dense(ar2);
-                        //vec = vec.Normalize(2);
-                        //vec = mat.Multiply(vec);
-                        //vec = vec.Normalize(2);
-                        //vec[0] = vec[0].Round(2);
-                        //vec[1] = vec[1].Round(2);
-                        //vec[2] = vec[2].Round(2);
-                        sceneControl.DisplayReflectionPlane(ar1, ar2);
-
-
                         var copyObjs = sceneControl.GetVBObjs().Where(x => x.ObjName.Contains($"{ar1}_copy")).
                         Select(x => x.ObjName);
                         sceneControl.CreateReflectedVBObject(ar1, $"{ar1}_copy_{copyObjs.Count() + 1}", ar2);
                         reflect.SetGlObjs(copyObjs);
                         sceneControl.DisplayObjects();
+                    };
+
+                    reflect.DeleteReflectedObjs += () =>
+                    {
+                        var listVbo = sceneControl.GetVBObjs().Where(x => x.ObjName.Contains("copy")).ToList();
+                        foreach (var item in listVbo)
+                            sceneControl.DeleteVBObjects(item.ObjName);
                     };
 
                     reflect.UpdateReflectPlane += (s, p) =>
@@ -913,7 +917,7 @@ namespace BaseModule
                         //vec[0] = vec[0].Round(2);
                         //vec[1] = vec[1].Round(2);
                         //vec[2] = vec[2].Round(2);
-                        if(p.Sum() != 0)
+                        if(p.Sum() != 0) // костыль, потом уберем
                             sceneControl.DisplayReflectionPlane(s, p);
                         sceneControl.DisplayObjects();
                     };
@@ -929,6 +933,11 @@ namespace BaseModule
                         sceneControl.DisplayObjects();
                     };
                     reflectForm.Show();
+
+                    var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+                    reflectForm.Location = location;
+
+                    
                 }
                 else
                 {

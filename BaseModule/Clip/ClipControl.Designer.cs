@@ -35,7 +35,6 @@
             this.radioButton5 = new System.Windows.Forms.RadioButton();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
             this.label5 = new System.Windows.Forms.Label();
@@ -46,7 +45,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnReject = new System.Windows.Forms.Button();
             this.colorSlider1 = new UserControlsEx.ColorSlider();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -59,13 +58,13 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.5F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
+            this.tableLayoutPanel1.Controls.Add(this.domainUpDown1, 3, 4);
             this.tableLayoutPanel1.Controls.Add(this.colorSlider3, 3, 2);
             this.tableLayoutPanel1.Controls.Add(this.colorSlider2, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.radioButton6, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.radioButton5, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.radioButton4, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.radioButton3, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox1, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.textBox1, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.label4, 2, 3);
@@ -74,7 +73,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label1, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.radioButton1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.radioButton2, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.btnReject, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.colorSlider1, 3, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -132,7 +131,6 @@
             this.radioButton6.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton6.AutoSize = true;
             this.radioButton6.Checked = true;
-            this.radioButton6.Enabled = false;
             this.radioButton6.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.radioButton6.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.radioButton6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -155,7 +153,6 @@
             this.radioButton5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton5.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton5.AutoSize = true;
-            this.radioButton5.Enabled = false;
             this.radioButton5.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.radioButton5.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.radioButton5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -177,7 +174,6 @@
             this.radioButton4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton4.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton4.AutoSize = true;
-            this.radioButton4.Enabled = false;
             this.radioButton4.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.radioButton4.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.radioButton4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -199,7 +195,6 @@
             this.radioButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton3.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton3.AutoSize = true;
-            this.radioButton3.Enabled = false;
             this.radioButton3.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.radioButton3.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.radioButton3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -216,41 +211,28 @@
             this.radioButton3.Click += new System.EventHandler(this.OnChoicePlane);
             this.radioButton3.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.checkBox1.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.checkBox1, 2);
-            this.checkBox1.Location = new System.Drawing.Point(5, 129);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(75, 17);
-            this.checkBox1.TabIndex = 10;
-            this.checkBox1.Text = "Включить";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.Click += new System.EventHandler(this.OnEnableClipPlane);
-            // 
             // panel1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.panel1, 2);
-            this.panel1.Controls.Add(this.domainUpDown1);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(86, 124);
+            this.panel1.Location = new System.Drawing.Point(43, 124);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(164, 28);
+            this.panel1.Size = new System.Drawing.Size(93, 28);
             this.panel1.TabIndex = 12;
             // 
             // domainUpDown1
             // 
-            this.domainUpDown1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.domainUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.domainUpDown1.Items.Add("1");
             this.domainUpDown1.Items.Add("0.1");
             this.domainUpDown1.Items.Add("0.01");
             this.domainUpDown1.Items.Add("0.001");
-            this.domainUpDown1.Location = new System.Drawing.Point(102, 4);
+            this.domainUpDown1.Location = new System.Drawing.Point(141, 128);
+            this.domainUpDown1.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.domainUpDown1.Name = "domainUpDown1";
-            this.domainUpDown1.Size = new System.Drawing.Size(50, 20);
+            this.domainUpDown1.Size = new System.Drawing.Size(104, 20);
             this.domainUpDown1.TabIndex = 2;
             this.domainUpDown1.Text = "0.01";
             this.domainUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -338,7 +320,6 @@
             this.radioButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton1.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Enabled = false;
             this.radioButton1.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.radioButton1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.radioButton1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -360,7 +341,6 @@
             this.radioButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton2.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Enabled = false;
             this.radioButton2.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.radioButton2.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.radioButton2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -377,20 +357,19 @@
             this.radioButton2.Click += new System.EventHandler(this.OnChoicePlane);
             this.radioButton2.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             // 
-            // button1
+            // btnReject
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.button1, 2);
-            this.button1.Enabled = false;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Location = new System.Drawing.Point(0, 93);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 27);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Сброс";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.OnResetShifting);
+            this.btnReject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.btnReject, 2);
+            this.btnReject.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnReject.Location = new System.Drawing.Point(0, 93);
+            this.btnReject.Margin = new System.Windows.Forms.Padding(0);
+            this.btnReject.Name = "btnReject";
+            this.btnReject.Size = new System.Drawing.Size(86, 27);
+            this.btnReject.TabIndex = 13;
+            this.btnReject.Text = "Сброс";
+            this.btnReject.UseVisualStyleBackColor = true;
+            this.btnReject.Click += new System.EventHandler(this.OnResetShifting);
             // 
             // colorSlider1
             // 
@@ -433,7 +412,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Panel panel1;
@@ -444,7 +422,7 @@
         private System.Windows.Forms.RadioButton radioButton5;
         private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnReject;
         private UserControlsEx.ColorSlider colorSlider3;
         private UserControlsEx.ColorSlider colorSlider2;
         private UserControlsEx.ColorSlider colorSlider1;
