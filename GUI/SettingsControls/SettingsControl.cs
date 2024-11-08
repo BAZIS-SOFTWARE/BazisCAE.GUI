@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Drawing;
 using ModelInterfaces;
+using BaseModule;
+using Scene.Interfaces;
 
 namespace BazisGUI.SettingsControls
 {
@@ -52,6 +54,8 @@ namespace BazisGUI.SettingsControls
             pnlNodeColor.BackColor = settingsConfig.NodeColor;
             chbOrtoProjection.Checked = settingsConfig.Projection;
             clslTransparency.Value = settingsConfig.TransparencyValue;
+
+            chbOrtoProjection.Checked = settingsConfig.Projection;
         }
 
         private void btnSaveConfig_Click(object sender, EventArgs e)

@@ -537,6 +537,10 @@ namespace BazisGUI
             basePage.ScenePage.E2DColor = settingsConfig.Elem2DColor;
             basePage.ScenePage.E3DColor = settingsConfig.Elem3DColor;
 
+            basePage.ScenePage.SceneControl.Projection = settingsConfig.Projection
+                ? ViewProjection.Parallel : ViewProjection.Perspective;
+            basePage.ScenePage.SceneControl.UpdateProjection();
+
             var objs = project.ModelData.ObjectData.GetAllObjects();
 
             foreach (var obj in objs)

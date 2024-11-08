@@ -177,12 +177,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_23BDFECAED5DDC978E4012497C515539"
-        "OwnerKey" = "8:_2EA71C8279F8A84D7B7E3CB3127E0B8F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_24E0C50D98DE34D120840D1E21954074"
         "OwnerKey" = "8:_A90745B46D79469DAA2C57E3335DE1FD"
         "MsmSig" = "8:_UNDEFINED"
@@ -628,6 +622,12 @@
         "Entry"
         {
         "MsmKey" = "8:_754831650C9A45D4A1545AA49FA8C742"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_75D3250645884C5880EC7D3BC067C9C4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2071,7 +2071,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:BaseModule, Version=1.1.2.2, Culture=neutral, processorArchitecture=AMD64"
+            "AssemblyAsmDisplayName" = "8:BaseModule, Version=1.1.2.3, Culture=neutral, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
                     "_2EA71C8279F8A84D7B7E3CB3127E0B8F"
@@ -2707,6 +2707,26 @@
             "TargetName" = "8:proj.bpf"
             "Tag" = "8:"
             "Folder" = "8:_92DE95B294F94A57A8548DCBA46C17D2"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_75D3250645884C5880EC7D3BC067C9C4"
+            {
+            "SourcePath" = "8:C:\\BazisComponents\\ModelSolution\\GmshApi\\Инструкция по использованию сеточного генератора_v4.4.pdf"
+            "TargetName" = "8:Инструкция по использованию сеточного генератора_v4.4.pdf"
+            "Tag" = "8:"
+            "Folder" = "8:_4C63950A38B540BDB1A50D4F19B6BD2B"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4353,16 +4373,16 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:BazisPrePost4.4.455"
-        "ProductCode" = "8:{3EA57877-8A54-4210-99A4-FAAB4CDB45A5}"
-        "PackageCode" = "8:{600DA394-E295-4AD9-8D1D-EDBEC283704D}"
+        "ProductName" = "8:BazisPrePost4.4.462"
+        "ProductCode" = "8:{293F1733-9E37-4009-8656-AF813EEAF2E7}"
+        "PackageCode" = "8:{EE82E9A8-045E-4115-ADE3-F6DAEFC279CF}"
         "UpgradeCode" = "8:{B6CE3573-0A6F-4654-B604-218137EC41B2}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:4.4.455"
+        "ProductVersion" = "8:4.4.462"
         "Manufacturer" = "8:BazisSoftware"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://bazisnet.ru"
