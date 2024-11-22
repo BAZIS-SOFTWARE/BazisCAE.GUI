@@ -280,7 +280,7 @@ namespace BaseModule.Navigator
             }
             else
             {
-                if (e.Node.Tag.ToString() == "5.1")
+                if (e.Node.Tag?.ToString() == "5.1")
                     SelectGroupEvent?.Invoke(e.Node.Text);
             }
             treeView.SelectedNode = e.Node;
