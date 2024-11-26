@@ -1,8 +1,8 @@
 ﻿using BaseModule;
 using Geometry;
+using GmshApi;
 using Model.GeometryObjects;
 using ModelControllerInterfaces;
-using ModelControllerInterfaces.GmshController;
 using ModelInterfaces;
 using ModelModule.SettingsControls;
 using System;
@@ -87,14 +87,10 @@ namespace ModelModule
 
                 BasePage.ConsoleControl.PrintInfo($"Созданы {objType}", Color.Black);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
-            }
-
-           
-            
+                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }        
         }
 
         public void LoadGMSHMeshControl(IGmshController gmshController)
