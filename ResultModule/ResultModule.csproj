@@ -83,8 +83,8 @@
     <Reference Include="ProjectInterfaces, Version=3.1.68.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
       <HintPath>..\packages\ProjectInterfaces.3.1.68\lib\netstandard2.0\ProjectInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Scene, Version=2.0.8.50, Culture=neutral, PublicKeyToken=2e7150108cd20395, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.50\lib\net48\Scene.dll</HintPath>
+    <Reference Include="Scene, Version=2.0.8.52, Culture=neutral, PublicKeyToken=2e7150108cd20395, processorArchitecture=MSIL">
+      <HintPath>..\packages\Scene.2.0.8.52\lib\net48\Scene.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -107,10 +107,10 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Tao.OpenGl, Version=2.1.0.12, Culture=neutral, PublicKeyToken=1ca010269a4501ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.50\lib\net48\Tao.OpenGl.dll</HintPath>
+      <HintPath>..\packages\Scene.2.0.8.52\lib\net48\Tao.OpenGl.dll</HintPath>
     </Reference>
     <Reference Include="Tao.Platform.Windows, Version=1.0.0.5, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.50\lib\net48\Tao.Platform.Windows.dll</HintPath>
+      <HintPath>..\packages\Scene.2.0.8.52\lib\net48\Tao.Platform.Windows.dll</HintPath>
     </Reference>
     <Reference Include="TasksParameters, Version=1.0.1.13, Culture=neutral, PublicKeyToken=8bfe6827a0935d51, processorArchitecture=MSIL">
       <HintPath>..\packages\TasksParameters.1.0.1.13\lib\netstandard2.0\TasksParameters.dll</HintPath>
