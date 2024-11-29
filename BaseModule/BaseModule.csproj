@@ -64,6 +64,9 @@
     <Reference Include="Gif.Components">
       <HintPath>..\Libs\Gif.Components.dll</HintPath>
     </Reference>
+    <Reference Include="GmshApi, Version=3.0.4.7, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
+      <HintPath>..\packages\GmshApi.3.0.4.7\lib\netstandard2.0\GmshApi.dll</HintPath>
+    </Reference>
     <Reference Include="Graph">
       <HintPath>..\Libs\Graph.dll</HintPath>
     </Reference>
@@ -152,6 +155,50 @@
     </Compile>
     <Compile Include="Console\FindObjectEventArgs.cs" />
     <Compile Include="Interfaces\IPinnedControl.cs" />
+    <Compile Include="Mesh\CurveAttribsEventArgs.cs" />
+    <Compile Include="Mesh\DeleteElementEventArgs.cs" />
+    <Compile Include="Mesh\GMSH2DMeshControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Mesh\GMSH2DMeshControl.Designer.cs">
+      <DependentUpon>GMSH2DMeshControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mesh\GMSHGeneralMeshControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Mesh\GMSHGeneralMeshControl.Designer.cs">
+      <DependentUpon>GMSHGeneralMeshControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mesh\MeshGradientSettingsEventArgs.cs" />
+    <Compile Include="Mesh\ModelPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Mesh\ModelPage.Designer.cs">
+      <DependentUpon>ModelPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mesh\PointSizesEventArgs.cs" />
+    <Compile Include="Mesh\SettingsControls\GMSHCurveSettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Mesh\SettingsControls\GMSHCurveSettingsControl.Designer.cs">
+      <DependentUpon>GMSHCurveSettingsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mesh\SettingsControls\GMSHPointSettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Mesh\SettingsControls\GMSHPointSettingsControl.Designer.cs">
+      <DependentUpon>GMSHPointSettingsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mesh\SettingsControls\GMSHVolSettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Mesh\SettingsControls\GMSHVolSettingsControl.Designer.cs">
+      <DependentUpon>GMSHVolSettingsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mesh\Show3dTextEventArgs.cs" />
+    <Compile Include="Mesh\ShowHeatMapEventArg.cs" />
+    <Compile Include="Mesh\ShowTransPointsEventArgs.cs" />
+    <Compile Include="Mesh\TreeNodeEqualityComparer.cs" />
     <Compile Include="Player\PlayerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -472,6 +519,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Console\ConsoleControl.resx">
       <DependentUpon>ConsoleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mesh\GMSH2DMeshControl.resx">
+      <DependentUpon>GMSH2DMeshControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mesh\GMSHGeneralMeshControl.resx">
+      <DependentUpon>GMSHGeneralMeshControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mesh\ModelPage.resx">
+      <DependentUpon>ModelPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mesh\SettingsControls\GMSHCurveSettingsControl.resx">
+      <DependentUpon>GMSHCurveSettingsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mesh\SettingsControls\GMSHPointSettingsControl.resx">
+      <DependentUpon>GMSHPointSettingsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mesh\SettingsControls\GMSHVolSettingsControl.resx">
+      <DependentUpon>GMSHVolSettingsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Player\PlayerControl.resx">
       <DependentUpon>PlayerControl.cs</DependentUpon>
