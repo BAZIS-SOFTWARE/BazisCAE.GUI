@@ -320,14 +320,6 @@
       <Project>{986f99d5-cc42-41f8-a5d4-97de97d7ea64}</Project>
       <Name>ModelModule</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ResultModule\ResultModule.csproj">
-      <Project>{80d9e902-d51f-4a78-828c-987ab7f0a578}</Project>
-      <Name>ResultModule</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TaskModule\TaskModule.csproj">
-      <Project>{11954439-9966-4648-a776-7ce642fe21f3}</Project>
-      <Name>TaskModule</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

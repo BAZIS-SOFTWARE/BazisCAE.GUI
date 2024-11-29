@@ -33,6 +33,9 @@ namespace BaseModule
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolStripPage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.splitContainerEx = new UserControlsEx.SplitContainerEx();
+            this.basePage = new BaseModule.BasePage();
+            this.pinnedWeldingAdvisorControl = new TaskModule.BasicTaskAdvisor.PinnedWeldingAdvisorControl();
+            this.pinnedAnimationControl = new BaseModule.Results.Animation.PinnedAnimationControl();
             this.selectToolStrip = new UserControlsEx.ToolStripEx();
             this.spbSelectObject = new System.Windows.Forms.ToolStripSplitButton();
             this.btnSelectNodes = new System.Windows.Forms.ToolStripButton();
@@ -64,12 +67,12 @@ namespace BaseModule
             this.btnSetRotHor90 = new System.Windows.Forms.ToolStripButton();
             this.btnSetRotVer90 = new System.Windows.Forms.ToolStripButton();
             this.btnFitObjs = new System.Windows.Forms.ToolStripButton();
-            this.basePage = new BaseModule.BasePage();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).BeginInit();
             this.splitContainerEx.Panel1.SuspendLayout();
+            this.splitContainerEx.Panel2.SuspendLayout();
             this.splitContainerEx.SuspendLayout();
             this.selectToolStrip.SuspendLayout();
             this.instrumentalToolStrip.SuspendLayout();
@@ -83,11 +86,11 @@ namespace BaseModule
             // toolStripContainer.ContentPanel
             // 
             this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainerEx);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(2162, 1150);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(977, 556);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(5, 5);
             this.toolStripContainer.Name = "toolStripContainer";
-            this.toolStripContainer.Size = new System.Drawing.Size(2162, 1206);
+            this.toolStripContainer.Size = new System.Drawing.Size(977, 612);
             this.toolStripContainer.TabIndex = 0;
             this.toolStripContainer.Text = "toolStripContainer1";
             // 
@@ -111,11 +114,68 @@ namespace BaseModule
             // splitContainerEx.Panel1
             // 
             this.splitContainerEx.Panel1.Controls.Add(this.basePage);
-            this.splitContainerEx.Panel2Collapsed = true;
-            this.splitContainerEx.Size = new System.Drawing.Size(2162, 1150);
-            this.splitContainerEx.SplitterDistance = 662;
+            // 
+            // splitContainerEx.Panel2
+            // 
+            this.splitContainerEx.Panel2.Controls.Add(this.pinnedWeldingAdvisorControl);
+            this.splitContainerEx.Panel2.Controls.Add(this.pinnedAnimationControl);
+            this.splitContainerEx.Panel2.Padding = new System.Windows.Forms.Padding(0, 5, 5, 0);
+            this.splitContainerEx.Size = new System.Drawing.Size(977, 556);
+            this.splitContainerEx.SplitterDistance = 695;
             this.splitContainerEx.SwitchShifting = false;
             this.splitContainerEx.TabIndex = 1;
+            // 
+            // basePage
+            // 
+            this.basePage.BackColor = System.Drawing.SystemColors.Control;
+            this.basePage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.basePage.Location = new System.Drawing.Point(0, 0);
+            this.basePage.Margin = new System.Windows.Forms.Padding(0);
+            this.basePage.Name = "basePage";
+            this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.basePage.PressedKey = System.Windows.Forms.Keys.None;
+            this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
+            this.basePage.Size = new System.Drawing.Size(695, 556);
+            this.basePage.SplitterWidthEx = 10;
+            this.basePage.TabIndex = 0;
+            this.basePage.DeleteGroupEvent += new System.Action(this.basePage_DeleteGroupEvent);
+            this.basePage.DeleteAllGroupsEvent += new System.Action(this.basePage_DeleteAllGroupsEvent);
+            this.basePage.DeleteObjectsEvent += new System.Action(this.basePage_DeleteObjectsEvent);
+            this.basePage.DeleteSelectedObjectsEvent += new System.Action(this.basePage_DeleteSelectedObjectsEvent);
+            this.basePage.CreatedMeshGroupEvent += new System.Action(this.basePage_CreatedMeshGroupEvent);
+            this.basePage.ChangedGroupNameEvent += new System.Action(this.basePage_ChangedGroupNameEvent);
+            // 
+            // pinnedWeldingAdvisorControl
+            // 
+            this.pinnedWeldingAdvisorControl.BackColor = System.Drawing.Color.Gainsboro;
+            this.pinnedWeldingAdvisorControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pinnedWeldingAdvisorControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pinnedWeldingAdvisorControl.DownColor = System.Drawing.Color.Gainsboro;
+            this.pinnedWeldingAdvisorControl.HeaderName = "Постановщик задачи";
+            this.pinnedWeldingAdvisorControl.Location = new System.Drawing.Point(0, 5);
+            this.pinnedWeldingAdvisorControl.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.pinnedWeldingAdvisorControl.Name = "pinnedWeldingAdvisorControl";
+            this.pinnedWeldingAdvisorControl.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.pinnedWeldingAdvisorControl.Size = new System.Drawing.Size(273, 551);
+            this.pinnedWeldingAdvisorControl.TabIndex = 1;
+            this.pinnedWeldingAdvisorControl.UpColor = System.Drawing.Color.Gainsboro;
+            this.pinnedWeldingAdvisorControl.ControlCollapseEvent += new System.Action(this.pinnedControl_ControlCollapseEvent);
+            // 
+            // pinnedAnimationControl
+            // 
+            this.pinnedAnimationControl.BackColor = System.Drawing.Color.Gainsboro;
+            this.pinnedAnimationControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pinnedAnimationControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pinnedAnimationControl.DownColor = System.Drawing.Color.Gainsboro;
+            this.pinnedAnimationControl.HeaderName = "Построить поле";
+            this.pinnedAnimationControl.Location = new System.Drawing.Point(0, 5);
+            this.pinnedAnimationControl.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.pinnedAnimationControl.Name = "pinnedAnimationControl";
+            this.pinnedAnimationControl.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.pinnedAnimationControl.Size = new System.Drawing.Size(273, 551);
+            this.pinnedAnimationControl.TabIndex = 0;
+            this.pinnedAnimationControl.UpColor = System.Drawing.Color.Gainsboro;
+            this.pinnedAnimationControl.ControlCollapseEvent += new System.Action(this.pinnedControl_ControlCollapseEvent);
             // 
             // selectToolStrip
             // 
@@ -519,7 +579,7 @@ namespace BaseModule
             this.viewToolStrip.Location = new System.Drawing.Point(777, 0);
             this.viewToolStrip.Name = "viewToolStrip";
             this.viewToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.viewToolStrip.Size = new System.Drawing.Size(328, 56);
+            this.viewToolStrip.Size = new System.Drawing.Size(200, 56);
             this.viewToolStrip.SplitButtonClickWidth = 16;
             this.viewToolStrip.SplitButtonHeight = 34;
             this.viewToolStrip.SplitButtonTriangleSize = 6;
@@ -661,26 +721,6 @@ namespace BaseModule
             this.btnFitObjs.Text = "toolStripButton13";
             this.btnFitObjs.ToolTipText = "Вписать в экран";
             // 
-            // basePage
-            // 
-            this.basePage.BackColor = System.Drawing.SystemColors.Control;
-            this.basePage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.basePage.Location = new System.Drawing.Point(0, 0);
-            this.basePage.Margin = new System.Windows.Forms.Padding(0);
-            this.basePage.Name = "basePage";
-            this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
-            this.basePage.PressedKey = System.Windows.Forms.Keys.None;
-            this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
-            this.basePage.Size = new System.Drawing.Size(2162, 1150);
-            this.basePage.SplitterWidthEx = 10;
-            this.basePage.TabIndex = 0;
-            this.basePage.DeleteGroupEvent += new System.Action(this.basePage_DeleteGroupEvent);
-            this.basePage.DeleteAllGroupsEvent += new System.Action(this.basePage_DeleteAllGroupsEvent);
-            this.basePage.DeleteObjectsEvent += new System.Action(this.basePage_DeleteObjectsEvent);
-            this.basePage.DeleteSelectedObjectsEvent += new System.Action(this.basePage_DeleteSelectedObjectsEvent);
-            this.basePage.CreatedMeshGroupEvent += new System.Action(this.basePage_CreatedMeshGroupEvent);
-            this.basePage.ChangedGroupNameEvent += new System.Action(this.basePage_ChangedGroupNameEvent);
-            // 
             // ToolStripPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -688,13 +728,14 @@ namespace BaseModule
             this.Controls.Add(this.toolStripContainer);
             this.Name = "ToolStripPage";
             this.Padding = new System.Windows.Forms.Padding(5);
-            this.Size = new System.Drawing.Size(2172, 1216);
+            this.Size = new System.Drawing.Size(987, 622);
             this.toolStripContainer.ContentPanel.ResumeLayout(false);
             this.toolStripContainer.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer.TopToolStripPanel.PerformLayout();
             this.toolStripContainer.ResumeLayout(false);
             this.toolStripContainer.PerformLayout();
             this.splitContainerEx.Panel1.ResumeLayout(false);
+            this.splitContainerEx.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).EndInit();
             this.splitContainerEx.ResumeLayout(false);
             this.selectToolStrip.ResumeLayout(false);
@@ -745,6 +786,8 @@ namespace BaseModule
         public UserControlsEx.SplitContainerEx splitContainerEx;
         private System.Windows.Forms.ToolStripButton btnReflect;
         private System.Windows.Forms.ToolStripButton btnClipPlane;
+        private Results.Animation.PinnedAnimationControl pinnedAnimationControl;
+        private TaskModule.BasicTaskAdvisor.PinnedWeldingAdvisorControl pinnedWeldingAdvisorControl;
         //private BasePage basePage;
     }
 }

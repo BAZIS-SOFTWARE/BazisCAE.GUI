@@ -1,10 +1,8 @@
 ﻿
 using BaseModule;
-using TaskModule.HeatTreatmentModule;
 using ModelModule;
 using Newtonsoft.Json;
 using Project;
-using ResultModule;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,8 +13,6 @@ using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using TaskModule;
-using TaskModule.WeldingModule;
 using ClientLogic;
 using LicenseInfo;
 using ClientGUI;
@@ -29,18 +25,14 @@ using MathNet.Numerics.LinearAlgebra;
 using ProjectInterfaces.Tasks;
 using UserControlsEx;
 using BazisGUI.Properties;
-using System.Xml.Linq;
 using ModelInterfaces;
-using Results.ResultsData;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using BaseModule.Utilities;
-using ResultModule.Animation;
-using ModelController;
 using Scene.Interfaces;
-using Scene;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using BaseModule.Tasks.WeldingModule;
+using TaskModule.HeatTreatmentModule;
+using BaseModule.Tasks;
+using BaseModule.Results;
+using BaseModule.Results.Animation;
 
 namespace BazisGUI
 {
@@ -236,7 +228,7 @@ namespace BazisGUI
             else
                 project.ResultData.Loader = new LoadResultsFileBrfTextFormat();
 
-            var resultModule = sender as ResultPage;
+            var resultModule = sender as ResultsPage;
 
             Enabled = false;
             if (!addRes)
@@ -416,7 +408,7 @@ namespace BazisGUI
             else if (moduleName == "Result")
             {
                 resultsMenuItem.Visible = true;
-                var resPage = new ResultPage() { Dock = DockStyle.Fill, Name = moduleName};
+                var resPage = new ResultsPage() { Dock = DockStyle.Fill, Name = moduleName};
                 resPage.SetResultsController(resultsController);
                 resPage.SetResultData(project.ResultData);
                 resPage.LoadResultsEvent += ResultModule_LoadResultsEvent;
@@ -1107,19 +1099,19 @@ namespace BazisGUI
 
         private void addResultsMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultPage)ModulePage;
+            var module = (ResultsPage)ModulePage;
             module.ShowOpenResultsFileDialog(true);
         }
 
         private void loadResultsMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultPage)ModulePage;
+            var module = (ResultsPage)ModulePage;
             module.ShowOpenResultsFileDialog(false);
         }
 
         private void showValueMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultPage)ModulePage;
+            var module = (ResultsPage)ModulePage;
 
             if (showValueMenuItem.Checked)
                 module.IsResultsValueShowen = true;
@@ -1133,7 +1125,7 @@ namespace BazisGUI
 
         private void createFieldMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultPage)ModulePage;
+            var module = (ResultsPage)ModulePage;
 
             if (module.splitContainerEx.Panel2.Controls.Find("PinnedAnimationControl", false).Count() == 0)
                 module.ShowAnimation();
@@ -1141,19 +1133,19 @@ namespace BazisGUI
 
         private void createPlotMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultPage)ModulePage;
+            var module = (ResultsPage)ModulePage;
             module.CreateGraph();
         }
 
         private void scaleSettingsMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultPage)ModulePage;
+            var module = (ResultsPage)ModulePage;
             module.ShowScalePage();
         }
 
         private void exportResultsMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultPage)ModulePage;
+            var module = (ResultsPage)ModulePage;
             module.ShowExportResultsPage();
         }
 

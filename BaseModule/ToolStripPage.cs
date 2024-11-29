@@ -8,11 +8,13 @@ using ModelControllerInterfaces;
 using ModelInterfaces;
 using ModelInterfaces.GeometryObjects;
 using ModelInterfaces.MeshObjects;
+using Newtonsoft.Json.Linq;
 using ProjectInterfaces;
 using Scene;
 using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -28,6 +30,14 @@ namespace BaseModule
         public event Action DeleteGroupEvent;
         public event Action DeleteObjectsEvent;
         public event Action DeleteSelectedObjectsEvent;
+
+        public ControlCollection EmbeddedControls
+        {
+            get
+            {
+                return splitContainerEx.Panel2.Controls;
+            }
+        }
 
         IModelController ModelController 
         { 
@@ -954,6 +964,11 @@ namespace BaseModule
             {
                 BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        private void pinnedControl_ControlCollapseEvent()
+        {
+            splitContainerEx.Panel2Collapsed = true;
         }
     }  
 }

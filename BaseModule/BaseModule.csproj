@@ -52,8 +52,20 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataBaseController">
+      <HintPath>..\Libs\DataBaseController.dll</HintPath>
+    </Reference>
+    <Reference Include="DataBasesGUI">
+      <HintPath>..\Libs\DataBasesGUI.dll</HintPath>
+    </Reference>
     <Reference Include="Geometry, Version=2.0.8.4, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
       <HintPath>..\packages\Geometry.2.0.8.4\lib\netstandard2.0\Geometry.dll</HintPath>
+    </Reference>
+    <Reference Include="Gif.Components">
+      <HintPath>..\Libs\Gif.Components.dll</HintPath>
+    </Reference>
+    <Reference Include="Graph">
+      <HintPath>..\Libs\Graph.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
@@ -166,6 +178,57 @@
     <Compile Include="Reflect\ReflectControl.Designer.cs">
       <DependentUpon>ReflectControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Results\Animation\AnimationPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Results\Animation\AnimationPage.Designer.cs">
+      <DependentUpon>AnimationPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Results\Animation\CreateAnimationEventArgs.cs" />
+    <Compile Include="Results\Animation\PinnedAnimationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Results\Animation\PinnedAnimationControl.Designer.cs">
+      <DependentUpon>PinnedAnimationControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Results\Animation\ShowResultEventArgs.cs" />
+    <Compile Include="Results\Export\CopyResultDBEventArgs.cs" />
+    <Compile Include="Results\Export\ExportControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Results\Export\ExportControl.Designer.cs">
+      <DependentUpon>ExportControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Results\Export\ExportResultEventArgs.cs" />
+    <Compile Include="Results\GraphCreation\CreatePathGraphEventArgs.cs" />
+    <Compile Include="Results\GraphCreation\CreateTimeGraphArgs.cs" />
+    <Compile Include="Results\GraphCreation\GraphCreationPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Results\GraphCreation\GraphCreationPage.Designer.cs">
+      <DependentUpon>GraphCreationPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Results\ResultsPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Results\ResultsPage.Designer.cs">
+      <DependentUpon>ResultsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Results\ResultsPage_v1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Results\ResultsPage_v1.Designer.cs">
+      <DependentUpon>ResultsPage_v1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Results\ScaleControl\IScale.cs" />
+    <Compile Include="Results\ScaleControl\ScaleEventArgs.cs" />
+    <Compile Include="Results\ScaleControl\ScalePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Results\ScaleControl\ScalePage.Designer.cs">
+      <DependentUpon>ScalePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Results\ShowResultEventArgs.cs" />
     <Compile Include="ScenePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -185,6 +248,207 @@
     </Compile>
     <Compile Include="SelectionSet\AdvanceSelectionSet.Designer.cs">
       <DependentUpon>AdvanceSelectionSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\ClampControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\ClampControl.Designer.cs">
+      <DependentUpon>ClampControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\Events\AddDataEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Events\ChangeDataEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Events\ChangeTaskTypeEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Events\CheckDataEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Events\DeleteAllDataEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Events\DeleteDataEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Events\HideDataEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Events\RefreshDataEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Events\ShowDataEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\AddDataEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\ChangeDataEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\CheckDataEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\DeleteAllDataEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\DeleteDataEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\HideDataEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IBoundaryControl.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\ICheckGridViewControl.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IDataNamedControl.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IDGVControl.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IElmentsGroupsControl.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IFunctionsRelatedControl.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IGridViewControl.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\ILoadControl.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IMaterialsRelatedControl.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\INodesGroupControl.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\RefreshDataEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\ShowDataEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\LoadControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\LoadControl.designer.cs">
+      <DependentUpon>LoadControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\MaterialsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\MaterialsControl.designer.cs">
+      <DependentUpon>MaterialsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\ChemTaskControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\ChemTaskControl.Designer.cs">
+      <DependentUpon>ChemTaskControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\FileSettingsIO.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\GenerateTCFEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\GenerateTSFEventArgs.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\HeatTaskControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\HeatTaskControl.Designer.cs">
+      <DependentUpon>HeatTaskControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\HeatTaskControl_v2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\HeatTaskControl_v2.Designer.cs">
+      <DependentUpon>HeatTaskControl_v2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\InfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\InfoForm.Designer.cs">
+      <DependentUpon>InfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\ITaskControl.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\MechTaskControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\MechTaskControl.Designer.cs">
+      <DependentUpon>MechTaskControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\MechTaskControl_v2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\MechTaskControl_v2.Designer.cs">
+      <DependentUpon>MechTaskControl_v2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskControl.Designer.cs">
+      <DependentUpon>TaskControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl_v2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl_v2.Designer.cs">
+      <DependentUpon>TaskPlannerControl_v2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskTypeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskTypeControl.Designer.cs">
+      <DependentUpon>TaskTypeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\PinnedWeldingAdvisorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\PinnedWeldingAdvisorControl.Designer.cs">
+      <DependentUpon>PinnedWeldingAdvisorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\BasicTaskAdvisor\TaskAdvisor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\BasicTaskAdvisor\TaskAdvisor.Designer.cs">
+      <DependentUpon>TaskAdvisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\HeatTreatmentModule\ChemicalTreatmentAdvisor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\HeatTreatmentModule\ChemicalTreatmentAdvisor.Designer.cs">
+      <DependentUpon>ChemicalTreatmentAdvisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\HeatTreatmentModule\DiffusionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\HeatTreatmentModule\DiffusionControl.Designer.cs">
+      <DependentUpon>DiffusionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\HeatTreatmentModule\DoubleIncomestandardizer.cs" />
+    <Compile Include="Tasks\HeatTreatmentModule\HeatControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\HeatTreatmentModule\HeatControl.Designer.cs">
+      <DependentUpon>HeatControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\HeatTreatmentModule\HeatTreatmentAdvisor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\HeatTreatmentModule\HeatTreatmentAdvisor.Designer.cs">
+      <DependentUpon>HeatTreatmentAdvisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\HeatTreatmentModule\HeatTreatmentPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\HeatTreatmentModule\HeatTreatmentPage.Designer.cs">
+      <DependentUpon>HeatTreatmentPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\TaskPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\TaskPage.Designer.cs">
+      <DependentUpon>TaskPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingAdvisor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingAdvisor.Designer.cs">
+      <DependentUpon>WeldingAdvisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingPage.Designer.cs">
+      <DependentUpon>WeldingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl.designer.cs">
+      <DependentUpon>ArcWeldingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\FSWeldingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\FSWeldingControl.designer.cs">
+      <DependentUpon>FSWeldingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\LWeldingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\LWeldingControl.Designer.cs">
+      <DependentUpon>LWeldingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\WeldContainerCntrEventArgs.cs" />
+    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\WeldContainerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\WeldContainerControl.Designer.cs">
+      <DependentUpon>WeldContainerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\WeldingHeatingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\WeldingHeatingControl.Designer.cs">
+      <DependentUpon>WeldingHeatingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\WeldingMediaControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\WeldingMediaControl.designer.cs">
+      <DependentUpon>WeldingMediaControl.cs</DependentUpon>
     </Compile>
     <Compile Include="ToolStripPage.cs">
       <SubType>UserControl</SubType>
@@ -235,11 +499,116 @@
     <EmbeddedResource Include="Reflect\ReflectControl.resx">
       <DependentUpon>ReflectControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Results\Animation\AnimationPage.resx">
+      <DependentUpon>AnimationPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Results\Animation\PinnedAnimationControl.resx">
+      <DependentUpon>PinnedAnimationControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Results\Export\ExportControl.resx">
+      <DependentUpon>ExportControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Results\GraphCreation\GraphCreationPage.resx">
+      <DependentUpon>GraphCreationPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Results\ResultsPage.resx">
+      <DependentUpon>ResultsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Results\ResultsPage_v1.resx">
+      <DependentUpon>ResultsPage_v1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Results\ScaleControl\ScalePage.resx">
+      <DependentUpon>ScalePage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ScenePage.resx">
       <DependentUpon>ScenePage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SelectionSet\AdvanceSelectionSet.resx">
       <DependentUpon>AdvanceSelectionSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\BasicAdvisorControls\ClampControl.resx">
+      <DependentUpon>ClampControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\BasicAdvisorControls\LoadControl.resx">
+      <DependentUpon>LoadControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\BasicAdvisorControls\MaterialsControl.resx">
+      <DependentUpon>MaterialsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\ChemTaskControl.resx">
+      <DependentUpon>ChemTaskControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\HeatTaskControl.resx">
+      <DependentUpon>HeatTaskControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\HeatTaskControl_v2.resx">
+      <DependentUpon>HeatTaskControl_v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\InfoForm.resx">
+      <DependentUpon>InfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\MechTaskControl.resx">
+      <DependentUpon>MechTaskControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\MechTaskControl_v2.resx">
+      <DependentUpon>MechTaskControl_v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskControl.resx">
+      <DependentUpon>TaskControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl_v2.resx">
+      <DependentUpon>TaskPlannerControl_v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskTypeControl.resx">
+      <DependentUpon>TaskTypeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\WeldingModule\PinnedWeldingAdvisorControl.resx">
+      <DependentUpon>PinnedWeldingAdvisorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\BasicTaskAdvisor\TaskAdvisor.resx">
+      <DependentUpon>TaskAdvisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\HeatTreatmentModule\ChemicalTreatmentAdvisor.resx">
+      <DependentUpon>ChemicalTreatmentAdvisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\HeatTreatmentModule\DiffusionControl.resx">
+      <DependentUpon>DiffusionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\HeatTreatmentModule\HeatControl.resx">
+      <DependentUpon>HeatControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\HeatTreatmentModule\HeatTreatmentAdvisor.resx">
+      <DependentUpon>HeatTreatmentAdvisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\HeatTreatmentModule\HeatTreatmentPage.resx">
+      <DependentUpon>HeatTreatmentPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\TaskPage.resx">
+      <DependentUpon>TaskPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\WeldingModule\WeldingAdvisor.resx">
+      <DependentUpon>WeldingAdvisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\WeldingModule\WeldingPage.resx">
+      <DependentUpon>WeldingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl.resx">
+      <DependentUpon>ArcWeldingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\FSWeldingControl.resx">
+      <DependentUpon>FSWeldingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\LWeldingControl.resx">
+      <DependentUpon>LWeldingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\WeldContainerControl.resx">
+      <DependentUpon>WeldContainerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\WeldingHeatingControl.resx">
+      <DependentUpon>WeldingHeatingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\WeldingMediaControl.resx">
+      <DependentUpon>WeldingMediaControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ToolStripPage.resx">
       <DependentUpon>ToolStripPage.cs</DependentUpon>
@@ -257,6 +626,9 @@
     <None Include="Resources\save.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Tasks\BasicAdvisorControls\Resources\Icons.zip" />
+    <None Include="Tasks\Materials\materials_v3.jsf" />
+    <None Include="Tasks\WeldingModule\packages.config" />
     <None Include="TreeViewPic\switchOn_nodes_16x16.png" />
     <None Include="TreeViewPic\switchOn_elems_16x16.png" />
   </ItemGroup>
@@ -274,8 +646,68 @@
     <None Include="Resources\Measure_32x32.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Tasks\Arc_new.png" />
+    <None Include="Resources\Tasks\ComputationFolder.png" />
+    <None Include="Resources\Tasks\FSW_new.jpg" />
+    <None Include="Resources\Tasks\HideAll.png" />
+    <None Include="Resources\Tasks\LW.png" />
+    <None Include="Resources\Tasks\Refresh.png" />
+    <None Include="Resources\Tasks\ShowAll.png" />
+    <None Include="Resources\Tasks\Материалы.bmp" />
+    <None Include="Resources\Tasks\Функции.bmp" />
+    <None Include="Resources\Tasks\Add.ico" />
+    <None Include="Resources\Tasks\delete.ico" />
+    <None Include="Resources\Tasks\HT.ico" />
+    <None Include="Resources\Tasks\Pause.ico" />
+    <None Include="Resources\Tasks\StartCheck.ico" />
+    <None Include="Resources\Tasks\Stop.ico" />
+    <None Include="Resources\Tasks\Welding.ico" />
+    <None Include="Resources\Tasks\Материалы.ico" />
+    <None Include="Resources\Tasks\Функции.ico" />
     <Content Include="Tao.OpenGl.dll" />
     <Content Include="Tao.Platform.Windows.dll" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\Add.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\AddAsDraft.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\AddDraft.png" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\AddDraft_1.png" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\AddDraft_2.png" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\Arc_new.png" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\AxiSymTask.png" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\Console.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\create.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\decrValue.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\delete.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\FSW_new.jpg" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\HideAll.png" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\incrValue.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\LW.png" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\MoveDown.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\MoveNext.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\MovePrev.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\MoveUp.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\open.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\Pause.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\PlainTask.png" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\Refresh_6.png" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\ReverseDirection.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\save.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\ShowAll.png" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\ShowAllClamp.bmp" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\StartCheck.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\StartComputation.bmp" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\Stop.ico" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\StopComputation.bmp" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\VolTask.png" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\Консоль.bmp" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\Настройки сцены.bmp" />
+    <Content Include="Tasks\BasicAdvisorControls\Resources\Справка.bmp" />
+    <Content Include="Tasks\Functions\functions.txt" />
+    <Content Include="Tasks\Functions\functions_draft.txt" />
+    <Content Include="Tasks\Functions\functions_save.txt" />
+    <Content Include="Tasks\HeatTreatmentModule\HT.ico" />
+    <Content Include="Tasks\HeatTreatmentModule\Icon.bmp" />
+    <Content Include="Tasks\Materials\materials_draft.txt" />
+    <Content Include="Tasks\WeldingModule\Icon.bmp" />
     <None Include="Resources\PlayerControlIcons\Pause.ico" />
     <None Include="Resources\PlayerControlIcons\StartCheck.ico" />
     <None Include="Resources\PlayerControlIcons\Stop.ico" />
