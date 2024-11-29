@@ -62,6 +62,8 @@ namespace BaseModule.Results
 
         public ResultsPage()
         {
+            EmbeddedControls.Find("pinnedAnimationControl", false)[0].BringToFront();
+
             InitializeComponent();
 
             var navigator = BasePage.NavigatorControl;
@@ -188,15 +190,16 @@ namespace BaseModule.Results
 
         public void ShowAnimation()
         {
-            var anPage = new PinnedAnimationControl() { Dock = DockStyle.Fill, BorderStyle = BorderStyle.FixedSingle };
+            
+            var anPage = (PinnedAnimationControl)EmbeddedControls.Find("pinnedAnimationControl", false)[0];
 
             splitContainerEx.SplitterDistance = splitContainerEx.Panel1.Width - anPage.Width;
 
-            anPage.ControlCollapseEvent += () =>
-            {
-                splitContainerEx.Panel2Collapsed = true;
-                splitContainerEx.Panel2.Controls.Clear();
-            };
+            //anPage.ControlCollapseEvent += () =>
+            //{
+            //    splitContainerEx.Panel2Collapsed = true;
+            //    splitContainerEx.Panel2.Controls.Clear();
+            //};
 
 
             anPage.animationPage.ShowResultEvent += (ar1, ar2) =>
@@ -228,8 +231,8 @@ namespace BaseModule.Results
                 anPage.animationPage.ShowResultsTimeSteps(resDic.First().Key);
 
             splitContainerEx.Panel2Collapsed = false;
-            splitContainerEx.Panel2.Padding = new Padding(0, 5, 5, 0);
-            splitContainerEx.Panel2.Controls.Add(anPage);
+            //splitContainerEx.Panel2.Padding = new Padding(0, 5, 5, 0);
+            //splitContainerEx.Panel2.Controls.Add(anPage);
         }
 
         public Dictionary<string, List<float>> CreateResultsDic()

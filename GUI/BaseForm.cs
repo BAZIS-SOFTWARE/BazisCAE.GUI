@@ -25,13 +25,21 @@ using MathNet.Numerics.LinearAlgebra;
 using ProjectInterfaces.Tasks;
 using UserControlsEx;
 using BazisGUI.Properties;
+using System.Xml.Linq;
 using ModelInterfaces;
+using Results.ResultsData;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using BaseModule.Utilities;
+using ModelController;
 using Scene.Interfaces;
+using Scene;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using BaseModule.Tasks.WeldingModule;
 using TaskModule.HeatTreatmentModule;
-using BaseModule.Tasks;
 using BaseModule.Results;
+using BaseModule.Tasks;
 using BaseModule.Results.Animation;
 
 namespace BazisGUI

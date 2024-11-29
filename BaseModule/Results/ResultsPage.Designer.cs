@@ -43,12 +43,12 @@
             // 
             // basePage
             // 
-            this.basePage.Size = new System.Drawing.Size(515, 468);
+            this.basePage.Size = new System.Drawing.Size(507, 520);
             // 
             // splitContainerEx
             // 
-            this.splitContainerEx.Size = new System.Drawing.Size(885, 468);
-            this.splitContainerEx.SplitterDistance = 515;
+            this.splitContainerEx.Size = new System.Drawing.Size(963, 520);
+            this.splitContainerEx.SplitterDistance = 507;
             // 
             // treeNodesImageList
             // 
@@ -91,13 +91,13 @@
             this.удалитьToolStripMenuItem.Text = "Удалить";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
-            // ResultPage
+            // ResultsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "ResultPage";
-            this.Size = new System.Drawing.Size(895, 558);
+            this.Name = "ResultsPage";
+            this.Size = new System.Drawing.Size(973, 586);
             this.Load += new System.EventHandler(this.ResultPage_Load);
             this.splitContainerEx.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).EndInit();

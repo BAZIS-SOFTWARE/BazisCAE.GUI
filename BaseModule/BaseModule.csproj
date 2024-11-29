@@ -214,12 +214,6 @@
     <Compile Include="Results\ResultsPage.Designer.cs">
       <DependentUpon>ResultsPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Results\ResultsPage_v1.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Results\ResultsPage_v1.Designer.cs">
-      <DependentUpon>ResultsPage_v1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Results\ScaleControl\IScale.cs" />
     <Compile Include="Results\ScaleControl\ScaleEventArgs.cs" />
     <Compile Include="Results\ScaleControl\ScalePage.cs">
@@ -513,9 +507,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Results\ResultsPage.resx">
       <DependentUpon>ResultsPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Results\ResultsPage_v1.resx">
-      <DependentUpon>ResultsPage_v1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Results\ScaleControl\ScalePage.resx">
       <DependentUpon>ScalePage.cs</DependentUpon>
