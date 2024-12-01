@@ -154,6 +154,12 @@
       <DependentUpon>ConsoleControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Console\FindObjectEventArgs.cs" />
+    <Compile Include="EmbendentPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EmbendentPage.Designer.cs">
+      <DependentUpon>EmbendentPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IPinnedControl.cs" />
     <Compile Include="Mesh\CurveAttribsEventArgs.cs" />
     <Compile Include="Mesh\DeleteElementEventArgs.cs" />
@@ -175,6 +181,12 @@
     </Compile>
     <Compile Include="Mesh\ModelPage.Designer.cs">
       <DependentUpon>ModelPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mesh\PinnedMeshGenControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Mesh\PinnedMeshGenControl.Designer.cs">
+      <DependentUpon>PinnedMeshGenControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Mesh\PointSizesEventArgs.cs" />
     <Compile Include="Mesh\SettingsControls\GMSHCurveSettingsControl.cs">
@@ -393,11 +405,29 @@
     <Compile Include="Tasks\BasicAdvisorControls\TaskTypeControl.Designer.cs">
       <DependentUpon>TaskTypeControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tasks\WeldingModule\PinnedWeldingAdvisorControl.cs">
+    <Compile Include="PinnedControl\PinnedPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Tasks\WeldingModule\PinnedWeldingAdvisorControl.Designer.cs">
-      <DependentUpon>PinnedWeldingAdvisorControl.cs</DependentUpon>
+    <Compile Include="PinnedControl\PinnedPage.Designer.cs">
+      <DependentUpon>PinnedPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\HeatTreatmentModule\PinnedCTAdvControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\HeatTreatmentModule\PinnedCTAdvControl.Designer.cs">
+      <DependentUpon>PinnedCTAdvControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\HeatTreatmentModule\PinnedHTAdvControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\HeatTreatmentModule\PinnedHTAdvControl.Designer.cs">
+      <DependentUpon>PinnedHTAdvControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\PinnedWAdvControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\PinnedWAdvControl.Designer.cs">
+      <DependentUpon>PinnedWAdvControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Tasks\BasicTaskAdvisor\TaskAdvisor.cs">
       <SubType>UserControl</SubType>
@@ -520,6 +550,9 @@
     <EmbeddedResource Include="Console\ConsoleControl.resx">
       <DependentUpon>ConsoleControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EmbendentPage.resx">
+      <DependentUpon>EmbendentPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Mesh\GMSH2DMeshControl.resx">
       <DependentUpon>GMSH2DMeshControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -528,6 +561,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Mesh\ModelPage.resx">
       <DependentUpon>ModelPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mesh\PinnedMeshGenControl.resx">
+      <DependentUpon>PinnedMeshGenControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mesh\SettingsControls\GMSHCurveSettingsControl.resx">
       <DependentUpon>GMSHCurveSettingsControl.cs</DependentUpon>
@@ -618,8 +654,17 @@
     <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskTypeControl.resx">
       <DependentUpon>TaskTypeControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\WeldingModule\PinnedWeldingAdvisorControl.resx">
-      <DependentUpon>PinnedWeldingAdvisorControl.cs</DependentUpon>
+    <EmbeddedResource Include="PinnedControl\PinnedPage.resx">
+      <DependentUpon>PinnedPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\HeatTreatmentModule\PinnedCTAdvControl.resx">
+      <DependentUpon>PinnedCTAdvControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\HeatTreatmentModule\PinnedHTAdvControl.resx">
+      <DependentUpon>PinnedHTAdvControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\WeldingModule\PinnedWAdvControl.resx">
+      <DependentUpon>PinnedWAdvControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\BasicTaskAdvisor\TaskAdvisor.resx">
       <DependentUpon>TaskAdvisor.cs</DependentUpon>

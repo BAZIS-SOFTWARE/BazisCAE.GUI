@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UserControlsEx;
 
-namespace BaseModule.Results.Animation
+namespace TaskModule.BasicTaskAdvisor
 {
-    public partial class PinnedAnimationControl : PinnedPage
-    {      
-        public PinnedAnimationControl()
+    public partial class PinnedWAdvControl : PinnedPage
+    {
+        public PinnedWAdvControl()
         {
             InitializeComponent();
-        }        
+        } 
     }
 }

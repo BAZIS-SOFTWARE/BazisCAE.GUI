@@ -29,27 +29,27 @@ namespace BaseModule.Tasks.WeldingModule
         /// </summary>
         private void InitializeComponent()
         {
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).BeginInit();
-            this.splitContainerEx.Panel1.SuspendLayout();
-            this.splitContainerEx.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EmbeddedSplitContainer)).BeginInit();
+            this.EmbeddedSplitContainer.Panel1.SuspendLayout();
+            this.EmbeddedSplitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // basePage
             // 
-            this.basePage.Size = new System.Drawing.Size(1153, 546);
+            this.BasePage.Size = new System.Drawing.Size(1153, 546);
             // 
             // splitContainerEx
             // 
-            this.splitContainerEx.Size = new System.Drawing.Size(1153, 546);
+            this.EmbeddedSplitContainer.Size = new System.Drawing.Size(1153, 546);
             // 
             // WeldingPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "WeldingPage";
-            this.splitContainerEx.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).EndInit();
-            this.splitContainerEx.ResumeLayout(false);
+            this.EmbeddedSplitContainer.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.EmbeddedSplitContainer)).EndInit();
+            this.EmbeddedSplitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

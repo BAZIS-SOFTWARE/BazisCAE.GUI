@@ -38,7 +38,7 @@ namespace BaseModule.Results
 
         IResultData resultData;
 
-        IGeneralData GeneralData { get { return basePage.GetGeneralData(); } }
+        IGeneralData GeneralData { get { return BasePage.GetGeneralData(); } }
 
         IModelController ModelController
         {
@@ -62,8 +62,6 @@ namespace BaseModule.Results
 
         public ResultsPage()
         {
-            EmbeddedControls.Find("pinnedAnimationControl", false)[0].BringToFront();
-
             InitializeComponent();
 
             var navigator = BasePage.NavigatorControl;
@@ -78,6 +76,8 @@ namespace BaseModule.Results
 
             selectToolStrip.Location = new Point(3, 0);
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
+
+            EmbeddedControls.Find("pinnedAnimationControl", false)[0].BringToFront();
         }      
 
         public void ShowScalePage()
@@ -193,14 +193,7 @@ namespace BaseModule.Results
             
             var anPage = (PinnedAnimationControl)EmbeddedControls.Find("pinnedAnimationControl", false)[0];
 
-            splitContainerEx.SplitterDistance = splitContainerEx.Panel1.Width - anPage.Width;
-
-            //anPage.ControlCollapseEvent += () =>
-            //{
-            //    splitContainerEx.Panel2Collapsed = true;
-            //    splitContainerEx.Panel2.Controls.Clear();
-            //};
-
+            EmbeddedSplitContainer.SplitterDistance = EmbeddedSplitContainer.Panel1.Width - anPage.Width;
 
             anPage.animationPage.ShowResultEvent += (ar1, ar2) =>
             {
@@ -230,9 +223,7 @@ namespace BaseModule.Results
             if (resDic.Count != 0)
                 anPage.animationPage.ShowResultsTimeSteps(resDic.First().Key);
 
-            splitContainerEx.Panel2Collapsed = false;
-            //splitContainerEx.Panel2.Padding = new Padding(0, 5, 5, 0);
-            //splitContainerEx.Panel2.Controls.Add(anPage);
+            EmbeddedSplitContainer.Panel2Collapsed = false;
         }
 
         public Dictionary<string, List<float>> CreateResultsDic()
@@ -780,10 +771,8 @@ namespace BaseModule.Results
 
             scenePage.SceneControl.DisplayObjects();
 
-            List<PinnedAnimationControl> cntrs = new List<PinnedAnimationControl>();
-            RecursiveSearchControls.AllTypedControls(splitContainerEx.Panel2, cntrs);
-            if (cntrs.Count != 0)
-                cntrs[0].animationPage.ClearResultsItems();
+            var anPage = (PinnedAnimationControl)EmbeddedControls.Find("pinnedAnimationControl", false)[0];
+            anPage.animationPage.ClearResultsItems();
             //if (splitContainerEx.Panel2.Controls.Find("PinnedAnimationControl", false).Count() != 0)
             //splitContainerEx.Panel2.Controls[0]
         }

@@ -1,5 +1,4 @@
 ﻿using BaseModule.Interfaces;
-using BasicControls.ProgressBarEx.Functions.Drawing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,25 +10,25 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UserControlsEx;
 
-namespace TaskModule.BasicTaskAdvisor
+namespace BaseModule.PinnedControl
 {
-    public partial class PinnedWeldingAdvisorControl : UserControl, IPinnedControl
+    public partial class PinnedPage : UserControl, IPinnedControl
     {
         public Color UpColor { get; set; } = Color.Gainsboro;
 
         public Color DownColor { get; set; } = Color.Gainsboro;
 
-        public string HeaderName { get; set; } = "Постановщик задачи";
+        public string HeaderName { get; set; } = "";
 
         public event Action ControlCollapseEvent;
         public event Action ControlUnpinnedEvent;
 
-        public PinnedWeldingAdvisorControl()
+        public PinnedPage()
         {
             InitializeComponent();
         }
 
-        private void PinnedTaskAdvisorControl_Paint(object sender, PaintEventArgs e)
+        private void PinnedPageControl_Paint(object sender, PaintEventArgs e)
         {
             var loc_y = Padding.Top;
 
@@ -44,7 +43,7 @@ namespace TaskModule.BasicTaskAdvisor
             e.Graphics.DrawString(HeaderName, ComponentsPainter.Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
         }
 
-        private void PinnedTaskAdvisorControl_MouseClick(object sender, MouseEventArgs e)
+        private void PinnedPageControl_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Location.X > Width - 16 & e.Location.X < Width - 8 && e.Location.Y <= 10)
                 ControlCollapseEvent?.Invoke();
@@ -52,7 +51,7 @@ namespace TaskModule.BasicTaskAdvisor
                 ControlUnpinnedEvent?.Invoke();
         }
 
-        private void PinnedTaskAdvisorControl_Resize(object sender, EventArgs e)
+        private void PinnedPageControl_Resize(object sender, EventArgs e)
         {
             Invalidate();
         }

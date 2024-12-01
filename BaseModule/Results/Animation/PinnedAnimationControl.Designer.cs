@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.animationPage = new Animation.AnimationPage();
+            this.animationPage = new BaseModule.Results.Animation.AnimationPage();
             this.SuspendLayout();
             // 
             // animationPage
@@ -48,13 +48,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.Controls.Add(this.animationPage);
+            this.HeaderName = "Анимация результатов";
             this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.Name = "PinnedAnimationControl";
-            this.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
             this.Size = new System.Drawing.Size(325, 554);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.PinnedTaskAdvisorControl_Paint);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PinnedTaskAdvisorControl_MouseClick);
-            this.Resize += new System.EventHandler(this.PinnedTaskAdvisorControl_Resize);
             this.ResumeLayout(false);
 
         }

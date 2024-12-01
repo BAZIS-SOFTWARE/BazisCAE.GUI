@@ -225,7 +225,7 @@ namespace BazisGUI
             //}
         }
 
-        private async void ResultModule_LoadResultsEvent(object sender,string fileName, bool mergeRes, bool addRes)
+        private async void ResultModule_LoadResultsEvent(object sender, string fileName, bool mergeRes, bool addRes)
         {
 
             var dbExtension = System.IO.Path.GetExtension(fileName);
@@ -252,23 +252,19 @@ namespace BazisGUI
 
             project.ResultData.AddRange(res.Result);
 
-            List<PinnedAnimationControl> cntrs = new List<PinnedAnimationControl>();
-            RecursiveSearchControls.AllTypedControls(resultModule.splitContainerEx.Panel2, cntrs);
-            if (cntrs.Count != 0)
+            var pAnPage = (PinnedAnimationControl)resultModule.EmbeddedControls.Find("pinnedAnimationControl", false)[0];
+
+            var anPage = pAnPage.animationPage;
+
+            if (!addRes)
+                anPage.ClearResultsItems();
+
+            var resDic = resultModule.CreateResultsDic();
+            if (resDic.Count != 0)
             {
-                var anPage = cntrs[0].animationPage;
-
-                if (!addRes)
-                    anPage.ClearResultsItems();
-
-                var resDic = resultModule.CreateResultsDic();
-                if (resDic.Count != 0)
-                {
-                    anPage.SetResultsItems(resDic);
-                    anPage.ShowResultsTimeSteps(resDic.First().Key);
-                }
-
-            }
+                anPage.SetResultsItems(resDic);
+                anPage.ShowResultsTimeSteps(resDic.First().Key);
+            }       
         }
 
         private void SetModule(string moduleName)
@@ -1135,7 +1131,7 @@ namespace BazisGUI
         {
             var module = (ResultsPage)ModulePage;
 
-            if (module.splitContainerEx.Panel2.Controls.Find("PinnedAnimationControl", false).Count() == 0)
+            if (module.EmbeddedSplitContainer.Panel2Collapsed == true)
                 module.ShowAnimation();
         }
 

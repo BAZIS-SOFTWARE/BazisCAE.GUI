@@ -37,19 +37,19 @@ namespace BaseModule.Tasks
             this.treeNodesImageList = new System.Windows.Forms.ImageList(this.components);
             this.taskMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).BeginInit();
-            this.splitContainerEx.Panel1.SuspendLayout();
-            this.splitContainerEx.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EmbeddedSplitContainer)).BeginInit();
+            this.EmbeddedSplitContainer.Panel1.SuspendLayout();
+            this.EmbeddedSplitContainer.SuspendLayout();
             this.taskMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // basePage
             // 
-            this.basePage.Size = new System.Drawing.Size(1153, 522);
+            this.BasePage.Size = new System.Drawing.Size(1153, 522);
             // 
             // splitContainerEx
             // 
-            this.splitContainerEx.Size = new System.Drawing.Size(1153, 522);
+            this.EmbeddedSplitContainer.Size = new System.Drawing.Size(1153, 522);
             // 
             // treeNodesImageList
             // 
@@ -92,9 +92,9 @@ namespace BaseModule.Tasks
             this.DeleteGroupEvent += new System.Action(this.TaskPage_DeleteGroupEvent);
             this.DeleteObjectsEvent += new System.Action(this.TaskPage_DeleteGroupEvent);
             this.DeleteSelectedObjectsEvent += new System.Action(this.TaskPage_DeleteGroupEvent);
-            this.splitContainerEx.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).EndInit();
-            this.splitContainerEx.ResumeLayout(false);
+            this.EmbeddedSplitContainer.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.EmbeddedSplitContainer)).EndInit();
+            this.EmbeddedSplitContainer.ResumeLayout(false);
             this.taskMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 

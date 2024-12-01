@@ -89,7 +89,7 @@ namespace BaseModule.Mesh
             }
             catch (Exception ex)
             {
-                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }        
         }
 
@@ -196,7 +196,7 @@ namespace BaseModule.Mesh
             }
             catch (Exception ex)
             {
-                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
 
         }
@@ -219,7 +219,7 @@ namespace BaseModule.Mesh
             }
             catch (Exception ex)
             {
-                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
 
         }

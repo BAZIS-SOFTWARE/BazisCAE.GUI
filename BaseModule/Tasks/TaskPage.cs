@@ -31,7 +31,7 @@ namespace BaseModule.Tasks
         string activeAdvisor  = String.Empty;
         public string SolverPath { get; set; }
 
-        IGeneralData GeneralData { get { return basePage.GetGeneralData(); } }
+        IGeneralData GeneralData { get { return BasePage.GetGeneralData(); } }
 
         IPreProc preProc;
 
@@ -68,6 +68,7 @@ namespace BaseModule.Tasks
             BasePage.NavigatorControl.TreeView.Nodes.Add(taskNode);
             
             selectToolStrip.Location = new Point(3, 0);
+
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
         }
 

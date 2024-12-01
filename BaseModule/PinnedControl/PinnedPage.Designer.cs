@@ -1,14 +1,13 @@
-﻿
-namespace TaskModule.HeatTreatmentModule
+﻿namespace BaseModule.PinnedControl
 {
-    partial class HeatTreatmentPage
+    partial class PinnedPage
     {
-        /// <summary>
+        /// <summary> 
         /// Обязательная переменная конструктора.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Освободить все используемые ресурсы.
         /// </summary>
         /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
@@ -23,7 +22,7 @@ namespace TaskModule.HeatTreatmentModule
 
         #region Код, автоматически созданный конструктором компонентов
 
-        /// <summary>
+        /// <summary> 
         /// Требуемый метод для поддержки конструктора — не изменяйте 
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
@@ -31,19 +30,21 @@ namespace TaskModule.HeatTreatmentModule
         {
             this.SuspendLayout();
             // 
-            // basePage
-            // 
-            this.BasePage.Size = new System.Drawing.Size(790, 384);
-            // 
-            // HeatTreatmentPage
+            // PinnedHTAdvControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "HeatTreatmentPage";
-            this.Size = new System.Drawing.Size(800, 450);
+            this.Margin = new System.Windows.Forms.Padding(0);
+            this.Name = "PinnedHTAdvControl";
+            this.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.Size = new System.Drawing.Size(587, 391);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.PinnedPageControl_Paint);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PinnedPageControl_MouseClick);
+            this.Resize += new System.EventHandler(this.PinnedPageControl_Resize);
             this.ResumeLayout(false);
 
         }
+
         #endregion
     }
 }
