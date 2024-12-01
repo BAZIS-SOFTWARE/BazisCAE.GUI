@@ -38,10 +38,6 @@
             this.resultsMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // basePage
-            // 
-            this.BasePage.Size = new System.Drawing.Size(507, 520);
-            // 
             // treeNodesImageList
             // 
             this.treeNodesImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("treeNodesImageList.ImageStream")));
