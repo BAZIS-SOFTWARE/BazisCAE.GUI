@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Nikita Ustinov, Bilenko Georgy</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <icon>Icon.png</icon>
+    <projectUrl>https://bazisnet.ru/</projectUrl>
+    <description>User extended control library</description>
+    <copyright>$copyright$</copyright>
+    <tags>extended control library, control library</tags>
+  </metadata>
+  <files>
+    <file src="Icon.png" target="" />
+  </files>
+</package>

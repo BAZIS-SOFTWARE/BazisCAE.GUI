@@ -15,7 +15,7 @@ namespace BaseModule.Tasks.WeldingModule
         public WeldingAdvisor()
         {
             InitializeComponent();
-
+            Name = "Сварка";
         }
 
         public void SetWeldingKind(WeldingKind weldingKind)

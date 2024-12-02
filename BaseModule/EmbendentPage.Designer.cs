@@ -120,7 +120,7 @@
             this.pinnedWAdvControl.HeaderName = "Постановщик задачи сварки";
             this.pinnedWAdvControl.Location = new System.Drawing.Point(0, 5);
             this.pinnedWAdvControl.Margin = new System.Windows.Forms.Padding(0);
-            this.pinnedWAdvControl.Name = "pinnedWAdvControl1";
+            this.pinnedWAdvControl.Name = "pinnedWAdvControl";
             this.pinnedWAdvControl.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
             this.pinnedWAdvControl.Size = new System.Drawing.Size(354, 571);
             this.pinnedWAdvControl.TabIndex = 5;

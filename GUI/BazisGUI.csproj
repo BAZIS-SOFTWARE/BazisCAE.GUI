@@ -211,9 +211,6 @@
     <Reference Include="TasksParameters, Version=1.0.1.13, Culture=neutral, PublicKeyToken=8bfe6827a0935d51, processorArchitecture=MSIL">
       <HintPath>..\packages\TasksParameters.1.0.1.13\lib\netstandard2.0\TasksParameters.dll</HintPath>
     </Reference>
-    <Reference Include="UserControlsEx, Version=1.2.1.0, Culture=neutral, PublicKeyToken=16903e6a4b8fab01, processorArchitecture=MSIL">
-      <HintPath>..\packages\UserControlsEx.1.2.1\lib\net48\UserControlsEx.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutLicenseControl.cs">
@@ -316,9 +313,9 @@
       <Project>{e5c49662-b9c7-4b1b-9734-1ff03da9fcc0}</Project>
       <Name>BaseModule</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ModelModule\ModelModule.csproj">
-      <Project>{986f99d5-cc42-41f8-a5d4-97de97d7ea64}</Project>
-      <Name>ModelModule</Name>
+    <ProjectReference Include="..\UserControlEx\UserControlsEx.csproj">
+      <Project>{452d36b3-7997-48ac-96cb-4aa349e2b608}</Project>
+      <Name>UserControlsEx</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

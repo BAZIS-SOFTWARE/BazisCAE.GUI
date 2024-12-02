@@ -172,7 +172,7 @@ namespace BaseModule.Tasks
             activeAdvisor = "";
         }
 
-        public void SetAdvisor(object sender, TaskAdvisor taskAdv)
+        public void SetAdvisor(TaskAdvisor taskAdv)
         {
             try
             {

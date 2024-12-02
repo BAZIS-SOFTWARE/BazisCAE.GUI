@@ -1,6 +1,5 @@
 ﻿
 using BaseModule;
-using ModelModule;
 using Newtonsoft.Json;
 using Project;
 using System;
@@ -42,6 +41,7 @@ using BaseModule.Results;
 using BaseModule.Tasks;
 using BaseModule.Results.Animation;
 using System.Runtime.InteropServices.ComTypes;
+using BaseModule.Mesh;
 
 namespace BazisGUI
 {
@@ -1055,13 +1055,17 @@ namespace BazisGUI
         {
             var module = (WeldingPage)ModulePage;
 
-            var adv = module.CreateWeldingAdvisor(WeldingKind.ARC);
+            var currentItem = sender as ToolStripMenuItem;
 
-            module.DeleteAdvisor();
+            foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
+                if (currentItem.Name != item.Name)
+                    item.Checked = false;
+
+            module.ConfigAdvisor(WeldingKind.ARC);
 
             if (arcWeldingMenuItem.Checked)
-                module.SetAdvisor(sender,adv);
-            else module.DeleteAdvisor();
+                module.EmbeddedSplitContainer.Panel2Collapsed = false;
+            else module.EmbeddedSplitContainer.Panel2Collapsed = true;
         }
 
         private void материалыMenuItem_Click(object sender, EventArgs e)
@@ -1080,26 +1084,34 @@ namespace BazisGUI
         {
             var module = (WeldingPage)ModulePage;
 
-            var adv = module.CreateWeldingAdvisor( WeldingKind.Lazer);
+            var currentItem = sender as ToolStripMenuItem;
 
-            module.DeleteAdvisor();
+            foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
+                if (currentItem.Name != item.Name)
+                    item.Checked = false;
+
+            module.ConfigAdvisor(WeldingKind.Lazer);
 
             if (lazerWeldingMenuItem.Checked)
-                module.SetAdvisor(sender, adv);
-            else module.DeleteAdvisor();
+                module.EmbeddedSplitContainer.Panel2Collapsed = false;
+            else module.EmbeddedSplitContainer.Panel2Collapsed = true;
         }
 
         private void fsWeldingMenuItem_Click(object sender, EventArgs e)
         {
             var module = (WeldingPage)ModulePage;
 
-            var adv = module.CreateWeldingAdvisor(WeldingKind.FrictionStearing);
+            var currentItem = sender as ToolStripMenuItem;
 
-            module.DeleteAdvisor();
+            foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
+                if (currentItem.Name != item.Name)
+                    item.Checked = false;
+
+            module.ConfigAdvisor(WeldingKind.FrictionStearing);
 
             if (fsWeldingMenuItem.Checked)
-                module.SetAdvisor(sender, adv);
-            else module.DeleteAdvisor();
+                module.EmbeddedSplitContainer.Panel2Collapsed = false;
+            else module.EmbeddedSplitContainer.Panel2Collapsed = true;
         }
 
         private void addResultsMenuItem_Click(object sender, EventArgs e)
@@ -1158,19 +1170,16 @@ namespace BazisGUI
         {
             var module = (HeatTreatmentPage)ModulePage;
 
-            var htControl = module.EmbeddedControls.Find("pinnedHTAdvControl", false)[0];
-            htControl.BringToFront();
+            var currentItem = sender as ToolStripMenuItem;
 
-            module.EmbeddedSplitContainer.Panel2Collapsed = false;
-            //var adv = module.CreateHeatTreatmentAdvisor(ProcessType.Heating);
+            foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
+                if(currentItem.Name != item.Name)
+                    item.Checked = false;
 
-            //module.DeleteAdvisor();
+            module.ConfigAdvisor(ProcessType.Tempering);
 
             if (heatingMenuItem.Checked)
-            {
                 module.EmbeddedSplitContainer.Panel2Collapsed = false;
-                //module.ShowAdvisor(sender);
-            }
             else module.EmbeddedSplitContainer.Panel2Collapsed = true;
         }
 
@@ -1178,26 +1187,34 @@ namespace BazisGUI
         {
             var module = (HeatTreatmentPage)ModulePage;
 
-            var adv = module.CreateHeatTreatmentAdvisor(ProcessType.Tempering);
+            var currentItem = sender as ToolStripMenuItem;
 
-            module.DeleteAdvisor();
+            foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
+                if (currentItem.Name != item.Name)
+                    item.Checked = false;
+
+            module.ConfigAdvisor(ProcessType.Tempering);
 
             if (temperingMenuItem.Checked)
-                module.SetAdvisor(sender, adv);
-            else module.DeleteAdvisor();
+                module.EmbeddedSplitContainer.Panel2Collapsed = false;
+            else module.EmbeddedSplitContainer.Panel2Collapsed = true;
         }
 
         private void quenchingMenuItem_Click(object sender, EventArgs e)
         {
             var module = (HeatTreatmentPage)ModulePage;
 
-            var adv = module.CreateHeatTreatmentAdvisor(ProcessType.Quenching);
+            var currentItem = sender as ToolStripMenuItem;
 
-            module.DeleteAdvisor();
+            foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
+                if (currentItem.Name != item.Name)
+                    item.Checked = false;
+
+            module.ConfigAdvisor(ProcessType.Quenching);
 
             if (quenchingMenuItem.Checked)
-                module.SetAdvisor(sender, adv);
-            else module.DeleteAdvisor();
+                module.EmbeddedSplitContainer.Panel2Collapsed = false;
+            else module.EmbeddedSplitContainer.Panel2Collapsed = true;
         }
 
         private void создать1DПо2DЭлементамToolStripMenuItem_Click(object sender, EventArgs e)

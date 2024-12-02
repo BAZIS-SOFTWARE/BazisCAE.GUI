@@ -6,6 +6,7 @@ using System.Linq;
 using System.Drawing;
 using System;
 using ModelControllerInterfaces;
+using TaskModule.BasicTaskAdvisor;
 
 namespace BaseModule.Tasks.WeldingModule
 {
@@ -19,21 +20,20 @@ namespace BaseModule.Tasks.WeldingModule
             //splitContainerEx.Panel2.Controls.Add()
         }
 
-        public WeldingAdvisor CreateWeldingAdvisor(WeldingKind weldingKind)
+        public void ConfigAdvisor(WeldingKind weldingKind)
         {
-            var taskAdv = new WeldingAdvisor()
-            {
-                Dock = DockStyle.Fill,
-                Name = "Сварка",
-                Text = weldingKind.ToString()
-            };
+            var pContr = (PinnedWAdvControl)EmbeddedControls.Find("pinnedWAdvControl", false)[0];
+
+            var taskAdv = pContr.WeldingAdvisor;
+
             taskAdv.SetWeldingKind(weldingKind);
-            taskAdv.ProcessType = ProcessType.Welding;
+
+            pContr.HeaderName = $"Постановка задачи {weldingKind}";
 
             taskAdv.SpecifyWeldingZoneEvent += (ar1,ar2) => 
             { TaskAdv_SpecifyWeldingZone(ar1,ar2); };
 
-            return taskAdv;
+            SetAdvisor(taskAdv);
         }
 
         private async void TaskAdv_SpecifyWeldingZone(string arg1, int arg2)

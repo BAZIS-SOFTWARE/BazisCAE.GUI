@@ -1,6 +1,9 @@
 ﻿using BaseModule.Tasks;
+using BaseModule.Tasks.HeatTreatmentModule;
+using BaseModule.Tasks.WeldingModule;
 using ProjectInterfaces.Tasks;
 using System.Windows.Forms;
+using TaskModule.BasicTaskAdvisor;
 using TaskModule.WeldingModule;
 
 namespace TaskModule.HeatTreatmentModule
@@ -14,18 +17,15 @@ namespace TaskModule.HeatTreatmentModule
             EmbeddedControls.Find("pinnedHTAdvControl", false)[0].BringToFront();
         }
 
-        public HeatTreatmentAdvisor CreateHeatTreatmentAdvisor(ProcessType processType)
+        public void ConfigAdvisor(ProcessType processType)
         {
-            var taskAdv = new HeatTreatmentAdvisor()
-            {
-                Dock = DockStyle.Fill,
-                Name = processType.ToString(),
-                Text = processType.ToString()
-            };
+            var pContr = (PinnedHTAdvControl)EmbeddedControls.Find("pinnedHTAdvControl", false)[0];
 
-            taskAdv.ProcessType = ProcessType.Heating;
+            var taskAdv = pContr.HTAdvisor;
 
-            return taskAdv;
+            pContr.HeaderName = $"Постановка задачи {processType}";
+            
+            SetAdvisor(taskAdv);
         }       
     }
 }

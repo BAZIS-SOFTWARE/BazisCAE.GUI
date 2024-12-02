@@ -121,9 +121,6 @@
     <Reference Include="TasksParameters, Version=1.0.1.13, Culture=neutral, PublicKeyToken=8bfe6827a0935d51, processorArchitecture=MSIL">
       <HintPath>..\packages\TasksParameters.1.0.1.13\lib\netstandard2.0\TasksParameters.dll</HintPath>
     </Reference>
-    <Reference Include="UserControlsEx, Version=1.2.1.0, Culture=neutral, PublicKeyToken=16903e6a4b8fab01, processorArchitecture=MSIL">
-      <HintPath>..\packages\UserControlsEx.1.2.1\lib\net48\UserControlsEx.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasePage.cs">
@@ -816,6 +813,11 @@
     <Content Include="Resources\CloseFolder.png" />
     <Content Include="Resources\OpenFolder.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\UserControlEx\UserControlsEx.csproj">
+      <Project>{452D36B3-7997-48AC-96CB-4AA349E2B608}</Project>
+      <Name>UserControlsEx</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

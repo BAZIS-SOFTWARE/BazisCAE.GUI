@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{452D36B3-7997-48AC-96CB-4AA349E2B608}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UserControlsEx</RootNamespace>
+    <AssemblyName>UserControlsEx</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <RepositoryUrl>https://github.com/ONEGOCH/UserControlEx</RepositoryUrl>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PackageId>BasicControls</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>ONEGOCH</Authors>
+    <Company>ONEGOCH</Company>
+    <PackageDescription>PACKAGE_DESCRIPTION</PackageDescription>
+    <RepositoryUrl>https://github.com/ONEGOCH/UserControlEx.git</RepositoryUrl>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>UserControlExKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseToolStrRender.cs" />
+    <Compile Include="ColorSlider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ColorSlider.Designer.cs">
+      <DependentUpon>ColorSlider.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComboBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ComboBoxEx.Designer.cs">
+      <DependentUpon>ComboBoxEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentsPainter.cs" />
+    <Compile Include="Graph\AxisFormat.cs" />
+    <Compile Include="Graph\Functions\InterpolationSearch.cs" />
+    <Compile Include="Graph\GraphContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graph\GraphContainer.Designer.cs">
+      <DependentUpon>GraphContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graph\GraphControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graph\GraphControl.Designer.cs">
+      <DependentUpon>GraphControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graph\GraphData.cs" />
+    <Compile Include="Graph\GraphPoint.cs" />
+    <Compile Include="GroupBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataGridViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GroupBoxEx.Designer.cs">
+      <DependentUpon>GroupBoxEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataGridViewEx.Designer.cs">
+      <DependentUpon>DataGridViewEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OpenFileDialogEx\AuthorAttribute.cs" />
+    <Compile Include="OpenFileDialogEx\Enums.cs" />
+    <Compile Include="OpenFileDialogEx\OpenFileDialogEx.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OpenFileDialogEx\OpenFileDialogEx.Designer.cs" />
+    <Compile Include="OpenFileDialogEx\structs.cs" />
+    <Compile Include="OpenFileDialogEx\Win32.cs" />
+    <Compile Include="ProgressBarEx\Controls\LogPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProgressBarEx\Controls\LogPanel.designer.cs">
+      <DependentUpon>LogPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProgressBarEx\Controls\ProgressBar.cs" />
+    <Compile Include="ProgressBarEx\Controls\ProgressBarBoxed.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProgressBarEx\Controls\ProgressBarGradient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProgressBarEx\Functions\Drawing\MyColor.cs" />
+    <Compile Include="ProgressBarEx\Functions\Drawing\MyRectangle.cs" />
+    <Compile Include="ProgressBarEx\Functions\Drawing\MySize.cs" />
+    <Compile Include="ProgressBarEx\Functions\Math\MyMaths.cs" />
+    <Compile Include="ProgressBarEx\Objects\Drawing\BrushTable.cs" />
+    <Compile Include="ProgressBarEx\Objects\Drawing\GraphicTable.cs" />
+    <Compile Include="ProgressBarEx\Objects\Drawing\PenTable.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SplitContainerEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SplitContainerEx.Designer.cs">
+      <DependentUpon>SplitContainerEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TabControlEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TabControlEx.Designer.cs">
+      <DependentUpon>TabControlEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TextBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TextBoxEx.Designer.cs">
+      <DependentUpon>TextBoxEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolStripEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToolStripEx.Designer.cs">
+      <DependentUpon>ToolStripEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validation\IValidatorControl.cs" />
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataGridViewEx.resx">
+      <DependentUpon>DataGridViewEx.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graph\GraphContainer.resx">
+      <DependentUpon>GraphContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graph\GraphControl.resx">
+      <DependentUpon>GraphControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroupBoxEx.resx">
+      <DependentUpon>GroupBoxEx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenFileDialogEx\OpenFileDialogEx.resx" />
+    <EmbeddedResource Include="ProgressBarEx\Controls\LogPanel.resx">
+      <DependentUpon>LogPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SplitContainerEx.resx">
+      <DependentUpon>SplitContainerEx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabControlEx.resx">
+      <DependentUpon>TabControlEx.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graph\app.config" />
+    <None Include="Graph\Graph.1.0.2.29.nupkg" />
+    <None Include="Graph\Graph.1.0.2.31.nupkg" />
+    <None Include="Graph\Graph.1.0.2.32.nupkg" />
+    <None Include="Graph\Graph.1.0.2.33.nupkg" />
+    <None Include="Graph\Graph.1.0.2.34.nupkg" />
+    <None Include="Graph\Graph.csproj" />
+    <None Include="Graph\Graph.nuspec" />
+    <None Include="Graph\GraphKey.snk" />
+    <None Include="UserControlExKey.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Graph\Graph.csproj.user" />
+    <None Include="Graph\Graph_icons\AllLineThickness.ico" />
+    <None Include="Graph\Graph_icons\dashButton.Image.png" />
+    <None Include="Graph\Graph_icons\ExportToBuffer.png" />
+    <None Include="Graph\Graph_icons\Fit.png" />
+    <None Include="Graph\Graph_icons\LineThickness0.ico" />
+    <None Include="Graph\Graph_icons\LineThickness1.ico" />
+    <None Include="Graph\Graph_icons\LineThickness2.ico" />
+    <None Include="Graph\Graph_icons\Show_value.bmp" />
+    <None Include="Graph\Graph_icons\SwitchOn.png" />
+    <None Include="Graph\Graph_icons\Title.png" />
+    <None Include="Graph\Graph_icons\lineButton.Image.png" />
+    <Content Include="Graph\Icon.png" />
+    <Content Include="Graph\nuget.exe" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
