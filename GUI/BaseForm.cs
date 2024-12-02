@@ -41,6 +41,7 @@ using TaskModule.HeatTreatmentModule;
 using BaseModule.Results;
 using BaseModule.Tasks;
 using BaseModule.Results.Animation;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace BazisGUI
 {
@@ -1059,7 +1060,7 @@ namespace BazisGUI
             module.DeleteAdvisor();
 
             if (arcWeldingMenuItem.Checked)
-                module.ShowAdvisor(sender,adv);
+                module.SetAdvisor(sender,adv);
             else module.DeleteAdvisor();
         }
 
@@ -1084,7 +1085,7 @@ namespace BazisGUI
             module.DeleteAdvisor();
 
             if (lazerWeldingMenuItem.Checked)
-                module.ShowAdvisor(sender, adv);
+                module.SetAdvisor(sender, adv);
             else module.DeleteAdvisor();
         }
 
@@ -1097,7 +1098,7 @@ namespace BazisGUI
             module.DeleteAdvisor();
 
             if (fsWeldingMenuItem.Checked)
-                module.ShowAdvisor(sender, adv);
+                module.SetAdvisor(sender, adv);
             else module.DeleteAdvisor();
         }
 
@@ -1157,13 +1158,20 @@ namespace BazisGUI
         {
             var module = (HeatTreatmentPage)ModulePage;
 
-            var adv = module.CreateHeatTreatmentAdvisor(ProcessType.Heating);
+            var htControl = module.EmbeddedControls.Find("pinnedHTAdvControl", false)[0];
+            htControl.BringToFront();
 
-            module.DeleteAdvisor();
+            module.EmbeddedSplitContainer.Panel2Collapsed = false;
+            //var adv = module.CreateHeatTreatmentAdvisor(ProcessType.Heating);
+
+            //module.DeleteAdvisor();
 
             if (heatingMenuItem.Checked)
-                module.ShowAdvisor(sender, adv);
-            else module.DeleteAdvisor();
+            {
+                module.EmbeddedSplitContainer.Panel2Collapsed = false;
+                //module.ShowAdvisor(sender);
+            }
+            else module.EmbeddedSplitContainer.Panel2Collapsed = true;
         }
 
         private void temperingMenuItem_Click(object sender, EventArgs e)
@@ -1175,7 +1183,7 @@ namespace BazisGUI
             module.DeleteAdvisor();
 
             if (temperingMenuItem.Checked)
-                module.ShowAdvisor(sender, adv);
+                module.SetAdvisor(sender, adv);
             else module.DeleteAdvisor();
         }
 
@@ -1188,7 +1196,7 @@ namespace BazisGUI
             module.DeleteAdvisor();
 
             if (quenchingMenuItem.Checked)
-                module.ShowAdvisor(sender, adv);
+                module.SetAdvisor(sender, adv);
             else module.DeleteAdvisor();
         }
 

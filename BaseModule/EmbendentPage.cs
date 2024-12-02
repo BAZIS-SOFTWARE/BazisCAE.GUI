@@ -39,6 +39,8 @@ namespace BaseModule
         public EmbendentPage()
         {
             InitializeComponent();
+
+            splitContainerEx.Panel2Collapsed = true;
         }
 
         private void pinnedControl_ControlCollapseEvent()

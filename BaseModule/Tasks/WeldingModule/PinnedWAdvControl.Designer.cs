@@ -28,27 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.weldingAdvisor1 = new BaseModule.Tasks.WeldingModule.WeldingAdvisor();
+            this.weldingAdvisor = new BaseModule.Tasks.WeldingModule.WeldingAdvisor();
             this.SuspendLayout();
             // 
             // weldingAdvisor1
             // 
-            this.weldingAdvisor1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.weldingAdvisor1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.weldingAdvisor1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.weldingAdvisor1.Location = new System.Drawing.Point(0, 15);
-            this.weldingAdvisor1.Margin = new System.Windows.Forms.Padding(2);
-            this.weldingAdvisor1.Name = "weldingAdvisor1";
-            this.weldingAdvisor1.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
-            this.weldingAdvisor1.Size = new System.Drawing.Size(627, 370);
-            this.weldingAdvisor1.TabIndex = 0;
+            this.weldingAdvisor.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.weldingAdvisor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.weldingAdvisor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.weldingAdvisor.Location = new System.Drawing.Point(0, 15);
+            this.weldingAdvisor.Margin = new System.Windows.Forms.Padding(2);
+            this.weldingAdvisor.Name = "weldingAdvisor1";
+            this.weldingAdvisor.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
+            this.weldingAdvisor.Size = new System.Drawing.Size(627, 370);
+            this.weldingAdvisor.TabIndex = 0;
             // 
             // PinnedWAdvControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
-            this.Controls.Add(this.weldingAdvisor1);
+            this.Controls.Add(this.weldingAdvisor);
             this.HeaderName = "Постановщик задачи сварки";
             this.Name = "PinnedWAdvControl";
             this.Size = new System.Drawing.Size(627, 385);
@@ -58,6 +58,6 @@
 
         #endregion
 
-        private BaseModule.Tasks.WeldingModule.WeldingAdvisor weldingAdvisor1;
+        private BaseModule.Tasks.WeldingModule.WeldingAdvisor weldingAdvisor;
     }
 }

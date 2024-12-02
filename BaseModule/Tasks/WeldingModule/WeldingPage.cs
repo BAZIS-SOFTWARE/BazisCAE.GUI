@@ -15,7 +15,7 @@ namespace BaseModule.Tasks.WeldingModule
         {
             InitializeComponent();
 
-            EmbeddedControls.Find("pinnedWeldingAdvisorControl", false)[0].BringToFront();
+            EmbeddedControls.Find("pinnedWAdvControl", false)[0].BringToFront();
             //splitContainerEx.Panel2.Controls.Add()
         }
 

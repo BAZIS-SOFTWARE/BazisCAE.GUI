@@ -70,6 +70,10 @@ namespace BaseModule.Tasks
             selectToolStrip.Location = new Point(3, 0);
 
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
+
+
+
+
         }
 
         public void OpenFunctionsDB()
@@ -168,12 +172,12 @@ namespace BaseModule.Tasks
             activeAdvisor = "";
         }
 
-        public void ShowAdvisor(object sender, TaskAdvisor taskAdv)
+        public void SetAdvisor(object sender, TaskAdvisor taskAdv)
         {
             try
             {
                 var generalData = GeneralData;
-                var btn = sender as ToolStripMenuItem;
+                //var btn = sender as ToolStripMenuItem;
                 var appFolder = Path.GetDirectoryName(Application.ExecutablePath);
                 if (appFolder == generalData.Path)
                 {
@@ -182,27 +186,6 @@ namespace BaseModule.Tasks
                 }
 
                 activeAdvisor = taskAdv.Name;
-
-                var form = new Form() 
-                { Text = taskAdv.Text, 
-                    Name = taskAdv.Name, 
-                    TopMost = true, Owner = Application.OpenForms[0],
-                    Size = taskAdv.Size, 
-                    ShowIcon = false
-                };
-
-                form.FormClosed += (ar1, ar2) =>
-                {
-                    if (ar2.CloseReason == CloseReason.UserClosing)
-                        btn.Checked = false;
-                    activeAdvisor = "";
-                };
-                form.Controls.Add(taskAdv);
-                
-                form.Show();
-                form.ClientSize = new Size(taskAdv.Width, this.BasePage.ScenePage.Height);
-                var location = BasePage.ScenePage.PointToScreen(Point.Empty);
-                form.Location = location;
 
                 taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent;
                 taskAdv.AddDataUseTaskConditionsEvent += (ar1,ar2) => { TaskAdv_AddDataUseTaskConditions(taskData, preProc); };

@@ -30,11 +30,11 @@
         {
             this.splitContainerEx = new UserControlsEx.SplitContainerEx();
             this.basePage = new BaseModule.BasePage();
+            this.pinnedMeshGenControl = new BaseModule.Mesh.PinnedMeshGenControl();
             this.pinnedAnimationControl = new BaseModule.Results.Animation.PinnedAnimationControl();
-            this.pinnedWAdvControl1 = new TaskModule.BasicTaskAdvisor.PinnedWAdvControl();
+            this.pinnedWAdvControl = new TaskModule.BasicTaskAdvisor.PinnedWAdvControl();
             this.pinnedHTAdvControl = new BaseModule.Tasks.HeatTreatmentModule.PinnedHTAdvControl();
             this.pinnedCTAdvControl = new BaseModule.Tasks.HeatTreatmentModule.PinnedCTAdvControl();
-            this.pinnedMeshGenControl = new BaseModule.Mesh.PinnedMeshGenControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).BeginInit();
             this.splitContainerEx.Panel1.SuspendLayout();
             this.splitContainerEx.Panel2.SuspendLayout();
@@ -57,12 +57,12 @@
             // 
             this.splitContainerEx.Panel2.Controls.Add(this.pinnedMeshGenControl);
             this.splitContainerEx.Panel2.Controls.Add(this.pinnedAnimationControl);
-            this.splitContainerEx.Panel2.Controls.Add(this.pinnedWAdvControl1);
+            this.splitContainerEx.Panel2.Controls.Add(this.pinnedWAdvControl);
             this.splitContainerEx.Panel2.Controls.Add(this.pinnedHTAdvControl);
             this.splitContainerEx.Panel2.Controls.Add(this.pinnedCTAdvControl);
             this.splitContainerEx.Panel2.Padding = new System.Windows.Forms.Padding(0, 5, 5, 0);
-            this.splitContainerEx.Size = new System.Drawing.Size(959, 594);
-            this.splitContainerEx.SplitterDistance = 611;
+            this.splitContainerEx.Size = new System.Drawing.Size(998, 576);
+            this.splitContainerEx.SplitterDistance = 635;
             this.splitContainerEx.SwitchShifting = false;
             this.splitContainerEx.TabIndex = 2;
             // 
@@ -76,9 +76,24 @@
             this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.basePage.PressedKey = System.Windows.Forms.Keys.None;
             this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
-            this.basePage.Size = new System.Drawing.Size(611, 594);
+            this.basePage.Size = new System.Drawing.Size(635, 576);
             this.basePage.SplitterWidthEx = 10;
             this.basePage.TabIndex = 0;
+            // 
+            // pinnedMeshGenControl
+            // 
+            this.pinnedMeshGenControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pinnedMeshGenControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pinnedMeshGenControl.DownColor = System.Drawing.Color.Gainsboro;
+            this.pinnedMeshGenControl.HeaderName = "Сеточный генератор";
+            this.pinnedMeshGenControl.Location = new System.Drawing.Point(0, 5);
+            this.pinnedMeshGenControl.Margin = new System.Windows.Forms.Padding(0);
+            this.pinnedMeshGenControl.Name = "pinnedMeshGenControl";
+            this.pinnedMeshGenControl.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.pinnedMeshGenControl.Size = new System.Drawing.Size(354, 571);
+            this.pinnedMeshGenControl.TabIndex = 7;
+            this.pinnedMeshGenControl.UpColor = System.Drawing.Color.Gainsboro;
+            this.pinnedMeshGenControl.ControlCollapseEvent += new System.Action(this.pinnedControl_ControlCollapseEvent);
             // 
             // pinnedAnimationControl
             // 
@@ -91,24 +106,26 @@
             this.pinnedAnimationControl.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.pinnedAnimationControl.Name = "pinnedAnimationControl";
             this.pinnedAnimationControl.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.pinnedAnimationControl.Size = new System.Drawing.Size(339, 589);
+            this.pinnedAnimationControl.Size = new System.Drawing.Size(354, 571);
             this.pinnedAnimationControl.TabIndex = 6;
             this.pinnedAnimationControl.UpColor = System.Drawing.Color.Gainsboro;
+            this.pinnedAnimationControl.ControlCollapseEvent += new System.Action(this.pinnedControl_ControlCollapseEvent);
             // 
-            // pinnedWAdvControl1
+            // pinnedWAdvControl
             // 
-            this.pinnedWAdvControl1.BackColor = System.Drawing.Color.Gainsboro;
-            this.pinnedWAdvControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pinnedWAdvControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pinnedWAdvControl1.DownColor = System.Drawing.Color.Gainsboro;
-            this.pinnedWAdvControl1.HeaderName = "Постановщик задачи сварки";
-            this.pinnedWAdvControl1.Location = new System.Drawing.Point(0, 5);
-            this.pinnedWAdvControl1.Margin = new System.Windows.Forms.Padding(0);
-            this.pinnedWAdvControl1.Name = "pinnedWAdvControl1";
-            this.pinnedWAdvControl1.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.pinnedWAdvControl1.Size = new System.Drawing.Size(339, 589);
-            this.pinnedWAdvControl1.TabIndex = 5;
-            this.pinnedWAdvControl1.UpColor = System.Drawing.Color.Gainsboro;
+            this.pinnedWAdvControl.BackColor = System.Drawing.Color.Gainsboro;
+            this.pinnedWAdvControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pinnedWAdvControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pinnedWAdvControl.DownColor = System.Drawing.Color.Gainsboro;
+            this.pinnedWAdvControl.HeaderName = "Постановщик задачи сварки";
+            this.pinnedWAdvControl.Location = new System.Drawing.Point(0, 5);
+            this.pinnedWAdvControl.Margin = new System.Windows.Forms.Padding(0);
+            this.pinnedWAdvControl.Name = "pinnedWAdvControl1";
+            this.pinnedWAdvControl.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.pinnedWAdvControl.Size = new System.Drawing.Size(354, 571);
+            this.pinnedWAdvControl.TabIndex = 5;
+            this.pinnedWAdvControl.UpColor = System.Drawing.Color.Gainsboro;
+            this.pinnedWAdvControl.ControlCollapseEvent += new System.Action(this.pinnedControl_ControlCollapseEvent);
             // 
             // pinnedHTAdvControl
             // 
@@ -120,9 +137,10 @@
             this.pinnedHTAdvControl.Margin = new System.Windows.Forms.Padding(0);
             this.pinnedHTAdvControl.Name = "pinnedHTAdvControl";
             this.pinnedHTAdvControl.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.pinnedHTAdvControl.Size = new System.Drawing.Size(339, 589);
+            this.pinnedHTAdvControl.Size = new System.Drawing.Size(354, 571);
             this.pinnedHTAdvControl.TabIndex = 4;
             this.pinnedHTAdvControl.UpColor = System.Drawing.Color.Gainsboro;
+            this.pinnedHTAdvControl.ControlCollapseEvent += new System.Action(this.pinnedControl_ControlCollapseEvent);
             // 
             // pinnedCTAdvControl
             // 
@@ -134,23 +152,10 @@
             this.pinnedCTAdvControl.Margin = new System.Windows.Forms.Padding(0);
             this.pinnedCTAdvControl.Name = "pinnedCTAdvControl";
             this.pinnedCTAdvControl.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.pinnedCTAdvControl.Size = new System.Drawing.Size(339, 589);
+            this.pinnedCTAdvControl.Size = new System.Drawing.Size(354, 571);
             this.pinnedCTAdvControl.TabIndex = 3;
             this.pinnedCTAdvControl.UpColor = System.Drawing.Color.Gainsboro;
-            // 
-            // pinnedMeshGenControl
-            // 
-            this.pinnedMeshGenControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pinnedMeshGenControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pinnedMeshGenControl.DownColor = System.Drawing.Color.Gainsboro;
-            this.pinnedMeshGenControl.HeaderName = "Сеточный генератор";
-            this.pinnedMeshGenControl.Location = new System.Drawing.Point(0, 5);
-            this.pinnedMeshGenControl.Margin = new System.Windows.Forms.Padding(0);
-            this.pinnedMeshGenControl.Name = "pinnedMeshGenControl";
-            this.pinnedMeshGenControl.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.pinnedMeshGenControl.Size = new System.Drawing.Size(339, 589);
-            this.pinnedMeshGenControl.TabIndex = 7;
-            this.pinnedMeshGenControl.UpColor = System.Drawing.Color.Gainsboro;
+            this.pinnedCTAdvControl.ControlCollapseEvent += new System.Action(this.pinnedControl_ControlCollapseEvent);
             // 
             // EmbendentPage
             // 
@@ -158,7 +163,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainerEx);
             this.Name = "EmbendentPage";
-            this.Size = new System.Drawing.Size(959, 594);
+            this.Size = new System.Drawing.Size(998, 576);
             this.splitContainerEx.Panel1.ResumeLayout(false);
             this.splitContainerEx.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).EndInit();
@@ -173,7 +178,7 @@
         protected BasePage basePage;
         private Tasks.HeatTreatmentModule.PinnedCTAdvControl pinnedCTAdvControl;
         private Tasks.HeatTreatmentModule.PinnedHTAdvControl pinnedHTAdvControl;
-        private TaskModule.BasicTaskAdvisor.PinnedWAdvControl pinnedWAdvControl1;
+        private TaskModule.BasicTaskAdvisor.PinnedWAdvControl pinnedWAdvControl;
         private Results.Animation.PinnedAnimationControl pinnedAnimationControl;
         private Mesh.PinnedMeshGenControl pinnedMeshGenControl;
     }

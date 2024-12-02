@@ -16,6 +16,8 @@ namespace TaskModule.BasicTaskAdvisor
 {
     public partial class PinnedWAdvControl : PinnedPage
     {
+        public TaskAdvisor TaskAdvisor { get { return weldingAdvisor; } }
+
         public PinnedWAdvControl()
         {
             InitializeComponent();

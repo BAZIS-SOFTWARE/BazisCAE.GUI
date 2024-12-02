@@ -10,6 +10,8 @@ namespace TaskModule.HeatTreatmentModule
         public HeatTreatmentPage()
         {
             InitializeComponent();
+
+            EmbeddedControls.Find("pinnedHTAdvControl", false)[0].BringToFront();
         }
 
         public HeatTreatmentAdvisor CreateHeatTreatmentAdvisor(ProcessType processType)

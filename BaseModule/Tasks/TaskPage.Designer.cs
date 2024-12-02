@@ -37,19 +37,8 @@ namespace BaseModule.Tasks
             this.treeNodesImageList = new System.Windows.Forms.ImageList(this.components);
             this.taskMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.EmbeddedSplitContainer)).BeginInit();
-            this.EmbeddedSplitContainer.Panel1.SuspendLayout();
-            this.EmbeddedSplitContainer.SuspendLayout();
             this.taskMenuStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // basePage
-            // 
-            this.BasePage.Size = new System.Drawing.Size(1153, 522);
-            // 
-            // splitContainerEx
-            // 
-            this.EmbeddedSplitContainer.Size = new System.Drawing.Size(1153, 522);
             // 
             // treeNodesImageList
             // 
@@ -71,12 +60,12 @@ namespace BaseModule.Tasks
             this.taskMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.удалитьToolStripMenuItem});
             this.taskMenuStrip.Name = "taskMenuStrip";
-            this.taskMenuStrip.Size = new System.Drawing.Size(181, 48);
+            this.taskMenuStrip.Size = new System.Drawing.Size(119, 26);
             // 
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.удалитьToolStripMenuItem.Text = "Удалить";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
@@ -92,9 +81,6 @@ namespace BaseModule.Tasks
             this.DeleteGroupEvent += new System.Action(this.TaskPage_DeleteGroupEvent);
             this.DeleteObjectsEvent += new System.Action(this.TaskPage_DeleteGroupEvent);
             this.DeleteSelectedObjectsEvent += new System.Action(this.TaskPage_DeleteGroupEvent);
-            this.EmbeddedSplitContainer.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.EmbeddedSplitContainer)).EndInit();
-            this.EmbeddedSplitContainer.ResumeLayout(false);
             this.taskMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
