@@ -52,12 +52,6 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DataBaseController">
-      <HintPath>..\Libs\DataBaseController.dll</HintPath>
-    </Reference>
-    <Reference Include="DataBasesGUI">
-      <HintPath>..\Libs\DataBasesGUI.dll</HintPath>
-    </Reference>
     <Reference Include="Geometry, Version=2.0.8.4, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
       <HintPath>..\packages\Geometry.2.0.8.4\lib\netstandard2.0\Geometry.dll</HintPath>
     </Reference>
@@ -90,6 +84,9 @@
     </Reference>
     <Reference Include="ProjectInterfaces, Version=3.1.68.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
       <HintPath>..\packages\ProjectInterfaces.3.1.68\lib\netstandard2.0\ProjectInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="PropertiesCalculator">
+      <HintPath>..\Libs\PropertiesCalculator.dll</HintPath>
     </Reference>
     <Reference Include="Scene, Version=2.0.8.52, Culture=neutral, PublicKeyToken=2e7150108cd20395, processorArchitecture=MSIL">
       <HintPath>..\packages\Scene.2.0.8.52\lib\net48\Scene.dll</HintPath>
@@ -408,6 +405,62 @@
     <Compile Include="PinnedControl\PinnedPage.Designer.cs">
       <DependentUpon>PinnedPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tasks\DataBases\DataBasePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\DataBases\DataBasePage.designer.cs">
+      <DependentUpon>DataBasePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\DataBases\DiagramGraphPoint.cs" />
+    <Compile Include="Tasks\DataBases\FunctionDataBasePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\DataBases\FunctionDataBasePage.Designer.cs">
+      <DependentUpon>FunctionDataBasePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\DataBases\MaterialsDataBasePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\DataBases\MaterialsDataBasePage.Designer.cs">
+      <DependentUpon>MaterialsDataBasePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\DataBases\MechanicalGUI\CreepControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\DataBases\MechanicalGUI\CreepControl.Designer.cs">
+      <DependentUpon>CreepControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\DataBases\MechanicalGUI\HardeningControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\DataBases\MechanicalGUI\HardeningControl.Designer.cs">
+      <DependentUpon>HardeningControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\DataBases\MetallurgyGUI\CCTControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\DataBases\MetallurgyGUI\CCTControl.Designer.cs">
+      <DependentUpon>CCTControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\DataBases\MetallurgyGUI\DiagramControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\DataBases\MetallurgyGUI\DiagramControl.Designer.cs">
+      <DependentUpon>DiagramControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\DataBases\MetallurgyGUI\TTTControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\DataBases\MetallurgyGUI\TTTControl.Designer.cs">
+      <DependentUpon>TTTControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\DataBases\ReactionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\DataBases\ReactionControl.Designer.cs">
+      <DependentUpon>ReactionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\DataBases\VelEventArgs.cs" />
     <Compile Include="Tasks\HeatTreatmentModule\PinnedCTAdvControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -654,6 +707,30 @@
     <EmbeddedResource Include="PinnedControl\PinnedPage.resx">
       <DependentUpon>PinnedPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\DataBases\DataBasePage.resx">
+      <DependentUpon>DataBasePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\DataBases\MaterialsDataBasePage.resx">
+      <DependentUpon>MaterialsDataBasePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\DataBases\MechanicalGUI\CreepControl.resx">
+      <DependentUpon>CreepControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\DataBases\MechanicalGUI\HardeningControl.resx">
+      <DependentUpon>HardeningControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\DataBases\MetallurgyGUI\CCTControl.resx">
+      <DependentUpon>CCTControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\DataBases\MetallurgyGUI\DiagramControl.resx">
+      <DependentUpon>DiagramControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\DataBases\MetallurgyGUI\TTTControl.resx">
+      <DependentUpon>TTTControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\DataBases\ReactionControl.resx">
+      <DependentUpon>ReactionControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Tasks\HeatTreatmentModule\PinnedCTAdvControl.resx">
       <DependentUpon>PinnedCTAdvControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -725,7 +802,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Tasks\BasicAdvisorControls\Resources\Icons.zip" />
-    <None Include="Tasks\Materials\materials_v3.jsf" />
+    <None Include="Tasks\DataBases\Functions\functions.jsf" />
+    <None Include="Tasks\DataBases\Materials\Materials_for_test.jsf" />
+    <None Include="Tasks\DataBases\Materials\materials_v1.jsf" />
+    <None Include="Tasks\DataBases\Materials\materials_v2.jsf" />
+    <None Include="Tasks\DataBases\Materials\materials_v3.jsf" />
+    <None Include="Tasks\DataBases\Materials\Materials_v4.jsf" />
     <None Include="Tasks\WeldingModule\packages.config" />
     <None Include="TreeViewPic\switchOn_nodes_16x16.png" />
     <None Include="TreeViewPic\switchOn_elems_16x16.png" />
@@ -799,12 +881,14 @@
     <Content Include="Tasks\BasicAdvisorControls\Resources\Консоль.bmp" />
     <Content Include="Tasks\BasicAdvisorControls\Resources\Настройки сцены.bmp" />
     <Content Include="Tasks\BasicAdvisorControls\Resources\Справка.bmp" />
-    <Content Include="Tasks\Functions\functions.txt" />
-    <Content Include="Tasks\Functions\functions_draft.txt" />
-    <Content Include="Tasks\Functions\functions_save.txt" />
+    <Content Include="Tasks\DataBases\Functions\functions_draft.txt" />
+    <Content Include="Tasks\DataBases\Materials\materials_draft.txt" />
+    <None Include="Tasks\DataBases\Resources\AddDB.png" />
+    <None Include="Tasks\DataBases\Resources\ASC_sort.png" />
+    <None Include="Tasks\DataBases\Resources\Copy.png" />
+    <None Include="Tasks\DataBases\Resources\OpenDB.png" />
     <Content Include="Tasks\HeatTreatmentModule\HT.ico" />
     <Content Include="Tasks\HeatTreatmentModule\Icon.bmp" />
-    <Content Include="Tasks\Materials\materials_draft.txt" />
     <Content Include="Tasks\WeldingModule\Icon.bmp" />
     <None Include="Resources\PlayerControlIcons\Pause.ico" />
     <None Include="Resources\PlayerControlIcons\StartCheck.ico" />
@@ -819,5 +903,6 @@
       <Name>UserControlsEx</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

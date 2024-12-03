@@ -9,11 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using TaskModule.BasicTaskAdvisor;
 using TaskModule.BasicAdvisorControls.Events;
-using BaseModule;
-using DataBaseController.MaterialData;
-using DataBaseController.FunctionData;
 using Newtonsoft.Json;
-using DataBasesGUI;
 using Geometry;
 using ProjectInterfaces.Tasks;
 using ModelInterfaces;
@@ -22,7 +18,9 @@ using BaseModule.Utilities;
 using ModelControllerInterfaces;
 using ProjectInterfaces;
 using System.Text.RegularExpressions;
-using System.Security.Cryptography;
+using BaseModule.Tasks.DataBases;
+using PropertiesCalculator.MaterialData;
+using PropertiesCalculator.FunctionData;
 
 namespace BaseModule.Tasks
 {
