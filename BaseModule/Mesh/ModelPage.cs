@@ -13,6 +13,7 @@ using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Security;
 using System.Windows.Forms;
+using TaskModule.BasicTaskAdvisor;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BaseModule.Mesh
@@ -36,8 +37,53 @@ namespace BaseModule.Mesh
 
             selectToolStrip.Location = new Point(3, 0);
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
-        }  
-        
+
+            var pContr = (PinnedMeshGenControl)EmbeddedControls.Find("pinnedMeshGenControl", false)[0];
+            pContr.BringToFront();
+            var meshContr = pContr.MeshGeneratorControl;
+
+            SetMeshControl(meshContr);
+        }
+
+        private void SetMeshControl(GMSHGeneralMeshControl meshGenerator)
+        {
+            meshGenerator.setMeshAlgoEvent += (ar) =>
+            {
+                var ierrAlgo = 0;
+                GmshController.OptionSetNumber("Mesh.Algorithm", ar, ref ierrAlgo);
+            };
+
+            meshGenerator.delMeshGradientEvent += MeshGenerator_delMeshGradientEvent;
+            meshGenerator.showShowSurfaceNumbersEvent += MeshGenerator_showSurfaceNumbers;
+            meshGenerator.showNumberOfCurveNodesEvent += MeshGenerator_showNumberOfCurveNodes;
+            meshGenerator.generate3DTetraMeshEvent += MeshGenerator_generate3DMeshEvent;
+            meshGenerator.generate2DTriangleMeshEvent += MeshGenerator_generate2DMeshEvent;
+            meshGenerator.deleteMeshEvent += MeshGenerator_deleteMeshEvent;
+            meshGenerator.showNodesOnCurvesEvent += MeshGenerator_showNodesOnCurves;
+            meshGenerator.updateObjectsDataEvent += UpdateMeshVBO;
+            meshGenerator.updateGeometryVBOEvent += UpdateGeometryVBO;
+            //meshGenerator.updateTreeViewEvent += () => { PresentProjectOnTree(); };
+            meshGenerator.refineMesh += MeshGenerator_refineMesh;
+            meshGenerator.ShowObjectsEvent += ShowObjects;
+            meshGenerator.generate2DQuadMesh += MeshGenerator_generate2DQuadMesh;
+            meshGenerator.showHeatMapEvent += GmshControl_showHeatMapEvent;
+            meshGenerator.resetColorObjectsEvent += GmshControl_ResetColorObjectsEvent;
+
+            meshGenerator.SetCurveAttributeEvent += MeshGenerator_SetCurveAttributeEvent;
+            meshGenerator.GetCurveAttribEvent += MeshGenerator_GetCurveAttribEvent;
+            meshGenerator.CurveAttribDeleteEvent += MeshGenerator_CurveAttribDeleteEvent;
+
+            meshGenerator.deleteElementEvent += DeleteElementsByNumber;
+            meshGenerator.setMeshGradientSettingsEvent += MeshGenerator_setMeshGradientSettingsEvent;
+
+            meshGenerator.SetPointSizeEvent += SetPointSizesEventHandler;
+            meshGenerator.PointAttribDeleteEvent += MeshGenerator_PointAttribDeleteEvent;
+            meshGenerator.GetPointSizeEvent += MeshGenerator_GetPointSizeEvent;
+
+            meshGenerator.setMinMaxSizesEvent += SetMinMaxSizesEvent;
+            //gmshForm.Controls.Add(meshGenerator);
+            //meshGenerator.Dock = DockStyle.Fill;
+        }
 
         public void CreateSurfaceElements(ObjType objType)
         {
@@ -91,82 +137,6 @@ namespace BaseModule.Mesh
             {
                 BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }        
-        }
-
-        public void LoadGMSHMeshControl(IGmshController gmshController)
-        {
-            GmshController = gmshController;
-            //SceneControl.IsBlending = false;//Прозрачность пока больше мешает
-
-            if (GmshController == null)
-                MessageBox.Show("Контроллер генератора сетки не загружен!");
-
-            else
-            {
-                var meshGenerator = new GMSHGeneralMeshControl();
-                var gmshForm = new Form()
-                {
-                    TopMost = true,
-                    ShowIcon = false,
-                    ClientSize = new Size(meshGenerator.Width, this.BasePage.ScenePage.Height),
-                    MaximizeBox = false,
-                    //FormBorderStyle = FormBorderStyle.FixedSingle,
-                    Owner = Application.OpenForms[0],
-                    Text = "Cеточный тетра генератор"
-                };
-                gmshForm.FormClosing += GmshForm_FormClosing;
-
-                meshGenerator.setMeshAlgoEvent += (ar) =>
-                {
-                    var ierrAlgo = 0;
-                    GmshController.OptionSetNumber("Mesh.Algorithm", ar, ref ierrAlgo);
-                };
-
-                meshGenerator.delMeshGradientEvent += MeshGenerator_delMeshGradientEvent;
-                meshGenerator.showShowSurfaceNumbersEvent += MeshGenerator_showSurfaceNumbers;
-                meshGenerator.showNumberOfCurveNodesEvent += MeshGenerator_showNumberOfCurveNodes;
-                meshGenerator.generate3DTetraMeshEvent += MeshGenerator_generate3DMeshEvent;
-                meshGenerator.generate2DTriangleMeshEvent += MeshGenerator_generate2DMeshEvent;
-                meshGenerator.deleteMeshEvent += MeshGenerator_deleteMeshEvent;
-                meshGenerator.showNodesOnCurvesEvent += MeshGenerator_showNodesOnCurves;
-                meshGenerator.updateObjectsDataEvent += UpdateMeshVBO;
-                meshGenerator.updateGeometryVBOEvent += UpdateGeometryVBO;
-                //meshGenerator.updateTreeViewEvent += () => { PresentProjectOnTree(); };
-                meshGenerator.refineMesh += MeshGenerator_refineMesh;
-                meshGenerator.ShowObjectsEvent += ShowObjects;
-                meshGenerator.generate2DQuadMesh += MeshGenerator_generate2DQuadMesh;      
-                meshGenerator.showHeatMapEvent += GmshControl_showHeatMapEvent;
-                meshGenerator.resetColorObjectsEvent += GmshControl_ResetColorObjectsEvent;
-
-                meshGenerator.SetCurveAttributeEvent += MeshGenerator_SetCurveAttributeEvent;
-                meshGenerator.GetCurveAttribEvent += MeshGenerator_GetCurveAttribEvent;
-                meshGenerator.CurveAttribDeleteEvent += MeshGenerator_CurveAttribDeleteEvent;
-
-                meshGenerator.deleteElementEvent += DeleteElementsByNumber;
-                meshGenerator.setMeshGradientSettingsEvent += MeshGenerator_setMeshGradientSettingsEvent;
-
-                meshGenerator.SetPointSizeEvent += SetPointSizesEventHandler;
-                meshGenerator.PointAttribDeleteEvent += MeshGenerator_PointAttribDeleteEvent;
-                meshGenerator.GetPointSizeEvent += MeshGenerator_GetPointSizeEvent;
-
-                meshGenerator.setMinMaxSizesEvent += SetMinMaxSizesEvent;
-                gmshForm.Controls.Add(meshGenerator);
-                meshGenerator.Dock = DockStyle.Fill;
-
-                var ierr = 0;
-                meshGenerator.FillGeometryTreeView(GmshController);
-                if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
-                    meshGenerator.ShowHideGeneralTabControls(2, true);
-
-                //meshGenerator.ShowHideGeneralTabControls(1);
-                meshGenerator.ShowHideTabControls(1);
-
-                gmshForm.Show();
-
-                var location = BasePage.ScenePage.PointToScreen(Point.Empty);
-                gmshForm.Location = location;
-            }        
-            //ModelPresenter.Clear();//Подчищаем Presenter во избежании артефактов
         }
 
         private void MeshGenerator_SetCurveAttributeEvent(object arg1, CurveAttribsEventArgs arg2)
@@ -778,14 +748,31 @@ namespace BaseModule.Mesh
                 scenePage.CreateObjectsOnScene(item.ToString(), presentor);
         }   
 
-        public void OpenMesh3DGenerator(IGmshController gmshController)
+        public void SetGMSHController(IGmshController gmshController)
         {
             var scenePage = BasePage.ScenePage;
             scenePage.SceneControl.HideAllGeometryObjs();
             scenePage.SceneControl.HideDisplayText2D();
             scenePage.SceneControl.HideDisplayText3D();
             BasePage.PresentProjectOnTree();
-            LoadGMSHMeshControl(gmshController);
+
+            if (gmshController == null)
+                MessageBox.Show("Контроллер генератора сетки не загружен!");
+
+            GmshController = gmshController;
+            //SceneControl.IsBlending = false;//Прозрачность пока больше мешает
+
+            var pContr = (PinnedMeshGenControl)EmbeddedControls.Find("pinnedMeshGenControl", false)[0];
+            var meshContr = pContr.MeshGeneratorControl;
+
+            var ierr = 0;
+            meshContr.FillGeometryTreeView(GmshController);
+            if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
+                meshContr.ShowHideGeneralTabControls(2, true);
+
+            //meshGenerator.ShowHideGeneralTabControls(1);
+            meshContr.ShowHideTabControls(1);
+
             scenePage.SceneControl.DisplayObjects();
         }
     }

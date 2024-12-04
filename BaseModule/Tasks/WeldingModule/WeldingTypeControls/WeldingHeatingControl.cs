@@ -148,6 +148,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
                 txbStartTime.Text = dataGridView[(int)Column.startTime, e.RowIndex].Value.ToString();
 
+                var stopTime = Convert.ToSingle(dataGridView[(int)Column.stopTime, e.RowIndex].Value.ToString());
+                player.StopValue = (int)Math.Round(stopTime);
+
                 var checkStartTime = Convert.ToSingle(txbStartTime.Text);
 
                 player.CurrentValue = (int)checkStartTime;

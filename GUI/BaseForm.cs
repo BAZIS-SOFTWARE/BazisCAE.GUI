@@ -303,7 +303,7 @@ namespace BazisGUI
         {
             //toolStripPage.BasePage = module;
             ModulePage = module;
-            module.BasePage.SceneInitialization();
+            //module.BasePage.SceneInitialization();
             module.BringToFront();
 
             tableLayoutPanel.Hide();
@@ -1040,15 +1040,26 @@ namespace BazisGUI
         {
             var module = (ModelPage)ModulePage;
 
-            var res = MessageBox.Show("Вы собираетесь запустить сеточный генератор. При нажатии на кнопку \"OK\" Все данные о задаче будут удалены!",
+            if (mesh3DGeneratorMenuItem.Checked)
+            {
+                var res = MessageBox.Show("Вы собираетесь запустить сеточный генератор. При нажатии на кнопку \"OK\" " +
+    "Все данные о задаче будут удалены!",
 "Внимание!", MessageBoxButtons.OKCancel);
 
-            if (res == DialogResult.OK)
-            {
-                project.TaskData.Clear();
-                module.OpenMesh3DGenerator(gmshController);
+                if (res == DialogResult.OK)
+                    project.TaskData.Clear();
+                else
+                {
+                    mesh3DGeneratorMenuItem.Checked = false;
+                    return;
+                }
+
+                module.EmbeddedSplitContainer.Panel2Collapsed = false;
+                if(gmshController != null)
+                    module.SetGMSHController(gmshController);
             }
-          
+            else 
+                module.EmbeddedSplitContainer.Panel2Collapsed = true;         
         }
 
         private void arcWeldingMenuItem_Click(object sender, EventArgs e)

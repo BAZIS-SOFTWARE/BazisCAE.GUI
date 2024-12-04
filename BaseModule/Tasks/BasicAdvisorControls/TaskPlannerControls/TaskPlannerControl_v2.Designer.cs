@@ -177,7 +177,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnAddNewTask.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAddNewTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnAddNewTask.Image = global::BaseModule.Properties.Resources.Add.ToBitmap();
+            this.btnAddNewTask.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewTask.Image")));
             this.btnAddNewTask.Location = new System.Drawing.Point(11, 178);
             this.btnAddNewTask.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.btnAddNewTask.Name = "btnAddNewTask";
@@ -209,7 +209,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnLoadParameters.AutoSize = true;
             this.btnLoadParameters.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadParameters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            //this.btnLoadParameters.Image = global::TaskModule.Properties.Resources.ComputationFolder;
+            this.btnLoadParameters.Image = global::BaseModule.Properties.Resources.OpenDB;
             this.btnLoadParameters.Location = new System.Drawing.Point(110, 178);
             this.btnLoadParameters.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.btnLoadParameters.Name = "btnLoadParameters";

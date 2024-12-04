@@ -164,13 +164,7 @@ namespace BaseModule.Tasks
             PresentMatAndFuncDataOnTree();
         }
 
-        public void DeleteAdvisor()
-        {
-            Application.OpenForms[activeAdvisor]?.Close();
-            activeAdvisor = "";
-        }
-
-        public void SetAdvisor(TaskAdvisor taskAdv)
+        public void FillAdvisor(TaskAdvisor taskAdv)
         {
             try
             {
@@ -182,23 +176,6 @@ namespace BaseModule.Tasks
                     MessageBox.Show("Рабочая папка проекта должна отличаться от папки установки программы!");
                     return;
                 }
-
-                activeAdvisor = taskAdv.Name;
-
-                taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent;
-                taskAdv.AddDataUseTaskConditionsEvent += (ar1,ar2) => { TaskAdv_AddDataUseTaskConditions(taskData, preProc); };
-                taskAdv.AddDataEvent += (ar1, ar2) => { TaskAdvisor_AddData(taskData, ar2); };
-                taskAdv.DeleteDataEvent += (ar1, ar2) => { TaskAdvisor_DeleteData(taskData, ar2); };
-                taskAdv.DeleteAllDataEvent += (ar1, ar2) => { TaskAdvisor_DeleteAllData(taskData, ar2); };
-                taskAdv.CheckDataEvent += (ar1, ar2) => { TaskAdvisor_CheckData(taskData, ar2); };
-                taskAdv.HideDataEvent += TaskAdvisor_HideDataEvent;
-                taskAdv.ShowDataEvent += (ar1, ar2) => { TaskAdvisor_ShowData(taskData, ar2); };
-                taskAdv.ChangeDataEvent += (ar1,ar2) => { TaskAdvisor_ChangeData(taskData,ar2); };
-                taskAdv.StartComputationEvent += TaskAdvisor_StartComputationEvent;
-                taskAdv.StopComputationEvent += TaskAdv_StopComputationEvent;
-                taskAdv.Select2DAxiEvent += (ar1,ar2) => { TaskAdvisor_ChangeTaskType(taskData,ar2); };
-                taskAdv.Select2DPlaneEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };
-                taskAdv.Select3DEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };
 
                 var matDB = GetDataBase<MaterialDBData>(generalData.Materials, generalData.Path);
 
@@ -227,6 +204,33 @@ namespace BaseModule.Tasks
                     var sortedFiles = preProc.SortCompDataByTimeAndType(tsfFiles);
                     taskAdv.SetTaskPlannerlData(sortedFiles);
                 }
+            }
+            catch (Exception ex)
+            {
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
+        }
+
+        public void SetAdvisor(TaskAdvisor taskAdv)
+        {
+            try
+            {
+                activeAdvisor = taskAdv.Name;
+
+                taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent;
+                taskAdv.AddDataUseTaskConditionsEvent += (ar1,ar2) => { TaskAdv_AddDataUseTaskConditions(taskData, preProc); };
+                taskAdv.AddDataEvent += (ar1, ar2) => { TaskAdvisor_AddData(taskData, ar2); };
+                taskAdv.DeleteDataEvent += (ar1, ar2) => { TaskAdvisor_DeleteData(taskData, ar2); };
+                taskAdv.DeleteAllDataEvent += (ar1, ar2) => { TaskAdvisor_DeleteAllData(taskData, ar2); };
+                taskAdv.CheckDataEvent += (ar1, ar2) => { TaskAdvisor_CheckData(taskData, ar2); };
+                taskAdv.HideDataEvent += TaskAdvisor_HideDataEvent;
+                taskAdv.ShowDataEvent += (ar1, ar2) => { TaskAdvisor_ShowData(taskData, ar2); };
+                taskAdv.ChangeDataEvent += (ar1,ar2) => { TaskAdvisor_ChangeData(taskData,ar2); };
+                taskAdv.StartComputationEvent += TaskAdvisor_StartComputationEvent;
+                taskAdv.StopComputationEvent += TaskAdv_StopComputationEvent;
+                taskAdv.Select2DAxiEvent += (ar1,ar2) => { TaskAdvisor_ChangeTaskType(taskData,ar2); };
+                taskAdv.Select2DPlaneEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };
+                taskAdv.Select3DEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };               
             }
             catch (Exception ex)
             {
@@ -477,16 +481,9 @@ namespace BaseModule.Tasks
             GetTaskAdvisor()?.SetProjectData(generalData, ModelData,taskData);
         }
 
-        public TaskAdvisor GetTaskAdvisor()
+        public virtual TaskAdvisor GetTaskAdvisor()
         {
-            var taskForm = Application.OpenForms[activeAdvisor];
-            if (taskForm != null)
-            {
-                var taskAdvisor = (TaskAdvisor)taskForm.Controls[0];
-                //var advPresenter = new AdvisorPresenter(Project);
-                return taskAdvisor;
-            }
-            else return null;
+            throw new Exception("Мастер не реализован");
         }
 
         public void TaskAdvisor_ChangeData(ITaskData taskData, ChangeDataEventArgs arg2)

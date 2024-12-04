@@ -384,7 +384,6 @@
             this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.treeView.FullRowSelect = true;
-            this.treeView.HideSelection = false;
             this.treeView.ImageIndex = 16;
             this.treeView.ImageList = this.treeNodesImageList_16x16;
             this.treeView.Indent = 19;
@@ -438,6 +437,8 @@
             this.treeView.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterCollapse);
             this.treeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterExpand);
             this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_NodeMouseClick);
+            this.treeView.Enter += new System.EventHandler(this.treeView_Enter);
+            this.treeView.Leave += new System.EventHandler(this.treeView_Leave);
             // 
             // grbNavigator
             // 

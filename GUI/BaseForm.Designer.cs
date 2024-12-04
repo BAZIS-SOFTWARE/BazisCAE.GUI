@@ -458,21 +458,22 @@
             // createSurfaceElementsMenuItem
             // 
             this.createSurfaceElementsMenuItem.Name = "createSurfaceElementsMenuItem";
-            this.createSurfaceElementsMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.createSurfaceElementsMenuItem.Size = new System.Drawing.Size(180, 22);
             this.createSurfaceElementsMenuItem.Text = "Создать 2D из 3D";
             this.createSurfaceElementsMenuItem.Click += new System.EventHandler(this.createSurfaceElementsMenuItem_Click);
             // 
             // создать1DПо2DЭлементамToolStripMenuItem
             // 
             this.создать1DПо2DЭлементамToolStripMenuItem.Name = "создать1DПо2DЭлементамToolStripMenuItem";
-            this.создать1DПо2DЭлементамToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.создать1DПо2DЭлементамToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.создать1DПо2DЭлементамToolStripMenuItem.Text = "Создать 1D из 2D";
             this.создать1DПо2DЭлементамToolStripMenuItem.Click += new System.EventHandler(this.создать1DПо2DЭлементамToolStripMenuItem_Click);
             // 
             // mesh3DGeneratorMenuItem
             // 
+            this.mesh3DGeneratorMenuItem.CheckOnClick = true;
             this.mesh3DGeneratorMenuItem.Name = "mesh3DGeneratorMenuItem";
-            this.mesh3DGeneratorMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.mesh3DGeneratorMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mesh3DGeneratorMenuItem.Text = "Генератор 3D сетки";
             this.mesh3DGeneratorMenuItem.Click += new System.EventHandler(this.mesh3DGeneratorMenuItem_Click);
             // 

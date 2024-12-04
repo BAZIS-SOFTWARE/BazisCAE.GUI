@@ -13,7 +13,7 @@ namespace BaseModule.Mesh
 {
     public partial class PinnedMeshGenControl : PinnedPage
     {
-        public GMSHGeneralMeshControl MeshControl { get { return gmshGeneralMeshControl; } }
+        public GMSHGeneralMeshControl MeshGeneratorControl { get { return gmshGeneralMeshControl; } }
         public PinnedMeshGenControl()
         {
             InitializeComponent();

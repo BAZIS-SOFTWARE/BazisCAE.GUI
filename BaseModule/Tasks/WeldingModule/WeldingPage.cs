@@ -16,8 +16,23 @@ namespace BaseModule.Tasks.WeldingModule
         {
             InitializeComponent();
 
-            EmbeddedControls.Find("pinnedWAdvControl", false)[0].BringToFront();
+            var pContr = (PinnedWAdvControl)EmbeddedControls.Find("pinnedWAdvControl", false)[0];
+            pContr.BringToFront();
+            var taskAdv = pContr.WeldingAdvisor;
+
+
             //splitContainerEx.Panel2.Controls.Add()
+
+            taskAdv.SpecifyWeldingZoneEvent += (ar1, ar2) =>
+            { TaskAdv_SpecifyWeldingZone(ar1, ar2); };
+
+            SetAdvisor(taskAdv);
+        }
+
+        public override TaskAdvisor GetTaskAdvisor()
+        {
+            var pContr = (PinnedWAdvControl)EmbeddedControls.Find("pinnedWAdvControl", false)[0];
+            return pContr.WeldingAdvisor;
         }
 
         public void ConfigAdvisor(WeldingKind weldingKind)
@@ -30,10 +45,7 @@ namespace BaseModule.Tasks.WeldingModule
 
             pContr.HeaderName = $"Постановка задачи {weldingKind}";
 
-            taskAdv.SpecifyWeldingZoneEvent += (ar1,ar2) => 
-            { TaskAdv_SpecifyWeldingZone(ar1,ar2); };
-
-            SetAdvisor(taskAdv);
+            FillAdvisor(taskAdv);
         }
 
         private async void TaskAdv_SpecifyWeldingZone(string arg1, int arg2)

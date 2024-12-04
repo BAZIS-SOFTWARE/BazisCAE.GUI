@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using UserControlsEx;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BaseModule.Navigator
 {
@@ -90,7 +91,7 @@ namespace BaseModule.Navigator
             };
         }
 
-        public TreeView TreeView
+        public System.Windows.Forms.TreeView TreeView
         {
             get
             {
@@ -428,6 +429,24 @@ namespace BaseModule.Navigator
         private void grbNavigator_Resize(object sender, EventArgs e)
         {
             grbNavigator.Invalidate();
+        }
+
+        private void treeView_Enter(object sender, EventArgs e)
+        {
+            if (treeView.SelectedNode != null)
+            {
+                treeView.SelectedNode.BackColor = Color.Empty;
+                treeView.SelectedNode.ForeColor = Color.Empty;
+            }
+        }
+
+        private void treeView_Leave(object sender, EventArgs e)
+        {
+            if (treeView.SelectedNode != null)
+            {
+                treeView.SelectedNode.BackColor = SystemColors.ControlDark;
+                treeView.SelectedNode.ForeColor = Color.White;
+            }
         }
     }
 }
