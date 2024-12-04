@@ -61,9 +61,6 @@
     <Reference Include="GmshApi, Version=3.0.4.7, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
       <HintPath>..\packages\GmshApi.3.0.4.7\lib\netstandard2.0\GmshApi.dll</HintPath>
     </Reference>
-    <Reference Include="Graph">
-      <HintPath>..\Libs\Graph.dll</HintPath>
-    </Reference>
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
     </Reference>

@@ -1,5 +1,4 @@
-﻿using Graph;
-using PropertiesCalculator.MaterialData;
+﻿using PropertiesCalculator.MaterialData;
 using PropertiesCalculator.MaterialData.Metallurgical;
 using System;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using UserControlsEx.Graph;
 using static System.Collections.Specialized.BitVector32;
 
 namespace BaseModule.Tasks.DataBases.MetallurgyGUI

@@ -1,4 +1,6 @@
-﻿namespace BaseModule.Tasks.DataBases.MechanicalGUI
+﻿using UserControlsEx.Graph;
+
+namespace BaseModule.Tasks.DataBases.MechanicalGUI
 {
     partial class CreepControl
     {
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.graphContainer1 = new Graph.GraphContainer();
+            this.graphContainer1 = new GraphContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -230,7 +232,7 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private Graph.GraphContainer graphContainer1;
+        private GraphContainer graphContainer1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;

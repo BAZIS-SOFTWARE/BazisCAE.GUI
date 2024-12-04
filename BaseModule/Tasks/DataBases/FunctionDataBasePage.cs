@@ -4,11 +4,11 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using System.IO;
-using Graph;
 using Newtonsoft.Json;
 using PropertiesCalculator;
 using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
+using UserControlsEx.Graph;
 
 namespace BaseModule.Tasks.DataBases
 {

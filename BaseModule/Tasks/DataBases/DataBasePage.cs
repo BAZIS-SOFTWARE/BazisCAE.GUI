@@ -4,9 +4,9 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using Graph;
 using PropertiesCalculator.Interfaces;
 using UserControlsEx;
+using UserControlsEx.Graph;
 
 namespace BaseModule.Tasks.DataBases
 {

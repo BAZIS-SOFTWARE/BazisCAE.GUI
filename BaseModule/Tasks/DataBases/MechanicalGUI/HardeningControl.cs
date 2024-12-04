@@ -1,5 +1,4 @@
-﻿using Graph;
-using PropertiesCalculator.MaterialData;
+﻿using PropertiesCalculator.MaterialData;
 using PropertiesCalculator.PropertiesCalculator.MechanicalModels;
 using PropertiesCalculator.PropertiesController.Interfaces;
 using PropertiesCalculator.PropertiesController.MechanicalModels;
@@ -10,6 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using UserControlsEx.Graph;
 
 namespace BaseModule.Tasks.DataBases.MechanicalGUI
 {

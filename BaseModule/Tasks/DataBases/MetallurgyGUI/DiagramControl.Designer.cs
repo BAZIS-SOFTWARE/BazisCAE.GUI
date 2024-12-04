@@ -1,4 +1,6 @@
-﻿namespace BaseModule.Tasks.DataBases.MetallurgyGUI
+﻿using UserControlsEx.Graph;
+
+namespace BaseModule.Tasks.DataBases.MetallurgyGUI
 {
     partial class DiagramControl
     {
@@ -34,7 +36,7 @@
             this.rbtCCT = new System.Windows.Forms.RadioButton();
             this.rbtTTT = new System.Windows.Forms.RadioButton();
             this.btnCalcDiag = new System.Windows.Forms.Button();
-            this.graphContainer = new Graph.GraphContainer();
+            this.graphContainer = new GraphContainer();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -154,6 +156,6 @@
         private System.Windows.Forms.RadioButton rbtCCT;
         private System.Windows.Forms.RadioButton rbtTTT;
         private System.Windows.Forms.Button btnCalcDiag;
-        private Graph.GraphContainer graphContainer;
+        private GraphContainer graphContainer;
     }
 }

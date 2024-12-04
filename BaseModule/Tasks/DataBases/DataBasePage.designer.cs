@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using UserControlsEx;
+using UserControlsEx.Graph;
 
 namespace BaseModule.Tasks.DataBases
 {
@@ -45,7 +46,7 @@ namespace BaseModule.Tasks.DataBases
             this.delBrachButton = new System.Windows.Forms.ToolStripButton();
             this.btnCreateCopy = new System.Windows.Forms.ToolStripButton();
             this.graphPanel = new System.Windows.Forms.Panel();
-            this.graphContainer = new Graph.GraphContainer();
+            this.graphContainer = new GraphContainer();
             this.dataPanel = new System.Windows.Forms.Panel();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.dataGridView = new UserControlsEx.DataGridViewEx(this.components);
@@ -494,7 +495,7 @@ namespace BaseModule.Tasks.DataBases
         private System.Windows.Forms.ToolStripButton btnAddNewRow;
         private System.Windows.Forms.ToolStripButton btnDelRow;
         private System.Windows.Forms.ToolStripButton delBrachButton;
-        private Graph.GraphContainer graphContainer1;
+
         private ContextMenuStrip menuLev0;
         private ToolStripMenuItem itmRename;
         private ToolStripMenuItem itmDelete;
@@ -502,6 +503,6 @@ namespace BaseModule.Tasks.DataBases
         private ToolStripButton btnAddDB;
         private Label lblPath;
         private ToolStripButton btnCreateCopy;
-        private Graph.GraphContainer graphContainer;
+        private GraphContainer graphContainer;
     }
 }

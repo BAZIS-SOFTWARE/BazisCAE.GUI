@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using System.IO;
-using Graph;
 using System.Drawing;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
@@ -12,6 +11,7 @@ using BaseModule.Tasks.DataBases.MechanicalGUI;
 using BaseModule.Tasks.DataBases.MetallurgyGUI;
 using PropertiesCalculator.MaterialData;
 using PropertiesCalculator;
+using UserControlsEx.Graph;
 
 namespace BaseModule.Tasks.DataBases
 {

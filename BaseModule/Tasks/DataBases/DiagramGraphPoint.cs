@@ -1,4 +1,5 @@
-﻿using Graph;
+﻿
+using UserControlsEx.Graph;
 
 namespace BaseModule.Tasks.DataBases
 {

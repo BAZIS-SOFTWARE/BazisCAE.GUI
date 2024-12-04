@@ -2,11 +2,9 @@
 using BaseModule.Results.Export;
 using BaseModule.Results.GraphCreation;
 using BaseModule.Results.ScaleControl;
-using BaseModule.Utilities;
 using BasicControls.OpenFileDialogEx;
 using Geometry;
 using Gif.Components;
-using Graph;
 using ModelControllerInterfaces;
 using ModelInterfaces;
 using ModelInterfaces.MeshObjects;
@@ -21,6 +19,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UserControlsEx.Graph;
 
 namespace BaseModule.Results
 {

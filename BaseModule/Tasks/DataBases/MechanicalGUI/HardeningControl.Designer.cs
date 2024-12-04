@@ -1,4 +1,6 @@
-﻿namespace BaseModule.Tasks.DataBases.MechanicalGUI
+﻿using UserControlsEx.Graph;
+
+namespace BaseModule.Tasks.DataBases.MechanicalGUI
 {
     partial class HardeningControl
     {
@@ -28,7 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.graphContainer = new Graph.GraphContainer();
+            this.graphContainer = new GraphContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnCalc = new System.Windows.Forms.Button();
@@ -182,7 +184,7 @@
 
         #endregion
 
-        private Graph.GraphContainer graphContainer;
+        private GraphContainer graphContainer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button btnCalc;
