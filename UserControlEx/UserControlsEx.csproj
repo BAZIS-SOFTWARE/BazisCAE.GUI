@@ -195,19 +195,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Graph\app.config" />
-    <None Include="Graph\Graph.1.0.2.29.nupkg" />
-    <None Include="Graph\Graph.1.0.2.31.nupkg" />
-    <None Include="Graph\Graph.1.0.2.32.nupkg" />
-    <None Include="Graph\Graph.1.0.2.33.nupkg" />
-    <None Include="Graph\Graph.1.0.2.34.nupkg" />
-    <None Include="Graph\Graph.csproj" />
-    <None Include="Graph\Graph.nuspec" />
-    <None Include="Graph\GraphKey.snk" />
     <None Include="UserControlExKey.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Graph\Graph.csproj.user" />
     <None Include="Graph\Graph_icons\AllLineThickness.ico" />
     <None Include="Graph\Graph_icons\dashButton.Image.png" />
     <None Include="Graph\Graph_icons\ExportToBuffer.png" />
@@ -219,8 +209,6 @@
     <None Include="Graph\Graph_icons\SwitchOn.png" />
     <None Include="Graph\Graph_icons\Title.png" />
     <None Include="Graph\Graph_icons\lineButton.Image.png" />
-    <Content Include="Graph\Icon.png" />
-    <Content Include="Graph\nuget.exe" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -83,7 +83,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.tabControl.Padding = new System.Drawing.Point(0, 0);
             this.tabControl.SelectColor = System.Drawing.SystemColors.Control;
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(699, 543);
+            this.tabControl.Size = new System.Drawing.Size(737, 623);
             this.tabControl.TabIndex = 0;
             this.tabControl.UnSelectColor = System.Drawing.Color.LightGray;
             // 
@@ -95,7 +95,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.pdgTaskType.Location = new System.Drawing.Point(4, 34);
             this.pdgTaskType.Margin = new System.Windows.Forms.Padding(4);
             this.pdgTaskType.Name = "pdgTaskType";
-            this.pdgTaskType.Size = new System.Drawing.Size(691, 505);
+            this.pdgTaskType.Size = new System.Drawing.Size(729, 585);
             this.pdgTaskType.TabIndex = 5;
             this.pdgTaskType.Text = "Тип задачи";
             // 
@@ -107,11 +107,11 @@ namespace BaseModule.Tasks.WeldingModule
             this.taskTypeControl1.Margin = new System.Windows.Forms.Padding(0);
             this.taskTypeControl1.MinimumSize = new System.Drawing.Size(533, 0);
             this.taskTypeControl1.Name = "taskTypeControl1";
-            this.taskTypeControl1.Size = new System.Drawing.Size(691, 505);
+            this.taskTypeControl1.Size = new System.Drawing.Size(729, 585);
             this.taskTypeControl1.TabIndex = 0;
-            //this.taskTypeControl1.Task2DAxiImage = global::TaskModule.Properties.Resources.PlainTask;
-            //this.taskTypeControl1.Task2DImage = global::TaskModule.Properties.Resources.AxiSymTask;
-            //this.taskTypeControl1.Task3DImage = global::TaskModule.Properties.Resources.VolTask;
+            this.taskTypeControl1.Task2DAxiImage = ((System.Drawing.Image)(resources.GetObject("taskTypeControl1.Task2DAxiImage")));
+            this.taskTypeControl1.Task2DImage = ((System.Drawing.Image)(resources.GetObject("taskTypeControl1.Task2DImage")));
+            this.taskTypeControl1.Task3DImage = ((System.Drawing.Image)(resources.GetObject("taskTypeControl1.Task3DImage")));
             this.taskTypeControl1.Select2DPlaneTaskEvent += new System.Action<object, System.EventArgs>(this.taskTypeControl_Select2DPlaneTaskEvent);
             this.taskTypeControl1.Select2DAxiTaskEvent += new System.Action<object, System.EventArgs>(this.taskTypeControl_Select2DAxiTaskEvent);
             this.taskTypeControl1.Select3DTaskEvent += new System.Action<object, System.EventArgs>(this.taskTypeControl_Select3DTaskEvent);
@@ -124,7 +124,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.pdgMaterials.Location = new System.Drawing.Point(4, 34);
             this.pdgMaterials.Margin = new System.Windows.Forms.Padding(0);
             this.pdgMaterials.Name = "pdgMaterials";
-            this.pdgMaterials.Size = new System.Drawing.Size(691, 505);
+            this.pdgMaterials.Size = new System.Drawing.Size(729, 585);
             this.pdgMaterials.TabIndex = 1;
             this.pdgMaterials.Text = "Материалы";
             // 
@@ -144,7 +144,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.materialsControl1.Name = "materialsControl1";
             this.materialsControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.RefreshButtonImage")));
             this.materialsControl1.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.ShowAllButtonImage")));
-            this.materialsControl1.Size = new System.Drawing.Size(691, 505);
+            this.materialsControl1.Size = new System.Drawing.Size(729, 585);
             this.materialsControl1.TabIndex = 0;
             this.materialsControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.materialsControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -162,7 +162,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.pgMedia.Location = new System.Drawing.Point(4, 34);
             this.pgMedia.Margin = new System.Windows.Forms.Padding(4);
             this.pgMedia.Name = "pgMedia";
-            this.pgMedia.Size = new System.Drawing.Size(691, 505);
+            this.pgMedia.Size = new System.Drawing.Size(729, 585);
             this.pgMedia.TabIndex = 4;
             this.pgMedia.Text = "Среда";
             // 
@@ -175,7 +175,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.mediaControl1.Margin = new System.Windows.Forms.Padding(0);
             this.mediaControl1.MinimumSize = new System.Drawing.Size(400, 369);
             this.mediaControl1.Name = "mediaControl1";
-            this.mediaControl1.Size = new System.Drawing.Size(691, 505);
+            this.mediaControl1.Size = new System.Drawing.Size(729, 585);
             this.mediaControl1.TabIndex = 0;
             this.mediaControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.mediaControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -193,7 +193,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.pdgWeldingRegime.Location = new System.Drawing.Point(4, 34);
             this.pdgWeldingRegime.Margin = new System.Windows.Forms.Padding(4);
             this.pdgWeldingRegime.Name = "pdgWeldingRegime";
-            this.pdgWeldingRegime.Size = new System.Drawing.Size(691, 505);
+            this.pdgWeldingRegime.Size = new System.Drawing.Size(729, 585);
             this.pdgWeldingRegime.TabIndex = 3;
             this.pdgWeldingRegime.Text = "Режим сварки";
             // 
@@ -208,7 +208,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.weldingControl.Margin = new System.Windows.Forms.Padding(0);
             this.weldingControl.MinimumSize = new System.Drawing.Size(400, 369);
             this.weldingControl.Name = "weldingControl";
-            this.weldingControl.Size = new System.Drawing.Size(691, 505);
+            this.weldingControl.Size = new System.Drawing.Size(729, 585);
             this.weldingControl.TabIndex = 0;
             this.weldingControl.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.weldingControl.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -227,7 +227,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.pdgClamps.Location = new System.Drawing.Point(4, 34);
             this.pdgClamps.Margin = new System.Windows.Forms.Padding(4);
             this.pdgClamps.Name = "pdgClamps";
-            this.pdgClamps.Size = new System.Drawing.Size(691, 505);
+            this.pdgClamps.Size = new System.Drawing.Size(729, 585);
             this.pdgClamps.TabIndex = 0;
             this.pdgClamps.Text = "Закрепления";
             // 
@@ -247,7 +247,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.clampControl.Name = "clampControl";
             this.clampControl.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl.RefreshButtonImage")));
             this.clampControl.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl.ShowAllButtonImage")));
-            this.clampControl.Size = new System.Drawing.Size(691, 505);
+            this.clampControl.Size = new System.Drawing.Size(729, 585);
             this.clampControl.TabIndex = 0;
             this.clampControl.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.clampControl.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -265,7 +265,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.pdgLoad.Location = new System.Drawing.Point(4, 34);
             this.pdgLoad.Margin = new System.Windows.Forms.Padding(4);
             this.pdgLoad.Name = "pdgLoad";
-            this.pdgLoad.Size = new System.Drawing.Size(691, 505);
+            this.pdgLoad.Size = new System.Drawing.Size(729, 585);
             this.pdgLoad.TabIndex = 2;
             this.pdgLoad.Text = "Нагрузки";
             // 
@@ -283,7 +283,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.loadControl1.Name = "loadControl1";
             this.loadControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.RefreshButtonImage")));
             this.loadControl1.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.ShowAllButtonImage")));
-            this.loadControl1.Size = new System.Drawing.Size(691, 505);
+            this.loadControl1.Size = new System.Drawing.Size(729, 585);
             this.loadControl1.TabIndex = 0;
             this.loadControl1.ShowDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
             this.loadControl1.HideDataEvent += new System.Action<object, TaskModule.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
@@ -301,7 +301,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.pdgPlanner.Location = new System.Drawing.Point(4, 34);
             this.pdgPlanner.Margin = new System.Windows.Forms.Padding(4);
             this.pdgPlanner.Name = "pdgPlanner";
-            this.pdgPlanner.Size = new System.Drawing.Size(691, 505);
+            this.pdgPlanner.Size = new System.Drawing.Size(729, 585);
             this.pdgPlanner.TabIndex = 6;
             this.pdgPlanner.Text = "Планировщик";
             // 
@@ -319,7 +319,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.taskPlannerControl.Name = "taskPlannerControl";
             this.taskPlannerControl.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
             this.taskPlannerControl.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl.RefreshButtonImage")));
-            this.taskPlannerControl.Size = new System.Drawing.Size(691, 505);
+            this.taskPlannerControl.Size = new System.Drawing.Size(729, 585);
             this.taskPlannerControl.TabIndex = 0;
             this.taskPlannerControl.AddDataUseTaskConditionsEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_AddDataUseTaskConditionsEvent);
             this.taskPlannerControl.StartComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl_StartComputationEvent);
@@ -367,7 +367,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "WeldingAdvisor";
             this.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
-            this.Size = new System.Drawing.Size(699, 543);
+            this.Size = new System.Drawing.Size(737, 623);
             this.tabControl.ResumeLayout(false);
             this.pdgTaskType.ResumeLayout(false);
             this.pdgMaterials.ResumeLayout(false);
