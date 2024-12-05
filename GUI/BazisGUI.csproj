@@ -75,7 +75,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>BazisGUIKey.snk</AssemblyOriginatorKeyFile>
@@ -107,9 +107,6 @@
     </Reference>
     <Reference Include="GmshApi, Version=3.0.4.7, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
       <HintPath>..\packages\GmshApi.3.0.4.7\lib\netstandard2.0\GmshApi.dll</HintPath>
-    </Reference>
-    <Reference Include="Graph, Version=1.0.2.34, Culture=neutral, PublicKeyToken=4d6e483d8ec08dd8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Graph.1.0.2.34\lib\net48\Graph.dll</HintPath>
     </Reference>
     <Reference Include="LicenseInfo">
       <HintPath>..\Libs\LicenseInfo.dll</HintPath>
@@ -288,14 +285,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutBanner.jpg" />
-    <Content Include="Graph_icons\AllLineThickness.ico" />
-    <Content Include="Graph_icons\dashButton.Image.png" />
-    <Content Include="Graph_icons\ExportToBuffer.png" />
-    <Content Include="Graph_icons\lineButton.Image.png" />
-    <Content Include="Graph_icons\LineThickness0.ico" />
-    <Content Include="Graph_icons\LineThickness1.ico" />
-    <Content Include="Graph_icons\LineThickness2.ico" />
-    <Content Include="Graph_icons\Show_value.bmp" />
     <Content Include="IconShort_16.ico" />
     <Content Include="IconShort_32.ico" />
     <Content Include="Tao.OpenGl.dll" />

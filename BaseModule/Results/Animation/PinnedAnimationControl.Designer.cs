@@ -58,6 +58,6 @@
 
         #endregion
 
-        public AnimationPage animationPage;
+        private AnimationPage animationPage;
     }
 }

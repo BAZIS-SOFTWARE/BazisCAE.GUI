@@ -255,7 +255,7 @@ namespace BazisGUI
 
             var pAnPage = (PinnedAnimationControl)resultModule.EmbeddedControls.Find("pinnedAnimationControl", false)[0];
 
-            var anPage = pAnPage.animationPage;
+            var anPage = pAnPage.AnimationPage;
 
             if (!addRes)
                 anPage.ClearResultsItems();

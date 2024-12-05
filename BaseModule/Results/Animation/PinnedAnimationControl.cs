@@ -19,6 +19,8 @@ namespace BaseModule.Results.Animation
         public PinnedAnimationControl()
         {
             InitializeComponent();
-        }        
+        }  
+        
+        public AnimationPage AnimationPage { get { return animationPage; } }
     }
 }

@@ -49,7 +49,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>BaseModuleSnk.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Geometry, Version=2.0.8.4, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
@@ -788,6 +791,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="BaseModuleSnk.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -799,12 +803,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Tasks\BasicAdvisorControls\Resources\Icons.zip" />
-    <None Include="Tasks\DataBases\Functions\functions.jsf" />
+    <None Include="Tasks\DataBases\Functions\functions.jsf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Tasks\DataBases\Materials\Materials_for_test.jsf" />
     <None Include="Tasks\DataBases\Materials\materials_v1.jsf" />
     <None Include="Tasks\DataBases\Materials\materials_v2.jsf" />
     <None Include="Tasks\DataBases\Materials\materials_v3.jsf" />
-    <None Include="Tasks\DataBases\Materials\Materials_v4.jsf" />
+    <None Include="Tasks\DataBases\Materials\Materials_v4.jsf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Tasks\WeldingModule\packages.config" />
     <None Include="TreeViewPic\switchOn_nodes_16x16.png" />
     <None Include="TreeViewPic\switchOn_elems_16x16.png" />
@@ -878,8 +886,12 @@
     <Content Include="Tasks\BasicAdvisorControls\Resources\Консоль.bmp" />
     <Content Include="Tasks\BasicAdvisorControls\Resources\Настройки сцены.bmp" />
     <Content Include="Tasks\BasicAdvisorControls\Resources\Справка.bmp" />
-    <Content Include="Tasks\DataBases\Functions\functions_draft.txt" />
-    <Content Include="Tasks\DataBases\Materials\materials_draft.txt" />
+    <Content Include="Tasks\DataBases\Functions\functions_draft.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tasks\DataBases\Materials\materials_draft.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Tasks\DataBases\Resources\AddDB.png" />
     <None Include="Tasks\DataBases\Resources\ASC_sort.png" />
     <None Include="Tasks\DataBases\Resources\Copy.png" />

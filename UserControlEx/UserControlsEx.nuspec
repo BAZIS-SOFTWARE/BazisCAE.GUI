@@ -13,7 +13,4 @@
     <copyright>$copyright$</copyright>
     <tags>extended control library, control library</tags>
   </metadata>
-  <files>
-    <file src="Icon.png" target="" />
-  </files>
 </package>

@@ -20,6 +20,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UserControlsEx.Graph;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BaseModule.Results
 {
@@ -76,7 +77,9 @@ namespace BaseModule.Results
             selectToolStrip.Location = new Point(3, 0);
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
 
-            EmbeddedControls.Find("pinnedAnimationControl", false)[0].BringToFront();
+            var anPage = (PinnedAnimationControl)EmbeddedControls.Find("pinnedAnimationControl", false)[0];
+            anPage.BringToFront();
+            SetAnimation(anPage.AnimationPage);
         }      
 
         public void ShowScalePage()
@@ -187,14 +190,9 @@ namespace BaseModule.Results
 
         }
 
-        public void ShowAnimation()
+        public void SetAnimation(AnimationPage animationPage)
         {
-            
-            var anPage = (PinnedAnimationControl)EmbeddedControls.Find("pinnedAnimationControl", false)[0];
-
-            EmbeddedSplitContainer.SplitterDistance = EmbeddedSplitContainer.Panel1.Width - anPage.Width;
-
-            anPage.animationPage.ShowResultEvent += (ar1, ar2) =>
+            animationPage.ShowResultEvent += (ar1, ar2) =>
             {
                 if (BasePage.NavigatorControl.TreeView.SelectedNode?.Level == 2)
                 {
@@ -205,9 +203,9 @@ namespace BaseModule.Results
                 else BasePage.ConsoleControl.PrintInfo("Выберите результаты для отображения!", Color.Red);
             };
 
-            anPage.animationPage.CreateGIFAnimationEvent += (arg1, arg2) => { CreateGIFAnimation(arg2); };
-            anPage.animationPage.SaveScreenShotEvent += (ar1) => { BasePage.CreateScreenShot(ar1); };
-            anPage.animationPage.SelectResultsEvent += (ar1) =>
+            animationPage.CreateGIFAnimationEvent += (arg1, arg2) => { CreateGIFAnimation(arg2); };
+            animationPage.SaveScreenShotEvent += (ar1) => { BasePage.CreateScreenShot(ar1); };
+            animationPage.SelectResultsEvent += (ar1) =>
             {
                 BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоУзлам"].Nodes.Clear();
                 BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоЭлементам"].Nodes.Clear();
@@ -218,10 +216,16 @@ namespace BaseModule.Results
 
             var resDic = CreateResultsDic();
 
-            anPage.animationPage.SetResultsItems(resDic);
+            animationPage.SetResultsItems(resDic);
             if (resDic.Count != 0)
-                anPage.animationPage.ShowResultsTimeSteps(resDic.First().Key);
+                animationPage.ShowResultsTimeSteps(resDic.First().Key);
+        }
 
+        public void ShowAnimation()
+        {   
+            var anPage = (PinnedAnimationControl)EmbeddedControls.Find("pinnedAnimationControl", false)[0];
+
+            EmbeddedSplitContainer.SplitterDistance = EmbeddedSplitContainer.Panel1.Width - anPage.Width;         
             EmbeddedSplitContainer.Panel2Collapsed = false;
         }
 
@@ -771,7 +775,7 @@ namespace BaseModule.Results
             scenePage.SceneControl.DisplayObjects();
 
             var anPage = (PinnedAnimationControl)EmbeddedControls.Find("pinnedAnimationControl", false)[0];
-            anPage.animationPage.ClearResultsItems();
+            anPage.AnimationPage.ClearResultsItems();
             //if (splitContainerEx.Panel2.Controls.Find("PinnedAnimationControl", false).Count() != 0)
             //splitContainerEx.Panel2.Controls[0]
         }
