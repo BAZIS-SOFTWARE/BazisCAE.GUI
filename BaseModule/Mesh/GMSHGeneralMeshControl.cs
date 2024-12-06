@@ -31,13 +31,13 @@ namespace BaseModule.Mesh
                                                                 { 0, Tuple.Create("Контрольный узел ","") }
                                                             };
 
-        public void CreateMeshNodes(string name, int dim, long[][] elementTags, long[][] nodeTags)
+        public TreeNode CreateMeshTreeNodes(string name, int dim,int[] elementTypes,long[][] elementTags, long[][] nodeTags)
         {
-            var currentSurface = new TreeNode(name);
-            for (var j = 0; j < elementType.Count; ++j)
+            var node = new TreeNode(name);
+            for (var j = 0; j < elementTypes.Length; ++j)
             {
 
-                var triple = elementType[j];//, out elemKey, out elemChild, out points);
+                var triple = elementType[elementTypes[j]];//, out elemKey, out elemChild, out points);
                 var elements = elementTags[j];
                 var elemBase = new TreeNode(triple.Item1);
 
@@ -66,9 +66,10 @@ namespace BaseModule.Mesh
                     elemNodes[k].Nodes.AddRange(nodNodes);
                 }
                 elemBase.Nodes.AddRange(elemNodes);
-                currentSurface.Nodes.Add(elemBase);
+                node.Nodes.Add(elemBase);
             }
-            surfsTree.Nodes[0].Nodes.Add(currentSurface);
+            return node;
+            //surfsTree.Nodes[0].Nodes.Add(currentSurface);
         }
 
         public Tuple<string, string, int> GetElementInfo(int ind)

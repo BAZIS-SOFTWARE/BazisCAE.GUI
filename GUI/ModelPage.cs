@@ -816,7 +816,8 @@ namespace BazisGUI
             {
                 GmshController.ModelMeshGetElements(dim, dimTags[i], out elementTypes, out elementTags, out nodeTags);
                 var child = generalChild + dimTags[i].ToString();
-                cntr.CreateMeshNodes(child, dim, elementTags, nodeTags);
+                var node = cntr.CreateMeshTreeNodes(child, dim, elementTypes,elementTags, nodeTags);
+                tree.Nodes[0].Nodes.Add(node);
             }
         }       
     }

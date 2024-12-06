@@ -885,8 +885,6 @@ namespace BazisGUI
         {
             try
             {
-                var model = new ModelData();
-                model.Load(@"c:\projs\AdditiveTest\nozzle.stlout_penta_beam_m.bpf");
                 project =  await dataController.OpenProject();
 
                 if(project != null)
