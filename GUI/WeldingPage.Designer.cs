@@ -1,5 +1,5 @@
 ﻿
-namespace BaseModule.Tasks.WeldingModule
+namespace BazisGUI
 {
     partial class WeldingPage
     {

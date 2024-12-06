@@ -4,7 +4,7 @@ using TasksParameters;
 
 namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
-    internal class GenerateTSFEventArgs : AddDataEventArgs
+    public class GenerateTSFEventArgs : AddDataEventArgs
     {
         public GeneralParameters Parameters { get; }
 

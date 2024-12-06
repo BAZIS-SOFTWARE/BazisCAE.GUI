@@ -42,6 +42,7 @@ using BaseModule.Tasks;
 using BaseModule.Results.Animation;
 using System.Runtime.InteropServices.ComTypes;
 using BaseModule.Mesh;
+using Model;
 
 namespace BazisGUI
 {
@@ -884,6 +885,8 @@ namespace BazisGUI
         {
             try
             {
+                var model = new ModelData();
+                model.Load(@"c:\projs\AdditiveTest\nozzle.stlout_penta_beam_m.bpf");
                 project =  await dataController.OpenProject();
 
                 if(project != null)

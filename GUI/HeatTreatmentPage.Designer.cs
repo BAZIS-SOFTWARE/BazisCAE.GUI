@@ -1,5 +1,5 @@
 ﻿
-namespace TaskModule.HeatTreatmentModule
+namespace BazisGUI
 {
     partial class HeatTreatmentPage
     {

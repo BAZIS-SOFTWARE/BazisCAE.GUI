@@ -58,17 +58,11 @@
     <Reference Include="Geometry, Version=2.0.8.4, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
       <HintPath>..\packages\Geometry.2.0.8.4\lib\netstandard2.0\Geometry.dll</HintPath>
     </Reference>
-    <Reference Include="Gif.Components">
-      <HintPath>..\Libs\Gif.Components.dll</HintPath>
-    </Reference>
-    <Reference Include="GmshApi, Version=3.0.4.7, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
-      <HintPath>..\packages\GmshApi.3.0.4.7\lib\netstandard2.0\GmshApi.dll</HintPath>
-    </Reference>
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
     </Reference>
-    <Reference Include="Model, Version=3.1.2.0, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\Model.3.1.2\lib\netstandard2.0\Model.dll</HintPath>
+    <Reference Include="Model, Version=3.1.2.1, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Model.3.1.2.1\lib\netstandard2.0\Model.dll</HintPath>
     </Reference>
     <Reference Include="ModelControllerInterfaces, Version=3.0.2.1, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
       <HintPath>..\packages\ModelControllerInterfaces.3.0.2.1\lib\netstandard2.0\ModelControllerInterfaces.dll</HintPath>
@@ -85,7 +79,8 @@
     <Reference Include="ProjectInterfaces, Version=3.1.68.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
       <HintPath>..\packages\ProjectInterfaces.3.1.68\lib\netstandard2.0\ProjectInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="PropertiesCalculator">
+    <Reference Include="PropertiesCalculator, Version=1.0.4.0, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PropertiesCalculator.dll</HintPath>
     </Reference>
     <Reference Include="Scene, Version=2.0.8.52, Culture=neutral, PublicKeyToken=2e7150108cd20395, processorArchitecture=MSIL">
@@ -170,12 +165,6 @@
       <DependentUpon>GMSHGeneralMeshControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Mesh\MeshGradientSettingsEventArgs.cs" />
-    <Compile Include="Mesh\ModelPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Mesh\ModelPage.Designer.cs">
-      <DependentUpon>ModelPage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Mesh\PinnedMeshGenControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -261,12 +250,6 @@
     <Compile Include="Results\GraphCreation\GraphCreationPage.Designer.cs">
       <DependentUpon>GraphCreationPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Results\ResultsPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Results\ResultsPage.Designer.cs">
-      <DependentUpon>ResultsPage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Results\ScaleControl\IScale.cs" />
     <Compile Include="Results\ScaleControl\ScaleEventArgs.cs" />
     <Compile Include="Results\ScaleControl\ScalePage.cs">
@@ -275,7 +258,6 @@
     <Compile Include="Results\ScaleControl\ScalePage.Designer.cs">
       <DependentUpon>ScalePage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Results\ShowResultEventArgs.cs" />
     <Compile Include="ScenePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -510,29 +492,11 @@
     <Compile Include="Tasks\HeatTreatmentModule\HeatTreatmentAdvisor.Designer.cs">
       <DependentUpon>HeatTreatmentAdvisor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tasks\HeatTreatmentModule\HeatTreatmentPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\HeatTreatmentModule\HeatTreatmentPage.Designer.cs">
-      <DependentUpon>HeatTreatmentPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\TaskPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\TaskPage.Designer.cs">
-      <DependentUpon>TaskPage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Tasks\WeldingModule\WeldingAdvisor.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Tasks\WeldingModule\WeldingAdvisor.Designer.cs">
       <DependentUpon>WeldingAdvisor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingPage.Designer.cs">
-      <DependentUpon>WeldingPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl.cs">
       <SubType>UserControl</SubType>
@@ -609,9 +573,6 @@
     <EmbeddedResource Include="Mesh\GMSHGeneralMeshControl.resx">
       <DependentUpon>GMSHGeneralMeshControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Mesh\ModelPage.resx">
-      <DependentUpon>ModelPage.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Mesh\PinnedMeshGenControl.resx">
       <DependentUpon>PinnedMeshGenControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -655,9 +616,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Results\GraphCreation\GraphCreationPage.resx">
       <DependentUpon>GraphCreationPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Results\ResultsPage.resx">
-      <DependentUpon>ResultsPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Results\ScaleControl\ScalePage.resx">
       <DependentUpon>ScalePage.cs</DependentUpon>
@@ -755,17 +713,8 @@
     <EmbeddedResource Include="Tasks\HeatTreatmentModule\HeatTreatmentAdvisor.resx">
       <DependentUpon>HeatTreatmentAdvisor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\HeatTreatmentModule\HeatTreatmentPage.resx">
-      <DependentUpon>HeatTreatmentPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\TaskPage.resx">
-      <DependentUpon>TaskPage.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Tasks\WeldingModule\WeldingAdvisor.resx">
       <DependentUpon>WeldingAdvisor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\WeldingModule\WeldingPage.resx">
-      <DependentUpon>WeldingPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl.resx">
       <DependentUpon>ArcWeldingControl.cs</DependentUpon>

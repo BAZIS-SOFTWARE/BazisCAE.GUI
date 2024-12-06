@@ -2,7 +2,7 @@
 
 using System.Windows.Forms;
 
-namespace BaseModule.Tasks
+namespace BazisGUI
 {
     partial class TaskPage
     {

@@ -1,14 +1,13 @@
-﻿using System.Windows.Forms;
-using ModelInterfaces;
+﻿using ModelInterfaces;
 using ProjectInterfaces.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
 using System;
-using ModelControllerInterfaces;
 using TaskModule.BasicTaskAdvisor;
+using BaseModule.Tasks.WeldingModule;
 
-namespace BaseModule.Tasks.WeldingModule
+namespace BazisGUI
 {
     public partial class WeldingPage : TaskPage
     {

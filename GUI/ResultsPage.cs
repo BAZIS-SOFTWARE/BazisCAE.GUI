@@ -1,4 +1,5 @@
-﻿using BaseModule.Results.Animation;
+﻿using BaseModule;
+using BaseModule.Results.Animation;
 using BaseModule.Results.Export;
 using BaseModule.Results.GraphCreation;
 using BaseModule.Results.ScaleControl;
@@ -22,7 +23,7 @@ using System.Windows.Forms;
 using UserControlsEx.Graph;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace BaseModule.Results
+namespace BazisGUI
 {
     public partial class ResultsPage: ToolStripPage
     {

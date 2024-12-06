@@ -1,12 +1,9 @@
 ﻿using ModelInterfaces;
 using System;
-using System.Globalization;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Model.MeshObjects;
-using GmshApi;
 
 namespace BaseModule.Mesh
 {
@@ -33,6 +30,51 @@ namespace BaseModule.Mesh
                                                                 { 1, Tuple.Create("Кривая ","Контрольный узел ") },
                                                                 { 0, Tuple.Create("Контрольный узел ","") }
                                                             };
+
+        public void CreateMeshNodes(string name, int dim, long[][] elementTags, long[][] nodeTags)
+        {
+            var currentSurface = new TreeNode(name);
+            for (var j = 0; j < elementType.Count; ++j)
+            {
+
+                var triple = elementType[j];//, out elemKey, out elemChild, out points);
+                var elements = elementTags[j];
+                var elemBase = new TreeNode(triple.Item1);
+
+                if (dim == 2)
+                    elemBase.ContextMenuStrip = cmsRemoveMesh2D;
+                else
+                    elemBase.ContextMenuStrip = cmsRemoveMesh3D;
+
+                var elemNodes = new TreeNode[elements.Length];
+                for (var k = 0L; k < elements.Length; ++k)
+                {
+                    var elemTag = elements[k];
+                    var currentElement = triple.Item2 + elemTag.ToString();
+                    elemNodes[k] = new TreeNode(currentElement);
+
+                    if (dim == 2)
+                        elemNodes[k].ContextMenuStrip = cmsRemoveMesh2D;
+                    else
+                        elemNodes[k].ContextMenuStrip = cmsRemoveMesh3D;
+                    var nodNodes = new TreeNode[triple.Item3];
+                    for (var l = 0; l < triple.Item3; ++l)
+                    {
+                        var nodeTag = "Узел " + nodeTags[j][k * triple.Item3 + l].ToString();
+                        nodNodes[l] = new TreeNode(nodeTag);
+                    }
+                    elemNodes[k].Nodes.AddRange(nodNodes);
+                }
+                elemBase.Nodes.AddRange(elemNodes);
+                currentSurface.Nodes.Add(elemBase);
+            }
+            surfsTree.Nodes[0].Nodes.Add(currentSurface);
+        }
+
+        public Tuple<string, string, int> GetElementInfo(int ind)
+        {
+            return elementType[ind];
+        }
         /// <summary>
         /// Get types of elements
         /// </summary>
@@ -224,7 +266,7 @@ namespace BaseModule.Mesh
             generate2DQuadMesh?.Invoke(this);
         }
 
-        private Dictionary<int, Dictionary<int, TreeNode>> CreateGeometryNodes(int[] dimTags)
+        public Dictionary<int, Dictionary<int, TreeNode>> CreateGeometryNodes(int[] dimTags)
         {
             var nodes = new Dictionary<int, Dictionary<int, TreeNode>>();
             var value = new StringBuilder(100);
@@ -242,82 +284,82 @@ namespace BaseModule.Mesh
             return nodes;
         }
 
-        public void FillGeometryTreeView(IGmshController GmshController)
-        {
-            int[] dimTags, upwards, downwards;
-            GmshController.ModelGetGeometryEntities(out dimTags, -1);
-            ClearTreeView(1);
-            var nodes = CreateGeometryNodes(dimTags);
-            for (var i = 0; i < dimTags.Length; i += 2)
-            {
-                var dim = dimTags[i];
-                var tag = dimTags[i + 1];
-                GmshController.ModelGetAdjacencies(dim, tag, out upwards, out downwards);
-                var current = nodes[dim][tag];
-                if (upwards.Length == 0)
-                    geomTree.Nodes.Add(current);
-                for (var j = 0; j < upwards.Length; ++j)
-                {
-                    var upTag = upwards[j];
-                    var node = nodes[dim + 1][upTag];
-                    var child = current.Parent != null ? current.Clone() as TreeNode : current;
-                    node.Nodes.Add(child);
-                }
-            }
-        }
+        //public void FillGeometryTreeView(IGmshController GmshController)
+        //{
+        //    int[] dimTags, upwards, downwards;
+        //    GmshController.ModelGetGeometryEntities(out dimTags, -1);
+        //    ClearTreeView(1);
+        //    var nodes = CreateGeometryNodes(dimTags);
+        //    for (var i = 0; i < dimTags.Length; i += 2)
+        //    {
+        //        var dim = dimTags[i];
+        //        var tag = dimTags[i + 1];
+        //        GmshController.ModelGetAdjacencies(dim, tag, out upwards, out downwards);
+        //        var current = nodes[dim][tag];
+        //        if (upwards.Length == 0)
+        //            geomTree.Nodes.Add(current);
+        //        for (var j = 0; j < upwards.Length; ++j)
+        //        {
+        //            var upTag = upwards[j];
+        //            var node = nodes[dim + 1][upTag];
+        //            var child = current.Parent != null ? current.Clone() as TreeNode : current;
+        //            node.Nodes.Add(child);
+        //        }
+        //    }
+        //}
 
-        public void FillMeshTreeView(IGmshController gmshController, TreeView tree, int dim,
-                                       string generalKey = "Поверхности", string generalChild = "Поверхность ")
-        {
-            ClearTreeView(dim);
-            int[] dimTags;
-            gmshController.ModelGetGeometryEntities(out dimTags, dim);
-            int[] elementTypes;
-            long[][] elementTags, nodeTags;
-            var surfNodes = new TreeNode[dimTags.Length / 2];
-            tree.Nodes.Add(generalKey);
-            for (int i = 1, m = 0; i < dimTags.Length; i += 2, ++m)
-            {
-                gmshController.ModelMeshGetElements(dim, dimTags[i], out elementTypes, out elementTags, out nodeTags);
-                var child = generalChild + dimTags[i].ToString();
-                surfNodes[m] = new TreeNode(child);
-                var currentSurface = surfNodes[m];
-                for (var j = 0; j < elementTypes.Length; ++j)
-                {
-                    var triple = elementType[elementTypes[j]];//, out elemKey, out elemChild, out points);
-                    var elements = elementTags[j];
-                    var elemBase = new TreeNode(triple.Item1);
+        //public void FillMeshTreeView(IGmshController gmshController, TreeView tree, int dim,
+        //                               string generalKey = "Поверхности", string generalChild = "Поверхность ")
+        //{
+        //    ClearTreeView(dim);
+        //    int[] dimTags;
+        //    gmshController.ModelGetGeometryEntities(out dimTags, dim);
+        //    int[] elementTypes;
+        //    long[][] elementTags, nodeTags;
+        //    var surfNodes = new TreeNode[dimTags.Length / 2];
+        //    tree.Nodes.Add(generalKey);
+        //    for (int i = 1, m = 0; i < dimTags.Length; i += 2, ++m)
+        //    {
+        //        gmshController.ModelMeshGetElements(dim, dimTags[i], out elementTypes, out elementTags, out nodeTags);
+        //        var child = generalChild + dimTags[i].ToString();
+        //        surfNodes[m] = new TreeNode(child);
+        //        var currentSurface = surfNodes[m];
+        //        for (var j = 0; j < elementTypes.Length; ++j)
+        //        {
+        //            var triple = elementType[elementTypes[j]];//, out elemKey, out elemChild, out points);
+        //            var elements = elementTags[j];
+        //            var elemBase = new TreeNode(triple.Item1);
 
-                    if (dim == 2)
-                        elemBase.ContextMenuStrip = cmsRemoveMesh2D;
-                    else
-                        elemBase.ContextMenuStrip = cmsRemoveMesh3D;
+        //            if (dim == 2)
+        //                elemBase.ContextMenuStrip = cmsRemoveMesh2D;
+        //            else
+        //                elemBase.ContextMenuStrip = cmsRemoveMesh3D;
 
-                    var elemNodes = new TreeNode[elements.Length];
-                    for (var k = 0L; k < elements.Length; ++k)
-                    {
-                        var elemTag = elements[k];
-                        var currentElement = triple.Item2 + elemTag.ToString();
-                        elemNodes[k] = new TreeNode(currentElement);
+        //            var elemNodes = new TreeNode[elements.Length];
+        //            for (var k = 0L; k < elements.Length; ++k)
+        //            {
+        //                var elemTag = elements[k];
+        //                var currentElement = triple.Item2 + elemTag.ToString();
+        //                elemNodes[k] = new TreeNode(currentElement);
 
-                        if (dim == 2)
-                            elemNodes[k].ContextMenuStrip = cmsRemoveMesh2D;
-                        else
-                            elemNodes[k].ContextMenuStrip = cmsRemoveMesh3D;
-                        var nodNodes = new TreeNode[triple.Item3];
-                        for (var l = 0; l < triple.Item3; ++l)
-                        {
-                            var nodeTag = "Узел " + nodeTags[j][k * triple.Item3 + l].ToString();
-                            nodNodes[l] = new TreeNode(nodeTag);
-                        }
-                        elemNodes[k].Nodes.AddRange(nodNodes);
-                    }
-                    elemBase.Nodes.AddRange(elemNodes);
-                    currentSurface.Nodes.Add(elemBase);
-                }
-                tree.Nodes[0].Nodes.Add(currentSurface);
-            }
-        }
+        //                if (dim == 2)
+        //                    elemNodes[k].ContextMenuStrip = cmsRemoveMesh2D;
+        //                else
+        //                    elemNodes[k].ContextMenuStrip = cmsRemoveMesh3D;
+        //                var nodNodes = new TreeNode[triple.Item3];
+        //                for (var l = 0; l < triple.Item3; ++l)
+        //                {
+        //                    var nodeTag = "Узел " + nodeTags[j][k * triple.Item3 + l].ToString();
+        //                    nodNodes[l] = new TreeNode(nodeTag);
+        //                }
+        //                elemNodes[k].Nodes.AddRange(nodNodes);
+        //            }
+        //            elemBase.Nodes.AddRange(elemNodes);
+        //            currentSurface.Nodes.Add(elemBase);
+        //        }
+        //        tree.Nodes[0].Nodes.Add(currentSurface);
+        //    }
+        //}
 
         private int FindObjectNumber(TreeNode node)
         {

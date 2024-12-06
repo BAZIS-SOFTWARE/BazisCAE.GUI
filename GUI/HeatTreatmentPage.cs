@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using TaskModule.BasicTaskAdvisor;
 using TaskModule.WeldingModule;
 
-namespace TaskModule.HeatTreatmentModule
+namespace BazisGUI
 {
     public partial class HeatTreatmentPage: TaskPage
     {

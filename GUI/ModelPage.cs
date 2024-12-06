@@ -1,4 +1,5 @@
 ﻿using BaseModule;
+using BaseModule.Mesh;
 using BaseModule.Mesh.SettingsControls;
 using Geometry;
 using GmshApi;
@@ -16,7 +17,7 @@ using System.Windows.Forms;
 using TaskModule.BasicTaskAdvisor;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace BaseModule.Mesh
+namespace BazisGUI
 {
     public partial class ModelPage : ToolStripPage
     {
@@ -420,8 +421,8 @@ namespace BaseModule.Mesh
                 var objs = GmshController.GetMeshObjects();
 
                 ModelData.ObjectData.Clear(ObjType.Узел);
-                var trv = cntr.GetTreeView(2);
-                cntr.FillMeshTreeView(GmshController,trv, 2);
+                
+                FillMeshTreeView(cntr, 2);
             }
         }
 
@@ -432,8 +433,7 @@ namespace BaseModule.Mesh
             var ierr = 0;
             GmshController.ModelMeshRefine(ref ierr);
 
-            var trv = cntr.GetTreeView(2);
-            cntr.FillMeshTreeView(GmshController, trv, 2);
+            FillMeshTreeView(cntr, 2);
 
             ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
             UpdateMeshVBO();
@@ -457,8 +457,8 @@ namespace BaseModule.Mesh
 
                 DeleteGMSHMeshObjects(ObjType.Элемент3D);
                 GmshController.ModelMeshGenerate(3, ref ierr);
-                var trv = cntr.GetTreeView(3);
-                cntr.FillMeshTreeView(GmshController, trv, 3, "Объемы", "Объем ");
+
+                FillMeshTreeView(cntr, 3, "Объемы", "Объем ");
             }
             catch (Exception ex)
             {
@@ -493,8 +493,8 @@ namespace BaseModule.Mesh
                 DeleteGMSHMeshObjects(ObjType.Узел);
                 GmshController.ModelMeshGenerate(1, ref ierr);
                 GmshController.ModelMeshGenerate(2, ref ierr);
-                var trv = cntr.GetTreeView(2);
-                cntr.FillMeshTreeView(GmshController, trv, 2);
+
+                FillMeshTreeView(cntr, 2);
             }
             catch (Exception ex)
             {
@@ -766,7 +766,7 @@ namespace BaseModule.Mesh
             var meshContr = pContr.MeshGeneratorControl;
 
             var ierr = 0;
-            meshContr.FillGeometryTreeView(GmshController);
+            FillGeometryTreeView(meshContr);
             if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
                 meshContr.ShowHideGeneralTabControls(2, true);
 
@@ -775,5 +775,49 @@ namespace BaseModule.Mesh
 
             scenePage.SceneControl.DisplayObjects();
         }
+
+        public void FillGeometryTreeView(GMSHGeneralMeshControl cntr)
+        {
+            int[] dimTags, upwards, downwards;
+            GmshController.ModelGetGeometryEntities(out dimTags, -1);
+            cntr.ClearTreeView(1);
+            var geomTree = cntr.GetTreeView(1);
+            var nodes = cntr.CreateGeometryNodes(dimTags);
+            for (var i = 0; i < dimTags.Length; i += 2)
+            {
+                var dim = dimTags[i];
+                var tag = dimTags[i + 1];
+                GmshController.ModelGetAdjacencies(dim, tag, out upwards, out downwards);
+                var current = nodes[dim][tag];
+                if (upwards.Length == 0)
+                    geomTree.Nodes.Add(current);
+                for (var j = 0; j < upwards.Length; ++j)
+                {
+                    var upTag = upwards[j];
+                    var node = nodes[dim + 1][upTag];
+                    var child = current.Parent != null ? current.Clone() as TreeNode : current;
+                    node.Nodes.Add(child);
+                }
+            }
+        }
+
+        public void FillMeshTreeView(GMSHGeneralMeshControl cntr, int dim,
+                                       string generalKey = "Поверхности", string generalChild = "Поверхность ")
+        {
+            var tree = cntr.GetTreeView(dim);
+            cntr.ClearTreeView(dim);
+            int[] dimTags;
+            GmshController.ModelGetGeometryEntities(out dimTags, dim);
+            int[] elementTypes;
+            long[][] elementTags, nodeTags;
+            var surfNodes = new TreeNode[dimTags.Length / 2];
+            tree.Nodes.Add(generalKey);
+            for (int i = 1, m = 0; i < dimTags.Length; i += 2, ++m)
+            {
+                GmshController.ModelMeshGetElements(dim, dimTags[i], out elementTypes, out elementTags, out nodeTags);
+                var child = generalChild + dimTags[i].ToString();
+                cntr.CreateMeshNodes(child, dim, elementTags, nodeTags);
+            }
+        }       
     }
 }

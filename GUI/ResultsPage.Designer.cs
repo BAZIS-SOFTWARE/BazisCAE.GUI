@@ -1,4 +1,4 @@
-﻿namespace BaseModule.Results
+﻿namespace BazisGUI
 {
     partial class ResultsPage
     {

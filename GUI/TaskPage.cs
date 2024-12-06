@@ -19,10 +19,11 @@ using ModelControllerInterfaces;
 using ProjectInterfaces;
 using System.Text.RegularExpressions;
 using BaseModule.Tasks.DataBases;
+using BaseModule;
 using PropertiesCalculator.MaterialData;
 using PropertiesCalculator.FunctionData;
 
-namespace BaseModule.Tasks
+namespace BazisGUI
 {
     public partial class TaskPage: ToolStripPage
     {
