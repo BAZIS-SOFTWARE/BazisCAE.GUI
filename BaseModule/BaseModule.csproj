@@ -752,10 +752,6 @@
     <Content Include="Resources\OpenFolder.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataBasesForm\PropertiesDataBases.csproj">
-      <Project>{cdde2abd-68f3-441b-8220-94652083904f}</Project>
-      <Name>PropertiesDataBases</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UserControlEx\UserControlsEx.csproj">
       <Project>{452D36B3-7997-48AC-96CB-4AA349E2B608}</Project>
       <Name>UserControlsEx</Name>
