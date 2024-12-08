@@ -23,7 +23,7 @@ namespace BazisGUI
 
         public override TaskAdvisor GetTaskAdvisor()
         {
-            var pContr = (PinnedHTAdvControl)EmbeddedControls.Find("pinnedWAdvControl", false)[0];
+            var pContr = (PinnedHTAdvControl)EmbeddedControls.Find("pinnedHTAdvControl", false)[0];
             return pContr.HTAdvisor;
         }
 

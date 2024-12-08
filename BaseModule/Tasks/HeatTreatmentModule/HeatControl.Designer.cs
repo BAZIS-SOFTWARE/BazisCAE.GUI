@@ -34,6 +34,7 @@ namespace TaskModule.HeatTreatmentModule
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HeatControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -192,6 +193,7 @@ namespace TaskModule.HeatTreatmentModule
             this.StefanBolzmanConst.Name = "StefanBolzmanConst";
             this.StefanBolzmanConst.Size = new System.Drawing.Size(323, 20);
             this.StefanBolzmanConst.TabIndex = 25;
+            this.StefanBolzmanConst.Text = "5.67E-14";
             this.StefanBolzmanConst.UserRegExCheck = null;
             this.StefanBolzmanConst.UserRegExCheckErrorMessage = null;
             // 
@@ -231,18 +233,18 @@ namespace TaskModule.HeatTreatmentModule
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(8, 121);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(106, 13);
+            this.label8.Size = new System.Drawing.Size(130, 13);
             this.label8.TabIndex = 22;
-            this.label8.Text = "Степень черноты, ?";
+            this.label8.Text = "Степень черноты, 0<e<1";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(8, 95);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(108, 13);
+            this.label5.Size = new System.Drawing.Size(158, 13);
             this.label5.TabIndex = 22;
-            this.label5.Text = "Стеф. - Больцман, ?";
+            this.label5.Text = "Стеф. - Больцман, Вт/мм2*К4";
             // 
             // cmbExchFunc
             // 
@@ -477,7 +479,7 @@ namespace TaskModule.HeatTreatmentModule
             // 
             this.btnAddNewRow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddNewRow.Image = global::BaseModule.Properties.Resources.Add.ToBitmap();
+            this.btnAddNewRow.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewRow.Image")));
             this.btnAddNewRow.Location = new System.Drawing.Point(11, 76);
             this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
             this.btnAddNewRow.Name = "btnAddNewRow";
