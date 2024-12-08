@@ -200,6 +200,9 @@
     <None Include="DataBases\Materials\Materials_v4.jsf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="DataBases\Materials\Materials_v6.jsf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="PropertiesDataBaseKey.snk" />
     <None Include="Properties\Settings.settings">
