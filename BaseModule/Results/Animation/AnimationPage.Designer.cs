@@ -41,7 +41,7 @@ namespace BaseModule.Results.Animation
             this.btnCreateAnimation = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.playerPanel = new System.Windows.Forms.Panel();
-            this.player = new BaseModule.Player.PlayerControl();
+            this.player = new global::BaseModule.Player.PlayerControl();
             this.label1 = new System.Windows.Forms.Label();
             this.txbScale = new UserControlsEx.TextBoxEx(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -197,7 +197,7 @@ namespace BaseModule.Results.Animation
             // player
             // 
             this.player.AutoSize = true;
-            this.player.CheckState = BaseModule.Player.CheckState.start;
+            this.player.CheckState = global::BaseModule.Player.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Dock = System.Windows.Forms.DockStyle.Fill;
             this.player.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));

@@ -1,13 +1,13 @@
-﻿using BaseModule.Tasks.DataBases;
+﻿using PropertiesDataBases.DataBases;
 using System;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace DataBasesForm
+namespace PropertiesDataBases
 {
-    public partial class DataBasesForm : Form
+    public partial class DataForm : Form
     {
-        public DataBasesForm(string[] args)
+        public DataForm(string[] args)
         {
             InitializeComponent();
 

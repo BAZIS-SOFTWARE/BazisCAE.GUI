@@ -2,7 +2,7 @@
 using UserControlsEx;
 using UserControlsEx.Graph;
 
-namespace BaseModule.Tasks.DataBases
+namespace PropertiesDataBases.DataBases
 {
     partial class DataBasePage
     {
@@ -190,7 +190,7 @@ namespace BaseModule.Tasks.DataBases
             // 
             this.btnOpenDB.AutoSize = false;
             this.btnOpenDB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnOpenDB.Image = global::BaseModule.Properties.Resources.OpenDB;
+            this.btnOpenDB.Image = global::PropertiesDataBases.Properties.Resources.OpenDB;
             this.btnOpenDB.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnOpenDB.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnOpenDB.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -203,7 +203,7 @@ namespace BaseModule.Tasks.DataBases
             // 
             this.btnAddDB.AutoSize = false;
             this.btnAddDB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnAddDB.Image = global::BaseModule.Properties.Resources.AddDB;
+            this.btnAddDB.Image = global::PropertiesDataBases.Properties.Resources.AddDB;
             this.btnAddDB.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnAddDB.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnAddDB.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -255,7 +255,7 @@ namespace BaseModule.Tasks.DataBases
             // 
             this.btnCreateCopy.AutoSize = false;
             this.btnCreateCopy.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnCreateCopy.Image = global::BaseModule.Properties.Resources.Copy;
+            this.btnCreateCopy.Image = global::PropertiesDataBases.Properties.Resources.Copy;
             this.btnCreateCopy.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnCreateCopy.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnCreateCopy.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -404,7 +404,7 @@ namespace BaseModule.Tasks.DataBases
             // 
             this.toolStripButton1.AutoSize = false;
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::BaseModule.Properties.Resources.ASC_sort;
+            this.toolStripButton1.Image = global::PropertiesDataBases.Properties.Resources.ASC_sort;
             this.toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;

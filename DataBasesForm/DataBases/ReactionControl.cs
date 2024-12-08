@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using PropertiesCalculator.MaterialData;
 
-namespace BaseModule.Tasks.DataBases
+namespace PropertiesDataBases.DataBases
 {
     public partial class ReactionControl : UserControl
     {

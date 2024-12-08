@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.splitContainerEx = new UserControlsEx.SplitContainerEx();
-            this.basePage = new BaseModule.BasePage();
-            this.pinnedMeshGenControl = new BaseModule.Mesh.PinnedMeshGenControl();
-            this.pinnedAnimationControl = new BaseModule.Results.Animation.PinnedAnimationControl();
+            this.basePage = new global::BaseModule.BasePage();
+            this.pinnedMeshGenControl = new global::BaseModule.Mesh.PinnedMeshGenControl();
+            this.pinnedAnimationControl = new global::BaseModule.Results.Animation.PinnedAnimationControl();
             this.pinnedWAdvControl = new TaskModule.BasicTaskAdvisor.PinnedWAdvControl();
-            this.pinnedHTAdvControl = new BaseModule.Tasks.HeatTreatmentModule.PinnedHTAdvControl();
-            this.pinnedCTAdvControl = new BaseModule.Tasks.HeatTreatmentModule.PinnedCTAdvControl();
+            this.pinnedHTAdvControl = new global::BaseModule.Tasks.HeatTreatmentModule.PinnedHTAdvControl();
+            this.pinnedCTAdvControl = new global::BaseModule.Tasks.HeatTreatmentModule.PinnedCTAdvControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).BeginInit();
             this.splitContainerEx.Panel1.SuspendLayout();
             this.splitContainerEx.Panel2.SuspendLayout();

@@ -1,9 +1,6 @@
-﻿using System.Data;
-using System.IO;
-
-namespace BaseModule.Tasks.DataBases
+﻿namespace PropertiesDataBases.DataBases
 {
-    partial class FunctionDataBasePage
+    partial class MaterialsDataBasePage
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -31,10 +28,28 @@ namespace BaseModule.Tasks.DataBases
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.SuspendLayout();
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // MaterialsDataBasePage
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.Name = "MaterialsDataBasePage";
+            this.Size = new System.Drawing.Size(693, 639);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }

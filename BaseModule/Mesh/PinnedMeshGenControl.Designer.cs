@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gmshGeneralMeshControl = new BaseModule.Mesh.GMSHGeneralMeshControl();
+            this.gmshGeneralMeshControl = new global::BaseModule.Mesh.GMSHGeneralMeshControl();
             this.SuspendLayout();
             // 
             // gmshGeneralMeshControl1

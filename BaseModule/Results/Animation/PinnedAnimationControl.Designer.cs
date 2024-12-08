@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.animationPage = new BaseModule.Results.Animation.AnimationPage();
+            this.animationPage = new global::BaseModule.Results.Animation.AnimationPage();
             this.SuspendLayout();
             // 
             // animationPage

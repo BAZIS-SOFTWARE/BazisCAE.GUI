@@ -1,6 +1,6 @@
 ﻿using UserControlsEx.Graph;
 
-namespace BaseModule.Tasks.DataBases.MechanicalGUI
+namespace PropertiesDataBases.DataBases.MechanicalGUI
 {
     partial class HardeningControl
     {

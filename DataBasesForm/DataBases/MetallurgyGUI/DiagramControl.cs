@@ -7,9 +7,8 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using UserControlsEx.Graph;
-using static System.Collections.Specialized.BitVector32;
 
-namespace BaseModule.Tasks.DataBases.MetallurgyGUI
+namespace PropertiesDataBases.DataBases.MetallurgyGUI
 {
     public partial class DiagramControl : UserControl
     {

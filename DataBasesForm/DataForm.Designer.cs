@@ -1,8 +1,9 @@
-﻿using BaseModule.Tasks.DataBases;
+﻿
+using PropertiesDataBases.DataBases;
 
-namespace DataBasesForm
+namespace PropertiesDataBases
 {
-    partial class DataBasesForm
+    partial class DataForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.

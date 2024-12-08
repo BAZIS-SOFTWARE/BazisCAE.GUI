@@ -8,7 +8,7 @@ using PropertiesCalculator.Interfaces;
 using UserControlsEx;
 using UserControlsEx.Graph;
 
-namespace BaseModule.Tasks.DataBases
+namespace PropertiesDataBases.DataBases
 {
     public partial class DataBasePage : UserControl
     {

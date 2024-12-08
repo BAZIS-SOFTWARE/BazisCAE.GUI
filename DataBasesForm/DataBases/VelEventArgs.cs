@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BaseModule.Tasks.DataBases
+namespace PropertiesDataBases.DataBases
 {
     public class ReacEventArgs : EventArgs
     {

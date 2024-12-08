@@ -1,4 +1,4 @@
-﻿namespace BaseModule.Tasks.DataBases.MetallurgyGUI
+﻿namespace PropertiesDataBases.DataBases.MetallurgyGUI
 {
     partial class CCTControl
     {

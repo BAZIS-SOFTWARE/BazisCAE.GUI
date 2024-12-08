@@ -1,7 +1,7 @@
 ﻿
 using UserControlsEx.Graph;
 
-namespace BaseModule.Tasks.DataBases
+namespace PropertiesDataBases.DataBases
 {
     public class DiagramGraphPoint : GraphPoint
     {

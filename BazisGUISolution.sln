@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserControlsEx", "UserContr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserControlExTests", "UserControlEx\UserControlExTests\UserControlExTests.csproj", "{84D036CD-CBB1-42B6-B487-FB0EA39B1DF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBasesForm", "DataBasesForm\DataBasesForm.csproj", "{CDDE2ABD-68F3-441B-8220-94652083904F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertiesDataBases", "DataBasesForm\PropertiesDataBases.csproj", "{CDDE2ABD-68F3-441B-8220-94652083904F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

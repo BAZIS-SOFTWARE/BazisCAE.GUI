@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DataBasesForm.Properties {
+namespace PropertiesDataBases.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BaseModule.Tasks.DataBases.MetallurgyGUI
+namespace PropertiesDataBases.DataBases.MetallurgyGUI
 {
-    public partial class TTTControl : UserControl
+    public partial class CCTControl : UserControl
     {
-        public TTTControl()
+        public CCTControl()
         {
             InitializeComponent();
         }
@@ -37,8 +37,10 @@ namespace BaseModule.Tasks.DataBases.MetallurgyGUI
 
         public float IniTemp { get { return float.Parse(txbIniTemp.Text); } }
         public float FinTemp { get { return float.Parse(txbFinTemp.Text); } }
-        public float MaxPhase { get { return float.Parse(txbMaxPhase.Text); } }
-        public float MinPhase { get { return float.Parse(txbMinPhase.Text); } }
-        public float MaxTime { get { return float.Parse(txbMaxTime.Text); } }
+        public float MaxVel { get { return float.Parse(txbMaxVel.Text); } }
+
+        public float MinVel { get { return float.Parse(txbMinVel.Text); } }
+
+        public decimal VelNumber { get { return nudVels.Value; } }
     }
 }

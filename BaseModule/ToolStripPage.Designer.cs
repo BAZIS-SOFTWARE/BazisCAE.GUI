@@ -199,7 +199,7 @@ namespace BaseModule
             this.btnAdvanceSelection.Size = new System.Drawing.Size(36, 53);
             this.btnAdvanceSelection.Tag = "4";
             this.btnAdvanceSelection.Text = "toolStripButton1";
-            this.btnAdvanceSelection.ToolTipText = "Продвинутый выбор";
+            this.btnAdvanceSelection.ToolTipText = "Дополненный выбор";
             this.btnAdvanceSelection.Click += new System.EventHandler(this.btnAdvanceSelection_Click);
             // 
             // instrumentalToolStrip

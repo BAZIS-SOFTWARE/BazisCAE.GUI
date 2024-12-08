@@ -238,16 +238,4 @@
   <data name="Функции1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Tasks\Функции.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AddDB" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Tasks\DataBases\Resources\AddDB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ASC_sort" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Tasks\DataBases\Resources\ASC_sort.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Tasks\DataBases\Resources\Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OpenDB" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Tasks\DataBases\Resources\OpenDB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>

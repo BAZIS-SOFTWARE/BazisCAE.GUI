@@ -35,9 +35,9 @@ namespace BaseModule
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.splitContainer1 = new UserControlsEx.SplitContainerEx();
             this.splitContainer2 = new UserControlsEx.SplitContainerEx();
-            this.navigator = new BaseModule.Navigator.NavigatorControl();
-            this.scenePage = new BaseModule.ScenePage();
-            this.consoleControl = new BaseModule.Console.ConsoleControl();
+            this.navigator = new global::BaseModule.Navigator.NavigatorControl();
+            this.scenePage = new global::BaseModule.ScenePage();
+            this.consoleControl = new global::BaseModule.Console.ConsoleControl();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -132,7 +132,7 @@ namespace BaseModule
             this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
             this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
             this.navigator.ShowObjectsEvent += new System.Action<string>(this.navigator_ShowObjectsEvent);
-            this.navigator.ChangeObjectsViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeViewModeEventHandler);
+            this.navigator.ChangeObjectsViewEvent += new System.Action<string, global::BaseModule.Navigator.ViewRegime>(this.navigator_ChangeViewModeEventHandler);
             this.navigator.HideObjectsEvent += new System.Action<string>(this.navigator_HideObjectsEvent);
             this.navigator.DelObjectsEvent += new System.Action<string>(this.navigator_DelObjectsEvent);
             this.navigator.ControlCollapseEvent += new System.Action(this.navigator_NavigatorPanelCollapseEvent);
@@ -177,7 +177,7 @@ namespace BaseModule
             this.consoleControl.ControlCollapseEvent += new System.Action(this.consoleControl_ConsolePanelCollapseEvent);
             this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
             this.consoleControl.FindFreeNodesEvent += new System.Action(this.consoleControl_FindFreeNodesEvent);
-            this.consoleControl.RenumberMeshEvent += new System.Action<object, BaseModule.Console.Events.ModelRenumberEventArgs>(this.consoleControl_RenumberMeshEvent);
+            this.consoleControl.RenumberMeshEvent += new System.Action<object, global::BaseModule.Console.Events.ModelRenumberEventArgs>(this.consoleControl_RenumberMeshEvent);
             // 
             // BasePage
             // 

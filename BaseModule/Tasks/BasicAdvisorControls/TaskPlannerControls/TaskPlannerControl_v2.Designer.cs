@@ -209,7 +209,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnLoadParameters.AutoSize = true;
             this.btnLoadParameters.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadParameters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnLoadParameters.Image = global::BaseModule.Properties.Resources.OpenDB;
+            this.btnLoadParameters.Image = global::BaseModule.Properties.Resources.ComputationFolder;
             this.btnLoadParameters.Location = new System.Drawing.Point(110, 178);
             this.btnLoadParameters.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.btnLoadParameters.Name = "btnLoadParameters";

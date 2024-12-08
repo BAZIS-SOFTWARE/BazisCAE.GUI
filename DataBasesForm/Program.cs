@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DataBasesForm
+namespace PropertiesDataBases
 {
     static class Program
     {
@@ -19,7 +16,7 @@ namespace DataBasesForm
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DataBasesForm(args));
+            Application.Run(new DataForm(args));
         }
     }
 }

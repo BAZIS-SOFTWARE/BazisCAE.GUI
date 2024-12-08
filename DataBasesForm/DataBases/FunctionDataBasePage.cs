@@ -10,7 +10,7 @@ using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
 using UserControlsEx.Graph;
 
-namespace BaseModule.Tasks.DataBases
+namespace PropertiesDataBases.DataBases
 {
     public partial class FunctionDataBasePage : DataBasePage
     {
