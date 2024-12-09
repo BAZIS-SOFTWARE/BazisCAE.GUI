@@ -429,8 +429,20 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_57C0DD137A134BDF1916A1630AA40ADA"
+        "OwnerKey" = "8:_A90745B46D79469DAA2C57E3335DE1FD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_5C64A5E8E8DA8458B39D0F64E1985819"
         "OwnerKey" = "8:_0B3950E13A8E789808CDA39137534E2A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5C64A5E8E8DA8458B39D0F64E1985819"
+        "OwnerKey" = "8:_57C0DD137A134BDF1916A1630AA40ADA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -575,6 +587,12 @@
         {
         "MsmKey" = "8:_85E3011BDF42EF7BC0142D614C5A37F6"
         "OwnerKey" = "8:_A90745B46D79469DAA2C57E3335DE1FD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_85E3011BDF42EF7BC0142D614C5A37F6"
+        "OwnerKey" = "8:_57C0DD137A134BDF1916A1630AA40ADA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -731,6 +749,12 @@
         {
         "MsmKey" = "8:_A865FA761D1E408F801145D7B3270737"
         "OwnerKey" = "8:_0B3950E13A8E789808CDA39137534E2A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A865FA761D1E408F801145D7B3270737"
+        "OwnerKey" = "8:_57C0DD137A134BDF1916A1630AA40ADA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1049,6 +1073,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_8BC9F77BF20A47E78FE9281C2E34FB34"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_57C0DD137A134BDF1916A1630AA40ADA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -2236,6 +2266,32 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_57C0DD137A134BDF1916A1630AA40ADA"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:PropertiesDataBases, Version=1.0.1.0, Culture=neutral, PublicKeyToken=1410fedc1714d211, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                }
+            "SourcePath" = "8:PropertiesDataBases.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5C64A5E8E8DA8458B39D0F64E1985819"
             {
             "AssemblyRegister" = "3:1"
@@ -2731,7 +2787,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:FALSE"
+            "Exclude" = "11:TRUE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -3917,16 +3973,16 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:BazisPrePost4.4.467"
-        "ProductCode" = "8:{DF40E5F9-CD86-4125-8FFD-DD1712282A54}"
-        "PackageCode" = "8:{53D69942-C0CC-4350-B8D8-3ED0B422C465}"
+        "ProductName" = "8:BazisPrePost4.5.1"
+        "ProductCode" = "8:{423BD73B-BBB7-41B9-91F2-F23D8DC23FC8}"
+        "PackageCode" = "8:{29101C75-7900-4CC0-AAF6-37274F5AB780}"
         "UpgradeCode" = "8:{B6CE3573-0A6F-4654-B604-218137EC41B2}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:4.4.467"
+        "ProductVersion" = "8:4.5.1"
         "Manufacturer" = "8:BazisSoftware"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://bazisnet.ru"
@@ -4548,7 +4604,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8BC9F77BF20A47E78FE9281C2E34FB34"
             {
-            "SourcePath" = "8:..\\InstallerAction\\obj\\Debug\\InstallerAction.dll"
+            "SourcePath" = "8:..\\InstallerAction\\obj\\Release\\InstallerAction.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"
@@ -4576,7 +4632,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_A90745B46D79469DAA2C57E3335DE1FD"
             {
-            "SourcePath" = "8:..\\GUI\\obj\\x64\\Debug\\BazisGUI.exe"
+            "SourcePath" = "8:..\\GUI\\obj\\x64\\Release\\BazisGUI.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8ED4E5FD4EB44AC8880E61F60AE90866"

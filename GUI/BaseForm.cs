@@ -177,12 +177,17 @@ namespace BazisGUI
             }
             else
             {
-                MessageBox.Show
+                var res = MessageBox.Show
                     (
-                    $@"Адресс подключения: {IPAddress.Loopback}, порт: {8001}\n
-                                Внимание! Не найдена переменная среды ""BazisServerPath"""
+                    $@"Не найдена переменная среды ""BazisServerPath""
+                    Создать переменную?", "Внимание!",
+                    MessageBoxButtons.YesNo
                     );
-                serverConnection = new ClientController(IPAddress.Loopback, 8001);
+
+                if (res == DialogResult.Yes)
+                    StartLisenceForm();
+                else
+                    serverConnection = new ClientController(IPAddress.Loopback, 8001);
             }
         }
 
@@ -320,7 +325,7 @@ namespace BazisGUI
                 StartLicensing(module);
             }
 
-            else StartLisenceForm(module);
+            else StartLisenceForm();
         }
 
         private void ViewInterface(string moduleName)
@@ -605,33 +610,34 @@ namespace BazisGUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                if(ex is Newtonsoft.Json.JsonReaderException)
+                    MessageBox.Show("Ошибка запроса информации о лицензии");
+                else
+                    MessageBox.Show(ex.Message);
             }
 
             form.Controls.Add(control);
             form.ShowDialog();
         }
 
-        private void StartLisenceForm(ToolStripPage module)
+        private void StartLisenceForm()
         {
             var form = new Form() { Name = "checkForm", Text = "Лицензирование", ShowIcon = false };
             var control = new ClientControl() { Dock = DockStyle.Fill };
 
-
-
             control.LicenseActionEvent += (ar1,ar2) => 
             {
-                //var controls = toolStripContainer.ContentPanel.Controls.Find(activePage, false);
-                if(module != null)
+                serverConnection = new ClientController(ar1, ar2);
+                if (ModulePage != null)
                 {
-                    serverConnection = new ClientController(ar1, ar2);
-                    serverConnection.RequestServer(module.Name + " Взять");
+
+                    serverConnection.RequestServer(ModulePage.Name + " Взять");
 
                     if (serverConnection.Answer == "можно")
                     {
                         control.LabelAnswer = "Лицензирование проведено";
-                        UnBlockGeneralMenuInterface(module.Name, true);
-                        StartLicensing(module);
+                        UnBlockGeneralMenuInterface(ModulePage.Name, true);
+                        StartLicensing(ModulePage);
                     }
                     else
                         control.LabelAnswer = serverConnection.Answer;
@@ -814,10 +820,7 @@ namespace BazisGUI
 
         private void получитьЛицензиюMenuItem_Click(object sender, EventArgs e)
         {
-            var module = ModulePage;
-
-            if (module != null)
-                StartLisenceForm(module);
+            StartLisenceForm();
         }
 
         private void BaseForm_FormClosed(object sender, FormClosedEventArgs e)
