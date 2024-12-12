@@ -1,6 +1,8 @@
-﻿using BaseModule.Clip;
+﻿using BaseModule;
+using BaseModule.Clip;
 using BaseModule.CrossSection;
 using BaseModule.Reflect;
+using BazisGUI.Utilities;
 using Geometry;
 using MathNet.Numerics;
 using MathNet.Numerics.LinearAlgebra;
@@ -18,10 +20,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Windows.Forms;
 using UserControlsEx;
 
-namespace BaseModule
+namespace BazisGUI
 {
     public partial class ToolStripPage : UserControl
     {
@@ -243,9 +246,12 @@ namespace BaseModule
             }
         }       
 
-        public ISurfaceFigure CreateSectionSurfaces(IEnumerable<IElement3D> elems3D, Point3D p0, Point3D p1, Point3D p2)
+        public ISurfaceFigure CreateSectionSurfaces(IEnumerable<IElement3D> elems3D, Vector3 p0, Vector3 p1, Vector3 p2)
         {
-            var plane = new Plane(p0, p1, p2);
+            var mP0 = new Point3D(p0.X, p0.Y, p0.Z);
+            var mP1 = new Point3D(p1.X, p1.Y, p1.Z);
+            var mP2 = new Point3D(p2.X, p2.Y, p2.Z);
+            var plane = new Geometry.Plane(mP0, mP1, mP2);
             var scenePage = BasePage.ScenePage;
             return ModelController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
         }
@@ -357,9 +363,10 @@ namespace BaseModule
             var consoleControl = BasePage.ConsoleControl;
             try
             {
-                if (arg2.ObjsType == scenePage.SelectedObjects)
+                var objTypes = ObjectsConverter.ConvertToObjsType(arg2.Objects);
+                if (objTypes == scenePage.SelectedObjects)
                 {
-                    var selObjs = ModelData.ObjectData.GetObjects(arg2.ObjsType).
+                    var selObjs = ModelData.ObjectData.GetObjects(objTypes).
                         Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
 
                     if (scenePage.SelectedObjects == ObjType.Узел)
@@ -371,7 +378,7 @@ namespace BaseModule
                             var n2 = (INode)selObjs.Skip(1).First();
                             var n3 = (INode)selObjs.Skip(2).First();
 
-                            var plane = new Plane(n1.Position, n2.Position, n3.Position);
+                            var plane = new Geometry.Plane(n1.Position, n2.Position, n3.Position);
                             ModelController.SelectionHelper.SelectNodeInPlane(ModelData.ObjectData,
                                 plane, scenePage.SceneControl.SelectionColor);
                             scenePage.SetObjectsSceneColor(ObjType.Узел);
@@ -407,12 +414,13 @@ namespace BaseModule
             var consoleControl = BasePage.ConsoleControl;
             try
             {
-                if (arg2.ObjsType == scenePage.SelectedObjects)
+                var objTypes = ObjectsConverter.ConvertToObjsType(arg2.Objects);
+                if (objTypes == scenePage.SelectedObjects)
                 {
                     //var result = await BasePage.SelectObjectsAsync(scenePage.SelectedObjects);
                     //var objs = result as IEnumerable<IModelObject>;
                     
-                    var selObjs = ModelData.ObjectData.GetObjects(arg2.ObjsType).
+                    var selObjs = ModelData.ObjectData.GetObjects(objTypes).
                         Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
                     if (selObjs?.Count() > 1)
                     {
@@ -604,16 +612,20 @@ namespace BaseModule
                                 return;
                             }
 
-                            var p0 = selObjs[0];
-                            var p1 = selObjs[1];
-                            var p2 = selObjs[2];
+                            var mP0 = selObjs[0].CalcCentr();
+                            var mP1 = selObjs[1].CalcCentr();
+                            var mP2 = selObjs[2].CalcCentr();
+
+                            var p0 = new Vector3(mP0._x, mP0._y, mP0._z);
+                            var p1 = new Vector3(mP1._x, mP1._y, mP1._z);
+                            var p2 = new Vector3(mP2._x, mP2._y, mP2._z);
 
                             var elems3D = ModelData.ObjectData.E3DCollection;
 
                             var surface = CreateSectionSurfaces(
-                                elems3D, p0.CalcCentr(),
-                                p1.CalcCentr(),
-                                p2.CalcCentr());
+                                elems3D, p0,
+                                p1,
+                                p2);
 
                             scenePage.PresentCrossSection(surface);
 
@@ -683,7 +695,8 @@ namespace BaseModule
                     var measuringControl = new MeasuringSet() { Dock = DockStyle.Fill };
                     measuringControl.PreparingMeasureEvent += (ar) =>
                     {
-                        scenePage.SelectedObjects = ar;
+                        var objTypes = ObjectsConverter.ConvertToObjsType(ar);
+                        scenePage.SelectedObjects = objTypes;
                         scenePage.SceneControl.HideAllGeometryObjs();
                         scenePage.SceneControl.HideDisplayText3D();
                         scenePage.SceneControl.DisplayObjects();
@@ -846,7 +859,12 @@ namespace BaseModule
                     sceneControl.IsClipPlane = true;
                     clipForm.Controls.Add(clip);
 
-                    clip.SetClipPlaneEvent += (plane) => sceneControl.ChangeClipPlane(plane);
+                    clip.SetClipPlaneEvent += (plane) =>
+                    {
+                        var normal = plane.Normal;
+                        var scPlane = new Geometry.Plane(new Point3D(normal.X, normal.Y, normal.Z), plane.D);
+                        sceneControl.ChangeClipPlane(scPlane);
+                    };
 
                     clip.RedrawClipPlane += () => sceneControl.DisplayObjects();
                     clipForm.FormClosing += (o, ev) =>

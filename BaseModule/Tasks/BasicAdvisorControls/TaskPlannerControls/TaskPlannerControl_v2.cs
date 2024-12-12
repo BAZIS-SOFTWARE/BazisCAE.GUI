@@ -6,13 +6,11 @@ using System.ComponentModel;
 using Newtonsoft.Json;
 using System.Threading;
 using System.Collections.Generic;
-using ProjectInterfaces.Tasks;
 using System.Text.RegularExpressions;
 using System.Linq;
 using TasksParameters;
 using TaskModule.BasicAdvisorControls.Interfaces;
 using TaskModule.BasicAdvisorControls.Events;
-using ProjectInterfaces;
 using System.Runtime;
 using BaseModule;
 
@@ -20,7 +18,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
 {
     public partial class TaskPlannerControl_v2 : UserControl,IGridViewControl
     {
-        public ProcessType ProcessType { get; set; }
+        //public ProcessType ProcessType { get; set; }
 
         [Category("Images")]
         [Description("Set image for add button")]
@@ -227,8 +225,8 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             {
                 var status = dataGridView[(int)Column.status, dataGridView.CurentSelectedRowIndex].Value.ToString();
 
-                TaskStatus taskStatus;
-                Enum.TryParse(status, out taskStatus);
+                //TaskStatus taskStatus;
+                //Enum.TryParse(status, out taskStatus);
 
                 var kind = dataGridView[(int)Column.kind, dataGridView.CurentSelectedRowIndex].Value.ToString();
 
@@ -420,10 +418,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
                 {
                     dataGridView.Rows[e.RowIndex].Selected = true;
 
-                    if (dataGridView[e.ColumnIndex, e.RowIndex].Value.ToString() == TaskStatus.выполнить.ToString())
-                        dataGridView[e.ColumnIndex, e.RowIndex].Value = TaskStatus.пропустить.ToString();
+                    if (dataGridView[e.ColumnIndex, e.RowIndex].Value.ToString() == "выполнить")
+                        dataGridView[e.ColumnIndex, e.RowIndex].Value = "пропустить";
                     else
-                        dataGridView[e.ColumnIndex, e.RowIndex].Value = TaskStatus.выполнить.ToString();
+                        dataGridView[e.ColumnIndex, e.RowIndex].Value = "выполнить";
                 }
                 else if(e.ColumnIndex == 1)
                 {

@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using UserControlsEx;
 
-namespace TaskModule.HeatTreatmentModule
+namespace BaseModule.Tasks.HeatTreatmentModule
 {
     partial class HeatControl
     {

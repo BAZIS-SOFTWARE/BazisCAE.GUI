@@ -1,7 +1,7 @@
 ﻿using UserControlsEx;
 using BaseModule.Player;
 
-namespace TaskModule.HeatTreatmentModule
+namespace BaseModule.Tasks.HeatTreatmentModule
 {
     partial class DiffusionСontrol
     {

@@ -1,21 +1,21 @@
-﻿using ModelInterfaces;
-using System;
+﻿using System;
+using static BaseModule.Interfaces.GeneralParams;
 
 namespace BaseModule.Results.GraphCreation
 {
     public class CreatePathGraphEventArgs : EventArgs
     {
-        public CreatePathGraphEventArgs(ObjType objsType, string resName, float time )
+        public CreatePathGraphEventArgs(Objects objects, string resName, float time )
         {
             var descr = resName.Split('_');
             ResultKind = descr[0];
 
-            ObjsType = objsType;
+            Objects = objects;
             Time = time;
         }
 
         public string ResultKind { get; }
-        public ObjType ObjsType { get; }
+        public Objects Objects { get; }
         public float Time { get; private set; }
     }
 }

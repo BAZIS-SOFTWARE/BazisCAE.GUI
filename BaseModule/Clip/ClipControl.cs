@@ -3,9 +3,9 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Geometry;
 using System.Globalization;
 using UserControlsEx;
+using System.Numerics;
 
 namespace BaseModule.Clip
 {
@@ -18,7 +18,7 @@ namespace BaseModule.Clip
 
         private Pen Pen { get; set; }
 
-        private Plane ClipPlane { get; set; }
+        private Plane ClipPlane;
 
         /// <summary>
         /// Задать плоскость отсечения
@@ -33,7 +33,7 @@ namespace BaseModule.Clip
             InitializeComponent();
             domainUpDown1.SelectedItem = 2;
             Pen = new Pen(SystemColors.Control);
-            ClipPlane = new Plane(new Point3D(0, 0, -1), 0);
+            ClipPlane = new Plane(new Vector3(0, 0, -1), 0);
         }
 
         private void OnChangeValue(object sender, EventArgs e)
@@ -46,11 +46,11 @@ namespace BaseModule.Clip
             var text = label.Text.Split(' ');
             label.Text = text[0] + " " + value.ToString("0.##");
             if (tb.TabIndex == 0)
-                ClipPlane.Normal._x = value;
+                ClipPlane.Normal.X = value;
             else if (tb.TabIndex == 1)
-                ClipPlane.Normal._y = value;
+                ClipPlane.Normal.Y = value;
             else
-                ClipPlane.Normal._z = value;
+                ClipPlane.Normal.Z = value;
             if (!PreventRedraw)
             {
                 NormalizeDirection();
@@ -99,10 +99,11 @@ namespace BaseModule.Clip
                                colorSlider1.Value == 100;
             if (!isZeroNormal)
             {
-                var normal = Vector.GetVectorNorm(ClipPlane.Normal);
-                ClipPlane.Normal._x = normal._x;
-                ClipPlane.Normal._y = normal._y;
-                ClipPlane.Normal._z = normal._z;
+                var normal = Vector3.Normalize(ClipPlane.Normal);
+
+                ClipPlane.Normal = normal;
+                //ClipPlane.Normal._y = normal._y;
+                //ClipPlane.Normal._z = normal._z;
             }
         }
 
@@ -123,8 +124,8 @@ namespace BaseModule.Clip
             {
                 var sign = Math.Sign(e.X - MouseLastPos.X);
                 var delta = float.Parse(domainUpDown1.Text, NumberStyles.Any);
-                ClipPlane.Shifting += sign * delta;
-                textBox1.Text = ClipPlane.Shifting.ToString("0.##");
+                ClipPlane.D += sign * delta;
+                textBox1.Text = ClipPlane.D.ToString("0.##");
                 MouseLastPos = e.Location;
                 RedrawClipPlane?.Invoke();
             }
@@ -172,7 +173,7 @@ namespace BaseModule.Clip
 
         private void OnResetShifting(object sender, EventArgs e)
         {
-            ClipPlane.Shifting = 0;
+            ClipPlane.D = 0;
             textBox1.Text = "0";
             RedrawClipPlane?.Invoke();
         }

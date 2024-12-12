@@ -1,7 +1,7 @@
 ﻿using BaseModule.PinnedControl;
 using BaseModule.Tasks.WeldingModule;
 
-namespace TaskModule.BasicTaskAdvisor
+namespace BaseModule.Tasks.WeldingModule
 {
     public partial class PinnedWAdvControl : PinnedPage
     {

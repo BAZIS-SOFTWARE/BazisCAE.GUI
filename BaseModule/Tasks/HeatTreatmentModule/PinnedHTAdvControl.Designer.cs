@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.heatTreatmentAdvisor = new TaskModule.HeatTreatmentModule.HeatTreatmentAdvisor();
+            this.heatTreatmentAdvisor = new HeatTreatmentAdvisor();
             this.SuspendLayout();
             // 
             // heatTreatmentAdvisor
@@ -38,7 +38,7 @@
             this.heatTreatmentAdvisor.Location = new System.Drawing.Point(0, 15);
             this.heatTreatmentAdvisor.Margin = new System.Windows.Forms.Padding(2);
             this.heatTreatmentAdvisor.Name = "heatTreatmentAdvisor";
-            this.heatTreatmentAdvisor.ProcessType = ProjectInterfaces.Tasks.ProcessType.Heating;
+            //this.heatTreatmentAdvisor.ProcessType = ProjectInterfaces.Tasks.ProcessType.Heating;
             this.heatTreatmentAdvisor.Size = new System.Drawing.Size(587, 376);
             this.heatTreatmentAdvisor.TabIndex = 0;
             // 
@@ -55,6 +55,6 @@
 
         #endregion
 
-        private TaskModule.HeatTreatmentModule.HeatTreatmentAdvisor heatTreatmentAdvisor;
+        private HeatTreatmentAdvisor heatTreatmentAdvisor;
     }
 }

@@ -22,12 +22,17 @@ using BaseModule;
 using PropertiesCalculator.MaterialData;
 using PropertiesCalculator.FunctionData;
 using PropertiesDataBases.DataBases;
+using Project;
+using System.Runtime.InteropServices.ComTypes;
+using Model;
+using TaskModule.BasicAdvisorControls.Interfaces;
+using TaskModule.BasicAdvisorControls;
 
 namespace BazisGUI
 {
     public partial class TaskPage: ToolStripPage
     {
-        string activeAdvisor  = String.Empty;
+        public ProcessType ProcessType { get; set; }
         public string SolverPath { get; set; }
 
         IGeneralData GeneralData { get { return BasePage.GetGeneralData(); } }
@@ -150,7 +155,7 @@ namespace BazisGUI
 
             GeneralData.Functions = funBasePage.DbName;
             var funData = funBasePage.Functions;
-            GetTaskAdvisor()?.SetFunctionData(funData.Keys.ToList());
+            GetTaskAdvisor()?.SetFunctions(funData.Keys.ToList());
             PresentMatAndFuncDataOnTree();
         }
 
@@ -161,7 +166,7 @@ namespace BazisGUI
 
             GeneralData.Materials = matBasePage.DbName;
             var matData = matBasePage.Materials;
-            GetTaskAdvisor()?.SetMaterialData(matData.Keys.ToList());
+            GetTaskAdvisor()?.SetMaterials(matData.Keys.ToList());
             PresentMatAndFuncDataOnTree();
         }
 
@@ -184,17 +189,16 @@ namespace BazisGUI
                     BasePage.ConsoleControl.PrintInfo($"Не загружена база {generalData.Materials}", Color.Orange);
                 else
 
-                    taskAdv.SetMaterialData(matDB.Keys.ToList());
+                    taskAdv.SetMaterials(matDB.Keys.ToList());
 
                 var funDB = GetDataBase<FunctionDBData>(generalData.Functions, generalData.Path);
 
                 if (funDB == null)
                     BasePage.ConsoleControl.PrintInfo($"Не загружена база {generalData.Functions}", Color.Orange);
                 else
-                    taskAdv.SetFunctionData(funDB.Keys.ToList());
+                    taskAdv.SetFunctions(funDB.Keys.ToList());
 
-
-                taskAdv.SetProjectData(generalData, ModelData, taskData);
+                SetProjectData(taskAdv);
 
                 var inputDir = $@"{generalData.Path}\InputData";
 
@@ -216,7 +220,7 @@ namespace BazisGUI
         {
             try
             {
-                activeAdvisor = taskAdv.Name;
+                //activeAdvisor = taskAdv.Name;
 
                 taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent;
                 taskAdv.AddDataUseTaskConditionsEvent += (ar1,ar2) => { TaskAdv_AddDataUseTaskConditions(taskData, preProc); };
@@ -313,7 +317,7 @@ namespace BazisGUI
                 if (!Directory.Exists(inputDir))
                     Directory.CreateDirectory(inputDir);
 
-                preProc.CalcCompDataV1(data, adv.ProcessType, inputDir);
+                preProc.CalcCompDataV1(data, ProcessType, inputDir);
 
                 var tsfFiles = Directory.GetFiles(inputDir, "*.tsf");
 
@@ -478,8 +482,45 @@ namespace BazisGUI
             else generalData.TaskType = TaskType.Volume;
 
             BasePage.NavigatorControl.TreeView.Nodes[3].Text = "Вид : " + generalData.TaskType;
+            var adv = GetTaskAdvisor();
+            SetProjectData(adv);
+        }
 
-            GetTaskAdvisor()?.SetProjectData(generalData, ModelData,taskData);
+        public void SetProjectData(TaskAdvisor taskAdv)
+        {
+            var ndGrpsNames = ModelData.GroupData.FindMany(ObjType.Узел).Select(x => x.Name).ToList();
+            var elMatsGrpsNames = GetMaterialGroupsNames(GeneralData.TaskType);
+            var elBndsGrpsNames = GetBoundaryGroupsNames(GeneralData.TaskType);
+            var elLoadGrpsNames = GetLoadGroupsNames(GeneralData.TaskType);
+
+            taskAdv?.SetProjectData(taskData.Select(x => x.ToString()));
+            taskAdv?.SetBoundaryGroups(ndGrpsNames,elBndsGrpsNames);
+            taskAdv?.SetMaterialGroups(elMatsGrpsNames);
+            taskAdv?.SetLoadGroups(ndGrpsNames, elLoadGrpsNames);
+        }
+
+        private List<string> GetLoadGroupsNames(TaskType taskType)
+        {
+            if (taskType == TaskType.AxiPlain || taskType == TaskType.Plain)
+                return ModelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList();
+            else
+                return ModelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.Name).ToList();
+        }
+
+        private List<string> GetBoundaryGroupsNames(TaskType taskType)
+        {
+            if (taskType == TaskType.AxiPlain || taskType == TaskType.Plain)
+                return ModelData.GroupData.FindMany(ObjType.Элемент1D).Select(x => x.Name).ToList();
+            else
+                return ModelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList();
+        }
+
+        private List<string> GetMaterialGroupsNames(TaskType taskType)
+        {
+            if (taskType == TaskType.AxiPlain || taskType == TaskType.Plain)
+                return ModelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList();
+            else
+                return ModelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.Name).ToList();
         }
 
         public virtual TaskAdvisor GetTaskAdvisor()
@@ -503,7 +544,8 @@ namespace BazisGUI
                 if (valData.MovedFrame != null)
                     SetMFF(valData, arg2.DataInfo.Split(' ').Last());
 
-                GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
+                var adv = GetTaskAdvisor();
+                SetProjectData(adv);
 
                 var dataIndex = taskData.IndexOf(dataArray[arg2.Index]);
                 BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes[dataIndex].Text = dataArray[arg2.Index].ToString();
@@ -558,7 +600,8 @@ namespace BazisGUI
 
                         taskData.Remove(data);
                     }
-                    GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
+                    var adv = GetTaskAdvisor();
+                    SetProjectData(adv);
                 }
             }
             catch (Exception ex)
@@ -736,9 +779,8 @@ namespace BazisGUI
                     if (!Directory.Exists($@"{GeneralData.Path}\InputData"))
                         Directory.CreateDirectory($@"{GeneralData.Path}\InputData");
 
-                    var adv = GetTaskAdvisor();
+                    preProc.SetDraftParameters(args.Parameters, ProcessType);
 
-                    preProc.SetDraftParameters(args.Parameters, adv.ProcessType);
                     var parLine = JsonConvert.SerializeObject(args.Parameters, settingsSerializer);
 
                     File.WriteAllText($@"{GeneralData.Path}\InputData\{args.DataInfo}", parLine);
@@ -761,7 +803,8 @@ namespace BazisGUI
                     else
                         AddData(taskData, arg2, ar, group);
 
-                    GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
+                    var adv = GetTaskAdvisor();
+                    SetProjectData(adv);
                 }
  
             }
@@ -860,32 +903,38 @@ namespace BazisGUI
         {
             taskData?.Clear();
             PresentTaskDataOnTree(taskData);
-            GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
+            var adv = GetTaskAdvisor();
+
+            SetProjectData(adv);
         }
 
         private void TaskPage_ChangedGroupNameEvent()
         {
             PresentTaskDataOnTree(taskData);
-            GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
+            var adv = GetTaskAdvisor();
+            SetProjectData(adv);
         }
 
         private void TaskPage_CreatedMeshGroupEvent()
         {
-            GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
+            var adv = GetTaskAdvisor();
+            SetProjectData(adv);
         }
 
         private void TaskPage_DeleteAllGroupsEvent()
         {
             taskData?.Clear();
             PresentTaskDataOnTree(taskData);
-            GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
+            var adv = GetTaskAdvisor();
+            SetProjectData(adv);
         }
 
         private void TaskPage_DeleteGroupEvent()
         {
             taskData?.ClearNotExisted(ModelData.GroupData);
             PresentTaskDataOnTree(taskData);
-            GetTaskAdvisor()?.SetProjectData(GeneralData, ModelData, taskData);
+            var adv = GetTaskAdvisor();
+            SetProjectData(adv);
         }
     }
 }

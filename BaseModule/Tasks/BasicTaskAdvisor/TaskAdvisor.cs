@@ -8,9 +8,6 @@ using TaskModule.BasicAdvisorControls.Interfaces;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using BaseModule.Utilities;
-using ProjectInterfaces;
-using ModelInterfaces;
-using ProjectInterfaces.Tasks;
 using UserControlsEx;
 
 namespace TaskModule.BasicTaskAdvisor
@@ -34,33 +31,39 @@ namespace TaskModule.BasicTaskAdvisor
         public event Action<object, GenerateTCFEventArgs> GenerateTCFEvent;
 
 
-        public ProcessType ProcessType 
-        {
-            get
-            {
-                var cntrs = new List<TaskPlannerControl_v2>();
-                RecursiveSearchControls.AllTypedControls(this, cntrs);
-                return cntrs.First().ProcessType;
-            }
-            set
-            {
-                var cntrs = new List<TaskPlannerControl_v2>();
-                RecursiveSearchControls.AllTypedControls(this, cntrs);
-                cntrs.First().ProcessType = value;
-            }
-        }
+        //public ProcessType ProcessType 
+        //{
+        //    get
+        //    {
+        //        var cntrs = new List<TaskPlannerControl_v2>();
+        //        RecursiveSearchControls.AllTypedControls(this, cntrs);
+        //        return cntrs.First().ProcessType;
+        //    }
+        //    set
+        //    {
+        //        var cntrs = new List<TaskPlannerControl_v2>();
+        //        RecursiveSearchControls.AllTypedControls(this, cntrs);
+        //        cntrs.First().ProcessType = value;
+        //    }
+        //}
 
         public TaskAdvisor()
         {
             InitializeComponent();
         }
 
-        TaskTypeControl taskTypeControl {
+        string TaskType {
             get
             {
                 var cntrs = new List<TaskTypeControl>();
                 RecursiveSearchControls.AllTypedControls(this, cntrs);
-                return cntrs.First();
+                return cntrs.First().TaskType;
+            }
+            set
+            {
+                var cntrs = new List<TaskTypeControl>();
+                RecursiveSearchControls.AllTypedControls(this, cntrs);
+                cntrs.First().TaskType = value;
             }
         }
 
@@ -72,12 +75,13 @@ namespace TaskModule.BasicTaskAdvisor
                 RecursiveSearchControls.AllTypedControls(this, cntrs);
                 return cntrs.First();
             }
-        }     
+        } 
+       
 
-        public void SetProjectData(IGeneralData generalData, IModelData modelData, ITaskData taskData)
+        public void SetProjectData(IEnumerable<string> data)
         {
-            var taskType = generalData.TaskType.ToString();
-            taskTypeControl.SetTaskType(taskType);
+            //var taskType = generalData.TaskType.ToString();
+            //taskTypeControl.SetTaskType(taskType);
 
             foreach (TabPage tabPage in tabControl.Controls)
             {
@@ -85,35 +89,35 @@ namespace TaskModule.BasicTaskAdvisor
                 {   
                     if(control is ICheckGridViewControl gvControl)
                     {
-                        var data = taskData.
-    Where(x => x.Name == gvControl.DataName).
-    Select(x => x.GetInfo);
+                        var subData = data.
+    Where(x => x.Contains(gvControl.DataName));
+    //Select(x => x.GetInfo);
 
-                        if (control is ILoadControl loadControl)
-                        {
-                            loadControl.Fill_nGroups(modelData.GroupData.FindMany(ObjType.Узел).Select(x => x.Name).ToList());
-                            if (taskType == "Plain" | taskType == "AxiPlain")
-                                loadControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList());
-                            else
-                                loadControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.Name).ToList());
-                        }
+                        //if (control is ILoadControl loadControl)
+                        //{
+                        //    loadControl.Fill_nGroups(modelData.GroupData.FindMany(ObjType.Узел).Select(x => x.Name).ToList());
+                        //    if (taskType == "Plain" | taskType == "AxiPlain")
+                        //        loadControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList());
+                        //    else
+                        //        loadControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.Name).ToList());
+                        //}
 
-                        else if (control is IBoundaryControl boundaryControl)
-                        {
-                            boundaryControl.Fill_nGroups(modelData.GroupData.FindMany(ObjType.Узел).Select(x => x.Name).ToList());
-                            if (taskType == "Plain" | taskType == "AxiPlain")
-                                boundaryControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент1D).Select(x => x.Name).ToList());
-                            else
-                                boundaryControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList());
-                        }
+                        //else if (control is IBoundaryControl boundaryControl)
+                        //{
+                        //    boundaryControl.Fill_nGroups(modelData.GroupData.FindMany(ObjType.Узел).Select(x => x.Name).ToList());
+                        //    if (taskType == "Plain" | taskType == "AxiPlain")
+                        //        boundaryControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент1D).Select(x => x.Name).ToList());
+                        //    else
+                        //        boundaryControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList());
+                        //}
 
-                        else if (control is IMaterialsRelatedControl materialsRelatedControl)
-                        {
-                            if (taskType == "Plain" | taskType == "AxiPlain")
-                                materialsRelatedControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList());
-                            else
-                                materialsRelatedControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.Name).ToList());
-                        }
+                        //else if (control is IMaterialsRelatedControl materialsRelatedControl)
+                        //{
+                        //    if (taskType == "Plain" | taskType == "AxiPlain")
+                        //        materialsRelatedControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList());
+                        //    else
+                        //        materialsRelatedControl.Fill_eGroups(modelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.Name).ToList());
+                        //}
 
                         //else if (control is TaskPlannerControl_v2 taskPlannerControl)
                         //{
@@ -139,7 +143,51 @@ namespace TaskModule.BasicTaskAdvisor
             }
         }
 
-        public void SetMaterialData(List<string> materialNames)
+        public void SetLoadGroups(List<string> eGrpsNames, List<string> nGrpsNames)
+        {
+            foreach (TabPage tabPage in tabControl.Controls)
+            {
+                foreach (Control control in tabPage.Controls)
+                {
+                    if (control is ILoadControl loadControl)
+                    {
+                        loadControl.Fill_nGroups(nGrpsNames);
+                        loadControl.Fill_eGroups(eGrpsNames);
+                    }
+
+                }
+            }
+        }
+
+        public void SetBoundaryGroups(List<string> eGrpsNames, List<string> nGrpsNames)
+        {
+            foreach (TabPage tabPage in tabControl.Controls)
+            {
+                foreach (Control control in tabPage.Controls)
+                {
+                    if (control is IBoundaryControl boundaryControl)
+                    {
+                        boundaryControl.Fill_nGroups(nGrpsNames);
+                        boundaryControl.Fill_eGroups(eGrpsNames);
+                    }
+    
+                }
+            }
+        }
+
+        public void SetMaterialGroups(List<string> eGrpsNames)
+        {
+            foreach (TabPage tabPage in tabControl.Controls)
+            {
+                foreach (Control control in tabPage.Controls)
+                {
+                    if (control is IMaterialsRelatedControl materialsRelatedControl)
+                        materialsRelatedControl.Fill_eGroups(eGrpsNames);
+                }
+            }
+        }
+
+        public void SetMaterials(List<string> materialNames)
         {
             foreach (TabPage tabPage in tabControl.Controls)
             {
@@ -151,7 +199,7 @@ namespace TaskModule.BasicTaskAdvisor
             }
         }
 
-        public void SetFunctionData(List<string> functionNames)
+        public void SetFunctions(List<string> functionNames)
         {
             foreach (TabPage tabPage in tabControl.Controls)
             {

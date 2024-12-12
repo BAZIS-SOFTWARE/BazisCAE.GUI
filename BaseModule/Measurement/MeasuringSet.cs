@@ -1,6 +1,6 @@
-﻿using ModelInterfaces;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using static BaseModule.Interfaces.GeneralParams;
 
 namespace BaseModule
 {
@@ -8,7 +8,7 @@ namespace BaseModule
     {
 
         public event Action<object, MeasureEventArgs> MakeMeasureEvent;
-        public event Action<ObjType> PreparingMeasureEvent;
+        public event Action<Objects> PreparingMeasureEvent;
 
         MeasureKind measureKind;
         public MeasuringSet()
@@ -22,21 +22,21 @@ namespace BaseModule
             {
                 measureKind = MeasureKind.Volume;
                 cmbMeasureObjects.Enabled = false;
-                PreparingMeasureEvent?.Invoke(ObjType.Элемент3D);
+                PreparingMeasureEvent?.Invoke(Objects.Элемент3D);
             }
 
             else if (rbtSquare.Checked)
             {
                 measureKind = MeasureKind.Square;
                 cmbMeasureObjects.Enabled = false;
-                PreparingMeasureEvent?.Invoke(ObjType.Элемент2D);
+                PreparingMeasureEvent?.Invoke(Objects.Элемент2D);
             }
 
             else if (rbtnPath.Checked)
             {
                 measureKind = MeasureKind.Path;
                 cmbMeasureObjects.Enabled = false;
-                PreparingMeasureEvent?.Invoke(ObjType.Узел);
+                PreparingMeasureEvent?.Invoke(Objects.Узел);
             }
 
             else
@@ -44,7 +44,7 @@ namespace BaseModule
                 cmbMeasureObjects.Enabled = true;
                 measureKind = MeasureKind.DistancePointToPoint;
                 cmbMeasureObjects.SelectedIndex = 0;
-                PreparingMeasureEvent?.Invoke(ObjType.Узел);
+                PreparingMeasureEvent?.Invoke(Objects.Узел);
             }
 
         }

@@ -1,17 +1,17 @@
-﻿using ModelInterfaces;
-using System;
+﻿using System;
+using static BaseModule.Interfaces.GeneralParams;
 
 namespace BaseModule.Console
 {
     public class FindObjectEventArgs : EventArgs
     {
         public uint Number { get; }
-        public ObjType ObjsType { get; }
+        public Objects ObjsType { get; }
         public FindObjectEventArgs(string str)
         {
             uint number;
 
-            ObjType objType;
+            Objects objType;
             if(!Enum.TryParse(str.Split(':')[0], out objType))
                 throw new Exception("Неизвестный тип объекта!");
             ObjsType = objType;

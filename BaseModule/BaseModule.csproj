@@ -55,43 +55,13 @@
     <AssemblyOriginatorKeyFile>BaseModuleSnk.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Geometry, Version=2.0.8.4, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Geometry.2.0.8.4\lib\netstandard2.0\Geometry.dll</HintPath>
-    </Reference>
-    <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
-      <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
-    </Reference>
-    <Reference Include="Model, Version=3.1.2.2, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\Model.3.1.2.2\lib\netstandard2.0\Model.dll</HintPath>
-    </Reference>
-    <Reference Include="ModelControllerInterfaces, Version=3.0.2.1, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelControllerInterfaces.3.0.2.1\lib\netstandard2.0\ModelControllerInterfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="ModelInterfaces, Version=3.0.1.7, Culture=neutral, PublicKeyToken=998e39182864f357, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelInterfaces.3.0.1.7\lib\netstandard2.0\ModelInterfaces.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Octree, Version=2.1.11.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
-      <HintPath>..\packages\NetOctree.2.1.11\lib\netstandard2.0\Octree.dll</HintPath>
-    </Reference>
-    <Reference Include="ProjectInterfaces, Version=3.1.68.0, Culture=neutral, PublicKeyToken=9ae675f899beab21, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjectInterfaces.3.1.68\lib\netstandard2.0\ProjectInterfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="Scene, Version=2.0.8.52, Culture=neutral, PublicKeyToken=2e7150108cd20395, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.52\lib\net48\Scene.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -100,23 +70,11 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tao.OpenGl, Version=2.1.0.12, Culture=neutral, PublicKeyToken=1ca010269a4501ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.52\lib\net48\Tao.OpenGl.dll</HintPath>
-    </Reference>
-    <Reference Include="Tao.Platform.Windows, Version=1.0.0.5, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL">
-      <HintPath>..\packages\Scene.2.0.8.52\lib\net48\Tao.Platform.Windows.dll</HintPath>
-    </Reference>
     <Reference Include="TasksParameters, Version=1.0.1.13, Culture=neutral, PublicKeyToken=8bfe6827a0935d51, processorArchitecture=MSIL">
       <HintPath>..\packages\TasksParameters.1.0.1.13\lib\netstandard2.0\TasksParameters.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasePage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="BasePage.Designer.cs">
-      <DependentUpon>BasePage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Clip\ClipControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -139,12 +97,7 @@
       <DependentUpon>ConsoleControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Console\FindObjectEventArgs.cs" />
-    <Compile Include="EmbendentPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="EmbendentPage.Designer.cs">
-      <DependentUpon>EmbendentPage.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Interfaces\GeneralParams.cs" />
     <Compile Include="Interfaces\IPinnedControl.cs" />
     <Compile Include="Mesh\CurveAttribsEventArgs.cs" />
     <Compile Include="Mesh\DeleteElementEventArgs.cs" />
@@ -186,7 +139,6 @@
     <Compile Include="Mesh\SettingsControls\GMSHVolSettingsControl.Designer.cs">
       <DependentUpon>GMSHVolSettingsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Mesh\Show3dTextEventArgs.cs" />
     <Compile Include="Mesh\ShowHeatMapEventArg.cs" />
     <Compile Include="Mesh\ShowTransPointsEventArgs.cs" />
     <Compile Include="Mesh\TreeNodeEqualityComparer.cs" />
@@ -253,12 +205,6 @@
     </Compile>
     <Compile Include="Results\ScaleControl\ScalePage.Designer.cs">
       <DependentUpon>ScalePage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ScenePage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ScenePage.Designer.cs">
-      <DependentUpon>ScenePage.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectionSet\SelectInDirectionEventArgs.cs" />
     <Compile Include="SelectionSet\SelectInPlainEventArgs.cs" />
@@ -475,12 +421,6 @@
     <Compile Include="Tasks\WeldingModule\WeldingTypeControls\WeldingMediaControl.designer.cs">
       <DependentUpon>WeldingMediaControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ToolStripPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ToolStripPage.Designer.cs">
-      <DependentUpon>ToolStripPage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Utilities\FieldsParser.cs" />
     <Compile Include="Utilities\IOFileController.cs" />
     <Compile Include="Utilities\SplittersController.cs" />
@@ -495,17 +435,11 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BasePage.resx">
-      <DependentUpon>BasePage.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Clip\ClipControl.resx">
       <DependentUpon>ClipControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Console\ConsoleControl.resx">
       <DependentUpon>ConsoleControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EmbendentPage.resx">
-      <DependentUpon>EmbendentPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mesh\GMSH2DMeshControl.resx">
       <DependentUpon>GMSH2DMeshControl.cs</DependentUpon>
@@ -559,9 +493,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Results\ScaleControl\ScalePage.resx">
       <DependentUpon>ScalePage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ScenePage.resx">
-      <DependentUpon>ScenePage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SelectionSet\AdvanceSelectionSet.resx">
       <DependentUpon>AdvanceSelectionSet.cs</DependentUpon>
@@ -650,9 +581,6 @@
     <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\WeldingMediaControl.resx">
       <DependentUpon>WeldingMediaControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ToolStripPage.resx">
-      <DependentUpon>ToolStripPage.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -704,8 +632,6 @@
     <None Include="Resources\Tasks\Welding.ico" />
     <None Include="Resources\Tasks\Материалы.ico" />
     <None Include="Resources\Tasks\Функции.ico" />
-    <Content Include="Tao.OpenGl.dll" />
-    <Content Include="Tao.Platform.Windows.dll" />
     <Content Include="Tasks\BasicAdvisorControls\Resources\Add.ico" />
     <Content Include="Tasks\BasicAdvisorControls\Resources\AddAsDraft.ico" />
     <Content Include="Tasks\BasicAdvisorControls\Resources\AddDraft.png" />

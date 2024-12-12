@@ -1,16 +1,16 @@
-﻿using ModelInterfaces;
-using System;
+﻿using System;
+using static BaseModule.Interfaces.GeneralParams;
 
 namespace BaseModule
 {
     public class SelectInPlainEventArgs : EventArgs
     {
-        public ObjType ObjsType { get; }
+        public Objects Objects { get; }
         public float Angle { get; }
 
-        public SelectInPlainEventArgs(ObjType objsType, float angle)
+        public SelectInPlainEventArgs(Objects objects, float angle)
         {
-            ObjsType = objsType;
+            Objects = objects;
             Angle = angle;
         }
     }

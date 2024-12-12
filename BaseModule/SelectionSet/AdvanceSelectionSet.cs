@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ModelInterfaces;
+using static BaseModule.Interfaces.GeneralParams;
 
 namespace BaseModule
 {
@@ -27,14 +27,14 @@ namespace BaseModule
         {
             if (rbtInDirection.Checked)
                 if (rbtNodes.Checked)
-                    SelectInDirection(this, new SelectInDirectionEventArgs(ObjType.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text)));
+                    SelectInDirection(this, new SelectInDirectionEventArgs(Objects.Узел, chbChangeDirection.Checked, float.Parse(txbAngle.Text)));
                 else
                     MessageBox.Show("Измените объект выбора на \"Узлы\"");
             else if (rbtInPlain.Checked)
                 if (rbtNodes.Checked)
-                    SelectInPlain(this, new SelectInPlainEventArgs(ObjType.Узел, float.Parse(txbAngle.Text)));
+                    SelectInPlain(this, new SelectInPlainEventArgs(Objects.Узел, float.Parse(txbAngle.Text)));
                 else
-                    SelectInPlain(this, new SelectInPlainEventArgs(ObjType.Элемент2D, float.Parse(txbAngle.Text)));
+                    SelectInPlain(this, new SelectInPlainEventArgs(Objects.Элемент2D, float.Parse(txbAngle.Text)));
         }
 
         private void rbtNodes_Click(object sender, EventArgs e)

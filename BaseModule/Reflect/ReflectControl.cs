@@ -5,8 +5,6 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using MathNet.Numerics;
-using MathNet.Numerics.LinearAlgebra;
 using UserControlsEx;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 

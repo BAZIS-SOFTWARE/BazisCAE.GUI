@@ -1,16 +1,16 @@
-﻿using ModelInterfaces;
-using System;
+﻿using System;
+using static BaseModule.Interfaces.GeneralParams;
 
 namespace BaseModule.Results.GraphCreation
 {
     public class CreateTimeGraphArgs : EventArgs
     {
-        public CreateTimeGraphArgs(ObjType objsType, string resKind)
+        public CreateTimeGraphArgs(Objects objects, string resKind)
         {
-            ObjsType = objsType;
+            Objects = objects;
             ResultKind = resKind;
         }
-        public ObjType ObjsType { get; }
+        public Objects Objects { get; }
 
         public string ResultKind { get; }
     }

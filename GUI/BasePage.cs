@@ -19,8 +19,10 @@ using ProjectInterfaces;
 using BaseModule.Utilities;
 using Scene.Interfaces;
 using UserControlsEx;
+using BaseModule;
+using BazisGUI.Utilities;
 
-namespace BaseModule
+namespace BazisGUI
 {
     public partial class BasePage : UserControl
     {
@@ -402,7 +404,8 @@ namespace BaseModule
                 {
                     Invoke(new Action(() =>
                     {
-                        var obj = ModelData.ObjectData.Find(findObjectEventArgs.ObjsType, (int)findObjectEventArgs.Number);
+                        var objsType = ObjectsConverter.ConvertToObjsType(findObjectEventArgs.ObjsType);
+                        var obj = ModelData.ObjectData.Find(objsType, (int)findObjectEventArgs.Number);
 
                         if (obj != null)
                         {
@@ -866,7 +869,7 @@ namespace BaseModule
 
         private void consoleControl_RenumberMeshEvent(object arg1, ModelRenumberEventArgs arg2)
         {
-            ModelController.ObjectsRenumber.Renumber(ModelData.ObjectData, arg2.ObjsType);
+            ModelController.ObjectsRenumber.Renumber(ModelData.ObjectData, ObjectsConverter.ConvertToObjsType(arg2.ObjsType));
         }
     }
 }

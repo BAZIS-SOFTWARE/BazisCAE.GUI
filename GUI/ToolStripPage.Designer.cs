@@ -1,6 +1,6 @@
 ﻿using BaseModule;
 
-namespace BaseModule
+namespace BazisGUI
 {
     partial class ToolStripPage
     {
@@ -63,7 +63,7 @@ namespace BaseModule
             this.btnSetRotHor90 = new System.Windows.Forms.ToolStripButton();
             this.btnSetRotVer90 = new System.Windows.Forms.ToolStripButton();
             this.btnFitObjs = new System.Windows.Forms.ToolStripButton();
-            this.embendentPage1 = new BaseModule.EmbendentPage();
+            this.embendentPage1 = new EmbendentPage();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();

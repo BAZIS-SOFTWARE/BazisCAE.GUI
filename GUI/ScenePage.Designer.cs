@@ -1,4 +1,4 @@
-﻿namespace BaseModule
+﻿namespace BazisGUI
 {
     partial class ScenePage
     {

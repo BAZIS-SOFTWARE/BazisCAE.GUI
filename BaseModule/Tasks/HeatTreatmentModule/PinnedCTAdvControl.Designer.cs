@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.chemicalTreatmentAdvisor1 = new TaskModule.HeatTreatmentModule.ChemicalTreatmentAdvisor();
+            this.chemicalTreatmentAdvisor1 = new ChemicalTreatmentAdvisor();
             this.SuspendLayout();
             // 
             // chemicalTreatmentAdvisor1
@@ -37,7 +37,7 @@
             this.chemicalTreatmentAdvisor1.Location = new System.Drawing.Point(0, 15);
             this.chemicalTreatmentAdvisor1.Margin = new System.Windows.Forms.Padding(0);
             this.chemicalTreatmentAdvisor1.Name = "chemicalTreatmentAdvisor1";
-            this.chemicalTreatmentAdvisor1.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
+            //this.chemicalTreatmentAdvisor1.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
             this.chemicalTreatmentAdvisor1.Size = new System.Drawing.Size(576, 343);
             this.chemicalTreatmentAdvisor1.TabIndex = 0;
             // 
@@ -55,6 +55,6 @@
 
         #endregion
 
-        private TaskModule.HeatTreatmentModule.ChemicalTreatmentAdvisor chemicalTreatmentAdvisor1;
+        private ChemicalTreatmentAdvisor chemicalTreatmentAdvisor1;
     }
 }

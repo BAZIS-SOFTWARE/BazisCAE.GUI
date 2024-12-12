@@ -1,9 +1,9 @@
-﻿using BaseModule;
-using BaseModule.Results.Animation;
+﻿using BaseModule.Results.Animation;
 using BaseModule.Results.Export;
 using BaseModule.Results.GraphCreation;
 using BaseModule.Results.ScaleControl;
 using BasicControls.OpenFileDialogEx;
+using BazisGUI.Utilities;
 using Geometry;
 using Gif.Components;
 using ModelControllerInterfaces;
@@ -21,6 +21,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UserControlsEx.Graph;
+using static BaseModule.Interfaces.GeneralParams;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
@@ -149,12 +150,14 @@ namespace BazisGUI
             grPage.CreateTimeGraphEvent += (ar1, ar2) =>
             {
                 var results = resultData.FindByTaskKind(ar2.ResultKind);
-                CreateTimeGraph(results, ar2.ObjsType);
+                var objType = ObjectsConverter.ConvertToObjsType(ar2.Objects);
+                CreateTimeGraph(results, objType);
             };
             grPage.CreatePathGraphEvent += (ar1, ar2) =>
                 {
                     var result = resultData.FindByTime(ar2.ResultKind, ar2.Time);
-                    CreatePathGraph(result, ar2.ObjsType);
+                    var objType = ObjectsConverter.ConvertToObjsType(ar2.Objects);
+                    CreatePathGraph(result, objType);
                 };
 
             grPage.SelectResultsEvent += (ar) =>
@@ -854,7 +857,10 @@ namespace BazisGUI
                 var formatedPath = $"{args.Path}\\ResultsExport_{args.ResName}_{args.Time}_{args.ExportType}_{args.ExportObj}.{format}";
 
                 IEnumerable<IModelObject> objects;
-                if (args.ExportObj == ObjType.Узел)
+
+                var objTypes = ObjectsConverter.ConvertToObjsType(args.ExportObj);
+
+                if (objTypes == ObjType.Узел)
                     objects = ModelData.ObjectData.NodeCollection;
                 else
                     objects = ModelData.ObjectData.GetAllElements();

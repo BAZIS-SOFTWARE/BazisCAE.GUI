@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.Interfaces;
 
-namespace TaskModule.HeatTreatmentModule
+namespace BaseModule.Tasks.HeatTreatmentModule
 {
     public partial class DiffusionСontrol : UserControl, IBoundaryControl, IFunctionsRelatedControl, ICheckGridViewControl
     {
@@ -141,7 +141,7 @@ namespace TaskModule.HeatTreatmentModule
 
         private void player_CheckingEvent(object arg1, float arg2)
         {
-            CheckDataEvent(this, new BasicAdvisorControls.Events.CheckDataEventArgs(DataName, arg2));
+            CheckDataEvent(this, new CheckDataEventArgs(DataName, arg2));
         }
 
         private void player_StopCheckingEvent(object obj)

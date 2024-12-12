@@ -1,4 +1,4 @@
-﻿namespace TaskModule.BasicTaskAdvisor
+﻿namespace BaseModule.Tasks.WeldingModule
 {
     partial class PinnedWAdvControl
     {
@@ -39,7 +39,7 @@
             this.weldingAdvisor.Location = new System.Drawing.Point(0, 15);
             this.weldingAdvisor.Margin = new System.Windows.Forms.Padding(2);
             this.weldingAdvisor.Name = "weldingAdvisor1";
-            this.weldingAdvisor.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
+            //this.weldingAdvisor.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
             this.weldingAdvisor.Size = new System.Drawing.Size(627, 370);
             this.weldingAdvisor.TabIndex = 0;
             // 

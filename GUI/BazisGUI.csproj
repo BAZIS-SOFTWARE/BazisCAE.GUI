@@ -109,8 +109,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Gif.Components.dll</HintPath>
     </Reference>
-    <Reference Include="GmshApi, Version=3.0.4.9, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
-      <HintPath>..\packages\GmshApi.3.0.4.9\lib\netstandard2.0\GmshApi.dll</HintPath>
+    <Reference Include="GmshApi, Version=3.0.5.1, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
+      <HintPath>..\packages\GmshApi.3.0.5.1\lib\netstandard2.0\GmshApi.dll</HintPath>
     </Reference>
     <Reference Include="LicenseInfo">
       <HintPath>..\Libs\LicenseInfo.dll</HintPath>
@@ -124,11 +124,11 @@
     <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
     </Reference>
-    <Reference Include="Model, Version=3.1.2.2, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\Model.3.1.2.2\lib\netstandard2.0\Model.dll</HintPath>
+    <Reference Include="Model, Version=3.1.2.3, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Model.3.1.2.3\lib\netstandard2.0\Model.dll</HintPath>
     </Reference>
-    <Reference Include="ModelController, Version=3.1.13.2, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelController.3.1.13.2\lib\netstandard2.0\ModelController.dll</HintPath>
+    <Reference Include="ModelController, Version=3.1.13.3, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelController.3.1.13.3\lib\netstandard2.0\ModelController.dll</HintPath>
     </Reference>
     <Reference Include="ModelControllerInterfaces, Version=3.0.2.1, Culture=neutral, PublicKeyToken=52509cc2c5d48acc, processorArchitecture=MSIL">
       <HintPath>..\packages\ModelControllerInterfaces.3.0.2.1\lib\netstandard2.0\ModelControllerInterfaces.dll</HintPath>
@@ -236,6 +236,18 @@
     <Compile Include="BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BasePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BasePage.Designer.cs">
+      <DependentUpon>BasePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EmbendentPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EmbendentPage.Designer.cs">
+      <DependentUpon>EmbendentPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="HeatTreatmentPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -263,6 +275,12 @@
     <Compile Include="ResultsPage.Designer.cs">
       <DependentUpon>ResultsPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="ScenePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ScenePage.Designer.cs">
+      <DependentUpon>ScenePage.cs</DependentUpon>
+    </Compile>
     <Compile Include="SettingsControls\SettingsConfig.cs" />
     <Compile Include="SettingsControls\SettingsControl.cs">
       <SubType>UserControl</SubType>
@@ -282,6 +300,13 @@
     <Compile Include="TaskPage.Designer.cs">
       <DependentUpon>TaskPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToolStripPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolStripPage.Designer.cs">
+      <DependentUpon>ToolStripPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\ObjectsConverter.cs" />
     <Compile Include="WeldingPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -296,6 +321,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BasePage.resx">
+      <DependentUpon>BasePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmbendentPage.resx">
+      <DependentUpon>EmbendentPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HeatTreatmentPage.resx">
       <DependentUpon>HeatTreatmentPage.cs</DependentUpon>
@@ -319,6 +350,9 @@
     <EmbeddedResource Include="ResultsPage.resx">
       <DependentUpon>ResultsPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ScenePage.resx">
+      <DependentUpon>ScenePage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SettingsControls\LightingControl.resx">
       <DependentUpon>LightingControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -331,6 +365,9 @@
     </Compile>
     <EmbeddedResource Include="TaskPage.resx">
       <DependentUpon>TaskPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolStripPage.resx">
+      <DependentUpon>ToolStripPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WeldingPage.resx">
       <DependentUpon>WeldingPage.cs</DependentUpon>

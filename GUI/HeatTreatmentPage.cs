@@ -33,6 +33,8 @@ namespace BazisGUI
 
             pContr.HeaderName = $"Постановка задачи {processType}";
 
+            ProcessType = processType;
+
             FillAdvisor(pContr.HTAdvisor);
         }       
     }

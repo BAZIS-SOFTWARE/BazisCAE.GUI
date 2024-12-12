@@ -2,7 +2,7 @@
 using TaskModule.BasicAdvisorControls;
 using UserControlsEx;
 
-namespace TaskModule.HeatTreatmentModule
+namespace BaseModule.Tasks.HeatTreatmentModule
 {
     partial class HeatTreatmentAdvisor
     {
@@ -40,7 +40,7 @@ namespace TaskModule.HeatTreatmentModule
             this.pdgMaterials = new System.Windows.Forms.TabPage();
             this.materialsControl1 = new TaskModule.BasicAdvisorControls.MaterialsControl();
             this.pdgHTRegime = new System.Windows.Forms.TabPage();
-            this.htMediaControl = new TaskModule.HeatTreatmentModule.HeatControl();
+            this.htMediaControl = new Tasks.HeatTreatmentModule.HeatControl();
             this.pdgClamps = new System.Windows.Forms.TabPage();
             this.clampControl1 = new TaskModule.BasicAdvisorControls.ClampControl();
             this.pdgLoad = new System.Windows.Forms.TabPage();
@@ -281,7 +281,7 @@ namespace TaskModule.HeatTreatmentModule
             this.taskPlannerControl1.Margin = new System.Windows.Forms.Padding(5);
             this.taskPlannerControl1.MinimumSize = new System.Drawing.Size(533, 862);
             this.taskPlannerControl1.Name = "taskPlannerControl1";
-            this.taskPlannerControl1.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
+            //this.taskPlannerControl1.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
             this.taskPlannerControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.RefreshButtonImage")));
             this.taskPlannerControl1.Size = new System.Drawing.Size(925, 862);
             this.taskPlannerControl1.TabIndex = 0;
@@ -314,7 +314,7 @@ namespace TaskModule.HeatTreatmentModule
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "HeatTreatmentAdvisor";
-            this.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
+            //this.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
             this.Size = new System.Drawing.Size(933, 738);
             this.tabControl1.ResumeLayout(false);
             this.pdgTaskType.ResumeLayout(false);

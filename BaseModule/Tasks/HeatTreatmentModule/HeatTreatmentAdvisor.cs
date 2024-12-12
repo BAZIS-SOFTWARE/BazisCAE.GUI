@@ -11,7 +11,7 @@ using TaskModule.BasicAdvisorControls.Events;
 using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using TaskModule.BasicTaskAdvisor;
 
-namespace TaskModule.HeatTreatmentModule
+namespace BaseModule.Tasks.HeatTreatmentModule
 {
     public partial class HeatTreatmentAdvisor : TaskAdvisor
     {

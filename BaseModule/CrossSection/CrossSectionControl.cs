@@ -1,6 +1,7 @@
-﻿using Geometry;
+﻿
 using System;
 using System.Drawing;
+using System.Numerics;
 using System.Windows.Forms;
 
 namespace BaseModule.CrossSection
@@ -76,9 +77,9 @@ namespace BaseModule.CrossSection
                 string[] p2 = txbPoint2.Text.Split(';');
                 string[] p3 = txbPoint3.Text.Split(';');
 
-                Point3D point1 = new Point3D(float.Parse(p1[0]), float.Parse(p1[1]), float.Parse(p1[2]));
-                Point3D point2 = new Point3D(float.Parse(p2[0]), float.Parse(p2[1]), float.Parse(p2[2]));
-                Point3D point3 = new Point3D(float.Parse(p3[0]), float.Parse(p3[1]), float.Parse(p3[2]));
+                var point1 = new Vector3(float.Parse(p1[0]), float.Parse(p1[1]), float.Parse(p1[2]));
+                var point2 = new Vector3(float.Parse(p2[0]), float.Parse(p2[1]), float.Parse(p2[2]));
+                var point3 = new Vector3(float.Parse(p3[0]), float.Parse(p3[1]), float.Parse(p3[2]));
 
                 CreateCrossFromTextArgs(this, new CreatePlaneFromTextArgs(point1, point2, point3));
             }

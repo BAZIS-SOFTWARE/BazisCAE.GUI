@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TaskModule.BasicTaskAdvisor;
 
-namespace TaskModule.HeatTreatmentModule
+namespace BaseModule.Tasks.HeatTreatmentModule
 {
     public partial class ChemicalTreatmentAdvisor : TaskAdvisor
     {

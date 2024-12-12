@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UserControlsEx;
 
-namespace BaseModule
+namespace BazisGUI
 {
     public partial class EmbendentPage : UserControl
     {

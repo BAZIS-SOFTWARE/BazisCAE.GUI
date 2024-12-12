@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ModelInterfaces;
+using static BaseModule.Interfaces.GeneralParams;
 
 namespace BaseModule.Results.GraphCreation
 {
@@ -60,8 +60,8 @@ namespace BaseModule.Results.GraphCreation
             if (rbtTime.Checked)
             {
                 if (rbtNodes.Checked)
-                    CreateTimeGraphEvent(this, new CreateTimeGraphArgs(ObjType.Узел, resKind));
-                else CreateTimeGraphEvent(this, new CreateTimeGraphArgs(ObjType.Элемент, resKind));
+                    CreateTimeGraphEvent(this, new CreateTimeGraphArgs(Objects.Узел, resKind));
+                else CreateTimeGraphEvent(this, new CreateTimeGraphArgs(Objects.Элемент, resKind));
             }
             else
             {
@@ -69,8 +69,8 @@ namespace BaseModule.Results.GraphCreation
                 {
                     var time = float.Parse(richTextBox.Lines[lineIndex]);
                     if (rbtNodes.Checked)
-                        CreatePathGraphEvent(this, new CreatePathGraphEventArgs(ObjType.Узел, resKind, time));
-                    else CreatePathGraphEvent(this, new CreatePathGraphEventArgs(ObjType.Элемент, resKind, time));
+                        CreatePathGraphEvent(this, new CreatePathGraphEventArgs(Objects.Узел, resKind, time));
+                    else CreatePathGraphEvent(this, new CreatePathGraphEventArgs(Objects.Элемент, resKind, time));
                 }
             }
         }

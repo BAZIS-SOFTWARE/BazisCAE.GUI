@@ -1,7 +1,9 @@
-﻿using BaseModule.Console;
+﻿using BaseModule;
+using BaseModule.Console;
+using BaseModule.Navigator;
 using UserControlsEx;
 
-namespace BaseModule
+namespace BazisGUI
 {
     partial class BasePage
     {
@@ -36,7 +38,7 @@ namespace BaseModule
             this.splitContainer1 = new UserControlsEx.SplitContainerEx();
             this.splitContainer2 = new UserControlsEx.SplitContainerEx();
             this.navigator = new global::BaseModule.Navigator.NavigatorControl();
-            this.scenePage = new global::BaseModule.ScenePage();
+            this.scenePage = new ScenePage();
             this.consoleControl = new global::BaseModule.Console.ConsoleControl();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -205,7 +207,7 @@ namespace BaseModule
         #endregion
         private System.Windows.Forms.ErrorProvider errorProvider;
         private SplitContainerEx splitContainer1;
-        protected Navigator.NavigatorControl navigator;
+        protected NavigatorControl navigator;
         private SplitContainerEx splitContainer2;
         protected ScenePage scenePage;
         protected ConsoleControl consoleControl;

@@ -1,17 +1,8 @@
-﻿using Geometry;
-using ModelInterfaces;
-using ProjectInterfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using System.Windows.Forms;
+using static BaseModule.Interfaces.GeneralParams;
 
 namespace BaseModule.Results.Export
 {
@@ -76,7 +67,7 @@ namespace BaseModule.Results.Export
                     cmbGroupName.SelectedItem.ToString(),
                     selectedPath,
                     cmbExtentionType.SelectedItem.ToString(),
-                    rbElements.Checked ? ObjType.Элемент : ObjType.Узел,
+                    rbElements.Checked ? Objects.Элемент : Objects.Узел,
                     rbGrid.Checked ? ExportType.Grid : ExportType.Results));
             }
             catch(Exception ex)

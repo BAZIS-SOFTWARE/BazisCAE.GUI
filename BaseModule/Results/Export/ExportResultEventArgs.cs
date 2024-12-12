@@ -1,9 +1,5 @@
-﻿using ModelInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using static BaseModule.Interfaces.GeneralParams;
 
 namespace BaseModule.Results.Export
 {
@@ -14,11 +10,11 @@ namespace BaseModule.Results.Export
         public string TaskKind { get; set; }
         public string Path { get; set; }
         public string Extension { get; set; }
-        public ObjType ExportObj {get; set;}
+        public Objects ExportObj {get; set;}
         public ExportType ExportType { get; set; }
 
 
-        public ExportResultEventArgs(float time, string taskKind, string resName, string path, string extension, ObjType exportObj, ExportType exportType)
+        public ExportResultEventArgs(float time, string taskKind, string resName, string path, string extension, Objects exportObj, ExportType exportType)
         {
             Time = time;
             TaskKind = taskKind;

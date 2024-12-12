@@ -1,7 +1,8 @@
-﻿using TaskModule.BasicAdvisorControls.TaskPlannerControls;
+﻿using TaskModule.BasicAdvisorControls;
+using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using UserControlsEx;
 
-namespace TaskModule.HeatTreatmentModule
+namespace BaseModule.Tasks.HeatTreatmentModule
 {
     partial class ChemicalTreatmentAdvisor
     {
@@ -35,9 +36,9 @@ namespace TaskModule.HeatTreatmentModule
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChemicalTreatmentAdvisor));
             this.tabControl1 = new UserControlsEx.TabControlEx();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.taskTypeControl1 = new TaskModule.BasicAdvisorControls.TaskTypeControl();
+            this.taskTypeControl1 = new TaskTypeControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.diffusionСontrol1 = new TaskModule.HeatTreatmentModule.DiffusionСontrol();
+            this.diffusionСontrol1 = new DiffusionСontrol();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.taskPlannerControl_v21 = new TaskModule.BasicAdvisorControls.TaskPlannerControls.TaskPlannerControl_v2();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
@@ -135,7 +136,7 @@ namespace TaskModule.HeatTreatmentModule
             this.taskPlannerControl_v21.Dock = System.Windows.Forms.DockStyle.Fill;
             this.taskPlannerControl_v21.Location = new System.Drawing.Point(0, 0);
             this.taskPlannerControl_v21.Name = "taskPlannerControl_v21";
-            this.taskPlannerControl_v21.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
+            //this.taskPlannerControl_v21.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
             this.taskPlannerControl_v21.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl_v21.RefreshButtonImage")));
             this.taskPlannerControl_v21.Size = new System.Drawing.Size(611, 539);
             this.taskPlannerControl_v21.TabIndex = 0;
@@ -155,7 +156,7 @@ namespace TaskModule.HeatTreatmentModule
             this.Controls.Add(this.tabControl1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ChemicalTreatmentAdvisor";
-            this.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
+            //this.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
             this.Size = new System.Drawing.Size(619, 577);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -170,7 +171,7 @@ namespace TaskModule.HeatTreatmentModule
         private TabControlEx tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private BasicAdvisorControls.TaskTypeControl taskTypeControl1;
+        private TaskTypeControl taskTypeControl1;
         private System.Windows.Forms.TabPage tabPage3;
         private DiffusionСontrol diffusionСontrol1;
         private System.Windows.Forms.ImageList imageList;

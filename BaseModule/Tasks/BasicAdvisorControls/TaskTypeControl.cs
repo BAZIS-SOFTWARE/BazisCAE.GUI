@@ -35,13 +35,24 @@ namespace TaskModule.BasicAdvisorControls
             get { return pictureBox3.Image; }
             set { pictureBox3.Image = value; }
         }
-        public void SetTaskType(string taskType)
+        public string TaskType
         {
-            if (taskType == "Plain")
-                rbt2Dplane.Checked = true;
-            else if(taskType == "AxiPlain")
-                rbt2Daxi.Checked = true;
-            else rbt3D.Checked = true;
+            get
+            {
+                if (rbt2Dplane.Checked == true)
+                    return "Plain";
+                else if (rbt2Daxi.Checked == true)
+                    return "AxiPlain";
+                else return "Volume";
+            }
+            set
+            {
+                if (value == "Plain")
+                    rbt2Dplane.Checked = true;
+                else if (value == "AxiPlain")
+                    rbt2Daxi.Checked = true;
+                else rbt3D.Checked = true;
+            }
 
         }      
 

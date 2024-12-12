@@ -1,4 +1,9 @@
-﻿namespace BaseModule
+﻿using BaseModule.Mesh;
+using BaseModule.Results.Animation;
+using BaseModule.Tasks.HeatTreatmentModule;
+using BaseModule.Tasks.WeldingModule;
+
+namespace BazisGUI
 {
     partial class EmbendentPage
     {
@@ -29,10 +34,10 @@
         private void InitializeComponent()
         {
             this.splitContainerEx = new UserControlsEx.SplitContainerEx();
-            this.basePage = new global::BaseModule.BasePage();
+            this.basePage = new BasePage();
             this.pinnedMeshGenControl = new global::BaseModule.Mesh.PinnedMeshGenControl();
             this.pinnedAnimationControl = new global::BaseModule.Results.Animation.PinnedAnimationControl();
-            this.pinnedWAdvControl = new TaskModule.BasicTaskAdvisor.PinnedWAdvControl();
+            this.pinnedWAdvControl = new PinnedWAdvControl();
             this.pinnedHTAdvControl = new global::BaseModule.Tasks.HeatTreatmentModule.PinnedHTAdvControl();
             this.pinnedCTAdvControl = new global::BaseModule.Tasks.HeatTreatmentModule.PinnedCTAdvControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).BeginInit();
@@ -176,10 +181,10 @@
 
         public UserControlsEx.SplitContainerEx splitContainerEx;
         protected BasePage basePage;
-        private Tasks.HeatTreatmentModule.PinnedCTAdvControl pinnedCTAdvControl;
-        private Tasks.HeatTreatmentModule.PinnedHTAdvControl pinnedHTAdvControl;
-        private TaskModule.BasicTaskAdvisor.PinnedWAdvControl pinnedWAdvControl;
-        private Results.Animation.PinnedAnimationControl pinnedAnimationControl;
-        private Mesh.PinnedMeshGenControl pinnedMeshGenControl;
+        private PinnedCTAdvControl pinnedCTAdvControl;
+        private PinnedHTAdvControl pinnedHTAdvControl;
+        private PinnedWAdvControl pinnedWAdvControl;
+        private PinnedAnimationControl pinnedAnimationControl;
+        private PinnedMeshGenControl pinnedMeshGenControl;
     }
 }

@@ -1,6 +1,6 @@
-﻿using BaseModule;
-using BaseModule.Mesh;
+﻿using BaseModule.Mesh;
 using BaseModule.Mesh.SettingsControls;
+using BazisGUI.Utilities;
 using Geometry;
 using GmshApi;
 using Model.GeometryObjects;
@@ -14,8 +14,7 @@ using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Security;
 using System.Windows.Forms;
-using TaskModule.BasicTaskAdvisor;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static BaseModule.Interfaces.GeneralParams;
 
 namespace BazisGUI
 {
@@ -514,8 +513,9 @@ namespace BazisGUI
             scenePage.SceneControl.DisplayObjects();
         }
 
-        private void MeshGenerator_deleteMeshEvent(ObjType objType)
+        private void MeshGenerator_deleteMeshEvent(Objects objects)
         {
+            var objType = ObjectsConverter.ConvertToObjsType(objects);
             var scenePage = BasePage.ScenePage;
 
             if (objType == ObjType.Элемент2D)
@@ -681,18 +681,20 @@ namespace BazisGUI
 
 
 
-        private void GmshControl_ResetColorObjectsEvent(ObjType objType)
+        private void GmshControl_ResetColorObjectsEvent(Objects objects)
         {
+            var objType = ObjectsConverter.ConvertToObjsType(objects);
             var scenePage = BasePage.ScenePage;
             foreach (var item in ModelData.ObjectData.GetObjects(objType))
                 item.SetBackColor();
             scenePage.SetObjectsSceneColor(ObjType.Линия);
         }
 
-        private void ShowObjects(ObjType objType,List<int> objNumbers)
+        private void ShowObjects(Objects objects, List<int> objNumbers)
         {
             try
             {
+                var objType = ObjectsConverter.ConvertToObjsType(objects);
                 var scenePage = BasePage.ScenePage;
 
                 foreach (var item in objNumbers)

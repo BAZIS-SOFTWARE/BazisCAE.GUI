@@ -1,5 +1,4 @@
 ﻿using BaseModule.Interfaces;
-using ModelInterfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using UserControlsEx;
+using static BaseModule.Interfaces.GeneralParams;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BaseModule.Navigator
@@ -191,8 +191,8 @@ namespace BaseModule.Navigator
         {
             var groupIndex = treeView.SelectedNode.Index;
 
-            treeView.Nodes["объекты"].Nodes[ObjType.Узел.ToString()].ImageIndex = 5;
-            treeView.Nodes["объекты"].Nodes[ObjType.Узел.ToString()].SelectedImageIndex = 5;
+            treeView.Nodes["объекты"].Nodes[Objects.Узел.ToString()].ImageIndex = 5;
+            treeView.Nodes["объекты"].Nodes[Objects.Узел.ToString()].SelectedImageIndex = 5;
 
             treeView.SelectedNode.ImageIndex = imgDict[treeView.SelectedNode.Name];
             treeView.SelectedNode.SelectedImageIndex = imgDict[treeView.SelectedNode.Name];

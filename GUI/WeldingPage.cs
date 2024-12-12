@@ -25,6 +25,8 @@ namespace BazisGUI
             taskAdv.SpecifyWeldingZoneEvent += (ar1, ar2) =>
             { TaskAdv_SpecifyWeldingZone(ar1, ar2); };
 
+            ProcessType = ProcessType.Welding;
+
             SetAdvisor(taskAdv);
         }
 

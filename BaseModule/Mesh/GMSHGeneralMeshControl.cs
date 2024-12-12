@@ -1,9 +1,9 @@
-﻿using ModelInterfaces;
-using System;
+﻿using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static BaseModule.Interfaces.GeneralParams;
 
 namespace BaseModule.Mesh
 {
@@ -110,7 +110,7 @@ namespace BaseModule.Mesh
         public event Action<object, MeshGradientSettingsEventArgs> setMeshGradientSettingsEvent;
         public event Action<double> setMeshAlgoEvent;
         public event Action updateObjectsDataEvent;
-        public event Action<ObjType> deleteMeshEvent;
+        public event Action<Objects> deleteMeshEvent;
         public event Action<object,double> generate2DTriangleMeshEvent;
         public event Action<object> generate3DTetraMeshEvent;
         public event Action<object> generate2DQuadMesh;
@@ -120,8 +120,8 @@ namespace BaseModule.Mesh
         public event Action<object,bool> showNumberOfCurveNodesEvent;
         public event Action<object,bool> showShowSurfaceNumbersEvent;
         //public event Action<object, Show3dTextEventArgs> show3dTextEvent;
-        public event Action<ObjType,List<int>> ShowObjectsEvent;
-        public event Action<ObjType> resetColorObjectsEvent;
+        public event Action<Objects,List<int>> ShowObjectsEvent;
+        public event Action<Objects> resetColorObjectsEvent;
         public event Action<object> refineMesh;
         public event Action<bool> showHeatMapEvent;
 
@@ -154,7 +154,7 @@ namespace BaseModule.Mesh
             ClearTreeView(2);
             //ShowHideTabControls(2, false);
 
-            deleteMeshEvent?.Invoke(ObjType.Элемент2D);
+            deleteMeshEvent?.Invoke(Objects.Элемент2D);
         }
 
         private void OnDeleteMesh3D(object sender, EventArgs e)
@@ -162,7 +162,7 @@ namespace BaseModule.Mesh
             ClearTreeView(3);
             //ShowHideTabControls(3, false);
 
-            deleteMeshEvent?.Invoke(ObjType.Элемент3D);
+            deleteMeshEvent?.Invoke(Objects.Элемент3D);
         }
 
         public void ShowHideGeneralTabControls(int dim, bool show = true)
@@ -424,11 +424,11 @@ namespace BaseModule.Mesh
                         ClearTreeView(2);
                         ShowHideTabControls(2, false);
 
-                        deleteMeshEvent?.Invoke(ObjType.Элемент2D);
+                        deleteMeshEvent?.Invoke(Objects.Элемент2D);
                     }
                     else
                     {
-                        deleteMeshEvent?.Invoke(ObjType.Элемент3D);
+                        deleteMeshEvent?.Invoke(Objects.Элемент3D);
                     }
                 }
                 else
@@ -444,11 +444,11 @@ namespace BaseModule.Mesh
 
                     if (dim == 2)
                     {
-                        deleteMeshEvent?.Invoke(ObjType.Элемент2D);
+                        deleteMeshEvent?.Invoke(Objects.Элемент2D);
                     }
                     else
                     {
-                        deleteMeshEvent?.Invoke(ObjType.Элемент3D);
+                        deleteMeshEvent?.Invoke(Objects.Элемент3D);
                     }
                 }
             }
@@ -464,19 +464,19 @@ namespace BaseModule.Mesh
 
             if (text.Contains("Контрольный узел"))
             {
-                resetColorObjectsEvent?.Invoke(ObjType.Точка);
+                resetColorObjectsEvent?.Invoke(Objects.Точка);
             }
             else if (text.Contains("Кривая"))
             {
-                resetColorObjectsEvent?.Invoke(ObjType.Линия);
+                resetColorObjectsEvent?.Invoke(Objects.Линия);
             }
             else if (text.Contains("Поверхность"))
             {
-                resetColorObjectsEvent?.Invoke(ObjType.Линия);
+                resetColorObjectsEvent?.Invoke(Objects.Линия);
             }
             else if (text.Contains("Объем"))
             {
-                resetColorObjectsEvent?.Invoke(ObjType.Линия);
+                resetColorObjectsEvent?.Invoke(Objects.Линия);
             }
         }
 
@@ -487,7 +487,7 @@ namespace BaseModule.Mesh
             if (nText.Contains("Контрольный узел"))
             {
                 var pointNumber = FindObjectNumber(e.Node);
-                ShowObjectsEvent?.Invoke(ObjType.Точка,new List<int>() { pointNumber });               
+                ShowObjectsEvent?.Invoke(Objects.Точка,new List<int>() { pointNumber });               
                 pointSettingsControl.BringToFront();
                 GetPointSizeEvent?.Invoke(pointSettingsControl, pointNumber);
             }
@@ -497,7 +497,7 @@ namespace BaseModule.Mesh
                 var numbers = TryGetCurveNodeRecursevely(e.Node).Select(x =>
                 FindObjectNumber(x)).ToList();
 
-                ShowObjectsEvent?.Invoke(ObjType.Линия, numbers);
+                ShowObjectsEvent?.Invoke(Objects.Линия, numbers);
 
                 if (nText.Contains("Кривая"))
                 {
