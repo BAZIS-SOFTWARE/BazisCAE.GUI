@@ -300,6 +300,24 @@
     <Compile Include="TaskPage.Designer.cs">
       <DependentUpon>TaskPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="temp\ChemTaskControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="temp\ChemTaskControl.Designer.cs">
+      <DependentUpon>ChemTaskControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="temp\HeatTaskControl_v2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="temp\HeatTaskControl_v2.Designer.cs">
+      <DependentUpon>HeatTaskControl_v2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="temp\MechTaskControl_v2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="temp\MechTaskControl_v2.Designer.cs">
+      <DependentUpon>MechTaskControl_v2.cs</DependentUpon>
+    </Compile>
     <Compile Include="ToolStripPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -365,6 +383,15 @@
     </Compile>
     <EmbeddedResource Include="TaskPage.resx">
       <DependentUpon>TaskPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="temp\ChemTaskControl.resx">
+      <DependentUpon>ChemTaskControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="temp\HeatTaskControl_v2.resx">
+      <DependentUpon>HeatTaskControl_v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="temp\MechTaskControl_v2.resx">
+      <DependentUpon>MechTaskControl_v2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ToolStripPage.resx">
       <DependentUpon>ToolStripPage.cs</DependentUpon>

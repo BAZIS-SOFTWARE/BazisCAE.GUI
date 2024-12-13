@@ -8,25 +8,19 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using TaskModule.BasicTaskAdvisor;
-using TaskModule.BasicAdvisorControls.Events;
 using Newtonsoft.Json;
 using Geometry;
 using ProjectInterfaces.Tasks;
 using ModelInterfaces;
-using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using BaseModule.Utilities;
 using ModelControllerInterfaces;
 using ProjectInterfaces;
 using System.Text.RegularExpressions;
-using BaseModule;
 using PropertiesCalculator.MaterialData;
 using PropertiesCalculator.FunctionData;
 using PropertiesDataBases.DataBases;
-using Project;
-using System.Runtime.InteropServices.ComTypes;
-using Model;
-using TaskModule.BasicAdvisorControls.Interfaces;
-using TaskModule.BasicAdvisorControls;
+using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
+using BaseModule.Tasks.BasicAdvisorControls.Events;
 
 namespace BazisGUI
 {
@@ -74,9 +68,6 @@ namespace BazisGUI
             selectToolStrip.Location = new Point(3, 0);
 
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
-
-
-
 
         }
 
@@ -182,6 +173,8 @@ namespace BazisGUI
                     MessageBox.Show("Рабочая папка проекта должна отличаться от папки установки программы!");
                     return;
                 }
+
+                taskAdv.TaskType = generalData.TaskType.ToString();
 
                 var matDB = GetDataBase<MaterialDBData>(generalData.Materials, generalData.Path);
 

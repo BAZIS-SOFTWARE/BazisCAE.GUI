@@ -5,10 +5,11 @@ using System.Windows.Forms;
 using TaskModule.BasicAdvisorControls;
 using System.Linq;
 using TaskModule.BasicAdvisorControls.Interfaces;
-using TaskModule.BasicAdvisorControls.Events;
-using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using BaseModule.Utilities;
 using UserControlsEx;
+using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
+using BaseModule.Tasks.BasicAdvisorControls.Events;
+using BaseModule.Tasks.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.BasicTaskAdvisor
 {
@@ -52,7 +53,7 @@ namespace TaskModule.BasicTaskAdvisor
             InitializeComponent();
         }
 
-        string TaskType {
+        public string TaskType {
             get
             {
                 var cntrs = new List<TaskTypeControl>();
@@ -90,7 +91,8 @@ namespace TaskModule.BasicTaskAdvisor
                     if(control is ICheckGridViewControl gvControl)
                     {
                         var subData = data.
-    Where(x => x.Contains(gvControl.DataName));
+    Where(x => x.Contains(gvControl.DataName)).Select(y => y.Split(':')[1].
+    Substring(1));
     //Select(x => x.GetInfo);
 
                         //if (control is ILoadControl loadControl)
@@ -123,7 +125,7 @@ namespace TaskModule.BasicTaskAdvisor
                         //{
                         //    taskPlannerControl.ProjPath = generalData.Path;
                         //}
-                        gvControl.Set_DataGridLines(data);
+                        gvControl.Set_DataGridLines(subData);
                     }
      
                 }

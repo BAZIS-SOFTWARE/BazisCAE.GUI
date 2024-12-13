@@ -1,9 +1,9 @@
-﻿using System;
+﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using TaskModule.BasicAdvisorControls.Events;
 
-namespace TaskModule.BasicAdvisorControls.Interfaces
+namespace BaseModule.Tasks.BasicAdvisorControls.Interfaces
 {
     public interface IGridViewControl : IDataNamedControl
     {

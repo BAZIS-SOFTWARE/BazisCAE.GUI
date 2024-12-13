@@ -1,18 +1,17 @@
 ﻿
-using TaskModule.BasicAdvisorControls.Events;
-using TasksParameters;
 
-namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
+using BaseModule.Tasks.BasicAdvisorControls.Events;
+
+namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
 {
     public class GenerateTSFEventArgs : AddDataEventArgs
     {
-        public GeneralParameters Parameters { get; }
+        public TaskParameters TaskParameters { get; }
 
-        public GenerateTSFEventArgs(GeneralParameters parameters, string dataName, string dataInfo) : 
+        public GenerateTSFEventArgs(TaskParameters taskParameters, string dataName, string dataInfo):
             base(dataName, dataInfo)
         {
-            Parameters = parameters;
-
+            TaskParameters = taskParameters;
         }
     }
 }

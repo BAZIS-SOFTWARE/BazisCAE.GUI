@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TaskModule.BasicAdvisorControls.Events
+namespace BaseModule.Tasks.BasicAdvisorControls.Events
 {
     public class DeleteDataEventArgs : EventArgs
     {

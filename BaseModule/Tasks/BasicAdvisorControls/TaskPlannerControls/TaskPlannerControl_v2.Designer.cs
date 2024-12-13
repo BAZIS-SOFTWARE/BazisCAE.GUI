@@ -1,6 +1,6 @@
 ﻿using UserControlsEx;
 
-namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
+namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
 {
     partial class TaskPlannerControl_v2
     {
@@ -59,11 +59,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.label10 = new System.Windows.Forms.Label();
             this.grbTaskKind = new System.Windows.Forms.GroupBox();
             this.chbFurtherComp = new System.Windows.Forms.CheckBox();
-            this.rbtHardnessTask = new System.Windows.Forms.RadioButton();
             this.rbtMechTask = new System.Windows.Forms.RadioButton();
             this.rbtTermoTask = new System.Windows.Forms.RadioButton();
             this.rbtChemicalTask = new System.Windows.Forms.RadioButton();
             this.rbtTermoMechTask = new System.Windows.Forms.RadioButton();
+            this.rbtChemTermoTask = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -98,12 +98,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.Settings,
             this.Time});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(7, 348);
+            this.dataGridView.Location = new System.Drawing.Point(7, 371);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(686, 372);
+            this.dataGridView.Size = new System.Drawing.Size(686, 349);
             this.dataGridView.TabIndex = 14;
             this.dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -142,6 +142,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.groupBox1.AutoSize = true;
             this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox1.Controls.Add(this.chbFurtherComp);
             this.groupBox1.Controls.Add(this.btnAddNewTask);
             this.groupBox1.Controls.Add(this.PrevResultLoadBtn);
             this.groupBox1.Controls.Add(this.btnLoadParameters);
@@ -167,7 +168,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(686, 219);
+            this.groupBox1.Size = new System.Drawing.Size(686, 242);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Временные параметры";
@@ -178,7 +179,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnAddNewTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnAddNewTask.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewTask.Image")));
-            this.btnAddNewTask.Location = new System.Drawing.Point(11, 178);
+            this.btnAddNewTask.Location = new System.Drawing.Point(11, 201);
             this.btnAddNewTask.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.btnAddNewTask.Name = "btnAddNewTask";
             this.btnAddNewTask.Size = new System.Drawing.Size(27, 27);
@@ -194,7 +195,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.PrevResultLoadBtn.Enabled = false;
             this.PrevResultLoadBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PrevResultLoadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.PrevResultLoadBtn.Location = new System.Drawing.Point(259, 178);
+            this.PrevResultLoadBtn.Location = new System.Drawing.Point(259, 201);
             this.PrevResultLoadBtn.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.PrevResultLoadBtn.Name = "PrevResultLoadBtn";
             this.PrevResultLoadBtn.Size = new System.Drawing.Size(160, 27);
@@ -210,7 +211,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnLoadParameters.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadParameters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnLoadParameters.Image = global::BaseModule.Properties.Resources.ComputationFolder;
-            this.btnLoadParameters.Location = new System.Drawing.Point(110, 178);
+            this.btnLoadParameters.Location = new System.Drawing.Point(110, 201);
             this.btnLoadParameters.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.btnLoadParameters.Name = "btnLoadParameters";
             this.btnLoadParameters.Size = new System.Drawing.Size(27, 27);
@@ -225,7 +226,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.StopButton.AutoSize = true;
             this.StopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.StopButton.Location = new System.Drawing.Point(599, 178);
+            this.StopButton.Location = new System.Drawing.Point(599, 201);
             this.StopButton.Margin = new System.Windows.Forms.Padding(3, 1, 15, 1);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(67, 27);
@@ -260,7 +261,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnGenTCF.AutoSize = true;
             this.btnGenTCF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenTCF.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnGenTCF.Location = new System.Drawing.Point(425, 178);
+            this.btnGenTCF.Location = new System.Drawing.Point(425, 201);
             this.btnGenTCF.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.btnGenTCF.Name = "btnGenTCF";
             this.btnGenTCF.Size = new System.Drawing.Size(96, 27);
@@ -276,7 +277,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.StartButton.AutoSize = true;
             this.StartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StartButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.StartButton.Location = new System.Drawing.Point(527, 178);
+            this.StartButton.Location = new System.Drawing.Point(527, 201);
             this.StartButton.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(66, 27);
@@ -381,7 +382,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnClearAllTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAllTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnClearAllTask.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAllTask.Image")));
-            this.btnClearAllTask.Location = new System.Drawing.Point(44, 178);
+            this.btnClearAllTask.Location = new System.Drawing.Point(44, 201);
             this.btnClearAllTask.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
             this.btnClearAllTask.Name = "btnClearAllTask";
             this.btnClearAllTask.Size = new System.Drawing.Size(27, 27);
@@ -397,7 +398,7 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
-            this.btnRefresh.Location = new System.Drawing.Point(77, 178);
+            this.btnRefresh.Location = new System.Drawing.Point(77, 201);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(27, 27);
@@ -468,11 +469,10 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             // grbTaskKind
             // 
-            this.grbTaskKind.Controls.Add(this.chbFurtherComp);
-            this.grbTaskKind.Controls.Add(this.rbtHardnessTask);
             this.grbTaskKind.Controls.Add(this.rbtMechTask);
             this.grbTaskKind.Controls.Add(this.rbtTermoTask);
             this.grbTaskKind.Controls.Add(this.rbtChemicalTask);
+            this.grbTaskKind.Controls.Add(this.rbtChemTermoTask);
             this.grbTaskKind.Controls.Add(this.rbtTermoMechTask);
             this.grbTaskKind.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbTaskKind.Location = new System.Drawing.Point(7, 7);
@@ -486,26 +486,12 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // chbFurtherComp
             // 
             this.chbFurtherComp.AutoSize = true;
-            this.chbFurtherComp.Location = new System.Drawing.Point(11, 50);
+            this.chbFurtherComp.Location = new System.Drawing.Point(11, 179);
             this.chbFurtherComp.Name = "chbFurtherComp";
             this.chbFurtherComp.Size = new System.Drawing.Size(126, 17);
             this.chbFurtherComp.TabIndex = 87;
             this.chbFurtherComp.Text = "Продолжить расчет";
             this.chbFurtherComp.UseVisualStyleBackColor = true;
-            // 
-            // rbtHardnessTask
-            // 
-            this.rbtHardnessTask.AutoSize = true;
-            this.rbtHardnessTask.BackColor = System.Drawing.Color.Transparent;
-            this.rbtHardnessTask.Enabled = false;
-            this.rbtHardnessTask.Location = new System.Drawing.Point(441, 27);
-            this.rbtHardnessTask.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
-            this.rbtHardnessTask.Name = "rbtHardnessTask";
-            this.rbtHardnessTask.Size = new System.Drawing.Size(79, 17);
-            this.rbtHardnessTask.TabIndex = 86;
-            this.rbtHardnessTask.Tag = "1";
-            this.rbtHardnessTask.Text = "Твердость";
-            this.rbtHardnessTask.UseVisualStyleBackColor = false;
             // 
             // rbtMechTask
             // 
@@ -554,12 +540,23 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             // 
             this.rbtTermoMechTask.AutoSize = true;
             this.rbtTermoMechTask.BackColor = System.Drawing.Color.Transparent;
-            this.rbtTermoMechTask.Location = new System.Drawing.Point(310, 27);
+            this.rbtTermoMechTask.Location = new System.Drawing.Point(150, 50);
             this.rbtTermoMechTask.Name = "rbtTermoMechTask";
             this.rbtTermoMechTask.Size = new System.Drawing.Size(130, 17);
             this.rbtTermoMechTask.TabIndex = 81;
             this.rbtTermoMechTask.Text = "Термомеханическая";
             this.rbtTermoMechTask.UseVisualStyleBackColor = false;
+            // 
+            // rbtChemTermoTask
+            // 
+            this.rbtChemTermoTask.AutoSize = true;
+            this.rbtChemTermoTask.BackColor = System.Drawing.Color.Transparent;
+            this.rbtChemTermoTask.Location = new System.Drawing.Point(11, 50);
+            this.rbtChemTermoTask.Name = "rbtChemTermoTask";
+            this.rbtChemTermoTask.Size = new System.Drawing.Size(133, 17);
+            this.rbtChemTermoTask.TabIndex = 81;
+            this.rbtChemTermoTask.Text = "Химико-термическая";
+            this.rbtChemTermoTask.UseVisualStyleBackColor = false;
             // 
             // TaskPlannerControl_v2
             // 
@@ -607,11 +604,11 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
         private System.Windows.Forms.DataGridViewCheckBoxColumn Time;
         private System.Windows.Forms.GroupBox grbTaskKind;
         private System.Windows.Forms.CheckBox chbFurtherComp;
-        private System.Windows.Forms.RadioButton rbtHardnessTask;
         private System.Windows.Forms.RadioButton rbtMechTask;
         private System.Windows.Forms.RadioButton rbtTermoTask;
         private System.Windows.Forms.RadioButton rbtChemicalTask;
         private System.Windows.Forms.RadioButton rbtTermoMechTask;
         private System.Windows.Forms.Button btnAddNewTask;
+        private System.Windows.Forms.RadioButton rbtChemTermoTask;
     }
 }

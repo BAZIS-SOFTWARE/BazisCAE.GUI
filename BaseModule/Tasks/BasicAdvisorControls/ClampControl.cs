@@ -1,12 +1,12 @@
-﻿using System;
+﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
+using BaseModule.Tasks.BasicAdvisorControls.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using TaskModule.BasicAdvisorControls.Events;
-using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.BasicAdvisorControls
 {
@@ -288,7 +288,7 @@ namespace TaskModule.BasicAdvisorControls
 
         private void player_CheckingEvent(object arg1, float arg2)
         {
-            CheckDataEvent(this, new BasicAdvisorControls.Events.CheckDataEventArgs(DataName, arg2));
+            CheckDataEvent(this, new CheckDataEventArgs(DataName, arg2));
         }
 
         private void player_StopCheckingEvent(object obj)

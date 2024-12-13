@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using TaskModule.BasicAdvisorControls.Events;
+﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
+using System;
 
-namespace TaskModule.BasicAdvisorControls.Interfaces
+namespace BaseModule.Tasks.BasicAdvisorControls.Interfaces
 {
     public interface ICheckGridViewControl : IGridViewControl
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TaskModule.BasicAdvisorControls.Events
+namespace BaseModule.Tasks.BasicAdvisorControls.Events
 {
     public class AddDataEventArgs : EventArgs
     {

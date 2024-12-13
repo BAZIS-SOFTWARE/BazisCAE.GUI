@@ -70,9 +70,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TasksParameters, Version=1.0.1.13, Culture=neutral, PublicKeyToken=8bfe6827a0935d51, processorArchitecture=MSIL">
-      <HintPath>..\packages\TasksParameters.1.0.1.13\lib\netstandard2.0\TasksParameters.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clip\ClipControl.cs">
@@ -235,12 +232,6 @@
     <Compile Include="Tasks\BasicAdvisorControls\Events\HideDataEventArgs.cs" />
     <Compile Include="Tasks\BasicAdvisorControls\Events\RefreshDataEventArgs.cs" />
     <Compile Include="Tasks\BasicAdvisorControls\Events\ShowDataEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\AddDataEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\ChangeDataEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\CheckDataEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\DeleteAllDataEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\DeleteDataEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\HideDataEventArgs.cs" />
     <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IBoundaryControl.cs" />
     <Compile Include="Tasks\BasicAdvisorControls\Interfaces\ICheckGridViewControl.cs" />
     <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IDataNamedControl.cs" />
@@ -251,8 +242,6 @@
     <Compile Include="Tasks\BasicAdvisorControls\Interfaces\ILoadControl.cs" />
     <Compile Include="Tasks\BasicAdvisorControls\Interfaces\IMaterialsRelatedControl.cs" />
     <Compile Include="Tasks\BasicAdvisorControls\Interfaces\INodesGroupControl.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\RefreshDataEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\Interfaces\ShowDataEventArgs.cs" />
     <Compile Include="Tasks\BasicAdvisorControls\LoadControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -265,27 +254,9 @@
     <Compile Include="Tasks\BasicAdvisorControls\MaterialsControl.designer.cs">
       <DependentUpon>MaterialsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\ChemTaskControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\ChemTaskControl.Designer.cs">
-      <DependentUpon>ChemTaskControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\FileSettingsIO.cs" />
     <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\GenerateTCFEventArgs.cs" />
     <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\GenerateTSFEventArgs.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\HeatTaskControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\HeatTaskControl.Designer.cs">
-      <DependentUpon>HeatTaskControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\HeatTaskControl_v2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\HeatTaskControl_v2.Designer.cs">
-      <DependentUpon>HeatTaskControl_v2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\InfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -293,24 +264,14 @@
       <DependentUpon>InfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\ITaskControl.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\MechTaskControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\MechTaskControl.Designer.cs">
-      <DependentUpon>MechTaskControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\MechTaskControl_v2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\MechTaskControl_v2.Designer.cs">
-      <DependentUpon>MechTaskControl_v2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskControl.Designer.cs">
       <DependentUpon>TaskControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskParameters.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TimeParameters.cs" />
     <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl_v2.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -506,23 +467,8 @@
     <EmbeddedResource Include="Tasks\BasicAdvisorControls\MaterialsControl.resx">
       <DependentUpon>MaterialsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\ChemTaskControl.resx">
-      <DependentUpon>ChemTaskControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\HeatTaskControl.resx">
-      <DependentUpon>HeatTaskControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\HeatTaskControl_v2.resx">
-      <DependentUpon>HeatTaskControl_v2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\InfoForm.resx">
       <DependentUpon>InfoForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\MechTaskControl.resx">
-      <DependentUpon>MechTaskControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\MechTaskControl_v2.resx">
-      <DependentUpon>MechTaskControl_v2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskControl.resx">
       <DependentUpon>TaskControl.cs</DependentUpon>
@@ -585,9 +531,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="BaseModuleSnk.snk" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\console.bmp" />
     <None Include="Resources\navigator.bmp" />
     <None Include="Resources\create.ico" />
