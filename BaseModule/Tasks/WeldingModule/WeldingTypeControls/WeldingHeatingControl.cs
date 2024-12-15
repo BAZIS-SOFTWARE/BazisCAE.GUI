@@ -1,4 +1,6 @@
-﻿using BaseModule.Tasks.WeldingModule;
+﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
+using BaseModule.Tasks.BasicAdvisorControls.Interfaces;
+using BaseModule.Tasks.WeldingModule;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,8 +8,6 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using TaskModule.BasicAdvisorControls.Events;
-using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.WeldingModule.WeldingTypeControls
 {
@@ -201,7 +201,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         private void player_CheckingEvent(object arg1, float arg2)
         {
-            CheckDataEvent(this, new BasicAdvisorControls.Events.CheckDataEventArgs(DataName, arg2));
+            CheckDataEvent(this, new CheckDataEventArgs(DataName, arg2));
         }
 
         private void player_StopCheckingEvent(object obj)

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
+using BaseModule.Tasks.BasicAdvisorControls.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,8 +8,6 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using TaskModule.BasicAdvisorControls.Events;
-using TaskModule.BasicAdvisorControls.Interfaces;
 
 namespace BaseModule.Tasks.HeatTreatmentModule
 {

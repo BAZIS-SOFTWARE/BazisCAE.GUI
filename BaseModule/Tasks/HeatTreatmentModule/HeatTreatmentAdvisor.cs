@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
+using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
+using System;
 using System.Windows.Forms;
-using TaskModule.BasicAdvisorControls.Events;
-using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using TaskModule.BasicTaskAdvisor;
 
 namespace BaseModule.Tasks.HeatTreatmentModule

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TasksParameters;
 
-namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
+namespace BazisGUI.TasksControls
 {
     public partial class MechTaskControl_v2 : UserControl, ITaskControl
     {

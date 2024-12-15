@@ -1,5 +1,5 @@
-﻿using TaskModule.BasicAdvisorControls;
-using TaskModule.BasicAdvisorControls.TaskPlannerControls;
+﻿using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
+using TaskModule.BasicAdvisorControls;
 using UserControlsEx;
 
 namespace BaseModule.Tasks.HeatTreatmentModule
@@ -40,7 +40,7 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.diffusionСontrol1 = new DiffusionСontrol();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.taskPlannerControl_v21 = new TaskModule.BasicAdvisorControls.TaskPlannerControls.TaskPlannerControl_v2();
+            this.taskPlannerControl_v21 = new TaskPlannerControl_v2();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();

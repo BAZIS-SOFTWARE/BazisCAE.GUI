@@ -263,14 +263,7 @@
     <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\InfoForm.Designer.cs">
       <DependentUpon>InfoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\ITaskControl.cs" />
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskControl.Designer.cs">
-      <DependentUpon>TaskControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskParameters.cs" />
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\ComputationToken.cs" />
     <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TimeParameters.cs" />
     <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl_v2.cs">
       <SubType>UserControl</SubType>
@@ -469,9 +462,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\InfoForm.resx">
       <DependentUpon>InfoForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskControl.resx">
-      <DependentUpon>TaskControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl_v2.resx">
       <DependentUpon>TaskPlannerControl_v2.cs</DependentUpon>

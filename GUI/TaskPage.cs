@@ -21,6 +21,10 @@ using PropertiesCalculator.FunctionData;
 using PropertiesDataBases.DataBases;
 using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
 using BaseModule.Tasks.BasicAdvisorControls.Events;
+using TasksParameters;
+using System.Security.Cryptography;
+using BazisGUI.TasksControls;
+using Tasks;
 
 namespace BazisGUI
 {
@@ -31,11 +35,11 @@ namespace BazisGUI
 
         IGeneralData GeneralData { get { return BasePage.GetGeneralData(); } }
 
-        IPreProc preProc;
+        PreProc preProc;
 
         private protected ITaskData taskData;
 
-        public void SetPreProc(IPreProc preProc)
+        public void SetPreProc(PreProc preProc)
         {
             this.preProc = preProc;
         }
@@ -763,20 +767,12 @@ namespace BazisGUI
             {
                 if(arg2 is GenerateTSFEventArgs args)
                 {
-                    var settingsSerializer = new JsonSerializerSettings
-                    {
-                        TypeNameHandling = TypeNameHandling.Auto,
-                        Formatting = Newtonsoft.Json.Formatting.Indented
-                    };
-
                     if (!Directory.Exists($@"{GeneralData.Path}\InputData"))
                         Directory.CreateDirectory($@"{GeneralData.Path}\InputData");
 
-                    preProc.SetDraftParameters(args.Parameters, ProcessType);
+                    var compController = new ComputationController(GeneralData.Path);
 
-                    var parLine = JsonConvert.SerializeObject(args.Parameters, settingsSerializer);
-
-                    File.WriteAllText($@"{GeneralData.Path}\InputData\{args.DataInfo}", parLine);
+                    compController.CreateFileParameters(args.ComputationToken, preProc, ProcessType);
 
                     var tsfFiles = Directory.GetFiles($@"{GeneralData.Path}\InputData", "*.tsf");
                     var sortedFiles = preProc.SortCompDataByTimeAndType(tsfFiles);

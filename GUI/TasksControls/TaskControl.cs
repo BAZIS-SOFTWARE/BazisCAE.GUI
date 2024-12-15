@@ -3,7 +3,7 @@ using System.Collections;
 using System.Windows.Forms;
 using TasksParameters;
 
-namespace AdvisorControls.TaskPlannerControls
+namespace BazisGUI.TasksControls
 {
     public partial class TaskControl : UserControl
     {

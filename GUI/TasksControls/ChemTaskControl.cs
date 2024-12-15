@@ -1,52 +1,63 @@
-﻿using Newtonsoft.Json;
+﻿using AdvisorControls.TaskPlannerControls;
 using System;
-using System.Collections.Generic;
-using System.IO;
-
-//using System.IO;
-using System.Linq;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using System.IO;
 using TasksParameters;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
+namespace BazisGUI.TasksControls
 {
-    public partial class HeatTaskControl_v2 : UserControl, ITaskControl
+    public partial class ChemTaskControl : UserControl, ITaskControl
     {
-        TermalParameters parameters;
+        private ChemicalParameters parameters;
         private string tsFullFileName;
 
-        public HeatTaskControl_v2()
+        public ChemTaskControl()
         {
             InitializeComponent();
         }
-
-        public event Action<object, EventArgs> ChangeDataEvent;
 
         public void SetSolver(int solverIndex)
         {
             cmbSolver.SelectedIndex = 1;
         }
 
-        public void InputData(TermalParameters _parameters, string _tsFullFileName)
+        public void InputData(ChemicalParameters _parameters, string _tsFullFileName)
         {
             parameters = _parameters;
- 
+
             tsFullFileName = _tsFullFileName;
 
-            if (parameters.TermalConvergence.Is_Switched_Tm)
-                chbDTtMax.Checked = true;
-
-            txbDTtMax.Text = parameters.TermalConvergence.Tm.ToString();
+            txbDTtMax.Text = parameters.ChemicalConvergence.Cm.ToString();
             txbIters.Text = parameters.Iterations.ToString();
 
             txbSaveRate.Text = parameters.SaveRate.ToString();
-            txbInitTemp.Text = parameters.InitTemp.ToString();
+            txbInitConcentration.Text = parameters.InitConcentration.ToString();
 
             cmbSolver.Text = parameters.SolverSettings.Solver;
             txbSolverIterations.Text = parameters.SolverSettings.MaxIter.ToString();
             txbPrecision.Text = parameters.SolverSettings.Precision.ToString();
             txbRelaxation.Text = parameters.SolverSettings.Relaxation.ToString();
             cmbPriority.Text = parameters.SolverSettings.Priority.ToString();
+        }
+
+        public bool GetValidationResult()
+        {
+            var checks = new List<bool>()
+            {
+                cmbPriority.IsValueValid(),
+                cmbSolver.IsValueValid(),
+                txbDTtMax.IsValueValid(),
+                txbInitConcentration.IsValueValid(),
+                txbIters.IsValueValid(),
+                txbPrecision.IsValueValid(),
+                txbRelaxation.IsValueValid(),
+                txbSaveRate.IsValueValid(),
+                txbSolverIterations.IsValueValid()
+            };
+            return checks.All(x => x);
         }
 
         public void AllTextBox_TextChanged(object sender, EventArgs e)
@@ -81,42 +92,19 @@ namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
             }
         }
 
-        private void chbDTtMax_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chbDTtMax.Checked)
-                txbDTtMax.Enabled = true;
-            else
-                txbDTtMax.Enabled = false;
-        }
-
-        public bool GetValidationResult()
-        {
-            var checks = new List<bool>()
-            {
-                cmbSolver.IsValueValid(),
-                cmbPriority.IsValueValid(),
-                txbDTtMax.IsValueValid(),
-                txbInitTemp.IsValueValid(),
-                txbIters.IsValueValid(),
-                txbPrecision.IsValueValid(),
-                txbRelaxation.IsValueValid(),
-                txbSaveRate.IsValueValid(),
-                txbSolverIterations.IsValueValid()
-            };
-            return checks.All(x => x);
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
+            var parameters = new ChemicalParameters();
+
             if (chbDTtMax.Checked)
             {
-                parameters.TermalConvergence.Is_Switched_Tm = true;
-                parameters.TermalConvergence.Tm = Convert.ToSingle(txbDTtMax.Text);
+                parameters.ChemicalConvergence.Is_Switched_Cm = true;
+                parameters.ChemicalConvergence.Cm = Convert.ToSingle(txbDTtMax.Text);
             }
 
             parameters.Iterations = Convert.ToInt32(txbIters.Text);
 
-            parameters.InitTemp = Convert.ToSingle(txbInitTemp.Text);
+            parameters.InitConcentration = Convert.ToSingle(txbInitConcentration.Text);
             parameters.SaveRate = Convert.ToInt32(txbSaveRate.Text);
 
             parameters.SolverSettings.Solver = cmbSolver.Text;

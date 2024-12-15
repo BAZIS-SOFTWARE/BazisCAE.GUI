@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TasksParameters;
 
-namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
+namespace BazisGUI.TasksControls
 {
     internal interface ITaskControl
     {

@@ -4,9 +4,9 @@ using System.Windows.Forms;
 using System.Globalization;
 using System.ComponentModel;
 using System.Drawing;
-using TaskModule.BasicAdvisorControls.Interfaces;
 using System.Linq;
-using TaskModule.BasicAdvisorControls.Events;
+using BaseModule.Tasks.BasicAdvisorControls.Events;
+using BaseModule.Tasks.BasicAdvisorControls.Interfaces;
 
 namespace TaskModule.BasicAdvisorControls
 {
@@ -226,7 +226,7 @@ namespace TaskModule.BasicAdvisorControls
 
         private void player_CheckingEvent(object arg1, float arg2)
         {
-            CheckDataEvent(this, new BasicAdvisorControls.Events.CheckDataEventArgs(DataName, arg2));
+            CheckDataEvent(this, new CheckDataEventArgs(DataName, arg2));
         }
 
         private void player_StartCheckingEvent(object obj)

@@ -300,24 +300,32 @@
     <Compile Include="TaskPage.Designer.cs">
       <DependentUpon>TaskPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="temp\ChemTaskControl.cs">
+    <Compile Include="TasksControls\ChemTaskControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="temp\ChemTaskControl.Designer.cs">
+    <Compile Include="TasksControls\ChemTaskControl.Designer.cs">
       <DependentUpon>ChemTaskControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="temp\HeatTaskControl_v2.cs">
+    <Compile Include="TasksControls\HeatTaskControl_v2.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="temp\HeatTaskControl_v2.Designer.cs">
+    <Compile Include="TasksControls\HeatTaskControl_v2.Designer.cs">
       <DependentUpon>HeatTaskControl_v2.cs</DependentUpon>
     </Compile>
-    <Compile Include="temp\MechTaskControl_v2.cs">
+    <Compile Include="TasksControls\ITaskControl.cs" />
+    <Compile Include="TasksControls\MechTaskControl_v2.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="temp\MechTaskControl_v2.Designer.cs">
+    <Compile Include="TasksControls\MechTaskControl_v2.Designer.cs">
       <DependentUpon>MechTaskControl_v2.cs</DependentUpon>
     </Compile>
+    <Compile Include="TasksControls\TaskControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TasksControls\TaskControl.Designer.cs">
+      <DependentUpon>TaskControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TasksControls\ComputationController.cs" />
     <Compile Include="ToolStripPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -384,14 +392,17 @@
     <EmbeddedResource Include="TaskPage.resx">
       <DependentUpon>TaskPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="temp\ChemTaskControl.resx">
+    <EmbeddedResource Include="TasksControls\ChemTaskControl.resx">
       <DependentUpon>ChemTaskControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="temp\HeatTaskControl_v2.resx">
+    <EmbeddedResource Include="TasksControls\HeatTaskControl_v2.resx">
       <DependentUpon>HeatTaskControl_v2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="temp\MechTaskControl_v2.resx">
+    <EmbeddedResource Include="TasksControls\MechTaskControl_v2.resx">
       <DependentUpon>MechTaskControl_v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TasksControls\TaskControl.resx">
+      <DependentUpon>TaskControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ToolStripPage.resx">
       <DependentUpon>ToolStripPage.cs</DependentUpon>

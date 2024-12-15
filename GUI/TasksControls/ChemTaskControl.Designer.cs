@@ -1,6 +1,6 @@
 ﻿using UserControlsEx;
 
-namespace TaskModule.BasicAdvisorControls.TaskPlannerControls
+namespace BazisGUI.TasksControls
 {
     partial class ChemTaskControl
     {

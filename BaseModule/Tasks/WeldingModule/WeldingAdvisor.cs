@@ -1,9 +1,8 @@
 ﻿
+using BaseModule.Tasks.BasicAdvisorControls.Events;
+using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using TaskModule.BasicAdvisorControls.Events;
-using TaskModule.BasicAdvisorControls.TaskPlannerControls;
 using TaskModule.BasicTaskAdvisor;
 
 namespace BaseModule.Tasks.WeldingModule

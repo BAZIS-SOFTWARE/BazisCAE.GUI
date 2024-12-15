@@ -6,12 +6,12 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
 {
     public class GenerateTSFEventArgs : AddDataEventArgs
     {
-        public TaskParameters TaskParameters { get; }
+        public ComputationToken ComputationToken { get; }
 
-        public GenerateTSFEventArgs(TaskParameters taskParameters, string dataName, string dataInfo):
+        public GenerateTSFEventArgs(ComputationToken computationToken, string dataName, string dataInfo):
             base(dataName, dataInfo)
         {
-            TaskParameters = taskParameters;
+            ComputationToken = computationToken;
         }
     }
 }

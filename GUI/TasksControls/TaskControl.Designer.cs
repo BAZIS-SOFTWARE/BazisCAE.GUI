@@ -1,4 +1,4 @@
-﻿namespace AdvisorControls.TaskPlannerControls
+﻿namespace BazisGUI.TasksControls
 {
     partial class TaskControl
     {
