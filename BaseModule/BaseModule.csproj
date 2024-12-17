@@ -254,6 +254,7 @@
     <Compile Include="Tasks\BasicAdvisorControls\MaterialsControl.designer.cs">
       <DependentUpon>MaterialsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\ChangeTSFEventArgs.cs" />
     <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\FileSettingsIO.cs" />
     <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\GenerateTCFEventArgs.cs" />
     <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\GenerateTSFEventArgs.cs" />

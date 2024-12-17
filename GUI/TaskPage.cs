@@ -220,6 +220,7 @@ namespace BazisGUI
                 //activeAdvisor = taskAdv.Name;
 
                 taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent;
+                taskAdv.EditTSFEvent += TaskAdv_EditTSFEvent;
                 taskAdv.AddDataUseTaskConditionsEvent += (ar1,ar2) => { TaskAdv_AddDataUseTaskConditions(taskData, preProc); };
                 taskAdv.AddDataEvent += (ar1, ar2) => { TaskAdvisor_AddData(taskData, ar2); };
                 taskAdv.DeleteDataEvent += (ar1, ar2) => { TaskAdvisor_DeleteData(taskData, ar2); };
@@ -228,7 +229,6 @@ namespace BazisGUI
                 taskAdv.HideDataEvent += TaskAdvisor_HideDataEvent;
                 taskAdv.ShowDataEvent += (ar1, ar2) => { TaskAdvisor_ShowData(taskData, ar2); };
                 taskAdv.ChangeDataEvent += (ar1,ar2) => { TaskAdvisor_ChangeData(taskData,ar2); };
-                taskAdv.StartComputationEvent += TaskAdvisor_StartComputationEvent;
                 taskAdv.StopComputationEvent += TaskAdv_StopComputationEvent;
                 taskAdv.Select2DAxiEvent += (ar1,ar2) => { TaskAdvisor_ChangeTaskType(taskData,ar2); };
                 taskAdv.Select2DPlaneEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };
@@ -238,6 +238,30 @@ namespace BazisGUI
             {
                 BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        private void TaskAdv_EditTSFEvent(object arg1, TasksSet arg2, string arg3)
+        {
+            var compController = new ComputationController(GeneralData.Path);
+            var parameters = compController.ReadTaskParametersFromFile(arg3);
+
+            var cntr = new TaskControl();
+            cntr.InputData(parameters, arg3);
+
+            var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+
+            var form = new Form() 
+            { 
+                Text = arg3, 
+                ShowIcon = false,
+                ClientSize = cntr.Size,
+                FormBorderStyle = FormBorderStyle.FixedSingle,
+                Owner = Application.OpenForms[0],
+
+            };
+            form.Controls.Add(cntr);
+            form.Location = location;
+            form.Show();
         }
 
         private void TaskAdv_GenerateTCFEvent(object arg1, GenerateTCFEventArgs arg2)
@@ -387,7 +411,7 @@ namespace BazisGUI
 (File.ReadAllText($@"{dbPath}\{dbFileName}"), settingsSerializer);
         }
 
-        public void TaskAdvisor_StartComputationEvent(object arg1, EventArgs arg2)
+        public void TaskAdvisor_StartComputationEvent()
         {
             try
             {
@@ -546,7 +570,6 @@ namespace BazisGUI
 
                 var dataIndex = taskData.IndexOf(dataArray[arg2.Index]);
                 BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes[dataIndex].Text = dataArray[arg2.Index].ToString();
-                //PresentProjectOnTree();
             }
             catch (Exception ex)
             {
@@ -765,37 +788,18 @@ namespace BazisGUI
         {
             try
             {
-                if(arg2 is GenerateTSFEventArgs args)
-                {
-                    if (!Directory.Exists($@"{GeneralData.Path}\InputData"))
-                        Directory.CreateDirectory($@"{GeneralData.Path}\InputData");
+                var ar = arg2.DataInfo.Split(' ');
 
-                    var compController = new ComputationController(GeneralData.Path);
+                var group = GetDataGroup(arg2.DataName, ar);
 
-                    compController.CreateFileParameters(args.ComputationToken, preProc, ProcessType);
-
-                    var tsfFiles = Directory.GetFiles($@"{GeneralData.Path}\InputData", "*.tsf");
-                    var sortedFiles = preProc.SortCompDataByTimeAndType(tsfFiles);
-
-                    GetTaskAdvisor()?.SetTaskPlannerlData(sortedFiles);
-                }
+                if (arg2.DataInfo.Contains("LRF"))
+                    await AddDataLRF(taskData, arg2, ar, group);
 
                 else
-                {
-                    var ar = arg2.DataInfo.Split(' ');
+                    AddData(taskData, arg2, ar, group);
 
-                    var group = GetDataGroup(arg2.DataName, ar);
-
-                    if (arg2.DataInfo.Contains("LRF"))
-                        await AddDataLRF(taskData, arg2, ar, group);
-
-                    else
-                        AddData(taskData, arg2, ar, group);
-
-                    var adv = GetTaskAdvisor();
-                    SetProjectData(adv);
-                }
- 
+                var adv = GetTaskAdvisor();
+                SetProjectData(adv);
             }
             catch (Exception ex)
             {

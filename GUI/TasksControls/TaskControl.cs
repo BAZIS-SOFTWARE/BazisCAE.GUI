@@ -1,51 +1,118 @@
-﻿using System;
-using System.Collections;
+﻿using AdvisorControls.TaskPlannerControls;
+using System;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using System.IO;
 using TasksParameters;
+using System.Collections.Generic;
+using System.Linq;
+using TasksParameters.Interfaces;
 
 namespace BazisGUI.TasksControls
 {
-    public partial class TaskControl : UserControl
+    public partial class TaskControl : UserControl, ITaskControl
     {
+        private GeneralParameters parameters;
+        private string tsFullFileName;
+
+        public event Action<string> BtnSave_ClickEvent;
+
         public TaskControl()
         {
             InitializeComponent();
         }
-        public virtual string TaskName { get; }
 
-        public event Action<object, EventArgs> ChangeDataEvent;
-
-        public virtual bool GetValidationResult()
+        public void InputData(GeneralParameters _parameters, string _tsFullFileName)
         {
-            throw new NotImplementedException("Метод \"GetValidationResult\" не реализован");
-        }
+            parameters = _parameters;
 
-        public virtual GeneralParameters CollectData()
-        {
-            throw new NotImplementedException("Не реализован метод!");
-        }
+            tsFullFileName = _tsFullFileName;
 
-        public virtual void InputData(GeneralParameters parameters)
-        {
-            throw new NotImplementedException("Не реализован метод!");
-        }
-
-        public virtual void SetSolver(int solverIndex)
-        {
-            throw new NotImplementedException("Не реализован метод!");
-        }
-
-        public virtual void AllTextBox_TextChanged(object sender, EventArgs e)
-        {
-            throw new NotImplementedException("Не реализован метод!");
-        }
-
-        public virtual void Txb_EnabledChanged(object sender, EventArgs e)
-        {
-            if (sender is TextBox txb)
+            if(_parameters is ChemicalParameters cmp)
             {
-                if (txb.Enabled == false)
-                    txb.Text = "0";
+                chemicalControl.BringToFront();
+                chemicalControl.MaxConcentr = cmp.ChemicalConvergence.Cm.ToString();
+                chemicalControl.InitConcentr = cmp.InitConcentration.ToString();
+                chemicalControl.IsMaxConcentrSwitch = cmp.ChemicalConvergence.Is_Switched_Cm;
+            }
+            else if(_parameters is TermalParameters tmp)
+            {
+                heatTaskControl.BringToFront();
+                heatTaskControl.DTMax = tmp.TermalConvergence.Tm.ToString();
+            }
+            else
+            {
+                mechTaskControl.BringToFront();
+                var mp = _parameters as MechanicalParameters;
+                mechTaskControl.MaxDU = mp.MechanicalConvergence.DUm.ToString();
+                mechTaskControl.MaxU = mp.MechanicalConvergence.Um.ToString();
+                mechTaskControl.MaxSiSt = mp.MechanicalConvergence.PlasticityCriterion.ToString();
+            }
+
+            timeSettingsControl.SetTimeSettings(_parameters.TimeSettings);
+            solverSettingsControl.SetSolverSettings(_parameters.SolverSettings);
+
+            basicControl.Iterations = parameters.Iterations.ToString();
+            basicControl.SaveRate = _parameters.SaveRate.ToString();
+            basicControl.InitTemp = _parameters.InitTemp.ToString();
+        }
+
+        public bool GetValidationResult()
+        {
+
+            var checks = new List<bool>();
+
+            checks.Add(timeSettingsControl.GetValidationResult());
+            checks.Add(solverSettingsControl.GetValidationResult());
+
+            if(parameters is ChemicalParameters cmp)
+                checks.Add(chemicalControl.GetValidationResult());
+            
+            return checks.All(x => x);
+        }      
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (GetValidationResult())
+            {
+                var timeSettings = timeSettingsControl.GetTimeSettings();
+                var solverSettings = solverSettingsControl.GetSolverSettings();
+
+                if (parameters is ChemicalParameters cmp)
+                {
+                    cmp.ChemicalConvergence.Is_Switched_Cm = chemicalControl.IsMaxConcentrSwitch;
+                    cmp.ChemicalConvergence.Cm = Convert.ToSingle(chemicalControl.MaxConcentr);
+                    cmp.InitConcentration = Convert.ToSingle(chemicalControl.InitConcentr);
+                }
+
+                else if (parameters is TermalParameters tmp)
+                {
+                    tmp.TermalConvergence.Tm = Convert.ToSingle(heatTaskControl.DTMax);
+                }
+                else
+                {
+                    var mp = parameters as MechanicalParameters;
+                    mp.MechanicalConvergence.DUm = Convert.ToSingle(mechTaskControl.MaxDU);
+                    mp.MechanicalConvergence.Um = Convert.ToSingle(mechTaskControl.MaxU);
+                    mp.MechanicalConvergence.PlasticityCriterion = Convert.ToSingle(mechTaskControl.MaxSiSt);
+                }
+
+                parameters.Iterations = Convert.ToInt32(basicControl.Iterations);
+                parameters.SaveRate = Convert.ToInt32(basicControl.SaveRate);
+                parameters.InitTemp = Convert.ToInt32(basicControl.InitTemp);
+
+                parameters.SolverSettings = solverSettings;
+                parameters.TimeSettings = timeSettings;
+
+                var settingsSerializer = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto,
+                    Formatting = Newtonsoft.Json.Formatting.Indented
+                };
+
+                var parLine = JsonConvert.SerializeObject(parameters, settingsSerializer);
+
+                File.WriteAllText(tsFullFileName, parLine);
             }
         }
     }

@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using Tasks;
 using TasksParameters;
 using Newtonsoft.Json;
+using AdvisorControls.TaskPlannerControls;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Windows.Forms;
 
 namespace BazisGUI.TasksControls
 {
@@ -93,6 +96,35 @@ $"{compToken.TimeParam.StopTime}.tsf";
             var parLine = JsonConvert.SerializeObject(parameters, settingsSerializer);
 
             File.WriteAllText($@"{ProjPath}\InputData\{fileName}", parLine);
+        }
+
+        public GeneralParameters ReadTaskParametersFromFile(string filePath)
+        {
+            var settingsSerializer = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Newtonsoft.Json.Formatting.Indented
+            };
+
+            var fileName = Path.GetFileNameWithoutExtension(filePath);
+            var taskName = fileName.Split('_')[0];
+
+            TasksSet tasksSet;
+            Enum.TryParse(taskName, out tasksSet);
+
+            if (tasksSet == TasksSet.термическая)
+            {
+                return JsonConvert.DeserializeObject<TermalParameters>
+(File.ReadAllText(filePath), settingsSerializer);
+            }
+            else if (tasksSet == TasksSet.механическая)
+            {
+                return JsonConvert.DeserializeObject<MechanicalParameters>
+(File.ReadAllText(filePath), settingsSerializer);
+            }
+            else return JsonConvert.DeserializeObject<ChemicalParameters>
+(File.ReadAllText(filePath), settingsSerializer);
+
         }
     }
 }

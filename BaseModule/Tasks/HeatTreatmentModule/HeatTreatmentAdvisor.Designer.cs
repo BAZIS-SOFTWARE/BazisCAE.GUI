@@ -37,17 +37,17 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HeatTreatmentAdvisor));
             this.tabControl1 = new UserControlsEx.TabControlEx();
             this.pdgTaskType = new System.Windows.Forms.TabPage();
-            this.taskTypeControl1 = new  TaskTypeControl();
+            this.taskTypeControl1 = new TaskModule.BasicAdvisorControls.TaskTypeControl();
             this.pdgMaterials = new System.Windows.Forms.TabPage();
-            this.materialsControl1 = new  MaterialsControl();
+            this.materialsControl1 = new TaskModule.BasicAdvisorControls.MaterialsControl();
             this.pdgHTRegime = new System.Windows.Forms.TabPage();
-            this.htMediaControl = new Tasks.HeatTreatmentModule.HeatControl();
+            this.htMediaControl = new BaseModule.Tasks.HeatTreatmentModule.HeatControl();
             this.pdgClamps = new System.Windows.Forms.TabPage();
-            this.clampControl1 = new  ClampControl();
+            this.clampControl1 = new TaskModule.BasicAdvisorControls.ClampControl();
             this.pdgLoad = new System.Windows.Forms.TabPage();
-            this.loadControl1 = new  LoadControl();
+            this.loadControl1 = new TaskModule.BasicAdvisorControls.LoadControl();
             this.pdgPlanner = new System.Windows.Forms.TabPage();
-            this.taskPlannerControl1 = new  TaskPlannerControl_v2();
+            this.taskPlannerControl1 = new BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls.TaskPlannerControl_v2();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.tabControl1.SuspendLayout();
             this.pdgTaskType.SuspendLayout();
@@ -103,9 +103,10 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             this.taskTypeControl1.Name = "taskTypeControl1";
             this.taskTypeControl1.Size = new System.Drawing.Size(917, 692);
             this.taskTypeControl1.TabIndex = 0;
-            //this.taskTypeControl1.Task2DAxiImage = global::BaseModule.Properties.Resources.PlainTask;
-            //this.taskTypeControl1.Task2DImage = global::BaseModule.Properties.Resources.AxiSymTask;
-            //this.taskTypeControl1.Task3DImage = global::BaseModule.Properties.Resources.VolTask;
+            this.taskTypeControl1.Task2DAxiImage = ((System.Drawing.Image)(resources.GetObject("taskTypeControl1.Task2DAxiImage")));
+            this.taskTypeControl1.Task2DImage = ((System.Drawing.Image)(resources.GetObject("taskTypeControl1.Task2DImage")));
+            this.taskTypeControl1.Task3DImage = ((System.Drawing.Image)(resources.GetObject("taskTypeControl1.Task3DImage")));
+            this.taskTypeControl1.TaskType = "Volume";
             this.taskTypeControl1.Select2DPlaneTaskEvent += new System.Action<object, System.EventArgs>(this.taskTypeControl_Select2DPlaneTaskEvent);
             this.taskTypeControl1.Select2DAxiTaskEvent += new System.Action<object, System.EventArgs>(this.taskTypeControl_Select2DAxiTaskEvent);
             this.taskTypeControl1.Select3DTaskEvent += new System.Action<object, System.EventArgs>(this.taskTypeControl_Select3DTaskEvent);
@@ -140,13 +141,13 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             this.materialsControl1.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("materialsControl1.ShowAllButtonImage")));
             this.materialsControl1.Size = new System.Drawing.Size(925, 700);
             this.materialsControl1.TabIndex = 0;
-            this.materialsControl1.ShowDataEvent += new System.Action<object,  ShowDataEventArgs>(this.Control_ShowDataEvent);
-            this.materialsControl1.HideDataEvent += new System.Action<object,  HideDataEventArgs>(this.Control_HideDataEvent);
-            this.materialsControl1.CheckDataEvent += new System.Action<object,  CheckDataEventArgs>(this.Control_CheckDataEvent);
-            this.materialsControl1.AddDataEvent += new System.Action<object,  AddDataEventArgs>(this.Control_AddDataEvent);
-            this.materialsControl1.DeleteDataEvent += new System.Action<object,  DeleteDataEventArgs>(this.Control_DeleteDataEvent);
-            this.materialsControl1.ChangeDataEvent += new System.Action<object,  ChangeDataEventArgs>(this.Control_ChangeDataEvent);
-            this.materialsControl1.DeleteAllDataEvent += new System.Action<object,  DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
+            this.materialsControl1.ShowDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
+            this.materialsControl1.HideDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
+            this.materialsControl1.CheckDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.CheckDataEventArgs>(this.Control_CheckDataEvent);
+            this.materialsControl1.AddDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
+            this.materialsControl1.DeleteDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
+            this.materialsControl1.ChangeDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            this.materialsControl1.DeleteAllDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
             // 
             // pdgHTRegime
             // 
@@ -176,13 +177,13 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             this.htMediaControl.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("htMediaControl.ShowAllButtonImage")));
             this.htMediaControl.Size = new System.Drawing.Size(925, 700);
             this.htMediaControl.TabIndex = 0;
-            this.htMediaControl.ShowDataEvent += new System.Action<object,  ShowDataEventArgs>(this.Control_ShowDataEvent);
-            this.htMediaControl.HideDataEvent += new System.Action<object,  HideDataEventArgs>(this.Control_HideDataEvent);
-            this.htMediaControl.CheckDataEvent += new System.Action<object,  CheckDataEventArgs>(this.Control_CheckDataEvent);
-            this.htMediaControl.AddDataEvent += new System.Action<object,  AddDataEventArgs>(this.Control_AddDataEvent);
-            this.htMediaControl.DeleteDataEvent += new System.Action<object,  DeleteDataEventArgs>(this.Control_DeleteDataEvent);
-            this.htMediaControl.ChangeDataEvent += new System.Action<object,  ChangeDataEventArgs>(this.Control_ChangeDataEvent);
-            this.htMediaControl.DeleteAllDataEvent += new System.Action<object,  DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
+            this.htMediaControl.ShowDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
+            this.htMediaControl.HideDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
+            this.htMediaControl.CheckDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.CheckDataEventArgs>(this.Control_CheckDataEvent);
+            this.htMediaControl.AddDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
+            this.htMediaControl.DeleteDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
+            this.htMediaControl.ChangeDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            this.htMediaControl.DeleteAllDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
             // 
             // pdgClamps
             // 
@@ -214,13 +215,13 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             this.clampControl1.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("clampControl1.ShowAllButtonImage")));
             this.clampControl1.Size = new System.Drawing.Size(925, 700);
             this.clampControl1.TabIndex = 0;
-            this.clampControl1.ShowDataEvent += new System.Action<object,  ShowDataEventArgs>(this.Control_ShowDataEvent);
-            this.clampControl1.HideDataEvent += new System.Action<object,  HideDataEventArgs>(this.Control_HideDataEvent);
-            this.clampControl1.CheckDataEvent += new System.Action<object,  CheckDataEventArgs>(this.Control_CheckDataEvent);
-            this.clampControl1.AddDataEvent += new System.Action<object,  AddDataEventArgs>(this.Control_AddDataEvent);
-            this.clampControl1.DeleteDataEvent += new System.Action<object,  DeleteDataEventArgs>(this.Control_DeleteDataEvent);
-            this.clampControl1.ChangeDataEvent += new System.Action<object,  ChangeDataEventArgs>(this.Control_ChangeDataEvent);
-            this.clampControl1.DeleteAllDataEvent += new System.Action<object,  DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
+            this.clampControl1.ShowDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
+            this.clampControl1.HideDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
+            this.clampControl1.CheckDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.CheckDataEventArgs>(this.Control_CheckDataEvent);
+            this.clampControl1.AddDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
+            this.clampControl1.DeleteDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
+            this.clampControl1.ChangeDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            this.clampControl1.DeleteAllDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
             // 
             // pdgLoad
             // 
@@ -249,13 +250,13 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             this.loadControl1.ShowAllButtonImage = ((System.Drawing.Image)(resources.GetObject("loadControl1.ShowAllButtonImage")));
             this.loadControl1.Size = new System.Drawing.Size(925, 700);
             this.loadControl1.TabIndex = 0;
-            this.loadControl1.ShowDataEvent += new System.Action<object,  ShowDataEventArgs>(this.Control_ShowDataEvent);
-            this.loadControl1.HideDataEvent += new System.Action<object,  HideDataEventArgs>(this.Control_HideDataEvent);
-            this.loadControl1.CheckDataEvent += new System.Action<object,  CheckDataEventArgs>(this.Control_CheckDataEvent);
-            this.loadControl1.AddDataEvent += new System.Action<object,  AddDataEventArgs>(this.Control_AddDataEvent);
-            this.loadControl1.DeleteDataEvent += new System.Action<object,  DeleteDataEventArgs>(this.Control_DeleteDataEvent);
-            this.loadControl1.ChangeDataEvent += new System.Action<object,  ChangeDataEventArgs>(this.Control_ChangeDataEvent);
-            this.loadControl1.DeleteAllDataEvent += new System.Action<object,  DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
+            this.loadControl1.ShowDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.ShowDataEventArgs>(this.Control_ShowDataEvent);
+            this.loadControl1.HideDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.HideDataEventArgs>(this.Control_HideDataEvent);
+            this.loadControl1.CheckDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.CheckDataEventArgs>(this.Control_CheckDataEvent);
+            this.loadControl1.AddDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
+            this.loadControl1.DeleteDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.DeleteDataEventArgs>(this.Control_DeleteDataEvent);
+            this.loadControl1.ChangeDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            this.loadControl1.DeleteAllDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
             // 
             // pdgPlanner
             // 
@@ -271,28 +272,24 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             // 
             // taskPlannerControl1
             // 
-            this.taskPlannerControl1.AddButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.AddButtonImage")));
             this.taskPlannerControl1.AutoScroll = true;
             this.taskPlannerControl1.AutoSize = true;
             this.taskPlannerControl1.BackColor = System.Drawing.Color.Transparent;
-            this.taskPlannerControl1.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.ClearButtonImage")));
             this.taskPlannerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.taskPlannerControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.taskPlannerControl1.Location = new System.Drawing.Point(0, 0);
             this.taskPlannerControl1.Margin = new System.Windows.Forms.Padding(5);
             this.taskPlannerControl1.MinimumSize = new System.Drawing.Size(533, 862);
             this.taskPlannerControl1.Name = "taskPlannerControl1";
-            //this.taskPlannerControl1.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
-            this.taskPlannerControl1.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl1.RefreshButtonImage")));
             this.taskPlannerControl1.Size = new System.Drawing.Size(925, 862);
             this.taskPlannerControl1.TabIndex = 0;
             this.taskPlannerControl1.AddDataUseTaskConditionsEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_AddDataUseTaskConditionsEvent);
-            this.taskPlannerControl1.StartComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl_StartComputationEvent);
             this.taskPlannerControl1.StopComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StopComputationEvent);
-            this.taskPlannerControl1.GenerateTCFEvent += new System.Action<object,  GenerateTCFEventArgs>(this.TaskPlannerControl_GenerateTCFEvent);
-            this.taskPlannerControl1.AddDataEvent += new System.Action<object,  AddDataEventArgs>(this.Control_AddDataEvent);
-            this.taskPlannerControl1.ChangeDataEvent += new System.Action<object,  ChangeDataEventArgs>(this.Control_ChangeDataEvent);
-            this.taskPlannerControl1.DeleteAllDataEvent += new System.Action<object,  DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
+            this.taskPlannerControl1.GenerateTCFEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls.GenerateTCFEventArgs>(this.TaskPlannerControl_GenerateTCFEvent);
+            this.taskPlannerControl1.AddDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
+            this.taskPlannerControl1.ChangeDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
+            this.taskPlannerControl1.DeleteAllDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
+            this.taskPlannerControl1.EditTSFEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls.TasksSet, string>(this.TaskPlannerControl_EditTSFEvent);
             // 
             // imageList
             // 
@@ -315,8 +312,8 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "HeatTreatmentAdvisor";
-            //this.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
             this.Size = new System.Drawing.Size(933, 738);
+            this.TaskType = "Volume";
             this.tabControl1.ResumeLayout(false);
             this.pdgTaskType.ResumeLayout(false);
             this.pdgMaterials.ResumeLayout(false);

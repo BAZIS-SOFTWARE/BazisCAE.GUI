@@ -300,11 +300,23 @@
     <Compile Include="TaskPage.Designer.cs">
       <DependentUpon>TaskPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="TasksControls\ChemTaskControl.cs">
+    <Compile Include="TasksControls\BasicControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TasksControls\ChemTaskControl.Designer.cs">
-      <DependentUpon>ChemTaskControl.cs</DependentUpon>
+    <Compile Include="TasksControls\BasicControl.Designer.cs">
+      <DependentUpon>BasicControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TasksControls\ChemicalControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TasksControls\ChemicalControl.Designer.cs">
+      <DependentUpon>ChemicalControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TasksControls\TaskControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TasksControls\TaskControl.Designer.cs">
+      <DependentUpon>TaskControl.cs</DependentUpon>
     </Compile>
     <Compile Include="TasksControls\HeatTaskControl_v2.cs">
       <SubType>UserControl</SubType>
@@ -319,13 +331,19 @@
     <Compile Include="TasksControls\MechTaskControl_v2.Designer.cs">
       <DependentUpon>MechTaskControl_v2.cs</DependentUpon>
     </Compile>
-    <Compile Include="TasksControls\TaskControl.cs">
+    <Compile Include="TasksControls\SolverSettingsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TasksControls\TaskControl.Designer.cs">
-      <DependentUpon>TaskControl.cs</DependentUpon>
+    <Compile Include="TasksControls\SolverSettingsControl.Designer.cs">
+      <DependentUpon>SolverSettingsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="TasksControls\ComputationController.cs" />
+    <Compile Include="TasksControls\TimeSettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TasksControls\TimeSettingsControl.Designer.cs">
+      <DependentUpon>TimeSettingsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ToolStripPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -392,8 +410,14 @@
     <EmbeddedResource Include="TaskPage.resx">
       <DependentUpon>TaskPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TasksControls\ChemTaskControl.resx">
-      <DependentUpon>ChemTaskControl.cs</DependentUpon>
+    <EmbeddedResource Include="TasksControls\BasicControl.resx">
+      <DependentUpon>BasicControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TasksControls\ChemicalControl.resx">
+      <DependentUpon>ChemicalControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TasksControls\TaskControl.resx">
+      <DependentUpon>TaskControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TasksControls\HeatTaskControl_v2.resx">
       <DependentUpon>HeatTaskControl_v2.cs</DependentUpon>
@@ -401,8 +425,11 @@
     <EmbeddedResource Include="TasksControls\MechTaskControl_v2.resx">
       <DependentUpon>MechTaskControl_v2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TasksControls\TaskControl.resx">
-      <DependentUpon>TaskControl.cs</DependentUpon>
+    <EmbeddedResource Include="TasksControls\SolverSettingsControl.resx">
+      <DependentUpon>SolverSettingsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TasksControls\TimeSettingsControl.resx">
+      <DependentUpon>TimeSettingsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ToolStripPage.resx">
       <DependentUpon>ToolStripPage.cs</DependentUpon>

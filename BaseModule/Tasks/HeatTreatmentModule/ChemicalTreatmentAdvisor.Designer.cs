@@ -131,13 +131,10 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             // 
             // taskPlannerControl_v21
             // 
-            this.taskPlannerControl_v21.AddButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl_v21.AddButtonImage")));
-            this.taskPlannerControl_v21.ClearButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl_v21.ClearButtonImage")));
             this.taskPlannerControl_v21.Dock = System.Windows.Forms.DockStyle.Fill;
             this.taskPlannerControl_v21.Location = new System.Drawing.Point(0, 0);
             this.taskPlannerControl_v21.Name = "taskPlannerControl_v21";
             //this.taskPlannerControl_v21.ProcessType = ProjectInterfaces.Tasks.ProcessType.Welding;
-            this.taskPlannerControl_v21.RefreshButtonImage = ((System.Drawing.Image)(resources.GetObject("taskPlannerControl_v21.RefreshButtonImage")));
             this.taskPlannerControl_v21.Size = new System.Drawing.Size(611, 539);
             this.taskPlannerControl_v21.TabIndex = 0;
             // 

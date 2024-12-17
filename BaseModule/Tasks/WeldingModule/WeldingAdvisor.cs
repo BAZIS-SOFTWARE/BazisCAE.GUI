@@ -22,11 +22,6 @@ namespace BaseModule.Tasks.WeldingModule
             weldingControl.SetWeldingKind(weldingKind);
         }
 
-        public override void TaskPlannerControl_StartComputationEvent(object arg1, EventArgs arg2)
-        {
-            base.TaskPlannerControl_StartComputationEvent(arg1, arg2);
-        }
-
 
         public override void Control_ShowDataEvent(object arg1, ShowDataEventArgs arg2)
         {
@@ -101,6 +96,11 @@ namespace BaseModule.Tasks.WeldingModule
         private void weldingControl_SpecifyFunctionAreaEvent(string arg1, int arg2)
         {
             SpecifyWeldingZoneEvent?.Invoke(arg1, arg2);
+        }
+
+        public override void TaskPlannerControl_EditTSFEvent(object arg1, TasksSet arg2, string fileName)
+        {
+            base.TaskPlannerControl_EditTSFEvent(arg1, arg2, fileName);
         }
     }
 }

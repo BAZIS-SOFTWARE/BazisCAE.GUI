@@ -26,10 +26,10 @@ namespace TaskModule.BasicTaskAdvisor
         public event Action<object, ChangeTaskTypeEventArgs> Select2DPlaneEvent;
         public event Action<object, ChangeTaskTypeEventArgs> Select2DAxiEvent;
         public event Action<object, ChangeTaskTypeEventArgs> Select3DEvent;
-        public event Action<object, EventArgs> StartComputationEvent;
         public event Action<object, EventArgs> StopComputationEvent;
         public event Action<object, EventArgs> AddDataUseTaskConditionsEvent;
         public event Action<object, GenerateTCFEventArgs> GenerateTCFEvent;
+        public event Action<object, TasksSet,string> EditTSFEvent;
 
 
         //public ProcessType ProcessType 
@@ -213,14 +213,14 @@ namespace TaskModule.BasicTaskAdvisor
             }
         }
 
+        public virtual void TaskPlannerControl_EditTSFEvent(object arg1, TasksSet arg2, string fileName)
+        {
+            EditTSFEvent(arg1, arg2, fileName);
+        }
+
         public virtual void TaskPlannerControl_GenerateTCFEvent(object arg1, GenerateTCFEventArgs arg2)
         {
             GenerateTCFEvent(arg1,arg2);
-        }
-
-        public virtual void TaskPlannerControl_StartComputationEvent(object arg1, EventArgs arg2)
-        {
-            StartComputationEvent(this, arg2);
         }
 
 

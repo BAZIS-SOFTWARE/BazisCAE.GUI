@@ -440,8 +440,10 @@ namespace BazisGUI
         {
             project.Save();
 
-            var basePage = (sender as ToolStripPage).BasePage;
-            basePage.ConsoleControl.PrintInfo("Проект сохранен в " + project.GeneralData.Path, Color.Black);
+            var taskPage = (sender as TaskPage);
+            taskPage.BasePage.ConsoleControl.PrintInfo("Проект сохранен в " + project.GeneralData.Path, Color.Black);
+
+            taskPage.TaskAdvisor_StartComputationEvent();
         }
 
         private void CloseActivePageChildControls(string moduleName)
