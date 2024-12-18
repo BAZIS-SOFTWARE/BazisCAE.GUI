@@ -337,7 +337,6 @@
     <Compile Include="TasksControls\SolverSettingsControl.Designer.cs">
       <DependentUpon>SolverSettingsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="TasksControls\ComputationController.cs" />
     <Compile Include="TasksControls\TimeSettingsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

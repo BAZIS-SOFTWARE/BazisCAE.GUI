@@ -13,7 +13,6 @@ namespace BazisGUI.TasksControls
     public partial class TaskControl : UserControl, ITaskControl
     {
         private GeneralParameters parameters;
-        private string tsFullFileName;
 
         public event Action<string> BtnSave_ClickEvent;
 
@@ -22,11 +21,9 @@ namespace BazisGUI.TasksControls
             InitializeComponent();
         }
 
-        public void InputData(GeneralParameters _parameters, string _tsFullFileName)
+        public void InputData(GeneralParameters _parameters)
         {
             parameters = _parameters;
-
-            tsFullFileName = _tsFullFileName;
 
             if(_parameters is ChemicalParameters cmp)
             {
@@ -112,7 +109,7 @@ namespace BazisGUI.TasksControls
 
                 var parLine = JsonConvert.SerializeObject(parameters, settingsSerializer);
 
-                File.WriteAllText(tsFullFileName, parLine);
+                BtnSave_ClickEvent?.Invoke(parLine);
             }
         }
     }

@@ -47,7 +47,11 @@ namespace BazisGUI.TasksControls
 
         internal void SetSolverSettings(ISolverSettings solverSettings)
         {
-            throw new NotImplementedException();
+            txbPrecision.Text = solverSettings.Precision.ToString();
+            txbRelaxation.Text = solverSettings.Relaxation.ToString();
+            txbSolverIterations.Text = solverSettings.MaxIter.ToString();
+            cmbPriority.Text = solverSettings.Priority;
+            cmbSolver.Text = solverSettings.Solver;
         }
     }
 }

@@ -218,7 +218,6 @@ namespace BazisGUI
             try
             {
                 //activeAdvisor = taskAdv.Name;
-
                 taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent;
                 taskAdv.EditTSFEvent += TaskAdv_EditTSFEvent;
                 taskAdv.AddDataUseTaskConditionsEvent += (ar1,ar2) => { TaskAdv_AddDataUseTaskConditions(taskData, preProc); };
@@ -242,26 +241,67 @@ namespace BazisGUI
 
         private void TaskAdv_EditTSFEvent(object arg1, TasksSet arg2, string arg3)
         {
-            var compController = new ComputationController(GeneralData.Path);
-            var parameters = compController.ReadTaskParametersFromFile(arg3);
+            try
+            {
+                var parameters = ReadTaskParametersFromFile(arg3);
 
-            var cntr = new TaskControl();
-            cntr.InputData(parameters, arg3);
+                var cntr = new TaskControl();
+                cntr.BtnSave_ClickEvent += (arg) =>
+                {
+                    File.WriteAllText(arg3, arg);
+                    BasePage.ConsoleControl.PrintInfo($"Файл {arg3} изменен", Color.Green);
+                };
+                cntr.InputData(parameters);
 
-            var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+                var location = BasePage.ScenePage.PointToScreen(Point.Empty);
 
-            var form = new Form() 
-            { 
-                Text = arg3, 
-                ShowIcon = false,
-                ClientSize = cntr.Size,
-                FormBorderStyle = FormBorderStyle.FixedSingle,
-                Owner = Application.OpenForms[0],
+                var form = new Form()
+                {
+                    Text = arg3,
+                    ShowIcon = false,
+                    ClientSize = cntr.Size,
+                    FormBorderStyle = FormBorderStyle.FixedSingle,
+                    Owner = Application.OpenForms[0],
 
+                };
+                form.Controls.Add(cntr);
+                form.Location = location;
+                form.Show();
+            }
+            catch (Exception ex)
+            {
+                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Green);
+            }
+       
+        }
+
+        public GeneralParameters ReadTaskParametersFromFile(string filePath)
+        {
+            var settingsSerializer = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Newtonsoft.Json.Formatting.Indented
             };
-            form.Controls.Add(cntr);
-            form.Location = location;
-            form.Show();
+
+            var fileName = Path.GetFileNameWithoutExtension(filePath);
+            var taskName = fileName.Split('_')[0];
+
+            TasksSet tasksSet;
+            Enum.TryParse(taskName, out tasksSet);
+
+            if (tasksSet == TasksSet.термическая)
+            {
+                return JsonConvert.DeserializeObject<TermalParameters>
+(File.ReadAllText(filePath), settingsSerializer);
+            }
+            else if (tasksSet == TasksSet.механическая)
+            {
+                return JsonConvert.DeserializeObject<MechanicalParameters>
+(File.ReadAllText(filePath), settingsSerializer);
+            }
+            else return JsonConvert.DeserializeObject<ChemicalParameters>
+(File.ReadAllText(filePath), settingsSerializer);
+
         }
 
         private void TaskAdv_GenerateTCFEvent(object arg1, GenerateTCFEventArgs arg2)

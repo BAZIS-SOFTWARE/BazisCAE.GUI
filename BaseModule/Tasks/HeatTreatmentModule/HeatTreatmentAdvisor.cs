@@ -13,11 +13,6 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             InitializeComponent();
         }
 
-        public override void TaskPlannerControl_StartComputationEvent(object arg1, EventArgs arg2)
-        {
-            base.TaskPlannerControl_StartComputationEvent(arg1, arg2);
-        }
-
 
         public override void Control_ShowDataEvent(object arg1, ShowDataEventArgs arg2)
         {

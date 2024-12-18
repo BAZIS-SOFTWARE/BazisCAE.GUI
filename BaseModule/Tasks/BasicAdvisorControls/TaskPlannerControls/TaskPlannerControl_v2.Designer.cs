@@ -157,7 +157,6 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
             // 
             // StopButton
             // 
-            this.StopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.StopButton.AutoSize = true;
             this.StopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
@@ -173,7 +172,6 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
             // 
             // btnGenTCF
             // 
-            this.btnGenTCF.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGenTCF.AutoSize = true;
             this.btnGenTCF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenTCF.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
@@ -189,7 +187,6 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
             // 
             // StartButton
             // 
-            this.StartButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.StartButton.AutoSize = true;
             this.StartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StartButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
