@@ -6,21 +6,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Geometry;
-using ModelInterfaces;
 using System.Diagnostics;
 using BaseModule.Console;
 using BaseModule.Console.Events;
 using BaseModule.Navigator;
 using ModelControllerInterfaces;
 using System.Threading;
-using ModelInterfaces.MeshObjects;
 using System.ComponentModel;
-using ProjectInterfaces;
 using BaseModule.Utilities;
 using Scene.Interfaces;
 using UserControlsEx;
-using BaseModule;
 using BazisGUI.Utilities;
+using Model.Interfaces;
+using Project.Interfaces;
+using Model.Interfaces.MeshObjects;
 
 namespace BazisGUI
 {

@@ -4,19 +4,15 @@ using BaseModule.CrossSection;
 using BaseModule.Reflect;
 using BazisGUI.Utilities;
 using Geometry;
-using MathNet.Numerics;
-using MathNet.Numerics.LinearAlgebra;
+using Model.Interfaces;
+using Model.Interfaces.GeometryObjects;
+using Model.Interfaces.MeshObjects;
+using Model.MeshObjects;
 using ModelControllerInterfaces;
-using ModelInterfaces;
-using ModelInterfaces.GeometryObjects;
-using ModelInterfaces.MeshObjects;
-using Newtonsoft.Json.Linq;
-using ProjectInterfaces;
-using Scene;
+using Project.Interfaces;
 using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -374,9 +370,9 @@ namespace BazisGUI
 
                         if (selObjs?.Count() > 2)
                         {
-                            var n1 = (INode)selObjs.First();
-                            var n2 = (INode)selObjs.Skip(1).First();
-                            var n3 = (INode)selObjs.Skip(2).First();
+                            var n1 = (Node)selObjs.First();
+                            var n2 = (Node)selObjs.Skip(1).First();
+                            var n3 = (Node)selObjs.Skip(2).First();
 
                             var plane = new Geometry.Plane(n1.Position, n2.Position, n3.Position);
                             ModelController.SelectionHelper.SelectNodeInPlane(ModelData.ObjectData,

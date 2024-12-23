@@ -1,11 +1,11 @@
-﻿using ModelInterfaces;
-using ProjectInterfaces.Tasks;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
 using System;
 using TaskModule.BasicTaskAdvisor;
 using BaseModule.Tasks.WeldingModule;
+using Project.Interfaces.Tasks;
+using Model.Interfaces;
 
 namespace BazisGUI
 {
@@ -25,7 +25,7 @@ namespace BazisGUI
             taskAdv.SpecifyWeldingZoneEvent += (ar1, ar2) =>
             { TaskAdv_SpecifyWeldingZone(ar1, ar2); };
 
-            ProcessType = ProcessType.Welding;
+            ProcessType = PreProc.Interfaces.ProcessType.Welding;
 
             SetAdvisor(taskAdv);
         }

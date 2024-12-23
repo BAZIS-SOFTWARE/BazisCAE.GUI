@@ -150,7 +150,7 @@ namespace BazisGUI
             this.scenePage.Location = new System.Drawing.Point(0, 0);
             this.scenePage.Margin = new System.Windows.Forms.Padding(0);
             this.scenePage.Name = "scenePage";
-            this.scenePage.SelectedObjects = ModelInterfaces.ObjType.Объект;
+            this.scenePage.SelectedObjects = Model.Interfaces.ObjType.Объект;
             this.scenePage.Size = new System.Drawing.Size(995, 428);
             this.scenePage.TabIndex = 0;
             this.scenePage.MeshGroupCreatedEvent += new System.Action<object, string>(this.scenePage_CreateMeshGroupEvent);

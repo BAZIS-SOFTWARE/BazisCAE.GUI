@@ -6,12 +6,14 @@ using BasicControls.OpenFileDialogEx;
 using BazisGUI.Utilities;
 using Geometry;
 using Gif.Components;
+using Model.Interfaces;
+using Model.Interfaces.MeshObjects;
 using ModelControllerInterfaces;
-using ModelInterfaces;
-using ModelInterfaces.MeshObjects;
-using ProjectInterfaces;
-using ProjectInterfaces.Results;
-using ProjectInterfaces.Tasks;
+using PostProc;
+using PostProc.ScenePresenter;
+using Project.Interfaces;
+using Project.Interfaces.Tasks;
+using Project.Results;
 using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -21,8 +23,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UserControlsEx.Graph;
-using static BaseModule.Interfaces.GeneralParams;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
@@ -36,7 +36,7 @@ namespace BazisGUI
         private bool showScale = true;
         public bool IsScaleMaxMinManual { get; set; } = false;
 
-        IResultsController resultsController;
+        IPostProcController resultsController;
 
         IResultData resultData;
 
@@ -52,7 +52,7 @@ namespace BazisGUI
             get { return ModelController.ModelData; }
         }
 
-        public void SetResultsController(IResultsController resultsController)
+        public void SetResultsController(IPostProcController resultsController)
         {
             this.resultsController = resultsController;
         }
@@ -218,11 +218,11 @@ namespace BazisGUI
                 PresentResultsOnTree(res);
             };
 
-            var resDic = CreateResultsDic();
+            //var resDic = CreateResultsDic();
 
-            animationPage.SetResultsItems(resDic);
-            if (resDic.Count != 0)
-                animationPage.ShowResultsTimeSteps(resDic.First().Key);
+            //animationPage.SetResultsItems(resDic);
+            //if (resDic.Count != 0)
+            //    animationPage.ShowResultsTimeSteps(resDic.First().Key);
         }
 
         public void ShowAnimation()
@@ -339,7 +339,7 @@ namespace BazisGUI
             LoadResultsEvent?.Invoke(this,openDialogEx.OpenDialog.FileName, openDialogEx.MergeResults, addRes);
         }     
 
-        private void ShowResults(IResult result, int scaleFactor)
+        private void ShowResults(Result result, int scaleFactor)
         {
             try
             {
@@ -635,9 +635,9 @@ namespace BazisGUI
             }
         }
 
-        public async Task<List<IResult>> LoadResultsAsync(string fileName, IResultData resultData)
+        public async Task<List<Result>> LoadResultsAsync(string fileName, IResultData resultData)
         {
-            var res = new List<IResult>();
+            var res = new List<Result>();
             await Task.Run(new Action(() =>
             {
 
@@ -871,7 +871,7 @@ namespace BazisGUI
             catch (Exception ex) { BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red); }
         }
 
-        private void ExportGrid(IResult result, ExportResultEventArgs args)
+        private void ExportGrid(Result result, ExportResultEventArgs args)
         {
             try
             {

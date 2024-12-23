@@ -1,10 +1,6 @@
-﻿using BaseModule.Tasks;
-using BaseModule.Tasks.HeatTreatmentModule;
-using BaseModule.Tasks.WeldingModule;
-using ProjectInterfaces.Tasks;
-using System.Windows.Forms;
+﻿using BaseModule.Tasks.HeatTreatmentModule;
+using PreProc.Interfaces;
 using TaskModule.BasicTaskAdvisor;
-using TaskModule.WeldingModule;
 
 namespace BazisGUI
 {

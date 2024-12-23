@@ -10,21 +10,20 @@ using System.IO;
 using TaskModule.BasicTaskAdvisor;
 using Newtonsoft.Json;
 using Geometry;
-using ProjectInterfaces.Tasks;
-using ModelInterfaces;
 using BaseModule.Utilities;
 using ModelControllerInterfaces;
-using ProjectInterfaces;
 using System.Text.RegularExpressions;
 using PropertiesCalculator.MaterialData;
 using PropertiesCalculator.FunctionData;
 using PropertiesDataBases.DataBases;
 using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
 using BaseModule.Tasks.BasicAdvisorControls.Events;
-using TasksParameters;
-using System.Security.Cryptography;
 using BazisGUI.TasksControls;
-using Tasks;
+using Project.Interfaces;
+using PreProc.Interfaces;
+using PreProc;
+using Project.Interfaces.Tasks;
+using Model.Interfaces;
 
 namespace BazisGUI
 {
@@ -35,11 +34,11 @@ namespace BazisGUI
 
         IGeneralData GeneralData { get { return BasePage.GetGeneralData(); } }
 
-        PreProc preProc;
+        PreProc.PreProc preProc;
 
         private protected ITaskData taskData;
 
-        public void SetPreProc(PreProc preProc)
+        public void SetPreProc(PreProc.PreProc preProc)
         {
             this.preProc = preProc;
         }

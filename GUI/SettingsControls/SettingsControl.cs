@@ -3,9 +3,6 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.IO;
 using System.Drawing;
-using ModelInterfaces;
-using BaseModule;
-using Scene.Interfaces;
 
 namespace BazisGUI.SettingsControls
 {

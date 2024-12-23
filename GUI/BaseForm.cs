@@ -1,6 +1,4 @@
-﻿
-using BaseModule;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Project;
 using System;
 using System.Collections.Generic;
@@ -16,33 +14,17 @@ using ClientLogic;
 using LicenseInfo;
 using ClientGUI;
 using BazisGUI.SettingsControls;
-using Tasks;
-using Results.IO;
-using GmshApi.GmshController;
-using Results;
 using MathNet.Numerics.LinearAlgebra;
-using ProjectInterfaces.Tasks;
 using UserControlsEx;
 using BazisGUI.Properties;
-using System.Xml.Linq;
-using ModelInterfaces;
-using Results.ResultsData;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using BaseModule.Utilities;
-using ModelController;
 using Scene.Interfaces;
-using Scene;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using BaseModule.Tasks.WeldingModule;
-using TaskModule.HeatTreatmentModule;
-using BaseModule.Results;
-using BaseModule.Tasks;
 using BaseModule.Results.Animation;
-using System.Runtime.InteropServices.ComTypes;
-using BaseModule.Mesh;
-using Model;
+using GmshApi.GmshController;
+using PostProc;
+using Model.Interfaces;
+using PreProc.Interfaces;
+using Project.Results.IO;
 
 namespace BazisGUI
 {
@@ -56,8 +38,8 @@ namespace BazisGUI
         ModelController.ModelController modelController;
         GmshController gmshController;
         IODataController dataController = new IODataController();
-        ResultsController resultsController = new ResultsController();
-        PreProc preProc = new PreProc();
+        PostProcController resultsController = new PostProcController();
+        PreProc.PreProc preProc = new PreProc.PreProc();
         ClientController serverConnection;
 
         public ToolStripPage ModulePage
@@ -85,7 +67,8 @@ namespace BazisGUI
             Transparency = false,
             Lighting = true,
             BackRibbers = false,
-            Projection = false
+            Projection = false,
+            SolverPath = "?"
         };
 
         private Thread serverConnectionPing;
@@ -680,6 +663,9 @@ namespace BazisGUI
                 form.ClientSize = settings.Size;
                 form.Controls.Add(settings);
                 form.Show();
+
+                var location = ModulePage.BasePage.ScenePage.PointToScreen(Point.Empty);
+                form.Location = location;
             }
 
             if (ModulePage != null)

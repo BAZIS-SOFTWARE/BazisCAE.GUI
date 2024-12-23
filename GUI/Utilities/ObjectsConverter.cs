@@ -1,4 +1,4 @@
-﻿using ModelInterfaces;
+﻿using Model.Interfaces;
 using System;
 using static BaseModule.Interfaces.GeneralParams;
 

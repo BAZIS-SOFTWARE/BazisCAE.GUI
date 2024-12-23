@@ -2,23 +2,17 @@
 using BazisGUI.SettingsControls;
 using GmshApi.GmshController;
 using Model;
+using Model.Interfaces;
 using Model.IO;
-using ModelInterfaces;
 using Newtonsoft.Json;
 using Project;
 using Project.IO;
-using ProjectInterfaces;
+using Project.Tasks;
 using Results.ResultsData;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace BazisGUI
 {

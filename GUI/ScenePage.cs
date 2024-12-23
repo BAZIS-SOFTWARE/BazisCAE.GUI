@@ -1,9 +1,9 @@
 ﻿using BaseModule.Console;
 using Geometry;
 using Model;
+using Model.Interfaces;
+using Model.Interfaces.GeometryObjects;
 using ModelControllerInterfaces;
-using ModelInterfaces;
-using ModelInterfaces.GeometryObjects;
 using Scene;
 using Scene.Interfaces;
 using System;
