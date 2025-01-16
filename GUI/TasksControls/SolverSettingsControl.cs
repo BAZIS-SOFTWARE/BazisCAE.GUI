@@ -1,5 +1,6 @@
 ﻿using PreProc;
 using PreProc.Interfaces;
+using Project.TaskParameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace BazisGUI.TasksControls
       
         }
 
-        internal void SetSolverSettings(ISolverSettings solverSettings)
+        internal void SetSolverSettings(SolverSettings solverSettings)
         {
             txbPrecision.Text = solverSettings.Precision.ToString();
             txbRelaxation.Text = solverSettings.Relaxation.ToString();

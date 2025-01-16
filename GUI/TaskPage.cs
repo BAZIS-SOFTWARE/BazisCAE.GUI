@@ -24,6 +24,7 @@ using PreProc.Interfaces;
 using PreProc;
 using Project.Interfaces.Tasks;
 using Model.Interfaces;
+using Project.TaskParameters;
 
 namespace BazisGUI
 {

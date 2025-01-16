@@ -1,5 +1,6 @@
 ﻿using PreProc;
 using PreProc.Interfaces;
+using Project.TaskParameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace BazisGUI.TasksControls
             InitializeComponent();
         }
 
-        public void SetTimeSettings(ITimeSettings timeSettings)
+        public void SetTimeSettings(TimeSettings timeSettings)
         {
             txbStartStep.Text = timeSettings.InitTimeStep.ToString();
             txbMaxStep.Text = timeSettings.MaxTimeStep.ToString();
