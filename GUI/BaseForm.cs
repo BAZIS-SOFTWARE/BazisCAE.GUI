@@ -664,7 +664,8 @@ namespace BazisGUI
                 form.Controls.Add(settings);
                 form.Show();
 
-                var location = ModulePage.BasePage.ScenePage.PointToScreen(Point.Empty);
+                var scenePage = ModulePage?.BasePage?.ScenePage;
+                var location = scenePage == null ? new Point() :  scenePage.PointToScreen(Point.Empty);
                 form.Location = location;
             }
 
@@ -684,17 +685,17 @@ namespace BazisGUI
 
             settings.SetNodeColorEvent += (ar) => { 
                 scenePage.NodeColor = ar;
-                scenePage.SetObjectsSceneColor(ObjType.Узел);
+                scenePage.SetObjectsSceneAttribute(ObjType.Узел, "цвет");
                 scenePage.SceneControl.DisplayObjects();
             };
             settings.Set2DElemColorEvent += (ar) => { 
                 scenePage.E2DColor = ar;
-                scenePage.SetObjectsSceneColor(ObjType.Элемент2D);
+                scenePage.SetObjectsSceneAttribute(ObjType.Элемент2D, "цвет");
                 scenePage.SceneControl.DisplayObjects();
             };
             settings.Set3DElemColorEvent += (ar) => { 
                 scenePage.E3DColor = ar;
-                scenePage.SetObjectsSceneColor(ObjType.Элемент3D);
+                scenePage.SetObjectsSceneAttribute(ObjType.Элемент3D, "цвет");
                 scenePage.SceneControl.DisplayObjects();
             };
 
@@ -1224,6 +1225,25 @@ namespace BazisGUI
         {
             var module = (ModelPage)ModulePage;
             module.CreateSurfaceElements(ObjType.Элемент1D);
+        }
+
+        private async void экспортСеткиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var res = await dataController.ExportMesh(project.ModelData);
+
+                if (res == null)
+                    return;
+
+                var console = ModulePage.BasePage.ConsoleControl;
+                console.PrintInfo(res, Color.Green);
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
+            }
         }
     }
 }

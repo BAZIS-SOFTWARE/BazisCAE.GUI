@@ -36,10 +36,10 @@ namespace BazisGUI
             this.components = new System.ComponentModel.Container();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.splitContainer1 = new UserControlsEx.SplitContainerEx();
+            this.navigator = new BaseModule.Navigator.NavigatorControl();
             this.splitContainer2 = new UserControlsEx.SplitContainerEx();
-            this.navigator = new global::BaseModule.Navigator.NavigatorControl();
-            this.scenePage = new ScenePage();
-            this.consoleControl = new global::BaseModule.Console.ConsoleControl();
+            this.scenePage = new BazisGUI.ScenePage();
+            this.consoleControl = new BaseModule.Console.ConsoleControl();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -80,29 +80,6 @@ namespace BazisGUI
             this.splitContainer1.TabIndex = 1;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.IncrementButtonSize = new System.Drawing.Size(50, 11);
-            this.splitContainer2.IncrementShifting = 50;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.scenePage);
-            this.splitContainer2.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
-            this.splitContainer2.Size = new System.Drawing.Size(995, 643);
-            this.splitContainer2.SplitterDistance = 429;
-            this.splitContainer2.SplitterWidth = 6;
-            this.splitContainer2.SwitchShifting = false;
-            this.splitContainer2.TabIndex = 0;
-            // 
             // navigator
             // 
             this.navigator.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -134,10 +111,33 @@ namespace BazisGUI
             this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
             this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
             this.navigator.ShowObjectsEvent += new System.Action<string>(this.navigator_ShowObjectsEvent);
-            this.navigator.ChangeObjectsViewEvent += new System.Action<string, global::BaseModule.Navigator.ViewRegime>(this.navigator_ChangeViewModeEventHandler);
+            this.navigator.ChangeObjectsViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeViewModeEventHandler);
             this.navigator.HideObjectsEvent += new System.Action<string>(this.navigator_HideObjectsEvent);
             this.navigator.DelObjectsEvent += new System.Action<string>(this.navigator_DelObjectsEvent);
             this.navigator.ControlCollapseEvent += new System.Action(this.navigator_NavigatorPanelCollapseEvent);
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.IncrementButtonSize = new System.Drawing.Size(50, 11);
+            this.splitContainer2.IncrementShifting = 50;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.scenePage);
+            this.splitContainer2.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
+            this.splitContainer2.Size = new System.Drawing.Size(995, 643);
+            this.splitContainer2.SplitterDistance = 429;
+            this.splitContainer2.SplitterWidth = 6;
+            this.splitContainer2.SwitchShifting = false;
+            this.splitContainer2.TabIndex = 0;
             // 
             // scenePage
             // 
@@ -153,6 +153,7 @@ namespace BazisGUI
             this.scenePage.SelectedObjects = Model.Interfaces.ObjType.Объект;
             this.scenePage.Size = new System.Drawing.Size(995, 428);
             this.scenePage.TabIndex = 0;
+            this.scenePage.TransparencyValue = 0;
             this.scenePage.MeshGroupCreatedEvent += new System.Action<object, string>(this.scenePage_CreateMeshGroupEvent);
             this.scenePage.SceneInfoEvent += new System.Action<object, string, System.Drawing.Color>(this.scenePage_SceneInfoEvent);
             this.scenePage.ShowAllObjectsEvent += new System.Action<object>(this.scenePage_ShowAllObjectsEvent);
@@ -179,7 +180,9 @@ namespace BazisGUI
             this.consoleControl.ControlCollapseEvent += new System.Action(this.consoleControl_ConsolePanelCollapseEvent);
             this.consoleControl.InEvent += new System.Action<object, System.EventArgs>(this.ConsoleControl_InEvent);
             this.consoleControl.FindFreeNodesEvent += new System.Action(this.consoleControl_FindFreeNodesEvent);
-            this.consoleControl.RenumberMeshEvent += new System.Action<object, global::BaseModule.Console.Events.ModelRenumberEventArgs>(this.consoleControl_RenumberMeshEvent);
+            this.consoleControl.RenumberMeshEvent += new System.Action<object, BaseModule.Console.Events.ModelRenumberEventArgs>(this.ConsoleControl_RenumberMeshEvent);
+            this.consoleControl.ModelShiftCoordinateEvent += new System.Action<object, BaseModule.Console.Events.ModelShiftCoordinateEventArgs>(this.ConsoleControl_ModelShiftCoordinateEvent);
+            this.consoleControl.ModelRotateEvent += new System.Action<object, BaseModule.Console.ModelRotateEventArgs>(this.ConsoleControl_ModelRotateEvent);
             // 
             // BasePage
             // 

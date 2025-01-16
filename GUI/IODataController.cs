@@ -169,7 +169,7 @@ namespace BazisGUI
                 project.ModelData.Loader = new LoadModelFromASCIITextFile();
             else if (ext == ".dat")
                 project.ModelData.Loader = new LoadModelFromSalomeFile();
-            else if (ext == ".STL")
+            else if (ext == ".STL" | ext == ".stl")
                 project.ModelData.Loader = new LoadModelFromSTLFile();
             else
                 project.ModelData.Loader = new LoadModelFromCDBTextFile();
@@ -178,6 +178,29 @@ namespace BazisGUI
 
             project.GeneralData.Name = "новый_проект.bpf";
             return project;
+        }
+
+        public async Task<string> ExportMesh(IModelData modelData)
+        {
+
+            var filter =
+"All files(*.*)|*.*|" +
+"STL(*.stl*)|*.stl";
+
+            var dialog = new SaveFileDialog();
+            dialog.Filter = filter;
+            if (dialog.ShowDialog() == DialogResult.Cancel)
+                return null;
+
+            var ext = Path.GetExtension(dialog.FileName);
+
+            if (ext == ".STL" | ext == ".stl")
+            {
+                var saver = new SaveModelToTxtSTLFile();
+                saver.Save(modelData, dialog.FileName);
+            }
+
+            return dialog.FileName;
         }
 
         public async Task LoadProjectAsync(ProjectData project)

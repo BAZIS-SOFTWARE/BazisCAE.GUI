@@ -94,6 +94,7 @@
       <DependentUpon>ConsoleControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Console\FindObjectEventArgs.cs" />
+    <Compile Include="Console\ModelRotateEventArgs.cs" />
     <Compile Include="Interfaces\GeneralParams.cs" />
     <Compile Include="Interfaces\IPinnedControl.cs" />
     <Compile Include="Mesh\CurveAttribsEventArgs.cs" />

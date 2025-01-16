@@ -289,7 +289,7 @@ namespace BazisGUI
                             foreach (var _object in objects)
                                 _object.SetBackColor();
 
-                            scenePage.SetObjectsSceneColor(scenePage.SelectedObjects);
+                            scenePage.SetObjectsSceneAttribute(scenePage.SelectedObjects, "цвет");
 
                             scenePage.SceneControl.DisplayObjects();
 
@@ -377,7 +377,7 @@ namespace BazisGUI
                             var plane = new Geometry.Plane(n1.Position, n2.Position, n3.Position);
                             ModelController.SelectionHelper.SelectNodeInPlane(ModelData.ObjectData,
                                 plane, scenePage.SceneControl.SelectionColor);
-                            scenePage.SetObjectsSceneColor(ObjType.Узел);
+                            scenePage.SetObjectsSceneAttribute(ObjType.Узел, "цвет");
                         }
                         else consoleControl.PrintInfo("Не выбрано три узла", Color.Red);
 
@@ -389,7 +389,7 @@ namespace BazisGUI
                             var element = selObjs.Last();
                             ModelController.SelectionHelper.SelectE2DInPlane(ModelData.ObjectData,
                                 arg2.Angle, element.Number, scenePage.SceneControl.SelectionColor);
-                            scenePage.SetObjectsSceneColor(ObjType.Элемент2D);
+                            scenePage.SetObjectsSceneAttribute(ObjType.Элемент2D, "цвет");
                         }
                         else consoleControl.PrintInfo("Выберите хотя бы один элемент", Color.Red);
                     }
@@ -433,7 +433,7 @@ namespace BazisGUI
                         }
 
                         //selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
-                        scenePage.SetObjectsSceneColor(scenePage.SelectedObjects);
+                        scenePage.SetObjectsSceneAttribute(scenePage.SelectedObjects, "цвет");
 
                         scenePage.SceneControl.DisplayObjects();
                     }

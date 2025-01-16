@@ -60,19 +60,20 @@ namespace TestGUI
 
             var a = new Actions(wd);
             //click 2D
-            a.MoveByOffset(-450, -440).Click().Build().Perform();
+            var click_2D = wd.FindElement(By.Name("2D"));
+            click_2D.Click();
 
             //click triangle
-            var b = new Actions(wd);
-            b.MoveByOffset(100, 120).Click().Build().Perform();
-            
+            var click_triangle = wd.FindElement(By.Name("Треугольная сетка"));
+            click_triangle.Click();
+
             //click 3D
-            a = new Actions(wd);
-            a.MoveByOffset(-80, -120).Click().Build().Perform();
+            var click_3D = wd.FindElement(By.Name("3D"));
+            click_3D.Click();
 
             //click tetra
-            a = new Actions(wd);
-            a.MoveByOffset(0, 65).Click().Build().Perform();
+            var click_tetra = wd.FindElement(By.Name("Сгенерировать"));
+            click_tetra.Click();
 
             Thread.Sleep(3000);
             TaskModuleTests.SwithModule(wd, moduls, "Сварка");

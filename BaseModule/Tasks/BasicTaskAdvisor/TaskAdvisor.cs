@@ -145,7 +145,7 @@ namespace TaskModule.BasicTaskAdvisor
             }
         }
 
-        public void SetLoadGroups(List<string> eGrpsNames, List<string> nGrpsNames)
+        public void SetLoadGroups(List<string> nGrpsNames,List<string> eGrpsNames)
         {
             foreach (TabPage tabPage in tabControl.Controls)
             {
@@ -161,7 +161,7 @@ namespace TaskModule.BasicTaskAdvisor
             }
         }
 
-        public void SetBoundaryGroups(List<string> eGrpsNames, List<string> nGrpsNames)
+        public void SetBoundaryGroups(List<string> nGrpsNames,List<string> eGrpsNames)
         {
             foreach (TabPage tabPage in tabControl.Controls)
             {

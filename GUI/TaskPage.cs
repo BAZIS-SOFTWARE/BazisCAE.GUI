@@ -698,7 +698,7 @@ namespace BazisGUI
                         DisplayDirection(data[index].StartTime, data[index], iobj);
                 }
 
-                scenePage.SetObjectsSceneColor(group.ObjType);
+                scenePage.SetObjectsSceneAttribute(group.ObjType, "цвет");
 
                 //SetVBObjColor(group.ObjType);
 
@@ -799,7 +799,7 @@ namespace BazisGUI
                                 DisplayDirection(arg2.Time, data, iobj);
                         }
 
-                        scenePage.SetObjectsSceneColor(group.ObjType);
+                        scenePage.SetObjectsSceneAttribute(group.ObjType, "цвет");
 
                         scenePage.SceneControl.DisplayObjects();
                     }

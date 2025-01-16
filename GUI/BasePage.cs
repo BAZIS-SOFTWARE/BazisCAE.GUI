@@ -20,6 +20,9 @@ using BazisGUI.Utilities;
 using Model.Interfaces;
 using Project.Interfaces;
 using Model.Interfaces.MeshObjects;
+using Model;
+using System.Data.Odbc;
+using Scene;
 
 namespace BazisGUI
 {
@@ -513,7 +516,7 @@ namespace BazisGUI
             foreach (var iobj in group)
                 iobj.MasterColor = scenePage.SceneControl.SelectionColor;
 
-            scenePage.SetObjectsSceneColor(scenePage.SelectedObjects);
+            scenePage.SetObjectsSceneAttribute(scenePage.SelectedObjects, "цвет");
 
             scenePage.SceneControl.DisplayObjects();
 
@@ -701,7 +704,7 @@ namespace BazisGUI
                 foreach (var iobj in group)
                     iobj.MasterColor = SelectionGroupColor;
 
-                scenePage.SetObjectsSceneColor(group.ObjType);
+                scenePage.SetObjectsSceneAttribute(group.ObjType, "цвет");
 
                 scenePage.SceneControl.DisplayObjects();
             }
@@ -866,9 +869,38 @@ namespace BazisGUI
             splitContainer2.Panel2Collapsed = false;
         }
 
-        private void consoleControl_RenumberMeshEvent(object arg1, ModelRenumberEventArgs arg2)
+        private void ConsoleControl_RenumberMeshEvent(object arg1, ModelRenumberEventArgs arg2)
         {
             ModelController.ObjectsRenumber.Renumber(ModelData.ObjectData, ObjectsConverter.ConvertToObjsType(arg2.ObjsType));
+        }
+
+        private void ConsoleControl_ModelShiftCoordinateEvent(object arg1, ModelShiftCoordinateEventArgs arg2)
+        {
+            ModelData.ObjectData.Move(ObjType.Узел, new Point3D(arg2.X, arg2.Y, arg2.Z));
+
+            ScenePage.SceneControl.HideAllGeometryObjs();
+            ScenePage.SceneControl.HideDisplayText2D();
+            ScenePage.SceneControl.HideDisplayText3D();
+
+            foreach (var item in ModelData.ObjectData.ObjsTypes)
+                ScenePage.SetObjectsSceneAttribute(item, "координаты");
+            
+            ScenePage.SceneControl.DisplayObjects();
+        }
+
+        private void ConsoleControl_ModelRotateEvent(object arg1, ModelRotateEventArgs arg2)
+        {
+            var axis = new Point3D(arg2.Axis.X, arg2.Axis.Y, arg2.Axis.Z);
+            ModelData.ObjectData.Rotate(ObjType.Узел, axis,arg2.Angle);
+
+            ScenePage.SceneControl.HideAllGeometryObjs();
+            ScenePage.SceneControl.HideDisplayText2D();
+            ScenePage.SceneControl.HideDisplayText3D();
+
+            foreach (var item in ModelData.ObjectData.ObjsTypes)
+                ScenePage.SetObjectsSceneAttribute(item, "координаты");
+
+            ScenePage.SceneControl.DisplayObjects();
         }
     }
 }

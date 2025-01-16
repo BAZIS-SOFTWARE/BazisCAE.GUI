@@ -189,7 +189,7 @@ namespace BazisGUI
             {
                 foreach (var obj in ModelData.ObjectData.GetObjects(item))
                     obj.SetBackColor();
-                SetObjectsSceneColor(item);
+                SetObjectsSceneAttribute(item, "цвет");
             }
 
         }
@@ -206,27 +206,27 @@ namespace BazisGUI
                 {
                     var types = ModelData.ObjectData.ObjsTypes;
                     foreach (var type in types)
-                        SetObjectsSceneColor(type);
+                        SetObjectsSceneAttribute(type, "цвет");
                 }
                 else if (SelectedObjects == ObjType.Элемент)
                 {
-                    SetObjectsSceneColor(ObjType.Элемент1D);
-                    SetObjectsSceneColor(ObjType.Элемент2D);
-                    SetObjectsSceneColor(ObjType.Элемент3D);
+                    SetObjectsSceneAttribute(ObjType.Элемент1D, "цвет");
+                    SetObjectsSceneAttribute(ObjType.Элемент2D, "цвет");
+                    SetObjectsSceneAttribute(ObjType.Элемент3D, "цвет");
                 }
                 else if (SelectedObjects == ObjType.Фигура)
                 {
-                    SetObjectsSceneColor(ObjType.Фигура2D);
-                    SetObjectsSceneColor(ObjType.Фигура3D);
+                    SetObjectsSceneAttribute(ObjType.Фигура2D, "цвет");
+                    SetObjectsSceneAttribute(ObjType.Фигура3D, "цвет");
                 }
                 else
-                    SetObjectsSceneColor(SelectedObjects);
+                    SetObjectsSceneAttribute(SelectedObjects, "цвет");
 
                 sceneControl.DisplayObjects();
             }
         }
 
-        public void SetObjectsSceneColor(ObjType objsType)
+        public void SetObjectsSceneAttribute(ObjType objsType, string attribName)
         {
             var objName = objsType.ToString();
             var vboObjs = sceneControl.FindVBObj(objName);
@@ -237,8 +237,16 @@ namespace BazisGUI
 
                 if (objsPresenter.Count() > 0)
                 {
-                    var colors = objsPresenter.CreateVertexes(vboObjs.ColorLength, "цвет");
-                    vboObjs.PointsColors = colors;
+                    if(attribName == "цвет")
+                    {
+                        var colors = objsPresenter.CreateVertexes(vboObjs.ColorLength, "цвет");
+                        vboObjs.PointsColors = colors;
+                    }
+                    else
+                    {
+                        var coords = objsPresenter.CreateVertexes(vboObjs.CoordLength, "координаты");
+                        vboObjs.PointsCoords = coords;
+                    }
                 }
             }
         }
@@ -375,7 +383,7 @@ namespace BazisGUI
                     foreach (var selObj in selObjs)
                         selObj.SetBackColor();
 
-                    SetObjectsSceneColor(SelectedObjects);
+                    SetObjectsSceneAttribute(SelectedObjects, "цвет");
 
                     sceneControl.DisplayObjects();
 

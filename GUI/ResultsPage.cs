@@ -217,12 +217,6 @@ namespace BazisGUI
                 var res = resultData.FindByTaskKind(ar1);
                 PresentResultsOnTree(res);
             };
-
-            //var resDic = CreateResultsDic();
-
-            //animationPage.SetResultsItems(resDic);
-            //if (resDic.Count != 0)
-            //    animationPage.ShowResultsTimeSteps(resDic.First().Key);
         }
 
         public void ShowAnimation()
@@ -231,6 +225,12 @@ namespace BazisGUI
 
             EmbeddedSplitContainer.SplitterDistance = EmbeddedSplitContainer.Panel1.Width - anPage.Width;         
             EmbeddedSplitContainer.Panel2Collapsed = false;
+
+            var resDic = CreateResultsDic();
+
+            anPage.AnimationPage.SetResultsItems(resDic);
+            if (resDic.Count != 0)
+                anPage.AnimationPage.ShowResultsTimeSteps(resDic.First().Key);
         }
 
         public Dictionary<string, List<float>> CreateResultsDic()

@@ -27,7 +27,7 @@ namespace BaseModule.Console
         RenumberMesh,
         ChangeView,
         FindFreeNodes,
-        ChangeModelCoordinates,
+        ChangeMeshCoordinates,
         ChangeObjCoordinates,
         FindCoincident,
         FindObject
@@ -71,6 +71,8 @@ namespace BaseModule.Console
         public event Action FindFreeNodesEvent;
         public event Action ControlUnpinnedEvent;
         public event Action<object, ModelRenumberEventArgs> RenumberMeshEvent;
+        public event Action<object, ModelShiftCoordinateEventArgs> ModelShiftCoordinateEvent;
+        public event Action<object, ModelRotateEventArgs> ModelRotateEvent;
 
         int SessionNumber
         {
@@ -85,7 +87,7 @@ namespace BaseModule.Console
             { "Новый проект",GenCmd.NewProject},
             { "Рассчитать проект",GenCmd.SolveProject},
             { "Перенумерация сетки",GenCmd.RenumberMesh},
-            { "Изменить координаты модели",GenCmd.ChangeModelCoordinates},
+            { "Изменить координаты сетки",GenCmd.ChangeMeshCoordinates},
             { "Изменить координаты объекта",GenCmd.ChangeObjCoordinates},
             { "Изменить вид",GenCmd.ChangeView},
             { "Найти свободные узлы",GenCmd.FindFreeNodes},
@@ -94,21 +96,21 @@ namespace BaseModule.Console
             { "Выход",GenCmd.Exit }
         };
 
-        Dictionary<string, GeomCmd> geomCmds = new Dictionary<string, GeomCmd>()
-        {
-            { "Переместить",GeomCmd.Move},
-            { "Повернуть",GeomCmd.Rotate},
-            { "Масштабировать",GeomCmd.Scale}
-        };
+        //Dictionary<string, GeomCmd> geomCmds = new Dictionary<string, GeomCmd>()
+        //{
+        //    { "Переместить",GeomCmd.Move},
+        //    { "Повернуть",GeomCmd.Rotate},
+        //    { "Масштабировать",GeomCmd.Scale}
+        //};
 
-        Dictionary<string, AtribCmd> atribCmds = new Dictionary<string, AtribCmd>()
-        {
-            { "Вектор",AtribCmd.Vector},
-            { "Угол",AtribCmd.Angle},
-            { "Фактор",AtribCmd.Factor},
-            { "Путь",AtribCmd.Path},
-            { "Номер",AtribCmd.Path},
-        };
+        //Dictionary<string, AtribCmd> atribCmds = new Dictionary<string, AtribCmd>()
+        //{
+        //    { "Вектор",AtribCmd.Vector},
+        //    { "Угол",AtribCmd.Angle},
+        //    { "Фактор",AtribCmd.Factor},
+        //    { "Путь",AtribCmd.Path},
+        //    { "Номер",AtribCmd.Path},
+        //};
 
         private Thread trd;
 
@@ -243,7 +245,8 @@ namespace BaseModule.Console
             var cmds = FieldsParser.ParseLine(line);
             if (cmds.Count != 0)
             {
-                if (!this.genCmds.ContainsKey(cmds[0])) throw new Exception("Не является командой");
+                if (!this.genCmds.ContainsKey(cmds[0])) 
+                    throw new Exception("Не является командой");
 
                 switch (genCmds[cmds[0]])
                 {
@@ -267,8 +270,11 @@ namespace BaseModule.Console
                     case GenCmd.RenumberMesh:
                         RenumberMeshEvent?.Invoke(this, new ModelRenumberEventArgs(cmds[1]));
                         break;
-                    case GenCmd.ChangeModelCoordinates:
-                        InEvent(this, new ModelShiftCoordinateEventArgs(cmds[2]));
+                    case GenCmd.ChangeMeshCoordinates:
+                        if(cmds[1] == "Переместить")
+                            ModelShiftCoordinateEvent?.Invoke(this, new ModelShiftCoordinateEventArgs(cmds[2]));
+                        else
+                            ModelRotateEvent?.Invoke(this, new ModelRotateEventArgs(cmds[2]));
                         break;
                     case GenCmd.FindFreeNodes:
                         FindFreeNodesEvent?.Invoke();

@@ -687,7 +687,7 @@ namespace BazisGUI
             var scenePage = BasePage.ScenePage;
             foreach (var item in ModelData.ObjectData.GetObjects(objType))
                 item.SetBackColor();
-            scenePage.SetObjectsSceneColor(ObjType.Линия);
+            scenePage.SetObjectsSceneAttribute(ObjType.Линия, "цвет");
         }
 
         private void ShowObjects(Objects objects, List<int> objNumbers)
@@ -703,7 +703,7 @@ namespace BazisGUI
     = scenePage.SceneControl.SelectionColor;
                 }
 
-                scenePage.SetObjectsSceneColor(objType);
+                scenePage.SetObjectsSceneAttribute(objType, "цвет");
                 scenePage.SceneControl.DisplayObjects();
             }
             catch (Exception ex)

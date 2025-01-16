@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Interactions;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using System.Formats.Tar;
 
 namespace TestGUI
 {
@@ -303,6 +304,43 @@ namespace TestGUI
 
             //возврат лицензии на модуль сварка
             TaskModuleTests.SwithModule(wd, moduls, "Сварка");
+
+            Thread.Sleep(3000);
+            wd.CloseApp();
+        }
+
+        [Test(Description = "Тест контрола настроек")]
+        [TestCase(@"c:\BazisComponents\WeldingCADMerge\model7v3.stp","Сварка", TestName = "Открыть около сцены")]
+        [TestCase(@"c:\BazisComponents\WeldingCADMerge\model7v3.stp", "", TestName = "Открыть в верхнем левом углу")]
+        public void GeneralSettingsTest(string filePath, string module)
+        {
+            WindowsDriver<WindowsElement> wd;
+
+            var opt = new AppiumOptions();
+
+            opt.AddAdditionalCapability("app", @"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe");
+            opt.AddAdditionalCapability("ms:waitForAppLaunch", "3");
+            var args = string.Join(" ", new string[] {
+                "-cad", filePath });
+
+            opt.AddAdditionalCapability("appArguments", args);
+            opt.PlatformName = "Windows11x64";
+            var url = new Uri("http://127.0.0.1:4723");
+
+            wd = new WindowsDriver<WindowsElement>(url, opt);
+
+            var moduls = wd.FindElement(By.Name("Модули"));
+            moduls.Click();
+
+            if (module != "")
+                wd.FindElement(By.Name(module)).Click();
+
+            var settings = wd.FindElement(By.Name("Настройки"));
+            settings.Click();
+            var objects = wd.FindElement(By.Name("Объекты"));
+            objects.Click();
+            var modulR = wd.FindElement(By.Name("Решатель"));
+            modulR.Click();
 
             Thread.Sleep(3000);
             wd.CloseApp();

@@ -12,11 +12,11 @@ namespace BaseModule.Console
             uint number;
 
             Objects objType;
-            if(!Enum.TryParse(str.Split(':')[0], out objType))
+            if(!Enum.TryParse(str.Split(',')[0].Replace(" ",""), out objType))
                 throw new Exception("Неизвестный тип объекта!");
             ObjsType = objType;
 
-            if (!uint.TryParse(str.Split(':')[1], out number))
+            if (!uint.TryParse(str.Split(',')[1].Replace(" ", ""), out number))
                 throw new Exception("Номер должен быть целым положительным числом!");
             Number = number;
         }

@@ -46,9 +46,9 @@ namespace BazisGUI.TasksControls
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(3, 23);
+            this.label6.Location = new System.Drawing.Point(3, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(117, 13);
+            this.label6.Size = new System.Drawing.Size(117, 1);
             this.label6.TabIndex = 153;
             this.label6.Text = "Макс. разница dU, >0";
             // 
@@ -59,10 +59,10 @@ namespace BazisGUI.TasksControls
             this.chbPlastisity.Checked = true;
             this.chbPlastisity.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chbPlastisity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chbPlastisity.Location = new System.Drawing.Point(3, 139);
+            this.chbPlastisity.Location = new System.Drawing.Point(3, 0);
             this.chbPlastisity.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.chbPlastisity.Name = "chbPlastisity";
-            this.chbPlastisity.Size = new System.Drawing.Size(175, 17);
+            this.chbPlastisity.Size = new System.Drawing.Size(175, 1);
             this.chbPlastisity.TabIndex = 152;
             this.chbPlastisity.Text = "Пласт. деформации Si/St, >1 ";
             this.chbPlastisity.UseVisualStyleBackColor = true;
@@ -72,10 +72,10 @@ namespace BazisGUI.TasksControls
             this.chbUMax.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.chbUMax.AutoSize = true;
             this.chbUMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chbUMax.Location = new System.Drawing.Point(3, 80);
+            this.chbUMax.Location = new System.Drawing.Point(3, 0);
             this.chbUMax.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.chbUMax.Name = "chbUMax";
-            this.chbUMax.Size = new System.Drawing.Size(159, 17);
+            this.chbUMax.Size = new System.Drawing.Size(159, 1);
             this.chbUMax.TabIndex = 135;
             this.chbUMax.Text = "Макс. перемещения U, >0";
             this.chbUMax.UseVisualStyleBackColor = true;
@@ -88,7 +88,7 @@ namespace BazisGUI.TasksControls
             this.txbMaxSiSt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbMaxSiSt.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbMaxSiSt.IsValidating = true;
-            this.txbMaxSiSt.Location = new System.Drawing.Point(212, 137);
+            this.txbMaxSiSt.Location = new System.Drawing.Point(212, 0);
             this.txbMaxSiSt.Margin = new System.Windows.Forms.Padding(0, 0, 20, 0);
             this.txbMaxSiSt.Name = "txbMaxSiSt";
             this.txbMaxSiSt.Size = new System.Drawing.Size(298, 20);
@@ -106,7 +106,7 @@ namespace BazisGUI.TasksControls
             this.txbMaxU.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbMaxU.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbMaxU.IsValidating = true;
-            this.txbMaxU.Location = new System.Drawing.Point(212, 78);
+            this.txbMaxU.Location = new System.Drawing.Point(212, 0);
             this.txbMaxU.Margin = new System.Windows.Forms.Padding(0, 0, 20, 0);
             this.txbMaxU.Name = "txbMaxU";
             this.txbMaxU.Size = new System.Drawing.Size(298, 20);
@@ -123,7 +123,7 @@ namespace BazisGUI.TasksControls
             this.txbMaxDU.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txbMaxDU.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbMaxDU.IsValidating = true;
-            this.txbMaxDU.Location = new System.Drawing.Point(212, 19);
+            this.txbMaxDU.Location = new System.Drawing.Point(212, 0);
             this.txbMaxDU.Margin = new System.Windows.Forms.Padding(0, 0, 20, 0);
             this.txbMaxDU.Name = "txbMaxDU";
             this.txbMaxDU.Size = new System.Drawing.Size(298, 20);
@@ -151,7 +151,7 @@ namespace BazisGUI.TasksControls
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(530, 177);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(530, 0);
             this.tableLayoutPanel1.TabIndex = 154;
             // 
             // MechTaskControl_v2
@@ -163,7 +163,7 @@ namespace BazisGUI.TasksControls
             this.Margin = new System.Windows.Forms.Padding(1);
             this.MaximumSize = new System.Drawing.Size(700, 0);
             this.Name = "MechTaskControl_v2";
-            this.Size = new System.Drawing.Size(530, 177);
+            this.Size = new System.Drawing.Size(530, 0);
             this.Tag = "300";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

@@ -53,7 +53,7 @@ namespace BaseModule.Results.Animation
         {
             cmbResultNames.Text = "выберите результаты...";
             cmbResultNames.Items.Clear();
-            resItems.Clear();
+            resItems?.Clear();
             richTextBox.Clear();
         }    
         

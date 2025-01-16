@@ -12,6 +12,8 @@ namespace BazisGUI.Utilities
             {
                 case Objects.Точка:
                     return ObjType.Точка;
+                case Objects.Узел:
+                    return ObjType.Узел;
                 case Objects.Линия:
                     return ObjType.Линия;
                 case Objects.Элемент2D:

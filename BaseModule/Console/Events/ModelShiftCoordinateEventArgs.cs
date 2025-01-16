@@ -15,9 +15,9 @@ namespace BaseModule.Console.Events
 
             if (strAr.Length < 3)
                 throw new Exception("Вектор должен содержать три координаты!");
-            var X = float.Parse(strAr[0], NumberStyles.Float, CultureInfo.InvariantCulture);
-            var Y = float.Parse(strAr[1], NumberStyles.Float, CultureInfo.InvariantCulture);
-            var Z = float.Parse(strAr[2], NumberStyles.Float, CultureInfo.InvariantCulture);
+            X = float.Parse(strAr[0], NumberStyles.Float, CultureInfo.InvariantCulture);
+            Y = float.Parse(strAr[1], NumberStyles.Float, CultureInfo.InvariantCulture);
+            Z = float.Parse(strAr[2], NumberStyles.Float, CultureInfo.InvariantCulture);
         }
     }
 }
