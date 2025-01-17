@@ -211,7 +211,7 @@ namespace BazisGUI
             //if (module != null)
             //{
                 StopServerPing();
-                serverConnection.RequestServer(moduleName + " Отдать");
+                serverConnection?.RequestServer(moduleName + " Отдать");
             //}
         }
 
@@ -300,9 +300,9 @@ namespace BazisGUI
 
         private void LicenseModule(ToolStripPage module)
         {
-            serverConnection.RequestServer(module.Name + " Взять");
+            serverConnection?.RequestServer(module.Name + " Взять");
 
-            if (serverConnection.Answer == "можно")
+            if (serverConnection?.Answer == "можно")
             {
                 UnBlockGeneralMenuInterface(module.Name, true);
                 StartLicensing(module);
