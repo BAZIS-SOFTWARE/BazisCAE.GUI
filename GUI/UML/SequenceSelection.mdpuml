@@ -1,0 +1,12 @@
+﻿@startuml
+actor User #red
+' Единственная разница между actor
+' и participant - это разная форма отображения
+participant Scene as S
+participant ModelController as MC
+participant Model as M
+
+User->S: Рамка выбора
+S->MC: Authentication Response
+Bob->L: Log transaction
+@enduml
