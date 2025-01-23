@@ -23,7 +23,7 @@ namespace InstallerAction
             //if (IsVariableExist(EnvironmentVariableTarget.Machine) || IsVariableExist(EnvironmentVariableTarget.User))
             //    return;
 
-            string fullPath = this.Context.Parameters["assemblypath"];
+            var fullPath = this.Context.Parameters["assemblypath"];
 
             var process = new Process();
             var startInfo = new ProcessStartInfo
@@ -39,6 +39,12 @@ namespace InstallerAction
             startInfo.Arguments = $@"/C setx /m BazisMeshPath ""{gmshPath}""";
 
             process.Start();
+        }
+
+        protected override void OnBeforeInstall(IDictionary savedState)
+        {
+            // можно создать экземпляр своего контрола с флажками или кнопками
+            base.OnBeforeInstall(savedState);
         }
 
         protected override void OnAfterInstall(IDictionary savedState)
