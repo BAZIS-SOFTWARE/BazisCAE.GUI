@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using System.IO;
 
 namespace PropertiesDataBases
 {
@@ -10,8 +11,8 @@ namespace PropertiesDataBases
         public DataForm(string[] args)
         {
             InitializeComponent();
-
-            if (args.Contains("mat"))
+            
+            if (args.Contains("--mat"))
             {
                 var mDb = new MaterialsDataBasePage();
                 mDb.Load(args[1], false);

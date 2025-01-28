@@ -3,6 +3,7 @@ using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
 using System;
+using static TestGUI.TestProvider;
 
 
 namespace TestGUI
@@ -18,76 +19,49 @@ namespace TestGUI
 
         public void TreeViewOperationTests()
         {
-            WindowsDriver<WindowsElement> wd;
+            var wd = CreateWinDriver($"--mat {Path.GetFullPath(@".\..\..\..\..\PropertiesDataBases\DataBases\Materials\Materials_v6.jsf")}");
 
-            var opt = new AppiumOptions();
+            try
+            {
+                GetElement(wd, "Открыть файл", SearchWay.Name).Click(); //убрать
+                GetElement(wd, "Materials_v6.jsf", SearchWay.Name).Click(); //убрать
+                ClickByOffset(wd, 0, 0, ClickType.LeftDouble);  //убрать
+                GetElement(wd, "Сталь_20ХМ_Св", SearchWay.Name).Click();
+                ClickByOffset(wd, 0, 0, ClickType.LeftDouble);
 
-            opt.AddAdditionalCapability("app", @"D:\Bazis\DataBase\TestDataBases\bin\Debug\TestDataBases.exe");
-            opt.AddAdditionalCapability("appArguments", @"mat D:\Bazis\DataBase\Materials\Materials_for_test.jsf");
+                GetElement(wd, "Металлургия", SearchWay.Name).Click();
+                ClickByOffset(wd, 0, 0, ClickType.RightOne);
+                GetElement(wd, "Добавить реакцию", SearchWay.Name).Click();
+                GetElement(wd, "Металлургия", SearchWay.Name).Click();
+                ClickByOffset(wd, 0, 0, ClickType.LeftDouble);
+                GetElement(wd, "Реакция R1-R2,Масс.Доли-°C", SearchWay.Name).Click();
+                ClickByOffset(wd, 0, 0, ClickType.RightOne);
 
-            opt.PlatformName = "Windows11x64";
-            var url = new Uri("http://127.0.0.1:4723");
-            wd = new WindowsDriver<WindowsElement>(url, opt);
+                GetElement(wd, "Редактировать", SearchWay.Name).Click();
+                GetElement(wd, "InitialPhase", SearchWay.Name).Click();
+                ClickByOffset(wd, 70, 3, ClickType.LeftOne);
+                ClickByOffset(wd, -20, 60, ClickType.LeftOne);
 
-            wd.FindElementByName("Открыть файл").Click();
-            var clickMaterial = new Actions(wd);
-            clickMaterial.MoveByOffset(165, 150).DoubleClick().Build().Perform();
+                GetElement(wd, "FinalPhase", SearchWay.Name).Click();
+                ClickByOffset(wd, 70, 3, ClickType.LeftOne);
+                ClickByOffset(wd, -20, 50, ClickType.LeftOne);
 
-            var click = new Actions(wd);
+                GetElement(wd, "PhaseName", SearchWay.Name).Click();
+                ClickByOffset(wd, 70, 3, ClickType.LeftOne);
+                ClickByOffset(wd, -20, 20, ClickType.LeftOne);
 
-            wd.FindElementByName("Сталь_20ХГСА").Click();
-            click.MoveByOffset(0, 0).DoubleClick().Build().Perform();
+                SendKey(wd, "Температура Строка 0", "300");
+                SendKey(wd, "Масс.Доли Строка 0", "0.9");
+                SendKey(wd, "Температура Строка 1", "375");
+                SendKey(wd, "Масс.Доли Строка 1", "0.5");
 
-            wd.FindElementByName("Металлургия").Click();
-            click.MoveByOffset(0, 0).ContextClick().Build().Perform();
+                ClickByOffset(wd, 50, -200, ClickType.LeftOne);
 
-            wd.FindElementByName("Добавить реакцию").Click();
-            wd.FindElementByName("Металлургия").Click();
-
-            wd.FindElementByName("Реакция R1-R2,Масс.Доли-°C").Click();
-            click.MoveByOffset(0, 0).Click().Build().Perform();
-
-            wd.FindElementByName("Редактировать").Click();
-            wd.FindElementByName("InitialPhase").Click();
-
-            var clickInitialStructure = new Actions(wd);
-            clickInitialStructure.MoveByOffset(70, 3).Click().Build().Perform();
-
-            var clickAust = new Actions(wd);
-            clickAust.MoveByOffset(-20, 60).Click().Build().Perform();
-
-            wd.FindElementByName("FinalPhase").Click();
-            var clickFinalStructure = new Actions(wd);
-            clickFinalStructure.MoveByOffset(70, 3).Click().Build().Perform();
-
-            var clickMart = new Actions(wd);
-            clickMart.MoveByOffset(-20, 50).Click().Build().Perform();
-
-            wd.FindElementByName("PhaseName").Click();
-
-            var clickPhaseName = new Actions(wd);
-            clickPhaseName.MoveByOffset(70, 3).Click().Build().Perform();
-
-            var clickCooling = new Actions(wd);
-            clickCooling.MoveByOffset(-20, 20).Click().Build().Perform();
-            SendKey("Температура Строка 0", "300", wd);
-
-            SendKey("Масс.Доли Строка 0", "0.9", wd);
-            SendKey("Температура Строка 1", "375", wd);
-            SendKey("Масс.Доли Строка 1", "0.5", wd);
-
-            var closeForm = new Actions(wd);
-            closeForm.MoveByOffset(50, -200).Click().Build().Perform();
-            Thread.Sleep(2000);
-
-
-            wd.CloseApp();
+                Thread.Sleep(3000);
+            }
+            catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
+            finally { wd.CloseApp(); }        
         }
-
-        public void SendKey(string name, string value, WindowsDriver<WindowsElement> wd)
-        {
-            wd.FindElement(By.Name(name)).Click();
-            wd.FindElement(By.Name(name)).SendKeys(value);
-        }
+       
     }
 }
