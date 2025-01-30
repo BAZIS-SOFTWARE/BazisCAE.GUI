@@ -24,10 +24,7 @@ namespace TestGUI
             var wd = CreateWinDriver($"--mat {Path.GetFullPath(@".\..\..\..\..\PropertiesDataBases\DataBases\Materials\Materials_v6.jsf")}");
 
             try
-            {
-                GetElement(wd, "Открыть файл", SearchWay.Name).Click(); //СѓР±СЂР°С‚СЊ
-                GetElement(wd, "Materials_v6.jsf", SearchWay.Name).Click(); //СѓР±СЂР°С‚СЊ
-                ClickByOffset(wd, 0, 0, ClickType.LeftDouble);  //СѓР±СЂР°С‚СЊ
+            {                
                 GetElement(wd, "Сталь_20ХМ_Св", SearchWay.Name).Click();
                 ClickByOffset(wd, 0, 0, ClickType.LeftDouble);
 
