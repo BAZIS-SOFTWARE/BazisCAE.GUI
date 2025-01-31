@@ -21,11 +21,11 @@ namespace TestGUI
         [TestCase("Hardening", TestName = "Диаграмма упрочнения")]
         public void DiagramOperationTests(string key)
         {
-            var wd = CreateWinDriver($"--mat {Path.GetFullPath(@".\..\..\..\..\PropertiesDataBases\DataBases\Materials\Materials_v6.jsf")}");
+            var wd = CreateWinDriver($"--mat {Path.GetFullPath(@".\..\..\DataBases\Materials\Materials_v6.jsf")}");
 
             try
             {                
-                GetElement(wd, "Сталь_20ХМ_Св", SearchWay.Name).Click();
+                GetElement(wd, "Сталь_20ХМ_СВ", SearchWay.Name).Click();
                 ClickByOffset(wd, 0, 0, ClickType.LeftDouble);
 
                 if (key == "CCT" || key == "TTT")
@@ -36,7 +36,7 @@ namespace TestGUI
                 Thread.Sleep(3000);
             }
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
-            finally { wd.CloseApp(); }                      
+            finally { wd.Quit(); }                      
         }
 
         private void OpenMetallurgy(WindowsDriver<WindowsElement> wd, string key)
@@ -123,7 +123,7 @@ namespace TestGUI
                 Thread.Sleep(3000);
             }
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
-            finally { wd.CloseApp(); }
+            finally { wd.Quit(); }
         }
 
         [TestCase(TestName = "Добавление и копирование новой функции")]
@@ -151,7 +151,7 @@ namespace TestGUI
                 Thread.Sleep(3000);
             }
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
-            finally { wd.CloseApp(); }     
+            finally { wd.Quit(); }     
         }
     }
 }

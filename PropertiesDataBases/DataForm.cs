@@ -13,10 +13,7 @@ namespace PropertiesDataBases
             InitializeComponent();
             
             if (args.Contains("--mat"))
-            {
-                var mDb = new MaterialsDataBasePage();
-                mDb.Load(args[1], false);
-            }           
+                this.materialsDataBasePage1.Load(args[1], false);
         }        
     }
 }
