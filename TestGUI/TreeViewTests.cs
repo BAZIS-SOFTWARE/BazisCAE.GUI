@@ -19,13 +19,10 @@ namespace TestGUI
 
         public void TreeViewOperationTests()
         {
-            var wd = CreateWinDriver($"--mat {Path.GetFullPath(@".\..\..\..\..\PropertiesDataBases\DataBases\Materials\Materials_v6.jsf")}");
+            var wd = CreateWinDriver($"--mat {Path.GetFullPath(@".\..\..\..\Materials\Materials_v6.jsf")}");
 
             try
-            {
-                GetElement(wd, "Открыть файл", SearchWay.Name).Click(); //убрать
-                GetElement(wd, "Materials_v6.jsf", SearchWay.Name).Click(); //убрать
-                ClickByOffset(wd, 0, 0, ClickType.LeftDouble);  //убрать
+            {                
                 GetElement(wd, "Сталь_20ХМ_Св", SearchWay.Name).Click();
                 ClickByOffset(wd, 0, 0, ClickType.LeftDouble);
 
@@ -51,9 +48,9 @@ namespace TestGUI
                 ClickByOffset(wd, -20, 20, ClickType.LeftOne);
 
                 SendKey(wd, "Температура Строка 0", "300");
-                SendKey(wd, "Масс.Доли Строка 0", "0.9");
+                SendKey(wd, "Масс.Доли Строка 0", $"0.9");
                 SendKey(wd, "Температура Строка 1", "375");
-                SendKey(wd, "Масс.Доли Строка 1", "0.5");
+                SendKey(wd, "Масс.Доли Строка 1", $"0.5");
 
                 ClickByOffset(wd, 50, -200, ClickType.LeftOne);
 

@@ -33,6 +33,8 @@ namespace TestGUI
             WindowsDriver<WindowsElement> wd;
 
             var opt = new AppiumOptions();
+            if (args == "") 
+                args = "Без загрузки";
 
             opt.AddAdditionalCapability("app", Path.GetFullPath(@".\..\..\..\..\PropertiesDataBases\bin\Debug\PropertiesDataBases.exe"));
             opt.AddAdditionalCapability("ms:waitForAppLaunch", "10");

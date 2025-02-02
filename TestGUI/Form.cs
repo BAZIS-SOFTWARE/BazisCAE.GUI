@@ -21,11 +21,11 @@ namespace TestGUI
         [TestCase("Hardening", TestName = "Диаграмма упрочнения")]
         public void DiagramOperationTests(string key)
         {
-            var wd = CreateWinDriver($"--mat {Path.GetFullPath(@".\..\..\DataBases\Materials\Materials_v6.jsf")}");
+            var wd = CreateWinDriver($"--mat {Path.GetFullPath(@".\..\..\..\Materials\Materials_v6.jsf")}");
 
             try
             {                
-                GetElement(wd, "Сталь_20ХМ_СВ", SearchWay.Name).Click();
+                GetElement(wd, "Сталь_20ХМ_Св", SearchWay.Name).Click();
                 ClickByOffset(wd, 0, 0, ClickType.LeftDouble);
 
                 if (key == "CCT" || key == "TTT")
@@ -66,7 +66,7 @@ namespace TestGUI
             ClickByOffset(wd, 30, 5, ClickType.LeftOne);
             ClickByOffset(wd, -10, 20, ClickType.LeftOne);
 
-            SendKey(wd, "Время", "10000");            
+            SendKey(wd, "Время", "0000");            
             GetElement(wd, "Рассчитать", SearchWay.Name).Click();           
         } 
         
