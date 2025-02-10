@@ -3,6 +3,8 @@ using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using static TestGUI.TestProvider;
 
 namespace TestGUI
 {
@@ -19,45 +21,29 @@ namespace TestGUI
         [TestCase("Hardening", TestName = "Диаграмма упрочнения")]
         public void DiagramOperationTests(string key)
         {
-            var wd = WindowsDriver();
+            var wd = CreateWinDriver($"--mat {Path.GetFullPath(@".\..\..\..\Materials\Materials_v6.jsf")}");
 
-            wd.FindElement(By.Name("Открыть файл")).Click();
+            try
+            {                
+                GetElement(wd, "Сталь_20ХМ_Св", SearchWay.Name).Click();
+                ClickByOffset(wd, 0, 0, ClickType.LeftDouble);
 
-            var clickMaterial = new Actions(wd);
-            clickMaterial.MoveByOffset(165, 150).DoubleClick().Build().Perform();
-            
-            wd.FindElementByName("Сталь_20ХМ").Click();
-            var click = new Actions(wd);
-            click.MoveByOffset(0, 0).DoubleClick().Build().Perform();            
+                if (key == "CCT" || key == "TTT")
+                    OpenMetallurgy(wd, key);            
+                else if (key == "Hardening")
+                    CreateHardeningControl(wd);
 
-            if (key == "CCT" || key == "TTT")
-                OpenMetallurgy(wd, key);            
-            else if (key == "Hardening") 
-                CreateHardeningControl(wd);
-
-            wd.CloseApp();
-        }
-
-        private static WindowsDriver<WindowsElement> WindowsDriver()
-        {
-            WindowsDriver<WindowsElement> wd;
-
-            var opt = new AppiumOptions();
-
-            opt.AddAdditionalCapability("app", @"D:\Bazis\DataBase\TestDataBases\bin\Debug\TestDataBases.exe");
-            opt.PlatformName = "Windows11x64";
-            var url = new Uri("http://127.0.0.1:4723");
-            return new WindowsDriver<WindowsElement>(url, opt);
+                Thread.Sleep(3000);
+            }
+            catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
+            finally { wd.Quit(); }                      
         }
 
         private void OpenMetallurgy(WindowsDriver<WindowsElement> wd, string key)
         {
-            wd.FindElementByName("Металлургия").Click();
-            
-            var click = new Actions(wd);
-            click.MoveByOffset(0, 0).ContextClick().Build().Perform();
-
-            wd.FindElementByName("Рассчитать диаграмму").Click();
+            GetElement(wd, "Металлургия", SearchWay.Name).Click();
+            ClickByOffset(wd, 0, 0, ClickType.RightOne);
+            GetElement(wd, "Рассчитать диаграмму", SearchWay.Name).Click();            
 
             if (key == "CCT")
                 CreateCCTDiagramm(wd);
@@ -66,138 +52,106 @@ namespace TestGUI
         }
         private void CreateCCTDiagramm(WindowsDriver<WindowsElement> wd)
         {
-            wd.FindElement(By.Name("InitialPhase")).Click();
-
-            var clickStructure = new Actions(wd);
-            clickStructure.MoveByOffset(30, 5).Click().Build().Perform();
-
-            var clickAustenite = new Actions(wd);
-            clickAustenite.MoveByOffset(-10, 20).Click().Build().Perform();
-
-            wd.FindElement(By.Name("Рассчитать")).Click();
-
-            Thread.Sleep(2000); 
+            GetElement(wd, "InitialPhase", SearchWay.Name).Click();
+            ClickByOffset(wd, 30, 5, ClickType.LeftOne);
+            ClickByOffset(wd, -10, 20, ClickType.LeftOne);          
+            GetElement(wd, "Рассчитать", SearchWay.Name).Click();
         }
 
         private void CreateTTTDiagramm(WindowsDriver<WindowsElement> wd)
         {
-            wd.FindElement(By.Name("TTT")).Click();
+            GetElement(wd, "TTT", SearchWay.Name).Click();
+            GetElement(wd, "InitialPhase", SearchWay.Name).Click();
 
-            wd.FindElement(By.Name("InitialPhase")).Click();
+            ClickByOffset(wd, 30, 5, ClickType.LeftOne);
+            ClickByOffset(wd, -10, 20, ClickType.LeftOne);
 
-            var clickStructure = new Actions(wd);
-            clickStructure.MoveByOffset(30, 5).Click().Build().Perform();
-
-            var clickAustenite = new Actions(wd);
-            clickAustenite.MoveByOffset(-10, 20).Click().Build().Perform();
-
-            wd.FindElement(By.Name("Время")).SendKeys("10000");
-
-            wd.FindElement(By.Name("Рассчитать")).Click();
-
-            Thread.Sleep(2000);
+            SendKey(wd, "Время", "0000");            
+            GetElement(wd, "Рассчитать", SearchWay.Name).Click();           
         } 
         
         private void CreateHardeningControl(WindowsDriver<WindowsElement> wd)
         {
-            wd.FindElementByName("Механические свойства").Click();
-            var click = new Actions(wd);
-            click.MoveByOffset(0, 0).ContextClick().Build().Perform();
+            GetElement(wd, "Механические свойства", SearchWay.Name).Click();
+            ClickByOffset(wd, 0, 0, ClickType.RightOne);            
 
-            wd.FindElementByName("Рассчитать упрочнение").Click();
+            GetElement(wd, "Рассчитать упрочнение", SearchWay.Name).Click();
+            GetElement(wd, "Phases", SearchWay.Name).Click();
 
-            wd.FindElementByName("Phases").Click();
+            ClickByOffset(wd, 30, 5, ClickType.LeftOne);
+            ClickByOffset(wd, -10, 70, ClickType.LeftOne);           
 
-            var clickStructure = new Actions(wd);
-            clickStructure.MoveByOffset(30, 5).Click().Build().Perform();
-
-            var clickAustenite = new Actions(wd);
-            clickAustenite.MoveByOffset(-10, 70).Click().Build().Perform();
-
-            wd.FindElement(By.Name("Рассчитать")).Click();
-
-            wd.FindElement(By.Name("Указать температуру")).Click();
-
-            wd.FindElement(By.Name("Temp")).SendKeys("200");
-
-            wd.FindElement(By.Name("Рассчитать")).Click();
-
-            Thread.Sleep(2000);
-        }
-
-        public void SendKey(string name, string value, WindowsDriver<WindowsElement> wd)
-        {
-            wd.FindElement(By.Name(name)).Click();
-
-            wd.FindElement(By.Name(name)).SendKeys(value);
-        }
+            GetElement(wd, "Рассчитать", SearchWay.Name).Click();
+            GetElement(wd, "Указать температуру", SearchWay.Name).Click();
+            SendKey(wd, "Temp", "200");            
+            GetElement(wd, "Рассчитать", SearchWay.Name).Click();            
+        }        
 
         [TestCase(TestName = "Добавление и копирование нового материала")]
         public void AddNewMaterialTests()
         {
-            var wd = WindowsDriver();
+            var wd = CreateWinDriver("");
 
-            wd.FindElement(By.Name("Добавить раздел")).Click();
+            try
+            {
+                GetElement(wd, "Добавить раздел", SearchWay.Name).Click();
+                GetElement(wd, "Новый_материал_0", SearchWay.Name).Click();
+                ClickByOffset(wd, 0, 0, ClickType.LeftDouble);
 
-            var click = new Actions(wd);
-            wd.FindElementByName("Новый_материал_0").Click();
-            click.MoveByOffset(0, 0).DoubleClick().Build().Perform();
+                GetElement(wd, "Общие сведения", SearchWay.Name).Click();
+                ClickByOffset(wd, 0, 0, ClickType.LeftDouble);
 
-            wd.FindElement(By.Name("Общие сведения")).Click();
-            click.MoveByOffset(0, 0).Click().Build().Perform();
+                GetElement(wd, "Структура,Фаза-Масс.доли", SearchWay.Name).Click();
+                GetElement(wd, "Добавить ряд", SearchWay.Name).Click();
 
-            wd.FindElement(By.Name("Структура,Фаза-Масс.доли")).Click();
+                SendKey(wd, "Фаза Строка 0", "Аустенит");
+                SendKey(wd, "Фаза Строка 1", "Мартенсит");
 
-            wd.FindElement(By.Name("Добавить ряд")).Click();
+                GetElement(wd, "Тепловые свойства", SearchWay.Name).Click();
+                ClickByOffset(wd, 0, 0, ClickType.LeftDouble);
 
-            SendKey("Фаза Строка 0", "Аустенит", wd);
-            SendKey("Фаза Строка 1", "Мартенсит", wd);
+                GetElement(wd, "Теплоемкость,Дж-C°", SearchWay.Name).Click();
 
-            wd.FindElement(By.Name("Тепловые свойства")).Click();
-            click.MoveByOffset(0, 0).Click().Build().Perform();
+                SendKey(wd, "Температура Строка 0", "100");
+                SendKey(wd, "Аустенит Строка 0", "1");
+                SendKey(wd, "Мартенсит Строка 0", "2");
 
-            wd.FindElementByName("Теплоемкость,Дж-C°").Click();
+                GetElement(wd, "Новый_материал_0", SearchWay.Name).Click();
+                GetElement(wd, "Создать копию", SearchWay.Name).Click();
+                GetElement(wd, "Новый_материал_0_копия", SearchWay.Name).Click();
 
-            SendKey("Температура Строка 0", "100", wd);
-            SendKey("Аустенит Строка 0", "1", wd);
-            SendKey("Мартенсит Строка 0", "2", wd);
-
-            wd.FindElementByName("Новый_материал_0").Click();
-
-            wd.FindElement(By.Name("Создать копию")).Click();
-
-            wd.FindElementByName("Новый_материал_0_копия").Click();
-
-            Thread.Sleep(2000);
-            wd.CloseApp();
+                Thread.Sleep(3000);
+            }
+            catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
+            finally { wd.Quit(); }
         }
 
         [TestCase(TestName = "Добавление и копирование новой функции")]
         public void AddNewFunctionTests()
         {
-            var wd = WindowsDriver();
+            var wd = CreateWinDriver("");
 
-            wd.FindElement(By.Name("Функции")).Click();
+            try
+            {
+                GetElement(wd, "Функции", SearchWay.Name).Click();
+                GetElement(wd, "Добавить раздел", SearchWay.Name).Click();
+                GetElement(wd, "Новая_функция_0,\" \"-\" \"", SearchWay.Name).Click();
 
-            wd.FindElement(By.Name("Добавить раздел")).Click();
+                SendKey(wd, "X Строка 0", "100");
+                SendKey(wd, "Y Строка 0", "200");
 
-            wd.FindElement(By.Name("Новая_функция_0,\" \"-\" \"")).Click();
+                GetElement(wd, "Добавить ряд", SearchWay.Name).Click();
 
-            SendKey("X Строка 0", "100", wd);
-            SendKey("Y Строка 0", "200", wd);
+                SendKey(wd, "X Строка 1", "300");
+                SendKey(wd, "Y Строка 1", "400");
 
-            wd.FindElement(By.Name("Добавить ряд")).Click();
+                GetElement(wd, "Создать копию", SearchWay.Name).Click();
+                GetElement(wd, "Новая_функция_0_копия,\" \"-\" \"", SearchWay.Name).Click();
 
-            SendKey("X Строка 1", "300", wd);
-            SendKey("Y Строка 1", "400", wd);
-
-            wd.FindElement(By.Name("Создать копию")).Click();
-
-            wd.FindElement(By.Name("Новая_функция_0_копия,\" \"-\" \"")).Click();
-
-            Thread.Sleep(2000);
-            wd.CloseApp();
+                Thread.Sleep(3000);
+            }
+            catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
+            finally { wd.Quit(); }     
         }
-
     }
 }
