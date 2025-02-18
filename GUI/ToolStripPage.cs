@@ -4,8 +4,9 @@ using BaseModule.CrossSection;
 using BaseModule.Reflect;
 using BazisGUI.Utilities;
 using Geometry;
+using Model;
+using Model.GeometryObjects;
 using Model.Interfaces;
-using Model.Interfaces.GeometryObjects;
 using Model.Interfaces.MeshObjects;
 using Model.MeshObjects;
 using ModelControllerInterfaces;
@@ -79,23 +80,23 @@ namespace BazisGUI
 
         public void PresentModelOnSelectToolStrip(IObjectsData objectsData)
         {
-            foreach (var item in objectsData.ObjsTypes)
-                AddObjectsType(item);
+            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
+                AddObjectsType(item.ToString());
 
-            AddObjectsType(ObjType.Объект);
-            AddObjectsType(ObjType.Фигура);
-            AddObjectsType(ObjType.Элемент);
+            AddObjectsType("Объекты");
+            AddObjectsType("Фигуры");
+            AddObjectsType("Элементы");
 
-            BasePage.ScenePage.SelectedObjects = ObjType.Объект;
+            BasePage.ScenePage.SelectedObjects = "Объекты";
 
-            spbSelectObject.ToolTipText = ObjType.Объект.ToString();
+            spbSelectObject.ToolTipText = "Объекты";
         }
 
-        public void AddObjectsType(ObjType objsType)
+        public void AddObjectsType(string objsType)
         {
-            if (!spbSelectObject.DropDownItems.ContainsKey(objsType.ToString()))
+            if (!spbSelectObject.DropDownItems.ContainsKey(objsType))
             {
-                var newItem = new ToolStripMenuItem(objsType.ToString()) { Name = objsType.ToString() };
+                var newItem = new ToolStripMenuItem(objsType) { Name = objsType };
                 spbSelectObject.DropDownItems.Add(newItem);
             }
 
@@ -105,11 +106,11 @@ namespace BazisGUI
         {
             spbSelectObject.ToolTipText = e.ClickedItem.Text;
 
-            ObjType objType;
-            Enum.TryParse(spbSelectObject.ToolTipText, out objType);
+            //ObjType objType;
+            //Enum.TryParse(spbSelectObject.ToolTipText, out objType);
 
             var scenePage = BasePage.ScenePage;
-            scenePage.SelectedObjects = objType;
+            scenePage.SelectedObjects = spbSelectObject.ToolTipText;
 
             scenePage.SetBackColorToAllObjects();
             scenePage.SceneControl.DisplayObjects();
@@ -173,7 +174,7 @@ namespace BazisGUI
 
                         scenePage.SceneControl.DeleteVBObjects("Элемент3D");
 
-                        foreach (var item in ModelData.ObjectData.E3DCollection)
+                        foreach (var item in ModelData.ObjectData.E3DCollection.GetObjects())
                             if (item.ViewState)
                                 item.ViewState = true;
 
@@ -205,10 +206,10 @@ namespace BazisGUI
 
                 else if (arg2.ClickedItem.Tag.ToString() == "2")
                 {
-                    ModelController.PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.LineSurface);
-                    ModelController.PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.LineSurface);
-                    ModelController.PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.LineSurface);
-                    ModelController.PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.LineSurface);
+                    //ModelController.PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.LineSurface);
+                    //ModelController.PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.LineSurface);
+                    //ModelController.PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.LineSurface);
+                    //ModelController.PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.LineSurface);
 
                     foreach (var obj in scenePage.SceneControl.GetVBObjs())
                         scenePage.SceneControl.ChangeViewModeVBObjects(obj.ObjName, ObjView.LinesSurface);
@@ -216,20 +217,20 @@ namespace BazisGUI
 
                 else if (arg2.ClickedItem.Tag.ToString() == "3")
                 {
-                    ModelController.PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.Line);
-                    ModelController.PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.Line);
-                    ModelController.PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.Line);
-                    ModelController.PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.Line);
+                    //ModelController.PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.Line);
+                    //ModelController.PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.Line);
+                    //ModelController.PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.Line);
+                    //ModelController.PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.Line);
                     foreach (var obj in scenePage.SceneControl.GetVBObjs())
                         scenePage.SceneControl.ChangeViewModeVBObjects(obj.ObjName, ObjView.Lines);
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "4")
                 {
-                    ModelController.PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.Surface);
-                    ModelController.PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.Surface);
-                    ModelController.PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.Surface);
-                    ModelController.PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.Surface);
+                    //ModelController.PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.Surface);
+                    //ModelController.PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.Surface);
+                    //ModelController.PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.Surface);
+                    //ModelController.PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.Surface);
                     foreach (var obj in scenePage.SceneControl.GetVBObjs())
                         scenePage.SceneControl.ChangeViewModeVBObjects(obj.ObjName, ObjView.Surface);
                 }
@@ -242,7 +243,7 @@ namespace BazisGUI
             }
         }       
 
-        public ISurfaceFigure CreateSectionSurfaces(IEnumerable<IElement3D> elems3D, Vector3 p0, Vector3 p1, Vector3 p2)
+        public SurfaceFigure CreateSectionSurfaces(IEnumerable<IElement3D> elems3D, Vector3 p0, Vector3 p1, Vector3 p2)
         {
             var mP0 = new Point3D(p0.X, p0.Y, p0.Z);
             var mP1 = new Point3D(p1.X, p1.Y, p1.Z);
@@ -262,8 +263,9 @@ namespace BazisGUI
                 {
                     case MeasureKind.DistancePointToPoint:
                         {
-                            var objs = ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
-                            var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToList();
+                            var objsType = ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects);
+                            var objs = ModelData.ObjectData.GetObjects(objsType);
+                            var selObjs = objs.Where(x => x.Color == scenePage.SceneControl.SelectionColor).ToList();
 
                             if (selObjs.Count() > 1)
                             {
@@ -282,18 +284,17 @@ namespace BazisGUI
                         }
                     case MeasureKind.DistancePointToPlane:
                         {
-                            var plane = BasePage.CreateSurfaceAsync(scenePage.SelectedObjects);
+                            var objsType = ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects);
+                            var plane = BasePage.CreateSurfaceAsync(objsType);
                             await plane;
 
-                            var objects = ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
-                            foreach (var _object in objects)
-                                _object.SetBackColor();
+                            ModelData.ObjectData.SetBackColor(objsType);
 
-                            scenePage.SetObjectsSceneAttribute(scenePage.SelectedObjects, "цвет");
+                            scenePage.SetObjectsSceneAttribute(objsType, "цвет");
 
                             scenePage.SceneControl.DisplayObjects();
 
-                            var res = BasePage.SelectObjectAsync(scenePage.SelectedObjects);
+                            var res = BasePage.SelectObjectAsync(objsType);
                             await res;
 
                             if (res.Result is IPoint point)
@@ -313,10 +314,10 @@ namespace BazisGUI
                     case MeasureKind.Square:
                         {
                             var square = 0.0;
+                            var objsType = ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects);
+                            var objs = ModelData.ObjectData.GetObjects(objsType);
 
-                            var objs = ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
-
-                            var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor);
+                            var selObjs = objs.Where(x => x.Color == scenePage.SceneControl.SelectionColor);
 
                             foreach (var obj in selObjs)
                             {
@@ -330,9 +331,9 @@ namespace BazisGUI
                     case MeasureKind.Volume:
                         {
                             var vol = 0.0f;
-
-                            var objs = ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
-                            var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor);
+                            var objsType = ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects);
+                            var objs = ModelData.ObjectData.GetObjects(objsType);
+                            var selObjs = objs.Where(x => x.Color == scenePage.SceneControl.SelectionColor);
 
                             foreach (var obj in selObjs)
                             {
@@ -359,13 +360,13 @@ namespace BazisGUI
             var consoleControl = BasePage.ConsoleControl;
             try
             {
-                var objTypes = ObjectsConverter.ConvertToObjsType(arg2.Objects);
-                if (objTypes == scenePage.SelectedObjects)
+                var objsType = ObjectsConverter.ConvertToObjsType(arg2.Objects);
+                if (objsType == ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects))
                 {
-                    var selObjs = ModelData.ObjectData.GetObjects(objTypes).
-                        Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
+                    var selObjs = ModelData.ObjectData.GetObjects(objsType).
+                        Where(x => x.Color == scenePage.SceneControl.SelectionColor).ToArray();
 
-                    if (scenePage.SelectedObjects == ObjType.Узел)
+                    if (objsType == ObjType.Узел)
                     {
 
                         if (selObjs?.Count() > 2)
@@ -410,14 +411,14 @@ namespace BazisGUI
             var consoleControl = BasePage.ConsoleControl;
             try
             {
-                var objTypes = ObjectsConverter.ConvertToObjsType(arg2.Objects);
-                if (objTypes == scenePage.SelectedObjects)
+                var objsType = ObjectsConverter.ConvertToObjsType(arg2.Objects);
+                if (objsType == ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects))
                 {
                     //var result = await BasePage.SelectObjectsAsync(scenePage.SelectedObjects);
                     //var objs = result as IEnumerable<IModelObject>;
                     
-                    var selObjs = ModelData.ObjectData.GetObjects(objTypes).
-                        Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
+                    var selObjs = ModelData.ObjectData.GetObjects(objsType).
+                        Where(x => x.Color == scenePage.SceneControl.SelectionColor).ToArray();
                     if (selObjs?.Count() > 1)
                     {
                         if (!arg2.Reverse)
@@ -432,8 +433,8 @@ namespace BazisGUI
                                 arg2.Angle, selObjs.First().Number, selObjs.Skip(1).First().Number, scenePage.SceneControl.SelectionColor);
                         }
 
-                        //selObjs = objs.Where(x => x.MasterColor == sceneControl.SelectionColor).ToArray();
-                        scenePage.SetObjectsSceneAttribute(scenePage.SelectedObjects, "цвет");
+                        //selObjs = objs.Where(x => x.Color == sceneControl.SelectionColor).ToArray();
+                        scenePage.SetObjectsSceneAttribute(objsType, "цвет");
 
                         scenePage.SceneControl.DisplayObjects();
                     }
@@ -454,11 +455,11 @@ namespace BazisGUI
             var scenePage = BasePage.ScenePage;
 
             if (btn.Tag.ToString() == "1")
-                scenePage.SelectedObjects = ObjType.Узел;
+                scenePage.SelectedObjects = "Узел";
             else if (btn.Tag.ToString() == "2")
-                scenePage.SelectedObjects = ObjType.Элемент;
+                scenePage.SelectedObjects = "Элементы";
             else
-                scenePage.SelectedObjects = ObjType.Фигура;
+                scenePage.SelectedObjects = "Фигуры";
 
             spbSelectObject.ToolTipText = scenePage.SelectedObjects.ToString();
             spbSelectObject.Invalidate();
@@ -487,14 +488,14 @@ namespace BazisGUI
                 selectionControl.SelectInPlain += SelectionControl_SelectInPlain;
                 selectionControl.SelectNodes += (s1, s2) =>
                 {
-                    BasePage.ScenePage.SelectedObjects = ObjType.Узел;
+                    BasePage.ScenePage.SelectedObjects = ObjType.Узел.ToString();
                     spbSelectObject.ToolTipText = ObjType.Узел.ToString();
                     spbSelectObject.Invalidate();
                 };
 
                 selectionControl.SelectElements += (s1, s2) =>
                 {
-                    BasePage.ScenePage.SelectedObjects = ObjType.Элемент2D;
+                    BasePage.ScenePage.SelectedObjects = ObjType.Элемент2D.ToString();
                     spbSelectObject.ToolTipText = ObjType.Элемент2D.ToString();
                     spbSelectObject.Invalidate();
                 };
@@ -579,13 +580,13 @@ namespace BazisGUI
                         scenePage.SceneControl.DisplayObjects();
                     };
 
-                    crossSection.SelectNodesEvent += () => { scenePage.SelectedObjects = ObjType.Узел; };
+                    crossSection.SelectNodesEvent += () => { scenePage.SelectedObjects = ObjType.Узел.ToString(); };
 
                     crossSection.CreateCrossFromTextArgs += (ar1, ar2) =>
                     {
                         try
                         {
-                            var elems3D = ModelData.ObjectData.E3DCollection;
+                            var elems3D = ModelData.ObjectData.E3DCollection.GetObjects();
                             var surface = CreateSectionSurfaces(elems3D, ar2.point1, ar2.point2, ar2.point3);
 
                             scenePage.PresentCrossSection(surface);
@@ -600,8 +601,9 @@ namespace BazisGUI
                     {
                         try
                         {
-                            var objs = ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
-                            var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
+                            var objsType = ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects);
+                            var objs = ModelData.ObjectData.GetObjects(objsType);
+                            var selObjs = objs.Where(x => x.Color == scenePage.SceneControl.SelectionColor).ToArray();
                             if (selObjs.Length < 3)
                             {
                                 consoleControl.PrintInfo("Ошибка, выбрано неверное количество узлов", Color.Red);
@@ -616,7 +618,7 @@ namespace BazisGUI
                             var p1 = new Vector3(mP1._x, mP1._y, mP1._z);
                             var p2 = new Vector3(mP2._x, mP2._y, mP2._z);
 
-                            var elems3D = ModelData.ObjectData.E3DCollection;
+                            var elems3D = ModelData.ObjectData.E3DCollection.GetObjects();
 
                             var surface = CreateSectionSurfaces(
                                 elems3D, p0,
@@ -641,10 +643,10 @@ namespace BazisGUI
                         if (scenePage.SceneControl.GetVBObjs().Count() == 0)
                         {
                             scenePage.SceneControl.DeleteAllVBObjects();
-                            foreach (var objsType in ModelData.ObjectData.ObjsTypes)
+                            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
                             {
-                                var presentor = scenePage.CreateObjectsPresentor(objsType);
-                                scenePage.CreateObjectsOnScene(objsType.ToString(), presentor);
+                                var presentor = scenePage.CreateObjectsPresentor(item);
+                                scenePage.CreateObjectsOnScene(item.ToString(), presentor);
                             }
 
                         }
@@ -692,7 +694,7 @@ namespace BazisGUI
                     measuringControl.PreparingMeasureEvent += (ar) =>
                     {
                         var objTypes = ObjectsConverter.ConvertToObjsType(ar);
-                        scenePage.SelectedObjects = objTypes;
+                        scenePage.SelectedObjects = objTypes.ToString();
                         scenePage.SceneControl.HideAllGeometryObjs();
                         scenePage.SceneControl.HideDisplayText3D();
                         scenePage.SceneControl.DisplayObjects();

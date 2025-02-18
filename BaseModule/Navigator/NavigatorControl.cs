@@ -14,7 +14,7 @@ namespace BaseModule.Navigator
     public enum ViewRegime : int { ribbers, surfaces, ribbersSurfaces };
     public partial class NavigatorControl : UserControl, IPinnedControl
     {
-        Dictionary<string, int> imgDict;
+        Dictionary<string, int> ImgDict;
 
         [Category("General")]
         [Description("Set up color gradient")]
@@ -69,15 +69,15 @@ namespace BaseModule.Navigator
             InitializeComponent();
             typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | 
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).
-                SetValue(grbNavigator, true, null);     
+                SetValue(grbNavigator, true, null);
 
-        imgDict = new Dictionary<string, int>()
+            ImgDict = new Dictionary<string, int>()
             {
                 { "Узел",3},
                 { "Точка",3},
-                { "Линия",4},
-                { "Фигура2D",4},
-                { "Фигура3D",4},
+                { "Кривая",4},
+                { "Поверхность",4},
+                { "Объем",4},
                 { "Элемент3D",4},
                 { "Элемент2D",4},
                 { "Элемент1D",4},
@@ -85,53 +85,65 @@ namespace BaseModule.Navigator
                 { "Среда",9},
                 { "Нагрев",10},
                 { "Закрепление",11},
-                { "Нагрузка",12},
-                { "Расчет",13}
-
+                { "Нагрузка",12}
             };
+        }
+
+        public int GetImageIndex(string objType)
+        {
+            return ImgDict[objType];
         }
 
         public System.Windows.Forms.TreeView TreeView
         {
             get
-            {
+            {               
                 return treeView;
             }
         }
 
 
-        public bool CreateChildNode(string root, string name, string text, string tag)
+        //public bool CreateChildNode(string root, string name, string text, string tag)
+        //{
+        //    var node = new TreeNode()
+        //    {
+        //        Name = name,
+        //        Text = text,
+
+        //        ImageIndex = ImgDict.ContainsKey(name) ? ImgDict[name] : 16,
+        //        SelectedImageIndex = ImgDict.ContainsKey(name) ? ImgDict[name] : 16,
+
+        //        Tag = tag
+        //    };
+
+        //    SetContextMenu(root, node);
+
+        //    var rootNode = SearchNode(root);
+
+        //    if (rootNode == null)
+        //        return false;
+        //    else
+        //        rootNode.Nodes.Add(node);
+
+        //    return true;
+        //}
+
+        public void SetContextMenu(string root, TreeNode node)
         {
-            var node = new TreeNode()
-            {
-                Name = name,
-                Text = text,
-
-                ImageIndex = imgDict.ContainsKey(name) ? imgDict[name] : 16,
-                SelectedImageIndex = imgDict.ContainsKey(name) ? imgDict[name] : 16,
-
-                Tag = tag
-            };
-
-            if(root == "объекты")
+            if (root == "объекты")
                 node.ContextMenuStrip = object_MenuStrip;
             else if (root == "группыОбъектов")
-                if (imgDict[name] == 3)
+                if (node.ImageIndex == 3)
                     node.ContextMenuStrip = ndGroup_MenuStrip;
-                else if (imgDict[name] == 4)
+                else if (node.ImageIndex == 4)
                     node.ContextMenuStrip = elGroup_MenuStrip;
-
-            var rootNode = CallNonRecursiveSearch(root);
-
-            if (rootNode == null)
-                return false;
-            else
-                rootNode.Nodes.Add(node);
-
-            return true;
+            //if (ImgDict[name] == 3)
+            //node.ContextMenuStrip = ndGroup_MenuStrip;
+            //else if (ImgDict[name] == 4)
+            //node.ContextMenuStrip = elGroup_MenuStrip;
         }
 
-        public TreeNode SearchNonRecursive(TreeNode startNode, string nodeName)
+        public TreeNode SearchChildNode(TreeNode startNode, string nodeName)
         {
             if (startNode != null)
             {
@@ -157,28 +169,35 @@ namespace BaseModule.Navigator
         }
 
         // Call the procedure using the TreeView.  
-        private TreeNode CallNonRecursiveSearch(string nodeName)
+        public TreeNode SearchNode(string nodeName)
         {
             // Print each node.
             foreach (TreeNode n in treeView.Nodes)
             {
-                var res = SearchNonRecursive(n, nodeName);
+                var res = SearchChildNode(n, nodeName);
                 if (res != null)
                     return res;
             }
             return null;
         }
 
-        public void ShowObjectsNode(string objsType)
+        public void ShowObjectsNode(string nodeKey, string imageKey)
         {
-            treeView.Nodes["объекты"].Nodes[objsType].ImageIndex = imgDict[objsType] == 3 ? 5 : 6;
-            treeView.Nodes["объекты"].Nodes[objsType].SelectedImageIndex = imgDict[objsType] == 3 ? 5 : 6;
+            var t = ImgDict[nodeKey];
+            treeView.Nodes["объекты"].Nodes[nodeKey].ImageIndex = ImgDict[imageKey] == 3 ? 5 : 6;
+            treeView.Nodes["объекты"].Nodes[nodeKey].SelectedImageIndex = ImgDict[imageKey] == 3 ? 5 : 6;
+        }
+
+        public void ShowObjectsNode(int nodeInd, string imageKey)
+        {
+            treeView.Nodes["объекты"].Nodes[nodeInd].ImageIndex = ImgDict[imageKey] == 3 ? 5 : 6;
+            treeView.Nodes["объекты"].Nodes[nodeInd].SelectedImageIndex = ImgDict[imageKey] == 3 ? 5 : 6;
         }
 
         public void HideObjectsNode(string objsType)
         {
-            treeView.Nodes["объекты"].Nodes[objsType].ImageIndex = imgDict[objsType];
-            treeView.Nodes["объекты"].Nodes[objsType].SelectedImageIndex = imgDict[objsType];
+            treeView.Nodes["объекты"].Nodes[objsType].ImageIndex = ImgDict[objsType];
+            treeView.Nodes["объекты"].Nodes[objsType].SelectedImageIndex = ImgDict[objsType];
         }
 
         private void RenameGroup_Click(object sender, EventArgs e)
@@ -194,8 +213,8 @@ namespace BaseModule.Navigator
             treeView.Nodes["объекты"].Nodes[Objects.Узел.ToString()].ImageIndex = 5;
             treeView.Nodes["объекты"].Nodes[Objects.Узел.ToString()].SelectedImageIndex = 5;
 
-            treeView.SelectedNode.ImageIndex = imgDict[treeView.SelectedNode.Name];
-            treeView.SelectedNode.SelectedImageIndex = imgDict[treeView.SelectedNode.Name];
+            treeView.SelectedNode.ImageIndex = ImgDict[treeView.SelectedNode.Name];
+            treeView.SelectedNode.SelectedImageIndex = ImgDict[treeView.SelectedNode.Name];
 
             ShowGroupWithNodesEvent?.Invoke(groupIndex);
         }
@@ -204,8 +223,8 @@ namespace BaseModule.Navigator
         {
             foreach (TreeNode item in treeView.Nodes[4].Nodes)
             {
-                item.ImageIndex = imgDict[item.Name] == 3 ? 5 : 6;
-                item.SelectedImageIndex = imgDict[item.Name] == 3 ? 5 : 6;
+                item.ImageIndex = ImgDict[item.Name] == 3 ? 5 : 6;
+                item.SelectedImageIndex = ImgDict[item.Name] == 3 ? 5 : 6;
             }
 
             ShowAllGroupsEvent?.Invoke();
@@ -308,8 +327,8 @@ namespace BaseModule.Navigator
         {
             var groupIndex = treeView.SelectedNode.Index;
 
-            treeView.SelectedNode.ImageIndex = imgDict[treeView.SelectedNode.Name];
-            treeView.SelectedNode.SelectedImageIndex = imgDict[treeView.SelectedNode.Name];
+            treeView.SelectedNode.ImageIndex = ImgDict[treeView.SelectedNode.Name];
+            treeView.SelectedNode.SelectedImageIndex = ImgDict[treeView.SelectedNode.Name];
 
             ShowGroupEvent?.Invoke(groupIndex);
         }
@@ -318,8 +337,8 @@ namespace BaseModule.Navigator
         {
             var objsName = treeView.SelectedNode.Name;
 
-            treeView.SelectedNode.ImageIndex = imgDict[objsName] == 3 ? 5 : 6;
-            treeView.SelectedNode.SelectedImageIndex = imgDict[objsName] == 3 ? 5 : 6;
+            treeView.SelectedNode.ImageIndex = ImgDict[objsName] == 3 ? 5 : 6;
+            treeView.SelectedNode.SelectedImageIndex = ImgDict[objsName] == 3 ? 5 : 6;
 
             ShowObjectsEvent?.Invoke(objsName);
         }
@@ -328,8 +347,8 @@ namespace BaseModule.Navigator
         {
             foreach (TreeNode item in treeView.Nodes[4].Nodes)
             {
-                item.ImageIndex = imgDict[item.Name] == 3 ? 5 : 6;
-                item.SelectedImageIndex = imgDict[item.Name] == 3 ? 5 : 6;
+                item.ImageIndex = ImgDict[item.Name] == 3 ? 5 : 6;
+                item.SelectedImageIndex = ImgDict[item.Name] == 3 ? 5 : 6;
             }
 
             ShowAllObjectsEvent?.Invoke();
@@ -339,8 +358,8 @@ namespace BaseModule.Navigator
         {
             foreach (TreeNode item in treeView.Nodes[4].Nodes)
             {
-                item.ImageIndex = imgDict[item.Name];
-                item.SelectedImageIndex = imgDict[item.Name];
+                item.ImageIndex = ImgDict[item.Name];
+                item.SelectedImageIndex = ImgDict[item.Name];
             }
 
             HideAllObjectsEvent?.Invoke();
@@ -355,8 +374,8 @@ namespace BaseModule.Navigator
         {
             var objsName = treeView.SelectedNode.Name;
 
-            treeView.Nodes["объекты"].Nodes[objsName].ImageIndex = imgDict[objsName];
-            treeView.Nodes["объекты"].Nodes[objsName].SelectedImageIndex = imgDict[objsName];
+            treeView.Nodes["объекты"].Nodes[objsName].ImageIndex = ImgDict[objsName];
+            treeView.Nodes["объекты"].Nodes[objsName].SelectedImageIndex = ImgDict[objsName];
 
             HideObjectsEvent?.Invoke(objsName);
         }

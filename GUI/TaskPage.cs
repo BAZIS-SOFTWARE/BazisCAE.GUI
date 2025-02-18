@@ -64,11 +64,7 @@ namespace BazisGUI
         public TaskPage()
         {
             InitializeComponent();
-
-            var taskNode = new TreeNode("Данные", 14, 14) { Name = "Данные", Tag = "6" };
-            taskNode.ContextMenuStrip = taskMenuStrip;
-            BasePage.NavigatorControl.TreeView.Nodes.Add(taskNode);
-            
+            BasePage.NavigatorControl.TreeView.Nodes[6].ContextMenuStrip = taskMenuStrip;
             selectToolStrip.Location = new Point(3, 0);
 
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
@@ -239,7 +235,7 @@ namespace BazisGUI
             }
         }
 
-        private void TaskAdv_EditTSFEvent(object arg1, TasksSet arg2, string arg3)
+        private void TaskAdv_EditTSFEvent(object arg1, Tasks arg2, string arg3)
         {
             try
             {
@@ -286,15 +282,15 @@ namespace BazisGUI
             var fileName = Path.GetFileNameWithoutExtension(filePath);
             var taskName = fileName.Split('_')[0];
 
-            TasksSet tasksSet;
+            ComplexTaskType tasksSet;
             Enum.TryParse(taskName, out tasksSet);
 
-            if (tasksSet == TasksSet.термическая)
+            if (tasksSet == ComplexTaskType.термическая)
             {
                 return JsonConvert.DeserializeObject<TermalParameters>
 (File.ReadAllText(filePath), settingsSerializer);
             }
-            else if (tasksSet == TasksSet.механическая)
+            else if (tasksSet == ComplexTaskType.механическая)
             {
                 return JsonConvert.DeserializeObject<MechanicalParameters>
 (File.ReadAllText(filePath), settingsSerializer);
@@ -519,7 +515,7 @@ namespace BazisGUI
 
                 foreach (var data in taskData)
                 {
-                    navigator.CreateChildNode("Данные", data.Name, data.ToString(), "6.1");
+                    AddTaskDataToNavigator(data);
                 }
 
                 navigator.TreeView.EndUpdate();
@@ -687,13 +683,13 @@ namespace BazisGUI
                 foreach (var iobj in group)
                 {                   
                     if (data[index].Kind == DataKind.Mat)
-                        iobj.MasterColor = Color.FromArgb(255, 255, 0);
+                        iobj.Color = Color.FromArgb(255, 255, 0);
                     else if (data[index].Kind == DataKind.Med)
-                        iobj.MasterColor = Color.FromArgb(255, 155, 0);
+                        iobj.Color = Color.FromArgb(255, 155, 0);
                     else if (data[index].Kind == DataKind.Clamp | data[index].Kind == DataKind.Load)
-                        iobj.MasterColor = Color.FromArgb(255, 0, 0);
+                        iobj.Color = Color.FromArgb(255, 0, 0);
                     else if (data[index].Kind == DataKind.Heat)
-                        iobj.MasterColor = Color.FromArgb(125,155, 255, 0);
+                        iobj.Color = Color.FromArgb(125,155, 255, 0);
 
                     if (data[index].Direction != Direction.None)
                         DisplayDirection(data[index].StartTime, data[index], iobj);
@@ -787,13 +783,13 @@ namespace BazisGUI
                         foreach (var iobj in group)
                         {
                             if (data.Kind == DataKind.Mat)
-                                iobj.MasterColor = Color.FromArgb(255, 255, 0);
+                                iobj.Color = Color.FromArgb(255, 255, 0);
                             else if (data.Kind == DataKind.Med)
-                                iobj.MasterColor = Color.FromArgb(255, 155, 0);
+                                iobj.Color = Color.FromArgb(255, 155, 0);
                             else if (data.Kind == DataKind.Clamp | data.Kind == DataKind.Load)
-                                iobj.MasterColor = Color.FromArgb(255, 0, 0);
+                                iobj.Color = Color.FromArgb(255, 0, 0);
                             else if (data.Kind == DataKind.Heat)
-                                iobj.MasterColor = Color.FromArgb(125, 155, 255, 0);
+                                iobj.Color = Color.FromArgb(125, 155, 255, 0);
 
                             //PresentProjectTaskDataOnScene(arg2.Time, data, modelObj);
                             if (data.Direction != Direction.None)
@@ -853,12 +849,13 @@ namespace BazisGUI
             if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
             taskData.Add(data);
-            BasePage.NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
+
+            AddTaskDataToNavigator(data);
         }
 
         private async Task AddDataLRF(ITaskData taskData,AddDataEventArgs arg2, string[] ar, IGroup group)
         {
-            BasePage.ScenePage.SelectedObjects = ObjType.Узел;
+            BasePage.ScenePage.SelectedObjects = ObjType.Узел.ToString();
             var taskStrLRF = BasePage.CreateSurfaceAsync(ObjType.Узел);
             await taskStrLRF;
             var vec = taskStrLRF.Result.Normal;
@@ -877,7 +874,7 @@ namespace BazisGUI
                 SetMFF(data, ar.Last());
 
             taskData.Add(data);
-            BasePage.NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
+            AddTaskDataToNavigator(data);
 
             ar[2] = "Y";
             ar[3] = rVec._y.ToString();
@@ -887,7 +884,7 @@ namespace BazisGUI
                 SetMFF(data, ar.Last());
 
             taskData.Add(data);
-            BasePage.NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
+            AddTaskDataToNavigator(data);
 
             ar[2] = "Z";
             ar[3] = rVec._z.ToString();
@@ -897,7 +894,16 @@ namespace BazisGUI
                 SetMFF(data, ar.Last());
 
             taskData.Add(data);
-            BasePage.NavigatorControl.CreateChildNode("Данные", data.Name, $"{data.Name} : {data.GetInfo}", "6.1");
+            AddTaskDataToNavigator(data);
+        }
+
+        private void AddTaskDataToNavigator(IData data)
+        {
+            var imgIndex = BasePage.NavigatorControl.GetImageIndex(data.Name);
+
+            var child = new TreeNode($"{data.Name} : {data.GetInfo}", imgIndex, imgIndex)
+            { Tag = "6.1", Name = data.Name };
+            BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes.Add(child);
         }
 
         private void SetMFF(IValuableData data, string trajInfo)

@@ -3,8 +3,10 @@ using BaseModule.Mesh.SettingsControls;
 using BazisGUI.Utilities;
 using Geometry;
 using GmshApi;
+using Model;
 using Model.GeometryObjects;
 using Model.Interfaces;
+using Model.MeshObjects;
 using ModelControllerInterfaces;
 using System;
 using System.Collections.Generic;
@@ -93,32 +95,39 @@ namespace BazisGUI
             {
                 if (objType == ObjType.Элемент2D)
                 {
-                    var els3D = ModelData.ObjectData.E3DCollection;
+                    var els3D = ModelData.ObjectData.E3DCollection.GetObjects();
                     if (els3D.Count() == 0)
                         BasePage.ConsoleControl.PrintInfo("Модель не содержит 3D элементов!", Color.Red);
                     else
                     {
                         scenePage.SceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
 
-                        var startNumber = ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
+                        var startNumber = ModelData.ObjectData.GetMaxElementNumber() + 1;
                         var boundaryElements2D = ModelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
 
-                        ModelData.ObjectData.E2DCollection.AddRange(boundaryElements2D);
+                        ModelData.ObjectData.E2DCollection.Add("new2DSet");
+
+                        foreach (var item in boundaryElements2D)
+                            ModelData.ObjectData.E2DCollection["new2DSet"].Add(item.Number,item);
+
                     }                
                 }
                 else if (objType == ObjType.Элемент1D)
                 {
-                    var els2D = ModelData.ObjectData.E2DCollection;
+                    var els2D = ModelData.ObjectData.E2DCollection.GetObjects();
                     if (els2D.Count() == 0)
                         BasePage.ConsoleControl.PrintInfo("Модель не содержит 2D элементов!", Color.Red);
                     else
                     {
                         scenePage.SceneControl.DeleteVBObjects(ObjType.Элемент1D.ToString());
 
-                        var startNumber = ModelData.ObjectData.GetLastNumber(ObjType.Элемент) + 1;
+                        var startNumber = ModelData.ObjectData.GetMaxElementNumber() + 1;
                         var boundaryElements1D = ModelController.Extractor1DFrom2D.Create(startNumber, els2D.ToArray());
 
-                        ModelData.ObjectData.E1DCollection.AddRange(boundaryElements1D);
+                        ModelData.ObjectData.E1DCollection.Add("new1DSet");
+
+                        foreach (var item in boundaryElements1D)
+                            ModelData.ObjectData.E1DCollection["new1DSet"].Add(item.Number, item);
                     }
                 }
 
@@ -654,22 +663,21 @@ namespace BazisGUI
                     foreach (var item in curvesInfo)
                     {
                         var color = scale.GetValueColor(item.Value);
-                        ModelData.ObjectData.LineCollection.Find(item.Key).MasterColor = color;
+                        ModelData.ObjectData.CurveCollection.Find(item.Key).Color = color;
                     }
 
-                    var linePres = ModelController.PresentersCreator.CreateLineObjectsPresenter(ModelData.ObjectData.LineCollection);
-                    scenePage.SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
-                    scenePage.CreateObjectsOnScene(ObjType.Линия.ToString(), linePres);
+                    var linePres = ModelController.PresentersCreator.CreateLineObjectsPresenter(ModelData.ObjectData.CurveCollection.GetObjects());
+                    scenePage.SceneControl.DeleteVBObjects(ObjType.Кривая.ToString());
+                    scenePage.CreateObjectsOnScene(ObjType.Кривая.ToString(), linePres);
                     scenePage.SceneControl.DisplayObjects();
                 }
                 else
                 {
-                    foreach (var item in ModelData.ObjectData.LineCollection)
-                        item.SetBackColor();
+                    ModelData.ObjectData.SetBackColor(ObjType.Кривая);
 
-                    var linePres = ModelController.PresentersCreator.CreateLineObjectsPresenter(ModelData.ObjectData.LineCollection);
-                    scenePage.SceneControl.DeleteVBObjects(ObjType.Линия.ToString());
-                    scenePage.CreateObjectsOnScene(ObjType.Линия.ToString(), linePres);
+                    var linePres = ModelController.PresentersCreator.CreateLineObjectsPresenter(ModelData.ObjectData.CurveCollection.GetObjects());
+                    scenePage.SceneControl.DeleteVBObjects(ObjType.Кривая.ToString());
+                    scenePage.CreateObjectsOnScene(ObjType.Кривая.ToString(), linePres);
                     scenePage.SceneControl.DisplayObjects();
                 }
             }
@@ -685,9 +693,12 @@ namespace BazisGUI
         {
             var objType = ObjectsConverter.ConvertToObjsType(objects);
             var scenePage = BasePage.ScenePage;
-            foreach (var item in ModelData.ObjectData.GetObjects(objType))
-                item.SetBackColor();
-            scenePage.SetObjectsSceneAttribute(ObjType.Линия, "цвет");
+
+            ModelData.ObjectData.SetBackColor(objType);
+
+            //foreach (var item in ModelData.ObjectData.GetObjects(objType))
+            //    item.SetBackColor();
+            scenePage.SetObjectsSceneAttribute(ObjType.Кривая, "цвет");
         }
 
         private void ShowObjects(Objects objects, List<int> objNumbers)
@@ -699,7 +710,7 @@ namespace BazisGUI
 
                 foreach (var item in objNumbers)
                 {
-                    ModelData.ObjectData.Find(objType, item).MasterColor
+                    ModelData.ObjectData.Find(objType, item).Color
     = scenePage.SceneControl.SelectionColor;
                 }
 
@@ -717,13 +728,13 @@ namespace BazisGUI
             var objs = GmshController.GetMeshObjects();
             var scenePage = BasePage.ScenePage;
             if (objs.Item1.Count > 0)
-                ModelData.ObjectData.NodeCollection.AddRange(objs.Item1);
-            if (objs.Item1.Count > 0)
-                ModelData.ObjectData.E1DCollection.AddRange(objs.Item2);
-            if (objs.Item1.Count > 0)
-                ModelData.ObjectData.E2DCollection.AddRange(objs.Item3);
+                objs.Item1.ForEach(x => ModelData.ObjectData.NodesSet.Add(x.Number,x));
+            if (objs.Item2.Count > 0)
+                objs.Item2.ForEach(x => ModelData.ObjectData.E1DCollection.First().Value.Add(x.Number, (Beam)x));
+            if (objs.Item3.Count > 0)
+                objs.Item3.ForEach(x => ModelData.ObjectData.E2DCollection.First().Value.Add(x.Number, x));
             if (objs.Item4.Count > 0)
-                ModelData.ObjectData.E3DCollection.AddRange(objs.Item4);
+                objs.Item4.ForEach(x => ModelData.ObjectData.E3DCollection.First().Value.Add(x.Number, x));
 
             PresentObjects(ObjType.Узел);
             PresentObjects(ObjType.Элемент1D);
@@ -734,7 +745,7 @@ namespace BazisGUI
         private void UpdateGeometryVBO()
         {
             PresentObjects(ObjType.Точка);
-            PresentObjects(ObjType.Линия);
+            PresentObjects(ObjType.Кривая);
         }
 
         private void PresentObjects(ObjType item)

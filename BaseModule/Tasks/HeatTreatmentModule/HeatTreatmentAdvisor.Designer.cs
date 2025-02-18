@@ -289,7 +289,7 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             this.taskPlannerControl1.AddDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             this.taskPlannerControl1.ChangeDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
             this.taskPlannerControl1.DeleteAllDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
-            this.taskPlannerControl1.EditTSFEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls.TasksSet, string>(this.TaskPlannerControl_EditTSFEvent);
+            this.taskPlannerControl1.EditTSFEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls.Tasks, string>(this.TaskPlannerControl_EditTSFEvent);
             // 
             // imageList
             // 

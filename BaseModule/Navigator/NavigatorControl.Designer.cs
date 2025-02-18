@@ -34,8 +34,25 @@
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Путь :", 16, 16);
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Сведения :", 16, 16);
             System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Вид :");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Объекты", 14, 14);
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Группы объектов", 14, 14);
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Узлы", 14, 14);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Точки", 14, 14);
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Кривые", 14, 14);
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Поверхности", 14, 14);
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Объемы", 14, 14);
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Элементы1D", 14, 14);
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Элементы2D", 14, 14);
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Элементы3D", 14, 14);
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Объекты", 14, 14, new System.Windows.Forms.TreeNode[] {
+            treeNode5,
+            treeNode6,
+            treeNode7,
+            treeNode8,
+            treeNode9,
+            treeNode10,
+            treeNode11,
+            treeNode12});
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Группы объектов", 14, 14);
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Данные", 14, 14);
             this.objects_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -289,21 +306,21 @@
             // ребраToolStripMenuItem
             // 
             this.ребраToolStripMenuItem.Name = "ребраToolStripMenuItem";
-            this.ребраToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.ребраToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.ребраToolStripMenuItem.Text = "Ребра";
             this.ребраToolStripMenuItem.Click += new System.EventHandler(this.ребраToolStripMenuItem_Click);
             // 
             // поверхностиToolStripMenuItem
             // 
             this.поверхностиToolStripMenuItem.Name = "поверхностиToolStripMenuItem";
-            this.поверхностиToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.поверхностиToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.поверхностиToolStripMenuItem.Text = "Поверхности";
             this.поверхностиToolStripMenuItem.Click += new System.EventHandler(this.поверхностиToolStripMenuItem_Click);
             // 
             // ребраИПоверхностиToolStripMenuItem
             // 
             this.ребраИПоверхностиToolStripMenuItem.Name = "ребраИПоверхностиToolStripMenuItem";
-            this.ребраИПоверхностиToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.ребраИПоверхностиToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.ребраИПоверхностиToolStripMenuItem.Text = "Ребра и поверхности";
             this.ребраИПоверхностиToolStripMenuItem.Click += new System.EventHandler(this.ребраИПоверхностиToolStripMenuItem_Click);
             // 
@@ -409,25 +426,71 @@
             treeNode4.Name = "вид";
             treeNode4.Tag = "3";
             treeNode4.Text = "Вид :";
-            treeNode5.ContextMenuStrip = this.objects_MenuStrip;
             treeNode5.ImageIndex = 14;
-            treeNode5.Name = "объекты";
+            treeNode5.Name = "узлы";
             treeNode5.SelectedImageIndex = 14;
-            treeNode5.Tag = "4";
-            treeNode5.Text = "Объекты";
-            treeNode6.ContextMenuStrip = this.groups_MenuStrip;
+            treeNode5.Tag = "4.1";
+            treeNode5.Text = "Узлы";
             treeNode6.ImageIndex = 14;
-            treeNode6.Name = "группыОбъектов";
+            treeNode6.Name = "точки";
             treeNode6.SelectedImageIndex = 14;
-            treeNode6.Tag = "5";
-            treeNode6.Text = "Группы объектов";
+            treeNode6.Tag = "4.1";
+            treeNode6.Text = "Точки";
+            treeNode7.ImageIndex = 14;
+            treeNode7.Name = "кривые";
+            treeNode7.SelectedImageIndex = 14;
+            treeNode7.Tag = "4.1";
+            treeNode7.Text = "Кривые";
+            treeNode8.ImageIndex = 14;
+            treeNode8.Name = "поверхности";
+            treeNode8.SelectedImageIndex = 14;
+            treeNode8.Tag = "4.1";
+            treeNode8.Text = "Поверхности";
+            treeNode9.ImageIndex = 14;
+            treeNode9.Name = "объемы";
+            treeNode9.SelectedImageIndex = 14;
+            treeNode9.Tag = "4.1";
+            treeNode9.Text = "Объемы";
+            treeNode10.ImageIndex = 14;
+            treeNode10.Name = "элементы1D";
+            treeNode10.SelectedImageIndex = 14;
+            treeNode10.Tag = "4.1";
+            treeNode10.Text = "Элементы1D";
+            treeNode11.ImageIndex = 14;
+            treeNode11.Name = "элементы2D";
+            treeNode11.SelectedImageIndex = 14;
+            treeNode11.Tag = "4.1";
+            treeNode11.Text = "Элементы2D";
+            treeNode12.ImageIndex = 14;
+            treeNode12.Name = "элементы3D";
+            treeNode12.SelectedImageIndex = 14;
+            treeNode12.Tag = "4.1";
+            treeNode12.Text = "Элементы3D";
+            treeNode13.ContextMenuStrip = this.objects_MenuStrip;
+            treeNode13.ImageIndex = 14;
+            treeNode13.Name = "объекты";
+            treeNode13.SelectedImageIndex = 14;
+            treeNode13.Tag = "4";
+            treeNode13.Text = "Объекты";
+            treeNode14.ContextMenuStrip = this.groups_MenuStrip;
+            treeNode14.ImageIndex = 14;
+            treeNode14.Name = "группыОбъектов";
+            treeNode14.SelectedImageIndex = 14;
+            treeNode14.Tag = "5";
+            treeNode14.Text = "Группы объектов";
+            treeNode15.ImageIndex = 14;
+            treeNode15.Name = "Данные";
+            treeNode15.SelectedImageIndex = 14;
+            treeNode15.Tag = "6";
+            treeNode15.Text = "Данные";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2,
             treeNode3,
             treeNode4,
-            treeNode5,
-            treeNode6});
+            treeNode13,
+            treeNode14,
+            treeNode15});
             this.treeView.SelectedImageIndex = 16;
             this.treeView.ShowLines = false;
             this.treeView.Size = new System.Drawing.Size(225, 327);

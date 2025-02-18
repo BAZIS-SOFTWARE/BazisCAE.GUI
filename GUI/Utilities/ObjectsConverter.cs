@@ -15,7 +15,7 @@ namespace BazisGUI.Utilities
                 case Objects.Узел:
                     return ObjType.Узел;
                 case Objects.Линия:
-                    return ObjType.Линия;
+                    return ObjType.Кривая;
                 case Objects.Элемент2D:
                     return ObjType.Элемент2D;
                 case Objects.Элемент3D:
@@ -24,5 +24,35 @@ namespace BazisGUI.Utilities
                     throw new Exception($"Ошибка конвертации объектов {objects}");
             }
         }
+
+        public static ObjType ConvertToObjsType(string objects)
+        {
+            ObjType objType;
+            return Enum.TryParse(objects, out objType) ? objType :
+                throw new Exception($"Ошибка конвертации объектов {objects}");
+        }
+
+        public static string ConvertToNavigatorNodeName(ObjType objType)
+        {
+            switch (objType)
+            {
+                case ObjType.Точка:
+                    return "точки";
+                case ObjType.Кривая:
+                    return "кривые";
+                case ObjType.Поверхность:
+                    return "поверхности";
+                case ObjType.Объем:
+                    return "объемы";
+                case ObjType.Узел:
+                    return "узлы";
+                case ObjType.Элемент1D:
+                    return "элементы1D";
+                case ObjType.Элемент2D:
+                    return "элементы2D";
+                default:
+                    return "элементы3D";
+            }
+        }  
     }
 }
