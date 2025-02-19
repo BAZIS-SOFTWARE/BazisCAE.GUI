@@ -8,6 +8,7 @@ using Model;
 using Model.GeometryObjects;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
+using Model.Interfaces.ObjectsCollections;
 using Model.MeshObjects;
 using ModelControllerInterfaces;
 using Project.Interfaces;
@@ -206,10 +207,12 @@ namespace BazisGUI
 
                 else if (arg2.ClickedItem.Tag.ToString() == "2")
                 {
-                    //ModelController.PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.LineSurface);
-                    //ModelController.PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.LineSurface);
-                    //ModelController.PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.LineSurface);
-                    //ModelController.PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.LineSurface);
+                    foreach (var item in ModelData.ObjectData.GetSetsInfo(ObjType.Поверхность))
+                        item.SetViewMode(ViewMode.LineSurface);
+                    foreach (var item in ModelData.ObjectData.GetSetsInfo(ObjType.Элемент2D))
+                        item.SetViewMode(ViewMode.LineSurface);
+                    foreach (var item in ModelData.ObjectData.GetSetsInfo(ObjType.Элемент3D))
+                        item.SetViewMode(ViewMode.LineSurface);
 
                     foreach (var obj in scenePage.SceneControl.GetVBObjs())
                         scenePage.SceneControl.ChangeViewModeVBObjects(obj.ObjName, ObjView.LinesSurface);
@@ -217,20 +220,24 @@ namespace BazisGUI
 
                 else if (arg2.ClickedItem.Tag.ToString() == "3")
                 {
-                    //ModelController.PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.Line);
-                    //ModelController.PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.Line);
-                    //ModelController.PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.Line);
-                    //ModelController.PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.Line);
+                    foreach (var item in ModelData.ObjectData.GetSetsInfo(ObjType.Поверхность))
+                        item.SetViewMode(ViewMode.Line);
+                    foreach (var item in ModelData.ObjectData.GetSetsInfo(ObjType.Элемент2D))
+                        item.SetViewMode(ViewMode.Line);
+                    foreach (var item in ModelData.ObjectData.GetSetsInfo(ObjType.Элемент3D))
+                        item.SetViewMode(ViewMode.Line);
                     foreach (var obj in scenePage.SceneControl.GetVBObjs())
                         scenePage.SceneControl.ChangeViewModeVBObjects(obj.ObjName, ObjView.Lines);
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "4")
                 {
-                    //ModelController.PresentersCreator.SetView(ObjType.Фигура2D.ToString(), PresenterView.Surface);
-                    //ModelController.PresentersCreator.SetView(ObjType.Фигура3D.ToString(), PresenterView.Surface);
-                    //ModelController.PresentersCreator.SetView(ObjType.Элемент2D.ToString(), PresenterView.Surface);
-                    //ModelController.PresentersCreator.SetView(ObjType.Элемент3D.ToString(), PresenterView.Surface);
+                    foreach (var item in ModelData.ObjectData.GetSetsInfo(ObjType.Поверхность))
+                        item.SetViewMode(ViewMode.Surface);
+                    foreach (var item in ModelData.ObjectData.GetSetsInfo(ObjType.Элемент2D))
+                        item.SetViewMode(ViewMode.Surface);
+                    foreach (var item in ModelData.ObjectData.GetSetsInfo(ObjType.Элемент3D))
+                        item.SetViewMode(ViewMode.Surface);
                     foreach (var obj in scenePage.SceneControl.GetVBObjs())
                         scenePage.SceneControl.ChangeViewModeVBObjects(obj.ObjName, ObjView.Surface);
                 }

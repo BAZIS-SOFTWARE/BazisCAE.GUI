@@ -52,7 +52,6 @@
             treeNode11,
             treeNode12});
             System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Группы объектов", 14, 14);
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Данные", 14, 14);
             this.objects_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -478,19 +477,13 @@
             treeNode14.SelectedImageIndex = 14;
             treeNode14.Tag = "5";
             treeNode14.Text = "Группы объектов";
-            treeNode15.ImageIndex = 14;
-            treeNode15.Name = "Данные";
-            treeNode15.SelectedImageIndex = 14;
-            treeNode15.Tag = "6";
-            treeNode15.Text = "Данные";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2,
             treeNode3,
             treeNode4,
             treeNode13,
-            treeNode14,
-            treeNode15});
+            treeNode14});
             this.treeView.SelectedImageIndex = 16;
             this.treeView.ShowLines = false;
             this.treeView.Size = new System.Drawing.Size(225, 327);

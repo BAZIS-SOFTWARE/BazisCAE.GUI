@@ -19,6 +19,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static BaseModule.Interfaces.GeneralParams;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
@@ -122,7 +123,11 @@ namespace BazisGUI
             {
                 var presentor = CreateObjectsPresentor(item);
                 if (presentor.Count() > 0)
+                {
+                    presentor.ViewMode = ModelData.ObjectData.GetSetsInfo(item).First().ViewMode;
                     CreateObjectsOnScene(item.ToString(), presentor);
+                }
+
             }
         }
 
@@ -530,7 +535,6 @@ namespace BazisGUI
 
             ModelData.ObjectData.ClearNotExisted();
             ModelData.GroupData.ClearNotExisted();
-
             sceneControl.DeleteAllVBObjects();
 
             PresentAllModelObjectsToScene();

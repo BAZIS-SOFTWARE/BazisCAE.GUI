@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using UserControlsEx;
 using static BaseModule.Interfaces.GeneralParams;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -44,7 +45,7 @@ namespace BaseModule.Navigator
 
         public event Action<string> SelectGroupEvent;
 
-        public event Action<int> DelGroupEvent;
+        public event Action<TreeNode> DelGroupEvent;
         public event Action DelAllGroupsEvent;
         public event Action<int> HideGroupEvent;
         public event Action<int> ShowGroupEvent;
@@ -57,10 +58,11 @@ namespace BaseModule.Navigator
         public event Action ShowAllObjectsEvent;
         public event Action HideAllObjectsEvent;
 
-        public event Action<string> ShowObjectsEvent;
+        public event Action<string, string> ShowObjectsEvent;
         public event Action<string, ViewRegime> ChangeObjectsViewEvent;
-        public event Action<string> HideObjectsEvent;
-        public event Action<string> DelObjectsEvent;
+        public event Action<string,string> HideObjectsEvent;
+        public event Action<TreeNode> DelObjectsEvent;
+        public event Action DelAllObjectsEvent;
         public event Action ControlCollapseEvent;
         public event Action ControlUnpinnedEvent;
 
@@ -103,30 +105,6 @@ namespace BaseModule.Navigator
         }
 
 
-        //public bool CreateChildNode(string root, string name, string text, string tag)
-        //{
-        //    var node = new TreeNode()
-        //    {
-        //        Name = name,
-        //        Text = text,
-
-        //        ImageIndex = ImgDict.ContainsKey(name) ? ImgDict[name] : 16,
-        //        SelectedImageIndex = ImgDict.ContainsKey(name) ? ImgDict[name] : 16,
-
-        //        Tag = tag
-        //    };
-
-        //    SetContextMenu(root, node);
-
-        //    var rootNode = SearchNode(root);
-
-        //    if (rootNode == null)
-        //        return false;
-        //    else
-        //        rootNode.Nodes.Add(node);
-
-        //    return true;
-        //}
 
         public void SetContextMenu(string root, TreeNode node)
         {
@@ -179,25 +157,6 @@ namespace BaseModule.Navigator
                     return res;
             }
             return null;
-        }
-
-        public void ShowObjectsNode(string nodeKey, string imageKey)
-        {
-            var t = ImgDict[nodeKey];
-            treeView.Nodes["объекты"].Nodes[nodeKey].ImageIndex = ImgDict[imageKey] == 3 ? 5 : 6;
-            treeView.Nodes["объекты"].Nodes[nodeKey].SelectedImageIndex = ImgDict[imageKey] == 3 ? 5 : 6;
-        }
-
-        public void ShowObjectsNode(int nodeInd, string imageKey)
-        {
-            treeView.Nodes["объекты"].Nodes[nodeInd].ImageIndex = ImgDict[imageKey] == 3 ? 5 : 6;
-            treeView.Nodes["объекты"].Nodes[nodeInd].SelectedImageIndex = ImgDict[imageKey] == 3 ? 5 : 6;
-        }
-
-        public void HideObjectsNode(string objsType)
-        {
-            treeView.Nodes["объекты"].Nodes[objsType].ImageIndex = ImgDict[objsType];
-            treeView.Nodes["объекты"].Nodes[objsType].SelectedImageIndex = ImgDict[objsType];
         }
 
         private void RenameGroup_Click(object sender, EventArgs e)
@@ -308,9 +267,9 @@ namespace BaseModule.Navigator
 
         public void DelGroup_Click(object sender, EventArgs e)
         {
-            var groupIndex = treeView.SelectedNode.Index;
+            //var groupIndex = treeView.SelectedNode.Index;
 
-            DelGroupEvent?.Invoke(groupIndex);
+            DelGroupEvent?.Invoke(treeView.SelectedNode);
 
             //DeleteTaskDataNodes(treeView.SelectedNode);
             //treeView.Nodes["группыОбъектов"].Nodes.RemoveAt(groupIndex);
@@ -335,20 +294,23 @@ namespace BaseModule.Navigator
 
         public void ShowObjects_Click(object sender, EventArgs e)
         {
-            var objsName = treeView.SelectedNode.Name;
+            var node = treeView.SelectedNode;
 
-            treeView.SelectedNode.ImageIndex = ImgDict[objsName] == 3 ? 5 : 6;
-            treeView.SelectedNode.SelectedImageIndex = ImgDict[objsName] == 3 ? 5 : 6;
+            treeView.SelectedNode.ImageIndex = ImgDict[node.Name] == 3 ? 5 : 6;
+            treeView.SelectedNode.SelectedImageIndex = ImgDict[node.Name] == 3 ? 5 : 6;
 
-            ShowObjectsEvent?.Invoke(objsName);
+            ShowObjectsEvent?.Invoke(node.Name, node.Text);
         }
 
         public void ShowAllObjects_Click(object sender, EventArgs e)
         {
-            foreach (TreeNode item in treeView.Nodes[4].Nodes)
+            foreach (TreeNode objsNode in treeView.Nodes[4].Nodes)
             {
-                item.ImageIndex = ImgDict[item.Name] == 3 ? 5 : 6;
-                item.SelectedImageIndex = ImgDict[item.Name] == 3 ? 5 : 6;
+                foreach (TreeNode item in objsNode.Nodes)
+                {
+                    item.ImageIndex = ImgDict[item.Name] == 3 ? 5 : 6;
+                    item.SelectedImageIndex = ImgDict[item.Name] == 3 ? 5 : 6;
+                }
             }
 
             ShowAllObjectsEvent?.Invoke();
@@ -356,10 +318,13 @@ namespace BaseModule.Navigator
 
         public void HideAllObjects_Click(object sender, EventArgs e)
         {
-            foreach (TreeNode item in treeView.Nodes[4].Nodes)
+            foreach (TreeNode objsNode in treeView.Nodes[4].Nodes)
             {
-                item.ImageIndex = ImgDict[item.Name];
-                item.SelectedImageIndex = ImgDict[item.Name];
+                foreach (TreeNode item in objsNode.Nodes)
+                {
+                    item.ImageIndex = ImgDict[item.Name];
+                    item.SelectedImageIndex = ImgDict[item.Name];
+                }
             }
 
             HideAllObjectsEvent?.Invoke();
@@ -372,12 +337,12 @@ namespace BaseModule.Navigator
 
         public void HideObjects_Click(object sender, EventArgs e)
         {
-            var objsName = treeView.SelectedNode.Name;
+            var node = treeView.SelectedNode;
 
-            treeView.Nodes["объекты"].Nodes[objsName].ImageIndex = ImgDict[objsName];
-            treeView.Nodes["объекты"].Nodes[objsName].SelectedImageIndex = ImgDict[objsName];
+            treeView.SelectedNode.ImageIndex = ImgDict[node.Name];
+            treeView.SelectedNode.SelectedImageIndex = ImgDict[node.Name];
 
-            HideObjectsEvent?.Invoke(objsName);
+            HideObjectsEvent?.Invoke(node.Name,node.Text);
         }
 
         public void EditGroup_Click(object sender, EventArgs e)
@@ -395,14 +360,15 @@ namespace BaseModule.Navigator
 
         public void DelAllObjects_Click(object sender, EventArgs e)
         {
-            DelObjectsEvent?.Invoke("Объект");
+            foreach (TreeNode item in treeView.Nodes["объекты"].Nodes)
+                item.Nodes.Clear();
+
+            DelAllObjectsEvent?.Invoke();
         }
 
         public void DelObjects_Click(object sender, EventArgs e)
         {
-            DelObjectsEvent?.Invoke(treeView.SelectedNode.Name);
-            //DelObjects(treeView.SelectedNode);
-            //treeView.Nodes["объекты"].Nodes.Remove(treeView.SelectedNode);
+            DelObjectsEvent?.Invoke(treeView.SelectedNode);
         }
 
         public void InfoGroup_Click(object sender, EventArgs e)
