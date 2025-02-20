@@ -147,16 +147,21 @@ namespace BaseModule.Navigator
         }
 
         // Call the procedure using the TreeView.  
-        public TreeNode SearchNode(string nodeName)
+        public bool TrySearchNode(string nodeName, out TreeNode treeNode)
         {
-            // Print each node.
+            
             foreach (TreeNode n in treeView.Nodes)
             {
                 var res = SearchChildNode(n, nodeName);
                 if (res != null)
-                    return res;
+                {
+                    treeNode = res;
+                    return true;
+                }
+
             }
-            return null;
+            treeNode = null;
+            return false;
         }
 
         private void RenameGroup_Click(object sender, EventArgs e)

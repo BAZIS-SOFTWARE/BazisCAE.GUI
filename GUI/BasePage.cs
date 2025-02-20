@@ -27,6 +27,7 @@ using Model.Interfaces.ObjectsCollections;
 using System.Xml.Linq;
 using System.Globalization;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using MathNet.Numerics.Distributions;
 
 namespace BazisGUI
 {
@@ -166,8 +167,9 @@ namespace BazisGUI
                     navigator.SetContextMenu("объекты",child);
 
                     var rootName = ObjectsConverter.ConvertToNavigatorNodeName(setInfo.ObjType);
-                    var root = navigator.SearchNode(rootName);
-                    root.Nodes.Add(child);
+                    TreeNode rootNode;
+                    if (navigator.TrySearchNode(rootName, out rootNode))
+                        rootNode.Nodes.Add(child);
                 }
             }
 
@@ -478,10 +480,15 @@ namespace BazisGUI
 
                         Invoke(new Action(() =>       
                         {
-                            var node = navigator.SearchNode("объекты");
                             var set = ModelData.ObjectData.GetSetsInfo(ObjType.Узел).First();
-                            node.Nodes[0].Text = $"{set.Name} : {set.NumberOfObjects}";
-                            consoleControl.PrintInfo("Узлы слиты", Color.Green);
+
+                            TreeNode searchNode;
+                            if (navigator.TrySearchNode("объекты", out searchNode))
+                            {
+                                searchNode.Nodes[0].Text = $"{set.Name} : {set.NumberOfObjects}";
+                                consoleControl.PrintInfo("Узлы слиты", Color.Green);
+                            }
+   
                         }));
                         return new Tuple<bool, object>(true, new object());
                     });
@@ -849,9 +856,10 @@ namespace BazisGUI
 
         private void scenePage_SelectionDeletedEvent(object obj)
         {
-            var node = navigator.SearchNode("объекты");
-            foreach (TreeNode item in node.Nodes)
-                item.Nodes.Clear();
+            TreeNode searchNode;
+            if (navigator.TrySearchNode("объекты", out searchNode))
+                foreach (TreeNode item in searchNode.Nodes)
+                    item.Nodes.Clear();
 
             DeleteSelectedObjectsEvent?.Invoke();
             PresentProjectOnTree();

@@ -634,9 +634,11 @@ namespace BazisGUI
             var child = new TreeNode($"{data}", imgIndex, imgIndex)
             { Tag = "6.1.1", Name = data };
 
-            var root = BasePage.NavigatorControl.SearchNode(rootNode);
+            TreeNode searchNode;
+            if(BasePage.NavigatorControl.TrySearchNode(rootNode, out searchNode))
+                searchNode.Nodes.Add(child);
 
-            root.Nodes.Add(child);
+
         }
 
         public async Task<List<Result>> LoadResultsAsync(string fileName, IResultData resultData)
