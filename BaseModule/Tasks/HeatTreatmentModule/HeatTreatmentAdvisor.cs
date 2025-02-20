@@ -84,9 +84,9 @@ namespace BaseModule.Tasks.HeatTreatmentModule
             base.TaskPlannerControl_GenerateTCFEvent(sender,e);
         }
 
-        public override void TaskPlannerControl_EditTSFEvent(object arg1, BasicAdvisorControls.TaskPlannerControls.Tasks arg2, string fileName)
+        public override void TaskPlannerControl_EditTSFEvent(object arg1, string fileName)
         {
-            base.TaskPlannerControl_EditTSFEvent(arg1, arg2, fileName);
+            base.TaskPlannerControl_EditTSFEvent(arg1, fileName);
         }
     }
 }

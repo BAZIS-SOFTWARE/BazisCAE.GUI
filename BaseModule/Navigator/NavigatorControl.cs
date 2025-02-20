@@ -91,7 +91,7 @@ namespace BaseModule.Navigator
             };
         }
 
-        public int GetImageIndex(string objType)
+        public int GetObjectImageIndex(string objType)
         {
             return ImgDict[objType];
         }
@@ -115,10 +115,6 @@ namespace BaseModule.Navigator
                     node.ContextMenuStrip = ndGroup_MenuStrip;
                 else if (node.ImageIndex == 4)
                     node.ContextMenuStrip = elGroup_MenuStrip;
-            //if (ImgDict[name] == 3)
-            //node.ContextMenuStrip = ndGroup_MenuStrip;
-            //else if (ImgDict[name] == 4)
-            //node.ContextMenuStrip = elGroup_MenuStrip;
         }
 
         public TreeNode SearchChildNode(TreeNode startNode, string nodeName)

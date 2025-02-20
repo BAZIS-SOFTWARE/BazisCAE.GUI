@@ -324,7 +324,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.taskPlannerControl.AddDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             this.taskPlannerControl.ChangeDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
             this.taskPlannerControl.DeleteAllDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
-            this.taskPlannerControl.EditTSFEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls.Tasks, string>(this.TaskPlannerControl_EditTSFEvent);
+            this.taskPlannerControl.EditTSFEvent += new System.Action<object, string>(this.TaskPlannerControl_EditTSFEvent);
             // 
             // imageList
             // 

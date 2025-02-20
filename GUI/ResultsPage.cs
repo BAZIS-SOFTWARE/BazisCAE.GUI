@@ -371,8 +371,9 @@ namespace BazisGUI
 
                 if (GeneralData.TaskType == TaskType.Volume)
                 {
+                    var objType = nodeName == "ПоУзлам" ? ObjType.Узел : ObjType.Элемент3D;
                     var els3D = ModelData.ObjectData.E3DCollection.GetObjects();
-                    var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, ObjType.Элемент3D, resName, els3D);
+                    var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objType, resName, els3D);
 
                     var presenter = ModelController.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
 
@@ -380,8 +381,9 @@ namespace BazisGUI
                 }
                 else
                 {
+                    var objType = nodeName == "ПоУзлам" ? ObjType.Узел : ObjType.Элемент2D;
                     var els2D = ModelData.ObjectData.E2DCollection.GetObjects();
-                    var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, ObjType.Элемент2D, resName, els2D);
+                    var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objType, resName, els2D);
 
                     var presenter = ModelController.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
                     scenePage.CreateObjectsOnScene(ObjType.Поверхность.ToString(), presenter);
@@ -629,9 +631,9 @@ namespace BazisGUI
 
         private void AddResultDataToNavigator(string rootNode,string data)
         {
-            var imgIndex = BasePage.NavigatorControl.GetImageIndex(data);
+            //var imgIndex = BasePage.NavigatorControl.GetObjectImageIndex(data);
 
-            var child = new TreeNode($"{data}", imgIndex, imgIndex)
+            var child = new TreeNode($"{data}", 16, 16)
             { Tag = "6.1.1", Name = data };
 
             TreeNode searchNode;

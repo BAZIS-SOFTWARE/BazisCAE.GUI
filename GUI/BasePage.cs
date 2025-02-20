@@ -144,42 +144,23 @@ namespace BazisGUI
             navigator.SetProjectTitleInfo("сведения", "Сведения : " + generalData.Comments);
             navigator.SetProjectTitleInfo("вид", "Вид: " + generalData.TaskType);
 
-            navigator.TreeView.BeginUpdate();
-
-            navigator.TreeView.Nodes["объекты"].Expand();
-            //navigator.TreeView.Nodes["объекты"].Nodes.Clear();
-
             var ModelData = ModelController.ModelData;
 
-            //var counter = 0;
-            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
-            {
-                foreach (var setInfo in ModelData.ObjectData.GetSetsInfo(item))
-                {
-                    var text = $"{setInfo.Name} : {setInfo.NumberOfObjects}";
-                    var imgIndex = navigator.GetImageIndex(setInfo.ObjType.ToString());
-                    imgIndex = imgIndex == 3 ? 5 : 6;
-                    var child = new TreeNode(text, imgIndex, imgIndex)
-                    {
-                        Tag = "4.1.1",
-                        Name = setInfo.ObjType.ToString()
-                    };
-                    navigator.SetContextMenu("объекты",child);
+            navigator.TreeView.BeginUpdate();
+            FillObjectsNodes(ModelData);
+            FillGroupsNodes(ModelData);
+            navigator.TreeView.EndUpdate();
+        }
 
-                    var rootName = ObjectsConverter.ConvertToNavigatorNodeName(setInfo.ObjType);
-                    TreeNode rootNode;
-                    if (navigator.TrySearchNode(rootName, out rootNode))
-                        rootNode.Nodes.Add(child);
-                }
-            }
-
+        private void FillGroupsNodes(IModelData ModelData)
+        {
+            navigator.TreeView.Nodes["группыОбъектов"].Nodes.Clear();
             navigator.TreeView.Nodes["группыОбъектов"].Expand();
-            //navigator.TreeView.Nodes["группыОбъектов"].Nodes.Clear();
-
+            
             foreach (var group in ModelData.GroupData)
             {
                 var text = $"{group.Name}";
-                var imgIndex = navigator.GetImageIndex(group.ObjType.ToString());
+                var imgIndex = navigator.GetObjectImageIndex(group.ObjType.ToString());
 
                 var child = new TreeNode(text, imgIndex, imgIndex)
                 {
@@ -189,10 +170,36 @@ namespace BazisGUI
                 navigator.SetContextMenu("группыОбъектов", child);
                 navigator.TreeView.Nodes["группыОбъектов"].Nodes.Add(child);
             }
+        }
 
-            navigator.TreeView.EndUpdate();
-        }        
-                           
+        private void FillObjectsNodes(IModelData ModelData)
+        {
+            foreach (TreeNode item in navigator.TreeView.Nodes["объекты"].Nodes)
+                item.Nodes.Clear();
+
+            navigator.TreeView.Nodes["объекты"].Expand();
+
+            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
+            {
+                foreach (var setInfo in ModelData.ObjectData.GetSetsInfo(item))
+                {
+                    var text = $"{setInfo.Name} : {setInfo.NumberOfObjects}";
+                    var imgIndex = navigator.GetObjectImageIndex(setInfo.ObjType.ToString());
+                    imgIndex = imgIndex == 3 ? 5 : 6;
+                    var child = new TreeNode(text, imgIndex, imgIndex)
+                    {
+                        Tag = "4.1.1",
+                        Name = setInfo.ObjType.ToString()
+                    };
+                    navigator.SetContextMenu("объекты", child);
+
+                    var rootName = ObjectsConverter.ConvertToNavigatorNodeName(setInfo.ObjType);
+                    TreeNode rootNode;
+                    if (navigator.TrySearchNode(rootName, out rootNode))
+                        rootNode.Nodes.Add(child);
+                }
+            }
+        }
 
         public async void WaitProcessAsync(Process process, Action<object, EventArgs> action)
         {
@@ -534,9 +541,14 @@ namespace BazisGUI
 
             var setName = treeNode.Text.Split(':')[0].Replace(" ", "");
 
-            ModelData.ObjectData.Remove(objType, setName);
-
-            treeNode.Remove();
+            if (objType == ObjType.Точка | objType == ObjType.Узел)
+                ModelData.ObjectData.Clear(objType);
+                
+            else
+                ModelData.ObjectData.Remove(objType, setName);
+            ModelData.ObjectData.ClearEmpty();
+            ModelData.GroupData.ClearNotExisted();
+            PresentProjectOnTree();
 
             scenePage.ClearAllDataOnScene();
             scenePage.PresentAllModelObjectsToScene();
@@ -842,7 +854,7 @@ namespace BazisGUI
             {
                 foreach (var setInfo in ModelData.ObjectData.GetSetsInfo(item))
                 {
-                    var imgIndex = navigator.GetImageIndex(setInfo.ObjType.ToString());
+                    var imgIndex = navigator.GetObjectImageIndex(setInfo.ObjType.ToString());
                     imgIndex = imgIndex == 3 ? 5 : 6;
 
                     var rootName = ObjectsConverter.ConvertToNavigatorNodeName(setInfo.ObjType);
@@ -872,7 +884,7 @@ namespace BazisGUI
             var text = $"{arg}";
 
             var objType = ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects.ToString());
-            var imgIndex = navigator.GetImageIndex(objType.ToString());
+            var imgIndex = navigator.GetObjectImageIndex(objType.ToString());
 
             var child = new TreeNode(text, imgIndex, imgIndex)
             {
@@ -961,6 +973,20 @@ namespace BazisGUI
                 ScenePage.SetObjectsSceneAttribute(item, "координаты");
 
             ScenePage.SceneControl.DisplayObjects();
+        }
+
+        private void navigator_DelAllObjectsEvent()
+        {
+            ModelData.ObjectData.ClearAll();
+            ModelData.GroupData.Clear();
+            
+            PresentProjectOnTree();
+
+            scenePage.ClearAllDataOnScene();
+
+            scenePage.SceneControl.DisplayObjects();
+
+            DeleteObjectsEvent?.Invoke();
         }
     }
 }

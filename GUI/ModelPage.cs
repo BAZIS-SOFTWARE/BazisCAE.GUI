@@ -730,11 +730,11 @@ namespace BazisGUI
             if (objs.Item1.Count > 0)
                 objs.Item1.ForEach(x => ModelData.ObjectData.NodesSet.Add(x.Number,x));
             if (objs.Item2.Count > 0)
-                objs.Item2.ForEach(x => ModelData.ObjectData.E1DCollection.First().Value.Add(x.Number, (Beam)x));
+                ModelData.ObjectData.E1DCollection.AddRange("e1d",objs.Item2.Select(x => (Beam)x));
             if (objs.Item3.Count > 0)
-                objs.Item3.ForEach(x => ModelData.ObjectData.E2DCollection.First().Value.Add(x.Number, x));
+                ModelData.ObjectData.E2DCollection.AddRange("e2d", objs.Item3);
             if (objs.Item4.Count > 0)
-                objs.Item4.ForEach(x => ModelData.ObjectData.E3DCollection.First().Value.Add(x.Number, x));
+                ModelData.ObjectData.E3DCollection.AddRange("e3d", objs.Item4);
 
             PresentObjects(ObjType.Узел);
             PresentObjects(ObjType.Элемент1D);

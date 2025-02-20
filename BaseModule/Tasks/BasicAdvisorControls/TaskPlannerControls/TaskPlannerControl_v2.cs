@@ -26,7 +26,7 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
         public event Action<object, DeleteDataEventArgs> DeleteDataEvent;
         public event Action<object, ChangeDataEventArgs> ChangeDataEvent;
         public event Action<object, DeleteAllDataEventArgs> DeleteAllDataEvent;
-        public event Action<object, Tasks,string> EditTSFEvent;
+        public event Action<object, string> EditTSFEvent;
 
         enum Column : int { kind, settings, status };
 
@@ -76,37 +76,13 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
 
                 var fileSettings = dataGridView[(int)Column.settings, e.RowIndex].Value.ToString();
 
-                Tasks tasksSet;
-                Enum.TryParse(taskKind, out tasksSet);
-
-                EditTSFEvent?.Invoke(this, tasksSet,fileSettings);
+                EditTSFEvent?.Invoke(this, fileSettings);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }  
-        private Tasks GetTasksSet()
-        {
-            if (rbtTermoMechTask.Checked)
-            {
-                return Tasks.термическая_и_механическая;
-            }
-            else if (rbtChemicalTask.Checked)
-            {
-                return Tasks.химическая;
-            }
-            else if (rbtTermoTask.Checked)
-            {
-                return Tasks.термическая;
-            }
-            else if (rbtMechTask.Checked)
-            {
-                return Tasks.механическая;
-            }
-            else
-                return Tasks.химическая_и_термическая;
-        }
 
         public void ClearAllDataButton_Click(object sender, EventArgs e)
         {

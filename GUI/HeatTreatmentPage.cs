@@ -29,7 +29,10 @@ namespace BazisGUI
 
             pContr.HeaderName = $"Постановка задачи {processType}";
 
-            ProcessType = processType;
+            ProcessProperty = new PreProc.ProcessProperty()
+            {
+                CommonTaskType = processType
+            };
 
             FillAdvisor(pContr.HTAdvisor);
         }       

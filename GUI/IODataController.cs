@@ -99,9 +99,9 @@ namespace BazisGUI
             if (objType == ObjType.Точка)
             {
                 var controlPoints = gmshController.CreateControlPoints();
-                var max = project.ModelData.ObjectData.PointsSet.Max(x => x.Key) + 1;
+                
                 if (controlPoints.Count > 0)
-                    controlPoints.ForEach(x => project.ModelData.ObjectData.PointsSet.Add(x.Number + max, x));
+                    controlPoints.ForEach(x => project.ModelData.ObjectData.PointsSet.Add(x.Number, x));
             }
             else if (objType == ObjType.Кривая)
             {

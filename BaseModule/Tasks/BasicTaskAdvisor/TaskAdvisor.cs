@@ -29,7 +29,7 @@ namespace TaskModule.BasicTaskAdvisor
         public event Action<object, EventArgs> StopComputationEvent;
         public event Action<object, EventArgs> AddDataUseTaskConditionsEvent;
         public event Action<object, GenerateTCFEventArgs> GenerateTCFEvent;
-        public event Action<object, Tasks,string> EditTSFEvent;
+        public event Action<object,string> EditTSFEvent;
 
 
         //public ProcessType ProcessType 
@@ -213,9 +213,9 @@ namespace TaskModule.BasicTaskAdvisor
             }
         }
 
-        public virtual void TaskPlannerControl_EditTSFEvent(object arg1, Tasks arg2, string fileName)
+        public virtual void TaskPlannerControl_EditTSFEvent(object arg1, string fileName)
         {
-            EditTSFEvent(arg1, arg2, fileName);
+            EditTSFEvent(arg1, fileName);
         }
 
         public virtual void TaskPlannerControl_GenerateTCFEvent(object arg1, GenerateTCFEventArgs arg2)

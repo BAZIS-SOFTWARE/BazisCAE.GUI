@@ -30,7 +30,7 @@ namespace BazisGUI
 {
     public partial class TaskPage: ToolStripPage
     {
-        public ProcessType ProcessType { get; set; }
+        public ProcessProperty ProcessProperty { get; set; }
         public string SolverPath { get; set; }
 
         IGeneralData GeneralData { get { return BasePage.GetGeneralData(); } }
@@ -238,7 +238,7 @@ namespace BazisGUI
             }
         }
 
-        private void TaskAdv_EditTSFEvent(object arg1, Tasks arg2, string arg3)
+        private void TaskAdv_EditTSFEvent(object arg1, string arg3)
         {
             try
             {
@@ -285,15 +285,15 @@ namespace BazisGUI
             var fileName = Path.GetFileNameWithoutExtension(filePath);
             var taskName = fileName.Split('_')[0];
 
-            ComplexTaskType tasksSet;
+            Tasks tasksSet;
             Enum.TryParse(taskName, out tasksSet);
 
-            if (tasksSet == ComplexTaskType.термическая)
+            if (tasksSet == Tasks.термическая)
             {
                 return JsonConvert.DeserializeObject<TermalParameters>
 (File.ReadAllText(filePath), settingsSerializer);
             }
-            else if (tasksSet == ComplexTaskType.механическая)
+            else if (tasksSet == Tasks.механическая)
             {
                 return JsonConvert.DeserializeObject<MechanicalParameters>
 (File.ReadAllText(filePath), settingsSerializer);
@@ -377,7 +377,7 @@ namespace BazisGUI
                 if (!Directory.Exists(inputDir))
                     Directory.CreateDirectory(inputDir);
 
-                preProc.CalcCompDataV1(data, ProcessType, inputDir);
+                preProc.CalcCompDataV2(data, ProcessProperty, inputDir);
 
                 var tsfFiles = Directory.GetFiles(inputDir, "*.tsf");
 
@@ -902,7 +902,7 @@ namespace BazisGUI
 
         private void AddTaskDataToNavigator(IData data)
         {
-            var imgIndex = BasePage.NavigatorControl.GetImageIndex(data.Name);
+            var imgIndex = BasePage.NavigatorControl.GetObjectImageIndex(data.Name);
 
             var child = new TreeNode($"{data.Name} : {data.GetInfo}", imgIndex, imgIndex)
             { Tag = "6.1", Name = data.Name };
