@@ -524,7 +524,7 @@ namespace BazisGUI
 
         private void MeshGenerator_deleteMeshEvent(Objects objects)
         {
-            var objType = ObjectsConverter.ConvertToObjsType(objects);
+            var objType = Converters.ConvertToObjsType(objects);
             var scenePage = BasePage.ScenePage;
 
             if (objType == ObjType.Элемент2D)
@@ -691,7 +691,7 @@ namespace BazisGUI
 
         private void GmshControl_ResetColorObjectsEvent(Objects objects)
         {
-            var objType = ObjectsConverter.ConvertToObjsType(objects);
+            var objType = Converters.ConvertToObjsType(objects);
             var scenePage = BasePage.ScenePage;
 
             ModelData.ObjectData.SetBackColor(objType);
@@ -705,7 +705,7 @@ namespace BazisGUI
         {
             try
             {
-                var objType = ObjectsConverter.ConvertToObjsType(objects);
+                var objType = Converters.ConvertToObjsType(objects);
                 var scenePage = BasePage.ScenePage;
 
                 foreach (var item in objNumbers)

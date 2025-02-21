@@ -270,7 +270,7 @@ namespace BazisGUI
                 {
                     case MeasureKind.DistancePointToPoint:
                         {
-                            var objsType = ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects);
+                            var objsType = Converters.ConvertToObjsType(scenePage.SelectedObjects);
                             var objs = ModelData.ObjectData.GetObjects(objsType);
                             var selObjs = objs.Where(x => x.Color == scenePage.SceneControl.SelectionColor).ToList();
 
@@ -291,7 +291,7 @@ namespace BazisGUI
                         }
                     case MeasureKind.DistancePointToPlane:
                         {
-                            var objsType = ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects);
+                            var objsType = Converters.ConvertToObjsType(scenePage.SelectedObjects);
                             var plane = BasePage.CreateSurfaceAsync(objsType);
                             await plane;
 
@@ -321,7 +321,7 @@ namespace BazisGUI
                     case MeasureKind.Square:
                         {
                             var square = 0.0;
-                            var objsType = ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects);
+                            var objsType = Converters.ConvertToObjsType(scenePage.SelectedObjects);
                             var objs = ModelData.ObjectData.GetObjects(objsType);
 
                             var selObjs = objs.Where(x => x.Color == scenePage.SceneControl.SelectionColor);
@@ -338,7 +338,7 @@ namespace BazisGUI
                     case MeasureKind.Volume:
                         {
                             var vol = 0.0f;
-                            var objsType = ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects);
+                            var objsType = Converters.ConvertToObjsType(scenePage.SelectedObjects);
                             var objs = ModelData.ObjectData.GetObjects(objsType);
                             var selObjs = objs.Where(x => x.Color == scenePage.SceneControl.SelectionColor);
 
@@ -367,8 +367,8 @@ namespace BazisGUI
             var consoleControl = BasePage.ConsoleControl;
             try
             {
-                var objsType = ObjectsConverter.ConvertToObjsType(arg2.Objects);
-                if (objsType == ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects))
+                var objsType = Converters.ConvertToObjsType(arg2.Objects);
+                if (objsType == Converters.ConvertToObjsType(scenePage.SelectedObjects))
                 {
                     var selObjs = ModelData.ObjectData.GetObjects(objsType).
                         Where(x => x.Color == scenePage.SceneControl.SelectionColor).ToArray();
@@ -418,8 +418,8 @@ namespace BazisGUI
             var consoleControl = BasePage.ConsoleControl;
             try
             {
-                var objsType = ObjectsConverter.ConvertToObjsType(arg2.Objects);
-                if (objsType == ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects))
+                var objsType = Converters.ConvertToObjsType(arg2.Objects);
+                if (objsType == Converters.ConvertToObjsType(scenePage.SelectedObjects))
                 {
                     //var result = await BasePage.SelectObjectsAsync(scenePage.SelectedObjects);
                     //var objs = result as IEnumerable<IModelObject>;
@@ -608,7 +608,7 @@ namespace BazisGUI
                     {
                         try
                         {
-                            var objsType = ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects);
+                            var objsType = Converters.ConvertToObjsType(scenePage.SelectedObjects);
                             var objs = ModelData.ObjectData.GetObjects(objsType);
                             var selObjs = objs.Where(x => x.Color == scenePage.SceneControl.SelectionColor).ToArray();
                             if (selObjs.Length < 3)
@@ -700,7 +700,7 @@ namespace BazisGUI
                     var measuringControl = new MeasuringSet() { Dock = DockStyle.Fill };
                     measuringControl.PreparingMeasureEvent += (ar) =>
                     {
-                        var objTypes = ObjectsConverter.ConvertToObjsType(ar);
+                        var objTypes = Converters.ConvertToObjsType(ar);
                         scenePage.SelectedObjects = objTypes.ToString();
                         scenePage.SceneControl.HideAllGeometryObjs();
                         scenePage.SceneControl.HideDisplayText3D();

@@ -21,7 +21,7 @@ namespace BazisGUI.Utilities
                 return objectsData.GetAllElements();
             else
             {
-                var objType = ObjectsConverter.ConvertToObjsType(objects);
+                var objType = Converters.ConvertToObjsType(objects);
                 return objectsData.GetObjects(objType);
             }
         }

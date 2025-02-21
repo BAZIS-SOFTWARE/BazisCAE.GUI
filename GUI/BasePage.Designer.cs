@@ -1,7 +1,5 @@
-﻿using BaseModule;
-using BaseModule.Console;
-using BaseModule.Navigator;
-using System.Windows.Forms;
+﻿using BaseModule.Console;
+using BazisGUI.Navigator;
 using UserControlsEx;
 
 namespace BazisGUI
@@ -37,7 +35,7 @@ namespace BazisGUI
             this.components = new System.ComponentModel.Container();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.splitContainer1 = new UserControlsEx.SplitContainerEx();
-            this.navigator = new BaseModule.Navigator.NavigatorControl();
+            this.navigator = new BazisGUI.Navigator.NavigatorPage();
             this.splitContainer2 = new UserControlsEx.SplitContainerEx();
             this.scenePage = new BazisGUI.ScenePage();
             this.consoleControl = new BaseModule.Console.ConsoleControl();
@@ -112,7 +110,7 @@ namespace BazisGUI
             this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
             this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
             this.navigator.ShowObjectsEvent += new System.Action<string, string>(this.navigator_ShowObjectsEvent);
-            this.navigator.ChangeObjectsViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeViewModeEventHandler);
+            this.navigator.ChangeObjectsViewEvent += new System.Action<string, BazisGUI.Navigator.ViewRegime>(this.navigator_ChangeViewModeEventHandler);
             this.navigator.HideObjectsEvent += new System.Action<string, string>(this.navigator_HideObjectsEvent);
             this.navigator.DelObjectsEvent += new System.Action<System.Windows.Forms.TreeNode>(this.navigator_DelObjectsEvent);
             this.navigator.DelAllObjectsEvent += new System.Action(this.navigator_DelAllObjectsEvent);
@@ -212,7 +210,7 @@ namespace BazisGUI
         #endregion
         private System.Windows.Forms.ErrorProvider errorProvider;
         private SplitContainerEx splitContainer1;
-        protected NavigatorControl navigator;
+        protected NavigatorPage navigator;
         private SplitContainerEx splitContainer2;
         protected ScenePage scenePage;
         protected ConsoleControl consoleControl;

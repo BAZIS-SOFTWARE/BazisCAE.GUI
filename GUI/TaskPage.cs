@@ -25,12 +25,13 @@ using PreProc;
 using Project.Interfaces.Tasks;
 using Model.Interfaces;
 using Project.TaskParameters;
+using BazisGUI.Utilities;
 
 namespace BazisGUI
 {
     public partial class TaskPage: ToolStripPage
     {
-        public ProcessProperty ProcessProperty { get; set; }
+        public ProcessType ProcessType{ get; set; }
         public string SolverPath { get; set; }
 
         IGeneralData GeneralData { get { return BasePage.GetGeneralData(); } }
@@ -219,7 +220,7 @@ namespace BazisGUI
                 //activeAdvisor = taskAdv.Name;
                 taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent;
                 taskAdv.EditTSFEvent += TaskAdv_EditTSFEvent;
-                taskAdv.AddDataUseTaskConditionsEvent += (ar1,ar2) => { TaskAdv_AddDataUseTaskConditions(taskData, preProc); };
+                taskAdv.AddDataUseTaskConditionsEvent += (ar1,ar2) => { TaskAdv_AddDataUseTaskConditions(taskData, preProc,ar2); };
                 taskAdv.AddDataEvent += (ar1, ar2) => { TaskAdvisor_AddData(taskData, ar2); };
                 taskAdv.DeleteDataEvent += (ar1, ar2) => { TaskAdvisor_DeleteData(taskData, ar2); };
                 taskAdv.DeleteAllDataEvent += (ar1, ar2) => { TaskAdvisor_DeleteAllData(taskData, ar2); };
@@ -364,7 +365,7 @@ namespace BazisGUI
             }
         }
 
-        private void TaskAdv_AddDataUseTaskConditions(ITaskData taskData, IPreProc preProc)
+        private void TaskAdv_AddDataUseTaskConditions(ITaskData taskData, IPreProc preProc,Tasks tasks)
         {
             try
             {
@@ -377,7 +378,15 @@ namespace BazisGUI
                 if (!Directory.Exists(inputDir))
                     Directory.CreateDirectory(inputDir);
 
-                preProc.CalcCompDataV2(data, ProcessProperty, inputDir);
+                var taskType = Converters.ConvertToPreProcType(tasks);
+
+                var procProp = new ProcessProperty()
+                {
+                    GeneralTaskType = taskType,
+                    CommonTaskType = ProcessType
+                };
+
+                preProc.CalcCompDataV2(data, procProp, inputDir);
 
                 var tsfFiles = Directory.GetFiles(inputDir, "*.tsf");
 

@@ -200,7 +200,7 @@ namespace BazisGUI
                     SetObjectsSceneAttribute(ObjType.Объем, "цвет");
                 }
                 else
-                    SetObjectsSceneAttribute(ObjectsConverter.ConvertToObjsType(SelectedObjects), "цвет");
+                    SetObjectsSceneAttribute(Converters.ConvertToObjsType(SelectedObjects), "цвет");
 
                 sceneControl.DisplayObjects();
             }
@@ -235,7 +235,7 @@ namespace BazisGUI
         {
             try
             {
-                var objType = ObjectsConverter.ConvertToObjsType(SelectedObjects);
+                var objType = Converters.ConvertToObjsType(SelectedObjects);
 
                 if (isSorted & selections.Count > 0)
                 {
@@ -355,7 +355,7 @@ namespace BazisGUI
 
                 if (selObjs.Count() > 0)
                 {
-                    var objType = ObjectsConverter.ConvertToObjsType(SelectedObjects);
+                    var objType = Converters.ConvertToObjsType(SelectedObjects);
                     var grps = ModelData.GroupData.FindMany(objType);
 
                     var counter = 1;
@@ -419,7 +419,7 @@ namespace BazisGUI
             else
             {
                 sceneControl.DeleteVBObjects(SelectedObjects);
-                var objType = ObjectsConverter.ConvertToObjsType(SelectedObjects);
+                var objType = Converters.ConvertToObjsType(SelectedObjects);
                 CreateObjectsOnScene(SelectedObjects, CreateObjectsPresentor(objType));
             }
 

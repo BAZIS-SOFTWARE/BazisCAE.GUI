@@ -1,10 +1,12 @@
-﻿using Model.Interfaces;
+﻿using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
+using Model.Interfaces;
+using PreProc.Interfaces;
 using System;
 using static BaseModule.Interfaces.GeneralParams;
 
 namespace BazisGUI.Utilities
 {
-    public static class ObjectsConverter
+    public static class Converters
     {
         public static ObjType ConvertToObjsType(Objects objects)
         {
@@ -53,6 +55,23 @@ namespace BazisGUI.Utilities
                 default:
                     return "элементы3D";
             }
-        }  
+        }
+
+        public static ComplexTaskType ConvertToPreProcType(Tasks tasks)
+        {
+            switch (tasks)
+            {
+                case Tasks.химическая:
+                    return ComplexTaskType.химическая;
+                case Tasks.термическая:
+                    return ComplexTaskType.термическая;
+                case Tasks.механическая:
+                    return ComplexTaskType.механическая;
+                case Tasks.химическая_и_термическая:
+                    return ComplexTaskType.термическая_химическая;          
+                default:
+                    return ComplexTaskType.термическая_механическая;
+            }
+        }
     }
 }

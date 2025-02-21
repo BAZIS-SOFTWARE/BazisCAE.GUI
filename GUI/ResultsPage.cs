@@ -150,13 +150,13 @@ namespace BazisGUI
             grPage.CreateTimeGraphEvent += (ar1, ar2) =>
             {
                 var results = resultData.FindByTaskKind(ar2.ResultKind);
-                var objType = ObjectsConverter.ConvertToObjsType(ar2.Objects);
+                var objType = Converters.ConvertToObjsType(ar2.Objects);
                 CreateTimeGraph(results, objType);
             };
             grPage.CreatePathGraphEvent += (ar1, ar2) =>
                 {
                     var result = resultData.FindByTime(ar2.ResultKind, ar2.Time);
-                    var objType = ObjectsConverter.ConvertToObjsType(ar2.Objects);
+                    var objType = Converters.ConvertToObjsType(ar2.Objects);
                     CreatePathGraph(result, objType);
                 };
 
@@ -866,7 +866,7 @@ namespace BazisGUI
 
                 IEnumerable<IModelObject> objects;
 
-                var objTypes = ObjectsConverter.ConvertToObjsType(args.ExportObj);
+                var objTypes = Converters.ConvertToObjsType(args.ExportObj);
 
                 if (objTypes == ObjType.Узел)
                     objects = ModelData.ObjectData.NodesSet.Values;

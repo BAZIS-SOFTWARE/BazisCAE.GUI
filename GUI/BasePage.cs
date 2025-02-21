@@ -9,7 +9,6 @@ using Geometry;
 using System.Diagnostics;
 using BaseModule.Console;
 using BaseModule.Console.Events;
-using BaseModule.Navigator;
 using ModelControllerInterfaces;
 using System.Threading;
 using System.ComponentModel;
@@ -28,6 +27,7 @@ using System.Xml.Linq;
 using System.Globalization;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using MathNet.Numerics.Distributions;
+using BazisGUI.Navigator;
 
 namespace BazisGUI
 {
@@ -40,7 +40,7 @@ namespace BazisGUI
 
         [Category("General")]
         [Description("NavigatorControl")]
-        public NavigatorControl NavigatorControl
+        public NavigatorPage NavigatorControl
         {
             get
             {
@@ -139,67 +139,9 @@ namespace BazisGUI
 
         public void PresentProjectOnTree()
         {
-            navigator.SetProjectTitleInfo("названиеПроекта", "Название : " + generalData.Name);
-            navigator.SetProjectTitleInfo("путь", "Путь : " + generalData.Path);
-            navigator.SetProjectTitleInfo("сведения", "Сведения : " + generalData.Comments);
-            navigator.SetProjectTitleInfo("вид", "Вид: " + generalData.TaskType);
-
-            var ModelData = ModelController.ModelData;
-
-            navigator.TreeView.BeginUpdate();
-            FillObjectsNodes(ModelData);
-            FillGroupsNodes(ModelData);
-            navigator.TreeView.EndUpdate();
-        }
-
-        private void FillGroupsNodes(IModelData ModelData)
-        {
-            navigator.TreeView.Nodes["группыОбъектов"].Nodes.Clear();
-            navigator.TreeView.Nodes["группыОбъектов"].Expand();
-            
-            foreach (var group in ModelData.GroupData)
-            {
-                var text = $"{group.Name}";
-                var imgIndex = navigator.GetObjectImageIndex(group.ObjType.ToString());
-
-                var child = new TreeNode(text, imgIndex, imgIndex)
-                {
-                    Tag = "5.1",
-                    Name = group.ObjType.ToString()
-                };
-                navigator.SetContextMenu("группыОбъектов", child);
-                navigator.TreeView.Nodes["группыОбъектов"].Nodes.Add(child);
-            }
-        }
-
-        private void FillObjectsNodes(IModelData ModelData)
-        {
-            foreach (TreeNode item in navigator.TreeView.Nodes["объекты"].Nodes)
-                item.Nodes.Clear();
-
-            navigator.TreeView.Nodes["объекты"].Expand();
-
-            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
-            {
-                foreach (var setInfo in ModelData.ObjectData.GetSetsInfo(item))
-                {
-                    var text = $"{setInfo.Name} : {setInfo.NumberOfObjects}";
-                    var imgIndex = navigator.GetObjectImageIndex(setInfo.ObjType.ToString());
-                    imgIndex = imgIndex == 3 ? 5 : 6;
-                    var child = new TreeNode(text, imgIndex, imgIndex)
-                    {
-                        Tag = "4.1.1",
-                        Name = setInfo.ObjType.ToString()
-                    };
-                    navigator.SetContextMenu("объекты", child);
-
-                    var rootName = ObjectsConverter.ConvertToNavigatorNodeName(setInfo.ObjType);
-                    TreeNode rootNode;
-                    if (navigator.TrySearchNode(rootName, out rootNode))
-                        rootNode.Nodes.Add(child);
-                }
-            }
-        }
+            navigator.PresentGeneralData(generalData);
+            navigator.PresentModelData(ModelController.ModelData);
+        }       
 
         public async void WaitProcessAsync(Process process, Action<object, EventArgs> action)
         {
@@ -269,7 +211,7 @@ namespace BazisGUI
 
             while (true)
             {
-                var objType = ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects);
+                var objType = Converters.ConvertToObjsType(scenePage.SelectedObjects);
                 var res = SelectObjectAsync(objType);
                 await res;
 
@@ -443,7 +385,7 @@ namespace BazisGUI
                 {
                     Invoke(new Action(() =>
                     {
-                        var objsType = ObjectsConverter.ConvertToObjsType(findObjectEventArgs.ObjsType);
+                        var objsType = Converters.ConvertToObjsType(findObjectEventArgs.ObjsType);
                         var obj = ModelData.ObjectData.Find(objsType, (int)findObjectEventArgs.Number);
 
                         if (obj != null)
@@ -546,9 +488,10 @@ namespace BazisGUI
                 
             else
                 ModelData.ObjectData.Remove(objType, setName);
+            
             ModelData.ObjectData.ClearEmpty();
-            ModelData.GroupData.ClearNotExisted();
-            PresentProjectOnTree();
+            
+            navigator.PresentModelData(ModelController.ModelData);
 
             scenePage.ClearAllDataOnScene();
             scenePage.PresentAllModelObjectsToScene();
@@ -763,9 +706,7 @@ namespace BazisGUI
             }
 
             scenePage.SceneControl.DeleteAllVBObjects();
-
             scenePage.PresentAllModelObjectsToScene();
-
             scenePage.SceneControl.DisplayObjects();
         }
 
@@ -784,7 +725,7 @@ namespace BazisGUI
 
         private void navigator_ChangeViewModeEventHandler(string objs, ViewRegime viewRegime)
         {
-            var objType = ObjectsConverter.ConvertToObjsType(objs);
+            var objType = Converters.ConvertToObjsType(objs);
             switch (viewRegime)
             {
                 case ViewRegime.ribbers:
@@ -857,7 +798,7 @@ namespace BazisGUI
                     var imgIndex = navigator.GetObjectImageIndex(setInfo.ObjType.ToString());
                     imgIndex = imgIndex == 3 ? 5 : 6;
 
-                    var rootName = ObjectsConverter.ConvertToNavigatorNodeName(setInfo.ObjType);
+                    var rootName = Converters.ConvertToNavigatorNodeName(setInfo.ObjType);
                     var root = navigator.TreeView.Nodes["объекты"].Nodes[rootName];
                     var child = navigator.SearchChildNode(root, setInfo.ObjType.ToString());
                     child.ImageIndex = imgIndex;
@@ -874,7 +815,7 @@ namespace BazisGUI
                     item.Nodes.Clear();
 
             DeleteSelectedObjectsEvent?.Invoke();
-            PresentProjectOnTree();
+            navigator.PresentModelData(ModelController.ModelData);
         }
 
         public virtual void scenePage_CreateMeshGroupEvent(object sender, string arg)
@@ -883,7 +824,7 @@ namespace BazisGUI
 
             var text = $"{arg}";
 
-            var objType = ObjectsConverter.ConvertToObjsType(scenePage.SelectedObjects.ToString());
+            var objType = Converters.ConvertToObjsType(scenePage.SelectedObjects.ToString());
             var imgIndex = navigator.GetObjectImageIndex(objType.ToString());
 
             var child = new TreeNode(text, imgIndex, imgIndex)
@@ -943,7 +884,7 @@ namespace BazisGUI
 
         private void ConsoleControl_RenumberMeshEvent(object arg1, ModelRenumberEventArgs arg2)
         {
-            ModelController.ObjectsRenumber.Renumber(ModelData.ObjectData, ObjectsConverter.ConvertToObjsType(arg2.ObjsType));
+            ModelController.ObjectsRenumber.Renumber(ModelData.ObjectData, Converters.ConvertToObjsType(arg2.ObjsType));
         }
 
         private void ConsoleControl_ModelShiftCoordinateEvent(object arg1, ModelShiftCoordinateEventArgs arg2)
@@ -979,8 +920,8 @@ namespace BazisGUI
         {
             ModelData.ObjectData.ClearAll();
             ModelData.GroupData.Clear();
-            
-            PresentProjectOnTree();
+
+            navigator.PresentModelData(ModelData);
 
             scenePage.ClearAllDataOnScene();
 

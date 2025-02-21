@@ -255,6 +255,12 @@
     <Compile Include="ModelPage.Designer.cs">
       <DependentUpon>ModelPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Navigator\NavigatorPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Navigator\NavigatorPage.Designer.cs">
+      <DependentUpon>NavigatorPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultsPage.cs">
@@ -337,7 +343,7 @@
     <Compile Include="ToolStripPage.Designer.cs">
       <DependentUpon>ToolStripPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\ObjectsConverter.cs" />
+    <Compile Include="Utilities\Converters.cs" />
     <Compile Include="Utilities\ObjectsProvider.cs" />
     <Compile Include="WeldingPage.cs">
       <SubType>UserControl</SubType>
@@ -368,6 +374,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ModelPage.resx">
       <DependentUpon>ModelPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Navigator\NavigatorPage.resx">
+      <DependentUpon>NavigatorPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

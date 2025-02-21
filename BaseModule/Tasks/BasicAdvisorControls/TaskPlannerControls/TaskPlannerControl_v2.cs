@@ -19,7 +19,7 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
     {
         //public ProcessType ProcessType { get; set; }
 
-        public event Action<object, EventArgs> AddDataUseTaskConditionsEvent;
+        public event Action<object, Tasks> AddDataUseTaskConditionsEvent;
         public event Action<object, EventArgs> StopComputationEvent;
         public event Action<object, GenerateTCFEventArgs> GenerateTCFEvent;
         public event Action<object, AddDataEventArgs> AddDataEvent;
@@ -83,6 +83,27 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
                 MessageBox.Show(ex.Message);
             }
         }  
+        private Tasks GetTasksSet()
+        {
+            if (rbtTermoMechTask.Checked)
+            {
+                return Tasks.термическая_и_механическая;
+            }
+            else if (rbtChemicalTask.Checked)
+            {
+                return Tasks.химическая;
+            }
+            else if (rbtTermoTask.Checked)
+            {
+                return Tasks.термическая;
+            }
+            else if (rbtMechTask.Checked)
+            {
+                return Tasks.механическая;
+            }
+            else
+                return Tasks.химическая_и_термическая;
+        }
 
         public void ClearAllDataButton_Click(object sender, EventArgs e)
         {
@@ -187,7 +208,7 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
 
         private void btnGenTSF_Click(object sender, EventArgs e)
         {
-            AddDataUseTaskConditionsEvent?.Invoke(this, new EventArgs());
+            AddDataUseTaskConditionsEvent?.Invoke(this, GetTasksSet());
         }
     }
 }
