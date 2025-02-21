@@ -14,19 +14,19 @@ using System.Runtime;
 
 namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
 {
-    public enum TasksSet : int { химическая, термическая, механическая,химическая_и_термическая, термическая_и_механическая };
+    public enum Tasks : int { химическая, термическая, механическая,химическая_и_термическая, термическая_и_механическая };
     public partial class TaskPlannerControl_v2 : UserControl
     {
         //public ProcessType ProcessType { get; set; }
 
-        public event Action<object, EventArgs> AddDataUseTaskConditionsEvent;
+        public event Action<object, Tasks> AddDataUseTaskConditionsEvent;
         public event Action<object, EventArgs> StopComputationEvent;
         public event Action<object, GenerateTCFEventArgs> GenerateTCFEvent;
         public event Action<object, AddDataEventArgs> AddDataEvent;
         public event Action<object, DeleteDataEventArgs> DeleteDataEvent;
         public event Action<object, ChangeDataEventArgs> ChangeDataEvent;
         public event Action<object, DeleteAllDataEventArgs> DeleteAllDataEvent;
-        public event Action<object, TasksSet,string> EditTSFEvent;
+        public event Action<object, string> EditTSFEvent;
 
         enum Column : int { kind, settings, status };
 
@@ -76,36 +76,33 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
 
                 var fileSettings = dataGridView[(int)Column.settings, e.RowIndex].Value.ToString();
 
-                TasksSet tasksSet;
-                Enum.TryParse(taskKind, out tasksSet);
-
-                EditTSFEvent?.Invoke(this, tasksSet,fileSettings);
+                EditTSFEvent?.Invoke(this, fileSettings);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }  
-        private TasksSet GetTasksSet()
+        private Tasks GetTasksSet()
         {
             if (rbtTermoMechTask.Checked)
             {
-                return TasksSet.термическая_и_механическая;
+                return Tasks.термическая_и_механическая;
             }
             else if (rbtChemicalTask.Checked)
             {
-                return TasksSet.химическая;
+                return Tasks.химическая;
             }
             else if (rbtTermoTask.Checked)
             {
-                return TasksSet.термическая;
+                return Tasks.термическая;
             }
             else if (rbtMechTask.Checked)
             {
-                return TasksSet.механическая;
+                return Tasks.механическая;
             }
             else
-                return TasksSet.химическая_и_термическая;
+                return Tasks.химическая_и_термическая;
         }
 
         public void ClearAllDataButton_Click(object sender, EventArgs e)
@@ -211,7 +208,7 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
 
         private void btnGenTSF_Click(object sender, EventArgs e)
         {
-            AddDataUseTaskConditionsEvent?.Invoke(this, new EventArgs());
+            AddDataUseTaskConditionsEvent?.Invoke(this, GetTasksSet());
         }
     }
 }

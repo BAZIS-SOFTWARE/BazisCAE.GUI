@@ -1,4 +1,8 @@
 ﻿using BaseModule.Interfaces;
+using BazisGUI.Utilities;
+using Model.Interfaces;
+using Project;
+using Project.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,10 +14,10 @@ using UserControlsEx;
 using static BaseModule.Interfaces.GeneralParams;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace BaseModule.Navigator
+namespace BazisGUI.Navigator
 {
     public enum ViewRegime : int { ribbers, surfaces, ribbersSurfaces };
-    public partial class NavigatorControl : UserControl, IPinnedControl
+    public partial class NavigatorPage : UserControl, IPinnedControl
     {
         Dictionary<string, int> ImgDict;
 
@@ -66,7 +70,7 @@ namespace BaseModule.Navigator
         public event Action ControlCollapseEvent;
         public event Action ControlUnpinnedEvent;
 
-        public NavigatorControl()
+        public NavigatorPage()
         {
             InitializeComponent();
             typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | 
@@ -102,6 +106,74 @@ namespace BaseModule.Navigator
             {               
                 return treeView;
             }
+        }
+
+        public void PresentModelData(IModelData modelData)
+        {
+            treeView.BeginUpdate();
+            FillObjectsNodes(modelData);
+
+            FillGroupsNodes(modelData);
+            treeView.EndUpdate();
+        }
+
+        public void PresentGeneralData(IGeneralData generalData)
+        {
+            SetProjectTitleInfo("названиеПроекта", "Название : " + generalData.Name);
+            SetProjectTitleInfo("путь", "Путь : " + generalData.Path);
+            SetProjectTitleInfo("сведения", "Сведения : " + generalData.Comments);
+            SetProjectTitleInfo("вид", "Вид: " + generalData.TaskType);
+        }
+
+        private void FillGroupsNodes(IModelData ModelData)
+        {
+            treeView.Nodes["группыОбъектов"].Nodes.Clear();
+            treeView.Nodes["группыОбъектов"].Expand();
+
+            foreach (var group in ModelData.GroupData)
+            {
+                var text = $"{group.Name}";
+                var imgIndex = GetObjectImageIndex(group.ObjType.ToString());
+
+                var child = new TreeNode(text, imgIndex, imgIndex)
+                {
+                    Tag = "5.1",
+                    Name = group.ObjType.ToString()
+                };
+                SetContextMenu("группыОбъектов", child);
+                treeView.Nodes["группыОбъектов"].Nodes.Add(child);
+            }
+        }
+
+        private void FillObjectsNodes(IModelData ModelData)
+        {
+
+            foreach (TreeNode item in treeView.Nodes["объекты"].Nodes)
+                item.Nodes.Clear();
+
+            treeView.Nodes["объекты"].Expand();
+
+            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
+            {
+                foreach (var setInfo in ModelData.ObjectData.GetSetsInfo(item))
+                {
+                    var text = $"{setInfo.Name} : {setInfo.NumberOfObjects}";
+                    var imgIndex = GetObjectImageIndex(setInfo.ObjType.ToString());
+                    imgIndex = imgIndex == 3 ? 5 : 6;
+                    var child = new TreeNode(text, imgIndex, imgIndex)
+                    {
+                        Tag = "4.1.1",
+                        Name = setInfo.ObjType.ToString()
+                    };
+                    SetContextMenu("объекты", child);
+
+                    var rootName = Converters.ConvertToNavigatorNodeName(setInfo.ObjType);
+                    TreeNode rootNode;
+                    if (TrySearchNode(rootName, out rootNode))
+                        rootNode.Nodes.Add(child);
+                }
+            }
+
         }
 
 

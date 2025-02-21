@@ -8,7 +8,7 @@ using static TestGUI.TestProvider;
 
 namespace TestGUI
 {
-    public class Form
+    public class MaterialDataBaseTests
     {
         [SetUp]
         public void Setup()

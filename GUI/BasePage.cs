@@ -9,7 +9,6 @@ using Geometry;
 using System.Diagnostics;
 using BaseModule.Console;
 using BaseModule.Console.Events;
-using BaseModule.Navigator;
 using ModelControllerInterfaces;
 using System.Threading;
 using System.ComponentModel;
@@ -23,6 +22,12 @@ using Model.Interfaces.MeshObjects;
 using Model;
 using System.Data.Odbc;
 using Scene;
+using Model.Interfaces.ObjectsCollections;
+using System.Xml.Linq;
+using System.Globalization;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using MathNet.Numerics.Distributions;
+using BazisGUI.Navigator;
 
 namespace BazisGUI
 {
@@ -35,7 +40,7 @@ namespace BazisGUI
 
         [Category("General")]
         [Description("NavigatorControl")]
-        public NavigatorControl NavigatorControl
+        public NavigatorPage NavigatorControl
         {
             get
             {
@@ -134,36 +139,9 @@ namespace BazisGUI
 
         public void PresentProjectOnTree()
         {
-            navigator.SetProjectTitleInfo("названиеПроекта", "Название : " + generalData.Name);
-            navigator.SetProjectTitleInfo("путь", "Путь : " + generalData.Path);
-            navigator.SetProjectTitleInfo("сведения", "Сведения : " + generalData.Comments);
-            navigator.SetProjectTitleInfo("вид", "Вид: " + generalData.TaskType);
-
-            navigator.TreeView.BeginUpdate();
-
-            navigator.TreeView.Nodes["объекты"].Expand();
-            navigator.TreeView.Nodes["объекты"].Nodes.Clear();
-
-            var ModelData = ModelController.ModelData;
-
-            foreach (var objType in ModelData.ObjectData.ObjsTypes)
-            {
-                var objs = ModelData.ObjectData.GetObjects(objType);
-                navigator.CreateChildNode("объекты", objType.ToString(), $"{objType} : {objs.Count()}", "4.1");
-                navigator.ShowObjectsNode(objType.ToString());
-            }
-
-            navigator.TreeView.Nodes["группыОбъектов"].Expand();
-            navigator.TreeView.Nodes["группыОбъектов"].Nodes.Clear();
-
-            foreach (var group in ModelData.GroupData)
-            {
-                navigator.CreateChildNode("группыОбъектов", group.ObjType.ToString(), group.Name, "5.1");
-            }
-
-            navigator.TreeView.EndUpdate();
-        }        
-                           
+            navigator.PresentGeneralData(generalData);
+            navigator.PresentModelData(ModelController.ModelData);
+        }       
 
         public async void WaitProcessAsync(Process process, Action<object, EventArgs> action)
         {
@@ -187,7 +165,7 @@ namespace BazisGUI
             var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
             {
                 var pointObjs = ModelData.ObjectData.GetObjects(objType);
-                var selObjs = pointObjs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToArray();
+                var selObjs = pointObjs.Where(x => x.Color == scenePage.SceneControl.SelectionColor).ToArray();
 
                 if (selObjs.Length < 3)
                 {
@@ -233,13 +211,14 @@ namespace BazisGUI
 
             while (true)
             {
-                var res = SelectObjectAsync(scenePage.SelectedObjects);
+                var objType = Converters.ConvertToObjsType(scenePage.SelectedObjects);
+                var res = SelectObjectAsync(objType);
                 await res;
 
                 if (res.Result is IPoint node)
                 {
                     nodes.Add(node);
-                    node.SetBackColor();
+                    //node.SetBackColor();
                 }
                 else break;
 
@@ -270,7 +249,7 @@ namespace BazisGUI
             {
                 var objs = ModelData.ObjectData.GetObjects(objType);
 
-                var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor);
+                var selObjs = objs.Where(x => x.Color == scenePage.SceneControl.SelectionColor);
 
                 if (selObjs.Count() == 0)
                 {
@@ -311,7 +290,7 @@ namespace BazisGUI
             {
                 var objs = ModelData.ObjectData.GetObjects(objType);
 
-                var selObjs = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor);
+                var selObjs = objs.Where(x => x.Color == scenePage.SceneControl.SelectionColor);
 
                 if (selObjs.Count() == 0)
                 {
@@ -406,12 +385,12 @@ namespace BazisGUI
                 {
                     Invoke(new Action(() =>
                     {
-                        var objsType = ObjectsConverter.ConvertToObjsType(findObjectEventArgs.ObjsType);
+                        var objsType = Converters.ConvertToObjsType(findObjectEventArgs.ObjsType);
                         var obj = ModelData.ObjectData.Find(objsType, (int)findObjectEventArgs.Number);
 
                         if (obj != null)
                         {
-                            foreach (var item in ModelData.ObjectData.GetObjects(ObjType.Объект))
+                            foreach (var item in ObjectsProvider.SelectorProvider(ModelData.ObjectData, scenePage.SelectedObjects))
                                 item.ViewState = false;
                             obj.ViewState = true;
                             scenePage.ClearAllDataOnScene();
@@ -429,28 +408,36 @@ namespace BazisGUI
                         Invoke(new Action(() => { consoleControl.PrintInfo(string.Format("{0:00}%", ar2 * 100), Color.Black); }));
                     };
 
-                    var nodes = ModelData.ObjectData.NodeCollection;
+                    var nodes = ModelData.ObjectData.NodesSet;
                     var coincidentNodes = ModelController.CoincidentObjectsFinder.Find(
-                        nodes.ToList(), 0.001f);
+                        nodes.Values.ToList(), 0.001f);
 
                     Invoke(new Action(() => { consoleControl.PrintInfo($"Найдено {coincidentNodes.Where(x => x.Count > 2).Count()} совпадений", Color.Black); }));
                     Invoke(new Action(() =>
                     {
-                        foreach (var objType in ModelData.ObjectData.ObjsTypes)
-                            scenePage.CreateObjectsOnScene(objType.ToString(), scenePage.CreateObjectsPresentor(objType));
+                        foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
+                            scenePage.CreateObjectsOnScene(item.ToString(), scenePage.CreateObjectsPresentor(item));
                         scenePage.SceneControl.DisplayObjects();
                     }));
                     var actConfirm = new Func<Tuple<bool, object>>(() =>
                     {
-                        var mergedNodes = ModelController.ObjectsMerger.Merge(coincidentNodes, nodes.ToList());
+                        var mergedNodes = ModelController.ObjectsMerger.Merge(coincidentNodes, nodes.Values.ToList());
 
-                        ModelData.ObjectData.NodeCollection.Clear();
-                        ModelData.ObjectData.NodeCollection.AddRange(mergedNodes);
+                        ModelData.ObjectData.NodesSet.Clear();
+                        foreach (var item in mergedNodes)
+                            ModelData.ObjectData.NodesSet.Add(item.Number,item);
 
-                        Invoke(new Action(() =>
+                        Invoke(new Action(() =>       
                         {
-                            PresentProjectOnTree();
-                            consoleControl.PrintInfo("Узлы слиты", Color.Green);
+                            var set = ModelData.ObjectData.GetSetsInfo(ObjType.Узел).First();
+
+                            TreeNode searchNode;
+                            if (navigator.TrySearchNode("объекты", out searchNode))
+                            {
+                                searchNode.Nodes[0].Text = $"{set.Name} : {set.NumberOfObjects}";
+                                consoleControl.PrintInfo("Узлы слиты", Color.Green);
+                            }
+   
                         }));
                         return new Tuple<bool, object>(true, new object());
                     });
@@ -470,36 +457,41 @@ namespace BazisGUI
                 Invoke(new Action(() => { consoleControl.PrintInfo(ex.Message, Color.Red); }));
             }
         }
-    
 
-        private void navigator_DelGroupEvent(int obj)
+
+        private void navigator_DelGroupEvent(TreeNode treeNode)
         {
-            var group = ModelData.GroupData[obj];
-            ModelData.GroupData.Remove(group);
+            var group = ModelData.GroupData[treeNode.Index];
 
-            PresentProjectOnTree();
-
-            DeleteGroupEvent?.Invoke();
+            if (ModelData.GroupData.Remove(group))
+            {
+                treeNode.Remove();
+                DeleteGroupEvent?.Invoke();
+            }
         }
 
         private void navigator_DelAllGroupsEvent()
         {
             ModelData.GroupData.Clear();
-
-            PresentProjectOnTree();
-
             DeleteAllGroupsEvent?.Invoke();
         }
 
-        private void navigator_DelObjectsEvent(string objs)
+        private void navigator_DelObjectsEvent(TreeNode treeNode)
         {
             ObjType objType;
-            Enum.TryParse(objs, out objType);
- 
-            ModelData.ObjectData.Clear(objType);
-            ModelData.GroupData.ClearNotExisted();
+            Enum.TryParse(treeNode.Name, out objType);
 
-            PresentProjectOnTree();
+            var setName = treeNode.Text.Split(':')[0].Replace(" ", "");
+
+            if (objType == ObjType.Точка | objType == ObjType.Узел)
+                ModelData.ObjectData.Clear(objType);
+                
+            else
+                ModelData.ObjectData.Remove(objType, setName);
+            
+            ModelData.ObjectData.ClearEmpty();
+            
+            navigator.PresentModelData(ModelController.ModelData);
 
             scenePage.ClearAllDataOnScene();
             scenePage.PresentAllModelObjectsToScene();
@@ -511,19 +503,19 @@ namespace BazisGUI
         private async void navigator_EditGroupEvent(int obj)
         {
             var group = ModelData.GroupData[obj];
-            scenePage.SelectedObjects = group.ObjType;
+            scenePage.SelectedObjects = group.ObjType.ToString();
 
             foreach (var iobj in group)
-                iobj.MasterColor = scenePage.SceneControl.SelectionColor;
+                iobj.Color = scenePage.SceneControl.SelectionColor;
 
-            scenePage.SetObjectsSceneAttribute(scenePage.SelectedObjects, "цвет");
+            scenePage.SetObjectsSceneAttribute(group.ObjType, "цвет");
 
             scenePage.SceneControl.DisplayObjects();
 
             var actConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var objs = ModelData.ObjectData.GetObjects(scenePage.SelectedObjects);
-                var selObj = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor);
+                var objs = ModelData.ObjectData.GetObjects(group.ObjType);
+                var selObj = objs.Where(x => x.Color == scenePage.SceneControl.SelectionColor);
 
                 if (selObj.Count() == 0)
                 {
@@ -584,7 +576,7 @@ namespace BazisGUI
         {
             try
             {
-                foreach (var item in ModelData.ObjectData.ObjsTypes)
+                foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
                 {
                     foreach (var modelObject in ModelData.ObjectData.GetObjects(item))
                         modelObject.ViewState = false;
@@ -624,19 +616,26 @@ namespace BazisGUI
             }
         }
 
-        private void navigator_HideObjectsEvent(string obj)
+        private void navigator_HideObjectsEvent(string nodeName, string nodeText)
+        {
+            ChangeObjsViewState(nodeName, nodeText, false);
+        }
+
+        private void ChangeObjsViewState(string objsName, string objsText, bool objsState)
         {
             try
             {
                 ObjType objType;
-                Enum.TryParse(obj, out objType);
+                Enum.TryParse(objsName, out objType);
 
-                foreach (var modelObject in ModelData.ObjectData.GetObjects(objType))
-                    modelObject.ViewState = false;
+                var setName = objsText.Split(':')[0].Replace(" ", "");
 
-                scenePage.SceneControl.DeleteVBObjects(obj);
+                foreach (var modelObject in ModelData.ObjectData.GetObjects(objType, setName))
+                    modelObject.ViewState = objsState;
 
-                scenePage.CreateObjectsOnScene(obj, scenePage.CreateObjectsPresentor(objType));
+                scenePage.SceneControl.DeleteVBObjects(objsName);
+
+                scenePage.CreateObjectsOnScene(objsName, scenePage.CreateObjectsPresentor(objType));
                 scenePage.SceneControl.DisplayObjects();
             }
             catch (Exception ex)
@@ -651,27 +650,9 @@ namespace BazisGUI
             scenePage.SceneControl.DisplayObjects();
         }
 
-        private void navigator_ShowObjectsEvent(string obj)
+        private void navigator_ShowObjectsEvent(string nodeName, string nodeText)
         {
-            try
-            {
-                ObjType objType;
-                Enum.TryParse(obj, out objType);
-
-                foreach (var modelObject in ModelData.ObjectData.GetObjects(objType))
-                    modelObject.ViewState = true;
-
-                scenePage.SceneControl.DeleteVBObjects(obj);
-
-                scenePage.CreateObjectsOnScene(obj, scenePage.CreateObjectsPresentor(objType));
-
-                scenePage.SceneControl.DisplayObjects();
-
-            }
-            catch (Exception ex)
-            {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
-            }
+            ChangeObjsViewState(nodeName, nodeText, true);
         }
 
         private void navigator_InfoGroupEvent(int obj)
@@ -702,7 +683,7 @@ namespace BazisGUI
                 var group = ModelData.GroupData.Find(obj);
 
                 foreach (var iobj in group)
-                    iobj.MasterColor = SelectionGroupColor;
+                    iobj.Color = SelectionGroupColor;
 
                 scenePage.SetObjectsSceneAttribute(group.ObjType, "цвет");
 
@@ -725,9 +706,7 @@ namespace BazisGUI
             }
 
             scenePage.SceneControl.DeleteAllVBObjects();
-
             scenePage.PresentAllModelObjectsToScene();
-
             scenePage.SceneControl.DisplayObjects();
         }
 
@@ -746,24 +725,30 @@ namespace BazisGUI
 
         private void navigator_ChangeViewModeEventHandler(string objs, ViewRegime viewRegime)
         {
-  
+            var objType = Converters.ConvertToObjsType(objs);
             switch (viewRegime)
             {
                 case ViewRegime.ribbers:
                     scenePage.SceneControl.ChangeViewModeVBObjects(objs, ObjView.Lines);
-                    ModelController.PresentersCreator.SetView(objs, PresenterView.Line);
+                    foreach (var item in ModelData.ObjectData.GetSetsInfo(objType))
+                        item.SetViewMode(ViewMode.Line);
                     break;
                 case ViewRegime.surfaces:
                     scenePage.SceneControl.ChangeViewModeVBObjects(objs, ObjView.Surface);
-                    ModelController.PresentersCreator.SetView(objs, PresenterView.Surface);
+                    foreach (var item in ModelData.ObjectData.GetSetsInfo(objType))
+                        item.SetViewMode(ViewMode.Surface);
                     break;
                 case ViewRegime.ribbersSurfaces:
                     scenePage.SceneControl.ChangeViewModeVBObjects(objs, ObjView.LinesSurface);
-                    ModelController.PresentersCreator.SetView(objs, PresenterView.LineSurface);
+                    foreach (var item in ModelData.ObjectData.GetSetsInfo(objType))
+                        item.SetViewMode(ViewMode.LineSurface);
                     break;
                 default:
                     break;
             }
+
+
+
 
             scenePage.SceneControl.DisplayObjects();
         }
@@ -806,21 +791,49 @@ namespace BazisGUI
 
         private void scenePage_ShowAllObjectsEvent(object obj)
         {
-            foreach (var item in ModelData.ObjectData.ObjsTypes)
-                navigator.ShowObjectsNode(item.ToString());
+            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
+            {
+                foreach (var setInfo in ModelData.ObjectData.GetSetsInfo(item))
+                {
+                    var imgIndex = navigator.GetObjectImageIndex(setInfo.ObjType.ToString());
+                    imgIndex = imgIndex == 3 ? 5 : 6;
+
+                    var rootName = Converters.ConvertToNavigatorNodeName(setInfo.ObjType);
+                    var root = navigator.TreeView.Nodes["объекты"].Nodes[rootName];
+                    var child = navigator.SearchChildNode(root, setInfo.ObjType.ToString());
+                    child.ImageIndex = imgIndex;
+                    child.SelectedImageIndex = imgIndex;
+                }
+            }
         }
 
         private void scenePage_SelectionDeletedEvent(object obj)
         {
+            TreeNode searchNode;
+            if (navigator.TrySearchNode("объекты", out searchNode))
+                foreach (TreeNode item in searchNode.Nodes)
+                    item.Nodes.Clear();
+
             DeleteSelectedObjectsEvent?.Invoke();
-            PresentProjectOnTree();
+            navigator.PresentModelData(ModelController.ModelData);
         }
 
         public virtual void scenePage_CreateMeshGroupEvent(object sender, string arg)
         {
             consoleControl.PrintInfo(string.Format("Создана новая группа {0}", arg), Color.Black);
 
-            navigator.CreateChildNode("группыОбъектов", scenePage.SelectedObjects.ToString(), arg, "5.1");
+            var text = $"{arg}";
+
+            var objType = Converters.ConvertToObjsType(scenePage.SelectedObjects.ToString());
+            var imgIndex = navigator.GetObjectImageIndex(objType.ToString());
+
+            var child = new TreeNode(text, imgIndex, imgIndex)
+            {
+                Tag = "5.1",
+                Name = objType.ToString()
+            };
+            navigator.SetContextMenu("группыОбъектов", child);
+            navigator.TreeView.Nodes["группыОбъектов"].Nodes.Add(child);
 
             CreatedMeshGroupEvent?.Invoke();
 
@@ -871,7 +884,7 @@ namespace BazisGUI
 
         private void ConsoleControl_RenumberMeshEvent(object arg1, ModelRenumberEventArgs arg2)
         {
-            ModelController.ObjectsRenumber.Renumber(ModelData.ObjectData, ObjectsConverter.ConvertToObjsType(arg2.ObjsType));
+            ModelController.ObjectsRenumber.Renumber(ModelData.ObjectData, Converters.ConvertToObjsType(arg2.ObjsType));
         }
 
         private void ConsoleControl_ModelShiftCoordinateEvent(object arg1, ModelShiftCoordinateEventArgs arg2)
@@ -882,7 +895,7 @@ namespace BazisGUI
             ScenePage.SceneControl.HideDisplayText2D();
             ScenePage.SceneControl.HideDisplayText3D();
 
-            foreach (var item in ModelData.ObjectData.ObjsTypes)
+            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
                 ScenePage.SetObjectsSceneAttribute(item, "координаты");
             
             ScenePage.SceneControl.DisplayObjects();
@@ -897,10 +910,24 @@ namespace BazisGUI
             ScenePage.SceneControl.HideDisplayText2D();
             ScenePage.SceneControl.HideDisplayText3D();
 
-            foreach (var item in ModelData.ObjectData.ObjsTypes)
+            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
                 ScenePage.SetObjectsSceneAttribute(item, "координаты");
 
             ScenePage.SceneControl.DisplayObjects();
+        }
+
+        private void navigator_DelAllObjectsEvent()
+        {
+            ModelData.ObjectData.ClearAll();
+            ModelData.GroupData.Clear();
+
+            navigator.PresentModelData(ModelData);
+
+            scenePage.ClearAllDataOnScene();
+
+            scenePage.SceneControl.DisplayObjects();
+
+            DeleteObjectsEvent?.Invoke();
         }
     }
 }

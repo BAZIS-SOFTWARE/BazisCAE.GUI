@@ -136,7 +136,7 @@ namespace BazisGUI
                     project = dataController.CreateNewProject(path, name);
                     modelController = new ModelController.ModelController(project.ModelData);
                     dataController.UpdateGeometry(gmshController, project, ObjType.Точка);
-                    dataController.UpdateGeometry(gmshController, project, ObjType.Линия);
+                    dataController.UpdateGeometry(gmshController, project, ObjType.Кривая);
                 }
                 lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
 
@@ -522,8 +522,8 @@ namespace BazisGUI
             basePage.ScenePage.SceneControl.SelectionColor = Color.FromArgb(basePage.ScenePage.TransparencyValue, settingsConfig.SelectObjectColor);
             basePage.SelectionGroupColor = Color.FromArgb(basePage.ScenePage.TransparencyValue, settingsConfig.SelectGroupColor);
             basePage.ScenePage.NodeColor = settingsConfig.NodeColor;
-            basePage.ScenePage.E2DColor = settingsConfig.Elem2DColor;
-            basePage.ScenePage.E3DColor = settingsConfig.Elem3DColor;
+            //basePage.ScenePage.E2DColor = settingsConfig.Elem2DColor;
+            //basePage.ScenePage.E3DColor = settingsConfig.Elem3DColor;
 
             basePage.ScenePage.SceneControl.Projection = settingsConfig.Projection
                 ? ViewProjection.Parallel : ViewProjection.Perspective;
@@ -533,10 +533,9 @@ namespace BazisGUI
 
             foreach (var obj in objs)
             {
-                var preColor = obj.SlaveColor;
+                var preColor = obj.Color;
                 var newColor = Color.FromArgb(basePage.ScenePage.TransparencyValue, preColor);
-                obj.MasterColor = newColor;
-                obj.SlaveColor = newColor;
+                obj.Color = newColor;
             }
         }
 
@@ -688,16 +687,6 @@ namespace BazisGUI
                 scenePage.SetObjectsSceneAttribute(ObjType.Узел, "цвет");
                 scenePage.SceneControl.DisplayObjects();
             };
-            settings.Set2DElemColorEvent += (ar) => { 
-                scenePage.E2DColor = ar;
-                scenePage.SetObjectsSceneAttribute(ObjType.Элемент2D, "цвет");
-                scenePage.SceneControl.DisplayObjects();
-            };
-            settings.Set3DElemColorEvent += (ar) => { 
-                scenePage.E3DColor = ar;
-                scenePage.SetObjectsSceneAttribute(ObjType.Элемент3D, "цвет");
-                scenePage.SceneControl.DisplayObjects();
-            };
 
             settings.SetSolverPathEvent += (ar) =>
             {
@@ -743,10 +732,9 @@ namespace BazisGUI
 
                 foreach (var obj in objs)
                 {
-                    var preColor = obj.SlaveColor;
+                    var preColor = obj.Color;
                     var newColor = Color.FromArgb(settingsConfig.TransparencyValue, preColor);
-                    obj.MasterColor = newColor;
-                    obj.SlaveColor = newColor;
+                    obj.Color = newColor;
                 } 
                 
                 scenePage.ClearAllDataOnScene();

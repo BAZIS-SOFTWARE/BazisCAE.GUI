@@ -11,6 +11,7 @@ using Project.Tasks;
 using Results.ResultsData;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -86,7 +87,7 @@ namespace BazisGUI
             var project = CreateNewProject(path, name);
 
             UpdateGeometry(gmshController, project, ObjType.Точка);
-            UpdateGeometry(gmshController, project, ObjType.Линия);
+            UpdateGeometry(gmshController, project, ObjType.Кривая);
 
             return project;
             //gmshController.ModelGetFileName()
@@ -98,14 +99,16 @@ namespace BazisGUI
             if (objType == ObjType.Точка)
             {
                 var controlPoints = gmshController.CreateControlPoints();
+                
                 if (controlPoints.Count > 0)
-                    project.ModelData.ObjectData.PointCollection.AddRange(controlPoints);
+                    controlPoints.ForEach(x => project.ModelData.ObjectData.PointsSet.Add(x.Number, x));
             }
-            else if (objType == ObjType.Линия)
+            else if (objType == ObjType.Кривая)
             {
                 var curves = gmshController.CreateLines();
+       
                 if (curves.Count > 0)
-                    project.ModelData.ObjectData.LineCollection.AddRange(curves);
+                    project.ModelData.ObjectData.CurveCollection.AddRange("newLines", curves);
             }
         }
 
@@ -147,6 +150,7 @@ namespace BazisGUI
 "All files(*.*)|*.*|" +
 "Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
 "GMSH(*.inp*)|*.inp|" +
+"GMSH(*.inp_v2*)|*.inp_v2|" +
 "ANSYS(*.cdb*)|*.cdb|" +
 "STL(*.stl*)|*.stl|" +
 "SOLOMIA(*.dat*)|*.dat";
@@ -164,9 +168,11 @@ namespace BazisGUI
             var ext = Path.GetExtension(dialog.FileName);
 
             if (ext == ".inp")
-                project.ModelData.Loader = new LoadModelFromGMSHTextFile();
+                project.ModelData.Loader = new LoadModelFromINPTextFile();
+            else if (ext == ".inp_v2")
+                project.ModelData.Loader = new LoadModelFromINPTextFile_v2();
             else if (ext == ".ASC")
-                project.ModelData.Loader = new LoadModelFromASCIITextFile();
+                project.ModelData.Loader = new LoadModelFromASCIITextFile_v2();
             else if (ext == ".dat")
                 project.ModelData.Loader = new LoadModelFromSalomeFile();
             else if (ext == ".STL" | ext == ".stl")

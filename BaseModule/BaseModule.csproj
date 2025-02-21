@@ -140,6 +140,12 @@
     <Compile Include="Mesh\ShowHeatMapEventArg.cs" />
     <Compile Include="Mesh\ShowTransPointsEventArgs.cs" />
     <Compile Include="Mesh\TreeNodeEqualityComparer.cs" />
+    <Compile Include="Navigator\NavigatorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Navigator\NavigatorControl.Designer.cs">
+      <DependentUpon>NavigatorControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Player\PlayerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -376,12 +382,6 @@
     <Compile Include="Utilities\FieldsParser.cs" />
     <Compile Include="Utilities\IOFileController.cs" />
     <Compile Include="Utilities\SplittersController.cs" />
-    <Compile Include="Navigator\NavigatorControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Navigator\NavigatorControl.Designer.cs">
-      <DependentUpon>NavigatorControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Utilities\RecursiveSearchControls.cs" />
     <Compile Include="Utilities\Token.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
@@ -411,6 +411,9 @@
     <EmbeddedResource Include="Mesh\SettingsControls\GMSHVolSettingsControl.resx">
       <DependentUpon>GMSHVolSettingsControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Navigator\NavigatorControl.resx">
+      <DependentUpon>NavigatorControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Player\PlayerControl.resx">
       <DependentUpon>PlayerControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -419,9 +422,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Measurement\MeasuringSet.resx">
       <DependentUpon>MeasuringSet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Navigator\NavigatorControl.resx">
-      <DependentUpon>NavigatorControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

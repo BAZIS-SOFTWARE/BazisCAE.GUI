@@ -1,6 +1,5 @@
-﻿using BaseModule;
-using BaseModule.Console;
-using BaseModule.Navigator;
+﻿using BaseModule.Console;
+using BazisGUI.Navigator;
 using UserControlsEx;
 
 namespace BazisGUI
@@ -36,7 +35,7 @@ namespace BazisGUI
             this.components = new System.ComponentModel.Container();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.splitContainer1 = new UserControlsEx.SplitContainerEx();
-            this.navigator = new BaseModule.Navigator.NavigatorControl();
+            this.navigator = new BazisGUI.Navigator.NavigatorPage();
             this.splitContainer2 = new UserControlsEx.SplitContainerEx();
             this.scenePage = new BazisGUI.ScenePage();
             this.consoleControl = new BaseModule.Console.ConsoleControl();
@@ -99,7 +98,7 @@ namespace BazisGUI
             this.navigator.UpColor = System.Drawing.Color.Gainsboro;
             this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
             this.navigator.SelectGroupEvent += new System.Action<string>(this.navigator_SelectGroupEvent);
-            this.navigator.DelGroupEvent += new System.Action<int>(this.navigator_DelGroupEvent);
+            this.navigator.DelGroupEvent += new System.Action<System.Windows.Forms.TreeNode>(this.navigator_DelGroupEvent);
             this.navigator.DelAllGroupsEvent += new System.Action(this.navigator_DelAllGroupsEvent);
             this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
             this.navigator.ShowGroupEvent += new System.Action<int>(this.navigator_ShowGroupEvent);
@@ -110,10 +109,11 @@ namespace BazisGUI
             this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
             this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
             this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
-            this.navigator.ShowObjectsEvent += new System.Action<string>(this.navigator_ShowObjectsEvent);
-            this.navigator.ChangeObjectsViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeViewModeEventHandler);
-            this.navigator.HideObjectsEvent += new System.Action<string>(this.navigator_HideObjectsEvent);
-            this.navigator.DelObjectsEvent += new System.Action<string>(this.navigator_DelObjectsEvent);
+            this.navigator.ShowObjectsEvent += new System.Action<string, string>(this.navigator_ShowObjectsEvent);
+            this.navigator.ChangeObjectsViewEvent += new System.Action<string, BazisGUI.Navigator.ViewRegime>(this.navigator_ChangeViewModeEventHandler);
+            this.navigator.HideObjectsEvent += new System.Action<string, string>(this.navigator_HideObjectsEvent);
+            this.navigator.DelObjectsEvent += new System.Action<System.Windows.Forms.TreeNode>(this.navigator_DelObjectsEvent);
+            this.navigator.DelAllObjectsEvent += new System.Action(this.navigator_DelAllObjectsEvent);
             this.navigator.ControlCollapseEvent += new System.Action(this.navigator_NavigatorPanelCollapseEvent);
             // 
             // splitContainer2
@@ -150,7 +150,7 @@ namespace BazisGUI
             this.scenePage.Location = new System.Drawing.Point(0, 0);
             this.scenePage.Margin = new System.Windows.Forms.Padding(0);
             this.scenePage.Name = "scenePage";
-            this.scenePage.SelectedObjects = Model.Interfaces.ObjType.Объект;
+            this.scenePage.SelectedObjects = null;
             this.scenePage.Size = new System.Drawing.Size(995, 428);
             this.scenePage.TabIndex = 0;
             this.scenePage.TransparencyValue = 0;
@@ -210,7 +210,7 @@ namespace BazisGUI
         #endregion
         private System.Windows.Forms.ErrorProvider errorProvider;
         private SplitContainerEx splitContainer1;
-        protected NavigatorControl navigator;
+        protected NavigatorPage navigator;
         private SplitContainerEx splitContainer2;
         protected ScenePage scenePage;
         protected ConsoleControl consoleControl;

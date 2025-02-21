@@ -150,13 +150,13 @@ namespace BazisGUI
             grPage.CreateTimeGraphEvent += (ar1, ar2) =>
             {
                 var results = resultData.FindByTaskKind(ar2.ResultKind);
-                var objType = ObjectsConverter.ConvertToObjsType(ar2.Objects);
+                var objType = Converters.ConvertToObjsType(ar2.Objects);
                 CreateTimeGraph(results, objType);
             };
             grPage.CreatePathGraphEvent += (ar1, ar2) =>
                 {
                     var result = resultData.FindByTime(ar2.ResultKind, ar2.Time);
-                    var objType = ObjectsConverter.ConvertToObjsType(ar2.Objects);
+                    var objType = Converters.ConvertToObjsType(ar2.Objects);
                     CreatePathGraph(result, objType);
                 };
 
@@ -350,19 +350,12 @@ namespace BazisGUI
                 scale.Title = result.TaskKind.ToString();
                 scale.Info = $"{resName} {result.Time}";
 
-                ObjType objsType;
-
-                if (nodeName == "ПоУзлам")
-                    objsType = ObjType.Узел;
-
-                else objsType = ObjType.Элемент;
-
                 if (!IsScaleMaxMinManual)
                 {
-                    if (objsType == ObjType.Элемент)
-                        SetMaxMinAuto(result, "elements", resName);
-                    else
+                    if (nodeName == "ПоУзлам")
                         SetMaxMinAuto(result, "nodes", resName);
+                    else
+                        SetMaxMinAuto(result, "elements", resName);
                 }
 
                 var scaleItems = GetScaleItems();
@@ -378,24 +371,26 @@ namespace BazisGUI
 
                 if (GeneralData.TaskType == TaskType.Volume)
                 {
-                    var els3D = ModelData.ObjectData.E3DCollection;
-                    var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els3D);
+                    var objType = nodeName == "ПоУзлам" ? ObjType.Узел : ObjType.Элемент3D;
+                    var els3D = ModelData.ObjectData.E3DCollection.GetObjects();
+                    var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objType, resName, els3D);
 
                     var presenter = ModelController.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
 
-                    scenePage.CreateObjectsOnScene(ObjType.Фигура2D.ToString(), presenter);
+                    scenePage.CreateObjectsOnScene(ObjType.Поверхность.ToString(), presenter);
                 }
                 else
                 {
-                    var els2D = ModelData.ObjectData.E2DCollection;
-                    var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objsType, resName, els2D);
+                    var objType = nodeName == "ПоУзлам" ? ObjType.Узел : ObjType.Элемент2D;
+                    var els2D = ModelData.ObjectData.E2DCollection.GetObjects();
+                    var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, objType, resName, els2D);
 
                     var presenter = ModelController.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults,false);
-                    scenePage.CreateObjectsOnScene(ObjType.Фигура2D.ToString(), presenter);
+                    scenePage.CreateObjectsOnScene(ObjType.Поверхность.ToString(), presenter);
                 }
 
                 if (IsResultsValueShowen)
-                    ShowResultValue(objsType, resName, result);
+                    ShowResultValue(nodeName, resName, result);
 
                 if (showScale)
                 {
@@ -455,7 +450,7 @@ namespace BazisGUI
 
                 scenePage.ClearAllDataOnScene();
                 scenePage.PresentAllModelObjectsToScene();
-                scenePage.SelectedObjects = objsType;
+                scenePage.SelectedObjects = objsType.ToString();
 
                 var objs = await BasePage.CreatePathAsync();
 
@@ -523,7 +518,7 @@ namespace BazisGUI
 
                 scenePage.ClearAllDataOnScene();
                 scenePage.PresentAllModelObjectsToScene();
-                scenePage.SelectedObjects = objsType;
+                scenePage.SelectedObjects = objsType.ToString();
 
                 var objs = await SelectObjectsAsync(objsType);
 
@@ -599,7 +594,7 @@ namespace BazisGUI
                     if (BasePage.PressedKey == Keys.E)
                     {
                         var objs = ModelData.ObjectData.GetObjects(objType);
-                        nodes = objs.Where(x => x.MasterColor == scenePage.SceneControl.SelectionColor).ToList();
+                        nodes = objs.Where(x => x.Color == scenePage.SceneControl.SelectionColor).ToList();
                         break;
                     }
                     if(BasePage.PressedKey == Keys.Escape)
@@ -623,16 +618,29 @@ namespace BazisGUI
             var nodeSchema = results.First().GetDataSchema("nodes");
             var elemSchema = results.First().GetDataSchema("elements");
 
-            var resultNode = BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"];
             foreach (var desc in nodeSchema)
             {
-                BasePage.NavigatorControl.CreateChildNode("ПоУзлам", desc, desc, "6.1.1");
+                AddResultDataToNavigator("ПоУзлам", desc);
             }
 
             foreach (var desc in elemSchema)
             {
-                BasePage.NavigatorControl.CreateChildNode("ПоЭлементам", desc, desc, "6.1.1");
+                AddResultDataToNavigator("ПоЭлементам", desc);
             }
+        }
+
+        private void AddResultDataToNavigator(string rootNode,string data)
+        {
+            //var imgIndex = BasePage.NavigatorControl.GetObjectImageIndex(data);
+
+            var child = new TreeNode($"{data}", 16, 16)
+            { Tag = "6.1.1", Name = data };
+
+            TreeNode searchNode;
+            if(BasePage.NavigatorControl.TrySearchNode(rootNode, out searchNode))
+                searchNode.Nodes.Add(child);
+
+
         }
 
         public async Task<List<Result>> LoadResultsAsync(string fileName, IResultData resultData)
@@ -665,11 +673,11 @@ namespace BazisGUI
             try
             {
                 var scenePage = BasePage.ScenePage;
-                IElement[] elements;
+                IEnumerable<IElement> elements;
                 if (GeneralData.TaskType == TaskType.Volume)
-                    elements = ModelData.ObjectData.E3DCollection.ToArray();
+                    elements = ModelData.ObjectData.E3DCollection.GetObjects();
                 else
-                    elements = ModelData.ObjectData.E2DCollection.ToArray();
+                    elements = ModelData.ObjectData.E2DCollection.GetObjects();
 
                 var act = new Action(() =>
                 {
@@ -720,24 +728,24 @@ namespace BazisGUI
             }
         }
 
-        private void ShowResultValue(ObjType objsType, string resName, IResult result)
+        private void ShowResultValue(string objsType, string resName, IResult result)
         {
             IEnumerable<IModelObject> objs;
 
             var scenePage = BasePage.ScenePage;
 
-            if (objsType == ObjType.Узел)
-                objs = ModelData.ObjectData.NodeCollection;
+            if (objsType == "ПоУзлам")
+                objs = ModelData.ObjectData.NodesSet.Values;
             else
                 objs = ModelData.ObjectData.GetAllElements();
 
             foreach (var obj in objs)
             {
-                if (obj.MasterColor == scenePage.SceneControl.SelectionColor)
+                if (obj.Color == scenePage.SceneControl.SelectionColor)
                 {
                     var coord = obj.CalcCentr();
                     var res = 0.0f;
-                    if (objsType == ObjType.Узел)
+                    if (objsType == "ПоУзлам")
                         res = result.GetNodeValue(obj.Number, resName);
                     else res = result.GetElementValue(obj.Number, resName);
                     scenePage.SceneControl.DisplayText3D(res.ToString(), Color.Black, coord);
@@ -773,7 +781,7 @@ namespace BazisGUI
 
             scenePage.ClearAllDataOnScene();
 
-            foreach (var item in ModelData.ObjectData.ObjsTypes)
+            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
                 scenePage.CreateObjectsOnScene(item.ToString(), scenePage.CreateObjectsPresentor(item));
 
             scenePage.SceneControl.DisplayObjects();
@@ -858,10 +866,10 @@ namespace BazisGUI
 
                 IEnumerable<IModelObject> objects;
 
-                var objTypes = ObjectsConverter.ConvertToObjsType(args.ExportObj);
+                var objTypes = Converters.ConvertToObjsType(args.ExportObj);
 
                 if (objTypes == ObjType.Узел)
-                    objects = ModelData.ObjectData.NodeCollection;
+                    objects = ModelData.ObjectData.NodesSet.Values;
                 else
                     objects = ModelData.ObjectData.GetAllElements();
 
@@ -880,9 +888,9 @@ namespace BazisGUI
 
                 IEnumerable<ISurfaceElement> elements;
                 if (GeneralData.TaskType == TaskType.Volume)
-                    elements = ModelData.ObjectData.E3DCollection;
+                    elements = ModelData.ObjectData.E3DCollection.GetObjects();
                 else
-                    elements = ModelData.ObjectData.E2DCollection;
+                    elements = ModelData.ObjectData.E2DCollection.GetObjects();
 
                 var figures = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result,
                     ObjType.Узел, args.ResName, elements);

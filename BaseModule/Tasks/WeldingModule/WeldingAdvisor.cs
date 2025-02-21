@@ -78,7 +78,7 @@ namespace BaseModule.Tasks.WeldingModule
             base.TaskPlannerControl1_StopComputationEvent(arg1, arg2);
         }
 
-        public override void TaskPlannerControl1_AddDataUseTaskConditionsEvent(object arg1, EventArgs arg2)
+        public override void TaskPlannerControl1_AddDataUseTaskConditionsEvent(object arg1, BasicAdvisorControls.TaskPlannerControls.Tasks arg2)
         {
             base.TaskPlannerControl1_AddDataUseTaskConditionsEvent(arg1, arg2);
         }
@@ -98,9 +98,9 @@ namespace BaseModule.Tasks.WeldingModule
             SpecifyWeldingZoneEvent?.Invoke(arg1, arg2);
         }
 
-        public override void TaskPlannerControl_EditTSFEvent(object arg1, TasksSet arg2, string fileName)
+        public override void TaskPlannerControl_EditTSFEvent(object arg1, string fileName)
         {
-            base.TaskPlannerControl_EditTSFEvent(arg1, arg2, fileName);
+            base.TaskPlannerControl_EditTSFEvent(arg1, fileName);
         }
     }
 }

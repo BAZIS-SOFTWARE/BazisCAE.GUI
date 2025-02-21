@@ -318,13 +318,13 @@ namespace BaseModule.Tasks.WeldingModule
             this.taskPlannerControl.Name = "taskPlannerControl";
             this.taskPlannerControl.Size = new System.Drawing.Size(729, 585);
             this.taskPlannerControl.TabIndex = 0;
-            this.taskPlannerControl.AddDataUseTaskConditionsEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_AddDataUseTaskConditionsEvent);
+            this.taskPlannerControl.AddDataUseTaskConditionsEvent += new System.Action<object, BasicAdvisorControls.TaskPlannerControls.Tasks>(this.TaskPlannerControl1_AddDataUseTaskConditionsEvent);
             this.taskPlannerControl.StopComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StopComputationEvent);
             this.taskPlannerControl.GenerateTCFEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls.GenerateTCFEventArgs>(this.TaskPlannerControl_GenerateTCFEvent);
             this.taskPlannerControl.AddDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             this.taskPlannerControl.ChangeDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.ChangeDataEventArgs>(this.Control_ChangeDataEvent);
             this.taskPlannerControl.DeleteAllDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.DeleteAllDataEventArgs>(this.Control_DeleteAllDataEvent);
-            this.taskPlannerControl.EditTSFEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls.TasksSet, string>(this.TaskPlannerControl_EditTSFEvent);
+            this.taskPlannerControl.EditTSFEvent += new System.Action<object, string>(this.TaskPlannerControl_EditTSFEvent);
             // 
             // imageList
             // 

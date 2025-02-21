@@ -30,13 +30,12 @@ namespace BazisGUI.TasksControls
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.label6 = new System.Windows.Forms.Label();
             this.chbPlastisity = new System.Windows.Forms.CheckBox();
             this.chbUMax = new System.Windows.Forms.CheckBox();
-            this.txbMaxSiSt = new UserControlsEx.TextBoxEx(this.components);
-            this.txbMaxU = new UserControlsEx.TextBoxEx(this.components);
-            this.txbMaxDU = new UserControlsEx.TextBoxEx(this.components);
+            this.txbMaxSiSt = new UserControlsEx.TextBoxEx();
+            this.txbMaxU = new UserControlsEx.TextBoxEx();
+            this.txbMaxDU = new UserControlsEx.TextBoxEx();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
