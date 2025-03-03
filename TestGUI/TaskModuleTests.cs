@@ -66,7 +66,7 @@ namespace TestGUI
 
             var opt = new AppiumOptions();
 
-            opt.AddAdditionalCapability("app", Path.GetFullPath(@".\..\..\..\..\GUI\bin\x64\Debug\BazisGUI.exe"));
+            opt.AddAdditionalCapability("app", @"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe");
             opt.AddAdditionalCapability("ms:waitForAppLaunch", "3");
             opt.AddAdditionalCapability("appArguments", args);
             opt.PlatformName = "Windows11x64";
