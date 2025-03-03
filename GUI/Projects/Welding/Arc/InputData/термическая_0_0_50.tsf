@@ -4,12 +4,16 @@
     "Is_Switched_Tm": true,
     "Tm": 1500.0
   },
-  "TermalProcesses": [],
+  "MetallurgicalProcesses": [
+    "Охлаждение",
+    "Нагрев"
+  ],
   "InitTemp": 20.0,
   "SaveRate": 1,
-  "RestartFile": "Welding_1_0_50.db",
+  "RestartFile": "",
   "Iterations": 2,
   "SolverSettings": {
+    "$type": "TasksParameters.SolverSettings, TasksParameters",
     "MaxIter": 500,
     "Solver": "SOR_iterative",
     "MaxRelaxation": 1.5,
@@ -18,14 +22,11 @@
     "Priority": "Наивысший"
   },
   "TimeSettings": {
-    "MaxTimeStep": 100.0,
+    "$type": "TasksParameters.TimeSettings, TasksParameters",
+    "MaxTimeStep": 0.5,
     "MinTimeStep": 0.0005,
-    "StartTime": 50.0,
-    "StopTime": 1500.0,
-    "InitTimeStep": 0.5
-  },
-  "MetallurgicalProcesses": [
-    "Охлаждение",
-    "Нагрев"
-  ]
+    "StartTime": 0.0,
+    "StopTime": 50.0,
+    "InitTimeStep": 0.01
+  }
 }

@@ -48,27 +48,27 @@ namespace TestGUI
         //[TestCase("Термообработка", "Закалка", "Планировщик", "  a_p", "  d_p", "  r_p", "  _", "  _", TestName = "Закалка Планировщик")]
         public void TaskModuleOperationsTest(string module, string process, string category, string btnAdd, string btnDel, string btnRef, string btnShow, string btnHide)
         {
-            //string args;
-            //if (process == "Дуговая сварка")
-            //    args = @"-proj c:\BazisGUI\GUI\Projects\Welding\Arc\proj.bpf";
-            //else if (process == "Трением с перемешиванием")
-            //    args = @"-proj c:\BazisGUI\GUI\Projects\Welding\FSW\proj.bpf";
-            //else if (process == "Лазерная сварка")
-            //    args = @"-proj c:\BazisGUI\GUI\Projects\Welding\Lazer\proj.bpf";
-            //else if (process == "Нагрев")
-            //    args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Heating\2D_axi\2D_val.bpf";
-            //else if (process == "Закалка")
-            //    args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Quenching\2D_axi\2D_val.bpf";
-            //else
-            //    args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Tempering\2D_axi\2D_val.bpf";
+            string args;
+            if (process == "Дуговая сварка")
+                args = @"-proj c:\BazisGUI\GUI\Projects\Welding\Arc\proj.bpf";
+            else if (process == "Трением с перемешиванием")
+                args = @"-proj c:\BazisGUI\GUI\Projects\Welding\FSW\proj.bpf";
+            else if (process == "Лазерная сварка")
+                args = @"-proj c:\BazisGUI\GUI\Projects\Welding\Lazer\proj.bpf";
+            else if (process == "Нагрев")
+                args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Heating\2D_axi\2D_val.bpf";
+            else if (process == "Закалка")
+                args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Quenching\2D_axi\2D_val.bpf";
+            else
+                args = @"-proj c:\BazisGUI\GUI\Projects\HeatTreatment\Tempering\2D_axi\2D_val.bpf";
 
             WindowsDriver<WindowsElement> wd;
 
             var opt = new AppiumOptions();
 
-            opt.AddAdditionalCapability("app", @"C:\Users\gav\source\repos\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe");
+            opt.AddAdditionalCapability("app", @"c:\BazisGUI\GUI\bin\x64\Debug\BazisGUI.exe");
             opt.AddAdditionalCapability("ms:waitForAppLaunch", "3");
-            //opt.AddAdditionalCapability("appArguments", args);
+            opt.AddAdditionalCapability("appArguments", args);
             opt.PlatformName = "Windows11x64";
             var url = new Uri("http://127.0.0.1:4723");
             wd = new WindowsDriver<WindowsElement>(url, opt);
