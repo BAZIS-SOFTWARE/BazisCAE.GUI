@@ -42,13 +42,15 @@ namespace GanttChart
             ax.Minimum = 0;
             ax.Maximum = barMaxCount + 1;
             ax.MajorGrid.Enabled = false;
-            ax.LabelAutoFitMaxFontSize = 12;
+            ax.IsLabelAutoFit = true;
+            ax.LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont;
 
-            Axis ay = Chart.ChartAreas[0].AxisY;
+            var ay = Chart.ChartAreas[0].AxisY;
             ay.Minimum = minValue;
             ay.Maximum = maxValue + intervalLength;
             ay.MajorGrid.Interval = intervalLength;
             ay.LabelStyle.Interval = intervalLength;
+            ay.LabelAutoFitStyle = LabelAutoFitStyles.LabelsAngleStep30;
         }
     }
 }

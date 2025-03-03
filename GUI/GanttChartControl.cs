@@ -42,10 +42,10 @@ namespace GanttChart
             {
                 case ClampData _: return Color.FromArgb(56, 94, 157);
                 case HeatData _: return Color.FromArgb(194, 110, 96);
-                case LoadData _: return Color.FromArgb(96, 180, 195);
-                case MatData _: return Color.FromArgb(253, 200, 47);
-                case MediaData _: return Color.FromArgb(145, 47, 70);
-                default: return Color.FromArgb(180, 195, 96);
+                case LoadData _: return Color.FromArgb(57, 157, 152);
+                case MatData _: return Color.FromArgb(157, 57, 95);
+                case MediaData _: return Color.FromArgb(57, 157, 85);
+                default: return Color.FromArgb(152, 57, 157);
             }
         }
 
