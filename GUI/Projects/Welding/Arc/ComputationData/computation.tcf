@@ -1,0 +1,7 @@
+\\загрузка сетки и данных
+загрузить проект C:\Users\gav\source\repos\BazisGUI\GUI\Projects\Welding\Arc\proj.bpf
+\\загрузка материалов
+загрузить материалы C:\Users\gav\source\repos\BazisGUI\GUI\Projects\Welding\Arc\materials_v3.jsf
+\\загрузка функций
+загрузить функции C:\Users\gav\source\repos\BazisGUI\GUI\Projects\Welding\Arc\functions.jsf
+\\расчет
