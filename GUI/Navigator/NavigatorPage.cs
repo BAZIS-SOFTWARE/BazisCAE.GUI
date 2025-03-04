@@ -242,8 +242,8 @@ namespace BazisGUI.Navigator
         {
             var groupIndex = treeView.SelectedNode.Index;
 
-            treeView.Nodes["объекты"].Nodes[Objects.Узел.ToString()].ImageIndex = 5;
-            treeView.Nodes["объекты"].Nodes[Objects.Узел.ToString()].SelectedImageIndex = 5;
+            treeView.Nodes["объекты"].Nodes["Узлы"].Nodes[0].ImageIndex = 5;
+            treeView.Nodes["объекты"].Nodes["Узлы"].Nodes[0].SelectedImageIndex = 5;
 
             treeView.SelectedNode.ImageIndex = ImgDict[treeView.SelectedNode.Name];
             treeView.SelectedNode.SelectedImageIndex = ImgDict[treeView.SelectedNode.Name];
