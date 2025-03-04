@@ -160,6 +160,12 @@
       <DependentUpon>CrossSectionControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Measurement\MeasureEventArgs.cs" />
+    <Compile Include="PropertiesPanel\PropertiesPanelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PropertiesPanel\PropertiesPanelControl.Designer.cs">
+      <DependentUpon>PropertiesPanelControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -423,6 +429,9 @@
     <EmbeddedResource Include="Measurement\MeasuringSet.resx">
       <DependentUpon>MeasuringSet.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PropertiesPanel\PropertiesPanelControl.resx">
+      <DependentUpon>PropertiesPanelControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -484,6 +493,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\HeatTreatmentModule\ChemicalTreatmentAdvisor.resx">
       <DependentUpon>ChemicalTreatmentAdvisor.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\HeatTreatmentModule\DiffusionControl.resx">
       <DependentUpon>DiffusionControl.cs</DependentUpon>

@@ -360,7 +360,9 @@ namespace BazisGUI
 
                 var scaleItems = GetScaleItems();
 
-                resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
+                //Вернуть
+                //resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
+                resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item1);
                 resultsController.ResultsFieldsCreator.ScaleFactor = scaleFactor;
 
                 scenePage.SceneControl.HideDisplayText2D();
@@ -801,7 +803,10 @@ namespace BazisGUI
         public void ShowExportResultsPage()
         {
             var scaleItems = GetScaleItems();
-            resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
+            
+            //Вернуть
+            //resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
+            resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item1);
             resultsController.ResultsFieldsCreator.ScaleFactor = 1;
 
             var exportPage = new ExportControl() { Dock = DockStyle.Fill };
