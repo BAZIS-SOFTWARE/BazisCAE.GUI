@@ -28,6 +28,7 @@ using System.Globalization;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using MathNet.Numerics.Distributions;
 using BazisGUI.Navigator;
+using BazisGUI.PropertiesPanel;
 
 namespace BazisGUI
 {
@@ -98,9 +99,13 @@ namespace BazisGUI
 
         IModelData ModelData { get { return ModelController.ModelData; } }
 
+        PropertyPanelProvider panelProvider;
         public BasePage()
         {
             InitializeComponent();
+
+            panelProvider = new PropertyPanelProvider();
+            panelProvider.Out += propertiesPanelControl1.HandleDraw;
 
             SplittersController = new SplittersController();
         }

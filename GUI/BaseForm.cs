@@ -25,6 +25,7 @@ using PostProc;
 using Model.Interfaces;
 using PreProc.Interfaces;
 using Project.Results.IO;
+using BazisGUI.PropertiesPanel;
 
 namespace BazisGUI
 {
@@ -74,12 +75,13 @@ namespace BazisGUI
         private Thread serverConnectionPing;
 
 
-
         public BaseForm(string[] args)
         {
             InitializeComponent();
             ComponentsPainter.Font = this.Font;
             ComponentsPainter.ScreenDPI = this.DeviceDpi;
+
+            
 
             tableLayoutPanel.BringToFront();
             GetServerConnection();
