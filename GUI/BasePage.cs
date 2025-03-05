@@ -934,5 +934,15 @@ namespace BazisGUI
 
             DeleteObjectsEvent?.Invoke();
         }
+
+        private void navigator_AfterSelectEvent(TreeViewEventArgs e)
+        {
+            var setName = e.Node.Text;
+            var set = ModelData.ObjectData.GetSetsInfo(Converters.ConvertToObjsType(e.Node.Parent.Text)).FirstOrDefault(x => x.Name == e.Node.Text);
+            if (set != null)
+                panelProvider.DrawPropertyOnPanel(set);
+            else
+                ConsoleControl.PrintInfo("Тестовое сообщение: выбрано не setInfo", Color.Orange);
+        }
     }
 }

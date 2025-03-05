@@ -3,6 +3,8 @@ using Model.MeshObjects;
 using Model.ObjectsCollections;
 using BaseModule.PropertiesPanel;
 using System.Collections.Generic;
+using Model.Interfaces;
+using Model.Interfaces.ObjectsCollections;
 
 namespace BazisGUI.PropertiesPanel
 {
@@ -16,15 +18,13 @@ namespace BazisGUI.PropertiesPanel
             return new ObjectsSet<Node>("NameTest");
         }
 
-        public void DrawPropertyOnPanel() // создание коллекции RowProperty и отправка внутри EventArgs в PropertyPanel.DataGridView
+        public void DrawPropertyOnPanel(ISetInfo obj) // создание коллекции RowProperty и отправка внутри EventArgs в PropertyPanel.DataGridView
         {
-            var set = CreateTestData();
-
             List<RowProperty> list = new List<RowProperty>()
             {
-                new RowProperty("Имя",set.Name, () => {}),
-                new RowProperty("Цвет",set.Color, () => {}),
-                new RowProperty("Тип",set.ObjType, () => {})
+                new RowProperty("Имя",obj.Name, () => {}),
+                new RowProperty("Цвет",obj.Color, () => {}),
+                new RowProperty("Тип",obj.ObjType, () => {})
             };
 
             Out(new DrowPropertyOnPanelEventArgs(list));
