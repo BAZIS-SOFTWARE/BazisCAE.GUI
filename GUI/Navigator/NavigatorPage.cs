@@ -506,5 +506,14 @@ namespace BazisGUI.Navigator
                 treeView.SelectedNode.ForeColor = Color.White;
             }
         }
+
+        private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            var selected = treeView.SelectedNode;
+            if (selected.Parent.Parent == treeView.Nodes["объекты"])
+            {
+
+            }
+        }
     }
 }
