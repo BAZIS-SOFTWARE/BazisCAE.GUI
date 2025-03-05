@@ -49,6 +49,8 @@ namespace BazisGUI.Navigator
 
         public event Action<string> SelectGroupEvent;
 
+        public event Action<TreeViewEventArgs> AfterSelectEvent;
+
         public event Action<TreeNode> DelGroupEvent;
         public event Action DelAllGroupsEvent;
         public event Action<int> HideGroupEvent;
