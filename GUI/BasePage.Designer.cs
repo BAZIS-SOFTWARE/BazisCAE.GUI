@@ -1,5 +1,6 @@
 ﻿using BaseModule.Console;
 using BazisGUI.Navigator;
+using System.Windows.Forms;
 using UserControlsEx;
 
 namespace BazisGUI
@@ -165,6 +166,7 @@ namespace BazisGUI
             this.navigator.DelObjectsEvent += new System.Action<System.Windows.Forms.TreeNode>(this.navigator_DelObjectsEvent);
             this.navigator.DelAllObjectsEvent += new System.Action(this.navigator_DelAllObjectsEvent);
             this.navigator.ControlCollapseEvent += new System.Action(this.navigator_NavigatorPanelCollapseEvent);
+            this.navigator.AfterSelectEvent += new System.Action<TreeViewEventArgs>(this.navigator_AfterSelectEvent);
             // 
             // scenePage
             // 
