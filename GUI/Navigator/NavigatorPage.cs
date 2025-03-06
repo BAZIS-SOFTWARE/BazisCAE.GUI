@@ -511,9 +511,11 @@ namespace BazisGUI.Navigator
 
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (treeView.SelectedNode.Parent.Parent != null
-                && treeView.SelectedNode.Parent.Parent == treeView.Nodes["объекты"])
-                AfterSelectEvent(new TreeViewEventArgs(treeView.SelectedNode));
+            var node = e.Node;
+            if (node.Parent != null 
+                && node.Parent.Parent != null
+                && node.Parent.Parent == treeView.Nodes["объекты"])
+                    AfterSelectEvent(new TreeViewEventArgs(node));
         }
     }
 }
