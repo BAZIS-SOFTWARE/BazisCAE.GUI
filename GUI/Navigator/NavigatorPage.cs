@@ -255,8 +255,11 @@ namespace BazisGUI.Navigator
         {
             foreach (TreeNode item in treeView.Nodes[4].Nodes)
             {
-                item.ImageIndex = ImgDict[item.Name] == 3 ? 5 : 6;
-                item.SelectedImageIndex = ImgDict[item.Name] == 3 ? 5 : 6;
+                foreach (TreeNode node in item.Nodes)
+                {
+                    node.ImageIndex = ImgDict[node.Name] == 3 ? 5 : 6;
+                    node.SelectedImageIndex = ImgDict[node.Name] == 3 ? 5 : 6;
+                }
             }
 
             ShowAllGroupsEvent?.Invoke();
