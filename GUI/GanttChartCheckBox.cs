@@ -10,17 +10,17 @@ using System.Windows.Forms;
 
 namespace GanttChart
 {
-    public partial class GanttChartControl : UserControl
+    public partial class GanttChartCheckBox : UserControl
     {
-        private GanttChart ganttChart;
+        private GanttChartModel ganttChart;
 
-        public GanttChartControl(List<IValuableData> tasks, int timestamps)
+        public GanttChartCheckBox(List<IValuableData> tasks, int timestamps)
         {
             InitializeComponent();
             var start = tasks.Select(t => t.StartTime).Min();
             var end = tasks.Select(t => t.StopTime).Max();
             var interval = (end - start) / timestamps;
-            ganttChart = new GanttChart(start, end, interval, tasks.Count);
+            ganttChart = new GanttChartModel(start, end, interval, tasks.Count);
             ganttChart.Chart.Dock = DockStyle.Fill;
             splitContainer.Panel2.Controls.Add(ganttChart.Chart);
 
@@ -54,7 +54,7 @@ namespace GanttChart
             if (!(sender is CheckedListBox box))
                 return;
             var index = box.SelectedIndex;
-            ganttChart.HideTask(index);
+            ganttChart.InverseBarColor(index + 1);
         }
 
         private void checkedListBox_DoubleClick(object sender, EventArgs e)

@@ -1,9 +1,11 @@
-﻿using System.Drawing;
+﻿
+
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace GanttChart
 {
-    partial class GanttChartControl
+    partial class GanttChartTreeView
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -32,7 +34,7 @@ namespace GanttChart
         private void InitializeComponent()
         {
             splitContainer = new SplitContainer();
-            checkedListBox = new CheckedListBox();
+            treeView = new TreeView();
             ((System.ComponentModel.ISupportInitialize)splitContainer).BeginInit();
             splitContainer.Panel1.SuspendLayout();
             splitContainer.SuspendLayout();
@@ -46,23 +48,20 @@ namespace GanttChart
             // 
             // splitContainer.Panel1
             // 
-            splitContainer.Panel1.Controls.Add(checkedListBox);
+            splitContainer.Panel1.Controls.Add(treeView);
             splitContainer.Size = new Size(1502, 891);
             splitContainer.SplitterDistance = 500;
             splitContainer.TabIndex = 0;
             // 
-            // checkedListBox
+            // treeView
             // 
-            checkedListBox.CheckOnClick = true;
-            checkedListBox.Dock = DockStyle.Fill;
-            checkedListBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            checkedListBox.FormattingEnabled = true;
-            checkedListBox.Location = new Point(0, 0);
-            checkedListBox.Name = "checkedListBox";
-            checkedListBox.Size = new Size(500, 891);
-            checkedListBox.TabIndex = 0;
-            checkedListBox.SelectedIndexChanged += checkedListBox_SelectedIndexChanged;
-            checkedListBox.DoubleClick += checkedListBox_DoubleClick;
+            treeView.CheckBoxes = true;
+            treeView.Dock = DockStyle.Fill;
+            treeView.Location = new Point(0, 0);
+            treeView.Name = "treeView";
+            treeView.Size = new Size(500, 891);
+            treeView.TabIndex = 0;
+            treeView.AfterCheck += treeView_AfterCheck;
             // 
             // GanttChartControl
             // 
@@ -80,6 +79,6 @@ namespace GanttChart
         #endregion
 
         private SplitContainer splitContainer;
-        private CheckedListBox checkedListBox;
+        private TreeView treeView;
     }
 }

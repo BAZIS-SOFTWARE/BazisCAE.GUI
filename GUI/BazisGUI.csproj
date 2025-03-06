@@ -237,12 +237,18 @@
     <Compile Include="EmbendentPage.Designer.cs">
       <DependentUpon>EmbendentPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="GanttChart.cs" />
-    <Compile Include="GanttChartControl.cs">
+    <Compile Include="GanttChartModel.cs" />
+    <Compile Include="GanttChartCheckBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GanttChartControl.Designer.cs">
-      <DependentUpon>GanttChartControl.cs</DependentUpon>
+    <Compile Include="GanttChartCheckBox.Designer.cs">
+      <DependentUpon>GanttChartCheckBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GanttChartTreeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GanttChartTreeView.Designer.cs">
+      <DependentUpon>GanttChartTreeView.cs</DependentUpon>
     </Compile>
     <Compile Include="HeatTreatmentPage.cs">
       <SubType>UserControl</SubType>
@@ -374,8 +380,11 @@
     <EmbeddedResource Include="EmbendentPage.resx">
       <DependentUpon>EmbendentPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GanttChartControl.resx">
-      <DependentUpon>GanttChartControl.cs</DependentUpon>
+    <EmbeddedResource Include="GanttChartCheckBox.resx">
+      <DependentUpon>GanttChartCheckBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GanttChartTreeView.resx">
+      <DependentUpon>GanttChartTreeView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HeatTreatmentPage.resx">
       <DependentUpon>HeatTreatmentPage.cs</DependentUpon>

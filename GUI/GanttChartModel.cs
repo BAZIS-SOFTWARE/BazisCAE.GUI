@@ -3,11 +3,11 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace GanttChart
 {
-    public class GanttChart
+    public class GanttChartModel
     {
         public Chart Chart { get; private set; }
 
-        public GanttChart(double minValue, double maxValue, double intervalLength, int barMaxCount)
+        public GanttChartModel(double minValue, double maxValue, double intervalLength, int barMaxCount)
         {
             Chart = new Chart();
             Chart.ChartAreas.Add(new ChartArea());
@@ -22,8 +22,9 @@ namespace GanttChart
             Chart.Series[0].Points[index].AxisLabel = label;
         }
 
-        public void HideTask(int index)
+        public void InverseBarColor(int layer)
         {
+            var index = layer - 1;
             if (index >= 0 && index < Chart.Series[0].Points.Count)
             {
                 var temp = Chart.Series[0].Points[index].Color;
@@ -50,6 +51,7 @@ namespace GanttChart
             ay.Maximum = maxValue + intervalLength;
             ay.MajorGrid.Interval = intervalLength;
             ay.LabelStyle.Interval = intervalLength;
+            ay.IsLabelAutoFit = true;
             ay.LabelAutoFitStyle = LabelAutoFitStyles.LabelsAngleStep30;
         }
     }
