@@ -937,14 +937,14 @@ namespace BazisGUI
 
         private void navigator_AfterSelectEvent(TreeViewEventArgs e)
         {
-            var setName = e.Node.Text;
+            var setName = e.Node.Text.Split(' ')[0]; // Деление по пробелу перед :
             var type = Converters.ConvertNavigatorNodeNameToObjType(e.Node.Parent.Text);
             var sets = ModelData.ObjectData.GetSetsInfo(type);
-            //var set = 
-            //if (set != null)
-            //    panelProvider.DrawPropertyOnPanel(set);
-            //else
-            //    ConsoleControl.PrintInfo("Тестовое сообщение: выбрано не setInfo", Color.Orange);
+            if (sets != null)
+            {
+                var set = sets.FirstOrDefault(s => s.Name == setName);
+                panelProvider.DrawPropertyOnPanel(set);
+            }
         }
     }
 }
