@@ -943,8 +943,8 @@ namespace BazisGUI
             //var set = 
             //if (set != null)
             //    panelProvider.DrawPropertyOnPanel(set);
-            else
-                ConsoleControl.PrintInfo("Тестовое сообщение: выбрано не setInfo", Color.Orange);
+            //else
+            //    ConsoleControl.PrintInfo("Тестовое сообщение: выбрано не setInfo", Color.Orange);
         }
     }
 }
