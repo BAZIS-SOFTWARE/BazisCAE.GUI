@@ -57,7 +57,7 @@ namespace BazisGUI.Utilities
             }
         }
 
-        public static ObjType ConvertToObjType(string navNodeName)
+        public static ObjType ConvertNavigatorNodeNameToObjType(string navNodeName)
         {
             switch (navNodeName)
             {
