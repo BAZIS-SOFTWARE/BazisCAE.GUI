@@ -22,9 +22,9 @@ namespace BazisGUI.PropertiesPanel
         {
             List<RowProperty> list = new List<RowProperty>()
             {
-                new RowProperty("Имя",obj.Name, () => {}),
-                new RowProperty("Цвет",obj.Color, () => {}),
-                new RowProperty("Тип",obj.ObjType, () => {})
+                new RowProperty("   Имя",obj.Name, () => {}),
+                new RowProperty("   Цвет",obj.Color, () => {}),
+                new RowProperty("   Тип",obj.ObjType, () => {})
             };
 
             Out(new DrowPropertyOnPanelEventArgs(list));

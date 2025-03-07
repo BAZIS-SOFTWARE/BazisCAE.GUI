@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace BaseModule.PropertiesPanel
 {
@@ -13,8 +14,17 @@ namespace BaseModule.PropertiesPanel
             dataGridView1.DataSource = null;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.Columns.Clear();
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Header" });
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Value" });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn 
+            {
+                DataPropertyName = "Header",
+                DefaultCellStyle = new DataGridViewCellStyle {BackColor = SystemColors.Control }
+            });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn 
+            { 
+                DataPropertyName = "Value",
+                DefaultCellStyle = new DataGridViewCellStyle { BackColor = SystemColors.Control }
+            });
+
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.DataSource = e.List;
         }
