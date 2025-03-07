@@ -218,7 +218,7 @@ namespace BazisGUI
             try
             {
                 //activeAdvisor = taskAdv.Name;
-                taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent; // startComputation
+                taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent;
                 taskAdv.EditTSFEvent += TaskAdv_EditTSFEvent;
                 taskAdv.AddDataUseTaskConditionsEvent += (ar1,ar2) => { TaskAdv_AddDataUseTaskConditions(taskData, preProc,ar2); };
                 taskAdv.AddDataEvent += (ar1, ar2) => { TaskAdvisor_AddData(taskData, ar2); };
@@ -312,9 +312,6 @@ namespace BazisGUI
 
             if (!Directory.Exists(compDir))
                 Directory.CreateDirectory(compDir);
-
-            //var oldTSF = Directory.GetFiles(compDir);
-            //if (oldTSF.Length > 0) Array.ForEach(oldTSF, x => File.Delete(x));
 
             var result = new List<string>
             {
