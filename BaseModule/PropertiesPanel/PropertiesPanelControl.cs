@@ -13,6 +13,7 @@ namespace BaseModule.PropertiesPanel
         public void HandleDraw(DrowPropertyOnPanelEventArgs e) 
         {
             dataGridView1.DataSource = null;
+            dataGridView1.ReadOnly = true;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.Columns.Clear();
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
