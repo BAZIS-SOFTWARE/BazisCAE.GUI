@@ -27,9 +27,8 @@ namespace GanttChart
             var index = layer - 1;
             if (index >= 0 && index < Chart.Series[0].Points.Count)
             {
-                var temp = Chart.Series[0].Points[index].Color;
-                Chart.Series[0].Points[index].Color = Chart.Series[0].Points[index].BackSecondaryColor;
-                Chart.Series[0].Points[index].BackSecondaryColor = temp;
+                var bar = Chart.Series[0].Points[index];
+                (bar.Color, bar.BackSecondaryColor) = (bar.BackSecondaryColor, bar.Color);
             }
         }
 
