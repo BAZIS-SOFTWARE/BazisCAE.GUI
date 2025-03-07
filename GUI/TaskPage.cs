@@ -218,7 +218,7 @@ namespace BazisGUI
             try
             {
                 //activeAdvisor = taskAdv.Name;
-                taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent;
+                taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent; // startComputation
                 taskAdv.EditTSFEvent += TaskAdv_EditTSFEvent;
                 taskAdv.AddDataUseTaskConditionsEvent += (ar1,ar2) => { TaskAdv_AddDataUseTaskConditions(taskData, preProc,ar2); };
                 taskAdv.AddDataEvent += (ar1, ar2) => { TaskAdvisor_AddData(taskData, ar2); };
@@ -307,30 +307,31 @@ namespace BazisGUI
         private void TaskAdv_GenerateTCFEvent(object arg1, GenerateTCFEventArgs arg2)
         {
             CheckProjectDataBeforeCreationTCF();
+            
+            var compDir = $@"{GeneralData.Path}\ComputationData";
 
-            var generalData = GeneralData;
+            if (!Directory.Exists(compDir))
+                Directory.CreateDirectory(compDir);
+
+            //var oldTSF = Directory.GetFiles(compDir);
+            //if (oldTSF.Length > 0) Array.ForEach(oldTSF, x => File.Delete(x));
+
             var result = new List<string>
             {
                 $@"\\загрузка сетки и данных",
-                $@"загрузить проект {generalData.Path}\{generalData.Name}",
+                $@"загрузить проект {GeneralData.Path}\{GeneralData.Name}",
                 $@"\\загрузка материалов",
-                $@"загрузить материалы {generalData.Path}\{generalData.Materials}",
+                $@"загрузить материалы {GeneralData.Path}\{GeneralData.Materials}",
                 $@"\\загрузка функций",
-                $@"загрузить функции {generalData.Path}\{generalData.Functions}",
-
+                $@"загрузить функции {GeneralData.Path}\{GeneralData.Functions}",
+                $@"\\расчет"
             };
-            result.Add($@"\\расчет");
 
             var tasks = new List<string>();
             foreach (var item in arg2)
                 tasks.Add("расчет " + item);
 
             result.AddRange(tasks);
-
-            var compDir = $@"{generalData.Path}\ComputationData";
-
-            if (!Directory.Exists(compDir))
-                Directory.CreateDirectory(compDir);
 
             var cmdFile = $@"{compDir}\computation.tcf";
 
@@ -377,6 +378,9 @@ namespace BazisGUI
 
                 if (!Directory.Exists(inputDir))
                     Directory.CreateDirectory(inputDir);
+
+                var oldTSF = Directory.GetFiles(inputDir);
+                if (oldTSF.Length > 0) Array.ForEach(oldTSF, x => File.Delete(x));
 
                 var taskType = Converters.ConvertToPreProcType(tasks);
 
