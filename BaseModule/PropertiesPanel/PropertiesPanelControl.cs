@@ -15,15 +15,16 @@ namespace BaseModule.PropertiesPanel
             dataGridView1.DataSource = null;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.Columns.Clear();
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn 
             {
                 DataPropertyName = "Header",
-                DefaultCellStyle = new DataGridViewCellStyle {BackColor = SystemColors.Control }
+                DefaultCellStyle = new DataGridViewCellStyle{BackColor = SystemColors.Control, SelectionBackColor = SystemColors.ControlDark },
             });
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn 
             { 
                 DataPropertyName = "Value",
-                DefaultCellStyle = new DataGridViewCellStyle { BackColor = SystemColors.Control }
+                DefaultCellStyle = new DataGridViewCellStyle {BackColor = SystemColors.Control, SelectionBackColor = SystemColors.ControlDark },
             });
 
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;

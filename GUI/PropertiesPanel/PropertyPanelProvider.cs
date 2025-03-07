@@ -19,7 +19,7 @@ namespace BazisGUI.PropertiesPanel
             return new ObjectsSet<Node>("NameTest");
         }
 
-        public void DrawPropertyOnPanel(ISetInfo obj) // создание коллекции RowProperty и отправка внутри EventArgs в PropertyPanel.DataGridView
+        public void DrawPropertyOnPanel(ISetInfo obj) //создание коллекции RowProperty и отправка внутри EventArgs в PropertyPanel.DataGridView
         {
             
             List<RowProperty> list = new List<RowProperty>()
@@ -31,30 +31,5 @@ namespace BazisGUI.PropertiesPanel
 
             Out(new DrowPropertyOnPanelEventArgs(list));
         }
-        ////Русская локализация
-        //private string GetRussianColorName(Color color)
-        //{
-        //    return colorNames.TryGetValue(color, out string name) ? name : "Неизвестный цвет";
-        //}
-        //Dictionary<Color, string> colorNames = new Dictionary<Color, string>
-        //{
-        //    { Color.Black, "Чёрный" },
-        //    { Color.White, "Белый" },
-        //    { Color.Red, "Красный" },
-        //    { Color.Green, "Зелёный" },
-        //    { Color.Blue, "Синий" },
-        //    { Color.Yellow, "Жёлтый" },
-        //    { Color.Gray, "Серый" },
-        //    { Color.DarkGray, "Тёмно-серый" },
-        //    { Color.LightGray, "Светло-серый" },
-        //    { Color.Orange, "Оранжевый" },
-        //    { Color.Pink, "Розовый" },
-        //    { Color.Purple, "Фиолетовый" },
-        //    { Color.Brown, "Коричневый" },
-        //    { Color.Cyan, "Голубой" },
-        //    { Color.Magenta, "Пурпурный" },
-        //    { Color.Lime, "Лаймовый" },
-        //    { Color.Olive, "Оливковый" }
-        //};
     }
 }
