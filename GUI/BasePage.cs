@@ -417,32 +417,25 @@ namespace BazisGUI
                     var coincidentNodes = ModelController.CoincidentObjectsFinder.Find(
                         nodes.Values.ToList(), 0.001f);
 
-                    Invoke(new Action(() => { consoleControl.PrintInfo($"Найдено {coincidentNodes.Where(x => x.Count > 2).Count()} совпадений", Color.Black); }));
+                    Invoke(new Action(() => { consoleControl.PrintInfo($"Найдено {coincidentNodes.Count()} совпадений", Color.Black); }));
                     Invoke(new Action(() =>
                     {
+                        scenePage.ClearAllDataOnScene();
                         foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
                             scenePage.CreateObjectsOnScene(item.ToString(), scenePage.CreateObjectsPresentor(item));
                         scenePage.SceneControl.DisplayObjects();
                     }));
                     var actConfirm = new Func<Tuple<bool, object>>(() =>
                     {
-                        var mergedNodes = ModelController.ObjectsMerger.Merge(coincidentNodes, nodes.Values.ToList());
-
-                        ModelData.ObjectData.NodesSet.Clear();
-                        foreach (var item in mergedNodes)
-                            ModelData.ObjectData.NodesSet.Add(item.Number,item);
+                        ModelController.ObjectsMerger.Merge(coincidentNodes, nodes);
 
                         Invoke(new Action(() =>       
                         {
                             var set = ModelData.ObjectData.GetSetsInfo(ObjType.Узел).First();
 
-                            TreeNode searchNode;
-                            if (navigator.TrySearchNode("объекты", out searchNode))
-                            {
-                                searchNode.Nodes[0].Text = $"{set.Name} : {set.NumberOfObjects}";
-                                consoleControl.PrintInfo("Узлы слиты", Color.Green);
-                            }
-   
+                            navigator.TreeView.Nodes["объекты"].Nodes[0].Nodes[0].Text = $"{set.Name} : {set.NumberOfObjects}";
+                            consoleControl.PrintInfo("Узлы слиты", Color.Green);
+
                         }));
                         return new Tuple<bool, object>(true, new object());
                     });

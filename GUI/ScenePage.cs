@@ -235,14 +235,12 @@ namespace BazisGUI
         {
             try
             {
-                var objType = Converters.ConvertToObjsType(SelectedObjects);
-
                 if (isSorted & selections.Count > 0)
                 {
                     var camera = sceneControl.GetCamera();
 
                     var near = selections.OrderByDescending(x => camera.GetSceenCoord(x.CalcCentr())._z).First();
-                    var set = ModelData.ObjectData.GetSetInfo(objType, near.Number);
+                    var set = ModelData.ObjectData.GetSetInfo(near.ObjType, near.Number);
                     if (isSelected)
                     {
                         near.Color = sceneControl.SelectionColor;
@@ -254,7 +252,7 @@ namespace BazisGUI
                 {
                     foreach (var obj in selections)
                     {
-                        var set = ModelData.ObjectData.GetSetInfo(objType, obj.Number);
+                        var set = ModelData.ObjectData.GetSetInfo(obj.ObjType, obj.Number);
                         if (isSelected)
                         {
                             obj.Color = sceneControl.SelectionColor;
@@ -263,9 +261,7 @@ namespace BazisGUI
                         else
                             obj.Color = set.Color;
                     }
-
                 }
-
             }
             catch (Exception ex)
             {

@@ -360,9 +360,7 @@ namespace BazisGUI
 
                 var scaleItems = GetScaleItems();
 
-                //Вернуть
-                //resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
-                resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item1);
+                resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems);
                 resultsController.ResultsFieldsCreator.ScaleFactor = scaleFactor;
 
                 scenePage.SceneControl.HideDisplayText2D();
@@ -412,10 +410,9 @@ namespace BazisGUI
             }
         }
 
-        private (ItemRange[], Color[]) GetScaleItems()
+        private ItemRange[] GetScaleItems()
         {
             var itemRanges = new ItemRange[scale.Count()];
-            var itemColors = new Color[scale.Count()];
 
             var scaleItems = scale.ToArray();
 
@@ -424,12 +421,11 @@ namespace BazisGUI
                 itemRanges[i] = new ItemRange()
                 {
                     Max = scaleItems[i].Max,
-                    Min = scaleItems[i].Min
+                    Min = scaleItems[i].Min,
+                    Color = scaleItems[i].Color
                 };
-
-                itemColors[i] = scaleItems[i].Color;
             }
-            return (itemRanges, itemColors);
+            return itemRanges;
         }
 
         private void SetMaxMinAuto(IResult result, string objsType, string resName)
@@ -803,10 +799,7 @@ namespace BazisGUI
         public void ShowExportResultsPage()
         {
             var scaleItems = GetScaleItems();
-            
-            //Вернуть
-            //resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item2, scaleItems.Item1);
-            resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems.Item1);
+            resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems);
             resultsController.ResultsFieldsCreator.ScaleFactor = 1;
 
             var exportPage = new ExportControl() { Dock = DockStyle.Fill };

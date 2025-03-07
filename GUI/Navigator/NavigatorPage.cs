@@ -244,8 +244,8 @@ namespace BazisGUI.Navigator
         {
             var groupIndex = treeView.SelectedNode.Index;
 
-            treeView.Nodes["объекты"].Nodes[Objects.Узел.ToString()].ImageIndex = 5;
-            treeView.Nodes["объекты"].Nodes[Objects.Узел.ToString()].SelectedImageIndex = 5;
+            treeView.Nodes["объекты"].Nodes["Узлы"].Nodes[0].ImageIndex = 5;
+            treeView.Nodes["объекты"].Nodes["Узлы"].Nodes[0].SelectedImageIndex = 5;
 
             treeView.SelectedNode.ImageIndex = ImgDict[treeView.SelectedNode.Name];
             treeView.SelectedNode.SelectedImageIndex = ImgDict[treeView.SelectedNode.Name];
@@ -257,8 +257,11 @@ namespace BazisGUI.Navigator
         {
             foreach (TreeNode item in treeView.Nodes[4].Nodes)
             {
-                item.ImageIndex = ImgDict[item.Name] == 3 ? 5 : 6;
-                item.SelectedImageIndex = ImgDict[item.Name] == 3 ? 5 : 6;
+                foreach (TreeNode node in item.Nodes)
+                {
+                    node.ImageIndex = ImgDict[node.Name] == 3 ? 5 : 6;
+                    node.SelectedImageIndex = ImgDict[node.Name] == 3 ? 5 : 6;
+                }
             }
 
             ShowAllGroupsEvent?.Invoke();
