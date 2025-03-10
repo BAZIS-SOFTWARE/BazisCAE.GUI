@@ -26,6 +26,7 @@ namespace BazisGUI.PropertiesPanel
             {
                 new RowProperty("   Имя",obj.Name, () => {}),
                 new RowProperty("   Цвет",obj.Color.Name, () => {}),
+                new RowProperty("   Представление",obj.ViewMode, () => {}),
                 new RowProperty("   Тип",obj.ObjType, () => {})
             };
 

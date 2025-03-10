@@ -519,6 +519,10 @@ namespace BazisGUI.Navigator
                 && node.Parent.Parent != null
                 && node.Parent.Parent == treeView.Nodes["объекты"])
                     AfterSelectEvent(new TreeViewEventArgs(node));
+            //if (node.Parent != null
+            //    && node.Parent.Parent != null
+            //    && node.Parent.Parent == treeView.Nodes["группыОбъектов"])
+            //        AfterSelectEvent(new TreeViewEventArgs(node));
         }
     }
 }

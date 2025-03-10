@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace BaseModule.PropertiesPanel
@@ -13,7 +12,6 @@ namespace BaseModule.PropertiesPanel
         public void HandleDraw(DrowPropertyOnPanelEventArgs e) 
         {
             dataGridView1.DataSource = null;
-            dataGridView1.ReadOnly = true;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.Columns.Clear();
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -21,15 +19,23 @@ namespace BaseModule.PropertiesPanel
             {
                 DataPropertyName = "Header",
                 DefaultCellStyle = new DataGridViewCellStyle{BackColor = SystemColors.Control, SelectionBackColor = SystemColors.ControlDark },
+                ReadOnly = true
             });
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn 
             { 
                 DataPropertyName = "Value",
                 DefaultCellStyle = new DataGridViewCellStyle {BackColor = SystemColors.Control, SelectionBackColor = SystemColors.ControlDark },
+                ReadOnly = false
             });
 
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.DataSource = e.List;
+        }
+
+        public void CellValueChanget(object sender, DataGridViewCellEventArgs e)
+        {
+            var newValue = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+
         }
     }
 }
