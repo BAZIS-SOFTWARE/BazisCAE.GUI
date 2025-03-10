@@ -152,8 +152,6 @@ namespace BazisGUI
             GmshController.Gmsh.Model.SetAttribute($"transfinite {arg2.Tag}", arg2.Attributes);
             if (!string.IsNullOrEmpty(arg2.Attributes[0]) && !string.IsNullOrEmpty(arg2.Attributes[2]))
             {
-                //Не очень хорошие последствия изменения аргумента в enum, делаем parse в enum, чтобы потом опять перевести в строку
-                //Может сделать изменения в эвенте? Прошу прокомментировать при review.
                 MeshType meshtType = (MeshType)Enum.Parse(typeof(MeshType), arg2.Attributes[1], true);
                 GmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(arg2.Tag, arg2.Points, meshtType, arg2.Coef);
             }
