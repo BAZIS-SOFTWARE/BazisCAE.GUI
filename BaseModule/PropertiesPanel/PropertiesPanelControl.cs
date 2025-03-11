@@ -41,7 +41,7 @@ namespace BaseModule.PropertiesPanel
             });
 
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.DataSource = e.List;
+            dataGridView1.DataSource = e.Properties;
         }
 
 

@@ -936,7 +936,7 @@ namespace BazisGUI
             var sets = ModelData.ObjectData.GetSetsInfo(type);
             if (sets != null)
             {
-                var set = sets.FirstOrDefault(s => s.Name == setName);
+                var set = sets.FirstOrDefault();
                 panelProvider.DrawPropertyOnPanel(set);
             }
         }

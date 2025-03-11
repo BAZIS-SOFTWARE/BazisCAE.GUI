@@ -40,13 +40,10 @@ namespace BazisGUI.PropertiesPanel
 
         public bool ValidationData (string header, object oldValue, object newValue )
         {
-            if (header == _parameterName)
+            if (newValue.ToString().Contains(" ") == true)
             {
-                if (newValue.ToString().Contains(" ") == true)
-                {
-                    MessageBox.Show("Имя не должно содержать пробелов", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
+                MessageBox.Show("Имя не должно содержать пробелов", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
             return true;
         }

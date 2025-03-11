@@ -5,11 +5,11 @@ namespace BaseModule.PropertiesPanel
 {
     public class DrowPropertyOnPanelEventArgs: EventArgs
     {
-        public List<RowProperty> List;
+        public IEnumerable<RowProperty> Properties;
 
-        public DrowPropertyOnPanelEventArgs(List<RowProperty> list)
+        public DrowPropertyOnPanelEventArgs(IEnumerable<RowProperty> properties)
         {
-            List = list;
+            Properties = properties;
         }
     }
 }
