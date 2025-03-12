@@ -109,6 +109,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Gif.Components.dll</HintPath>
     </Reference>
+
     <Reference Include="GmshApi, Version=3.1.0.6, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
       <HintPath>..\packages\GmshApi.3.1.0.6\lib\netstandard2.0\GmshApi.dll</HintPath>
     </Reference>
@@ -124,6 +125,7 @@
     <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
     </Reference>
+
     <Reference Include="Model, Version=4.2.62.17, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
       <HintPath>..\packages\Model.4.2.62.17\lib\netstandard2.0\Model.dll</HintPath>
     </Reference>
@@ -189,6 +191,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -235,6 +238,19 @@
     </Compile>
     <Compile Include="EmbendentPage.Designer.cs">
       <DependentUpon>EmbendentPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GanttChartModel.cs" />
+    <Compile Include="GanttChartCheckBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GanttChartCheckBox.Designer.cs">
+      <DependentUpon>GanttChartCheckBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GanttChartTreeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GanttChartTreeView.Designer.cs">
+      <DependentUpon>GanttChartTreeView.cs</DependentUpon>
     </Compile>
     <Compile Include="HeatTreatmentPage.cs">
       <SubType>UserControl</SubType>
@@ -365,6 +381,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EmbendentPage.resx">
       <DependentUpon>EmbendentPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GanttChartCheckBox.resx">
+      <DependentUpon>GanttChartCheckBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GanttChartTreeView.resx">
+      <DependentUpon>GanttChartTreeView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HeatTreatmentPage.resx">
       <DependentUpon>HeatTreatmentPage.cs</DependentUpon>
