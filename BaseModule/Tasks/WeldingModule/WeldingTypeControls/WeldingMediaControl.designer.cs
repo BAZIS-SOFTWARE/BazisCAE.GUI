@@ -33,7 +33,8 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WeldingMediaControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new UserControlsEx.GroupBoxEx();
             this.label5 = new System.Windows.Forms.Label();
@@ -138,7 +139,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbMediaTemp.BackColor = System.Drawing.SystemColors.Window;
             this.txbMediaTemp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txbMediaTemp.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
+            this.txbMediaTemp.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.txbMediaTemp.IsValidating = true;
             this.txbMediaTemp.Location = new System.Drawing.Point(175, 80);
             this.txbMediaTemp.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
@@ -209,15 +210,15 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.Column1,
             this.startColumn,
             this.stopColumn});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.NullValue = " ";
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.NullValue = " ";
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.Location = new System.Drawing.Point(7, 462);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
@@ -408,7 +409,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             this.btnAddNewRow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddNewRow.Image = global::BaseModule.Properties.Resources.Add.ToBitmap();
+            this.btnAddNewRow.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewRow.Image")));
             this.btnAddNewRow.Location = new System.Drawing.Point(10, 76);
             this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
             this.btnAddNewRow.Name = "btnAddNewRow";

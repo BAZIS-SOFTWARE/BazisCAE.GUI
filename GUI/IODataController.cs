@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace BazisGUI
 {
@@ -118,6 +119,10 @@ namespace BazisGUI
             {
                 saveDialog.DefaultExt = "bpf";
 
+                var filter = "(*.bpf)|*.bpf|(*.bpf2)|*.bpf2";
+
+                saveDialog.Filter = filter;
+
                 if (saveDialog.ShowDialog() == DialogResult.Cancel)
                     return;
 
@@ -137,6 +142,13 @@ namespace BazisGUI
                         IOFileController.CopyFile(project.GeneralData.Functions, oldFolder, project.GeneralData.Path);
                     }
 
+                    var ext = Path.GetExtension(saveDialog.FileName);
+
+                    if (ext == ".bpf2")
+                        project.ModelData.Saver = new SaveModelToBPF2TextFile();
+                    else
+                        project.ModelData.Saver = new SaveModelToBPFTextFile();
+                    
                     project.Save();
                 }
             }
@@ -149,8 +161,8 @@ namespace BazisGUI
             var filter =
 "All files(*.*)|*.*|" +
 "Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
-"GMSH(*.inp*)|*.inp|" +
-"GMSH(*.inp_v2*)|*.inp_v2|" +
+"GMSH(*.inp)|*.inp|" +
+"GMSH(*.inp_v2)|*.inp_v2|" +
 "ANSYS(*.cdb*)|*.cdb|" +
 "STL(*.stl*)|*.stl|" +
 "SOLOMIA(*.dat*)|*.dat";
@@ -277,7 +289,16 @@ namespace BazisGUI
             var project = new ProjectData(name, path);
             project.GeneralData.Materials = "materials_v3.jsf";
             project.GeneralData.Functions = "functions.jsf";
+
             project.ModelData = new ModelData();
+            
+            var ext = Path.GetExtension(name);
+
+            if (ext == ".bpf")
+                project.ModelData.Loader = new LoadModelFromBPFTextFile();
+            else
+                project.ModelData.Loader = new LoadModelFromBPF2TextFile();
+
             project.TaskData = new TaskData();
             project.ResultData = new ResultData();
 
@@ -294,7 +315,7 @@ namespace BazisGUI
 
         public async Task<ProjectData> OpenProject()
         {
-            var filter = "Project file(*.bpf)|*.bpf";
+            var filter = "Project file(*.bpf)|*.bpf|Project file(*.bpf2)|*.bpf2";
 
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = filter;
