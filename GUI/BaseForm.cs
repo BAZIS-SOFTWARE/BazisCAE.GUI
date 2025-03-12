@@ -25,6 +25,7 @@ using PostProc;
 using Model.Interfaces;
 using PreProc.Interfaces;
 using Project.Results.IO;
+using BazisGUI.PropertiesPanel;
 
 namespace BazisGUI
 {
@@ -74,12 +75,13 @@ namespace BazisGUI
         private Thread serverConnectionPing;
 
 
-
         public BaseForm(string[] args)
         {
             InitializeComponent();
             ComponentsPainter.Font = this.Font;
             ComponentsPainter.ScreenDPI = this.DeviceDpi;
+
+            
 
             tableLayoutPanel.BringToFront();
             GetServerConnection();
@@ -507,8 +509,10 @@ namespace BazisGUI
             ViewInterface(module.Name);
 
             var que = new Queue<int>();
-            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.25f));
+            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.2f));
+            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.7f));
             que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.65f));
+            
 
             basePage.SetSplitters(que);
 

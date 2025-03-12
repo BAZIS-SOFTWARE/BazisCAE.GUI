@@ -63,12 +63,14 @@
             this.treeNodesImageList_16x16 = new System.Windows.Forms.ImageList(this.components);
             this.contextMenuImageList = new System.Windows.Forms.ImageList(this.components);
             this.ndGroup_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
             this.object_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.удалитьОбъектMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.показатьОбъектMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.скрытьMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отображениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,6 +78,7 @@
             this.поверхностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ребраИПоверхностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.elGroup_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem17 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem19 = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,9 +87,6 @@
             this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripMenuItem();
             this.treeView = new System.Windows.Forms.TreeView();
             this.grbNavigator = new System.Windows.Forms.Panel();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.удалитьОбъектMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.objects_MenuStrip.SuspendLayout();
             this.groups_MenuStrip.SuspendLayout();
             this.ndGroup_MenuStrip.SuspendLayout();
@@ -203,6 +203,13 @@
             this.ndGroup_MenuStrip.Name = "lv11_MenuStrip";
             this.ndGroup_MenuStrip.Size = new System.Drawing.Size(162, 136);
             // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(161, 22);
+            this.toolStripMenuItem4.Text = "Удалить";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.DelGroup_Click);
+            // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
@@ -249,6 +256,13 @@
             this.object_MenuStrip.Name = "lv0_MenuStrip";
             this.object_MenuStrip.Size = new System.Drawing.Size(151, 92);
             // 
+            // удалитьОбъектMenuItem
+            // 
+            this.удалитьОбъектMenuItem.Name = "удалитьОбъектMenuItem";
+            this.удалитьОбъектMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.удалитьОбъектMenuItem.Text = "Удалить";
+            this.удалитьОбъектMenuItem.Click += new System.EventHandler(this.DelObjects_Click);
+            // 
             // показатьОбъектMenuItem
             // 
             this.показатьОбъектMenuItem.Name = "показатьОбъектMenuItem";
@@ -276,21 +290,21 @@
             // ребраToolStripMenuItem
             // 
             this.ребраToolStripMenuItem.Name = "ребраToolStripMenuItem";
-            this.ребраToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.ребраToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.ребраToolStripMenuItem.Text = "Ребра";
             this.ребраToolStripMenuItem.Click += new System.EventHandler(this.ребраToolStripMenuItem_Click);
             // 
             // поверхностиToolStripMenuItem
             // 
             this.поверхностиToolStripMenuItem.Name = "поверхностиToolStripMenuItem";
-            this.поверхностиToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.поверхностиToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.поверхностиToolStripMenuItem.Text = "Поверхности";
             this.поверхностиToolStripMenuItem.Click += new System.EventHandler(this.поверхностиToolStripMenuItem_Click);
             // 
             // ребраИПоверхностиToolStripMenuItem
             // 
             this.ребраИПоверхностиToolStripMenuItem.Name = "ребраИПоверхностиToolStripMenuItem";
-            this.ребраИПоверхностиToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.ребраИПоверхностиToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.ребраИПоверхностиToolStripMenuItem.Text = "Ребра и поверхности";
             this.ребраИПоверхностиToolStripMenuItem.Click += new System.EventHandler(this.ребраИПоверхностиToolStripMenuItem_Click);
             // 
@@ -307,6 +321,13 @@
             this.toolStripMenuItem22});
             this.elGroup_MenuStrip.Name = "lv11_MenuStrip";
             this.elGroup_MenuStrip.Size = new System.Drawing.Size(177, 158);
+            // 
+            // toolStripMenuItem16
+            // 
+            this.toolStripMenuItem16.Name = "toolStripMenuItem16";
+            this.toolStripMenuItem16.Size = new System.Drawing.Size(176, 22);
+            this.toolStripMenuItem16.Text = "Удалить";
+            this.toolStripMenuItem16.Click += new System.EventHandler(this.DelGroup_Click);
             // 
             // toolStripMenuItem17
             // 
@@ -449,6 +470,7 @@
             this.treeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_AfterLabelEdit);
             this.treeView.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterCollapse);
             this.treeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterExpand);
+            this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
             this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_NodeMouseClick);
             this.treeView.Enter += new System.EventHandler(this.treeView_Enter);
             this.treeView.Leave += new System.EventHandler(this.treeView_Leave);
@@ -467,32 +489,11 @@
             this.grbNavigator.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbNavigator_MouseClick);
             this.grbNavigator.Resize += new System.EventHandler(this.grbNavigator_Resize);
             // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(161, 22);
-            this.toolStripMenuItem4.Text = "Удалить";
-            this.toolStripMenuItem4.Click += new System.EventHandler(this.DelGroup_Click);
-            // 
-            // удалитьОбъектMenuItem
-            // 
-            this.удалитьОбъектMenuItem.Name = "удалитьОбъектMenuItem";
-            this.удалитьОбъектMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.удалитьОбъектMenuItem.Text = "Удалить";
-            this.удалитьОбъектMenuItem.Click += new System.EventHandler(this.DelObjects_Click);
-            // 
-            // toolStripMenuItem16
-            // 
-            this.toolStripMenuItem16.Name = "toolStripMenuItem16";
-            this.toolStripMenuItem16.Size = new System.Drawing.Size(176, 22);
-            this.toolStripMenuItem16.Text = "Удалить";
-            this.toolStripMenuItem16.Click += new System.EventHandler(this.DelGroup_Click);
-            // 
-            // NavigatorControl
+            // NavigatorPage
             // 
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.grbNavigator);
-            this.Name = "NavigatorControl";
+            this.Name = "NavigatorPage";
             this.Size = new System.Drawing.Size(225, 342);
             this.objects_MenuStrip.ResumeLayout(false);
             this.groups_MenuStrip.ResumeLayout(false);

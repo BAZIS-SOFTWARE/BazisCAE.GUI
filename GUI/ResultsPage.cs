@@ -359,7 +359,6 @@ namespace BazisGUI
                 }
 
                 var scaleItems = GetScaleItems();
-
                 resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems);
                 resultsController.ResultsFieldsCreator.ScaleFactor = scaleFactor;
 
@@ -799,6 +798,7 @@ namespace BazisGUI
         public void ShowExportResultsPage()
         {
             var scaleItems = GetScaleItems();
+
             resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems);
             resultsController.ResultsFieldsCreator.ScaleFactor = 1;
 
