@@ -51,8 +51,7 @@ namespace BazisGUI
         {
             meshGenerator.setMeshAlgoEvent += (ar) =>
             {
-                var ierrAlgo = 0;
-                GmshController.OptionSetNumber("Mesh.Algorithm", ar, ref ierrAlgo);
+                GmshController.Gmsh.Option.SetNumber("Mesh.Algorithm", ar);
             };
 
             meshGenerator.delMeshGradientEvent += MeshGenerator_delMeshGradientEvent;
@@ -150,26 +149,26 @@ namespace BazisGUI
 
         private void MeshGenerator_SetCurveAttributeEvent(object arg1, CurveAttribsEventArgs arg2)
         {
-            var ierr = 0;
-            GmshController.ModelSetAttribute($"transfinite {arg2.Tag}", arg2.Attributes, (IntPtr)arg2.Attributes.Length, ref ierr);
+            GmshController.Gmsh.Model.SetAttribute($"transfinite {arg2.Tag}", arg2.Attributes);
             if (!string.IsNullOrEmpty(arg2.Attributes[0]) && !string.IsNullOrEmpty(arg2.Attributes[2]))
-                GmshController.ModelMeshSetTransfiniteCurve(arg2.Tag, arg2.Points, arg2.Attributes[1], arg2.Coef, ref ierr);
+            {
+                MeshType meshtType = (MeshType)Enum.Parse(typeof(MeshType), arg2.Attributes[1], true);
+                GmshController.Gmsh.Model.Mesh.SetTransfiniteCurve(arg2.Tag, arg2.Points, meshtType, arg2.Coef);
+            }
         }
 
         private void MeshGenerator_CurveAttribDeleteEvent(int obj)
         {
-            var ierr = 0;
             var dimTags = new int[] { 1, obj };
-            GmshController.ModelRemoveAttribute($"transfinite {obj}", ref ierr);
-            GmshController.ModelMeshRemoveConstraints(dimTags, (IntPtr)dimTags.Length, ref ierr);
+            GmshController.Gmsh.Model.RemoveAttribute($"transfinite {obj}");
+            GmshController.Gmsh.Model.Mesh.RemoveConstraints(dimTags);
         }
 
         private void MeshGenerator_GetCurveAttribEvent(object arg1, int arg2)
         {
             try
             {
-                string[] attributes;
-                GmshController.ModelGetAttribute($"transfinite {arg2}", out attributes);
+                var attributes = GmshController.Gmsh.Model.GetAttribute($"transfinite {arg2}");
                 var curveControl = arg1 as GMSHCurveSettingsControl;
                 curveControl.SetCurveAttributes(attributes);
             }
@@ -182,9 +181,8 @@ namespace BazisGUI
 
         private void MeshGenerator_PointAttribDeleteEvent(int obj)
         {
-            var ierr = 0;
             var dimTags = new int[] { 0, obj };
-            GmshController.ModelMeshRemoveConstraints(dimTags, (IntPtr)dimTags.Length, ref ierr);
+            GmshController.Gmsh.Model.Mesh.RemoveConstraints(dimTags);
         }
 
         private void MeshGenerator_GetPointSizeEvent(object arg1, int arg2)
@@ -192,7 +190,7 @@ namespace BazisGUI
             try
             {
                 var dimTags = new int[] { 0, arg2 };
-                var meshSize = GmshController.GetMeshDensity(dimTags);
+                var meshSize = GmshController.Gmsh.Model.Mesh.GetSizes(dimTags);
                 var pointControl = arg1 as GMSHPointSettingsControl;
                 pointControl.SetPointSize(meshSize[0]);
             }
@@ -205,56 +203,49 @@ namespace BazisGUI
 
         private void MeshGenerator_setMeshGradientSettingsEvent(object arg1, MeshGradientSettingsEventArgs arg2)
         {
-            var ierr = 0;
-            GmshController.ModelMeshFieldAdd("Extend", -1, ref ierr);
+            GmshController.Gmsh.Model.Mesh.Field.Add(FieldType.Extend);
 
-            int[] list;
-            GmshController.ModelMeshFieldList(out list);
+            var list = GmshController.Gmsh.Model.Mesh.Field.List();
             if (list.Length != 0)
             {
                 var field = list.First();
-                int[] points, curves, surfaces;
-                GmshController.ModelGetGeometryEntities(out points, 0);
-                GmshController.ModelGetGeometryEntities(out curves, 1);
-                GmshController.ModelGetGeometryEntities(out surfaces, 2);
+                var points = GmshController.Gmsh.Model.GetEntities(0);
+                var curves = GmshController.Gmsh.Model.GetEntities(1);
+                var surfaces = GmshController.Gmsh.Model.GetEntities(2);
                 var curveTags = curves.Where((v, i) => (i & 1) != 0)
                                       .Select(v => (double)v).ToArray();
                 var surfTags = surfaces.Where((v, i) => (i & 1) != 0)
                                        .Select(v => (double)v).ToArray();
-                GmshController.ModelMeshSetSize(points, (IntPtr)points.Length, arg2.surfaceMeshSize, ref ierr);
-                GmshController.ModelMeshFieldSetNumbers(field, "CurvesList", curveTags, (IntPtr)curveTags.Length, ref ierr);
-                GmshController.ModelMeshFieldSetNumbers(field, "SurfacesList", surfTags, (IntPtr)surfTags.Length, ref ierr);
-                GmshController.ModelMeshFieldSetNumber(field, "Power", arg2.gradientMeshPower, ref ierr);
-                GmshController.ModelMeshFieldSetNumber(field, "DistMax", arg2.layerThickness, ref ierr);
-                GmshController.ModelMeshFieldSetNumber(field, "SizeMax", arg2.coreMeshSize, ref ierr);
-                GmshController.ModelMeshFieldSetAsBackgroundMesh(field, ref ierr);
-                GmshController.OptionSetNumber("Mesh.MeshSizeExtendFromBoundary", -2, ref ierr);
+                GmshController.Gmsh.Model.Mesh.SetSize(points, arg2.surfaceMeshSize);
+                GmshController.Gmsh.Model.Mesh.Field.SetNumbers(field, ExtendOptions.CurvesList.ToString(), curveTags);
+                GmshController.Gmsh.Model.Mesh.Field.SetNumbers(field, ExtendOptions.SurfacesList.ToString(), surfTags);
+                GmshController.Gmsh.Model.Mesh.Field.SetNumber(field, ExtendOptions.Power.ToString(), arg2.gradientMeshPower);
+                GmshController.Gmsh.Model.Mesh.Field.SetNumber(field, ExtendOptions.DistMax.ToString(), arg2.layerThickness);
+                GmshController.Gmsh.Model.Mesh.Field.SetNumber(field, ExtendOptions.SizeMax.ToString(), arg2.coreMeshSize);
+                GmshController.Gmsh.Model.Mesh.Field.SetAsBackgroundMesh(field);
+                GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeExtendFromBoundary", -2);
             }
         }
 
         private void SetPointSizesEventHandler(object sender, int pointNumber, double[] pointSize)
         {
-            var ierr = 0;
             var dimTags = new int[] { 0, pointNumber };
-            GmshController.ModelMeshSetSize(dimTags, (IntPtr)dimTags.Length, pointSize[0], ref ierr);
+            GmshController.Gmsh.Model.Mesh.SetSize(dimTags, pointSize[0]);
         }
 
         private void SetMinMaxSizesEvent(object sender, double[] sizes)
         {
-            var ierr = 0;
-            GmshController.OptionSetNumber("Mesh.MeshSizeMin", sizes[0], ref ierr);
-            GmshController.OptionSetNumber("Mesh.MeshSizeMax", sizes[1], ref ierr);
+            GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMin", sizes[0]);
+            GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeMax", sizes[1]);
         }
 
         private void MeshGenerator_delMeshGradientEvent(object arg1)
         {
-            var ierr = 0;
-            int[] list, points;
-            GmshController.ModelMeshFieldList(out list);
-            GmshController.ModelMeshFieldRemove(list.First(), ref ierr);
-            GmshController.ModelGetGeometryEntities(out points, 0);
-            GmshController.ModelMeshRemoveConstraints(points, (IntPtr)points.Length, ref ierr);
-            GmshController.OptionSetNumber("Mesh.MeshSizeExtendFromBoundary", 1, ref ierr);
+            var list = GmshController.Gmsh.Model.Mesh.Field.List();
+            GmshController.Gmsh.Model.Mesh.Field.Remove(list.First());
+            var points = GmshController.Gmsh.Model.GetEntities(0);
+            GmshController.Gmsh.Model.Mesh.RemoveConstraints(points);
+            GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeExtendFromBoundary", 1);
         }
 
         private void DeleteElementsByNumber(object sender, DeleteElementEventArgs args)
@@ -271,9 +262,10 @@ namespace BazisGUI
 
         private int[] GetElementsByType(int intType, int dim, int tag)
         {
-            int[] elTypes;
-            long[][] elTags, nodeTags;
-            GmshController.ModelMeshGetElements(dim, tag, out elTypes, out elTags, out nodeTags);
+            var data = GmshController.Gmsh.Model.Mesh.GetElements(dim, tag);
+            var elTypes = data.Item1;
+            var elTags = data.Item2;
+            var nodeTags = data.Item3;
             int[] dimTags = null;
             for (var i = 0; i < elTypes.Length; ++i)
                 if (elTypes[i] == intType)
@@ -295,14 +287,13 @@ namespace BazisGUI
             foreach (var element in elementType)
                 if (element.Contains(keyData))
                 {
-                    long[] idElems = dimTags.Where((i, v) => (v & 1) == 1)
-                                            .Select(v => (long)v)
+                    var idElems = dimTags.Where((i, v) => (v & 1) == 1)
+                                            .Select(v => (IntPtr)v)
                                             .ToArray();
                     GmshController.DeleteMeshElements(idElems);
                     return;
                 }
-            var ierr = 0;
-            GmshController.ModelMeshClear(dimTags, (IntPtr)dimTags.Length, ref ierr);
+            GmshController.Gmsh.Model.Mesh.Clear(dimTags);
         }
 
 
@@ -349,8 +340,7 @@ namespace BazisGUI
         private void ShowSurfaceNumbers()
         {
             var scenePage = BasePage.ScenePage;
-            int[] dimTags;
-            GmshController.ModelGetGeometryEntities(out dimTags, 2);
+            var dimTags = GmshController.Gmsh.Model.GetEntities(2);
 
             for (var i = 1; i < dimTags.Length; i += 2)
             {
@@ -365,8 +355,7 @@ namespace BazisGUI
         private void ShowNumberOfCurveNodes()
         {
             var scenePage = BasePage.ScenePage;
-            string[] attribList;
-            GmshController.ModelGetAttributeNames(out attribList);
+            var attribList = GmshController.Gmsh.Model.GetAttributeNames();
 
             foreach (var item in attribList)
             {
@@ -392,10 +381,8 @@ namespace BazisGUI
         /// <returns>Центр масс</returns>
         private Point3D GetCenterOfGeometryEntity(int dim, int tag)
         {
-            var ierr = 0;
-            double x = 0, y = 0, z = 0;
-            GmshController.ModelOccGetCenterOfMass(dim, tag, ref x, ref y, ref z, ref ierr);
-            var point = new Point3D((float)x, (float)y, (float)z);
+            var data = GmshController.Gmsh.Model.Occ.GetCenterOfMass(dim, tag);
+            var point = new Point3D((float)data.Item1, (float)data.Item2, (float)data.Item3);
             return point;
         }
 
@@ -413,16 +400,13 @@ namespace BazisGUI
         private void MeshGenerator_generate2DQuadMesh(object obj)
         {
             var cntr = (GMSHGeneralMeshControl)obj;
-            var filename = string.Empty;
-            GmshController.ModelGetFileName(out filename);
+            var filename = GmshController.Gmsh.Model.GetFileName();
             var ext = Path.GetExtension(filename);
             if (ext.Contains("igs") || ext.Contains("iges"))
             {
-                var ierr = 0;
-                string error;
-                GmshController.ModelMeshRecombine(ref ierr);
-                GmshController.LoggerGetLastError(out error);
-                if (!String.IsNullOrEmpty(error))
+                GmshController.Gmsh.Model.Mesh.Recombine();
+                var error = GmshController.Gmsh.Logger.GetLastError();
+                if (!string.IsNullOrEmpty(error))
                     BasePage.ConsoleControl.PrintInfo(error, Color.Red);
                 cntr.ShowHideTabControls(3, false);
                 cntr.ClearTreeView(3);
@@ -438,8 +422,7 @@ namespace BazisGUI
         {
             var scenePage = BasePage.ScenePage;
             var cntr = (GMSHGeneralMeshControl)sender;
-            var ierr = 0;
-            GmshController.ModelMeshRefine(ref ierr);
+            GmshController.Gmsh.Model.Mesh.Refine();
 
             FillMeshTreeView(cntr, 2);
 
@@ -457,14 +440,12 @@ namespace BazisGUI
         private void MeshGenerator_generate3DMeshEvent(object sender)
         {
             var scenePage = BasePage.ScenePage;
-            var ierr = 0;
-            string error;
             try
             {
                 var cntr = (GMSHGeneralMeshControl)sender;
 
                 DeleteGMSHMeshObjects(ObjType.Элемент3D);
-                GmshController.ModelMeshGenerate(3, ref ierr);
+                GmshController.Gmsh.Model.Mesh.Generate(3);
 
                 FillMeshTreeView(cntr, 3, "Объемы", "Объем ");
             }
@@ -473,8 +454,8 @@ namespace BazisGUI
                 BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
                 return;
             }
-            GmshController.LoggerGetLastError(out error);
-            if (!String.IsNullOrEmpty(error))
+            var error = GmshController.Gmsh.Logger.GetLastError();
+            if (!string.IsNullOrEmpty(error))
                 BasePage.ConsoleControl.PrintInfo(error, Color.Red);
 
             ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
@@ -491,16 +472,14 @@ namespace BazisGUI
         private void MeshGenerator_generate2DMeshEvent(object sender, double meshDencity)
         {
             var scenePage = BasePage.ScenePage;
-            var ierr = 0;
-            string error;
             try
             {
                 var cntr = (GMSHGeneralMeshControl)sender;
-                GmshController.OptionSetNumber("Mesh.MeshSizeFactor", meshDencity, ref ierr);
+                GmshController.Gmsh.Option.SetNumber("Mesh.MeshSizeFactor", meshDencity);
 
                 DeleteGMSHMeshObjects(ObjType.Узел);
-                GmshController.ModelMeshGenerate(1, ref ierr);
-                GmshController.ModelMeshGenerate(2, ref ierr);
+                GmshController.Gmsh.Model.Mesh.Generate(1);
+                GmshController.Gmsh.Model.Mesh.Generate(2);
 
                 FillMeshTreeView(cntr, 2);
             }
@@ -509,8 +488,8 @@ namespace BazisGUI
                 BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
                 return;
             }
-            GmshController.LoggerGetLastError(out error);
-            if (!String.IsNullOrEmpty(error))
+            var error = GmshController.Gmsh.Logger.GetLastError();
+            if (!string.IsNullOrEmpty(error))
                 BasePage.ConsoleControl.PrintInfo(error, Color.Red);
 
             ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
@@ -547,7 +526,6 @@ namespace BazisGUI
 
         private void DeleteGMSHMeshObjects(ObjType type)
         {
-            var ierr = 0;
             int[] dimTags = null;
             var dim = 0;
             if (type == ObjType.Узел) //удаляем всю сетку узлы,1d,2d,3d
@@ -557,19 +535,19 @@ namespace BazisGUI
             if (type == ObjType.Элемент1D)//удаляем все 1d элементы
             {
                 dim = 1;
-                GmshController.ModelGetGeometryEntities(out dimTags, dim);
+                dimTags = GmshController.Gmsh.Model.GetEntities(dim);
             }
             else if (type == ObjType.Элемент2D)//удаляем все 2d элементы
             {
                 dim = 2;
-                GmshController.ModelGetGeometryEntities(out dimTags, dim);
+                dimTags = GmshController.Gmsh.Model.GetEntities(dim);
             }
             else if (type == ObjType.Элемент3D)//удаляем все 3d элементы
             {
                 dim = 3;
-                GmshController.ModelGetGeometryEntities(out dimTags, dim);
+                GmshController.Gmsh.Model.GetEntities(dim);
             }
-            GmshController.ModelMeshClear(dimTags, (IntPtr)dimTags.Length, ref ierr);
+            GmshController.Gmsh.Model.Mesh.Clear(dimTags);
         }
 
         private void MeshGenerator_showNodesOnCurves(bool flag)
@@ -599,8 +577,7 @@ namespace BazisGUI
         {
             var curveDict = new Dictionary<int, int>();
             //1)Добавляем в словарь сначала размеченные кривые
-            string[] attribList;
-            GmshController.ModelGetAttributeNames(out attribList);
+            var attribList = GmshController.Gmsh.Model.GetAttributeNames();
             foreach (var item in attribList)
             {
                 var tag = Int32.Parse(item.Split(' ')[1]);
@@ -609,8 +586,7 @@ namespace BazisGUI
                 curveDict.Add(tag, points);
             }
             //2)Добавляем в словарь неразмеченные кривые, которых нет в словаре (со значением ноль)
-            int[] dimTags;
-            GmshController.ModelGetGeometryEntities(out dimTags, 1);
+            var dimTags = GmshController.Gmsh.Model.GetEntities(1);
             for (var i = 1; i < dimTags.Length; i += 2)
                 if (!curveDict.ContainsKey(dimTags[i]))
                     curveDict.Add(dimTags[i], 0);
@@ -619,19 +595,17 @@ namespace BazisGUI
 
         private string[] GetCurrentCurveAttributes(int tag)
         {
-            string[] attributes;
-            GmshController.ModelGetAttribute($"transfinite {tag}", out attributes);
+            var attributes = GmshController.Gmsh.Model.GetAttribute($"transfinite {tag}");
             return attributes;
         }
 
         private List<GeometryPoint> GetTransPointsCoords(int curveTag)
         {
-            var ierr = 0;
-            long[] nodeTags;
-            double[] coords, parametrics;
-
-            GmshController.ModelMeshGenerate(1, ref ierr);
-            GmshController.ModelMeshGetNodes(1, curveTag, false, false, out nodeTags, out coords, out parametrics);
+            GmshController.Gmsh.Model.Mesh.Generate(1);
+            var data = GmshController.Gmsh.Model.Mesh.GetNodes(1, curveTag, false, false);
+            var nodeTags = data.Item1;
+            var coords = data.Item2;
+            var parametric = data.Item3;
 
             var gPoints = new List<GeometryPoint>();
             var num = 0;
@@ -778,9 +752,8 @@ namespace BazisGUI
             var pContr = (PinnedMeshGenControl)EmbeddedControls.Find("pinnedMeshGenControl", false)[0];
             var meshContr = pContr.MeshGeneratorControl;
 
-            var ierr = 0;
             FillGeometryTreeView(meshContr);
-            if (GmshController.GetGeometryObjectDimension(ref ierr) > 1)
+            if (GmshController.Gmsh.Model.GetDimension() > 1)
                 meshContr.ShowHideGeneralTabControls(2, true);
 
             //meshGenerator.ShowHideGeneralTabControls(1);
@@ -791,8 +764,7 @@ namespace BazisGUI
 
         public void FillGeometryTreeView(GMSHGeneralMeshControl cntr)
         {
-            int[] dimTags, upwards, downwards;
-            GmshController.ModelGetGeometryEntities(out dimTags, -1);
+            var dimTags = GmshController.Gmsh.Model.GetEntities();
             cntr.ClearTreeView(1);
             var geomTree = cntr.GetTreeView(1);
             var nodes = cntr.CreateGeometryNodes(dimTags);
@@ -800,7 +772,9 @@ namespace BazisGUI
             {
                 var dim = dimTags[i];
                 var tag = dimTags[i + 1];
-                GmshController.ModelGetAdjacencies(dim, tag, out upwards, out downwards);
+                var data = GmshController.Gmsh.Model.GetAdjacencies(dim, tag);
+                var upwards = data.Item1;
+                var downwards = data.Item2;
                 var current = nodes[dim][tag];
                 if (upwards.Length == 0)
                     geomTree.Nodes.Add(current);
@@ -819,17 +793,14 @@ namespace BazisGUI
         {
             var tree = cntr.GetTreeView(dim);
             cntr.ClearTreeView(dim);
-            int[] dimTags;
-            GmshController.ModelGetGeometryEntities(out dimTags, dim);
-            int[] elementTypes;
-            long[][] elementTags, nodeTags;
+            var dimTags = GmshController.Gmsh.Model.GetEntities(dim);
             var surfNodes = new TreeNode[dimTags.Length / 2];
             tree.Nodes.Add(generalKey);
             for (int i = 1, m = 0; i < dimTags.Length; i += 2, ++m)
             {
-                GmshController.ModelMeshGetElements(dim, dimTags[i], out elementTypes, out elementTags, out nodeTags);
+                var data = GmshController.Gmsh.Model.Mesh.GetElements(dim, dimTags[i]);
                 var child = generalChild + dimTags[i].ToString();
-                var node = cntr.CreateMeshTreeNodes(child, dim, elementTypes,elementTags, nodeTags);
+                var node = cntr.CreateMeshTreeNodes(child, dim, data.Item1, data.Item2, data.Item3);
                 tree.Nodes[0].Nodes.Add(node);
             }
         }       

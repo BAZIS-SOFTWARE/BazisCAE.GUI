@@ -83,7 +83,7 @@
             this.rbtnProgressive.TabIndex = 0;
             this.rbtnProgressive.TabStop = true;
             this.rbtnProgressive.Tag = "Прогрессия";
-            this.rbtnProgressive.Text = "Progressive";
+            this.rbtnProgressive.Text = "Progression";
             this.rbtnProgressive.UseVisualStyleBackColor = true;
             // 
             // label3

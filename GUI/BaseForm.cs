@@ -128,9 +128,8 @@ namespace BazisGUI
                     if (gmshController == null)
                         gmshController = dataController.LoadGMSH();
 
-                    var ierr = 0;
-                    gmshController.Clear(ref ierr);
-                    gmshController.Open(fullPath, ref ierr);
+                    gmshController.Gmsh.Clear();
+                    gmshController.Gmsh.Open(fullPath);
 
                     var path = Path.GetDirectoryName(fullPath);
                     var name = "new_Project.bpf";
@@ -875,8 +874,7 @@ namespace BazisGUI
                 {
                     lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
 
-                    var ierr = 0;
-                    gmshController?.Clear(ref ierr);
+                    gmshController?.Gmsh.Clear();
 
                     модулиMenuItem.Enabled = true;
                     modelController = new ModelController.ModelController(project.ModelData);
@@ -907,8 +905,7 @@ namespace BazisGUI
 
                 lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
 
-                var ierr = 0;
-                gmshController?.Clear(ref ierr);
+                gmshController?.Gmsh.Clear();
 
                 модулиMenuItem.Enabled = true;
                 modelController = new ModelController.ModelController(project.ModelData);
@@ -992,8 +989,7 @@ namespace BazisGUI
 
         private void OnClosingForm(object sender, FormClosingEventArgs e)
         {
-                var ierr = 0;
-                gmshController?.Finalize(ref ierr);
+                gmshController?.Gmsh.finalize();
         }
 
         private void модулиMenuItem_Paint(object sender, PaintEventArgs e)

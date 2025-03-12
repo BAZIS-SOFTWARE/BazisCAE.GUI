@@ -51,8 +51,7 @@ namespace BazisGUI
             var gmshController = new GmshController();
             gmshController.Load(path);
             //ObjectData = new ObjectsData();
-            var ierr = 0;
-            gmshController.OptionSetNumber("General.AbortOnError", 0, ref ierr);//Запретить поделию Кристофа обваливать Базис
+            gmshController.Gmsh.Option.SetNumber("General.AbortOnError", 0);//Запретить поделию Кристофа обваливать Базис
             
             return gmshController;
         }
@@ -78,9 +77,8 @@ namespace BazisGUI
             if (gmshController == null)
                 gmshController = LoadGMSH();
 
-            var ierr = 0;
-            gmshController.Clear(ref ierr);
-            gmshController.Open(dialog.FileName, ref ierr);
+            gmshController.Gmsh.Clear();
+            gmshController.Gmsh.Open(dialog.FileName);
 
             var path = Path.GetDirectoryName(dialog.FileName);
             var name = "новый_проект.bpf";

@@ -31,7 +31,7 @@ namespace BaseModule.Mesh
                                                                 { 0, Tuple.Create("Контрольный узел ","") }
                                                             };
 
-        public TreeNode CreateMeshTreeNodes(string name, int dim,int[] elementTypes,long[][] elementTags, long[][] nodeTags)
+        public TreeNode CreateMeshTreeNodes(string name, int dim, int[] elementTypes, IntPtr[][] elementTags, IntPtr[][] nodeTags)
         {
             var node = new TreeNode(name);
             for (var j = 0; j < elementTypes.Length; ++j)
