@@ -49,6 +49,8 @@ namespace BazisGUI.Navigator
 
         public event Action<string> SelectGroupEvent;
 
+        public event Action<TreeViewEventArgs> AfterSelectEvent;
+
         public event Action<TreeNode> DelGroupEvent;
         public event Action DelAllGroupsEvent;
         public event Action<int> HideGroupEvent;
@@ -508,6 +510,12 @@ namespace BazisGUI.Navigator
                 treeView.SelectedNode.BackColor = SystemColors.ControlDark;
                 treeView.SelectedNode.ForeColor = Color.White;
             }
+        }
+
+        private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            var node = e.Node;
+            if (node.Parent?.Parent == treeView.Nodes["объекты"]) AfterSelectEvent(new TreeViewEventArgs(node));
         }
     }
 }

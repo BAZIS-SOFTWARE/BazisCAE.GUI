@@ -57,6 +57,21 @@ namespace BazisGUI.Utilities
             }
         }
 
+        public static ObjType ConvertNavigatorNodeNameToObjType(string navNodeName)
+        {
+            switch (navNodeName)
+            {
+                case "Точки": return ObjType.Точка;
+                case "Кривые": return ObjType.Кривая;
+                case "Поверхности": return ObjType.Поверхность;
+                case "Объемы": return ObjType.Объем;
+                case "Узлы": return ObjType.Узел;
+                case "Элементы1D": return ObjType.Элемент1D;
+                case "Элементы2D": return ObjType.Элемент2D;
+                default: return ObjType.Элемент3D;
+            }
+        }
+
         public static ComplexTaskType ConvertToPreProcType(Tasks tasks)
         {
             switch (tasks)

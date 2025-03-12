@@ -28,6 +28,7 @@ using System.Globalization;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using MathNet.Numerics.Distributions;
 using BazisGUI.Navigator;
+using BazisGUI.PropertiesPanel;
 
 namespace BazisGUI
 {
@@ -98,10 +99,15 @@ namespace BazisGUI
 
         IModelData ModelData { get { return ModelController.ModelData; } }
 
+        PropertyPanelProvider panelProvider;
         public BasePage()
         {
             InitializeComponent();
 
+            panelProvider = new PropertyPanelProvider();
+            panelProvider.Out += propertiesPanelControl1.HandleDraw;
+            propertiesPanelControl1.ValidateValue += panelProvider.ValidationData;
+            propertiesPanelControl1.OnPropertyUpdate += panelProvider.ValueChanged;
             SplittersController = new SplittersController();
         }
 
@@ -921,6 +927,18 @@ namespace BazisGUI
             scenePage.SceneControl.DisplayObjects();
 
             DeleteObjectsEvent?.Invoke();
+        }
+
+        private void navigator_AfterSelectEvent(TreeViewEventArgs e)
+        {
+            var setName = e.Node.Text.Split(' ')[0]; // Деление по пробелу перед :
+            var type = Converters.ConvertNavigatorNodeNameToObjType(e.Node.Parent.Text);
+            var sets = ModelData.ObjectData.GetSetsInfo(type);
+            if (sets != null)
+            {
+                var set = sets.FirstOrDefault();
+                panelProvider.DrawPropertyOnPanel(set);
+            }
         }
     }
 }
