@@ -1,55 +1,81 @@
 ﻿using System;
-using Model.MeshObjects;
-using Model.ObjectsCollections;
 using BaseModule.PropertiesPanel;
 using System.Collections.Generic;
-using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
-using System.Drawing;
 using System.Windows.Forms;
+using BaseModule.Navigator;
 
 namespace BazisGUI.PropertiesPanel
 {
     public class PropertyPanelProvider
     {
-        public event Action<ShowPropertyEventArgs> In;
         public event Action<DrowPropertyOnPanelEventArgs> Out;
+        public event Action<ISetInfo, string> OnUpdateNavigator;
 
-        private string _parameterName = "   Имя";
+        private ISetInfo _selectedObj;
 
-        public ObjectsSet<Node> CreateTestData()
+        public void DrawPropertyOnPanel(ISetInfo obj) //создание коллекции RowProperty и отправка внутри EventArgs (DrowPropertyOnPanelEventArgs) в PropertyPanel.DataGridView
         {
-            return new ObjectsSet<Node>("NameTest");
-
-            //PropertiesPanelControl.ValueChanged += 
-        }
-
-        public void DrawPropertyOnPanel(ISetInfo obj) //создание коллекции RowProperty и отправка внутри EventArgs в PropertyPanel.DataGridView
-        {
-            
+            _selectedObj = obj;
             List<RowProperty> list = new List<RowProperty>()
             {
-                new RowProperty(_parameterName ,obj.Name, () => {}),
-                new RowProperty("   Цвет",obj.Color.Name, () => {}),
-                new RowProperty("   Представление",obj.ViewMode, () => {}),
-                new RowProperty("   Тип",obj.ObjType, () => {})
-            };
+                new RowProperty("Имя" ,obj.Name, (cell) =>
+                {
+                    return cell.Value;
+                }),
+                new RowProperty("Цвет",obj.Color.Name, (cell) =>
+                {
+                    using (ColorDialog colorDialog = new ColorDialog())
+                    {
+                        if (colorDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            obj.SetColor(colorDialog.Color);
+                            return colorDialog.Color.Name;
+                        }
+                    }
+                    return cell.Value;
+                }),
 
+                new RowProperty("Представление", obj.ViewMode, (cell) =>
+                {
+                    DataGridViewComboBoxCell comboBoxCell = new DataGridViewComboBoxCell();
+
+                    foreach (var value in Enum.GetValues(typeof(ViewRegime))) // Получаем доступные значения ViewRegime
+                    {
+                        comboBoxCell.Items.Add(value);
+                    }
+
+                    comboBoxCell.Value = obj.ViewMode;
+
+                    cell.DataGridView.Rows[cell.RowIndex].Cells[cell.ColumnIndex] = comboBoxCell;
+
+                    return obj.ViewMode;
+                })
+                //new RowProperty("Представление",obj.ViewMode, () => { }),
+                //new RowProperty("Тип",obj.ObjType, () => { })
+            };
             Out(new DrowPropertyOnPanelEventArgs(list));
         }
 
         public bool ValidationData (string header, object oldValue, object newValue )
         {
-            if (newValue.ToString().Contains(" ") == true)
+            if (newValue.ToString() == string.Empty ||newValue.ToString().Contains(" ") == true)
             {
-                MessageBox.Show("Имя не должно содержать пробелов", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Имя не должно содержать пробелов или быть пустой", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             return true;
         }
+        /// <summary>
+        /// Передает в BasePage.UpdateNavigator измененый объект и его старое имя для изменения данных в навигаторе
+        /// </summary>
+        /// <param name="e"></param>
         public void ValueChanged (PropertyChangedEventArgs e)
         {
-            MessageBox.Show($"Изменяемое значение: {e.Header} \nСтарое значение: {e.OldValue.ToString()} \nНовое значение: {e.NewValue.ToString()}");
+            var name = _selectedObj.Name;
+            if (e.Header == "Имя") _selectedObj.Name = e.NewValue.ToString();
+            //else if (e.Header == "Цвет") _selectedObj.SetColor((System.Drawing.Color)e.NewValue);
+            OnUpdateNavigator?.Invoke(_selectedObj, name);
         }
     }
 }

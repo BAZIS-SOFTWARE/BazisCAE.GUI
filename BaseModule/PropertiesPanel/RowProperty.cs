@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 
 namespace BaseModule.PropertiesPanel
@@ -7,9 +8,9 @@ namespace BaseModule.PropertiesPanel
     {
         public string Header { get; set; } 
         public object Value { get; set; } 
-        public Action UpdateValue { get; set; } //Уведомить что значение свойства поменялось
+        public Func<DataGridViewCell ,object> UpdateValue { get; set; }
 
-        public RowProperty(string header, object value, Action updateValue)
+        public RowProperty(string header, object value, Func<DataGridViewCell, object> updateValue)
         {
             Header = header;
             Value = value;

@@ -109,6 +109,7 @@ namespace BazisGUI
             propertiesPanelControl1.ValidateValue += panelProvider.ValidationData;
             propertiesPanelControl1.OnPropertyUpdate += panelProvider.ValueChanged;
             SplittersController = new SplittersController();
+            panelProvider.OnUpdateNavigator += UpdateNavigator;
         }
 
         public Queue<int> GetSplitters()
@@ -938,6 +939,17 @@ namespace BazisGUI
             {
                 var set = sets.FirstOrDefault();
                 panelProvider.DrawPropertyOnPanel(set);
+            }
+        }
+
+        public void UpdateNavigator(ISetInfo obj, string name)
+        {
+            if(navigator.TrySearchNode(name, out TreeNode node))
+            {
+                var secondPart = node.Text.Split(' ')[1];
+                var thirdPart = node.Text.Split(' ')[2];
+                node.Name = obj.Name;
+                node.Text = obj.Name + " " + secondPart + " " + thirdPart;
             }
         }
     }

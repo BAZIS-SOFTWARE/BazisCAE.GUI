@@ -416,7 +416,7 @@ namespace BaseModule.Navigator
         {
             grbNavigator.Invalidate();
         }
-
+        
         private void treeView_Enter(object sender, EventArgs e)
         {
             if (treeView.SelectedNode != null)
