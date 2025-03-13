@@ -1,7 +1,13 @@
-﻿using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
+﻿using BaseModule.Navigator;
+using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
+using Model;
 using Model.Interfaces;
 using PreProc.Interfaces;
+using Project.Interfaces;
+using Project.Interfaces.Tasks;
 using System;
+using System.Windows.Forms;
+using System.Xml.Linq;
 using static BaseModule.Interfaces.GeneralParams;
 
 namespace BazisGUI.Utilities
@@ -34,40 +40,40 @@ namespace BazisGUI.Utilities
                 throw new Exception($"Ошибка конвертации объектов {objects}");
         }
 
-        public static string ConvertToNavigatorNodeName(ObjType objType)
+        public static NodeType ConvertToNavigatorNodeType(ObjType objType)
         {
             switch (objType)
             {
                 case ObjType.Точка:
-                    return "точки";
+                    return NodeType.Точки;
                 case ObjType.Кривая:
-                    return "кривые";
+                    return NodeType.Кривые;
                 case ObjType.Поверхность:
-                    return "поверхности";
+                    return NodeType.Поверхности;
                 case ObjType.Объем:
-                    return "объемы";
+                    return NodeType.Объемы;
                 case ObjType.Узел:
-                    return "узлы";
+                    return NodeType.Узлы;
                 case ObjType.Элемент1D:
-                    return "элементы1D";
+                    return NodeType.Элементы1D;
                 case ObjType.Элемент2D:
-                    return "элементы2D";
+                    return NodeType.Элементы2D;
                 default:
-                    return "элементы3D";
+                    return NodeType.Элементы3D;
             }
         }
 
-        public static ObjType ConvertNavigatorNodeNameToObjType(string navNodeName)
+        public static ObjType ConvertNavigatorNodeTypeToObjType(NodeType navNodeName)
         {
             switch (navNodeName)
             {
-                case "Точки": return ObjType.Точка;
-                case "Кривые": return ObjType.Кривая;
-                case "Поверхности": return ObjType.Поверхность;
-                case "Объемы": return ObjType.Объем;
-                case "Узлы": return ObjType.Узел;
-                case "Элементы1D": return ObjType.Элемент1D;
-                case "Элементы2D": return ObjType.Элемент2D;
+                case NodeType.Точки: return ObjType.Точка;
+                case NodeType.Кривые: return ObjType.Кривая;
+                case NodeType.Поверхности: return ObjType.Поверхность;
+                case NodeType.Объемы: return ObjType.Объем;
+                case NodeType.Узлы: return ObjType.Узел;
+                case NodeType.Элементы1D: return ObjType.Элемент1D;
+                case NodeType.Элементы2D: return ObjType.Элемент2D;
                 default: return ObjType.Элемент3D;
             }
         }
@@ -87,6 +93,52 @@ namespace BazisGUI.Utilities
                 default:
                     return ComplexTaskType.термическая_механическая;
             }
+        }
+
+
+        public static GeneralInfo ConvertToNavigatorGeneralInfo(IGeneralData generalData)
+        {
+            return new GeneralInfo()
+            {
+                Name = generalData.Name,
+                Path = generalData.Path,
+                Comments = generalData.Comments,
+
+                Materials = generalData.Materials,
+                Functions = generalData.Functions,
+                TaskType = generalData.TaskType.ToString()
+            };
+        }
+
+        public static ModelInfo ConvertToNavigatorModelInfo(IModelData modelData)
+        {
+            var modelInfo = new ModelInfo();
+            foreach (var group in modelData.GroupData)
+            {
+                var grInfo = new GroupInfo()
+                {
+                    Name = group.Name,
+                    NodeType = ConvertToNavigatorNodeType(group.ObjType)
+                };
+                modelInfo.groups.Add(grInfo);
+            }
+
+            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
+            {
+                foreach (var itemInfo in modelData.ObjectData.GetSetsInfo(item))
+                {
+                    var setInfo = new SetInfo()
+                    {
+                        Name = itemInfo.Name,
+                        NodeType = ConvertToNavigatorNodeType(itemInfo.ObjType),
+                        NumberOfObjects = itemInfo.NumberOfObjects
+                    };
+
+                    modelInfo.sets.Add(setInfo);
+                }
+            }
+
+            return modelInfo;
         }
     }
 }

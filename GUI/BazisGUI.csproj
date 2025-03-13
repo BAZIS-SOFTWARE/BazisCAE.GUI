@@ -124,7 +124,6 @@
     <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
     </Reference>
-
     <Reference Include="Model, Version=4.2.62.17, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
       <HintPath>..\packages\Model.4.2.62.17\lib\netstandard2.0\Model.dll</HintPath>
     </Reference>
@@ -270,12 +269,6 @@
     <Compile Include="ModelPage.Designer.cs">
       <DependentUpon>ModelPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Navigator\NavigatorPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Navigator\NavigatorPage.Designer.cs">
-      <DependentUpon>NavigatorPage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="PropertiesPanel\PropertyPanelProvider.cs" />
     <Compile Include="PropertiesPanel\ShowPropertyEventArgs.cs" />
@@ -398,9 +391,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ModelPage.resx">
       <DependentUpon>ModelPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Navigator\NavigatorPage.resx">
-      <DependentUpon>NavigatorPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

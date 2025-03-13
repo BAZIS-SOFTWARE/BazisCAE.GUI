@@ -1,20 +1,41 @@
+<<<<<<< HEAD
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+=======
+﻿using BaseModule.Interfaces;
+using System;
+using System.ComponentModel;
+>>>>>>> origin/Master
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace BaseModule.PropertiesPanel
 {
-    public partial class PropertiesPanelControl: UserControl
+    public partial class PropertiesPanelControl: UserControl, IPinnedControl
     {
         public event Action<PropertyChangedEventArgs> OnPropertyUpdate;
         public event Func<string, object, object, bool> ValidateValue;
+        public event Action ControlCollapseEvent;
+        public event Action ControlUnpinnedEvent;
 
         private object _oldValue;
         private bool _isValid;
+
+        [Category("General")]
+        [Description("Set up color gradient")]
+        public Color UpColor { get; set; } = Color.Silver;
+
+        [Category("General")]
+        [Description("Set down color gradient")]
+        public Color DownColor { get; set; } = Color.WhiteSmoke;
+
+        [Category("General")]
+        [Description("Set header name")]
+        public string HeaderName { get; set; } = "Свойства";
+
         public PropertiesPanelControl()
         {
             InitializeComponent();
