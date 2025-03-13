@@ -27,8 +27,8 @@ using System.Xml.Linq;
 using System.Globalization;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using MathNet.Numerics.Distributions;
-using BazisGUI.Navigator;
 using BazisGUI.PropertiesPanel;
+using BaseModule.Navigator;
 
 namespace BazisGUI
 {
@@ -41,7 +41,7 @@ namespace BazisGUI
 
         [Category("General")]
         [Description("NavigatorControl")]
-        public NavigatorPage NavigatorControl
+        public NavigatorControl NavigatorControl
         {
             get
             {
@@ -145,8 +145,10 @@ namespace BazisGUI
 
         public void PresentProjectOnTree()
         {
-            navigator.PresentGeneralData(generalData);
-            navigator.PresentModelData(ModelController.ModelData);
+            var genInfo = Converters.ConvertToNavigatorGeneralInfo(generalData);
+            navigator.PresentGeneralInfo(genInfo);
+            var modelInfo = Converters.ConvertToNavigatorModelInfo(ModelController.ModelData);
+            navigator.PresentModelInfo(modelInfo);
         }       
 
         public async void WaitProcessAsync(Process process, Action<object, EventArgs> action)
@@ -477,8 +479,10 @@ namespace BazisGUI
 
         private void navigator_DelObjectsEvent(TreeNode treeNode)
         {
-            ObjType objType;
-            Enum.TryParse(treeNode.Name, out objType);
+            NodeType nodeType;
+            Enum.TryParse(treeNode.Name, out nodeType);
+
+            var objType = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
 
             var setName = treeNode.Text.Split(':')[0].Replace(" ", "");
 
@@ -489,8 +493,10 @@ namespace BazisGUI
                 ModelData.ObjectData.Remove(objType, setName);
             
             ModelData.ObjectData.ClearEmpty();
-            
-            navigator.PresentModelData(ModelController.ModelData);
+            ModelData.GroupData.ClearNotExisted();
+
+            var modelInfo = Converters.ConvertToNavigatorModelInfo(ModelController.ModelData);
+            navigator.PresentModelInfo(modelInfo);
 
             scenePage.ClearAllDataOnScene();
             scenePage.PresentAllModelObjectsToScene();
@@ -794,11 +800,13 @@ namespace BazisGUI
             {
                 foreach (var setInfo in ModelData.ObjectData.GetSetsInfo(item))
                 {
-                    var imgIndex = navigator.GetObjectImageIndex(setInfo.ObjType.ToString());
+                    var nodeType = Converters.ConvertToNavigatorNodeType(setInfo.ObjType);
+
+                    var imgIndex = navigator.GetObjectImageIndex(nodeType);
                     imgIndex = imgIndex == 3 ? 5 : 6;
 
-                    var rootName = Converters.ConvertToNavigatorNodeName(setInfo.ObjType);
-                    var root = navigator.TreeView.Nodes["объекты"].Nodes[rootName];
+
+                    var root = navigator.TreeView.Nodes["объекты"].Nodes[nodeType.ToString()];
                     var child = navigator.SearchChildNode(root, setInfo.ObjType.ToString());
                     child.ImageIndex = imgIndex;
                     child.SelectedImageIndex = imgIndex;
@@ -814,7 +822,9 @@ namespace BazisGUI
                     item.Nodes.Clear();
 
             DeleteSelectedObjectsEvent?.Invoke();
-            navigator.PresentModelData(ModelController.ModelData);
+
+            var modelInfo = Converters.ConvertToNavigatorModelInfo(ModelController.ModelData);
+            navigator.PresentModelInfo(modelInfo);
         }
 
         public virtual void scenePage_CreateMeshGroupEvent(object sender, string arg)
@@ -824,7 +834,9 @@ namespace BazisGUI
             var text = $"{arg}";
 
             var objType = Converters.ConvertToObjsType(scenePage.SelectedObjects.ToString());
-            var imgIndex = navigator.GetObjectImageIndex(objType.ToString());
+            var nodeType = Converters.ConvertToNavigatorNodeType(objType);
+
+            var imgIndex = navigator.GetObjectImageIndex(nodeType);
 
             var child = new TreeNode(text, imgIndex, imgIndex)
             {
@@ -920,7 +932,8 @@ namespace BazisGUI
             ModelData.ObjectData.ClearAll();
             ModelData.GroupData.Clear();
 
-            navigator.PresentModelData(ModelData);
+            var modelInfo = Converters.ConvertToNavigatorModelInfo(ModelController.ModelData);
+            navigator.PresentModelInfo(modelInfo);
 
             scenePage.ClearAllDataOnScene();
 
@@ -932,11 +945,15 @@ namespace BazisGUI
         private void navigator_AfterSelectEvent(TreeViewEventArgs e)
         {
             var setName = e.Node.Text.Split(' ')[0]; // Деление по пробелу перед :
-            var type = Converters.ConvertNavigatorNodeNameToObjType(e.Node.Parent.Text);
+
+            NodeType nodeType;
+            Enum.TryParse(e.Node.Parent.Text, out nodeType);
+
+            var type = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
             var sets = ModelData.ObjectData.GetSetsInfo(type);
             if (sets != null)
             {
-                var set = sets.FirstOrDefault();
+                var set = sets.First(x => x.Name == setName);
                 panelProvider.DrawPropertyOnPanel(set);
             }
         }

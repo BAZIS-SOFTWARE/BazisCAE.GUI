@@ -26,6 +26,7 @@ using Project.Interfaces.Tasks;
 using Model.Interfaces;
 using Project.TaskParameters;
 using BazisGUI.Utilities;
+using BaseModule.Navigator;
 
 namespace BazisGUI
 {
@@ -912,7 +913,9 @@ namespace BazisGUI
 
         private void AddTaskDataToNavigator(IData data)
         {
-            var imgIndex = BasePage.NavigatorControl.GetObjectImageIndex(data.Name);
+            NodeType nodeType;
+            Enum.TryParse(data.Name, out nodeType);
+            var imgIndex = BasePage.NavigatorControl.GetObjectImageIndex(nodeType);
 
             var child = new TreeNode($"{data.Name} : {data.GetInfo}", imgIndex, imgIndex)
             { Tag = "6.1", Name = data.Name };

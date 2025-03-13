@@ -65,7 +65,7 @@ namespace BaseModule.PropertiesPanel
             this.label1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.label1.Size = new System.Drawing.Size(248, 16);
             this.label1.TabIndex = 0;
-            this.label1.Text = "   Панель свойств";
+            this.label1.Text = "Свойства";
             // 
             // dataGridView1
             // 
