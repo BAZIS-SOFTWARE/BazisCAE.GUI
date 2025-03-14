@@ -62,8 +62,9 @@ namespace BazisGUI.PropertiesPanel
         {
             if (newValue.ToString() == string.Empty ||newValue.ToString().Contains(" ") == true)
             {
-                MessageBox.Show("Имя не должно содержать пробелов или быть пустой", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Имя не должно содержать пробелов или быть пустым", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
+
             }
             return true;
         }
