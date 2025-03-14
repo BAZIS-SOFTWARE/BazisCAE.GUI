@@ -23,7 +23,7 @@ namespace BaseModule.Navigator
         Объемы, 
         Узлы, 
         Элементы1D, 
-        Элементы2D , 
+        Элементы2D, 
         Элементы3D,
         Материал,
         Среда,
@@ -338,7 +338,6 @@ namespace BaseModule.Navigator
                                     node.Text = node.Text.Replace(oldName, newName);
                             }
                     }
-
                 }
             }
 

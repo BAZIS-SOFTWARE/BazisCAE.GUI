@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-=======
-﻿using BaseModule.Interfaces;
+using BaseModule.Interfaces;
+using BaseModule.Navigator;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
->>>>>>> origin/Master
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -20,6 +15,7 @@ namespace BaseModule.PropertiesPanel
         public event Func<string, object, object, bool> ValidateValue;
         public event Action ControlCollapseEvent;
         public event Action ControlUnpinnedEvent;
+
 
         private object _oldValue;
         private bool _isValid;
@@ -44,7 +40,7 @@ namespace BaseModule.PropertiesPanel
             dataGridView1.CellEndEdit += DataGridView1_CellEndEdit_Validation;
         }
 
-        public void HandleDraw(DrowPropertyOnPanelEventArgs e) 
+        public void HandleDraw(DrowPropertyOnPanelEventArgs e)
         {
             dataGridView1.DataSource = null;
             dataGridView1.AutoGenerateColumns = false;
@@ -61,13 +57,13 @@ namespace BaseModule.PropertiesPanel
                 },
                 ReadOnly = true
             });
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn 
-            { 
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
                 DataPropertyName = "Value",
-                DefaultCellStyle = new DataGridViewCellStyle 
+                DefaultCellStyle = new DataGridViewCellStyle
                 {
-                    BackColor = SystemColors.Control, 
-                    SelectionBackColor = SystemColors.ControlDark 
+                    BackColor = SystemColors.Control,
+                    SelectionBackColor = SystemColors.ControlDark
                 },
                 ReadOnly = false
             });
@@ -75,21 +71,6 @@ namespace BaseModule.PropertiesPanel
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.DataSource = e.Properties.ToList();
         }
-
-        //private void DataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        //{
-        //    if(e.RowIndex >= 0 && e.ColumnIndex == 1)
-        //    {
-        //        _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
-        //    }
-
-        //    var n = (List<RowProperty>)dataGridView1.DataSource;
-        //    var c = n[0];
-        //    var w = dataGridView1.SelectedCells[0];
-        //    var a = c.UpdateValue(w);
-        //    var row = dataGridView1.Rows[e.RowIndex];
-        //    DataGridView1_CellEndEdit_Validation(a, row);
-        //}
 
         private void DataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
@@ -102,18 +83,15 @@ namespace BaseModule.PropertiesPanel
             if (properties == null || e.RowIndex >= properties.Count) return;
 
             var property = properties[e.RowIndex];
-            var cell = dataGridView1.Rows[e.RowIndex].Cells[1];
-            object newValue = property.UpdateValue(cell);
+            object newValue = property.UpdateValue(dataGridView1.Rows[e.RowIndex].Cells[1]); //Start UpdateValue (Delegate)
 
             if(!Equals(newValue, property.Value)) //Если UpdateValue изменил данные, записываем их
             {
                 property.Value = newValue;
-                cell.Value = newValue;
-
+                dataGridView1.Rows[e.RowIndex].Cells[1].Value = newValue;
                 e.Cancel = true;
             }
         }
-
 
         /// <summary>
         /// Передача данных для валидации в PropertyPanelProvider
@@ -136,41 +114,16 @@ namespace BaseModule.PropertiesPanel
             }
             if (newValue != _oldValue) CellValueChanged(sender, e);
         }
-        //private void DataGridView1_CellEndEdit_Validation(object sender, DataGridViewRow row)
-        //{
-        //    var newValue = row.Cells[1].Value;
-        //    if (row.Index >= 0)
-        //    {
-        //        var header = row.Cells[0].Value.ToString();
-        //        _isValid = ValidateValue?.Invoke(header, _oldValue, newValue) ?? true;
-
-        //        if (!_isValid)
-        //        {
-        //            row.Cells[1].Value = _oldValue;
-        //            return;
-        //        }
-        //    }
-        //    if(newValue != _oldValue) CellValueChanged(sender, row);
-        //}
-
-
+        
         public void CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 1)
             {
                 var header = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+
                 var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
                 OnPropertyUpdate?.Invoke(new PropertyChangedEventArgs(header, newValue, _oldValue));
             }
         }
-        //public void CellValueChanged(object sender, DataGridViewRow row)
-        //{
-        //    if (row.Index >= 0 )
-        //    {
-        //        var header = row.Cells[0].Value.ToString();
-        //        var newValue = row.Cells[1].Value;
-        //        OnPropertyUpdate?.Invoke(new PropertyChangedEventArgs(header, newValue, _oldValue));
-        //    }
-        //}
     }
 }

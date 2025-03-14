@@ -384,8 +384,6 @@ namespace BazisGUI
             navigator.Invalidate();
         }
 
-        
-
         public async void ConsoleControl_InEvent(object arg1, EventArgs arg2)
         {
             try
@@ -459,7 +457,6 @@ namespace BazisGUI
                 Invoke(new Action(() => { consoleControl.PrintInfo(ex.Message, Color.Red); }));
             }
         }
-
 
         private void navigator_DelGroupEvent(TreeNode treeNode)
         {
@@ -946,28 +943,24 @@ namespace BazisGUI
         private void navigator_AfterSelectEvent(TreeViewEventArgs e)
         {
             var setName = e.Node.Text.Split(' ')[0]; // Деление по пробелу перед :
-
             NodeType nodeType;
             Enum.TryParse(e.Node.Parent.Text, out nodeType);
-
             var type = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
             var sets = ModelData.ObjectData.GetSetsInfo(type);
             if (sets != null)
             {
                 var set = sets.First(x => x.Name == setName);
-                panelProvider.DrawPropertyOnPanel(set);
+                
+                panelProvider.DrawPropertyOnPanel(set, e.Node);
             }
         }
 
-        public void UpdateNavigator(ISetInfo obj, string name)
+        public void UpdateNavigator(ISetInfo obj, TreeNode nameNode)
         {
-            if(navigator.TrySearchNode(name, out TreeNode node))
-            {
-                var secondPart = node.Text.Split(' ')[1];
-                var thirdPart = node.Text.Split(' ')[2];
-                node.Name = obj.Name;
-                node.Text = obj.Name + " " + secondPart + " " + thirdPart;
-            }
+            var secondPart = nameNode.Text.Split(' ')[1];
+            var thirdPart = nameNode.Text.Split(' ')[2];
+            nameNode.Name = obj.Name;
+            nameNode.Text = obj.Name + " " + secondPart + " " + thirdPart;
         }
     }
 }
