@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Model" Version="4.2.62.5" />
-    <PackageReference Include="Project" Version="4.3.5" />
+    <PackageReference Include="Model" Version="4.2.62.17" />
+    <PackageReference Include="Project" Version="4.3.8" />
   </ItemGroup>
 
 </Project>
