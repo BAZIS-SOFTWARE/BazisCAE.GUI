@@ -3,6 +3,7 @@ using BaseModule.Navigator;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -38,6 +39,8 @@ namespace BaseModule.PropertiesPanel
 
             dataGridView1.CellBeginEdit += DataGridView1_CellBeginEdit; //Для сохранения старого значения
             dataGridView1.CellEndEdit += DataGridView1_CellEndEdit_Validation;
+
+            dataGridView1.CellClick += DataGridView1_CellClick; //Событие срабатывет при клики на ячейку
         }
 
         /// <summary>
@@ -93,7 +96,9 @@ namespace BaseModule.PropertiesPanel
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.Value });
                 }
                 dataGridView1.Rows.Add(row);
+                
             }
+            dataGridView1.DataSource = e.Properties;
         }
 
         ///// <summary>
@@ -132,6 +137,12 @@ namespace BaseModule.PropertiesPanel
         //    dataGridView1.DataSource = e.Properties.ToList();
         //}
 
+
+        private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            Debug.WriteLine("CellClick");
+        }
         private void DataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 1)
@@ -139,7 +150,7 @@ namespace BaseModule.PropertiesPanel
                 _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
             }
 
-            var properties = dataGridView1.DataSource as List<RowProperty>;
+            var properties = dataGridView1.DataSource as List<RowProperty>; //При заполнении построчно DataSource пуст
             if (properties == null || e.RowIndex >= properties.Count) return;
 
             var property = properties[e.RowIndex];

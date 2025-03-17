@@ -3,8 +3,6 @@ using BaseModule.PropertiesPanel;
 using System.Collections.Generic;
 using Model.Interfaces.ObjectsCollections;
 using System.Windows.Forms;
-using BaseModule.Navigator;
-using UserControlsEx;
 
 
 namespace BazisGUI.PropertiesPanel
