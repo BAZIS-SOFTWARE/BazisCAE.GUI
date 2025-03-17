@@ -105,7 +105,7 @@ namespace BazisGUI
             InitializeComponent();
 
             panelProvider = new PropertyPanelProvider();
-            panelProvider.Out += propertiesPanelControl1.HandleDraw;
+            panelProvider.Out += propertiesPanelControl1.DrawTable;
             propertiesPanelControl1.ValidateValue += panelProvider.ValidationData;
             propertiesPanelControl1.OnPropertyUpdate += panelProvider.ValueChanged;
             SplittersController = new SplittersController();

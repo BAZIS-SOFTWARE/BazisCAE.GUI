@@ -40,7 +40,11 @@ namespace BaseModule.PropertiesPanel
             dataGridView1.CellEndEdit += DataGridView1_CellEndEdit_Validation;
         }
 
-        public void HandleDraw(DrowPropertyOnPanelEventArgs e)
+        /// <summary>
+        /// Заполнение таблицы с помощью добавления строк
+        /// </summary>
+        /// <param name="e"></param>
+        public void DrawTable(DrowPropertyOnPanelEventArgs e)
         {
             dataGridView1.DataSource = null;
             dataGridView1.AutoGenerateColumns = false;
@@ -69,8 +73,64 @@ namespace BaseModule.PropertiesPanel
             });
 
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.DataSource = e.Properties.ToList();
+
+
+            foreach (var prop in e.Properties)
+            {
+                var row = new DataGridViewRow();
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.Header }); //добавляем ячейку с именем в строку
+
+                //добавляем ячейку значение в строку 
+                if (prop.Header == "Представление")
+                {
+                    var comboCell = new DataGridViewComboBoxCell();
+                    comboCell.Items.AddRange("Point", "Line", "Surface", "LineSurface");
+                    comboCell.Value = comboCell.Items[0];
+                    row.Cells.Add(comboCell);
+                }
+                else
+                {
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.Value });
+                }
+                dataGridView1.Rows.Add(row);
+            }
         }
+
+        ///// <summary>
+        ///// Заполнение таблицы с помощью добавления столбцов
+        ///// </summary>
+        ///// <param name="e"></param>
+        //public void DrawTable(DrowPropertyOnPanelEventArgs e)
+        //{
+        //    dataGridView1.DataSource = null;
+        //    dataGridView1.AutoGenerateColumns = false;
+        //    dataGridView1.Columns.Clear();
+        //    dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        //    dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+        //    {
+        //        DataPropertyName = "Header",
+        //        DefaultCellStyle = new DataGridViewCellStyle
+        //        {
+        //            BackColor = SystemColors.Control,
+        //            SelectionBackColor = SystemColors.ControlDark,
+        //            Padding = new Padding(15, 0, 0, 0)
+        //        },
+        //        ReadOnly = true
+        //    });
+        //    dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+        //    {
+        //        DataPropertyName = "Value",
+        //        DefaultCellStyle = new DataGridViewCellStyle
+        //        {
+        //            BackColor = SystemColors.Control,
+        //            SelectionBackColor = SystemColors.ControlDark
+        //        },
+        //        ReadOnly = false
+        //    });
+
+        //    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        //    dataGridView1.DataSource = e.Properties.ToList();
+        //}
 
         private void DataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
