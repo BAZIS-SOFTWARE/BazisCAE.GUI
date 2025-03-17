@@ -15,44 +15,45 @@ namespace BazisGUI.PropertiesPanel
         private ISetInfo _selectedObj;
         private TreeNode _selectedNode;
 
+        /// <summary>
+        /// Метод для отображения свойств объекта на панели, создавая список свойств, которые можно редактировать.
+        /// Заполняет список свойств, каждый элемент которого соответствует определенному атрибуту объекта.
+        /// Для каждого свойства создается ячейка, которая может быть отредактирована.
+        /// </summary>
+        /// <param name="obj">Объект, свойства которого будут отображаться на панели.</param>
+        /// <param name="selectedNode">Выбранный узел в древовидной структуре, связанный с объектом.</param>
         public void DrawPropertyOnPanel(ISetInfo obj, TreeNode selectedNode) //создание коллекции RowProperty и отправка внутри EventArgs (DrowPropertyOnPanelEventArgs) в PropertyPanel.DataGridView
         {
             _selectedObj = obj;
             _selectedNode = selectedNode;
             List<RowProperty> list = new List<RowProperty>()
+        {
+            new RowProperty("Имя", obj.Name, () => new DataGridViewTextBoxCell(),
+            (cell) =>
             {
-                new RowProperty("Имя" ,obj.Name, (cell) =>
+                
+            },
+            SequenceType.Before),
+            new RowProperty("Color", obj.Color.Name, () => new DataGridViewTextBoxCell(),
+            (cell) =>
+            {
+                using (ColorDialog colorDialog = new ColorDialog())
                 {
-                    return cell.Value;
-                }),
-                new RowProperty("Цвет",obj.Color.Name, (cell) =>
-                {
-                    using (ColorDialog colorDialog = new ColorDialog())
+                    if (colorDialog.ShowDialog() == DialogResult.OK)
                     {
-                        if (colorDialog.ShowDialog() == DialogResult.OK)
-                        {
-                            obj.SetColor(colorDialog.Color);
-                            return colorDialog.Color.Name;
-                        }
+                        obj.SetColor(colorDialog.Color);
+                        //colorDialog.Color.Name;
                     }
-                    return cell.Value;
-                }),
+                }
+                    
+            }, SequenceType.Before),
+            new RowProperty("Представление", obj.ViewMode, () => new DataGridViewComboBoxCell(),
+            (cell) =>
+            {
 
-                new RowProperty("Представление", obj.ViewMode, (cell) =>
-                {
-                    DataGridViewComboBoxCell comboBoxCell = new DataGridViewComboBoxCell();
-                    foreach (var value in Enum.GetValues(typeof(ViewMode)))
-                    {
-                        comboBoxCell.Items.Add(value);
-                    }
-                    comboBoxCell.Value = obj.ViewMode;
-                    cell.DataGridView.Rows[cell.RowIndex].Cells[cell.ColumnIndex] = comboBoxCell;
-
-                    return obj.ViewMode;
-                })
-                //new RowProperty("Представление",obj.ViewMode, () => { }),
-                //new RowProperty("Тип",obj.ObjType, () => { })
-            };
+            },
+            SequenceType.After),
+        };
             Out(new DrowPropertyOnPanelEventArgs(list));
         }
 

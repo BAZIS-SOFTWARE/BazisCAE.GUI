@@ -39,7 +39,6 @@ namespace BaseModule.PropertiesPanel
 
             dataGridView1.CellBeginEdit += DataGridView1_CellBeginEdit; //Для сохранения старого значения
             dataGridView1.CellEndEdit += DataGridView1_CellEndEdit_Validation;
-
             dataGridView1.CellClick += DataGridView1_CellClick; //Событие срабатывет при клики на ячейку
         }
 
@@ -53,6 +52,7 @@ namespace BaseModule.PropertiesPanel
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.Columns.Clear();
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Header",
@@ -77,7 +77,7 @@ namespace BaseModule.PropertiesPanel
 
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-
+            //инициализация строк через RowProperty
             foreach (var prop in e.Properties)
             {
                 var row = new DataGridViewRow();
@@ -101,48 +101,11 @@ namespace BaseModule.PropertiesPanel
             dataGridView1.DataSource = e.Properties;
         }
 
-        ///// <summary>
-        ///// Заполнение таблицы с помощью добавления столбцов
-        ///// </summary>
-        ///// <param name="e"></param>
-        //public void DrawTable(DrowPropertyOnPanelEventArgs e)
-        //{
-        //    dataGridView1.DataSource = null;
-        //    dataGridView1.AutoGenerateColumns = false;
-        //    dataGridView1.Columns.Clear();
-        //    dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        //    dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-        //    {
-        //        DataPropertyName = "Header",
-        //        DefaultCellStyle = new DataGridViewCellStyle
-        //        {
-        //            BackColor = SystemColors.Control,
-        //            SelectionBackColor = SystemColors.ControlDark,
-        //            Padding = new Padding(15, 0, 0, 0)
-        //        },
-        //        ReadOnly = true
-        //    });
-        //    dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-        //    {
-        //        DataPropertyName = "Value",
-        //        DefaultCellStyle = new DataGridViewCellStyle
-        //        {
-        //            BackColor = SystemColors.Control,
-        //            SelectionBackColor = SystemColors.ControlDark
-        //        },
-        //        ReadOnly = false
-        //    });
-
-        //    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        //    dataGridView1.DataSource = e.Properties.ToList();
-        //}
-
-
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
             Debug.WriteLine("CellClick");
         }
+
         private void DataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 1)
@@ -154,14 +117,15 @@ namespace BaseModule.PropertiesPanel
             if (properties == null || e.RowIndex >= properties.Count) return;
 
             var property = properties[e.RowIndex];
-            object newValue = property.UpdateValue(dataGridView1.Rows[e.RowIndex].Cells[1]); //Start UpdateValue (Delegate)
-
-            if(!Equals(newValue, property.Value)) //Если UpdateValue изменил данные, записываем их
-            {
-                property.Value = newValue;
-                dataGridView1.Rows[e.RowIndex].Cells[1].Value = newValue;
-                e.Cancel = true;
-            }
+            //object newValue = property.Update(dataGridView1.Rows[e.RowIndex].Cells[1]); //Start UpdateValue (Delegate)
+            property.Update?.Invoke(dataGridView1.Rows[e.RowIndex].Cells[1].Value);
+            //if (!Equals(newValue, property.Value)) //Если UpdateValue изменил данные, записываем их
+            //{
+            //    property.Value = newValue;
+            //    dataGridView1.Rows[e.RowIndex].Cells[1].Value = newValue;
+            //    e.Cancel = true;
+            //}
+            //if (property != _oldValue) CellValueChanged(sender, e);
         }
 
         /// <summary>

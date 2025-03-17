@@ -7,10 +7,11 @@ namespace BaseModule.PropertiesPanel
     {
         public string Header { get; set; } // Заголовок
         public object Value { get; set; } // Значение
-        public Func<DataGridViewRow> Initialization { get; set; } //Возврашает тип ячейки (textbox, combobox)
-        public Action Update { get; set; }
+        public Func<DataGridViewCell> Initialization { get; set; } //Возврашает тип ячейки (textbox, combobox)
+        public Action<object> Update { get; set; } // Логика обновления значения
         public SequenceType Sequence { get; } //before, after
-        public RowProperty(string header, object value, Func<DataGridViewRow> initialization, Action update, SequenceType sequence)
+
+        public RowProperty(string header, object value, Func<DataGridViewCell> initialization, Action<object> update, SequenceType sequence)
         {
             Header = header;
             Value = value;
@@ -25,4 +26,6 @@ namespace BaseModule.PropertiesPanel
         Before,
         After
     }
+
+    //public Func<object, bool> Validate { get; set; } // Валидация значения
 }
