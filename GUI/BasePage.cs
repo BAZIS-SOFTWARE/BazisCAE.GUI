@@ -947,6 +947,7 @@ namespace BazisGUI
             Enum.TryParse(e.Node.Parent.Text, out nodeType);
             var type = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
             var sets = ModelData.ObjectData.GetSetsInfo(type);
+            //var group = ModelData.GroupData.First(x => x.Name == e.Node.Text);
             if (sets != null)
             {
                 var set = sets.First(x => x.Name == setName);

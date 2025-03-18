@@ -272,6 +272,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="PropertiesPanel\PropertyPanelProvider.cs" />
     <Compile Include="PropertiesPanel\ShowPropertyEventArgs.cs" />
+    <Compile Include="PropertiesPanel\ViewModeConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultsPage.cs">
       <SubType>UserControl</SubType>

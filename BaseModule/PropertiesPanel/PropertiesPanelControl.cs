@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BaseModule.PropertiesPanel
 {
@@ -17,9 +18,9 @@ namespace BaseModule.PropertiesPanel
         public event Action ControlCollapseEvent;
         public event Action ControlUnpinnedEvent;
 
-
         private object _oldValue;
         private bool _isValid;
+        private List<RowProperty> _rowProperties;
 
         [Category("General")]
         [Description("Set up color gradient")]
@@ -36,16 +37,11 @@ namespace BaseModule.PropertiesPanel
         public PropertiesPanelControl()
         {
             InitializeComponent();
-
+            dataGridView1.DataError += DataGridView1_DataError; //Для обработки ошибки
             dataGridView1.CellBeginEdit += DataGridView1_CellBeginEdit; //Для сохранения старого значения
-            dataGridView1.CellEndEdit += DataGridView1_CellEndEdit_Validation;
-            dataGridView1.CellClick += DataGridView1_CellClick; //Событие срабатывет при клики на ячейку
+            dataGridView1.CellEndEdit += DataGridView1_CellEndEdit;
         }
 
-        /// <summary>
-        /// Заполнение таблицы с помощью добавления строк
-        /// </summary>
-        /// <param name="e"></param>
         public void DrawTable(DrowPropertyOnPanelEventArgs e)
         {
             dataGridView1.DataSource = null;
@@ -74,36 +70,21 @@ namespace BaseModule.PropertiesPanel
                 },
                 ReadOnly = false
             });
-
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            //инициализация строк через RowProperty
-            foreach (var prop in e.Properties)
+            foreach (var prop in e.Properties)// Инициализация строк через RowProperty
             {
                 var row = new DataGridViewRow();
-                row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.Header }); //добавляем ячейку с именем в строку
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.Header }); // Имя свойства
 
-                //добавляем ячейку значение в строку 
-                if (prop.Header == "Представление")
-                {
-                    var comboCell = new DataGridViewComboBoxCell();
-                    comboCell.Items.AddRange("Point", "Line", "Surface", "LineSurface");
-                    comboCell.Value = comboCell.Items[0];
-                    row.Cells.Add(comboCell);
-                }
-                else
-                {
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.Value });
-                }
+                var cell = prop.Initialization();// Создаем ячейку нужного типа через Initialization
+                cell.Value = prop.Value.ToString();
+                row.Cells.Add(cell);
+                cell.Tag = prop;
+
                 dataGridView1.Rows.Add(row);
-                
             }
-            dataGridView1.DataSource = e.Properties;
-        }
-
-        private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            Debug.WriteLine("CellClick");
+            _rowProperties = e.Properties.ToList();
         }
 
         private void DataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
@@ -112,45 +93,30 @@ namespace BaseModule.PropertiesPanel
             {
                 _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
             }
-
-            var properties = dataGridView1.DataSource as List<RowProperty>; //При заполнении построчно DataSource пуст
-            if (properties == null || e.RowIndex >= properties.Count) return;
-
-            var property = properties[e.RowIndex];
-            //object newValue = property.Update(dataGridView1.Rows[e.RowIndex].Cells[1]); //Start UpdateValue (Delegate)
-            property.Update?.Invoke(dataGridView1.Rows[e.RowIndex].Cells[1].Value);
-            //if (!Equals(newValue, property.Value)) //Если UpdateValue изменил данные, записываем их
-            //{
-            //    property.Value = newValue;
-            //    dataGridView1.Rows[e.RowIndex].Cells[1].Value = newValue;
-            //    e.Cancel = true;
-            //}
-            //if (property != _oldValue) CellValueChanged(sender, e);
+            var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            var property = cell.Tag as RowProperty;
+            if (property !=null && property.Sequence == SequenceType.Before)
+            {
+                StartUpdate(property, cell);
+            }
         }
 
         /// <summary>
-        /// Передача данных для валидации в PropertyPanelProvider
+        /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DataGridView1_CellEndEdit_Validation(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
-            if (e.RowIndex == 0 && e.ColumnIndex == 1)
+            var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            var property = cell.Tag as RowProperty;
+            if (property != null && property.Sequence == SequenceType.After)
             {
-                var header = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-                _isValid = ValidateValue?.Invoke(header, _oldValue, newValue) ?? true;
-
-                if (!_isValid)
-                {
-                    dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = _oldValue;
-                    return;
-                }
+                StartUpdate(property, cell);
             }
-            if (newValue != _oldValue) CellValueChanged(sender, e);
         }
         
-        public void CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        public void CellValueChanged(DataGridViewCell e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 1)
             {
@@ -159,6 +125,29 @@ namespace BaseModule.PropertiesPanel
                 var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
                 OnPropertyUpdate?.Invoke(new PropertyChangedEventArgs(header, newValue, _oldValue));
             }
+        }
+
+        /// <summary>
+        /// Исключение в DataGridView: System.ArgumentException: 
+        /// Недопустимое значение DataGridViewComboBoxCell. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            /*Заглушка*/
+        }
+
+        private void StartUpdate(RowProperty property, DataGridViewCell cell)
+        {
+            var newValue = property.Update(cell);
+
+            if (!Equals(newValue, property.Value))
+            {
+                dataGridView1.Rows[cell.RowIndex].Cells[1].Value = newValue;
+                property.Value = newValue;
+            }
+            if (newValue != _oldValue) CellValueChanged(cell);
         }
     }
 }
