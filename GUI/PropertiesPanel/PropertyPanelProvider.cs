@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Model.Interfaces.ObjectsCollections;
 using System.Windows.Forms;
 using Model.GroupsData;
+using Model.Interfaces;
 
 
 namespace BazisGUI.PropertiesPanel
@@ -12,9 +13,10 @@ namespace BazisGUI.PropertiesPanel
     {
         public event Action<DrowPropertyOnPanelEventArgs> Out;
         public event Action<ISetInfo, TreeNode> OnUpdateNavigator;
+        public event Action<IGroup, TreeNode> OnUpdateGroupNavigator;
 
-        private ISetInfo _selectedObj;
-        private Group _selectedGroup;//только имя
+        private ISetInfo _selectedObj = null;
+        private IGroup _selectedGroup = null;//только имя
 
         private TreeNode _selectedNode;
 
@@ -67,6 +69,30 @@ namespace BazisGUI.PropertiesPanel
             Out(new DrowPropertyOnPanelEventArgs(list));
         }
 
+
+        /// <summary>
+        /// Метод для отображения свойств объекта на панели, создавая список свойств, которые можно редактировать.
+        /// Заполняет список свойств, каждый элемент которого соответствует определенному атрибуту объекта.
+        /// Для каждого свойства создается ячейка, которая может быть отредактирована.
+        /// </summary>
+        /// <param name="obj">Объект, свойства которого будут отображаться на панели.</param>
+        /// <param name="selectedNode">Выбранный узел в древовидной структуре, связанный с объектом.</param>
+        public void DrawGroupOnPanel(IGroup obj, TreeNode selectedNode) //создание коллекции RowProperty и отправка внутри EventArgs (DrowPropertyOnPanelEventArgs) в PropertyPanel.DataGridView
+        {
+            _selectedGroup = obj;
+            _selectedNode = selectedNode;
+            List<RowProperty> list = new List<RowProperty>()
+        {
+            new RowProperty("Имя", obj.Name, () => new DataGridViewTextBoxCell(),
+            (cell) =>
+            {
+                return cell.Value;
+            },
+            SequenceType.After),
+        };
+            Out(new DrowPropertyOnPanelEventArgs(list));
+        }
+
         public bool ValidationData (string header, object oldValue, object newValue )
         {
             if (newValue.ToString() == string.Empty ||newValue.ToString().Contains(" ") == true)
@@ -83,12 +109,26 @@ namespace BazisGUI.PropertiesPanel
         /// <param name="e"></param>
         public void ValueChanged (PropertyChangedEventArgs e)
         {
-            var name = _selectedObj.Name;
-            if (e.Header == "Имя") _selectedObj.Name = e.NewValue.ToString();
-            else if (e.Header == "Цвет") _selectedObj.SetColor((System.Drawing.Color)e.NewValue);
-            else if (e.Header == "Представление") _selectedObj.SetViewMode(ViewModeConverter.StringToEnum(e.NewValue.ToString()));
+            if (_selectedNode?.Parent.Text == "Группы объектов")
+            {
+                var name = _selectedGroup.Name;
+                if (e.Header == "Имя") _selectedGroup.Name = e.NewValue.ToString();
+
+                OnUpdateGroupNavigator?.Invoke(_selectedGroup, _selectedNode);
+            }
+            else
+            {
+                var name = _selectedObj.Name;
+                if (e.Header == "Имя") _selectedObj.Name = e.NewValue.ToString();
+                else if (e.Header == "Цвет") _selectedObj.SetColor((System.Drawing.Color)e.NewValue);
+                else if (e.Header == "Представление") _selectedObj.SetViewMode(ViewModeConverter.StringToEnum(e.NewValue.ToString()));
+
+                OnUpdateNavigator?.Invoke(_selectedObj, _selectedNode);
+
+            }
+
             
-            OnUpdateNavigator?.Invoke(_selectedObj, _selectedNode);
+            
         }
     }
 }

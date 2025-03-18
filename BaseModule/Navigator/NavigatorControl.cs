@@ -64,7 +64,7 @@ namespace BaseModule.Navigator
 
         public event Action<string> SelectGroupEvent;
 
-        public event Action<TreeViewEventArgs> AfterSelectEvent;
+        public event Action<TreeViewEventArgs, string> AfterSelectEvent;
 
         public event Action<TreeNode> DelGroupEvent;
         public event Action DelAllGroupsEvent;
@@ -552,7 +552,17 @@ namespace BaseModule.Navigator
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             var node = e.Node;
-            if (node.Parent?.Parent == treeView.Nodes["объекты"]) AfterSelectEvent(new TreeViewEventArgs(node));
+            string nodeType = " ";
+            if (node.Parent?.Parent == treeView.Nodes["объекты"])
+            {
+                nodeType = "obj";
+                AfterSelectEvent(new TreeViewEventArgs(node), nodeType);
+            }
+            else if (node.Parent == treeView.Nodes["группыОбъектов"]) 
+            {
+                nodeType = "grp";
+                AfterSelectEvent(new TreeViewEventArgs(node), nodeType);
+            } 
         }
     }
 }

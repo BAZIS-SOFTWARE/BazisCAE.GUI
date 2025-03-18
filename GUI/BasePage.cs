@@ -1,34 +1,27 @@
-﻿using System;
+﻿using BaseModule.Console;
+using BaseModule.Console.Events;
+using BaseModule.Navigator;
+using BaseModule.Utilities;
+using BazisGUI.PropertiesPanel;
+using BazisGUI.Utilities;
+using Geometry;
+using Model.Interfaces;
+using Model.Interfaces.MeshObjects;
+using Model.Interfaces.ObjectsCollections;
+using ModelControllerInterfaces;
+using Project.Interfaces;
+using Scene.Interfaces;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Geometry;
-using System.Diagnostics;
-using BaseModule.Console;
-using BaseModule.Console.Events;
-using ModelControllerInterfaces;
-using System.Threading;
-using System.ComponentModel;
-using BaseModule.Utilities;
-using Scene.Interfaces;
 using UserControlsEx;
-using BazisGUI.Utilities;
-using Model.Interfaces;
-using Project.Interfaces;
-using Model.Interfaces.MeshObjects;
-using Model;
-using System.Data.Odbc;
-using Scene;
-using Model.Interfaces.ObjectsCollections;
-using System.Xml.Linq;
-using System.Globalization;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using MathNet.Numerics.Distributions;
-using BazisGUI.PropertiesPanel;
-using BaseModule.Navigator;
 
 namespace BazisGUI
 {
@@ -110,6 +103,7 @@ namespace BazisGUI
             propertiesPanelControl1.OnPropertyUpdate += panelProvider.ValueChanged;
             SplittersController = new SplittersController();
             panelProvider.OnUpdateNavigator += UpdateNavigator;
+            panelProvider.OnUpdateGroupNavigator += UpdateNavigatorGroup;
         }
 
         public Queue<int> GetSplitters()
@@ -940,20 +934,35 @@ namespace BazisGUI
             DeleteObjectsEvent?.Invoke();
         }
 
-        private void navigator_AfterSelectEvent(TreeViewEventArgs e)
+        private void navigator_AfterSelectEvent(TreeViewEventArgs e, string selectNodeType)
         {
-            var setName = e.Node.Text.Split(' ')[0]; // Деление по пробелу перед :
-            NodeType nodeType;
-            Enum.TryParse(e.Node.Parent.Text, out nodeType);
-            var type = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
-            var sets = ModelData.ObjectData.GetSetsInfo(type);
-            //var group = ModelData.GroupData.First(x => x.Name == e.Node.Text);
-            if (sets != null)
+            if(selectNodeType == "obj")
             {
-                var set = sets.First(x => x.Name == setName);
-                
-                panelProvider.DrawPropertyOnPanel(set, e.Node);
+                var setName = e.Node.Text.Split(' ')[0]; // Деление по пробелу перед :
+                NodeType nodeType;
+                Enum.TryParse(e.Node.Parent.Text, out nodeType);
+                var type = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
+                var sets = ModelData.ObjectData.GetSetsInfo(type);
+
+                if (sets != null)
+                {
+                    var set = sets.First(x => x.Name == setName);
+                    panelProvider.DrawPropertyOnPanel(set, e.Node);
+                }
             }
+
+            else if(selectNodeType == "grp")
+            {
+                var setName = e.Node.Text.Split('_')[0];
+                NodeType nodeType;
+                Enum.TryParse(e.Node.Parent.Text, out nodeType);
+                var groups = ModelData.GroupData.First(x => x.Name == e.Node.Text);
+                if (groups != null)
+                {
+                    panelProvider.DrawGroupOnPanel(groups, e.Node);
+                }
+            }
+
         }
 
         public void UpdateNavigator(ISetInfo obj, TreeNode nameNode)
@@ -962,6 +971,13 @@ namespace BazisGUI
             var thirdPart = nameNode.Text.Split(' ')[2];
             nameNode.Name = obj.Name;
             nameNode.Text = obj.Name + " " + secondPart + " " + thirdPart;
+        }
+
+        private void UpdateNavigatorGroup(IGroup group, TreeNode nameNode)
+        {
+            //var secondPart = nameNode.Text.Split('_')[1];
+            nameNode.Name = group.Name;
+            nameNode.Text = group.Name;
         }
     }
 }
