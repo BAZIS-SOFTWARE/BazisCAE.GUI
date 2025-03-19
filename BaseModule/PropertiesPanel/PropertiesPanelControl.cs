@@ -48,6 +48,7 @@ namespace BaseModule.PropertiesPanel
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.Columns.Clear();
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.AllowUserToAddRows = false;
 
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
