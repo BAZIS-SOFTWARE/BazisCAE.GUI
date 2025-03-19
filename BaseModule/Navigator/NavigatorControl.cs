@@ -1,4 +1,5 @@
 ﻿using BaseModule.Interfaces;
+using BaseModule.PropertiesPanel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -64,7 +65,7 @@ namespace BaseModule.Navigator
 
         public event Action<string> SelectGroupEvent;
 
-        public event Action<TreeViewEventArgs, string> AfterSelectEvent;
+        public event Action<TreeViewEventArgs, SelectionType> AfterSelectEvent;
 
         public event Action<TreeNode> DelGroupEvent;
         public event Action DelAllGroupsEvent;
@@ -552,17 +553,17 @@ namespace BaseModule.Navigator
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             var node = e.Node;
-            string nodeType = " ";
+
             if (node.Parent?.Parent == treeView.Nodes["объекты"])
             {
-                nodeType = "obj";
-                AfterSelectEvent(new TreeViewEventArgs(node), nodeType);
+                SelectionType type = SelectionType.Object;
+                AfterSelectEvent(new TreeViewEventArgs(node), type);
             }
-            else if (node.Parent == treeView.Nodes["группыОбъектов"]) 
+            else if (node.Parent == treeView.Nodes["группыОбъектов"])
             {
-                nodeType = "grp";
-                AfterSelectEvent(new TreeViewEventArgs(node), nodeType);
-            } 
+                SelectionType type = SelectionType.Group;
+                AfterSelectEvent(new TreeViewEventArgs(node), type);
+            }
         }
     }
 }

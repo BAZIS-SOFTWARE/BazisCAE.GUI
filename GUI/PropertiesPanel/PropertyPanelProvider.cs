@@ -3,21 +3,20 @@ using BaseModule.PropertiesPanel;
 using System.Collections.Generic;
 using Model.Interfaces.ObjectsCollections;
 using System.Windows.Forms;
-using Model.GroupsData;
 using Model.Interfaces;
-
+using BazisGUI.Utilities;
+using System.Drawing;
 
 namespace BazisGUI.PropertiesPanel
 {
     public class PropertyPanelProvider
     {
         public event Action<DrowPropertyOnPanelEventArgs> Out;
-        public event Action<ISetInfo, TreeNode> OnUpdateNavigator;
+        public event Action<ISetInfo, TreeNode> OnUpdateObjectNavigator;
         public event Action<IGroup, TreeNode> OnUpdateGroupNavigator;
 
-        private ISetInfo _selectedObj = null;
-        private IGroup _selectedGroup = null;//только имя
-
+        private ISetInfo _selectedObj;
+        private IGroup _selectedGroup;
         private TreeNode _selectedNode;
 
         /// <summary>
@@ -27,48 +26,49 @@ namespace BazisGUI.PropertiesPanel
         /// </summary>
         /// <param name="obj">Объект, свойства которого будут отображаться на панели.</param>
         /// <param name="selectedNode">Выбранный узел в древовидной структуре, связанный с объектом.</param>
-        public void DrawPropertyOnPanel(ISetInfo obj, TreeNode selectedNode) //создание коллекции RowProperty и отправка внутри EventArgs (DrowPropertyOnPanelEventArgs) в PropertyPanel.DataGridView
+        public void DrawObjectOnPanel(ISetInfo obj, TreeNode selectedNode) //создание коллекции RowProperty и отправка внутри EventArgs (DrowPropertyOnPanelEventArgs) в PropertyPanel.DataGridView
         {
             _selectedObj = obj;
             _selectedNode = selectedNode;
             List<RowProperty> list = new List<RowProperty>()
-        {
-            new RowProperty("Имя", obj.Name, () => new DataGridViewTextBoxCell(),
-            (cell) =>
             {
-                return cell.Value;
-            },
-            SequenceType.After),
-            new RowProperty("Color", obj.Color.Name, () => new DataGridViewTextBoxCell(),
-            (cell) =>
-            {
-                using (ColorDialog colorDialog = new ColorDialog())
+                new RowProperty("Имя", obj.Name, () => new DataGridViewTextBoxCell(),
+                (cell) =>
                 {
-                    if (colorDialog.ShowDialog() == DialogResult.OK)
+                    return cell.Value;
+                },
+                SequenceType.After),
+                
+                new RowProperty("Цвет", obj.Color.Name, () => new DataGridViewTextBoxCell(),
+                (cell) =>
+                {
+                    using (ColorDialog colorDialog = new ColorDialog())
                     {
-                        obj.SetColor(colorDialog.Color);
-                        return colorDialog.Color.Name;
+                        if (colorDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            return colorDialog.Color;
+                        }
                     }
-                }
-                return cell.Value;
-            }, SequenceType.Before),
-            new RowProperty("Представление", obj.ViewMode, 
-            () => 
-            {
-                var comboBoxCell = new DataGridViewComboBoxCell();
-                comboBoxCell.Items.AddRange(ViewModeConverter.GetEnumNames().ToArray());
-                comboBoxCell.Value = obj.ViewMode;
-                return comboBoxCell;
-            },
-            (cell) =>
-            {
-                return cell.Value;
-            },
-            SequenceType.After),
-        };
+                    return cell.Value;
+                }, 
+                SequenceType.Before),
+               
+                new RowProperty("Представление", obj.ViewMode, 
+                () => 
+                {
+                    var comboBoxCell = new DataGridViewComboBoxCell();
+                    comboBoxCell.Items.AddRange(Converters.GetEnumNames().ToArray());
+                    comboBoxCell.Value = obj.ViewMode;
+                    return comboBoxCell;
+                },
+                (cell) =>
+                {
+                    return cell.Value;
+                },
+                SequenceType.After),
+            };
             Out(new DrowPropertyOnPanelEventArgs(list));
         }
-
 
         /// <summary>
         /// Метод для отображения свойств объекта на панели, создавая список свойств, которые можно редактировать.
@@ -82,24 +82,23 @@ namespace BazisGUI.PropertiesPanel
             _selectedGroup = obj;
             _selectedNode = selectedNode;
             List<RowProperty> list = new List<RowProperty>()
-        {
-            new RowProperty("Имя", obj.Name, () => new DataGridViewTextBoxCell(),
-            (cell) =>
             {
-                return cell.Value;
-            },
-            SequenceType.After),
-        };
+                new RowProperty("Имя", obj.Name, () => new DataGridViewTextBoxCell(),
+                (cell) =>
+                {
+                    return cell.Value;
+                },
+                SequenceType.After),
+            };
             Out(new DrowPropertyOnPanelEventArgs(list));
         }
 
         public bool ValidationData (string header, object oldValue, object newValue )
         {
-            if (newValue.ToString() == string.Empty ||newValue.ToString().Contains(" ") == true)
+            if (newValue == null || newValue.ToString().Contains(" "))
             {
                 MessageBox.Show("Имя не должно содержать пробелов или быть пустым", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
-
             }
             return true;
         }
@@ -120,15 +119,11 @@ namespace BazisGUI.PropertiesPanel
             {
                 var name = _selectedObj.Name;
                 if (e.Header == "Имя") _selectedObj.Name = e.NewValue.ToString();
-                else if (e.Header == "Цвет") _selectedObj.SetColor((System.Drawing.Color)e.NewValue);
-                else if (e.Header == "Представление") _selectedObj.SetViewMode(ViewModeConverter.StringToEnum(e.NewValue.ToString()));
+                else if (e.Header == "Цвет") _selectedObj.SetColor((System.Drawing.Color) e.NewValue);
+                else if(e.Header == "Представление") _selectedObj.SetViewMode(Converters.StringToEnum(e.NewValue.ToString()));
 
-                OnUpdateNavigator?.Invoke(_selectedObj, _selectedNode);
-
-            }
-
-            
-            
+                OnUpdateObjectNavigator?.Invoke(_selectedObj, _selectedNode);
+            }         
         }
     }
 }

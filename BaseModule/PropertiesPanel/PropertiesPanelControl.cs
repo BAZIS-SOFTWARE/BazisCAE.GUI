@@ -80,7 +80,6 @@ namespace BaseModule.PropertiesPanel
                 var cell = prop.Initialization();// Создаем ячейку нужного типа через Initialization
                 cell.Value = prop.Value.ToString();
                 row.Cells.Add(cell);
-                cell.Tag = prop;
 
                 dataGridView1.Rows.Add(row);
             }
@@ -94,7 +93,7 @@ namespace BaseModule.PropertiesPanel
                 _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
             }
             var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            var property = cell.Tag as RowProperty;
+            var property = _rowProperties[e.RowIndex];
             if (property !=null && property.Sequence == SequenceType.Before)
             {
                 StartUpdate(property, cell);
@@ -108,8 +107,22 @@ namespace BaseModule.PropertiesPanel
         /// <param name="e"></param>
         private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
+
+            var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
+            if (e.RowIndex == 0 && e.ColumnIndex == 1)
+            {
+                var header = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+                _isValid = ValidateValue?.Invoke(header, _oldValue, newValue) ?? true;
+
+                if (!_isValid)
+                {
+                    dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = _oldValue;
+                    return;
+                }
+            }
+
             var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            var property = cell.Tag as RowProperty;
+            var property = _rowProperties[e.RowIndex];
             if (property != null && property.Sequence == SequenceType.After)
             {
                 StartUpdate(property, cell);
@@ -127,6 +140,20 @@ namespace BaseModule.PropertiesPanel
             }
         }
 
+        private void StartUpdate(RowProperty property, DataGridViewCell cell)
+        {
+            var newValue = property.Update(cell);
+            if (!Equals(newValue, property.Value) && newValue != _oldValue)
+            {
+                property.Value = newValue;
+                dataGridView1.Rows[cell.RowIndex].Cells[1].Value = property.Value;
+                CellValueChanged(cell);
+
+                if (newValue is System.Drawing.Color a)
+                    dataGridView1.Rows[cell.RowIndex].Cells[1].Value = a.Name;
+            }
+        }
+
         /// <summary>
         /// Исключение в DataGridView: System.ArgumentException: 
         /// Недопустимое значение DataGridViewComboBoxCell. 
@@ -136,18 +163,6 @@ namespace BaseModule.PropertiesPanel
         private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             /*Заглушка*/
-        }
-
-        private void StartUpdate(RowProperty property, DataGridViewCell cell)
-        {
-            var newValue = property.Update(cell);
-
-            if (!Equals(newValue, property.Value))
-            {
-                dataGridView1.Rows[cell.RowIndex].Cells[1].Value = newValue;
-                property.Value = newValue;
-            }
-            if (newValue != _oldValue) CellValueChanged(cell);
         }
     }
 }

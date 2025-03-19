@@ -2,10 +2,13 @@
 using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
 using Model;
 using Model.Interfaces;
+using Model.Interfaces.ObjectsCollections;
 using PreProc.Interfaces;
 using Project.Interfaces;
 using Project.Interfaces.Tasks;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static BaseModule.Interfaces.GeneralParams;
@@ -95,7 +98,6 @@ namespace BazisGUI.Utilities
             }
         }
 
-
         public static GeneralInfo ConvertToNavigatorGeneralInfo(IGeneralData generalData)
         {
             return new GeneralInfo()
@@ -139,6 +141,27 @@ namespace BazisGUI.Utilities
             }
 
             return modelInfo;
+        }
+
+        /// <summary>
+        /// Метод для получения всех строковых значений для комбобокса
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> GetEnumNames()
+        {
+            return Enum.GetNames(typeof(ViewMode)).ToList();
+        }
+
+        /// <summary>
+        /// Метод для преобразование из строки в enum с проверкой на ошибки
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static ViewMode StringToEnum(string value)
+        {
+            if (Enum.TryParse<ViewMode>(value,out var result) && Enum.IsDefined(typeof(ViewMode), result)) 
+                return result;
+            else throw new ArgumentException($"Ошибка: значение '{value}' не соответствует ни одному значению из ViewMode.");
         }
     }
 }

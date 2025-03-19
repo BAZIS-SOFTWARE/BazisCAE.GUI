@@ -174,6 +174,7 @@
     </Compile>
     <Compile Include="PropertiesPanel\PropertyChangedEventArgs.cs" />
     <Compile Include="PropertiesPanel\RowProperty.cs" />
+    <Compile Include="PropertiesPanel\SelectionType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

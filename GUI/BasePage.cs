@@ -1,6 +1,7 @@
 ﻿using BaseModule.Console;
 using BaseModule.Console.Events;
 using BaseModule.Navigator;
+using BaseModule.PropertiesPanel;
 using BaseModule.Utilities;
 using BazisGUI.PropertiesPanel;
 using BazisGUI.Utilities;
@@ -102,7 +103,7 @@ namespace BazisGUI
             propertiesPanelControl1.ValidateValue += panelProvider.ValidationData;
             propertiesPanelControl1.OnPropertyUpdate += panelProvider.ValueChanged;
             SplittersController = new SplittersController();
-            panelProvider.OnUpdateNavigator += UpdateNavigator;
+            panelProvider.OnUpdateObjectNavigator += UpdateNavigator;
             panelProvider.OnUpdateGroupNavigator += UpdateNavigatorGroup;
         }
 
@@ -934,9 +935,9 @@ namespace BazisGUI
             DeleteObjectsEvent?.Invoke();
         }
 
-        private void navigator_AfterSelectEvent(TreeViewEventArgs e, string selectNodeType)
+        private void navigator_AfterSelectEvent(TreeViewEventArgs e, SelectionType select)
         {
-            if(selectNodeType == "obj")
+            if(select == SelectionType.Object)
             {
                 var setName = e.Node.Text.Split(' ')[0]; // Деление по пробелу перед :
                 NodeType nodeType;
@@ -947,22 +948,22 @@ namespace BazisGUI
                 if (sets != null)
                 {
                     var set = sets.First(x => x.Name == setName);
-                    panelProvider.DrawPropertyOnPanel(set, e.Node);
+                    panelProvider.DrawObjectOnPanel(set, e.Node);
                 }
             }
 
-            else if(selectNodeType == "grp")
+            else if(select == SelectionType.Group)
             {
                 var setName = e.Node.Text.Split('_')[0];
                 NodeType nodeType;
                 Enum.TryParse(e.Node.Parent.Text, out nodeType);
                 var groups = ModelData.GroupData.First(x => x.Name == e.Node.Text);
+
                 if (groups != null)
                 {
                     panelProvider.DrawGroupOnPanel(groups, e.Node);
                 }
             }
-
         }
 
         public void UpdateNavigator(ISetInfo obj, TreeNode nameNode)
