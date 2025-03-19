@@ -159,7 +159,7 @@ namespace BazisGUI.Utilities
         /// <returns></returns>
         public static ViewMode StringToEnum(string value)
         {
-            if (Enum.TryParse<ViewMode>(value,out var result) && Enum.IsDefined(typeof(ViewMode), result)) 
+            if (Enum.TryParse<ViewMode>(value,out var result)) 
                 return result;
             else throw new ArgumentException($"Ошибка: значение '{value}' не соответствует ни одному значению из ViewMode.");
         }

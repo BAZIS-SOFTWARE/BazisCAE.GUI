@@ -935,33 +935,33 @@ namespace BazisGUI
             DeleteObjectsEvent?.Invoke();
         }
 
-        private void navigator_AfterSelectEvent(TreeViewEventArgs e, SelectionType select)
+        private void navigator_AfterSelectEvent(TreeNode e, SelectionType select)
         {
             if(select == SelectionType.Object)
             {
-                var setName = e.Node.Text.Split(' ')[0]; // Деление по пробелу перед :
+                var setName = e.Text.Split(' ')[0]; // Деление по пробелу перед :
                 NodeType nodeType;
-                Enum.TryParse(e.Node.Parent.Text, out nodeType);
+                Enum.TryParse(e.Parent.Text, out nodeType);
                 var type = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
                 var sets = ModelData.ObjectData.GetSetsInfo(type);
 
                 if (sets != null)
                 {
                     var set = sets.First(x => x.Name == setName);
-                    panelProvider.DrawObjectOnPanel(set, e.Node);
+                    panelProvider.DrawObjectOnPanel(set, e);
                 }
             }
 
             else if(select == SelectionType.Group)
             {
-                var setName = e.Node.Text.Split('_')[0];
+                var setName = e.Text.Split('_')[0];
                 NodeType nodeType;
-                Enum.TryParse(e.Node.Parent.Text, out nodeType);
-                var groups = ModelData.GroupData.First(x => x.Name == e.Node.Text);
+                Enum.TryParse(e.Parent.Text, out nodeType);
+                var groups = ModelData.GroupData.First(x => x.Name == e.Text);
 
                 if (groups != null)
                 {
-                    panelProvider.DrawGroupOnPanel(groups, e.Node);
+                    panelProvider.DrawGroupOnPanel(groups, e);
                 }
             }
         }

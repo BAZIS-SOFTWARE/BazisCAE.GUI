@@ -130,7 +130,7 @@ namespace BazisGUI
             this.navigator.UpColor = System.Drawing.Color.Gainsboro;
             this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
             this.navigator.SelectGroupEvent += new System.Action<string>(this.navigator_SelectGroupEvent);
-            this.navigator.AfterSelectEvent += new System.Action<System.Windows.Forms.TreeViewEventArgs, SelectionType>(this.navigator_AfterSelectEvent);
+            this.navigator.AfterSelectEvent += new System.Action<System.Windows.Forms.TreeNode, SelectionType>(this.navigator_AfterSelectEvent);
             this.navigator.DelGroupEvent += new System.Action<System.Windows.Forms.TreeNode>(this.navigator_DelGroupEvent);
             this.navigator.DelAllGroupsEvent += new System.Action(this.navigator_DelAllGroupsEvent);
             this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
