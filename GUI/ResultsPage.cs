@@ -709,68 +709,64 @@ namespace BazisGUI
 
         public void ShowExportResultsPage()
         {
-            //var scaleItems = GetScaleItems();
+            // предварительная настройка шкалы
+            var scaleItems = GetScaleItems();
+            resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems);
+            resultsController.ResultsFieldsCreator.ScaleFactor = 1;
 
-            //resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems);
-            //resultsController.ResultsFieldsCreator.ScaleFactor = 1;
+            // инициализация инфраструктуры для работы с результатами
+            var loader = new LoadResultsFileDB();
+            var tables = new List<string>();
+            foreach (TreeNode item in BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes)
+                tables.Add(item.Text);
 
-            //var loader = new LoadResultsFileDB();
+            var exportPage = new ExportControl() { Dock = DockStyle.Fill };
+            exportPage.ExportResultEvent += (arg) =>
+            {
+                var result = loader.GetResult(ResultDbPath, tables, arg.Time);
+                if (arg.ExportType == ExportType.Results) ExportResults(result, arg);
+                else ExportGrid(result, arg);
+            };
+            exportPage.CopyResultDBEvent += (arg) =>
+            {
+                var result = loader.GetResult(ResultDbPath, tables, arg.Time);
+                CopyResultDB(result, arg);
+            };
 
-            //var tables = new List<string>();
-            //foreach (TreeNode item in BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes)
-            //    tables.Add(item.Text);
+            var nodeNames = new List<string>();
+            var elementNames = new List<string>();
+            var resDic = new Dictionary<string, List<float>>();
+            foreach (var resKind in resKinds)
+            {
+                var results = resultData.FindByTaskKind(resKind.ToString());
 
-            //var exportPage = new ExportControl() { Dock = DockStyle.Fill };
-            //exportPage.ExportResultEvent += (arg) => 
-            //{
-                
-            //    var result = loader.GetResult(ResultDbPath,tables, arg.Time);
-            //    if (arg.ExportType == ExportType.Results)
-            //        ExportResults(result, arg);
-            //    else
-            //        ExportGrid(result, arg);
-            //};
-            //exportPage.CopyResultDBEvent += (arg) =>
-            //{
-            //    var results = resultData.FindByTime(arg.TaskKind, arg.Time);
-            //    CopyResultDB(results, arg);
-            //};
+                nodeNames.AddRange(results.First().GetDataSchema("nodes"));
+                elementNames.AddRange(results.First().GetDataSchema("elements"));
 
-            //var nodeNames = new List<string>();
-            //var elementNames = new List<string>();
-            //var resDic = new Dictionary<string, List<float>>();
-            //foreach (var resKind in resKinds)
-            //{
-            //    var results = resultData.FindByTaskKind(resKind.ToString());
+                resDic.Add(resKind.ToString(), new List<float>());
+                resDic[resKind.ToString()] = resultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
+            }
 
-            //    nodeNames.AddRange(results.First().GetDataSchema("nodes"));
-            //    elementNames.AddRange(results.First().GetDataSchema("elements"));
+            exportPage.SetResultKinds(resKinds.Select(x => x.ToString()));
+            exportPage.SetResultValues(resDic);
+            exportPage.SetNodeNames(nodeNames);
+            exportPage.SetElementNames(elementNames);
 
-            //    resDic.Add(resKind.ToString(), new List<float>());
-            //    resDic[resKind.ToString()] = resultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
-            //}
+            var exportForm = new Form()
+            {
+                Owner = Application.OpenForms[0],
+                TopMost = true,
+                Size = exportPage.Size,
+                Name = "export",
+                Text = "Экспорт результатов",
+                ShowIcon = false,
+                ClientSize = exportPage.Size,
+                Location = BasePage.ScenePage.PointToScreen(Point.Empty)
+            };
 
-            //exportPage.SetResultKinds(resKinds.Select(x => x.ToString()));
-            //exportPage.SetResultValues(resDic);
-            //exportPage.SetNodeNames(nodeNames);
-            //exportPage.SetElementNames(elementNames);
-
-            //var exportForm = new Form()
-            //{
-            //    Owner = Application.OpenForms[0],
-            //    TopMost = true,
-            //    Size = exportPage.Size,
-            //    Name = "export",
-            //    Text = "Экспорт результатов",
-            //    ShowIcon = false,
-            //    ClientSize = exportPage.Size
-            //};
-
-            //exportForm.FormClosed += (ar1, ar2) => { exportPage = null; };
-            //exportForm.Controls.Add(exportPage);
-            //exportForm.Show();
-            //var location = BasePage.ScenePage.PointToScreen(Point.Empty);
-            //exportForm.Location = location;
+            exportForm.FormClosed += (ar1, ar2) => { exportPage = null; };
+            exportForm.Controls.Add(exportPage);
+            exportForm.Show();
         }
 
         private void ExportResults(Result result, ExportResultEventArgs args)
