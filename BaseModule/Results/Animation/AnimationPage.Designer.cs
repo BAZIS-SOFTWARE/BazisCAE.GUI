@@ -39,14 +39,14 @@ namespace BaseModule.Results.Animation
             this.label3 = new System.Windows.Forms.Label();
             this.txbDelayTime = new UserControlsEx.TextBoxEx(this.components);
             this.btnCreateAnimation = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.playerPanel = new System.Windows.Forms.Panel();
-            this.player = new global::BaseModule.Player.PlayerControl();
+            this.player = new BaseModule.Player.PlayerControl();
             this.label1 = new System.Windows.Forms.Label();
             this.txbScale = new UserControlsEx.TextBoxEx(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.cmbResultNames = new System.Windows.Forms.ComboBox();
             this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -70,8 +70,7 @@ namespace BaseModule.Results.Animation
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 82F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(408, 503);
             this.tableLayoutPanel2.TabIndex = 42;
             // 
@@ -80,27 +79,28 @@ namespace BaseModule.Results.Animation
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.61539F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.38461F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 122F));
             this.tableLayoutPanel4.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.chbDelTempScrs, 1, 1);
             this.tableLayoutPanel4.Controls.Add(this.label3, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.txbDelayTime, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.btnCreateAnimation, 2, 1);
+            this.tableLayoutPanel4.Controls.Add(this.button1, 2, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 421);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 403);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(408, 82);
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(408, 100);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(25, 11);
+            this.label2.Location = new System.Drawing.Point(47, 18);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(147, 13);
@@ -113,7 +113,7 @@ namespace BaseModule.Results.Animation
             this.chbDelTempScrs.AutoSize = true;
             this.chbDelTempScrs.Checked = true;
             this.chbDelTempScrs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbDelTempScrs.Location = new System.Drawing.Point(207, 52);
+            this.chbDelTempScrs.Location = new System.Drawing.Point(256, 68);
             this.chbDelTempScrs.Margin = new System.Windows.Forms.Padding(4);
             this.chbDelTempScrs.Name = "chbDelTempScrs";
             this.chbDelTempScrs.Size = new System.Drawing.Size(15, 14);
@@ -125,10 +125,10 @@ namespace BaseModule.Results.Animation
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(31, 46);
+            this.label3.Location = new System.Drawing.Point(23, 68);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(134, 26);
+            this.label3.Size = new System.Drawing.Size(196, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Удалить промежуточные результаты";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -139,10 +139,10 @@ namespace BaseModule.Results.Animation
             this.txbDelayTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbDelayTime.InputType = UserControlsEx.TXTBoxInputType.Integer;
             this.txbDelayTime.IsValidating = true;
-            this.txbDelayTime.Location = new System.Drawing.Point(197, 8);
-            this.txbDelayTime.Margin = new System.Windows.Forms.Padding(0);
+            this.txbDelayTime.Location = new System.Drawing.Point(249, 15);
+            this.txbDelayTime.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.txbDelayTime.Name = "txbDelayTime";
-            this.txbDelayTime.Size = new System.Drawing.Size(35, 20);
+            this.txbDelayTime.Size = new System.Drawing.Size(29, 20);
             this.txbDelayTime.TabIndex = 5;
             this.txbDelayTime.Text = "100";
             this.txbDelayTime.UserRegExCheck = null;
@@ -154,14 +154,26 @@ namespace BaseModule.Results.Animation
             this.btnCreateAnimation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreateAnimation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnCreateAnimation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCreateAnimation.Location = new System.Drawing.Point(239, 45);
+            this.btnCreateAnimation.Location = new System.Drawing.Point(292, 61);
             this.btnCreateAnimation.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.btnCreateAnimation.Name = "btnCreateAnimation";
-            this.btnCreateAnimation.Size = new System.Drawing.Size(162, 27);
+            this.btnCreateAnimation.Size = new System.Drawing.Size(109, 27);
             this.btnCreateAnimation.TabIndex = 3;
             this.btnCreateAnimation.Text = "Создать";
             this.btnCreateAnimation.UseVisualStyleBackColor = true;
             this.btnCreateAnimation.Click += new System.EventHandler(this.btnCreateAnimation_Click);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(292, 11);
+            this.button1.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(109, 27);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Обновить";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
             // 
@@ -187,7 +199,6 @@ namespace BaseModule.Results.Animation
             this.tableLayoutPanel1.SetColumnSpan(this.playerPanel, 3);
             this.playerPanel.Controls.Add(this.player);
             this.playerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.playerPanel.Enabled = false;
             this.playerPanel.Location = new System.Drawing.Point(4, 4);
             this.playerPanel.Margin = new System.Windows.Forms.Padding(4);
             this.playerPanel.Name = "playerPanel";
@@ -197,7 +208,7 @@ namespace BaseModule.Results.Animation
             // player
             // 
             this.player.AutoSize = true;
-            this.player.CheckState = global::BaseModule.Player.CheckState.start;
+            this.player.CheckState = BaseModule.Player.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Dock = System.Windows.Forms.DockStyle.Fill;
             this.player.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -252,7 +263,7 @@ namespace BaseModule.Results.Animation
             this.panel1.Location = new System.Drawing.Point(0, 100);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(408, 321);
+            this.panel1.Size = new System.Drawing.Size(408, 303);
             this.panel1.TabIndex = 50;
             // 
             // tableLayoutPanel3
@@ -262,7 +273,6 @@ namespace BaseModule.Results.Animation
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.cmbResultNames, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.richTextBox, 1, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
@@ -272,21 +282,8 @@ namespace BaseModule.Results.Animation
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(406, 319);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(406, 301);
             this.tableLayoutPanel3.TabIndex = 0;
-            // 
-            // cmbResultNames
-            // 
-            this.tableLayoutPanel3.SetColumnSpan(this.cmbResultNames, 2);
-            this.cmbResultNames.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmbResultNames.FormattingEnabled = true;
-            this.cmbResultNames.Location = new System.Drawing.Point(0, 0);
-            this.cmbResultNames.Margin = new System.Windows.Forms.Padding(0);
-            this.cmbResultNames.Name = "cmbResultNames";
-            this.cmbResultNames.Size = new System.Drawing.Size(406, 21);
-            this.cmbResultNames.TabIndex = 0;
-            this.cmbResultNames.Text = "выберите результаты...";
-            this.cmbResultNames.SelectedIndexChanged += new System.EventHandler(this.cmbResultNames_SelectedIndexChanged);
             // 
             // richTextBox
             // 
@@ -294,10 +291,10 @@ namespace BaseModule.Results.Animation
             this.richTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tableLayoutPanel3.SetColumnSpan(this.richTextBox, 2);
             this.richTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox.Location = new System.Drawing.Point(0, 24);
+            this.richTextBox.Location = new System.Drawing.Point(0, 3);
             this.richTextBox.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.richTextBox.Name = "richTextBox";
-            this.richTextBox.Size = new System.Drawing.Size(406, 295);
+            this.richTextBox.Size = new System.Drawing.Size(406, 298);
             this.richTextBox.TabIndex = 1;
             this.richTextBox.Text = "";
             this.richTextBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.richTextBox_MouseClick);
@@ -341,7 +338,7 @@ namespace BaseModule.Results.Animation
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.ComboBox cmbResultNames;
         private System.Windows.Forms.RichTextBox richTextBox;
+        private System.Windows.Forms.Button button1;
     }
 }

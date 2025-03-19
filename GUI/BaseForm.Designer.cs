@@ -77,11 +77,14 @@
             this.функцииMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resultsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadResultsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showValueMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showNodeValueMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.показатьЗначенияВЭлементахToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createFieldMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.показатьВремяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createPlotMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scaleSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportResultsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.усреднитьРезультатыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.содержаниеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -112,11 +115,11 @@
             // 
             this.toolStripContainer.ContentPanel.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripContainer.ContentPanel.Controls.Add(this.tableLayoutPanel);
-            this.toolStripContainer.ContentPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.toolStripContainer.ContentPanel.Margin = new System.Windows.Forms.Padding(2);
             this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(532, 318);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
-            this.toolStripContainer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.toolStripContainer.Margin = new System.Windows.Forms.Padding(2);
             this.toolStripContainer.Name = "toolStripContainer";
             this.toolStripContainer.Size = new System.Drawing.Size(532, 368);
             this.toolStripContainer.TabIndex = 0;
@@ -180,7 +183,7 @@
             this.tableLayoutPanel.Controls.Add(this.tableLayoutPanel1, 0, 1);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 3;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 65.17194F));
@@ -224,7 +227,7 @@
             this.tableLayoutPanel1.Controls.Add(this.button2, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 209);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -582,11 +585,14 @@
             // 
             this.resultsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadResultsMenuItem,
-            this.showValueMenuItem,
+            this.showNodeValueMenuItem,
+            this.показатьЗначенияВЭлементахToolStripMenuItem,
             this.createFieldMenuItem,
+            this.показатьВремяToolStripMenuItem,
             this.createPlotMenuItem,
             this.scaleSettingsMenuItem,
-            this.exportResultsMenuItem});
+            this.exportResultsMenuItem,
+            this.усреднитьРезультатыToolStripMenuItem});
             this.resultsMenuItem.Enabled = false;
             this.resultsMenuItem.Name = "resultsMenuItem";
             this.resultsMenuItem.Size = new System.Drawing.Size(77, 20);
@@ -596,45 +602,73 @@
             // loadResultsMenuItem
             // 
             this.loadResultsMenuItem.Name = "loadResultsMenuItem";
-            this.loadResultsMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.loadResultsMenuItem.Size = new System.Drawing.Size(243, 22);
             this.loadResultsMenuItem.Text = "Загрузить результаты";
             this.loadResultsMenuItem.Click += new System.EventHandler(this.loadResultsMenuItem_Click);
             // 
-            // showValueMenuItem
+            // showNodeValueMenuItem
             // 
-            this.showValueMenuItem.CheckOnClick = true;
-            this.showValueMenuItem.Name = "showValueMenuItem";
-            this.showValueMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.showValueMenuItem.Text = "Показать значения";
-            this.showValueMenuItem.Click += new System.EventHandler(this.showValueMenuItem_Click);
+            this.showNodeValueMenuItem.CheckOnClick = true;
+            this.showNodeValueMenuItem.Name = "showNodeValueMenuItem";
+            this.showNodeValueMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.showNodeValueMenuItem.Text = "Показать значения в узлах";
+            this.showNodeValueMenuItem.Click += new System.EventHandler(this.showNodeValueMenuItem_Click);
+            // 
+            // показатьЗначенияВЭлементахToolStripMenuItem
+            // 
+            this.показатьЗначенияВЭлементахToolStripMenuItem.CheckOnClick = true;
+            this.показатьЗначенияВЭлементахToolStripMenuItem.Name = "показатьЗначенияВЭлементахToolStripMenuItem";
+            this.показатьЗначенияВЭлементахToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.показатьЗначенияВЭлементахToolStripMenuItem.Text = "Показать значения в элементах";
+            this.показатьЗначенияВЭлементахToolStripMenuItem.Click += new System.EventHandler(this.показатьЗначенияВЭлементахToolStripMenuItem_Click);
             // 
             // createFieldMenuItem
             // 
+            this.createFieldMenuItem.Checked = true;
+            this.createFieldMenuItem.CheckOnClick = true;
+            this.createFieldMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.createFieldMenuItem.Name = "createFieldMenuItem";
-            this.createFieldMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.createFieldMenuItem.Size = new System.Drawing.Size(243, 22);
             this.createFieldMenuItem.Text = "Построить поле";
             this.createFieldMenuItem.Click += new System.EventHandler(this.createFieldMenuItem_Click);
+            // 
+            // показатьВремяToolStripMenuItem
+            // 
+            this.показатьВремяToolStripMenuItem.Name = "показатьВремяToolStripMenuItem";
+            this.показатьВремяToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.показатьВремяToolStripMenuItem.Text = "Показать время";
+            this.показатьВремяToolStripMenuItem.Click += new System.EventHandler(this.показатьВремяToolStripMenuItem_Click);
             // 
             // createPlotMenuItem
             // 
             this.createPlotMenuItem.Name = "createPlotMenuItem";
-            this.createPlotMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.createPlotMenuItem.Size = new System.Drawing.Size(243, 22);
             this.createPlotMenuItem.Text = "Построить график";
             this.createPlotMenuItem.Click += new System.EventHandler(this.createPlotMenuItem_Click);
             // 
             // scaleSettingsMenuItem
             // 
             this.scaleSettingsMenuItem.Name = "scaleSettingsMenuItem";
-            this.scaleSettingsMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.scaleSettingsMenuItem.Size = new System.Drawing.Size(243, 22);
             this.scaleSettingsMenuItem.Text = "Настройки шкалы";
             this.scaleSettingsMenuItem.Click += new System.EventHandler(this.scaleSettingsMenuItem_Click);
             // 
             // exportResultsMenuItem
             // 
             this.exportResultsMenuItem.Name = "exportResultsMenuItem";
-            this.exportResultsMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.exportResultsMenuItem.Size = new System.Drawing.Size(243, 22);
             this.exportResultsMenuItem.Text = "Экспорт результатов";
             this.exportResultsMenuItem.Click += new System.EventHandler(this.exportResultsMenuItem_Click);
+            // 
+            // усреднитьРезультатыToolStripMenuItem
+            // 
+            this.усреднитьРезультатыToolStripMenuItem.Checked = true;
+            this.усреднитьРезультатыToolStripMenuItem.CheckOnClick = true;
+            this.усреднитьРезультатыToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.усреднитьРезультатыToolStripMenuItem.Name = "усреднитьРезультатыToolStripMenuItem";
+            this.усреднитьРезультатыToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            this.усреднитьРезультатыToolStripMenuItem.Text = "Усреднить результаты";
+            this.усреднитьРезультатыToolStripMenuItem.Click += new System.EventHandler(this.усреднитьРезультатыToolStripMenuItem_Click);
             // 
             // настройкиToolStripMenuItem
             // 
@@ -712,7 +746,7 @@
             this.IsMdiContainer = true;
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(548, 407);
             this.Name = "BaseForm";
             this.Text = "Bazis. Система технологического анализа";
@@ -795,7 +829,7 @@
         private System.Windows.Forms.ToolStripMenuItem quenchingMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resultsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadResultsMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showValueMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showNodeValueMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dataBasesMenuItem;
         private System.Windows.Forms.ToolStripMenuItem материалыMenuItem;
         private System.Windows.Forms.ToolStripMenuItem функцииMenuItem;
@@ -805,6 +839,9 @@
         private System.Windows.Forms.ToolStripMenuItem exportResultsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem создать1DПо2DЭлементамToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem экспортСеткиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem показатьЗначенияВЭлементахToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem усреднитьРезультатыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem показатьВремяToolStripMenuItem;
     }
 }
 

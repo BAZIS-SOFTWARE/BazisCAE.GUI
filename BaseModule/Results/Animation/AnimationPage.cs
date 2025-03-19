@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
@@ -34,59 +35,29 @@ namespace BaseModule.Results.Animation
             InitializeComponent();
         }
 
-        Dictionary<string, List<float>> resItems;
-
         //public bool MakeGifAnimation { get; private set; } = false;
-
-        public void SetResultsItems(Dictionary<string, List<float>> resItems)
-        {
-            foreach (var item in resItems.Keys)
-            {
-                if(!cmbResultNames.Items.Contains(item))
-                    cmbResultNames.Items.Add(item);
-            }
-
-            this.resItems = resItems;
-        }
 
         public void ClearResultsItems()
         {
-            cmbResultNames.Text = "выберите результаты...";
-            cmbResultNames.Items.Clear();
-            resItems?.Clear();
             richTextBox.Clear();
-        }    
-        
-        public void ShowResultsTimeSteps(string resName)
-        {
-            if(resItems.ContainsKey(resName))
-            {
-                playerPanel.Enabled = true;
-
-                var times = resItems[resName];
-
-                if (times.Count() > 1)
-                    player.StopValue = times.Count() - 1;
-                else if (times.Count() == 1)
-                    player.StartValue = 0;
-
-                richTextBox.Clear();
-
-                for (int i = 0; i < times.Count; i++)
-                {
-                    if (i == times.Count - 1)
-                        richTextBox.AppendText($"{times[i]}");
-                    else
-                        richTextBox.AppendText($"{times[i]}\n");
-                }
-                cmbResultNames.Text = resName;
-                SelectResultsEvent?.Invoke(resName);
-            }
         }
 
-        private void cmbResultNames_SelectedIndexChanged(object sender, EventArgs e)
+        public void ShowResultsTimeSteps(List<float> times)
         {
-            ShowResultsTimeSteps(cmbResultNames.SelectedItem.ToString());
+            if (times.Count() > 1)
+                player.StopValue = times.Count() - 1;
+            else if (times.Count() == 1)
+                player.StartValue = 0;
+
+            richTextBox.Clear();
+
+            for (int i = 0; i < times.Count; i++)
+            {
+                if (i == times.Count - 1)
+                    richTextBox.AppendText($"{times[i]}");
+                else
+                    richTextBox.AppendText($"{times[i]}\n");
+            }
         }
 
         private void txbDelayTime_Leave(object sender, EventArgs e)
@@ -134,7 +105,8 @@ namespace BaseModule.Results.Animation
             richTextBox.Select(startFromIndex, lineLength);
             //Устанавливаем выделенному тексту оранжевый фон
             richTextBox.SelectionBackColor = System.Drawing.Color.Orange;
-            richTextBox.Select(startFromIndex, 0);
+            //richTextBox.Select(startFromIndex, 0);
+            //var text = richTextBox.SelectedText;
         }
 
         private void ColorSlider_Scroll(object sender, ScrollEventArgs e)
@@ -150,7 +122,7 @@ namespace BaseModule.Results.Animation
             MarkTimeStep(index);
             var scaleFactor = int.Parse(txbScale.Text);
             var time = float.Parse(richTextBox.Lines[index]);
-            ShowResultEvent(this, new ShowResultEventArgs(cmbResultNames.SelectedItem.ToString(), time, scaleFactor));
+            ShowResultEvent(this, new ShowResultEventArgs(time, scaleFactor));
         }
 
         private void btnCreateAnimation_Click(object sender, EventArgs e)
@@ -160,7 +132,7 @@ namespace BaseModule.Results.Animation
                 var delay = int.Parse(txbDelayTime.Text);
                 var times = richTextBox.Lines.Select(x => float.Parse(x)).ToArray();
                 var scaleFactor = int.Parse(txbScale.Text);
-                CreateGIFAnimationEvent(this, new CreateAnimationEventArgs(cmbResultNames.SelectedItem.ToString(), times, scaleFactor, chbDelTempScrs.Checked, delay));
+                CreateGIFAnimationEvent(this, new CreateAnimationEventArgs(times, scaleFactor, chbDelTempScrs.Checked, delay));
             }
             catch (Exception ex)
             {
@@ -171,12 +143,17 @@ namespace BaseModule.Results.Animation
 
         private void playerControl_CheckingEvent(object arg1, float arg2)
         {
-            MarkTimeStep((int)arg2);
-            var scaleFactor = int.Parse(txbScale.Text);
+                MarkTimeStep((int)arg2);
+                var scaleFactor = int.Parse(txbScale.Text);
+            if (richTextBox.SelectedText != string.Empty)
+            {
+                var time = Convert.ToSingle(richTextBox.SelectedText);
+                ShowResultEvent(this, new ShowResultEventArgs(time, scaleFactor));
+            }
+            else
+                player.StopChecking();
 
-            var times = resItems[cmbResultNames.SelectedItem.ToString()];
-            
-            ShowResultEvent(this, new ShowResultEventArgs(cmbResultNames.SelectedItem.ToString(), times[(int)arg2], scaleFactor));
+
 
             //if (MakeGifAnimation)
             //    SaveScreenShotEvent($@"screenShot_{arg2}");
@@ -184,15 +161,12 @@ namespace BaseModule.Results.Animation
 
         private void playerControl_StartCheckingEvent(object obj)
         {
-            //PlayResults(false);
-            player.SpeedValue = int.Parse(txbDelayTime.Text);
+                player.SpeedValue = int.Parse(txbDelayTime.Text);
 
-            var times = resItems[cmbResultNames.SelectedItem.ToString()];
-
-            if (times.Count() > 1)
-                player.StopValue = times.Count() - 1;
-            else if (times.Count() == 1)
-                player.StartValue = 0;
+                if (richTextBox.Lines.Length > 1)
+                    player.StopValue = richTextBox.Lines.Length - 1;
+                else if (richTextBox.Lines.Length == 1)
+                    player.StartValue = 0;
         }
 
         private void playerControl_StopCheckingEvent(object obj)
