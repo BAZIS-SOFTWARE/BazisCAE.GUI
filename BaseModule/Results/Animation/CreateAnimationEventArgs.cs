@@ -14,15 +14,11 @@ namespace BaseModule.Results.Animation
 
         public int ScaleFactor { get; }
 
-        public CreateAnimationEventArgs(string resltsKind, float[] times,int scaleFactor, bool deleteTempImages, int delayTime)
+        public CreateAnimationEventArgs(float[] times,int scaleFactor, bool deleteTempImages, int delayTime)
         {
-            if (resltsKind == "")
-                throw new Exception("Выберите результаты");
-
             Times = times;
-
             ScaleFactor = scaleFactor;
-            ResltsKind = resltsKind;
+
             DeleteTempImages = deleteTempImages;
             DelayTime = delayTime;
         }

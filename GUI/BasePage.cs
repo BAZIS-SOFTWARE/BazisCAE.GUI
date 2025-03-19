@@ -219,8 +219,8 @@ namespace BazisGUI
 
             while (true)
             {
-                var objType = Converters.ConvertToObjsType(scenePage.SelectedObjects);
-                var res = SelectObjectAsync(objType);
+                //var objType = Converters.ConvertToObjsType(scenePage.SelectedObjects);
+                var res = SelectObjectAsync(ObjType.Узел);
                 await res;
 
                 if (res.Result is IPoint node)

@@ -81,7 +81,7 @@ namespace BazisGUI
             ComponentsPainter.Font = this.Font;
             ComponentsPainter.ScreenDPI = this.DeviceDpi;
 
-            
+            resultsMenuItem.DropDown.Closing += DropDown_Closing;
 
             tableLayoutPanel.BringToFront();
             GetServerConnection();
@@ -114,7 +114,7 @@ namespace BazisGUI
                     if(project == null)
                         throw new Exception($"Для загрузки результатов требуется сперва загрузить проект");
 
-                    project.ResultData.Load(fullPath);
+                    project.ResultDB = fullPath;
                 }
                 if (args.Contains("-cad"))
                 {
@@ -146,6 +146,14 @@ namespace BazisGUI
             }
 
 
+        }
+
+        private void DropDown_Closing(object sender, ToolStripDropDownClosingEventArgs e)
+        {
+            if (e.CloseReason == ToolStripDropDownCloseReason.ItemClicked)
+            {
+                e.Cancel = true;
+            }
         }
 
         private void GetServerConnection()
@@ -214,48 +222,6 @@ namespace BazisGUI
                 StopServerPing();
                 serverConnection?.RequestServer(moduleName + " Отдать");
             //}
-        }
-
-        private async void ResultModule_LoadResultsEvent(object sender, string fileName, bool mergeRes, bool addRes)
-        {
-
-            var dbExtension = System.IO.Path.GetExtension(fileName);
-            var pureFileName = System.IO.Path.GetFileNameWithoutExtension(fileName);
-
-            if (dbExtension == ".db")
-                project.ResultData.Loader = new LoadResultsFileDB();
-            else
-                project.ResultData.Loader = new LoadResultsFileBrfTextFormat();
-
-            var resultModule = sender as ResultsPage;
-
-            Enabled = false;
-            if (!addRes)
-                project.ResultData.Clear();
-
-            var res = resultModule.LoadResultsAsync(fileName, project.ResultData);
-            await res;
-
-            if (mergeRes)
-                await resultModule.MergeResults();
-
-            Enabled = true;
-
-            project.ResultData.AddRange(res.Result);
-
-            var pAnPage = (PinnedAnimationControl)resultModule.EmbeddedControls.Find("pinnedAnimationControl", false)[0];
-
-            var anPage = pAnPage.AnimationPage;
-
-            if (!addRes)
-                anPage.ClearResultsItems();
-
-            var resDic = resultModule.CreateResultsDic();
-            if (resDic.Count != 0)
-            {
-                anPage.SetResultsItems(resDic);
-                anPage.ShowResultsTimeSteps(resDic.First().Key);
-            }       
         }
 
         private void SetModule(string moduleName)
@@ -405,8 +371,7 @@ namespace BazisGUI
                 resultsMenuItem.Visible = true;
                 var resPage = new ResultsPage() { Dock = DockStyle.Fill, Name = moduleName};
                 resPage.SetResultsController(resultsController);
-                resPage.SetResultData(project.ResultData);
-                resPage.LoadResultsEvent += ResultModule_LoadResultsEvent;
+                resPage.PresentResultsInfo(project.ResultDB);
                 return resPage;
             }
 
@@ -1106,27 +1071,25 @@ namespace BazisGUI
             else module.EmbeddedSplitContainer.Panel2Collapsed = true;
         }
 
-        private void addResultsMenuItem_Click(object sender, EventArgs e)
-        {
-            var module = (ResultsPage)ModulePage;
-            module.ShowOpenResultsFileDialog(true);
-        }
-
         private void loadResultsMenuItem_Click(object sender, EventArgs e)
         {
+            var fileName = dataController.OpenResults();
+
+            project.ResultDB = fileName;
+
             var module = (ResultsPage)ModulePage;
-            module.ShowOpenResultsFileDialog(false);
+            module.PresentResultsInfo(project.ResultDB);
         }
 
-        private void showValueMenuItem_Click(object sender, EventArgs e)
+        private void showNodeValueMenuItem_Click(object sender, EventArgs e)
         {
             var module = (ResultsPage)ModulePage;
 
-            if (showValueMenuItem.Checked)
-                module.IsResultsValueShowen = true;
+            if (showNodeValueMenuItem.Checked)
+                module.ShowNodeResultsValue = true;
             else
             {
-                module.IsResultsValueShowen = false;
+                module.ShowNodeResultsValue = false;
                 module.BasePage.ScenePage.SceneControl.HideDisplayText3D();
                 module.BasePage.ScenePage.SceneControl.DisplayObjects();
             }
@@ -1136,8 +1099,12 @@ namespace BazisGUI
         {
             var module = (ResultsPage)ModulePage;
 
-            if (module.EmbeddedSplitContainer.Panel2Collapsed == true)
-                module.ShowAnimation();
+            if (createFieldMenuItem.Checked)
+                module.ShowResultsField = true;
+            else
+            {
+                module.ShowResultsField = false;
+            }
         }
 
         private void createPlotMenuItem_Click(object sender, EventArgs e)
@@ -1232,6 +1199,40 @@ namespace BazisGUI
             {
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
+        }
+
+        private void показатьЗначенияВЭлементахToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (ResultsPage)ModulePage;
+
+            if (показатьЗначенияВЭлементахToolStripMenuItem.Checked)
+                module.ShowElementsResultsValue = true;
+            else
+            {
+                module.ShowElementsResultsValue = false;
+                module.BasePage.ScenePage.SceneControl.HideDisplayText3D();
+                module.BasePage.ScenePage.SceneControl.DisplayObjects();
+            }
+        }
+
+        private void усреднитьРезультатыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (ResultsPage)ModulePage;
+
+            if (усреднитьРезультатыToolStripMenuItem.Checked)
+                module.MergeResultsValue = true;
+            else
+            {
+                module.MergeResultsValue = false;
+            }
+        }
+
+        private void показатьВремяToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var module = (ResultsPage)ModulePage;
+
+            if (module.EmbeddedSplitContainer.Panel2Collapsed == true)
+                module.ShowAnimation();
         }
     }
 }

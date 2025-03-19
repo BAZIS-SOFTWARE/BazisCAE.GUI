@@ -34,12 +34,12 @@ namespace BazisGUI
         private void InitializeComponent()
         {
             this.splitContainerEx = new UserControlsEx.SplitContainerEx();
-            this.basePage = new BasePage();
-            this.pinnedMeshGenControl = new global::BaseModule.Mesh.PinnedMeshGenControl();
-            this.pinnedAnimationControl = new global::BaseModule.Results.Animation.PinnedAnimationControl();
-            this.pinnedWAdvControl = new PinnedWAdvControl();
-            this.pinnedHTAdvControl = new global::BaseModule.Tasks.HeatTreatmentModule.PinnedHTAdvControl();
-            this.pinnedCTAdvControl = new global::BaseModule.Tasks.HeatTreatmentModule.PinnedCTAdvControl();
+            this.basePage = new BazisGUI.BasePage();
+            this.pinnedMeshGenControl = new BaseModule.Mesh.PinnedMeshGenControl();
+            this.pinnedAnimationControl = new BaseModule.Results.Animation.PinnedAnimationControl();
+            this.pinnedWAdvControl = new BaseModule.Tasks.WeldingModule.PinnedWAdvControl();
+            this.pinnedHTAdvControl = new BaseModule.Tasks.HeatTreatmentModule.PinnedHTAdvControl();
+            this.pinnedCTAdvControl = new BaseModule.Tasks.HeatTreatmentModule.PinnedCTAdvControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).BeginInit();
             this.splitContainerEx.Panel1.SuspendLayout();
             this.splitContainerEx.Panel2.SuspendLayout();
