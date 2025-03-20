@@ -44,7 +44,7 @@ namespace BaseModule.Results.Export
             nodeNames.AddRange(names);
         }
 
-        public void SetResultKinds(IEnumerable<string> kinds)
+        public void SetTaskKinds(IEnumerable<string> kinds)
         {
             cmbTasksResults.Items.Clear();
             cmbTasksResults.Items.AddRange(kinds.ToArray());
@@ -59,8 +59,7 @@ namespace BaseModule.Results.Export
                 var fbd = new FolderBrowserDialog();
                 if (fbd.ShowDialog() == DialogResult.OK)
                     selectedPath = fbd.SelectedPath;
-                else
-                    return;
+                else return;
 
                 ExportResultEvent(new ExportResultEventArgs(float.Parse(selectedText),
                     cmbTasksResults.SelectedItem.ToString(),
@@ -70,10 +69,7 @@ namespace BaseModule.Results.Export
                     rbElements.Checked ? Objects.Элемент : Objects.Узел,
                     rbGrid.Checked ? ExportType.Grid : ExportType.Results));
             }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void btnSaveBD_Click(object sender, EventArgs e)
@@ -86,15 +82,11 @@ namespace BaseModule.Results.Export
                 
                 if (fbd.ShowDialog() == DialogResult.OK)
                     selectedPath = fbd.SelectedPath;
-                else
-                    return;
+                else return;
 
                 CopyResultDBEvent(new CopyResultDBEventArgs(cmbTasksResults.Text, float.Parse(selectedText), selectedPath));
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void CheckFormBeforeExport()
@@ -127,10 +119,10 @@ namespace BaseModule.Results.Export
         {
             cmbGroupName.Items.Clear();
 
-            if (rbNodes.Checked)
+            if (rbNodes.Checked) 
                 cmbGroupName.Items.AddRange(nodeNames.ToArray());
-            else
-                cmbGroupName.Items.AddRange(elementNames.ToArray());
+
+            else cmbGroupName.Items.AddRange(elementNames.ToArray());
         }
 
         private void richTextBox_MouseClick(object sender, MouseEventArgs e)
@@ -152,15 +144,12 @@ namespace BaseModule.Results.Export
         private void PaintSelectedText(int lineIndex)
         {
             int startFromIndex = richTextBox.GetFirstCharIndexFromLine(lineIndex);
-            //Получаем длину строки
-            int lineLength = richTextBox.Lines[lineIndex].Length;
+            int lineLength = richTextBox.Lines[lineIndex].Length; //Получаем длину строки
 
             richTextBox.SelectAll();
             richTextBox.SelectionBackColor = System.Drawing.Color.White;
-            //Выделяем текст с первого символа строки до конца строки
-            richTextBox.Select(startFromIndex, lineLength);
-            //Устанавливаем выделенному тексту оранжевый фон
-            richTextBox.SelectionBackColor = System.Drawing.Color.Orange;
+            richTextBox.Select(startFromIndex, lineLength); //Выделяем текст с первого символа строки до конца строки
+            richTextBox.SelectionBackColor = System.Drawing.Color.Orange; //Устанавливаем выделенному тексту оранжевый фон
             richTextBox.Select(startFromIndex, 0);
         }
 
@@ -174,7 +163,7 @@ namespace BaseModule.Results.Export
             rbNodes.Checked = true;
 
             cmbExtentionType.Items.Clear();
-            cmbExtentionType.Items.AddRange(new[] { "bpf", "stl-text", "stl-bin" });
+            cmbExtentionType.Items.AddRange(new[] { "bpf2", "stl-text", "stl-bin" });
         }
 
         private void rbResults_Clicked(object sender, EventArgs e)
