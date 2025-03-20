@@ -41,7 +41,6 @@
             this.cmbExtentionType = new System.Windows.Forms.ComboBox();
             this.rbNodes = new System.Windows.Forms.RadioButton();
             this.rbElements = new System.Windows.Forms.RadioButton();
-            this.btnLoadResults = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -115,7 +114,6 @@
             this.tableLayoutPanel1.Controls.Add(this.cmbGroupName, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.rbNodes, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.rbElements, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.btnLoadResults, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
@@ -250,21 +248,6 @@
             this.rbElements.UseVisualStyleBackColor = true;
             this.rbElements.Click += new System.EventHandler(this.rbElements_Clicked);
             // 
-            // btnLoadResults
-            // 
-            this.btnLoadResults.AutoSize = true;
-            this.btnLoadResults.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnLoadResults.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLoadResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnLoadResults.Location = new System.Drawing.Point(7, 323);
-            this.btnLoadResults.Margin = new System.Windows.Forms.Padding(7);
-            this.btnLoadResults.Name = "btnLoadResults";
-            this.btnLoadResults.Size = new System.Drawing.Size(160, 30);
-            this.btnLoadResults.TabIndex = 14;
-            this.btnLoadResults.Text = "Загрузить результаты";
-            this.btnLoadResults.UseVisualStyleBackColor = true;
-            this.btnLoadResults.Click += new System.EventHandler(this.btnLoadResults_Click);
-            // 
             // ExportControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -294,6 +277,5 @@
         private System.Windows.Forms.Button btnSaveBD;
         private System.Windows.Forms.RadioButton rbNodes;
         private System.Windows.Forms.RadioButton rbElements;
-        private System.Windows.Forms.Button btnLoadResults;
     }
 }

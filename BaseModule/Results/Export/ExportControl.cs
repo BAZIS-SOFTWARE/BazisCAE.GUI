@@ -150,7 +150,7 @@ namespace BaseModule.Results.Export
             rbNodes.Checked = true;
 
             cmbExtentionType.Items.Clear();
-            cmbExtentionType.Items.AddRange(new[] { "bpf2", "stl-text", "stl-bin" });
+            cmbExtentionType.Items.AddRange(new[] { "bpf", "stl-text", "stl-bin" });
         }
 
         private void rbResults_Clicked(object sender, EventArgs e)
@@ -177,11 +177,6 @@ namespace BaseModule.Results.Export
             rbElements.Checked = true;
 
             SetGroupNames();
-        }
-
-        private void btnLoadResults_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
