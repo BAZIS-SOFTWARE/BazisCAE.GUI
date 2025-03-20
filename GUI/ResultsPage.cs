@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UserControlsEx.Graph;
@@ -709,6 +710,11 @@ namespace BazisGUI
 
         public void ShowExportResultsPage()
         {
+            if (ResultDbPath.Equals(string.Empty))
+            {
+                BasePage.ConsoleControl.PrintInfo("Не задан путь к БД результатов. Укажите его перед экспортом", Color.Orange);
+                return;
+            }
             // предварительная настройка шкалы
             var scaleItems = GetScaleItems();
             resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems);
@@ -716,41 +722,38 @@ namespace BazisGUI
 
             // инициализация инфраструктуры для работы с результатами
             var loader = new LoadResultsFileDB();
-            var tables = new List<string>();
-            foreach (TreeNode item in BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes)
-                tables.Add(item.Text);
+            var scheme = loader.GetTablesSchemes(ResultDbPath);
+            var nodeNames = scheme.FirstOrDefault(x => x.Key == ResultType.nodes.ToString()).Value;
+            var elemNames = scheme.FirstOrDefault(x => x.Key == ResultType.elements.ToString()).Value;
+            var times = loader.GetValues(ResultDbPath, ResultType.nodes.ToString(), "Time").ToList();
+
+            //var tables = new List<string>();
+            //foreach (TreeNode item in BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes)
+            //    tables.Add(item.Text);
 
             var exportPage = new ExportControl() { Dock = DockStyle.Fill };
             exportPage.ExportResultEvent += (arg) =>
             {
-                var result = loader.GetResult(ResultDbPath, tables, arg.Time);
+                var table = arg.ExportObj == BaseModule.Interfaces.GeneralParams.Objects.Элемент
+                ? new List<string> { ResultType.elements.ToString() }
+                : new List<string> { ResultType.nodes.ToString() };
+                var result = loader.GetResult(ResultDbPath, table, arg.Time);
+
                 if (arg.ExportType == ExportType.Results) ExportResults(result, arg);
                 else ExportGrid(result, arg);
             };
             exportPage.CopyResultDBEvent += (arg) =>
             {
-                var result = loader.GetResult(ResultDbPath, tables, arg.Time);
+                var table = arg.ExportObj == BaseModule.Interfaces.GeneralParams.Objects.Элемент
+                ? new List<string> { ResultType.elements.ToString() }
+                : new List<string> { ResultType.nodes.ToString() };
+                var result = loader.GetResult(ResultDbPath, table, arg.Time);
                 CopyResultDB(result, arg);
             };
 
-            var nodeNames = new List<string>();
-            var elementNames = new List<string>();
-            var resDic = new Dictionary<string, List<float>>();
-            foreach (var resKind in resKinds)
-            {
-                var results = resultData.FindByTaskKind(resKind.ToString());
-
-                nodeNames.AddRange(results.First().GetDataSchema("nodes"));
-                elementNames.AddRange(results.First().GetDataSchema("elements"));
-
-                resDic.Add(resKind.ToString(), new List<float>());
-                resDic[resKind.ToString()] = resultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
-            }
-
-            exportPage.SetResultKinds(resKinds.Select(x => x.ToString()));
-            exportPage.SetResultValues(resDic);
+            exportPage.SetTimes(times);
             exportPage.SetNodeNames(nodeNames);
-            exportPage.SetElementNames(elementNames);
+            exportPage.SetElementNames(elemNames);
 
             var exportForm = new Form()
             {
@@ -774,7 +777,7 @@ namespace BazisGUI
             try
             {
                 var format = args.Extension.Split('-')[0];
-                var formatedPath = $"{args.Path}\\ResultsExport_{args.ResName}_{args.Time}_{args.ExportType}_{args.ExportObj}.{format}";
+                var formatedPath = $"{args.Path}\\ResultsExport_{args.ResName}_{args.Time}_{args.ExportObj}.{format}";
 
                 IEnumerable<IModelObject> objects;
 
@@ -796,7 +799,7 @@ namespace BazisGUI
             try
             {
                 var format = args.Extension.Split('-')[0];
-                var formatedPath = $"{args.Path}\\GridExport_{args.ResName}_{args.Time}_{args.ExportType}_{args.ExportObj}.{format}";
+                var formatedPath = $"{args.Path}\\GridExport_{args.ResName}_{args.Time}_{args.ExportObj}.{format}";
 
                 IEnumerable<ISurfaceElement> elements;
                 if (GeneralData.TaskType == TaskType.Volume)
