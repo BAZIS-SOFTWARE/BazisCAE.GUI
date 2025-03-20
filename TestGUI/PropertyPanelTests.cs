@@ -154,7 +154,7 @@ namespace TestGUI
             TestProvider.ClickByOffset(wd, 275, 0, ClickType.LeftOne);
             TestProvider.ClickByOffset(wd, 0, 0, ClickType.LeftOne);
             var selectedViewMode = new Actions(wd);
-            for (int i = 0; i < indexViewMode; i++)
+            for (int i = indexViewMode - 1; i < indexViewMode; i++)
             {
                 selectedViewMode.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
             }
