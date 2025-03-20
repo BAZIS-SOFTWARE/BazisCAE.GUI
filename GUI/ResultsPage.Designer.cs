@@ -33,7 +33,6 @@
             this.treeNodesImageList = new System.Windows.Forms.ImageList(this.components);
             this.resultsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.скрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.пересчитатьНаУзлыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resultsMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -53,29 +52,21 @@
             this.resultsMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.resultsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.скрытьToolStripMenuItem,
-            this.пересчитатьНаУзлыToolStripMenuItem,
             this.удалитьToolStripMenuItem});
             this.resultsMenuStrip.Name = "resultsMenuStrip";
-            this.resultsMenuStrip.Size = new System.Drawing.Size(191, 70);
+            this.resultsMenuStrip.Size = new System.Drawing.Size(119, 48);
             // 
             // скрытьToolStripMenuItem
             // 
             this.скрытьToolStripMenuItem.Name = "скрытьToolStripMenuItem";
-            this.скрытьToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.скрытьToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.скрытьToolStripMenuItem.Text = "Скрыть";
             this.скрытьToolStripMenuItem.Click += new System.EventHandler(this.скрытьРезультатыToolStripMenuItem_Click);
-            // 
-            // пересчитатьНаУзлыToolStripMenuItem
-            // 
-            this.пересчитатьНаУзлыToolStripMenuItem.Name = "пересчитатьНаУзлыToolStripMenuItem";
-            this.пересчитатьНаУзлыToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.пересчитатьНаУзлыToolStripMenuItem.Text = "Пересчитать на узлы";
-            this.пересчитатьНаУзлыToolStripMenuItem.Click += new System.EventHandler(this.пересчитатьНаУзлыToolStripMenuItem_Click);
             // 
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.удалитьToolStripMenuItem.Text = "Удалить";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
@@ -98,6 +89,5 @@
         private System.Windows.Forms.ContextMenuStrip resultsMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem скрытьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem пересчитатьНаУзлыToolStripMenuItem;
     }
 }

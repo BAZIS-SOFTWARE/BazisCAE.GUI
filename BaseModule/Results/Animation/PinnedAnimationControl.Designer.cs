@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.animationPage = new global::BaseModule.Results.Animation.AnimationPage();
+            this.animationPage = new BaseModule.Results.Animation.AnimationPage();
             this.SuspendLayout();
             // 
             // animationPage
@@ -48,7 +48,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.Controls.Add(this.animationPage);
-            this.HeaderName = "Анимация результатов";
+            this.HeaderName = "Время";
             this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.Name = "PinnedAnimationControl";
             this.Size = new System.Drawing.Size(325, 554);

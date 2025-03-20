@@ -1,4 +1,5 @@
 ﻿using BaseModule.Navigator;
+using BaseModule.Results.GraphCreation;
 using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
 using Model;
 using Model.Interfaces;
@@ -17,6 +18,16 @@ namespace BazisGUI.Utilities
 {
     public static class Converters
     {
+        public static string ConvertToDBTablesNames(GraphObjects graphObjects)
+        {
+            switch (graphObjects)
+            {
+                case GraphObjects.Узел:
+                    return "nodes";
+                default:
+                    return "elements";
+            }
+        }
         public static ObjType ConvertToObjsType(Objects objects)
         {
             switch (objects)

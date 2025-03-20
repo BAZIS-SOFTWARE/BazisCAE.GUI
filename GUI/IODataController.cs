@@ -1,4 +1,5 @@
 ﻿using BaseModule.Utilities;
+using BasicControls.OpenFileDialogEx;
 using BazisGUI.SettingsControls;
 using GmshApi.GmshController;
 using Model;
@@ -242,28 +243,6 @@ namespace BazisGUI
             mbf.Close();
         }
 
-        public async Task LoadResultsAsync(ResultData results, string fullPath)
-        {
-            MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
-            { Dock = DockStyle.Fill };
-            var mbf = CreateMessageBoxExForm(mb);
-            mbf.Show();
-            await Task.Run(new Action(() =>
-            {
-
-                results.Loader.LoadEvent += (ar1, ar2) =>
-                {
-                    mb.Invoke(new Action(() =>
-                    {
-                        mb.Message = ar2.Message;
-                    }));
-                };
-                results.Load(fullPath);
-
-            }));
-            mbf.Close();
-        }
-
         public Form CreateMessageBoxExForm(MessageBoxEx.MessageBoxEx mb)
         {
             var mbf = new Form()
@@ -298,7 +277,7 @@ namespace BazisGUI
                 project.ModelData.Loader = new LoadModelFromBPF2TextFile();
 
             project.TaskData = new TaskData();
-            project.ResultData = new ResultData();
+            project.ResultDB = string.Empty;
 
             project.Loader = new LoadProjectFromTextFormat();
             project.Saver = new SaveProjectTextFormat();
@@ -343,6 +322,21 @@ namespace BazisGUI
 
             return project;
 
+        }
+
+        public string OpenResults()
+        {
+            var openDialog = new OpenFileDialog();
+
+            openDialog.InitialDirectory = Path.GetFullPath(System.Windows.Forms.Application.ExecutablePath);
+            openDialog.AddExtension = true;
+
+            openDialog.Filter = "Results files (*.db)|*.db";
+
+            if (openDialog.ShowDialog() == DialogResult.Cancel)
+                return string.Empty;
+
+            return openDialog.FileName;
         }
     }
 }

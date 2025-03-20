@@ -31,7 +31,6 @@
             this.layOutGraph = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.richTextBox = new System.Windows.Forms.RichTextBox();
-            this.comboBox = new System.Windows.Forms.ComboBox();
             this.btnCreatePlot = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -76,7 +75,6 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.richTextBox);
-            this.panel1.Controls.Add(this.comboBox);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(418, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
@@ -91,26 +89,13 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.richTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox.Enabled = false;
-            this.richTextBox.Location = new System.Drawing.Point(7, 44);
-            this.richTextBox.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.richTextBox.Location = new System.Drawing.Point(7, 4);
+            this.richTextBox.Margin = new System.Windows.Forms.Padding(7, 4, 7, 0);
             this.richTextBox.Name = "richTextBox";
-            this.richTextBox.Size = new System.Drawing.Size(119, 376);
+            this.richTextBox.Size = new System.Drawing.Size(119, 416);
             this.richTextBox.TabIndex = 1;
             this.richTextBox.Text = "";
             this.richTextBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.richTextBox_MouseClick);
-            // 
-            // comboBox
-            // 
-            this.comboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox.Enabled = false;
-            this.comboBox.FormattingEnabled = true;
-            this.comboBox.Location = new System.Drawing.Point(7, 8);
-            this.comboBox.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
-            this.comboBox.Name = "comboBox";
-            this.comboBox.Size = new System.Drawing.Size(119, 21);
-            this.comboBox.TabIndex = 0;
-            this.comboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
             // btnCreatePlot
             // 
@@ -223,7 +208,7 @@
             this.groupBox2.Size = new System.Drawing.Size(410, 223);
             this.groupBox2.TabIndex = 51;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Тип элементов";
+            this.groupBox2.Text = "Тип объектов";
             // 
             // tableLayoutPanel2
             // 
@@ -231,7 +216,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.99338F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.00662F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 87F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 111F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 112F));
             this.tableLayoutPanel2.Controls.Add(this.rbtNodes, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label6, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.rbtElements, 2, 0);
@@ -251,7 +236,7 @@
             this.rbtNodes.AutoSize = true;
             this.rbtNodes.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.rbtNodes.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtNodes.Location = new System.Drawing.Point(90, 94);
+            this.rbtNodes.Location = new System.Drawing.Point(89, 94);
             this.rbtNodes.Margin = new System.Windows.Forms.Padding(0);
             this.rbtNodes.Name = "rbtNodes";
             this.rbtNodes.Size = new System.Drawing.Size(14, 13);
@@ -263,7 +248,7 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(104, 94);
+            this.label6.Location = new System.Drawing.Point(103, 94);
             this.label6.Margin = new System.Windows.Forms.Padding(0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 13);
@@ -276,7 +261,7 @@
             this.rbtElements.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.rbtElements.AutoSize = true;
             this.rbtElements.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.rbtElements.Location = new System.Drawing.Point(276, 94);
+            this.rbtElements.Location = new System.Drawing.Point(275, 94);
             this.rbtElements.Margin = new System.Windows.Forms.Padding(0);
             this.rbtElements.Name = "rbtElements";
             this.rbtElements.Size = new System.Drawing.Size(14, 13);
@@ -287,7 +272,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(290, 94);
+            this.label3.Location = new System.Drawing.Point(289, 94);
             this.label3.Margin = new System.Windows.Forms.Padding(0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 13);
@@ -322,7 +307,6 @@
         private System.Windows.Forms.Button btnCreatePlot;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RichTextBox richTextBox;
-        private System.Windows.Forms.ComboBox comboBox;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.RadioButton rbtNodes;

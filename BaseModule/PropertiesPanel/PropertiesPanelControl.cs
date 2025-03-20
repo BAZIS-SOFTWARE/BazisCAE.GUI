@@ -77,6 +77,7 @@ namespace BaseModule.PropertiesPanel
             {
                 var row = new DataGridViewRow();
                 row.Cells.Add(new DataGridViewTextBoxCell { Value = prop.Header }); // Имя свойства
+
                 var cell = prop.Initialization();// Создаем ячейку нужного типа через Initialization
                 cell.Value = prop.Value.ToString();
                 row.Cells.Add(cell);

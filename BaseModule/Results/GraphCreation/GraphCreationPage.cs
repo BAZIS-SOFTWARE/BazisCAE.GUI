@@ -8,9 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static BaseModule.Interfaces.GeneralParams;
+using System.Numerics;
 
 namespace BaseModule.Results.GraphCreation
 {
+    public enum GraphObjects : int { Узел, Элемент }
     public partial class GraphCreationPage : UserControl
     {
         public event Action<object, CreateTimeGraphArgs> CreateTimeGraphEvent;
@@ -22,17 +24,19 @@ namespace BaseModule.Results.GraphCreation
             InitializeComponent();
         }
 
-        Dictionary<string, List<float>> resItems;
         private int lineIndex;
 
-        public void SetResultsItems(Dictionary<string, List<float>> resItems)
+        public void SetResultsItems(List<float> times)
         {
-            foreach (var item in resItems.Keys)
-            {
-                comboBox.Items.Add(item);
-            }
+            richTextBox.Clear();
 
-            this.resItems = resItems;
+            for (int i = 0; i < times.Count; i++)
+            {
+                if (i == times.Count - 1)
+                    richTextBox.AppendText($"{times[i]}");
+                else
+                    richTextBox.AppendText($"{times[i]}\n");
+            }
         }
 
         private void btnCreatePlot_Click(object sender, EventArgs e)
@@ -49,19 +53,11 @@ namespace BaseModule.Results.GraphCreation
                 return;
             }
 
-            if (comboBox.SelectedItem == null)
-            {
-                MessageBox.Show("Выберите тип задачи!");
-                return;
-            }
-
-            var resKind = comboBox.SelectedItem.ToString();
-
             if (rbtTime.Checked)
             {
                 if (rbtNodes.Checked)
-                    CreateTimeGraphEvent(this, new CreateTimeGraphArgs(Objects.Узел, resKind));
-                else CreateTimeGraphEvent(this, new CreateTimeGraphArgs(Objects.Элемент, resKind));
+                    CreateTimeGraphEvent(this, new CreateTimeGraphArgs(GraphObjects.Узел));
+                else CreateTimeGraphEvent(this, new CreateTimeGraphArgs(GraphObjects.Элемент));
             }
             else
             {
@@ -69,8 +65,8 @@ namespace BaseModule.Results.GraphCreation
                 {
                     var time = float.Parse(richTextBox.Lines[lineIndex]);
                     if (rbtNodes.Checked)
-                        CreatePathGraphEvent(this, new CreatePathGraphEventArgs(Objects.Узел, resKind, time));
-                    else CreatePathGraphEvent(this, new CreatePathGraphEventArgs(Objects.Элемент, resKind, time));
+                        CreatePathGraphEvent(this, new CreatePathGraphEventArgs(GraphObjects.Узел, time));
+                    else CreatePathGraphEvent(this, new CreatePathGraphEventArgs(GraphObjects.Элемент, time));
                 }
             }
         }
@@ -94,7 +90,6 @@ namespace BaseModule.Results.GraphCreation
         {
             if (rbtPath.Checked)
             {
-                comboBox.Enabled = true;
                 richTextBox.Enabled = true;
             }
 
@@ -104,21 +99,9 @@ namespace BaseModule.Results.GraphCreation
         {
             if (rbtTime.Checked)
             {
-                comboBox.Enabled = true;
                 richTextBox.Enabled = false;
             }
 
-        }
-
-        private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var times = resItems[comboBox.SelectedItem.ToString()];
-
-            richTextBox.Clear();
-            foreach (var time in times)
-                richTextBox.AppendText($"{time}\n");
-
-            SelectResultsEvent?.Invoke(comboBox.SelectedItem.ToString());        
         }
 
         private void richTextBox_MouseClick(object sender, MouseEventArgs e)
