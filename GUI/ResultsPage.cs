@@ -712,9 +712,17 @@ namespace BazisGUI
         {
             if (ResultDbPath.Equals(string.Empty))
             {
-                BasePage.ConsoleControl.PrintInfo("Не задан путь к БД результатов. Укажите его перед экспортом", Color.Orange);
-                return;
+                var openDialog = new OpenFileDialog
+                {
+                    InitialDirectory = Path.GetFullPath(System.Windows.Forms.Application.ExecutablePath),
+                    AddExtension = true,
+                    Filter = "Results files (*.db)|*.db"
+                };
+
+                if (openDialog.ShowDialog() == DialogResult.Cancel) return;
+                else ResultDbPath = openDialog.FileName;
             }
+
             // предварительная настройка шкалы
             var scaleItems = GetScaleItems();
             resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems);
@@ -727,28 +735,31 @@ namespace BazisGUI
             var elemNames = scheme.FirstOrDefault(x => x.Key == ResultType.elements.ToString()).Value;
             var times = loader.GetValues(ResultDbPath, ResultType.nodes.ToString(), "Time").ToList();
 
-            //var tables = new List<string>();
-            //foreach (TreeNode item in BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes)
-            //    tables.Add(item.Text);
-
             var exportPage = new ExportControl() { Dock = DockStyle.Fill };
-            exportPage.ExportResultEvent += (arg) =>
+            exportPage.ExportResultEvent += async (arg) =>
             {
-                var table = arg.ExportObj == BaseModule.Interfaces.GeneralParams.Objects.Элемент
-                ? new List<string> { ResultType.elements.ToString() }
-                : new List<string> { ResultType.nodes.ToString() };
-                var result = loader.GetResult(ResultDbPath, table, arg.Time);
+                var result = await Task.Run(() =>
+                {
+                    var table = arg.ExportObj == BaseModule.Interfaces.GeneralParams.Objects.Элемент
+                        ? new List<string> { ResultType.elements.ToString() }
+                        : new List<string> { ResultType.nodes.ToString() };
+                    return loader.GetResult(ResultDbPath, table, arg.Time);
+                });
 
-                if (arg.ExportType == ExportType.Results) ExportResults(result, arg);
-                else ExportGrid(result, arg);
+                if (arg.ExportType == ExportType.Results) ExportResultsAsync(result, arg);
+                else ExportGridAsync(result, arg);
             };
-            exportPage.CopyResultDBEvent += (arg) =>
+            exportPage.CopyResultDBEvent += async (arg) =>
             {
-                var table = arg.ExportObj == BaseModule.Interfaces.GeneralParams.Objects.Элемент
-                ? new List<string> { ResultType.elements.ToString() }
-                : new List<string> { ResultType.nodes.ToString() };
-                var result = loader.GetResult(ResultDbPath, table, arg.Time);
-                CopyResultDB(result, arg);
+                var result = await Task.Run(() =>
+                {
+                    var table = arg.ExportObj == BaseModule.Interfaces.GeneralParams.Objects.Элемент
+                        ? new List<string> { ResultType.elements.ToString() }
+                        : new List<string> { ResultType.nodes.ToString() };
+                    return loader.GetResult(ResultDbPath, table, arg.Time);
+                });
+                
+                CopyResultDBAsync(result, arg);
             };
 
             exportPage.SetTimes(times);
@@ -772,54 +783,66 @@ namespace BazisGUI
             exportForm.Show();
         }
 
-        private void ExportResults(Result result, ExportResultEventArgs args)
+        private async void ExportResultsAsync(Result result, ExportResultEventArgs args)
         {
             try
             {
                 var format = args.Extension.Split('-')[0];
                 var formatedPath = $"{args.Path}\\ResultsExport_{args.ResName}_{args.Time}_{args.ExportObj}.{format}";
 
-                IEnumerable<IModelObject> objects;
+                await Task.Run(() =>
+                {
+                    IEnumerable<IModelObject> objects;
 
-                var objTypes = Converters.ConvertToObjsType(args.ExportObj);
+                    var objTypes = Converters.ConvertToObjsType(args.ExportObj);
 
-                if (objTypes == ObjType.Узел)
-                    objects = ModelData.ObjectData.NodesSet.Values;
-                else
-                    objects = ModelData.ObjectData.GetAllElements();
+                    if (objTypes == ObjType.Узел)
+                        objects = ModelData.ObjectData.NodesSet.Values;
+                    else
+                        objects = ModelData.ObjectData.GetAllElements();
 
-                resultsController.ResultsExporter.ExportObjectsResults(objects, result, args.ResName, formatedPath, format);
+                    resultsController.ResultsExporter.ExportObjectsResults(objects, result, args.ResName, formatedPath, format);
+                });
+                
                 BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
             }
             catch (Exception ex) { BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red); }
         }
 
-        private void ExportGrid(Result result, ExportResultEventArgs args)
+        private async void ExportGridAsync(Result result, ExportResultEventArgs args)
         {
             try
             {
                 var format = args.Extension.Split('-')[0];
                 var formatedPath = $"{args.Path}\\GridExport_{args.ResName}_{args.Time}_{args.ExportObj}.{format}";
 
-                IEnumerable<ISurfaceElement> elements;
-                if (GeneralData.TaskType == TaskType.Volume)
-                    elements = ModelData.ObjectData.E3DCollection.GetObjects();
-                else
-                    elements = ModelData.ObjectData.E2DCollection.GetObjects();
+                await Task.Run(() =>
+                {
+                    IEnumerable<ISurfaceElement> elements;
+                    if (GeneralData.TaskType == TaskType.Volume)
+                        elements = ModelData.ObjectData.E3DCollection.GetObjects();
+                    else
+                        elements = ModelData.ObjectData.E2DCollection.GetObjects();
 
-                var figures = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result,
-                    ResultType.nodes.ToString(), args.ResName, elements);
-
-                resultsController.GridExporter.ExportGridSurfaces(figures, formatedPath, $".{args.Extension}");
+                    var figures = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result,
+                        ResultType.nodes.ToString(), args.ResName, elements);
+                    resultsController.GridExporter.ExportGridSurfaces(figures, formatedPath, $".{args.Extension}");
+                });
+                
                 BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
             }
             catch (Exception ex) { BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red); }
         }
 
-        private void CopyResultDB(Result result, CopyResultDBEventArgs args)
+        private async void CopyResultDBAsync(Result result, CopyResultDBEventArgs args)
         {
-            var saver = new SaveResultsFileDb();
-            saver.Save(new List<Result>() { result}, args.DirPath + "\\temp.db", false);
+            var path = args.DirPath + "\\temp.db";
+            await Task.Run(() => 
+            { 
+                var saver = new SaveResultsFileDb(); 
+                saver.Save(new List<Result>() { result }, path, false); 
+            });
+            BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {path}", Color.Black);
         }
     }   
 }
