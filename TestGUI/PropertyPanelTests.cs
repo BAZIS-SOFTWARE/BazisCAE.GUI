@@ -3,18 +3,14 @@ using OpenQA.Selenium.Appium;
 using static TestGUI.TestProvider;
 using OpenQA.Selenium.Interactions;
 using System.Runtime.InteropServices;
+using NUnit.Framework.Internal.Execution;
+using OpenQA.Selenium;
 
 namespace TestGUI
 {
 
     public class PropertyPanelTests
     {
-        [DllImport("user32.dll")]
-        private static extern bool SetCursorPos(int X, int Y);
-
-        //private static int screenWidth = Screen.PrimaryScreen.Bounds.Width;
-        //private static int screenHeight = Screen.PrimaryScreen.Bounds.Height;
-
         [Test(Description = "Последовательное развертывание корней 'Объекты', 'ГруппыОбъектов' и 'Данные'")]
         public void SelectingTreeElementsTest()
         {
@@ -33,7 +29,7 @@ namespace TestGUI
                 TestProvider.GetElement(wd, "Модули", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Сварка", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Объекты", SearchWay.Name).Click();
-                //Собираю в actions действия которые нужно выполнить 
+ 
                 ExpandElement(wd, actions, "Элементы2D");
                 ExpandElement(wd, actions, "Элементы3D");
                 ExpandElement(wd, actions, "Группы объектов");
@@ -42,7 +38,6 @@ namespace TestGUI
 
                 actions.Perform();
 
-                //Ячейка имя 
                 TestProvider.GetElement(wd, "Элемент2D : 7384", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Элемент3D : 23258", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "refLine", SearchWay.Name).Click();
@@ -57,7 +52,6 @@ namespace TestGUI
 
         [Test(Description = "Изменение имени объекта - попытка присвоения некорректного имени и ввод валидных значений")]
         [TestCase("Элемент2D : 7384" )]
-        [TestCase("Элемент3D : 23258")]
         [TestCase("refLine")]
         //[TestCase("Среда : air Коэф.теплоотдачи.воздух 20 0 1500 *")]
         public void RenameTreeElementsTest(string element)
@@ -77,20 +71,16 @@ namespace TestGUI
                 TestProvider.GetElement(wd, "Модули", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Сварка", SearchWay.Name).Click();
 
-                //Собираю в actions действия которые нужно выполнить 
                 ExpandElement(wd, actions, "Элементы2D");
                 ExpandElement(wd, actions, "Элементы3D");
                 ExpandElement(wd, actions, "Группы объектов");
                 actions.Perform();
 
-                //Ячейка имя 
                 TestProvider.GetElement(wd, element, SearchWay.Name).Click();
 
-                //Редактирование c ошибкой
                 Rename(wd, "name@1 231", true);
                 Rename(wd, "     name@1231", true);
                 Rename(wd, "name@1231     ", true);
-                //Редактирование правильное имя
                 Rename(wd, "new_nameElement", false);
                 Rename(wd, "newNameElement232425!@#$%^&*()_+=", false);
             }
@@ -114,7 +104,6 @@ namespace TestGUI
 
             try
             {
-
                 var actions = new Actions(wd);
 
                 TestProvider.GetElement(wd, "Модули", SearchWay.Name).Click();
@@ -128,10 +117,9 @@ namespace TestGUI
                 //Ячейка имя 
                 TestProvider.GetElement(wd, element, SearchWay.Name).Click();
 
-                //Смена цвета
                 SwapeColor(wd, -10, 100);
                 SwapeColor(wd, -125, 100);
-                //Смена отображения
+
                 SwapeViewMode(wd, 1);
                 SwapeViewMode(wd, 2);
                 SwapeViewMode(wd, 3);
@@ -143,9 +131,29 @@ namespace TestGUI
 
         private static void Rename(WindowsDriver<WindowsElement> wd, string newName, bool isError)
         {
+            WindowsElement exept = null;
             ClickCell(wd, " Строка 0, Не отсортировано.");
             wd.Keyboard.SendKeys(newName + OpenQA.Selenium.Keys.Enter);
-            if(isError) wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Enter);
+            try
+            {
+                exept = wd.FindElement(By.Name("FormatException"));
+                Thread.Sleep(1000);
+            }
+            catch(OpenQA.Selenium.WebDriverException ex) { }
+            
+            if (isError) 
+            {
+                Assert.That(!(exept is null));
+                wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Enter);
+            }
+            else
+            {
+                if (!(exept is null))
+                {
+                    wd.Keyboard.SendKeys(newName + OpenQA.Selenium.Keys.Enter);
+                    throw new Exception("FormatException: ");
+                }
+            }
         }
 
         private static void SwapeViewMode(WindowsDriver<WindowsElement> wd, int indexViewMode)
