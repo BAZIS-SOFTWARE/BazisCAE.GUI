@@ -6,13 +6,17 @@ using static BaseModule.Interfaces.GeneralParams;
 
 namespace BaseModule.Results.Export
 {
+    public enum ExportType
+    {
+        Grid,
+        Results
+    }
     public partial class ExportControl : UserControl
     {
-        public event Action<string> SelectResultsEvent;
         public event Action<ExportResultEventArgs> ExportResultEvent;
         public event Action<CopyResultDBEventArgs> CopyResultDBEvent;
 
-        private readonly Dictionary<string, List<float>> resultDict;
+        private readonly List<float> times;
         private readonly List<string> nodeNames;
         private readonly List<string> elementNames;
         private string selectedText;
@@ -20,16 +24,16 @@ namespace BaseModule.Results.Export
         public ExportControl()
         {
             InitializeComponent();
-            resultDict = new Dictionary<string, List<float>>();
+            times = new List<float>();
             nodeNames = new List<string>();
             elementNames = new List<string>();
         }
 
-        public void SetResultValues(Dictionary<string, List<float>> _resDic)
+        public void SetTimes(IEnumerable<float> _times)
         {
-            resultDict.Clear();
-            foreach (var key in _resDic.Keys)
-                resultDict.Add(key, _resDic[key]);
+            times.Clear();
+            times.AddRange(_times);
+            richTextBox.Text = string.Join("\n", times);
         }
 
         public void SetElementNames(IEnumerable<string> names)
@@ -42,14 +46,10 @@ namespace BaseModule.Results.Export
         {
             nodeNames.Clear();
             nodeNames.AddRange(names);
-        }
 
-        public void SetTaskKinds(IEnumerable<string> kinds)
-        {
-            cmbTasksResults.Items.Clear();
-            cmbTasksResults.Items.AddRange(kinds.ToArray());
+            cmbGroupName.Items.Clear();
+            cmbGroupName.Items.AddRange(nodeNames.ToArray());
         }
-
         private void btnExport_Click(object sender, EventArgs e)
         {
             try
@@ -62,7 +62,6 @@ namespace BaseModule.Results.Export
                 else return;
 
                 ExportResultEvent(new ExportResultEventArgs(float.Parse(selectedText),
-                    cmbTasksResults.SelectedItem.ToString(),
                     cmbGroupName.SelectedItem.ToString(),
                     selectedPath,
                     cmbExtentionType.SelectedItem.ToString(),
@@ -84,35 +83,26 @@ namespace BaseModule.Results.Export
                     selectedPath = fbd.SelectedPath;
                 else return;
 
-                CopyResultDBEvent(new CopyResultDBEventArgs(cmbTasksResults.Text, float.Parse(selectedText), selectedPath));
+                CopyResultDBEvent(new CopyResultDBEventArgs(float.Parse(selectedText),
+                    selectedPath,
+                    rbElements.Checked ? Objects.Элемент : Objects.Узел));
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void CheckFormBeforeExport()
         {
-            if (selectedText.Equals(string.Empty)
-                || cmbTasksResults.Text.Equals(string.Empty)
-                || cmbGroupName.Text.Equals(string.Empty)
-                || cmbExtentionType.Text.Equals(string.Empty)
+            if (selectedText == null || selectedText.Equals(string.Empty)
+                || cmbGroupName.Text == null || cmbGroupName.Text.Equals(string.Empty)
+                || cmbExtentionType.Text == null || cmbExtentionType.Text.Equals(string.Empty)
                 || (!rbGrid.Checked && !rbResults.Checked))
                 throw new Exception("Перед экспортом результатов необходимо выбрать тип задачи и интервал времени для экспорта результата");
         }
 
         private void CheckFormBeforeDBSave()
         {
-            if (selectedText.Equals(string.Empty) || cmbTasksResults.Text.Equals(string.Empty))
+            if (selectedText == null || selectedText.Equals(string.Empty))
                 throw new Exception("Перед сохранением результата необходимо выбрать временной интервал и задачу");
-        }
-
-        private void cmbTasksResults_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var value = cmbTasksResults.SelectedItem;
-            var rows = resultDict[value.ToString()];
-            foreach (var text in rows)
-                richTextBox.AppendText(text + "\n");
-
-            SelectResultsEvent?.Invoke(value.ToString());
         }
 
         private void SetGroupNames()
@@ -135,22 +125,19 @@ namespace BaseModule.Results.Export
                 PaintSelectedText(lineIndex);
                 selectedText = richTextBox.Lines[lineIndex];
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void PaintSelectedText(int lineIndex)
         {
-            int startFromIndex = richTextBox.GetFirstCharIndexFromLine(lineIndex);
+            int startIndex = richTextBox.GetFirstCharIndexFromLine(lineIndex);
             int lineLength = richTextBox.Lines[lineIndex].Length; //Получаем длину строки
 
             richTextBox.SelectAll();
             richTextBox.SelectionBackColor = System.Drawing.Color.White;
-            richTextBox.Select(startFromIndex, lineLength); //Выделяем текст с первого символа строки до конца строки
+            richTextBox.Select(startIndex, lineLength); //Выделяем текст с первого символа строки до конца строки
             richTextBox.SelectionBackColor = System.Drawing.Color.Orange; //Устанавливаем выделенному тексту оранжевый фон
-            richTextBox.Select(startFromIndex, 0);
+            richTextBox.Select(startIndex, 0);
         }
 
         private void rbGrid_Clicked(object sender, EventArgs e)
