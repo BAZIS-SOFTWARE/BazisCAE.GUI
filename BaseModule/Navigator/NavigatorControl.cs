@@ -80,9 +80,9 @@ namespace BaseModule.Navigator
         public event Action ShowAllObjectsEvent;
         public event Action HideAllObjectsEvent;
 
-        public event Action<string, string> ShowObjectsEvent;
+        public event Action<NodeType, string> ShowObjectsEvent;
         public event Action<string, ViewRegime> ChangeObjectsViewEvent;
-        public event Action<string, string> HideObjectsEvent;
+        public event Action<NodeType, string> HideObjectsEvent;
         public event Action<TreeNode> DelObjectsEvent;
         public event Action DelAllObjectsEvent;
         public event Action ControlCollapseEvent;
@@ -406,7 +406,7 @@ namespace BaseModule.Navigator
             treeView.SelectedNode.ImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
             treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
 
-            ShowObjectsEvent?.Invoke(node.Name, node.Text);
+            ShowObjectsEvent?.Invoke(nodeType, node.Text);
         }
 
         public void ShowAllObjects_Click(object sender, EventArgs e)
@@ -453,12 +453,12 @@ namespace BaseModule.Navigator
             var node = treeView.SelectedNode;
 
             NodeType nodeType;
-            Enum.TryParse(treeView.SelectedNode.Name, out nodeType);
+            Enum.TryParse(node.Name, out nodeType);
 
             treeView.SelectedNode.ImageIndex = ImgDict[nodeType];
             treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType];
 
-            HideObjectsEvent?.Invoke(node.Name, node.Text);
+            HideObjectsEvent?.Invoke(nodeType, node.Text);
         }
 
         public void EditGroup_Click(object sender, EventArgs e)

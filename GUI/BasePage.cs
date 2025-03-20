@@ -215,8 +215,8 @@ namespace BazisGUI
 
             while (true)
             {
-                var objType = Converters.ConvertToObjsType(scenePage.SelectedObjects);
-                var res = SelectObjectAsync(objType);
+                //var objType = Converters.ConvertToObjsType(scenePage.SelectedObjects);
+                var res = SelectObjectAsync(ObjType.Узел);
                 await res;
 
                 if (res.Result is IPoint node)
@@ -614,26 +614,25 @@ namespace BazisGUI
             }
         }
 
-        private void navigator_HideObjectsEvent(string nodeName, string nodeText)
+        private void navigator_HideObjectsEvent(NodeType nodeType, string nodeText)
         {
-            ChangeObjsViewState(nodeName, nodeText, false);
+            ChangeObjsViewState(nodeType, nodeText, false);
         }
 
-        private void ChangeObjsViewState(string objsName, string objsText, bool objsState)
+        private void ChangeObjsViewState(NodeType nodeType, string objsText, bool objsState)
         {
             try
             {
-                ObjType objType;
-                Enum.TryParse(objsName, out objType);
+                var objType = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
 
                 var setName = objsText.Split(':')[0].Replace(" ", "");
 
                 foreach (var modelObject in ModelData.ObjectData.GetObjects(objType, setName))
                     modelObject.ViewState = objsState;
 
-                scenePage.SceneControl.DeleteVBObjects(objsName);
+                scenePage.SceneControl.DeleteVBObjects(objType.ToString());
 
-                scenePage.CreateObjectsOnScene(objsName, scenePage.CreateObjectsPresentor(objType));
+                scenePage.CreateObjectsOnScene(objType.ToString(), scenePage.CreateObjectsPresentor(objType));
                 scenePage.SceneControl.DisplayObjects();
             }
             catch (Exception ex)
@@ -648,7 +647,7 @@ namespace BazisGUI
             scenePage.SceneControl.DisplayObjects();
         }
 
-        private void navigator_ShowObjectsEvent(string nodeName, string nodeText)
+        private void navigator_ShowObjectsEvent(NodeType nodeName, string nodeText)
         {
             ChangeObjsViewState(nodeName, nodeText, true);
         }

@@ -5,13 +5,10 @@ namespace BaseModule.Results.GraphCreation
 {
     public class CreateTimeGraphArgs : EventArgs
     {
-        public CreateTimeGraphArgs(Objects objects, string resKind)
+        public CreateTimeGraphArgs(GraphObjects objects)
         {
             Objects = objects;
-            ResultKind = resKind;
         }
-        public Objects Objects { get; }
-
-        public string ResultKind { get; }
+        public GraphObjects Objects { get; }
     }
 }

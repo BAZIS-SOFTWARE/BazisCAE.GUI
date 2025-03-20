@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using BaseModule.Results.GraphCreation;
+using Model;
 using Model.Interfaces;
 using Project.Tasks;
 using System;
@@ -23,6 +24,17 @@ namespace BazisGUI.Utilities
             {
                 var objType = Converters.ConvertToObjsType(objects);
                 return objectsData.GetObjects(objType);
+            }
+        }
+
+        public static IEnumerable<IModelObject> GraphPageProvider(IObjectsData objectsData, GraphObjects objects)
+        {
+            switch (objects)
+            {
+                case GraphObjects.Узел:
+                    return objectsData.NodesSet.Values;
+                default:
+                    return objectsData.GetAllElements();
             }
         }
     }
