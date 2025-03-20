@@ -178,5 +178,10 @@ namespace BaseModule.Results.Export
 
             SetGroupNames();
         }
+
+        private void btnLoadResults_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
