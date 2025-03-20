@@ -1,34 +1,28 @@
-﻿using System;
+﻿using BaseModule.Console;
+using BaseModule.Console.Events;
+using BaseModule.Navigator;
+using BaseModule.PropertiesPanel;
+using BaseModule.Utilities;
+using BazisGUI.PropertiesPanel;
+using BazisGUI.Utilities;
+using Geometry;
+using Model.Interfaces;
+using Model.Interfaces.MeshObjects;
+using Model.Interfaces.ObjectsCollections;
+using ModelControllerInterfaces;
+using Project.Interfaces;
+using Scene.Interfaces;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Geometry;
-using System.Diagnostics;
-using BaseModule.Console;
-using BaseModule.Console.Events;
-using ModelControllerInterfaces;
-using System.Threading;
-using System.ComponentModel;
-using BaseModule.Utilities;
-using Scene.Interfaces;
 using UserControlsEx;
-using BazisGUI.Utilities;
-using Model.Interfaces;
-using Project.Interfaces;
-using Model.Interfaces.MeshObjects;
-using Model;
-using System.Data.Odbc;
-using Scene;
-using Model.Interfaces.ObjectsCollections;
-using System.Xml.Linq;
-using System.Globalization;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using MathNet.Numerics.Distributions;
-using BazisGUI.PropertiesPanel;
-using BaseModule.Navigator;
 
 namespace BazisGUI
 {
@@ -105,10 +99,12 @@ namespace BazisGUI
             InitializeComponent();
 
             panelProvider = new PropertyPanelProvider();
-            panelProvider.Out += propertiesPanelControl1.HandleDraw;
+            panelProvider.Out += propertiesPanelControl1.DrawTable;
             propertiesPanelControl1.ValidateValue += panelProvider.ValidationData;
             propertiesPanelControl1.OnPropertyUpdate += panelProvider.ValueChanged;
             SplittersController = new SplittersController();
+            panelProvider.OnUpdateObjectNavigator += UpdateNavigator;
+            panelProvider.OnUpdateGroupNavigator += UpdateNavigatorGroup;
         }
 
         public Queue<int> GetSplitters()
@@ -383,8 +379,6 @@ namespace BazisGUI
             navigator.Invalidate();
         }
 
-        
-
         public async void ConsoleControl_InEvent(object arg1, EventArgs arg2)
         {
             try
@@ -458,7 +452,6 @@ namespace BazisGUI
                 Invoke(new Action(() => { consoleControl.PrintInfo(ex.Message, Color.Red); }));
             }
         }
-
 
         private void navigator_DelGroupEvent(TreeNode treeNode)
         {
@@ -941,20 +934,50 @@ namespace BazisGUI
             DeleteObjectsEvent?.Invoke();
         }
 
-        private void navigator_AfterSelectEvent(TreeViewEventArgs e)
+        private void navigator_AfterSelectEvent(TreeNode e, SelectionType select)
         {
-            var setName = e.Node.Text.Split(' ')[0]; // Деление по пробелу перед :
-
-            NodeType nodeType;
-            Enum.TryParse(e.Node.Parent.Text, out nodeType);
-
-            var type = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
-            var sets = ModelData.ObjectData.GetSetsInfo(type);
-            if (sets != null)
+            if(select == SelectionType.Object)
             {
-                var set = sets.First(x => x.Name == setName);
-                panelProvider.DrawPropertyOnPanel(set);
+                var setName = e.Text.Split(' ')[0]; // Деление по пробелу перед :
+                NodeType nodeType;
+                Enum.TryParse(e.Parent.Text, out nodeType);
+                var type = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
+                var sets = ModelData.ObjectData.GetSetsInfo(type);
+
+                if (sets != null)
+                {
+                    var set = sets.First(x => x.Name == setName);
+                    panelProvider.DrawObjectOnPanel(set, e);
+                }
             }
+
+            else if(select == SelectionType.Group)
+            {
+                var setName = e.Text.Split('_')[0];
+                NodeType nodeType;
+                Enum.TryParse(e.Parent.Text, out nodeType);
+                var groups = ModelData.GroupData.First(x => x.Name == e.Text);
+
+                if (groups != null)
+                {
+                    panelProvider.DrawGroupOnPanel(groups, e);
+                }
+            }
+        }
+
+        public void UpdateNavigator(ISetInfo obj, TreeNode nameNode)
+        {
+            var secondPart = nameNode.Text.Split(' ')[1];
+            var thirdPart = nameNode.Text.Split(' ')[2];
+            nameNode.Name = obj.Name;
+            nameNode.Text = obj.Name + " " + secondPart + " " + thirdPart;
+        }
+
+        private void UpdateNavigatorGroup(IGroup group, TreeNode nameNode)
+        {
+            //var secondPart = nameNode.Text.Split('_')[1];
+            nameNode.Name = group.Name;
+            nameNode.Text = group.Name;
         }
     }
 }

@@ -3,17 +3,30 @@ using System.Windows.Forms;
 
 namespace BaseModule.PropertiesPanel
 {
-    public class RowProperty : DataGridViewRow
+    public class RowProperty //: DataGridViewRow // Свойства строки
     {
-        public string Header { get; set; } 
-        public object Value { get; set; } 
-        public Action UpdateValue { get; set; } //Уведомить что значение свойства поменялось
+        public string Header { get; } // Заголовок
+        public object Value { get; set; } // Значение
+        public Func<DataGridViewCell> Initialization { get; } //Возврашает тип ячейки (textbox, combobox)
+        public Func<DataGridViewCell,object> Update { get; } // Логика обновления значения
+        public SequenceType Sequence { get; } //before, after
 
-        public RowProperty(string header, object value, Action updateValue)
+        public RowProperty(string header, object value, Func<DataGridViewCell> initialization, Func<DataGridViewCell, object> update, SequenceType sequence)
         {
             Header = header;
             Value = value;
-            UpdateValue = updateValue;
+            Initialization = initialization;
+            Update = update;
+            Sequence = sequence;
         }
+    }
+
+    /// <summary>
+    /// Последовательность выполнения метода (до, после)
+    /// </summary>
+    public enum SequenceType 
+    {
+        Before,
+        After
     }
 }

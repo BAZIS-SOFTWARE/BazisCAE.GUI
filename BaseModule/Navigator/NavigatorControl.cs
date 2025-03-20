@@ -1,4 +1,5 @@
 ﻿using BaseModule.Interfaces;
+using BaseModule.PropertiesPanel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +24,7 @@ namespace BaseModule.Navigator
         Объемы, 
         Узлы, 
         Элементы1D, 
-        Элементы2D , 
+        Элементы2D, 
         Элементы3D,
         Материал,
         Среда,
@@ -64,7 +65,7 @@ namespace BaseModule.Navigator
 
         public event Action<string> SelectGroupEvent;
 
-        public event Action<TreeViewEventArgs> AfterSelectEvent;
+        public event Action<TreeNode, SelectionType> AfterSelectEvent;
 
         public event Action<TreeNode> DelGroupEvent;
         public event Action DelAllGroupsEvent;
@@ -338,7 +339,6 @@ namespace BaseModule.Navigator
                                     node.Text = node.Text.Replace(oldName, newName);
                             }
                     }
-
                 }
             }
 
@@ -531,7 +531,7 @@ namespace BaseModule.Navigator
         {
             grbNavigator.Invalidate();
         }
-
+        
         private void treeView_Enter(object sender, EventArgs e)
         {
             if (treeView.SelectedNode != null)
@@ -553,7 +553,17 @@ namespace BaseModule.Navigator
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             var node = e.Node;
-            if (node.Parent?.Parent == treeView.Nodes["объекты"]) AfterSelectEvent(new TreeViewEventArgs(node));
+
+            if (node.Parent?.Parent == treeView.Nodes["объекты"])
+            {
+                SelectionType type = SelectionType.Object;
+                AfterSelectEvent(node, type);
+            }
+            else if (node.Parent == treeView.Nodes["группыОбъектов"])
+            {
+                SelectionType type = SelectionType.Group;
+                AfterSelectEvent(node, type);
+            }
         }
     }
 }
