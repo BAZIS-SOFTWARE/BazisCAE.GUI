@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static BaseModule.Interfaces.GeneralParams;
 
 namespace BaseModule.Results.Export
 {
     public class CopyResultDBEventArgs : EventArgs
     {
-        public string TaskKind { get; }
         public float Time { get; }
         public string DirPath { get; }
+        public Objects ExportObj { get; }
 
-        public CopyResultDBEventArgs(string taskKind, float time, string dirPath)
+        public CopyResultDBEventArgs(float time, string dirPath, Objects exportObj)
         {
-            TaskKind = taskKind;
             Time = time;
             DirPath = dirPath;
+            ExportObj = exportObj;
         }
     }
 }
