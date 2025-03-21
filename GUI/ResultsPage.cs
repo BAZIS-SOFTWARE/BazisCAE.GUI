@@ -711,7 +711,10 @@ namespace BazisGUI
         public void ShowExportResultsPage()
         {
             if (ResultDbPath.Equals(string.Empty))
+            {
                 BasePage.ConsoleControl.PrintInfo($"Не указан путь к базе результатов. Загрузите результаты перед экспортом.", Color.Orange);
+                return;
+            }
 
             // предварительная настройка шкалы
             var scaleItems = GetScaleItems();
