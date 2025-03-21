@@ -9,6 +9,7 @@ namespace BaseModule.PropertiesPanel
     public enum SelectionType
     {
         Object,
-        Group
+        Group,
+        ValuableData
     }
 }
