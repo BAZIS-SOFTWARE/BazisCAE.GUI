@@ -711,17 +711,7 @@ namespace BazisGUI
         public void ShowExportResultsPage()
         {
             if (ResultDbPath.Equals(string.Empty))
-            {
-                var openDialog = new OpenFileDialog
-                {
-                    InitialDirectory = Path.GetFullPath(System.Windows.Forms.Application.ExecutablePath),
-                    AddExtension = true,
-                    Filter = "Results files (*.db)|*.db"
-                };
-
-                if (openDialog.ShowDialog() == DialogResult.Cancel) return;
-                else ResultDbPath = openDialog.FileName;
-            }
+                BasePage.ConsoleControl.PrintInfo($"Не указан путь к базе результатов. Загрузите результаты перед экспортом.", Color.Orange);
 
             // предварительная настройка шкалы
             var scaleItems = GetScaleItems();
