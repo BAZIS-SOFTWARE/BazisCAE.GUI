@@ -12,5 +12,4 @@
     <PackageReference Include="Model" Version="4.2.62.17" />
     <PackageReference Include="Project" Version="4.4.3" />
   </ItemGroup>
-
 </Project>
