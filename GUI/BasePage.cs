@@ -9,8 +9,11 @@ using Geometry;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
 using Model.Interfaces.ObjectsCollections;
+using Model.MeshObjects;
 using ModelControllerInterfaces;
+using Project;
 using Project.Interfaces;
+using Project.Interfaces.Tasks;
 using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -89,11 +92,12 @@ namespace BazisGUI
         public event Action CreatedMeshGroupEvent;
         public event Action ChangedGroupNameEvent;
 
+        public event Action<TreeNode, SelectionType> OnValuableDataSelectedEvent;
         IModelController ModelController { get { return scenePage.GetModelController(); } }
 
         IModelData ModelData { get { return ModelController.ModelData; } }
 
-        PropertyPanelProvider panelProvider;
+        public PropertyPanelProvider panelProvider;
         public BasePage()
         {
             InitializeComponent();
@@ -939,8 +943,7 @@ namespace BazisGUI
             if(select == SelectionType.Object)
             {
                 var setName = e.Text.Split(' ')[0]; // Деление по пробелу перед :
-                NodeType nodeType;
-                Enum.TryParse(e.Parent.Text, out nodeType);
+                Enum.TryParse(e.Parent.Text, out NodeType nodeType);
                 var type = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
                 var sets = ModelData.ObjectData.GetSetsInfo(type);
 
@@ -954,14 +957,18 @@ namespace BazisGUI
             else if(select == SelectionType.Group)
             {
                 var setName = e.Text.Split('_')[0];
-                NodeType nodeType;
-                Enum.TryParse(e.Parent.Text, out nodeType);
+                Enum.TryParse(e.Parent.Text, out NodeType nodeType);
                 var groups = ModelData.GroupData.First(x => x.Name == e.Text);
 
                 if (groups != null)
                 {
                     panelProvider.DrawGroupOnPanel(groups, e);
                 }
+            }
+
+            else if(select == SelectionType.ValuableData)
+            {
+                OnValuableDataSelectedEvent?.Invoke(e, select);
             }
         }
 

@@ -74,6 +74,15 @@ namespace BazisGUI
             selectToolStrip.Location = new Point(3, 0);
 
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
+
+            BasePage.OnValuableDataSelectedEvent += BasePage_ValuableEvent;
+        }
+
+        private void BasePage_ValuableEvent(TreeNode arg1, BaseModule.PropertiesPanel.SelectionType arg2)
+        {
+            var setName = arg1.Text.Split(' ')[0]; // Деление по пробелу перед :
+            var groups = taskData.First(x => x.Name == setName);
+            BasePage.panelProvider.DrawValuableOnPanel(groups, arg1);
         }
 
         public void OpenFunctionsDB()

@@ -6,6 +6,11 @@ using System.Windows.Forms;
 using Model.Interfaces;
 using BazisGUI.Utilities;
 using System.Drawing;
+using Project.Interfaces.Tasks;
+using Model;
+using System.Diagnostics;
+using Project.Tasks;
+using System.Security.Claims;
 
 namespace BazisGUI.PropertiesPanel
 {
@@ -17,7 +22,14 @@ namespace BazisGUI.PropertiesPanel
 
         private ISetInfo _selectedObj;
         private IGroup _selectedGroup;
+        private IData _selectedValuableData;
         private TreeNode _selectedNode;
+
+        public void HandleNodeSelected(TreeNode node)
+        {
+            //var valuableData = Project.Tasks.ValuableData.
+        }
+
 
         /// <summary>
         /// Метод для отображения свойств объекта на панели, создавая список свойств, которые можно редактировать.
@@ -80,6 +92,29 @@ namespace BazisGUI.PropertiesPanel
         public void DrawGroupOnPanel(IGroup obj, TreeNode selectedNode) //создание коллекции RowProperty и отправка внутри EventArgs (DrowPropertyOnPanelEventArgs) в PropertyPanel.DataGridView
         {
             _selectedGroup = obj;
+            _selectedNode = selectedNode;
+            List<RowProperty> list = new List<RowProperty>()
+            {
+                new RowProperty("Имя", obj.Name, () => new DataGridViewTextBoxCell(),
+                (cell) =>
+                {
+                    return cell.Value;
+                },
+                SequenceType.After),
+            };
+            Out(new DrowPropertyOnPanelEventArgs(list));
+        }
+
+        public void DrawValuableOnPanel(IData obj, TreeNode selectedNode) //создание коллекции RowProperty и отправка внутри EventArgs (DrowPropertyOnPanelEventArgs) в PropertyPanel.DataGridView
+        {
+            //Mat   - Материал
+            //Med   - Среда
+            //Heat  - Нагрев
+            //Clamp - Закрепление
+            //Load  - Нагрузка
+            var info = obj.GetInfo;
+            Debug.WriteLine($"Строка из GetInfo: {info}");
+            _selectedValuableData = obj;
             _selectedNode = selectedNode;
             List<RowProperty> list = new List<RowProperty>()
             {
