@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UserControlsEx.Graph;
@@ -709,118 +710,132 @@ namespace BazisGUI
 
         public void ShowExportResultsPage()
         {
-            //var scaleItems = GetScaleItems();
+            if (ResultDbPath.Equals(string.Empty))
+            {
+                BasePage.ConsoleControl.PrintInfo($"Не указан путь к базе результатов. Загрузите результаты перед экспортом.", Color.Orange);
+                return;
+            }
 
-            //resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems);
-            //resultsController.ResultsFieldsCreator.ScaleFactor = 1;
+            // предварительная настройка шкалы
+            var scaleItems = GetScaleItems();
+            resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems);
+            resultsController.ResultsFieldsCreator.ScaleFactor = 1;
 
-            //var loader = new LoadResultsFileDB();
+            // инициализация инфраструктуры для работы с результатами
+            var loader = new LoadResultsFileDB();
+            var scheme = loader.GetTablesSchemes(ResultDbPath);
+            var nodeNames = scheme.FirstOrDefault(x => x.Key == ResultType.nodes.ToString()).Value;
+            var elemNames = scheme.FirstOrDefault(x => x.Key == ResultType.elements.ToString()).Value;
+            var times = loader.GetValues(ResultDbPath, ResultType.nodes.ToString(), "Time").ToList();
 
-            //var tables = new List<string>();
-            //foreach (TreeNode item in BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes)
-            //    tables.Add(item.Text);
+            var exportPage = new ExportControl() { Dock = DockStyle.Fill };
+            exportPage.ExportResultEvent += async (arg) =>
+            {
+                var result = await Task.Run(() =>
+                {
+                    var table = arg.ExportObj == BaseModule.Interfaces.GeneralParams.Objects.Элемент
+                        ? new List<string> { ResultType.elements.ToString() }
+                        : new List<string> { ResultType.nodes.ToString() };
+                    return loader.GetResult(ResultDbPath, table, arg.Time);
+                });
 
-            //var exportPage = new ExportControl() { Dock = DockStyle.Fill };
-            //exportPage.ExportResultEvent += (arg) => 
-            //{
+                if (arg.ExportType == ExportType.Results) ExportResultsAsync(result, arg);
+                else ExportGridAsync(result, arg);
+            };
+            exportPage.CopyResultDBEvent += async (arg) =>
+            {
+                var result = await Task.Run(() =>
+                {
+                    var table = arg.ExportObj == BaseModule.Interfaces.GeneralParams.Objects.Элемент
+                        ? new List<string> { ResultType.elements.ToString() }
+                        : new List<string> { ResultType.nodes.ToString() };
+                    return loader.GetResult(ResultDbPath, table, arg.Time);
+                });
                 
-            //    var result = loader.GetResult(ResultDbPath,tables, arg.Time);
-            //    if (arg.ExportType == ExportType.Results)
-            //        ExportResults(result, arg);
-            //    else
-            //        ExportGrid(result, arg);
-            //};
-            //exportPage.CopyResultDBEvent += (arg) =>
-            //{
-            //    var results = resultData.FindByTime(arg.TaskKind, arg.Time);
-            //    CopyResultDB(results, arg);
-            //};
+                CopyResultDBAsync(result, arg);
+            };
 
-            //var nodeNames = new List<string>();
-            //var elementNames = new List<string>();
-            //var resDic = new Dictionary<string, List<float>>();
-            //foreach (var resKind in resKinds)
-            //{
-            //    var results = resultData.FindByTaskKind(resKind.ToString());
+            exportPage.SetTimes(times);
+            exportPage.SetNodeNames(nodeNames);
+            exportPage.SetElementNames(elemNames);
 
-            //    nodeNames.AddRange(results.First().GetDataSchema("nodes"));
-            //    elementNames.AddRange(results.First().GetDataSchema("elements"));
+            var exportForm = new Form()
+            {
+                Owner = Application.OpenForms[0],
+                TopMost = true,
+                Size = exportPage.Size,
+                Name = "export",
+                Text = "Экспорт результатов",
+                ShowIcon = false,
+                ClientSize = exportPage.Size,
+                Location = BasePage.ScenePage.PointToScreen(Point.Empty)
+            };
 
-            //    resDic.Add(resKind.ToString(), new List<float>());
-            //    resDic[resKind.ToString()] = resultData.FindByTaskKind(resKind).Select(x => x.Time).ToList();
-            //}
-
-            //exportPage.SetResultKinds(resKinds.Select(x => x.ToString()));
-            //exportPage.SetResultValues(resDic);
-            //exportPage.SetNodeNames(nodeNames);
-            //exportPage.SetElementNames(elementNames);
-
-            //var exportForm = new Form()
-            //{
-            //    Owner = Application.OpenForms[0],
-            //    TopMost = true,
-            //    Size = exportPage.Size,
-            //    Name = "export",
-            //    Text = "Экспорт результатов",
-            //    ShowIcon = false,
-            //    ClientSize = exportPage.Size
-            //};
-
-            //exportForm.FormClosed += (ar1, ar2) => { exportPage = null; };
-            //exportForm.Controls.Add(exportPage);
-            //exportForm.Show();
-            //var location = BasePage.ScenePage.PointToScreen(Point.Empty);
-            //exportForm.Location = location;
+            exportForm.FormClosed += (ar1, ar2) => { exportPage = null; };
+            exportForm.Controls.Add(exportPage);
+            exportForm.Show();
         }
 
-        private void ExportResults(Result result, ExportResultEventArgs args)
+        private async void ExportResultsAsync(Result result, ExportResultEventArgs args)
         {
             try
             {
                 var format = args.Extension.Split('-')[0];
-                var formatedPath = $"{args.Path}\\ResultsExport_{args.ResName}_{args.Time}_{args.ExportType}_{args.ExportObj}.{format}";
+                var formatedPath = $"{args.Path}\\ResultsExport_{args.ResName}_{args.Time}_{args.ExportObj}.{format}";
 
-                IEnumerable<IModelObject> objects;
+                await Task.Run(() =>
+                {
+                    IEnumerable<IModelObject> objects;
 
-                var objTypes = Converters.ConvertToObjsType(args.ExportObj);
+                    var objTypes = Converters.ConvertToObjsType(args.ExportObj);
 
-                if (objTypes == ObjType.Узел)
-                    objects = ModelData.ObjectData.NodesSet.Values;
-                else
-                    objects = ModelData.ObjectData.GetAllElements();
+                    if (objTypes == ObjType.Узел)
+                        objects = ModelData.ObjectData.NodesSet.Values;
+                    else
+                        objects = ModelData.ObjectData.GetAllElements();
 
-                resultsController.ResultsExporter.ExportObjectsResults(objects, result, args.ResName, formatedPath, format);
+                    resultsController.ResultsExporter.ExportObjectsResults(objects, result, args.ResName, formatedPath, format);
+                });
+                
                 BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
             }
             catch (Exception ex) { BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red); }
         }
 
-        private void ExportGrid(Result result, ExportResultEventArgs args)
+        private async void ExportGridAsync(Result result, ExportResultEventArgs args)
         {
             try
             {
                 var format = args.Extension.Split('-')[0];
-                var formatedPath = $"{args.Path}\\GridExport_{args.ResName}_{args.Time}_{args.ExportType}_{args.ExportObj}.{format}";
+                var formatedPath = $"{args.Path}\\GridExport_{args.ResName}_{args.Time}_{args.ExportObj}.{format}";
 
-                IEnumerable<ISurfaceElement> elements;
-                if (GeneralData.TaskType == TaskType.Volume)
-                    elements = ModelData.ObjectData.E3DCollection.GetObjects();
-                else
-                    elements = ModelData.ObjectData.E2DCollection.GetObjects();
+                await Task.Run(() =>
+                {
+                    IEnumerable<ISurfaceElement> elements;
+                    if (GeneralData.TaskType == TaskType.Volume)
+                        elements = ModelData.ObjectData.E3DCollection.GetObjects();
+                    else
+                        elements = ModelData.ObjectData.E2DCollection.GetObjects();
 
-                var figures = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result,
-                    ResultType.nodes.ToString(), args.ResName, elements);
-
-                resultsController.GridExporter.ExportGridSurfaces(figures, formatedPath, $".{args.Extension}");
+                    var figures = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result,
+                        ResultType.nodes.ToString(), args.ResName, elements);
+                    resultsController.GridExporter.ExportGridSurfaces(figures, formatedPath, $".{args.Extension}");
+                });
+                
                 BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
             }
             catch (Exception ex) { BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red); }
         }
 
-        private void CopyResultDB(Result result, CopyResultDBEventArgs args)
+        private async void CopyResultDBAsync(Result result, CopyResultDBEventArgs args)
         {
-            var saver = new SaveResultsFileDb();
-            saver.Save(new List<Result>() { result}, args.DirPath + "\\temp.db", false);
+            var path = args.DirPath + "\\temp.db";
+            await Task.Run(() => 
+            { 
+                var saver = new SaveResultsFileDb(); 
+                saver.Save(new List<Result>() { result }, path, false); 
+            });
+            BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {path}", Color.Black);
         }
     }   
 }
