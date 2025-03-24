@@ -6,10 +6,10 @@ using System.Windows.Forms;
 
 namespace BazisGUI.PropertiesPanel.Control
 {
-    public class ISetInfoControl : PanelConverter
+    public class SetInfoControl : PanelConverter
     {
         private readonly ISetInfo _objectsSet;
-        public ISetInfoControl(ISetInfo obj) 
+        public SetInfoControl(ISetInfo obj) 
         {
             _objectsSet = obj;
         }

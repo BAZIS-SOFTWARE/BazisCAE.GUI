@@ -4,6 +4,7 @@ using Model.Interfaces.ObjectsCollections;
 using System.Windows.Forms;
 using Model.Interfaces;
 using BazisGUI.PropertiesPanel.Control;
+using Project.Interfaces.Tasks;
 
 namespace BazisGUI.PropertiesPanel
 {
@@ -25,9 +26,11 @@ namespace BazisGUI.PropertiesPanel
 
         private void InitializeConverter<T>(T obj)
         {
-            if (obj is ISetInfo setInfo) _converter = new ISetInfoControl(setInfo);
+            if (obj is ISetInfo setInfo) _converter = new SetInfoControl(setInfo);
 
-            else if (obj is IGroup group) _converter = new IGroupControl(group);
+            else if (obj is IGroup group) _converter = new GroupControl(group);
+
+            else if (obj is IData data) _converter = new DataControl(data);
 
             else throw new NotImplementedException("Тип конвертера не определен");
         }
