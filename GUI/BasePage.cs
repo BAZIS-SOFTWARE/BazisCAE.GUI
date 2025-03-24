@@ -105,10 +105,10 @@ namespace BazisGUI
             panelProvider = new PropertyPanelProvider();
             panelProvider.Out += propertiesPanelControl1.DrawTable;
             propertiesPanelControl1.ValidateValue += panelProvider.ValidationData;
-            propertiesPanelControl1.OnPropertyUpdate += panelProvider.ValueChanged;
+            propertiesPanelControl1.OnPropertyUpdate += panelProvider.UpdateObjectValue;
             SplittersController = new SplittersController();
-            panelProvider.OnUpdateObjectNavigator += UpdateNavigator;
-            panelProvider.OnUpdateGroupNavigator += UpdateNavigatorGroup;
+
+            panelProvider.OnUpdateNavigator += PresentProjectOnTree;
         }
 
         public Queue<int> GetSplitters()
@@ -950,7 +950,7 @@ namespace BazisGUI
                 if (sets != null)
                 {
                     var set = sets.First(x => x.Name == setName);
-                    panelProvider.DrawObjectOnPanel(set, e);
+                    panelProvider.ShowPropertiesPanel(set, e);
                 }
             }
 
@@ -962,7 +962,7 @@ namespace BazisGUI
 
                 if (groups != null)
                 {
-                    panelProvider.DrawGroupOnPanel(groups, e);
+                    panelProvider.ShowPropertiesPanel(groups, e);
                 }
             }
 
@@ -972,19 +972,19 @@ namespace BazisGUI
             }
         }
 
-        public void UpdateNavigator(ISetInfo obj, TreeNode nameNode)
-        {
-            var secondPart = nameNode.Text.Split(' ')[1];
-            var thirdPart = nameNode.Text.Split(' ')[2];
-            nameNode.Name = obj.Name;
-            nameNode.Text = obj.Name + " " + secondPart + " " + thirdPart;
-        }
+        //public void UpdateNavigator(ISetInfo obj, TreeNode nameNode)
+        //{
+        //    var secondPart = nameNode.Text.Split(' ')[1];
+        //    var thirdPart = nameNode.Text.Split(' ')[2];
+        //    nameNode.Name = obj.Name;
+        //    nameNode.Text = obj.Name + " " + secondPart + " " + thirdPart;
+        //}
 
-        private void UpdateNavigatorGroup(IGroup group, TreeNode nameNode)
-        {
-            //var secondPart = nameNode.Text.Split('_')[1];
-            nameNode.Name = group.Name;
-            nameNode.Text = group.Name;
-        }
+        //private void UpdateNavigatorGroup(IGroup group, TreeNode nameNode)
+        //{
+        //    //var secondPart = nameNode.Text.Split('_')[1];
+        //    nameNode.Name = group.Name;
+        //    nameNode.Text = group.Name;
+        //}
     }
 }

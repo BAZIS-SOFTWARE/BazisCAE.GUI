@@ -270,6 +270,8 @@
       <DependentUpon>ModelPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="PropertiesPanel\Control\IGroupControl.cs" />
+    <Compile Include="PropertiesPanel\Control\ISetInfoControl.cs" />
     <Compile Include="PropertiesPanel\PropertyPanelProvider.cs" />
     <Compile Include="PropertiesPanel\ShowPropertyEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
