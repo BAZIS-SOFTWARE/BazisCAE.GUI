@@ -109,6 +109,7 @@ namespace BazisGUI
             SplittersController = new SplittersController();
 
             panelProvider.OnUpdateNavigator += PresentProjectOnTree;
+            
         }
 
         public Queue<int> GetSplitters()

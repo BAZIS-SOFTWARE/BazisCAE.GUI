@@ -76,9 +76,11 @@ namespace BazisGUI
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
 
             BasePage.OnValuableDataSelectedEvent += BasePage_ValuableEvent;
-
+            BasePage.panelProvider.GetGroupElements = () => ModelData.GroupData.ToList();
+            BasePage.panelProvider.GetFuncDB = () => GetDataBase<FunctionDBData>(GeneralData.Functions, GeneralData.Path).Keys.ToList();
+            BasePage.panelProvider.GetMatDB = () => GetDataBase<MaterialDBData>(GeneralData.Materials, GeneralData.Path).Keys.ToList();
+            BasePage.panelProvider.OnUpdateNavigator += () => PresentTaskDataOnTree(taskData);
         }
-
         private void BasePage_ValuableEvent(TreeNode arg1, BaseModule.PropertiesPanel.SelectionType arg2)
         {
             var setName = arg1.Text.Split(' ')[0]; // Деление по пробелу перед :

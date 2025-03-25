@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using Model.Interfaces;
 using BazisGUI.PropertiesPanel.Control;
 using Project.Interfaces.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BazisGUI.PropertiesPanel
 {
@@ -13,7 +15,13 @@ namespace BazisGUI.PropertiesPanel
         public event Action<DrowPropertyOnPanelEventArgs> Out;
         public event Action OnUpdateNavigator;
 
+        public Func<List<string>> GetFuncDB;
+        public Func<List<string>> GetMatDB;
+        public Func<List<IGroup>> GetGroupElements;
 
+        private List<IGroup> _groupElement;
+        private List<string> _funcDBNames;
+        private List<string> _matDBNames;
         private TreeNode _selectedNode;
         private PanelConverter _converter; 
 
@@ -30,9 +38,20 @@ namespace BazisGUI.PropertiesPanel
 
             else if (obj is IGroup group) _converter = new GroupControl(group);
 
-            else if (obj is IData data) _converter = new DataControl(data);
-
+            else if (obj is IData data) 
+            {   
+                _matDBNames = _matDBNames is null ? GetMatDB() : _matDBNames;
+                _funcDBNames = _funcDBNames is null ? GetFuncDB() : _funcDBNames;
+                _groupElement = _groupElement is null ? GetGroupsByObjTypeFromOnesName(data) : _groupElement;
+                _converter = DataControl.SelectTask(data, _funcDBNames, _matDBNames, _groupElement);
+            } 
             else throw new NotImplementedException("Тип конвертера не определен");
+        }
+
+        private List<IGroup> GetGroupsByObjTypeFromOnesName(IData data)
+        {
+            var groupName = data.GetInfo.Split(' ')[0];
+            return GetGroupElements().Where(y => GetGroupElements().Find(x => x.Name == groupName).ObjType == y.ObjType).ToList();
         }
 
         public bool ValidationData (string header, object oldValue, object newValue )
