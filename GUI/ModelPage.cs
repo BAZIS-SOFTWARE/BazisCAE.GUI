@@ -7,6 +7,7 @@ using Model;
 using Model.GeometryObjects;
 using Model.Interfaces;
 using Model.MeshObjects;
+using ModelController.GmshController;
 using ModelControllerInterfaces;
 using System;
 using System.Collections.Generic;
@@ -735,7 +736,7 @@ namespace BazisGUI
                 scenePage.CreateObjectsOnScene(item.ToString(), presentor);
         }   
 
-        public void SetGMSHController(IGmshController gmshController)
+        public void SetGMSHController(GmshController gmshController)
         {
             var scenePage = BasePage.ScenePage;
             scenePage.SceneControl.HideAllGeometryObjs();

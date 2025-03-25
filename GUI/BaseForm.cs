@@ -19,13 +19,11 @@ using UserControlsEx;
 using BazisGUI.Properties;
 using Scene.Interfaces;
 using BaseModule.Tasks.WeldingModule;
-using BaseModule.Results.Animation;
-using GmshApi.GmshController;
 using PostProc;
 using Model.Interfaces;
 using PreProc.Interfaces;
-using Project.Results.IO;
-using BazisGUI.PropertiesPanel;
+using ModelController.GmshController;
+using Model.IO;
 
 namespace BazisGUI
 {

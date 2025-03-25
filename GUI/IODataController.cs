@@ -1,21 +1,17 @@
 ﻿using BaseModule.Utilities;
-using BasicControls.OpenFileDialogEx;
 using BazisGUI.SettingsControls;
-using GmshApi.GmshController;
 using Model;
 using Model.Interfaces;
 using Model.IO;
+using ModelController.GmshController;
 using Newtonsoft.Json;
 using Project;
 using Project.IO;
 using Project.Tasks;
-using Results.ResultsData;
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace BazisGUI
 {
@@ -272,9 +268,17 @@ namespace BazisGUI
             var ext = Path.GetExtension(name);
 
             if (ext == ".bpf")
+            {
                 project.ModelData.Loader = new LoadModelFromBPFTextFile();
+                project.ModelData.Saver = new SaveModelToBPFTextFile();
+            }
+
             else
+            {
                 project.ModelData.Loader = new LoadModelFromBPF2TextFile();
+                project.ModelData.Saver = new SaveModelToBPF2TextFile();
+            }
+                
 
             project.TaskData = new TaskData();
             project.ResultDB = string.Empty;
