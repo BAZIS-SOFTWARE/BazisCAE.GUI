@@ -273,6 +273,9 @@
     <Compile Include="PropertiesPanel\Control\DataControl.cs" />
     <Compile Include="PropertiesPanel\Control\GroupControl.cs" />
     <Compile Include="PropertiesPanel\Control\SetInfoControl.cs" />
+    <Compile Include="PropertiesPanel\Control\TaskType\EnvironmentsRowProperty\HeatFlowGetRowProperty.cs" />
+    <Compile Include="PropertiesPanel\Control\TaskType\EnvironmentsRowProperty\ThermalCycleGetRowProperty.cs" />
+    <Compile Include="PropertiesPanel\Control\TaskType\EnvironmentTaskControl.cs" />
     <Compile Include="PropertiesPanel\Control\TaskType\MatTaskControl.cs" />
     <Compile Include="PropertiesPanel\PropertyPanelProvider.cs" />
     <Compile Include="PropertiesPanel\ShowPropertyEventArgs.cs" />

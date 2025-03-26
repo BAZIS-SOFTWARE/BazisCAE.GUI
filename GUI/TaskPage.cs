@@ -83,8 +83,8 @@ namespace BazisGUI
         }
         private void BasePage_ValuableEvent(TreeNode arg1, BaseModule.PropertiesPanel.SelectionType arg2)
         {
-            var setName = arg1.Text.Split(' ')[0]; // Деление по пробелу перед :
-            var groups = taskData.First(x => x.Name == setName);
+            var info = arg1.Text.Split(':')[1].Trim(' '); 
+            var groups = taskData.First(x => x.GetInfo == info);
             BasePage.panelProvider.ShowPropertiesPanel(groups, arg1);
         }
 

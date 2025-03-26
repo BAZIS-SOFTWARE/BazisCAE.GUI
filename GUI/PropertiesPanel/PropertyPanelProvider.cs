@@ -19,7 +19,6 @@ namespace BazisGUI.PropertiesPanel
         public Func<List<string>> GetMatDB;
         public Func<List<IGroup>> GetGroupElements;
 
-        private List<IGroup> _groupElement;
         private List<string> _funcDBNames;
         private List<string> _matDBNames;
         private TreeNode _selectedNode;
@@ -42,8 +41,7 @@ namespace BazisGUI.PropertiesPanel
             {   
                 _matDBNames = _matDBNames is null ? GetMatDB() : _matDBNames;
                 _funcDBNames = _funcDBNames is null ? GetFuncDB() : _funcDBNames;
-                _groupElement = _groupElement is null ? GetGroupsByObjTypeFromOnesName(data) : _groupElement;
-                _converter = DataControl.SelectTask(data, _funcDBNames, _matDBNames, _groupElement);
+                _converter = DataControl.SelectTask(data, _funcDBNames, _matDBNames, GetGroupsByObjTypeFromOnesName(data));
             } 
             else throw new NotImplementedException("Тип конвертера не определен");
         }
