@@ -18,8 +18,8 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         public static HeatTaskControl SubtaskSelection(IData obj)
         {
             var data = obj.GetInfo.Split(' ');
-            data = data[0].Split(';');
-            var weldingType = data[0];
+            var processParameters = data[0].Split(';');
+            var weldingType = processParameters[0];
 
             if(weldingType == HeatSources.ARC.ToString()) return new ARCGetRowProperty();
             else if (weldingType == HeatSources.LW.ToString()) return new LWGetRowProperty();
