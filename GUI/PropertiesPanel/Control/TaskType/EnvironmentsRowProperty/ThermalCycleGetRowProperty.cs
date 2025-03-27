@@ -28,6 +28,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.EnvironmentsRowProperty
                 { "Температура среды", value[2] },
                 { "Старт, сек.", value[3] },
                 { "Стоп, сек.", value[4] },
+                { "Траектория(default)", value[5] }
             };
         }
 

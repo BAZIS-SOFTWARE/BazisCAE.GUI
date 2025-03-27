@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 
 namespace BazisGUI.PropertiesPanel.Control.TaskType
 {
-    public abstract class EnvironmentTaskControl : DataControl
+    public class EnvironmentTaskControl : DataControl
     {
         public static EnvironmentTaskControl SubtaskSelection(IData obj, List<string> func, List<IGroup> groupElement)
         {
