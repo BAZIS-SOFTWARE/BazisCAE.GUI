@@ -31,9 +31,9 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             var value = obj.GetInfo.Split(' ');
             dataGroupElement = groupElement;
             selectObj = obj;
-            data = new Dictionary<string, string>() 
-            { 
-                { "Группа элементов", value[0] }, 
+            data = new Dictionary<string, string>()
+            {
+                { "Группа элементов", value[0] },
                 { "Материал", value[1]},
                 { "Старт, сек.", value[2]},
                 { "Стоп, сек.", value[3]},
@@ -49,7 +49,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 {
                     return cell.Value;
                 },
-                SequenceType.After),
+                SequenceType.After, true),
 
                 new RowProperty("Группа элементов", data["Группа элементов"],
                 () =>

@@ -43,7 +43,7 @@ namespace BazisGUI.PropertiesPanel.Control
                 () =>
                 {
                     var comboBoxCell = new DataGridViewComboBoxCell();
-                    comboBoxCell.Items.AddRange(Converters.GetEnumNames().ToArray());
+                    comboBoxCell.Items.AddRange(Converters.GetEnumNames<ViewMode>().ToArray());
                     comboBoxCell.Value = _objectsSet.ViewMode;
                     return comboBoxCell;
                 },
@@ -59,7 +59,7 @@ namespace BazisGUI.PropertiesPanel.Control
         {
             if (e.Header == "Имя") _objectsSet.Name = e.NewValue.ToString();
             else if (e.Header == "Цвет") _objectsSet.SetColor((System.Drawing.Color)e.NewValue);
-            else if (e.Header == "Представление") _objectsSet.SetViewMode(Converters.StringToEnum(e.NewValue.ToString()));
+            else if (e.Header == "Представление") _objectsSet.SetViewMode(Converters.StringToEnum<ViewMode>(e.NewValue.ToString()));
         }
     }
 }

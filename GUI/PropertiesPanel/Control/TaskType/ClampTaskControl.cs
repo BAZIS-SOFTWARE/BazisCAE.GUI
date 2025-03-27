@@ -1,45 +1,46 @@
 ﻿using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
+using BazisGUI.Utilities;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BazisGUI.PropertiesPanel.Control.TaskType.EnvironmentsRowProperty
+namespace BazisGUI.PropertiesPanel.Control.TaskType
 {
-    //  Index: 0             1     2                           3             4            5  
-    //   Name: Группа узлов        Функция, F(t), °С - сек.    Старт, сек.   Стоп, сек.
-    //GetInfo: Узлы_8        *     Дюриксол.В72                0             1500         *
-    public class HeatFlowGetRowProperty : EnvironmentTaskControl
+    public class ClampTaskControl : DataControl
     {
-        private List<string> _func;
-        public HeatFlowGetRowProperty(IData obj, List<string> func, List<IGroup> groupElement)
+        private readonly List<IGroup> _dataObjectType;
+
+        public ClampTaskControl(IData obj, List<IGroup> groupElement)
         {
-            _func = func;
+            Debug.WriteLine(obj.GetInfo);
+            _dataObjectType = groupElement;
             var value = obj.GetInfo.Split(' ');
             dataGroupElement = groupElement;
             selectObj = obj;
             data = new Dictionary<string, string>()
             {
                 { "Группа узлов", value[0] },
-                { "Коэф. теплоотдачи (default)", value[1] },
-                { "Функция, F(t), °С - сек.", value[2] },
-                { "Старт, сек.", value[3] },
-                { "Стоп, сек.", value[4] },
-                { "Траектория(default)", value[5] }
+                { "Вид", value[1]},
+                { "Направление", value[2]},
+                { "Функция, F(u) , Н.мм - у.ед.(default)", value[3]},
+                { "Старт, сек.", value[4]},
+                { "Стоп, сек.", value[5]},
+                { "Траектория(default)", value[6]}
             };
         }
-
         public override List<RowProperty> GetRowProperty()
         {
             return new List<RowProperty>
             {
-                new RowProperty("Имя", NodeType.Среда.ToString(),
+                new RowProperty("Имя", NodeType.Закрепление.ToString(),
                 () => new DataGridViewTextBoxCell(),
                 (cell) =>
                 {
@@ -51,7 +52,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.EnvironmentsRowProperty
                 () =>
                 {
                     var comboBoxCell = new DataGridViewComboBoxCell();
-                    comboBoxCell.Items.AddRange(dataGroupElement.Select(x => x.Name).ToArray());
+                    comboBoxCell.Items.AddRange(_dataObjectType.Select(x => x.Name).ToArray());
                     comboBoxCell.Value = data["Группа узлов"];
                     return comboBoxCell;
                 },
@@ -61,12 +62,26 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.EnvironmentsRowProperty
                 },
                 SequenceType.After),
 
-                new RowProperty("Функция, F(t), °С - сек.", data["Функция, F(t), °С - сек."],
+                new RowProperty("Вид", data["Вид"],
                 () =>
                 {
                     var comboBoxCell = new DataGridViewComboBoxCell();
-                    comboBoxCell.Items.AddRange(_func.ToArray());
-                    comboBoxCell.Value = data["Функция, F(t), °С - сек."];
+                    comboBoxCell.Items.AddRange(Converters.GetEnumNames<ClampKind>().ToArray());
+                    comboBoxCell.Value = data["Вид"];
+                    return comboBoxCell;
+                },
+                (cell) =>
+                {
+                    return cell.Value;
+                },
+                SequenceType.After),
+
+                new RowProperty("Направление", data["Направление"],
+                () =>
+                {
+                    var comboBoxCell = new DataGridViewComboBoxCell();
+                    comboBoxCell.Items.AddRange(Converters.GetEnumNames<Direction>().ToArray());
+                    comboBoxCell.Value = data["Направление"];
                     return comboBoxCell;
                 },
                 (cell) =>
@@ -90,5 +105,6 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.EnvironmentsRowProperty
                 SequenceType.After),
             };
         }
+        
     }
 }

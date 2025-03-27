@@ -11,7 +11,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BaseModule.PropertiesPanel
 {
-    public partial class PropertiesPanelControl: UserControl, IPinnedControl
+    public partial class PropertiesPanelControl : UserControl, IPinnedControl
     {
         public event Action<PropertyChangedEventArgs> OnPropertyUpdate;
         public event Func<string, object, object, bool> ValidateValue;
@@ -81,6 +81,7 @@ namespace BaseModule.PropertiesPanel
                 var cell = prop.Initialization();// Создаем ячейку нужного типа через Initialization
                 cell.Value = prop.Value.ToString();
                 row.Cells.Add(cell);
+                if (prop.IsReadOnly) cell.ReadOnly = true;
 
                 dataGridView1.Rows.Add(row);
             }
@@ -95,7 +96,7 @@ namespace BaseModule.PropertiesPanel
             }
             var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
             var property = _rowProperties[e.RowIndex];
-            if (property !=null && property.Sequence == SequenceType.Before)
+            if (property != null && property.Sequence == SequenceType.Before)
             {
                 StartUpdate(property, cell);
             }
@@ -129,7 +130,7 @@ namespace BaseModule.PropertiesPanel
                 StartUpdate(property, cell);
             }
         }
-        
+
         public void CellValueChanged(DataGridViewCell e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 1)

@@ -18,9 +18,9 @@ namespace BazisGUI.PropertiesPanel.Control
         {
             if (obj.Name == NodeType.Материал.ToString()) return new MatTaskControl(obj, mat, groupElement);
             else if (obj.Name == NodeType.Среда.ToString()) return EnvironmentTaskControl.SubtaskSelection(obj, func, groupElement);
-            else if (obj.Name == NodeType.Нагрев.ToString()) return new MatTaskControl(obj, mat, groupElement);
-            else if (obj.Name == NodeType.Закрепление.ToString()) return new MatTaskControl(obj, mat, groupElement);
-            else if (obj.Name == NodeType.Нагрузка.ToString()) return new MatTaskControl(obj, mat, groupElement);
+            else if (obj.Name == NodeType.Нагрев.ToString()) return new HeatTaskControl(obj, mat, groupElement);
+            else if (obj.Name == NodeType.Закрепление.ToString()) return new ClampTaskControl(obj, groupElement);
+            else if (obj.Name == NodeType.Нагрузка.ToString()) return new LoadTaskControl(obj, func, groupElement);
             else throw new NotImplementedException("Тип задачи не определен");
         }
 

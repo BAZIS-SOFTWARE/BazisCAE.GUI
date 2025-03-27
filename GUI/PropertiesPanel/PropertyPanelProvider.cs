@@ -22,9 +22,9 @@ namespace BazisGUI.PropertiesPanel
         private List<string> _funcDBNames;
         private List<string> _matDBNames;
         private TreeNode _selectedNode;
-        private PanelConverter _converter; 
+        private PanelConverter _converter;
 
-        public void ShowPropertiesPanel<T>(T obj, TreeNode selectedNode) 
+        public void ShowPropertiesPanel<T>(T obj, TreeNode selectedNode)
         {
             _selectedNode = selectedNode;
             InitializeConverter(obj);
@@ -37,12 +37,12 @@ namespace BazisGUI.PropertiesPanel
 
             else if (obj is IGroup group) _converter = new GroupControl(group);
 
-            else if (obj is IData data) 
-            {   
+            else if (obj is IData data)
+            {
                 _matDBNames = _matDBNames is null ? GetMatDB() : _matDBNames;
                 _funcDBNames = _funcDBNames is null ? GetFuncDB() : _funcDBNames;
                 _converter = DataControl.SelectTask(data, _funcDBNames, _matDBNames, GetGroupsByObjTypeFromOnesName(data));
-            } 
+            }
             else throw new NotImplementedException("Тип конвертера не определен");
         }
 
@@ -52,7 +52,7 @@ namespace BazisGUI.PropertiesPanel
             return GetGroupElements().Where(y => GetGroupElements().Find(x => x.Name == groupName).ObjType == y.ObjType).ToList();
         }
 
-        public bool ValidationData (string header, object oldValue, object newValue )
+        public bool ValidationData(string header, object oldValue, object newValue)
         {
             if (newValue == null || newValue.ToString().Contains(" "))
             {
@@ -61,30 +61,10 @@ namespace BazisGUI.PropertiesPanel
             }
             return true;
         }
-        public void UpdateObjectValue (PropertyChangedEventArgs e)
+        public void UpdateObjectValue(PropertyChangedEventArgs e)
         {
             _converter.UpdateObject(e);
             OnUpdateNavigator.Invoke();
         }
     }
 }
-
-////Mat   - Материал
-////Med   - Среда
-////Heat  - Нагрев
-////Clamp - Закрепление
-////Load  - Нагрузка
-//var info = obj.GetInfo;
-//Debug.WriteLine($"Строка из GetInfo: {info}");
-//_selectedValuableData = obj;
-//_selectedNode = selectedNode;
-//List<RowProperty> list = new List<RowProperty>()
-//{
-//    new RowProperty("Имя", obj.Name, () => new DataGridViewTextBoxCell(),
-//    (cell) =>
-//    {
-//        return cell.Value;
-//    },
-//    SequenceType.After),
-//};
-//Out(new DrowPropertyOnPanelEventArgs(list));

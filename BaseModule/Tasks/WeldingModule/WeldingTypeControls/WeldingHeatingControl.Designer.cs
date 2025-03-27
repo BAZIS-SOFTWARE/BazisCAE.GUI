@@ -113,7 +113,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             // groupBox1
             // 
-            this.groupBox1.AutoSize = true;
             this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.player);
@@ -167,7 +166,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.player.AutoSize = true;
+            this.player.AutoSize = false;
             this.player.CheckState = BaseModule.Player.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(176, 237);

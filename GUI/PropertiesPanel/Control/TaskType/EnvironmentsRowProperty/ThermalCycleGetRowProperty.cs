@@ -42,7 +42,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.EnvironmentsRowProperty
                 {
                     return cell.Value;
                 },
-                SequenceType.After),
+                SequenceType.After, true),
 
                 new RowProperty("Группа элементов", data["Группа элементов"],
                 () =>
