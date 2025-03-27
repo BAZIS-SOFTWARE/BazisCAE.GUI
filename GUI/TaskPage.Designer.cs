@@ -37,6 +37,7 @@ namespace BazisGUI
             this.treeNodesImageList = new System.Windows.Forms.ImageList(this.components);
             this.taskMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.diagram_gantt_toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.taskMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,16 +59,24 @@ namespace BazisGUI
             // 
             this.taskMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.taskMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.удалитьToolStripMenuItem});
+            this.удалитьToolStripMenuItem,
+            this.diagram_gantt_toolStripMenuItem});
             this.taskMenuStrip.Name = "taskMenuStrip";
-            this.taskMenuStrip.Size = new System.Drawing.Size(119, 26);
+            this.taskMenuStrip.Size = new System.Drawing.Size(214, 48);
             // 
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.удалитьToolStripMenuItem.Text = "Удалить";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
+            // 
+            // diagram_gantt_toolStripMenuItem
+            // 
+            this.diagram_gantt_toolStripMenuItem.Name = "diagram_gantt_toolStripMenuItem";
+            this.diagram_gantt_toolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.diagram_gantt_toolStripMenuItem.Text = "Показать на диаграммме";
+            this.diagram_gantt_toolStripMenuItem.Click += new System.EventHandler(this.diagram_gantt_toolStripMenuItem_Click);
             // 
             // TaskPage
             // 
@@ -91,6 +100,7 @@ namespace BazisGUI
         private System.Windows.Forms.ImageList treeNodesImageList;
         private ContextMenuStrip taskMenuStrip;
         private ToolStripMenuItem удалитьToolStripMenuItem;
+        private ToolStripMenuItem diagram_gantt_toolStripMenuItem;
         //ToolStrip taskToolStrip;
     }
 }
