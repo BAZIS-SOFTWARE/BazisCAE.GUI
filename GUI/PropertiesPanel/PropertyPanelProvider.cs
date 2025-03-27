@@ -48,8 +48,16 @@ namespace BazisGUI.PropertiesPanel
 
         private List<IGroup> GetGroupsByObjTypeFromOnesName(IData data)
         {
+            var groupElements = GetGroupElements();
             var groupName = data.GetInfo.Split(' ')[0];
-            return GetGroupElements().Where(y => GetGroupElements().Find(x => x.Name == groupName).ObjType == y.ObjType).ToList();
+            var referenceGroup = groupElements.Find(x => x.Name == groupName);
+            if (referenceGroup == null) 
+            {
+                groupName = data.GetInfo.Split(' ')[1];
+                referenceGroup = groupElements.Find(x => x.Name == groupName);
+            }
+            return referenceGroup != null
+                ? groupElements.Where(y => y.ObjType == referenceGroup.ObjType).ToList() : new List<IGroup>();
         }
 
         public bool ValidationData(string header, object oldValue, object newValue)

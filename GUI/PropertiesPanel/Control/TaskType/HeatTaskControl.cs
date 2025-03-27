@@ -1,6 +1,9 @@
 ﻿using BaseModule.PropertiesPanel;
+using BazisGUI.PropertiesPanel.Control.TaskType.EnvironmentsRowProperty;
+using BazisGUI.PropertiesPanel.Control.TaskType.HeatsRowProperty;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
+using Project.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,32 +15,17 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
 {
     public class HeatTaskControl : DataControl
     {
-        private readonly List<string> _mat;
-        private readonly List<IGroup> _dataObjectType;
-
-        public HeatTaskControl(IData obj, List<string> mat, List<IGroup> groupElement)
+        public static HeatTaskControl SubtaskSelection(IData obj)
         {
-            Debug.WriteLine(obj.GetInfo);
-            _dataObjectType = groupElement;
-            _mat = mat;
-            var value = obj.GetInfo.Split(' ');
-            dataGroupElement = groupElement;
-            selectObj = obj;
-            data = new Dictionary<string, string>()
-            {
-                { "Группа узлов", value[0] },
-                { "Вид", value[1]},
-                { "Направление", value[2]},
-                { "Функция, F(u) , Н.мм - у.ед.(default)", value[3]},
-                { "Старт, сек.", value[4]},
-                { "Стоп, сек.", value[5]},
-                { "Траектория(default)", value[6]}
-            };
-        }
+            var data = obj.GetInfo.Split(' ');
+            data = data[0].Split(';');
+            var weldingType = data[0];
 
-        public override List<RowProperty> GetRowProperty()
-        {
-            return base.GetRowProperty();
+            if(weldingType == HeatSources.ARC.ToString()) return new ARCGetRowProperty();
+            else if (weldingType == HeatSources.LW.ToString()) return new LWGetRowProperty();
+            else if (weldingType == HeatSources.FSWPin.ToString()) return new FSWPinGetRowProperty();
+            else if (weldingType == HeatSources.FSWShoulder.ToString()) return new FSWShoulderGetRowProperty();
+            else throw new NotImplementedException("Тип задачи не определен");
         }
     }
 }
