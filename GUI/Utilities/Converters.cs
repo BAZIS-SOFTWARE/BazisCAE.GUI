@@ -158,9 +158,9 @@ namespace BazisGUI.Utilities
         /// Метод для получения всех строковых значений для комбобокса
         /// </summary>
         /// <returns></returns>
-        public static List<string> GetEnumNames()
+        public static List<string> GetEnumNames<T>() where T : Enum
         {
-            return Enum.GetNames(typeof(ViewMode)).ToList();
+            return Enum.GetNames(typeof(T)).ToList();
         }
 
         /// <summary>
@@ -168,9 +168,9 @@ namespace BazisGUI.Utilities
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static ViewMode StringToEnum(string value)
+        public static T StringToEnum<T>(string value) where T : struct, Enum
         {
-            if (Enum.TryParse<ViewMode>(value,out var result)) 
+            if (Enum.TryParse(value,out T result)) 
                 return result;
             else throw new ArgumentException($"Ошибка: значение '{value}' не соответствует ни одному значению из ViewMode.");
         }
