@@ -76,7 +76,7 @@ namespace BazisGUI
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
 
             BasePage.OnValuableDataSelectedEvent += BasePage_ValuableEvent;
-            BasePage.panelProvider.GetGroupElements = () => ModelData.GroupData.ToList();
+            BasePage.panelProvider.GetAllGroupElements = () => ModelData.GroupData.ToList();
             BasePage.panelProvider.GetFuncDB = () => GetDataBase<FunctionDBData>(GeneralData.Functions, GeneralData.Path).Keys.ToList();
             BasePage.panelProvider.GetMatDB = () => GetDataBase<MaterialDBData>(GeneralData.Materials, GeneralData.Path).Keys.ToList();
             BasePage.panelProvider.OnUpdateNavigator += () => PresentTaskDataOnTree(taskData);

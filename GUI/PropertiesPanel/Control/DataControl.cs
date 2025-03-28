@@ -5,6 +5,7 @@ using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BazisGUI.PropertiesPanel.Control
 {
@@ -14,16 +15,36 @@ namespace BazisGUI.PropertiesPanel.Control
         protected IData selectObj;
         protected List<IGroup> dataGroupElement;
 
-        public static DataControl SelectTask(IData obj, List<string> func, List<string> mat, List<IGroup> groupElement)
+        private static List<IGroup> _groupElement;
+        public static DataControl SelectTask(IData obj, List<string> func, List<string> mat, List<IGroup> allGroupElement)
         {
-            if (obj.Name == NodeType.Материал.ToString()) return new MatTaskControl(obj, mat, groupElement);
-            else if (obj.Name == NodeType.Среда.ToString()) return EnvironmentTaskControl.SubtaskSelection(obj, func, groupElement);
-            else if (obj.Name == NodeType.Нагрев.ToString()) return HeatTaskControl.SubtaskSelection(obj);
-            else if (obj.Name == NodeType.Закрепление.ToString()) return new ClampTaskControl(obj, groupElement);
-            else if (obj.Name == NodeType.Нагрузка.ToString()) return new LoadTaskControl(obj, func, groupElement);
+            _groupElement = allGroupElement;
+            if (obj.Name == NodeType.Материал.ToString()) return new MatTaskControl(obj, mat, GetGroupsByObjTypeFromOnesName(obj));
+            else if (obj.Name == NodeType.Среда.ToString()) return EnvironmentTaskControl.SubtaskSelection(obj, func, GetGroupsByObjTypeFromOnesName(obj));
+            else if (obj.Name == NodeType.Нагрев.ToString()) return HeatTaskControl.SubtaskSelection(obj, GetGroupsByObjTypeFromOnesName(obj));
+            else if (obj.Name == NodeType.Закрепление.ToString()) return new ClampTaskControl(obj, GetGroupsByObjTypeFromOnesName(obj));
+            else if (obj.Name == NodeType.Нагрузка.ToString()) return new LoadTaskControl(obj, func, GetGroupsByObjTypeFromOnesName(obj));
             else throw new NotImplementedException("Тип задачи не определен");
         }
 
+        public static List<IGroup> GetGroupsByObjTypeFromOnesName(IData data, string groupName = null)
+        {
+            var groupElements = _groupElement;
+            if (groupName == null)
+            {
+                groupName = data.GetInfo.Split(' ')[0];
+            }
+            var referenceGroup = groupElements.Find(x => x.Name == groupName);
+            if (referenceGroup == null)
+            {
+                groupName = data.GetInfo.Split(' ')[1];
+                referenceGroup = groupElements.Find(x => x.Name == groupName);
+            }
+            return referenceGroup != null
+                ? groupElements.Where(y => y.ObjType == referenceGroup.ObjType).ToList() : new List<IGroup>();
+
+
+        }
         public override void UpdateObject(PropertyChangedEventArgs e)
         {
             data[e.Header] = e.NewValue.ToString();
