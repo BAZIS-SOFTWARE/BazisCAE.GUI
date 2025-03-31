@@ -2,7 +2,9 @@
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
 
 namespace BazisGUI.PropertiesPanel.Control.TaskType.HeatsRowProperty
 {
@@ -20,15 +22,17 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.HeatsRowProperty
             var processParameters = set[0].Split(';');
             var movementParameters = set[4].Split(';');
             var line = movementParameters[0].Split('|');
+            var sourcePosition = movementParameters[4].Split('|');
 
             _groupLine = GetGroupsByObjTypeFromOnesName(obj, line[0]);
 
             data = new Dictionary<string, string>()
             {
-                { "Группа элементов", set[1] },
+                { "Вид сварки", processParameters[0] },
                 { "Ширина шва (L), мм", processParameters[1] },
                 { "Ток, А", processParameters[2] },
                 { "Напряжение, В", processParameters[3] },
+                { "Группа элементов", set[1] },
                 { "Старт, сек.", set[2] },
                 { "Стоп, сек.",set[3] },
                 { "Линия движения",line[0] },
@@ -36,10 +40,10 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.HeatsRowProperty
                 { "Скорость сварки, мм/cек.",movementParameters[1] },
                 { "Точка начала сварки",movementParameters[2] },
                 { "Точка остановки сварки",movementParameters[3] },
-                { "Положение источника X",set[2] },
-                { "Положение источника Y",  set[2] },
-                { "Положение источника Z",set[2] },
-                { "Положение источника andle",set[3] }
+                { "Положение источника X",sourcePosition[0] },
+                { "Положение источника Y",  sourcePosition[1] },
+                { "Положение источника Z",sourcePosition[2] },
+                { "Положение источника andle",sourcePosition[3] }
             };
         }
 
@@ -68,14 +72,25 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.HeatsRowProperty
         public override void UpdateObject(PropertyChangedEventArgs e)
         {
             data[e.Header] = e.NewValue.ToString();
-            _set.Replace(e.OldValue.ToString(), e.NewValue.ToString());
-            //var set = string.Join(" ", data.Values);
-            if (e.Header == data["Линия движения"] || e.Header == data["Группа элементов"])
+
+            var sb = new StringBuilder();
+            sb.Append($"{data["Вид сварки"]};{data["Ширина шва (L), мм"]};{data["Ток, А"]};{data["Напряжение, В"]} "); // processParameters
+            sb.Append($"{data["Группа элементов"]} {data["Старт, сек."]} {data["Стоп, сек."]} "); // set
+            sb.Append($"{data["Линия движения"]}|{data["Опорная линия"]};"); // line
+            sb.Append($"{data["Скорость сварки, мм/cек."]};{data["Точка начала сварки"]};{data["Точка остановки сварки"]};"); // movementParameters
+            sb.Append($"{data["Положение источника X"]}|{data["Положение источника Y"]}|{data["Положение источника Z"]}|{data["Положение источника andle"]}"); // sourcePosition
+
+            _set = sb.ToString();
+
+            if (e.Header == "Группа элементов" || e.Header == "Линия движения" || e.Header == "Опорная линия" || e.Header == "Точка начала сварки" || e.Header == "Точка остановки сварки")
             {
                 var k = selectObj as IValuableData;
                 var group = dataGroupElement.Find(x => x.Name == e.NewValue.ToString());
                 k.Group = group;
             }
+            Debug.WriteLine(selectObj.GetInfo);
+            Debug.WriteLine(_set);
+            Debug.WriteLine(selectObj);
             selectObj.SetInfo(_set);
         }
     }
