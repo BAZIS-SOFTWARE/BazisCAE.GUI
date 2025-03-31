@@ -1,6 +1,8 @@
 ﻿using BaseModule.PropertiesPanel;
 using Model.Interfaces;
+using Project;
 using Project.Interfaces.Tasks;
+using Project.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -13,10 +15,12 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.HeatsRowProperty
         private readonly List<IGroup> _groupElement;
         private readonly List<IGroup> _groupLine;
         private string _set;
+        private IData _selectObj;
         public ARCGetRowProperty(IData obj, List<IGroup> groupElement)
         {
-            selectObj = obj;
+            _selectObj = obj;
             _groupElement = groupElement;
+            dataGroupElement = groupElement;
             _set = obj.GetInfo;
             var set = obj.GetInfo.Split(' ');
             var processParameters = set[0].Split(';');
@@ -88,10 +92,13 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.HeatsRowProperty
                 var group = dataGroupElement.Find(x => x.Name == e.NewValue.ToString());
                 k.Group = group;
             }
-            Debug.WriteLine(selectObj.GetInfo);
+            Debug.WriteLine(_selectObj.GetInfo);
             Debug.WriteLine(_set);
-            Debug.WriteLine(selectObj);
-            selectObj.SetInfo(_set);
+            _selectObj.SetInfo(_set); // Error
+            Debug.WriteLine(_selectObj.GetInfo);
+            //selectObj.SetInfo(_set);
+            //var k1 = selectObj as IValuableData;
+            //selectObj = new HeatData(k1.Group, _set);
         }
     }
 }

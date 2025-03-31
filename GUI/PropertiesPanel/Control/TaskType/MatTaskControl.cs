@@ -17,10 +17,6 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
 {
     public class MatTaskControl : DataControl
     {
-        //  Index: 0                   1            2            3           4
-        //   Name: Группа элементов    Материал     Старт, сек.  Стоп, сек.
-        //GetInfo: Элементы3D_3        Сталь_20ХМ   0            1500        *,
-
         private readonly List<string> _mat;
         private readonly List<IGroup> _dataObjectType;
 
@@ -43,55 +39,11 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         {
             return new List<RowProperty>
             {
-                new RowProperty("Имя", NodeType.Материал.ToString(),
-                () => new DataGridViewTextBoxCell(),
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After, true),
-
-                new RowProperty("Группа элементов", data["Группа элементов"],
-                () =>
-                {
-                    var comboBoxCell = new DataGridViewComboBoxCell();
-                    comboBoxCell.Items.AddRange(_dataObjectType.Select(x => x.Name).ToArray());
-                    comboBoxCell.Value = data["Группа элементов"];
-                    return comboBoxCell;
-                },
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After),
-
-                new RowProperty("Материал", data["Материал"],
-                () =>
-                {
-                    var comboBoxCell = new DataGridViewComboBoxCell();
-                    comboBoxCell.Items.AddRange(_mat.ToArray());
-                    comboBoxCell.Value = data["Материал"];
-                    return comboBoxCell;
-                },
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After),
-
-                new RowProperty("Старт, сек.", data["Старт, сек."], () => new DataGridViewTextBoxCell(),
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After),
-
-                new RowProperty("Стоп, сек.", data["Стоп, сек."], () => new DataGridViewTextBoxCell(),
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After),
+                RowProperty.CreateTextBox("Имя", NodeType.Материал.ToString(), true),
+                RowProperty.CreateComboBox("Группа элементов", data["Группа элементов"], _dataObjectType.Select(x => x.Name).ToList()),
+                RowProperty.CreateComboBox("Материал", data["Материал"],_mat),
+                RowProperty.CreateTextBox("Старт, сек.", data["Старт, сек."]),
+                RowProperty.CreateTextBox("Стоп, сек.", data["Стоп, сек."])
             };
         }
     }

@@ -4,10 +4,8 @@ using BazisGUI.Utilities;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace BazisGUI.PropertiesPanel.Control.TaskType
 {
@@ -40,90 +38,14 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         {
             return new List<RowProperty>
             {
-                new RowProperty("Имя", NodeType.Нагрузка.ToString(),
-                () => new DataGridViewTextBoxCell(),
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After, true),
-
-                new RowProperty("Вид", data["Вид"],
-                () =>
-                {
-                    var comboBoxCell = new DataGridViewComboBoxCell();
-                    comboBoxCell.Items.AddRange(Converters.GetEnumNames<LoadKind>().ToArray());
-                    comboBoxCell.Value = data["Вид"];
-                    return comboBoxCell;
-                },
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After),
-
-                new RowProperty("Направление", data["Направление"],
-                () =>
-                {
-                    var comboBoxCell = new DataGridViewComboBoxCell();
-                    comboBoxCell.Items.AddRange(Converters.GetEnumNames<Direction>().ToArray());
-                    comboBoxCell.Value = data["Направление"];
-                    return comboBoxCell;
-                },
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After),
-
-                new RowProperty("Группа объектов", data["Группа объектов"],
-                () =>
-                {
-                    var comboBoxCell = new DataGridViewComboBoxCell();
-                    comboBoxCell.Items.AddRange(_dataObjectType.Select(x => x.Name).ToArray());
-                    comboBoxCell.Value = data["Группа объектов"];
-                    return comboBoxCell;
-                },
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After),
-
-                new RowProperty("Величина, Н", data["Величина, Н"], () => new DataGridViewTextBoxCell(),
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After),
-
-                new RowProperty("Функция, F(t), Н - сек.", data["Функция, F(t), Н - сек."],
-                () =>
-                {
-                    var comboBoxCell = new DataGridViewComboBoxCell();
-                    comboBoxCell.Items.AddRange(_func.ToArray());
-                    comboBoxCell.Value = data["Функция, F(t), Н - сек."];
-                    return comboBoxCell;
-                },
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After),
-
-                new RowProperty("Старт, сек.", data["Старт, сек."], () => new DataGridViewTextBoxCell(),
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After),
-
-                new RowProperty("Стоп, сек.", data["Стоп, сек."], () => new DataGridViewTextBoxCell(),
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After),
+                RowProperty.CreateTextBox("Имя", NodeType.Нагрузка.ToString(), true),
+                RowProperty.CreateComboBox("Вид", data["Вид"], Converters.GetEnumNames<LoadKind>().ToList()),
+                RowProperty.CreateComboBox("Направление", data["Направление"],Converters.GetEnumNames<Direction>().ToList()),
+                RowProperty.CreateComboBox("Группа объектов", data["Группа объектов"],_dataObjectType.Select(x => x.Name).ToList()),
+                RowProperty.CreateTextBox("Величина, Н", data["Величина, Н"]),
+                RowProperty.CreateComboBox("Функция, F(t), Н - сек.", data["Функция, F(t), Н - сек."],_func),
+                RowProperty.CreateTextBox("Старт, сек.", data["Старт, сек."]),
+                RowProperty.CreateTextBox("Стоп, сек.", data["Стоп, сек."])
             };
         }
     }

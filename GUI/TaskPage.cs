@@ -923,14 +923,47 @@ namespace BazisGUI
             AddTaskDataToNavigator(data);
         }
 
+        //private void AddTaskDataToNavigator(IData data)
+        //{
+        //    NodeType nodeType;
+        //    Enum.TryParse(data.Name, out nodeType);
+        //    var imgIndex = BasePage.NavigatorControl.GetObjectImageIndex(nodeType);
+
+        //    var child = new TreeNode($"{data.Name} : {data.GetInfo}", imgIndex, imgIndex)
+        //    { Tag = "6.1", Name = data.Name };
+        //    BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes.Add(child);
+        //}
+
         private void AddTaskDataToNavigator(IData data)
         {
-            NodeType nodeType;
-            Enum.TryParse(data.Name, out nodeType);
-            var imgIndex = BasePage.NavigatorControl.GetObjectImageIndex(nodeType);
+            if (data == null)
+            {
+                Debug.WriteLine("data is null");
+                return;
+            }
+            if (string.IsNullOrEmpty(data.Name))
+            {
+                Debug.WriteLine("data.Name is null or empty");
+                return;
+            }
+            if (data.GetInfo == null)
+            {
+                Debug.WriteLine("data.GetInfo is null");
+                return;
+            }
 
+            if (!Enum.TryParse(data.Name, out NodeType nodeType))
+            {
+                Debug.WriteLine($"Enum.TryParse failed for {data.Name}");
+                return;
+            }
+
+            var imgIndex = BasePage.NavigatorControl.GetObjectImageIndex(nodeType);
             var child = new TreeNode($"{data.Name} : {data.GetInfo}", imgIndex, imgIndex)
-            { Tag = "6.1", Name = data.Name };
+            {
+                Tag = "6.1",
+                Name = data.Name
+            };
             BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes.Add(child);
         }
 
