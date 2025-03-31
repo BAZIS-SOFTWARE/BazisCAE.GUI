@@ -6,9 +6,9 @@ using System.Runtime.Serialization;
 
 namespace BazisGUI.PropertiesPanel.Control.TaskType
 {
-    public class EnvironmentTaskControl : DataControl
+    public class EnvironmentTaskConverter : DataConverter
     {
-        public static EnvironmentTaskControl SubtaskSelection(IData obj, List<string> func, List<IGroup> groupElement)
+        public static EnvironmentTaskConverter SubtaskSelection(IData obj, List<string> func, List<IGroup> groupElement)
         {
             var data = obj.GetInfo.Split(' ');
             if (data[1] == "*" && !float.TryParse(data[2], out _))

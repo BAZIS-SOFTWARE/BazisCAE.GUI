@@ -105,7 +105,7 @@ namespace BazisGUI
             panelProvider = new PropertyPanelProvider();
             panelProvider.Out += propertiesPanelControl1.DrawTable;
             propertiesPanelControl1.ValidateValue += panelProvider.ValidationData;
-            propertiesPanelControl1.OnPropertyUpdate += panelProvider.UpdateObjectValue;
+            propertiesPanelControl1.OnPropertyUpdate += PropertiesPanelControl1_OnPropertyUpdate; 
             SplittersController = new SplittersController();
 
             panelProvider.OnUpdateNavigator += PresentProjectOnTree;
@@ -941,7 +941,7 @@ namespace BazisGUI
 
         private void navigator_AfterSelectEvent(TreeNode e, SelectionType select)
         {
-            if(select == SelectionType.Object)
+            if(select == SelectionType.Object) 
             {
                 var setName = e.Text.Split(' ')[0]; // Деление по пробелу перед :
                 Enum.TryParse(e.Parent.Text, out NodeType nodeType);
@@ -972,20 +972,9 @@ namespace BazisGUI
                 OnValuableDataSelectedEvent?.Invoke(e, select);
             }
         }
-
-        //public void UpdateNavigator(ISetInfo obj, TreeNode nameNode)
-        //{
-        //    var secondPart = nameNode.Text.Split(' ')[1];
-        //    var thirdPart = nameNode.Text.Split(' ')[2];
-        //    nameNode.Name = obj.Name;
-        //    nameNode.Text = obj.Name + " " + secondPart + " " + thirdPart;
-        //}
-
-        //private void UpdateNavigatorGroup(IGroup group, TreeNode nameNode)
-        //{
-        //    //var secondPart = nameNode.Text.Split('_')[1];
-        //    nameNode.Name = group.Name;
-        //    nameNode.Text = group.Name;
-        //}
+        private void PropertiesPanelControl1_OnPropertyUpdate(BaseModule.PropertiesPanel.PropertyChangedEventArgs obj)
+        {
+            panelProvider.UpdateObjectValue(obj.Header, obj.NewValue.ToString(), obj.OldValue.ToString());
+        }
     }
 }

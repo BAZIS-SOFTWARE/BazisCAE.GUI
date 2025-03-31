@@ -21,27 +21,25 @@ namespace BazisGUI.PropertiesPanel
 
         private List<string> _funcDBNames;
         private List<string> _matDBNames;
-        private TreeNode _selectedNode;
         private PanelConverter _converter;
 
         public void ShowPropertiesPanel<T>(T obj, TreeNode selectedNode)
         {
-            _selectedNode = selectedNode;
             InitializeConverter(obj);
             Out(new DrowPropertyOnPanelEventArgs(_converter.GetRowProperty()));
         }
 
         private void InitializeConverter<T>(T obj)
         {
-            if (obj is ISetInfo setInfo) _converter = new SetInfoControl(setInfo);
+            if (obj is ISetInfo setInfo) _converter = new SetInfoConverter(setInfo);
 
-            else if (obj is IGroup group) _converter = new GroupControl(group);
+            else if (obj is IGroup group) _converter = new GroupConverter(group);
 
             else if (obj is IData data)
             {
                 _matDBNames = _matDBNames is null ? GetMatDB() : _matDBNames;
                 _funcDBNames = _funcDBNames is null ? GetFuncDB() : _funcDBNames;
-                _converter = DataControl.SelectTask(data, _funcDBNames, _matDBNames, GetAllGroupElements());
+                _converter = DataConverter.CreateConverter(data, _funcDBNames, _matDBNames, GetAllGroupElements());
             }
             else throw new NotImplementedException("Тип конвертера не определен");
         }
@@ -69,9 +67,9 @@ namespace BazisGUI.PropertiesPanel
             }
             return true;
         }
-        public void UpdateObjectValue(PropertyChangedEventArgs e)
+        public void UpdateObjectValue(string header, string newValue, string oldValue)
         {
-            _converter.UpdateObject(e);
+            _converter.UpdateObject(header, newValue, oldValue);
             OnUpdateNavigator.Invoke();
         }
     }

@@ -1,26 +1,18 @@
 ﻿using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
-using BazisGUI.Utilities;
 using Model.Interfaces;
-using Model.Interfaces.ObjectsCollections;
-using Project;
 using Project.Interfaces.Tasks;
-using Project.Tasks;
-using PropertiesCalculator.MaterialData;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace BazisGUI.PropertiesPanel.Control.TaskType
 {
-    public class MatTaskControl : DataControl
+    public class MatTaskConverter : DataConverter
     {
         private readonly List<string> _mat;
         private readonly List<IGroup> _dataObjectType;
 
-        public MatTaskControl(IData obj, List<string> mat, List<IGroup> groupElement)
+        public MatTaskConverter(IData obj, List<string> mat, List<IGroup> groupElement)
         {
             _dataObjectType = groupElement;
             _mat = mat;

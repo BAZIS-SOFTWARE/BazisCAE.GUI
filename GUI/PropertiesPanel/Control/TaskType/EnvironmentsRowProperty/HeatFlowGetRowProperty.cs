@@ -15,7 +15,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.EnvironmentsRowProperty
     //  Index: 0             1     2                           3             4            5  
     //   Name: Группа узлов        Функция, F(t), °С - сек.    Старт, сек.   Стоп, сек.
     //GetInfo: Узлы_8        *     Дюриксол.В72                0             1500         *
-    public class HeatFlowGetRowProperty : EnvironmentTaskControl
+    public class HeatFlowGetRowProperty : EnvironmentTaskConverter
     {
         private List<string> _func;
         public HeatFlowGetRowProperty(IData obj, List<string> func, List<IGroup> groupElement)

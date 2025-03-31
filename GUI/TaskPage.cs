@@ -81,7 +81,7 @@ namespace BazisGUI
             BasePage.panelProvider.GetMatDB = () => GetDataBase<MaterialDBData>(GeneralData.Materials, GeneralData.Path).Keys.ToList();
             BasePage.panelProvider.OnUpdateNavigator += () => PresentTaskDataOnTree(taskData);
         }
-        private void BasePage_ValuableEvent(TreeNode arg1, BaseModule.PropertiesPanel.SelectionType arg2)
+        private void BasePage_ValuableEvent(TreeNode arg1, SelectionType arg2)
         {
             var info = arg1.Text.Split(':')[1].Trim(' '); 
             var groups = taskData.First(x => x.GetInfo == info);

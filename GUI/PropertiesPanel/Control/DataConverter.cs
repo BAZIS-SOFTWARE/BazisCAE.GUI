@@ -9,21 +9,21 @@ using System.Linq;
 
 namespace BazisGUI.PropertiesPanel.Control
 {
-    public abstract class DataControl : PanelConverter
+    public abstract class DataConverter : PanelConverter
     {
         protected Dictionary<string, string> data;
         protected IData selectObj;
         protected List<IGroup> dataGroupElement;
 
         private static List<IGroup> _groupElement;
-        public static DataControl SelectTask(IData obj, List<string> func, List<string> mat, List<IGroup> allGroupElement)
+        public static DataConverter CreateConverter(IData obj, List<string> func, List<string> mat, List<IGroup> allGroupElement)
         {
             _groupElement = allGroupElement;
-            if (obj.Name == NodeType.Материал.ToString()) return new MatTaskControl(obj, mat, GetGroupsByObjTypeFromOnesName(obj));
-            else if (obj.Name == NodeType.Среда.ToString()) return EnvironmentTaskControl.SubtaskSelection(obj, func, GetGroupsByObjTypeFromOnesName(obj));
+            if (obj.Name == NodeType.Материал.ToString()) return new MatTaskConverter(obj, mat, GetGroupsByObjTypeFromOnesName(obj));
+            else if (obj.Name == NodeType.Среда.ToString()) return EnvironmentTaskConverter.SubtaskSelection(obj, func, GetGroupsByObjTypeFromOnesName(obj));
             else if (obj.Name == NodeType.Нагрев.ToString()) return HeatTaskControl.SubtaskSelection(obj, GetGroupsByObjTypeFromOnesName(obj));
-            else if (obj.Name == NodeType.Закрепление.ToString()) return new ClampTaskControl(obj, GetGroupsByObjTypeFromOnesName(obj));
-            else if (obj.Name == NodeType.Нагрузка.ToString()) return new LoadTaskControl(obj, func, GetGroupsByObjTypeFromOnesName(obj));
+            else if (obj.Name == NodeType.Закрепление.ToString()) return new ClampTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj));
+            else if (obj.Name == NodeType.Нагрузка.ToString()) return new LoadTaskConverter(obj, func, GetGroupsByObjTypeFromOnesName(obj));
             else throw new NotImplementedException("Тип задачи не определен");
         }
 
@@ -45,14 +45,14 @@ namespace BazisGUI.PropertiesPanel.Control
 
 
         }
-        public override void UpdateObject(PropertyChangedEventArgs e)
+        public override void UpdateObject(string header, string newValue, string oldValue)
         {
-            data[e.Header] = e.NewValue.ToString();
+            data[header] = newValue.ToString();
             var set = string.Join(" ", data.Values);
-            if (e.Header == "Группа элементов" || e.Header == "Группа узлов")
+            if (header == "Группа элементов" || header == "Группа узлов")
             {
                 var k = selectObj as IValuableData;
-                var group = dataGroupElement.Find(x => x.Name == e.NewValue.ToString());
+                var group = dataGroupElement.Find(x => x.Name == newValue.ToString());
                 k.Group = group;
             }
             selectObj.SetInfo(set);

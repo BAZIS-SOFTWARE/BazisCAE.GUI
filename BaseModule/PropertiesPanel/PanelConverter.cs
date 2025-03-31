@@ -16,7 +16,7 @@ namespace BaseModule.PropertiesPanel
             return new List<RowProperty>();
         }
 
-        public virtual void UpdateObject(PropertyChangedEventArgs e)
+        public virtual void UpdateObject(string header, string newValue, string oldValue)
         {
             throw new NotImplementedException("Тип конвертера не определен");
         }

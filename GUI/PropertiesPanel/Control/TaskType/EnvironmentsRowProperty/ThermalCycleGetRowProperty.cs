@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace BazisGUI.PropertiesPanel.Control.TaskType.EnvironmentsRowProperty
 {
-    public  class ThermalCycleGetRowProperty : EnvironmentTaskControl
+    public  class ThermalCycleGetRowProperty : EnvironmentTaskConverter
     {
         //  Index: 0                   1                         2                  3            4            5
         //   Name: Группа элементов    Коэф. теплоотдачи, Вт/мм2 Температура среды, Старт, сек.  Стоп, сек.

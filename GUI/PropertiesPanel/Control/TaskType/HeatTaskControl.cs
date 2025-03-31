@@ -1,22 +1,14 @@
-﻿using BaseModule.PropertiesPanel;
-using BazisGUI.PropertiesPanel.Control.TaskType.EnvironmentsRowProperty;
-using BazisGUI.PropertiesPanel.Control.TaskType.HeatsRowProperty;
+﻿using BazisGUI.PropertiesPanel.Control.TaskType.HeatsRowProperty;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BazisGUI.PropertiesPanel.Control.TaskType
 {
-    public class HeatTaskControl : DataControl
+    public class HeatTaskControl : DataConverter
     {
-
-
         public static HeatTaskControl SubtaskSelection(IData obj, List<IGroup> groupElement)
         {
             var data = obj.GetInfo.Split(' ');

@@ -9,12 +9,12 @@ using System.Linq;
 
 namespace BazisGUI.PropertiesPanel.Control.TaskType
 {
-    public class LoadTaskControl : DataControl
+    public class LoadTaskConverter : DataConverter
     {
         private List<IGroup> _dataObjectType;
         private List<string> _func;
 
-        public LoadTaskControl(IData obj, List<string> func, List<IGroup> groupElement)
+        public LoadTaskConverter(IData obj, List<string> func, List<IGroup> groupElement)
         {
             _func = func;
             _dataObjectType = groupElement;

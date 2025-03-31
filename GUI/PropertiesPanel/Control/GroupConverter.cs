@@ -5,11 +5,11 @@ using System.Windows.Forms;
 
 namespace BazisGUI.PropertiesPanel.Control
 {
-    public class GroupControl : PanelConverter
+    public class GroupConverter : PanelConverter
     {
         private readonly IGroup _group;
 
-        public GroupControl(IGroup obj)
+        public GroupConverter(IGroup obj)
         {
             _group = obj;
         }
@@ -26,9 +26,9 @@ namespace BazisGUI.PropertiesPanel.Control
             };
         }
 
-        public override void UpdateObject(PropertyChangedEventArgs e)
+        public override void UpdateObject(string header, string newValue, string oldValue)
         {
-            _group.Name = e.NewValue.ToString();
+            _group.Name = newValue.ToString();
         }
     }
 }
