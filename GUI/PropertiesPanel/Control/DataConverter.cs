@@ -3,6 +3,7 @@ using BaseModule.PropertiesPanel;
 using BazisGUI.PropertiesPanel.Control.TaskType;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
+using Project.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,6 @@ namespace BazisGUI.PropertiesPanel.Control
             if (obj.Name == NodeType.Материал.ToString()) return new MatTaskConverter(obj, mat, GetGroupsByObjTypeFromOnesName(obj));
             else if (obj.Name == NodeType.Среда.ToString()) return EnvironmentTaskConverter.SubtaskSelection(obj, func, GetGroupsByObjTypeFromOnesName(obj));
             else if (obj.Name == NodeType.Нагрев.ToString()) return new HeatTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj));
-            //else if (obj.Name == NodeType.Нагрев.ToString()) return HeatTaskControl.SubtaskSelection(obj, GetGroupsByObjTypeFromOnesName(obj));
             else if (obj.Name == NodeType.Закрепление.ToString()) return new ClampTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj));
             else if (obj.Name == NodeType.Нагрузка.ToString()) return new LoadTaskConverter(obj, func, GetGroupsByObjTypeFromOnesName(obj));
             else throw new NotImplementedException("Тип задачи не определен");
@@ -30,22 +30,17 @@ namespace BazisGUI.PropertiesPanel.Control
 
         public static List<IGroup> GetGroupsByObjTypeFromOnesName(IData data, string groupName = null)
         {
-            var groupElements = _groupElement;
-            if (groupName == null)
+            if (string.IsNullOrEmpty(groupName))
             {
-                groupName = data.GetInfo.Split(' ')[0];
+                if (data is HeatData htd)
+                    groupName = htd.Group.Name;
+                else
+                    groupName = data.GetInfo.Split(' ')[0];
             }
-            var referenceGroup = groupElements.Find(x => x.Name == groupName);
-            if (referenceGroup == null)
-            {
-                groupName = data.GetInfo.Split(' ')[1];
-                referenceGroup = groupElements.Find(x => x.Name == groupName);
-            }
-            return referenceGroup != null
-                ? groupElements.Where(y => y.ObjType == referenceGroup.ObjType).ToList() : new List<IGroup>();
-
-
+            var group = _groupElement.Find(x => x.Name == groupName);
+            return _groupElement.Where(x => x.ObjType == group.ObjType).ToList();
         }
+
         public override void UpdateObject(string header, string newValue, string oldValue)
         {
             data[header] = newValue.ToString();

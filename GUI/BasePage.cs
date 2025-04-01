@@ -1,7 +1,6 @@
 ﻿using BaseModule.Console;
 using BaseModule.Console.Events;
 using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
 using BaseModule.Utilities;
 using BazisGUI.PropertiesPanel;
 using BazisGUI.Utilities;
@@ -9,11 +8,8 @@ using Geometry;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
 using Model.Interfaces.ObjectsCollections;
-using Model.MeshObjects;
 using ModelControllerInterfaces;
-using Project;
 using Project.Interfaces;
-using Project.Interfaces.Tasks;
 using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -939,37 +935,37 @@ namespace BazisGUI
             DeleteObjectsEvent?.Invoke();
         }
 
-        private void navigator_AfterSelectEvent(TreeNode e, SelectionType select)
+        private void navigator_AfterSelectEvent(TreeNode node, SelectionType select)
         {
             if(select == SelectionType.Object) 
             {
-                var setName = e.Text.Split(' ')[0]; // Деление по пробелу перед :
-                Enum.TryParse(e.Parent.Text, out NodeType nodeType);
+                var setName = node.Text.Split(' ')[0]; // Деление по пробелу перед :
+                Enum.TryParse(node.Parent.Text, out NodeType nodeType);
                 var type = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
                 var sets = ModelData.ObjectData.GetSetsInfo(type);
 
                 if (sets != null)
                 {
                     var set = sets.First(x => x.Name == setName);
-                    panelProvider.ShowPropertiesPanel(set, e);
+                    panelProvider.ShowPropertiesPanel(set, node);
                 }
             }
 
             else if(select == SelectionType.Group)
             {
-                var setName = e.Text.Split('_')[0];
-                Enum.TryParse(e.Parent.Text, out NodeType nodeType);
-                var groups = ModelData.GroupData.First(x => x.Name == e.Text);
+                var setName = node.Text.Split('_')[0];
+                Enum.TryParse(node.Parent.Text, out NodeType nodeType);
+                var groups = ModelData.GroupData.First(x => x.Name == node.Text);
 
                 if (groups != null)
                 {
-                    panelProvider.ShowPropertiesPanel(groups, e);
+                    panelProvider.ShowPropertiesPanel(groups, node);
                 }
             }
 
             else if(select == SelectionType.ValuableData)
             {
-                OnValuableDataSelectedEvent?.Invoke(e, select);
+                OnValuableDataSelectedEvent?.Invoke(node, select);
             }
         }
         private void PropertiesPanelControl1_OnPropertyUpdate(BaseModule.PropertiesPanel.PropertyChangedEventArgs obj)
