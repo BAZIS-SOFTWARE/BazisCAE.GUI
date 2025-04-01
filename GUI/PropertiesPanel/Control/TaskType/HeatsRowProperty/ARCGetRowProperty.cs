@@ -1,4 +1,5 @@
-﻿using BaseModule.PropertiesPanel;
+﻿#if false
+using BaseModule.PropertiesPanel;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
@@ -48,10 +49,6 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.HeatsRowProperty
                 { "Положение источника Z",sourcePosition[2] },
                 { "Положение источника andle",sourcePosition[3] }
             };
-
-
-
-
 
             var objAsHeat = obj as HeatData;
             var s = objAsHeat.PowerValue;
@@ -110,3 +107,4 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.HeatsRowProperty
         }
     }
 }
+#endif

@@ -1,13 +1,10 @@
 using BaseModule.Interfaces;
-using BaseModule.Navigator;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BaseModule.PropertiesPanel
 {
@@ -81,7 +78,7 @@ namespace BaseModule.PropertiesPanel
                 var cell = prop.Initialization();// Создаем ячейку нужного типа через Initialization
                 cell.Value = prop.Value.ToString();
                 row.Cells.Add(cell);
-                if (prop.IsReadOnly) cell.ReadOnly = true;
+                cell.ReadOnly = prop.IsReadOnly;
 
                 dataGridView1.Rows.Add(row);
             }
@@ -96,17 +93,12 @@ namespace BaseModule.PropertiesPanel
             }
             var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
             var property = _rowProperties[e.RowIndex];
-            if (property != null && property.Sequence == SequenceType.Before)
+            if (property != null && property?.Sequence == SequenceType.Before)
             {
                 StartUpdate(property, cell);
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
 

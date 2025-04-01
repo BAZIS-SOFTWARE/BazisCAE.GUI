@@ -1,12 +1,11 @@
-﻿using System;
-using BaseModule.PropertiesPanel;
-using Model.Interfaces.ObjectsCollections;
-using System.Windows.Forms;
-using Model.Interfaces;
+﻿using BaseModule.PropertiesPanel;
 using BazisGUI.PropertiesPanel.Control;
+using Model.Interfaces;
+using Model.Interfaces.ObjectsCollections;
 using Project.Interfaces.Tasks;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Windows.Forms;
 
 namespace BazisGUI.PropertiesPanel
 {
@@ -42,20 +41,6 @@ namespace BazisGUI.PropertiesPanel
                 _converter = DataConverter.CreateConverter(data, _funcDBNames, _matDBNames, GetAllGroupElements());
             }
             else throw new NotImplementedException("Тип конвертера не определен");
-        }
-
-        private List<IGroup> GetGroupsByObjTypeFromOnesName(IData data)
-        {
-            var groupElements = GetAllGroupElements();
-            var groupName = data.GetInfo.Split(' ')[0];
-            var referenceGroup = groupElements.Find(x => x.Name == groupName);
-            if (referenceGroup == null) 
-            {
-                groupName = data.GetInfo.Split(' ')[1];
-                referenceGroup = groupElements.Find(x => x.Name == groupName);
-            }
-            return referenceGroup != null
-                ? groupElements.Where(y => y.ObjType == referenceGroup.ObjType).ToList() : new List<IGroup>();
         }
 
         public bool ValidationData(string header, object oldValue, object newValue)

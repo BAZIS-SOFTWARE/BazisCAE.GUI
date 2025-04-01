@@ -2,7 +2,6 @@
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace BazisGUI.PropertiesPanel.Control.TaskType
 {

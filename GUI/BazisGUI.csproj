@@ -278,10 +278,7 @@
     <Compile Include="PropertiesPanel\Control\TaskType\EnvironmentsRowProperty\ThermalCycleGetRowProperty.cs" />
     <Compile Include="PropertiesPanel\Control\TaskType\EnvironmentTaskConverter.cs" />
     <Compile Include="PropertiesPanel\Control\TaskType\HeatsRowProperty\ARCGetRowProperty.cs" />
-    <Compile Include="PropertiesPanel\Control\TaskType\HeatsRowProperty\FSWPinGetRowProperty.cs" />
-    <Compile Include="PropertiesPanel\Control\TaskType\HeatsRowProperty\FSWShoulderGetRowProperty.cs" />
-    <Compile Include="PropertiesPanel\Control\TaskType\HeatsRowProperty\LWGetRowProperty.cs" />
-    <Compile Include="PropertiesPanel\Control\TaskType\HeatTaskControl.cs" />
+    <Compile Include="PropertiesPanel\Control\TaskType\HeatTaskConverter.cs" />
     <Compile Include="PropertiesPanel\Control\TaskType\LoadTaskConverter.cs" />
     <Compile Include="PropertiesPanel\Control\TaskType\MatTaskConverter.cs" />
     <Compile Include="PropertiesPanel\PropertyPanelProvider.cs" />
