@@ -9,13 +9,13 @@ using System.Text;
 
 namespace BazisGUI.PropertiesPanel.Control.TaskType.HeatsRowProperty
 {
-    class ARCGetRowProperty : HeatTaskControl
+    class ARCGetRowProperty : HeatTaskConverter
     {
         private readonly List<IGroup> _groupElement;
         private readonly List<IGroup> _groupLine;
         private string _set;
         private IData _selectObj;
-        public ARCGetRowProperty(IData obj, List<IGroup> groupElement)
+        public ARCGetRowProperty(IData obj, List<IGroup> groupElement) : base(obj, groupElement)
         {
             _selectObj = obj;
             _groupElement = groupElement;
@@ -48,6 +48,21 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.HeatsRowProperty
                 { "Положение источника Z",sourcePosition[2] },
                 { "Положение источника andle",sourcePosition[3] }
             };
+
+
+
+
+
+            var objAsHeat = obj as HeatData;
+            var s = objAsHeat.PowerValue;
+            var w = objAsHeat.Direction;
+            var q = objAsHeat.Name;
+            var r = objAsHeat.MovedFrame.GetTrajectoryInfo();
+            var t = objAsHeat.FrameFunction.Name;
+            Debug.WriteLine(s);
+            Debug.WriteLine(w);
+            Debug.WriteLine(r);
+            Debug.WriteLine(t);
         }
 
         public override List<RowProperty> GetRowProperty()
@@ -72,36 +87,26 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.HeatsRowProperty
             };
         }
 
-        //public override void UpdateObject(PropertyChangedEventArgs e)
-        //{
-        //    data[e.Header] = e.NewValue.ToString();
+        public override void UpdateObject(string header, string newValue, string oldValue)
+        {
+            data[header] = newValue.ToString();
 
-        //    var sb = new StringBuilder();
-        //    sb.Append($"{data["Вид сварки"]};{data["Ширина шва (L), мм"]};{data["Ток, А"]};{data["Напряжение, В"]} "); // processParameters
-        //    sb.Append($"{data["Группа элементов"]} {data["Старт, сек."]} {data["Стоп, сек."]} "); // set
-        //    sb.Append($"{data["Линия движения"]}|{data["Опорная линия"]};"); // line
-        //    sb.Append($"{data["Скорость сварки, мм/cек."]};{data["Точка начала сварки"]};{data["Точка остановки сварки"]};"); // movementParameters
-        //    sb.Append($"{data["Положение источника X"]}|{data["Положение источника Y"]}|{data["Положение источника Z"]}|{data["Положение источника andle"]}"); // sourcePosition
+            var sb = new StringBuilder();
+            sb.Append($"{data["Вид сварки"]};{data["Ширина шва (L), мм"]};{data["Ток, А"]};{data["Напряжение, В"]} "); // processParameters
+            sb.Append($"{data["Группа элементов"]} {data["Старт, сек."]} {data["Стоп, сек."]} "); // set
+            sb.Append($"{data["Линия движения"]}|{data["Опорная линия"]};"); // line
+            sb.Append($"{data["Скорость сварки, мм/cек."]};{data["Точка начала сварки"]};{data["Точка остановки сварки"]};"); // movementParameters
+            sb.Append($"{data["Положение источника X"]}|{data["Положение источника Y"]}|{data["Положение источника Z"]}|{data["Положение источника andle"]}"); // sourcePosition
 
-        //    _set = sb.ToString();
+            _set = sb.ToString();
 
-        //    if (e.Header == "Группа элементов" || e.Header == "Линия движения" || e.Header == "Опорная линия" || e.Header == "Точка начала сварки" || e.Header == "Точка остановки сварки")
-        //    {
-        //        var k = selectObj as IValuableData;
-        //        var group = dataGroupElement.Find(x => x.Name == e.NewValue.ToString());
-        //        k.Group = group;
-        //    }
-        //    Debug.WriteLine(_selectObj.GetInfo);
-        //    Debug.WriteLine(_set);
-        //    _selectObj.SetInfo(_set); // Error
-        //    var s = _selectObj as HeatData;
-        //    s.SetInfo(_set);
-        //    var r = s as IData;
-        //    _selectObj = r;
-        //    Debug.WriteLine(_selectObj.GetInfo);
-        //    //selectObj.SetInfo(_set);
-        //    //var k1 = selectObj as IValuableData;
-        //    //selectObj = new HeatData(k1.Group, _set);
-        //}
+            if (header == "Группа элементов" || header == "Линия движения" || header == "Опорная линия" || header == "Точка начала сварки" || header == "Точка остановки сварки")
+            {
+                var k = selectObj as IValuableData;
+                var group = dataGroupElement.Find(x => x.Name == newValue.ToString());
+                k.Group = group;
+            }
+            _selectObj.SetInfo(_set);
+        }
     }
 }

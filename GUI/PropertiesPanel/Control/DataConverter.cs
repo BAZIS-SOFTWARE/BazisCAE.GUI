@@ -21,7 +21,8 @@ namespace BazisGUI.PropertiesPanel.Control
             _groupElement = allGroupElement;
             if (obj.Name == NodeType.Материал.ToString()) return new MatTaskConverter(obj, mat, GetGroupsByObjTypeFromOnesName(obj));
             else if (obj.Name == NodeType.Среда.ToString()) return EnvironmentTaskConverter.SubtaskSelection(obj, func, GetGroupsByObjTypeFromOnesName(obj));
-            else if (obj.Name == NodeType.Нагрев.ToString()) return HeatTaskControl.SubtaskSelection(obj, GetGroupsByObjTypeFromOnesName(obj));
+            else if (obj.Name == NodeType.Нагрев.ToString()) return new HeatTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj));
+            //else if (obj.Name == NodeType.Нагрев.ToString()) return HeatTaskControl.SubtaskSelection(obj, GetGroupsByObjTypeFromOnesName(obj));
             else if (obj.Name == NodeType.Закрепление.ToString()) return new ClampTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj));
             else if (obj.Name == NodeType.Нагрузка.ToString()) return new LoadTaskConverter(obj, func, GetGroupsByObjTypeFromOnesName(obj));
             else throw new NotImplementedException("Тип задачи не определен");
