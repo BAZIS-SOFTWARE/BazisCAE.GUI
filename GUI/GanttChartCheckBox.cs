@@ -8,7 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace GanttChart
+namespace BazisGUI
 {
     public partial class GanttChartCheckBox : UserControl
     {

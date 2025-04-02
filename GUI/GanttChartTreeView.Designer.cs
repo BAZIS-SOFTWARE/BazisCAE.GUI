@@ -3,7 +3,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace GanttChart
+namespace BazisGUI
 {
     partial class GanttChartTreeView
     {
@@ -33,47 +33,54 @@ namespace GanttChart
         /// </summary>
         private void InitializeComponent()
         {
-            splitContainer = new SplitContainer();
-            treeView = new TreeView();
-            ((System.ComponentModel.ISupportInitialize)splitContainer).BeginInit();
-            splitContainer.Panel1.SuspendLayout();
-            splitContainer.SuspendLayout();
-            SuspendLayout();
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.treeView = new System.Windows.Forms.TreeView();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.SuspendLayout();
+            this.SuspendLayout();
             // 
             // splitContainer
             // 
-            splitContainer.Dock = DockStyle.Fill;
-            splitContainer.Location = new Point(0, 0);
-            splitContainer.Name = "splitContainer";
+            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer.Name = "splitContainer";
             // 
             // splitContainer.Panel1
             // 
-            splitContainer.Panel1.Controls.Add(treeView);
-            splitContainer.Size = new Size(1502, 891);
-            splitContainer.SplitterDistance = 500;
-            splitContainer.TabIndex = 0;
+            this.splitContainer.Panel1.Controls.Add(this.treeView);
+            this.splitContainer.Size = new System.Drawing.Size(850, 600);
+            this.splitContainer.SplitterDistance = 281;
+            this.splitContainer.SplitterWidth = 3;
+            this.splitContainer.TabIndex = 0;
             // 
             // treeView
             // 
-            treeView.CheckBoxes = true;
-            treeView.Dock = DockStyle.Fill;
-            treeView.Location = new Point(0, 0);
-            treeView.Name = "treeView";
-            treeView.Size = new Size(500, 891);
-            treeView.TabIndex = 0;
-            treeView.AfterCheck += treeView_AfterCheck;
+            this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.treeView.CheckBoxes = true;
+            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView.Location = new System.Drawing.Point(0, 0);
+            this.treeView.Name = "treeView";
+            this.treeView.Size = new System.Drawing.Size(281, 600);
+            this.treeView.TabIndex = 0;
+            this.treeView.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterCheck);
             // 
-            // GanttChartControl
+            // GanttChartTreeView
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(splitContainer);
-            Name = "GanttChartControl";
-            Size = new Size(1502, 891);
-            splitContainer.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer).EndInit();
-            splitContainer.ResumeLayout(false);
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.splitContainer);
+            this.MaximumSize = new System.Drawing.Size(850, 600);
+            this.MinimumSize = new System.Drawing.Size(850, 600);
+            this.Name = "GanttChartTreeView";
+            this.Size = new System.Drawing.Size(850, 600);
+            this.splitContainer.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+            this.splitContainer.ResumeLayout(false);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

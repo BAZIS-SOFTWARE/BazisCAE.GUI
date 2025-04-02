@@ -41,6 +41,8 @@ namespace BazisGUI
 
         private protected ITaskData taskData;
 
+        private Form ganttDiagramForm;
+
         public void SetPreProc(PreProc.PreProc preProc)
         {
             this.preProc = preProc;
@@ -990,6 +992,31 @@ namespace BazisGUI
             PresentTaskDataOnTree(taskData);
             var adv = GetTaskAdvisor();
             SetProjectData(adv);
+        }
+
+        private void diagram_gantt_toolStripMenuItem_Click(object sender, EventArgs eventArgs)
+        {
+            if (!(sender is ToolStripMenuItem toolStripMenuItem))
+                return;
+            if(toolStripMenuItem.Checked)
+            {
+                ganttDiagramForm.Close();
+                toolStripMenuItem.Checked = false;
+                return;
+            }
+            var tasks = taskData.Select(d => (IValuableData)d).ToList();
+            var ganttContol = new GanttChartTreeView(tasks, 10);
+            ganttDiagramForm = new Form
+            {
+                ClientSize = new Size(850, 600),
+                FormBorderStyle = FormBorderStyle.FixedSingle,
+                MaximizeBox = false,
+                MinimizeBox = false
+            };
+            ganttDiagramForm.Controls.Add(ganttContol);
+            ganttDiagramForm.Show(this);
+            toolStripMenuItem.Checked = true;
+            ganttDiagramForm.FormClosed += (s, e) => toolStripMenuItem.Checked = false;
         }
     }
 }
