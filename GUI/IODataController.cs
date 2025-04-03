@@ -268,9 +268,17 @@ namespace BazisGUI
             var ext = Path.GetExtension(name);
 
             if (ext == ".bpf")
+            {
                 project.ModelData.Loader = new LoadModelFromBPFTextFile();
+                project.ModelData.Saver = new SaveModelToBPFTextFile();
+            }
+
             else
+            {
                 project.ModelData.Loader = new LoadModelFromBPF2TextFile();
+                project.ModelData.Saver = new SaveModelToBPF2TextFile();
+            }
+                
 
             project.TaskData = new TaskData();
             project.ResultDB = string.Empty;
