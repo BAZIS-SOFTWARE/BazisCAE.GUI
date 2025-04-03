@@ -2,6 +2,8 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
+using System;
+using System.Windows.Forms;
 using static TestGUI.TestProvider;
 
 namespace TestGUI
@@ -13,7 +15,6 @@ namespace TestGUI
         public void SelectingTreeElementsTest()
         {
             var wd = LoadProject();
-
             try
             {
                 var actions = new Actions(wd);
@@ -49,7 +50,6 @@ namespace TestGUI
         public void RenameTreeElementsTest(string element)
         {
             var wd = LoadProject();
-
             try
             {
                 var actions = new Actions(wd);
@@ -81,7 +81,6 @@ namespace TestGUI
         public void SelectColorAndTypeModeTest(string element)
         {
             var wd = LoadProject();
-
             try
             {
                 var actions = new Actions(wd);
@@ -97,12 +96,52 @@ namespace TestGUI
                 //Ячейка имя 
                 TestProvider.GetElement(wd, element, SearchWay.Name).Click();
 
-                SwapeColor(wd, -10, 100);
-                SwapeColor(wd, -125, 100);
+                ChangeColor(wd, -10, 100);
+                ChangeColor(wd, -125, 100);
 
-                SwapeViewMode(wd, 1);
-                SwapeViewMode(wd, 2);
-                SwapeViewMode(wd, 3);
+                ChangeComboBoxValue(wd, 1);
+                ChangeComboBoxValue(wd, 2);
+                ChangeComboBoxValue(wd, 3);
+            }
+            catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
+
+            finally { wd.CloseApp(); }
+        }
+
+        [Test(Description = "Изменение группы у элементов ValuableData")]
+        public void ChangeDataGroupTest()
+        {
+            var wd = LoadProject();
+            try 
+            {
+                var actions = new Actions(wd);
+                TestProvider.GetElement(wd, "Модули", SearchWay.Name).Click();
+                TestProvider.GetElement(wd, "Сварка", SearchWay.Name).Click();
+                TestProvider.GetElement(wd, "Данные", SearchWay.Name).Click();
+
+                while (true)
+                {
+                    var previous = wd.SwitchTo().ActiveElement();
+                    previous.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+                    var current = wd.SwitchTo().ActiveElement();
+                    if (previous.Equals(current)) break;
+
+                    for (int i = 0; i < 1; i++)
+                    {
+                        TestProvider.GetElement(wd, " Строка 1, Не отсортировано.", SearchWay.Name).Click();
+                        TestProvider.ClickByOffset(wd, 265, 0, ClickType.LeftOne);
+                        TestProvider.ClickByOffset(wd, 0, 0, ClickType.LeftOne);
+                        wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+                        wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Enter);
+                        wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Tab);
+                    }
+                    previous.SendKeys(OpenQA.Selenium.Keys.Enter);
+                    wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+                    Thread.Sleep(1000);
+                }
+
+
+                Thread.Sleep(2000);
             }
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
 
@@ -141,7 +180,7 @@ namespace TestGUI
             }
             else
             {
-                if (!(exept is null))
+                if (exept is not null)
                 {
                     wd.Keyboard.SendKeys(newName + OpenQA.Selenium.Keys.Enter);
                     throw new Exception("FormatException: ");
@@ -149,7 +188,17 @@ namespace TestGUI
             }
         }
 
-        private static void SwapeViewMode(WindowsDriver<WindowsElement> wd, int indexViewMode)
+        private static void ChangeTreeViewElement(WindowsDriver<WindowsElement> wd, int indexViewMode)
+        {
+            var selectedViewMode = new Actions(wd);
+            for (int i = 0; i < indexViewMode; i++)
+            {
+                selectedViewMode.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+            }
+            selectedViewMode.SendKeys(OpenQA.Selenium.Keys.Enter).Perform();
+        }
+
+        private static void ChangeComboBoxValue(WindowsDriver<WindowsElement> wd, int indexViewMode)
         {
             TestProvider.GetElement(wd, " Строка 2, Не отсортировано.", SearchWay.Name).Click();
             TestProvider.ClickByOffset(wd, 275, 0, ClickType.LeftOne);
@@ -165,7 +214,7 @@ namespace TestGUI
             update.SendKeys(OpenQA.Selenium.Keys.Escape).Perform();
         }
 
-        private static void SwapeColor(WindowsDriver<WindowsElement> wd, int offsetX, int offsetY)
+        private static void ChangeColor(WindowsDriver<WindowsElement> wd, int offsetX, int offsetY)
         {
             ClickCell(wd, " Строка 1, Не отсортировано.");
             TestProvider.GetElement(wd, "Основные цвета:", SearchWay.Name).Click();

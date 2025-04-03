@@ -21,7 +21,7 @@ namespace BazisGUI.PropertiesPanel
         private List<string> _funcDBNames;
         private List<string> _matDBNames;
         private PanelConverter _converter;
-
+        
         public void ShowPropertiesPanel<T>(T obj, TreeNode selectedNode)
         {
             InitializeConverter(obj);
