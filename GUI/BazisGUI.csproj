@@ -270,6 +270,17 @@
       <DependentUpon>ModelPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="PropertiesPanel\Control\DataConverter.cs" />
+    <Compile Include="PropertiesPanel\Control\GroupConverter.cs" />
+    <Compile Include="PropertiesPanel\Control\SetInfoConverter.cs" />
+    <Compile Include="PropertiesPanel\Control\TaskType\ClampTaskConverter.cs" />
+    <Compile Include="PropertiesPanel\Control\TaskType\EnvironmentsRowProperty\HeatFlowGetRowProperty.cs" />
+    <Compile Include="PropertiesPanel\Control\TaskType\EnvironmentsRowProperty\ThermalCycleGetRowProperty.cs" />
+    <Compile Include="PropertiesPanel\Control\TaskType\EnvironmentTaskConverter.cs" />
+    <Compile Include="PropertiesPanel\Control\TaskType\HeatsRowProperty\ARCGetRowProperty.cs" />
+    <Compile Include="PropertiesPanel\Control\TaskType\HeatTaskConverter.cs" />
+    <Compile Include="PropertiesPanel\Control\TaskType\LoadTaskConverter.cs" />
+    <Compile Include="PropertiesPanel\Control\TaskType\MatTaskConverter.cs" />
     <Compile Include="PropertiesPanel\PropertyPanelProvider.cs" />
     <Compile Include="PropertiesPanel\ShowPropertyEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

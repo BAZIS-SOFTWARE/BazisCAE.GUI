@@ -6,14 +6,14 @@ namespace BazisGUI
 {
     public partial class HeatTreatmentPage: TaskPage
     {
-        public HeatTreatmentPage()
+        public HeatTreatmentPage() : base()
         {
             InitializeComponent();
 
             var pContr = (PinnedHTAdvControl)EmbeddedControls.Find("pinnedHTAdvControl", false)[0];
             pContr.BringToFront();
             var taskAdv = pContr.HTAdvisor;
-
+            //BasePage.panelProvider.OnUpdateNavigator += () => PresentTaskDataOnTree(taskData);
             SetAdvisor(taskAdv);
         }
 

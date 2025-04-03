@@ -564,6 +564,11 @@ namespace BaseModule.Navigator
                 SelectionType type = SelectionType.Group;
                 AfterSelectEvent(node, type);
             }
+            else if (node.Parent == treeView.Nodes["Данные"])
+            {
+                SelectionType type = SelectionType.ValuableData;
+                AfterSelectEvent(node, type);
+            }
         }
     }
 }

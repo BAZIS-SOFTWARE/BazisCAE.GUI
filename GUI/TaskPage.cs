@@ -76,6 +76,18 @@ namespace BazisGUI
             selectToolStrip.Location = new Point(3, 0);
 
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
+
+            BasePage.OnValuableDataSelectedEvent += BasePage_ValuableEvent;
+            BasePage.panelProvider.GetAllGroupElements = () => ModelData.GroupData.ToList();
+            BasePage.panelProvider.GetFuncDB = () => GetDataBase<FunctionDBData>(GeneralData.Functions, GeneralData.Path).Keys.ToList();
+            BasePage.panelProvider.GetMatDB = () => GetDataBase<MaterialDBData>(GeneralData.Materials, GeneralData.Path).Keys.ToList();
+            BasePage.panelProvider.OnUpdateNavigator += () => PresentTaskDataOnTree(taskData);
+        }
+        private void BasePage_ValuableEvent(TreeNode arg1, SelectionType arg2)
+        {
+            var info = arg1.Text.Split(':')[1].Trim(' '); 
+            var groups = taskData.First(x => x.GetInfo == info);
+            BasePage.panelProvider.ShowPropertiesPanel(groups, arg1);
         }
 
         public void OpenFunctionsDB()
@@ -923,6 +935,7 @@ namespace BazisGUI
             { Tag = "6.1", Name = data.Name };
             BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes.Add(child);
         }
+
 
         private void SetMFF(IValuableData data, string trajInfo)
         {

@@ -149,6 +149,7 @@
     <Compile Include="Navigator\NavigatorControl.Designer.cs">
       <DependentUpon>NavigatorControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Navigator\SelectionType.cs" />
     <Compile Include="Navigator\SetInfo.cs" />
     <Compile Include="Player\PlayerControl.cs">
       <SubType>UserControl</SubType>
@@ -164,17 +165,17 @@
       <DependentUpon>CrossSectionControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Measurement\MeasureEventArgs.cs" />
-    <Compile Include="PropertiesPanel\CellValidatorEventArgs.cs" />
-    <Compile Include="PropertiesPanel\DrowPropertyOnPanelEventArgs.cs" />
+    <Compile Include="PropertiesPanel\Events\CellValidatorEventArgs.cs" />
+    <Compile Include="PropertiesPanel\Events\DrowPropertyOnPanelEventArgs.cs" />
+    <Compile Include="PropertiesPanel\PanelConverter.cs" />
     <Compile Include="PropertiesPanel\PropertiesPanelControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="PropertiesPanel\PropertiesPanelControl.Designer.cs">
       <DependentUpon>PropertiesPanelControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="PropertiesPanel\PropertyChangedEventArgs.cs" />
+    <Compile Include="PropertiesPanel\Events\PropertyChangedEventArgs.cs" />
     <Compile Include="PropertiesPanel\RowProperty.cs" />
-    <Compile Include="PropertiesPanel\SelectionType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

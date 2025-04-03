@@ -12,7 +12,7 @@ namespace BazisGUI
 {
     public partial class WeldingPage : TaskPage
     {
-        public WeldingPage()
+        public WeldingPage() : base()
         {
             InitializeComponent();
 
@@ -25,7 +25,7 @@ namespace BazisGUI
 
             taskAdv.SpecifyWeldingZoneEvent += (ar1, ar2) =>
             { TaskAdv_SpecifyWeldingZone(ar1, ar2); };
-
+            //BasePage.panelProvider.OnUpdateNavigator += () => PresentTaskDataOnTree(taskData);
             ProcessType = ProcessType.Welding;
 
             SetAdvisor(taskAdv);

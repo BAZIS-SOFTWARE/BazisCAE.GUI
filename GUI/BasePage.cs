@@ -1,7 +1,6 @@
 ﻿using BaseModule.Console;
 using BaseModule.Console.Events;
 using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
 using BaseModule.Utilities;
 using BazisGUI.PropertiesPanel;
 using BazisGUI.Utilities;
@@ -89,11 +88,12 @@ namespace BazisGUI
         public event Action CreatedMeshGroupEvent;
         public event Action ChangedGroupNameEvent;
 
+        public event Action<TreeNode, SelectionType> OnValuableDataSelectedEvent;
         IModelController ModelController { get { return scenePage.GetModelController(); } }
 
         IModelData ModelData { get { return ModelController.ModelData; } }
 
-        PropertyPanelProvider panelProvider;
+        public PropertyPanelProvider panelProvider;
         public BasePage()
         {
             InitializeComponent();
@@ -101,10 +101,11 @@ namespace BazisGUI
             panelProvider = new PropertyPanelProvider();
             panelProvider.Out += propertiesPanelControl1.DrawTable;
             propertiesPanelControl1.ValidateValue += panelProvider.ValidationData;
-            propertiesPanelControl1.OnPropertyUpdate += panelProvider.ValueChanged;
+            propertiesPanelControl1.OnPropertyUpdate += PropertiesPanelControl1_OnPropertyUpdate; 
             SplittersController = new SplittersController();
-            panelProvider.OnUpdateObjectNavigator += UpdateNavigator;
-            panelProvider.OnUpdateGroupNavigator += UpdateNavigatorGroup;
+
+            panelProvider.OnUpdateNavigator += PresentProjectOnTree;
+            
         }
 
         public Queue<int> GetSplitters()
@@ -934,50 +935,42 @@ namespace BazisGUI
             DeleteObjectsEvent?.Invoke();
         }
 
-        private void navigator_AfterSelectEvent(TreeNode e, SelectionType select)
+        private void navigator_AfterSelectEvent(TreeNode node, SelectionType select)
         {
-            if(select == SelectionType.Object)
+            if(select == SelectionType.Object) 
             {
-                var setName = e.Text.Split(' ')[0]; // Деление по пробелу перед :
-                NodeType nodeType;
-                Enum.TryParse(e.Parent.Text, out nodeType);
+                var setName = node.Text.Split(' ')[0]; // Деление по пробелу перед :
+                Enum.TryParse(node.Parent.Text, out NodeType nodeType);
                 var type = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
                 var sets = ModelData.ObjectData.GetSetsInfo(type);
 
                 if (sets != null)
                 {
                     var set = sets.First(x => x.Name == setName);
-                    panelProvider.DrawObjectOnPanel(set, e);
+                    panelProvider.ShowPropertiesPanel(set, node);
                 }
             }
 
             else if(select == SelectionType.Group)
             {
-                var setName = e.Text.Split('_')[0];
-                NodeType nodeType;
-                Enum.TryParse(e.Parent.Text, out nodeType);
-                var groups = ModelData.GroupData.First(x => x.Name == e.Text);
+                var setName = node.Text.Split('_')[0];
+                Enum.TryParse(node.Parent.Text, out NodeType nodeType);
+                var groups = ModelData.GroupData.First(x => x.Name == node.Text);
 
                 if (groups != null)
                 {
-                    panelProvider.DrawGroupOnPanel(groups, e);
+                    panelProvider.ShowPropertiesPanel(groups, node);
                 }
             }
-        }
 
-        public void UpdateNavigator(ISetInfo obj, TreeNode nameNode)
-        {
-            var secondPart = nameNode.Text.Split(' ')[1];
-            var thirdPart = nameNode.Text.Split(' ')[2];
-            nameNode.Name = obj.Name;
-            nameNode.Text = obj.Name + " " + secondPart + " " + thirdPart;
+            else if(select == SelectionType.ValuableData)
+            {
+                OnValuableDataSelectedEvent?.Invoke(node, select);
+            }
         }
-
-        private void UpdateNavigatorGroup(IGroup group, TreeNode nameNode)
+        private void PropertiesPanelControl1_OnPropertyUpdate(BaseModule.PropertiesPanel.PropertyChangedEventArgs obj)
         {
-            //var secondPart = nameNode.Text.Split('_')[1];
-            nameNode.Name = group.Name;
-            nameNode.Text = group.Name;
+            panelProvider.UpdateObjectValue(obj.Header, obj.NewValue.ToString(), obj.OldValue.ToString());
         }
     }
 }

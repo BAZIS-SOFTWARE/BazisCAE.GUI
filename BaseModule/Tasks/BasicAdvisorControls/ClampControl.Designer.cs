@@ -175,7 +175,7 @@ namespace TaskModule.BasicAdvisorControls
             // 
             // groupBox3
             // 
-            this.groupBox3.AutoSize = true;
+            //this.groupBox3.AutoSize = true;
             this.groupBox3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox3.BackColor = System.Drawing.Color.Transparent;
             this.groupBox3.Controls.Add(this.player);
@@ -203,7 +203,7 @@ namespace TaskModule.BasicAdvisorControls
             // 
             this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.player.AutoSize = true;
+            this.player.AutoSize = false;
             this.player.CheckState = BaseModule.Player.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(176, 80);

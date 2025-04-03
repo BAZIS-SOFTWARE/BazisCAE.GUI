@@ -1,99 +1,49 @@
-﻿using System;
-using BaseModule.PropertiesPanel;
-using System.Collections.Generic;
-using Model.Interfaces.ObjectsCollections;
-using System.Windows.Forms;
+﻿using BaseModule.PropertiesPanel;
+using BazisGUI.PropertiesPanel.Control;
 using Model.Interfaces;
-using BazisGUI.Utilities;
-using System.Drawing;
+using Model.Interfaces.ObjectsCollections;
+using Project.Interfaces.Tasks;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace BazisGUI.PropertiesPanel
 {
     public class PropertyPanelProvider
     {
         public event Action<DrowPropertyOnPanelEventArgs> Out;
-        public event Action<ISetInfo, TreeNode> OnUpdateObjectNavigator;
-        public event Action<IGroup, TreeNode> OnUpdateGroupNavigator;
+        public event Action OnUpdateNavigator;
 
-        private ISetInfo _selectedObj;
-        private IGroup _selectedGroup;
-        private TreeNode _selectedNode;
+        public Func<List<string>> GetFuncDB;
+        public Func<List<string>> GetMatDB;
+        public Func<List<IGroup>> GetAllGroupElements;
 
-        /// <summary>
-        /// Метод для отображения свойств объекта на панели, создавая список свойств, которые можно редактировать.
-        /// Заполняет список свойств, каждый элемент которого соответствует определенному атрибуту объекта.
-        /// Для каждого свойства создается ячейка, которая может быть отредактирована.
-        /// </summary>
-        /// <param name="obj">Объект, свойства которого будут отображаться на панели.</param>
-        /// <param name="selectedNode">Выбранный узел в древовидной структуре, связанный с объектом.</param>
-        public void DrawObjectOnPanel(ISetInfo obj, TreeNode selectedNode) //создание коллекции RowProperty и отправка внутри EventArgs (DrowPropertyOnPanelEventArgs) в PropertyPanel.DataGridView
+        private List<string> _funcDBNames;
+        private List<string> _matDBNames;
+        private PanelConverter _converter;
+
+        public void ShowPropertiesPanel<T>(T obj, TreeNode selectedNode)
         {
-            _selectedObj = obj;
-            _selectedNode = selectedNode;
-            List<RowProperty> list = new List<RowProperty>()
-            {
-                new RowProperty("Имя", obj.Name, () => new DataGridViewTextBoxCell(),
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After),
-                
-                new RowProperty("Цвет", obj.Color.Name, () => new DataGridViewTextBoxCell(),
-                (cell) =>
-                {
-                    using (ColorDialog colorDialog = new ColorDialog())
-                    {
-                        if (colorDialog.ShowDialog() == DialogResult.OK)
-                        {
-                            return colorDialog.Color;
-                        }
-                    }
-                    return cell.Value;
-                }, 
-                SequenceType.Before),
-               
-                new RowProperty("Представление", obj.ViewMode, 
-                () => 
-                {
-                    var comboBoxCell = new DataGridViewComboBoxCell();
-                    comboBoxCell.Items.AddRange(Converters.GetEnumNames().ToArray());
-                    comboBoxCell.Value = obj.ViewMode;
-                    return comboBoxCell;
-                },
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After),
-            };
-            Out(new DrowPropertyOnPanelEventArgs(list));
+            InitializeConverter(obj);
+            Out(new DrowPropertyOnPanelEventArgs(_converter.GetRowProperty()));
         }
 
-        /// <summary>
-        /// Метод для отображения свойств объекта на панели, создавая список свойств, которые можно редактировать.
-        /// Заполняет список свойств, каждый элемент которого соответствует определенному атрибуту объекта.
-        /// Для каждого свойства создается ячейка, которая может быть отредактирована.
-        /// </summary>
-        /// <param name="obj">Объект, свойства которого будут отображаться на панели.</param>
-        /// <param name="selectedNode">Выбранный узел в древовидной структуре, связанный с объектом.</param>
-        public void DrawGroupOnPanel(IGroup obj, TreeNode selectedNode) //создание коллекции RowProperty и отправка внутри EventArgs (DrowPropertyOnPanelEventArgs) в PropertyPanel.DataGridView
+        private void InitializeConverter<T>(T obj)
         {
-            _selectedGroup = obj;
-            _selectedNode = selectedNode;
-            List<RowProperty> list = new List<RowProperty>()
+            if (obj is ISetInfo setInfo) _converter = new SetInfoConverter(setInfo);
+
+            else if (obj is IGroup group) _converter = new GroupConverter(group);
+
+            else if (obj is IData data)
             {
-                new RowProperty("Имя", obj.Name, () => new DataGridViewTextBoxCell(),
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After),
-            };
-            Out(new DrowPropertyOnPanelEventArgs(list));
+                _matDBNames = _matDBNames is null ? GetMatDB() : _matDBNames;
+                _funcDBNames = _funcDBNames is null ? GetFuncDB() : _funcDBNames;
+                _converter = DataConverter.CreateConverter(data, _funcDBNames, _matDBNames, GetAllGroupElements());
+            }
+            else throw new NotImplementedException("Тип конвертера не определен");
         }
 
-        public bool ValidationData (string header, object oldValue, object newValue )
+        public bool ValidationData(string header, object oldValue, object newValue)
         {
             if (newValue == null || newValue.ToString().Contains(" "))
             {
@@ -102,28 +52,10 @@ namespace BazisGUI.PropertiesPanel
             }
             return true;
         }
-        /// <summary>
-        /// Передает в BasePage.UpdateNavigator измененый объект и его старое имя для изменения данных в навигаторе
-        /// </summary>
-        /// <param name="e"></param>
-        public void ValueChanged (PropertyChangedEventArgs e)
+        public void UpdateObjectValue(string header, string newValue, string oldValue)
         {
-            if (_selectedNode?.Parent.Text == "Группы объектов")
-            {
-                var name = _selectedGroup.Name;
-                if (e.Header == "Имя") _selectedGroup.Name = e.NewValue.ToString();
-
-                OnUpdateGroupNavigator?.Invoke(_selectedGroup, _selectedNode);
-            }
-            else
-            {
-                var name = _selectedObj.Name;
-                if (e.Header == "Имя") _selectedObj.Name = e.NewValue.ToString();
-                else if (e.Header == "Цвет") _selectedObj.SetColor((System.Drawing.Color) e.NewValue);
-                else if(e.Header == "Представление") _selectedObj.SetViewMode(Converters.StringToEnum(e.NewValue.ToString()));
-
-                OnUpdateObjectNavigator?.Invoke(_selectedObj, _selectedNode);
-            }         
+            _converter.UpdateObject(header, newValue, oldValue);
+            OnUpdateNavigator.Invoke();
         }
     }
 }
