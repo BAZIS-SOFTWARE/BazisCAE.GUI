@@ -23,10 +23,7 @@ using PostProc;
 using Model.Interfaces;
 using PreProc.Interfaces;
 using ModelController.GmshController;
-<<<<<<< HEAD
-using Model.IO;
-=======
->>>>>>> origin/Master
+
 
 namespace BazisGUI
 {

@@ -1,10 +1,8 @@
-﻿using OpenQA.Selenium.Appium.Windows;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using static TestGUI.TestProvider;
+using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
-using System.Runtime.InteropServices;
-using NUnit.Framework.Internal.Execution;
-using OpenQA.Selenium;
+using static TestGUI.TestProvider;
 
 namespace TestGUI
 {
@@ -14,13 +12,7 @@ namespace TestGUI
         [Test(Description = "Последовательное развертывание корней 'Объекты', 'ГруппыОбъектов' и 'Данные'")]
         public void SelectingTreeElementsTest()
         {
-            var opt = new AppiumOptions();
-            opt.AddAdditionalCapability("app", Path.GetFullPath(@".\..\..\..\..\GUI\bin\x64\Debug\BazisGUI.exe"));
-            opt.AddAdditionalCapability("ms:waitForAppLaunch", "5");
-            opt.AddAdditionalCapability("appArguments", $"-proj {Path.GetFullPath(@".\..\..\..\..\GUI\Projects\Welding\Arc\proj.bpf")}");
-            opt.PlatformName = "Windows11x64";
-            var url = new Uri("http://127.0.0.1:4723");
-            var wd = new WindowsDriver<WindowsElement>(url, opt);
+            var wd = LoadProject();
 
             try
             {
@@ -56,13 +48,7 @@ namespace TestGUI
         //[TestCase("Среда : air Коэф.теплоотдачи.воздух 20 0 1500 *")]
         public void RenameTreeElementsTest(string element)
         {
-            var opt = new AppiumOptions();
-            opt.AddAdditionalCapability("app", Path.GetFullPath(@".\..\..\..\..\GUI\bin\x64\Debug\BazisGUI.exe"));
-            opt.AddAdditionalCapability("ms:waitForAppLaunch", "5");
-            opt.AddAdditionalCapability("appArguments", $"-proj {Path.GetFullPath(@".\..\..\..\..\GUI\Projects\Welding\Arc\proj.bpf")}");
-            opt.PlatformName = "Windows11x64";
-            var url = new Uri("http://127.0.0.1:4723");
-            var wd = new WindowsDriver<WindowsElement>(url, opt);
+            var wd = LoadProject();
 
             try
             {
@@ -94,13 +80,7 @@ namespace TestGUI
         [TestCase("Элемент3D : 23258")]
         public void SelectColorAndTypeModeTest(string element)
         {
-            var opt = new AppiumOptions();
-            opt.AddAdditionalCapability("app", Path.GetFullPath(@".\..\..\..\..\GUI\bin\x64\Debug\BazisGUI.exe"));
-            opt.AddAdditionalCapability("ms:waitForAppLaunch", "5");
-            opt.AddAdditionalCapability("appArguments", $"-proj {Path.GetFullPath(@".\..\..\..\..\GUI\Projects\Welding\Arc\proj.bpf")}");
-            opt.PlatformName = "Windows11x64";
-            var url = new Uri("http://127.0.0.1:4723");
-            var wd = new WindowsDriver<WindowsElement>(url, opt);
+            var wd = LoadProject();
 
             try
             {
@@ -127,6 +107,19 @@ namespace TestGUI
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
 
             finally { wd.CloseApp(); }
+        }
+
+        private static WindowsDriver<WindowsElement> LoadProject( )
+        {
+            var opt = new AppiumOptions();
+            opt.AddAdditionalCapability("app", Path.GetFullPath(@".\..\..\..\..\GUI\bin\x64\Debug\BazisGUI.exe"));
+            opt.AddAdditionalCapability("ms:waitForAppLaunch", "5");
+            opt.AddAdditionalCapability("appArguments", $"-proj {Path.GetFullPath(@".\..\..\..\..\GUI\Projects\Welding\Arc\proj.bpf")}");
+            opt.PlatformName = "Windows11x64";
+            var url = new Uri("http://127.0.0.1:4723");
+            var wd = new WindowsDriver<WindowsElement>(url, opt);
+
+            return wd;
         }
 
         private static void Rename(WindowsDriver<WindowsElement> wd, string newName, bool isError)
