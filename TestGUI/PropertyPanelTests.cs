@@ -100,9 +100,9 @@ namespace TestGUI
                 ChangeColor(wd, -10, 100);
                 ChangeColor(wd, -125, 100);
 
-                ChangeComboBoxValue(wd, 1);
-                ChangeComboBoxValue(wd, 2);
-                ChangeComboBoxValue(wd, 3);
+                ChangeViewMode(wd, 1);
+                ChangeViewMode(wd, 2);
+                ChangeViewMode(wd, 3);
             }
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
 
@@ -115,36 +115,35 @@ namespace TestGUI
             var wd = LoadProject();
             try 
             {
-                var actions = new Actions(wd);
                 TestProvider.GetElement(wd, "Модули", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Сварка", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Данные", SearchWay.Name).Click();
 
-                while (true)
-                {
-                    var previous = wd.SwitchTo().ActiveElement();
-                    var namePrevious = previous.Text;
-                    previous.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
-                    var current = wd.SwitchTo().ActiveElement();
-                    if (previous.Equals(current)) break;
+                EnumerateTree(wd, ChangeGroup);
 
-                    for (int i = 0; i < 1; i++)
-                    {
-                        var nameCurrent = current.Text;
-                        if (nameCurrent.Contains("Нагрев")) TestProvider.GetElement(wd, " Строка 0, Не отсортировано.", SearchWay.Name).Click();
-                        else TestProvider.GetElement(wd, " Строка 1, Не отсортировано.", SearchWay.Name).Click();
-                        TestProvider.ClickByOffset(wd, 265, 0, ClickType.LeftOne);
-                        TestProvider.ClickByOffset(wd, 0, 0, ClickType.LeftOne);
-                        wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
-                        wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Enter);
-                        wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Tab);
-                    }
-                    TestProvider.GetElement(wd, namePrevious, SearchWay.Name).Click();
-                    wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
-                }
+                Thread.Sleep(1000);
+            }
+            catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
 
+            finally { wd.CloseApp(); }
+        }
 
-                Thread.Sleep(2000);
+        [Test(Description = "Изменение времени начала и конца")]
+        [TestCase("0!150")]
+        [TestCase("200!150")]
+        [TestCase("d23!#50")]
+        public void ChangeStartAndEndTime(string value)
+        {
+            var wd = LoadProject();
+            try
+            {
+                TestProvider.GetElement(wd, "Модули", SearchWay.Name).Click();
+                TestProvider.GetElement(wd, "Сварка", SearchWay.Name).Click();
+                TestProvider.GetElement(wd, "Данные", SearchWay.Name).Click();
+
+                EnumerateTree(wd, ChangeTime, value);
+
+                Thread.Sleep(1000);
             }
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
 
@@ -191,17 +190,60 @@ namespace TestGUI
             }
         }
 
-        private static void ChangeTreeViewElement(WindowsDriver<WindowsElement> wd, int indexViewMode)
+        private static void EnumerateTree(WindowsDriver<WindowsElement> wd, Action<WindowsDriver<WindowsElement>,string> action, string value = "")
         {
-            var selectedViewMode = new Actions(wd);
-            for (int i = 0; i < indexViewMode; i++)
+            while (true)
             {
-                selectedViewMode.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+                var previous = wd.SwitchTo().ActiveElement();
+                previous.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+                var current = wd.SwitchTo().ActiveElement();
+
+                if (previous.Equals(current)) break;
+
+                var namePrevious = previous.Text;
+                var nameCurrent = current.Text;
+                action(wd, nameCurrent + "!" + value);
+
+                TestProvider.GetElement(wd, namePrevious, SearchWay.Name).Click();
+                wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
             }
-            selectedViewMode.SendKeys(OpenQA.Selenium.Keys.Enter).Perform();
         }
 
-        private static void ChangeComboBoxValue(WindowsDriver<WindowsElement> wd, int indexViewMode)
+        private static void ChangeTime(WindowsDriver<WindowsElement> wd, string value)
+        {
+            var data = value.Split('!');
+
+            if (data[0].Contains("Закрепление")) TestProvider.GetElement(wd, " Строка 4, Не отсортировано.", SearchWay.Name).Click();
+            else if (data[0].Contains("Среда")) 
+            {
+                if (data[0].Contains("Среда : air")) TestProvider.GetElement(wd, " Строка 4, Не отсортировано.", SearchWay.Name).Click();
+                else TestProvider.GetElement(wd, " Строка 3, Не отсортировано.", SearchWay.Name).Click();
+            } 
+            else if (data[0].Contains("Нагрев")) TestProvider.GetElement(wd, " Строка 1, Не отсортировано.", SearchWay.Name).Click();
+            else if (data[0].Contains("Нагрузка")) TestProvider.GetElement(wd, " Строка 6, Не отсортировано.", SearchWay.Name).Click();
+            else if (data[0].Contains("Материал")) TestProvider.GetElement(wd, " Строка 3, Не отсортировано.", SearchWay.Name).Click();
+
+            
+            TestProvider.ClickByOffset(wd, 265, 0, ClickType.LeftOne);
+            TestProvider.ClickByOffset(wd, 0, 0, ClickType.LeftOne);
+            wd.Keyboard.SendKeys(data[1] + OpenQA.Selenium.Keys.Enter);
+            wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+            wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Enter);
+            wd.Keyboard.SendKeys(data[2] + OpenQA.Selenium.Keys.Enter);
+            wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Tab);
+        }
+
+        private static void ChangeGroup(WindowsDriver<WindowsElement> wd, string nameCurrent)
+        {
+            if (nameCurrent.Contains("Нагрев")) TestProvider.GetElement(wd, " Строка 0, Не отсортировано.", SearchWay.Name).Click();
+            else TestProvider.GetElement(wd, " Строка 1, Не отсортировано.", SearchWay.Name).Click();
+            TestProvider.ClickByOffset(wd, 265, 0, ClickType.LeftOne);
+            TestProvider.ClickByOffset(wd, 0, 0, ClickType.LeftOne);
+            wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+            wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Enter);
+            wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Tab);
+        }
+        private static void ChangeViewMode(WindowsDriver<WindowsElement> wd, int indexViewMode)
         {
             TestProvider.GetElement(wd, " Строка 2, Не отсортировано.", SearchWay.Name).Click();
             TestProvider.ClickByOffset(wd, 275, 0, ClickType.LeftOne);
