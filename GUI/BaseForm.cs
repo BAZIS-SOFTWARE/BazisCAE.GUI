@@ -1,5 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿using BaseModule.Tasks.WeldingModule;
+using BazisGUI.Properties;
+using BazisGUI.SettingsControls;
+using ClientGUI;
+using ClientLogic;
+using LicenseInfo;
+using MathNet.Numerics.LinearAlgebra;
+using Model.Interfaces;
+using ModelController.GmshController;
+using Newtonsoft.Json;
+using PostProc;
+using PreProc.Interfaces;
 using Project;
+using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,19 +22,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using ClientLogic;
-using LicenseInfo;
-using ClientGUI;
-using BazisGUI.SettingsControls;
-using MathNet.Numerics.LinearAlgebra;
 using UserControlsEx;
-using BazisGUI.Properties;
-using Scene.Interfaces;
-using BaseModule.Tasks.WeldingModule;
-using PostProc;
-using Model.Interfaces;
-using PreProc.Interfaces;
-using ModelController.GmshController;
 
 
 namespace BazisGUI
@@ -473,7 +473,7 @@ namespace BazisGUI
 
             var que = new Queue<int>();
             que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.2f));
-            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.7f));
+            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.65f));
             que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.65f));
             
 

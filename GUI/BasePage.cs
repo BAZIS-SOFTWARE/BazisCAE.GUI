@@ -27,7 +27,6 @@ namespace BazisGUI
 {
     public partial class BasePage : UserControl
     {
-
         [Category("General")]
         [Description("Задать цвет выбора групп объектов")]
         public Color SelectionGroupColor { get; set; }
