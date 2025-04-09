@@ -3,6 +3,7 @@ using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
 using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 using static TestGUI.TestProvider;
 
@@ -122,22 +123,24 @@ namespace TestGUI
                 while (true)
                 {
                     var previous = wd.SwitchTo().ActiveElement();
+                    var namePrevious = previous.Text;
                     previous.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
                     var current = wd.SwitchTo().ActiveElement();
                     if (previous.Equals(current)) break;
 
                     for (int i = 0; i < 1; i++)
                     {
-                        TestProvider.GetElement(wd, " Строка 1, Не отсортировано.", SearchWay.Name).Click();
+                        var nameCurrent = current.Text;
+                        if (nameCurrent.Contains("Нагрев")) TestProvider.GetElement(wd, " Строка 0, Не отсортировано.", SearchWay.Name).Click();
+                        else TestProvider.GetElement(wd, " Строка 1, Не отсортировано.", SearchWay.Name).Click();
                         TestProvider.ClickByOffset(wd, 265, 0, ClickType.LeftOne);
                         TestProvider.ClickByOffset(wd, 0, 0, ClickType.LeftOne);
                         wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
                         wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Enter);
                         wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Tab);
                     }
-                    previous.SendKeys(OpenQA.Selenium.Keys.Enter);
+                    TestProvider.GetElement(wd, namePrevious, SearchWay.Name).Click();
                     wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
-                    Thread.Sleep(1000);
                 }
 
 
