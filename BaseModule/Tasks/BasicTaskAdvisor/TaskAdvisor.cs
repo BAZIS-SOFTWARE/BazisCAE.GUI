@@ -27,7 +27,7 @@ namespace TaskModule.BasicTaskAdvisor
         public event Action<object, ChangeTaskTypeEventArgs> Select2DAxiEvent;
         public event Action<object, ChangeTaskTypeEventArgs> Select3DEvent;
         public event Action<object, EventArgs> StopComputationEvent;
-        public event Action<object, Tasks> AddDataUseTaskConditionsEvent;
+        public event Action<object, Tasks,Priority> AddDataUseTaskConditionsEvent;
         public event Action<object, GenerateTCFEventArgs> GenerateTCFEvent;
         public event Action<object,string> EditTSFEvent;
 
@@ -279,9 +279,9 @@ namespace TaskModule.BasicTaskAdvisor
             StopComputationEvent(this, arg2);
         }
 
-        public virtual void TaskPlannerControl1_AddDataUseTaskConditionsEvent(object arg1, Tasks arg2)
+        public virtual void TaskPlannerControl1_AddDataUseTaskConditionsEvent(object arg1, Tasks arg2, Priority arg3)
         {
-            AddDataUseTaskConditionsEvent(this, arg2);
+            AddDataUseTaskConditionsEvent(this, arg2,arg3);
         }
 
 

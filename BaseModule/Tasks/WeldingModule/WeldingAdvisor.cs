@@ -78,9 +78,9 @@ namespace BaseModule.Tasks.WeldingModule
             base.TaskPlannerControl1_StopComputationEvent(arg1, arg2);
         }
 
-        public override void TaskPlannerControl1_AddDataUseTaskConditionsEvent(object arg1, BasicAdvisorControls.TaskPlannerControls.Tasks arg2)
+        public override void TaskPlannerControl1_AddDataUseTaskConditionsEvent(object arg1, BasicAdvisorControls.TaskPlannerControls.Tasks arg2, Priority arg3)
         {
-            base.TaskPlannerControl1_AddDataUseTaskConditionsEvent(arg1, arg2);
+            base.TaskPlannerControl1_AddDataUseTaskConditionsEvent(arg1, arg2,arg3);
         }
 
         public override void TabControl_DrawItem(object sender, DrawItemEventArgs e)
