@@ -164,15 +164,16 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             // player
             // 
-            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.player.AutoSize = true;
+            //this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            //| System.Windows.Forms.AnchorStyles.Right)));
             this.player.CheckState = BaseModule.Player.CheckState.start;
             this.player.CurrentValue = 0;
             this.player.Location = new System.Drawing.Point(176, 237);
             this.player.Margin = new System.Windows.Forms.Padding(3, 3, 15, 0);
             this.player.MinimumSize = new System.Drawing.Size(215, 45);
+            this.player.Size = new System.Drawing.Size(0, 45);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(642, 45);
             this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
             this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
             this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
