@@ -20,6 +20,11 @@ namespace BaseModule.Player
         
 
         [Category("Colors")]
+        public Color TextValueColor
+        {
+            get { return colorSlider.TextValueColor; }
+            set { colorSlider.TextValueColor = value; }
+        }
         public Color SliderBarInnerColor
         {
             get { return colorSlider.BarInnerColor; }
@@ -44,6 +49,13 @@ namespace BaseModule.Player
         {
             get { return colorSlider.ElapsedOuterColor; }
             set { colorSlider.ElapsedOuterColor = value; }
+        }
+
+        [Category("General")]
+        public bool ShowTextValue 
+        {
+            get { return colorSlider.ShowTextValue; } 
+            set { colorSlider.ShowTextValue = value; }
         }
 
         [Category("General")]
@@ -98,7 +110,6 @@ namespace BaseModule.Player
 
             CheckState = CheckState.start;
             CurrentValue = StartValue;
-            lblStatus.Text = "Проверка остановлена";
             SetCheckButtonState();
         }
 
@@ -109,8 +120,6 @@ namespace BaseModule.Player
             {
                 CheckState = CheckState.continuation;
                 timer.Stop();
-
-                lblStatus.Text = $"Пауза {CurrentValue} {StartValue} {StopValue}";
                 SetCheckButtonState();
 
                 PauseCheckingEvent?.Invoke(this);
@@ -143,7 +152,6 @@ namespace BaseModule.Player
             if (CurrentValue == StopValue)
             {
                 timer.Stop();
-                lblStatus.Text = "Проверка завершена";
                 timer.Enabled = false;
 
                 CheckState = CheckState.start;
@@ -154,7 +162,6 @@ namespace BaseModule.Player
             }
             else
             {
-                lblStatus.Text = $"Идет проверка {CurrentValue} {StartValue} {StopValue}";
                 CheckingEvent?.Invoke(this, CurrentValue);
                 Thread.Sleep(100);
                 CurrentValue ++;
