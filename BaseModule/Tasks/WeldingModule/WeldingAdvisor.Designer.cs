@@ -318,7 +318,7 @@ namespace BaseModule.Tasks.WeldingModule
             this.taskPlannerControl.Name = "taskPlannerControl";
             this.taskPlannerControl.Size = new System.Drawing.Size(729, 585);
             this.taskPlannerControl.TabIndex = 0;
-            this.taskPlannerControl.AddDataUseTaskConditionsEvent += new System.Action<object, BasicAdvisorControls.TaskPlannerControls.Tasks>(this.TaskPlannerControl1_AddDataUseTaskConditionsEvent);
+            this.taskPlannerControl.AddDataUseTaskConditionsEvent += new System.Action<object, BasicAdvisorControls.TaskPlannerControls.Tasks, Priority>(this.TaskPlannerControl1_AddDataUseTaskConditionsEvent);
             this.taskPlannerControl.StopComputationEvent += new System.Action<object, System.EventArgs>(this.TaskPlannerControl1_StopComputationEvent);
             this.taskPlannerControl.GenerateTCFEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls.GenerateTCFEventArgs>(this.TaskPlannerControl_GenerateTCFEvent);
             this.taskPlannerControl.AddDataEvent += new System.Action<object, BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);

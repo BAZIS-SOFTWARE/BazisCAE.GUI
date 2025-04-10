@@ -800,8 +800,11 @@ namespace BazisGUI
 
                     var root = navigator.TreeView.Nodes["объекты"].Nodes[nodeType.ToString()];
                     var child = navigator.SearchChildNode(root, setInfo.ObjType.ToString());
-                    child.ImageIndex = imgIndex;
-                    child.SelectedImageIndex = imgIndex;
+                    if(child != null)
+                    {
+                        child.ImageIndex = imgIndex;
+                        child.SelectedImageIndex = imgIndex;
+                    }
                 }
             }
         }

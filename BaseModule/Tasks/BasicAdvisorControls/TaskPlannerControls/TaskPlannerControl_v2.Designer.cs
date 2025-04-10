@@ -47,27 +47,35 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
             this.rbtChemicalTask = new System.Windows.Forms.RadioButton();
             this.rbtChemTermoTask = new System.Windows.Forms.RadioButton();
             this.rbtTermoMechTask = new System.Windows.Forms.RadioButton();
+            this.groupBoxEx1 = new UserControlsEx.GroupBoxEx();
+            this.rbtLow = new System.Windows.Forms.RadioButton();
+            this.rbtBelowMiddle = new System.Windows.Forms.RadioButton();
+            this.rbtMiddle = new System.Windows.Forms.RadioButton();
+            this.rbtUpperMiddle = new System.Windows.Forms.RadioButton();
+            this.rbtHigth = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.grbTaskKind.SuspendLayout();
+            this.groupBoxEx1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.dataGridView, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.dataGridView, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.grbTaskKind, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.groupBoxEx1, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(700, 727);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -81,12 +89,12 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
             this.Settings,
             this.Time});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(7, 197);
+            this.dataGridView.Location = new System.Drawing.Point(7, 257);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(686, 523);
+            this.dataGridView.Size = new System.Drawing.Size(686, 463);
             this.dataGridView.TabIndex = 14;
             this.dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -131,7 +139,7 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
             this.groupBox1.Controls.Add(this.StartButton);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.groupBox1.Location = new System.Drawing.Point(7, 115);
+            this.groupBox1.Location = new System.Drawing.Point(7, 175);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
@@ -281,6 +289,104 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
             this.rbtTermoMechTask.Text = "Термомеханическая";
             this.rbtTermoMechTask.UseVisualStyleBackColor = false;
             // 
+            // groupBoxEx1
+            // 
+            this.groupBoxEx1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBoxEx1.CheckState = true;
+            this.groupBoxEx1.Controls.Add(this.rbtHigth);
+            this.groupBoxEx1.Controls.Add(this.rbtUpperMiddle);
+            this.groupBoxEx1.Controls.Add(this.rbtMiddle);
+            this.groupBoxEx1.Controls.Add(this.rbtBelowMiddle);
+            this.groupBoxEx1.Controls.Add(this.rbtLow);
+            this.groupBoxEx1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxEx1.IsCheckable = false;
+            this.groupBoxEx1.IsExpanded = false;
+            this.groupBoxEx1.IsRollable = false;
+            this.groupBoxEx1.Location = new System.Drawing.Point(3, 111);
+            this.groupBoxEx1.MinimumSize = new System.Drawing.Size(0, 10);
+            this.groupBoxEx1.Name = "groupBoxEx1";
+            this.groupBoxEx1.Size = new System.Drawing.Size(694, 54);
+            this.groupBoxEx1.TabIndex = 15;
+            this.groupBoxEx1.TabStop = false;
+            this.groupBoxEx1.Text = "Приоритет";
+            // 
+            // rbtLow
+            // 
+            this.rbtLow.AutoSize = true;
+            this.rbtLow.BackColor = System.Drawing.Color.Transparent;
+            this.rbtLow.Checked = true;
+            this.rbtLow.Enabled = false;
+            this.rbtLow.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.rbtLow.Location = new System.Drawing.Point(15, 19);
+            this.rbtLow.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
+            this.rbtLow.Name = "rbtLow";
+            this.rbtLow.Size = new System.Drawing.Size(63, 17);
+            this.rbtLow.TabIndex = 81;
+            this.rbtLow.TabStop = true;
+            this.rbtLow.Tag = "0";
+            this.rbtLow.Text = "Низкий";
+            this.rbtLow.UseVisualStyleBackColor = false;
+            // 
+            // rbtBelowMiddle
+            // 
+            this.rbtBelowMiddle.AutoSize = true;
+            this.rbtBelowMiddle.BackColor = System.Drawing.Color.Transparent;
+            this.rbtBelowMiddle.Enabled = false;
+            this.rbtBelowMiddle.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.rbtBelowMiddle.Location = new System.Drawing.Point(83, 19);
+            this.rbtBelowMiddle.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
+            this.rbtBelowMiddle.Name = "rbtBelowMiddle";
+            this.rbtBelowMiddle.Size = new System.Drawing.Size(103, 17);
+            this.rbtBelowMiddle.TabIndex = 81;
+            this.rbtBelowMiddle.Tag = "0";
+            this.rbtBelowMiddle.Text = "Ниже среднего";
+            this.rbtBelowMiddle.UseVisualStyleBackColor = false;
+            // 
+            // rbtMiddle
+            // 
+            this.rbtMiddle.AutoSize = true;
+            this.rbtMiddle.BackColor = System.Drawing.Color.Transparent;
+            this.rbtMiddle.Enabled = false;
+            this.rbtMiddle.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.rbtMiddle.Location = new System.Drawing.Point(191, 19);
+            this.rbtMiddle.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
+            this.rbtMiddle.Name = "rbtMiddle";
+            this.rbtMiddle.Size = new System.Drawing.Size(68, 17);
+            this.rbtMiddle.TabIndex = 81;
+            this.rbtMiddle.Tag = "0";
+            this.rbtMiddle.Text = "Средний";
+            this.rbtMiddle.UseVisualStyleBackColor = false;
+            // 
+            // rbtUpperMiddle
+            // 
+            this.rbtUpperMiddle.AutoSize = true;
+            this.rbtUpperMiddle.BackColor = System.Drawing.Color.Transparent;
+            this.rbtUpperMiddle.Enabled = false;
+            this.rbtUpperMiddle.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.rbtUpperMiddle.Location = new System.Drawing.Point(264, 19);
+            this.rbtUpperMiddle.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
+            this.rbtUpperMiddle.Name = "rbtUpperMiddle";
+            this.rbtUpperMiddle.Size = new System.Drawing.Size(104, 17);
+            this.rbtUpperMiddle.TabIndex = 81;
+            this.rbtUpperMiddle.Tag = "0";
+            this.rbtUpperMiddle.Text = "Выше среднего";
+            this.rbtUpperMiddle.UseVisualStyleBackColor = false;
+            // 
+            // rbtHigth
+            // 
+            this.rbtHigth.AutoSize = true;
+            this.rbtHigth.BackColor = System.Drawing.Color.Transparent;
+            this.rbtHigth.Enabled = false;
+            this.rbtHigth.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.rbtHigth.Location = new System.Drawing.Point(373, 19);
+            this.rbtHigth.Margin = new System.Windows.Forms.Padding(3, 3, 2, 3);
+            this.rbtHigth.Name = "rbtHigth";
+            this.rbtHigth.Size = new System.Drawing.Size(70, 17);
+            this.rbtHigth.TabIndex = 81;
+            this.rbtHigth.Tag = "0";
+            this.rbtHigth.Text = "Высокий";
+            this.rbtHigth.UseVisualStyleBackColor = false;
+            // 
             // TaskPlannerControl_v2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -295,6 +401,8 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
             this.groupBox1.PerformLayout();
             this.grbTaskKind.ResumeLayout(false);
             this.grbTaskKind.PerformLayout();
+            this.groupBoxEx1.ResumeLayout(false);
+            this.groupBoxEx1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -317,5 +425,11 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
         private System.Windows.Forms.RadioButton rbtChemicalTask;
         private System.Windows.Forms.RadioButton rbtTermoMechTask;
         private System.Windows.Forms.RadioButton rbtChemTermoTask;
+        private GroupBoxEx groupBoxEx1;
+        private System.Windows.Forms.RadioButton rbtHigth;
+        private System.Windows.Forms.RadioButton rbtUpperMiddle;
+        private System.Windows.Forms.RadioButton rbtMiddle;
+        private System.Windows.Forms.RadioButton rbtBelowMiddle;
+        private System.Windows.Forms.RadioButton rbtLow;
     }
 }

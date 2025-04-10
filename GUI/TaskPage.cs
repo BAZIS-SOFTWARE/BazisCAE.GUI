@@ -235,7 +235,7 @@ namespace BazisGUI
                 //activeAdvisor = taskAdv.Name;
                 taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent;
                 taskAdv.EditTSFEvent += TaskAdv_EditTSFEvent;
-                taskAdv.AddDataUseTaskConditionsEvent += (ar1,ar2) => { TaskAdv_AddDataUseTaskConditions(taskData, preProc,ar2); };
+                taskAdv.AddDataUseTaskConditionsEvent += (ar1,ar2,ar3) => { TaskAdv_AddDataUseTaskConditions(taskData, preProc,ar2,ar3); };
                 taskAdv.AddDataEvent += (ar1, ar2) => { TaskAdvisor_AddData(taskData, ar2); };
                 taskAdv.DeleteDataEvent += (ar1, ar2) => { TaskAdvisor_DeleteData(taskData, ar2); };
                 taskAdv.DeleteAllDataEvent += (ar1, ar2) => { TaskAdvisor_DeleteAllData(taskData, ar2); };
@@ -378,7 +378,7 @@ namespace BazisGUI
             }
         }
 
-        private void TaskAdv_AddDataUseTaskConditions(ITaskData taskData, IPreProc preProc,Tasks tasks)
+        private void TaskAdv_AddDataUseTaskConditions(ITaskData taskData, IPreProc preProc,Tasks tasks,Priority priority)
         {
             try
             {

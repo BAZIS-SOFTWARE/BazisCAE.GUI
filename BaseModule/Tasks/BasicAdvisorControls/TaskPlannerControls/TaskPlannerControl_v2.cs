@@ -15,11 +15,12 @@ using System.Runtime;
 namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
 {
     public enum Tasks : int { химическая, термическая, механическая,химическая_и_термическая, термическая_и_механическая };
+    public enum Priority : int { Низкий, НижеСреднего, Средний, ВышеСреднего, Высокий };
     public partial class TaskPlannerControl_v2 : UserControl
     {
         //public ProcessType ProcessType { get; set; }
 
-        public event Action<object, Tasks> AddDataUseTaskConditionsEvent;
+        public event Action<object, Tasks,Priority> AddDataUseTaskConditionsEvent;
         public event Action<object, EventArgs> StopComputationEvent;
         public event Action<object, GenerateTCFEventArgs> GenerateTCFEvent;
         public event Action<object, AddDataEventArgs> AddDataEvent;
@@ -103,6 +104,28 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
             }
             else
                 return Tasks.химическая_и_термическая;
+        }
+
+        private Priority GetPriority()
+        {
+            if (rbtLow.Checked)
+            {
+                return Priority.Низкий;
+            }
+            else if (rbtBelowMiddle.Checked)
+            {
+                return Priority.НижеСреднего;
+            }
+            else if (rbtMiddle.Checked)
+            {
+                return Priority.Средний;
+            }
+            else if (rbtUpperMiddle.Checked)
+            {
+                return Priority.ВышеСреднего;
+            }
+            else
+                return Priority.Высокий;
         }
 
         public void ClearAllDataButton_Click(object sender, EventArgs e)
@@ -208,7 +231,7 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
 
         private void btnGenTSF_Click(object sender, EventArgs e)
         {
-            AddDataUseTaskConditionsEvent?.Invoke(this, GetTasksSet());
+            AddDataUseTaskConditionsEvent?.Invoke(this, GetTasksSet(),GetPriority());
         }
     }
 }
