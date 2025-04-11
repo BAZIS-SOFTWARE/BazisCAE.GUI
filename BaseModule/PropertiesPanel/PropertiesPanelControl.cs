@@ -11,11 +11,11 @@ namespace BaseModule.PropertiesPanel
     public partial class PropertiesPanelControl : UserControl, IPinnedControl
     {
         public event Action<PropertyChangedEventArgs> OnPropertyUpdate;
-        public event Func<string, object, object, bool> ValidateValue;
+        public event Func<string, string, bool> ValidateValue;
         public event Action ControlCollapseEvent;
         public event Action ControlUnpinnedEvent;
 
-        private object _oldValue;
+        private string _oldValue;
         private bool _isValid;
         private List<RowProperty> _rowProperties;
 
@@ -89,7 +89,7 @@ namespace BaseModule.PropertiesPanel
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 1)
             {
-                _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
+                _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
             }
             var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
             var property = _rowProperties[e.RowIndex];
@@ -102,17 +102,15 @@ namespace BaseModule.PropertiesPanel
         private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
 
-            var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
-            if (e.RowIndex == 0 && e.ColumnIndex == 1)
-            {
-                var header = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-                _isValid = ValidateValue?.Invoke(header, _oldValue, newValue) ?? true;
+            var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
 
-                if (!_isValid)
-                {
-                    dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = _oldValue;
-                    return;
-                }
+            var header = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            _isValid = ValidateValue?.Invoke(header, newValue) ?? true;
+
+            if (!_isValid)
+            {
+                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = _oldValue;
+                return;
             }
 
             var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];

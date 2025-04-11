@@ -43,12 +43,23 @@ namespace BazisGUI.PropertiesPanel
             else throw new NotImplementedException("Тип конвертера не определен");
         }
 
-        public bool ValidationData(string header, object oldValue, object newValue)
+        public bool ValidationData(string header, string newValue)
         {
-            if (newValue == null || newValue.ToString().Contains(" "))
+            if(header == "Имя")
             {
-                MessageBox.Show("Имя не должно содержать пробелов или быть пустым", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                if (newValue == null || newValue.Contains(" "))
+                {
+                    MessageBox.Show("Имя не должно содержать пробелов или быть пустым", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+            else if(header == "Старт, сек." || header == "Стоп, сек.")
+            {
+                if(newValue == null || !float.TryParse(newValue, out _) || newValue.Contains(" "))
+                {
+                    MessageBox.Show("Не верный формат данных", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
             }
             return true;
         }

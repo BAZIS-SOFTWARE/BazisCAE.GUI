@@ -36,8 +36,8 @@ namespace TestGUI
                 TestProvider.GetElement(wd, "Элемент3D : 23258", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "refLine", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Load", SearchWay.Name).Click();
-                TestProvider.GetElement(wd, "Среда : air Коэф.теплоотдачи.воздух 20 0 1500 *", SearchWay.Name).Click();
-                TestProvider.GetElement(wd, "Нагрев : ARC;4;100;25 Load 0 50 baseLine|refLine;2;startNodes;startNodes;0|0|0|0", SearchWay.Name).Click();
+                TestProvider.GetElement(wd, "Среда : air Коэф.теплоотдачи.воздух 20 0 50 *", SearchWay.Name).Click();
+                TestProvider.GetElement(wd, "Нагрев : ARC;4;100;25 Load 0 10 baseLine|refLine;10;startNodes;startNodes;0|0|0|0", SearchWay.Name).Click();
             }
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
 
@@ -47,7 +47,7 @@ namespace TestGUI
         [Test(Description = "Изменение имени объекта - попытка присвоения некорректного имени и ввод валидных значений")]
         [TestCase("Элемент2D : 7384" )]
         [TestCase("refLine")]
-        //[TestCase("Среда : air Коэф.теплоотдачи.воздух 20 0 1500 *")]
+        [TestCase("Среда : air Коэф.теплоотдачи.воздух 20 0 1500 *")]
         public void RenameTreeElementsTest(string element)
         {
             var wd = LoadProject();
