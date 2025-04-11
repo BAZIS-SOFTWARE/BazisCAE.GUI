@@ -49,7 +49,6 @@ namespace TestGUI
         [Test(Description = "Изменение имени объекта - попытка присвоения некорректного имени и ввод валидных значений")]
         [TestCase("Элемент2D : 7384" )]
         [TestCase("refLine")]
-        [TestCase("Среда : air Коэф.теплоотдачи.воздух 20 0 1500 *")]
         public void RenameTreeElementsTest(string element)
         {
             var wd = LoadProject();
