@@ -1,10 +1,12 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework.Internal.Execution;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using static TestGUI.TestProvider;
 
 namespace TestGUI
@@ -36,8 +38,8 @@ namespace TestGUI
                 TestProvider.GetElement(wd, "Элемент3D : 23258", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "refLine", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Load", SearchWay.Name).Click();
-                TestProvider.GetElement(wd, "Среда : air Коэф.теплоотдачи.воздух 20 0 1500 *", SearchWay.Name).Click();
-                TestProvider.GetElement(wd, "Нагрев : ARC;4;100;25 Load 0 50 baseLine|refLine;2;startNodes;startNodes;0|0|0|0", SearchWay.Name).Click();
+                TestProvider.GetElement(wd, "Среда : air Коэф.теплоотдачи.воздух 20 0 50 *", SearchWay.Name).Click();
+                TestProvider.GetElement(wd, "Нагрев : ARC;4;100;25 Load 0 10 baseLine|refLine;10;startNodes;startNodes;0|0|0|0", SearchWay.Name).Click();
             }
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
 
@@ -47,7 +49,6 @@ namespace TestGUI
         [Test(Description = "Изменение имени объекта - попытка присвоения некорректного имени и ввод валидных значений")]
         [TestCase("Элемент2D : 7384" )]
         [TestCase("refLine")]
-        //[TestCase("Среда : air Коэф.теплоотдачи.воздух 20 0 1500 *")]
         public void RenameTreeElementsTest(string element)
         {
             var wd = LoadProject();
@@ -129,9 +130,9 @@ namespace TestGUI
         }
 
         [Test(Description = "Изменение времени начала и конца")]
-        [TestCase("0!150")]
-        [TestCase("200!150")]
-        [TestCase("d23!#50")]
+        [TestCase("0!150!true")]
+        [TestCase("200!150!true")]
+        [TestCase("d23!#50!false")]
         public void ChangeStartAndEndTime(string value)
         {
             var wd = LoadProject();
@@ -223,14 +224,43 @@ namespace TestGUI
             else if (data[0].Contains("Нагрузка")) TestProvider.GetElement(wd, " Строка 6, Не отсортировано.", SearchWay.Name).Click();
             else if (data[0].Contains("Материал")) TestProvider.GetElement(wd, " Строка 3, Не отсортировано.", SearchWay.Name).Click();
 
-            
+
             TestProvider.ClickByOffset(wd, 265, 0, ClickType.LeftOne);
             TestProvider.ClickByOffset(wd, 0, 0, ClickType.LeftOne);
             wd.Keyboard.SendKeys(data[1] + OpenQA.Selenium.Keys.Enter);
+            CheckError();
             wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
             wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Enter);
-            wd.Keyboard.SendKeys(data[2] + OpenQA.Selenium.Keys.Enter);
-            wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Tab);
+            if (!data[0].Contains("Нагрев"))
+            {
+                wd.Keyboard.SendKeys(data[2] + OpenQA.Selenium.Keys.Enter);
+                CheckError();
+                wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Tab);
+            }
+
+            void CheckError()
+            {
+                WindowsElement exept = null;
+                if (data[3] == "false")
+                {
+                    try
+                    {
+                        exept = wd.FindElement(By.Name("FormatException"));
+                        Thread.Sleep(1000);
+                    }
+                    catch (OpenQA.Selenium.WebDriverException ex) { }
+
+                    Assert.That(!(exept is null));
+                    wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Enter);
+                }
+                else
+                {
+                    if (exept is not null)
+                    {
+                        throw new Exception("FormatException: ");
+                    }
+                }
+            }
         }
 
         private static void ChangeGroup(WindowsDriver<WindowsElement> wd, string nameCurrent)
