@@ -56,7 +56,7 @@ namespace BaseModule.PropertiesPanel
                     SelectionBackColor = SystemColors.ControlDark,
                     Padding = new Padding(15, 0, 0, 0)
                 },
-                ReadOnly = true
+                ReadOnly = true,
             });
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -79,6 +79,7 @@ namespace BaseModule.PropertiesPanel
                 cell.Value = prop.Value.ToString();
                 row.Cells.Add(cell);
                 cell.ReadOnly = prop.IsReadOnly;
+                cell.Tag = prop.ValidationType.ToString();
 
                 dataGridView1.Rows.Add(row);
             }
@@ -101,16 +102,18 @@ namespace BaseModule.PropertiesPanel
 
         private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-
-            var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-
-            var header = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-            _isValid = ValidateValue?.Invoke(header, newValue) ?? true;
-
-            if (!_isValid)
+            if(dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString() != ValidationType.None.ToString())
             {
-                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = _oldValue;
-                return;
+                var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                var tag = dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString();
+
+                _isValid = ValidateValue?.Invoke(tag, newValue) ?? true;
+
+                if (!_isValid)
+                {
+                    dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = _oldValue;
+                    return;
+                }
             }
 
             var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];

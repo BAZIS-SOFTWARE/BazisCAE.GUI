@@ -20,7 +20,7 @@ namespace BazisGUI.PropertiesPanel.Control
         {
             return new List<RowProperty>
             {
-                RowProperty.CreateTextBox("Имя", _objectsSet.Name),
+                RowProperty.CreateTextBox("Имя", _objectsSet.Name, ValidationType.Text),
                 new RowProperty("Цвет", _objectsSet.Color.Name, () => new DataGridViewTextBoxCell(),
                 (cell) =>
                 {
