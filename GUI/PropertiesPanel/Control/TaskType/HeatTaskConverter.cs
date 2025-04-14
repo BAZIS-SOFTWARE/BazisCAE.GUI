@@ -5,7 +5,9 @@ using Project.Tasks;
 using Project.Tasks.Functions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
 
 namespace BazisGUI.PropertiesPanel.Control.TaskType
 {
@@ -13,6 +15,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
     {
         private HeatData _objAsHeat;
         private List<string> _func;
+        private readonly List<IGroup> _groupLine;
 
         public HeatTaskConverter(IData obj, List<IGroup> groupElement, List<string> func)
         {
@@ -20,6 +23,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             dataGroupElement = groupElement;
             _objAsHeat = obj as HeatData;
             _func = func;
+            _groupLine = GetGroupsByObjTypeFromOnesName(_objAsHeat, _objAsHeat.MovedFrame.BaseLine.Name.ToString());
         }
 
         public override List<RowProperty> GetRowProperty()
@@ -58,24 +62,58 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             property.Add(RowProperty.CreateComboBox("Группа элементов", _objAsHeat.Group.Name, dataGroupElement.Select(x => x.Name).ToList()));
             property.Add(RowProperty.CreateTextBox("Старт, сек.", _objAsHeat.StartTime.ToString()));
             property.Add(RowProperty.CreateTextBox("Стоп, сек.", _objAsHeat.StopTime.ToString(), true));
+            
             return property;
         }
 
         public override void UpdateObject(string header, string newValue, string oldValue)
         {
+            if (_objAsHeat.FrameFunction is Arc arc)
+            {
+                data = new Dictionary<string, string>()
+                {
+                    { "Вид сварки", _objAsHeat.FrameFunction.Name },
+                    { "Ширина шва (L), мм", arc.Width.ToString() },
+                    { "Ток, А", arc.Current.ToString() },
+                    { "Напряжение, В", arc.Voltage.ToString() }
+                };
+            }
+            data[header] = newValue.ToString();
+
             if (header == "Группа элементов")
             {
-                var k = selectObj as IValuableData;
+                var valuadleData = selectObj as IValuableData;
                 var group = dataGroupElement.Find(x => x.Name == newValue.ToString());
-                k.Group = group;
-
+                valuadleData.Group = group;
                 _objAsHeat.Group.Name = newValue;
             }
             else if (header == "Старт, сек.")
             {
                 _objAsHeat.StartTime = float.Parse(newValue);
             }
+
+            var sb = new StringBuilder();
+            sb.Append($"{data["Вид сварки"]};{data["Ширина шва (L), мм"]};{data["Ток, А"]};{data["Напряжение, В"]} "); // processParameters
+            sb.Append($"{_objAsHeat.Group.Name} {_objAsHeat.StartTime} {_objAsHeat.StopTime} "); // set
+            var test = _objAsHeat.TrajectoryInfo;
+            sb.Append(test);
+            var set = sb.ToString();
+
+            var baseLine = _objAsHeat.MovedFrame.BaseLine;
+            var refLine = _objAsHeat.MovedFrame.RefLine;
+            var startLine = _objAsHeat.MovedFrame.StartPoints;
+            var stopLine = _objAsHeat.MovedFrame.StopPoints;
+
+            _objAsHeat.SetInfo(set);
+
+            _objAsHeat.MovedFrame.BaseLine = _groupLine.First(x => x.Name == baseLine.Name);
+            _objAsHeat.MovedFrame.RefLine = _groupLine.First(x => x.Name == refLine.Name);
+            _objAsHeat.MovedFrame.StartPoints = _groupLine.First(x => x.Name == startLine.Name);
+            _objAsHeat.MovedFrame.StopPoints = _groupLine.First(x => x.Name == stopLine.Name);
+            Debug.WriteLine(_objAsHeat.GetInfo);
             selectObj = _objAsHeat as IData;
+
+            
         }
     }
 }
