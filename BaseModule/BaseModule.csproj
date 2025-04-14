@@ -166,7 +166,6 @@
     </Compile>
     <Compile Include="Measurement\MeasureEventArgs.cs" />
     <Compile Include="PropertiesPanel\Events\CellValidatorEventArgs.cs" />
-    <Compile Include="PropertiesPanel\Events\CreateHeatDataEventArgs.cs" />
     <Compile Include="PropertiesPanel\Events\DrowPropertyOnPanelEventArgs.cs" />
     <Compile Include="PropertiesPanel\PanelConverter.cs" />
     <Compile Include="PropertiesPanel\PropertiesPanelControl.cs">
