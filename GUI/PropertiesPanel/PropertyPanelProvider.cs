@@ -1,5 +1,6 @@
 ﻿using BaseModule.PropertiesPanel;
 using BazisGUI.PropertiesPanel.Control;
+using BazisGUI.Utilities;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using Project.Interfaces.Tasks;
@@ -43,9 +44,10 @@ namespace BazisGUI.PropertiesPanel
             else throw new NotImplementedException("Тип конвертера не определен");
         }
 
-        public bool ValidationData(string header, string newValue)
+        public bool ValidationData(string tag, string newValue)
         {
-            if(header == "Имя")
+            var type = Converters.StringToEnum<ValidationType>(tag);
+            if(type.HasFlag(ValidationType.Text))
             {
                 if (newValue == null || newValue.Contains(" "))
                 {
@@ -53,11 +55,19 @@ namespace BazisGUI.PropertiesPanel
                     return false;
                 }
             }
-            else if(header == "Старт, сек." || header == "Стоп, сек.")
+            if(type.HasFlag(ValidationType.Float))
             {
-                if(newValue == null || !float.TryParse(newValue, out _) || newValue.Contains(" "))
+                if(!float.TryParse(newValue, out _) || newValue.Contains(" "))
                 {
                     MessageBox.Show("Не верный формат данных", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+            if (type.HasFlag(ValidationType.PositiveOnly))
+            {
+                if(Convert.ToDouble(newValue) < 0)
+                {
+                    MessageBox.Show("Не допустимо отрицательное значение", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
