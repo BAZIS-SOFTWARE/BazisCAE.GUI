@@ -1,12 +1,7 @@
-﻿using NUnit.Framework.Internal.Execution;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
-using System;
-using System.Diagnostics;
-using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using static TestGUI.TestProvider;
 
 namespace TestGUI
@@ -130,10 +125,10 @@ namespace TestGUI
         }
 
         [Test(Description = "Изменение времени начала и конца")]
-        [TestCase("0!150!true")]
-        [TestCase("200!150!true")]
-        [TestCase("d23!#50!false")]
-        public void ChangeStartAndEndTime(string value)
+        [TestCase("0!150", true)]
+        [TestCase("200!150", true)]
+        [TestCase("d23!#50", false)]
+        public void ChangeStartAndEndTimeTest(string value, bool isError)
         {
             var wd = LoadProject();
             try
@@ -142,12 +137,34 @@ namespace TestGUI
                 TestProvider.GetElement(wd, "Сварка", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Данные", SearchWay.Name).Click();
 
-                EnumerateTree(wd, ChangeTime, value);
+                EnumerateTree(wd, ChangeTime, value, isError);
 
                 Thread.Sleep(1000);
             }
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
 
+            finally { wd.CloseApp(); }
+        }
+
+        [Test(Description = "Тестирование изменения параметров источника")]
+        [TestCase("0", true)]
+        [TestCase("10", true)]
+        [TestCase("12.5", true)]
+        [TestCase("15. 4", true)]
+        [TestCase("-15.4", false)]
+        [TestCase("q12", false)]
+        public void SetSourceValueTest(string data, bool isError)
+        {
+            var wd = LoadProject();
+            try
+            {
+                TestProvider.GetElement(wd, "Модули", SearchWay.Name).Click();
+                TestProvider.GetElement(wd, "Сварка", SearchWay.Name).Click();
+                TestProvider.GetElement(wd, "Данные", SearchWay.Name).Click();
+
+                EnumerateTree(wd, ChangeSource, data, isError);
+            }
+            catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
             finally { wd.CloseApp(); }
         }
 
@@ -191,7 +208,7 @@ namespace TestGUI
             }
         }
 
-        private static void EnumerateTree(WindowsDriver<WindowsElement> wd, Action<WindowsDriver<WindowsElement>,string> action, string value = "")
+        private static void EnumerateTree(WindowsDriver<WindowsElement> wd, Action<WindowsDriver<WindowsElement>,string, bool> action, string value = "", bool isError = false)
         {
             while (true)
             {
@@ -203,24 +220,58 @@ namespace TestGUI
 
                 var namePrevious = previous.Text;
                 var nameCurrent = current.Text;
-                action(wd, nameCurrent + "!" + value);
+
+                action(wd, nameCurrent + "!" + value, isError);
 
                 TestProvider.GetElement(wd, namePrevious, SearchWay.Name).Click();
                 wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
             }
         }
 
-        private static void ChangeTime(WindowsDriver<WindowsElement> wd, string value)
+        private static void ChangeSource(WindowsDriver<WindowsElement> wd, string value, bool isError)
+        {
+            var data = value.Split('!');
+
+            if (data[0].Contains("Нагрев"))
+            {
+                var length = 0;
+                if (data[0].Contains("Нагрев : ARC") || data[0].Contains("Нагрев : FSWShoulder"))
+                {
+                    length = 3;
+                }
+                else if (data[0].Contains("Нагрев : FSWPin") || data[0].Contains("Нагрев : LW") )
+                {
+                    length = 4;
+                }
+                
+                for (int i = 0; i < length; i++)
+                {
+                    TestProvider.GetElement(wd, $" Строка {i}, Не отсортировано.", SearchWay.Name).Click();
+                    TestProvider.ClickByOffset(wd, 265, 0, ClickType.LeftOne);
+                    TestProvider.ClickByOffset(wd, 0, 0, ClickType.LeftOne);
+                    wd.Keyboard.SendKeys(data[1] + OpenQA.Selenium.Keys.Enter);
+                    CheckError(wd, isError);
+                }
+            }
+        }
+
+        private static void ChangeTime(WindowsDriver<WindowsElement> wd, string value, bool isError = false)
         {
             var data = value.Split('!');
 
             if (data[0].Contains("Закрепление")) TestProvider.GetElement(wd, " Строка 4, Не отсортировано.", SearchWay.Name).Click();
-            else if (data[0].Contains("Среда")) 
+            else if (data[0].Contains("Среда"))
             {
                 if (data[0].Contains("Среда : air")) TestProvider.GetElement(wd, " Строка 4, Не отсортировано.", SearchWay.Name).Click();
                 else TestProvider.GetElement(wd, " Строка 3, Не отсортировано.", SearchWay.Name).Click();
-            } 
-            else if (data[0].Contains("Нагрев")) TestProvider.GetElement(wd, " Строка 1, Не отсортировано.", SearchWay.Name).Click();
+            }
+            else if (data[0].Contains("Нагрев")) 
+            {
+                if (data[0].Contains("Нагрев : ARC")) TestProvider.GetElement(wd, " Строка 4, Не отсортировано.", SearchWay.Name).Click();
+                else if (data[0].Contains("Нагрев : FSWShoulder")) TestProvider.GetElement(wd, " Строка 5, Не отсортировано.", SearchWay.Name).Click();
+                else if (data[0].Contains("Нагрев : FSWPin")) TestProvider.GetElement(wd, " Строка 6, Не отсортировано.", SearchWay.Name).Click();
+                else TestProvider.GetElement(wd, " Строка 5, Не отсортировано.", SearchWay.Name).Click();
+            }
             else if (data[0].Contains("Нагрузка")) TestProvider.GetElement(wd, " Строка 6, Не отсортировано.", SearchWay.Name).Click();
             else if (data[0].Contains("Материал")) TestProvider.GetElement(wd, " Строка 3, Не отсортировано.", SearchWay.Name).Click();
 
@@ -228,42 +279,18 @@ namespace TestGUI
             TestProvider.ClickByOffset(wd, 265, 0, ClickType.LeftOne);
             TestProvider.ClickByOffset(wd, 0, 0, ClickType.LeftOne);
             wd.Keyboard.SendKeys(data[1] + OpenQA.Selenium.Keys.Enter);
-            CheckError();
+            CheckError(wd, isError);
             wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
             wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Enter);
             if (!data[0].Contains("Нагрев"))
             {
                 wd.Keyboard.SendKeys(data[2] + OpenQA.Selenium.Keys.Enter);
-                CheckError();
+                CheckError(wd, isError);
                 wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Tab);
-            }
-
-            void CheckError()
-            {
-                WindowsElement exept = null;
-                if (data[3] == "false")
-                {
-                    try
-                    {
-                        exept = wd.FindElement(By.Name("FormatException"));
-                        Thread.Sleep(1000);
-                    }
-                    catch (OpenQA.Selenium.WebDriverException ex) { }
-
-                    Assert.That(!(exept is null));
-                    wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Enter);
-                }
-                else
-                {
-                    if (exept is not null)
-                    {
-                        throw new Exception("FormatException: ");
-                    }
-                }
             }
         }
 
-        private static void ChangeGroup(WindowsDriver<WindowsElement> wd, string nameCurrent)
+        private static void ChangeGroup(WindowsDriver<WindowsElement> wd, string nameCurrent, bool isError = false)
         {
             if (nameCurrent.Contains("Нагрев")) TestProvider.GetElement(wd, " Строка 0, Не отсортировано.", SearchWay.Name).Click();
             else TestProvider.GetElement(wd, " Строка 1, Не отсортировано.", SearchWay.Name).Click();
@@ -306,6 +333,29 @@ namespace TestGUI
             TestProvider.ClickByOffset(wd, 0, 0, ClickType.LeftOne);
         }
 
+        private static void CheckError(WindowsDriver<WindowsElement> wd, bool isError)
+        {
+            WindowsElement exept = null;
+            if (!isError)
+            {
+                try
+                {
+                    exept = wd.FindElement(By.Name("FormatException"));
+                    Thread.Sleep(1000);
+                }
+                catch (OpenQA.Selenium.WebDriverException ex) { }
+
+                Assert.That(!(exept is null));
+                wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Enter);
+            }
+            else
+            {
+                if (exept is not null)
+                {
+                    throw new Exception("FormatException: ");
+                }
+            }
+        }
         private static void ExpandElement(WindowsDriver<WindowsElement> wd, Actions actions, string nameInTree)    
         {
             var element = TestProvider.GetElement(wd, nameInTree, SearchWay.Name);

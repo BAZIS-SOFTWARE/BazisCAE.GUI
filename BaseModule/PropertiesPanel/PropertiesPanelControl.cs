@@ -11,7 +11,11 @@ namespace BaseModule.PropertiesPanel
     public partial class PropertiesPanelControl : UserControl, IPinnedControl
     {
         public event Action<PropertyChangedEventArgs> OnPropertyUpdate;
-        public event Func<string, string, bool> ValidateValue;
+        //public event Action<string, string, bool> ValidateValue;
+
+        public delegate bool Validator(string header, string value, out string corrected);
+        public event Validator ValidateValue;
+
         public event Action ControlCollapseEvent;
         public event Action ControlUnpinnedEvent;
 
@@ -106,14 +110,15 @@ namespace BaseModule.PropertiesPanel
             {
                 var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
                 var tag = dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString();
-
-                _isValid = ValidateValue?.Invoke(tag, newValue) ?? true;
+                var corrected = newValue;
+                _isValid = ValidateValue?.Invoke(tag, newValue, out corrected) ?? true;
 
                 if (!_isValid)
                 {
                     dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = _oldValue;
                     return;
                 }
+                if (newValue != corrected) dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = corrected;
             }
 
             var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];

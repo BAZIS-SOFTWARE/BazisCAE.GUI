@@ -44,7 +44,7 @@ namespace BazisGUI.PropertiesPanel
             else throw new NotImplementedException("Тип конвертера не определен");
         }
 
-        public bool ValidationData(string tag, string newValue)
+        public bool ValidationData(string tag, string newValue, out string corrected)
         {
             var type = Converters.StringToEnum<ValidationType>(tag);
             if(type.HasFlag(ValidationType.Text))
@@ -52,14 +52,21 @@ namespace BazisGUI.PropertiesPanel
                 if (newValue == null || newValue.Contains(" "))
                 {
                     MessageBox.Show("Имя не должно содержать пробелов или быть пустым", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    corrected = newValue;
                     return false;
                 }
             }
             if(type.HasFlag(ValidationType.Float))
             {
-                if(!float.TryParse(newValue, out _) || newValue.Contains(" "))
+                if (newValue.Contains(" "))
+                {
+                    newValue = newValue.Replace(" ", "");
+                }
+
+                if (!float.TryParse(newValue, out _) || newValue.Contains(" "))
                 {
                     MessageBox.Show("Не верный формат данных", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    corrected = newValue;
                     return false;
                 }
             }
@@ -68,9 +75,11 @@ namespace BazisGUI.PropertiesPanel
                 if(Convert.ToDouble(newValue) < 0)
                 {
                     MessageBox.Show("Не допустимо отрицательное значение", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    corrected = newValue;
                     return false;
                 }
             }
+            corrected = newValue;
             return true;
         }
         public void UpdateObjectValue(string header, string newValue, string oldValue)
