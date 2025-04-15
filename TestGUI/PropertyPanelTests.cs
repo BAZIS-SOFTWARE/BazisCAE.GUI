@@ -239,7 +239,7 @@ namespace TestGUI
                 {
                     length = 3;
                 }
-                else if (data[0].Contains("Нагрев : FSWPin") || data[0].Contains("Нагрев : LW") )
+                else
                 {
                     length = 4;
                 }
@@ -273,7 +273,7 @@ namespace TestGUI
                 else TestProvider.GetElement(wd, " Строка 5, Не отсортировано.", SearchWay.Name).Click();
             }
             else if (data[0].Contains("Нагрузка")) TestProvider.GetElement(wd, " Строка 6, Не отсортировано.", SearchWay.Name).Click();
-            else if (data[0].Contains("Материал")) TestProvider.GetElement(wd, " Строка 3, Не отсортировано.", SearchWay.Name).Click();
+            else TestProvider.GetElement(wd, " Строка 3, Не отсортировано.", SearchWay.Name).Click();
 
 
             TestProvider.ClickByOffset(wd, 265, 0, ClickType.LeftOne);

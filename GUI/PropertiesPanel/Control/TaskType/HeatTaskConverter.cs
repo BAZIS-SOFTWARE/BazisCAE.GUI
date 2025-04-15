@@ -67,13 +67,13 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
 
         public override void UpdateObject(string header, string newValue, string oldValue)
         {
-            var set = GetFrameFunction(header, newValue).ToString();
+            var set = GetFrameFunction(header, newValue);
 
             if (header == "Группа элементов")
             {
-                var valuadleData = selectObj as IValuableData;
+                var valuableData = selectObj as IValuableData;
                 var group = dataGroupElement.Find(x => x.Name == newValue.ToString());
-                valuadleData.Group = group;
+                valuableData.Group = group;
                 _objAsHeat.Group.Name = newValue;
             }
             else if (header == "Старт, сек.")
@@ -84,7 +84,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             selectObj = _objAsHeat as IData;  
         }
 
-        private StringBuilder GetFrameFunction(string header, string newValue)
+        private string GetFrameFunction(string header, string newValue)
         {
             var sb = new StringBuilder();
             if (_objAsHeat.FrameFunction is Arc arc)
@@ -102,6 +102,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 sb.Append($"{_objAsHeat.Group.Name} {_objAsHeat.StartTime} {_objAsHeat.StopTime} "); // set
                 var trajectory = _objAsHeat.TrajectoryInfo;
                 sb.Append(trajectory);
+                return sb.ToString();
             }
             else if (_objAsHeat.FrameFunction is Lazer lazer)
             {
@@ -119,6 +120,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 sb.Append($"{_objAsHeat.Group.Name} {_objAsHeat.StartTime} {_objAsHeat.StopTime} "); // set
                 var trajectory = _objAsHeat.TrajectoryInfo;
                 sb.Append(trajectory);
+                return sb.ToString();
             }
             else if (_objAsHeat.FrameFunction is FSWPin fSwPin)
             {
@@ -137,6 +139,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 sb.Append($"{_objAsHeat.Group.Name} {_objAsHeat.StartTime} {_objAsHeat.StopTime} "); // set
                 var trajectory = _objAsHeat.TrajectoryInfo;
                 sb.Append(trajectory);
+                return sb.ToString();
             }
             else
             {
@@ -162,8 +165,8 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 sb.Append($"{_objAsHeat.Group.Name} {_objAsHeat.StartTime} {_objAsHeat.StopTime} "); // set
                 var trajectory = _objAsHeat.TrajectoryInfo;
                 sb.Append(trajectory);
+                return sb.ToString();
             }
-            return sb;
         }
 
         [Obsolete ("Использовать до изменения в Core")]
