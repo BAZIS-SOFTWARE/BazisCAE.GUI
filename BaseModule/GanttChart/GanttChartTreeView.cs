@@ -1,28 +1,21 @@
-﻿using Project.Interfaces.Tasks;
-using Project.Tasks;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BazisGUI
+namespace BaseModule.GanttChart
 {
     public partial class GanttChartTreeView : UserControl
     {
         private GanttChartModel ganttChart;
         private Dictionary<TreeNode, int> mapTreeNodeToChartIndex;
 
-        public GanttChartTreeView(List<IValuableData> tasks, int timestamps)
+        public GanttChartTreeView(List<string[]> tasks, int timestamps)
         {
             InitializeComponent();
 
-            var start = tasks.Min(t => t.StartTime);
-            var end = tasks.Max(t => t.StopTime);
+            var start = tasks.Min(t => double.Parse(t[t.Length - 3]));
+            var end = tasks.Max(t => double.Parse(t[t.Length - 2]));
             var interval = (end - start) / timestamps;
 
             ganttChart = new GanttChartModel(start, end, interval, tasks.Count);
@@ -34,39 +27,40 @@ namespace BazisGUI
             AddTasks(tasks);
         }
 
-        private void AddTasks(List<IValuableData> tasks)
+        private void AddTasks(List<string[]> tasks)
         {
             var chartLayer = 1;
-            for (var i = 0; i < tasks.Count(); i++)
+            foreach(var task in tasks)
             {
-                var groupName = tasks[i].Name;
-                var description = tasks[i].GetInfo;
+                var groupName = task[0];
+                var description = string.Join(" ", task);
 
                 if (!treeView.Nodes.ContainsKey(groupName))
                 {
                     var groupNode = treeView.Nodes.Add(groupName, groupName);
                     groupNode.Checked = true;
                 }
-
                 var parent = treeView.Nodes[groupName];
                 var node = parent.Nodes.Add(description);
                 mapTreeNodeToChartIndex.Add(node, chartLayer);
                 node.Checked = true;
 
-                ganttChart.AddTask(tasks[i].StartTime, tasks[i].StopTime, chartLayer, groupName, MapTaskToColor(tasks[i]), description);
+                var start = double.Parse(task[task.Length - 3]);
+                var end = double.Parse(task[task.Length - 2]);
+                ganttChart.AddTask(start, end, chartLayer, groupName, MapTaskToColor(task[0]), description);
                 chartLayer++;
             }
         }
 
-        private Color MapTaskToColor(IValuableData task)
+        private Color MapTaskToColor(string taskName)
         {
-            switch (task)
+            switch (taskName)
             {
-                case ClampData _: return Color.FromArgb(194, 174, 95);
-                case HeatData _: return Color.FromArgb(194, 110, 96);
-                case LoadData _: return Color.FromArgb(57, 157, 152);
-                case MatData _: return Color.FromArgb(157, 57, 95);
-                case MediaData _: return Color.FromArgb(57, 157, 85);
+                case "Закрепление": return Color.FromArgb(194, 174, 95);
+                case "Нагрев": return Color.FromArgb(194, 110, 96);
+                case "Нагрузка": return Color.FromArgb(57, 157, 152);
+                case "Материал": return Color.FromArgb(157, 57, 95);
+                case "Среда": return Color.FromArgb(57, 157, 85);
                 default: return Color.FromArgb(61, 81, 160);
             }
         }
