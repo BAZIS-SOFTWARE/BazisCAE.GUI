@@ -72,6 +72,14 @@ namespace UserControlsEx
                 Invalidate();
             }
         }
+        /// <summary>
+        /// TextValueColor
+        /// </summary>
+        public Color TextValueColor { get; set; } = Color.Black;
+        /// <summary>
+        /// ShowTextValueColor
+        /// </summary>
+        public bool ShowTextValue { get; set; } = true;
 
         private GraphicsPath thumbCustomShape = null;
         /// <summary>
@@ -757,6 +765,13 @@ namespace UserControlsEx
                         }*/
                 }
 
+                if(ShowTextValue)
+                {
+                    var brush = new SolidBrush(TextValueColor);
+                    e.Graphics.DrawString(Value.ToString(), Font, brush, barRect.Width / 2, barRect.Location.Y);
+                }
+
+
                 //draw focusing rectangle
                 if (Focused & drawFocusRectangle)
                     using (Pen p = new Pen(Color.FromArgb(200, barPenColorPaint)))
@@ -874,6 +889,7 @@ namespace UserControlsEx
                 if (Scroll != null) Scroll(this, new ScrollEventArgs(set, trackerValue));
                 if (ValueChanged != null) ValueChanged(this, new EventArgs());
             }
+
             Invalidate();
         }
 

@@ -43,7 +43,6 @@ namespace TaskModule.BasicAdvisorControls
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.player = new BaseModule.Player.PlayerControl();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -68,6 +67,7 @@ namespace TaskModule.BasicAdvisorControls
             this.chbX = new System.Windows.Forms.CheckBox();
             this.закрепленияTab_элComboBox = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.player = new BaseModule.Player.PlayerControl();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvControl)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -110,12 +110,12 @@ namespace TaskModule.BasicAdvisorControls
             this.startColumn,
             this.stopColumn});
             this.dgvControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvControl.Location = new System.Drawing.Point(7, 374);
+            this.dgvControl.Location = new System.Drawing.Point(7, 364);
             this.dgvControl.Margin = new System.Windows.Forms.Padding(7);
             this.dgvControl.Name = "dgvControl";
             this.dgvControl.ReadOnly = true;
             this.dgvControl.RowHeadersWidth = 51;
-            this.dgvControl.Size = new System.Drawing.Size(759, 296);
+            this.dgvControl.Size = new System.Drawing.Size(759, 621);
             this.dgvControl.TabIndex = 23;
             this.dgvControl.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dgvControl.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
@@ -175,7 +175,7 @@ namespace TaskModule.BasicAdvisorControls
             // 
             // groupBox3
             // 
-            //this.groupBox3.AutoSize = true;
+            this.groupBox3.AutoSize = true;
             this.groupBox3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox3.BackColor = System.Drawing.Color.Transparent;
             this.groupBox3.Controls.Add(this.player);
@@ -194,41 +194,17 @@ namespace TaskModule.BasicAdvisorControls
             this.groupBox3.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox3.Size = new System.Drawing.Size(759, 138);
+            this.groupBox3.Size = new System.Drawing.Size(759, 128);
             this.groupBox3.TabIndex = 24;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Время действия";
-            // 
-            // player
-            // 
-            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.player.AutoSize = false;
-            this.player.CheckState = BaseModule.Player.CheckState.start;
-            this.player.CurrentValue = 0;
-            this.player.Location = new System.Drawing.Point(176, 80);
-            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.player.MinimumSize = new System.Drawing.Size(215, 45);
-            this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(563, 45);
-            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
-            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
-            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
-            this.player.SpeedValue = 500;
-            this.player.StartValue = 0;
-            this.player.StopValue = 100;
-            this.player.TabIndex = 22;
-            this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
-            this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
-            this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
             // 
             // btnClearAll
             // 
             this.btnClearAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAll.Image")));
-            this.btnClearAll.Location = new System.Drawing.Point(44, 80);
+            this.btnClearAll.Location = new System.Drawing.Point(44, 84);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";
             this.btnClearAll.Size = new System.Drawing.Size(27, 27);
@@ -275,7 +251,7 @@ namespace TaskModule.BasicAdvisorControls
             this.btnShowAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnShowAll.Image")));
-            this.btnShowAll.Location = new System.Drawing.Point(110, 80);
+            this.btnShowAll.Location = new System.Drawing.Point(110, 84);
             this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShowAll.Name = "btnShowAll";
             this.btnShowAll.Size = new System.Drawing.Size(27, 27);
@@ -289,7 +265,7 @@ namespace TaskModule.BasicAdvisorControls
             this.btnHideAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHideAll.Image = ((System.Drawing.Image)(resources.GetObject("btnHideAll.Image")));
-            this.btnHideAll.Location = new System.Drawing.Point(143, 80);
+            this.btnHideAll.Location = new System.Drawing.Point(143, 84);
             this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnHideAll.Name = "btnHideAll";
             this.btnHideAll.Size = new System.Drawing.Size(27, 27);
@@ -303,7 +279,7 @@ namespace TaskModule.BasicAdvisorControls
             this.btnRefresh.Enabled = false;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
-            this.btnRefresh.Location = new System.Drawing.Point(77, 80);
+            this.btnRefresh.Location = new System.Drawing.Point(77, 84);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(27, 27);
@@ -317,7 +293,7 @@ namespace TaskModule.BasicAdvisorControls
             this.btnAddNewRow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewRow.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewRow.Image")));
-            this.btnAddNewRow.Location = new System.Drawing.Point(11, 80);
+            this.btnAddNewRow.Location = new System.Drawing.Point(11, 84);
             this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
             this.btnAddNewRow.Name = "btnAddNewRow";
             this.btnAddNewRow.Size = new System.Drawing.Size(27, 27);
@@ -534,6 +510,29 @@ namespace TaskModule.BasicAdvisorControls
             this.label7.TabIndex = 15;
             this.label7.Text = "Группа узлов/элементов";
             // 
+            // player
+            // 
+            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.player.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.player.CheckState = BaseModule.Player.CheckState.start;
+            this.player.CurrentValue = 50;
+            this.player.Location = new System.Drawing.Point(173, 81);
+            this.player.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.player.MinimumSize = new System.Drawing.Size(215, 30);
+            this.player.Name = "player";
+            this.player.ShowTextValue = true;
+            this.player.Size = new System.Drawing.Size(566, 34);
+            this.player.SliderBarInnerColor = System.Drawing.Color.Silver;
+            this.player.SliderBarOuterColor = System.Drawing.Color.Silver;
+            this.player.SliderElapsedInnerColor = System.Drawing.Color.Silver;
+            this.player.SliderElapsedOuterColor = System.Drawing.Color.Silver;
+            this.player.SpeedValue = 500;
+            this.player.StartValue = 0;
+            this.player.StopValue = 100;
+            this.player.TabIndex = 21;
+            this.player.TextValueColor = System.Drawing.Color.Black;
+            // 
             // ClampControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -587,7 +586,6 @@ namespace TaskModule.BasicAdvisorControls
         private System.Windows.Forms.CheckBox chbZ;
         private System.Windows.Forms.CheckBox chbY;
         private System.Windows.Forms.CheckBox chbX;
-        private PlayerControl player;
         private DataGridViewEx dgvControl;
         private DataGridViewTextBoxColumn Column9;
         private DataGridViewTextBoxColumn Column10;
@@ -595,5 +593,6 @@ namespace TaskModule.BasicAdvisorControls
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn startColumn;
         private DataGridViewTextBoxColumn stopColumn;
+        private PlayerControl player;
     }
 }

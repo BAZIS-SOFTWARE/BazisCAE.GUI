@@ -79,7 +79,7 @@ namespace BaseModule.Results.Animation
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.61539F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.38461F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 126F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 137F));
             this.tableLayoutPanel4.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.chbDelTempScrs, 1, 1);
             this.tableLayoutPanel4.Controls.Add(this.label3, 0, 1);
@@ -100,7 +100,7 @@ namespace BaseModule.Results.Animation
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(45, 18);
+            this.label2.Location = new System.Drawing.Point(41, 18);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(147, 13);
@@ -113,7 +113,7 @@ namespace BaseModule.Results.Animation
             this.chbDelTempScrs.AutoSize = true;
             this.chbDelTempScrs.Checked = true;
             this.chbDelTempScrs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbDelTempScrs.Location = new System.Drawing.Point(252, 68);
+            this.chbDelTempScrs.Location = new System.Drawing.Point(242, 68);
             this.chbDelTempScrs.Margin = new System.Windows.Forms.Padding(4);
             this.chbDelTempScrs.Name = "chbDelTempScrs";
             this.chbDelTempScrs.Size = new System.Drawing.Size(15, 14);
@@ -125,7 +125,7 @@ namespace BaseModule.Results.Animation
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 68);
+            this.label3.Location = new System.Drawing.Point(16, 68);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(196, 13);
@@ -139,10 +139,10 @@ namespace BaseModule.Results.Animation
             this.txbDelayTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbDelayTime.InputType = UserControlsEx.TXTBoxInputType.Integer;
             this.txbDelayTime.IsValidating = true;
-            this.txbDelayTime.Location = new System.Drawing.Point(245, 15);
+            this.txbDelayTime.Location = new System.Drawing.Point(236, 15);
             this.txbDelayTime.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.txbDelayTime.Name = "txbDelayTime";
-            this.txbDelayTime.Size = new System.Drawing.Size(29, 20);
+            this.txbDelayTime.Size = new System.Drawing.Size(27, 20);
             this.txbDelayTime.TabIndex = 5;
             this.txbDelayTime.Text = "100";
             this.txbDelayTime.UserRegExCheck = null;
@@ -154,10 +154,10 @@ namespace BaseModule.Results.Animation
             this.btnCreateAnimation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreateAnimation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnCreateAnimation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCreateAnimation.Location = new System.Drawing.Point(288, 61);
+            this.btnCreateAnimation.Location = new System.Drawing.Point(277, 61);
             this.btnCreateAnimation.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.btnCreateAnimation.Name = "btnCreateAnimation";
-            this.btnCreateAnimation.Size = new System.Drawing.Size(113, 27);
+            this.btnCreateAnimation.Size = new System.Drawing.Size(124, 27);
             this.btnCreateAnimation.TabIndex = 3;
             this.btnCreateAnimation.Text = "Создать";
             this.btnCreateAnimation.UseVisualStyleBackColor = true;
@@ -167,10 +167,10 @@ namespace BaseModule.Results.Animation
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(288, 11);
+            this.button1.Location = new System.Drawing.Point(277, 11);
             this.button1.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 27);
+            this.button1.Size = new System.Drawing.Size(124, 27);
             this.button1.TabIndex = 8;
             this.button1.Text = "Обновить";
             this.button1.UseVisualStyleBackColor = true;
@@ -189,8 +189,8 @@ namespace BaseModule.Results.Animation
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 61.53846F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.46154F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(408, 100);
             this.tableLayoutPanel1.TabIndex = 49;
             // 
@@ -202,38 +202,37 @@ namespace BaseModule.Results.Animation
             this.playerPanel.Location = new System.Drawing.Point(4, 4);
             this.playerPanel.Margin = new System.Windows.Forms.Padding(4);
             this.playerPanel.Name = "playerPanel";
-            this.playerPanel.Size = new System.Drawing.Size(400, 53);
+            this.playerPanel.Size = new System.Drawing.Size(400, 56);
             this.playerPanel.TabIndex = 0;
             // 
             // player
             // 
             this.player.AutoSize = true;
+            this.player.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.player.CheckState = BaseModule.Player.CheckState.start;
-            this.player.CurrentValue = 0;
+            this.player.CurrentValue = 50;
             this.player.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.player.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.player.Location = new System.Drawing.Point(0, 0);
             this.player.Margin = new System.Windows.Forms.Padding(0);
-            this.player.MinimumSize = new System.Drawing.Size(287, 55);
+            this.player.MinimumSize = new System.Drawing.Size(215, 35);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(400, 55);
-            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
-            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
-            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.player.ShowTextValue = true;
+            this.player.Size = new System.Drawing.Size(400, 56);
+            this.player.SliderBarInnerColor = System.Drawing.Color.Silver;
+            this.player.SliderBarOuterColor = System.Drawing.Color.Silver;
+            this.player.SliderElapsedInnerColor = System.Drawing.Color.Silver;
+            this.player.SliderElapsedOuterColor = System.Drawing.Color.Silver;
             this.player.SpeedValue = 500;
             this.player.StartValue = 0;
             this.player.StopValue = 100;
             this.player.TabIndex = 0;
-            this.player.CheckingEvent += new System.Action<object, float>(this.playerControl_CheckingEvent);
-            this.player.StopCheckingEvent += new System.Action<object>(this.playerControl_StopCheckingEvent);
-            this.player.StartCheckingEvent += new System.Action<object>(this.playerControl_StartCheckingEvent);
+            this.player.TextValueColor = System.Drawing.Color.Black;
             // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(220, 74);
+            this.label1.Location = new System.Drawing.Point(220, 75);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
@@ -246,7 +245,7 @@ namespace BaseModule.Results.Animation
             this.txbScale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbScale.InputType = UserControlsEx.TXTBoxInputType.Positive;
             this.txbScale.IsValidating = true;
-            this.txbScale.Location = new System.Drawing.Point(272, 70);
+            this.txbScale.Location = new System.Drawing.Point(272, 72);
             this.txbScale.Margin = new System.Windows.Forms.Padding(4, 4, 7, 4);
             this.txbScale.Name = "txbScale";
             this.txbScale.Size = new System.Drawing.Size(57, 20);
@@ -333,12 +332,12 @@ namespace BaseModule.Results.Animation
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel playerPanel;
-        private PlayerControl player;
         private TextBoxEx txbScale;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.RichTextBox richTextBox;
         private System.Windows.Forms.Button button1;
+        private PlayerControl player;
     }
 }

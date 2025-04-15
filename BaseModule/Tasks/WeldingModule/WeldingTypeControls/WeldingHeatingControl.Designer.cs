@@ -113,6 +113,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             // groupBox1
             // 
+            this.groupBox1.AutoSize = true;
             this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.player);
@@ -148,7 +149,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(838, 295);
+            this.groupBox1.Size = new System.Drawing.Size(838, 277);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры движения";
@@ -164,24 +165,26 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             // player
             // 
-            this.player.AutoSize = true;
-            //this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            //| System.Windows.Forms.AnchorStyles.Right)));
+            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.player.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.player.CheckState = BaseModule.Player.CheckState.start;
             this.player.CurrentValue = 0;
-            this.player.Location = new System.Drawing.Point(176, 237);
-            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 15, 0);
-            this.player.MinimumSize = new System.Drawing.Size(215, 45);
-            this.player.Size = new System.Drawing.Size(0, 45);
+            this.player.Location = new System.Drawing.Point(173, 234);
+            this.player.Margin = new System.Windows.Forms.Padding(0, 3, 15, 0);
+            this.player.MinimumSize = new System.Drawing.Size(215, 30);
             this.player.Name = "player";
-            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
-            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
-            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.player.ShowTextValue = true;
+            this.player.Size = new System.Drawing.Size(645, 30);
+            this.player.SliderBarInnerColor = System.Drawing.Color.Silver;
+            this.player.SliderBarOuterColor = System.Drawing.Color.Silver;
+            this.player.SliderElapsedInnerColor = System.Drawing.Color.Silver;
+            this.player.SliderElapsedOuterColor = System.Drawing.Color.Silver;
             this.player.SpeedValue = 500;
             this.player.StartValue = 0;
             this.player.StopValue = 100;
             this.player.TabIndex = 54;
+            this.player.TextValueColor = System.Drawing.Color.Black;
             this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
             this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
             this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
@@ -553,7 +556,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(7, 435);
+            this.dataGridView.Location = new System.Drawing.Point(7, 417);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
@@ -563,7 +566,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.Size = new System.Drawing.Size(838, 554);
+            this.dataGridView.Size = new System.Drawing.Size(838, 572);
             this.dataGridView.TabIndex = 25;
             this.dataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView_DefaultValuesNeeded);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);

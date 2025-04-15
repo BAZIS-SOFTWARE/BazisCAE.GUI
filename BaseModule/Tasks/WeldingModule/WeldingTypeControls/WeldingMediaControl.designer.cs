@@ -33,7 +33,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WeldingMediaControl));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grbHeatFlux = new UserControlsEx.GroupBoxEx();
@@ -210,22 +210,22 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.Column1,
             this.startColumn,
             this.stopColumn});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.NullValue = " ";
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.NullValue = " ";
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(7, 462);
+            this.dataGridView.Location = new System.Drawing.Point(7, 447);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(1067, 921);
+            this.dataGridView.Size = new System.Drawing.Size(1067, 936);
             this.dataGridView.TabIndex = 14;
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dataGridView.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dataGridView_SortCompare);
@@ -268,6 +268,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             // groupBox1
             // 
+            this.groupBox1.AutoSize = true;
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.player);
             this.groupBox1.Controls.Add(this.label4);
@@ -284,7 +285,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(1067, 134);
+            this.groupBox1.Size = new System.Drawing.Size(1067, 119);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Время действия";
@@ -296,19 +297,21 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.player.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.player.CheckState = BaseModule.Player.CheckState.start;
             this.player.CurrentValue = 0;
-            this.player.Location = new System.Drawing.Point(175, 76);
-            this.player.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.player.MinimumSize = new System.Drawing.Size(215, 45);
+            this.player.Location = new System.Drawing.Point(173, 76);
+            this.player.Margin = new System.Windows.Forms.Padding(0, 3, 3, 0);
+            this.player.MinimumSize = new System.Drawing.Size(215, 30);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(872, 45);
-            this.player.SliderBarInnerColor = System.Drawing.Color.Gold;
-            this.player.SliderBarOuterColor = System.Drawing.Color.DarkGoldenrod;
-            this.player.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;
-            this.player.SliderElapsedOuterColor = System.Drawing.Color.DarkGreen;
+            this.player.ShowTextValue = true;
+            this.player.Size = new System.Drawing.Size(872, 30);
+            this.player.SliderBarInnerColor = System.Drawing.Color.Silver;
+            this.player.SliderBarOuterColor = System.Drawing.Color.Silver;
+            this.player.SliderElapsedInnerColor = System.Drawing.Color.Silver;
+            this.player.SliderElapsedOuterColor = System.Drawing.Color.Silver;
             this.player.SpeedValue = 500;
             this.player.StartValue = 0;
             this.player.StopValue = 100;
             this.player.TabIndex = 14;
+            this.player.TextValueColor = System.Drawing.Color.Black;
             this.player.CheckingEvent += new System.Action<object, float>(this.player_CheckingEvent);
             this.player.StopCheckingEvent += new System.Action<object>(this.player_StopCheckingEvent);
             this.player.StartCheckingEvent += new System.Action<object>(this.player_StartCheckingEvent);
@@ -351,7 +354,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnHideAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHideAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHideAll.Image = global::BaseModule.Properties.Resources.HideAll;
-            this.btnHideAll.Location = new System.Drawing.Point(142, 76);
+            this.btnHideAll.Location = new System.Drawing.Point(140, 79);
             this.btnHideAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnHideAll.Name = "btnHideAll";
             this.btnHideAll.Size = new System.Drawing.Size(27, 27);
@@ -365,7 +368,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnShowAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnShowAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowAll.Image = global::BaseModule.Properties.Resources.ShowAll;
-            this.btnShowAll.Location = new System.Drawing.Point(109, 76);
+            this.btnShowAll.Location = new System.Drawing.Point(107, 79);
             this.btnShowAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShowAll.Name = "btnShowAll";
             this.btnShowAll.Size = new System.Drawing.Size(27, 27);
@@ -380,7 +383,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnRefresh.Enabled = false;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Image = global::BaseModule.Properties.Resources.Refresh;
-            this.btnRefresh.Location = new System.Drawing.Point(76, 76);
+            this.btnRefresh.Location = new System.Drawing.Point(74, 79);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(27, 27);
@@ -394,7 +397,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnClearAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = global::BaseModule.Properties.Resources.Delete;
-            this.btnClearAll.Location = new System.Drawing.Point(43, 76);
+            this.btnClearAll.Location = new System.Drawing.Point(41, 79);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";
             this.btnClearAll.Size = new System.Drawing.Size(27, 27);
@@ -408,7 +411,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnAddNewRow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAddNewRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewRow.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNewRow.Image")));
-            this.btnAddNewRow.Location = new System.Drawing.Point(10, 76);
+            this.btnAddNewRow.Location = new System.Drawing.Point(8, 79);
             this.btnAddNewRow.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
             this.btnAddNewRow.Name = "btnAddNewRow";
             this.btnAddNewRow.Size = new System.Drawing.Size(27, 27);
