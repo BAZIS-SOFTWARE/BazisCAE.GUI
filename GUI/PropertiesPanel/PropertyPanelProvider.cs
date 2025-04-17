@@ -62,7 +62,6 @@ namespace BazisGUI.PropertiesPanel
                 {
                     newValue = newValue.Replace(" ", "");
                 }
-
                 if (!float.TryParse(newValue, out _))
                 {
                     MessageBox.Show("Не верный формат данных", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
