@@ -463,7 +463,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.cmbTermoCycle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbTermoCycle.FormattingEnabled = true;
-            this.cmbTermoCycle.InputType = UserControlsEx.CMBInputType.Items;
+            this.cmbTermoCycle.InputType = UserControlsEx.CMBInputType.Items | UserControlsEx.CMBInputType.Float;
             this.cmbTermoCycle.IsValidating = true;
             this.cmbTermoCycle.Location = new System.Drawing.Point(175, 51);
             this.cmbTermoCycle.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
