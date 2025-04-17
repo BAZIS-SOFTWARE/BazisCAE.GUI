@@ -11,7 +11,6 @@ namespace BaseModule.PropertiesPanel
     public partial class PropertiesPanelControl : UserControl, IPinnedControl
     {
         public event Action<PropertyChangedEventArgs> OnPropertyUpdate;
-        //public event Action<string, string, bool> ValidateValue;
 
         public delegate bool Validator(string header, string value, out string corrected);
         public event Validator ValidateValue;
