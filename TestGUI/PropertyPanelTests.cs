@@ -234,8 +234,8 @@ namespace TestGUI
 
             if (data[0].Contains("Нагрев"))
             {
-                var length = 0;
-                length = (data[0].Contains("Нагрев : ARC") || data[0].Contains("Нагрев : FSWShoulder")) ? 3 : 4;
+                var length = (data[0].Contains("Нагрев : ARC") || data[0].Contains("Нагрев : FSWShoulder")) ? 3 : 4;
+
                 for (int i = 0; i < length; i++)
                 {
                     TestProvider.GetElement(wd, $" Строка {i}, Не отсортировано.", SearchWay.Name).Click();
