@@ -6,7 +6,6 @@ using Project.Interfaces.Tasks;
 using Project.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace BazisGUI.PropertiesPanel.Control
@@ -45,9 +44,8 @@ namespace BazisGUI.PropertiesPanel.Control
         public override void UpdateObject(string header, string newValue, string oldValue)
         {
             data[header] = newValue.ToString();
-            Debug.WriteLine(selectObj.GetInfo);
             var set = string.Join(" ", data.Values);
-            if (header == "Группа элементов" || header == "Группа узлов" || header == "Группа")
+            if (header.Contains("Группа"))
             {
                 var k = selectObj as IValuableData;
                 var group = dataGroupElement.Find(x => x.Name == newValue.ToString());

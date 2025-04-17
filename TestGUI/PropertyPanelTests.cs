@@ -235,15 +235,7 @@ namespace TestGUI
             if (data[0].Contains("Нагрев"))
             {
                 var length = 0;
-                if (data[0].Contains("Нагрев : ARC") || data[0].Contains("Нагрев : FSWShoulder"))
-                {
-                    length = 3;
-                }
-                else
-                {
-                    length = 4;
-                }
-                
+                length = (data[0].Contains("Нагрев : ARC") || data[0].Contains("Нагрев : FSWShoulder")) ? 3 : 4;
                 for (int i = 0; i < length; i++)
                 {
                     TestProvider.GetElement(wd, $" Строка {i}, Не отсортировано.", SearchWay.Name).Click();
@@ -257,25 +249,23 @@ namespace TestGUI
 
         private static void ChangeTime(WindowsDriver<WindowsElement> wd, string value, bool isError = false)
         {
-            var data = value.Split('!');
-
-            if (data[0].Contains("Закрепление")) TestProvider.GetElement(wd, " Строка 4, Не отсортировано.", SearchWay.Name).Click();
+            var data = value.Split('!'); var search = "";
+            if (data[0].Contains("Закрепление")) search = " Строка 4, Не отсортировано.";
             else if (data[0].Contains("Среда"))
             {
-                if (data[0].Contains("Среда : air")) TestProvider.GetElement(wd, " Строка 4, Не отсортировано.", SearchWay.Name).Click();
-                else TestProvider.GetElement(wd, " Строка 3, Не отсортировано.", SearchWay.Name).Click();
+                if (data[0].Contains("Среда : air")) search = " Строка 4, Не отсортировано.";
+                else search = " Строка 3, Не отсортировано.";
             }
-            else if (data[0].Contains("Нагрев")) 
+            else if (data[0].Contains("Нагрев"))
             {
-                if (data[0].Contains("Нагрев : ARC")) TestProvider.GetElement(wd, " Строка 4, Не отсортировано.", SearchWay.Name).Click();
-                else if (data[0].Contains("Нагрев : FSWShoulder")) TestProvider.GetElement(wd, " Строка 5, Не отсортировано.", SearchWay.Name).Click();
-                else if (data[0].Contains("Нагрев : FSWPin")) TestProvider.GetElement(wd, " Строка 6, Не отсортировано.", SearchWay.Name).Click();
-                else TestProvider.GetElement(wd, " Строка 5, Не отсортировано.", SearchWay.Name).Click();
+                if (data[0].Contains("Нагрев : ARC")) search = " Строка 4, Не отсортировано.";
+                else if (data[0].Contains("Нагрев : FSWShoulder")) search = " Строка 5, Не отсортировано.";
+                else if (data[0].Contains("Нагрев : FSWPin")) search = " Строка 6, Не отсортировано.";
+                else search = " Строка 5, Не отсортировано.";
             }
-            else if (data[0].Contains("Нагрузка")) TestProvider.GetElement(wd, " Строка 6, Не отсортировано.", SearchWay.Name).Click();
-            else TestProvider.GetElement(wd, " Строка 3, Не отсортировано.", SearchWay.Name).Click();
-
-
+            else if (data[0].Contains("Нагрузка")) search = " Строка 6, Не отсортировано.";
+            else search = " Строка 3, Не отсортировано.";
+            TestProvider.GetElement(wd, search, SearchWay.Name).Click();
             TestProvider.ClickByOffset(wd, 265, 0, ClickType.LeftOne);
             TestProvider.ClickByOffset(wd, 0, 0, ClickType.LeftOne);
             wd.Keyboard.SendKeys(data[1] + OpenQA.Selenium.Keys.Enter);
