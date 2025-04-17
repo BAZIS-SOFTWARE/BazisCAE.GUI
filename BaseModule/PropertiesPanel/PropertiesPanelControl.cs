@@ -11,11 +11,14 @@ namespace BaseModule.PropertiesPanel
     public partial class PropertiesPanelControl : UserControl, IPinnedControl
     {
         public event Action<PropertyChangedEventArgs> OnPropertyUpdate;
-        public event Func<string, object, object, bool> ValidateValue;
+
+        public delegate bool Validator(string header, string value, out string corrected);
+        public event Validator ValidateValue;
+
         public event Action ControlCollapseEvent;
         public event Action ControlUnpinnedEvent;
 
-        private object _oldValue;
+        private string _oldValue;
         private bool _isValid;
         private List<RowProperty> _rowProperties;
 
@@ -56,7 +59,7 @@ namespace BaseModule.PropertiesPanel
                     SelectionBackColor = SystemColors.ControlDark,
                     Padding = new Padding(15, 0, 0, 0)
                 },
-                ReadOnly = true
+                ReadOnly = true,
             });
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -79,6 +82,7 @@ namespace BaseModule.PropertiesPanel
                 cell.Value = prop.Value.ToString();
                 row.Cells.Add(cell);
                 cell.ReadOnly = prop.IsReadOnly;
+                cell.Tag = prop.ValidationType.ToString();
 
                 dataGridView1.Rows.Add(row);
             }
@@ -89,7 +93,7 @@ namespace BaseModule.PropertiesPanel
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 1)
             {
-                _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
+                _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
             }
             var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
             var property = _rowProperties[e.RowIndex];
@@ -101,18 +105,19 @@ namespace BaseModule.PropertiesPanel
 
         private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-
-            var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
-            if (e.RowIndex == 0 && e.ColumnIndex == 1)
+            if(dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString() != ValidationType.None.ToString())
             {
-                var header = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-                _isValid = ValidateValue?.Invoke(header, _oldValue, newValue) ?? true;
+                var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                var tag = dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString();
+                var corrected = newValue;
+                _isValid = ValidateValue?.Invoke(tag, newValue, out corrected) ?? true;
 
                 if (!_isValid)
                 {
                     dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = _oldValue;
                     return;
                 }
+                if (newValue != corrected) dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = corrected;
             }
 
             var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];

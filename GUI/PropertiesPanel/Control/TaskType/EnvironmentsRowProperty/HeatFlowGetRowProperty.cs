@@ -31,11 +31,11 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.EnvironmentsRowProperty
         {
             return new List<RowProperty>
             {
-                RowProperty.CreateTextBox("Имя", NodeType.Среда.ToString(), true),
+                RowProperty.CreateTextBox("Имя", NodeType.Среда.ToString(), ValidationType.None, true),
                 RowProperty.CreateComboBox("Группа узлов", data["Группа узлов"], dataGroupElement.Select(x => x.Name).ToList()),
                 RowProperty.CreateComboBox("Функция, F(t), °С - сек.", data["Функция, F(t), °С - сек."], _func),
-                RowProperty.CreateTextBox("Старт, сек.", data["Старт, сек."]),
-                RowProperty.CreateTextBox("Стоп, сек.", data["Стоп, сек."])
+                RowProperty.CreateTextBox("Старт, сек.", data["Старт, сек."], ValidationType.FloatPositive),
+                RowProperty.CreateTextBox("Стоп, сек.", data["Стоп, сек."], ValidationType.FloatPositive)
             };
         }
     }
