@@ -97,9 +97,7 @@
     <Compile Include="Console\FindObjectEventArgs.cs" />
     <Compile Include="Console\ModelRotateEventArgs.cs" />
     <Compile Include="GanttChart\GanttChartModel.cs" />
-    <Compile Include="GanttChart\GanttChartTreeView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="GanttChart\GanttChartTreeView.cs" />
     <Compile Include="GanttChart\GanttChartTreeView.Designer.cs">
       <DependentUpon>GanttChartTreeView.cs</DependentUpon>
     </Compile>
@@ -524,6 +522,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\HeatTreatmentModule\HeatTreatmentAdvisor.resx">
       <DependentUpon>HeatTreatmentAdvisor.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\WeldingModule\WeldingAdvisor.resx">
       <DependentUpon>WeldingAdvisor.cs</DependentUpon>

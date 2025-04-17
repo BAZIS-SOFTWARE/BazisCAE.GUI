@@ -1019,7 +1019,7 @@ namespace BazisGUI
                 toolStripMenuItem.Checked = false;
                 return;
             }
-            var tasks = taskData.Select(d => d.GetInfo.Split()).ToList();
+            var tasks = taskData.Select(t => (t.Name, t.GetInfo.Split())).ToList();
             var ganttContol = new GanttChartTreeView(tasks, 10);
             ganttDiagramForm = new Form
             {
