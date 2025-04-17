@@ -7,7 +7,7 @@ namespace BaseModule.GanttChart
 {
     public static class ListExtension
     {
-        public static T GetLast<T>(this IList<T> source, int index)
+        public static T GetLastByIndex<T>(this IList<T> source, int index)
         {
             return source[source.Count - 1 - index];
         }
@@ -22,8 +22,8 @@ namespace BaseModule.GanttChart
         {
             InitializeComponent();
 
-            var start = tasks.Select(t => t.Item2.GetLast(2)).Min(x => double.Parse(x));
-            var end = tasks.Select(t => t.Item2.GetLast(1)).Max(x => double.Parse(x));
+            var start = tasks.Select(t => t.Item2.GetLastByIndex(2)).Min(x => double.Parse(x));
+            var end = tasks.Select(t => t.Item2.GetLastByIndex(1)).Max(x => double.Parse(x));
             var interval = (end - start) / timestamps;
 
             ganttChart = new GanttChartModel(start, end, interval, tasks.Count);
@@ -53,8 +53,8 @@ namespace BaseModule.GanttChart
                 mapTreeNodeToChartIndex.Add(node, chartLayer);
                 node.Checked = true;
 
-                var start = double.Parse(task.Item2.GetLast(2));
-                var end = double.Parse(task.Item2.GetLast(1));
+                var start = double.Parse(task.Item2.GetLastByIndex(2));
+                var end = double.Parse(task.Item2.GetLastByIndex(1));
                 ganttChart.AddTask(start, end, chartLayer, groupName, MapTaskToColor(task.Item1), description);
                 chartLayer++;
             }
