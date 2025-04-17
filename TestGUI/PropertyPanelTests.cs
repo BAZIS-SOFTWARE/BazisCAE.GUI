@@ -2,6 +2,8 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
+using System.Diagnostics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using static TestGUI.TestProvider;
 
 namespace TestGUI
@@ -161,13 +163,28 @@ namespace TestGUI
                 TestProvider.GetElement(wd, "Модули", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Сварка", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Данные", SearchWay.Name).Click();
-
-                EnumerateTree(wd, ChangeSource, data, isError);
+                var value = "Нагрев!" + data; 
+                EnumerateTree(wd, ChangeSource, value, isError);
             }
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
             finally { wd.CloseApp(); }
         }
 
+        [Test(Description = "Тестирование изменения параметров MediaData")]
+        public void MediaDataChange()
+        {
+            var wd = LoadProject();
+            try
+            {
+                TestProvider.GetElement(wd, "Модули", SearchWay.Name).Click();
+                TestProvider.GetElement(wd, "Сварка", SearchWay.Name).Click();
+                TestProvider.GetElement(wd, "Данные", SearchWay.Name).Click();
+                var value = "Среда!";
+                EnumerateTree(wd, ChangeSource, value);
+            }
+            catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
+            finally { wd.CloseApp(); }
+        }
         private static WindowsDriver<WindowsElement> LoadProject( )
         {
             var opt = new AppiumOptions();
@@ -232,7 +249,7 @@ namespace TestGUI
         {
             var data = value.Split('!');
 
-            if (data[0].Contains("Нагрев"))
+            if (data[0].Contains("Нагрев") && data[1].Contains("Нагрев"))
             {
                 var length = 0;
                 length = (data[0].Contains("Нагрев : ARC") || data[0].Contains("Нагрев : FSWShoulder")) ? 3 : 4;
@@ -244,6 +261,22 @@ namespace TestGUI
                     wd.Keyboard.SendKeys(data[1] + OpenQA.Selenium.Keys.Enter);
                     CheckError(wd, isError);
                 }
+            }
+
+            else if (data[0].Contains("Среда") && data[1].Contains("Среда"))
+            {
+                var elementActive = wd.SwitchTo().ActiveElement();
+                var nameActive = elementActive.Text;
+                Debug.WriteLine(nameActive);
+                //while (true)
+                //{
+                //    if(nameActive == )
+                //    TestProvider.GetElement(wd, $" Строка {i}, Не отсортировано.", SearchWay.Name).Click();
+                //    TestProvider.ClickByOffset(wd, 265, 0, ClickType.LeftOne);
+                //    TestProvider.ClickByOffset(wd, 0, 0, ClickType.LeftOne);
+                //    wd.Keyboard.SendKeys(data[1] + OpenQA.Selenium.Keys.Enter);
+                //    //CheckError(wd, isError);
+                //}
             }
         }
 
