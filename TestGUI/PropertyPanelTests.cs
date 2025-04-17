@@ -251,8 +251,7 @@ namespace TestGUI
 
             if (data[0].Contains("Нагрев") && data[1].Contains("Нагрев"))
             {
-                var length = 0;
-                length = (data[0].Contains("Нагрев : ARC") || data[0].Contains("Нагрев : FSWShoulder")) ? 3 : 4;
+                var length = (data[0].Contains("Нагрев : ARC") || data[0].Contains("Нагрев : FSWShoulder")) ? 3 : 4;
                 for (int i = 0; i < length; i++)
                 {
                     TestProvider.GetElement(wd, $" Строка {i}, Не отсортировано.", SearchWay.Name).Click();
@@ -282,7 +281,8 @@ namespace TestGUI
 
         private static void ChangeTime(WindowsDriver<WindowsElement> wd, string value, bool isError = false)
         {
-            var data = value.Split('!'); var search = "";
+            var data = value.Split('!'); 
+            var search = string.Empty;
             if (data[0].Contains("Закрепление")) search = " Строка 4, Не отсортировано.";
             else if (data[0].Contains("Среда"))
             {
