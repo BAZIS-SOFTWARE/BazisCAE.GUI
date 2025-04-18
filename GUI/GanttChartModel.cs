@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace BaseModule.GanttChart
+namespace BazisGUI
 {
     public class GanttChartModel
     {
