@@ -21,7 +21,7 @@ namespace BazisGUI.PropertiesPanel.Control
         {
             _groupElement = allGroupElement;
             if (obj.Name == NodeType.Материал.ToString()) return new MatTaskConverter(obj, mat, GetGroupsByObjTypeFromOnesName(obj));
-            else if (obj.Name == NodeType.Среда.ToString()) return EnvironmentTaskConverter.SubtaskSelection(obj, func, GetGroupsByObjTypeFromOnesName(obj));
+            else if (obj.Name == NodeType.Среда.ToString()) return new EnvironmentTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj), func);
             else if (obj.Name == NodeType.Нагрев.ToString()) return new HeatTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj), func);
             else if (obj.Name == NodeType.Закрепление.ToString()) return new ClampTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj));
             else if (obj.Name == NodeType.Нагрузка.ToString()) return new LoadTaskConverter(obj, func, GetGroupsByObjTypeFromOnesName(obj));
@@ -45,13 +45,13 @@ namespace BazisGUI.PropertiesPanel.Control
         {
             data[header] = newValue.ToString();
             var set = string.Join(" ", data.Values);
-            if (header == "Группа элементов" || header == "Группа узлов")
+            if (header.Contains("Группа"))
             {
                 var k = selectObj as IValuableData;
                 var group = dataGroupElement.Find(x => x.Name == newValue.ToString());
                 k.Group = group;
             }
-            selectObj.SetInfo(set);
+                selectObj.SetInfo(set);
         }
     }
 }

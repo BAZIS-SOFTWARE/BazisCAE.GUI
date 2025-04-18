@@ -1,4 +1,5 @@
-﻿using BaseModule.Navigator;
+﻿#if false
+using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
@@ -8,10 +9,10 @@ using System.Linq;
 
 namespace BazisGUI.PropertiesPanel.Control.TaskType.EnvironmentsRowProperty
 {
-    public  class ThermalCycleGetRowProperty : EnvironmentTaskConverter
+    public class ThermalCycleGetRowProperty : EnvironmentTaskConverter
     {
         private List<string> _func;
-        public ThermalCycleGetRowProperty(IData obj, List<string> func, List<IGroup> groupElement) 
+        public ThermalCycleGetRowProperty(IData obj, List<string> func, List<IGroup> groupElement)
         {
             _func = func;
             var value = obj.GetInfo.Split(' ');
@@ -39,6 +40,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.EnvironmentsRowProperty
                 RowProperty.CreateTextBox("Старт, сек.", data["Старт, сек."], ValidationType.FloatPositive),
                 RowProperty.CreateTextBox("Стоп, сек.", data["Стоп, сек."], ValidationType.FloatPositive)
             };
-        }   
+        }
     }
 }
+#endif

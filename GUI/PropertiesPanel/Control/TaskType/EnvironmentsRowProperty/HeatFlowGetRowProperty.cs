@@ -1,4 +1,5 @@
-﻿using BaseModule.Navigator;
+﻿#if false
+using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
@@ -40,3 +41,4 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.EnvironmentsRowProperty
         }
     }
 }
+#endif
