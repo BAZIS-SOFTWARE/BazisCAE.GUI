@@ -1,7 +1,6 @@
 ﻿using BaseModule.PropertiesPanel;
 using Model.Interfaces;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace BazisGUI.PropertiesPanel.Control
 {
@@ -15,7 +14,7 @@ namespace BazisGUI.PropertiesPanel.Control
         }
         public override List<RowProperty> GetRowProperty()
         {
-            return new List < RowProperty > 
+            return new List<RowProperty>
             {
                 RowProperty.CreateTextBox("Имя", _group.Name, ValidationType.Text)
             };

@@ -51,7 +51,7 @@ namespace BazisGUI.PropertiesPanel.Control
                 var group = dataGroupElement.Find(x => x.Name == newValue.ToString());
                 k.Group = group;
             }
-                selectObj.SetInfo(set);
+            selectObj.SetInfo(set);
         }
     }
 }

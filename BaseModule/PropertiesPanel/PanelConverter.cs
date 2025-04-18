@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace BaseModule.PropertiesPanel
 {
     [ComVisible(false)]
-    public abstract class PanelConverter 
+    public abstract class PanelConverter
     {
         public virtual List<RowProperty> GetRowProperty()
         {

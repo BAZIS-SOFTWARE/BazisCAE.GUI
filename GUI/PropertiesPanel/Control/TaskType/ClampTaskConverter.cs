@@ -44,6 +44,6 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 RowProperty.CreateTextBox("Стоп, сек.", data["Стоп, сек."], ValidationType.FloatPositive)
             };
         }
-        
+
     }
 }

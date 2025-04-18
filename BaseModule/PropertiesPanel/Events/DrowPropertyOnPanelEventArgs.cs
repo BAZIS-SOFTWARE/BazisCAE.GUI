@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BaseModule.PropertiesPanel
 {
-    public class DrowPropertyOnPanelEventArgs: EventArgs
+    public class DrowPropertyOnPanelEventArgs : EventArgs
     {
         public IEnumerable<RowProperty> Properties;
 

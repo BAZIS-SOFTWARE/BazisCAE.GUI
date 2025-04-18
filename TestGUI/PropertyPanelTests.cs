@@ -3,7 +3,6 @@ using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
 using System.Diagnostics;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using static TestGUI.TestProvider;
 
 namespace TestGUI
@@ -22,7 +21,7 @@ namespace TestGUI
                 TestProvider.GetElement(wd, "Модули", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Сварка", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Объекты", SearchWay.Name).Click();
- 
+
                 ExpandElement(wd, actions, "Элементы2D");
                 ExpandElement(wd, actions, "Элементы3D");
                 ExpandElement(wd, actions, "Группы объектов");
@@ -44,7 +43,7 @@ namespace TestGUI
         }
 
         [Test(Description = "Изменение имени объекта - попытка присвоения некорректного имени и ввод валидных значений")]
-        [TestCase("Элемент2D : 7384" )]
+        [TestCase("Элемент2D : 7384")]
         [TestCase("refLine")]
         public void RenameTreeElementsTest(string element)
         {
@@ -111,7 +110,7 @@ namespace TestGUI
         public void ChangeDataGroupTest()
         {
             var wd = LoadProject();
-            try 
+            try
             {
                 TestProvider.GetElement(wd, "Модули", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Сварка", SearchWay.Name).Click();
@@ -163,7 +162,7 @@ namespace TestGUI
                 TestProvider.GetElement(wd, "Модули", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Сварка", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Данные", SearchWay.Name).Click();
-                var value = "Нагрев!" + data; 
+                var value = "Нагрев!" + data;
                 EnumerateTree(wd, ChangeSource, value, isError);
             }
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
@@ -185,7 +184,7 @@ namespace TestGUI
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
             finally { wd.CloseApp(); }
         }
-        private static WindowsDriver<WindowsElement> LoadProject( )
+        private static WindowsDriver<WindowsElement> LoadProject()
         {
             var opt = new AppiumOptions();
             opt.AddAdditionalCapability("app", Path.GetFullPath(@".\..\..\..\..\GUI\bin\x64\Debug\BazisGUI.exe"));
@@ -208,9 +207,9 @@ namespace TestGUI
                 exept = wd.FindElement(By.Name("FormatException"));
                 Thread.Sleep(1000);
             }
-            catch(OpenQA.Selenium.WebDriverException ex) { }
-            
-            if (isError) 
+            catch (OpenQA.Selenium.WebDriverException ex) { }
+
+            if (isError)
             {
                 Assert.That(!(exept is null));
                 wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Enter);
@@ -225,7 +224,11 @@ namespace TestGUI
             }
         }
 
-        private static void EnumerateTree(WindowsDriver<WindowsElement> wd, Action<WindowsDriver<WindowsElement>,string, bool> action, string value = "", bool isError = false)
+        private static void EnumerateTree(
+            WindowsDriver<WindowsElement> wd,
+            Action<WindowsDriver<WindowsElement>, string, bool> action,
+            string value = "",
+            bool isError = false)
         {
             while (true)
             {
@@ -281,7 +284,7 @@ namespace TestGUI
 
         private static void ChangeTime(WindowsDriver<WindowsElement> wd, string value, bool isError = false)
         {
-            var data = value.Split('!'); 
+            var data = value.Split('!');
             var search = string.Empty;
             if (data[0].Contains("Закрепление")) search = " Строка 4, Не отсортировано.";
             else if (data[0].Contains("Среда"))
@@ -379,7 +382,7 @@ namespace TestGUI
                 }
             }
         }
-        private static void ExpandElement(WindowsDriver<WindowsElement> wd, Actions actions, string nameInTree)    
+        private static void ExpandElement(WindowsDriver<WindowsElement> wd, Actions actions, string nameInTree)
         {
             var element = TestProvider.GetElement(wd, nameInTree, SearchWay.Name);
             actions.DoubleClick(element);
