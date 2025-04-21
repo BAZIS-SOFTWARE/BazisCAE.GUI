@@ -47,7 +47,6 @@ namespace BaseModule.PropertiesPanel
 
             dataGridView1.Controls.Add(_overlayComboBox);
             _overlayComboBox.Visible = false;
-            //_overlayComboBox.DropDownStyle = ComboBoxStyle.DropDown;
             _overlayComboBox.Leave += _overlayComboBox_Leave;
         }
 

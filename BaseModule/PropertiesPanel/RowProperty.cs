@@ -47,7 +47,7 @@ namespace BaseModule.PropertiesPanel
             SequenceType.After, validationType, isReadOnly);
         }
 
-        public static RowProperty CreateComboBox(string header, string value, List<string> availableValues, bool isDropDown = false)
+        public static RowProperty CreateComboBox(string header, string value, List<string> availableValues, bool isDropDown = false, ValidationType validationType = ValidationType.None)
         {
             return new RowProperty(header, value,
             () => 
@@ -57,7 +57,7 @@ namespace BaseModule.PropertiesPanel
                 comboBoxCell.Value = value;
                 return comboBoxCell;
             },
-            (cell) => cell.Value?.ToString(), SequenceType.After, ValidationType.None, false, isDropDown, availableValues);
+            (cell) => cell.Value?.ToString(), SequenceType.After, validationType, false, isDropDown, availableValues);
         }
     }
 }
