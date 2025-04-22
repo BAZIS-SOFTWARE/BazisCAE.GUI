@@ -51,7 +51,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             if (_media.TemperatureFunc == "*" && _media.HeatExchangeFunc != "*") //тепловой поток
             {
                 property.Add(RowProperty.CreateComboBox("Группа элементов", _media.Group.Name, dataGroupElement.Select(x => x.Name).ToList()));
-                property.Add(RowProperty.CreateComboBox("Коэф. теплоотдачи, Вт/мм2", _media.HeatExchangeFunc, _func, true));
+                property.Add(RowProperty.CreateComboBox("Коэф. теплоотдачи, Вт/мм2", _media.HeatExchangeFunc, _func, false));
                 property.Add(RowProperty.CreateTextBox("Температура среды", _media.TemperatureValue.ToString(), ValidationType.FloatAny));
             }
             else
