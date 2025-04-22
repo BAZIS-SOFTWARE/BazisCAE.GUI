@@ -2,6 +2,7 @@ using BaseModule.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -131,7 +132,7 @@ namespace BaseModule.PropertiesPanel
             var property = _rowProperties[e.RowIndex];
             if (property != null && property.Sequence == SequenceType.After)
             {
-                StartUpdate(property, cell);
+               StartUpdate(property, cell);
             }
         }
         public void CellValueChanged(DataGridViewCell e)
@@ -181,11 +182,37 @@ namespace BaseModule.PropertiesPanel
             _overlayComboBox.Items.AddRange(property.AvailableValues.ToArray());
             _oldValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
             _overlayComboBox.Text = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
-            _overlayComboBox.Tag = e.RowIndex;
             _currentComboRowIndex = e.RowIndex;
             _overlayComboBox.Visible = true;
             _overlayComboBox.BringToFront();
             _overlayComboBox.Focus();
+        }
+        private void _overlayComboBox_Leave(object sender, EventArgs e)
+        {
+            if (_currentComboRowIndex >= 0)
+            {
+                var selectedValue = _overlayComboBox.Text;
+                var cell =(DataGridViewComboBoxCell)dataGridView1.Rows[_currentComboRowIndex].Cells[_currentComboColumnIndex];
+                var property = _rowProperties[_currentComboRowIndex];
+                if (!property.AvailableValues.Contains(selectedValue))
+                {
+                    property.ValidationType = ValidationType.Float;
+                    property.AvailableValues.Add(selectedValue);
+                    cell.Tag = property.ValidationType.ToString();
+                    cell.Items.Add(selectedValue);
+                }
+                else 
+                {
+                    property.ValidationType = ValidationType.None;
+                    cell.Tag = property.ValidationType.ToString();
+                }
+                
+                dataGridView1.Rows[_currentComboRowIndex].Cells[1].Value = selectedValue;
+                var eArgs = new DataGridViewCellEventArgs(_currentComboColumnIndex, _currentComboRowIndex);
+                DataGridView1_CellEndEdit(sender, eArgs);
+            }
+            _overlayComboBox.Visible = false;
+            _currentComboRowIndex = -1;
         }
         private void DataGridView1_Scroll(object sender, ScrollEventArgs e)
         {
@@ -204,22 +231,6 @@ namespace BaseModule.PropertiesPanel
             {
                 dataGridView1.Focus();
             }
-        }
-        private void _overlayComboBox_Leave(object sender, EventArgs e)
-        {
-            if (_currentComboRowIndex >= 0)
-            {
-                var selectedValue = _overlayComboBox.Text;
-                var cell = dataGridView1.Rows[_currentComboRowIndex].Cells[_currentComboColumnIndex];
-                cell.Value = selectedValue;
-                //_rowProperties[_currentComboRowIndex].Value = selectedValue; // сохраняем в модель
-            }
-
-            dataGridView1.Rows[_currentComboRowIndex].Cells[1].Value = _overlayComboBox.Text;
-            var eArgs = new DataGridViewCellEventArgs(_currentComboColumnIndex, _currentComboRowIndex);
-            DataGridView1_CellEndEdit(sender, eArgs);
-            _overlayComboBox.Visible = false;
-            _currentComboRowIndex = -1;
         }
         #endregion
     }

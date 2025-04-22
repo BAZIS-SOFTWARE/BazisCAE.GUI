@@ -11,7 +11,7 @@ namespace BaseModule.PropertiesPanel
         public Func<DataGridViewCell> Initialization { get; } //Возврашает тип ячейки (textbox, combobox)
         public Func<DataGridViewCell, object> Update { get; } // Логика обновления значения
         public SequenceType Sequence { get; } //before, after
-        public ValidationType ValidationType { get; }
+        public ValidationType ValidationType { get; set; }
         public List<string> AvailableValues { get; }
         public Type CellType { get; }
         public bool IsReadOnly { get; }
