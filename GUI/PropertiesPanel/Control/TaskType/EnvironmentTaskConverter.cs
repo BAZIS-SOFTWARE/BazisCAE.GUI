@@ -59,10 +59,10 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 property.Add(RowProperty.CreateComboBox("Группа", _media.Group.Name, dataGroupElement.Select(x => x.Name).ToList()));
                 property.Add(_media.HeatExchangeFunc == "*"
                     ? RowProperty.CreateTextBox("Коэф. теплоотдачи", _media.HeatExchangeValue.ToString())
-                    : RowProperty.CreateComboBox("Коэф. теплоотдачи", _media.HeatExchangeFunc, _func, true, ValidationType.Float));
+                    : RowProperty.CreateComboBox("Коэф. теплоотдачи", _media.HeatExchangeFunc, _func, true, ValidationType.None));
                 property.Add(_media.TemperatureFunc == "*"
                     ? RowProperty.CreateTextBox("Температура среды", _media.TemperatureValue.ToString())
-                    : RowProperty.CreateComboBox("Температура среды", _media.TemperatureFunc, _func , true, ValidationType.Float));
+                    : RowProperty.CreateComboBox("Температура среды", _media.TemperatureFunc, _func , true, ValidationType.None));
             }
             property.Add(RowProperty.CreateTextBox("Старт, сек.", _media.StartTime.ToString(), ValidationType.FloatPositive));
             property.Add(RowProperty.CreateTextBox("Стоп, сек.", _media.StopTime.ToString(), ValidationType.FloatPositive));
