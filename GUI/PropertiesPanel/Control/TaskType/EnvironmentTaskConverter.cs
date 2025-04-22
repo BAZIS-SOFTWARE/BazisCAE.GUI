@@ -1,9 +1,9 @@
-﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
+﻿using BaseModule.PropertiesPanel;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace BazisGUI.PropertiesPanel.Control.TaskType
@@ -57,12 +57,47 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             else
             {
                 property.Add(RowProperty.CreateComboBox("Группа", _media.Group.Name, dataGroupElement.Select(x => x.Name).ToList()));
-                property.Add(RowProperty.CreateComboBox("Коэф. теплоотдачи", _media.HeatExchangeFunc, _func, true, ValidationType.None));
-                property.Add(RowProperty.CreateComboBox("Температура среды", _media.TemperatureFunc, _func, true, ValidationType.None));
+                property.Add(SelectData("Коэф. теплоотдачи", _media.HeatExchangeValue.ToString(), _media.HeatExchangeFunc));
+                property.Add(SelectData("Температура среды", _media.TemperatureValue.ToString(), _media.TemperatureFunc));
             }
             property.Add(RowProperty.CreateTextBox("Старт, сек.", _media.StartTime.ToString(), ValidationType.FloatPositive));
             property.Add(RowProperty.CreateTextBox("Стоп, сек.", _media.StopTime.ToString(), ValidationType.FloatPositive));
             return property;
+        }
+        public override void UpdateObject(string header, string newValue, string oldValue)
+        {
+            data[header] = newValue.ToString();
+            var set = string.Join(" ", data.Values);
+            if (header.Contains("Группа"))
+            {
+                var k = selectObj as IValuableData;
+                var group = dataGroupElement.Find(x => x.Name == newValue.ToString());
+                k.Group = group;
+            }
+            Debug.WriteLine($"TemperatureValue - {_media.TemperatureValue}, func - {_media.TemperatureFunc}");
+            Debug.WriteLine($"HeatExchangeValue - {_media.HeatExchangeValue}, func - {_media.HeatExchangeFunc}");
+            _media.SetInfo(set);
+            MediaData md = new MediaData(_media.Group, set);
+            Debug.WriteLine($"md --HeatExchangeValue - {md.HeatExchangeValue}, func - {md.HeatExchangeFunc}");
+            Debug.WriteLine($"md --TemperatureValue - {md.TemperatureValue}, func - {md.TemperatureFunc}");
+            selectObj = null;
+            selectObj = md as IData;
+            if(selectObj is MediaData sd)
+            {
+                Debug.WriteLine($"TemperatureValue - {sd.TemperatureValue}, func - {sd.TemperatureFunc}");
+                Debug.WriteLine($"HeatExchangeValue - {sd.HeatExchangeValue}, func - {sd.HeatExchangeFunc}");
+            }
+
+        }
+        private RowProperty SelectData(string header, string value, string func)
+        {
+            if (func == "*")
+            {
+                if (!_func.Contains(value)) _func.Add(value);
+                return RowProperty.CreateComboBox(header, value, _func, true, ValidationType.None);
+            }
+            else
+                return RowProperty.CreateComboBox(header, func, _func, true, ValidationType.None);
         }
     }
 }

@@ -24,6 +24,7 @@ namespace BaseModule.PropertiesPanel
         private ComboBox _overlayComboBox = new ComboBox();
         private int _currentComboRowIndex;
         private int _currentComboColumnIndex = 1;
+        private string _enteredValue = string.Empty;
 
         [Category("General")]
         [Description("Set up color gradient")]
@@ -196,10 +197,15 @@ namespace BaseModule.PropertiesPanel
                 var property = _rowProperties[_currentComboRowIndex];
                 if (!property.AvailableValues.Contains(selectedValue))
                 {
+                    if(selectedValue != _enteredValue && _enteredValue != null)
+                    {
+                        property.AvailableValues.Remove(_enteredValue);
+                    }
                     property.ValidationType = ValidationType.Float;
                     property.AvailableValues.Add(selectedValue);
                     cell.Tag = property.ValidationType.ToString();
                     cell.Items.Add(selectedValue);
+                    _enteredValue = selectedValue;
                 }
                 else 
                 {
