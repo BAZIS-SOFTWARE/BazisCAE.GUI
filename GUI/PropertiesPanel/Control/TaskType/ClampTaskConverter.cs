@@ -16,7 +16,6 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
 
         public ClampTaskConverter(IData obj, List<IGroup> groupElement)
         {
-            Debug.WriteLine(obj.GetInfo);
             _dataObjectType = groupElement;
             var value = obj.GetInfo.Split(' ');
             dataGroupElement = groupElement;

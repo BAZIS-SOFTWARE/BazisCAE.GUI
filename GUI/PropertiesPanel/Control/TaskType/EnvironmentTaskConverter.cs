@@ -3,7 +3,6 @@ using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace BazisGUI.PropertiesPanel.Control.TaskType
@@ -18,7 +17,6 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             dataGroupElement = groupElement;
             _func = func;
             _media = obj as MediaData;
-
             if (_media.TemperatureFunc == "*" && _media.HeatExchangeFunc != "*")
             {
                 data = new Dictionary<string, string>()
@@ -74,20 +72,8 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 var group = dataGroupElement.Find(x => x.Name == newValue.ToString());
                 k.Group = group;
             }
-            Debug.WriteLine($"TemperatureValue - {_media.TemperatureValue}, func - {_media.TemperatureFunc}");
-            Debug.WriteLine($"HeatExchangeValue - {_media.HeatExchangeValue}, func - {_media.HeatExchangeFunc}");
             _media.SetInfo(set);
-            MediaData md = new MediaData(_media.Group, set);
-            Debug.WriteLine($"md --HeatExchangeValue - {md.HeatExchangeValue}, func - {md.HeatExchangeFunc}");
-            Debug.WriteLine($"md --TemperatureValue - {md.TemperatureValue}, func - {md.TemperatureFunc}");
-            selectObj = null;
-            selectObj = md as IData;
-            if(selectObj is MediaData sd)
-            {
-                Debug.WriteLine($"TemperatureValue - {sd.TemperatureValue}, func - {sd.TemperatureFunc}");
-                Debug.WriteLine($"HeatExchangeValue - {sd.HeatExchangeValue}, func - {sd.HeatExchangeFunc}");
-            }
-
+            selectObj = _media as IData;
         }
         private RowProperty SelectData(string header, string value, string func)
         {
