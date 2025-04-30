@@ -734,9 +734,9 @@ namespace BazisGUI
         private void DisplayMRF(float time, IValuableData data)
         {
             var scenePage = BasePage.ScenePage;
-            var frame = data.MovedFrame.CalcFrame(time - data.StartTime);
+            var frame = data.LocalFrame.CalcFrame(time - data.StartTime);
             scenePage.SceneControl.DisplayLocalFrame(frame);
-            var trajPoints = data.MovedFrame.BaseLine.Select(x => x.CalcCentr()).ToArray();
+            var trajPoints = data.LocalFrame.BaseLine.Select(x => x.CalcCentr()).ToArray();
             scenePage.SceneControl.DisplayPath(trajPoints);
 
             if (data.FrameFunction is ISphereFunction sphear )
@@ -928,11 +928,11 @@ namespace BazisGUI
         private void AddTaskDataToNavigator(IData data)
         {
             NodeType nodeType;
-            Enum.TryParse(data.Name, out nodeType);
+            Enum.TryParse(data.Kind.ToString(), out nodeType);
             var imgIndex = BasePage.NavigatorControl.GetObjectImageIndex(nodeType);
 
-            var child = new TreeNode($"{data.Name} : {data.GetInfo}", imgIndex, imgIndex)
-            { Tag = "6.1", Name = data.Name };
+            var child = new TreeNode($"{data}", imgIndex, imgIndex)
+            { Tag = "6.1", Name = data.Kind.ToString() };
             BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes.Add(child);
         }
 
