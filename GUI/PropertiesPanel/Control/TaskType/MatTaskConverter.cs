@@ -12,11 +12,11 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         private readonly List<string> _mat;
         private readonly List<IGroup> _dataObjectType;
 
-        public MatTaskConverter(IData obj, List<string> mat, List<IGroup> groupElement)
+        public MatTaskConverter(IPhysicalData obj, List<string> mat, List<IGroup> groupElement)
         {
             _dataObjectType = groupElement;
             _mat = mat;
-            var value = obj.GetInfo.Split(' ');
+            var value = obj.ToString().Split(':')[1].Split(' ');
             dataGroupElement = groupElement;
             selectObj = obj;
             data = new Dictionary<string, string>()
@@ -31,11 +31,11 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         {
             return new List<RowProperty>
             {
-                RowProperty.CreateTextBox("Имя", NodeType.Материал.ToString(), true),
+                RowProperty.CreateTextBox("Имя", NodeType.Материал.ToString(), ValidationType.None, true),
                 RowProperty.CreateComboBox("Группа элементов", data["Группа элементов"], _dataObjectType.Select(x => x.Name).ToList()),
                 RowProperty.CreateComboBox("Материал", data["Материал"],_mat),
-                RowProperty.CreateTextBox("Старт, сек.", data["Старт, сек."]),
-                RowProperty.CreateTextBox("Стоп, сек.", data["Стоп, сек."])
+                RowProperty.CreateTextBox("Старт, сек.", data["Старт, сек."], ValidationType.FloatPositive),
+                RowProperty.CreateTextBox("Стоп, сек.", data["Стоп, сек."], ValidationType.FloatPositive)
             };
         }
     }

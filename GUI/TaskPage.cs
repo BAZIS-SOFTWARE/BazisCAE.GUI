@@ -87,8 +87,8 @@ namespace BazisGUI
         }
         private void BasePage_ValuableEvent(TreeNode arg1, SelectionType arg2)
         {
-            var info = arg1.Text.Split(':')[1].Trim(' '); 
-            var groups = taskData.First(x => x.GetInfo == info);
+            var info = arg1.Text; 
+            var groups = taskData.First(x => x.ToString() == info);
             BasePage.panelProvider.ShowPropertiesPanel(groups, arg1);
         }
 
@@ -384,7 +384,7 @@ namespace BazisGUI
         {
             try
             {
-                var data = taskData.Select(x => x as IValuableData).ToList();
+                var data = taskData.ToList();
 
                 var adv = GetTaskAdvisor();
 
@@ -619,17 +619,17 @@ namespace BazisGUI
         {
             try
             {
-                var dataArray = taskData.Find(arg2.DataName).ToArray();
+                var dataKind = Converters.ConvertToDataKind(arg2.DataName);
+                var dataArray = taskData.Find(dataKind).ToArray();
 
-                dataArray[arg2.Index].SetInfo(arg2.DataInfo);
+                var ar = arg2.DataInfo.Split(' ');
+                var group = GetDataGroup(arg2.DataName, ar);
 
-                var valData = dataArray[arg2.Index] as IValuableData;
-                var group = GetDataGroup(arg2.DataName, arg2.DataInfo.Split(' '));
+                var data = taskData.Create(arg2.DataName, arg2.DataInfo, group);
+                if (data.FrameFunction != null)
+                    SetMFF(data, ar.Last());
 
-                valData.Group = group;
-
-                if (valData.MovedFrame != null)
-                    SetMFF(valData, arg2.DataInfo.Split(' ').Last());
+                dataArray[arg2.Index] = data;
 
                 var adv = GetTaskAdvisor();
                 SetProjectData(adv);
@@ -649,7 +649,7 @@ namespace BazisGUI
             IGroup group;
             var groupName = ar[0];
             if (dataName == "Нагрев")
-                groupName = ar[1];
+                groupName = ar[3];
    
             group = ModelData.GroupData.Find(groupName);
 
@@ -677,7 +677,8 @@ namespace BazisGUI
                 }
                 else
                 {
-                    var dataArray = taskData.Find(arg2.DataName).ToArray();
+                    var dataKind = Converters.ConvertToDataKind(arg2.DataName);
+                    var dataArray = taskData.Find(dataKind).ToArray();
 
                     foreach (var data in dataArray)
                     {
@@ -700,8 +701,9 @@ namespace BazisGUI
         {
             var scenePage = BasePage.ScenePage;
             scenePage.SceneControl.HideAllGeometryObjs();
-            var data = taskData.Find(arg2.DataName).
-                Select(x => (IValuableData)x).ToArray();
+
+            var dataKind = Converters.ConvertToDataKind(arg2.DataName);
+            var data = taskData.Find(dataKind).ToArray();
 
             foreach (var index in arg2.GetDataInfo())
             {
@@ -712,13 +714,13 @@ namespace BazisGUI
 
                 foreach (var iobj in group)
                 {                   
-                    if (data[index].Kind == DataKind.Mat)
+                    if (data[index].Kind == DataKind.Материал)
                         iobj.Color = Color.FromArgb(255, 255, 0);
-                    else if (data[index].Kind == DataKind.Med)
+                    else if (data[index].Kind == DataKind.Среда)
                         iobj.Color = Color.FromArgb(255, 155, 0);
-                    else if (data[index].Kind == DataKind.Clamp | data[index].Kind == DataKind.Load)
+                    else if (data[index].Kind == DataKind.Закрепление | data[index].Kind == DataKind.Нагрузка)
                         iobj.Color = Color.FromArgb(255, 0, 0);
-                    else if (data[index].Kind == DataKind.Heat)
+                    else if (data[index].Kind == DataKind.Нагрев)
                         iobj.Color = Color.FromArgb(125,155, 255, 0);
 
                     if (data[index].Direction != Direction.None)
@@ -733,12 +735,13 @@ namespace BazisGUI
             scenePage.SceneControl.DisplayObjects();
         }
 
-        private void DisplayMRF(float time, IValuableData data)
+        private void DisplayMRF(float time, IPhysicalData data)
         {
             var scenePage = BasePage.ScenePage;
-            var frame = data.MovedFrame.CalcFrame(time - data.StartTime);
+            var mf = data.LocalFrame as MovedFrame;
+            var frame = mf.CalcFrame(time - data.StartTime);
             scenePage.SceneControl.DisplayLocalFrame(frame);
-            var trajPoints = data.MovedFrame.BaseLine.Select(x => x.CalcCentr()).ToArray();
+            var trajPoints = mf.BaseLine.Select(x => x.CalcCentr()).ToArray();
             scenePage.SceneControl.DisplayPath(trajPoints);
 
             if (data.FrameFunction is ISphereFunction sphear )
@@ -751,7 +754,7 @@ namespace BazisGUI
             }
         }
 
-        private void DisplayDirection(float time, IValuableData data, IModelObject modelObj)
+        private void DisplayDirection(float time, IPhysicalData data, IModelObject modelObj)
         {
             var vector = new Point3D();
             Color color;
@@ -800,7 +803,9 @@ namespace BazisGUI
             {
                 var scenePage = BasePage.ScenePage;
                 scenePage.SceneControl.HideAllGeometryObjs();
-                var selectedData = taskData.Find(arg2.DataName).Select(x => (IValuableData)x);
+                var dataKind = Converters.ConvertToDataKind(arg2.DataName);
+                var selectedData = taskData.Find(dataKind);
+
                 foreach (var data in selectedData)
                 {
                     if (arg2.Time >= data.StartTime & arg2.Time <= data.StopTime)
@@ -812,13 +817,13 @@ namespace BazisGUI
 
                         foreach (var iobj in group)
                         {
-                            if (data.Kind == DataKind.Mat)
+                            if (data.Kind == DataKind.Материал)
                                 iobj.Color = Color.FromArgb(255, 255, 0);
-                            else if (data.Kind == DataKind.Med)
+                            else if (data.Kind == DataKind.Среда)
                                 iobj.Color = Color.FromArgb(255, 155, 0);
-                            else if (data.Kind == DataKind.Clamp | data.Kind == DataKind.Load)
+                            else if (data.Kind == DataKind.Закрепление | data.Kind == DataKind.Нагрузка)
                                 iobj.Color = Color.FromArgb(255, 0, 0);
-                            else if (data.Kind == DataKind.Heat)
+                            else if (data.Kind == DataKind.Нагрев)
                                 iobj.Color = Color.FromArgb(125, 155, 255, 0);
 
                             //PresentProjectTaskDataOnScene(arg2.Time, data, modelObj);
@@ -840,7 +845,8 @@ namespace BazisGUI
 
         public void TaskAdvisor_DeleteData(ITaskData taskData, DeleteDataEventArgs arg2)
         {
-            var dataArray = taskData.Find(arg2.DataName).ToArray();
+            var dataKind = Converters.ConvertToDataKind(arg2.DataName);
+            var dataArray = taskData.Find(dataKind).ToArray();
 
             var index = taskData.IndexOf(dataArray[arg2.Index]);
             BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
@@ -862,7 +868,14 @@ namespace BazisGUI
                     await AddDataLRF(taskData, arg2, ar, group);
 
                 else
-                    AddData(taskData, arg2, ar, group);
+                {
+                    var data = taskData.Create(arg2.DataName, arg2.DataInfo, group);
+                    if (data.FrameFunction == null)
+                        SetMFF(data, ar.Last());
+                    taskData.Add(data);
+
+                    AddTaskDataToNavigator(data);
+                }
 
                 var adv = GetTaskAdvisor();
                 SetProjectData(adv);
@@ -871,16 +884,6 @@ namespace BazisGUI
             {
                 BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
-        }
-
-        private void AddData(ITaskData taskData, AddDataEventArgs arg2, string[] ar, IGroup group)
-        {
-            var data = (IValuableData)taskData.Create(arg2.DataName, arg2.DataInfo, group);
-            if (data.FrameFunction != null)
-                SetMFF(data, ar.Last());
-            taskData.Add(data);
-
-            AddTaskDataToNavigator(data);
         }
 
         private async Task AddDataLRF(ITaskData taskData,AddDataEventArgs arg2, string[] ar, IGroup group)
@@ -899,7 +902,7 @@ namespace BazisGUI
             ar[2] = "X";
             ar[3] = rVec._x.ToString();
 
-            var data = (IValuableData)taskData.Create(arg2.DataName, string.Join(" ", ar), group);
+            var data = taskData.Create(arg2.DataName, string.Join(" ", ar), group);
             if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
 
@@ -909,7 +912,7 @@ namespace BazisGUI
             ar[2] = "Y";
             ar[3] = rVec._y.ToString();
 
-            data = (IValuableData)taskData.Create(arg2.DataName, string.Join(" ", ar), group);
+            data = taskData.Create(arg2.DataName, string.Join(" ", ar), group);
             if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
 
@@ -919,7 +922,7 @@ namespace BazisGUI
             ar[2] = "Z";
             ar[3] = rVec._z.ToString();
 
-            data = (IValuableData)taskData.Create(arg2.DataName, string.Join(" ", ar), group);
+            data = taskData.Create(arg2.DataName, string.Join(" ", ar), group);
             if (data.FrameFunction != null)
                 SetMFF(data, ar.Last());
 
@@ -930,45 +933,43 @@ namespace BazisGUI
         private void AddTaskDataToNavigator(IData data)
         {
             NodeType nodeType;
-            Enum.TryParse(data.Name, out nodeType);
+            Enum.TryParse(data.Kind.ToString(), out nodeType);
             var imgIndex = BasePage.NavigatorControl.GetObjectImageIndex(nodeType);
 
-            var child = new TreeNode($"{data.Name} : {data.GetInfo}", imgIndex, imgIndex)
-            { Tag = "6.1", Name = data.Name };
+            var child = new TreeNode($"{data}", imgIndex, imgIndex)
+            { Tag = "6.1", Name = data.Kind.ToString() };
             BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes.Add(child);
         }
 
 
-        private void SetMFF(IValuableData data, string trajInfo)
+        private void SetMFF(IPhysicalData data, string trajInfo)
         {
             //var trajInfo = data.TrajectoryInfo;
             var scenePage = BasePage.ScenePage;
+            var ar = trajInfo.Split(';');
+            if (ar.Length == 4)
+            {
+                var baseLineGrName = ar[0].Split('|')[0];
+                var refLineGrName = ar[0].Split('|')[1];
+                var stNodesGrName = ar[1];
+                var baseLineGr = ModelData.GroupData.Find(baseLineGrName);
+                var refLineGr = ModelData.GroupData.Find(refLineGrName);
+                var stNodesGr = ModelData.GroupData.Find(stNodesGrName);
+                var vel = float.Parse(ar[2]);
 
-            var baseLineGrName = trajInfo.Split(';')[0].Split('|')[0];
-            var refLineGrName = trajInfo.Split(';')[0].Split('|')[1];
-            var stNodesGrName = trajInfo.Split(';')[2];
-            var baseLineGr = ModelData.GroupData.Find(baseLineGrName);
-            var refLineGr = ModelData.GroupData.Find(refLineGrName);
-            var stNodesGr = ModelData.GroupData.Find(stNodesGrName);
+                var mfb = new MovedFrameBuilder().Build(stNodesGr, baseLineGr, refLineGr, vel);
+                data.LocalFrame = mfb;
 
-            data.MovedFrame.BaseLine = baseLineGr;
-            data.MovedFrame.RefLine = refLineGr;
-            data.MovedFrame.StartPoints = stNodesGr;
-            data.MovedFrame.StopPoints = stNodesGr;
+                //Проверка самопересечения от скорости движения
 
-            //Проверка узлов траектории
-            data.MovedFrame.CheckTrajNodes();
-            var vel = data.MovedFrame.Velosity;
-            //Проверка самопересечения от скорости движения
+                if (data.FrameFunction != null)
+                    if (!data.FrameFunction.IsOverlappingSelf(mfb.Velosity))
+                        BasePage.ConsoleControl.PrintInfo("Скорость источника не позволяет добиться самопересечения при движении! " +
+                            "Рекомендуется снизить скорость", Color.Orange);
+                //Sort
+                data.StopTime = data.StartTime + (float)Math.Round(mfb.CalcMotionTime(), 4);
+            }
 
-            if (data.FrameFunction != null)
-                if (!data.FrameFunction.IsOverlappingSelf(vel))
-                    BasePage.ConsoleControl.PrintInfo("Скорость источника не позволяет добиться самопересечения при движении! " +
-                        "Рекомендуется снизить скорость", Color.Orange);
-            //Sort
-            data.MovedFrame.SortTrajNodes();
-
-            data.StopTime = data.StartTime + (float)Math.Round(data.MovedFrame.CalcMotionTime(),4);
         }
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1019,7 +1020,7 @@ namespace BazisGUI
                 toolStripMenuItem.Checked = false;
                 return;
             }
-            var tasks = taskData.Select(t => (t.Name, t.GetInfo.Split())).ToList();
+            var tasks = taskData.Select(d => (IValuableData)d).ToList();
             var ganttContol = new GanttChartTreeView(tasks, 10);
             ganttDiagramForm = new Form
             {

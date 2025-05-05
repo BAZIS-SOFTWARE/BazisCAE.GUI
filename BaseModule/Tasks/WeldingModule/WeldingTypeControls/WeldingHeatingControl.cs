@@ -104,7 +104,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             if (!IsValidated()) return;
             try
             {         
-                var rowInfo = CreateRowInfo("*");
+                var rowInfo = CreateRowInfo(txbStartTime.Text);
                 AddDataEvent(this, new AddDataEventArgs(DataName, rowInfo));
 
                 btnRefresh.Enabled = false;
@@ -122,8 +122,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             if (cmbTraj.Text.Equals(cmbRef.Text))
                 throw new Exception("Траектория и опорная линия должны различаться!");
 
-            return string.Format("{0}|{1};{2};{3};{4}",
-                cmbTraj.Text, cmbRef.Text, txbVelosity.Text, cmbStartPoint.Text, cmbStopPoint.Text);
+            return $"{cmbTraj.Text}|{cmbRef.Text};{cmbStartPoint.Text};{txbVelosity.Text}";
         }
 
         private string CreateRowInfo(string stopTime)
@@ -133,7 +132,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             trajData = trajData + ";" +
                 string.Format($"{txbShiftX.Text}|{txbShiftY.Text}|{txbShiftZ.Text}|{txbAngle.Text}");
 
-            var taskStr = string.Join(" ", new string[] { HeatSourceData, cmbWeldZone.Text, txbStartTime.Text, stopTime, trajData });
+            var taskStr = string.Join(" ", new string[] { "1","*", HeatSourceData, cmbWeldZone.Text, txbStartTime.Text, stopTime, trajData });
 
             return taskStr;
         }
@@ -163,10 +162,10 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
                 txbVelosity.Text = strAr[1];
 
-                cmbStartPoint.Text = strAr[2];
-                cmbStopPoint.Text = strAr[3];
+                //cmbStartPoint.Text = strAr[2];
+                //cmbStopPoint.Text = strAr[3];
 
-                var hsShiftingAr = strAr[4].Split('|');
+                var hsShiftingAr = strAr[2].Split('|');
 
                 txbShiftX.Text = hsShiftingAr[0];
                 txbShiftY.Text = hsShiftingAr[1];
@@ -334,7 +333,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
 
         public void Set_DataGridLines(IEnumerable<string> lines)
         {
-            dataGridView.Set_DataGridLines(lines);
+            var newLines = new List<string>();
+            foreach (var item in lines)
+            {
+                var ar = item.Split(' ');
+                newLines.Add(string.Join(" ", ar.Skip(2)));
+            }
+            dataGridView.Set_DataGridLines(newLines);
         }
     }
 }

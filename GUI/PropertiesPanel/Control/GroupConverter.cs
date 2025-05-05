@@ -17,12 +17,7 @@ namespace BazisGUI.PropertiesPanel.Control
         {
             return new List < RowProperty > 
             {
-                new RowProperty("Имя", _group.Name, () => new DataGridViewTextBoxCell(),
-                (cell) =>
-                {
-                    return cell.Value;
-                },
-                SequenceType.After),
+                RowProperty.CreateTextBox("Имя", _group.Name, ValidationType.Text)
             };
         }
 

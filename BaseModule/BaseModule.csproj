@@ -182,6 +182,7 @@
     </Compile>
     <Compile Include="PropertiesPanel\Events\PropertyChangedEventArgs.cs" />
     <Compile Include="PropertiesPanel\RowProperty.cs" />
+    <Compile Include="PropertiesPanel\ValidationType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

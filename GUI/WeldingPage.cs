@@ -7,6 +7,9 @@ using BaseModule.Tasks.WeldingModule;
 using Project.Interfaces.Tasks;
 using Model.Interfaces;
 using PreProc.Interfaces;
+using Project.Tasks.LocalFrame;
+using BazisGUI.Utilities;
+using Project.Tasks;
 
 namespace BazisGUI
 {
@@ -56,8 +59,10 @@ namespace BazisGUI
             {
                 await System.Threading.Tasks.Task.Run(() =>
                 {
-                    var data = (IValuableData)taskData.Find(arg1).ToArray()[arg2];
+                    var dataKind = Converters.ConvertToDataKind(arg1);
+                    var data = taskData.Find(dataKind).ToArray()[arg2];
 
+                    var frame = data.LocalFrame as MovedFrame;
                     var modelObjects = new List<IModelObject>();
                     var finishTime = data.StopTime - data.StartTime;
 
@@ -69,8 +74,9 @@ namespace BazisGUI
                     for (int i = 0; i <= 100; i++)
                     {
                         var currentTime = i * finishTime / 100.0f;
-                        var frame = data.MovedFrame.CalcFrame(currentTime);
-                        var resu = data.FrameFunction.GetIntersectedObjects(frame, data.Group.ToList());
+                        var curFrame = frame.CalcFrame(currentTime);
+                        data.FrameFunction.Frame = curFrame;
+                        var resu = data.FrameFunction.GetIntersectedObjects(data.Group.ToList());
                         modelObjects.AddRange(resu);
 
                         if (i % 10 == 0)

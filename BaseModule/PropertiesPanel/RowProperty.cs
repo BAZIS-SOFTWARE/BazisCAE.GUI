@@ -12,6 +12,7 @@ namespace BaseModule.PropertiesPanel
         public Func<DataGridViewCell, object> Update { get; } // Логика обновления значения
         public SequenceType Sequence { get; } //before, after
         public bool IsReadOnly { get; }
+        public ValidationType ValidationType { get; }
 
         public RowProperty(
             string header,
@@ -19,6 +20,7 @@ namespace BaseModule.PropertiesPanel
             Func<DataGridViewCell> initialization,
             Func<DataGridViewCell, object> update,
             SequenceType sequence,
+            ValidationType validationType = ValidationType.None,
             bool isReadOnly = false)
         {
             Header = header;
@@ -27,6 +29,7 @@ namespace BaseModule.PropertiesPanel
             Update = update;
             Sequence = sequence;
             IsReadOnly = isReadOnly;
+            ValidationType = validationType;
         }
 
         /// <summary>
@@ -35,14 +38,14 @@ namespace BaseModule.PropertiesPanel
         /// <param name="header"></param>
         /// <param name="value"></param>
         /// <param name="isReadOnly">По умолчанию ячейка доступна для редактирования</param>
-        public static RowProperty CreateTextBox(string header, string value, bool isReadOnly = false)
+        public static RowProperty CreateTextBox(string header, string value, ValidationType validationType = ValidationType.None, bool isReadOnly = false)
         {
             return new RowProperty(header, value, () => new DataGridViewTextBoxCell(),
             (cell) =>
             {
                 return cell.Value.ToString();
             },
-            SequenceType.After, isReadOnly);
+            SequenceType.After, validationType, isReadOnly);
         }
 
         public static RowProperty CreateComboBox(string header, string value, List<string> availableValues)

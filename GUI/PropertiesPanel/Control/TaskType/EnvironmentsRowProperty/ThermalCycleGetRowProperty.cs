@@ -1,4 +1,5 @@
-﻿using BaseModule.Navigator;
+﻿#if false
+using BaseModule.Navigator;
 using BaseModule.PropertiesPanel;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
@@ -8,10 +9,10 @@ using System.Linq;
 
 namespace BazisGUI.PropertiesPanel.Control.TaskType.EnvironmentsRowProperty
 {
-    public  class ThermalCycleGetRowProperty : EnvironmentTaskConverter
+    public class ThermalCycleGetRowProperty : EnvironmentTaskConverter
     {
         private List<string> _func;
-        public ThermalCycleGetRowProperty(IData obj, List<string> func, List<IGroup> groupElement) 
+        public ThermalCycleGetRowProperty(IData obj, List<string> func, List<IGroup> groupElement)
         {
             _func = func;
             var value = obj.GetInfo.Split(' ');
@@ -32,13 +33,14 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType.EnvironmentsRowProperty
         {
             return new List<RowProperty>
             {
-                RowProperty.CreateTextBox("Имя", NodeType.Среда.ToString(), true),
+                RowProperty.CreateTextBox("Имя", NodeType.Среда.ToString(), ValidationType.None, true),
                 RowProperty.CreateComboBox("Группа элементов", data["Группа элементов"], dataGroupElement.Select(x => x.Name).ToList()),
                 RowProperty.CreateComboBox("Коэф. теплоотдачи, Вт/мм2", data["Коэф. теплоотдачи, Вт/мм2"], _func),
-                RowProperty.CreateTextBox("Температура среды", data["Температура среды"]),
-                RowProperty.CreateTextBox("Старт, сек.", data["Старт, сек."]),
-                RowProperty.CreateTextBox("Стоп, сек.", data["Стоп, сек."])
+                RowProperty.CreateTextBox("Температура среды", data["Температура среды"], ValidationType.FloatAny),
+                RowProperty.CreateTextBox("Старт, сек.", data["Старт, сек."], ValidationType.FloatPositive),
+                RowProperty.CreateTextBox("Стоп, сек.", data["Стоп, сек."], ValidationType.FloatPositive)
             };
-        }   
+        }
     }
 }
+#endif
