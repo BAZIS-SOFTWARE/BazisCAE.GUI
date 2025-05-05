@@ -34,7 +34,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             {
                 property.Add(RowProperty.CreateTextBox("Ширина шва (L), мм", arc.Width.ToString(), ValidationType.FloatPositive));
                 property.Add(RowProperty.CreateTextBox("Ток, А", arc.Current.ToString(), ValidationType.FloatPositive));
-                property.Add(RowProperty.CreateTextBox("Напряжение, В", arc.Voltage.ToString(), ValidationType.FloatPositive)); 
+                property.Add(RowProperty.CreateTextBox("Напряжение, В", arc.Voltage.ToString(), ValidationType.FloatPositive));
             }
             else if (_objAsHeat.FrameFunction is Lazer lazer)
             {
@@ -47,7 +47,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             {
                 property.Add(RowProperty.CreateTextBox("Скорость вращения, об/cек.", fSwPin.RotSpeed.ToString(), ValidationType.FloatPositive));
                 property.Add(RowProperty.CreateTextBox("Длина бура (L), мм", fSwPin.Length.ToString(), ValidationType.FloatPositive));
-                property.Add(RowProperty.CreateTextBox("Диаметр основания (D2), мм", fSwPin.BottomDiam.ToString(), ValidationType.FloatPositive)); 
+                property.Add(RowProperty.CreateTextBox("Диаметр основания (D2), мм", fSwPin.BottomDiam.ToString(), ValidationType.FloatPositive));
                 property.Add(RowProperty.CreateTextBox("Диаметр конца (D3), мм", fSwPin.UpperDiam.ToString(), ValidationType.FloatPositive));
                 property.Add(RowProperty.CreateComboBox("Предел текучести, МПа", fSwPin.GetParameters().First().Name, _func));
             }
@@ -59,11 +59,11 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 property.Add(RowProperty.CreateComboBox("Коэффициент трения", fSwShoulder.GetParameters().First().Name, _func));
             }
             else throw new InvalidOperationException("Имя FrameFunction не известно");
-            
+
             property.Add(RowProperty.CreateComboBox("Группа элементов", _objAsHeat.Group.Name, dataGroupElement.Select(x => x.Name).ToList()));
             property.Add(RowProperty.CreateTextBox("Старт, сек.", _objAsHeat.StartTime.ToString(), ValidationType.FloatPositive));
             property.Add(RowProperty.CreateTextBox("Стоп, сек.", _objAsHeat.StopTime.ToString(), ValidationType.None, true));
-            
+
             return property;
         }
 
@@ -82,7 +82,8 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 _objAsHeat.StartTime = float.Parse(newValue);
             }
             UpdateTrajectoryInfo(set);
-            //selectObj = _objAsHeat as IPhysicalData;  
+
+            //selectObj = _objAsHeat as IPhysicalData;
         }
 
         private string GetFrameFunction(string header, string newValue)
@@ -97,7 +98,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                     { "Ток, А", arc.Current.ToString() },
                     { "Напряжение, В", arc.Voltage.ToString() }
                 };
-                
+
                 data[header] = newValue.ToString();
                 sb.Append($"{data["Вид сварки"]};{data["Ширина шва (L), мм"]};{data["Ток, А"]};{data["Напряжение, В"]} "); // processParameters
                 sb.Append($"{_objAsHeat.Group.Name} {_objAsHeat.StartTime} {_objAsHeat.StopTime} "); // set
@@ -162,7 +163,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                     $"{fSwShoulder.Length.ToString()};" +
                     $"{data["Диаметр плеча (D1), мм"]};" +
                     $"{data["Диаметр плеча (D1), мм"]};" +
-                    $"{data["Коэффициент трения"]} "); 
+                    $"{data["Коэффициент трения"]} ");
                 sb.Append($"{_objAsHeat.Group.Name} {_objAsHeat.StartTime} {_objAsHeat.StopTime} "); // set
                 var trajectory = _objAsHeat.LocalFrame.ToString();
                 sb.Append(trajectory);
@@ -170,7 +171,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             }
         }
 
-        [Obsolete ("Использовать до изменения в Core")]
+        [Obsolete("Использовать до изменения в Core")]
         private void UpdateTrajectoryInfo(string data)
         {
             // TO DO

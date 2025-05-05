@@ -11,7 +11,7 @@ namespace BazisGUI.PropertiesPanel.Control
     public class SetInfoConverter : PanelConverter
     {
         private readonly ISetInfo _objectsSet;
-        public SetInfoConverter(ISetInfo obj) 
+        public SetInfoConverter(ISetInfo obj)
         {
             _objectsSet = obj;
         }
@@ -41,7 +41,7 @@ namespace BazisGUI.PropertiesPanel.Control
         public override void UpdateObject(string header, string newValue, string oldValue)
         {
             if (header == "Имя") _objectsSet.Name = newValue;
-            else if (header == "Цвет") 
+            else if (header == "Цвет")
             {
                 Color color;
                 if (newValue.StartsWith("Color [A="))
@@ -58,7 +58,7 @@ namespace BazisGUI.PropertiesPanel.Control
                     color = Color.FromName(newValue.Replace("Color [", "").Replace("]", ""));
                 }
                 _objectsSet.SetColor(color);
-            } 
+            }
             else if (header == "Представление") _objectsSet.SetViewMode(Converters.StringToEnum<ViewMode>(newValue.ToString()));
         }
     }

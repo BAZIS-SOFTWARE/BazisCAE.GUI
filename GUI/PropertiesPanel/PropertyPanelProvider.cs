@@ -22,7 +22,7 @@ namespace BazisGUI.PropertiesPanel
         private List<string> _funcDBNames;
         private List<string> _matDBNames;
         private PanelConverter _converter;
-        
+
         public void ShowPropertiesPanel<T>(T obj, TreeNode selectedNode)
         {
             InitializeConverter(obj);
@@ -56,7 +56,7 @@ namespace BazisGUI.PropertiesPanel
                     return false;
                 }
             }
-            if(type.HasFlag(ValidationType.Float))
+            if (type.HasFlag(ValidationType.Float))
             {
                 if (newValue.Contains(" "))
                 {
@@ -70,7 +70,7 @@ namespace BazisGUI.PropertiesPanel
             }
             if (type.HasFlag(ValidationType.PositiveOnly))
             {
-                if(Convert.ToDouble(newValue) < 0)
+                if (Convert.ToDouble(newValue) < 0)
                 {
                     MessageBox.Show("Не допустимо отрицательное значение", "FormatException", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;

@@ -105,7 +105,7 @@ namespace BaseModule.PropertiesPanel
 
         private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if(dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString() != ValidationType.None.ToString())
+            if (dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString() != ValidationType.None.ToString())
             {
                 var newValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
                 var tag = dataGridView1.Rows[e.RowIndex].Cells[1].Tag.ToString();

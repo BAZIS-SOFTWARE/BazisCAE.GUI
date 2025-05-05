@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
+using System.Diagnostics;
 using static TestGUI.TestProvider;
 
 namespace TestGUI
@@ -20,7 +21,7 @@ namespace TestGUI
                 TestProvider.GetElement(wd, "Модули", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Сварка", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Объекты", SearchWay.Name).Click();
- 
+
                 ExpandElement(wd, actions, "Элементы2D");
                 ExpandElement(wd, actions, "Элементы3D");
                 ExpandElement(wd, actions, "Группы объектов");
@@ -33,7 +34,7 @@ namespace TestGUI
                 TestProvider.GetElement(wd, "Элемент3D : 23258", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "refLine", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Load", SearchWay.Name).Click();
-                TestProvider.GetElement(wd, "Среда : air Коэф.теплоотдачи.воздух 20 0 50 *", SearchWay.Name).Click();
+                TestProvider.GetElement(wd, "Среда : Элемент2D_2 2 31 2 15 *", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Нагрев : ARC;4;100;25 Load 0 10 baseLine|refLine;10;startNodes;startNodes;0|0|0|0", SearchWay.Name).Click();
             }
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
@@ -42,7 +43,7 @@ namespace TestGUI
         }
 
         [Test(Description = "Изменение имени объекта - попытка присвоения некорректного имени и ввод валидных значений")]
-        [TestCase("Элемент2D : 7384" )]
+        [TestCase("Элемент2D : 7384")]
         [TestCase("refLine")]
         public void RenameTreeElementsTest(string element)
         {
@@ -109,7 +110,7 @@ namespace TestGUI
         public void ChangeDataGroupTest()
         {
             var wd = LoadProject();
-            try 
+            try
             {
                 TestProvider.GetElement(wd, "Модули", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Сварка", SearchWay.Name).Click();
@@ -161,14 +162,29 @@ namespace TestGUI
                 TestProvider.GetElement(wd, "Модули", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Сварка", SearchWay.Name).Click();
                 TestProvider.GetElement(wd, "Данные", SearchWay.Name).Click();
-
-                EnumerateTree(wd, ChangeSource, data, isError);
+                var value = "Нагрев!" + data;
+                EnumerateTree(wd, ChangeSource, value, isError);
             }
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
             finally { wd.CloseApp(); }
         }
 
-        private static WindowsDriver<WindowsElement> LoadProject( )
+        [Test(Description = "Тестирование изменения параметров MediaData")]
+        public void MediaDataChange()
+        {
+            var wd = LoadProject();
+            try
+            {
+                TestProvider.GetElement(wd, "Модули", SearchWay.Name).Click();
+                TestProvider.GetElement(wd, "Сварка", SearchWay.Name).Click();
+                TestProvider.GetElement(wd, "Данные", SearchWay.Name).Click();
+                var value = "Среда!";
+                EnumerateTree(wd, ChangeSource, value);
+            }
+            catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
+            finally { wd.CloseApp(); }
+        }
+        private static WindowsDriver<WindowsElement> LoadProject()
         {
             var opt = new AppiumOptions();
             opt.AddAdditionalCapability("app", Path.GetFullPath(@".\..\..\..\..\GUI\bin\x64\Debug\BazisGUI.exe"));
@@ -191,9 +207,9 @@ namespace TestGUI
                 exept = wd.FindElement(By.Name("FormatException"));
                 Thread.Sleep(1000);
             }
-            catch(OpenQA.Selenium.WebDriverException ex) { }
-            
-            if (isError) 
+            catch (OpenQA.Selenium.WebDriverException ex) { }
+
+            if (isError)
             {
                 Assert.That(!(exept is null));
                 wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Enter);
@@ -208,7 +224,11 @@ namespace TestGUI
             }
         }
 
-        private static void EnumerateTree(WindowsDriver<WindowsElement> wd, Action<WindowsDriver<WindowsElement>,string, bool> action, string value = "", bool isError = false)
+        private static void EnumerateTree(
+            WindowsDriver<WindowsElement> wd,
+            Action<WindowsDriver<WindowsElement>, string, bool> action,
+            string value = "",
+            bool isError = false)
         {
             while (true)
             {
@@ -223,7 +243,14 @@ namespace TestGUI
 
                 action(wd, nameCurrent + "!" + value, isError);
 
-                TestProvider.GetElement(wd, namePrevious, SearchWay.Name).Click();
+                var elements = wd.FindElements(By.Name(namePrevious));
+                if (elements.Count > 1)
+                {
+                    var elem = elements[^1].Text;
+                    elements[^1].Click();
+                }
+                else TestProvider.GetElement(wd, namePrevious, SearchWay.Name).Click();
+
                 wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
             }
         }
@@ -232,10 +259,9 @@ namespace TestGUI
         {
             var data = value.Split('!');
 
-            if (data[0].Contains("Нагрев"))
+            if (data[0].Contains("Нагрев") && data[1].Contains("Нагрев"))
             {
                 var length = (data[0].Contains("Нагрев : ARC") || data[0].Contains("Нагрев : FSWShoulder")) ? 3 : 4;
-
                 for (int i = 0; i < length; i++)
                 {
                     TestProvider.GetElement(wd, $" Строка {i}, Не отсортировано.", SearchWay.Name).Click();
@@ -245,11 +271,57 @@ namespace TestGUI
                     CheckError(wd, isError);
                 }
             }
+
+            else if (data[0].Contains("Среда") && data[1].Contains("Среда"))
+            {
+                var elementActive = wd.SwitchTo().ActiveElement();
+                var nameActive = elementActive.Text;
+                var numberLines = 1;
+                TestProvider.GetElement(wd, $" Строка 0, Не отсортировано.", SearchWay.Name).Click();
+                for (; ; )
+                {
+                    var previous = wd.SwitchTo().ActiveElement();
+                    var namePrevious = previous.Text;
+                    previous.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+                    var current = wd.SwitchTo().ActiveElement();
+                    var nameCurrent = current.Text;
+                    if (previous.Text.Equals(current.Text)) break;
+                    numberLines++;
+                }
+
+                var excludeLastCount = 2;
+                for (int i = 0; i < numberLines - excludeLastCount; i++)
+                {
+                    TestProvider.GetElement(wd, $" Строка {i}, Не отсортировано.", SearchWay.Name).Click();
+                    if(i == 0)
+                    {
+                        TestProvider.ClickByOffset(wd, 265, 0, ClickType.LeftOne);
+                        TestProvider.ClickByOffset(wd, 0, 0, ClickType.LeftOne);
+                        wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+                        wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Enter);
+                        wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Tab);
+                    }
+                    else
+                    {
+                        TestProvider.ClickByOffset(wd, 240, 0, ClickType.LeftOne);
+                        TestProvider.ClickByOffset(wd, 0, 0, ClickType.LeftOne);
+                        var testString = "32";
+                        wd.Keyboard.SendKeys(testString + OpenQA.Selenium.Keys.Enter);
+
+                        TestProvider.ClickByOffset(wd, 25, 0, ClickType.LeftOne);
+                        TestProvider.ClickByOffset(wd, 0, 0, ClickType.LeftOne);
+                        wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+                        wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Enter);
+                        wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Tab);
+                    }
+                }
+            }
         }
 
         private static void ChangeTime(WindowsDriver<WindowsElement> wd, string value, bool isError = false)
         {
-            var data = value.Split('!'); var search = "";
+            var data = value.Split('!');
+            var search = string.Empty;
             if (data[0].Contains("Закрепление")) search = " Строка 4, Не отсортировано.";
             else if (data[0].Contains("Среда"))
             {
@@ -346,7 +418,7 @@ namespace TestGUI
                 }
             }
         }
-        private static void ExpandElement(WindowsDriver<WindowsElement> wd, Actions actions, string nameInTree)    
+        private static void ExpandElement(WindowsDriver<WindowsElement> wd, Actions actions, string nameInTree)
         {
             var element = TestProvider.GetElement(wd, nameInTree, SearchWay.Name);
             actions.DoubleClick(element);
