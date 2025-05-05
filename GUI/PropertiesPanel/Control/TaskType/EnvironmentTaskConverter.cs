@@ -12,7 +12,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
     {
         private List<string> _func;
         private MediaData _media;
-        public EnvironmentTaskConverter(IData obj, List<IGroup> groupElement, List<string> func)
+        public EnvironmentTaskConverter(IPhysicalData obj, List<IGroup> groupElement, List<string> func)
         {
             selectObj = obj;
             dataGroupElement = groupElement;
@@ -28,7 +28,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                     { "Температура среды", _media.TemperatureValue.ToString() },
                     { "Старт, сек.", _media.StartTime.ToString() },
                     { "Стоп, сек.", _media.StopTime.ToString() },
-                    { "Траектория(default)", _media.TrajectoryInfo }
+                    { "Траектория(default)", _media.LocalFrame?.ToString() }
                 };
             }
             else
@@ -41,7 +41,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                     _media.TemperatureFunc == "*" ? _media.TemperatureValue.ToString() : _media.TemperatureFunc);
                 data.Add("Старт, сек.", _media.StartTime.ToString());
                 data.Add("Стоп, сек.", _media.StopTime.ToString());
-                data.Add("Траектория(default)", _media.TrajectoryInfo);
+                data.Add("Траектория(default)", _media.LocalFrame.ToString());
             }
         }
 

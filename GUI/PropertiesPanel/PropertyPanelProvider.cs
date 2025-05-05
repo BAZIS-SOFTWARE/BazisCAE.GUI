@@ -35,7 +35,7 @@ namespace BazisGUI.PropertiesPanel
 
             else if (obj is IGroup group) _converter = new GroupConverter(group);
 
-            else if (obj is IData data)
+            else if (obj is IPhysicalData data)
             {
                 _matDBNames = _matDBNames is null ? GetMatDB() : _matDBNames;
                 _funcDBNames = _funcDBNames is null ? GetFuncDB() : _funcDBNames;

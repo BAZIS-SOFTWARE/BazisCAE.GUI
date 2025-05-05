@@ -14,7 +14,7 @@ namespace BazisGUI
     {
         private GanttChartModel ganttChart;
 
-        public GanttChartCheckBox(List<IValuableData> tasks, int timestamps)
+        public GanttChartCheckBox(List<IPhysicalData> tasks, int timestamps)
         {
             InitializeComponent();
             var start = tasks.Select(t => t.StartTime).Min();
@@ -27,16 +27,16 @@ namespace BazisGUI
             ProcessTasks(tasks);
         }
 
-        private void ProcessTasks(List<IValuableData> tasks)
+        private void ProcessTasks(List<IPhysicalData> tasks)
         {
             for (var i = 0; i < tasks.Count(); i++)
             {
-                ganttChart.AddTask(tasks[i].StartTime, tasks[i].StopTime, i + 1, tasks[i].Name, MapTaskToColor(tasks[i]));
-                checkedListBox.Items.Add(tasks[i].Name, true);
+                ganttChart.AddTask(tasks[i].StartTime, tasks[i].StopTime, i + 1, tasks[i].Kind.ToString(), MapTaskToColor(tasks[i]));
+                checkedListBox.Items.Add(tasks[i].Kind, true);
             }
         }
 
-        private Color MapTaskToColor(IValuableData task)
+        private Color MapTaskToColor(IPhysicalData task)
         {
             switch(task)
             {
