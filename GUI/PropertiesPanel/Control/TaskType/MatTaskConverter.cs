@@ -12,11 +12,11 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         private readonly List<string> _mat;
         private readonly List<IGroup> _dataObjectType;
 
-        public MatTaskConverter(IData obj, List<string> mat, List<IGroup> groupElement)
+        public MatTaskConverter(IPhysicalData obj, List<string> mat, List<IGroup> groupElement)
         {
             _dataObjectType = groupElement;
             _mat = mat;
-            var value = obj.GetInfo.Split(' ');
+            var value = obj.ToString().Split(':')[1].Split(' ');
             dataGroupElement = groupElement;
             selectObj = obj;
             data = new Dictionary<string, string>()

@@ -14,11 +14,11 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         private List<IGroup> _dataObjectType;
         private List<string> _func;
 
-        public LoadTaskConverter(IData obj, List<string> func, List<IGroup> groupElement)
+        public LoadTaskConverter(IPhysicalData obj, List<string> func, List<IGroup> groupElement)
         {
             _func = func;
             _dataObjectType = groupElement;
-            var value = obj.GetInfo.Split(' ');
+            var value = obj.ToString().Split(':')[1].Split(' ');
             dataGroupElement = groupElement;
             selectObj = obj;
             data = new Dictionary<string, string>()

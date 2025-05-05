@@ -18,6 +18,12 @@ namespace BazisGUI.Utilities
 {
     public static class Converters
     {
+        public static DataKind ConvertToDataKind(string dataKind)
+        {
+            DataKind objType;
+            return Enum.TryParse(dataKind, out objType) ? objType :
+                throw new Exception($"Ошибка конвертации объектов {dataKind}");
+        }
         public static string ConvertToDBTablesNames(GraphObjects graphObjects)
         {
             switch (graphObjects)

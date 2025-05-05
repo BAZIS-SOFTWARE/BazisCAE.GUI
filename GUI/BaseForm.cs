@@ -5,6 +5,7 @@ using ClientGUI;
 using ClientLogic;
 using LicenseInfo;
 using MathNet.Numerics.LinearAlgebra;
+using Model;
 using Model.Interfaces;
 using ModelController.GmshController;
 using Newtonsoft.Json;
@@ -1231,6 +1232,35 @@ namespace BazisGUI
 
             if (module.EmbeddedSplitContainer.Panel2Collapsed == true)
                 module.ShowAnimation();
+        }
+
+        private async void добавитьСеткуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if(project != null)
+                {
+                    await dataController.AppendModel(project.ModelData);
+
+                    lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
+
+                    gmshController?.Gmsh.Clear();
+
+                    модулиMenuItem.Enabled = true;
+                    modelController = new ModelController.ModelController(project.ModelData);
+                    SetModule("Mesh");
+                    модулиMenuItem.Image = Resources.м_34;
+                    var module = ModulePage.BasePage;
+                    module.ScenePage.SceneControl.FitObjectsToScreen();
+                    module.ScenePage.SceneControl.DisplayObjects();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
+            }
+
         }
     }
 }

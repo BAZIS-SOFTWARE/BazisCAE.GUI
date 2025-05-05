@@ -11,7 +11,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
     {
         private List<string> _func;
         private MediaData _media;
-        public EnvironmentTaskConverter(IData obj, List<IGroup> groupElement, List<string> func)
+        public EnvironmentTaskConverter(IPhysicalData obj, List<IGroup> groupElement, List<string> func)
         {
             selectObj = obj;
             dataGroupElement = groupElement;
@@ -26,7 +26,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                     { "Температура среды", _media.TemperatureValue.ToString() },
                     { "Старт, сек.", _media.StartTime.ToString() },
                     { "Стоп, сек.", _media.StopTime.ToString() },
-                    { "Траектория(default)", _media.TrajectoryInfo }
+                    { "Траектория(default)", _media.LocalFrame?.ToString() }
                 };
             }
             else
@@ -39,7 +39,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                     _media.TemperatureFunc == "*" ? _media.TemperatureValue.ToString() : _media.TemperatureFunc);
                 data.Add("Старт, сек.", _media.StartTime.ToString());
                 data.Add("Стоп, сек.", _media.StopTime.ToString());
-                data.Add("Траектория(default)", _media.TrajectoryInfo);
+                data.Add("Траектория(default)", _media.LocalFrame.ToString());
             }
         }
 
@@ -57,6 +57,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 property.Add(RowProperty.CreateComboBox("Группа", _media.Group.Name, dataGroupElement.Select(x => x.Name).ToList()));
                 property.Add(SelectData("Коэф. теплоотдачи", _media.HeatExchangeValue.ToString(), _media.HeatExchangeFunc));
                 property.Add(SelectData("Температура среды", _media.TemperatureValue.ToString(), _media.TemperatureFunc));
+
             }
             property.Add(RowProperty.CreateTextBox("Старт, сек.", _media.StartTime.ToString(), ValidationType.FloatPositive));
             property.Add(RowProperty.CreateTextBox("Стоп, сек.", _media.StopTime.ToString(), ValidationType.FloatPositive));
