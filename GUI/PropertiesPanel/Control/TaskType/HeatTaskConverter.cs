@@ -82,7 +82,6 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 _objAsHeat.StartTime = float.Parse(newValue);
             }
             UpdateTrajectoryInfo(set);
-
             //selectObj = _objAsHeat as IPhysicalData;
         }
 

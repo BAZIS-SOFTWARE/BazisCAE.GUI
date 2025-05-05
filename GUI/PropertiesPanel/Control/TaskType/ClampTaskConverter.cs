@@ -16,7 +16,6 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
 
         public ClampTaskConverter(IPhysicalData obj, List<IGroup> groupElement)
         {
-            Debug.WriteLine(obj.ToString());
             _dataObjectType = groupElement;
             var value = obj.ToString().Split(':')[1].Split(' ');
             dataGroupElement = groupElement;

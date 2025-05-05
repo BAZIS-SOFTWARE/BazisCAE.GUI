@@ -1,5 +1,4 @@
-﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
+﻿using BaseModule.PropertiesPanel;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
@@ -18,7 +17,6 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             dataGroupElement = groupElement;
             _func = func;
             _media = obj as MediaData;
-
             if (_media.TemperatureFunc == "*" && _media.HeatExchangeFunc != "*")
             {
                 data = new Dictionary<string, string>()
@@ -51,22 +49,42 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             if (_media.TemperatureFunc == "*" && _media.HeatExchangeFunc != "*") //тепловой поток
             {
                 property.Add(RowProperty.CreateComboBox("Группа элементов", _media.Group.Name, dataGroupElement.Select(x => x.Name).ToList()));
-                property.Add(RowProperty.CreateComboBox("Коэф. теплоотдачи, Вт/мм2", _media.HeatExchangeFunc, _func));
+                property.Add(RowProperty.CreateComboBox("Коэф. теплоотдачи, Вт/мм2", _media.HeatExchangeFunc, _func, false));
                 property.Add(RowProperty.CreateTextBox("Температура среды", _media.TemperatureValue.ToString(), ValidationType.FloatAny));
             }
             else
             {
                 property.Add(RowProperty.CreateComboBox("Группа", _media.Group.Name, dataGroupElement.Select(x => x.Name).ToList()));
-                property.Add(_media.HeatExchangeFunc == "*"
-                    ? RowProperty.CreateTextBox("Коэф. теплоотдачи", _media.HeatExchangeValue.ToString())
-                    : RowProperty.CreateComboBox("Коэф. теплоотдачи", _media.HeatExchangeFunc, _func));
-                property.Add(_media.TemperatureFunc == "*"
-                    ? RowProperty.CreateTextBox("Температура среды", _media.TemperatureValue.ToString())
-                    : RowProperty.CreateComboBox("Температура среды", _media.TemperatureFunc, _func));
+                property.Add(SelectData("Коэф. теплоотдачи", _media.HeatExchangeValue.ToString(), _media.HeatExchangeFunc));
+                property.Add(SelectData("Температура среды", _media.TemperatureValue.ToString(), _media.TemperatureFunc));
+
             }
             property.Add(RowProperty.CreateTextBox("Старт, сек.", _media.StartTime.ToString(), ValidationType.FloatPositive));
             property.Add(RowProperty.CreateTextBox("Стоп, сек.", _media.StopTime.ToString(), ValidationType.FloatPositive));
             return property;
+        }
+        public override void UpdateObject(string header, string newValue, string oldValue)
+        {
+            data[header] = newValue.ToString();
+            var set = string.Join(" ", data.Values);
+            if (header.Contains("Группа"))
+            {
+                var k = selectObj as IValuableData;
+                var group = dataGroupElement.Find(x => x.Name == newValue.ToString());
+                k.Group = group;
+            }
+            _media.SetInfo(set);
+            selectObj = _media as IData;
+        }
+        private RowProperty SelectData(string header, string value, string func)
+        {
+            if (func == "*")
+            {
+                if (!_func.Contains(value)) _func.Add(value);
+                return RowProperty.CreateComboBox(header, value, _func, true, ValidationType.None);
+            }
+            else
+                return RowProperty.CreateComboBox(header, func, _func, true, ValidationType.None);
         }
     }
 }
