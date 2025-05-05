@@ -17,7 +17,7 @@ namespace BazisGUI
         private GanttChartModel ganttChart;
         private Dictionary<TreeNode, int> mapTreeNodeToChartIndex;
 
-        public GanttChartTreeView(List<IValuableData> tasks, int timestamps)
+        public GanttChartTreeView(List<IPhysicalData> tasks, int timestamps)
         {
             InitializeComponent();
 
@@ -34,13 +34,13 @@ namespace BazisGUI
             AddTasks(tasks);
         }
 
-        private void AddTasks(List<IValuableData> tasks)
+        private void AddTasks(List<IPhysicalData> tasks)
         {
             var chartLayer = 1;
             for (var i = 0; i < tasks.Count(); i++)
             {
-                var groupName = tasks[i].Name;
-                var description = tasks[i].GetInfo;
+                var groupName = tasks[i].Kind.ToString();
+                var description = tasks[i].ToString().Split(':')[1];
 
                 if (!treeView.Nodes.ContainsKey(groupName))
                 {
@@ -58,7 +58,7 @@ namespace BazisGUI
             }
         }
 
-        private Color MapTaskToColor(IValuableData task)
+        private Color MapTaskToColor(IPhysicalData task)
         {
             switch (task)
             {

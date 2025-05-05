@@ -14,11 +14,11 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
     {
         private readonly List<IGroup> _dataObjectType;
 
-        public ClampTaskConverter(IData obj, List<IGroup> groupElement)
+        public ClampTaskConverter(IPhysicalData obj, List<IGroup> groupElement)
         {
-            Debug.WriteLine(obj.GetInfo);
+            Debug.WriteLine(obj.ToString());
             _dataObjectType = groupElement;
-            var value = obj.GetInfo.Split(' ');
+            var value = obj.ToString().Split(':')[1].Split(' ');
             dataGroupElement = groupElement;
             selectObj = obj;
             data = new Dictionary<string, string>()

@@ -1,8 +1,10 @@
 ﻿using BaseModule.Utilities;
 using BazisGUI.SettingsControls;
+using GmshApi;
 using Model;
 using Model.Interfaces;
 using Model.IO;
+using Model.IO.STL;
 using ModelController.GmshController;
 using Newtonsoft.Json;
 using Project;
@@ -17,6 +19,14 @@ namespace BazisGUI
 {
     public class IODataController
     {
+        string meshFilter =
+"All files(*.*)|*.*|" +
+"Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
+"GMSH(*.inp)|*.inp|" +
+"GMSH(*.inp_v2)|*.inp_v2|" +
+"ANSYS(*.cdb*)|*.cdb|" +
+"STL(*.stl*)|*.stl|" +
+"SOLOMIA(*.dat*)|*.dat";
         public SettingsConfig LoadConfig()
         {
             var folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -149,21 +159,58 @@ namespace BazisGUI
             }
         }
 
+        public async Task AppendModel(IModelData modelData)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = meshFilter;
+            if (dialog.ShowDialog() == DialogResult.Cancel)
+                return;
+
+            var ext = Path.GetExtension(dialog.FileName);
+
+            if (ext == ".inp")
+                modelData.Loader = new LoadModelFromINPTextFile();
+            else if (ext == ".inp_v2")
+                modelData.Loader = new LoadModelFromINPTextFile_v2();
+            else if (ext == ".ASC")
+                modelData.Loader = new LoadModelFromASCIITextFile_v2();
+            else if (ext == ".dat")
+                modelData.Loader = new LoadModelFromSalomeFile();
+            else if (ext == ".STL" | ext == ".stl")
+                modelData.Loader = new LoadFromSTLFile();
+            else
+                modelData.Loader = new LoadModelFromCDBTextFile();
+
+            await AppendModelAsync(modelData, dialog.FileName);
+        }
+
+        private async Task AppendModelAsync(IModelData modelData, string path)
+        {
+            MessageBoxEx.MessageBoxEx mb = new MessageBoxEx.MessageBoxEx()
+            { Dock = DockStyle.Fill };
+
+            var mbf = CreateMessageBoxExForm(mb);
+            mbf.Show();
+            await Task.Run(new Action(() =>
+            {
+
+                modelData.Loader.LoadEvent += (ar1, ar2) =>
+                {
+                    mb.Invoke(new Action(() =>
+                    {
+                        mb.Message = ar2.Message;
+                    }));
+                };
+                modelData.Append(path);
+
+            }));
+            mbf.Close();
+        }
 
         public async Task<ProjectData> ImportMesh()
         {
-
-            var filter =
-"All files(*.*)|*.*|" +
-"Visual-Mesh ESI Group(*.ASC)|*.ASC|" +
-"GMSH(*.inp)|*.inp|" +
-"GMSH(*.inp_v2)|*.inp_v2|" +
-"ANSYS(*.cdb*)|*.cdb|" +
-"STL(*.stl*)|*.stl|" +
-"SOLOMIA(*.dat*)|*.dat";
-
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = filter;
+            dialog.Filter = meshFilter;
             if (dialog.ShowDialog() == DialogResult.Cancel)
                 return null;
 
@@ -183,7 +230,7 @@ namespace BazisGUI
             else if (ext == ".dat")
                 project.ModelData.Loader = new LoadModelFromSalomeFile();
             else if (ext == ".STL" | ext == ".stl")
-                project.ModelData.Loader = new LoadModelFromSTLFile();
+                project.ModelData.Loader = new LoadFromSTLFile();
             else
                 project.ModelData.Loader = new LoadModelFromCDBTextFile();
 
@@ -209,7 +256,7 @@ namespace BazisGUI
 
             if (ext == ".STL" | ext == ".stl")
             {
-                var saver = new SaveModelToTxtSTLFile();
+                var saver = new SaveToTxtSTLFile();
                 saver.Save(modelData, dialog.FileName);
             }
 

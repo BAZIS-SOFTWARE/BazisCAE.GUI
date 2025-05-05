@@ -13,30 +13,26 @@ namespace BazisGUI.PropertiesPanel.Control
     public abstract class DataConverter : PanelConverter
     {
         protected Dictionary<string, string> data;
-        protected IData selectObj;
+        protected IPhysicalData selectObj;
         protected List<IGroup> dataGroupElement;
 
         private static List<IGroup> _groupElement;
-        public static DataConverter CreateConverter(IData obj, List<string> func, List<string> mat, List<IGroup> allGroupElement)
+        public static DataConverter CreateConverter(IPhysicalData obj, List<string> func, List<string> mat, List<IGroup> allGroupElement)
         {
             _groupElement = allGroupElement;
-            if (obj.Name == NodeType.Материал.ToString()) return new MatTaskConverter(obj, mat, GetGroupsByObjTypeFromOnesName(obj));
-            else if (obj.Name == NodeType.Среда.ToString()) return new EnvironmentTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj), func);
-            else if (obj.Name == NodeType.Нагрев.ToString()) return new HeatTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj), func);
-            else if (obj.Name == NodeType.Закрепление.ToString()) return new ClampTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj));
-            else if (obj.Name == NodeType.Нагрузка.ToString()) return new LoadTaskConverter(obj, func, GetGroupsByObjTypeFromOnesName(obj));
+            if (obj.Kind.ToString() == NodeType.Материал.ToString()) return new MatTaskConverter(obj, mat, GetGroupsByObjTypeFromOnesName(obj));
+            else if (obj.Kind.ToString() == NodeType.Среда.ToString()) return new EnvironmentTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj), func);
+            else if (obj.Kind.ToString() == NodeType.Нагрев.ToString()) return new HeatTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj), func);
+            else if (obj.Kind.ToString() == NodeType.Закрепление.ToString()) return new ClampTaskConverter(obj, GetGroupsByObjTypeFromOnesName(obj));
+            else if (obj.Kind.ToString() == NodeType.Нагрузка.ToString()) return new LoadTaskConverter(obj, func, GetGroupsByObjTypeFromOnesName(obj));
             else throw new NotImplementedException("Тип задачи не определен");
         }
 
-        public static List<IGroup> GetGroupsByObjTypeFromOnesName(IData data, string groupName = null)
+        public static List<IGroup> GetGroupsByObjTypeFromOnesName(IPhysicalData data, string groupName = null)
         {
             if (string.IsNullOrEmpty(groupName))
-            {
-                if (data is HeatData htd)
-                    groupName = htd.Group.Name;
-                else
-                    groupName = data.GetInfo.Split(' ')[0];
-            }
+                groupName = data.Group.Name;
+
             var group = _groupElement.Find(x => x.Name == groupName);
             return _groupElement.Where(x => x.ObjType == group.ObjType).ToList();
         }
@@ -47,11 +43,12 @@ namespace BazisGUI.PropertiesPanel.Control
             var set = string.Join(" ", data.Values);
             if (header.Contains("Группа"))
             {
-                var k = selectObj as IValuableData;
                 var group = dataGroupElement.Find(x => x.Name == newValue.ToString());
-                k.Group = group;
+                selectObj.Group = group;
             }
-                selectObj.SetInfo(set);
+            // TO DO
+            // Внести изменения для изменения объектов физических групп
+                //selectObj.SetInfo(set);
         }
     }
 }
