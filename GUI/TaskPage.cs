@@ -28,7 +28,7 @@ using Project.TaskParameters;
 using BazisGUI.Utilities;
 using BaseModule.Navigator;
 using BaseModule.GanttChart;
-using Project.Tasks;
+using Project.Tasks.LocalFrame;
 
 namespace BazisGUI
 {
@@ -1020,7 +1020,7 @@ namespace BazisGUI
                 toolStripMenuItem.Checked = false;
                 return;
             }
-            var tasks = taskData.Select(d => (IValuableData)d).ToList();
+            var tasks = taskData.Select(t => t.ToString());
             var ganttContol = new GanttChartTreeView(tasks, 10);
             ganttDiagramForm = new Form
             {

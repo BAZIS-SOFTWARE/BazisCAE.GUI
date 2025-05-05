@@ -18,15 +18,15 @@ namespace BaseModule.GanttChart
         private GanttChartModel ganttChart;
         private Dictionary<TreeNode, int> mapTreeNodeToChartIndex;
 
-        public GanttChartTreeView(List<(string, string[])> tasks, int timestamps)
+        public GanttChartTreeView(IEnumerable<string> tasks, int timesteps)
         {
             InitializeComponent();
 
-            var start = tasks.Select(t => t.Item2.GetLastByIndex(2)).Min(x => double.Parse(x));
-            var end = tasks.Select(t => t.Item2.GetLastByIndex(1)).Max(x => double.Parse(x));
-            var interval = (end - start) / timestamps;
+            var start = tasks.Select(t => t.Split(':')[1].Split(' ').GetLastByIndex(2)).Min(x => double.Parse(x));
+            var end = tasks.Select(t => t.Split(' ')[1].Split(' ').GetLastByIndex(1)).Max(x => double.Parse(x));
+            var interval = (end - start) / timesteps;
 
-            ganttChart = new GanttChartModel(start, end, interval, tasks.Count);
+            ganttChart = new GanttChartModel(start, end, interval, tasks.Count());
             mapTreeNodeToChartIndex = new Dictionary<TreeNode, int>();
 
             ganttChart.Chart.Dock = DockStyle.Fill;
@@ -35,34 +35,34 @@ namespace BaseModule.GanttChart
             AddTasks(tasks);
         }
 
-        private void AddTasks(List<(string, string[])> tasks)
+        private void AddTasks(IEnumerable<string> tasks)
         {
             var chartLayer = 1;
             foreach(var task in tasks)
             {
-                var groupName = task.Item1;
-                var description = string.Join(" ", task.Item2);
+                var dataKind = task.Split(':')[0];
+                var description = task.Split(':')[1];
 
-                if (!treeView.Nodes.ContainsKey(groupName))
+                if (!treeView.Nodes.ContainsKey(dataKind))
                 {
-                    var groupNode = treeView.Nodes.Add(groupName, groupName);
+                    var groupNode = treeView.Nodes.Add(dataKind, dataKind);
                     groupNode.Checked = true;
                 }
-                var parent = treeView.Nodes[groupName];
+                var parent = treeView.Nodes[dataKind];
                 var node = parent.Nodes.Add(description);
                 mapTreeNodeToChartIndex.Add(node, chartLayer);
                 node.Checked = true;
 
-                var start = double.Parse(task.Item2.GetLastByIndex(2));
-                var end = double.Parse(task.Item2.GetLastByIndex(1));
-                ganttChart.AddTask(start, end, chartLayer, groupName, MapTaskToColor(task.Item1), description);
+                var start = double.Parse(description.Split(' ').GetLastByIndex(2));
+                var end = double.Parse(description.Split(' ').GetLastByIndex(1));
+                ganttChart.AddTask(start, end, chartLayer, dataKind, MapTaskToColor(dataKind), description);
                 chartLayer++;
             }
         }
 
-        private Color MapTaskToColor(string taskName)
+        private Color MapTaskToColor(string dataKind)
         {
-            switch (taskName)
+            switch (dataKind)
             {
                 case "Закрепление": return Color.FromArgb(194, 174, 95);
                 case "Нагрев": return Color.FromArgb(194, 110, 96);
