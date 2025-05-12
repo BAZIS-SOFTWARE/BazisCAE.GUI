@@ -26,7 +26,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 { "Функция, F(u) , Н.мм - у.ед.(default)", _clamp.ClampFunction},
                 { "Старт, сек.", _clamp.StartTime.ToString()},
                 { "Стоп, сек.", _clamp.StopTime.ToString()},
-                { "Траектория(default)", _clamp.ClampFrame.ToString()}
+                { "Траектория(default)", "default"}
             };
         }
         public override List<RowProperty> GetRowProperty()
@@ -46,14 +46,12 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         {
             base.UpdateObject(header, newValue);
 
-            if(header == "Вид")
+            if(header == "Направление")
             {
-                //_clamp.ClampKind = newValue;
+                _clamp.Direction = Converters.StringToEnum<Direction>(newValue);
             }
-            else if(header == "Направление")
-            {
-                //_clamp.Direction = newValue;
-            }
+            //if (header == "Вид") _clamp.ClampKind = Converters.StringToEnum<ClampKind>(newValue);
+            //selectObj = _clamp;
         }
     }
 }

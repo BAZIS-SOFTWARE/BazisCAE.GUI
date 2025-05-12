@@ -5,6 +5,7 @@ using Project.Tasks;
 using Project.Tasks.Functions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -26,53 +27,54 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             //_groupLine = GetGroupsByObjTypeFromOnesName(_objAsHeat, _objAsHeat.MovedFrame.BaseLine.Name.ToString());
         }
 
-        public override List<RowProperty> GetRowProperty()
-        {
-            var property = new List<RowProperty>();
-            if (_objAsHeat.FrameFunction is Arc arc)
-            {
-                property.Add(RowProperty.CreateTextBox("Ширина шва (L), мм", arc.Width.ToString(), ValidationType.FloatPositive));
-                property.Add(RowProperty.CreateTextBox("Ток, А", arc.Current.ToString(), ValidationType.FloatPositive));
-                property.Add(RowProperty.CreateTextBox("Напряжение, В", arc.Voltage.ToString(), ValidationType.FloatPositive));
-            }
-            else if (_objAsHeat.FrameFunction is Lazer lazer)
-            {
-                property.Add(RowProperty.CreateTextBox("Мощность излучения, Дж", lazer.SurfacePower.ToString(), ValidationType.FloatPositive));
-                property.Add(RowProperty.CreateTextBox("Глубина проплавления (L), мм", lazer.Length.ToString(), ValidationType.FloatPositive));
-                property.Add(RowProperty.CreateTextBox("Диаметр основания (D2), мм", lazer.UpperDiam.ToString(), ValidationType.FloatPositive));
-                property.Add(RowProperty.CreateTextBox("Диаметр конца (D3), мм", lazer.BottomDiam.ToString(), ValidationType.FloatPositive));
-            }
-            else if (_objAsHeat.FrameFunction is FSWPin fSwPin)
-            {
-                property.Add(RowProperty.CreateTextBox("Скорость вращения, об/cек.", fSwPin.RotSpeed.ToString(), ValidationType.FloatPositive));
-                property.Add(RowProperty.CreateTextBox("Длина бура (L), мм", fSwPin.Length.ToString(), ValidationType.FloatPositive));
-                property.Add(RowProperty.CreateTextBox("Диаметр основания (D2), мм", fSwPin.BottomDiam.ToString(), ValidationType.FloatPositive));
-                property.Add(RowProperty.CreateTextBox("Диаметр конца (D3), мм", fSwPin.UpperDiam.ToString(), ValidationType.FloatPositive));
-                property.Add(RowProperty.CreateComboBox("Предел текучести, МПа", fSwPin.GetParameters().First().Name, _func));
-            }
-            else if (_objAsHeat.FrameFunction is FSWShoulder fSwShoulder)
-            {
-                property.Add(RowProperty.CreateTextBox("Скорость вращения, об/cек.", fSwShoulder.RotSpeed.ToString(), ValidationType.FloatPositive));
-                property.Add(RowProperty.CreateTextBox("Осевое усилие, Н", fSwShoulder.AxisForce.ToString(), ValidationType.FloatPositive));
-                property.Add(RowProperty.CreateTextBox("Диаметр плеча (D1), мм", fSwShoulder.UpperDiam.ToString(), ValidationType.FloatPositive));
-                property.Add(RowProperty.CreateComboBox("Коэффициент трения", fSwShoulder.GetParameters().First().Name, _func));
-            }
-            else throw new InvalidOperationException("Имя FrameFunction не известно");
+        //public override List<RowProperty> GetRowProperty()
+        //{
+        //    var property = new List<RowProperty>();
+        //    if (_objAsHeat. is Arc arc)
+        //    {
+        //        property.Add(RowProperty.CreateTextBox("Ширина шва (L), мм", arc.Width.ToString(), ValidationType.FloatPositive));
+        //        property.Add(RowProperty.CreateTextBox("Ток, А", arc.Current.ToString(), ValidationType.FloatPositive));
+        //        property.Add(RowProperty.CreateTextBox("Напряжение, В", arc.Voltage.ToString(), ValidationType.FloatPositive));
+        //    }
+        //    else if (_objAsHeat.FrameFunction is Lazer lazer)
+        //    {
+        //        property.Add(RowProperty.CreateTextBox("Мощность излучения, Дж", lazer.SurfacePower.ToString(), ValidationType.FloatPositive));
+        //        property.Add(RowProperty.CreateTextBox("Глубина проплавления (L), мм", lazer.Length.ToString(), ValidationType.FloatPositive));
+        //        property.Add(RowProperty.CreateTextBox("Диаметр основания (D2), мм", lazer.UpperDiam.ToString(), ValidationType.FloatPositive));
+        //        property.Add(RowProperty.CreateTextBox("Диаметр конца (D3), мм", lazer.BottomDiam.ToString(), ValidationType.FloatPositive));
+        //    }
+        //    else if (_objAsHeat.FrameFunction is FSWPin fSwPin)
+        //    {
+        //        property.Add(RowProperty.CreateTextBox("Скорость вращения, об/cек.", fSwPin.RotSpeed.ToString(), ValidationType.FloatPositive));
+        //        property.Add(RowProperty.CreateTextBox("Длина бура (L), мм", fSwPin.Length.ToString(), ValidationType.FloatPositive));
+        //        property.Add(RowProperty.CreateTextBox("Диаметр основания (D2), мм", fSwPin.BottomDiam.ToString(), ValidationType.FloatPositive));
+        //        property.Add(RowProperty.CreateTextBox("Диаметр конца (D3), мм", fSwPin.UpperDiam.ToString(), ValidationType.FloatPositive));
+        //        property.Add(RowProperty.CreateComboBox("Предел текучести, МПа", fSwPin.GetParameters().First().Name, _func));
+        //    }
+        //    else if (_objAsHeat.FrameFunction is FSWShoulder fSwShoulder)
+        //    {
+        //        property.Add(RowProperty.CreateTextBox("Скорость вращения, об/cек.", fSwShoulder.RotSpeed.ToString(), ValidationType.FloatPositive));
+        //        property.Add(RowProperty.CreateTextBox("Осевое усилие, Н", fSwShoulder.AxisForce.ToString(), ValidationType.FloatPositive));
+        //        property.Add(RowProperty.CreateTextBox("Диаметр плеча (D1), мм", fSwShoulder.UpperDiam.ToString(), ValidationType.FloatPositive));
+        //        property.Add(RowProperty.CreateComboBox("Коэффициент трения", fSwShoulder.GetParameters().First().Name, _func));
+        //    }
+        //    else throw new InvalidOperationException("Имя FrameFunction не известно");
 
-            property.Add(RowProperty.CreateComboBox("Группа элементов", _objAsHeat.Group.Name, dataGroupElement.Select(x => x.Name).ToList()));
-            property.Add(RowProperty.CreateTextBox("Старт, сек.", _objAsHeat.StartTime.ToString(), ValidationType.FloatPositive));
-            property.Add(RowProperty.CreateTextBox("Стоп, сек.", _objAsHeat.StopTime.ToString(), ValidationType.None, true));
+        //    property.Add(RowProperty.CreateComboBox("Группа элементов", _objAsHeat.Group.Name, dataGroupElement.Select(x => x.Name).ToList()));
+        //    property.Add(RowProperty.CreateTextBox("Старт, сек.", _objAsHeat.StartTime.ToString(), ValidationType.FloatPositive));
+        //    property.Add(RowProperty.CreateTextBox("Стоп, сек.", _objAsHeat.StopTime.ToString(), ValidationType.None, true));
 
-            return property;
-        }
+        //    return property;
+        //}
 
         public override void UpdateObject(string header, string newValue)
         {
             base.UpdateObject(header, newValue);
             if (_objAsHeat.FrameFunction is Arc arc)
             {
-
-
+                if (header == "Ширина шва (L), мм") arc.Width = float.Parse(newValue);
+                else if (header == "Ток, А") arc.Current = float.Parse(newValue);
+                else if (header == "Напряжение, В") arc.Voltage = float.Parse(newValue);
             }
             else if (_objAsHeat.FrameFunction is Lazer lazer)
             {

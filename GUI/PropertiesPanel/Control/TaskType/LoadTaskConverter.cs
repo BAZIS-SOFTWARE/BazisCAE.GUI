@@ -49,5 +49,14 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 RowProperty.CreateTextBox("Стоп, сек.", data["Стоп, сек."], ValidationType.FloatPositive)
             };
         }
+
+        public override void UpdateObject(string header, string newValue)
+        {
+            base.UpdateObject(header, newValue);
+            if (header == "Вид") _load.LoadKind = Converters.StringToEnum<LoadKind>(newValue);
+            else if (header == "Направление") _load.Direction = Converters.StringToEnum<Direction>(newValue);
+            else if (header == "Величина, Н") _load.LoadValue = float.Parse(newValue);
+            else if (header == "Функция, F(t), Н - сек.") _load.LoadFunction = newValue;
+        }
     }
 }
