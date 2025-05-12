@@ -69,12 +69,13 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             var set = string.Join(" ", data.Values);
             if (header.Contains("Группа"))
             {
-                var k = selectObj as IValuableData;
+                var k = selectObj;
                 var group = dataGroupElement.Find(x => x.Name == newValue.ToString());
                 k.Group = group;
             }
-            _media.SetInfo(set);
-            selectObj = _media as IData;
+            //TO DO
+            //_media.SetInfo(set);
+            //selectObj = _media as IData;
         }
         private RowProperty SelectData(string header, string value, string func)
         {
