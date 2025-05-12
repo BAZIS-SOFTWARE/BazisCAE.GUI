@@ -13,9 +13,10 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
     {
         private List<IGroup> _dataObjectType;
         private List<string> _func;
-
+        private LoadData _load; 
         public LoadTaskConverter(IPhysicalData obj, List<string> func, List<IGroup> groupElement)
         {
+            _load = obj as LoadData;
             _func = func;
             _dataObjectType = groupElement;
             var value = obj.ToString().Split(':')[1].Split(' ');
@@ -23,14 +24,14 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             selectObj = obj;
             data = new Dictionary<string, string>()
             {
-                { "Группа объектов", value[0] }, //combo box
-                { "Вид", value[1] }, // combo box  LoadKind
-                { "Направление", value[2] }, //combo box  Direction
-                { "Величина, Н", value[3]}, //text box 
-                { "Функция, F(t), Н - сек.", value[4]}, //combo box
-                { "Старт, сек.", value[5]},
-                { "Стоп, сек.", value[6]},
-                { "TrajectoryInfo(default)", value[7]},
+                { "Группа объектов", _load.Group.Name }, //combo box
+                { "Вид", _load.LoadKind.ToString() }, // combo box  LoadKind
+                { "Направление", _load.Direction.ToString() }, //combo box  Direction
+                { "Величина, Н", _load.LoadValue.ToString()}, //text box 
+                { "Функция, F(t), Н - сек.", _load.LoadFunction}, //combo box
+                { "Старт, сек.", _load.StartTime.ToString()},
+                { "Стоп, сек.", _load.StopTime.ToString()},
+                { "TrajectoryInfo(default)", "*"},
             };
         }
 
@@ -41,7 +42,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 RowProperty.CreateTextBox("Имя", NodeType.Нагрузка.ToString(), ValidationType.None, true),
                 RowProperty.CreateComboBox("Вид", data["Вид"], Converters.GetEnumNames<LoadKind>().ToList()),
                 RowProperty.CreateComboBox("Направление", data["Направление"],Converters.GetEnumNames<Direction>().ToList()),
-                RowProperty.CreateComboBox("Группа объектов", data["Группа объектов"],_dataObjectType.Select(x => x.Name).ToList()),
+                RowProperty.CreateComboBox("Группа объектов", data["Группа объектов"],dataGroupElement.Select(x => x.Name).ToList()),
                 RowProperty.CreateTextBox("Величина, Н", data["Величина, Н"], ValidationType.FloatPositive),
                 RowProperty.CreateComboBox("Функция, F(t), Н - сек.", data["Функция, F(t), Н - сек."],_func),
                 RowProperty.CreateTextBox("Старт, сек.", data["Старт, сек."], ValidationType.FloatPositive),

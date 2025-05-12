@@ -81,7 +81,7 @@ namespace BazisGUI.PropertiesPanel
         }
         public void UpdateObjectValue(string header, string newValue, string oldValue)
         {
-            _converter.UpdateObject(header, newValue, oldValue);
+            _converter.UpdateObject(header, newValue);
             OnUpdateNavigator.Invoke();
         }
     }

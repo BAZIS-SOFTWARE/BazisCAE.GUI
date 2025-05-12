@@ -3,7 +3,6 @@ using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using Project.Tasks.Functions;
-using Project.Tasks.LocalFrame;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
     {
         private HeatData _objAsHeat;
         private List<string> _func;
-        private readonly List<IGroup> _groupLine;
+        //private readonly List<IGroup> _groupLine;
 
         public HeatTaskConverter(IPhysicalData obj, List<IGroup> groupElement, List<string> func)
         {
@@ -67,21 +66,28 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             return property;
         }
 
-        public override void UpdateObject(string header, string newValue, string oldValue)
+        public override void UpdateObject(string header, string newValue)
         {
-            var set = GetFrameFunction(header, newValue);
+            base.UpdateObject(header, newValue);
+            if (_objAsHeat.FrameFunction is Arc arc)
+            {
 
-            if (header == "Группа элементов")
-            {
-                var group = dataGroupElement.Find(x => x.Name == newValue.ToString());
-                selectObj.Group = group;
-                _objAsHeat.Group.Name = newValue;
+
             }
-            else if (header == "Старт, сек.")
+            else if (_objAsHeat.FrameFunction is Lazer lazer)
             {
-                _objAsHeat.StartTime = float.Parse(newValue);
+
             }
-            UpdateTrajectoryInfo(set);
+            else if (_objAsHeat.FrameFunction is FSWPin fSwPin)
+            {
+
+            }
+            else if (_objAsHeat.FrameFunction is FSWShoulder fSwShoulder)
+            {
+
+            }
+            //var set = GetFrameFunction(header, newValue);
+            //UpdateTrajectoryInfo(set);
             //selectObj = _objAsHeat as IPhysicalData;
         }
 
