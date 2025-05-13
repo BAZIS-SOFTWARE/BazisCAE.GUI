@@ -50,7 +50,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.chbEnergyCalibration = new System.Windows.Forms.CheckBox();
             this.txbStartTime = new UserControlsEx.TextBoxEx(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbStopPoint = new UserControlsEx.ComboBoxEx(this.components);
             this.cmbStartPoint = new UserControlsEx.ComboBoxEx(this.components);
             this.btnHide = new System.Windows.Forms.Button();
             this.btnShow = new System.Windows.Forms.Button();
@@ -61,7 +60,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbShiftY = new UserControlsEx.TextBoxEx(this.components);
             this.txbShiftX = new UserControlsEx.TextBoxEx(this.components);
             this.txbVelosity = new UserControlsEx.TextBoxEx(this.components);
-            this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -125,7 +123,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.groupBox1.Controls.Add(this.chbEnergyCalibration);
             this.groupBox1.Controls.Add(this.txbStartTime);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.cmbStopPoint);
             this.groupBox1.Controls.Add(this.cmbStartPoint);
             this.groupBox1.Controls.Add(this.btnHide);
             this.groupBox1.Controls.Add(this.btnShow);
@@ -136,7 +133,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.groupBox1.Controls.Add(this.txbShiftY);
             this.groupBox1.Controls.Add(this.txbShiftX);
             this.groupBox1.Controls.Add(this.txbVelosity);
-            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label6);
@@ -149,7 +145,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(838, 277);
+            this.groupBox1.Size = new System.Drawing.Size(838, 250);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры движения";
@@ -157,7 +153,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(8, 165);
+            this.label12.Location = new System.Drawing.Point(8, 134);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(120, 13);
             this.label12.TabIndex = 55;
@@ -170,7 +166,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.player.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.player.CheckState = BaseModule.Player.CheckState.start;
             this.player.CurrentValue = 0;
-            this.player.Location = new System.Drawing.Point(173, 234);
+            this.player.Location = new System.Drawing.Point(173, 207);
             this.player.Margin = new System.Windows.Forms.Padding(0, 3, 15, 0);
             this.player.MinimumSize = new System.Drawing.Size(215, 30);
             this.player.Name = "player";
@@ -192,7 +188,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(418, 161);
+            this.label11.Location = new System.Drawing.Point(418, 134);
             this.label11.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(32, 13);
@@ -202,7 +198,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(259, 161);
+            this.label8.Location = new System.Drawing.Point(259, 134);
             this.label8.Margin = new System.Windows.Forms.Padding(10, 0, 3, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(20, 13);
@@ -212,7 +208,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(335, 161);
+            this.label10.Location = new System.Drawing.Point(335, 134);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(20, 13);
             this.label10.TabIndex = 53;
@@ -221,7 +217,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(181, 161);
+            this.label5.Location = new System.Drawing.Point(181, 134);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(20, 13);
             this.label5.TabIndex = 53;
@@ -232,7 +228,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnClearAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Image = global::BaseModule.Properties.Resources.Delete;
-            this.btnClearAll.Location = new System.Drawing.Point(44, 237);
+            this.btnClearAll.Location = new System.Drawing.Point(44, 210);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnClearAll.Name = "btnClearAll";
             this.btnClearAll.Size = new System.Drawing.Size(27, 27);
@@ -244,7 +240,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // chbEnergyCalibration
             // 
             this.chbEnergyCalibration.AutoSize = true;
-            this.chbEnergyCalibration.Location = new System.Drawing.Point(11, 84);
+            this.chbEnergyCalibration.Location = new System.Drawing.Point(10, 79);
             this.chbEnergyCalibration.Name = "chbEnergyCalibration";
             this.chbEnergyCalibration.Size = new System.Drawing.Size(148, 17);
             this.chbEnergyCalibration.TabIndex = 49;
@@ -259,7 +255,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbStartTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbStartTime.IsValidating = true;
-            this.txbStartTime.Location = new System.Drawing.Point(176, 210);
+            this.txbStartTime.Location = new System.Drawing.Point(176, 183);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
             this.txbStartTime.Size = new System.Drawing.Size(642, 20);
@@ -270,26 +266,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 213);
+            this.label1.Location = new System.Drawing.Point(8, 185);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 41;
             this.label1.Text = "Старт, сек.";
-            // 
-            // cmbStopPoint
-            // 
-            this.cmbStopPoint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbStopPoint.FormattingEnabled = true;
-            this.cmbStopPoint.InputType = UserControlsEx.CMBInputType.Items;
-            this.cmbStopPoint.IsValidating = true;
-            this.cmbStopPoint.Location = new System.Drawing.Point(176, 131);
-            this.cmbStopPoint.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.cmbStopPoint.Name = "cmbStopPoint";
-            this.cmbStopPoint.Size = new System.Drawing.Size(642, 21);
-            this.cmbStopPoint.TabIndex = 36;
-            this.cmbStopPoint.UserRegExCheck = null;
-            this.cmbStopPoint.UserRegExCheckErrorMessage = null;
             // 
             // cmbStartPoint
             // 
@@ -312,7 +293,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnHide.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnHide.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHide.Image = global::BaseModule.Properties.Resources.HideAll;
-            this.btnHide.Location = new System.Drawing.Point(143, 237);
+            this.btnHide.Location = new System.Drawing.Point(143, 210);
             this.btnHide.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.btnHide.Name = "btnHide";
             this.btnHide.Size = new System.Drawing.Size(27, 27);
@@ -327,7 +308,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnShow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShow.Image = global::BaseModule.Properties.Resources.ShowAll;
-            this.btnShow.Location = new System.Drawing.Point(110, 237);
+            this.btnShow.Location = new System.Drawing.Point(110, 210);
             this.btnShow.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnShow.Name = "btnShow";
             this.btnShow.Size = new System.Drawing.Size(27, 27);
@@ -344,7 +325,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.btnRefresh.Enabled = false;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Image = global::BaseModule.Properties.Resources.Refresh;
-            this.btnRefresh.Location = new System.Drawing.Point(77, 237);
+            this.btnRefresh.Location = new System.Drawing.Point(77, 210);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(27, 27);
@@ -360,7 +341,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.addRowButton.Cursor = System.Windows.Forms.Cursors.Default;
             this.addRowButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addRowButton.Image = ((System.Drawing.Image)(resources.GetObject("addRowButton.Image")));
-            this.addRowButton.Location = new System.Drawing.Point(11, 237);
+            this.addRowButton.Location = new System.Drawing.Point(11, 210);
             this.addRowButton.Margin = new System.Windows.Forms.Padding(11, 15, 3, 0);
             this.addRowButton.Name = "addRowButton";
             this.addRowButton.Size = new System.Drawing.Size(27, 27);
@@ -373,7 +354,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             this.txbAngle.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.txbAngle.IsValidating = true;
-            this.txbAngle.Location = new System.Drawing.Point(453, 158);
+            this.txbAngle.Location = new System.Drawing.Point(453, 131);
             this.txbAngle.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
             this.txbAngle.Name = "txbAngle";
             this.txbAngle.Size = new System.Drawing.Size(44, 20);
@@ -386,7 +367,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             this.txbShiftZ.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.txbShiftZ.IsValidating = true;
-            this.txbShiftZ.Location = new System.Drawing.Point(359, 158);
+            this.txbShiftZ.Location = new System.Drawing.Point(359, 131);
             this.txbShiftZ.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbShiftZ.Name = "txbShiftZ";
             this.txbShiftZ.Size = new System.Drawing.Size(45, 20);
@@ -399,7 +380,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             this.txbShiftY.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.txbShiftY.IsValidating = true;
-            this.txbShiftY.Location = new System.Drawing.Point(281, 158);
+            this.txbShiftY.Location = new System.Drawing.Point(281, 131);
             this.txbShiftY.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbShiftY.Name = "txbShiftY";
             this.txbShiftY.Size = new System.Drawing.Size(45, 20);
@@ -412,7 +393,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // 
             this.txbShiftX.InputType = UserControlsEx.TXTBoxInputType.Float;
             this.txbShiftX.IsValidating = true;
-            this.txbShiftX.Location = new System.Drawing.Point(205, 158);
+            this.txbShiftX.Location = new System.Drawing.Point(205, 131);
             this.txbShiftX.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.txbShiftX.Name = "txbShiftX";
             this.txbShiftX.Size = new System.Drawing.Size(45, 20);
@@ -428,22 +409,13 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.txbVelosity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txbVelosity.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
             this.txbVelosity.IsValidating = true;
-            this.txbVelosity.Location = new System.Drawing.Point(176, 184);
+            this.txbVelosity.Location = new System.Drawing.Point(176, 157);
             this.txbVelosity.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.txbVelosity.Name = "txbVelosity";
             this.txbVelosity.Size = new System.Drawing.Size(642, 20);
             this.txbVelosity.TabIndex = 31;
             this.txbVelosity.UserRegExCheck = null;
             this.txbVelosity.UserRegExCheckErrorMessage = null;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 139);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(132, 13);
-            this.label7.TabIndex = 34;
-            this.label7.Text = "Точка остановки сварки";
             // 
             // label4
             // 
@@ -475,7 +447,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 192);
+            this.label2.Location = new System.Drawing.Point(8, 159);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(142, 13);
             this.label2.TabIndex = 30;
@@ -556,7 +528,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(7, 417);
+            this.dataGridView.Location = new System.Drawing.Point(7, 390);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(7);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
@@ -566,7 +538,7 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
             this.dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             this.dataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.Size = new System.Drawing.Size(838, 572);
+            this.dataGridView.Size = new System.Drawing.Size(838, 599);
             this.dataGridView.TabIndex = 25;
             this.dataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView_DefaultValuesNeeded);
             this.dataGridView.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
@@ -716,11 +688,9 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         private TextBoxEx txbStartTime;
         private System.Windows.Forms.Label label1;
         private ComboBoxEx cmbWeldZone;
-        private ComboBoxEx cmbStopPoint;
         private ComboBoxEx cmbStartPoint;
         private Button addRowButton;
         private TextBoxEx txbVelosity;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label2;
         private ComboBoxEx cmbTraj;

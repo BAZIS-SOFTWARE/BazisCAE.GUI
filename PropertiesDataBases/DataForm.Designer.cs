@@ -31,11 +31,11 @@ namespace PropertiesDataBases
         /// </summary>
         private void InitializeComponent()
         {
-            this.materialsDataBasePage1 = new MaterialsDataBasePage();
+            this.materialsDataBasePage1 = new PropertiesDataBases.DataBases.MaterialsDataBasePage();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.functionDataBasePage1 = new FunctionDataBasePage();
+            this.functionDataBasePage1 = new PropertiesDataBases.DataBases.FunctionDataBasePage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -43,13 +43,15 @@ namespace PropertiesDataBases
             // 
             // materialsDataBasePage1
             // 
+            this.materialsDataBasePage1.BackColor = System.Drawing.SystemColors.Control;
             this.materialsDataBasePage1.DataExtension = null;
             this.materialsDataBasePage1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.materialsDataBasePage1.HeadColor = System.Drawing.Color.Silver;
             this.materialsDataBasePage1.LabelEditFlag = false;
             this.materialsDataBasePage1.Location = new System.Drawing.Point(3, 3);
             this.materialsDataBasePage1.Margin = new System.Windows.Forms.Padding(1);
             this.materialsDataBasePage1.Name = "materialsDataBasePage1";
-            this.materialsDataBasePage1.Size = new System.Drawing.Size(702, 388);
+            this.materialsDataBasePage1.Size = new System.Drawing.Size(833, 461);
             this.materialsDataBasePage1.TabIndex = 0;
             // 
             // tabControl1
@@ -60,7 +62,7 @@ namespace PropertiesDataBases
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(716, 420);
+            this.tabControl1.Size = new System.Drawing.Size(847, 493);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -69,7 +71,7 @@ namespace PropertiesDataBases
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(708, 394);
+            this.tabPage1.Size = new System.Drawing.Size(839, 467);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Материалы";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -89,6 +91,7 @@ namespace PropertiesDataBases
             // 
             this.functionDataBasePage1.DataExtension = null;
             this.functionDataBasePage1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.functionDataBasePage1.HeadColor = System.Drawing.Color.Silver;
             this.functionDataBasePage1.LabelEditFlag = false;
             this.functionDataBasePage1.Location = new System.Drawing.Point(3, 3);
             this.functionDataBasePage1.Margin = new System.Windows.Forms.Padding(1);
@@ -96,13 +99,13 @@ namespace PropertiesDataBases
             this.functionDataBasePage1.Size = new System.Drawing.Size(702, 388);
             this.functionDataBasePage1.TabIndex = 0;
             // 
-            // Form1
+            // DataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(716, 420);
+            this.ClientSize = new System.Drawing.Size(847, 493);
             this.Controls.Add(this.tabControl1);
-            this.Name = "Form1";
+            this.Name = "DataForm";
             this.Text = "Form1";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
