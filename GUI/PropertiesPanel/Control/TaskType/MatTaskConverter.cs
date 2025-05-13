@@ -12,11 +12,9 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
     {
         private readonly List<string> _mat;
         private MatData _matData;
-        private readonly List<IGroup> _dataObjectType;
 
         public MatTaskConverter(IPhysicalData obj, List<string> mat, List<IGroup> groupElement)
         {
-            _dataObjectType = groupElement;
             _mat = mat;
 
             dataGroupElement = groupElement;
@@ -35,7 +33,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             return new List<RowProperty>
             {
                 //RowProperty.CreateTextBox("Имя", NodeType.Материал.ToString(), ValidationType.None, true),
-                RowProperty.CreateComboBox("Группа элементов", data["Группа элементов"], _dataObjectType.Select(x => x.Name).ToList()),
+                RowProperty.CreateComboBox("Группа элементов", data["Группа элементов"], dataGroupElement.Select(x => x.Name).ToList()),
                 RowProperty.CreateComboBox("Материал", data["Материал"],_mat),
                 RowProperty.CreateTextBox("Старт, сек.", data["Старт, сек."], ValidationType.FloatPositive),
                 RowProperty.CreateTextBox("Стоп, сек.", data["Стоп, сек."], ValidationType.FloatPositive)
@@ -45,7 +43,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         public override void UpdateObject(string header, string newValue)
         {
             base.UpdateObject(header, newValue);
-            _matData.MatName = newValue;
+            if(header == "Материал") _matData.MatName = newValue;
         }
     }
 }

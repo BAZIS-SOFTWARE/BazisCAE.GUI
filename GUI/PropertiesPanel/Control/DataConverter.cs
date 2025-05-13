@@ -3,7 +3,6 @@ using BaseModule.PropertiesPanel;
 using BazisGUI.PropertiesPanel.Control.TaskType;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
-using Project.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,8 +38,6 @@ namespace BazisGUI.PropertiesPanel.Control
 
         public override void UpdateObject(string header, string newValue)
         {
-            data[header] = newValue.ToString();
-            var set = string.Join(" ", data.Values);
             if (header.Contains("Группа"))
             {
                 var group = dataGroupElement.Find(x => x.Name == newValue.ToString());

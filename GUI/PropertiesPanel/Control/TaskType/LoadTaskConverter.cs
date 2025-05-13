@@ -39,7 +39,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         {
             return new List<RowProperty>
             {
-                RowProperty.CreateTextBox("Имя", NodeType.Нагрузка.ToString(), ValidationType.None, true),
+                //RowProperty.CreateTextBox("Имя", NodeType.Нагрузка.ToString(), ValidationType.None, true),
                 RowProperty.CreateComboBox("Вид", data["Вид"], Converters.GetEnumNames<LoadKind>().ToList()),
                 RowProperty.CreateComboBox("Направление", data["Направление"],Converters.GetEnumNames<Direction>().ToList()),
                 RowProperty.CreateComboBox("Группа объектов", data["Группа объектов"],dataGroupElement.Select(x => x.Name).ToList()),
