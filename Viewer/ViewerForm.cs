@@ -14,6 +14,9 @@ using Model.MeshObjects;
 using System.Reflection;
 using Scene.VBO;
 using Model.IO.STL;
+using BaseModule.SceenControls;
+using Geometry;
+using Scene;
 //using ModelControllerInterface;
 
 namespace Viewer
@@ -297,11 +300,18 @@ namespace Viewer
                 clipForm.Controls.Add(clip);
                 clip.Dock = DockStyle.Fill;
                 button2.Tag = clipForm;
-                clip.SetClipPlaneEvent += (plane) => sceneControl.ChangeClipPlane(plane);
+                clip.SetClipPlaneEvent += (plane) => 
+                sceneControl.ChangeClipPlane(new Geometry.Plane(new Point3D(plane.X, plane.Y, plane.Z), plane.D));
                 clip.SwitchOnOff += (v) =>
                 { sceneControl.IsClipPlane = v; };
                 clip.RedrawClipPlane += () => sceneControl.DisplayObjects();
-                clip.ChangeClipMode += (mode) => sceneControl.ChangeClipMode(mode);
+                clip.ChangeClipMode += (mode) => 
+                {
+                    var res = ModeConverter(mode);
+                    sceneControl.ChangeClipMode(res);
+                };
+                
+
                 clip.ChangeLayerThickness += (layerThickness) => sceneControl.ChangeLayerLhickness(layerThickness);
                 clipForm.FormClosing += (o, ev) =>
                 {
@@ -311,6 +321,19 @@ namespace Viewer
                     sceneControl.DisplayObjects();
                 };
                 clipForm.Show();
+            }
+        }
+
+        private ClipMode ModeConverter(ClipRegime mode)
+        {
+            switch (mode)
+            {
+                case ClipRegime.Default:
+                    return ClipMode.Default;
+                case ClipRegime.Layered:
+                    return ClipMode.Layered;
+                default:
+                    return ClipMode.KeepElement;
             }
         }
 

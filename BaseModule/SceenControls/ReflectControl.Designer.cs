@@ -1,6 +1,6 @@
 ﻿using UserControlsEx;
 
-namespace Viewer
+namespace BaseModule.SceenControls
 {
     partial class ReflectControl
     {
@@ -156,17 +156,23 @@ namespace Viewer
             // 
             this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBar1.BackColor = System.Drawing.Color.Transparent;
+            this.trackBar1.BarInnerColor = System.Drawing.Color.Silver;
+            this.trackBar1.BarOuterColor = System.Drawing.Color.Silver;
             this.trackBar1.BarPenColor = System.Drawing.Color.Black;
             this.trackBar1.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             this.tableLayoutPanel1.SetColumnSpan(this.trackBar1, 2);
+            this.trackBar1.ElapsedInnerColor = System.Drawing.Color.Silver;
+            this.trackBar1.ElapsedOuterColor = System.Drawing.Color.Silver;
             this.trackBar1.LargeChange = ((uint)(5u));
             this.trackBar1.Location = new System.Drawing.Point(138, 3);
             this.trackBar1.Maximum = 200;
             this.trackBar1.Name = "trackBar1";
+            this.trackBar1.ShowTextValue = true;
             this.trackBar1.Size = new System.Drawing.Size(109, 24);
             this.trackBar1.SmallChange = ((uint)(1u));
             this.trackBar1.TabIndex = 0;
             this.trackBar1.Tag = "";
+            this.trackBar1.TextValueColor = System.Drawing.Color.Black;
             this.trackBar1.ThumbPenColor = System.Drawing.Color.Black;
             this.trackBar1.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
             this.trackBar1.ThumbSize = 12;
@@ -177,17 +183,23 @@ namespace Viewer
             // 
             this.trackBar2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBar2.BackColor = System.Drawing.Color.Transparent;
+            this.trackBar2.BarInnerColor = System.Drawing.Color.Silver;
+            this.trackBar2.BarOuterColor = System.Drawing.Color.Silver;
             this.trackBar2.BarPenColor = System.Drawing.Color.Black;
             this.trackBar2.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             this.tableLayoutPanel1.SetColumnSpan(this.trackBar2, 2);
+            this.trackBar2.ElapsedInnerColor = System.Drawing.Color.Silver;
+            this.trackBar2.ElapsedOuterColor = System.Drawing.Color.Silver;
             this.trackBar2.LargeChange = ((uint)(5u));
             this.trackBar2.Location = new System.Drawing.Point(138, 33);
             this.trackBar2.Maximum = 200;
             this.trackBar2.Name = "trackBar2";
+            this.trackBar2.ShowTextValue = true;
             this.trackBar2.Size = new System.Drawing.Size(109, 24);
             this.trackBar2.SmallChange = ((uint)(1u));
             this.trackBar2.TabIndex = 1;
             this.trackBar2.Tag = "";
+            this.trackBar2.TextValueColor = System.Drawing.Color.Black;
             this.trackBar2.ThumbPenColor = System.Drawing.Color.Black;
             this.trackBar2.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
             this.trackBar2.ThumbSize = 12;
@@ -198,17 +210,23 @@ namespace Viewer
             // 
             this.trackBar3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBar3.BackColor = System.Drawing.Color.Transparent;
+            this.trackBar3.BarInnerColor = System.Drawing.Color.Silver;
+            this.trackBar3.BarOuterColor = System.Drawing.Color.Silver;
             this.trackBar3.BarPenColor = System.Drawing.Color.Black;
             this.trackBar3.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             this.tableLayoutPanel1.SetColumnSpan(this.trackBar3, 2);
+            this.trackBar3.ElapsedInnerColor = System.Drawing.Color.Silver;
+            this.trackBar3.ElapsedOuterColor = System.Drawing.Color.Silver;
             this.trackBar3.LargeChange = ((uint)(5u));
             this.trackBar3.Location = new System.Drawing.Point(138, 63);
             this.trackBar3.Maximum = 200;
             this.trackBar3.Name = "trackBar3";
+            this.trackBar3.ShowTextValue = true;
             this.trackBar3.Size = new System.Drawing.Size(109, 24);
             this.trackBar3.SmallChange = ((uint)(1u));
             this.trackBar3.TabIndex = 2;
             this.trackBar3.Tag = "";
+            this.trackBar3.TextValueColor = System.Drawing.Color.Black;
             this.trackBar3.ThumbPenColor = System.Drawing.Color.Black;
             this.trackBar3.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
             this.trackBar3.ThumbSize = 12;

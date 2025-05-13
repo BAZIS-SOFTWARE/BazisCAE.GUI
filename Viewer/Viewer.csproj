@@ -110,12 +110,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClipControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ClipControl.Designer.cs">
-      <DependentUpon>ClipControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="ViewerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,15 +118,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReflectControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ReflectControl.Designer.cs">
-      <DependentUpon>ReflectControl.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="ClipControl.resx">
-      <DependentUpon>ClipControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ViewerForm.resx">
       <DependentUpon>ViewerForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -146,9 +131,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ReflectControl.resx">
-      <DependentUpon>ReflectControl.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -164,9 +146,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ProgressBarEx\Controls\ProgressBar.ico" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\BaseModule\BaseModule.csproj">
+      <Project>{E5C49662-B9C7-4B1B-9734-1FF03DA9FCC0}</Project>
+      <Name>BaseModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Scene\Scene.csproj">
       <Project>{5803f0be-a529-4f64-9a9e-88c3f2ada928}</Project>
       <Name>Scene</Name>

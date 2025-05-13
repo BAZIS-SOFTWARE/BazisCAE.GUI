@@ -1,4 +1,4 @@
-﻿namespace Viewer
+﻿namespace BaseModule.SceenControls
 {
     partial class ClipControl
     {
@@ -286,6 +286,7 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "D:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label4.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnMouseMove);
             // 
             // label3
             // 
@@ -471,12 +472,13 @@
             this.colorSlider1.ShowTextValue = true;
             this.colorSlider1.Size = new System.Drawing.Size(108, 24);
             this.colorSlider1.SmallChange = ((uint)(1u));
-            this.colorSlider1.TabIndex = 17;
+            this.colorSlider1.TabIndex = 0;
             this.colorSlider1.Text = "colorSlider1";
             this.colorSlider1.TextValueColor = System.Drawing.Color.Black;
             this.colorSlider1.ThumbPenColor = System.Drawing.Color.Black;
             this.colorSlider1.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
             this.colorSlider1.ThumbSize = 12;
+            this.colorSlider1.ValueChanged += new System.EventHandler(this.OnChangeValue);
             // 
             // colorSlider2
             // 
@@ -494,12 +496,13 @@
             this.colorSlider2.ShowTextValue = true;
             this.colorSlider2.Size = new System.Drawing.Size(108, 24);
             this.colorSlider2.SmallChange = ((uint)(1u));
-            this.colorSlider2.TabIndex = 18;
+            this.colorSlider2.TabIndex = 1;
             this.colorSlider2.Text = "colorSlider2";
             this.colorSlider2.TextValueColor = System.Drawing.Color.Black;
             this.colorSlider2.ThumbPenColor = System.Drawing.Color.Black;
             this.colorSlider2.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
             this.colorSlider2.ThumbSize = 12;
+            this.colorSlider2.ValueChanged += new System.EventHandler(this.OnChangeValue);
             // 
             // colorSlider3
             // 
@@ -517,12 +520,13 @@
             this.colorSlider3.ShowTextValue = true;
             this.colorSlider3.Size = new System.Drawing.Size(108, 24);
             this.colorSlider3.SmallChange = ((uint)(1u));
-            this.colorSlider3.TabIndex = 19;
+            this.colorSlider3.TabIndex = 2;
             this.colorSlider3.Text = "colorSlider3";
             this.colorSlider3.TextValueColor = System.Drawing.Color.Black;
             this.colorSlider3.ThumbPenColor = System.Drawing.Color.Black;
             this.colorSlider3.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
             this.colorSlider3.ThumbSize = 12;
+            this.colorSlider3.ValueChanged += new System.EventHandler(this.OnChangeValue);
             // 
             // ClipControl
             // 

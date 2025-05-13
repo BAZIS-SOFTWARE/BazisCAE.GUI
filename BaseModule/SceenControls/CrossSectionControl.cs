@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Numerics;
 using System.Windows.Forms;
 
-namespace BaseModule.CrossSection
+namespace BaseModule.SceenControls
 {
     public partial class CrossSectionControl : UserControl
     {

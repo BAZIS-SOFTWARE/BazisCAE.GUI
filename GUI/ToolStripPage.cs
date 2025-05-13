@@ -1,7 +1,5 @@
 ﻿using BaseModule;
-using BaseModule.Clip;
-using BaseModule.CrossSection;
-using BaseModule.Reflect;
+using BaseModule.SceenControls;
 using BazisGUI.Utilities;
 using Geometry;
 using Model;
@@ -866,8 +864,8 @@ namespace BazisGUI
 
                     clip.SetClipPlaneEvent += (plane) =>
                     {
-                        var normal = plane.Normal;
-                        var scPlane = new Geometry.Plane(new Point3D(normal.X, normal.Y, normal.Z), plane.D);
+                        //var normal = plane.D;
+                        var scPlane = new Geometry.Plane(new Point3D(plane.X, plane.Y, plane.Z), plane.D);
                         sceneControl.ChangeClipPlane(scPlane);
                     };
 
@@ -904,75 +902,64 @@ namespace BazisGUI
             try
             {
                 var btn = sender as ToolStripButton;
-
+                var scenePage = BasePage.ScenePage;
                 if (btn.Checked)
                 {
-                    var sceneControl = BasePage.ScenePage.SceneControl;
-                    var reflect = new ReflectControl() { Dock = DockStyle.Fill };
-
-                    var objs = sceneControl.GetVBObjs();
-                    reflect.SetGlObjs(objs?.Select(x => x.ObjName));
-                    reflect.SelectedObjects(objs?.First().ObjName);
+                    var reflect = new ReflectControl();
+                    reflect.SetGlObjs(scenePage.SceneControl.GetVBObjs().Select(x => x.ObjName));
 
                     var reflectForm = new Form()
                     {
                         TopMost = true,
                         ShowIcon = false,
-                        ClientSize = reflect.Size,
-                        Text = "Отражение",
-                        Owner = Application.OpenForms[0],
-                        Name = "reflectForm",
+                        ClientSize = new Size(250, 210),
+                        MaximizeBox = false,
+                        FormBorderStyle = FormBorderStyle.FixedSingle,
+                        Text = "Отражение"
                     };
                     reflectForm.Controls.Add(reflect);
+                    reflect.Dock = DockStyle.Fill;
+
+                    var color = ModelData.ObjectData.GetObjects(ObjType.Элемент3D).First().Color;
 
                     reflect.ShowObjs += (ar) =>
                     {
-                        //TO DO Можно ли закрасить желтым цветом выбранный VBO?
-                        sceneControl.DisplayObjects();
+                        foreach (var item in reflect.GetAllSrcObjs())
+                            ChangeVBOColor(item, color);
+
+                        ChangeVBOColor(ar, Color.Red);
+                        scenePage.SceneControl.DisplayObjects();
                     };
 
                     reflect.CreateReflectObj += (ar1, ar2) =>
                     {
-                        var copyObjs = sceneControl.GetVBObjs().Where(x => x.ObjName.Contains($"{ar1}_copy")).
+                        var copyObjs = scenePage.SceneControl.GetVBObjs().Where(x => x.ObjName.Contains($"{ar1}_copy")).
                         Select(x => x.ObjName);
-                        sceneControl.CreateReflectedVBObject(ar1, $"{ar1}_copy_{copyObjs.Count() + 1}", ar2);
+                        scenePage.SceneControl.CreateReflectedVBObject(ar1, $"{ar1}_copy_{copyObjs.Count() + 1}", ar2);
                         reflect.SetGlObjs(copyObjs);
-                        sceneControl.DisplayObjects();
+                        scenePage.SceneControl.DisplayObjects();
                     };
 
-                    reflect.DeleteReflectedObjs += () =>
+                    reflect.MatrixEvent += (s, ev) =>
                     {
-                        var listVbo = sceneControl.GetVBObjs().Where(x => x.ObjName.Contains("copy")).ToList();
-                        foreach (var item in listVbo)
-                            sceneControl.DeleteVBObjects(item.ObjName);
+                        var obj = scenePage.SceneControl.FindVBObj(s);
+                        ev.Matrix = obj.ModelMatrix;
                     };
 
                     reflect.UpdateReflectPlane += (s, p) =>
                     {
-                        //var obj = sceneControl.FindVBObj(s);
-                        //var mat = Matrix<float>.Build.Dense(4, 4, obj.ModelMatrix);
-                        //mat = mat.Inverse();
-                        //var vec = Vector<float>.Build.Dense(p);
-                        //vec = vec.Normalize(2);
-                        //vec = mat.Multiply(vec);
-                        //vec = vec.Normalize(2);
-                        //vec[0] = vec[0].Round(2);
-                        //vec[1] = vec[1].Round(2);
-                        //vec[2] = vec[2].Round(2);
-                        if(p.Sum() != 0) // костыль, потом уберем
-                            sceneControl.DisplayReflectionPlane(s, p);
-                        sceneControl.DisplayObjects();
+                        scenePage.SceneControl.DisplayReflectionPlane(s, p);
+                        scenePage.SceneControl.DisplayObjects();
                     };
 
                     reflectForm.FormClosing += (o, ev) =>
                     {
-                        sceneControl.HideReflectionPlane();
-                        var listVbo = sceneControl.GetVBObjs().Where(x => x.ObjName.Contains("copy")).ToList();
-                        foreach (var item in listVbo)
-                            sceneControl.DeleteVBObjects(item.ObjName);
-
                         btn.Checked = false;
-                        sceneControl.DisplayObjects();
+                        scenePage.SceneControl.HideReflectionPlane();
+                        scenePage.SceneControl.DeleteAllVBObjects();
+                        scenePage.PresentAllModelObjectsToScene();
+                        //sceneControl.CreateReflectedVBObject("", "", null);
+                        scenePage.SceneControl.DisplayObjects();
                     };
                     reflectForm.Show();
 
@@ -996,6 +983,23 @@ namespace BazisGUI
             {
                 BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        private void ChangeVBOColor(string ar, Color color)
+        {
+            var scenePage = BasePage.ScenePage;
+            var obj = scenePage.SceneControl.FindVBObj(ar);
+            var colors = new float[obj.ColorLength];
+
+            //var count = obj.ColorLength / 4;
+            for (int i = 0; i < obj.ColorLength; i += 4)
+            {
+                colors[i] = Convert.ToInt32(color.R) / 255.0f;
+                colors[i + 1] = Convert.ToInt32(color.G) / 255.0f;
+                colors[i + 2] = Convert.ToInt32(color.B) / 255.0f;
+                colors[i + 3] = Convert.ToInt32(color.A) / 255.0f;
+            }
+            obj.PointsColors = colors;
         }
     }  
 }

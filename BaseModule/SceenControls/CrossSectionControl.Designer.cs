@@ -1,4 +1,4 @@
-﻿namespace BaseModule.CrossSection
+﻿namespace BaseModule.SceenControls
 {
     partial class CrossSectionControl
     {

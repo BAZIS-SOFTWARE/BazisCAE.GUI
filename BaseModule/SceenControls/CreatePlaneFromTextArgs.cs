@@ -1,7 +1,7 @@
 ﻿
 using System.Numerics;
 
-namespace BaseModule.CrossSection
+namespace BaseModule.SceenControls
 {
     public class CreatePlaneFromTextArgs
     {

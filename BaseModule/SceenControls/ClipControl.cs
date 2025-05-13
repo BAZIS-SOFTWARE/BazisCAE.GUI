@@ -4,11 +4,28 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Globalization;
-using Scene;
-using Geometry;
+using UserControlsEx;
 
-namespace Viewer
+namespace BaseModule.SceenControls
 {
+    /// <summary>
+    /// Режим отсечения, устанавливаемый при отрисовке модели
+    /// </summary>
+    public enum ClipRegime
+    {
+        /// <summary>
+        /// По умолчанию, с разрезанием элемента
+        /// </summary>
+        Default,
+        /// <summary>
+        /// Послойное, сохраняет элементы только в месте сечения
+        /// </summary>
+        Layered,
+        /// <summary>
+        /// Полное отображение 3д элементов в месте сечения и в положительной полуплоскости сечения
+        /// </summary>
+        KeepElement
+    }
     public partial class ClipControl : UserControl
     {
         private CultureInfo culture;
@@ -19,7 +36,7 @@ namespace Viewer
 
         private Pen Pen { get; set; }
 
-        private Plane ClipPlane { get; set; }
+        private Plane plane;
         /// <summary>
         /// Включить\выключить плоскость отсечения
         /// </summary>
@@ -35,7 +52,7 @@ namespace Viewer
         /// <summary>
         /// Смена режима отображения для 3д элементов
         /// </summary>
-        public event Action<ClipMode> ChangeClipMode;
+        public event Action<ClipRegime> ChangeClipMode;
         /// <summary>
         /// Смена толщины слоя
         /// </summary>
@@ -47,12 +64,14 @@ namespace Viewer
             culture = (CultureInfo)CultureInfo.CurrentCulture.Clone();
             culture.NumberFormat.CurrencyDecimalSeparator = ".";
             Pen = new Pen(SystemColors.Control);
-            ClipPlane = new Plane(new Point3D(0, 0, -1), 0);
+
+            plane.Z = -1;
+            //ClipPlane = new Plane(new Vector3(0, 0, -1), 0);
         }
 
         private void OnChangeValue(object sender, EventArgs e)
         {
-            var tb = sender as TrackBar;
+            var tb = sender as ColorSlider;
             var value = (tb.Value - 100) * 0.01f;
             var label = tableLayoutPanel1.Controls.OfType<Label>()
                                                   .Where(c => c.TabIndex == tb.TabIndex)
@@ -60,15 +79,15 @@ namespace Viewer
             var text = label.Text.Split(' ');
             label.Text = text[0] + " " + value.ToString("0.##");
             if (tb.TabIndex == 0)
-                ClipPlane.Normal._x = value;
+                plane.X = value;
             else if (tb.TabIndex == 1)
-                ClipPlane.Normal._y = value;
+                plane.Y = value;
             else
-                ClipPlane.Normal._z = value;
+                plane.Z = value;
             if (!PreventRedraw)
             {
-                NormalizeDirection();
-                SetClipPlaneEvent(ClipPlane);
+                //NormalizeDirection();
+                SetClipPlaneEvent(plane);
                 RedrawClipPlane?.Invoke();
             }
             /*var isZeroNormal = trackBar1.Value == trackBar2.Value && 
@@ -106,19 +125,19 @@ namespace Viewer
             }*/
         }
 
-        private void NormalizeDirection()
-        {
-            var isZeroNormal = trackBar1.Value == trackBar2.Value &&
-                               trackBar2.Value == trackBar3.Value &&
-                               trackBar1.Value == 100;
-            if (!isZeroNormal)
-            {
-                var normal = Vector.GetVectorNorm(ClipPlane.Normal);
-                ClipPlane.Normal._x = normal._x;
-                ClipPlane.Normal._y = normal._y;
-                ClipPlane.Normal._z = normal._z;
-            }
-        }
+        //private void NormalizeDirection()
+        //{
+        //    var isZeroNormal = colorSlider1.Value == colorSlider2.Value &&
+        //                       colorSlider2.Value == colorSlider3.Value &&
+        //                       colorSlider1.Value == 100;
+        //    if (!isZeroNormal)
+        //    {
+        //        //var normal = Vector.GetVectorNorm(ClipPlane.Normal);
+        //        ClipPlane.Normal._x = normal._x;
+        //        ClipPlane.Normal._y = normal._y;
+        //        ClipPlane.Normal._z = normal._z;купать?
+        //    }
+        //}
 
         private void OnEnableClipPlane(object sender, EventArgs e)
         {
@@ -137,7 +156,7 @@ namespace Viewer
             textBox2.Enabled = false;
 
             SwitchOnOff?.Invoke(isObjCliped);
-            SetClipPlaneEvent?.Invoke(ClipPlane);
+            SetClipPlaneEvent?.Invoke(plane);
             RedrawClipPlane?.Invoke();
         }
 
@@ -165,8 +184,8 @@ namespace Viewer
                 MouseLastPos = e.Location;
                 if (txtControl.Equals(textBox1))
                 {
-                    ClipPlane.Shifting += sign * delta;
-                    txtControl.Text = ClipPlane.Shifting.ToString("0.##");
+                    plane.D += sign * delta;
+                    txtControl.Text = plane.D.ToString("0.##");
                 }
                 else
                 {
@@ -180,13 +199,13 @@ namespace Viewer
             }
         }
 
-        private void OnMoveMouse(TextBox txtControl, float delta, Point mouseLoc, float[] minValue)
-        {
-            var sign = Math.Sign(mouseLoc.X - MouseLastPos.X);
-            ClipPlane.Shifting += sign * delta;
-            txtControl.Text = ClipPlane.Shifting.ToString("0.##");
-            MouseLastPos = mouseLoc;
-        }
+        //private void OnMoveMouse(TextBox txtControl, float delta, Point mouseLoc, float[] minValue)
+        //{
+        //    var sign = Math.Sign(mouseLoc.X - MouseLastPos.X);
+        //    plane.D += sign * delta;
+        //    txtControl.Text = plane.D.ToString("0.##");
+        //    MouseLastPos = mouseLoc;
+        //}
 
         private void OnPaint(object sender, PaintEventArgs e)
         {
@@ -224,13 +243,13 @@ namespace Viewer
                 control.Value = int.Parse(values[control.TabIndex]);
             }
             PreventRedraw = false;
-            NormalizeDirection();
+            //NormalizeDirection();
             RedrawClipPlane?.Invoke();
         }
 
         private void OnResetShifting(object sender, EventArgs e)
         {
-            ClipPlane.Shifting = 0;
+            plane.D = 0;
             textBox1.Text = "0";
             RedrawClipPlane?.Invoke();
         }
@@ -244,7 +263,7 @@ namespace Viewer
 
             var modeStr = control.Tag.ToString();
 
-            ClipMode mode = (ClipMode)Enum.Parse(typeof(ClipMode), modeStr);
+            var mode = (ClipRegime)Enum.Parse(typeof(ClipRegime), modeStr);
             ChangeClipMode?.Invoke(mode);
             RedrawClipPlane?.Invoke();
         }
