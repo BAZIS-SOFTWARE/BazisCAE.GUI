@@ -1,5 +1,4 @@
-﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
+﻿using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
@@ -11,15 +10,12 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
 {
     public class LoadTaskConverter : DataConverter
     {
-        private List<IGroup> _dataObjectType;
         private List<string> _func;
         private LoadData _load; 
         public LoadTaskConverter(IPhysicalData obj, List<string> func, List<IGroup> groupElement)
         {
             _load = obj as LoadData;
             _func = func;
-            _dataObjectType = groupElement;
-            var value = obj.ToString().Split(':')[1].Split(' ');
             dataGroupElement = groupElement;
             selectObj = obj;
             data = new Dictionary<string, string>()

@@ -69,7 +69,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             data[header] = newValue;
             if (header == "Коэф. теплоотдачи")
             {
-                if (float.TryParse(newValue, out float res)) _media.HeatExchangeValue = float.Parse(newValue);
+                if (float.TryParse(newValue, out _)) _media.HeatExchangeValue = float.Parse(newValue);
                 else _media.HeatExchangeFunc = newValue;
             }
             else if (header == "Температура среды") _media.TemperatureValue = float.Parse(newValue);

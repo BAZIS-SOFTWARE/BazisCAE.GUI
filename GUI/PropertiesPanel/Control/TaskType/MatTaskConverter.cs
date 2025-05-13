@@ -1,5 +1,4 @@
-﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
+﻿using BaseModule.PropertiesPanel;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
@@ -16,10 +15,9 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         public MatTaskConverter(IPhysicalData obj, List<string> mat, List<IGroup> groupElement)
         {
             _mat = mat;
-
+            _matData = obj as MatData;
             dataGroupElement = groupElement;
             selectObj = obj;
-            _matData = obj as MatData;
             data = new Dictionary<string, string>()
             {
                 { "Группа элементов", _matData.Group.Name },
