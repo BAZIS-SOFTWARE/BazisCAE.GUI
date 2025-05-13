@@ -84,14 +84,33 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 else if (header == "Длина бура (L), мм") fSwPin.Length = float.Parse(newValue);
                 else if (header == "Диаметр основания (D2), мм") fSwPin.BottomDiam = float.Parse(newValue);
                 else if (header == "Диаметр конца (D3), мм") fSwPin.UpperDiam = float.Parse(newValue);
-                else if (header == "Предел текучести, МПа") fSwPin.CreateParameter(newValue);
+                else if (header == "Предел текучести, МПа")
+                {
+                    var builder = new FSWPinBuilder().
+                        SetRotSpeed(fSwPin.RotSpeed.ToString()).
+                        SetLength(fSwPin.Length.ToString()).
+                        SetBottomDiam(fSwPin.BottomDiam.ToString()).
+                        SetUpperDiam(fSwPin.UpperDiam.ToString()).
+                        SetYieldFunc(newValue);
+                    _objAsHeat.FrameFunction = (FSWPin)builder;
+                }
             }
             else if (_objAsHeat.FrameFunction is FSWShoulder fSwShoulder)
             {
                 if (header == "Скорость вращения, об/cек.") fSwShoulder.RotSpeed = float.Parse(newValue);
                 else if (header == "Осевое усилие, Н") fSwShoulder.AxisForce = float.Parse(newValue);
                 else if (header == "Диаметр плеча (D1), мм") fSwShoulder.UpperDiam = float.Parse(newValue);
-                else if (header == "Коэффициент трения") fSwShoulder.CreateParameter(newValue);
+                else if (header == "Коэффициент трения")
+                {
+                    var builder = new FSWShoulderBuilder().
+                        SetAxisForce(fSwShoulder.AxisForce.ToString()).
+                        SetRotSpeed(fSwShoulder.RotSpeed.ToString()).
+                        SetLength(fSwShoulder.Length.ToString()).
+                        SetBottomDiam(fSwShoulder.BottomDiam.ToString()).
+                        SetUpperDiam(fSwShoulder.UpperDiam.ToString()).
+                        SetFricModuleFunc(newValue);
+                    _objAsHeat.FrameFunction = (FSWShoulder)builder;
+                }
             }
         }
     }
