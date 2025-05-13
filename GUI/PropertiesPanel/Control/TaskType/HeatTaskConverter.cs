@@ -73,7 +73,16 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             }
             else if (_objAsHeat.FrameFunction is Lazer lazer)
             {
-                //if (header == "Мощность излучения, Дж") lazer.SurfacePower = float.Parse(newValue);
+                if (header == "Мощность излучения, Дж")
+                {
+                    var builder = new LazerBuilder().
+                        SetPower(newValue).
+                        SetBottomDiam(lazer.BottomDiam.ToString()).
+                        SetUpperDiam(lazer.UpperDiam.ToString()).
+                        SetLength(lazer.Length.ToString()).
+                        SetFrame(lazer.Frame);
+                    _objAsHeat.FrameFunction = (Lazer)builder;
+                }
                 if (header == "Глубина проплавления (L), мм") lazer.Length = float.Parse(newValue);
                 else if (header == "Диаметр основания (D2), мм") lazer.UpperDiam = float.Parse(newValue);
                 else if (header == "Диаметр конца (D3), мм") lazer.BottomDiam = float.Parse(newValue);
