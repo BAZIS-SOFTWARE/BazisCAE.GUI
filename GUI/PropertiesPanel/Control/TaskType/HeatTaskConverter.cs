@@ -23,6 +23,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             dataGroupElement = groupElement;
             _objAsHeat = obj as HeatData;
             _func = func;
+            Debug.WriteLine(_objAsHeat.FrameFunction);
             // Почему тут требуется название группы опорной линии?
             //_groupLine = GetGroupsByObjTypeFromOnesName(_objAsHeat, _objAsHeat.MovedFrame.BaseLine.Name.ToString());
         }

@@ -72,7 +72,8 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 if (float.TryParse(newValue, out float res)) _media.HeatExchangeValue = float.Parse(newValue);
                 else _media.HeatExchangeFunc = newValue;
             }
-            else if (header == "Температура среды")
+            else if (header == "Температура " +
+                "среды")
             {
                 var k = selectObj;
                 var group = dataGroupElement.Find(x => x.Name == newValue.ToString());
