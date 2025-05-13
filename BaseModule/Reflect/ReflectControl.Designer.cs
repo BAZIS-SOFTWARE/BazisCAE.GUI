@@ -113,16 +113,22 @@ namespace BaseModule.Reflect
             // 
             this.sldA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.sldA.BackColor = System.Drawing.Color.Transparent;
+            this.sldA.BarInnerColor = System.Drawing.Color.Silver;
+            this.sldA.BarOuterColor = System.Drawing.Color.Silver;
             this.sldA.BarPenColor = System.Drawing.Color.Black;
             this.sldA.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             this.tableLayoutPanel1.SetColumnSpan(this.sldA, 2);
+            this.sldA.ElapsedInnerColor = System.Drawing.Color.Silver;
+            this.sldA.ElapsedOuterColor = System.Drawing.Color.Silver;
             this.sldA.LargeChange = ((uint)(5u));
             this.sldA.Location = new System.Drawing.Point(138, 3);
             this.sldA.Name = "sldA";
+            this.sldA.ShowTextValue = true;
             this.sldA.Size = new System.Drawing.Size(109, 24);
             this.sldA.SmallChange = ((uint)(1u));
             this.sldA.TabIndex = 0;
             this.sldA.Tag = "";
+            this.sldA.TextValueColor = System.Drawing.Color.Black;
             this.sldA.ThumbPenColor = System.Drawing.Color.Black;
             this.sldA.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
             this.sldA.ThumbSize = 12;
@@ -133,16 +139,22 @@ namespace BaseModule.Reflect
             // 
             this.sldB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.sldB.BackColor = System.Drawing.Color.Transparent;
+            this.sldB.BarInnerColor = System.Drawing.Color.Silver;
+            this.sldB.BarOuterColor = System.Drawing.Color.Silver;
             this.sldB.BarPenColor = System.Drawing.Color.Black;
             this.sldB.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             this.tableLayoutPanel1.SetColumnSpan(this.sldB, 2);
+            this.sldB.ElapsedInnerColor = System.Drawing.Color.Silver;
+            this.sldB.ElapsedOuterColor = System.Drawing.Color.Silver;
             this.sldB.LargeChange = ((uint)(5u));
             this.sldB.Location = new System.Drawing.Point(138, 33);
             this.sldB.Name = "sldB";
+            this.sldB.ShowTextValue = true;
             this.sldB.Size = new System.Drawing.Size(109, 24);
             this.sldB.SmallChange = ((uint)(1u));
             this.sldB.TabIndex = 1;
             this.sldB.Tag = "";
+            this.sldB.TextValueColor = System.Drawing.Color.Black;
             this.sldB.ThumbPenColor = System.Drawing.Color.Black;
             this.sldB.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
             this.sldB.ThumbSize = 12;
@@ -153,16 +165,22 @@ namespace BaseModule.Reflect
             // 
             this.sldC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.sldC.BackColor = System.Drawing.Color.Transparent;
+            this.sldC.BarInnerColor = System.Drawing.Color.Silver;
+            this.sldC.BarOuterColor = System.Drawing.Color.Silver;
             this.sldC.BarPenColor = System.Drawing.Color.Black;
             this.sldC.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             this.tableLayoutPanel1.SetColumnSpan(this.sldC, 2);
+            this.sldC.ElapsedInnerColor = System.Drawing.Color.Silver;
+            this.sldC.ElapsedOuterColor = System.Drawing.Color.Silver;
             this.sldC.LargeChange = ((uint)(5u));
             this.sldC.Location = new System.Drawing.Point(138, 63);
             this.sldC.Name = "sldC";
+            this.sldC.ShowTextValue = true;
             this.sldC.Size = new System.Drawing.Size(109, 24);
             this.sldC.SmallChange = ((uint)(1u));
             this.sldC.TabIndex = 2;
             this.sldC.Tag = "";
+            this.sldC.TextValueColor = System.Drawing.Color.Black;
             this.sldC.ThumbPenColor = System.Drawing.Color.Black;
             this.sldC.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
             this.sldC.ThumbSize = 12;
