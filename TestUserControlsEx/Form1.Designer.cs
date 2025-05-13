@@ -41,7 +41,7 @@
             this.playerControl1.MinimumSize = new System.Drawing.Size(215, 35);
             this.playerControl1.Name = "playerControl1";
             this.playerControl1.ShowTextValue = true;
-            this.playerControl1.Size = new System.Drawing.Size(226, 35);
+            this.playerControl1.Size = new System.Drawing.Size(363, 35);
             this.playerControl1.SliderBarInnerColor = System.Drawing.Color.DarkSlateBlue;
             this.playerControl1.SliderBarOuterColor = System.Drawing.Color.SkyBlue;
             this.playerControl1.SliderElapsedInnerColor = System.Drawing.Color.Chartreuse;

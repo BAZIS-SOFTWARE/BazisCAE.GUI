@@ -80,13 +80,11 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
         public void Fill_nGroups(List<string> nGroups)
         {
             cmbStartPoint.Items.Clear();
-            cmbStopPoint.Items.Clear();
             cmbTraj.Items.Clear();
             cmbRef.Items.Clear();
             for (int i = 0; i < nGroups.Count(); i++)
             {
                 cmbStartPoint.Items.Add(nGroups[i]);
-                cmbStopPoint.Items.Add(nGroups[i]);
                 cmbTraj.Items.Add(nGroups[i]);
                 cmbRef.Items.Add(nGroups[i]);
             }
@@ -259,7 +257,6 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 cmbTraj.IsValueValid(),
                 cmbRef.IsValueValid(),
                 cmbStartPoint.IsValueValid(),
-                cmbStopPoint.IsValueValid(),
                 cmbWeldZone.IsValueValid()
             };
             if(HeatSourceControl != null)

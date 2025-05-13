@@ -55,6 +55,9 @@
     <AssemblyOriginatorKeyFile>BaseModuleSnk.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -73,12 +76,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clip\ClipControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Clip\ClipControl.Designer.cs">
-      <DependentUpon>ClipControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Console\ConsoleToolStrRender.cs" />
     <Compile Include="Console\Events\ExitAppEventArgs.cs" />
     <Compile Include="Console\Events\LoadProjectEventArgs.cs" />
@@ -163,11 +160,18 @@
     <Compile Include="Player\PlayerControl.Designer.cs">
       <DependentUpon>PlayerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="CrossSection\CreatePlaneFromTextArgs.cs" />
-    <Compile Include="CrossSection\CrossSectionControl.cs">
+    <Compile Include="SceenControls\ClipControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CrossSection\CrossSectionControl.Designer.cs">
+    <Compile Include="SceenControls\ClipControl.Designer.cs">
+      <DependentUpon>ClipControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SceenControls\Plane.cs" />
+    <Compile Include="SceenControls\CreatePlaneFromTextArgs.cs" />
+    <Compile Include="SceenControls\CrossSectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SceenControls\CrossSectionControl.Designer.cs">
       <DependentUpon>CrossSectionControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Measurement\MeasureEventArgs.cs" />
@@ -189,12 +193,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Reflect\ReflectControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reflect\ReflectControl.Designer.cs">
-      <DependentUpon>ReflectControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Results\Animation\AnimationPage.cs">
       <SubType>UserControl</SubType>
@@ -233,6 +231,12 @@
     </Compile>
     <Compile Include="Results\ScaleControl\ScalePage.Designer.cs">
       <DependentUpon>ScalePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SceenControls\ReflectControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SceenControls\ReflectControl.Designer.cs">
+      <DependentUpon>ReflectControl.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectionSet\SelectInDirectionEventArgs.cs" />
     <Compile Include="SelectionSet\SelectInPlainEventArgs.cs" />
@@ -411,9 +415,6 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Clip\ClipControl.resx">
-      <DependentUpon>ClipControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Console\ConsoleControl.resx">
       <DependentUpon>ConsoleControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -444,7 +445,10 @@
     <EmbeddedResource Include="Player\PlayerControl.resx">
       <DependentUpon>PlayerControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CrossSection\CrossSectionControl.resx">
+    <EmbeddedResource Include="SceenControls\ClipControl.resx">
+      <DependentUpon>ClipControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SceenControls\CrossSectionControl.resx">
       <DependentUpon>CrossSectionControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Measurement\MeasuringSet.resx">
@@ -457,9 +461,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reflect\ReflectControl.resx">
-      <DependentUpon>ReflectControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Results\Animation\AnimationPage.resx">
       <DependentUpon>AnimationPage.cs</DependentUpon>
@@ -475,6 +476,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Results\ScaleControl\ScalePage.resx">
       <DependentUpon>ScalePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SceenControls\ReflectControl.resx">
+      <DependentUpon>ReflectControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SelectionSet\AdvanceSelectionSet.resx">
       <DependentUpon>AdvanceSelectionSet.cs</DependentUpon>
@@ -649,6 +653,8 @@
       <Name>UserControlsEx</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Reflect\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
