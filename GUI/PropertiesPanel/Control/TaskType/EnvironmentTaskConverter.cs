@@ -46,7 +46,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         public override List<RowProperty> GetRowProperty()
         {
             var property = new List<RowProperty>();
-            if (_media.TemperatureFunc == "*" && _media.HeatExchangeFunc != "*") //тепловой поток
+            if (_media.TemperatureFunc == "*" && _media.HeatExchangeFunc != "*") 
             {
                 property.Add(RowProperty.CreateComboBox("Группа элементов", _media.Group.Name, dataGroupElement.Select(x => x.Name).ToList()));
                 property.Add(RowProperty.CreateComboBox("Коэф. теплоотдачи", _media.HeatExchangeFunc, _func, false));

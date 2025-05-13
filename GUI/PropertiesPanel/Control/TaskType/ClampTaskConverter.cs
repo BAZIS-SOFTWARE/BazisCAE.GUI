@@ -1,5 +1,4 @@
-﻿using BaseModule.Navigator;
-using BaseModule.PropertiesPanel;
+﻿using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
@@ -17,7 +16,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             _clamp = obj as ClampData;
             selectObj = obj;
             dataGroupElement = groupElement;
-            
+
             data = new Dictionary<string, string>()
             {
                 { "Группа узлов", _clamp.Group.Name.ToString() },
@@ -33,9 +32,9 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         {
             return new List<RowProperty>
             {
-                RowProperty.CreateTextBox("Имя", NodeType.Закрепление.ToString(), ValidationType.Text),
+                //RowProperty.CreateTextBox("Имя", NodeType.Закрепление.ToString(), ValidationType.Text),
                 RowProperty.CreateComboBox("Группа узлов", data["Группа узлов"], dataGroupElement.Select(x => x.Name).ToList()),
-                RowProperty.CreateComboBox("Вид", data["Вид"], Converters.GetEnumNames<ClampKind>().ToList()),
+                //RowProperty.CreateComboBox("Вид", data["Вид"], Converters.GetEnumNames<ClampKind>().ToList()),
                 RowProperty.CreateComboBox("Направление", data["Направление"], Converters.GetEnumNames<Direction>().ToList()),
                 RowProperty.CreateTextBox("Старт, сек.", data["Старт, сек."], ValidationType.FloatPositive),
                 RowProperty.CreateTextBox("Стоп, сек.", data["Стоп, сек."], ValidationType.FloatPositive)
@@ -46,12 +45,10 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         {
             base.UpdateObject(header, newValue);
 
-            if(header == "Направление")
+            if (header == "Направление")
             {
                 _clamp.Direction = Converters.StringToEnum<Direction>(newValue);
             }
-            //if (header == "Вид") _clamp.ClampKind = Converters.StringToEnum<ClampKind>(newValue);
-            //selectObj = _clamp;
         }
     }
 }
