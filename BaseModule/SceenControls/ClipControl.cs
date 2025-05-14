@@ -66,11 +66,12 @@ namespace BaseModule.SceenControls
             Pen = new Pen(SystemColors.Control);
 
             plane.Z = -1;
-            //ClipPlane = new Plane(new Vector3(0, 0, -1), 0);
         }
 
         private void OnChangeValue(object sender, EventArgs e)
         {
+            if (colorSlider1.Value == colorSlider2.Value && colorSlider1.Value == colorSlider3.Value && colorSlider1.Value == 100)
+                return;
             var tb = sender as ColorSlider;
             var value = (tb.Value - 100) * 0.01f;
             var label = tableLayoutPanel1.Controls.OfType<Label>()
@@ -86,43 +87,9 @@ namespace BaseModule.SceenControls
                 plane.Z = value;
             if (!PreventRedraw)
             {
-                //NormalizeDirection();
                 SetClipPlaneEvent(plane);
                 RedrawClipPlane?.Invoke();
             }
-            /*var isZeroNormal = trackBar1.Value == trackBar2.Value && 
-                               trackBar2.Value == trackBar3.Value && 
-                               trackBar1.Value == 100;
-            var value = 0.0f;
-            Label label = null;
-            if(sender.Equals(trackBar1))
-            {
-                value = (trackBar1.Value - 100) * 0.01f;
-                label = label1;
-                ClipPlane.Normal._x = isZeroNormal ? ClipPlane.Normal._x : value;
-            }
-            else if(sender.Equals(trackBar2))
-            {
-                value = (trackBar2.Value - 100) * 0.01f;
-                label = label2;
-                ClipPlane.Normal._y = isZeroNormal ? ClipPlane.Normal._y : value;
-            }
-            else
-            {
-                value = (trackBar3.Value - 100) * 0.01f;
-                label = label3;
-                ClipPlane.Normal._z = isZeroNormal ? ClipPlane.Normal._z : value;
-            }
-            var text = label.Text.Split(' ');
-            label.Text = text[0] + " " + value.ToString("0.##");
-            if (!PreventRedraw)
-            {
-                var normal = Vector.GetVectorNorm(ClipPlane.Normal);
-                ClipPlane.Normal._x = normal._x;
-                ClipPlane.Normal._y = normal._y;
-                ClipPlane.Normal._z = normal._z;
-                RedrawClipPlane?.Invoke();
-            }*/
         }
 
         //private void NormalizeDirection()
@@ -195,17 +162,10 @@ namespace BaseModule.SceenControls
                     txtControl.Text = temp.ToString("0.##");
                     ChangeLayerThickness?.Invoke(temp);
                 }
+                SetClipPlaneEvent?.Invoke(plane);
                 RedrawClipPlane?.Invoke();
             }
         }
-
-        //private void OnMoveMouse(TextBox txtControl, float delta, Point mouseLoc, float[] minValue)
-        //{
-        //    var sign = Math.Sign(mouseLoc.X - MouseLastPos.X);
-        //    plane.D += sign * delta;
-        //    txtControl.Text = plane.D.ToString("0.##");
-        //    MouseLastPos = mouseLoc;
-        //}
 
         private void OnPaint(object sender, PaintEventArgs e)
         {
@@ -230,11 +190,11 @@ namespace BaseModule.SceenControls
             var rBtn = sender as RadioButton;
             PreventRedraw = true;
             var values = rBtn.Tag.ToString().Split(' ');
-            var activeTb = tableLayoutPanel1.Controls.OfType<TrackBar>()
+            var activeTb = tableLayoutPanel1.Controls.OfType<ColorSlider>()
                                                      .Where(v => v.TabIndex == rBtn.TabIndex)
                                                      .First();
             activeTb.Value = int.Parse(values[rBtn.TabIndex]);
-            var inactiveTbs = tableLayoutPanel1.Controls.OfType<TrackBar>()
+            var inactiveTbs = tableLayoutPanel1.Controls.OfType<ColorSlider>()
                                               .Where(v => v.TabIndex != rBtn.TabIndex)
                                               .ToList();
             for (var i = 0; i < inactiveTbs.Count; ++i)
@@ -243,7 +203,8 @@ namespace BaseModule.SceenControls
                 control.Value = int.Parse(values[control.TabIndex]);
             }
             PreventRedraw = false;
-            //NormalizeDirection();
+
+            SetClipPlaneEvent?.Invoke(plane);
             RedrawClipPlane?.Invoke();
         }
 
@@ -251,6 +212,7 @@ namespace BaseModule.SceenControls
         {
             plane.D = 0;
             textBox1.Text = "0";
+            SetClipPlaneEvent?.Invoke(plane);
             RedrawClipPlane?.Invoke();
         }
 
@@ -263,8 +225,8 @@ namespace BaseModule.SceenControls
 
             var modeStr = control.Tag.ToString();
 
-            var mode = (ClipRegime)Enum.Parse(typeof(ClipRegime), modeStr);
-            ChangeClipMode?.Invoke(mode);
+            var regime = (ClipRegime)Enum.Parse(typeof(ClipRegime), modeStr);
+            ChangeClipMode?.Invoke(regime);
             RedrawClipPlane?.Invoke();
         }
     }

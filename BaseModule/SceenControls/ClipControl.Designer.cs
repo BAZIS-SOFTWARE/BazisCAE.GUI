@@ -469,7 +469,7 @@
             this.colorSlider1.Location = new System.Drawing.Point(139, 3);
             this.colorSlider1.Maximum = 200;
             this.colorSlider1.Name = "colorSlider1";
-            this.colorSlider1.ShowTextValue = true;
+            this.colorSlider1.ShowTextValue = false;
             this.colorSlider1.Size = new System.Drawing.Size(108, 24);
             this.colorSlider1.SmallChange = ((uint)(1u));
             this.colorSlider1.TabIndex = 0;
@@ -478,6 +478,7 @@
             this.colorSlider1.ThumbPenColor = System.Drawing.Color.Black;
             this.colorSlider1.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
             this.colorSlider1.ThumbSize = 12;
+            this.colorSlider1.Value = 100;
             this.colorSlider1.ValueChanged += new System.EventHandler(this.OnChangeValue);
             // 
             // colorSlider2
@@ -493,7 +494,7 @@
             this.colorSlider2.Location = new System.Drawing.Point(139, 33);
             this.colorSlider2.Maximum = 200;
             this.colorSlider2.Name = "colorSlider2";
-            this.colorSlider2.ShowTextValue = true;
+            this.colorSlider2.ShowTextValue = false;
             this.colorSlider2.Size = new System.Drawing.Size(108, 24);
             this.colorSlider2.SmallChange = ((uint)(1u));
             this.colorSlider2.TabIndex = 1;
@@ -502,6 +503,7 @@
             this.colorSlider2.ThumbPenColor = System.Drawing.Color.Black;
             this.colorSlider2.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
             this.colorSlider2.ThumbSize = 12;
+            this.colorSlider2.Value = 100;
             this.colorSlider2.ValueChanged += new System.EventHandler(this.OnChangeValue);
             // 
             // colorSlider3
@@ -517,7 +519,7 @@
             this.colorSlider3.Location = new System.Drawing.Point(139, 63);
             this.colorSlider3.Maximum = 200;
             this.colorSlider3.Name = "colorSlider3";
-            this.colorSlider3.ShowTextValue = true;
+            this.colorSlider3.ShowTextValue = false;
             this.colorSlider3.Size = new System.Drawing.Size(108, 24);
             this.colorSlider3.SmallChange = ((uint)(1u));
             this.colorSlider3.TabIndex = 2;
@@ -526,6 +528,7 @@
             this.colorSlider3.ThumbPenColor = System.Drawing.Color.Black;
             this.colorSlider3.ThumbRoundRectSize = new System.Drawing.Size(1, 1);
             this.colorSlider3.ThumbSize = 12;
+            this.colorSlider3.Value = 0;
             this.colorSlider3.ValueChanged += new System.EventHandler(this.OnChangeValue);
             // 
             // ClipControl

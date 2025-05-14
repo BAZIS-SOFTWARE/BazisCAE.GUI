@@ -862,6 +862,8 @@ namespace BazisGUI
                     sceneControl.IsClipPlane = true;
                     clipForm.Controls.Add(clip);
 
+                    clip.ChangeClipMode += (mode) => sceneControl.ChangeClipMode((Scene.ClipMode)mode);
+                    clip.ChangeLayerThickness += (layerThickness) => sceneControl.ChangeLayerLhickness(layerThickness);
                     clip.SetClipPlaneEvent += (plane) =>
                     {
                         //var normal = plane.D;
@@ -874,6 +876,7 @@ namespace BazisGUI
                     {
                         sceneControl.IsClipPlane = false;
                         btn.Checked = false;
+                        sceneControl.ChangeClipMode(Scene.ClipMode.Default);
                         sceneControl.DisplayObjects();
                     };
                     clipForm.Show();
@@ -886,7 +889,7 @@ namespace BazisGUI
                     var form = forms.Find(x => x.Name == "clipPlaneForm");
                     if (form != null)
                     {
-                        sceneControl.IsClipPlane = true;
+                        sceneControl.IsClipPlane = false;
                         form.Close();
                     }
                 }

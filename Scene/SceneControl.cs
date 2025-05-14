@@ -889,8 +889,8 @@ namespace Scene
                 foreach(var obj in glObjs)
                     obj.ActiveDrawingObject = null;
                 advanced3DClipper.ClipMode = mode;
-                var el3d = FindVBObj("Элементы3D");
-                var nodes = FindVBObj("Узлы");
+                var el3d = FindVBObj("Элемент3D");
+                var nodes = FindVBObj("Узел");
                 if (el3d != null)
                 {
                     advanced3DClipper.Create3DBoundingBoxes((SurfaceObjects)el3d);

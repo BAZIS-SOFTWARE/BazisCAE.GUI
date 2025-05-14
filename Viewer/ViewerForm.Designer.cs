@@ -197,7 +197,7 @@ namespace Viewer
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(60, 31);
             this.checkBox3.TabIndex = 3;
-            this.checkBox3.Tag = "Элементы2D";
+            this.checkBox3.Tag = "Элемент2D";
             this.checkBox3.Text = "2D эл-ты";
             this.checkBox3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBox3.UseVisualStyleBackColor = true;
@@ -212,7 +212,7 @@ namespace Viewer
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(56, 31);
             this.checkBox4.TabIndex = 4;
-            this.checkBox4.Tag = "Элементы3D";
+            this.checkBox4.Tag = "Элемент3D";
             this.checkBox4.Text = "3D эл-ты";
             this.checkBox4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBox4.UseVisualStyleBackColor = true;
@@ -229,7 +229,7 @@ namespace Viewer
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(41, 31);
             this.checkBox2.TabIndex = 2;
-            this.checkBox2.Tag = "Элементы1D";
+            this.checkBox2.Tag = "Элемент1D";
             this.checkBox2.Text = "Линии";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.OnShowElements);
@@ -293,7 +293,7 @@ namespace Viewer
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(41, 31);
             this.checkBox1.TabIndex = 1;
-            this.checkBox1.Tag = "Узлы";
+            this.checkBox1.Tag = "Узел";
             this.checkBox1.Text = "Узлы";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.OnShowElements);
@@ -521,14 +521,14 @@ namespace Viewer
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.OnReflectPlaneShow);
             // 
-            // SceneForm
+            // ViewerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(856, 562);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "SceneForm";
+            this.Name = "ViewerForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Viewer";
