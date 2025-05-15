@@ -3,7 +3,6 @@ using BaseModule.PropertiesPanel;
 using BazisGUI.PropertiesPanel.Control.TaskType;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
-using Project.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,18 +36,15 @@ namespace BazisGUI.PropertiesPanel.Control
             return _groupElement.Where(x => x.ObjType == group.ObjType).ToList();
         }
 
-        public override void UpdateObject(string header, string newValue, string oldValue)
+        public override void UpdateObject(string header, string newValue)
         {
-            data[header] = newValue.ToString();
-            var set = string.Join(" ", data.Values);
             if (header.Contains("Группа"))
             {
                 var group = dataGroupElement.Find(x => x.Name == newValue.ToString());
                 selectObj.Group = group;
             }
-            // TO DO
-            // Внести изменения для изменения объектов физических групп
-                //selectObj.SetInfo(set);
+            else if (header == "Старт, сек.") selectObj.StartTime = float.Parse(newValue);
+            else if (header == "Стоп, сек.") selectObj.StopTime = float.Parse(newValue);
         }
     }
 }

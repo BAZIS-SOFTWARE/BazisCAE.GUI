@@ -12,7 +12,7 @@ namespace BaseModule.PropertiesPanel
             return new List<RowProperty>();
         }
 
-        public virtual void UpdateObject(string header, string newValue, string oldValue)
+        public virtual void UpdateObject(string header, string newValue)
         {
             throw new NotImplementedException("Тип конвертера не определен");
         }

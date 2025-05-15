@@ -3,11 +3,9 @@ using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using Project.Tasks.Functions;
-using Project.Tasks.LocalFrame;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BazisGUI.PropertiesPanel.Control.TaskType
 {
@@ -15,7 +13,6 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
     {
         private HeatData _objAsHeat;
         private List<string> _func;
-        private readonly List<IGroup> _groupLine;
 
         public HeatTaskConverter(IPhysicalData obj, List<IGroup> groupElement, List<string> func)
         {
@@ -23,8 +20,6 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             dataGroupElement = groupElement;
             _objAsHeat = obj as HeatData;
             _func = func;
-            // Почему тут требуется название группы опорной линии?
-            //_groupLine = GetGroupsByObjTypeFromOnesName(_objAsHeat, _objAsHeat.MovedFrame.BaseLine.Name.ToString());
         }
 
         public override List<RowProperty> GetRowProperty()
@@ -67,126 +62,65 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             return property;
         }
 
-        public override void UpdateObject(string header, string newValue, string oldValue)
+        public override void UpdateObject(string header, string newValue)
         {
-            var set = GetFrameFunction(header, newValue);
-
-            if (header == "Группа элементов")
-            {
-                var group = dataGroupElement.Find(x => x.Name == newValue.ToString());
-                selectObj.Group = group;
-                _objAsHeat.Group.Name = newValue;
-            }
-            else if (header == "Старт, сек.")
-            {
-                _objAsHeat.StartTime = float.Parse(newValue);
-            }
-            UpdateTrajectoryInfo(set);
-            //selectObj = _objAsHeat as IPhysicalData;
-        }
-
-        private string GetFrameFunction(string header, string newValue)
-        {
-            var sb = new StringBuilder();
+            base.UpdateObject(header, newValue);
             if (_objAsHeat.FrameFunction is Arc arc)
             {
-                data = new Dictionary<string, string>()
-                {
-                    { "Вид сварки", _objAsHeat.FrameFunction.Name },
-                    { "Ширина шва (L), мм", arc.Width.ToString() },
-                    { "Ток, А", arc.Current.ToString() },
-                    { "Напряжение, В", arc.Voltage.ToString() }
-                };
-
-                data[header] = newValue.ToString();
-                sb.Append($"{data["Вид сварки"]};{data["Ширина шва (L), мм"]};{data["Ток, А"]};{data["Напряжение, В"]} "); // processParameters
-                sb.Append($"{_objAsHeat.Group.Name} {_objAsHeat.StartTime} {_objAsHeat.StopTime} "); // set
-                var trajectory = _objAsHeat.LocalFrame.ToString();
-                sb.Append(trajectory);
-                return sb.ToString();
+                if (header == "Ширина шва (L), мм") arc.Width = float.Parse(newValue);
+                else if (header == "Ток, А") arc.Current = float.Parse(newValue);
+                else if (header == "Напряжение, В") arc.Voltage = float.Parse(newValue);
             }
             else if (_objAsHeat.FrameFunction is Lazer lazer)
             {
-                data = new Dictionary<string, string>()
+                if (header == "Мощность излучения, Дж")
                 {
-                    { "Вид сварки", _objAsHeat.FrameFunction.Name },
-                    { "Мощность излучения, Дж", lazer.SurfacePower.ToString() },
-                    { "Глубина проплавления (L), мм", lazer.Length.ToString() },
-                    { "Диаметр основания (D2), мм", lazer.UpperDiam.ToString() },
-                    { "Диаметр конца (D3), мм", lazer.BottomDiam.ToString() }
-                };
-
-                data[header] = newValue.ToString();
-                sb.Append($"{data["Вид сварки"]};{data["Мощность излучения, Дж"]};{data["Глубина проплавления (L), мм"]};{data["Диаметр основания (D2), мм"]};{data["Диаметр конца (D3), мм"]} "); // processParameters
-                sb.Append($"{_objAsHeat.Group.Name} {_objAsHeat.StartTime} {_objAsHeat.StopTime} "); // set
-                var trajectory = _objAsHeat.LocalFrame.ToString();
-                sb.Append(trajectory);
-                return sb.ToString();
+                    var builder = new LazerBuilder().
+                        SetPower(newValue).
+                        SetBottomDiam(lazer.BottomDiam.ToString()).
+                        SetUpperDiam(lazer.UpperDiam.ToString()).
+                        SetLength(lazer.Length.ToString()).
+                        SetFrame(lazer.Frame);
+                    _objAsHeat.FrameFunction = (Lazer)builder;
+                }
+                if (header == "Глубина проплавления (L), мм") lazer.Length = float.Parse(newValue);
+                else if (header == "Диаметр основания (D2), мм") lazer.UpperDiam = float.Parse(newValue);
+                else if (header == "Диаметр конца (D3), мм") lazer.BottomDiam = float.Parse(newValue);
             }
             else if (_objAsHeat.FrameFunction is FSWPin fSwPin)
             {
-                data = new Dictionary<string, string>()
+                if (header == "Скорость вращения, об/cек.") fSwPin.RotSpeed = float.Parse(newValue);
+                else if (header == "Длина бура (L), мм") fSwPin.Length = float.Parse(newValue);
+                else if (header == "Диаметр основания (D2), мм") fSwPin.BottomDiam = float.Parse(newValue);
+                else if (header == "Диаметр конца (D3), мм") fSwPin.UpperDiam = float.Parse(newValue);
+                else if (header == "Предел текучести, МПа")
                 {
-                    { "Вид сварки", _objAsHeat.FrameFunction.Name },
-                    { "Скорость вращения, об/cек.", fSwPin.RotSpeed.ToString() },
-                    { "Длина бура (L), мм", fSwPin.Length.ToString() },
-                    { "Диаметр основания (D2), мм", fSwPin.BottomDiam.ToString() },
-                    { "Диаметр конца (D3), мм", fSwPin.UpperDiam.ToString() },
-                    { "Предел текучести, МПа", fSwPin.GetParameters().First().Name }
-                };
-
-                data[header] = newValue.ToString();
-                sb.Append($"{data["Вид сварки"]};{data["Скорость вращения, об/cек."]};{data["Длина бура (L), мм"]};{data["Диаметр основания (D2), мм"]};{data["Диаметр конца (D3), мм"]};{data["Предел текучести, МПа"]} "); // processParameters
-                sb.Append($"{_objAsHeat.Group.Name} {_objAsHeat.StartTime} {_objAsHeat.StopTime} "); // set
-                var trajectory = _objAsHeat.LocalFrame.ToString();
-                sb.Append(trajectory);
-                return sb.ToString();
+                    var builder = new FSWPinBuilder().
+                        SetRotSpeed(fSwPin.RotSpeed.ToString()).
+                        SetLength(fSwPin.Length.ToString()).
+                        SetBottomDiam(fSwPin.BottomDiam.ToString()).
+                        SetUpperDiam(fSwPin.UpperDiam.ToString()).
+                        SetYieldFunc(newValue);
+                    _objAsHeat.FrameFunction = (FSWPin)builder;
+                }
             }
-            else
+            else if (_objAsHeat.FrameFunction is FSWShoulder fSwShoulder)
             {
-                var fSwShoulder = _objAsHeat.FrameFunction as FSWShoulder;
-
-                data = new Dictionary<string, string>()
+                if (header == "Скорость вращения, об/cек.") fSwShoulder.RotSpeed = float.Parse(newValue);
+                else if (header == "Осевое усилие, Н") fSwShoulder.AxisForce = float.Parse(newValue);
+                else if (header == "Диаметр плеча (D1), мм") fSwShoulder.UpperDiam = float.Parse(newValue);
+                else if (header == "Коэффициент трения")
                 {
-                    { "Вид сварки", _objAsHeat.FrameFunction.Name },
-                    { "Скорость вращения, об/cек.", fSwShoulder.RotSpeed.ToString() },
-                    { "Осевое усилие, Н", fSwShoulder.AxisForce.ToString() },
-                    { "Диаметр плеча (D1), мм", fSwShoulder.UpperDiam.ToString() },
-                    { "Коэффициент трения", fSwShoulder.GetParameters().First().Name}
-                };
-
-                data[header] = newValue.ToString();
-                sb.Append($"{data["Вид сварки"]};" +
-                    $"{data["Осевое усилие, Н"]};" +
-                    $"{data["Скорость вращения, об/cек."]};" +
-                    $"{fSwShoulder.Length.ToString()};" +
-                    $"{data["Диаметр плеча (D1), мм"]};" +
-                    $"{data["Диаметр плеча (D1), мм"]};" +
-                    $"{data["Коэффициент трения"]} ");
-                sb.Append($"{_objAsHeat.Group.Name} {_objAsHeat.StartTime} {_objAsHeat.StopTime} "); // set
-                var trajectory = _objAsHeat.LocalFrame.ToString();
-                sb.Append(trajectory);
-                return sb.ToString();
+                    var builder = new FSWShoulderBuilder().
+                        SetAxisForce(fSwShoulder.AxisForce.ToString()).
+                        SetRotSpeed(fSwShoulder.RotSpeed.ToString()).
+                        SetLength(fSwShoulder.Length.ToString()).
+                        SetBottomDiam(fSwShoulder.BottomDiam.ToString()).
+                        SetUpperDiam(fSwShoulder.UpperDiam.ToString()).
+                        SetFricModuleFunc(newValue);
+                    _objAsHeat.FrameFunction = (FSWShoulder)builder;
+                }
             }
-        }
-
-        [Obsolete("Использовать до изменения в Core")]
-        private void UpdateTrajectoryInfo(string data)
-        {
-            // TO DO
-            // Привести в соответствие к Core
-
-            //var baseLine = _objAsHeat.MovedFrame.BaseLine;
-            //var refLine = _objAsHeat.MovedFrame.RefLine;
-            //var startLine = _objAsHeat.MovedFrame.StartPoints;
-            //var stopLine = _objAsHeat.MovedFrame.StopPoints;
-
-            //_objAsHeat.SetInfo(data);
-
-            //_objAsHeat.MovedFrame.BaseLine = _groupLine.First(x => x.Name == baseLine.Name);
-            //_objAsHeat.MovedFrame.RefLine = _groupLine.First(x => x.Name == refLine.Name);
-            //_objAsHeat.MovedFrame.StartPoints = _groupLine.First(x => x.Name == startLine.Name);
-            //_objAsHeat.MovedFrame.StopPoints = _groupLine.First(x => x.Name == stopLine.Name);
         }
     }
 }

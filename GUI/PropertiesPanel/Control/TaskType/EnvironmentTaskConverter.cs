@@ -39,17 +39,17 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                     _media.TemperatureFunc == "*" ? _media.TemperatureValue.ToString() : _media.TemperatureFunc);
                 data.Add("Старт, сек.", _media.StartTime.ToString());
                 data.Add("Стоп, сек.", _media.StopTime.ToString());
-                data.Add("Траектория(default)", _media.LocalFrame.ToString());
+                data.Add("Траектория(default)", _media.LocalFrame?.ToString());
             }
         }
 
         public override List<RowProperty> GetRowProperty()
         {
             var property = new List<RowProperty>();
-            if (_media.TemperatureFunc == "*" && _media.HeatExchangeFunc != "*") //тепловой поток
+            if (_media.TemperatureFunc == "*" && _media.HeatExchangeFunc != "*") 
             {
                 property.Add(RowProperty.CreateComboBox("Группа элементов", _media.Group.Name, dataGroupElement.Select(x => x.Name).ToList()));
-                property.Add(RowProperty.CreateComboBox("Коэф. теплоотдачи, Вт/мм2", _media.HeatExchangeFunc, _func, false));
+                property.Add(RowProperty.CreateComboBox("Коэф. теплоотдачи", _media.HeatExchangeFunc, _func, false));
                 property.Add(RowProperty.CreateTextBox("Температура среды", _media.TemperatureValue.ToString(), ValidationType.FloatAny));
             }
             else
@@ -63,19 +63,16 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             property.Add(RowProperty.CreateTextBox("Стоп, сек.", _media.StopTime.ToString(), ValidationType.FloatPositive));
             return property;
         }
-        public override void UpdateObject(string header, string newValue, string oldValue)
+        public override void UpdateObject(string header, string newValue)
         {
-            data[header] = newValue.ToString();
-            var set = string.Join(" ", data.Values);
-            if (header.Contains("Группа"))
+            base.UpdateObject(header, newValue);
+            data[header] = newValue;
+            if (header == "Коэф. теплоотдачи")
             {
-                var k = selectObj;
-                var group = dataGroupElement.Find(x => x.Name == newValue.ToString());
-                k.Group = group;
+                if (float.TryParse(newValue, out _)) _media.HeatExchangeValue = float.Parse(newValue);
+                else _media.HeatExchangeFunc = newValue;
             }
-            //TO DO
-            //_media.SetInfo(set);
-            //selectObj = _media as IData;
+            else if (header == "Температура среды") _media.TemperatureValue = float.Parse(newValue);
         }
         private RowProperty SelectData(string header, string value, string func)
         {

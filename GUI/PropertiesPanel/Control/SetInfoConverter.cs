@@ -38,7 +38,7 @@ namespace BazisGUI.PropertiesPanel.Control
             };
         }
 
-        public override void UpdateObject(string header, string newValue, string oldValue)
+        public override void UpdateObject(string header, string newValue)
         {
             if (header == "Имя") _objectsSet.Name = newValue;
             else if (header == "Цвет")

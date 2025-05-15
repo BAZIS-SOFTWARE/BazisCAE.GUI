@@ -362,5 +362,6 @@ MigrationBackup/
 # Folder with a test project
 #TestPropertiesPanel/
 
+proj.bpf
 # Fody - auto-generated XML schema
 FodyWeavers.xsd

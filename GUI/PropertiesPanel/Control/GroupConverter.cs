@@ -20,7 +20,7 @@ namespace BazisGUI.PropertiesPanel.Control
             };
         }
 
-        public override void UpdateObject(string header, string newValue, string oldValue)
+        public override void UpdateObject(string header, string newValue)
         {
             _group.Name = newValue.ToString();
         }
