@@ -133,8 +133,6 @@ namespace BaseModule.SceenControls
 
         private void OnSetCopyName(object sender, EventArgs e)
         {
-            var vec = TransformVector(new float[] { Plane[0], Plane[1], Plane[2], 0 });
-            UpdateControlNormal(vec);
             CreateReflectObj?.Invoke(comboBox1.SelectedItem.ToString(), Plane);
         }
 
@@ -148,7 +146,11 @@ namespace BaseModule.SceenControls
             OnResetShifting(this, null);
             PreventRedraw = false;
         }
-
+        /// <summary>
+        /// Метод переводит текущий вектор нормали в систему координат той модели на которую переключаемся
+        /// </summary>
+        /// <param name="vector">Текущий вектор нормали</param>
+        /// <returns>Вектор в системе координат выделенного объекта</returns>
         private Vector<float> TransformVector(float[] vector)
         {
             var evnt = new MatrixEvent();
@@ -159,16 +161,19 @@ namespace BaseModule.SceenControls
             var vec = Vector<float>.Build.Dense(vector);
             vec = vec.Normalize(2);
             vec = mat.Multiply(vec);
-            vec = vec.Normalize(2);
             vec[0] = vec[0].Round(2);
             vec[1] = vec[1].Round(2);
             vec[2] = vec[2].Round(2);
+            vec[3] = vec[3].Round(2);
             return vec;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnCreateCopy.Enabled = true;
+            var vec = TransformVector(new float[] { Plane[0], Plane[1], Plane[2], 0 });
+            UpdateControlNormal(vec);
+            UpdateReflectPlane?.Invoke(comboBox1.SelectedItem.ToString(), Plane);
             ShowObjs?.Invoke(comboBox1.SelectedItem.ToString());
         }
     }

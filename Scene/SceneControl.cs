@@ -1304,12 +1304,13 @@ namespace Scene
                 var bb = original.BoundingBox;
                 Gl.glPushMatrix();
                 Gl.glMultMatrixf(original.ModelMatrix);
-                var origin = plane.Normal.Mult(plane.Shifting);
+                var normal = Vector.GetVectorNorm(plane.Normal);
+                var origin = normal.Mult(plane.Shifting);
                 Gl.glTranslatef(origin._x, origin._y, origin._z);
                 var z = new Point3D(0, 0, -1);
-                var angleY = Vector.GetCosAngleVectors(z, plane.Normal);
+                var angleY = Vector.GetCosAngleVectors(z, normal);
                 angleY = (float)(Math.Acos(angleY) * 180 / Math.PI);
-                var axisY = Vector.CrossProd(z, plane.Normal);
+                var axisY = Vector.CrossProd(z, normal);
                 Gl.glRotatef(angleY, axisY._x, axisY._y, axisY._z);
 
                 var scale = 1f;
@@ -1317,7 +1318,7 @@ namespace Scene
                 var right = bb.RightDownFar.Mult(scale);
 
                 var zN = (float)Math.Min(right._x - left._x, left._y - right._y) * -Math.Sign(plane.Shifting) * 0.25f;
-                var normal = new Point3D(0, 0, zN);
+                normal = new Point3D(0, 0, zN);
 
                 var center = new Point3D((right._x + left._x) / 2, (right._y + left._y) / 2, 0);
                 var endNormal = center.Sum(normal);
