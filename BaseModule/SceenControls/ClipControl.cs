@@ -89,7 +89,7 @@ namespace BaseModule.SceenControls
                 plane.Z = value;
             if (!PreventRedraw)
             {
-                SetClipPlaneEvent(plane);
+                SetClipPlaneEvent?.Invoke(plane);
                 RedrawClipPlane?.Invoke();
             }
         }
