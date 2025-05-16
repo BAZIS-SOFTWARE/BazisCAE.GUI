@@ -879,8 +879,10 @@ namespace Scene
         /// <summary>
         /// Смена режима отсечения для 3д элементов
         /// </summary>
-        /// <param name="mode"></param>
-        public void ChangeClipMode(ClipMode mode)
+        /// <param name="mode">Режим отсечения</param>
+        /// <param name="nodesObj">Имя объекта узловых элементов</param>
+        /// <param name="element3dObj">Имя объекта 3д элементов</param>
+        public void ChangeClipMode(ClipMode mode, string nodesObj, string element3dObj)
         {
             advanced3DClipper.ClipMode = mode;
             advanced3DClipper.IsEnable = mode != ClipMode.Default;
@@ -889,8 +891,8 @@ namespace Scene
                 foreach(var obj in glObjs)
                     obj.ActiveDrawingObject = null;
                 advanced3DClipper.ClipMode = mode;
-                var el3d = FindVBObj("Элемент3D");
-                var nodes = FindVBObj("Узел");
+                var el3d = FindVBObj(element3dObj);
+                var nodes = FindVBObj(nodesObj);
                 if (el3d != null)
                 {
                     advanced3DClipper.Create3DBoundingBoxes((SurfaceObjects)el3d);

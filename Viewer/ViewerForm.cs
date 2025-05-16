@@ -307,8 +307,22 @@ namespace Viewer
                 clip.RedrawClipPlane += () => sceneControl.DisplayObjects();
                 clip.ChangeClipMode += (mode) => 
                 {
+                    var nodes = sceneControl.GetVBObjs().Where(v => v.GL_ObjType == GLObjType.point);
+                    var nodesName = string.Empty;
+
+                    var elems3d = sceneControl.GetVBObjs().Where(v => v.GL_ObjType == GLObjType.triangle).Select(v => (SurfaceObjects)v);
+                    var elems3dName = string.Empty;
+
+                    if (nodes != null)
+                        nodesName = nodes.First().ObjName;
+                    if (elems3d != null)
+                    {
+                        var volumeObj = elems3d.Where(v => v.SeparatorBuffer != 0);
+                        if (volumeObj != null)
+                            elems3dName = volumeObj.First().ObjName;
+                    }
                     var res = ModeConverter(mode);
-                    sceneControl.ChangeClipMode(res);
+                    sceneControl.ChangeClipMode(res, nodesName, elems3dName);
                 };
                 
 
@@ -317,7 +331,7 @@ namespace Viewer
                 {
                     sceneControl.IsClipPlane = false;
                     button2.Tag = null;
-                    sceneControl.ChangeClipMode(Scene.ClipMode.Default);///Обязательный сброс
+                    sceneControl.ChangeClipMode(Scene.ClipMode.Default,"", "");///Обязательный сброс
                     sceneControl.DisplayObjects();
                 };
                 clipForm.Show();

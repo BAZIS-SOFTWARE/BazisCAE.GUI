@@ -71,8 +71,7 @@ namespace BaseModule.SceenControls
 
         private void OnChangeValue(object sender, EventArgs e)
         {
-            var sliders = new [] { colorSlider1, colorSlider2, colorSlider3 };
-            if (sliders.All(x => x.Value == 100))
+            if (colorSlider1.Value == colorSlider2.Value && colorSlider1.Value == colorSlider3.Value && colorSlider1.Value == 100)
                 return;
             var tb = sender as ColorSlider;
             var value = (tb.Value - 100) * 0.01f;
