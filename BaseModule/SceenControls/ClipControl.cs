@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Globalization;
 using UserControlsEx;
+using System.Collections.Generic;
 
 namespace BaseModule.SceenControls
 {
@@ -70,7 +71,8 @@ namespace BaseModule.SceenControls
 
         private void OnChangeValue(object sender, EventArgs e)
         {
-            if (colorSlider1.Value == colorSlider2.Value && colorSlider1.Value == colorSlider3.Value && colorSlider1.Value == 100)
+            var sliders = new [] { colorSlider1, colorSlider2, colorSlider3 };
+            if (sliders.All(x => x.Value == 100))
                 return;
             var tb = sender as ColorSlider;
             var value = (tb.Value - 100) * 0.01f;
