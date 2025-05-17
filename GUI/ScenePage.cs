@@ -5,10 +5,13 @@ using Model;
 using Model.GeometryObjects;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
+using Model.MeshObjects;
+using ModelController.ModelScenePresentator.GlObjsPresenters;
 using ModelControllerInterfaces;
 using Newtonsoft.Json.Linq;
 using Scene;
 using Scene.Interfaces;
+using Scene.VBO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -154,6 +157,13 @@ namespace BazisGUI
                     sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.LinesSurface);
                 else
                     sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.Surface);
+                if (presenter.IsVolumeObjs)
+                {
+                    var pres = (SurfaceObjsPresenter<ElementSurface, Node>)presenter;
+                    var separators = pres.CreateSeparators();
+                    var obj = (SurfaceObjects)sceneControl.FindVBObj(objsName);
+                    sceneControl.CreateSeparators(obj, separators);
+                }
             }
 
             else if (presenter.PresenterType == PresenterType.Line)

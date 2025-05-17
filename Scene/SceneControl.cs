@@ -879,8 +879,10 @@ namespace Scene
         /// <summary>
         /// Смена режима отсечения для 3д элементов
         /// </summary>
-        /// <param name="mode"></param>
-        public void ChangeClipMode(ClipMode mode)
+        /// <param name="mode">Режим отсечения</param>
+        /// <param name="nodesObj">Имя объекта узловых элементов</param>
+        /// <param name="element3dObj">Имя объекта 3д элементов</param>
+        public void ChangeClipMode(ClipMode mode, string nodesObj, string element3dObj)
         {
             advanced3DClipper.ClipMode = mode;
             advanced3DClipper.IsEnable = mode != ClipMode.Default;
@@ -889,8 +891,8 @@ namespace Scene
                 foreach(var obj in glObjs)
                     obj.ActiveDrawingObject = null;
                 advanced3DClipper.ClipMode = mode;
-                var el3d = FindVBObj("Элементы3D");
-                var nodes = FindVBObj("Узлы");
+                var el3d = FindVBObj(element3dObj);
+                var nodes = FindVBObj(nodesObj);
                 if (el3d != null)
                 {
                     advanced3DClipper.Create3DBoundingBoxes((SurfaceObjects)el3d);
@@ -1304,12 +1306,13 @@ namespace Scene
                 var bb = original.BoundingBox;
                 Gl.glPushMatrix();
                 Gl.glMultMatrixf(original.ModelMatrix);
-                var origin = plane.Normal.Mult(plane.Shifting);
+                var normal = Vector.GetVectorNorm(plane.Normal);
+                var origin = normal.Mult(plane.Shifting);
                 Gl.glTranslatef(origin._x, origin._y, origin._z);
                 var z = new Point3D(0, 0, -1);
-                var angleY = Vector.GetCosAngleVectors(z, plane.Normal);
+                var angleY = Vector.GetCosAngleVectors(z, normal);
                 angleY = (float)(Math.Acos(angleY) * 180 / Math.PI);
-                var axisY = Vector.CrossProd(z, plane.Normal);
+                var axisY = Vector.CrossProd(z, normal);
                 Gl.glRotatef(angleY, axisY._x, axisY._y, axisY._z);
 
                 var scale = 1f;
@@ -1317,7 +1320,7 @@ namespace Scene
                 var right = bb.RightDownFar.Mult(scale);
 
                 var zN = (float)Math.Min(right._x - left._x, left._y - right._y) * -Math.Sign(plane.Shifting) * 0.25f;
-                var normal = new Point3D(0, 0, zN);
+                normal = new Point3D(0, 0, zN);
 
                 var center = new Point3D((right._x + left._x) / 2, (right._y + left._y) / 2, 0);
                 var endNormal = center.Sum(normal);

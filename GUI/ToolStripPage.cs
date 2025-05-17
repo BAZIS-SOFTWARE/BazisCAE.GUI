@@ -11,6 +11,7 @@ using Model.MeshObjects;
 using ModelControllerInterfaces;
 using Project.Interfaces;
 using Scene.Interfaces;
+using Scene.VBO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -862,6 +863,25 @@ namespace BazisGUI
                     sceneControl.IsClipPlane = true;
                     clipForm.Controls.Add(clip);
 
+                    clip.ChangeClipMode += (mode) =>
+                    {
+                        var nodes = sceneControl.GetVBObjs().Where(v => v.GL_ObjType == GLObjType.point);
+                        var nodesName = string.Empty;
+
+                        var elems3d = sceneControl.GetVBObjs().Where(v => v.GL_ObjType == GLObjType.triangle).Select(v => (SurfaceObjects)v);
+                        var elems3dName = string.Empty;
+
+                        if (nodes != null)
+                            nodesName = nodes.First().ObjName;
+                        if(elems3d != null)
+                        {
+                            var volumeObj = elems3d.Where(v => v.SeparatorBuffer != 0);
+                            if (volumeObj != null)
+                                elems3dName = volumeObj.First().ObjName;
+                        }
+                        sceneControl.ChangeClipMode((Scene.ClipMode)mode, nodesName, elems3dName);
+                    };
+                    clip.ChangeLayerThickness += (layerThickness) => sceneControl.ChangeLayerLhickness(layerThickness);
                     clip.SetClipPlaneEvent += (plane) =>
                     {
                         //var normal = plane.D;
@@ -874,6 +894,7 @@ namespace BazisGUI
                     {
                         sceneControl.IsClipPlane = false;
                         btn.Checked = false;
+                        sceneControl.ChangeClipMode(Scene.ClipMode.Default,"","");
                         sceneControl.DisplayObjects();
                     };
                     clipForm.Show();
@@ -886,7 +907,7 @@ namespace BazisGUI
                     var form = forms.Find(x => x.Name == "clipPlaneForm");
                     if (form != null)
                     {
-                        sceneControl.IsClipPlane = true;
+                        sceneControl.IsClipPlane = false;
                         form.Close();
                     }
                 }

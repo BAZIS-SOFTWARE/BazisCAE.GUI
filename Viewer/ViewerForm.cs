@@ -45,22 +45,22 @@ namespace Viewer
             //В VBOObject создаем метод CreateLayout - виртуальный, он сохраняет разметку в отдельный VBO
             //Для 3д элементов дополнительно просчитывает BoundingBox элементов
             if (presenter.PresenterType == PresenterType.Point)
-                sceneControl.CreatePointVBObjects(ptrs, coords, colors, normals, "Узлы");
+                sceneControl.CreatePointVBObjects(ptrs, coords, colors, normals, ObjType.Узел.ToString());
             else if (presenter.PresenterType == PresenterType.Line)
             {
                 var edges = presenter.CreateEdgeFlags(inds.Item4);
-                sceneControl.CreateLineVBObjects(ptrs, coords, colors, normals, edges, "Элементы1D");
+                sceneControl.CreateLineVBObjects(ptrs, coords, colors, normals, edges, ObjType.Элемент1D.ToString());
             }
             else if(presenter.PresenterType == PresenterType.Surface)
             {
                 var edges = presenter.CreateEdgeFlags(inds.Item4);
-                var name = presenter.IsVolumeObjs ? "Элементы3D" : "Элементы2D";
+                var name = presenter.IsVolumeObjs ? ObjType.Элемент3D.ToString() : ObjType.Элемент2D.ToString();
                 sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, name, view);
                 if(presenter.IsVolumeObjs)
                 {
                     var pres = (SurfaceObjsPresenter<ElementSurface, Node>)presenter;
                     var separators = pres.CreateSeparators();
-                    var obj = (SurfaceObjects)sceneControl.FindVBObj("Элементы3D");
+                    var obj = (SurfaceObjects)sceneControl.FindVBObj(ObjType.Элемент3D.ToString());
                     sceneControl.CreateSeparators(obj, separators);
                     if (checkBox8.Checked)
                         pres.ShowInsideSurfaces();
@@ -216,10 +216,10 @@ namespace Viewer
                     type = ObjView.LinesSurface;
                 else if (tag == "3")
                     type = ObjView.Surface;
-                if (sceneControl.FindVBObj("Элементы2D") != null)
-                    sceneControl.ChangeViewModeVBObjects("Элементы2D", type);
-                if (sceneControl.FindVBObj("Элементы3D") != null)
-                    sceneControl.ChangeViewModeVBObjects("Элементы3D", type);
+                if (sceneControl.FindVBObj(ObjType.Элемент2D.ToString()) != null)
+                    sceneControl.ChangeViewModeVBObjects(ObjType.Элемент2D.ToString(), type);
+                if (sceneControl.FindVBObj(ObjType.Элемент3D.ToString()) != null)
+                    sceneControl.ChangeViewModeVBObjects(ObjType.Элемент3D.ToString(), type);
                 sceneControl.DisplayObjects();
             }
         }
@@ -277,7 +277,7 @@ namespace Viewer
 
         private void OnShowInside3D(object sender, EventArgs e)
         {
-            sceneControl.DeleteVBObjects("Элементы3D");
+            sceneControl.DeleteVBObjects(ObjType.Элемент3D.ToString());
             var creator = new PresentersCreator();
             Create3DVBOObject(creator);
             sceneControl.DisplayObjects();
@@ -307,8 +307,22 @@ namespace Viewer
                 clip.RedrawClipPlane += () => sceneControl.DisplayObjects();
                 clip.ChangeClipMode += (mode) => 
                 {
+                    var nodes = sceneControl.GetVBObjs().Where(v => v.GL_ObjType == GLObjType.point);
+                    var nodesName = string.Empty;
+
+                    var elems3d = sceneControl.GetVBObjs().Where(v => v.GL_ObjType == GLObjType.triangle).Select(v => (SurfaceObjects)v);
+                    var elems3dName = string.Empty;
+
+                    if (nodes != null)
+                        nodesName = nodes.First().ObjName;
+                    if (elems3d != null)
+                    {
+                        var volumeObj = elems3d.Where(v => v.SeparatorBuffer != 0);
+                        if (volumeObj != null)
+                            elems3dName = volumeObj.First().ObjName;
+                    }
                     var res = ModeConverter(mode);
-                    sceneControl.ChangeClipMode(res);
+                    sceneControl.ChangeClipMode(res, nodesName, elems3dName);
                 };
                 
 
@@ -317,7 +331,7 @@ namespace Viewer
                 {
                     sceneControl.IsClipPlane = false;
                     button2.Tag = null;
-                    sceneControl.ChangeClipMode(Scene.ClipMode.Default);///Обязательный сброс
+                    sceneControl.ChangeClipMode(Scene.ClipMode.Default,"", "");///Обязательный сброс
                     sceneControl.DisplayObjects();
                 };
                 clipForm.Show();
