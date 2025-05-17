@@ -1535,6 +1535,7 @@ namespace Scene
 
                 // draw "Z"
                 var axis_z = frame.Centre.Sum(frame.Dir_Z);
+                
                 Gl.glColor3f(0, 0, 1);
                 Gl.glVertex3f(frame.Centre._x, frame.Centre._y, frame.Centre._z);
                 Gl.glVertex3f(axis_z._x, axis_z._y, axis_z._z);
