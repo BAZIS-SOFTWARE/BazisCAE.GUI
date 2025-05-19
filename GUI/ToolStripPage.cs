@@ -865,21 +865,7 @@ namespace BazisGUI
 
                     clip.ChangeClipMode += (mode) =>
                     {
-                        var nodes = sceneControl.GetVBObjs().Where(v => v.GL_ObjType == GLObjType.point);
-                        var nodesName = string.Empty;
-
-                        var elems3d = sceneControl.GetVBObjs().Where(v => v.GL_ObjType == GLObjType.triangle).Select(v => (SurfaceObjects)v);
-                        var elems3dName = string.Empty;
-
-                        if (nodes != null)
-                            nodesName = nodes.First().ObjName;
-                        if(elems3d != null)
-                        {
-                            var volumeObj = elems3d.Where(v => v.SeparatorBuffer != 0);
-                            if (volumeObj != null)
-                                elems3dName = volumeObj.First().ObjName;
-                        }
-                        sceneControl.ChangeClipMode((Scene.ClipMode)mode, nodesName, elems3dName);
+                            sceneControl.ChangeClipMode((Scene.ClipMode)mode, ObjType.Элемент3D.ToString());
                     };
                     clip.ChangeLayerThickness += (layerThickness) => sceneControl.ChangeLayerLhickness(layerThickness);
                     clip.SetClipPlaneEvent += (plane) =>
@@ -894,7 +880,7 @@ namespace BazisGUI
                     {
                         sceneControl.IsClipPlane = false;
                         btn.Checked = false;
-                        sceneControl.ChangeClipMode(Scene.ClipMode.Default,"","");
+                        sceneControl.ChangeClipMode(Scene.ClipMode.Default,"");
                         sceneControl.DisplayObjects();
                     };
                     clipForm.Show();

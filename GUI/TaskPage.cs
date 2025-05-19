@@ -28,7 +28,8 @@ using Project.TaskParameters;
 using BazisGUI.Utilities;
 using BaseModule.Navigator;
 using BaseModule.GanttChart;
-using Project.Tasks.LocalFrame;
+using Project.Tasks.Functions;
+using Project.Tasks.FrameCreators;
 
 namespace BazisGUI
 {
@@ -744,11 +745,11 @@ namespace BazisGUI
             var trajPoints = mf.BaseLine.Select(x => x.CalcCentr()).ToArray();
             scenePage.SceneControl.DisplayPath(trajPoints);
 
-            if (data.FrameFunction is ISphereFunction sphear )
+            if (data.FrameFunction is SphereFunction sphear )
             {
                 scenePage.SceneControl.DisplaySphere(sphear.Width, frame);
             }
-            else if (data.FrameFunction is ICillindricalFunction cilinder )
+            else if (data.FrameFunction is CillindricalFunction cilinder )
             {
                 scenePage.SceneControl.DisplayConus(cilinder.UpperDiam, cilinder.BottomDiam, cilinder.Length, frame);
             }

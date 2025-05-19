@@ -91,7 +91,7 @@ namespace BazisGUI
         public virtual void PresentCrossSection(SurfaceFigure surface)
         {
 
-            var presenter = ModelController.PresentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface }, false);
+            var presenter = ModelController.PresentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
 
             var inds = presenter.CreateIndexes();
             var ptrs = presenter.CreatePointers(inds.Item1);
@@ -99,8 +99,9 @@ namespace BazisGUI
             var colors = presenter.CreateVertexes(inds.Item3, "цвет");
             var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
             var edges = presenter.CreateEdgeFlags(inds.Item4);
+            var separs = presenter.CreateSeparators();
 
-            sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, "crossSection", ObjView.LinesSurface);
+            sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, "crossSection", separs, ObjView.LinesSurface);
             sceneControl.DisplayObjects();
         }
 
@@ -136,12 +137,6 @@ namespace BazisGUI
 
         public void CreateObjectsOnScene(string objsName, IObjsPresenter presenter)
         {
-            if (!sceneControl.DrawInsideObjects & presenter.IsVolumeObjs)
-            {
-                var volPresenter = (IVolumeObjsPresenter)presenter;
-                volPresenter.HideInsideSurfaces();
-            }
-
             var inds = presenter.CreateIndexes();
             var ptrs = presenter.CreatePointers(inds.Item1);
             var coords = presenter.CreateVertexes(inds.Item2, "координаты");
@@ -151,19 +146,15 @@ namespace BazisGUI
 
             if (presenter.PresenterType == PresenterType.Surface)
             {
+                var pres = (ISurfaceObjsPresenter)presenter;
+                var separs = pres.CreateSeparators();
+
                 if (presenter.ViewMode == ViewMode.Line)
-                    sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.Lines);
+                    sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs,ObjView.Lines);
                 else if (presenter.ViewMode == ViewMode.LineSurface)
-                    sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.LinesSurface);
+                    sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs,ObjView.LinesSurface);
                 else
-                    sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, ObjView.Surface);
-                if (presenter.IsVolumeObjs)
-                {
-                    var pres = (SurfaceObjsPresenter<ElementSurface, Node>)presenter;
-                    var separators = pres.CreateSeparators();
-                    var obj = (SurfaceObjects)sceneControl.FindVBObj(objsName);
-                    sceneControl.CreateSeparators(obj, separators);
-                }
+                    sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs,ObjView.Surface);
             }
 
             else if (presenter.PresenterType == PresenterType.Line)
@@ -312,37 +303,32 @@ namespace BazisGUI
 
         public IObjsPresenter CreateObjectsPresentor(ObjType objType)
         {
-            IObjsPresenter presenter;
+            //IObjsPresenter presenter;
 
             switch (objType)
             {
                 case ObjType.Узел:
-                    presenter = PresentersCreator.CreatePointObjectsPresenter(ModelData.ObjectData.NodesSet.Values);
-                    break;
+                    return PresentersCreator.CreatePointObjectsPresenter(ModelData.ObjectData.NodesSet.Values);
                 case ObjType.Кривая:
-                    presenter = PresentersCreator.CreateLineObjectsPresenter(ModelData.ObjectData.CurveCollection.GetObjects());
-                    break;
+                    return PresentersCreator.CreateLineObjectsPresenter(ModelData.ObjectData.CurveCollection.GetObjects());
                 case ObjType.Поверхность:
-                    presenter = PresentersCreator.CreateSurfaceObjectsPresenter(ModelData.ObjectData.SurfaceCollection.GetObjects(), false);
-                    break;
+                    return PresentersCreator.CreateSurfaceObjectsPresenter(ModelData.ObjectData.SurfaceCollection.GetObjects());                   
                 case ObjType.Объем:
-                    presenter = PresentersCreator.CreateSurfaceObjectsPresenter(ModelData.ObjectData.VolumeCollection.GetObjects(), false);
-                    break;
+                    return PresentersCreator.CreateSurfaceObjectsPresenter(ModelData.ObjectData.VolumeCollection.GetObjects());
                 case ObjType.Элемент1D:
-                    presenter = PresentersCreator.CreateLineObjectsPresenter(ModelData.ObjectData.E1DCollection.GetObjects());
-                    break;
-                case ObjType.Элемент2D:
-                    presenter = PresentersCreator.CreateSurfaceObjectsPresenter(ModelData.ObjectData.E2DCollection.GetObjects(), false);
-                    break;
-                case ObjType.Элемент3D:
-                    presenter = PresentersCreator.CreateSurfaceObjectsPresenter(ModelData.ObjectData.E3DCollection.GetObjects(), true);
-                    break;
-                default:
-                    presenter = PresentersCreator.CreatePointObjectsPresenter(ModelData.ObjectData.PointsSet.Values);
-                    break;
-            }
+                    return PresentersCreator.CreateLineObjectsPresenter(ModelData.ObjectData.E1DCollection.GetObjects());
 
-            return presenter;
+                case ObjType.Элемент2D:
+                    return PresentersCreator.CreateSurfaceObjectsPresenter(ModelData.ObjectData.E2DCollection.GetObjects());
+
+                case ObjType.Элемент3D:
+                    var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(ModelData.ObjectData.E3DCollection.GetObjects());
+                    if (!sceneControl.DrawInsideObjects)
+                        presenter.HideInsideSurfaces();
+                    return presenter;
+                default:
+                    return PresentersCreator.CreatePointObjectsPresenter(ModelData.ObjectData.PointsSet.Values);
+            }
         }
 
         private void создатьГруппуItem_Click(object sender, EventArgs e)

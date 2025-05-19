@@ -882,27 +882,21 @@ namespace Scene
         /// <param name="mode">Режим отсечения</param>
         /// <param name="nodesObj">Имя объекта узловых элементов</param>
         /// <param name="element3dObj">Имя объекта 3д элементов</param>
-        public void ChangeClipMode(ClipMode mode, string nodesObj, string element3dObj)
+        public void ChangeClipMode(ClipMode mode, string element3dObj)
         {
             advanced3DClipper.ClipMode = mode;
             advanced3DClipper.IsEnable = mode != ClipMode.Default;
-            if(advanced3DClipper.IsEnable)
+            if (advanced3DClipper.IsEnable)
             {
-                foreach(var obj in glObjs)
+                foreach (var obj in glObjs)
                     obj.ActiveDrawingObject = null;
                 advanced3DClipper.ClipMode = mode;
                 var el3d = FindVBObj(element3dObj);
-                var nodes = FindVBObj(nodesObj);
+                //var nodes = FindVBObj(nodesObj);
                 if (el3d != null)
                 {
                     advanced3DClipper.Create3DBoundingBoxes((SurfaceObjects)el3d);
                     el3d.ActiveDrawingObject = advanced3DClipper;
-                }
-                if (nodes != null)
-                {
-                    if (advanced3DClipper.PointsColor == null)
-                        advanced3DClipper.PointsColor = nodes.PointsColors.Take(4).ToArray();
-                    nodes.ActiveDrawingObject = advanced3DClipper;
                 }
             }
             else//Перевод всех VBO в режим смешивания, если задан режим смешивания
@@ -1206,13 +1200,16 @@ namespace Scene
         /// <param name="normals"></param>
         /// <param name="edges"></param>
         /// <param name="objsName"></param>
+        /// <param name="separs"></param>
         /// <param name="viewMode"></param>
-        public void CreateSurfaceVBObjects(int[] ptrs, float[] coords, float[] colors, float[] normals, bool[] edges, string objsName, ObjView viewMode)
+        public void CreateSurfaceVBObjects(int[] ptrs, float[] coords, float[] colors, float[] normals, 
+            bool[] edges, string objsName, int[] separs,ObjView viewMode)
         {
             if (IsSmoothShadow)
                 normals = SmoothShadow(coords, normals);
 
             var vbObj = new SurfaceObjects(edges, ptrs, coords, colors, normals, objsName);
+            vbObj.CreateSeparators(separs);
             vbObj.ViewMode = viewMode;
             glObjs.Add(vbObj);
             vbObj.ActiveDrawingObject = AverageColorRenderer.IsEnable ? averageColorRenderer : null;
@@ -1247,20 +1244,6 @@ namespace Scene
             obj.ActiveDrawingObject = AverageColorRenderer.IsEnable ? averageColorRenderer : null;
         }
 
-        /// <summary>
-        /// Добавляет разметку элементов для SurfaceObjects, принятых от SurfaceObjPresenter
-        /// </summary>
-        /// <param name="sObj">Объект SurfaceObjects</param>
-        /// <param name="separators">Массив разметки</param>
-        public void CreateSeparators(SurfaceObjects sObj, int[] separators)
-        {
-            if (sObj == null)
-                throw new ArgumentException("Получена пустая ссылка на объект");
-            if (separators == null)
-                throw new ArgumentException("Получен пустой массив разметки");
-            sObj.CreateSeparators(separators);
-        }
-
 
 /// <inheritdoc/>
 
@@ -1280,7 +1263,8 @@ namespace Scene
                 var sObj = original as SurfaceObjects;
                 var edges = sObj.EdgeFlags;
                 normals = normals.Select(v => -v).ToArray();
-                CreateSurfaceVBObjects(pointers, coords, colors, normals, edges, copyName, ObjView.LinesSurface);
+                
+                CreateSurfaceVBObjects(pointers, coords, colors, normals, edges, copyName, sObj.Separators, ObjView.LinesSurface);
             }
         }
 /// <inheritdoc/>

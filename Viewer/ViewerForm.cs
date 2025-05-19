@@ -17,6 +17,7 @@ using Model.IO.STL;
 using BaseModule.SceenControls;
 using Geometry;
 using Scene;
+using System.Xml.Linq;
 //using ModelControllerInterface;
 
 namespace Viewer
@@ -35,38 +36,31 @@ namespace Viewer
             Text+= $" {ver.Major}.{ver.Minor}.{ver.Build}";
         }       
 
-        private void CreateVBOObjects(IObjsPresenter presenter, ObjView view)
+        private void CreateVBOObjects(IObjsPresenter presenter, ObjView view, ObjType objType)
         {
             var inds = presenter.CreateIndexes();
             var ptrs = presenter.CreatePointers(inds.Item1);
             var coords = presenter.CreateVertexes(inds.Item2, "координаты");
             var colors = presenter.CreateVertexes(inds.Item3, "цвет");
             var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
+
+            var name = objType.ToString();
             //В VBOObject создаем метод CreateLayout - виртуальный, он сохраняет разметку в отдельный VBO
             //Для 3д элементов дополнительно просчитывает BoundingBox элементов
             if (presenter.PresenterType == PresenterType.Point)
-                sceneControl.CreatePointVBObjects(ptrs, coords, colors, normals, ObjType.Узел.ToString());
+                sceneControl.CreatePointVBObjects(ptrs, coords, colors, normals, name);
             else if (presenter.PresenterType == PresenterType.Line)
             {
                 var edges = presenter.CreateEdgeFlags(inds.Item4);
-                sceneControl.CreateLineVBObjects(ptrs, coords, colors, normals, edges, ObjType.Элемент1D.ToString());
+                sceneControl.CreateLineVBObjects(ptrs, coords, colors, normals, edges, name);
             }
             else if(presenter.PresenterType == PresenterType.Surface)
             {
+                var surfPres = (ISurfaceObjsPresenter)presenter;
                 var edges = presenter.CreateEdgeFlags(inds.Item4);
-                var name = presenter.IsVolumeObjs ? ObjType.Элемент3D.ToString() : ObjType.Элемент2D.ToString();
-                sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, name, view);
-                if(presenter.IsVolumeObjs)
-                {
-                    var pres = (SurfaceObjsPresenter<ElementSurface, Node>)presenter;
-                    var separators = pres.CreateSeparators();
-                    var obj = (SurfaceObjects)sceneControl.FindVBObj(ObjType.Элемент3D.ToString());
-                    sceneControl.CreateSeparators(obj, separators);
-                    if (checkBox8.Checked)
-                        pres.ShowInsideSurfaces();
-                    else
-                        pres.HideInsideSurfaces();
-                }
+
+                var separs = surfPres.CreateSeparators();
+                sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, name, separs,view);
             }
         }
 
@@ -91,16 +85,14 @@ namespace Viewer
             if (model.ObjectData.E3DCollection.Count > 0)
             {
                 var view = ExtractObjView(creator);
-                var e3d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.E3DCollection.GetObjects(), true);
-                if (e3d.IsVolumeObjs)
-                {
-                    var volPresenter = (IVolumeObjsPresenter)e3d;
-                    if (checkBox8.Checked)
-                        volPresenter.ShowInsideSurfaces();
-                    else
-                        volPresenter.HideInsideSurfaces();
-                }
-                CreateVBOObjects(e3d, view);
+                var e3d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.E3DCollection.GetObjects());
+
+                if (checkBox8.Checked)
+                    e3d.ShowInsideSurfaces();
+                else
+                    e3d.HideInsideSurfaces();
+
+                CreateVBOObjects(e3d, view, ObjType.Элемент3D);
             }
         }
 
@@ -110,47 +102,53 @@ namespace Viewer
             if (model.ObjectData.NodesSet.Values.Count > 0)
             {
                 var nodes = creator.CreatePointObjectsPresenter(model.ObjectData.NodesSet.Values);
-                CreateVBOObjects(nodes, ObjView.None);
+                CreateVBOObjects(nodes, ObjView.None, ObjType.Узел);
             }
             if(model.ObjectData.PointsSet.Values.Count > 0)
             {
                 var points = creator.CreatePointObjectsPresenter(model.ObjectData.PointsSet.Values);
-                CreateVBOObjects(points, ObjView.None);
+                CreateVBOObjects(points, ObjView.None, ObjType.Точка);
             }
             if (model.ObjectData.CurveCollection.Count > 0)
             {
                 var curves = creator.CreateLineObjectsPresenter(model.ObjectData.CurveCollection.GetObjects());
-                CreateVBOObjects(curves, ObjView.None);
+                CreateVBOObjects(curves, ObjView.None, ObjType.Кривая);
             }
             if(model.ObjectData.E1DCollection.Count > 0)
             {
                 var e1d = creator.CreateLineObjectsPresenter(model.ObjectData.E1DCollection.GetObjects());
-                CreateVBOObjects(e1d, ObjView.None);
+                CreateVBOObjects(e1d, ObjView.None, ObjType.Элемент1D);
             }
             if(model.ObjectData.E2DCollection.Count > 0)
             {
                 var view = ExtractObjView(creator);
-                var e2d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.E2DCollection.GetObjects(), false);
-                CreateVBOObjects(e2d, view);
+                var e2d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.E2DCollection.GetObjects());
+                CreateVBOObjects(e2d, view, ObjType.Элемент2D);
             }
             if (model.ObjectData.E3DCollection.Count > 0)
             {
                 var view = ExtractObjView(creator);
-                var e3d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.E3DCollection.GetObjects(), true);
-                CreateVBOObjects(e3d, view);
+                var e3d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.E3DCollection.GetObjects());
+
+                if (checkBox8.Checked)
+                    e3d.ShowInsideSurfaces();
+                else
+                    e3d.HideInsideSurfaces();
+
+                CreateVBOObjects(e3d, view, ObjType.Элемент3D);
                 //Create3DVBOObject(creator);
             }
             if (model.ObjectData.SurfaceCollection.Count > 0)
             {
                 var view = ExtractObjView(creator);
-                var f2d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.SurfaceCollection.GetObjects(), false);
-                CreateVBOObjects(f2d, view);
+                var f2d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.SurfaceCollection.GetObjects());
+                CreateVBOObjects(f2d, view, ObjType.Поверхность);
             }
             if (model.ObjectData.VolumeCollection.Count > 0)
             {
                 var view = ExtractObjView(creator);
-                var f3d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.VolumeCollection.GetObjects(), true);
-                CreateVBOObjects(f3d, view);
+                var f3d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.VolumeCollection.GetObjects());
+                CreateVBOObjects(f3d, view, ObjType.Объем);
             }
         }
 
@@ -166,7 +164,7 @@ namespace Viewer
             if (ext == ".stl")
                 model.Loader = new LoadFromSTLFile();
             else if (ext == ".ASC")
-                model.Loader = new LoadModelFromASCIITextFile();
+                model.Loader = new LoadModelFromASCIITextFile_v2();
             else if (ext == ".cdb")
                 model.Loader = new LoadModelFromCDBTextFile();
             else if(ext == ".inp")
@@ -307,14 +305,14 @@ namespace Viewer
                 clip.RedrawClipPlane += () => sceneControl.DisplayObjects();
                 clip.ChangeClipMode += (mode) => 
                 {
-                    var nodes = sceneControl.GetVBObjs().Where(v => v.GL_ObjType == GLObjType.point);
-                    var nodesName = string.Empty;
+                    //var nodes = sceneControl.GetVBObjs().Where(v => v.GL_ObjType == GLObjType.point);
+                    //var nodesName = string.Empty;
 
                     var elems3d = sceneControl.GetVBObjs().Where(v => v.GL_ObjType == GLObjType.triangle).Select(v => (SurfaceObjects)v);
                     var elems3dName = string.Empty;
 
-                    if (nodes != null)
-                        nodesName = nodes.First().ObjName;
+                    //if (nodes != null)
+                    //    nodesName = nodes.First().ObjName;
                     if (elems3d != null)
                     {
                         var volumeObj = elems3d.Where(v => v.SeparatorBuffer != 0);
@@ -322,7 +320,7 @@ namespace Viewer
                             elems3dName = volumeObj.First().ObjName;
                     }
                     var res = ModeConverter(mode);
-                    sceneControl.ChangeClipMode(res, nodesName, elems3dName);
+                    sceneControl.ChangeClipMode(res, elems3dName);
                 };
                 
 
@@ -331,7 +329,7 @@ namespace Viewer
                 {
                     sceneControl.IsClipPlane = false;
                     button2.Tag = null;
-                    sceneControl.ChangeClipMode(Scene.ClipMode.Default,"", "");///Обязательный сброс
+                    sceneControl.ChangeClipMode(Scene.ClipMode.Default,"");///Обязательный сброс
                     sceneControl.DisplayObjects();
                 };
                 clipForm.Show();
