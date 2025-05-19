@@ -516,6 +516,9 @@
     <EmbeddedResource Include="Tasks\HeatTreatmentModule\PinnedHTAdvControl.resx">
       <DependentUpon>PinnedHTAdvControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\TasksFromNavigator\GeneralСontrol.resx">
+      <DependentUpon>GeneralСontrol.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Tasks\WeldingModule\PinnedWAdvControl.resx">
       <DependentUpon>PinnedWAdvControl.cs</DependentUpon>
     </EmbeddedResource>
