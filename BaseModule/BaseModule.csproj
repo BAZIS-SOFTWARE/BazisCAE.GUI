@@ -327,6 +327,12 @@
     <Compile Include="Tasks\HeatTreatmentModule\PinnedHTAdvControl.Designer.cs">
       <DependentUpon>PinnedHTAdvControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\GeneralСontrol.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\GeneralСontrol.Designer.cs">
+      <DependentUpon>GeneralСontrol.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tasks\WeldingModule\PinnedWAdvControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
