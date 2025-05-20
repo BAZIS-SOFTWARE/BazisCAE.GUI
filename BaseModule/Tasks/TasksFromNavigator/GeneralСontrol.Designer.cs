@@ -38,12 +38,24 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.movementParametersGroupBox = new System.Windows.Forms.GroupBox();
             this.trajectoryTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.generalTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelX = new TableLayoutPanel();
+            this.tableLayoutPanelY = new TableLayoutPanel();
+            this.tableLayoutPanelZ = new TableLayoutPanel();
+            this.tableLayoutPanelAngle = new TableLayoutPanel();
             this.baseLineLabel = new System.Windows.Forms.Label();
             this.refLineLabel = new System.Windows.Forms.Label();
             this.startNodeLabel = new System.Windows.Forms.Label();
             this.sourcePositionLabel = new System.Windows.Forms.Label();
             this.sourceVelocityLabel = new System.Windows.Forms.Label();
             this.startLabel = new System.Windows.Forms.Label();
+            this.labelX = new System.Windows.Forms.Label();
+            this.labelY = new System.Windows.Forms.Label();
+            this.labelZ = new System.Windows.Forms.Label();
+            this.labelAngle = new System.Windows.Forms.Label();
+            this.txbX = new TextBoxEx();
+            this.txbY = new TextBoxEx();
+            this.txbZ = new TextBoxEx();
+            this.txbAngle = new TextBoxEx();
             this.cmbRef = new ComboBoxEx();
             this.cmbTraj = new ComboBoxEx();
             this.cmbStartPoint = new ComboBoxEx();
@@ -115,6 +127,138 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.trajectoryTableLayoutPanel.Controls.Add(sourcePositionLabel, 0, 3);
             this.trajectoryTableLayoutPanel.Controls.Add(sourceVelocityLabel, 0, 4);
             this.trajectoryTableLayoutPanel.Controls.Add(startLabel, 0, 5);
+            this.trajectoryTableLayoutPanel.Controls.Add(tableLayoutPanelX, 1, 3);
+            this.trajectoryTableLayoutPanel.Controls.Add(tableLayoutPanelY, 2, 3);
+            this.trajectoryTableLayoutPanel.Controls.Add(tableLayoutPanelZ, 3, 3);
+            this.trajectoryTableLayoutPanel.Controls.Add(tableLayoutPanelAngle, 4, 3);
+            //
+            // tableLayoutPanelX
+            //
+            tableLayoutPanelX.Dock = DockStyle.Fill;
+            tableLayoutPanelX.AutoSize = true;
+            tableLayoutPanelX.ColumnCount = 2;
+            tableLayoutPanelX.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanelX.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanelX.RowCount = 1;
+            tableLayoutPanelX.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            tableLayoutPanelX.Controls.Add(labelX, 0, 0);
+            tableLayoutPanelX.Controls.Add(txbX, 1, 0);
+            //
+            // tableLayoutPanelY
+            //
+            tableLayoutPanelY.Dock = DockStyle.Fill;
+            tableLayoutPanelY.AutoSize = true;
+            tableLayoutPanelY.ColumnCount = 2;
+            tableLayoutPanelY.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanelY.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanelY.RowCount = 1;
+            tableLayoutPanelY.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            tableLayoutPanelY.Controls.Add(labelY, 0, 0);
+            tableLayoutPanelY.Controls.Add(txbY, 1, 0);
+            //
+            // tableLayoutPanelZ
+            //
+            tableLayoutPanelZ.Dock = DockStyle.Fill;
+            tableLayoutPanelZ.AutoSize = true;
+            tableLayoutPanelZ.ColumnCount = 2;
+            tableLayoutPanelZ.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanelZ.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanelZ.RowCount = 1;
+            tableLayoutPanelZ.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            tableLayoutPanelZ.Controls.Add(labelZ, 0, 0);
+            tableLayoutPanelZ.Controls.Add(txbZ, 1, 0);
+            //
+            // tableLayoutPanelAngle
+            //
+            tableLayoutPanelAngle.Dock = DockStyle.Fill;
+            tableLayoutPanelAngle.AutoSize = true;
+            tableLayoutPanelAngle.ColumnCount = 2;
+            tableLayoutPanelAngle.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanelAngle.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanelAngle.RowCount = 1;
+            tableLayoutPanelAngle.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            tableLayoutPanelAngle.Controls.Add(labelAngle, 0, 0);
+            tableLayoutPanelAngle.Controls.Add(txbAngle, 1, 0);
+            // 
+            // labelX
+            // 
+            labelX.Margin = new Padding(10, 10, 0, 0);
+            labelX.AutoSize = true;
+            labelX.Name = "labelX";
+            labelX.TabIndex = 0;
+            labelX.Text = "dX:";
+            // 
+            // txbX
+            // 
+            txbX.AccessibleName = "txbX";
+            txbX.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txbX.InputType = TXTBoxInputType.Float;
+            txbX.IsValidating = true;
+            txbX.Margin = new Padding(0, 5, 15, 0);
+            txbX.Name = "txbX";
+            txbX.TabIndex = 0;
+            txbX.UserRegExCheck = null;
+            txbX.UserRegExCheckErrorMessage = null;
+            // 
+            // labelY
+            // 
+            labelY.Margin = new Padding(10, 10, 0, 0);
+            labelY.AutoSize = true;
+            labelY.Name = "labelY";
+            labelY.TabIndex = 0;
+            labelY.Text = "dY: ";
+            // 
+            // txbY
+            // 
+            txbY.AccessibleName = "txbY";
+            txbY.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txbY.InputType = TXTBoxInputType.Float;
+            txbY.IsValidating = true;
+            txbY.Margin = new Padding(0, 5, 15, 0);
+            txbY.Name = "txbY";
+            txbY.TabIndex = 0;
+            txbY.UserRegExCheck = null;
+            txbY.UserRegExCheckErrorMessage = null;
+            // 
+            // labelZ
+            // 
+            labelZ.Margin = new Padding(10, 10, 0, 0);
+            labelZ.AutoSize = true;
+            labelZ.Name = "labelZ";
+            labelZ.TabIndex = 0;
+            labelZ.Text = "dZ: ";
+            // 
+            // txbZ
+            // 
+            txbZ.AccessibleName = "txbZ";
+            txbZ.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txbZ.InputType = TXTBoxInputType.Float;
+            txbZ.IsValidating = true;
+            txbZ.Margin = new Padding(0, 5, 15, 0);
+            txbZ.Name = "txbZ";
+            txbZ.TabIndex = 0;
+            txbZ.UserRegExCheck = null;
+            txbZ.UserRegExCheckErrorMessage = null;
+            // 
+            // labelAngle
+            // 
+            labelAngle.Margin = new Padding(10, 10, 0, 0);
+            labelAngle.AutoSize = true;
+            labelAngle.Name = "labelAngle";
+            labelAngle.TabIndex = 0;
+            labelAngle.Text = "Угол: ";
+            // 
+            // txbAngle
+            // 
+            txbAngle.AccessibleName = "txbAngle";
+            txbAngle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txbAngle.InputType = TXTBoxInputType.Float;
+            txbAngle.IsValidating = true;
+            txbAngle.Margin = new Padding(0, 5, 15, 0);
+            txbAngle.Name = "txbAngle";
+            txbAngle.TabIndex = 0;
+            txbAngle.UserRegExCheck = null;
+            txbAngle.UserRegExCheckErrorMessage = null;
             // 
             // baseLineLabel
             // 
@@ -146,7 +290,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             sourcePositionLabel.AutoSize = true;
             sourcePositionLabel.Name = "sourceositionLabel";
             sourcePositionLabel.TabIndex = 0;
-            sourcePositionLabel.Text = "Положение источника";
+            sourcePositionLabel.Text = "Смещение источника";
             // 
             // sourceVelocityLabel
             // 
@@ -166,25 +310,23 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // 
             // cmbRef
             // 
-            this.cmbRef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbRef.FormattingEnabled = true;
-            this.cmbRef.InputType = UserControlsEx.CMBInputType.Items;
-            this.cmbRef.IsValidating = true;
-            this.cmbRef.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.cmbRef.Name = "cmbRef";
-            this.cmbRef.TabIndex = 29;
-            this.cmbRef.UserRegExCheck = null;
-            this.cmbRef.UserRegExCheckErrorMessage = null;
+            cmbRef.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cmbRef.FormattingEnabled = true;
+            cmbRef.InputType = UserControlsEx.CMBInputType.Items;
+            cmbRef.IsValidating = true;
+            cmbRef.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
+            cmbRef.Name = "cmbRef";
+            cmbRef.TabIndex = 29;
+            cmbRef.UserRegExCheck = null;
+            cmbRef.UserRegExCheckErrorMessage = null;
             // 
             // cmbTraj
             // 
-            this.cmbTraj.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbTraj.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             this.cmbTraj.FormattingEnabled = true;
             this.cmbTraj.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbTraj.IsValidating = true;
-            this.cmbTraj.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
+            this.cmbTraj.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbTraj.Name = "cmbTraj";
             this.cmbTraj.TabIndex = 29;
             this.cmbTraj.UserRegExCheck = null;
@@ -192,12 +334,11 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // 
             // cmbStartPoint
             // 
-            this.cmbStartPoint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbStartPoint.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             this.cmbStartPoint.FormattingEnabled = true;
             this.cmbStartPoint.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbStartPoint.IsValidating = true;
-            this.cmbStartPoint.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
+            this.cmbStartPoint.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbStartPoint.Name = "cmbStartPoint";
             this.cmbStartPoint.TabIndex = 35;
             this.cmbStartPoint.UserRegExCheck = null;
@@ -223,6 +364,10 @@ namespace BaseModule.Tasks.TasksFromNavigator
         #endregion
         private TableLayoutPanel generalTableLayoutPanel;
         private TableLayoutPanel trajectoryTableLayoutPanel;
+        private TableLayoutPanel tableLayoutPanelX;
+        private TableLayoutPanel tableLayoutPanelY;
+        private TableLayoutPanel tableLayoutPanelZ;
+        private TableLayoutPanel tableLayoutPanelAngle;
         private GroupBox movementParametersGroupBox;
         private System.Windows.Forms.Label baseLineLabel;
         private System.Windows.Forms.Label refLineLabel;
@@ -230,6 +375,14 @@ namespace BaseModule.Tasks.TasksFromNavigator
         private System.Windows.Forms.Label sourcePositionLabel;
         private System.Windows.Forms.Label sourceVelocityLabel;
         private System.Windows.Forms.Label startLabel;
+        private System.Windows.Forms.Label labelX;
+        private System.Windows.Forms.Label labelY;
+        private System.Windows.Forms.Label labelZ;
+        private System.Windows.Forms.Label labelAngle;
+        private TextBoxEx txbX;
+        private TextBoxEx txbY;
+        private TextBoxEx txbZ;
+        private TextBoxEx txbAngle;
         private ComboBoxEx cmbRef;
         private ComboBoxEx cmbTraj;
         private ComboBoxEx cmbStartPoint;
