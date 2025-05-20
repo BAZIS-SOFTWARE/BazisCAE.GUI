@@ -38,6 +38,8 @@ namespace BazisGUI
             this.taskMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.diagram_gantt_toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.материалToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.taskMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,9 +62,10 @@ namespace BazisGUI
             this.taskMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.taskMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.удалитьToolStripMenuItem,
-            this.diagram_gantt_toolStripMenuItem});
+            this.diagram_gantt_toolStripMenuItem,
+            this.добавитьToolStripMenuItem});
             this.taskMenuStrip.Name = "taskMenuStrip";
-            this.taskMenuStrip.Size = new System.Drawing.Size(214, 48);
+            this.taskMenuStrip.Size = new System.Drawing.Size(214, 92);
             // 
             // удалитьToolStripMenuItem
             // 
@@ -77,6 +80,21 @@ namespace BazisGUI
             this.diagram_gantt_toolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.diagram_gantt_toolStripMenuItem.Text = "Показать на диаграммме";
             this.diagram_gantt_toolStripMenuItem.Click += new System.EventHandler(this.diagram_gantt_toolStripMenuItem_Click);
+            // 
+            // добавитьToolStripMenuItem
+            // 
+            this.добавитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.материалToolStripMenuItem});
+            this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
+            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.добавитьToolStripMenuItem.Text = "Добавить";
+            // 
+            // материалToolStripMenuItem
+            // 
+            this.материалToolStripMenuItem.Name = "материалToolStripMenuItem";
+            this.материалToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.материалToolStripMenuItem.Text = "Материал";
+            this.материалToolStripMenuItem.Click += new System.EventHandler(this.AddPhysicalData);
             // 
             // TaskPage
             // 
@@ -101,6 +119,8 @@ namespace BazisGUI
         private ContextMenuStrip taskMenuStrip;
         private ToolStripMenuItem удалитьToolStripMenuItem;
         private ToolStripMenuItem diagram_gantt_toolStripMenuItem;
+        private ToolStripMenuItem добавитьToolStripMenuItem;
+        private ToolStripMenuItem материалToolStripMenuItem;
         //ToolStrip taskToolStrip;
     }
 }

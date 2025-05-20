@@ -1034,5 +1034,10 @@ namespace BazisGUI
             toolStripMenuItem.Checked = true;
             ganttDiagramForm.FormClosed += (s, e) => toolStripMenuItem.Checked = false;
         }
+
+        private void AddPhysicalData(object sender, EventArgs eventArgs)
+        {
+
+        }
     }
 }
