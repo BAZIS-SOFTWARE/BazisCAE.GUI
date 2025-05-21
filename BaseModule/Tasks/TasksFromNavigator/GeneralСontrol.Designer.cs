@@ -494,16 +494,16 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.matControl.Margin = new System.Windows.Forms.Padding(2);
             this.matControl.Name = "matControl";
             this.matControl.TabIndex = 0;
-            this.matControl.Visible = false;
             // 
             // clampControl
             // 
             this.clampControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.clampControl.AutoSize = true;
-            this.clampControl.Location = new System.Drawing.Point(2, 2);
+            this.clampControl.Location = new System.Drawing.Point(2, 6);
             this.clampControl.Margin = new System.Windows.Forms.Padding(2);
             this.clampControl.Name = "clampControl";
             this.clampControl.TabIndex = 0;
+
             // 
             // GeneralСontrol
             // 

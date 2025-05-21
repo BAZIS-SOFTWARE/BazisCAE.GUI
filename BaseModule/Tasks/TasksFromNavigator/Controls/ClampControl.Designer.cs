@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using UserControlsEx;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
@@ -32,6 +33,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             generalTableLayoutPanel = new TableLayoutPanel();
             tableLayoutPanel1 = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
