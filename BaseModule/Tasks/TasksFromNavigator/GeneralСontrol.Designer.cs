@@ -4,6 +4,7 @@ using TaskModule.BasicAdvisorControls;
 using System.Reflection.Emit;
 using MathNet.Numerics;
 using UserControlsEx;
+using BaseModule.Tasks.TasksFromNavigator.Controls;
 
 namespace BaseModule.Tasks.TasksFromNavigator
 {
@@ -35,39 +36,48 @@ namespace BaseModule.Tasks.TasksFromNavigator
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.movementParametersGroupBox = new System.Windows.Forms.GroupBox();
             this.trajectoryTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.generalTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanelX = new TableLayoutPanel();
-            this.tableLayoutPanelY = new TableLayoutPanel();
-            this.tableLayoutPanelZ = new TableLayoutPanel();
-            this.tableLayoutPanelAngleX = new TableLayoutPanel();
-            this.tableLayoutPanelAngleY = new TableLayoutPanel();
-            this.tableLayoutPanelAngleZ = new TableLayoutPanel();
             this.baseLineLabel = new System.Windows.Forms.Label();
+            this.cmbTraj = new UserControlsEx.ComboBoxEx(this.components);
             this.refLineLabel = new System.Windows.Forms.Label();
+            this.cmbRef = new UserControlsEx.ComboBoxEx(this.components);
             this.sourcePositionLabel = new System.Windows.Forms.Label();
-            this.rotationLabel = new System.Windows.Forms.Label();
-            this.sourceVelocityLabel = new System.Windows.Forms.Label();
-            this.startLabel = new System.Windows.Forms.Label();
+            this.tableLayoutPanelX = new System.Windows.Forms.TableLayoutPanel();
             this.labelX = new System.Windows.Forms.Label();
+            this.txbX = new UserControlsEx.TextBoxEx(this.components);
+            this.tableLayoutPanelY = new System.Windows.Forms.TableLayoutPanel();
             this.labelY = new System.Windows.Forms.Label();
+            this.txbY = new UserControlsEx.TextBoxEx(this.components);
+            this.tableLayoutPanelZ = new System.Windows.Forms.TableLayoutPanel();
             this.labelZ = new System.Windows.Forms.Label();
+            this.txbZ = new UserControlsEx.TextBoxEx(this.components);
+            this.rotationLabel = new System.Windows.Forms.Label();
+            this.tableLayoutPanelAngleX = new System.Windows.Forms.TableLayoutPanel();
             this.labelAngleX = new System.Windows.Forms.Label();
+            this.txbAngleX = new UserControlsEx.TextBoxEx(this.components);
+            this.tableLayoutPanelAngleY = new System.Windows.Forms.TableLayoutPanel();
             this.labelAngleY = new System.Windows.Forms.Label();
+            this.txbAngleY = new UserControlsEx.TextBoxEx(this.components);
+            this.tableLayoutPanelAngleZ = new System.Windows.Forms.TableLayoutPanel();
             this.labelAngleZ = new System.Windows.Forms.Label();
-            this.txbX = new TextBoxEx();
-            this.txbY = new TextBoxEx();
-            this.txbZ = new TextBoxEx();
-            this.txbAngleX = new TextBoxEx();
-            this.txbAngleY = new TextBoxEx();
-            this.txbAngleZ = new TextBoxEx();
-            this.txbVelosity = new TextBoxEx();
-            this.txbStartTime = new TextBoxEx();
-            this.cmbRef = new ComboBoxEx();
-            this.cmbTraj = new ComboBoxEx();
-            this.btnCreatePhysicalData = new Button();
+            this.txbAngleZ = new UserControlsEx.TextBoxEx(this.components);
+            this.sourceVelocityLabel = new System.Windows.Forms.Label();
+            this.txbVelosity = new UserControlsEx.TextBoxEx(this.components);
+            this.startLabel = new System.Windows.Forms.Label();
+            this.txbStartTime = new UserControlsEx.TextBoxEx(this.components);
+            this.btnCreatePhysicalData = new System.Windows.Forms.Button();
+            this.generalTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.matControl = new BaseModule.Tasks.TasksFromNavigator.Controls.MaterialControl();
             this.movementParametersGroupBox.SuspendLayout();
+            this.trajectoryTableLayoutPanel.SuspendLayout();
+            this.tableLayoutPanelX.SuspendLayout();
+            this.tableLayoutPanelY.SuspendLayout();
+            this.tableLayoutPanelZ.SuspendLayout();
+            this.tableLayoutPanelAngleX.SuspendLayout();
+            this.tableLayoutPanelAngleY.SuspendLayout();
+            this.tableLayoutPanelAngleZ.SuspendLayout();
             this.generalTableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,30 +86,14 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.movementParametersGroupBox.AutoSize = true;
             this.movementParametersGroupBox.Controls.Add(this.trajectoryTableLayoutPanel);
             this.movementParametersGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.movementParametersGroupBox.Location = new System.Drawing.Point(4, 119);
+            this.movementParametersGroupBox.Location = new System.Drawing.Point(4, 165);
             this.movementParametersGroupBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.movementParametersGroupBox.Name = "movementParametersGroupBox";
             this.movementParametersGroupBox.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.movementParametersGroupBox.Size = new System.Drawing.Size(442, 170);
+            this.movementParametersGroupBox.Size = new System.Drawing.Size(592, 382);
             this.movementParametersGroupBox.TabIndex = 1;
             this.movementParametersGroupBox.TabStop = false;
             this.movementParametersGroupBox.Text = "Параметры движения";
-            // 
-            // generalTableLayoutPanel
-            // 
-            this.generalTableLayoutPanel.AutoSize = true;
-            this.generalTableLayoutPanel.ColumnCount = 1;
-            this.generalTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.generalTableLayoutPanel.Controls.Add(this.movementParametersGroupBox, 0, 1);
-            this.generalTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.generalTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.generalTableLayoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.generalTableLayoutPanel.Name = "generalTableLayoutPanel";
-            this.generalTableLayoutPanel.RowCount = 2;
-            this.generalTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.generalTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.generalTableLayoutPanel.Size = new System.Drawing.Size(450, 292);
-            this.generalTableLayoutPanel.TabIndex = 0;
             // 
             // trajectoryTableLayoutPanel
             // 
@@ -109,352 +103,471 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.trajectoryTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24F));
             this.trajectoryTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24F));
             this.trajectoryTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24F));
+            this.trajectoryTableLayoutPanel.Controls.Add(this.baseLineLabel, 0, 0);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.cmbTraj, 1, 0);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.refLineLabel, 0, 1);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.cmbRef, 1, 1);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.sourcePositionLabel, 0, 2);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.tableLayoutPanelX, 1, 2);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.tableLayoutPanelY, 2, 2);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.tableLayoutPanelZ, 3, 2);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.rotationLabel, 0, 3);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.tableLayoutPanelAngleX, 1, 3);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.tableLayoutPanelAngleY, 2, 3);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.tableLayoutPanelAngleZ, 3, 3);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.sourceVelocityLabel, 0, 4);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.txbVelosity, 1, 4);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.startLabel, 0, 5);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.txbStartTime, 1, 5);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.btnCreatePhysicalData, 3, 6);
             this.trajectoryTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.trajectoryTableLayoutPanel.Location = new System.Drawing.Point(4, 16);
-            this.trajectoryTableLayoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.trajectoryTableLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.trajectoryTableLayoutPanel.Name = "trajectoryTableLayoutPanel";
             this.trajectoryTableLayoutPanel.RowCount = 7;
-            this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28F));
-            this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28F));
-            this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28F));
-            this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28F));
-            this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28F));
-            this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28F));
-            this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28F));
+            this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.trajectoryTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.trajectoryTableLayoutPanel.Size = new System.Drawing.Size(584, 363);
             this.trajectoryTableLayoutPanel.TabIndex = 0;
-            this.trajectoryTableLayoutPanel.Controls.Add(baseLineLabel, 0, 0);
-            this.trajectoryTableLayoutPanel.Controls.Add(cmbTraj, 1, 0);
-            this.trajectoryTableLayoutPanel.SetColumnSpan(cmbTraj, 3);
-            this.trajectoryTableLayoutPanel.Controls.Add(refLineLabel, 0, 1);
-            this.trajectoryTableLayoutPanel.Controls.Add(cmbRef, 1, 1);
-            this.trajectoryTableLayoutPanel.SetColumnSpan(cmbRef, 3);
-            this.trajectoryTableLayoutPanel.Controls.Add(sourcePositionLabel, 0, 2);
-            this.trajectoryTableLayoutPanel.Controls.Add(tableLayoutPanelX, 1, 2);
-            this.trajectoryTableLayoutPanel.Controls.Add(tableLayoutPanelY, 2, 2);
-            this.trajectoryTableLayoutPanel.Controls.Add(tableLayoutPanelZ, 3, 2);
-            this.trajectoryTableLayoutPanel.Controls.Add(rotationLabel, 0, 3);
-            this.trajectoryTableLayoutPanel.Controls.Add(tableLayoutPanelAngleX, 1, 3);
-            this.trajectoryTableLayoutPanel.Controls.Add(tableLayoutPanelAngleY, 2, 3);
-            this.trajectoryTableLayoutPanel.Controls.Add(tableLayoutPanelAngleZ, 3, 3);
-            this.trajectoryTableLayoutPanel.Controls.Add(sourceVelocityLabel, 0, 4);
-            this.trajectoryTableLayoutPanel.Controls.Add(txbVelosity, 1, 4);
-            this.trajectoryTableLayoutPanel.SetColumnSpan(txbVelosity, 3);
-            this.trajectoryTableLayoutPanel.Controls.Add(startLabel, 0, 5);
-            this.trajectoryTableLayoutPanel.Controls.Add(txbStartTime, 1, 5);
-            this.trajectoryTableLayoutPanel.SetColumnSpan(txbStartTime, 3);
-            this.trajectoryTableLayoutPanel.Controls.Add(btnCreatePhysicalData, 3, 6);
-            //
-            // tableLayoutPanelX
-            //
-            tableLayoutPanelX.Dock = DockStyle.Fill;
-            tableLayoutPanelX.AutoSize = true;
-            tableLayoutPanelX.ColumnCount = 2;
-            tableLayoutPanelX.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
-            tableLayoutPanelX.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
-            tableLayoutPanelX.RowCount = 1;
-            tableLayoutPanelX.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            tableLayoutPanelX.Controls.Add(labelX, 0, 0);
-            tableLayoutPanelX.Controls.Add(txbX, 1, 0);
-            //
-            // tableLayoutPanelY
-            //
-            tableLayoutPanelY.Dock = DockStyle.Fill;
-            tableLayoutPanelY.AutoSize = true;
-            tableLayoutPanelY.ColumnCount = 2;
-            tableLayoutPanelY.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
-            tableLayoutPanelY.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
-            tableLayoutPanelY.RowCount = 1;
-            tableLayoutPanelY.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            tableLayoutPanelY.Controls.Add(labelY, 0, 0);
-            tableLayoutPanelY.Controls.Add(txbY, 1, 0);
-            //
-            // tableLayoutPanelZ
-            //
-            tableLayoutPanelZ.Dock = DockStyle.Fill;
-            tableLayoutPanelZ.AutoSize = true;
-            tableLayoutPanelZ.ColumnCount = 2;
-            tableLayoutPanelZ.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
-            tableLayoutPanelZ.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
-            tableLayoutPanelZ.RowCount = 1;
-            tableLayoutPanelZ.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            tableLayoutPanelZ.Controls.Add(labelZ, 0, 0);
-            tableLayoutPanelZ.Controls.Add(txbZ, 1, 0);
-            //
-            // tableLayoutPanelAngleX
-            //
-            tableLayoutPanelAngleX.Dock = DockStyle.Fill;
-            tableLayoutPanelAngleX.AutoSize = true;
-            tableLayoutPanelAngleX.ColumnCount = 2;
-            tableLayoutPanelAngleX.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
-            tableLayoutPanelAngleX.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
-            tableLayoutPanelAngleX.RowCount = 1;
-            tableLayoutPanelAngleX.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            tableLayoutPanelAngleX.Controls.Add(labelAngleX, 0, 0);
-            tableLayoutPanelAngleX.Controls.Add(txbAngleX, 1, 0);
-            //
-            // tableLayoutPanelAngleY
-            //
-            tableLayoutPanelAngleY.Dock = DockStyle.Fill;
-            tableLayoutPanelAngleY.AutoSize = true;
-            tableLayoutPanelAngleY.ColumnCount = 2;
-            tableLayoutPanelAngleY.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
-            tableLayoutPanelAngleY.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
-            tableLayoutPanelAngleY.RowCount = 1;
-            tableLayoutPanelAngleY.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            tableLayoutPanelAngleY.Controls.Add(labelAngleY, 0, 0);
-            tableLayoutPanelAngleY.Controls.Add(txbAngleY, 1, 0);
-            //
-            // tableLayoutPanelAngleZ
-            //
-            tableLayoutPanelAngleZ.Dock = DockStyle.Fill;
-            tableLayoutPanelAngleZ.AutoSize = true;
-            tableLayoutPanelAngleZ.ColumnCount = 2;
-            tableLayoutPanelAngleZ.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
-            tableLayoutPanelAngleZ.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
-            tableLayoutPanelAngleZ.RowCount = 1;
-            tableLayoutPanelAngleZ.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            tableLayoutPanelAngleZ.Controls.Add(labelAngleZ, 0, 0);
-            tableLayoutPanelAngleZ.Controls.Add(txbAngleZ, 1, 0);
-            // 
-            // labelX
-            // 
-            labelX.Margin = new Padding(10, 10, 0, 0);
-            labelX.AutoSize = true;
-            labelX.Name = "labelX";
-            labelX.TabIndex = 0;
-            labelX.Text = "dX:";
-            // 
-            // txbX
-            // 
-            txbX.AccessibleName = "txbX";
-            txbX.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txbX.InputType = TXTBoxInputType.Float;
-            txbX.IsValidating = true;
-            txbX.Margin = new Padding(0, 5, 15, 0);
-            txbX.Name = "txbX";
-            txbX.TabIndex = 0;
-            txbX.UserRegExCheck = null;
-            txbX.UserRegExCheckErrorMessage = null;
-            // 
-            // labelY
-            // 
-            labelY.Margin = new Padding(10, 10, 0, 0);
-            labelY.AutoSize = true;
-            labelY.Name = "labelY";
-            labelY.TabIndex = 0;
-            labelY.Text = "dY: ";
-            // 
-            // txbY
-            // 
-            txbY.AccessibleName = "txbY";
-            txbY.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txbY.InputType = TXTBoxInputType.Float;
-            txbY.IsValidating = true;
-            txbY.Margin = new Padding(0, 5, 15, 0);
-            txbY.Name = "txbY";
-            txbY.TabIndex = 0;
-            txbY.UserRegExCheck = null;
-            txbY.UserRegExCheckErrorMessage = null;
-            // 
-            // labelZ
-            // 
-            labelZ.Margin = new Padding(10, 10, 0, 0);
-            labelZ.AutoSize = true;
-            labelZ.Name = "labelZ";
-            labelZ.TabIndex = 0;
-            labelZ.Text = "dZ: ";
-            // 
-            // txbZ
-            // 
-            txbZ.AccessibleName = "txbZ";
-            txbZ.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txbZ.InputType = TXTBoxInputType.Float;
-            txbZ.IsValidating = true;
-            txbZ.Margin = new Padding(0, 5, 15, 0);
-            txbZ.Name = "txbZ";
-            txbZ.TabIndex = 0;
-            txbZ.UserRegExCheck = null;
-            txbZ.UserRegExCheckErrorMessage = null;
-            // 
-            // labelAngleX
-            // 
-            labelAngleX.Margin = new Padding(10, 10, 0, 0);
-            labelAngleX.AutoSize = true;
-            labelAngleX.Name = "labelAngleX";
-            labelAngleX.TabIndex = 0;
-            labelAngleX.Text = "Ось Х:";
-            // 
-            // txbAngleX
-            // 
-            txbAngleX.AccessibleName = "txbAngleX";
-            txbAngleX.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txbAngleX.InputType = TXTBoxInputType.Float;
-            txbAngleX.IsValidating = true;
-            txbAngleX.Margin = new Padding(0, 5, 15, 0);
-            txbAngleX.Name = "txbAngleX";
-            txbAngleX.TabIndex = 0;
-            txbAngleX.UserRegExCheck = null;
-            txbAngleX.UserRegExCheckErrorMessage = null;
-            // 
-            // labelAngleY
-            // 
-            labelAngleY.Margin = new Padding(10, 10, 0, 0);
-            labelAngleY.AutoSize = true;
-            labelAngleY.Name = "labelAngleY";
-            labelAngleY.TabIndex = 0;
-            labelAngleY.Text = "Ось Y:";
-            // 
-            // txbAngleY
-            // 
-            txbAngleY.AccessibleName = "txbAngleY";
-            txbAngleY.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txbAngleY.InputType = TXTBoxInputType.Float;
-            txbAngleY.IsValidating = true;
-            txbAngleY.Margin = new Padding(0, 5, 15, 0);
-            txbAngleY.Name = "txbAngleY";
-            txbAngleY.TabIndex = 0;
-            txbAngleY.UserRegExCheck = null;
-            txbAngleY.UserRegExCheckErrorMessage = null;
-            // 
-            // labelAngleZ
-            // 
-            labelAngleZ.Margin = new Padding(10, 10, 0, 0);
-            labelAngleZ.AutoSize = true;
-            labelAngleZ.Name = "labelAngleZ";
-            labelAngleZ.TabIndex = 0;
-            labelAngleZ.Text = "Ось Z:";
-            // 
-            // txbAngleZ
-            // 
-            txbAngleZ.AccessibleName = "txbAngle";
-            txbAngleZ.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txbAngleZ.InputType = TXTBoxInputType.Float;
-            txbAngleZ.IsValidating = true;
-            txbAngleZ.Margin = new Padding(0, 5, 15, 0);
-            txbAngleZ.Name = "txbAngle";
-            txbAngleZ.TabIndex = 0;
-            txbAngleZ.UserRegExCheck = null;
-            txbAngleZ.UserRegExCheckErrorMessage = null;
             // 
             // baseLineLabel
             // 
-            baseLineLabel.Margin = new Padding(10, 10, 0, 0);
-            baseLineLabel.AutoSize = true;
-            baseLineLabel.Name = "baseLineLabel";
-            baseLineLabel.TabIndex = 0;
-            baseLineLabel.Text = "Линия движения";
-            // 
-            // refLineLabel
-            // 
-            refLineLabel.Margin = new Padding(10, 10, 0, 0);
-            refLineLabel.AutoSize = true;
-            refLineLabel.Name = "refLineLabel";
-            refLineLabel.TabIndex = 0;
-            refLineLabel.Text = "Опорная линия";
-            // 
-            // sourcePositionLabel
-            // 
-            sourcePositionLabel.Margin = new Padding(10, 10, 0, 0);
-            sourcePositionLabel.AutoSize = true;
-            sourcePositionLabel.Name = "sourceositionLabel";
-            sourcePositionLabel.TabIndex = 0;
-            sourcePositionLabel.Text = "Смещение";
-            // 
-            // rotationLabel
-            // 
-            rotationLabel.Margin = new Padding(10, 10, 0, 0);
-            rotationLabel.AutoSize = true;
-            rotationLabel.Name = "RotationLabel";
-            rotationLabel.TabIndex = 0;
-            rotationLabel.Text = "Поворот";
-            // 
-            // sourceVelocityLabel
-            // 
-            sourceVelocityLabel.Margin = new Padding(10, 10, 0, 0);
-            sourceVelocityLabel.AutoSize = true;
-            sourceVelocityLabel.Name = "sourceVelocityLabel";
-            sourceVelocityLabel.TabIndex = 0;
-            sourceVelocityLabel.Text = "Скорость, мм/сек.";
-            // 
-            // txbVelosity
-            // 
-            txbVelosity.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txbVelosity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            txbVelosity.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
-            txbVelosity.IsValidating = true;
-            txbVelosity.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
-            txbVelosity.Name = "txbVelosity";
-            txbVelosity.TabIndex = 31;
-            txbVelosity.UserRegExCheck = null;
-            txbVelosity.UserRegExCheckErrorMessage = null;
-            // 
-            // startLabel
-            // 
-            startLabel.Margin = new Padding(10, 10, 0, 0);
-            startLabel.AutoSize = true;
-            startLabel.Name = "startLabel";
-            startLabel.TabIndex = 0;
-            startLabel.Text = "Старт, сек.";
-            // 
-            // txbStartTime
-            //
-            txbStartTime.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            txbStartTime.InputType = UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive;
-            txbStartTime.IsValidating = true;
-            txbStartTime.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
-            txbStartTime.Name = "txbStartTime";
-            txbStartTime.TabIndex = 43;
-            txbStartTime.UserRegExCheck = null;
-            txbStartTime.UserRegExCheckErrorMessage = null;
-            // 
-            // cmbRef
-            // 
-            cmbRef.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            cmbRef.FormattingEnabled = true;
-            cmbRef.InputType = UserControlsEx.CMBInputType.Items;
-            cmbRef.IsValidating = true;
-            cmbRef.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
-            cmbRef.Name = "cmbRef";
-            cmbRef.TabIndex = 29;
-            cmbRef.UserRegExCheck = null;
-            cmbRef.UserRegExCheckErrorMessage = null;
+            this.baseLineLabel.AutoSize = true;
+            this.baseLineLabel.Location = new System.Drawing.Point(10, 10);
+            this.baseLineLabel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.baseLineLabel.Name = "baseLineLabel";
+            this.baseLineLabel.Size = new System.Drawing.Size(92, 13);
+            this.baseLineLabel.TabIndex = 0;
+            this.baseLineLabel.Text = "Линия движения";
             // 
             // cmbTraj
             // 
-            cmbTraj.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            cmbTraj.FormattingEnabled = true;
-            cmbTraj.InputType = UserControlsEx.CMBInputType.Items;
-            cmbTraj.IsValidating = true;
-            cmbTraj.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
-            cmbTraj.Name = "cmbTraj";
-            cmbTraj.TabIndex = 29;
-            cmbTraj.UserRegExCheck = null;
-            cmbTraj.UserRegExCheckErrorMessage = null;
+            this.cmbTraj.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trajectoryTableLayoutPanel.SetColumnSpan(this.cmbTraj, 3);
+            this.cmbTraj.FormattingEnabled = true;
+            this.cmbTraj.InputType = UserControlsEx.CMBInputType.Items;
+            this.cmbTraj.IsValidating = true;
+            this.cmbTraj.Location = new System.Drawing.Point(173, 3);
+            this.cmbTraj.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
+            this.cmbTraj.Name = "cmbTraj";
+            this.cmbTraj.Size = new System.Drawing.Size(396, 21);
+            this.cmbTraj.TabIndex = 29;
+            this.cmbTraj.UserRegExCheck = null;
+            this.cmbTraj.UserRegExCheckErrorMessage = null;
             // 
-            // btnStartComp
+            // refLineLabel
             // 
-            btnCreatePhysicalData.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnCreatePhysicalData.Enabled = true;
-            btnCreatePhysicalData.Margin = new Padding(10, 0, 15, 0);
-            btnCreatePhysicalData.MinimumSize = new System.Drawing.Size(90, 35);
-            btnCreatePhysicalData.Name = "btnCreatePhysicalData";
-            btnCreatePhysicalData.Size = new System.Drawing.Size(110, 35);
-            btnCreatePhysicalData.TabIndex = 0;
-            btnCreatePhysicalData.Text = "Создать";
-            btnCreatePhysicalData.UseVisualStyleBackColor = true;
-            //btnStartComp.Click += btnStartComp_Click;
+            this.refLineLabel.AutoSize = true;
+            this.refLineLabel.Location = new System.Drawing.Point(10, 45);
+            this.refLineLabel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.refLineLabel.Name = "refLineLabel";
+            this.refLineLabel.Size = new System.Drawing.Size(84, 13);
+            this.refLineLabel.TabIndex = 0;
+            this.refLineLabel.Text = "Опорная линия";
+            // 
+            // cmbRef
+            // 
+            this.cmbRef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trajectoryTableLayoutPanel.SetColumnSpan(this.cmbRef, 3);
+            this.cmbRef.FormattingEnabled = true;
+            this.cmbRef.InputType = UserControlsEx.CMBInputType.Items;
+            this.cmbRef.IsValidating = true;
+            this.cmbRef.Location = new System.Drawing.Point(173, 38);
+            this.cmbRef.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
+            this.cmbRef.Name = "cmbRef";
+            this.cmbRef.Size = new System.Drawing.Size(396, 21);
+            this.cmbRef.TabIndex = 29;
+            this.cmbRef.UserRegExCheck = null;
+            this.cmbRef.UserRegExCheckErrorMessage = null;
+            // 
+            // sourcePositionLabel
+            // 
+            this.sourcePositionLabel.AutoSize = true;
+            this.sourcePositionLabel.Location = new System.Drawing.Point(10, 80);
+            this.sourcePositionLabel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.sourcePositionLabel.Name = "sourcePositionLabel";
+            this.sourcePositionLabel.Size = new System.Drawing.Size(61, 13);
+            this.sourcePositionLabel.TabIndex = 0;
+            this.sourcePositionLabel.Text = "Смещение";
+            // 
+            // tableLayoutPanelX
+            // 
+            this.tableLayoutPanelX.AutoSize = true;
+            this.tableLayoutPanelX.ColumnCount = 2;
+            this.tableLayoutPanelX.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanelX.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanelX.Controls.Add(this.labelX, 0, 0);
+            this.tableLayoutPanelX.Controls.Add(this.txbX, 1, 0);
+            this.tableLayoutPanelX.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelX.Location = new System.Drawing.Point(166, 73);
+            this.tableLayoutPanelX.Name = "tableLayoutPanelX";
+            this.tableLayoutPanelX.RowCount = 1;
+            this.tableLayoutPanelX.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelX.Size = new System.Drawing.Size(134, 29);
+            this.tableLayoutPanelX.TabIndex = 30;
+            // 
+            // labelX
+            // 
+            this.labelX.AutoSize = true;
+            this.labelX.Location = new System.Drawing.Point(10, 10);
+            this.labelX.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.labelX.Name = "labelX";
+            this.labelX.Size = new System.Drawing.Size(23, 13);
+            this.labelX.TabIndex = 0;
+            this.labelX.Text = "dX:";
+            // 
+            // txbX
+            // 
+            this.txbX.AccessibleName = "txbX";
+            this.txbX.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbX.InputType = UserControlsEx.TXTBoxInputType.Float;
+            this.txbX.IsValidating = true;
+            this.txbX.Location = new System.Drawing.Point(53, 5);
+            this.txbX.Margin = new System.Windows.Forms.Padding(0, 5, 15, 0);
+            this.txbX.Name = "txbX";
+            this.txbX.Size = new System.Drawing.Size(66, 20);
+            this.txbX.TabIndex = 0;
+            this.txbX.UserRegExCheck = null;
+            this.txbX.UserRegExCheckErrorMessage = null;
+            // 
+            // tableLayoutPanelY
+            // 
+            this.tableLayoutPanelY.AutoSize = true;
+            this.tableLayoutPanelY.ColumnCount = 2;
+            this.tableLayoutPanelY.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanelY.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanelY.Controls.Add(this.labelY, 0, 0);
+            this.tableLayoutPanelY.Controls.Add(this.txbY, 1, 0);
+            this.tableLayoutPanelY.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelY.Location = new System.Drawing.Point(306, 73);
+            this.tableLayoutPanelY.Name = "tableLayoutPanelY";
+            this.tableLayoutPanelY.RowCount = 1;
+            this.tableLayoutPanelY.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelY.Size = new System.Drawing.Size(134, 29);
+            this.tableLayoutPanelY.TabIndex = 31;
+            // 
+            // labelY
+            // 
+            this.labelY.AutoSize = true;
+            this.labelY.Location = new System.Drawing.Point(10, 10);
+            this.labelY.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.labelY.Name = "labelY";
+            this.labelY.Size = new System.Drawing.Size(26, 13);
+            this.labelY.TabIndex = 0;
+            this.labelY.Text = "dY: ";
+            // 
+            // txbY
+            // 
+            this.txbY.AccessibleName = "txbY";
+            this.txbY.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbY.InputType = UserControlsEx.TXTBoxInputType.Float;
+            this.txbY.IsValidating = true;
+            this.txbY.Location = new System.Drawing.Point(53, 5);
+            this.txbY.Margin = new System.Windows.Forms.Padding(0, 5, 15, 0);
+            this.txbY.Name = "txbY";
+            this.txbY.Size = new System.Drawing.Size(66, 20);
+            this.txbY.TabIndex = 0;
+            this.txbY.UserRegExCheck = null;
+            this.txbY.UserRegExCheckErrorMessage = null;
+            // 
+            // tableLayoutPanelZ
+            // 
+            this.tableLayoutPanelZ.AutoSize = true;
+            this.tableLayoutPanelZ.ColumnCount = 2;
+            this.tableLayoutPanelZ.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanelZ.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanelZ.Controls.Add(this.labelZ, 0, 0);
+            this.tableLayoutPanelZ.Controls.Add(this.txbZ, 1, 0);
+            this.tableLayoutPanelZ.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelZ.Location = new System.Drawing.Point(446, 73);
+            this.tableLayoutPanelZ.Name = "tableLayoutPanelZ";
+            this.tableLayoutPanelZ.RowCount = 1;
+            this.tableLayoutPanelZ.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelZ.Size = new System.Drawing.Size(135, 29);
+            this.tableLayoutPanelZ.TabIndex = 32;
+            // 
+            // labelZ
+            // 
+            this.labelZ.AutoSize = true;
+            this.labelZ.Location = new System.Drawing.Point(10, 10);
+            this.labelZ.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.labelZ.Name = "labelZ";
+            this.labelZ.Size = new System.Drawing.Size(26, 13);
+            this.labelZ.TabIndex = 0;
+            this.labelZ.Text = "dZ: ";
+            // 
+            // txbZ
+            // 
+            this.txbZ.AccessibleName = "txbZ";
+            this.txbZ.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbZ.InputType = UserControlsEx.TXTBoxInputType.Float;
+            this.txbZ.IsValidating = true;
+            this.txbZ.Location = new System.Drawing.Point(54, 5);
+            this.txbZ.Margin = new System.Windows.Forms.Padding(0, 5, 15, 0);
+            this.txbZ.Name = "txbZ";
+            this.txbZ.Size = new System.Drawing.Size(66, 20);
+            this.txbZ.TabIndex = 0;
+            this.txbZ.UserRegExCheck = null;
+            this.txbZ.UserRegExCheckErrorMessage = null;
+            // 
+            // rotationLabel
+            // 
+            this.rotationLabel.AutoSize = true;
+            this.rotationLabel.Location = new System.Drawing.Point(10, 115);
+            this.rotationLabel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.rotationLabel.Name = "rotationLabel";
+            this.rotationLabel.Size = new System.Drawing.Size(50, 13);
+            this.rotationLabel.TabIndex = 0;
+            this.rotationLabel.Text = "Поворот";
+            // 
+            // tableLayoutPanelAngleX
+            // 
+            this.tableLayoutPanelAngleX.AutoSize = true;
+            this.tableLayoutPanelAngleX.ColumnCount = 2;
+            this.tableLayoutPanelAngleX.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanelAngleX.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanelAngleX.Controls.Add(this.labelAngleX, 0, 0);
+            this.tableLayoutPanelAngleX.Controls.Add(this.txbAngleX, 1, 0);
+            this.tableLayoutPanelAngleX.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelAngleX.Location = new System.Drawing.Point(166, 108);
+            this.tableLayoutPanelAngleX.Name = "tableLayoutPanelAngleX";
+            this.tableLayoutPanelAngleX.RowCount = 1;
+            this.tableLayoutPanelAngleX.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelAngleX.Size = new System.Drawing.Size(134, 29);
+            this.tableLayoutPanelAngleX.TabIndex = 33;
+            // 
+            // labelAngleX
+            // 
+            this.labelAngleX.AutoSize = true;
+            this.labelAngleX.Location = new System.Drawing.Point(10, 10);
+            this.labelAngleX.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.labelAngleX.Name = "labelAngleX";
+            this.labelAngleX.Size = new System.Drawing.Size(40, 13);
+            this.labelAngleX.TabIndex = 0;
+            this.labelAngleX.Text = "Ось Х:";
+            // 
+            // txbAngleX
+            // 
+            this.txbAngleX.AccessibleName = "txbAngleX";
+            this.txbAngleX.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbAngleX.InputType = UserControlsEx.TXTBoxInputType.Float;
+            this.txbAngleX.IsValidating = true;
+            this.txbAngleX.Location = new System.Drawing.Point(53, 5);
+            this.txbAngleX.Margin = new System.Windows.Forms.Padding(0, 5, 15, 0);
+            this.txbAngleX.Name = "txbAngleX";
+            this.txbAngleX.Size = new System.Drawing.Size(66, 20);
+            this.txbAngleX.TabIndex = 0;
+            this.txbAngleX.UserRegExCheck = null;
+            this.txbAngleX.UserRegExCheckErrorMessage = null;
+            // 
+            // tableLayoutPanelAngleY
+            // 
+            this.tableLayoutPanelAngleY.AutoSize = true;
+            this.tableLayoutPanelAngleY.ColumnCount = 2;
+            this.tableLayoutPanelAngleY.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanelAngleY.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanelAngleY.Controls.Add(this.labelAngleY, 0, 0);
+            this.tableLayoutPanelAngleY.Controls.Add(this.txbAngleY, 1, 0);
+            this.tableLayoutPanelAngleY.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelAngleY.Location = new System.Drawing.Point(306, 108);
+            this.tableLayoutPanelAngleY.Name = "tableLayoutPanelAngleY";
+            this.tableLayoutPanelAngleY.RowCount = 1;
+            this.tableLayoutPanelAngleY.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelAngleY.Size = new System.Drawing.Size(134, 29);
+            this.tableLayoutPanelAngleY.TabIndex = 34;
+            // 
+            // labelAngleY
+            // 
+            this.labelAngleY.AutoSize = true;
+            this.labelAngleY.Location = new System.Drawing.Point(10, 10);
+            this.labelAngleY.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.labelAngleY.Name = "labelAngleY";
+            this.labelAngleY.Size = new System.Drawing.Size(40, 13);
+            this.labelAngleY.TabIndex = 0;
+            this.labelAngleY.Text = "Ось Y:";
+            // 
+            // txbAngleY
+            // 
+            this.txbAngleY.AccessibleName = "txbAngleY";
+            this.txbAngleY.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbAngleY.InputType = UserControlsEx.TXTBoxInputType.Float;
+            this.txbAngleY.IsValidating = true;
+            this.txbAngleY.Location = new System.Drawing.Point(53, 5);
+            this.txbAngleY.Margin = new System.Windows.Forms.Padding(0, 5, 15, 0);
+            this.txbAngleY.Name = "txbAngleY";
+            this.txbAngleY.Size = new System.Drawing.Size(66, 20);
+            this.txbAngleY.TabIndex = 0;
+            this.txbAngleY.UserRegExCheck = null;
+            this.txbAngleY.UserRegExCheckErrorMessage = null;
+            // 
+            // tableLayoutPanelAngleZ
+            // 
+            this.tableLayoutPanelAngleZ.AutoSize = true;
+            this.tableLayoutPanelAngleZ.ColumnCount = 2;
+            this.tableLayoutPanelAngleZ.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanelAngleZ.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanelAngleZ.Controls.Add(this.labelAngleZ, 0, 0);
+            this.tableLayoutPanelAngleZ.Controls.Add(this.txbAngleZ, 1, 0);
+            this.tableLayoutPanelAngleZ.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelAngleZ.Location = new System.Drawing.Point(446, 108);
+            this.tableLayoutPanelAngleZ.Name = "tableLayoutPanelAngleZ";
+            this.tableLayoutPanelAngleZ.RowCount = 1;
+            this.tableLayoutPanelAngleZ.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelAngleZ.Size = new System.Drawing.Size(135, 29);
+            this.tableLayoutPanelAngleZ.TabIndex = 35;
+            // 
+            // labelAngleZ
+            // 
+            this.labelAngleZ.AutoSize = true;
+            this.labelAngleZ.Location = new System.Drawing.Point(10, 10);
+            this.labelAngleZ.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.labelAngleZ.Name = "labelAngleZ";
+            this.labelAngleZ.Size = new System.Drawing.Size(40, 13);
+            this.labelAngleZ.TabIndex = 0;
+            this.labelAngleZ.Text = "Ось Z:";
+            // 
+            // txbAngleZ
+            // 
+            this.txbAngleZ.AccessibleName = "txbAngle";
+            this.txbAngleZ.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbAngleZ.InputType = UserControlsEx.TXTBoxInputType.Float;
+            this.txbAngleZ.IsValidating = true;
+            this.txbAngleZ.Location = new System.Drawing.Point(54, 5);
+            this.txbAngleZ.Margin = new System.Windows.Forms.Padding(0, 5, 15, 0);
+            this.txbAngleZ.Name = "txbAngleZ";
+            this.txbAngleZ.Size = new System.Drawing.Size(66, 20);
+            this.txbAngleZ.TabIndex = 0;
+            this.txbAngleZ.UserRegExCheck = null;
+            this.txbAngleZ.UserRegExCheckErrorMessage = null;
+            // 
+            // sourceVelocityLabel
+            // 
+            this.sourceVelocityLabel.AutoSize = true;
+            this.sourceVelocityLabel.Location = new System.Drawing.Point(10, 150);
+            this.sourceVelocityLabel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.sourceVelocityLabel.Name = "sourceVelocityLabel";
+            this.sourceVelocityLabel.Size = new System.Drawing.Size(103, 13);
+            this.sourceVelocityLabel.TabIndex = 0;
+            this.sourceVelocityLabel.Text = "Скорость, мм/сек.";
+            // 
+            // txbVelosity
+            // 
+            this.txbVelosity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbVelosity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.trajectoryTableLayoutPanel.SetColumnSpan(this.txbVelosity, 3);
+            this.txbVelosity.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
+            this.txbVelosity.IsValidating = true;
+            this.txbVelosity.Location = new System.Drawing.Point(173, 143);
+            this.txbVelosity.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
+            this.txbVelosity.Name = "txbVelosity";
+            this.txbVelosity.Size = new System.Drawing.Size(396, 20);
+            this.txbVelosity.TabIndex = 31;
+            this.txbVelosity.UserRegExCheck = null;
+            this.txbVelosity.UserRegExCheckErrorMessage = null;
+            // 
+            // startLabel
+            // 
+            this.startLabel.AutoSize = true;
+            this.startLabel.Location = new System.Drawing.Point(10, 185);
+            this.startLabel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.startLabel.Name = "startLabel";
+            this.startLabel.Size = new System.Drawing.Size(63, 13);
+            this.startLabel.TabIndex = 0;
+            this.startLabel.Text = "Старт, сек.";
+            // 
+            // txbStartTime
+            // 
+            this.txbStartTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txbStartTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.trajectoryTableLayoutPanel.SetColumnSpan(this.txbStartTime, 3);
+            this.txbStartTime.InputType = ((UserControlsEx.TXTBoxInputType)((UserControlsEx.TXTBoxInputType.Float | UserControlsEx.TXTBoxInputType.Positive)));
+            this.txbStartTime.IsValidating = true;
+            this.txbStartTime.Location = new System.Drawing.Point(173, 178);
+            this.txbStartTime.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
+            this.txbStartTime.Name = "txbStartTime";
+            this.txbStartTime.Size = new System.Drawing.Size(396, 20);
+            this.txbStartTime.TabIndex = 43;
+            this.txbStartTime.UserRegExCheck = null;
+            this.txbStartTime.UserRegExCheckErrorMessage = null;
+            // 
+            // btnCreatePhysicalData
+            // 
+            this.btnCreatePhysicalData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCreatePhysicalData.Location = new System.Drawing.Point(469, 333);
+            this.btnCreatePhysicalData.Margin = new System.Windows.Forms.Padding(10, 5, 15, 5);
+            this.btnCreatePhysicalData.MinimumSize = new System.Drawing.Size(90, 25);
+            this.btnCreatePhysicalData.Name = "btnCreatePhysicalData";
+            this.btnCreatePhysicalData.Size = new System.Drawing.Size(100, 25);
+            this.btnCreatePhysicalData.TabIndex = 0;
+            this.btnCreatePhysicalData.Text = "Создать";
+            this.btnCreatePhysicalData.UseVisualStyleBackColor = true;
+            // 
+            // generalTableLayoutPanel
+            // 
+            this.generalTableLayoutPanel.AutoSize = true;
+            this.generalTableLayoutPanel.ColumnCount = 1;
+            this.generalTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.generalTableLayoutPanel.Controls.Add(this.matControl, 0, 0);
+            this.generalTableLayoutPanel.Controls.Add(this.movementParametersGroupBox, 0, 1);
+            this.generalTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.generalTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.generalTableLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.generalTableLayoutPanel.Name = "generalTableLayoutPanel";
+            this.generalTableLayoutPanel.RowCount = 2;
+            this.generalTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.generalTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.generalTableLayoutPanel.Size = new System.Drawing.Size(600, 550);
+            this.generalTableLayoutPanel.TabIndex = 0;
+            // 
+            // matControl
+            // 
+            this.matControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.matControl.AutoSize = true;
+            this.matControl.Location = new System.Drawing.Point(2, 2);
+            this.matControl.Margin = new System.Windows.Forms.Padding(2);
+            this.matControl.Name = "matControl";
+            this.matControl.Size = new System.Drawing.Size(596, 158);
+            this.matControl.TabIndex = 0;
             // 
             // GeneralСontrol
             // 
+            this.AutoSize = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.generalTableLayoutPanel);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "GeneralСontrol";
-            this.Size = new System.Drawing.Size(600, 450);
             this.movementParametersGroupBox.ResumeLayout(false);
             this.movementParametersGroupBox.PerformLayout();
+            this.trajectoryTableLayoutPanel.ResumeLayout(false);
+            this.trajectoryTableLayoutPanel.PerformLayout();
+            this.tableLayoutPanelX.ResumeLayout(false);
+            this.tableLayoutPanelX.PerformLayout();
+            this.tableLayoutPanelY.ResumeLayout(false);
+            this.tableLayoutPanelY.PerformLayout();
+            this.tableLayoutPanelZ.ResumeLayout(false);
+            this.tableLayoutPanelZ.PerformLayout();
+            this.tableLayoutPanelAngleX.ResumeLayout(false);
+            this.tableLayoutPanelAngleX.PerformLayout();
+            this.tableLayoutPanelAngleY.ResumeLayout(false);
+            this.tableLayoutPanelAngleY.PerformLayout();
+            this.tableLayoutPanelAngleZ.ResumeLayout(false);
+            this.tableLayoutPanelAngleZ.PerformLayout();
             this.generalTableLayoutPanel.ResumeLayout(false);
             this.generalTableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -495,5 +608,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
         private ComboBoxEx cmbRef;
         private ComboBoxEx cmbTraj;
         private System.Windows.Forms.Button btnCreatePhysicalData;
+
+        private MaterialControl matControl;
     }
 }

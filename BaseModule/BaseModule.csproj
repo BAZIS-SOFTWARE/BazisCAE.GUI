@@ -327,6 +327,12 @@
     <Compile Include="Tasks\HeatTreatmentModule\PinnedHTAdvControl.Designer.cs">
       <DependentUpon>PinnedHTAdvControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\MaterialControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\MaterialControl.Designer.cs">
+      <DependentUpon>MaterialControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tasks\TasksFromNavigator\GeneralСontrol.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -515,6 +521,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\HeatTreatmentModule\PinnedHTAdvControl.resx">
       <DependentUpon>PinnedHTAdvControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\MaterialControl.resx">
+      <DependentUpon>MaterialControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\TasksFromNavigator\GeneralСontrol.resx">
       <DependentUpon>GeneralСontrol.cs</DependentUpon>
