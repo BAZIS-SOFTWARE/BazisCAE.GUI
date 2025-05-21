@@ -149,7 +149,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             // chbX
             // 
             this.chbX.AutoSize = true;
-            this.chbX.Margin = new System.Windows.Forms.Padding(15, 10, 0, 0);
+            this.chbX.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.chbX.Name = "chbX";
             this.chbX.TabIndex = 0;
             this.chbX.Tag = "0";
@@ -179,7 +179,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             // chbLRF
             // 
             this.chbLRF.AutoSize = true;
-            this.chbLRF.Margin = new System.Windows.Forms.Padding(0, 10, 15, 0);
+            this.chbLRF.Margin = new System.Windows.Forms.Padding(15, 10, 0, 0);
             this.chbLRF.Name = "chbLRF";
             this.chbLRF.TabIndex = 0;
             this.chbLRF.Tag = "3";
@@ -236,10 +236,9 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.groupBox1.Controls.Add(this.tableLayoutPanel2);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
-            this.groupBox1.MinimumSize = new System.Drawing.Size(350, 0);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3); 
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры нагрузки";
@@ -260,7 +259,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.cmbLoadFunction.InputType = ((UserControlsEx.CMBInputType)(((UserControlsEx.CMBInputType.Items | UserControlsEx.CMBInputType.Float)
             | UserControlsEx.CMBInputType.Empty)));
             this.cmbLoadFunction.IsValidating = true;
-            this.cmbLoadFunction.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
+            this.cmbLoadFunction.Margin = new System.Windows.Forms.Padding(10, 3, 15, 0);
             this.cmbLoadFunction.Name = "cmbLoadFunction";
             this.cmbLoadFunction.TabIndex = 36;
             this.cmbLoadFunction.UserRegExCheck = null;
@@ -293,10 +292,9 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.groupBox3.AutoSize = true;
             this.groupBox3.Controls.Add(this.tableLayoutPanel3);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(7);
-            this.groupBox3.MinimumSize = new System.Drawing.Size(350, 0);
-            this.groupBox3.Name = "groupBox1";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3); 
             this.groupBox3.TabIndex = 25;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Время действия";

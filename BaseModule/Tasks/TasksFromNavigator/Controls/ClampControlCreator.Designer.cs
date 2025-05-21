@@ -68,7 +68,6 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.generalTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.generalTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.generalTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.generalTableLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.generalTableLayoutPanel.Name = "generalTableLayoutPanel";
             this.generalTableLayoutPanel.RowCount = 3;
             this.generalTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33F));
@@ -104,9 +103,9 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.groupBox1.AutoSize = true;
             this.groupBox1.Controls.Add(this.tableLayoutPanel1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Вид закрепления";
@@ -187,10 +186,10 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.groupBox2.AutoSize = true;
             this.groupBox2.Controls.Add(this.tableLayoutPanel2);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(7);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox2.MinimumSize = new System.Drawing.Size(350, 0);
             this.groupBox2.Name = "groupBox1";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox2.TabIndex = 25;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Вид закрепления";
@@ -297,10 +296,10 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.groupBox3.AutoSize = true;
             this.groupBox3.Controls.Add(this.tableLayoutPanel3);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(7);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox3.MinimumSize = new System.Drawing.Size(350, 0);
             this.groupBox3.Name = "groupBox1";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox3.TabIndex = 25;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Время действия";

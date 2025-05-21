@@ -88,7 +88,6 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.movementParametersGroupBox.AutoSize = true;
             this.movementParametersGroupBox.Controls.Add(this.trajectoryTableLayoutPanel);
             this.movementParametersGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.movementParametersGroupBox.Location = new System.Drawing.Point(4, 169);
             this.movementParametersGroupBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.movementParametersGroupBox.Name = "movementParametersGroupBox";
             this.movementParametersGroupBox.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -122,7 +121,6 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.trajectoryTableLayoutPanel.Controls.Add(this.txbStartTime, 1, 5);
             this.trajectoryTableLayoutPanel.Controls.Add(this.btnCreatePhysicalData, 3, 6);
             this.trajectoryTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trajectoryTableLayoutPanel.Location = new System.Drawing.Point(4, 16);
             this.trajectoryTableLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.trajectoryTableLayoutPanel.Name = "trajectoryTableLayoutPanel";
             this.trajectoryTableLayoutPanel.RowCount = 7;
@@ -138,10 +136,8 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // baseLineLabel
             // 
             this.baseLineLabel.AutoSize = true;
-            this.baseLineLabel.Location = new System.Drawing.Point(10, 10);
             this.baseLineLabel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.baseLineLabel.Name = "baseLineLabel";
-            this.baseLineLabel.Size = new System.Drawing.Size(92, 13);
             this.baseLineLabel.TabIndex = 0;
             this.baseLineLabel.Text = "Линия движения";
             // 
@@ -153,7 +149,6 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.cmbTraj.FormattingEnabled = true;
             this.cmbTraj.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbTraj.IsValidating = true;
-            this.cmbTraj.Location = new System.Drawing.Point(174, 3);
             this.cmbTraj.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbTraj.Name = "cmbTraj";
             this.cmbTraj.TabIndex = 29;
@@ -163,7 +158,6 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // refLineLabel
             // 
             this.refLineLabel.AutoSize = true;
-            this.refLineLabel.Location = new System.Drawing.Point(10, 45);
             this.refLineLabel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.refLineLabel.Name = "refLineLabel";
             this.refLineLabel.TabIndex = 0;
@@ -177,10 +171,8 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.cmbRef.FormattingEnabled = true;
             this.cmbRef.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbRef.IsValidating = true;
-            this.cmbRef.Location = new System.Drawing.Point(174, 38);
             this.cmbRef.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbRef.Name = "cmbRef";
-            this.cmbRef.Size = new System.Drawing.Size(399, 21);
             this.cmbRef.TabIndex = 29;
             this.cmbRef.UserRegExCheck = null;
             this.cmbRef.UserRegExCheckErrorMessage = null;
@@ -188,10 +180,8 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // sourcePositionLabel
             // 
             this.sourcePositionLabel.AutoSize = true;
-            this.sourcePositionLabel.Location = new System.Drawing.Point(10, 80);
             this.sourcePositionLabel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.sourcePositionLabel.Name = "sourcePositionLabel";
-            this.sourcePositionLabel.Size = new System.Drawing.Size(61, 13);
             this.sourcePositionLabel.TabIndex = 0;
             this.sourcePositionLabel.Text = "Смещение";
             // 
@@ -212,7 +202,6 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // labelX
             // 
             this.labelX.AutoSize = true;
-            this.labelX.Location = new System.Drawing.Point(10, 10);
             this.labelX.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.labelX.Name = "labelX";
             this.labelX.TabIndex = 0;
@@ -248,7 +237,6 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // labelY
             // 
             this.labelY.AutoSize = true;
-            this.labelY.Location = new System.Drawing.Point(10, 10);
             this.labelY.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.labelY.Name = "labelY";
             this.labelY.TabIndex = 0;
@@ -480,19 +468,17 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.generalTableLayoutPanel.Controls.Add(this.loadControl, 0, 0);
             this.generalTableLayoutPanel.Controls.Add(this.movementParametersGroupBox, 0, 1);
             this.generalTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.generalTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.generalTableLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.generalTableLayoutPanel.Name = "generalTableLayoutPanel";
             this.generalTableLayoutPanel.RowCount = 2;
-            this.generalTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.generalTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.generalTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(SizeType.AutoSize));
+            this.generalTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(SizeType.AutoSize));
             this.generalTableLayoutPanel.TabIndex = 0;
             // 
             // matControl
             // 
             this.matControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.matControl.AutoSize = true;
-            this.matControl.Location = new System.Drawing.Point(2, 6);
             this.matControl.Margin = new System.Windows.Forms.Padding(2);
             this.matControl.Name = "matControl";
             this.matControl.TabIndex = 0;
@@ -501,7 +487,6 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // 
             this.clampControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.clampControl.AutoSize = true;
-            this.clampControl.Location = new System.Drawing.Point(2, 6);
             this.clampControl.Margin = new System.Windows.Forms.Padding(2);
             this.clampControl.Name = "clampControl";
             this.clampControl.TabIndex = 0;
@@ -510,7 +495,6 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // 
             this.loadControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.loadControl.AutoSize = true;
-            this.loadControl.Location = new System.Drawing.Point(2, 6);
             this.loadControl.Margin = new System.Windows.Forms.Padding(2);
             this.loadControl.Name = "loadControl";
             this.loadControl.TabIndex = 0;
