@@ -327,17 +327,23 @@
     <Compile Include="Tasks\HeatTreatmentModule\PinnedHTAdvControl.Designer.cs">
       <DependentUpon>PinnedHTAdvControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tasks\TasksFromNavigator\Controls\ClampControl.cs">
+    <Compile Include="Tasks\TasksFromNavigator\Controls\ClampControlCreator.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Tasks\TasksFromNavigator\Controls\ClampControl.Designer.cs">
-      <DependentUpon>ClampControl.cs</DependentUpon>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\ClampControlCreator.Designer.cs">
+      <DependentUpon>ClampControlCreator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tasks\TasksFromNavigator\Controls\MaterialControl.cs">
+    <Compile Include="Tasks\TasksFromNavigator\Controls\LoadControlCreator.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Tasks\TasksFromNavigator\Controls\MaterialControl.Designer.cs">
-      <DependentUpon>MaterialControl.cs</DependentUpon>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\LoadControlCreator.Designer.cs">
+      <DependentUpon>LoadControlCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\MaterialControlCreator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\MaterialControlCreator.Designer.cs">
+      <DependentUpon>MaterialControlCreator.cs</DependentUpon>
     </Compile>
     <Compile Include="Tasks\TasksFromNavigator\GeneralСontrol.cs">
       <SubType>UserControl</SubType>
@@ -528,8 +534,11 @@
     <EmbeddedResource Include="Tasks\HeatTreatmentModule\PinnedHTAdvControl.resx">
       <DependentUpon>PinnedHTAdvControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\MaterialControl.resx">
-      <DependentUpon>MaterialControl.cs</DependentUpon>
+    <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\LoadControlCreator.resx">
+      <DependentUpon>LoadControlCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\MaterialControlCreator.resx">
+      <DependentUpon>MaterialControlCreator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\TasksFromNavigator\GeneralСontrol.resx">
       <DependentUpon>GeneralСontrol.cs</DependentUpon>

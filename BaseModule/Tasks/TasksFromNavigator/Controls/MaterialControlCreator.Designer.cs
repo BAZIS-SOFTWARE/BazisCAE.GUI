@@ -5,7 +5,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BaseModule.Tasks.TasksFromNavigator.Controls
 {
-    partial class MaterialControl
+    partial class MaterialControlCreator
     {
         /// <summary> 
         /// Обязательная переменная конструктора.

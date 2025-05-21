@@ -69,8 +69,9 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.txbStartTime = new UserControlsEx.TextBoxEx(this.components);
             this.btnCreatePhysicalData = new System.Windows.Forms.Button();
             this.generalTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.matControl = new BaseModule.Tasks.TasksFromNavigator.Controls.MaterialControl();
-            this.clampControl = new BaseModule.Tasks.TasksFromNavigator.Controls.ClampControl();
+            this.matControl = new BaseModule.Tasks.TasksFromNavigator.Controls.MaterialControlCreator();
+            this.clampControl = new BaseModule.Tasks.TasksFromNavigator.Controls.ClampControlCreator();
+            this.loadControl = new BaseModule.Tasks.TasksFromNavigator.Controls.LoadControlCreator();
             this.movementParametersGroupBox.SuspendLayout();
             this.trajectoryTableLayoutPanel.SuspendLayout();
             this.tableLayoutPanelX.SuspendLayout();
@@ -475,7 +476,8 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.generalTableLayoutPanel.ColumnCount = 1;
             this.generalTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             //this.generalTableLayoutPanel.Controls.Add(this.matControl, 0, 0);
-            this.generalTableLayoutPanel.Controls.Add(this.clampControl, 0, 0);
+            //this.generalTableLayoutPanel.Controls.Add(this.clampControl, 0, 0);
+            this.generalTableLayoutPanel.Controls.Add(this.loadControl, 0, 0);
             this.generalTableLayoutPanel.Controls.Add(this.movementParametersGroupBox, 0, 1);
             this.generalTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.generalTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
@@ -503,6 +505,15 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.clampControl.Margin = new System.Windows.Forms.Padding(2);
             this.clampControl.Name = "clampControl";
             this.clampControl.TabIndex = 0;
+            // 
+            // loadControl
+            // 
+            this.loadControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.loadControl.AutoSize = true;
+            this.loadControl.Location = new System.Drawing.Point(2, 6);
+            this.loadControl.Margin = new System.Windows.Forms.Padding(2);
+            this.loadControl.Name = "loadControl";
+            this.loadControl.TabIndex = 0;
 
             // 
             // GeneralСontrol
@@ -570,7 +581,8 @@ namespace BaseModule.Tasks.TasksFromNavigator
         private ComboBoxEx cmbTraj;
         private System.Windows.Forms.Button btnCreatePhysicalData;
 
-        private BaseModule.Tasks.TasksFromNavigator.Controls.MaterialControl matControl;
-        private BaseModule.Tasks.TasksFromNavigator.Controls.ClampControl clampControl;
+        private BaseModule.Tasks.TasksFromNavigator.Controls.MaterialControlCreator matControl;
+        private BaseModule.Tasks.TasksFromNavigator.Controls.ClampControlCreator clampControl;
+        private BaseModule.Tasks.TasksFromNavigator.Controls.LoadControlCreator loadControl;
     }
 }

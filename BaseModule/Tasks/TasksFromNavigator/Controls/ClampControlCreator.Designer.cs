@@ -5,7 +5,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace BaseModule.Tasks.TasksFromNavigator.Controls
 {
-    partial class ClampControl
+    partial class ClampControlCreator
     {
         /// <summary> 
         /// Обязательная переменная конструктора.

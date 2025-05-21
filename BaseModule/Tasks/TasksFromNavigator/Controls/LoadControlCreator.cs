@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace BaseModule.Tasks.TasksFromNavigator.Controls
 {
-    public partial class MaterialControl: UserControl
+    public partial class LoadControlCreator: UserControl
     {
-        public MaterialControl()
+        public LoadControlCreator()
         {
             InitializeComponent();
         }

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace BaseModule.Tasks.TasksFromNavigator.Controls
 {
-    public partial class ClampControl: UserControl
+    public partial class MaterialControlCreator: UserControl
     {
-        public ClampControl()
+        public MaterialControlCreator()
         {
             InitializeComponent();
         }
