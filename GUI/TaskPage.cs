@@ -29,6 +29,7 @@ using BazisGUI.Utilities;
 using BaseModule.Navigator;
 using BaseModule.GanttChart;
 using Project.Tasks.LocalFrame;
+using BaseModule.Tasks.TasksFromNavigator;
 
 namespace BazisGUI
 {
@@ -1037,7 +1038,26 @@ namespace BazisGUI
 
         private void AddPhysicalData(object sender, EventArgs eventArgs)
         {
-
+            if (!(sender is ToolStripMenuItem toolStripMenuItem))
+                return;
+            if (toolStripMenuItem.Checked)
+            {
+                ganttDiagramForm.Close();
+                toolStripMenuItem.Checked = false;
+                return;
+            }
+            var generalControlCreator = new GeneralСontrol(sender.ToString());
+            ganttDiagramForm = new Form
+            {
+                AutoSize = true,
+                FormBorderStyle = FormBorderStyle.FixedSingle,
+                MaximizeBox = false,
+                MinimizeBox = false
+            };
+            ganttDiagramForm.Controls.Add(generalControlCreator);
+            ganttDiagramForm.Show(this);
+            toolStripMenuItem.Checked = true;
+            ganttDiagramForm.FormClosed += (s, e) => toolStripMenuItem.Checked = false;
         }
     }
 }

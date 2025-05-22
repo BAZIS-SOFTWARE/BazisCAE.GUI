@@ -72,6 +72,8 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.matControl = new BaseModule.Tasks.TasksFromNavigator.Controls.MaterialControlCreator();
             this.clampControl = new BaseModule.Tasks.TasksFromNavigator.Controls.ClampControlCreator();
             this.loadControl = new BaseModule.Tasks.TasksFromNavigator.Controls.LoadControlCreator();
+            this.mediaControl = new BaseModule.Tasks.TasksFromNavigator.Controls.MediaControlCreator();
+            this.heatControl = new BaseModule.Tasks.TasksFromNavigator.Controls.HeatControlCreator();
             this.movementParametersGroupBox.SuspendLayout();
             this.trajectoryTableLayoutPanel.SuspendLayout();
             this.tableLayoutPanelX.SuspendLayout();
@@ -465,7 +467,9 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.generalTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             //this.generalTableLayoutPanel.Controls.Add(this.matControl, 0, 0);
             //this.generalTableLayoutPanel.Controls.Add(this.clampControl, 0, 0);
-            this.generalTableLayoutPanel.Controls.Add(this.loadControl, 0, 0);
+            //this.generalTableLayoutPanel.Controls.Add(this.loadControl, 0, 0);
+            //this.generalTableLayoutPanel.Controls.Add(this.mediaControl, 0, 0);
+            this.generalTableLayoutPanel.Controls.Add(this.heatControl, 0, 0);
             this.generalTableLayoutPanel.Controls.Add(this.movementParametersGroupBox, 0, 1);
             this.generalTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.generalTableLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
@@ -498,6 +502,22 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.loadControl.Margin = new System.Windows.Forms.Padding(2);
             this.loadControl.Name = "loadControl";
             this.loadControl.TabIndex = 0;
+            // 
+            // mediaControl
+            // 
+            this.mediaControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.mediaControl.AutoSize = true;
+            this.mediaControl.Margin = new System.Windows.Forms.Padding(2);
+            this.mediaControl.Name = "mediaControl";
+            this.mediaControl.TabIndex = 0;
+            // 
+            // heatControl
+            // 
+            this.heatControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.heatControl.AutoSize = true;
+            this.heatControl.Margin = new System.Windows.Forms.Padding(2);
+            this.heatControl.Name = "heatControl";
+            this.heatControl.TabIndex = 0;
 
             // 
             // GeneralСontrol
@@ -568,5 +588,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
         private BaseModule.Tasks.TasksFromNavigator.Controls.MaterialControlCreator matControl;
         private BaseModule.Tasks.TasksFromNavigator.Controls.ClampControlCreator clampControl;
         private BaseModule.Tasks.TasksFromNavigator.Controls.LoadControlCreator loadControl;
+        private BaseModule.Tasks.TasksFromNavigator.Controls.MediaControlCreator mediaControl;
+        private BaseModule.Tasks.TasksFromNavigator.Controls.HeatControlCreator heatControl;
     }
 }

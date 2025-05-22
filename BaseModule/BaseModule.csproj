@@ -412,6 +412,11 @@
     <Compile Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl.designer.cs">
       <DependentUpon>ArcWeldingControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArcWeldingControl.resx</DependentUpon>
+    </Compile>
     <Compile Include="Tasks\WeldingModule\WeldingTypeControls\FSWeldingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -586,6 +591,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl.resx">
       <DependentUpon>ArcWeldingControl.cs</DependentUpon>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ArcWeldingControl1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\FSWeldingControl.resx">
       <DependentUpon>FSWeldingControl.cs</DependentUpon>
