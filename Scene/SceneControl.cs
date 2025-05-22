@@ -259,7 +259,7 @@ namespace Scene
                 {
                     if (glObjs.Count > 0)
                     {
-                        var bbox = glObjs.Select(x => x.BoundingBox).Max();
+                        var bbox = glObjs.Select(x => x.BoundingBox).Where(v => !float.IsInfinity(v.GetSqrCoordsSum())).Max();
                         clipPlaneRenderer.BoundingBox = bbox;
                         clipPlaneRenderer.CreateBoudingBoxVBO(bbox.LeftUpNear, bbox.RightDownFar);
                     }
@@ -548,9 +548,6 @@ namespace Scene
                 Gl.glPopMatrix();
             }
 
-            if (IsClipPlane)
-                Gl.glDisable(Gl.GL_CLIP_PLANE0);//Отключаем плоскость отсечения, если DisplayClipPlaneEvent был вызван
-  
             Gl.glDisable(Gl.GL_BLEND);
             Gl.glDisable(Gl.GL_CULL_FACE);
             Gl.glDisable(Gl.GL_COLOR_MATERIAL);
@@ -874,87 +871,71 @@ namespace Scene
         /// Смена толщины отображения слоя 3д элементов
         /// </summary>
         /// <param name="thickness"></param>
-        public void ChangeLayerLhickness(float thickness) => advanced3DClipper.LayerThickness = thickness;
+        public void ChangeLayerThickness(float thickness) => advanced3DClipper.LayerThickness = thickness;
 
         /// <summary>
         /// Смена режима отсечения для 3д элементов
         /// </summary>
         /// <param name="mode">Режим отсечения</param>
-        /// <param name="nodesObj">Имя объекта узловых элементов</param>
         /// <param name="element3dObj">Имя объекта 3д элементов</param>
         public void ChangeClipMode(ClipMode mode, string element3dObj)
         {
             advanced3DClipper.ClipMode = mode;
-            advanced3DClipper.IsEnable = mode != ClipMode.Default;
-            if (advanced3DClipper.IsEnable)
+            var obj = FindVBObj(element3dObj);
+
+            if (obj != null)
             {
-                foreach (var obj in glObjs)
-                    obj.ActiveDrawingObject = null;
-                advanced3DClipper.ClipMode = mode;
-                var el3d = FindVBObj(element3dObj);
-                //var nodes = FindVBObj(nodesObj);
-                if (el3d != null)
+                var el3d = (SurfaceObjects)obj;
+                if (mode == ClipMode.None)
                 {
-                    advanced3DClipper.Create3DBoundingBoxes((SurfaceObjects)el3d);
-                    el3d.ActiveDrawingObject = advanced3DClipper;
+                    el3d.ActiveDrawingObject = null;
+                    Gl.glDisable(Gl.GL_CLIP_PLANE0);
                 }
+                else
+                    el3d.ActiveDrawingObject = advanced3DClipper;
+                advanced3DClipper.Create3DBoundingBoxes(el3d);
             }
-            else//Перевод всех VBO в режим смешивания, если задан режим смешивания
-                ChangeVBOTransparentMode(IsBlending);
         }
 
         /// <inheritdoc/>
         public void ChangeClipPlane(Plane plane)
         {
-            if (plane != null && glObjs.Count != 0)
+            DisplayClipPlaneEvent = null;
+
+            DisplayClipPlaneEvent += new Action(() =>
             {
-                DisplayClipPlaneEvent = null;
+                if (IsBlending && !advanced3DClipper.IsEnable)
+                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
+                float[] modelMatrix = new float[16];
+                Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, modelMatrix);//Запоминаем предыдущую матрицу в стеке
+                Gl.glPushMatrix();
+                var origin = plane.Normal.Mult(plane.Shifting);
 
-                DisplayClipPlaneEvent += new Action(() =>
-                {
-                    if (IsBlending && !advanced3DClipper.IsEnable)
-                        averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
-                    float[] modelMatrix = new float[16];
-                    Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, modelMatrix);//Запоминаем предыдущую матрицу в стеке
-                    Gl.glPushMatrix();
-                    var origin = plane.Normal.Mult(plane.Shifting);
+                var sX = Math.Sign(plane.Normal._x);
+                var sY = Math.Sign(plane.Normal._y);
+                var sZ = Math.Sign(plane.Normal._z);
 
-                    var sX = Math.Sign(plane.Normal._x);
-                    var sY = Math.Sign(plane.Normal._y);
-                    var sZ = Math.Sign(plane.Normal._z);
+                var bbox = clipPlaneRenderer.BoundingBox;
 
-                    var bbox = clipPlaneRenderer.BoundingBox;
+                var diagonal = Vector.GetVectorLenght(bbox.LeftUpNear.Sub(bbox.RightDownFar));
+                var center = bbox.RightDownFar.Sum(bbox.LeftUpNear).Mult(0.5f);
+                Gl.glTranslatef(center._x, center._y, center._z);
+                Gl.glTranslatef(sX * origin._x, sY * origin._y, sZ * origin._z);
+                var angle = Vector.GetCosAngleVectors(new Point3D(0, 0, -1), plane.Normal);
+                angle = (float)(Math.Acos(angle) * 180 / Math.PI);
+                var axis = Vector.CrossProd(new Point3D(0, 0, -1), plane.Normal);
+                Gl.glRotatef(angle, axis._x, axis._y, axis._z);
+                var normalSize = diagonal * 0.125f;
 
-                    var diagonal = Vector.GetVectorLenght(bbox.LeftUpNear.Sub(bbox.RightDownFar));
-                    var center = bbox.RightDownFar.Sum(bbox.LeftUpNear).Mult(0.5f);
-                    Gl.glTranslatef(center._x, center._y, center._z);
-                    Gl.glTranslatef(sX * origin._x, sY * origin._y, sZ * origin._z);
-                    var angle = Vector.GetCosAngleVectors(new Point3D(0, 0, -1), plane.Normal);
-                    angle = (float)(Math.Acos(angle) * 180 / Math.PI);
-                    var axis = Vector.CrossProd(new Point3D(0, 0, -1), plane.Normal);
-                    Gl.glRotatef(angle, axis._x, axis._y, axis._z);
-                    var normalSize = diagonal * 0.125f;
+                Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, advanced3DClipper.ClipMatrix);
+                advanced3DClipper.ScaleFactor = ScaleFactor;
 
-                    float[] clipMatrix = new float[16];
-                    Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, clipMatrix);
-                    Gl.glLightfv(Gl.GL_LIGHT1, Gl.GL_POSITION, new float[] { 0, 0, -1, 0 });//Используем для быстрого преобразования
-                    Gl.glGetLightfv(Gl.GL_LIGHT1, Gl.GL_POSITION, advanced3DClipper.ClipEquat);
-                    var n = advanced3DClipper.ClipEquat;
-                    var dot = -(clipMatrix[12] * n[0] + clipMatrix[13] * n[1] + clipMatrix[14] * n[2]);
-                    advanced3DClipper.ClipEquat[3] = dot;
-                    advanced3DClipper.ScaleFactor = ScaleFactor;
+                clipPlaneRenderer.Draw(modelMatrix, normalSize);
 
-                    Gl.glLineWidth(2.5f);
-                    //var eyeNormal = Camera.GetSceenCoord(ClipPlane.Normal);//Вариант рисование без шейдеров
-                    //clipPlaneRenderer.Draw(obj.BoundingBox.LeftUpNear, obj.BoundingBox.RightDownFar, eyeNormal._z * diagonal * 0.0125f);
-                    clipPlaneRenderer.Draw(modelMatrix, normalSize);
-                    Gl.glClipPlane(Gl.GL_CLIP_PLANE0, new double[] { 0, 0, -1, 0 });
-                    Gl.glEnable(Gl.GL_CLIP_PLANE0);
-                    Gl.glPopMatrix();
-                    if (IsBlending && !advanced3DClipper.IsEnable)
-                        averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
-                });
-            }
+                Gl.glPopMatrix();
+                if (IsBlending && !advanced3DClipper.IsEnable)
+                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
+            });
         }        
 
 

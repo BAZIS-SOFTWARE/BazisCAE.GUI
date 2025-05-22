@@ -2,6 +2,7 @@
 using BaseModule.SceenControls;
 using BazisGUI.Utilities;
 using Geometry;
+using GmshApi;
 using Model;
 using Model.GeometryObjects;
 using Model.Interfaces;
@@ -860,29 +861,35 @@ namespace BazisGUI
                         Owner = Application.OpenForms[0]
                     };
 
-                    sceneControl.IsClipPlane = true;
                     clipForm.Controls.Add(clip);
 
+                    sceneControl.IsClipPlane = true;
+                    sceneControl.ChangeClipMode(Scene.ClipMode.Default, ObjType.Элемент3D.ToString());
+
+                    clip.SwitchOnOff += (v) => { sceneControl.IsClipPlane = v; };
                     clip.ChangeClipMode += (mode) =>
                     {
-                            sceneControl.ChangeClipMode((Scene.ClipMode)mode, ObjType.Элемент3D.ToString());
+                        sceneControl.ChangeClipMode((Scene.ClipMode)mode, ObjType.Элемент3D.ToString());
                     };
-                    clip.ChangeLayerThickness += (layerThickness) => sceneControl.ChangeLayerLhickness(layerThickness);
+
+                    clip.ChangeLayerThickness += (layerThickness) => sceneControl.ChangeLayerThickness(layerThickness);
+
                     clip.SetClipPlaneEvent += (plane) =>
                     {
-                        //var normal = plane.D;
                         var scPlane = new Geometry.Plane(new Point3D(plane.X, plane.Y, plane.Z), plane.D);
                         sceneControl.ChangeClipPlane(scPlane);
                     };
 
                     clip.RedrawClipPlane += () => sceneControl.DisplayObjects();
+
                     clipForm.FormClosing += (o, ev) =>
                     {
                         sceneControl.IsClipPlane = false;
+                        sceneControl.ChangeClipMode(Scene.ClipMode.None, ObjType.Элемент3D.ToString());
                         btn.Checked = false;
-                        sceneControl.ChangeClipMode(Scene.ClipMode.Default,"");
                         sceneControl.DisplayObjects();
                     };
+
                     clipForm.Show();
                     var location = BasePage.ScenePage.PointToScreen(Point.Empty);
                     clipForm.Location = location;
