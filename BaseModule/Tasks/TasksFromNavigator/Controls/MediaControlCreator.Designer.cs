@@ -1,7 +1,5 @@
-﻿using System.Reflection.Emit;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using UserControlsEx;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace BaseModule.Tasks.TasksFromNavigator.Controls
 {
@@ -253,7 +251,6 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             tableLayoutPanel2.Controls.Add(cmbNode, 1, 0);
             tableLayoutPanel2.Controls.Add(label6, 0, 1);
             tableLayoutPanel2.Controls.Add(cmbTermoCycle, 1, 1);
-
             // 
             // groupBox2
             // 
@@ -265,7 +262,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             groupBox2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox2.TabIndex = 25;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Время действия";
+            groupBox2.Text = "Параметры термоцикла";
             // 
             // label7
             // 
@@ -277,11 +274,11 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             // 
             // cmbNode
             // 
-            cmbNode.Anchor = AnchorStyles.Top | AnchorStyles.Left| AnchorStyles.Right;
+            cmbNode.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cmbNode.FormattingEnabled = true;
             cmbNode.InputType = UserControlsEx.CMBInputType.Items;
             cmbNode.IsValidating = true;
-            cmbNode.Items.AddRange(new object[] {"node"});
+            cmbNode.Items.AddRange(new object[] { "node" });
             cmbNode.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             cmbNode.Name = "cmbNode";
             cmbNode.TabIndex = 19;

@@ -124,14 +124,12 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             // 
             // cmbKind
             // 
-            this.cmbKind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbKind.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             this.tableLayoutPanel2.SetColumnSpan(this.cmbKind, 4);
             this.cmbKind.FormattingEnabled = true;
             this.cmbKind.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbKind.IsValidating = true;
-            this.cmbKind.Items.AddRange(new object[] {
-            "Жесткое"});
+            this.cmbKind.Items.AddRange(new object[] {"Жесткое"});
             this.cmbKind.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbKind.Name = "cmbKind";
             this.cmbKind.TabIndex = 36;

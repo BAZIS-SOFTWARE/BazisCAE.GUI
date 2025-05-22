@@ -333,6 +333,12 @@
     <Compile Include="Tasks\TasksFromNavigator\Controls\ClampControlCreator.Designer.cs">
       <DependentUpon>ClampControlCreator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\HeatControlCreator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\HeatControlCreator.Designer.cs">
+      <DependentUpon>HeatControlCreator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tasks\TasksFromNavigator\Controls\LoadControlCreator.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -539,6 +545,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\HeatTreatmentModule\PinnedHTAdvControl.resx">
       <DependentUpon>PinnedHTAdvControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\HeatControlCreator.resx">
+      <DependentUpon>HeatControlCreator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\LoadControlCreator.resx">
       <DependentUpon>LoadControlCreator.cs</DependentUpon>
