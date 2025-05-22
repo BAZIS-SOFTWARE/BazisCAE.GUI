@@ -345,6 +345,12 @@
     <Compile Include="Tasks\TasksFromNavigator\Controls\MaterialControlCreator.Designer.cs">
       <DependentUpon>MaterialControlCreator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\MediaControlCreator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\MediaControlCreator.Designer.cs">
+      <DependentUpon>MediaControlCreator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tasks\TasksFromNavigator\GeneralСontrol.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -539,6 +545,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\MaterialControlCreator.resx">
       <DependentUpon>MaterialControlCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\MediaControlCreator.resx">
+      <DependentUpon>MediaControlCreator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\TasksFromNavigator\GeneralСontrol.resx">
       <DependentUpon>GeneralСontrol.cs</DependentUpon>
