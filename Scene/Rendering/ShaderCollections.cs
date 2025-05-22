@@ -72,6 +72,8 @@ namespace Scene
         };
         /// <summary>
         /// averageColorRenderer фрагментный шейдер для финального смешивания всех видов объектов полученных в кадре
+        /// Исходники тут:
+        /// https://developer.download.nvidia.com/SDK/10/opengl/src/dual_depth_peeling/doc/DualDepthPeeling.pdf
         /// </summary>
         public static string[] averageColorFinalBlendFragment = new string[]
         {
