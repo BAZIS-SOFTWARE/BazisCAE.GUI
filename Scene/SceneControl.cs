@@ -259,7 +259,9 @@ namespace Scene
                 {
                     if (glObjs.Count > 0)
                     {
-                        var bbox = glObjs.Select(x => x.BoundingBox).Where(v => !float.IsInfinity(v.GetSqrCoordsSum())).Max();
+                        var bbox = glObjs.Where(v => !(v.BoundingBox.LeftUpNear is null) && !(v.BoundingBox.RightDownFar is null))
+                                         .OrderByDescending(v => v.BoundingBox.GetDiagonalLength())
+                                         .First().BoundingBox;
                         clipPlaneRenderer.BoundingBox = bbox;
                         clipPlaneRenderer.CreateBoudingBoxVBO(bbox.LeftUpNear, bbox.RightDownFar);
                     }

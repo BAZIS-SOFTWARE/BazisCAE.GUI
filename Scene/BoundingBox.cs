@@ -53,5 +53,14 @@ namespace Scene
             else
                 return 0;
         }
+        /// <summary>
+        /// Возвращает диагональ параллелепипеда
+        /// </summary>
+        /// <returns>Диагональ параллелепипеда</returns>
+        public float GetDiagonalLength()
+        {
+            var vec = LeftUpNear.Sub(RightDownFar);
+            return Vector.GetVectorLenght(vec);
+        }
     }
 }

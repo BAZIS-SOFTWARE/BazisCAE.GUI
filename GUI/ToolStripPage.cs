@@ -2,8 +2,6 @@
 using BaseModule.SceenControls;
 using BazisGUI.Utilities;
 using Geometry;
-using GmshApi;
-using Model;
 using Model.GeometryObjects;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
@@ -12,7 +10,6 @@ using Model.MeshObjects;
 using ModelControllerInterfaces;
 using Project.Interfaces;
 using Scene.Interfaces;
-using Scene.VBO;
 using System;
 using System.Collections.Generic;
 using System.Data;
