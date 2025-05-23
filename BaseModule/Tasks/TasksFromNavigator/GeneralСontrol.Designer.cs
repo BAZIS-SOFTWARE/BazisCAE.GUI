@@ -68,6 +68,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.startLabel = new System.Windows.Forms.Label();
             this.txbStartTime = new UserControlsEx.TextBoxEx(this.components);
             this.btnCreatePhysicalData = new System.Windows.Forms.Button();
+            this.btnClean = new System.Windows.Forms.Button();
             this.generalTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.matControl = new BaseModule.Tasks.TasksFromNavigator.Controls.MaterialControlCreator();
             this.clampControl = new BaseModule.Tasks.TasksFromNavigator.Controls.ClampControlCreator();
@@ -122,6 +123,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.trajectoryTableLayoutPanel.Controls.Add(this.startLabel, 0, 5);
             this.trajectoryTableLayoutPanel.Controls.Add(this.txbStartTime, 1, 5);
             this.trajectoryTableLayoutPanel.Controls.Add(this.btnCreatePhysicalData, 3, 6);
+            this.trajectoryTableLayoutPanel.Controls.Add(this.btnClean, 0, 6);
             this.trajectoryTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.trajectoryTableLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.trajectoryTableLayoutPanel.Name = "trajectoryTableLayoutPanel";
@@ -460,6 +462,18 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.btnCreatePhysicalData.Text = "Создать";
             this.btnCreatePhysicalData.UseVisualStyleBackColor = true;
             // 
+            // btnClean
+            // 
+            this.btnClean.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClean.Margin = new System.Windows.Forms.Padding(10, 5, 15, 5);
+            this.btnClean.MinimumSize = new System.Drawing.Size(90, 25);
+            this.btnClean.Name = "btnClean";
+            this.btnClean.Size = new System.Drawing.Size(100, 25);
+            this.btnClean.TabIndex = 0;
+            this.btnClean.Text = "Очистить";
+            this.btnClean.UseVisualStyleBackColor = true;
+            this.btnClean.Click += btnClean_Click;
+            // 
             // generalTableLayoutPanel
             // 
             this.generalTableLayoutPanel.AutoSize = true;
@@ -584,6 +598,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
         private ComboBoxEx cmbRef;
         private ComboBoxEx cmbTraj;
         private System.Windows.Forms.Button btnCreatePhysicalData;
+        private System.Windows.Forms.Button btnClean;
 
         private BaseModule.Tasks.TasksFromNavigator.Controls.MaterialControlCreator matControl;
         private BaseModule.Tasks.TasksFromNavigator.Controls.ClampControlCreator clampControl;
