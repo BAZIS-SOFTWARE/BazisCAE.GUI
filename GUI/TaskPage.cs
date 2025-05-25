@@ -30,11 +30,19 @@ using BaseModule.Navigator;
 using BaseModule.GanttChart;
 using Project.Tasks.LocalFrame;
 using BaseModule.Tasks.TasksFromNavigator;
+using BaseModule.Tasks.WeldingModule;
+using MathNet.Numerics;
+using TaskModule.BasicAdvisorControls.Interfaces;
+using Project;
+using BaseModule.Tasks.TasksFromNavigator.Controls;
+using Project.Tasks;
 
 namespace BazisGUI
 {
     public partial class TaskPage: ToolStripPage
     {
+        private List<string> _mat, _ndGrpsNames;
+
         public ProcessType ProcessType{ get; set; }
         public string SolverPath { get; set; }
 
@@ -71,7 +79,6 @@ namespace BazisGUI
         public TaskPage()
         {
             InitializeComponent();
-
             var taskNode = new TreeNode("Данные", 14, 14) { Name = "Данные", Tag = "6" };
             taskNode.ContextMenuStrip = taskMenuStrip;
             BasePage.NavigatorControl.TreeView.Nodes.Add(taskNode);
@@ -79,7 +86,6 @@ namespace BazisGUI
             selectToolStrip.Location = new Point(3, 0);
 
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
-
             BasePage.OnValuableDataSelectedEvent += BasePage_ValuableEvent;
             BasePage.panelProvider.GetAllGroupElements = () => ModelData.GroupData.ToList();
             BasePage.panelProvider.GetFuncDB = () => GetDataBase<FunctionDBData>(GeneralData.Functions, GeneralData.Path).Keys.ToList();
@@ -553,6 +559,17 @@ namespace BazisGUI
                 navigator.TreeView.Nodes["Данные"].Expand();
 
 
+
+                _ndGrpsNames = ModelData.GroupData.FindMany(ObjType.Узел).Select(x => x.Name).ToList();
+                var generalData = GeneralData;
+                var appFolder = Path.GetDirectoryName(Application.ExecutablePath);
+                if (appFolder == generalData.Path)
+                {
+                    MessageBox.Show("Рабочая папка проекта должна отличаться от папки установки программы!");
+                    return;
+                }
+                var matDB = GetDataBase<MaterialDBData>(generalData.Materials, generalData.Path);
+                _mat = matDB.Keys.ToList();
             }
             catch (Exception ex)
             {
@@ -1040,24 +1057,38 @@ namespace BazisGUI
         {
             if (!(sender is ToolStripMenuItem toolStripMenuItem))
                 return;
-            if (toolStripMenuItem.Checked)
-            {
-                ganttDiagramForm.Close();
-                toolStripMenuItem.Checked = false;
-                return;
-            }
-            var generalControlCreator = new GeneralСontrol(sender.ToString());
-            ganttDiagramForm = new Form
+            var generalForm = new Form
             {
                 AutoSize = true,
                 FormBorderStyle = FormBorderStyle.FixedSingle,
                 MaximizeBox = false,
                 MinimizeBox = false
             };
-            ganttDiagramForm.Controls.Add(generalControlCreator);
-            ganttDiagramForm.Show(this);
+            if (toolStripMenuItem.Checked)
+            {
+                generalForm.Close();
+                toolStripMenuItem.Checked = false;
+                return;
+            }
+            var generalControlCreator = new GeneralСontrol(sender.ToString(), _mat, _ndGrpsNames);
+            generalControlCreator.CreatePhysicalDataEvent += CreateTaskData;
+            generalControlCreator.CreatePhysicalDataEvent += (s) => generalForm.Close();
+            generalForm.Controls.Add(generalControlCreator);
+            generalForm.Show(this);
             toolStripMenuItem.Checked = true;
-            ganttDiagramForm.FormClosed += (s, e) => toolStripMenuItem.Checked = false;
+            generalForm.FormClosed += (s, e) => toolStripMenuItem.Checked = false;
+        }
+
+        public void CreateTaskData(AddDataEventArgs arg2)
+        {
+            var data = arg2.DataInfo.Split(' ');
+
+            var group = GetDataGroup(arg2.DataName, data);
+            MatData matData = new MatData(group, arg2.DataInfo);
+
+            var genData = matData as IPhysicalData;
+            taskData.Add(genData);
+            PresentTaskDataOnTree(taskData);
         }
     }
 }

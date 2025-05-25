@@ -461,6 +461,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.btnCreatePhysicalData.TabIndex = 0;
             this.btnCreatePhysicalData.Text = "Создать";
             this.btnCreatePhysicalData.UseVisualStyleBackColor = true;
+            this.btnCreatePhysicalData.Click += btnCreatePhysicalData_Click;
             // 
             // btnClean
             // 
@@ -479,10 +480,6 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.generalTableLayoutPanel.AutoSize = true;
             this.generalTableLayoutPanel.ColumnCount = 1;
             this.generalTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            //this.generalTableLayoutPanel.Controls.Add(this.matControl, 0, 0);
-            //this.generalTableLayoutPanel.Controls.Add(this.clampControl, 0, 0);
-            //this.generalTableLayoutPanel.Controls.Add(this.loadControl, 0, 0);
-            //this.generalTableLayoutPanel.Controls.Add(this.mediaControl, 0, 0);
             this.generalTableLayoutPanel.Controls.Add(this.heatControl, 0, 0);
             this.generalTableLayoutPanel.Controls.Add(this.movementParametersGroupBox, 0, 1);
             this.generalTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -500,6 +497,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.matControl.Margin = new System.Windows.Forms.Padding(2);
             this.matControl.Name = "matControl";
             this.matControl.TabIndex = 0;
+            this.matControl.AddDataEvent += new System.Action<BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             // 
             // clampControl
             // 
