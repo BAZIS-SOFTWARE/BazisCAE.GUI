@@ -135,7 +135,7 @@ namespace UserControlsEx
         {
             if (!IsPassRegExCheck(UserRegExCheck))
                 if (UserRegExCheckErrorMessage != null)
-                    errorMesages.AppendLine(UserRegExCheckErrorMessage);
+                    errorMesages.AppendLine($"{errorCount++} {UserRegExCheckErrorMessage}");
                 else
                     errorMesages.AppendLine($"{errorCount++}) Значение не прошло пользовательскую проверку");
         }
