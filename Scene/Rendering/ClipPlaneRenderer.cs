@@ -12,7 +12,7 @@ namespace Scene
         /// <summary>
         /// BoundingBox
         /// </summary>
-        public BoundingBox BoundingBox { get; set; } = new BoundingBox();
+        public BoundingBox BoundingBox { get; set; }
 
         BoundingBoxVBO boundingBoxVBO { get; set; }
         /// <summary>

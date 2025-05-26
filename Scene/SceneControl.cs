@@ -259,14 +259,13 @@ namespace Scene
                 {
                     if (glObjs.Count > 0)
                     {
-                        var bbox = glObjs.Where(v => !(v.BoundingBox.LeftUpNear is null) && !(v.BoundingBox.RightDownFar is null))
-                                         .OrderByDescending(v => v.BoundingBox.GetDiagonalLength())
+                        var bbox = glObjs.OrderByDescending(v => v.BoundingBox.GetDiagonalLength())
                                          .First().BoundingBox;
                         clipPlaneRenderer.BoundingBox = bbox;
                         clipPlaneRenderer.CreateBoudingBoxVBO(bbox.LeftUpNear, bbox.RightDownFar);
                     }
                     else
-                        clipPlaneRenderer.CreateBoudingBoxVBO(new Point3D(), new Point3D());                   
+                        clipPlaneRenderer.CreateBoudingBoxVBO(new Point3D(), new Point3D());              
 
                 }
                 else

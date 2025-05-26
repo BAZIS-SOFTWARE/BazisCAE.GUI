@@ -43,10 +43,11 @@ namespace Scene.VBO
         /// <param name="glCoords"></param>
         /// <param name="glColors"></param>
         /// <param name="glNormals"></param>
-        /// <param name="layout"></param>
         /// <param name="objName"></param>
         public VBObject(int[] pointers, float[] glCoords, float[] glColors, float[] glNormals, string objName)
         {
+            if (pointers.Length == 0)
+                throw new ArgumentException("Длина набора индексов не может быть нулевой");
             ObjName = objName;
 
             PtrLength = pointers.Length;
