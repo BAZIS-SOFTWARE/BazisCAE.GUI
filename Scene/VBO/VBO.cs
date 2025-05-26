@@ -16,12 +16,14 @@ namespace Scene.VBO
         /// <param name="obj"></param>
         public static void DeleteAllBuffers(VBObject obj)
         {
-            Gl.glDeleteBuffers(5, new int[] { obj.PointersBuffer, obj.CoordsBuffer, obj.ColorsBuffer, obj.NormalsBuffer });
+            var buffers = new int[] { obj.PointersBuffer, obj.CoordsBuffer, obj.ColorsBuffer, obj.NormalsBuffer };
+            Gl.glDeleteBuffers(buffers.Length, buffers);
 
             if (obj.GL_ObjType == GLObjType.triangle)
             {
                 var sObj = obj as SurfaceObjects;
-                Gl.glDeleteBuffers(3, new int[] { sObj.FrameBuffer, sObj.EdgeBuffer , sObj.SeparatorBuffer });
+                buffers = new int[] { sObj.FrameBuffer, sObj.EdgeBuffer, sObj.SeparatorBuffer };
+                Gl.glDeleteBuffers(buffers.Length, buffers);
             }
         }
         /// <summary>
