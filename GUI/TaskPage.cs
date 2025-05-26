@@ -1055,8 +1055,7 @@ namespace BazisGUI
 
         private void AddPhysicalData(object sender, EventArgs eventArgs)
         {
-            if (!(sender is ToolStripMenuItem toolStripMenuItem))
-                return;
+
             var generalForm = new Form
             {
                 AutoSize = true,
@@ -1064,19 +1063,14 @@ namespace BazisGUI
                 MaximizeBox = false,
                 MinimizeBox = false
             };
-            if (toolStripMenuItem.Checked)
-            {
-                generalForm.Close();
-                toolStripMenuItem.Checked = false;
-                return;
-            }
+
             var generalControlCreator = new GeneralСontrol(sender.ToString(), _mat, _ndGrpsNames);
             generalControlCreator.CreatePhysicalDataEvent += CreateTaskData;
             generalControlCreator.CreatePhysicalDataEvent += (s) => generalForm.Close();
             generalForm.Controls.Add(generalControlCreator);
             generalForm.Show(this);
-            toolStripMenuItem.Checked = true;
-            generalForm.FormClosed += (s, e) => toolStripMenuItem.Checked = false;
+            //toolStripMenuItem.Checked = true;
+            //generalForm.FormClosed += (s, e) => toolStripMenuItem.Checked = false;
         }
 
         public void CreateTaskData(AddDataEventArgs arg2)
