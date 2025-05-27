@@ -307,6 +307,7 @@ namespace Scene
         event Action DisplayRotationPointEvent;
         event Action DisplayClipPlaneEvent;
         event Action DisplayReflectionPlaneEvent;
+        event Action DisplayScaleBarEvent;
 /// <inheritdoc/>
 
 
@@ -471,9 +472,9 @@ namespace Scene
                 Gl.glEnable(Gl.GL_DEPTH);
             }
 
-
             DisplayText3DEvent?.Invoke();
-            DisplayText2DEvent?.Invoke(); 
+            DisplayText2DEvent?.Invoke();
+            DisplayScaleBarEvent?.Invoke();
 
             DisplayControlStatus();
 
@@ -937,7 +938,44 @@ namespace Scene
                 if (IsBlending && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
-        }        
+        }
+
+        /// <summary>
+        /// Показать масштабную линейку для объекта
+        /// </summary>
+        /// <param name="vboObj">Имя VBO-объекта</param>
+        /// <param name="blockCount">Количество блоков</param>
+        public void ShowScaleBar(string vboObj, int blockCount = 4)
+        {
+            DisplayScaleBarEvent = ScaleBar.Draw;
+
+            var diagonal = 1.0f;
+            var obj = FindVBObj(vboObj);
+            if (obj != null)
+                diagonal = obj.BoundingBox.GetDiagonalLength();
+
+            ScaleBar.FontBase = fontBase;
+            ScaleBar.Create(diagonal, blockCount);
+        }
+        /// <summary>
+        /// Поменять расположение линейки по высоте
+        /// </summary>
+        /// <param name="x">Координата смещения по x</param>
+        /// <param name="y">Координата смещение по y</param>
+        public void ChangeScaleBarPosition(float x, float y)
+        {
+            ScaleBar.OffsetX = x;
+            ScaleBar.OffsetY = y;
+        }
+
+        /// <summary>
+        /// Спрятать масштабную линейку для объекта
+        /// </summary>
+        public void HideScaleBar()
+        {
+            DisplayScaleBarEvent = null;
+            ScaleBar.Delete();
+        }
 
 
         private Action CreateRotationPoint()

@@ -181,6 +181,8 @@ namespace Viewer
             sceneControl.CreateReflectedVBObjects(obj1, new Plane(new Point3D(1, 0, 0), 20), "Копия4");
             var obj2 = sceneControl.FindVBObj("Копия4") as VBObject;
             sceneControl.DisplayReflectionPlane(obj1 , new Plane(new Point3D(1, 0, 0), 20));*/
+            if(checkBox9.Checked)
+                sceneControl.ShowScaleBar(ObjType.Элемент2D.ToString());
             sceneControl.FitObjectsToScreen();
             sceneControl.DisplayObjects();
 
@@ -418,6 +420,33 @@ namespace Viewer
                 colors[i + 3] = Convert.ToInt32(color.A) / 255.0f;
             }
             obj.PointsColors = colors;
+        }
+
+        private void OnShowHideScaleBar(object sender, EventArgs e)
+        {
+            trackBar5.Enabled = checkBox9.Checked;
+            trackBar6.Enabled = checkBox9.Checked;
+            if (checkBox9.Checked)
+                sceneControl.ShowScaleBar(ObjType.Элемент2D.ToString());
+            else
+                sceneControl.HideScaleBar();
+            sceneControl.DisplayObjects();
+        }
+
+        private void OnChangeScaleBarX(object sender, EventArgs e)
+        {
+            var x = (float)trackBar5.Value / trackBar5.Maximum;
+            var y = (float)trackBar6.Value / trackBar6.Maximum;
+            sceneControl.ChangeScaleBarPosition(x, y);
+            sceneControl.DisplayObjects();
+        }
+
+        private void OnChangeScaleBarY(object sender, EventArgs e)
+        {
+            var x = (float)trackBar5.Value / trackBar5.Maximum;
+            var y = (float)trackBar6.Value / trackBar6.Maximum;
+            sceneControl.ChangeScaleBarPosition(x, y);
+            sceneControl.DisplayObjects();
         }
     }
 }
