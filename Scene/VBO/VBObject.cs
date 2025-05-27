@@ -43,10 +43,11 @@ namespace Scene.VBO
         /// <param name="glCoords"></param>
         /// <param name="glColors"></param>
         /// <param name="glNormals"></param>
-        /// <param name="layout"></param>
         /// <param name="objName"></param>
         public VBObject(int[] pointers, float[] glCoords, float[] glColors, float[] glNormals, string objName)
         {
+            if (pointers.Length == 0)
+                throw new ArgumentException("Длина набора индексов не может быть нулевой");
             ObjName = objName;
 
             PtrLength = pointers.Length;
@@ -325,24 +326,27 @@ namespace Scene.VBO
 
         private void CalculateBoundingBox(float[] coords)
         {
-            var xMin = float.MaxValue;
-            var xMax = float.MinValue;
-            var yMin = float.MaxValue;
-            var yMax = float.MinValue;
-            var zMin = float.MaxValue;
-            var zMax = float.MinValue;
-            for(var i = 0; i < coords.Length; i += 3)
+            if (coords.Length != 0)
             {
-                xMin = Math.Min(xMin, coords[i]);
-                xMax = Math.Max(xMax, coords[i]);
-                yMin = Math.Min(yMin, coords[i + 1]);
-                yMax = Math.Max(yMax, coords[i + 1]);
-                zMin = Math.Min(zMin, coords[i + 2]);
-                zMax = Math.Max(zMax, coords[i + 2]);
+                var xMin = coords[0];
+                var xMax = coords[0];
+                var yMin = coords[1];
+                var yMax = coords[1];
+                var zMin = coords[2];
+                var zMax = coords[2];
+                for (var i = 0; i < coords.Length; i += 3)
+                {
+                    xMin = Math.Min(xMin, coords[i]);
+                    xMax = Math.Max(xMax, coords[i]);
+                    yMin = Math.Min(yMin, coords[i + 1]);
+                    yMax = Math.Max(yMax, coords[i + 1]);
+                    zMin = Math.Min(zMin, coords[i + 2]);
+                    zMax = Math.Max(zMax, coords[i + 2]);
+                }
+                var leftUpNear = new Point3D(xMin, yMax, zMax);
+                var rightDownFar = new Point3D(xMax, yMin, zMin);
+                BoundingBox = new BoundingBox(leftUpNear, rightDownFar);
             }
-            var leftUpNear = new Point3D(xMin, yMax, zMax);
-            var rightDownFar = new Point3D(xMax, yMin, zMin);
-            BoundingBox = new BoundingBox(leftUpNear, rightDownFar);
         }
         /// <summary>
         /// Установить единичную модельную матрицу 

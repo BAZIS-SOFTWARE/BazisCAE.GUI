@@ -285,7 +285,7 @@ namespace Viewer
         {
             if(button2.Tag == null)
             {
-                var clip = new ClipControl();
+                var clip = new ClipControl() { Dock = DockStyle.Fill };
                 var clipForm = new Form()
                 {
                     TopMost = true,
@@ -293,43 +293,34 @@ namespace Viewer
                     ClientSize = new Size(250, 210),
                     MaximizeBox = false,
                     FormBorderStyle = FormBorderStyle.FixedSingle,
-                    Text = "Сечение"
+                    Text = "Сечение",
+                    Owner = Application.OpenForms[0]
                 };
                 clipForm.Controls.Add(clip);
-                clip.Dock = DockStyle.Fill;
+
                 button2.Tag = clipForm;
-                clip.SetClipPlaneEvent += (plane) => 
-                sceneControl.ChangeClipPlane(new Geometry.Plane(new Point3D(plane.X, plane.Y, plane.Z), plane.D));
-                clip.SwitchOnOff += (v) =>
-                { sceneControl.IsClipPlane = v; };
-                clip.RedrawClipPlane += () => sceneControl.DisplayObjects();
-                clip.ChangeClipMode += (mode) => 
+
+                sceneControl.IsClipPlane = true;
+                sceneControl.ChangeClipMode(ClipMode.Default, ObjType.Элемент3D.ToString());
+
+                clip.SwitchOnOff += (v) => { sceneControl.IsClipPlane = v; };
+                clip.ChangeClipMode += (mode) =>
                 {
-                    //var nodes = sceneControl.GetVBObjs().Where(v => v.GL_ObjType == GLObjType.point);
-                    //var nodesName = string.Empty;
-
-                    var elems3d = sceneControl.GetVBObjs().Where(v => v.GL_ObjType == GLObjType.triangle).Select(v => (SurfaceObjects)v);
-                    var elems3dName = string.Empty;
-
-                    //if (nodes != null)
-                    //    nodesName = nodes.First().ObjName;
-                    if (elems3d != null)
-                    {
-                        var volumeObj = elems3d.Where(v => v.SeparatorBuffer != 0);
-                        if (volumeObj != null)
-                            elems3dName = volumeObj.First().ObjName;
-                    }
-                    var res = ModeConverter(mode);
-                    sceneControl.ChangeClipMode(res, elems3dName);
+                    sceneControl.ChangeClipMode((ClipMode)mode, ObjType.Элемент3D.ToString());
                 };
-                
 
-                clip.ChangeLayerThickness += (layerThickness) => sceneControl.ChangeLayerLhickness(layerThickness);
+                clip.ChangeLayerThickness += (layerThickness) => sceneControl.ChangeLayerThickness(layerThickness);
+
+                clip.SetClipPlaneEvent += (plane) => sceneControl.ChangeClipPlane(new Geometry.Plane(new Point3D(plane.X, plane.Y, plane.Z), plane.D));
+
+
+                clip.RedrawClipPlane += () => sceneControl.DisplayObjects();
+ 
                 clipForm.FormClosing += (o, ev) =>
                 {
                     sceneControl.IsClipPlane = false;
+                    sceneControl.ChangeClipMode(ClipMode.None, ObjType.Элемент3D.ToString());
                     button2.Tag = null;
-                    sceneControl.ChangeClipMode(Scene.ClipMode.Default,"");///Обязательный сброс
                     sceneControl.DisplayObjects();
                 };
                 clipForm.Show();

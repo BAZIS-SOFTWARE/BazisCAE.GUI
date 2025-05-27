@@ -15,6 +15,10 @@ namespace BaseModule.SceenControls
     public enum ClipRegime
     {
         /// <summary>
+        /// Отключено
+        /// </summary>
+        None,
+        /// <summary>
         /// По умолчанию, с разрезанием элемента
         /// </summary>
         Default,
@@ -38,6 +42,7 @@ namespace BaseModule.SceenControls
         private Pen Pen { get; set; }
 
         private Plane plane;
+
         /// <summary>
         /// Включить\выключить плоскость отсечения
         /// </summary>
@@ -93,20 +98,6 @@ namespace BaseModule.SceenControls
             }
         }
 
-        //private void NormalizeDirection()
-        //{
-        //    var isZeroNormal = colorSlider1.Value == colorSlider2.Value &&
-        //                       colorSlider2.Value == colorSlider3.Value &&
-        //                       colorSlider1.Value == 100;
-        //    if (!isZeroNormal)
-        //    {
-        //        //var normal = Vector.GetVectorNorm(ClipPlane.Normal);
-        //        ClipPlane.Normal._x = normal._x;
-        //        ClipPlane.Normal._y = normal._y;
-        //        ClipPlane.Normal._z = normal._z;купать?
-        //    }
-        //}
-
         private void OnEnableClipPlane(object sender, EventArgs e)
         {
             var controls = tableLayoutPanel1.Controls.OfType<Control>()
@@ -114,7 +105,7 @@ namespace BaseModule.SceenControls
             foreach (var control in controls)
                 control.Enabled = checkBox1.Checked;
 
-            var isObjCliped = checkBox1.Checked ? true : false; 
+            var isObjCliped = checkBox1.Checked ? true : false;
             panel2.Enabled = checkBox1.Checked;
             radioButton7.Enabled = checkBox1.Checked;
             radioButton8.Enabled = checkBox1.Checked;
@@ -125,7 +116,7 @@ namespace BaseModule.SceenControls
 
             SwitchOnOff?.Invoke(isObjCliped);
             SetClipPlaneEvent?.Invoke(plane);
-            RedrawClipPlane?.Invoke();
+            RedrawClipPlane?.Invoke();   
         }
 
         private void OnMouseDown(object sender, MouseEventArgs e)

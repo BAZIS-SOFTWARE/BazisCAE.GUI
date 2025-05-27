@@ -10,16 +10,16 @@ namespace Scene
     /// <summary>
     /// Структура хранения координат ограничивающего параллелепипеда
     /// </summary>
-    public struct BoundingBox : IComparable<BoundingBox>
+    public class BoundingBox : IComparable<BoundingBox>
     {
         /// <summary>
         /// Левая верхняя ближняя точка ограничивающего параллелепипеда
         /// </summary>
-        public Point3D LeftUpNear { get; set; }
+        public Point3D LeftUpNear { get; private set; }
         /// <summary>
         /// Правая нижняя дальняя точка ограничивающего параллелепипеда
         /// </summary>
-        public Point3D RightDownFar { get; set; }
+        public Point3D RightDownFar { get; private set; }
         /// <summary>
         /// Конструктор BoundingBoxCoords
         /// </summary>
@@ -52,6 +52,15 @@ namespace Scene
                 return 1;
             else
                 return 0;
+        }
+        /// <summary>
+        /// Возвращает диагональ параллелепипеда
+        /// </summary>
+        /// <returns>Диагональ параллелепипеда</returns>
+        public float GetDiagonalLength()
+        {
+            var vec = LeftUpNear.Sub(RightDownFar);
+            return Vector.GetVectorLenght(vec);
         }
     }
 }
