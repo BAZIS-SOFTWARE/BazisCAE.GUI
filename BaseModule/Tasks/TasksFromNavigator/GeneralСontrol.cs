@@ -1,6 +1,7 @@
 ﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
 using UserControlsEx;
 
@@ -11,17 +12,25 @@ namespace BaseModule.Tasks.TasksFromNavigator
         public event Action<AddDataEventArgs> CreatePhysicalDataEvent;
 
         private List<string> materialNames;
-        private List<string> group;
-        public GeneralСontrol(string type, List<string> mat, List<string> elementGroup)
+        private List<string> funcNames;
+        private List<string> nGroup;
+        private List<string> eGroup;
+        public GeneralСontrol(string type, List<string> mat, List<string> func, List<string> eGrpsNames, List<string> nGrpsNames)
         {
-            group = elementGroup;
+            eGroup = eGrpsNames;
+            nGroup = nGrpsNames;
+            funcNames = func;
             materialNames = mat;
             InitializeComponent();
             Creator(type);
         }
 
-        public void Control_AddDataEvent( AddDataEventArgs arg2)
+        public void Control_AddDataEvent(AddDataEventArgs arg2)
         {
+            //TODO: Добавить к DataInfo данные подвижного источника
+            //var name = arg2.DataName;
+            //var info = arg2.DataInfo + " newTestDataSet";
+            //CreatePhysicalDataEvent?.Invoke(new AddDataEventArgs(name, info));
             CreatePhysicalDataEvent?.Invoke(arg2);
         }
 
@@ -32,9 +41,14 @@ namespace BaseModule.Tasks.TasksFromNavigator
             {
                 generalTableLayoutPanel.Controls.Add(matControl, 0, 0);
                 matControl.Add_Materials(materialNames);
-                matControl.Fill_eGroups(group);
+                matControl.Fill_eGroups(eGroup);
             } 
-            else if (type == "Закрепление") generalTableLayoutPanel.Controls.Add(clampControl, 0, 0);
+            else if (type == "Закрепление")
+            {
+                generalTableLayoutPanel.Controls.Add(clampControl, 0, 0);
+                clampControl.Add_Functions(funcNames);
+                clampControl.Fill_nGroups(nGroup);
+            }
             else if (type == "Нагрузка") generalTableLayoutPanel.Controls.Add(loadControl, 0, 0);
             else if (type == "Нагрев") generalTableLayoutPanel.Controls.Add(heatControl, 0, 0);
             else if (type == "Среда") generalTableLayoutPanel.Controls.Add(mediaControl, 0, 0);
@@ -44,7 +58,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
         public void btnCreatePhysicalData_Click(object sender, EventArgs e)
         {
             matControl.AddButton_Click();
-            
+            clampControl.AddButton_Click();
         }
 
         private void btnClean_Click(object sender, EventArgs e)

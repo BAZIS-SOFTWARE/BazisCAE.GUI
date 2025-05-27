@@ -9,8 +9,6 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
 {
     public partial class MaterialControlCreator: UserControl
     {
-        enum Column : int { elem, material, startTime, stopTime };
-
         public event Action<AddDataEventArgs> AddDataEvent;
 
         public string DataName { get; }

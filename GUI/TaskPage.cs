@@ -41,8 +41,6 @@ namespace BazisGUI
 {
     public partial class TaskPage: ToolStripPage
     {
-        private List<string> _mat, _ndGrpsNames;
-
         public ProcessType ProcessType{ get; set; }
         public string SolverPath { get; set; }
 
@@ -557,19 +555,6 @@ namespace BazisGUI
 
                 navigator.TreeView.EndUpdate();
                 navigator.TreeView.Nodes["Данные"].Expand();
-
-
-
-                _ndGrpsNames = ModelData.GroupData.FindMany(ObjType.Узел).Select(x => x.Name).ToList();
-                var generalData = GeneralData;
-                var appFolder = Path.GetDirectoryName(Application.ExecutablePath);
-                if (appFolder == generalData.Path)
-                {
-                    MessageBox.Show("Рабочая папка проекта должна отличаться от папки установки программы!");
-                    return;
-                }
-                var matDB = GetDataBase<MaterialDBData>(generalData.Materials, generalData.Path);
-                _mat = matDB.Keys.ToList();
             }
             catch (Exception ex)
             {
@@ -1064,23 +1049,44 @@ namespace BazisGUI
                 MinimizeBox = false
             };
 
-            var generalControlCreator = new GeneralСontrol(sender.ToString(), _mat, _ndGrpsNames);
+            var elLoadGrpsNames = GetLoadGroupsNames(GeneralData.TaskType);
+            var ndGrpsNames = ModelData.GroupData.FindMany(ObjType.Узел).Select(x => x.Name).ToList();
+            var generalData = GeneralData;
+            var appFolder = Path.GetDirectoryName(Application.ExecutablePath);
+            if (appFolder == generalData.Path)
+            {
+                MessageBox.Show("Рабочая папка проекта должна отличаться от папки установки программы!");
+                return;
+            }
+            var matDB = GetDataBase<MaterialDBData>(generalData.Materials, generalData.Path);
+            var mat = matDB.Keys.ToList();
+            var funDB = GetDataBase<FunctionDBData>(generalData.Functions, generalData.Path);
+            var func = funDB.Keys.ToList();
+
+            var generalControlCreator = new GeneralСontrol(sender.ToString(), mat, func, elLoadGrpsNames, ndGrpsNames);
             generalControlCreator.CreatePhysicalDataEvent += CreateTaskData;
             generalControlCreator.CreatePhysicalDataEvent += (s) => generalForm.Close();
             generalForm.Controls.Add(generalControlCreator);
             generalForm.Show(this);
-            //toolStripMenuItem.Checked = true;
-            //generalForm.FormClosed += (s, e) => toolStripMenuItem.Checked = false;
         }
 
         public void CreateTaskData(AddDataEventArgs arg2)
         {
+            IPhysicalData genData = null;
             var data = arg2.DataInfo.Split(' ');
-
             var group = GetDataGroup(arg2.DataName, data);
-            MatData matData = new MatData(group, arg2.DataInfo);
-
-            var genData = matData as IPhysicalData;
+            switch (arg2.DataName)
+            {
+                case "Материал":
+                    MatData matData = new MatData(group, arg2.DataInfo);
+                    genData = matData as IPhysicalData;
+                    break;
+                case "Закрепление":
+                    ClampData clampData = new ClampData(group, arg2.DataInfo);
+                    genData = clampData as IPhysicalData;
+                    break;
+            }
+            
             taskData.Add(genData);
             PresentTaskDataOnTree(taskData);
         }

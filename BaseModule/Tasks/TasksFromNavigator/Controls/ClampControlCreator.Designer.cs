@@ -151,7 +151,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.cmbKind.TabIndex = 36;
             this.cmbKind.UserRegExCheck = null;
             this.cmbKind.UserRegExCheckErrorMessage = null;
-            //this.cmbKind.SelectedIndexChanged += new System.EventHandler(this.kindComboBox_SelectedIndexChanged);
+            this.cmbKind.SelectedIndexChanged += new System.EventHandler(this.kindComboBox_SelectedIndexChanged);
             #endregion
             #region "Параметры закрепления"
             // 
@@ -211,8 +211,8 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.chbLRF.Tag = "3";
             this.chbLRF.Text = "Произвольное";
             this.chbLRF.UseVisualStyleBackColor = true;
-            //this.chbLRF.EnabledChanged += new System.EventHandler(this.chbLRF_EnabledChanged);
-            //this.chbLRF.Click += new System.EventHandler(this.ChbDirection_Click);
+            this.chbLRF.EnabledChanged += new System.EventHandler(this.chbLRF_EnabledChanged);
+            this.chbLRF.Click += new System.EventHandler(this.ChbDirection_Click);
             // 
             // chbZ
             // 
@@ -223,7 +223,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.chbZ.Tag = "2";
             this.chbZ.Text = "Z";
             this.chbZ.UseVisualStyleBackColor = true;
-            //this.chbZ.Click += new System.EventHandler(this.ChbDirection_Click);
+            this.chbZ.Click += new System.EventHandler(this.ChbDirection_Click);
             // 
             // chbY
             // 
@@ -234,7 +234,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.chbY.Tag = "1";
             this.chbY.Text = "Y";
             this.chbY.UseVisualStyleBackColor = true;
-            //this.chbY.Click += new System.EventHandler(this.ChbDirection_Click);
+            this.chbY.Click += new System.EventHandler(this.ChbDirection_Click);
             // 
             // chbX
             // 
@@ -245,7 +245,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.chbX.Tag = "0";
             this.chbX.Text = "X";
             this.chbX.UseVisualStyleBackColor = true;
-            //this.chbX.Click += new System.EventHandler(this.ChbDirection_Click);
+            this.chbX.Click += new System.EventHandler(this.ChbDirection_Click);
             // 
             // label4
             // 

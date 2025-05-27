@@ -506,6 +506,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.clampControl.Margin = new System.Windows.Forms.Padding(2);
             this.clampControl.Name = "clampControl";
             this.clampControl.TabIndex = 0;
+            this.clampControl.AddDataEvent += new System.Action<BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             // 
             // loadControl
             // 
