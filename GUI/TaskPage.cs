@@ -1085,8 +1085,19 @@ namespace BazisGUI
                     ClampData clampData = new ClampData(group, arg2.DataInfo);
                     genData = clampData as IPhysicalData;
                     break;
+                case "Нагрузка":
+                    LoadData loadData = new LoadData(group, arg2.DataInfo);
+                    genData = loadData as IPhysicalData;
+                    break;
+                case "Среда":
+                    MediaData mediaData = new MediaData(group, arg2.DataInfo);
+                    genData = mediaData as IPhysicalData;
+                    break;
+                case "Нагрев":
+                    HeatData heatData = new HeatData(group, arg2.DataInfo);
+                    genData= heatData as IPhysicalData;
+                    break;
             }
-            
             taskData.Add(genData);
             PresentTaskDataOnTree(taskData);
         }

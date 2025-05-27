@@ -37,21 +37,30 @@ namespace BaseModule.Tasks.TasksFromNavigator
         private void Creator(string type)
         {
             generalTableLayoutPanel.Controls.Clear();
-            if (type == "Материал") 
+            if (type == "Материал")
             {
                 generalTableLayoutPanel.Controls.Add(matControl, 0, 0);
                 matControl.Add_Materials(materialNames);
                 matControl.Fill_eGroups(eGroup);
-            } 
+            }
             else if (type == "Закрепление")
             {
                 generalTableLayoutPanel.Controls.Add(clampControl, 0, 0);
                 clampControl.Add_Functions(funcNames);
                 clampControl.Fill_nGroups(nGroup);
             }
-            else if (type == "Нагрузка") generalTableLayoutPanel.Controls.Add(loadControl, 0, 0);
-            else if (type == "Нагрев") generalTableLayoutPanel.Controls.Add(heatControl, 0, 0);
-            else if (type == "Среда") generalTableLayoutPanel.Controls.Add(mediaControl, 0, 0);
+            else if (type == "Нагрузка")
+            {
+                generalTableLayoutPanel.Controls.Add(loadControl, 0, 0);
+            }
+            else if (type == "Нагрев")
+            {
+                generalTableLayoutPanel.Controls.Add(heatControl, 0, 0);
+            }
+            else if (type == "Среда") 
+            {
+                generalTableLayoutPanel.Controls.Add(mediaControl, 0, 0);
+            }
             generalTableLayoutPanel.Controls.Add(movementParametersGroupBox, 0, 1);
         }
 

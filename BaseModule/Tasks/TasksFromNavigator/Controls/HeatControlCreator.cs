@@ -15,6 +15,15 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
         public HeatControlCreator()
         {
             InitializeComponent();
+            SelectingHeatingSource();
+        }
+        private void SelectingHeatingSource()
+        {
+            groupBox3.Controls.Clear();
+
+            if (rbtARC.Checked) generalTableLayoutPanel.Controls.Add(tableLayoutPanel3);
+            else if (rbtLW.Checked) generalTableLayoutPanel.Controls.Add(tableLayoutPanel2);
+            else if (rbtFS.Checked) generalTableLayoutPanel.Controls.Add(tableLayoutPanel4);
         }
     }
 }
