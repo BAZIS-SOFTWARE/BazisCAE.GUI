@@ -898,6 +898,14 @@ namespace Scene
                 advanced3DClipper.Create3DBoundingBoxes(el3d);
             }
         }
+                ChangeVBOTransparentMode(IsBlending);
+        }
+                ChangeVBOTransparentMode(IsBlending);
+        }
+                ChangeVBOTransparentMode(IsBlending);
+        }
+                ChangeVBOTransparentMode(IsBlending);
+        }
 
         /// <inheritdoc/>
         public void ChangeClipPlane(Plane plane)
@@ -924,14 +932,6 @@ namespace Scene
                 Gl.glTranslatef(center._x, center._y, center._z);
                 Gl.glTranslatef(sX * origin._x, sY * origin._y, sZ * origin._z);
                 var angle = Vector.GetCosAngleVectors(new Point3D(0, 0, -1), plane.Normal);
-                angle = (float)(Math.Acos(angle) * 180 / Math.PI);
-                var axis = Vector.CrossProd(new Point3D(0, 0, -1), plane.Normal);
-                Gl.glRotatef(angle, axis._x, axis._y, axis._z);
-                var normalSize = diagonal * 0.125f;
-
-                Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, advanced3DClipper.ClipMatrix);
-                advanced3DClipper.ScaleFactor = ScaleFactor;
-
                 clipPlaneRenderer.Draw(modelMatrix, normalSize);
 
                 Gl.glPopMatrix();
@@ -976,6 +976,14 @@ namespace Scene
             DisplayScaleBarEvent = null;
             ScaleBar.Delete();
         }
+                    Gl.glClipPlane(Gl.GL_CLIP_PLANE0, new double[] { 0, 0, -1, 0 });
+                    Gl.glEnable(Gl.GL_CLIP_PLANE0);
+                    Gl.glPopMatrix();
+                    if (IsBlending && !advanced3DClipper.IsEnable)
+                        averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
+                });
+            }
+        }        
 
 
         private Action CreateRotationPoint()

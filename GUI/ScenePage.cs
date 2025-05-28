@@ -67,10 +67,11 @@ namespace BazisGUI
         {
             set
             {
-                foreach (var item in ModelData.ObjectData.NodesSet.Values)
-                {
-                    item.Color = value;
-                }
+                ModelData.ObjectData.NodesSet.SetColor(value);
+                //foreach (var item in ModelData.ObjectData.NodesSet.Values)
+                //{
+                //    item.Color = value;
+                //}
             }
         }  
 
