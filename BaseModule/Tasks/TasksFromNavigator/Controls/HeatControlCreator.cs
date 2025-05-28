@@ -145,7 +145,12 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
                 {
                     frameFunction = string.Format($"FSWPin;{txbRotSpeed.Text};{txbPinLenght.Text};{txbPinBottomDiam.Text};{txbPinUpperDiam.Text};{cmbYield.Text}");
                 }
-                else frameFunction = string.Format($"FSWPin;{txbRotSpeed.Text};{txbAxisForce.Text};{txbShoulderDiam.Text};{cmbFrictionModule.Text}");
+                else 
+                {
+                    var lengthDefault = "30";
+                    frameFunction = string.Format($"FSWShoulder;{txbAxisForce.Text};{txbRotSpeed.Text};{lengthDefault};{txbShoulderDiam.Text};{txbShoulderDiam.Text};{cmbFrictionModule.Text}");
+                }
+                
             }
                 var taskStr = string.Join(" ", new string[] { "1", "*", frameFunction, cmbEl.Text, stopTime, stopTime });
 
