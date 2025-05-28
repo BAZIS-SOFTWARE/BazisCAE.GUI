@@ -91,7 +91,8 @@ namespace Scene
         public Color BackGroundColor
         {
             get { return backGroundColor; }
-            set {
+            set
+            {
                 backGroundColor = value;
                 AverageColorRenderer.BackgroundColor = value;
             }
@@ -204,13 +205,13 @@ namespace Scene
         [Category("General properties")]
         [DefaultValue(false)]
         public bool IsSceneExpand { get; set; }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public ISceneCamera GetCamera()
         {
             return camera;
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
 
         public IVBObject FindVBObj(string objName)
@@ -218,25 +219,25 @@ namespace Scene
             return glObjs.Find(x => x.ObjName == objName);
         }
 
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public float ScaleFactor
         {
-            get{ return scaleFactor; }
+            get { return scaleFactor; }
             set { scaleFactor = value; }
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public int SceneWidth { get { return this.Width; } }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public int SceneHeight { get { return this.Height; } }
-/// <inheritdoc/>
-
-        public float ShadowAngle { get ; set ; }
         /// <inheritdoc/>
-        public bool IsSmoothShadow { get ; set; }
-/// <inheritdoc/>
+
+        public float ShadowAngle { get; set; }
+        /// <inheritdoc/>
+        public bool IsSmoothShadow { get; set; }
+        /// <inheritdoc/>
 
         [Description("Set backGround color")]
         [Category("General properties")]
@@ -245,8 +246,8 @@ namespace Scene
         /// <inheritdoc/>
         [Description("Set or get clip plane")]
         [Category("General properties")]
-        public bool IsClipPlane 
-        { 
+        public bool IsClipPlane
+        {
             get
             {
                 return displayClipPlane;
@@ -255,7 +256,7 @@ namespace Scene
             {
                 displayClipPlane = value;
 
-                if(value)
+                if (value)
                 {
                     if (glObjs.Count > 0)
                     {
@@ -265,7 +266,7 @@ namespace Scene
                         clipPlaneRenderer.CreateBoudingBoxVBO(bbox.LeftUpNear, bbox.RightDownFar);
                     }
                     else
-                        clipPlaneRenderer.CreateBoudingBoxVBO(new Point3D(), new Point3D());              
+                        clipPlaneRenderer.CreateBoudingBoxVBO(new Point3D(), new Point3D());
 
                 }
                 else
@@ -295,7 +296,7 @@ namespace Scene
         /// MessageEvent
         /// </summary>
         public event Action<object, MessageEventArgs> MessageEvent;
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public event Action SceneControlExpandEvent;
         /// <inheritdoc/>
@@ -308,7 +309,7 @@ namespace Scene
         event Action DisplayClipPlaneEvent;
         event Action DisplayReflectionPlaneEvent;
         event Action DisplayScaleBarEvent;
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
 
         public void Initialization()
@@ -419,7 +420,7 @@ namespace Scene
 
         public void DisplayObjects()
         {
-            Gl.glClearColor(BackGroundColor.R/255.0f, BackGroundColor.G / 255.0f, BackGroundColor.B / 255.0f, 0);
+            Gl.glClearColor(BackGroundColor.R / 255.0f, BackGroundColor.G / 255.0f, BackGroundColor.B / 255.0f, 0);
             // очистка буфера цвета и буфера глубины в заданный цвет 
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
 
@@ -427,7 +428,7 @@ namespace Scene
                 averageColorRenderer.ClearColors();
             if (DisplayBasis)
             {
-                if(IsBlending && !advanced3DClipper.IsEnable)
+                if (IsBlending && !advanced3DClipper.IsEnable)
                     averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
                 basis.Display(camera, scaleFactor);
                 if (displayRotatioPoint)
@@ -450,16 +451,16 @@ namespace Scene
             // вызов всех подключенных методов   
             DisplayGeometryObjectEvent?.Invoke();
 
-            if(IsCutting)
+            if (IsCutting)
             {
                 Gl.glEnable(Gl.GL_CULL_FACE);
                 Gl.glCullFace(Gl.GL_BACK);
                 Gl.glFrontFace(Gl.GL_CCW);
             }
             //if (IsLighting)//Перенес в другое место
-                //Gl.glEnable(Gl.GL_LIGHTING);
+            //Gl.glEnable(Gl.GL_LIGHTING);
             //if(IsBlending) //Не нужно
-                //Gl.glEnable(Gl.GL_BLEND);
+            //Gl.glEnable(Gl.GL_BLEND);
 
             DisplayModelObjects();
             if (IsBlending && !advanced3DClipper.IsEnable)
@@ -471,6 +472,7 @@ namespace Scene
                 compass.Display(camera, scaleFactor);
                 Gl.glEnable(Gl.GL_DEPTH);
             }
+
 
             DisplayText3DEvent?.Invoke();
             DisplayText2DEvent?.Invoke();
@@ -505,7 +507,7 @@ namespace Scene
             //Gl.glEnableClientState(Gl.GL_NORMAL_ARRAY);
             //Gl.glEnableClientState(Gl.GL_EDGE_FLAG_ARRAY);
             DisplayReflectionPlaneEvent?.Invoke();
-            if(displayClipPlane)
+            if (displayClipPlane)
                 DisplayClipPlaneEvent?.Invoke();
             if (IsLighting)
                 Gl.glEnable(Gl.GL_LIGHTING);
@@ -559,7 +561,7 @@ namespace Scene
             //Gl.glDisableClientState(Gl.GL_NORMAL_ARRAY);
             //Gl.glDisableClientState(Gl.GL_EDGE_FLAG_ARRAY);
             Gl.glPopMatrix();
-        }       
+        }
 
         /// <inheritdoc/>
         //TO DO добавить тест
@@ -573,13 +575,13 @@ namespace Scene
             var tempViewMatrixAr = viewMatrix.AsColumnMajorArray();
             Gl.glLoadMatrixf(tempViewMatrixAr);
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void PlaneObjs(ViewPlane plane)
         {
             camera.SetOnPlane(plane, scaleFactor);
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void ScaleObjs(float scaleFactor)
         {
@@ -591,9 +593,9 @@ namespace Scene
 
         public void RotateObjs()
         {
-            camera.Rotate(rotAxis,rotAngle);
+            camera.Rotate(rotAxis, rotAngle);
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
 
         public void FitObjectsToScreen()
@@ -622,7 +624,7 @@ namespace Scene
                         var x = coords[3 * j + 0];
                         var y = coords[3 * j + 1];
                         var z = coords[3 * j + 2];
-                        var scnCoord = camera.GetSceenCoord(x,y,z);
+                        var scnCoord = camera.GetSceenCoord(x, y, z);
                         var scrCoord = camera.GetScreenCoord(scnCoord);
 
                         var pRad = (float)Math.Sqrt((scrCoord._x * scrCoord._x) + (scrCoord._y * scrCoord._y));
@@ -671,7 +673,7 @@ namespace Scene
                         var scrPoint = camera.GetScreenCoord(scnPoint);
 
                         if (selectionBox.IsPointInside(scrPoint))
-                            selection.Add(new Point3D(x,y,z));
+                            selection.Add(new Point3D(x, y, z));
                     }
                 }
                 var distSelection = selection.Distinct();
@@ -684,7 +686,7 @@ namespace Scene
             }
             //if (e.KeyCode == Keys.Escape)
             //{
-                //SetBackColorEvent?.Invoke(this, new EventArgs());
+            //SetBackColorEvent?.Invoke(this, new EventArgs());
             //}
             if (e.KeyCode == Keys.F)
             {
@@ -694,7 +696,7 @@ namespace Scene
 
             SceneKeyDownEvent?.Invoke(sender, e);
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void UpdateProjection()
         {
@@ -765,10 +767,10 @@ namespace Scene
 
             if (e.Button == MouseButtons.Left)
             {
-                    selectionRectangle.winScreneCoord.X = e.Location.X;
-                    selectionRectangle.winScreneCoord.Y = glControl.Height - e.Location.Y;
-                    DisplayObjects();
-                    selectionRectangle.Display(glControl.Width, glControl.Height);              
+                selectionRectangle.winScreneCoord.X = e.Location.X;
+                selectionRectangle.winScreneCoord.Y = glControl.Height - e.Location.Y;
+                DisplayObjects();
+                selectionRectangle.Display(glControl.Width, glControl.Height);
             }
 
             else if (e.Button == MouseButtons.Right)
@@ -784,8 +786,8 @@ namespace Scene
                 var dx = (new_mousePosition.X - ScreenMousePosition.X) * (2 * (-moveCam_z)) / (float)(glControl.Width); //(mousePosition.Y - new_mousePosition.Y)
                 var dy = (new_mousePosition.Y - ScreenMousePosition.Y) * (2 * (-moveCam_z)) / (float)(glControl.Height);
 
-                camera.Rotate(dx, dy,rotAxis,rotAngle);
- 
+                camera.Rotate(dx, dy, rotAxis, rotAngle);
+
                 DisplayObjects();
             }
             ScreenMousePosition = new_mousePosition;
@@ -794,18 +796,18 @@ namespace Scene
         private void GlControl_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             var points = Math.Abs(e.Delta / 120);
-                for (int i = 0; i < points; i++)
-                {
-                    if (Math.Sign(e.Delta) > 0)
-                        ScaleObjs(1.1f);
-                    else ScaleObjs(0.9f);
-                    DisplayObjects();
-                }           
+            for (int i = 0; i < points; i++)
+            {
+                if (Math.Sign(e.Delta) > 0)
+                    ScaleObjs(1.1f);
+                else ScaleObjs(0.9f);
+                DisplayObjects();
+            }
         }
 
         private void GlControl_MouseDown(object sender, MouseEventArgs e)
         {
-                MouseMoveFlag = false;
+            MouseMoveFlag = false;
             if (e.Button == MouseButtons.Middle)
                 displayRotatioPoint = true;
 
@@ -848,7 +850,7 @@ namespace Scene
                         SelectObjectsEvent?.Invoke(this, new SelectObjectsEventArgs(selectionBox, sortFlag, true));
                     else
                         SelectObjectsEvent?.Invoke(this, new SelectObjectsEventArgs(selectionBox, sortFlag, false));
-                }  
+                }
                 DisplayObjects();
             }
             else if (e.Button == MouseButtons.Middle)
@@ -866,7 +868,7 @@ namespace Scene
             if (advanced3DClipper.IsEnable)
                 return;
             var drawObj = isTransparent ? averageColorRenderer : null;
-            foreach(var globj in glObjs)
+            foreach (var globj in glObjs)
                 globj.ActiveDrawingObject = drawObj;
         }
         /// <summary>
@@ -898,14 +900,6 @@ namespace Scene
                 advanced3DClipper.Create3DBoundingBoxes(el3d);
             }
         }
-                ChangeVBOTransparentMode(IsBlending);
-        }
-                ChangeVBOTransparentMode(IsBlending);
-        }
-                ChangeVBOTransparentMode(IsBlending);
-        }
-                ChangeVBOTransparentMode(IsBlending);
-        }
 
         /// <inheritdoc/>
         public void ChangeClipPlane(Plane plane)
@@ -932,6 +926,14 @@ namespace Scene
                 Gl.glTranslatef(center._x, center._y, center._z);
                 Gl.glTranslatef(sX * origin._x, sY * origin._y, sZ * origin._z);
                 var angle = Vector.GetCosAngleVectors(new Point3D(0, 0, -1), plane.Normal);
+                angle = (float)(Math.Acos(angle) * 180 / Math.PI);
+                var axis = Vector.CrossProd(new Point3D(0, 0, -1), plane.Normal);
+                Gl.glRotatef(angle, axis._x, axis._y, axis._z);
+                var normalSize = diagonal * 0.125f;
+
+                Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, advanced3DClipper.ClipMatrix);
+                advanced3DClipper.ScaleFactor = ScaleFactor;
+
                 clipPlaneRenderer.Draw(modelMatrix, normalSize);
 
                 Gl.glPopMatrix();
@@ -976,15 +978,6 @@ namespace Scene
             DisplayScaleBarEvent = null;
             ScaleBar.Delete();
         }
-                    Gl.glClipPlane(Gl.GL_CLIP_PLANE0, new double[] { 0, 0, -1, 0 });
-                    Gl.glEnable(Gl.GL_CLIP_PLANE0);
-                    Gl.glPopMatrix();
-                    if (IsBlending && !advanced3DClipper.IsEnable)
-                        averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
-                });
-            }
-        }        
-
 
         private Action CreateRotationPoint()
         {
@@ -1002,7 +995,7 @@ namespace Scene
                 Glu.gluDeleteQuadric(quadObj);
             });
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void DisplayText3D(string str, Color color, Point3D coord)
         {
@@ -1025,7 +1018,7 @@ namespace Scene
 
             DisplayText3DEvent += met;
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void DisplayText2D(string str, Color color, Point2D coord)
         {
@@ -1086,19 +1079,19 @@ namespace Scene
         {
             DisplayGeometryObjectEvent = null;
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void HideDisplayText3D()
         {
             DisplayText3DEvent = null;
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void HideDisplayText2D()
         {
             DisplayText2DEvent = null;
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void HideGeometryObj(string searchMethod)
         {
@@ -1113,7 +1106,7 @@ namespace Scene
                 }
             }
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public bool FindGeometryObj(string searchMethod)
         {
@@ -1128,7 +1121,7 @@ namespace Scene
             }
             return false;
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public bool DeleteVBObjects(string objName)
         {
@@ -1139,9 +1132,9 @@ namespace Scene
                 return glObjs.Remove(glObj);
             }
             else return false;
-                                
+
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void DeleteAllVBObjects()
         {
@@ -1162,9 +1155,9 @@ namespace Scene
             for (var i = 0; i < glCoords.Length; i += 3)
             {
                 var point = new VBOPoint(glCoords[i], glCoords[i + 1], glCoords[i + 2]);
-                if(!cPoints.ContainsKey(point))
+                if (!cPoints.ContainsKey(point))
                     cPoints.Add(point, new List<int>(10));
-                cPoints[point].Add(i); 
+                cPoints[point].Add(i);
             }
             return cPoints;
         }
@@ -1178,7 +1171,7 @@ namespace Scene
             {
                 var normal = new Point3D(glNormals[i], glNormals[i + 1], glNormals[i + 2]);
                 normal = Vector.GetVectorNorm(normal);
-                for(var j = 0; j < 3; ++j)
+                for (var j = 0; j < 3; ++j)
                     SetNormal(glNormals, normal, i + j * 3);
             }
         }
@@ -1230,8 +1223,8 @@ namespace Scene
         /// <param name="objsName"></param>
         /// <param name="separs"></param>
         /// <param name="viewMode"></param>
-        public void CreateSurfaceVBObjects(int[] ptrs, float[] coords, float[] colors, float[] normals, 
-            bool[] edges, string objsName, int[] separs,ObjView viewMode)
+        public void CreateSurfaceVBObjects(int[] ptrs, float[] coords, float[] colors, float[] normals,
+            bool[] edges, string objsName, int[] separs, ObjView viewMode)
         {
             if (IsSmoothShadow)
                 normals = SmoothShadow(coords, normals);
@@ -1267,13 +1260,13 @@ namespace Scene
         /// <param name="objsName"></param>
         public void CreatePointVBObjects(int[] ptrs, float[] coords, float[] colors, float[] normals, string objsName)
         {
-            var obj = new PointObjects(ptrs, coords, colors, normals ,objsName);
+            var obj = new PointObjects(ptrs, coords, colors, normals, objsName);
             glObjs.Add(obj);
             obj.ActiveDrawingObject = AverageColorRenderer.IsEnable ? averageColorRenderer : null;
         }
 
 
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
 
         public void CopyVBObjects(VBObject original, string copyName)
@@ -1291,24 +1284,24 @@ namespace Scene
                 var sObj = original as SurfaceObjects;
                 var edges = sObj.EdgeFlags;
                 normals = normals.Select(v => -v).ToArray();
-                
+
                 CreateSurfaceVBObjects(pointers, coords, colors, normals, edges, copyName, sObj.Separators, ObjView.LinesSurface);
             }
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void HideReflectionPlane()
         {
             DisplayReflectionPlaneEvent = null;
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void DisplayReflectionPlane(string objName, float[] coeff)
         {
             var plane = new Plane(new Point3D(coeff[0], coeff[1], coeff[2]), coeff[3]);
             var original = FindVBObj(objName);
 
-            if(original == null)
+            if (original == null)
                 throw new Exception($"Объект с именем {original.ObjName} не существует");
 
             var met = new Action(() =>
@@ -1481,17 +1474,17 @@ namespace Scene
             var plane = new Plane(normal, coef[3]);
 
             var copyVbo = FindVBObj(copyVboName);
-            if(copyVbo != null)
+            if (copyVbo != null)
                 throw new Exception($"Объект с именем {copyVbo} уже существует");
 
             var srcVbo = FindVBObj(srcVboName) as VBObject;
 
             if (srcVbo == null)
-                throw new Exception($"Объект с именем {srcVbo} не существует") ;
+                throw new Exception($"Объект с именем {srcVbo} не существует");
 
             CopyVBObjects(srcVbo, copyVboName);
-            var copeVbo  = FindVBObj(copyVboName);
-            
+            var copeVbo = FindVBObj(copyVboName);
+
             var reflMatrix = SceneCamera.GetReflectionMatrix(plane);//from stack
             //DisplayReflectionPlane(src, plane);
             Gl.glMatrixMode(Gl.GL_MODELVIEW);//видовая и модельная матрица
@@ -1502,7 +1495,7 @@ namespace Scene
             Gl.glPopMatrix();
         }
 
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
 
         public void ChangeViewModeVBObjects(string objsName, ObjView objView)
@@ -1513,7 +1506,7 @@ namespace Scene
             else
                 glObj.ViewMode = objView;
         }
- 
+
         /// <summary>
         /// ChangeSettingsVBObjects
         /// </summary>
@@ -1531,7 +1524,7 @@ namespace Scene
                 glObj.Gl_LineWidth = linesWith;
             }
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void DisplayLocalFrame(Frame frame)
         {
@@ -1547,7 +1540,7 @@ namespace Scene
 
                 // draw "Z"
                 var axis_z = frame.Centre.Sum(frame.Dir_Z);
-                
+
                 Gl.glColor3f(0, 0, 1);
                 Gl.glVertex3f(frame.Centre._x, frame.Centre._y, frame.Centre._z);
                 Gl.glVertex3f(axis_z._x, axis_z._y, axis_z._z);
@@ -1574,7 +1567,7 @@ namespace Scene
 
             DisplayGeometryObjectEvent += met;
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void DisplayDistance(Segment3D line)
         {
@@ -1608,7 +1601,7 @@ namespace Scene
 
             DisplayText3D(line.GetLength().ToString(), Color.FromArgb(0, 0, 0), coord);
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
 
         public void DisplayPath(Point3D[] points)
@@ -1636,7 +1629,7 @@ namespace Scene
                 DisplayGeometryObjectEvent += met;
             }
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void SwitchOnVBObject(string objsName)
         {
@@ -1645,7 +1638,7 @@ namespace Scene
             if (glObj != null)
                 glObj.ViewState = true;
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void SwitchOffVBObject(string objsName)
         {
@@ -1653,15 +1646,15 @@ namespace Scene
 
             if (glObj != null)
                 glObj.ViewState = false;
-        } 
-/// <inheritdoc/>
+        }
+        /// <inheritdoc/>
 
         public bool IsVBObjectShown(string objsName)
         {
             var glObj = glObjs.Find(x => x.ObjName == objsName);
             return glObj?.ViewState == true ? true : false;
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void DisplayLine(Point3D p0, Point3D p1, Color objColor)
         {
@@ -1678,7 +1671,7 @@ namespace Scene
                 Gl.glBegin(Gl.GL_LINES);
 
                 Gl.glVertex3f(p0._x, p0._y, p0._z);
-                Gl.glVertex3f( p1._x, p1._y, p1._z);
+                Gl.glVertex3f(p1._x, p1._y, p1._z);
                 Gl.glEnd();
                 Gl.glPopMatrix();
                 if (IsBlending && !advanced3DClipper.IsEnable)
@@ -1687,7 +1680,7 @@ namespace Scene
 
             DisplayGeometryObjectEvent += met;
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void DisplaySpiral(Point3D p0, Point3D p1, Color objColor)
         {
@@ -1713,7 +1706,7 @@ namespace Scene
 
             DisplayGeometryObjectEvent += met;
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
 
         public void DisplayConus(float UpperDiam, float BottomDiam, float length, Frame frame)
@@ -1742,7 +1735,7 @@ namespace Scene
                 //var dirZnorm = Vector.GetVectorNorm(frame);
                 var angleZ = Vector.GetCosAngleVectors(new Point3D(0, 0, 1), frame.Dir_Z);
                 angleZ = (float)(Math.Acos(angleZ) * 180 / Math.PI);
-                
+
                 var axisZ = Vector.CrossProd(new Point3D(0, 0, 1), frame.Dir_Z);
                 Gl.glRotatef(angleZ, axisZ._x, axisZ._y, axisZ._z);
 
@@ -1755,7 +1748,7 @@ namespace Scene
                 averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
             });
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void DisplaySphere(float width, Frame frame)
         {
@@ -1783,7 +1776,7 @@ namespace Scene
                 Gl.glRotatef(angle, axis._x, axis._y, axis._z);
                 //Glu.gluQuadricDrawStyle(quadObj, Glu.GLU_FILL); // устанавливаем
                 Glu.gluSphere(quadObj, width / 2, 10, 10); // рисуем сферу
-                                                                  // радиусом 0.5
+                                                           // радиусом 0.5
                 Gl.glPopMatrix();
                 Glu.gluDeleteQuadric(quadObj);
                 averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
@@ -1791,7 +1784,7 @@ namespace Scene
 
             DisplayGeometryObjectEvent += met;
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public ISceneScale CreateScaleObject(float min, float max, decimal ranges, string title, string comments)
         {
@@ -1799,7 +1792,7 @@ namespace Scene
             sScale.FontBase = fontBase;
             return sScale;
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void DisplaySceneScale(ISceneScale scale)
         {
@@ -1811,14 +1804,14 @@ namespace Scene
             });
 
             DisplayGeometryObjectEvent += del;
-        }      
-/// <inheritdoc/>
+        }
+        /// <inheritdoc/>
 
         public Point3D GetSceneCoordOfScreenVector(float x, float y)
         {
             return camera.GetSceneCoordOfScreenVector(x, y);
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public void SetTransparency(string vboObjName, int alpha)
         {
@@ -1841,7 +1834,7 @@ namespace Scene
                 }
             }
         }
-/// <inheritdoc/>
+        /// <inheritdoc/>
 
         public IEnumerable<IVBObject> GetVBObjs()
         {
