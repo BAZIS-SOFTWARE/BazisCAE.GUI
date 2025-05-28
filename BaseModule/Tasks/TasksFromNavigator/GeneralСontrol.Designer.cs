@@ -533,6 +533,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.mediaControl.Margin = new System.Windows.Forms.Padding(2);
             this.mediaControl.Name = "mediaControl";
             this.mediaControl.TabIndex = 0;
+            this.mediaControl.AddDataEvent += new System.Action<BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             // 
             // heatControl
             // 

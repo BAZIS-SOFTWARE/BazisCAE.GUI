@@ -119,7 +119,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             rbtTermoCycle.TabStop = true;
             rbtTermoCycle.Text = "Термоцикл";
             rbtTermoCycle.UseVisualStyleBackColor = true;
-            //rbtTermoCycle.CheckedChanged += new System.EventHandler(this.termocycleRadioButton_CheckedChanged);
+            rbtTermoCycle.CheckedChanged += new System.EventHandler(this.termocycleRadioButton_CheckedChanged);
             // 
             // rbtHeatFlow
             // 
@@ -129,8 +129,9 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             rbtHeatFlow.TabIndex = 20;
             rbtHeatFlow.TabStop = true;
             rbtHeatFlow.Text = "Тепловой поток";
+            rbtHeatFlow.Checked = true;
             rbtHeatFlow.UseVisualStyleBackColor = true;
-            //rbtHeatFlow.CheckedChanged += new System.EventHandler(this.mediaRadioButton_CheckedChanged);
+            rbtHeatFlow.CheckedChanged += new System.EventHandler(this.mediaRadioButton_CheckedChanged);
             #endregion
             #region "Тепловой поток"
             // 

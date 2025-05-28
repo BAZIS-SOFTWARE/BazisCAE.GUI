@@ -85,6 +85,9 @@ namespace BaseModule.Tasks.TasksFromNavigator
             else if (type == "Среда") 
             {
                 generalTableLayoutPanel.Controls.Add(mediaControl, 0, 0);
+                mediaControl.Fill_eGroups(eGroup);
+                mediaControl.Fill_nGroups(nGroup);
+                mediaControl.Add_Functions(funcNames);
             }
             generalTableLayoutPanel.Controls.Add(movementParametersGroupBox, 0, 1);
         }
@@ -113,6 +116,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             clampControl.AddButton_Click();
             heatControl.AddButton_Click();
             loadControl.AddButton_Click();
+            mediaControl.AddButton_Click();
         }
 
         private void btnClean_Click(object sender, EventArgs e)
