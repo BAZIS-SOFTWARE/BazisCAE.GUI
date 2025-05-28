@@ -41,6 +41,7 @@ namespace Scene
         ClipPlaneRenderer clipPlaneRenderer;
         Advanced3DClipper advanced3DClipper;
         AverageColorRenderer averageColorRenderer;
+        ElementSelector selector;
 
         private Color backGroundColor = Color.Green;
         private Color selectionColor = Color.Green;
@@ -336,6 +337,7 @@ namespace Scene
             averageColorRenderer = new AverageColorRenderer(glControl.Width, glControl.Height);
             clipPlaneRenderer = new ClipPlaneRenderer();
             advanced3DClipper = new Advanced3DClipper();
+            selector = new ElementSelector();
             Disposed += (s, e) =>
             {
                 foreach (var obj in glObjs)
@@ -343,6 +345,7 @@ namespace Scene
                 averageColorRenderer.Dispose();
                 clipPlaneRenderer.Dispose();
                 advanced3DClipper.Dispose();
+                selector.Dispose();
                 Gl.glDeleteLists(fontBase, 1150);
             };
             //Disposed += (s, e) => AverageColorRenderer.Dispose();

@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoundingBox.cs" />
+    <Compile Include="ElementSelector.cs" />
     <Compile Include="Events\MessageEventArgs.cs" />
     <Compile Include="Events\SelectObjectsEventArgs.cs" />
     <Compile Include="Interfaces\IActiveDrawingObject.cs" />
