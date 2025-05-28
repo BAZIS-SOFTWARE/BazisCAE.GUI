@@ -167,7 +167,7 @@ namespace BaseModule.SceenControls
             this.trackBar1.Location = new System.Drawing.Point(138, 3);
             this.trackBar1.Maximum = 200;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.ShowTextValue = true;
+            this.trackBar1.ShowTextValue = false;
             this.trackBar1.Size = new System.Drawing.Size(109, 24);
             this.trackBar1.SmallChange = ((uint)(1u));
             this.trackBar1.TabIndex = 0;
@@ -194,7 +194,7 @@ namespace BaseModule.SceenControls
             this.trackBar2.Location = new System.Drawing.Point(138, 33);
             this.trackBar2.Maximum = 200;
             this.trackBar2.Name = "trackBar2";
-            this.trackBar2.ShowTextValue = true;
+            this.trackBar2.ShowTextValue = false;
             this.trackBar2.Size = new System.Drawing.Size(109, 24);
             this.trackBar2.SmallChange = ((uint)(1u));
             this.trackBar2.TabIndex = 1;
@@ -221,7 +221,7 @@ namespace BaseModule.SceenControls
             this.trackBar3.Location = new System.Drawing.Point(138, 63);
             this.trackBar3.Maximum = 200;
             this.trackBar3.Name = "trackBar3";
-            this.trackBar3.ShowTextValue = true;
+            this.trackBar3.ShowTextValue = false;
             this.trackBar3.Size = new System.Drawing.Size(109, 24);
             this.trackBar3.SmallChange = ((uint)(1u));
             this.trackBar3.TabIndex = 2;
@@ -255,7 +255,6 @@ namespace BaseModule.SceenControls
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
-            this.label4.Enabled = false;
             this.label4.Location = new System.Drawing.Point(103, 100);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(18, 13);
@@ -267,7 +266,6 @@ namespace BaseModule.SceenControls
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Enabled = false;
             this.label3.Location = new System.Drawing.Point(99, 68);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(26, 13);
@@ -280,7 +278,6 @@ namespace BaseModule.SceenControls
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Enabled = false;
             this.label2.Location = new System.Drawing.Point(99, 38);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 13);
@@ -293,7 +290,6 @@ namespace BaseModule.SceenControls
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Enabled = false;
             this.label1.Location = new System.Drawing.Point(99, 8);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(26, 13);

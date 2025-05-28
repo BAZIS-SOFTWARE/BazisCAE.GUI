@@ -82,8 +82,8 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Geometry, Version=2.0.9.1, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Geometry.2.0.9.1\lib\netstandard2.0\Geometry.dll</HintPath>
+    <Reference Include="Geometry, Version=2.0.9.3, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Geometry.2.0.9.3\lib\netstandard2.0\Geometry.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>

@@ -72,11 +72,13 @@ namespace Scene
         };
         /// <summary>
         /// averageColorRenderer фрагментный шейдер для финального смешивания всех видов объектов полученных в кадре
+        /// Исходники тут:
+        /// https://developer.download.nvidia.com/SDK/10/opengl/src/dual_depth_peeling/doc/DualDepthPeeling.pdf
         /// </summary>
         public static string[] averageColorFinalBlendFragment = new string[]
         {
             "#version 120\n",
-            "void sort(in float depths[4], inout vec4 colors[4]);\n",
+            "void sort(in float depths[5], inout vec4 colors[5]);\n",
             "uniform sampler2DRect nodesDepth;\n",
             "uniform sampler2DRect nodesColor;\n",
             "uniform sampler2DRect linesDepth;\n",
@@ -101,26 +103,22 @@ namespace Scene
             "   float tDepth = texture2DRect(transpDepth, gl_FragCoord.xy).r;\n",
             "   vec4 tColor = texture2DRect(transpColor, gl_FragCoord.xy);\n",
             "   float tCount = texture2DRect(transpCount, gl_FragCoord.xy).r;\n",
-            "   float isFrame = float(fDepth != 1.0 && tCount == 0);\n",
-            "   tColor = mix(tColor, fColor, isFrame);\n",
-            "   tCount = mix(tCount, 1, isFrame);\n",
-            "   tDepth = mix(tDepth, fDepth, isFrame);\n",
             "   if(tCount != 0){\n",
-            "       tColor.a = max(0.000001f, tColor.a);\n",
-            "       tColor.rgb = mix(tColor.rgb,fColor.rgb,float(fDepth <= tDepth));\n",
-            "       tColor = vec4(tColor.rgb / tColor.a, 1 - pow(1 - tColor.a / tCount, tCount));\n",
-            "       tColor.rgb = mix(tColor.rgb,mix(fColor.rgb,tColor.rgb,tColor.a),float(fDepth > tDepth && fDepth != 1.0));\n",
-            "   }",
-            "   float depths[4] = float[4](tDepth, lDepth, nDepth, oDepth);\n",
-            "   vec4 colors[4] = vec4[4](tColor, lColor, nColor, oColor);\n",
+            "       tColor.a = max(0.000001, tColor.a - 0.00001);\n",
+            "       tColor = vec4(tColor.rgb / tColor.a, 1 - pow(1 - tColor.a / tCount, log(tCount)));\n",//Более резкое затухание
+            //"     tColor = vec4(tColor.rgb / tColor.a, 1 - pow(1 - tColor.a / tCount, tCount));\n",
+            "   }\n",
+            "   float depths[5] = float[5](fDepth, tDepth, lDepth, nDepth, oDepth);\n",
+            "   vec4 colors[5] = vec4[5](fColor, tColor, lColor, nColor, oColor);\n",
             "   sort(depths, colors);\n",
             "   gl_FragColor.rgb = colors[0].rgb * colors[0].a + (1 - colors[0].a) * ",
             "                     (colors[1].rgb * colors[1].a + (1 - colors[1].a) * ",
             "                     (colors[2].rgb * colors[2].a + (1 - colors[2].a) * ",
-            "                     (colors[3].rgb * colors[3].a + (1 - colors[3].a) * backColor)));\n",
+            "                     (colors[3].rgb * colors[3].a + (1 - colors[3].a) * ",
+            "                     (colors[4].rgb * colors[4].a + (1 - colors[4].a) * backColor))));\n",
             "}\n",
-            "   void sort(in float depths[4], inout vec4 colors[4]){\n",
-            "       for(int i = 0; i < 4; ++i){\n",
+            "   void sort(in float depths[5], inout vec4 colors[5]){\n",
+            "       for(int i = 0; i < 5; ++i){\n",
             "           float cDepth = depths[i];\n",
             "           vec4 cColor = colors[i];\n",
             "           int j = i;\n",
@@ -131,7 +129,7 @@ namespace Scene
             "           depths[j] = cDepth\n;",
             "           colors[j] = cColor\n;",
             "       }\n",
-            "   }"
+            "   }\n",
         };
         /// <summary>
         /// Вершинный шейдер клиппера

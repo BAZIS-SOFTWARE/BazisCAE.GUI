@@ -133,8 +133,11 @@ namespace UserControlsEx
 
         private void HandleUserCheckValue()
         {
-            if (IsPassRegExCheck(UserRegExCheck))
-                errorMesages.AppendLine($"{errorCount++}) Значение не прошло пользовательскую проверку");
+            if (!IsPassRegExCheck(UserRegExCheck))
+                if (UserRegExCheckErrorMessage != null)
+                    errorMesages.AppendLine($"{errorCount++} {UserRegExCheckErrorMessage}");
+                else
+                    errorMesages.AppendLine($"{errorCount++}) Значение не прошло пользовательскую проверку");
         }
 
         private void HandleTextValue()

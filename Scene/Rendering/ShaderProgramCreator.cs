@@ -59,13 +59,11 @@ namespace Scene
         /// <param name="buffer">Идентификатор буффера пользовательских данных</param>
         /// <param name="variable">Имя аттрибута в шейдере</param>
         /// <param name="attribsCount">Число аттрибутов</param>
-        /// <param name="location">Местонахождение в шейдере или -1 для динамического определения локации</param>
         /// <param name="usedType">Используемый тип данных</param>
-        public void SetCustomAttributes(int buffer, string variable, int attribsCount = 3, int location = -1, int usedType = Gl.GL_FLOAT)
+        public void SetCustomAttributes(int buffer, string variable, int attribsCount = 3, int usedType = Gl.GL_FLOAT)
         {
             Gl.glBindBuffer(Gl.GL_ARRAY_BUFFER, buffer);
-            if(location == -1)
-                location = Gl.glGetAttribLocation(Program, variable);
+            var location = Gl.glGetAttribLocation(Program, variable);
             Gl.glBindAttribLocation(Program, location, variable);
             Gl.glEnableVertexAttribArray(location);
             Gl.glVertexAttribPointer(location, attribsCount, usedType, Gl.GL_FALSE, 0, IntPtr.Zero);
@@ -75,11 +73,9 @@ namespace Scene
         /// Отвязывает пользовательские аттрибуты от программы
         /// </summary>
         /// <param name="variable">Имя аттрибута в шейдере</param>
-        /// <param name="variable">Имя аттрибута в шейдере</param>
-        public void UnsetCustomAttributes(string variable, int location = -1)
+        public void UnsetCustomAttributes(string variable)
         {
-            if(location == -1)
-                location = Gl.glGetAttribLocation(Program, variable);
+            var location = Gl.glGetAttribLocation(Program, variable);
             Gl.glDisableVertexAttribArray(location);
         }
 

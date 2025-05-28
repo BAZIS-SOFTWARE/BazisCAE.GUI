@@ -359,7 +359,7 @@ namespace BazisGUI
                 elems = ModelData.ObjectData.E2DCollection.GetObjects();
 
             var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, tableName, resName, elems);
-            return ModelController.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults, false);
+            return ModelController.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults);
         }
 
         private ItemRange[] GetScaleItems()

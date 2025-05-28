@@ -17,6 +17,10 @@ namespace Scene
     public enum ClipMode
     {
         /// <summary>
+        /// Отключено
+        /// </summary>
+        None,
+        /// <summary>
         /// По умолчанию, с разрезанием элемента
         /// </summary>
         Default,
@@ -36,82 +40,65 @@ namespace Scene
     /// </summary>
     public class Advanced3DClipper : IDisposable, IActiveDrawingObject
     {
-        private int leftUpBuffer;//Идентификатор буффера левых верхних углов элементов
-        private int rightDownBuffer;//Идентификатор буффера правых нижних углов элементов
+        private int leftUpBuffer;//Идентификатор буффера левых верхних углов (BoundingBox) элементов
+        private int rightDownBuffer;//Идентификатор буффера правых нижних углов (BoundingBox) элементов
+
         /// <summary>
         /// Программа, для полного отображения 3д элементов в месте сечения и в положительной полуплоскости сечения
         /// </summary>
         public ShaderProgramCreator KeepElementSurfaceRenderer { get; private set; }
-        /*/// <summary>
-        /// Программа, для полного отображения 3д элементов в месте сечения и в положительной полуплоскости сечения в режиме прозрачности
-        /// </summary>
-        public ShaderProgramCreator KeepElementSurfaceTransparentRenderer { get; private set; }*/
+
         /// <summary>
         /// Программа, для полного отображения каркаса в месте сечения и в положительной полуплоскости сечения
         /// </summary>
         public ShaderProgramCreator KeepElementWireframeRenderer { get; private set; }
-        /*/// <summary>
-        /// Программа, для полного отображения каркаса в месте сечения и в положительной полуплоскости сечения в режиме прозрачности
-        /// </summary>
-        public ShaderProgramCreator KeepElementWireframeTransparentRenderer { get; private set; }*/
+
         /// <summary>
         /// Программа, для полного отображения точек в месте сечения и в положительной полуплоскости сечения в режиме прозрачности
         /// </summary>
         public ShaderProgramCreator KeepElementPointsRenderer { get; private set; }
-        /*/// <summary>
-        /// Программа, для полного отображения точек в месте сечения и в положительной полуплоскости сечения в режиме прозрачности
-        /// </summary>
-        public ShaderProgramCreator KeepElementPointsTransparentRenderer { get; private set; }*/
+
+
         /// <summary>
         /// Программа, для послойного отображения 3д элементов, сохраняет элементы только в месте сечения
         /// </summary>
         public ShaderProgramCreator LayerSurfaceRenderer { get; private set; }
-        /*/// <summary>
-        /// Программа, для послойного отображения 3д элементов, сохраняет элементы только в месте сечения в режиме прозрачности
-        /// </summary>
-        public ShaderProgramCreator LayerSurfaceTransparentRenderer { get; private set; }*/
+
         /// <summary>
         /// Программа, для послойного отображения каркаса, сохраняет элементы только в месте сечения
         /// </summary>
         public ShaderProgramCreator LayerWireframeRenderer { get; private set; }
-        /*/// <summary>
-        /// Программа, для послойного отображения каркаса, сохраняет элементы только в месте сечения в режиме прозрачности
-        /// </summary>
-        public ShaderProgramCreator LayerWireframeTransparentRenderer { get; private set; }*/
+
         /// <summary>
         /// Программа, для послойного отображения точек, сохраняет элементы только в месте сечения
         /// </summary>
         public ShaderProgramCreator LayerPointsRenderer { get; private set; }
-        /*/// <summary>
-        /// Программа, для послойного отображения точек, сохраняет элементы только в месте сечения в режиме прозрачности
-        /// </summary>
-        public ShaderProgramCreator LayerPointsTransparentRenderer { get; private set; }*/
+
         /// <summary>
         /// Режим отсечения
         /// </summary>
         public ClipMode ClipMode { get; set; }
+
         /// <summary>
         /// Установка матрицы отсечения
         /// </summary>
         public float[] ClipEquat { get; set; } 
         /// <summary>
-        /// Объект из 3д элементов для сечений
+        /// Матрица в простанстве плоскости отсечения, нужна для включения отсечения для конкретного объекта, а не пространства
         /// </summary>
-        public VBObject ClipObject { get; set; }
-        /// <summary>
-        /// Цвет точек
-        /// </summary>
-        public float[] PointsColor { get; set; }
+        public float[] ClipMatrix { get; set; }
         /// <summary>
         /// Флаг улучшенного сечения
         /// </summary>
         public bool IsEnable {  get; set; }
+
         /// <summary>
         /// Установить толщину слоя
         /// </summary>
         public float LayerThickness { get; set; } = 1f;
+
         /// <summary>
-        /// 
+        /// Коэффициент масштабирования, полученный от камеры
         /// </summary>
         public float ScaleFactor { get; set; }
         /// <summary>
@@ -120,6 +107,7 @@ namespace Scene
         public Advanced3DClipper()
         {
             ClipEquat = new float[4];
+            ClipMatrix = new float[16];
 
             var vertexOld_1 = ShaderCollections.baseVertex[1];
             var vertexOld_2 = ShaderCollections.baseVertex[2];
@@ -148,144 +136,14 @@ namespace Scene
             ChangeCompilationCondition(1, ShaderCollections.baseFragment, fragmentOld_1);
         }
 
-        private void CreateKeepElementSurfaceRenderer()
-        {
-            //Без прозрачности
-            KeepElementSurfaceRenderer = new ShaderProgramCreator();
-            ChangeCompilationCondition(1, ShaderCollections.baseFragment, "#define NO_TRANSPARENT\n");
-
-            KeepElementSurfaceRenderer.CreateShaderFromString(Gl.GL_VERTEX_SHADER, ShaderCollections.baseVertex);
-            KeepElementSurfaceRenderer.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.keepElementsGeometry);
-            KeepElementSurfaceRenderer.CreateShaderFromString(Gl.GL_FRAGMENT_SHADER, ShaderCollections.baseFragment);
-            KeepElementSurfaceRenderer.Link();
-
-            //С прозрачностью. Вариант с прозрачностью пока выпилен, есть артефакты в рисовании
-            /*
-            KeepElementSurfaceTransparentRenderer = new ShaderProgramCreator();
-            ChangeCompilationCondition(1, ShaderCollections.baseFragment, "#define TRANSPARENT_WITH_CLIP\n");
-
-            KeepElementSurfaceTransparentRenderer.Vertex = KeepElementSurfaceRenderer.Vertex;
-            KeepElementSurfaceTransparentRenderer.Geometry = KeepElementSurfaceRenderer.Geometry;
-            KeepElementSurfaceTransparentRenderer.CreateShaderFromString(Gl.GL_FRAGMENT_SHADER, ShaderCollections.baseFragment);
-            KeepElementSurfaceTransparentRenderer.Link();
-            */
-        }
-
-        private void CreateKeepElementWireframeRenderer()
-        {
-            //Меняется компиляция только в геометрическом шейдере, остальное берется из KeepElementSurfaceRenderer и KeepElementSurfaceTransparentRenderer
-            //Без прозрачности
-            KeepElementWireframeRenderer = new ShaderProgramCreator();
-            ChangeCompilationCondition(1, ShaderCollections.keepElementsGeometry, "#define WIREFRAME\n");
-
-            KeepElementWireframeRenderer.Vertex = KeepElementSurfaceRenderer.Vertex;
-            KeepElementWireframeRenderer.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.keepElementsGeometry);
-            KeepElementWireframeRenderer.Fragment = KeepElementSurfaceRenderer.Fragment;
-            KeepElementWireframeRenderer.Link();
-
-            //С прозрачностью. Вариант с прозрачностью пока выпилен, есть артефакты в рисовании
-            /*
-            KeepElementWireframeTransparentRenderer = new ShaderProgramCreator();
-
-            KeepElementWireframeTransparentRenderer.Vertex = KeepElementWireframeRenderer.Vertex;
-            KeepElementWireframeTransparentRenderer.Geometry = KeepElementWireframeRenderer.Geometry;
-            KeepElementWireframeTransparentRenderer.Fragment = KeepElementSurfaceTransparentRenderer.Fragment;
-            KeepElementWireframeTransparentRenderer.Link();
-            */
-        }
-
-        private void CreateKeepElementPointsRenderer()
-        {
-            //Меняем условие компиляции в вершинном шейдере и геометрическом шейдере фрагментный шейдер берем из KeepElementSurfaceRenderer
-            //Без прозрачности
-            KeepElementPointsRenderer = new ShaderProgramCreator();
-            ChangeCompilationCondition(2, ShaderCollections.baseVertex, "#define CLIP_3D_POINTS\n");
-            ChangeCompilationCondition(1, ShaderCollections.keepElementsGeometry, "#define POINTS\n");
-
-            KeepElementPointsRenderer.CreateShaderFromString(Gl.GL_VERTEX_SHADER, ShaderCollections.baseVertex);
-            KeepElementPointsRenderer.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.keepElementsGeometry);
-            KeepElementPointsRenderer.Fragment = KeepElementSurfaceRenderer.Fragment;
-            KeepElementPointsRenderer.Link();
-            //С прозрачностью. Вариант с прозрачностью пока выпилен, есть артефакты в рисовании
-            /*KeepElementPointsTransparentRenderer = new ShaderProgramCreator();
-
-            KeepElementPointsTransparentRenderer.Vertex = KeepElementPointsRenderer.Vertex;
-            KeepElementPointsTransparentRenderer.Geometry = KeepElementPointsRenderer.Geometry;
-            KeepElementPointsTransparentRenderer.Fragment = KeepElementSurfaceTransparentRenderer.Fragment;
-            KeepElementPointsTransparentRenderer.Link();*/
-        }
-
-        private void CreateLayerSurfaceRenderer()
-        {
-            //Меняем условие компиляции только в геометрическом шейдере фрагментный и вершинный шейдер берем из KeepElementSurfaceRenderer
-            //Без прозрачности
-            LayerSurfaceRenderer = new ShaderProgramCreator();
-            ChangeCompilationCondition(2, ShaderCollections.keepElementsGeometry, "#define LAYER\n");
-
-            LayerSurfaceRenderer.Vertex = KeepElementSurfaceRenderer.Vertex;
-            LayerSurfaceRenderer.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.keepElementsGeometry);
-            LayerSurfaceRenderer.Fragment = KeepElementSurfaceRenderer.Fragment;
-            LayerSurfaceRenderer.Link();
-            //С прозрачностью. Вариант с прозрачностью пока выпилен, есть артефакты в рисовании
-            /*/LayerSurfaceTransparentRenderer = new ShaderProgramCreator();
-
-            LayerSurfaceTransparentRenderer.Vertex = LayerSurfaceRenderer.Vertex;
-            LayerSurfaceTransparentRenderer.Geometry = LayerSurfaceRenderer.Geometry;
-            LayerSurfaceTransparentRenderer.Fragment = KeepElementSurfaceTransparentRenderer.Fragment;
-            LayerSurfaceTransparentRenderer.Link();*/
-        }
-
-        private void CreateLayerWireframeRenderer()
-        {
-            //Меняем условие компиляции в геометрическом шейдере на WIREFRAME, остальное берем из LayerSurfaceRenderer и LayerSurfaceTransparentRenderer
-            //Без прозрачности
-            LayerWireframeRenderer = new ShaderProgramCreator();
-            ChangeCompilationCondition(1, ShaderCollections.keepElementsGeometry, "#define WIREFRAME\n");
-
-            LayerWireframeRenderer.Vertex = LayerSurfaceRenderer.Vertex;
-            LayerWireframeRenderer.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.keepElementsGeometry);
-            LayerWireframeRenderer.Fragment = LayerSurfaceRenderer.Fragment;
-            LayerWireframeRenderer.Link();
-            //С прозрачностью. Вариант с прозрачностью пока выпилен, есть артефакты в рисовании
-            /*LayerWireframeTransparentRenderer = new ShaderProgramCreator();
-
-            LayerWireframeTransparentRenderer.Vertex = LayerWireframeRenderer.Vertex;
-            LayerWireframeTransparentRenderer.Geometry = LayerWireframeRenderer.Geometry;
-            LayerWireframeTransparentRenderer.Fragment = KeepElementSurfaceTransparentRenderer.Fragment;
-            LayerWireframeTransparentRenderer.Link();*/
-        }
-
-        private void CreateLayerPointsRenderer()
-        {
-            //Меняем условие компиляции в геометрическом шейдере на POINTS, вершинный шейдер берем из KeepElementsPointsRenderer
-            //Без прозрачности
-            LayerPointsRenderer = new ShaderProgramCreator();
-            ChangeCompilationCondition(1, ShaderCollections.keepElementsGeometry, "#define POINTS\n");
-
-            LayerPointsRenderer.Vertex = KeepElementPointsRenderer.Vertex;
-            LayerPointsRenderer.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.keepElementsGeometry);
-            LayerPointsRenderer.Fragment = LayerSurfaceRenderer.Fragment;
-            LayerPointsRenderer.Link();
-            //С прозрачностью, Вариант с прозрачностью пока выпилен, есть артефакты в рисовании
-            /*LayerPointsTransparentRenderer = new ShaderProgramCreator();
-
-            LayerPointsTransparentRenderer.Vertex = LayerPointsRenderer.Vertex;
-            LayerPointsTransparentRenderer.Geometry = LayerPointsRenderer.Geometry;
-            LayerPointsTransparentRenderer.Fragment = KeepElementSurfaceTransparentRenderer.Fragment;
-            LayerPointsTransparentRenderer.Link();*/
-        }
-
         /// <summary>
         /// Создать ограничивающие параллелепипеды для 3д элементов, вызывать только для vbo типа 3D SurfaceObjects
         /// </summary>
         /// <param name="vbo">[In]3D SurfaceObjects</param>
         public void Create3DBoundingBoxes(SurfaceObjects vbo)
         {
-            if (leftUpBuffer == 0 && rightDownBuffer == 0)
+            if (leftUpBuffer == 0 && rightDownBuffer == 0 && IsShowInsideEnabled(vbo))
             {
-                if (vbo.SeparatorsLength == 0)
-                    throw new Exception("Отсутствует разметка, вызовите CreateSeparators");
-                ClipObject = vbo;
                 var points = vbo.PointsCoords;
                 var separators = vbo.Separators;
                 float[] leftUp, rightDown;
@@ -295,7 +153,6 @@ namespace Scene
             }
         }
 
-
         /// <summary>
         /// Выполнить действия перед вызовом glDrawElements
         /// </summary>
@@ -303,100 +160,43 @@ namespace Scene
         /// <param name="elements">[In]Элемент отрисовки</param>
         public void DoActionsBeforeDrawing(VBObject vbo, DrawElements elements)
         {
-            /*
-            if (IsTransparent)
-            {
-                BeforeDrawingTransparent(vbo, elements);//В режиме прозрачности пока не работает
-            }
-            else
-                BeforeDrawing(vbo, elements);*/
-            BeforeDrawing(vbo, elements);
-        }
-
-        private void BeforeDrawing(VBObject vbo, DrawElements elements)
-        {
-            if (ClipMode == ClipMode.Default || elements == DrawElements.Lines)
+            if (elements != DrawElements.Surfaces && elements != DrawElements.Wireframe)
                 return;
-            if (ClipObject != null)//Только если был задан 3д объект отсечения
+
+            ApplyMatrixSettings();
+            if (ClipMode != ClipMode.Default)
             {
                 ShaderProgramCreator program = null;
-                if (elements == DrawElements.Points)
+                if (elements == DrawElements.Surfaces)
                 {
-                    program = ClipMode == ClipMode.KeepElement ? KeepElementPointsRenderer : LayerPointsRenderer;
-                    program.Bind();
-                    program.SetUniform("pointsColor", PointsColor);
-                    SwapBuffersAndRenderSettings(vbo, ClipObject);
-                }
-                else if (elements == DrawElements.Surfaces)
-                {
+                    if (!IsShowInsideEnabled((SurfaceObjects)vbo))
+                        return;
                     program = ClipMode == ClipMode.KeepElement ? KeepElementSurfaceRenderer : LayerSurfaceRenderer;
                     program.Bind();
                 }
                 else if (elements == DrawElements.Wireframe)
                 {
+                    if (!IsShowInsideEnabled((SurfaceObjects)vbo))
+                        return;
                     program = ClipMode == ClipMode.KeepElement ? KeepElementWireframeRenderer : LayerWireframeRenderer;
                     program.Bind();
-                    program.SetCustomAttributes(((SurfaceObjects)vbo).EdgeBuffer, "wire", 1, 3, Gl.GL_UNSIGNED_BYTE);
+                    program.SetCustomAttributes(((SurfaceObjects)vbo).EdgeBuffer, "wire", 1, Gl.GL_UNSIGNED_BYTE);
                 }
+
                 var lighting = Gl.glIsEnabled(Gl.GL_LIGHTING);
                 program.SetUniform("isLighting", new float[] { lighting });
                 program.SetUniform("clipEquat", ClipEquat);
+
                 if (ClipMode == ClipMode.Layered)
                 {
                     program.SetUniform("layerThickness", new float[] { LayerThickness });
-                    program.SetUniform("scaleFactor", new float [] { ScaleFactor });
+                    program.SetUniform("scaleFactor", new float[] { ScaleFactor });
                 }
+
                 program.SetCustomAttributes(leftUpBuffer, "inLeftUp");
-                program.SetCustomAttributes(rightDownBuffer, "inRightDown");          
+                program.SetCustomAttributes(rightDownBuffer, "inRightDown");
             }
         }
-        /*//Работает, но плохо есть артефакты в рисовании, пока выпилил
-        private void BeforeDrawingTransparent(VBObject vbo, DrawElements elements)
-        {
-            var index = (int)elements;
-            Gle.glBindFramebuffer(Gl.GL_FRAMEBUFFER_EXT, AverageColorRenderer.fbo[index]);
-            ShaderProgramCreator program = null;
-            if (elements == DrawElements.Points)
-            {
-                program = ClipMode == ClipMode.KeepElement ? KeepElementPointsTransparentRenderer : LayerPointsTransparentRenderer;
-                program.Bind();
-                program.SetUniform("pointsColor", PointsColor);
-                SwapBuffersAndRenderSettings(vbo, PointTranformObject);
-            }
-            else if (elements == DrawElements.Surfaces)
-            {
-                Gl.glUseProgram(0);
-                Gl.glColorMask(Gl.GL_FALSE, Gl.GL_FALSE, Gl.GL_FALSE, Gl.GL_FALSE);//Проход только по буферу глубины
-                vbo.Draw();
-                Gl.glColorMask(Gl.GL_TRUE, Gl.GL_TRUE, Gl.GL_TRUE, Gl.GL_TRUE);
-
-
-                program = ClipMode == ClipMode.KeepElement ? KeepElementSurfaceTransparentRenderer : LayerSurfaceTransparentRenderer;
-                program.Bind();
-                Gl.glDrawBuffers(2, new int[] { Gl.GL_COLOR_ATTACHMENT0_EXT, Gl.GL_COLOR_ATTACHMENT1_EXT });
-                Gl.glDisable(Gl.GL_DEPTH_TEST);
-                Gl.glEnable(Gl.GL_BLEND);
-                Gl.glBlendFunc(Gl.GL_ONE, Gl.GL_ONE);
-                Gl.glBlendEquation(Gl.GL_FUNC_ADD);
-            }
-            else if (elements == DrawElements.Wireframe)
-            {
-                Gl.glDrawBuffer(Gl.GL_COLOR_ATTACHMENT0_EXT);
-                if (!AverageColorRenderer.ShowSurfaceBackEdges)
-                {
-                    Gl.glEnable(Gl.GL_CULL_FACE);
-                    Gl.glCullFace(Gl.GL_BACK);
-                }
-
-                program = ClipMode == ClipMode.KeepElement ? KeepElementWireframeTransparentRenderer : LayerWireframeTransparentRenderer;
-                program.Bind();
-            }
-            var lighting = Gl.glIsEnabled(Gl.GL_LIGHTING);
-            program.SetUniform("isLighting", new float[] { lighting });
-            program.SetUniform("clipEquat", ClipEquat);
-            program.SetCustomAttributes(leftUpBuffer, "inLeftUp");
-            program.SetCustomAttributes(rightDownBuffer, "inRightDown");
-        }*/
 
         /// <summary>
         /// Выполнить действия после вызова glDrawElements
@@ -405,63 +205,25 @@ namespace Scene
         /// <param name="elements">[In]Элемент отрисовки</param>
         public void DoActionsAfterDrawing(VBObject vbo, DrawElements elements)
         {
-            /*if (IsTransparent)
-                AfterDrawingTransparent(vbo, elements);//В режиме прозрачности пока не работает
-            else
-                AfterDrawing(vbo, elements);*/
-            AfterDrawing(vbo, elements);
-        }
-
-        private void AfterDrawing(VBObject vbo, DrawElements elements)
-        {
-            if (ClipMode == ClipMode.Default || elements == DrawElements.Lines)
+            Gl.glDisable(Gl.GL_CLIP_PLANE0);
+            if (elements != DrawElements.Surfaces && elements != DrawElements.Wireframe)
                 return;
-            if (ClipObject != null)//Только если был задан 3д объект отсечения
-            {
-                ShaderProgramCreator program = null;
-                if (elements == DrawElements.Surfaces)
-                    program = ClipMode == ClipMode.KeepElement ? KeepElementSurfaceRenderer : LayerSurfaceRenderer;
-                else if (elements == DrawElements.Wireframe)
-                    program = ClipMode == ClipMode.KeepElement ? KeepElementWireframeRenderer : LayerWireframeRenderer;
-                else if (elements == DrawElements.Points)
-                {
-                    program = ClipMode == ClipMode.KeepElement ? KeepElementPointsRenderer : LayerPointsRenderer;
-                    SwapBuffersAndRenderSettings(vbo, ClipObject);
-                }
-                program.UnsetCustomAttributes("inLeftUp");
-                program.UnsetCustomAttributes("inRightDown");
-                if (elements == DrawElements.Wireframe)
-                    program.UnsetCustomAttributes("wire", 3);
-                program.Unbind();
-            }
-        }
-        /*//Работает, но плохо есть артефакты в рисовании, пока выпилил
-        private void AfterDrawingTransparent(VBObject vbo, DrawElements elements)
-        {
+
             ShaderProgramCreator program = null;
-            if (elements == DrawElements.Points)
-            {
-                program = ClipMode == ClipMode.KeepElement ? KeepElementPointsTransparentRenderer : LayerPointsTransparentRenderer;
-                SwapBuffersAndRenderSettings(vbo, PointTranformObject);
-            }
-            else if (elements == DrawElements.Surfaces)
-            {
-                program = ClipMode == ClipMode.KeepElement ? KeepElementSurfaceTransparentRenderer : LayerSurfaceTransparentRenderer;
-                Gl.glEnable(Gl.GL_DEPTH_TEST);
-                Gl.glDisable(Gl.GL_BLEND);
-            }
+            if (elements == DrawElements.Surfaces)
+                program = ClipMode == ClipMode.KeepElement ? KeepElementSurfaceRenderer : LayerSurfaceRenderer;
             else if (elements == DrawElements.Wireframe)
-            {
-                program = ClipMode == ClipMode.KeepElement ? KeepElementWireframeTransparentRenderer : LayerWireframeTransparentRenderer;
-                if (!AverageColorRenderer.ShowSurfaceBackEdges)
-                    Gl.glDisable(Gl.GL_CULL_FACE);
-            }
+                program = ClipMode == ClipMode.KeepElement ? KeepElementWireframeRenderer : LayerWireframeRenderer;
+
+
             program.UnsetCustomAttributes("inLeftUp");
             program.UnsetCustomAttributes("inRightDown");
+
+            if (elements == DrawElements.Wireframe)
+                program.UnsetCustomAttributes("wire");
+
             program.Unbind();
-            Gle.glBindFramebuffer(Gl.GL_FRAMEBUFFER_EXT, 0);
-            Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_FILL);//Необходимо вызывать чтобы избежать артефакты при рендеринге
-        }*/
+        }
 
         /// <summary>
         /// Освобождает неуправляемые ресурсы
@@ -475,45 +237,117 @@ namespace Scene
             rightDownBuffer = 0;
 
             KeepElementSurfaceRenderer?.Dispose();
-            //KeepElementSurfaceTransparentRenderer.Dispose();
-
             LayerSurfaceRenderer?.Dispose();
-            //LayerSurfaceTransparentRenderer.Dispose();
-
             KeepElementWireframeRenderer?.Dispose();
-            //KeepElementWireframeTransparentRenderer.Dispose();
-
             LayerWireframeRenderer?.Dispose();
-            //LayerWireframeTransparentRenderer.Dispose();
-
             KeepElementPointsRenderer?.Dispose();
-            //KeepElementPointsTransparentRenderer.Dispose();
-
             LayerPointsRenderer?.Dispose();
-            //LayerPointsTransparentRenderer.Dispose();
 
             KeepElementSurfaceRenderer = null;
-            //KeepElementSurfaceTransparentRenderer = null;
-
             LayerSurfaceRenderer = null;
-            //LayerSurfaceTransparentRenderer = null;
-
             KeepElementWireframeRenderer = null;
-            //KeepElementWireframeTransparentRenderer = null;
-
             LayerWireframeRenderer = null;
-            //LayerWireframeTransparentRenderer = null;
-
             KeepElementPointsRenderer = null;
-            //KeepElementPointsTransparentRenderer = null;
-
             LayerPointsRenderer = null;
-            //LayerPointsTransparentRenderer = null;
         }
-        
+
+        private void ApplyMatrixSettings()
+        {
+            Gl.glMatrixMode(Gl.GL_MODELVIEW);
+            Gl.glPushMatrix();
+            Gl.glLoadMatrixf(ClipMatrix);
+
+            Gl.glClipPlane(Gl.GL_CLIP_PLANE0, new double[] { 0, 0, -1, 0 });
+            Gl.glEnable(Gl.GL_CLIP_PLANE0);
+
+            Gl.glLightfv(Gl.GL_LIGHT1, Gl.GL_POSITION, new float[] { 0, 0, -1, 0 });
+            Gl.glGetLightfv(Gl.GL_LIGHT1, Gl.GL_POSITION, ClipEquat);
+            var dot = -(ClipMatrix[12] * ClipEquat[0] + ClipMatrix[13] * ClipEquat[1] + ClipMatrix[14] * ClipEquat[2]);
+            ClipEquat[3] = dot;
+
+            Gl.glPopMatrix();
+        }
+
+        private void CreateKeepElementSurfaceRenderer()
+        {
+            //Без прозрачности
+            KeepElementSurfaceRenderer = new ShaderProgramCreator();
+            ChangeCompilationCondition(1, ShaderCollections.baseFragment, "#define NO_TRANSPARENT\n");
+
+            KeepElementSurfaceRenderer.CreateShaderFromString(Gl.GL_VERTEX_SHADER, ShaderCollections.baseVertex);
+            KeepElementSurfaceRenderer.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.keepElementsGeometry);
+            KeepElementSurfaceRenderer.CreateShaderFromString(Gl.GL_FRAGMENT_SHADER, ShaderCollections.baseFragment);
+            KeepElementSurfaceRenderer.Link();
+        }
+
+        private void CreateKeepElementWireframeRenderer()
+        {
+            KeepElementWireframeRenderer = new ShaderProgramCreator();
+            ChangeCompilationCondition(1, ShaderCollections.keepElementsGeometry, "#define WIREFRAME\n");
+
+            KeepElementWireframeRenderer.Vertex = KeepElementSurfaceRenderer.Vertex;
+            KeepElementWireframeRenderer.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.keepElementsGeometry);
+            KeepElementWireframeRenderer.Fragment = KeepElementSurfaceRenderer.Fragment;
+            KeepElementWireframeRenderer.Link();
+        }
+
+        private void CreateKeepElementPointsRenderer()
+        {
+            /*KeepElementPointsRenderer = new ShaderProgramCreator();
+            ChangeCompilationCondition(2, ShaderCollections.baseVertex, "#define CLIP_3D_POINTS\n");
+            ChangeCompilationCondition(1, ShaderCollections.keepElementsGeometry, "#define POINTS\n");
+
+            KeepElementPointsRenderer.CreateShaderFromString(Gl.GL_VERTEX_SHADER, ShaderCollections.baseVertex);
+            KeepElementPointsRenderer.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.keepElementsGeometry);
+            KeepElementPointsRenderer.Fragment = KeepElementSurfaceRenderer.Fragment;
+            KeepElementPointsRenderer.Link();*/
+        }
+
+        private void CreateLayerSurfaceRenderer()
+        {
+            LayerSurfaceRenderer = new ShaderProgramCreator();
+            ChangeCompilationCondition(2, ShaderCollections.keepElementsGeometry, "#define LAYER\n");
+
+            LayerSurfaceRenderer.Vertex = KeepElementSurfaceRenderer.Vertex;
+            LayerSurfaceRenderer.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.keepElementsGeometry);
+            LayerSurfaceRenderer.Fragment = KeepElementSurfaceRenderer.Fragment;
+            LayerSurfaceRenderer.Link();
+        }
+
+        private void CreateLayerWireframeRenderer()
+        {
+            LayerWireframeRenderer = new ShaderProgramCreator();
+            ChangeCompilationCondition(1, ShaderCollections.keepElementsGeometry, "#define WIREFRAME\n");
+
+            LayerWireframeRenderer.Vertex = LayerSurfaceRenderer.Vertex;
+            LayerWireframeRenderer.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.keepElementsGeometry);
+            LayerWireframeRenderer.Fragment = LayerSurfaceRenderer.Fragment;
+            LayerWireframeRenderer.Link();
+        }
+
+        private void CreateLayerPointsRenderer()
+        {
+            /*LayerPointsRenderer = new ShaderProgramCreator();
+            ChangeCompilationCondition(1, ShaderCollections.keepElementsGeometry, "#define POINTS\n");
+
+            LayerPointsRenderer.Vertex = KeepElementPointsRenderer.Vertex;
+            LayerPointsRenderer.CreateShaderFromString(Gl.GL_GEOMETRY_SHADER_EXT, ShaderCollections.keepElementsGeometry);
+            LayerPointsRenderer.Fragment = LayerSurfaceRenderer.Fragment;
+            LayerPointsRenderer.Link();*/
+        }
+
         private void ChangeCompilationCondition(int position, string[] source, string newCondition)
         {
             source[position] = newCondition;
+        }
+
+        private bool IsShowInsideEnabled(SurfaceObjects obj)
+        {
+            var lastElem = obj.SeparatorsLength - 1;
+            var lastStride = new int[1];
+            VBO.VBO.GetSubData(obj.SeparatorBuffer, lastElem * sizeof(int), sizeof(int), lastStride);
+            lastStride[0] *= 9;
+            return lastStride[0] == obj.CoordLength;
         }
 
         /// <summary>
@@ -571,46 +405,6 @@ namespace Scene
                     }
                 }
             }
-        }
-        
-        private void SwapBuffersAndRenderSettings(VBObject pointVbo, VBObject surfVbo)
-        {
-            SwapBuffers(pointVbo, surfVbo);
-            SwapSettings(pointVbo, surfVbo);
-        }
-
-        private void SwapBuffers(VBObject pointVbo, VBObject surfVbo)
-        {
-            var temp = pointVbo.PointersBuffer;
-            pointVbo.PointersBuffer = surfVbo.PointersBuffer;
-            surfVbo.PointersBuffer = temp;
-
-            temp = pointVbo.CoordsBuffer;
-            pointVbo.CoordsBuffer = surfVbo.CoordsBuffer;
-            surfVbo.CoordsBuffer = temp;
-
-            temp = pointVbo.ColorsBuffer;
-            pointVbo.ColorsBuffer = surfVbo.ColorsBuffer;
-            surfVbo.ColorsBuffer = temp;
-
-            temp = pointVbo.NormalsBuffer;
-            pointVbo.NormalsBuffer = surfVbo.NormalsBuffer;
-            surfVbo.NormalsBuffer = temp;
-        }
-
-        private void SwapSettings(VBObject pointVbo, VBObject surfVbo)
-        {
-            var temp = pointVbo.PtrLength;
-            pointVbo.PtrLength = surfVbo.PtrLength;
-            surfVbo.PtrLength = temp;
-
-            temp = pointVbo.Gl_DisplayMode;
-            pointVbo.Gl_DisplayMode = surfVbo.Gl_DisplayMode;
-            surfVbo.Gl_DisplayMode = temp;
-
-            var glType = pointVbo.GL_ObjType;
-            pointVbo.GL_ObjType = surfVbo.GL_ObjType;
-            surfVbo.GL_ObjType = glType;
         }
     }
 }

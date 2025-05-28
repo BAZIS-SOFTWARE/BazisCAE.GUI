@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scene", "Scene\Scene.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Viewer", "Viewer\Viewer.csproj", "{25EFAE0B-1306-4D04-ABC7-7AF93F60102D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneTests", "SceneTests\SceneTests.csproj", "{22C80CF7-4E59-4160-8BB4-1554F96FF13A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -149,6 +151,18 @@ Global
 		{25EFAE0B-1306-4D04-ABC7-7AF93F60102D}.Release|x64.Build.0 = Release|x64
 		{25EFAE0B-1306-4D04-ABC7-7AF93F60102D}.Release|x86.ActiveCfg = Release|Any CPU
 		{25EFAE0B-1306-4D04-ABC7-7AF93F60102D}.Release|x86.Build.0 = Release|Any CPU
+		{22C80CF7-4E59-4160-8BB4-1554F96FF13A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22C80CF7-4E59-4160-8BB4-1554F96FF13A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22C80CF7-4E59-4160-8BB4-1554F96FF13A}.Debug|x64.ActiveCfg = Debug|x64
+		{22C80CF7-4E59-4160-8BB4-1554F96FF13A}.Debug|x64.Build.0 = Debug|x64
+		{22C80CF7-4E59-4160-8BB4-1554F96FF13A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{22C80CF7-4E59-4160-8BB4-1554F96FF13A}.Debug|x86.Build.0 = Debug|Any CPU
+		{22C80CF7-4E59-4160-8BB4-1554F96FF13A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22C80CF7-4E59-4160-8BB4-1554F96FF13A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22C80CF7-4E59-4160-8BB4-1554F96FF13A}.Release|x64.ActiveCfg = Release|x64
+		{22C80CF7-4E59-4160-8BB4-1554F96FF13A}.Release|x64.Build.0 = Release|x64
+		{22C80CF7-4E59-4160-8BB4-1554F96FF13A}.Release|x86.ActiveCfg = Release|Any CPU
+		{22C80CF7-4E59-4160-8BB4-1554F96FF13A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,7 +12,7 @@ namespace Scene
         /// <summary>
         /// BoundingBox
         /// </summary>
-        public BoundingBox BoundingBox { get; set; } = new BoundingBox();
+        public BoundingBox BoundingBox { get; set; }
 
         BoundingBoxVBO boundingBoxVBO { get; set; }
         /// <summary>
@@ -39,12 +39,17 @@ namespace Scene
         {
             Gl.glEnableClientState(Gl.GL_VERTEX_ARRAY);
             boundingBoxVBO.Bind();
+
             Program.Bind();
             Program.SetUniform("modelMatrix", modelMatrix);//Матрица модели IVBObject
             Program.SetUniform("clipPlane", new float[] { 0, 0, -1, 0 });
             Program.SetUniform("normalSize", new float[] { normalSize });
+
+            Gl.glLineWidth(2.5f);
             Gl.glDrawArrays(Gl.GL_TRIANGLES, 0, 18);
+
             Program.Unbind();
+
             Gl.glDisableClientState(Gl.GL_VERTEX_ARRAY);
         }
         public void Draw(Point3D leftUp, Point3D rightDown, float normalSize)

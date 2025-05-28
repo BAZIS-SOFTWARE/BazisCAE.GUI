@@ -32,7 +32,6 @@ namespace Viewer
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.sceneControl = new Scene.SceneControl();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -60,6 +59,7 @@ namespace Viewer
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.sceneControl = new Scene.SceneControl();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -86,34 +86,6 @@ namespace Viewer
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(856, 562);
             this.tableLayoutPanel1.TabIndex = 1;
-            // 
-            // sceneControl
-            // 
-            this.sceneControl.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.sceneControl.BackGroundColor = System.Drawing.Color.LightGray;
-            this.sceneControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.sceneControl.DisplayBasis = true;
-            this.sceneControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sceneControl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.sceneControl.IsClipPlane = false;
-            this.sceneControl.IsLighting = true;
-            this.sceneControl.IsSmoothShadow = false;
-            this.sceneControl.LightAttenuation = 0F;
-            this.sceneControl.LightTranslateX = 0F;
-            this.sceneControl.LightTranslateY = 0F;
-            this.sceneControl.LightTranslateZ = 0F;
-            this.sceneControl.Location = new System.Drawing.Point(4, 4);
-            this.sceneControl.Margin = new System.Windows.Forms.Padding(4);
-            this.sceneControl.Name = "sceneControl";
-            this.sceneControl.Projection = Scene.Interfaces.ViewProjection.Perspective;
-            this.sceneControl.RotationAngle = 2.5F;
-            this.sceneControl.RotationAxis = Scene.Interfaces.ViewAxis.XYZ;
-            this.sceneControl.ScaleFactor = 1F;
-            this.sceneControl.SelectionColor = System.Drawing.Color.Green;
-            this.sceneControl.ShadowAngle = 0F;
-            this.sceneControl.ShowSurfaceBackEdges = false;
-            this.sceneControl.Size = new System.Drawing.Size(591, 554);
-            this.sceneControl.TabIndex = 2;
             // 
             // tableLayoutPanel2
             // 
@@ -197,7 +169,7 @@ namespace Viewer
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(60, 31);
             this.checkBox3.TabIndex = 3;
-            this.checkBox3.Tag = "Элементы2D";
+            this.checkBox3.Tag = "Элемент2D";
             this.checkBox3.Text = "2D эл-ты";
             this.checkBox3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBox3.UseVisualStyleBackColor = true;
@@ -212,7 +184,7 @@ namespace Viewer
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(56, 31);
             this.checkBox4.TabIndex = 4;
-            this.checkBox4.Tag = "Элементы3D";
+            this.checkBox4.Tag = "Элемент3D";
             this.checkBox4.Text = "3D эл-ты";
             this.checkBox4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBox4.UseVisualStyleBackColor = true;
@@ -229,7 +201,7 @@ namespace Viewer
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(41, 31);
             this.checkBox2.TabIndex = 2;
-            this.checkBox2.Tag = "Элементы1D";
+            this.checkBox2.Tag = "Элемент1D";
             this.checkBox2.Text = "Линии";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.OnShowElements);
@@ -293,7 +265,7 @@ namespace Viewer
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(41, 31);
             this.checkBox1.TabIndex = 1;
-            this.checkBox1.Tag = "Узлы";
+            this.checkBox1.Tag = "Узел";
             this.checkBox1.Text = "Узлы";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.OnShowElements);
@@ -386,7 +358,7 @@ namespace Viewer
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 3;
-            this.label2.Tag = "Элементы1D";
+            this.label2.Tag = "Элемент1D";
             this.label2.Text = "Линии: 1.00";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -412,7 +384,7 @@ namespace Viewer
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 13);
             this.label1.TabIndex = 1;
-            this.label1.Tag = "Узлы";
+            this.label1.Tag = "Узел";
             this.label1.Text = "Узлы: 1.00";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -438,7 +410,7 @@ namespace Viewer
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(100, 13);
             this.label3.TabIndex = 9;
-            this.label3.Tag = "Элементы2D";
+            this.label3.Tag = "Элемент2D";
             this.label3.Text = "Элементы2D: 1.00";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -451,7 +423,7 @@ namespace Viewer
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(100, 13);
             this.label4.TabIndex = 10;
-            this.label4.Tag = "Элементы3D";
+            this.label4.Tag = "Элемент3D";
             this.label4.Text = "Элементы3D: 1.00";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -521,14 +493,42 @@ namespace Viewer
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.OnReflectPlaneShow);
             // 
-            // SceneForm
+            // sceneControl
+            // 
+            this.sceneControl.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.sceneControl.BackGroundColor = System.Drawing.Color.LightGray;
+            this.sceneControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.sceneControl.DisplayBasis = true;
+            this.sceneControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sceneControl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.sceneControl.IsClipPlane = false;
+            this.sceneControl.IsLighting = true;
+            this.sceneControl.IsSmoothShadow = false;
+            this.sceneControl.LightAttenuation = 0F;
+            this.sceneControl.LightTranslateX = 0F;
+            this.sceneControl.LightTranslateY = 0F;
+            this.sceneControl.LightTranslateZ = 0F;
+            this.sceneControl.Location = new System.Drawing.Point(4, 4);
+            this.sceneControl.Margin = new System.Windows.Forms.Padding(4);
+            this.sceneControl.Name = "sceneControl";
+            this.sceneControl.Projection = Scene.Interfaces.ViewProjection.Perspective;
+            this.sceneControl.RotationAngle = 2.5F;
+            this.sceneControl.RotationAxis = Scene.Interfaces.ViewAxis.XYZ;
+            this.sceneControl.ScaleFactor = 1F;
+            this.sceneControl.SelectionColor = System.Drawing.Color.Green;
+            this.sceneControl.ShadowAngle = 0F;
+            this.sceneControl.ShowSurfaceBackEdges = false;
+            this.sceneControl.Size = new System.Drawing.Size(591, 554);
+            this.sceneControl.TabIndex = 2;
+            // 
+            // ViewerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(856, 562);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "SceneForm";
+            this.Name = "ViewerForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Viewer";

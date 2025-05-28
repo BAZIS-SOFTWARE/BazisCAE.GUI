@@ -7,9 +7,9 @@ using BaseModule.Tasks.WeldingModule;
 using Project.Interfaces.Tasks;
 using Model.Interfaces;
 using PreProc.Interfaces;
-using Project.Tasks.LocalFrame;
 using BazisGUI.Utilities;
 using Project.Tasks;
+using Project.Tasks.FrameCreators;
 
 namespace BazisGUI
 {
