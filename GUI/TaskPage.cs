@@ -36,6 +36,7 @@ using TaskModule.BasicAdvisorControls.Interfaces;
 using Project;
 using BaseModule.Tasks.TasksFromNavigator.Controls;
 using Project.Tasks;
+using BazisGUI.Properties;
 
 namespace BazisGUI
 {
@@ -1040,10 +1041,14 @@ namespace BazisGUI
 
         private void AddPhysicalData(object sender, EventArgs eventArgs)
         {
-
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
             var generalForm = new Form
             {
+
+                Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon"))),
+                Text = "Инструмент создания физических данных",
                 AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 FormBorderStyle = FormBorderStyle.FixedSingle,
                 MaximizeBox = false,
                 MinimizeBox = false
@@ -1096,6 +1101,7 @@ namespace BazisGUI
                 case "Нагрев":
                     HeatData heatData = new HeatData(group, arg2.DataInfo);
                     genData= heatData as IPhysicalData;
+                    
                     break;
             }
             taskData.Add(genData);

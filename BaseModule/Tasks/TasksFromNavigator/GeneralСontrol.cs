@@ -56,6 +56,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             else if (type == "Нагрев")
             {
                 generalTableLayoutPanel.Controls.Add(heatControl, 0, 0);
+                heatControl.Fill_eGroups(eGroup);
             }
             else if (type == "Среда") 
             {
