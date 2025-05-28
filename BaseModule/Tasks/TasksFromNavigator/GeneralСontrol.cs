@@ -1,7 +1,12 @@
 ﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
+using BaseModule.Tasks.HeatTreatmentModule;
+using BaseModule.Tasks.TasksFromNavigator.Controls;
+using MathNet.Numerics.RootFinding;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 using UserControlsEx;
 
@@ -27,15 +32,32 @@ namespace BaseModule.Tasks.TasksFromNavigator
 
         public void Control_AddDataEvent(AddDataEventArgs arg2)
         {
-            //TODO: Добавить к DataInfo данные подвижного источника
-            //var name = arg2.DataName;
-            //var info = arg2.DataInfo + " newTestDataSet";
-            //CreatePhysicalDataEvent?.Invoke(new AddDataEventArgs(name, info));
-            CreatePhysicalDataEvent?.Invoke(arg2);
+            var dataEventArgs = arg2;
+            if (generalTableLayoutPanel.Controls.OfType<HeatControlCreator>().Any())
+            {
+                var data = dataEventArgs.DataInfo.Split(' ');
+                data[4] = txbStartTime.Text;
+                data[5] = txbStartTime.Text;
+                var newData = string.Join(" ", data);
+                var frameFunction = data[2].Split(';');
+                dataEventArgs = new AddDataEventArgs(dataEventArgs.DataName, newData);
+            }
+            CreatePhysicalDataEvent?.Invoke(dataEventArgs);
         }
 
+        public void Fill_nGroups(List<string> nGroups)
+        {
+            cmbTraj.Items.Clear();
+            cmbRef.Items.Clear();
+            for (int i = 0; i < nGroups.Count(); i++)
+            {
+                cmbTraj.Items.Add(nGroups[i]);
+                cmbRef.Items.Add(nGroups[i]);
+            }
+        }
         private void Creator(string type)
         {
+            Fill_nGroups(nGroup);
             generalTableLayoutPanel.Controls.Clear();
             if (type == "Материал")
             {
@@ -65,10 +87,29 @@ namespace BaseModule.Tasks.TasksFromNavigator
             generalTableLayoutPanel.Controls.Add(movementParametersGroupBox, 0, 1);
         }
 
-        public void btnCreatePhysicalData_Click(object sender, EventArgs e)
+        private bool IsValidated()
         {
+            var checks = new List<bool>()
+            {
+                cmbTraj.IsValueValid(),
+                cmbRef.IsValueValid(),
+                txbVelosity.IsValueValid(),
+                txbStartTime.IsValueValid(),
+                txbX.IsValueValid(),
+                txbY.IsValueValid(),
+                txbZ.IsValueValid(),
+                txbAngleX.IsValueValid(),
+                txbAngleY.IsValueValid(),
+                txbAngleZ.IsValueValid(),
+            };
+            return checks.All(x => x);
+        }
+        private void btnCreatePhysicalData_Click(object sender, EventArgs e)
+        {
+            if (!IsValidated()) return;
             matControl.AddButton_Click();
             clampControl.AddButton_Click();
+            heatControl.AddButton_Click();
         }
 
         private void btnClean_Click(object sender, EventArgs e)

@@ -39,6 +39,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             generalTableLayoutPanel = new TableLayoutPanel();
             tableLayoutPanel1 = new TableLayoutPanel();
             panelRadioButton = new FlowLayoutPanel();
+            panelRadioButton2 = new FlowLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
             tableLayoutPanel4 = new TableLayoutPanel();
             currentLabel = new System.Windows.Forms.Label();
@@ -101,6 +102,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             tableLayoutPanel1.SuspendLayout();
             generalTableLayoutPanel.SuspendLayout();
             panelRadioButton.SuspendLayout();
+            panelRadioButton2.SuspendLayout();
             groupBoxSelect.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -169,6 +171,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             rbtLW.TabIndex = 20;
             rbtLW.TabStop = true;
             rbtLW.Text = "Лазерная сварка";
+            rbtLW.Checked = false;
             rbtLW.UseVisualStyleBackColor = true;
             rbtLW.CheckedChanged += SelectingHeatingSource;
             // 
@@ -240,7 +243,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             // groupBox3
             // 
             groupBox3.AutoSize = true;
-            groupBox3.Controls.Add(tableLayoutPanel3);
+            groupBox3.Controls.Add(tableLayoutPanel4);
             groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             groupBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox3.Name = "groupBox3";
@@ -458,7 +461,8 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
             tableLayoutPanel4.Name = "tableLayoutPanel3";
-            tableLayoutPanel4.RowCount = 9;
+            tableLayoutPanel4.RowCount = 10;
+            tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -470,23 +474,35 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
 
             tableLayoutPanel4.TabIndex = 0;
-            tableLayoutPanel4.Controls.Add(label11, 0, 0);
-            tableLayoutPanel4.Controls.Add(txbRotSpeed, 1, 0);
-            tableLayoutPanel4.Controls.Add(label18, 0, 1);
-            tableLayoutPanel4.Controls.Add(txbAxisForce, 1, 1);
-            tableLayoutPanel4.Controls.Add(label3, 0, 2);
-            tableLayoutPanel4.Controls.Add(txbShoulderDiam, 1, 2);
-            tableLayoutPanel4.Controls.Add(label12, 0, 3);
-            tableLayoutPanel4.Controls.Add(txbPinLenght, 1, 3);
-            tableLayoutPanel4.Controls.Add(label15, 0, 4);
-            tableLayoutPanel4.Controls.Add(txbPinUpperDiam, 1, 4);
-            tableLayoutPanel4.Controls.Add(label16, 0, 5);
-            tableLayoutPanel4.Controls.Add(txbPinBottomDiam, 1, 5);
-            tableLayoutPanel4.Controls.Add(label17, 0, 6);
-            tableLayoutPanel4.Controls.Add(cmbFrictionModule, 1, 6);
-            tableLayoutPanel4.Controls.Add(label19, 0, 7);
-            tableLayoutPanel4.Controls.Add(cmbYield, 1, 7);
-            tableLayoutPanel4.Controls.Add(btnInfo, 0, 8);
+            tableLayoutPanel4.Controls.Add(panelRadioButton2, 0, 0);
+            tableLayoutPanel4.SetColumnSpan(panelRadioButton2, 2);
+            tableLayoutPanel4.Controls.Add(label11, 0, 1);
+            tableLayoutPanel4.Controls.Add(txbRotSpeed, 1, 1);
+            tableLayoutPanel4.Controls.Add(label18, 0, 2);
+            tableLayoutPanel4.Controls.Add(txbAxisForce, 1, 2);
+            tableLayoutPanel4.Controls.Add(label3, 0, 3);
+            tableLayoutPanel4.Controls.Add(txbShoulderDiam, 1, 3);
+            tableLayoutPanel4.Controls.Add(label12, 0, 4);
+            tableLayoutPanel4.Controls.Add(txbPinLenght, 1, 4);
+            tableLayoutPanel4.Controls.Add(label15, 0, 5);
+            tableLayoutPanel4.Controls.Add(txbPinUpperDiam, 1, 5);
+            tableLayoutPanel4.Controls.Add(label16, 0, 6);
+            tableLayoutPanel4.Controls.Add(txbPinBottomDiam, 1, 6);
+            tableLayoutPanel4.Controls.Add(label17, 0, 7);
+            tableLayoutPanel4.Controls.Add(cmbFrictionModule, 1, 7);
+            tableLayoutPanel4.Controls.Add(label19, 0, 8);
+            tableLayoutPanel4.Controls.Add(cmbYield, 1, 8);
+            tableLayoutPanel4.Controls.Add(btnInfo, 0, 9);
+            //
+            // panelRadioButton2
+            //
+            panelRadioButton2.AutoSize = true;
+            panelRadioButton2.FlowDirection = FlowDirection.LeftToRight;
+            panelRadioButton2.WrapContents = false;
+            panelRadioButton2.Name = "panelRadioButton2";
+            panelRadioButton2.Dock = DockStyle.Fill;
+            panelRadioButton2.Controls.Add(rbtPin);
+            panelRadioButton2.Controls.Add(rbtShoulder);
             // 
             // btnInfo
             // 
@@ -676,7 +692,8 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.rbtPin.TabStop = true;
             this.rbtPin.Text = "Рабочая часть";
             this.rbtPin.UseVisualStyleBackColor = true;
-            //this.rbtPin.Click += new System.EventHandler(this.rbt_Click);
+            this.rbtPin.Checked = true;
+            this.rbtPin.Click += SelectingFSWMode;
             // 
             // rbtShoulder
             // 
@@ -687,7 +704,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.rbtShoulder.TabStop = true;
             this.rbtShoulder.Text = "Опорный бурт";
             this.rbtShoulder.UseVisualStyleBackColor = true;
-            //this.rbtShoulder.Click += new System.EventHandler(this.rbt_Click);
+            this.rbtShoulder.Click += SelectingFSWMode;
             #endregion
             #endregion
             // 
@@ -710,6 +727,8 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             tableLayoutPanel1.PerformLayout();
             panelRadioButton.ResumeLayout(false);
             panelRadioButton.PerformLayout();
+            panelRadioButton2.ResumeLayout(false);
+            panelRadioButton2.PerformLayout();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
             groupBox2.ResumeLayout(false);
@@ -729,6 +748,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
         private TableLayoutPanel tableLayoutPanel2;
         private TableLayoutPanel tableLayoutPanel4;
         private FlowLayoutPanel panelRadioButton;
+        private FlowLayoutPanel panelRadioButton2;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBoxSelect;
         private System.Windows.Forms.GroupBox grbGroup;

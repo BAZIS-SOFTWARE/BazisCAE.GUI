@@ -30,6 +30,8 @@ using BaseModule.Navigator;
 using BaseModule.GanttChart;
 using Project.Tasks.Functions;
 using Project.Tasks.FrameCreators;
+using BaseModule.Tasks.TasksFromNavigator;
+using Project.Tasks;
 
 namespace BazisGUI
 {
@@ -1037,7 +1039,6 @@ namespace BazisGUI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
             var generalForm = new Form
             {
-
                 Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon"))),
                 Text = "Инструмент создания физических данных",
                 AutoSize = true,
@@ -1070,31 +1071,32 @@ namespace BazisGUI
 
         public void CreateTaskData(AddDataEventArgs arg2)
         {
-            IPhysicalData genData = null;
+            PhysicalData genData = null;
             var data = arg2.DataInfo.Split(' ');
             var group = GetDataGroup(arg2.DataName, data);
             switch (arg2.DataName)
             {
                 case "Материал":
                     MatData matData = new MatData(group, arg2.DataInfo);
-                    genData = matData as IPhysicalData;
+                    genData = matData as PhysicalData;
                     break;
                 case "Закрепление":
                     ClampData clampData = new ClampData(group, arg2.DataInfo);
-                    genData = clampData as IPhysicalData;
+                    genData = clampData as PhysicalData;
                     break;
                 case "Нагрузка":
                     LoadData loadData = new LoadData(group, arg2.DataInfo);
-                    genData = loadData as IPhysicalData;
+                    genData = loadData as PhysicalData;
                     break;
                 case "Среда":
                     MediaData mediaData = new MediaData(group, arg2.DataInfo);
-                    genData = mediaData as IPhysicalData;
+                    genData = mediaData as PhysicalData;
                     break;
                 case "Нагрев":
                     HeatData heatData = new HeatData(group, arg2.DataInfo);
-                    genData= heatData as IPhysicalData;
-                    
+                    genData = heatData as PhysicalData;
+                    var func = data[2].Split(';');
+                    genData.FrameFunction = (FrameFunction)(new FrameFunctionBuilder(func));
                     break;
             }
             taskData.Add(genData);

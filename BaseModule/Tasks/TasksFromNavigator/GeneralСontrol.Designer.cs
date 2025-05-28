@@ -224,6 +224,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.txbX.TabIndex = 0;
             this.txbX.UserRegExCheck = null;
             this.txbX.UserRegExCheckErrorMessage = null;
+            this.txbX.Text = "0";
             // 
             // tableLayoutPanelY
             // 
@@ -259,6 +260,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.txbY.TabIndex = 0;
             this.txbY.UserRegExCheck = null;
             this.txbY.UserRegExCheckErrorMessage = null;
+            this.txbY.Text = "0";
             // 
             // tableLayoutPanelZ
             // 
@@ -294,6 +296,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.txbZ.TabIndex = 0;
             this.txbZ.UserRegExCheck = null;
             this.txbZ.UserRegExCheckErrorMessage = null;
+            this.txbZ.Text = "0";
             // 
             // rotationLabel
             // 
@@ -337,6 +340,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.txbAngleX.TabIndex = 0;
             this.txbAngleX.UserRegExCheck = null;
             this.txbAngleX.UserRegExCheckErrorMessage = null;
+            this.txbAngleX.Text = "0";
             // 
             // tableLayoutPanelAngleY
             // 
@@ -372,6 +376,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.txbAngleY.TabIndex = 0;
             this.txbAngleY.UserRegExCheck = null;
             this.txbAngleY.UserRegExCheckErrorMessage = null;
+            this.txbAngleY.Text = "0";
             // 
             // tableLayoutPanelAngleZ
             // 
@@ -407,6 +412,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.txbAngleZ.TabIndex = 0;
             this.txbAngleZ.UserRegExCheck = null;
             this.txbAngleZ.UserRegExCheckErrorMessage = null;
+            this.txbAngleZ.Text = "0";
             // 
             // sourceVelocityLabel
             // 
@@ -429,6 +435,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.txbVelosity.TabIndex = 31;
             this.txbVelosity.UserRegExCheck = null;
             this.txbVelosity.UserRegExCheckErrorMessage = null;
+            this.txbVelosity.Text = "0";
             // 
             // startLabel
             // 
@@ -451,6 +458,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.txbStartTime.TabIndex = 43;
             this.txbStartTime.UserRegExCheck = null;
             this.txbStartTime.UserRegExCheckErrorMessage = null;
+            this.txbStartTime.Text = "0";
             // 
             // btnCreatePhysicalData
             // 
@@ -532,6 +540,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.heatControl.Margin = new System.Windows.Forms.Padding(2);
             this.heatControl.Name = "heatControl";
             this.heatControl.TabIndex = 0;
+            this.heatControl.AddDataEvent += new System.Action<BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
 
             // 
             // GeneralСontrol
