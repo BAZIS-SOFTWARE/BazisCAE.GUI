@@ -1058,8 +1058,14 @@ namespace BazisGUI
                 return;
             }
             var matDB = GetDataBase<MaterialDBData>(generalData.Materials, generalData.Path);
-            var mat = matDB.Keys.ToList();
             var funDB = GetDataBase<FunctionDBData>(generalData.Functions, generalData.Path);
+            
+            if(matDB == null || funDB == null)
+            {
+                BasePage.ConsoleControl.PrintInfo("Не выбран источник базы данных!", Color.Red);
+                return;
+            }
+            var mat = matDB.Keys.ToList();
             var func = funDB.Keys.ToList();
 
             var generalControlCreator = new GeneralСontrol(sender.ToString(), mat, func, elLoadGrpsNames, ndGrpsNames);
