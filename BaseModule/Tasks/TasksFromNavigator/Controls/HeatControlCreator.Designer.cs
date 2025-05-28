@@ -149,7 +149,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             panelRadioButton.Controls.Add(rbtLW);
             panelRadioButton.Controls.Add(rbtFS);
             // 
-            // rbtTermoCycle
+            // rbtARC
             // 
             rbtARC.AutoSize = true;
             rbtARC.Margin = new System.Windows.Forms.Padding(10, 10, 3, 3);
@@ -157,8 +157,9 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             rbtARC.TabIndex = 21;
             rbtARC.TabStop = true;
             rbtARC.Text = "Дуговая сварка";
+            rbtARC.Checked = true;
             rbtARC.UseVisualStyleBackColor = true;
-            //rbtTermoCycle.CheckedChanged += new System.EventHandler(this.termocycleRadioButton_CheckedChanged);
+            rbtARC.CheckedChanged += SelectingHeatingSource;
             // 
             // rbtLW
             // 
@@ -169,7 +170,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             rbtLW.TabStop = true;
             rbtLW.Text = "Лазерная сварка";
             rbtLW.UseVisualStyleBackColor = true;
-            //rbtHeatFlow.CheckedChanged += new System.EventHandler(this.mediaRadioButton_CheckedChanged);
+            rbtLW.CheckedChanged += SelectingHeatingSource;
             // 
             // rbtFS
             // 
@@ -180,7 +181,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             rbtFS.TabStop = true;
             rbtFS.Text = "Трением с перемешиванием";
             rbtFS.UseVisualStyleBackColor = true;
-            //rbtHeatFlow.CheckedChanged += new System.EventHandler(this.mediaRadioButton_CheckedChanged);
+            rbtFS.CheckedChanged += SelectingHeatingSource;
             #endregion
             #region "Область действия"
             // 

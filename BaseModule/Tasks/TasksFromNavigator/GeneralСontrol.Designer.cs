@@ -88,6 +88,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // 
             // movementParametersGroupBox
             // 
+            this.movementParametersGroupBox.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
             this.movementParametersGroupBox.AutoSize = true;
             this.movementParametersGroupBox.Controls.Add(this.trajectoryTableLayoutPanel);
             this.movementParametersGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
