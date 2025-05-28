@@ -129,7 +129,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.cmbKind.FormattingEnabled = true;
             this.cmbKind.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbKind.IsValidating = true;
-            this.cmbKind.Items.AddRange(new object[] {"Жесткое"});
+            this.cmbKind.Items.AddRange(new object[] {"Сила", "Давление" });
             this.cmbKind.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbKind.Name = "cmbKind";
             this.cmbKind.TabIndex = 36;
@@ -153,6 +153,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.chbX.Tag = "0";
             this.chbX.Text = "X";
             this.chbX.UseVisualStyleBackColor = true;
+            this.chbX.Click += ChbDirection_Click;
             // 
             // chbY
             // 
@@ -163,6 +164,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.chbY.Tag = "1";
             this.chbY.Text = "Y";
             this.chbY.UseVisualStyleBackColor = true;
+            this.chbY.Click += ChbDirection_Click;
             // 
             // chbZ
             // 
@@ -173,6 +175,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.chbZ.Tag = "2";
             this.chbZ.Text = "Z";
             this.chbZ.UseVisualStyleBackColor = true;
+            this.chbZ.Click += ChbDirection_Click;
             // 
             // chbLRF
             // 
@@ -183,6 +186,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.chbLRF.Tag = "3";
             this.chbLRF.Text = "Произвольное";
             this.chbLRF.UseVisualStyleBackColor = true;
+            this.chbLRF.Click += ChbDirection_Click;
             // 
             // label1
             // 

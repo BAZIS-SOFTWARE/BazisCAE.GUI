@@ -74,6 +74,8 @@ namespace BaseModule.Tasks.TasksFromNavigator
             else if (type == "Нагрузка")
             {
                 generalTableLayoutPanel.Controls.Add(loadControl, 0, 0);
+                loadControl.Fill_nGroups(nGroup);
+                loadControl.Add_Functions(funcNames);
             }
             else if (type == "Нагрев")
             {
@@ -110,6 +112,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             matControl.AddButton_Click();
             clampControl.AddButton_Click();
             heatControl.AddButton_Click();
+            loadControl.AddButton_Click();
         }
 
         private void btnClean_Click(object sender, EventArgs e)

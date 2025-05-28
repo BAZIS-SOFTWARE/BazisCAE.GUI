@@ -524,6 +524,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.loadControl.Margin = new System.Windows.Forms.Padding(2);
             this.loadControl.Name = "loadControl";
             this.loadControl.TabIndex = 0;
+            this.loadControl.AddDataEvent += new System.Action<BaseModule.Tasks.BasicAdvisorControls.Events.AddDataEventArgs>(this.Control_AddDataEvent);
             // 
             // mediaControl
             // 
