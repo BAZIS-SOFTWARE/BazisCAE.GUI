@@ -123,8 +123,6 @@ namespace Scene
             {
                 var value = i * offset;
                 var text = value.ToString("0.00");
-                if (i == blocks)
-                    text = text + " (M)";
 
                 var textXOffset = text.Length / 2f * textOffsetX;
 
