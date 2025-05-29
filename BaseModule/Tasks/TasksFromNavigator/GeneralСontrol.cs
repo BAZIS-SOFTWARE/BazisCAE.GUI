@@ -1,11 +1,7 @@
 ﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BaseModule.Tasks.HeatTreatmentModule;
 using BaseModule.Tasks.TasksFromNavigator.Controls;
-using MathNet.Numerics.RootFinding;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using UserControlsEx;
@@ -129,7 +125,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             foreach (System.Windows.Forms.Control control in parent.Controls)
             {
                 if (control is TextBoxEx textBox) textBox.Clear();
-                else if (control is ComboBoxEx cmb) cmb.Text = String.Empty;
+                else if (control is ComboBoxEx cmb) cmb.SelectedIndex = -1;
                 else if (control is CheckBox check) check.Checked = false;
                 else if (control.HasChildren) Clear(control);
             }
