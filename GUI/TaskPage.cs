@@ -1,35 +1,37 @@
-﻿using System;
+﻿using BaseModule.GanttChart;
+using BaseModule.Navigator;
+using BaseModule.Tasks.BasicAdvisorControls.Events;
+using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
+using BaseModule.Tasks.TasksFromNavigator;
+using BaseModule.Utilities;
+using BazisGUI.TasksControls;
+using BazisGUI.Utilities;
+using Geometry;
+using Model.Interfaces;
+using ModelControllerInterfaces;
+using Newtonsoft.Json;
+using PreProc;
+using PreProc.Interfaces;
+using Project.Interfaces;
+using Project.Interfaces.Tasks;
+using Project.TaskParameters;
+using Project.Tasks;
+using Project.Tasks.FrameCreators;
+using Project.Tasks.Functions;
+using PropertiesCalculator.FunctionData;
+using PropertiesCalculator.MaterialData;
+using PropertiesDataBases.DataBases;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using System.IO;
 using TaskModule.BasicTaskAdvisor;
-using Newtonsoft.Json;
-using Geometry;
-using BaseModule.Utilities;
-using ModelControllerInterfaces;
-using System.Text.RegularExpressions;
-using PropertiesCalculator.MaterialData;
-using PropertiesCalculator.FunctionData;
-using PropertiesDataBases.DataBases;
-using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
-using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BazisGUI.TasksControls;
-using Project.Interfaces;
-using PreProc.Interfaces;
-using PreProc;
-using Project.Interfaces.Tasks;
-using Model.Interfaces;
-using Project.TaskParameters;
-using BazisGUI.Utilities;
-using BaseModule.Navigator;
-using BaseModule.GanttChart;
-using Project.Tasks.Functions;
-using Project.Tasks.FrameCreators;
 
 namespace BazisGUI
 {
@@ -71,7 +73,6 @@ namespace BazisGUI
         public TaskPage()
         {
             InitializeComponent();
-
             var taskNode = new TreeNode("Данные", 14, 14) { Name = "Данные", Tag = "6" };
             taskNode.ContextMenuStrip = taskMenuStrip;
             BasePage.NavigatorControl.TreeView.Nodes.Add(taskNode);
@@ -79,7 +80,6 @@ namespace BazisGUI
             selectToolStrip.Location = new Point(3, 0);
 
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
-
             BasePage.OnValuableDataSelectedEvent += BasePage_ValuableEvent;
             BasePage.panelProvider.GetAllGroupElements = () => ModelData.GroupData.ToList();
             BasePage.panelProvider.GetFuncDB = () => GetDataBase<FunctionDBData>(GeneralData.Functions, GeneralData.Path).Keys.ToList();
@@ -249,7 +249,9 @@ namespace BazisGUI
                 taskAdv.StopComputationEvent += TaskAdv_StopComputationEvent;
                 taskAdv.Select2DAxiEvent += (ar1,ar2) => { TaskAdvisor_ChangeTaskType(taskData,ar2); };
                 taskAdv.Select2DPlaneEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };
-                taskAdv.Select3DEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };               
+                taskAdv.Select3DEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };
+
+                ConfigureMenuItemEnabledForModule(taskAdv.Parent);
             }
             catch (Exception ex)
             {
@@ -551,8 +553,6 @@ namespace BazisGUI
 
                 navigator.TreeView.EndUpdate();
                 navigator.TreeView.Nodes["Данные"].Expand();
-
-
             }
             catch (Exception ex)
             {
@@ -1035,6 +1035,89 @@ namespace BazisGUI
             ganttDiagramForm.Show(this);
             toolStripMenuItem.Checked = true;
             ganttDiagramForm.FormClosed += (s, e) => toolStripMenuItem.Checked = false;
+        }
+
+        private void ConfigureMenuItemEnabledForModule(Control parent)
+        {
+            if (parent is BaseModule.Tasks.HeatTreatmentModule.PinnedHTAdvControl)
+            {
+                var mainItem = taskMenuStrip.Items["добавитьToolStripMenuItem"] as ToolStripMenuItem;
+                if (mainItem != null)
+                {
+                    var subItem = mainItem.DropDownItems["нагревToolStripMenuItem"];
+                    if (subItem != null) subItem.Enabled = false;
+                }
+            }
+        }
+
+        private void AddPhysicalData(object sender, EventArgs eventArgs)
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
+            var generalForm = new Form
+            {
+                Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon"))),
+                Text = "Инструмент создания физических данных",
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                FormBorderStyle = FormBorderStyle.FixedSingle,
+                MaximizeBox = false,
+                MinimizeBox = false
+            };
+
+            var elLoadGrpsNames = GetLoadGroupsNames(GeneralData.TaskType);
+            var ndGrpsNames = ModelData.GroupData.FindMany(ObjType.Узел).Select(x => x.Name).ToList();
+            var generalData = GeneralData;
+            var appFolder = Path.GetDirectoryName(Application.ExecutablePath);
+            if (appFolder == generalData.Path)
+            {
+                MessageBox.Show("Рабочая папка проекта должна отличаться от папки установки программы!");
+                return;
+            }
+            var matDB = GetDataBase<MaterialDBData>(generalData.Materials, generalData.Path);
+            var funDB = GetDataBase<FunctionDBData>(generalData.Functions, generalData.Path);
+
+            if (matDB == null || funDB == null)
+            {
+                BasePage.ConsoleControl.PrintInfo("Не выбран источник базы данных!", Color.Red);
+                return;
+            }
+            var mat = matDB.Keys.ToList();
+            var func = funDB.Keys.ToList();
+
+            var generalControlCreator = new GeneralСontrol(sender.ToString(), mat, func, elLoadGrpsNames, ndGrpsNames);
+            generalControlCreator.CreatePhysicalDataEvent += CreateTaskData;
+            generalControlCreator.CreatePhysicalDataEvent += (s) => generalForm.Close();
+            generalForm.Controls.Add(generalControlCreator);
+            generalForm.Show(this);
+        }
+
+        public void CreateTaskData(AddDataEventArgs arg2)
+        {
+            PhysicalData genData = null;
+            var data = arg2.DataInfo.Split(' ');
+            var group = GetDataGroup(arg2.DataName, data);
+            switch (arg2.DataName)
+            {
+                case "Материал":
+                    genData = new MatData(group, arg2.DataInfo);
+                    break;
+                case "Закрепление":
+                    genData = new ClampData(group, arg2.DataInfo);
+                    break;
+                case "Нагрузка":
+                    genData = new LoadData(group, arg2.DataInfo);
+                    break;
+                case "Среда":
+                    genData = new MediaData(group, arg2.DataInfo);
+                    break;
+                case "Нагрев":
+                    genData = new HeatData(group, arg2.DataInfo);
+                    var func = data[2].Split(';');
+                    genData.FrameFunction = (FrameFunction)(new FrameFunctionBuilder(func));
+                    break;
+            }
+            taskData.Add(genData);
+            PresentTaskDataOnTree(taskData);
         }
     }
 }

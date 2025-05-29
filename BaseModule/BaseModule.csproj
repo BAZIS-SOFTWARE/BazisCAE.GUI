@@ -327,6 +327,42 @@
     <Compile Include="Tasks\HeatTreatmentModule\PinnedHTAdvControl.Designer.cs">
       <DependentUpon>PinnedHTAdvControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\ClampControlCreator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\ClampControlCreator.Designer.cs">
+      <DependentUpon>ClampControlCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\HeatControlCreator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\HeatControlCreator.Designer.cs">
+      <DependentUpon>HeatControlCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\LoadControlCreator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\LoadControlCreator.Designer.cs">
+      <DependentUpon>LoadControlCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\MaterialControlCreator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\MaterialControlCreator.Designer.cs">
+      <DependentUpon>MaterialControlCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\MediaControlCreator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\Controls\MediaControlCreator.Designer.cs">
+      <DependentUpon>MediaControlCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\GeneralСontrol.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\TasksFromNavigator\GeneralСontrol.Designer.cs">
+      <DependentUpon>GeneralСontrol.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tasks\WeldingModule\PinnedWAdvControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -375,6 +411,11 @@
     </Compile>
     <Compile Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl.designer.cs">
       <DependentUpon>ArcWeldingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArcWeldingControl.resx</DependentUpon>
     </Compile>
     <Compile Include="Tasks\WeldingModule\WeldingTypeControls\FSWeldingControl.cs">
       <SubType>UserControl</SubType>
@@ -510,6 +551,21 @@
     <EmbeddedResource Include="Tasks\HeatTreatmentModule\PinnedHTAdvControl.resx">
       <DependentUpon>PinnedHTAdvControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\HeatControlCreator.resx">
+      <DependentUpon>HeatControlCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\LoadControlCreator.resx">
+      <DependentUpon>LoadControlCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\MaterialControlCreator.resx">
+      <DependentUpon>MaterialControlCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\MediaControlCreator.resx">
+      <DependentUpon>MediaControlCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\TasksFromNavigator\GeneralСontrol.resx">
+      <DependentUpon>GeneralСontrol.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Tasks\WeldingModule\PinnedWAdvControl.resx">
       <DependentUpon>PinnedWAdvControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -535,6 +591,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl.resx">
       <DependentUpon>ArcWeldingControl.cs</DependentUpon>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ArcWeldingControl1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\FSWeldingControl.resx">
       <DependentUpon>FSWeldingControl.cs</DependentUpon>
