@@ -249,7 +249,9 @@ namespace BazisGUI
                 taskAdv.StopComputationEvent += TaskAdv_StopComputationEvent;
                 taskAdv.Select2DAxiEvent += (ar1,ar2) => { TaskAdvisor_ChangeTaskType(taskData,ar2); };
                 taskAdv.Select2DPlaneEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };
-                taskAdv.Select3DEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };               
+                taskAdv.Select3DEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };
+
+                ConfigureMenuItemEnabledForModule(taskAdv.Parent);
             }
             catch (Exception ex)
             {
@@ -1032,6 +1034,20 @@ namespace BazisGUI
             ganttDiagramForm.Show(this);
             toolStripMenuItem.Checked = true;
             ganttDiagramForm.FormClosed += (s, e) => toolStripMenuItem.Checked = false;
+        }
+
+        private void ConfigureMenuItemEnabledForModule(Control parent)
+        {
+
+            if(parent is BaseModule.Tasks.HeatTreatmentModule.PinnedHTAdvControl)
+            {
+                var mainItem = taskMenuStrip.Items["добавитьToolStripMenuItem"] as ToolStripMenuItem;
+                if (mainItem != null)
+                {
+                    var subItem = mainItem.DropDownItems["нагревToolStripMenuItem"];
+                    if (subItem != null) subItem.Enabled = false;
+                }
+            }
         }
 
         private void AddPhysicalData(object sender, EventArgs eventArgs)
