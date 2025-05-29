@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace BaseModule.Tasks.TasksFromNavigator.Controls
 {
-    public partial class HeatControlCreator: UserControl
+    public partial class HeatControlCreator : UserControl
     {
         public event Action<AddDataEventArgs> AddDataEvent;
 
@@ -67,21 +67,26 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
 
             else if (rbtFS.Checked)
             {
-                checks = new List<bool>();
-                checks.Add(txbRotSpeed.IsValueValid());
                 if (rbtPin.Checked)
                 {
-                    checks.Add(txbPinLenght.IsValueValid());
-                    checks.Add(txbPinBottomDiam.IsValueValid());
-                    checks.Add(txbPinUpperDiam.IsValueValid());
-                    checks.Add(cmbYield.IsValueValid());
+                    checks = new List<bool>()
+                    {
+                        txbPinLenght.IsValueValid(),
+                        txbPinBottomDiam.IsValueValid(),
+                        txbPinUpperDiam.IsValueValid(),
+                        cmbYield.IsValueValid(),
+                    };
                 }
                 else
                 {
-                    checks.Add(txbAxisForce.IsValueValid());
-                    checks.Add(txbShoulderDiam.IsValueValid());
-                    checks.Add(cmbFrictionModule.IsValueValid());
+                    checks = new List<bool>()
+                    {
+                        txbAxisForce.IsValueValid(),
+                        txbShoulderDiam.IsValueValid(),
+                        cmbFrictionModule.IsValueValid()
+                    };
                 }
+                checks.Add(txbRotSpeed.IsValueValid());
             }
             return checks.All(x => x);
         }
@@ -129,31 +134,29 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             var frameFunction = "*";
             if (rbtARC.Checked)
             {
-                frameFunction = string.Format($"ARC;{txbCurrent.Text};{txbVoltage.Text};{txbWidth.Text}");
+                frameFunction = $"ARC;{txbCurrent.Text};{txbVoltage.Text};{txbWidth.Text}";
             }
             else if (rbtLW.Checked)
             {
-                frameFunction = string.Format($"LW;{txbPower.Text};{txbDepth.Text};{txbBaseDiameter.Text};{txbEndDiameter.Text}");
+                frameFunction = $"LW;{txbPower.Text};{txbDepth.Text};{txbBaseDiameter.Text};{txbEndDiameter.Text}";
             }
             else if (rbtLW.Checked)
             {
-                frameFunction = string.Format($"LW;{txbPower.Text};{txbDepth.Text};{txbBaseDiameter.Text};{txbEndDiameter.Text}");
+                frameFunction = $"LW;{txbPower.Text};{txbDepth.Text};{txbBaseDiameter.Text};{txbEndDiameter.Text}";
             }
             else if (rbtFS.Checked)
             {
                 if (rbtPin.Checked)
                 {
-                    frameFunction = string.Format($"FSWPin;{txbRotSpeed.Text};{txbPinLenght.Text};{txbPinBottomDiam.Text};{txbPinUpperDiam.Text};{cmbYield.Text}");
+                    frameFunction = $"FSWPin;{txbRotSpeed.Text};{txbPinLenght.Text};{txbPinBottomDiam.Text};{txbPinUpperDiam.Text};{cmbYield.Text}";
                 }
-                else 
+                else
                 {
                     var lengthDefault = "30";
-                    frameFunction = string.Format($"FSWShoulder;{txbAxisForce.Text};{txbRotSpeed.Text};{lengthDefault};{txbShoulderDiam.Text};{txbShoulderDiam.Text};{cmbFrictionModule.Text}");
+                    frameFunction = $"FSWShoulder;{txbAxisForce.Text};{txbRotSpeed.Text};{lengthDefault};{txbShoulderDiam.Text};{txbShoulderDiam.Text};{cmbFrictionModule.Text}";
                 }
-                
             }
-                var taskStr = string.Join(" ", new string[] { "1", "*", frameFunction, cmbEl.Text, stopTime, stopTime });
-
+            var taskStr = string.Join(" ", new string[] { "1", "*", frameFunction, cmbEl.Text, stopTime, stopTime });
             return taskStr;
         }
     }

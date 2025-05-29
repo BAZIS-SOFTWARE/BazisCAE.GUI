@@ -1,18 +1,13 @@
-﻿using System;
+﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using BaseModule.Tasks.BasicAdvisorControls.Events;
 using System.Globalization;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace BaseModule.Tasks.TasksFromNavigator.Controls
 {
-    public partial class LoadControlCreator: UserControl
+    public partial class LoadControlCreator : UserControl
     {
         public event Action<AddDataEventArgs> AddDataEvent;
         public string DataName { get; }
@@ -46,17 +41,12 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             var rows = new List<string>();
             try
             {
-                if (chbLRF.Checked)
-                    rows.Add(CreateRowInfo("LRF"));
-
+                if (chbLRF.Checked) rows.Add(CreateRowInfo("LRF"));
                 else
                 {
-                    if (chbX.Checked)
-                        rows.Add(CreateRowInfo("X"));
-                    if (chbY.Checked)
-                        rows.Add(CreateRowInfo("Y"));
-                    if (chbZ.Checked)
-                        rows.Add(CreateRowInfo("Z"));
+                    if (chbX.Checked) rows.Add(CreateRowInfo("X"));
+                    if (chbY.Checked) rows.Add(CreateRowInfo("Y"));
+                    if (chbZ.Checked) rows.Add(CreateRowInfo("Z"));
                 }
 
                 foreach (var row in rows)

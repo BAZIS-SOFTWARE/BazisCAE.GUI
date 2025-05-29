@@ -1,18 +1,13 @@
-﻿using System;
+﻿using BaseModule.Tasks.BasicAdvisorControls.Events;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using BaseModule.Tasks.BasicAdvisorControls.Events;
 using System.Globalization;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace BaseModule.Tasks.TasksFromNavigator.Controls
 {
-    public partial class ClampControlCreator: UserControl
+    public partial class ClampControlCreator : UserControl
     {
         public event Action<AddDataEventArgs> AddDataEvent;
         public string DataName { get; }
@@ -95,28 +90,17 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
         {
             var comboBox = (ComboBox)sender;
 
-            if (cmbKind.Text == "Жесткое")
-            {
-                chbLRF.Enabled = false;
-            }
-            else
-                chbLRF.Enabled = true;
+            chbLRF.Enabled = cmbKind.Text == "Жесткое" ? false : true;
 
-            if (comboBox.SelectedIndex == 0)
-            {
-                cmbStiffnessFunc.Enabled = false;
-            }
-            else if (comboBox.SelectedIndex == 1)
+
+            if (comboBox.SelectedIndex == 1)
             {
                 cmbStiffnessFunc.Enabled = true;
                 chbX.Checked = true;
                 chbY.Checked = true;
                 chbZ.Checked = true;
             }
-            else
-            {
-                cmbStiffnessFunc.Enabled = false;
-            }
+            else cmbStiffnessFunc.Enabled = false;
         }
         private void ChbDirection_Click(object sender, EventArgs e)
         {

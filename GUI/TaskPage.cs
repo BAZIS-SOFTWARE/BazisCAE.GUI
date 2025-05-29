@@ -1,37 +1,37 @@
-﻿using System;
+﻿using BaseModule.GanttChart;
+using BaseModule.Navigator;
+using BaseModule.Tasks.BasicAdvisorControls.Events;
+using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
+using BaseModule.Tasks.TasksFromNavigator;
+using BaseModule.Utilities;
+using BazisGUI.TasksControls;
+using BazisGUI.Utilities;
+using Geometry;
+using Model.Interfaces;
+using ModelControllerInterfaces;
+using Newtonsoft.Json;
+using PreProc;
+using PreProc.Interfaces;
+using Project.Interfaces;
+using Project.Interfaces.Tasks;
+using Project.TaskParameters;
+using Project.Tasks;
+using Project.Tasks.FrameCreators;
+using Project.Tasks.Functions;
+using PropertiesCalculator.FunctionData;
+using PropertiesCalculator.MaterialData;
+using PropertiesDataBases.DataBases;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using System.IO;
 using TaskModule.BasicTaskAdvisor;
-using Newtonsoft.Json;
-using Geometry;
-using BaseModule.Utilities;
-using ModelControllerInterfaces;
-using System.Text.RegularExpressions;
-using PropertiesCalculator.MaterialData;
-using PropertiesCalculator.FunctionData;
-using PropertiesDataBases.DataBases;
-using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
-using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BazisGUI.TasksControls;
-using Project.Interfaces;
-using PreProc.Interfaces;
-using PreProc;
-using Project.Interfaces.Tasks;
-using Model.Interfaces;
-using Project.TaskParameters;
-using BazisGUI.Utilities;
-using BaseModule.Navigator;
-using BaseModule.GanttChart;
-using Project.Tasks.Functions;
-using Project.Tasks.FrameCreators;
-using BaseModule.Tasks.TasksFromNavigator;
-using Project.Tasks;
 
 namespace BazisGUI
 {
@@ -1038,8 +1038,7 @@ namespace BazisGUI
 
         private void ConfigureMenuItemEnabledForModule(Control parent)
         {
-
-            if(parent is BaseModule.Tasks.HeatTreatmentModule.PinnedHTAdvControl)
+            if (parent is BaseModule.Tasks.HeatTreatmentModule.PinnedHTAdvControl)
             {
                 var mainItem = taskMenuStrip.Items["добавитьToolStripMenuItem"] as ToolStripMenuItem;
                 if (mainItem != null)
@@ -1075,8 +1074,8 @@ namespace BazisGUI
             }
             var matDB = GetDataBase<MaterialDBData>(generalData.Materials, generalData.Path);
             var funDB = GetDataBase<FunctionDBData>(generalData.Functions, generalData.Path);
-            
-            if(matDB == null || funDB == null)
+
+            if (matDB == null || funDB == null)
             {
                 BasePage.ConsoleControl.PrintInfo("Не выбран источник базы данных!", Color.Red);
                 return;
