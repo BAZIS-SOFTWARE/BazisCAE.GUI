@@ -740,7 +740,8 @@ namespace BazisGUI
         {
             var scenePage = BasePage.ScenePage;
             var mf = data.LocalFrame as MovedFrame;
-            var frame = mf.CalcFrame(time - data.StartTime);
+            mf.Time = time - data.StartTime;
+            var frame = mf.Build();
             scenePage.SceneControl.DisplayLocalFrame(frame);
             var trajPoints = mf.BaseLine.Select(x => x.CalcCentr()).ToArray();
             scenePage.SceneControl.DisplayPath(trajPoints);
@@ -964,7 +965,7 @@ namespace BazisGUI
                 //Проверка самопересечения от скорости движения
 
                 if (data.FrameFunction != null)
-                    if (!data.FrameFunction.IsOverlappingSelf(mfb.Velosity))
+                    if (!data.FrameFunction.IsOverlappingSelf(mfb.Velocity))
                         BasePage.ConsoleControl.PrintInfo("Скорость источника не позволяет добиться самопересечения при движении! " +
                             "Рекомендуется снизить скорость", Color.Orange);
                 //Sort
