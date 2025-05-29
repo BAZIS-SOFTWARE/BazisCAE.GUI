@@ -230,6 +230,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             // 
             cmbEl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cmbEl.FormattingEnabled = true;
+            cmbEl.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbEl.InputType = UserControlsEx.CMBInputType.Items;
             cmbEl.IsValidating = true;
             cmbEl.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
@@ -243,7 +244,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             // groupBox3
             // 
             groupBox3.AutoSize = true;
-            groupBox3.Controls.Add(tableLayoutPanel4);
+            groupBox3.Controls.Add(tableLayoutPanel3);
             groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             groupBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox3.Name = "groupBox3";

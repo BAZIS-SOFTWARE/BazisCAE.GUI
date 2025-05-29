@@ -103,6 +103,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             // 
             this.cmbEl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbEl.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbEl.FormattingEnabled = true;
             this.cmbEl.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbEl.IsValidating = true;
@@ -129,6 +130,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             // 
             this.cmbMat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbMat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbMat.FormattingEnabled = true;
             this.cmbMat.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbMat.IsValidating = true;
@@ -231,6 +233,8 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.generalTableLayoutPanel.AutoSize = true;
             this.generalTableLayoutPanel.ColumnCount = 1;
             this.generalTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.generalTableLayoutPanel.Controls.Add(this.materialGroupBox, 0, 0);
+            this.generalTableLayoutPanel.Controls.Add(this.timeGroupBox, 0, 1);
             this.generalTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.generalTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.generalTableLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
@@ -240,17 +244,15 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.generalTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.generalTableLayoutPanel.Size = new System.Drawing.Size(528, 158);
             this.generalTableLayoutPanel.TabIndex = 0;
-            this.generalTableLayoutPanel.Controls.Add(this.materialGroupBox, 0, 0);
-            this.generalTableLayoutPanel.Controls.Add(this.timeGroupBox, 0, 1);
             // 
-            // MaterialControl
+            // MaterialControlCreator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.Controls.Add(this.generalTableLayoutPanel);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "MaterialControl";
+            this.Name = "MaterialControlCreator";
             this.Size = new System.Drawing.Size(528, 158);
             this.materialGroupBox.ResumeLayout(false);
             this.materialGroupBox.PerformLayout();

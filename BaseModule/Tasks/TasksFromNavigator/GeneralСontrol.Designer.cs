@@ -150,6 +150,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             // 
             this.cmbTraj.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbTraj.DropDownStyle = ComboBoxStyle.DropDownList;
             this.trajectoryTableLayoutPanel.SetColumnSpan(this.cmbTraj, 3);
             this.cmbTraj.FormattingEnabled = true;
             this.cmbTraj.InputType = UserControlsEx.CMBInputType.Items;
@@ -173,6 +174,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.cmbRef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trajectoryTableLayoutPanel.SetColumnSpan(this.cmbRef, 3);
+            this.cmbRef.DropDownStyle = ComboBoxStyle.DropDownList;
             this.cmbRef.FormattingEnabled = true;
             this.cmbRef.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbRef.IsValidating = true;

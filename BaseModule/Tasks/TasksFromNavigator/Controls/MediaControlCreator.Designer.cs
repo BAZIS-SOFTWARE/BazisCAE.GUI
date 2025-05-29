@@ -183,6 +183,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             // 
             cmbEl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cmbEl.FormattingEnabled = true;
+            cmbEl.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbEl.InputType = UserControlsEx.CMBInputType.Items;
             cmbEl.IsValidating = true;
             cmbEl.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
@@ -277,6 +278,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             // 
             cmbNode.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cmbNode.FormattingEnabled = true;
+            cmbNode.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbNode.InputType = UserControlsEx.CMBInputType.Items;
             cmbNode.IsValidating = true;
             cmbNode.Items.AddRange(new object[] { "node" });
