@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Tao.OpenGl;
@@ -102,6 +103,26 @@ namespace Scene
                 Gl.glUniformMatrix4fv(id, 1, Gl.GL_FALSE, values);//Передача матрицы в шейдер
         }
         /// <summary>
+        /// Передать значение в переменную шейдера с именем name, вариант целочисленных переменных
+        /// </summary>
+        /// <param name="name">Имя переменной в шейдере</param>
+        /// <param name="values">Массив значений переменной</param>
+        public void SetUniform(string name, int[] values)
+        {
+            var id = Gl.glGetUniformLocation(Program, name);
+            var count = values.Length;
+            if (id == -1)
+                return;
+            if (count == 1)
+                Gl.glUniform1i(id, values[0]);
+            else if (count == 2)
+                Gl.glUniform2i(id, values[0], values[1]);
+            else if (count == 3)
+                Gl.glUniform3i(id, values[0], values[1], values[2]);
+            else if (count == 4)
+                Gl.glUniform4i(id, values[0], values[1], values[2], values[3]);
+        }
+        /// <summary>
         /// Подгружает из файла исходный код шейдера, указанного типа, компилирует и привязывает к идентификатору шейдера
         /// </summary>
         /// <param name="type">Тип шейдера (вершинный, фрагментный и т.д)</param>
@@ -150,8 +171,9 @@ namespace Scene
         /// <summary>
         /// Связывает все шейдеры с указанной программой
         /// </summary>
+        /// <param name="tfNames">Перечисление переменных для механизма TransformFeedback</param>
         /// <exception cref="Exception">Исключение, если связывание не удалось</exception>
-        public void Link()
+        public void Link(IEnumerable<string> tfNames = null)
         {
             Program = Gl.glCreateProgram();
             if(Vertex != 0)
@@ -162,6 +184,7 @@ namespace Scene
                 Gl.glAttachShader(Program, Geometry);
             try
             {
+                ApplyTransformFeedback(tfNames);
                 Gl.glLinkProgram(Program);
                 int status;
                 Gl.glGetProgramiv(Program, Gl.GL_LINK_STATUS, out status);
@@ -189,6 +212,15 @@ namespace Scene
             Gl.glDetachShader(Program, Geometry);
             Gl.glDeleteShader(Geometry);
             Gl.glDeleteProgram(Program);
+        }
+
+        private void ApplyTransformFeedback(IEnumerable<string> tfNames)
+        {
+            if (tfNames != null)
+            {
+                var tfVars = tfNames.ToArray();
+                Gle.TransformFeedbackVaryings((uint)Program, (uint)tfVars.Length, tfVars, Gl.GL_SEPARATE_ATTRIBS_NV);
+            }
         }
     }
 }

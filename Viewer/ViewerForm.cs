@@ -171,6 +171,8 @@ namespace Viewer
                 model.Loader = new LoadModelFromINPTextFile();
             else if (ext == ".bpf")
                 model.Loader = new LoadModelFromBPFTextFile();
+            else if(ext == ".bpf2")
+                model.Loader = new LoadModelFromBPF2TextFile();
             model.Loader.LoadEvent += (ar1, ar2) => { };
             model.Load(dialog.FileName);
             CreateVBOObjects();

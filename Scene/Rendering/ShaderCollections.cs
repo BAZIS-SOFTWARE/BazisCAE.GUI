@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MathNet.Numerics.Distributions;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -395,89 +396,70 @@ namespace Scene
             "}"
         };
 
-        /// <summary>
-        /// Вершинный шейдер, реализация алгоритма Екатерины по поиску барицентрических координат
-        /// </summary>
-        public static string[] vertexBarycentricSolver = new string[]
+      
+        public static string[] vertexLcoordinatesSolver = new string[]
         {
             "#version 130 \n",
 
-            "varying vec3 eyePos;\n",
-            "varying float indices;\n",
+            "varying vec3 normal;\n",
 
-            "uniform ivec2 viewport;\n",//(W,H)
-            //Алгоритм конвертации локальной координаты в экранные https://www.songho.ca/opengl/gl_viewport.html#map
-            //Вектор gl_Position далее по конвейеру поступает в геометрический шейдер (этап сборки треугольника)
             "void main(){\n",
-            "   vec4 cameraPos = gl_ModelViewMatrix * gl_Vertex;\n",
-            "   vec4 projPos = gl_ProjectionMatrix * cameraPos;\n",
-            "   vec3 ndcPos = vec3(projPos.x / projPos.w, projPos.y / projPos.w, projPos.z / projPos.w);\n",
-            "   ivec2 halfViewport = viewport / 2;\n",
-            "   eyePos = cameraPos.xyz;\n",
-            "   indices = float(gl_VertexID);\n",
-            "   gl_Position = vec4(halfViewport * ndcPos.xy + halfViewport, 0.5 * ndcPos.z + 0.5, 1);\n",
+            "   normal = -normalize(gl_NormalMatrix * gl_Normal);\n",
+            "   gl_Position = vec4(gl_Vertex.xyz , float(gl_VertexID));\n",
             "}\n",
         };
+    
 
-        /// <summary>
-        /// Геометрический шейдер, реализация алгоритма Екатерины по поиску барицентрических координат
-        /// </summary>
-        public static string[] geometryBarycentricSolver = new string[]
+        public static string[] geometryLcoordinatesSolver = new string[]
         {
             "#version 150 compatibility\n",
             "layout(triangles) in;\n",
-            "layout(triangle_strip, max_vertices = 3) out;\n",
+            "layout(points, max_vertices = 1) out;\n",
 
-            "in vec3 eyePos[];\n",
-            "in float indices[];\n",
+            "in vec3 normal[3];\n",
+            "out vec4 pointData;\n",
 
-            "out vec3 outEyePos;\n",
-            "out float outIndices;\n",
-
-            "void swap(inout vec3 a, inout vec3 b);\n",
-            //Координаты мыши в формате (1, x, y)
-            "uniform vec3 mouseCoord;\n",
+            "uniform vec3 localPos;\n",
+            "uniform vec3 localDir;\n",
             "void main(){\n",
-            "   vec3 col0 = vec3(1, gl_in[0].gl_Position.x, gl_in[0].gl_Position.y);\n",
-            "   vec3 col1 = vec3(1, gl_in[1].gl_Position.x, gl_in[1].gl_Position.y);\n",
-            "   vec3 col2 = vec3(1, gl_in[2].gl_Position.x, gl_in[2].gl_Position.y);\n",
-            "   vec3 result = mouseCoord;\n",
+            //"   vec3 viewDir = normalize(vec3(gl_ModelViewMatrix[0][2], gl_ModelViewMatrix[1][2], gl_ModelViewMatrix[2][2]));\n",
+            //Отбрасываем треугольники, которые не смотрят нормалью в камеру
+            //"   if(dot(viewDir, normal[0]) < 0)\n",
+            //"       return;\n",
+            "   vec3 dir = -localDir;\n",
+            "   vec3 edgeA = gl_in[0].gl_Position.xyz - gl_in[2].gl_Position.xyz;\n",
+            "   vec3 edgeB = gl_in[1].gl_Position.xyz - gl_in[2].gl_Position.xyz;\n",
+            "   vec3 free = localPos - gl_in[2].gl_Position.xyz;\n",
+            "   mat3 m = mat3(dir, edgeA, edgeB);\n",
+            "   float det = determinant(m);\n",
 
-            "   mat3 m = mat3(col0, col1, col2);\n",
-            "   float detMat = determinant(m);\n",
-            "   float lambda[3];\n",
-
-            "   for(int i = 0; i < 3; ++i){\n",
-            "       swap(m[i], result);\n",
-            "       lambda[i] = determinant(m) / detMat;\n",
-            "       if(lambda[i] < 0)\n",
-            "           return;\n",
-            "       swap(m[i], result);\n",
-            "   }\n",
-
-            "   float lambdaSum = lambda[0] + lambda[1] + lambda[2];\n",
-            "   if(lambdaSum > 1)\n",
+            "   if(abs(det) < 1e-4)\n",
+            "       return;\n",
+            "   m[1] = free;\n",
+            "   float u = determinant(m) / det;\n",
+            "   if(u < 0.0 || u > 1.0)\n",
             "       return;\n",
 
-            "   outEyePos = eyePos[0];\n",
-            "   outIndices = indices[0];\n",
-            "   EmitVertex();\n",
+            "   m[1] = edgeA;\n",
+            "   m[2] = free;\n",
+            "   float v = determinant(m) / det;\n",
+            "   if(v < 0.0 || v > 1.0)\n",
+            "       return;\n",
+            "   float w = 1 - u - v;\n",
+            "   if(w < 0.0 || w > 1.0)\n",
+            "       return;\n",
+            "   float sum = u + v + w;\n",
+            "   if(abs(sum - 1) > 1e-4)\n",
+            "       return;\n",
+            "   m[2] = edgeB;\n",
+            "   m[0] = free;\n",
+            "   float t = determinant(m) / det;\n",
+            "   if(t < 0.99)\n",
+            "       return;\n",
 
-            "   outEyePos = eyePos[1];\n",
-            "   outIndices = indices[1];\n",
+            "   pointData = vec4(t, u, v, round(gl_in[0].gl_Position.w / 3));\n",
             "   EmitVertex();\n",
-
-            "   outEyePos = eyePos[2];\n",
-            "   outIndices = indices[2];\n",
-            "   EmitVertex();\n",
-
             "   EndPrimitive();\n",
-            "}\n",
-
-            "void swap(inout vec3 a, inout vec3 b){\n",
-            "   vec3 temp = a;\n",
-            "   a = b;\n",
-            "   b = temp;\n",
             "}\n",
         };
     }

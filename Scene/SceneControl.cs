@@ -1811,6 +1811,14 @@ namespace Scene
         private void glControl_MouseClick(object sender, MouseEventArgs e)
         {
             SceneMouseClickEvent?.Invoke(sender, e);
+            if (e.Button == MouseButtons.Left)
+            {
+                selector.MouseClick = e.Location;
+                var obj = FindVBObj("Элемент3D");
+                if (obj != null)
+                   selector.SelectElementSlow((VBObject)obj, SelectionColor);
+                   //selector.SelectElement((VBObject)obj, SelectionColor);
+            }
         }
     }
 }

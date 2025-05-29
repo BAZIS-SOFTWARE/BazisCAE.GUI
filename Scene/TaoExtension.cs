@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
+using System.Text;
 
 namespace Scene
 {
@@ -73,6 +75,34 @@ namespace Scene
         public delegate void glGetFramebufferAttachmentParameterivFun(int target, int attachment, int pname, ref int param);///
         public static glGetFramebufferAttachmentParameterivFun glGetFramebufferAttachmentParameteriv;
         /// <summary>
+        /// Устанавливает для указанных имен переменных(в шейдере) режим TransformFeedback
+        /// </summary>
+        /// <param name="program">[In]Программа</param>
+        /// <param name="count">[In]Количество переменных</param>
+        /// <param name="varyings">[In]Указатель на массив ANSI-строк</param>
+        /// <param name="bufferMode">[In]Режим буффера GL_INTERLEAVED_ATTRIBS или GL_SEPARATE_ATTRIBS</param>
+        public delegate void glTransformFeedbackVaryingsFun(uint program, uint count, IntPtr varyings, int bufferMode);///
+        public static glTransformFeedbackVaryingsFun glTransformFeedbackVaryings;
+        /// <summary>
+        /// Биндинг буффера (GL_TRANSFORM_FEEDBACK_BUFFER, GL_UNIFORM_BUFFER,...). 
+        /// </summary>
+        /// <param name="target">[In]Тип цели буффера GL_TRANSFORM_FEEDBACK_BUFFER, GL_UNIFORM_BUFFER, ...</param>
+        /// <param name="index">[In]Индекс буффера</param>
+        /// <param name="buffer">[In]Идентификатор буффера</param>
+        public delegate void glBindBufferBaseFun(int target, uint index, uint buffer);///
+        public static glBindBufferBaseFun glBindBufferBase;
+        /// <summary>
+        /// Начать вытягивание данных из шейдера механизмом TransformFeedback
+        /// </summary>
+        /// <param name="primitiveMode">Типы примитива Gl_POINTS, GL_LINES, GL_TRIANGLES...</param>
+        public delegate void glBeginTransformFeedbackFun(int primitiveMode);///
+        public static glBeginTransformFeedbackFun glBeginTransformFeedback;
+        /// <summary>
+        /// Закончить вытягивание данных из шейдера механизмом TransformFeedback
+        /// </summary>
+        public delegate void glEndTransformFeedbackFun();///
+        public static glEndTransformFeedbackFun glEndTransformFeedback;
+        /// <summary>
         /// Подгружает делегат OpenGL для вызова
         /// </summary>
         /// <typeparam name="T">[In]Сигнатура делегата</typeparam>
@@ -94,6 +124,53 @@ namespace Scene
             glDeleteFramebuffers = GetProcAddress<glDeleteFramebuffersFun>("glDeleteFramebuffers");
             glBlitFramebuffer = GetProcAddress<glBlitFramebufferFun>("glBlitFramebuffer");
             glGetFramebufferAttachmentParameteriv = GetProcAddress<glGetFramebufferAttachmentParameterivFun>("glGetFramebufferAttachmentParameteriv");
+            //Подключение механизма TransformFeedback
+            glTransformFeedbackVaryings = GetProcAddress<glTransformFeedbackVaryingsFun>("glTransformFeedbackVaryings");
+            glBindBufferBase = GetProcAddress<glBindBufferBaseFun>("glBindBufferBase");
+            glBeginTransformFeedback = GetProcAddress<glBeginTransformFeedbackFun>("glBeginTransformFeedback");
+            glEndTransformFeedback = GetProcAddress<glEndTransformFeedbackFun>("glEndTransformFeedback");
+        }
+        /// <summary>
+        /// Устанавливает для указанных имен переменных(в шейдере) режим TransformFeedback
+        /// </summary>
+        /// <param name="program"></param>
+        /// <param name="count"></param>
+        /// <param name="varyings"></param>
+        /// <param name="bufferMode"></param>
+        public static void TransformFeedbackVaryings(uint program, uint count, string[] varyings, int bufferMode)
+        {
+            var ptr = MarshalStringArrayToPtr(varyings);
+            glTransformFeedbackVaryings(program, count, ptr, bufferMode);
+            MarshalFreeArrayString(ptr, varyings.Length);
+        }
+
+        private static IntPtr MarshalStringArrayToPtr(string[] str_array)
+        {
+            IntPtr intPtr = IntPtr.Zero;
+            intPtr = Marshal.AllocHGlobal(str_array.Length * IntPtr.Size);
+            for (var i = 0; i < str_array.Length; ++i)
+            {
+                IntPtr val = MarshalStringToPtr(str_array[i]);
+                Marshal.WriteIntPtr(intPtr, i * IntPtr.Size, val);
+            }
+            return intPtr;
+        }
+
+        private static IntPtr MarshalStringToPtr(string str)
+        {
+            str = str + char.MinValue;
+            var bytes = Encoding.UTF8.GetBytes(str);
+            IntPtr intPtr = Marshal.AllocHGlobal(bytes.Length);
+
+            Marshal.Copy(bytes, 0, intPtr, bytes.Length);
+            return intPtr;
+        }
+
+        private static void MarshalFreeArrayString(IntPtr ptr, int length)
+        {
+            for (int i = 0; i < length; ++i)
+                Marshal.FreeHGlobal(Marshal.ReadIntPtr(ptr, i * IntPtr.Size));
+            Marshal.FreeHGlobal(ptr);
         }
     }
 }
