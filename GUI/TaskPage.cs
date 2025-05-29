@@ -1099,24 +1099,19 @@ namespace BazisGUI
             switch (arg2.DataName)
             {
                 case "Материал":
-                    MatData matData = new MatData(group, arg2.DataInfo);
-                    genData = matData as PhysicalData;
+                    genData = new MatData(group, arg2.DataInfo);
                     break;
                 case "Закрепление":
-                    ClampData clampData = new ClampData(group, arg2.DataInfo);
-                    genData = clampData as PhysicalData;
+                    genData = new ClampData(group, arg2.DataInfo);
                     break;
                 case "Нагрузка":
-                    LoadData loadData = new LoadData(group, arg2.DataInfo);
-                    genData = loadData as PhysicalData;
+                    genData = new LoadData(group, arg2.DataInfo);
                     break;
                 case "Среда":
-                    MediaData mediaData = new MediaData(group, arg2.DataInfo);
-                    genData = mediaData as PhysicalData;
+                    genData = new MediaData(group, arg2.DataInfo);
                     break;
                 case "Нагрев":
-                    HeatData heatData = new HeatData(group, arg2.DataInfo);
-                    genData = heatData as PhysicalData;
+                    genData = new HeatData(group, arg2.DataInfo);
                     var func = data[2].Split(';');
                     genData.FrameFunction = (FrameFunction)(new FrameFunctionBuilder(func));
                     break;
