@@ -150,6 +150,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.chbX.AutoSize = true;
             this.chbX.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.chbX.Name = "chbX";
+            this.chbX.AccessibleName = "chbX";
             this.chbX.TabIndex = 0;
             this.chbX.Tag = "0";
             this.chbX.Text = "X";
@@ -161,6 +162,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.chbY.AutoSize = true;
             this.chbY.Margin = new System.Windows.Forms.Padding(15, 10, 0, 0);
             this.chbY.Name = "chbY";
+            this.chbY.AccessibleName = "chbY";
             this.chbY.TabIndex = 0;
             this.chbY.Tag = "1";
             this.chbY.Text = "Y";
@@ -172,6 +174,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.chbZ.AutoSize = true;
             this.chbZ.Margin = new System.Windows.Forms.Padding(15, 10, 0, 0);
             this.chbZ.Name = "chbZ";
+            this.chbZ.AccessibleName = "chbZ";
             this.chbZ.TabIndex = 0;
             this.chbZ.Tag = "2";
             this.chbZ.Text = "Z";
@@ -183,6 +186,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.chbLRF.AutoSize = true;
             this.chbLRF.Margin = new System.Windows.Forms.Padding(15, 10, 0, 0);
             this.chbLRF.Name = "chbLRF";
+            this.chbLRF.AccessibleName = "chbLRF";
             this.chbLRF.TabIndex = 0;
             this.chbLRF.Tag = "3";
             this.chbLRF.Text = "Произвольное";
@@ -208,6 +212,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.cmbGr.IsValidating = true;
             this.cmbGr.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbGr.Name = "cmbGr";
+            this.cmbGr.AccessibleName = "cmbGr";
             this.cmbGr.TabIndex = 43;
             this.cmbGr.UserRegExCheck = null;
             this.cmbGr.UserRegExCheckErrorMessage = null;
@@ -230,6 +235,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.txbValue.IsValidating = true;
             this.txbValue.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbValue.Name = "txbValue";
+            this.txbValue.AccessibleName = "txbValue";
             this.txbValue.TabIndex = 0;
             this.txbValue.UserRegExCheck = null;
             this.txbValue.UserRegExCheckErrorMessage = null;
@@ -265,6 +271,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.cmbLoadFunction.IsValidating = true;
             this.cmbLoadFunction.Margin = new System.Windows.Forms.Padding(10, 3, 15, 0);
             this.cmbLoadFunction.Name = "cmbLoadFunction";
+            this.cmbLoadFunction.AccessibleName = "cmbLoadFunction";
             this.cmbLoadFunction.TabIndex = 36;
             this.cmbLoadFunction.UserRegExCheck = null;
             this.cmbLoadFunction.UserRegExCheckErrorMessage = null;

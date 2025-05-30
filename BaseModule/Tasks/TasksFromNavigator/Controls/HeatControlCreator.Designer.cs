@@ -156,6 +156,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             rbtARC.AutoSize = true;
             rbtARC.Margin = new System.Windows.Forms.Padding(10, 10, 3, 3);
             rbtARC.Name = "rbtARC";
+            rbtARC.AccessibleName = "rbtARC";
             rbtARC.TabIndex = 21;
             rbtARC.TabStop = true;
             rbtARC.Text = "Дуговая сварка";
@@ -168,6 +169,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             rbtLW.AutoSize = true;
             rbtLW.Margin = new System.Windows.Forms.Padding(10, 10, 3, 3);
             rbtLW.Name = "rbtLW";
+            rbtLW.AccessibleName = "rbtLW";
             rbtLW.TabIndex = 20;
             rbtLW.TabStop = true;
             rbtLW.Text = "Лазерная сварка";
@@ -180,6 +182,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             rbtFS.AutoSize = true;
             rbtFS.Margin = new System.Windows.Forms.Padding(10, 10, 3, 3);
             rbtFS.Name = "rbtFS";
+            rbtFS.AccessibleName = "rbtFS";
             rbtFS.TabIndex = 20;
             rbtFS.TabStop = true;
             rbtFS.Text = "Трением с перемешиванием";
@@ -235,6 +238,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             cmbEl.IsValidating = true;
             cmbEl.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             cmbEl.Name = "cmbEl";
+            cmbEl.AccessibleName = "cmbEl";
             cmbEl.TabIndex = 14;
             cmbEl.UserRegExCheck = null;
             cmbEl.UserRegExCheckErrorMessage = null;
@@ -293,6 +297,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             txbCurrent.IsValidating = true;
             txbCurrent.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             txbCurrent.Name = "txbCurrent";
+            txbCurrent.AccessibleName = "txbCurrent";
             txbCurrent.TabIndex = 0;
             txbCurrent.UserRegExCheck = null;
             txbCurrent.UserRegExCheckErrorMessage = null;
@@ -314,6 +319,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             txbVoltage.IsValidating = true;
             txbVoltage.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             txbVoltage.Name = "txbVoltage";
+            txbVoltage.AccessibleName = "txbVoltage";
             txbVoltage.TabIndex = 1;
             txbVoltage.UserRegExCheck = null;
             txbVoltage.UserRegExCheckErrorMessage = null;
@@ -335,6 +341,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             txbWidth.IsValidating = true;
             txbWidth.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             txbWidth.Name = "txbWidth";
+            txbWidth.AccessibleName = "txbWidth";
             txbWidth.TabIndex = 0;
             txbWidth.UserRegExCheck = null;
             txbWidth.UserRegExCheckErrorMessage = null;
@@ -383,6 +390,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             txbPower.IsValidating = true;
             txbPower.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             txbPower.Name = "txbPower";
+            txbPower.AccessibleName = "txbPower";
             txbPower.TabIndex = 0;
             txbPower.UserRegExCheck = null;
             txbPower.UserRegExCheckErrorMessage = null;
@@ -404,6 +412,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             txbDepth.IsValidating = true;
             txbDepth.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             txbDepth.Name = "txbDepth";
+            txbDepth.AccessibleName = "txbDepth";
             txbDepth.TabIndex = 1;
             txbDepth.UserRegExCheck = null;
             txbDepth.UserRegExCheckErrorMessage = null;
@@ -425,6 +434,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             txbBaseDiameter.IsValidating = true;
             txbBaseDiameter.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             txbBaseDiameter.Name = "txbBaseDiameter";
+            txbBaseDiameter.AccessibleName = "txbBaseDiameter";
             txbBaseDiameter.TabIndex = 0;
             txbBaseDiameter.UserRegExCheck = null;
             txbBaseDiameter.UserRegExCheckErrorMessage = null;
@@ -446,6 +456,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             txbEndDiameter.IsValidating = true;
             txbEndDiameter.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             txbEndDiameter.Name = "txbEndDiameter";
+            txbEndDiameter.AccessibleName = "txbEndDiameter";
             txbEndDiameter.TabIndex = 0;
             txbEndDiameter.UserRegExCheck = null;
             txbEndDiameter.UserRegExCheckErrorMessage = null;
@@ -533,6 +544,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.cmbFrictionModule.IsValidating = true;
             this.cmbFrictionModule.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbFrictionModule.Name = "cmbFrictionModule";
+            this.cmbFrictionModule.AccessibleName = "cmbFrictionModule";
             this.cmbFrictionModule.TabIndex = 62;
             this.cmbFrictionModule.UserRegExCheck = null;
             this.cmbFrictionModule.UserRegExCheckErrorMessage = null;
@@ -554,6 +566,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.txbAxisForce.IsValidating = true;
             this.txbAxisForce.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbAxisForce.Name = "txbAxisForce";
+            this.txbAxisForce.AccessibleName = "txbAxisForce";
             this.txbAxisForce.TabIndex = 59;
             this.txbAxisForce.UserRegExCheck = null;
             this.txbAxisForce.UserRegExCheckErrorMessage = null;
@@ -567,6 +580,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.txbPinUpperDiam.IsValidating = true;
             this.txbPinUpperDiam.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbPinUpperDiam.Name = "txbPinUpperDiam";
+            this.txbPinUpperDiam.AccessibleName = "txbPinUpperDiam";
             this.txbPinUpperDiam.TabIndex = 58;
             this.txbPinUpperDiam.UserRegExCheck = null;
             this.txbPinUpperDiam.UserRegExCheckErrorMessage = null;
@@ -580,6 +594,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.txbPinBottomDiam.IsValidating = true;
             this.txbPinBottomDiam.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbPinBottomDiam.Name = "txbPinBottomDiam";
+            this.txbPinBottomDiam.AccessibleName = "txbPinBottomDiam";
             this.txbPinBottomDiam.TabIndex = 57;
             this.txbPinBottomDiam.UserRegExCheck = null;
             this.txbPinBottomDiam.UserRegExCheckErrorMessage = null;
@@ -593,6 +608,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.txbPinLenght.IsValidating = true;
             this.txbPinLenght.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbPinLenght.Name = "txbPinLenght";
+            this.txbPinLenght.AccessibleName = "txbPinLenght";
             this.txbPinLenght.TabIndex = 56;
             this.txbPinLenght.UserRegExCheck = null;
             this.txbPinLenght.UserRegExCheckErrorMessage = null;
@@ -606,6 +622,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.txbShoulderDiam.IsValidating = true;
             this.txbShoulderDiam.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbShoulderDiam.Name = "txbShoulderDiam";
+            this.txbShoulderDiam.AccessibleName = "txbShoulderDiam";
             this.txbShoulderDiam.TabIndex = 55;
             this.txbShoulderDiam.UserRegExCheck = null;
             this.txbShoulderDiam.UserRegExCheckErrorMessage = null;
@@ -659,6 +676,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.txbRotSpeed.IsValidating = true;
             this.txbRotSpeed.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbRotSpeed.Name = "txbRotSpeed";
+            this.txbRotSpeed.AccessibleName = "txbRotSpeed";
             this.txbRotSpeed.TabIndex = 50;
             this.txbRotSpeed.UserRegExCheck = null;
             this.txbRotSpeed.UserRegExCheckErrorMessage = null;
@@ -680,6 +698,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.cmbYield.IsValidating = true;
             this.cmbYield.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbYield.Name = "cmbYield";
+            cmbYield.AccessibleName = "cmbYield";
             this.cmbYield.TabIndex = 62;
             this.cmbYield.UserRegExCheck = null;
             this.cmbYield.UserRegExCheckErrorMessage = null;
@@ -689,6 +708,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.rbtPin.AutoSize = true;
             this.rbtPin.Margin = new System.Windows.Forms.Padding(2);
             this.rbtPin.Name = "rbtPin";
+            rbtPin.AccessibleName = "rbtPin";
             this.rbtPin.TabIndex = 65;
             this.rbtPin.TabStop = true;
             this.rbtPin.Text = "Рабочая часть";
@@ -701,6 +721,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.rbtShoulder.AutoSize = true;
             this.rbtShoulder.Margin = new System.Windows.Forms.Padding(2);
             this.rbtShoulder.Name = "rbtShoulder";
+            rbtShoulder.AccessibleName = "rbtShoulder";
             this.rbtShoulder.TabIndex = 66;
             this.rbtShoulder.TabStop = true;
             this.rbtShoulder.Text = "Опорный бурт";
@@ -801,6 +822,5 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
         private ComboBoxEx cmbYield;
         private System.Windows.Forms.RadioButton rbtPin;
         private System.Windows.Forms.RadioButton rbtShoulder;
-
     }
 }

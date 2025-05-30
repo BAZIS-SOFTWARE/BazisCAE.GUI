@@ -157,6 +157,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.cmbTraj.IsValidating = true;
             this.cmbTraj.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbTraj.Name = "cmbTraj";
+            this.cmbTraj.AccessibleName = "cmbTraj";
             this.cmbTraj.TabIndex = 29;
             this.cmbTraj.UserRegExCheck = null;
             this.cmbTraj.UserRegExCheckErrorMessage = null;
@@ -180,6 +181,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.cmbRef.IsValidating = true;
             this.cmbRef.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbRef.Name = "cmbRef";
+            this.cmbRef.AccessibleName = "cmbRef";
             this.cmbRef.TabIndex = 29;
             this.cmbRef.UserRegExCheck = null;
             this.cmbRef.UserRegExCheckErrorMessage = null;
@@ -434,6 +436,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.txbVelosity.IsValidating = true;
             this.txbVelosity.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbVelosity.Name = "txbVelosity";
+            txbVelosity.AccessibleName = "txbVelosity";
             this.txbVelosity.TabIndex = 31;
             this.txbVelosity.UserRegExCheck = null;
             this.txbVelosity.UserRegExCheckErrorMessage = null;
@@ -457,6 +460,7 @@ namespace BaseModule.Tasks.TasksFromNavigator
             this.txbStartTime.IsValidating = true;
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
+            this.txbStartTime.AccessibleName = "txbStartTime";
             this.txbStartTime.TabIndex = 43;
             this.txbStartTime.UserRegExCheck = null;
             this.txbStartTime.UserRegExCheckErrorMessage = null;

@@ -127,6 +127,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.cmbNodeGr.IsValidating = true;
             this.cmbNodeGr.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbNodeGr.Name = "cmbNodeGr";
+            this.cmbNodeGr.AccessibleName = "cmbNodeGr";
             this.cmbNodeGr.TabIndex = 43;
             this.cmbNodeGr.UserRegExCheck = null;
             this.cmbNodeGr.UserRegExCheckErrorMessage = null;
@@ -150,6 +151,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             "Жесткое"});
             this.cmbKind.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbKind.Name = "cmbKind";
+            this.cmbKind.AccessibleName = "cmbKind";
             this.cmbKind.TabIndex = 36;
             this.cmbKind.UserRegExCheck = null;
             this.cmbKind.UserRegExCheckErrorMessage = null;
@@ -208,6 +210,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             // 
             this.chbLRF.AutoSize = true;
             this.chbLRF.Name = "chbLRF";
+            this.chbLRF.AccessibleName = "chbLRF";
             this.chbLRF.Margin = new Padding(0, 10, 15, 0);
             this.chbLRF.TabIndex = 0;
             this.chbLRF.Tag = "3";
@@ -220,6 +223,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             // 
             this.chbZ.AutoSize = true;
             this.chbZ.Name = "chbZ";
+            this.chbZ.AccessibleName = "chbZ";
             this.chbZ.Margin = new Padding(15, 10, 0, 0);
             this.chbZ.TabIndex = 0;
             this.chbZ.Tag = "2";
@@ -231,6 +235,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             // 
             this.chbY.AutoSize = true;
             this.chbY.Name = "chbY";
+            this.chbY.AccessibleName = "chbY";
             this.chbY.Margin = new Padding(15, 10, 0, 0);
             this.chbY.TabIndex = 0;
             this.chbY.Tag = "1";
@@ -242,6 +247,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             // 
             this.chbX.AutoSize = true;
             this.chbX.Name = "chbX";
+            this.chbX.AccessibleName = "chbX";
             this.chbX.Margin = new Padding(15, 10, 0, 0);
             this.chbX.TabIndex = 0;
             this.chbX.Tag = "0";
@@ -267,6 +273,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.cmbStiffnessFunc.IsValidating = true;
             this.cmbStiffnessFunc.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.cmbStiffnessFunc.Name = "cmbStiffnessFunc";
+            this.cmbStiffnessFunc.AccessibleName = "cmbStiffnessFunc";
             this.cmbStiffnessFunc.TabIndex = 1;
             this.cmbStiffnessFunc.UserRegExCheck = null;
             this.cmbStiffnessFunc.UserRegExCheckErrorMessage = null;
@@ -324,6 +331,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.txbStartTime.IsValidating = true;
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
+            this.txbStartTime.AccessibleName = "txbStartTime";
             this.txbStartTime.TabIndex = 0;
             this.txbStartTime.UserRegExCheck = null;
             this.txbStartTime.UserRegExCheckErrorMessage = null;
@@ -346,6 +354,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.txbStopTime.IsValidating = true;
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbStopTime.Name = "txbStopTime";
+            this.txbStopTime.AccessibleName = "txbStopTime";
             this.txbStopTime.TabIndex = 1;
             this.txbStopTime.UserRegExCheck = null;
             this.txbStopTime.UserRegExCheckErrorMessage = null;

@@ -188,6 +188,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             cmbEl.IsValidating = true;
             cmbEl.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             cmbEl.Name = "cmbEl";
+            cmbEl.AccessibleName = "cmbEl";
             cmbEl.TabIndex = 14;
             cmbEl.UserRegExCheck = null;
             cmbEl.UserRegExCheckErrorMessage = null;
@@ -200,6 +201,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             cmbFunc.IsValidating = true;
             cmbFunc.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             cmbFunc.Name = "cmbFunc";
+            cmbFunc.AccessibleName = "cmbFunc";
             cmbFunc.TabIndex = 17;
             cmbFunc.UserRegExCheck = null;
             cmbFunc.UserRegExCheckErrorMessage = null;
@@ -229,6 +231,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             txbMediaTemp.IsValidating = true;
             txbMediaTemp.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             txbMediaTemp.Name = "txbMediaTemp";
+            txbMediaTemp.AccessibleName = "txbMediaTemp";
             txbMediaTemp.TabIndex = 21;
             txbMediaTemp.UserRegExCheck = null;
             txbMediaTemp.UserRegExCheckErrorMessage = null;
@@ -284,6 +287,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             cmbNode.Items.AddRange(new object[] { "node" });
             cmbNode.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             cmbNode.Name = "cmbNode";
+            cmbNode.AccessibleName = "cmbNode";
             cmbNode.TabIndex = 19;
             cmbNode.UserRegExCheck = null;
             cmbNode.UserRegExCheckErrorMessage = null;
@@ -304,6 +308,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             cmbTermoCycle.IsValidating = true;
             cmbTermoCycle.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             cmbTermoCycle.Name = "cmbTermoCycle";
+            cmbTermoCycle.AccessibleName = "cmbTermoCycle";
             cmbTermoCycle.TabIndex = 26;
             cmbTermoCycle.UserRegExCheck = null;
             cmbTermoCycle.UserRegExCheckErrorMessage = null;
@@ -359,6 +364,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             txbStartTime.IsValidating = true;
             txbStartTime.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             txbStartTime.Name = "txbStartTime";
+            txbStartTime.AccessibleName = "txbStartTime";
             txbStartTime.TabIndex = 0;
             txbStartTime.UserRegExCheck = null;
             txbStartTime.UserRegExCheckErrorMessage = null;
@@ -380,6 +386,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             txbStopTime.IsValidating = true;
             txbStopTime.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             txbStopTime.Name = "txbStopTime";
+            txbStopTime.AccessibleName = "txbStopTime";
             txbStopTime.TabIndex = 1;
             txbStopTime.UserRegExCheck = null;
             txbStopTime.UserRegExCheckErrorMessage = null;

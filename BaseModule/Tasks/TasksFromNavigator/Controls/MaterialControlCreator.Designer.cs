@@ -110,6 +110,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.cmbEl.Location = new System.Drawing.Point(153, 3);
             this.cmbEl.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbEl.Name = "cmbEl";
+            this.cmbEl.AccessibleName = "cmbEl";
             this.cmbEl.Size = new System.Drawing.Size(344, 21);
             this.cmbEl.TabIndex = 14;
             this.cmbEl.UserRegExCheck = null;
@@ -137,6 +138,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.cmbMat.Location = new System.Drawing.Point(153, 30);
             this.cmbMat.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbMat.Name = "cmbMat";
+            this.cmbMat.AccessibleName = "cmbMat";
             this.cmbMat.Size = new System.Drawing.Size(344, 21);
             this.cmbMat.TabIndex = 13;
             this.cmbMat.UserRegExCheck = null;
@@ -197,6 +199,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.txbStartTime.Location = new System.Drawing.Point(153, 3);
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
+            this.txbStartTime.AccessibleName = "txbStartTime";
             this.txbStartTime.Size = new System.Drawing.Size(344, 20);
             this.txbStartTime.TabIndex = 0;
             this.txbStartTime.UserRegExCheck = null;
@@ -223,6 +226,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.txbStopTime.Location = new System.Drawing.Point(153, 30);
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbStopTime.Name = "txbStopTime";
+            this.txbStopTime.AccessibleName = "txbStopTime";
             this.txbStopTime.Size = new System.Drawing.Size(344, 20);
             this.txbStopTime.TabIndex = 1;
             this.txbStopTime.UserRegExCheck = null;
