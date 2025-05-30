@@ -54,8 +54,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Geometry, Version=2.0.9.3, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Geometry.2.0.9.3\lib\netstandard2.0\Geometry.dll</HintPath>
+    <Reference Include="Geometry, Version=2.0.9.4, Culture=neutral, PublicKeyToken=d064922373770c4c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Geometry.2.0.9.4\lib\netstandard2.0\Geometry.dll</HintPath>
     </Reference>
     <Reference Include="GmshApi, Version=3.1.0.10, Culture=neutral, PublicKeyToken=cf0152c237162c3e, processorArchitecture=MSIL">
       <HintPath>..\packages\GmshApi.3.1.0.10\lib\netstandard2.0\GmshApi.dll</HintPath>
@@ -63,11 +63,11 @@
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net48\MathNet.Numerics.dll</HintPath>
     </Reference>
-    <Reference Include="Model, Version=4.2.63.10, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\Model.4.2.63.10\lib\netstandard2.0\Model.dll</HintPath>
+    <Reference Include="Model, Version=4.2.63.11, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Model.4.2.63.11\lib\netstandard2.0\Model.dll</HintPath>
     </Reference>
-    <Reference Include="ModelController, Version=3.1.37.4, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelController.3.1.37.4\lib\netstandard2.0\ModelController.dll</HintPath>
+    <Reference Include="ModelController, Version=3.1.37.5, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelController.3.1.37.5\lib\netstandard2.0\ModelController.dll</HintPath>
     </Reference>
     <Reference Include="Octree, Version=2.1.11.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.11\lib\netstandard2.0\Octree.dll</HintPath>
