@@ -133,6 +133,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.cmbKind.Items.AddRange(new object[] {"Сила", "Давление" });
             this.cmbKind.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.cmbKind.Name = "cmbKind";
+            this.cmbKind.AccessibleName = "cmbKind";
             this.cmbKind.TabIndex = 36;
             this.cmbKind.UserRegExCheck = null;
             this.cmbKind.UserRegExCheckErrorMessage = null;
@@ -328,6 +329,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.txbStartTime.IsValidating = true;
             this.txbStartTime.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbStartTime.Name = "txbStartTime";
+            this.txbStartTime.AccessibleName = "txbStartTime";
             this.txbStartTime.TabIndex = 0;
             this.txbStartTime.UserRegExCheck = null;
             this.txbStartTime.UserRegExCheckErrorMessage = null;
@@ -350,6 +352,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             this.txbStopTime.IsValidating = true;
             this.txbStopTime.Margin = new System.Windows.Forms.Padding(10, 3, 15, 3);
             this.txbStopTime.Name = "txbStopTime";
+            this.txbStopTime.AccessibleName = "txbStopTime";
             this.txbStopTime.TabIndex = 1;
             this.txbStopTime.UserRegExCheck = null;
             this.txbStopTime.UserRegExCheckErrorMessage = null;
