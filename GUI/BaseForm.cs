@@ -471,10 +471,10 @@ namespace BazisGUI
             ViewInterface(module.Name);
 
             var que = new Queue<int>();
-            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.2f));
-            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.65f));
-            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.65f));
-            
+            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.2f)); // ширина навигатора
+            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.5f)); // высота панели свойств
+            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.65f)); // высота консоли
+
 
             basePage.SetSplitters(que);
 

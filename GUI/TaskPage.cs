@@ -18,6 +18,7 @@ using Project.TaskParameters;
 using Project.Tasks;
 using Project.Tasks.FrameCreators;
 using Project.Tasks.Functions;
+using Project.Tasks.Functions.Welding;
 using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
 using PropertiesDataBases.DataBases;
@@ -749,20 +750,20 @@ namespace BazisGUI
         private void DisplayMRF(float time, IPhysicalData data)
         {
             var scenePage = BasePage.ScenePage;
-            var mf = data.LocalFrame as MovedFrame;
+            var mf = data.FrameFunction.LocalFrame as MovedFrame;
             mf.Time = time - data.StartTime;
-            var frame = mf.Build();
-            scenePage.SceneControl.DisplayLocalFrame(frame);
+
+            scenePage.SceneControl.DisplayLocalFrame(mf.Frame);
             var trajPoints = mf.BaseLine.Select(x => x.CalcCentr()).ToArray();
             scenePage.SceneControl.DisplayPath(trajPoints);
 
             if (data.FrameFunction is SphereFunction sphear )
             {
-                scenePage.SceneControl.DisplaySphere(sphear.Width, frame);
+                scenePage.SceneControl.DisplaySphere(sphear.Width, mf.Frame);
             }
             else if (data.FrameFunction is CillindricalFunction cilinder )
             {
-                scenePage.SceneControl.DisplayConus(cilinder.UpperDiam, cilinder.BottomDiam, cilinder.Length, frame);
+                scenePage.SceneControl.DisplayConus(cilinder.UpperDiam, cilinder.BottomDiam, cilinder.Length, mf.Frame);
             }
         }
 
@@ -970,7 +971,7 @@ namespace BazisGUI
                 var vel = float.Parse(ar[2]);
 
                 var mfb = new MovedFrameBuilder().Build(stNodesGr, baseLineGr, refLineGr, vel);
-                data.LocalFrame = mfb;
+                data.FrameFunction.LocalFrame = mfb;
 
                 //Проверка самопересечения от скорости движения
 
