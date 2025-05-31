@@ -74,7 +74,7 @@ namespace BazisGUI
                     for (int i = 0; i <= 100; i++)
                     {
                         var currentTime = i * finishTime / 100.0f;
-                        var curFrame = frame.CalcFrame(currentTime);
+                        var curFrame = frame.Build();
                         data.FrameFunction.Frame = curFrame;
                         var resu = data.FrameFunction.GetIntersectedObjects(data.Group.ToList());
                         modelObjects.AddRange(resu);

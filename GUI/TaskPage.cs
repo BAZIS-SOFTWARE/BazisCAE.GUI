@@ -85,12 +85,14 @@ namespace BazisGUI
             BasePage.panelProvider.GetFuncDB = () => GetDataBase<FunctionDBData>(GeneralData.Functions, GeneralData.Path).Keys.ToList();
             BasePage.panelProvider.GetMatDB = () => GetDataBase<MaterialDBData>(GeneralData.Materials, GeneralData.Path).Keys.ToList();
             BasePage.panelProvider.OnUpdateNavigator += () => PresentTaskDataOnTree(taskData);
+            BasePage.panelProvider.OnUpdateTaskType += PanelProvider_OnUpdateTaskType;
         }
+
         private void BasePage_ValuableEvent(TreeNode arg1, SelectionType arg2)
         {
             var info = arg1.Text; 
             var groups = taskData.First(x => x.ToString() == info);
-            BasePage.panelProvider.ShowPropertiesPanel(groups, arg1);
+            BasePage.panelProvider.ShowPropertiesPanel(groups);
         }
 
         public void OpenFunctionsDB()
@@ -563,10 +565,11 @@ namespace BazisGUI
         public void TaskAdvisor_ChangeTaskType(ITaskData taskData, ChangeTaskTypeEventArgs arg2)
         {
             var generalData = GeneralData;
-            if (arg2.Index == 0)
+            if (arg2.Index == 2) //0
                 generalData.TaskType = TaskType.Plain;
-            else if (arg2.Index == 1)
+            else if (arg2.Index == 3) //1
                 generalData.TaskType = TaskType.AxiPlain;
+            else if (arg2.Index == 1) generalData.TaskType = TaskType.Linear;
             else generalData.TaskType = TaskType.Volume;
 
             BasePage.NavigatorControl.TreeView.Nodes[3].Text = "Вид : " + generalData.TaskType;
@@ -585,6 +588,13 @@ namespace BazisGUI
             taskAdv?.SetBoundaryGroups(ndGrpsNames,elBndsGrpsNames);
             taskAdv?.SetMaterialGroups(elMatsGrpsNames);
             taskAdv?.SetLoadGroups(ndGrpsNames, elLoadGrpsNames);
+        }
+
+        private void PanelProvider_OnUpdateTaskType(string obj)
+        {
+            var t = Converters.StringToEnum<TaskType>(obj);
+            TaskAdvisor_ChangeTaskType(taskData, new ChangeTaskTypeEventArgs((int)t));
+            удалитьToolStripMenuItem_Click(this, EventArgs.Empty);
         }
 
         private List<string> GetLoadGroupsNames(TaskType taskType)
@@ -1118,6 +1128,11 @@ namespace BazisGUI
             }
             taskData.Add(genData);
             PresentTaskDataOnTree(taskData);
+        }
+
+        public void GetTaskType(string type)
+        {
+
         }
     }
 }

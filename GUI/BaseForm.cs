@@ -143,8 +143,6 @@ namespace BazisGUI
                 модулиMenuItem.Enabled = true;
 
             }
-
-
         }
 
         private void DropDown_Closing(object sender, ToolStripDropDownClosingEventArgs e)

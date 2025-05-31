@@ -554,19 +554,27 @@ namespace BaseModule.Navigator
         {
             var node = e.Node;
 
-            if (node.Parent?.Parent == treeView.Nodes["объекты"])
+            if(node.Parent != null)
             {
-                SelectionType type = SelectionType.Object;
-                AfterSelectEvent(node, type);
+                if (node.Parent?.Parent == treeView.Nodes["объекты"])
+                {
+                    SelectionType type = SelectionType.Object;
+                    AfterSelectEvent(node, type);
+                }
+                else if (node?.Parent == treeView.Nodes["группыОбъектов"])
+                {
+                    SelectionType type = SelectionType.Group;
+                    AfterSelectEvent(node, type);
+                }
+                else if (node?.Parent == treeView.Nodes["Данные"])
+                {
+                    SelectionType type = SelectionType.ValuableData;
+                    AfterSelectEvent(node, type);
+                }
             }
-            else if (node.Parent == treeView.Nodes["группыОбъектов"])
+            else if(node.Name == "вид")
             {
-                SelectionType type = SelectionType.Group;
-                AfterSelectEvent(node, type);
-            }
-            else if (node.Parent == treeView.Nodes["Данные"])
-            {
-                SelectionType type = SelectionType.ValuableData;
+                SelectionType type = SelectionType.TaskType;
                 AfterSelectEvent(node, type);
             }
         }

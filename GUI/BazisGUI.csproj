@@ -249,6 +249,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="PropertiesPanel\Control\DataConverter.cs" />
+    <Compile Include="PropertiesPanel\Control\GeneralTaskTypeConverter.cs" />
     <Compile Include="PropertiesPanel\Control\GroupConverter.cs" />
     <Compile Include="PropertiesPanel\Control\SetInfoConverter.cs" />
     <Compile Include="PropertiesPanel\Control\TaskType\ClampTaskConverter.cs" />

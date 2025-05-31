@@ -4,6 +4,7 @@
     {
         Object,
         Group,
-        ValuableData
+        ValuableData,
+        TaskType
     }
 }

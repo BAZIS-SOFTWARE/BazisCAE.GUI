@@ -14,6 +14,8 @@ namespace BazisGUI.PropertiesPanel
     {
         public event Action<DrowPropertyOnPanelEventArgs> Out;
         public event Action OnUpdateNavigator;
+        public event Action<string> OnUpdateTaskType;
+        public event Action SendMessageInConsole;
 
         public Func<List<string>> GetFuncDB;
         public Func<List<string>> GetMatDB;
@@ -23,7 +25,7 @@ namespace BazisGUI.PropertiesPanel
         private List<string> _matDBNames;
         private PanelConverter _converter;
 
-        public void ShowPropertiesPanel<T>(T obj, TreeNode selectedNode)
+        public void ShowPropertiesPanel<T>(T obj)
         {
             InitializeConverter(obj);
             Out(new DrowPropertyOnPanelEventArgs(_converter.GetRowProperty()));
@@ -41,7 +43,16 @@ namespace BazisGUI.PropertiesPanel
                 _funcDBNames = _funcDBNames is null ? GetFuncDB() : _funcDBNames;
                 _converter = DataConverter.CreateConverter(data, _funcDBNames, _matDBNames, GetAllGroupElements());
             }
+
+            else if (obj is string[] st) 
+            {
+                _converter = new GeneralTaskTypeConverter(st);
+                var generalTaskTupe = _converter as GeneralTaskTypeConverter;
+                generalTaskTupe.UpdateTaskTupeEvent += GeneralTaskTupe_UpdateTaskTupeEvent;
+            } 
             else throw new NotImplementedException("Тип конвертера не определен");
+
+            
         }
 
         public bool ValidationData(string tag, string newValue, out string corrected)
@@ -82,7 +93,13 @@ namespace BazisGUI.PropertiesPanel
         public void UpdateObjectValue(string header, string newValue, string oldValue)
         {
             _converter.UpdateObject(header, newValue);
-            OnUpdateNavigator.Invoke();
+            OnUpdateNavigator?.Invoke();
+        }
+
+        private void GeneralTaskTupe_UpdateTaskTupeEvent(string type)
+        {
+            if (OnUpdateTaskType != null) OnUpdateTaskType?.Invoke(type);
+            else SendMessageInConsole?.Invoke();
         }
     }
 }

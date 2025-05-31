@@ -104,7 +104,7 @@ namespace BazisGUI
             SplittersController = new SplittersController();
 
             panelProvider.OnUpdateNavigator += PresentProjectOnTree;
-            
+            panelProvider.SendMessageInConsole += PanelProvider_SendMessageInConsole;
         }
 
         public Queue<int> GetSplitters()
@@ -939,7 +939,7 @@ namespace BazisGUI
 
         private void navigator_AfterSelectEvent(TreeNode node, SelectionType select)
         {
-            if(select == SelectionType.Object) 
+            if (select == SelectionType.Object)
             {
                 var setName = node.Text.Split(' ')[0]; // Деление по пробелу перед :
                 Enum.TryParse(node.Parent.Text, out NodeType nodeType);
@@ -949,11 +949,11 @@ namespace BazisGUI
                 if (sets != null)
                 {
                     var set = sets.First(x => x.Name == setName);
-                    panelProvider.ShowPropertiesPanel(set, node);
+                    panelProvider.ShowPropertiesPanel(set);
                 }
             }
 
-            else if(select == SelectionType.Group)
+            else if (select == SelectionType.Group)
             {
                 var setName = node.Text.Split('_')[0];
                 Enum.TryParse(node.Parent.Text, out NodeType nodeType);
@@ -961,15 +961,27 @@ namespace BazisGUI
 
                 if (groups != null)
                 {
-                    panelProvider.ShowPropertiesPanel(groups, node);
+                    panelProvider.ShowPropertiesPanel(groups);
                 }
             }
 
-            else if(select == SelectionType.ValuableData)
+            else if (select == SelectionType.ValuableData)
             {
                 OnValuableDataSelectedEvent?.Invoke(node, select);
             }
+
+            else if (select == SelectionType.TaskType) 
+            {
+                var data = node.Text.Split(':');
+                panelProvider.ShowPropertiesPanel(data);
+            }
         }
+
+        private void PanelProvider_SendMessageInConsole()
+        {
+            consoleControl.PrintInfo(string.Format("Перед изменением вида выполните переход в модуль"), Color.Red);
+        }
+
         private void PropertiesPanelControl1_OnPropertyUpdate(BaseModule.PropertiesPanel.PropertyChangedEventArgs obj)
         {
             panelProvider.UpdateObjectValue(obj.Header, obj.NewValue.ToString(), obj.OldValue.ToString());
