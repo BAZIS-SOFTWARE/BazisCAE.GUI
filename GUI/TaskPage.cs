@@ -7,6 +7,7 @@ using BaseModule.Utilities;
 using BazisGUI.TasksControls;
 using BazisGUI.Utilities;
 using Geometry;
+using Model.GroupsData;
 using Model.Interfaces;
 using ModelControllerInterfaces;
 using Newtonsoft.Json;
@@ -1114,7 +1115,13 @@ namespace BazisGUI
                 case "Нагрев":
                     genData = new HeatData(group, arg2.DataInfo);
                     var func = data[2].Split(';');
-                    genData.FrameFunction = (FrameFunction)(new FrameFunctionBuilder(func));
+                    var frameFunction = (FrameFunction)(new FrameFunctionBuilder(func));
+                    //Заглушка для создания LocalFrame = StaticFrame.........................
+                    IGroup gr = new Model.GroupsData.Group("TestGroup", ObjType.Узел);      
+                    gr.AddRange(ModelData.ObjectData.NodesSet.Take(3).Select(x => x.Value));
+                    frameFunction.LocalFrame = new StaticFrame(gr);
+                    //Конец зашлушки..........................................................
+                    genData.FrameFunction = frameFunction;
                     break;
             }
             taskData.Add(genData);

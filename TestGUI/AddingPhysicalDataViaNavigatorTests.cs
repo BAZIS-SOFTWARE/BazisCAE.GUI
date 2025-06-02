@@ -56,8 +56,6 @@ namespace TestGUI
                     TestProvider.GetElement(wd, "Среда").Click();
                     CreateMedia(wd);
                 }
-
-                    //"cmbEl" "cmbMat" "txbStartTime" "txbStopTime" "cmbTraj" "cmbRef" "txbStartTime"
                     Thread.Sleep(5000);
             }
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
@@ -69,18 +67,33 @@ namespace TestGUI
         {
             Random random = new Random();
             var number = random.Next(0, 3);
-
+            SelectCMBElement(wd, "cmbEl");
             if (number == 0)
             {
-
+                TestProvider.GetElement(wd, "rbtARC").Click();
+                PasteTXBElement(wd, "txbCurrent", "100");
+                PasteTXBElement(wd, "txbVoltage", "25");
+                PasteTXBElement(wd, "txbWidth", "3");
             }
             else if (number == 1) 
             {
-
+                TestProvider.GetElement(wd, "rbtLW").Click();
+                PasteTXBElement(wd, "txbPower", "450");
+                PasteTXBElement(wd, "txbDepth", "2");
+                PasteTXBElement(wd, "txbBaseDiameter", "0.8");
+                PasteTXBElement(wd, "txbEndDiameter", "0.5");
             }
             else
             {
-
+                TestProvider.GetElement(wd, "rbtFS").Click();
+                PasteTXBElement(wd, "txbRotSpeed", "450");
+                PasteTXBElement(wd, "txbAxisForce", "2");
+                PasteTXBElement(wd, "txbShoulderDiam", "2");
+                PasteTXBElement(wd, "txbPinLenght", "2");
+                PasteTXBElement(wd, "txbPinUpperDiam", "2");
+                PasteTXBElement(wd, "txbPinBottomDiam", "2");
+                SelectCMBElement(wd, "cmbFrictionModule");
+                PasteTXBElement(wd, "cmbYield", "15");
             }
 
                 FillGeneralControl(wd);
@@ -100,9 +113,7 @@ namespace TestGUI
             else
             {
                 DynamicFilling(0, 2);
-                wd.FindElementByName("txbMediaTemp").Click();
-                wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Delete);
-                wd.Keyboard.SendKeys("23" + OpenQA.Selenium.Keys.Enter);
+                PasteTXBElement(wd, "txbMediaTemp", "23");
             }
                 
 
@@ -112,10 +123,7 @@ namespace TestGUI
             wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Backspace);
             wd.Keyboard.SendKeys("0" + OpenQA.Selenium.Keys.Enter);
 
-            wd.FindElementByName("txbStopTime").Click();
-            wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Delete);
-            wd.Keyboard.SendKeys("2" + OpenQA.Selenium.Keys.Enter);
-
+            PasteTXBElement(wd, "txbStopTime", "2");
 
             FillGeneralControl(wd);
 
@@ -136,9 +144,7 @@ namespace TestGUI
             TestProvider.GetElement(wd, "chbZ").Click();
             SelectCMBElement(wd, "cmbGr");
 
-            wd.FindElementByName("txbValue").Click();
-            wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Delete);
-            wd.Keyboard.SendKeys("666" + OpenQA.Selenium.Keys.Enter);
+            PasteTXBElement(wd, "txbValue", "666");
 
             SelectCMBElement(wd, "cmbLoadFunction");
 
@@ -148,9 +154,7 @@ namespace TestGUI
             wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Backspace);
             wd.Keyboard.SendKeys("0" + OpenQA.Selenium.Keys.Enter);
 
-            wd.FindElementByName("txbStopTime").Click();
-            wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Delete);
-            wd.Keyboard.SendKeys("2" + OpenQA.Selenium.Keys.Enter);
+            PasteTXBElement(wd, "txbStopTime", "2");
 
             FillGeneralControl(wd);
         }
@@ -169,9 +173,7 @@ namespace TestGUI
             wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Backspace);
             wd.Keyboard.SendKeys("0" + OpenQA.Selenium.Keys.Enter);
 
-            wd.FindElementByName("txbStopTime").Click();
-            wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Delete);
-            wd.Keyboard.SendKeys("2" + OpenQA.Selenium.Keys.Enter);
+            PasteTXBElement(wd, "txbStopTime", "2");
 
             FillGeneralControl(wd);
         }
@@ -187,9 +189,7 @@ namespace TestGUI
             wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Backspace);
             wd.Keyboard.SendKeys("0" + OpenQA.Selenium.Keys.Enter);
 
-            wd.FindElementByName("txbStopTime").Click();
-            wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Delete);
-            wd.Keyboard.SendKeys("2" + OpenQA.Selenium.Keys.Enter);
+            PasteTXBElement(wd, "txbStopTime", "2");
 
             FillGeneralControl(wd);
 
@@ -197,6 +197,10 @@ namespace TestGUI
 
         private void FillGeneralControl(WindowsDriver<WindowsElement> wd)
         {
+            wd.FindElementByName("txbStartTime").Click();
+            wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Backspace);
+            wd.Keyboard.SendKeys("0" + OpenQA.Selenium.Keys.Enter);
+
             SelectCMBElement(wd, "cmbTraj");
             SelectCMBElement(wd, "cmbRef");
 
@@ -209,6 +213,13 @@ namespace TestGUI
             var previous = wd.SwitchTo().ActiveElement();
             previous.SendKeys(OpenQA.Selenium.Keys.ArrowDown);
             previous.SendKeys(OpenQA.Selenium.Keys.Enter);
+        }
+
+        private void PasteTXBElement(WindowsDriver<WindowsElement> wd, string stringNameTXB, string value)
+        {
+            wd.FindElementByName(stringNameTXB).Click();
+            wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Delete);
+            wd.Keyboard.SendKeys(value + OpenQA.Selenium.Keys.Enter);
         }
 
         private static WindowsDriver<WindowsElement> LoadProject()
