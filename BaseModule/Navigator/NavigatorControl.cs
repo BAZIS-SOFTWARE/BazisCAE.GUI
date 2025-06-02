@@ -568,7 +568,7 @@ namespace BaseModule.Navigator
                 }
                 else if (node?.Parent == treeView.Nodes["Данные"])
                 {
-                    SelectionType type = SelectionType.ValuableData;
+                    SelectionType type = SelectionType.PhysicalData;
                     AfterSelectEvent(node, type);
                 }
             }

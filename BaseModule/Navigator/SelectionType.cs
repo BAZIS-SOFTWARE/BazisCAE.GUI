@@ -4,7 +4,7 @@
     {
         Object,
         Group,
-        ValuableData,
+        PhysicalData,
         TaskType
     }
 }

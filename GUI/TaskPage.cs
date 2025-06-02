@@ -593,8 +593,8 @@ namespace BazisGUI
 
         private void PanelProvider_OnUpdateTaskType(string obj)
         {
-            var t = Converters.StringToEnum<TaskType>(obj);
-            TaskAdvisor_ChangeTaskType(taskData, new ChangeTaskTypeEventArgs((int)t));
+            var taskType = Converters.StringToEnum<TaskType>(obj);
+            TaskAdvisor_ChangeTaskType(taskData, new ChangeTaskTypeEventArgs((int)taskType));
             удалитьToolStripMenuItem_Click(this, EventArgs.Empty);
         }
 
@@ -1129,11 +1129,6 @@ namespace BazisGUI
             }
             taskData.Add(genData);
             PresentTaskDataOnTree(taskData);
-        }
-
-        public void GetTaskType(string type)
-        {
-
         }
     }
 }

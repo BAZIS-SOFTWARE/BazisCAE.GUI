@@ -956,7 +956,6 @@ namespace BazisGUI
             else if (select == SelectionType.Group)
             {
                 var setName = node.Text.Split('_')[0];
-                Enum.TryParse(node.Parent.Text, out NodeType nodeType);
                 var groups = ModelData.GroupData.First(x => x.Name == node.Text);
 
                 if (groups != null)
@@ -965,7 +964,7 @@ namespace BazisGUI
                 }
             }
 
-            else if (select == SelectionType.ValuableData)
+            else if (select == SelectionType.PhysicalData)
             {
                 OnValuableDataSelectedEvent?.Invoke(node, select);
             }
@@ -979,7 +978,7 @@ namespace BazisGUI
 
         private void PanelProvider_SendMessageInConsole()
         {
-            consoleControl.PrintInfo(string.Format("Перед изменением вида выполните переход в модуль"), Color.Red);
+            consoleControl.PrintInfo("Перед изменением вида выполните переход в модуль", Color.Red);
         }
 
         private void PropertiesPanelControl1_OnPropertyUpdate(BaseModule.PropertiesPanel.PropertyChangedEventArgs obj)
