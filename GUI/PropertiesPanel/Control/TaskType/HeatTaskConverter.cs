@@ -3,6 +3,7 @@ using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.Tasks;
 using Project.Tasks.Functions;
+using Project.Tasks.Functions.Welding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         public override List<RowProperty> GetRowProperty()
         {
             var property = new List<RowProperty>();
-            if (_objAsHeat.FrameFunction is Arc arc)
+            if (_objAsHeat.FrameFunction is ArcS arc)
             {
                 property.Add(RowProperty.CreateTextBox("Ширина шва (L), мм", arc.Width.ToString(), ValidationType.FloatPositive));
                 property.Add(RowProperty.CreateTextBox("Ток, А", arc.Current.ToString(), ValidationType.FloatPositive));
@@ -65,7 +66,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         public override void UpdateObject(string header, string newValue)
         {
             base.UpdateObject(header, newValue);
-            if (_objAsHeat.FrameFunction is Arc arc)
+            if (_objAsHeat.FrameFunction is ArcS arc)
             {
                 if (header == "Ширина шва (L), мм") arc.Width = float.Parse(newValue);
                 else if (header == "Ток, А") arc.Current = float.Parse(newValue);
@@ -80,7 +81,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                         SetBottomDiam(lazer.BottomDiam.ToString()).
                         SetUpperDiam(lazer.UpperDiam.ToString()).
                         SetLength(lazer.Length.ToString()).
-                        SetFrame(lazer.Frame);
+                        SetFrame(lazer.LocalFrame.Frame);
                     _objAsHeat.FrameFunction = (Lazer)builder;
                 }
                 if (header == "Глубина проплавления (L), мм") lazer.Length = float.Parse(newValue);
