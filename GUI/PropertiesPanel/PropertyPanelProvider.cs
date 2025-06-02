@@ -47,8 +47,8 @@ namespace BazisGUI.PropertiesPanel
             else if (obj is string[] st) 
             {
                 _converter = new GeneralTaskTypeConverter(st);
-                var generalTaskTupe = _converter as GeneralTaskTypeConverter;
-                generalTaskTupe.UpdateTaskTupeEvent += GeneralTaskTupe_UpdateTaskTupeEvent;
+                var generalTaskType = _converter as GeneralTaskTypeConverter;
+                generalTaskType.UpdateTaskTupeEvent += GeneralTaskTupe_UpdateTaskTupeEvent;
             } 
             else throw new NotImplementedException("Тип конвертера не определен");
 
