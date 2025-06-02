@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Interactions;
+using System.Diagnostics;
 using static TestGUI.TestProvider;
 
 namespace TestGUI
@@ -47,12 +48,13 @@ namespace TestGUI
                 else if (type == "Нагрев")
                 {
                     TestProvider.GetElement(wd, "Нагрев").Click();
-
+                    CreateHeat(wd);
                 }
 
                 else
                 {
-
+                    TestProvider.GetElement(wd, "Среда").Click();
+                    CreateMedia(wd);
                 }
 
                     //"cmbEl" "cmbMat" "txbStartTime" "txbStopTime" "cmbTraj" "cmbRef" "txbStartTime"
@@ -61,6 +63,69 @@ namespace TestGUI
             catch (Exception e) { wd.CloseApp(); Assert.Fail(e.Message); }
 
             finally { wd.CloseApp(); }
+        }
+
+        private void CreateHeat(WindowsDriver<WindowsElement> wd)
+        {
+            Random random = new Random();
+            var number = random.Next(0, 3);
+
+            if (number == 0)
+            {
+
+            }
+            else if (number == 1) 
+            {
+
+            }
+            else
+            {
+
+            }
+
+                FillGeneralControl(wd);
+        }
+
+        private void CreateMedia(WindowsDriver<WindowsElement> wd)
+        {
+            List<string> nameCmd = new List<string>() { "cmbEl", "cmbFunc", "cmbNode", "cmbTermoCycle" };
+            Random random = new Random();
+            var number = random.Next(0, 2);
+            TestContext.WriteLine($"Number - {number}");
+            if (number != 0)
+            {
+                TestProvider.GetElement(wd, "rbtTermoCycle").Click();
+                DynamicFilling(2, 0);
+            }
+            else
+            {
+                DynamicFilling(0, 2);
+                wd.FindElementByName("txbMediaTemp").Click();
+                wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Delete);
+                wd.Keyboard.SendKeys("23" + OpenQA.Selenium.Keys.Enter);
+            }
+                
+
+            var startLabel = wd.FindElementsByName("txbStartTime");
+            var startAdditive = startLabel.OrderBy(btn => btn.Location.Y).First();
+            startAdditive.Click();
+            wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Backspace);
+            wd.Keyboard.SendKeys("0" + OpenQA.Selenium.Keys.Enter);
+
+            wd.FindElementByName("txbStopTime").Click();
+            wd.Keyboard.SendKeys(OpenQA.Selenium.Keys.Delete);
+            wd.Keyboard.SendKeys("2" + OpenQA.Selenium.Keys.Enter);
+
+
+            FillGeneralControl(wd);
+
+            void DynamicFilling(int startIndex, int count)
+            {
+                for (int i = startIndex; i < nameCmd.Count - count; i++)
+                {
+                    SelectCMBElement(wd, nameCmd[i]);
+                }
+            }
         }
 
         private void CreateLoad(WindowsDriver<WindowsElement> wd)

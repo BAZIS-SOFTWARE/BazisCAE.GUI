@@ -115,6 +115,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
             rbtTermoCycle.AutoSize = true;
             rbtTermoCycle.Margin = new System.Windows.Forms.Padding(10, 10, 3, 3);
             rbtTermoCycle.Name = "rbtTermoCycle";
+            rbtTermoCycle.AccessibleName = "rbtTermoCycle";
             rbtTermoCycle.TabIndex = 21;
             rbtTermoCycle.TabStop = true;
             rbtTermoCycle.Text = "Термоцикл";
