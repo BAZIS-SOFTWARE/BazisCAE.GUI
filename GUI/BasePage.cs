@@ -104,7 +104,7 @@ namespace BazisGUI
             SplittersController = new SplittersController();
 
             panelProvider.OnUpdateNavigator += PresentProjectOnTree;
-            panelProvider.SendMessageInConsole += PanelProvider_SendMessageInConsole;
+            panelProvider.SendMessageInConsole += PanelProvider_SendExeptionMessageInConsole;
         }
 
         public Queue<int> GetSplitters()
@@ -976,7 +976,7 @@ namespace BazisGUI
             }
         }
 
-        private void PanelProvider_SendMessageInConsole()
+        private void PanelProvider_SendExeptionMessageInConsole()
         {
             consoleControl.PrintInfo("Перед изменением вида выполните переход в модуль", Color.Red);
         }

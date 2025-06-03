@@ -561,12 +561,12 @@ namespace BaseModule.Navigator
                     SelectionType type = SelectionType.Object;
                     AfterSelectEvent(node, type);
                 }
-                else if (node?.Parent == treeView.Nodes["группыОбъектов"])
+                else if (node.Parent == treeView.Nodes["группыОбъектов"])
                 {
                     SelectionType type = SelectionType.Group;
                     AfterSelectEvent(node, type);
                 }
-                else if (node?.Parent == treeView.Nodes["Данные"])
+                else if (node.Parent == treeView.Nodes["Данные"])
                 {
                     SelectionType type = SelectionType.PhysicalData;
                     AfterSelectEvent(node, type);
