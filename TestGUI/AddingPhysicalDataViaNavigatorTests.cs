@@ -10,12 +10,15 @@ namespace TestGUI
     public class AddingPhysicalDataViaNavigatorTests
     {
         [TestCase("Материал")]
-        [TestCase("Нагрев")]
+        [TestCase("Нагрев", "ARC")]
+        [TestCase("Нагрев", "LW")]
+        [TestCase("Нагрев", "FS")]
         [TestCase("Закрепление")]
         [TestCase("Нагрузка")]
-        [TestCase("Среда")]
+        [TestCase("Среда", "TermoCycle")]
+        [TestCase("Среда", "HeatFlow")]
         [Test(Description = "Создание физических данных")]
-        public void CreatePhysicalDataTest(string type)
+        public void CreatePhysicalDataTest(string type, string kind = " ")
         {
             var wd = LoadProject();
             try
@@ -48,7 +51,7 @@ namespace TestGUI
                 else if (type == "Нагрев")
                 {
                     TestProvider.GetElement(wd, "Нагрев").Click();
-                    CreateHeat(wd);
+                    CreateHeat(wd, kind);
                 }
 
                 else
@@ -63,19 +66,17 @@ namespace TestGUI
             finally { wd.CloseApp(); }
         }
 
-        private void CreateHeat(WindowsDriver<WindowsElement> wd)
+        private void CreateHeat(WindowsDriver<WindowsElement> wd, string kind)
         {
-            Random random = new Random();
-            var number = random.Next(0, 3);
             SelectCMBElement(wd, "cmbEl");
-            if (number == 0)
+            if (kind == "ARC")
             {
                 TestProvider.GetElement(wd, "rbtARC").Click();
                 PasteTXBElement(wd, "txbCurrent", "100");
                 PasteTXBElement(wd, "txbVoltage", "25");
                 PasteTXBElement(wd, "txbWidth", "3");
             }
-            else if (number == 1) 
+            else if (kind == "LW") 
             {
                 TestProvider.GetElement(wd, "rbtLW").Click();
                 PasteTXBElement(wd, "txbPower", "450");
@@ -95,17 +96,13 @@ namespace TestGUI
                 SelectCMBElement(wd, "cmbFrictionModule");
                 PasteTXBElement(wd, "cmbYield", "15");
             }
-
-                FillGeneralControl(wd);
+            FillGeneralControl(wd);
         }
 
-        private void CreateMedia(WindowsDriver<WindowsElement> wd)
+        private void CreateMedia(WindowsDriver<WindowsElement> wd, string kind)
         {
             List<string> nameCmd = new List<string>() { "cmbEl", "cmbFunc", "cmbNode", "cmbTermoCycle" };
-            Random random = new Random();
-            var number = random.Next(0, 2);
-            TestContext.WriteLine($"Number - {number}");
-            if (number != 0)
+            if (kind == "TermoCycle")
             {
                 TestProvider.GetElement(wd, "rbtTermoCycle").Click();
                 DynamicFilling(2, 0);
