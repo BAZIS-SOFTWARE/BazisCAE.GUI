@@ -42,6 +42,7 @@ namespace BazisGUI
         PreProc.PreProc preProc = new PreProc.PreProc();
         ClientController serverConnection;
 
+        private bool _isLastLicenseActive = true;
         public ToolStripPage ModulePage
         {
             get
@@ -270,11 +271,19 @@ namespace BazisGUI
 
             if (serverConnection?.Answer == "можно")
             {
+                _isLastLicenseActive = true;
                 UnBlockGeneralMenuInterface(module.Name, true);
                 StartLicensing(module);
             }
 
-            else StartLisenceForm();
+            else
+            {
+                _isLastLicenseActive = false;
+                UpdateStatusLicense(false);
+                StartLisenceForm();
+            }
+
+                
         }
 
         private void ViewInterface(string moduleName)
@@ -344,8 +353,25 @@ namespace BazisGUI
                     dataBasesMenuItem.Enabled = false;
                 }
             }
+            UpdateStatusLicense(flag);
         }
 
+        private void UpdateStatusLicense(bool isActive)
+        {
+            var module = ModulePage;
+            if (isActive && _isLastLicenseActive)
+            {
+                _isLastLicenseActive = false;
+
+                if (module is TaskPage taskPage) taskPage.LicenseStatusChanget?.Invoke(true);
+            }
+            else if (!isActive && !_isLastLicenseActive)
+            {
+                _isLastLicenseActive = false;
+                if (module is TaskPage taskPage) taskPage.LicenseStatusChanget?.Invoke(false);
+            }
+
+        }
         private ToolStripPage CreateModule(string moduleName)
         {
             if (moduleName == "Weld" | moduleName == "HeatTreatment")

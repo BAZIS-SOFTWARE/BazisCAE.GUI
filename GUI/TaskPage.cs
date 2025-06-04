@@ -39,6 +39,7 @@ namespace BazisGUI
 {
     public partial class TaskPage: ToolStripPage
     {
+        public Action<bool> LicenseStatusChanget;
         public ProcessType ProcessType{ get; set; }
         public string SolverPath { get; set; }
 
@@ -78,7 +79,7 @@ namespace BazisGUI
             var taskNode = new TreeNode("Данные", 14, 14) { Name = "Данные", Tag = "6" };
             taskNode.ContextMenuStrip = taskMenuStrip;
             BasePage.NavigatorControl.TreeView.Nodes.Add(taskNode);
-
+            LicenseStatusChanget += SetToolStripMenuItemEnabled;
             selectToolStrip.Location = new Point(3, 0);
 
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
@@ -1128,6 +1129,16 @@ namespace BazisGUI
             }
             taskData.Add(genData);
             PresentTaskDataOnTree(taskData);
+        }
+
+        private void SetToolStripMenuItemEnabled(bool isActive)
+        {
+            var mainItem = taskMenuStrip.Items["добавитьToolStripMenuItem"] as ToolStripMenuItem;
+            if (mainItem != null)
+            {
+                if (isActive) mainItem.Enabled = true;
+                else mainItem.Enabled = false;
+            }
         }
     }
 }
