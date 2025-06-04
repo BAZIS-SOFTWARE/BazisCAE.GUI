@@ -34,9 +34,15 @@ namespace BaseModule.Tasks.TasksFromNavigator
                 var data = dataEventArgs.DataInfo.Split(' ');
                 data[4] = txbStartTime.Text;
                 data[5] = txbStartTime.Text;
+                List<string> movedFrame = new List<string>()
+                {
+                    cmbTraj.Text,
+                    cmbRef.Text,
+                    txbVelosity.Text
+                };
                 var newData = string.Join(" ", data);
                 var frameFunction = data[2].Split(';');
-                dataEventArgs = new AddDataEventArgs(dataEventArgs.DataName, newData);
+                dataEventArgs = new AddDataEventArgs(dataEventArgs.DataName, newData, movedFrame);
             }
             CreatePhysicalDataEvent?.Invoke(dataEventArgs);
         }

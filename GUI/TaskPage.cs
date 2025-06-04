@@ -1114,13 +1114,15 @@ namespace BazisGUI
                     break;
                 case "Нагрев":
                     genData = new HeatData(group, arg2.DataInfo);
+                    //Создание FrameFunction
                     var func = data[2].Split(';');
                     var frameFunction = (FrameFunction)(new FrameFunctionBuilder(func));
-                    //Заглушка для создания LocalFrame = StaticFrame.........................
-                    IGroup gr = new Model.GroupsData.Group("TestGroup", ObjType.Узел);      
-                    gr.AddRange(ModelData.ObjectData.NodesSet.Take(3).Select(x => x.Value));
-                    frameFunction.LocalFrame = new StaticFrame(gr);
-                    //Конец зашлушки..........................................................
+                    //Создание LocalFrame
+                    var groupMoved = ModelData.GroupData.ToList();
+                    var baseLine = groupMoved.Find(x => x.Name == arg2.MovedFrame[0]);
+                    var refLine = groupMoved.Find(x => x.Name == arg2.MovedFrame[1]);
+                    var velocity = float.Parse(arg2.MovedFrame[2]);
+                    frameFunction.LocalFrame = new MovedFrame(baseLine, refLine, velocity);
                     genData.FrameFunction = frameFunction;
                     break;
             }
