@@ -363,12 +363,12 @@ namespace BazisGUI
             {
                 _isLastLicenseActive = false;
 
-                if (module is TaskPage taskPage) taskPage.LicenseStatusChanget?.Invoke(true);
+                if (module is TaskPage taskPage) taskPage.LicenseStatusChanged?.Invoke(true);
             }
             else if (!isActive && !_isLastLicenseActive)
             {
                 _isLastLicenseActive = false;
-                if (module is TaskPage taskPage) taskPage.LicenseStatusChanget?.Invoke(false);
+                if (module is TaskPage taskPage) taskPage.LicenseStatusChanged?.Invoke(false);
             }
 
         }

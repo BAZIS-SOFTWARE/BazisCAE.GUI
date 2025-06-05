@@ -39,7 +39,7 @@ namespace BazisGUI
 {
     public partial class TaskPage: ToolStripPage
     {
-        public Action<bool> LicenseStatusChanget;
+        public Action<bool> LicenseStatusChanged;
         public ProcessType ProcessType{ get; set; }
         public string SolverPath { get; set; }
 
@@ -79,7 +79,7 @@ namespace BazisGUI
             var taskNode = new TreeNode("Данные", 14, 14) { Name = "Данные", Tag = "6" };
             taskNode.ContextMenuStrip = taskMenuStrip;
             BasePage.NavigatorControl.TreeView.Nodes.Add(taskNode);
-            LicenseStatusChanget += SetToolStripMenuItemEnabled;
+            LicenseStatusChanged += SetToolStripMenuItemEnabled;
             selectToolStrip.Location = new Point(3, 0);
 
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
