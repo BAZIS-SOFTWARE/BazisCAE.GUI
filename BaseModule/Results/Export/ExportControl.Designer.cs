@@ -37,10 +37,10 @@
             this.rbResults = new System.Windows.Forms.RadioButton();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnSaveBD = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.cmbExtentionType = new System.Windows.Forms.ComboBox();
             this.rbNodes = new System.Windows.Forms.RadioButton();
             this.rbElements = new System.Windows.Forms.RadioButton();
+            this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -191,17 +191,6 @@
             this.btnSaveBD.UseVisualStyleBackColor = true;
             this.btnSaveBD.Click += new System.EventHandler(this.btnSaveBD_Click);
             // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(37, 295);
-            this.label4.Margin = new System.Windows.Forms.Padding(5);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(99, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Формат экспорта";
-            // 
             // cmbExtentionType
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.cmbExtentionType, 2);
@@ -247,6 +236,17 @@
             this.rbElements.Text = "Элементы";
             this.rbElements.UseVisualStyleBackColor = true;
             this.rbElements.Click += new System.EventHandler(this.rbElements_Clicked);
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(37, 295);
+            this.label4.Margin = new System.Windows.Forms.Padding(5);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(99, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Формат экспорта";
             // 
             // ExportControl
             // 

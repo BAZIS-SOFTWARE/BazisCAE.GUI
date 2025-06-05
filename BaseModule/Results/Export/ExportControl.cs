@@ -65,7 +65,7 @@ namespace BaseModule.Results.Export
                     cmbGroupName.SelectedItem.ToString(),
                     selectedPath,
                     cmbExtentionType.SelectedItem.ToString(),
-                    rbElements.Checked ? Objects.Элемент : Objects.Узел,
+                    rbElements.Checked ? Objects.Элемент3D : Objects.Узел,
                     rbGrid.Checked ? ExportType.Grid : ExportType.Results));
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }
