@@ -122,7 +122,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BarycentricSolverTests.cs" />
+    <Compile Include="ElementSelectorTests.cs" />
     <Compile Include="NormalTests.cs" />
     <Compile Include="ReflectionTests.cs" />
     <Compile Include="ScaleTests.cs" />

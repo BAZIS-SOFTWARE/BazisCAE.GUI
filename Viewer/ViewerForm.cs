@@ -421,5 +421,20 @@ namespace Viewer
             }
             obj.PointsColors = colors;
         }
+
+        private void OnSelectElement(object sender, MouseEventArgs e)
+        {
+            var obj = sceneControl.FindVBObj(ObjType.Элемент3D.ToString());
+            if (obj != null)
+                sceneControl.ElementSelector.SelectElement(obj as SurfaceObjects, sceneControl.SelectionColor);
+        }
+
+        private void OnChangeSelectState(object sender, EventArgs e)
+        {
+            if (checkBox9.Checked)
+                sceneControl.SceneMouseClickEvent += OnSelectElement;
+            else
+                sceneControl.SceneMouseClickEvent -= OnSelectElement;
+        }
     }
 }

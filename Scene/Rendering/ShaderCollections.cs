@@ -396,68 +396,73 @@ namespace Scene
             "}"
         };
 
-      
-        public static string[] vertexLcoordinatesSolver = new string[]
+        /// <summary>
+        /// Вершинный шейдер, барицентрический решатель (алгоритм Екатерины)
+        /// </summary>
+        public static string[] vertexBarycentricSolver = new string[]
         {
             "#version 130 \n",
 
-            "varying vec3 normal;\n",
-
             "void main(){\n",
-            "   normal = -normalize(gl_NormalMatrix * gl_Normal);\n",
             "   gl_Position = vec4(gl_Vertex.xyz , float(gl_VertexID));\n",
             "}\n",
         };
-    
 
-        public static string[] geometryLcoordinatesSolver = new string[]
+        /// <summary>
+        /// Геометрический шейдер, барицентрический решатель (алгоритм Екатерины)
+        /// </summary>
+        public static string[] geometryBarycentricSolver = new string[]
         {
             "#version 150 compatibility\n",
+            "#extension GL_ARB_gpu_shader_fp64 : enable\n",
             "layout(triangles) in;\n",
             "layout(points, max_vertices = 1) out;\n",
 
-            "in vec3 normal[3];\n",
-            "out vec4 pointData;\n",
+            //Формат записи(u, v, screenZ, triangleIndex)
+            "out dvec4 pointData;\n",
 
-            "uniform vec3 localPos;\n",
-            "uniform vec3 localDir;\n",
+            //Экранные координаты мыши (x, y)
+            "uniform vec2 mouseCoord;\n",
+            "uniform vec2 viewport;\n",//(W,H)
             "void main(){\n",
-            //"   vec3 viewDir = normalize(vec3(gl_ModelViewMatrix[0][2], gl_ModelViewMatrix[1][2], gl_ModelViewMatrix[2][2]));\n",
-            //Отбрасываем треугольники, которые не смотрят нормалью в камеру
-            //"   if(dot(viewDir, normal[0]) < 0)\n",
-            //"       return;\n",
-            "   vec3 dir = -localDir;\n",
-            "   vec3 edgeA = gl_in[0].gl_Position.xyz - gl_in[2].gl_Position.xyz;\n",
-            "   vec3 edgeB = gl_in[1].gl_Position.xyz - gl_in[2].gl_Position.xyz;\n",
-            "   vec3 free = localPos - gl_in[2].gl_Position.xyz;\n",
-            "   mat3 m = mat3(dir, edgeA, edgeB);\n",
-            "   float det = determinant(m);\n",
+            "   float indices[3] = float[3](gl_in[0].gl_Position.w, gl_in[1].gl_Position.w, gl_in[2].gl_Position.w);\n",
+            "   dvec4 glPos[3] = dvec4[3](gl_in[0].gl_Position, gl_in[1].gl_Position, gl_in[2].gl_Position);\n",
+            //Преобразование локальной координаты в экранные https://www.songho.ca/opengl/gl_viewport.html#map
+            "   for(int i = 0; i < 3; ++i){\n",
+            "       glPos[i].w = 1;\n",
+            "       glPos[i] =  gl_ModelViewProjectionMatrix * glPos[i];\n",
+            "       glPos[i] /=  glPos[i].w;\n",
+            "       glPos[i] = dvec4((glPos[i].xyz + vec3(1)) * 0.5, indices[i]);\n",
+            "       glPos[i].x = viewport.x * glPos[i].x;\n",
+            "       glPos[i].y = viewport.y * glPos[i].y;\n",
+            "   }\n",
 
-            "   if(abs(det) < 1e-4)\n",
-            "       return;\n",
-            "   m[1] = free;\n",
-            "   float u = determinant(m) / det;\n",
-            "   if(u < 0.0 || u > 1.0)\n",
-            "       return;\n",
+            "   dvec3 col0 = dvec3(1, glPos[0].x, glPos[0].y);\n",
+            "   dvec3 col1 = dvec3(1, glPos[1].x, glPos[1].y);\n",
+            "   dvec3 col2 = dvec3(1, glPos[2].x, glPos[2].y);\n",
 
-            "   m[1] = edgeA;\n",
-            "   m[2] = free;\n",
-            "   float v = determinant(m) / det;\n",
-            "   if(v < 0.0 || v > 1.0)\n",
-            "       return;\n",
-            "   float w = 1 - u - v;\n",
-            "   if(w < 0.0 || w > 1.0)\n",
-            "       return;\n",
-            "   float sum = u + v + w;\n",
-            "   if(abs(sum - 1) > 1e-4)\n",
-            "       return;\n",
-            "   m[2] = edgeB;\n",
-            "   m[0] = free;\n",
-            "   float t = determinant(m) / det;\n",
-            "   if(t < 0.99)\n",
+            "   dmat3 m = dmat3(col0, col1, col2);\n",
+            "   double detMat = determinant(m);\n",
+            "   if(abs(detMat) < 1e-4)\n",
             "       return;\n",
 
-            "   pointData = vec4(t, u, v, round(gl_in[0].gl_Position.w / 3));\n",
+            "   double lambda[3];\n",
+            "   for(int i = 0; i < 3; ++i){\n",
+            "       dvec3 keepVec = m[i];\n",
+            "       m[i] = dvec3(1, mouseCoord.x, mouseCoord.y);\n",
+            "       lambda[i] = determinant(m) / detMat;\n",
+            "       m[i] = keepVec;\n",
+            "       if(lambda[i] < 0 || lambda[i] > 1)\n",
+            "           return;\n",
+            "   }\n",
+
+            "   double lambdaSum = lambda[0] + lambda[1] + lambda[2];\n",
+            "   if(abs(lambdaSum - 1) > 1e-4)\n",
+            "       return;\n",
+
+            "   dvec3 screenClick = lambda[0] * glPos[0].xyz + lambda[1] * glPos[1].xyz + lambda[2] * glPos[2].xyz;\n",
+
+            "   pointData = dvec4(lambda[0], lambda[1], screenClick.z, round(indices[0] / 3));\n",
             "   EmitVertex();\n",
             "   EndPrimitive();\n",
             "}\n",

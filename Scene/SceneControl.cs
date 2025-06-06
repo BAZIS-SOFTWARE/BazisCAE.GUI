@@ -41,8 +41,7 @@ namespace Scene
         ClipPlaneRenderer clipPlaneRenderer;
         Advanced3DClipper advanced3DClipper;
         AverageColorRenderer averageColorRenderer;
-        ElementSelector selector;
-
+        
         private Color backGroundColor = Color.Green;
         private Color selectionColor = Color.Green;
 
@@ -124,6 +123,16 @@ namespace Scene
             get { return selectionColor; }
             set { selectionColor = value; }
         }
+        /// <inheritdoc/>
+        /// 
+        [Description("Element Selector")]
+        [Category("General properties")]
+        public ElementSelector ElementSelector
+        {
+            get;
+            private set;
+        }
+
         /// <inheritdoc/>
 
         [Description("Set draw regime for 3D elements")]
@@ -337,7 +346,7 @@ namespace Scene
             averageColorRenderer = new AverageColorRenderer(glControl.Width, glControl.Height);
             clipPlaneRenderer = new ClipPlaneRenderer();
             advanced3DClipper = new Advanced3DClipper();
-            selector = new ElementSelector();
+            ElementSelector = new ElementSelector();
             Disposed += (s, e) =>
             {
                 foreach (var obj in glObjs)
@@ -345,7 +354,7 @@ namespace Scene
                 averageColorRenderer.Dispose();
                 clipPlaneRenderer.Dispose();
                 advanced3DClipper.Dispose();
-                selector.Dispose();
+                ElementSelector.Dispose();
                 Gl.glDeleteLists(fontBase, 1150);
             };
             //Disposed += (s, e) => AverageColorRenderer.Dispose();
@@ -1810,15 +1819,16 @@ namespace Scene
 
         private void glControl_MouseClick(object sender, MouseEventArgs e)
         {
-            SceneMouseClickEvent?.Invoke(sender, e);
             if (e.Button == MouseButtons.Left)
             {
-                selector.MouseClick = e.Location;
-                var obj = FindVBObj("Элемент3D");
-                if (obj != null)
-                   selector.SelectElementSlow((VBObject)obj, SelectionColor);
-                   //selector.SelectElement((VBObject)obj, SelectionColor);
+                ElementSelector.MouseClick = new Point(e.X, glControl.Height - e.Y);
+                //Ниже код для проверки выделения
+                //var obj = FindVBObj("Элемент3D");
+                //if (obj != null)
+                //Selector.SelectElementSlow(obj as SurfaceObjects, SelectionColor);
+                //Selector.SelectElement(obj as SurfaceObjects, SelectionColor);
             }
+            SceneMouseClickEvent?.Invoke(sender, e);
         }
     }
 }

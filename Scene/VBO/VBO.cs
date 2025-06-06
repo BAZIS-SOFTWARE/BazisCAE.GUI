@@ -76,7 +76,8 @@ namespace Scene.VBO
 
             Gl.glPolygonMode(obj.Gl_Face, obj.Gl_DisplayMode);
 
-            //Gl.glEnable(Gl.GL_BLEND);
+            //
+            //(Gl.GL_BLEND);
             //Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
             //
             Gl.glDrawElements((int)obj.GL_ObjType, indexLength, Gl.GL_UNSIGNED_INT, IntPtr.Zero);
