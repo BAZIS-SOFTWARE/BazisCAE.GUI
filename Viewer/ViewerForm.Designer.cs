@@ -32,7 +32,6 @@ namespace Viewer
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.sceneControl = new Scene.SceneControl();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -60,7 +59,10 @@ namespace Viewer
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.checkBox9 = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.sceneControl = new Scene.SceneControl();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -71,6 +73,7 @@ namespace Viewer
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -88,34 +91,6 @@ namespace Viewer
             this.tableLayoutPanel1.Size = new System.Drawing.Size(856, 562);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // sceneControl
-            // 
-            this.sceneControl.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.sceneControl.BackGroundColor = System.Drawing.Color.LightGray;
-            this.sceneControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.sceneControl.DisplayBasis = true;
-            this.sceneControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sceneControl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.sceneControl.IsClipPlane = false;
-            this.sceneControl.IsLighting = true;
-            this.sceneControl.IsSmoothShadow = false;
-            this.sceneControl.LightAttenuation = 0F;
-            this.sceneControl.LightTranslateX = 0F;
-            this.sceneControl.LightTranslateY = 0F;
-            this.sceneControl.LightTranslateZ = 0F;
-            this.sceneControl.Location = new System.Drawing.Point(4, 4);
-            this.sceneControl.Margin = new System.Windows.Forms.Padding(4);
-            this.sceneControl.Name = "sceneControl";
-            this.sceneControl.Projection = Scene.Interfaces.ViewProjection.Perspective;
-            this.sceneControl.RotationAngle = 2.5F;
-            this.sceneControl.RotationAxis = Scene.Interfaces.ViewAxis.XYZ;
-            this.sceneControl.ScaleFactor = 1F;
-            this.sceneControl.SelectionColor = System.Drawing.Color.Green;
-            this.sceneControl.ShadowAngle = 0F;
-            this.sceneControl.ShowSurfaceBackEdges = false;
-            this.sceneControl.Size = new System.Drawing.Size(591, 554);
-            this.sceneControl.TabIndex = 2;
-            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
@@ -126,7 +101,7 @@ namespace Viewer
             this.tableLayoutPanel2.Controls.Add(this.checkBox7, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.button2, 0, 4);
             this.tableLayoutPanel2.Controls.Add(this.button3, 0, 5);
-            this.tableLayoutPanel2.Controls.Add(this.checkBox9, 0, 6);
+            this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 6);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(602, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -184,8 +159,8 @@ namespace Viewer
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.67485F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.19632F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(239, 163);
             this.tableLayoutPanel3.TabIndex = 4;
             // 
@@ -200,26 +175,28 @@ namespace Viewer
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(60, 31);
             this.checkBox3.TabIndex = 3;
-            this.checkBox3.Tag = "Элемент2D";
+            this.checkBox3.Tag = "";
             this.checkBox3.Text = "2D эл-ты";
             this.checkBox3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.OnShowElements);
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.OnShow2DElements);
             // 
             // checkBox4
             // 
             this.checkBox4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.checkBox4.AutoSize = true;
             this.checkBox4.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.checkBox4.Checked = true;
+            this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox4.Location = new System.Drawing.Point(171, 11);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(56, 31);
             this.checkBox4.TabIndex = 4;
-            this.checkBox4.Tag = "Элемент3D";
+            this.checkBox4.Tag = "";
             this.checkBox4.Text = "3D эл-ты";
             this.checkBox4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBox4.UseVisualStyleBackColor = true;
-            this.checkBox4.CheckedChanged += new System.EventHandler(this.OnShowElements);
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.OnShow3DElements);
             // 
             // checkBox2
             // 
@@ -232,10 +209,10 @@ namespace Viewer
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(41, 31);
             this.checkBox2.TabIndex = 2;
-            this.checkBox2.Tag = "Элемент1D";
+            this.checkBox2.Tag = "";
             this.checkBox2.Text = "Линии";
             this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.OnShowElements);
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.OnShowLines);
             // 
             // radioButton3
             // 
@@ -244,13 +221,13 @@ namespace Viewer
             this.radioButton3.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.radioButton3.Checked = true;
             this.tableLayoutPanel3.SetColumnSpan(this.radioButton3, 2);
-            this.radioButton3.Location = new System.Drawing.Point(50, 66);
+            this.radioButton3.Location = new System.Drawing.Point(50, 63);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(107, 30);
             this.radioButton3.TabIndex = 7;
             this.radioButton3.TabStop = true;
             this.radioButton3.Tag = "2";
-            this.radioButton3.Text = "Ребра и поверхности";
+            this.radioButton3.Text = "Ребра и поверхн.";
             this.radioButton3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButton3.UseVisualStyleBackColor = true;
             this.radioButton3.CheckedChanged += new System.EventHandler(this.OnViewModeChange);
@@ -260,12 +237,12 @@ namespace Viewer
             this.radioButton2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.radioButton2.AutoSize = true;
             this.radioButton2.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.radioButton2.Location = new System.Drawing.Point(163, 66);
+            this.radioButton2.Location = new System.Drawing.Point(171, 63);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(73, 30);
+            this.radioButton2.Size = new System.Drawing.Size(57, 30);
             this.radioButton2.TabIndex = 6;
             this.radioButton2.Tag = "3";
-            this.radioButton2.Text = "Поверхности";
+            this.radioButton2.Text = "Поверхн.";
             this.radioButton2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButton2.UseVisualStyleBackColor = true;
             this.radioButton2.CheckedChanged += new System.EventHandler(this.OnViewModeChange);
@@ -275,7 +252,7 @@ namespace Viewer
             this.radioButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton1.AutoSize = true;
             this.radioButton1.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.radioButton1.Location = new System.Drawing.Point(3, 66);
+            this.radioButton1.Location = new System.Drawing.Point(3, 63);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(41, 30);
             this.radioButton1.TabIndex = 5;
@@ -296,21 +273,21 @@ namespace Viewer
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(41, 31);
             this.checkBox1.TabIndex = 1;
-            this.checkBox1.Tag = "Узел";
+            this.checkBox1.Tag = "";
             this.checkBox1.Text = "Узлы";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.OnShowElements);
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.OnShowNodes);
             // 
             // checkBox8
             // 
             this.checkBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox8.AutoSize = true;
             this.tableLayoutPanel3.SetColumnSpan(this.checkBox8, 3);
-            this.checkBox8.Location = new System.Drawing.Point(50, 127);
+            this.checkBox8.Location = new System.Drawing.Point(50, 124);
             this.checkBox8.Name = "checkBox8";
             this.checkBox8.Size = new System.Drawing.Size(186, 17);
             this.checkBox8.TabIndex = 8;
-            this.checkBox8.Tag = "Элементы2D";
+            this.checkBox8.Tag = "";
             this.checkBox8.Text = "Показывать 3D внутри";
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.Click += new System.EventHandler(this.OnShowInside3D);
@@ -524,17 +501,70 @@ namespace Viewer
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.OnReflectPlaneShow);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.checkBox9);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 524);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(251, 32);
+            this.panel1.TabIndex = 8;
+            // 
             // checkBox9
             // 
-            this.checkBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.checkBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(60, 527);
+            this.checkBox9.Location = new System.Drawing.Point(6, 8);
             this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(130, 26);
-            this.checkBox9.TabIndex = 8;
-            this.checkBox9.Text = "Выбирать элементы";
+            this.checkBox9.Size = new System.Drawing.Size(117, 17);
+            this.checkBox9.TabIndex = 9;
+            this.checkBox9.Text = "Выбор элементов";
             this.checkBox9.UseVisualStyleBackColor = true;
             this.checkBox9.Click += new System.EventHandler(this.OnChangeSelectState);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Элемент2D",
+            "Элемент3D"});
+            this.comboBox1.Location = new System.Drawing.Point(137, 6);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(109, 21);
+            this.comboBox1.TabIndex = 10;
+            // 
+            // sceneControl
+            // 
+            this.sceneControl.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.sceneControl.BackGroundColor = System.Drawing.Color.LightGray;
+            this.sceneControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.sceneControl.DisplayBasis = true;
+            this.sceneControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sceneControl.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.sceneControl.IsClipPlane = false;
+            this.sceneControl.IsLighting = true;
+            this.sceneControl.IsSmoothShadow = false;
+            this.sceneControl.LightAttenuation = 0F;
+            this.sceneControl.LightTranslateX = 0F;
+            this.sceneControl.LightTranslateY = 0F;
+            this.sceneControl.LightTranslateZ = 0F;
+            this.sceneControl.Location = new System.Drawing.Point(4, 4);
+            this.sceneControl.Margin = new System.Windows.Forms.Padding(4);
+            this.sceneControl.Name = "sceneControl";
+            this.sceneControl.Projection = Scene.Interfaces.ViewProjection.Perspective;
+            this.sceneControl.RotationAngle = 2.5F;
+            this.sceneControl.RotationAxis = Scene.Interfaces.ViewAxis.XYZ;
+            this.sceneControl.ScaleFactor = 1F;
+            this.sceneControl.SelectionColor = System.Drawing.Color.Green;
+            this.sceneControl.ShadowAngle = 0F;
+            this.sceneControl.ShowSurfaceBackEdges = false;
+            this.sceneControl.Size = new System.Drawing.Size(591, 554);
+            this.sceneControl.TabIndex = 2;
             // 
             // ViewerForm
             // 
@@ -560,6 +590,8 @@ namespace Viewer
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -596,7 +628,9 @@ namespace Viewer
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private Scene.SceneControl sceneControl;
+        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkBox9;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

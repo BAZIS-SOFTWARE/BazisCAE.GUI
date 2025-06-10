@@ -18,6 +18,8 @@ using BaseModule.SceenControls;
 using Geometry;
 using Scene;
 using System.Xml.Linq;
+using ModelController.MeshObjsUtility;
+using System.Security.Cryptography.X509Certificates;
 //using ModelControllerInterface;
 
 namespace Viewer
@@ -34,157 +36,41 @@ namespace Viewer
 
             var ver = Assembly.GetExecutingAssembly().GetName().Version;
             Text+= $" {ver.Major}.{ver.Minor}.{ver.Build}";
-        }       
-
-        private void CreateVBOObjects(IObjsPresenter presenter, ObjView view, ObjType objType)
-        {
-            var inds = presenter.CreateIndexes();
-            var ptrs = presenter.CreatePointers(inds.Item1);
-            var coords = presenter.CreateVertexes(inds.Item2, "координаты");
-            var colors = presenter.CreateVertexes(inds.Item3, "цвет");
-            var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
-
-            var name = objType.ToString();
-            //В VBOObject создаем метод CreateLayout - виртуальный, он сохраняет разметку в отдельный VBO
-            //Для 3д элементов дополнительно просчитывает BoundingBox элементов
-            if (presenter.PresenterType == PresenterType.Point)
-                sceneControl.CreatePointVBObjects(ptrs, coords, colors, normals, name);
-            else if (presenter.PresenterType == PresenterType.Line)
-            {
-                var edges = presenter.CreateEdgeFlags(inds.Item4);
-                sceneControl.CreateLineVBObjects(ptrs, coords, colors, normals, edges, name);
-            }
-            else if(presenter.PresenterType == PresenterType.Surface)
-            {
-                var surfPres = (ISurfaceObjsPresenter)presenter;
-                var edges = presenter.CreateEdgeFlags(inds.Item4);
-
-                var separs = surfPres.CreateSeparators();
-                sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, name, separs,view);
-            }
-        }
-
-        private ObjView ExtractObjView(PresentersCreator creator)
-        {
-            ObjView view = ObjView.Surface;
-            if (radioButton3.Checked)
-            {
-                //creator.SetView(ObjType.Элемент2D.ToString(), PresenterView.LineSurface);
-                view = ObjView.LinesSurface;
-            }
-            else if (radioButton1.Checked)
-            {
-                //creator.SetView(ObjType.Элемент2D.ToString(),PresenterView.Line);
-                view = ObjView.Lines;
-            }
-            return view;
-        }
-
-        private void Create3DVBOObject(PresentersCreator creator)
-        {
-            if (model.ObjectData.E3DCollection.Count > 0)
-            {
-                var view = ExtractObjView(creator);
-                var e3d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.E3DCollection.GetObjects());
-
-                if (checkBox8.Checked)
-                    e3d.ShowInsideSurfaces();
-                else
-                    e3d.HideInsideSurfaces();
-
-                CreateVBOObjects(e3d, view, ObjType.Элемент3D);
-            }
-        }
-
-        private void CreateVBOObjects()
-        {
-            var creator = new PresentersCreator();
-            if (model.ObjectData.NodesSet.Values.Count > 0)
-            {
-                var nodes = creator.CreatePointObjectsPresenter(model.ObjectData.NodesSet.Values);
-                CreateVBOObjects(nodes, ObjView.None, ObjType.Узел);
-            }
-            if(model.ObjectData.PointsSet.Values.Count > 0)
-            {
-                var points = creator.CreatePointObjectsPresenter(model.ObjectData.PointsSet.Values);
-                CreateVBOObjects(points, ObjView.None, ObjType.Точка);
-            }
-            if (model.ObjectData.CurveCollection.Count > 0)
-            {
-                var curves = creator.CreateLineObjectsPresenter(model.ObjectData.CurveCollection.GetObjects());
-                CreateVBOObjects(curves, ObjView.None, ObjType.Кривая);
-            }
-            if(model.ObjectData.E1DCollection.Count > 0)
-            {
-                var e1d = creator.CreateLineObjectsPresenter(model.ObjectData.E1DCollection.GetObjects());
-                CreateVBOObjects(e1d, ObjView.None, ObjType.Элемент1D);
-            }
-            if(model.ObjectData.E2DCollection.Count > 0)
-            {
-                var view = ExtractObjView(creator);
-                var e2d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.E2DCollection.GetObjects());
-                CreateVBOObjects(e2d, view, ObjType.Элемент2D);
-            }
-            if (model.ObjectData.E3DCollection.Count > 0)
-            {
-                var view = ExtractObjView(creator);
-                var e3d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.E3DCollection.GetObjects());
-
-                if (checkBox8.Checked)
-                    e3d.ShowInsideSurfaces();
-                else
-                    e3d.HideInsideSurfaces();
-
-                CreateVBOObjects(e3d, view, ObjType.Элемент3D);
-                //Create3DVBOObject(creator);
-            }
-            if (model.ObjectData.SurfaceCollection.Count > 0)
-            {
-                var view = ExtractObjView(creator);
-                var f2d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.SurfaceCollection.GetObjects());
-                CreateVBOObjects(f2d, view, ObjType.Поверхность);
-            }
-            if (model.ObjectData.VolumeCollection.Count > 0)
-            {
-                var view = ExtractObjView(creator);
-                var f3d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.VolumeCollection.GetObjects());
-                CreateVBOObjects(f3d, view, ObjType.Объем);
-            }
+            comboBox1.SelectedIndex = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
-            sceneControl.DeleteAllVBObjects();
-            OpenFileDialog dialog = new OpenFileDialog();
-            if (dialog.ShowDialog() == DialogResult.Cancel)
-                return;
-            var ext = Path.GetExtension(dialog.FileName);
-            if (ext == ".stl")
-                model.Loader = new LoadFromSTLFile();
-            else if (ext == ".ASC")
-                model.Loader = new LoadModelFromASCIITextFile_v2();
-            else if (ext == ".cdb")
-                model.Loader = new LoadModelFromCDBTextFile();
-            else if(ext == ".inp")
-                model.Loader = new LoadModelFromINPTextFile();
-            else if (ext == ".bpf")
-                model.Loader = new LoadModelFromBPFTextFile();
-            else if(ext == ".bpf2")
-                model.Loader = new LoadModelFromBPF2TextFile();
-            model.Loader.LoadEvent += (ar1, ar2) => { };
-            model.Load(dialog.FileName);
-            CreateVBOObjects();
-            /*var obj = sceneControl.FindVBObj("Элементы2D") as VBObject;
-            sceneControl.CreateReflectedVBObjects(obj, new Plane(new Point3D(0.707f, 0.707f, 0), 20), "Копия3");
-            var obj1 = sceneControl.FindVBObj("Копия3") as VBObject;
-            sceneControl.DisplayReflectionPlane(obj, new Plane(new Point3D(0.707f, 0.707f, 0), 20));
-            sceneControl.CreateReflectedVBObjects(obj1, new Plane(new Point3D(1, 0, 0), 20), "Копия4");
-            var obj2 = sceneControl.FindVBObj("Копия4") as VBObject;
-            sceneControl.DisplayReflectionPlane(obj1 , new Plane(new Point3D(1, 0, 0), 20));*/
-            sceneControl.FitObjectsToScreen();
-            sceneControl.DisplayObjects();
+                sceneControl.DeleteAllVBObjects();
+                OpenFileDialog dialog = new OpenFileDialog();
+                if (dialog.ShowDialog() == DialogResult.Cancel)
+                    return;
+
+                var ext = Path.GetExtension(dialog.FileName);
+                if (ext == ".stl")
+                    model.Loader = new LoadFromSTLFile();
+                else if (ext == ".ASC")
+                    model.Loader = new LoadModelFromASCIITextFile_v2();
+                else if (ext == ".cdb")
+                    model.Loader = new LoadModelFromCDBTextFile();
+                else if(ext == ".inp")
+                    model.Loader = new LoadModelFromINPTextFile();
+                else if (ext == ".bpf")
+                    model.Loader = new LoadModelFromBPFTextFile();
+                else if(ext == ".bpf2")
+                    model.Loader = new LoadModelFromBPF2TextFile();
+                model.Loader.LoadEvent += (ar1, ar2) => { };
+                model.Load(dialog.FileName);
+
+                OnShowNodes();
+                OnShowLines();
+                OnShow2DElements();
+                OnShow3DElements();
+
+                sceneControl.FitObjectsToScreen();
+                sceneControl.DisplayObjects();
 
             }
             catch (Exception ex)
@@ -193,35 +79,236 @@ namespace Viewer
             }
         }
 
-        private void OnShowElements(object sender, EventArgs e)
+        private void OnShowNodes(object sender, EventArgs e) => OnShowNodes(true);
+
+        private void OnShowNodes(bool displayObjects = false)
         {
-            var control = sender as CheckBox;
-            var objName = control.Tag.ToString();
-            var obj = sceneControl.FindVBObj(objName);
+            if (checkBox1.Checked)
+                ShowNodes();
+            else
+                HideNodes();
+            if(displayObjects)
+                sceneControl.DisplayObjects();
+        }
+
+        private void ShowNodes()
+        {
+            var name = ObjType.Узел.ToString();
+            var obj = sceneControl.FindVBObj(name);
+
+            if (obj == null)
+            {
+                if (model.ObjectData.NodesSet.Count > 0)
+                {
+                    var creator = new PresentersCreator();
+                    var presenter = creator.CreatePointObjectsPresenter(model.ObjectData.NodesSet.Values);
+
+                    var inds = presenter.CreateIndexes();
+                    var ptrs = presenter.CreatePointers(inds.Item1);
+                    var coords = presenter.CreateVertexes(inds.Item2, "координаты");
+                    var colors = presenter.CreateVertexes(inds.Item3, "цвет");
+                    var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
+
+                    sceneControl.CreatePointVBObjects(ptrs, coords, colors, normals, name);
+                }
+            }
+            else
+                obj.ViewState = true;
+        }
+
+        private void HideNodes()
+        {
+            var name = ObjType.Узел.ToString();
+            var obj = sceneControl.FindVBObj(name);
+
             if (obj != null)
-                obj.ViewState = control.Checked;
-            sceneControl.DisplayObjects();
+                obj.ViewState = false;
+        }
+
+        private void OnShowLines(object sender, EventArgs e) => OnShowLines(true);
+
+        private void OnShowLines(bool displayObjects = false)
+        {
+            if (checkBox2.Checked)
+                ShowLines();
+            else
+                HideLines();
+            if(displayObjects)
+                sceneControl.DisplayObjects();
+        }
+
+        private void ShowLines()
+        {
+            var name = ObjType.Элемент1D.ToString();
+            var obj = sceneControl.FindVBObj(name);
+
+            if (obj == null)
+            {
+                if (model.ObjectData.E1DCollection.Count > 0)
+                {
+                    var creator = new PresentersCreator();
+
+                    var presenter = creator.CreateLineObjectsPresenter(model.ObjectData.E1DCollection.GetObjects());
+
+                    var inds = presenter.CreateIndexes();
+                    var ptrs = presenter.CreatePointers(inds.Item1);
+                    var coords = presenter.CreateVertexes(inds.Item2, "координаты");
+                    var colors = presenter.CreateVertexes(inds.Item3, "цвет");
+                    var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
+
+                    var edges = presenter.CreateEdgeFlags(inds.Item4);
+
+                    sceneControl.CreateLineVBObjects(ptrs, coords, colors, normals, edges, name);
+                }
+            }
+            else
+                obj.ViewState = true;
+        }
+
+        private void HideLines()
+        {
+            var name = ObjType.Элемент1D.ToString();
+            var obj = sceneControl.FindVBObj(name);
+
+            if (obj != null)
+                obj.ViewState = false;
+        }
+
+        private void OnShow2DElements(object sender, EventArgs e) => OnShow2DElements(true);
+
+        private void OnShow2DElements(bool displayObjects = false)
+        {
+            if (checkBox3.Checked)
+                Show2DElements();
+            else
+                Hide2DElements();
+            if(displayObjects)
+                sceneControl.DisplayObjects();
+        }
+
+        private void Show2DElements()
+        {
+            var name = ObjType.Элемент2D.ToString();
+            var obj = sceneControl.FindVBObj(name);
+
+            if (obj == null)
+            {
+                if (model.ObjectData.E2DCollection.Count > 0)
+                {
+                    var creator = new PresentersCreator();
+
+                    var presenter = creator.CreateSurfaceObjectsPresenter(model.ObjectData.E2DCollection.GetObjects());
+
+                    var inds = presenter.CreateIndexes();
+                    var ptrs = presenter.CreatePointers(inds.Item1);
+                    var coords = presenter.CreateVertexes(inds.Item2, "координаты");
+                    var colors = presenter.CreateVertexes(inds.Item3, "цвет");
+                    var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
+
+                    var edges = presenter.CreateEdgeFlags(inds.Item4);
+                    var separators = presenter.CreateSeparators();
+
+                    var view = ExtractObjView();
+
+                    sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, name, separators, view);
+                }
+            }
+            else
+                obj.ViewState = true;
+        }
+
+        private void Hide2DElements()
+        {
+            var name = ObjType.Элемент2D.ToString();
+            var obj = sceneControl.FindVBObj(name);
+
+            if (obj != null)
+                obj.ViewState = false;
+        }
+
+        private void OnShow3DElements(object sender, EventArgs e) => OnShow3DElements(true);
+
+        private void OnShow3DElements(bool displayObjects = false)
+        {
+            if (checkBox4.Checked)
+                Show3DElements();
+            else
+                Hide3DElements();
+            if(displayObjects)
+                sceneControl.DisplayObjects();
+        }
+
+        private void Show3DElements()
+        {
+            var name = ObjType.Элемент3D.ToString();
+            var obj = sceneControl.FindVBObj(name);
+
+            if (obj == null)
+                Create3DElements(name);
+            else
+                obj.ViewState = true;
+        }
+
+        private void Create3DElements(string name)
+        {
+            if (model.ObjectData.E3DCollection.Count > 0)
+            {
+                var creator = new PresentersCreator();
+                var surfChanger = new ChangeInsideSurface();
+
+                var objects = model.ObjectData.E3DCollection.GetObjects();
+                if (checkBox8.Checked)
+                    surfChanger.ShowInsideSurfaces(objects);
+                else
+                    surfChanger.HideInsideSurfaces(objects);
+                var presenter = creator.CreateSurfaceObjectsPresenter(model.ObjectData.E3DCollection.GetObjects());
+
+                var inds = presenter.CreateIndexes();
+                var ptrs = presenter.CreatePointers(inds.Item1);
+                var coords = presenter.CreateVertexes(inds.Item2, "координаты");
+                var colors = presenter.CreateVertexes(inds.Item3, "цвет");
+                var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
+
+                var edges = presenter.CreateEdgeFlags(inds.Item4);
+
+                var separators = presenter.CreateSeparators();
+                var view = ExtractObjView();
+
+                sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, name, separators, view);
+            }
+        }
+
+        private void Hide3DElements()
+        {
+            var name = ObjType.Элемент3D.ToString();
+            var obj = sceneControl.FindVBObj(name);
+
+            if (obj != null)
+                obj.ViewState = false;
+        }
+
+        private ObjView ExtractObjView()
+        {
+            if (radioButton1.Checked)
+                return ObjView.Lines;
+            if (radioButton2.Checked)
+                return ObjView.Surface;
+            return ObjView.LinesSurface;
         }
 
         private void OnViewModeChange(object sender, EventArgs e)
         {
-            var control = sender as RadioButton;
-            if (control.Checked)
-            {
-                var type = ObjView.None;
-                var tag = control.Tag.ToString();
-                if (tag == "1")
-                    type = ObjView.Lines;
-                else if (tag == "2")
-                    type = ObjView.LinesSurface;
-                else if (tag == "3")
-                    type = ObjView.Surface;
-                if (sceneControl.FindVBObj(ObjType.Элемент2D.ToString()) != null)
-                    sceneControl.ChangeViewModeVBObjects(ObjType.Элемент2D.ToString(), type);
-                if (sceneControl.FindVBObj(ObjType.Элемент3D.ToString()) != null)
-                    sceneControl.ChangeViewModeVBObjects(ObjType.Элемент3D.ToString(), type);
-                sceneControl.DisplayObjects();
-            }
+            var objView = ExtractObjView();
+
+            var obj = sceneControl.FindVBObj(ObjType.Элемент2D.ToString());
+            if (obj != null)
+                obj.ViewMode = objView;
+
+            obj = sceneControl.FindVBObj(ObjType.Элемент3D.ToString());
+            if (obj != null)
+                obj.ViewMode = objView;
+
+            sceneControl.DisplayObjects();
         }
 
         private void OnEnableTransparency(object sender, EventArgs e)
@@ -277,9 +364,11 @@ namespace Viewer
 
         private void OnShowInside3D(object sender, EventArgs e)
         {
-            sceneControl.DeleteVBObjects(ObjType.Элемент3D.ToString());
-            var creator = new PresentersCreator();
-            Create3DVBOObject(creator);
+            var name = ObjType.Элемент3D.ToString();
+
+            sceneControl.DeleteVBObjects(name);
+            Create3DElements(name);
+
             sceneControl.DisplayObjects();
         }
 
@@ -326,19 +415,6 @@ namespace Viewer
                     sceneControl.DisplayObjects();
                 };
                 clipForm.Show();
-            }
-        }
-
-        private ClipMode ModeConverter(ClipRegime mode)
-        {
-            switch (mode)
-            {
-                case ClipRegime.Default:
-                    return ClipMode.Default;
-                case ClipRegime.Layered:
-                    return ClipMode.Layered;
-                default:
-                    return ClipMode.KeepElement;
             }
         }
 
@@ -398,8 +474,12 @@ namespace Viewer
                     button3.Tag = null;
                     sceneControl.HideReflectionPlane();
                     sceneControl.DeleteAllVBObjects();
-                    CreateVBOObjects();
-                    //sceneControl.CreateReflectedVBObject("", "", null);
+
+                    OnShowNodes();
+                    OnShowLines();
+                    OnShow2DElements();
+                    OnShow3DElements();
+
                     sceneControl.DisplayObjects();
                 };
                 reflectForm.Show();
@@ -424,9 +504,12 @@ namespace Viewer
 
         private void OnSelectElement(object sender, MouseEventArgs e)
         {
-            var obj = sceneControl.FindVBObj(ObjType.Элемент3D.ToString());
-            if (obj != null)
-                sceneControl.ElementSelector.SelectElement(obj as SurfaceObjects, sceneControl.SelectionColor);
+            if (e.Button == MouseButtons.Left)
+            {
+                var obj = sceneControl.FindVBObj(comboBox1.SelectedItem.ToString());
+                if (obj != null)
+                    sceneControl.ElementSelector.SelectElement(obj as SurfaceObjects, sceneControl.SelectionColor);
+            }
         }
 
         private void OnChangeSelectState(object sender, EventArgs e)

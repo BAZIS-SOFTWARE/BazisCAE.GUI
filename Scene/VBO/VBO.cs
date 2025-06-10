@@ -22,7 +22,7 @@ namespace Scene.VBO
             if (obj.GL_ObjType == GLObjType.triangle)
             {
                 var sObj = obj as SurfaceObjects;
-                buffers = new int[] { sObj.FrameBuffer, sObj.EdgeBuffer, sObj.SeparatorBuffer };
+                buffers = new int[] { sObj.FrameBuffer, sObj.EdgeBuffer, sObj.SeparatorBuffer, sObj.LeftUpBuffer, sObj.RightDownBuffer };
                 Gl.glDeleteBuffers(buffers.Length, buffers);
             }
         }

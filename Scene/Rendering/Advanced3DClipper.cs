@@ -40,8 +40,8 @@ namespace Scene
     /// </summary>
     public class Advanced3DClipper : IDisposable, IActiveDrawingObject
     {
-        private int leftUpBuffer;//Идентификатор буффера левых верхних углов (BoundingBox) элементов
-        private int rightDownBuffer;//Идентификатор буффера правых нижних углов (BoundingBox) элементов
+        //private int leftUpBuffer;//Идентификатор буффера левых верхних углов (BoundingBox) элементов
+        //private int rightDownBuffer;//Идентификатор буффера правых нижних углов (BoundingBox) элементов
 
         /// <summary>
         /// Программа, для полного отображения 3д элементов в месте сечения и в положительной полуплоскости сечения
@@ -135,14 +135,14 @@ namespace Scene
             ChangeCompilationCondition(2, ShaderCollections.keepElementsGeometry, geometryOld_2);
             ChangeCompilationCondition(1, ShaderCollections.baseFragment, fragmentOld_1);
         }
-
+        /*
         /// <summary>
         /// Создать ограничивающие параллелепипеды для 3д элементов, вызывать только для vbo типа 3D SurfaceObjects
         /// </summary>
         /// <param name="vbo">[In]3D SurfaceObjects</param>
         public void Create3DBoundingBoxes(SurfaceObjects vbo)
         {
-            if (leftUpBuffer == 0 && rightDownBuffer == 0 && IsShowInsideEnabled(vbo))
+            if (leftUpBuffer == 0 && rightDownBuffer == 0)
             {
                 var points = vbo.PointsCoords;
                 var separators = vbo.Separators;
@@ -151,7 +151,7 @@ namespace Scene
                 VBO.VBO.VertexDataInit(ref leftUpBuffer, leftUp, sizeof(float));
                 VBO.VBO.VertexDataInit(ref rightDownBuffer, rightDown, sizeof(float));
             }
-        }
+        }*/
 
         /// <summary>
         /// Выполнить действия перед вызовом glDrawElements
@@ -160,24 +160,21 @@ namespace Scene
         /// <param name="elements">[In]Элемент отрисовки</param>
         public void DoActionsBeforeDrawing(VBObject vbo, DrawElements elements)
         {
-            if (elements != DrawElements.Surfaces && elements != DrawElements.Wireframe)
+            if (ClipMode == ClipMode.None)
                 return;
 
             ApplyMatrixSettings();
-            if (ClipMode != ClipMode.Default)
+
+            if (ClipMode > ClipMode.Default)
             {
                 ShaderProgramCreator program = null;
                 if (elements == DrawElements.Surfaces)
                 {
-                    if (!IsShowInsideEnabled((SurfaceObjects)vbo))
-                        return;
                     program = ClipMode == ClipMode.KeepElement ? KeepElementSurfaceRenderer : LayerSurfaceRenderer;
                     program.Bind();
                 }
                 else if (elements == DrawElements.Wireframe)
                 {
-                    if (!IsShowInsideEnabled((SurfaceObjects)vbo))
-                        return;
                     program = ClipMode == ClipMode.KeepElement ? KeepElementWireframeRenderer : LayerWireframeRenderer;
                     program.Bind();
                     program.SetCustomAttributes(((SurfaceObjects)vbo).EdgeBuffer, "wire", 1, Gl.GL_UNSIGNED_BYTE);
@@ -193,8 +190,10 @@ namespace Scene
                     program.SetUniform("scaleFactor", new float[] { ScaleFactor });
                 }
 
-                program.SetCustomAttributes(leftUpBuffer, "inLeftUp");
-                program.SetCustomAttributes(rightDownBuffer, "inRightDown");
+                var sObj = vbo as SurfaceObjects;
+
+                program.SetCustomAttributes(sObj.LeftUpBuffer, "inLeftUp");
+                program.SetCustomAttributes(sObj.RightDownBuffer, "inRightDown");
             }
         }
 
@@ -206,23 +205,23 @@ namespace Scene
         public void DoActionsAfterDrawing(VBObject vbo, DrawElements elements)
         {
             Gl.glDisable(Gl.GL_CLIP_PLANE0);
-            if (elements != DrawElements.Surfaces && elements != DrawElements.Wireframe)
-                return;
 
-            ShaderProgramCreator program = null;
-            if (elements == DrawElements.Surfaces)
-                program = ClipMode == ClipMode.KeepElement ? KeepElementSurfaceRenderer : LayerSurfaceRenderer;
-            else if (elements == DrawElements.Wireframe)
-                program = ClipMode == ClipMode.KeepElement ? KeepElementWireframeRenderer : LayerWireframeRenderer;
+            if (ClipMode > ClipMode.Default)
+            {
+                ShaderProgramCreator program = null;
+                if (elements == DrawElements.Surfaces)
+                    program = ClipMode == ClipMode.KeepElement ? KeepElementSurfaceRenderer : LayerSurfaceRenderer;
+                else if (elements == DrawElements.Wireframe)
+                {
+                    program = ClipMode == ClipMode.KeepElement ? KeepElementWireframeRenderer : LayerWireframeRenderer;
+                    program.UnsetCustomAttributes("wire");
+                }
 
+                program.UnsetCustomAttributes("inLeftUp");
+                program.UnsetCustomAttributes("inRightDown");
 
-            program.UnsetCustomAttributes("inLeftUp");
-            program.UnsetCustomAttributes("inRightDown");
-
-            if (elements == DrawElements.Wireframe)
-                program.UnsetCustomAttributes("wire");
-
-            program.Unbind();
+                program.Unbind();
+            }
         }
 
         /// <summary>
@@ -230,11 +229,11 @@ namespace Scene
         /// </summary>
         public void Dispose()
         {
-            Gl.glDeleteBuffers(1, ref leftUpBuffer);
-            Gl.glDeleteBuffers(1, ref rightDownBuffer);
+            //Gl.glDeleteBuffers(1, ref leftUpBuffer);
+            //Gl.glDeleteBuffers(1, ref rightDownBuffer);
 
-            leftUpBuffer = 0;
-            rightDownBuffer = 0;
+            //leftUpBuffer = 0;
+            //rightDownBuffer = 0;
 
             KeepElementSurfaceRenderer?.Dispose();
             LayerSurfaceRenderer?.Dispose();
@@ -340,16 +339,7 @@ namespace Scene
         {
             source[position] = newCondition;
         }
-
-        private bool IsShowInsideEnabled(SurfaceObjects obj)
-        {
-            var lastElem = obj.SeparatorsLength - 1;
-            var lastStride = new int[1];
-            VBO.VBO.GetSubData(obj.SeparatorBuffer, lastElem * sizeof(int), sizeof(int), lastStride);
-            lastStride[0] *= 9;
-            return lastStride[0] == obj.CoordLength;
-        }
-
+        /*
         /// <summary>
         /// Строит ограничивающие боксы для всех 3д элементов
         /// </summary>
@@ -405,6 +395,6 @@ namespace Scene
                     }
                 }
             }
-        }
+        }*/
     }
 }

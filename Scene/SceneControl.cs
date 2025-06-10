@@ -906,7 +906,6 @@ namespace Scene
                 }
                 else
                     el3d.ActiveDrawingObject = advanced3DClipper;
-                advanced3DClipper.Create3DBoundingBoxes(el3d);
             }
         }
 
@@ -1204,9 +1203,14 @@ namespace Scene
 
             var vbObj = new SurfaceObjects(edges, ptrs, coords, colors, normals, objsName);
             vbObj.CreateSeparators(separs);
+            vbObj.Create3DBoundingBoxes(coords, separs);
             vbObj.ViewMode = viewMode;
             glObjs.Add(vbObj);
-            vbObj.ActiveDrawingObject = AverageColorRenderer.IsEnable ? averageColorRenderer : null;
+
+            if (AverageColorRenderer.IsEnable)
+                vbObj.ActiveDrawingObject = averageColorRenderer;
+            else if (advanced3DClipper.ClipMode != ClipMode.None)
+                vbObj.ActiveDrawingObject = advanced3DClipper;
         }
         /// <summary>
         /// CreateLineVBObjects

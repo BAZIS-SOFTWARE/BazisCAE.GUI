@@ -25,6 +25,10 @@ namespace Scene
 
         private ShaderProgramCreator barycentricSolver = new ShaderProgramCreator();
         /// <summary>
+        /// Смещение треугольников на найденных координатах клика
+        /// </summary>
+        public int[] TriangleOffsets { get; private set; }
+        /// <summary>
         /// Координаты клика мыши
         /// </summary>
         public Point MouseClick { get; set; }
@@ -286,6 +290,9 @@ namespace Scene
             {
                 var start = separators[index];
                 var end = separators[index + 1];
+
+                TriangleOffsets = new int[] { start, end };
+
                 var triangles = end - start;
 
                 var r = selectionColor.R / 255f;
