@@ -1,84 +1,74 @@
-﻿using System;
+﻿using ScottPlot;
+using ScottPlot.TickGenerators;
+using ScottPlot.WinForms;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms.DataVisualization.Charting;
+using System.Windows.Forms;
 
 namespace BaseModule.GanttChart
 {
-    public class GanttChartModel
+    public class GChartModel
     {
-        public Chart Chart { get; private set; }
+        public FormsPlot FormsPlot { get; }
 
-        private Color defaultLabelForeColor;
+        private Plot plot;
+        private Bar[] bars;
+        private Tick[] ticks;
+        private System.Drawing.Color[] colors;
+        private double maxValue;
 
-        public GanttChartModel(double minValue, double maxValue, double intervalLength, int barMaxCount)
+        public GChartModel(double minValue, double maxValue, int barMaxCount)
         {
-            Chart = new Chart();
-            Chart.ChartAreas.Add(new ChartArea());
-            defaultLabelForeColor = Color.Black;
-            ConfigureChart(minValue, maxValue, intervalLength, barMaxCount);
+            FormsPlot = new FormsPlot() { Dock = DockStyle.Fill };
+            FormsPlot.UserInputProcessor.RemoveAll<ScottPlot.Interactivity.UserActionResponses.MouseDragZoomRectangle>();
+            FormsPlot.UserInputProcessor.RemoveAll<ScottPlot.Interactivity.UserActionResponses.MouseDragPan>();
+            FormsPlot.UserInputProcessor.RemoveAll<ScottPlot.Interactivity.UserActionResponses.MouseDragZoom>();
+            FormsPlot.UserInputProcessor.RemoveAll<ScottPlot.Interactivity.UserActionResponses.MouseWheelZoom>();
+            plot = FormsPlot.Plot;
+            bars = new Bar[barMaxCount + 1];
+            ticks = new Tick[barMaxCount + 1];
+            colors = new System.Drawing.Color[barMaxCount + 1];
+            this.maxValue = maxValue;
         }
 
-        public void AddTask(double start, double end, int layer, string name, Color color, string description = "")
+        public void AddTask(double start, double end, int layer, string taskType, System.Drawing.Color color)
         {
-            var index = Chart.Series[0].Points.AddXY(layer, start, end);
-            Chart.Series[0].Points[index].Color = color;
-            Chart.Series[0].Points[index].BackSecondaryColor = Color.Transparent;
-            Chart.Series[0].Points[index].AxisLabel = name;
-            Chart.Series[0].Points[index].Label = description;
-            Chart.Series[0].Points[index].LabelForeColor = defaultLabelForeColor;
+            var bar = new Bar() 
+            { 
+                Orientation = ScottPlot.Orientation.Horizontal, 
+                Value = end, 
+                ValueBase = start, 
+                FillColor = ScottPlot.Color.FromColor(color),
+                Position = layer,
+                Size = 0.5,
+                LineColor = ScottPlot.Color.FromColor(System.Drawing.Color.Transparent)
+            };
+            ticks[layer] = new Tick(layer, taskType);
+            bars[layer] = bar;
+            colors[layer] = color;
+            plot.Add.Bar(bar);
         }
 
-        public void InverseBarColor(int layer)
+        public void Refresh()
         {
-            var index = layer - 1;
-            if (index >= 0 && index < Chart.Series[0].Points.Count)
-            {
-                var bar = Chart.Series[0].Points[index];
-                (bar.Color, bar.BackSecondaryColor) = (bar.BackSecondaryColor, bar.Color);
-                bar.LabelForeColor = (bar.LabelForeColor == Color.Transparent) ? defaultLabelForeColor : Color.Transparent;
-            }
+            plot.Axes.Left.TickGenerator = new NumericManual(ticks);
+            FormsPlot.Refresh();
         }
 
-        private void ConfigureChart(double minValue, double maxValue, double intervalLength, int barMaxCount)
+        public Bitmap GetImage(int width, int height)
         {
-            var series = Chart.Series.Add("gantt diagram");
-            series.ChartType = SeriesChartType.RangeBar;
-            series.YValueType = ChartValueType.Double;
-            series.SetCustomProperty("PixelPointWidth", "30");
-
-            ConfigureAxisX(barMaxCount);
-            ConfigureAxisY(minValue, maxValue, intervalLength);
+            plot.Axes.Left.TickGenerator = new NumericManual(ticks);
+            return plot.GetImage(width, height).GetBitmap();
         }
 
-        private void ConfigureAxisX(int barMaxCount)
+        public void HideTask(int layer)
         {
-            var ax = Chart.ChartAreas[0].AxisX;
-            ax.Minimum = 0;
-            ax.Maximum = barMaxCount + 1;
-            ax.MajorGrid.Enabled = false;
-            ax.IsLabelAutoFit = true;
-            ax.LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont;
-            ax.ScaleView.Size = 8;
-            ax.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
-            ax.ScrollBar.BackColor = Color.FromKnownColor(KnownColor.Control);
-            ax.ScrollBar.ButtonColor = Color.FromKnownColor(KnownColor.Control);
-            ax.ScrollBar.LineColor = Color.FromKnownColor(KnownColor.Control);
+            bars[layer].FillColor = ScottPlot.Color.FromColor(System.Drawing.Color.Transparent);
         }
 
-        private void ConfigureAxisY(double minValue, double maxValue, double intervalLength)
+        public void ShowTask(int layer)
         {
-            var ay = Chart.ChartAreas[0].AxisY;
-            ay.Minimum = minValue;
-            ay.Maximum = maxValue + intervalLength;
-            ay.MajorGrid.Interval = intervalLength;
-            ay.LabelStyle.Interval = intervalLength;
-            ay.IsLabelAutoFit = true;
-            ay.LabelAutoFitStyle = LabelAutoFitStyles.LabelsAngleStep30;
-            ay.ScaleView.Size = 0.9 * maxValue;
-            ay.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
-            ay.ScrollBar.BackColor = Color.FromKnownColor(KnownColor.Control);
-            ay.ScrollBar.ButtonColor = Color.FromKnownColor(KnownColor.Control);
-            ay.ScrollBar.LineColor = Color.FromKnownColor(KnownColor.Control);
+            bars[layer].FillColor = ScottPlot.Color.FromColor(colors[layer]);
         }
     }
 }

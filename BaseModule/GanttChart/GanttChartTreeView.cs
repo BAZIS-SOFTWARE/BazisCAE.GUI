@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ScottPlot.WinForms;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -15,8 +16,9 @@ namespace BaseModule.GanttChart
 
     public partial class GanttChartTreeView : UserControl
     {
-        private GanttChartModel ganttChart;
+        private GChartModel ganttChart;
         private Dictionary<TreeNode, int> mapTreeNodeToChartIndex;
+        //private PictureBox pictureBox;
 
         public GanttChartTreeView(IEnumerable<string> tasks, int timesteps)
         {
@@ -24,15 +26,20 @@ namespace BaseModule.GanttChart
 
             var start = tasks.Select(t => t.Split(':')[1].Split(' ').GetLastByIndex(2)).Min(x => double.Parse(x));
             var end = tasks.Select(t => t.Split(':')[1].Split(' ').GetLastByIndex(1)).Max(x => double.Parse(x));
-            var interval = (end - start) / timesteps;
 
-            ganttChart = new GanttChartModel(start, end, interval, tasks.Count());
+            ganttChart = new GChartModel(start, end, tasks.Count());
             mapTreeNodeToChartIndex = new Dictionary<TreeNode, int>();
 
-            ganttChart.Chart.Dock = DockStyle.Fill;
-            splitContainer.Panel2.Controls.Add(ganttChart.Chart);
-
+            //pictureBox = new PictureBox();
+            //splitContainer.Panel2.Controls.Add(pictureBox);
+            splitContainer.Panel2.AutoScroll = true;
+            splitContainer.Panel2.Controls.Add(ganttChart.FormsPlot);
             AddTasks(tasks);
+
+            //pictureBox.Dock = DockStyle.Fill;
+            //var size = pictureBox.Size;
+            ganttChart.Refresh();
+            //pictureBox.Image = ganttChart.GetImage(pictureBox.Width, pictureBox.Height);
         }
 
         private void AddTasks(IEnumerable<string> tasks)
@@ -40,22 +47,23 @@ namespace BaseModule.GanttChart
             var chartLayer = 1;
             foreach(var task in tasks)
             {
-                var dataKind = task.Split(':')[0];
+                var taskType = task.Split(':')[0].Trim();
                 var description = task.Split(':')[1];
 
-                if (!treeView.Nodes.ContainsKey(dataKind))
+                if (!treeView.Nodes.ContainsKey(taskType))
                 {
-                    var groupNode = treeView.Nodes.Add(dataKind, dataKind);
+                    var groupNode = treeView.Nodes.Add(taskType, taskType);
                     groupNode.Checked = true;
                 }
-                var parent = treeView.Nodes[dataKind];
+                var parent = treeView.Nodes[taskType];
                 var node = parent.Nodes.Add(description);
-                mapTreeNodeToChartIndex.Add(node, chartLayer);
                 node.Checked = true;
+                mapTreeNodeToChartIndex.Add(node, chartLayer);
 
                 var start = double.Parse(description.Split(' ').GetLastByIndex(2));
                 var end = double.Parse(description.Split(' ').GetLastByIndex(1));
-                ganttChart.AddTask(start, end, chartLayer, dataKind, MapTaskToColor(dataKind), description);
+                ganttChart.AddTask(start, end, chartLayer, taskType, MapTaskToColor(taskType));
+
                 chartLayer++;
             }
         }
@@ -77,9 +85,18 @@ namespace BaseModule.GanttChart
         {
             if (!(sender is TreeView treeView))
                 return;
+            
             if (mapTreeNodeToChartIndex.TryGetValue(e.Node, out var layer))
             {
-                ganttChart.InverseBarColor(layer);
+                if (e.Node.Checked)
+                {
+                    ganttChart.ShowTask(layer);
+                }
+                else
+                {
+                    ganttChart.HideTask(layer);
+                }
+                ganttChart.Refresh();
             }
             else
             {

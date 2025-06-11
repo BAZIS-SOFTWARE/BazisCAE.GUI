@@ -1024,7 +1024,7 @@ namespace BazisGUI
                 return;
             }
             var tasks = taskData.Select(t => t.ToString());
-            var ganttContol = new GanttChartTreeView(tasks, 10);
+            var ganttContol = new GanttChartTreeView(tasks, 10) { Dock = DockStyle.Fill };
             ganttDiagramForm = new Form
             {
                 ClientSize = new Size(850, 600),
