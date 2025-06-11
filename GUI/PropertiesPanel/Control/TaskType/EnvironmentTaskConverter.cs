@@ -26,7 +26,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                     { "Температура среды", _media.TemperatureValue.ToString() },
                     { "Старт, сек.", _media.StartTime.ToString() },
                     { "Стоп, сек.", _media.StopTime.ToString() },
-                    { "Траектория(default)", _media.LocalFrame?.ToString() }
+                    { "Траектория(default)", _media.FrameFunction?.LocalFrame?.ToString() }
                 };
             }
             else
@@ -39,7 +39,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                     _media.TemperatureFunc == "*" ? _media.TemperatureValue.ToString() : _media.TemperatureFunc);
                 data.Add("Старт, сек.", _media.StartTime.ToString());
                 data.Add("Стоп, сек.", _media.StopTime.ToString());
-                data.Add("Траектория(default)", _media.LocalFrame?.ToString());
+                data.Add("Траектория(default)", _media.FrameFunction.LocalFrame?.ToString());
             }
         }
 

@@ -23,7 +23,7 @@ namespace BaseModule.GanttChart
             InitializeComponent();
 
             var start = tasks.Select(t => t.Split(':')[1].Split(' ').GetLastByIndex(2)).Min(x => double.Parse(x));
-            var end = tasks.Select(t => t.Split(' ')[1].Split(' ').GetLastByIndex(1)).Max(x => double.Parse(x));
+            var end = tasks.Select(t => t.Split(':')[1].Split(' ').GetLastByIndex(1)).Max(x => double.Parse(x));
             var interval = (end - start) / timesteps;
 
             ganttChart = new GanttChartModel(start, end, interval, tasks.Count());
