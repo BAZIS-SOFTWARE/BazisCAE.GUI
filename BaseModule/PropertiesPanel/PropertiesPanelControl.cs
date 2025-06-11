@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using UserControlsEx;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BaseModule.PropertiesPanel
 {
@@ -21,14 +23,14 @@ namespace BaseModule.PropertiesPanel
         private string _oldValue;
         private bool _isValid;
         private List<RowProperty> _rowProperties;
-        private ComboBox _overlayComboBox = new ComboBox();
+        private System.Windows.Forms.ComboBox _overlayComboBox = new System.Windows.Forms.ComboBox();
         private int _currentComboRowIndex;
         private int _currentComboColumnIndex = 1;
         private string _enteredValue = string.Empty;
 
         [Category("General")]
         [Description("Set up color gradient")]
-        public Color UpColor { get; set; } = Color.Silver;
+        public Color UpColor { get; set; } = Color.WhiteSmoke;
 
         [Category("General")]
         [Description("Set down color gradient")]
@@ -167,6 +169,18 @@ namespace BaseModule.PropertiesPanel
         private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             /*Заглушка*/
+        }
+
+        private void PropertyPanel_Paint(object sender, PaintEventArgs e)
+        {
+            var loc_y = dataGridView1.Location.Y;
+
+            ComponentsPainter.PaintGradientRectangle(e.Graphics, new Point(0, 0), Width, loc_y, UpColor, DownColor);
+
+            var locRect = new Point(Width - 15, loc_y / 2 - 4);
+            ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
+
+            e.Graphics.DrawString(HeaderName, ComponentsPainter.Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
         }
 
         #region [OverlayComboBox Logic (to be moved) ]
