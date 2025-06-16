@@ -247,7 +247,7 @@ namespace BazisGUI
                 taskAdv.HideDataEvent += TaskAdvisor_HideDataEvent;
                 taskAdv.ShowDataEvent += (ar1, ar2) => { TaskAdvisor_ShowData(taskData, ar2); };
                 taskAdv.ChangeDataEvent += (ar1,ar2) => { TaskAdvisor_ChangeData(taskData,ar2); };
-                taskAdv.StopComputationEvent += TaskAdv_StopComputationEvent;
+            //    taskAdv.StopComputationEvent += TaskAdv_StopComputationEvent;
                 taskAdv.Select2DAxiEvent += (ar1,ar2) => { TaskAdvisor_ChangeTaskType(taskData,ar2); };
                 taskAdv.Select2DPlaneEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };
                 taskAdv.Select3DEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };
@@ -1051,7 +1051,7 @@ namespace BazisGUI
             }
         }
 
-        private void AddPhysicalData(object sender, EventArgs eventArgs)
+        public void AddPhysicalData(IGeneralData generalData,IModelData modelData, string dataType)
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
             var generalForm = new Form
