@@ -302,26 +302,26 @@ namespace TaskModule.WeldingModule.WeldingTypeControls
                 SpecifyFunctionAreaEvent?.Invoke("Нагрев", dataGridView.SelectedRows[count - 1].Index);
         }
 
-        public void SetWeldingKind(WeldingKind weldingKind)
-        {
-            WeldContainerControl wcc;
-            if (weldingKind == WeldingKind.ARC)
-                wcc = new ArcWeldingControl() { Dock = DockStyle.Fill};
+        //public void SetWeldingKind(WeldingKind weldingKind)
+        //{
+        //    WeldContainerControl wcc;
+        //    if (weldingKind == WeldingKind.ARC)
+        //        wcc = new ArcWeldingControl() { Dock = DockStyle.Fill};
 
-            else if (weldingKind == WeldingKind.FrictionStearing)
-                wcc = new FSWeldingControl() { Dock = DockStyle.Fill };
+        //    else if (weldingKind == WeldingKind.FrictionStearing)
+        //        wcc = new FSWeldingControl() { Dock = DockStyle.Fill };
 
-            else
-                wcc = new LWeldingControl() { Dock = DockStyle.Fill };
+        //    else
+        //        wcc = new LWeldingControl() { Dock = DockStyle.Fill };
 
 
-            // TO DO небольшие костыли, потом улучшим...
-            grbWeldRegime.Height = wcc.Height + TextRenderer.MeasureText(grbWeldRegime.Text,grbWeldRegime.Font).Height + 10;
-            grbWeldRegime.Padding = new Padding(3,0,3,3);
-            grbWeldRegime.Controls.Clear();
-            grbWeldRegime.Controls.Add(wcc);
-            grbWeldRegime.IsExpanded = false;
-        }
+        //    // TO DO небольшие костыли, потом улучшим...
+        //    grbWeldRegime.Height = wcc.Height + TextRenderer.MeasureText(grbWeldRegime.Text,grbWeldRegime.Font).Height + 10;
+        //    grbWeldRegime.Padding = new Padding(3,0,3,3);
+        //    grbWeldRegime.Controls.Clear();
+        //    grbWeldRegime.Controls.Add(wcc);
+        //    grbWeldRegime.IsExpanded = false;
+        //}
 
         public string Get_DataGridFillLine(int ind)
         {

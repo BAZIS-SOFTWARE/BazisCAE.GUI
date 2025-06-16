@@ -20,13 +20,9 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
     {
         //public ProcessType ProcessType { get; set; }
 
-        public event Action<object, Tasks,Priority> AddDataUseTaskConditionsEvent;
+        public event Action<object, Tasks,Priority> GenerateTSFEvent;
         public event Action<object, EventArgs> StopComputationEvent;
         public event Action<object, GenerateTCFEventArgs> GenerateTCFEvent;
-        public event Action<object, AddDataEventArgs> AddDataEvent;
-        public event Action<object, DeleteDataEventArgs> DeleteDataEvent;
-        public event Action<object, ChangeDataEventArgs> ChangeDataEvent;
-        public event Action<object, DeleteAllDataEventArgs> DeleteAllDataEvent;
         public event Action<object, string> EditTSFEvent;
 
         enum Column : int { kind, settings, status };
@@ -128,11 +124,6 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
                 return Priority.Высокий;
         }
 
-        public void ClearAllDataButton_Click(object sender, EventArgs e)
-        {
-            DeleteAllDataEvent?.Invoke(this, new DeleteAllDataEventArgs(DataName));
-        }
-
         //start here
         public void Set_DataGridLines(IEnumerable<string> lines)
         {
@@ -231,7 +222,7 @@ namespace BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls
 
         private void btnGenTSF_Click(object sender, EventArgs e)
         {
-            AddDataUseTaskConditionsEvent?.Invoke(this, GetTasksSet(),GetPriority());
+            GenerateTSFEvent?.Invoke(this, GetTasksSet(),GetPriority());
         }
     }
 }

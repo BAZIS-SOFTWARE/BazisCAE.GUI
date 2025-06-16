@@ -1,17 +1,38 @@
-﻿using BaseModule.Tasks.WeldingModule;
+﻿using BaseModule.Console;
+using BaseModule.Navigator;
+using BaseModule.Results.Animation;
+using BaseModule.Results.ScaleControl;
+using BaseModule.SceenControls;
+using BaseModule.Tasks.BasicAdvisorControls.Events;
+using BaseModule.Tasks.WeldingModule;
+using BazisGUI.Extensions;
 using BazisGUI.Properties;
 using BazisGUI.SettingsControls;
+using BazisGUI.Utilities;
 using ClientGUI;
 using ClientLogic;
+using Geometry;
 using LicenseInfo;
 using MathNet.Numerics.LinearAlgebra;
 using Model;
+using Model.GeometryObjects;
 using Model.Interfaces;
+using Model.Interfaces.MeshObjects;
+using Model.Interfaces.ObjectsCollections;
+using Model.MeshObjects;
 using ModelController.GmshController;
+using ModelController.ModelScenePresentator;
+using ModelControllerInterfaces;
 using Newtonsoft.Json;
 using PostProc;
 using PreProc.Interfaces;
 using Project;
+using Project.Results;
+using Project.Tasks.Functions;
+using Project.Tasks;
+using PropertiesCalculator.FunctionData;
+using PropertiesCalculator.MaterialData;
+using Scene;
 using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -20,10 +41,21 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Numerics;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using UserControlsEx;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Project.Interfaces.Tasks;
+using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
+using System.Threading.Tasks;
+using Model.GroupsData;
+using Project.Tasks.FrameCreators;
+using System.Runtime.InteropServices.ComTypes;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace BazisGUI
@@ -39,7 +71,7 @@ namespace BazisGUI
         GmshController gmshController;
         IODataController dataController = new IODataController();
         PostProcController resultsController = new PostProcController();
-        PreProc.PreProc preProc = new PreProc.PreProc();
+ 
         ClientController serverConnection;
 
         public ToolStripPage ModulePage
@@ -99,7 +131,7 @@ namespace BazisGUI
 
                     project = dataController.CreateNewProject(path,name);
                     project.Load();
-                    modelController = new ModelController.ModelController(project.ModelData);
+                    modelController = new ModelController.ModelController();
                 }
                 if(args.Contains("-res"))
                 {
@@ -134,7 +166,7 @@ namespace BazisGUI
                     var name = "new_Project.bpf";
 
                     project = dataController.CreateNewProject(path, name);
-                    modelController = new ModelController.ModelController(project.ModelData);
+                    modelController = new ModelController.ModelController();
                     dataController.UpdateGeometry(gmshController, project, ObjType.Точка);
                     dataController.UpdateGeometry(gmshController, project, ObjType.Кривая);
                 }
@@ -238,8 +270,6 @@ namespace BazisGUI
             //Important to see in future
 
             //modelController = new ModelController.ModelController(project.ModelData);
-            newModule.BasePage.SetGeneralData(project.GeneralData);
-            newModule.BasePage.ScenePage.SetModelController(modelController);
 
             AddModule(newModule);
 
@@ -348,6 +378,7 @@ namespace BazisGUI
 
         private ToolStripPage CreateModule(string moduleName)
         {
+            ToolStripPage page;
             if (moduleName == "Weld" | moduleName == "HeatTreatment")
             {
                 TaskPage taskPage;
@@ -356,42 +387,852 @@ namespace BazisGUI
                 else
                     taskPage = new HeatTreatmentPage() { Dock = DockStyle.Fill, Name = moduleName };
 
-                taskPage.SetTaskData(project.TaskData);
-                taskPage.SetPreProc(preProc);
-
                 taskPage.SolverPath = settingsConfig.SolverPath;
-                taskPage.NeedSaveProjectEvent += TaskPage_NeedSaveProjectEvent;
-
-                return taskPage;
+                taskPage.SelectPhysicalDataEvent += TaskPage_SelectPhysicalDataEvent;
+                taskPage.CreatePhysicalDataEvent += TaskPage_CreateTaskDataEvent;
+                taskPage.DeleteAllPhysicalDataEvent += TaskPage_DeleteAllTaskDataEvent;
+                taskPage.ShowGantChartEvent += TaskPage_ShowGantChartEvent;
+                taskPage.AddPhysicalDataEvent += TaskPage_AddPhysicalDataEvent;
+                taskPage.GenerateTSFEvent += TaskPage_GenerateTSFEvent;
+                taskPage.GenerateTCFEvent += TaskPage_GenerateTCFEvent;
+                taskPage.EditTSFEvent += TaskPage_EditTSFEvent;
+                taskPage.StopComputationEvent += TaskPage_StopComputationEvent;
+                page = taskPage;
+                //return taskPage;
             }
 
             else if (moduleName == "Result")
             {
                 resultsMenuItem.Visible = true;
                 var resPage = new ResultsPage() { Dock = DockStyle.Fill, Name = moduleName};
-                resPage.SetResultsController(resultsController);
+            
                 resPage.PresentResultsInfo(project.ResultDB);
-                return resPage;
+                resPage.RemoveResultsEvent += (object arg) => { resPage.RemoveResults(project.ModelData); };
+                resPage.HideResultsEvent += (object arg) => { resPage.HideResults(project.ModelData); };
+                resPage.ShowResultsEvent += (object arg1, Result arg2, int arg3) =>
+                { 
+                    resPage.ShowResults(project.GeneralData, project.ModelData, arg2, arg3); 
+                };
+
+                resPage.CreateGIFAnimationEvent += (object arg1, CreateAnimationEventArgs arg2) =>
+                {
+                    resPage.CreateGIFAnimation(project.GeneralData, project.ModelData, arg2);
+                };
+                page = resPage;
             }
 
             else
             {
                 meshMenuItem.Visible = true;
                 var modelPage = new ModelPage() { Dock = DockStyle.Fill, Name = moduleName };
-                return modelPage;
+                page = modelPage;
             }
 
+            page.DeleteObjectsEvent += Page_DeleteObjectsEvent;
+            page.ChangeAllGroupsViewEvent += Page_ShowAllGroupsEvent;
+            page.DeleteAllGroupsEvent += Page_DeleteAllGroupsEvent;
+            page.DeleteGroupEvent += Page_DeleteGroupEvent;
+            page.SelectObjectsEvent += Page_SelectObjectsEvent;
+            page.ShowInsideObjectsEvent += Page_ShowInsideObjectsEvent;
+            page.HideInsideObjectsEvent += Page_HideInsideObjectsEvent;
+            page.ChangeViewModeObjectsEvent += Page_ChangeViewModeObjectsEvent;
+            page.CreateSectionSurfacesFromCoordsEvent += Page_CreateSectionSurfacesFromCoordsEvent;
+            page.DistancePointToPointEvent += Page_DistancePointToPointEvent;
+            page.DistancePointToPlaneEvent += Page_DistancePointToPlaneEvent;
+            page.CreatePathAsyncEvent += Page_CreatePathAsyncEvent;
+            page.CalcSquareEvent += Page_CalcSquareEvent;
+            page.CalcVolumeEvent += Page_CalcVolumeEvent;
+            page.SelectNodeInPlaneEvent += Page_SelectNodeInPlaneEvent;
+            page.SelectE2DInPlaneEvent += Page_SelectE2DInPlaneEvent;
+            page.SelectInDirectionEvent += Page_SelectInDirectionEvent;
+            page.MakeScreenShotEvent += Page_MakeScreenShotEvent;
+            page.ShowMeshCountorsEvent += Page_ShowMeshCountorsEvent;
+            page.ShowMeshNormalsEvent += Page_ShowMeshNormalsEvent;
+            page.FindFreeNodesEvent += Page_FindFreeNodesEvent;
+            page.ChangeGroupViewEvent += Page_ShowGroupEvent;
+            page.ChangeSetViewStateEvent += Page_ChangeSetViewStateEvent;
+            page.EditGroupEvent += Page_EditGroupEvent;
+            page.SelectGroupEvent += Page_SelectGroupEvent;
+            page.SetBackColorToAllObjectsEvent += Page_SetBackColorToAllObjectsEvent;
+            page.HideSelectedObjectsEvent += Page_HideSelectedObjectsEvent;
+            page.CreateSectionSurfacesFromNodesEvent += Page_CreateSectionSurfacesFromNodesEvent;
+            page.CreatedMeshGroupEvent += Page_CreatedMeshGroupEvent;
+            page.DeleteSelectedObjectsEvent += Page_DeleteSelectedObjectsEvent;
+            page.ChangedGroupNameEvent += Page_ChangedGroupNameEvent;
+            page.InfoGroupEvent += Page_InfoGroupEvent;
+            page.ChangeAllObjsViewEvent += Page_ChangeAllObjsViewEvent;
+            page.ShowGroupWithNodesEvent += Page_ShowGroupWithNodesEvent;
+            page.DelAllObjectsEvent += Page_DelAllObjectsEvent;
+            page.SelectSetEvent += Page_SelectSetEvent;
+            page.UpdateNavigatorEvent += Page_UpdateNavigatorEvent;
 
+            return page;
         }
 
-        private void TaskPage_NeedSaveProjectEvent(object sender)
+        private void TaskPage_StopComputationEvent(object arg1, EventArgs arg2)
         {
+            var page = arg1 as TaskPage;
+            page.StopComputation();
+        }
+
+        private void TaskPage_EditTSFEvent(object arg1, string arg2)
+        {
+            var page = arg1 as TaskPage;
+            page.EditTSFFile(arg2);
+        }
+
+        private void TaskPage_GenerateTCFEvent(object arg1, GenerateTCFEventArgs arg2)
+        {
+            var page = arg1 as TaskPage;
             project.Save();
+            page.BasePage.ConsoleControl.PrintInfo("Проект сохранен в " + project.GeneralData.Path, Color.Black);
+            page.GenerateAndSolveTCFfile(project.GeneralData, arg2.ToList());
+        }
 
-            var taskPage = (sender as TaskPage);
-            taskPage.BasePage.ConsoleControl.PrintInfo("Проект сохранен в " + project.GeneralData.Path, Color.Black);
+        private void TaskPage_GenerateTSFEvent(object arg1, Tasks arg2, Priority arg3)
+        {
+            var page = arg1 as TaskPage;
+            page.GenerateTSFFiles(project,arg2,arg3);
+        }
 
-            taskPage.TaskAdvisor_StartComputationEvent();
+        private void TaskPage_AddPhysicalDataEvent(object obj,string dataType)
+        {
+            var page = obj as TaskPage;
+            page.AddPhysicalData(project, dataType);
+        }
+
+        private void TaskPage_ShowGantChartEvent(object obj)
+        {
+            var page = obj as TaskPage;
+            page.ShowGantChart(project.TaskData.Select(x => x.ToString()));
+        }
+
+        private void TaskPage_DeleteAllTaskDataEvent(object obj)
+        {
+            project.TaskData?.Clear();
+            var page = obj as TaskPage;
+            page.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
+        }
+
+        private void TaskPage_CreateTaskDataEvent(object arg1, AddDataEventArgs arg2)
+        {
+            var page = arg1 as TaskPage;
+            page.Navigator_AddData(project, arg2);
+        }       
+
+        private void Page_UpdateNavigatorEvent(object obj)
+        {
+            var page = obj as ToolStripPage;
+            page.BasePage.PresentProjectOnTree(project.GeneralData, project.ModelData);
+
+            if (obj is TaskPage taskPage)
+                taskPage.PresentTaskDataOnTree(project.GeneralData, project.TaskData);         
+        }
+
+        private void TaskPage_SelectPhysicalDataEvent(object arg1, TreeNode arg2)
+        {
+            var page = arg1 as TaskPage;
+
+            var info = arg2.Text;
+            var data = project.TaskData.First(x => x.ToString() == info);
+
+            page.BasePage.PanelProvider.AllGroup = project.ModelData.GroupData.ToList();
+
+            page.BasePage.PanelProvider._funcDBNames = 
+                page.GetDataBase<FunctionDBData>(project.GeneralData.Functions, project.GeneralData.Path).Keys.ToList();
+            page.BasePage.PanelProvider._matDBNames =
+                page.GetDataBase<MaterialDBData>(project.GeneralData.Materials, project.GeneralData.Path).Keys.ToList();
+
+            page.BasePage.PanelProvider.ShowPropertiesPanel(data);
+
+            var scenePage = page.BasePage.ScenePage;
+            scenePage.SceneControl.HideAllGeometryObjs();
+
+            if (data.Direction != Direction.None)
+                page.DisplayDirection(data.StartTime, data, data.Group);
+
+            project.ModelData.ObjectData.SetBackColor(data.Group.ObjType);
+            var pres = scenePage.CreateObjectsPresentor(project.ModelData, data.Group.ObjType);
+
+            scenePage.SetObjectsSceneAttribute(pres, data.Group.ObjType.ToString(), "цвет");
+
+            foreach (var iobj in data.Group)
+                iobj.Color = settingsConfig.SelectGroupColor;
+
+            pres = scenePage.CreateObjectsPresentor(project.ModelData, data.Group.ObjType);
+            scenePage.SetObjectsSceneAttribute(pres, data.Group.ObjType.ToString(), "цвет");
+
+            scenePage.SceneControl.DisplayObjects();
+        }
+
+        private void Page_SelectSetEvent(object arg1, ObjType arg2, string arg3)
+        {
+            var page = arg1 as ToolStripPage;
+
+            var set = project.ModelData.ObjectData.GetSetsInfo(arg2).First(x => x.Name == arg3);
+
+            if (set != null)
+                page.BasePage.PanelProvider.ShowPropertiesPanel(set);
+        }
+
+        private void Page_DelAllObjectsEvent(object obj)
+        {
+            var page = obj as ToolStripPage;
+            var navigator = page.BasePage.NavigatorControl;
+            var scenePage = page.BasePage.ScenePage;
+
+            project.ModelData.ObjectData.ClearAll();
+            project.ModelData.GroupData.Clear();
+
+            var modelInfo = Converters.ConvertToNavigatorModelInfo(project.ModelData);
+            navigator.PresentModelInfo(modelInfo);
+
+            scenePage.ClearAllDataOnScene();
+            scenePage.SceneControl.DisplayObjects();
+        }
+
+        private void Page_ShowGroupWithNodesEvent(object arg1, int arg2)
+        {
+            var page = arg1 as ToolStripPage;
+            page.BasePage.ShowGroupWithNodes(project.ModelData, arg2);
+        }
+
+        private void Page_ChangeAllObjsViewEvent(object arg1, bool arg2)
+        {
+            var page = arg1 as ToolStripPage;
+            var navigator = page.BasePage.NavigatorControl;
+
+            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
+            {
+                foreach (var setInfo in project.ModelData.ObjectData.GetSetsInfo(item))
+                {
+                    var nodeType = Converters.ConvertToNavigatorNodeType(setInfo.ObjType);
+
+                    var imgIndex = navigator.GetObjectImageIndex(nodeType);
+                    imgIndex = imgIndex == 3 ? 5 : 6;
+
+
+                    var root = navigator.TreeView.Nodes["объекты"].Nodes[nodeType.ToString()];
+                    var child = navigator.SearchChildNode(root, setInfo.ObjType.ToString());
+                    if (child != null)
+                    {
+                        child.ImageIndex = imgIndex;
+                        child.SelectedImageIndex = imgIndex;
+                    }
+                }
+            }
+        }
+
+        private void Page_InfoGroupEvent(object arg1, int arg2)
+        {
+            var page = arg1 as ToolStripPage;
+            var console = page.BasePage.ConsoleControl;
+
+            var group = project.ModelData.GroupData[arg2];
+            console.PrintInfo(group.ToString(), Color.Black);
+        }
+
+        private void Page_ChangedGroupNameEvent(object arg1, string arg2, string arg3)
+        {
+            var page = arg1 as ToolStripPage;
+            var navigator = page.BasePage.NavigatorControl;
+
+            var gr = project.ModelData.GroupData.Find(arg2);
+            if (gr != null)
+            {
+                gr.Name = arg3;
+                page.BasePage.PresentProjectOnTree(project.GeneralData,project.ModelData);
+            }
+        }
+
+        private void Page_DeleteSelectedObjectsEvent(object arg1, string arg2)
+        {
+            var page = arg1 as ToolStripPage;
+            var navigator = page.BasePage.NavigatorControl;
+
+            TreeNode searchNode;
+            if (navigator.TrySearchNode("объекты", out searchNode))
+                foreach (TreeNode item in searchNode.Nodes)
+                    item.Nodes.Clear();
+
+            var modelInfo = Converters.ConvertToNavigatorModelInfo(project.ModelData);
+            navigator.PresentModelInfo(modelInfo);
+        }
+
+        private void Page_CreatedMeshGroupEvent(object obj,string objTypeStr)
+        {
+            var page = obj as ToolStripPage;
+            var scenePage = page.BasePage.ScenePage;
+            var consoleControl = page.BasePage.ConsoleControl;
+            var navigator = page.BasePage.NavigatorControl;
+
+            var selObjs = ObjectsProvider.SelectorProvider(project.ModelData.ObjectData, objTypeStr).
+                Where(x => x.Color == settingsConfig.SelectObjectColor);
+
+            if (selObjs.Count() > 0)
+            {
+                var objType = objTypeStr.ToObjType();
+                var grps = project.ModelData.GroupData.FindMany(objType);
+
+                var counter = 1;
+                var name = $"{objTypeStr}_{grps.Count() + counter}";
+
+                while (true)
+                {
+                    if (project.ModelData.GroupData.Find(name) != null)
+                    {
+                        counter++;
+                        name = $"{objTypeStr}_{grps.Count() + counter}";
+                    }
+                    else break;
+                }
+
+                var group = project.ModelData.GroupData.Create(name, objType);
+
+                group.AddRange(selObjs);
+                project.ModelData.GroupData.Add(group);
+
+                consoleControl.PrintInfo(string.Format("Создана новая группа {0}", group.Name), Color.Black);
+
+                var text = $"{group.Name}";
+                var nodeType = Converters.ConvertToNavigatorNodeType(objType);
+
+                var imgIndex = navigator.GetObjectImageIndex(nodeType);
+
+                var child = new TreeNode(text, imgIndex, imgIndex)
+                {
+                    Tag = "5.1",
+                    Name = objType.ToString()
+                };
+                navigator.SetContextMenu("группыОбъектов", child);
+                navigator.TreeView.Nodes["группыОбъектов"].Nodes.Add(child);
+            }
+        }
+
+        private void Page_HideSelectedObjectsEvent(object obj, string objTypeStr)
+        {
+            var page = obj as ToolStripPage;
+            var scenePage = page.BasePage.ScenePage;
+
+            var selObjs = ObjectsProvider.SelectorProvider(project.ModelData.ObjectData, objTypeStr).
+    Where(x => x.Color == settingsConfig.SelectObjectColor);
+
+            foreach (var selObj in selObjs)
+                selObj.ViewState = false;
+            scenePage.PresentModelObjectsOnScene(project.ModelData, objTypeStr);
+            scenePage.SceneControl.DisplayObjects();
+        }
+
+        private void Page_SetBackColorToAllObjectsEvent(object obj)
+        {
+            var page = obj as ToolStripPage;
+            var scenePage = page.BasePage.ScenePage;
+
+            foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
+            {
+                project.ModelData.ObjectData.SetBackColor(type);
+                var pres = scenePage.CreateObjectsPresentor(project.ModelData, type);
+                scenePage.SetObjectsSceneAttribute(pres, type.ToString(), "цвет");
+            }
+                
+            scenePage.SceneControl.DisplayObjects();
+        }
+
+        private void Page_SelectGroupEvent(object arg1, string arg2)
+        {
+            var page = arg1 as ToolStripPage;
+            var scenePage = page.BasePage.ScenePage;
+
+            var group = project.ModelData.GroupData.Find(arg2);
+
+            project.ModelData.ObjectData.SetBackColor(group.ObjType);
+            var pres = scenePage.CreateObjectsPresentor(project.ModelData, group.ObjType);
+
+            scenePage.SetObjectsSceneAttribute(pres, group.ObjType.ToString(), "цвет");
+
+            foreach (var iobj in group)
+                iobj.Color = settingsConfig.SelectGroupColor;
+
+            pres = scenePage.CreateObjectsPresentor(project.ModelData, group.ObjType);
+            scenePage.SetObjectsSceneAttribute(pres,group.ObjType.ToString(), "цвет");
+
+            scenePage.SceneControl.DisplayObjects();
+
+            page.BasePage.PanelProvider.ShowPropertiesPanel(group);
+            
+        }
+
+        private async void Page_EditGroupEvent(object arg1, int arg2)
+        {
+            var page = arg1 as ToolStripPage;
+            var scenePage = page.BasePage.ScenePage;
+
+            var group = project.ModelData.GroupData[arg2];
+            //scenePage.SelectedObjects = group.ObjType.ToString();
+
+            foreach (var iobj in group)
+                iobj.Color = scenePage.SceneControl.SelectionColor;
+
+            var pres = scenePage.CreateObjectsPresentor(project.ModelData, group.ObjType);
+            scenePage.SetObjectsSceneAttribute(pres,group.ObjType.ToString(), "цвет");
+
+            scenePage.SceneControl.DisplayObjects();
+
+            await page.BasePage.EditGroupAsync(group);
+        }
+
+        private void Page_ChangeSetViewStateEvent(object arg1, ObjType arg2, string arg3, bool arg4)
+        {
+            var page = arg1 as ToolStripPage;
+            var scenePage = page.BasePage.ScenePage;
+
+            foreach (var modelObject in project.ModelData.ObjectData.GetObjects(arg2, arg3))
+                modelObject.ViewState = arg4;
+
+            scenePage.SceneControl.DeleteVBObjects(arg2.ToString());
+            var pres = scenePage.CreateObjectsPresentor(project.ModelData, arg2);
+            scenePage.CreateObjectsOnScene(arg2.ToString(), pres);
+            scenePage.SceneControl.DisplayObjects();
+        }
+
+        private void Page_ShowGroupEvent(object arg1, int arg2, bool arg3)
+        {
+            var page = arg1 as ToolStripPage;
+            var scenePage = page.BasePage.ScenePage;
+            try
+            {
+                var group = project.ModelData.GroupData[arg2];
+
+                foreach (var iobj in group)
+                    iobj.ViewState = arg3;
+
+                var vbobj = scenePage.SceneControl.FindVBObj(group.ObjType.ToString());
+                if (vbobj == null)
+                    throw new Exception($"Объект {group.ObjType} не загружен на сцену!");
+                var viewMode = vbobj.ViewMode;
+
+                scenePage.SceneControl.DeleteVBObjects(group.ObjType.ToString());
+                var pres = scenePage.CreateObjectsPresentor(project.ModelData, group.ObjType);
+                scenePage.CreateObjectsOnScene(group.ObjType.ToString(), pres);
+                scenePage.SceneControl.ChangeViewModeVBObjects(group.ObjType.ToString(), viewMode);
+
+                scenePage.SceneControl.DisplayObjects();
+
+            }
+            catch (Exception ex)
+            {
+                page.BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            }
+        }
+
+        private void Page_FindFreeNodesEvent(object obj)
+        {
+            var freeNodes = modelController.FreeNodesFinder.Find(project.ModelData.ObjectData);
+            var page = obj as ToolStripPage;
+            var scenePage = page.BasePage.ScenePage;
+            Invoke(new Action(() =>
+            {
+                page.BasePage.ConsoleControl.PrintInfo($"Найдено {freeNodes.Count()} свободных узлов", Color.Black);
+
+                scenePage.SceneControl.DeleteAllVBObjects();
+
+                foreach (var freeNode in freeNodes)
+                    project.ModelData.ObjectData.Find(ObjType.Узел, freeNode).ViewState = true;
+
+                var objsTypeStr = ObjType.Узел.ToString();
+                scenePage.SceneControl.DeleteVBObjects(objsTypeStr);
+                scenePage.CreateObjectsOnScene(objsTypeStr,
+                scenePage.CreateObjectsPresentor(project.ModelData,ObjType.Узел));
+
+                scenePage.SceneControl.DisplayObjects();
+            }));
+        }
+
+        private void Page_ShowMeshNormalsEvent(object obj)
+        {
+            var page = obj as ToolStripPage;
+            var scenePage = page.BasePage.ScenePage;
+
+            var surfElems = project.ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement);
+            if (surfElems.Count() > 0)
+            {
+                var elemsNormals = modelController.NormalCalculator.CalcElemsNormals(surfElems.Select(x => x as ISurfaceElement));
+
+                var linePresenter = scenePage.PresentersCreator.CreateLineObjectsPresenter(elemsNormals);
+
+                scenePage.CreateObjectsOnScene("Normals", linePresenter);
+                scenePage.SceneControl.DisplayObjects();
+            }
+            else
+                throw new Exception("Для отображения нормалей модели не заданы объекты типа \"Элемент\"," +
+                    "возможно вы пользуетесь модулем Геометрии");
+        }
+
+        private void Page_ShowMeshCountorsEvent(object obj)
+        {
+            var page = obj as ToolStripPage;
+            var scenePage = page.BasePage.ScenePage;
+
+            var surfElems = project.ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement).
+    Select(x => (ISurfaceElement)x);
+            var linesNodes = modelController.BoundaryEdgesFinder.Find(surfElems);
+            var edges = modelController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes, project.ModelData);
+            var linePresenter = scenePage.PresentersCreator.CreateLineObjectsPresenter(edges);
+
+            scenePage.CreateObjectsOnScene("Boundary", linePresenter);
+            scenePage.SceneControl.DisplayObjects();
+        }
+
+        private void Page_MakeScreenShotEvent(object obj)
+        {
+            var page = obj as ToolStripPage;
+            var generalData = project.GeneralData;
+            page.BasePage.CreateScreenShot(generalData.Path + "\\screenShot.bmp");
+            page.BasePage.ConsoleControl.PrintInfo($"Сделан снимок экрана {generalData.Path}\\screenShot.bmp", Color.Black);
+        }
+
+        private void Page_CreateSectionSurfacesFromNodesEvent(object obj)
+        {
+            var page = obj as ToolStripPage;
+            var scenePage = page.BasePage.ScenePage;
+
+            var objs = project.ModelData.ObjectData.GetObjects(ObjType.Узел);
+            var selObjs = objs.Where(x => x.Color == scenePage.SceneControl.SelectionColor).ToArray();
+            if (selObjs.Length < 3)
+            {
+                page.BasePage.ConsoleControl.PrintInfo("Ошибка, выбрано неверное количество узлов", Color.Red);
+                return;
+            }
+
+            var mP0 = selObjs[0].CalcCentr();
+            var mP1 = selObjs[1].CalcCentr();
+            var mP2 = selObjs[2].CalcCentr();
+
+            var p0 = new Vector3(mP0._x, mP0._y, mP0._z);
+            var p1 = new Vector3(mP1._x, mP1._y, mP1._z);
+            var p2 = new Vector3(mP2._x, mP2._y, mP2._z);
+
+            var elems3D = project.ModelData.ObjectData.E3DCollection.GetObjects();
+
+            var plane = page.CreateSectionPlane(p0, p1, p2);
+
+            var surface = modelController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
+            var presenter = scenePage.PresentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
+            scenePage.PresentCrossSection(presenter);
+        }
+
+        private void Page_SelectInDirectionEvent(object arg1, ObjType arg2, float angle, bool reverse)
+        {
+            var page = arg1 as ToolStripPage;
+            var scenePage = page.BasePage.ScenePage;
+
+            var selObjs = project.ModelData.ObjectData.GetObjects(arg2).
+    Where(x => x.Color == scenePage.SceneControl.SelectionColor).ToArray();
+            if (selObjs?.Count() > 1)
+            {
+                if (!reverse)
+                {
+                    modelController.SelectionHelper.SelectNodeInDirection(project.ModelData.ObjectData,
+                        angle, selObjs.Skip(1).First().Number, selObjs.First().Number, scenePage.SceneControl.SelectionColor);
+                }
+
+                else
+                {
+                    modelController.SelectionHelper.SelectNodeInDirection(project.ModelData.ObjectData,
+                        angle, selObjs.First().Number, selObjs.Skip(1).First().Number, scenePage.SceneControl.SelectionColor);
+                }
+
+                var pres = scenePage.CreateObjectsPresentor(project.ModelData, arg2);
+                scenePage.SetObjectsSceneAttribute(pres, arg2.ToString(), "цвет");
+
+                scenePage.SceneControl.DisplayObjects();
+            }
+            else
+                page.BasePage.ConsoleControl.PrintInfo("Выбранных объектов должно быть больше двух", Color.Red);
+        }
+
+        private void Page_SelectE2DInPlaneEvent(object obj,float angle)
+        {
+            var page = obj as ToolStripPage;
+            var scenePage = page.BasePage.ScenePage;
+
+            var selObjs = project.ModelData.ObjectData.GetObjects(ObjType.Элемент2D).
+
+    Where(x => x.Color == scenePage.SceneControl.SelectionColor).ToArray();
+
+            if (selObjs?.Count() > 0)
+            {
+                var element = selObjs.Last();
+                modelController.SelectionHelper.SelectE2DInPlane(project.ModelData.ObjectData,
+                    angle, element.Number, scenePage.SceneControl.SelectionColor);
+                var pres = scenePage.CreateObjectsPresentor(project.ModelData, ObjType.Элемент2D);
+                scenePage.SetObjectsSceneAttribute(pres, ObjType.Элемент2D.ToString(), "цвет");
+            }
+            else page.BasePage.ConsoleControl.PrintInfo("Выберите хотя бы один элемент", Color.Red);
+        }
+
+        private void Page_SelectNodeInPlaneEvent(object obj)
+        {
+            var page = obj as ToolStripPage;
+            var scenePage = page.BasePage.ScenePage;
+
+            var selObjs = project.ModelData.ObjectData.GetObjects(ObjType.Узел).
+
+    Where(x => x.Color == scenePage.SceneControl.SelectionColor).ToArray();
+            if (selObjs?.Count() > 2)
+            {
+                var n1 = (Node)selObjs.First();
+                var n2 = (Node)selObjs.Skip(1).First();
+                var n3 = (Node)selObjs.Skip(2).First();
+
+                var plane = new Geometry.Plane(n1.Position, n2.Position, n3.Position);
+                modelController.SelectionHelper.SelectNodeInPlane(project.ModelData.ObjectData,
+                    plane, scenePage.SceneControl.SelectionColor);
+
+                var pres = scenePage.CreateObjectsPresentor(project.ModelData, ObjType.Узел);
+                scenePage.SetObjectsSceneAttribute(pres,ObjType.Узел.ToString(), "цвет");
+            }
+            else page.BasePage.ConsoleControl.PrintInfo("Не выбрано три узла", Color.Red);
+        }
+
+        private void Page_CalcVolumeEvent(object arg1, string arg2)
+        {
+            var page = arg1 as ToolStripPage;
+
+            var objs = project.ModelData.ObjectData.GetObjects(arg2.ToObjType());
+            var selObjs = objs.Where(x => x.Color == page.BasePage.ScenePage.SceneControl.SelectionColor);
+
+            var vol = 0.0f;
+            foreach (var obj in selObjs)
+            {
+                var e3DObj = (IElement3D)obj;
+                vol += (float)e3DObj.CalcVolume();
+            }
+            page.BasePage.ConsoleControl.PrintInfo(string.Format("Объем : {0}", vol), Color.Black);
+        }
+
+        private void Page_CalcSquareEvent(object arg1, string arg2)
+        {
+            var page = arg1 as ToolStripPage;
+
+            var objs = project.ModelData.ObjectData.GetObjects(arg2.ToObjType());
+
+            var selObjs = objs.Where(x => x.Color == page.BasePage.ScenePage.SceneControl.SelectionColor);
+            var square = 0.0;
+            foreach (var obj in selObjs)
+            {
+                var sObj = (ISquare)obj;
+                square += sObj.CalcSquare();
+            }
+            page.BasePage.ConsoleControl.PrintInfo($"Площадь : {square}", Color.Black);
+        }
+
+        private async void Page_CreatePathAsyncEvent(object obj)
+        {
+            var page = obj as ToolStripPage;
+            await page.BasePage.CreatePathAsync(project.ModelData);
+        }
+
+        private async void Page_DistancePointToPlaneEvent(object arg1, string arg2)
+        {
+            var page = arg1 as ToolStripPage;
+            var scenePage = page.BasePage.ScenePage;
+
+            var objType = arg2.ToObjType();
+            var plane = page.BasePage.CreateSurfaceAsync(project.ModelData, objType);
+            await plane;
+
+            project.ModelData.ObjectData.SetBackColor(objType);
+
+            var pres = scenePage.CreateObjectsPresentor(project.ModelData, objType);
+
+            scenePage.SetObjectsSceneAttribute(pres, arg2.ToString(), "цвет");
+            scenePage.SceneControl.DisplayObjects();
+
+            var res = page.BasePage.SelectObjectAsync(project.ModelData, objType);
+            await res;
+
+            if (res.Result is IPoint point)
+            {
+                var proj = point.Position.GetPointProectionOnPlane(plane.Result);
+                var line = new Segment3D(point.Position, proj);
+                page.BasePage.ConsoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
+                scenePage.SceneControl.DisplayDistance(line);
+                scenePage.SceneControl.DisplayObjects();
+            }
+        }
+
+        private void Page_DistancePointToPointEvent(object obj,string objTypeStr)
+        {
+            var page = obj as ToolStripPage;
+            var scenePage = page.BasePage.ScenePage;
+
+            var objType = objTypeStr.ToObjType();
+            var objs = project.ModelData.ObjectData.GetObjects(objType);
+            var color = page.BasePage.ScenePage.SceneControl.SelectionColor;
+            var selObjs = objs.Where(x => x.Color == color).ToList();
+
+            if (selObjs.Count() > 1)
+            {
+                var nodes = selObjs.Select(x => (IPoint)x);
+                var p0 = nodes.First();
+                var p1 = nodes.Last();
+                var line = new Segment3D(p0.Position, p1.Position);
+
+                page.BasePage.ConsoleControl.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
+
+                scenePage.SceneControl.DisplayDistance(line);
+                scenePage.SceneControl.DisplayObjects();
+            }
+            else page.BasePage.ConsoleControl.PrintInfo($"{objTypeStr} не выбраны", Color.Red);
+        }
+
+        private void Page_CreateSectionSurfacesFromCoordsEvent(object obj, CreatePlaneFromTextArgs arg)
+        {
+            var page = obj as ToolStripPage;
+
+            var elems3D = project.ModelData.ObjectData.E3DCollection.GetObjects();
+            var plane = page.CreateSectionPlane(arg.point1, arg.point2, arg.point3);
+
+            var surface = modelController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
+            
+            var scenePage = page.BasePage.ScenePage;
+
+            var presenter = scenePage.PresentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
+            scenePage.PresentCrossSection(presenter);
+        }
+
+        private void Page_ChangeViewModeObjectsEvent(object arg1, Model.Interfaces.ObjectsCollections.ViewMode arg2)
+        {
+            var page = arg1 as ToolStripPage;
+
+            foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Поверхность))
+                item.SetViewMode(ViewMode.LineSurface);
+            foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Элемент2D))
+                item.SetViewMode(ViewMode.LineSurface);
+            foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Элемент3D))
+                item.SetViewMode(ViewMode.LineSurface);
+
+            var vbobjs = page.BasePage.ScenePage.SceneControl.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.triangle);
+
+            foreach (var obj in vbobjs)
+                if(arg2 == ViewMode.Line)
+                    obj.ViewMode = Scene.Interfaces.ObjView.Lines;
+                else if(arg2 == ViewMode.LineSurface)
+                    obj.ViewMode = Scene.Interfaces.ObjView.LinesSurface;
+                else obj.ViewMode = Scene.Interfaces.ObjView.Surface;
+
+            page.BasePage.ScenePage.SceneControl.DisplayObjects();
+        }
+
+        private void Page_HideInsideObjectsEvent(object obj)
+        {
+            var page = obj as ToolStripPage;
+            var objs = project.ModelData.ObjectData.E3DCollection.GetObjects();
+
+            modelController.ChangeInsideSurface.HideInsideSurfaces(objs);
+
+            var scenePage = page.BasePage.ScenePage;
+            var presenter = scenePage.PresentersCreator.CreateSurfaceObjectsPresenter(objs);
+
+            page.PresentObjectsOnScene(presenter, ObjType.Элемент3D.ToString());
+            page.BasePage.ConsoleControl.PrintInfo("Скрыты внутренние объекты", Color.Black);
+        }
+
+        private void Page_ShowInsideObjectsEvent(object obj)
+        {
+            var page = obj as ToolStripPage;
+            var objs = project.ModelData.ObjectData.E3DCollection.GetObjects();
+
+            modelController.ChangeInsideSurface.ShowInsideSurfaces(objs);
+
+            var scenePage = page.BasePage.ScenePage;
+            var presenter = scenePage.PresentersCreator.CreateSurfaceObjectsPresenter(objs);
+
+            page.PresentObjectsOnScene(presenter, ObjType.Элемент3D.ToString());
+            page.BasePage.ConsoleControl.PrintInfo("Показаны все объекты", Color.Black);
+        }
+
+        private void Page_SelectObjectsEvent(object arg1, Scene.Events.SelectObjectsEventArgs arg2, string arg3)
+        {
+            var page = arg1 as ToolStripPage;
+            var objects = ObjectsProvider.SelectorProvider(project.ModelData.ObjectData, arg3);
+            var selections = page.BasePage.ScenePage.SearchObjects(objects, arg2.SelectionBox, arg2.IsSorted);
+
+            if (selections.Count > 0)
+            {
+                foreach (var obj in selections)
+                {
+                    var set = project.ModelData.ObjectData.GetSetInfo(obj.ObjType, obj.Number);
+                    if (arg2.IsSelected)
+                        obj.Color = settingsConfig.SelectObjectColor;//  page.BasePage.ScenePage.SceneControl.SelectionColor;
+                    else
+                        obj.Color = set.Color;
+                }  
+
+                page.BasePage.ScenePage.ColorObjects(project.ModelData, arg3);
+            }
+        }
+
+        private void Page_DeleteGroupEvent(object arg1, int arg2)
+        {
+            var group = project.ModelData.GroupData[arg2];
+            project.DeleteMeshGroup(group.Name);
+
+            var page = arg1 as ToolStripPage;
+
+            var modelInfo = Converters.ConvertToNavigatorModelInfo(project.ModelData);
+            page.BasePage.NavigatorControl.PresentModelInfo(modelInfo);
+
+            if (arg1 is TaskPage taskPage)
+                taskPage.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
+        }
+
+        private void Page_DeleteAllGroupsEvent(object arg1)
+        {
+            project.ModelData.GroupData.Clear();
+            project.TaskData.Clear();
+
+            var modelInfo = Converters.ConvertToNavigatorModelInfo(project.ModelData);
+            
+            var page = arg1 as ToolStripPage;
+            page.BasePage.NavigatorControl.PresentModelInfo(modelInfo);
+
+            if(arg1 is TaskPage taskPage)
+                taskPage.PresentTaskDataOnTree(project.GeneralData,project.TaskData);
+        }
+
+        private void Page_ShowAllGroupsEvent(object arg1,bool arg2)
+        {
+            var page = arg1 as ToolStripPage;
+            foreach (var group in project.ModelData.GroupData)
+            {
+                foreach (var iobj in group)
+                {
+                    iobj.ViewState = arg2;
+                }
+            }
+            page.BasePage.ScenePage.SceneControl.DeleteAllVBObjects();
+            page.BasePage.ScenePage.PresentAllModelObjectsToScene(project.ModelData);
+
+            page.BasePage.ScenePage.SceneControl.DisplayObjects();
+        }
+
+        private void Page_DeleteObjectsEvent(object arg1, ObjType arg2, string arg3)
+        {
+            var page = arg1 as ToolStripPage;
+            if (arg2 == ObjType.Точка | arg2 == ObjType.Узел)
+                project.ClearMeshCollection(arg2);
+
+            else
+                project.DeleteMeshSet(arg2, arg3);
+
+            var modelInfo = Converters.ConvertToNavigatorModelInfo(project.ModelData);
+
+            page.BasePage.NavigatorControl.PresentModelInfo(modelInfo);
+            page.BasePage.ScenePage.ClearAllDataOnScene();
+            page.BasePage.ScenePage.PresentAllModelObjectsToScene(project.ModelData);
+            page.BasePage.ScenePage.SceneControl.DisplayObjects();
         }
 
         private void CloseActivePageChildControls(string moduleName)
@@ -488,7 +1329,7 @@ namespace BazisGUI
 
             basePage.ScenePage.SceneControl.SelectionColor = Color.FromArgb(basePage.ScenePage.TransparencyValue, settingsConfig.SelectObjectColor);
             basePage.SelectionGroupColor = Color.FromArgb(basePage.ScenePage.TransparencyValue, settingsConfig.SelectGroupColor);
-            basePage.ScenePage.NodeColor = settingsConfig.NodeColor;
+            //basePage.ScenePage.NodeColor = settingsConfig.NodeColor;
             //basePage.ScenePage.E2DColor = settingsConfig.Elem2DColor;
             //basePage.ScenePage.E3DColor = settingsConfig.Elem3DColor;
 
@@ -650,8 +1491,9 @@ namespace BazisGUI
             scenePage.SceneControl.SelectionColor = ar;
 
             settings.SetNodeColorEvent += (ar) => { 
-                scenePage.NodeColor = ar;
-                scenePage.SetObjectsSceneAttribute(ObjType.Узел, "цвет");
+                //scenePage.NodeColor = ar;
+                var pres = scenePage.CreateObjectsPresentor(project.ModelData, ObjType.Узел);
+                scenePage.SetObjectsSceneAttribute(pres, ObjType.Узел.ToString(),"цвет");
                 scenePage.SceneControl.DisplayObjects();
             };
 
@@ -677,7 +1519,7 @@ namespace BazisGUI
             {
                 scenePage.SceneControl.IsBlending = ar;
                 scenePage.ClearAllDataOnScene();
-                scenePage.PresentAllModelObjectsToScene();
+                scenePage.PresentAllModelObjectsToScene(project.ModelData);
                 scenePage.SceneControl.DisplayObjects();
             };
 
@@ -705,7 +1547,7 @@ namespace BazisGUI
                 } 
                 
                 scenePage.ClearAllDataOnScene();
-                scenePage.PresentAllModelObjectsToScene();
+                scenePage.PresentAllModelObjectsToScene(project.ModelData);
                 scenePage.SceneControl.DisplayObjects();
             };
 
@@ -815,7 +1657,7 @@ namespace BazisGUI
                 lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
 
                 модулиMenuItem.Enabled = true;
-                modelController = new ModelController.ModelController(project.ModelData);
+                modelController = new ModelController.ModelController();
                 SetModule("Mesh");
                 модулиMenuItem.Image = Resources.м_34;
                 var module = ModulePage.BasePage;
@@ -841,7 +1683,7 @@ namespace BazisGUI
                     gmshController?.Gmsh.Clear();
 
                     модулиMenuItem.Enabled = true;
-                    modelController = new ModelController.ModelController(project.ModelData);
+                    modelController = new ModelController.ModelController();
                     SetModule("Mesh");
                     модулиMenuItem.Image = Resources.м_34;
                     var module = ModulePage.BasePage;
@@ -872,7 +1714,7 @@ namespace BazisGUI
                 gmshController?.Gmsh.Clear();
 
                 модулиMenuItem.Enabled = true;
-                modelController = new ModelController.ModelController(project.ModelData);
+                modelController = new ModelController.ModelController();
                 SetModule("Mesh");
                 модулиMenuItem.Image = Resources.м_34;
                 var module = ModulePage.BasePage;
@@ -906,7 +1748,7 @@ namespace BazisGUI
             module?.ConsoleControl.PrintInfo("Проект сохранен", Color.Black);
             lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
 
-            module?.PresentProjectOnTree();
+            module?.PresentProjectOnTree(project.GeneralData,project.ModelData);
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -927,7 +1769,7 @@ namespace BazisGUI
                     lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
 
                     модулиMenuItem.Enabled = true;
-                    modelController = new ModelController.ModelController(project.ModelData);
+                    modelController = new ModelController.ModelController();
                     SetModule("Mesh");
                     модулиMenuItem.Image = Resources.м_34;
                     var module = ModulePage.BasePage;
@@ -943,10 +1785,10 @@ namespace BazisGUI
 
         private void PresentProjectOnModule(ToolStripPage module)
         {
-            module.BasePage.ScenePage.PresentAllModelObjectsToScene();
-            module.BasePage.PresentProjectOnTree();
+            module.BasePage.ScenePage.PresentAllModelObjectsToScene(project.ModelData);
+            module.BasePage.PresentProjectOnTree(project.GeneralData,project.ModelData);
 
-            (module as TaskPage)?.PresentTaskDataOnTree(project.TaskData);
+            (module as TaskPage)?.PresentTaskDataOnTree(project.GeneralData,project.TaskData);
 
             ModulePage.PresentModelOnSelectToolStrip(project.ModelData.ObjectData);
         }
@@ -978,7 +1820,7 @@ namespace BazisGUI
         private void createSurfaceElementsMenuItem_Click(object sender, EventArgs e)
         {
             var module = (ModelPage)ModulePage;
-            module.CreateSurfaceElements(ObjType.Элемент2D);
+            module.CreateSurfaceElements(project.GeneralData,project.ModelData, ObjType.Элемент2D);
         }
 
         private void mesh3DGeneratorMenuItem_Click(object sender, EventArgs e)
@@ -1001,7 +1843,7 @@ namespace BazisGUI
 
                 module.EmbeddedSplitContainer.Panel2Collapsed = false;
                 if(gmshController != null)
-                    module.SetGMSHController(gmshController);
+                    module.SetGMSHController(project.GeneralData, project.ModelData, gmshController);
             }
             else 
                 module.EmbeddedSplitContainer.Panel2Collapsed = true;         
@@ -1017,7 +1859,7 @@ namespace BazisGUI
                 if (currentItem.Name != item.Name)
                     item.Checked = false;
 
-            module.ConfigAdvisor(WeldingKind.ARC);
+            //module.ConfigAdvisor(WeldingKind.ARC);
 
             if (arcWeldingMenuItem.Checked)
                 module.EmbeddedSplitContainer.Panel2Collapsed = false;
@@ -1027,13 +1869,13 @@ namespace BazisGUI
         private void материалыMenuItem_Click(object sender, EventArgs e)
         {
             var module = (TaskPage)ModulePage;
-            module.OpenMaterialsDB();
+            module.OpenMaterialsDB(project.GeneralData);
         }
 
         private void функцииMenuItem_Click(object sender, EventArgs e)
         {
             var module = (TaskPage)ModulePage;
-            module.OpenFunctionsDB();
+            module.OpenFunctionsDB(project.GeneralData);
         }
 
         private void lazerWeldingMenuItem_Click(object sender, EventArgs e)
@@ -1046,7 +1888,7 @@ namespace BazisGUI
                 if (currentItem.Name != item.Name)
                     item.Checked = false;
 
-            module.ConfigAdvisor(WeldingKind.Lazer);
+            //module.ConfigAdvisor(WeldingKind.Lazer);
 
             if (lazerWeldingMenuItem.Checked)
                 module.EmbeddedSplitContainer.Panel2Collapsed = false;
@@ -1063,7 +1905,7 @@ namespace BazisGUI
                 if (currentItem.Name != item.Name)
                     item.Checked = false;
 
-            module.ConfigAdvisor(WeldingKind.FrictionStearing);
+            //module.ConfigAdvisor(WeldingKind.FrictionStearing);
 
             if (fsWeldingMenuItem.Checked)
                 module.EmbeddedSplitContainer.Panel2Collapsed = false;
@@ -1109,7 +1951,7 @@ namespace BazisGUI
         private void createPlotMenuItem_Click(object sender, EventArgs e)
         {
             var module = (ResultsPage)ModulePage;
-            module.CreateGraph();
+            module.CreateGraph(project.ModelData);
         }
 
         private void scaleSettingsMenuItem_Click(object sender, EventArgs e)
@@ -1121,7 +1963,7 @@ namespace BazisGUI
         private void exportResultsMenuItem_Click(object sender, EventArgs e)
         {
             var module = (ResultsPage)ModulePage;
-            module.ShowExportResultsPage();
+            module.ShowExportResultsPage(project.ModelData,project.GeneralData);
         }
 
         private void heatingMenuItem_Click(object sender, EventArgs e)
@@ -1134,7 +1976,7 @@ namespace BazisGUI
                 if(currentItem.Name != item.Name)
                     item.Checked = false;
 
-            module.ConfigAdvisor(ProcessType.Tempering);
+           // module.ConfigAdvisor(ProcessType.Tempering);
 
             if (heatingMenuItem.Checked)
                 module.EmbeddedSplitContainer.Panel2Collapsed = false;
@@ -1151,7 +1993,7 @@ namespace BazisGUI
                 if (currentItem.Name != item.Name)
                     item.Checked = false;
 
-            module.ConfigAdvisor(ProcessType.Tempering);
+            //module.ConfigAdvisor(ProcessType.Tempering);
 
             if (temperingMenuItem.Checked)
                 module.EmbeddedSplitContainer.Panel2Collapsed = false;
@@ -1168,7 +2010,7 @@ namespace BazisGUI
                 if (currentItem.Name != item.Name)
                     item.Checked = false;
 
-            module.ConfigAdvisor(ProcessType.Quenching);
+            //module.ConfigAdvisor(ProcessType.Quenching);
 
             if (quenchingMenuItem.Checked)
                 module.EmbeddedSplitContainer.Panel2Collapsed = false;
@@ -1178,7 +2020,7 @@ namespace BazisGUI
         private void создать1DПо2DЭлементамToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var module = (ModelPage)ModulePage;
-            module.CreateSurfaceElements(ObjType.Элемент1D);
+            module.CreateSurfaceElements(project.GeneralData, project.ModelData, ObjType.Элемент1D);
         }
 
         private async void экспортСеткиToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1247,7 +2089,7 @@ namespace BazisGUI
                     gmshController?.Gmsh.Clear();
 
                     модулиMenuItem.Enabled = true;
-                    modelController = new ModelController.ModelController(project.ModelData);
+                    modelController = new ModelController.ModelController();
                     SetModule("Mesh");
                     модулиMenuItem.Image = Resources.м_34;
                     var module = ModulePage.BasePage;
@@ -1263,4 +2105,5 @@ namespace BazisGUI
 
         }
     }
+
 }

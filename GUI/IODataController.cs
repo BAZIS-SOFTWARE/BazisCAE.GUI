@@ -309,8 +309,6 @@ namespace BazisGUI
             var project = new ProjectData(name, path);
             project.GeneralData.Materials = "materials_v3.jsf";
             project.GeneralData.Functions = "functions.jsf";
-
-            project.ModelData = new ModelData();
             
             var ext = Path.GetExtension(name);
 
@@ -326,8 +324,6 @@ namespace BazisGUI
                 project.ModelData.Saver = new SaveModelToBPF2TextFile();
             }
                 
-
-            project.TaskData = new TaskData();
             project.ResultDB = string.Empty;
 
             project.Loader = new LoadProjectFromTextFormat();

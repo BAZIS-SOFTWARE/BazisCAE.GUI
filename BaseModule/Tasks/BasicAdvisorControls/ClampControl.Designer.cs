@@ -43,6 +43,7 @@ namespace TaskModule.BasicAdvisorControls
             this.startColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.player = new BaseModule.Player.PlayerControl();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -67,7 +68,6 @@ namespace TaskModule.BasicAdvisorControls
             this.chbX = new System.Windows.Forms.CheckBox();
             this.закрепленияTab_элComboBox = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.player = new BaseModule.Player.PlayerControl();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvControl)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -115,7 +115,7 @@ namespace TaskModule.BasicAdvisorControls
             this.dgvControl.Name = "dgvControl";
             this.dgvControl.ReadOnly = true;
             this.dgvControl.RowHeadersWidth = 51;
-            this.dgvControl.Size = new System.Drawing.Size(759, 621);
+            this.dgvControl.Size = new System.Drawing.Size(759, 306);
             this.dgvControl.TabIndex = 23;
             this.dgvControl.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_RowHeaderMouseClick);
             this.dgvControl.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DataGridView_UserDeletingRow);
@@ -198,6 +198,29 @@ namespace TaskModule.BasicAdvisorControls
             this.groupBox3.TabIndex = 24;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Время действия";
+            // 
+            // player
+            // 
+            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.player.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.player.CheckState = BaseModule.Player.CheckState.start;
+            this.player.CurrentValue = 50;
+            this.player.Location = new System.Drawing.Point(173, 81);
+            this.player.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.player.MinimumSize = new System.Drawing.Size(215, 30);
+            this.player.Name = "player";
+            this.player.ShowTextValue = true;
+            this.player.Size = new System.Drawing.Size(566, 34);
+            this.player.SliderBarInnerColor = System.Drawing.Color.Silver;
+            this.player.SliderBarOuterColor = System.Drawing.Color.Silver;
+            this.player.SliderElapsedInnerColor = System.Drawing.Color.Silver;
+            this.player.SliderElapsedOuterColor = System.Drawing.Color.Silver;
+            this.player.SpeedValue = 500;
+            this.player.StartValue = 0;
+            this.player.StopValue = 100;
+            this.player.TabIndex = 21;
+            this.player.TextValueColor = System.Drawing.Color.Black;
             // 
             // btnClearAll
             // 
@@ -377,7 +400,9 @@ namespace TaskModule.BasicAdvisorControls
             this.cmbKind.InputType = UserControlsEx.CMBInputType.Items;
             this.cmbKind.IsValidating = true;
             this.cmbKind.Items.AddRange(new object[] {
-            "Жесткое"});
+            "Жесткое",
+            "Упругое",
+            "Симметрия"});
             this.cmbKind.Location = new System.Drawing.Point(176, 51);
             this.cmbKind.Margin = new System.Windows.Forms.Padding(3, 3, 28, 3);
             this.cmbKind.Name = "cmbKind";
@@ -509,29 +534,6 @@ namespace TaskModule.BasicAdvisorControls
             this.label7.Size = new System.Drawing.Size(134, 13);
             this.label7.TabIndex = 15;
             this.label7.Text = "Группа узлов/элементов";
-            // 
-            // player
-            // 
-            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.player.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.player.CheckState = BaseModule.Player.CheckState.start;
-            this.player.CurrentValue = 50;
-            this.player.Location = new System.Drawing.Point(173, 81);
-            this.player.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.player.MinimumSize = new System.Drawing.Size(215, 30);
-            this.player.Name = "player";
-            this.player.ShowTextValue = true;
-            this.player.Size = new System.Drawing.Size(566, 34);
-            this.player.SliderBarInnerColor = System.Drawing.Color.Silver;
-            this.player.SliderBarOuterColor = System.Drawing.Color.Silver;
-            this.player.SliderElapsedInnerColor = System.Drawing.Color.Silver;
-            this.player.SliderElapsedOuterColor = System.Drawing.Color.Silver;
-            this.player.SpeedValue = 500;
-            this.player.StartValue = 0;
-            this.player.StopValue = 100;
-            this.player.TabIndex = 21;
-            this.player.TextValueColor = System.Drawing.Color.Black;
             // 
             // ClampControl
             // 

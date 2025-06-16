@@ -297,6 +297,12 @@
     <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\InfoForm.Designer.cs">
       <DependentUpon>InfoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\PinnedTaskPlannerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\PinnedTaskPlannerControl.Designer.cs">
+      <DependentUpon>PinnedTaskPlannerControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl_v2.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -314,18 +320,6 @@
     </Compile>
     <Compile Include="PinnedControl\PinnedPage.Designer.cs">
       <DependentUpon>PinnedPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\HeatTreatmentModule\PinnedCTAdvControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\HeatTreatmentModule\PinnedCTAdvControl.Designer.cs">
-      <DependentUpon>PinnedCTAdvControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\HeatTreatmentModule\PinnedHTAdvControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\HeatTreatmentModule\PinnedHTAdvControl.Designer.cs">
-      <DependentUpon>PinnedHTAdvControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Tasks\TasksFromNavigator\Controls\ClampControlCreator.cs">
       <SubType>UserControl</SubType>
@@ -363,23 +357,11 @@
     <Compile Include="Tasks\TasksFromNavigator\GeneralСontrol.Designer.cs">
       <DependentUpon>GeneralСontrol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tasks\WeldingModule\PinnedWAdvControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\PinnedWAdvControl.Designer.cs">
-      <DependentUpon>PinnedWAdvControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Tasks\BasicTaskAdvisor\TaskAdvisor.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Tasks\BasicTaskAdvisor\TaskAdvisor.Designer.cs">
       <DependentUpon>TaskAdvisor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\HeatTreatmentModule\ChemicalTreatmentAdvisor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\HeatTreatmentModule\ChemicalTreatmentAdvisor.Designer.cs">
-      <DependentUpon>ChemicalTreatmentAdvisor.cs</DependentUpon>
     </Compile>
     <Compile Include="Tasks\HeatTreatmentModule\DiffusionControl.cs">
       <SubType>UserControl</SubType>
@@ -393,18 +375,6 @@
     </Compile>
     <Compile Include="Tasks\HeatTreatmentModule\HeatControl.Designer.cs">
       <DependentUpon>HeatControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\HeatTreatmentModule\HeatTreatmentAdvisor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\HeatTreatmentModule\HeatTreatmentAdvisor.Designer.cs">
-      <DependentUpon>HeatTreatmentAdvisor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingAdvisor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tasks\WeldingModule\WeldingAdvisor.Designer.cs">
-      <DependentUpon>WeldingAdvisor.cs</DependentUpon>
     </Compile>
     <Compile Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl.cs">
       <SubType>UserControl</SubType>
@@ -536,6 +506,9 @@
     <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\InfoForm.resx">
       <DependentUpon>InfoForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\PinnedTaskPlannerControl.resx">
+      <DependentUpon>PinnedTaskPlannerControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Tasks\BasicAdvisorControls\TaskPlannerControls\TaskPlannerControl_v2.resx">
       <DependentUpon>TaskPlannerControl_v2.cs</DependentUpon>
     </EmbeddedResource>
@@ -544,12 +517,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PinnedControl\PinnedPage.resx">
       <DependentUpon>PinnedPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\HeatTreatmentModule\PinnedCTAdvControl.resx">
-      <DependentUpon>PinnedCTAdvControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\HeatTreatmentModule\PinnedHTAdvControl.resx">
-      <DependentUpon>PinnedHTAdvControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\TasksFromNavigator\Controls\HeatControlCreator.resx">
       <DependentUpon>HeatControlCreator.cs</DependentUpon>
@@ -566,28 +533,14 @@
     <EmbeddedResource Include="Tasks\TasksFromNavigator\GeneralСontrol.resx">
       <DependentUpon>GeneralСontrol.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\WeldingModule\PinnedWAdvControl.resx">
-      <DependentUpon>PinnedWAdvControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Tasks\BasicTaskAdvisor\TaskAdvisor.resx">
       <DependentUpon>TaskAdvisor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\HeatTreatmentModule\ChemicalTreatmentAdvisor.resx">
-      <DependentUpon>ChemicalTreatmentAdvisor.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\HeatTreatmentModule\DiffusionControl.resx">
       <DependentUpon>DiffusionControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\HeatTreatmentModule\HeatControl.resx">
       <DependentUpon>HeatControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\HeatTreatmentModule\HeatTreatmentAdvisor.resx">
-      <DependentUpon>HeatTreatmentAdvisor.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tasks\WeldingModule\WeldingAdvisor.resx">
-      <DependentUpon>WeldingAdvisor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tasks\WeldingModule\WeldingTypeControls\ArcWeldingControl.resx">
       <DependentUpon>ArcWeldingControl.cs</DependentUpon>

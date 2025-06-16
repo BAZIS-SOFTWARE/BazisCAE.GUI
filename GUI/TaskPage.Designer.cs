@@ -44,8 +44,21 @@ namespace BazisGUI
             this.нагрузкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.нагревToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.средаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.расчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).BeginInit();
+            this.splitContainerEx.Panel1.SuspendLayout();
+            this.splitContainerEx.SuspendLayout();
             this.taskMenuStrip.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // splitContainerEx
+            // 
+            this.splitContainerEx.Size = new System.Drawing.Size(1153, 522);
+            this.splitContainerEx.SplitterDistance = 1118;
+            // 
+            // basePage
+            // 
+            this.basePage.Size = new System.Drawing.Size(1118, 522);
             // 
             // treeNodesImageList
             // 
@@ -67,9 +80,10 @@ namespace BazisGUI
             this.taskMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.удалитьToolStripMenuItem,
             this.diagram_gantt_toolStripMenuItem,
-            this.добавитьToolStripMenuItem});
+            this.добавитьToolStripMenuItem,
+            this.расчетToolStripMenuItem});
             this.taskMenuStrip.Name = "taskMenuStrip";
-            this.taskMenuStrip.Size = new System.Drawing.Size(214, 92);
+            this.taskMenuStrip.Size = new System.Drawing.Size(214, 114);
             // 
             // удалитьToolStripMenuItem
             // 
@@ -100,37 +114,44 @@ namespace BazisGUI
             // материалToolStripMenuItem
             // 
             this.материалToolStripMenuItem.Name = "материалToolStripMenuItem";
-            this.материалToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.материалToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.материалToolStripMenuItem.Text = "Материал";
-            this.материалToolStripMenuItem.Click += new System.EventHandler(this.AddPhysicalData);
+            this.материалToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Navigator_AddPhysicalData);
             // 
             // закреплениеToolStripMenuItem
             // 
             this.закреплениеToolStripMenuItem.Name = "закреплениеToolStripMenuItem";
-            this.закреплениеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.закреплениеToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.закреплениеToolStripMenuItem.Text = "Закрепление";
-            this.закреплениеToolStripMenuItem.Click += new System.EventHandler(this.AddPhysicalData);
+            this.закреплениеToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Navigator_AddPhysicalData);
             // 
             // нагрузкаToolStripMenuItem
             // 
             this.нагрузкаToolStripMenuItem.Name = "нагрузкаToolStripMenuItem";
-            this.нагрузкаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.нагрузкаToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.нагрузкаToolStripMenuItem.Text = "Нагрузка";
-            this.нагрузкаToolStripMenuItem.Click += new System.EventHandler(this.AddPhysicalData);
+            this.нагрузкаToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Navigator_AddPhysicalData);
             // 
             // нагревToolStripMenuItem
             // 
             this.нагревToolStripMenuItem.Name = "нагревToolStripMenuItem";
-            this.нагревToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.нагревToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.нагревToolStripMenuItem.Text = "Нагрев";
-            this.нагревToolStripMenuItem.Click += new System.EventHandler(this.AddPhysicalData);
+            this.нагревToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Navigator_AddPhysicalData);
             // 
             // средаToolStripMenuItem
             // 
             this.средаToolStripMenuItem.Name = "средаToolStripMenuItem";
-            this.средаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.средаToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.средаToolStripMenuItem.Text = "Среда";
-            this.средаToolStripMenuItem.Click += new System.EventHandler(this.AddPhysicalData);
+            this.средаToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Navigator_AddPhysicalData);
+            // 
+            // расчетToolStripMenuItem
+            // 
+            this.расчетToolStripMenuItem.Name = "расчетToolStripMenuItem";
+            this.расчетToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.расчетToolStripMenuItem.Text = "Расчет";
+            this.расчетToolStripMenuItem.Click += new System.EventHandler(this.расчетToolStripMenuItem_Click);
             // 
             // TaskPage
             // 
@@ -138,12 +159,9 @@ namespace BazisGUI
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "TaskPage";
             this.Size = new System.Drawing.Size(1163, 612);
-            this.ChangedGroupNameEvent += new System.Action(this.TaskPage_ChangedGroupNameEvent);
-            this.CreatedMeshGroupEvent += new System.Action(this.TaskPage_CreatedMeshGroupEvent);
-            this.DeleteAllGroupsEvent += new System.Action(this.TaskPage_DeleteAllGroupsEvent);
-            this.DeleteGroupEvent += new System.Action(this.TaskPage_DeleteGroupEvent);
-            this.DeleteObjectsEvent += new System.Action(this.TaskPage_DeleteGroupEvent);
-            this.DeleteSelectedObjectsEvent += new System.Action(this.TaskPage_DeleteGroupEvent);
+            this.splitContainerEx.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).EndInit();
+            this.splitContainerEx.ResumeLayout(false);
             this.taskMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -161,6 +179,7 @@ namespace BazisGUI
         private ToolStripMenuItem нагрузкаToolStripMenuItem;
         private ToolStripMenuItem нагревToolStripMenuItem;
         private ToolStripMenuItem средаToolStripMenuItem;
+        private ToolStripMenuItem расчетToolStripMenuItem;
         //ToolStrip taskToolStrip;
     }
 }

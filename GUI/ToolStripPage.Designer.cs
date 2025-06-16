@@ -32,6 +32,7 @@ namespace BazisGUI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolStripPage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
+            this.splitContainerEx = new UserControlsEx.SplitContainerEx();
             this.selectToolStrip = new UserControlsEx.ToolStripEx();
             this.spbSelectObject = new System.Windows.Forms.ToolStripSplitButton();
             this.btnSelectNodes = new System.Windows.Forms.ToolStripButton();
@@ -63,10 +64,17 @@ namespace BazisGUI
             this.btnSetRotHor90 = new System.Windows.Forms.ToolStripButton();
             this.btnSetRotVer90 = new System.Windows.Forms.ToolStripButton();
             this.btnFitObjs = new System.Windows.Forms.ToolStripButton();
-            this.embendentPage1 = new BazisGUI.EmbendentPage();
+            this.pinnedTaskPlannerControl = new BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls.PinnedTaskPlannerControl();
+            this.pinnedMeshGenControl = new BaseModule.Mesh.PinnedMeshGenControl();
+            this.pinnedAnimationControl = new BaseModule.Results.Animation.PinnedAnimationControl();
+            this.basePage = new BazisGUI.BasePage();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).BeginInit();
+            this.splitContainerEx.Panel1.SuspendLayout();
+            this.splitContainerEx.Panel2.SuspendLayout();
+            this.splitContainerEx.SuspendLayout();
             this.selectToolStrip.SuspendLayout();
             this.instrumentalToolStrip.SuspendLayout();
             this.displayToolStrip.SuspendLayout();
@@ -78,7 +86,7 @@ namespace BazisGUI
             // 
             // toolStripContainer.ContentPanel
             // 
-            this.toolStripContainer.ContentPanel.Controls.Add(this.embendentPage1);
+            this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainerEx);
             this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(977, 556);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(5, 5);
@@ -95,6 +103,29 @@ namespace BazisGUI
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.displayToolStrip);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.viewToolStrip);
             this.toolStripContainer.TopToolStripPanel.MaximumSize = new System.Drawing.Size(0, 80);
+            // 
+            // splitContainerEx
+            // 
+            this.splitContainerEx.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerEx.IncrementButtonSize = new System.Drawing.Size(50, 5);
+            this.splitContainerEx.IncrementShifting = 50;
+            this.splitContainerEx.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerEx.Name = "splitContainerEx";
+            // 
+            // splitContainerEx.Panel1
+            // 
+            this.splitContainerEx.Panel1.Controls.Add(this.basePage);
+            // 
+            // splitContainerEx.Panel2
+            // 
+            this.splitContainerEx.Panel2.Controls.Add(this.pinnedTaskPlannerControl);
+            this.splitContainerEx.Panel2.Controls.Add(this.pinnedMeshGenControl);
+            this.splitContainerEx.Panel2.Controls.Add(this.pinnedAnimationControl);
+            this.splitContainerEx.Panel2.Padding = new System.Windows.Forms.Padding(0, 5, 5, 0);
+            this.splitContainerEx.Size = new System.Drawing.Size(977, 556);
+            this.splitContainerEx.SplitterDistance = 621;
+            this.splitContainerEx.SwitchShifting = false;
+            this.splitContainerEx.TabIndex = 3;
             // 
             // selectToolStrip
             // 
@@ -640,13 +671,83 @@ namespace BazisGUI
             this.btnFitObjs.Text = "toolStripButton13";
             this.btnFitObjs.ToolTipText = "Вписать в экран";
             // 
-            // embendentPage1
+            // pinnedTaskPlannerControl
             // 
-            this.embendentPage1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.embendentPage1.Location = new System.Drawing.Point(0, 0);
-            this.embendentPage1.Name = "embendentPage1";
-            this.embendentPage1.Size = new System.Drawing.Size(977, 556);
-            this.embendentPage1.TabIndex = 0;
+            this.pinnedTaskPlannerControl.BackColor = System.Drawing.Color.Gainsboro;
+            this.pinnedTaskPlannerControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pinnedTaskPlannerControl.DownColor = System.Drawing.Color.Gainsboro;
+            this.pinnedTaskPlannerControl.HeaderName = "Планировщик";
+            this.pinnedTaskPlannerControl.Location = new System.Drawing.Point(22, 34);
+            this.pinnedTaskPlannerControl.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.pinnedTaskPlannerControl.Name = "pinnedTaskPlannerControl";
+            this.pinnedTaskPlannerControl.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.pinnedTaskPlannerControl.Size = new System.Drawing.Size(227, 455);
+            this.pinnedTaskPlannerControl.TabIndex = 8;
+            this.pinnedTaskPlannerControl.UpColor = System.Drawing.Color.Gainsboro;
+            // 
+            // pinnedMeshGenControl
+            // 
+            this.pinnedMeshGenControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pinnedMeshGenControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pinnedMeshGenControl.DownColor = System.Drawing.Color.Gainsboro;
+            this.pinnedMeshGenControl.HeaderName = "Сеточный генератор";
+            this.pinnedMeshGenControl.Location = new System.Drawing.Point(0, 5);
+            this.pinnedMeshGenControl.Margin = new System.Windows.Forms.Padding(0);
+            this.pinnedMeshGenControl.Name = "pinnedMeshGenControl";
+            this.pinnedMeshGenControl.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.pinnedMeshGenControl.Size = new System.Drawing.Size(347, 551);
+            this.pinnedMeshGenControl.TabIndex = 7;
+            this.pinnedMeshGenControl.UpColor = System.Drawing.Color.Gainsboro;
+            // 
+            // pinnedAnimationControl
+            // 
+            this.pinnedAnimationControl.BackColor = System.Drawing.Color.Gainsboro;
+            this.pinnedAnimationControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pinnedAnimationControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pinnedAnimationControl.DownColor = System.Drawing.Color.Gainsboro;
+            this.pinnedAnimationControl.HeaderName = "Анимация результатов";
+            this.pinnedAnimationControl.Location = new System.Drawing.Point(0, 5);
+            this.pinnedAnimationControl.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.pinnedAnimationControl.Name = "pinnedAnimationControl";
+            this.pinnedAnimationControl.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.pinnedAnimationControl.Size = new System.Drawing.Size(347, 551);
+            this.pinnedAnimationControl.TabIndex = 6;
+            this.pinnedAnimationControl.UpColor = System.Drawing.Color.Gainsboro;
+            // 
+            // basePage
+            // 
+            this.basePage.BackColor = System.Drawing.SystemColors.Control;
+            this.basePage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.basePage.Location = new System.Drawing.Point(0, 0);
+            this.basePage.Margin = new System.Windows.Forms.Padding(0);
+            this.basePage.Name = "basePage";
+            this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.basePage.PressedKey = System.Windows.Forms.Keys.None;
+            this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
+            this.basePage.Size = new System.Drawing.Size(621, 556);
+            this.basePage.SplitterWidthEx = 10;
+            this.basePage.TabIndex = 0;
+            this.basePage.DeleteGroupEvent += new System.Action<object, int>(this.basePage_DeleteGroupEvent);
+            this.basePage.DeleteAllGroupsEvent += new System.Action<object>(this.basePage_DeleteAllGroupsEvent);
+            this.basePage.DeleteObjectsEvent += new System.Action<object, Model.Interfaces.ObjType, string>(this.basePage_DeleteObjectsEvent);
+            this.basePage.ChangeAllGroupsViewEvent += new System.Action<object, bool>(this.basePage_ChangeAllGroupsViewEvent);
+            this.basePage.ChangeGroupViewEvent += new System.Action<object, int, bool>(this.basePage_ChangeGroupViewEvent);
+            this.basePage.SelectSetEvent += new System.Action<object, Model.Interfaces.ObjType, string>(this.basePage_SelectSetEvent);
+            this.basePage.SelectGroupEvent += new System.Action<object, string>(this.basePage_SelectGroupEvent);
+            this.basePage.SelectObjectsEvent += new System.Action<object, Scene.Events.SelectObjectsEventArgs>(this.basePage_SelectObjectsEvent);
+            this.basePage.DeleteSelectedObjectsEvent += new System.Action<object>(this.basePage_DeleteSelectedObjectsEvent);
+            this.basePage.ChangeAllObjsViewStateEvent += new System.Action<object, bool>(this.basePage_ChangeAllObjsViewStateEvent);
+            this.basePage.CreatedMeshGroupEvent += new System.Action<object>(this.BasePage_CreatedMeshGroupEvent);
+            this.basePage.ChangedGroupNameEvent += new System.Action<object, string, string>(this.BasePage_ChangedGroupNameEvent);
+            this.basePage.FindFreeNodesEvent += new System.Action<object>(this.basePage_FindFreeNodesEvent);
+            this.basePage.ChangeObjsViewStateEvent += new System.Action<object, Model.Interfaces.ObjType, string, bool>(this.basePage_ChangeSetViewStateEvent);
+            this.basePage.EditGroupEvent += new System.Action<object, int>(this.basePage_EditGroupEvent);
+            this.basePage.SetBackColorToAllObjectsEvent += new System.Action<object>(this.basePage_SetBackColorToAllObjectsEvent);
+            this.basePage.HideSelectedObjectsEvent += new System.Action<object>(this.basePage_HideSelectedObjectsEvent);
+            this.basePage.InfoGroupEvent += new System.Action<object, int>(this.basePage_InfoGroupEvent);
+            this.basePage.ShowGroupWithNodesEvent += new System.Action<object, int>(this.basePage_ShowGroupWithNodesEvent);
+            this.basePage.DelAllObjectsEvent += new System.Action<object>(this.basePage_DelAllObjectsEvent);
+            this.basePage.UpdateNavigatorEvent += new System.Action<object>(this.basePage_UpdateNavigatorEvent);
             // 
             // ToolStripPage
             // 
@@ -661,6 +762,10 @@ namespace BazisGUI
             this.toolStripContainer.TopToolStripPanel.PerformLayout();
             this.toolStripContainer.ResumeLayout(false);
             this.toolStripContainer.PerformLayout();
+            this.splitContainerEx.Panel1.ResumeLayout(false);
+            this.splitContainerEx.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).EndInit();
+            this.splitContainerEx.ResumeLayout(false);
             this.selectToolStrip.ResumeLayout(false);
             this.selectToolStrip.PerformLayout();
             this.instrumentalToolStrip.ResumeLayout(false);
@@ -707,7 +812,14 @@ namespace BazisGUI
         public UserControlsEx.ToolStripEx viewToolStrip;
         private System.Windows.Forms.ToolStripButton btnReflect;
         private System.Windows.Forms.ToolStripButton btnClipPlane;
-        private EmbendentPage embendentPage1;
+        public UserControlsEx.SplitContainerEx splitContainerEx;
+        protected BasePage basePage;
+        private BaseModule.Mesh.PinnedMeshGenControl pinnedMeshGenControl;
+        private BaseModule.Results.Animation.PinnedAnimationControl pinnedAnimationControl;
+        //private BaseModule.Tasks.WeldingModule.PinnedWAdvControl pinnedWAdvControl;
+        //private BaseModule.Tasks.HeatTreatmentModule.PinnedHTAdvControl pinnedHTAdvControl;
+        //private BaseModule.Tasks.HeatTreatmentModule.PinnedCTAdvControl pinnedCTAdvControl;
+        private BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls.PinnedTaskPlannerControl pinnedTaskPlannerControl;
         //private BasePage basePage;
     }
 }

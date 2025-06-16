@@ -2,6 +2,7 @@
 using BaseModule.Results.Animation;
 using BaseModule.Tasks.HeatTreatmentModule;
 using BaseModule.Tasks.WeldingModule;
+using Model.Interfaces;
 
 namespace BazisGUI
 {
@@ -34,12 +35,12 @@ namespace BazisGUI
         private void InitializeComponent()
         {
             this.splitContainerEx = new UserControlsEx.SplitContainerEx();
-            this.basePage = new BazisGUI.BasePage();
             this.pinnedMeshGenControl = new BaseModule.Mesh.PinnedMeshGenControl();
             this.pinnedAnimationControl = new BaseModule.Results.Animation.PinnedAnimationControl();
             this.pinnedWAdvControl = new BaseModule.Tasks.WeldingModule.PinnedWAdvControl();
             this.pinnedHTAdvControl = new BaseModule.Tasks.HeatTreatmentModule.PinnedHTAdvControl();
             this.pinnedCTAdvControl = new BaseModule.Tasks.HeatTreatmentModule.PinnedCTAdvControl();
+            this.basePage = new BazisGUI.BasePage();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).BeginInit();
             this.splitContainerEx.Panel1.SuspendLayout();
             this.splitContainerEx.Panel2.SuspendLayout();
@@ -70,20 +71,6 @@ namespace BazisGUI
             this.splitContainerEx.SplitterDistance = 635;
             this.splitContainerEx.SwitchShifting = false;
             this.splitContainerEx.TabIndex = 2;
-            // 
-            // basePage
-            // 
-            this.basePage.BackColor = System.Drawing.SystemColors.Control;
-            this.basePage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.basePage.Location = new System.Drawing.Point(0, 0);
-            this.basePage.Margin = new System.Windows.Forms.Padding(0);
-            this.basePage.Name = "basePage";
-            this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
-            this.basePage.PressedKey = System.Windows.Forms.Keys.None;
-            this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
-            this.basePage.Size = new System.Drawing.Size(635, 576);
-            this.basePage.SplitterWidthEx = 10;
-            this.basePage.TabIndex = 0;
             // 
             // pinnedMeshGenControl
             // 
@@ -161,6 +148,27 @@ namespace BazisGUI
             this.pinnedCTAdvControl.TabIndex = 3;
             this.pinnedCTAdvControl.UpColor = System.Drawing.Color.Gainsboro;
             this.pinnedCTAdvControl.ControlCollapseEvent += new System.Action(this.pinnedControl_ControlCollapseEvent);
+            // 
+            // basePage
+            // 
+            this.basePage.BackColor = System.Drawing.SystemColors.Control;
+            this.basePage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.basePage.Location = new System.Drawing.Point(0, 0);
+            this.basePage.Margin = new System.Windows.Forms.Padding(0);
+            this.basePage.Name = "basePage";
+            this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.basePage.PressedKey = System.Windows.Forms.Keys.None;
+            this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
+            this.basePage.Size = new System.Drawing.Size(635, 576);
+            this.basePage.SplitterWidthEx = 10;
+            this.basePage.TabIndex = 0;
+            this.basePage.DeleteGroupEvent += new System.Action<object, int>(this.basePage_DeleteGroupEvent);
+            this.basePage.DeleteAllGroupsEvent += new System.Action<object>(this.basePage_DeleteAllGroupsEvent);
+            this.basePage.DeleteObjectsEvent += new System.Action<object, Model.Interfaces.ObjType, string>(this.basePage_DeleteObjectsEvent);
+            this.basePage.ShowAllGroupsEvent += new System.Action<object, bool>(this.basePage_HideAllGroupsEvent);
+            this.basePage.ShowGroupEvent += new System.Action<object, int, bool>(this.basePage_ShowGroupEvent);
+            this.basePage.SelectObjectsEvent += new System.Action<object, Scene.Events.SelectObjectsEventArgs, Model.Interfaces.ObjType>(this.basePage_SelectObjectsEvent);
+            this.basePage.FindFreeNodesEvent += new System.Action<object>(this.basePage_FindFreeNodesEvent);
             // 
             // EmbendentPage
             // 

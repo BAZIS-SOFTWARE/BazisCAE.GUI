@@ -87,10 +87,10 @@ namespace Viewer
                 var view = ExtractObjView(creator);
                 var e3d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.E3DCollection.GetObjects());
 
-                if (checkBox8.Checked)
-                    e3d.ShowInsideSurfaces();
-                else
-                    e3d.HideInsideSurfaces();
+                //if (checkBox8.Checked)
+                //    e3d.ShowInsideSurfaces();
+                //else
+                //    e3d.HideInsideSurfaces();
 
                 CreateVBOObjects(e3d, view, ObjType.Элемент3D);
             }
@@ -130,10 +130,10 @@ namespace Viewer
                 var view = ExtractObjView(creator);
                 var e3d = creator.CreateSurfaceObjectsPresenter(model.ObjectData.E3DCollection.GetObjects());
 
-                if (checkBox8.Checked)
-                    e3d.ShowInsideSurfaces();
-                else
-                    e3d.HideInsideSurfaces();
+                //if (checkBox8.Checked)
+                //    e3d.ShowInsideSurfaces();
+                //else
+                //    e3d.HideInsideSurfaces();
 
                 CreateVBOObjects(e3d, view, ObjType.Элемент3D);
                 //Create3DVBOObject(creator);

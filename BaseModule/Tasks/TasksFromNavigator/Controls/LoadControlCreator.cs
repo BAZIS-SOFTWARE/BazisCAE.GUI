@@ -51,6 +51,7 @@ namespace BaseModule.Tasks.TasksFromNavigator.Controls
 
                 foreach (var row in rows)
                 {
+
                     AddDataEvent(new AddDataEventArgs(DataName, row));
                 }
             }

@@ -67,7 +67,7 @@ namespace BaseModule.Navigator
 
         public event Action<TreeNode, SelectionType> AfterSelectEvent;
 
-        public event Action<TreeNode> DelGroupEvent;
+        public event Action<int> DelGroupEvent;
         public event Action DelAllGroupsEvent;
         public event Action<int> HideGroupEvent;
         public event Action<int> ShowGroupEvent;
@@ -370,8 +370,8 @@ namespace BaseModule.Navigator
         {
             //var groupIndex = treeView.SelectedNode.Index;
 
-            DelGroupEvent?.Invoke(treeView.SelectedNode);
-
+            DelGroupEvent?.Invoke(treeView.SelectedNode.Index);
+            treeView.SelectedNode.Remove();
             //DeleteTaskDataNodes(treeView.SelectedNode);
             //treeView.Nodes["группыОбъектов"].Nodes.RemoveAt(groupIndex);
         }
@@ -566,7 +566,7 @@ namespace BaseModule.Navigator
             }
             else if (node.Parent == treeView.Nodes["Данные"])
             {
-                SelectionType type = SelectionType.ValuableData;
+                SelectionType type = SelectionType.PhysicalData;
                 AfterSelectEvent(node, type);
             }
         }

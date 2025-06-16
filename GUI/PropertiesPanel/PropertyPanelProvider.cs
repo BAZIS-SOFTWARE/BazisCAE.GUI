@@ -15,15 +15,13 @@ namespace BazisGUI.PropertiesPanel
         public event Action<DrowPropertyOnPanelEventArgs> Out;
         public event Action OnUpdateNavigator;
 
-        public Func<List<string>> GetFuncDB;
-        public Func<List<string>> GetMatDB;
-        public Func<List<IGroup>> GetAllGroupElements;
+        public List<IGroup> AllGroup;
+        public List<string> _funcDBNames;
+        public List<string> _matDBNames;
 
-        private List<string> _funcDBNames;
-        private List<string> _matDBNames;
         private PanelConverter _converter;
 
-        public void ShowPropertiesPanel<T>(T obj, TreeNode selectedNode)
+        public void ShowPropertiesPanel<T>(T obj)
         {
             InitializeConverter(obj);
             Out(new DrowPropertyOnPanelEventArgs(_converter.GetRowProperty()));
@@ -37,9 +35,7 @@ namespace BazisGUI.PropertiesPanel
 
             else if (obj is IPhysicalData data)
             {
-                _matDBNames = _matDBNames is null ? GetMatDB() : _matDBNames;
-                _funcDBNames = _funcDBNames is null ? GetFuncDB() : _funcDBNames;
-                _converter = DataConverter.CreateConverter(data, _funcDBNames, _matDBNames, GetAllGroupElements());
+                _converter = DataConverter.CreateConverter(data, _funcDBNames, _matDBNames, AllGroup);
             }
             else throw new NotImplementedException("Тип конвертера не определен");
         }

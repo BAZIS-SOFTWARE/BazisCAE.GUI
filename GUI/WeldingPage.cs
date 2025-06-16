@@ -19,84 +19,84 @@ namespace BazisGUI
         {
             InitializeComponent();
 
-            var pContr = (PinnedWAdvControl)EmbeddedControls.Find("pinnedWAdvControl", false)[0];
-            pContr.BringToFront();
-            var taskAdv = pContr.WeldingAdvisor;
+            //var pContr = (PinnedWAdvControl)EmbeddedControls.Find("pinnedWAdvControl", false)[0];
+            //pContr.BringToFront();
+            //var taskAdv = pContr.WeldingAdvisor;
 
 
             //splitContainerEx.Panel2.Controls.Add()
 
-            taskAdv.SpecifyWeldingZoneEvent += (ar1, ar2) =>
-            { TaskAdv_SpecifyWeldingZone(ar1, ar2); };
+            //taskAdv.SpecifyWeldingZoneEvent += (ar1, ar2) =>
+            //{ TaskAdv_SpecifyWeldingZone(ar1, ar2); };
             //BasePage.panelProvider.OnUpdateNavigator += () => PresentTaskDataOnTree(taskData);
-            ProcessType = ProcessType.Welding;
+            //ProcessType = ProcessType.Welding;
 
-            SetAdvisor(taskAdv);
+            //SetAdvisor(taskAdv);
         }
 
-        public override TaskAdvisor GetTaskAdvisor()
-        {
-            var pContr = (PinnedWAdvControl)EmbeddedControls.Find("pinnedWAdvControl", false)[0];
-            return pContr.WeldingAdvisor;
-        }
+        //public override TaskAdvisor GetTaskAdvisor()
+        //{
+        //    var pContr = (PinnedWAdvControl)EmbeddedControls.Find("pinnedWAdvControl", false)[0];
+        //    return pContr.WeldingAdvisor;
+        //}
 
-        public void ConfigAdvisor(WeldingKind weldingKind)
-        {
-            var pContr = (PinnedWAdvControl)EmbeddedControls.Find("pinnedWAdvControl", false)[0];
+        //public void ConfigAdvisor(WeldingKind weldingKind)
+        //{
+        //    var pContr = (PinnedWAdvControl)EmbeddedControls.Find("pinnedWAdvControl", false)[0];
 
-            var taskAdv = pContr.WeldingAdvisor;
+        //    var taskAdv = pContr.WeldingAdvisor;
 
-            taskAdv.SetWeldingKind(weldingKind);
+        //    taskAdv.SetWeldingKind(weldingKind);
 
-            pContr.HeaderName = $"Постановка задачи {weldingKind}";
+        //    pContr.HeaderName = $"Постановка задачи {weldingKind}";
 
-            FillAdvisor(taskAdv);
-        }
+        //    FillAdvisor(taskAdv);
+        //}
 
-        private async void TaskAdv_SpecifyWeldingZone(string arg1, int arg2)
-        {
-            try
-            {
-                await System.Threading.Tasks.Task.Run(() =>
-                {
-                    var dataKind = Converters.ConvertToDataKind(arg1);
-                    var data = taskData.Find(dataKind).ToArray()[arg2];
+        //private async void TaskAdv_SpecifyWeldingZone(string arg1, int arg2)
+        //{
+        //    try
+        //    {
+        //        await System.Threading.Tasks.Task.Run(() =>
+        //        {
+        //            var dataKind = Converters.ConvertToDataKind(arg1);
+        //            var data = taskData.Find(dataKind).ToArray()[arg2];
 
-                    var frame = data.FrameFunction.LocalFrame as MovedFrame;
-                    var modelObjects = new List<IModelObject>();
-                    var finishTime = data.StopTime - data.StartTime;
+        //            var frame = data.FrameFunction.LocalFrame as MovedFrame;
+        //            var modelObjects = new List<IModelObject>();
+        //            var finishTime = data.StopTime - data.StartTime;
 
-                    Invoke(new Action(() =>
-                    {
-                        BasePage.ConsoleControl.PrintInfo("Уточнение зоны нагрева...", Color.Black);
-                    }));
+        //            Invoke(new Action(() =>
+        //            {
+        //                BasePage.ConsoleControl.PrintInfo("Уточнение зоны нагрева...", Color.Black);
+        //            }));
 
-                    for (int i = 0; i <= 100; i++)
-                    {
-                        var currentTime = i * finishTime / 100.0f;
-                        frame.Time = currentTime;
+        //            for (int i = 0; i <= 100; i++)
+        //            {
+        //                var currentTime = i * finishTime / 100.0f;
+        //                frame.Time = currentTime;
 
-                        var resu = data.FrameFunction.GetIntersectedObjects(data.Group.ToList());
-                        modelObjects.AddRange(resu);
+        //                var resu = data.FrameFunction.GetIntersectedObjects(data.Group.ToList());
+        //                modelObjects.AddRange(resu);
 
-                        if (i % 10 == 0)
-                            Invoke(new Action(() =>
-                            {
-                                BasePage.ConsoleControl.PrintInfo((i / 100.0f).ToString("P2"), Color.Black);
-                            }));
-                    }
+        //                if (i % 10 == 0)
+        //                    Invoke(new Action(() =>
+        //                    {
+        //                        BasePage.ConsoleControl.PrintInfo((i / 100.0f).ToString("P2"), Color.Black);
+        //                    }));
+        //            }
 
-                    var modelData = BasePage.ScenePage.GetModelController().ModelData;
-                    var gr = modelData.GroupData.Create(data.Group.Name + "spec", data.Group.ObjType);
-                    gr.AddRange(modelObjects);
-                    modelData.GroupData.Add(gr);
-                });
-            }
-            catch (System.Exception ex)
-            {
-                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
-            }
+        //            var modelData = BasePage.ScenePage.GetModelController().ModelData;
+        //            var gr = modelData.GroupData.Create(data.Group.Name + "spec", data.Group.ObjType);
+        //            gr.AddRange(modelObjects);
+        //            modelData.GroupData.Add(gr);
+        //        });
+        //    }
+        //    catch (System.Exception ex)
+        //    {
+        //        BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+        //    }
 
-        }
+        //}
     }
 }

@@ -6,21 +6,25 @@ using Model.GeometryObjects;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using Model.MeshObjects;
+using ModelController.ModelScenePresentator;
 using ModelController.ModelScenePresentator.GlObjsPresenters;
 using ModelControllerInterfaces;
 using Newtonsoft.Json.Linq;
 using Scene;
+using Scene.Events;
 using Scene.Interfaces;
 using Scene.VBO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Odbc;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static BaseModule.Interfaces.GeneralParams;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -28,28 +32,9 @@ namespace BazisGUI
 {
     public partial class ScenePage : UserControl
     {
-        [Category("General")]
-        [Description("Выбранный объект сцены")]
-        public string SelectedObjects { get; set; }
+        IPresentersCreator presentersCreator = new PresentersCreator();
 
-        IModelData ModelData { get { return ModelController.ModelData; } }
-
-        IModelController ModelController { get; set; }
-
-        IPresentersCreator PresentersCreator
-        {
-            get { return ModelController.PresentersCreator; }
-        }
-
-        public void SetModelController(IModelController modelController)
-        {
-            ModelController = modelController;
-        }
-
-        public IModelController GetModelController()
-        {
-            return ModelController;
-        }
+        public IPresentersCreator PresentersCreator { get { return presentersCreator; } }
 
 
         [Category("SceneControl")]
@@ -60,46 +45,34 @@ namespace BazisGUI
         }
         [Category("General")]
         [Description("Уровень прозрачности объектов")]
-        public int TransparencyValue { get; set; }
-        [Category("General")]
-        [Description("Цвет узлов")]
-        public Color NodeColor
-        {
-            set
-            {
-                ModelData.ObjectData.NodesSet.SetColor(value);
-                //foreach (var item in ModelData.ObjectData.NodesSet.Values)
-                //{
-                //    item.Color = value;
-                //}
-            }
-        }  
+        public int TransparencyValue { get; set; } 
 
         public ScenePage()
         {
             InitializeComponent();
         }
 
-        //public event Action<object, Scene.Events.SelectObjectsEventArgs> SelectObjectsEvent;
-        public event Action<object, string> MeshGroupCreatedEvent;
+
+        public event Action<object> MeshGroupCreatedEvent;
         public event Action<object, string, Color> SceneInfoEvent;
         public event Action<object> ShowAllObjectsEvent;
         public event Action<object> SelectionDeletedEvent;
+        public event Action<object, SelectObjectsEventArgs> SelectObjectsEvent;
+        public event Action<object> HideSelectedObjects;
         public event Action SceneExpandEvent;
         public event Action SceneFoldEvent;
+        public event Action<object> SetBackColorToAllObjectsEvent;
 
 
-        public virtual void PresentCrossSection(SurfaceFigure surface)
+        public virtual void PresentCrossSection(ISurfaceObjsPresenter presenter)
         {
-
-            var presenter = ModelController.PresentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
-
             var inds = presenter.CreateIndexes();
             var ptrs = presenter.CreatePointers(inds.Item1);
             var coords = presenter.CreateVertexes(inds.Item2, "координаты");
             var colors = presenter.CreateVertexes(inds.Item3, "цвет");
             var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
             var edges = presenter.CreateEdgeFlags(inds.Item4);
+
             var separs = presenter.CreateSeparators();
 
             sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, "crossSection", separs, ObjView.LinesSurface);
@@ -122,17 +95,42 @@ namespace BazisGUI
             sceneControl.DeleteVBObjects(ObjType.Элемент3D.ToString());
         }
 
-        public void PresentAllModelObjectsToScene()
+        public void PresentAllModelObjectsToScene(IModelData modelData)
         {
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
             {
-                var presentor = CreateObjectsPresentor(item);
+                var presentor = CreateObjectsPresentor(modelData, item);
                 if (presentor.Count() > 0)
                 {
-                    presentor.ViewMode = ModelData.ObjectData.GetSetsInfo(item).First().ViewMode;
+                    presentor.ViewMode = modelData.ObjectData.GetSetsInfo(item).First().ViewMode;
                     CreateObjectsOnScene(item.ToString(), presentor);
                 }
+            }
+        }
 
+        public IObjsPresenter CreateObjectsPresentor(IModelData modelData, ObjType objType)
+        {
+
+            switch (objType)
+            {
+                case ObjType.Узел:
+                    return presentersCreator.CreatePointObjectsPresenter(modelData.ObjectData.NodesSet.Values);
+                case ObjType.Кривая:
+                    return presentersCreator?.CreateLineObjectsPresenter(modelData.ObjectData.CurveCollection.GetObjects());
+                case ObjType.Поверхность:
+                    return presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.SurfaceCollection.GetObjects());
+                case ObjType.Объем:
+                    return presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.VolumeCollection.GetObjects());
+                case ObjType.Элемент1D:
+                    return presentersCreator.CreateLineObjectsPresenter(modelData.ObjectData.E1DCollection.GetObjects());
+
+                case ObjType.Элемент2D:
+                    return presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.E2DCollection.GetObjects());
+
+                case ObjType.Элемент3D:
+                    return presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.E3DCollection.GetObjects());
+                default:
+                    return presentersCreator.CreatePointObjectsPresenter(modelData.ObjectData.PointsSet.Values);
             }
         }
 
@@ -167,116 +165,40 @@ namespace BazisGUI
                 sceneControl.CreatePointVBObjects(ptrs, coords, colors, normals, objsName);
         }
 
-        public void SetBackColorToAllObjects()
-        {
-            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
-            {
-                ModelData.ObjectData.SetBackColor(item);
-                SetObjectsSceneAttribute(item, "цвет");
-            }
-
-        }
-
         private void sceneControl_SelectObjectsEvent(object arg1, Scene.Events.SelectObjectsEventArgs arg2)
         {
-            var selections = SearchObjects(arg2.SelectionBox);
+            SelectObjectsEvent?.Invoke(this, arg2);
+        }  
 
-            if (selections.Count > 0)
-            {
-                SelectObjects(arg2.IsSelected, arg2.IsSorted, selections);
-
-                if (SelectedObjects == "Объекты")
-                {
-                    foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
-                        SetObjectsSceneAttribute(type, "цвет");
-                }
-                else if (SelectedObjects == "Элементы")
-                {
-                    SetObjectsSceneAttribute(ObjType.Элемент1D, "цвет");
-                    SetObjectsSceneAttribute(ObjType.Элемент2D, "цвет");
-                    SetObjectsSceneAttribute(ObjType.Элемент3D, "цвет");
-                }
-                else if (SelectedObjects == "Фигуры")
-                {
-                    SetObjectsSceneAttribute(ObjType.Поверхность, "цвет");
-                    SetObjectsSceneAttribute(ObjType.Объем, "цвет");
-                }
-                else
-                    SetObjectsSceneAttribute(Converters.ConvertToObjsType(SelectedObjects), "цвет");
-
-                sceneControl.DisplayObjects();
-            }
-        }
-
-        public void SetObjectsSceneAttribute(ObjType objsType, string attribName)
+        public void SetObjectsSceneAttribute(IObjsPresenter presenter, string objsName,string attribName)
         {
-            var objName = objsType.ToString();
-            var vboObjs = sceneControl.FindVBObj(objName);
+            //var objName = objsType.ToString();
+            var vboObjs = sceneControl.FindVBObj(objsName);
 
             if (vboObjs != null)
-            {
-                var objsPresenter = CreateObjectsPresentor(objsType);
-
-                if (objsPresenter.Count() > 0)
+            {         
+                if (presenter.Count() > 0)
                 {
                     if(attribName == "цвет")
                     {
-                        var colors = objsPresenter.CreateVertexes(vboObjs.ColorLength, "цвет");
+                        var colors = presenter.CreateVertexes(vboObjs.ColorLength, "цвет");
                         vboObjs.PointsColors = colors;
                     }
                     else
                     {
-                        var coords = objsPresenter.CreateVertexes(vboObjs.CoordLength, "координаты");
+                        var coords = presenter.CreateVertexes(vboObjs.CoordLength, "координаты");
                         vboObjs.PointsCoords = coords;
                     }
                 }
             }
-        }
+        } 
 
-        private void SelectObjects(bool isSelected, bool isSorted, List<IModelObject> selections)
-        {
-            try
-            {
-                if (isSorted & selections.Count > 0)
-                {
-                    var camera = sceneControl.GetCamera();
-
-                    var near = selections.OrderByDescending(x => camera.GetSceenCoord(x.CalcCentr())._z).First();
-                    var set = ModelData.ObjectData.GetSetInfo(near.ObjType, near.Number);
-                    if (isSelected)
-                    {
-                        near.Color = sceneControl.SelectionColor;
-                    }
-                    else
-                        near.Color = set.Color;
-                }
-                else
-                {
-                    foreach (var obj in selections)
-                    {
-                        var set = ModelData.ObjectData.GetSetInfo(obj.ObjType, obj.Number);
-                        if (isSelected)
-                        {
-                            obj.Color = sceneControl.SelectionColor;
-                        }
-
-                        else
-                            obj.Color = set.Color;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                SceneInfoEvent?.Invoke(this, ex.Message, Color.Red);
-            }
-        }
-
-        public List<IModelObject> SearchObjects(RectangleBox selectionBox)
+        public List<IModelObject> SearchObjects(IEnumerable<IModelObject> objects, RectangleBox selectionBox, bool isSorted)
         {
             var camera = sceneControl.GetCamera();
             var selections = new List<IModelObject>();
 
-            foreach (var item in ObjectsProvider.SelectorProvider(ModelData.ObjectData,SelectedObjects))
+            foreach (var item in objects)
             {
                 if (item.ViewState)
                 {
@@ -299,121 +221,54 @@ namespace BazisGUI
                         selections.Add(item);
                 }
             }
-            return selections;
-        }
 
-        public IObjsPresenter CreateObjectsPresentor(ObjType objType)
-        {
-            //IObjsPresenter presenter;
-
-            switch (objType)
+            if(isSorted)
             {
-                case ObjType.Узел:
-                    return PresentersCreator.CreatePointObjectsPresenter(ModelData.ObjectData.NodesSet.Values);
-                case ObjType.Кривая:
-                    return PresentersCreator.CreateLineObjectsPresenter(ModelData.ObjectData.CurveCollection.GetObjects());
-                case ObjType.Поверхность:
-                    return PresentersCreator.CreateSurfaceObjectsPresenter(ModelData.ObjectData.SurfaceCollection.GetObjects());                   
-                case ObjType.Объем:
-                    return PresentersCreator.CreateSurfaceObjectsPresenter(ModelData.ObjectData.VolumeCollection.GetObjects());
-                case ObjType.Элемент1D:
-                    return PresentersCreator.CreateLineObjectsPresenter(ModelData.ObjectData.E1DCollection.GetObjects());
-
-                case ObjType.Элемент2D:
-                    return PresentersCreator.CreateSurfaceObjectsPresenter(ModelData.ObjectData.E2DCollection.GetObjects());
-
-                case ObjType.Элемент3D:
-                    var presenter = PresentersCreator.CreateSurfaceObjectsPresenter(ModelData.ObjectData.E3DCollection.GetObjects());
-                    if (!sceneControl.DrawInsideObjects)
-                        presenter.HideInsideSurfaces();
-                    return presenter;
-                default:
-                    return PresentersCreator.CreatePointObjectsPresenter(ModelData.ObjectData.PointsSet.Values);
+                var near = selections.OrderByDescending(x => camera.GetSceenCoord(x.CalcCentr())._z).First();
+                return new List<IModelObject>() { near };
             }
+            else
+                return selections;
         }
 
         private void создатьГруппуItem_Click(object sender, EventArgs e)
         {
-            if (SelectedObjects == "Объекты" |
-                SelectedObjects == "Фигуры" |
-                SelectedObjects == "Элементы")
-            {
-                SceneInfoEvent?.Invoke(sender, $"Нельзя создать группу {SelectedObjects}", Color.Orange);
-            }
-            else
-            {
-                var selObjs = ObjectsProvider.SelectorProvider(ModelData.ObjectData, SelectedObjects).
-                Where(x => x.Color == SceneControl.SelectionColor);
-
-
-                if (selObjs.Count() > 0)
-                {
-                    var objType = Converters.ConvertToObjsType(SelectedObjects);
-                    var grps = ModelData.GroupData.FindMany(objType);
-
-                    var counter = 1;
-                    var name = $"{SelectedObjects}_{grps.Count() + counter}";
-
-                    while (true)
-                    {
-                        if (ModelData.GroupData.Find(name) != null)
-                        {
-                            counter++;
-                            name = $"{SelectedObjects}_{grps.Count() + counter}";
-                        }
-                        else break;
-                    }
-
-                    var group = ModelData.GroupData.Create(name, objType);
-
-                    group.AddRange(selObjs);
-                    ModelData.GroupData.Add(group);
-
-                    ModelData.ObjectData.SetBackColor(objType);
-                    SetObjectsSceneAttribute(objType, "цвет");
-
-                    sceneControl.DisplayObjects();
-
-                    MeshGroupCreatedEvent?.Invoke(this, name);
-                }
-            }  
+            MeshGroupCreatedEvent?.Invoke(this);
         }
 
         private void скрытьВыбранноеItem_Click(object sender, EventArgs e)
         {
+            HideSelectedObjects?.Invoke(this);
+        }
 
-            var selObjs = ObjectsProvider.SelectorProvider(ModelData.ObjectData, SelectedObjects).
-                Where(x => x.Color == sceneControl.SelectionColor);
-
-            foreach (var selObj in selObjs)
-                selObj.ViewState = false;
-
-            if (SelectedObjects == "Объекты")
+        public void PresentModelObjectsOnScene(IModelData modelData, string objects)
+        {
+            if (objects == "Объекты")
             {
                 sceneControl.DeleteAllVBObjects();
-                PresentAllModelObjectsToScene();
+                PresentAllModelObjectsToScene(modelData);
             }
-            else if (SelectedObjects == "Элементы")
+            else if (objects == "Элементы")
             {
                 sceneControl.DeleteVBObjects(ObjType.Элемент1D.ToString());
-                CreateObjectsOnScene(ObjType.Элемент1D.ToString(), CreateObjectsPresentor(ObjType.Элемент1D));
+                CreateObjectsOnScene(ObjType.Элемент1D.ToString(), CreateObjectsPresentor(modelData,ObjType.Элемент1D));
                 sceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
-                CreateObjectsOnScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(ObjType.Элемент2D));
+                CreateObjectsOnScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(modelData,ObjType.Элемент2D));
                 sceneControl.DeleteVBObjects(ObjType.Элемент3D.ToString());
-                CreateObjectsOnScene(ObjType.Элемент3D.ToString(), CreateObjectsPresentor(ObjType.Элемент3D));
+                CreateObjectsOnScene(ObjType.Элемент3D.ToString(), CreateObjectsPresentor(modelData,ObjType.Элемент3D));
             }
-            else if (SelectedObjects == "Фигуры")
+            else if (objects == "Фигуры")
             {
                 sceneControl.DeleteVBObjects(ObjType.Поверхность.ToString());
-                CreateObjectsOnScene(ObjType.Поверхность.ToString(), CreateObjectsPresentor(ObjType.Поверхность));
+                CreateObjectsOnScene(ObjType.Поверхность.ToString(), CreateObjectsPresentor(modelData,ObjType.Поверхность));
                 sceneControl.DeleteVBObjects(ObjType.Объем.ToString());
-                CreateObjectsOnScene(ObjType.Объем.ToString(), CreateObjectsPresentor(ObjType.Объем));
+                CreateObjectsOnScene(ObjType.Объем.ToString(), CreateObjectsPresentor(modelData,ObjType.Объем));
             }
             else
             {
-                sceneControl.DeleteVBObjects(SelectedObjects);
-                var objType = Converters.ConvertToObjsType(SelectedObjects);
-                CreateObjectsOnScene(SelectedObjects, CreateObjectsPresentor(objType));
+                sceneControl.DeleteVBObjects(objects);
+                var objType = Converters.ConvertToObjsType(objects);
+                CreateObjectsOnScene(objects, CreateObjectsPresentor(modelData,objType));
             }
 
 
@@ -422,10 +277,15 @@ namespace BazisGUI
 
         private void показатьСкрытыеItem_Click(object sender, EventArgs e)
         {
-            ShowAllObjects();
-            SceneControl.DisplayObjects();
+            try
+            {
+                ShowAllObjectsEvent?.Invoke(this);
 
-            ShowAllObjectsEvent?.Invoke(sender);
+            }
+            catch (Exception ex)
+            {
+                SceneInfoEvent?.Invoke(this, ex.Message, Color.Red);
+            }
         }
 
         public void ClearAllDataOnScene()
@@ -436,46 +296,25 @@ namespace BazisGUI
             sceneControl.DeleteAllVBObjects();
         }
 
-        public void ShowAllObjects()
-        {
-            try
-            {
-                SceneControl.DeleteAllVBObjects();
-
-                foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
-                {
-                    foreach (var modelObject in ModelData.ObjectData.GetObjects(item))
-                        modelObject.ViewState = true;
-                }
-
-                PresentAllModelObjectsToScene();
-
-            }
-            catch (Exception ex)
-            {
-                SceneInfoEvent?.Invoke(this, ex.Message, Color.Red);
-            }
-        }
-
         private void menuItem_InfoSelectedObjects_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var objs = ObjectsProvider.SelectorProvider(ModelData.ObjectData, SelectedObjects);
-                var selObjs = objs.Where(x => x.Color == SceneControl.SelectionColor);
+            //try
+            //{
+            //    var objs = ObjectsProvider.SelectorProvider(ModelData.ObjectData, SelectedObjects);
+            //    var selObjs = objs.Where(x => x.Color == SceneControl.SelectionColor);
 
-                var message = $"Выбраны {SelectedObjects} {selObjs.Count()}";
+            //    var message = $"Выбраны {SelectedObjects} {selObjs.Count()}";
 
-                var numbers = string.Join("\n", selObjs.Select(x => x.ToString()).ToArray());
+            //    var numbers = string.Join("\n", selObjs.Select(x => x.ToString()).ToArray());
 
-                message += "\n" + numbers;
+            //    message += "\n" + numbers;
 
-                SceneInfoEvent?.Invoke(sender, message, Color.Black);
-            }
-            catch (Exception ex)
-            {
-                SceneInfoEvent?.Invoke(sender, ex.Message, Color.Red);
-            }
+            //    SceneInfoEvent?.Invoke(sender, message, Color.Black);
+            //}
+            //catch (Exception ex)
+            //{
+            //    SceneInfoEvent?.Invoke(sender, ex.Message, Color.Red);
+            //}
         }
 
         private void menuItem_SetRotPoint_Click(object sender, EventArgs e)
@@ -520,20 +359,6 @@ namespace BazisGUI
 
         private void menuItem_DeleteSelectedObjects_Click(object sender, EventArgs e)
         {
-            var selObjs = ObjectsProvider.SelectorProvider(ModelData.ObjectData, SelectedObjects).
-    Where(x => x.Color == SceneControl.SelectionColor);
-
-            foreach (var selObj in selObjs)
-                selObj.ExistState = false;
-
-            ModelData.ObjectData.ClearNotExisted();
-            ModelData.GroupData.ClearNotExisted();
-            sceneControl.DeleteAllVBObjects();
-
-            PresentAllModelObjectsToScene();
-
-            sceneControl.DisplayObjects();
-
             SelectionDeletedEvent?.Invoke(sender);
         }
 
@@ -553,8 +378,7 @@ namespace BazisGUI
         {
             if(arg2.KeyCode == Keys.Escape)
             {
-                SetBackColorToAllObjects();
-                SceneControl.DisplayObjects();
+                SetBackColorToAllObjectsEvent?.Invoke(this);
             }
         }
 
@@ -566,6 +390,35 @@ namespace BazisGUI
         private void sceneControl_SceneControlFoldEvent()
         {
             SceneFoldEvent?.Invoke();
+        }
+
+        internal void ColorObjects(IModelData modelData, string objTypeStr)
+        {
+            if (objTypeStr == "Объекты")
+            {
+                foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
+                    SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, type), type.ToString(), "цвет");
+            }
+            else if (objTypeStr == "Элементы")
+            {
+                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент1D), objTypeStr.ToString(), "цвет");
+                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент2D), objTypeStr.ToString(), "цвет");
+                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент3D), objTypeStr.ToString(), "цвет");
+            }
+            else if (objTypeStr == "Фигуры")
+            {
+                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Поверхность), objTypeStr.ToString(), "цвет");
+                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Объем), objTypeStr.ToString(), "цвет");
+            }
+            else
+            {
+                var objType = Converters.ConvertToObjsType(objTypeStr);
+                var presentor = CreateObjectsPresentor(modelData, objType);
+                SetObjectsSceneAttribute(presentor, objType.ToString(), "цвет");
+            }
+
+
+            sceneControl.DisplayObjects();
         }
     }
 }

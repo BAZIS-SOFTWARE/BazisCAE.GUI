@@ -8,6 +8,7 @@ using Geometry;
 using Gif.Components;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
+using ModelController;
 using ModelControllerInterfaces;
 using PostProc;
 using PostProc.ScenePresenter;
@@ -34,7 +35,10 @@ namespace BazisGUI
     {
         ISceneScale scale;
         public event Action<object,string> LoadResultsEvent;
-
+        public event Action<object> RemoveResultsEvent;
+        public event Action<object> HideResultsEvent;
+        public event Action<object,Result,int> ShowResultsEvent;
+        public event Action<object,CreateAnimationEventArgs> CreateGIFAnimationEvent;
         public bool ShowResultsField { get; set; } = true;
 
         public bool ShowNodeResultsValue { get; set; } = false;
@@ -50,24 +54,9 @@ namespace BazisGUI
 
        enum ResultType { nodes, elements}
 
-        PostProcController resultsController;
+        PostProcController resultsController = new PostProcController();
 
-        IGeneralData GeneralData { get { return BasePage.GetGeneralData(); } }
-
-        IModelController ModelController
-        {
-            get { return BasePage.ScenePage.GetModelController(); }
-        }
-
-        IModelData ModelData
-        {
-            get { return ModelController.ModelData; }
-        }
-
-        public void SetResultsController(PostProcController resultsController)
-        {
-            this.resultsController = resultsController;
-        }
+        PostProcController ResultsController { get { return resultsController; } }
 
         public ResultsPage()
         {
@@ -147,13 +136,13 @@ namespace BazisGUI
             scForm.Show();
         }
 
-        public void CreateGraph()
+        public void CreateGraph(IModelData modelData)
         {
             var grPage = new GraphCreationPage() { Dock = DockStyle.Fill };
             var loader = new LoadResultsFileDB();
             grPage.CreateTimeGraphEvent += (ar1, ar2) =>
             {
-                CreateTimeGraph(loader,ar2.Objects);
+                CreateTimeGraph(loader,ar2.Objects, modelData.ObjectData);
             };
             grPage.CreatePathGraphEvent += (ar1, ar2) =>
                 {
@@ -161,7 +150,7 @@ namespace BazisGUI
                     var dbTable = Converters.ConvertToDBTablesNames(ar2.Objects);
                     var result = loader.GetResult(ResultDbPath, new List<string>() { dbTable }, ar2.Time);
 
-                    CreatePathGraph(result, dbTable);
+                    CreatePathGraph(result, dbTable, modelData);
                 };
 
             var times = loader.GetValues(ResultDbPath, ResultType.nodes.ToString(), "Time");
@@ -197,13 +186,17 @@ namespace BazisGUI
                             ResultType.nodes.ToString(),
                             ResultType.elements.ToString()
                         }, ar2.Time);
-                    ShowResults(result, ar2.ScaleFactor);
+                    ShowResultsEvent?.Invoke(this, result, ar2.ScaleFactor);
+    
                 }
 
                 else BasePage.ConsoleControl.PrintInfo("Выберите результаты для отображения!", Color.Red);
             };
 
-            animationPage.CreateGIFAnimationEvent += (arg1, arg2) => { CreateGIFAnimation(arg2); };
+            animationPage.CreateGIFAnimationEvent += (arg1, arg2) => 
+            {
+                CreateGIFAnimationEvent?.Invoke(this, arg2);
+            };
             animationPage.SaveScreenShotEvent += (ar1) => { BasePage.CreateScreenShot(ar1); };
         }
 
@@ -215,11 +208,11 @@ namespace BazisGUI
             EmbeddedSplitContainer.Panel2Collapsed = false;
         }
 
-        private void CreateGIFAnimation(CreateAnimationEventArgs args)
+        public void CreateGIFAnimation(IGeneralData generalData, IModelData modelData, CreateAnimationEventArgs args)
         {
             try
             {
-                var outputFilePath = $@"{GeneralData.Path}\results.gif";
+                var outputFilePath = $@"{generalData.Path}\results.gif";
 
                 AnimatedGifEncoder e = new AnimatedGifEncoder();
 
@@ -233,14 +226,14 @@ namespace BazisGUI
                 var tables = new List<string>();
                 foreach (TreeNode item in BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes)
                     tables.Add(item.Text);
-                
+
 
                 for (int i = 0; i < args.Times.Length; i++)
                 {
                     var result = loader.GetResult(ResultDbPath, tables, args.Times[i]); //resultData.FindByTime(args.ResltsKind, args.Times[i]);
-                    ShowResults(result, args.ScaleFactor);
+                    ShowResults(generalData, modelData, result, args.ScaleFactor);
                     var image = $@"screenShot_{args.Times[i]}";
-                    var imagePath = $@"{GeneralData.Path}\{image}.bmp";
+                    var imagePath = $@"{generalData.Path}\{image}.bmp";
                     BasePage.CreateScreenShot(imagePath);
 
                     using (var stream = new FileStream(imagePath, FileMode.Open))
@@ -288,9 +281,9 @@ namespace BazisGUI
                     }
                 }
             }
-        }   
+        }
 
-        private void ShowResults(Result result, int scaleFactor)
+        public void ShowResults(IGeneralData generalData,IModelData modelData,  Result result, int scaleFactor)
         {
             try
             {
@@ -302,31 +295,31 @@ namespace BazisGUI
                 scale.Info = $"{resName} {result.Time}";
 
                 if (MergeResultsValue)
-                    MergeResults(result);
+                    MergeResults(generalData, modelData,result);
 
                 if (!IsScaleMaxMinManual)
                     SetMaxMinAuto(result, tableName, resName);
-                
-                if(ShowResultsField)
+
+                if (ShowResultsField)
                 {
                     scenePage.ClearAllGeometryDataOnScene();
                     scenePage.ClearAllMeshDataOnScene();
 
-                    var presenter = CreateResultsField(result, scaleFactor, resName, tableName);
+                    var presenter = CreateResultsField(generalData,modelData, result, scaleFactor, resName, tableName);
                     scenePage.CreateObjectsOnScene(ObjType.Поверхность.ToString(), presenter);
                 }
 
                 if (ShowNodeResultsValue)
                 {
                     scenePage.SceneControl.HideDisplayText3D();
-                    ShowResultValue(ResultType.nodes, resName, result);
+                    ShowResultValue(modelData, ResultType.nodes, resName, result);
                 }
 
 
                 if (ShowElementsResultsValue)
                 {
                     scenePage.SceneControl.HideDisplayText3D();
-                    ShowResultValue(ResultType.elements, resName, result);
+                    ShowResultValue(modelData,ResultType.elements, resName, result);
                 }
 
 
@@ -345,7 +338,7 @@ namespace BazisGUI
             }
         }
 
-        private IObjsPresenter CreateResultsField(Result result, int scaleFactor, string resName, string tableName)
+        private IObjsPresenter CreateResultsField(IGeneralData generalData,IModelData modelData, Result result, int scaleFactor, string resName, string tableName)
         {
             var scaleItems = GetScaleItems();
             resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems);
@@ -353,13 +346,13 @@ namespace BazisGUI
 
             IEnumerable<ISurfaceElement> elems;
 
-            if (GeneralData.TaskType == TaskType.Volume)
-                elems = ModelData.ObjectData.E3DCollection.GetObjects();
+            if (generalData.TaskType == TaskType.Volume)
+                elems = modelData.ObjectData.E3DCollection.GetObjects();
             else
-                elems = ModelData.ObjectData.E2DCollection.GetObjects();
+                elems = modelData.ObjectData.E2DCollection.GetObjects();
 
             var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, tableName, resName, elems);
-            return ModelController.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults);
+            return BasePage.ScenePage.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults);
         }
 
         private ItemRange[] GetScaleItems()
@@ -388,7 +381,7 @@ namespace BazisGUI
             scale.FillRange(min, max, 10);
         }
 
-        private async void CreatePathGraph(Result result,string table)
+        private async void CreatePathGraph(Result result, string table,IModelData modelData)
         {
             try
             {
@@ -399,10 +392,10 @@ namespace BazisGUI
                 }
 
                 scenePage.ClearAllDataOnScene();
-                scenePage.PresentAllModelObjectsToScene();
-                scenePage.SelectedObjects = ObjType.Узел.ToString();
+                //scenePage.PresentAllModelObjectsToScene();
+                //scenePage.SelectedObjects = ObjType.Узел.ToString();
 
-                var objs = await BasePage.CreatePathAsync();
+                var objs = await BasePage.CreatePathAsync(modelData);
 
                 var selNode = BasePage.NavigatorControl.TreeView.SelectedNode;
                 var resDes = selNode.Name;
@@ -454,7 +447,7 @@ namespace BazisGUI
             }
         }
 
-        private async void CreateTimeGraph(LoadResultsFileDB loader, GraphObjects objsType)
+        private async void CreateTimeGraph(LoadResultsFileDB loader, GraphObjects objsType, IObjectsData objectsData)
         {
             try
             {
@@ -463,12 +456,12 @@ namespace BazisGUI
                     throw new Exception("Выберите вид результатов в разделе результаты");
 
                 scenePage.ClearAllDataOnScene();
-                scenePage.PresentAllModelObjectsToScene();
-                scenePage.SelectedObjects = objsType.ToString();
+                //scenePage.PresentAllModelObjectsToScene();
+                //scenePage.SelectedObjects = objsType.ToString();
 
-                var objs = await SelectObjectsAsync(objsType);
+                var objs = await SelectObjectsAsync(objsType, objectsData);
 
-                if(objs.Count == 0)
+                if (objs.Count == 0)
                     throw new Exception("Не выбран ни один объект!");
 
                 var selNode = BasePage.NavigatorControl.TreeView.SelectedNode;
@@ -484,14 +477,14 @@ namespace BazisGUI
                 {
                     var grPoints = new List<GraphPoint>();
 
-                    BasePage.ConsoleControl.PrintInfo($"Идет построение графика для объекта {obj.ObjType} {obj.Number}, подождите немного...", Color.Red);;
+                    BasePage.ConsoleControl.PrintInfo($"Идет построение графика для объекта {obj.ObjType} {obj.Number}, подождите немного...", Color.Red); ;
 
                     foreach (var time in times)
                     {
                         //var res = 0.0f;
-                        var result = loader.GetResult(ResultDbPath, new List<string>() { dbTable}, time);
+                        var result = loader.GetResult(ResultDbPath, new List<string>() { dbTable }, time);
 
-                        var res = result.GetValue(dbTable,obj.Number, resDes);
+                        var res = result.GetValue(dbTable, obj.Number, resDes);
 
                         var grPoint = new GraphPoint(result.Time, res);
                         grPoints.Add(grPoint);
@@ -515,7 +508,7 @@ namespace BazisGUI
                         TopMost = true,
                         Text = $"График {resDes} - время",
                         ShowIcon = false,
-                        ClientSize = grContainer.Size            
+                        ClientSize = grContainer.Size
                     };
 
 
@@ -532,7 +525,7 @@ namespace BazisGUI
 
         }
 
-        public async Task<List<IModelObject>> SelectObjectsAsync(GraphObjects objType)
+        public async Task<List<IModelObject>> SelectObjectsAsync(GraphObjects objType, IObjectsData objsData)
         {
             var nodes = new List<IModelObject>();
             BasePage.PressedKey = Keys.None;
@@ -545,11 +538,11 @@ namespace BazisGUI
                 {
                     if (BasePage.PressedKey == Keys.E)
                     {
-                        var objs = ObjectsProvider.GraphPageProvider(ModelData.ObjectData,objType);
+                        var objs = ObjectsProvider.GraphPageProvider(objsData, objType);
                         nodes = objs.Where(x => x.Color == scenePage.SceneControl.SelectionColor).ToList();
                         break;
                     }
-                    if(BasePage.PressedKey == Keys.Escape)
+                    if (BasePage.PressedKey == Keys.Escape)
                     {
                         Invoke(new Action(() =>
                         {
@@ -600,16 +593,16 @@ namespace BazisGUI
 
         }
 
-        public void MergeResults(Result result)
+        public void MergeResults(IGeneralData generalData, IModelData modelData,  Result result)
         {
             try
             {
                 var scenePage = BasePage.ScenePage;
                 IEnumerable<IElement> elements;
-                if (GeneralData.TaskType == TaskType.Volume)
-                    elements = ModelData.ObjectData.E3DCollection.GetObjects();
+                if (generalData.TaskType == TaskType.Volume)
+                    elements = modelData.ObjectData.E3DCollection.GetObjects();
                 else
-                    elements = ModelData.ObjectData.E2DCollection.GetObjects();
+                    elements = modelData.ObjectData.E2DCollection.GetObjects();
 
 
                     var interfaceNodes = ModelController.InterfacedNodesFinder.Find(elements);
@@ -641,16 +634,16 @@ namespace BazisGUI
             }
         }
 
-        private void ShowResultValue(ResultType tableType, string resName, Result result)
+        private void ShowResultValue(IModelData modelData, ResultType tableType, string resName, Result result)
         {
             IEnumerable<IModelObject> objs;
 
             var scenePage = BasePage.ScenePage;
 
             if (tableType == ResultType.nodes)
-                objs = ModelData.ObjectData.NodesSet.Values;
+                objs = modelData.ObjectData.NodesSet.Values;
             else
-                objs = ModelData.ObjectData.GetAllElements();
+                objs = modelData.ObjectData.GetAllElements();
 
             foreach (var obj in objs)
             {
@@ -670,11 +663,16 @@ namespace BazisGUI
 
         private void скрытьРезультатыToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            HideResultsEvent?.Invoke(this);
+        }
+
+        public void HideResults(IModelData modelData)
+        {
             var scenePage = BasePage.ScenePage;
 
             scenePage.ClearAllDataOnScene();
 
-            scenePage.PresentAllModelObjectsToScene();
+            scenePage.PresentAllModelObjectsToScene(modelData);
 
             scenePage.SceneControl.FitObjectsToScreen();
             scenePage.SceneControl.DisplayObjects();
@@ -682,8 +680,11 @@ namespace BazisGUI
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //resultData.Clear();
-            //ResultData.Clear();
+            RemoveResultsEvent?.Invoke(this);
+        }
+
+        public void RemoveResults(IModelData modelData)
+        {
             BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоУзлам"].Nodes.Clear();
             BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоЭлементам"].Nodes.Clear();
 
@@ -692,23 +693,20 @@ namespace BazisGUI
             scenePage.ClearAllDataOnScene();
 
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
-                scenePage.CreateObjectsOnScene(item.ToString(), scenePage.CreateObjectsPresentor(item));
+                scenePage.CreateObjectsOnScene(item.ToString(), scenePage.CreateObjectsPresentor(modelData,item));
 
             scenePage.SceneControl.DisplayObjects();
 
             var anPage = (PinnedAnimationControl)EmbeddedControls.Find("pinnedAnimationControl", false)[0];
             anPage.AnimationPage.ClearResultsItems();
-            //if (splitContainerEx.Panel2.Controls.Find("PinnedAnimationControl", false).Count() != 0)
-            //splitContainerEx.Panel2.Controls[0]
         }
 
         private void пересчитатьНаУзлыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //MergeResults();
             BasePage.ConsoleControl.PrintInfo($"Выполняется пересчет с элементов на узлы. Не выходите из модуля!", Color.Orange);                    
         }
 
-        public void ShowExportResultsPage()
+        public void ShowExportResultsPage(IModelData modelData, IGeneralData generalData)
         {
             if (ResultDbPath.Equals(string.Empty))
             {
@@ -739,8 +737,8 @@ namespace BazisGUI
                     return loader.GetResult(ResultDbPath, table, arg.Time);
                 });
 
-                if (arg.ExportType == ExportType.Results) ExportResultsAsync(result, arg);
-                else ExportGridAsync(result, arg);
+                if (arg.ExportType == ExportType.Results) ExportResultsAsync(modelData, result, arg);
+                else ExportGridAsync(modelData,generalData, result, arg);
             };
             exportPage.CopyResultDBEvent += async (arg) =>
             {
@@ -751,7 +749,7 @@ namespace BazisGUI
                         : new List<string> { ResultType.nodes.ToString() };
                     return loader.GetResult(ResultDbPath, table, arg.Time);
                 });
-                
+
                 CopyResultDBAsync(result, arg);
             };
 
@@ -776,7 +774,7 @@ namespace BazisGUI
             exportForm.Show();
         }
 
-        private async void ExportResultsAsync(Result result, ExportResultEventArgs args)
+        private async void ExportResultsAsync(IModelData modelData, Result result, ExportResultEventArgs args)
         {
             try
             {
@@ -790,19 +788,19 @@ namespace BazisGUI
                     var objTypes = Converters.ConvertToObjsType(args.ExportObj);
 
                     if (objTypes == ObjType.Узел)
-                        objects = ModelData.ObjectData.NodesSet.Values;
+                        objects = modelData.ObjectData.NodesSet.Values;
                     else
-                        objects = ModelData.ObjectData.GetAllElements();
+                        objects = modelData.ObjectData.GetAllElements();
 
                     resultsController.ResultsExporter.ExportObjectsResults(objects, result, args.ResName, formatedPath, format);
                 });
-                
+
                 BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
             }
             catch (Exception ex) { BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red); }
         }
 
-        private async void ExportGridAsync(Result result, ExportResultEventArgs args)
+        private async void ExportGridAsync(IModelData modelData,IGeneralData generalData, Result result, ExportResultEventArgs args)
         {
             try
             {
@@ -812,16 +810,16 @@ namespace BazisGUI
                 await Task.Run(() =>
                 {
                     IEnumerable<ISurfaceElement> elements;
-                    if (GeneralData.TaskType == TaskType.Volume)
-                        elements = ModelData.ObjectData.E3DCollection.GetObjects();
+                    if (generalData.TaskType == TaskType.Volume)
+                        elements = modelData.ObjectData.E3DCollection.GetObjects();
                     else
-                        elements = ModelData.ObjectData.E2DCollection.GetObjects();
+                        elements = modelData.ObjectData.E2DCollection.GetObjects();
 
                     var figures = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result,
                         ResultType.nodes.ToString(), args.ResName, elements);
                     resultsController.GridExporter.ExportGridSurfaces(figures, formatedPath, $".{args.Extension}");
                 });
-                
+
                 BasePage.ConsoleControl.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
             }
             catch (Exception ex) { BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red); }

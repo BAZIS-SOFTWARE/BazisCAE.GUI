@@ -18,6 +18,8 @@ namespace BaseModule.PinnedControl
 
         public Color DownColor { get; set; } = Color.Gainsboro;
 
+        public Color HeaderColor { get; set; } = Color.Black;
+
         public string HeaderName { get; set; } = "";
 
         public event Action ControlCollapseEvent;
@@ -40,7 +42,7 @@ namespace BaseModule.PinnedControl
             var locPinRect = new Point(Width - 26, loc_y / 2 - 4);
             ComponentsPainter.PaintUnpinnedRectangle(e.Graphics, locPinRect);
 
-            e.Graphics.DrawString(HeaderName, ComponentsPainter.Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
+            e.Graphics.DrawString(HeaderName, ComponentsPainter.Font, new SolidBrush(HeaderColor), 15, 0);
         }
 
         private void PinnedPageControl_MouseClick(object sender, MouseEventArgs e)
