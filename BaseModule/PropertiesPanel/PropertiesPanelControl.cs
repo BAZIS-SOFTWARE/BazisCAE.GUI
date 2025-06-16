@@ -40,6 +40,10 @@ namespace BaseModule.PropertiesPanel
         [Description("Set header name")]
         public string HeaderName { get; set; } = "Свойства";
 
+        [Category("General")]
+        [Description("Set color text")]
+        public Color TextColor { get; set; } = Color.Black;
+
         public PropertiesPanelControl()
         {
             InitializeComponent();
@@ -180,7 +184,12 @@ namespace BaseModule.PropertiesPanel
             var locRect = new Point(Width - 15, loc_y / 2 - 4);
             ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
 
-            e.Graphics.DrawString(HeaderName, ComponentsPainter.Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
+            e.Graphics.DrawString(HeaderName, ComponentsPainter.Font, new SolidBrush(TextColor), 15, 0);
+        }
+
+        private void grbNavigator_Resize(object sender, EventArgs e)
+        {
+            tableLayoutPanel1.Invalidate();
         }
 
         #region [OverlayComboBox Logic (to be moved) ]

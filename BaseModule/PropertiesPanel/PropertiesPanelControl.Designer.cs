@@ -48,6 +48,7 @@ namespace BaseModule.PropertiesPanel
             this.tableLayoutPanel1.TabIndex = 0;
             this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
             this.tableLayoutPanel1.Paint += PropertyPanel_Paint;
+            this.tableLayoutPanel1.Resize += grbNavigator_Resize;
             // 
             // dataGridView1
             // 

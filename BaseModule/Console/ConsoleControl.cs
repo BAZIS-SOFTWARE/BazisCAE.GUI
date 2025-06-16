@@ -61,6 +61,10 @@ namespace BaseModule.Console
         [Description("Set header name")]
         public string HeaderName { get; set; } = "Консоль";
 
+        [Category("General")]
+        [Description("Set color text")]
+        public Color TextColor { get; set; } = Color.Black;
+
         public bool CheckPrintElemsInfo { get; set; }
         public bool CheckPrintNodesInfo { get; set; }
 
@@ -373,7 +377,7 @@ namespace BaseModule.Console
             var locRect = new Point(Width - 15, loc_y / 2 - 4);
             ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
 
-            e.Graphics.DrawString(HeaderName, ComponentsPainter.Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
+            e.Graphics.DrawString(HeaderName, ComponentsPainter.Font, new SolidBrush(TextColor), 15, 0);
         }     
 
         private void grbConsole_MouseClick(object sender, MouseEventArgs e)
