@@ -69,7 +69,7 @@
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
-            this.object_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.set_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.удалитьОбъектMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.показатьОбъектMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.скрытьMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,7 +90,7 @@
             this.objects_MenuStrip.SuspendLayout();
             this.groups_MenuStrip.SuspendLayout();
             this.ndGroup_MenuStrip.SuspendLayout();
-            this.object_MenuStrip.SuspendLayout();
+            this.set_MenuStrip.SuspendLayout();
             this.elGroup_MenuStrip.SuspendLayout();
             this.grbNavigator.SuspendLayout();
             this.SuspendLayout();
@@ -245,16 +245,16 @@
             this.toolStripMenuItem9.Text = "Инфо";
             this.toolStripMenuItem9.Click += new System.EventHandler(this.InfoGroup_Click);
             // 
-            // object_MenuStrip
+            // set_MenuStrip
             // 
-            this.object_MenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.object_MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.set_MenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.set_MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.удалитьОбъектMenuItem,
             this.показатьОбъектMenuItem,
             this.скрытьMenuItem,
             this.отображениеToolStripMenuItem});
-            this.object_MenuStrip.Name = "lv0_MenuStrip";
-            this.object_MenuStrip.Size = new System.Drawing.Size(151, 92);
+            this.set_MenuStrip.Name = "lv0_MenuStrip";
+            this.set_MenuStrip.Size = new System.Drawing.Size(151, 92);
             // 
             // удалитьОбъектMenuItem
             // 
@@ -268,14 +268,14 @@
             this.показатьОбъектMenuItem.Name = "показатьОбъектMenuItem";
             this.показатьОбъектMenuItem.Size = new System.Drawing.Size(150, 22);
             this.показатьОбъектMenuItem.Text = "Показать";
-            this.показатьОбъектMenuItem.Click += new System.EventHandler(this.ShowObjects_Click);
+            this.показатьОбъектMenuItem.Click += new System.EventHandler(this.ShowSet_Click);
             // 
             // скрытьMenuItem
             // 
             this.скрытьMenuItem.Name = "скрытьMenuItem";
             this.скрытьMenuItem.Size = new System.Drawing.Size(150, 22);
             this.скрытьMenuItem.Text = "Скрыть";
-            this.скрытьMenuItem.Click += new System.EventHandler(this.HideObjects_Click);
+            this.скрытьMenuItem.Click += new System.EventHandler(this.HideSet_Click);
             // 
             // отображениеToolStripMenuItem
             // 
@@ -469,6 +469,7 @@
             this.treeView.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_BeforeLabelEdit);
             this.treeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_AfterLabelEdit);
             this.treeView.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterCollapse);
+            this.treeView.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeVirt1_BeforeExpand);
             this.treeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterExpand);
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
             this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_NodeMouseClick);
@@ -498,7 +499,7 @@
             this.objects_MenuStrip.ResumeLayout(false);
             this.groups_MenuStrip.ResumeLayout(false);
             this.ndGroup_MenuStrip.ResumeLayout(false);
-            this.object_MenuStrip.ResumeLayout(false);
+            this.set_MenuStrip.ResumeLayout(false);
             this.elGroup_MenuStrip.ResumeLayout(false);
             this.grbNavigator.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -518,11 +519,10 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
-        private System.Windows.Forms.ContextMenuStrip objects_MenuStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
-        private System.Windows.Forms.ContextMenuStrip object_MenuStrip;
+        private System.Windows.Forms.ContextMenuStrip set_MenuStrip;
         private System.Windows.Forms.ToolStripMenuItem удалитьОбъектMenuItem;
         private System.Windows.Forms.ToolStripMenuItem показатьОбъектMenuItem;
         private System.Windows.Forms.ToolStripMenuItem скрытьMenuItem;
@@ -541,5 +541,6 @@
         private System.Windows.Forms.ImageList treeNodesImageList_16x16;
         private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.Panel grbNavigator;
+        private System.Windows.Forms.ContextMenuStrip objects_MenuStrip;
     }
 }

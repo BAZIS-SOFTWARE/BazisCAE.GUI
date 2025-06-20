@@ -68,6 +68,8 @@ namespace BazisGUI
         public event Action<object> DelAllObjectsEvent;
         public event Action<object, ObjType, string> SelectSetEvent;
         public event Action<object> UpdateNavigatorEvent;
+        public event Action<object,string,string> GetObjectsInfoEvent;
+        public event Action<object, string> GetSetsInfoEvent;
 
         public string SelectedObjects
         {
@@ -187,11 +189,13 @@ namespace BazisGUI
 
                 if (arg2.ClickedItem.Tag.ToString() == "0")
                 {
+                    BasePage.ScenePage.ShowInsideObjects = true;
                     ShowInsideObjectsEvent?.Invoke(this);
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "1")
                 {
+                    BasePage.ScenePage.ShowInsideObjects = false;
                     HideInsideObjectsEvent?.Invoke(this);
                 }
 
@@ -220,7 +224,7 @@ namespace BazisGUI
         {
             var scenePage = BasePage.ScenePage;
             var consoleControl = BasePage.ConsoleControl;
-            scenePage.SceneControl.DrawInsideObjects = true;
+            
             var vbobj = scenePage.SceneControl.FindVBObj(name);
             if (vbobj != null)
             {
@@ -833,27 +837,27 @@ namespace BazisGUI
 
         private void basePage_DeleteObjectsEvent(object arg1, ObjType arg2, string arg3)
         {
-            DeleteObjectsEvent?.Invoke(arg1, arg2, arg3);
+            DeleteObjectsEvent?.Invoke(this, arg2, arg3);
         }
 
         private void basePage_ChangeAllGroupsViewEvent(object arg1,bool arg2)
         {
-            ChangeAllGroupsViewEvent?.Invoke(arg1,arg2);
+            ChangeAllGroupsViewEvent?.Invoke(this, arg2);
         }
 
         private void basePage_DeleteAllGroupsEvent(object obj)
         {
-            DeleteAllGroupsEvent?.Invoke(obj);
+            DeleteAllGroupsEvent?.Invoke(this);
         }
 
         private void basePage_DeleteGroupEvent(object arg1, int arg2)
         {
-            DeleteGroupEvent?.Invoke(arg1, arg2);
+            DeleteGroupEvent?.Invoke(this, arg2);
         }
 
         private void basePage_SelectObjectsEvent(object arg1, Scene.Events.SelectObjectsEventArgs arg2)
         {
-            SelectObjectsEvent?.Invoke(arg1, arg2, spbSelectObject.ToolTipText);
+            SelectObjectsEvent?.Invoke(this, arg2, spbSelectObject.ToolTipText);
         }
 
         private void basePage_FindFreeNodesEvent(object obj)
@@ -924,6 +928,16 @@ namespace BazisGUI
         private void basePage_UpdateNavigatorEvent(object obj)
         {
             UpdateNavigatorEvent?.Invoke(this);
+        }
+
+        private void basePage_GetObjectsInfoEvent(object arg1, string arg2,string arg3)
+        {
+            GetObjectsInfoEvent?.Invoke(this, arg2,arg3);
+        }
+
+        private void basePage_GetSetsInfoEvent(object arg1, string arg2)
+        {
+            GetSetsInfoEvent?.Invoke(this, arg2);
         }
     }  
 }

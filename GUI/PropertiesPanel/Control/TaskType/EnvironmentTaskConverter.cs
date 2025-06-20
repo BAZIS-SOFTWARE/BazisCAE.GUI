@@ -69,10 +69,9 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             data[header] = newValue;
             if (header == "Коэф. теплоотдачи")
             {
-                if (float.TryParse(newValue, out _)) _media.HeatExchangeValue = float.Parse(newValue);
-                else _media.HeatExchangeFunc = newValue;
+                _media.TrySetHeatExchange(newValue);
             }
-            else if (header == "Температура среды") _media.TemperatureValue = float.Parse(newValue);
+            else if (header == "Температура среды") _media.TrySetTemp(newValue);
         }
         private RowProperty SelectData(string header, string value, string func)
         {

@@ -1,20 +1,27 @@
 ﻿using BaseModule.Interfaces;
 using BaseModule.PropertiesPanel;
+using MathNet.Numerics.Distributions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using UserControlsEx;
 using static BaseModule.Interfaces.GeneralParams;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Resources.ResXFileRef;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BaseModule.Navigator
 {
     public enum ViewRegime : int { ribbers, surfaces, ribbersSurfaces };
+
+    public enum NodeKind : int { real,virt}
 
     public enum NodeType : int 
     { 
@@ -30,11 +37,17 @@ namespace BaseModule.Navigator
         Среда,
         Нагрев,
         Закрепление,
-        Нагрузка
+        Нагрузка,
+        названиеПроекта,
+        путь,
+        сведения,
+        вид
     };
 
     public partial class NavigatorControl : UserControl, IPinnedControl
     {
+        private const string VIRTUALNODE = "VIRT";
+
         Dictionary<NodeType, int> ImgDict;
 
         [Category("General")]
@@ -80,13 +93,15 @@ namespace BaseModule.Navigator
         public event Action ShowAllObjectsEvent;
         public event Action HideAllObjectsEvent;
 
-        public event Action<NodeType, string> ShowObjectsEvent;
-        public event Action<string, ViewRegime> ChangeObjectsViewEvent;
-        public event Action<NodeType, string> HideObjectsEvent;
-        public event Action<TreeNode> DelObjectsEvent;
+        public event Action<NodeType, string> ShowSetEvent;
+        public event Action<string, ViewRegime> ChangeSetViewEvent;
+        public event Action<NodeType, string> HideSetEvent;
+        public event Action<NodeType, string> DelSetEvent;
         public event Action DelAllObjectsEvent;
         public event Action ControlCollapseEvent;
         public event Action ControlUnpinnedEvent;
+        public event Action<string,string> GetObjectsInfoEvent;
+        public event Action<string> GetSetsInfoEvent;
 
         public NavigatorControl()
         {
@@ -131,125 +146,99 @@ namespace BaseModule.Navigator
             }
         }
 
-        public void PresentModelInfo(ModelInfo modelInfo)
+        public TreeNode CreateRealNode(string name, string text)
         {
-            treeView.BeginUpdate();
-            FillObjectsNodes(modelInfo);
 
-            FillGroupsNodes(modelInfo);
-            treeView.EndUpdate();
+            return new TreeNode(text) { Name = name };
         }
 
-        public void PresentGeneralInfo(GeneralInfo generalInfo)
+        public TreeNode CreateVirtualNode(string name)
         {
-            SetProjectTitleInfo("названиеПроекта", "Название : " + generalInfo.Name);
-            SetProjectTitleInfo("путь", "Путь : " + generalInfo.Path);
-            SetProjectTitleInfo("сведения", "Сведения : " + generalInfo.Comments);
-            SetProjectTitleInfo("вид", "Вид: " + generalInfo.TaskType);
+            var tVirt = new TreeNode("Loading...") { Name = name };
+            tVirt.Name = VIRTUALNODE;
+            tVirt.ForeColor = Color.Blue;
+            tVirt.NodeFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Underline);
+            return tVirt;
         }
 
-        private void FillGroupsNodes(ModelInfo modelInfo)
+        public TreeNode[] CreateRealNodes(string name, IEnumerable<string> text)
         {
-            treeView.Nodes["группыОбъектов"].Nodes.Clear();
-            treeView.Nodes["группыОбъектов"].Expand();
 
-            foreach (var group in modelInfo.groups)
+            var childs = new TreeNode[text.Count()];
+            var counter = 0;
+            foreach (var item in text)
             {
-                var text = $"{group.Name}";
-                var imgIndex = ImgDict[group.NodeType];
-
-                var child = new TreeNode(text, imgIndex, imgIndex)
-                {
-                    Tag = "5.1",
-                    Name = group.NodeType.ToString()
+                childs[counter++] = new TreeNode(item) 
+                { 
+                    Name = name, 
                 };
-                SetContextMenu("группыОбъектов", child);
-                treeView.Nodes["группыОбъектов"].Nodes.Add(child);
             }
+
+            return childs;
         }
 
-        private void FillObjectsNodes(ModelInfo modelInfo)
+        public void TryCreateNode(string root, string name,string text, NodeKind kind)
         {
-
-            foreach (TreeNode item in treeView.Nodes["объекты"].Nodes)
-                item.Nodes.Clear();
-
-            treeView.Nodes["объекты"].Expand();
-
-
-            foreach (var setInfo in modelInfo.sets)
+            var nodes = new List<TreeNode>();
+            if (TrySearchNode(root, nodes))
             {
-                var text = $"{setInfo.Name} : {setInfo.NumberOfObjects}";
-                var imgIndex = ImgDict[setInfo.NodeType];
-                imgIndex = imgIndex == 3 ? 5 : 6;
-                var child = new TreeNode(text, imgIndex, imgIndex)
+                if (kind == NodeKind.virt)
                 {
-                    Tag = "4.1.1",
-                    Name = setInfo.NodeType.ToString()
-                };
-                SetContextMenu("объекты", child);
+                    var v = CreateVirtualNode(name);
+                    nodes.First().Nodes.Add(v);
+                }
 
-                var rootName = setInfo.NodeType.ToString();
-                TreeNode rootNode;
-                if (TrySearchNode(rootName, out rootNode))
-                    rootNode.Nodes.Add(child);
+                else
+                {
+                    var r = CreateRealNode(name, text);
+                    nodes.First().Nodes.Add(r);
+                }
             }
-        }
 
+        }     
 
-
-        public void SetContextMenu(string root, TreeNode node)
-        {
-            if (root == "объекты")
-                node.ContextMenuStrip = object_MenuStrip;
-            else if (root == "группыОбъектов")
+        public void SetContextMenu(TreeNode node)
+        {  
+            if (node.Parent.Name == NodeType.Точки.ToString() |
+                node.Parent.Name == NodeType.Кривые.ToString() |
+                node.Parent.Name == NodeType.Поверхности.ToString() |
+                node.Parent.Name == NodeType.Объемы.ToString() |
+                node.Parent.Name == NodeType.Узлы.ToString() |
+                node.Parent.Name == NodeType.Элементы1D.ToString() |
+                node.Parent.Name == NodeType.Элементы2D.ToString() |
+                node.Parent.Name == NodeType.Элементы3D.ToString())
+                node.ContextMenuStrip = set_MenuStrip;
+            else if (node.Parent.Name == "группыОбъектов")
                 if (node.ImageIndex == 3)
                     node.ContextMenuStrip = ndGroup_MenuStrip;
                 else if (node.ImageIndex == 4)
                     node.ContextMenuStrip = elGroup_MenuStrip;
         }
 
-        public TreeNode SearchChildNode(TreeNode startNode, string nodeName)
+        public void SearchNodeRec(TreeNode startNode, string nodeName, List<TreeNode> nodes)
         {
-            if (startNode != null)
+            foreach (TreeNode item in startNode.Nodes)
             {
-                //Using a queue to store and process each node in the TreeView
-                Queue<TreeNode> staging = new Queue<TreeNode>();
-                staging.Enqueue(startNode);
-
-                while (staging.Count > 0)
-                {
-                    var treeNode = staging.Dequeue();
-
-                    // Check the node.  
-                    if (treeNode.Name == nodeName)
-                        return treeNode;
-
-                    foreach (TreeNode node in treeNode.Nodes)
-                    {
-                        staging.Enqueue(node);
-                    }
-                }
+                // Check the node.  
+                if (item.Name == nodeName)
+                    nodes.Add(item);
+                else
+                    SearchNodeRec(item, nodeName, nodes);
             }
-            return null;
+
         }
 
         // Call the procedure using the TreeView.  
-        public bool TrySearchNode(string nodeName, out TreeNode treeNode)
+        public bool TrySearchNode(string nodeName, List<TreeNode> nodes)
         {
-
             foreach (TreeNode n in treeView.Nodes)
             {
-                var res = SearchChildNode(n, nodeName);
-                if (res != null)
-                {
-                    treeNode = res;
-                    return true;
-                }
-
+                SearchNodeRec(n, nodeName, nodes);
+                if (nodes.Count > 0)
+                    break;
             }
-            treeNode = null;
-            return false;
+
+            return nodes.Count != 0;
         }
 
         private void RenameGroup_Click(object sender, EventArgs e)
@@ -301,13 +290,6 @@ namespace BaseModule.Navigator
         {
             e.Node.ImageIndex = ExpandIndex;
             e.Node.SelectedImageIndex = ExpandIndex;
-        }
-
-        public void SetProjectTitleInfo(string titleKind, string text)
-        {
-            treeView.Nodes[titleKind].Text = text;
-            treeView.Nodes[titleKind].ImageIndex = ProjectInfoIndex;
-            treeView.Nodes[titleKind].SelectedImageIndex = ProjectInfoIndex;
         }
 
         private void treeView_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
@@ -396,17 +378,17 @@ namespace BaseModule.Navigator
             ShowGroupEvent?.Invoke(groupIndex);
         }
 
-        public void ShowObjects_Click(object sender, EventArgs e)
+        public void ShowSet_Click(object sender, EventArgs e)
         {
             var node = treeView.SelectedNode;
 
             NodeType nodeType;
-            Enum.TryParse(treeView.SelectedNode.Name, out nodeType);
+            Enum.TryParse(node.Parent.Name, out nodeType);
 
-            treeView.SelectedNode.ImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
-            treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
+            //treeView.SelectedNode.ImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
+            //treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
 
-            ShowObjectsEvent?.Invoke(nodeType, node.Text);
+            ShowSetEvent?.Invoke(nodeType, node.Text.Split(' ')[0]);
         }
 
         public void ShowAllObjects_Click(object sender, EventArgs e)
@@ -448,17 +430,17 @@ namespace BaseModule.Navigator
             HideAllGroupsEvent?.Invoke();
         }
 
-        public void HideObjects_Click(object sender, EventArgs e)
+        public void HideSet_Click(object sender, EventArgs e)
         {
             var node = treeView.SelectedNode;
 
             NodeType nodeType;
-            Enum.TryParse(node.Name, out nodeType);
+            Enum.TryParse(node.Parent.Name, out nodeType);
 
-            treeView.SelectedNode.ImageIndex = ImgDict[nodeType];
-            treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType];
+            //treeView.SelectedNode.ImageIndex = ImgDict[nodeType];
+            //treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType];
 
-            HideObjectsEvent?.Invoke(nodeType, node.Text);
+            HideSetEvent?.Invoke(nodeType, node.Text.Split(' ')[0]);
         }
 
         public void EditGroup_Click(object sender, EventArgs e)
@@ -484,7 +466,11 @@ namespace BaseModule.Navigator
 
         public void DelObjects_Click(object sender, EventArgs e)
         {
-            DelObjectsEvent?.Invoke(treeView.SelectedNode);
+            var node = treeView.SelectedNode;
+            NodeType nodeType;
+            Enum.TryParse(node.Parent.Name, out nodeType);
+
+            DelSetEvent?.Invoke(nodeType, node.Text.Split(' ')[0]);
         }
 
         public void InfoGroup_Click(object sender, EventArgs e)
@@ -496,17 +482,17 @@ namespace BaseModule.Navigator
 
         public void ребраToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangeObjectsViewEvent?.Invoke(treeView.SelectedNode.Name, ViewRegime.ribbers);
+            ChangeSetViewEvent?.Invoke(treeView.SelectedNode.Name, ViewRegime.ribbers);
         }
 
         public void поверхностиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangeObjectsViewEvent?.Invoke(treeView.SelectedNode.Name, ViewRegime.surfaces);
+            ChangeSetViewEvent?.Invoke(treeView.SelectedNode.Name, ViewRegime.surfaces);
         }
 
         public void ребраИПоверхностиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangeObjectsViewEvent?.Invoke(treeView.SelectedNode.Name, ViewRegime.ribbersSurfaces);
+            ChangeSetViewEvent?.Invoke(treeView.SelectedNode.Name, ViewRegime.ribbersSurfaces);
         }
 
         private void grbNavigator_Paint(object sender, PaintEventArgs e)
@@ -568,6 +554,59 @@ namespace BaseModule.Navigator
             {
                 SelectionType type = SelectionType.PhysicalData;
                 AfterSelectEvent(node, type);
+            }
+        }
+
+        private void treeVirt1_BeforeExpand(object sender, TreeViewCancelEventArgs e)
+        {
+            // If the node being expanded contains a virtual node then
+            // we need to load this node's children on demand. If it doesn't
+            // contain a virtual node then we already did it, so do nothing.
+
+            if (e.Node.Nodes.ContainsKey(VIRTUALNODE))
+            {
+                try
+                {
+                    // Do some work to load data.
+                    // Note this may take a while and could
+                    // be annoying to your user.
+                    // See asynchronous version below.
+                    //Random r = new Random();
+                    //Thread.Sleep(r.Next(200, 1200));
+
+                    // Clear out all of the children
+                    e.Node.Nodes.Clear();
+
+                    if(e.Node.Name == NodeType.Узлы.ToString() |
+                        e.Node.Name == NodeType.Элементы1D.ToString() |
+                        e.Node.Name == NodeType.Элементы2D.ToString() |
+                        e.Node.Name == NodeType.Элементы3D.ToString() |
+                        e.Node.Name == NodeType.Точки.ToString() |
+                        e.Node.Name == NodeType.Кривые.ToString() |
+                        e.Node.Name == NodeType.Поверхности.ToString() |
+                        e.Node.Name == NodeType.Объемы.ToString()
+                        )
+                        GetSetsInfoEvent?.Invoke(e.Node.Name);
+                    else
+                        GetObjectsInfoEvent?.Invoke(e.Node.Name, e.Node.Text.Split(' ')[0]);
+
+                    // Load the new children into the treeview.
+                    //string[] arrChildren = new string[] { "Grapes", "Apples", "Tomatoes", "Kiwi" };
+                    //foreach (string sChild in arrChildren)
+                    //{
+                        // Be sure to add virtual nodes to new items that "may"
+                        // have children.  If you know for sure that your item is
+                        // a leaf node, then there's no need to add the virtual node.
+                        //TreeNode tNode = e.Node.Nodes.Add(sChild);
+                        //AddVirtualNode(tNode);
+                    //}
+                }
+                catch
+                {
+                    // Error occured, reset to a known state
+                    e.Node.Nodes.Clear();
+                    //AddVirtualNode(e.Node);
+                }
             }
         }
     }

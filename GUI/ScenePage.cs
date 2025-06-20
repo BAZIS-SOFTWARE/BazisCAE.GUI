@@ -6,6 +6,7 @@ using Model.GeometryObjects;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using Model.MeshObjects;
+using ModelController.MeshObjsUtility;
 using ModelController.ModelScenePresentator;
 using ModelController.ModelScenePresentator.GlObjsPresenters;
 using ModelControllerInterfaces;
@@ -36,6 +37,8 @@ namespace BazisGUI
 
         public IPresentersCreator PresentersCreator { get { return presentersCreator; } }
 
+        public ChangeInsideSurface ChangeInsideSurface => new ChangeInsideSurface();
+
 
         [Category("SceneControl")]
         [Description("Сцена для отображения объектов")]
@@ -45,7 +48,11 @@ namespace BazisGUI
         }
         [Category("General")]
         [Description("Уровень прозрачности объектов")]
-        public int TransparencyValue { get; set; } 
+        public int TransparencyValue { get; set; }
+
+        [Category("General")]
+        [Description("Показать внутренние объекты")]
+        public bool ShowInsideObjects { get; set; }
 
         public ScenePage()
         {
@@ -128,6 +135,8 @@ namespace BazisGUI
                     return presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.E2DCollection.GetObjects());
 
                 case ObjType.Элемент3D:
+                    if (!ShowInsideObjects)
+                        ChangeInsideSurface.HideInsideSurfaces(modelData.ObjectData.E3DCollection.GetObjects());
                     return presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.E3DCollection.GetObjects());
                 default:
                     return presentersCreator.CreatePointObjectsPresenter(modelData.ObjectData.PointsSet.Values);
@@ -143,26 +152,30 @@ namespace BazisGUI
             var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
             var edges = presenter.CreateEdgeFlags(inds.Item4);
 
-            if (presenter.PresenterType == PresenterType.Surface)
+            if(ptrs.Length != 0)
             {
-                var pres = (ISurfaceObjsPresenter)presenter;
-                var separs = pres.CreateSeparators();
+                if (presenter.PresenterType == PresenterType.Surface)
+                {
+                    var pres = (ISurfaceObjsPresenter)presenter;
+                    var separs = pres.CreateSeparators();
 
-                if (presenter.ViewMode == ViewMode.Line)
-                    sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs,ObjView.Lines);
-                else if (presenter.ViewMode == ViewMode.LineSurface)
-                    sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs,ObjView.LinesSurface);
+                    if (presenter.ViewMode == ViewMode.Line)
+                        sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs, ObjView.Lines);
+                    else if (presenter.ViewMode == ViewMode.LineSurface)
+                        sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs, ObjView.LinesSurface);
+                    else
+                        sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs, ObjView.Surface);
+                }
+
+                else if (presenter.PresenterType == PresenterType.Line)
+                {
+                    sceneControl.CreateLineVBObjects(ptrs, coords, colors, normals, edges, objsName);
+                }
+
                 else
-                    sceneControl.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs,ObjView.Surface);
+                    sceneControl.CreatePointVBObjects(ptrs, coords, colors, normals, objsName);
             }
 
-            else if (presenter.PresenterType == PresenterType.Line)
-            {
-                sceneControl.CreateLineVBObjects(ptrs, coords, colors, normals, edges, objsName);
-            }
-
-            else
-                sceneControl.CreatePointVBObjects(ptrs, coords, colors, normals, objsName);
         }
 
         private void sceneControl_SelectObjectsEvent(object arg1, Scene.Events.SelectObjectsEventArgs arg2)
@@ -222,13 +235,13 @@ namespace BazisGUI
                 }
             }
 
-            if(isSorted)
+            if(isSorted & selections.Count > 0)
             {
-                var near = selections.OrderByDescending(x => camera.GetSceenCoord(x.CalcCentr())._z).First();
-                return new List<IModelObject>() { near };
+                var near = selections.OrderByDescending(x => camera.GetSceenCoord(x.CalcCentr())._z).FirstOrDefault();
+                selections =  new List<IModelObject>() { near };
             }
-            else
-                return selections;
+            
+            return selections;
         }
 
         private void создатьГруппуItem_Click(object sender, EventArgs e)

@@ -124,11 +124,11 @@
     <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
     </Reference>
-    <Reference Include="Model, Version=4.2.63.22, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\Model.4.2.63.22\lib\netstandard2.0\Model.dll</HintPath>
+    <Reference Include="Model, Version=4.2.63.23, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Model.4.2.63.23\lib\netstandard2.0\Model.dll</HintPath>
     </Reference>
-    <Reference Include="ModelController, Version=3.1.37.18, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelController.3.1.37.18\lib\netstandard2.0\ModelController.dll</HintPath>
+    <Reference Include="ModelController, Version=3.1.37.19, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModelController.3.1.37.19\lib\netstandard2.0\ModelController.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -136,14 +136,14 @@
     <Reference Include="Octree, Version=2.1.11.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.11\lib\netstandard2.0\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="PostProc, Version=1.2.0.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
-      <HintPath>..\packages\PostProc.1.2.0\lib\netstandard2.0\PostProc.dll</HintPath>
+    <Reference Include="PostProc, Version=1.2.4.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
+      <HintPath>..\packages\PostProc.1.2.4\lib\netstandard2.0\PostProc.dll</HintPath>
     </Reference>
-    <Reference Include="PreProc, Version=1.0.91.0, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
-      <HintPath>..\packages\PreProc.1.0.91\lib\netstandard2.0\PreProc.dll</HintPath>
+    <Reference Include="PreProc, Version=1.0.95.0, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
+      <HintPath>..\packages\PreProc.1.0.95\lib\netstandard2.0\PreProc.dll</HintPath>
     </Reference>
-    <Reference Include="Project, Version=4.6.70.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
-      <HintPath>..\packages\Project.4.6.70\lib\netstandard2.0\Project.dll</HintPath>
+    <Reference Include="Project, Version=4.6.74.0, Culture=neutral, PublicKeyToken=3bd0adf9d9d8dc42, processorArchitecture=MSIL">
+      <HintPath>..\packages\Project.4.6.74\lib\netstandard2.0\Project.dll</HintPath>
     </Reference>
     <Reference Include="PropertiesCalculator, Version=1.0.4.0, Culture=neutral, PublicKeyToken=b37d969f32c093a2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -427,8 +427,9 @@
     <Content Include="AboutBanner.jpg" />
     <Content Include="IconShort_16.ico" />
     <Content Include="IconShort_32.ico" />
-    <None Include="UML\UseCases.mdpuml" />
-    <None Include="UML\Передача свойств набора на панель свойств.mdpuml" />
+    <None Include="Documents\TextFile1.mdpuml" />
+    <None Include="Documents\UseCases.mdpuml" />
+    <None Include="Documents\Передача свойств набора на панель свойств.mdpuml" />
     <None Include="Resources\м 34.png" />
     <None Include="Resources\м 35.png" />
     <None Include="Resources\м 36.png" />

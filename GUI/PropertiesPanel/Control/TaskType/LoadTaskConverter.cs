@@ -24,7 +24,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 { "Вид", _load.LoadKind.ToString() }, // combo box  LoadKind
                 { "Направление", _load.Direction.ToString() }, //combo box  Direction
                 { "Величина, Н", _load.Value.ToString()}, //text box 
-                { "Функция, F(t), Н - сек.", _load.TimeFunction}, //combo box
+                { "Функция, F(t), Н - сек.", _load.ValueFunction}, //combo box
                 { "Старт, сек.", _load.StartTime.ToString()},
                 { "Стоп, сек.", _load.StopTime.ToString()},
                 { "TrajectoryInfo(default)", "*"},
@@ -49,10 +49,10 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         public override void UpdateObject(string header, string newValue)
         {
             base.UpdateObject(header, newValue);
-            if (header == "Вид") _load.LoadKind = Converters.StringToEnum<LoadKind>(newValue);
-            else if (header == "Направление") _load.Direction = Converters.StringToEnum<Direction>(newValue);
-            else if (header == "Величина, Н") _load.Value = float.Parse(newValue);
-            else if (header == "Функция, F(t), Н - сек.") _load.TimeFunction = newValue;
+            if (header == "Вид") _load.TrySetKind(newValue);
+            else if (header == "Направление") _load.TrySetDirection(newValue);
+            else if (header == "Величина, Н") _load.TrySetValue(newValue);
+            else if (header == "Функция, F(t), Н - сек.") _load.TrySetTimeFunction(newValue);
         }
     }
 }

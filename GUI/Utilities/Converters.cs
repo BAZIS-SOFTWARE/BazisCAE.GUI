@@ -98,20 +98,20 @@ namespace BazisGUI.Utilities
             }
         }
 
-        public static ComplexTaskType ConvertToPreProcType(Tasks tasks)
+        public static TaskKind ConvertToPreProcType(Tasks tasks)
         {
             switch (tasks)
             {
                 case Tasks.химическая:
-                    return ComplexTaskType.химическая;
+                    return TaskKind.химическая;
                 case Tasks.термическая:
-                    return ComplexTaskType.термическая;
+                    return TaskKind.термическая;
                 case Tasks.механическая:
-                    return ComplexTaskType.механическая;
+                    return TaskKind.механическая;
                 case Tasks.химическая_и_термическая:
-                    return ComplexTaskType.термическая_химическая;          
+                    return TaskKind.термическая_химическая;          
                 default:
-                    return ComplexTaskType.термическая_механическая;
+                    return TaskKind.термическая_механическая;
             }
         }
 
@@ -150,7 +150,9 @@ namespace BazisGUI.Utilities
                     {
                         Name = itemInfo.Name,
                         NodeType = ConvertToNavigatorNodeType(itemInfo.ObjType),
-                        NumberOfObjects = itemInfo.NumberOfObjects
+                        NumberOfObjects = itemInfo.NumberOfObjects,
+                        ObjectsData = itemInfo.GetObjectsInfo()
+                        
                     };
 
                     modelInfo.sets.Add(setInfo);

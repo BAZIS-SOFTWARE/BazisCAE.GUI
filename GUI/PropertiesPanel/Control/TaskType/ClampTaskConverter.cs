@@ -22,7 +22,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
                 { "Группа узлов", _clamp.Group.Name.ToString() },
                 { "Вид", _clamp.ClampKind.ToString()},
                 { "Направление", _clamp.Direction.ToString()},
-                { "Функция, F(u) , Н.мм - у.ед.(default)", _clamp.ClampFunction},
+                { "Функция, F(u) , Н.мм - у.ед.(default)", _clamp.ValueFunction},
                 { "Старт, сек.", _clamp.StartTime.ToString()},
                 { "Стоп, сек.", _clamp.StopTime.ToString()},
                 { "Траектория(default)", "default"}
@@ -46,7 +46,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
             base.UpdateObject(header, newValue);
 
             if (header == "Направление") _clamp.Direction = Converters.StringToEnum<Direction>(newValue);
-            else if (header == "Вид") _clamp.ClampKind = Converters.StringToEnum<ClampKind>(newValue);
+            else if (header == "Вид") _clamp.TrySetKind(newValue);
         }
     }
 }

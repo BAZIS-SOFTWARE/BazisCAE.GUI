@@ -352,11 +352,11 @@ namespace BazisGUI
                 var oldTSF = Directory.GetFiles(inputDir);
                 if (oldTSF.Length > 0) Array.ForEach(oldTSF, x => File.Delete(x));
 
-                var taskType = Converters.ConvertToPreProcType(tasks);
+                var taskKind = Converters.ConvertToPreProcType(tasks);
 
                 var procProp = new ProcessProperty()
                 {
-                    GeneralTaskType = taskType,
+                    TaskKind = taskKind,
                     CommonTaskType = ProcessType
                 };
 

@@ -141,12 +141,14 @@ namespace BazisGUI
             this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
             this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
             this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
-            this.navigator.ShowObjectsEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_ShowObjectsEvent);
-            this.navigator.ChangeObjectsViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeViewModeEventHandler);
-            this.navigator.HideObjectsEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_HideObjectsEvent);
-            this.navigator.DelObjectsEvent += new System.Action<System.Windows.Forms.TreeNode>(this.navigator_DelObjectsEvent);
+            this.navigator.ShowSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_ShowSetEvent);
+            this.navigator.ChangeSetViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeSetViewEventHandler);
+            this.navigator.HideSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_HideSetEvent);
+            this.navigator.DelSetEvent += new System.Action<NodeType, string>(this.navigator_DelSetEvent);
             this.navigator.DelAllObjectsEvent += new System.Action(this.navigator_DelAllObjectsEvent);
             this.navigator.ControlCollapseEvent += new System.Action(this.navigator_NavigatorPanelCollapseEvent);
+            this.navigator.GetObjectsInfoEvent += new System.Action<string, string>(this.navigator_GetObjectsInfoEvent);
+            this.navigator.GetSetsInfoEvent += new System.Action<string>(this.navigator_GetSetsInfoEvent);
             // 
             // propertiesPanelControl1
             // 
@@ -198,6 +200,7 @@ namespace BazisGUI
             this.scenePage.Location = new System.Drawing.Point(0, 0);
             this.scenePage.Margin = new System.Windows.Forms.Padding(0);
             this.scenePage.Name = "scenePage";
+            this.scenePage.ShowInsideObjects = false;
             this.scenePage.Size = new System.Drawing.Size(996, 427);
             this.scenePage.TabIndex = 0;
             this.scenePage.TransparencyValue = 0;

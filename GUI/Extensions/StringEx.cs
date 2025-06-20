@@ -1,4 +1,5 @@
-﻿using Model.Interfaces;
+﻿using BaseModule.Navigator;
+using Model.Interfaces;
 using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,13 @@ namespace BazisGUI.Extensions
         {
             ObjType objType;
             return Enum.TryParse(str, out objType) ? objType :
+                throw new Exception($"Ошибка конвертации объектов {str}");
+        }
+
+        public static NodeType ToNodeType(this string str)
+        {
+            NodeType nodeType;
+            return Enum.TryParse(str, out nodeType) ? nodeType :
                 throw new Exception($"Ошибка конвертации объектов {str}");
         }
 

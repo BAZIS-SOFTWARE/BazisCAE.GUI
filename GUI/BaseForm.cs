@@ -56,6 +56,7 @@ using Model.GroupsData;
 using Project.Tasks.FrameCreators;
 using System.Runtime.InteropServices.ComTypes;
 using System.ComponentModel.DataAnnotations;
+using GmshApi;
 
 
 namespace BazisGUI
@@ -70,7 +71,6 @@ namespace BazisGUI
         ModelController.ModelController modelController;
         GmshController gmshController;
         IODataController dataController = new IODataController();
-        PostProcController resultsController = new PostProcController();
  
         ClientController serverConnection;
 
@@ -465,8 +465,51 @@ namespace BazisGUI
             page.DelAllObjectsEvent += Page_DelAllObjectsEvent;
             page.SelectSetEvent += Page_SelectSetEvent;
             page.UpdateNavigatorEvent += Page_UpdateNavigatorEvent;
+            page.GetObjectsInfoEvent += Page_GetObjectsInfoEvent;
+            page.GetSetsInfoEvent += Page_GetSetsInfoEvent;
 
             return page;
+        }
+
+        private void Page_GetSetsInfoEvent(object arg1, string arg2)
+        {
+            var page = arg1 as ToolStripPage;
+
+            var objType = Converters.ConvertNavigatorNodeTypeToObjType(arg2.ToNodeType());
+            var info = project.ModelData.ObjectData.GetSetsInfo(objType);
+
+            var nodes = new List<TreeNode>();
+            if (page.BasePage.NavigatorControl.TrySearchNode(arg2, nodes))
+            {
+                foreach (var item in info)
+                {
+                    var text = $"{item.Name} {item.NumberOfObjects}";
+                    var r_node = page.BasePage.NavigatorControl.CreateRealNode(item.ObjType.ToString(), text);
+                    r_node.ImageIndex = 14;
+                    r_node.SelectedImageIndex = 14;
+                    var v_node = page.BasePage.NavigatorControl.CreateVirtualNode(item.ObjType.ToString());
+                    r_node.Nodes.Add(v_node);
+                    nodes.First().Nodes.Add(r_node);
+                    page.BasePage.NavigatorControl.SetContextMenu(r_node);
+                }
+            }
+        }
+
+        private void Page_GetObjectsInfoEvent(object arg1, string objsTypeStr,string setName)
+        {
+            //TO DO
+            var page = arg1 as ToolStripPage;
+           
+            var objType = objsTypeStr.ToObjType();
+            var setInfo = project.ModelData.ObjectData.GetSetsInfo(objType).Where(x => x.Name == setName).First();
+
+            var nodes = new List<TreeNode>();
+            if (page.BasePage.NavigatorControl.TrySearchNode(objsTypeStr, nodes))
+            {
+                var root = nodes.First(x => x.Text.Split(' ')[0] == setName);
+                var childs = page.BasePage.NavigatorControl.CreateRealNodes(objsTypeStr, setInfo.GetObjectsInfo());
+                root.Nodes.AddRange(childs);
+            }
         }
 
         private void TaskPage_StopComputationEvent(object arg1, EventArgs arg2)
@@ -523,7 +566,9 @@ namespace BazisGUI
         private void Page_UpdateNavigatorEvent(object obj)
         {
             var page = obj as ToolStripPage;
-            page.BasePage.PresentProjectOnTree(project.GeneralData, project.ModelData);
+            page.BasePage.PresentGeneralDataOnTree(project.GeneralData);
+            page.BasePage.PresentObjectsDataOnTree(project.ModelData.ObjectData);
+            page.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
 
             if (obj is TaskPage taskPage)
                 taskPage.PresentTaskDataOnTree(project.GeneralData, project.TaskData);         
@@ -569,7 +614,7 @@ namespace BazisGUI
         {
             var page = arg1 as ToolStripPage;
 
-            var set = project.ModelData.ObjectData.GetSetsInfo(arg2).First(x => x.Name == arg3);
+            var set = project.ModelData.ObjectData.GetSetsInfo(arg2).FirstOrDefault(x => x.Name == arg3);
 
             if (set != null)
                 page.BasePage.PanelProvider.ShowPropertiesPanel(set);
@@ -581,11 +626,13 @@ namespace BazisGUI
             var navigator = page.BasePage.NavigatorControl;
             var scenePage = page.BasePage.ScenePage;
 
-            project.ModelData.ObjectData.ClearAll();
-            project.ModelData.GroupData.Clear();
+            project.ClearAllData();
 
-            var modelInfo = Converters.ConvertToNavigatorModelInfo(project.ModelData);
-            navigator.PresentModelInfo(modelInfo);
+            page.BasePage.PresentObjectsDataOnTree(project.ModelData.ObjectData);
+            page.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
+
+            if (obj is TaskPage taskPage)
+                taskPage.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
 
             scenePage.ClearAllDataOnScene();
             scenePage.SceneControl.DisplayObjects();
@@ -613,11 +660,12 @@ namespace BazisGUI
 
 
                     var root = navigator.TreeView.Nodes["объекты"].Nodes[nodeType.ToString()];
-                    var child = navigator.SearchChildNode(root, setInfo.ObjType.ToString());
-                    if (child != null)
+                    var nodes = new List<TreeNode>();
+                    navigator.SearchNodeRec(root, setInfo.ObjType.ToString(), nodes);
+                    if (nodes.Count != 0)
                     {
-                        child.ImageIndex = imgIndex;
-                        child.SelectedImageIndex = imgIndex;
+                        nodes.First().ImageIndex = imgIndex;
+                        nodes.First().SelectedImageIndex = imgIndex;
                     }
                 }
             }
@@ -641,7 +689,9 @@ namespace BazisGUI
             if (gr != null)
             {
                 gr.Name = arg3;
-                page.BasePage.PresentProjectOnTree(project.GeneralData,project.ModelData);
+                page.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
+                if (arg1 is TaskPage taskPage)
+                    taskPage.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
             }
         }
 
@@ -650,13 +700,29 @@ namespace BazisGUI
             var page = arg1 as ToolStripPage;
             var navigator = page.BasePage.NavigatorControl;
 
-            TreeNode searchNode;
-            if (navigator.TrySearchNode("объекты", out searchNode))
-                foreach (TreeNode item in searchNode.Nodes)
-                    item.Nodes.Clear();
+            //var nodes = new List<TreeNode>();
+            //if (navigator.TrySearchNode("объекты", nodes))
+            //    foreach (TreeNode item in nodes.First().Nodes)
+            //        item.Nodes.Clear();
 
-            var modelInfo = Converters.ConvertToNavigatorModelInfo(project.ModelData);
-            navigator.PresentModelInfo(modelInfo);
+            var selObjs = ObjectsProvider.SelectorProvider(project.ModelData.ObjectData, arg2).
+      Where(x => x.Color == settingsConfig.SelectObjectColor);
+
+            foreach (var item in selObjs)
+                item.ExistState = false;
+
+            project.ModelData.ObjectData.ClearNotExisted();
+            project.ModelData.ObjectData.ClearEmpty();
+            project.ModelData.GroupData.ClearNotExisted();
+            project.TaskData.ClearNotExisted(project.ModelData.GroupData);
+
+            page.BasePage.PresentObjectsDataOnTree(project.ModelData.ObjectData);
+            page.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
+
+            if (arg1 is TaskPage taskPage)
+                taskPage.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
+
+            page.BasePage.ScenePage.PresentModelObjectsOnScene(project.ModelData, arg2);
         }
 
         private void Page_CreatedMeshGroupEvent(object obj,string objTypeStr)
@@ -704,8 +770,8 @@ namespace BazisGUI
                     Tag = "5.1",
                     Name = objType.ToString()
                 };
-                navigator.SetContextMenu("группыОбъектов", child);
                 navigator.TreeView.Nodes["группыОбъектов"].Nodes.Add(child);
+                navigator.SetContextMenu(child);
             }
         }
 
@@ -719,6 +785,7 @@ namespace BazisGUI
 
             foreach (var selObj in selObjs)
                 selObj.ViewState = false;
+
             scenePage.PresentModelObjectsOnScene(project.ModelData, objTypeStr);
             scenePage.SceneControl.DisplayObjects();
         }
@@ -870,17 +937,25 @@ namespace BazisGUI
 
         private void Page_ShowMeshCountorsEvent(object obj)
         {
-            var page = obj as ToolStripPage;
-            var scenePage = page.BasePage.ScenePage;
+            try
+            {
+                var page = obj as ToolStripPage;
+                var scenePage = page.BasePage.ScenePage;
 
-            var surfElems = project.ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement).
-    Select(x => (ISurfaceElement)x);
-            var linesNodes = modelController.BoundaryEdgesFinder.Find(surfElems);
-            var edges = modelController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes, project.ModelData);
-            var linePresenter = scenePage.PresentersCreator.CreateLineObjectsPresenter(edges);
+                var surfElems = project.ModelData.ObjectData.GetAllElements().Where(x => x is ISurfaceElement).
+        Select(x => (ISurfaceElement)x);
+                var linesNodes = modelController.BoundaryEdgesFinder.Find(surfElems);
+                var edges = modelController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes, project.ModelData);
+                var linePresenter = scenePage.PresentersCreator.CreateLineObjectsPresenter(edges);
 
-            scenePage.CreateObjectsOnScene("Boundary", linePresenter);
-            scenePage.SceneControl.DisplayObjects();
+                scenePage.CreateObjectsOnScene("Boundary", linePresenter);
+                scenePage.SceneControl.DisplayObjects();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
         }
 
         private void Page_MakeScreenShotEvent(object obj)
@@ -1130,7 +1205,7 @@ namespace BazisGUI
             var page = obj as ToolStripPage;
             var objs = project.ModelData.ObjectData.E3DCollection.GetObjects();
 
-            modelController.ChangeInsideSurface.HideInsideSurfaces(objs);
+            page.BasePage.ScenePage.ChangeInsideSurface.HideInsideSurfaces(objs);
 
             var scenePage = page.BasePage.ScenePage;
             var presenter = scenePage.PresentersCreator.CreateSurfaceObjectsPresenter(objs);
@@ -1144,7 +1219,7 @@ namespace BazisGUI
             var page = obj as ToolStripPage;
             var objs = project.ModelData.ObjectData.E3DCollection.GetObjects();
 
-            modelController.ChangeInsideSurface.ShowInsideSurfaces(objs);
+            page.BasePage.ScenePage.ChangeInsideSurface.ShowInsideSurfaces(objs);
 
             var scenePage = page.BasePage.ScenePage;
             var presenter = scenePage.PresentersCreator.CreateSurfaceObjectsPresenter(objs);
@@ -1181,8 +1256,7 @@ namespace BazisGUI
 
             var page = arg1 as ToolStripPage;
 
-            var modelInfo = Converters.ConvertToNavigatorModelInfo(project.ModelData);
-            page.BasePage.NavigatorControl.PresentModelInfo(modelInfo);
+            page.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
 
             if (arg1 is TaskPage taskPage)
                 taskPage.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
@@ -1192,13 +1266,11 @@ namespace BazisGUI
         {
             project.ModelData.GroupData.Clear();
             project.TaskData.Clear();
-
-            var modelInfo = Converters.ConvertToNavigatorModelInfo(project.ModelData);
             
             var page = arg1 as ToolStripPage;
-            page.BasePage.NavigatorControl.PresentModelInfo(modelInfo);
+            page.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
 
-            if(arg1 is TaskPage taskPage)
+            if (arg1 is TaskPage taskPage)
                 taskPage.PresentTaskDataOnTree(project.GeneralData,project.TaskData);
         }
 
@@ -1227,9 +1299,14 @@ namespace BazisGUI
             else
                 project.DeleteMeshSet(arg2, arg3);
 
-            var modelInfo = Converters.ConvertToNavigatorModelInfo(project.ModelData);
+            project.ModelData.ObjectData.ClearEmpty();
 
-            page.BasePage.NavigatorControl.PresentModelInfo(modelInfo);
+            page.BasePage.PresentObjectsDataOnTree(project.ModelData.ObjectData);
+            page.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
+
+            if (arg1 is TaskPage taskPage)
+                taskPage.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
+
             page.BasePage.ScenePage.ClearAllDataOnScene();
             page.BasePage.ScenePage.PresentAllModelObjectsToScene(project.ModelData);
             page.BasePage.ScenePage.SceneControl.DisplayObjects();
@@ -1714,7 +1791,7 @@ namespace BazisGUI
                 gmshController?.Gmsh.Clear();
 
                 модулиMenuItem.Enabled = true;
-                modelController = new ModelController.ModelController();
+                //modelController = new ModelController.ModelController();
                 SetModule("Mesh");
                 модулиMenuItem.Image = Resources.м_34;
                 var module = ModulePage.BasePage;
@@ -1748,7 +1825,7 @@ namespace BazisGUI
             module?.ConsoleControl.PrintInfo("Проект сохранен", Color.Black);
             lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
 
-            module?.PresentProjectOnTree(project.GeneralData,project.ModelData);
+            module?.PresentGeneralDataOnTree(project.GeneralData);
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1769,7 +1846,7 @@ namespace BazisGUI
                     lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
 
                     модулиMenuItem.Enabled = true;
-                    modelController = new ModelController.ModelController();
+                    //modelController = new ModelController.ModelController();
                     SetModule("Mesh");
                     модулиMenuItem.Image = Resources.м_34;
                     var module = ModulePage.BasePage;
@@ -1786,7 +1863,8 @@ namespace BazisGUI
         private void PresentProjectOnModule(ToolStripPage module)
         {
             module.BasePage.ScenePage.PresentAllModelObjectsToScene(project.ModelData);
-            module.BasePage.PresentProjectOnTree(project.GeneralData,project.ModelData);
+            module.BasePage.PresentObjectsDataOnTree(project.ModelData.ObjectData);
+            module.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
 
             (module as TaskPage)?.PresentTaskDataOnTree(project.GeneralData,project.TaskData);
 
@@ -1843,7 +1921,7 @@ namespace BazisGUI
 
                 module.EmbeddedSplitContainer.Panel2Collapsed = false;
                 if(gmshController != null)
-                    module.SetGMSHController(project.GeneralData, project.ModelData, gmshController);
+                    module.SetGMSHController(project.ModelData, gmshController);
             }
             else 
                 module.EmbeddedSplitContainer.Panel2Collapsed = true;         

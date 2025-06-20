@@ -1,4 +1,6 @@
-﻿namespace BaseModule.Navigator
+﻿using System.Collections.Generic;
+
+namespace BaseModule.Navigator
 {
     public class SetInfo
     {
@@ -14,5 +16,9 @@
         /// Count
         /// </summary>
         public int NumberOfObjects { get; set; }
+        /// <summary>
+        /// ObjectsData
+        /// </summary>
+        public IEnumerable<string> ObjectsData { get; set; } 
     }
 }

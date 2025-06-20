@@ -183,10 +183,6 @@ namespace Scene.Interfaces
         /// </summary>
         Color SelectionColor { get; set; }
         /// <summary>
-        /// DrawInsideObjects
-        /// </summary>
-        bool DrawInsideObjects { get; set; }
-        /// <summary>
         /// IsCutting
         /// </summary>
         bool IsCutting { get; set; }

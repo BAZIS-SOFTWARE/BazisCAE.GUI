@@ -26,6 +26,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UserControlsEx;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
@@ -74,7 +75,7 @@ namespace BazisGUI
 
         public event Action<object,int> DeleteGroupEvent;
         public event Action<object> DeleteAllGroupsEvent;
-        public event Action<object,ObjType, string> DeleteObjectsEvent;
+        public event Action<object,ObjType, string> DeleteSetEvent;
         public event Action<object,bool> ChangeAllGroupsViewEvent;
         public event Action<object, int, bool> ChangeGroupViewEvent;
         public event Action<object, ObjType, string> SelectSetEvent;
@@ -86,7 +87,7 @@ namespace BazisGUI
         public event Action<object,string,string> ChangedGroupNameEvent;
         public event Action<object> FindFreeNodesEvent;
         public event Action<TreeNode> SelectPhysicalDataEvent;
-        public event Action<object,ObjType,string,bool> ChangeObjsViewStateEvent;
+        public event Action<object,ObjType,string,bool> ChangeSetViewStateEvent;
         public event Action<object, int> EditGroupEvent;
         public event Action<object> SetBackColorToAllObjectsEvent;
         public event Action<object> HideSelectedObjectsEvent;
@@ -94,6 +95,8 @@ namespace BazisGUI
         public event Action<object, int> ShowGroupWithNodesEvent;
         public event Action<object> DelAllObjectsEvent;
         public event Action<object> UpdateNavigatorEvent;
+        public event Action<object,string,string> GetObjectsInfoEvent;
+        public event Action<object, string> GetSetsInfoEvent;
         //IModelController ModelController { get { return scenePage.GetModelController(); } }
 
         //IModelData ModelData { get { return ModelController.ModelData; } }
@@ -153,13 +156,56 @@ namespace BazisGUI
             bmpPicture.Save(fileName, System.Drawing.Imaging.ImageFormat.Bmp);
         }
 
-        public void PresentProjectOnTree(IGeneralData generalData, IModelData modelData)
+        public void PresentObjectsDataOnTree(IObjectsData objectsData)
         {
-            var genInfo = Converters.ConvertToNavigatorGeneralInfo(generalData);
-            navigator.PresentGeneralInfo(genInfo);
-            var modelInfo = Converters.ConvertToNavigatorModelInfo(modelData);
-            navigator.PresentModelInfo(modelInfo);
-        }       
+            navigator.TreeView.BeginUpdate();
+            foreach (TreeNode item in navigator.TreeView.Nodes["объекты"].Nodes)
+                item.Nodes.Clear();
+
+            foreach (ObjType objType in Enum.GetValues(typeof(ObjType)))
+                foreach (var item in objectsData.GetSetsInfo(objType))
+                {
+                    if (item.NumberOfObjects > 0)
+                    {
+                        var root = Converters.ConvertToNavigatorNodeType(item.ObjType);
+                        navigator.TryCreateNode(root.ToString(), item.Name, $"{item.Name} {item.NumberOfObjects}", NodeKind.virt);
+                    }
+                }
+            navigator.TreeView.EndUpdate();
+        }
+
+        public void PresentGroupDataOnTree(IGroupData groupData)
+        {
+            navigator.TreeView.BeginUpdate();
+            var root = navigator.TreeView.Nodes["группыОбъектов"];
+
+            root.Nodes.Clear();
+
+            foreach (var item in groupData)
+            {
+                var r = navigator.CreateRealNode(item.ObjType.ToString(), $"{item.Name} {item.Count}");
+                root.Nodes.Add(r);
+            }
+                
+            navigator.TreeView.EndUpdate();
+        }
+
+        public void PresentGeneralDataOnTree(IGeneralData generalData)
+        {
+            var nodes = new List<TreeNode>();
+            navigator.TrySearchNode(NodeType.названиеПроекта.ToString(), nodes);
+            nodes.First().Text = "Название : " + generalData.Name;
+            nodes.Clear();
+            navigator.TrySearchNode(NodeType.путь.ToString(), nodes);
+            nodes.First().Text = "Путь : " + generalData.Path;
+            nodes.Clear();
+            navigator.TrySearchNode(NodeType.путь.ToString(), nodes);
+            nodes.First().Text = "Сведения : " + generalData.Comments;
+            nodes.Clear();
+            navigator.TrySearchNode(NodeType.вид.ToString(), nodes);
+            nodes.First().Text = "Вид : " + generalData.TaskType;
+            nodes.Clear();
+        }
 
         public async void WaitProcessAsync(Process process, Action<object, EventArgs> action)
         {
@@ -477,16 +523,10 @@ namespace BazisGUI
             DeleteAllGroupsEvent?.Invoke(this);
         }
 
-        private void navigator_DelObjectsEvent(TreeNode treeNode)
+        private void navigator_DelSetEvent(NodeType nodeType, string setName)
         {
-            NodeType nodeType;
-            Enum.TryParse(treeNode.Name, out nodeType);
-
-            var objType = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
-
-            var setName = treeNode.Text.Split(':')[0].Replace(" ", "");          
-
-            DeleteObjectsEvent?.Invoke(this,objType, setName);
+            var objType = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);         
+            DeleteSetEvent?.Invoke(this,objType, setName);
         }
 
         private void navigator_EditGroupEvent(int obj)
@@ -555,14 +595,12 @@ namespace BazisGUI
             ChangeGroupViewEvent?.Invoke(this, obj, false);
         }
 
-        private void navigator_HideObjectsEvent(NodeType nodeType, string nodeText)
+        private void navigator_HideSetEvent(NodeType nodeType, string setName)
         {
             try
             {
                 var objType = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
-                var setName = nodeText.Split(':')[0].Replace(" ", "");
-
-                ChangeObjsViewStateEvent?.Invoke(this, objType, setName, false);
+                ChangeSetViewStateEvent?.Invoke(this, objType, setName, false);
 
             }
             catch (Exception ex)
@@ -576,14 +614,12 @@ namespace BazisGUI
             ChangeAllObjsViewStateEvent?.Invoke(this, true);
         }
 
-        private void navigator_ShowObjectsEvent(NodeType nodeType, string nodeText)
+        private void navigator_ShowSetEvent(NodeType nodeType, string setName)
         {
             try
             {
                 var objType = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
-                var setName = nodeText.Split(':')[0].Replace(" ", "");
-
-                ChangeObjsViewStateEvent?.Invoke(this, objType, setName, true);
+                ChangeSetViewStateEvent?.Invoke(this, objType, setName, true);
 
             }
             catch (Exception ex)
@@ -620,7 +656,7 @@ namespace BazisGUI
             ChangeAllGroupsViewEvent?.Invoke(this, true);
         }
 
-        private void navigator_ChangeViewModeEventHandler(string objs, ViewRegime viewRegime)
+        private void navigator_ChangeSetViewEventHandler(string objs, ViewRegime viewRegime)
         {
             
         }
@@ -783,7 +819,7 @@ namespace BazisGUI
 
             else if (select == SelectionType.Group)
             {
-                var grName = node.Text.Split('_')[0];
+                var grName = node.Text.Split(' ')[0];
                 SelectGroupEvent?.Invoke(this, grName);
             }
 
@@ -810,6 +846,16 @@ namespace BazisGUI
         private void scenePage_SelectObjectsEvent(object arg1, SelectObjectsEventArgs arg2)
         {
             SelectObjectsEvent?.Invoke(this, arg2);
+        }
+
+        private void navigator_GetObjectsInfoEvent(string obj,string set)
+        {
+            GetObjectsInfoEvent?.Invoke(this, obj,set);
+        }
+
+        private void navigator_GetSetsInfoEvent(string obj)
+        {
+            GetSetsInfoEvent?.Invoke(this, obj);
         }
     }
 }

@@ -132,7 +132,7 @@ namespace BazisGUI
                 scenePage.CreateObjectsOnScene(objType.ToString(), scenePage.CreateObjectsPresentor(modelData, objType));
 
                 scenePage.SceneControl.DisplayObjects();
-                BasePage.PresentProjectOnTree(generalData,modelData);
+                BasePage.PresentObjectsDataOnTree(modelData.ObjectData);
 
                 BasePage.ConsoleControl.PrintInfo($"Созданы {objType}", Color.Black);
             }
@@ -730,13 +730,14 @@ namespace BazisGUI
             //    scenePage.CreateObjectsOnScene(item.ToString(), presentor);
         }   
 
-        public void SetGMSHController(IGeneralData generalData, IModelData modelData, GmshController gmshController)
+        public void SetGMSHController(IModelData modelData, GmshController gmshController)
         {
             var scenePage = BasePage.ScenePage;
             scenePage.SceneControl.HideAllGeometryObjs();
             scenePage.SceneControl.HideDisplayText2D();
             scenePage.SceneControl.HideDisplayText3D();
-            BasePage.PresentProjectOnTree(generalData, modelData);
+
+            BasePage.PresentObjectsDataOnTree(modelData.ObjectData);
 
             if (gmshController == null)
                 MessageBox.Show("Контроллер генератора сетки не загружен!");

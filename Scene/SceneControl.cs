@@ -125,12 +125,6 @@ namespace Scene
         }
         /// <inheritdoc/>
 
-        [Description("Set draw regime for 3D elements")]
-        [Category("General properties")]
-        [DefaultValue(false)]
-        public bool DrawInsideObjects { get; set; }
-        /// <inheritdoc/>
-
 
         [Description("Set lighting for surfaceObjects")]
         [Category("General properties")]
