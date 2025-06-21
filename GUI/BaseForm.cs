@@ -57,6 +57,9 @@ using Project.Tasks.FrameCreators;
 using System.Runtime.InteropServices.ComTypes;
 using System.ComponentModel.DataAnnotations;
 using GmshApi;
+using PreProc;
+using Project.Interfaces;
+using System.Text.RegularExpressions;
 
 
 namespace BazisGUI
@@ -478,8 +481,8 @@ namespace BazisGUI
             var objType = Converters.ConvertNavigatorNodeTypeToObjType(arg2.ToNodeType());
             var info = project.ModelData.ObjectData.GetSetsInfo(objType);
 
-            var nodes = new List<TreeNode>();
-            if (page.BasePage.NavigatorControl.TrySearchNode(arg2, nodes))
+
+            if (page.BasePage.NavigatorControl.TrySearchNodes(arg2, out List<TreeNode> nodes))
             {
                 foreach (var item in info)
                 {
@@ -503,8 +506,8 @@ namespace BazisGUI
             var objType = objsTypeStr.ToObjType();
             var setInfo = project.ModelData.ObjectData.GetSetsInfo(objType).Where(x => x.Name == setName).First();
 
-            var nodes = new List<TreeNode>();
-            if (page.BasePage.NavigatorControl.TrySearchNode(objsTypeStr, nodes))
+
+            if (page.BasePage.NavigatorControl.TrySearchNodes(objsTypeStr, out List<TreeNode> nodes))
             {
                 var root = nodes.First(x => x.Text.Split(' ')[0] == setName);
                 var childs = page.BasePage.NavigatorControl.CreateRealNodes(objsTypeStr, setInfo.GetObjectsInfo());
@@ -524,18 +527,19 @@ namespace BazisGUI
             page.EditTSFFile(arg2);
         }
 
-        private void TaskPage_GenerateTCFEvent(object arg1, GenerateTCFEventArgs arg2)
+        private void TaskPage_GenerateTCFEvent(object arg1)
         {
             var page = arg1 as TaskPage;
             project.Save();
             page.BasePage.ConsoleControl.PrintInfo("Проект сохранен в " + project.GeneralData.Path, Color.Black);
-            page.GenerateAndSolveTCFfile(project.GeneralData, arg2.ToList());
+
+            page.GenerateAndSolveTCFfile(project.GeneralData);
         }
 
-        private void TaskPage_GenerateTSFEvent(object arg1, Tasks arg2, Priority arg3)
+        private void TaskPage_GenerateTSFEvent(object arg1)
         {
             var page = arg1 as TaskPage;
-            page.GenerateTSFFiles(project,arg2,arg3);
+            page.GenerateTSFFiles(project);
         }
 
         private void TaskPage_AddPhysicalDataEvent(object obj,string dataType)
@@ -649,26 +653,32 @@ namespace BazisGUI
             var page = arg1 as ToolStripPage;
             var navigator = page.BasePage.NavigatorControl;
 
-            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
-            {
-                foreach (var setInfo in project.ModelData.ObjectData.GetSetsInfo(item))
-                {
-                    var nodeType = Converters.ConvertToNavigatorNodeType(setInfo.ObjType);
+            foreach (var item in project.ModelData.ObjectData.GetAllObjects())
+                item.ViewState = arg2;
 
-                    var imgIndex = navigator.GetObjectImageIndex(nodeType);
-                    imgIndex = imgIndex == 3 ? 5 : 6;
+            page.BasePage.ScenePage.PresentModelObjectsOnScene(project.ModelData, "Объекты");
+            page.BasePage.ScenePage.SceneControl.DisplayObjects();
 
 
-                    var root = navigator.TreeView.Nodes["объекты"].Nodes[nodeType.ToString()];
-                    var nodes = new List<TreeNode>();
-                    navigator.SearchNodeRec(root, setInfo.ObjType.ToString(), nodes);
-                    if (nodes.Count != 0)
-                    {
-                        nodes.First().ImageIndex = imgIndex;
-                        nodes.First().SelectedImageIndex = imgIndex;
-                    }
-                }
-            }
+            //foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
+            //{
+            //    foreach (var setInfo in project.ModelData.ObjectData.GetSetsInfo(item))
+            //    {
+            //        var nodeType = Converters.ConvertToNavigatorNodeType(setInfo.ObjType);
+
+                    //var imgIndex = navigator.GetObjectImageIndex(nodeType);
+                    //imgIndex = imgIndex == 3 ? 5 : 6;
+
+            //        var root = navigator.TreeView.Nodes["объекты"].Nodes[nodeType.ToString()];
+            //        var nodes = new List<TreeNode>();
+            //        navigator.SearchNodeRec(root, setInfo.ObjType.ToString(), nodes);
+            //        if (nodes.Count != 0)
+            //        {
+            //            nodes.First().ImageIndex = imgIndex;
+            //            nodes.First().SelectedImageIndex = imgIndex;
+            //        }
+            //    }
+            //}
         }
 
         private void Page_InfoGroupEvent(object arg1, int arg2)
@@ -760,18 +770,12 @@ namespace BazisGUI
 
                 consoleControl.PrintInfo(string.Format("Создана новая группа {0}", group.Name), Color.Black);
 
-                var text = $"{group.Name}";
-                var nodeType = Converters.ConvertToNavigatorNodeType(objType);
+                var text = $"{group.Name} {selObjs.Count()}";
+                var node = navigator.CreateRealNode(objType.ToString(), text);
 
-                var imgIndex = navigator.GetObjectImageIndex(nodeType);
-
-                var child = new TreeNode(text, imgIndex, imgIndex)
-                {
-                    Tag = "5.1",
-                    Name = objType.ToString()
-                };
-                navigator.TreeView.Nodes["группыОбъектов"].Nodes.Add(child);
-                navigator.SetContextMenu(child);
+                navigator.TrySearchNodes("группыОбъектов", out List<TreeNode> nodes);
+                nodes.First().Nodes.Add(node);
+                navigator.SetContextMenu(node);
             }
         }
 
@@ -813,14 +817,14 @@ namespace BazisGUI
             var group = project.ModelData.GroupData.Find(arg2);
 
             project.ModelData.ObjectData.SetBackColor(group.ObjType);
+            
             var pres = scenePage.CreateObjectsPresentor(project.ModelData, group.ObjType);
-
             scenePage.SetObjectsSceneAttribute(pres, group.ObjType.ToString(), "цвет");
 
             foreach (var iobj in group)
                 iobj.Color = settingsConfig.SelectGroupColor;
 
-            pres = scenePage.CreateObjectsPresentor(project.ModelData, group.ObjType);
+            //pres = scenePage.CreateObjectsPresentor(project.ModelData, group.ObjType);
             scenePage.SetObjectsSceneAttribute(pres,group.ObjType.ToString(), "цвет");
 
             scenePage.SceneControl.DisplayObjects();
@@ -1863,6 +1867,7 @@ namespace BazisGUI
         private void PresentProjectOnModule(ToolStripPage module)
         {
             module.BasePage.ScenePage.PresentAllModelObjectsToScene(project.ModelData);
+            module.BasePage.PresentGeneralDataOnTree(project.GeneralData);
             module.BasePage.PresentObjectsDataOnTree(project.ModelData.ObjectData);
             module.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
 

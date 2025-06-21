@@ -113,54 +113,7 @@ namespace BazisGUI.Utilities
                 default:
                     return TaskKind.термическая_механическая;
             }
-        }
-
-        public static GeneralInfo ConvertToNavigatorGeneralInfo(IGeneralData generalData)
-        {
-            return new GeneralInfo()
-            {
-                Name = generalData.Name,
-                Path = generalData.Path,
-                Comments = generalData.Comments,
-
-                Materials = generalData.Materials,
-                Functions = generalData.Functions,
-                TaskType = generalData.TaskType.ToString()
-            };
-        }
-
-        public static ModelInfo ConvertToNavigatorModelInfo(IModelData modelData)
-        {
-            var modelInfo = new ModelInfo();
-            foreach (var group in modelData.GroupData)
-            {
-                var grInfo = new GroupInfo()
-                {
-                    Name = group.Name,
-                    NodeType = ConvertToNavigatorNodeType(group.ObjType)
-                };
-                modelInfo.groups.Add(grInfo);
-            }
-
-            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
-            {
-                foreach (var itemInfo in modelData.ObjectData.GetSetsInfo(item))
-                {
-                    var setInfo = new SetInfo()
-                    {
-                        Name = itemInfo.Name,
-                        NodeType = ConvertToNavigatorNodeType(itemInfo.ObjType),
-                        NumberOfObjects = itemInfo.NumberOfObjects,
-                        ObjectsData = itemInfo.GetObjectsInfo()
-                        
-                    };
-
-                    modelInfo.sets.Add(setInfo);
-                }
-            }
-
-            return modelInfo;
-        }
+        }   
 
         /// <summary>
         /// Метод для получения всех строковых значений для комбобокса
@@ -180,7 +133,7 @@ namespace BazisGUI.Utilities
         {
             if (Enum.TryParse(value,out T result)) 
                 return result;
-            else throw new ArgumentException($"Ошибка: значение '{value}' не соответствует ни одному значению из ViewMode.");
+            else throw new ArgumentException($"Ошибка: значение '{value}' не соответствует ни одному значению.");
         }
     }
 }

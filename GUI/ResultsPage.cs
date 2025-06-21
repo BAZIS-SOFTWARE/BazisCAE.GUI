@@ -1,4 +1,5 @@
-﻿using BaseModule.Results.Animation;
+﻿using BaseModule.Navigator;
+using BaseModule.Results.Animation;
 using BaseModule.Results.Export;
 using BaseModule.Results.GraphCreation;
 using BaseModule.Results.ScaleControl;
@@ -64,7 +65,8 @@ namespace BazisGUI
 
             var navigator = BasePage.NavigatorControl;
 
-            navigator.TreeView.Nodes.Add(new TreeNode("Набор результатов", 14, 14) { Name = "Набор результатов", Tag = 6, ContextMenuStrip = resultsMenuStrip });
+            navigator.TrySearchNodes(NodeType.результаты.ToString(), out List<TreeNode> nodes);
+            nodes[0].ContextMenuStrip = resultsMenuStrip;
 
             resultsMenuStrip.Enabled = true;
 
@@ -177,7 +179,7 @@ namespace BazisGUI
 
             animationPage.ShowResultEvent += (ar1, ar2) =>
             {
-                if (BasePage.NavigatorControl.TreeView.SelectedNode?.Level == 1)
+                if (BasePage.NavigatorControl.SelectedNode?.Level == 1)
                 {
                     var loader = new LoadResultsFileDB();
                     var result = loader.GetResult(ResultDbPath,
@@ -224,7 +226,8 @@ namespace BazisGUI
                 var loader = new LoadResultsFileDB();
 
                 var tables = new List<string>();
-                foreach (TreeNode item in BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes)
+                BasePage.NavigatorControl.TrySearchNodes(NodeType.результаты.ToString(), out List<TreeNode> nodes);
+                foreach (TreeNode item in nodes[0].Nodes)
                     tables.Add(item.Text);
 
 
@@ -288,7 +291,7 @@ namespace BazisGUI
             try
             {
                 var scenePage = BasePage.ScenePage;
-                var resName = BasePage.NavigatorControl.TreeView.SelectedNode.Name;
+                var resName = BasePage.NavigatorControl.SelectedNode.Name;
                 var tableName = ResultType.nodes.ToString();
 
                 scale.Title = result.TaskKind.ToString();
@@ -386,7 +389,7 @@ namespace BazisGUI
             try
             {
                 var scenePage = BasePage.ScenePage;
-                if (BasePage.NavigatorControl.TreeView.SelectedNode?.Level != 2)
+                if (BasePage.NavigatorControl.SelectedNode?.Level != 2)
                 {
                     throw new Exception("Выберите вид результатов в разделе результаты");
                 }
@@ -397,7 +400,7 @@ namespace BazisGUI
 
                 var objs = await BasePage.CreatePathAsync(modelData);
 
-                var selNode = BasePage.NavigatorControl.TreeView.SelectedNode;
+                var selNode = BasePage.NavigatorControl.SelectedNode;
                 var resDes = selNode.Name;
 
                 var pathPoints = new List<Point3D>();
@@ -452,7 +455,7 @@ namespace BazisGUI
             try
             {
                 var scenePage = BasePage.ScenePage;
-                if (BasePage.NavigatorControl.TreeView.SelectedNode?.Level != 1)
+                if (BasePage.NavigatorControl.SelectedNode?.Level != 1)
                     throw new Exception("Выберите вид результатов в разделе результаты");
 
                 scenePage.ClearAllDataOnScene();
@@ -464,7 +467,7 @@ namespace BazisGUI
                 if (objs.Count == 0)
                     throw new Exception("Не выбран ни один объект!");
 
-                var selNode = BasePage.NavigatorControl.TreeView.SelectedNode;
+                var selNode = BasePage.NavigatorControl.SelectedNode;
                 var resDes = selNode.Name;
 
                 var dbTable = Converters.ConvertToDBTablesNames(objsType);
@@ -568,15 +571,15 @@ namespace BazisGUI
                 var scheme = loader.GetTablesSchemes(fileName).
                     FirstOrDefault(x => x.Key == ResultType.nodes.ToString());
 
-
-                BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes.Clear();
+                BasePage.NavigatorControl.TrySearchNodes(NodeType.результаты.ToString(), out List<TreeNode> nodes);
+                nodes[0].Nodes.Clear();
 
                 foreach (var desc in scheme.Value)
                 {
                     var node = new TreeNode($"{desc}", 16, 16)
                     { Tag = "6.1", Name = desc };
 
-                    BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes.Add(node);
+                    nodes[0].Nodes.Add(node);
                 }
 
                 var pAnPage = (PinnedAnimationControl)EmbeddedControls.Find("pinnedAnimationControl", false)[0];
@@ -685,8 +688,9 @@ namespace BazisGUI
 
         public void RemoveResults(IModelData modelData)
         {
-            BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоУзлам"].Nodes.Clear();
-            BasePage.NavigatorControl.TreeView.Nodes["Набор результатов"].Nodes["ПоЭлементам"].Nodes.Clear();
+            BasePage.NavigatorControl.TrySearchNodes(NodeType.результаты, out List<TreeNode> nodes);
+            nodes[0].Nodes["ПоУзлам"].Nodes.Clear();
+            nodes[0].Nodes["Набор результатов"].Nodes["ПоЭлементам"].Nodes.Clear();
 
             var scenePage = BasePage.ScenePage;
 

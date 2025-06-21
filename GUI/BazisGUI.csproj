@@ -336,7 +336,6 @@
     </Compile>
     <Compile Include="Utilities\Converters.cs" />
     <Compile Include="Utilities\ObjectsProvider.cs" />
-    <Compile Include="Utilities\PresenterProvider.cs" />
     <Compile Include="WeldingPage.cs">
       <SubType>UserControl</SubType>
     </Compile>

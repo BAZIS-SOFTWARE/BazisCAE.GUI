@@ -41,8 +41,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
+    public enum Priority : int { Низкий, НижеСреднего, Средний, ВышеСреднего, Высокий };
     public partial class TaskPage: ToolStripPage
     {
+        public Priority Priority { get; private set; }
         public ProcessType ProcessType{ get; set; }
         public string SolverPath { get; set; }
 
@@ -55,28 +57,26 @@ namespace BazisGUI
         public event Action<object> ShowGantChartEvent;
         public event Action<object,string> AddPhysicalDataEvent;
 
-        public event Action<object, Tasks, Priority> GenerateTSFEvent;
+        public event Action<object> GenerateTSFEvent;
         public event Action<object, EventArgs> StopComputationEvent;
-        public event Action<object, GenerateTCFEventArgs> GenerateTCFEvent;
+        public event Action<object> GenerateTCFEvent;
         public event Action<object, string> EditTSFEvent;
         public TaskPage()
         {
             InitializeComponent();
-            var taskNode = new TreeNode("Данные", 14, 14) { Name = "Данные", Tag = "6" };
-            taskNode.ContextMenuStrip = taskMenuStrip;
-            BasePage.NavigatorControl.TreeView.Nodes.Add(taskNode);
+            BasePage.NavigatorControl.TrySearchNodes(NodeType.условия, out List<TreeNode> conds);
+
+            conds[0].ContextMenuStrip = taskMenuStrip;
+
+            BasePage.NavigatorControl.TrySearchNodes(NodeType.задачи, out List<TreeNode> tasks);
+            tasks[0].ContextMenuStrip = compMenuStrip;
 
             selectToolStrip.Location = new Point(3, 0);
 
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
             BasePage.SelectPhysicalDataEvent += basePage_SelectPhysicalData;
-
-            var pContr = (PinnedTaskPlannerControl)EmbeddedControls.Find("pinnedTaskPlannerControl", false)[0];
-            pContr.GenerateTSFEvent += GenerateTSFEvent;
-            pContr.GenerateTCFEvent += GenerateTCFEvent;
-            pContr.EditTSFEvent += EditTSFEvent;
-            pContr.StopComputationEvent += StopComputationEvent;
         }
+
         private void basePage_SelectPhysicalData(TreeNode arg1)
         {
             SelectPhysicalDataEvent?.Invoke(this, arg1);
@@ -170,83 +170,7 @@ namespace BazisGUI
             var matData = matBasePage.Materials;
             GetTaskAdvisor()?.SetMaterials(matData.Keys.ToList());
             PresentMatAndFuncDataOnTree(generalData);
-        }
-
-        public void FillAdvisor(TaskAdvisor taskAdv)
-        {
-            //try
-            //{
-            //    var generalData = GeneralData;
-            //    //var btn = sender as ToolStripMenuItem;
-            //    var appFolder = Path.GetDirectoryName(Application.ExecutablePath);
-            //    if (appFolder == generalData.Path)
-            //    {
-            //        MessageBox.Show("Рабочая папка проекта должна отличаться от папки установки программы!");
-            //        return;
-            //    }
-
-            //    taskAdv.TaskType = generalData.TaskType.ToString();
-
-            //    var matDB = GetDataBase<MaterialDBData>(generalData.Materials, generalData.Path);
-
-            //    if (matDB == null)
-            //        BasePage.ConsoleControl.PrintInfo($"Не загружена база {generalData.Materials}", Color.Orange);
-            //    else
-
-            //        taskAdv.SetMaterials(matDB.Keys.ToList());
-
-            //    var funDB = GetDataBase<FunctionDBData>(generalData.Functions, generalData.Path);
-
-            //    if (funDB == null)
-            //        BasePage.ConsoleControl.PrintInfo($"Не загружена база {generalData.Functions}", Color.Orange);
-            //    else
-            //        taskAdv.SetFunctions(funDB.Keys.ToList());
-
-            //    SetProjectData(taskAdv);
-
-            //    var inputDir = $@"{generalData.Path}\InputData";
-
-            //    if (Directory.Exists(inputDir))
-            //    {
-            //        var tsfFiles = Directory.GetFiles(inputDir, "*.tsf");
-
-            //        var sortedFiles = preProc.SortCompDataByTimeAndType(tsfFiles);
-            //        taskAdv.SetTaskPlannerlData(sortedFiles);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
-            //}
-        }
-
-        public void SetAdvisor(TaskAdvisor taskAdv)
-        {
-            //try
-            //{
-            //    //activeAdvisor = taskAdv.Name;
-            //    taskAdv.GenerateTCFEvent += TaskAdv_GenerateTCFEvent;
-            //    taskAdv.EditTSFEvent += TaskAdv_EditTSFEvent;
-            //    taskAdv.AddDataUseTaskConditionsEvent += (ar1,ar2,ar3) => { TaskAdv_AddDataUseTaskConditions(taskData, preProc,ar2,ar3); };
-            //    taskAdv.AddDataEvent += (ar1, ar2) => { TaskAdvisor_AddData(taskData, ar2); };
-            //    taskAdv.DeleteDataEvent += (ar1, ar2) => { TaskAdvisor_DeleteData(taskData, ar2); };
-            //    taskAdv.DeleteAllDataEvent += (ar1, ar2) => { TaskAdvisor_DeleteAllData(taskData, ar2); };
-            //    taskAdv.CheckDataEvent += (ar1, ar2) => { TaskAdvisor_CheckData(taskData, ar2); };
-            //    taskAdv.HideDataEvent += TaskAdvisor_HideDataEvent;
-            //    taskAdv.ShowDataEvent += (ar1, ar2) => { TaskAdvisor_ShowData(taskData, ar2); };
-            //    taskAdv.ChangeDataEvent += (ar1,ar2) => { TaskAdvisor_ChangeData(taskData,ar2); };
-            //    taskAdv.StopComputationEvent += TaskAdv_StopComputationEvent;
-            //    taskAdv.Select2DAxiEvent += (ar1,ar2) => { TaskAdvisor_ChangeTaskType(taskData,ar2); };
-            //    taskAdv.Select2DPlaneEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };
-            //    taskAdv.Select3DEvent += (ar1, ar2) => { TaskAdvisor_ChangeTaskType(taskData, ar2); };
-
-            //    ConfigureMenuItemEnabledForModule(taskAdv.Parent);
-            //}
-            //catch (Exception ex)
-            //{
-            //    BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
-            //}
-        }
+        }         
 
         public void EditTSFFile(string fileName)
         {
@@ -336,13 +260,13 @@ namespace BazisGUI
             }
         }
 
-        public void GenerateTSFFiles(IProjectData project, Tasks tasks,Priority priority)
+        public void GenerateTSFFiles(IProjectData project)
         {
             try
             {
                 var data = project.TaskData.ToList();
 
-                var adv = GetTaskAdvisor();
+                //var pContr = (PinnedTaskPlannerControl)EmbeddedControls.Find("pinnedTaskPlannerControl", false)[0];
 
                 var inputDir = $@"{project.GeneralData.Path}\InputData";
 
@@ -352,11 +276,9 @@ namespace BazisGUI
                 var oldTSF = Directory.GetFiles(inputDir);
                 if (oldTSF.Length > 0) Array.ForEach(oldTSF, x => File.Delete(x));
 
-                var taskKind = Converters.ConvertToPreProcType(tasks);
-
                 var procProp = new ProcessProperty()
                 {
-                    TaskKind = taskKind,
+                    TaskKind = project.GeneralData.TaskKind,
                     CommonTaskType = ProcessType
                 };
 
@@ -366,7 +288,7 @@ namespace BazisGUI
 
                 var sortedFiles = preProc.SortCompDataByTimeAndType(tsfFiles);
 
-                GetTaskAdvisor()?.SetTaskPlannerlData(sortedFiles);
+                PresentCompDataOnTree(sortedFiles);
 
                 BasePage.ConsoleControl.PrintInfo($"Входные Данные задачи сгенерированы в {inputDir}", Color.Green);
 
@@ -375,6 +297,25 @@ namespace BazisGUI
             {
                 BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        public void PresentCompDataOnTree(List<string> compData)
+        {
+            var nav = basePage.NavigatorControl;
+            nav.BeginUpdate();
+
+            BasePage.NavigatorControl.TrySearchNodes(NodeType.задачи.ToString(), out List<TreeNode> tasks);
+
+            tasks[0].Nodes.Clear();
+
+            foreach (var item in compData)
+            {
+                var r = nav.CreateRealNode("расчет", item);
+
+                tasks[0].Nodes.Add(r);
+            }
+
+            nav.EndUpdate();
         }
 
         public T GetDataBase<T>(string dbName, string dbPath)
@@ -462,17 +403,14 @@ namespace BazisGUI
             {
                 var navigator = BasePage.NavigatorControl;
 
-                navigator.TreeView.BeginUpdate();
+                navigator.BeginUpdate();
+                navigator.TrySearchNodes(NodeType.базаМатериалов, out List<TreeNode> mats);
+                mats[0].Text = $"База материалов : {generalData.Materials}";
 
-                navigator.TreeView.Nodes.RemoveByKey("База материалов");
-                var matNode = new TreeNode($"База материалов : {generalData.Materials}") { Name = "База материалов" };
-                navigator.TreeView.Nodes.Insert(4, matNode);
+                navigator.TrySearchNodes(NodeType.базаФункций, out List<TreeNode> func);
+                func[0].Text = $"База функций : {generalData.Functions}";
 
-                navigator.TreeView.Nodes.RemoveByKey("База функций");
-                var funNode = new TreeNode($"База функций : {generalData.Functions}") { Name = "База функций" };
-                navigator.TreeView.Nodes.Insert(4, funNode);
-
-                navigator.TreeView.EndUpdate();
+                navigator.EndUpdate();
 
             }
             catch (Exception ex)
@@ -487,25 +425,19 @@ namespace BazisGUI
             {
                 var navigator = BasePage.NavigatorControl;
 
-                navigator.TreeView.BeginUpdate();
+                navigator.BeginUpdate();
+                navigator.TrySearchNodes(NodeType.условия, out List<TreeNode> cond);
+                cond[0].Nodes.Clear();
 
-                navigator.TreeView.Nodes["Данные"].Nodes.Clear();
-
-                navigator.TreeView.Nodes.RemoveByKey("База материалов");
-                var matNode = new TreeNode($"База материалов : {generalData.Materials}") { Name = "База материалов" };
-                navigator.TreeView.Nodes.Insert(4, matNode);
-
-                navigator.TreeView.Nodes.RemoveByKey("База функций");
-                var funNode = new TreeNode($"База функций : {generalData.Functions}") { Name = "База функций" };
-                navigator.TreeView.Nodes.Insert(4, funNode);
+                PresentMatAndFuncDataOnTree(generalData);
 
                 foreach (var data in taskData)
                 {
                     AddTaskDataToNavigator(data);
                 }
 
-                navigator.TreeView.EndUpdate();
-                navigator.TreeView.Nodes["Данные"].Expand();
+                navigator.EndUpdate();
+                cond[0].Expand();
             }
             catch (Exception ex)
             {
@@ -546,33 +478,19 @@ namespace BazisGUI
         {
             try
             {
-                if (arg2.DataName == "Расчет")
+                var dataKind = Converters.ConvertToDataKind(arg2.DataName);
+                var dataArray = taskData.Find(dataKind).ToArray();
+
+                basePage.NavigatorControl.TrySearchNodes(NodeType.условия, out List<TreeNode> cond);
+                foreach (var data in dataArray)
                 {
-                    foreach (var file in Directory.GetFiles($@"{generalData.Path}\InputData"))
-                    {
-                        if (Regex.IsMatch(file, @"(\w*)(\.tsf)"))
-                            File.Delete(file);
-                    }
-                    var tsfFiles = Directory.GetFiles($@"{generalData.Path}\InputData", "*.tsf");
+                    var index = taskData.IndexOf(data);
 
-                    var sortedFiles = preProc.SortCompDataByTimeAndType(tsfFiles);
+                    cond[0].Nodes.RemoveAt(index);
 
-                    GetTaskAdvisor()?.SetTaskPlannerlData(sortedFiles);
+                    taskData.Remove(data);
                 }
-                else
-                {
-                    var dataKind = Converters.ConvertToDataKind(arg2.DataName);
-                    var dataArray = taskData.Find(dataKind).ToArray();
-
-                    foreach (var data in dataArray)
-                    {
-                        var index = taskData.IndexOf(data);
-                        BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
-
-                        taskData.Remove(data);
-                    }
-                    var adv = GetTaskAdvisor();
-                }
+                var adv = GetTaskAdvisor();
             }
             catch (Exception ex)
             {
@@ -705,7 +623,9 @@ namespace BazisGUI
             var dataArray = taskData.Find(dataKind).ToArray();
 
             var index = taskData.IndexOf(dataArray[arg2.Index]);
-            BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes.RemoveAt(index);
+
+            basePage.NavigatorControl.TrySearchNodes(NodeType.условия, out List<TreeNode> cond);
+            cond[0].Nodes.RemoveAt(index);
 
             taskData.Remove(dataArray[arg2.Index]);
 
@@ -786,9 +706,12 @@ namespace BazisGUI
             Enum.TryParse(data.Kind.ToString(), out nodeType);
             var imgIndex = BasePage.NavigatorControl.GetObjectImageIndex(nodeType);
 
-            var child = new TreeNode($"{data}", imgIndex, imgIndex)
-            { Tag = "6.1", Name = data.Kind.ToString() };
-            BasePage.NavigatorControl.TreeView.Nodes["Данные"].Nodes.Add(child);
+            var child = BasePage.NavigatorControl.CreateRealNode(nodeType, $"{data}");
+            child.ImageIndex = imgIndex;
+            child.SelectedImageIndex = imgIndex;
+
+            BasePage.NavigatorControl.TrySearchNodes(NodeType.условия.ToString(), out List<TreeNode> nodes);
+            nodes.First().Nodes.Add(child);
         }   
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -878,7 +801,7 @@ namespace BazisGUI
             AddPhysicalDataEvent?.Invoke(this, e.ClickedItem.Name);
         }
 
-        public void GenerateAndSolveTCFfile(IGeneralData generalData, List<string> inputLines)
+        public void GenerateAndSolveTCFfile(IGeneralData generalData)
         {
             CheckProjectDataBeforeCreationTCF(generalData);
 
@@ -899,8 +822,9 @@ namespace BazisGUI
             };
 
             var tasks = new List<string>();
-            foreach (var item in inputLines)
-                tasks.Add("расчет " + item);
+            basePage.NavigatorControl.TrySearchNodes(NodeType.задачи, out List<TreeNode> task);
+            foreach (TreeNode item in task[0].Nodes)
+                tasks.Add("расчет " + item.Text);
 
             result.AddRange(tasks);
 
@@ -913,10 +837,34 @@ namespace BazisGUI
             StartComputation(generalData);
         }
 
-        private void расчетToolStripMenuItem_Click(object sender, EventArgs e)
+        private void сформироватьИнструкцииToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var pContr = (PinnedTaskPlannerControl)EmbeddedControls.Find("pinnedTaskPlannerControl", false)[0];
-            pContr.BringToFront();
+            GenerateTSFEvent?.Invoke(this);
+        }
+
+        private void низкийToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Priority = Priority.Низкий;
+        }
+
+        private void среднийToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Priority = Priority.Средний;
+        }
+
+        private void высокийToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Priority = Priority.Высокий;
+        }
+
+        private void остановитьРасчетToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StopComputation();
+        }
+
+        private void запуститьРасчетToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerateTCFEvent?.Invoke(this);
         }
     }
 }

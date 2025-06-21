@@ -34,12 +34,6 @@ namespace BazisGUI
 
             selectToolStrip.Location = new Point(3, 0);
             instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
-
-            var pContr = (PinnedMeshGenControl)EmbeddedControls.Find("pinnedMeshGenControl", false)[0];
-            pContr.BringToFront();
-            var meshContr = pContr.MeshGeneratorControl;
-
-            SetMeshControl(meshContr);
         }
 
         private void SetMeshControl(GMSHGeneralMeshControl meshGenerator)

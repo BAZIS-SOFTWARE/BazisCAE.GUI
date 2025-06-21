@@ -158,8 +158,10 @@ namespace BazisGUI
 
         public void PresentObjectsDataOnTree(IObjectsData objectsData)
         {
-            navigator.TreeView.BeginUpdate();
-            foreach (TreeNode item in navigator.TreeView.Nodes["объекты"].Nodes)
+            navigator.BeginUpdate();
+
+            navigator.TrySearchNodes("объекты", out List<TreeNode> nodes);
+            foreach (TreeNode item in nodes[0].Nodes)
                 item.Nodes.Clear();
 
             foreach (ObjType objType in Enum.GetValues(typeof(ObjType)))
@@ -171,40 +173,47 @@ namespace BazisGUI
                         navigator.TryCreateNode(root.ToString(), item.Name, $"{item.Name} {item.NumberOfObjects}", NodeKind.virt);
                     }
                 }
-            navigator.TreeView.EndUpdate();
+            navigator.EndUpdate();
         }
 
         public void PresentGroupDataOnTree(IGroupData groupData)
         {
-            navigator.TreeView.BeginUpdate();
-            var root = navigator.TreeView.Nodes["группыОбъектов"];
+            navigator.BeginUpdate();
 
-            root.Nodes.Clear();
+            navigator.TrySearchNodes("группыОбъектов", out List<TreeNode> nodes);
+
+            nodes[0].Nodes.Clear();
 
             foreach (var item in groupData)
             {
                 var r = navigator.CreateRealNode(item.ObjType.ToString(), $"{item.Name} {item.Count}");
-                root.Nodes.Add(r);
+
+                nodes[0].Nodes.Add(r);
+                navigator.SetContextMenu(r);
             }
                 
-            navigator.TreeView.EndUpdate();
+            navigator.EndUpdate();
         }
 
         public void PresentGeneralDataOnTree(IGeneralData generalData)
         {
-            var nodes = new List<TreeNode>();
-            navigator.TrySearchNode(NodeType.названиеПроекта.ToString(), nodes);
-            nodes.First().Text = "Название : " + generalData.Name;
-            nodes.Clear();
-            navigator.TrySearchNode(NodeType.путь.ToString(), nodes);
-            nodes.First().Text = "Путь : " + generalData.Path;
-            nodes.Clear();
-            navigator.TrySearchNode(NodeType.путь.ToString(), nodes);
-            nodes.First().Text = "Сведения : " + generalData.Comments;
-            nodes.Clear();
-            navigator.TrySearchNode(NodeType.вид.ToString(), nodes);
-            nodes.First().Text = "Вид : " + generalData.TaskType;
-            nodes.Clear();
+            //var nodes = new List<TreeNode>();
+
+            navigator.TrySearchNodes(NodeType.названиеПроекта, out List<TreeNode> name);
+            name.First().Text = "Название : " + generalData.Name;
+
+            navigator.TrySearchNodes(NodeType.путь, out List<TreeNode> path);
+            path.First().Text = "Путь : " + generalData.Path;
+
+            navigator.TrySearchNodes(NodeType.сведения, out List<TreeNode> notes);
+            notes.First().Text = "Сведения : " + generalData.Comments;
+
+            navigator.TrySearchNodes(NodeType.вид, out List<TreeNode> kind);
+            kind.First().Text = $"Вид : {generalData.TaskType}";
+
+            navigator.TrySearchNodes(NodeType.тип, out List<TreeNode> type);
+            type.First().Text = $"Тип : {generalData.TaskKind}";
+
         }
 
         public async void WaitProcessAsync(Process process, Action<object, EventArgs> action)

@@ -28,11 +28,18 @@ namespace BaseModule.Navigator
         Точки, 
         Кривые, 
         Поверхности, 
-        Объемы, 
+        Объемы,
+        Точка,
+        Кривая,
+        Поверхность,
         Узлы, 
         Элементы1D, 
         Элементы2D, 
         Элементы3D,
+        Узел,
+        Элемент1D,
+        Элемент2D,
+        Элемент3D,
         Материал,
         Среда,
         Нагрев,
@@ -41,7 +48,15 @@ namespace BaseModule.Navigator
         названиеПроекта,
         путь,
         сведения,
-        вид
+        вид,
+        задачи,
+        задача,
+        результаты,
+        результат,
+        тип,
+        условия,
+        базаФункций,
+        базаМатериалов
     };
 
     public partial class NavigatorControl : UserControl, IPinnedControl
@@ -73,6 +88,7 @@ namespace BaseModule.Navigator
         [Category("treeView")]
         [Description("Set imageIndex for project info nodes")]
         public int ProjectInfoIndex { get; set; } = 0;
+        public TreeNode SelectedNode { get { return treeView.SelectedNode; } }
 
         public event Action<string, string> RenameGroupEvent;
 
@@ -138,18 +154,22 @@ namespace BaseModule.Navigator
             return ImgDict[nodeType];
         }
 
-        public System.Windows.Forms.TreeView TreeView
-        {
-            get
-            {
-                return treeView;
-            }
-        }
+        //public System.Windows.Forms.TreeView TreeView
+        //{
+        //    get
+        //    {
+        //        return treeView;
+        //    }
+        //}
 
         public TreeNode CreateRealNode(string name, string text)
         {
-
             return new TreeNode(text) { Name = name };
+        }
+
+        public TreeNode CreateRealNode(NodeType nodeType, string text)
+        {
+            return new TreeNode(text) { Name = nodeType.ToString() };
         }
 
         public TreeNode CreateVirtualNode(string name)
@@ -179,8 +199,8 @@ namespace BaseModule.Navigator
 
         public void TryCreateNode(string root, string name,string text, NodeKind kind)
         {
-            var nodes = new List<TreeNode>();
-            if (TrySearchNode(root, nodes))
+    
+            if (TrySearchNodes(root,out List<TreeNode>nodes))
             {
                 if (kind == NodeKind.virt)
                 {
@@ -195,10 +215,10 @@ namespace BaseModule.Navigator
                 }
             }
 
-        }     
+        }
 
         public void SetContextMenu(TreeNode node)
-        {  
+        {
             if (node.Parent.Name == NodeType.Точки.ToString() |
                 node.Parent.Name == NodeType.Кривые.ToString() |
                 node.Parent.Name == NodeType.Поверхности.ToString() |
@@ -209,9 +229,11 @@ namespace BaseModule.Navigator
                 node.Parent.Name == NodeType.Элементы3D.ToString())
                 node.ContextMenuStrip = set_MenuStrip;
             else if (node.Parent.Name == "группыОбъектов")
-                if (node.ImageIndex == 3)
+                if (node.Name == NodeType.Узел.ToString())
                     node.ContextMenuStrip = ndGroup_MenuStrip;
-                else if (node.ImageIndex == 4)
+                else if (node.Name == NodeType.Элемент1D.ToString() |
+                    node.Name == NodeType.Элемент2D.ToString() |
+                    node.Name == NodeType.Элемент3D.ToString())
                     node.ContextMenuStrip = elGroup_MenuStrip;
         }
 
@@ -228,12 +250,44 @@ namespace BaseModule.Navigator
 
         }
 
-        // Call the procedure using the TreeView.  
-        public bool TrySearchNode(string nodeName, List<TreeNode> nodes)
+        /// <summary>
+        /// TrySearchNode.First - res,Second - node
+        /// </summary>
+        /// <param name="nodeName"></param>
+        /// <returns></returns>
+        public bool TrySearchNodes(string nodeName, out List<TreeNode> nodes)
         {
+            nodes = new List<TreeNode>();
+
             foreach (TreeNode n in treeView.Nodes)
             {
+                if (n.Name == nodeName)
+                {
+                    nodes.Add(n);
+                    break;
+                }
+  
                 SearchNodeRec(n, nodeName, nodes);
+                if (nodes.Count > 0)
+                    break;
+            }
+
+            return nodes.Count != 0;
+        }
+
+        public bool TrySearchNodes(NodeType nodeType, out List<TreeNode> nodes)
+        {
+            nodes = new List<TreeNode>();
+
+            foreach (TreeNode n in treeView.Nodes)
+            {
+                if (n.Name == nodeType.ToString())
+                {
+                    nodes.Add(n);
+                    break;
+                }
+
+                SearchNodeRec(n, nodeType.ToString(), nodes);
                 if (nodes.Count > 0)
                     break;
             }
@@ -251,31 +305,31 @@ namespace BaseModule.Navigator
         {
             var groupIndex = treeView.SelectedNode.Index;
 
-            treeView.Nodes["объекты"].Nodes["Узлы"].Nodes[0].ImageIndex = 5;
-            treeView.Nodes["объекты"].Nodes["Узлы"].Nodes[0].SelectedImageIndex = 5;
+            //treeView.Nodes["объекты"].Nodes["Узлы"].Nodes[0].ImageIndex = 5;
+            //treeView.Nodes["объекты"].Nodes["Узлы"].Nodes[0].SelectedImageIndex = 5;
 
-            NodeType nodeType;
-            Enum.TryParse(treeView.SelectedNode.Name, out nodeType);
+            //NodeType nodeType;
+            //Enum.TryParse(treeView.SelectedNode.Name, out nodeType);
 
-            treeView.SelectedNode.ImageIndex = ImgDict[nodeType];
-            treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType];
+            //treeView.SelectedNode.ImageIndex = ImgDict[nodeType];
+            //treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType];
 
             ShowGroupWithNodesEvent?.Invoke(groupIndex);
         }
 
         public void ShowAllGroups_Click(object sender, EventArgs e)
         {
-            foreach (TreeNode item in treeView.Nodes[4].Nodes)
-            {
-                foreach (TreeNode node in item.Nodes)
-                {
-                    NodeType nodeType;
-                    Enum.TryParse(treeView.SelectedNode.Name, out nodeType);
+            //foreach (TreeNode item in treeView.Nodes[4].Nodes)
+            //{
+            //    foreach (TreeNode node in item.Nodes)
+            //    {
+            //        NodeType nodeType;
+            //        Enum.TryParse(treeView.SelectedNode.Name, out nodeType);
 
-                    node.ImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
-                    node.SelectedImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
-                }
-            }
+            //        node.ImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
+            //        node.SelectedImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
+            //    }
+            //}
 
             ShowAllGroupsEvent?.Invoke();
         }
@@ -340,12 +394,12 @@ namespace BaseModule.Navigator
                 if (e.Node.ContextMenuStrip != null)
                     e.Node.ContextMenuStrip.Show(e.Location);
             }
-            else
-            {
-                if (e.Node.Tag?.ToString() == "5.1")
-                    SelectGroupEvent?.Invoke(e.Node.Text);
-            }
-            treeView.SelectedNode = e.Node;
+            //else
+            //{
+                //if (e.Node.Tag?.ToString() == "5.1")
+                    //SelectGroupEvent?.Invoke(e.Node.Text);
+            //}
+            //treeView.SelectedNode = e.Node;
         }
 
         public void DelGroup_Click(object sender, EventArgs e)
@@ -369,11 +423,11 @@ namespace BaseModule.Navigator
         {
             var groupIndex = treeView.SelectedNode.Index;
 
-            NodeType nodeType;
-            Enum.TryParse(treeView.SelectedNode.Name, out nodeType);
+            //NodeType nodeType;
+            //Enum.TryParse(treeView.SelectedNode.Name, out nodeType);
 
-            treeView.SelectedNode.ImageIndex = ImgDict[nodeType];
-            treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType];
+            //treeView.SelectedNode.ImageIndex = ImgDict[nodeType];
+            //treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType];
 
             ShowGroupEvent?.Invoke(groupIndex);
         }
@@ -393,34 +447,34 @@ namespace BaseModule.Navigator
 
         public void ShowAllObjects_Click(object sender, EventArgs e)
         {
-            foreach (TreeNode objsNode in treeView.Nodes[4].Nodes)
-            {
-                foreach (TreeNode item in objsNode.Nodes)
-                {
-                    NodeType nodeType;
-                    Enum.TryParse(treeView.SelectedNode.Name, out nodeType);
+            //foreach (TreeNode objsNode in treeView.Nodes[4].Nodes)
+            //{
+            //    foreach (TreeNode item in objsNode.Nodes)
+            //    {
+                    //NodeType nodeType;
+                    //Enum.TryParse(treeView.SelectedNode.Name, out nodeType);
 
-                    item.ImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
-                    item.SelectedImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
-                }
-            }
+                    //item.ImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
+                    //item.SelectedImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
+            //    }
+            //}
 
             ShowAllObjectsEvent?.Invoke();
         }
 
         public void HideAllObjects_Click(object sender, EventArgs e)
         {
-            foreach (TreeNode objsNode in treeView.Nodes[4].Nodes)
-            {
-                foreach (TreeNode item in objsNode.Nodes)
-                {
-                    NodeType nodeType;
-                    Enum.TryParse(treeView.SelectedNode.Name, out nodeType);
+            //foreach (TreeNode objsNode in treeView.Nodes[4].Nodes)
+            //{
+            //    foreach (TreeNode item in objsNode.Nodes)
+            //    {
+            //        NodeType nodeType;
+            //        Enum.TryParse(treeView.SelectedNode.Name, out nodeType);
 
-                    item.ImageIndex = ImgDict[nodeType];
-                    item.SelectedImageIndex = ImgDict[nodeType];
-                }
-            }
+            //        item.ImageIndex = ImgDict[nodeType];
+            //        item.SelectedImageIndex = ImgDict[nodeType];
+            //    }
+            //}
 
             HideAllObjectsEvent?.Invoke();
         }
@@ -550,7 +604,7 @@ namespace BaseModule.Navigator
                 SelectionType type = SelectionType.Group;
                 AfterSelectEvent(node, type);
             }
-            else if (node.Parent == treeView.Nodes["Данные"])
+            else if (node.Parent == treeView.Nodes["условия"])
             {
                 SelectionType type = SelectionType.PhysicalData;
                 AfterSelectEvent(node, type);
@@ -608,6 +662,16 @@ namespace BaseModule.Navigator
                     //AddVirtualNode(e.Node);
                 }
             }
+        }
+
+        public void BeginUpdate()
+        {
+            treeView.BeginUpdate();
+        }
+
+        public void EndUpdate()
+        {
+            treeView.EndUpdate();
         }
     }
 }
