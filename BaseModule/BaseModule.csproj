@@ -93,6 +93,7 @@
     </Compile>
     <Compile Include="Console\FindObjectEventArgs.cs" />
     <Compile Include="Console\ModelRotateEventArgs.cs" />
+    <Compile Include="Extensions\StringEx.cs" />
     <Compile Include="GanttChart\GanttChartModel.cs" />
     <Compile Include="GanttChart\GanttChartTreeView.cs" />
     <Compile Include="GanttChart\GanttChartTreeView.Designer.cs">

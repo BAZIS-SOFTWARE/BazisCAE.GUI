@@ -1,4 +1,5 @@
-﻿using BaseModule.PropertiesPanel;
+﻿using BaseModule.Extensions;
+using BaseModule.PropertiesPanel;
 using BazisGUI.PropertiesPanel.Control;
 using BazisGUI.Utilities;
 using Model.Interfaces;
@@ -42,7 +43,7 @@ namespace BazisGUI.PropertiesPanel
 
         public bool ValidationData(string tag, string newValue, out string corrected)
         {
-            var type = Converters.StringToEnum<ValidationType>(tag);
+            var type = tag.ToEnum<ValidationType>();
             corrected = newValue;
             if (type.HasFlag(ValidationType.Text))
             {

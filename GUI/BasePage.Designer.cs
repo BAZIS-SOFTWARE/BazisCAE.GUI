@@ -39,9 +39,9 @@ namespace BazisGUI
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.splitContainer1 = new UserControlsEx.SplitContainerEx();
             this.splitContainerEx1 = new UserControlsEx.SplitContainerEx();
+            this.splitContainer2 = new UserControlsEx.SplitContainerEx();
             this.navigator = new BaseModule.Navigator.NavigatorControl();
             this.propertiesPanelControl1 = new BaseModule.PropertiesPanel.PropertiesPanelControl();
-            this.splitContainer2 = new UserControlsEx.SplitContainerEx();
             this.scenePage = new BazisGUI.ScenePage();
             this.consoleControl = new BaseModule.Console.ConsoleControl();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -109,63 +109,6 @@ namespace BazisGUI
             this.splitContainerEx1.SwitchShifting = false;
             this.splitContainerEx1.TabIndex = 1;
             // 
-            // navigator
-            // 
-            this.navigator.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.navigator.BackColor = System.Drawing.SystemColors.Control;
-            this.navigator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.navigator.CollapseIndex = 14;
-            this.navigator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.navigator.DownColor = System.Drawing.Color.Gainsboro;
-            this.navigator.ExpandIndex = 15;
-            this.navigator.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.navigator.HeaderName = "Навигатор";
-            this.navigator.Location = new System.Drawing.Point(0, 0);
-            this.navigator.Margin = new System.Windows.Forms.Padding(0);
-            this.navigator.Name = "navigator";
-            this.navigator.ProjectInfoIndex = 16;
-            this.navigator.Size = new System.Drawing.Size(306, 373);
-            this.navigator.TabIndex = 0;
-            this.navigator.UpColor = System.Drawing.Color.Gainsboro;
-            this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
-            this.navigator.SelectGroupEvent += new System.Action<string>(this.navigator_SelectGroupEvent);
-            this.navigator.AfterSelectEvent += new System.Action<System.Windows.Forms.TreeNode, BaseModule.Navigator.SelectionType>(this.navigator_AfterSelectEvent);
-            this.navigator.DelGroupEvent += new System.Action<int>(this.navigator_DelGroupEvent);
-            this.navigator.DelAllGroupsEvent += new System.Action(this.navigator_DelAllGroupsEvent);
-            this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
-            this.navigator.ShowGroupEvent += new System.Action<int>(this.navigator_ShowGroupEvent);
-            this.navigator.EditGroupEvent += new System.Action<int>(this.navigator_EditGroupEvent);
-            this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
-            this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
-            this.navigator.ShowAllGroupsEvent += new System.Action(this.navigator_ShowAllGroupsEvent);
-            this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
-            this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
-            this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
-            this.navigator.ShowSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_ShowSetEvent);
-            this.navigator.ChangeSetViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeSetViewEventHandler);
-            this.navigator.HideSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_HideSetEvent);
-            this.navigator.DelSetEvent += new System.Action<NodeType, string>(this.navigator_DelSetEvent);
-            this.navigator.DelAllObjectsEvent += new System.Action(this.navigator_DelAllObjectsEvent);
-            this.navigator.ControlCollapseEvent += new System.Action(this.navigator_NavigatorPanelCollapseEvent);
-            this.navigator.GetObjectsInfoEvent += new System.Action<string, string>(this.navigator_GetObjectsInfoEvent);
-            this.navigator.GetSetsInfoEvent += new System.Action<string>(this.navigator_GetSetsInfoEvent);
-            // 
-            // propertiesPanelControl1
-            // 
-            this.propertiesPanelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.propertiesPanelControl1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.propertiesPanelControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.propertiesPanelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertiesPanelControl1.DownColor = System.Drawing.Color.WhiteSmoke;
-            this.propertiesPanelControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.propertiesPanelControl1.HeaderName = "Свойства";
-            this.propertiesPanelControl1.Location = new System.Drawing.Point(0, 0);
-            this.propertiesPanelControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.propertiesPanelControl1.Name = "propertiesPanelControl1";
-            this.propertiesPanelControl1.Size = new System.Drawing.Size(306, 266);
-            this.propertiesPanelControl1.TabIndex = 0;
-            this.propertiesPanelControl1.UpColor = System.Drawing.Color.Silver;
-            // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -188,6 +131,71 @@ namespace BazisGUI
             this.splitContainer2.SplitterWidth = 6;
             this.splitContainer2.SwitchShifting = false;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // navigator
+            // 
+            this.navigator.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.navigator.BackColor = System.Drawing.SystemColors.Control;
+            this.navigator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.navigator.CollapseIndex = 14;
+            this.navigator.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.navigator.DownColor = System.Drawing.Color.Gainsboro;
+            this.navigator.ExpandIndex = 15;
+            this.navigator.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.navigator.HeaderColor = System.Drawing.Color.Black;
+            this.navigator.HeaderName = "Навигатор";
+            this.navigator.IsPinndable = false;
+            this.navigator.Location = new System.Drawing.Point(0, 0);
+            this.navigator.Margin = new System.Windows.Forms.Padding(0);
+            this.navigator.Name = "navigator";
+            this.navigator.Padding = new System.Windows.Forms.Padding(0, 17, 0, 0);
+            this.navigator.ProjectInfoIndex = 16;
+            this.navigator.Size = new System.Drawing.Size(306, 373);
+            this.navigator.TabIndex = 0;
+            this.navigator.UpColor = System.Drawing.Color.Gainsboro;
+            this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
+            this.navigator.DelGroupEvent += new System.Action<int>(this.navigator_DelGroupEvent);
+            this.navigator.DelAllGroupsEvent += new System.Action(this.navigator_DelAllGroupsEvent);
+            this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
+            this.navigator.ShowGroupEvent += new System.Action<int>(this.navigator_ShowGroupEvent);
+            this.navigator.EditGroupEvent += new System.Action<int>(this.navigator_EditGroupEvent);
+            this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
+            this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
+            this.navigator.ShowAllGroupsEvent += new System.Action(this.navigator_ShowAllGroupsEvent);
+            this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
+            this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
+            this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
+            this.navigator.DelAllObjectsEvent += new System.Action(this.navigator_DelAllObjectsEvent);
+            this.navigator.ShowSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_ShowSetEvent);
+            this.navigator.ChangeSetViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeSetViewEventHandler);
+            this.navigator.HideSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_HideSetEvent);
+            this.navigator.DelSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_DelSetEvent);
+            this.navigator.SelectSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectSetEvent);
+            this.navigator.SelectGroupEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectGroupEvent);
+            this.navigator.SelectObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectObjectEvent);
+            this.navigator.SelectCondEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectCondEvent);
+            this.navigator.SelectTaskEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectTaskEvent);
+            this.navigator.SelectGeneralInfoEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectGeneralInfoEvent);
+            this.navigator.ControlCollapseEvent += new System.Action(this.navigator_NavigatorPanelCollapseEvent);
+            this.navigator.GetObjectsInfoEvent += new System.Action<string, string>(this.navigator_GetObjectsInfoEvent);
+            this.navigator.GetSetsInfoEvent += new System.Action<string>(this.navigator_GetSetsInfoEvent);
+            this.navigator.GetResultInfoEvent += new System.Action<string>(this.navigator_GetResultInfoEvent);
+            // 
+            // propertiesPanelControl1
+            // 
+            this.propertiesPanelControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.propertiesPanelControl1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.propertiesPanelControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.propertiesPanelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertiesPanelControl1.DownColor = System.Drawing.Color.WhiteSmoke;
+            this.propertiesPanelControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.propertiesPanelControl1.HeaderName = "Свойства";
+            this.propertiesPanelControl1.Location = new System.Drawing.Point(0, 0);
+            this.propertiesPanelControl1.Margin = new System.Windows.Forms.Padding(2);
+            this.propertiesPanelControl1.Name = "propertiesPanelControl1";
+            this.propertiesPanelControl1.Size = new System.Drawing.Size(306, 266);
+            this.propertiesPanelControl1.TabIndex = 0;
+            this.propertiesPanelControl1.UpColor = System.Drawing.Color.Silver;
             // 
             // scenePage
             // 

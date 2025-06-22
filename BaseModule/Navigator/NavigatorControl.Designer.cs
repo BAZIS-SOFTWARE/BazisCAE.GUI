@@ -73,7 +73,6 @@
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
             this.set_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.удалитьОбъектMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,17 +87,14 @@
             this.toolStripMenuItem17 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem19 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem20 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem21 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripMenuItem();
             this.treeView = new System.Windows.Forms.TreeView();
-            this.grbNavigator = new System.Windows.Forms.Panel();
             this.objects_MenuStrip.SuspendLayout();
             this.groups_MenuStrip.SuspendLayout();
             this.ndGroup_MenuStrip.SuspendLayout();
             this.set_MenuStrip.SuspendLayout();
             this.elGroup_MenuStrip.SuspendLayout();
-            this.grbNavigator.SuspendLayout();
             this.SuspendLayout();
             // 
             // objects_MenuStrip
@@ -204,50 +200,42 @@
             this.toolStripMenuItem5,
             this.toolStripMenuItem6,
             this.toolStripMenuItem7,
-            this.toolStripMenuItem8,
             this.toolStripMenuItem9});
             this.ndGroup_MenuStrip.Name = "lv11_MenuStrip";
-            this.ndGroup_MenuStrip.Size = new System.Drawing.Size(162, 136);
+            this.ndGroup_MenuStrip.Size = new System.Drawing.Size(129, 114);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(161, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(128, 22);
             this.toolStripMenuItem4.Text = "Удалить";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.DelGroup_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(161, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(128, 22);
             this.toolStripMenuItem5.Text = "Скрыть";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.HideGroup_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(161, 22);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(128, 22);
             this.toolStripMenuItem6.Text = "Показать";
             this.toolStripMenuItem6.Click += new System.EventHandler(this.ShowGroup_Click);
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(161, 22);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(128, 22);
             this.toolStripMenuItem7.Text = "Изменить";
             this.toolStripMenuItem7.Click += new System.EventHandler(this.EditGroup_Click);
-            // 
-            // toolStripMenuItem8
-            // 
-            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(161, 22);
-            this.toolStripMenuItem8.Text = "Переименовать";
-            this.toolStripMenuItem8.Click += new System.EventHandler(this.RenameGroup_Click);
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(161, 22);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(128, 22);
             this.toolStripMenuItem9.Text = "Инфо";
             this.toolStripMenuItem9.Click += new System.EventHandler(this.InfoGroup_Click);
             // 
@@ -322,11 +310,10 @@
             this.toolStripMenuItem17,
             this.toolStripMenuItem18,
             this.toolStripMenuItem19,
-            this.toolStripMenuItem20,
             this.toolStripMenuItem21,
             this.toolStripMenuItem22});
             this.elGroup_MenuStrip.Name = "lv11_MenuStrip";
-            this.elGroup_MenuStrip.Size = new System.Drawing.Size(177, 158);
+            this.elGroup_MenuStrip.Size = new System.Drawing.Size(177, 136);
             // 
             // toolStripMenuItem16
             // 
@@ -355,13 +342,6 @@
             this.toolStripMenuItem19.Size = new System.Drawing.Size(176, 22);
             this.toolStripMenuItem19.Text = "Изменить";
             this.toolStripMenuItem19.Click += new System.EventHandler(this.EditGroup_Click);
-            // 
-            // toolStripMenuItem20
-            // 
-            this.toolStripMenuItem20.Name = "toolStripMenuItem20";
-            this.toolStripMenuItem20.Size = new System.Drawing.Size(176, 22);
-            this.toolStripMenuItem20.Text = "Переименовать";
-            this.toolStripMenuItem20.Click += new System.EventHandler(this.RenameGroup_Click);
             // 
             // toolStripMenuItem21
             // 
@@ -498,44 +478,30 @@
             treeNode20});
             this.treeView.SelectedImageIndex = 16;
             this.treeView.ShowLines = false;
-            this.treeView.Size = new System.Drawing.Size(225, 327);
-            this.treeView.TabIndex = 2;
-            this.treeView.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_BeforeLabelEdit);
-            this.treeView.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView_AfterLabelEdit);
+            this.treeView.Size = new System.Drawing.Size(256, 539);
+            this.treeView.TabIndex = 5;
             this.treeView.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterCollapse);
-            this.treeView.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeVirt1_BeforeExpand);
+            this.treeView.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView_BeforeExpand);
             this.treeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterExpand);
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
-            this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_NodeMouseClick);
             this.treeView.Enter += new System.EventHandler(this.treeView_Enter);
             this.treeView.Leave += new System.EventHandler(this.treeView_Leave);
             // 
-            // grbNavigator
-            // 
-            this.grbNavigator.BackColor = System.Drawing.Color.Silver;
-            this.grbNavigator.Controls.Add(this.treeView);
-            this.grbNavigator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbNavigator.Location = new System.Drawing.Point(0, 0);
-            this.grbNavigator.Name = "grbNavigator";
-            this.grbNavigator.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.grbNavigator.Size = new System.Drawing.Size(225, 342);
-            this.grbNavigator.TabIndex = 5;
-            this.grbNavigator.Paint += new System.Windows.Forms.PaintEventHandler(this.grbNavigator_Paint);
-            this.grbNavigator.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbNavigator_MouseClick);
-            this.grbNavigator.Resize += new System.EventHandler(this.grbNavigator_Resize);
-            // 
             // NavigatorControl
             // 
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.grbNavigator);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Gainsboro;
+            this.Controls.Add(this.treeView);
+            this.HeaderName = "Навигатор";
+            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.Name = "NavigatorControl";
-            this.Size = new System.Drawing.Size(225, 342);
+            this.Size = new System.Drawing.Size(256, 554);
             this.objects_MenuStrip.ResumeLayout(false);
             this.groups_MenuStrip.ResumeLayout(false);
             this.ndGroup_MenuStrip.ResumeLayout(false);
             this.set_MenuStrip.ResumeLayout(false);
             this.elGroup_MenuStrip.ResumeLayout(false);
-            this.grbNavigator.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -547,7 +513,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
         private System.Windows.Forms.ContextMenuStrip groups_MenuStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
@@ -569,12 +534,10 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem17;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem18;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem19;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem20;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem21;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem22;
         private System.Windows.Forms.ImageList treeNodesImageList_16x16;
-        private System.Windows.Forms.TreeView treeView;
-        private System.Windows.Forms.Panel grbNavigator;
         private System.Windows.Forms.ContextMenuStrip objects_MenuStrip;
+        private System.Windows.Forms.TreeView treeView;
     }
 }

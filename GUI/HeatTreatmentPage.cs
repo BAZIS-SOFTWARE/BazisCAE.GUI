@@ -4,7 +4,7 @@ using TaskModule.BasicTaskAdvisor;
 
 namespace BazisGUI
 {
-    public partial class HeatTreatmentPage: TaskPage
+    public partial class HeatTreatmentPage: ToolStripPage
     {
         public HeatTreatmentPage() : base()
         {

@@ -1,4 +1,5 @@
-﻿using BaseModule.PropertiesPanel;
+﻿using BaseModule.Extensions;
+using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using Model.Interfaces.ObjectsCollections;
 using System.Collections.Generic;
@@ -59,7 +60,7 @@ namespace BazisGUI.PropertiesPanel.Control
                 }
                 _objectsSet.SetColor(color);
             }
-            else if (header == "Представление") _objectsSet.SetViewMode(Converters.StringToEnum<ViewMode>(newValue.ToString()));
+            else if (header == "Представление") _objectsSet.SetViewMode(newValue.ToEnum<ViewMode>());
         }
     }
 }

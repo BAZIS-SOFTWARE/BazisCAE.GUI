@@ -1,4 +1,6 @@
-﻿using BaseModule.Interfaces;
+﻿using BaseModule.Extensions;
+using BaseModule.Interfaces;
+using BaseModule.PinnedControl;
 using BaseModule.PropertiesPanel;
 using MathNet.Numerics.Distributions;
 using System;
@@ -24,7 +26,8 @@ namespace BaseModule.Navigator
     public enum NodeKind : int { real,virt}
 
     public enum NodeType : int 
-    { 
+    {
+        объекты,
         Точки, 
         Кривые, 
         Поверхности, 
@@ -32,6 +35,7 @@ namespace BaseModule.Navigator
         Точка,
         Кривая,
         Поверхность,
+        Объем,
         Узлы, 
         Элементы1D, 
         Элементы2D, 
@@ -40,42 +44,37 @@ namespace BaseModule.Navigator
         Элемент1D,
         Элемент2D,
         Элемент3D,
+
+        условия,
         Материал,
         Среда,
         Нагрев,
         Закрепление,
         Нагрузка,
+
         названиеПроекта,
         путь,
         сведения,
         вид,
-        задачи,
-        задача,
-        результаты,
-        результат,
         тип,
-        условия,
         базаФункций,
-        базаМатериалов
+        базаМатериалов,
+
+        задачи,
+        Тепловая,
+        Механическая,
+        Химическая,
+
+        результаты,
+        Результат,
+        Время
     };
 
-    public partial class NavigatorControl : UserControl, IPinnedControl
+    public partial class NavigatorControl : PinnedPage
     {
         private const string VIRTUALNODE = "VIRT";
 
         Dictionary<NodeType, int> ImgDict;
-
-        [Category("General")]
-        [Description("Set up color gradient")]
-        public Color UpColor { get; set; } = Color.Silver;
-
-        [Category("General")]
-        [Description("Set down color gradient")]
-        public Color DownColor { get; set; } = Color.WhiteSmoke;
-
-        [Category("General")]
-        [Description("Set header name")]
-        public string HeaderName { get; set; } = "Навигатор";
 
         [Category("treeView")]
         [Description("Set imageIndex for expand node")]
@@ -88,13 +87,16 @@ namespace BaseModule.Navigator
         [Category("treeView")]
         [Description("Set imageIndex for project info nodes")]
         public int ProjectInfoIndex { get; set; } = 0;
-        public TreeNode SelectedNode { get { return treeView.SelectedNode; } }
+        public TreeNode GetSelectedNode()
+        {
+             return treeView.SelectedNode;
+        }
 
         public event Action<string, string> RenameGroupEvent;
 
-        public event Action<string> SelectGroupEvent;
 
-        public event Action<TreeNode, SelectionType> AfterSelectEvent;
+
+        public event Action<TreeNode> AfterSelectEvent;
 
         public event Action<int> DelGroupEvent;
         public event Action DelAllGroupsEvent;
@@ -108,23 +110,34 @@ namespace BaseModule.Navigator
 
         public event Action ShowAllObjectsEvent;
         public event Action HideAllObjectsEvent;
+        public event Action DelAllObjectsEvent;
 
         public event Action<NodeType, string> ShowSetEvent;
         public event Action<string, ViewRegime> ChangeSetViewEvent;
         public event Action<NodeType, string> HideSetEvent;
         public event Action<NodeType, string> DelSetEvent;
-        public event Action DelAllObjectsEvent;
+        public event Action<NodeType, string> SelectSetEvent;
+
+        public event Action<NodeType,string> SelectGroupEvent;
+        public event Action<NodeType, string> SelectObjectEvent;
+        public event Action<NodeType, string> SelectCondEvent;
+        public event Action<NodeType, string> SelectTaskEvent;
+        public event Action<NodeType, string> SelectGeneralInfoEvent;
+
         public event Action ControlCollapseEvent;
         public event Action ControlUnpinnedEvent;
+
         public event Action<string,string> GetObjectsInfoEvent;
         public event Action<string> GetSetsInfoEvent;
+        public event Action<string> GetResultInfoEvent;
 
         public NavigatorControl()
         {
             InitializeComponent();
+            HeaderName = "test";
             typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic |
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).
-                SetValue(grbNavigator, true, null);
+                SetValue(treeView, true, null);
 
             ImgDict = new Dictionary<NodeType, int>()
             {
@@ -170,6 +183,15 @@ namespace BaseModule.Navigator
         public TreeNode CreateRealNode(NodeType nodeType, string text)
         {
             return new TreeNode(text) { Name = nodeType.ToString() };
+        }
+
+        public TreeNode CreateVirtualNode(NodeType name)
+        {
+            var tVirt = new TreeNode("Loading...") { Name = name.ToString() };
+            tVirt.Name = VIRTUALNODE;
+            tVirt.ForeColor = Color.Blue;
+            tVirt.NodeFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Underline);
+            return tVirt;
         }
 
         public TreeNode CreateVirtualNode(string name)
@@ -295,12 +317,6 @@ namespace BaseModule.Navigator
             return nodes.Count != 0;
         }
 
-        private void RenameGroup_Click(object sender, EventArgs e)
-        {
-            treeView.LabelEdit = true;
-            treeView.SelectedNode.BeginEdit();
-        }
-
         public void ShowGroupWithNodes_Click(object sender, EventArgs e)
         {
             var groupIndex = treeView.SelectedNode.Index;
@@ -381,14 +397,10 @@ namespace BaseModule.Navigator
             treeView.LabelEdit = false;
         }
 
-        private void treeView_BeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
-        {
-            if (!treeView.LabelEdit)
-                e.CancelEdit = true;
-        }
-
         private void treeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
+            treeView.SelectedNode = e.Node;
+
             if (e.Button == MouseButtons.Right)
             {
                 if (e.Node.ContextMenuStrip != null)
@@ -399,7 +411,7 @@ namespace BaseModule.Navigator
                 //if (e.Node.Tag?.ToString() == "5.1")
                     //SelectGroupEvent?.Invoke(e.Node.Text);
             //}
-            //treeView.SelectedNode = e.Node;
+ 
         }
 
         public void DelGroup_Click(object sender, EventArgs e)
@@ -489,12 +501,12 @@ namespace BaseModule.Navigator
             var node = treeView.SelectedNode;
 
             NodeType nodeType;
-            Enum.TryParse(node.Parent.Name, out nodeType);
+            Enum.TryParse(node?.Parent.Name, out nodeType);
 
             //treeView.SelectedNode.ImageIndex = ImgDict[nodeType];
             //treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType];
 
-            HideSetEvent?.Invoke(nodeType, node.Text.Split(' ')[0]);
+            HideSetEvent?.Invoke(nodeType, node?.Text.Split(' ')[0]);
         }
 
         public void EditGroup_Click(object sender, EventArgs e)
@@ -549,28 +561,28 @@ namespace BaseModule.Navigator
             ChangeSetViewEvent?.Invoke(treeView.SelectedNode.Name, ViewRegime.ribbersSurfaces);
         }
 
-        private void grbNavigator_Paint(object sender, PaintEventArgs e)
-        {
-            var loc_y = treeView.Location.Y;
+        //private void grbNavigator_Paint(object sender, PaintEventArgs e)
+        //{
+        //    var loc_y = treeView.Location.Y;
 
-            ComponentsPainter.PaintGradientRectangle(e.Graphics, new Point(0, 0), Width, loc_y, UpColor, DownColor);
+        //    ComponentsPainter.PaintGradientRectangle(e.Graphics, new Point(0, 0), Width, loc_y, UpColor, DownColor);
 
-            var locRect = new Point(Width - 15, loc_y / 2 - 4);
-            ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
+        //    var locRect = new Point(Width - 15, loc_y / 2 - 4);
+        //    ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
 
-            e.Graphics.DrawString(HeaderName, ComponentsPainter.Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
-        }
+        //    e.Graphics.DrawString(HeaderName, ComponentsPainter.Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
+        //}
 
-        private void grbNavigator_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Location.X > grbNavigator.Width - 16 & e.Location.X < grbNavigator.Width - 8 && e.Location.Y <= 10)
-                ControlCollapseEvent?.Invoke();
-        }
+        //private void grbNavigator_MouseClick(object sender, MouseEventArgs e)
+        //{
+        //    if (e.Location.X > grbNavigator.Width - 16 & e.Location.X < grbNavigator.Width - 8 && e.Location.Y <= 10)
+        //        ControlCollapseEvent?.Invoke();
+        //}
 
-        private void grbNavigator_Resize(object sender, EventArgs e)
-        {
-            grbNavigator.Invalidate();
-        }
+        //private void grbNavigator_Resize(object sender, EventArgs e)
+        //{
+        //    grbNavigator.Invalidate();
+        //}
         
         private void treeView_Enter(object sender, EventArgs e)
         {
@@ -594,24 +606,76 @@ namespace BaseModule.Navigator
         {
             var node = e.Node;
 
-            if (node.Parent?.Parent == treeView.Nodes["объекты"])
+            if (e.Node.Level == 0)
             {
-                SelectionType type = SelectionType.Object;
-                AfterSelectEvent(node, type);
+                if (e.Node.Name == NodeType.сведения.ToString() |
+e.Node.Name == NodeType.тип.ToString() |
+e.Node.Name == NodeType.вид.ToString()
+)
+                    SelectGeneralInfoEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), e.Node.Text);
             }
-            else if (node.Parent == treeView.Nodes["группыОбъектов"])
+
+            else if (e.Node.Level == 1)
             {
-                SelectionType type = SelectionType.Group;
-                AfterSelectEvent(node, type);
+                if (e.Node.Name == NodeType.Материал.ToString() |
+e.Node.Name == NodeType.Среда.ToString() |
+e.Node.Name == NodeType.Нагрев.ToString() |
+e.Node.Name == NodeType.Нагрузка.ToString() |
+e.Node.Name == NodeType.Закрепление.ToString()
+)
+                    SelectCondEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), e.Node.Text);
+                else if (e.Node.Name == NodeType.Тепловая.ToString() |
+e.Node.Name == NodeType.Механическая.ToString() |
+e.Node.Name == NodeType.Химическая.ToString()
+)
+                {
+                    SelectTaskEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), e.Node.Text);
+                }
+                else if (e.Node.Name == NodeType.Узел.ToString() |
+e.Node.Name == NodeType.Элемент1D.ToString() |
+e.Node.Name == NodeType.Элемент2D.ToString() |
+e.Node.Name == NodeType.Элемент3D.ToString() |
+e.Node.Name == NodeType.Точка.ToString() |
+e.Node.Name == NodeType.Кривая.ToString() |
+e.Node.Name == NodeType.Поверхность.ToString() |
+e.Node.Name == NodeType.Объем.ToString()
+)
+                    SelectGroupEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), e.Node.Text);
             }
-            else if (node.Parent == treeView.Nodes["условия"])
+
+            else if (e.Node.Level == 2)
             {
-                SelectionType type = SelectionType.PhysicalData;
-                AfterSelectEvent(node, type);
+                if (e.Node.Name == NodeType.Узлы.ToString() |
+e.Node.Name == NodeType.Элементы1D.ToString() |
+e.Node.Name == NodeType.Элементы2D.ToString() |
+e.Node.Name == NodeType.Элементы3D.ToString() |
+e.Node.Name == NodeType.Точки.ToString() |
+e.Node.Name == NodeType.Кривые.ToString() |
+e.Node.Name == NodeType.Поверхности.ToString() |
+e.Node.Name == NodeType.Объемы.ToString()
+)
+                    SelectSetEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), e.Node.Text);
             }
+            //GetObjectsInfoEvent?.Invoke(e.Node.Name, e.Node.Text.Split(' ')[0]);
+            else if (e.Node.Level == 3)
+            {
+                if (e.Node.Name == NodeType.Узел.ToString() |
+e.Node.Name == NodeType.Элемент1D.ToString() |
+e.Node.Name == NodeType.Элемент2D.ToString() |
+e.Node.Name == NodeType.Элемент3D.ToString() |
+e.Node.Name == NodeType.Точка.ToString() |
+e.Node.Name == NodeType.Кривая.ToString() |
+e.Node.Name == NodeType.Поверхность.ToString() |
+e.Node.Name == NodeType.Объем.ToString()
+)
+                    SelectObjectEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), e.Node.Text);
+            }
+
+
+            //AfterSelectEvent?.Invoke(node);
         }
 
-        private void treeVirt1_BeforeExpand(object sender, TreeViewCancelEventArgs e)
+        private void treeView_BeforeExpand(object sender, TreeViewCancelEventArgs e)
         {
             // If the node being expanded contains a virtual node then
             // we need to load this node's children on demand. If it doesn't
@@ -621,39 +685,34 @@ namespace BaseModule.Navigator
             {
                 try
                 {
-                    // Do some work to load data.
-                    // Note this may take a while and could
-                    // be annoying to your user.
-                    // See asynchronous version below.
-                    //Random r = new Random();
-                    //Thread.Sleep(r.Next(200, 1200));
-
                     // Clear out all of the children
                     e.Node.Nodes.Clear();
 
-                    if(e.Node.Name == NodeType.Узлы.ToString() |
-                        e.Node.Name == NodeType.Элементы1D.ToString() |
-                        e.Node.Name == NodeType.Элементы2D.ToString() |
-                        e.Node.Name == NodeType.Элементы3D.ToString() |
-                        e.Node.Name == NodeType.Точки.ToString() |
-                        e.Node.Name == NodeType.Кривые.ToString() |
-                        e.Node.Name == NodeType.Поверхности.ToString() |
-                        e.Node.Name == NodeType.Объемы.ToString()
-                        )
-                        GetSetsInfoEvent?.Invoke(e.Node.Name);
-                    else
-                        GetObjectsInfoEvent?.Invoke(e.Node.Name, e.Node.Text.Split(' ')[0]);
-
-                    // Load the new children into the treeview.
-                    //string[] arrChildren = new string[] { "Grapes", "Apples", "Tomatoes", "Kiwi" };
-                    //foreach (string sChild in arrChildren)
+                    //if(e.Node.Level == 1)
                     //{
-                        // Be sure to add virtual nodes to new items that "may"
-                        // have children.  If you know for sure that your item is
-                        // a leaf node, then there's no need to add the virtual node.
-                        //TreeNode tNode = e.Node.Nodes.Add(sChild);
-                        //AddVirtualNode(tNode);
+                    //    if (e.Node.Name == NodeType.Результат.ToString())
+                    //        GetResultInfoEvent?.Invoke(e.Node.Text);
                     //}
+
+                    if(e.Node.Level == 1)
+                    {
+                        if (e.Node.Name == NodeType.Узлы.ToString() |
+    e.Node.Name == NodeType.Элементы1D.ToString() |
+    e.Node.Name == NodeType.Элементы2D.ToString() |
+    e.Node.Name == NodeType.Элементы3D.ToString() |
+    e.Node.Name == NodeType.Точки.ToString() |
+    e.Node.Name == NodeType.Кривые.ToString() |
+    e.Node.Name == NodeType.Поверхности.ToString() |
+    e.Node.Name == NodeType.Объемы.ToString()
+    )
+                            GetSetsInfoEvent?.Invoke(e.Node.Name);
+                        else if (e.Node.Name == NodeType.Результат.ToString())
+                            GetResultInfoEvent?.Invoke(e.Node.Text);
+                    } 
+                    else if(e.Node.Level == 2)
+                                                
+                                GetObjectsInfoEvent?.Invoke(e.Node.Name, e.Node.Text.Split(' ')[0]);
+
                 }
                 catch
                 {

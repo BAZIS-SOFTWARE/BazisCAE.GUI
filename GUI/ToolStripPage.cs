@@ -1,26 +1,17 @@
 ﻿using BaseModule;
-using BaseModule.Console;
+using BaseModule.Navigator;
 using BaseModule.SceenControls;
-using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
 using BazisGUI.Extensions;
 using BazisGUI.Utilities;
 using Geometry;
-using Model;
-using Model.GeometryObjects;
 using Model.Interfaces;
-using Model.Interfaces.MeshObjects;
 using Model.Interfaces.ObjectsCollections;
-using Model.MeshObjects;
 using ModelControllerInterfaces;
-using Project.Interfaces;
-using Scene;
 using Scene.Events;
 using Scene.Interfaces;
-using Scene.VBO;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Odbc;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
@@ -70,6 +61,8 @@ namespace BazisGUI
         public event Action<object> UpdateNavigatorEvent;
         public event Action<object,string,string> GetObjectsInfoEvent;
         public event Action<object, string> GetSetsInfoEvent;
+        public event Action<object, string> GetResultsInfoEvent;
+        //public event Action<object, TreeNode> SelectPhysicalDataEvent;
 
         public string SelectedObjects
         {
@@ -100,12 +93,31 @@ namespace BazisGUI
         {
             InitializeComponent();
             //selectToolStrip.Location = new Point(3, 0);
-            BasePage.SplitterWidthEx = 8;
-            //instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
+            basePage.SplitterWidthEx = 8;
+
+            basePage.NavigatorControl.TrySearchNodes(NodeType.условия, out List<TreeNode> conds);
+            conds[0].ContextMenuStrip = condsMenuStrip;
+
+            basePage.NavigatorControl.TrySearchNodes(NodeType.задачи, out List<TreeNode> tasks);
+            tasks[0].ContextMenuStrip = tasksMenuStrip;
+
+            basePage.SelectPhysicalDataEvent += basePage_SelectPhysicalData;
+
+            basePage.NavigatorControl.TrySearchNodes(NodeType.результаты, out List<TreeNode> nodes);
+            nodes[0].ContextMenuStrip = resultsMenuStrip;   
+
+            selectToolStrip.Location = new Point(3, 0);
+            instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
+
+            scale = basePage.ScenePage.SceneControl.CreateScaleObject(0, 1, 2, "", "");
+        }
+        private void basePage_SelectPhysicalData(string arg1)
+        {
+            SelectPhysicalDataEvent?.Invoke(this, arg1);
         }
 
-        public BasePage BasePage 
-        { 
+        public BasePage BasePage
+        {
             get
             {
                 return basePage;
@@ -143,8 +155,8 @@ namespace BazisGUI
         private void ViewToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             var btn = (ToolStripButton)e.ClickedItem;
-            var scenePage = BasePage.ScenePage;
-            var consoleControl = BasePage.ConsoleControl;
+            var scenePage = basePage.ScenePage;
+            var consoleControl = basePage.ConsoleControl;
 
             if (e.ClickedItem.Tag.ToString() == "0")
             {
@@ -183,19 +195,19 @@ namespace BazisGUI
 
         private void DisplayToolStrip_ItemClick(object arg1, ToolStripItemClickedEventArgs arg2)
         {
-            var consoleControl = BasePage.ConsoleControl;
+            var consoleControl = basePage.ConsoleControl;
             try
             {
 
                 if (arg2.ClickedItem.Tag.ToString() == "0")
                 {
-                    BasePage.ScenePage.ShowInsideObjects = true;
+                    basePage.ScenePage.ShowInsideObjects = true;
                     ShowInsideObjectsEvent?.Invoke(this);
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "1")
                 {
-                    BasePage.ScenePage.ShowInsideObjects = false;
+                    basePage.ScenePage.ShowInsideObjects = false;
                     HideInsideObjectsEvent?.Invoke(this);
                 }
 
@@ -222,8 +234,8 @@ namespace BazisGUI
 
         public void PresentObjectsOnScene(IObjsPresenter presenter, string name)
         {
-            var scenePage = BasePage.ScenePage;
-            var consoleControl = BasePage.ConsoleControl;
+            var scenePage = basePage.ScenePage;
+            var consoleControl = basePage.ConsoleControl;
             
             var vbobj = scenePage.SceneControl.FindVBObj(name);
             if (vbobj != null)
@@ -246,8 +258,8 @@ namespace BazisGUI
 
         private async void MeasuringControl_MakeMeasureEvent(object arg1, MeasureEventArgs arg2)
         {
-            var scenePage = BasePage.ScenePage;
-            var consoleControl = BasePage.ConsoleControl;
+            var scenePage = basePage.ScenePage;
+            var consoleControl = basePage.ConsoleControl;
             try
             {
                 switch (arg2.Kind)
@@ -290,8 +302,8 @@ namespace BazisGUI
 
         private void SelectionControl_SelectInPlain(object arg1, SelectInPlainEventArgs arg2)
         {
-            var scenePage = BasePage.ScenePage;
-            var consoleControl = BasePage.ConsoleControl;
+            var scenePage = basePage.ScenePage;
+            var consoleControl = basePage.ConsoleControl;
             try
             {
                 var objsType = Converters.ConvertToObjsType(arg2.Objects);
@@ -318,8 +330,8 @@ namespace BazisGUI
 
         private void SelectionControl_SelectInDirection(object arg1, SelectInDirectionEventArgs arg2)
         {
-            var scenePage = BasePage.ScenePage;
-            var consoleControl = BasePage.ConsoleControl;
+            var scenePage = basePage.ScenePage;
+            var consoleControl = basePage.ConsoleControl;
             try
             {
                 var objsType = Converters.ConvertToObjsType(arg2.Objects);
@@ -338,7 +350,7 @@ namespace BazisGUI
         private void btnSelectObjects_Click(object sender, EventArgs e)
         {
             var btn = sender as ToolStripButton;
-            var scenePage = BasePage.ScenePage;
+            var scenePage = basePage.ScenePage;
 
             if (btn.Tag.ToString() == "1")
                 spbSelectObject.ToolTipText = "Узел";
@@ -387,7 +399,7 @@ namespace BazisGUI
                 form.ClientSize = selectionControl.Size;
                 form.Controls.Add(selectionControl);
                 form.Show();
-                var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+                var location = basePage.ScenePage.PointToScreen(Point.Empty);
                 form.Location = location;
             }
             else
@@ -406,7 +418,7 @@ namespace BazisGUI
         {
             var btn = (ToolStripButton)sender;
 
-            var scenePage = BasePage.ScenePage;
+            var scenePage = basePage.ScenePage;
             if (btn.Checked)
             {
                 if (btn.Tag.ToString() == "3")
@@ -437,8 +449,8 @@ namespace BazisGUI
 
         private void btnCrossSection_Click(object sender, EventArgs e)
         {
-            var scenePage = BasePage.ScenePage;
-            var consoleControl = BasePage.ConsoleControl;
+            var scenePage = basePage.ScenePage;
+            var consoleControl = basePage.ConsoleControl;
             try
             {
                 var btn = (ToolStripButton)sender;
@@ -499,7 +511,7 @@ namespace BazisGUI
                     };
 
                     form.Show();
-                    var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+                    var location = basePage.ScenePage.PointToScreen(Point.Empty);
                     form.Location = location;
                 }
             }
@@ -513,7 +525,7 @@ namespace BazisGUI
         {
             try
             {
-                var scenePage = BasePage.ScenePage;
+                var scenePage = basePage.ScenePage;
                 var btn = (ToolStripButton)sender;
                 if (btn.Checked)
                 {
@@ -548,7 +560,7 @@ namespace BazisGUI
                     form.Controls.Add(measuringControl);
 
                     form.Show();
-                    var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+                    var location = basePage.ScenePage.PointToScreen(Point.Empty);
                     form.Location = location;
                 }
                 else
@@ -564,7 +576,7 @@ namespace BazisGUI
             }
             catch (Exception ex)
             {
-                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
 
@@ -577,7 +589,7 @@ namespace BazisGUI
         {
             try
             {
-                var scenePage = BasePage.ScenePage;
+                var scenePage = basePage.ScenePage;
 
                 var btn = (ToolStripButton)sender;
                 if (btn.Checked)
@@ -592,7 +604,7 @@ namespace BazisGUI
             }
             catch (Exception ex)
             {
-                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
 
         }
@@ -602,7 +614,7 @@ namespace BazisGUI
             try
             {
                 var btn = (ToolStripButton)sender;
-                var scenePage = BasePage.ScenePage;
+                var scenePage = basePage.ScenePage;
                 if (btn.Checked)
                 {
                     ShowMeshNormalsEvent?.Invoke(this);
@@ -615,14 +627,14 @@ namespace BazisGUI
             }
             catch (Exception ex)
             {
-                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
 
         private void btnShowBasis_Click(object sender, EventArgs e)
         {
             var btn = (ToolStripButton)sender;
-            var scenePage = BasePage.ScenePage;
+            var scenePage = basePage.ScenePage;
 
             if (btn.Checked)
                 scenePage.SceneControl.DisplayBasis = true;
@@ -631,19 +643,19 @@ namespace BazisGUI
             scenePage.SceneControl.DisplayObjects();
         }
 
-        private void BasePage_ChangedGroupNameEvent(object sender,string ar1,string ar2)
+        private void basePage_ChangedGroupNameEvent(object sender,string ar1,string ar2)
         {
             ChangedGroupNameEvent?.Invoke(this,ar1,ar2);
         }
 
-        private void BasePage_CreatedMeshGroupEvent(object sender)
+        private void basePage_CreatedMeshGroupEvent(object sender)
         {
             if (spbSelectObject.ToolTipText == "Объекты" |
     spbSelectObject.ToolTipText == "Фигуры" |
     spbSelectObject.ToolTipText == "Элементы")
             {
 
-                BasePage.ConsoleControl.PrintInfo($"Нельзя создать группу {spbSelectObject.ToolTipText}", Color.Orange);
+                basePage.ConsoleControl.PrintInfo($"Нельзя создать группу {spbSelectObject.ToolTipText}", Color.Orange);
             }
             else
             {
@@ -657,7 +669,7 @@ namespace BazisGUI
             try
             {
                 var btn = sender as ToolStripButton;
-                var sceneControl = BasePage.ScenePage.SceneControl;
+                var sceneControl = basePage.ScenePage.SceneControl;
                 if (btn.Checked)
                 {
                     var clip = new ClipControl() { Dock = DockStyle.Fill };
@@ -702,7 +714,7 @@ namespace BazisGUI
                     };
 
                     clipForm.Show();
-                    var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+                    var location = basePage.ScenePage.PointToScreen(Point.Empty);
                     clipForm.Location = location;
                 }
                 else
@@ -718,7 +730,7 @@ namespace BazisGUI
             }
             catch (Exception ex)
             {
-                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
 
@@ -727,7 +739,7 @@ namespace BazisGUI
             try
             {
                 var btn = sender as ToolStripButton;
-                var scenePage = BasePage.ScenePage;
+                var scenePage = basePage.ScenePage;
                 if (btn.Checked)
                 {
                     var reflect = new ReflectControl();
@@ -795,7 +807,7 @@ namespace BazisGUI
                     };
                     reflectForm.Show();
 
-                    var location = BasePage.ScenePage.PointToScreen(Point.Empty);
+                    var location = basePage.ScenePage.PointToScreen(Point.Empty);
                     reflectForm.Location = location;
 
 
@@ -813,13 +825,13 @@ namespace BazisGUI
             }
             catch (Exception ex)
             {
-                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
         }
 
         private void ChangeVBOColor(string ar, Color color)
         {
-            var scenePage = BasePage.ScenePage;
+            var scenePage = basePage.ScenePage;
             var obj = scenePage.SceneControl.FindVBObj(ar);
             
             var colors = new float[obj.ColorLength];
@@ -938,6 +950,51 @@ namespace BazisGUI
         private void basePage_GetSetsInfoEvent(object arg1, string arg2)
         {
             GetSetsInfoEvent?.Invoke(this, arg2);
+        }
+
+        private void сформироватьИнструкцииToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerateTSFEvent?.Invoke(this);
+        }
+
+        private void низкийToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Priority = Priority.Низкий;
+        }
+
+        private void среднийToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Priority = Priority.Средний;
+        }
+
+        private void высокийToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Priority = Priority.Высокий;
+        }
+
+        private void остановитьРасчетToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StopComputation();
+        }
+
+        private void запуститьРасчетToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerateTCFEvent?.Invoke(this);
+        }
+
+        private void удалитьРезультатыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RemoveResultsEvent?.Invoke(this);
+        }
+
+        private void скрытьРезультатыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HideResultsEvent?.Invoke(this);
+        }
+
+        private void basePage_GetResultsInfoEvent(object arg1, string arg2)
+        {
+            GetResultsInfoEvent?.Invoke(this, arg2);
         }
     }  
 }

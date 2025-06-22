@@ -22,19 +22,11 @@ using static BaseModule.Interfaces.GeneralParams;
 
 namespace BazisGUI
 {
-    public partial class ModelPage : ToolStripPage
+    public partial class ToolStripPage
     {
         IGmshController gmshController { get; set; } = new GmshController();
 
         public IGmshController GmshController { get { return gmshController; } } 
-
-        public ModelPage() : base()
-        {
-            InitializeComponent();
-
-            selectToolStrip.Location = new Point(3, 0);
-            instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
-        }
 
         private void SetMeshControl(GMSHGeneralMeshControl meshGenerator)
         {
@@ -77,7 +69,7 @@ namespace BazisGUI
 
         public void CreateSurfaceElements(IGeneralData generalData, IModelData modelData, ObjType objType)
         {
-            var scenePage = BasePage.ScenePage;
+            var scenePage = basePage.ScenePage;
 
             try
             {
@@ -85,7 +77,7 @@ namespace BazisGUI
                 {
                     var els3D = modelData.ObjectData.E3DCollection.GetObjects();
                     if (els3D.Count() == 0)
-                        BasePage.ConsoleControl.PrintInfo("Модель не содержит 3D элементов!", Color.Red);
+                        basePage.ConsoleControl.PrintInfo("Модель не содержит 3D элементов!", Color.Red);
                     else
                     {
                         scenePage.SceneControl.DeleteVBObjects(ObjType.Элемент2D.ToString());
@@ -104,7 +96,7 @@ namespace BazisGUI
                 {
                     var els2D = modelData.ObjectData.E2DCollection.GetObjects();
                     if (els2D.Count() == 0)
-                        BasePage.ConsoleControl.PrintInfo("Модель не содержит 2D элементов!", Color.Red);
+                        basePage.ConsoleControl.PrintInfo("Модель не содержит 2D элементов!", Color.Red);
                     else
                     {
                         scenePage.SceneControl.DeleteVBObjects(ObjType.Элемент1D.ToString());
@@ -126,13 +118,13 @@ namespace BazisGUI
                 scenePage.CreateObjectsOnScene(objType.ToString(), scenePage.CreateObjectsPresentor(modelData, objType));
 
                 scenePage.SceneControl.DisplayObjects();
-                BasePage.PresentObjectsDataOnTree(modelData.ObjectData);
+                basePage.PresentObjectsDataOnTree(modelData.ObjectData);
 
-                BasePage.ConsoleControl.PrintInfo($"Созданы {objType}", Color.Black);
+                basePage.ConsoleControl.PrintInfo($"Созданы {objType}", Color.Black);
             }
             catch (Exception ex)
             {
-                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }        
         }
 
@@ -163,7 +155,7 @@ namespace BazisGUI
             }
             catch (Exception ex)
             {
-                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
 
         }
@@ -185,7 +177,7 @@ namespace BazisGUI
             }
             catch (Exception ex)
             {
-                BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+                basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             }
 
         }
@@ -288,7 +280,7 @@ namespace BazisGUI
 
         private void MeshGenerator_showSurfaceNumbers(object sender,bool flag)
         {
-            var scenePage = BasePage.ScenePage;
+            var scenePage = basePage.ScenePage;
             if (flag)
             {
                 ShowSurfaceNumbers();
@@ -307,7 +299,7 @@ namespace BazisGUI
 
         private void MeshGenerator_showNumberOfCurveNodes(object sender, bool obj)
         {
-            var scenePage = BasePage.ScenePage;
+            var scenePage = basePage.ScenePage;
             // тут нужно перебрать все кривые которые есть в модели и показать их параметры разметки
             if (obj)
             {
@@ -328,7 +320,7 @@ namespace BazisGUI
 
         private void ShowSurfaceNumbers()
         {
-            var scenePage = BasePage.ScenePage;
+            var scenePage = basePage.ScenePage;
             var dimTags = gmshController.Gmsh.Model.GetEntities(2);
 
             for (var i = 1; i < dimTags.Length; i += 2)
@@ -343,7 +335,7 @@ namespace BazisGUI
 
         private void ShowNumberOfCurveNodes()
         {
-            var scenePage = BasePage.ScenePage;
+            var scenePage = basePage.ScenePage;
             var attribList = gmshController.Gmsh.Model.GetAttributeNames();
 
             foreach (var item in attribList)
@@ -379,7 +371,7 @@ namespace BazisGUI
         {
             //SceneControl.HideAllGeometryObjs();
             //SceneControl.HideDisplayText3D();
-            var scenePage = BasePage.ScenePage;
+            var scenePage = basePage.ScenePage;
 
             scenePage.ClearAllDataOnScene();
             //scenePage.PresentAllModelObjectsToScene();
@@ -396,7 +388,7 @@ namespace BazisGUI
             //    GmshController.Gmsh.Model.Mesh.Recombine();
             //    var error = GmshController.Gmsh.Logger.GetLastError();
             //    if (!string.IsNullOrEmpty(error))
-            //        BasePage.ConsoleControl.PrintInfo(error, Color.Red);
+            //        basePage.ConsoleControl.PrintInfo(error, Color.Red);
             //    cntr.ShowHideTabControls(3, false);
             //    cntr.ClearTreeView(3);
             //    var objs = GmshController.GetMeshObjects();
@@ -409,7 +401,7 @@ namespace BazisGUI
 
         private void MeshGenerator_refineMesh(object sender)
         {
-            //var scenePage = BasePage.ScenePage;
+            //var scenePage = basePage.ScenePage;
             //var cntr = (GMSHGeneralMeshControl)sender;
             //GmshController.Gmsh.Model.Mesh.Refine();
 
@@ -418,7 +410,7 @@ namespace BazisGUI
             //ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
             //UpdateMeshVBO();
 
-            //BasePage.PresentProjectOnTree();
+            //basePage.PresentProjectOnTree();
 
             //scenePage.SceneControl.FitObjectsToScreen();
             //scenePage.SceneControl.DisplayObjects();
@@ -428,7 +420,7 @@ namespace BazisGUI
         [SecurityCritical]
         private void MeshGenerator_generate3DMeshEvent(object sender)
         {
-            //var scenePage = BasePage.ScenePage;
+            //var scenePage = basePage.ScenePage;
             //try
             //{
             //    var cntr = (GMSHGeneralMeshControl)sender;
@@ -440,17 +432,17 @@ namespace BazisGUI
             //}
             //catch (Exception ex)
             //{
-            //    BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            //    basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             //    return;
             //}
             //var error = GmshController.Gmsh.Logger.GetLastError();
             //if (!string.IsNullOrEmpty(error))
-            //    BasePage.ConsoleControl.PrintInfo(error, Color.Red);
+            //    basePage.ConsoleControl.PrintInfo(error, Color.Red);
 
             //ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
             //UpdateMeshVBO();
 
-            //BasePage.PresentProjectOnTree();
+            //basePage.PresentProjectOnTree();
 
             //scenePage.SceneControl.FitObjectsToScreen();
             //scenePage.SceneControl.DisplayObjects();
@@ -460,7 +452,7 @@ namespace BazisGUI
         [SecurityCritical]
         private void MeshGenerator_generate2DMeshEvent(object sender, double meshDencity)
         {
-            //var scenePage = BasePage.ScenePage;
+            //var scenePage = basePage.ScenePage;
             //try
             //{
             //    var cntr = (GMSHGeneralMeshControl)sender;
@@ -474,17 +466,17 @@ namespace BazisGUI
             //}
             //catch (Exception ex)
             //{
-            //    BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            //    basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             //    return;
             //}
             //var error = GmshController.Gmsh.Logger.GetLastError();
             //if (!string.IsNullOrEmpty(error))
-            //    BasePage.ConsoleControl.PrintInfo(error, Color.Red);
+            //    basePage.ConsoleControl.PrintInfo(error, Color.Red);
 
             //ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
             //UpdateMeshVBO();
 
-            //BasePage.PresentProjectOnTree();
+            //basePage.PresentProjectOnTree();
 
             //scenePage.SceneControl.FitObjectsToScreen();
             //scenePage.SceneControl.DisplayObjects();
@@ -493,7 +485,7 @@ namespace BazisGUI
         private void MeshGenerator_deleteMeshEvent(Objects objects)
         {
             //var objType = Converters.ConvertToObjsType(objects);
-            //var scenePage = BasePage.ScenePage;
+            //var scenePage = basePage.ScenePage;
 
             //if (objType == ObjType.Элемент2D)
             //{
@@ -507,7 +499,7 @@ namespace BazisGUI
             //ModelData.ObjectData.Clear(ObjType.Узел);//Удаляем только элементы сетки, геометрию не трогаем
             //UpdateMeshVBO();
 
-            //BasePage.PresentProjectOnTree();
+            //basePage.PresentProjectOnTree();
 
             //scenePage.SceneControl.FitObjectsToScreen();
             //scenePage.SceneControl.DisplayObjects();
@@ -541,7 +533,7 @@ namespace BazisGUI
 
         private void MeshGenerator_showNodesOnCurves(bool flag)
         {
-            var scenePage = BasePage.ScenePage;
+            var scenePage = basePage.ScenePage;
             scenePage.SceneControl.DeleteVBObjects("transPoints");
 
             if (flag)
@@ -554,7 +546,7 @@ namespace BazisGUI
                     points.AddRange(GetTransPointsCoords(item));
                 }
 
-                var presentor = BasePage.ScenePage.PresentersCreator.CreatePointObjectsPresenter(points);
+                var presentor = basePage.ScenePage.PresentersCreator.CreatePointObjectsPresenter(points);
 
                 scenePage.CreateObjectsOnScene("transPoints", presentor);
             }
@@ -610,7 +602,7 @@ namespace BazisGUI
         {
             //try
             //{
-            //    var scenePage = BasePage.ScenePage;
+            //    var scenePage = basePage.ScenePage;
             //    scenePage.SceneControl.HideGeometryObj("DisplaySceneScale");
 
             //    if (flag)
@@ -646,7 +638,7 @@ namespace BazisGUI
             //}
             //catch (Exception ex)
             //{
-            //    BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+            //    basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
             //}
         }
 
@@ -655,7 +647,7 @@ namespace BazisGUI
         private void GmshControl_ResetColorObjectsEvent(Objects objects)
         {
             //var objType = Converters.ConvertToObjsType(objects);
-            //var scenePage = BasePage.ScenePage;
+            //var scenePage = basePage.ScenePage;
 
             //ModelData.ObjectData.SetBackColor(objType);
 
@@ -669,7 +661,7 @@ namespace BazisGUI
     //        try
     //        {
     //            var objType = Converters.ConvertToObjsType(objects);
-    //            var scenePage = BasePage.ScenePage;
+    //            var scenePage = basePage.ScenePage;
 
     //            foreach (var item in objNumbers)
     //            {
@@ -682,14 +674,14 @@ namespace BazisGUI
     //        }
     //        catch (Exception ex)
     //        {
-    //            BasePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
+    //            basePage.ConsoleControl.PrintInfo(ex.Message, Color.Red);
     //        }
         }
 
         private void UpdateMeshVBO()
         {
             //var objs = GmshController.GetMeshObjects();
-            //var scenePage = BasePage.ScenePage;
+            //var scenePage = basePage.ScenePage;
             //if (objs.Item1.Count > 0)
             //    objs.Item1.ForEach(x => ModelData.ObjectData.NodesSet.Add(x.Number,x));
             //if (objs.Item2.Count > 0)
@@ -713,7 +705,7 @@ namespace BazisGUI
 
         private void PresentObjects(ObjType item)
         {
-            //var scenePage = BasePage.ScenePage;
+            //var scenePage = basePage.ScenePage;
             //var vbo = scenePage.SceneControl.FindVBObj(item.ToString());
 
             //if (vbo != null)
@@ -726,12 +718,12 @@ namespace BazisGUI
 
         public void SetGMSHController(IModelData modelData, GmshController gmshController)
         {
-            var scenePage = BasePage.ScenePage;
+            var scenePage = basePage.ScenePage;
             scenePage.SceneControl.HideAllGeometryObjs();
             scenePage.SceneControl.HideDisplayText2D();
             scenePage.SceneControl.HideDisplayText3D();
 
-            BasePage.PresentObjectsDataOnTree(modelData.ObjectData);
+            basePage.PresentObjectsDataOnTree(modelData.ObjectData);
 
             if (gmshController == null)
                 MessageBox.Show("Контроллер генератора сетки не загружен!");

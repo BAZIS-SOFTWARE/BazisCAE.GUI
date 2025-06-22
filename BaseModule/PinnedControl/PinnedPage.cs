@@ -20,6 +20,8 @@ namespace BaseModule.PinnedControl
 
         public Color HeaderColor { get; set; } = Color.Black;
 
+        public bool IsPinndable { get; set; } = false;
+
         public string HeaderName { get; set; } = "";
 
         public event Action ControlCollapseEvent;
@@ -39,8 +41,12 @@ namespace BaseModule.PinnedControl
             var locRect = new Point(Width - 15, loc_y / 2 - 4);
             ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
 
-            var locPinRect = new Point(Width - 26, loc_y / 2 - 4);
-            ComponentsPainter.PaintUnpinnedRectangle(e.Graphics, locPinRect);
+            if (IsPinndable)
+            {
+                var locPinRect = new Point(Width - 26, loc_y / 2 - 4);
+                ComponentsPainter.PaintUnpinnedRectangle(e.Graphics, locPinRect);
+            }
+
 
             e.Graphics.DrawString(HeaderName, ComponentsPainter.Font, new SolidBrush(HeaderColor), 15, 0);
         }
@@ -49,8 +55,10 @@ namespace BaseModule.PinnedControl
         {
             if (e.Location.X > Width - 16 & e.Location.X < Width - 8 && e.Location.Y <= 10)
                 ControlCollapseEvent?.Invoke();
-            if (e.Location.X > Width - 26 & e.Location.X < Width - 16 && e.Location.Y <= 10)
-                ControlUnpinnedEvent?.Invoke();
+
+            if(IsPinndable)
+                if (e.Location.X > Width - 26 & e.Location.X < Width - 16 && e.Location.Y <= 10)
+                    ControlUnpinnedEvent?.Invoke();
         }
 
         private void PinnedPageControl_Resize(object sender, EventArgs e)

@@ -1,4 +1,5 @@
-﻿using BaseModule.PropertiesPanel;
+﻿using BaseModule.Extensions;
+using BaseModule.PropertiesPanel;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
@@ -45,7 +46,7 @@ namespace BazisGUI.PropertiesPanel.Control.TaskType
         {
             base.UpdateObject(header, newValue);
 
-            if (header == "Направление") _clamp.Direction = Converters.StringToEnum<Direction>(newValue);
+            if (header == "Направление") _clamp.Direction = newValue.ToEnum<Direction>();
             else if (header == "Вид") _clamp.TrySetKind(newValue);
         }
     }

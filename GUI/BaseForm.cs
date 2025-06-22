@@ -60,6 +60,7 @@ using GmshApi;
 using PreProc;
 using Project.Interfaces;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 
 namespace BazisGUI
@@ -217,18 +218,7 @@ namespace BazisGUI
             }
         }
 
-        private void построениеСетки_Click(object sender, EventArgs e)
-        {
-            SetModule("Mesh");
-            модулиMenuItem.Image = Resources.м_34;
-            ModulePage.BasePage.ScenePage.SceneControl.DisplayObjects();
-        }
-        private void анализРезультатов_Click(object sender, EventArgs e)
-        {
-            SetModule("Result");
-            модулиMenuItem.Image = Resources.м_37;
-            ModulePage.BasePage.ScenePage.SceneControl.DisplayObjects();
-        }
+
         private void сварка_Click(object sender, EventArgs e)
         {
             SetModule("Weld");
@@ -312,69 +302,45 @@ namespace BazisGUI
 
         private void ViewInterface(string moduleName)
         {
-            resultsMenuItem.Visible = false;
-            tasksMenuItem.Visible = false;
-            dataBasesMenuItem.Visible = false;
-            meshMenuItem.Visible = false;
+            resultsMenuItem.Visible = true;
+            tasksMenuItem.Visible = true;
+            dataBasesMenuItem.Visible = true;
+            meshMenuItem.Visible = true;
 
-            if (moduleName == "Mesh")
+            foreach (var item in tasksMenuItem.DropDownItems.Cast<ToolStripMenuItem>())
+                item.Visible = false;
+
+            if (moduleName == "Weld")
             {
-                meshMenuItem.Visible = true;
+                arcWeldingMenuItem.Visible = true;
+                lazerWeldingMenuItem.Visible = true;
+                fsWeldingMenuItem.Visible = true;
             }
-            else if (moduleName == "Result")
+            else
             {
-                resultsMenuItem.Visible = true;
-            }
-            else if (moduleName == "Weld" | moduleName == "HeatTreatment")
-            {
-                tasksMenuItem.Visible = true;
-                dataBasesMenuItem.Visible = true;
-
-                foreach (var item in tasksMenuItem.DropDownItems.Cast<ToolStripMenuItem>())
-                    item.Visible = false;
-
-                if (moduleName == "Weld")
-                {
-                    arcWeldingMenuItem.Visible = true;
-                    lazerWeldingMenuItem.Visible = true;
-                    fsWeldingMenuItem.Visible = true;
-                }
-                else
-                {
-                    heatingMenuItem.Visible = true;
-                    quenchingMenuItem.Visible = true;
-                    temperingMenuItem.Visible = true;
-                }
+                heatingMenuItem.Visible = true;
+                quenchingMenuItem.Visible = true;
+                temperingMenuItem.Visible = true;
             }
         }
 
         private void UnBlockGeneralMenuInterface(string moduleName, bool flag)
         {
-            if(moduleName == "Mesh")
-            {
-                if(flag)
-                    meshMenuItem.Enabled = true;
-                else
-                    meshMenuItem.Enabled = false;
-            }
-            else if(moduleName == "Result")
-            {
-                if (flag)
-                    resultsMenuItem.Enabled = true;
-                else
-                    resultsMenuItem.Enabled = false;
-            }
-            else if(moduleName == "Weld" | moduleName == "HeatTreatment")
+            if(moduleName == "Weld" | moduleName == "HeatTreatment")
             {
                 if (flag)
                 {
                     tasksMenuItem.Enabled = true;
                     dataBasesMenuItem.Enabled = true;
+                    meshMenuItem.Visible = true;
+                    resultsMenuItem.Visible = true;
                 }
                 else
                 {
                     tasksMenuItem.Enabled = false;
                     dataBasesMenuItem.Enabled = false;
+                    meshMenuItem.Visible = false;
+                    resultsMenuItem.Visible = false;
                 }
             }
         }
@@ -382,54 +348,42 @@ namespace BazisGUI
         private ToolStripPage CreateModule(string moduleName)
         {
             ToolStripPage page;
-            if (moduleName == "Weld" | moduleName == "HeatTreatment")
-            {
-                TaskPage taskPage;
-                if(moduleName == "Weld")
-                    taskPage = new WeldingPage() { Dock = DockStyle.Fill, Name = moduleName};
-                else
-                    taskPage = new HeatTreatmentPage() { Dock = DockStyle.Fill, Name = moduleName };
 
-                taskPage.SolverPath = settingsConfig.SolverPath;
-                taskPage.SelectPhysicalDataEvent += TaskPage_SelectPhysicalDataEvent;
-                taskPage.CreatePhysicalDataEvent += TaskPage_CreateTaskDataEvent;
-                taskPage.DeleteAllPhysicalDataEvent += TaskPage_DeleteAllTaskDataEvent;
-                taskPage.ShowGantChartEvent += TaskPage_ShowGantChartEvent;
-                taskPage.AddPhysicalDataEvent += TaskPage_AddPhysicalDataEvent;
-                taskPage.GenerateTSFEvent += TaskPage_GenerateTSFEvent;
-                taskPage.GenerateTCFEvent += TaskPage_GenerateTCFEvent;
-                taskPage.EditTSFEvent += TaskPage_EditTSFEvent;
-                taskPage.StopComputationEvent += TaskPage_StopComputationEvent;
-                page = taskPage;
-                //return taskPage;
-            }
-
-            else if (moduleName == "Result")
-            {
-                resultsMenuItem.Visible = true;
-                var resPage = new ResultsPage() { Dock = DockStyle.Fill, Name = moduleName};
-            
-                resPage.PresentResultsInfo(project.ResultDB);
-                resPage.RemoveResultsEvent += (object arg) => { resPage.RemoveResults(project.ModelData); };
-                resPage.HideResultsEvent += (object arg) => { resPage.HideResults(project.ModelData); };
-                resPage.ShowResultsEvent += (object arg1, Result arg2, int arg3) =>
-                { 
-                    resPage.ShowResults(project.GeneralData, project.ModelData, arg2, arg3); 
-                };
-
-                resPage.CreateGIFAnimationEvent += (object arg1, CreateAnimationEventArgs arg2) =>
-                {
-                    resPage.CreateGIFAnimation(project.GeneralData, project.ModelData, arg2);
-                };
-                page = resPage;
-            }
-
+            //TaskPage taskPage;
+            if (moduleName == "Weld")
+                page = new WeldingPage() { Dock = DockStyle.Fill, Name = moduleName };
             else
+                page = new HeatTreatmentPage() { Dock = DockStyle.Fill, Name = moduleName };
+
+            page.SolverPath = settingsConfig.SolverPath;
+            page.SelectPhysicalDataEvent += TaskPage_SelectPhysicalDataEvent;
+            page.CreatePhysicalDataEvent += TaskPage_CreateTaskDataEvent;
+            page.DeleteAllPhysicalDataEvent += TaskPage_DeleteAllTaskDataEvent;
+            page.ShowGantChartEvent += TaskPage_ShowGantChartEvent;
+            page.AddPhysicalDataEvent += TaskPage_AddPhysicalDataEvent;
+            page.GenerateTSFEvent += TaskPage_GenerateTSFEvent;
+            page.GenerateTCFEvent += TaskPage_GenerateTCFEvent;
+            page.EditTSFEvent += TaskPage_EditTSFEvent;
+            page.StopComputationEvent += TaskPage_StopComputationEvent;
+
+            resultsMenuItem.Visible = true;
+
+            page.PresentResultsInfo(project.ResultDB);
+            page.RemoveResultsEvent += (object arg) => { page.RemoveResults(project.ModelData); };
+            page.HideResultsEvent += (object arg) => { page.HideResults(project.ModelData); };
+            page.ShowResultsEvent += (object arg1, Result arg2, int arg3) =>
             {
-                meshMenuItem.Visible = true;
-                var modelPage = new ModelPage() { Dock = DockStyle.Fill, Name = moduleName };
-                page = modelPage;
-            }
+                page.ShowResults(project.GeneralData, project.ModelData, arg2, arg3);
+            };
+
+            page.CreateGIFAnimationEvent += (object arg1, CreateAnimationEventArgs arg2) =>
+            {
+                page.CreateGIFAnimation(project.GeneralData, project.ModelData, arg2);
+            };
+
+            page.GetResultsInfoEvent += Page_GetResultsInfoEvent;
+
+            meshMenuItem.Visible = true;
 
             page.DeleteObjectsEvent += Page_DeleteObjectsEvent;
             page.ChangeAllGroupsViewEvent += Page_ShowAllGroupsEvent;
@@ -474,6 +428,19 @@ namespace BazisGUI
             return page;
         }
 
+        private void Page_GetResultsInfoEvent(object arg1, string arg2)
+        {
+            var page = arg1 as ToolStripPage;
+
+            page.BasePage.NavigatorControl.TrySearchNodes(NodeType.Результат, out List<TreeNode> nodes);
+            var tn = nodes.First(x => x.Text == arg2);
+
+            var times = page.GetResultTimes().Select(x => x.ToString());
+
+            var childs = page.BasePage.NavigatorControl.CreateRealNodes(NodeType.Время.ToString(), times);
+            tn.Nodes.AddRange(childs);
+        }
+
         private void Page_GetSetsInfoEvent(object arg1, string arg2)
         {
             var page = arg1 as ToolStripPage;
@@ -500,7 +467,6 @@ namespace BazisGUI
 
         private void Page_GetObjectsInfoEvent(object arg1, string objsTypeStr,string setName)
         {
-            //TO DO
             var page = arg1 as ToolStripPage;
            
             var objType = objsTypeStr.ToObjType();
@@ -517,19 +483,19 @@ namespace BazisGUI
 
         private void TaskPage_StopComputationEvent(object arg1, EventArgs arg2)
         {
-            var page = arg1 as TaskPage;
+            var page = arg1 as ToolStripPage;
             page.StopComputation();
         }
 
         private void TaskPage_EditTSFEvent(object arg1, string arg2)
         {
-            var page = arg1 as TaskPage;
+            var page = arg1 as ToolStripPage;
             page.EditTSFFile(arg2);
         }
 
         private void TaskPage_GenerateTCFEvent(object arg1)
         {
-            var page = arg1 as TaskPage;
+            var page = arg1 as ToolStripPage;
             project.Save();
             page.BasePage.ConsoleControl.PrintInfo("Проект сохранен в " + project.GeneralData.Path, Color.Black);
 
@@ -538,32 +504,32 @@ namespace BazisGUI
 
         private void TaskPage_GenerateTSFEvent(object arg1)
         {
-            var page = arg1 as TaskPage;
+            var page = arg1 as ToolStripPage;
             page.GenerateTSFFiles(project);
         }
 
         private void TaskPage_AddPhysicalDataEvent(object obj,string dataType)
         {
-            var page = obj as TaskPage;
+            var page = obj as ToolStripPage;
             page.AddPhysicalData(project, dataType);
         }
 
         private void TaskPage_ShowGantChartEvent(object obj)
         {
-            var page = obj as TaskPage;
+            var page = obj as ToolStripPage;
             page.ShowGantChart(project.TaskData.Select(x => x.ToString()));
         }
 
         private void TaskPage_DeleteAllTaskDataEvent(object obj)
         {
             project.TaskData?.Clear();
-            var page = obj as TaskPage;
+            var page = obj as ToolStripPage;
             page.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
         }
 
         private void TaskPage_CreateTaskDataEvent(object arg1, AddDataEventArgs arg2)
         {
-            var page = arg1 as TaskPage;
+            var page = arg1 as ToolStripPage;
             page.Navigator_AddData(project, arg2);
         }       
 
@@ -574,16 +540,15 @@ namespace BazisGUI
             page.BasePage.PresentObjectsDataOnTree(project.ModelData.ObjectData);
             page.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
 
-            if (obj is TaskPage taskPage)
-                taskPage.PresentTaskDataOnTree(project.GeneralData, project.TaskData);         
+            //if (obj is TaskPage taskPage)
+            page.PresentTaskDataOnTree(project.GeneralData, project.TaskData);         
         }
 
-        private void TaskPage_SelectPhysicalDataEvent(object arg1, TreeNode arg2)
+        private void TaskPage_SelectPhysicalDataEvent(object arg1, string arg2)
         {
-            var page = arg1 as TaskPage;
+            var page = arg1 as ToolStripPage;
 
-            var info = arg2.Text;
-            var data = project.TaskData.First(x => x.ToString() == info);
+            var data = project.TaskData.First(x => x.ToString() == arg2);
 
             page.BasePage.PanelProvider.AllGroup = project.ModelData.GroupData.ToList();
 
@@ -635,8 +600,8 @@ namespace BazisGUI
             page.BasePage.PresentObjectsDataOnTree(project.ModelData.ObjectData);
             page.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
 
-            if (obj is TaskPage taskPage)
-                taskPage.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
+            //if (obj is ToolStripPage taskPage)
+            page.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
 
             scenePage.ClearAllDataOnScene();
             scenePage.SceneControl.DisplayObjects();
@@ -700,8 +665,8 @@ namespace BazisGUI
             {
                 gr.Name = arg3;
                 page.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
-                if (arg1 is TaskPage taskPage)
-                    taskPage.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
+                //if (arg1 is TaskPage taskPage)
+                page.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
             }
         }
 
@@ -729,8 +694,8 @@ namespace BazisGUI
             page.BasePage.PresentObjectsDataOnTree(project.ModelData.ObjectData);
             page.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
 
-            if (arg1 is TaskPage taskPage)
-                taskPage.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
+            //if (arg1 is TaskPage taskPage)
+            page.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
 
             page.BasePage.ScenePage.PresentModelObjectsOnScene(project.ModelData, arg2);
         }
@@ -1262,8 +1227,8 @@ namespace BazisGUI
 
             page.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
 
-            if (arg1 is TaskPage taskPage)
-                taskPage.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
+            //if (arg1 is TaskPage taskPage)
+            page.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
         }
 
         private void Page_DeleteAllGroupsEvent(object arg1)
@@ -1274,8 +1239,8 @@ namespace BazisGUI
             var page = arg1 as ToolStripPage;
             page.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
 
-            if (arg1 is TaskPage taskPage)
-                taskPage.PresentTaskDataOnTree(project.GeneralData,project.TaskData);
+            //if (arg1 is TaskPage taskPage)
+            page.PresentTaskDataOnTree(project.GeneralData,project.TaskData);
         }
 
         private void Page_ShowAllGroupsEvent(object arg1,bool arg2)
@@ -1308,8 +1273,8 @@ namespace BazisGUI
             page.BasePage.PresentObjectsDataOnTree(project.ModelData.ObjectData);
             page.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
 
-            if (arg1 is TaskPage taskPage)
-                taskPage.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
+            //if (arg1 is TaskPage taskPage)
+            page.PresentTaskDataOnTree(project.GeneralData, project.TaskData);
 
             page.BasePage.ScenePage.ClearAllDataOnScene();
             page.BasePage.ScenePage.PresentAllModelObjectsToScene(project.ModelData);
@@ -1580,7 +1545,7 @@ namespace BazisGUI
 
             settings.SetSolverPathEvent += (ar) =>
             {
-                if (module is TaskPage taskPage)
+                if (module is ToolStripPage taskPage)
                     taskPage.SolverPath = ar;
             };
             settings.SetBackGroundColorEvent += (ar) =>
@@ -1739,7 +1704,7 @@ namespace BazisGUI
 
                 модулиMenuItem.Enabled = true;
                 modelController = new ModelController.ModelController();
-                SetModule("Mesh");
+                SetModule("Weld");
                 модулиMenuItem.Image = Resources.м_34;
                 var module = ModulePage.BasePage;
                 module.ScenePage.SceneControl.FitObjectsToScreen();
@@ -1765,8 +1730,8 @@ namespace BazisGUI
 
                     модулиMenuItem.Enabled = true;
                     modelController = new ModelController.ModelController();
-                    SetModule("Mesh");
-                    модулиMenuItem.Image = Resources.м_34;
+                    SetModule("Weld");
+                    модулиMenuItem.Image = Resources.м_36;
                     var module = ModulePage.BasePage;
                     module.ScenePage.SceneControl.FitObjectsToScreen();
                     module.ScenePage.SceneControl.DisplayObjects();
@@ -1796,7 +1761,7 @@ namespace BazisGUI
 
                 модулиMenuItem.Enabled = true;
                 //modelController = new ModelController.ModelController();
-                SetModule("Mesh");
+                SetModule("Weld");
                 модулиMenuItem.Image = Resources.м_34;
                 var module = ModulePage.BasePage;
                 module.ScenePage.SceneControl.FitObjectsToScreen();
@@ -1851,7 +1816,7 @@ namespace BazisGUI
 
                     модулиMenuItem.Enabled = true;
                     //modelController = new ModelController.ModelController();
-                    SetModule("Mesh");
+                    SetModule("Weld");
                     модулиMenuItem.Image = Resources.м_34;
                     var module = ModulePage.BasePage;
                     module.ScenePage.SceneControl.FitObjectsToScreen();
@@ -1871,7 +1836,7 @@ namespace BazisGUI
             module.BasePage.PresentObjectsDataOnTree(project.ModelData.ObjectData);
             module.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
 
-            (module as TaskPage)?.PresentTaskDataOnTree(project.GeneralData,project.TaskData);
+            module.PresentTaskDataOnTree(project.GeneralData,project.TaskData);
 
             ModulePage.PresentModelOnSelectToolStrip(project.ModelData.ObjectData);
         }
@@ -1902,14 +1867,11 @@ namespace BazisGUI
 
         private void createSurfaceElementsMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ModelPage)ModulePage;
-            module.CreateSurfaceElements(project.GeneralData,project.ModelData, ObjType.Элемент2D);
+            ModulePage.CreateSurfaceElements(project.GeneralData,project.ModelData, ObjType.Элемент2D);
         }
 
         private void mesh3DGeneratorMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ModelPage)ModulePage;
-
             if (mesh3DGeneratorMenuItem.Checked)
             {
                 var res = MessageBox.Show("Вы собираетесь запустить сеточный генератор. При нажатии на кнопку \"OK\" " +
@@ -1924,18 +1886,16 @@ namespace BazisGUI
                     return;
                 }
 
-                module.EmbeddedSplitContainer.Panel2Collapsed = false;
+                ModulePage.EmbeddedSplitContainer.Panel2Collapsed = false;
                 if(gmshController != null)
-                    module.SetGMSHController(project.ModelData, gmshController);
+                    ModulePage.SetGMSHController(project.ModelData, gmshController);
             }
-            else 
-                module.EmbeddedSplitContainer.Panel2Collapsed = true;         
+            else
+                ModulePage.EmbeddedSplitContainer.Panel2Collapsed = true;         
         }
 
         private void arcWeldingMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (WeldingPage)ModulePage;
-
             var currentItem = sender as ToolStripMenuItem;
 
             foreach (ToolStripMenuItem item in tasksMenuItem.DropDownItems)
@@ -1945,20 +1905,20 @@ namespace BazisGUI
             //module.ConfigAdvisor(WeldingKind.ARC);
 
             if (arcWeldingMenuItem.Checked)
-                module.EmbeddedSplitContainer.Panel2Collapsed = false;
-            else module.EmbeddedSplitContainer.Panel2Collapsed = true;
+                ModulePage.EmbeddedSplitContainer.Panel2Collapsed = false;
+            else ModulePage.EmbeddedSplitContainer.Panel2Collapsed = true;
         }
 
         private void материалыMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (TaskPage)ModulePage;
-            module.OpenMaterialsDB(project.GeneralData);
+            //var module = (TaskPage)ModulePage;
+            ModulePage.OpenMaterialsDB(project.GeneralData);
         }
 
         private void функцииMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (TaskPage)ModulePage;
-            module.OpenFunctionsDB(project.GeneralData);
+            //var module = (TaskPage)ModulePage;
+            ModulePage.OpenFunctionsDB(project.GeneralData);
         }
 
         private void lazerWeldingMenuItem_Click(object sender, EventArgs e)
@@ -2001,52 +1961,45 @@ namespace BazisGUI
 
             project.ResultDB = fileName;
 
-            var module = (ResultsPage)ModulePage;
-            module.PresentResultsInfo(project.ResultDB);
+            ModulePage.PresentResultsInfo(project.ResultDB);
         }
 
         private void showNodeValueMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultsPage)ModulePage;
 
             if (showNodeValueMenuItem.Checked)
-                module.ShowNodeResultsValue = true;
+                ModulePage.ShowNodeResultsValue = true;
             else
             {
-                module.ShowNodeResultsValue = false;
-                module.BasePage.ScenePage.SceneControl.HideDisplayText3D();
-                module.BasePage.ScenePage.SceneControl.DisplayObjects();
+                ModulePage.ShowNodeResultsValue = false;
+                ModulePage.BasePage.ScenePage.SceneControl.HideDisplayText3D();
+                ModulePage.BasePage.ScenePage.SceneControl.DisplayObjects();
             }
         }
 
         private void createFieldMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultsPage)ModulePage;
-
             if (createFieldMenuItem.Checked)
-                module.ShowResultsField = true;
+                ModulePage.ShowResultsField = true;
             else
             {
-                module.ShowResultsField = false;
+                ModulePage.ShowResultsField = false;
             }
         }
 
         private void createPlotMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultsPage)ModulePage;
-            module.CreateGraph(project.ModelData);
+            ModulePage.CreateGraph(project.ModelData);
         }
 
         private void scaleSettingsMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultsPage)ModulePage;
-            module.ShowScalePage();
+            ModulePage.ShowScalePage();
         }
 
         private void exportResultsMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultsPage)ModulePage;
-            module.ShowExportResultsPage(project.ModelData,project.GeneralData);
+            ModulePage.ShowExportResultsPage(project.ModelData,project.GeneralData);
         }
 
         private void heatingMenuItem_Click(object sender, EventArgs e)
@@ -2102,8 +2055,7 @@ namespace BazisGUI
 
         private void создать1DПо2DЭлементамToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ModelPage)ModulePage;
-            module.CreateSurfaceElements(project.GeneralData, project.ModelData, ObjType.Элемент1D);
+            ModulePage.CreateSurfaceElements(project.GeneralData, project.ModelData, ObjType.Элемент1D);
         }
 
         private async void экспортСеткиToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2127,36 +2079,30 @@ namespace BazisGUI
 
         private void показатьЗначенияВЭлементахToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultsPage)ModulePage;
-
             if (показатьЗначенияВЭлементахToolStripMenuItem.Checked)
-                module.ShowElementsResultsValue = true;
+                ModulePage.ShowElementsResultsValue = true;
             else
             {
-                module.ShowElementsResultsValue = false;
-                module.BasePage.ScenePage.SceneControl.HideDisplayText3D();
-                module.BasePage.ScenePage.SceneControl.DisplayObjects();
+                ModulePage.ShowElementsResultsValue = false;
+                ModulePage.BasePage.ScenePage.SceneControl.HideDisplayText3D();
+                ModulePage.BasePage.ScenePage.SceneControl.DisplayObjects();
             }
         }
 
         private void усреднитьРезультатыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultsPage)ModulePage;
-
             if (усреднитьРезультатыToolStripMenuItem.Checked)
-                module.MergeResultsValue = true;
+                ModulePage.MergeResultsValue = true;
             else
             {
-                module.MergeResultsValue = false;
+                ModulePage.MergeResultsValue = false;
             }
         }
 
         private void показатьВремяToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var module = (ResultsPage)ModulePage;
-
-            if (module.EmbeddedSplitContainer.Panel2Collapsed == true)
-                module.ShowAnimation();
+            if (ModulePage.EmbeddedSplitContainer.Panel2Collapsed == true)
+                ModulePage.ShowAnimation();
         }
 
         private async void добавитьСеткуToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2173,7 +2119,7 @@ namespace BazisGUI
 
                     модулиMenuItem.Enabled = true;
                     modelController = new ModelController.ModelController();
-                    SetModule("Mesh");
+                    SetModule("Weld");
                     модулиMenuItem.Image = Resources.м_34;
                     var module = ModulePage.BasePage;
                     module.ScenePage.SceneControl.FitObjectsToScreen();

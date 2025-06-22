@@ -2,6 +2,7 @@
 using BaseModule.Console.Events;
 using BaseModule.Navigator;
 using BaseModule.Utilities;
+using BazisGUI.Extensions;
 using BazisGUI.PropertiesPanel;
 using BazisGUI.Utilities;
 using Geometry;
@@ -9,6 +10,7 @@ using Model;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
 using Model.Interfaces.ObjectsCollections;
+using Model.MeshObjects;
 using ModelControllerInterfaces;
 using Project.Interfaces;
 using Scene;
@@ -25,6 +27,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using UserControlsEx;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -86,7 +89,7 @@ namespace BazisGUI
         public event Action<object> CreatedMeshGroupEvent;
         public event Action<object,string,string> ChangedGroupNameEvent;
         public event Action<object> FindFreeNodesEvent;
-        public event Action<TreeNode> SelectPhysicalDataEvent;
+        public event Action<string> SelectPhysicalDataEvent;
         public event Action<object,ObjType,string,bool> ChangeSetViewStateEvent;
         public event Action<object, int> EditGroupEvent;
         public event Action<object> SetBackColorToAllObjectsEvent;
@@ -97,6 +100,7 @@ namespace BazisGUI
         public event Action<object> UpdateNavigatorEvent;
         public event Action<object,string,string> GetObjectsInfoEvent;
         public event Action<object, string> GetSetsInfoEvent;
+        public event Action<object, string> GetResultsInfoEvent;
         //IModelController ModelController { get { return scenePage.GetModelController(); } }
 
         //IModelData ModelData { get { return ModelController.ModelData; } }
@@ -169,6 +173,8 @@ namespace BazisGUI
                 {
                     if (item.NumberOfObjects > 0)
                     {
+                        //if(item.ObjType == ObjType.Узел)
+                        //    nodes[0].Nodes[NodeType.Узлы.ToString()]
                         var root = Converters.ConvertToNavigatorNodeType(item.ObjType);
                         navigator.TryCreateNode(root.ToString(), item.Name, $"{item.Name} {item.NumberOfObjects}", NodeKind.virt);
                     }
@@ -647,19 +653,6 @@ namespace BazisGUI
             ChangedGroupNameEvent?.Invoke(this, oldName, newName);
         }
 
-        private void navigator_SelectGroupEvent(string obj)
-        {
-            try
-            {
-                SelectGroupEvent?.Invoke(this, obj);
-
-            }
-            catch (Exception ex)
-            {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
-            }
-        }
-
         private void navigator_ShowAllGroupsEvent()
         {
             ChangeAllGroupsViewEvent?.Invoke(this, true);
@@ -816,27 +809,7 @@ namespace BazisGUI
             DelAllObjectsEvent?.Invoke(this);
         }
 
-        private void navigator_AfterSelectEvent(TreeNode node, SelectionType select)
-        {
-            if (select == SelectionType.Object)
-            {
-                var setName = node.Text.Split(' ')[0]; // Деление по пробелу перед :
-                Enum.TryParse(node.Parent.Text, out NodeType nodeType);
-                var type = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
-                SelectSetEvent?.Invoke(this, type, setName);
-            }
-
-            else if (select == SelectionType.Group)
-            {
-                var grName = node.Text.Split(' ')[0];
-                SelectGroupEvent?.Invoke(this, grName);
-            }
-
-            else if (select == SelectionType.PhysicalData)
-            {
-                SelectPhysicalDataEvent?.Invoke(node);
-            }
-        }
+ 
         private void PropertiesPanelControl1_OnPropertyUpdate(BaseModule.PropertiesPanel.PropertyChangedEventArgs obj)
         {
             panelProvider.UpdateObjectValue(obj.Header, obj.NewValue.ToString(), obj.OldValue.ToString());
@@ -865,6 +838,45 @@ namespace BazisGUI
         private void navigator_GetSetsInfoEvent(string obj)
         {
             GetSetsInfoEvent?.Invoke(this, obj);
+        }
+
+        private void navigator_GetResultInfoEvent(string obj)
+        {
+            GetResultsInfoEvent?.Invoke(this, obj);
+        }
+
+        private void navigator_SelectCondEvent(NodeType arg1, string arg2)
+        {
+            SelectPhysicalDataEvent?.Invoke(arg2);
+        }
+
+        private void navigator_SelectGeneralInfoEvent(NodeType arg1, string arg2)
+        {
+            // TO DO
+        }
+
+        private void navigator_SelectGroupEvent(NodeType arg1, string arg2)
+        {
+            var grName = arg2.Split(' ')[0];
+            SelectGroupEvent?.Invoke(this, grName);
+        }
+
+        private void navigator_SelectObjectEvent(NodeType arg1, string arg2)
+        {
+            // TO DO
+        }
+
+        private void navigator_SelectSetEvent(NodeType arg1, string arg2)
+        {
+            var setName = arg2.Split(' ')[0]; // Деление по пробелу перед :
+  
+            var type = Converters.ConvertNavigatorNodeTypeToObjType(arg1);
+            SelectSetEvent?.Invoke(this, type, setName);
+        }
+
+        private void navigator_SelectTaskEvent(NodeType arg1, string arg2)
+        {
+            // TO DO
         }
     }
 }

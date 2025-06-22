@@ -30,6 +30,7 @@ namespace BazisGUI
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolStripPage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.splitContainerEx = new UserControlsEx.SplitContainerEx();
@@ -64,19 +65,40 @@ namespace BazisGUI
             this.btnSetRotHor90 = new System.Windows.Forms.ToolStripButton();
             this.btnSetRotVer90 = new System.Windows.Forms.ToolStripButton();
             this.btnFitObjs = new System.Windows.Forms.ToolStripButton();
+            this.condsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.diagram_gantt_toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.материалToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.закреплениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.нагрузкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.нагревToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.средаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tasksMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.низкийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.среднийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.высокийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сформироватьИнструкцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.запуститьРасчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.остановитьРасчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resultsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.скрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.basePage = new BazisGUI.BasePage();
-            this.pinnedAnimationControl = new BaseModule.Results.Animation.PinnedAnimationControl();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).BeginInit();
             this.splitContainerEx.Panel1.SuspendLayout();
-            this.splitContainerEx.Panel2.SuspendLayout();
             this.splitContainerEx.SuspendLayout();
             this.selectToolStrip.SuspendLayout();
             this.instrumentalToolStrip.SuspendLayout();
             this.displayToolStrip.SuspendLayout();
             this.viewToolStrip.SuspendLayout();
+            this.condsMenuStrip.SuspendLayout();
+            this.tasksMenuStrip.SuspendLayout();
+            this.resultsMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripContainer
@@ -116,8 +138,8 @@ namespace BazisGUI
             // 
             // splitContainerEx.Panel2
             // 
-            this.splitContainerEx.Panel2.Controls.Add(this.pinnedAnimationControl);
             this.splitContainerEx.Panel2.Padding = new System.Windows.Forms.Padding(0, 5, 5, 0);
+            this.splitContainerEx.Panel2Collapsed = true;
             this.splitContainerEx.Size = new System.Drawing.Size(977, 556);
             this.splitContainerEx.SplitterDistance = 621;
             this.splitContainerEx.SwitchShifting = false;
@@ -667,6 +689,156 @@ namespace BazisGUI
             this.btnFitObjs.Text = "toolStripButton13";
             this.btnFitObjs.ToolTipText = "Вписать в экран";
             // 
+            // condsMenuStrip
+            // 
+            this.condsMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.condsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.удалитьToolStripMenuItem,
+            this.diagram_gantt_toolStripMenuItem,
+            this.добавитьToolStripMenuItem});
+            this.condsMenuStrip.Name = "taskMenuStrip";
+            this.condsMenuStrip.Size = new System.Drawing.Size(214, 70);
+            // 
+            // удалитьToolStripMenuItem
+            // 
+            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.удалитьToolStripMenuItem.Text = "Удалить";
+            // 
+            // diagram_gantt_toolStripMenuItem
+            // 
+            this.diagram_gantt_toolStripMenuItem.Name = "diagram_gantt_toolStripMenuItem";
+            this.diagram_gantt_toolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.diagram_gantt_toolStripMenuItem.Text = "Показать на диаграммме";
+            // 
+            // добавитьToolStripMenuItem
+            // 
+            this.добавитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.материалToolStripMenuItem,
+            this.закреплениеToolStripMenuItem,
+            this.нагрузкаToolStripMenuItem,
+            this.нагревToolStripMenuItem,
+            this.средаToolStripMenuItem});
+            this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
+            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.добавитьToolStripMenuItem.Text = "Добавить";
+            // 
+            // материалToolStripMenuItem
+            // 
+            this.материалToolStripMenuItem.Name = "материалToolStripMenuItem";
+            this.материалToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.материалToolStripMenuItem.Text = "Материал";
+            // 
+            // закреплениеToolStripMenuItem
+            // 
+            this.закреплениеToolStripMenuItem.Name = "закреплениеToolStripMenuItem";
+            this.закреплениеToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.закреплениеToolStripMenuItem.Text = "Закрепление";
+            // 
+            // нагрузкаToolStripMenuItem
+            // 
+            this.нагрузкаToolStripMenuItem.Name = "нагрузкаToolStripMenuItem";
+            this.нагрузкаToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.нагрузкаToolStripMenuItem.Text = "Нагрузка";
+            // 
+            // нагревToolStripMenuItem
+            // 
+            this.нагревToolStripMenuItem.Name = "нагревToolStripMenuItem";
+            this.нагревToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.нагревToolStripMenuItem.Text = "Нагрев";
+            // 
+            // средаToolStripMenuItem
+            // 
+            this.средаToolStripMenuItem.Name = "средаToolStripMenuItem";
+            this.средаToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.средаToolStripMenuItem.Text = "Среда";
+            // 
+            // tasksMenuStrip
+            // 
+            this.tasksMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.tasksMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.сформироватьИнструкцииToolStripMenuItem,
+            this.запуститьРасчетToolStripMenuItem,
+            this.остановитьРасчетToolStripMenuItem});
+            this.tasksMenuStrip.Name = "taskMenuStrip";
+            this.tasksMenuStrip.Size = new System.Drawing.Size(227, 92);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.низкийToolStripMenuItem,
+            this.среднийToolStripMenuItem,
+            this.высокийToolStripMenuItem});
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(226, 22);
+            this.toolStripMenuItem2.Text = "Задать приоритет";
+            // 
+            // низкийToolStripMenuItem
+            // 
+            this.низкийToolStripMenuItem.Name = "низкийToolStripMenuItem";
+            this.низкийToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.низкийToolStripMenuItem.Text = "Низкий";
+            this.низкийToolStripMenuItem.Click += new System.EventHandler(this.низкийToolStripMenuItem_Click);
+            // 
+            // среднийToolStripMenuItem
+            // 
+            this.среднийToolStripMenuItem.Name = "среднийToolStripMenuItem";
+            this.среднийToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.среднийToolStripMenuItem.Text = "Средний";
+            this.среднийToolStripMenuItem.Click += new System.EventHandler(this.среднийToolStripMenuItem_Click);
+            // 
+            // высокийToolStripMenuItem
+            // 
+            this.высокийToolStripMenuItem.Name = "высокийToolStripMenuItem";
+            this.высокийToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.высокийToolStripMenuItem.Text = "Высокий";
+            this.высокийToolStripMenuItem.Click += new System.EventHandler(this.высокийToolStripMenuItem_Click);
+            // 
+            // сформироватьИнструкцииToolStripMenuItem
+            // 
+            this.сформироватьИнструкцииToolStripMenuItem.Name = "сформироватьИнструкцииToolStripMenuItem";
+            this.сформироватьИнструкцииToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.сформироватьИнструкцииToolStripMenuItem.Text = "Сформировать инструкции";
+            this.сформироватьИнструкцииToolStripMenuItem.Click += new System.EventHandler(this.сформироватьИнструкцииToolStripMenuItem_Click);
+            // 
+            // запуститьРасчетToolStripMenuItem
+            // 
+            this.запуститьРасчетToolStripMenuItem.Name = "запуститьРасчетToolStripMenuItem";
+            this.запуститьРасчетToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.запуститьРасчетToolStripMenuItem.Text = "Запустить расчет";
+            this.запуститьРасчетToolStripMenuItem.Click += new System.EventHandler(this.запуститьРасчетToolStripMenuItem_Click);
+            // 
+            // остановитьРасчетToolStripMenuItem
+            // 
+            this.остановитьРасчетToolStripMenuItem.Name = "остановитьРасчетToolStripMenuItem";
+            this.остановитьРасчетToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.остановитьРасчетToolStripMenuItem.Text = "Остановить расчет";
+            this.остановитьРасчетToolStripMenuItem.Click += new System.EventHandler(this.остановитьРасчетToolStripMenuItem_Click);
+            // 
+            // resultsMenuStrip
+            // 
+            this.resultsMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.resultsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.скрытьToolStripMenuItem,
+            this.toolStripMenuItem1});
+            this.resultsMenuStrip.Name = "resultsMenuStrip";
+            this.resultsMenuStrip.Size = new System.Drawing.Size(119, 48);
+            // 
+            // скрытьToolStripMenuItem
+            // 
+            this.скрытьToolStripMenuItem.Name = "скрытьToolStripMenuItem";
+            this.скрытьToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.скрытьToolStripMenuItem.Text = "Скрыть";
+            this.скрытьToolStripMenuItem.Click += new System.EventHandler(this.скрытьРезультатыToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(118, 22);
+            this.toolStripMenuItem1.Text = "Удалить";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.удалитьРезультатыToolStripMenuItem_Click);
+            // 
             // basePage
             // 
             this.basePage.BackColor = System.Drawing.SystemColors.Control;
@@ -677,7 +849,7 @@ namespace BazisGUI
             this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.basePage.PressedKey = System.Windows.Forms.Keys.None;
             this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
-            this.basePage.Size = new System.Drawing.Size(621, 556);
+            this.basePage.Size = new System.Drawing.Size(977, 556);
             this.basePage.SplitterWidthEx = 10;
             this.basePage.TabIndex = 0;
             this.basePage.DeleteGroupEvent += new System.Action<object, int>(this.basePage_DeleteGroupEvent);
@@ -690,8 +862,6 @@ namespace BazisGUI
             this.basePage.SelectObjectsEvent += new System.Action<object, Scene.Events.SelectObjectsEventArgs>(this.basePage_SelectObjectsEvent);
             this.basePage.DeleteSelectedObjectsEvent += new System.Action<object>(this.basePage_DeleteSelectedObjectsEvent);
             this.basePage.ChangeAllObjsViewStateEvent += new System.Action<object, bool>(this.basePage_ChangeAllObjsViewStateEvent);
-            this.basePage.CreatedMeshGroupEvent += new System.Action<object>(this.BasePage_CreatedMeshGroupEvent);
-            this.basePage.ChangedGroupNameEvent += new System.Action<object, string, string>(this.BasePage_ChangedGroupNameEvent);
             this.basePage.FindFreeNodesEvent += new System.Action<object>(this.basePage_FindFreeNodesEvent);
             this.basePage.ChangeSetViewStateEvent += new System.Action<object, Model.Interfaces.ObjType, string, bool>(this.basePage_ChangeSetViewStateEvent);
             this.basePage.EditGroupEvent += new System.Action<object, int>(this.basePage_EditGroupEvent);
@@ -703,22 +873,7 @@ namespace BazisGUI
             this.basePage.UpdateNavigatorEvent += new System.Action<object>(this.basePage_UpdateNavigatorEvent);
             this.basePage.GetObjectsInfoEvent += new System.Action<object, string, string>(this.basePage_GetObjectsInfoEvent);
             this.basePage.GetSetsInfoEvent += new System.Action<object, string>(this.basePage_GetSetsInfoEvent);
-            // 
-            // pinnedAnimationControl
-            // 
-            this.pinnedAnimationControl.BackColor = System.Drawing.Color.Gainsboro;
-            this.pinnedAnimationControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pinnedAnimationControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pinnedAnimationControl.DownColor = System.Drawing.Color.Gainsboro;
-            this.pinnedAnimationControl.HeaderColor = System.Drawing.Color.Black;
-            this.pinnedAnimationControl.HeaderName = "Анимация результатов";
-            this.pinnedAnimationControl.Location = new System.Drawing.Point(0, 5);
-            this.pinnedAnimationControl.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
-            this.pinnedAnimationControl.Name = "pinnedAnimationControl";
-            this.pinnedAnimationControl.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.pinnedAnimationControl.Size = new System.Drawing.Size(347, 551);
-            this.pinnedAnimationControl.TabIndex = 6;
-            this.pinnedAnimationControl.UpColor = System.Drawing.Color.Gainsboro;
+            this.basePage.GetResultsInfoEvent += new System.Action<object, string>(this.basePage_GetResultsInfoEvent);
             // 
             // ToolStripPage
             // 
@@ -734,7 +889,6 @@ namespace BazisGUI
             this.toolStripContainer.ResumeLayout(false);
             this.toolStripContainer.PerformLayout();
             this.splitContainerEx.Panel1.ResumeLayout(false);
-            this.splitContainerEx.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).EndInit();
             this.splitContainerEx.ResumeLayout(false);
             this.selectToolStrip.ResumeLayout(false);
@@ -745,6 +899,9 @@ namespace BazisGUI
             this.displayToolStrip.PerformLayout();
             this.viewToolStrip.ResumeLayout(false);
             this.viewToolStrip.PerformLayout();
+            this.condsMenuStrip.ResumeLayout(false);
+            this.tasksMenuStrip.ResumeLayout(false);
+            this.resultsMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -785,7 +942,26 @@ namespace BazisGUI
         private System.Windows.Forms.ToolStripButton btnClipPlane;
         public UserControlsEx.SplitContainerEx splitContainerEx;
         protected BasePage basePage;
-        private BaseModule.Results.Animation.PinnedAnimationControl pinnedAnimationControl;
+        private System.Windows.Forms.ContextMenuStrip condsMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem diagram_gantt_toolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem добавитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem материалToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem закреплениеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem нагрузкаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem нагревToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem средаToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip tasksMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem низкийToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem среднийToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem высокийToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сформироватьИнструкцииToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem запуститьРасчетToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem остановитьРасчетToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip resultsMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem скрытьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         //private BasePage basePage;
     }
 }

@@ -13,7 +13,7 @@ using Project.Tasks.FrameCreators;
 
 namespace BazisGUI
 {
-    public partial class WeldingPage : TaskPage
+    public partial class WeldingPage : ToolStripPage
     {
         public WeldingPage() : base()
         {

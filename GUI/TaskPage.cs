@@ -42,7 +42,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace BazisGUI
 {
     public enum Priority : int { Низкий, НижеСреднего, Средний, ВышеСреднего, Высокий };
-    public partial class TaskPage: ToolStripPage
+    public partial class ToolStripPage
     {
         public Priority Priority { get; private set; }
         public ProcessType ProcessType{ get; set; }
@@ -51,7 +51,7 @@ namespace BazisGUI
         PreProc.PreProc preProc = new PreProc.PreProc();
 
         public event Action<object> NeedSaveProjectEvent;
-        public event Action<object,TreeNode> SelectPhysicalDataEvent;
+        public event Action<object,string> SelectPhysicalDataEvent;
         public event Action<object, AddDataEventArgs> CreatePhysicalDataEvent;
         public event Action<object> DeleteAllPhysicalDataEvent;
         public event Action<object> ShowGantChartEvent;
@@ -61,26 +61,6 @@ namespace BazisGUI
         public event Action<object, EventArgs> StopComputationEvent;
         public event Action<object> GenerateTCFEvent;
         public event Action<object, string> EditTSFEvent;
-        public TaskPage()
-        {
-            InitializeComponent();
-            BasePage.NavigatorControl.TrySearchNodes(NodeType.условия, out List<TreeNode> conds);
-
-            conds[0].ContextMenuStrip = taskMenuStrip;
-
-            BasePage.NavigatorControl.TrySearchNodes(NodeType.задачи, out List<TreeNode> tasks);
-            tasks[0].ContextMenuStrip = compMenuStrip;
-
-            selectToolStrip.Location = new Point(3, 0);
-
-            instrumentalToolStrip.Location = new Point(selectToolStrip.Size.Width + 4, 0);
-            BasePage.SelectPhysicalDataEvent += basePage_SelectPhysicalData;
-        }
-
-        private void basePage_SelectPhysicalData(TreeNode arg1)
-        {
-            SelectPhysicalDataEvent?.Invoke(this, arg1);
-        }
 
         public void OpenFunctionsDB(IGeneralData generalData)
         {
@@ -746,7 +726,7 @@ namespace BazisGUI
         {
             if (processType == "ТО")
             {
-                var mainItem = taskMenuStrip.Items["добавитьToolStripMenuItem"] as ToolStripMenuItem;
+                var mainItem = condsMenuStrip.Items["добавитьToolStripMenuItem"] as ToolStripMenuItem;
                 if (mainItem != null)
                 {
                     var subItem = mainItem.DropDownItems["нагревToolStripMenuItem"];
@@ -835,36 +815,6 @@ namespace BazisGUI
             BasePage.ConsoleControl.PrintInfo($"Сформирован командный файл {cmdFile}", Color.Green);
 
             StartComputation(generalData);
-        }
-
-        private void сформироватьИнструкцииToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            GenerateTSFEvent?.Invoke(this);
-        }
-
-        private void низкийToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Priority = Priority.Низкий;
-        }
-
-        private void среднийToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Priority = Priority.Средний;
-        }
-
-        private void высокийToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Priority = Priority.Высокий;
-        }
-
-        private void остановитьРасчетToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            StopComputation();
-        }
-
-        private void запуститьРасчетToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            GenerateTCFEvent?.Invoke(this);
-        }
+        }       
     }
 }
