@@ -153,7 +153,6 @@ namespace BazisGUI
             this.navigator.Size = new System.Drawing.Size(306, 373);
             this.navigator.TabIndex = 0;
             this.navigator.UpColor = System.Drawing.Color.Gainsboro;
-            this.navigator.RenameGroupEvent += new System.Action<string, string>(this.navigator_RenameGroup);
             this.navigator.DelGroupEvent += new System.Action<int>(this.navigator_DelGroupEvent);
             this.navigator.DelAllGroupsEvent += new System.Action(this.navigator_DelAllGroupsEvent);
             this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
@@ -176,9 +175,10 @@ namespace BazisGUI
             this.navigator.SelectCondEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectCondEvent);
             this.navigator.SelectTaskEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectTaskEvent);
             this.navigator.SelectGeneralInfoEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectGeneralInfoEvent);
+            this.navigator.SelectTimeEvent += new System.Action<string, double>(this.navigator_SelectTimeEvent);
             this.navigator.ControlCollapseEvent += new System.Action(this.navigator_NavigatorPanelCollapseEvent);
-            this.navigator.GetObjectsInfoEvent += new System.Action<string, string>(this.navigator_GetObjectsInfoEvent);
-            this.navigator.GetSetsInfoEvent += new System.Action<string>(this.navigator_GetSetsInfoEvent);
+            this.navigator.GetObjectsInfoEvent += new System.Action<NodeType, string>(this.navigator_GetObjectsInfoEvent);
+            this.navigator.GetSetsInfoEvent += new System.Action<NodeType>(this.navigator_GetSetsInfoEvent);
             this.navigator.GetResultInfoEvent += new System.Action<string>(this.navigator_GetResultInfoEvent);
             // 
             // propertiesPanelControl1

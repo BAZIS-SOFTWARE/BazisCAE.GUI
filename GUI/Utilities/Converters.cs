@@ -87,13 +87,27 @@ namespace BazisGUI.Utilities
         {
             switch (navNodeName)
             {
-                case NodeType.Точки: return ObjType.Точка;
-                case NodeType.Кривые: return ObjType.Кривая;
-                case NodeType.Поверхности: return ObjType.Поверхность;
-                case NodeType.Объемы: return ObjType.Объем;
-                case NodeType.Узлы: return ObjType.Узел;
-                case NodeType.Элементы1D: return ObjType.Элемент1D;
-                case NodeType.Элементы2D: return ObjType.Элемент2D;
+                case NodeType.Точки:
+                case NodeType.Точка: 
+                    return ObjType.Точка;
+                case NodeType.Кривые:
+                case NodeType.Кривая:
+                    return ObjType.Кривая;
+                case NodeType.Поверхности:
+                case NodeType.Поверхность:
+                    return ObjType.Поверхность;
+                case NodeType.Объемы:
+                case NodeType.Объем:
+                    return ObjType.Объем;
+                case NodeType.Узлы:
+                case NodeType.Узел:
+                    return ObjType.Узел;
+                case NodeType.Элементы1D:
+                case NodeType.Элемент1D:
+                    return ObjType.Элемент1D;
+                case NodeType.Элементы2D:
+                case NodeType.Элемент2D:
+                    return ObjType.Элемент2D;
                 default: return ObjType.Элемент3D;
             }
         }

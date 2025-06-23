@@ -1,27 +1,21 @@
-﻿using BaseModule.GanttChart;
-using BaseModule.Mesh;
+﻿using BaseModule.Extensions;
+using BaseModule.GanttChart;
 using BaseModule.Navigator;
 using BaseModule.Tasks.BasicAdvisorControls.Events;
 using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
 using BaseModule.Tasks.TasksFromNavigator;
 using BaseModule.Utilities;
-using BazisGUI.Extensions;
 using BazisGUI.TasksControls;
 using BazisGUI.Utilities;
 using Geometry;
-using Model;
 using Model.Interfaces;
-using ModelControllerInterfaces;
 using Newtonsoft.Json;
 using PreProc;
 using PreProc.Interfaces;
-using Project;
 using Project.Interfaces;
 using Project.Interfaces.Tasks;
 using Project.TaskParameters;
-using Project.Tasks;
 using Project.Tasks.FrameCreators;
-using Project.Tasks.Functions;
 using Project.Tasks.Functions.Welding;
 using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
@@ -33,11 +27,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TaskModule.BasicTaskAdvisor;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
@@ -638,7 +629,7 @@ namespace BazisGUI
                 }
                 else
                 {
-                    var newData = project.TaskData.Create(arg2.DataName.ToDataKind(), arg2.DataInfo, project.ModelData.GroupData);
+                    var newData = project.TaskData.Create(arg2.DataName.ToEnum<DataKind>(), arg2.DataInfo, project.ModelData.GroupData);
                     project.TaskData.Add(newData);
                 }
 
@@ -664,19 +655,19 @@ namespace BazisGUI
             dataAr[lrfInd] = "X";
             dataAr[lrfInd] = rVec._x.ToString();
 
-            var x_data = project.TaskData.Create(dataName.ToDataKind(), string.Join(" ", dataAr), project.ModelData.GroupData);
+            var x_data = project.TaskData.Create(dataName.ToEnum<DataKind>(), string.Join(" ", dataAr), project.ModelData.GroupData);
             project.TaskData.Add(x_data);
 
             dataAr[lrfInd] = "Y";
             dataAr[lrfInd] = rVec._y.ToString();
 
-            var y_data = project.TaskData.Create(dataName.ToDataKind(), string.Join(" ", dataAr), project.ModelData.GroupData);
+            var y_data = project.TaskData.Create(dataName.ToEnum<DataKind>(), string.Join(" ", dataAr), project.ModelData.GroupData);
             project.TaskData.Add(y_data);
 
             dataAr[lrfInd] = "Z";
             dataAr[lrfInd] = rVec._z.ToString();
 
-            var z_data = project.TaskData.Create(dataName.ToDataKind(), string.Join(" ", dataAr), project.ModelData.GroupData);
+            var z_data = project.TaskData.Create(dataName.ToEnum<DataKind>(), string.Join(" ", dataAr), project.ModelData.GroupData);
             project.TaskData.Add(z_data);
         }
 

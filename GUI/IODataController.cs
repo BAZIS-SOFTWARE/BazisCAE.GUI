@@ -12,6 +12,7 @@ using Project.IO;
 using Project.Tasks;
 using System;
 using System.IO;
+using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -230,7 +231,10 @@ namespace BazisGUI
             else if (ext == ".dat")
                 project.ModelData.Loader = new LoadModelFromSalomeFile();
             else if (ext == ".STL" | ext == ".stl")
+            {
                 project.ModelData.Loader = new LoadFromSTLFile();
+            }    
+
             else
                 project.ModelData.Loader = new LoadModelFromCDBTextFile();
 
@@ -324,7 +328,7 @@ namespace BazisGUI
                 project.ModelData.Saver = new SaveModelToBPF2TextFile();
             }
                 
-            project.ResultDB = string.Empty;
+            project.GeneralData.ResultDB = string.Empty;
 
             project.Loader = new LoadProjectFromTextFormat();
             project.Saver = new SaveProjectTextFormat();

@@ -2,34 +2,25 @@
 using BaseModule.Console.Events;
 using BaseModule.Navigator;
 using BaseModule.Utilities;
-using BazisGUI.Extensions;
 using BazisGUI.PropertiesPanel;
 using BazisGUI.Utilities;
 using Geometry;
-using Model;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
 using Model.Interfaces.ObjectsCollections;
-using Model.MeshObjects;
-using ModelControllerInterfaces;
 using Project.Interfaces;
-using Scene;
 using Scene.Events;
 using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.Odbc;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using UserControlsEx;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
@@ -98,8 +89,8 @@ namespace BazisGUI
         public event Action<object, int> ShowGroupWithNodesEvent;
         public event Action<object> DelAllObjectsEvent;
         public event Action<object> UpdateNavigatorEvent;
-        public event Action<object,string,string> GetObjectsInfoEvent;
-        public event Action<object, string> GetSetsInfoEvent;
+        public event Action<object, NodeType, string> GetObjectsInfoEvent;
+        public event Action<object, NodeType> GetSetsInfoEvent;
         public event Action<object, string> GetResultsInfoEvent;
         //IModelController ModelController { get { return scenePage.GetModelController(); } }
 
@@ -526,28 +517,7 @@ namespace BazisGUI
             //{
             //    Invoke(new Action(() => { consoleControl.PrintInfo(ex.Message, Color.Red); }));
             //}
-        }
-
-        private void navigator_DelGroupEvent(int grIndex)
-        {
-            DeleteGroupEvent?.Invoke(this, grIndex);
-        }
-
-        private void navigator_DelAllGroupsEvent()
-        {           
-            DeleteAllGroupsEvent?.Invoke(this);
-        }
-
-        private void navigator_DelSetEvent(NodeType nodeType, string setName)
-        {
-            var objType = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);         
-            DeleteSetEvent?.Invoke(this,objType, setName);
-        }
-
-        private void navigator_EditGroupEvent(int obj)
-        {
-            EditGroupEvent?.Invoke(this, obj);
-        }
+        }      
 
         public async Task EditGroupAsync(IGroup group)
         {
@@ -590,78 +560,7 @@ namespace BazisGUI
             await AsyncMethodContainer(actConfirm, actBreak, message);
         }
 
-        private void navigator_HideAllGroupsEvent()
-        {
-            ChangeAllGroupsViewEvent?.Invoke(this,false);
-        }
-
-        private void navigator_HideAllObjectsEvent()
-        {
-            ChangeAllObjsViewStateEvent?.Invoke(this,false);
-        }
-
-        private void navigator_ShowGroupEvent(int obj)
-        {
-            ChangeGroupViewEvent?.Invoke(this, obj, true);
-        }
-
-        private void navigator_HideGroupEvent(int obj)
-        {
-            ChangeGroupViewEvent?.Invoke(this, obj, false);
-        }
-
-        private void navigator_HideSetEvent(NodeType nodeType, string setName)
-        {
-            try
-            {
-                var objType = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
-                ChangeSetViewStateEvent?.Invoke(this, objType, setName, false);
-
-            }
-            catch (Exception ex)
-            {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
-            }
-        }
-
-        private void navigator_ShowAllObjectsEvent()
-        {
-            ChangeAllObjsViewStateEvent?.Invoke(this, true);
-        }
-
-        private void navigator_ShowSetEvent(NodeType nodeType, string setName)
-        {
-            try
-            {
-                var objType = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
-                ChangeSetViewStateEvent?.Invoke(this, objType, setName, true);
-
-            }
-            catch (Exception ex)
-            {
-                ConsoleControl.PrintInfo(ex.Message, Color.Red);
-            }
-        }
-
-        private void navigator_InfoGroupEvent(int obj)
-        {
-            InfoGroupEvent?.Invoke(this, obj);
-        }
-
-        private void navigator_RenameGroup(string newName, string oldName)
-        {
-            ChangedGroupNameEvent?.Invoke(this, oldName, newName);
-        }
-
-        private void navigator_ShowAllGroupsEvent()
-        {
-            ChangeAllGroupsViewEvent?.Invoke(this, true);
-        }
-
-        private void navigator_ChangeSetViewEventHandler(string objs, ViewRegime viewRegime)
-        {
-            
-        }
+        
 
         public void ChangeViewMode(IModelData modelData, ObjType objType, ViewRegime viewRegime)
         {
@@ -688,10 +587,7 @@ namespace BazisGUI
             scenePage.SceneControl.DisplayObjects();
         }
 
-        private void navigator_ShowGroupWithNodesEvent(int obj)
-        {
-            ShowGroupWithNodesEvent?.Invoke(this, obj);      
-        }
+
 
         public void ShowGroupWithNodes(IModelData modelData, int groupInd)
         {
@@ -723,30 +619,7 @@ namespace BazisGUI
             SceneInitialization();
         }
 
-        private void scenePage_SceneInfoEvent(object arg1, string arg2, Color arg3)
-        {
-            consoleControl.PrintInfo(arg2, arg3);
-        }
-
-        private void scenePage_ShowAllObjectsEvent(object obj)
-        {
-            ChangeAllObjsViewStateEvent?.Invoke(this, true);
-        }
-
-        private void scenePage_SelectionDeletedEvent(object obj)
-        {
-            DeleteSelectedObjectsEvent?.Invoke(this);
-        }
-
-        public virtual void scenePage_CreateMeshGroupEvent(object sender)
-        {
-            CreatedMeshGroupEvent?.Invoke(this);
-        }
-
-        private void navigator_NavigatorPanelCollapseEvent()
-        {
-            splitContainer1.Panel1Collapsed = true;
-        }
+     
 
         private void consoleControl_ConsolePanelCollapseEvent()
         {
@@ -758,17 +631,7 @@ namespace BazisGUI
             FindFreeNodesEvent?.Invoke(this);
         }
 
-        private void scenePage_SceneExpandEvent()
-        {
-            splitContainer1.Panel1Collapsed = true;
-            splitContainer2.Panel2Collapsed = true;
-        }
 
-        private void scenePage_SceneFoldEvent()
-        {
-            splitContainer1.Panel1Collapsed = false;
-            splitContainer2.Panel2Collapsed = false;
-        }
 
         private void ConsoleControl_RenumberMeshEvent(object arg1, ModelRenumberEventArgs arg2)
         {
@@ -804,10 +667,7 @@ namespace BazisGUI
             //ScenePage.SceneControl.DisplayObjects();
         }
 
-        private void navigator_DelAllObjectsEvent()
-        {
-            DelAllObjectsEvent?.Invoke(this);
-        }
+
 
  
         private void PropertiesPanelControl1_OnPropertyUpdate(BaseModule.PropertiesPanel.PropertyChangedEventArgs obj)
@@ -815,68 +675,6 @@ namespace BazisGUI
             panelProvider.UpdateObjectValue(obj.Header, obj.NewValue.ToString(), obj.OldValue.ToString());
         }
 
-        private void scenePage_SetBackColorToAllObjectsEvent(object obj)
-        {
-            SetBackColorToAllObjectsEvent?.Invoke(this);
-        }
-
-        private void scenePage_HideSelectedObjects(object obj)
-        {
-            HideSelectedObjectsEvent?.Invoke(this);
-        }
-
-        private void scenePage_SelectObjectsEvent(object arg1, SelectObjectsEventArgs arg2)
-        {
-            SelectObjectsEvent?.Invoke(this, arg2);
-        }
-
-        private void navigator_GetObjectsInfoEvent(string obj,string set)
-        {
-            GetObjectsInfoEvent?.Invoke(this, obj,set);
-        }
-
-        private void navigator_GetSetsInfoEvent(string obj)
-        {
-            GetSetsInfoEvent?.Invoke(this, obj);
-        }
-
-        private void navigator_GetResultInfoEvent(string obj)
-        {
-            GetResultsInfoEvent?.Invoke(this, obj);
-        }
-
-        private void navigator_SelectCondEvent(NodeType arg1, string arg2)
-        {
-            SelectPhysicalDataEvent?.Invoke(arg2);
-        }
-
-        private void navigator_SelectGeneralInfoEvent(NodeType arg1, string arg2)
-        {
-            // TO DO
-        }
-
-        private void navigator_SelectGroupEvent(NodeType arg1, string arg2)
-        {
-            var grName = arg2.Split(' ')[0];
-            SelectGroupEvent?.Invoke(this, grName);
-        }
-
-        private void navigator_SelectObjectEvent(NodeType arg1, string arg2)
-        {
-            // TO DO
-        }
-
-        private void navigator_SelectSetEvent(NodeType arg1, string arg2)
-        {
-            var setName = arg2.Split(' ')[0]; // Деление по пробелу перед :
-  
-            var type = Converters.ConvertNavigatorNodeTypeToObjType(arg1);
-            SelectSetEvent?.Invoke(this, type, setName);
-        }
-
-        private void navigator_SelectTaskEvent(NodeType arg1, string arg2)
-        {
-            // TO DO
-        }
+   
     }
 }

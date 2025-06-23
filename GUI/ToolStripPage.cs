@@ -1,7 +1,7 @@
 ﻿using BaseModule;
+using BaseModule.Extensions;
 using BaseModule.Navigator;
 using BaseModule.SceenControls;
-using BazisGUI.Extensions;
 using BazisGUI.Utilities;
 using Geometry;
 using Model.Interfaces;
@@ -59,8 +59,8 @@ namespace BazisGUI
         public event Action<object> DelAllObjectsEvent;
         public event Action<object, ObjType, string> SelectSetEvent;
         public event Action<object> UpdateNavigatorEvent;
-        public event Action<object,string,string> GetObjectsInfoEvent;
-        public event Action<object, string> GetSetsInfoEvent;
+        public event Action<object, NodeType, string> GetObjectsInfoEvent;
+        public event Action<object, NodeType> GetSetsInfoEvent;
         public event Action<object, string> GetResultsInfoEvent;
         //public event Action<object, TreeNode> SelectPhysicalDataEvent;
 
@@ -307,7 +307,7 @@ namespace BazisGUI
             try
             {
                 var objsType = Converters.ConvertToObjsType(arg2.Objects);
-                if (objsType == spbSelectObject.ToolTipText.ToObjType())
+                if (objsType == spbSelectObject.ToolTipText.ToEnum<ObjType>())
                 {
                     if (objsType == ObjType.Узел)
                     {
@@ -335,7 +335,7 @@ namespace BazisGUI
             try
             {
                 var objsType = Converters.ConvertToObjsType(arg2.Objects);
-                if (objsType == spbSelectObject.ToolTipText.ToObjType())
+                if (objsType == spbSelectObject.ToolTipText.ToEnum<ObjType>())
                 {
                     SelectInDirectionEvent?.Invoke(this, objsType,arg2.Angle,arg2.Reverse);
                 }
@@ -942,12 +942,12 @@ namespace BazisGUI
             UpdateNavigatorEvent?.Invoke(this);
         }
 
-        private void basePage_GetObjectsInfoEvent(object arg1, string arg2,string arg3)
+        private void basePage_GetObjectsInfoEvent(object arg1, NodeType arg2,string arg3)
         {
             GetObjectsInfoEvent?.Invoke(this, arg2,arg3);
         }
 
-        private void basePage_GetSetsInfoEvent(object arg1, string arg2)
+        private void basePage_GetSetsInfoEvent(object arg1, NodeType arg2)
         {
             GetSetsInfoEvent?.Invoke(this, arg2);
         }

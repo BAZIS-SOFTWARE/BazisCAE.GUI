@@ -1,4 +1,5 @@
 ﻿using BaseModule;
+using BaseModule.Navigator;
 
 namespace BazisGUI
 {
@@ -34,6 +35,7 @@ namespace BazisGUI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolStripPage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.splitContainerEx = new UserControlsEx.SplitContainerEx();
+            this.basePage = new BazisGUI.BasePage();
             this.selectToolStrip = new UserControlsEx.ToolStripEx();
             this.spbSelectObject = new System.Windows.Forms.ToolStripSplitButton();
             this.btnSelectNodes = new System.Windows.Forms.ToolStripButton();
@@ -85,7 +87,6 @@ namespace BazisGUI
             this.resultsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.скрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.basePage = new BazisGUI.BasePage();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
@@ -144,6 +145,41 @@ namespace BazisGUI
             this.splitContainerEx.SplitterDistance = 621;
             this.splitContainerEx.SwitchShifting = false;
             this.splitContainerEx.TabIndex = 3;
+            // 
+            // basePage
+            // 
+            this.basePage.BackColor = System.Drawing.SystemColors.Control;
+            this.basePage.Location = new System.Drawing.Point(0, 0);
+            this.basePage.Margin = new System.Windows.Forms.Padding(0);
+            this.basePage.Name = "basePage";
+            this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.basePage.PressedKey = System.Windows.Forms.Keys.None;
+            this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
+            this.basePage.Size = new System.Drawing.Size(666, 380);
+            this.basePage.SplitterWidthEx = 10;
+            this.basePage.TabIndex = 0;
+            this.basePage.DeleteGroupEvent += new System.Action<object, int>(this.basePage_DeleteGroupEvent);
+            this.basePage.DeleteAllGroupsEvent += new System.Action<object>(this.basePage_DeleteAllGroupsEvent);
+            this.basePage.DeleteSetEvent += new System.Action<object, Model.Interfaces.ObjType, string>(this.basePage_DeleteObjectsEvent);
+            this.basePage.ChangeAllGroupsViewEvent += new System.Action<object, bool>(this.basePage_ChangeAllGroupsViewEvent);
+            this.basePage.ChangeGroupViewEvent += new System.Action<object, int, bool>(this.basePage_ChangeGroupViewEvent);
+            this.basePage.SelectSetEvent += new System.Action<object, Model.Interfaces.ObjType, string>(this.basePage_SelectSetEvent);
+            this.basePage.SelectGroupEvent += new System.Action<object, string>(this.basePage_SelectGroupEvent);
+            this.basePage.SelectObjectsEvent += new System.Action<object, Scene.Events.SelectObjectsEventArgs>(this.basePage_SelectObjectsEvent);
+            this.basePage.DeleteSelectedObjectsEvent += new System.Action<object>(this.basePage_DeleteSelectedObjectsEvent);
+            this.basePage.ChangeAllObjsViewStateEvent += new System.Action<object, bool>(this.basePage_ChangeAllObjsViewStateEvent);
+            this.basePage.FindFreeNodesEvent += new System.Action<object>(this.basePage_FindFreeNodesEvent);
+            this.basePage.ChangeSetViewStateEvent += new System.Action<object, Model.Interfaces.ObjType, string, bool>(this.basePage_ChangeSetViewStateEvent);
+            this.basePage.EditGroupEvent += new System.Action<object, int>(this.basePage_EditGroupEvent);
+            this.basePage.SetBackColorToAllObjectsEvent += new System.Action<object>(this.basePage_SetBackColorToAllObjectsEvent);
+            this.basePage.HideSelectedObjectsEvent += new System.Action<object>(this.basePage_HideSelectedObjectsEvent);
+            this.basePage.InfoGroupEvent += new System.Action<object, int>(this.basePage_InfoGroupEvent);
+            this.basePage.ShowGroupWithNodesEvent += new System.Action<object, int>(this.basePage_ShowGroupWithNodesEvent);
+            this.basePage.DelAllObjectsEvent += new System.Action<object>(this.basePage_DelAllObjectsEvent);
+            this.basePage.UpdateNavigatorEvent += new System.Action<object>(this.basePage_UpdateNavigatorEvent);
+            this.basePage.GetObjectsInfoEvent += new System.Action<object, BaseModule.Navigator.NodeType, string>(this.basePage_GetObjectsInfoEvent);
+            this.basePage.GetSetsInfoEvent += new System.Action<object, BaseModule.Navigator.NodeType>(this.basePage_GetSetsInfoEvent);
+            this.basePage.GetResultsInfoEvent += new System.Action<object, string>(this.basePage_GetResultsInfoEvent);
             // 
             // selectToolStrip
             // 
@@ -838,42 +874,6 @@ namespace BazisGUI
             this.toolStripMenuItem1.Size = new System.Drawing.Size(118, 22);
             this.toolStripMenuItem1.Text = "Удалить";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.удалитьРезультатыToolStripMenuItem_Click);
-            // 
-            // basePage
-            // 
-            this.basePage.BackColor = System.Drawing.SystemColors.Control;
-            this.basePage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.basePage.Location = new System.Drawing.Point(0, 0);
-            this.basePage.Margin = new System.Windows.Forms.Padding(0);
-            this.basePage.Name = "basePage";
-            this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
-            this.basePage.PressedKey = System.Windows.Forms.Keys.None;
-            this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
-            this.basePage.Size = new System.Drawing.Size(977, 556);
-            this.basePage.SplitterWidthEx = 10;
-            this.basePage.TabIndex = 0;
-            this.basePage.DeleteGroupEvent += new System.Action<object, int>(this.basePage_DeleteGroupEvent);
-            this.basePage.DeleteAllGroupsEvent += new System.Action<object>(this.basePage_DeleteAllGroupsEvent);
-            this.basePage.DeleteSetEvent += new System.Action<object, Model.Interfaces.ObjType, string>(this.basePage_DeleteObjectsEvent);
-            this.basePage.ChangeAllGroupsViewEvent += new System.Action<object, bool>(this.basePage_ChangeAllGroupsViewEvent);
-            this.basePage.ChangeGroupViewEvent += new System.Action<object, int, bool>(this.basePage_ChangeGroupViewEvent);
-            this.basePage.SelectSetEvent += new System.Action<object, Model.Interfaces.ObjType, string>(this.basePage_SelectSetEvent);
-            this.basePage.SelectGroupEvent += new System.Action<object, string>(this.basePage_SelectGroupEvent);
-            this.basePage.SelectObjectsEvent += new System.Action<object, Scene.Events.SelectObjectsEventArgs>(this.basePage_SelectObjectsEvent);
-            this.basePage.DeleteSelectedObjectsEvent += new System.Action<object>(this.basePage_DeleteSelectedObjectsEvent);
-            this.basePage.ChangeAllObjsViewStateEvent += new System.Action<object, bool>(this.basePage_ChangeAllObjsViewStateEvent);
-            this.basePage.FindFreeNodesEvent += new System.Action<object>(this.basePage_FindFreeNodesEvent);
-            this.basePage.ChangeSetViewStateEvent += new System.Action<object, Model.Interfaces.ObjType, string, bool>(this.basePage_ChangeSetViewStateEvent);
-            this.basePage.EditGroupEvent += new System.Action<object, int>(this.basePage_EditGroupEvent);
-            this.basePage.SetBackColorToAllObjectsEvent += new System.Action<object>(this.basePage_SetBackColorToAllObjectsEvent);
-            this.basePage.HideSelectedObjectsEvent += new System.Action<object>(this.basePage_HideSelectedObjectsEvent);
-            this.basePage.InfoGroupEvent += new System.Action<object, int>(this.basePage_InfoGroupEvent);
-            this.basePage.ShowGroupWithNodesEvent += new System.Action<object, int>(this.basePage_ShowGroupWithNodesEvent);
-            this.basePage.DelAllObjectsEvent += new System.Action<object>(this.basePage_DelAllObjectsEvent);
-            this.basePage.UpdateNavigatorEvent += new System.Action<object>(this.basePage_UpdateNavigatorEvent);
-            this.basePage.GetObjectsInfoEvent += new System.Action<object, string, string>(this.basePage_GetObjectsInfoEvent);
-            this.basePage.GetSetsInfoEvent += new System.Action<object, string>(this.basePage_GetSetsInfoEvent);
-            this.basePage.GetResultsInfoEvent += new System.Action<object, string>(this.basePage_GetResultsInfoEvent);
             // 
             // ToolStripPage
             // 

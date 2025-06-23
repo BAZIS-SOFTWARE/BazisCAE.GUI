@@ -1,11 +1,7 @@
-﻿using BaseModule.Console;
-using BaseModule.Navigator;
+﻿using BaseModule.Navigator;
 using BaseModule.Results.Animation;
-using BaseModule.Results.ScaleControl;
 using BaseModule.SceenControls;
 using BaseModule.Tasks.BasicAdvisorControls.Events;
-using BaseModule.Tasks.WeldingModule;
-using BazisGUI.Extensions;
 using BazisGUI.Properties;
 using BazisGUI.SettingsControls;
 using BazisGUI.Utilities;
@@ -14,25 +10,17 @@ using ClientLogic;
 using Geometry;
 using LicenseInfo;
 using MathNet.Numerics.LinearAlgebra;
-using Model;
 using Model.GeometryObjects;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
 using Model.Interfaces.ObjectsCollections;
 using Model.MeshObjects;
 using ModelController.GmshController;
-using ModelController.ModelScenePresentator;
-using ModelControllerInterfaces;
 using Newtonsoft.Json;
-using PostProc;
-using PreProc.Interfaces;
 using Project;
 using Project.Results;
-using Project.Tasks.Functions;
-using Project.Tasks;
 using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
-using Scene;
 using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -43,24 +31,11 @@ using System.Linq;
 using System.Net;
 using System.Numerics;
 using System.Reflection;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using UserControlsEx;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Project.Interfaces.Tasks;
-using BaseModule.Tasks.BasicAdvisorControls.TaskPlannerControls;
-using System.Threading.Tasks;
-using Model.GroupsData;
-using Project.Tasks.FrameCreators;
-using System.Runtime.InteropServices.ComTypes;
-using System.ComponentModel.DataAnnotations;
-using GmshApi;
-using PreProc;
-using Project.Interfaces;
-using System.Text.RegularExpressions;
-using System.Globalization;
+using BaseModule.Extensions;
 
 
 namespace BazisGUI
@@ -149,7 +124,7 @@ namespace BazisGUI
                     if(project == null)
                         throw new Exception($"Для загрузки результатов требуется сперва загрузить проект");
 
-                    project.ResultDB = fullPath;
+                    project.GeneralData.ResultDB = fullPath;
                 }
                 if (args.Contains("-cad"))
                 {
@@ -368,7 +343,7 @@ namespace BazisGUI
 
             resultsMenuItem.Visible = true;
 
-            page.PresentResultsInfo(project.ResultDB);
+            page.PresentResultsInfo(project.GeneralData.ResultDB);
             page.RemoveResultsEvent += (object arg) => { page.RemoveResults(project.ModelData); };
             page.HideResultsEvent += (object arg) => { page.HideResults(project.ModelData); };
             page.ShowResultsEvent += (object arg1, Result arg2, int arg3) =>
@@ -441,11 +416,11 @@ namespace BazisGUI
             tn.Nodes.AddRange(childs);
         }
 
-        private void Page_GetSetsInfoEvent(object arg1, string arg2)
+        private void Page_GetSetsInfoEvent(object arg1, NodeType arg2)
         {
             var page = arg1 as ToolStripPage;
 
-            var objType = Converters.ConvertNavigatorNodeTypeToObjType(arg2.ToNodeType());
+            var objType = Converters.ConvertNavigatorNodeTypeToObjType(arg2);
             var info = project.ModelData.ObjectData.GetSetsInfo(objType);
 
 
@@ -465,18 +440,17 @@ namespace BazisGUI
             }
         }
 
-        private void Page_GetObjectsInfoEvent(object arg1, string objsTypeStr,string setName)
+        private void Page_GetObjectsInfoEvent(object arg1, NodeType nodeType, string setName)
         {
             var page = arg1 as ToolStripPage;
-           
-            var objType = objsTypeStr.ToObjType();
+            var objType = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
             var setInfo = project.ModelData.ObjectData.GetSetsInfo(objType).Where(x => x.Name == setName).First();
 
 
-            if (page.BasePage.NavigatorControl.TrySearchNodes(objsTypeStr, out List<TreeNode> nodes))
+            if (page.BasePage.NavigatorControl.TrySearchNodes(nodeType, out List<TreeNode> nodes))
             {
                 var root = nodes.First(x => x.Text.Split(' ')[0] == setName);
-                var childs = page.BasePage.NavigatorControl.CreateRealNodes(objsTypeStr, setInfo.GetObjectsInfo());
+                var childs = page.BasePage.NavigatorControl.CreateRealNodes(nodeType.ToString(), setInfo.GetObjectsInfo());
                 root.Nodes.AddRange(childs);
             }
         }
@@ -687,7 +661,7 @@ namespace BazisGUI
                 item.ExistState = false;
 
             project.ModelData.ObjectData.ClearNotExisted();
-            project.ModelData.ObjectData.ClearEmpty();
+            project.ModelData.ObjectData.ClearEmptySet();
             project.ModelData.GroupData.ClearNotExisted();
             project.TaskData.ClearNotExisted(project.ModelData.GroupData);
 
@@ -712,7 +686,7 @@ namespace BazisGUI
 
             if (selObjs.Count() > 0)
             {
-                var objType = objTypeStr.ToObjType();
+                var objType = objTypeStr.ToEnum<ObjType>();
                 var grps = project.ModelData.GroupData.FindMany(objType);
 
                 var counter = 1;
@@ -1043,7 +1017,7 @@ namespace BazisGUI
         {
             var page = arg1 as ToolStripPage;
 
-            var objs = project.ModelData.ObjectData.GetObjects(arg2.ToObjType());
+            var objs = project.ModelData.ObjectData.GetObjects(arg2.ToEnum<ObjType>());
             var selObjs = objs.Where(x => x.Color == page.BasePage.ScenePage.SceneControl.SelectionColor);
 
             var vol = 0.0f;
@@ -1059,7 +1033,7 @@ namespace BazisGUI
         {
             var page = arg1 as ToolStripPage;
 
-            var objs = project.ModelData.ObjectData.GetObjects(arg2.ToObjType());
+            var objs = project.ModelData.ObjectData.GetObjects(arg2.ToEnum<ObjType>());
 
             var selObjs = objs.Where(x => x.Color == page.BasePage.ScenePage.SceneControl.SelectionColor);
             var square = 0.0;
@@ -1082,7 +1056,7 @@ namespace BazisGUI
             var page = arg1 as ToolStripPage;
             var scenePage = page.BasePage.ScenePage;
 
-            var objType = arg2.ToObjType();
+            var objType = arg2.ToEnum<ObjType>();
             var plane = page.BasePage.CreateSurfaceAsync(project.ModelData, objType);
             await plane;
 
@@ -1111,7 +1085,7 @@ namespace BazisGUI
             var page = obj as ToolStripPage;
             var scenePage = page.BasePage.ScenePage;
 
-            var objType = objTypeStr.ToObjType();
+            var objType = objTypeStr.ToEnum<ObjType>();
             var objs = project.ModelData.ObjectData.GetObjects(objType);
             var color = page.BasePage.ScenePage.SceneControl.SelectionColor;
             var selObjs = objs.Where(x => x.Color == color).ToList();
@@ -1268,7 +1242,7 @@ namespace BazisGUI
             else
                 project.DeleteMeshSet(arg2, arg3);
 
-            project.ModelData.ObjectData.ClearEmpty();
+            project.ModelData.ObjectData.ClearEmptySet();
 
             page.BasePage.PresentObjectsDataOnTree(project.ModelData.ObjectData);
             page.BasePage.PresentGroupDataOnTree(project.ModelData.GroupData);
@@ -1959,9 +1933,9 @@ namespace BazisGUI
         {
             var fileName = dataController.OpenResults();
 
-            project.ResultDB = fileName;
+            project.GeneralData.ResultDB = fileName;
 
-            ModulePage.PresentResultsInfo(project.ResultDB);
+            ModulePage.PresentResultsInfo(project.GeneralData.ResultDB);
         }
 
         private void showNodeValueMenuItem_Click(object sender, EventArgs e)

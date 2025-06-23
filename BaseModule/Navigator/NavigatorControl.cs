@@ -92,10 +92,6 @@ namespace BaseModule.Navigator
              return treeView.SelectedNode;
         }
 
-        public event Action<string, string> RenameGroupEvent;
-
-
-
         public event Action<TreeNode> AfterSelectEvent;
 
         public event Action<int> DelGroupEvent;
@@ -123,12 +119,10 @@ namespace BaseModule.Navigator
         public event Action<NodeType, string> SelectCondEvent;
         public event Action<NodeType, string> SelectTaskEvent;
         public event Action<NodeType, string> SelectGeneralInfoEvent;
+        public event Action<string, double> SelectTimeEvent;
 
-        public event Action ControlCollapseEvent;
-        public event Action ControlUnpinnedEvent;
-
-        public event Action<string,string> GetObjectsInfoEvent;
-        public event Action<string> GetSetsInfoEvent;
+        public event Action<NodeType, string> GetObjectsInfoEvent;
+        public event Action<NodeType> GetSetsInfoEvent;
         public event Action<string> GetResultInfoEvent;
 
         public NavigatorControl()
@@ -166,14 +160,6 @@ namespace BaseModule.Navigator
         {
             return ImgDict[nodeType];
         }
-
-        //public System.Windows.Forms.TreeView TreeView
-        //{
-        //    get
-        //    {
-        //        return treeView;
-        //    }
-        //}
 
         public TreeNode CreateRealNode(string name, string text)
         {
@@ -362,41 +348,6 @@ namespace BaseModule.Navigator
             e.Node.SelectedImageIndex = ExpandIndex;
         }
 
-        private void treeView_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
-        {
-            if (e.Label == null || e.Label.Contains(" ") == true || e.Label == "")
-                e.CancelEdit = true;
-            else
-            {
-                var parentNode = treeView.SelectedNode.Parent;
-
-                var newName = e.Label;
-                var oldName = e.Node.Text;
-
-                if (parentNode.Name == "группыОбъектов")
-                {
-                    var nodes = treeView.Nodes["группыОбъектов"].Nodes.Cast<TreeNode>().Where(x => x.Text == newName);
-                    if (nodes.Count() > 0)
-                        e.CancelEdit = true;
-                    else
-                    {
-                        RenameGroupEvent?.Invoke(newName, oldName);
-
-                        var dataNodes = treeView.Nodes.Find("Данные", true);
-
-                        if (dataNodes.Count() != 0)
-                            foreach (TreeNode node in dataNodes[0].Nodes)
-                            {
-                                if (node.Text.Contains(oldName))
-                                    node.Text = node.Text.Replace(oldName, newName);
-                            }
-                    }
-                }
-            }
-
-            treeView.LabelEdit = false;
-        }
-
         private void treeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             treeView.SelectedNode = e.Node;
@@ -406,11 +357,6 @@ namespace BaseModule.Navigator
                 if (e.Node.ContextMenuStrip != null)
                     e.Node.ContextMenuStrip.Show(e.Location);
             }
-            //else
-            //{
-                //if (e.Node.Tag?.ToString() == "5.1")
-                    //SelectGroupEvent?.Invoke(e.Node.Text);
-            //}
  
         }
 
@@ -655,8 +601,10 @@ e.Node.Name == NodeType.Поверхности.ToString() |
 e.Node.Name == NodeType.Объемы.ToString()
 )
                     SelectSetEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), e.Node.Text);
+                else if(e.Node.Name == NodeType.Время.ToString())
+                    SelectTimeEvent?.Invoke(e.Node.Parent.Text, double.Parse(e.Node.Text));
             }
-            //GetObjectsInfoEvent?.Invoke(e.Node.Name, e.Node.Text.Split(' ')[0]);
+
             else if (e.Node.Level == 3)
             {
                 if (e.Node.Name == NodeType.Узел.ToString() |
@@ -705,13 +653,13 @@ e.Node.Name == NodeType.Объем.ToString()
     e.Node.Name == NodeType.Поверхности.ToString() |
     e.Node.Name == NodeType.Объемы.ToString()
     )
-                            GetSetsInfoEvent?.Invoke(e.Node.Name);
+                            GetSetsInfoEvent?.Invoke(e.Node.Name.ToEnum<NodeType>());
                         else if (e.Node.Name == NodeType.Результат.ToString())
                             GetResultInfoEvent?.Invoke(e.Node.Text);
                     } 
                     else if(e.Node.Level == 2)
                                                 
-                                GetObjectsInfoEvent?.Invoke(e.Node.Name, e.Node.Text.Split(' ')[0]);
+                                GetObjectsInfoEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), e.Node.Text.Split(' ')[0]);
 
                 }
                 catch
