@@ -92,8 +92,6 @@ namespace BaseModule.Navigator
              return treeView.SelectedNode;
         }
 
-        public event Action<TreeNode> AfterSelectEvent;
-
         public event Action<int> DelGroupEvent;
         public event Action DelAllGroupsEvent;
         public event Action<int> HideGroupEvent;

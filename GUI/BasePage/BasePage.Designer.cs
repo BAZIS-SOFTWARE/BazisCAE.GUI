@@ -39,9 +39,9 @@ namespace BazisGUI
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.splitContainer1 = new UserControlsEx.SplitContainerEx();
             this.splitContainerEx1 = new UserControlsEx.SplitContainerEx();
-            this.splitContainer2 = new UserControlsEx.SplitContainerEx();
             this.navigator = new BaseModule.Navigator.NavigatorControl();
             this.propertiesPanelControl1 = new BaseModule.PropertiesPanel.PropertiesPanelControl();
+            this.splitContainer2 = new UserControlsEx.SplitContainerEx();
             this.scenePage = new BazisGUI.ScenePage();
             this.consoleControl = new BaseModule.Console.ConsoleControl();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -109,29 +109,6 @@ namespace BazisGUI
             this.splitContainerEx1.SwitchShifting = false;
             this.splitContainerEx1.TabIndex = 1;
             // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.IncrementButtonSize = new System.Drawing.Size(50, 11);
-            this.splitContainer2.IncrementShifting = 50;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.scenePage);
-            this.splitContainer2.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
-            this.splitContainer2.Size = new System.Drawing.Size(996, 643);
-            this.splitContainer2.SplitterDistance = 428;
-            this.splitContainer2.SplitterWidth = 6;
-            this.splitContainer2.SwitchShifting = false;
-            this.splitContainer2.TabIndex = 0;
-            // 
             // navigator
             // 
             this.navigator.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -176,10 +153,10 @@ namespace BazisGUI
             this.navigator.SelectTaskEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectTaskEvent);
             this.navigator.SelectGeneralInfoEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectGeneralInfoEvent);
             this.navigator.SelectTimeEvent += new System.Action<string, double>(this.navigator_SelectTimeEvent);
-            this.navigator.ControlCollapseEvent += new System.Action(this.navigator_NavigatorPanelCollapseEvent);
-            this.navigator.GetObjectsInfoEvent += new System.Action<NodeType, string>(this.navigator_GetObjectsInfoEvent);
-            this.navigator.GetSetsInfoEvent += new System.Action<NodeType>(this.navigator_GetSetsInfoEvent);
+            this.navigator.GetObjectsInfoEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_GetObjectsInfoEvent);
+            this.navigator.GetSetsInfoEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_GetSetsInfoEvent);
             this.navigator.GetResultInfoEvent += new System.Action<string>(this.navigator_GetResultInfoEvent);
+            this.navigator.ControlCollapseEvent += new System.Action(this.navigator_NavigatorPanelCollapseEvent);
             // 
             // propertiesPanelControl1
             // 
@@ -196,6 +173,30 @@ namespace BazisGUI
             this.propertiesPanelControl1.Size = new System.Drawing.Size(306, 266);
             this.propertiesPanelControl1.TabIndex = 0;
             this.propertiesPanelControl1.UpColor = System.Drawing.Color.Silver;
+            this.propertiesPanelControl1.OnPropertyUpdate += new System.Action<BaseModule.PropertiesPanel.PropertyChangedEventArgs>(this.PropertiesPanelControl1_OnPropertyUpdate);
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.IncrementButtonSize = new System.Drawing.Size(50, 11);
+            this.splitContainer2.IncrementShifting = 50;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.scenePage);
+            this.splitContainer2.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.consoleControl);
+            this.splitContainer2.Size = new System.Drawing.Size(996, 643);
+            this.splitContainer2.SplitterDistance = 428;
+            this.splitContainer2.SplitterWidth = 6;
+            this.splitContainer2.SwitchShifting = false;
+            this.splitContainer2.TabIndex = 0;
             // 
             // scenePage
             // 

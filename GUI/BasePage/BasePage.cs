@@ -107,7 +107,7 @@ namespace BazisGUI
             panelProvider = new PropertyPanelProvider();
             panelProvider.Out += propertiesPanelControl1.DrawTable;
             propertiesPanelControl1.ValidateValue += panelProvider.ValidationData;
-            propertiesPanelControl1.OnPropertyUpdate += PropertiesPanelControl1_OnPropertyUpdate; 
+            //propertiesPanelControl1.OnPropertyUpdate += PropertiesPanelControl1_OnPropertyUpdate; 
             SplittersController = new SplittersController();
 
             panelProvider.OnUpdateNavigator += PanelProvider_OnUpdateNavigator; ;
@@ -666,15 +666,10 @@ namespace BazisGUI
 
             //ScenePage.SceneControl.DisplayObjects();
         }
-
-
-
  
         private void PropertiesPanelControl1_OnPropertyUpdate(BaseModule.PropertiesPanel.PropertyChangedEventArgs obj)
         {
             panelProvider.UpdateObjectValue(obj.Header, obj.NewValue.ToString(), obj.OldValue.ToString());
-        }
-
-   
+        }        
     }
 }
