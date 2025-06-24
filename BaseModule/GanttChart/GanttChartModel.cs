@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace BaseModule.GanttChart
 {
-    public class GChartModel
+    public class GanttChartModel
     {
         public FormsPlot FormsPlot { get; }
 
@@ -17,7 +17,7 @@ namespace BaseModule.GanttChart
         private System.Drawing.Color[] colors;
         private double maxValue;
 
-        public GChartModel(double minValue, double maxValue, int barMaxCount)
+        public GanttChartModel(double minValue, double maxValue, int barMaxCount)
         {
             FormsPlot = new FormsPlot() { Dock = DockStyle.Fill };
             FormsPlot.UserInputProcessor.RemoveAll<ScottPlot.Interactivity.UserActionResponses.MouseDragZoomRectangle>();

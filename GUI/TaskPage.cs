@@ -1015,27 +1015,27 @@ namespace BazisGUI
 
         private void diagram_gantt_toolStripMenuItem_Click(object sender, EventArgs eventArgs)
         {
-            if (!(sender is ToolStripMenuItem toolStripMenuItem))
-                return;
-            if(toolStripMenuItem.Checked)
-            {
-                ganttDiagramForm.Close();
-                toolStripMenuItem.Checked = false;
-                return;
-            }
-            var tasks = taskData.Select(t => t.ToString());
-            var ganttContol = new GanttChartTreeView(tasks, 10) { Dock = DockStyle.Fill };
-            ganttDiagramForm = new Form
-            {
-                ClientSize = new Size(850, 600),
-                FormBorderStyle = FormBorderStyle.FixedSingle,
-                MaximizeBox = false,
-                MinimizeBox = false
-            };
-            ganttDiagramForm.Controls.Add(ganttContol);
-            ganttDiagramForm.Show(this);
-            toolStripMenuItem.Checked = true;
-            ganttDiagramForm.FormClosed += (s, e) => toolStripMenuItem.Checked = false;
+            //if (!(sender is ToolStripMenuItem toolStripMenuItem))
+            //    return;
+            //if(toolStripMenuItem.Checked)
+            //{
+            //    ganttDiagramForm.Close();
+            //    toolStripMenuItem.Checked = false;
+            //    return;
+            //}
+            //var tasks = taskData.Select(t => t.ToString());
+            //var ganttContol = new GanttChartTreeView(tasks, 10) { Dock = DockStyle.Fill };
+            //ganttDiagramForm = new Form
+            //{
+            //    ClientSize = new Size(850, 600),
+            //    FormBorderStyle = FormBorderStyle.FixedSingle,
+            //    MaximizeBox = false,
+            //    MinimizeBox = false
+            //};
+            //ganttDiagramForm.Controls.Add(ganttContol);
+            //ganttDiagramForm.Show(this);
+            //toolStripMenuItem.Checked = true;
+            //ganttDiagramForm.FormClosed += (s, e) => toolStripMenuItem.Checked = false;
         }
 
         private void ConfigureMenuItemEnabledForModule(Control parent)
