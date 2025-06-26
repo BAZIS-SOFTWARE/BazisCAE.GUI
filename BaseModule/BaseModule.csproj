@@ -137,6 +137,12 @@
     </Compile>
     <Compile Include="Console\FindObjectEventArgs.cs" />
     <Compile Include="Console\ModelRotateEventArgs.cs" />
+    <Compile Include="GanttChart\GanttChartControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GanttChart\GanttChartControl.Designer.cs">
+      <DependentUpon>GanttChartControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="GanttChart\GanttChartModel.cs" />
     <Compile Include="Interfaces\GeneralParams.cs" />
     <Compile Include="Interfaces\IPinnedControl.cs" />
@@ -498,6 +504,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Console\ConsoleControl.resx">
       <DependentUpon>ConsoleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GanttChart\GanttChartControl.resx">
+      <DependentUpon>GanttChartControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mesh\GMSH2DMeshControl.resx">
       <DependentUpon>GMSH2DMeshControl.cs</DependentUpon>

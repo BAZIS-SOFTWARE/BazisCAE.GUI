@@ -7,6 +7,14 @@ using System.Windows.Forms;
 
 namespace BaseModule.GanttChart
 {
+    public static class ListExtension
+    {
+        public static T GetLastByIndex<T>(this IList<T> source, int index)
+        {
+            return source[source.Count - 1 - index];
+        }
+    }
+
     public class GanttChartModel
     {
         public FormsPlot FormsPlot { get; }
