@@ -4,6 +4,7 @@ using BaseModule.Extensions;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using Model.MeshObjects;
+using Project.Interfaces.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,12 +17,50 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        public string SelectedObjects
+        {
+            get { return spbSelectObject.ToolTipText; }
+            set { spbSelectObject.ToolTipText = value; }
+        }
+
+        public void AddObjectsType(string objsType)
+        {
+            if (!spbSelectObject.DropDownItems.ContainsKey(objsType))
+            {
+                var newItem = new ToolStripMenuItem(objsType) { Name = objsType };
+                spbSelectObject.DropDownItems.Add(newItem);
+            }
+
+        }
 
         private void spbSelectObject_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             spbSelectObject.ToolTipText = e.ClickedItem.Text;
-            SetBackColorToAllObjectsEvent?.Invoke(this);
+
+            //ObjType objType;
+            //Enum.TryParse(spbSelectObject.ToolTipText, out objType);
+            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
+            {
+                project.ModelData.ObjectData.SetBackColor(item);
+                var pres = scene.CreateObjectsPresentor(project.ModelData, item);
+                scene.SetObjectsSceneAttribute(pres, item.ToString(), "цвет");
+            }
+
+            scene.SceneControl.DisplayObjects();
         }
+
+        public void PresentModelOnSelectToolStrip(IObjectsData objectsData)
+        {
+            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
+                AddObjectsType(item.ToString());
+
+            AddObjectsType("Объекты");
+            AddObjectsType("Фигуры");
+            AddObjectsType("Элементы");
+
+            spbSelectObject.ToolTipText = "Объекты";
+        }
+
         private void btnSelectObjects_Click(object sender, EventArgs e)
         {
             var btn = sender as ToolStripButton;

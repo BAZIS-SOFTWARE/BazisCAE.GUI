@@ -83,34 +83,6 @@ namespace BazisGUI
 
         SplittersController SplittersController;
 
-        public string SelectedObjects
-        {
-            get { return spbSelectObject.ToolTipText; }
-            set { spbSelectObject.ToolTipText = value; }
-        }
-
-        public void PresentModelOnSelectToolStrip(IObjectsData objectsData)
-        {
-            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
-                AddObjectsType(item.ToString());
-
-            AddObjectsType("Объекты");
-            AddObjectsType("Фигуры");
-            AddObjectsType("Элементы");
-
-            spbSelectObject.ToolTipText = "Объекты";
-        }
-
-        public void AddObjectsType(string objsType)
-        {
-            if (!spbSelectObject.DropDownItems.ContainsKey(objsType))
-            {
-                var newItem = new ToolStripMenuItem(objsType) { Name = objsType };
-                spbSelectObject.DropDownItems.Add(newItem);
-            }
-
-        }
-
         private void PanelProvider_OnUpdateNavigator()
         {
             UpdateNavigatorEvent?.Invoke(this);
