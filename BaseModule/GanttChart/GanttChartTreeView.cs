@@ -18,7 +18,6 @@ namespace BaseModule.GanttChart
     {
         private GChartModel ganttChart;
         private Dictionary<TreeNode, int> mapTreeNodeToChartIndex;
-        //private PictureBox pictureBox;
 
         public GanttChartTreeView(IEnumerable<string> tasks, int timesteps)
         {
@@ -30,16 +29,11 @@ namespace BaseModule.GanttChart
             ganttChart = new GChartModel(start, end, tasks.Count());
             mapTreeNodeToChartIndex = new Dictionary<TreeNode, int>();
 
-            //pictureBox = new PictureBox();
-            //splitContainer.Panel2.Controls.Add(pictureBox);
             splitContainer.Panel2.AutoScroll = true;
             splitContainer.Panel2.Controls.Add(ganttChart.FormsPlot);
             AddTasks(tasks);
 
-            //pictureBox.Dock = DockStyle.Fill;
-            //var size = pictureBox.Size;
             ganttChart.Refresh();
-            //pictureBox.Image = ganttChart.GetImage(pictureBox.Width, pictureBox.Height);
         }
 
         private void AddTasks(IEnumerable<string> tasks)
