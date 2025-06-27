@@ -217,22 +217,40 @@
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="BasePage\BasePage.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BasePage\BasePage.Designer.cs">
-      <DependentUpon>BasePage.cs</DependentUpon>
+    <Compile Include="BasePage\ConsoleEvents.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BasePage\BasePageNavigatorEvents.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="BasePage\DataBasesMainMenuEvents.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BasePage\BasePageSceneEvents.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="BasePage\DisplayToolStrip.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HeatTreatmentPage.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="BasePage\MeshMainMenuEvents.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HeatTreatmentPage.Designer.cs">
-      <DependentUpon>HeatTreatmentPage.cs</DependentUpon>
+    <Compile Include="BasePage\NavigatorEvents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BasePage\PropertiesPanelEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BasePage\ResultsMainMenuEvents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BasePage\SceneEvents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BasePage\SelectToolStrip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BasePage\UtilityToolStrip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BasePage\ViewToolStrip.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="IODataController.cs" />
     <Compile Include="MessageBoxEx\MessageBoxEx.cs">
@@ -242,7 +260,7 @@
       <DependentUpon>MessageBoxEx.cs</DependentUpon>
     </Compile>
     <Compile Include="ModelPage.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="PropertiesPanel\Control\DataConverter.cs" />
@@ -257,13 +275,19 @@
     <Compile Include="PropertiesPanel\ShowPropertyEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultsPage.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="ScenePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ScenePage.Designer.cs">
       <DependentUpon>ScenePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WelcomeScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WelcomeScreen.Designer.cs">
+      <DependentUpon>WelcomeScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="SettingsControls\SettingsConfig.cs" />
     <Compile Include="SettingsControls\SettingsControl.cs">
@@ -279,7 +303,7 @@
       <DependentUpon>LightingControl.cs</DependentUpon>
     </Compile>
     <Compile Include="TaskPage.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="TasksControls\BasicControl.cs">
       <SubType>UserControl</SubType>
@@ -324,20 +348,8 @@
     <Compile Include="TasksControls\TimeSettingsControl.Designer.cs">
       <DependentUpon>TimeSettingsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ToolStripPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ToolStripPage.Designer.cs">
-      <DependentUpon>ToolStripPage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Utilities\Converters.cs" />
     <Compile Include="Utilities\ObjectsProvider.cs" />
-    <Compile Include="WeldingPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WeldingPage.Designer.cs">
-      <DependentUpon>WeldingPage.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="AboutLicenseControl.resx">
       <DependentUpon>AboutLicenseControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -347,12 +359,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BasePage\BasePage.resx">
-      <DependentUpon>BasePage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="HeatTreatmentPage.resx">
-      <DependentUpon>HeatTreatmentPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MessageBoxEx\MessageBoxEx.resx">
       <DependentUpon>MessageBoxEx.cs</DependentUpon>
@@ -401,11 +407,8 @@
     <EmbeddedResource Include="TasksControls\TimeSettingsControl.resx">
       <DependentUpon>TimeSettingsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ToolStripPage.resx">
-      <DependentUpon>ToolStripPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WeldingPage.resx">
-      <DependentUpon>WeldingPage.cs</DependentUpon>
+    <EmbeddedResource Include="WelcomeScreen.resx">
+      <DependentUpon>WelcomeScreen.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

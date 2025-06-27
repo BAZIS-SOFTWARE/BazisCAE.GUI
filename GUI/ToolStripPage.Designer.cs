@@ -34,8 +34,14 @@ namespace BazisGUI
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolStripPage));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
-            this.splitContainerEx = new UserControlsEx.SplitContainerEx();
-            this.basePage = new BazisGUI.BasePage();
+            this.embeddedSplitContainer = new UserControlsEx.SplitContainerEx();
+            this.basePageSplitContainer = new UserControlsEx.SplitContainerEx();
+            this.splitContainerEx2 = new UserControlsEx.SplitContainerEx();
+            this.navigator = new BaseModule.Navigator.NavigatorControl();
+            this.propertiesPanelControl = new BaseModule.PropertiesPanel.PropertiesPanelControl();
+            this.splitContainerEx3 = new UserControlsEx.SplitContainerEx();
+            this.scenePage = new BazisGUI.ScenePage();
+            this.consoleControl = new BaseModule.Console.ConsoleControl();
             this.selectToolStrip = new UserControlsEx.ToolStripEx();
             this.spbSelectObject = new System.Windows.Forms.ToolStripSplitButton();
             this.btnSelectNodes = new System.Windows.Forms.ToolStripButton();
@@ -90,9 +96,21 @@ namespace BazisGUI
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).BeginInit();
-            this.splitContainerEx.Panel1.SuspendLayout();
-            this.splitContainerEx.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.embeddedSplitContainer)).BeginInit();
+            this.embeddedSplitContainer.Panel1.SuspendLayout();
+            this.embeddedSplitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.basePageSplitContainer)).BeginInit();
+            this.basePageSplitContainer.Panel1.SuspendLayout();
+            this.basePageSplitContainer.Panel2.SuspendLayout();
+            this.basePageSplitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx2)).BeginInit();
+            this.splitContainerEx2.Panel1.SuspendLayout();
+            this.splitContainerEx2.Panel2.SuspendLayout();
+            this.splitContainerEx2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx3)).BeginInit();
+            this.splitContainerEx3.Panel1.SuspendLayout();
+            this.splitContainerEx3.Panel2.SuspendLayout();
+            this.splitContainerEx3.SuspendLayout();
             this.selectToolStrip.SuspendLayout();
             this.instrumentalToolStrip.SuspendLayout();
             this.displayToolStrip.SuspendLayout();
@@ -107,12 +125,13 @@ namespace BazisGUI
             // 
             // toolStripContainer.ContentPanel
             // 
-            this.toolStripContainer.ContentPanel.Controls.Add(this.splitContainerEx);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(977, 556);
+            this.toolStripContainer.ContentPanel.Controls.Add(this.embeddedSplitContainer);
+            this.toolStripContainer.ContentPanel.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1155, 556);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(5, 5);
             this.toolStripContainer.Name = "toolStripContainer";
-            this.toolStripContainer.Size = new System.Drawing.Size(977, 612);
+            this.toolStripContainer.Size = new System.Drawing.Size(1155, 612);
             this.toolStripContainer.TabIndex = 0;
             this.toolStripContainer.Text = "toolStripContainer1";
             // 
@@ -125,61 +144,190 @@ namespace BazisGUI
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.viewToolStrip);
             this.toolStripContainer.TopToolStripPanel.MaximumSize = new System.Drawing.Size(0, 80);
             // 
-            // splitContainerEx
+            // embeddedSplitContainer
             // 
-            this.splitContainerEx.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerEx.IncrementButtonSize = new System.Drawing.Size(50, 5);
-            this.splitContainerEx.IncrementShifting = 50;
-            this.splitContainerEx.Location = new System.Drawing.Point(0, 0);
-            this.splitContainerEx.Name = "splitContainerEx";
+            this.embeddedSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.embeddedSplitContainer.IncrementButtonSize = new System.Drawing.Size(50, 5);
+            this.embeddedSplitContainer.IncrementShifting = 50;
+            this.embeddedSplitContainer.Location = new System.Drawing.Point(0, 5);
+            this.embeddedSplitContainer.Name = "embeddedSplitContainer";
             // 
-            // splitContainerEx.Panel1
+            // embeddedSplitContainer.Panel1
             // 
-            this.splitContainerEx.Panel1.Controls.Add(this.basePage);
+            this.embeddedSplitContainer.Panel1.Controls.Add(this.basePageSplitContainer);
             // 
-            // splitContainerEx.Panel2
+            // embeddedSplitContainer.Panel2
             // 
-            this.splitContainerEx.Panel2.Padding = new System.Windows.Forms.Padding(0, 5, 5, 0);
-            this.splitContainerEx.Panel2Collapsed = true;
-            this.splitContainerEx.Size = new System.Drawing.Size(977, 556);
-            this.splitContainerEx.SplitterDistance = 621;
-            this.splitContainerEx.SwitchShifting = false;
-            this.splitContainerEx.TabIndex = 3;
+            this.embeddedSplitContainer.Panel2.Padding = new System.Windows.Forms.Padding(0, 5, 5, 0);
+            this.embeddedSplitContainer.Panel2Collapsed = true;
+            this.embeddedSplitContainer.Size = new System.Drawing.Size(1155, 551);
+            this.embeddedSplitContainer.SplitterDistance = 621;
+            this.embeddedSplitContainer.SwitchShifting = true;
+            this.embeddedSplitContainer.TabIndex = 3;
             // 
-            // basePage
+            // basePageSplitContainer
             // 
-            this.basePage.BackColor = System.Drawing.SystemColors.Control;
-            this.basePage.Location = new System.Drawing.Point(0, 0);
-            this.basePage.Margin = new System.Windows.Forms.Padding(0);
-            this.basePage.Name = "basePage";
-            this.basePage.Padding = new System.Windows.Forms.Padding(5, 5, 5, 0);
-            this.basePage.PressedKey = System.Windows.Forms.Keys.None;
-            this.basePage.SelectionGroupColor = System.Drawing.Color.Lime;
-            this.basePage.Size = new System.Drawing.Size(666, 380);
-            this.basePage.SplitterWidthEx = 10;
-            this.basePage.TabIndex = 0;
-            this.basePage.DeleteGroupEvent += new System.Action<object, int>(this.basePage_DeleteGroupEvent);
-            this.basePage.DeleteAllGroupsEvent += new System.Action<object>(this.basePage_DeleteAllGroupsEvent);
-            this.basePage.DeleteSetEvent += new System.Action<object, Model.Interfaces.ObjType, string>(this.basePage_DeleteObjectsEvent);
-            this.basePage.ChangeAllGroupsViewEvent += new System.Action<object, bool>(this.basePage_ChangeAllGroupsViewEvent);
-            this.basePage.ChangeGroupViewEvent += new System.Action<object, int, bool>(this.basePage_ChangeGroupViewEvent);
-            this.basePage.SelectSetEvent += new System.Action<object, Model.Interfaces.ObjType, string>(this.basePage_SelectSetEvent);
-            this.basePage.SelectGroupEvent += new System.Action<object, string>(this.basePage_SelectGroupEvent);
-            this.basePage.SelectObjectsEvent += new System.Action<object, Scene.Events.SelectObjectsEventArgs>(this.basePage_SelectObjectsEvent);
-            this.basePage.DeleteSelectedObjectsEvent += new System.Action<object>(this.basePage_DeleteSelectedObjectsEvent);
-            this.basePage.ChangeAllObjsViewStateEvent += new System.Action<object, bool>(this.basePage_ChangeAllObjsViewStateEvent);
-            this.basePage.FindFreeNodesEvent += new System.Action<object>(this.basePage_FindFreeNodesEvent);
-            this.basePage.ChangeSetViewStateEvent += new System.Action<object, Model.Interfaces.ObjType, string, bool>(this.basePage_ChangeSetViewStateEvent);
-            this.basePage.EditGroupEvent += new System.Action<object, int>(this.basePage_EditGroupEvent);
-            this.basePage.SetBackColorToAllObjectsEvent += new System.Action<object>(this.basePage_SetBackColorToAllObjectsEvent);
-            this.basePage.HideSelectedObjectsEvent += new System.Action<object>(this.basePage_HideSelectedObjectsEvent);
-            this.basePage.InfoGroupEvent += new System.Action<object, int>(this.basePage_InfoGroupEvent);
-            this.basePage.ShowGroupWithNodesEvent += new System.Action<object, int>(this.basePage_ShowGroupWithNodesEvent);
-            this.basePage.DelAllObjectsEvent += new System.Action<object>(this.basePage_DelAllObjectsEvent);
-            this.basePage.UpdateNavigatorEvent += new System.Action<object>(this.basePage_UpdateNavigatorEvent);
-            this.basePage.GetObjectsInfoEvent += new System.Action<object, BaseModule.Navigator.NodeType, string>(this.basePage_GetObjectsInfoEvent);
-            this.basePage.GetSetsInfoEvent += new System.Action<object, BaseModule.Navigator.NodeType>(this.basePage_GetSetsInfoEvent);
-            this.basePage.GetResultsInfoEvent += new System.Action<object, string>(this.basePage_GetResultsInfoEvent);
+            this.basePageSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.basePageSplitContainer.IncrementButtonSize = new System.Drawing.Size(50, 5);
+            this.basePageSplitContainer.IncrementShifting = 50;
+            this.basePageSplitContainer.Location = new System.Drawing.Point(0, 0);
+            this.basePageSplitContainer.Name = "basePageSplitContainer";
+            // 
+            // basePageSplitContainer.Panel1
+            // 
+            this.basePageSplitContainer.Panel1.Controls.Add(this.splitContainerEx2);
+            // 
+            // basePageSplitContainer.Panel2
+            // 
+            this.basePageSplitContainer.Panel2.Controls.Add(this.splitContainerEx3);
+            this.basePageSplitContainer.Size = new System.Drawing.Size(1155, 551);
+            this.basePageSplitContainer.SplitterDistance = 398;
+            this.basePageSplitContainer.SplitterWidth = 8;
+            this.basePageSplitContainer.SwitchShifting = false;
+            this.basePageSplitContainer.TabIndex = 0;
+            // 
+            // splitContainerEx2
+            // 
+            this.splitContainerEx2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerEx2.IncrementButtonSize = new System.Drawing.Size(50, 5);
+            this.splitContainerEx2.IncrementShifting = 50;
+            this.splitContainerEx2.IsSplitterFixed = true;
+            this.splitContainerEx2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerEx2.Name = "splitContainerEx2";
+            this.splitContainerEx2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerEx2.Panel1
+            // 
+            this.splitContainerEx2.Panel1.Controls.Add(this.navigator);
+            // 
+            // splitContainerEx2.Panel2
+            // 
+            this.splitContainerEx2.Panel2.Controls.Add(this.propertiesPanelControl);
+            this.splitContainerEx2.Size = new System.Drawing.Size(398, 551);
+            this.splitContainerEx2.SplitterDistance = 396;
+            this.splitContainerEx2.SplitterWidth = 8;
+            this.splitContainerEx2.SwitchShifting = false;
+            this.splitContainerEx2.TabIndex = 0;
+            // 
+            // navigator
+            // 
+            this.navigator.BackColor = System.Drawing.Color.Gainsboro;
+            this.navigator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.navigator.CollapseIndex = 1;
+            this.navigator.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.navigator.DownColor = System.Drawing.Color.Gainsboro;
+            this.navigator.ExpandIndex = 2;
+            this.navigator.HeaderColor = System.Drawing.Color.Black;
+            this.navigator.HeaderName = "Навигатор";
+            this.navigator.IsPinndable = false;
+            this.navigator.Location = new System.Drawing.Point(0, 0);
+            this.navigator.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.navigator.Name = "navigator";
+            this.navigator.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
+            this.navigator.ProjectInfoIndex = 0;
+            this.navigator.Size = new System.Drawing.Size(398, 396);
+            this.navigator.TabIndex = 0;
+            this.navigator.UpColor = System.Drawing.Color.Gainsboro;
+            //this.navigator.DelGroupEvent += new System.Action<int>(this.navigator_DelGroupEvent);
+            //this.navigator.DelAllGroupsEvent += new System.Action(this.navigator_DelAllGroupsEvent);
+            //this.navigator.HideGroupEvent += new System.Action<int>(this.navigator_HideGroupEvent);
+            //this.navigator.ShowGroupEvent += new System.Action<int>(this.navigator_ShowGroupEvent);
+            //this.navigator.EditGroupEvent += new System.Action<int>(this.navigator_EditGroupEvent);
+            //this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
+            //this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
+            //this.navigator.ShowAllGroupsEvent += new System.Action(this.navigator_ShowAllGroupsEvent);
+            //this.navigator.HideAllGroupsEvent += new System.Action(this.navigator_HideAllGroupsEvent);
+            //this.navigator.ShowAllObjectsEvent += new System.Action(this.navigator_ShowAllObjectsEvent);
+            //this.navigator.HideAllObjectsEvent += new System.Action(this.navigator_HideAllObjectsEvent);
+            //this.navigator.DelAllObjectsEvent += new System.Action(this.navigator_DelAllObjectsEvent);
+            //this.navigator.ShowSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_ShowSetEvent);
+            //this.navigator.ChangeSetViewEvent += new System.Action<string, BaseModule.Navigator.ViewRegime>(this.navigator_ChangeSetViewEvent);
+            //this.navigator.HideSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_HideSetEvent);
+            //this.navigator.DelSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_DelSetEvent);
+            //this.navigator.SelectSetEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectSetEvent);
+            //this.navigator.SelectGroupEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectGroupEvent);
+            //this.navigator.SelectObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectObjectEvent);
+            //this.navigator.SelectCondEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectCondEvent);
+            //this.navigator.SelectTaskEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectTaskEvent);
+            //this.navigator.SelectGeneralInfoEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectGeneralInfoEvent);
+            //this.navigator.SelectTimeEvent += new System.Action<string, double>(this.navigator_SelectTimeEvent);
+            //this.navigator.GetObjectsInfoEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_GetObjectsInfoEvent);
+            //this.navigator.GetSetsInfoEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_GetSetsInfoEvent);
+            //this.navigator.GetResultInfoEvent += new System.Action<string>(this.navigator_GetResultInfoEvent);
+            //this.navigator.ControlCollapseEvent += new System.Action(this.navigator_ControlCollapseEvent);
+            //this.navigator.ControlUnpinnedEvent += new System.Action(this.navigator_ControlUnpinnedEvent);
+            // 
+            // propertiesPanelControl
+            // 
+            this.propertiesPanelControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.propertiesPanelControl.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.propertiesPanelControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.propertiesPanelControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertiesPanelControl.DownColor = System.Drawing.Color.WhiteSmoke;
+            this.propertiesPanelControl.HeaderName = "Свойства";
+            this.propertiesPanelControl.Location = new System.Drawing.Point(0, 0);
+            this.propertiesPanelControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.propertiesPanelControl.Name = "propertiesPanelControl";
+            this.propertiesPanelControl.Size = new System.Drawing.Size(398, 147);
+            this.propertiesPanelControl.TabIndex = 0;
+            this.propertiesPanelControl.UpColor = System.Drawing.Color.Silver;
+            //this.propertiesPanelControl.OnPropertyUpdate += new System.Action<BaseModule.PropertiesPanel.PropertyChangedEventArgs>(this.propertiesPanelControl_OnPropertyUpdate);
+            this.propertiesPanelControl.ControlCollapseEvent += new System.Action(this.propertiesPanelControl_ControlCollapseEvent);
+            // 
+            // splitContainerEx3
+            // 
+            this.splitContainerEx3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerEx3.IncrementButtonSize = new System.Drawing.Size(50, 5);
+            this.splitContainerEx3.IncrementShifting = 50;
+            this.splitContainerEx3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerEx3.Name = "splitContainerEx3";
+            this.splitContainerEx3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerEx3.Panel1
+            // 
+            this.splitContainerEx3.Panel1.Controls.Add(this.scenePage);
+            // 
+            // splitContainerEx3.Panel2
+            // 
+            this.splitContainerEx3.Panel2.Controls.Add(this.consoleControl);
+            this.splitContainerEx3.Size = new System.Drawing.Size(749, 551);
+            this.splitContainerEx3.SplitterDistance = 435;
+            this.splitContainerEx3.SplitterWidth = 8;
+            this.splitContainerEx3.SwitchShifting = false;
+            this.splitContainerEx3.TabIndex = 0;
+            // 
+            // scenePage
+            // 
+            this.scenePage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scenePage.Location = new System.Drawing.Point(0, 0);
+            this.scenePage.Name = "scenePage";
+            this.scenePage.ShowInsideObjects = false;
+            this.scenePage.Size = new System.Drawing.Size(749, 435);
+            this.scenePage.TabIndex = 0;
+            this.scenePage.TransparencyValue = 0;
+            //this.scenePage.MeshGroupCreatedEvent += new System.Action<object>(this.scenePage_MeshGroupCreatedEvent);
+            //this.scenePage.SceneInfoEvent += new System.Action<object, string, System.Drawing.Color>(this.scenePage_SceneInfoEvent);
+            //this.scenePage.ShowAllObjectsEvent += new System.Action<object>(this.scenePage_ShowAllObjectsEvent);
+            //this.scenePage.SelectionDeletedEvent += new System.Action<object>(this.scenePage_SelectionDeletedEvent);
+            //this.scenePage.SelectObjectsEvent += new System.Action<object, Scene.Events.SelectObjectsEventArgs>(this.scenePage_SelectObjectsEvent);
+            //this.scenePage.HideSelectedObjects += new System.Action<object>(this.scenePage_HideSelectedObjects);
+            //this.scenePage.SceneExpandEvent += new System.Action(this.scenePage_SceneExpandEvent);
+            //this.scenePage.SceneFoldEvent += new System.Action(this.scenePage_SceneFoldEvent);
+            //this.scenePage.SetBackColorToAllObjectsEvent += new System.Action<object>(this.scenePage_SetBackColorToAllObjectsEvent);
+            // 
+            // consoleControl
+            // 
+            this.consoleControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.consoleControl.CheckPrintElemsInfo = false;
+            this.consoleControl.CheckPrintNodesInfo = false;
+            this.consoleControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.consoleControl.DownColor = System.Drawing.Color.WhiteSmoke;
+            this.consoleControl.HeaderName = "Консоль";
+            this.consoleControl.Location = new System.Drawing.Point(0, 0);
+            this.consoleControl.Name = "consoleControl";
+            this.consoleControl.Size = new System.Drawing.Size(749, 108);
+            this.consoleControl.TabIndex = 0;
+            this.consoleControl.UpColor = System.Drawing.Color.Silver;
             // 
             // selectToolStrip
             // 
@@ -224,7 +372,7 @@ namespace BazisGUI
             this.spbSelectObject.Name = "spbSelectObject";
             this.spbSelectObject.Size = new System.Drawing.Size(150, 53);
             this.spbSelectObject.Tag = "0";
-            this.spbSelectObject.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.spb_Select_DropDownItemClicked);
+            //this.spbSelectObject.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.spb_Select_DropDownItemClicked);
             // 
             // btnSelectNodes
             // 
@@ -239,7 +387,7 @@ namespace BazisGUI
             this.btnSelectNodes.Tag = "1";
             this.btnSelectNodes.Text = "toolStripButton2";
             this.btnSelectNodes.ToolTipText = "Выбор узлов";
-            this.btnSelectNodes.Click += new System.EventHandler(this.btnSelectObjects_Click);
+            //this.btnSelectNodes.Click += new System.EventHandler(this.btnSelectObjects_Click);
             // 
             // btnSelectElements
             // 
@@ -254,7 +402,7 @@ namespace BazisGUI
             this.btnSelectElements.Tag = "2";
             this.btnSelectElements.Text = "toolStripButton3";
             this.btnSelectElements.ToolTipText = "Выбор элементов";
-            this.btnSelectElements.Click += new System.EventHandler(this.btnSelectObjects_Click);
+            //this.btnSelectElements.Click += new System.EventHandler(this.btnSelectObjects_Click);
             // 
             // btnSelectObjects
             // 
@@ -269,7 +417,7 @@ namespace BazisGUI
             this.btnSelectObjects.Tag = "3";
             this.btnSelectObjects.Text = "toolStripButton4";
             this.btnSelectObjects.ToolTipText = "Выбор геометрии";
-            this.btnSelectObjects.Click += new System.EventHandler(this.btnSelectObjects_Click);
+            //this.btnSelectObjects.Click += new System.EventHandler(this.btnSelectObjects_Click);
             // 
             // btnAdvanceSelection
             // 
@@ -285,7 +433,7 @@ namespace BazisGUI
             this.btnAdvanceSelection.Tag = "4";
             this.btnAdvanceSelection.Text = "toolStripButton1";
             this.btnAdvanceSelection.ToolTipText = "Дополненный выбор";
-            this.btnAdvanceSelection.Click += new System.EventHandler(this.btnAdvanceSelection_Click);
+            //this.btnAdvanceSelection.Click += new System.EventHandler(this.btnAdvanceSelection_Click);
             // 
             // instrumentalToolStrip
             // 
@@ -335,7 +483,7 @@ namespace BazisGUI
             this.btnMeasuring.Tag = "0";
             this.btnMeasuring.Text = "toolStripButton14";
             this.btnMeasuring.ToolTipText = "Измерить";
-            this.btnMeasuring.Click += new System.EventHandler(this.btnMeasuring_Click);
+            //this.btnMeasuring.Click += new System.EventHandler(this.btnMeasuring_Click);
             // 
             // btnCrossSection
             // 
@@ -351,7 +499,7 @@ namespace BazisGUI
             this.btnCrossSection.Tag = "1";
             this.btnCrossSection.Text = "toolStripButton15";
             this.btnCrossSection.ToolTipText = "Сделать сечение";
-            this.btnCrossSection.Click += new System.EventHandler(this.btnCrossSection_Click);
+            //this.btnCrossSection.Click += new System.EventHandler(this.btnCrossSection_Click);
             // 
             // btnScreenShot
             // 
@@ -366,7 +514,7 @@ namespace BazisGUI
             this.btnScreenShot.Tag = "2";
             this.btnScreenShot.Text = "toolStripButton16";
             this.btnScreenShot.ToolTipText = "Снимок экрана";
-            this.btnScreenShot.Click += new System.EventHandler(this.btnScreenShot_Click);
+            //this.btnScreenShot.Click += new System.EventHandler(this.btnScreenShot_Click);
             // 
             // btnReflect
             // 
@@ -382,7 +530,7 @@ namespace BazisGUI
             this.btnReflect.Text = "btnReflect";
             this.btnReflect.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnReflect.ToolTipText = "Зеркальное отображение";
-            this.btnReflect.Click += new System.EventHandler(this.btnReflect_Click);
+            //this.btnReflect.Click += new System.EventHandler(this.btnReflect_Click);
             // 
             // btnClipPlane
             // 
@@ -397,7 +545,7 @@ namespace BazisGUI
             this.btnClipPlane.Size = new System.Drawing.Size(36, 53);
             this.btnClipPlane.Text = "btnClipPlane";
             this.btnClipPlane.ToolTipText = "Скрыть плоскостью";
-            this.btnClipPlane.Click += new System.EventHandler(this.btnClipPlane_Click);
+            //this.btnClipPlane.Click += new System.EventHandler(this.btnClipPlane_Click);
             // 
             // displayToolStrip
             // 
@@ -433,7 +581,7 @@ namespace BazisGUI
             this.displayToolStrip.Text = "Отображение";
             this.displayToolStrip.TextBoxFrame = false;
             this.displayToolStrip.TextBoxHeight = 14;
-            this.displayToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.DisplayToolStrip_ItemClick);
+            //this.displayToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.DisplayToolStrip_ItemClick);
             // 
             // btnShowAll
             // 
@@ -522,7 +670,7 @@ namespace BazisGUI
             this.btnShowBasis.Tag = "5";
             this.btnShowBasis.Text = "toolStripButton22";
             this.btnShowBasis.ToolTipText = "Базис СК";
-            this.btnShowBasis.Click += new System.EventHandler(this.btnShowBasis_Click);
+            //this.btnShowBasis.Click += new System.EventHandler(this.btnShowBasis_Click);
             // 
             // btnShowNormals
             // 
@@ -538,7 +686,7 @@ namespace BazisGUI
             this.btnShowNormals.Tag = "6";
             this.btnShowNormals.Text = "toolStripButton23";
             this.btnShowNormals.ToolTipText = "Показать нормали";
-            this.btnShowNormals.Click += new System.EventHandler(this.btnShowNormals_Click);
+            //this.btnShowNormals.Click += new System.EventHandler(this.btnShowNormals_Click);
             // 
             // btnShowCountours
             // 
@@ -554,7 +702,7 @@ namespace BazisGUI
             this.btnShowCountours.Tag = "7";
             this.btnShowCountours.Text = "toolStripButton24";
             this.btnShowCountours.ToolTipText = "Показать контуры";
-            this.btnShowCountours.Click += new System.EventHandler(this.btnShowCountours_Click);
+            //this.btnShowCountours.Click += new System.EventHandler(this.btnShowCountours_Click);
             // 
             // viewToolStrip
             // 
@@ -583,7 +731,7 @@ namespace BazisGUI
             this.viewToolStrip.Location = new System.Drawing.Point(777, 0);
             this.viewToolStrip.Name = "viewToolStrip";
             this.viewToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.viewToolStrip.Size = new System.Drawing.Size(200, 56);
+            this.viewToolStrip.Size = new System.Drawing.Size(328, 56);
             this.viewToolStrip.SplitButtonClickWidth = 16;
             this.viewToolStrip.SplitButtonHeight = 34;
             this.viewToolStrip.SplitButtonTriangleSize = 6;
@@ -591,7 +739,7 @@ namespace BazisGUI
             this.viewToolStrip.Text = "Вид";
             this.viewToolStrip.TextBoxFrame = false;
             this.viewToolStrip.TextBoxHeight = 14;
-            this.viewToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ViewToolStrip_ItemClicked);
+            //this.viewToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ViewToolStrip_ItemClicked);
             // 
             // btnSetXY
             // 
@@ -649,7 +797,7 @@ namespace BazisGUI
             this.btnSetRotX.Tag = "3";
             this.btnSetRotX.Text = "toolStripButton8";
             this.btnSetRotX.ToolTipText = "Вращение  по X";
-            this.btnSetRotX.Click += new System.EventHandler(this.btnSetRotAxis_Click);
+            //this.btnSetRotX.Click += new System.EventHandler(this.btnSetRotAxis_Click);
             // 
             // btnSetRotY
             // 
@@ -665,7 +813,7 @@ namespace BazisGUI
             this.btnSetRotY.Tag = "4";
             this.btnSetRotY.Text = "toolStripButton9";
             this.btnSetRotY.ToolTipText = "Вращение  по Y";
-            this.btnSetRotY.Click += new System.EventHandler(this.btnSetRotAxis_Click);
+            //this.btnSetRotY.Click += new System.EventHandler(this.btnSetRotAxis_Click);
             // 
             // btnSetRotZ
             // 
@@ -681,7 +829,7 @@ namespace BazisGUI
             this.btnSetRotZ.Tag = "5";
             this.btnSetRotZ.Text = "toolStripButton10";
             this.btnSetRotZ.ToolTipText = "Вращение  по Z";
-            this.btnSetRotZ.Click += new System.EventHandler(this.btnSetRotAxis_Click);
+            //this.btnSetRotZ.Click += new System.EventHandler(this.btnSetRotAxis_Click);
             // 
             // btnSetRotHor90
             // 
@@ -815,42 +963,42 @@ namespace BazisGUI
             this.низкийToolStripMenuItem.Name = "низкийToolStripMenuItem";
             this.низкийToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.низкийToolStripMenuItem.Text = "Низкий";
-            this.низкийToolStripMenuItem.Click += new System.EventHandler(this.низкийToolStripMenuItem_Click);
+            //this.низкийToolStripMenuItem.Click += new System.EventHandler(this.низкийToolStripMenuItem_Click);
             // 
             // среднийToolStripMenuItem
             // 
             this.среднийToolStripMenuItem.Name = "среднийToolStripMenuItem";
             this.среднийToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.среднийToolStripMenuItem.Text = "Средний";
-            this.среднийToolStripMenuItem.Click += new System.EventHandler(this.среднийToolStripMenuItem_Click);
+            //this.среднийToolStripMenuItem.Click += new System.EventHandler(this.среднийToolStripMenuItem_Click);
             // 
             // высокийToolStripMenuItem
             // 
             this.высокийToolStripMenuItem.Name = "высокийToolStripMenuItem";
             this.высокийToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.высокийToolStripMenuItem.Text = "Высокий";
-            this.высокийToolStripMenuItem.Click += new System.EventHandler(this.высокийToolStripMenuItem_Click);
+            //this.высокийToolStripMenuItem.Click += new System.EventHandler(this.высокийToolStripMenuItem_Click);
             // 
             // сформироватьИнструкцииToolStripMenuItem
             // 
             this.сформироватьИнструкцииToolStripMenuItem.Name = "сформироватьИнструкцииToolStripMenuItem";
             this.сформироватьИнструкцииToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.сформироватьИнструкцииToolStripMenuItem.Text = "Сформировать инструкции";
-            this.сформироватьИнструкцииToolStripMenuItem.Click += new System.EventHandler(this.сформироватьИнструкцииToolStripMenuItem_Click);
+            //this.сформироватьИнструкцииToolStripMenuItem.Click += new System.EventHandler(this.сформироватьИнструкцииToolStripMenuItem_Click);
             // 
             // запуститьРасчетToolStripMenuItem
             // 
             this.запуститьРасчетToolStripMenuItem.Name = "запуститьРасчетToolStripMenuItem";
             this.запуститьРасчетToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.запуститьРасчетToolStripMenuItem.Text = "Запустить расчет";
-            this.запуститьРасчетToolStripMenuItem.Click += new System.EventHandler(this.запуститьРасчетToolStripMenuItem_Click);
+            //this.запуститьРасчетToolStripMenuItem.Click += new System.EventHandler(this.запуститьРасчетToolStripMenuItem_Click);
             // 
             // остановитьРасчетToolStripMenuItem
             // 
             this.остановитьРасчетToolStripMenuItem.Name = "остановитьРасчетToolStripMenuItem";
             this.остановитьРасчетToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.остановитьРасчетToolStripMenuItem.Text = "Остановить расчет";
-            this.остановитьРасчетToolStripMenuItem.Click += new System.EventHandler(this.остановитьРасчетToolStripMenuItem_Click);
+            //this.остановитьРасчетToolStripMenuItem.Click += new System.EventHandler(this.остановитьРасчетToolStripMenuItem_Click);
             // 
             // resultsMenuStrip
             // 
@@ -866,14 +1014,14 @@ namespace BazisGUI
             this.скрытьToolStripMenuItem.Name = "скрытьToolStripMenuItem";
             this.скрытьToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.скрытьToolStripMenuItem.Text = "Скрыть";
-            this.скрытьToolStripMenuItem.Click += new System.EventHandler(this.скрытьРезультатыToolStripMenuItem_Click);
+            //this.скрытьToolStripMenuItem.Click += new System.EventHandler(this.скрытьРезультатыToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(118, 22);
             this.toolStripMenuItem1.Text = "Удалить";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.удалитьРезультатыToolStripMenuItem_Click);
+            //this.toolStripMenuItem1.Click += new System.EventHandler(this.удалитьРезультатыToolStripMenuItem_Click);
             // 
             // ToolStripPage
             // 
@@ -882,15 +1030,27 @@ namespace BazisGUI
             this.Controls.Add(this.toolStripContainer);
             this.Name = "ToolStripPage";
             this.Padding = new System.Windows.Forms.Padding(5);
-            this.Size = new System.Drawing.Size(987, 622);
+            this.Size = new System.Drawing.Size(1165, 622);
             this.toolStripContainer.ContentPanel.ResumeLayout(false);
             this.toolStripContainer.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer.TopToolStripPanel.PerformLayout();
             this.toolStripContainer.ResumeLayout(false);
             this.toolStripContainer.PerformLayout();
-            this.splitContainerEx.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx)).EndInit();
-            this.splitContainerEx.ResumeLayout(false);
+            this.embeddedSplitContainer.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.embeddedSplitContainer)).EndInit();
+            this.embeddedSplitContainer.ResumeLayout(false);
+            this.basePageSplitContainer.Panel1.ResumeLayout(false);
+            this.basePageSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.basePageSplitContainer)).EndInit();
+            this.basePageSplitContainer.ResumeLayout(false);
+            this.splitContainerEx2.Panel1.ResumeLayout(false);
+            this.splitContainerEx2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx2)).EndInit();
+            this.splitContainerEx2.ResumeLayout(false);
+            this.splitContainerEx3.Panel1.ResumeLayout(false);
+            this.splitContainerEx3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEx3)).EndInit();
+            this.splitContainerEx3.ResumeLayout(false);
             this.selectToolStrip.ResumeLayout(false);
             this.selectToolStrip.PerformLayout();
             this.instrumentalToolStrip.ResumeLayout(false);
@@ -940,8 +1100,6 @@ namespace BazisGUI
         public UserControlsEx.ToolStripEx viewToolStrip;
         private System.Windows.Forms.ToolStripButton btnReflect;
         private System.Windows.Forms.ToolStripButton btnClipPlane;
-        public UserControlsEx.SplitContainerEx splitContainerEx;
-        protected BasePage basePage;
         private System.Windows.Forms.ContextMenuStrip condsMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem diagram_gantt_toolStripMenuItem;
@@ -962,6 +1120,14 @@ namespace BazisGUI
         private System.Windows.Forms.ContextMenuStrip resultsMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem скрытьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private UserControlsEx.SplitContainerEx basePageSplitContainer;
+        private UserControlsEx.SplitContainerEx splitContainerEx2;
+        private UserControlsEx.SplitContainerEx splitContainerEx3;
+        private NavigatorControl navigator;
+        private BaseModule.PropertiesPanel.PropertiesPanelControl propertiesPanelControl;
+        private ScenePage scenePage;
+        private BaseModule.Console.ConsoleControl consoleControl;
+        public UserControlsEx.SplitContainerEx embeddedSplitContainer;
         //private BasePage basePage;
     }
 }

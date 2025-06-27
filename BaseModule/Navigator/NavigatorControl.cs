@@ -70,6 +70,8 @@ namespace BaseModule.Navigator
         Время
     };
 
+    public enum Priority : int { Низкий, НижеСреднего, Средний, ВышеСреднего, Высокий };
+
     public partial class NavigatorControl : PinnedPage
     {
         private const string VIRTUALNODE = "VIRT";
@@ -87,18 +89,17 @@ namespace BaseModule.Navigator
         [Category("treeView")]
         [Description("Set imageIndex for project info nodes")]
         public int ProjectInfoIndex { get; set; } = 0;
+
         public TreeNode GetSelectedNode()
         {
              return treeView.SelectedNode;
         }
+        public event Action HideResultsEvent;
+        public event Action RemoveResultsEvent;
+        public event Action ShowGantChartEvent;
+        public event Action RemoveAllConditionsEvent;
 
-        public event Action<int> DelGroupEvent;
         public event Action DelAllGroupsEvent;
-        public event Action<int> HideGroupEvent;
-        public event Action<int> ShowGroupEvent;
-        public event Action<int> EditGroupEvent;
-        public event Action<int> InfoGroupEvent;
-        public event Action<int> ShowGroupWithNodesEvent;
         public event Action ShowAllGroupsEvent;
         public event Action HideAllGroupsEvent;
 
@@ -106,22 +107,42 @@ namespace BaseModule.Navigator
         public event Action HideAllObjectsEvent;
         public event Action DelAllObjectsEvent;
 
-        public event Action<NodeType, string> ShowSetEvent;
         public event Action<string, ViewRegime> ChangeSetViewEvent;
+        public event Action<NodeType, string> ShowSetEvent;
         public event Action<NodeType, string> HideSetEvent;
         public event Action<NodeType, string> DelSetEvent;
         public event Action<NodeType, string> SelectSetEvent;
 
-        public event Action<NodeType,string> SelectGroupEvent;
+        public event Action<int> SelectGroupEvent;
+        public event Action<int> DelGroupEvent;
+        public event Action<int> HideGroupEvent;
+        public event Action<int> ShowGroupEvent;
+        public event Action<int> EditGroupEvent;
+        public event Action<int> InfoGroupEvent;
+        public event Action<int> ShowGroupWithNodesEvent;
+
         public event Action<NodeType, string> SelectObjectEvent;
+        public event Action<NodeType, string> DelObjectEvent;
+
+        public event Action<NodeType, string> GetObjectsInfoEvent;
+        public event Action<NodeType> DelObjectsEvent;
+        public event Action<NodeType> ShowObjectsEvent;
+        public event Action<NodeType> HideObjectsEvent;
+
         public event Action<NodeType, string> SelectCondEvent;
         public event Action<NodeType, string> SelectTaskEvent;
         public event Action<NodeType, string> SelectGeneralInfoEvent;
         public event Action<string, double> SelectTimeEvent;
 
-        public event Action<NodeType, string> GetObjectsInfoEvent;
         public event Action<NodeType> GetSetsInfoEvent;
         public event Action<string> GetResultInfoEvent;
+
+        public event Action<object,NodeType> AddConditionEvent;
+        public event Action GenerateTSFEvent;
+        public event Action GenerateTCFEvent;
+
+        public event Action StopComputationEvent;
+        public event Action<object, Priority> SetCompPriority;
 
         public NavigatorControl()
         {
@@ -401,38 +422,40 @@ namespace BaseModule.Navigator
             ShowSetEvent?.Invoke(nodeType, node.Text.Split(' ')[0]);
         }
 
-        public void ShowAllObjects_Click(object sender, EventArgs e)
+        public void ShowObjects_Click(object sender, EventArgs e)
         {
-            //foreach (TreeNode objsNode in treeView.Nodes[4].Nodes)
-            //{
-            //    foreach (TreeNode item in objsNode.Nodes)
-            //    {
-                    //NodeType nodeType;
-                    //Enum.TryParse(treeView.SelectedNode.Name, out nodeType);
+            var node = treeView.SelectedNode;
 
-                    //item.ImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
-                    //item.SelectedImageIndex = ImgDict[nodeType] == 3 ? 5 : 6;
-            //    }
-            //}
+            var nodeType = node.Name.ToEnum<NodeType>();
 
-            ShowAllObjectsEvent?.Invoke();
+            if (nodeType == NodeType.объекты)
+                ShowAllObjectsEvent?.Invoke();
+            else
+                ShowObjectsEvent?.Invoke(nodeType);
         }
 
-        public void HideAllObjects_Click(object sender, EventArgs e)
+        public void DelObjects_Click(object sender, EventArgs e)
         {
-            //foreach (TreeNode objsNode in treeView.Nodes[4].Nodes)
-            //{
-            //    foreach (TreeNode item in objsNode.Nodes)
-            //    {
-            //        NodeType nodeType;
-            //        Enum.TryParse(treeView.SelectedNode.Name, out nodeType);
+            var node = treeView.SelectedNode;
 
-            //        item.ImageIndex = ImgDict[nodeType];
-            //        item.SelectedImageIndex = ImgDict[nodeType];
-            //    }
-            //}
+            var nodeType = node.Name.ToEnum<NodeType>();
 
-            HideAllObjectsEvent?.Invoke();
+            if (nodeType == NodeType.объекты)
+                DelAllObjectsEvent?.Invoke();
+            else
+                DelObjectsEvent?.Invoke(nodeType);
+        }
+
+        public void HideObjects_Click(object sender, EventArgs e)
+        {
+            var node = treeView.SelectedNode;
+
+            var nodeType = node.Name.ToEnum<NodeType>();
+
+            if (nodeType == NodeType.объекты)
+                HideAllObjectsEvent?.Invoke();
+            else
+                HideObjectsEvent?.Invoke(nodeType);
         }
 
         public void HideAllGroups_Click(object sender, EventArgs e)
@@ -474,14 +497,7 @@ namespace BaseModule.Navigator
             DelAllObjectsEvent?.Invoke();
         }
 
-        public void DelObjects_Click(object sender, EventArgs e)
-        {
-            var node = treeView.SelectedNode;
-            NodeType nodeType;
-            Enum.TryParse(node.Parent.Name, out nodeType);
 
-            DelSetEvent?.Invoke(nodeType, node.Text.Split(' ')[0]);
-        }
 
         public void InfoGroup_Click(object sender, EventArgs e)
         {
@@ -584,7 +600,7 @@ e.Node.Name == NodeType.Кривая.ToString() |
 e.Node.Name == NodeType.Поверхность.ToString() |
 e.Node.Name == NodeType.Объем.ToString()
 )
-                    SelectGroupEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), e.Node.Text);
+                    SelectGroupEvent?.Invoke(e.Node.Index);
             }
 
             else if (e.Node.Level == 2)
@@ -677,6 +693,89 @@ e.Node.Name == NodeType.Объем.ToString()
         public void EndUpdate()
         {
             treeView.EndUpdate();
+        }
+
+        private void низкийПриорToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetCompPriority?.Invoke(this, Priority.Низкий);
+        }
+
+        private void среднийПриорToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetCompPriority?.Invoke(this, Priority.Средний);
+        }
+
+        private void высокийПриорToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetCompPriority?.Invoke(this, Priority.Высокий);
+        }
+
+        private void сформироватьИнструкцииToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerateTSFEvent?.Invoke();
+        }
+
+        private void запуститьРасчетToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerateTCFEvent?.Invoke();
+        }
+
+        private void остановитьРасчетToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StopComputationEvent?.Invoke();
+        }
+
+        private void скрытьРезToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HideResultsEvent?.Invoke();
+        }
+
+        private void удалитьРезToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RemoveResultsEvent?.Invoke();
+        }
+
+        private void diagram_gantt_toolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowGantChartEvent?.Invoke();
+        }
+
+        private void материалToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddConditionEvent?.Invoke(this, NodeType.Материал);
+        }
+
+        private void закреплениеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddConditionEvent?.Invoke(this, NodeType.Закрепление);
+        }
+
+        private void нагрузкаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddConditionEvent?.Invoke(this, NodeType.Нагрузка);
+        }
+
+        private void нагревToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddConditionEvent?.Invoke(this, NodeType.Нагрев);
+        }
+
+        private void средаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddConditionEvent?.Invoke(this, NodeType.Среда);
+        }
+
+        private void удалитьВсеУсловияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RemoveAllConditionsEvent?.Invoke();
+        }
+
+        private void DelSet_Click(object sender, EventArgs e)
+        {
+            var node = treeView.SelectedNode;
+            var nodeType = node.Parent.Name.ToEnum<NodeType>();
+
+            DelSetEvent?.Invoke(nodeType, node.Text.Split(' ')[0]);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace BazisGUI
             // 
             // basePage
             // 
-            this.BasePage.Size = new System.Drawing.Size(790, 384);
+            this.Size = new System.Drawing.Size(790, 384);
             // 
             // HeatTreatmentPage
             // 

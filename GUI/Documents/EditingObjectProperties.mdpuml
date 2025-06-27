@@ -1,0 +1,87 @@
+﻿@startuml
+
+|#pink|Navigator|
+|#lightblue|PropertyPanel|
+|#hotpink|PanelProvider|
+|#tan|BasePage|
+|#cyan|ToolStripPage|
+|#beige|BaseForm|
+
+
+|#pink|Navigator|
+start
+:Клик по элементу дерева
+treeView_AfterSelect;
+
+if (Выбранный тип?) is (Cвойства объекта) then
+:SelectObjectEvent;
+
+
+|#lightblue|PropertyPanel|
+|#hotpink|PanelProvider|
+
+|#tan|BasePage|
+:navigator_SelectObjectEvent;
+:SelectObjectEvent.Invoke();
+
+|#cyan|ToolStripPage|
+:basePage_SelectObjectEvent;
+:SelectObjectEvent.Invoke();
+
+|#beige|BaseForm|
+:Page_SelectObjectEvent;
+
+|#hotpink|PanelProvider|
+:ShowPropertiesPanel;
+:GetRowProperty - Получаем список свойств для отображения;
+:event Action Out.Invoke();
+note left
+  Плохой нейминг
+end note
+
+|#tan|BasePage|
+:PanelProvider.Out += PropertyPanel.DrawTable;
+
+|#lightblue|PropertyPanel|
+:DrawTable;
+repeat :Клик по ячейке свойств;
+:Изменение значений в выбранной ячейке;
+
+backward :Вывод соощения об ошибке
+с помощью всплывающего окна;
+repeat while (Изменения валидны?) is (Нет) not (Да)
+:OnPropertyUpdate?.Invoke();
+
+|#tan|BasePage|
+:PropertiesPanelControl1_OnPropertyUpdate;
+
+|#hotpink|PanelProvider|
+:panelProvider.UpdateObjectValue;
+:UpdateObject;
+note left
+  Каждый тип изменяется по своему 
+end note
+:OnUpdateNavigator.Invoke();
+
+|#tan|BasePage|
+:PanelProvider_OnUpdateNavigator();
+:UpdateNavigatorEvent?.Invoke();
+
+|#cyan|ToolStripPage|
+:basePage_UpdateNavigatorEvent();
+:UpdateNavigatorEvent.Invoke();
+
+|#beige|BaseForm|
+:Page_UpdateNavigatorEvent();
+
+stop
+
+
+
+|#pink|Navigator|
+else 
+	:Вызов других методов;
+	detach
+endif
+
+@enduml
