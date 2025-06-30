@@ -12,12 +12,9 @@ namespace BaseModule.Results.Animation
 
         public float[] Times { get; }
 
-        public int ScaleFactor { get; }
-
         public CreateAnimationEventArgs(float[] times,int scaleFactor, bool deleteTempImages, int delayTime)
         {
             Times = times;
-            ScaleFactor = scaleFactor;
 
             DeleteTempImages = deleteTempImages;
             DelayTime = delayTime;

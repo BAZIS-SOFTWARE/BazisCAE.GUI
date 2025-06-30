@@ -144,6 +144,8 @@ namespace BaseModule.Navigator
         public event Action StopComputationEvent;
         public event Action<object, Priority> SetCompPriority;
 
+        public event Action<object, string, List<string>> CreateAnimationEvent;
+
         public NavigatorControl()
         {
             InitializeComponent();
@@ -685,6 +687,23 @@ e.Node.Name == NodeType.Объем.ToString()
             }
         }
 
+        public void PresentCompDataOnTree(List<string> compData)
+        {
+            BeginUpdate();
+            TrySearchNodes(NodeType.задачи.ToString(), out List<TreeNode> tasks);
+
+            tasks[0].Nodes.Clear();
+
+            foreach (var item in compData)
+            {
+                var r = CreateRealNode("расчет", item);
+
+                tasks[0].Nodes.Add(r);
+            }
+
+            EndUpdate();
+        }
+
         public void BeginUpdate()
         {
             treeView.BeginUpdate();
@@ -776,6 +795,18 @@ e.Node.Name == NodeType.Объем.ToString()
             var nodeType = node.Parent.Name.ToEnum<NodeType>();
 
             DelSetEvent?.Invoke(nodeType, node.Text.Split(' ')[0]);
+        }
+
+        private void создатьАнимациюMenuItem_Click(object sender, EventArgs e)
+        {
+            var node = treeView.SelectedNode;
+
+            var list = new List<string>();
+
+            foreach (TreeNode item in treeView.SelectedNode.Nodes)
+                list.Add(item.Text);
+
+            CreateAnimationEvent?.Invoke(this, node.Text, list);
         }
     }
 }

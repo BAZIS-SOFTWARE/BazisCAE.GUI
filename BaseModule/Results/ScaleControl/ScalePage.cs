@@ -13,13 +13,11 @@ namespace BaseModule.Results.ScaleControl
     public partial class ScalePage : UserControl
     {
         public event Action<object, bool> ShowScaleEvent;
-
         public event Action<object, ScaleEventArgs> SetScaleSettingEvent;
-
         public event Action<object, decimal> SetX_PositionEvent;
         public event Action<object, decimal> SetY_PositionEvent;
-
         public event Action<bool> SetUpMaxMinEvent;
+        public event Action<object, string> SetScaleEvent;
 
         public ScalePage()
         {
@@ -68,16 +66,6 @@ namespace BaseModule.Results.ScaleControl
             set { upd_YCoord.Value = value; }
         }
 
-
-
-        private void chbShowScale_Click(object sender, EventArgs e)
-        {
-            if(chbShowScale.Checked)
-                ShowScaleEvent(this, true);
-            else ShowScaleEvent(this, false);
-
-        }
-
         private void txbMax_Leave(object sender, EventArgs e)
         {
             var res = 0.0f;
@@ -88,10 +76,7 @@ namespace BaseModule.Results.ScaleControl
             }
             else
             {
-                SetScaleSettingEvent(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
-                
-                if (chbShowScale.Checked)
-                    ShowScaleEvent(this, true);
+                SetScaleSettingEvent(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, (int)updIntervals.Value));
             }
 
         }
@@ -106,44 +91,29 @@ namespace BaseModule.Results.ScaleControl
             }
             else
             {
-                SetScaleSettingEvent(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
-
-                if (chbShowScale.Checked)
-                    ShowScaleEvent(this, true);
+                SetScaleSettingEvent(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, (int)updIntervals.Value));
             }
 
         }     
 
         private void updPrecision_Leave(object sender, EventArgs e)
         {
-            SetScaleSettingEvent(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
-
-            if (chbShowScale.Checked)
-                ShowScaleEvent(this, true);
+            SetScaleSettingEvent(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, (int)updIntervals.Value));
         }
 
         private void updIntervals_Leave(object sender, EventArgs e)
         {
-            SetScaleSettingEvent(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, updIntervals.Value));
-
-            if (chbShowScale.Checked)
-                ShowScaleEvent(this, true);
+            SetScaleSettingEvent(this, new ScaleEventArgs(txbMax.Text, txbMin.Text, updPrecision.Text, (int)updIntervals.Value));
         }
 
         private void upd_XCoord_Leave(object sender, EventArgs e)
         {
             SetX_PositionEvent(this, upd_XCoord.Value);
-
-            if (chbShowScale.Checked)
-                ShowScaleEvent(this, true);
         }
 
         private void upd_YCoord_Leave(object sender, EventArgs e)
         {
             SetY_PositionEvent(this, upd_YCoord.Value);
-
-            if (chbShowScale.Checked)
-                ShowScaleEvent(this, true);
         }
 
         private void chbMaxMinSetUp_Click(object sender, EventArgs e)
@@ -160,6 +130,11 @@ namespace BaseModule.Results.ScaleControl
                 txbMin.Enabled = false;
                 SetUpMaxMinEvent(chbMaxMinSetUp.Checked);
             }
+        }
+
+        private void txbScale_Leave(object sender, EventArgs e)
+        {
+            SetScaleEvent(this, txbScale.Text);
         }
     }
 }

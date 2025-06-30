@@ -84,7 +84,7 @@ namespace BazisGUI
 
             var presenter = scene.PresentersCreator.CreateSurfaceObjectsPresenter(objs);
 
-            PresentObjectsOnScene(presenter, ObjType.Элемент3D.ToString());
+            scene.PresentObjectsOnScene(presenter, ObjType.Элемент3D.ToString());
             console.PrintInfo("Скрыты внутренние объекты", Color.Black);
         }
 
@@ -97,7 +97,7 @@ namespace BazisGUI
 
             var presenter = scene.PresentersCreator.CreateSurfaceObjectsPresenter(objs);
 
-            PresentObjectsOnScene(presenter, ObjType.Элемент3D.ToString());
+            scene.PresentObjectsOnScene(presenter, ObjType.Элемент3D.ToString());
             console.PrintInfo("Показаны все объекты", Color.Black);
         }
 

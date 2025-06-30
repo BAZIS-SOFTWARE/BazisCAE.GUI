@@ -71,9 +71,14 @@ spbSelectObject.ToolTipText == "Элементы")
             console.PrintInfo(arg2, arg3);
         }
 
-        private void scene_ShowAllObjectsEvent(object obj)
+        private void scene_ShowAllObjectsEvent(object sender, EventArgs args)
         {
-            ChangeAllObjsViewStateEvent?.Invoke(this, true);
+            foreach (var obj in project.ModelData.ObjectData.GetAllObjects())
+                obj.ViewState = true;
+
+            scene.SceneControl.DeleteAllVBObjects();
+            scene.PresentAllModelObjectsToScene(project.ModelData);
+            scene.SceneControl.DisplayObjects();
         }
 
         private void scene_SelectionDeletedEvent(object obj)
@@ -93,7 +98,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             PresentGroupDataOnTree(project.ModelData.GroupData);
 
             //if (arg1 is TaskPage taskPage)
-            PresentTaskDataOnTree(project.GeneralData, project.TaskData);
+            PresentCondDataOnTree(project.GeneralData, project.TaskData);
 
             scene.PresentModelObjectsOnScene(project.ModelData, spbSelectObject.ToolTipText);
         }
@@ -101,14 +106,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
 
         private void scene_SetBackColorToAllObjectsEvent(object obj)
         {
-            foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
-            {
-                project.ModelData.ObjectData.SetBackColor(type);
-                var pres = scene.CreateObjectsPresentor(project.ModelData, type);
-                scene.SetObjectsSceneAttribute(pres, type.ToString(), "цвет");
-            }
-
-            scene.SceneControl.DisplayObjects();
+            scene.SetBackColorToAllObjects(project.ModelData);
         }
 
         private void scene_HideSelectedObjects(object obj)

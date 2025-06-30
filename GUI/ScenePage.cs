@@ -62,7 +62,7 @@ namespace BazisGUI
 
         public event Action<object> MeshGroupCreatedEvent;
         public event Action<object, string, Color> SceneInfoEvent;
-        public event Action<object> ShowAllObjectsEvent;
+        public event Action<object,EventArgs> ShowAllObjectsEvent;
         public event Action<object> SelectionDeletedEvent;
         public event Action<object, SelectObjectsEventArgs> SelectObjectsEvent;
         public event Action<object> HideSelectedObjects;
@@ -140,6 +140,19 @@ namespace BazisGUI
                     return presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.E3DCollection.GetObjects());
                 default:
                     return presentersCreator.CreatePointObjectsPresenter(modelData.ObjectData.PointsSet.Values);
+            }
+        }
+
+        public void PresentObjectsOnScene(IObjsPresenter presenter, string name)
+        {
+            var vbobj = SceneControl.FindVBObj(name);
+            if (vbobj != null)
+            {
+                var viewMode = vbobj.ViewMode;
+
+                SceneControl.DeleteVBObjects(name);
+                CreateObjectsOnScene(name, presenter);
+                SceneControl.ChangeViewModeVBObjects(name, viewMode);
             }
         }
 
@@ -292,7 +305,7 @@ namespace BazisGUI
         {
             try
             {
-                ShowAllObjectsEvent?.Invoke(this);
+                ShowAllObjectsEvent?.Invoke(this, e);
 
             }
             catch (Exception ex)
@@ -432,6 +445,18 @@ namespace BazisGUI
 
 
             sceneControl.DisplayObjects();
+        }
+
+        internal void SetBackColorToAllObjects(IModelData modelData)
+        {
+            foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
+            {
+                modelData.ObjectData.SetBackColor(type);
+                var pres = CreateObjectsPresentor(modelData, type);
+                SetObjectsSceneAttribute(pres, type.ToString(), "цвет");
+            }
+
+            SceneControl.DisplayObjects();
         }
     }
 }

@@ -11,6 +11,7 @@ using System.ComponentModel;
 using UserControlsEx;
 using BaseModule.Utilities;
 using BaseModule.Interfaces;
+using BaseModule.PinnedControl;
 
 namespace BaseModule.Console
 {
@@ -47,20 +48,8 @@ namespace BaseModule.Console
         Factor,
         Path
     }
-    public partial class ConsoleControl : UserControl, IPinnedControl
+    public partial class ConsoleControl : PinnedPage
     {
-        [Category("General")]
-        [Description("Set up color gradient")]
-        public Color UpColor { get; set; } = Color.Silver;
-
-        [Category("General")]
-        [Description("Set down color gradient")]
-        public Color DownColor { get; set; } = Color.WhiteSmoke;
-
-        [Category("General")]
-        [Description("Set header name")]
-        public string HeaderName { get; set; } = "Консоль";
-
         public bool CheckPrintElemsInfo { get; set; }
         public bool CheckPrintNodesInfo { get; set; }
 
@@ -144,7 +133,7 @@ namespace BaseModule.Console
 
             typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic |
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).
-                SetValue(grbConsole, true, null);
+                SetValue(tlscOut, true, null);
 
             var path = " > Текущая сессия ";
 
@@ -363,29 +352,7 @@ namespace BaseModule.Console
 
             rtxbField.BackColor = colorDialog.Color;
         }
-
-        private void grbConsole_Paint(object sender, PaintEventArgs e)
-        {
-            var loc_y = tlscOut.Location.Y;
-
-            ComponentsPainter.PaintGradientRectangle(e.Graphics, new Point(0, 0),Width, loc_y, UpColor, DownColor);
-
-            var locRect = new Point(Width - 15, loc_y / 2 - 4);
-            ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
-
-            e.Graphics.DrawString(HeaderName, ComponentsPainter.Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
-        }     
-
-        private void grbConsole_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Location.X > grbConsole.Width - 16 & e.Location.X < grbConsole.Width - 8 && e.Location.Y <= 10)
-                ControlCollapseEvent?.Invoke();
-        }
-
-        private void grbConsole_Resize(object sender, EventArgs e)
-        {
-            grbConsole.Invalidate();
-        }
+ 
 
         private void rtxbField_KeyDown(object sender, KeyEventArgs e)
         {

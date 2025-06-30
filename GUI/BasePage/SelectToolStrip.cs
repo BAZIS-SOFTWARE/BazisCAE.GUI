@@ -74,7 +74,7 @@ namespace BazisGUI
 
             spbSelectObject.Invalidate();
 
-            SetBackColorToAllObjectsEvent?.Invoke(this);
+            scene.SetBackColorToAllObjects(project.ModelData);
 
         }
 

@@ -12,8 +12,8 @@ namespace BaseModule.Results.ScaleControl
         public float Max { get; }
         public float Min { get; }
         public int Precision { get; }
-        public decimal Range { get; }
-        public ScaleEventArgs(string max, string min, string precision, decimal range)
+        public int Range { get; }
+        public ScaleEventArgs(string max, string min, string precision, int range)
         {
             Max = float.Parse(max);
             Min = float.Parse(min);

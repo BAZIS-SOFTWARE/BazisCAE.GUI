@@ -2,11 +2,18 @@
 using BaseModule.Results.Export;
 using BaseModule.Results.GraphCreation;
 using BaseModule.Results.ScaleControl;
+using BazisGUI.SettingsControls;
 using BazisGUI.Utilities;
 using Geometry;
 using Model.Interfaces;
+using Model.Interfaces.MeshObjects;
+using ModelControllerInterfaces;
+using PostProc;
+using Project.Interfaces.Tasks;
+using Project.Interfaces;
 using Project.Results;
 using Project.Results.IO;
+using Scene;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -20,125 +27,131 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
+        string ResultDbPath { get; set; } = string.Empty;// в дереве
+
+        IEnumerable<float> resultTimes;
+
+        public IEnumerable<float> GetResultTimes()
+        {
+            foreach (var item in resultTimes)
+            {
+                yield return item;
+            }
+        }
         private void усреднитьРезультатыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (усреднитьРезультатыToolStripMenuItem.Checked)
-                MergeResultsValue = true;
+                settingsConfig.MergeResultsValue = true;
             else
             {
-                MergeResultsValue = false;
+                settingsConfig.MergeResultsValue = false;
             }
         }
         private void exportResultsMenuItem_Click(object sender, EventArgs e)
         {
-            if (ResultDbPath.Equals(string.Empty))
-            {
-                console.PrintInfo($"Не указан путь к базе результатов. Загрузите результаты перед экспортом.", Color.Orange);
-                return;
-            }
+
+
+            //if (ResultDbPath.Equals(string.Empty))
+            //{
+            //    console.PrintInfo($"Не указан путь к базе результатов. Загрузите результаты перед экспортом.", Color.Orange);
+            //    return;
+            //}
 
             // предварительная настройка шкалы
-            var scaleItems = GetScaleItems();
-            resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems);
-            resultsController.ResultsFieldsCreator.ScaleFactor = 1;
+            //var scaleItems = GetScaleItems();
+            //resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems);
+            //resultsController.ResultsFieldsCreator.ScaleFactor = 1;
 
             // инициализация инфраструктуры для работы с результатами
-            var loader = new LoadResultsFileDB();
-            var scheme = loader.GetTablesSchemes(ResultDbPath);
-            var nodeNames = scheme.FirstOrDefault(x => x.Key == ResultType.nodes.ToString()).Value;
-            var elemNames = scheme.FirstOrDefault(x => x.Key == ResultType.elements.ToString()).Value;
-            var times = loader.GetValues(ResultDbPath, ResultType.nodes.ToString(), "Time").ToList();
+            //var loader = new LoadResultsFileDB();
+            //var scheme = loader.GetTablesSchemes(ResultDbPath);
+            //var nodeNames = scheme.FirstOrDefault(x => x.Key == ResultType.nodes.ToString()).Value;
+            //var elemNames = scheme.FirstOrDefault(x => x.Key == ResultType.elements.ToString()).Value;
+            //var times = loader.GetValues(ResultDbPath, ResultType.nodes.ToString(), "Time").ToList();
 
-            var exportPage = new ExportControl() { Dock = DockStyle.Fill };
-            exportPage.ExportResultEvent += async (arg) =>
-            {
-                var result = await Task.Run(() =>
-                {
-                    var table = arg.ExportObj == BaseModule.Interfaces.GeneralParams.Objects.Элемент
-                        ? new List<string> { ResultType.elements.ToString() }
-                        : new List<string> { ResultType.nodes.ToString() };
-                    return loader.GetResult(ResultDbPath, table, arg.Time);
-                });
+            //var exportPage = new ExportControl() { Dock = DockStyle.Fill };
+            //exportPage.ExportResultEvent += async (arg) =>
+            //{
+            //    var result = await Task.Run(() =>
+            //    {
+            //        var table = arg.ExportObj == BaseModule.Interfaces.GeneralParams.Objects.Элемент
+            //            ? new List<string> { ResultType.elements.ToString() }
+            //            : new List<string> { ResultType.nodes.ToString() };
+            //        return loader.GetResult(ResultDbPath, table, arg.Time);
+            //    });
 
-                if (arg.ExportType == ExportType.Results) ExportResultsAsync(project.ModelData, result, arg);
-                else ExportGridAsync(project.ModelData, project.GeneralData, result, arg);
-            };
-            exportPage.CopyResultDBEvent += async (arg) =>
-            {
-                var result = await Task.Run(() =>
-                {
-                    var table = arg.ExportObj == BaseModule.Interfaces.GeneralParams.Objects.Элемент
-                        ? new List<string> { ResultType.elements.ToString() }
-                        : new List<string> { ResultType.nodes.ToString() };
-                    return loader.GetResult(ResultDbPath, table, arg.Time);
-                });
+            //    if (arg.ExportType == ExportType.Results) ExportResultsAsync(project.ModelData, result, arg);
+            //    else ExportGridAsync(project.ModelData, project.GeneralData, result, arg);
+            //};
+            //exportPage.CopyResultDBEvent += async (arg) =>
+            //{
+            //    var result = await Task.Run(() =>
+            //    {
+            //        var table = arg.ExportObj == BaseModule.Interfaces.GeneralParams.Objects.Элемент
+            //            ? new List<string> { ResultType.elements.ToString() }
+            //            : new List<string> { ResultType.nodes.ToString() };
+            //        return loader.GetResult(ResultDbPath, table, arg.Time);
+            //    });
 
-                CopyResultDBAsync(result, arg);
-            };
+            //    CopyResultDBAsync(result, arg);
+            //};
 
-            exportPage.SetTimes(times);
-            exportPage.SetNodeNames(nodeNames);
-            exportPage.SetElementNames(elemNames);
+            //exportPage.SetTimes(times);
+            //exportPage.SetNodeNames(nodeNames);
+            //exportPage.SetElementNames(elemNames);
 
-            var exportForm = new Form()
-            {
-                Owner = Application.OpenForms[0],
-                TopMost = true,
-                Size = exportPage.Size,
-                Name = "export",
-                Text = "Экспорт результатов",
-                ShowIcon = false,
-                ClientSize = exportPage.Size,
-                Location = scene.PointToScreen(Point.Empty)
-            };
+            //var exportForm = new Form()
+            //{
+            //    Owner = Application.OpenForms[0],
+            //    TopMost = true,
+            //    Size = exportPage.Size,
+            //    Name = "export",
+            //    Text = "Экспорт результатов",
+            //    ShowIcon = false,
+            //    ClientSize = exportPage.Size,
+            //    Location = scene.PointToScreen(Point.Empty)
+            //};
 
-            exportForm.FormClosed += (ar1, ar2) => { exportPage = null; };
-            exportForm.Controls.Add(exportPage);
-            exportForm.Show();
+            //exportForm.FormClosed += (ar1, ar2) => { exportPage = null; };
+            //exportForm.Controls.Add(exportPage);
+            //exportForm.Show();
         }
-        private void scaleSettingsMenuItem_Click(object sender, EventArgs e)
+        private void настройкиШкалыMenuItem_Click(object sender, EventArgs e)
         {
             var scPage = new ScalePage() { Dock = DockStyle.Fill };
 
-            scPage.Max = scale.MaxValue;
-            scPage.Min = scale.MinValue;
+            scPage.Max = settingsConfig.Scale_MaxValue;
+            scPage.Min = settingsConfig.Scale_MinValue;
 
-            scPage.SetUpMaxMinEvent += (ar) => { IsScaleMaxMinManual = ar; };
+            scPage.SetUpMaxMinEvent += (ar) => { settingsConfig.IsScaleMaxMinManual = ar; };
 
-            scPage.IsMaxMinAuto = IsScaleMaxMinManual;
+            scPage.IsMaxMinAuto = settingsConfig.IsScaleMaxMinManual;
 
-            scPage.Precision = scale.Precision;
+            scPage.Precision = settingsConfig.Scale_Precision;
 
-            scPage.X_Coord = scale.Coord_X;
-            scPage.Y_Coord = scale.Coord_Y;
+            scPage.X_Coord = settingsConfig.Scale_X_Coord;
+            scPage.Y_Coord = settingsConfig.Scale_Y_Coord;
 
             scPage.SetScaleSettingEvent += (ar1, ar2) =>
             {
-                scale.Precision = ar2.Precision;
-                scale.FillRange(ar2.Min, ar2.Max, ar2.Range);
+                settingsConfig.Scale_Precision = ar2.Precision;
+                settingsConfig.Scale_MaxValue = ar2.Max;
+                settingsConfig.Scale_MinValue = ar2.Min;
+                settingsConfig.Scale_Intervals = ar2.Range;
             };
-            scPage.ShowScaleEvent += (ar1, ar2) =>
-            {
-                scene.SceneControl.HideGeometryObj("DisplaySceneScale");
 
-                if (ar2)
-                {
-                    scale.Coord_X = scPage.X_Coord;
-                    scale.Coord_Y = scPage.Y_Coord;
-
-
-                    scene.SceneControl.DisplaySceneScale(scale);
-                }
-
-                scene.SceneControl.DisplayObjects();
-            };
             scPage.SetX_PositionEvent += (ar1, ar2) =>
             {
-                scale.Coord_X = (int)ar2;
+                settingsConfig.Scale_X_Coord = (int)ar2;
             };
             scPage.SetY_PositionEvent += (ar1, ar2) =>
             {
-                scale.Coord_Y = (int)ar2;
+                settingsConfig.Scale_Y_Coord = (int)ar2;
+            };
+
+            scPage.SetScaleEvent += (ar1, ar2) =>
+            {
+                settingsConfig.Scale_scale = int.Parse(ar2);
             };
 
             var scForm = new Form()
@@ -147,7 +160,7 @@ namespace BazisGUI
                 TopMost = true,
                 Size = scPage.Size,
                 Name = "Scale",
-                Text = "Шкала значений",
+                Text = "Настройки шкалы значений",
                 ShowIcon = false,
                 ClientSize = scPage.Size
             };
@@ -257,19 +270,19 @@ namespace BazisGUI
         private void createFieldMenuItem_Click(object sender, EventArgs e)
         {
             if (createFieldMenuItem.Checked)
-                ShowResultsField = true;
+                settingsConfig.ShowResultsField = true;
             else
             {
-                ShowResultsField = false;
+                settingsConfig.ShowResultsField = false;
             }
         }
         private void показатьЗначенияВЭлементахToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (показатьЗначенияВЭлементахToolStripMenuItem.Checked)
-                ShowElementsResultsValue = true;
+                settingsConfig.ShowElementsResultsValue = true;
             else
             {
-                ShowElementsResultsValue = false;
+                settingsConfig.ShowElementsResultsValue = false;
                 scene.SceneControl.HideDisplayText3D();
                 scene.SceneControl.DisplayObjects();
             }
@@ -278,10 +291,10 @@ namespace BazisGUI
         {
 
             if (showNodeValueMenuItem.Checked)
-                ShowNodeResultsValue = true;
+                settingsConfig.ShowNodeResultsValue = true;
             else
             {
-                ShowNodeResultsValue = false;
+                settingsConfig.ShowNodeResultsValue = false;
                 scene.SceneControl.HideDisplayText3D();
                 scene.SceneControl.DisplayObjects();
             }
@@ -324,6 +337,309 @@ namespace BazisGUI
                 }
             }
 
+        }
+
+        public void SortCharNumberStrings(string[] anArray)
+        {
+            //Основной цикл (количество повторений равно количеству элементов массива)
+            for (int i = 0; i < anArray.Length; i++)
+            {
+                //Вложенный цикл (количество повторений, равно количеству элементов массива минус 1 и минус количество выполненных повторений основного цикла)
+                for (int j = 0; j < anArray.Length - 1 - i; j++)
+                {
+                    var chrs_a = anArray[j].Where(x => char.IsDigit(x)).ToArray();
+                    var str_a = string.Join("", chrs_a);
+
+                    var chrs_b = anArray[j + 1].Where(x => char.IsDigit(x)).ToArray();
+                    var str_b = string.Join("", chrs_b);
+
+                    var a = int.Parse(str_a);
+                    var b = int.Parse(str_b);
+                    //Если элемент массива с индексом j больше следующего за ним элемента
+                    if (a > b)
+                    {
+                        var tmp = anArray[j];
+                        anArray[j] = anArray[j + 1];
+                        anArray[j + 1] = tmp;
+                    }
+                }
+            }
+        }
+
+
+
+        private IObjsPresenter CreateResultsField(Result result, string resName, string tableName)
+        {
+            IEnumerable<ISurfaceElement> elems;
+
+
+            if (project.GeneralData.TaskType == TaskType.Volume)
+                elems = project.ModelData.ObjectData.E3DCollection.GetObjects();
+            else
+                elems = project.ModelData.ObjectData.E2DCollection.GetObjects();
+
+            var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, tableName, resName, elems);
+            return scene.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults);
+        }
+
+        private ItemRange[] GetScaleItems(SceneScale scale)
+        {
+            var itemRanges = new ItemRange[scale.Count()];
+
+            var scaleItems = scale.ToArray();
+
+            for (int i = 0; i < scaleItems.Length; i++)
+            {
+                itemRanges[i] = new ItemRange()
+                {
+                    Max = scaleItems[i].Max,
+                    Min = scaleItems[i].Min,
+                    Color = scaleItems[i].Color
+                };
+            }
+            return itemRanges;
+        }
+
+        private Tuple<float, float> GetMaxMin(Result result, string tableName, string resName)
+        {
+            var max = (float)result.Data.Tables[tableName].Compute($"Max({resName})", "");
+            var min = (float)result.Data.Tables[tableName].Compute($"Min({resName})", "");
+
+            return new Tuple<float, float>(max, min);
+        }
+
+
+
+        private async void CreateTimeGraph(LoadResultsFileDB loader, GraphObjects objsType, IObjectsData objectsData)
+        {
+            try
+            {
+                if (navigator.GetSelectedNode()?.Level != 1)
+                    throw new Exception("Выберите вид результатов в разделе результаты");
+
+                scene.ClearAllDataOnScene();
+                //scene.PresentAllModelObjectsToScene();
+                //scene.SelectedObjects = objsType.ToString();
+
+                var objs = await SelectObjectsAsync(objsType, objectsData);
+
+                if (objs.Count == 0)
+                    throw new Exception("Не выбран ни один объект!");
+
+                var selNode = navigator.GetSelectedNode();
+                var resDes = selNode.Name;
+
+                var dbTable = Converters.ConvertToDBTablesNames(objsType);
+                var times = loader.GetValues(ResultDbPath, dbTable, "Time");
+
+                var grDataAr = new List<GraphData>();
+                Random random = new Random();
+
+                foreach (var obj in objs)
+                {
+                    var grPoints = new List<GraphPoint>();
+
+                    console.PrintInfo($"Идет построение графика для объекта {obj.ObjType} {obj.Number}, подождите немного...", Color.Red); ;
+
+                    foreach (var time in times)
+                    {
+                        //var res = 0.0f;
+                        var result = loader.GetResult(ResultDbPath, new List<string>() { dbTable }, time);
+
+                        var res = result.GetValue(dbTable, obj.Number, resDes);
+
+                        var grPoint = new GraphPoint(result.Time, res);
+                        grPoints.Add(grPoint);
+                    }
+
+                    scene.SceneControl.DisplayText3D($"{objsType}_{obj.Number}", Color.Black, obj.CalcCentr());
+                    var color = Color.FromArgb(random.Next(255), random.Next(255), random.Next(255));
+                    var grData = new GraphData($"{objsType}_{obj.Number}", color, "Сек.", resDes, grPoints.ToArray());
+                    grDataAr.Add(grData);
+                }
+                scene.SceneControl.DisplayObjects();
+                var grContainer = new GraphContainer();
+
+                if (grDataAr.Count != 0)
+                {
+                    grContainer.CreateGraphData("Набор результатов по времени", grDataAr, new AxisFormat(), new AxisFormat());
+                    grContainer.Dock = DockStyle.Fill;
+                    var form = new Form
+                    {
+                        Owner = Application.OpenForms[0],
+                        TopMost = true,
+                        Text = $"График {resDes} - время",
+                        ShowIcon = false,
+                        ClientSize = grContainer.Size
+                    };
+
+
+                    form.Controls.Add(grContainer);
+                    form.ClientSize = grContainer.Size;
+                    form.Show();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
+
+        }
+
+        public async Task<List<IModelObject>> SelectObjectsAsync(GraphObjects objType, IObjectsData objsData)
+        {
+            var nodes = new List<IModelObject>();
+            PressedKey = Keys.None;
+
+            scene.SceneControl.DisplayText2D(@"Выберите узлы и нажмите на клавишу ""E"" для подтверждения", Color.Black, new Point2D(10, 10));
+            scene.SceneControl.DisplayObjects();
+            await System.Threading.Tasks.Task.Run(() =>
+            {
+                while (true)
+                {
+                    if (PressedKey == Keys.E)
+                    {
+                        var objs = ObjectsProvider.GraphPageProvider(objsData, objType);
+                        nodes = objs.Where(x => x.Color == scene.SceneControl.SelectionColor).ToList();
+                        break;
+                    }
+                    if (PressedKey == Keys.Escape)
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            console.PrintInfo("Операция отменена", Color.Black);
+                        }));
+                        break;
+                    }
+                }
+            });
+            scene.SceneControl.HideDisplayText2D();
+            scene.SceneControl.DisplayObjects();
+            PressedKey = Keys.None;
+            return nodes;
+        }
+
+        public void MergeResults(Result result)
+        {
+            try
+            {
+                IEnumerable<IElement> elements;
+                if (project.GeneralData.TaskType == TaskType.Volume)
+                    elements = project.ModelData.ObjectData.E3DCollection.GetObjects();
+                else
+                    elements = project.ModelData.ObjectData.E2DCollection.GetObjects();
+
+
+                var interfaceNodes = modelController.InterfacedNodesFinder.Find(elements);
+
+                console.PrintInfo($"Выполняется пересчет на узлы", Color.Black);
+                console.PrintInfo("", Color.Black);
+
+                var resNames = result.Data.Tables[(int)ResultType.elements].GetTableSchema();
+
+                for (int i = 1; i < resNames.Length; i++)
+                {
+                    resultsController.ResultsMerger.Merge(interfaceNodes, resNames[i], result);
+
+                    Invoke(new Action(() =>
+                    {
+                        console.PrintInfo($"Выполнен пересчет на узлы для {resNames[i]}", Color.Black);
+                    }));
+                }
+
+                console.PrintInfo("Пересчет завершен", Color.Green);
+
+            }
+            catch (Exception ex)
+            {
+                Invoke(new Action(() =>
+                {
+                    console.PrintInfo($"В ходе пересчета возникла ошибка: {ex.Message}", Color.Red);
+                }));
+            }
+        }
+
+        private void ShowResultValue(ResultType tableType, string resName, Result result)
+        {
+            IEnumerable<IModelObject> objs;
+
+            if (tableType == ResultType.nodes)
+                objs = project.ModelData.ObjectData.NodesSet.Values;
+            else
+                objs = project.ModelData.ObjectData.GetAllElements();
+
+            foreach (var obj in objs)
+            {
+                if (obj.Color == scene.SceneControl.SelectionColor)
+                {
+                    var coord = obj.CalcCentr();
+                    var res = result.GetValue((int)tableType, obj.Number, resName);
+                    scene.SceneControl.DisplayText3D(res.ToString(), Color.Black, coord);
+                }
+            }
+        }
+
+        private async void ExportResultsAsync(IModelData modelData, Result result, ExportResultEventArgs args)
+        {
+            try
+            {
+                var format = args.Extension.Split('-')[0];
+                var formatedPath = $"{args.Path}\\ResultsExport_{args.ResName}_{args.Time}_{args.ExportObj}.{format}";
+
+                await Task.Run(() =>
+                {
+                    IEnumerable<IModelObject> objects;
+
+                    var objTypes = Converters.ConvertToObjsType(args.ExportObj);
+
+                    if (objTypes == ObjType.Узел)
+                        objects = modelData.ObjectData.NodesSet.Values;
+                    else
+                        objects = modelData.ObjectData.GetAllElements();
+
+                    resultsController.ResultsExporter.ExportObjectsResults(objects, result, args.ResName, formatedPath, format);
+                });
+
+                console.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
+            }
+            catch (Exception ex) { console.PrintInfo(ex.Message, Color.Red); }
+        }
+
+        private async void ExportGridAsync(IModelData modelData, IGeneralData generalData, Result result, ExportResultEventArgs args)
+        {
+            try
+            {
+                var format = args.Extension.Split('-')[0];
+                var formatedPath = $"{args.Path}\\GridExport_{args.ResName}_{args.Time}_{args.ExportObj}.{format}";
+
+                await Task.Run(() =>
+                {
+                    IEnumerable<ISurfaceElement> elements;
+                    if (generalData.TaskType == TaskType.Volume)
+                        elements = modelData.ObjectData.E3DCollection.GetObjects();
+                    else
+                        elements = modelData.ObjectData.E2DCollection.GetObjects();
+
+                    var figures = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result,
+                        ResultType.nodes.ToString(), args.ResName, elements);
+                    resultsController.GridExporter.ExportGridSurfaces(figures, formatedPath, $".{args.Extension}");
+                });
+
+                console.PrintInfo($"созданный файл сохранен по пути: {formatedPath}", Color.Black);
+            }
+            catch (Exception ex) { console.PrintInfo(ex.Message, Color.Red); }
+        }
+
+        private async void CopyResultDBAsync(Result result, CopyResultDBEventArgs args)
+        {
+            var path = args.DirPath + "\\temp.db";
+            await Task.Run(() =>
+            {
+                var saver = new SaveResultsFileDb();
+                saver.Save(new List<Result>() { result }, path, false);
+            });
+            console.PrintInfo($"созданный файл сохранен по пути: {path}", Color.Black);
         }
     }
 }

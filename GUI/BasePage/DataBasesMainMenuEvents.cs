@@ -1,8 +1,11 @@
-﻿using Project.Interfaces;
+﻿using BaseModule.Utilities;
+using Project.Interfaces;
+using PropertiesCalculator.MaterialData;
 using PropertiesDataBases.DataBases;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,13 +59,14 @@ namespace BazisGUI
         private void функцииMenuItem_Click(object sender, EventArgs e)
         {
             //var module = (TaskPage)ModulePage;
-            OpenFunctionsDB(project.GeneralData);
+            OpenFunctionsDB();
         }
 
-        public void OpenFunctionsDB(IGeneralData generalData)
+        public void OpenFunctionsDB()
         {
             try
             {
+                var generalData = project.GeneralData;
                 var funBasePage = new FunctionDataBasePage() { Dock = DockStyle.Fill, HeadColor = Color.Gainsboro };
                 funBasePage.LoadEvent += () =>
                 {
@@ -90,6 +94,39 @@ namespace BazisGUI
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        public void ChangeFuncDBEventHandler(IGeneralData generalData, FunctionDataBasePage funBasePage)
+        {
+            if (funBasePage.DbPath != generalData.Path)
+                IOFileController.CopyFile(funBasePage.DbName, funBasePage.DbPath, generalData.Path);
+
+            generalData.Functions = funBasePage.DbName;
+            var funData = funBasePage.Functions;
+            //GetTaskAdvisor()?.SetFunctions(funData.Keys.ToList());
+            PresentMatAndFuncDataOnTree(generalData);
+        }
+
+        public void ChangeMaterialDBEventHandler(IGeneralData generalData, MaterialsDataBasePage matBasePage)
+        {
+            if (matBasePage.DbPath != generalData.Path)
+                IOFileController.CopyFile(matBasePage.DbName, matBasePage.DbPath, generalData.Path);
+
+            generalData.Materials = matBasePage.DbName;
+            var matData = matBasePage.Materials;
+            //GetTaskAdvisor()?.SetMaterials(matData.Keys.ToList());
+            PresentMatAndFuncDataOnTree(generalData);
+        }
+
+        private string FindFileByPath(string path, string fileName)
+        {
+            var projFiles = Directory.GetFiles(path, fileName, SearchOption.AllDirectories);
+            if (projFiles.Count() > 0)
+            {
+                return Path.GetDirectoryName(projFiles[0]);
+            }
+
+            return null;
         }
     }
 }

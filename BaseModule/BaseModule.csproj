@@ -144,9 +144,6 @@
     <Compile Include="Mesh\ShowHeatMapEventArg.cs" />
     <Compile Include="Mesh\ShowTransPointsEventArgs.cs" />
     <Compile Include="Mesh\TreeNodeEqualityComparer.cs" />
-    <Compile Include="Navigator\GeneralInfo.cs" />
-    <Compile Include="Navigator\GroupInfo.cs" />
-    <Compile Include="Navigator\ModelInfo.cs" />
     <Compile Include="Navigator\NavigatorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -154,7 +151,6 @@
       <DependentUpon>NavigatorControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Navigator\SelectionType.cs" />
-    <Compile Include="Navigator\SetInfo.cs" />
     <Compile Include="Player\PlayerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -1,4 +1,5 @@
 using BaseModule.Interfaces;
+using BaseModule.PinnedControl;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,14 +10,12 @@ using System.Windows.Forms;
 
 namespace BaseModule.PropertiesPanel
 {
-    public partial class PropertiesPanelControl : UserControl, IPinnedControl
+    public partial class PropertiesPanelControl : PinnedPage
     {
         public event Action<PropertyChangedEventArgs> OnPropertyUpdate;
 
         public delegate bool Validator(string header, string value, out string corrected);
         public event Validator ValidateValue;
-        public event Action ControlCollapseEvent;
-        public event Action ControlUnpinnedEvent;
 
         private string _oldValue;
         private bool _isValid;
@@ -25,18 +24,6 @@ namespace BaseModule.PropertiesPanel
         private int _currentComboRowIndex;
         private int _currentComboColumnIndex = 1;
         private string _enteredValue = string.Empty;
-
-        [Category("General")]
-        [Description("Set up color gradient")]
-        public Color UpColor { get; set; } = Color.Silver;
-
-        [Category("General")]
-        [Description("Set down color gradient")]
-        public Color DownColor { get; set; } = Color.WhiteSmoke;
-
-        [Category("General")]
-        [Description("Set header name")]
-        public string HeaderName { get; set; } = "Свойства";
 
         public PropertiesPanelControl()
         {

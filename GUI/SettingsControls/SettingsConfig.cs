@@ -21,5 +21,19 @@ namespace BazisGUI.SettingsControls
         public bool BackRibbers;
         public int TransparencyValue;
         public bool Projection;
+
+        //result settings
+        public bool ShowResultsField;
+        public bool ShowNodeResultsValue;
+        public bool ShowElementsResultsValue;
+        public bool MergeResultsValue;
+        public bool IsScaleMaxMinManual;
+        public int Scale_X_Coord;
+        public int Scale_Y_Coord;
+        public float Scale_MaxValue;
+        public float Scale_MinValue;
+        public int Scale_Precision;
+        public int Scale_Intervals;
+        public int Scale_scale;
     }
 }

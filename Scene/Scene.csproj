@@ -125,6 +125,7 @@
     <Compile Include="Rendering\ClipPlaneRenderer.cs" />
     <Compile Include="Rendering\ShaderProgramCreator.cs" />
     <Compile Include="Rendering\ShaderCollections.cs" />
+    <Compile Include="SceneScale.cs" />
     <Compile Include="TaoExtension.cs" />
     <Compile Include="ScaleItem.cs" />
     <Compile Include="VBO\BoundingBoxVBO.cs" />
@@ -146,7 +147,6 @@
     <Compile Include="SceneLine.cs" />
     <Compile Include="ScenePath.cs" />
     <Compile Include="ScenePoligon.cs" />
-    <Compile Include="SceneScale.cs" />
     <Compile Include="SceneControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

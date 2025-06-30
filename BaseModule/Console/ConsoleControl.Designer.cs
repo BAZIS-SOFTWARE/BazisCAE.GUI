@@ -36,7 +36,6 @@ namespace BaseModule.Console
             this.toolStripMenuItem15 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
-            this.grbConsole = new System.Windows.Forms.Panel();
             this.tlscOut = new System.Windows.Forms.ToolStripContainer();
             this.rtxbField = new System.Windows.Forms.RichTextBox();
             this.toolStripEx1 = new UserControlsEx.ToolStripEx();
@@ -54,6 +53,11 @@ namespace BaseModule.Console
             this.toolStripMenuItem49 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem50 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem51 = new System.Windows.Forms.ToolStripMenuItem();
+            this.изменитьКоToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.переместитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.векторabcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.повернутьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.осьxyzУголToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem54 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem55 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem56 = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,15 +71,9 @@ namespace BaseModule.Console
             this.toolStripMenuItem64 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem65 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem66 = new System.Windows.Forms.ToolStripMenuItem();
-            this.изменитьКоToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.переместитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.векторabcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.повернутьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.осьxyzУголToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.btnStartMacro = new System.Windows.Forms.ToolStripButton();
-            this.grbConsole.SuspendLayout();
             this.tlscOut.ContentPanel.SuspendLayout();
             this.tlscOut.RightToolStripPanel.SuspendLayout();
             this.tlscOut.SuspendLayout();
@@ -110,21 +108,6 @@ namespace BaseModule.Console
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
             // 
-            // grbConsole
-            // 
-            this.grbConsole.BackColor = System.Drawing.SystemColors.Control;
-            this.grbConsole.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.grbConsole.Controls.Add(this.tlscOut);
-            this.grbConsole.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbConsole.Location = new System.Drawing.Point(0, 0);
-            this.grbConsole.Name = "grbConsole";
-            this.grbConsole.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.grbConsole.Size = new System.Drawing.Size(706, 205);
-            this.grbConsole.TabIndex = 6;
-            this.grbConsole.Paint += new System.Windows.Forms.PaintEventHandler(this.grbConsole_Paint);
-            this.grbConsole.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grbConsole_MouseClick);
-            this.grbConsole.Resize += new System.EventHandler(this.grbConsole_Resize);
-            // 
             // tlscOut
             // 
             this.tlscOut.BottomToolStripPanelVisible = false;
@@ -132,7 +115,7 @@ namespace BaseModule.Console
             // tlscOut.ContentPanel
             // 
             this.tlscOut.ContentPanel.Controls.Add(this.rtxbField);
-            this.tlscOut.ContentPanel.Size = new System.Drawing.Size(673, 188);
+            this.tlscOut.ContentPanel.Size = new System.Drawing.Size(669, 190);
             this.tlscOut.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlscOut.LeftToolStripPanelVisible = false;
             this.tlscOut.Location = new System.Drawing.Point(0, 15);
@@ -143,8 +126,8 @@ namespace BaseModule.Console
             // 
             this.tlscOut.RightToolStripPanel.Controls.Add(this.toolStripEx1);
             this.tlscOut.RightToolStripPanel.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tlscOut.Size = new System.Drawing.Size(704, 188);
-            this.tlscOut.TabIndex = 4;
+            this.tlscOut.Size = new System.Drawing.Size(706, 190);
+            this.tlscOut.TabIndex = 5;
             this.tlscOut.Text = "toolStripContainer1";
             // 
             // tlscOut.TopToolStripPanel
@@ -161,11 +144,10 @@ namespace BaseModule.Console
             this.rtxbField.Location = new System.Drawing.Point(0, 0);
             this.rtxbField.Margin = new System.Windows.Forms.Padding(1);
             this.rtxbField.Name = "rtxbField";
-            this.rtxbField.Size = new System.Drawing.Size(673, 188);
+            this.rtxbField.Size = new System.Drawing.Size(669, 190);
             this.rtxbField.TabIndex = 2;
             this.rtxbField.Text = "";
             this.rtxbField.WordWrap = false;
-            this.rtxbField.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtxbOut_LinkClicked);
             this.rtxbField.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtxbField_KeyDown);
             // 
             // toolStripEx1
@@ -191,7 +173,7 @@ namespace BaseModule.Console
             this.toolStripEx1.Location = new System.Drawing.Point(0, 0);
             this.toolStripEx1.Name = "toolStripEx1";
             this.toolStripEx1.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.toolStripEx1.Size = new System.Drawing.Size(31, 188);
+            this.toolStripEx1.Size = new System.Drawing.Size(37, 190);
             this.toolStripEx1.SplitButtonClickWidth = 13;
             this.toolStripEx1.SplitButtonHeight = 40;
             this.toolStripEx1.SplitButtonTriangleSize = 6;
@@ -226,7 +208,7 @@ namespace BaseModule.Console
             this.spbDictionary.Name = "spbDictionary";
             this.spbDictionary.Size = new System.Drawing.Size(25, 40);
             this.spbDictionary.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.spbDictionary.ButtonClick += new System.EventHandler(this.btnDictionary_Click);
+            this.spbDictionary.Click += new System.EventHandler(this.btnDictionary_Click);
             // 
             // toolStripMenuItem32
             // 
@@ -285,7 +267,6 @@ namespace BaseModule.Console
             this.toolStripMenuItem39.Name = "toolStripMenuItem39";
             this.toolStripMenuItem39.Size = new System.Drawing.Size(138, 22);
             this.toolStripMenuItem39.Text = "тип , номер";
-            this.toolStripMenuItem39.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem47
             // 
@@ -301,7 +282,7 @@ namespace BaseModule.Console
             this.toolStripMenuItem48.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem49});
             this.toolStripMenuItem48.Name = "toolStripMenuItem48";
-            this.toolStripMenuItem48.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem48.Size = new System.Drawing.Size(146, 22);
             this.toolStripMenuItem48.Text = "Переместить";
             // 
             // toolStripMenuItem49
@@ -315,14 +296,51 @@ namespace BaseModule.Console
             this.toolStripMenuItem50.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem51});
             this.toolStripMenuItem50.Name = "toolStripMenuItem50";
-            this.toolStripMenuItem50.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem50.Size = new System.Drawing.Size(146, 22);
             this.toolStripMenuItem50.Text = "Повернуть";
             // 
             // toolStripMenuItem51
             // 
             this.toolStripMenuItem51.Name = "toolStripMenuItem51";
-            this.toolStripMenuItem51.Size = new System.Drawing.Size(203, 22);
+            this.toolStripMenuItem51.Size = new System.Drawing.Size(202, 22);
             this.toolStripMenuItem51.Text = "номер : ось(x,y,z) : угол";
+            // 
+            // изменитьКоToolStripMenuItem
+            // 
+            this.изменитьКоToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.переместитьToolStripMenuItem,
+            this.повернутьToolStripMenuItem});
+            this.изменитьКоToolStripMenuItem.Name = "изменитьКоToolStripMenuItem";
+            this.изменитьКоToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.изменитьКоToolStripMenuItem.Text = "Изменить координаты сетки";
+            // 
+            // переместитьToolStripMenuItem
+            // 
+            this.переместитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.векторabcToolStripMenuItem});
+            this.переместитьToolStripMenuItem.Name = "переместитьToolStripMenuItem";
+            this.переместитьToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.переместитьToolStripMenuItem.Text = "Переместить";
+            // 
+            // векторabcToolStripMenuItem
+            // 
+            this.векторabcToolStripMenuItem.Name = "векторabcToolStripMenuItem";
+            this.векторabcToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.векторabcToolStripMenuItem.Text = "вектор(x,y,z)";
+            // 
+            // повернутьToolStripMenuItem
+            // 
+            this.повернутьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.осьxyzУголToolStripMenuItem});
+            this.повернутьToolStripMenuItem.Name = "повернутьToolStripMenuItem";
+            this.повернутьToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.повернутьToolStripMenuItem.Text = "Повернуть";
+            // 
+            // осьxyzУголToolStripMenuItem
+            // 
+            this.осьxyzУголToolStripMenuItem.Name = "осьxyzУголToolStripMenuItem";
+            this.осьxyzУголToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.осьxyzУголToolStripMenuItem.Text = "ось(x,y,z) : угол";
             // 
             // toolStripMenuItem54
             // 
@@ -341,13 +359,13 @@ namespace BaseModule.Console
             this.toolStripMenuItem55.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem56});
             this.toolStripMenuItem55.Name = "toolStripMenuItem55";
-            this.toolStripMenuItem55.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem55.Size = new System.Drawing.Size(170, 22);
             this.toolStripMenuItem55.Text = "Переместить";
             // 
             // toolStripMenuItem56
             // 
             this.toolStripMenuItem56.Name = "toolStripMenuItem56";
-            this.toolStripMenuItem56.Size = new System.Drawing.Size(142, 22);
+            this.toolStripMenuItem56.Size = new System.Drawing.Size(141, 22);
             this.toolStripMenuItem56.Text = "вектор(x,y,z)";
             // 
             // toolStripMenuItem57
@@ -355,7 +373,7 @@ namespace BaseModule.Console
             this.toolStripMenuItem57.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem58});
             this.toolStripMenuItem57.Name = "toolStripMenuItem57";
-            this.toolStripMenuItem57.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem57.Size = new System.Drawing.Size(170, 22);
             this.toolStripMenuItem57.Text = "Повернуть";
             // 
             // toolStripMenuItem58
@@ -369,7 +387,7 @@ namespace BaseModule.Console
             this.toolStripMenuItem59.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem60});
             this.toolStripMenuItem59.Name = "toolStripMenuItem59";
-            this.toolStripMenuItem59.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem59.Size = new System.Drawing.Size(170, 22);
             this.toolStripMenuItem59.Text = "Масштабировать";
             // 
             // toolStripMenuItem60
@@ -383,7 +401,6 @@ namespace BaseModule.Console
             this.toolStripMenuItem61.Name = "toolStripMenuItem61";
             this.toolStripMenuItem61.Size = new System.Drawing.Size(231, 22);
             this.toolStripMenuItem61.Text = "Найти свободные узлы";
-            this.toolStripMenuItem61.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem62
             // 
@@ -396,9 +413,8 @@ namespace BaseModule.Console
             // toolStripMenuItem63
             // 
             this.toolStripMenuItem63.Name = "toolStripMenuItem63";
-            this.toolStripMenuItem63.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem63.Size = new System.Drawing.Size(138, 22);
             this.toolStripMenuItem63.Text = "тип , номер";
-            this.toolStripMenuItem63.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem64
             // 
@@ -411,55 +427,14 @@ namespace BaseModule.Console
             // toolStripMenuItem65
             // 
             this.toolStripMenuItem65.Name = "toolStripMenuItem65";
-            this.toolStripMenuItem65.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem65.Size = new System.Drawing.Size(102, 22);
             this.toolStripMenuItem65.Text = "Узлы";
-            this.toolStripMenuItem65.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripMenuItem66
             // 
             this.toolStripMenuItem66.Name = "toolStripMenuItem66";
             this.toolStripMenuItem66.Size = new System.Drawing.Size(231, 22);
             this.toolStripMenuItem66.Text = "Выход";
-            this.toolStripMenuItem66.Click += new System.EventHandler(this.NewItem_Click);
-            // 
-            // изменитьКоToolStripMenuItem
-            // 
-            this.изменитьКоToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.переместитьToolStripMenuItem,
-            this.повернутьToolStripMenuItem});
-            this.изменитьКоToolStripMenuItem.Name = "изменитьКоToolStripMenuItem";
-            this.изменитьКоToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
-            this.изменитьКоToolStripMenuItem.Text = "Изменить координаты сетки";
-            // 
-            // переместитьToolStripMenuItem
-            // 
-            this.переместитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.векторabcToolStripMenuItem});
-            this.переместитьToolStripMenuItem.Name = "переместитьToolStripMenuItem";
-            this.переместитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.переместитьToolStripMenuItem.Text = "Переместить";
-            // 
-            // векторabcToolStripMenuItem
-            // 
-            this.векторabcToolStripMenuItem.Name = "векторabcToolStripMenuItem";
-            this.векторabcToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.векторabcToolStripMenuItem.Text = "вектор(x,y,z)";
-            this.векторabcToolStripMenuItem.Click += new System.EventHandler(this.NewItem_Click);
-            // 
-            // повернутьToolStripMenuItem
-            // 
-            this.повернутьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.осьxyzУголToolStripMenuItem});
-            this.повернутьToolStripMenuItem.Name = "повернутьToolStripMenuItem";
-            this.повернутьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.повернутьToolStripMenuItem.Text = "Повернуть";
-            // 
-            // осьxyzУголToolStripMenuItem
-            // 
-            this.осьxyzУголToolStripMenuItem.Name = "осьxyzУголToolStripMenuItem";
-            this.осьxyzУголToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.осьxyzУголToolStripMenuItem.Text = "ось(x,y,z) : угол";
-            this.осьxyzУголToolStripMenuItem.Click += new System.EventHandler(this.NewItem_Click);
             // 
             // toolStripButton1
             // 
@@ -503,11 +478,11 @@ namespace BaseModule.Console
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.grbConsole);
+            this.Controls.Add(this.tlscOut);
+            this.HeaderName = "Консоль";
             this.Name = "ConsoleControl";
             this.Size = new System.Drawing.Size(706, 205);
             this.Load += new System.EventHandler(this.ConsoleControl_Load);
-            this.grbConsole.ResumeLayout(false);
             this.tlscOut.ContentPanel.ResumeLayout(false);
             this.tlscOut.RightToolStripPanel.ResumeLayout(false);
             this.tlscOut.RightToolStripPanel.PerformLayout();
@@ -525,9 +500,10 @@ namespace BaseModule.Console
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem15;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem16;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
-        private System.Windows.Forms.Panel grbConsole;
         private System.Windows.Forms.ToolStripContainer tlscOut;
         private System.Windows.Forms.RichTextBox rtxbField;
+        private ToolStripEx toolStripEx1;
+        private System.Windows.Forms.ToolStripSplitButton spbDictionary;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem32;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem33;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem34;
@@ -541,6 +517,11 @@ namespace BaseModule.Console
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem49;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem50;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem51;
+        private System.Windows.Forms.ToolStripMenuItem изменитьКоToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem переместитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem векторabcToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem повернутьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem осьxyzУголToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem54;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem55;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem56;
@@ -554,15 +535,8 @@ namespace BaseModule.Console
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem64;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem65;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem66;
-        private ToolStripEx toolStripEx1;
-        private System.Windows.Forms.ToolStripSplitButton spbDictionary;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton btnStartMacro;
-        private System.Windows.Forms.ToolStripMenuItem изменитьКоToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem переместитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem векторabcToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem повернутьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem осьxyzУголToolStripMenuItem;
     }
 }

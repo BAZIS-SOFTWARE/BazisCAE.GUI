@@ -1,4 +1,7 @@
-﻿namespace BazisGUI
+﻿using System;
+using System.Collections.Generic;
+
+namespace BazisGUI
 {
     partial class BaseForm
     {
@@ -40,6 +43,7 @@
             this.navigator = new BaseModule.Navigator.NavigatorControl();
             this.propertiesPanel = new BaseModule.PropertiesPanel.PropertiesPanelControl();
             this.sceenSplitContainer = new UserControlsEx.SplitContainerEx();
+            this.scene = new BazisGUI.ScenePage();
             this.console = new BaseModule.Console.ConsoleControl();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,7 +83,6 @@
             this.createFieldMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createPlotMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scaleSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportResultsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.усреднитьРезультатыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -119,7 +122,6 @@
             this.btnSetRotHor90 = new System.Windows.Forms.ToolStripButton();
             this.btnSetRotVer90 = new System.Windows.Forms.ToolStripButton();
             this.btnFitObjs = new System.Windows.Forms.ToolStripButton();
-            this.scene = new BazisGUI.ScenePage();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -341,6 +343,7 @@
             this.navigator.GenerateTCFEvent += new System.Action(this.navigator_GenerateTCFEvent);
             this.navigator.StopComputationEvent += new System.Action(this.navigator_StopComputationEvent);
             this.navigator.SetCompPriority += new System.Action<object, BaseModule.Navigator.Priority>(this.navigator_SetCompPriority);
+            this.navigator.CreateAnimationEvent += new System.Action<object, string, System.Collections.Generic.List<string>>(this.navigator_CreateAnimationEvent);
             this.navigator.ControlCollapseEvent += new System.Action(this.navigator_ControlCollapseEvent);
             // 
             // propertiesPanel
@@ -349,14 +352,17 @@
             this.propertiesPanel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.propertiesPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.propertiesPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertiesPanel.DownColor = System.Drawing.Color.WhiteSmoke;
+            this.propertiesPanel.DownColor = System.Drawing.Color.Gainsboro;
+            this.propertiesPanel.HeaderColor = System.Drawing.Color.Black;
             this.propertiesPanel.HeaderName = "Свойства";
+            this.propertiesPanel.IsPinndable = false;
             this.propertiesPanel.Location = new System.Drawing.Point(0, 0);
             this.propertiesPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.propertiesPanel.Name = "propertiesPanel";
+            this.propertiesPanel.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
             this.propertiesPanel.Size = new System.Drawing.Size(361, 93);
             this.propertiesPanel.TabIndex = 0;
-            this.propertiesPanel.UpColor = System.Drawing.Color.Silver;
+            this.propertiesPanel.UpColor = System.Drawing.Color.Gainsboro;
             this.propertiesPanel.OnPropertyUpdate += new System.Action<BaseModule.PropertiesPanel.PropertyChangedEventArgs>(this.propertiesPanel_OnPropertyUpdate);
             // 
             // sceenSplitContainer
@@ -381,19 +387,40 @@
             this.sceenSplitContainer.SwitchShifting = false;
             this.sceenSplitContainer.TabIndex = 0;
             // 
+            // scene
+            // 
+            this.scene.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scene.Location = new System.Drawing.Point(0, 0);
+            this.scene.Name = "scene";
+            this.scene.ShowInsideObjects = false;
+            this.scene.Size = new System.Drawing.Size(679, 264);
+            this.scene.TabIndex = 0;
+            this.scene.TransparencyValue = 0;
+            this.scene.MeshGroupCreatedEvent += new System.Action<object>(this.scene_MeshGroupCreatedEvent);
+            this.scene.ShowAllObjectsEvent += new System.Action<object, System.EventArgs>(this.scene_ShowAllObjectsEvent);
+            this.scene.SelectionDeletedEvent += new System.Action<object>(this.scene_SelectionDeletedEvent);
+            this.scene.SelectObjectsEvent += new System.Action<object, Scene.Events.SelectObjectsEventArgs>(this.scene_SelectObjectsEvent);
+            this.scene.HideSelectedObjects += new System.Action<object>(this.scene_HideSelectedObjects);
+            this.scene.SetBackColorToAllObjectsEvent += new System.Action<object>(this.scene_SetBackColorToAllObjectsEvent);
+            // 
             // console
             // 
             this.console.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.console.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.console.CheckPrintElemsInfo = false;
             this.console.CheckPrintNodesInfo = false;
             this.console.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.console.DownColor = System.Drawing.Color.WhiteSmoke;
+            this.console.DownColor = System.Drawing.Color.Gainsboro;
+            this.console.HeaderColor = System.Drawing.Color.Black;
             this.console.HeaderName = "Консоль";
+            this.console.IsPinndable = false;
             this.console.Location = new System.Drawing.Point(0, 0);
+            this.console.Margin = new System.Windows.Forms.Padding(0);
             this.console.Name = "console";
+            this.console.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
             this.console.Size = new System.Drawing.Size(679, 68);
             this.console.TabIndex = 0;
-            this.console.UpColor = System.Drawing.Color.Silver;
+            this.console.UpColor = System.Drawing.Color.Gainsboro;
             this.console.ControlCollapseEvent += new System.Action(this.console_ControlCollapseEvent);
             this.console.InEvent += new System.Action<object, System.EventArgs>(this.console_InEvent);
             this.console.FindFreeNodesEvent += new System.Action(this.console_FindFreeNodesEvent);
@@ -564,7 +591,6 @@
             this.meshMenuItem.Name = "meshMenuItem";
             this.meshMenuItem.Size = new System.Drawing.Size(49, 20);
             this.meshMenuItem.Text = "Сетка";
-            this.meshMenuItem.Visible = false;
             // 
             // createSurfaceElementsMenuItem
             // 
@@ -600,7 +626,6 @@
             this.tasksMenuItem.Name = "tasksMenuItem";
             this.tasksMenuItem.Size = new System.Drawing.Size(57, 20);
             this.tasksMenuItem.Text = "Задачи";
-            this.tasksMenuItem.Visible = false;
             // 
             // arcWeldingMenuItem
             // 
@@ -658,19 +683,18 @@
             this.dataBasesMenuItem.Name = "dataBasesMenuItem";
             this.dataBasesMenuItem.Size = new System.Drawing.Size(86, 20);
             this.dataBasesMenuItem.Text = "Базы данных";
-            this.dataBasesMenuItem.Visible = false;
             // 
             // материалыMenuItem
             // 
             this.материалыMenuItem.Name = "материалыMenuItem";
-            this.материалыMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.материалыMenuItem.Size = new System.Drawing.Size(180, 22);
             this.материалыMenuItem.Text = "Материалы";
             this.материалыMenuItem.Click += new System.EventHandler(this.материалыMenuItem_Click);
             // 
             // функцииMenuItem
             // 
             this.функцииMenuItem.Name = "функцииMenuItem";
-            this.функцииMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.функцииMenuItem.Size = new System.Drawing.Size(180, 22);
             this.функцииMenuItem.Text = "Функции";
             this.функцииMenuItem.Click += new System.EventHandler(this.функцииMenuItem_Click);
             // 
@@ -683,12 +707,10 @@
             this.createFieldMenuItem,
             this.createPlotMenuItem,
             this.scaleSettingsMenuItem,
-            this.exportResultsMenuItem,
             this.усреднитьРезультатыToolStripMenuItem});
             this.resultsMenuItem.Name = "resultsMenuItem";
             this.resultsMenuItem.Size = new System.Drawing.Size(77, 20);
             this.resultsMenuItem.Text = "Результаты";
-            this.resultsMenuItem.Visible = false;
             // 
             // loadResultsMenuItem
             // 
@@ -735,14 +757,7 @@
             this.scaleSettingsMenuItem.Name = "scaleSettingsMenuItem";
             this.scaleSettingsMenuItem.Size = new System.Drawing.Size(243, 22);
             this.scaleSettingsMenuItem.Text = "Настройки шкалы";
-            this.scaleSettingsMenuItem.Click += new System.EventHandler(this.scaleSettingsMenuItem_Click);
-            // 
-            // exportResultsMenuItem
-            // 
-            this.exportResultsMenuItem.Name = "exportResultsMenuItem";
-            this.exportResultsMenuItem.Size = new System.Drawing.Size(243, 22);
-            this.exportResultsMenuItem.Text = "Экспорт результатов";
-            this.exportResultsMenuItem.Click += new System.EventHandler(this.exportResultsMenuItem_Click);
+            this.scaleSettingsMenuItem.Click += new System.EventHandler(this.настройкиШкалыMenuItem_Click);
             // 
             // усреднитьРезультатыToolStripMenuItem
             // 
@@ -1352,16 +1367,6 @@
             this.btnFitObjs.Text = "toolStripButton13";
             this.btnFitObjs.ToolTipText = "Вписать в экран";
             // 
-            // scene
-            // 
-            this.scene.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scene.Location = new System.Drawing.Point(0, 0);
-            this.scene.Name = "scene";
-            this.scene.ShowInsideObjects = false;
-            this.scene.Size = new System.Drawing.Size(679, 264);
-            this.scene.TabIndex = 0;
-            this.scene.TransparencyValue = 0;
-            // 
             // BaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1470,7 +1475,6 @@
         private System.Windows.Forms.ToolStripMenuItem createFieldMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createPlotMenuItem;
         private System.Windows.Forms.ToolStripMenuItem scaleSettingsMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportResultsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem создать1DПо2DЭлементамToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem экспортСеткиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem показатьЗначенияВЭлементахToolStripMenuItem;

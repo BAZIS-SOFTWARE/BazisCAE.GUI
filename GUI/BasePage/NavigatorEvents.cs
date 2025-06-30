@@ -24,6 +24,13 @@ using Geometry;
 using PreProc;
 using Project;
 using System.Diagnostics;
+using Model.Interfaces.ObjectsCollections;
+using Scene.Interfaces;
+using Newtonsoft.Json;
+using PreProc.Interfaces;
+using BaseModule.Results.Animation;
+using Gif.Components;
+using Project.Results.IO;
 
 namespace BazisGUI
 {
@@ -36,8 +43,24 @@ namespace BazisGUI
 
         private void navigator_StopComputationEvent()
         {
-            StopComputation();
+            var runProc = Process.GetProcessesByName("BazisSolverCP");
+
+            if (runProc.Length != 0)
+            {
+                var process = new Process();
+                var startInfo = new ProcessStartInfo
+                {
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    FileName = "cmd.exe",
+                    //Arguments = $"/C sc stop BazisSolver",
+                    Arguments = $"/C taskkill /pid {runProc[0].Id} /f",
+                    Verb = "runas"
+                };
+                process.StartInfo = startInfo;
+                process.Start();
+            }
         }
+
         private void navigator_SetCompPriority(object arg1, Priority arg2)
         {
             
@@ -45,17 +68,41 @@ namespace BazisGUI
         private void navigator_RemoveAllConditionsEvent()
         {
             project.TaskData?.Clear();
-            PresentTaskDataOnTree(project.GeneralData, project.TaskData);
+            PresentCondDataOnTree(project.GeneralData, project.TaskData);
+        }
+
+        public void navigator_RemoveConditionEvent(int index)
+        {
+            project.TaskData.RemoveAt(index);
         }
 
         private void navigator_RemoveResultsEvent()
         {
+            navigator.TrySearchNodes(NodeType.результаты, out List<TreeNode> nodes);
+            //nodes[0].Nodes["ПоУзлам"].Nodes.Clear();
+            //nodes[0].Nodes["Набор результатов"].Nodes["ПоЭлементам"].Nodes.Clear();
 
+            scene.ClearAllDataOnScene();
+
+            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
+                scene.CreateObjectsOnScene(item.ToString(), scene.CreateObjectsPresentor(project.ModelData, item));
+
+            scene.SceneControl.DisplayObjects();
         }
         private void navigator_HideResultsEvent()
         {
+            scene.ClearAllDataOnScene();
 
+            scene.PresentAllModelObjectsToScene(project.ModelData);
+
+            scene.SceneControl.FitObjectsToScreen();
+            scene.SceneControl.DisplayObjects();
         }
+
+        private void navigator_CreateAnimationEvent(object arg1, string arg2, List<string> list)
+        {
+            // To Do
+        }      
 
         private void navigator_GenerateTCFEvent()
         {
@@ -97,6 +144,55 @@ namespace BazisGUI
             StartComputation();
         }
 
+        private void CheckProjectDataBeforeCreationTCF()
+        {
+            try
+            {
+                var generalData = project.GeneralData;
+
+                if (!File.Exists($@"{generalData.Path}\{generalData.Name}"))
+                    throw new Exception($"В папке проекта {generalData.Path} отсутствует файл проекта {generalData.Name}. " +
+                        $"Верните файл проекта в папку проекта или выберете другой проект");
+
+                if (!File.Exists($@"{generalData.Path}\{generalData.Materials}"))
+                    throw new Exception($"В папке проекта {generalData.Path} отсутствует файл материалов {generalData.Materials}. " +
+                        $"Верните файл материалов в папку проекта или выберете другой файл материалов");
+
+                if (!File.Exists($@"{generalData.Path}\{generalData.Functions}"))
+                    throw new Exception($"В папке проекта {generalData.Path} отсутствует файл функций {generalData.Functions}. " +
+                        $"Верните файл функций в папку проекта или выберете другой файл функций");
+
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
+        }
+
+        private List<string> GetLoadGroupsNames(TaskType taskType, IModelData modelData)
+        {
+            if (taskType == TaskType.AxiPlain || taskType == TaskType.Plain)
+                return modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList();
+            else
+                return modelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.Name).ToList();
+        }
+
+        private List<string> GetBoundaryGroupsNames(TaskType taskType, IModelData modelData)
+        {
+            if (taskType == TaskType.AxiPlain || taskType == TaskType.Plain)
+                return modelData.GroupData.FindMany(ObjType.Элемент1D).Select(x => x.Name).ToList();
+            else
+                return modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList();
+        }
+
+        private List<string> GetMaterialGroupsNames(TaskType taskType, IModelData modelData)
+        {
+            if (taskType == TaskType.AxiPlain || taskType == TaskType.Plain)
+                return modelData.GroupData.FindMany(ObjType.Элемент2D).Select(x => x.Name).ToList();
+            else
+                return modelData.GroupData.FindMany(ObjType.Элемент3D).Select(x => x.Name).ToList();
+        }
+
         public void StartComputation()
         {
             try
@@ -104,7 +200,7 @@ namespace BazisGUI
                 var generalData = project.GeneralData;
                 var myProcess = new Process();
 
-                myProcess.StartInfo.FileName = $@"{SolverPath}\BazisSolverCP.exe";
+                myProcess.StartInfo.FileName = $@"{settingsConfig.SolverPath}\BazisSolverCP.exe";
 
                 var compDir = $@"{generalData.Path}\ComputationData";
                 var cmdFile = $@"{compDir}\computation.tcf";
@@ -140,7 +236,7 @@ namespace BazisGUI
                 var procProp = new ProcessProperty()
                 {
                     TaskKind = project.GeneralData.TaskKind,
-                    CommonTaskType = ProcessType
+                    CommonTaskType = ProcessType.Welding // убрать из препроцессора
                 };
 
                 preProc.CalcCompDataV2(data, procProp, inputDir);
@@ -149,7 +245,7 @@ namespace BazisGUI
 
                 var sortedFiles = preProc.SortCompDataByTimeAndType(tsfFiles);
 
-                PresentCompDataOnTree(sortedFiles);
+                navigator.PresentCompDataOnTree(sortedFiles);
 
                 console.PrintInfo($"Входные Данные задачи сгенерированы в {inputDir}", Color.Green);
 
@@ -269,6 +365,28 @@ namespace BazisGUI
             generalForm.Show(this);
         }
 
+        public T GetDataBase<T>(string dbName, string dbPath)
+        {
+            var filePath = FindFileByPath(dbPath, dbName);
+            if (filePath == null)
+            {
+                console.PrintInfo($"Не найдена база {dbName} в папке {dbPath}", Color.Orange);
+                return default;
+            }
+
+            else
+            {
+                var settingsSerializer = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto,
+                    Formatting = Formatting.Indented,
+                };
+
+                return JsonConvert.DeserializeObject<T>
+    (File.ReadAllText($@"{dbPath}\{dbName}"), settingsSerializer);
+            }
+        }
+
         public async void AddConditions(AddDataEventArgs arg2)
         {
             try
@@ -298,7 +416,7 @@ namespace BazisGUI
                     project.TaskData.Add(newData);
                 }
 
-                PresentTaskDataOnTree(project.GeneralData, project.TaskData);
+                PresentCondDataOnTree(project.GeneralData, project.TaskData);
             }
             catch (Exception ex)
             {
@@ -336,18 +454,28 @@ namespace BazisGUI
             project.TaskData.Add(z_data);
         }
 
-        private void navigator_ChangeSetViewEvent(string arg1, ViewRegime arg2)
-        {
-
-        }
         private void navigator_HideAllGroupsEvent()
         {
-            ChangeAllGroupsViewEvent?.Invoke(this, false);
+            foreach (var group in project.ModelData.GroupData)
+            {
+                foreach (var iobj in group)
+                {
+                    iobj.ViewState = false;
+                }
+            }
+            scene.SceneControl.DeleteAllVBObjects();
+            scene.PresentAllModelObjectsToScene(project.ModelData);
+            scene.SceneControl.DisplayObjects();
         }
 
         private void navigator_HideAllObjectsEvent()
         {
-            ChangeAllObjsViewStateEvent?.Invoke(this, false);
+            foreach (var obj in project.ModelData.ObjectData.GetAllObjects())
+                    obj.ViewState = false;           
+
+            scene.SceneControl.DeleteAllVBObjects();
+            scene.PresentAllModelObjectsToScene(project.ModelData);
+            scene.SceneControl.DisplayObjects();
         }
 
         private void navigator_ShowGroupEvent(int obj)
@@ -355,21 +483,7 @@ namespace BazisGUI
             try
             {
                 var group = project.ModelData.GroupData[obj];
-
-                foreach (var iobj in group)
-                    iobj.ViewState = true;
-
-                var vbobj = scene.SceneControl.FindVBObj(group.ObjType.ToString());
-                if (vbobj == null)
-                    throw new Exception($"Объект {group.ObjType} не загружен на сцену!");
-                var viewMode = vbobj.ViewMode;
-
-                scene.SceneControl.DeleteVBObjects(group.ObjType.ToString());
-                var pres = scene.CreateObjectsPresentor(project.ModelData, group.ObjType);
-                scene.CreateObjectsOnScene(group.ObjType.ToString(), pres);
-                scene.SceneControl.ChangeViewModeVBObjects(group.ObjType.ToString(), viewMode);
-
-                scene.SceneControl.DisplayObjects();
+                ChangeGroupViewState(group,true);
 
             }
             catch (Exception ex)
@@ -378,9 +492,36 @@ namespace BazisGUI
             }
         }
 
+        private void ChangeGroupViewState(IGroup group, bool viewState)
+        {
+            foreach (var iobj in group)
+                iobj.ViewState = viewState;
+
+            var vbobj = scene.SceneControl.FindVBObj(group.ObjType.ToString());
+            if (vbobj == null)
+                throw new Exception($"Объект {group.ObjType} не загружен на сцену!");
+            var viewMode = vbobj.ViewMode;
+
+            scene.SceneControl.DeleteVBObjects(group.ObjType.ToString());
+            var pres = scene.CreateObjectsPresentor(project.ModelData, group.ObjType);
+            scene.CreateObjectsOnScene(group.ObjType.ToString(), pres);
+            scene.SceneControl.ChangeViewModeVBObjects(group.ObjType.ToString(), viewMode);
+
+            scene.SceneControl.DisplayObjects();
+        }
+
         private void navigator_HideGroupEvent(int obj)
         {
-            ChangeGroupViewEvent?.Invoke(this, obj, false);
+            try
+            {
+                var group = project.ModelData.GroupData[obj];
+                ChangeGroupViewState(group, false);
+
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
         }
 
         private void navigator_HideSetEvent(NodeType nodeType, string setName)
@@ -399,7 +540,12 @@ namespace BazisGUI
 
         private void navigator_ShowAllObjectsEvent()
         {
-            ChangeAllObjsViewStateEvent?.Invoke(this, true);
+            foreach (var obj in project.ModelData.ObjectData.GetAllObjects())
+                obj.ViewState = true;
+
+            scene.SceneControl.DeleteAllVBObjects();
+            scene.PresentAllModelObjectsToScene(project.ModelData);
+            scene.SceneControl.DisplayObjects();
         }
 
         private void navigator_ShowSetEvent(NodeType nodeType, string setName)
@@ -447,9 +593,30 @@ namespace BazisGUI
             scene.SceneControl.DisplayObjects();
         }
 
-        private void navigator_ChangeSetViewEventHandler(string objs, ViewRegime viewRegime)
+        private void navigator_ChangeSetViewEvent(string objs, ViewRegime viewRegime)
         {
-   
+            var objType = objs.ToEnum<ObjType>();
+            switch (viewRegime)
+            {
+                case ViewRegime.ribbers:
+                    scene.SceneControl.ChangeViewModeVBObjects(objs, ObjView.Lines);
+                    foreach (var item in project.ModelData.ObjectData.GetSetsInfo(objType))
+                        item.SetViewMode(ViewMode.Line);
+                    break;
+                case ViewRegime.surfaces:
+                    scene.SceneControl.ChangeViewModeVBObjects(objs, ObjView.Surface);
+                    foreach (var item in project.ModelData.ObjectData.GetSetsInfo(objType))
+                        item.SetViewMode(ViewMode.Surface);
+                    break;
+                case ViewRegime.ribbersSurfaces:
+                    scene.SceneControl.ChangeViewModeVBObjects(objType.ToString(), ObjView.LinesSurface);
+                    foreach (var item in project.ModelData.ObjectData.GetSetsInfo(objType))
+                        item.SetViewMode(ViewMode.LineSurface);
+                    break;
+                default:
+                    break;
+            }
+            scene.SceneControl.DisplayObjects();
         }
         private void navigator_DelGroupEvent(int grIndex)
         {
@@ -459,7 +626,7 @@ namespace BazisGUI
             PresentGroupDataOnTree(project.ModelData.GroupData);
 
             //if (arg1 is TaskPage taskPage)
-            PresentTaskDataOnTree(project.GeneralData, project.TaskData);
+            PresentCondDataOnTree(project.GeneralData, project.TaskData);
         }
 
         private void navigator_DelAllGroupsEvent()
@@ -470,13 +637,19 @@ namespace BazisGUI
             PresentGroupDataOnTree(project.ModelData.GroupData);
 
             //if (arg1 is TaskPage taskPage)
-            PresentTaskDataOnTree(project.GeneralData, project.TaskData);
+            PresentCondDataOnTree(project.GeneralData, project.TaskData);
         }
 
         private void navigator_DelSetEvent(NodeType nodeType, string setName)
         {
             var objType = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
-            DeleteSetEvent?.Invoke(this, objType, setName);
+
+            project.DeleteMeshSet(objType, setName);
+            scene.SceneControl.DeleteVBObjects(objType.ToString());
+
+            var ndPres = scene.CreateObjectsPresentor(project.ModelData, objType);
+            scene.CreateObjectsOnScene(objType.ToString(), ndPres);
+            scene.SceneControl.DisplayObjects();
         }
 
         private async void navigator_EditGroupEvent(int obj)
@@ -534,7 +707,7 @@ namespace BazisGUI
             PresentGroupDataOnTree(project.ModelData.GroupData);
 
             //if (arg1 is TaskPage taskPage)
-            PresentTaskDataOnTree(project.GeneralData, project.TaskData);
+            PresentCondDataOnTree(project.GeneralData, project.TaskData);
 
             scene.ClearAllDataOnScene();
             scene.PresentAllModelObjectsToScene(project.ModelData);
@@ -548,7 +721,7 @@ namespace BazisGUI
             PresentGroupDataOnTree(project.ModelData.GroupData);
 
             //if (obj is ToolStripPage taskPage)
-            PresentTaskDataOnTree(project.GeneralData, project.TaskData);
+            PresentCondDataOnTree(project.GeneralData, project.TaskData);
 
             scene.ClearAllDataOnScene();
             scene.SceneControl.DisplayObjects();
@@ -602,7 +775,34 @@ namespace BazisGUI
 
         private void navigator_SelectCondEvent(NodeType arg1, string arg2)
         {
-            SelectConditionEvent?.Invoke(this,arg2);
+            var data = project.TaskData.First(x => x.ToString() == arg2);
+
+            panelProvider.AllGroup = project.ModelData.GroupData.ToList();
+
+            panelProvider._funcDBNames =
+                GetDataBase<FunctionDBData>(project.GeneralData.Functions, project.GeneralData.Path).Keys.ToList();
+            panelProvider._matDBNames =
+                GetDataBase<MaterialDBData>(project.GeneralData.Materials, project.GeneralData.Path).Keys.ToList();
+
+            panelProvider.ShowPropertiesPanel(data);
+
+            scene.SceneControl.HideAllGeometryObjs();
+
+            if (data.Direction != Direction.None)
+                DisplayDirection(data.StartTime, data, data.Group);
+
+            project.ModelData.ObjectData.SetBackColor(data.Group.ObjType);
+            var pres = scene.CreateObjectsPresentor(project.ModelData, data.Group.ObjType);
+
+            scene.SetObjectsSceneAttribute(pres, data.Group.ObjType.ToString(), "цвет");
+
+            foreach (var iobj in data.Group)
+                iobj.Color = settingsConfig.SelectGroupColor;
+
+            pres = scene.CreateObjectsPresentor(project.ModelData, data.Group.ObjType);
+            scene.SetObjectsSceneAttribute(pres, data.Group.ObjType.ToString(), "цвет");
+
+            scene.SceneControl.DisplayObjects();
         }
 
         private void navigator_SelectGeneralInfoEvent(NodeType arg1, string arg2)

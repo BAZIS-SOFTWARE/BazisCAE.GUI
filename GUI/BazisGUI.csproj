@@ -136,8 +136,8 @@
     <Reference Include="Octree, Version=2.1.11.0, Culture=neutral, PublicKeyToken=2f43c75143b659d5, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOctree.2.1.11\lib\netstandard2.0\Octree.dll</HintPath>
     </Reference>
-    <Reference Include="PostProc, Version=1.2.8.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
-      <HintPath>..\packages\PostProc.1.2.8\lib\netstandard2.0\PostProc.dll</HintPath>
+    <Reference Include="PostProc, Version=1.2.9.0, Culture=neutral, PublicKeyToken=c4d1674672089e95, processorArchitecture=MSIL">
+      <HintPath>..\packages\PostProc.1.2.9\lib\netstandard2.0\PostProc.dll</HintPath>
     </Reference>
     <Reference Include="PreProc, Version=1.0.99.0, Culture=neutral, PublicKeyToken=431dea3db74a9b3d, processorArchitecture=MSIL">
       <HintPath>..\packages\PreProc.1.0.99\lib\netstandard2.0\PreProc.dll</HintPath>
@@ -234,6 +234,9 @@
     <Compile Include="BasePage\NavigatorEvents.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="BasePage\NavigatorMethods.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="BasePage\PropertiesPanelEvent.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -274,9 +277,6 @@
     <Compile Include="PropertiesPanel\PropertyPanelProvider.cs" />
     <Compile Include="PropertiesPanel\ShowPropertyEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResultsPage.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="ScenePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -301,9 +301,6 @@
     </Compile>
     <Compile Include="SettingsControls\LightingControl.Designer.cs">
       <DependentUpon>LightingControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TaskPage.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="TasksControls\BasicControl.cs">
       <SubType>UserControl</SubType>
@@ -413,8 +410,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutBanner.jpg" />
+    <None Include="Documents\components.mdpuml" />
     <Content Include="IconShort_16.ico" />
     <Content Include="IconShort_32.ico" />
+    <None Include="Documents\EditingObjectProperties.mdpuml" />
     <None Include="Documents\TextFile1.mdpuml" />
     <None Include="Documents\UseCases.mdpuml" />
     <None Include="Documents\Передача свойств набора на панель свойств.mdpuml" />

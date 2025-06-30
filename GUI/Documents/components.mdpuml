@@ -1,0 +1,11 @@
+﻿@startuml
+
+[console]
+[main menu]
+[selectToolStrip]
+[viewToolStrip]
+[toolsToolStrip]
+[displayToolStrip]
+[property panel]
+[scenePage] --> [scene]
+@enduml

@@ -40,7 +40,8 @@ using BaseModule.Results.ScaleControl;
 using ModelControllerInterfaces;
 using Scene;
 using Project.Interfaces;
-
+using BazisGUI.PropertiesPanel;
+using PostProc;
 
 namespace BazisGUI
 {
@@ -54,9 +55,11 @@ namespace BazisGUI
         ModelController.ModelController modelController = new ModelController.ModelController();
         GmshController gmshController = new GmshController();
         IODataController dataController = new IODataController();
- 
+        PreProc.PreProc preProc = new PreProc.PreProc();
+        PropertyPanelProvider panelProvider = new PropertyPanelProvider();
+        PostProcController resultsController = new PostProcController();
         ClientController serverConnection;
-
+        
         SettingsConfig settingsConfig = new SettingsConfig()
         {
             BackGroudColor = Color.White,
@@ -292,202 +295,7 @@ namespace BazisGUI
                     resultsMenuItem.Visible = false;
                 }
             }
-        }
-
-        //private ToolStripPage CreateModule(string moduleName)
-        //{
-        //    ToolStripPage page;
-
-        //    //TaskPage taskPage;
-        //    if (moduleName == "Weld")
-        //        page = new WeldingPage() { Dock = DockStyle.Fill, Name = moduleName };
-        //    else
-        //        page = new HeatTreatmentPage() { Dock = DockStyle.Fill, Name = moduleName };
-
-        //    page.SolverPath = settingsConfig.SolverPath;
-        //    page.SelectConditionEvent += TaskPage_SelectPhysicalDataEvent;
-        //    page.CreatePhysicalDataEvent += TaskPage_CreateTaskDataEvent;
-        //    page.DeleteAllPhysicalDataEvent += TaskPage_DeleteAllTaskDataEvent;
-        //    page.ShowGantChartEvent += TaskPage_ShowGantChartEvent;
-        //    page.AddPhysicalDataEvent += TaskPage_AddPhysicalDataEvent;
-        //    page.GenerateTSFEvent += TaskPage_GenerateTSFEvent;
-        //    page.GenerateTCFEvent += TaskPage_GenerateTCFEvent;
-        //    page.EditTSFEvent += TaskPage_EditTSFEvent;
-        //    page.StopComputationEvent += TaskPage_StopComputationEvent;
-
-        //    resultsMenuItem.Visible = true;
-
-        //    page.PresentResultsInfo(project.GeneralData.ResultDB);
-        //    page.RemoveResultsEvent += (object arg) => { page.RemoveResults(project.ModelData); };
-        //    page.HideResultsEvent += (object arg) => { page.HideResults(project.ModelData); };
-        //    page.ShowResultsEvent += (object arg1, Result arg2, int arg3) =>
-        //    {
-        //        page.ShowResults(project.GeneralData, project.ModelData, arg2, arg3);
-        //    };
-
-        //    page.CreateGIFAnimationEvent += (object arg1, CreateAnimationEventArgs arg2) =>
-        //    {
-        //        page.CreateGIFAnimation(project.GeneralData, project.ModelData, arg2);
-        //    };
-
-        //    page.GetResultsInfoEvent += Page_GetResultsInfoEvent;
-
-        //    meshMenuItem.Visible = true;
-
-        //    page.DeleteObjectsEvent += Page_DeleteObjectsEvent;
-        //    page.ChangeAllGroupsViewEvent += Page_ShowAllGroupsEvent;
-        //    page.DeleteAllGroupsEvent += Page_DeleteAllGroupsEvent;
-        //    page.DeleteGroupEvent += Page_DeleteGroupEvent;
-        //    page.SelectObjectsEvent += Page_SelectObjectsEvent;
-        //    page.ShowInsideObjectsEvent += Page_ShowInsideObjectsEvent;
-        //    page.HideInsideObjectsEvent += Page_HideInsideObjectsEvent;
-        //    page.ChangeViewModeObjectsEvent += Page_ChangeViewModeObjectsEvent;
-        //    page.CreateSectionSurfacesFromCoordsEvent += Page_CreateSectionSurfacesFromCoordsEvent;
-        //    page.DistancePointToPointEvent += Page_DistancePointToPointEvent;
-        //    page.DistancePointToPlaneEvent += Page_DistancePointToPlaneEvent;
-        //    page.CreatePathAsyncEvent += Page_CreatePathAsyncEvent;
-        //page.CalcSquareEvent += Page_CalcSquareEvent;
-        //page.CalcVolumeEvent += Page_CalcVolumeEvent;
-        //    page.SelectNodeInPlaneEvent += Page_SelectNodeInPlaneEvent;
-        //    page.SelectE2DInPlaneEvent += Page_SelectE2DInPlaneEvent;
-        //    page.SelectInDirectionEvent += Page_SelectInDirectionEvent;
-        //    page.MakeScreenShotEvent += Page_MakeScreenShotEvent;
-        //    page.ShowMeshCountorsEvent += Page_ShowMeshCountorsEvent;
-        //    page.ShowMeshNormalsEvent += Page_ShowMeshNormalsEvent;
-        //    page.FindFreeNodesEvent += Page_FindFreeNodesEvent;
-        //    page.ChangeGroupViewEvent += Page_ShowGroupEvent;
-        //    page.ChangeSetViewStateEvent += Page_ChangeSetViewStateEvent;
-        //    page.EditGroupEvent += Page_EditGroupEvent;
-        //    page.SelectGroupEvent += Page_SelectGroupEvent;
-        //    page.SetBackColorToAllObjectsEvent += Page_SetBackColorToAllObjectsEvent;
-        //    page.HideSelectedObjectsEvent += Page_HideSelectedObjectsEvent;
-        //    page.CreateSectionSurfacesFromNodesEvent += Page_CreateSectionSurfacesFromNodesEvent;
-        //    page.CreatedMeshGroupEvent += Page_CreatedMeshGroupEvent;
-        //    page.DeleteSelectedObjectsEvent += Page_DeleteSelectedObjectsEvent;
-        //    page.ChangedGroupNameEvent += Page_ChangedGroupNameEvent;
-        //    page.InfoGroupEvent += Page_InfoGroupEvent;
-        //    page.ChangeAllObjsViewEvent += Page_ChangeAllObjsViewEvent;
-        //    page.ShowGroupWithNodesEvent += Page_ShowGroupWithNodesEvent;
-        //    page.DelAllObjectsEvent += Page_DelAllObjectsEvent;
-        //    page.SelectSetEvent += Page_SelectSetEvent;
-        //    page.UpdateNavigatorEvent += Page_UpdateNavigatorEvent;
-        //    page.GetObjectsInfoEvent += Page_GetObjectsInfoEvent;
-        //    page.GetSetsInfoEvent += Page_GetSetsInfoEvent;
-
-        //    return page;
-        //}
-
-        public void PresentTaskDataOnTree(IGeneralData generalData, ITaskData taskData)
-        {
-            try
-            {
-                navigator.BeginUpdate();
-                navigator.TrySearchNodes(NodeType.условия, out List<TreeNode> cond);
-                cond[0].Nodes.Clear();
-
-                PresentMatAndFuncDataOnTree(generalData);
-
-                foreach (var data in taskData)
-                {
-                    var nodeType = data.Kind.ToString().ToEnum<NodeType>();
-                    var imgIndex = navigator.GetObjectImageIndex(nodeType);
-
-                    var child = navigator.CreateRealNode(nodeType, $"{data}");
-                    child.ImageIndex = imgIndex;
-                    child.SelectedImageIndex = imgIndex;
-
-                    navigator.TrySearchNodes(NodeType.условия.ToString(), out List<TreeNode> nodes);
-                    nodes.First().Nodes.Add(child);
-                }
-
-                navigator.EndUpdate();
-                cond[0].Expand();
-            }
-            catch (Exception ex)
-            {
-                console.PrintInfo(ex.Message, Color.Red);
-            }
-        }
-
-        public void PresentObjectsOnScene(IObjsPresenter presenter, string name)
-        {
-            var vbobj = scene.SceneControl.FindVBObj(name);
-            if (vbobj != null)
-            {
-                var viewMode = vbobj.ViewMode;
-
-                scene.SceneControl.DeleteVBObjects(name);
-                scene.CreateObjectsOnScene(name, presenter);
-                scene.SceneControl.ChangeViewModeVBObjects(name, viewMode);
-            }
-        }
-
-        public void PresentObjectsDataOnTree(IObjectsData objectsData)
-        {
-            navigator.BeginUpdate();
-
-            navigator.TrySearchNodes("объекты", out List<TreeNode> nodes);
-            foreach (TreeNode item in nodes[0].Nodes)
-                item.Nodes.Clear();
-
-            foreach (ObjType objType in Enum.GetValues(typeof(ObjType)))
-                foreach (var item in objectsData.GetSetsInfo(objType))
-                {
-                    if (item.NumberOfObjects > 0)
-                    {
-                        //if(item.ObjType == ObjType.Узел)
-                        //    nodes[0].Nodes[NodeType.Узлы.ToString()]
-                        var root = Converters.ConvertToNavigatorNodeType(item.ObjType);
-                        navigator.TryCreateNode(root.ToString(), item.Name, $"{item.Name} {item.NumberOfObjects}", NodeKind.virt);
-                    }
-                }
-            navigator.EndUpdate();
-        }      
-
-        private void Page_UpdateNavigatorEvent(object obj)
-        {
-
-            PresentGeneralDataOnTree(project.GeneralData);
-            PresentObjectsDataOnTree(project.ModelData.ObjectData);
-            PresentGroupDataOnTree(project.ModelData.GroupData);
-
-            //if (obj is TaskPage taskPage)
-            PresentTaskDataOnTree(project.GeneralData, project.TaskData);         
-        }
-
-        private void TaskPage_SelectPhysicalDataEvent(object arg1, string arg2)
-        {
-  
-
-            var data = project.TaskData.First(x => x.ToString() == arg2);
-
-            panelProvider.AllGroup = project.ModelData.GroupData.ToList();
-
-            panelProvider._funcDBNames = 
-                GetDataBase<FunctionDBData>(project.GeneralData.Functions, project.GeneralData.Path).Keys.ToList();
-            panelProvider._matDBNames =
-                GetDataBase<MaterialDBData>(project.GeneralData.Materials, project.GeneralData.Path).Keys.ToList();
-
-            panelProvider.ShowPropertiesPanel(data);
-
-            scene.SceneControl.HideAllGeometryObjs();
-
-            if (data.Direction != Direction.None)
-                DisplayDirection(data.StartTime, data, data.Group);
-
-            project.ModelData.ObjectData.SetBackColor(data.Group.ObjType);
-            var pres = scene.CreateObjectsPresentor(project.ModelData, data.Group.ObjType);
-
-            scene.SetObjectsSceneAttribute(pres, data.Group.ObjType.ToString(), "цвет");
-
-            foreach (var iobj in data.Group)
-                iobj.Color = settingsConfig.SelectGroupColor;
-
-            pres = scene.CreateObjectsPresentor(project.ModelData, data.Group.ObjType);
-            scene.SetObjectsSceneAttribute(pres, data.Group.ObjType.ToString(), "цвет");
-
-            scene.SceneControl.DisplayObjects();
-        }
+        }           
 
         private void Page_ChangeAllObjsViewEvent(object arg1, bool arg2)
         {
@@ -774,7 +582,7 @@ namespace BazisGUI
 
             settings.SetSolverPathEvent += (ar) =>
             {
-                    SolverPath = ar;
+                settingsConfig.SolverPath = ar;
             };
             settings.SetBackGroundColorEvent += (ar) =>
             {
@@ -1051,7 +859,7 @@ namespace BazisGUI
             PresentObjectsDataOnTree(project.ModelData.ObjectData);
             PresentGroupDataOnTree(project.ModelData.GroupData);
 
-            PresentTaskDataOnTree(project.GeneralData,project.TaskData);
+            PresentCondDataOnTree(project.GeneralData,project.TaskData);
 
             PresentModelOnSelectToolStrip(project.ModelData.ObjectData);
         }
@@ -1211,6 +1019,7 @@ namespace BazisGUI
             }
 
         }
+        
     }
 
 }

@@ -23,6 +23,8 @@ namespace Scene
     {
         List<VBObject> glObjs = new List<VBObject>();
 
+        //Dictionary<GLObjType,HashSet<VBObject>> glObjs = new List<VBObject>();
+
         int fontBase;//Идентификатор первого сгенерированного Glyph(глифа)
         bool blending;
         bool lighting;
