@@ -1,33 +1,20 @@
-﻿using BaseModule.Console;
-using BazisGUI.Utilities;
+﻿using BazisGUI.Utilities;
 using Geometry;
-using Model;
-using Model.GeometryObjects;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
-using Model.MeshObjects;
 using ModelController.MeshObjsUtility;
 using ModelController.ModelScenePresentator;
-using ModelController.ModelScenePresentator.GlObjsPresenters;
 using ModelControllerInterfaces;
-using Newtonsoft.Json.Linq;
 using Scene;
 using Scene.Events;
 using Scene.Interfaces;
-using Scene.VBO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.Odbc;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using static BaseModule.Interfaces.GeneralParams;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BazisGUI
 {
@@ -71,7 +58,7 @@ namespace BazisGUI
         public event Action<object> SetBackColorToAllObjectsEvent;
 
 
-        public virtual void PresentCrossSection(ISurfaceObjsPresenter presenter)
+        public void PresentCrossSection(ISurfaceObjsPresenter presenter)
         {
             var inds = presenter.CreateIndexes();
             var ptrs = presenter.CreatePointers(inds.Item1);

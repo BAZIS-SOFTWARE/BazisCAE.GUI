@@ -262,9 +262,6 @@
     <Compile Include="MessageBoxEx\MessageBoxEx.Designer.cs">
       <DependentUpon>MessageBoxEx.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModelPage.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="PropertiesPanel\Control\DataConverter.cs" />
     <Compile Include="PropertiesPanel\Control\GroupConverter.cs" />
@@ -414,7 +411,6 @@
     <Content Include="IconShort_16.ico" />
     <Content Include="IconShort_32.ico" />
     <None Include="Documents\EditingObjectProperties.mdpuml" />
-    <None Include="Documents\TextFile1.mdpuml" />
     <None Include="Documents\UseCases.mdpuml" />
     <None Include="Documents\Передача свойств набора на панель свойств.mdpuml" />
     <None Include="Resources\м 34.png" />

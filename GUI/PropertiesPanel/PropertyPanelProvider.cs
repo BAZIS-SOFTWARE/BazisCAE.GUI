@@ -1,7 +1,6 @@
 ﻿using BaseModule.Extensions;
 using BaseModule.PropertiesPanel;
 using BazisGUI.PropertiesPanel.Control;
-using BazisGUI.Utilities;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using Project.Interfaces.Tasks;

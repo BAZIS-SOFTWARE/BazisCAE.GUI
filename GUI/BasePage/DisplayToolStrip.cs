@@ -57,23 +57,31 @@ namespace BazisGUI
 
         private void ChangeViewModeObjects(ViewMode arg2)
         {
-            foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Поверхность))
-                item.SetViewMode(ViewMode.LineSurface);
-            foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Элемент2D))
-                item.SetViewMode(ViewMode.LineSurface);
-            foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Элемент3D))
-                item.SetViewMode(ViewMode.LineSurface);
+            try
+            {
+                foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Поверхность))
+                    item.SetViewMode(ViewMode.LineSurface);
+                foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Элемент2D))
+                    item.SetViewMode(ViewMode.LineSurface);
+                foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Элемент3D))
+                    item.SetViewMode(ViewMode.LineSurface);
 
-            var vbobjs = scene.SceneControl.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.triangle);
+                var vbobjs = scene.SceneControl.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.triangle);
 
-            foreach (var obj in vbobjs)
-                if (arg2 == ViewMode.Line)
-                    obj.ViewMode = Scene.Interfaces.ObjView.Lines;
-                else if (arg2 == ViewMode.LineSurface)
-                    obj.ViewMode = Scene.Interfaces.ObjView.LinesSurface;
-                else obj.ViewMode = Scene.Interfaces.ObjView.Surface;
+                foreach (var obj in vbobjs)
+                    if (arg2 == ViewMode.Line)
+                        obj.ViewMode = Scene.Interfaces.ObjView.Lines;
+                    else if (arg2 == ViewMode.LineSurface)
+                        obj.ViewMode = Scene.Interfaces.ObjView.LinesSurface;
+                    else obj.ViewMode = Scene.Interfaces.ObjView.Surface;
 
-            scene.SceneControl.DisplayObjects();
+                scene.SceneControl.DisplayObjects();
+            }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
+
         }
 
         private void HideInsideObjects()

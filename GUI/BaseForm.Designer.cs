@@ -66,6 +66,7 @@ namespace BazisGUI
             this.createSurfaceElementsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.создать1DПо2DЭлементамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mesh3DGeneratorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.показатьПлотностьСеткиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tasksMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.arcWeldingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lazerWeldingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -329,9 +330,14 @@ namespace BazisGUI
             this.navigator.EditGroupEvent += new System.Action<int>(this.navigator_EditGroupEvent);
             this.navigator.InfoGroupEvent += new System.Action<int>(this.navigator_InfoGroupEvent);
             this.navigator.ShowGroupWithNodesEvent += new System.Action<int>(this.navigator_ShowGroupWithNodesEvent);
-            this.navigator.SelectObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectObjectEvent);
             this.navigator.GetObjectsInfoEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_GetObjectsInfoEvent);
             this.navigator.DelObjectsEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_DelObjectsEvent);
+            this.navigator.ShowObjectsEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_ShowObjectsEvent);
+            this.navigator.HideObjectsEvent += new System.Action<BaseModule.Navigator.NodeType>(this.navigator_HideObjectsEvent);
+            this.navigator.SelectObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string, int>(this.navigator_SelectObjectEvent);
+            this.navigator.DelObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string, int>(this.navigator_DelObjectEvent);
+            this.navigator.ShowObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string, int>(this.navigator_ShowObjectEvent);
+            this.navigator.HideObjectEvent += new System.Action<BaseModule.Navigator.NodeType, string, int>(this.navigator_HideObjectEvent);
             this.navigator.SelectCondEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectCondEvent);
             this.navigator.SelectTaskEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectTaskEvent);
             this.navigator.SelectGeneralInfoEvent += new System.Action<BaseModule.Navigator.NodeType, string>(this.navigator_SelectGeneralInfoEvent);
@@ -566,19 +572,18 @@ namespace BazisGUI
             this.viewMenuItem.Name = "viewMenuItem";
             this.viewMenuItem.Size = new System.Drawing.Size(39, 20);
             this.viewMenuItem.Text = "Вид";
-            this.viewMenuItem.Visible = false;
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(131, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem2.Text = "Навигатор";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(131, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem3.Text = "Консоль";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
@@ -587,7 +592,8 @@ namespace BazisGUI
             this.meshMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createSurfaceElementsMenuItem,
             this.создать1DПо2DЭлементамToolStripMenuItem,
-            this.mesh3DGeneratorMenuItem});
+            this.mesh3DGeneratorMenuItem,
+            this.показатьПлотностьСеткиToolStripMenuItem});
             this.meshMenuItem.Name = "meshMenuItem";
             this.meshMenuItem.Size = new System.Drawing.Size(49, 20);
             this.meshMenuItem.Text = "Сетка";
@@ -595,14 +601,14 @@ namespace BazisGUI
             // createSurfaceElementsMenuItem
             // 
             this.createSurfaceElementsMenuItem.Name = "createSurfaceElementsMenuItem";
-            this.createSurfaceElementsMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.createSurfaceElementsMenuItem.Size = new System.Drawing.Size(213, 22);
             this.createSurfaceElementsMenuItem.Text = "Создать 2D из 3D";
             this.createSurfaceElementsMenuItem.Click += new System.EventHandler(this.createSurfaceElementsMenuItem_Click);
             // 
             // создать1DПо2DЭлементамToolStripMenuItem
             // 
             this.создать1DПо2DЭлементамToolStripMenuItem.Name = "создать1DПо2DЭлементамToolStripMenuItem";
-            this.создать1DПо2DЭлементамToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.создать1DПо2DЭлементамToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.создать1DПо2DЭлементамToolStripMenuItem.Text = "Создать 1D из 2D";
             this.создать1DПо2DЭлементамToolStripMenuItem.Click += new System.EventHandler(this.создать1DПо2DЭлементамToolStripMenuItem_Click);
             // 
@@ -610,9 +616,16 @@ namespace BazisGUI
             // 
             this.mesh3DGeneratorMenuItem.CheckOnClick = true;
             this.mesh3DGeneratorMenuItem.Name = "mesh3DGeneratorMenuItem";
-            this.mesh3DGeneratorMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.mesh3DGeneratorMenuItem.Size = new System.Drawing.Size(213, 22);
             this.mesh3DGeneratorMenuItem.Text = "Генератор 3D сетки";
             this.mesh3DGeneratorMenuItem.Click += new System.EventHandler(this.mesh3DGeneratorMenuItem_Click);
+            // 
+            // показатьПлотностьСеткиToolStripMenuItem
+            // 
+            this.показатьПлотностьСеткиToolStripMenuItem.Name = "показатьПлотностьСеткиToolStripMenuItem";
+            this.показатьПлотностьСеткиToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.показатьПлотностьСеткиToolStripMenuItem.Text = "Показать плотность сетки";
+            this.показатьПлотностьСеткиToolStripMenuItem.Click += new System.EventHandler(this.показатьПлотностьСеткиToolStripMenuItem_Click);
             // 
             // tasksMenuItem
             // 
@@ -687,14 +700,14 @@ namespace BazisGUI
             // материалыMenuItem
             // 
             this.материалыMenuItem.Name = "материалыMenuItem";
-            this.материалыMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.материалыMenuItem.Size = new System.Drawing.Size(135, 22);
             this.материалыMenuItem.Text = "Материалы";
             this.материалыMenuItem.Click += new System.EventHandler(this.материалыMenuItem_Click);
             // 
             // функцииMenuItem
             // 
             this.функцииMenuItem.Name = "функцииMenuItem";
-            this.функцииMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.функцииMenuItem.Size = new System.Drawing.Size(135, 22);
             this.функцииMenuItem.Text = "Функции";
             this.функцииMenuItem.Click += new System.EventHandler(this.функцииMenuItem_Click);
             // 
@@ -1519,6 +1532,7 @@ namespace BazisGUI
         private UserControlsEx.SplitContainerEx sceenSplitContainer;
         private ScenePage scene;
         private BaseModule.Console.ConsoleControl console;
+        private System.Windows.Forms.ToolStripMenuItem показатьПлотностьСеткиToolStripMenuItem;
     }
 }
 

@@ -121,13 +121,16 @@ namespace BaseModule.Navigator
         public event Action<int> InfoGroupEvent;
         public event Action<int> ShowGroupWithNodesEvent;
 
-        public event Action<NodeType, string> SelectObjectEvent;
-        public event Action<NodeType, string> DelObjectEvent;
-
         public event Action<NodeType, string> GetObjectsInfoEvent;
         public event Action<NodeType> DelObjectsEvent;
         public event Action<NodeType> ShowObjectsEvent;
         public event Action<NodeType> HideObjectsEvent;
+
+        public event Action<NodeType, string, int> SelectObjectEvent;
+        public event Action<NodeType, string, int> DelObjectEvent;
+        public event Action<NodeType, string, int> GetObjectInfoEvent;
+        public event Action<NodeType, string, int> ShowObjectEvent;
+        public event Action<NodeType, string, int> HideObjectEvent;
 
         public event Action<NodeType, string> SelectCondEvent;
         public event Action<NodeType, string> SelectTaskEvent;
@@ -424,6 +427,27 @@ namespace BaseModule.Navigator
             ShowSetEvent?.Invoke(nodeType, node.Text.Split(' ')[0]);
         }
 
+        public void HideSet_Click(object sender, EventArgs e)
+        {
+            var node = treeView.SelectedNode;
+
+            NodeType nodeType;
+            Enum.TryParse(node?.Parent.Name, out nodeType);
+
+            //treeView.SelectedNode.ImageIndex = ImgDict[nodeType];
+            //treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType];
+
+            HideSetEvent?.Invoke(nodeType, node?.Text.Split(' ')[0]);
+        }
+
+        private void DelSet_Click(object sender, EventArgs e)
+        {
+            var node = treeView.SelectedNode;
+            var nodeType = node.Parent.Name.ToEnum<NodeType>();
+
+            DelSetEvent?.Invoke(nodeType, node.Text.Split(' ')[0]);
+        }
+
         public void ShowObjects_Click(object sender, EventArgs e)
         {
             var node = treeView.SelectedNode;
@@ -463,19 +487,6 @@ namespace BaseModule.Navigator
         public void HideAllGroups_Click(object sender, EventArgs e)
         {
             HideAllGroupsEvent?.Invoke();
-        }
-
-        public void HideSet_Click(object sender, EventArgs e)
-        {
-            var node = treeView.SelectedNode;
-
-            NodeType nodeType;
-            Enum.TryParse(node?.Parent.Name, out nodeType);
-
-            //treeView.SelectedNode.ImageIndex = ImgDict[nodeType];
-            //treeView.SelectedNode.SelectedImageIndex = ImgDict[nodeType];
-
-            HideSetEvent?.Invoke(nodeType, node?.Text.Split(' ')[0]);
         }
 
         public void EditGroup_Click(object sender, EventArgs e)
@@ -522,29 +533,6 @@ namespace BaseModule.Navigator
         {
             ChangeSetViewEvent?.Invoke(treeView.SelectedNode.Name, ViewRegime.ribbersSurfaces);
         }
-
-        //private void grbNavigator_Paint(object sender, PaintEventArgs e)
-        //{
-        //    var loc_y = treeView.Location.Y;
-
-        //    ComponentsPainter.PaintGradientRectangle(e.Graphics, new Point(0, 0), Width, loc_y, UpColor, DownColor);
-
-        //    var locRect = new Point(Width - 15, loc_y / 2 - 4);
-        //    ComponentsPainter.PaintCloseRectangle(e.Graphics, locRect);
-
-        //    e.Graphics.DrawString(HeaderName, ComponentsPainter.Font, new SolidBrush(System.Drawing.Color.Black), 15, 0);
-        //}
-
-        //private void grbNavigator_MouseClick(object sender, MouseEventArgs e)
-        //{
-        //    if (e.Location.X > grbNavigator.Width - 16 & e.Location.X < grbNavigator.Width - 8 && e.Location.Y <= 10)
-        //        ControlCollapseEvent?.Invoke();
-        //}
-
-        //private void grbNavigator_Resize(object sender, EventArgs e)
-        //{
-        //    grbNavigator.Invalidate();
-        //}
         
         private void treeView_Enter(object sender, EventArgs e)
         {
@@ -632,7 +620,12 @@ e.Node.Name == NodeType.Кривая.ToString() |
 e.Node.Name == NodeType.Поверхность.ToString() |
 e.Node.Name == NodeType.Объем.ToString()
 )
-                    SelectObjectEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), e.Node.Text);
+                {
+                    var set = node.Parent.Nodes[0].Text.Split(' ')[0];
+                    var number = int.Parse(node.Text.Split(' ')[0]);
+                    SelectObjectEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), set,number);
+                }
+                    
             }
 
 
@@ -789,13 +782,7 @@ e.Node.Name == NodeType.Объем.ToString()
             RemoveAllConditionsEvent?.Invoke();
         }
 
-        private void DelSet_Click(object sender, EventArgs e)
-        {
-            var node = treeView.SelectedNode;
-            var nodeType = node.Parent.Name.ToEnum<NodeType>();
 
-            DelSetEvent?.Invoke(nodeType, node.Text.Split(' ')[0]);
-        }
 
         private void создатьАнимациюMenuItem_Click(object sender, EventArgs e)
         {
@@ -807,6 +794,33 @@ e.Node.Name == NodeType.Объем.ToString()
                 list.Add(item.Text);
 
             CreateAnimationEvent?.Invoke(this, node.Text, list);
+        }
+
+        private void удалитьОбъектMenuItem_Click(object sender, EventArgs e)
+        {
+            var node = treeView.SelectedNode;
+            var nodeType = node.Parent.Name.ToEnum<NodeType>();
+            var set = node.Parent.Nodes[0].Text.Split(' ')[0];
+            var number = int.Parse(node.Text.Split(' ')[0]);
+            DelObjectEvent?.Invoke(nodeType, set, number);
+        }
+
+        private void скрытьОбъектMenuItem_Click(object sender, EventArgs e)
+        {
+            var node = treeView.SelectedNode;
+            var nodeType = node.Parent.Name.ToEnum<NodeType>();
+            var set = node.Parent.Nodes[0].Text.Split(' ')[0];
+            var number = int.Parse(node.Text.Split(' ')[0]);
+            HideObjectEvent?.Invoke(nodeType, set, number);
+        }
+
+        private void показатьОбъектMenuItem_Click(object sender, EventArgs e)
+        {
+            var node = treeView.SelectedNode;
+            var nodeType = node.Parent.Name.ToEnum<NodeType>();
+            var set = node.Parent.Nodes[0].Text.Split(' ')[0];
+            var number = int.Parse(node.Text.Split(' ')[0]);
+            ShowObjectEvent?.Invoke(nodeType, set, number);
         }
     }
 }

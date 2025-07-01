@@ -18,21 +18,21 @@ namespace BaseModule.GanttChart
         private GanttChartModel ganttChart;
         private Dictionary<TreeNode, int> mapTreeNodeToChartIndex;
 
-        public GanttChartTreeView(IEnumerable<string> tasks, int timesteps)
+        public GanttChartTreeView(IEnumerable<string> conds, int timesteps)
         {
             InitializeComponent();
 
-            var start = tasks.Select(t => t.Split(':')[1].Split(' ').GetLastByIndex(2)).Min(x => double.Parse(x));
-            var end = tasks.Select(t => t.Split(':')[1].Split(' ').GetLastByIndex(1)).Max(x => double.Parse(x));
+            var start = conds.Select(t => t.Split(':')[1].Split(' ').GetLastByIndex(2)).Min(x => double.Parse(x));
+            var end = conds.Select(t => t.Split(':')[1].Split(' ').GetLastByIndex(1)).Max(x => double.Parse(x));
             var interval = (end - start) / timesteps;
 
-            ganttChart = new GanttChartModel(start, end, interval, tasks.Count());
+            ganttChart = new GanttChartModel(start, end, interval, conds.Count());
             mapTreeNodeToChartIndex = new Dictionary<TreeNode, int>();
 
             ganttChart.Chart.Dock = DockStyle.Fill;
             splitContainer.Panel2.Controls.Add(ganttChart.Chart);
 
-            AddTasks(tasks);
+            AddTasks(conds);
         }
 
         private void AddTasks(IEnumerable<string> tasks)

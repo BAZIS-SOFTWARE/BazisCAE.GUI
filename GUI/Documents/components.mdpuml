@@ -1,11 +1,43 @@
 ﻿@startuml
-
-[console]
+package "Core" {
+[model controller]
+[preProc]
+[postProc]
+[project]
+[model]
+[Geometry]
+[GMSH Api]
+}
+package "BaseForm" {
 [main menu]
-[selectToolStrip]
-[viewToolStrip]
-[toolsToolStrip]
-[displayToolStrip]
-[property panel]
+[toolStrips]
+[baseForm]
+[property provider]
+[scenePage]
+}
+
+package "BaseModule" {
+[baseForm] --> [console]
+[baseForm] --> [navigator]
+[baseForm] --> [property panel]
+
+}
+
+[property provider] --> [project]
+[baseForm] --> [preProc]
+[baseForm] --> [postProc]
+[baseForm] --> [model controller]
+[baseForm] --> [project]
+[baseForm] --> [scenePage]
+[scene] --> [Geometry]
 [scenePage] --> [scene]
+[scenePage] --> [model]
+[scenePage] --> [model controller]
+[model controller] --> [model]
+[model controller] --> [GMSH Api]
+[preProc] --> [project]
+[postProc] --> [project]
+[project] --> [model]
+[project] --> [Geometry]
+[model] --> [Geometry]
 @enduml
