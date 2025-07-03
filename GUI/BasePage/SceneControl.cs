@@ -584,7 +584,7 @@ namespace BazisGUI
             compass.FontBase = fontBase;
             //После этого мы должны передавать fontBase в любой класс, который использует шрифты!          
 
-            Gle.Load();
+            //Gle.Load();
             //AverageColorRenderer.CreateAverageColorRenderer(scene.Width, scene.Height);
             averageColorRenderer = new AverageColorRenderer(Width, Height);
             clipPlaneRenderer = new ClipPlaneRenderer();
