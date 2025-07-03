@@ -11,10 +11,15 @@ using System.Reflection;
 using BazisGUI.Scene.Interfaces;
 using BazisGUI.Scene.VBO;
 using BazisGUI.Scene.EventsArgs;
+using BazisGUI.Scene;
+using BazisGUI.Utilities;
+using Model.Interfaces.ObjectsCollections;
+using Model.Interfaces;
+using ModelControllerInterfaces;
 
-namespace BazisGUI.Scene
+namespace BazisGUI
 {
-    public partial class SceneControl : UserControl, ISceneControl
+    public partial class BaseForm
     {
         List<VBObject> glObjs = new List<VBObject>();
 
@@ -227,7 +232,15 @@ namespace BazisGUI.Scene
         public float ShadowAngle { get ; set ; }
         /// <inheritdoc/>
         public bool IsSmoothShadow { get ; set; }
-/// <inheritdoc/>
+
+        [Category("General")]
+        [Description("Уровень прозрачности объектов")]
+        public int TransparencyValue { get; set; }
+
+        [Category("General")]
+        [Description("Показать внутренние объекты")]
+        public bool IsInsideObjectsShown { get; set; }
+        /// <inheritdoc/>
 
         [Description("Set backGround color")]
         [Category("General properties")]
@@ -264,10 +277,6 @@ namespace BazisGUI.Scene
             }
         }
 
-        //public event Action<object, EventArgs> InfoObjectsEvent;
-        public event Action<object, SelectObjectsEventArgs> SelectObjectsEvent;
-        //public event Action<object, EventArgs> SetBackColorEvent;
-
         /// <summary>
         /// SceneMouseClickEvent
         /// </summary>
@@ -298,14 +307,268 @@ namespace BazisGUI.Scene
         event Action DisplayRotationPointEvent;
         event Action DisplayClipPlaneEvent;
         event Action DisplayReflectionPlaneEvent;
-/// <inheritdoc/>
 
 
-        public void Initialization()
+        public void PresentCrossSection(ISurfaceObjsPresenter presenter)
+        {
+            var inds = presenter.CreateIndexes();
+            var ptrs = presenter.CreatePointers(inds.Item1);
+            var coords = presenter.CreateVertexes(inds.Item2, "координаты");
+            var colors = presenter.CreateVertexes(inds.Item3, "цвет");
+            var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
+            var edges = presenter.CreateEdgeFlags(inds.Item4);
+
+            var separs = presenter.CreateSeparators();
+
+            CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, "crossSection", separs, ObjView.LinesSurface);
+            DisplayObjects();
+        }
+
+        public void ClearAllGeometryDataOnScene()
+        {
+            DeleteVBObjects(ObjType.Точка.ToString());
+            DeleteVBObjects(ObjType.Кривая.ToString());
+            DeleteVBObjects(ObjType.Поверхность.ToString());
+            DeleteVBObjects(ObjType.Объем.ToString());
+        }
+
+        public void ClearAllMeshDataOnScene()
+        {
+            DeleteVBObjects(ObjType.Узел.ToString());
+            DeleteVBObjects(ObjType.Элемент1D.ToString());
+            DeleteVBObjects(ObjType.Элемент2D.ToString());
+            DeleteVBObjects(ObjType.Элемент3D.ToString());
+        }
+
+        public void PresentAllModelObjectsToScene(IModelData modelData)
+        {
+            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
+            {
+                var presentor = CreateObjectsPresentor(modelData, item);
+                if (presentor.Count() > 0)
+                {
+                    presentor.ViewMode = modelData.ObjectData.GetSetsInfo(item).First().ViewMode;
+                    CreateObjectsOnScene(item.ToString(), presentor);
+                }
+            }
+        }
+
+        public IObjsPresenter CreateObjectsPresentor(IModelData modelData, ObjType objType)
+        {
+
+            switch (objType)
+            {
+                case ObjType.Узел:
+                    return presentersCreator.CreatePointObjectsPresenter(modelData.ObjectData.NodesSet.Values);
+                case ObjType.Кривая:
+                    return presentersCreator?.CreateLineObjectsPresenter(modelData.ObjectData.CurveCollection.GetObjects());
+                case ObjType.Поверхность:
+                    return presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.SurfaceCollection.GetObjects());
+                case ObjType.Объем:
+                    return presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.VolumeCollection.GetObjects());
+                case ObjType.Элемент1D:
+                    return presentersCreator.CreateLineObjectsPresenter(modelData.ObjectData.E1DCollection.GetObjects());
+
+                case ObjType.Элемент2D:
+                    return presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.E2DCollection.GetObjects());
+
+                case ObjType.Элемент3D:
+                    if (IsInsideObjectsShown)
+                        changeInsideSurface.HideInsideSurfaces(modelData.ObjectData.E3DCollection.GetObjects());
+                    return presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.E3DCollection.GetObjects());
+                default:
+                    return presentersCreator.CreatePointObjectsPresenter(modelData.ObjectData.PointsSet.Values);
+            }
+        }
+
+        public void PresentObjectsOnScene(IObjsPresenter presenter, string name)
+        {
+            var vbobj = FindVBObj(name);
+            if (vbobj != null)
+            {
+                var viewMode = vbobj.ViewMode;
+
+                DeleteVBObjects(name);
+                CreateObjectsOnScene(name, presenter);
+                ChangeViewModeVBObjects(name, viewMode);
+            }
+        }
+
+        public void CreateObjectsOnScene(string objsName, IObjsPresenter presenter)
+        {
+            var inds = presenter.CreateIndexes();
+            var ptrs = presenter.CreatePointers(inds.Item1);
+            var coords = presenter.CreateVertexes(inds.Item2, "координаты");
+            var colors = presenter.CreateVertexes(inds.Item3, "цвет");
+            var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
+            var edges = presenter.CreateEdgeFlags(inds.Item4);
+
+            if (ptrs.Length != 0)
+            {
+                if (presenter.PresenterType == PresenterType.Surface)
+                {
+                    var pres = (ISurfaceObjsPresenter)presenter;
+                    var separs = pres.CreateSeparators();
+
+                    if (presenter.ViewMode == ViewMode.Line)
+                        CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs, ObjView.Lines);
+                    else if (presenter.ViewMode == ViewMode.LineSurface)
+                        CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs, ObjView.LinesSurface);
+                    else
+                        CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs, ObjView.Surface);
+                }
+
+                else if (presenter.PresenterType == PresenterType.Line)
+                {
+                    CreateLineVBObjects(ptrs, coords, colors, normals, edges, objsName);
+                }
+
+                else
+                    CreatePointVBObjects(ptrs, coords, colors, normals, objsName);
+            }
+
+        }
+
+        public void SetObjectsSceneAttribute(IObjsPresenter presenter, string objsName, string attribName)
+        {
+            //var objName = objsType.ToString();
+            var vboObjs = FindVBObj(objsName);
+
+            if (vboObjs != null)
+            {
+                if (presenter.Count() > 0)
+                {
+                    if (attribName == "цвет")
+                    {
+                        var colors = presenter.CreateVertexes(vboObjs.ColorLength, "цвет");
+                        vboObjs.PointsColors = colors;
+                    }
+                    else
+                    {
+                        var coords = presenter.CreateVertexes(vboObjs.CoordLength, "координаты");
+                        vboObjs.PointsCoords = coords;
+                    }
+                }
+            }
+        }
+
+        public List<IModelObject> SearchObjects(IEnumerable<IModelObject> objects, RectangleBox selectionBox, bool isSorted)
+        {
+            var camera = GetCamera();
+            var selections = new List<IModelObject>();
+
+            foreach (var item in objects)
+            {
+                if (item.ViewState)
+                {
+                    var scrPoints = new Point2D[item.NumberOfPoints];
+                    var scnPoints = new Point3D[item.NumberOfPoints];
+
+                    var pointCounter = 0;
+                    foreach (var point in item.GetCoordinates())
+                    {
+                        var scnPoint = camera.GetSceenCoord(point);
+                        scnPoints[pointCounter] = scnPoint;
+
+                        var scrPoint = camera.GetScreenCoord(scnPoint);
+                        scrPoints[pointCounter] = scrPoint;
+
+                        pointCounter++;
+                    }
+
+                    if (selectionBox.IsPointsInside(scrPoints))
+                        selections.Add(item);
+                }
+            }
+
+            if (isSorted & selections.Count > 0)
+            {
+                var near = selections.OrderByDescending(x => camera.GetSceenCoord(x.CalcCentr())._z).FirstOrDefault();
+                selections = new List<IModelObject>() { near };
+            }
+
+            return selections;
+        }
+
+        public void PresentModelObjectsOnScene(IModelData modelData, string objects)
+        {
+            if (objects == "Объекты")
+            {
+                DeleteAllVBObjects();
+                PresentAllModelObjectsToScene(modelData);
+            }
+            else if (objects == "Элементы")
+            {
+                DeleteVBObjects(ObjType.Элемент1D.ToString());
+                CreateObjectsOnScene(ObjType.Элемент1D.ToString(), CreateObjectsPresentor(modelData, ObjType.Элемент1D));
+                DeleteVBObjects(ObjType.Элемент2D.ToString());
+                CreateObjectsOnScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(modelData, ObjType.Элемент2D));
+                DeleteVBObjects(ObjType.Элемент3D.ToString());
+                CreateObjectsOnScene(ObjType.Элемент3D.ToString(), CreateObjectsPresentor(modelData, ObjType.Элемент3D));
+            }
+            else if (objects == "Фигуры")
+            {
+                DeleteVBObjects(ObjType.Поверхность.ToString());
+                CreateObjectsOnScene(ObjType.Поверхность.ToString(), CreateObjectsPresentor(modelData, ObjType.Поверхность));
+                DeleteVBObjects(ObjType.Объем.ToString());
+                CreateObjectsOnScene(ObjType.Объем.ToString(), CreateObjectsPresentor(modelData, ObjType.Объем));
+            }
+            else
+            {
+                DeleteVBObjects(objects);
+                var objType = Converters.ConvertToObjsType(objects);
+                CreateObjectsOnScene(objects, CreateObjectsPresentor(modelData, objType));
+            }
+
+
+            DisplayObjects();
+        }
+
+        public void ClearAllDataOnScene()
+        {
+            HideAllGeometryObjs();
+            HideDisplayText2D();
+            HideDisplayText3D();
+            DeleteAllVBObjects();
+        }
+
+        internal void ColorObjects(IModelData modelData, string objTypeStr)
+        {
+            if (objTypeStr == "Объекты")
+            {
+                foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
+                    SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, type), type.ToString(), "цвет");
+            }
+            else if (objTypeStr == "Элементы")
+            {
+                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент1D), objTypeStr.ToString(), "цвет");
+                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент2D), objTypeStr.ToString(), "цвет");
+                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент3D), objTypeStr.ToString(), "цвет");
+            }
+            else if (objTypeStr == "Фигуры")
+            {
+                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Поверхность), objTypeStr.ToString(), "цвет");
+                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Объем), objTypeStr.ToString(), "цвет");
+            }
+            else
+            {
+                var objType = Converters.ConvertToObjsType(objTypeStr);
+                var presentor = CreateObjectsPresentor(modelData, objType);
+                SetObjectsSceneAttribute(presentor, objType.ToString(), "цвет");
+            }
+
+
+            DisplayObjects();
+        }
+
+        /// <inheritdoc/>
+
+
+        public void SceneInitialization()
         {
             basis = new SceneBasis();
             DisplayRotationPointEvent = CreateRotationPoint();
-            camera = new SceneCamera(0, 0, -5, glControl.Width, glControl.Height, 2.5f);
+            camera = new SceneCamera(0, 0, -5, Width, Height, 2.5f);
             UpdateProjection();
             compass = new SceneCompass();
 
@@ -319,18 +582,17 @@ namespace BazisGUI.Scene
             ChangeTextFont(fontBase);//Используем шрифт по-умолчанию
             //ChangeTextFont(fontBase, "Comic Sans", 18, FontStyle.Italic);//Проверка различного типа шрифтов
             compass.FontBase = fontBase;
-            //После этого мы должны передавать fontBase в любой класс, который использует шрифты!
-
+            //После этого мы должны передавать fontBase в любой класс, который использует шрифты!          
 
             Gle.Load();
-            //AverageColorRenderer.CreateAverageColorRenderer(glControl.Width, glControl.Height);
-            averageColorRenderer = new AverageColorRenderer(glControl.Width, glControl.Height);
+            //AverageColorRenderer.CreateAverageColorRenderer(scene.Width, scene.Height);
+            averageColorRenderer = new AverageColorRenderer(Width, Height);
             clipPlaneRenderer = new ClipPlaneRenderer();
             advanced3DClipper = new Advanced3DClipper();
             Disposed += (s, e) =>
             {
                 foreach (var obj in glObjs)
-                    VBO.VBO.DeleteAllBuffers(obj);
+                    VBO.DeleteAllBuffers(obj);
                 averageColorRenderer.Dispose();
                 clipPlaneRenderer.Dispose();
                 advanced3DClipper.Dispose();
@@ -341,16 +603,9 @@ namespace BazisGUI.Scene
             //DisplayClipPlane();//Регистрируем обработчик визуализации сечения
         }
 
+
         /// <summary>
-        /// SceneControl
-        /// </summary>
-        public SceneControl()
-        {
-            InitializeComponent();
-            glControl.InitializeContexts();
-        }
-        /// <summary>
-        /// Для корректного отображения шрифтов нужен HDC окна, созданного на этапе вызова метода glControl.InitializeContexts();
+        /// Для корректного отображения шрифтов нужен HDC окна, созданного на этапе вызова метода scene.InitializeContexts();
         /// Однако оно приватное, мы можем получить его через рефлексию
         /// </summary>
         /// <returns>IntPtr - deviceContext</returns>
@@ -358,7 +613,7 @@ namespace BazisGUI.Scene
         {
             var bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
             var fields = typeof(SimpleOpenGlControl).GetFields(bindingFlags);
-            return (IntPtr)fields[1].GetValue(glControl);//deviceContext распологается на первом индексе!
+            return (IntPtr)fields[1].GetValue(scene);//deviceContext распологается на первом индексе!
         }
         /// <summary>
         /// Использовать шрифты по умолчанию или задать свой, для отображения текста
@@ -395,14 +650,14 @@ namespace BazisGUI.Scene
             cornerRect.winScrenePosit = new Point(Width - 18, Height - 9);
             cornerRect.winScreneCoord.X = cornerRect.winScrenePosit.X + 8;
             cornerRect.winScreneCoord.Y = cornerRect.winScrenePosit.Y - 8;
-            cornerRect.Display(glControl.Width, glControl.Height);
+            cornerRect.Display(scene.Width, scene.Height);
 
             if (IsSceneExpand)
             {
                 cornerRect.winScrenePosit = new Point(Width - 21, Height - 12);
                 cornerRect.winScreneCoord.X = cornerRect.winScrenePosit.X + 8;
                 cornerRect.winScreneCoord.Y = cornerRect.winScrenePosit.Y - 8;
-                cornerRect.Display(glControl.Width, glControl.Height);
+                cornerRect.Display(scene.Width, scene.Height);
             }
         }
         /// <inheritdoc/>
@@ -469,7 +724,7 @@ namespace BazisGUI.Scene
             DisplayControlStatus();
 
             Gl.glFlush();
-            glControl.Invalidate();
+            scene.Invalidate();
         }
 
         private void DisplayModelObjects()
@@ -631,64 +886,12 @@ namespace BazisGUI.Scene
                 if (Math.Abs(factor - 1) < 0.1) break;
             }
         }
-
-        private void GlControl_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.C)
-            {
-                var left = ScreenMousePosition.X;
-                var rigth = ScreenMousePosition.X + 10;
-                var top = ScreenMousePosition.Y;
-                var bottom = ScreenMousePosition.Y - 10;
-
-                var selectionBox = new RectangleBox(left, rigth, bottom, top);
-
-                var selection = new List<Point3D>();
-
-                foreach (var glObj in glObjs)
-                {
-                    var coords = glObj.PointsCoords;
-
-                    var length = coords.Length / 3;
-
-                    for (int i = 0; i < length; i++)
-                    {
-                        var x = coords[3 * i + 0];
-                        var y = coords[3 * i + 1];
-                        var z = coords[3 * i + 2];
-
-                        var scnPoint = camera.GetSceenCoord(x, y, z);
-                        var scrPoint = camera.GetScreenCoord(scnPoint);
-
-                        if (selectionBox.IsPointInside(scrPoint))
-                            selection.Add(new Point3D(x,y,z));
-                    }
-                }
-                var distSelection = selection.Distinct();
-                var sortedSelection = distSelection.OrderByDescending(x => x._z);
-                if (sortedSelection.Count() > 0)
-                    SetRotationCentre(sortedSelection.First());
-
-                DisplayObjects();
-
-            }
-            //if (e.KeyCode == Keys.Escape)
-            //{
-                //SetBackColorEvent?.Invoke(this, new EventArgs());
-            //}
-            if (e.KeyCode == Keys.F)
-            {
-                FitObjectsToScreen();
-                DisplayObjects();
-            }
-
-            SceneKeyDownEvent?.Invoke(sender, e);
-        }
+      
 /// <inheritdoc/>
 
         public void UpdateProjection()
         {
-            var aspectRatio = (double)glControl.Width / glControl.Height;
+            var aspectRatio = (double)scene.Width / scene.Height;
             var angleDeg = 2.5;
             if (Projection == ViewProjection.Parallel)
             {
@@ -716,137 +919,7 @@ namespace BazisGUI.Scene
             Gl.glMatrixMode(Gl.GL_MODELVIEW);//Возврашаем на ModelView, иначе начинаются проблемы с рисованием
         }
 
-        private void GlControl_Resize(object sender, EventArgs e)
-        {
-            // установка порта вывода в соответствии с размерами элемента anT 
-            Gl.glViewport(0, 0, glControl.Width, glControl.Height);
-            // настройка матрицы проекции 
-            Gl.glMatrixMode(Gl.GL_PROJECTION);
-            Gl.glLoadIdentity();
-
-            if (camera == null)
-            {
-                Glu.gluPerspective(2.5f, (double)glControl.Width / glControl.Height, 1, 2000);//Учтется при UpdateProjection
-                Gl.glMatrixMode(Gl.GL_MODELVIEW);
-                Gl.glLoadIdentity();
-                //UpdateProjection();//Перенес в метод Initialization - сразу после создания камеры
-            }
-            else
-            {
-                //Glu.gluPerspective(camera.AngleOfProjection, (double)glControl.Width / glControl.Height, 1, 2000);//Учтется при UpdateProjection
-                Gl.glMatrixMode(Gl.GL_MODELVIEW);
-                var matrix = camera.GetViewMatrix().AsColumnMajorArray();
-                Gl.glLoadMatrixf(matrix);
-                camera.Width = glControl.Width;
-                camera.Height = glControl.Height;
-                UpdateProjection();
-                averageColorRenderer.Reshape(glControl.Width, glControl.Height);
-                DisplayObjects();
-            }
-            this.Invalidate();
-        }
-
-        private void GlControl_MouseMove(object sender, MouseEventArgs e)
-        {
-            var new_mousePosition = new Point(e.X - (glControl.Width / 2), -e.Y + glControl.Height / 2);
-            MouseMoveFlag = true;
-
-            this.Focus();
-
-            if (e.Button == MouseButtons.Left)
-            {
-                    selectionRectangle.winScreneCoord.X = e.Location.X;
-                    selectionRectangle.winScreneCoord.Y = glControl.Height - e.Location.Y;
-                    DisplayObjects();
-                    selectionRectangle.Display(glControl.Width, glControl.Height);              
-            }
-
-            else if (e.Button == MouseButtons.Right)
-            {
-                camera.Move(new_mousePosition, ScreenMousePosition, scaleFactor);
-                DisplayObjects();
-            }
-
-
-            else if (e.Button == MouseButtons.Middle)
-            {
-                var moveCam_z = -5;
-                var dx = (new_mousePosition.X - ScreenMousePosition.X) * (2 * (-moveCam_z)) / (float)(glControl.Width); //(mousePosition.Y - new_mousePosition.Y)
-                var dy = (new_mousePosition.Y - ScreenMousePosition.Y) * (2 * (-moveCam_z)) / (float)(glControl.Height);
-
-                camera.Rotate(dx, dy,rotAxis,rotAngle);
- 
-                DisplayObjects();
-            }
-            ScreenMousePosition = new_mousePosition;
-        }
-
-        private void GlControl_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            var points = Math.Abs(e.Delta / 120);
-                for (int i = 0; i < points; i++)
-                {
-                    if (Math.Sign(e.Delta) > 0)
-                        ScaleObjs(1.1f);
-                    else ScaleObjs(0.9f);
-                    DisplayObjects();
-                }           
-        }
-
-        private void GlControl_MouseDown(object sender, MouseEventArgs e)
-        {
-                MouseMoveFlag = false;
-            if (e.Button == MouseButtons.Middle)
-                displayRotatioPoint = true;
-
-            selectionRectangle.winScrenePosit.X = e.X;
-            selectionRectangle.winScrenePosit.Y = -e.Y + glControl.Height;
-            selectionRectangle.winScreneCoord.X = selectionRectangle.winScrenePosit.X + 10;
-            selectionRectangle.winScreneCoord.Y = selectionRectangle.winScrenePosit.Y - 10;
-        }
-
-        private void GlControl_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-
-                if (e.Location.X > Width - 16 & e.Location.X < Width - 8 && e.Location.Y <= 10)
-                    if (!IsSceneExpand)
-                    {
-                        SceneControlExpandEvent?.Invoke();
-                        IsSceneExpand = true;
-                    }
-                    else
-                    {
-                        SceneControlFoldEvent?.Invoke();
-                        IsSceneExpand = false;
-                    }
-                else
-                {
-                    var left = selectionRectangle.winScrenePosit.X - glControl.Width / 2;
-                    var rigth = selectionRectangle.winScreneCoord.X - glControl.Width / 2;
-                    var top = selectionRectangle.winScrenePosit.Y - glControl.Height / 2;
-                    var bottom = selectionRectangle.winScreneCoord.Y - glControl.Height / 2;
-
-                    var selectionBox = new RectangleBox(left, rigth, bottom, top);
-
-                    var sortFlag = true;
-                    if (MouseMoveFlag)
-                        sortFlag = false;
-
-                    if (ModifierKeys != Keys.Shift)
-                        SelectObjectsEvent?.Invoke(this, new SelectObjectsEventArgs(selectionBox, sortFlag, true));
-                    else
-                        SelectObjectsEvent?.Invoke(this, new SelectObjectsEventArgs(selectionBox, sortFlag, false));
-                }  
-                DisplayObjects();
-            }
-            else if (e.Button == MouseButtons.Middle)
-            {
-                displayRotatioPoint = false;
-                DisplayObjects();
-            }
-        }
+        
         /// <summary>
         /// Смена режима прозрачности для vbo-объектов
         /// </summary>
@@ -1080,7 +1153,7 @@ namespace BazisGUI.Scene
             var glObj = glObjs.Find(x => x.ObjName == objName);
             if (glObj != null)
             {
-                VBO.VBO.DeleteAllBuffers(glObj);//Если удаляем объект, то чистим массивы во избежании утечки памяти на видеокарте
+                VBO.DeleteAllBuffers(glObj);//Если удаляем объект, то чистим массивы во избежании утечки памяти на видеокарте
                 return glObjs.Remove(glObj);
             }
             else return false;
@@ -1091,7 +1164,7 @@ namespace BazisGUI.Scene
         public void DeleteAllVBObjects()
         {
             foreach (var glObj in glObjs)
-                VBO.VBO.DeleteAllBuffers(glObj);//Если удаляем объект, то чистим массивы во избежании утечки памяти на видеокарте
+                VBO.DeleteAllBuffers(glObj);//Если удаляем объект, то чистим массивы во избежании утечки памяти на видеокарте
             glObjs.Clear();
             clipPlaneRenderer?.DestroyBoundingBoxVBO();//Удаление VBO объекта не связанный со сценой
         }
@@ -1779,10 +1852,10 @@ namespace BazisGUI.Scene
                 if (vbo is SurfaceObjects sVbo && vbo.ViewMode == ObjView.LinesSurface)
                 {
                     var frameColors = new float[sVbo.ColorLength];
-                    VBO.VBO.GetSubData(sVbo.FrameBuffer, 0, frameColors.Length * sizeof(float), frameColors);
+                    VBO.GetSubData(sVbo.FrameBuffer, 0, frameColors.Length * sizeof(float), frameColors);
                     for (var i = 3; i < frameColors.Length; i += 4)
                         frameColors[i] = alphaf;
-                    VBO.VBO.SetSubData(sVbo.FrameBuffer, 0, frameColors.Length * sizeof(float), frameColors);
+                    VBO.SetSubData(sVbo.FrameBuffer, 0, frameColors.Length * sizeof(float), frameColors);
                 }
             }
         }
@@ -1796,7 +1869,7 @@ namespace BazisGUI.Scene
             }
         }
 
-        private void glControl_MouseClick(object sender, MouseEventArgs e)
+        private void scene_MouseClick(object sender, MouseEventArgs e)
         {
             SceneMouseClickEvent?.Invoke(sender, e);
         }

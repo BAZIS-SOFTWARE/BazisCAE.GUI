@@ -59,34 +59,34 @@ namespace BazisGUI
                         scale.FillRange(settingsConfig.Scale_MinValue, settingsConfig.Scale_MaxValue, settingsConfig.Scale_Intervals);
 
 
-                    scene.ClearAllGeometryDataOnScene();
-                    scene.ClearAllMeshDataOnScene();
+                    ClearAllGeometryDataOnScene();
+                    ClearAllMeshDataOnScene();
 
                     var scaleItems = GetScaleItems(scale);
                     resultsController.ResultsFieldsCreator.SetScaleItems(scaleItems);
                     resultsController.ResultsFieldsCreator.ScaleFactor = settingsConfig.Scale_scale;
 
                     var presenter = CreateResultsField(result, resName, tableName);
-                    scene.CreateObjectsOnScene(ObjType.Поверхность.ToString(), presenter);
+                    CreateObjectsOnScene(ObjType.Поверхность.ToString(), presenter);
 
-                    scene.SceneControl.HideGeometryObj("DisplaySceneScale");
-                    scene.SceneControl.DisplaySceneScale(scale);
+                    HideGeometryObj("DisplaySceneScale");
+                    DisplaySceneScale(scale);
                 }
 
                 if (settingsConfig.ShowNodeResultsValue)
                 {
-                    scene.SceneControl.HideDisplayText3D();
+                    HideDisplayText3D();
                     ShowResultValue(ResultType.nodes, resName, result);
                 }
 
 
                 if (settingsConfig.ShowElementsResultsValue)
                 {
-                    scene.SceneControl.HideDisplayText3D();
+                    HideDisplayText3D();
                     ShowResultValue(ResultType.elements, resName, result);
                 }
 
-                scene.SceneControl.DisplayObjects();
+                DisplayObjects();
 
             }
             catch (Exception ex)
@@ -221,17 +221,17 @@ namespace BazisGUI
             var mf = data.FrameFunction.LocalFrame as MovedFrame;
             mf.Time = time - data.StartTime;
 
-            scene.SceneControl.DisplayLocalFrame(mf.Frame);
+            DisplayLocalFrame(mf.Frame);
             var trajPoints = mf.BaseLine.Select(x => x.CalcCentr()).ToArray();
-            scene.SceneControl.DisplayPath(trajPoints);
+            DisplayPath(trajPoints);
 
             if (data.FrameFunction is SphereFunction sphear)
             {
-                scene.SceneControl.DisplaySphere(sphear.Width, mf.Frame);
+                DisplaySphere(sphear.Width, mf.Frame);
             }
             else if (data.FrameFunction is CillindricalFunction cilinder)
             {
-                scene.SceneControl.DisplayConus(cilinder.UpperDiam, cilinder.BottomDiam, cilinder.Length, mf.Frame);
+                DisplayConus(cilinder.UpperDiam, cilinder.BottomDiam, cilinder.Length, mf.Frame);
             }
         }
 
@@ -262,13 +262,13 @@ namespace BazisGUI
             {
                 foreach (var point in obj.GetCoordinates())
                 {
-                    var scl = 10 * (1.0f / Height * 1.0f / scene.SceneControl.ScaleFactor);
+                    var scl = 10 * (1.0f / Height * 1.0f / ScaleFactor);
                     vector = vector.Mult(scl);
                     var p1 = point.Sum(vector);
-                    scene.SceneControl.DisplayLine(point, p1, color);
+                    DisplayLine(point, p1, color);
                 }
 
-                //SceneControl.DisplayText3D(data.CalcValue(time, point).ToString(), Color.FromArgb(0, 0, 0), point);
+                //DisplayText3D(data.CalcValue(time, point).ToString(), Color.FromArgb(0, 0, 0), point);
             }
         }
 
@@ -301,7 +301,7 @@ namespace BazisGUI
                 };
                 cntr.InputData(parameters);
 
-                var location = scene.PointToScreen(Point.Empty);
+                var location = PointToScreen(Point.Empty);
 
                 var form = new Form()
                 {

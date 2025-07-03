@@ -41,6 +41,8 @@ using Project.Interfaces;
 using BazisGUI.PropertiesPanel;
 using PostProc;
 using BazisGUI.Scene.Interfaces;
+using ModelController.MeshObjsUtility;
+using ModelController.ModelScenePresentator;
 
 namespace BazisGUI
 {
@@ -57,6 +59,8 @@ namespace BazisGUI
         PreProc.PreProc preProc = new PreProc.PreProc();
         PropertyPanelProvider panelProvider = new PropertyPanelProvider();
         PostProcController resultsController = new PostProcController();
+        IPresentersCreator presentersCreator = new PresentersCreator();
+        public ChangeInsideSurface changeInsideSurface => new ChangeInsideSurface();
         ClientController serverConnection;
         
         SettingsConfig settingsConfig = new SettingsConfig()
@@ -79,6 +83,7 @@ namespace BazisGUI
         public BaseForm(string[] args)
         {
             InitializeComponent();
+            SceneInitialization();
             ComponentsPainter.Font = this.Font;
             ComponentsPainter.ScreenDPI = this.DeviceDpi;
 
@@ -189,19 +194,12 @@ namespace BazisGUI
         private void сварка_Click(object sender, EventArgs e)
         {
             SetModule("Weld");
-            scene.SceneControl.DisplayObjects();
+            DisplayObjects();
         }
         private void термообработка_Click(object sender, EventArgs e)
         {
             SetModule("HeatTreatment");
-            scene.SceneControl.DisplayObjects();
-        }
-
-        private static void SetSceneViewMatrix(Matrix<float> viewMatrix, ScenePage scene)
-        {
-            scene.SceneControl.GetCamera().SetViewMatrix(viewMatrix);
-            scene.SceneControl.FitObjectsToScreen();
-            //scene.SceneControl.ScaleObjs(1.0f); // TO DO Разобраться почему без этого компас сворачивается в точку
+            DisplayObjects();
         }
 
         private void DisconnectWithServer(string moduleName)
@@ -215,7 +213,7 @@ namespace BazisGUI
 
         private void SetModule(string moduleName)
         {
-            var viewMatrix = scene.SceneControl.GetCamera().GetViewMatrix();
+            var viewMatrix = GetCamera().GetViewMatrix();
             var splitters = GetSplitters();
 
             DisconnectWithServer(moduleName);
@@ -234,8 +232,6 @@ namespace BazisGUI
 
             if (splitters != null)
                 SetSplitters(splitters);
-            if (viewMatrix != null)
-                SetSceneViewMatrix(viewMatrix, scene);
         }
 
         private void LicenseModule(string moduleName)
@@ -249,30 +245,6 @@ namespace BazisGUI
             }
 
             else StartLisenceForm(moduleName + " Взять");
-        }
-
-        private void ViewInterface(string moduleName)
-        {
-            resultsMenuItem.Visible = true;
-            tasksMenuItem.Visible = true;
-            dataBasesMenuItem.Visible = true;
-            meshMenuItem.Visible = true;
-
-            foreach (var item in tasksMenuItem.DropDownItems.Cast<ToolStripMenuItem>())
-                item.Visible = false;
-
-            if (moduleName == "Weld")
-            {
-                arcWeldingMenuItem.Visible = true;
-                lazerWeldingMenuItem.Visible = true;
-                fsWeldingMenuItem.Visible = true;
-            }
-            else
-            {
-                heatingMenuItem.Visible = true;
-                quenchingMenuItem.Visible = true;
-                temperingMenuItem.Visible = true;
-            }
         }
 
         private void UnBlockGeneralMenuInterface(string moduleName, bool flag)
@@ -301,8 +273,8 @@ namespace BazisGUI
             foreach (var item in project.ModelData.ObjectData.GetAllObjects())
                 item.ViewState = arg2;
 
-            scene.PresentModelObjectsOnScene(project.ModelData, "Объекты");
-            scene.SceneControl.DisplayObjects();
+            PresentModelObjectsOnScene(project.ModelData, "Объекты");
+            DisplayObjects();
 
 
             //foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
@@ -400,8 +372,6 @@ namespace BazisGUI
         {
             viewMenuItem.Visible = true;
 
-            ViewInterface(moduleName);
-
             var que = new Queue<int>();
             que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.2f)); // ширина навигатора
             que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.5f)); // высота панели свойств
@@ -410,28 +380,28 @@ namespace BazisGUI
 
             SetSplitters(que);
 
-            scene.TransparencyValue = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
+            TransparencyValue = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
 
-            scene.SceneControl.BackGroundColor = settingsConfig.BackGroudColor;
-            scene.SceneControl.IsBlending = settingsConfig.Transparency;
-            scene.SceneControl.IsLighting = settingsConfig.Lighting;
+            BackGroundColor = settingsConfig.BackGroudColor;
+            IsBlending = settingsConfig.Transparency;
+            IsLighting = settingsConfig.Lighting;
 
-            scene.SceneControl.SelectionColor = Color.FromArgb(scene.TransparencyValue, settingsConfig.SelectObjectColor);
-            SelectionGroupColor = Color.FromArgb(scene.TransparencyValue, settingsConfig.SelectGroupColor);
+            SelectionColor = Color.FromArgb(TransparencyValue, settingsConfig.SelectObjectColor);
+            SelectionGroupColor = Color.FromArgb(TransparencyValue, settingsConfig.SelectGroupColor);
             //module.ScenePage.NodeColor = settingsConfig.NodeColor;
             //module.ScenePage.E2DColor = settingsConfig.Elem2DColor;
             //module.ScenePage.E3DColor = settingsConfig.Elem3DColor;
 
-            scene.SceneControl.Projection = settingsConfig.Projection
+            Projection = settingsConfig.Projection
                 ? ViewProjection.Parallel : ViewProjection.Perspective;
-            scene.SceneControl.UpdateProjection();
+            UpdateProjection();
 
             var objs = project.ModelData.ObjectData.GetAllObjects();
 
             foreach (var obj in objs)
             {
                 var preColor = obj.Color;
-                var newColor = Color.FromArgb(scene.TransparencyValue, preColor);
+                var newColor = Color.FromArgb(TransparencyValue, preColor);
                 obj.Color = newColor;
             }
         }
@@ -557,7 +527,7 @@ namespace BazisGUI
                 form.Controls.Add(settings);
                 form.Show();
 
-                var location = scene == null ? new Point() :  scene.PointToScreen(Point.Empty);
+                var location = scene == null ? new Point() :  PointToScreen(Point.Empty);
                 form.Location = location;
             }
 
@@ -570,13 +540,13 @@ namespace BazisGUI
 
             settings.SetSelectionGroupColorEvent += (ar) => SelectionGroupColor = ar;
             settings.SetSelectionObjectColorEvent += (ar) =>
-            scene.SceneControl.SelectionColor = ar;
+            SelectionColor = ar;
 
             settings.SetNodeColorEvent += (ar) => { 
-                //scene.NodeColor = ar;
-                var pres = scene.CreateObjectsPresentor(project.ModelData, ObjType.Узел);
-                scene.SetObjectsSceneAttribute(pres, ObjType.Узел.ToString(),"цвет");
-                scene.SceneControl.DisplayObjects();
+                //NodeColor = ar;
+                var pres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
+                SetObjectsSceneAttribute(pres, ObjType.Узел.ToString(),"цвет");
+                DisplayObjects();
             };
 
             settings.SetSolverPathEvent += (ar) =>
@@ -585,37 +555,37 @@ namespace BazisGUI
             };
             settings.SetBackGroundColorEvent += (ar) =>
             {
-                scene.SceneControl.BackGroundColor = ar;
-                scene.SceneControl.DisplayObjects();
+                BackGroundColor = ar;
+                DisplayObjects();
             };
 
 
             settings.SetLightingEvent += (ar) =>
             {
-                scene.SceneControl.IsLighting = ar;
-                scene.SceneControl.DisplayObjects();
+                IsLighting = ar;
+                DisplayObjects();
             };
 
             settings.SetTransparencyEvent += (ar) =>
             {
-                scene.SceneControl.IsBlending = ar;
-                scene.ClearAllDataOnScene();
-                scene.PresentAllModelObjectsToScene(project.ModelData);
-                scene.SceneControl.DisplayObjects();
+                IsBlending = ar;
+                ClearAllDataOnScene();
+                PresentAllModelObjectsToScene(project.ModelData);
+                DisplayObjects();
             };
 
             settings.SetOrtoProjectionEvent += (ar) =>
             {
-                scene.SceneControl.Projection = ar ? ViewProjection.Parallel : ViewProjection.Perspective;
-                scene.SceneControl.UpdateProjection();
-                scene.SceneControl.DisplayObjects();
+                Projection = ar ? ViewProjection.Parallel : ViewProjection.Perspective;
+                UpdateProjection();
+                DisplayObjects();
             };
 
             settings.SetTransparencyValueEvent += (ar1) =>
             {
-                scene.TransparencyValue = (int)(ar1 / 100.0f * 255);
+                TransparencyValue = (int)(ar1 / 100.0f * 255);
 
-                scene.SceneControl.SelectionColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectObjectColor);
+                SelectionColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectObjectColor);
                 SelectionGroupColor = Color.FromArgb(settingsConfig.TransparencyValue, settingsConfig.SelectGroupColor);
 
                 var objs = project.ModelData.ObjectData.GetAllObjects();
@@ -627,30 +597,30 @@ namespace BazisGUI
                     obj.Color = newColor;
                 } 
                 
-                scene.ClearAllDataOnScene();
-                scene.PresentAllModelObjectsToScene(project.ModelData);
-                scene.SceneControl.DisplayObjects();
+                ClearAllDataOnScene();
+                PresentAllModelObjectsToScene(project.ModelData);
+                DisplayObjects();
             };
 
             settings.SetLightingIntensityEvent += (ar) =>
             {
-                scene.SceneControl.LightAttenuation = 1 - ar / 100.0f;
-                scene.SceneControl.DisplayObjects();
+                LightAttenuation = 1 - ar / 100.0f;
+                DisplayObjects();
             };
 
 
             settings.SetLighterPositionEvent += (ar) =>
             {
-                var kx = (float)(scene.Width / settings.Width);
-                var ky = (float)(scene.Height / settings.Height);
+                var kx = (float)(Width / settings.Width);
+                var ky = (float)(Height / settings.Height);
 
                 var x = ar.X * kx;
                 var y = ar.Y * ky;
 
-                scene.SceneControl.LightTranslateX = x;
-                scene.SceneControl.LightTranslateY = y;
+                LightTranslateX = x;
+                LightTranslateY = y;
 
-                scene.SceneControl.DisplayObjects();
+                DisplayObjects();
             };
         }
 
@@ -664,8 +634,6 @@ namespace BazisGUI
 
             if(config != null)
                 this.settingsConfig = config;
-
-            scene.SceneControl.Initialization();
         }
 
         public void KillAlreadyLaunchdExamples()
@@ -734,11 +702,11 @@ namespace BazisGUI
 
                 lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
 
-                scene.ClearAllDataOnScene();
+                ClearAllDataOnScene();
                 PresentProjectOnModule();
 
-                scene.SceneControl.FitObjectsToScreen();
-                scene.SceneControl.DisplayObjects();
+                FitObjectsToScreen();
+                DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -758,11 +726,11 @@ namespace BazisGUI
 
                     gmshController?.Gmsh?.Clear();
 
-                    scene.ClearAllDataOnScene();
+                    ClearAllDataOnScene();
                     PresentProjectOnModule();
 
-                    scene.SceneControl.FitObjectsToScreen();
-                    scene.SceneControl.DisplayObjects();
+                    FitObjectsToScreen();
+                    DisplayObjects();
                 }
 
             }
@@ -787,11 +755,11 @@ namespace BazisGUI
 
                 gmshController?.Gmsh?.Clear();
 
-                scene.ClearAllDataOnScene();
+                ClearAllDataOnScene();
                 PresentProjectOnModule();
 
-                scene.SceneControl.FitObjectsToScreen();
-                scene.SceneControl.DisplayObjects();
+                FitObjectsToScreen();
+                DisplayObjects();
             }
 
             catch (Exception ex)
@@ -838,11 +806,11 @@ namespace BazisGUI
                 {
                     lblStatus.Text = $"{project.GeneralData.Path}\\{project.GeneralData.Name}";
 
-                    scene.ClearAllDataOnScene();
+                    ClearAllDataOnScene();
                     PresentProjectOnModule();
 
-                    scene.SceneControl.FitObjectsToScreen();
-                    scene.SceneControl.DisplayObjects();
+                    FitObjectsToScreen();
+                    DisplayObjects();
                 }
             }
             catch (Exception ex)
@@ -853,7 +821,7 @@ namespace BazisGUI
 
         private void PresentProjectOnModule()
         {
-            scene.PresentAllModelObjectsToScene(project.ModelData);
+            PresentAllModelObjectsToScene(project.ModelData);
             PresentGeneralDataOnTree(project.GeneralData);
             PresentObjectsDataOnTree(project.ModelData.ObjectData);
             PresentGroupDataOnTree(project.ModelData.GroupData);
@@ -1007,8 +975,8 @@ namespace BazisGUI
 
                     //SetModule("Weld");
 
-                    scene.SceneControl.FitObjectsToScreen();
-                    scene.SceneControl.DisplayObjects();
+                    FitObjectsToScreen();
+                    DisplayObjects();
                 }
             }
 
@@ -1017,7 +985,7 @@ namespace BazisGUI
                 MessageBox.Show($"{ex.Message} Стек: {ex.StackTrace}", "Ошибка");
             }
 
-        } 
+        }
     }
 
 }

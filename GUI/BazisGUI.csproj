@@ -282,12 +282,6 @@
     <Compile Include="PropertiesPanel\PropertyPanelProvider.cs" />
     <Compile Include="PropertiesPanel\ShowPropertyEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScenePage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ScenePage.Designer.cs">
-      <DependentUpon>ScenePage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Scene\EventsArgs\InfoObjectsEventArgs.cs" />
     <Compile Include="Scene\EventsArgs\MessageEventArgs.cs" />
     <Compile Include="Scene\EventsArgs\SelectObjectsEventArgs.cs" />
@@ -306,11 +300,8 @@
     <Compile Include="Scene\SceneBasis.cs" />
     <Compile Include="Scene\SceneCamera.cs" />
     <Compile Include="Scene\SceneCompass.cs" />
-    <Compile Include="Scene\SceneControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Scene\SceneControl.designer.cs">
-      <DependentUpon>SceneControl.cs</DependentUpon>
+    <Compile Include="BasePage\SceneControl.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Scene\ScenePath.cs" />
     <Compile Include="Scene\SceneScale.cs" />
@@ -411,12 +402,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ScenePage.resx">
-      <DependentUpon>ScenePage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Scene\SceneControl.resx">
-      <DependentUpon>SceneControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SettingsControls\LightingControl.resx">
       <DependentUpon>LightingControl.cs</DependentUpon>
     </EmbeddedResource>

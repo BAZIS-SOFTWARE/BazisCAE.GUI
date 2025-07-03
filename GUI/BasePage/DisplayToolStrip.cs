@@ -24,13 +24,13 @@ namespace BazisGUI
 
                 if (arg2.ClickedItem.Tag.ToString() == "0")
                 {
-                    scene.ShowInsideObjects = true;
+                    IsInsideObjectsShown = true;
                     ShowInsideObjects();
                 }
 
                 else if (arg2.ClickedItem.Tag.ToString() == "1")
                 {
-                    scene.ShowInsideObjects = false;
+                    IsInsideObjectsShown = false;
                     HideInsideObjects();
                 }
 
@@ -66,7 +66,7 @@ namespace BazisGUI
                 foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Элемент3D))
                     item.SetViewMode(ViewMode.LineSurface);
 
-                var vbobjs = scene.SceneControl.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.triangle);
+                var vbobjs = GetVBObjs().Where(x => x.GL_ObjType == GLObjType.triangle);
 
                 foreach (var obj in vbobjs)
                     if (arg2 == ViewMode.Line)
@@ -75,7 +75,7 @@ namespace BazisGUI
                         obj.ViewMode = Scene.Interfaces.ObjView.LinesSurface;
                     else obj.ViewMode = Scene.Interfaces.ObjView.Surface;
 
-                scene.SceneControl.DisplayObjects();
+                DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -88,11 +88,11 @@ namespace BazisGUI
         {
             var objs = project.ModelData.ObjectData.E3DCollection.GetObjects();
 
-            scene.ChangeInsideSurface.HideInsideSurfaces(objs);
+            changeInsideSurface.HideInsideSurfaces(objs);
 
-            var presenter = scene.PresentersCreator.CreateSurfaceObjectsPresenter(objs);
+            var presenter = presentersCreator.CreateSurfaceObjectsPresenter(objs);
 
-            scene.PresentObjectsOnScene(presenter, ObjType.Элемент3D.ToString());
+            PresentObjectsOnScene(presenter, ObjType.Элемент3D.ToString());
             console.PrintInfo("Скрыты внутренние объекты", Color.Black);
         }
 
@@ -101,11 +101,11 @@ namespace BazisGUI
 
             var objs = project.ModelData.ObjectData.E3DCollection.GetObjects();
 
-            scene.ChangeInsideSurface.ShowInsideSurfaces(objs);
+            changeInsideSurface.ShowInsideSurfaces(objs);
 
-            var presenter = scene.PresentersCreator.CreateSurfaceObjectsPresenter(objs);
+            var presenter = presentersCreator.CreateSurfaceObjectsPresenter(objs);
 
-            scene.PresentObjectsOnScene(presenter, ObjType.Элемент3D.ToString());
+            PresentObjectsOnScene(presenter, ObjType.Элемент3D.ToString());
             console.PrintInfo("Показаны все объекты", Color.Black);
         }
 
@@ -114,10 +114,10 @@ namespace BazisGUI
             var btn = (ToolStripButton)sender;
 
             if (btn.Checked)
-                scene.SceneControl.DisplayBasis = true;
-            else scene.SceneControl.DisplayBasis = false;
+                DisplayBasis = true;
+            else DisplayBasis = false;
 
-            scene.SceneControl.DisplayObjects();
+            DisplayObjects();
         }
 
         private void btnShowNormals_Click(object sender, EventArgs e)
@@ -132,10 +132,10 @@ namespace BazisGUI
                     {
                         var elemsNormals = modelController.NormalCalculator.CalcElemsNormals(surfElems.Select(x => x as ISurfaceElement));
 
-                        var linePresenter = scene.PresentersCreator.CreateLineObjectsPresenter(elemsNormals);
+                        var linePresenter = presentersCreator.CreateLineObjectsPresenter(elemsNormals);
 
-                        scene.CreateObjectsOnScene("Normals", linePresenter);
-                        scene.SceneControl.DisplayObjects();
+                        CreateObjectsOnScene("Normals", linePresenter);
+                        DisplayObjects();
                     }
                     else
                         throw new Exception("Для отображения нормалей модели не заданы объекты типа \"Элемент\"," +
@@ -143,8 +143,8 @@ namespace BazisGUI
                 }
                 else
                 {
-                    scene.SceneControl.DeleteVBObjects("Normals");
-                    scene.SceneControl.DisplayObjects();
+                    DeleteVBObjects("Normals");
+                    DisplayObjects();
                 }
             }
             catch (Exception ex)
@@ -164,15 +164,15 @@ namespace BazisGUI
             Select(x => (ISurfaceElement)x);
                     var linesNodes = modelController.BoundaryEdgesFinder.Find(surfElems);
                     var edges = modelController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes, project.ModelData);
-                    var linePresenter = scene.PresentersCreator.CreateLineObjectsPresenter(edges);
+                    var linePresenter = presentersCreator.CreateLineObjectsPresenter(edges);
 
-                    scene.CreateObjectsOnScene("Boundary", linePresenter);
-                    scene.SceneControl.DisplayObjects();
+                    CreateObjectsOnScene("Boundary", linePresenter);
+                    DisplayObjects();
                 }
                 else
                 {
-                    scene.SceneControl.DeleteVBObjects("Boundary");
-                    scene.SceneControl.DisplayObjects();
+                    DeleteVBObjects("Boundary");
+                    DisplayObjects();
                 }
             }
             catch (Exception ex)

@@ -112,12 +112,12 @@ namespace BazisGUI
                 //nodes[0].Nodes["ПоУзлам"].Nodes.Clear();
                 //nodes[0].Nodes["Набор результатов"].Nodes["ПоЭлементам"].Nodes.Clear();
 
-                scene.ClearAllDataOnScene();
+                ClearAllDataOnScene();
 
                 foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
-                    scene.CreateObjectsOnScene(item.ToString(), scene.CreateObjectsPresentor(project.ModelData, item));
+                    CreateObjectsOnScene(item.ToString(), CreateObjectsPresentor(project.ModelData, item));
 
-                scene.SceneControl.DisplayObjects();
+                DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -129,12 +129,12 @@ namespace BazisGUI
         {
             try
             {
-                scene.ClearAllDataOnScene();
+                ClearAllDataOnScene();
 
-                scene.PresentAllModelObjectsToScene(project.ModelData);
+                PresentAllModelObjectsToScene(project.ModelData);
 
-                scene.SceneControl.FitObjectsToScreen();
-                scene.SceneControl.DisplayObjects();
+                FitObjectsToScreen();
+                DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -310,22 +310,22 @@ namespace BazisGUI
 
         public void navigator_HideConditionsEvent(object arg1, IModelData modelData, HideDataEventArgs arg2)
         {
-            scene.SceneControl.HideAllGeometryObjs();
-            scene.SceneControl.HideDisplayText3D();
+            HideAllGeometryObjs();
+            HideDisplayText3D();
             foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
             {
                 modelData.ObjectData.SetBackColor(type);
-                var pres = scene.CreateObjectsPresentor(modelData, type);
-                scene.SetObjectsSceneAttribute(pres, type.ToString(), "цвет");
+                var pres = CreateObjectsPresentor(modelData, type);
+                SetObjectsSceneAttribute(pres, type.ToString(), "цвет");
             }
-            scene.SceneControl.DisplayObjects();
+            DisplayObjects();
         }
 
         public void navigator_CheckConditionsEvent(ITaskData taskData, IModelData modelData, CheckDataEventArgs arg2)
         {
             try
             {
-                scene.SceneControl.HideAllGeometryObjs();
+                HideAllGeometryObjs();
                 var dataKind = Converters.ConvertToDataKind(arg2.DataName);
                 var selectedData = taskData.Find(dataKind);
 
@@ -353,10 +353,10 @@ namespace BazisGUI
                         }
                         if (data.Direction != Direction.None)
                             DisplayDirection(arg2.Time, data, group);
-                        var pres = scene.CreateObjectsPresentor(modelData, group.ObjType);
-                        scene.SetObjectsSceneAttribute(pres, group.ObjType.ToString(), "цвет");
+                        var pres = CreateObjectsPresentor(modelData, group.ObjType);
+                        SetObjectsSceneAttribute(pres, group.ObjType.ToString(), "цвет");
 
-                        scene.SceneControl.DisplayObjects();
+                        DisplayObjects();
                     }
                 }
             }
@@ -456,11 +456,11 @@ namespace BazisGUI
                     foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
                     {
                         project.ModelData.ObjectData.SetBackColor(type);
-                        var pres = scene.CreateObjectsPresentor(project.ModelData, type);
-                        scene.SetObjectsSceneAttribute(pres, type.ToString(), "цвет");
+                        var pres = CreateObjectsPresentor(project.ModelData, type);
+                        SetObjectsSceneAttribute(pres, type.ToString(), "цвет");
                     }
 
-                    scene.SceneControl.DisplayObjects();
+                    DisplayObjects();
                     SelectedObjects = ObjType.Узел.ToString();
 
                     var taskStrLRF = CreateSurfaceAsync(project.ModelData, ObjType.Узел);
@@ -525,9 +525,9 @@ namespace BazisGUI
                         iobj.ViewState = false;
                     }
                 }
-                scene.SceneControl.DeleteAllVBObjects();
-                scene.PresentAllModelObjectsToScene(project.ModelData);
-                scene.SceneControl.DisplayObjects();
+                DeleteAllVBObjects();
+                PresentAllModelObjectsToScene(project.ModelData);
+                DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -543,9 +543,9 @@ namespace BazisGUI
                 foreach (var obj in project.ModelData.ObjectData.GetAllObjects())
                     obj.ViewState = false;
 
-                scene.SceneControl.DeleteAllVBObjects();
-                scene.PresentAllModelObjectsToScene(project.ModelData);
-                scene.SceneControl.DisplayObjects();
+                DeleteAllVBObjects();
+                PresentAllModelObjectsToScene(project.ModelData);
+                DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -573,17 +573,17 @@ namespace BazisGUI
             foreach (var iobj in group)
                 iobj.ViewState = viewState;
 
-            var vbobj = scene.SceneControl.FindVBObj(group.ObjType.ToString());
+            var vbobj = FindVBObj(group.ObjType.ToString());
             if (vbobj == null)
                 throw new Exception($"Объект {group.ObjType} не загружен на сцену!");
             var viewMode = vbobj.ViewMode;
 
-            scene.SceneControl.DeleteVBObjects(group.ObjType.ToString());
-            var pres = scene.CreateObjectsPresentor(project.ModelData, group.ObjType);
-            scene.CreateObjectsOnScene(group.ObjType.ToString(), pres);
-            scene.SceneControl.ChangeViewModeVBObjects(group.ObjType.ToString(), viewMode);
+            DeleteVBObjects(group.ObjType.ToString());
+            var pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
+            CreateObjectsOnScene(group.ObjType.ToString(), pres);
+            ChangeViewModeVBObjects(group.ObjType.ToString(), viewMode);
 
-            scene.SceneControl.DisplayObjects();
+            DisplayObjects();
         }
 
         private void navigator_HideGroupEvent(int obj)
@@ -621,9 +621,9 @@ namespace BazisGUI
                 foreach (var obj in project.ModelData.ObjectData.GetAllObjects())
                     obj.ViewState = true;
 
-                scene.SceneControl.DeleteAllVBObjects();
-                scene.PresentAllModelObjectsToScene(project.ModelData);
-                scene.SceneControl.DisplayObjects();
+                DeleteAllVBObjects();
+                PresentAllModelObjectsToScene(project.ModelData);
+                DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -651,10 +651,10 @@ namespace BazisGUI
             foreach (var modelObject in project.ModelData.ObjectData.GetObjects(objType, setName))
                 modelObject.ViewState = viewState;
 
-            scene.SceneControl.DeleteVBObjects(objType.ToString());
-            var pres = scene.CreateObjectsPresentor(project.ModelData, objType);
-            scene.CreateObjectsOnScene(objType.ToString(), pres);
-            scene.SceneControl.DisplayObjects();
+            DeleteVBObjects(objType.ToString());
+            var pres = CreateObjectsPresentor(project.ModelData, objType);
+            CreateObjectsOnScene(objType.ToString(), pres);
+            DisplayObjects();
         }
 
         private void navigator_InfoGroupEvent(int obj)
@@ -674,9 +674,9 @@ namespace BazisGUI
                         iobj.ViewState = true;
                     }
                 }
-                scene.SceneControl.DeleteAllVBObjects();
-                scene.PresentAllModelObjectsToScene(project.ModelData);
-                scene.SceneControl.DisplayObjects();
+                DeleteAllVBObjects();
+                PresentAllModelObjectsToScene(project.ModelData);
+                DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -690,24 +690,24 @@ namespace BazisGUI
             switch (viewRegime)
             {
                 case ViewRegime.ribbers:
-                    scene.SceneControl.ChangeViewModeVBObjects(objs, ObjView.Lines);
+                    ChangeViewModeVBObjects(objs, ObjView.Lines);
                     foreach (var item in project.ModelData.ObjectData.GetSetsInfo(objType))
                         item.SetViewMode(ViewMode.Line);
                     break;
                 case ViewRegime.surfaces:
-                    scene.SceneControl.ChangeViewModeVBObjects(objs, ObjView.Surface);
+                    ChangeViewModeVBObjects(objs, ObjView.Surface);
                     foreach (var item in project.ModelData.ObjectData.GetSetsInfo(objType))
                         item.SetViewMode(ViewMode.Surface);
                     break;
                 case ViewRegime.ribbersSurfaces:
-                    scene.SceneControl.ChangeViewModeVBObjects(objType.ToString(), ObjView.LinesSurface);
+                    ChangeViewModeVBObjects(objType.ToString(), ObjView.LinesSurface);
                     foreach (var item in project.ModelData.ObjectData.GetSetsInfo(objType))
                         item.SetViewMode(ViewMode.LineSurface);
                     break;
                 default:
                     break;
             }
-            scene.SceneControl.DisplayObjects();
+            DisplayObjects();
         }
         private void navigator_DelGroupEvent(int grIndex)
         {
@@ -744,25 +744,25 @@ namespace BazisGUI
             var objType = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
 
             project.DeleteMeshSet(objType, setName);
-            scene.SceneControl.DeleteVBObjects(objType.ToString());
+            DeleteVBObjects(objType.ToString());
 
-            var ndPres = scene.CreateObjectsPresentor(project.ModelData, objType);
-            scene.CreateObjectsOnScene(objType.ToString(), ndPres);
-            scene.SceneControl.DisplayObjects();
+            var ndPres = CreateObjectsPresentor(project.ModelData, objType);
+            CreateObjectsOnScene(objType.ToString(), ndPres);
+            DisplayObjects();
         }
 
         private async void navigator_EditGroupEvent(int obj)
         {
             var group = project.ModelData.GroupData[obj];
-            //scene.SelectedObjects = group.ObjType.ToString();
+            //SelectedObjects = group.ObjType.ToString();
 
             foreach (var iobj in group)
-                iobj.Color = scene.SceneControl.SelectionColor;
+                iobj.Color = SelectionColor;
 
-            var pres = scene.CreateObjectsPresentor(project.ModelData, group.ObjType);
-            scene.SetObjectsSceneAttribute(pres, group.ObjType.ToString(), "цвет");
+            var pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
+            SetObjectsSceneAttribute(pres, group.ObjType.ToString(), "цвет");
 
-            scene.SceneControl.DisplayObjects();
+            DisplayObjects();
 
             await EditGroupAsync(group);
         }
@@ -779,16 +779,16 @@ namespace BazisGUI
 
             }
 
-            scene.SceneControl.DeleteVBObjects(ObjType.Узел.ToString());
-            var ndPres = scene.CreateObjectsPresentor(project.ModelData, ObjType.Узел);
-            scene.CreateObjectsOnScene(ObjType.Узел.ToString(), ndPres);
+            DeleteVBObjects(ObjType.Узел.ToString());
+            var ndPres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
+            CreateObjectsOnScene(ObjType.Узел.ToString(), ndPres);
 
             var strObjType = group.ObjType.ToString();
-            scene.SceneControl.DeleteVBObjects(strObjType);
-            var objPres = scene.CreateObjectsPresentor(project.ModelData, group.ObjType);
-            scene.CreateObjectsOnScene(strObjType, objPres);
+            DeleteVBObjects(strObjType);
+            var objPres = CreateObjectsPresentor(project.ModelData, group.ObjType);
+            CreateObjectsOnScene(strObjType, objPres);
 
-            scene.SceneControl.DisplayObjects();
+            DisplayObjects();
         }
         private void navigator_NavigatorPanelCollapseEvent()
         {
@@ -810,9 +810,9 @@ namespace BazisGUI
                 //if (arg1 is TaskPage taskPage)
                 PresentCondDataOnTree(project.GeneralData, project.TaskData);
 
-                scene.ClearAllDataOnScene();
-                scene.PresentAllModelObjectsToScene(project.ModelData);
-                scene.SceneControl.DisplayObjects();
+                ClearAllDataOnScene();
+                PresentAllModelObjectsToScene(project.ModelData);
+                DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -832,8 +832,8 @@ namespace BazisGUI
                 //if (obj is ToolStripPage taskPage)
                 PresentCondDataOnTree(project.GeneralData, project.TaskData);
 
-                scene.ClearAllDataOnScene();
-                scene.SceneControl.DisplayObjects();
+                ClearAllDataOnScene();
+                DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -903,23 +903,23 @@ namespace BazisGUI
 
                 panelProvider.ShowPropertiesPanel(data);
 
-                scene.SceneControl.HideAllGeometryObjs();
+                HideAllGeometryObjs();
 
                 if (data.Direction != Direction.None)
                     DisplayDirection(data.StartTime, data, data.Group);
 
                 project.ModelData.ObjectData.SetBackColor(data.Group.ObjType);
-                var pres = scene.CreateObjectsPresentor(project.ModelData, data.Group.ObjType);
+                var pres = CreateObjectsPresentor(project.ModelData, data.Group.ObjType);
 
-                scene.SetObjectsSceneAttribute(pres, data.Group.ObjType.ToString(), "цвет");
+                SetObjectsSceneAttribute(pres, data.Group.ObjType.ToString(), "цвет");
 
                 foreach (var iobj in data.Group)
                     iobj.Color = settingsConfig.SelectGroupColor;
 
-                pres = scene.CreateObjectsPresentor(project.ModelData, data.Group.ObjType);
-                scene.SetObjectsSceneAttribute(pres, data.Group.ObjType.ToString(), "цвет");
+                pres = CreateObjectsPresentor(project.ModelData, data.Group.ObjType);
+                SetObjectsSceneAttribute(pres, data.Group.ObjType.ToString(), "цвет");
 
-                scene.SceneControl.DisplayObjects();
+                DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -940,16 +940,16 @@ namespace BazisGUI
 
             project.ModelData.ObjectData.SetBackColor(group.ObjType);
 
-            var pres = scene.CreateObjectsPresentor(project.ModelData, group.ObjType);
-            scene.SetObjectsSceneAttribute(pres, group.ObjType.ToString(), "цвет");
+            var pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
+            SetObjectsSceneAttribute(pres, group.ObjType.ToString(), "цвет");
 
             foreach (var iobj in group)
                 iobj.Color = settingsConfig.SelectGroupColor;
 
-            //pres = scene.CreateObjectsPresentor(project.ModelData, group.ObjType);
-            scene.SetObjectsSceneAttribute(pres, group.ObjType.ToString(), "цвет");
+            //pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
+            SetObjectsSceneAttribute(pres, group.ObjType.ToString(), "цвет");
 
-            scene.SceneControl.DisplayObjects();
+            DisplayObjects();
 
             panelProvider.ShowPropertiesPanel(group);
         }

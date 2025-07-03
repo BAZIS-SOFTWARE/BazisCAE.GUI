@@ -42,11 +42,11 @@ namespace BazisGUI
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
             {
                 project.ModelData.ObjectData.SetBackColor(item);
-                var pres = scene.CreateObjectsPresentor(project.ModelData, item);
-                scene.SetObjectsSceneAttribute(pres, item.ToString(), "цвет");
+                var pres = CreateObjectsPresentor(project.ModelData, item);
+                SetObjectsSceneAttribute(pres, item.ToString(), "цвет");
             }
 
-            scene.SceneControl.DisplayObjects();
+            DisplayObjects();
         }
 
         public void PresentModelOnSelectToolStrip(IObjectsData objectsData)
@@ -74,7 +74,7 @@ namespace BazisGUI
 
             spbSelectObject.Invalidate();
 
-            scene.SetBackColorToAllObjects(project.ModelData);
+            SetBackColorToAllObjects();
 
         }
 
@@ -112,7 +112,7 @@ namespace BazisGUI
                 form.ClientSize = selectionControl.Size;
                 form.Controls.Add(selectionControl);
                 form.Show();
-                var location = scene.PointToScreen(Point.Empty);
+                var location = PointToScreen(Point.Empty);
                 form.Location = location;
             }
             else
@@ -143,7 +143,7 @@ namespace BazisGUI
                         SelectE2DInPlane(arg2.Angle);
                     }
 
-                    scene.SceneControl.DisplayObjects();
+                    DisplayObjects();
                 }
             }
             catch (Exception ex)
@@ -158,15 +158,15 @@ namespace BazisGUI
 
             var selObjs = project.ModelData.ObjectData.GetObjects(ObjType.Элемент2D).
 
-    Where(x => x.Color == scene.SceneControl.SelectionColor).ToArray();
+    Where(x => x.Color == SelectionColor).ToArray();
 
             if (selObjs?.Count() > 0)
             {
                 var element = selObjs.Last();
                 modelController.SelectionHelper.SelectE2DInPlane(project.ModelData.ObjectData,
-                    angle, element.Number, scene.SceneControl.SelectionColor);
-                var pres = scene.CreateObjectsPresentor(project.ModelData, ObjType.Элемент2D);
-                scene.SetObjectsSceneAttribute(pres, ObjType.Элемент2D.ToString(), "цвет");
+                    angle, element.Number, SelectionColor);
+                var pres = CreateObjectsPresentor(project.ModelData, ObjType.Элемент2D);
+                SetObjectsSceneAttribute(pres, ObjType.Элемент2D.ToString(), "цвет");
             }
             else console.PrintInfo("Выберите хотя бы один элемент", Color.Red);
         }
@@ -175,7 +175,7 @@ namespace BazisGUI
         {
             var selObjs = project.ModelData.ObjectData.GetObjects(ObjType.Узел).
 
-    Where(x => x.Color == scene.SceneControl.SelectionColor).ToArray();
+    Where(x => x.Color == SelectionColor).ToArray();
             if (selObjs?.Count() > 2)
             {
                 var n1 = (Node)selObjs.First();
@@ -184,10 +184,10 @@ namespace BazisGUI
 
                 var plane = new Geometry.Plane(n1.Position, n2.Position, n3.Position);
                 modelController.SelectionHelper.SelectNodeInPlane(project.ModelData.ObjectData,
-                    plane, scene.SceneControl.SelectionColor);
+                    plane, SelectionColor);
 
-                var pres = scene.CreateObjectsPresentor(project.ModelData, ObjType.Узел);
-                scene.SetObjectsSceneAttribute(pres, ObjType.Узел.ToString(), "цвет");
+                var pres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
+                SetObjectsSceneAttribute(pres, ObjType.Узел.ToString(), "цвет");
             }
             else console.PrintInfo("Не выбрано три узла", Color.Red);
         }
@@ -213,25 +213,25 @@ namespace BazisGUI
         {
 
             var selObjs = project.ModelData.ObjectData.GetObjects(arg2).
-    Where(x => x.Color == scene.SceneControl.SelectionColor).ToArray();
+    Where(x => x.Color == SelectionColor).ToArray();
             if (selObjs?.Count() > 1)
             {
                 if (!reverse)
                 {
                     modelController.SelectionHelper.SelectNodeInDirection(project.ModelData.ObjectData,
-                        angle, selObjs.Skip(1).First().Number, selObjs.First().Number, scene.SceneControl.SelectionColor);
+                        angle, selObjs.Skip(1).First().Number, selObjs.First().Number, SelectionColor);
                 }
 
                 else
                 {
                     modelController.SelectionHelper.SelectNodeInDirection(project.ModelData.ObjectData,
-                        angle, selObjs.First().Number, selObjs.Skip(1).First().Number, scene.SceneControl.SelectionColor);
+                        angle, selObjs.First().Number, selObjs.Skip(1).First().Number, SelectionColor);
                 }
 
-                var pres = scene.CreateObjectsPresentor(project.ModelData, arg2);
-                scene.SetObjectsSceneAttribute(pres, arg2.ToString(), "цвет");
+                var pres = CreateObjectsPresentor(project.ModelData, arg2);
+                SetObjectsSceneAttribute(pres, arg2.ToString(), "цвет");
 
-                scene.SceneControl.DisplayObjects();
+                DisplayObjects();
             }
             else
                 console.PrintInfo("Выбранных объектов должно быть больше двух", Color.Red);

@@ -39,25 +39,25 @@ namespace BazisGUI
                     form.FormClosed += (s1, s2) =>
                     {
                         btn.Checked = false;
-                        scene.SceneControl.HideAllGeometryObjs();
-                        scene.SceneControl.HideDisplayText3D();
-                        scene.SceneControl.DisplayObjects();
+                        HideAllGeometryObjs();
+                        HideDisplayText3D();
+                        DisplayObjects();
                     };
 
                     var measuringControl = new MeasuringSet() { Dock = DockStyle.Fill };
                     measuringControl.PreparingMeasureEvent += (ar) =>
                     {
                         spbSelectObject.ToolTipText = ar.ToString();
-                        scene.SceneControl.HideAllGeometryObjs();
-                        scene.SceneControl.HideDisplayText3D();
-                        scene.SceneControl.DisplayObjects();
+                        HideAllGeometryObjs();
+                        HideDisplayText3D();
+                        DisplayObjects();
                     };
                     measuringControl.MakeMeasureEvent += MeasuringControl_MakeMeasureEvent;
                     form.ClientSize = measuringControl.Size;
                     form.Controls.Add(measuringControl);
 
                     form.Show();
-                    var location = scene.PointToScreen(Point.Empty);
+                    var location = PointToScreen(Point.Empty);
                     form.Location = location;
                 }
                 else
@@ -127,7 +127,7 @@ namespace BazisGUI
 
             while (true)
             {
-                //var objType = Converters.ConvertToObjsType(scene.SelectedObjects);
+                //var objType = Converters.ConvertToObjsType(SelectedObjects);
                 var res = SelectObjectAsync(ObjType.Узел);
                 await res;
 
@@ -142,8 +142,8 @@ namespace BazisGUI
                 {
                     var line = new Segment3D(nodes[nodes.Count - 1].Position, nodes[nodes.Count - 2].Position);
                     console.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
-                    scene.SceneControl.DisplayDistance(line);
-                    scene.SceneControl.DisplayObjects();
+                    DisplayDistance(line);
+                    DisplayObjects();
                 }
             }
             return nodes;
@@ -165,7 +165,7 @@ namespace BazisGUI
             {
                 var objs = modelData.ObjectData.GetObjects(objType);
 
-                var selObjs = objs.Where(x => x.Color == scene.SceneControl.SelectionColor);
+                var selObjs = objs.Where(x => x.Color == SelectionColor);
 
                 if (selObjs.Count() == 0)
                 {
@@ -206,7 +206,7 @@ namespace BazisGUI
             {
                 var objs = project.ModelData.ObjectData.GetObjects(objType);
 
-                var selObjs = objs.Where(x => x.Color == scene.SceneControl.SelectionColor);
+                var selObjs = objs.Where(x => x.Color == SelectionColor);
 
                 if (selObjs.Count() == 0)
                 {
@@ -243,7 +243,7 @@ namespace BazisGUI
         private void CalcVolume(string arg2)
         {
             var objs = project.ModelData.ObjectData.GetObjects(arg2.ToEnum<ObjType>());
-            var selObjs = objs.Where(x => x.Color == scene.SceneControl.SelectionColor);
+            var selObjs = objs.Where(x => x.Color == SelectionColor);
 
             var vol = 0.0f;
             foreach (var obj in selObjs)
@@ -258,7 +258,7 @@ namespace BazisGUI
         {
             var objs = project.ModelData.ObjectData.GetObjects(arg2.ToEnum<ObjType>());
 
-            var selObjs = objs.Where(x => x.Color == scene.SceneControl.SelectionColor);
+            var selObjs = objs.Where(x => x.Color == SelectionColor);
             var square = 0.0;
             foreach (var obj in selObjs)
             {
@@ -276,10 +276,10 @@ namespace BazisGUI
 
             project.ModelData.ObjectData.SetBackColor(objType);
 
-            var pres = scene.CreateObjectsPresentor(project.ModelData, objType);
+            var pres = CreateObjectsPresentor(project.ModelData, objType);
 
-            scene.SetObjectsSceneAttribute(pres, objType.ToString(), "цвет");
-            scene.SceneControl.DisplayObjects();
+            SetObjectsSceneAttribute(pres, objType.ToString(), "цвет");
+            DisplayObjects();
 
             var res = SelectObjectAsync(objType);
             await res;
@@ -289,8 +289,8 @@ namespace BazisGUI
                 var proj = point.Position.GetPointProectionOnPlane(plane.Result);
                 var line = new Segment3D(point.Position, proj);
                 console.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
-                scene.SceneControl.DisplayDistance(line);
-                scene.SceneControl.DisplayObjects();
+                DisplayDistance(line);
+                DisplayObjects();
             }
         }
 
@@ -299,7 +299,7 @@ namespace BazisGUI
 
             var objType = objTypeStr.ToEnum<ObjType>();
             var objs = project.ModelData.ObjectData.GetObjects(objType);
-            var color = scene.SceneControl.SelectionColor;
+            var color = SelectionColor;
             var selObjs = objs.Where(x => x.Color == color).ToList();
 
             if (selObjs.Count() > 1)
@@ -311,8 +311,8 @@ namespace BazisGUI
 
                 console.PrintInfo($"Расстояние : {line.GetLength()}", Color.Black);
 
-                scene.SceneControl.DisplayDistance(line);
-                scene.SceneControl.DisplayObjects();
+                DisplayDistance(line);
+                DisplayObjects();
             }
             else console.PrintInfo($"{objTypeStr} не выбраны", Color.Red);
         }
@@ -340,8 +340,8 @@ namespace BazisGUI
 
                     crossSection.RemoveCrossEvent += () =>
                     {
-                        scene.SceneControl.DeleteVBObjects("crossSection");
-                        scene.SceneControl.DisplayObjects();
+                        DeleteVBObjects("crossSection");
+                        DisplayObjects();
                     };
 
                     crossSection.SelectNodesEvent += () => { spbSelectObject.ToolTipText = ObjType.Узел.ToString(); };
@@ -374,12 +374,12 @@ namespace BazisGUI
                     {
                         btn.Checked = false;
 
-                        scene.SceneControl.DeleteVBObjects("crossSection");
-                        scene.SceneControl.DisplayObjects();
+                        DeleteVBObjects("crossSection");
+                        DisplayObjects();
                     };
 
                     form.Show();
-                    var location = scene.PointToScreen(Point.Empty);
+                    var location = PointToScreen(Point.Empty);
                     form.Location = location;
                 }
             }
@@ -392,7 +392,7 @@ namespace BazisGUI
         private void CreateSectionSurfacesFromNodes()
         {
             var objs = project.ModelData.ObjectData.GetObjects(ObjType.Узел);
-            var selObjs = objs.Where(x => x.Color == scene.SceneControl.SelectionColor).ToArray();
+            var selObjs = objs.Where(x => x.Color == SelectionColor).ToArray();
             if (selObjs.Length < 3)
             {
                 console.PrintInfo("Ошибка, выбрано неверное количество узлов", Color.Red);
@@ -412,8 +412,8 @@ namespace BazisGUI
             var plane = CreateSectionPlane(p0, p1, p2);
 
             var surface = modelController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
-            var presenter = scene.PresentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
-            scene.PresentCrossSection(presenter);
+            var presenter = presentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
+            PresentCrossSection(presenter);
         }
 
         public Geometry.Plane CreateSectionPlane(Vector3 p0, Vector3 p1, Vector3 p2)
@@ -431,8 +431,8 @@ namespace BazisGUI
 
             var surface = modelController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
 
-            var presenter = scene.PresentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
-            scene.PresentCrossSection(presenter);
+            var presenter = presentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
+            PresentCrossSection(presenter);
         }
 
         private void btnScreenShot_Click(object sender, EventArgs e)
@@ -445,10 +445,10 @@ namespace BazisGUI
         public void CreateScreenShot(string fileName)
         {
             this.BringToFront();
-            var bmpPicture = new Bitmap(scene.Width, scene.Height);
+            var bmpPicture = new Bitmap(Width, Height);
             var gr = Graphics.FromImage(bmpPicture);
-            var pos = scene.PointToScreen(Point.Empty);
-            var size = new Size(scene.Size.Width - 5, scene.Size.Height - 20);
+            var pos = PointToScreen(Point.Empty);
+            var size = new Size(Size.Width - 5, Size.Height - 20);
             gr.CopyFromScreen(pos, Point.Empty, size);
 
             bmpPicture.Save(fileName, System.Drawing.Imaging.ImageFormat.Bmp);
@@ -462,7 +462,7 @@ namespace BazisGUI
                 if (btn.Checked)
                 {
                     var reflect = new ReflectControl();
-                    reflect.SetGlObjs(scene.SceneControl.GetVBObjs().Select(x => x.ObjName));
+                    reflect.SetGlObjs(GetVBObjs().Select(x => x.ObjName));
 
                     var reflectForm = new Form()
                     {
@@ -478,7 +478,7 @@ namespace BazisGUI
 
                     reflect.ShowObjs += (ar) =>
                     {
-                        var vbo = scene.SceneControl.FindVBObj(ar);
+                        var vbo = FindVBObj(ar);
 
                         var a = (int)vbo.PointsColors[0];
                         var r = (int)vbo.PointsColors[1];
@@ -491,42 +491,42 @@ namespace BazisGUI
                             ChangeVBOColor(item, color);
 
                         ChangeVBOColor(ar, Color.Red);
-                        scene.SceneControl.DisplayObjects();
+                        DisplayObjects();
                     };
 
                     reflect.CreateReflectObj += (ar1, ar2) =>
                     {
-                        var copyObjs = scene.SceneControl.GetVBObjs().Where(x => x.ObjName.Contains($"{ar1}_copy")).
+                        var copyObjs = GetVBObjs().Where(x => x.ObjName.Contains($"{ar1}_copy")).
                         Select(x => x.ObjName);
-                        scene.SceneControl.CreateReflectedVBObject(ar1, $"{ar1}_copy_{copyObjs.Count() + 1}", ar2);
+                        CreateReflectedVBObject(ar1, $"{ar1}_copy_{copyObjs.Count() + 1}", ar2);
                         reflect.SetGlObjs(copyObjs);
-                        scene.SceneControl.DisplayObjects();
+                        DisplayObjects();
                     };
 
                     reflect.MatrixEvent += (s, ev) =>
                     {
-                        var obj = scene.SceneControl.FindVBObj(s);
+                        var obj = FindVBObj(s);
                         ev.Matrix = obj.ModelMatrix;
                     };
 
                     reflect.UpdateReflectPlane += (s, p) =>
                     {
-                        scene.SceneControl.DisplayReflectionPlane(s, p);
-                        scene.SceneControl.DisplayObjects();
+                        DisplayReflectionPlane(s, p);
+                        DisplayObjects();
                     };
 
                     reflectForm.FormClosing += (o, ev) =>
                     {
                         btn.Checked = false;
-                        scene.SceneControl.HideReflectionPlane();
-                        scene.SceneControl.DeleteAllVBObjects();
-                        //scene.PresentAllModelObjectsToScene();
-                        //sceneControl.CreateReflectedVBObject("", "", null);
-                        scene.SceneControl.DisplayObjects();
+                        HideReflectionPlane();
+                        DeleteAllVBObjects();
+                        //PresentAllModelObjectsToScene();
+                        //CreateReflectedVBObject("", "", null);
+                        DisplayObjects();
                     };
                     reflectForm.Show();
 
-                    var location = scene.PointToScreen(Point.Empty);
+                    var location = PointToScreen(Point.Empty);
                     reflectForm.Location = location;
 
 
@@ -550,7 +550,7 @@ namespace BazisGUI
 
         private void ChangeVBOColor(string ar, Color color)
         {
-            var obj = scene.SceneControl.FindVBObj(ar);
+            var obj = FindVBObj(ar);
 
             var colors = new float[obj.ColorLength];
 
@@ -570,7 +570,6 @@ namespace BazisGUI
             try
             {
                 var btn = sender as ToolStripButton;
-                var sceneControl = scene.SceneControl;
                 if (btn.Checked)
                 {
                     var clip = new ClipControl() { Dock = DockStyle.Fill };
@@ -587,35 +586,35 @@ namespace BazisGUI
 
                     clipForm.Controls.Add(clip);
 
-                    sceneControl.IsClipPlane = true;
-                    sceneControl.ChangeClipMode(Scene.ClipMode.Default, ObjType.Элемент3D.ToString());
+                    IsClipPlane = true;
+                    ChangeClipMode(Scene.ClipMode.Default, ObjType.Элемент3D.ToString());
 
-                    clip.SwitchOnOff += (v) => { sceneControl.IsClipPlane = v; };
+                    clip.SwitchOnOff += (v) => { IsClipPlane = v; };
                     clip.ChangeClipMode += (mode) =>
                     {
-                        sceneControl.ChangeClipMode((Scene.ClipMode)mode, ObjType.Элемент3D.ToString());
+                        ChangeClipMode((Scene.ClipMode)mode, ObjType.Элемент3D.ToString());
                     };
 
-                    clip.ChangeLayerThickness += (layerThickness) => sceneControl.ChangeLayerThickness(layerThickness);
+                    clip.ChangeLayerThickness += (layerThickness) => ChangeLayerThickness(layerThickness);
 
                     clip.SetClipPlaneEvent += (plane) =>
                     {
                         var scPlane = new Geometry.Plane(new Point3D(plane.X, plane.Y, plane.Z), plane.D);
-                        sceneControl.ChangeClipPlane(scPlane);
+                        ChangeClipPlane(scPlane);
                     };
 
-                    clip.RedrawClipPlane += () => sceneControl.DisplayObjects();
+                    clip.RedrawClipPlane += () => DisplayObjects();
 
                     clipForm.FormClosing += (o, ev) =>
                     {
-                        sceneControl.IsClipPlane = false;
-                        sceneControl.ChangeClipMode(Scene.ClipMode.None, ObjType.Элемент3D.ToString());
+                        IsClipPlane = false;
+                        ChangeClipMode(Scene.ClipMode.None, ObjType.Элемент3D.ToString());
                         btn.Checked = false;
-                        sceneControl.DisplayObjects();
+                        DisplayObjects();
                     };
 
                     clipForm.Show();
-                    var location = scene.PointToScreen(Point.Empty);
+                    var location = PointToScreen(Point.Empty);
                     clipForm.Location = location;
                 }
                 else
@@ -624,7 +623,7 @@ namespace BazisGUI
                     var form = forms.Find(x => x.Name == "clipPlaneForm");
                     if (form != null)
                     {
-                        sceneControl.IsClipPlane = false;
+                        IsClipPlane = false;
                         form.Close();
                     }
                 }

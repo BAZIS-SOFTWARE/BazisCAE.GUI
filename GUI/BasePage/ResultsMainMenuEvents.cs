@@ -109,7 +109,7 @@ namespace BazisGUI
             //    Text = "Экспорт результатов",
             //    ShowIcon = false,
             //    ClientSize = exportPage.Size,
-            //    Location = scene.PointToScreen(Point.Empty)
+            //    Location = PointToScreen(Point.Empty)
             //};
 
             //exportForm.FormClosed += (ar1, ar2) => { exportPage = null; };
@@ -198,7 +198,7 @@ namespace BazisGUI
                 ShowIcon = false,
                 ClientSize = grPage.Size
             };
-            scForm.FormClosed += (ar1, ar2) => { scene.ClearAllGeometryDataOnScene(); };
+            scForm.FormClosed += (ar1, ar2) => { ClearAllGeometryDataOnScene(); };
             scForm.Controls.Add(grPage);
             scForm.Show();
         }
@@ -212,9 +212,9 @@ namespace BazisGUI
                     throw new Exception("Выберите вид результатов в разделе результаты");
                 }
 
-                scene.ClearAllDataOnScene();
-                //scene.PresentAllModelObjectsToScene();
-                //scene.SelectedObjects = ObjType.Узел.ToString();
+                ClearAllDataOnScene();
+                //PresentAllModelObjectsToScene();
+                //SelectedObjects = ObjType.Узел.ToString();
 
                 var objs = await CreatePathAsync();
 
@@ -283,8 +283,8 @@ namespace BazisGUI
             else
             {
                 settingsConfig.ShowElementsResultsValue = false;
-                scene.SceneControl.HideDisplayText3D();
-                scene.SceneControl.DisplayObjects();
+                HideDisplayText3D();
+                DisplayObjects();
             }
         }
         private void showNodeValueMenuItem_Click(object sender, EventArgs e)
@@ -295,8 +295,8 @@ namespace BazisGUI
             else
             {
                 settingsConfig.ShowNodeResultsValue = false;
-                scene.SceneControl.HideDisplayText3D();
-                scene.SceneControl.DisplayObjects();
+                HideDisplayText3D();
+                DisplayObjects();
             }
         }
         private void loadResultsMenuItem_Click(object sender, EventArgs e)
@@ -379,7 +379,7 @@ namespace BazisGUI
                 elems = project.ModelData.ObjectData.E2DCollection.GetObjects();
 
             var elsResults = resultsController.ResultsFieldsCreator.CreateSurfaceObjects(result, tableName, resName, elems);
-            return scene.PresentersCreator.CreateSurfaceObjectsPresenter(elsResults);
+            return presentersCreator.CreateSurfaceObjectsPresenter(elsResults);
         }
 
         private ItemRange[] GetScaleItems(SceneScale scale)
@@ -417,9 +417,9 @@ namespace BazisGUI
                 if (navigator.GetSelectedNode()?.Level != 1)
                     throw new Exception("Выберите вид результатов в разделе результаты");
 
-                scene.ClearAllDataOnScene();
-                //scene.PresentAllModelObjectsToScene();
-                //scene.SelectedObjects = objsType.ToString();
+                ClearAllDataOnScene();
+                //PresentAllModelObjectsToScene();
+                //SelectedObjects = objsType.ToString();
 
                 var objs = await SelectObjectsAsync(objsType, objectsData);
 
@@ -452,12 +452,12 @@ namespace BazisGUI
                         grPoints.Add(grPoint);
                     }
 
-                    scene.SceneControl.DisplayText3D($"{objsType}_{obj.Number}", Color.Black, obj.CalcCentr());
+                    DisplayText3D($"{objsType}_{obj.Number}", Color.Black, obj.CalcCentr());
                     var color = Color.FromArgb(random.Next(255), random.Next(255), random.Next(255));
                     var grData = new GraphData($"{objsType}_{obj.Number}", color, "Сек.", resDes, grPoints.ToArray());
                     grDataAr.Add(grData);
                 }
-                scene.SceneControl.DisplayObjects();
+                DisplayObjects();
                 var grContainer = new GraphContainer();
 
                 if (grDataAr.Count != 0)
@@ -492,8 +492,8 @@ namespace BazisGUI
             var nodes = new List<IModelObject>();
             PressedKey = Keys.None;
 
-            scene.SceneControl.DisplayText2D(@"Выберите узлы и нажмите на клавишу ""E"" для подтверждения", Color.Black, new Point2D(10, 10));
-            scene.SceneControl.DisplayObjects();
+            DisplayText2D(@"Выберите узлы и нажмите на клавишу ""E"" для подтверждения", Color.Black, new Point2D(10, 10));
+            DisplayObjects();
             await System.Threading.Tasks.Task.Run(() =>
             {
                 while (true)
@@ -501,7 +501,7 @@ namespace BazisGUI
                     if (PressedKey == Keys.E)
                     {
                         var objs = ObjectsProvider.GraphPageProvider(objsData, objType);
-                        nodes = objs.Where(x => x.Color == scene.SceneControl.SelectionColor).ToList();
+                        nodes = objs.Where(x => x.Color == SelectionColor).ToList();
                         break;
                     }
                     if (PressedKey == Keys.Escape)
@@ -514,8 +514,8 @@ namespace BazisGUI
                     }
                 }
             });
-            scene.SceneControl.HideDisplayText2D();
-            scene.SceneControl.DisplayObjects();
+            HideDisplayText2D();
+            DisplayObjects();
             PressedKey = Keys.None;
             return nodes;
         }
@@ -571,11 +571,11 @@ namespace BazisGUI
 
             foreach (var obj in objs)
             {
-                if (obj.Color == scene.SceneControl.SelectionColor)
+                if (obj.Color == SelectionColor)
                 {
                     var coord = obj.CalcCentr();
                     var res = result.GetValue((int)tableType, obj.Number, resName);
-                    scene.SceneControl.DisplayText3D(res.ToString(), Color.Black, coord);
+                    DisplayText3D(res.ToString(), Color.Black, coord);
                 }
             }
         }

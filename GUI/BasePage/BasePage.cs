@@ -90,14 +90,6 @@ namespace BazisGUI
             SplittersController.PassBySplittersReq(splitters, this.Controls, false);
         }
 
-        public void SceneInitialization()
-        {
-            scene.SceneControl.Initialization();
-            scene.ClearAllDataOnScene();
-        }
-
-  
-
         public void PresentGroupDataOnTree(IGroupData groupData)
         {
             navigator.BeginUpdate();
@@ -160,7 +152,7 @@ namespace BazisGUI
             var actSurfaceConfirm = new Func<Tuple<bool, object>>(() =>
             {
                 var pointObjs = modelData.ObjectData.GetObjects(objType);
-                var selObjs = pointObjs.Where(x => x.Color == scene.SceneControl.SelectionColor).ToArray();
+                var selObjs = pointObjs.Where(x => x.Color == SelectionColor).ToArray();
 
                 if (selObjs.Length < 3)
                 {
@@ -203,8 +195,8 @@ namespace BazisGUI
             PressedKey = Keys.None;
             Invoke(new Action(() => 
             {
-                scene.SceneControl.DisplayText2D(cmdMessage, Color.Black, new Point2D(10, 10));
-                scene.SceneControl.DisplayObjects();
+                DisplayText2D(cmdMessage, Color.Black, new Point2D(10, 10));
+                DisplayObjects();
             }));
             await System.Threading.Tasks.Task.Run(() =>
             {
@@ -228,8 +220,8 @@ namespace BazisGUI
                 }             
             });
 
-            scene.SceneControl.HideDisplayText2D();
-            scene.SceneControl.DisplayObjects();
+            HideDisplayText2D();
+            DisplayObjects();
 
             PressedKey = Keys.None;
             return resObject;
@@ -244,7 +236,7 @@ namespace BazisGUI
         {
             var actConfirm = new Func<Tuple<bool, object>>(() =>
             {
-                var selObj = group.Where(x => x.Color == scene.SceneControl.SelectionColor);
+                var selObj = group.Where(x => x.Color == SelectionColor);
 
                 if (selObj.Count() == 0)
                 {
@@ -288,29 +280,24 @@ namespace BazisGUI
             switch (viewRegime)
             {
                 case ViewRegime.ribbers:
-                    scene.SceneControl.ChangeViewModeVBObjects(objType.ToString(), ObjView.Lines);
+                    ChangeViewModeVBObjects(objType.ToString(), ObjView.Lines);
                     foreach (var item in modelData.ObjectData.GetSetsInfo(objType))
                         item.SetViewMode(ViewMode.Line);
                     break;
                 case ViewRegime.surfaces:
-                    scene.SceneControl.ChangeViewModeVBObjects(objType.ToString(), ObjView.Surface);
+                    ChangeViewModeVBObjects(objType.ToString(), ObjView.Surface);
                     foreach (var item in modelData.ObjectData.GetSetsInfo(objType))
                         item.SetViewMode(ViewMode.Surface);
                     break;
                 case ViewRegime.ribbersSurfaces:
-                    scene.SceneControl.ChangeViewModeVBObjects(objType.ToString(), ObjView.LinesSurface);
+                    ChangeViewModeVBObjects(objType.ToString(), ObjView.LinesSurface);
                     foreach (var item in modelData.ObjectData.GetSetsInfo(objType))
                         item.SetViewMode(ViewMode.LineSurface);
                     break;
                 default:
                     break;
             }
-            scene.SceneControl.DisplayObjects();
-        }
-
-        private void sceneControl_Load(object sender, EventArgs e)
-        {
-            SceneInitialization();
-        }           
+            DisplayObjects();
+        }          
     }
 }

@@ -36,11 +36,11 @@ namespace BazisGUI
                             foreach (var item in project.ModelData.ObjectData.GetObjects(obj.ObjType))
                                 item.ViewState = false;
                             obj.ViewState = true;
-                            scene.ClearAllDataOnScene();
+                            ClearAllDataOnScene();
 
-                            var pres = scene.CreateObjectsPresentor(project.ModelData, obj.ObjType);
-                            scene.CreateObjectsOnScene(obj.ObjType.ToString(), pres);
-                            scene.SceneControl.DisplayObjects();
+                            var pres = CreateObjectsPresentor(project.ModelData, obj.ObjType);
+                            CreateObjectsOnScene(obj.ObjType.ToString(), pres);
+                            DisplayObjects();
                         }
                     }));
                 }
@@ -60,10 +60,10 @@ namespace BazisGUI
                     Invoke(new Action(() => { console.PrintInfo($"Найдено {coincidentNodes.Count()} совпадений", Color.Black); }));
                     Invoke(new Action(() =>
                     {
-                        scene.ClearAllDataOnScene();
-                        var pres = scene.CreateObjectsPresentor(project.ModelData, ObjType.Узел);
-                        scene.CreateObjectsOnScene(ObjType.Узел.ToString(), pres);
-                        scene.SceneControl.DisplayObjects();
+                        ClearAllDataOnScene();
+                        var pres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
+                        CreateObjectsOnScene(ObjType.Узел.ToString(), pres);
+                        DisplayObjects();
                     }));
                     var actConfirm = new Func<Tuple<bool, object>>(() =>
                     {
@@ -105,17 +105,17 @@ namespace BazisGUI
             {
                 console.PrintInfo($"Найдено {freeNodes.Count()} свободных узлов", Color.Black);
 
-                scene.SceneControl.DeleteAllVBObjects();
+                DeleteAllVBObjects();
 
                 foreach (var freeNode in freeNodes)
                     project.ModelData.ObjectData.Find(ObjType.Узел, freeNode).ViewState = true;
 
                 var objsTypeStr = ObjType.Узел.ToString();
-                scene.SceneControl.DeleteVBObjects(objsTypeStr);
-                scene.CreateObjectsOnScene(objsTypeStr,
-                scene.CreateObjectsPresentor(project.ModelData, ObjType.Узел));
+                DeleteVBObjects(objsTypeStr);
+                CreateObjectsOnScene(objsTypeStr,
+                CreateObjectsPresentor(project.ModelData, ObjType.Узел));
 
-                scene.SceneControl.DisplayObjects();
+                DisplayObjects();
             }));
         }
 
@@ -128,17 +128,17 @@ namespace BazisGUI
         {
             project.ModelData.ObjectData.Move(ObjType.Узел, new Point3D(arg2.X, arg2.Y, arg2.Z));
 
-            scene.SceneControl.HideAllGeometryObjs();
-            scene.SceneControl.HideDisplayText2D();
-            scene.SceneControl.HideDisplayText3D();
+            HideAllGeometryObjs();
+            HideDisplayText2D();
+            HideDisplayText3D();
 
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
             {
-                var pres = scene.CreateObjectsPresentor(project.ModelData, item);
-                scene.SetObjectsSceneAttribute(pres,item.ToString(), "координаты");
+                var pres = CreateObjectsPresentor(project.ModelData, item);
+                SetObjectsSceneAttribute(pres,item.ToString(), "координаты");
             }
 
-            scene.SceneControl.DisplayObjects();
+            DisplayObjects();
         }
 
         private void console_ModelRotateEvent(object arg1, ModelRotateEventArgs arg2)
@@ -146,17 +146,17 @@ namespace BazisGUI
             var axis = new Point3D(arg2.Axis.X, arg2.Axis.Y, arg2.Axis.Z);
             project.ModelData.ObjectData.Rotate(ObjType.Узел, axis, arg2.Angle);
 
-            scene.SceneControl.HideAllGeometryObjs();
-            scene.SceneControl.HideDisplayText2D();
-            scene.SceneControl.HideDisplayText3D();
+            HideAllGeometryObjs();
+            HideDisplayText2D();
+            HideDisplayText3D();
 
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
             {
-                var pres = scene.CreateObjectsPresentor(project.ModelData, item);
-                scene.SetObjectsSceneAttribute(pres, item.ToString(), "координаты");
+                var pres = CreateObjectsPresentor(project.ModelData, item);
+                SetObjectsSceneAttribute(pres, item.ToString(), "координаты");
             }
 
-            scene.SceneControl.DisplayObjects();
+            DisplayObjects();
         }        
     }
 }

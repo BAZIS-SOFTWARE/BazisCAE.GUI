@@ -32,6 +32,7 @@ namespace BazisGUI
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -44,7 +45,7 @@ namespace BazisGUI
             this.navigator = new BaseModule.Navigator.NavigatorControl();
             this.propertiesPanel = new BaseModule.PropertiesPanel.PropertiesPanelControl();
             this.sceenSplitContainer = new UserControlsEx.SplitContainerEx();
-            this.scene = new BazisGUI.ScenePage();
+            this.scene = new Tao.Platform.Windows.SimpleOpenGlControl();
             this.console = new BaseModule.Console.ConsoleControl();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -124,6 +125,13 @@ namespace BazisGUI
             this.btnSetRotHor90 = new System.Windows.Forms.ToolStripButton();
             this.btnSetRotVer90 = new System.Windows.Forms.ToolStripButton();
             this.btnFitObjs = new System.Windows.Forms.ToolStripButton();
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.создатьГруппуItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.скрытьВыбранноеItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.показатьСкрытыеItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItem_InfoSelectedObjects = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItem_SetRotPoint = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItem_DeleteSelectedObjects = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -149,6 +157,7 @@ namespace BazisGUI
             this.displayToolStrip.SuspendLayout();
             this.instrumentalToolStrip.SuspendLayout();
             this.viewToolStrip.SuspendLayout();
+            this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripContainer
@@ -396,19 +405,27 @@ namespace BazisGUI
             // 
             // scene
             // 
+            this.scene.AccumBits = ((byte)(0));
+            this.scene.AutoCheckErrors = false;
+            this.scene.AutoFinish = true;
+            this.scene.AutoMakeCurrent = true;
+            this.scene.AutoSwapBuffers = true;
+            this.scene.BackColor = System.Drawing.Color.Transparent;
+            this.scene.ColorBits = ((byte)(32));
+            this.scene.DepthBits = ((byte)(16));
             this.scene.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scene.Location = new System.Drawing.Point(0, 0);
+            this.scene.Margin = new System.Windows.Forms.Padding(4);
             this.scene.Name = "scene";
-            this.scene.ShowInsideObjects = false;
             this.scene.Size = new System.Drawing.Size(679, 264);
-            this.scene.TabIndex = 0;
-            this.scene.TransparencyValue = 0;
-            this.scene.MeshGroupCreatedEvent += new System.Action<object>(this.scene_MeshGroupCreatedEvent);
-            this.scene.ShowAllObjectsEvent += new System.Action<object, System.EventArgs>(this.scene_ShowAllObjectsEvent);
-            this.scene.SelectionDeletedEvent += new System.Action<object>(this.scene_SelectionDeletedEvent);
-            this.scene.SelectObjectsEvent += new System.Action<object, SelectObjectsEventArgs>(this.scene_SelectObjectsEvent);
-            this.scene.HideSelectedObjects += new System.Action<object>(this.scene_HideSelectedObjects);
-            this.scene.SetBackColorToAllObjectsEvent += new System.Action<object>(this.scene_SetBackColorToAllObjectsEvent);
+            this.scene.StencilBits = ((byte)(0));
+            this.scene.TabIndex = 1;
+            this.scene.SizeChanged += new System.EventHandler(this.GlControl_Resize);
+            this.scene.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GlControl_KeyDown);
+            this.scene.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseDown);
+            this.scene.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseMove);
+            this.scene.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseUp);
+            this.scene.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseWheel);
             // 
             // console
             // 
@@ -577,14 +594,14 @@ namespace BazisGUI
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(131, 22);
             this.toolStripMenuItem2.Text = "Навигатор";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(131, 22);
             this.toolStripMenuItem3.Text = "Консоль";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
@@ -1381,6 +1398,71 @@ namespace BazisGUI
             this.btnFitObjs.Text = "toolStripButton13";
             this.btnFitObjs.ToolTipText = "Вписать в экран";
             // 
+            // contextMenu
+            // 
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.создатьГруппуItem,
+            this.скрытьВыбранноеItem,
+            this.показатьСкрытыеItem,
+            this.menuItem_InfoSelectedObjects,
+            this.menuItem_SetRotPoint,
+            this.menuItem_DeleteSelectedObjects});
+            this.contextMenu.Name = "sceneContextMenu";
+            this.contextMenu.Size = new System.Drawing.Size(204, 158);
+            // 
+            // создатьГруппуItem
+            // 
+            this.создатьГруппуItem.Image = ((System.Drawing.Image)(resources.GetObject("создатьГруппуItem.Image")));
+            this.создатьГруппуItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.создатьГруппуItem.Name = "создатьГруппуItem";
+            this.создатьГруппуItem.Size = new System.Drawing.Size(203, 22);
+            this.создатьГруппуItem.Text = "Создать новую группу";
+            this.создатьГруппуItem.Click += new System.EventHandler(this.создатьГруппуItem_Click);
+            // 
+            // скрытьВыбранноеItem
+            // 
+            this.скрытьВыбранноеItem.Image = ((System.Drawing.Image)(resources.GetObject("скрытьВыбранноеItem.Image")));
+            this.скрытьВыбранноеItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.скрытьВыбранноеItem.Name = "скрытьВыбранноеItem";
+            this.скрытьВыбранноеItem.Size = new System.Drawing.Size(203, 22);
+            this.скрытьВыбранноеItem.Text = "Скрыть выбранное";
+            this.скрытьВыбранноеItem.Click += new System.EventHandler(this.скрытьВыбранноеItem_Click);
+            // 
+            // показатьСкрытыеItem
+            // 
+            this.показатьСкрытыеItem.Image = ((System.Drawing.Image)(resources.GetObject("показатьСкрытыеItem.Image")));
+            this.показатьСкрытыеItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.показатьСкрытыеItem.Name = "показатьСкрытыеItem";
+            this.показатьСкрытыеItem.Size = new System.Drawing.Size(203, 22);
+            this.показатьСкрытыеItem.Text = "Показать все скрытые";
+            this.показатьСкрытыеItem.Click += new System.EventHandler(this.показатьСкрытыеItem_Click);
+            // 
+            // menuItem_InfoSelectedObjects
+            // 
+            this.menuItem_InfoSelectedObjects.Image = ((System.Drawing.Image)(resources.GetObject("menuItem_InfoSelectedObjects.Image")));
+            this.menuItem_InfoSelectedObjects.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.menuItem_InfoSelectedObjects.Name = "menuItem_InfoSelectedObjects";
+            this.menuItem_InfoSelectedObjects.Size = new System.Drawing.Size(203, 22);
+            this.menuItem_InfoSelectedObjects.Text = "Инфо";
+            this.menuItem_InfoSelectedObjects.Click += new System.EventHandler(this.menuItem_InfoSelectedObjects_Click);
+            // 
+            // menuItem_SetRotPoint
+            // 
+            this.menuItem_SetRotPoint.Image = ((System.Drawing.Image)(resources.GetObject("menuItem_SetRotPoint.Image")));
+            this.menuItem_SetRotPoint.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.menuItem_SetRotPoint.Name = "menuItem_SetRotPoint";
+            this.menuItem_SetRotPoint.Size = new System.Drawing.Size(203, 22);
+            this.menuItem_SetRotPoint.Text = "Задать точку вращения";
+            this.menuItem_SetRotPoint.Click += new System.EventHandler(this.menuItem_SetRotPoint_Click);
+            // 
+            // menuItem_DeleteSelectedObjects
+            // 
+            this.menuItem_DeleteSelectedObjects.Image = ((System.Drawing.Image)(resources.GetObject("menuItem_DeleteSelectedObjects.Image")));
+            this.menuItem_DeleteSelectedObjects.Name = "menuItem_DeleteSelectedObjects";
+            this.menuItem_DeleteSelectedObjects.Size = new System.Drawing.Size(203, 22);
+            this.menuItem_DeleteSelectedObjects.Text = "Удалить выбранное";
+            this.menuItem_DeleteSelectedObjects.Click += new System.EventHandler(this.menuItem_DeleteSelectedObjects_Click);
+            // 
             // BaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1435,6 +1517,7 @@ namespace BazisGUI
             this.instrumentalToolStrip.PerformLayout();
             this.viewToolStrip.ResumeLayout(false);
             this.viewToolStrip.PerformLayout();
+            this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1531,9 +1614,16 @@ namespace BazisGUI
         private BaseModule.Navigator.NavigatorControl navigator;
         private BaseModule.PropertiesPanel.PropertiesPanelControl propertiesPanel;
         private UserControlsEx.SplitContainerEx sceenSplitContainer;
-        private ScenePage scene;
+        private Tao.Platform.Windows.SimpleOpenGlControl scene;
         private BaseModule.Console.ConsoleControl console;
         private System.Windows.Forms.ToolStripMenuItem показатьПлотностьСеткиToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenu;
+        private System.Windows.Forms.ToolStripMenuItem создатьГруппуItem;
+        private System.Windows.Forms.ToolStripMenuItem скрытьВыбранноеItem;
+        private System.Windows.Forms.ToolStripMenuItem показатьСкрытыеItem;
+        private System.Windows.Forms.ToolStripMenuItem menuItem_InfoSelectedObjects;
+        private System.Windows.Forms.ToolStripMenuItem menuItem_SetRotPoint;
+        private System.Windows.Forms.ToolStripMenuItem menuItem_DeleteSelectedObjects;
     }
 }
 
