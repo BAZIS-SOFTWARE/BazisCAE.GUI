@@ -1,5 +1,5 @@
-﻿using Geometry;
-using Scene.VBO;
+﻿using BazisGUI.Scene.VBO;
+using Geometry;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -1,14 +1,11 @@
-﻿using BaseModule.Console;
-using BaseModule.Extensions;
+﻿using BaseModule.Extensions;
+using BazisGUI.Scene.EventsArgs;
 using BazisGUI.Utilities;
 using Model.Interfaces;
-using Scene.Events;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BazisGUI

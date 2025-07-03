@@ -13,7 +13,6 @@ using Project.Interfaces.Tasks;
 using Project.Interfaces;
 using Project.Results;
 using Project.Results.IO;
-using Scene;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -22,6 +21,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UserControlsEx.Graph;
+using BazisGUI.Scene;
 
 namespace BazisGUI
 {

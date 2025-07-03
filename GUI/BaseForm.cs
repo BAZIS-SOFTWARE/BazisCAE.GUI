@@ -21,7 +21,6 @@ using Project;
 using Project.Results;
 using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
-using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -38,10 +37,10 @@ using Project.Interfaces.Tasks;
 using BaseModule.Extensions;
 using BaseModule.Results.ScaleControl;
 using ModelControllerInterfaces;
-using Scene;
 using Project.Interfaces;
 using BazisGUI.PropertiesPanel;
 using PostProc;
+using BazisGUI.Scene.Interfaces;
 
 namespace BazisGUI
 {

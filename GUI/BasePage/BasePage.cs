@@ -1,17 +1,10 @@
-﻿using BaseModule.Console;
-using BaseModule.Console.Events;
-using BaseModule.Navigator;
-using BaseModule.SceenControls;
+﻿using BaseModule.Navigator;
 using BaseModule.Utilities;
-using BazisGUI.PropertiesPanel;
-using BazisGUI.Utilities;
+using BazisGUI.Scene.Interfaces;
 using Geometry;
 using Model.Interfaces;
-using Model.Interfaces.MeshObjects;
 using Model.Interfaces.ObjectsCollections;
 using Project.Interfaces;
-using Scene.Events;
-using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,7 +14,6 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using UserControlsEx;
 
 namespace BazisGUI
 {

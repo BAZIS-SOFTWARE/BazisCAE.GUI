@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BazisGUI.Scene.EventsArgs;
+using System;
 using System.Collections.Generic;
 
 namespace BazisGUI
@@ -405,7 +406,7 @@ namespace BazisGUI
             this.scene.MeshGroupCreatedEvent += new System.Action<object>(this.scene_MeshGroupCreatedEvent);
             this.scene.ShowAllObjectsEvent += new System.Action<object, System.EventArgs>(this.scene_ShowAllObjectsEvent);
             this.scene.SelectionDeletedEvent += new System.Action<object>(this.scene_SelectionDeletedEvent);
-            this.scene.SelectObjectsEvent += new System.Action<object, Scene.Events.SelectObjectsEventArgs>(this.scene_SelectObjectsEvent);
+            this.scene.SelectObjectsEvent += new System.Action<object, SelectObjectsEventArgs>(this.scene_SelectObjectsEvent);
             this.scene.HideSelectedObjects += new System.Action<object>(this.scene_HideSelectedObjects);
             this.scene.SetBackColorToAllObjectsEvent += new System.Action<object>(this.scene_SetBackColorToAllObjectsEvent);
             // 

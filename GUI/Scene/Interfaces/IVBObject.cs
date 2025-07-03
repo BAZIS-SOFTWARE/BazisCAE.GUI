@@ -1,6 +1,4 @@
-﻿using Scene.Interfaces;
-
-namespace BazisGUI.Scene.Interfaces
+﻿namespace BazisGUI.Scene.Interfaces
 {
     /// <summary>
     /// Transform

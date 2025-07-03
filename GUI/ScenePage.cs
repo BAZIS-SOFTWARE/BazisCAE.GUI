@@ -1,13 +1,13 @@
-﻿using BazisGUI.Utilities;
+﻿using BazisGUI.Scene;
+using BazisGUI.Scene.EventsArgs;
+using BazisGUI.Scene.Interfaces;
+using BazisGUI.Utilities;
 using Geometry;
 using Model.Interfaces;
 using Model.Interfaces.ObjectsCollections;
 using ModelController.MeshObjsUtility;
 using ModelController.ModelScenePresentator;
 using ModelControllerInterfaces;
-using Scene;
-using Scene.Events;
-using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -178,7 +178,7 @@ namespace BazisGUI
 
         }
 
-        private void sceneControl_SelectObjectsEvent(object arg1, Scene.Events.SelectObjectsEventArgs arg2)
+        private void sceneControl_SelectObjectsEvent(object arg1, SelectObjectsEventArgs arg2)
         {
             SelectObjectsEvent?.Invoke(this, arg2);
         }  
@@ -375,7 +375,7 @@ namespace BazisGUI
             SelectionDeletedEvent?.Invoke(sender);
         }
 
-        private void sceneControl_MessageEvent(object arg1, Scene.Events.MessageEventArgs arg2)
+        private void sceneControl_MessageEvent(object arg1, MessageEventArgs arg2)
         {
             SceneInfoEvent?.Invoke(arg1,arg2.Message,Color.Red);
         }

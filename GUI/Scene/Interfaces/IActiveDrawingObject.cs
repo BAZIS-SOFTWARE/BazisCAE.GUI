@@ -1,9 +1,4 @@
-﻿using Scene.VBO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BazisGUI.Scene.VBO;
 
 namespace BazisGUI.Scene.Interfaces
 {

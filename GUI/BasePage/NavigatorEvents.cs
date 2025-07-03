@@ -3,34 +3,24 @@ using BaseModule.Tasks.BasicAdvisorControls.Events;
 using BazisGUI.Utilities;
 using Model.Interfaces;
 using Project.Interfaces.Tasks;
-using Project.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BaseModule.Extensions;
 using Model.Interfaces.MeshObjects;
-using Model;
-using System.ComponentModel.DataAnnotations;
 using BaseModule.Tasks.TasksFromNavigator;
 using PropertiesCalculator.FunctionData;
 using PropertiesCalculator.MaterialData;
 using System.IO;
-using System.Diagnostics.Eventing.Reader;
 using Geometry;
 using PreProc;
-using Project;
 using System.Diagnostics;
 using Model.Interfaces.ObjectsCollections;
-using Scene.Interfaces;
 using Newtonsoft.Json;
 using PreProc.Interfaces;
-using BaseModule.Results.Animation;
-using Gif.Components;
-using Project.Results.IO;
+using BazisGUI.Scene.Interfaces;
 
 namespace BazisGUI
 {

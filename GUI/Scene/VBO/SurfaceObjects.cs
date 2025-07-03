@@ -1,9 +1,7 @@
 ﻿using BazisGUI.Scene.Interfaces;
-using Scene.Interfaces;
-using System.Windows.Forms.VisualStyles;
 using Tao.OpenGl;
 
-namespace Scene.VBO
+namespace BazisGUI.Scene.VBO
 {
     /// <summary>
     /// SurfaceObjects class

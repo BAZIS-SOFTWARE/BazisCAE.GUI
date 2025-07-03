@@ -1,8 +1,8 @@
 ﻿using BaseModule.Console;
+using BazisGUI.Scene.Interfaces;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
 using Model.Interfaces.ObjectsCollections;
-using Scene.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

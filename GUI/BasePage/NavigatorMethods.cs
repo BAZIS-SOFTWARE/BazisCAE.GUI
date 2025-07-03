@@ -24,7 +24,7 @@ using BaseModule.Results.Animation;
 using Gif.Components;
 using Project.Results.IO;
 using Project.Results;
-using Scene;
+using BazisGUI.Scene;
 
 namespace BazisGUI
 {

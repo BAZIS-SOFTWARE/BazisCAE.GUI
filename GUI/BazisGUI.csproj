@@ -125,10 +125,10 @@
       <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
     </Reference>
     <Reference Include="Model, Version=4.2.63.26, Culture=neutral, PublicKeyToken=fb50939feb9441b1, processorArchitecture=MSIL">
-      <HintPath>..\packages\Model.4.2.63.26\lib\netstandard2.0\Model.dll</HintPath>
+      <HintPath>..\SceneTests\bin\x64\Debug\Model.dll</HintPath>
     </Reference>
     <Reference Include="ModelController, Version=3.1.37.22, Culture=neutral, PublicKeyToken=e09ec217329c0175, processorArchitecture=MSIL">
-      <HintPath>..\packages\ModelController.3.1.37.22\lib\netstandard2.0\ModelController.dll</HintPath>
+      <HintPath>..\SceneTests\bin\x64\Debug\ModelController.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -196,6 +196,14 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tao.OpenGl, Version=2.1.0.12, Culture=neutral, PublicKeyToken=1ca010269a4501ef, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Scene\Tao.OpenGl.dll</HintPath>
+    </Reference>
+    <Reference Include="Tao.Platform.Windows, Version=1.0.0.5, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Scene\Tao.Platform.Windows.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutLicenseControl.cs">
@@ -280,6 +288,42 @@
     <Compile Include="ScenePage.Designer.cs">
       <DependentUpon>ScenePage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Scene\EventsArgs\InfoObjectsEventArgs.cs" />
+    <Compile Include="Scene\EventsArgs\MessageEventArgs.cs" />
+    <Compile Include="Scene\EventsArgs\SelectObjectsEventArgs.cs" />
+    <Compile Include="Scene\Interfaces\IActiveDrawingObject.cs" />
+    <Compile Include="Scene\Interfaces\IScaleItem.cs" />
+    <Compile Include="Scene\Interfaces\ISceneCamera.cs" />
+    <Compile Include="Scene\Interfaces\ISceneControl.cs" />
+    <Compile Include="Scene\Interfaces\ISceneScale.cs" />
+    <Compile Include="Scene\Interfaces\IVBObject.cs" />
+    <Compile Include="Scene\Rendering\Advanced3DClipper.cs" />
+    <Compile Include="Scene\Rendering\AverageColorRenderer.cs" />
+    <Compile Include="Scene\Rendering\ClipPlaneRenderer.cs" />
+    <Compile Include="Scene\Rendering\ShaderCollections.cs" />
+    <Compile Include="Scene\Rendering\ShaderProgramCreator.cs" />
+    <Compile Include="Scene\ScaleItem.cs" />
+    <Compile Include="Scene\SceneBasis.cs" />
+    <Compile Include="Scene\SceneCamera.cs" />
+    <Compile Include="Scene\SceneCompass.cs" />
+    <Compile Include="Scene\SceneControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scene\SceneControl.designer.cs">
+      <DependentUpon>SceneControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scene\ScenePath.cs" />
+    <Compile Include="Scene\SceneScale.cs" />
+    <Compile Include="Scene\ScreenRectangle.cs" />
+    <Compile Include="Scene\TaoExtension.cs" />
+    <Compile Include="Scene\BoundingBox.cs" />
+    <Compile Include="Scene\VBO\BoundingBoxVBO.cs" />
+    <Compile Include="Scene\VBO\LineObjects.cs" />
+    <Compile Include="Scene\VBO\PointObjects.cs" />
+    <Compile Include="Scene\VBO\SurfaceObjects.cs" />
+    <Compile Include="Scene\VBO\VBO.cs" />
+    <Compile Include="Scene\VBO\VBObject.cs" />
+    <Compile Include="Scene\VBO\VBOPoint.cs" />
     <Compile Include="WelcomeScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -370,6 +414,9 @@
     <EmbeddedResource Include="ScenePage.resx">
       <DependentUpon>ScenePage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Scene\SceneControl.resx">
+      <DependentUpon>SceneControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SettingsControls\LightingControl.resx">
       <DependentUpon>LightingControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -429,10 +476,6 @@
     <ProjectReference Include="..\PropertiesDataBases\PropertiesDataBases.csproj">
       <Project>{cdde2abd-68f3-441b-8220-94652083904f}</Project>
       <Name>PropertiesDataBases</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Scene\Scene.csproj">
-      <Project>{5803f0be-a529-4f64-9a9e-88c3f2ada928}</Project>
-      <Name>Scene</Name>
     </ProjectReference>
     <ProjectReference Include="..\UserControlEx\UserControlsEx.csproj">
       <Project>{452d36b3-7997-48ac-96cb-4aa349e2b608}</Project>

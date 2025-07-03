@@ -1,4 +1,6 @@
-﻿namespace BazisGUI
+﻿using BazisGUI.Scene.EventsArgs;
+
+namespace BazisGUI
 {
     partial class ScenePage
     {
@@ -67,10 +69,10 @@
             this.sceneControl.ShowSurfaceBackEdges = false;
             this.sceneControl.Size = new System.Drawing.Size(609, 472);
             this.sceneControl.TabIndex = 0;
-            this.sceneControl.SelectObjectsEvent += new System.Action<object, Scene.Events.SelectObjectsEventArgs>(this.sceneControl_SelectObjectsEvent);
+            this.sceneControl.SelectObjectsEvent += new System.Action<object, SelectObjectsEventArgs>(this.sceneControl_SelectObjectsEvent);
             this.sceneControl.SceneMouseClickEvent += new System.Action<object, System.Windows.Forms.MouseEventArgs>(this.sceneControl_SceneMouseClickEvent);
             this.sceneControl.SceneKeyDownEvent += new System.Action<object, System.Windows.Forms.KeyEventArgs>(this.sceneControl_SceneKeyDownEvent);
-            this.sceneControl.MessageEvent += new System.Action<object, Scene.Events.MessageEventArgs>(this.sceneControl_MessageEvent);
+            this.sceneControl.MessageEvent += new System.Action<object, MessageEventArgs>(this.sceneControl_MessageEvent);
             this.sceneControl.SceneControlExpandEvent += new System.Action(this.sceneControl_SceneControlExpandEvent);
             this.sceneControl.SceneControlFoldEvent += new System.Action(this.sceneControl_SceneControlFoldEvent);
             this.sceneControl.MouseClick += new System.Windows.Forms.MouseEventHandler(this.sceneControl_SceneMouseClickEvent);
