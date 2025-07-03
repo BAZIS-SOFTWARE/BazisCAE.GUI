@@ -43,6 +43,7 @@ using PostProc;
 using BazisGUI.Scene.Interfaces;
 using ModelController.MeshObjsUtility;
 using ModelController.ModelScenePresentator;
+using BazisGUI.Scene;
 
 namespace BazisGUI
 {
@@ -83,6 +84,8 @@ namespace BazisGUI
         public BaseForm(string[] args)
         {
             InitializeComponent();
+            scene.InitializeContexts();
+            Gle.Load();
             SceneInitialization();
             ComponentsPainter.Font = this.Font;
             ComponentsPainter.ScreenDPI = this.DeviceDpi;
