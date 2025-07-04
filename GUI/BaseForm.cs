@@ -286,37 +286,7 @@ namespace BazisGUI
                     resultsMenuItem.Visible = false;
                 }
             }
-        }           
-
-        private void Page_ChangeAllObjsViewEvent(object arg1, bool arg2)
-        {
-            foreach (var item in project.ModelData.ObjectData.GetAllObjects())
-                item.ViewState = arg2;
-
-            PresentModelObjectsOnScene(project.ModelData, "Объекты");
-            DisplayObjects();
-
-
-            //foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
-            //{
-            //    foreach (var setInfo in project.ModelData.ObjectData.GetSetsInfo(item))
-            //    {
-            //        var nodeType = Converters.ConvertToNavigatorNodeType(setInfo.ObjType);
-
-                    //var imgIndex = navigator.GetObjectImageIndex(nodeType);
-                    //imgIndex = imgIndex == 3 ? 5 : 6;
-
-            //        var root = navigator.TreeView.Nodes["объекты"].Nodes[nodeType.ToString()];
-            //        var nodes = new List<TreeNode>();
-            //        navigator.SearchNodeRec(root, setInfo.ObjType.ToString(), nodes);
-            //        if (nodes.Count != 0)
-            //        {
-            //            nodes.First().ImageIndex = imgIndex;
-            //            nodes.First().SelectedImageIndex = imgIndex;
-            //        }
-            //    }
-            //}
-        }                         
+        }                                      
 
         private void CloseActivePageChildControls(string moduleName)
         {
@@ -579,7 +549,8 @@ namespace BazisGUI
             {
                 IsBlending = ar;
                 ClearAllDataOnScene();
-                PresentAllModelObjectsToScene(project.ModelData);
+                PresentModelObjectsOnScene(project.ModelData, "Объекты");
+                //PresentAllModelObjectsToScene(project.ModelData);
                 DisplayObjects();
             };
 

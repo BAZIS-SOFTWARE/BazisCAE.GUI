@@ -23,52 +23,6 @@ namespace BazisGUI
         [Description("Кнопка на клавиатуре")]
         public Keys PressedKey { get; set; }
 
-        //public event Action<object, bool> ChangeAllObjsViewStateEvent;
-        //public event Action<object, ObjType, string> DeleteSetEvent;
-        //public event Action<object> FindFreeNodesEvent;
-
-        //public event Action<object, string, string> ChangedGroupNameEvent;
-        //public event Action<object, string> CreatedMeshGroupEvent;
-        //public event Action<object> DeleteAllGroupsEvent;
-        //public event Action<object, int> DeleteGroupEvent;
-        //public event Action<object, ObjType, string> DeleteObjectsEvent;
-        //public event Action<object, SelectObjectsEventArgs, string> SelectObjectsEvent;
-        //public event Action<object, bool> ChangeAllGroupsViewEvent;
-        //public event Action<object, bool> ChangeAllObjsViewEvent;
-        //public event Action<object> ShowInsideObjectsEvent;
-        //public event Action<object> HideInsideObjectsEvent;
-        //public event Action<object, ViewMode> ChangeViewModeObjectsEvent;
-        //public event Action<object, CreatePlaneFromTextArgs> CreateSectionSurfacesFromCoordsEvent;
-        //public event Action<object> CreateSectionSurfacesFromNodesEvent;
-        //public event Action<object, string> DistancePointToPointEvent;
-        //public event Action<object, string> DistancePointToPlaneEvent;
-        //public event Action<object> CreatePathAsyncEvent;
-        //public event Action<object, string> CalcSquareEvent;
-        //public event Action<object, string> CalcVolumeEvent;
-        //public event Action<object> SelectNodeInPlaneEvent;
-        //public event Action<object> MakeScreenShotEvent;
-        //public event Action<object> ShowMeshCountorsEvent;
-        //public event Action<object> ShowMeshNormalsEvent;
-        //public event Action<object, float> SelectE2DInPlaneEvent;
-        //public event Action<object, ObjType, float, bool> SelectInDirectionEvent;
-
-        //public event Action<object, int, bool> ChangeGroupViewEvent;
-        //public event Action<object, ObjType, string, bool> ChangeSetViewStateEvent;
-        //public event Action<object, int> EditGroupEvent;
-        //public event Action<object, string> DeleteSelectedObjectsEvent;
-        //public event Action<object, string> SelectGroupEvent;
-        //public event Action<object> SetBackColorToAllObjectsEvent;
-        //public event Action<object, string> HideSelectedObjectsEvent;
-        //public event Action<object, int> InfoGroupEvent;
-        //public event Action<object, int> ShowGroupWithNodesEvent;
-        //public event Action<object> DelAllObjectsEvent;
-        //public event Action<object, ObjType, string> SelectSetEvent;
-        //public event Action<object> UpdateNavigatorEvent;
-        //public event Action<object, NodeType, string> GetObjectsInfoEvent;
-        //public event Action<object, NodeType> GetSetsInfoEvent;
-        //public event Action<object, string> GetResultsInfoEvent;
-
-
         public void PresentGroupDataOnTree(IGroupData groupData)
         {
             navigator.BeginUpdate();

@@ -14,14 +14,14 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        private void sceneControl_SceneMouseClickEvent(object arg1, MouseEventArgs arg2)
+        private void scene_MouseClick(object sender, MouseEventArgs e)
         {
             if (!MouseMoveFlag)
-                if (arg2.Button == MouseButtons.Right)
-                    contextMenu.Show(this, arg2.Location);
+                if (e.Button == MouseButtons.Right)
+                    contextMenu.Show(this, e.Location);
         }
 
-  
+
         private void создатьГруппуItem_Click(object sender, EventArgs e)
         {
             try
@@ -212,12 +212,6 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             console.PrintInfo(arg2, arg3);
         }
 
-        private void scene_HideSelectedObjects(object obj)
-        {
-            
-            
-        }
-
         internal void SetBackColorToAllObjects()
         {
             foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
@@ -339,7 +333,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                 var dx = (new_mousePosition.X - ScreenMousePosition.X) * (2 * (-moveCam_z)) / (float)(scene.Width); //(mousePosition.Y - new_mousePosition.Y)
                 var dy = (new_mousePosition.Y - ScreenMousePosition.Y) * (2 * (-moveCam_z)) / (float)(scene.Height);
 
-                camera.Rotate(dx, dy, rotAxis, rotAngle);
+                camera.Rotate(dx, dy, RotationAxis, RotationAngle);
 
                 DisplayObjects();
             }

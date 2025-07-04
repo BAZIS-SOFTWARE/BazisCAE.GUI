@@ -425,6 +425,7 @@ namespace BazisGUI
             this.scene.TabIndex = 1;
             this.scene.SizeChanged += new System.EventHandler(this.GlControl_Resize);
             this.scene.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GlControl_KeyDown);
+            this.scene.MouseClick += new System.Windows.Forms.MouseEventHandler(this.scene_MouseClick);
             this.scene.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseDown);
             this.scene.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseMove);
             this.scene.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseUp);

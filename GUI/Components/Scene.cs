@@ -40,8 +40,6 @@ namespace BazisGUI
         private Color backGroundColor = Color.Green;
         public Color SelectionGroupColor { get; set; } = Color.Green;
 
-        private ViewAxis rotAxis;
-        private float rotAngle = 2.5f;
         private float scaleFactor = 1.0f;
         bool displayRotatioPoint;
         bool displayCompass = true;
@@ -50,17 +48,9 @@ namespace BazisGUI
 
         public bool MouseMoveFlag { get; private set; }
 
-        public ViewAxis RotationAxis
-        {
-            get { return rotAxis; }
-            set { rotAxis = value; }
-        }
+        public ViewAxis RotationAxis { get; set; } = ViewAxis.XYZ;
 
-        public float RotationAngle
-        {
-            get { return rotAngle; }
-            set { rotAngle = value; }
-        }
+        public float RotationAngle { get; set; } = 2.5f;
 
         public ViewProjection Projection
         {
@@ -143,41 +133,22 @@ namespace BazisGUI
         [DefaultValue(false)]
         public bool IsSceneExpand { get; set; }
 
-/// <inheritdoc/>
-
         public float ScaleFactor
         {
             get{ return scaleFactor; }
             set { scaleFactor = value; }
         }
-/// <inheritdoc/>
-
-        public int SceneWidth { get { return this.Width; } }
-/// <inheritdoc/>
-
-        public int SceneHeight { get { return this.Height; } }
-/// <inheritdoc/>
 
         public float ShadowAngle { get ; set ; }
-        /// <inheritdoc/>
+
         public bool IsSmoothShadow { get ; set; }
 
-        [Category("General")]
-        [Description("Уровень прозрачности объектов")]
         public int TransparencyValue { get; set; }
 
-        [Category("General")]
-        [Description("Показать внутренние объекты")]
         public bool IsInsideObjectsShown { get; set; }
-        /// <inheritdoc/>
 
-        [Description("Set backGround color")]
-        [Category("General properties")]
         public bool DisplayBasis { get; set; }
 
-        /// <inheritdoc/>
-        [Description("Set or get clip plane")]
-        [Category("General properties")]
         public bool IsClipPlane 
         { 
             get
@@ -214,11 +185,6 @@ namespace BazisGUI
         /// SceneKeyDownEvent
         /// </summary>
         public event Action<object, KeyEventArgs> SceneKeyDownEvent;
-
-        //public event Action<object, EventArgs> ShowAllHiddenObjectsEvent;
-        //public event Action<object, EventArgs> HideSelectedObjectsEvent;
-        //public event Action<object, EventArgs> CreateMeshGroupEvent;
-        //public event Action<object, EventArgs> DeleteSelectionEvent;
 
         /// <summary>
         /// MessageEvent
@@ -769,7 +735,7 @@ namespace BazisGUI
 
         public void RotateObjs()
         {
-            camera.Rotate(rotAxis,rotAngle);
+            camera.Rotate(RotationAxis,RotationAngle);
         }
 /// <inheritdoc/>
 
@@ -1340,85 +1306,6 @@ namespace BazisGUI
         }
 
 
-        private void CreateNormalsFromPoints(string newVbo, float[] points, float[] normals, float sF = 1.0f)
-        {
-            var vCount = points.Length / 3;
-            var indices = Enumerable.Range(0, vCount * 2).ToArray();
-            var edges = new bool[vCount * 2].Select(v => true).ToArray();
-            var newNormals = new float[vCount * 6];
-            var newColors = new float[vCount * 8];
-            var pointCoords = new float[vCount * 6];
-
-            for (int i = 0, j = 0; i < points.Length; i += 3, j += 6)
-            {
-                for (var k = 0; k < 3; ++k)
-                    pointCoords[j + k] = points[i + k];
-                for (var k = 3; k < 6; ++k)
-                    pointCoords[j + k] = points[i + k - 3] + normals[i + k - 3] * sF;
-            }
-            CreateLineVBObjects(indices, pointCoords, newColors, newNormals, edges, newVbo);
-        }
-
-        private void CreateNormalsFromCenterSurface(string newVbo, float[] points, float[] normals, float sF = 1.0f)
-        {
-            var vCount = points.Length / 3;
-            var indCount = vCount / 3 * 2;
-            var indices = Enumerable.Range(0, indCount).ToArray();
-            var edges = new bool[indCount].Select(v => true).ToArray();
-            var newNormals = new float[indCount * 3];
-            var newColors = new float[indCount * 4];
-            var pointCoords = new float[indCount * 3];
-            var layout = Enumerable.Range(0, indCount).Select(v => (float)v).ToArray();
-
-            for (int i = 0, j = 0; i < points.Length; i += 9, j += 6)
-            {
-                pointCoords[j] = (points[i] + points[i + 3] + points[i + 6]) / 3;
-                pointCoords[j + 1] = (points[i + 1] + points[i + 4] + points[i + 7]) / 3;
-                pointCoords[j + 2] = (points[i + 2] + points[i + 5] + points[i + 8]) / 3;
-
-                pointCoords[j + 3] = pointCoords[j] + normals[i] * sF;
-                pointCoords[j + 4] = pointCoords[j + 1] + normals[i + 1] * sF;
-                pointCoords[j + 5] = pointCoords[j + 2] + normals[i + 2] * sF;
-            }
-            CreateLineVBObjects(indices, pointCoords, newColors, newNormals, edges, newVbo);
-        }
-
-
-        /// <summary>
-        /// Показать нормали объекта
-        /// </summary>
-        /// <param name="vboObj">[In]Имя вбо объекта</param>
-        /// <param name="show">[In]Показать?</param>
-        /// <param name="fromPoints">[In]Нормали из точек</param>
-        /// <param name="sF">[In]Размер нормали</param>
-        public void ShowNormals(string vboObj, bool show, bool fromPoints = false, float sF = 1.0f)
-        {
-            var src = FindVBObj(vboObj);
-            if (src != null && src.GL_ObjType == GLObjType.triangle)
-            {
-                var vboNormal = vboObj + " Нормали";
-                var obj = FindVBObj(vboNormal);
-                if (show)
-                {
-                    if (obj == null)
-                    {
-                        var vbObj = src as VBObject;
-                        var points = src.PointsCoords;
-                        var normals = vbObj.NormalsCoords;
-
-                        if (fromPoints)
-                            CreateNormalsFromPoints(vboNormal, points, normals, sF);
-                        else
-                            CreateNormalsFromCenterSurface(vboNormal, points, normals, sF);
-                    }
-                }
-                else if (obj != default)
-                    DeleteVBObjects(vboNormal);
-            }
-        }
-
-
-
         /// <summary>
         /// Создает зеркальную (относительно плоскости) копию вбо-объекта, если задано имя оригинала и копии и коэффициенты плоскости
         /// </summary>
@@ -1800,11 +1687,6 @@ namespace BazisGUI
             {
                 yield return item;
             }
-        }
-
-        private void scene_MouseClick(object sender, MouseEventArgs e)
-        {
-            SceneMouseClickEvent?.Invoke(sender, e);
         }
 
         //public void CopyVBObjects(VBObject original, string copyName)

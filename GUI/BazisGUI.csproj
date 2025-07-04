@@ -224,43 +224,43 @@
     <Compile Include="BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BasePage\BasePage.cs">
+    <Compile Include="Components\BasePage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BasePage\ConsoleEvents.cs">
+    <Compile Include="Components\ConsoleEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BasePage\DataBasesMainMenuEvents.cs">
+    <Compile Include="Components\DataBasesMainMenuEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BasePage\DisplayToolStrip.cs">
+    <Compile Include="Components\DisplayToolStrip.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BasePage\MeshMainMenuEvents.cs">
+    <Compile Include="Components\MeshMainMenuEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BasePage\NavigatorEvents.cs">
+    <Compile Include="Components\NavigatorEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BasePage\NavigatorMethods.cs">
+    <Compile Include="Components\NavigatorMethods.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BasePage\PropertiesPanelEvent.cs">
+    <Compile Include="Components\PropertiesPanelEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BasePage\ResultsMainMenuEvents.cs">
+    <Compile Include="Components\ResultsMainMenuEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BasePage\SceneEvents.cs">
+    <Compile Include="Components\SceneEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BasePage\SelectToolStrip.cs">
+    <Compile Include="Components\SelectToolStrip.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BasePage\UtilityToolStrip.cs">
+    <Compile Include="Components\UtilityToolStrip.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BasePage\ViewToolStrip.cs">
+    <Compile Include="Components\ViewToolStrip.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IODataController.cs" />
@@ -300,7 +300,7 @@
     <Compile Include="Scene\SceneBasis.cs" />
     <Compile Include="Scene\SceneCamera.cs" />
     <Compile Include="Scene\SceneCompass.cs" />
-    <Compile Include="BasePage\SceneControl.cs">
+    <Compile Include="Components\Scene.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Scene\ScenePath.cs" />

@@ -61,22 +61,22 @@ namespace BazisGUI
             spbSelectObject.ToolTipText = "Объекты";
         }
 
-        private void btnSelectObjects_Click(object sender, EventArgs e)
-        {
-            var btn = sender as ToolStripButton;
+        //private void btnSelectObjects_Click(object sender, EventArgs e)
+        //{
+        //    var btn = sender as ToolStripButton;
 
-            if (btn.Tag.ToString() == "1")
-                spbSelectObject.ToolTipText = "Узел";
-            else if (btn.Tag.ToString() == "2")
-                spbSelectObject.ToolTipText = "Элементы";
-            else
-                spbSelectObject.ToolTipText = "Фигуры";
+        //    if (btn.Tag.ToString() == "1")
+        //        spbSelectObject.ToolTipText = "Узел";
+        //    else if (btn.Tag.ToString() == "2")
+        //        spbSelectObject.ToolTipText = "Элементы";
+        //    else
+        //        spbSelectObject.ToolTipText = "Фигуры";
 
-            spbSelectObject.Invalidate();
+        //    spbSelectObject.Invalidate();
 
-            SetBackColorToAllObjects();
+        //    SetBackColorToAllObjects();
 
-        }
+        //}
 
         private void btnAdvanceSelection_Click(object sender, EventArgs e)
         {
