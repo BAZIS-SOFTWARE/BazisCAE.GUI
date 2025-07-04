@@ -566,7 +566,6 @@
             this.treeView.Location = new System.Drawing.Point(0, 15);
             this.treeView.Margin = new System.Windows.Forms.Padding(0);
             this.treeView.Name = "treeView";
-            
             treeNode1.ImageIndex = 16;
             treeNode1.Name = "названиеПроекта";
             treeNode1.SelectedImageIndex = 16;
@@ -760,26 +759,26 @@
             this.скрытьОбъектMenuItem,
             this.показатьОбъектMenuItem});
             this.objectMenuStrip.Name = "lv0_MenuStrip";
-            this.objectMenuStrip.Size = new System.Drawing.Size(181, 92);
+            this.objectMenuStrip.Size = new System.Drawing.Size(125, 70);
             // 
             // удалитьОбъектMenuItem
             // 
             this.удалитьОбъектMenuItem.Name = "удалитьОбъектMenuItem";
-            this.удалитьОбъектMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.удалитьОбъектMenuItem.Size = new System.Drawing.Size(124, 22);
             this.удалитьОбъектMenuItem.Text = "Удалить";
             this.удалитьОбъектMenuItem.Click += new System.EventHandler(this.удалитьОбъектMenuItem_Click);
             // 
             // скрытьОбъектMenuItem
             // 
             this.скрытьОбъектMenuItem.Name = "скрытьОбъектMenuItem";
-            this.скрытьОбъектMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.скрытьОбъектMenuItem.Size = new System.Drawing.Size(124, 22);
             this.скрытьОбъектMenuItem.Text = "Скрыть";
             this.скрытьОбъектMenuItem.Click += new System.EventHandler(this.скрытьОбъектMenuItem_Click);
             // 
             // показатьОбъектMenuItem
             // 
             this.показатьОбъектMenuItem.Name = "показатьОбъектMenuItem";
-            this.показатьОбъектMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.показатьОбъектMenuItem.Size = new System.Drawing.Size(124, 22);
             this.показатьОбъектMenuItem.Text = "Показать";
             this.показатьОбъектMenuItem.Click += new System.EventHandler(this.показатьОбъектMenuItem_Click);
             // 
