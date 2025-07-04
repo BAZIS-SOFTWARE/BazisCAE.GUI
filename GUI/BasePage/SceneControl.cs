@@ -656,8 +656,8 @@ namespace BazisGUI
 
             DisplayControlStatus();
 
-            Gl.glFlush();
-            scene.Invalidate();
+            Gl.glFinish();
+            scene.SwapBuffers();
         }
 
         private void DisplayModelObjects()

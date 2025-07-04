@@ -408,9 +408,9 @@ namespace BazisGUI
             // 
             this.scene.AccumBits = ((byte)(0));
             this.scene.AutoCheckErrors = false;
-            this.scene.AutoFinish = true;
+            this.scene.AutoFinish = false;
             this.scene.AutoMakeCurrent = true;
-            this.scene.AutoSwapBuffers = true;
+            this.scene.AutoSwapBuffers = false;
             this.scene.BackColor = System.Drawing.Color.Silver;
             this.scene.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.scene.ColorBits = ((byte)(32));
@@ -590,7 +590,7 @@ namespace BazisGUI
             this.toolStripMenuItem2,
             this.toolStripMenuItem3});
             this.viewMenuItem.Name = "viewMenuItem";
-            this.viewMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.viewMenuItem.Size = new System.Drawing.Size(38, 20);
             this.viewMenuItem.Text = "Вид";
             // 
             // toolStripMenuItem2
@@ -664,7 +664,7 @@ namespace BazisGUI
             // 
             this.arcWeldingMenuItem.CheckOnClick = true;
             this.arcWeldingMenuItem.Name = "arcWeldingMenuItem";
-            this.arcWeldingMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.arcWeldingMenuItem.Size = new System.Drawing.Size(228, 22);
             this.arcWeldingMenuItem.Text = "Дуговая сварка";
             this.arcWeldingMenuItem.Click += new System.EventHandler(this.arcWeldingMenuItem_Click);
             // 
@@ -672,7 +672,7 @@ namespace BazisGUI
             // 
             this.lazerWeldingMenuItem.CheckOnClick = true;
             this.lazerWeldingMenuItem.Name = "lazerWeldingMenuItem";
-            this.lazerWeldingMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.lazerWeldingMenuItem.Size = new System.Drawing.Size(228, 22);
             this.lazerWeldingMenuItem.Text = "Лазерная сварка";
             this.lazerWeldingMenuItem.Click += new System.EventHandler(this.lazerWeldingMenuItem_Click);
             // 
@@ -680,7 +680,7 @@ namespace BazisGUI
             // 
             this.fsWeldingMenuItem.CheckOnClick = true;
             this.fsWeldingMenuItem.Name = "fsWeldingMenuItem";
-            this.fsWeldingMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.fsWeldingMenuItem.Size = new System.Drawing.Size(228, 22);
             this.fsWeldingMenuItem.Text = "Трением с перемешиванием";
             this.fsWeldingMenuItem.Click += new System.EventHandler(this.fsWeldingMenuItem_Click);
             // 
@@ -688,7 +688,7 @@ namespace BazisGUI
             // 
             this.heatingMenuItem.CheckOnClick = true;
             this.heatingMenuItem.Name = "heatingMenuItem";
-            this.heatingMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.heatingMenuItem.Size = new System.Drawing.Size(228, 22);
             this.heatingMenuItem.Text = "Нагрев";
             this.heatingMenuItem.Click += new System.EventHandler(this.heatingMenuItem_Click);
             // 
@@ -696,7 +696,7 @@ namespace BazisGUI
             // 
             this.temperingMenuItem.CheckOnClick = true;
             this.temperingMenuItem.Name = "temperingMenuItem";
-            this.temperingMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.temperingMenuItem.Size = new System.Drawing.Size(228, 22);
             this.temperingMenuItem.Text = "Отпуск | Отжиг | Старение";
             this.temperingMenuItem.Click += new System.EventHandler(this.temperingMenuItem_Click);
             // 
@@ -704,7 +704,7 @@ namespace BazisGUI
             // 
             this.quenchingMenuItem.CheckOnClick = true;
             this.quenchingMenuItem.Name = "quenchingMenuItem";
-            this.quenchingMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.quenchingMenuItem.Size = new System.Drawing.Size(228, 22);
             this.quenchingMenuItem.Text = "Закалка";
             this.quenchingMenuItem.Click += new System.EventHandler(this.quenchingMenuItem_Click);
             // 
