@@ -163,8 +163,8 @@ spbSelectObject.ToolTipText == "Элементы")
                     var y = coords[3 * i + 1];
                     var z = coords[3 * i + 2];
 
-                    var scnCoord = GetCamera().GetSceenCoord(x, y, z);
-                    var scrCoord = GetCamera().GetScreenCoord(scnCoord);
+                    var scnCoord = camera.GetSceenCoord(x, y, z);
+                    var scrCoord = camera.GetScreenCoord(scnCoord);
 
                     if (selectionBox.IsPointInside(scrCoord))
                         selection.Add(scnCoord);

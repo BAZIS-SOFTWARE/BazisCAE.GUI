@@ -10,8 +10,6 @@ namespace BazisGUI.SettingsControls
         public Color SelectObjectColor;
         public Color SelectGroupColor;
         public Color BackGroudColor;
-        public Color Elem3DColor;
-        public Color Elem2DColor;
         public Color NodeColor;
         public string SolverPath;
         public bool Lighting;

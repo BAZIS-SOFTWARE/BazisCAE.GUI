@@ -566,6 +566,7 @@
             this.treeView.Location = new System.Drawing.Point(0, 15);
             this.treeView.Margin = new System.Windows.Forms.Padding(0);
             this.treeView.Name = "treeView";
+            
             treeNode1.ImageIndex = 16;
             treeNode1.Name = "названиеПроекта";
             treeNode1.SelectedImageIndex = 16;

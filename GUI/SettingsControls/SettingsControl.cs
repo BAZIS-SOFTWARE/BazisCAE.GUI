@@ -46,8 +46,6 @@ namespace BazisGUI.SettingsControls
             lightingControl.BallPosition = settingsConfig.LighterPosition;
             clslLigthingIntensity.Value = settingsConfig.LightingIntensity;
             chbTransparency.Checked = settingsConfig.Transparency;
-            pnl2DElemColor.BackColor = settingsConfig.Elem2DColor;
-            pnl3DElemColor.BackColor = settingsConfig.Elem3DColor;
             pnlNodeColor.BackColor = settingsConfig.NodeColor;
             chbOrtoProjection.Checked = settingsConfig.Projection;
             clslTransparency.Value = settingsConfig.TransparencyValue;
@@ -73,9 +71,6 @@ namespace BazisGUI.SettingsControls
                 Projection = chbOrtoProjection.Checked,
 
                 TransparencyValue = clslTransparency.Value,
-
-                Elem2DColor = pnl2DElemColor.BackColor,
-                Elem3DColor = pnl3DElemColor.BackColor,
                 NodeColor = pnlNodeColor.BackColor
             };
             

@@ -20,10 +20,6 @@ namespace BazisGUI
     public partial class BaseForm
     {
         [Category("General")]
-        [Description("Задать цвет выбора групп объектов")]
-        public Color SelectionGroupColor { get; set; }
-
-        [Category("General")]
         [Description("Кнопка на клавиатуре")]
         public Keys PressedKey { get; set; }
 
@@ -72,23 +68,6 @@ namespace BazisGUI
         //public event Action<object, NodeType> GetSetsInfoEvent;
         //public event Action<object, string> GetResultsInfoEvent;
 
-
-        SplittersController SplittersController;
-
-
-        public Queue<int> GetSplitters()
-        {
-            var splitters = new Queue<int>();
-
-            SplittersController.PassBySplittersReq(splitters, this.Controls, true);
-
-            return splitters;
-        }
-
-        public void SetSplitters(Queue<int> splitters)
-        {
-            SplittersController.PassBySplittersReq(splitters, this.Controls, false);
-        }
 
         public void PresentGroupDataOnTree(IGroupData groupData)
         {
@@ -225,12 +204,7 @@ namespace BazisGUI
 
             PressedKey = Keys.None;
             return resObject;
-        }
-
-        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-            navigator.Invalidate();
-        }          
+        }        
 
         public async Task EditGroupAsync(IGroup group)
         {

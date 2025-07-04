@@ -68,8 +68,6 @@ namespace BazisGUI
         {
             BackGroudColor = Color.White,
             SelectObjectColor = Color.GreenYellow,
-            Elem2DColor = Color.FromArgb(151, 188, 93),
-            Elem3DColor = Color.Orange,
             NodeColor = Color.FromArgb(153, 192, 86),
             Transparency = false,
             Lighting = true,
@@ -79,6 +77,21 @@ namespace BazisGUI
         };
 
         private Thread serverConnectionPing;
+
+        private void BaseForm_Load(object sender, EventArgs e)
+        {
+            var ver = Assembly.GetExecutingAssembly().GetName().Version;
+            var verStr = "Версия " + $"{ver.Major}.{ver.Minor}.{ver.Build}";
+            lblVersion.Text = verStr;
+
+            var config = dataController.LoadConfig();
+
+            if (config != null)
+                settingsConfig = config;
+
+            SetGeneralSettings();
+            DisplayObjects();
+        }
 
 
         public BaseForm(string[] args)
@@ -90,13 +103,25 @@ namespace BazisGUI
             ComponentsPainter.Font = this.Font;
             ComponentsPainter.ScreenDPI = this.DeviceDpi;
 
+            splitContainer1.SplitterWidth = 8;
+            splitContainer2.SplitterWidth = 8;
+            splitContainer3.SplitterWidth = 8;
             resultsMenuItem.DropDown.Closing += DropDown_Closing;
             selectToolStrip.Location = new Point(3, 24);
             displayToolStrip.Location = new Point(303, 24);
             instrumentalToolStrip.Location = new Point(595, 24);
             viewToolStrip.Location = new Point(783, 24);
-            //tableLayoutPanel.BringToFront();
-            //GetServerConnection();
+            
+            
+
+            //var objs = project.ModelData.ObjectData.GetAllObjects();
+
+            //foreach (var obj in objs)
+            //{
+            //    var preColor = obj.Color;
+            //    var newColor = Color.FromArgb(TransparencyValue, preColor);
+            //    obj.Color = newColor;
+            //}
 
             if (args.Length != 0)
             {
@@ -112,7 +137,6 @@ namespace BazisGUI
 
                     project = dataController.CreateNewProject(path,name);
                     project.Load();
-                    modelController = new ModelController.ModelController();
                 }
                 if(args.Contains("-res"))
                 {
@@ -147,7 +171,7 @@ namespace BazisGUI
                     var name = "new_Project.bpf";
 
                     project = dataController.CreateNewProject(path, name);
-                    modelController = new ModelController.ModelController();
+   
                     dataController.UpdateGeometry(gmshController, project, ObjType.Точка);
                     dataController.UpdateGeometry(gmshController, project, ObjType.Кривая);
                 }
@@ -216,9 +240,6 @@ namespace BazisGUI
 
         private void SetModule(string moduleName)
         {
-            var viewMatrix = GetCamera().GetViewMatrix();
-            var splitters = GetSplitters();
-
             DisconnectWithServer(moduleName);
 
             CloseActivePageChildControls(moduleName);
@@ -228,13 +249,9 @@ namespace BazisGUI
 
             //modelController = new ModelController.ModelController(project.ModelData);
 
-            SetGeneralSettings(moduleName);
+            //SetGeneralSettings(moduleName);
             LicenseModule(moduleName);
-
             PresentProjectOnModule();
-
-            if (splitters != null)
-                SetSplitters(splitters);
         }
 
         private void LicenseModule(string moduleName)
@@ -371,42 +388,31 @@ namespace BazisGUI
             }
         }
 
-        private void SetGeneralSettings(string moduleName)
+        private void SetGeneralSettings()
         {
-            viewMenuItem.Visible = true;
-
-            var que = new Queue<int>();
-            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Width * 0.2f)); // ширина навигатора
-            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.5f)); // высота панели свойств
-            que.Enqueue((int)(Screen.PrimaryScreen.Bounds.Height * 0.65f)); // высота консоли
-
-
-            SetSplitters(que);
-
-            TransparencyValue = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
-
-            BackGroundColor = settingsConfig.BackGroudColor;
-            IsBlending = settingsConfig.Transparency;
-            IsLighting = settingsConfig.Lighting;
-
-            SelectionColor = Color.FromArgb(TransparencyValue, settingsConfig.SelectObjectColor);
-            SelectionGroupColor = Color.FromArgb(TransparencyValue, settingsConfig.SelectGroupColor);
-            //module.ScenePage.NodeColor = settingsConfig.NodeColor;
-            //module.ScenePage.E2DColor = settingsConfig.Elem2DColor;
-            //module.ScenePage.E3DColor = settingsConfig.Elem3DColor;
-
-            Projection = settingsConfig.Projection
-                ? ViewProjection.Parallel : ViewProjection.Perspective;
-            UpdateProjection();
-
-            var objs = project.ModelData.ObjectData.GetAllObjects();
-
-            foreach (var obj in objs)
+            try
             {
-                var preColor = obj.Color;
-                var newColor = Color.FromArgb(TransparencyValue, preColor);
-                obj.Color = newColor;
+                TransparencyValue = (int)(255 * settingsConfig.TransparencyValue / 100.0f);
+
+                BackGroundColor = settingsConfig.BackGroudColor;
+                IsBlending = settingsConfig.Transparency;
+                IsLighting = settingsConfig.Lighting;
+                
+                SelectionColor = Color.FromArgb(TransparencyValue, settingsConfig.SelectObjectColor);
+                SelectionGroupColor = Color.FromArgb(TransparencyValue, settingsConfig.SelectGroupColor);
+                //module.ScenePage.NodeColor = settingsConfig.NodeColor;
+                //module.ScenePage.E2DColor = settingsConfig.Elem2DColor;
+                //module.ScenePage.E3DColor = settingsConfig.Elem3DColor;
+
+                Projection = settingsConfig.Projection
+                    ? ViewProjection.Parallel : ViewProjection.Perspective;
+                UpdateProjection();
             }
+            catch (Exception ex)
+            {
+                console.PrintInfo(ex.Message, Color.Red);
+            }
+  
         }
 
         private void BaseForm_KeyDown(object sender, KeyEventArgs e)
@@ -627,17 +633,7 @@ namespace BazisGUI
             };
         }
 
-        private void BaseForm_Load(object sender, EventArgs e)
-        {
-            var ver = Assembly.GetExecutingAssembly().GetName().Version;
-            var verStr = "Версия " + $"{ver.Major}.{ver.Minor}.{ver.Build}";
-            lblVersion.Text = verStr;
 
-            var config = dataController.LoadConfig();
-
-            if(config != null)
-                this.settingsConfig = config;
-        }
 
         public void KillAlreadyLaunchdExamples()
         {

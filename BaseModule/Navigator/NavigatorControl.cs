@@ -152,10 +152,10 @@ namespace BaseModule.Navigator
         public NavigatorControl()
         {
             InitializeComponent();
-            HeaderName = "test";
-            typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic |
-                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).
-                SetValue(treeView, true, null);
+
+            //typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic |
+            //    System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).
+            //    SetValue(treeView, true, null);
 
             ImgDict = new Dictionary<NodeType, int>()
             {

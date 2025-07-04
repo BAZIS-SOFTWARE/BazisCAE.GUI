@@ -23,17 +23,10 @@ namespace BazisGUI
     {
         List<VBObject> glObjs = new List<VBObject>();
 
-        //Dictionary<GLObjType,HashSet<VBObject>> glObjs = new List<VBObject>();
-
         int fontBase;//Идентификатор первого сгенерированного Glyph(глифа)
         bool blending;
         bool lighting;
-        /// <summary>
-        /// 
-        /// </summary>
-        ///         /// <inheritdoc/>
-        [Category("Navigation")]
-        [Description("Get mouse position from center of screen")]
+
         public System.Drawing.Point ScreenMousePosition { get; private set; } = new System.Drawing.Point(0, 0);
 
         SceneCamera camera;
@@ -45,7 +38,7 @@ namespace BazisGUI
         AverageColorRenderer averageColorRenderer;
 
         private Color backGroundColor = Color.Green;
-        private Color selectionColor = Color.Green;
+        public Color SelectionGroupColor { get; set; } = Color.Green;
 
         private ViewAxis rotAxis;
         private float rotAngle = 2.5f;
@@ -55,41 +48,26 @@ namespace BazisGUI
         bool displayClipPlane = false;
         private ViewProjection projection = ViewProjection.Perspective;
 
-        /// <inheritdoc/>
-        [Category("Navigation")]
-        [Description("Set mouse move flag")]
         public bool MouseMoveFlag { get; private set; }
-        /// <inheritdoc/>
 
-        [Category("Navigation")]
-        [Description("Set rotation axis")]
         public ViewAxis RotationAxis
         {
             get { return rotAxis; }
             set { rotAxis = value; }
         }
-        /// <inheritdoc/>
 
-        [Category("Navigation")]
-        [Description("Set rotation angle")]
         public float RotationAngle
         {
             get { return rotAngle; }
             set { rotAngle = value; }
         }
-        /// <inheritdoc/>
-        [Category("General properties")]
-        [Description("Set projection")]
+
         public ViewProjection Projection
         {
             get { return projection; }
             set { projection = value; }
         }
 
-        /// <inheritdoc/>
-
-        [Description("Set backGround color")]
-        [Category("General properties")]
         public Color BackGroundColor
         {
             get { return backGroundColor; }
@@ -98,38 +76,22 @@ namespace BazisGUI
                 AverageColorRenderer.BackgroundColor = value;
             }
         }
-        /// <inheritdoc/>
-        [Description("Ignore surface back edges")]
-        [Category("General properties")]
+
         public bool ShowSurfaceBackEdges
         {
             get => AverageColorRenderer.ShowSurfaceBackEdges;
             set => AverageColorRenderer.ShowSurfaceBackEdges = value;
         }
-        /// <inheritdoc/>
 
-        [Description("Display compass")]
-        [Category("General properties")]
         [DefaultValue(true)]
         public bool DisplayCompass
         {
             get { return displayCompass; }
             set { displayCompass = value; }
         }
-        /// <inheritdoc/>
 
-        [Description("Set selection color")]
-        [Category("General properties")]
-        public Color SelectionColor
-        {
-            get { return selectionColor; }
-            set { selectionColor = value; }
-        }
-        /// <inheritdoc/>
+        public Color SelectionColor { get; set; } = Color.Green;
 
-
-        [Description("Set lighting for surfaceObjects")]
-        [Category("General properties")]
         [DefaultValue(false)]
         public bool IsLighting
         {
@@ -140,24 +102,13 @@ namespace BazisGUI
                 AverageColorRenderer.IsLighting = value;//Синхронизация с рендером прозрачности
             }
         }
-        /// <inheritdoc/>
 
-        [Description("Set or Get lighting translate vector X")]
-        [Category("General properties")]
         public float LightTranslateX { get; set; }
-        /// <inheritdoc/>
 
-        [Description("Set or Get lighting translate vector Y")]
-        [Category("General properties")]
         public float LightTranslateY { get; set; }
-        /// <inheritdoc/>
 
-        [Description("Set or Get lighting translate vector Z")]
-        [Category("General properties")]
         public float LightTranslateZ { get; set; }
-        /// <inheritdoc/> 
-        [Description("Set or Get light linear attenuation")]
-        [Category("General properties")]
+
         public float LightAttenuation
         {
             get
@@ -169,16 +120,11 @@ namespace BazisGUI
             set => Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_LINEAR_ATTENUATION, ref value);
         }
 
-        /// <inheritdoc/>
 
-        [Description("Set Cutting for surfaceObjects")]
-        [Category("General properties")]
         [DefaultValue(false)]
         public bool IsCutting { get; set; }
 
-        /// <inheritdoc/>
-        [Description("Set blending")]
-        [Category("General properties")]
+
         [DefaultValue(false)]
         public bool IsBlending
         {
@@ -193,26 +139,9 @@ namespace BazisGUI
             }
         }
 
-        /// <summary>
-        /// IsSceneExpand
-        /// </summary>
-        [Description("Set Expand")]
-        [Category("General properties")]
+
         [DefaultValue(false)]
         public bool IsSceneExpand { get; set; }
-/// <inheritdoc/>
-
-        public ISceneCamera GetCamera()
-        {
-            return camera;
-        }
-/// <inheritdoc/>
-
-
-        public IVBObject FindVBObj(string objName)
-        {
-            return glObjs.Find(x => x.ObjName == objName);
-        }
 
 /// <inheritdoc/>
 
@@ -307,6 +236,11 @@ namespace BazisGUI
         event Action DisplayRotationPointEvent;
         event Action DisplayClipPlaneEvent;
         event Action DisplayReflectionPlaneEvent;
+
+        public IVBObject FindVBObj(string objName)
+        {
+            return glObjs.Find(x => x.ObjName == objName);
+        }
 
 
         public void PresentCrossSection(ISurfaceObjsPresenter presenter)
@@ -454,7 +388,6 @@ namespace BazisGUI
 
         public List<IModelObject> SearchObjects(IEnumerable<IModelObject> objects, RectangleBox selectionBox, bool isSorted)
         {
-            var camera = GetCamera();
             var selections = new List<IModelObject>();
 
             foreach (var item in objects)
