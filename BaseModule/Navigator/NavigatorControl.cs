@@ -15,9 +15,6 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using UserControlsEx;
 using static BaseModule.Interfaces.GeneralParams;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Resources.ResXFileRef;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BaseModule.Navigator
 {
@@ -153,9 +150,11 @@ namespace BaseModule.Navigator
         {
             InitializeComponent();
 
-            //typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic |
-            //    System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).
-            //    SetValue(treeView, true, null);
+            typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic |
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty).
+                SetValue(treeView, true, null);
+
+            //SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
 
             ImgDict = new Dictionary<NodeType, int>()
             {
@@ -605,7 +604,7 @@ e.Node.Name == NodeType.Поверхности.ToString() |
 e.Node.Name == NodeType.Объемы.ToString()
 )
                     SelectSetEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), e.Node.Text);
-                else if(e.Node.Name == NodeType.Время.ToString())
+                else if (e.Node.Name == NodeType.Время.ToString())
                     SelectTimeEvent?.Invoke(e.Node.Parent.Text, double.Parse(e.Node.Text));
             }
 
@@ -623,13 +622,10 @@ e.Node.Name == NodeType.Объем.ToString()
                 {
                     var set = node.Parent.Nodes[0].Text.Split(' ')[0];
                     var number = int.Parse(node.Text.Split(' ')[0]);
-                    SelectObjectEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), set,number);
+                    SelectObjectEvent?.Invoke(e.Node.Name.ToEnum<NodeType>(), set, number);
                 }
-                    
+
             }
-
-
-            //AfterSelectEvent?.Invoke(node);
         }
 
         private void treeView_BeforeExpand(object sender, TreeViewCancelEventArgs e)
@@ -821,6 +817,55 @@ e.Node.Name == NodeType.Объем.ToString()
             var set = node.Parent.Nodes[0].Text.Split(' ')[0];
             var number = int.Parse(node.Text.Split(' ')[0]);
             ShowObjectEvent?.Invoke(nodeType, set, number);
+        }
+
+        private void treeView_DrawNode(object sender, DrawTreeNodeEventArgs e)
+        {
+            //if ((e.State & TreeNodeStates.Selected) != 0)
+            //{
+                // Draw the background of the selected node. The NodeBounds
+                // method makes the highlight rectangle large enough to
+                // include the text of a node tag, if one is present.
+                e.Graphics.FillRectangle(Brushes.White, NodeBounds(e.Node));
+
+                // Retrieve the node font. If the node font has not been set,
+                // use the TreeView font.
+                Font nodeFont = e.Node.NodeFont;
+                if (nodeFont == null) nodeFont = ((TreeView)sender).Font;
+
+                // Draw the node text.
+                e.Graphics.DrawString(e.Node.Text, nodeFont, Brushes.Black,
+                    Rectangle.Inflate(e.Bounds, 2, 0));
+            //}
+
+            // Use the default background and node text.
+            //else
+            //{
+            //    e.DrawDefault = true;
+            //}
+        }
+
+        // Returns the bounds of the specified node, including the region 
+        // occupied by the node label and any node tag displayed.
+        private Rectangle NodeBounds(TreeNode node)
+        {
+            // Set the return value to the normal node bounds.
+            Rectangle bounds = node.Bounds;
+            if (node.Tag != null)
+            {
+                // Retrieve a Graphics object from the TreeView handle
+                // and use it to calculate the display width of the tag.
+                Graphics g = CreateGraphics();
+                int tagWidth = (int)g.MeasureString
+                    (node.Tag.ToString(), Font).Width + 6;
+
+                // Adjust the node bounds using the calculated value.
+                bounds.Offset(tagWidth / 2, 0);
+                bounds = Rectangle.Inflate(bounds, tagWidth / 2, 0);
+                g.Dispose();
+            }
+
+            return bounds;
         }
     }
 }

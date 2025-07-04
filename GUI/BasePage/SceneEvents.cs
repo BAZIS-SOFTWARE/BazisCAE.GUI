@@ -313,10 +313,10 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
 
         private void GlControl_MouseMove(object sender, MouseEventArgs e)
         {
+            scene.Focus();
+
             var new_mousePosition = new Point(e.X - (scene.Width / 2), -e.Y + scene.Height / 2);
             MouseMoveFlag = true;
-
-            this.Focus();
 
             if (e.Button == MouseButtons.Left)
             {
@@ -418,23 +418,25 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
         {
             try
             {
-                var objects = ObjectsProvider.SelectorProvider(project.ModelData.ObjectData, spbSelectObject.ToolTipText);
-                var selections = SearchObjects(objects, rectangleBox, isSorted);
-
-                if (selections.Count > 0)
+                if(project != null)
                 {
-                    foreach (var obj in selections)
+                    var objects = ObjectsProvider.SelectorProvider(project.ModelData.ObjectData, spbSelectObject.ToolTipText);
+                    var selections = SearchObjects(objects, rectangleBox, isSorted);
+
+                    if (selections.Count > 0)
                     {
-                        var set = project.ModelData.ObjectData.GetSetInfo(obj.ObjType, obj.Number);
-                        if (isSelected)
-                            obj.Color = settingsConfig.SelectObjectColor;//  page.ScenePage.SelectionColor;
-                        else
-                            obj.Color = set.Color;
+                        foreach (var obj in selections)
+                        {
+                            var set = project.ModelData.ObjectData.GetSetInfo(obj.ObjType, obj.Number);
+                            if (isSelected)
+                                obj.Color = settingsConfig.SelectObjectColor;//  page.ScenePage.SelectionColor;
+                            else
+                                obj.Color = set.Color;
+                        }
+
+                        ColorObjects(project.ModelData, spbSelectObject.ToolTipText);
                     }
-
-                    ColorObjects(project.ModelData, spbSelectObject.ToolTipText);
                 }
-
             }
             catch (Exception ex)
             {

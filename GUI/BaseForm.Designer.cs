@@ -411,6 +411,7 @@ namespace BazisGUI
             this.scene.AutoFinish = true;
             this.scene.AutoMakeCurrent = true;
             this.scene.AutoSwapBuffers = true;
+            this.scene.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.scene.BackColor = System.Drawing.Color.Silver;
             this.scene.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.scene.ColorBits = ((byte)(32));
