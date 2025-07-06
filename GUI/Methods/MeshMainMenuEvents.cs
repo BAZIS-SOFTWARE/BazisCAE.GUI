@@ -47,7 +47,7 @@ namespace BazisGUI
 
                     var linePres = presentersCreator.CreateLineObjectsPresenter(project.ModelData.ObjectData.CurveCollection.GetObjects());
                     VBOController.DeleteVBObjects(ObjType.Кривая.ToString());
-                    CreateObjectsOnScene(ObjType.Кривая.ToString(), linePres);
+                    CreateObjectsOnScene(linePres);
                     DisplayObjects();
             }
             catch (Exception ex)
@@ -495,8 +495,8 @@ namespace BazisGUI
                 }
 
                 var presentor = presentersCreator.CreatePointObjectsPresenter(points);
-
-                CreateObjectsOnScene("transPoints", presentor);
+                presentor.Name = "transPoints";
+                CreateObjectsOnScene(presentor);
             }
 
             DisplayObjects();
@@ -614,7 +614,7 @@ namespace BazisGUI
                 HideDisplayText2D();
                 HideDisplayText3D();
 
-                CreateObjectsOnScene(objType.ToString(), CreateObjectsPresentor(project.ModelData, objType));
+                CreateObjectsOnScene(CreateObjectsPresentor(project.ModelData, objType));
 
                 DisplayObjects();
                 PresentObjectsDataOnTree(project.ModelData.ObjectData);

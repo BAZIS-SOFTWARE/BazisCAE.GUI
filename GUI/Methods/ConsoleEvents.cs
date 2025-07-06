@@ -39,7 +39,7 @@ namespace BazisGUI
                             ClearAllDataOnScene();
 
                             var pres = CreateObjectsPresentor(project.ModelData, obj.ObjType);
-                            CreateObjectsOnScene(obj.ObjType.ToString(), pres);
+                            CreateObjectsOnScene(pres);
                             DisplayObjects();
                         }
                     }));
@@ -62,7 +62,7 @@ namespace BazisGUI
                     {
                         ClearAllDataOnScene();
                         var pres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
-                        CreateObjectsOnScene(ObjType.Узел.ToString(), pres);
+                        CreateObjectsOnScene(pres);
                         DisplayObjects();
                     }));
                     var actConfirm = new Func<Tuple<bool, object>>(() =>
@@ -107,14 +107,15 @@ namespace BazisGUI
 
                 VBOController.DeleteAllVBObjects();
                 clipPlaneRenderer?.DestroyBoundingBoxVBO();//Удаление VBO объекта не связанный со сценой
-                
+
                 foreach (var freeNode in freeNodes)
                     project.ModelData.ObjectData.Find(ObjType.Узел, freeNode).ViewState = true;
 
                 var objsTypeStr = ObjType.Узел.ToString();
                 VBOController.DeleteVBObjects(objsTypeStr);
-                CreateObjectsOnScene(objsTypeStr,
-                CreateObjectsPresentor(project.ModelData, ObjType.Узел));
+
+                var pres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
+                CreateObjectsOnScene(pres);
 
                 DisplayObjects();
             }));
@@ -136,7 +137,7 @@ namespace BazisGUI
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
             {
                 var pres = CreateObjectsPresentor(project.ModelData, item);
-                SetObjectsSceneAttribute(pres,item.ToString(), "координаты");
+                SetObjectsSceneAttribute(pres, "координаты");
             }
 
             DisplayObjects();
@@ -154,7 +155,7 @@ namespace BazisGUI
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
             {
                 var pres = CreateObjectsPresentor(project.ModelData, item);
-                SetObjectsSceneAttribute(pres, item.ToString(), "координаты");
+                SetObjectsSceneAttribute(pres, "координаты");
             }
 
             DisplayObjects();

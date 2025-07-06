@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.IO;
 using System.Drawing;
+using BazisGUI.Scene.Interfaces;
 
 namespace BazisGUI.SettingsControls
 {
@@ -47,10 +48,9 @@ namespace BazisGUI.SettingsControls
             clslLigthingIntensity.Value = settingsConfig.LightingIntensity;
             chbTransparency.Checked = settingsConfig.Transparency;
             pnlNodeColor.BackColor = settingsConfig.NodeColor;
-            chbOrtoProjection.Checked = settingsConfig.Projection;
+            chbOrtoProjection.Checked = settingsConfig.Projection == ViewProjection.Parallel ?
+                true : false;
             clslTransparency.Value = settingsConfig.TransparencyValue;
-
-            chbOrtoProjection.Checked = settingsConfig.Projection;
         }
 
         private void btnSaveConfig_Click(object sender, EventArgs e)
@@ -68,7 +68,8 @@ namespace BazisGUI.SettingsControls
                 LightingIntensity = clslLigthingIntensity.Value,
                 Transparency = chbTransparency.Checked,
                 BackRibbers = chbBackRibbers.Checked,
-                Projection = chbOrtoProjection.Checked,
+                Projection = chbOrtoProjection.Checked == true ? 
+                ViewProjection.Parallel : ViewProjection.Perspective,
 
                 TransparencyValue = clslTransparency.Value,
                 NodeColor = pnlNodeColor.BackColor

@@ -291,6 +291,12 @@
     <Compile Include="Scene\Interfaces\ISceneControl.cs" />
     <Compile Include="Scene\Interfaces\ISceneScale.cs" />
     <Compile Include="Scene\Interfaces\IVBObject.cs" />
+    <Compile Include="Scene\Methods\CreateObjectsPresentor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scene\Methods\CreateObjectsOnScene.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Scene\Rendering\Advanced3DClipper.cs" />
     <Compile Include="Scene\Rendering\AverageColorRenderer.cs" />
     <Compile Include="Scene\Rendering\ClipPlaneRenderer.cs" />
@@ -452,7 +458,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Projects\" />
-    <Folder Include="Scene\Methods\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseModule\BaseModule.csproj">

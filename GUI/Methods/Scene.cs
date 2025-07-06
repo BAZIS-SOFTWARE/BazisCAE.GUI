@@ -16,6 +16,7 @@ using BazisGUI.Utilities;
 using Model.Interfaces.ObjectsCollections;
 using Model.Interfaces;
 using ModelControllerInterfaces;
+using BaseModule.Extensions;
 
 namespace BazisGUI
 {
@@ -197,23 +198,6 @@ namespace BazisGUI
         event Action DisplayClipPlaneEvent;
         event Action DisplayReflectionPlaneEvent;
 
-
-        public void PresentCrossSection(ISurfaceObjsPresenter presenter)
-        {
-            var inds = presenter.CreateIndexes();
-            var ptrs = presenter.CreatePointers(inds.Item1);
-            var coords = presenter.CreateVertexes(inds.Item2, "координаты");
-            var colors = presenter.CreateVertexes(inds.Item3, "цвет");
-            var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
-            var edges = presenter.CreateEdgeFlags(inds.Item4);
-
-            var separs = presenter.CreateSeparators();
-
-            var vb = VBOController.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, "crossSection", separs, ObjView.LinesSurface);
-            VBOController.AddVbo(vb);
-            DisplayObjects();
-        }
-
         public void ClearAllGeometryDataOnScene()
         {
             VBOController.DeleteVBObjects(ObjType.Точка.ToString());
@@ -238,38 +222,12 @@ namespace BazisGUI
                 if (presentor.Count() > 0)
                 {
                     presentor.ViewMode = modelData.ObjectData.GetSetsInfo(item).First().ViewMode;
-                    CreateObjectsOnScene(item.ToString(), presentor);
+                    CreateObjectsOnScene(presentor);
                 }
             }
         }
 
-        public IObjsPresenter CreateObjectsPresentor(IModelData modelData, ObjType objType)
-        {
-
-            switch (objType)
-            {
-                case ObjType.Узел:
-                    return presentersCreator.CreatePointObjectsPresenter(modelData.ObjectData.NodesSet.Values);
-                case ObjType.Кривая:
-                    return presentersCreator?.CreateLineObjectsPresenter(modelData.ObjectData.CurveCollection.GetObjects());
-                case ObjType.Поверхность:
-                    return presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.SurfaceCollection.GetObjects());
-                case ObjType.Объем:
-                    return presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.VolumeCollection.GetObjects());
-                case ObjType.Элемент1D:
-                    return presentersCreator.CreateLineObjectsPresenter(modelData.ObjectData.E1DCollection.GetObjects());
-
-                case ObjType.Элемент2D:
-                    return presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.E2DCollection.GetObjects());
-
-                case ObjType.Элемент3D:
-                    if (IsInsideObjectsShown)
-                        changeInsideSurface.HideInsideSurfaces(modelData.ObjectData.E3DCollection.GetObjects());
-                    return presentersCreator.CreateSurfaceObjectsPresenter(modelData.ObjectData.E3DCollection.GetObjects());
-                default:
-                    return presentersCreator.CreatePointObjectsPresenter(modelData.ObjectData.PointsSet.Values);
-            }
-        }
+        
 
         public void PresentObjectsOnScene(IObjsPresenter presenter, string name)
         {
@@ -279,54 +237,17 @@ namespace BazisGUI
                 var viewMode = vbobj.ViewMode;
 
                 VBOController.DeleteVBObjects(name);
-                CreateObjectsOnScene(name, presenter);
+                CreateObjectsOnScene(presenter);
                 VBOController.ChangeViewModeVBObjects(name, viewMode);
             }
         }
 
-        public void CreateObjectsOnScene(string objsName, IObjsPresenter presenter)
-        {
-            var inds = presenter.CreateIndexes();
-            var ptrs = presenter.CreatePointers(inds.Item1);
-            var coords = presenter.CreateVertexes(inds.Item2, "координаты");
-            var colors = presenter.CreateVertexes(inds.Item3, "цвет");
-            var normals = presenter.CreateVertexes(inds.Item2, "нормаль");
-            var edges = presenter.CreateEdgeFlags(inds.Item4);
+        
 
-            if (ptrs.Length != 0)
-            {
-                VBObject vb;
-                if (presenter.PresenterType == PresenterType.Surface)
-                {
-                    var pres = (ISurfaceObjsPresenter)presenter;
-                    var separs = pres.CreateSeparators();
-
-                    if (presenter.ViewMode == ViewMode.Line)
-                        vb = VBOController.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs, ObjView.Lines);
-                    else if (presenter.ViewMode == ViewMode.LineSurface)
-                        vb = VBOController.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs, ObjView.LinesSurface);
-                    else
-                        vb = VBOController.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs, ObjView.Surface);
-                }
-
-                else if (presenter.PresenterType == PresenterType.Line)
-                {
-                    vb = VBOController.CreateLineVBObjects(ptrs, coords, colors, normals, edges, objsName);
-                }
-
-                else
-                    vb = VBOController.CreatePointVBObjects(ptrs, coords, colors, normals, objsName);
-                
-                vb.ActiveDrawingObject = AverageColorRenderer.IsEnable ? averageColorRenderer : null;
-                VBOController.AddVbo(vb);
-            }
-
-        }
-
-        public void SetObjectsSceneAttribute(IObjsPresenter presenter, string objsName, string attribName)
+        public void SetObjectsSceneAttribute(IObjsPresenter presenter, string attribName)
         {
             //var objName = objsType.ToString();
-            var vboObjs = VBOController.FindVBObj(objsName);
+            var vboObjs = VBOController.FindVBObj(presenter.Name);
 
             if (vboObjs != null)
             {
@@ -394,24 +315,24 @@ namespace BazisGUI
             else if (objects == "Элементы")
             {
                 VBOController.DeleteVBObjects(ObjType.Элемент1D.ToString());
-                CreateObjectsOnScene(ObjType.Элемент1D.ToString(), CreateObjectsPresentor(modelData, ObjType.Элемент1D));
+                CreateObjectsOnScene(CreateObjectsPresentor(modelData, ObjType.Элемент1D));
                 VBOController.DeleteVBObjects(ObjType.Элемент2D.ToString());
-                CreateObjectsOnScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(modelData, ObjType.Элемент2D));
+                CreateObjectsOnScene(CreateObjectsPresentor(modelData, ObjType.Элемент2D));
                 VBOController.DeleteVBObjects(ObjType.Элемент3D.ToString());
-                CreateObjectsOnScene(ObjType.Элемент3D.ToString(), CreateObjectsPresentor(modelData, ObjType.Элемент3D));
+                CreateObjectsOnScene(CreateObjectsPresentor(modelData, ObjType.Элемент3D));
             }
             else if (objects == "Фигуры")
             {
                 VBOController.DeleteVBObjects(ObjType.Поверхность.ToString());
-                CreateObjectsOnScene(ObjType.Поверхность.ToString(), CreateObjectsPresentor(modelData, ObjType.Поверхность));
+                CreateObjectsOnScene( CreateObjectsPresentor(modelData, ObjType.Поверхность));
                 VBOController.DeleteVBObjects(ObjType.Объем.ToString());
-                CreateObjectsOnScene(ObjType.Объем.ToString(), CreateObjectsPresentor(modelData, ObjType.Объем));
+                CreateObjectsOnScene(CreateObjectsPresentor(modelData, ObjType.Объем));
             }
             else
             {
                 VBOController.DeleteVBObjects(objects);
-                var objType = Converters.ConvertToObjsType(objects);
-                CreateObjectsOnScene(objects, CreateObjectsPresentor(modelData, objType));
+                var objType = objects.ToEnum<ObjType>(); ;
+                CreateObjectsOnScene(CreateObjectsPresentor(modelData, objType));
             }
 
 
@@ -432,24 +353,24 @@ namespace BazisGUI
             if (objTypeStr == "Объекты")
             {
                 foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
-                    SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, type), type.ToString(), "цвет");
+                    SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, type), "цвет");
             }
             else if (objTypeStr == "Элементы")
             {
-                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент1D), objTypeStr.ToString(), "цвет");
-                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент2D), objTypeStr.ToString(), "цвет");
-                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент3D), objTypeStr.ToString(), "цвет");
+                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент1D),  "цвет");
+                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент2D),  "цвет");
+                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент3D),  "цвет");
             }
             else if (objTypeStr == "Фигуры")
             {
-                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Поверхность), objTypeStr.ToString(), "цвет");
-                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Объем), objTypeStr.ToString(), "цвет");
+                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Поверхность),  "цвет");
+                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Объем),  "цвет");
             }
             else
             {
                 var objType = Converters.ConvertToObjsType(objTypeStr);
                 var presentor = CreateObjectsPresentor(modelData, objType);
-                SetObjectsSceneAttribute(presentor, objType.ToString(), "цвет");
+                SetObjectsSceneAttribute(presentor, "цвет");
             }
 
 

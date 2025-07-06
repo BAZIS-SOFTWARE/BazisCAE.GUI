@@ -67,7 +67,7 @@ namespace BazisGUI
                     resultsController.ResultsFieldsCreator.ScaleFactor = settingsConfig.Scale_scale;
 
                     var presenter = CreateResultsField(result, resName, tableName);
-                    CreateObjectsOnScene(ObjType.Поверхность.ToString(), presenter);
+                    CreateObjectsOnScene(presenter);
 
                     HideGeometryObj("DisplaySceneScale");
                     DisplaySceneScale(scale);

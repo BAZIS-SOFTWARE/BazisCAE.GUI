@@ -278,7 +278,7 @@ namespace BazisGUI
 
             var pres = CreateObjectsPresentor(project.ModelData, objType);
 
-            SetObjectsSceneAttribute(pres, objType.ToString(), "цвет");
+            SetObjectsSceneAttribute(pres, "цвет");
             DisplayObjects();
 
             var res = SelectObjectAsync(objType);
@@ -413,7 +413,8 @@ namespace BazisGUI
 
             var surface = modelController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
             var presenter = presentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
-            PresentCrossSection(presenter);
+            presenter.Name = "crossSection";
+            CreateObjectsOnScene(presenter); 
         }
 
         public Geometry.Plane CreateSectionPlane(Vector3 p0, Vector3 p1, Vector3 p2)
@@ -432,7 +433,8 @@ namespace BazisGUI
             var surface = modelController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
 
             var presenter = presentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
-            PresentCrossSection(presenter);
+            presenter.Name = "crossSection";
+            CreateObjectsOnScene(presenter);
         }
 
         private void btnScreenShot_Click(object sender, EventArgs e)
