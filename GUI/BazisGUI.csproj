@@ -224,43 +224,43 @@
     <Compile Include="BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Components\BasePage.cs">
+    <Compile Include="Methods\BasePage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Components\ConsoleEvents.cs">
+    <Compile Include="Methods\ConsoleEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Components\DataBasesMainMenuEvents.cs">
+    <Compile Include="Methods\DataBasesMainMenuEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Components\DisplayToolStrip.cs">
+    <Compile Include="Methods\DisplayToolStrip.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Components\MeshMainMenuEvents.cs">
+    <Compile Include="Methods\MeshMainMenuEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Components\NavigatorEvents.cs">
+    <Compile Include="Methods\NavigatorEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Components\NavigatorMethods.cs">
+    <Compile Include="Methods\NavigatorMethods.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Components\PropertiesPanelEvent.cs">
+    <Compile Include="Methods\PropertiesPanelEvent.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Components\ResultsMainMenuEvents.cs">
+    <Compile Include="Methods\ResultsMainMenuEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Components\SceneEvents.cs">
+    <Compile Include="Methods\SceneEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Components\SelectToolStrip.cs">
+    <Compile Include="Methods\SelectToolStrip.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Components\UtilityToolStrip.cs">
+    <Compile Include="Methods\UtilityToolStrip.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Components\ViewToolStrip.cs">
+    <Compile Include="Methods\ViewToolStrip.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IODataController.cs" />
@@ -300,7 +300,7 @@
     <Compile Include="Scene\SceneBasis.cs" />
     <Compile Include="Scene\SceneCamera.cs" />
     <Compile Include="Scene\SceneCompass.cs" />
-    <Compile Include="Components\Scene.cs">
+    <Compile Include="Methods\Scene.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Scene\ScenePath.cs" />
@@ -314,7 +314,7 @@
     <Compile Include="Scene\VBO\SurfaceObjects.cs" />
     <Compile Include="Scene\VBO\VBO.cs" />
     <Compile Include="Scene\VBO\VBObject.cs" />
-    <Compile Include="Scene\VBO\VBOPoint.cs" />
+    <Compile Include="Scene\VBO\VBOController.cs" />
     <Compile Include="WelcomeScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -452,6 +452,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Projects\" />
+    <Folder Include="Scene\Methods\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseModule\BaseModule.csproj">

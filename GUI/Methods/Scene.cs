@@ -21,7 +21,8 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        List<VBObject> glObjs = new List<VBObject>();
+        VBOController VBOController = new VBOController();
+        //List<VBObject> glObjs = new List<VBObject>();
 
         int fontBase;//Идентификатор первого сгенерированного Glyph(глифа)
         bool blending;
@@ -44,19 +45,12 @@ namespace BazisGUI
         bool displayRotatioPoint;
         bool displayCompass = true;
         bool displayClipPlane = false;
-        private ViewProjection projection = ViewProjection.Perspective;
 
         public bool MouseMoveFlag { get; private set; }
 
         public ViewAxis RotationAxis { get; set; } = ViewAxis.XYZ;
 
         public float RotationAngle { get; set; } = 2.5f;
-
-        public ViewProjection Projection
-        {
-            get { return projection; }
-            set { projection = value; }
-        }
 
         public Color BackGroundColor
         {
@@ -161,9 +155,9 @@ namespace BazisGUI
 
                 if(value)
                 {
-                    if (glObjs.Count > 0)
+                    if (VBOController.GetVBObjs().Count() > 0)
                     {
-                        var bbox = glObjs.OrderByDescending(v => v.BoundingBox.GetDiagonalLength())
+                        var bbox = VBOController.GetVBObjs().OrderByDescending(v => v.BoundingBox.GetDiagonalLength())
                                          .First().BoundingBox;
                         clipPlaneRenderer.BoundingBox = bbox;
                         clipPlaneRenderer.CreateBoudingBoxVBO(bbox.LeftUpNear, bbox.RightDownFar);
@@ -203,11 +197,6 @@ namespace BazisGUI
         event Action DisplayClipPlaneEvent;
         event Action DisplayReflectionPlaneEvent;
 
-        public IVBObject FindVBObj(string objName)
-        {
-            return glObjs.Find(x => x.ObjName == objName);
-        }
-
 
         public void PresentCrossSection(ISurfaceObjsPresenter presenter)
         {
@@ -220,24 +209,25 @@ namespace BazisGUI
 
             var separs = presenter.CreateSeparators();
 
-            CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, "crossSection", separs, ObjView.LinesSurface);
+            var vb = VBOController.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, "crossSection", separs, ObjView.LinesSurface);
+            VBOController.AddVbo(vb);
             DisplayObjects();
         }
 
         public void ClearAllGeometryDataOnScene()
         {
-            DeleteVBObjects(ObjType.Точка.ToString());
-            DeleteVBObjects(ObjType.Кривая.ToString());
-            DeleteVBObjects(ObjType.Поверхность.ToString());
-            DeleteVBObjects(ObjType.Объем.ToString());
+            VBOController.DeleteVBObjects(ObjType.Точка.ToString());
+            VBOController.DeleteVBObjects(ObjType.Кривая.ToString());
+            VBOController.DeleteVBObjects(ObjType.Поверхность.ToString());
+            VBOController.DeleteVBObjects(ObjType.Объем.ToString());
         }
 
         public void ClearAllMeshDataOnScene()
         {
-            DeleteVBObjects(ObjType.Узел.ToString());
-            DeleteVBObjects(ObjType.Элемент1D.ToString());
-            DeleteVBObjects(ObjType.Элемент2D.ToString());
-            DeleteVBObjects(ObjType.Элемент3D.ToString());
+            VBOController.DeleteVBObjects(ObjType.Узел.ToString());
+            VBOController.DeleteVBObjects(ObjType.Элемент1D.ToString());
+            VBOController.DeleteVBObjects(ObjType.Элемент2D.ToString());
+            VBOController.DeleteVBObjects(ObjType.Элемент3D.ToString());
         }
 
         public void PresentAllModelObjectsToScene(IModelData modelData)
@@ -283,14 +273,14 @@ namespace BazisGUI
 
         public void PresentObjectsOnScene(IObjsPresenter presenter, string name)
         {
-            var vbobj = FindVBObj(name);
+            var vbobj = VBOController.FindVBObj(name);
             if (vbobj != null)
             {
                 var viewMode = vbobj.ViewMode;
 
-                DeleteVBObjects(name);
+                VBOController.DeleteVBObjects(name);
                 CreateObjectsOnScene(name, presenter);
-                ChangeViewModeVBObjects(name, viewMode);
+                VBOController.ChangeViewModeVBObjects(name, viewMode);
             }
         }
 
@@ -305,26 +295,30 @@ namespace BazisGUI
 
             if (ptrs.Length != 0)
             {
+                VBObject vb;
                 if (presenter.PresenterType == PresenterType.Surface)
                 {
                     var pres = (ISurfaceObjsPresenter)presenter;
                     var separs = pres.CreateSeparators();
 
                     if (presenter.ViewMode == ViewMode.Line)
-                        CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs, ObjView.Lines);
+                        vb = VBOController.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs, ObjView.Lines);
                     else if (presenter.ViewMode == ViewMode.LineSurface)
-                        CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs, ObjView.LinesSurface);
+                        vb = VBOController.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs, ObjView.LinesSurface);
                     else
-                        CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs, ObjView.Surface);
+                        vb = VBOController.CreateSurfaceVBObjects(ptrs, coords, colors, normals, edges, objsName, separs, ObjView.Surface);
                 }
 
                 else if (presenter.PresenterType == PresenterType.Line)
                 {
-                    CreateLineVBObjects(ptrs, coords, colors, normals, edges, objsName);
+                    vb = VBOController.CreateLineVBObjects(ptrs, coords, colors, normals, edges, objsName);
                 }
 
                 else
-                    CreatePointVBObjects(ptrs, coords, colors, normals, objsName);
+                    vb = VBOController.CreatePointVBObjects(ptrs, coords, colors, normals, objsName);
+                
+                vb.ActiveDrawingObject = AverageColorRenderer.IsEnable ? averageColorRenderer : null;
+                VBOController.AddVbo(vb);
             }
 
         }
@@ -332,7 +326,7 @@ namespace BazisGUI
         public void SetObjectsSceneAttribute(IObjsPresenter presenter, string objsName, string attribName)
         {
             //var objName = objsType.ToString();
-            var vboObjs = FindVBObj(objsName);
+            var vboObjs = VBOController.FindVBObj(objsName);
 
             if (vboObjs != null)
             {
@@ -393,28 +387,29 @@ namespace BazisGUI
         {
             if (objects == "Объекты")
             {
-                DeleteAllVBObjects();
+                VBOController.DeleteAllVBObjects();
+
                 PresentAllModelObjectsToScene(modelData);
             }
             else if (objects == "Элементы")
             {
-                DeleteVBObjects(ObjType.Элемент1D.ToString());
+                VBOController.DeleteVBObjects(ObjType.Элемент1D.ToString());
                 CreateObjectsOnScene(ObjType.Элемент1D.ToString(), CreateObjectsPresentor(modelData, ObjType.Элемент1D));
-                DeleteVBObjects(ObjType.Элемент2D.ToString());
+                VBOController.DeleteVBObjects(ObjType.Элемент2D.ToString());
                 CreateObjectsOnScene(ObjType.Элемент2D.ToString(), CreateObjectsPresentor(modelData, ObjType.Элемент2D));
-                DeleteVBObjects(ObjType.Элемент3D.ToString());
+                VBOController.DeleteVBObjects(ObjType.Элемент3D.ToString());
                 CreateObjectsOnScene(ObjType.Элемент3D.ToString(), CreateObjectsPresentor(modelData, ObjType.Элемент3D));
             }
             else if (objects == "Фигуры")
             {
-                DeleteVBObjects(ObjType.Поверхность.ToString());
+                VBOController.DeleteVBObjects(ObjType.Поверхность.ToString());
                 CreateObjectsOnScene(ObjType.Поверхность.ToString(), CreateObjectsPresentor(modelData, ObjType.Поверхность));
-                DeleteVBObjects(ObjType.Объем.ToString());
+                VBOController.DeleteVBObjects(ObjType.Объем.ToString());
                 CreateObjectsOnScene(ObjType.Объем.ToString(), CreateObjectsPresentor(modelData, ObjType.Объем));
             }
             else
             {
-                DeleteVBObjects(objects);
+                VBOController.DeleteVBObjects(objects);
                 var objType = Converters.ConvertToObjsType(objects);
                 CreateObjectsOnScene(objects, CreateObjectsPresentor(modelData, objType));
             }
@@ -428,7 +423,8 @@ namespace BazisGUI
             HideAllGeometryObjs();
             HideDisplayText2D();
             HideDisplayText3D();
-            DeleteAllVBObjects();
+            VBOController.DeleteAllVBObjects();
+            clipPlaneRenderer?.DestroyBoundingBoxVBO();
         }
 
         internal void ColorObjects(IModelData modelData, string objTypeStr)
@@ -490,7 +486,7 @@ namespace BazisGUI
             advanced3DClipper = new Advanced3DClipper();
             Disposed += (s, e) =>
             {
-                foreach (var obj in glObjs)
+                foreach (var obj in VBOController.GetVBObjs())
                     VBO.DeleteAllBuffers(obj);
                 averageColorRenderer.Dispose();
                 clipPlaneRenderer.Dispose();
@@ -667,7 +663,7 @@ namespace BazisGUI
             Gl.glLineWidth(1.5f);
 
 
-            foreach (var sObj in glObjs.Where(x => x.GL_ObjType == GLObjType.triangle))
+            foreach (var sObj in VBOController.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.triangle))
             {
                 Gl.glPushMatrix();
                 Gl.glMultMatrixf(sObj.ModelMatrix);
@@ -679,14 +675,14 @@ namespace BazisGUI
             }
             Gl.glDisable(Gl.GL_LIGHTING);
 
-            foreach (var lObj in glObjs.Where(x => x.GL_ObjType == GLObjType.line))
+            foreach (var lObj in VBOController.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.line))
             {
                 Gl.glPushMatrix();
                 Gl.glMultMatrixf(lObj.ModelMatrix);
                 lObj.Load();
                 Gl.glPopMatrix();
             }
-            foreach (var pObj in glObjs.Where(x => x.GL_ObjType == GLObjType.point))
+            foreach (var pObj in VBOController.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.point))
             {
                 Gl.glPushMatrix();
                 Gl.glMultMatrixf(pObj.ModelMatrix);
@@ -753,7 +749,7 @@ namespace BazisGUI
                 var factor = 1.0f;
                 var maxRad = 0.0f;
 
-                foreach (var glObj in glObjs)
+                foreach (var glObj in VBOController.GetVBObjs())
                 {
                     var coords = glObj.PointsCoords;
 
@@ -792,7 +788,7 @@ namespace BazisGUI
         {
             var aspectRatio = (double)scene.Width / scene.Height;
             var angleDeg = 2.5;
-            if (Projection == ViewProjection.Parallel)
+            if (settingsConfig.Projection == ViewProjection.Parallel)
             {
                 float[] view = new float[16];
                 Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, view);//Не могу вызывать Camera.GetViewMatrix() - т.к Camera = null
@@ -828,7 +824,7 @@ namespace BazisGUI
             if (advanced3DClipper.IsEnable)
                 return;
             var drawObj = isTransparent ? averageColorRenderer : null;
-            foreach(var globj in glObjs)
+            foreach(var globj in VBOController.GetVBObjs())
                 globj.ActiveDrawingObject = drawObj;
         }
         /// <summary>
@@ -845,7 +841,7 @@ namespace BazisGUI
         public void ChangeClipMode(ClipMode mode, string element3dObj)
         {
             advanced3DClipper.ClipMode = mode;
-            var obj = FindVBObj(element3dObj);
+            var obj = VBOController.FindVBObj(element3dObj);
 
             if (obj != null)
             {
@@ -981,21 +977,6 @@ namespace BazisGUI
             DisplayText2DEvent += met;
         }
 
-
-        /// <summary>
-        /// ShowAllVBObjects
-        /// </summary>
-        public void ShowAllVBObjects()
-        {
-            glObjs.ForEach(x => x.ViewState = true);
-        }
-        /// <summary>
-        /// HideAllVBObjects
-        /// </summary>
-        public void HideAllVBObjects()
-        {
-            glObjs.ForEach(x => x.ViewState = false);
-        }
         /// <summary>
         /// HideAllGeometryObjs
         /// </summary>
@@ -1045,173 +1026,9 @@ namespace BazisGUI
             }
             return false;
         }
-/// <inheritdoc/>
-
-        public bool DeleteVBObjects(string objName)
-        {
-            var glObj = glObjs.Find(x => x.ObjName == objName);
-            if (glObj != null)
-            {
-                VBO.DeleteAllBuffers(glObj);//Если удаляем объект, то чистим массивы во избежании утечки памяти на видеокарте
-                return glObjs.Remove(glObj);
-            }
-            else return false;
-                                
-        }
-/// <inheritdoc/>
-
-        public void DeleteAllVBObjects()
-        {
-            foreach (var glObj in glObjs)
-                VBO.DeleteAllBuffers(glObj);//Если удаляем объект, то чистим массивы во избежании утечки памяти на видеокарте
-            glObjs.Clear();
-            clipPlaneRenderer?.DestroyBoundingBoxVBO();//Удаление VBO объекта не связанный со сценой
-        }
-
-        /// <summary>
-        /// Находит общие точки в VBO-массиве координат
-        /// </summary>
-        /// <param name="glCoords">VBO-массив координат</param>
-        /// <returns>Словарь (ключ)точка: (значение)список смещений точек внутри VBO</returns>
-        public Dictionary<VBOPoint, List<int>> FindCommonPoints(float[] glCoords)
-        {
-            var cPoints = new Dictionary<VBOPoint, List<int>>();
-            for (var i = 0; i < glCoords.Length; i += 3)
-            {
-                var point = new VBOPoint(glCoords[i], glCoords[i + 1], glCoords[i + 2]);
-                if(!cPoints.ContainsKey(point))
-                    cPoints.Add(point, new List<int>(10));
-                cPoints[point].Add(i); 
-            }
-            return cPoints;
-        }
-        /// <summary>
-        /// Просчитывает единичные нормали
-        /// </summary>
-        /// <param name="glNormals">VBO-массив нормалей</param>
-        public void GetUnitNormals(float[] glNormals)
-        {
-            for (var i = 0; i < glNormals.Length; i += 9)
-            {
-                var normal = new Point3D(glNormals[i], glNormals[i + 1], glNormals[i + 2]);
-                normal = Vector.GetVectorNorm(normal);
-                for(var j = 0; j < 3; ++j)
-                    SetNormal(glNormals, normal, i + j * 3);
-            }
-        }
-
-        private void SetNormal(float[] glNormals, Point3D normal, int stride)
-        {
-            glNormals[stride] = normal._x;
-            glNormals[stride + 1] = normal._y;
-            glNormals[stride + 2] = normal._z;
-        }
-        /// <summary>
-        /// SmoothShadow
-        /// </summary>
-        /// <param name="glCoords"></param>
-        /// <param name="glNormals"></param>
-        /// <returns></returns>
-        public float[] SmoothShadow(float[] glCoords, float[] glNormals)
-        {
-            var radAngle = ShadowAngle / 180f * (float)Math.PI;
-            var minCos = (float)Math.Cos(radAngle);
-            var cPoints = FindCommonPoints(glCoords);
-            GetUnitNormals(glNormals);
-            var smoothNormals = new float[glNormals.Length];
-            foreach (var point in cPoints)
-                for (var i = 0; i < point.Value.Count; ++i)
-                {
-                    var key = point.Value[i];
-                    var srcNormal = new Point3D(glNormals[key], glNormals[key + 1], glNormals[key + 2]);
-                    var intNormal = new Point3D(srcNormal._x, srcNormal._y, srcNormal._z);
-                    for (var j = 0; j < point.Value.Count; ++j)
-                    {
-                        var sKey = point.Value[j];
-                        var cmpNormal = new Point3D(glNormals[sKey], glNormals[sKey + 1], glNormals[sKey + 2]);
-                        if (i != j && Vector.DotProd(cmpNormal, srcNormal) >= minCos)
-                            intNormal = intNormal.Sum(cmpNormal);
-                    }
-                    SetNormal(smoothNormals, intNormal, point.Value[i]);
-                }
-            return smoothNormals;
-        }
-        /// <summary>
-        /// CreateSurfaceVBObjects
-        /// </summary>
-        /// <param name="ptrs"></param>
-        /// <param name="coords"></param>
-        /// <param name="colors"></param>
-        /// <param name="normals"></param>
-        /// <param name="edges"></param>
-        /// <param name="objsName"></param>
-        /// <param name="separs"></param>
-        /// <param name="viewMode"></param>
-        public void CreateSurfaceVBObjects(int[] ptrs, float[] coords, float[] colors, float[] normals, 
-            bool[] edges, string objsName, int[] separs,ObjView viewMode)
-        {
-            if (IsSmoothShadow)
-                normals = SmoothShadow(coords, normals);
-
-            var vbObj = new SurfaceObjects(edges, ptrs, coords, colors, normals, objsName);
-            vbObj.CreateSeparators(separs);
-            vbObj.ViewMode = viewMode;
-            glObjs.Add(vbObj);
-            vbObj.ActiveDrawingObject = AverageColorRenderer.IsEnable ? averageColorRenderer : null;
-        }
-        /// <summary>
-        /// CreateLineVBObjects
-        /// </summary>
-        /// <param name="ptrs"></param>
-        /// <param name="coords"></param>
-        /// <param name="colors"></param>
-        /// <param name="normals"></param>
-        /// <param name="edges"></param>
-        /// <param name="objsName"></param>
-        public void CreateLineVBObjects(int[] ptrs, float[] coords, float[] colors, float[] normals, bool[] edges, string objsName)
-        {
-            var obj = new LineObjects(edges, ptrs, coords, colors, normals, objsName);
-            glObjs.Add(obj);
-            obj.ActiveDrawingObject = AverageColorRenderer.IsEnable ? averageColorRenderer : null;
-        }
-        /// <summary>
-        /// CreatePointVBObjects
-        /// </summary>
-        /// <param name="ptrs"></param>
-        /// <param name="coords"></param>
-        /// <param name="colors"></param>
-        /// <param name="normals"></param>
-        /// <param name="objsName"></param>
-        public void CreatePointVBObjects(int[] ptrs, float[] coords, float[] colors, float[] normals, string objsName)
-        {
-            var obj = new PointObjects(ptrs, coords, colors, normals ,objsName);
-            glObjs.Add(obj);
-            obj.ActiveDrawingObject = AverageColorRenderer.IsEnable ? averageColorRenderer : null;
-        }
 
 
-        /// <inheritdoc/>
 
-
-        public void CopyVBObjects(VBObject original, string copyName)
-        {
-            var pointers = original.PointsIndexes;
-            var coords = original.PointsCoords;
-            var colors = original.PointsColors;
-            var normals = original.NormalsCoords;
-            if (original.GL_ObjType == GLObjType.point)
-                CreatePointVBObjects(pointers, coords, colors, normals, copyName);
-            else if (original.GL_ObjType == GLObjType.line)
-                CreateLineVBObjects(pointers, coords, colors, normals, new bool[0], copyName);
-            else if (original.GL_ObjType == GLObjType.triangle)
-            {
-                var sObj = original as SurfaceObjects;
-                var edges = sObj.EdgeFlags;
-                normals = normals.Select(v => -v).ToArray();
-
-                CreateSurfaceVBObjects(pointers, coords, colors, normals, edges, copyName, sObj.Separators, ObjView.LinesSurface);
-            }
-        }
         /// <inheritdoc/>
 
         public void HideReflectionPlane()
@@ -1223,7 +1040,7 @@ namespace BazisGUI
         public void DisplayReflectionPlane(string objName, float[] coeff)
         {
             var plane = new Plane(new Point3D(coeff[0], coeff[1], coeff[2]), coeff[3]);
-            var original = FindVBObj(objName);
+            var original = VBOController.FindVBObj(objName);
 
             if(original == null)
                 throw new Exception($"Объект с именем {original.ObjName} не существует");
@@ -1318,17 +1135,17 @@ namespace BazisGUI
             normal = Vector.GetVectorNorm(normal);
             var plane = new Plane(normal, coef[3]);
 
-            var copyVbo = FindVBObj(copyVboName);
+            var copyVbo = VBOController.FindVBObj(copyVboName);
             if(copyVbo != null)
                 throw new Exception($"Объект с именем {copyVbo} уже существует");
 
-            var srcVbo = FindVBObj(srcVboName) as VBObject;
+            var srcVbo = VBOController.FindVBObj(srcVboName) as VBObject;
 
             if (srcVbo == null)
                 throw new Exception($"Объект с именем {srcVbo} не существует") ;
 
-            CopyVBObjects(srcVbo, copyVboName);
-            var copeVbo  = FindVBObj(copyVboName);
+            VBOController.CopyVBObjects(srcVbo, copyVboName);
+            var copeVbo  = VBOController.FindVBObj(copyVboName);
             
             var reflMatrix = SceneCamera.GetReflectionMatrix(plane);//from stack
             //DisplayReflectionPlane(src, plane);
@@ -1339,36 +1156,8 @@ namespace BazisGUI
             Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, copeVbo.ModelMatrix);
             Gl.glPopMatrix();
         }
-
-/// <inheritdoc/>
-
-
-        public void ChangeViewModeVBObjects(string objsName, ObjView objView)
-        {
-            var glObj = glObjs.Find(x => x.ObjName == objsName);
-            if (glObj == null)
-                MessageEvent?.Invoke(this, new MessageEventArgs("Не найдены объекты указанного типа!"));
-            else
-                glObj.ViewMode = objView;
-        }
  
-        /// <summary>
-        /// ChangeSettingsVBObjects
-        /// </summary>
-        /// <param name="objsName"></param>
-        /// <param name="pointsSize"></param>
-        /// <param name="linesWith"></param>
-        public void ChangeSettingsVBObjects(string objsName, float pointsSize, float linesWith)
-        {
-            var glObj = glObjs.Find(x => x.ObjName == objsName);
-            if (glObj == null)
-                MessageEvent?.Invoke(this, new MessageEventArgs("Не найдены объекты указанного типа!"));
-            else
-            {
-                glObj.Gl_PointSize = pointsSize;
-                glObj.Gl_LineWidth = linesWith;
-            }
-        }
+
 /// <inheritdoc/>
 
         public void DisplayLocalFrame(Frame frame)
@@ -1474,31 +1263,7 @@ namespace BazisGUI
                 DisplayGeometryObjectEvent += met;
             }
         }
-/// <inheritdoc/>
 
-        public void SwitchOnVBObject(string objsName)
-        {
-            var glObj = glObjs.Find(x => x.ObjName == objsName);
-
-            if (glObj != null)
-                glObj.ViewState = true;
-        }
-/// <inheritdoc/>
-
-        public void SwitchOffVBObject(string objsName)
-        {
-            var glObj = glObjs.Find(x => x.ObjName == objsName);
-
-            if (glObj != null)
-                glObj.ViewState = false;
-        } 
-/// <inheritdoc/>
-
-        public bool IsVBObjectShown(string objsName)
-        {
-            var glObj = glObjs.Find(x => x.ObjName == objsName);
-            return glObj?.ViewState == true ? true : false;
-        }
 /// <inheritdoc/>
 
         public void DisplayLine(Point3D p0, Point3D p1, Color objColor)
@@ -1660,7 +1425,7 @@ namespace BazisGUI
 
         public void SetTransparency(string vboObjName, int alpha)
         {
-            var vbo = FindVBObj(vboObjName);
+            var vbo = VBOController.FindVBObj(vboObjName);
 
             if (vbo != null)
             {
@@ -1677,15 +1442,6 @@ namespace BazisGUI
                         frameColors[i] = alphaf;
                     VBO.SetSubData(sVbo.FrameBuffer, 0, frameColors.Length * sizeof(float), frameColors);
                 }
-            }
-        }
-/// <inheritdoc/>
-
-        public IEnumerable<IVBObject> GetVBObjs()
-        {
-            foreach (var item in glObjs)
-            {
-                yield return item;
             }
         }
 

@@ -107,7 +107,8 @@ spbSelectObject.ToolTipText == "Элементы")
                 foreach (var obj in project.ModelData.ObjectData.GetAllObjects())
                     obj.ViewState = true;
 
-                DeleteAllVBObjects();
+                VBOController.DeleteAllVBObjects();
+                clipPlaneRenderer?.DestroyBoundingBoxVBO();
                 PresentAllModelObjectsToScene(project.ModelData);
                 DisplayObjects();
             }
@@ -151,7 +152,7 @@ spbSelectObject.ToolTipText == "Элементы")
 
 
 
-            foreach (var glObj in GetVBObjs())
+            foreach (var glObj in VBOController.GetVBObjs())
             {
                 var coords = glObj.PointsCoords;
 
@@ -241,7 +242,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
 
                 var selection = new List<Point3D>();
 
-                foreach (var glObj in glObjs)
+                foreach (var glObj in VBOController.GetVBObjs())
                 {
                     var coords = glObj.PointsCoords;
 
@@ -302,7 +303,8 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                 averageColorRenderer.Reshape(scene.Width, scene.Height);
                 DisplayObjects();
             }
-            this.Invalidate();
+
+            scene.Invalidate();
         }
 
         private void GlControl_MouseMove(object sender, MouseEventArgs e)

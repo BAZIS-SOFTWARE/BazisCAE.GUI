@@ -525,7 +525,8 @@ namespace BazisGUI
                         iobj.ViewState = false;
                     }
                 }
-                DeleteAllVBObjects();
+                VBOController.DeleteAllVBObjects();
+                clipPlaneRenderer?.DestroyBoundingBoxVBO();//Удаление VBO объекта не связанный со сценой
                 PresentAllModelObjectsToScene(project.ModelData);
                 DisplayObjects();
             }
@@ -543,7 +544,8 @@ namespace BazisGUI
                 foreach (var obj in project.ModelData.ObjectData.GetAllObjects())
                     obj.ViewState = false;
 
-                DeleteAllVBObjects();
+                VBOController.DeleteAllVBObjects();
+                clipPlaneRenderer?.DestroyBoundingBoxVBO();
                 PresentAllModelObjectsToScene(project.ModelData);
                 DisplayObjects();
             }
@@ -573,15 +575,15 @@ namespace BazisGUI
             foreach (var iobj in group)
                 iobj.ViewState = viewState;
 
-            var vbobj = FindVBObj(group.ObjType.ToString());
+            var vbobj = VBOController.FindVBObj(group.ObjType.ToString());
             if (vbobj == null)
                 throw new Exception($"Объект {group.ObjType} не загружен на сцену!");
             var viewMode = vbobj.ViewMode;
 
-            DeleteVBObjects(group.ObjType.ToString());
+            VBOController.DeleteVBObjects(group.ObjType.ToString());
             var pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
             CreateObjectsOnScene(group.ObjType.ToString(), pres);
-            ChangeViewModeVBObjects(group.ObjType.ToString(), viewMode);
+            VBOController.ChangeViewModeVBObjects(group.ObjType.ToString(), viewMode);
 
             DisplayObjects();
         }
@@ -621,7 +623,8 @@ namespace BazisGUI
                 foreach (var obj in project.ModelData.ObjectData.GetAllObjects())
                     obj.ViewState = true;
 
-                DeleteAllVBObjects();
+                VBOController.DeleteAllVBObjects();
+                clipPlaneRenderer?.DestroyBoundingBoxVBO();
                 PresentAllModelObjectsToScene(project.ModelData);
                 DisplayObjects();
             }
@@ -651,7 +654,7 @@ namespace BazisGUI
             foreach (var modelObject in project.ModelData.ObjectData.GetObjects(objType, setName))
                 modelObject.ViewState = viewState;
 
-            DeleteVBObjects(objType.ToString());
+            VBOController.DeleteVBObjects(objType.ToString());
             var pres = CreateObjectsPresentor(project.ModelData, objType);
             CreateObjectsOnScene(objType.ToString(), pres);
             DisplayObjects();
@@ -674,7 +677,8 @@ namespace BazisGUI
                         iobj.ViewState = true;
                     }
                 }
-                DeleteAllVBObjects();
+                VBOController.DeleteAllVBObjects();
+                clipPlaneRenderer?.DestroyBoundingBoxVBO();
                 PresentAllModelObjectsToScene(project.ModelData);
                 DisplayObjects();
             }
@@ -690,17 +694,17 @@ namespace BazisGUI
             switch (viewRegime)
             {
                 case ViewRegime.ribbers:
-                    ChangeViewModeVBObjects(objs, ObjView.Lines);
+                    VBOController.ChangeViewModeVBObjects(objs, ObjView.Lines);
                     foreach (var item in project.ModelData.ObjectData.GetSetsInfo(objType))
                         item.SetViewMode(ViewMode.Line);
                     break;
                 case ViewRegime.surfaces:
-                    ChangeViewModeVBObjects(objs, ObjView.Surface);
+                    VBOController.ChangeViewModeVBObjects(objs, ObjView.Surface);
                     foreach (var item in project.ModelData.ObjectData.GetSetsInfo(objType))
                         item.SetViewMode(ViewMode.Surface);
                     break;
                 case ViewRegime.ribbersSurfaces:
-                    ChangeViewModeVBObjects(objType.ToString(), ObjView.LinesSurface);
+                    VBOController.ChangeViewModeVBObjects(objType.ToString(), ObjView.LinesSurface);
                     foreach (var item in project.ModelData.ObjectData.GetSetsInfo(objType))
                         item.SetViewMode(ViewMode.LineSurface);
                     break;
@@ -744,7 +748,7 @@ namespace BazisGUI
             var objType = Converters.ConvertNavigatorNodeTypeToObjType(nodeType);
 
             project.DeleteMeshSet(objType, setName);
-            DeleteVBObjects(objType.ToString());
+            VBOController.DeleteVBObjects(objType.ToString());
 
             var ndPres = CreateObjectsPresentor(project.ModelData, objType);
             CreateObjectsOnScene(objType.ToString(), ndPres);
@@ -779,12 +783,12 @@ namespace BazisGUI
 
             }
 
-            DeleteVBObjects(ObjType.Узел.ToString());
+            VBOController.DeleteVBObjects(ObjType.Узел.ToString());
             var ndPres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
             CreateObjectsOnScene(ObjType.Узел.ToString(), ndPres);
 
             var strObjType = group.ObjType.ToString();
-            DeleteVBObjects(strObjType);
+            VBOController.DeleteVBObjects(strObjType);
             var objPres = CreateObjectsPresentor(project.ModelData, group.ObjType);
             CreateObjectsOnScene(strObjType, objPres);
 

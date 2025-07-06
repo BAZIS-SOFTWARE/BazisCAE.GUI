@@ -61,6 +61,7 @@ namespace BazisGUI
         PropertyPanelProvider panelProvider = new PropertyPanelProvider();
         PostProcController resultsController = new PostProcController();
         IPresentersCreator presentersCreator = new PresentersCreator();
+
         public ChangeInsideSurface changeInsideSurface => new ChangeInsideSurface();
         ClientController serverConnection;
         
@@ -72,7 +73,6 @@ namespace BazisGUI
             Transparency = false,
             Lighting = true,
             BackRibbers = false,
-            Projection = false,
             SolverPath = "?"
         };
 
@@ -90,6 +90,7 @@ namespace BazisGUI
                 settingsConfig = config;
 
             SetGeneralSettings();
+
             DisplayObjects();
         }
 
@@ -111,8 +112,7 @@ namespace BazisGUI
             displayToolStrip.Location = new Point(303, 24);
             instrumentalToolStrip.Location = new Point(595, 24);
             viewToolStrip.Location = new Point(783, 24);
-            
-            
+
 
             //var objs = project.ModelData.ObjectData.GetAllObjects();
 
@@ -373,9 +373,6 @@ namespace BazisGUI
                 //module.ScenePage.NodeColor = settingsConfig.NodeColor;
                 //module.ScenePage.E2DColor = settingsConfig.Elem2DColor;
                 //module.ScenePage.E3DColor = settingsConfig.Elem3DColor;
-
-                Projection = settingsConfig.Projection
-                    ? ViewProjection.Parallel : ViewProjection.Perspective;
                 UpdateProjection();
             }
             catch (Exception ex)
@@ -556,7 +553,7 @@ namespace BazisGUI
 
             settings.SetOrtoProjectionEvent += (ar) =>
             {
-                Projection = ar ? ViewProjection.Parallel : ViewProjection.Perspective;
+                settingsConfig.Projection = ar ? ViewProjection.Parallel : ViewProjection.Perspective;
                 UpdateProjection();
                 DisplayObjects();
             };

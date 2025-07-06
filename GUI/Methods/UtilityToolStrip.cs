@@ -340,7 +340,7 @@ namespace BazisGUI
 
                     crossSection.RemoveCrossEvent += () =>
                     {
-                        DeleteVBObjects("crossSection");
+                        VBOController.DeleteVBObjects("crossSection");
                         DisplayObjects();
                     };
 
@@ -374,7 +374,7 @@ namespace BazisGUI
                     {
                         btn.Checked = false;
 
-                        DeleteVBObjects("crossSection");
+                        VBOController.DeleteVBObjects("crossSection");
                         DisplayObjects();
                     };
 
@@ -462,7 +462,7 @@ namespace BazisGUI
                 if (btn.Checked)
                 {
                     var reflect = new ReflectControl();
-                    reflect.SetGlObjs(GetVBObjs().Select(x => x.ObjName));
+                    reflect.SetGlObjs(VBOController.GetVBObjs().Select(x => x.ObjName));
 
                     var reflectForm = new Form()
                     {
@@ -478,7 +478,7 @@ namespace BazisGUI
 
                     reflect.ShowObjs += (ar) =>
                     {
-                        var vbo = FindVBObj(ar);
+                        var vbo = VBOController.FindVBObj(ar);
 
                         var a = (int)vbo.PointsColors[0];
                         var r = (int)vbo.PointsColors[1];
@@ -496,7 +496,7 @@ namespace BazisGUI
 
                     reflect.CreateReflectObj += (ar1, ar2) =>
                     {
-                        var copyObjs = GetVBObjs().Where(x => x.ObjName.Contains($"{ar1}_copy")).
+                        var copyObjs = VBOController.GetVBObjs().Where(x => x.ObjName.Contains($"{ar1}_copy")).
                         Select(x => x.ObjName);
                         CreateReflectedVBObject(ar1, $"{ar1}_copy_{copyObjs.Count() + 1}", ar2);
                         reflect.SetGlObjs(copyObjs);
@@ -505,7 +505,7 @@ namespace BazisGUI
 
                     reflect.MatrixEvent += (s, ev) =>
                     {
-                        var obj = FindVBObj(s);
+                        var obj = VBOController.FindVBObj(s);
                         ev.Matrix = obj.ModelMatrix;
                     };
 
@@ -519,7 +519,8 @@ namespace BazisGUI
                     {
                         btn.Checked = false;
                         HideReflectionPlane();
-                        DeleteAllVBObjects();
+                        VBOController.DeleteAllVBObjects();
+                        clipPlaneRenderer?.DestroyBoundingBoxVBO();
                         //PresentAllModelObjectsToScene();
                         //CreateReflectedVBObject("", "", null);
                         DisplayObjects();
@@ -550,7 +551,7 @@ namespace BazisGUI
 
         private void ChangeVBOColor(string ar, Color color)
         {
-            var obj = FindVBObj(ar);
+            var obj = VBOController.FindVBObj(ar);
 
             var colors = new float[obj.ColorLength];
 

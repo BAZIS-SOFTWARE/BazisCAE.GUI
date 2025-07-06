@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BazisGUI.Scene.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -18,7 +19,7 @@ namespace BazisGUI.SettingsControls
         public bool Transparency;
         public bool BackRibbers;
         public int TransparencyValue;
-        public bool Projection;
+        public ViewProjection Projection = ViewProjection.Perspective;
 
         //result settings
         public bool ShowResultsField;

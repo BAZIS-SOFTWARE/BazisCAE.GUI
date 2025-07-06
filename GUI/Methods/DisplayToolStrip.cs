@@ -1,5 +1,6 @@
 ﻿using BaseModule.Console;
 using BazisGUI.Scene.Interfaces;
+using BazisGUI.Scene.VBO;
 using Model.Interfaces;
 using Model.Interfaces.MeshObjects;
 using Model.Interfaces.ObjectsCollections;
@@ -66,7 +67,7 @@ namespace BazisGUI
                 foreach (var item in project.ModelData.ObjectData.GetSetsInfo(ObjType.Элемент3D))
                     item.SetViewMode(ViewMode.LineSurface);
 
-                var vbobjs = GetVBObjs().Where(x => x.GL_ObjType == GLObjType.triangle);
+                var vbobjs = VBOController.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.triangle);
 
                 foreach (var obj in vbobjs)
                     if (arg2 == ViewMode.Line)
@@ -143,7 +144,7 @@ namespace BazisGUI
                 }
                 else
                 {
-                    DeleteVBObjects("Normals");
+                    VBOController.DeleteVBObjects("Normals");
                     DisplayObjects();
                 }
             }
@@ -171,7 +172,7 @@ namespace BazisGUI
                 }
                 else
                 {
-                    DeleteVBObjects("Boundary");
+                    VBOController.DeleteVBObjects("Boundary");
                     DisplayObjects();
                 }
             }

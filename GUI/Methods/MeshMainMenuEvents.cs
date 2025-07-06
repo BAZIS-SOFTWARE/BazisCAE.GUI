@@ -46,7 +46,7 @@ namespace BazisGUI
                     }
 
                     var linePres = presentersCreator.CreateLineObjectsPresenter(project.ModelData.ObjectData.CurveCollection.GetObjects());
-                    DeleteVBObjects(ObjType.Кривая.ToString());
+                    VBOController.DeleteVBObjects(ObjType.Кривая.ToString());
                     CreateObjectsOnScene(ObjType.Кривая.ToString(), linePres);
                     DisplayObjects();
             }
@@ -482,7 +482,7 @@ namespace BazisGUI
 
         private void MeshGenerator_showNodesOnCurves(bool flag)
         {
-            DeleteVBObjects("transPoints");
+            VBOController.DeleteVBObjects("transPoints");
 
             if (flag)
             {
@@ -579,7 +579,7 @@ namespace BazisGUI
                         console.PrintInfo("Модель не содержит 3D элементов!", Color.Red);
                     else
                     {
-                        DeleteVBObjects(ObjType.Элемент2D.ToString());
+                        VBOController.DeleteVBObjects(ObjType.Элемент2D.ToString());
 
                         var startNumber = project.ModelData.ObjectData.GetMaxElementNumber() + 1;
                         var boundaryElements2D = modelController.Extractor2DFrom3D.Create(startNumber, els3D.ToArray());
@@ -598,7 +598,7 @@ namespace BazisGUI
                         console.PrintInfo("Модель не содержит 2D элементов!", Color.Red);
                     else
                     {
-                        DeleteVBObjects(ObjType.Элемент1D.ToString());
+                        VBOController.DeleteVBObjects(ObjType.Элемент1D.ToString());
 
                         var startNumber = project.ModelData.ObjectData.GetMaxElementNumber() + 1;
                         var boundaryElements1D = modelController.Extractor1DFrom2D.Create(startNumber, els2D.ToArray());

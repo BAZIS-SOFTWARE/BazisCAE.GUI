@@ -208,17 +208,17 @@ namespace BazisGUI
             switch (viewRegime)
             {
                 case ViewRegime.ribbers:
-                    ChangeViewModeVBObjects(objType.ToString(), ObjView.Lines);
+                    VBOController.ChangeViewModeVBObjects(objType.ToString(), ObjView.Lines);
                     foreach (var item in modelData.ObjectData.GetSetsInfo(objType))
                         item.SetViewMode(ViewMode.Line);
                     break;
                 case ViewRegime.surfaces:
-                    ChangeViewModeVBObjects(objType.ToString(), ObjView.Surface);
+                    VBOController.ChangeViewModeVBObjects(objType.ToString(), ObjView.Surface);
                     foreach (var item in modelData.ObjectData.GetSetsInfo(objType))
                         item.SetViewMode(ViewMode.Surface);
                     break;
                 case ViewRegime.ribbersSurfaces:
-                    ChangeViewModeVBObjects(objType.ToString(), ObjView.LinesSurface);
+                    VBOController.ChangeViewModeVBObjects(objType.ToString(), ObjView.LinesSurface);
                     foreach (var item in modelData.ObjectData.GetSetsInfo(objType))
                         item.SetViewMode(ViewMode.LineSurface);
                     break;
