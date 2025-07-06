@@ -115,7 +115,7 @@ namespace BazisGUI
                 ClearAllDataOnScene();
 
                 foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
-                    CreateObjectsOnScene(CreateObjectsPresentor(project.ModelData, item));
+                    CreateVBObject(CreateObjectsPresentor(project.ModelData, item));
 
                 DisplayObjects();
             }
@@ -131,7 +131,7 @@ namespace BazisGUI
             {
                 ClearAllDataOnScene();
 
-                PresentAllModelObjectsToScene(project.ModelData);
+                CreateVBObjects(project.ModelData, "Объекты");
 
                 FitObjectsToScreen();
                 DisplayObjects();
@@ -311,12 +311,12 @@ namespace BazisGUI
         public void navigator_HideConditionsEvent(object arg1, IModelData modelData, HideDataEventArgs arg2)
         {
             HideAllGeometryObjs();
-            HideDisplayText3D();
+            DisplayText3DEvent = null;
             foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
             {
                 modelData.ObjectData.SetBackColor(type);
                 var pres = CreateObjectsPresentor(modelData, type);
-                SetObjectsSceneAttribute(pres, "цвет");
+                SetVBObjectAttribute(pres, "цвет");
             }
             DisplayObjects();
         }
@@ -354,7 +354,7 @@ namespace BazisGUI
                         if (data.Direction != Direction.None)
                             DisplayDirection(arg2.Time, data, group);
                         var pres = CreateObjectsPresentor(modelData, group.ObjType);
-                        SetObjectsSceneAttribute(pres, "цвет");
+                        SetVBObjectAttribute(pres, "цвет");
 
                         DisplayObjects();
                     }
@@ -457,7 +457,7 @@ namespace BazisGUI
                     {
                         project.ModelData.ObjectData.SetBackColor(type);
                         var pres = CreateObjectsPresentor(project.ModelData, type);
-                        SetObjectsSceneAttribute(pres, "цвет");
+                        SetVBObjectAttribute(pres, "цвет");
                     }
 
                     DisplayObjects();
@@ -527,7 +527,7 @@ namespace BazisGUI
                 }
                 VBOController.DeleteAllVBObjects();
                 clipPlaneRenderer?.DestroyBoundingBoxVBO();//Удаление VBO объекта не связанный со сценой
-                PresentAllModelObjectsToScene(project.ModelData);
+                CreateVBObjects(project.ModelData, "Объекты");
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -546,7 +546,7 @@ namespace BazisGUI
 
                 VBOController.DeleteAllVBObjects();
                 clipPlaneRenderer?.DestroyBoundingBoxVBO();
-                PresentAllModelObjectsToScene(project.ModelData);
+                CreateVBObjects(project.ModelData, "Объекты");
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -582,7 +582,7 @@ namespace BazisGUI
 
             VBOController.DeleteVBObjects(group.ObjType.ToString());
             var pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
-            CreateObjectsOnScene(pres);
+            CreateVBObject(pres);
             VBOController.ChangeViewModeVBObjects(group.ObjType.ToString(), viewMode);
 
             DisplayObjects();
@@ -625,7 +625,7 @@ namespace BazisGUI
 
                 VBOController.DeleteAllVBObjects();
                 clipPlaneRenderer?.DestroyBoundingBoxVBO();
-                PresentAllModelObjectsToScene(project.ModelData);
+                CreateVBObjects(project.ModelData, "Объекты");
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -656,7 +656,7 @@ namespace BazisGUI
 
             VBOController.DeleteVBObjects(objType.ToString());
             var pres = CreateObjectsPresentor(project.ModelData, objType);
-            CreateObjectsOnScene(pres);
+            CreateVBObject(pres);
             DisplayObjects();
         }
 
@@ -679,7 +679,7 @@ namespace BazisGUI
                 }
                 VBOController.DeleteAllVBObjects();
                 clipPlaneRenderer?.DestroyBoundingBoxVBO();
-                PresentAllModelObjectsToScene(project.ModelData);
+                CreateVBObjects(project.ModelData, "Объекты");
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -751,7 +751,7 @@ namespace BazisGUI
             VBOController.DeleteVBObjects(objType.ToString());
 
             var ndPres = CreateObjectsPresentor(project.ModelData, objType);
-            CreateObjectsOnScene(ndPres);
+            CreateVBObject(ndPres);
             DisplayObjects();
         }
 
@@ -764,7 +764,7 @@ namespace BazisGUI
                 iobj.Color = SelectionColor;
 
             var pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
-            SetObjectsSceneAttribute(pres,"цвет");
+            SetVBObjectAttribute(pres,"цвет");
 
             DisplayObjects();
 
@@ -785,12 +785,12 @@ namespace BazisGUI
 
             VBOController.DeleteVBObjects(ObjType.Узел.ToString());
             var ndPres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
-            CreateObjectsOnScene(ndPres);
+            CreateVBObject(ndPres);
 
             var strObjType = group.ObjType.ToString();
             VBOController.DeleteVBObjects(strObjType);
             var objPres = CreateObjectsPresentor(project.ModelData, group.ObjType);
-            CreateObjectsOnScene(objPres);
+            CreateVBObject(objPres);
 
             DisplayObjects();
         }
@@ -815,7 +815,7 @@ namespace BazisGUI
                 PresentCondDataOnTree(project.GeneralData, project.TaskData);
 
                 ClearAllDataOnScene();
-                PresentAllModelObjectsToScene(project.ModelData);
+                CreateVBObjects(project.ModelData, "Объекты");
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -915,13 +915,13 @@ namespace BazisGUI
                 project.ModelData.ObjectData.SetBackColor(data.Group.ObjType);
                 var pres = CreateObjectsPresentor(project.ModelData, data.Group.ObjType);
 
-                SetObjectsSceneAttribute(pres, "цвет");
+                SetVBObjectAttribute(pres, "цвет");
 
                 foreach (var iobj in data.Group)
                     iobj.Color = settingsConfig.SelectGroupColor;
 
                 pres = CreateObjectsPresentor(project.ModelData, data.Group.ObjType);
-                SetObjectsSceneAttribute(pres, "цвет");
+                SetVBObjectAttribute(pres, "цвет");
 
                 DisplayObjects();
             }
@@ -945,13 +945,13 @@ namespace BazisGUI
             project.ModelData.ObjectData.SetBackColor(group.ObjType);
 
             var pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
-            SetObjectsSceneAttribute(pres, "цвет");
+            SetVBObjectAttribute(pres, "цвет");
 
             foreach (var iobj in group)
                 iobj.Color = settingsConfig.SelectGroupColor;
 
             //pres = CreateObjectsPresentor(project.ModelData, group.ObjType);
-            SetObjectsSceneAttribute(pres, "цвет");
+            SetVBObjectAttribute(pres, "цвет");
 
             DisplayObjects();
 

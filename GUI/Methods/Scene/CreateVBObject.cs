@@ -13,7 +13,7 @@ namespace BazisGUI
 {
     public partial class BaseForm
     {
-        public void CreateObjectsOnScene(IObjsPresenter presenter)
+        public VBObject CreateVBObject(IObjsPresenter presenter)
         {
             var inds = presenter.CreateIndexes();
             var ptrs = presenter.CreatePointers(inds.Item1);
@@ -47,8 +47,9 @@ namespace BazisGUI
                     vb = VBOController.CreatePointVBObjects(ptrs, coords, colors, normals, objsName);
 
                 vb.ActiveDrawingObject = AverageColorRenderer.IsEnable ? averageColorRenderer : null;
-                VBOController.AddVbo(vb);
+                return vb;
             }
+            else throw new Exception("VB объект не содержит точек");
         }
     }
 }

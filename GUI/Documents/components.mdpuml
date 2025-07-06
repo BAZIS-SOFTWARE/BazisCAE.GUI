@@ -10,10 +10,11 @@ package "Core" {
 }
 
 package "BaseForm" {
-[main menu]
-[toolStrips]
-[baseForm]
+[IOController]
+[settingsConfig]
+[VBOController]
 [property provider]
+[baseForm]
 }
 
 package "BaseModule" {
@@ -22,7 +23,7 @@ package "BaseModule" {
 [baseForm] --> [property panel]
 
 }
-
+[baseForm] --> [ClientController]
 [baseForm] --> [OpenGL Api]
 
 [property provider] --> [project]

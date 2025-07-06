@@ -1,5 +1,6 @@
 ﻿using BaseModule.Mesh;
 using BaseModule.Mesh.SettingsControls;
+using BazisGUI.Scene;
 using BazisGUI.Utilities;
 using Geometry;
 using GmshApi;
@@ -18,6 +19,7 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static BaseModule.Interfaces.GeneralParams;
 
 namespace BazisGUI
@@ -31,24 +33,24 @@ namespace BazisGUI
 
                 HideGeometryObj("DisplaySceneScale");
 
-                    var curvesInfo = GetCurvesNumbersAndNodes();
-                    var max = curvesInfo.Max(x => x.Value);
-                    var min = curvesInfo.Min(x => x.Value);
+                var curvesInfo = GetCurvesNumbersAndNodes();
+                var max = curvesInfo.Max(x => x.Value);
+                var min = curvesInfo.Min(x => x.Value);
+                var scale = new SceneScale(min, max, 3, "", "");
+                scale.FontBase = fontBase;
 
-                    var scale = CreateScaleObject(min, max, 3, "", "");
+                DisplaySceneScale(scale);
 
-                    DisplaySceneScale(scale);
+                foreach (var item in curvesInfo)
+                {
+                    var color = scale.GetValueColor(item.Value);
+                    project.ModelData.ObjectData.CurveCollection.Find(item.Key).Color = color;
+                }
 
-                    foreach (var item in curvesInfo)
-                    {
-                        var color = scale.GetValueColor(item.Value);
-                        project.ModelData.ObjectData.CurveCollection.Find(item.Key).Color = color;
-                    }
-
-                    var linePres = presentersCreator.CreateLineObjectsPresenter(project.ModelData.ObjectData.CurveCollection.GetObjects());
-                    VBOController.DeleteVBObjects(ObjType.Кривая.ToString());
-                    CreateObjectsOnScene(linePres);
-                    DisplayObjects();
+                var linePres = presentersCreator.CreateLineObjectsPresenter(project.ModelData.ObjectData.CurveCollection.GetObjects());
+                VBOController.DeleteVBObjects(ObjType.Кривая.ToString());
+                CreateVBObject(linePres);
+                DisplayObjects();
             }
             catch (Exception ex)
             {
@@ -268,7 +270,7 @@ namespace BazisGUI
             else
             {
                 var cnt = sender as GMSHGeneralMeshControl;
-                HideDisplayText3D();
+                DisplayText3DEvent = null;
 
                 if (cnt.IsNumberOfCurveNodesShowen)
                     ShowNumberOfCurveNodes();
@@ -287,7 +289,7 @@ namespace BazisGUI
             else
             {
                 var cnt = sender as GMSHGeneralMeshControl;
-                HideDisplayText3D();
+                DisplayText3DEvent = null;
 
                 if (cnt.IsSurfaceNumbersShowen)
                     ShowSurfaceNumbers();
@@ -496,7 +498,7 @@ namespace BazisGUI
 
                 var presentor = presentersCreator.CreatePointObjectsPresenter(points);
                 presentor.Name = "transPoints";
-                CreateObjectsOnScene(presentor);
+                CreateVBObject(presentor);
             }
 
             DisplayObjects();
@@ -549,8 +551,8 @@ namespace BazisGUI
         public void SetGMSHController(IModelData modelData)
         {
             HideAllGeometryObjs();
-            HideDisplayText2D();
-            HideDisplayText3D();
+            DisplayText2DEvent = null;
+            DisplayText3DEvent = null;
 
             PresentObjectsDataOnTree(modelData.ObjectData);
 
@@ -611,10 +613,10 @@ namespace BazisGUI
                 }
 
                 HideAllGeometryObjs();
-                HideDisplayText2D();
-                HideDisplayText3D();
+                DisplayText2DEvent = null;
+                DisplayText3DEvent = null;
 
-                CreateObjectsOnScene(CreateObjectsPresentor(project.ModelData, objType));
+                CreateVBObject(CreateObjectsPresentor(project.ModelData, objType));
 
                 DisplayObjects();
                 PresentObjectsDataOnTree(project.ModelData.ObjectData);

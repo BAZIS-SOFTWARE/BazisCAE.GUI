@@ -39,7 +39,7 @@ namespace BazisGUI
                             ClearAllDataOnScene();
 
                             var pres = CreateObjectsPresentor(project.ModelData, obj.ObjType);
-                            CreateObjectsOnScene(pres);
+                            CreateVBObject(pres);
                             DisplayObjects();
                         }
                     }));
@@ -62,7 +62,7 @@ namespace BazisGUI
                     {
                         ClearAllDataOnScene();
                         var pres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
-                        CreateObjectsOnScene(pres);
+                        CreateVBObject(pres);
                         DisplayObjects();
                     }));
                     var actConfirm = new Func<Tuple<bool, object>>(() =>
@@ -115,7 +115,7 @@ namespace BazisGUI
                 VBOController.DeleteVBObjects(objsTypeStr);
 
                 var pres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
-                CreateObjectsOnScene(pres);
+                CreateVBObject(pres);
 
                 DisplayObjects();
             }));
@@ -131,13 +131,12 @@ namespace BazisGUI
             project.ModelData.ObjectData.Move(ObjType.Узел, new Point3D(arg2.X, arg2.Y, arg2.Z));
 
             HideAllGeometryObjs();
-            HideDisplayText2D();
-            HideDisplayText3D();
+            DisplayText2DEvent = null;
 
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
             {
                 var pres = CreateObjectsPresentor(project.ModelData, item);
-                SetObjectsSceneAttribute(pres, "координаты");
+                SetVBObjectAttribute(pres, "координаты");
             }
 
             DisplayObjects();
@@ -149,13 +148,13 @@ namespace BazisGUI
             project.ModelData.ObjectData.Rotate(ObjType.Узел, axis, arg2.Angle);
 
             HideAllGeometryObjs();
-            HideDisplayText2D();
-            HideDisplayText3D();
+            DisplayText2DEvent = null;
+            DisplayText3DEvent = null;
 
             foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
             {
                 var pres = CreateObjectsPresentor(project.ModelData, item);
-                SetObjectsSceneAttribute(pres, "координаты");
+                SetVBObjectAttribute(pres, "координаты");
             }
 
             DisplayObjects();

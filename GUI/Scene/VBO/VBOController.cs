@@ -21,6 +21,7 @@ namespace BazisGUI.Scene.VBO
 
         public void AddVbo(VBObject vbObject)
         {
+
             glObjs.Add(vbObject);
         }
 

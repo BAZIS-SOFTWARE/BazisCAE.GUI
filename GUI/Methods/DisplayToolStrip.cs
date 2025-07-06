@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace BazisGUI
 {
@@ -92,8 +93,18 @@ namespace BazisGUI
             changeInsideSurface.HideInsideSurfaces(objs);
 
             var presenter = presentersCreator.CreateSurfaceObjectsPresenter(objs);
+            var name = ObjType.Элемент3D.ToString();
+            
+            var vbobj = VBOController.FindVBObj(name);
+            if (vbobj != null)
+            {
+                var viewMode = vbobj.ViewMode;
 
-            PresentObjectsOnScene(presenter, ObjType.Элемент3D.ToString());
+                VBOController.DeleteVBObjects(name);
+                var vbo = CreateVBObject(presenter);
+                VBOController.AddVbo(vbo);
+                VBOController.ChangeViewModeVBObjects(name, viewMode);
+            }
             console.PrintInfo("Скрыты внутренние объекты", Color.Black);
         }
 
@@ -105,8 +116,17 @@ namespace BazisGUI
             changeInsideSurface.ShowInsideSurfaces(objs);
 
             var presenter = presentersCreator.CreateSurfaceObjectsPresenter(objs);
+            var name = ObjType.Элемент3D.ToString();
+            var vbobj = VBOController.FindVBObj(name);
+            if (vbobj != null)
+            {
+                var viewMode = vbobj.ViewMode;
 
-            PresentObjectsOnScene(presenter, ObjType.Элемент3D.ToString());
+                VBOController.DeleteVBObjects(name);
+                var vbo = CreateVBObject(presenter);
+                VBOController.AddVbo(vbo);
+                VBOController.ChangeViewModeVBObjects(name, viewMode);
+            }
             console.PrintInfo("Показаны все объекты", Color.Black);
         }
 
@@ -135,7 +155,7 @@ namespace BazisGUI
 
                         var linePresenter = presentersCreator.CreateLineObjectsPresenter(elemsNormals);
                         linePresenter.Name = "Normals";
-                        CreateObjectsOnScene(linePresenter);
+                        CreateVBObject(linePresenter);
                         DisplayObjects();
                     }
                     else
@@ -167,7 +187,7 @@ namespace BazisGUI
                     var edges = modelController.BoundaryEdgesFinder.CreateBoundaryEdges(linesNodes, project.ModelData);
                     var linePresenter = presentersCreator.CreateLineObjectsPresenter(edges);
                     linePresenter.Name = "Boundary";
-                    CreateObjectsOnScene(linePresenter);
+                    CreateVBObject(linePresenter);
                     DisplayObjects();
                 }
                 else

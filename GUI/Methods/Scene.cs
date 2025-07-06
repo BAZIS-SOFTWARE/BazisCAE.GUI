@@ -212,60 +212,7 @@ namespace BazisGUI
             VBOController.DeleteVBObjects(ObjType.Элемент1D.ToString());
             VBOController.DeleteVBObjects(ObjType.Элемент2D.ToString());
             VBOController.DeleteVBObjects(ObjType.Элемент3D.ToString());
-        }
-
-        public void PresentAllModelObjectsToScene(IModelData modelData)
-        {
-            foreach (ObjType item in Enum.GetValues(typeof(ObjType)))
-            {
-                var presentor = CreateObjectsPresentor(modelData, item);
-                if (presentor.Count() > 0)
-                {
-                    presentor.ViewMode = modelData.ObjectData.GetSetsInfo(item).First().ViewMode;
-                    CreateObjectsOnScene(presentor);
-                }
-            }
-        }
-
-        
-
-        public void PresentObjectsOnScene(IObjsPresenter presenter, string name)
-        {
-            var vbobj = VBOController.FindVBObj(name);
-            if (vbobj != null)
-            {
-                var viewMode = vbobj.ViewMode;
-
-                VBOController.DeleteVBObjects(name);
-                CreateObjectsOnScene(presenter);
-                VBOController.ChangeViewModeVBObjects(name, viewMode);
-            }
-        }
-
-        
-
-        public void SetObjectsSceneAttribute(IObjsPresenter presenter, string attribName)
-        {
-            //var objName = objsType.ToString();
-            var vboObjs = VBOController.FindVBObj(presenter.Name);
-
-            if (vboObjs != null)
-            {
-                if (presenter.Count() > 0)
-                {
-                    if (attribName == "цвет")
-                    {
-                        var colors = presenter.CreateVertexes(vboObjs.ColorLength, "цвет");
-                        vboObjs.PointsColors = colors;
-                    }
-                    else
-                    {
-                        var coords = presenter.CreateVertexes(vboObjs.CoordLength, "координаты");
-                        vboObjs.PointsCoords = coords;
-                    }
-                }
-            }
-        }
+        }      
 
         public List<IModelObject> SearchObjects(IEnumerable<IModelObject> objects, RectangleBox selectionBox, bool isSorted)
         {
@@ -304,46 +251,13 @@ namespace BazisGUI
             return selections;
         }
 
-        public void PresentModelObjectsOnScene(IModelData modelData, string objects)
-        {
-            if (objects == "Объекты")
-            {
-                VBOController.DeleteAllVBObjects();
-
-                PresentAllModelObjectsToScene(modelData);
-            }
-            else if (objects == "Элементы")
-            {
-                VBOController.DeleteVBObjects(ObjType.Элемент1D.ToString());
-                CreateObjectsOnScene(CreateObjectsPresentor(modelData, ObjType.Элемент1D));
-                VBOController.DeleteVBObjects(ObjType.Элемент2D.ToString());
-                CreateObjectsOnScene(CreateObjectsPresentor(modelData, ObjType.Элемент2D));
-                VBOController.DeleteVBObjects(ObjType.Элемент3D.ToString());
-                CreateObjectsOnScene(CreateObjectsPresentor(modelData, ObjType.Элемент3D));
-            }
-            else if (objects == "Фигуры")
-            {
-                VBOController.DeleteVBObjects(ObjType.Поверхность.ToString());
-                CreateObjectsOnScene( CreateObjectsPresentor(modelData, ObjType.Поверхность));
-                VBOController.DeleteVBObjects(ObjType.Объем.ToString());
-                CreateObjectsOnScene(CreateObjectsPresentor(modelData, ObjType.Объем));
-            }
-            else
-            {
-                VBOController.DeleteVBObjects(objects);
-                var objType = objects.ToEnum<ObjType>(); ;
-                CreateObjectsOnScene(CreateObjectsPresentor(modelData, objType));
-            }
-
-
-            DisplayObjects();
-        }
+       
 
         public void ClearAllDataOnScene()
         {
-            HideAllGeometryObjs();
-            HideDisplayText2D();
-            HideDisplayText3D();
+            DisplayGeometryObjectEvent = null;
+            DisplayText2DEvent = null;
+            DisplayText3DEvent = null;
             VBOController.DeleteAllVBObjects();
             clipPlaneRenderer?.DestroyBoundingBoxVBO();
         }
@@ -353,24 +267,24 @@ namespace BazisGUI
             if (objTypeStr == "Объекты")
             {
                 foreach (ObjType type in Enum.GetValues(typeof(ObjType)))
-                    SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, type), "цвет");
+                    SetVBObjectAttribute(CreateObjectsPresentor(modelData, type), "цвет");
             }
             else if (objTypeStr == "Элементы")
             {
-                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент1D),  "цвет");
-                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент2D),  "цвет");
-                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент3D),  "цвет");
+                SetVBObjectAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент1D),  "цвет");
+                SetVBObjectAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент2D),  "цвет");
+                SetVBObjectAttribute(CreateObjectsPresentor(modelData, ObjType.Элемент3D),  "цвет");
             }
             else if (objTypeStr == "Фигуры")
             {
-                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Поверхность),  "цвет");
-                SetObjectsSceneAttribute(CreateObjectsPresentor(modelData, ObjType.Объем),  "цвет");
+                SetVBObjectAttribute(CreateObjectsPresentor(modelData, ObjType.Поверхность),  "цвет");
+                SetVBObjectAttribute(CreateObjectsPresentor(modelData, ObjType.Объем),  "цвет");
             }
             else
             {
                 var objType = Converters.ConvertToObjsType(objTypeStr);
                 var presentor = CreateObjectsPresentor(modelData, objType);
-                SetObjectsSceneAttribute(presentor, "цвет");
+                SetVBObjectAttribute(presentor, "цвет");
             }
 
 
@@ -478,149 +392,7 @@ namespace BazisGUI
         }
         /// <inheritdoc/>
 
-        public void DisplayObjects()
-        {
-            Gl.glClearColor(BackGroundColor.R/255.0f, BackGroundColor.G / 255.0f, BackGroundColor.B / 255.0f, 0);
-            // очистка буфера цвета и буфера глубины в заданный цвет 
-            Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
-
-            if (IsBlending && !advanced3DClipper.IsEnable)
-                averageColorRenderer.ClearColors();
-            if (DisplayBasis)
-            {
-                if(IsBlending && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
-                basis.Display(camera, scaleFactor);
-                if (displayRotatioPoint)
-                    DisplayRotationPointEvent.Invoke();
-                if (IsBlending && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
-            }
-
-            //----
-            Gl.glPushMatrix();
-            Gl.glMatrixMode(Gl.GL_MODELVIEW);
-            Gl.glLoadIdentity();
-
-            var matrix = camera.GetViewMatrix();
-            var viewMatrixAr = matrix.AsColumnMajorArray();
-
-            Gl.glLoadMatrixf(viewMatrixAr);
-            Gl.glPopMatrix();
-            //----
-            // вызов всех подключенных методов   
-            DisplayGeometryObjectEvent?.Invoke();
-
-            if(IsCutting)
-            {
-                Gl.glEnable(Gl.GL_CULL_FACE);
-                Gl.glCullFace(Gl.GL_BACK);
-                Gl.glFrontFace(Gl.GL_CCW);
-            }
-            //if (IsLighting)//Перенес в другое место
-                //Gl.glEnable(Gl.GL_LIGHTING);
-            //if(IsBlending) //Не нужно
-                //Gl.glEnable(Gl.GL_BLEND);
-
-            DisplayModelObjects();
-            if (IsBlending && !advanced3DClipper.IsEnable)
-                averageColorRenderer.BlendFramebuffers();
-
-            if (DisplayCompass)
-            {
-                Gl.glDisable(Gl.GL_DEPTH);
-                compass.Display(camera, scaleFactor);
-                Gl.glEnable(Gl.GL_DEPTH);
-            }
-
-
-            DisplayText3DEvent?.Invoke();
-            DisplayText2DEvent?.Invoke(); 
-
-            DisplayControlStatus();
-
-            Gl.glFlush();
-            scene.Invalidate();
-        }
-
-        private void DisplayModelObjects()
-        {
-            Gl.glPushMatrix();//У каждого VBObject теперь свои трансформации
-            Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
-
-            Gl.glEnable(Gl.GL_NORMALIZE); //делам нормали одинаковой величины во избежание артефактов
-            Gl.glEnable(Gl.GL_LIGHT0);
-
-            //Установим вектор перемещения для источника света GL_LIGHT0
-            Gl.glPushMatrix();
-            Gl.glLoadIdentity();
-            Gl.glTranslatef(LightTranslateX, LightTranslateY, LightTranslateZ);
-            var pos = new float[] { 0.0f, 0.0f, 1.0f, 1.0f };
-            Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_POSITION, pos);
-            Gl.glPopMatrix();
-
-            Gl.glBlendFuncSeparate(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA, Gl.GL_ONE, Gl.GL_ONE);
-
-            //Gl.glEnableClientState(Gl.GL_VERTEX_ARRAY);//Перенес по месту вызова Draw конкретного объекта, может помочь
-            //Gl.glEnableClientState(Gl.GL_COLOR_ARRAY);
-            //Gl.glEnableClientState(Gl.GL_NORMAL_ARRAY);
-            //Gl.glEnableClientState(Gl.GL_EDGE_FLAG_ARRAY);
-            DisplayReflectionPlaneEvent?.Invoke();
-            if(displayClipPlane)
-                DisplayClipPlaneEvent?.Invoke();
-            if (IsLighting)
-                Gl.glEnable(Gl.GL_LIGHTING);
-            float[] global_ambient = new float[] { 0.2f, 0.2f, 0.2f, 1 };
-            Gl.glLightModelfv(Gl.GL_LIGHT_MODEL_AMBIENT, global_ambient);
-            float[] diffuse = new float[] { 1, 1, 1, 1 };
-            Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_DIFFUSE, diffuse);
-            //float[] light_position = new float[] { 1, 1, 1, 1 };
-            //Gl.glLightfv(Gl.GL_LIGHT0, Gl.GL_POSITION, light_position);
-            Gl.glLightModeli(Gl.GL_LIGHT_MODEL_TWO_SIDE, Gl.GL_TRUE);
-
-            //Gl.glColorMaterial(Gl.GL_FRONT_AND_BACK, Gl.GL_AMBIENT_AND_DIFFUSE); // have to be before loadinng objects you want to light
-            Gl.glEnable(Gl.GL_COLOR_MATERIAL);
-
-            Gl.glLineWidth(1.5f);
-
-
-            foreach (var sObj in VBOController.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.triangle))
-            {
-                Gl.glPushMatrix();
-                Gl.glMultMatrixf(sObj.ModelMatrix);
-                //Поправка: Возможное решение проблемы с отсутсвием картинки в режиме ребер на радеоне! (работает на NVidia)
-                //Gl.glEnableClientState(Gl.GL_EDGE_FLAG_ARRAY);
-                sObj.Load();
-                //Gl.glDisableClientState(Gl.GL_EDGE_FLAG_ARRAY);
-                Gl.glPopMatrix();
-            }
-            Gl.glDisable(Gl.GL_LIGHTING);
-
-            foreach (var lObj in VBOController.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.line))
-            {
-                Gl.glPushMatrix();
-                Gl.glMultMatrixf(lObj.ModelMatrix);
-                lObj.Load();
-                Gl.glPopMatrix();
-            }
-            foreach (var pObj in VBOController.GetVBObjs().Where(x => x.GL_ObjType == GLObjType.point))
-            {
-                Gl.glPushMatrix();
-                Gl.glMultMatrixf(pObj.ModelMatrix);
-                pObj.Load();
-                Gl.glPopMatrix();
-            }
-
-            Gl.glDisable(Gl.GL_BLEND);
-            Gl.glDisable(Gl.GL_CULL_FACE);
-            Gl.glDisable(Gl.GL_COLOR_MATERIAL);
-            //Gl.glDisableClientState(Gl.GL_VERTEX_ARRAY);
-            //Gl.glDisableClientState(Gl.GL_COLOR_ARRAY);
-
-            //Gl.glDisableClientState(Gl.GL_NORMAL_ARRAY);
-            //Gl.glDisableClientState(Gl.GL_EDGE_FLAG_ARRAY);
-            Gl.glPopMatrix();
-        }       
+            
 
         /// <inheritdoc/>
         //TO DO добавить тест
@@ -634,106 +406,19 @@ namespace BazisGUI
             var tempViewMatrixAr = viewMatrix.AsColumnMajorArray();
             Gl.glLoadMatrixf(tempViewMatrixAr);
         }
-/// <inheritdoc/>
 
-        public void PlaneObjs(ViewPlane plane)
-        {
-            camera.SetOnPlane(plane, scaleFactor);
-        }
 /// <inheritdoc/>
 
         public void ScaleObjs(float scaleFactor)
         {
             Gl.glScalef(scaleFactor, scaleFactor, scaleFactor);
-            var crd = GetSceneCoordOfScreenVector(0, 1);
+            var crd = camera.GetSceneCoordOfScreenVector(0, 1);
             this.scaleFactor = (float)Math.Sqrt(Math.Pow(crd._x, 2) + Math.Pow(crd._y, 2) + Math.Pow(crd._z, 2));
-        }
-        /// <inheritdoc/>
-
-        public void RotateObjs()
-        {
-            camera.Rotate(RotationAxis,RotationAngle);
-        }
-/// <inheritdoc/>
-
-
-        public void FitObjectsToScreen()
-        {
-            var matrix = camera.GetViewMatrix();
-            matrix[0, 3] = 0; matrix[1, 3] = 0;
-            var tempViewMatrixAr = matrix.AsColumnMajorArray();
-
-            Gl.glLoadMatrixf(tempViewMatrixAr);
-
-            for (int i = 0; i < 3; i++)
-            {
-                var factor = 1.0f;
-                var maxRad = 0.0f;
-
-                foreach (var glObj in VBOController.GetVBObjs())
-                {
-                    var coords = glObj.PointsCoords;
-
-                    if (coords.Length == 0)
-                        continue;
-
-                    var length = coords.Length / 3;
-                    for (int j = 0; j < length; j++)
-                    {
-                        var x = coords[3 * j + 0];
-                        var y = coords[3 * j + 1];
-                        var z = coords[3 * j + 2];
-                        var scnCoord = camera.GetSceenCoord(x,y,z);
-                        var scrCoord = camera.GetScreenCoord(scnCoord);
-
-                        var pRad = (float)Math.Sqrt((scrCoord._x * scrCoord._x) + (scrCoord._y * scrCoord._y));
-
-                        if (pRad > maxRad) maxRad = pRad;
-                    }
-
-                    if (Width > Height)
-                        factor = 1 / (maxRad / (float)(Height / 2));
-                    else { factor = 1 / (maxRad / (float)(Width / 2)); }
-
-                    if (factor == 0) factor = 1;
-
-                    ScaleObjs(factor);
-                }
-                if (Math.Abs(factor - 1) < 0.1) break;
-            }
         }
       
 /// <inheritdoc/>
 
-        public void UpdateProjection()
-        {
-            var aspectRatio = (double)scene.Width / scene.Height;
-            var angleDeg = 2.5;
-            if (settingsConfig.Projection == ViewProjection.Parallel)
-            {
-                float[] view = new float[16];
-                Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, view);//Не могу вызывать Camera.GetViewMatrix() - т.к Camera = null
-                var worldPos = new Point3D(-view[12], -view[13], -view[14]);
-                var distance = Vector.GetVectorLenght(worldPos);
-                if (Math.Abs(distance) < 1e-4)
-                    distance = 1;
-                var radAngle = angleDeg * Math.PI / 180;
-                var height = Math.Tan(radAngle / 2) * distance * 2;
-                var width = height * aspectRatio;
-                var sizeX = width / 2;
-                var sizeY = height / 2;
-                Gl.glMatrixMode(Gl.GL_PROJECTION);
-                Gl.glLoadIdentity();
-                Gl.glOrtho(-sizeX, sizeX, -sizeY, sizeY, -distance * 2, distance * 2);
-            }
-            else
-            {
-                Gl.glMatrixMode(Gl.GL_PROJECTION);
-                Gl.glLoadIdentity();
-                Glu.gluPerspective(angleDeg, aspectRatio, 1, 2000);
-            }
-            Gl.glMatrixMode(Gl.GL_MODELVIEW);//Возврашаем на ModelView, иначе начинаются проблемы с рисованием
-        }
+        
 
         
         /// <summary>
@@ -748,77 +433,6 @@ namespace BazisGUI
             foreach(var globj in VBOController.GetVBObjs())
                 globj.ActiveDrawingObject = drawObj;
         }
-        /// <summary>
-        /// Смена толщины отображения слоя 3д элементов
-        /// </summary>
-        /// <param name="thickness"></param>
-        public void ChangeLayerThickness(float thickness) => advanced3DClipper.LayerThickness = thickness;
-
-        /// <summary>
-        /// Смена режима отсечения для 3д элементов
-        /// </summary>
-        /// <param name="mode">Режим отсечения</param>
-        /// <param name="element3dObj">Имя объекта 3д элементов</param>
-        public void ChangeClipMode(ClipMode mode, string element3dObj)
-        {
-            advanced3DClipper.ClipMode = mode;
-            var obj = VBOController.FindVBObj(element3dObj);
-
-            if (obj != null)
-            {
-                var el3d = (SurfaceObjects)obj;
-                if (mode == ClipMode.None)
-                {
-                    el3d.ActiveDrawingObject = null;
-                    Gl.glDisable(Gl.GL_CLIP_PLANE0);
-                }
-                else
-                    el3d.ActiveDrawingObject = advanced3DClipper;
-                advanced3DClipper.Create3DBoundingBoxes(el3d);
-            }
-        }
-
-        /// <inheritdoc/>
-        public void ChangeClipPlane(Plane plane)
-        {
-            DisplayClipPlaneEvent = null;
-
-            DisplayClipPlaneEvent += new Action(() =>
-            {
-                if (IsBlending && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
-                float[] modelMatrix = new float[16];
-                Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, modelMatrix);//Запоминаем предыдущую матрицу в стеке
-                Gl.glPushMatrix();
-                var origin = plane.Normal.Mult(plane.Shifting);
-
-                var sX = Math.Sign(plane.Normal._x);
-                var sY = Math.Sign(plane.Normal._y);
-                var sZ = Math.Sign(plane.Normal._z);
-
-                var bbox = clipPlaneRenderer.BoundingBox;
-
-                var diagonal = Vector.GetVectorLenght(bbox.LeftUpNear.Sub(bbox.RightDownFar));
-                var center = bbox.RightDownFar.Sum(bbox.LeftUpNear).Mult(0.5f);
-                Gl.glTranslatef(center._x, center._y, center._z);
-                Gl.glTranslatef(sX * origin._x, sY * origin._y, sZ * origin._z);
-                var angle = Vector.GetCosAngleVectors(new Point3D(0, 0, -1), plane.Normal);
-                angle = (float)(Math.Acos(angle) * 180 / Math.PI);
-                var axis = Vector.CrossProd(new Point3D(0, 0, -1), plane.Normal);
-                Gl.glRotatef(angle, axis._x, axis._y, axis._z);
-                var normalSize = diagonal * 0.125f;
-
-                Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, advanced3DClipper.ClipMatrix);
-                advanced3DClipper.ScaleFactor = ScaleFactor;
-
-                clipPlaneRenderer.Draw(modelMatrix, normalSize);
-
-                Gl.glPopMatrix();
-                if (IsBlending && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
-            });
-        }        
-
 
         private Action CreateRotationPoint()
         {
@@ -836,67 +450,8 @@ namespace BazisGUI
                 Glu.gluDeleteQuadric(quadObj);
             });
         }
-/// <inheritdoc/>
 
-        public void DisplayText3D(string str, Color color, Point3D coord)
-        {
-            var met = new Action(() =>
-            {
-                if (IsBlending && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
-                Gl.glPushMatrix();
-                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
-                Gl.glColor3b(color.R, color.G, color.B);
-                Gl.glRasterPos3f(coord._x, coord._y, coord._z);
-                Gl.glPushAttrib(Gl.GL_LIST_BASE);//Избегаем пересечений списков, сохраняем старую базу
-                Gl.glListBase(fontBase);//Устанавливаем базу на fontBase
-                Gl.glCallLists(str.Length, Gl.GL_UNSIGNED_SHORT, str);
-                Gl.glPopAttrib();//Возвращаем старую базу
-                Gl.glPopMatrix();
-                if (IsBlending && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
-            });
-
-            DisplayText3DEvent += met;
-        }
-/// <inheritdoc/>
-
-        public void DisplayText2D(string str, Color color, Point2D coord)
-        {
-            var met = new Action(() =>
-            {
-                if (IsBlending && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
-                Gl.glMatrixMode(Gl.GL_PROJECTION);
-                Gl.glPushMatrix();
-                Gl.glLoadIdentity();
-
-                Gl.glOrtho(0, camera.Width, 0, camera.Height, 0.1, 200);
-
-                Gl.glMatrixMode(Gl.GL_MODELVIEW);
-                Gl.glPushMatrix();
-                Gl.glLoadIdentity();
-
-
-                Gl.glPushMatrix();
-
-                Gl.glColor3b(color.R, color.G, color.B);
-                Gl.glRasterPos3f(coord._x, coord._y, -5);
-                Gl.glPushAttrib(Gl.GL_LIST_BASE);//Избегаем пересечений списков, сохраняем старую базу
-                Gl.glListBase(fontBase);//Устанавливаем базу на fontBase
-                Gl.glCallLists(str.Length, Gl.GL_UNSIGNED_SHORT, str);
-                Gl.glPopAttrib();//Возвращаем старую базу
-                Gl.glPopMatrix();
-
-                Gl.glMatrixMode(Gl.GL_PROJECTION);
-                Gl.glPopMatrix();
-                Gl.glMatrixMode(Gl.GL_MODELVIEW);
-                Gl.glPopMatrix();
-                if (IsBlending && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
-            });
-            DisplayText2DEvent += met;
-        }
+        
 
         /// <summary>
         /// HideAllGeometryObjs
@@ -905,18 +460,7 @@ namespace BazisGUI
         {
             DisplayGeometryObjectEvent = null;
         }
-/// <inheritdoc/>
 
-        public void HideDisplayText3D()
-        {
-            DisplayText3DEvent = null;
-        }
-/// <inheritdoc/>
-
-        public void HideDisplayText2D()
-        {
-            DisplayText2DEvent = null;
-        }
 /// <inheritdoc/>
 
         public void HideGeometryObj(string searchMethod)
@@ -948,14 +492,6 @@ namespace BazisGUI
             return false;
         }
 
-
-
-        /// <inheritdoc/>
-
-        public void HideReflectionPlane()
-        {
-            DisplayReflectionPlaneEvent = null;
-        }
 /// <inheritdoc/>
 
         public void DisplayReflectionPlane(string objName, float[] coeff)
@@ -1211,118 +747,9 @@ namespace BazisGUI
 
             DisplayGeometryObjectEvent += met;
         }
-/// <inheritdoc/>
 
-        public void DisplaySpiral(Point3D p0, Point3D p1, Color objColor)
-        {
-            Action met;
+        
 
-            met = new Action(() =>
-            {
-                if (IsBlending && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
-                Gl.glPushMatrix();
-                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
-                Gl.glColor3ub(objColor.R, objColor.G, objColor.B);
-                Gl.glLineWidth(5.0f);
-                Gl.glBegin(Gl.GL_LINES);
-
-                Gl.glVertex3f(p0._x, p0._y, p0._z);
-                Gl.glVertex3f(p1._x, p1._y, p1._z);
-                Gl.glEnd();
-                Gl.glPopMatrix();
-                if (IsBlending && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
-            });
-
-            DisplayGeometryObjectEvent += met;
-        }
-/// <inheritdoc/>
-
-
-        public void DisplayConus(float UpperDiam, float BottomDiam, float length, Frame frame)
-        {
-            var upeer_rad = UpperDiam / 2;
-            var lover_rad = BottomDiam / 2;
-
-            DisplayGeometryObjectEvent += new Action(() =>
-            {
-                if (IsBlending && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
-                var quadObj = Glu.gluNewQuadric(); // создаем новый объект
-                                                   // для создания сфер и цилиндров
-                                                   //Glu.gluQuadricOrientation(quadObj, Glu.GLU_OUTSIDE);
-                Gl.glPushMatrix();
-                Gl.glColor3d(1, 0, 0);
-                Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_LINE);
-
-                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
-
-                //shifting
-                Gl.glTranslatef(frame.Centre._x, frame.Centre._y, frame.Centre._z);
-
-                //rotation z' and z global
-                //var dirZ = frame.Z.Sub(frame.Centre);
-                //var dirZnorm = Vector.GetVectorNorm(frame);
-                var angleZ = Vector.GetCosAngleVectors(new Point3D(0, 0, 1), frame.Dir_Z);
-                angleZ = (float)(Math.Acos(angleZ) * 180 / Math.PI);
-                
-                var axisZ = Vector.CrossProd(new Point3D(0, 0, 1), frame.Dir_Z);
-                Gl.glRotatef(angleZ, axisZ._x, axisZ._y, axisZ._z);
-
-                Gl.glTranslatef(0, 0, -length);
-
-                Glu.gluCylinder(quadObj, lover_rad, upeer_rad, length, 10, 10); // рисуем конус
-
-                Gl.glPopMatrix();
-                Glu.gluDeleteQuadric(quadObj);
-                averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
-            });
-        }
-/// <inheritdoc/>
-
-        public void DisplaySphere(float width, Frame frame)
-        {
-            Action met;
-
-            met = new Action(() =>
-            {
-                if (IsBlending && !advanced3DClipper.IsEnable)
-                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
-                var quadObj = Glu.gluNewQuadric(); // создаем новый объект
-                                                   // для создания сфер и цилиндров
-                                                   //Glu.gluQuadricOrientation(quadObj, Glu.GLU_OUTSIDE);
-                Gl.glPushMatrix();
-                Gl.glPolygonMode(Gl.GL_FRONT_AND_BACK, Gl.GL_LINE);
-                Gl.glColor3d(1, 0, 0);
-                Gl.glTranslatef(-camera.Position._x, -camera.Position._y, -camera.Position._z);
-
-                Gl.glTranslatef(frame.Centre._x, frame.Centre._y, frame.Centre._z);
-
-                //var dirZ = frame.Z.Sub(frame.Centre);
-                var axis = Vector.CrossProd(new Point3D(0, 0, 1), frame.Dir_Z);
-                var angle = Vector.GetCosAngleVectors(new Point3D(0, 0, 1), frame.Dir_Z);
-                angle = (float)(Math.Acos(angle) * 180 / Math.PI);
-
-                Gl.glRotatef(angle, axis._x, axis._y, axis._z);
-                //Glu.gluQuadricDrawStyle(quadObj, Glu.GLU_FILL); // устанавливаем
-                Glu.gluSphere(quadObj, width / 2, 10, 10); // рисуем сферу
-                                                                  // радиусом 0.5
-                Gl.glPopMatrix();
-                Glu.gluDeleteQuadric(quadObj);
-                averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
-            });
-
-            DisplayGeometryObjectEvent += met;
-        }
-/// <inheritdoc/>
-
-        public ISceneScale CreateScaleObject(float min, float max, decimal ranges, string title, string comments)
-        {
-            var sScale = new SceneScale(min, max, ranges, title, comments);
-            sScale.FontBase = fontBase;
-            return sScale;
-        }
 /// <inheritdoc/>
 
         public void DisplaySceneScale(ISceneScale scale)
@@ -1336,35 +763,8 @@ namespace BazisGUI
 
             DisplayGeometryObjectEvent += del;
         }      
-/// <inheritdoc/>
 
-        public Point3D GetSceneCoordOfScreenVector(float x, float y)
-        {
-            return camera.GetSceneCoordOfScreenVector(x, y);
-        }
-/// <inheritdoc/>
 
-        public void SetTransparency(string vboObjName, int alpha)
-        {
-            var vbo = VBOController.FindVBObj(vboObjName);
-
-            if (vbo != null)
-            {
-                var alphaf = alpha * 0.01f;
-                var colors = vbo.PointsColors;
-                for (var i = 3; i < colors.Length; i += 4)
-                    colors[i] = alphaf;
-                vbo.PointsColors = colors;
-                if (vbo is SurfaceObjects sVbo && vbo.ViewMode == ObjView.LinesSurface)
-                {
-                    var frameColors = new float[sVbo.ColorLength];
-                    VBO.GetSubData(sVbo.FrameBuffer, 0, frameColors.Length * sizeof(float), frameColors);
-                    for (var i = 3; i < frameColors.Length; i += 4)
-                        frameColors[i] = alphaf;
-                    VBO.SetSubData(sVbo.FrameBuffer, 0, frameColors.Length * sizeof(float), frameColors);
-                }
-            }
-        }
 
         //public void CopyVBObjects(VBObject original, string copyName)
         //{

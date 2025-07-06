@@ -67,7 +67,7 @@ namespace BazisGUI
                     resultsController.ResultsFieldsCreator.ScaleFactor = settingsConfig.Scale_scale;
 
                     var presenter = CreateResultsField(result, resName, tableName);
-                    CreateObjectsOnScene(presenter);
+                    CreateVBObject(presenter);
 
                     HideGeometryObj("DisplaySceneScale");
                     DisplaySceneScale(scale);
@@ -75,14 +75,14 @@ namespace BazisGUI
 
                 if (settingsConfig.ShowNodeResultsValue)
                 {
-                    HideDisplayText3D();
+                    DisplayText3DEvent = null;
                     ShowResultValue(ResultType.nodes, resName, result);
                 }
 
 
                 if (settingsConfig.ShowElementsResultsValue)
                 {
-                    HideDisplayText3D();
+                    DisplayText3DEvent = null;
                     ShowResultValue(ResultType.elements, resName, result);
                 }
 

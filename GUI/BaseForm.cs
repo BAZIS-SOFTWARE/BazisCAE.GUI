@@ -521,7 +521,7 @@ namespace BazisGUI
             settings.SetNodeColorEvent += (ar) => { 
                 //NodeColor = ar;
                 var pres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
-                SetObjectsSceneAttribute(pres,"цвет");
+                SetVBObjectAttribute(pres,"цвет");
                 DisplayObjects();
             };
 
@@ -546,7 +546,7 @@ namespace BazisGUI
             {
                 IsBlending = ar;
                 ClearAllDataOnScene();
-                PresentModelObjectsOnScene(project.ModelData, "Объекты");
+                CreateVBObjects(project.ModelData, "Объекты");
                 //PresentAllModelObjectsToScene(project.ModelData);
                 DisplayObjects();
             };
@@ -575,7 +575,7 @@ namespace BazisGUI
                 } 
                 
                 ClearAllDataOnScene();
-                PresentAllModelObjectsToScene(project.ModelData);
+                CreateVBObjects(project.ModelData, "Объекты");
                 DisplayObjects();
             };
 
@@ -788,7 +788,7 @@ namespace BazisGUI
 
         private void PresentProjectOnModule()
         {
-            PresentAllModelObjectsToScene(project.ModelData);
+            CreateVBObjects(project.ModelData, "Объекты");
             PresentGeneralDataOnTree(project.GeneralData);
             PresentObjectsDataOnTree(project.ModelData.ObjectData);
             PresentGroupDataOnTree(project.ModelData.GroupData);

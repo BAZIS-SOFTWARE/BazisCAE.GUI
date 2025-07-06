@@ -91,7 +91,7 @@ spbSelectObject.ToolTipText == "Элементы")
                 foreach (var selObj in selObjs)
                     selObj.ViewState = false;
 
-                PresentModelObjectsOnScene(project.ModelData, objTypeStr);
+                CreateVBObjects(project.ModelData, objTypeStr);
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -109,7 +109,7 @@ spbSelectObject.ToolTipText == "Элементы")
 
                 VBOController.DeleteAllVBObjects();
                 clipPlaneRenderer?.DestroyBoundingBoxVBO();
-                PresentAllModelObjectsToScene(project.ModelData);
+                CreateVBObjects(project.ModelData, "Объекты");
                 DisplayObjects();
             }
             catch (Exception ex)
@@ -200,7 +200,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
                 //if (arg1 is TaskPage taskPage)
                 PresentCondDataOnTree(project.GeneralData, project.TaskData);
 
-                PresentModelObjectsOnScene(project.ModelData, spbSelectObject.ToolTipText);
+                CreateVBObjects(project.ModelData, spbSelectObject.ToolTipText);
             }
             catch (Exception ex)
             {
@@ -219,7 +219,7 @@ Where(x => x.Color == settingsConfig.SelectObjectColor);
             {
                 project.ModelData.ObjectData.SetBackColor(type);
                 var pres = CreateObjectsPresentor(project.ModelData, type);
-                SetObjectsSceneAttribute(pres, type.ToString(), "цвет");
+                SetVBObjectAttribute(pres, "цвет");
             }
 
             DisplayObjects();

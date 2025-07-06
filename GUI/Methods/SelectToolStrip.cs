@@ -43,7 +43,7 @@ namespace BazisGUI
             {
                 project.ModelData.ObjectData.SetBackColor(item);
                 var pres = CreateObjectsPresentor(project.ModelData, item);
-                SetObjectsSceneAttribute(pres, item.ToString(), "цвет");
+                SetVBObjectAttribute(pres, "цвет");
             }
 
             DisplayObjects();
@@ -166,7 +166,7 @@ namespace BazisGUI
                 modelController.SelectionHelper.SelectE2DInPlane(project.ModelData.ObjectData,
                     angle, element.Number, SelectionColor);
                 var pres = CreateObjectsPresentor(project.ModelData, ObjType.Элемент2D);
-                SetObjectsSceneAttribute(pres, ObjType.Элемент2D.ToString(), "цвет");
+                SetVBObjectAttribute(pres, "цвет");
             }
             else console.PrintInfo("Выберите хотя бы один элемент", Color.Red);
         }
@@ -187,7 +187,7 @@ namespace BazisGUI
                     plane, SelectionColor);
 
                 var pres = CreateObjectsPresentor(project.ModelData, ObjType.Узел);
-                SetObjectsSceneAttribute(pres, ObjType.Узел.ToString(), "цвет");
+                SetVBObjectAttribute(pres, "цвет");
             }
             else console.PrintInfo("Не выбрано три узла", Color.Red);
         }
@@ -229,7 +229,7 @@ namespace BazisGUI
                 }
 
                 var pres = CreateObjectsPresentor(project.ModelData, arg2);
-                SetObjectsSceneAttribute(pres, arg2.ToString(), "цвет");
+                SetVBObjectAttribute(pres, "цвет");
 
                 DisplayObjects();
             }

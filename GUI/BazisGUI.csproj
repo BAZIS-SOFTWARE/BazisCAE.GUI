@@ -251,7 +251,28 @@
     <Compile Include="Methods\ResultsMainMenuEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Methods\SceneEvents.cs">
+    <Compile Include="Methods\Scene\SetVBObjectAttribute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\CreateVBObjects.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\DisplayFigures.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\FitObjectsToScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\DisplayText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\UpdateProjection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\DisplayObjects.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Methods\Scene\SceneEvents.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Methods\SelectToolStrip.cs">
@@ -291,10 +312,10 @@
     <Compile Include="Scene\Interfaces\ISceneControl.cs" />
     <Compile Include="Scene\Interfaces\ISceneScale.cs" />
     <Compile Include="Scene\Interfaces\IVBObject.cs" />
-    <Compile Include="Scene\Methods\CreateObjectsPresentor.cs">
+    <Compile Include="Methods\Scene\CreateObjectsPresentor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Scene\Methods\CreateObjectsOnScene.cs">
+    <Compile Include="Methods\Scene\CreateVBObject.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Scene\Rendering\Advanced3DClipper.cs" />

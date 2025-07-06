@@ -46,7 +46,8 @@ namespace BazisGUI
                     pre = presentersCreator.CreatePointObjectsPresenter(modelData.ObjectData.PointsSet.Values);
                     break;
             }
-
+            // изменить в будущем на массив viewMode
+            pre.ViewMode = modelData.ObjectData.GetSetsInfo(objType).First().ViewMode;
             pre.Name = objType.ToString();
             return pre;
         }

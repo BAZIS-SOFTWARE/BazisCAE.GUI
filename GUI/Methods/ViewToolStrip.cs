@@ -12,21 +12,21 @@ namespace BazisGUI
 
             if (e.ClickedItem.Tag.ToString() == "0")
             {
-                PlaneObjs(ViewPlane.XY);
+                camera.SetOnPlane(ViewPlane.XY, scaleFactor);
             }
             else if (e.ClickedItem.Tag.ToString() == "1")
             {
-                PlaneObjs(ViewPlane.XZ);
+                camera.SetOnPlane(ViewPlane.XZ, scaleFactor);
             }
             else if (e.ClickedItem.Tag.ToString() == "2")
             {
-                PlaneObjs(ViewPlane.YZ);
+                camera.SetOnPlane(ViewPlane.YZ, scaleFactor);
             }
             else if (e.ClickedItem.Tag.ToString() == "6")
             {
                 RotationAxis = ViewAxis.Y;
                 RotationAngle = 90;
-                RotateObjs();
+                camera.Rotate(RotationAxis, RotationAngle);
                 RotationAxis = ViewAxis.XYZ;
                 RotationAngle = 2.5f;
             }
@@ -34,7 +34,7 @@ namespace BazisGUI
             {
                 RotationAxis = ViewAxis.X;
                 RotationAngle = 90;
-                RotateObjs();
+                camera.Rotate(RotationAxis, RotationAngle);
                 RotationAxis = ViewAxis.XYZ;
                 RotationAngle = 2.5f;
             }

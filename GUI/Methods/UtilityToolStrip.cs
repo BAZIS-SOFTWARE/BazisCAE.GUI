@@ -2,6 +2,9 @@
 using BaseModule.Console;
 using BaseModule.Extensions;
 using BaseModule.SceenControls;
+using BazisGUI.Scene;
+using BazisGUI.Scene.Interfaces;
+using BazisGUI.Scene.VBO;
 using Geometry;
 using Model.GeometryObjects;
 using Model.Interfaces;
@@ -14,6 +17,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tao.OpenGl;
 
 namespace BazisGUI
 {
@@ -40,7 +44,7 @@ namespace BazisGUI
                     {
                         btn.Checked = false;
                         HideAllGeometryObjs();
-                        HideDisplayText3D();
+                        DisplayText3DEvent = null;
                         DisplayObjects();
                     };
 
@@ -49,7 +53,7 @@ namespace BazisGUI
                     {
                         spbSelectObject.ToolTipText = ar.ToString();
                         HideAllGeometryObjs();
-                        HideDisplayText3D();
+                        DisplayText3DEvent = null;
                         DisplayObjects();
                     };
                     measuringControl.MakeMeasureEvent += MeasuringControl_MakeMeasureEvent;
@@ -278,7 +282,7 @@ namespace BazisGUI
 
             var pres = CreateObjectsPresentor(project.ModelData, objType);
 
-            SetObjectsSceneAttribute(pres, "цвет");
+            SetVBObjectAttribute(pres, "цвет");
             DisplayObjects();
 
             var res = SelectObjectAsync(objType);
@@ -414,7 +418,7 @@ namespace BazisGUI
             var surface = modelController.CrossSectionMaker.GetSectionSurfaces(elems3D, plane);
             var presenter = presentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
             presenter.Name = "crossSection";
-            CreateObjectsOnScene(presenter); 
+            CreateVBObject(presenter); 
         }
 
         public Geometry.Plane CreateSectionPlane(Vector3 p0, Vector3 p1, Vector3 p2)
@@ -434,7 +438,7 @@ namespace BazisGUI
 
             var presenter = presentersCreator.CreateSurfaceObjectsPresenter(new List<SurfaceFigure>() { surface });
             presenter.Name = "crossSection";
-            CreateObjectsOnScene(presenter);
+            CreateVBObject(presenter);
         }
 
         private void btnScreenShot_Click(object sender, EventArgs e)
@@ -520,7 +524,7 @@ namespace BazisGUI
                     reflectForm.FormClosing += (o, ev) =>
                     {
                         btn.Checked = false;
-                        HideReflectionPlane();
+                        DisplayReflectionPlaneEvent = null;
                         VBOController.DeleteAllVBObjects();
                         clipPlaneRenderer?.DestroyBoundingBoxVBO();
                         //PresentAllModelObjectsToScene();
@@ -598,7 +602,7 @@ namespace BazisGUI
                         ChangeClipMode((Scene.ClipMode)mode, ObjType.Элемент3D.ToString());
                     };
 
-                    clip.ChangeLayerThickness += (layerThickness) => ChangeLayerThickness(layerThickness);
+                    clip.ChangeLayerThickness += (layerThickness) => advanced3DClipper.LayerThickness = layerThickness;
 
                     clip.SetClipPlaneEvent += (plane) =>
                     {
@@ -635,6 +639,70 @@ namespace BazisGUI
             {
                 console.PrintInfo(ex.Message, Color.Red);
             }
+        }
+
+        /// <summary>
+        /// Смена режима отсечения для 3д элементов
+        /// </summary>
+        /// <param name="mode">Режим отсечения</param>
+        /// <param name="element3dObj">Имя объекта 3д элементов</param>
+        public void ChangeClipMode(ClipMode mode, string element3dObj)
+        {
+            advanced3DClipper.ClipMode = mode;
+            var obj = VBOController.FindVBObj(element3dObj);
+
+            if (obj != null)
+            {
+                var el3d = (SurfaceObjects)obj;
+                if (mode == ClipMode.None)
+                {
+                    el3d.ActiveDrawingObject = null;
+                    Gl.glDisable(Gl.GL_CLIP_PLANE0);
+                }
+                else
+                    el3d.ActiveDrawingObject = advanced3DClipper;
+                advanced3DClipper.Create3DBoundingBoxes(el3d);
+            }
+        }
+
+        public void ChangeClipPlane(Geometry.Plane plane)
+        {
+            DisplayClipPlaneEvent = null;
+
+            DisplayClipPlaneEvent += new Action(() =>
+            {
+                if (IsBlending && !advanced3DClipper.IsEnable)
+                    averageColorRenderer.DoActionsBeforeDrawing(null, DrawElements.GeometryObjects);
+                float[] modelMatrix = new float[16];
+                Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, modelMatrix);//Запоминаем предыдущую матрицу в стеке
+                Gl.glPushMatrix();
+                var origin = plane.Normal.Mult(plane.Shifting);
+
+                var sX = Math.Sign(plane.Normal._x);
+                var sY = Math.Sign(plane.Normal._y);
+                var sZ = Math.Sign(plane.Normal._z);
+
+                var bbox = clipPlaneRenderer.BoundingBox;
+
+                var diagonal = Geometry.Vector.GetVectorLenght(bbox.LeftUpNear.Sub(bbox.RightDownFar));
+                var center = bbox.RightDownFar.Sum(bbox.LeftUpNear).Mult(0.5f);
+                Gl.glTranslatef(center._x, center._y, center._z);
+                Gl.glTranslatef(sX * origin._x, sY * origin._y, sZ * origin._z);
+                var angle = Geometry.Vector.GetCosAngleVectors(new Point3D(0, 0, -1), plane.Normal);
+                angle = (float)(Math.Acos(angle) * 180 / Math.PI);
+                var axis = Geometry.Vector.CrossProd(new Point3D(0, 0, -1), plane.Normal);
+                Gl.glRotatef(angle, axis._x, axis._y, axis._z);
+                var normalSize = diagonal * 0.125f;
+
+                Gl.glGetFloatv(Gl.GL_MODELVIEW_MATRIX, advanced3DClipper.ClipMatrix);
+                advanced3DClipper.ScaleFactor = ScaleFactor;
+
+                clipPlaneRenderer.Draw(modelMatrix, normalSize);
+
+                Gl.glPopMatrix();
+                if (IsBlending && !advanced3DClipper.IsEnable)
+                    averageColorRenderer.DoActionsAfterDrawing(null, DrawElements.GeometryObjects);
+            });
         }
     }
 }
